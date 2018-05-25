@@ -27,12 +27,9 @@ msgstr "Plan"
 
 msgid " The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customise it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal"
 msgstr " The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customize it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal"
-<<<<<<< HEAD
 
 msgid " Warning: Changing your organisation will result in the loss of your administrative privileges."
-msgstr "Warning: Changing your organization will result in the loss of your administrative privileges."
-=======
->>>>>>> roadmap
+msgstr " Warning: Changing your organization will result in the loss of your administrative privileges."
 
 msgid " by %{user_name}"
 msgstr " by %{user_name}"
@@ -40,75 +37,17 @@ msgstr " by %{user_name}"
 msgid " has been removed by "
 msgstr " has been removed by "
 
-<<<<<<< HEAD
-msgid "\"#{text}\""
-msgstr "\"#{text}\""
-
-msgid "\"Are you sure you want to unlink #{scheme.description} ID?\""
-msgstr "\"Are you sure you want to unlink #{scheme.description} ID?\""
-
-msgid "\"Error parsing links for a #{@template.template_type}\""
-msgstr "\"Error parsing links for a #{@template.template_type}\""
-
-msgid "\"That #{template.template_type} is not currently published.\""
-msgstr "\"That #{template.template_type} is not currently published.\""
-
-msgid "\"The DMPTool Account email associated with this username is #{@user.email}\""
-msgstr "\"The DMPTool account email associated with this username is #{@user.email}\""
-
-msgid "\"The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}\""
-msgstr "\"The current #{scheme.description} iD has already been linked to a user with email #{identifier.user.email}\""
-
-msgid "\"Unable to create a new version of this #{@template.template_type}. You are currently working with a published copy.\""
-msgstr "Unable to create a new version of this template. You are currently working with a published copy."
-
-msgid "\"Unlink your account from #{scheme.description}. You can link again at any time.\""
-msgstr "\"Unlink your account from #{scheme.description}. You can link again at any time.\""
-
-msgid "\"You are viewing a historical version of this #{@template.template_type}. You will not be able to make changes.\""
-msgstr "You are viewing a historical version of this template. You will not be able to make changes."
-
-msgid "\"You can not edit a historical version of this #{@template.template_type}.\""
-msgstr "\"You can not edit a historical version of this #{@template.template_type}.\""
-
-msgid "\"You can not publish a historical version of this #{template.template_type}.\""
-msgstr "\"You can not publish a historical version of this #{template.template_type}.\""
-
-msgid "\"You cannot delete a #{@template.template_type} that has been used to create plans.\""
-msgstr "\"You cannot delete a #{@template.template_type} that has been used to create plans.\""
-
-msgid "\"You cannot delete historical versions of this #{@template.template_type}.\""
-msgstr "\"You cannot delete historical versions of this #{@template.template_type}.\""
-
-msgid "\"Your #{template.template_type} has been published and is now available to users.\""
-msgstr "\"Your #{template.template_type} has been published and is now available to users.\""
-
-msgid "\"Your #{template.template_type} is no longer published. Users will not be able to create new DMPs for this #{template.template_type} until you re-publish it\""
-msgstr "\"Your #{template.template_type} is no longer published. Users will not be able to create new DMPs for this #{template.template_type} until you re-publish it\""
-
-msgid "\"Your account has been linked to #{scheme.description}.\""
-msgstr "\"Your account has been linked to #{scheme.description}.\""
-
-msgid "%{add_or_edit} Annotations"
-msgstr "%{add_or_edit} Customizations"
-=======
 msgid " in the project. You can also report bugs and request new features via "
 msgstr " in the project. You can also report bugs and request new features via "
 
 msgid "#{text}"
 msgstr "#{text}"
->>>>>>> roadmap
 
 msgid "%{application_name}"
 msgstr "%{application_name}"
 
-<<<<<<< HEAD
 msgid "%{application_name} is provided by the %{organisation_name}. You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>.<br />If you would like to contact us about %{application_name}, please fill out the form below."
-msgstr "%{application_name} is provided by the %{organisation_name}. You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
-=======
-msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
 msgstr "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
->>>>>>> roadmap
 
 msgid "%{application_name}: %{user_name} requested feedback on a plan"
 msgstr "%{application_name}: %{user_name} requested feedback on a plan"
@@ -137,15 +76,12 @@ msgstr "%{org_name} Templates"
 msgid "%{org_title} Plans"
 msgstr "%{org_title} Plans"
 
-<<<<<<< HEAD
-=======
 msgid "%{org} Example Answer"
 msgstr "%{org} Example Answer"
 
 msgid "%{org} Guidance"
 msgstr "%{org} Guidance"
 
->>>>>>> roadmap
 msgid "%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})"
 msgstr "%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})"
 
@@ -173,19 +109,11 @@ msgstr "%{username}'s profile"
 msgid "%{value} is not a valid format"
 msgstr "%{value} is not a valid format"
 
-<<<<<<< HEAD
 msgid "(Linux, Mac, Windows; free)"
-msgstr "(Linux, Mac, Windows; free)"
+msgstr ""
 
 msgid "(Windows; free)"
-msgstr "(Windows; free)"
-=======
-msgid "(CDL) are consortia supported by the University of Edinburgh and the University of California, respectively. Our primary constituency is the research community. We provide services to the UK, US and international higher education sector. "
-msgstr "(CDL) are consortia supported by the University of Edinburgh and the University of California, respectively. Our primary constituency is the research community. We provide services to the UK, US and international higher education sector. "
-
-msgid "(CDL-US) are now established in our national contexts as the resource for researchers seeking guidance in creating DMPs. We have worked together from the outset to share experiences, but with the explosion of interest in both of our tools across the globe we formalized our partnership to co-develop and maintain a single open-source platform for DMPs. By working together we can extend our reach, keep costs down, and move best practices forward, allowing us to participate in a truly global open science ecosystem."
-msgstr "(CDL-US) are now established in our national contexts as the resource for researchers seeking guidance in creating DMPs. We have worked together from the outset to share experiences, but with the explosion of interest in both of our tools across the globe we formalized our partnership to co-develop and maintain a single open-source platform for DMPs. By working together we can extend our reach, keep costs down, and move best practices forward, allowing us to participate in a truly global open science ecosystem."
->>>>>>> roadmap
+msgstr ""
 
 msgid "(if available)"
 msgstr "(if available)"
@@ -213,116 +141,6 @@ msgstr "..."
 
 msgid "... (continued)"
 msgstr "... (continued)"
-
-<<<<<<< HEAD
-msgid "<p>%{application_name} has been developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>"
-msgstr "<p>%{application_name} has been jointly developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>"
-
-msgid "<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for feedback from an administrator at your organisation. If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>"
-msgstr "<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for feedback from an administrator at your organization. If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>"
-
-msgid "<p>To create a new template, first enter a title and description. Once you have saved this you will be presented with options to add one or more phases. </p>"
-msgstr "<p>To create a new template, first enter a title and optional description. Then you can create one or more phases.</p>"
-
-msgid "<strong>Access information</strong>: Where and how your data can be accessed by other researchers"
-msgstr "<strong>Access information</strong>: Where and how your data can be accessed by other researchers"
-
-msgid "<strong>Checksum</strong>: A digest value computed for each file that can be used to detect changes; if a recomputed digest differs from the stored digest, the file must have changed"
-msgstr "<strong>Checksum</strong>: A digest value computed for each file that can be used to detect changes; if a recomputed digest differs from the stored digest, the file must have changed"
-
-msgid "<strong>Code list</strong>: Explanation of codes or abbreviations used in either the file names or the variables in the data files (e.g. \"999 indicates a missing value in the data\")"
-msgstr "<strong>Code list</strong>: Explanation of codes or abbreviations used in either the file names or the variables in the data files (e.g. \"999 indicates a missing value in the data\")"
-
-msgid "<strong>Creator</strong>: Names and addresses of the organizations or people who created the data; preferred format for personal names is surname first (e.g., Smith, Jane)"
-msgstr "<strong>Creator</strong>: Names and addresses of the organizations or people who created the data; preferred format for personal names is surname first (e.g., Smith, Jane)"
-
-msgid "<strong>Dataset documentation</strong><ul><li>Variable names and descriptions</li><li>Explanation of codes and classification schemes used</li><li>Algorithms used to transform data (may include computer code)</li><li>File format and software (including version) used</li></ul>"
-msgstr "<strong>Dataset documentation</strong><ul><li>Variable names and descriptions</li><li>Explanation of codes and classification schemes used</li><li>Algorithms used to transform data (may include computer code)</li><li>File format and software (including version) used</li></ul>"
-
-msgid "<strong>Date</strong>: Key dates associated with the data, including: project start and end date; release date; time period covered by the data; and other dates associated with the data lifespan, such as maintenance cycle, update schedule; preferred format is yyyy-mm-dd, or yyyy.mm.dd-yyyy.mm.dd for a range"
-msgstr "<strong>Date</strong>: Key dates associated with the data, including: project start and end date; release date; time period covered by the data; and other dates associated with the data lifespan, such as maintenance cycle, update schedule; preferred format is yyyy-mm-dd, or yyyy.mm.dd-yyyy.mm.dd for a range"
-
-msgid "<strong>File inventory</strong>: All files associated with the project, including extensions (e.g. \"NWPalaceTR.WRL\", \"stone.mov\")"
-msgstr "<strong>File inventory</strong>: All files associated with the project, including extensions (e.g. \"NWPalaceTR.WRL\", \"stone.mov\")"
-
-msgid "<strong>File structure</strong>: Organization of the data file(s) and layout of the variables, where applicable"
-msgstr "<strong>File structure</strong>: Organization of the data file(s) and layout of the variables, where applicable"
-
-msgid "<strong>Funder</strong>: Organizations or agencies who funded the research"
-msgstr "<strong>Funder</strong>: Organizations or agencies who funded the research"
-
-msgid "<strong>Language</strong>: All languages used in the dataset"
-msgstr "<strong>Language</strong>: All languages used in the dataset"
-
-msgid "<strong>Processing</strong>: How the data have been altered or processed (e.g., normalized)"
-msgstr "<strong>Processing</strong>: How the data have been altered or processed (e.g., normalized)"
-
-msgid "<strong>Subject</strong>: Keywords or phrases describing the subject or content of the data"
-msgstr "<strong>Subject</strong>: Keywords or phrases describing the subject or content of the data"
-
-msgid "<ul><li>DMPTool Logo (blue), with tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.eps\">EPS</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.svg\">SVG</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.png\">PNG</a></li><li>DMPTool Logo (blue), no tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.eps\">EPS</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.svg\">SVG</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.png\">PNG</a></li><li>DMPTool Logo (green v2), with tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2.png\">PNG</a></li><li>DMPTool Logo (green v2), no tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2_no_tag.png\">PNG</a></li><li>Original DMPTool Logo - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v1.png\">PNG</a></li></ul>"
-msgstr "<ul><li>DMPTool Logo (blue), with tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.eps\">EPS</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.svg\">SVG</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.png\">PNG</a></li><li>DMPTool Logo (blue), no tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.eps\">EPS</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.svg\">SVG</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.png\">PNG</a></li><li>DMPTool Logo (green v2), with tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2.png\">PNG</a></li><li>DMPTool Logo (green v2), no tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2_no_tag.png\">PNG</a></li><li>Original DMPTool Logo - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v1.png\">PNG</a></li></ul>"
-=======
-msgid ""
-"<h3>Your personal details and consent notice</h3> \n"
-"\n"
-"      <p>In order to help identify and administer your account with DMPRoadmap, we need to store your name and email address. We may also use it to contact you to obtain feedback on your use of the tool, or to inform you of the latest developments or releases. The information may be transferred between the DCC and CDL but only for the following legitimate DCC and CDL purposes: marketing, improving our services and informing you of relevant content and events. We will not sell, rent, or trade any personal information you provide to us. \n"
-"\n"
-"\n"
-"        By using this system, you consent to the collection, retention, and use of your personal information in accordance with the above. You have the right to ask us not to process your personal details for marketing purposes.</p> \n"
-"\n"
-"      <h3>Privacy policy</h3> \n"
-"\n"
-"      <p>The information you enter into this system can be seen by you, people you have chosen to share access with, and - solely for the purposes of maintaining the service - system administrators at DCC and CDL. We compile anonymized, automated, and aggregated information from plans, but we will not directly access, make use of, or share your content with anyone else without your permission. Authorized officers of your home organisation may access your plans for specific purposes - for example, to track compliance with funder/organisational requirements, to calculate storage requirements, or to assess demand for data management services across disciplines.</p> \n"
-"\n"
-"      <h3>Freedom of Information</h3> \n"
-"\n"
-"      <p>DCC and CDL hold your plans on your behalf, but they are your property and responsibility. Any FOIA applicants will be referred back to your home organisation.</p> \n"
-"\n"
-"      <h3>Passwords</h3> \n"
-"      <p>Your password is stored in encrypted form and cannot be retrieved. If forgotten it has to be reset.</p>\n"
-"\n"
-"      <h3>Cookies</h3>\n"
-"\n"
-"      <p>Please note that DMPRoadmap uses Cookies. Further information about Cookies and how we use them is available on the <a target='_blank' href='http://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies'>main DCC website</a>.</p> \n"
-"\n"
-"      <h3>Third party APIs</h3> \n"
-"\n"
-"      <p>Certain features on this website utilize third party services and APIs such as InCommon/Shibboleth or third party hosting of common JavaScript libraries or web fonts. Information used by an external service is governed by the privacy policy of that service.</p>\n"
-"\n"
-"      <h3>Revisions</h3> \n"
-"\n"
-"      <p>This statement was last revised on October 5, 2017 and may be revised at any time. Use of the tool indicates that you understand and agree to these terms and conditions.</p>"
-msgstr ""
-"<h3>Your personal details and consent notice</h3> \n"
-"\n"
-"      <p>In order to help identify and administer your account with DMPRoadmap, we need to store your name and email address. We may also use it to contact you to obtain feedback on your use of the tool, or to inform you of the latest developments or releases. The information may be transferred between the DCC and CDL but only for the following legitimate DCC and CDL purposes: marketing, improving our services and informing you of relevant content and events. We will not sell, rent, or trade any personal information you provide to us. \n"
-"\n"
-"\n"
-"        By using this system, you consent to the collection, retention, and use of your personal information in accordance with the above. You have the right to ask us not to process your personal details for marketing purposes.</p> \n"
-"\n"
-"      <h3>Privacy policy</h3> \n"
-"\n"
-"      <p>The information you enter into this system can be seen by you, people you have chosen to share access with, and - solely for the purposes of maintaining the service - system administrators at DCC and CDL. We compile anonymized, automated, and aggregated information from plans, but we will not directly access, make use of, or share your content with anyone else without your permission. Authorized officers of your home organization may access your plans for specific purposes - for example, to track compliance with funder/organizational requirements, to calculate storage requirements, or to assess demand for data management services across disciplines.</p> \n"
-"\n"
-"      <h3>Freedom of Information</h3> \n"
-"\n"
-"      <p>DCC and CDL hold your plans on your behalf, but they are your property and responsibility. Any FOIA applicants will be referred back to your home organization.</p> \n"
-"\n"
-"      <h3>Passwords</h3> \n"
-"      <p>Your password is stored in encrypted form and cannot be retrieved. If forgotten it has to be reset.</p>\n"
-"\n"
-"      <h3>Cookies</h3>\n"
-"\n"
-"      <p>Please note that DMPRoadmap uses Cookies. Further information about Cookies and how we use them is available on the <a target='_blank' href='http://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies'>main DCC website</a>.</p> \n"
-"\n"
-"      <h3>Third party APIs</h3> \n"
-"\n"
-"      <p>Certain features on this website utilize third party services and APIs such as InCommon/Shibboleth or third party hosting of common JavaScript libraries or web fonts. Information used by an external service is governed by the privacy policy of that service.</p>\n"
-"\n"
-"      <h3>Revisions</h3> \n"
-"\n"
-"      <p>This statement was last revised on October 5, 2017 and may be revised at any time. Use of the tool indicates that you understand and agree to these terms and conditions.</p>"
 
 msgid "<p>%{application_name} has been developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>"
 msgstr "<p>%{application_name} has been jointly developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>"
@@ -415,7 +233,9 @@ msgstr ""
 
 msgid "<strong>Info:</strong> Simple information message, displayed in blue.<br/><strong>Warning:</strong> warning message, for signaling something unusual, displayed in orange.<br/><strong>Danger:</strong> error message, for anything critical, displayed in red"
 msgstr "<strong>Info:</strong> Simple information message, displayed in blue.<br/><strong>Warning:</strong> warning message, for signaling something unusual, displayed in orange.<br/><strong>Danger:</strong> error message, for anything critical, displayed in red"
->>>>>>> roadmap
+
+msgid "<ul><li>DMPTool Logo (blue), with tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.eps\">EPS</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.svg\">SVG</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.png\">PNG</a></li><li>DMPTool Logo (blue), no tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.eps\">EPS</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.svg\">SVG</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.png\">PNG</a></li><li>DMPTool Logo (green v2), with tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2.png\">PNG</a></li><li>DMPTool Logo (green v2), no tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2_no_tag.png\">PNG</a></li><li>Original DMPTool Logo - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v1.png\">PNG</a></li></ul>"
+msgstr "<ul><li>DMPTool Logo (blue), with tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.eps\">EPS</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.svg\">SVG</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.png\">PNG</a></li><li>DMPTool Logo (blue), no tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.eps\">EPS</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.svg\">SVG</a>, <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.png\">PNG</a></li><li>DMPTool Logo (green v2), with tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2.png\">PNG</a></li><li>DMPTool Logo (green v2), no tagline - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2_no_tag.png\">PNG</a></li><li>Original DMPTool Logo - <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v1.png\">PNG</a></li></ul>"
 
 msgid "A Data Management Plan created using "
 msgstr "A Data Management Plan created using "
@@ -431,12 +251,9 @@ msgstr "A Data Management Plan in %{tool_name} has been shared with you"
 
 msgid "A colleague has invited you to contribute to their Data Management Plan in %{tool_name}"
 msgstr "A colleague has invited you to contribute to their Data Management Plan in %{tool_name}"
-<<<<<<< HEAD
 
 msgid "A data management plan is a formal document that outlines what you will do with your data during and after a research project. Most researchers collect data with some form of plan in mind, but it\\"
 msgstr "A data management plan is a formal document that outlines what you will do with your data during and after a research project. Most researchers collect data with some form of plan in mind, but it\\"
-=======
->>>>>>> roadmap
 
 msgid "A hash is expected for links"
 msgstr "A hash is expected for links"
@@ -556,18 +373,12 @@ msgstr "Add question"
 msgid "Add Standard"
 msgstr "Add Standard"
 
-<<<<<<< HEAD
-msgid "Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so we suggest you just use the organisation or department name."
-msgstr "Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so we suggest you just use the organization or department name."
-
-=======
 msgid "Add a new section"
 msgstr "Add a new section"
 
 msgid "Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so we suggest you just use the organisation or department name."
 msgstr "Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so we suggest you just use the organization or department name."
 
->>>>>>> roadmap
 msgid "Add an appropriate name for your guidance group. This name will tell the end user where the guidance has come from. We suggest you use the organisation or department name e.g. \"OU\" or \"Maths & Stats\""
 msgstr "guidance groupAdd an appropriate name for your guidance group. This name will tell the end user where the guidance has come from. We suggest you use the organization or department name e.g. \"OU\" or \"Maths & Stats\""
 
@@ -676,19 +487,14 @@ msgstr "Answered by"
 msgid "Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here."
 msgstr "Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here."
 
-<<<<<<< HEAD
 msgid "Are there examples of data management plans?"
 msgstr "Are there examples of data management plans?"
 
 msgid "Are you sure you want to change your organisational affiliation? Doing so will remove your administrative privileges."
 msgstr "Are you sure you want to change your organizational affiliation? Doing so will remove your administrative privileges."
-=======
-msgid "Are you sure you want to change your organisational affiliation? Doing so will remove your administrative privileges."
-msgstr "Are you sure you want to change your organizational affiliation? Doing so will remove your administrative privileges."
 
 msgid "Are you sure you want to delete the notification \"%{title}\""
 msgstr "Are you sure you want to delete the notification \"%{title}\""
->>>>>>> roadmap
 
 msgid "Are you sure you want to delete the theme \"%{title}\"?"
 msgstr "Are you sure you want to delete the theme \"%{title}\"?"
@@ -702,16 +508,11 @@ msgstr "Are you sure you want to remove \"%{template_title}\"? Any published ver
 msgid "Are you sure you want to remove this comment?"
 msgstr "Are you sure you want to remove this comment?"
 
-<<<<<<< HEAD
-msgid "Are you sure you want to remove your customization of \"%{template_title}\"?"
-msgstr "Are you sure you want to remove your customization of \"%{template_title}\"?"
-=======
 msgid "Are you sure you want to remove your customization of \"%{template_title}\"? Any published versions will become unavailable to users."
 msgstr "Are you sure you want to remove your customization of \"%{template_title}\"? Any published versions will become unavailable to users."
 
 msgid "Are you sure you want to unlink #{scheme.description} ID?"
 msgstr "Are you sure you want to unlink #{scheme.description} ID?"
->>>>>>> roadmap
 
 msgid "Are you sure you want to unlink your institutional credentials?"
 msgstr "Are you sure you want to unlink your institutional credentials?"
@@ -725,13 +526,8 @@ msgstr "Are you sure you wish to remove this public plan? This will remove it fr
 msgid "Are you sure?"
 msgstr "Are you sure?"
 
-<<<<<<< HEAD
-msgid "As noted in the CDL privacy policy, this website uses Google Analytics to capture and analyze usage statistics. You may choose to opt-out of having your website activity tracked by Google Analytics. To do so, visit the <a href=\"%{opt_out_url}\">Google Analytics opt-out page</a> and install the add-on for your browser."
-msgstr "As noted in the CDL privacy policy, this website uses Google Analytics to capture and analyze usage statistics. You may choose to opt-out of having your website activity tracked by Google Analytics. To do so, visit the <a href=\"%{opt_out_url}\">Google Analytics opt-out page</a> and install the add-on for your browser."
-=======
 msgid "Back to customise phase"
 msgstr "Back to customise phase"
->>>>>>> roadmap
 
 msgid "Back to edit phase"
 msgstr "Back to edit phase"
@@ -746,23 +542,16 @@ msgid "Bad Parameters"
 msgstr "Bad parameters"
 
 msgid "Before you get started, we need some information about your research project to set you up with the best DMP template for your needs."
-<<<<<<< HEAD
-msgstr "Before you get started, we need some information about your research project to set you up with the appropriate template."
-=======
 msgstr "Before you get started, we need some information about your research project to set you up with the best DMP template for your needs."
->>>>>>> roadmap
 
 msgid "Begin typing to see a filtered list"
 msgstr "Begin typing to see a filtered list"
 
 msgid "Below is a list of users registered for your organisation. You can sort the data by each field."
 msgstr "Below is a list of users registered for your organization. You can sort the data by each field."
-<<<<<<< HEAD
-=======
 
 msgid "Body"
 msgstr "Body"
->>>>>>> roadmap
 
 msgid "Bottom"
 msgstr "Bottom"
@@ -785,13 +574,8 @@ msgstr "Cancel"
 msgid "Cannot share plan with %{email} since that email matches with the owner of the plan."
 msgstr "Cannot share plan with %{email} since that email matches with the owner of the plan."
 
-<<<<<<< HEAD
-msgid "Certain features on this website utilize third party services and APIs such as InCommon/Shibboleth or third party hosting of common JavaScript libraries or web fonts. Information used by an external service is governed by the privacy policy of that service. CDL does not control how information may be used by these services."
-msgstr "Certain features on this website utilize third party services and APIs such as InCommon/Shibboleth or third party hosting of common JavaScript libraries or web fonts. Information used by an external service is governed by the privacy policy of that service. CDL does not control how information may be used by these services."
-=======
 msgid "Captcha verification failed, please retry."
 msgstr "Captcha verification failed, please retry."
->>>>>>> roadmap
 
 msgid "Change affiliation"
 msgstr "Change affiliation"
@@ -812,11 +596,7 @@ msgid "Check this box when you are ready for guidance associated with this group
 msgstr "Check this box when you are ready for guidance associated with this group to appear on user's plans."
 
 msgid "Checking this box prevents the template from appearing in the public list of templates."
-<<<<<<< HEAD
-msgstr "Checking this box prevents the template from appearing in the public list of funder requirements."
-=======
 msgstr "Checking this box prevents the template from appearing in the public list of templates."
->>>>>>> roadmap
 
 msgid "Clear search results"
 msgstr "Clear search results"
@@ -866,13 +646,8 @@ msgstr "Contents"
 msgid "Copy"
 msgstr "Copy"
 
-<<<<<<< HEAD
-msgid "Copyright 2010-%{current_year} The Regents of the University of California"
-msgstr "Copyright 2010-%{current_year} The Regents of the University of California"
-=======
 msgid "Copy of %{template}"
 msgstr "Copy of %{template}"
->>>>>>> roadmap
 
 msgid "Copyright information:"
 msgstr "Copyright information"
@@ -967,7 +742,6 @@ msgstr "Plan Visibility Changed: %{plan_title}"
 msgid "DMPTool"
 msgstr "DMPTool"
 
-<<<<<<< HEAD
 msgid "DMPTool ('the tool', 'the system') is a tool developed by the CDL and the <a href=\"%{dcc_url}\">Digital Curation Centre (DCC)</a> as a shared resource for the research community. It is hosted at CDL by the University of California Curation Center (UC3)."
 msgstr "DMPTool ('the tool', 'the system') is a tool developed by the CDL and the <a href=\"%{dcc_url}\">Digital Curation Centre (DCC)</a> as a shared resource for the research community. It is hosted at CDL by the University of California Curation Center (UC3)."
 
@@ -978,14 +752,10 @@ msgid "DMPTool Principles"
 msgstr "DMPTool Principles"
 
 msgid "DMPTool by the Numbers"
-msgstr "DMPTool by the numbers"
+msgstr "DMPTool by the Numbers"
 
 msgid "DMPTool is a service of the %{uc3} of the %{cdl}"
 msgstr "DMPTool is a service of the %{uc3} of the %{cdl}"
-=======
-msgid "DMPRoadmap ('the tool', 'the system') is a tool developed by the DCC and CDL as a shared resource for the research community. It is hosted at CDL by the University of California Curation Center."
-msgstr "DMPRoadmap ('the tool', 'the system') is a tool developed by the DCC and CDL as a shared resource for the research community. It is hosted at CDL by the University of California Curation Center."
->>>>>>> roadmap
 
 msgid "DOCX"
 msgstr "DOCX"
@@ -1062,13 +832,8 @@ msgstr "Draft"
 msgid "Edit"
 msgstr "Edit"
 
-<<<<<<< HEAD
-msgid "Edit Privileges"
-msgstr "Edit privileges"
-=======
 msgid "Edit Profile"
 msgstr "Edit profile"
->>>>>>> roadmap
 
 msgid "Edit Theme"
 msgstr "Edit theme"
@@ -1118,22 +883,9 @@ msgstr "Email address"
 msgid "End date"
 msgstr "End date"
 
-<<<<<<< HEAD
 msgid "English (US)"
-msgstr "English (US)"
+msgstr ""
 
-msgid "Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit."
-msgstr "<div class='tooltip_box'>Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the colored banner once a section is opened to edit.</div>"
-
-msgid "Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer."
-msgstr "Enter a basic description. This will be presented to users above the summary of the sections and questions that they will be asked to answer."
-
-msgid "Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences"
-msgstr "Enter a description that helps you to differentiate between templates, e.g., if you have ones for different audiences"
-
-msgid "Enter a title for the phase e.g. intial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP"
-msgstr "Enter a title for the phase, e.g., initial plan, full plan... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic, e.g., UCLA"
-=======
 msgid "Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit."
 msgstr "Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the banner once a section is opened to edit."
 
@@ -1145,27 +897,19 @@ msgstr "Enter a description that helps you to differentiate between templates e.
 
 msgid "Enter a title for the phase e.g. intial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP"
 msgstr "Enter a title for the phase e.g. intial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP"
->>>>>>> roadmap
 
 msgid "Enter a title for the section"
 msgstr "Enter a title for the section"
 
 msgid "Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text."
-<<<<<<< HEAD
-msgstr "Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so do not to duplicate too much text."
-=======
 msgstr "Enter specific guidance to accompany this question. If you have guidance by themes too, this will be pulled in based on your selections below so it's best not to duplicate too much text."
->>>>>>> roadmap
 
 msgid "Enter your guidance here. You can include links where needed."
 msgstr "Enter your guidance here. You can include links where needed."
 
-<<<<<<< HEAD
-=======
 msgid "Error parsing links for a #{template_type(template)}"
 msgstr "Error parsing links for a #{template_type(template)}"
 
->>>>>>> roadmap
 msgid "Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long."
 msgstr "Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long."
 
@@ -1224,11 +968,7 @@ msgid "First Name"
 msgstr "First name"
 
 msgid "First create a guidance group. This could be organisation wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you'll be asked to assign it to a guidance group."
-<<<<<<< HEAD
-msgstr "First create a guidance group. This could be organization-wide wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you'll be asked to assign it to a guidance group."
-=======
 msgstr "<p>First create a guidance group. This could be institution wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you'll be asked to assign it to a guidance group.</p>"
->>>>>>> roadmap
 
 msgid "First name"
 msgstr "First name"
@@ -1263,22 +1003,11 @@ msgstr "Funder"
 msgid "Funder Links"
 msgstr "Funder links"
 
-msgid "Funder Requirements"
-msgstr "Funder requirements"
-
-<<<<<<< HEAD
-msgid "Funder version is unpublished"
-msgstr "Funder version is unpublished"
-
-msgid "General Overview"
-msgstr "General Overview"
-
 msgid "Get started"
 msgstr "Get started"
-=======
+
 msgid "Getting Started"
 msgstr "Getting Started"
->>>>>>> roadmap
 
 msgid "Getting started:"
 msgstr "Getting started:"
@@ -1355,16 +1084,11 @@ msgstr "Hello %{username}"
 msgid "Help"
 msgstr "Help"
 
-<<<<<<< HEAD
 msgid "Help spread the word about the DMPTool! Use the materials below to inform researchers, librarians, administrators and others about the tool. All materials are available under a CC-Zero license."
 msgstr "Help spread the word about the DMPTool! Use the materials below to inform researchers, librarians, administrators and others about the tool. All materials are available under a CC-Zero license."
 
 msgid "Here you can view previously published versions of your template.  These can no longer be modified."
-msgstr "Here you can view previously published versions of your template.  These can no longer be modified."
-=======
-msgid "Here you can view previously published versions of your template.  These can no longer be modified."
 msgstr "<p>Here you can view previously published versions of your template.  These can no longer be modified.</p>"
->>>>>>> roadmap
 
 msgid "Hide list."
 msgstr "Hide list."
@@ -1406,26 +1130,17 @@ msgid "If applying for funding, state the project title exactly as in the propos
 msgstr "If applying for funding, state the project title exactly as in the proposal."
 
 msgid "If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard."
-<<<<<<< HEAD
-msgstr "If the guidance is only meant for a subset of users, e.g., those in a specific college or institute, check this box.  Users will be able to display this subset guidance when answering questions in the 'Create plan' wizard."
-=======
 msgstr "If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard."
->>>>>>> roadmap
 
 msgid "If you didn't request this, please ignore this email."
 msgstr "If you didn't request this, please ignore this email."
 
 msgid "If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to BBSRC for example), you can do so by adding guidance to a specific question when you edit your template."
-<<<<<<< HEAD
-msgstr "If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to NSF Engineering), you can do so by adding guidance to individual questions as 'customizations' in the Templates area."
-=======
 msgstr "If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to BBSRC for example), you can do so by adding guidance to a specific question when you edit your template."
->>>>>>> roadmap
 
 msgid "If you have an existing DMPTool account, please enter your username and we will provide the associated email address."
 msgstr "If you have an existing DMPTool account, please enter your username and we will provide the associated email address."
 
-<<<<<<< HEAD
 msgid "If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us}"
 msgstr "If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us}"
 
@@ -1439,47 +1154,13 @@ msgid "If you want to be able to share or cite your dataset, you\\"
 msgstr "If you want to be able to share or cite your dataset, you\\"
 
 msgid "If you wish to add an organisational template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students. Your template will be presented to users within your organisation when no funder templates apply. If you want to add questions to funder templates use the 'customise template' options below."
-msgstr "If you wish to add an organizational template for a Data Management Plan, click the 'Create template' button. You can create more than one template, e.g., one for researchers and one for graduate students. Your template will be presented to users within your organization when no funder templates apply. If you want to add questions to funder templates use the 'Customize template' options below."
-
-msgid "If you would like to change your password please complete the following fields."
-msgstr "If you would like to change your password please complete the following fields."
-
-msgid "If you would like to modify one of the templates below, you must first change your organisation affiliation."
-msgstr "If you would like to modify one of the templates below, you must first change your organization affiliation."
-
-msgid "If your institution/organization is affiliated with DMPTool:<ul><li>Click the first button to sign in with “Your institution.”</li><li>Select your institution from the list and click “Go.”</li><li>Researchers at some institutions will be presented with the institution\\"
-msgstr "If your institution/organization is affiliated with DMPTool:<ul><li>Click the first button to sign in with “Your institution.”</li><li>Select your institution from the list and click “Go.”</li><li>Researchers at some institutions will be presented with the institution\\"
-
-msgid "In order to help identify and administer your account with the DMPTool, we need to store your email address. We may also use it to contact you to obtain feedback on your use of the tool, or to inform you of the latest developments or releases. The information may be transferred between the CDL and DCC partner organizations but only for legitimate CDL purposes. We will not sell, rent, or trade any personal information you provide to us."
-msgstr "In order to help identify and administer your account with the DMPTool, we need to store your email address. We may also use it to contact you to obtain feedback on your use of the tool, or to inform you of the latest developments or releases. The information may be transferred between the CDL and DCC partner organizations but only for legitimate CDL purposes. We will not sell, rent, or trade any personal information you provide to us."
-=======
-msgid "If you have an account please sign in and start creating or editing your DMP."
-msgstr "If you have an account please sign in and start creating or editing your DMP."
-
-msgid "If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us}"
-msgstr "If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us}"
-
-msgid "If you have questions pertaining to this action, please visit the My Dashboard page in %{tool_name}"
-msgstr "If you have questions pertaining to this action, please visit the My Dashboard page in %{tool_name}"
-
-msgid "If you wish to add an organisational template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students. Your template will be presented to users within your organisation when no funder templates apply. If you want to add questions to funder templates use the 'customise template' options below."
 msgstr "If you wish to add an organizational template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students. Your template will be presented to users within your organization when no funder templates apply. If you want to add questions to funder templates use the 'customize template' options below."
 
 msgid "If you would like to change your password please complete the following fields."
 msgstr "If you would like to change your password please complete the following fields."
->>>>>>> roadmap
 
 msgid "If you would like to modify one of the templates below, you must first change your organisation affiliation."
 msgstr "If you would like to modify one of the templates below, you must first change your organization affiliation."
-
-msgid "Institution"
-msgstr "Institution"
-
-msgid "Institution not in the list?"
-msgstr "Institution not in the list?"
-
-msgid "Institutional Signin Enabled"
-msgstr "Institutional sign-in enabled"
 
 msgid "Institutional credentials"
 msgstr "Institutional credentials"
@@ -1505,12 +1186,9 @@ msgstr "Invite collaborators"
 
 msgid "Invite specific people to read, edit, or administer your plan. Invitees will receive an email notification that they have access to this plan."
 msgstr "Invite specific people to read, edit, or administer your plan. Invitees will receive an email notification that they have access to this plan."
-<<<<<<< HEAD
 
 msgid "It looks like this is your first time logging in. Please verify and complete the information below to finish creating an account."
 msgstr "It looks like this is your first time logging in. Please verify and complete the information below to finish creating an account."
-=======
->>>>>>> roadmap
 
 msgid "Language"
 msgstr "Language"
@@ -1614,12 +1292,9 @@ msgstr "Modify templates"
 msgid "Month"
 msgstr "Month"
 
-<<<<<<< HEAD
 msgid "More"
 msgstr "More"
 
-=======
->>>>>>> roadmap
 msgid "More information about administering the %{tool_name} for users at your organisation is available at the %{help_url}."
 msgstr "More information about administering the %{tool_name} for users at your organization is available at the %{help_url}."
 
@@ -1647,16 +1322,14 @@ msgstr "N/A"
 msgid "Name"
 msgstr "Name"
 
-<<<<<<< HEAD
 msgid "Need to get others on your campus interested in the DMPTool? Use our Talking Points to guide your discussions. In general, a talking points document is designed to help you stay on track during meetings with those outside of your department. It ensures that your major points are at hand and helps you make progress towards the goals of the meeting.<ul><li>Overview of Talking Points: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/overview.pdf\">Adobe PDF</a></li><li>Meeting with your IT Group: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/IT.docx\">Microsoft Word</a> or <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/IT.pdf\">Adobe PDF</a></li><li>Meeting with Administrators: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/admin.docx\">Microsoft Word</a> or <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/admin.pdf\">Adobe PDF</a></li><li>Meeting with Researchers: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/researchers.docx\">Microsoft Word</a> or <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/researchers.pdf\">Adobe PDF</a> </li></ul>"
 msgstr "Need to get others on your campus interested in the DMPTool? Use our Talking Points to guide your discussions. In general, a talking points document is designed to help you stay on track during meetings with those outside of your department. It ensures that your major points are at hand and helps you make progress towards the goals of the meeting.<ul><li>Overview of Talking Points: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/overview.pdf\">Adobe PDF</a></li><li>Meeting with your IT Group: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/IT.docx\">Microsoft Word</a> or <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/IT.pdf\">Adobe PDF</a></li><li>Meeting with Administrators: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/admin.docx\">Microsoft Word</a> or <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/admin.pdf\">Adobe PDF</a></li><li>Meeting with Researchers: <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/researchers.docx\">Microsoft Word</a> or <a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/talkpoints/researchers.pdf\">Adobe PDF</a> </li></ul>"
-=======
+
 msgid "New Question"
 msgstr "New question"
 
 msgid "New Template"
 msgstr "New template"
->>>>>>> roadmap
 
 msgid "New Theme"
 msgstr "New theme"
@@ -1721,12 +1394,6 @@ msgstr "None provided"
 msgid "Not Applicable"
 msgstr "Not applicable"
 
-<<<<<<< HEAD
-msgid "Not Customised"
-msgstr "Not customized"
-
-=======
->>>>>>> roadmap
 msgid "Not answered yet"
 msgstr "Not answered yet"
 
@@ -1765,18 +1432,15 @@ msgstr "ORCID logo"
 
 msgid "ORCID provides a persistent digital identifier that distinguishes you from other researchers. Learn more at orcid.org"
 msgstr "ORCID provides a persistent digital identifier that distinguishes you from other researchers. Learn more at orcid.org"
-<<<<<<< HEAD
 
 msgid "Option %{number}: If not affiliated and you need an account."
-msgstr "Option %{number}: If not affiliated and you need an account."
+msgstr ""
 
 msgid "Option %{number}: If your institution is affiliated with DMPTool."
 msgstr "Option %{number}: If your institution is affiliated with DMPTool."
 
 msgid "Option %{number}: If your institution is not affiliated with DMPTool."
 msgstr "Option %{number}: If your institution is not affiliated with DMPTool."
-=======
->>>>>>> roadmap
 
 msgid "Optional Subset"
 msgstr "Optional subset"
@@ -1829,21 +1493,15 @@ msgstr "Organization: anyone at my organization can view"
 msgid "Organisational Admin"
 msgstr "Organizational Admin"
 
-msgid "Organisational admin privileges"
-msgstr "Organizational admin privileges"
-
 msgid "Organisational Configuration Information"
 msgstr "Organizational configuration information"
+
+msgid "Organisational admin privileges"
+msgstr "Organizational admin privileges"
 
 msgid "Organisations"
 msgstr "Organizations"
 
-<<<<<<< HEAD
-=======
-msgid "Organisations can customise the tool to highlight local requirements, resources, and services. Organisational templates can be added to address local DMP requirements, and additional sections and questions can be included in funder templates. Users from participating organisations that configure the tool for single sign-on can log in with their own organisational accounts."
-msgstr "Organizations can customize the tool to highlight local requirements, resources, and services. Organizational templates can be added to address local DMP requirements, and additional sections and questions can be included in funder templates. Users from participating organizations that configure the tool for single sign-on can log in with their own organizational accounts."
-
->>>>>>> roadmap
 msgid "Organization logo"
 msgstr "Organization logo"
 
@@ -1952,12 +1610,6 @@ msgstr "Please enter your last name"
 msgid "Please enter a password confirmation"
 msgstr "Please enter a password confirmation"
 
-<<<<<<< HEAD
-msgid "Please enter a title for your template."
-msgstr "Please enter a title for your template"
-
-=======
->>>>>>> roadmap
 msgid "Please enter a valid number."
 msgstr "Please enter a valid number."
 
@@ -1976,33 +1628,22 @@ msgstr "Please enter the name of your organization"
 msgid "Please enter your current password"
 msgstr "Please enter your current password"
 
-<<<<<<< HEAD
 msgid "Please enter your email below and we will send instructions to reset your password."
-=======
-msgid "Please enter your email below and we will send you instructions on how to reset your password."
->>>>>>> roadmap
-msgstr "Please enter your email below and we will send you instructions on how to reset your password."
+msgstr "Please enter your email below and we will send instructions to reset your password."
 
 msgid "Please enter your password to change email address."
 msgstr "Please enter your password to change email address."
 
 msgid "Please make a choice below. After linking your details to a %{application_name} account, you will be able to sign in directly with your institutional credentials."
 msgstr "Please make a choice below. After linking your details to a %{application_name} account, you will be able to sign in directly with your institutional credentials."
-<<<<<<< HEAD
 
 msgid "Please note that your email address is also your username. If you change this remember to use your new email address on sign in. If your account is created with your institutional credentials you must contact us to change your email or organisation."
 msgstr "Please note that your email address is also your username. If you change this remember to use your new email address on sign in. If your account is created with your institutional credentials you must contact us to change your email or organization."
-=======
->>>>>>> roadmap
 
 msgid ""
 "Please note that your email address is used as your username.\n"
 "    If you change this, remember to use your new email address on sign in."
-<<<<<<< HEAD
-msgstr "Please note that your email address is used as your username. If you change it, remember to use your new email address on sign in."
-=======
 msgstr "Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in."
->>>>>>> roadmap
 
 msgid "Please select a research organisation and funder to continue."
 msgstr "Please select a research organization and funder to continue."
@@ -2064,9 +1705,6 @@ msgstr "Private: restricted to me and my collaborators"
 msgid "Private: restricted to me and people I invite."
 msgstr "Private: restricted to me and people I invite"
 
-msgid "Private: visible to me, specified collaborators and administrators at my organisation"
-msgstr "Private: visible to me, specified collaborators and administrators at my organization"
-
 msgid "Privileges"
 msgstr "Privileges"
 
@@ -2091,30 +1729,18 @@ msgstr "Project abstract: "
 msgid "Project title"
 msgstr "Project title"
 
-<<<<<<< HEAD
 msgid "Promote the DMPTool"
 msgstr "Promote the DMPTool"
 
-=======
->>>>>>> roadmap
 msgid "Provides the user with an API token and grants rights to harvest information from the tool"
 msgstr "Provides the user with an API token and grants rights to harvest information from the tool"
 
 msgid "Public DMPs"
 msgstr "Public plans"
 
-<<<<<<< HEAD
-msgid "Public Plans"
-msgstr "Public plans"
-
-msgid "Public data management plans are created using the DMPTool - Dev and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
-msgstr "Public DMPs are plans created using the DMPTool and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
-
-=======
 msgid "Public DMPs are plans created using the %{application_name} service and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
 msgstr "Public DMPs are plans created using the DMPTool and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
 
->>>>>>> roadmap
 msgid "Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
 msgstr "Public or organizational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
 
@@ -2196,13 +1822,8 @@ msgstr "Request feedback"
 msgid "Requestor"
 msgstr "Requestor"
 
-<<<<<<< HEAD
-msgid "Research projects generate and collect countless varieties of data. To forumulate a data management plan, it\\"
-msgstr "Research projects generate and collect countless varieties of data. To forumulate a data management plan, it\\"
-=======
 msgid "Restricted access to View All the records"
 msgstr "Restricted access to View All the records"
->>>>>>> roadmap
 
 msgid "Right"
 msgstr "Right"
@@ -2231,12 +1852,6 @@ msgstr "Save unsuccessful."
 msgid "Saving..."
 msgstr "Saving..."
 
-<<<<<<< HEAD
-=======
-msgid "Scholarly researchers today are increasingly required to engage in a range of data management activities to comply with organisational policies, or as a precondition for publication or grant funding. To aid researchers in creating effective Data Management Plans (DMPs), we have worked closely with funders and universities to develop an online application: DMPRoadmap. The tool provides detailed guidance and links to general and organisational resources and walks a researcher through the process of generating a comprehensive plan tailored to specific DMP requirements."
-msgstr "Scholarly researchers today are increasingly required to engage in a range of data management activities to comply with organizational policies, or as a precondition for publication or grant funding. To aid researchers in creating effective Data Management Plans (DMPs), we have worked closely with funders and universities to develop an online application: DMPRoadmap. The tool provides detailed guidance and links to general and organizational resources and walks a researcher through the process of generating a comprehensive plan tailored to specific DMP requirements."
-
->>>>>>> roadmap
 msgid "Search"
 msgstr "Search"
 
@@ -2336,12 +1951,6 @@ msgstr "Should be tomorrow or later"
 msgid "Show"
 msgstr "Show"
 
-<<<<<<< HEAD
-msgid "Show Phase"
-msgstr "Show phase"
-
-=======
->>>>>>> roadmap
 msgid "Show password"
 msgstr "Show password"
 
@@ -2368,12 +1977,9 @@ msgstr "Size"
 
 msgid "Someone has requested a link to change your %{tool_name} password. You can do this through the link below."
 msgstr "Someone has requested a link to change your %{tool_name} password. You can do this through the link below."
-<<<<<<< HEAD
-=======
 
 msgid "Start"
 msgstr "Start"
->>>>>>> roadmap
 
 msgid "Start date"
 msgstr "Start date"
@@ -2444,13 +2050,8 @@ msgstr "Template: "
 msgid "Templates"
 msgstr "Templates"
 
-<<<<<<< HEAD
 msgid "Templates for data management plans are based on the specific requirements listed in funder policy documents. The DMPTool maintains these templates, however, researchers should always consult the program officers and policy documents directly for authoritative guidance. Sample plans are provided by a funder or another trusted party."
 msgstr "Templates for data management plans are based on the specific requirements listed in funder policy documents. The DMPTool maintains these templates, however, researchers should always consult the program officers and policy documents directly for authoritative guidance. Sample plans are provided by a funder or another trusted party."
-=======
-msgid "Templates are provided by a funder, an organisation, or a trusted party."
-msgstr "Templates are provided by a funder, an organization, or a trusted party."
->>>>>>> roadmap
 
 msgid "Terms of use"
 msgstr "Terms of use & Privacy"
@@ -2485,22 +2086,17 @@ msgstr "That template is not customizable."
 msgid "The %{tool_name} team"
 msgstr "The %{tool_name} team"
 
-<<<<<<< HEAD
 msgid "The <a href=\"%{cdlib_url}\">California Digital Library (CDL)</a> is supported by the University of California (UC). Our primary constituency is the UC research community; in addition, we provide services to the United States and international higher education sector."
 msgstr "The <a href=\"%{cdlib_url}\">California Digital Library (CDL)</a> is supported by the University of California (UC). Our primary constituency is the UC research community; in addition, we provide services to the United States and international higher education sector."
-=======
-msgid "The Digital Curation Centre and UC3 team at the California Digital Library have developed and delivered tools for data management planning since the advent of open data policies in 2011. "
-msgstr "The Digital Curation Centre and UC3 team at the California Digital Library have developed and delivered tools for data management planning since the advent of open data policies in 2011. "
-
-msgid "The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}"
-msgstr "The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}"
->>>>>>> roadmap
 
 msgid "The CDL holds your plans on your behalf, but they are your property and responsibility. Any FOIA applicants will be referred back to your home institution."
 msgstr "The CDL holds your plans on your behalf, but they are your property and responsibility. Any FOIA applicants will be referred back to your home institution."
 
-msgid "The DMPTool is a free, open-source, online application that helps researchers create data management plans. These plans, or DMPs, are now required by many funding agencies as part of the grant proposal submission process. The DMPTool provides a click-through wizard for creating a DMP that complies with funder requirements. It also has direct links to funder websites, help text for answering questions, and resources for best practices surrounding data management."
-msgstr "The DMPTool is a free, open-source, online application that helps researchers create data management plans. These plans, or DMPs, are now required by many funding agencies as part of the grant proposal submission process. The DMPTool provides a click-through wizard for creating a DMP that complies with funder requirements. It also has direct links to funder websites, help text for answering questions, and resources for best practices surrounding data management."
+msgid "The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}"
+msgstr "The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}"
+
+msgid "The email address you entered is not registered."
+msgstr ""
 
 msgid "The following answer cannot be saved"
 msgstr "The following answer cannot be saved"
@@ -2511,13 +2107,8 @@ msgstr "The information you enter into this system can be seen by you, people yo
 msgid "The key %{key} does not have a valid set of object links"
 msgstr "The key %{key} does not have a valid set of object links"
 
-<<<<<<< HEAD
 msgid "The original DMPTool was a grassroots effort, beginning in 2011 with eight institutions partnering to provide in-kind contributions of personnel and development. The effort was in direct response to demands from funding agencies, such as the National Science Foundation and the National Institutes of Health, that researchers plan for managing their research data. By joining forces the contributing institutions were able to consolidate expertise and reduce costs in addressing data management needs. Representatives from these institutions participate on the <a href=\"%{steering_committee_url}\">DMPTool Steering Committee</a> that maintains monthly calls."
 msgstr "The original DMPTool was a grassroots effort, beginning in 2011 with eight institutions partnering to provide in-kind contributions of personnel and development. The effort was in direct response to demands from funding agencies, such as the National Science Foundation and the National Institutes of Health, that researchers plan for managing their research data. By joining forces the contributing institutions were able to consolidate expertise and reduce costs in addressing data management needs. Representatives from these institutions participate on the <a href=\"%{steering_committee_url}\">DMPTool Steering Committee</a> that maintains monthly calls."
-=======
-msgid "The new platform will be separate from the services each of our teams runs on top of it. Our shared goal: provide a combined DMPRoadmap platform as a core infrastructure for DMPs. Future enhancements will focus on making DMPs machine actionable so please continue sharing your use cases."
-msgstr "The new platform will be separate from the services each of our teams runs on top of it. Our shared goal: provide a combined DMPRoadmap platform as a core infrastructure for DMPs. Future enhancements will focus on making DMPs machine actionable so please continue sharing your use cases."
->>>>>>> roadmap
 
 msgid "The password must be between 8 and 128 characters."
 msgstr "The password must be between 8 and 128 characters."
@@ -2528,11 +2119,6 @@ msgstr "The passwords must match."
 msgid "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
 msgstr "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
 
-<<<<<<< HEAD
-msgid "The table below lists the plans that users at your organisation have created and shared within your organisation. This allows you to download a PDF and view their plans as samples or to discover new research data."
-msgstr "The table below lists the plans that users at your organization have created and shared within your organization. This allows you to download a PDF and view their plans as samples or to discover new research data."
-
-=======
 msgid "The search space does not have elements associated"
 msgstr "The search space does not have elements associated"
 
@@ -2542,7 +2128,6 @@ msgstr "The search_space does not respond to each"
 msgid "The table below lists the plans that users at your organisation have created and shared within your organisation. This allows you to download a PDF and view their plans as samples or to discover new research data."
 msgstr "The table below lists the plans that users at your organization have created and shared within your organization. This allows you to download a PDF and view their plans as samples or to discover new research data."
 
->>>>>>> roadmap
 msgid "The table below lists the plans that you have created, and that have been shared with you by others. You can edit, share, download, make a copy, or remove these plans at any time."
 msgstr "The table below lists the plans that you have created, and that have been shared with you by others. You can edit, share, download, make a copy, or remove these plans at any time."
 
@@ -2611,28 +2196,16 @@ msgstr "This information can only be changed by a system administrator. Contact 
 
 msgid "This plan is based on the \"%{template_title}\" template provided by %{org_name}."
 msgstr "This plan is based on the \"%{template_title}\" template provided by %{org_name}."
-<<<<<<< HEAD
-
-msgid "This statement was last revised on October 5, 2017 and may be revised at any time. Use of the tool indicates that you understand and agree to these terms and conditions."
-msgstr "This statement was last revised on October 5, 2017 and may be revised at any time. Use of the tool indicates that you understand and agree to these terms and conditions."
-=======
->>>>>>> roadmap
 
 msgid "This template is new and does not yet have any publication history."
 msgstr "This template is new and does not yet have any publication history."
 
-<<<<<<< HEAD
-=======
 msgid "This template is published changes but has unpublished changes!"
 msgstr "This template is published changes but has unpublished changes!"
 
 msgid "This will create an account and link it to your credentials."
 msgstr "This will create an account and link it to your credentials."
 
-msgid "This will link your existing account to your credentials."
-msgstr "This will link your existing account to your credentials."
-
->>>>>>> roadmap
 msgid "Title"
 msgstr "Title"
 
@@ -2669,16 +2242,11 @@ msgstr "Type"
 msgid "URL"
 msgstr "URL"
 
-<<<<<<< HEAD
-msgid "Unable to change the plan's status since it is needed at least %{percentage} percentage responded"
-msgstr "Unable to change the plan's status since you are required to respond to at least %{percentage} of the plan's questions."
-=======
 msgid "Unable to %{action} %{username}"
 msgstr "Unable to %{action} %{username}"
 
 msgid "Unable to change the plan's status since it is needed at least %{percentage} percentage responded"
 msgstr "Unable to change the plan's status since it is needed at least %{percentage} percentage responded"
->>>>>>> roadmap
 
 msgid "Unable to change the plan's test status"
 msgstr "Unable to change the plan's test status"
@@ -2686,13 +2254,6 @@ msgstr "Unable to change the plan's test status"
 msgid "Unable to change your organisation affiliation at this time."
 msgstr "Unable to change your organization affiliation at this time."
 
-<<<<<<< HEAD
-msgid "Unable to create your account at this time."
-msgstr "Unable to create your account at this time."
-
-msgid "Unable to create your account."
-msgstr "Unable to create your account."
-=======
 msgid "Unable to create a new section because the phase you specified does not exist."
 msgstr "Unable to create a new section because the phase you specified does not exist."
 
@@ -2701,7 +2262,6 @@ msgstr "Unable to create a new version of this template."
 
 msgid "Unable to customize that template."
 msgstr "Unable to customize that template."
->>>>>>> roadmap
 
 msgid "Unable to download the DMP Template at this time."
 msgstr "Unable to download the DMP Template at this time."
@@ -2715,8 +2275,6 @@ msgstr "Unable to find plan id %{plan_id}"
 msgid "Unable to identify a suitable template for your plan."
 msgstr "Unable to identify a suitable template for your plan."
 
-<<<<<<< HEAD
-=======
 msgid "Unable to link your account to %{scheme}."
 msgstr "Unable to link your account to %{scheme}."
 
@@ -2726,7 +2284,6 @@ msgstr "Unable to load the question's content at this time."
 msgid "Unable to load the section's content at this time."
 msgstr "Unable to load the section's content at this time."
 
->>>>>>> roadmap
 msgid "Unable to notify user that you have finished providing feedback."
 msgstr "Unable to notify user that you have finished providing feedback."
 
@@ -2775,12 +2332,9 @@ msgstr "Unknown margin. Can only be 'top', 'bottom', 'left' or 'right.'"
 msgid "Unknown organisation."
 msgstr "Unknown organization."
 
-<<<<<<< HEAD
-=======
 msgid "Unlink your account from #{scheme.description}. You can link again at any time."
 msgstr "Unlink your account from #{scheme.description}. You can link again at any time."
 
->>>>>>> roadmap
 msgid "Unlink your account from your organisation. You can link again at any time."
 msgstr "Unlink your account from your organization. You can link again at any time."
 
@@ -2813,12 +2367,9 @@ msgstr "Use API"
 
 msgid "Use the filters to generate organisational usage statistics for a custom date range. The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph."
 msgstr "Use the filters to generate organizational usage statistics for a custom date range. The graphs display new users and plans for your organization over the past year. You can download a CSV report for each graph."
-<<<<<<< HEAD
 
 msgid "Use this conference-style poster to advertise the DMPTool at events on your campus.<ul><li><a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/poster/DMPTool_poster_v2.pdf\">Adobe PDF</a></li></ul>"
 msgstr "Use this conference-style poster to advertise the DMPTool at events on your campus.<ul><li><a href=\"https://github.com/CDLUC3/dmptool/blob/master/docs/poster/DMPTool_poster_v2.pdf\">Adobe PDF</a></li></ul>"
-=======
->>>>>>> roadmap
 
 msgid "User accounts"
 msgstr "User accounts"
@@ -2895,12 +2446,6 @@ msgstr "Welcome to %{tool_name}"
 msgid "Welcome to %{tool_name}, %{username}"
 msgstr "Welcome to %{tool_name}, %{username}"
 
-<<<<<<< HEAD
-=======
-msgid "Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them."
-msgstr "Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them."
-
->>>>>>> roadmap
 msgid "Welcome."
 msgstr "Welcome."
 
@@ -2917,14 +2462,10 @@ msgid "What research project are you planning?"
 msgstr "What research project are you planning?"
 
 msgid "When you create a new phase for your template, a version will automatically be created. Once you complete the form below you will be provided with options to create sections and questions."
-<<<<<<< HEAD
-msgstr "When you create a new phase for your template, a version will automatically be created. Once you complete the form below you can create sections and questions."
+msgstr "When you create a new phase for your template, a version will automatically be created. Once you complete the form below you will be provided with options to create sections and questions."
 
 msgid "Where can I find help customizing the DMPTool for my institution/organization?"
 msgstr "Where can I find help customizing the DMPTool for my institution/organization?"
-=======
-msgstr "When you create a new phase for your template, a version will automatically be created. Once you complete the form below you will be provided with options to create sections and questions."
->>>>>>> roadmap
 
 msgid "Which DMP template would you like to use?"
 msgstr "Which template would you like to use?"
@@ -2965,13 +2506,8 @@ msgstr "You are about to delete '%{org_name}'. Are you sure?"
 msgid "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
 msgstr "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
 
-<<<<<<< HEAD
-msgid "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
-msgstr "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
-=======
 msgid "You are about to delete question #%{question_number}. Are you sure?"
 msgstr "You are about to delete question #%{question_number}. Are you sure?"
->>>>>>> roadmap
 
 msgid "You are about to delete the '%{phase_title}' phase. This will remove all of the sections and questions listed below. Are you sure?"
 msgstr "You are about to delete the '%{phase_title}' phase. This will remove all of the sections and questions listed below. Are you sure?"
@@ -2985,10 +2521,6 @@ msgstr "You are not authorized to perform this action."
 msgid "You are now ready to create your first DMP."
 msgstr "You are now ready to create your first data management plan."
 
-<<<<<<< HEAD
-msgid "You are viewing a historical version of this template. You will not be able to make changes."
-msgstr "You are viewing a historical version of this template. You will not be able to make changes."
-=======
 msgid "You are viewing a historical version of this #{template_type(template)}. You will not be able to make changes."
 msgstr "You are viewing a historical version of this template. You will not be able to make changes."
 
@@ -2997,7 +2529,6 @@ msgstr "You are viewing a historical version of this template. You will not be a
 
 msgid "You can add an example answer to help users respond. These will be presented above the answer box and can be copied/ pasted."
 msgstr "You can add an example answer to help users respond. These will be presented above the answer box and can be copied/ pasted."
->>>>>>> roadmap
 
 msgid "You can also grant rights to other collaborators."
 msgstr "You can also grant rights to other collaborators."
@@ -3011,11 +2542,6 @@ msgstr "You can continue to edit and download the plan in the interim."
 msgid "You can edit any of the details below."
 msgstr "You can edit any of the details below."
 
-<<<<<<< HEAD
-msgid "You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup that should present across the board). Writing generic guidance by theme saves you time and effort as your advice will be automatically displayed across all templates rather than having to write guidance to accompany each."
-msgstr "Writing generic guidance by theme saves you time and effort as your advice will be displayed across all templates rather than having to write guidance to accompany each."
-
-=======
 msgid "You can not publish a historical version of this #{template_type(template)}."
 msgstr "You can not publish a historical version of this template."
 
@@ -3031,7 +2557,6 @@ msgstr "You cannot delete a #{template_type(template)} that has been used to cre
 msgid "You canot add a phase to a historical version of a template."
 msgstr "You canot add a phase to a historical version of a template."
 
->>>>>>> roadmap
 msgid "You don't have access to use the API. An api token is needed to generate usage statistics."
 msgstr "You don't have access to use the API. An api token is needed to generate usage statistics."
 
@@ -3089,37 +2614,26 @@ msgstr "Your selected standards:"
 msgid "Your access to "
 msgstr "Your access to "
 
-<<<<<<< HEAD
-=======
 msgid "Your account has been linked to #{scheme.description}."
 msgstr "Your account has been linked to #{scheme.description}."
 
->>>>>>> roadmap
 msgid "Your account has been linked to your organisation. You can now login with that method."
 msgstr "Your account has been linked to your organization. You can now login with that method."
 
 msgid "Your account has been successfully created."
 msgstr "Your account has been successfully created."
 
-<<<<<<< HEAD
 msgid "Your account has been verified with your institutional credentials. Please fill out the form below to finish creating your account."
 msgstr "Your account has been verified with your institutional credentials. Please fill out the form below to finish creating your account."
 
 msgid "Your account is linked to your institutional credentials for login. Please contact the helpdesk to change your email."
-msgstr "Your account is linked to your institutional credentials for login. Please contact the helpdesk to change your email."
+msgstr "our account is linked to your institutional credentials for login. Please contact the helpdesk to change your email."
 
 msgid "Your account is linked to your institutional credentials for login. Please contact the helpdesk to change your organisation."
 msgstr "Your account is linked to your institutional credentials for login. Please contact the helpdesk to change your organization."
 
 msgid "Your email address is also your login id and therefore an important part of your account information. For your safety we require you to confirm your password to make this change."
-msgstr "Your email address is also your login ID. Please confirm your password to make this change."
-=======
-msgid "Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them."
-msgstr "Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them."
-
-msgid "Your email address is also your login id and therefore an important part of your account information. For your safety we require you to confirm your password to make this change."
 msgstr "Your email address is also your login id and therefore an important part of your account information. For your safety we require you to confirm your password to make this change."
->>>>>>> roadmap
 
 msgid "Your guidance group has been published and is now available to users."
 msgstr "Your guidance group has been published and is now available to users."
@@ -3133,24 +2647,18 @@ msgstr "Your guidance has been published and is now available to users."
 msgid "Your guidance is no longer published and will not be available to users."
 msgstr "Your guidance is no longer published and will not be available to users."
 
-<<<<<<< HEAD
 msgid "Your institution"
 msgstr "Your institution"
 
-=======
->>>>>>> roadmap
 msgid "Your organisation affiliation has been changed. You may now edit templates for %{org_name}."
 msgstr "Your organization affiliation has been changed. You may now edit templates for %{org_name}."
 
 msgid "Your organisation does not seem to be properly configured."
 msgstr "Your organization does not seem to be properly configured."
 
-<<<<<<< HEAD
 msgid "Your password is stored in encrypted form and cannot be retrieved. If forgotten it has to be reset."
 msgstr "Your password is stored in encrypted form and cannot be retrieved. If forgotten it has to be reset."
 
-=======
->>>>>>> roadmap
 msgid "Your permissions relating to %{plan_title} have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}"
 msgstr "Your permissions relating to %{plan_title} have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}"
 
@@ -3165,15 +2673,12 @@ msgstr "Your request for feedback has been submitted."
 
 msgid "account has been locked due to an excessive number of unsuccessful sign in attempts."
 msgstr "account has been locked due to an excessive number of unsuccessful sign in attempts."
-<<<<<<< HEAD
-=======
 
 msgid "activate"
 msgstr "activate"
 
 msgid "activated"
 msgstr "activated"
->>>>>>> roadmap
 
 msgid "activerecord.errors.messages.record_invalid"
 msgstr "unable to save your changes"
@@ -3292,8 +2797,6 @@ msgstr "must have access to plans API"
 msgid "note"
 msgstr "note"
 
-<<<<<<< HEAD
-=======
 msgid "obj should be a Phase, Section, Question, or Annotation"
 msgstr "obj should be a Phase, Section, Question, or Annotation"
 
@@ -3303,7 +2806,6 @@ msgstr "obj should be a Template, Phase, Section, Question, or Annotation"
 msgid "on the homepage."
 msgstr "on the homepage."
 
->>>>>>> roadmap
 msgid "or"
 msgstr "or"
 
