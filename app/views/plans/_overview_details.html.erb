@@ -32,7 +32,8 @@
                   <div class="pull-left">
                     <%= _("%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})") % {
                       :phase_title => p.title, :sections_size => p.sections.size, :sections => n_('section', 'sections', p.sections.size),
-                      :questions_size => p.questions.size, :questions => n_('question', 'questions', p.questions.size) } %>
+                      :questions_size => p.sections.map{|s| s.questions.size }.inject(0){|sum,x| sum + x }, 
+                      :questions => n_('question', 'questions', p.sections.map{|s| s.questions.size }.inject(0){|sum,x| sum + x }) } %>
                   </div>
                   <div class="pull-right">
                     <i class="fa fa-plus pull-right" aria-hidden="true"></i>
