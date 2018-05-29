@@ -5,9 +5,8 @@
         <th><%= _('Template Name') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
         <th class="sorter-false text-center"><%= _('Download') %></th>
         <th><%= _('Organisation Name') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
+        <th><%= _('Organisation Type') %>&nbsp;<%= paginable_sort_link('orgs.org_type') %></th>
         <th><%= _('Last Updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
-        <th class="sorter-false"><%= _('Funder Links') %></th>
-        <th class="sorter-false" data-toggle="tooltip" title="<%= _('Sample plans are provided by a funder, an organisation or a trusted party.') %>"><%= _('Sample Plans') %><br><small><%= _('(if available)') %></small></th>
       </tr>
     </thead>
     <tbody>
@@ -19,13 +18,8 @@
             <%= link_to _('PDF'), template_export_path(template.family_id, format: :pdf), target: '_blank' %>
           </td>
           <td><%= template.org.name %></td>
+          <td><%= template.org.org_type_to_s %></td>
           <td><%= l(template.updated_at.to_date, formats: :short) %></td>
-          <td>
-            <%= raw links_to_a_elements(template.links['funder'], '<br>') %>
-          </td>
-          <td>
-            <%= raw links_to_a_elements(template.links['sample_plan'], '<br>') %>
-          </td>
         </tr>
       <% end %>
     </tbody>
