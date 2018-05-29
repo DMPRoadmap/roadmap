@@ -69,3 +69,6 @@ msgstr "Administrator: visible to me, specified collaborators and administrators
 
 msgid "Administrator"
 msgstr "Administrator"
+
+msgid "Organisation Type"
+msgstr "Organisation Type"

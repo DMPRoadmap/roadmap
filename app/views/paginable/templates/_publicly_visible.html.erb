@@ -5,7 +5,7 @@
         <th><%= _('Template Name') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
         <th class="sorter-false text-center"><%= _('Download') %></th>
         <th><%= _('Organisation Name') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
-        <th><%= _('Organisation Type') %>&nbsp;<%= paginable_sort_link('orgs.org_type') %></th>
+        <th><%= d_('dmpopidor', 'Organisation Type') %>&nbsp;<%= paginable_sort_link('orgs.org_type') %></th>
         <th><%= _('Last Updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
       </tr>
     </thead>
@@ -18,7 +18,7 @@
             <%= link_to _('PDF'), template_export_path(template.family_id, format: :pdf), target: '_blank' %>
           </td>
           <td><%= template.org.name %></td>
-          <td><%= template.org.org_type_to_s %></td>
+          <td><%= _(template.org.org_type_to_s) %></td>
           <td><%= l(template.updated_at.to_date, formats: :short) %></td>
         </tr>
       <% end %>

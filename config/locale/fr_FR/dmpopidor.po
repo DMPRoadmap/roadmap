@@ -68,3 +68,7 @@ msgstr "Administrateur : Visible par les collaborateurs, les administrateurs de 
 
 msgid "Administrator"
 msgstr "Administrateur"
+
+msgid "Organisation Type"
+msgstr "Type d'organisme"
+
