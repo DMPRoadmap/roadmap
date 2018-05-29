@@ -133,11 +133,14 @@ $light-yellow: #fff9e5;
     /*
         PUBLIC AREA
     */
-    h1,
-    h2 {
+    h1{
         color: $dark-blue;
     }
     
+    h2 {
+        color: $rust;
+    }
+
     a {
         color: $blue;
     }
