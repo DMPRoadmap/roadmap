@@ -3,23 +3,25 @@
     <thead>
       <tr>
         <th><%= _('Template Name') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
-        <th class="sorter-false text-center"><%= _('Download') %></th>
         <th><%= _('Organisation Name') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
         <th><%= d_('dmpopidor', 'Organisation Type') %>&nbsp;<%= paginable_sort_link('orgs.org_type') %></th>
+        <th class="sorter-false"><%= d_('dmpopidor', 'Description') %></th>
         <th><%= _('Last Updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
+        <th class="sorter-false text-center"><%= _('Download') %></th>
       </tr>
     </thead>
     <tbody>
       <% scope.each do |template| %>
         <tr>
           <td><%= template.title %></td>
+          <td><%= template.org.name %></td>
+          <td><%= _(template.org.org_type_to_s) %></td>
+          <td><%= raw template.description %></td>
+          <td><%= l(template.updated_at.to_date, formats: :short) %></td>
           <td class="text-center">
             <%= link_to _('DOCX'), template_export_path(template.family_id, format: :docx), target: '_blank' %><br>
             <%= link_to _('PDF'), template_export_path(template.family_id, format: :pdf), target: '_blank' %>
           </td>
-          <td><%= template.org.name %></td>
-          <td><%= _(template.org.org_type_to_s) %></td>
-          <td><%= l(template.updated_at.to_date, formats: :short) %></td>
         </tr>
       <% end %>
     </tbody>
