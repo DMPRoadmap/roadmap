@@ -6,15 +6,7 @@ class PublicPagesController < ApplicationController
   def template_index
     templates = Template.live(Template.families(Org.all.pluck(:id)).pluck(:family_id)).pluck(:id) <<
     Template.where(is_default: true).unarchived.published.pluck(:id)
-    @templates = Template.includes(:org).where(id: templates.uniq.flatten).unarchived.published.order(title: :asc).page(1)
-
-
-    #funder_templates = Template.live(Template.families(Org.funder.pluck(:id)).pluck(:family_id)).publicly_visible.pluck(:id) 
-    #@funder_templates = Template.includes(:org).where(id: funder_templates.uniq.flatten).unarchived.published.order(title: :asc).page(1)
-
-   # org_templates = Template.live(Template.families(Org.institution.pluck(:id)).pluck(:family_id)).pluck(:id) <<
-    #Template.where(is_default: true).unarchived.published.pluck(:id)
-    #@org_templates = Template.includes(:org).where(id: org_templates.uniq.flatten).unarchived.published.order(title: :asc).page(1)
+    @templates = Template.includes(:org).where(id: templates.uniq.flatten).unarchived.published.order("orgs.name asc").page(1)
   end
 
   # GET template_export/:id
