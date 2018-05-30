@@ -97,7 +97,7 @@
         <span><%= raw (has_alert ? alert : notice) %></span>
       </div>
       <div id="global-notification-area">
-        <%= render "layouts/notifications", notifications: Notification.active_per_user(current_user) %>
+        <%= render "layouts/dmptool/notifications", notifications: Notification.active_per_user(current_user) %>
       </div>
 
       <% if isActivePage(root_path, true) %>

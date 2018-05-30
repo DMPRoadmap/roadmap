@@ -4,8 +4,8 @@ class PublicPagesController < ApplicationController
 # ------------------------------------
 # START DMPTool customization
   def orgs
-    funders = Org.funder.collect(&:id)
-    render 'orgs', locals: { orgs: Org.participating.where.not(id: funders) }
+    ids = Org.where("#{Org.organisation_condition} OR #{Org.institution_condition}").pluck(:id)
+    render 'orgs', locals: { orgs: Org.participating.where(id: ids) }
   end
   def get_started
     render '/shared/dmptool/_get_started'
