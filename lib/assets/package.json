@@ -20,10 +20,8 @@
   "homepage": "https://github.com/DMPRoadmap/roadmap#readme",
   "dependencies": {
     "bootstrap-sass": "^3.3.7",
-    "chart": "^0.1.2",
     "chart.js": "^2.7.1",
     "font-awesome": "^4.7.0",
-    "fsevents": "^1.2.4",
     "jquery": "3.2.1",
     "jquery-accessible-autocomplete-list-aria": "1.5.5",
     "jquery-ui-dist": "1.12.1",
