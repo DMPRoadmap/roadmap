@@ -72,3 +72,9 @@ msgstr "Administrator"
 
 msgid "Organisation Type"
 msgstr "Organisation Type"
+
+msgid "Background"
+msgstr "Background"
+
+msgid "Latest news"
+msgstr "Latest news"

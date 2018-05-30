@@ -72,3 +72,10 @@ msgstr "Administrateur"
 msgid "Organisation Type"
 msgstr "Type d'organisme"
 
+msgid "Background"
+msgstr "Contexte"
+
+msgid "Latest news"
+msgstr "Dernières Nouvelles"
+
+
