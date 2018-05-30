@@ -36,7 +36,8 @@ module OrgAdmin
     def edit
       section = Section.includes({phase: :template}, questions: [:question_options, { annotations: :org }]).find(params[:id])
       authorize section
-      render partial: 'edit', 
+      # User cannot edit a section if its not modifiable or the template is not the latest redirect to show
+      render partial: (section.modifiable? && section.phase.template.latest? ? 'edit' : 'show'), 
         locals: { 
           template: section.phase.template, 
           phase: section.phase, 
