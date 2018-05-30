@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('Privacy statement') %></h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div>
+      <h3><%= _("Information about you: how we use it and with whom we share it") %></h3>
+      <p><%= _("The information you provide will be used by the %{org_name} to offer you access to and personalisation of the %{application_name} service.") %
+             { :application_name => Rails.configuration.branding[:application][:name], :org_name => Rails.configuration.branding[:organisation][:name] } %></p>
+      <p><%= _("The %{org_name} processes the personal data of %{application_name} users in order to deliver and improve the %{application_name} service in a customised manner and to ensure each user receives relevant information.") %
+             { :application_name => Rails.configuration.branding[:application][:name], :org_name => Rails.configuration.branding[:organisation][:name]  } %></p>
+      <p><%= _("The processing of your personal data by the %{org_name} is necessary for pursuing the following legitimate interests:") %
+             { :application_name => Rails.configuration.branding[:application][:name], :org_name => Rails.configuration.branding[:organisation][:name]  } %></p>
+      <ul>
+        <li><%= _("To provide access to the %{application_name} service and personalisation of your user experience e.g. provision of relevant templates and guidance for your organisation.") %
+                { :application_name => Rails.configuration.branding[:application][:name] } %></li>
+        <li><%= _("To keep you up to date with news about %{application_name} such as new features or improvements, or changes to our Privacy Policy.") %
+                { :application_name => Rails.configuration.branding[:application][:name] } %></li>
+        <li><%= _("For network and information security purposes.") %></li>
+      </ul>
+      <p><%= _("We will hold the personal data you provided us for as long as you continue using the %{application_name} service. Your personal data can be removed from this service upon request to the %{application_name} team within a period of 30 days.") %
+             { :application_name => Rails.configuration.branding[:application][:name] } %></p>
+      <p><%= raw _("If you have any questions, please contact the %{application_name} team at: <a href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>") %
+                 { :application_name => Rails.configuration.branding[:application][:name], :helpdesk_email => Rails.configuration.branding[:organisation][:helpdesk_email] } %></p>
+      <h3>Revisions</h3>
+
+      <p><%= _("This statement was last revised on %{revdate} and may be revised at any time with prior notice.") %
+             { :revdate => "May 21st, 2018" }%></p>
+    </div>
+  </div>
+</div>
