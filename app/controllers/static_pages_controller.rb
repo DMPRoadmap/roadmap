@@ -15,4 +15,8 @@ class StaticPagesController < ApplicationController
   def roadmap
     
   end
+
+  def privacy
+  end
+
 end
