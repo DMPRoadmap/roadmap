@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   helper PaginableHelper
   helper PermsHelper
   include ConditionalUserMailer
-  after_action :verify_authorized
+  after_action :verify_authorized, except: ['update_email_preferences']
   respond_to :html
 
   ##
@@ -91,7 +91,8 @@ class UsersController < ApplicationController
 
   def update_email_preferences
     prefs = params[:prefs]
-    authorize current_user, :update?
+    # Only allow the user to update their own preferences unless it is a super admin
+    raise Pundit::NotAuthorizedError unless current_user.can_super_admin? || current_user.id != params[:id]
     pref = current_user.pref
     # does user not have prefs?
     if pref.blank?
