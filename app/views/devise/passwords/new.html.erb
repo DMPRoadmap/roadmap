@@ -1,22 +1,42 @@
 <div class="row">
   <div class="col-md-12">
     <% unless @user.errors[:email].empty? %>
+
+<!-- START DMPTool customization -->
+<!-- ========================================= -->
+      <!-- <p class="alert alert-error"><%#= _('The email address you entered is not registered.') %></p> -->
       <div id="forgot-password-notification-area" 
            class="alert alert-warning" role="alert">
         <i class="fa fa-times-circle" aria-hidden="true"></i>
         <span class="aria-only"><%= _('Error:') %></span>
         <span><%= raw _('There is no account associated with that email address. Please try again or %{contact_us_link}.') % { contact_us_link: link_to('Contact us', contact_us_path) } %></span>
       </div>
+<!-- ========================================= -->
+<!-- END DMPTool customization -->
+
     <% end %>
     
     <h1><%= _('Forgot password?') %></h1>
 
+<!-- START DMPTool customization -->
+<!-- ========================================= -->
+    <!-- <p class="left-indent"><%#= _('Please enter your email below and we will send you instructions on how to reset your password.') %></p> -->
     <p><%= _('Please enter your email below and we will send instructions to reset your password.') %></p>
+<!-- ========================================= -->
+<!-- END DMPTool customization -->
+
   </div>
 </div>
 
 <div class="row">
+
+<!-- START DMPTool customization -->
+<!-- ========================================= -->
+  <!-- <div class="col-md-12"> -->
   <div class="col-md-6">
+<!-- ========================================= -->
+<!-- END DMPTool customization -->
+
     <%= form_for resource, as: 'user', url: user_password_path, html: {method: :post, id: "user_request_reset_password_form"} do |f| %>
       <div class="form-group">
         <%= f.label(:email, _('Email'), class: 'control-label') %>

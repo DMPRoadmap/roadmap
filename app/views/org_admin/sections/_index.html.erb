@@ -1,0 +1,93 @@
+<!-- Accordion for sections -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel-group" id="sections_accordion" role="tablist">
+      <% sections.each do |section| %>
+        <div class="panel panel-default">
+          <% href = (section.modifiable? ? edit_org_admin_template_phase_section_path(template_id: template.id, phase_id: phase.id, id: section.id) : org_admin_template_phase_section_path(template_id: template.id, phase_id: phase.id, id: section.id)) %>
+          <a
+            href="<%= href %>"
+            data-remote="true"
+            class="heading-button ajaxified-section"
+            data-toggle="collapse"
+            data-parent="sections-accordion" 
+            data-target="#collapseSection<%= section.id%>"
+            aria-expanded="false" 
+            aria-controls="#collapseSection<%= section.id%>">
+
+            <div class="panel-heading" role="tab" id="<%= "headingSection#{section.id}" %>">
+              <div class="panel-title pull-left">
+
+              <!-- START DMPTool customization -->
+              <!-- ========================================= -->
+                <i class="fa fa-plus white" aria-hidden="true"></i>
+              <!-- ========================================= -->
+              <!-- END DMPTool customization -->
+
+                <%= section.title %>
+              </div>
+
+            <!-- START DMPTool customization -->
+            <!-- ========================================= -->
+              <!-- <div class="pull-right"> -->
+                <!-- <i class="fa fa-plus pull-right" aria-hidden="true"></i> -->
+              <!-- </div> -->
+            <!-- ========================================= -->
+            <!-- END DMPTool customization -->
+
+              <div class="clearfix"></div>
+            </div>
+          </a>
+          <div
+            id="<%= "collapseSection#{section.id}" %>"
+            class="panel-collapse collapse<%= " in" if current_section.present? && section.id == current_section.id %>"
+            role="tabpanel"
+            aria-labelledby="<%= "headingSection#{section.id}" %>">
+             <div class="panel-body" data-loaded="<%= current_section.present? && section.id == current_section.id %>">
+              <%# This is AJAX loaded on demand unless section_id is specified in the URL %>
+              <% if current_section.present? && section.id == current_section.id %>
+                <% partial = "org_admin/sections/#{section.modifiable? ? 'edit' : 'show'}" %>
+                <%= render partial: "#{partial}", 
+                      locals: { 
+                        template: template, 
+                        phase: phase, 
+                        section: current_section } 
+                %>
+              <% end %>
+             </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <% if template.latest? && (modifiable || template.customization_of.present?) %>
+      <div class="panel panel-default">
+        <a href="#new_section" class="heading-button" 
+           data-toggle="collapse" data-parent="sections-accordion" 
+           data-target="#collapseSectionNew"
+           aria-expanded="false" 
+           aria-controls="#collapseSectionNew">
+
+          <div class="panel-heading" role="tab" id="<%= "headingSectionNew" %>">
+            <div class="panel-title pull-left">
+              <%= _('Add a new section') %>
+            </div>
+            <div class="pull-right">
+              <i class="fa fa-plus pull-right" aria-hidden="true"></i>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </a>
+        <div
+          id="collapseSectionNew" class="panel-collapse collapse" role="tabpanel"
+          aria-labelledby="<%= "headingSectionNew" %>">
+           <div class="panel-body">
+             <%= render partial: 'org_admin/sections/new', 
+                        locals: { 
+                          template: template, 
+                          phase: phase } %>
+           </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

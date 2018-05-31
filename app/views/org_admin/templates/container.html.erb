@@ -1,19 +1,19 @@
-<%= current_tab = '' unless current_tab.present? %>
+<% modifiable = template.latest? && !template.customization_of.present? && template.id.present? && (template.org_id = current_user.org.id) %>
 <div class="row">
   <div class="col-md-12">
-    <h1><%= template.title %></h1>
-    <%= link_to _('View all templates'), org_admin_templates_path(r: current_tab), class: 'btn btn-default pull-right' %>
+    <h1><%= template.id.present? ? template.title : _('New Template') %></h1>
+    <%= link_to _('View all templates'), referrer, class: 'btn btn-default pull-right' %>
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
     <!-- render navigation tabs for the template-->
-    <%= render partial: "/org_admin/templates/admin_nav_tabs", locals: local_assigns %>
+    <%= render partial: "org_admin/templates/navigation", locals: local_assigns.merge({ modifiable: modifiable }) %>
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active">
         <div class="panel panel-default">
           <div class="panel-body">
-            <%= render partial: partial_path, locals: local_assigns %>
+            <%= render partial: partial_path, locals: local_assigns.merge({ referrer: referrer, modifiable: modifiable }) %>
           </div>
         </div>
       </div>

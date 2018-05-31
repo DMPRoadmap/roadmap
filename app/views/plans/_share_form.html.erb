@@ -91,7 +91,13 @@
       <%= f.label :access_level, raw("#{f.radio_button :access_level, 1} #{_('Read only: can view and comment, but not make changes')}") %>
     </div>
 
+  <!-- START DMPTool customization -->
+  <!-- ========================================= -->
+    <%#= f.button(_('Submit'), class: "btn btn-primary", type: "submit") %>
     <%= f.button(_('Send invitation'), class: "btn btn-primary", type: "submit") %>
+  <!-- ========================================= -->
+  <!-- END DMPTool customization -->
+
   </div>
   <div class="clearfix"></div>
 <% end %>

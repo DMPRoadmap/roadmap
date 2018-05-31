@@ -5,7 +5,14 @@
 </div>
 
 <div class="row">
+
+<!-- START DMPTool customization -->
+<!-- ========================================= -->
+  <!-- <div class="col-md-12"> -->
   <div class="col-md-6">
+<!-- ========================================= -->
+<!-- END DMPTool customization -->
+
     <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :put, id: "user_reset_password_form"}) do |f| %>
       <%= devise_error_messages! %>
       <%= f.hidden_field :reset_password_token %>
@@ -18,6 +25,16 @@
         <%= f.label(:password_confirmation, _('Password confirmation'), class: 'control-label') %>
         <%= f.password_field(:password_confirmation, class: 'form-control', "aria-required": true) %>
       </div>
+
+<!-- START DMPTool customization -->
+<!-- ========================================= -->
+  <!-- <div class="checkbox"> -->
+    <!-- <label for="passwords_toggle"> -->
+      <!-- <input type="checkbox" id="passwords_toggle" class="passwords_toggle"/><%#= _('Show passwords') %> -->
+    <!-- </label> -->
+  <!-- </div> -->
+<!-- ========================================= -->
+<!-- END DMPTool customization -->
 
       <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
 

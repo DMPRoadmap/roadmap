@@ -21,17 +21,41 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # @scheme [IdentifierScheme] The IdentifierScheme for the provider
   # -------------------------------------------------------------
   def handle_omniauth(scheme)
+  # ------------------------------------
+  # START DMPTool customization
+    #user = User.from_omniauth(request.env["omniauth.auth"].nil? ? request.env : request.env["omniauth.auth"])
+  
     omniauth = (request.env["omniauth.auth"].nil? ? request.env : request.env["omniauth.auth"])
     user = User.from_omniauth(omniauth)
-    
     omniauth_info = (omniauth.nil? ? {} : (omniauth.info.nil? ? {} : omniauth.info))
+  # END DMPTool customization
+  # ------------------------------------
     
     # If the user isn't logged in
     if current_user.nil? 
+
+    # ------------------------------------
+    # START DMPTool customization
+      # If the uid didn't have a match in the system send them to register
+      #if user.nil?
+        #session["devise.#{scheme.name.downcase}_data"] = request.env["omniauth.auth"]
+        #redirect_to new_user_registration_url
+        
+      # Otherwise sign them in
+      #else
+        # Until ORCID becomes supported as a login method
+        #if scheme.name == 'shibboleth'
+          #set_flash_message(:notice, :success, kind: scheme.description) if is_navigational_format?
+          #sign_in_and_redirect user, event: :authentication
+        #else
+          #flash[:notice] = _('Successfully signed in')
+          #redirect_to new_user_registration_url
+        #end
+      #end
+          
       # If the uid didn't have a match in the system then attempt to find them by email
       if user.nil?
-        user = User.where_case_insensitive('email', omniauth_info.email).first unless omniauth_info.email.nil?
-        
+        user = User.where_case_insensitive('email', omniauth_info.email).first unless omniauth_info.email.nil?        
         # If we could not find the email
         if user.nil?
           # Extract as much info as we can from the omniauth response
@@ -56,7 +80,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           session["devise.#{scheme.name.downcase}_data"] = omniauth
           flash[:notice] = _('It looks like this is your first time logging in. Please verify and complete the information below to finish creating an account.')
           render 'devise/registrations/new', locals: { user: user, orgs: Org.participating_as_array.sort{ |a, b| a.name <=> b.name } }
-
         else
           if UserIdentifier.create(identifier_scheme: scheme, 
                                    identifier: omniauth.uid,
@@ -68,8 +91,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
             flash[:notice] = _('Unable to create your account at this time.')
             redirect_to new_user_registration_url
           end
-        end
-        
+        end        
       # Otherwise sign them in
       else
         # Until ORCID becomes supported as a login method
@@ -81,7 +103,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           redirect_to new_user_registration_url
         end
       end
-      
+  # END DMPTool customization
+  # ------------------------------------
+    
     # The user is already logged in and just registering the uid with us
     else
       # If the user could not be found by that uid then attach it to their record

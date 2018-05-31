@@ -126,7 +126,7 @@ class Org < ActiveRecord::Base
   ##
   # returns all published templates belonging to the organisation
   #
-  # @return [Array<Dmptemplate>] published dmptemplates
+  # @return [Array<Template>] published templates
 	def published_templates
 		return templates.where("published = ?", true)
 	end
@@ -154,6 +154,8 @@ class Org < ActiveRecord::Base
     self.token_permission_types << token_permission_type unless self.token_permission_types.include? token_permission_type
   end
   
+# START DMPTool customization
+# ---------------------------------------------------------
   # DMPTool participating institution helpers
   def self.participating
     shibbolized = Org.joins(:identifier_schemes).where('is_other IS NULL').pluck(:id)
@@ -168,6 +170,8 @@ class Org < ActiveRecord::Base
   def shibbolized?
     self.org_identifiers.where(identifier_scheme: IdentifierScheme.find_by(name: 'shibboleth')).present?
   end
+# ---------------------------------------------------------
+# END DMPTool customization
 
   private
     ##

@@ -23,6 +23,10 @@ h1, h2, h3, h4 {
   margin-bottom: 5px;
 }
 
+.white {
+  color: $white;
+}
+
 /* LINKS AND BUTTONS */
 /* --------------------------------------- */
 #sign-in-menu li.dropdown {
@@ -168,6 +172,9 @@ nav.pagination {
 .alert-warning {
   background-color: $red;
 }
+#global-notification-area .alert, #global-notification-area .fa {
+  color: $black;
+}
 
 /* FONT SIZES */
 /* --------------------------------------- */
@@ -266,6 +273,7 @@ div.tab-content {
     margin-top: -1px;
 
     .fa {
+      color: $white;
       font-size: 1.5rem;
       padding-right: 5px;
     }
@@ -392,9 +400,8 @@ li.bg-primary {
 
 /* LAYOUT */
 /* --------------------------------------- */
-header, #account-nav, #notification-area, #forgot-password-notification-area, 
-main, footer,
-.homepage-img #home-welcome-msg #message{
+header, #account-nav, #notification-area, #global-notification-area, #forgot-password-notification-area, 
+main, footer, .homepage-img #home-welcome-msg #message{
   font-family: Arial;
   min-width: 480px;
   max-width: 1140px;
@@ -403,7 +410,7 @@ header, footer {
   padding: 0 15px;
 }
 
-#notification-area, #forgot-password-notification-area {
+#notification-area, #global-notification-area, #forgot-password-notification-area {
   margin: -10px auto 5px auto;
   padding: 5px 0 5px 20px;
   
@@ -411,6 +418,10 @@ header, footer {
     font-size: 1.4rem;
     padding-right: 5px;
   }
+}
+
+#global-notification-area {
+  padding-left: 0;
 }
 
 /*   HEADER */

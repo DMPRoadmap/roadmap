@@ -17,9 +17,9 @@ class PublicPagesControllerTest < ActionDispatch::IntegrationTest
                                        roles: [Role.new(user: User.last, creator: true)])
     end
 
-    @inst_tmplt = Template.create!(title: 'Inst template', org: Org.institution.first, migrated: false, published: true)
-    @dflt_tmplt = Template.create!(title: 'Dflt template', org: Org.managing_orgs.first, migrated: false, published: true)
-    @fndr_tmplt = Template.create!(title: 'Fndr template', org: Org.funder.first, migrated: false, published: true)
+    @inst_tmplt = Template.create!(title: 'Inst template', org: Org.institution.first, archived: false, published: true)
+    @dflt_tmplt = Template.create!(title: 'Dflt template', org: Org.managing_orgs.first, archived: false, published: true)
+    @fndr_tmplt = Template.create!(title: 'Fndr template', org: Org.funder.first, archived: false, published: true)
 
     [@inst_tmplt, @dflt_tmplt, @fndr_tmplt].each do |t|
       t.published = true
@@ -77,31 +77,31 @@ class PublicPagesControllerTest < ActionDispatch::IntegrationTest
     get public_templates_path
     assert_response :success
     assert assigns(:templates)
-    assert @response.body.include?(template_export_path(@fndr_tmplt.dmptemplate_id)), "expected to see the funder template download link when NOT logged in"
-    assert @response.body.include?(template_export_path(@dflt_tmplt.dmptemplate_id)), "expected to see the default template download link when NOT logged in"
-    assert_not @response.body.include?(template_export_path(@inst_tmplt.dmptemplate_id)), "expected to NOT see the institution template download link when NOT logged in"
+    assert @response.body.include?(template_export_path(@fndr_tmplt.family_id)), "expected to see the funder template download link when NOT logged in"
+    assert @response.body.include?(template_export_path(@dflt_tmplt.family_id)), "expected to see the default template download link when NOT logged in"
+    assert_not @response.body.include?(template_export_path(@inst_tmplt.family_id)), "expected to NOT see the institution template download link when NOT logged in"
 
     # Verify the same results are received when the user is logged in
     sign_in @user
     get public_templates_path
     assert_response :success
     assert assigns(:templates)
-    assert @response.body.include?(template_export_path(@fndr_tmplt.dmptemplate_id)), "expected to see the funder template download link when NOT logged in"
-    assert @response.body.include?(template_export_path(@dflt_tmplt.dmptemplate_id)), "expected to see the default template download link when NOT logged in"
-    assert_not @response.body.include?(template_export_path(@inst_tmplt.dmptemplate_id)), "expected to NOT see the institution template download link when NOT logged in"
+    assert @response.body.include?(template_export_path(@fndr_tmplt.family_id)), "expected to see the funder template download link when NOT logged in"
+    assert @response.body.include?(template_export_path(@dflt_tmplt.family_id)), "expected to see the default template download link when NOT logged in"
+    assert_not @response.body.include?(template_export_path(@inst_tmplt.family_id)), "expected to NOT see the institution template download link when NOT logged in"
   end
   
 # TODO: Need to install the wkhtmltopdf library on Travis for this to work!
-  # GET /template_export/:dmptemplate_id (template_export_path)
+  # GET /template_export/:family_id (template_export_path)
   # ----------------------------------------------------------
   test 'export a public template' do
-#    get template_export_path(@fndr_tmplt.dmptemplate_id, format: :pdf)
+#    get template_export_path(@fndr_tmplt.family_id, format: :pdf)
 #    assert_response :success
 
-#    get template_export_path(@dflt_tmplt.dmptemplate_id, format: :pdf)
+#    get template_export_path(@dflt_tmplt.family_id, format: :pdf)
 #    assert_response :success
 
-#    get template_export_path(@inst_tmplt.dmptemplate_id, format: :pdf)
+#    get template_export_path(@inst_tmplt.family_id, format: :pdf)
 #    assert_response :redirect
 #    assert_equal "You need to sign in or sign up before continuing.", flash[:alert]
 #    assert_redirected_to root_path

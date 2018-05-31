@@ -11,6 +11,25 @@
 <% end %>
 <% end %>
 </address>
+
+<!-- START DMPTool customization -->
+<!-- ========================================= -->
+<%#
+telephone=Rails.configuration.branding[:organisation][:telephone]
+if telephone.present? %>
+  <!-- <strong><%#= "#{_('Helpline')} #{telephone}" %></strong> -->
+<%# end %>
+<%#
+email=Rails.configuration.branding[:organisation][:email] 
+if email.present? %>
+  <!-- <address> -->
+    <!-- <strong><%#= _('Email') %></strong> -->
+      <!-- <a href="<%#= "mailto:#{email}" %>"><%#= email %></a> -->
+    <!-- </address> -->
+<%# end %>
+<!-- ========================================= -->
+<!-- END DMPTool customization -->
+
 <%
 link=Rails.configuration.branding[:organisation][:google_maps_link]
 if link.present? %>

@@ -1,35 +1,46 @@
-<%# locals: { controller, action, paginable, scope, current } %>
 <div class="table-responsive">
   <table class="table table-hover tablesorter">
     <thead>
       <tr>
-        <th><%= _('Title') %>&nbsp;<%= paginable_sort_link('title') %></th>
-        <th class="text-center"><%= _('Version') %>&nbsp;<%= paginable_sort_link('version') %></th>
-        <th class="text-center"><%= _('Published') %>&nbsp;<%= paginable_sort_link('published') %></th>
-        <th class="last-edited"><%= _('Last updated') %>&nbsp;<%= paginable_sort_link('updated_at') %></th>
+        <th><%= _('Title') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
+        <th class="text-center"><%= _('Version') %>&nbsp;<%= paginable_sort_link('templates.version') %></th>
+        <th class="text-center"><%= _('Published') %>&nbsp;<%= paginable_sort_link('templates.published') %></th>
+        <th><%= _('Last updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
         <th class="text-center sorter-false"><%= _('Actions') %></th>
       </tr>
     </thead>
     <tbody>
-      <% scope.each do |org_template| %>
+      <% scope.each do |template| %>
         <tr>
           <td>
-            <%= org_template.title%>
-            <% if org_template == current && !org_template.published%>
+            <%= template.title%>
+            <% if template.draft? && template.latest? %>
               &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;&nbsp;<em><%=_('Draft')%></em>
             <% end %>
           </td>
           <td class="text-center">
-            <%= org_template.version %>
+            <%= template.version %>
           </td>
           <td class="text-center">
-            <%= (org_template.published? ? _('Yes') : _('No')) %>
+            <%= (template.published? ? _('Yes') : _('No')) %>
           </td>
           <td>
-            <%= l org_template.updated_at.to_date, formats: :short %>
+            <%= l template.updated_at.to_date, formats: :short %>
           </td>
           <td class="text-center">
-            <%= link_to (org_template == current ? _('Edit') : _('View')), edit_org_admin_template_path(id: org_template), class: "dmp_table_link"%>
+            <% if template.customization_of.present? %>
+              <% if template.latest? %>
+                <%= link_to  _('Edit customizations'), org_admin_template_path(id: template.id), class: "dmp_table_link" %>
+              <% else %>
+                <%= link_to  _('View customizations'), org_admin_template_path(id: template.id), class: "dmp_table_link" %>
+              <% end %>
+            <% else %>
+              <% if template.latest? %>
+                <%= link_to _('Edit'), edit_org_admin_template_path(id: template.id), class: "dmp_table_link" %>
+              <% else %>
+                <%= link_to  _('View'), org_admin_template_path(id: template.id), class: "dmp_table_link" %>
+              <% end %>
+            <% end %>
           </td>
         </tr>
       <% end %>

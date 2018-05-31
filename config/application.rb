@@ -22,9 +22,6 @@ module DMPRoadmap
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-	
-	#commented 15.03.2016
-	#config.autoload_paths << Rails.root.join('lib')
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
@@ -42,6 +39,8 @@ module DMPRoadmap
 
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true
+    
+    config.eager_load_paths << "app/models/scopes"
 
     # Use SQL instead of Active Record's schema dumper when creating the database.
     # This is necessary if your schema can't be completely dumped by the schema dumper,
@@ -74,7 +73,12 @@ module DMPRoadmap
     # will be driven out to your federation's discovery service
     #
     # A super admin will also be able to associate orgs with their shibboleth entityIds if this is set to true
+
+  # START DMPTool customization
+  # ----------------------------------------
     config.shibboleth_use_filtered_discovery_service = true
+  # ----------------------------------------
+  # END DMPTool customization
 
     # Active Record will no longer suppress errors raised in after_rollback or after_commit
     # in the next version. Devise appears to be using those callbacks.
@@ -94,6 +98,11 @@ module DMPRoadmap
     # The percentage of answered questions needed to enable the plan visibility section of the Share plan page
     config.default_plan_percentage_answered = 50
     
+  # START DMPTool customization
+  # ----------------------------------------
     config.rss = 'https://blog.dmptool.org/feed'
+  # ----------------------------------------
+  # END DMPTool customization
+
   end
 end

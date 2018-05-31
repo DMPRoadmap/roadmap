@@ -44,7 +44,12 @@ class OrgPolicy < ApplicationPolicy
     true
   end
   
+# START DMPTool customization
+# ---------------------------------------------------------
   def public?
     true
   end
+# ---------------------------------------------------------
+# END DMPTool customization
+
 end

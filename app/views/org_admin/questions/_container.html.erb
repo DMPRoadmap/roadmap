@@ -1,0 +1,5 @@
+<div class="question_container" 
+     id="<%= "question_#{question.id}" %>">
+  <%= render partial: "org_admin/questions/show", 
+             locals: local_assigns.merge({ question: question }) %>
+</div>

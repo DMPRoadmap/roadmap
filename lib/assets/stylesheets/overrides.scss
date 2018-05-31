@@ -493,6 +493,12 @@ $tooltip-background: $grey;
   }
 }
 
+/* Templates page table pre-defined filters */
+.template-table-filters .navbar-nav > li > a {
+  color: $grey;
+  padding: 5px 15px 5px 5px;
+}
+
 /* Sharp edges */
 #app-navbar,
 #org-navbar,

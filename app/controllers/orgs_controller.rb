@@ -101,6 +101,8 @@ class OrgsController < ApplicationController
     end
   end
   
+# ---------------------------------------------------------
+# START DMPTool customization
   # GET /orgs/:id/logo (format: :json)
   # ----------------------------------------------------------------
   def logo
@@ -114,7 +116,9 @@ class OrgsController < ApplicationController
       }
     }.to_json
   end
-
+# END DMPTool customization
+# ---------------------------------------------------------
+  
   private
     def org_params
       params.require(:org).permit(:name, :abbreviation, :logo, :contact_email, :contact_name, :remove_logo, :org_type,
