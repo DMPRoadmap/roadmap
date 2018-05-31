@@ -100,7 +100,7 @@ GEM
       activesupport (>= 4.2.0)
     hashdiff (0.3.7)
     hashie (3.5.7)
-    htmltoword (0.7.0)
+    htmltoword (1.0.0)
       actionpack
       nokogiri
       rubyzip (>= 1.0)
