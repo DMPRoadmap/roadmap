@@ -13,6 +13,9 @@
 public/*.jpg
 public/*.png
 
+# Ignore .bak files
+*.bak
+
 # Ignore public subdirectories
 public/*
 public/apidocs/*
