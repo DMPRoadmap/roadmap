@@ -1,0 +1,14 @@
+<% FastGettext.with_locale FastGettext.default_locale do %>
+    <p><%= _('Hello ') %><%= @user.name %></p>
+  
+    <p>
+      <%= d_('dmpopidor', 'You have not signed in since %{last_sign_in_date} and your account has been deactivated') % { :last_sign_in_date => @user.last_sign_in_at.to_date } %>.
+      <%= d_('dmpopidor', 'All accounts inactive for 5 years are automaticaly deactivated') %>.
+    </p>
+  
+    <p>
+      <%=_('All the best,')%><br/>
+      <%= _('The %{tool_name} team') %{:tool_name => tool_name} %>
+    </p>
+  <% end %>
+  

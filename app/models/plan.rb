@@ -37,7 +37,7 @@ class Plan < ActiveRecord::Base
   accepts_nested_attributes_for :roles
 
   # public is a Ruby keyword so using publicly
-  enum visibility: [:organisationally_visible, :publicly_visible, :is_test, :privately_visible]
+  enum visibility: [:organisationally_visible, :publicly_visible, :is_test, :privately_visible, :privately_private_visible]
 
   #TODO: work out why this messes up plan creation :
   #   briley: Removed reliance on :users, its really on :roles (shouldn't have a plan without at least a creator right?) It should be ok like this though now
@@ -743,7 +743,8 @@ class Plan < ActiveRecord::Base
       :organisationally_visible => _('organisational'),
       :publicly_visible => _('public'),
       :is_test => _('test'),
-      :privately_visible => _('private')
+      :privately_visible => _('Administrator'),
+      :privately_private_visible => _('private')
     }
     message[type]
   end

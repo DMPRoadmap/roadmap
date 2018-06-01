@@ -4,15 +4,19 @@
 <%= form_for(@plan, url: visibility_plan_path, method: :post, html: { id: 'set_visibility', remote: true }) do |f| %>
   <fieldset<%= (allow_visibility ? '' : ' disabled') %>>
     <div class="form-group col-xs-8">
+    <div class="radio">
+      <%= f.label :visibility_privately_private_visible, raw("#{f.radio_button :visibility, :privately_private_visible}\
+        #{d_('dmpopidor', 'Private: visible to me and specified collaborators')}") %>
+      </div>
       <div class="radio">
         <%= f.label :visibility_privately_visible, raw("#{f.radio_button :visibility, :privately_visible}\
-        #{_('Private: visible to me, specified collaborators and administrators at my organisation')}") %>
+        #{d_('dmpopidor', 'Administrator: visible to me, specified collaborators and administrators at my organisation')}") %>
       </div>
       <div class="radio">
         <%= f.label :visibility_organisationally_visible, raw("#{f.radio_button :visibility, :organisationally_visible} #{_('Organisation: anyone at my organisation can view')}") %>
       </div>
       <div class="radio">
-        <%= f.label :visibility_publicly_visible, raw("#{f.radio_button :visibility, :publicly_visible} #{_('Public: anyone can view')}") %>
+        <%= f.label :visibility_publicly_visible, raw("#{f.radio_button :visibility, :publicly_visible} #{_('Public: anyone can view.')}") %>
       </div>
     </div>
     <div class="col-xs-8">

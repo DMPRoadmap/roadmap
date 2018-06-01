@@ -5,6 +5,11 @@ class Paginable::PlansController < ApplicationController
     raise Pundit::NotAuthorizedError unless Paginable::PlanPolicy.new(current_user).privately_visible?
     paginable_renderise(partial: 'privately_visible', scope: Plan.active(current_user))
   end
+  # /paginable/plans/privately_private_visible/:page
+  def privately_private_visible
+    raise Pundit::NotAuthorizedError unless Paginable::PlanPolicy.new(current_user).privately_private_visible?
+    paginable_renderise(partial: 'privately_private_visible', scope: Plan.active(current_user))
+  end
   # GET /paginable/plans/organisationally_or_publicly_visible/:page
   def organisationally_or_publicly_visible
     raise Pundit::NotAuthorizedError unless Paginable::PlanPolicy.new(current_user).organisationally_or_publicly_visible?
@@ -20,6 +25,6 @@ class Paginable::PlansController < ApplicationController
   def org_admin
     raise Pundit::NotAuthorizedError unless current_user.present? && current_user.can_org_admin?
     paginable_renderise(partial: 'org_admin',
-      scope: current_user.org.plans)
+      scope: current_user.org.plans.where.not(:visibility => 4))
   end
 end

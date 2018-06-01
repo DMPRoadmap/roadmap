@@ -62,7 +62,7 @@ module DMPRoadmap
     # Enable shibboleth as an alternative authentication method
     # Requires server configuration and omniauth shibboleth provider configuration
     # See config/initializers/devise.rb
-    config.shibboleth_enabled = true
+    config.shibboleth_enabled = false
 
     # Relative path to Shibboleth SSO Logout
     config.shibboleth_login = '/Shibboleth.sso/Login'
@@ -87,8 +87,9 @@ module DMPRoadmap
     #   organisationally_visible  - Any member of the user's org can view, export and duplicate the plan
     #   publicly_visibile         - (NOT advisable because plans will show up in Public DMPs page by default)
     #   is_test                   - (NOT advisable because test plans are excluded from statistics)
-    #   privately_visible         - Only the owner and people they invite can access the plan
-    config.default_plan_visibility = 'privately_visible'
+    #   privately_visible         - Only the owner, people they invite can access the plan and org admin
+    #   privately_private_visible - Only the owner and people they invite can access the plan
+    config.default_plan_visibility = 'privately_private_visible'
 
     # The percentage of answered questions needed to enable the plan visibility section of the Share plan page
     config.default_plan_percentage_answered = 50

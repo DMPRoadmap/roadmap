@@ -2405,3 +2405,27 @@ msgstr ""
 
 msgid "write and edit the plan in a collaborative manner."
 msgstr ""
+
+
+
+msgid "Account expiration in %{tool_name}"
+msgstr ""
+
+msgid "Account expired in %{tool_name}"
+msgstr ""
+
+msgid "You have not signed in since %{last_sign_in_date} and your account has been deactivated"
+msgstr ""
+
+msgid "All accounts inactive for 5 years are automaticaly deactivated"
+msgstr ""
+
+msgid "You have not signed in since %{last_sign_in_date} and our system will deactivate your account at %{end_date}"
+msgstr ""
+
+msgid "All accounts inactive for 5 years are automaticaly deactivated. If you want your account to remain active, please just sign in before %{end_date}"
+msgstr ""
+
+
+
+
