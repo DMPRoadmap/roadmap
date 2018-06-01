@@ -81,8 +81,14 @@ namespace :translatable do
         translatables << scan_for_translations(File.read(file))
       end
     end
+
+    translatables = translatables.flatten.uniq.sort{ |a,b,| a <=> b }
  
-    translatables = translatables.flatten.uniq.sort{ |a,b| a <=> b }
+#translatables.each do |entry|
+#puts entry.inspect
+#puts ""
+#end
+ 
     unless translatables.empty?
       process_po_file(app_pot_filename, translatables)
     
@@ -97,7 +103,8 @@ namespace :translatable do
   
   MSGID = /msgid[\s]+\"(.*)\"/
   MSGSTR = /msgstr[\s]+\"(.*)\"/
-  TRANSLATABLE = /_\(.*?\)/
+  TRANSLATABLE = /(_\(.*?[\'\"]\)[\)\s\}\,\n\%]+)/
+  CONTEXTUALIZED_TRANSLATABLE = /(n_\([\'\"](.*?)[\'\"]\,\s*[\'\"](.*?)[\'\"])/
   FUZZY = /#, fuzzy/
   
   def process_po_file(file_name, translatable_text)
@@ -155,9 +162,16 @@ namespace :translatable do
   end
   
   def scan_for_translations(file)
-    file.to_s.scan(TRANSLATABLE).map do |text|
-      text.sub(/^_\([\'\"]/, '').sub(/[\'\"]\)$/, '')
+    translatables = file.to_s.scan(TRANSLATABLE).map do |text|
+      text[0]
     end
+    file.to_s.scan(CONTEXTUALIZED_TRANSLATABLE).each do |text|
+      parts = text[0].split(/[\'\"]\,\s*[\'\"]/)
+      translatables << parts[0]if parts[0].present?
+      translatables << parts[1] if parts[1].present?
+    end
+    
+    translatables.map{ |entry| entry.sub(/^n?_\([\'\"]/, '').sub(/[\'\"]{1}[\)\}\,\s\n\%]*$/, '').gsub(/[\\]+[\"]/, "\"").gsub(/[\\]+[\']/, "'").strip }
   end
 
   def consolidate_translatables(hash, translatables)
