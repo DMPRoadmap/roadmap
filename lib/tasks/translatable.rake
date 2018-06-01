@@ -103,7 +103,7 @@ namespace :translatable do
   
   MSGID = /msgid[\s]+\"(.*)\"/
   MSGSTR = /msgstr[\s]+\"(.*)\"/
-  TRANSLATABLE = /(_\(.*?[\'\"]\)[\)\s\}\,\n\%]+)/
+  TRANSLATABLE = /(_\((.|\n)*?[\'\"]\)[\)\s\}\,\n\%]+)/
   CONTEXTUALIZED_TRANSLATABLE = /(n_\([\'\"](.*?)[\'\"]\,\s*[\'\"](.*?)[\'\"])/
   FUZZY = /#, fuzzy/
   
@@ -147,7 +147,7 @@ namespace :translatable do
   
   def hash_to_po(hash)
     lines = ""
-    hash.keys.each do |key|
+    hash.keys.sort{ |a,b| a <=> b }.each do |key|
       if key != ''
         if hash[key][:obsolete]
           lines += "\n#msgid \"#{key.gsub('"', '\\"')}\"\n#msgstr \"#{hash[key][:text].gsub('"', '\\"')}\"\n"
@@ -171,7 +171,13 @@ namespace :translatable do
       translatables << parts[1] if parts[1].present?
     end
     
-    translatables.map{ |entry| entry.sub(/^n?_\([\'\"]/, '').sub(/[\'\"]{1}[\)\}\,\s\n\%]*$/, '').gsub(/[\\]+[\"]/, "\"").gsub(/[\\]+[\']/, "'").strip }
+    translatables.map do |entry| 
+      entry.sub(/^n?_\([\'\"]/, '').              # remove the gettext markup from front of line
+        sub(/[\'\"]{1}[\)\}\,\s\n\%]*$/, '').     # remove the gettext markup from end of line
+        gsub(/[\\]+[\"]/, "\"").                  # remove double escaped quotes (e.g. \\\")
+        gsub(/[\\]+[\']/, "'").                   # remove double escaped single quotes
+        gsub(/\'\\\n\s*[\'\"]/, '')               # remove line continuations
+    end
   end
 
   def consolidate_translatables(hash, translatables)
