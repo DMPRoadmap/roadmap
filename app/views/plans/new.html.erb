@@ -42,7 +42,8 @@
         <div class="col-md-1 pad-top-10 create-plan-or"><strong>- <%= _('or') %> -</strong></div>
         <div class="col-md-5 create-plan-checkbox">
           <div class="checkbox">
-            <%= label_tag(:plan_no_org, raw("#{check_box_tag(:plan_no_org)} #{_('My research organisation is not on the list')} <em>#{_(' or ')}</em> #{_('no research organisation is associated with this plan')}")) %>
+            <% primary_research_org_message = _('No research organisation associated with this plan or my research organisation is not listed') %>
+            <%= label_tag(:plan_no_org, raw("#{check_box_tag(:plan_no_org)} #{primary_research_org_message}")) %>
           </div>
         </div>
       </div>
@@ -64,7 +65,8 @@
         <div class="col-md-1 create-plan-or"><strong>- <%= _('or') %> -</strong></div>
         <div class="col-xs-5 create-plan-checkbox">
           <div class="checkbox">
-            <%= label_tag(:plan_no_funder, raw("#{check_box_tag(:plan_no_funder)} #{_('No funder associated with this plan')}")) %>
+            <% primary_funding_message = _('No funder associated with this plan or my funder is not listed') %>
+            <%= label_tag(:plan_no_funder, raw("#{check_box_tag(:plan_no_funder)} #{primary_funding_message}")) %>
           </div>
         </div>
       </div>
