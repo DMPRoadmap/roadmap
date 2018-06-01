@@ -19,7 +19,6 @@ end
   def privacy
   end
 
-end
   def tutorials
     
   end
