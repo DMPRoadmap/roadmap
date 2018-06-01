@@ -86,6 +86,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     get "help" => 'static_pages#help'
     get "roadmap" => 'static_pages#roadmap'
     get "terms" => 'static_pages#termsuse'
+    get "privacy" => 'static_pages#privacy'
     get "tutorials" => 'static_pages#tutorials'
     get "public_plans" => 'public_pages#plan_index'
     get "public_templates" => 'public_pages#template_index'
