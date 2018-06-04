@@ -1,3 +1,4 @@
+<% title template.id.present? ? template.title : "New Template" %>
 <% modifiable = template.latest? && !template.customization_of.present? && template.id.present? && (template.org_id = current_user.org.id) %>
 <div class="row">
   <div class="col-md-12">
