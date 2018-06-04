@@ -29,10 +29,11 @@ class PublicPagesController < ApplicationController
           render pdf: file_name,
           margin: @formatting[:margin],
           footer: {
-            center:    _('Template created using the %{application_name} service. Last modified %{date}') % {application_name: Rails.configuration.branding[:application][:name], date: l(@template.updated_at.to_date, formats: :short)},
+            center:    _('Template created using the %{application_name}. Last modified %{date}') % {application_name: Rails.configuration.branding[:application][:name], date: l(@template.updated_at.to_date, formats: :short)},
             font_size: 8,
             spacing:   (@formatting[:margin][:bottom] / 2) - 4,
-            right:     '[page] of [topage]'
+            right:     '[page] of [topage]',
+            encoding: 'utf8'
           }
         end
       end
