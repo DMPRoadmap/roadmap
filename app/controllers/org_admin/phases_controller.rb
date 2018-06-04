@@ -26,12 +26,9 @@ module OrgAdmin
     def edit
       phase = Phase.includes(:template).find(params[:id])
       authorize phase
-      if !phase.template.latest?
-        flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
-      end
       section = params.fetch(:section, nil)
       # User cannot edit a phase if its a customization so redirect to show
-      if phase.template.customization_of.present?
+      if phase.template.customization_of.present? || !phase.template.latest?
         redirect_to org_admin_template_phase_path(template_id: phase.template, id: phase.id, section: section)
       else
         render('container',
