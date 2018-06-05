@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2017-05-02 14:54+0000\n"
+"PO-Revision-Date: 2018-06-05 13:54:08-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -53,6 +53,7 @@ msgstr " has been removed by "
 msgid " in the project. You can also report bugs and request new features via "
 msgstr " in the project. You can also report bugs and request new features via "
 
+<<<<<<< HEAD
 msgid "\"#{text}\""
 msgstr "\"#{text}\""
 
@@ -138,6 +139,14 @@ msgstr "\"Your account has been linked to #{scheme.description}.\""
 
 msgid "%{add_or_edit} Annotations"
 msgstr "%{add_or_edit} Annotations"
+=======
+#, fuzzy
+msgid " or "
+msgstr ""
+
+msgid "#{text}"
+msgstr "#{text}"
+>>>>>>> 13125942... added translatable:find task and fixed up a few files
 
 msgid "%{application_name}"
 msgstr "%{application_name}"
@@ -203,8 +212,8 @@ msgid ""
 msgstr ""
 "%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})"
 
-msgid "%{plan_name}"
-msgstr "%{plan_name}"
+#msgid "%{plan_name}"
+#msgstr "%{plan_name}"
 
 msgid ""
 "%{plan_owner} has been notified that you have finished providing feedback"
@@ -232,8 +241,8 @@ msgstr ""
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
 msgstr "%{tool_name}: A new comment was added to %{plan_title}"
 
-msgid "%{user_name}"
-msgstr "%{user_name}"
+#msgid "%{user_name}"
+#msgstr "%{user_name}"
 
 msgid "%{value} is not a valid format"
 msgstr "%{value} is not a valid format"
@@ -284,6 +293,7 @@ msgstr "..."
 msgid "... (continued)"
 msgstr "... (continued)"
 
+<<<<<<< HEAD
 msgid ""
 "<h3>Your personal details and consent notice</h3> \n"
 "\n"
@@ -422,6 +432,10 @@ msgstr ""
 "for feedback from an administrator at your organization. If you have "
 "questions pertaining to this action, please contact us at "
 "%{organisation_email}.</p>"
+=======
+msgid "<p>%{application_name} has been developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>"
+msgstr "<p>%{application_name} has been jointly developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>"
+>>>>>>> 13125942... added translatable:find task and fixed up a few files
 
 msgid ""
 "<p>To create a new template, first enter a title and description. Once you "
@@ -432,6 +446,7 @@ msgstr ""
 "have saved this you will be presented with options to add one or more "
 "phases. </p>"
 
+<<<<<<< HEAD
 msgid ""
 "<p>When you log in to DMPRoadmap you will be directed to the 'My Dashboard' "
 "page. From here you can edit, share, download, copy or remove any of your "
@@ -596,6 +611,53 @@ msgstr ""
 "and click to download. You can also adjust the formatting (font type, size "
 "and margins) for PDF files, which may be helpful if working to page limits.</"
 "p>"
+=======
+#, fuzzy
+msgid "<p>When you log in to DMPRoadmap you will be directed to the 'My Dashboard' page. From here you can edit, share, download, copy or remove any of your plans. You will also see plans that have been shared with you by others.</p> 
+
+          <h3>Create a plan</h3> 
+
+          <p>To create a plan, click the 'Create plan' button from the 'My Dashboard' page or the top menu. Select options from the menus and tickboxes to determine what questions and guidance you should be presented with. Confirm your selection by clicking 'Create plan.'</p> 
+
+          <h3>Write your plan</h3> 
+
+          <p>The tabbed interface allows you to navigate through different functions when editing your plan.</p> 
+          <ul> 
+            <li>'Project Details' includes basic administrative details.</li>
+            <li>Plan Overview’ tells you what template and guidance your plan is based on and gives you an overview to the questions that you will be asked.</li> 
+            <li>The following tab(s) present the questions to answer. There may be more than one tab if your funder or university asks different sets of questions at different stages e.g. at grant application and post-award.</li> 
+            <li>'Share' allows you to invite others to read or contribute to your plan.</li> 
+            <li>'Download' allows you to download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application.</li>
+          </ul> 
+
+          <p>When viewing any of the question tabs, you will see the different sections of your plan displayed. Click into these in turn to answer the questions. You can format your responses using the text editing buttons.</p> 
+
+          <p>Guidance is displayed in the right-hand panel. If you need more guidance or find there is too much, you can make adjustments on the ‘Project Details’ tab.</p> 
+
+          <h3>Share plans</h3> 
+
+          <p>Insert the email address of any collaborators you would like to invite to read or edit your plan. Set the level of permissions you would like to grant them via the radio buttons and click to 'Add collaborator.' Adjust permissions or remove collaborators at any time via the drop-down options. </p> 
+
+          <p>The ‘Share’ tab is also where you can set your plan visibility.</p>
+          <ul> 
+            <li>Private: restricted to you and your collaborators.</li>
+            <li>Organisational: anyone at your organisation can view your plan.</li> 
+            <li>Public: anyone can view your plan in the Public DMPs list.</li> 
+          </ul> 
+
+          <p>By default all new and test plans will be set to ‘Private’ visibility. ‘Public’ and ‘Organisational’ visibility are intended for finished plans. You must answer at least 50&#37; of the questions to enable these options.</p>
+ 
+          <h3>Request feedback</h3>
+          <p>There may also be an option to request feedback on your plan. This is available when research support staff at your organisation have enabled this service. Click to ‘Request feedback’ and your local administrators will be alerted to your request. Their comments will be visible in the ‘Comments’ field adjacent to each question. You will be notified by email when an administrator provides feedback.</p> 
+
+
+          <h3>Download plans</h3>
+          <p>From here you can download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application. Choose what format you would like to view/download your plan in and click to download. You can also adjust the formatting (font type, size and margins) for PDF files, which may be helpful if working to page limits.</p>"
+msgstr ""
+
+msgid "<strong>Info:</strong> Simple information message, displayed in blue.<br/><strong>Warning:</strong> warning message, for signaling something unusual, displayed in orange.<br/><strong>Danger:</strong> error message, for anything critical, displayed in red"
+msgstr "<strong>Info:</strong> Simple information message, displayed in blue.<br/><strong>Warning:</strong> warning message, for signaling something unusual, displayed in orange.<br/><strong>Danger:</strong> error message, for anything critical, displayed in red"
+>>>>>>> 13125942... added translatable:find task and fixed up a few files
 
 msgid "A Data Management Plan created using "
 msgstr "A Data Management Plan created using "
@@ -619,11 +681,19 @@ msgstr ""
 msgid "A hash is expected for links"
 msgstr "A hash is expected for links"
 
+<<<<<<< HEAD
 msgid "A key \"org\" is expected for links hash"
 msgstr "A key \"org\" is expected for links hash"
+=======
+msgid "A historical template cannot be retrieved for being modified"
+msgstr "A historical template cannot be retrieved for being modified"
+>>>>>>> 13125942... added translatable:find task and fixed up a few files
 
 msgid "A key %{key} is expected for links hash"
 msgstr "A key %{key} is expected for links hash"
+
+msgid "A key \"org\" is expected for links hash"
+msgstr "A key \"org\" is expected for links hash"
 
 msgid "A new comment has been added to my DMP"
 msgstr "A new comment has been added to my DMP"
@@ -920,6 +990,7 @@ msgstr "Change your password"
 msgid "Changed permissions on a Data Management Plan in %{tool_name}"
 msgstr "Changed permissions on a Data Management Plan in %{tool_name}"
 
+<<<<<<< HEAD
 msgid ""
 "Check this box when you are ready for guidance associated with this group to "
 "appear on user's plans."
@@ -933,6 +1004,21 @@ msgid ""
 msgstr ""
 "Checking this box prevents the template from appearing in the public list of "
 "templates."
+=======
+#, fuzzy
+msgid "Changing your organisation will result in the loss of your administrative privileges."
+msgstr ""
+
+msgid "Check this box when you are ready for guidance associated with this group to appear on user's plans."
+msgstr "Check this box when you are ready for guidance associated with this group to appear on user's plans."
+
+#, fuzzy
+msgid "Check this box when you are ready for this guidance to appear on user's plans."
+msgstr ""
+
+msgid "Checking this box prevents the template from appearing in the public list of templates."
+msgstr "Checking this box prevents the template from appearing in the public list of templates."
+>>>>>>> 13125942... added translatable:find task and fixed up a few files
 
 msgid "Clear search results"
 msgstr "Clear search results"
@@ -959,6 +1045,10 @@ msgstr "Click the link below to unlock your account"
 msgid "Co-owner"
 msgstr "Co-owner"
 
+#, fuzzy
+msgid "Co-owner: can edit project details, change visibility, and add collaborators"
+msgstr ""
+
 msgid "Comment"
 msgstr "Comment"
 
@@ -982,6 +1072,18 @@ msgstr "Copy"
 
 msgid "Copyright information:"
 msgstr "Copyright Information"
+
+#, fuzzy
+msgid "Could not create your %{o}."
+msgstr ""
+
+#, fuzzy
+msgid "Could not delete the %{o}."
+msgstr ""
+
+#, fuzzy
+msgid "Could not update your %{o}."
+msgstr ""
 
 msgid "Create Organisation"
 msgstr "Create organization"
@@ -1061,6 +1163,7 @@ msgstr "DMP Visibility Changed: %{plan_title}"
 msgid "DMPRoadmap"
 msgstr "DMPRoadmap"
 
+<<<<<<< HEAD
 msgid ""
 "DMPRoadmap ('the tool', 'the system') is a tool developed by the DCC and CDL "
 "as a shared resource for the research community. It is hosted at CDL by the "
@@ -1069,6 +1172,14 @@ msgstr ""
 "DMPRoadmap ('the tool', 'the system') is a tool developed by the DCC and CDL "
 "as a shared resource for the research community. It is hosted at CDL by the "
 "University of California Curation Center."
+=======
+#, fuzzy
+msgid "DMPRoadmap ('the tool', 'the system"
+msgstr ""
+
+#msgid "DMPRoadmap ('the tool', 'the system') is a tool developed by the DCC and CDL as a shared resource for the research community. It is hosted at CDL by the University of California Curation Center."
+#msgstr "DMPRoadmap ('the tool', 'the system') is a tool developed by the DCC and CDL as a shared resource for the research community. It is hosted at CDL by the University of California Curation Center."
+>>>>>>> 13125942... added translatable:find task and fixed up a few files
 
 msgid "DOCX"
 msgstr "DOCX"
@@ -1180,6 +1291,10 @@ msgstr "Edited Date"
 
 msgid "Editor"
 msgstr "Editor"
+
+#, fuzzy
+msgid "Editor: can comment and make changes"
+msgstr ""
 
 msgid "Email"
 msgstr "Email"
@@ -1312,6 +1427,10 @@ msgstr "First name"
 msgid "Font"
 msgstr "Font"
 
+#, fuzzy
+msgid "For network and information security purposes."
+msgstr ""
+
 msgid "Forgot password?"
 msgstr "Forgot your password?"
 
@@ -1399,12 +1518,21 @@ msgstr "Hello %{username}"
 msgid "Help"
 msgstr "Help"
 
+<<<<<<< HEAD
 msgid ""
 "Here you can view previously published versions of your template.  These can "
 "no longer be modified."
 msgstr ""
 "<p>Here you can view previously published versions of your template.  These "
 "can no longer be modified.</p>"
+=======
+#, fuzzy
+msgid "Helpline"
+msgstr ""
+
+msgid "Here you can view previously published versions of your template.  These can no longer be modified."
+msgstr "<p>Here you can view previously published versions of your template.  These can no longer be modified.</p>"
+>>>>>>> 13125942... added translatable:find task and fixed up a few files
 
 msgid "Hide list."
 msgstr "Hide list."
@@ -1417,6 +1545,10 @@ msgstr "Home"
 
 msgid "How to use the API"
 msgstr "How to use the API"
+
+#, fuzzy
+msgid "I accept the"
+msgstr ""
 
 msgid "ID"
 msgstr "ID"
@@ -1480,6 +1612,7 @@ msgstr ""
 "Dashboard page in %{tool_name}"
 
 #, fuzzy
+<<<<<<< HEAD
 msgid ""
 "If you wish to add an organisational template for a Data Management Plan, "
 "use the 'create template' button. You can create more than one template if "
@@ -1494,6 +1627,13 @@ msgstr ""
 "will be presented to users within your organization when no funder templates "
 "apply. If you want to add questions to funder templates use the 'customize "
 "template' options below."
+=======
+msgid "If you have any questions, please contact the %{application_name} team at: <a href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>"
+msgstr ""
+
+#msgid "If you have questions pertaining to this action, please visit the My Dashboard page in %{tool_name}"
+#msgstr "If you have questions pertaining to this action, please visit the My Dashboard page in %{tool_name}"
+>>>>>>> 13125942... added translatable:find task and fixed up a few files
 
 msgid ""
 "If you would like to change your password please complete the following "
@@ -1512,6 +1652,14 @@ msgstr ""
 msgid "Information was successfully created."
 msgstr "Information was successfully created."
 
+#, fuzzy
+msgid "Information about you: how we use it and with whom we share it"
+msgstr ""
+
+#, fuzzy
+msgid "Institution"
+msgstr ""
+
 msgid "Institutional credentials"
 msgstr "Institutional credentials"
 
@@ -1527,8 +1675,14 @@ msgstr "Invalid font size"
 msgid "Invalid maximum pages"
 msgstr "Invalid maximum pages"
 
+<<<<<<< HEAD
 msgid "Invitation to %{email} issued successfully. \n"
 msgstr "Invitation issued successfully."
+=======
+#, fuzzy
+msgid "Invitation to %{email} issued successfully. \n"
+msgstr ""
+>>>>>>> 13125942... added translatable:find task and fixed up a few files
 
 msgid "Invite collaborators"
 msgstr "Invite collaborators"
@@ -1649,6 +1803,10 @@ msgstr "My organization isn't listed."
 msgid "My privileges"
 msgstr "My privileges"
 
+#, fuzzy
+msgid "My research organisation is not on the list"
+msgstr ""
+
 msgid "N/A"
 msgstr "N/A"
 
@@ -1685,6 +1843,10 @@ msgstr "No %{application_name} account?"
 msgid "No additional comment area will be displayed."
 msgstr "No additional comment area will be displayed."
 
+#, fuzzy
+msgid "No funder associated with this plan"
+msgstr ""
+
 msgid "No items available."
 msgstr "No items available."
 
@@ -1713,6 +1875,16 @@ msgstr "No. plans during last year"
 msgid "No. users joined during last year"
 msgstr "No. users joined during last year"
 
+<<<<<<< HEAD
+=======
+msgid "None provided"
+msgstr "None provided"
+
+#, fuzzy
+msgid "Not Answered"
+msgstr ""
+
+>>>>>>> 13125942... added translatable:find task and fixed up a few files
 msgid "Not Applicable"
 msgstr "Not Applicable"
 
@@ -1747,8 +1919,20 @@ msgstr ""
 "ORCID provides a persistent digital identifier that distinguishes you from "
 "other researchers. Learn more at orcid.org"
 
+#, fuzzy
+msgid "Off"
+msgstr ""
+
+#, fuzzy
+msgid "On"
+msgstr ""
+
 msgid "Optional Subset"
 msgstr "Optional subset"
+
+#, fuzzy
+msgid "Optional Subset (e.g. School/Department)"
+msgstr ""
 
 msgid "Optional plan components"
 msgstr "Optional plan components"
@@ -1834,6 +2018,14 @@ msgstr "Own templates"
 msgid "Owner"
 msgstr "Owner"
 
+#, fuzzy
+msgid "Owner email"
+msgstr ""
+
+#, fuzzy
+msgid "Owner name"
+msgstr ""
+
 msgid "PDF"
 msgstr "PDF"
 
@@ -1851,6 +2043,10 @@ msgstr "Password confirmation"
 
 msgid "Permissions"
 msgstr "Privileges"
+
+#, fuzzy
+msgid "Permissions removed on a DMP in %{tool_name}"
+msgstr ""
 
 msgid "Personal Details"
 msgstr "Personal details"
@@ -1958,12 +2154,18 @@ msgstr ""
 "%{application_name} account, you will be able to sign in directly with your "
 "institutional credentials."
 
+<<<<<<< HEAD
 msgid ""
 "Please note that your email address is used as your username.\n"
 "    If you change this, remember to use your new email address on sign in."
 msgstr ""
 "Please note that your email address is used as your username. If you "
 "change this, remember to use your new email address on sign in."
+=======
+#, fuzzy
+msgid "Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in."
+msgstr ""
+>>>>>>> 13125942... added translatable:find task and fixed up a few files
 
 msgid "Please select a research organisation and funder to continue."
 msgstr "Please select a research organization and funder to continue."
@@ -1973,6 +2175,10 @@ msgstr "Please select a sub-subject"
 
 msgid "Please select a subject"
 msgstr "Please select a subject"
+
+#, fuzzy
+msgid "Please select a template"
+msgstr ""
 
 msgid "Please select a valid funding organisation from the list."
 msgstr "Please select a valid funding organization from the list."
@@ -2020,8 +2226,12 @@ msgstr "Principal investigator / researcher"
 msgid "Principal investigator"
 msgstr "Principal investigator"
 
-msgid "Privacy policy"
-msgstr "Privacy policy"
+#msgid "Privacy policy"
+#msgstr "Privacy policy"
+
+#, fuzzy
+msgid "Privacy statement"
+msgstr ""
 
 msgid "Private"
 msgstr "Private"
@@ -2032,6 +2242,16 @@ msgstr "Private: restricted to me and my collaborators"
 msgid "Private: restricted to me and people I invite."
 msgstr "Private: restricted to me and people I invite."
 
+<<<<<<< HEAD
+=======
+#, fuzzy
+msgid "Private: visible to me, specified collaborators and administrators at my organisation"
+msgstr ""
+
+msgid "Privileges"
+msgstr "Privileges"
+
+>>>>>>> 13125942... added translatable:find task and fixed up a few files
 msgid "Profile information"
 msgstr "Profile information"
 
@@ -2060,6 +2280,10 @@ msgstr ""
 "Provides the user with an API token and grants rights to harvest information "
 "from the tool"
 
+#, fuzzy
+msgid "Public"
+msgstr ""
+
 msgid "Public DMPs"
 msgstr "Public DMPs"
 
@@ -2081,6 +2305,10 @@ msgstr ""
 "answer at least %{percentage}%% of the questions to enable these options. "
 "Note: test plans are set to private visibility by default."
 
+#, fuzzy
+msgid "Public: anyone can view"
+msgstr ""
+
 msgid "Public: anyone can view on the web"
 msgstr "Public: anyone can view on the web"
 
@@ -2096,6 +2324,16 @@ msgstr "Publish changes"
 msgid "Published"
 msgstr "Published"
 
+<<<<<<< HEAD
+=======
+msgid "Published (%{count})"
+msgstr "Published (%{count})"
+
+#, fuzzy
+msgid "Published?"
+msgstr ""
+
+>>>>>>> 13125942... added translatable:find task and fixed up a few files
 msgid "Query or feedback related to %{tool_name}"
 msgstr "Question or feedback related to %{tool_name}"
 
@@ -2120,11 +2358,23 @@ msgstr "Questions"
 msgid "Read only"
 msgstr "Read only"
 
+#, fuzzy
+msgid "Read only: can view and comment, but not make changes"
+msgstr ""
+
 msgid "Reference"
 msgstr "Reference"
 
+#, fuzzy
+msgid "Remember email"
+msgstr ""
+
 msgid "Remove"
 msgstr "Remove"
+
+#, fuzzy
+msgid "Remove logo"
+msgstr ""
 
 msgid "Remove the filter"
 msgstr "Remove the filter"
@@ -2155,6 +2405,10 @@ msgstr "Role"
 
 msgid "Run your own filter"
 msgstr "Run your own filter"
+
+#, fuzzy
+msgid "Same as Principal Investigator"
+msgstr ""
 
 msgid "Sample Plan Links"
 msgstr "Sample Plan Links"
@@ -2321,6 +2575,16 @@ msgstr "Subject"
 msgid "Submit"
 msgstr "Submit"
 
+<<<<<<< HEAD
+=======
+msgid "Successfully %{action} %{username}'s account."
+msgstr "Successfully %{action} %{username}'s account."
+
+#, fuzzy
+msgid "Successfully %{action} your %{object}."
+msgstr ""
+
+>>>>>>> 13125942... added translatable:find task and fixed up a few files
 msgid "Successfully deleted your theme"
 msgstr "Successfully deleted your theme"
 
@@ -2380,6 +2644,19 @@ msgstr "Thank you for registering. Please confirm your email address"
 msgid "That email address is already registered."
 msgstr "That email address is already registered."
 
+<<<<<<< HEAD
+=======
+msgid "That template is no longer customizable."
+msgstr "That template is no longer customizable."
+
+msgid "That template is not customizable."
+msgstr "That template is not customizable."
+
+#, fuzzy
+msgid "The %{org_name} processes the personal data of %{application_name} users in order to deliver and improve the %{application_name} service in a customised manner and to ensure each user receives relevant information."
+msgstr ""
+
+>>>>>>> 13125942... added translatable:find task and fixed up a few files
 msgid "The %{tool_name} team"
 msgstr "The %{tool_name} team"
 
@@ -2397,6 +2674,10 @@ msgstr "The email address you entered is not registered."
 
 msgid "The following answer cannot be saved"
 msgstr "The following answer cannot be saved"
+
+#, fuzzy
+msgid "The information you provide will be used by the %{org_name} to offer you access to and personalisation of the %{application_name} service."
+msgstr ""
 
 msgid "The key %{key} does not have a valid set of object links"
 msgstr "The key %{key} does not have a valid set of object links"
@@ -2418,10 +2699,25 @@ msgstr "The password must be between 8 and 128 characters."
 msgid "The passwords must match."
 msgstr "The passwords must match."
 
+<<<<<<< HEAD
 msgid ""
 "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
 msgstr ""
 "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
+=======
+msgid "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
+msgstr "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
+
+#, fuzzy
+msgid "The processing of your personal data by the %{org_name} is necessary for pursuing the following legitimate interests:"
+msgstr ""
+
+msgid "The search space does not have elements associated"
+msgstr "The search space does not have elements associated"
+
+msgid "The search_space does not respond to each"
+msgstr "The search_space does not respond to each"
+>>>>>>> 13125942... added translatable:find task and fixed up a few files
 
 msgid ""
 "The table below lists the plans that users at your organisation have created "
@@ -2474,12 +2770,21 @@ msgstr "There is no plan associated with id %{id}"
 msgid "There is no plan with id %{id} for which to create or update an answer"
 msgstr "There is no plan with id %{id} for which to create or update an answer"
 
+<<<<<<< HEAD
 msgid ""
 "There is no question with id %{question_id} associated to plan id %{plan_id}"
 "for which to create or update an answer"
 msgstr ""
 "There is no question with id %{question_id} associated to plan id %{plan_id}"
 "for which to create or update an answer"
+=======
+#, fuzzy
+msgid "There is no question with id %{question_id} associated to plan id %{plan_id} for which to create or update an answer"
+msgstr ""
+
+#msgid "There is no question with id %{question_id} associated to plan id %{plan_id}for which to create or update an answer"
+#msgstr "There is no question with id %{question_id} associated to plan id %{plan_id}for which to create or update an answer"
+>>>>>>> 13125942... added translatable:find task and fixed up a few files
 
 msgid "There is no theme associated with id %{id}"
 msgstr "There is no theme associated with id %{id}"
@@ -2503,12 +2808,33 @@ msgstr ""
 "This information can only be changed by a system administrator. Contact the "
 "Help Desk if you have questions or to request changes."
 
+<<<<<<< HEAD
 msgid ""
 "This plan is based on the \"%{template_title}\" template provided by "
 "%{org_name}."
 msgstr ""
 "This plan is based on the \"%{template_title}\" template provided by "
 "%{org_name}."
+=======
+#, fuzzy
+msgid "This is a"
+msgstr ""
+
+#, fuzzy
+msgid "This plan is based on the"
+msgstr ""
+
+msgid "This plan is based on the \"%{template_title}\" template provided by %{org_name}."
+msgstr "This plan is based on the \"%{template_title}\" template provided by %{org_name}."
+>>>>>>> 13125942... added translatable:find task and fixed up a few files
+
+#, fuzzy
+msgid "This plan is based on the default template."
+msgstr ""
+
+#, fuzzy
+msgid "This statement was last revised on %{revdate} and may be revised at any time with prior notice."
+msgstr ""
 
 msgid "This template is new and does not yet have any publication history."
 msgstr "This template is new and does not yet have any publication history."
@@ -2518,6 +2844,10 @@ msgstr "This will create an account and link it to your credentials."
 
 msgid "This will link your existing account to your credentials."
 msgstr "This will link your existing account to your credentials."
+
+#, fuzzy
+msgid "This will remove your organisation's logo"
+msgstr ""
 
 msgid "Title"
 msgstr "Title"
@@ -2537,6 +2867,14 @@ msgstr ""
 "To help you write your plan, %{application_name} can show you guidance from "
 "a variety of organizations. Please choose up to 6 organizations of the "
 "following organizations who offer guidance relevant to your plan."
+
+#, fuzzy
+msgid "To keep you up to date with news about %{application_name} such as new features or improvements, or changes to our Privacy Policy."
+msgstr ""
+
+#, fuzzy
+msgid "To provide access to the %{application_name} service and personalisation of your user experience e.g. provision of relevant templates and guidance for your organisation."
+msgstr ""
 
 msgid "Top"
 msgstr "Top"
@@ -2641,6 +2979,10 @@ msgstr "Unpublished"
 msgid "Unpublished changes"
 msgstr "Unpublished changes"
 
+#, fuzzy
+msgid "Unpublished changes"
+msgstr ""
+
 msgid "Up to "
 msgstr "Up to "
 
@@ -2709,6 +3051,14 @@ msgstr "We found multiple DMP templates corresponding to your funder."
 
 msgid "We invite you to peruse the DMPRoadmap GitHub wiki to learn how to "
 msgstr "We invite you to peruse the DMPRoadmap GitHub wiki to learn how to "
+
+#, fuzzy
+msgid "We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward."
+msgstr ""
+
+#, fuzzy
+msgid "We will hold the personal data you provided us for as long as you continue using the %{application_name} service. Your personal data can be removed from this service upon request to the %{application_name} team within a period of 30 days."
+msgstr ""
 
 msgid "Welcome"
 msgstr "Welcome"
@@ -2802,12 +3152,23 @@ msgstr "You are not authorized to perform this action."
 msgid "You are now ready to create your first DMP."
 msgstr "You are now ready to create your first DMP."
 
+<<<<<<< HEAD
 msgid ""
 "You are viewing a historical version of this template. You will not be able "
 "to make changes."
 msgstr ""
 "You are viewing a historical version of this template. You will not be able "
 "to make changes."
+=======
+#msgid "You are viewing a historical version of this #{template_type(template)}. You will not be able to make changes."
+#msgstr "You are viewing a historical version of this template. You will not be able to make changes."
+
+msgid "You are viewing a historical version of this template. You will not be able to make changes."
+msgstr "You are viewing a historical version of this template. You will not be able to make changes."
+
+msgid "You can add an example answer to help users respond. These will be presented above the answer box and can be copied/ pasted."
+msgstr "You can add an example answer to help users respond. These will be presented above the answer box and can be copied/ pasted."
+>>>>>>> 13125942... added translatable:find task and fixed up a few files
 
 msgid "You can also grant rights to other collaborators."
 msgstr "You can also grant rights to other collaborators."
@@ -2885,6 +3246,10 @@ msgstr "You may change your notification preferences on your profile page."
 
 msgid "You must accept the terms and conditions to register."
 msgstr "You must accept the terms and conditions to register."
+
+#, fuzzy
+msgid "You must agree to the term and conditions."
+msgstr ""
 
 msgid "You must enter a valid URL (e.g. https://organisation.org)."
 msgstr "You must enter a valid URL (e.g. https://organization.org)."
@@ -3016,6 +3381,10 @@ msgid ""
 "activerecord.errors.models.user.attributes.password_confirmation.confirmation"
 msgstr "passwords must match"
 
+#, fuzzy
+msgid "answered"
+msgstr ""
+
 msgid "are not authorized to view that plan"
 msgstr "are not authorized to view that plan"
 
@@ -3042,6 +3411,10 @@ msgstr "collapse all"
 
 msgid "comment"
 msgstr "comment"
+
+#, fuzzy
+msgid "completed_plans"
+msgstr ""
 
 msgid "copied"
 msgstr "copied"
@@ -3082,6 +3455,14 @@ msgstr "into your browser"
 msgid "link name"
 msgstr "link name"
 
+#, fuzzy
+msgid "logo"
+msgstr ""
+
+#, fuzzy
+msgid "mock project for testing, practice, or educational purposes"
+msgstr ""
+
 msgid "must be logged in"
 msgstr "must be logged in"
 
@@ -3096,6 +3477,10 @@ msgstr "must have access to guidances api"
 
 msgid "must have access to plans api"
 msgstr "must have access to plans api"
+
+#, fuzzy
+msgid "no research organisation is associated with this plan"
+msgstr ""
 
 msgid "note"
 msgstr "note"
@@ -3133,6 +3518,10 @@ msgstr "plan"
 msgid "plan's visibility"
 msgstr "plan's visibility"
 
+#, fuzzy
+msgid "plans"
+msgstr ""
+
 msgid "preferences"
 msgstr "preferences"
 
@@ -3142,12 +3531,23 @@ msgstr "private"
 msgid "profile"
 msgstr "profile"
 
+#, fuzzy
+msgid "project details coversheet"
+msgstr ""
+
 msgid "public"
 msgstr "public"
 
 msgid "question"
-msgid_plural "questions"
-msgstr[0] "question"
+msgstr ""
+
+#, fuzzy
+msgid "question text and section headings"
+msgstr ""
+
+#, fuzzy
+msgid "questions"
+msgstr ""
 
 msgid "read the plan and leave comments."
 msgstr "read the plan and leave comments."
@@ -3171,8 +3571,11 @@ msgid "saved"
 msgstr "saved"
 
 msgid "section"
-msgid_plural "sections"
-msgstr[0] "section"
+msgstr ""
+
+#, fuzzy
+msgid "sections"
+msgstr ""
 
 msgid ""
 "since %{name} saved the answer below while you were editing. Please, combine "
@@ -3181,17 +3584,53 @@ msgstr ""
 "since %{name} saved the answer below while you were editing. Please, combine "
 "your changes and then save the answer again."
 
+#, fuzzy
+msgid "supplementary section(s) not requested by funding organisation"
+msgstr ""
+
 msgid "template"
 msgstr "template"
+
+#, fuzzy
+msgid "template with customisations by the"
+msgstr ""
+
+#, fuzzy
+msgid "terms and conditions"
+msgstr ""
 
 msgid "test"
 msgstr "test"
 
+<<<<<<< HEAD
+=======
+#, fuzzy
+msgid "test plan"
+msgstr ""
+
+#, fuzzy
+msgid "unanswered questions"
+msgstr ""
+
+msgid "updated"
+msgstr "updated"
+
+msgid "upgrade_customization! cannot be carried out since there is no published template of its current funder"
+msgstr "upgrade_customization! cannot be carried out since there is no published template of its current funder"
+
+msgid "upgrade_customization! requires a customised template"
+msgstr "upgrade_customization! requires a customised template"
+
+>>>>>>> 13125942... added translatable:find task and fixed up a few files
 msgid "user"
 msgstr "user"
 
 msgid "user must be in your organisation"
 msgstr "user must be in your organization"
+
+#, fuzzy
+msgid "users_joined"
+msgstr ""
 
 msgid "write and edit the plan in a collaborative manner."
 msgstr "write and edit the plan in a collaborative manner."
