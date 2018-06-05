@@ -37,12 +37,8 @@ msgstr " by %{user_name}"
 msgid " has been removed by "
 msgstr " has been removed by "
 
-#msgid " in the project. You can also report bugs and request new features via "
-#msgstr " in the project. You can also report bugs and request new features via "
-
-#, fuzzy
 msgid " or "
-msgstr ""
+msgstr " or "
 
 msgid "#{text}"
 msgstr "#{text}"
@@ -116,9 +112,8 @@ msgstr "%{value} is not a valid format"
 msgid "(Linux, Mac, Windows; free)"
 msgstr ""
 
-#, fuzzy
 msgid "(Mac; free trial)"
-msgstr ""
+msgstr "(Mac; free trial)"
 
 msgid "(Windows; free)"
 msgstr ""
@@ -150,37 +145,29 @@ msgstr "..."
 msgid "... (continued)"
 msgstr "... (continued)"
 
-#, fuzzy
 msgid "<a href=\"%{ark_url}\">ARK (Archival Resource Key)</a> – a URL with extra features allowing you to ask for descriptive and archival metadata and to recognize certain kinds of relationships between identifiers. ARKs are used by memory organizations such as libraries, archives, and museums. They are resolved at \"%{nt2_url}\". Resolution depends on HTTP redirection and can be managed through an API or a user interface."
-msgstr ""
+msgstr "<a href=\"%{ark_url}\">ARK (Archival Resource Key)</a> – a URL with extra features allowing you to ask for descriptive and archival metadata and to recognize certain kinds of relationships between identifiers. ARKs are used by memory organizations such as libraries, archives, and museums. They are resolved at \"%{nt2_url}\". Resolution depends on HTTP redirection and can be managed through an API or a user interface."
 
-#, fuzzy
 msgid "<a href=\"%{doi_url}\">DOI (Digital Object Identifier)</a> – an identifier that becomes actionable when embedded in a URL. DOIs are very popular in academic journal publishing. They are resolved at \"%{doi_resolver_url}\". Resolution depends on HTTP redirection and the Handle identifier protocol, and can be managed through an API or a user interface."
-msgstr ""
+msgstr "<a href=\"%{doi_url}\">DOI (Digital Object Identifier)</a> – an identifier that becomes actionable when embedded in a URL. DOIs are very popular in academic journal publishing. They are resolved at \"%{doi_resolver_url}\". Resolution depends on HTTP redirection and the Handle identifier protocol, and can be managed through an API or a user interface."
 
-#, fuzzy
 msgid "<a href=\"%{handle_url}\">Handle</a> – an identifier that becomes actionable when embedded in a URL. Handles are resolved at \"%{handle_url}\". Resolution depends on HTTP redirection and the Handle protocol, and can be managed through an API or a user interface."
-msgstr ""
+msgstr "<a href=\"%{handle_url}\">Handle</a> – an identifier that becomes actionable when embedded in a URL. Handles are resolved at \"%{handle_url}\". Resolution depends on HTTP redirection and the Handle protocol, and can be managed through an API or a user interface."
 
-#, fuzzy
 msgid "<a href=\"%{inchi_url}\">InChI (IUPAC International Chemical Identifier)</a> – a non-actionable identifier for chemical substances that can be used in printed and electronic data sources, thus enabling easier linking of diverse data compilations."
-msgstr ""
+msgstr "<a href=\"%{inchi_url}\">InChI (IUPAC International Chemical Identifier)</a> – a non-actionable identifier for chemical substances that can be used in printed and electronic data sources, thus enabling easier linking of diverse data compilations."
 
-#, fuzzy
 msgid "<a href=\"%{lsid_url}\">LSID (Life Sciences Identifier)</a> – a kind of URN that identifies a biologically significant resources, including species names, concepts, occurrences, and genes or proteins, or data objects that encode information about them. Like other URNs, it becomes actionable when embedded in a URL."
-msgstr ""
+msgstr "<a href=\"%{lsid_url}\">LSID (Life Sciences Identifier)</a> – a kind of URN that identifies a biologically significant resources, including species names, concepts, occurrences, and genes or proteins, or data objects that encode information about them. Like other URNs, it becomes actionable when embedded in a URL."
 
-#, fuzzy
 msgid "<a href=\"%{ncbi_url}\">NCBI (National Center for Biotechnology Information) ACCESSION</a> – a non-actionable number in use by NCBI."
-msgstr ""
+msgstr "<a href=\"%{ncbi_url}\">NCBI (National Center for Biotechnology Information) ACCESSION</a> – a non-actionable number in use by NCBI."
 
-#, fuzzy
 msgid "<a href=\"%{purl_url}\">PURL (Persistent Uniform Resource Locator)</a> – a URL that is always redirected through a hostname (often purl.org). Resolution depends on HTTP redirection and can be managed through an API or a user interface."
-msgstr ""
+msgstr "<a href=\"%{purl_url}\">PURL (Persistent Uniform Resource Locator)</a> – a URL that is always redirected through a hostname (often purl.org). Resolution depends on HTTP redirection and can be managed through an API or a user interface."
 
-#, fuzzy
 msgid "<ol type=\"1\"><li>Enter a title for your research project. If applying for funding, use the project title as it appears in the proposal.</li><li>Select the primary research organization. If you are associated with a participating institution/organization, this field will be pre-populated. You have the option to clear the field and select another organization from the list. Based on your selection, you will be presented with institution-specific templates and guidance. You can also check the box that “No organization is associated with this plan.”</li><li>Select the primary funding organization. If you are required to include a data management plan as part of a grant proposal, select your funder from the list. You may be presented with a secondary dropdown menu if your funder has different requirements for specific programs (e.g., NSF, DOE). See the complete list of <a href=\"%{public_templates_url}\">funder requirements</a> supported by DMPTool. If your funder is not in the list or you are not applying for a grant, check the box for “No funder associated with this plan;” this selection will provide you with a generic template.</li></ol>"
-msgstr ""
+msgstr "<ol type=\"1\"><li>Enter a title for your research project. If applying for funding, use the project title as it appears in the proposal.</li><li>Select the primary research organization. If you are associated with a participating institution/organization, this field will be pre-populated. You have the option to clear the field and select another organization from the list. Based on your selection, you will be presented with institution-specific templates and guidance. You can also check the box that “No organization is associated with this plan.”</li><li>Select the primary funding organization. If you are required to include a data management plan as part of a grant proposal, select your funder from the list. You may be presented with a secondary dropdown menu if your funder has different requirements for specific programs (e.g., NSF, DOE). See the complete list of <a href=\"%{public_templates_url}\">funder requirements</a> supported by DMPTool. If your funder is not in the list or you are not applying for a grant, check the box for “No funder associated with this plan;” this selection will provide you with a generic template.</li></ol>"
 
 msgid "<p>%{application_name} has been developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>"
 msgstr "<p>%{application_name} has been jointly developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>"
@@ -188,63 +175,48 @@ msgstr "<p>%{application_name} has been jointly developed by the <strong>%{organ
 msgid "<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for feedback from an administrator at your organisation. If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>"
 msgstr "<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for feedback from an administrator at your organization. If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>"
 
-#, fuzzy
 msgid "<strong>Access information</strong>: Where and how your data can be accessed by other researchers"
-msgstr ""
+msgstr "<strong>Access information</strong>: Where and how your data can be accessed by other researchers"
 
-#, fuzzy
 msgid "<strong>Checksum</strong>: A digest value computed for each file that can be used to detect changes; if a recomputed digest differs from the stored digest, the file must have changed"
-msgstr ""
+msgstr "<strong>Checksum</strong>: A digest value computed for each file that can be used to detect changes; if a recomputed digest differs from the stored digest, the file must have changed"
 
-#, fuzzy
 msgid "<strong>Code list</strong>: Explanation of codes or abbreviations used in either the file names or the variables in the data files (e.g. \"999 indicates a missing value in the data\")"
-msgstr ""
+msgstr "<strong>Code list</strong>: Explanation of codes or abbreviations used in either the file names or the variables in the data files (e.g. \"999 indicates a missing value in the data\")"
 
-#, fuzzy
 msgid "<strong>Comply with UC regulations.</strong> Researchers concerned about confidentiality issues with their data should consult the <a href=\"%{uc_policy_url}\">UC policy for Protection of Human Subjects in Research</a>."
-msgstr ""
+msgstr "<strong>Comply with UC regulations.</strong> Researchers concerned about confidentiality issues with their data should consult the <a href=\"%{uc_policy_url}\">UC policy for Protection of Human Subjects in Research</a>."
 
-#, fuzzy
 msgid "<strong>Comply with regulations for health research</strong> set forth in the <a href=\"%{hippa_url}\">Health Insurance Portability and Accountability Act (HIPPA)</a>."
-msgstr ""
+msgstr "<strong>Comply with regulations for health research</strong> set forth in the <a href=\"%{hippa_url}\">Health Insurance Portability and Accountability Act (HIPPA)</a>."
 
-#, fuzzy
 msgid "<strong>Creator</strong>: Names and addresses of the organizations or people who created the data; preferred format for personal names is surname first (e.g., Smith, Jane)"
-msgstr ""
+msgstr "<strong>Creator</strong>: Names and addresses of the organizations or people who created the data; preferred format for personal names is surname first (e.g., Smith, Jane)"
 
-#, fuzzy
 msgid "<strong>Data can be licensed.</strong> Some data providers apply licenses that limit how the data can be used to protect the privacy of study participants or to guide downstream uses of the data (e.g., requiring attribution or forbidding for-profit use)."
-msgstr ""
+msgstr "<strong>Data can be licensed.</strong> Some data providers apply licenses that limit how the data can be used to protect the privacy of study participants or to guide downstream uses of the data (e.g., requiring attribution or forbidding for-profit use)."
 
-#, fuzzy
 msgid "<strong>Dataset documentation</strong><ul><li>Variable names and descriptions</li><li>Explanation of codes and classification schemes used</li><li>Algorithms used to transform data (may include computer code)</li><li>File format and software (including version) used</li></ul>"
-msgstr ""
+msgstr "<strong>Dataset documentation</strong><ul><li>Variable names and descriptions</li><li>Explanation of codes and classification schemes used</li><li>Algorithms used to transform data (may include computer code)</li><li>File format and software (including version) used</li></ul>"
 
-#, fuzzy
 msgid "<strong>Date</strong>: Key dates associated with the data, including: project start and end date; release date; time period covered by the data; and other dates associated with the data lifespan, such as maintenance cycle, update schedule; preferred format is yyyy-mm-dd, or yyyy.mm.dd-yyyy.mm.dd for a range"
-msgstr ""
+msgstr "<strong>Date</strong>: Key dates associated with the data, including: project start and end date; release date; time period covered by the data; and other dates associated with the data lifespan, such as maintenance cycle, update schedule; preferred format is yyyy-mm-dd, or yyyy.mm.dd-yyyy.mm.dd for a range"
 
-#, fuzzy
 msgid "<strong>Derived / Compiled</strong><ul><li>Generated from existing datasets</li><li>Reproducible, but can be very expensive and time-consuming</li><li>Examples: text and data mining, compiled database, 3D models</li></ul>"
-msgstr ""
+msgstr "<strong>Derived / Compiled</strong><ul><li>Generated from existing datasets</li><li>Reproducible, but can be very expensive and time-consuming</li><li>Examples: text and data mining, compiled database, 3D models</li></ul>"
 
-#, fuzzy
 msgid "<strong>Don't Forget the Documentation</strong>: Document your research and data so others can interpret the data. Begin to document your data at the very beginning of your research project and continue throughout the project. See data documentation and metadata for details."
-msgstr ""
+msgstr "<strong>Don't Forget the Documentation</strong>: Document your research and data so others can interpret the data. Begin to document your data at the very beginning of your research project and continue throughout the project. See data documentation and metadata for details."
 
-#, fuzzy
 msgid "<strong>Evaluate the anonymity of your data.</strong> Consider to what extent your data contains direct or indirect identifiers that could be combined with other public information to identify research participants."
-msgstr ""
+msgstr "<strong>Evaluate the anonymity of your data.</strong> Consider to what extent your data contains direct or indirect identifiers that could be combined with other public information to identify research participants."
 
-#, fuzzy
 msgid "<strong>Experimental</strong><ul><li>Typically generated in the lab or under controlled conditions</li><li>Often reproducible, but can be expensive or time-consuming</li><li>Examples: gene sequences, chromatograms, magnetic field readings</li></ul>"
-msgstr ""
+msgstr "<strong>Experimental</strong><ul><li>Typically generated in the lab or under controlled conditions</li><li>Often reproducible, but can be expensive or time-consuming</li><li>Examples: gene sequences, chromatograms, magnetic field readings</li></ul>"
 
-#, fuzzy
 msgid "<strong>File Formats for Long Term Access</strong>: The file format in which you keep your data is a primary factor in one's ability to use your data in the future. Plan for both hardware and software obsolescence. See file formats and organization for details on long-term storage formats."
-msgstr ""
+msgstr "<strong>File Formats for Long Term Access</strong>: The file format in which you keep your data is a primary factor in one's ability to use your data in the future. Plan for both hardware and software obsolescence. See file formats and organization for details on long-term storage formats."
 
-#, fuzzy
 msgid "<strong>File formats</strong>: Formats of the data, e.g., FITS, SPSS, HTML, JPEG, etc."
 msgstr ""
 
