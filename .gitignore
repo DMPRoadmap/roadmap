@@ -19,6 +19,10 @@ public/stylesheets/*
 public/system/*
 public/videos/*
 
+# Ignore PO/POT backups
+*.po.bak
+*.pot.bak
+
 # Ignore branded content
 app/views/branded/*
 app/assets
