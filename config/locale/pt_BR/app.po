@@ -78,13 +78,13 @@ msgstr "%{commenter} concluiu o feedback sobre o plano \"%{plan_title}\". Para v
 #msgstr "%{commenter} concluiu o feedback sobre o plano \\"%{plan_title}\\". Para ver seus comentários, por favor, visite a página Meu Painel de Controle em %{tool_name} e abra seu plano."
 
 msgid "%{org_name} Plans"
-msgstr "Planos"
+msgstr "%{org_name} Planos"
 
 msgid "%{org_name} Templates"
-msgstr "Templates"
+msgstr "%{org_name} Modelos"
 
 msgid "%{org_title} Plans"
-msgstr "Planos"
+msgstr "%{org_title} Planos"
 
 msgid "%{org} Example Answer"
 msgstr "%{org} Exemplo de Resposta"
@@ -180,7 +180,7 @@ msgid "<a href=\"%{purl_url}\">PURL (Persistent Uniform Resource Locator)</a> �
 msgstr "<a href=\"%{purl_url}\">PURL (Persistent Uniform Resource Locator)</a> – um URL que é sempre redirecionado por meio de um nome de host (geralmente purl.org). A resolução depende do redirecionamento de HTTP e pode ser gerenciada por meio de uma API ou de uma interface do usuário."
 
 msgid "<ol type=\"1\"><li>Enter a title for your research project. If applying for funding, use the project title as it appears in the proposal.</li><li>Select the primary research organization. If you are associated with a participating institution/organization, this field will be pre-populated. You have the option to clear the field and select another organization from the list. Based on your selection, you will be presented with institution-specific templates and guidance. You can also check the box that “No organization is associated with this plan.”</li><li>Select the primary funding organization. If you are required to include a data management plan as part of a grant proposal, select your funder from the list. You may be presented with a secondary dropdown menu if your funder has different requirements for specific programs (e.g., NSF, DOE). See the complete list of <a href=\"%{public_templates_url}\">funder requirements</a> supported by DMPTool. If your funder is not in the list or you are not applying for a grant, check the box for “No funder associated with this plan;” this selection will provide you with a generic template.</li></ol>"
-msgstr "<ol type=\"1\"><li>Insira um título para o seu projeto de pesquisa. Se estiver solicitando financiamento, use o título do projeto como aparece na proposta.</li><li>Selecione a organização de pesquisa principal. Se você estiver associado a uma instituição / organização participante, esse campo será pré-preenchido. Você tem a opção de limpar o campo e selecionar outra organização na lista. Com base na sua seleção, você receberá modelos e orientações específicos da instituição. Você também pode marcar a caixa “Nenhuma organização está associada a este plano”.</li><li>Selecione a organização principal de financiamento. Se você precisar incluir um plano de gerenciamento de dados como parte de uma proposta de concessão, selecione seu financiador na lista. Você pode receber um menu suspenso secundário se seu financiador tiver requisitos diferentes para programas específicos (por exemplo, NSF, DOE). Veja a lista completa dos <a href=\"%{public_templates_url}\">requisitos do financiador</a> suportados pelo DMPTool. Se o seu financiador não estiver na lista ou se você não estiver solicitando um subsídio, marque a caixa “Nenhum financiador associado a este plano;” essa seleção fornecerá um modelo genérico.</li></ol>"
+msgstr "<ol type=\"1\"><li>Insira um título para o seu projeto de pesquisa. Se estiver solicitando financiamento, use o título do projeto como aparece na proposta.</li><li>Selecione a organização de pesquisa principal. Se você estiver associado a uma instituição/organização participante, esse campo será pré-preenchido. Você tem a opção de limpar o campo e selecionar outra organização na lista. Com base na sua seleção, você receberá modelos e orientações específicos da instituição. Você também pode marcar a caixa “Nenhuma organização está associada a este plano”.</li><li>Selecione a organização principal de financiamento. Se você precisar incluir um plano de gerenciamento de dados como parte de uma proposta de concessão, selecione seu financiador na lista. Você pode receber um menu suspenso secundário se seu financiador tiver requisitos diferentes para programas específicos (por exemplo, NSF, DOE). Veja a lista completa dos <a href=\"%{public_templates_url}\">requisitos do exigências do órgão financiador</a> suportados pelo DMPTool. Se o seu financiador não estiver na lista ou se você não estiver solicitando um subsídio, marque a caixa “Nenhum financiador associado a este plano;” essa seleção fornecerá um modelo genérico.</li></ol>"
 
 msgid "<p>%{application_name} has been developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>"
 msgstr "<p>%{application_name} foi desenvolvido por <strong>%{organisation_name}</strong> para ajudar você a escrever planos de gestão de dados.</p>"
@@ -311,9 +311,6 @@ msgstr "<strong>Versão</strong>: carimbo de data / hora exclusivo e identificad
 msgid "<ul><li>DMPTool Logo (blue), with tagline - <a href=\"%{logo_tagline_eps_url}\">EPS</a>, <a href=\"%{logo_tagline_svg_url}\">SVG</a>, <a href=\"%{logo_tagline_png_url}\">PNG</a></li><li>DMPTool Logo (blue), no tagline - <a href=\"%{logo_eps_url}\">EPS</a>, <a href=\"%{logo_svg_url}\">SVG</a>, <a href=\"%{logo_png_url}\">PNG</a></li><li>DMPTool Logo (green v2), with tagline - <a href=\"%{vintage_logo_tagline_png_url}\">PNG</a></li><li>DMPTool Logo (green v2), no tagline - <a href=\"%{vintage_logo_png_url}\">PNG</a></li><li>Original DMPTool Logo - <a href=\"%{original_logo_png_url}\">PNG</a></li></ul>"
 msgstr "<ul><li>Logo da DMPTool (azul), com slogan - <a href=\"%{logo_tagline_eps_url}\">EPS</a>, <a href=\"%{logo_tagline_svg_url}\">SVG</a>, <a href=\"%{logo_tagline_png_url}\">PNG</a></li><li>Logo da DMPTool (azul), sem slogan - <a href=\"%{logo_eps_url}\">EPS</a>, <a href=\"%{logo_svg_url}\">SVG</a>, <a href=\"%{logo_png_url}\">PNG</a></li><li>Logo da DMPTool (verde v2), com slogan - <a href=\"%{vintage_logo_tagline_png_url}\">PNG</a></li><li>Logo da DMPTool (verde v2), sem slogan - <a href=\"%{vintage_logo_png_url}\">PNG</a></li><li>Logo original da DMPTool - <a href=\"%{original_logo_png_url}\">PNG</a></li></ul>"
 
-#msgid "<ul><li>DMPTool Logo (blue), with tagline - <a href=\\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.eps\\">EPS</a>, <a href=\\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.svg\\">SVG</a>, <a href=\\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.png\\">PNG</a></li><li>DMPTool Logo (blue), no tagline - <a href=\\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.eps\\">EPS</a>, <a href=\\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.svg\\">SVG</a>, <a href=\\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.png\\">PNG</a></li><li>DMPTool Logo (green v2), with tagline - <a href=\\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2.png\\">PNG</a></li><li>DMPTool Logo (green v2), no tagline - <a href=\\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2_no_tag.png\\">PNG</a></li><li>Original DMPTool Logo - <a href=\\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v1.png\\">PNG</a></li></ul>"
-#msgstr "<ul><li>Logo DMPTool (azul), com tagline - <a href=\\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.eps\\">EPS</a>, <a href=\\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.svg\\">SVG</a>, <a href=\\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue.png\\">PNG</a></li><li>Logo DMPTool (azul), sem tagline - <a href=\\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.eps\\">EPS</a>, <a href=\\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.svg\\">SVG</a>, <a href=\\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_blue_no_tag.png\\">PNG</a></li><li>Logo DMPTool (verde v2), com tagline - <a href=\\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2.png\\">PNG</a></li><li>Logo DMPTool (verde v2), sem tagline - <a href=\\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v2_no_tag.png\\">PNG</a></li><li>Logo DMPTool Original - <a href=\\"https://github.com/CDLUC3/dmptool/blob/master/docs/logos/DMPTool_logo_v1.png\\">PNG</a></li></ul>"
-
 msgid "<ul><li>Email to individual requesters</li><li>Post online via a project or personal website</li><li>Submit as supplemental material to be hosted on a journal publisher's website</li><li>Deposit in an open repository or archive</li><li>Deposit in an open repository and publish a \"data paper\" describing the data</li></ul>"
 msgstr "<ul><li>Email para solicitantes individuais</li><li>Publique conectados por meio de um projeto ou site pessoal</li><li>Envie como material suplementar para ser hospedado no site de um editor de periódico</li><li>Depositar em um repositório ou arquivo aberto</li><li>Depositar em um repositório aberto e publicar um \"paper de dados\" descrevendo os dados</li></ul>"
 
@@ -423,7 +420,7 @@ msgstr "R: Se sua instituição <a href=\"%{participating_url}\">participa do DM
 #msgstr ""
 
 msgid "A: No funders have endorsed the use of the DMPTool, although some provide links to the tool or resources within the tool in their public access plans (e.g., NEH, DOT)."
-msgstr "R: Nenhum órgão financiador avalizou o uso do DEMPTool, embora alguns deles forneçam links para a ferramenta ou recursos da própria ferramenta em seus planos de acesso público (e.g. NEH, DOT)."
+msgstr "R: Nenhum órgão financiador avalizou o uso do DMPTool, embora alguns deles forneçam links para a ferramenta ou recursos da própria ferramenta em seus planos de acesso público (e.g. NEH, DOT)."
 
 msgid "A: Participating institutions can incorporate information about their resources and services to aid researchers with data management. Participating institutions can also provide customized help and suggest answers to the questions asked by funding agencies. Users from particpating institutions that have configured the tool with Shibboleth can log in with their own institutional accounts."
 msgstr "R: As instituições participantes podem incorporar informações sobre seus recursos e serviços de forma a ajudar os pesquisadores com a gestão de dados. As instituições também podem oferecer ajuda customizada e sugerir respostas às questões propostas pelas instituições financiadoras. Os usuários pertencentes a instituições participantes que configuraram a ferramenta com Shibboleth podem fazer login com suas próprias contas institucionais."
@@ -608,7 +605,7 @@ msgid "All (%{count})"
 msgstr "Tudo (%{count})"
 
 msgid "All Templates"
-msgstr "Todos os Templates"
+msgstr "Todos os Modelos"
 
 msgid "All the best"
 msgstr "Atenciosamente"
@@ -843,7 +840,7 @@ msgid "Cannot share plan with %{email} since that email matches with the owner o
 msgstr "Impossível compartilhar o plano com %{email}; email é o mesmo do proprietário do plano."
 
 msgid "Captcha verification failed, please retry."
-msgstr ""
+msgstr "A verificação do Captcha falhou. Tente novamente."
 
 msgid "Certain features on this website utilize third party services and APIs such as InCommon/Shibboleth or third party hosting of common JavaScript libraries or web fonts. Information used by an external service is governed by the privacy policy of that service. CDL does not control how information may be used by these services."
 msgstr "Alguns recursos deste site utilizam serviços e APIs de terceiros, como o InCommon / Shibboleth ou hospedagem de terceiros de bibliotecas JavaScript comuns ou fontes da Web. As informações usadas por um serviço externo são regidas pela política de privacidade desse serviço. A CDL não controla como as informações podem ser usadas por esses serviços."
@@ -1056,19 +1053,19 @@ msgid "Customise"
 msgstr "Customizar"
 
 msgid "Customizable Templates"
-msgstr "Templates customizáveis"
+msgstr "Modelos customizáveis"
 
 msgid "Customizations are published"
-msgstr ""
+msgstr "As customizações são publicadas"
 
 msgid "Customizations are unpublished"
-msgstr ""
+msgstr "As customizações não são publicadas"
 
 msgid "Customize phase"
 msgstr "Customizar Fase"
 
 msgid "DMP Templates"
-msgstr "Templates de PGD"
+msgstr "Modelos de PGD"
 
 msgid "DMP Visibility Changed: %{plan_title}"
 msgstr "Visibilidade do PGD Modificada: %{plan_title}"
@@ -1791,7 +1788,7 @@ msgid "Left"
 msgstr "Esquerda"
 
 msgid "Level"
-msgstr ""
+msgstr "Nível"
 
 msgid "Link text"
 msgstr "Linkar texto"
@@ -2166,7 +2163,7 @@ msgid "Overview of My dashboard"
 msgstr "Visão geral de Meu painel de controle"
 
 msgid "Own Templates"
-msgstr "Templates Próprios???"
+msgstr "Modelos Próprios???"
 
 msgid "Owner"
 msgstr "Proprietário"
@@ -2773,7 +2770,7 @@ msgid "Shibboleth Entity Id"
 msgstr "Id de Entidade Shibboleth"
 
 msgid "Should be after start date"
-msgstr ""
+msgstr "Deve ser após a data de início"
 
 msgid "Should be before expiration date"
 msgstr "Deve ser antes da data de validade"
@@ -2839,7 +2836,7 @@ msgid "Successfully deleted your theme"
 msgstr "Seu tema foi apagado com sucesso"
 
 msgid "Successfully destroyed your notification"
-msgstr ""
+msgstr "Destruiu com sucesso sua notificação"
 
 msgid "Successfully signed in"
 msgstr "Entrada bem sucedida"
@@ -2935,10 +2932,10 @@ msgid "That email address is already registered."
 msgstr "Esse email já está registrado."
 
 msgid "That template is no longer customizable."
-msgstr "Esse modelo não é mais customizável."
+msgstr "Esse modelo não é mais customizáveis."
 
 msgid "That template is not customizable."
-msgstr "Esse modelo não é customizável."
+msgstr "Esse modelo não é customizáveis."
 
 msgid "The \"Share\" tab is also where you can set your plan visibility.<ul><li>Private: restricted to you and your collaborators.</li><li>Organizational: anyone at your organization can view your plan.</li><li>Public: anyone can view your plan in the <a href=\"%{public_plans_url}\">public plans</a> list.</li></ul>"
 msgstr "A aba \"Compartilhar\" é outro lugar onde você pode definir a visibilidade de seu plano.<ul><li>Privado: restrito a você e a seus colaboradores.</li><li>Organizacional: qualquer membro de sua organização pode visualizar seu plano.</li><li>Público: qualquer pessoa pode ver seu plano na lista de <a href=\"%{public_plans_url}\">planos públicos</a>.</li></ul>"
@@ -2962,7 +2959,7 @@ msgid "The DMPTool Account email associated with this username is #{@user.email}
 msgstr "O email da conta do DMPTool associado a esse nome de usuário é #{@user.email}"
 
 msgid "The DMPTool is a free, open-source, online application that helps researchers create data management plans. These plans, or DMPs, are now required by many funding agencies as part of the grant proposal submission process. The DMPTool provides a click-through wizard for creating a DMP that complies with funder requirements. It also has direct links to funder websites, help text for answering questions, and resources for best practices surrounding data management."
-msgstr "O DMPTool é um aplicativo on-line gratuito e de código aberto que ajuda os pesquisadores a criar planos de gerenciamento de dados. Esses planos, ou DMPs, são agora exigidos por muitas agências de financiamento como parte do processo de submissão de propostas de subsídios. O DMPTool fornece um assistente de clique para criar um DMP que atenda aos requisitos do financiador. Ele também tem links diretos para sites financiadores, texto de ajuda para responder perguntas e recursos para as melhores práticas relacionadas ao gerenciamento de dados."
+msgstr "O DMPTool é um aplicativo on-line gratuito e de código aberto que ajuda os pesquisadores a criar planos de gerenciamento de dados. Esses planos, ou DMPs, são agora exigidos por muitas agências de financiamento como parte do processo de submissão de propostas de subsídios. O DMPTool fornece um assistente de clique para criar um PGD que atenda aos requisitos do exigências do órgão financiador. Ele também tem links diretos para sites financiadores, texto de ajuda para responder perguntas e recursos para as melhores práticas relacionadas ao gerenciamento de dados."
 
 msgid "The National Science Foundation (NSF) requires a 2-page plan as part of the funding proposal process. Most or all US Federally funded grants will eventually require some form of data management plan."
 msgstr "A National Science Foundation (NSF) exige um plano de duas páginas como parte do processo de proposta de financiamento. A maioria dos subsídios financiados pelo governo federal dos EUA acabará exigindo algum tipo de plano de gerenciamento de dados."
@@ -3288,13 +3285,13 @@ msgid "Unable to save since theme parameter is missing"
 msgstr "Não conseguimos salvar. Falta o parâmetro tema."
 
 msgid "Unable to submit your request"
-msgstr ""
+msgstr "Não é possível enviar sua solicitação"
 
 msgid "Unable to submit your request for feedback at this time."
 msgstr "Não conseguimos submeter seu pedido de feedback neste momento."
 
 msgid "Unable to transfer your customizations."
-msgstr ""
+msgstr "Não é possível transferir suas customizações."
 
 msgid "Unable to unlink your account from %{is}."
 msgstr "Não conseguimos desvincular sua conta de %{is}."
@@ -3381,7 +3378,7 @@ msgid "User accounts"
 msgstr "Contas de usuários"
 
 msgid "User not found."
-msgstr ""
+msgstr "Usuário não encontrado."
 
 msgid "Users"
 msgstr "Usuários"
@@ -3639,7 +3636,7 @@ msgid "You can edit any of the details below."
 msgstr "Você pode editar qualquer um dos detalhes abaixo."
 
 msgid "You can not publish a historical version of this #{template_type(template)}."
-msgstr "Você não pode publicar uma versão história desse #{@template.template_type}."
+msgstr "Você não pode publicar uma versão história desse #{template_type(template)}."
 
 msgid "You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup that should present across the board). Writing generic guidance by theme saves you time and effort as your advice will be automatically displayed across all templates rather than having to write guidance to accompany each."
 msgstr "Você pode escrever pequenos blocos de instruções para serem exibidas por tema (e.g. orientações gerais sobre armazanagem e backup que devem ser observadas em todos os casos). Escrever instruções gerais por tema economiza seu tempo e esforço, pois suas recomendações serão automaticamente exibidas em todos os modelos, sem necessidade de escrevê-las para cada um deles."
@@ -3648,7 +3645,7 @@ msgid "You cannot be assigned to other organisation since that option does not e
 msgstr "Você não pode ser atribuído a outra organização, pois essa opção não existe no sistema. Por favor, entre em contato com os administradores do sistema."
 
 msgid "You cannot delete a #{template_type(template)} that has been used to create plans."
-msgstr "Você não pode apagar um #{@template.template_type} que tenha sido usado para criar planos."
+msgstr "Você não pode apagar um #{template_type(template)} que tenha sido usado para criar planos."
 
 msgid "You canot add a phase to a historical version of a template."
 msgstr "Você não pode adicionar uma fase a uma versão histórica de um modelo."
@@ -3803,7 +3800,7 @@ msgid "activate"
 msgstr "Ativo"
 
 msgid "activated"
-msgstr ""
+msgstr "ativado"
 
 msgid "activerecord.errors.messages.record_invalid"
 msgstr "activerecord.errors.messages.record_invalid"
@@ -3962,7 +3959,7 @@ msgid "password"
 msgstr "senha"
 
 msgid "path_params should be a Hash object"
-msgstr ""
+msgstr "path_params deve ser um objeto hash"
 
 msgid "permissions"
 msgstr "permissões"
@@ -3995,7 +3992,7 @@ msgid "public"
 msgstr "público"
 
 msgid "query_params should be a Hash object"
-msgstr ""
+msgstr "query_params deve ser um objeto hash"
 
 msgid "question"
 msgstr "questões"
