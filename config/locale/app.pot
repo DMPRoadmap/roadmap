@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-25 09:40-0700\n"
-"PO-Revision-Date: 2018-06-01 15:59:11-0700\n"
+"PO-Revision-Date: 2018-06-05 11:54:40-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -99,8 +99,8 @@ msgstr ""
 msgid "%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})"
 msgstr ""
 
-msgid "%{plan_name}"
-msgstr ""
+#msgid "%{plan_name}"
+#msgstr ""
 
 msgid "%{plan_owner} has been notified that you have finished providing feedback"
 msgstr ""
@@ -149,8 +149,8 @@ msgstr ""
 msgid "+ Add an additional URL"
 msgstr ""
 
-#msgid "-"
-#msgstr ""
+msgid "-"
+msgstr ""
 
 msgid "- or -"
 msgstr ""
@@ -412,11 +412,11 @@ msgstr ""
 msgid "A historical template cannot be retrieved for being modified"
 msgstr ""
 
-#, fuzzy
-msgid "A key \"org\" is expected for links hash"
+msgid "A key %{key} is expected for links hash"
 msgstr ""
 
-msgid "A key %{key} is expected for links hash"
+#, fuzzy
+msgid "A key \"org\" is expected for links hash"
 msgstr ""
 
 #msgid "A key \\"org\\" is expected for links hash"
@@ -512,9 +512,11 @@ msgstr ""
 msgid "A: The DMPTool helps researchers create data management plans (DMPs). It provides guidance from specific funders who require DMPs, but the tool can be used by anyone interested in developing generic DMPs to help facilitate their research. The tool also offers resources and services available at <a href=\"%{participating_url}\">participating institutions</a> to help fulfill data management requirements."
 msgstr ""
 
+#msgid "A: The DMPTool hosts a collection of <a href=\"%{public_plans_url}"
+#msgstr ""
+
 #, fuzzy
-msgid "A: The DMPTool hosts a collection of <a href=\"%{public_plans_url}\">public plans</a>.
-The collection contains actual plans created by DMPTool users who have opted to share their plans publicly. Please note that these plans have not been vetted for quality. Some funders provide sample plans on their websites; links to these plans are available on the <a href=\"%{public_templates_url}\">Funder Requirements page</a>."
+msgid "A: The DMPTool hosts a collection of <a href=\"%{public_plans_url}\">public plans</a>. The collection contains actual plans created by DMPTool users who have opted to share their plans publicly. Please note that these plans have not been vetted for quality. Some funders provide sample plans on their websites; links to these plans are available on the <a href=\"%{public_templates_url}\">Funder Requirements page</a>."
 msgstr ""
 
 #, fuzzy
@@ -740,47 +742,10 @@ msgstr ""
 msgid "Answer format"
 msgstr ""
 
-#, fuzzy
-msgid "Answer')]
-        else
-          hdrs << [_('Answer')]
-        end
-
-        csv << hdrs.flatten
-        hash[:phases].each do |phase|
-          phase[:sections].each do |section|
-            section[:questions].each do |question|
-              answer = self.answer(question[:id], false)
-              answer_text = answer.present? ? answer.text : (unanswered ? 'Not Answered' : '"
-msgstr ""
-
 msgid "Answered"
 msgstr ""
 
-#msgid "Answered at"
-#msgstr ""
-
-#, fuzzy
-msgid "Answered at')]
-      else
-        csv << [_('Section"
-msgstr ""
-
-#, fuzzy
-msgid "Answered at')]
-      end
-      sections.each do |section|
-        section.questions.each do |question|
-          answer = Answer.where(plan_id: self.plan_id, question_id: question.id).first
-          # skip unansewered questions
-          if answer.blank? && !unanswered_questions
-            next
-          end
-          answer_text = answer.present? ? answer.text : '
-          q_format = question.question_format
-          if q_format.option_based?
-            options_string = answer.question_options.collect {|o| o.text}.join('; ')
-          "
+msgid "Answered at"
 msgstr ""
 
 msgid "Answered by"
@@ -1307,19 +1272,11 @@ msgstr ""
 msgid "Despite the lack of formal endorsements, the DMPTool templates incorporate specific data management planning requirements from a range of funders including foundations and government agencies. We are in close contact with some funders as we create templates and for all funders we monitor public notices and websites for changes."
 msgstr ""
 
-#msgid "Details"
-#msgstr ""
-
-#, fuzzy
-msgid "Details')+\"\n\n
-    if details
-      self.admin_details.each do |at|
-          value = self.send(at)
-          if value.present?
-            output += admin_field_t(at.to_s) + \": \" + value + \"\n\"
-          else
-            output += admin_field_t(at.to_s) + \": \" + _('-') "
+msgid "Details"
 msgstr ""
+
+#msgid "Details')+"
+#msgstr ""
 
 msgid "Didn't receive confirmation instructions?"
 msgstr ""
@@ -2177,34 +2134,13 @@ msgstr ""
 msgid "No themes have been defined. Please contact your administrator for assistance."
 msgstr ""
 
-#msgid "No. Completed Plans"
-#msgstr ""
-
-#, fuzzy
-msgid "No. Completed Plans')]
-                total = 0
-                r.each_pair{ |k,v| csv << [k,v]; total+=v }
-                csv << [_('Total"
+msgid "No. Completed Plans"
 msgstr ""
 
-#msgid "No. Plans"
-#msgstr ""
-
-#, fuzzy
-msgid "No. Plans')]
-                total = 0
-                r.each_pair{ |k,v| csv << [k,v]; total+=v }
-                csv << [_('Total"
+msgid "No. Plans"
 msgstr ""
 
-#msgid "No. Users joined"
-#msgstr ""
-
-#, fuzzy
-msgid "No. Users joined')]
-                total = 0
-                r.each_pair{ |k,v| csv << [k,v]; total+=v }
-                csv << [_('Total"
+msgid "No. Users joined"
 msgstr ""
 
 msgid "No. plans during last year"
@@ -2218,6 +2154,10 @@ msgid "Non-proprietary"
 msgstr ""
 
 msgid "None provided"
+msgstr ""
+
+#, fuzzy
+msgid "Not Answered"
 msgstr ""
 
 msgid "Not Applicable"
@@ -2436,16 +2376,10 @@ msgstr ""
 msgid "Personal Details"
 msgstr ""
 
-#msgid "Phase"
-#msgstr ""
-
-msgid "Phase details"
+msgid "Phase"
 msgstr ""
 
-#, fuzzy
-msgid "Phase')] : [])
-        if headings
-          hdrs << [_('Section"
+msgid "Phase details"
 msgstr ""
 
 msgid "Phone"
@@ -2540,8 +2474,7 @@ msgid "Please note that your email address is also your username. If you change 
 msgstr ""
 
 #, fuzzy
-msgid "Please note that your email address is used as your username.
-    If you change this, remember to use your new email address on sign in."
+msgid "Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in."
 msgstr ""
 
 msgid "Please select a research organisation and funder to continue."
@@ -2807,14 +2740,8 @@ msgstr ""
 msgid "Question not answered."
 msgstr ""
 
-#, fuzzy
-msgid "Question not answered.')+ \"\n
-        else
-          q_format = question.question_format
-          if q_format.option_based?
-            output += answer.question_options.collect {|o| o.text}.join(\"\n\")
-            "
-msgstr ""
+#msgid "Question not answered.')+ "
+#msgstr ""
 
 msgid "Question number"
 msgstr ""
@@ -3223,10 +3150,6 @@ msgid "That template is not customizable."
 msgstr ""
 
 #, fuzzy
-msgid "The \"Share\" tab is also where you can set your plan visibility.<ul><li>Private: restricted to you and your collaborators.</li><li>Organizational: anyone at your organization can view your plan.</li><li>Public: anyone can view your plan in the <a href=\"%{public_plans_url}\">public plans</a> list.</li></ul>"
-msgstr ""
-
-#, fuzzy
 msgid "The %{org_name} processes the personal data of %{application_name} users in order to deliver and improve the %{application_name} service in a customised manner and to ensure each user receives relevant information."
 msgstr ""
 
@@ -3253,6 +3176,10 @@ msgstr ""
 
 #, fuzzy
 msgid "The National Science Foundation (NSF) requires a 2-page plan as part of the funding proposal process. Most or all US Federally funded grants will eventually require some form of data management plan."
+msgstr ""
+
+#, fuzzy
+msgid "The \"Share\" tab is also where you can set your plan visibility.<ul><li>Private: restricted to you and your collaborators.</li><li>Organizational: anyone at your organization can view your plan.</li><li>Public: anyone can view your plan in the <a href=\"%{public_plans_url}\">public plans</a> list.</li></ul>"
 msgstr ""
 
 #, fuzzy
@@ -3381,9 +3308,11 @@ msgstr ""
 msgid "There is no plan with id %{id} for which to create or update an answer"
 msgstr ""
 
+#msgid "There is no question with id %{question_id} associated to plan id %{plan_id}"
+#msgstr ""
+
 #, fuzzy
-msgid "There is no question with id %{question_id} associated to plan id %{plan_id}\"\
-          \"for which to create or update an answer"
+msgid "There is no question with id %{question_id} associated to plan id %{plan_id} for which to create or update an answer"
 msgstr ""
 
 #msgid "There is no question with id %{question_id} associated to plan id %{plan_id}for which to create or update an answer"
@@ -3512,8 +3441,8 @@ msgstr ""
 msgid "Topic"
 msgstr ""
 
-#msgid "Total"
-#msgstr ""
+msgid "Total"
+msgstr ""
 
 msgid "Total plans"
 msgstr ""
@@ -4149,14 +4078,6 @@ msgid "Your project is now a test."
 msgstr ""
 
 msgid "Your request for feedback has been submitted."
-msgstr ""
-
-#, fuzzy
-msgid "_(feedback_confirmation_default_subject) % { application_name: Rails.configuration.branding[:application][:name] } %>
-      </div>
-    </div>
-    <div class=\"row\">
-      <% tip = _(feedback_confirmation_default_message) % { user_name: _('%{user_name}"
 msgstr ""
 
 #, fuzzy

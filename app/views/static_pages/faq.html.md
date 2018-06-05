@@ -107,8 +107,7 @@
 <hr>
 
 <h5 id="q-are-there-examples-of-data-management-plans"><%= _('Q: Are there examples of data management plans?') %></h5>
-<%= raw _('A: The DMPTool hosts a collection of <a href="%{public_plans_url}">public plans</a>.
-The collection contains actual plans created by DMPTool users who have opted to share their plans publicly. Please note that these plans have not been vetted for quality. Some funders provide sample plans on their websites; links to these plans are available on the <a href=\"%{public_templates_url}\">Funder Requirements page</a>.') % { public_plans_url: public_plans_path, public_templates_url: public_templates_path } %>
+<%= raw _('A: The DMPTool hosts a collection of <a href="%{public_plans_url}">public plans</a>. The collection contains actual plans created by DMPTool users who have opted to share their plans publicly. Please note that these plans have not been vetted for quality. Some funders provide sample plans on their websites; links to these plans are available on the <a href="%{public_templates_url}">Funder Requirements page</a>.') % { public_plans_url: public_plans_path, public_templates_url: public_templates_path } %>
 <hr>
 
 <h5 id="q-whats-the-difference-between-sample-and-public-data-management-plans"><%= _('Q: What\\'s the difference between “sample” and “public” data management plans?') %></h5>

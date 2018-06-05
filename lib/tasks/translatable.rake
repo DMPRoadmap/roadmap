@@ -81,13 +81,7 @@ namespace :translatable do
         translatables << scan_for_translations(File.read(file))
       end
     end
-
     translatables = translatables.flatten.uniq.sort{ |a,b,| a <=> b }
- 
-#translatables.each do |entry|
-#puts entry.inspect
-#puts ""
-#end
  
     unless translatables.empty?
       process_po_file(app_pot_filename, translatables)
@@ -103,8 +97,9 @@ namespace :translatable do
   
   MSGID = /msgid[\s]+\"(.*)\"/
   MSGSTR = /msgstr[\s]+\"(.*)\"/
-  TRANSLATABLE = /(_\((.|\n)*?[\'\"]\)[\)\s\}\,\n\%]+)/
+  TRANSLATABLE = /(_\((.|\n)*?[\'\"]\)[\]\)\s\}\,\n\%]+)/
   CONTEXTUALIZED_TRANSLATABLE = /(n_\([\'\"](.*?)[\'\"]\,\s*[\'\"](.*?)[\'\"])/
+  UNESCAPED_QUOTE = /(?<!\\)\"/
   FUZZY = /#, fuzzy/
   
   def process_po_file(file_name, translatable_text)
@@ -150,11 +145,11 @@ namespace :translatable do
     hash.keys.sort{ |a,b| a <=> b }.each do |key|
       if key != ''
         if hash[key][:obsolete]
-          lines += "\n#msgid \"#{key.gsub('"', '\\"')}\"\n#msgstr \"#{hash[key][:text].gsub('"', '\\"')}\"\n"
+          lines += "\n#msgid \"#{key.gsub(UNESCAPED_QUOTE, '\"')}\"\n#msgstr \"#{hash[key][:text].gsub(UNESCAPED_QUOTE, '\"')}\"\n"
         elsif hash[key][:fuzzy]
-          lines += "\n#, fuzzy\nmsgid \"#{key.gsub('"', '\\"')}\"\nmsgstr \"#{hash[key][:text].gsub('"', '\\"')}\"\n"
+          lines += "\n#, fuzzy\nmsgid \"#{key.gsub(UNESCAPED_QUOTE, '\"')}\"\nmsgstr \"#{hash[key][:text].gsub(UNESCAPED_QUOTE, '\"')}\"\n"
         else
-          lines += "\nmsgid \"#{key.gsub('"', '\\"')}\"\nmsgstr \"#{hash[key][:text].gsub('"', '\\"')}\"\n"
+          lines += "\nmsgid \"#{key.gsub(UNESCAPED_QUOTE, '\"')}\"\nmsgstr \"#{hash[key][:text].gsub(UNESCAPED_QUOTE, '\"')}\"\n"
         end
       end
     end
@@ -167,29 +162,30 @@ namespace :translatable do
     end
     file.to_s.scan(CONTEXTUALIZED_TRANSLATABLE).each do |text|
       parts = text[0].split(/[\'\"]\,\s*[\'\"]/)
-      translatables << parts[0]if parts[0].present?
+      translatables << parts[0] if parts[0].present?
       translatables << parts[1] if parts[1].present?
     end
     
-    translatables.map do |entry| 
+    translatables = translatables.map do |entry| 
       entry.sub(/^n?_\([\'\"]/, '').              # remove the gettext markup from front of line
-        sub(/[\'\"]{1}[\)\}\,\s\n\%]*$/, '').     # remove the gettext markup from end of line
+        sub(/[\'\"]{1}[\)\]\}\,\s\n\%]*$/, '').   # remove the gettext markup from end of line
         gsub(/[\\]+[\"]/, "\"").                  # remove double escaped quotes (e.g. \\\")
         gsub(/[\\]+[\']/, "'").                   # remove double escaped single quotes
         gsub(/\'\\\n\s*[\'\"]/, '')               # remove line continuations
     end
+    translatables
   end
 
   def consolidate_translatables(hash, translatables)
     # Add any new translatables
     translatables.each do |text|
-      unless hash[text].present?
+      unless hash[text.gsub('"', '\"')].present?
         hash[text] = { text: "", fuzzy: true }
       end
     end
     # Mark any msgid in the hash that no longer exists in translatables
     hash.keys.each do |entry|
-      unless translatables.include?(entry)
+      unless translatables.include?(entry.gsub('\"', '"'))
         hash[entry] = hash[entry].merge({ obsolete: true })
       end
     end
