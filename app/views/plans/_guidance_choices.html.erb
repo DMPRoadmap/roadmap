@@ -2,7 +2,7 @@
   <% if groups && groups.size == 1 %>
     <li class="checkbox">
       <%= check_box_tag "guidance_group_ids[]", groups[0].id,
-                        current_selections.include?(groups[0].id), class: 'guidance-choice' %>
+                        current_selections.include?(groups[0].id), class: 'guidance-choice', "aria-label": "#{groups[0].id}" %>
       <%= org.name %>
     </li>
   <% elsif groups %>
@@ -13,7 +13,7 @@
           <li class="checkbox">
             <span class="sublist">└─ </span>
             <%= check_box_tag "guidance_group_ids[]", group.id,
-                              current_selections.include?(group.id), class: 'guidance-choice' %>
+                              current_selections.include?(group.id), class: 'guidance-choice', "aria-label": "#{group.id}" %>
             <%= group.name %>
           </li>
         <% end %>
