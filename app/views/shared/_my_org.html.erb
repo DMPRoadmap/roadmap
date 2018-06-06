@@ -1,3 +1,5 @@
+<% required = required ||= false %>
+<% other_org = Org.find_by(is_other: true) %>
 <%= f.label :org_name, _('Organisation'), class: 'control-label' %>
 <% object_name = (f.options[:namespace].present? ? "#{f.options[:namespace]}_#{f.object_name}" : f.object_name) %>
 <%= render partial: "shared/accessible_combobox",
@@ -5,17 +7,17 @@
                       id: "#{object_name}_org_name",
                       default_selection: default_org,
                       models: orgs,
-                      attribute: 'name'} %>
+                      attribute: 'name',
+                      error: _('Please select an organisation from the list, or click the "My organisation isn\'t listed" link and enter your organisation\'s name.'),
+                      required: required} %>
 
 <% if allow_other_orgs %>
   <div class="clearfix"></div>
-  <a href="#" id="other-org-link"><%= _('My organisation isn\'t listed.') %></a>
+  <%= f.hidden_field :other_org_id, value: other_org.present? ? other_org.id : '' %>
+  <a href="#" class="other-org-link"><%= _('My organisation isn\'t listed.') %></a>
 
   <div class="clearfix"></div>
-  <%= f.text_field :other_organisation, autocomplete: "off", class: "form-control hide", 
+  <%= f.text_field :other_organisation, autocomplete: "off", class: "form-control hide other-org", 
                    placeholder: _('Please enter the name of your organisation'),
                    "aria-label": "other_organisation" %>
-  <div class="form-group has-error">
-    <span id="help-org" class="help-block" style="display:none"><%= _('Please select an organisation from the list, or enter your organisation\'s name.') %></span>
-  </div>
 <% end %>
