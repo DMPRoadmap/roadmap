@@ -29,7 +29,10 @@
                     <li><%= link_to _('Plans'), org_admin_plans_path %></li>
                     <li><%= link_to _('Usage'), usage_index_path %></li>
                     <% if current_user.can_modify_templates? %>
-                      <li><%= link_to _('Templates'), org_admin_templates_path %></li>
+                      <% template_path = current_user.can_super_admin? ? org_admin_templates_path : organisational_org_admin_templates_path %>
+                        <li <%= 'class=active' if isActivePage(template_path) %>>
+                          <%= link_to _('Templates'), template_path %>
+                        </li>
                     <% end %>
                     <% if current_user.can_modify_guidance? %>
                       <li><%= link_to _('Guidance'), admin_index_guidance_path(current_user.org_id) %></li>
