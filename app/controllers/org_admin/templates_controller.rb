@@ -96,13 +96,14 @@ module OrgAdmin
                         order('phases.number', 'sections.number', 'questions.number', 'question_options.number').
                         select('phases.title', 'phases.description', 'sections.title', 'questions.text', 'question_options.text')
       if !template.latest?
-        flash[:notice] = _("You are viewing a historical version of this #{template_type(template)}. You will not be able to make changes.")
+        redirect_to org_admin_template_path(id: template.id)
+      else
+        render 'container', locals: { 
+          partial_path: 'edit', 
+          template: template,
+          phases: phases,
+          referrer: get_referrer(template, request.referrer) }
       end
-      render 'container', locals: { 
-        partial_path: 'edit', 
-        template: template,
-        phases: phases,
-        referrer: get_referrer(template, request.referrer) }
     end
     
     # GET /org_admin/templates/new
