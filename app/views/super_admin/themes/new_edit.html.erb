@@ -1,4 +1,5 @@
 <%# locals: { theme, options } %>
+<% title "#{options[:title]}" %>
 <h2><%= options[:title] %></h2>
 <%= form_for theme, url: options[:url], method: options[:method], html: { class: 'theme' } do |f| %>
     <div class="form-group">
