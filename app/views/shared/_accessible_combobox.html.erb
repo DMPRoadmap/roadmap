@@ -16,6 +16,7 @@
          data-combobox-allow-suggestion-on-empty="true"
          data-toggle="<%= title == '' ? '' : 'tooltip' %>"
          title="<%= title %>"
+         aria-label= "<%= title %>",
          value="<%= default_selection[attribute] unless default_selection.nil? %>" />
   <datalist id="<%= id %>_list">
     <% models.each do |model| %>
