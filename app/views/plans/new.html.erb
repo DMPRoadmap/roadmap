@@ -1,3 +1,4 @@
+<% title 'Create a new plan' %>
 <div class="row">
   <div class="col-md-12">
     <h1><%= _('Create a new plan') %></h1>
@@ -15,7 +16,7 @@
       <h2 id="project-title"><%= _('What research project are you planning?') %></h2>
       <div class="form-group row">
         <div class="col-xs-6">
-          <%= f.text_field(:title, class: 'form-control', 'aria-describedby': 'project-title', 'aria-required': 'true', 
+          <%= f.text_field(:title, class: 'form-control', 'aria-describedby': 'project-title', 'aria-required': 'true', 'aria-label': 'project-title', 
                 'data-toggle': 'tooltip',
                 title: _('If applying for funding, state the project title exactly as in the proposal.')) %>
         </div>
