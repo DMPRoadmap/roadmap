@@ -104,12 +104,12 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
     assert_nil flash[:notice], 'expected no warning messages'
   end
 
-  test 'get templates#edit returns ok with flash notice when template is not latest' do
+  test 'get templates#edit redirects to #show when template is not latest' do
     new_version = @org_template.generate_version!
     sign_in @org_admin
     get(edit_org_admin_template_path(@org_template.id))
-    assert_response :success
-    assert_not_nil flash[:notice], 'expected a warning message'
+    assert_response :redirect
+    assert_redirected_to org_admin_template_path(@org_template.id)
   end
 
   test "unauthorized user cannot access the template#new page" do
