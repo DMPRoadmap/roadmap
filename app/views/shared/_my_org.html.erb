@@ -13,7 +13,8 @@
 
   <div class="clearfix"></div>
   <%= f.text_field :other_organisation, autocomplete: "off", class: "form-control hide", 
-                   placeholder: _('Please enter the name of your organisation') %>
+                   placeholder: _('Please enter the name of your organisation'),
+                   "aria-label": "other_organisation" %>
   <div class="form-group has-error">
     <span id="help-org" class="help-block" style="display:none"><%= _('Please select an organisation from the list, or enter your organisation\'s name.') %></span>
   </div>
