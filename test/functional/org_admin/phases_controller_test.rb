@@ -32,6 +32,14 @@ class PhasesControllerTest < ActionDispatch::IntegrationTest
     assert_nil flash[:alert]
   end
 
+  test 'get phases#edit redirects to #show when template is not latest' do
+    new_version = @template.generate_version!
+    sign_in @org_admin
+    get(edit_org_admin_template_phase_path(@template.id, @template.phases.first.id))
+    assert_response :redirect
+    assert_redirected_to org_admin_template_phase_path(@template.id, @template.phases.first.id)
+  end
+  
   test "unauthorized user cannot access the preview phase page" do
     get preview_org_admin_template_phase_path(@template, @phase)
     assert_unauthorized_redirect_to_root_path
