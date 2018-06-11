@@ -2,9 +2,15 @@
   <% if groups && groups.size == 1 %>
     <li class="checkbox">
       <%= check_box_tag "guidance_group_ids[]", groups[0].id,
-                        current_selections.include?(groups[0].id), class: 'guidance-choice' %>
-      <%# DMPTool hack to swap in 'DMPTool' for 'DCC' in guidance selection %>
+                        current_selections.include?(groups[0].id), class: 'guidance-choice', "aria-label": "#{groups[0].id}" %>
+
+    <!-- START DMPTool customization -->
+    <!-- ========================================= -->
+      <%#= org.name %>
       <%= (org.abbreviation == 'UCOP' ? _('DMPTool') : org.name) %>
+    <!-- ========================================= -->
+    <!-- END DMPTool customization -->
+
     </li>
   <% elsif groups %>
     <li class="checkbox">
@@ -14,7 +20,7 @@
           <li class="checkbox">
             <span class="sublist">└─ </span>
             <%= check_box_tag "guidance_group_ids[]", group.id,
-                              current_selections.include?(group.id), class: 'guidance-choice' %>
+                              current_selections.include?(group.id), class: 'guidance-choice', "aria-label": "#{group.id}" %>
             <%= group.name %>
           </li>
         <% end %>

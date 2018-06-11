@@ -9,7 +9,7 @@ namespace :translatable do
         puts "Language added"
       end
     else
-      puts "You must provide a ISO-639 language code, name: rake gettext:add_language[ja,日本語]"
+      puts "You must provide a ISO-639 language code, name: `rake translatable:add_language[ja,日本語]`"
     end
   end
   
@@ -29,7 +29,7 @@ namespace :translatable do
         puts "That language is not registered!"
       end
     else
-      puts "You must provide the ISO-639 language code for the language: e.g. gettext:remove_language[ja]"
+      puts "You must provide the ISO-639 language code for the language: e.g. `translatable:remove_language[ja]`"
     end
   end
   
@@ -67,8 +67,7 @@ namespace :translatable do
     end
   end
   
-  
-  desc 'Find all translatable text and update po files' 
+  desc 'Find all translatable text and update all pot/po files' 
   task :find, [:code] => [:environment] do |t, args|
     app_pot_filename = 'config/locale/app.pot'
     translatables = []
