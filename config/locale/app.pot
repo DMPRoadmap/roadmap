@@ -1706,6 +1706,9 @@ msgstr ""
 msgid "Security check"
 msgstr ""
 
+msgid "See the full list"
+msgstr ""
+
 msgid "See the full list of participating organisations"
 msgstr ""
 
