@@ -2024,6 +2024,10 @@ msgid "Security check"
 msgstr ""
 
 #, fuzzy
+msgid "See the full list"
+msgstr ""
+
+#, fuzzy
 msgid "See the full list of participating organisations"
 msgstr "Organisation"
 
