@@ -41,7 +41,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   </head>
   <body>
-
+      <div class="skip">
+        <a href="#maincontent">Skip to main content</a> 
+      </div>
       <!-- header rendering -->
       <header>
         <%= render partial: "layouts/header" %>
@@ -53,7 +55,7 @@
       %>
 
       <!-- main page content rendering -->
-      <main class="container">
+      <main class="container" id="maincontent">
         <div id="notification-area"
              class="alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
                     <%= (has_alert or has_notice) ? 'show' : 'hide' %>"
