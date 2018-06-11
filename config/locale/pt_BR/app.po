@@ -1585,7 +1585,7 @@ msgid "If you would like to change your password please complete the following f
 msgstr "Se você deseja mudar sua senha, por favor, complete os campos a seguir."
 
 msgid "If you would like to modify one of the templates below, you must first change your organisation affiliation."
-msgstr "Se você deseja modificar um dos modelos abaixo, precisa primeiro trocar sua afiliação organizacional.??"
+msgstr "Se você deseja modificar um dos modelos abaixo, precisa primeiro trocar sua afiliação organizacional."
 
 msgid "If your institution does not participate, you can create your own account."
 msgstr "Se sua instituição não participa, você pode criar sua própria conta."
@@ -2050,7 +2050,7 @@ msgid "Overview of My dashboard"
 msgstr "Visão geral de Meu painel de controle"
 
 msgid "Own Templates"
-msgstr "Modelos Próprios???"
+msgstr "Modelos Próprios"
 
 msgid "Owner"
 msgstr "Proprietário"
@@ -2956,7 +2956,7 @@ msgid "There is no data available for plans yet."
 msgstr "Ainda não há dados disponíveis para planos."
 
 msgid "There is no data available for users joined yet."
-msgstr "Ainda não há dados disponíveis para usuários associados.??"
+msgstr "Ainda não há dados disponíveis para usuários associados."
 
 msgid "There is no notification associated with id  %{id}"
 msgstr "Não há nenhum plano associado à id %{id}"
@@ -2998,7 +2998,7 @@ msgid "This field is required."
 msgstr "Este campo é obrigatório."
 
 msgid "This information can only be changed by a system administrator. Contact the Help Desk if you have questions or to request changes."
-msgstr "Esta informação só pode ser modificada por um administrador do sistema. Entre em contato com a Help Desk ?? se quiser fazer perguntas ou pedir mudanças."
+msgstr "Esta informação só pode ser modificada por um administrador do sistema. Entre em contato com a Help Desk se quiser fazer perguntas ou pedir mudanças."
 
 msgid "This is a"
 msgstr "Isto é um"
@@ -3253,7 +3253,7 @@ msgid "Use the contact form below if you are interested in adding your organizat
 msgstr "Use o formulário de contato abaixo se você estiver interessado em adicionar sua organização."
 
 msgid "Use the filters to generate organisational usage statistics for a custom date range. The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph."
-msgstr "Use os filtros para gerar estatísticas de uso organizacional para uma faixa de datas customizada??. Os gráficos mostram novos usuários e planos para sua organização ao longo do último ano. Você pode baixar um relatório em formato CSV para cada gráfico."
+msgstr "Use os filtros para gerar estatísticas de uso organizacional para uma faixa de datas customizada. Os gráficos mostram novos usuários e planos para sua organização ao longo do último ano. Você pode baixar um relatório em formato CSV para cada gráfico."
 
 msgid "User accounts"
 msgstr "Contas de usuários"
@@ -3541,7 +3541,7 @@ msgid "You have been granted administrator privileges in %{tool_name}:"
 msgstr "Você recebeu privilégios de administrador para %{tool_name}:"
 
 msgid "You have been granted permission by your organisation to use our API. Your API token and instructions for using the API endpoints can be found at: %{link}"
-msgstr "Você recebeu permissão de sua organização para usar nossa API. Seu token da API e as instruções para usar as telas [endpoints??] da API podem ser encontrados em: %{link}"
+msgstr "Você recebeu permissão de sua organização para usar nossa API. Seu token da API e as instruções para usar as telas [endpoints] da API podem ser encontrados em: %{link}"
 
 msgid "You have been revoked administrator privileges in %{tool_name}."
 msgstr "Seus privilégios de administrador de %{tool_name} foram revogados."
