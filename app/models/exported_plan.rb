@@ -145,7 +145,7 @@ class ExportedPlan < ActiveRecord::Base
 
   def as_txt(sections, unanswered_questions, question_headings, details)
     output = "#{self.plan.title}\n\n#{self.plan.template.title}\n"
-    output += "\n"+_('Details')+"\n\n"
+    output += "\n"+ _('Details') +"\n\n"
     if details
       self.admin_details.each do |at|
           value = self.send(at)
@@ -171,7 +171,7 @@ class ExportedPlan < ActiveRecord::Base
           output += "\n* #{qtext}"
         end
         if answer.nil?
-          output += _('Question not answered.')+ "\n"
+          output += _('Question not answered.') + "\n"
         else
           q_format = question.question_format
           if q_format.option_based?
