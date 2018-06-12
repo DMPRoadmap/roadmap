@@ -369,4 +369,17 @@ namespace :upgrade do
     Rake::Task['upgrade:remove_duplicated_non_customised_template_versions'].execute
     Rake::Task['upgrade:remove_duplicated_customised_template_versions'].execute
   end
+
+  desc "Remove admin preferences"
+  task remove_admin_preferences: :environment do
+    Pref.all.each do |p|
+      if p.settings.present?
+        if p.settings['email'].present?
+          if p.settings['email']['admin'].present?
+            p.settings['email'].delete('admin')
+            p.save!
+        end
+      end
+    end
+  end
 end
