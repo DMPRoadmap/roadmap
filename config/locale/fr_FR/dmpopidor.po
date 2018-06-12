@@ -78,4 +78,79 @@ msgstr "Contexte"
 msgid "Latest news"
 msgstr "Dernières Nouvelles"
 
+msgid "Welcome!"
+msgstr "Bienvenue !"
+
+msgid "%{tool_name} guides you through your research project by helping you create software and data management plans"
+msgstr "%{tool_name} vous accompagne tout au long d’un projet de recherche dans l’élaboration de plans de gestion de données et de logiciels"
+
+msgid "Accessible by any member of the ESR research community and their partners from France and outside"
+msgstr "Accessible à la communauté scientifique de  l’ESR et à ses partenaires français ou étrangers"
+
+msgid "Customizable by any research organisation aiming at setting up a data policy"
+msgstr "Personnalisable par tout organisme de recherche pour la mise en place de sa politique de données"
+
+msgid "Enriched with examples and guidances designed the your research environment"
+msgstr "Enrichi par des exemples et des recommandations adaptés à l’environnement de recherche"
+
+msgid "Collaborative: make sharing easier between the partners of the same project"
+msgstr "Collaboratif pour faciliter les échanges entre partenaires d’un même projet"
+
+msgid "Your feedback helps %{tool_name} to evolve. The development is part of an international collaboration with DMPRoadmap, an open source software."
+msgstr "%{tool_name} évolue grâce à vos retours. Les développements s’inscrivent dans le cadre d’une collaboration internationale autour du logiciel open source DMPRoadmap"
+
+msgid "Join the %{tool_name} community"
+msgstr "Rejoignez la communauté %{tool_name}"
+
+msgid "Create an account, Log in and Let you guide!"
+msgstr "Créez un compte, connectez-vous et laissez-vous guider !"
+
+msgid "Discover %{tool_name}"
+msgstr "Découvrez %{tool_name}"
+
+msgid "Choose a template"
+msgstr "Choisissez un modèle"
+
+msgid "Select a research organisation:"
+msgstr "Selectionnez un organisme de recherche :"
+
+msgid "Select a funder:"
+msgstr "Selectionnez un financeur :"
+
+msgid "Select a template:"
+msgstr "Selectionnez un modèle :"
+
+msgid "No research organisation"
+msgstr "Pas d'organisme de recherche"
+
+msgid "No funder associated with this plan"
+msgstr "Pas de financeur associé à ce plan"
+
+msgid "We found multiple DMP templates corresponding to your choices."
+msgstr "Nous avons trouvé plusieurs modèles correspondants à vos choix."
+
+msgid "Several template types are available:"
+msgstr "Différents type de modèles sont disponibles :"
+
+msgid "Organisation templates: Select the organisation and check \"No funder\""
+msgstr "Modèles proposés par les organismes : Sélectionner l’organisme et cocher \"Pas de financeur\""
+
+msgid "Funder templates: Check \"No organisation\" and select the funder"
+msgstr "Modèles proposés par les financeurs : Cocher \"Pas d’organisme\" et sélectionner un financeur"
+
+msgid "Funder templates customized by an organisation: Select the organisation and select the funder"
+msgstr "Modèles de financeurs personnalisés par les organismes : sélectionner l’organisme puis le financeur"
+
+msgid "Default template"
+msgstr "Modèle par défaut"
+
+msgid "Check \"No organisation\" and check "No funder""
+msgstr "Cocher \"Pas d’organisme\" et cocher \"Pas de financeur\""
+
+msgid "Find the list of the available template"
+msgstr "Retrouvez la liste des modèles disponibles"
+
+msgid "Plan for testing, practice, or educational purposes"
+msgstr "Plan de test, d'entrainement ou créé en vue d'une formation"
+
 

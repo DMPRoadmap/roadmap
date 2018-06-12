@@ -72,3 +72,87 @@ msgstr ""
 msgid "Administrator"
 msgstr ""
 
+msgid "Organisation Type"
+msgstr ""
+
+msgid "Background"
+msgstr ""
+
+msgid "Latest news"
+msgstr ""
+
+msgid "Welcome!"
+msgstr ""
+
+msgid "%{tool_name} guides you through your research project by helping you create software and data management plans"
+msgstr ""
+
+msgid "Accessible by any member of the ESR research community and their partners from France and outside"
+msgstr ""
+
+msgid "Customizable by any research organisation aiming at setting up a data policy"
+msgstr ""
+
+msgid "Enriched with examples and guidances designed the your research environment"
+msgstr ""
+
+msgid "Collaborative: make sharing easier between the partners of the same project"
+msgstr ""
+
+msgid "Your feedback helps %{tool_name} to evolve. The development is part of an international collaboration with DMPRoadmap, an open source software."
+msgstr ""
+
+msgid "Join the %{tool_name} community"
+msgstr ""
+
+msgid "Create an account, Log in and Let you guide!"
+msgstr ""
+
+msgid "Discover %{tool_name}"
+msgstr ""
+
+msgid "Choose a template"
+msgstr ""
+
+msgid "Select a research organisation:"
+msgstr ""
+
+msgid "Select a funder:"
+msgstr ""
+
+msgid "Select a template:"
+msgstr ""
+
+msgid "No research organisation"
+msgstr ""
+
+msgid "No funder associated with this plan"
+msgstr ""
+
+msgid "We found multiple DMP templates corresponding to your choices."
+msgstr ""
+
+msgid "Several template types are available:"
+msgstr ""
+
+msgid "Organisation templates: Select the organisation and check \"No funder\""
+msgstr ""
+
+msgid "Funder templates: Check \"No organisation\" and select the funder"
+msgstr ""
+
+msgid "Funder templates customized by an organisation: Select the organisation and select the funder"
+msgstr ""
+
+msgid "Default template"
+msgstr ""
+
+msgid "Check \"No organisation\" and check "No funder""
+msgstr ""
+
+msgid "Find the list of the available template"
+msgstr ""
+
+msgid "Plan for testing, practice, or educational purposes"
+msgstr ""
+

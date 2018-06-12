@@ -66,7 +66,7 @@ $light-yellow: #fff9e5;
             a, a:active,a:focus,a:visited {
                 color: $white;
             }
-            a:hover {
+            a:hover, a:focus {
                 color: $white;
                 background-color: $blue;
             }
@@ -526,4 +526,39 @@ $light-yellow: #fff9e5;
         border-left: 2px solid $rust;
     }
 
+}
+
+
+/*
+    FRONT PAGE
+*/
+.dmpopidor-front-page {
+    .main-title {
+        padding-bottom: 10px;
+    }
+    .join-div {
+        margin-top: 20px;
+        padding-bottom: 10px;
+        border-left: 4px solid #d6604d;
+        border-bottom: 2px solid #edf5fa;
+        border-top: 2px solid #edf5fa;
+        border-right: 2px solid #edf5fa;
+    }
+    .discover-div {
+        float: right;
+    }
+
+    .front-page-list-item {
+        font-size: 1.2em;
+    }
+    .front-page-text {
+        font-size: 1.2em;
+    }
+    .icon {
+        padding: 20px 0;
+        font-size: 2em;
+    }
+    .text {
+        padding: 20px 0;
+    }
 }
