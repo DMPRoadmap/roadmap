@@ -418,7 +418,6 @@ namespace :upgrade do
     end
     puts "Search complete"
     puts ""
-
   end
 
   desc "Remove admin preferences"
