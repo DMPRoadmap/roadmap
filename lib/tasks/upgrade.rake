@@ -426,6 +426,7 @@ namespace :upgrade do
           if p.settings['email']['admin'].present?
             p.settings['email'].delete('admin')
             p.save!
+          end
         end
       end
     end
