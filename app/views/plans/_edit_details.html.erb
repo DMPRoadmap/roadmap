@@ -10,7 +10,7 @@
             title: _('If applying for funding, state the name exactly as in the grant proposal.')) %>
       <div class="checkbox">
         <%= f.hidden_field :visibility %>
-        <%= f.label(:is_test, raw("#{check_box_tag(:is_test,1, @plan.is_test?)} #{_('mock project for testing, practice, or educational purposes')}"), class: 'control-label') %>
+        <%= f.label(:is_test, raw("#{check_box_tag(:is_test,1, @plan.is_test? , "aria-label": "is_test")} #{_('mock project for testing, practice, or educational purposes')}"), class: 'control-label') %>
       </div>
         </div>
       </div>
@@ -158,7 +158,7 @@
       </ul>
 
       <p><%= _('Find guidance from additional organisations below') %></p>
-      <%= link_to 'See the full list', '#', 'data-toggle' =>  'modal', 'data-target' => '#modal-full-guidances', class: 'modal-guidances-window' %>
+      <%= link_to _('See the full list'), '#', 'data-toggle' =>  'modal', 'data-target' => '#modal-full-guidances', class: 'modal-guidances-window' %>
 
       <br>
       <%= f.button(_('Submit'), class: "btn btn-default", type: "submit") %>

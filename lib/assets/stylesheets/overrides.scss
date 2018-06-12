@@ -567,3 +567,19 @@ legend.project-details {
     width: 340px;
   }
 }
+
+/* Skip to main content link styling */
+div.skip a { 
+  position:absolute; 
+  left:-10000px; 
+  top:auto; 
+  width:1px; 
+  height:1px; 
+  overflow: hidden !important;
+} 
+ 
+div.skip a:focus { 
+  width:auto; 
+  height:auto; 
+  overflow:visible !important;
+}

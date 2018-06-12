@@ -51,7 +51,7 @@
                   <td class="text-center user-status">
                     <% if is_super_admin %>
                       <%= form_for user, url: activate_user_path(user), html: { method: :put, remote: true, class: 'activate-user' } do |f| %>
-                        <%= check_box_tag(:active, "1", user.active) %>
+                        <%= check_box_tag(:active, "1", user.active, "aria-label": "active" ) %>
                         <%= f.submit(_('Update'), style: 'display: none;') %>
                       <% end %>
                     <% else %>
