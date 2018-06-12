@@ -2560,6 +2560,9 @@ msgstr ""
 msgid "See the full list of participating institutions"
 msgstr ""
 
+msgid "See the full list"
+msgstr ""
+
 msgid "See the full list of participating organisations"
 msgstr ""
 

@@ -2568,6 +2568,9 @@ msgstr "Veja uma lista atual de <a href=\"%{participants_url}\">participantes do
 msgid "See the <a href=\"%{help_url}\">Quick Start Guide</a> for more information on setting your plan's visibility."
 msgstr "Veja o <a href=\"%{help_url}\">Guia de Início Rápido</a> para mais informações sobre como definir a visibilidade de seu plano."
 
+msgid "See the full list"
+msgstr "Veja a lista completa"
+
 msgid "See the full list of participating institutions"
 msgstr "Veja a lista completa de instituições participantes"
 

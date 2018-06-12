@@ -2517,6 +2517,9 @@ msgstr ""
 msgid "See the <a href=\"%{help_url}\">Quick Start Guide</a> for more information on setting your plan's visibility."
 msgstr ""
 
+msgid "See the full list"
+msgstr ""
+
 msgid "See the full list of participating institutions"
 msgstr ""
 
