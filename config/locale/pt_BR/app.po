@@ -1701,6 +1701,9 @@ msgstr "Seções"
 msgid "Security check"
 msgstr "Verificação de segurança"
 
+msgid "See the full list"
+msgstr "Veja a lista completa"
+
 msgid "See the full list of participating organisations"
 msgstr "Veja a lista completa de organizações participantes"
 
