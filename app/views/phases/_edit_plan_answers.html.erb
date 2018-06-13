@@ -72,7 +72,12 @@
                   </div>
                   <div class="col-md-4">
                     <!-- Guidances and notes partial view -->
-                    <%= render partial: '/phases/guidances_notes', locals: { plan: plan, template: phase.template, question: question, answer: answer, question_guidance: question_guidance, guidance_groups: guidance_groups, base_template_org: base_template_org } %>
+                    <%= render partial: '/phases/guidances_notes', locals: {
+                      plan: plan,
+                      template: phase.template,
+                      question: question,
+                      answer: answer,
+                      guidance_service: guidance_service } %>
                   </div>
                 </div>
                 <%= raw('<hr />') if i != section.questions.length - 1 %>
