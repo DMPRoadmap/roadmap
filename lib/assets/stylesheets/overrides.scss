@@ -497,9 +497,6 @@ $tooltip-background: $grey;
     font-size: 30px;
     font-weight: normal;
   }
-  .red {
-    margin-left: 15px;
-  }
 }
 
 /* Templates page table pre-defined filters */
@@ -582,4 +579,9 @@ div.skip a:focus {
   width:auto; 
   height:auto; 
   overflow:visible !important;
+}
+
+/* adjust the position of the 'remove - X' button for links */
+.link .fa-times-circle {
+  margin-top: 30px;
 }
