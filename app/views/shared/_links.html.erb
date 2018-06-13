@@ -20,15 +20,15 @@
       <% links.each_with_index do |l, i| %>
         <div class="link row">
           <div class="col-xs-5">
-            <div class="form-group">
+            <div class="form-group link-input">
               <%= label_tag "link_link#{i}", _('URL'), class: "control-label" %>
-              <%= text_field_tag 'link_link', l['link'], class: "form-control", id: "link_link#{i}", 'data-validation': 'url' %>
+              <%= text_field_tag 'link_link', l['link'], class: "form-control", id: "#{context}_link_link#{i}", 'data-validation': 'url', 'aria-required': true %>
             </div>
           </div>
           <div class="col-xs-5">
-            <div class="form-group">
+            <div class="form-group link-input">
               <%= label_tag "link_text#{i}", _('Link text'), class: "control-label" %>
-              <%= text_field_tag 'link_text', l['text'], class: "form-control", id: "link_text#{i}", 'aria-required': true %>
+              <%= text_field_tag 'link_text', l['text'], class: "form-control", id: "#{context}link_text#{i}", 'aria-required': true %>
             </div>
           </div>
           <div class="col-xs-2">
