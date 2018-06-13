@@ -84,28 +84,28 @@ msgstr ""
 msgid "Welcome!"
 msgstr ""
 
-msgid "%{tool_name} guides you through your research project by helping you create software and data management plans"
+msgid "%{tool_name} guides you through the drafting and implementation into practice of data or software management plans."
 msgstr ""
 
-msgid "Accessible by any member of the ESR research community and their partners from France and outside"
+msgid "Accessible by any member of the High Education and Research community as well as its French or foreign partners"
 msgstr ""
 
-msgid "Customizable by any research organisation aiming at setting up a data policy"
+msgid "Customizable by any research organization willing to implement a data policy"
 msgstr ""
 
-msgid "Enriched with examples and guidances designed the your research environment"
+msgid "Enriched by examples and recommendations relevant to research environments"
 msgstr ""
 
-msgid "Collaborative: make sharing easier between the partners of the same project"
+msgid "Collaborative:  it facilitates exchanges between partners of a same project and support staff"
 msgstr ""
 
-msgid "Your feedback helps %{tool_name} to evolve. The development is part of an international collaboration with DMPRoadmap, an open source software."
+msgid "Thanks to your feedback %{tool_name} will continue to evolve. The development work is a combined international effort around DMP Roadmap open source software."
 msgstr ""
 
-msgid "Join the %{tool_name} community"
+msgid "Join the %{tool_name} user’s community"
 msgstr ""
 
-msgid "Create an account, Log in and Let you guide!"
+msgid "Create an account, sign in and let you guide!"
 msgstr ""
 
 msgid "Discover %{tool_name}"
@@ -150,7 +150,7 @@ msgstr ""
 msgid "Check \"No organisation\" and check "No funder""
 msgstr ""
 
-msgid "Find the list of the available template"
+msgid "Find the list of the available templates"
 msgstr ""
 
 msgid "Plan for testing, practice, or educational purposes"

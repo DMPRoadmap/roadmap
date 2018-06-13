@@ -82,29 +82,29 @@ msgstr "Latest news"
 msgid "Welcome!"
 msgstr "Welcome!"
 
-msgid "%{tool_name} guides you through your research project by helping you create software and data management plans"
-msgstr "%{tool_name} guides you through your research project by helping you create software and data management plans"
+msgid "%{tool_name} guides you through the drafting and implementation into practice of data or software management plans."
+msgstr "%{tool_name} guides you through the drafting and implementation into practice of data or software management plans."
 
-msgid "Accessible by any member of the ESR research community and their partners from France and outside"
-msgstr "Accessible by any member of the ESR research community and their partners from France and outside"
+msgid "Accessible by any member of the High Education and Research community as well as its French or foreign partners"
+msgstr "Accessible by any member of the High Education and Research community as well as its French or foreign partners"
 
-msgid "Customizable by any research organisation aiming at setting up a data policy"
-msgstr "Customizable by any research organisation aiming at setting up a data policy"
+msgid "Customizable by any research organization willing to implement a data policy"
+msgstr "Customizable by any research organization willing to implement a data policy"
 
-msgid "Enriched with examples and guidances designed the your research environment"
-msgstr "Enriched with examples and guidances designed the your research environment"
+msgid "Enriched by examples and recommendations relevant to research environments"
+msgstr "Enriched by examples and recommendations relevant to research environments"
 
-msgid "Collaborative: make sharing easier between the partners of the same project"
-msgstr "Collaborative: make sharing easier between the partners of the same project"
+msgid "Collaborative:  it facilitates exchanges between partners of a same project and support staff"
+msgstr "Collaborative:  it facilitates exchanges between partners of a same project and support staff"
 
-msgid "Your feedback helps %{tool_name} to evolve. The development is part of an international collaboration with DMPRoadmap, an open source software."
-msgstr "Your feedback helps %{tool_name} to evolve. The development is part of an international collaboration with DMPRoadmap, an open source software."
+msgid "Thanks to your feedback %{tool_name} will continue to evolve. The development work is a combined international effort around DMP Roadmap open source software."
+msgstr "Thanks to your feedback %{tool_name} will continue to evolve. The development work is a combined international effort around DMP Roadmap open source software."
 
-msgid "Join the %{tool_name} community"
-msgstr "Join the %{tool_name} community"
+msgid "Join the %{tool_name} user’s community"
+msgstr "Join the %{tool_name} user’s community"
 
-msgid "Create an account, Log in and Let you guide!"
-msgstr "Create an account, Log in and Let you guide !"
+msgid "Create an account, sign in and let you guide!"
+msgstr "Create an account, sign in and let you guide!"
 
 msgid "Discover %{tool_name}"
 msgstr "Discover %{tool_name}"
@@ -148,8 +148,8 @@ msgstr "Default template"
 msgid "Check \"No organisation\" and check "No funder""
 msgstr "Check \"No organisation\" and check "No funder""
 
-msgid "Find the list of the available template"
-msgstr "Find the list of the available template"
+msgid "Find the list of the available templates"
+msgstr "Find the list of the available templates"
 
 msgid "Plan for testing, practice, or educational purposes"
 msgstr "Plan for testing, practice, or educational purposes"
