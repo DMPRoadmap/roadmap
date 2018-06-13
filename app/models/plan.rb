@@ -175,23 +175,23 @@ class Plan < ActiveRecord::Base
     end
     return ggroups.uniq
   end
-  
+
   ##
   # Sets up the plan for feedback:
   #  emails confirmation messages to owners
-  #  emails org admins and org contact 
+  #  emails org admins and org contact
   #  adds org admins to plan with the 'reviewer' Role
   def request_feedback(user)
     Plan.transaction do
       begin
         val = Role.access_values_for(:reviewer, :commenter).min
         self.feedback_requested = true
-    
+
         # Share the plan with each org admin as the reviewer role
         admins = user.org.org_admins
         admins.each do |admin|
           self.roles << Role.new(user: admin, access: val)
-        end 
+        end
 
         if self.save!
           # Send an email confirmation to the owners and co-owners
@@ -199,12 +199,10 @@ class Plan < ActiveRecord::Base
           deliver_if(recipients: owners, key: 'users.feedback_requested') do |r|
             UserMailer.feedback_confirmation(r, self, user).deliver_now
           end
-          # Send an email to all of the org admins as well as the Org's administrator email
-          if user.org.contact_email.present? && !admins.collect{ |u| u.email }.include?(user.org.contact_email)
-            admins << User.new(email: user.org.contact_email, firstname: user.org.contact_name)
-          end
-          deliver_if(recipients: admins, key: 'admins.feedback_requested') do |r|
-            UserMailer.feedback_notification(r, self, user).deliver_now
+          # Send an email to the org-admin contact
+          if user.org.contact_email.present?
+            contact = User.new(email: user.org.contact_email, firstname: user.org.contact_name)
+            UserMailer.feedback_notification(contact, self, user).deliver_now
           end
           true
         else
@@ -226,11 +224,11 @@ class Plan < ActiveRecord::Base
     Plan.transaction do
       begin
         self.feedback_requested = false
-        
-        # Remove the org admins reviewer role from the plan 
+
+        # Remove the org admins reviewer role from the plan
         vals = Role.access_values_for(:reviewer)
         self.roles.delete(Role.where(plan: self, access: vals))
-        
+
         if self.save!
           # Send an email confirmation to the owners and co-owners
           owners = User.joins(:roles).where('roles.plan_id =? AND roles.access IN (?)', self.id, Role.access_values_for(:administrator))
@@ -260,12 +258,12 @@ class Plan < ActiveRecord::Base
   def guidance_by_question_as_hash
     # Get all of the selected guidance groups for the plan
     guidance_groups_ids = self.guidance_groups.collect(&:id)
-    guidance_groups =  GuidanceGroup.joins(:org).where("guidance_groups.published = ? AND guidance_groups.id IN (?)", 
+    guidance_groups =  GuidanceGroup.joins(:org).where("guidance_groups.published = ? AND guidance_groups.id IN (?)",
                                                        true, guidance_groups_ids)
 
     # Gather all of the Themes used in the plan as a hash
     # {
-    #  QUESTION: [THEME, THEME], 
+    #  QUESTION: [THEME, THEME],
     #  QUESTION: [THEME]
     # }
     question_themes = {}
@@ -279,7 +277,7 @@ class Plan < ActiveRecord::Base
     # Gather all of the Guidance available for the themes used in the plan as a hash
     # {
     #  THEME: {
-    #    GUIDANCE_GROUP: [GUIDANCE, GUIDANCE], 
+    #    GUIDANCE_GROUP: [GUIDANCE, GUIDANCE],
     #    GUIDANCE_GROUP: [GUIDANCE]
     #  }
     # }
@@ -287,12 +285,12 @@ class Plan < ActiveRecord::Base
     GuidanceGroup.includes(guidances: :themes).joins(:guidances).
           where('guidance_groups.published = ? AND guidances.published = ? AND themes.title IN (?) AND guidance_groups.id IN (?)', true, true, themes_used, guidance_groups.collect(&:id)).
           pluck('guidance_groups.name', 'themes.title', 'guidances.text').each do |tg|
-      
+
       theme_guidance[tg[1]] = {} unless theme_guidance[tg[1]].present?
       theme_guidance[tg[1]][tg[0]] = [] unless theme_guidance[tg[1]][tg[0]].present?
       theme_guidance[tg[1]][tg[0]] << tg[2] unless theme_guidance[tg[1]][tg[0]].include?(tg[2])
     end
-    
+
     # Generate a hash for the view that contains all of a question guidance
     # {
     #   QUESTION: {
@@ -310,11 +308,11 @@ class Plan < ActiveRecord::Base
       question_themes[question].each do |theme|
         groups << theme_guidance[theme].keys if theme_guidance[theme].present?
       end
-        
+
       # Loop through all of the applicable guidance groups and collect their themed guidance
       groups.flatten.uniq.each do |guidance_group|
         guidances_by_theme = {}
-        
+
         # Collect all of the guidances for each theme used by the question
         question_themes[question].each do |theme|
           if theme_guidance[theme].present? && theme_guidance[theme][guidance_group].present?
@@ -325,10 +323,10 @@ class Plan < ActiveRecord::Base
 
         ggs[guidance_group] = guidances_by_theme unless ggs[guidance_group]
       end
-      
+
       question_guidance[question] = ggs
     end
-    
+
     question_guidance
   end
 
@@ -350,8 +348,8 @@ class Plan < ActiveRecord::Base
   def readable_by?(user_id)
     user = user_id.is_a?(User) ? user_id : User.find(user_id)
     owner_orgs = self.owner_and_coowners.collect(&:org)
-    
-    # Super Admins can view plans read-only, Org Admins can view their Org's plans 
+
+    # Super Admins can view plans read-only, Org Admins can view their Org's plans
     # otherwise the user must have the commenter role
     (user.can_super_admin? ||
      user.can_org_admin? && owner_orgs.include?(user.org) ||
@@ -650,7 +648,7 @@ class Plan < ActiveRecord::Base
   ##
   # returns the shared roles of a plan, excluding the creator
   def shared
-    role_values = Role.where(plan: self).where(Role.not_creator_condition).any? 
+    role_values = Role.where(plan: self).where(Role.not_creator_condition).any?
   end
 
   ##
@@ -767,7 +765,7 @@ class Plan < ActiveRecord::Base
       .includes({ question: :question_format }, :question_options)
       .where(id: answer_ids)
     num_answers = pre_fetched_answers.reduce(0) do |m, a|
-      if a.is_valid? 
+      if a.is_valid?
         m+=1
       end
       m

@@ -5,6 +5,7 @@ namespace :upgrade do
   task v1_1_2: :environment do
     Rake::Task['upgrade:check_org_contact_emails'].execute
     Rake::Task['upgrade:check_for_guidance_multiple_themes'].execute
+    Rake::Task['upgrade:remove_admin_preferences'].execute
   end
 
   desc "Upgrade to 1.0"
@@ -379,14 +380,14 @@ namespace :upgrade do
   desc "Org.contact_email is now required, sets any nil values to the helpdesk email defined in branding.yml"
   task check_org_contact_emails: :environment do
     branding = YAML.load(File.open('./config/branding.yml'))
-    if branding.is_a?(Hash) && 
-        branding['defaults'].present? && 
+    if branding.is_a?(Hash) &&
+        branding['defaults'].present? &&
         branding['defaults']['organisation'].present? &&
         branding['defaults']['organisation']['name'].present?
         branding['defaults']['organisation']['helpdesk_email'].present?
       email = branding['defaults']['organisation']['helpdesk_email']
       name = "#{branding['defaults']['organisation']['name']} helpdesk"
-      
+
       puts "Searching for Orgs with an undefined contact_email ..."
       Org.where("contact_email IS NULL OR contact_email = ''").each do |org|
         puts "  Setting contact_email to #{email} for #{org.name}"
@@ -403,19 +404,34 @@ namespace :upgrade do
     puts "Search complete"
     puts ""
   end
-  
+
   desc "The system now only allows for one theme selection per guidance, so check for violations"
   task check_for_guidance_multiple_themes: :environment do
     puts "Searching for guidance with multiple theme selections (you will need to manually reconcile these records) ..."
     ids = Guidance.select('guidances.id, count(themes.id) theme_count').
             joins(:themes).group('guidances.id').
             having('count(themes.id) > 1').pluck('guidances.id')
-            
+
     GuidanceGroup.joins(:guidances).includes(:org).where('guidances.id IN (?)', ids).
             distinct.order('orgs.name, guidance_groups.name').each do |grp|
       puts "  #{grp.org.name} - Guidance group, '#{grp.name}', has guidance with multiple themes"
     end
     puts "Search complete"
     puts ""
+
+  end
+
+  desc "Remove admin preferences"
+  task remove_admin_preferences: :environment do
+    Pref.all.each do |p|
+      if p.settings.present?
+        if p.settings['email'].present?
+          if p.settings['email']['admin'].present?
+            p.settings['email'].delete('admin')
+            p.save!
+          end
+        end
+      end
+    end
   end
 end
