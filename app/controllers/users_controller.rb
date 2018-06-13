@@ -161,7 +161,7 @@ class UsersController < ApplicationController
 
   private
   def org_swap_params
-    params.require(:superadmin_user).permit(:org_id, :org_name)
+    params.require(:user).permit(:org_id, :org_name)
   end
 
   ##

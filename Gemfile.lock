@@ -84,8 +84,6 @@ GEM
       loofah (>= 2.0)
       sax-machine (>= 1.0)
     flag_shih_tzu (0.3.19)
-    formtastic (3.1.5)
-      actionpack (>= 3.2.13)
     gettext (3.2.9)
       locale (>= 2.0.5)
       text (>= 1.3.0)
@@ -257,7 +255,6 @@ DEPENDENCIES
   dragonfly
   feedjira
   flag_shih_tzu
-  formtastic
   gettext
   gettext_i18n_rails
   gettext_i18n_rails_js
