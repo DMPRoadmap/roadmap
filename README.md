@@ -15,7 +15,7 @@ The tool has four main functions:
 
 #### Pre-requisites
 Roadmap is a Ruby on Rails application and you will need to have:
-* Ruby >= 2.2.2
+* Ruby >= 2.4.4
 * Rails >= 4.2
 * MySQL >= 5.0 OR PostgreSQL
 
