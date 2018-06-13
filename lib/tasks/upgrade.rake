@@ -419,6 +419,8 @@ namespace :upgrade do
     puts "Search complete"
     puts ""
 
+  end
+
   desc "Remove admin preferences"
   task remove_admin_preferences: :environment do
     Pref.all.each do |p|
