@@ -967,7 +967,7 @@ msgid "If you would like to change your password please complete the following f
 msgstr "Se você deseja mudar sua senha, por favor, complete os campos a seguir."
 
 msgid "If you would like to modify one of the templates below, you must first change your organisation affiliation."
-msgstr "Se você deseja modificar um dos modelos abaixo, precisa primeiro trocar sua afiliação organizacional.??"
+msgstr "Se você deseja modificar um dos modelos abaixo, precisa primeiro trocar sua afiliação organizacional."
 
 msgid "Information about you: how we use it and with whom we share it"
 msgstr "Informações sobre você: como as usamos e com quem as compartilhamos"
@@ -1318,7 +1318,7 @@ msgid "Original funder template has changed!"
 msgstr "O modelo original do órgão financiador mudou"
 
 msgid "Own Templates"
-msgstr "Modelos Próprios???"
+msgstr "Modelos Próprios"
 
 msgid "Owner"
 msgstr "Proprietário"
@@ -1924,7 +1924,7 @@ msgid "The following tab(s) present the questions to answer. There may be more t
 msgstr "As abas a seguir apresentam as perguntas para responder. Pode haver mais de um separador se o seu financiador ou universidade solicitar diferentes conjuntos de perguntas em diferentes fases, por ex. no pedido de subvenção e pós-adjudicação."
 
 msgid "The information you provide will be used by the %{org_name} to offer you access to and personalisation of the %{application_name} service."
-msgstr "As informações fornecidas serão usadas pelo %{org_name} para oferecer acesso e customização do serviço %application_name}."
+msgstr "As informações fornecidas serão usadas pelo %{org_name} para oferecer acesso e customização do serviço %{application_name}."
 
 msgid "The key %{key} does not have a valid set of object links"
 msgstr "A chave %{key} não possui um conjunto válido de links de objeto"
@@ -1987,7 +1987,7 @@ msgid "There is no data available for plans yet."
 msgstr "Ainda não há dados disponíveis para planos."
 
 msgid "There is no data available for users joined yet."
-msgstr "Ainda não há dados disponíveis para usuários associados.??"
+msgstr "Ainda não há dados disponíveis para usuários associados."
 
 msgid "There is no notification associated with id  %{id}"
 msgstr "Não há nenhum plano associado à id %{id}"
@@ -2020,7 +2020,7 @@ msgid "This field is required."
 msgstr "Este campo é obrigatório."
 
 msgid "This information can only be changed by a system administrator. Contact the Help Desk if you have questions or to request changes."
-msgstr "Esta informação só pode ser modificada por um administrador do sistema. Entre em contato com a Help Desk ?? se quiser fazer perguntas ou pedir mudanças."
+msgstr "Esta informação só pode ser modificada por um administrador do sistema. Entre em contato com a Help Desk se quiser fazer perguntas ou pedir mudanças."
 
 msgid "This is a"
 msgstr "Isto é um"
@@ -2221,7 +2221,7 @@ msgid "Use API"
 msgstr "Usar API"
 
 msgid "Use the filters to generate organisational usage statistics for a custom date range. The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph."
-msgstr "Use os filtros para gerar estatísticas de uso organizacional para uma faixa de datas customizada??. Os gráficos mostram novos usuários e planos para sua organização ao longo do último ano. Você pode baixar um relatório em formato CSV para cada gráfico."
+msgstr "Use os filtros para gerar estatísticas de uso organizacional para uma faixa de datas customizada. Os gráficos mostram novos usuários e planos para sua organização ao longo do último ano. Você pode baixar um relatório em formato CSV para cada gráfico."
 
 msgid "User accounts"
 msgstr "Contas de usuários"
@@ -2398,7 +2398,7 @@ msgid "You have been granted administrator privileges in %{tool_name}:"
 msgstr "Você recebeu privilégios de administrador para %{tool_name}:"
 
 msgid "You have been granted permission by your organisation to use our API. Your API token and instructions for using the API endpoints can be found at: %{link}"
-msgstr "Você recebeu permissão de sua organização para usar nossa API. Seu token da API e as instruções para usar as telas [endpoints??] da API podem ser encontrados em: %{link}"
+msgstr "Você recebeu permissão de sua organização para usar nossa API. Seu token da API e as instruções para usar as telas metas de API podem ser encontrados em: %{link}"
 
 msgid "You have been revoked administrator privileges in %{tool_name}."
 msgstr "Seus privilégios de administrador de %{tool_name} foram revogados."
