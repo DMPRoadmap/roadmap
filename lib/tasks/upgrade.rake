@@ -376,6 +376,7 @@ namespace :upgrade do
     Rake::Task['upgrade:remove_duplicated_customised_template_versions'].execute
   end
 
+<<<<<<< HEAD
   desc "Org.contact_email is now required, sets any nil values to the helpdesk email defined in branding.yml"
   task check_org_contact_emails: :environment do
     branding = YAML.load(File.open('./config/branding.yml'))
@@ -418,6 +419,8 @@ namespace :upgrade do
     puts "Search complete"
     puts ""
 
+=======
+>>>>>>> c2b15c242a8b84d282e64949228e04e747afa286
   desc "Remove admin preferences"
   task remove_admin_preferences: :environment do
     Pref.all.each do |p|
