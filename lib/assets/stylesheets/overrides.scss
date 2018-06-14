@@ -58,7 +58,12 @@ th.date-column {
   min-width: 120px;
 }
 
-// Fix issues with dropdwon within tables being cut off
+/* Help-Block */
+.help-block {
+  color: $red;
+}
+
+/* Fix issues with dropdwon within tables being cut off */
 .table-responsive > .table {
   width: 100%;
   margin-bottom: 15px;
