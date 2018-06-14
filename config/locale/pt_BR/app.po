@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2018-06-06 11:32:34-0700\n"
+"PO-Revision-Date: 2018-06-14 10:58:56-0700\n"
 "Last-Translator: Benilton de Sá Carvalho benilton@unicamp.br\n"
 "Language-Team: Portugues do Brasil\n"
 "Language: pt_BR\n"
@@ -191,9 +191,6 @@ msgstr "Um plano foi compartilhado comigo"
 
 msgid "A required setting has not been provided"
 msgstr "Uma configuração obrigatória não foi fornecida"
-
-msgid "A user has requested feedback on a DMP"
-msgstr "Um usuário solicitou feedback sobre um PGD"
 
 msgid "API Information"
 msgstr "Informação sobre a API"
@@ -1473,6 +1470,9 @@ msgstr "Por favor, selecione um item na lista."
 msgid "Please select an organisation from the list"
 msgstr "Por favor, selecione uma organização na lista."
 
+msgid "Please select an organisation from the list, or click the \"My organisation isn't listed\" link and enter your organisation's name."
+msgstr "Selecione uma organização na lista ou clique no link \"Minha organização não está listada\" e insira o nome da sua organização."
+
 msgid "Please select an organisation from the list, or enter your organisation's name."
 msgstr "Por favor, selecione uma organização na lista, ou insira o nome de sua organização."
 
@@ -1799,6 +1799,9 @@ msgstr "Inscrever-se"
 
 msgid "Size"
 msgstr "Tamanho"
+
+msgid "Skip to main content"
+msgstr "Ir para o conteúdo principal"
 
 msgid "Someone has requested a link to change your %{tool_name} password. You can do this through the link below."
 msgstr "Alguém solicitou um link para mudar sua senha em %{tool_name} password. Você pode fazer isso usando o link abaixo."
@@ -2217,6 +2220,9 @@ msgstr "Atualizado"
 msgid "Usage"
 msgstr "Uso"
 
+msgid "Usage statistics"
+msgstr "Estatísticas de utilização"
+
 msgid "Use API"
 msgstr "Usar API"
 
@@ -2286,6 +2292,9 @@ msgstr "Nós manteremos os dados pessoais fornecidos por você enquanto você co
 msgid "Welcome"
 msgstr "Bem-vindo"
 
+msgid "Welcome to #{Rails.configuration.branding[:application][:name]}."
+msgstr "Bem-vindo a #{Rails.configuration.branding[:application][:name]}."
+
 msgid "Welcome to %{application_name}"
 msgstr "Bem-vindo a  %{application_name}"
 
@@ -2297,9 +2306,6 @@ msgstr "Bem-vindo a %{tool_name}, %{username}"
 
 msgid "Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them."
 msgstr "Bem vinda! Você se inscreveu com sucesso com suas credenciais institucionais. Agora você poderá acessar sua conta com eles."
-
-msgid "Welcome."
-msgstr "Bem-vindo."
 
 msgid "What research project are you planning?"
 msgstr "Que projeto de pesquisa você está planejando?"
@@ -2421,8 +2427,14 @@ msgstr "Você deve inserir uma URL válida (e.g. https://organizacao.org)."
 msgid "You must enter a valid email address."
 msgstr "Você deve inserir um email válido."
 
+msgid "You must select a funder from the list or click the checkbox."
+msgstr "Você deve selecionar um financiador na lista ou clicar na caixa de seleção."
+
 msgid "You must select a funding organisation from the list."
 msgstr "Você deve selecionar uma entidade financiadora na lista."
+
+msgid "You must select a research organisation from the list or click the checkbox."
+msgstr "Você deve selecionar uma organização de pesquisa na lista ou clicar na caixa de seleção."
 
 msgid "You must select a research organisation from the list."
 msgstr "Você deve selecionar uma instituição de pesquisa na lista."

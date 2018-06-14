@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2018-06-06 11:32:33-0700\n"
+"PO-Revision-Date: 2018-06-14 10:58:56-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -45,9 +45,6 @@ msgstr " por "
 
 msgid " in the project. You can also report bugs and request new features via "
 msgstr ""
-
-#msgid " or "
-#msgstr ""
 
 msgid "#{text}"
 msgstr ""
@@ -106,9 +103,6 @@ msgstr "Guía"
 msgid "%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})"
 msgstr "Pregunta"
 
-#msgid "%{plan_name}"
-#msgstr "plans"
-
 #, fuzzy
 msgid "%{plan_owner} has been notified that you have finished providing feedback"
 msgstr "plans"
@@ -124,13 +118,6 @@ msgstr "plans"
 #, fuzzy
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
 msgstr "Comentario"
-
-#msgid "%{user_name}"
-#msgstr "user"
-
-#, fuzzy
-msgid "%{username}'s profile"
-msgstr "user"
 
 #, fuzzy
 msgid "%{username}'s profile"
@@ -194,9 +181,6 @@ msgstr "Organización"
 msgid "<strong>Info:</strong> Simple information message, displayed in blue.<br/><strong>Warning:</strong> warning message, for signaling something unusual, displayed in orange.<br/><strong>Danger:</strong> error message, for anything critical, displayed in red"
 msgstr ""
 
-msgid "<strong>Info:</strong> Simple information message, displayed in blue.<br/><strong>Warning:</strong> warning message, for signaling something unusual, displayed in orange.<br/><strong>Danger:</strong> error message, for anything critical, displayed in red"
-msgstr ""
-
 #, fuzzy
 msgid "A Data Management Plan created using "
 msgstr "Creación"
@@ -244,10 +228,6 @@ msgstr "plans"
 
 msgid "A required setting has not been provided"
 msgstr "No se ha indicado un valor obligatorio"
-
-#, fuzzy
-msgid "A user has requested feedback on a DMP"
-msgstr "user"
 
 msgid "API Information"
 msgstr ""
@@ -731,9 +711,6 @@ msgstr ""
 msgid "DMPRoadmap ('the tool', 'the system"
 msgstr ""
 
-#msgid "DMPRoadmap ('the tool', 'the system') is a tool developed by the DCC and CDL as a shared resource for the research community. It is hosted at CDL by the University of California Curation Center."
-#msgstr " por "
-
 msgid "DOCX"
 msgstr ""
 
@@ -1137,9 +1114,6 @@ msgstr "Pregunta"
 msgid "If you have any questions, please contact the %{application_name} team at: <a href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>"
 msgstr ""
 
-#msgid "If you have questions pertaining to this action, please visit the My Dashboard page in %{tool_name}"
-#msgstr "Pregunta"
-
 #, fuzzy
 msgid "If you wish to add an organisational template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students. Your template will be presented to users within your organisation when no funder templates apply. If you want to add questions to funder templates use the 'customise template' options below."
 msgstr "Organización"
@@ -1317,9 +1291,6 @@ msgstr "No se muestra mi organización."
 msgid "My privileges"
 msgstr ""
 
-#msgid "My research organisation is not on the list"
-#msgstr ""
-
 msgid "N/A"
 msgstr ""
 
@@ -1372,9 +1343,6 @@ msgstr "DMPonline"
 
 msgid "No additional comment area will be displayed."
 msgstr "No se mostrará un área adicional para comentarios."
-
-#msgid "No funder associated with this plan"
-#msgstr ""
 
 #, fuzzy
 msgid "No funder associated with this plan or my funder is not listed"
@@ -1759,6 +1727,10 @@ msgid "Please select an organisation from the list"
 msgstr "Organización"
 
 #, fuzzy
+msgid "Please select an organisation from the list, or click the \"My organisation isn't listed\" link and enter your organisation's name."
+msgstr ""
+
+#, fuzzy
 msgid "Please select an organisation from the list, or enter your organisation's name."
 msgstr "Organización"
 
@@ -1786,9 +1758,6 @@ msgstr "Principal Investigador / Científico"
 
 msgid "Principal investigator"
 msgstr ""
-
-#msgid "Privacy policy"
-#msgstr ""
 
 #, fuzzy
 msgid "Privacy statement"
@@ -2145,6 +2114,10 @@ msgid "Size"
 msgstr "Tamaño"
 
 #, fuzzy
+msgid "Skip to main content"
+msgstr ""
+
+#, fuzzy
 msgid "Someone has requested a link to change your %{tool_name} password. You can do this through the link below."
 msgstr "Clave"
 
@@ -2311,12 +2284,6 @@ msgstr "Clave"
 msgid "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
 msgstr "plans"
 
-msgid "The search space does not have elements associated"
-msgstr ""
-
-msgid "The search_space does not respond to each"
-msgstr ""
-
 #, fuzzy
 msgid "The processing of your personal data by the %{org_name} is necessary for pursuing the following legitimate interests:"
 msgstr ""
@@ -2389,9 +2356,6 @@ msgstr "plans"
 #, fuzzy
 msgid "There is no question with id %{question_id} associated to plan id %{plan_id} for which to create or update an answer"
 msgstr ""
-
-#msgid "There is no question with id %{question_id} associated to plan id %{plan_id}for which to create or update an answer"
-#msgstr "Pregunta"
 
 msgid "There is no theme associated with id %{id}"
 msgstr ""
@@ -2653,6 +2617,10 @@ msgstr "Editar"
 msgid "Usage"
 msgstr "Yo"
 
+#, fuzzy
+msgid "Usage statistics"
+msgstr ""
+
 msgid "Use API"
 msgstr ""
 
@@ -2735,6 +2703,10 @@ msgstr ""
 msgid "Welcome"
 msgstr "Bienvenido/a."
 
+#, fuzzy
+msgid "Welcome to #{Rails.configuration.branding[:application][:name]}."
+msgstr ""
+
 msgid "Welcome to %{application_name}"
 msgstr ""
 
@@ -2748,9 +2720,6 @@ msgstr "Bienvenido/a."
 
 msgid "Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them."
 msgstr ""
-
-msgid "Welcome."
-msgstr "Bienvenido/a."
 
 #, fuzzy
 msgid "What research project are you planning?"
@@ -2819,9 +2788,6 @@ msgstr ""
 
 msgid "You are now ready to create your first DMP."
 msgstr ""
-
-#msgid "You are viewing a historical version of this #{template_type(template)}. You will not be able to make changes."
-#msgstr "templates"
 
 #, fuzzy
 msgid "You are viewing a historical version of this template. You will not be able to make changes."
@@ -2899,8 +2865,16 @@ msgid "You must enter a valid email address."
 msgstr "Debe introducir una dirección de correo electrónico válida."
 
 #, fuzzy
+msgid "You must select a funder from the list or click the checkbox."
+msgstr ""
+
+#, fuzzy
 msgid "You must select a funding organisation from the list."
 msgstr "Organización"
+
+#, fuzzy
+msgid "You must select a research organisation from the list or click the checkbox."
+msgstr ""
 
 #, fuzzy
 msgid "You must select a research organisation from the list."
@@ -3147,9 +3121,6 @@ msgstr "guidances"
 #, fuzzy
 msgid "must have access to plans api"
 msgstr "guidances"
-
-#msgid "no research organisation is associated with this plan"
-#msgstr ""
 
 #, fuzzy
 msgid "note"
