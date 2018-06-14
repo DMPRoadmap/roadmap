@@ -412,7 +412,7 @@ class ActiveSupport::TestCase
     follow_redirects
 
     assert_response :success
-    assert_select 'main h1', _('Welcome.')
+    assert_select 'main h1', _('Welcome to DMPRoadmap.')
   end
 
   # ----------------------------------------------------------------------

@@ -10,7 +10,7 @@
             title: _('If applying for funding, state the name exactly as in the grant proposal.')) %>
       <div class="checkbox">
         <%= f.hidden_field :visibility %>
-        <%= f.label(:is_test, raw("#{check_box_tag(:is_test,1, @plan.is_test?)} #{_('mock project for testing, practice, or educational purposes')}"), class: 'control-label') %>
+        <%= f.label(:is_test, raw("#{check_box_tag(:is_test,1, @plan.is_test? , "aria-label": "is_test")} #{_('mock project for testing, practice, or educational purposes')}"), class: 'control-label') %>
       </div>
         </div>
       </div>
@@ -54,93 +54,95 @@
                            title: _('A pertinent ID as determined by the funder and/or organisation.')) %>
         </div>
       </div>
-      
-      <h3><%= _('Principal investigator') %></h3>
-      <div class="form-group"><!-- principal_investigator -->
-        <div class="col-md-12">
-          <%= f.label(:principal_investigator, _('Name'), class: 'control-label') %>
+      <fieldset class="project-details">
+        <legend class="project-details"><%= _('Principal investigator') %></legend>
+        <div class="form-group"><!-- principal_investigator -->
+          <div class="col-md-12">
+            <%= f.label(:principal_investigator, _('Name'), class: 'control-label') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.text_field(
+              :principal_investigator,
+              class: "form-control",
+              "aria-required": false) %>
+          </div>
         </div>
-        <div class="col-md-8">
-          <%= f.text_field(
-            :principal_investigator,
-            class: "form-control",
-            "aria-required": false) %>
+        <div class="form-group"><!-- principal_investigator_identifier -->
+          <div class="col-md-12">
+            <%= f.label(:principal_investigator_identifier, _('ORCID iD'), class: 'control-label') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.text_field(
+              :principal_investigator_identifier,
+              class: "form-control",
+              "aria-required": false) %>
+          </div>
         </div>
-      </div>
-      <div class="form-group"><!-- principal_investigator_identifier -->
-        <div class="col-md-12">
-          <%= f.label(:principal_investigator_identifier, _('ORCID iD'), class: 'control-label') %>
+        <div class="form-group"><!-- principal_investigator_email -->
+          <div class="col-md-12">
+            <%= f.label(:principal_investigator_email, _('Email'), class: 'control-label') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.email_field(
+              :principal_investigator_email,
+              class: "form-control",
+              "aria-required": false,
+              "data-validation": "email") %>
+          </div>
         </div>
-        <div class="col-md-8">
-          <%= f.text_field(
-            :principal_investigator_identifier,
-            class: "form-control",
-            "aria-required": false) %>
+        <div class="form-group"><!-- principal_invesigator_phone -->
+          <div class="col-md-12">
+            <%= f.label(:principal_investigator_phone, _('Phone'), class: 'control-label') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.phone_field(
+              :principal_investigator_phone,
+              class: "form-control",
+              "aria-required": false) %>
+          </div>
         </div>
-      </div>
-      <div class="form-group"><!-- principal_investigator_email -->
-        <div class="col-md-12">
-          <%= f.label(:principal_investigator_email, _('Email'), class: 'control-label') %>
+      </fieldset>
+      <fieldset class="project-details">
+        <legend class="project-details"><%= _('Data contact person') %></legend>
+        <div class="checkbox">
+          <% checked = ((@plan.data_contact.present? || @plan.data_contact_phone.present? || @plan.data_contact_email.present?) ? 1 : 0) %>
+          <%= label_tag(:show_data_contact, raw("#{check_box_tag(:show_data_contact, checked, checked == 0)} #{_('Same as Principal Investigator')}"), class: 'control-label') %>
         </div>
-        <div class="col-md-8">
-          <%= f.email_field(
-            :principal_investigator_email,
-            class: "form-control",
-            "aria-required": false,
-            "data-validation": "email") %>
+        <div class="form-group data-contact"><!-- data_contact -->
+          <div class="col-md-12">
+            <%= f.label(:data_contact, _('Name'), class: 'control-label') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.text_field(
+              :data_contact,
+              class: "form-control",
+              "aria-required": false) %>
+          </div>
         </div>
-      </div>
-      <div class="form-group"><!-- principal_invesigator_phone -->
-        <div class="col-md-12">
-          <%= f.label(:principal_investigator_phone, _('Phone'), class: 'control-label') %>
+        <div class="form-group data-contact"><!-- data_contact_email -->
+          <div class="col-md-12">
+            <%= f.label(:data_contact_email, _('Email'), class: 'control-label') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.email_field(
+              :data_contact_email,
+              class: "form-control",
+              "aria-required": false,
+              "data-validation": "email") %>
+          </div>
         </div>
-        <div class="col-md-8">
-          <%= f.phone_field(
-            :principal_investigator_phone,
-            class: "form-control",
-            "aria-required": false) %>
+        <div class="form-group data-contact"><!-- data_contact_phone -->
+          <div class="col-md-12">
+            <%= f.label(:data_contact_phone, _('Phone'), class: 'control-label') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.phone_field(
+              :data_contact_phone,
+              class: "form-control",
+              "aria-required": false) %>
+          </div>
         </div>
-      </div>
-
-      <h3><%= _('Data contact person') %></h3>
-      <div class="checkbox">
-        <% checked = ((@plan.data_contact.present? || @plan.data_contact_phone.present? || @plan.data_contact_email.present?) ? 1 : 0) %>
-        <%= label_tag(:show_data_contact, raw("#{check_box_tag(:show_data_contact, checked, checked == 0)} #{_('Same as Principal Investigator')}"), class: 'control-label') %>
-      </div>
-      <div class="form-group data-contact"><!-- data_contact -->
-        <div class="col-md-12">
-          <%= f.label(:data_contact, _('Name'), class: 'control-label') %>
-        </div>
-        <div class="col-md-8">
-          <%= f.text_field(
-            :data_contact,
-            class: "form-control",
-            "aria-required": false) %>
-        </div>
-      </div>
-      <div class="form-group data-contact"><!-- data_contact_email -->
-        <div class="col-md-12">
-          <%= f.label(:data_contact_email, _('Email'), class: 'control-label') %>
-        </div>
-        <div class="col-md-8">
-          <%= f.email_field(
-            :data_contact_email,
-            class: "form-control",
-            "aria-required": false,
-            "data-validation": "email") %>
-        </div>
-      </div>
-      <div class="form-group data-contact"><!-- data_contact_phone -->
-        <div class="col-md-12">
-          <%= f.label(:data_contact_phone, _('Phone'), class: 'control-label') %>
-        </div>
-        <div class="col-md-8">
-          <%= f.phone_field(
-            :data_contact_phone,
-            class: "form-control",
-            "aria-required": false) %>
-        </div>
-      </div>
+      </fieldset>
       <%= f.button(_('Submit'), class: "btn btn-default", type: "submit") %>
     </div>
     <div class="col-md-4">
@@ -156,7 +158,7 @@
       </ul>
 
       <p><%= _('Find guidance from additional organisations below') %></p>
-      <%= link_to 'See the full list', '#', 'data-toggle' =>  'modal', 'data-target' => '#modal-full-guidances', class: 'modal-guidances-window' %>
+      <%= link_to _('See the full list'), '#', 'data-toggle' =>  'modal', 'data-target' => '#modal-full-guidances', class: 'modal-guidances-window' %>
 
       <br>
       <%= f.button(_('Submit'), class: "btn btn-default", type: "submit") %>
