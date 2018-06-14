@@ -55,7 +55,7 @@ module Paginable
     # Generates an HTML link to sort given a sort field.
     # sort_field {String} - Represents the column name for a table
     def paginable_sort_link(sort_field)
-      return link_to(sort_link_name(sort_field), sort_link_url(sort_field), 'data-remote': true, class: 'paginable-action')
+      return link_to(sort_link_name(sort_field), sort_link_url(sort_field), 'data-remote': true, class: 'paginable-action', "aria-label": "#{sort_field}")
     end
     # Determines whether or not the latest request included the search functionality
     def searchable?
