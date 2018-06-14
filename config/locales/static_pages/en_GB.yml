@@ -32,7 +32,7 @@ en_GB:
 
   help_page:
     title: "Help"
-    tab_1: "On DMP OPIDoR"
+    tab_1: "Use DMP OPIDoR"
     tab_2: "Resources, examples and guides"
     body_text_tab_2_html: "<h3>Useful resources on Data or Software Management Planning</h3>
       <ul class='help_ul'>

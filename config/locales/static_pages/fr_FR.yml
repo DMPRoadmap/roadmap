@@ -33,7 +33,7 @@ fr_FR:
 
   help_page:
     title: "Aide"
-    tab_1: "À propos de DMP OPIDoR"
+    tab_1: "Utiliser DMP OPIDoR"
     tab_2: "Ressources, exemples et conseils"
     body_text_tab_2_html: "<h3>Ressources utiles pour rédiger un Data ou un Software Management Plan</h3>
       <ul class='help_ul'>
