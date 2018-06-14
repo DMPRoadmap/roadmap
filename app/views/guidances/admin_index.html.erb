@@ -1,3 +1,4 @@
+<% title _('Guidance') %>
 <div class="row">
   <div class="col-md-12">
     <h1><%= _('Guidance') %></h1>
@@ -20,7 +21,9 @@
       scope: @guidance_groups,
       query_params: { sort_field: 'guidance_groups.name', sort_direction: :asc }) %>
     <div>
-      <a href="<%= admin_new_guidance_group_path %>" class="btn btn-primary"><%= _('Create a guidance group') %></a>
+      <button type="button" class="btn btn-primary"> 
+        <a href="<%= admin_new_guidance_group_path %>" class="link_as_button"><%= _('Create a guidance group') %></a>
+      </button>
     </div>
 
     <h2><%= _('Guidance list') %></h2>
@@ -41,7 +44,9 @@
         query_params: { sort_field: 'guidances.text', sort_direction: :asc }) %>
   
     <div>
-      <a href="<%= admin_new_guidance_path %>" class="btn btn-primary"><%= _('Create guidance') %></a>
+      <button type="button" class="btn btn-primary"> 
+        <a href="<%= admin_new_guidance_path %>" class="link_as_button"><%= _('Create guidance') %></a>
+      </button>
     </div>
   </div>
 </div>

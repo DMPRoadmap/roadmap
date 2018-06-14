@@ -30,7 +30,7 @@
   <div class="row">
     <div class="form-group col-xs-2">
       <%= select_tag :format, options_for_select(ExportedPlan::VALID_FORMATS, :pdf), 
-                     class: 'form-control' %>
+                     class: 'form-control', "aria-labelledby": "format" %>
     </div>
   </div>
 
