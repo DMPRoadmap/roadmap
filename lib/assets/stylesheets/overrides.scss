@@ -228,7 +228,7 @@ $cancel-button-color: #F17D04;
   background-color: $grey;
   color: $white;
   border-color: $grey;
-  outline: none;
+  outline-color: transparent;
   margin-top: 5px;
   margin-bottom: 10px;
 }
@@ -244,7 +244,7 @@ $cancel-button-color: #F17D04;
   background-color: $grey;
   color: $white;
   border-color: $grey;
-  outline: none;
+  outline-color: transparent;
   margin-top: 5px;
   margin-bottom: 10px;
 }
@@ -584,4 +584,11 @@ div.skip a:focus {
 /* adjust the position of the 'remove - X' button for links */
 .link .fa-times-circle {
   margin-top: 30px;
+}
+
+/* Link as button styling */
+a.link_as_button {
+  color: $white;
+  border: none;
+  text-decoration: none;
 }
