@@ -6,6 +6,7 @@ $dark-blue: #4891bd;
 $blue: #51a2d2;
 $light-blue: #92c5de;
 $very-light-blue: #dcecf6;
+$very-very-light-blue: #edf5fa;
 $white: #fff;
 $black: #000;
 $rust: #d6604d;
@@ -280,14 +281,17 @@ $light-yellow: #fff9e5;
 
     .plan-details {
         .guidance-configuration {
-            border-left: 2px solid #d6604d;
-            border-bottom: 2px solid #edf5fa;
-            border-top: 2px solid #edf5fa;
+            border-left: 2px solid $rust;
+            border-bottom: 2px solid $very-very-light-blue;
+            border-top: 2px solid $very-very-light-blue;
         }
 
     }
 
-    
+    // News
+    .question-divider {
+        border-bottom: 2px solid $very-very-light-blue;
+    }
 
 
 
@@ -539,10 +543,10 @@ $light-yellow: #fff9e5;
     .join-div {
         margin-top: 20px;
         padding-bottom: 10px;
-        border-left: 4px solid #d6604d;
-        border-bottom: 2px solid #edf5fa;
-        border-top: 2px solid #edf5fa;
-        border-right: 2px solid #edf5fa;
+        border-left: 4px solid $rust;
+        border-bottom: 2px solid $very-very-light-blue;
+        border-top: 2px solid $very-very-light-blue;
+        border-right: 2px solid $very-very-light-blue;
     }
     .discover-div {
         float: right;

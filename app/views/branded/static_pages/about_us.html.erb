@@ -30,9 +30,10 @@
 			<% name = summary[/\A[\s\w]*([^,])/].strip %>
 			<% summary = summary.gsub(/\A.*div>/, "") %>
 			<% summary = summary.gsub(/<p>.*\z/, "") %>
+			<% summary = summary.gsub /<a.*?href=\"([^\"]*)\">(.*)<\/a>/, '<a href="\1" target="_blank"> Voir l\'article complet ...</a>' %>
 			<p><%= raw summary.strip %></p>
-			<p>Par <%= entry.author %> on <%= entry.published.strftime("%d/%m/%Y") %></p>
-			<p>Voir plus sur le  <%= link_to "site OPIDoR", entry.url %></p>
+			<p>Par <strong><%= entry.author %></strong> le <%= entry.published.strftime("%d/%m/%Y") %></p>
+			<p>Voir plus sur le  <%= link_to "site OPIDoR", entry.url, :target => '_blank' %></p>
 			</br>
 			<!--verify how many news are left -->
 			<%if news_left.to_i > 1 then %>
