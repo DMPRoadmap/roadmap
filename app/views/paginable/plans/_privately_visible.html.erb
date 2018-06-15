@@ -2,14 +2,14 @@
         <table class="table table-hover" id="my-plans">
           <thead>
             <tr>
-              <th><%= _('Project Title') %>&nbsp;<%= paginable_sort_link('plans.title') %></th>
-              <th><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
-              <th><%= _('Edited') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
-              <th><%= _('Role') %></th>
-              <th class="text-center sorter-false"><%= _('Test') %></th>
-              <th><%= _('Visibility') %></th>
-              <th><%= _('Shared') %></th>
-              <th class="sorter-false">
+              <th scope="col"><%= _('Project Title') %>&nbsp;<%= paginable_sort_link('plans.title') %></th>
+              <th scope="col"><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
+              <th scope="col"><%= _('Edited') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
+              <th scope="col"><%= _('Role') %></th>
+              <th scope="col" class="text-center sorter-false"><%= _('Test') %></th>
+              <th scope="col" ><%= _('Visibility') %></th>
+              <th scope="col" ><%= _('Shared') %></th>
+              <th scope="col" class="sorter-false">
                 <span aria-hidden="false" class="sr-only"><%= _('Actions') %></span>
               </th>
             </tr>
