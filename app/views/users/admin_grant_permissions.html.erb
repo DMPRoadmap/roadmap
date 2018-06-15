@@ -14,27 +14,27 @@
       <table class="table table-hover table-bordered">
         <thead>
           <tr>
-            <th><%= _('Name') %></th>
+            <th scope="col"><%= _('Name') %></th>
           
             <% @perms.each do |perm| %>
               <% case perm.name when 'grant_permissions' %>
-                <th class="text-center" data-toggle="tooltip" title="<%= _('Allows the user to assign permissions to other users within the same organisation. Users can only assign permissions they own themselves') %>">
+                <th scope="col" class="text-center" data-toggle="tooltip" title="<%= _('Allows the user to assign permissions to other users within the same organisation. Users can only assign permissions they own themselves') %>">
                   <%= namesHash[perm.name.to_sym] %>
                 </th>
               <% when 'modify_templates' %>
-                <th class="text-center" data-toggle="tooltip" title="<%= _('Allows the user to create new organisational templates, edit existing ones and customise funder templates') %>">
+                <th scope="col" class="text-center" data-toggle="tooltip" title="<%= _('Allows the user to create new organisational templates, edit existing ones and customise funder templates') %>">
                   <%= namesHash[perm.name.to_sym] %>
                 </th>
               <% when 'modify_guidance' %>
-                <th class="text-center" data-toggle="tooltip" title="<%= _('Allows the user to create and edit guidance') %>">
+                <th scope="col" class="text-center" data-toggle="tooltip" title="<%= _('Allows the user to create and edit guidance') %>">
                   <%= namesHash[perm.name.to_sym] %>
                 </th>
               <% when 'use_api' %>
-                <th class="text-center" data-toggle="tooltip" title="<%= _('Provides the user with an API token and grants rights to harvest information from the tool') %>">
+                <th scope="col" class="text-center" data-toggle="tooltip" title="<%= _('Provides the user with an API token and grants rights to harvest information from the tool') %>">
                   <%= namesHash[perm.name.to_sym] %>
                 </th>
               <% when 'change_org_details' %>
-                <th class="text-center" data-toggle="tooltip" title="<%= _('Allows the user to amend the organisation details (name, URL etc) and add basic branding such as the logo') %>">
+                <th scope="col" class="text-center" data-toggle="tooltip" title="<%= _('Allows the user to amend the organisation details (name, URL etc) and add basic branding such as the logo') %>">
                   <%= namesHash[perm.name.to_sym] %>
                 </th>
               <% end %>
