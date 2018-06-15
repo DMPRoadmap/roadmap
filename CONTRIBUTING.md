@@ -8,7 +8,9 @@ These guidelines are an attempt to ensure that we are able to provide the commun
   * Fork the project (if you have not already) or rebase your fork so that it is up to date with the current repository's **`contributions`** branch
   * Create a new branch in your fork. This will ensure that you are able to work at your own pace and continue to pull in any updates made to this project.
   * Make your changes in the new branch. When you have finished your work (e.g. 3 commits), squash all the commits on the branch that you are working on:
-  __Note that if this is your first time rebasing a branch we recommend making a buckup of the branch first since a rebase creates the potential for you to lose your changes if its done incorrectly: `git checkout -b [feature branch]-bak && git checkout [feature branch]`__
+  
+  _Note that if this is your first time rebasing a branch we recommend making a buckup of the branch first since a rebase creates the potential for you to lose your changes if its done incorrectly: `git checkout -b [feature branch]-bak && git checkout [feature branch]`_
+  
     ```bash
     git rebase -i HEAD~n  # Where n is the number of commits you want to squash
     ```
