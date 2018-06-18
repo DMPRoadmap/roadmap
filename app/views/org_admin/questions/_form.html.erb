@@ -61,7 +61,7 @@
   <!-- Themes -->
   <div class="form-group col-md-10">
     <%= render partial: 'org_admin/shared/theme_selector',
-               locals: { f: f, all_themes: Theme.all.order("title"), 
+               locals: { f: f, all_themes: Theme.all.order("title"), as_radio: false, 
                          popover_message: _('Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question.') } %>
   </div>
   <div class="form-group col-md-10">

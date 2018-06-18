@@ -1392,6 +1392,10 @@ msgid "No themes have been defined. Please contact your administrator for assist
 msgstr ""
 
 #, fuzzy
+msgid "No themes selected"
+msgstr ""
+
+#, fuzzy
 msgid "No. Completed Plans"
 msgstr "plans"
 
