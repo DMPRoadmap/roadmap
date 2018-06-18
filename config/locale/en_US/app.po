@@ -1226,6 +1226,9 @@ msgstr "No research organization associated with this plan or my research organi
 msgid "No themes have been defined. Please contact your administrator for assistance."
 msgstr ""
 
+msgid "No themes selected"
+msgstr ""
+
 msgid "No. Completed Plans"
 msgstr ""
 
