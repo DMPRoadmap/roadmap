@@ -1,5 +1,11 @@
-<%# locals: all_themes & popover_message %>
+<%# locals: all_themes, as_radio & popover_message %>
+<% as_radio ||= false %>
+<% required ||= false %>
+
 <div class="form-group">
+  <% if required %>
+    <span class="red" title="<%= _('This field is required.') %>">* </span>
+  <% end %>
   <%= f.label _('Themes'), for: :theme_ids, class: 'control-label' %>
   <%= render partial: 'shared/popover', 
              locals: { message: popover_message, placement: 'right' }%>
@@ -24,7 +30,8 @@
             <% id = f.object.id.present? ? f.object.id : 'new' %>
             <input id="<%= id %>_<%= namespace %>_theme_ids_<%= theme.id %>" 
                    name="<%= namespace %>[theme_ids][]" 
-                   type="checkbox" 
+                   type="<%= as_radio ? 'radio' : 'checkbox' %>"
+                   <%= required && (theme == all_themes.first ? ' aria-required=true ' : '') %> 
                    value="<%= theme.id %>"<%= f.object.themes.include?(theme) ? ' checked="checked"' : '' %>>
             <%= theme.title %>
           </div>

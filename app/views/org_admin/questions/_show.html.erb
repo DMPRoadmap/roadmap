@@ -54,7 +54,7 @@
           <% themes_q = question.themes %>
           <% if !themes_q.nil? %>
               <dt><%= _('Themes')%></dt>
-              <dd><%= themes_q.join(', ') %></dd>
+              <dd><%= themes_q.length <= 0 ? _('No themes selected') : themes_q.join(', ') %></dd>
           <% end %>
         </dl>
       </div>
