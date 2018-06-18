@@ -1166,6 +1166,9 @@ msgstr "Aucun organisme de recherché n'est associé à ce plan ou mon organisme
 msgid "No themes have been defined. Please contact your administrator for assistance."
 msgstr "Aucun thème n'a été défini. Veuillez contacter votre administrateur pour obtenir de l'aide."
 
+msgid "No themes selected"
+msgstr "Aucun thème sélectionné"
+
 msgid "No. Completed Plans"
 msgstr "Non. Plans terminés"
 

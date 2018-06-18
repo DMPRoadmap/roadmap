@@ -81,6 +81,7 @@ class PublicPagesController < ApplicationController
   # GET /plans_index
   # ------------------------------------------------------------------------------------
   def plan_index
-    @plans = Plan.publicly_visible.order(:title => :asc).page(1)
+    @plans = Plan.publicly_visible.page(1)
+    render 'plan_index', locals: { query_params: { sort_field: 'plans.updated_at', sort_direction: 'desc' } }
   end
 end

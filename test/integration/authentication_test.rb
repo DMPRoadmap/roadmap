@@ -39,7 +39,7 @@ class AuthenticationFlowTest < ActionDispatch::IntegrationTest
     get root_path
     
     # Make sure that the user is sent to the page that lists their plans
-    assert_select 'h1', _('Welcome to DMPRoadmap.')
+    assert_select 'h1', _("Welcome to #{Rails.configuration.branding[:application][:name]}.")
   end
   
   # ----------------------------------------------------------
@@ -58,7 +58,7 @@ class AuthenticationFlowTest < ActionDispatch::IntegrationTest
     
       # Make sure that the user is sent to the page that lists their plans
       assert_response :success
-      assert_select 'h1', _('Welcome to DMPRoadmap.')
+      assert_select 'h1', _("Welcome to #{Rails.configuration.branding[:application][:name]}.")
     end
   end
 
