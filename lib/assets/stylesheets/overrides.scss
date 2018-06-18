@@ -597,3 +597,10 @@ a.link_as_button {
   border: none;
   text-decoration: none;
 }
+
+/* shibboleth DS page institution list formatting */
+#full_list .section-heading {
+  background-color: $grey;
+  color: $white;
+  padding: 10px;
+}
