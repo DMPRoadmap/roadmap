@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2018-06-06 11:32:33-0700\n"
+"PO-Revision-Date: 2018-06-14 10:58:56-0700\n"
 "Last-Translator: Brian Riley brian.riley@ucop.edu\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en_US\n"
@@ -128,9 +128,6 @@ msgstr ""
 msgid "+ Add New Notification"
 msgstr ""
 
-msgid "+ Add New Notification"
-msgstr "+ Add New Notification"
-
 msgid "+ Add New Theme"
 msgstr ""
 
@@ -194,9 +191,6 @@ msgstr ""
 msgid "A required setting has not been provided"
 msgstr ""
 
-msgid "A user has requested feedback on a DMP"
-msgstr ""
-
 msgid "API Information"
 msgstr ""
 
@@ -223,9 +217,6 @@ msgstr ""
 
 msgid "Active"
 msgstr ""
-
-msgid "Active"
-msgstr "Active"
 
 msgid "Add Comment"
 msgstr ""
@@ -292,9 +283,6 @@ msgstr ""
 
 msgid "All (%{count})"
 msgstr ""
-
-msgid "All (%{count})"
-msgstr "All (%{count})"
 
 msgid "All Templates"
 msgstr ""
@@ -386,17 +374,11 @@ msgstr ""
 msgid "Back to customise phase"
 msgstr "Back to customize phase"
 
-msgid "Back to customise phase"
-msgstr "Back to customise phase"
-
 msgid "Back to edit phase"
 msgstr ""
 
 msgid "Back to phase"
 msgstr ""
-
-msgid "Back to phase"
-msgstr "Back to phase"
 
 msgid "Bad Credentials"
 msgstr ""
@@ -503,9 +485,6 @@ msgstr ""
 msgid "Contact email was successfully sent."
 msgstr ""
 
-msgid "Contact email was successfully sent."
-msgstr "Contact email was successfully sent."
-
 msgid "Contact us"
 msgstr ""
 
@@ -514,9 +493,6 @@ msgstr ""
 
 msgid "Copy of %{template}"
 msgstr ""
-
-msgid "Copy of %{template}"
-msgstr "Copy of %{template}"
 
 msgid "Copyright information:"
 msgstr ""
@@ -574,12 +550,6 @@ msgstr ""
 
 msgid "Created using the %{application_name} service. Last modified %{date}"
 msgstr ""
-
-msgid "Created date"
-msgstr "Created date"
-
-msgid "Created using the %{application_name} service. Last modified %{date}"
-msgstr "Created using the %{application_name} service. Last modified %{date}"
 
 msgid "Created using the %{application_name}. Last modified %{date}"
 msgstr ""
@@ -674,9 +644,6 @@ msgstr ""
 msgid "Dismissable"
 msgstr ""
 
-msgid "Dismissable"
-msgstr "Dismissable"
-
 msgid "Display additional comment area."
 msgstr ""
 
@@ -743,15 +710,6 @@ msgstr ""
 msgid "Editing profile for %{username}"
 msgstr ""
 
-msgid "Editing Notification"
-msgstr "Editing Notification"
-
-msgid "Editing privileges for %{username}"
-msgstr "Editing privileges for %{username}"
-
-msgid "Editing profile for %{username}"
-msgstr "Editing profile for %{username}"
-
 msgid "Editor"
 msgstr ""
 
@@ -811,9 +769,6 @@ msgstr ""
 
 msgid "Expiration"
 msgstr ""
-
-msgid "Expiration"
-msgstr "Expiration"
 
 msgid "Export settings updated successfully."
 msgstr ""
@@ -1073,9 +1028,6 @@ msgstr ""
 msgid "Level"
 msgstr ""
 
-msgid "Level"
-msgstr "Level"
-
 msgid "Link text"
 msgstr ""
 
@@ -1169,20 +1121,11 @@ msgstr ""
 msgid "New Template"
 msgstr ""
 
-msgid "New Question"
-msgstr "New question"
-
-msgid "New Template"
-msgstr "New template"
-
 msgid "New Theme"
 msgstr ""
 
 msgid "New notification"
 msgstr ""
-
-msgid "New notification"
-msgstr "New notification"
 
 msgid "New organisation"
 msgstr "New organization"
@@ -1262,12 +1205,6 @@ msgstr "Not customized (%{count})"
 msgid "Not customized"
 msgstr "Not Customized"
 
-msgid "Not customised (%{count})"
-msgstr "Not customized (%{count})"
-
-msgid "Not customized"
-msgstr "Not Customized"
-
 msgid "Notice:"
 msgstr ""
 
@@ -1280,12 +1217,6 @@ msgstr ""
 msgid "Notification updated successfully"
 msgstr ""
 
-msgid "Notification created successfully"
-msgstr "Notification created successfully"
-
-msgid "Notification updated successfully"
-msgstr "Notification updated successfully"
-
 msgid "Notifications"
 msgstr ""
 
@@ -1297,9 +1228,6 @@ msgstr ""
 
 msgid "ORCID iD: "
 msgstr ""
-
-msgid "ORCID iD: "
-msgstr "ORCID iD: "
 
 msgid "ORCID logo"
 msgstr ""
@@ -1544,6 +1472,9 @@ msgstr ""
 msgid "Please select an organisation from the list"
 msgstr "Please select an organization from the list"
 
+msgid "Please select an organisation from the list, or click the \"My organisation isn't listed\" link and enter your organisation's name."
+msgstr "Please select an organization from the list, or click the \"My organization isn't listed\" link and enter your organization's name."
+
 msgid "Please select an organisation from the list, or enter your organisation's name."
 msgstr "Please select an organization from the list, or enter your organization's name."
 
@@ -1591,9 +1522,6 @@ msgstr "Private: visible to me, specified collaborators and administrators at my
 
 msgid "Privileges"
 msgstr ""
-
-msgid "Privileges"
-msgstr "Privileges"
 
 msgid "Profile information"
 msgstr ""
@@ -1658,9 +1586,6 @@ msgstr ""
 msgid "Published?"
 msgstr ""
 
-msgid "Published (%{count})"
-msgstr "Published (%{count})"
-
 msgid "Query or feedback related to %{tool_name}"
 msgstr ""
 
@@ -1669,9 +1594,6 @@ msgstr ""
 
 msgid "Question %{number}:"
 msgstr ""
-
-msgid "Question %{number}:"
-msgstr "Question %{number}:"
 
 msgid "Question Number"
 msgstr ""
@@ -1684,9 +1606,6 @@ msgstr ""
 
 msgid "Question options"
 msgstr ""
-
-msgid "Question options"
-msgstr "Question options"
 
 msgid "Question text"
 msgstr ""
@@ -1735,9 +1654,6 @@ msgstr ""
 
 msgid "Restricted access to View All the records"
 msgstr ""
-
-msgid "Restricted access to View All the records"
-msgstr "Restricted access to View All the records"
 
 msgid "Right"
 msgstr ""
@@ -1795,9 +1711,6 @@ msgstr ""
 
 msgid "See the full list of partner institutions."
 msgstr ""
-
-msgid "Select 'Transfer customisation' in the Actions menu to review your customisation(s) and make any necessary changes. When you are done, you must return to the Actions menu and publish your customisation(s)."
-msgstr "Select 'Transfer customization' in the Actions menu to review your customization(s) and make any necessary changes. When you are done, you must return to the Actions menu and publish your customization(s)."
 
 msgid "Select 'Transfer customisation' in the Actions menu to review your customisation(s) and make any necessary changes. When you are done, you must return to the Actions menu and publish your customisation(s)."
 msgstr "Select 'Transfer customization' in the Actions menu to review your customization(s) and make any necessary changes. When you are done, you must return to the Actions menu and publish your customization(s)."
@@ -1877,9 +1790,6 @@ msgstr ""
 msgid "Show phase"
 msgstr ""
 
-msgid "Show phase"
-msgstr "Show phase"
-
 msgid "Sign in"
 msgstr ""
 
@@ -1890,6 +1800,9 @@ msgid "Sign up"
 msgstr ""
 
 msgid "Size"
+msgstr ""
+
+msgid "Skip to main content"
 msgstr ""
 
 msgid "Someone has requested a link to change your %{tool_name} password. You can do this through the link below."
@@ -1916,17 +1829,11 @@ msgstr ""
 msgid "Successfully %{action} your %{object}."
 msgstr ""
 
-msgid "Successfully %{action} %{username}'s account."
-msgstr "Successfully %{action} %{username}'s account."
-
 msgid "Successfully deleted your theme"
 msgstr ""
 
 msgid "Successfully destroyed your notification"
 msgstr ""
-
-msgid "Successfully destroyed your notification"
-msgstr "Successfully destroyed your notification"
 
 msgid "Successfully signed in"
 msgstr ""
@@ -1940,20 +1847,11 @@ msgstr ""
 msgid "Successfully updated %{username}"
 msgstr ""
 
-msgid "Successfully unpublished your #{template_type(template)}"
-msgstr "Successfully unpublished your #{template_type(template)}"
-
-msgid "Successfully updated %{username}"
-msgstr "Successfully updated %{username}"
-
 msgid "Super Admin"
 msgstr ""
 
 msgid "Template"
 msgstr ""
-
-msgid "Template Customisation History"
-msgstr "Template Customization History"
 
 msgid "Template Customisation History"
 msgstr "Template Customization History"
@@ -2011,12 +1909,6 @@ msgstr "That template is not customizable."
 
 msgid "The %{org_name} processes the personal data of %{application_name} users in order to deliver and improve the %{application_name} service in a customised manner and to ensure each user receives relevant information."
 msgstr "The %{org_name} processes the personal data of %{application_name} users in order to deliver and improve the %{application_name} service in a customized manner and to ensure each user receives relevant information."
-
-msgid "That template is no longer customizable."
-msgstr "That template is no longer customizable."
-
-msgid "That template is not customizable."
-msgstr "That template is not customizable."
 
 msgid "The %{tool_name} team"
 msgstr ""
@@ -2104,9 +1996,6 @@ msgstr ""
 
 msgid "There is no notification associated with id  %{id}"
 msgstr ""
-
-msgid "There is no notification associated with id  %{id}"
-msgstr "There is no notification associated with id  %{id}"
 
 msgid "There is no plan associated with id %{id}"
 msgstr ""
@@ -2252,20 +2141,11 @@ msgstr ""
 msgid "Unable to load the section's content at this time."
 msgstr ""
 
-msgid "Unable to load the question's content at this time."
-msgstr "Unable to load the question's content at this time."
-
-msgid "Unable to load the section's content at this time."
-msgstr "Unable to load the section's content at this time."
-
 msgid "Unable to notify user that you have finished providing feedback."
 msgstr ""
 
 msgid "Unable to publish your #{template_type(template)}."
 msgstr ""
-
-msgid "Unable to publish your #{template_type(template)}."
-msgstr "Unable to publish your #{template_type(template)}."
 
 msgid "Unable to remove the plan"
 msgstr ""
@@ -2273,23 +2153,14 @@ msgstr ""
 msgid "Unable to save since notification parameter is missing"
 msgstr ""
 
-msgid "Unable to save since notification parameter is missing"
-msgstr "Unable to save since notification parameter is missing"
-
 msgid "Unable to save since theme parameter is missing"
 msgstr ""
 
 msgid "Unable to submit your request"
 msgstr ""
 
-msgid "Unable to submit your request"
-msgstr "Unable to submit your request"
-
 msgid "Unable to submit your request for feedback at this time."
 msgstr ""
-
-msgid "Unable to transfer your customizations."
-msgstr "Unable to transfer your customizations."
 
 msgid "Unable to transfer your customizations."
 msgstr "Unable to transfer your customizations."
@@ -2302,12 +2173,6 @@ msgstr ""
 
 msgid "Unable to update %{username}"
 msgstr ""
-
-msgid "Unable to unpublish your #{template_type(template)}."
-msgstr "Unable to unpublish your #{template_type(template)}."
-
-msgid "Unable to update %{username}"
-msgstr "Unable to update %{username}"
 
 msgid "Unknown"
 msgstr ""
@@ -2357,6 +2222,9 @@ msgstr ""
 msgid "Usage"
 msgstr ""
 
+msgid "Usage statistics"
+msgstr ""
+
 msgid "Use API"
 msgstr ""
 
@@ -2368,9 +2236,6 @@ msgstr ""
 
 msgid "User not found."
 msgstr ""
-
-msgid "User not found."
-msgstr "User not found."
 
 msgid "Users"
 msgstr ""
@@ -2402,12 +2267,6 @@ msgstr ""
 msgid "View customizations"
 msgstr "View customizations"
 
-msgid "View all users"
-msgstr "View all users"
-
-msgid "View customizations"
-msgstr "View customizations"
-
 msgid "View less"
 msgstr ""
 
@@ -2435,6 +2294,9 @@ msgstr ""
 msgid "Welcome"
 msgstr ""
 
+msgid "Welcome to #{Rails.configuration.branding[:application][:name]}."
+msgstr ""
+
 msgid "Welcome to %{application_name}"
 msgstr ""
 
@@ -2445,9 +2307,6 @@ msgid "Welcome to %{tool_name}, %{username}"
 msgstr ""
 
 msgid "Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them."
-msgstr ""
-
-msgid "Welcome."
 msgstr ""
 
 msgid "What research project are you planning?"
@@ -2570,8 +2429,14 @@ msgstr ""
 msgid "You must enter a valid email address."
 msgstr ""
 
+msgid "You must select a funder from the list or click the checkbox."
+msgstr ""
+
 msgid "You must select a funding organisation from the list."
 msgstr "You must select a funding organization from the list."
+
+msgid "You must select a research organisation from the list or click the checkbox."
+msgstr "You must select a research organization from the list or click the checkbox."
 
 msgid "You must select a research organisation from the list."
 msgstr "You must select a research organization from the list."
@@ -2590,9 +2455,6 @@ msgstr ""
 
 msgid "Your #{template_type(template)} has been published and is now available to users."
 msgstr ""
-
-msgid "Your #{template_type(template)} has been published and is now available to users."
-msgstr "Your #{template_type(template)} has been published and is now available to users."
 
 msgid "Your ORCID"
 msgstr ""
@@ -2747,12 +2609,6 @@ msgstr "generate_copy! requires an organization target"
 msgid "generate_version! requires a published template"
 msgstr ""
 
-msgid "generate_copy! requires an organisation target"
-msgstr "generate_copy! requires an organisation target"
-
-msgid "generate_version! requires a published template"
-msgstr "generate_version! requires a published template"
-
 msgid "guidance"
 msgstr ""
 
@@ -2798,12 +2654,6 @@ msgstr ""
 msgid "obj should be a Template, Phase, Section, Question, or Annotation"
 msgstr ""
 
-msgid "obj should be a Phase, Section, Question, or Annotation"
-msgstr "obj should be a Phase, Section, Question, or Annotation"
-
-msgid "obj should be a Template, Phase, Section, Question, or Annotation"
-msgstr "obj should be a Template, Phase, Section, Question, or Annotation"
-
 msgid "on the homepage."
 msgstr ""
 
@@ -2827,9 +2677,6 @@ msgstr ""
 
 msgid "path_params should be a Hash object"
 msgstr ""
-
-msgid "path_params should be a Hash object"
-msgstr "path_params should be a Hash object"
 
 msgid "permissions"
 msgstr ""
