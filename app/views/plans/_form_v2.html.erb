@@ -1,0 +1,95 @@
+<!-- Page title -->
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('Create a new plan') %></h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for Plan.new, url: plans_path do |f| %>
+
+    <!-- Tabs menu -->
+    <ul class="nav nav-tabs form-tabs">
+      <li class="active">
+        <a data-toggle="tab" href="#own_org"><%= _('Your organisation') %></a>
+      </li>
+      <li>
+        <a data-toggle="tab" href="#other_org"><%= _('Other organisation') %></a>
+      </li>
+      <li>
+        <a data-toggle="tab" href="#funder"><%= _('Funder') %></a>
+      </li>
+    </ul>
+
+    <!-- Tabs content -->
+    <div class="tab-content">
+      <!-- "Your organisation" tab -->
+      <div id="own_org" class="tab-pane fade in active">
+        <p>
+          <%= _('Would you like to use the default template "Default Template"?') %>
+        </p>
+        <button class="btn btn-primary"><%= _('Use Default Template') %></button>
+        <%= hidden_field_tag('own_org_name', current_user.org.name) %>
+        <%= hidden_field_tag('own_org_id', current_user.org.id) %>
+        <p>
+          <%= _('Your organisation provides multiple templates, would you like to choose one of them') %>
+        </p>
+      </div>
+
+      <!-- "Other organisation" tab -->
+      <div id="other_org" class="tab-pane fade">
+        <p>
+          <%= _('Would you like to choose the template of another organisation?') %>
+        </p>
+        <%= render partial: "shared/accessible_combobox",
+                   locals: {name: 'plan[org_name]',
+                            id: 'plan_org_name',
+                            default_selection: @default_org,
+                            models: @orgs,
+                            attribute: 'name',
+                            required: true,
+                            error: _('You must select a research organisation from the list.'),
+                            tooltip: _('Please select a valid research organisation from the list.')} %>
+        <p>
+          <%= _('The chosen organisation has more than one template, please choose one of them') %>
+        </p>
+      </div>
+
+      <!-- "Funder" tab -->
+      <div id="funder" class="tab-pane fade">
+        <p>
+          <%= _('Would you like to choose a template of a funder?') %>
+        </p>
+        <%= render partial: "shared/accessible_combobox",
+                   locals: {name: 'plan[funder_name]',
+                            id: 'plan_funder_name',
+                            default_selection: nil,
+                            models: @funders,
+                            attribute: 'name',
+                            required: true,
+                            error: _('You must select a funding organisation from the list.'),
+                            tooltip: _('Please select a valid funding organisation from the list.')} %>
+        <p>
+          <%= _('The chosen funder has more than one template, please choose one of them') %>
+        </p>
+      </div>
+
+      <%= check_box_tag(:plan_no_org, '', false, style: 'display: block;') %>
+      <%= check_box_tag(:plan_no_funder, '', true, style: 'display: block;') %>
+      <%= hidden_field_tag 'template-option-target', org_admin_template_options_path %>
+      <%= select_tag(
+        :plan_template_id, options_from_collection_for_select(
+          @templates, 'id', 'title', @templates.first.id
+        )) %>
+
+      <!-- Submit and other buttons -->
+      <div class="pull-right">
+        <%= f.button(_('Yes'), class: "btn btn-primary", type: "submit") %>
+        <%= link_to _('No'), '', class: 'btn btn-primary', id: 'no-btn' %>
+        <%= link_to _('Default template'), '', class: 'btn btn-primary', id: 'end-default-btn', style: 'display: none;' %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
