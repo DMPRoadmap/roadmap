@@ -1718,11 +1718,11 @@ msgstr "Tout sélectionner"
 msgid "Select an organisation from the list."
 msgstr "Sélectionner un organisme dans la liste."
 
-msgid "Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, as well as that from other sources e.g. the %{org_name} guidance or any Schools/Departments that you provide guidance for."
-msgstr "Sélectionnez un ou plusieurs thèmes concernant cette recommandation. Cela permettra d'afficher la recommandation générique de votre organisme, ainsi que celles provenant d'autres sources (par ex : la recommandation %{org_name} ou toute recommandation fournies pour une École ou un Département)."
-
 msgid "Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question."
 msgstr "Choisir un ou plusieurs thèmes concernant cette question. Cela permettra d'afficher des recommandations similaires au niveau des organismes à côté de votre question."
+
+msgid "Select one theme that is relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags."
+msgstr "Sélectionnez un thème pertinent pour cette recommandation. Cela affichera votre guide générique au niveau de l'organisation, ou toutes les écoles/départements pour lesquels vous créez des groupes de guidage, parmi tous les modèles qui ont des questions avec les tags de thème correspondants."
 
 msgid "Select phase to download"
 msgstr "Sélectionner la phase à télécharger"
