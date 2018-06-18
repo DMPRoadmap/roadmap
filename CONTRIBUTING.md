@@ -3,66 +3,154 @@ The goal of the DMPRoadmap project is to provide the community with a reliable a
 
 These guidelines are an attempt to ensure that we are able to provide the community with a reliable system, stable APIs, a clear roadmap, and a predictable release schedule. 
 
-* If you would like to contribute to the project, please follow these steps to submit a contribution:
-  * Comment on the Github issue (or create one if one does not exist) and let us know that you're working on it.
-  * Fork the project (if you have not already) or rebase your fork so that it is up to date with the current repository's **`contributions`** branch
-  * Create a new branch in your fork. This will ensure that you are able to work at your own pace and continue to pull in any updates made to this project.
-  * Make your changes in the new branch. When you have finished your work (e.g. 3 commits), squash all the commits on the branch that you are working on:
-    ```bash
-    git rebase -i HEAD~n  # Where n is the number of commits you want to squash
-    ```
-    This command's output will look similar to this:
-    ```
-    pick 819b37a First commit in the feature branch.
-    pick 8634c87 More changes in the feature branch.
-    pick 59df9aa Third commit in feature branch.
-
-    # Rebase 6c51182..59df9aa onto 6c51182
-    ```
-    Leave the first commit as `pick` and change `pick` to `squash` for all following commits (to squash them into the single first commit), like so:
-    ```
-    pick 819b37a First commit in the feature branch.
-    squash 8634c87 More changes in the feature branch.
-    squash 59df9aa Third commit in feature branch.
-
-    # Rebase 6c51182..59df9aa onto 6c51182
-    ```
-    Then, change `pick` to `squash` for the 2nd and 3rd commits (to squash them into the single first commit).
-  * To make sure that your version of the **`contributions`** branch is still up to date with this project, switch to it and synchronise:
-    ```bash
-    git checkout contributions
-    git pull origin contributions
-    ```
-  * Switch back to your feature branch and rebase:
-    ```bash
-    git checkout <feature branch>
-    git rebase contributions
-    ```
-  * Fix merge conflicts (if any encountered) and then push to your fork:
-    ```bash
-    git push origin <feature branch>
-    ```
-  * Then create a new Pull Request (PR) to this project's **`contributions`** branch on GitHub.
-  * The project team will then review your PR and communicate with you to convey any additional changes that would ensure that your work adheres to our guidelines.
-  * Delete your feature branch if it is not required anymore.
-
-Table of contents:
-* [Github Workflow](#github-workflow)
-* [Pull Requests](#pull-requests)
-* [Testing Guidelines](#testing-guidelines)
-* [Coding Style/Guidelines](#coding-style)
-
-## GitHub Workflow
 A contribution consists of any work that is voluntarily submitted to the project. This includes bug fixes, enhancements and documentation that is intended as an improvement to the DMP Roadmap system.
 
-Any individual with a GitHub account may propose a Contribution by submitting a Pull Request (PR) to this project's **`contributions`** branch. The project team will evaluate each PR as time permits and communicate with the contributor via comments on the PR. We will not accept a contribution until it adheres to the guidelines outlined in this document. If your contribution fits well with the project roadmap, the team will merge it into the project and schedule it for the next upcoming release. 
+### Let us know that you'll be working on the issue!
 
-![GitHub Workflow ](https://github.com/DMPRoadmap/roadmap/blob/master/public/github-contributor-infographic-final.png)
+If you would like to contribute a feature or bug fix, let us know by commenting on the ticket. We can track the ticket and ensure that no one else is working on it at the same time.
 
-## Pull Requests
-Please use these checklists to help you prepare your Pull Request for submission. 
+### Forking the repository
 
-ALL Pull Requests MUST be made to the **`contributions`** branch!
+If you would like to contribute to the project and have not yet forked the codebase, click on the 'Fork' button in the upper right hand corner of this page. This will create a copy of the DMPRoadmap repository for you to work with.
+
+Once the fork has been created, clone the repository onto your machine. See Github's (documentation on cloning)[https://help.github.com/articles/cloning-a-repository/].
+
+On your local machine, add a remote that points to the original DMPRoadmap codebase. This will allow you to pull down the latest changes and sync up your forked repository
+
+Run the following from your local clone of the repository to setup a remote that will allow you to pull down the latest changes from DMPRoadmap. Then pull down the contributions branch:
+```bash
+git remote add upstream https://github.com/DMPRoadmap/roadmap.git
+git fetch contributions
+```
+
+### Pulling down the latest changes from DMPRoadmap into your fork
+
+If you've already forked the project, you should make sure you pull down the latest changes before working on yoour feature, bug fix or translations.
+
+
+
+### Create a new feature/bug fix/translations branch 
+
+You should always base your new branch off of the contributions branch. We keep this branch up to date with the latest release. Checkout the contributions branch, sync it with DMPRoadmap and then push the latest up to your own fork:
+
+```bash
+git checkout contributions
+git pull upstream contributions
+git push origin contributions
+git checkout -b [my-branch]
+```
+
+The name of the branch is up to you. Once your branch has been created you can start making changes. 
+
+Please refer to the pull request checklists below to make sure you've included everything we require in your PR!
+
+### Rebase your commits
+
+This is only necessary if you have made more than one git commit on your feature branch.
+
+When you are finished making changes, we ask that all contributors squash their commits into a single git commit. This helps us keep the git history clean and makes it easier to revert any changes if necessary.
+
+_Note that if this is your first time rebasing a branch we recommend making a buckup of the branch first since a rebase creates the potential for you to lose your changes if its done incorrectly: `git checkout -b [feature branch]-bak && git checkout [feature branch]`_
+
+To rebase your feature branch you should follow this example:
+  
+First locate the last commit that occurred before your changes were made in the feature branch by using `git log`. Here is an of a recent bug fix branch:
+```bash
+commit c74a4ecdb37c0d4396e97db019f35d8a5000d069 (HEAD -> issue1603)
+Author: John Doe <john.doe@example.org>
+Date:   Fri Jun 15 13:33:27 2018 -0700
+
+    added isActiveTab for profile and reference pages
+
+commit 2b003da459cc5d605dda534898ea4bf89b4f2172
+Author: John Doe <john.doe@example.org>
+Date:   Fri Jun 15 13:26:40 2018 -0700
+
+    fixed issue with active tabs
+
+commit bd9b31d8ca1dcee5e82639dfd9b41a4e2618e2bc (upstream/development, development)
+Merge: f4d058df 7ca739e3
+Author: Another Developer <developer2@example.org>
+Date:   Fri Jun 14 09:20:41 2018 +0100
+
+    Merge pull request #1610 from CDLUC3/issue1333
+```
+
+In the git log above, the developer has made two commits ('fixed issue with active tabs' and 'added isActiveTab for profile and reference pages'). Before they contribute this bug fix back to the core codebase they need to squash those 2 commits into one. To do that, they should copy the last commit id for the commit that happened before they started making changes. In this case they would copy 'bd9b31d8ca1dcee5e82639dfd9b41a4e2618e2bc' from the 'Merge pull request #1610 from CDLUC3/issue1333' commit.
+
+Once you've identified the correct commit id run the rebase command with the '-i' flag: ` git rebase -i bd9b31d8ca1dcee5e82639dfd9b41a4e2618e2bc`
+
+This will open an editor window that will ask you to pick/squash your commits. You should always 'pick' the first one in the list and 'squash' all others. So in our example:
+```bash
+pick 2b003da4 fixed issue with active tabs
+pick c74a4ecd added isActiveTab for profile and reference pages       <--- Change this one to 'squash'
+
+# Rebase bd9b31d8..c74a4ecd onto bd9b31d8 (2 commands)
+#
+# Commands:
+# p, pick = use commit
+# r, reword = use commit, but edit the commit message
+# e, edit = use commit, but stop for amending
+# s, squash = use commit, but meld into previous commit
+# f, fixup = like "squash", but discard this commit's log message
+# x, exec = run command (the rest of the line) using shell
+# d, drop = remove commit
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+#
+# Note that empty commits are commented out
+```
+
+After you have saved your options, a second merge window will open. This is a normal merge/rebase message. You can adjust the comments in this second window if you like and save.
+
+Now your code changes have been rebased into a single commit. To verify that things worked properly do another `git log`. You should see all of your commit messages under a single commit now. For our example, we will now see:
+
+```bash
+commit c691ed712a5d09cf1a9adb8b4e0be92f2bf94641 (HEAD -> issue1603)
+Author: John Doe <john.doe@example.org>
+Date:   Fri Jun 15 13:26:40 2018 -0700
+
+    fixed issue with active tab                                 <--- Our first commit (the one we picked)
+    
+    added isActiveTab for profile and reference pages
+
+commit bd9b31d8ca1dcee5e82639dfd9b41a4e2618e2bc (upstream/development, development)
+Merge: f4d058df 7ca739e3
+Author: Another Developer <developer2@example.org>
+Date:   Fri Jun 14 09:20:41 2018 +0100
+
+    Merge pull request #1610 from CDLUC3/issue1333
+```
+
+### Push your branch up to your fork and send us a Pull Request (PR)
+
+Once your changes are complete, push your branch up to your fork, `git push origin [my-branch]`
+
+Then login to Github and go to your fork. Select your branch from the list and click 'New Pull Request'. On the page that opens, select the 'contributions' branch on the DMPRoadmap section. 
+
+Then review your code and provide us with detailed comments about what the changes are doing (e.g. adding a new feature, fixing a recorded bug, etc.). If you are working off of one of our Github issues, then please note that in the PR message with a `Fixes #1234`.
+
+The project team will evaluate each PR as time permits and communicate with the contributor via comments on the PR. We will not accept a contribution until it adheres to the guidelines outlined in this document. If your contribution fits well with the project roadmap, the team will merge it into the project and schedule it for the next upcoming release. 
+
+### Code review  
+ 
+Once we receive your PR, at lest one member of the core development team will review the code and provide you with feedback through GitHub PR review feature. If any changes are requested, you should follow the process above to commit your additional changes, rebase again, and push your changes back up to Github. You do not need to close the PR and open another if you are working with the same branch. Note that if you rebase again you will need to force the push: `git push -f origin [my-branch]`
+
+### Acceptence of your PR
+
+Once your code has been approved a member of the core development team will merge it into the contributions branch and then into development when we are ready to include it in a sprint. 
+
+At this point its a good idea to delete the branch from your fork in Github and also delete it from your local machine via:
+```bash
+git checkout contributions
+git branch -D [my-branch]
+```
+
+### Pull Request Checklists
 
 #### Checklist for changes to a database table and/or its corresponding model
 * Did you include the appropriate database migration? ```> rails g migration AddTwitterIdToUsers```
@@ -82,80 +170,3 @@ ALL Pull Requests MUST be made to the **`contributions`** branch!
 * Did you update the corresponding controller?
 * Did you manually test the change in multiple browsers?
 * Did your change require modifications to the CSS, JS or image files? If so did you include them in your branded file locations or in the core system files? For example: lib/assets/javascripts is the default javascript directory. app/assets/javascripts are specific to your local installation. (See [Branding](https://github.com/DMPRoadmap/roadmap/wiki/Branding) for more information)
-
-## Testing Guidelines
-First and foremost, all of the existing tests must pass before we accept your contribution. If your work has made a change to an object that results in failed tests then you should update those tests so that they are accurate. 
-
-To run the tests:
-```shell
-# Make sure that your test DB has all of the current database migrations:
-> rake db:migrate RAILS_ENV=test
-
-# To run all of the tests:
-> rake test
-# To run all of a specific type of tests:
-> rake test test/unit/
-# To run a specific test:
-> rake test test/unit/users_test.rb
-```
-
-If you are adding a new feature to the system you must build out the appropriate tests before we will accept your contribution. For example, if I add a new field to the User table that stores the user's Twitter id, I should update the test/unit/users_test.rb Unit test. If my contribution included changes to the User Profile page that allowed the user to enter this new Twitter id then I should update the test/functional/registrations_controller_test.rb Functional controller test.
-
-DMP Roadmap uses the Travis CI framework to verify that are tests are passing. When you create your PR you will see a note stating that the tests are pending. Check back after a few minutes to give the Travis system time to run its tests. 
-
-**Please Note:** We will not review your PR until the tests are passing and GitHub notes that there are no merge conflicts
-
-The original DMP Roadmap codebase did not include a full suite of tests. The project team has been busy adding them in when we can but we still have a long way to go. The requirements mentioned above are in place for pieces of the system that already have tests. For example, if your work involves an enhancement to an existing controller that has no functional test in the current codebase, we do not expect you to write tests for the entire controller (although we would welcome the help!). In cases like this, we only ask that you write tests for the endpoints that you have updated.
-
-We do not currently have testing for the UI components. We plan to add tests for these in the near future using a headless browser like PhantomJS. We welcome any contributors who are willing to begin work in this area!
-
-#### Unit tests:
-* The model can be Created, Read/Loaded, Updated and Deleted (CRUD)
-* Required fields are required and that the model cannot be saved without those fields 
-* Any other validations are working as expected (e.g. email address is in the email format)
-* Associations are functioning properly. Use the helper methods in test/test_helper.rb
-* All other functions that are defined within the model are tested 
-* You should update or create the corresponding fixtures for the model you are testing
-
-#### Functional Controller tests:
-* The correct HTTP response was received (200 success, 302 redirect, 401 unauthorized, etc.)
-* The user was redirected to the correct page (if applicable)
-* All of the instance variables set within the controller were properly defined
-* All flash messaging is correct
-
-#### Integration tests:
-* Complex workflows that involve multiple pieces of the system should have an integration test. This can include interaction with gem dependencies or external services. For example email, login/logout, etc. 
-
-#### Helper/Service tests:
-* Each method within the helper or service should be tested for both success and failure conditions
-
-#### Routing tests:
-New controller/API endpoints should have tests within the test/routing_test.rb 
-
-#### General Notes and Advice:
-* You should use the Rails URL and Path helpers instead of hard-coding them in your tests. (e.g. edit_plans_path(@plan) instead of '/plans/123/edit'
-* You should use the I18n.t method to validate flash messaging rather than hard-coding messages in your tests
-* You should include assertions that test both success and failure conditions
-
-## Coding style
-We realize that every developer has their own style and we encourage a bit of individuality. However, we do impose some of the following rules to contributions to this project.
-
-* We quite like the principle of [DRY (Don't Repeat Yourself)](https://en.wikipedia.org/wiki/Don't_repeat_yourself) so please always look through the existing code to make sure you are not reinventing something that has already been done. Also clever bits of code or reuse of existing ones to avoid copying and pasting is always appreciated. 
-* Include database migrations when you are altering the database model. Use the following command to create a new migration and be specific about what it does in the name of the file
-
-    ```shell
-    > rails g migration AddTwitterIdToUsers
-    ```
-* You do not need to comment every line of your code but we do expect to see inline comments explaining the intent of your if blocks and loops.
-* We do not want to see Tab characters. Tabs should be converted to a double space. If you are working on a file that has Tabs already, please convert them for us before making your Pull Request
-* If a line is going to go beyond 100 characters please break it out onto multiple lines. For example:
-
-    ```ruby
-    # This is preferable 
-    users = [{email: @user.email, password: 'bAd_pas$word1', remember_me: true},
-             {email: 'unknown@institution.org', password: 'password123', remember_me: true}]
-
-    # to this long line that requires scrolling
-    users = [{email: @user.email, password: 'bAd_pas$word1', remember_me: true}, {email: 'unknown@institution.org', password: 'password123', remember_me: true}]
-    ```
-* Finally, please make sure your code is properly indented as this enhances readability.

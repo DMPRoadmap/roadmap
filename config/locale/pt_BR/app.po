@@ -1170,6 +1170,9 @@ msgstr "Nenhuma organização de pesquisa associada a este plano ou a minha orga
 msgid "No themes have been defined. Please contact your administrator for assistance."
 msgstr "Nenhum tema foi definido. Por favor, contate seu administrador para ajuda."
 
+msgid "No themes selected"
+msgstr "Nenhum tema selecionado"
+
 msgid "No. Completed Plans"
 msgstr "Núm. Planos Concluídos"
 
