@@ -183,7 +183,7 @@ ActiveRecord::Schema.define(version: 20180508151824) do
     t.string   "logo_name"
     t.string   "contact_email"
     t.integer  "org_type",               default: 0,              null: false
-    t.text     "links",                  default: "{\"org\":[]}"
+    t.text     "links"
     t.string   "contact_name"
     t.boolean  "feedback_enabled",       default: false
     t.string   "feedback_email_subject"
