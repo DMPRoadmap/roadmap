@@ -1,7 +1,6 @@
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, id: 'personal_details_registration_form' }) do |f| %>
+<%= form_for(resource, namespace: current_user.id, as: resource_name, url: registration_path(resource_name), html: {method: :put, id: 'personal_details_registration_form' }) do |f| %>
   <p class="form-control-static">
-    <%= raw _("Please note that your email address is used as your username.
-    If you change this, remember to use your new email address on sign in.") %>
+    <%= raw _("Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in.") %>
   </p>
 
   <p class="form-control-static"><%= _('You can edit any of the details below.') %></p>
@@ -25,7 +24,7 @@
 
   <% org_admin = (current_user.can_org_admin? && !current_user.can_super_admin?) %>
   <div class="form-group col-xs-8" id="org-controls" <%= raw "data-toggle=\"tooltip\" title=\"#{_('Changing your organisation will result in the loss of your administrative privileges.')}\"" if org_admin %>>
-    <%= render partial: "shared/my_org", locals: {f: f, default_org: @default_org, orgs: @orgs, allow_other_orgs: true} %>
+    <%= render partial: "shared/my_org", locals: {f: f, default_org: @default_org, orgs: @orgs, allow_other_orgs: true, required: true} %>
   </div>
   <% if org_admin %>
     <input type="hidden" id="original_org" value="<%= @user.org_id %>">

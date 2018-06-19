@@ -16,7 +16,7 @@ module OrgAdmin
         title: _('All Templates'),
         templates: templates.includes(:org),
         action: 'index',
-        query_params: { sort_field: :title, sort_direction: :asc },
+        query_params: { sort_field: 'templates.title', sort_direction: 'asc' },
         all_count: templates.length,
         published_count: published.present? ? published : 0,
         unpublished_count: published.present? ? (templates.length - published): templates.length
@@ -36,7 +36,7 @@ module OrgAdmin
         title: title,
         templates: templates,
         action: 'organisational',
-        query_params: { sort_field: :title, sort_direction: :asc },
+        query_params: { sort_field: 'templates.title', sort_direction: 'asc' },
         all_count: templates.length,
         published_count: published.present? ? published : 0,
         unpublished_count: published.present? ? (templates.length - published): templates.length
@@ -60,7 +60,7 @@ module OrgAdmin
         templates: funder_templates,
         customizations: customizations,
         action: 'customisable',
-        query_params: { sort_field: :title, sort_direction: :asc },
+        query_params: { sort_field: 'templates.title', sort_direction: 'asc' },
         all_count: funder_templates.length,
         published_count: published.present? ? published : 0,
         unpublished_count: published.present? ? (customizations.length - published): customizations.length,
@@ -181,6 +181,7 @@ module OrgAdmin
       templates = Template.where(family_id: template.family_id)
       render 'history', locals: { 
         templates: templates, 
+        query_params: { sort_field: 'templates.version', sort_direction: 'desc' },
         referrer: template.customization_of.present? ? customisable_org_admin_templates_path : organisational_org_admin_templates_path,
         current: templates.maximum(:version)
       }

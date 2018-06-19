@@ -1,12 +1,12 @@
 <% if @prefs %>
   <%= form_tag( update_email_preferences_user_path(@user), method: :put, id: "preferences_registration_form", class: "form-horizontal") do |f| %>
     <div class="preferences">
-  
+
     <p>
       <%= link_to _('Select all'), '#', id: 'select_all' %> |
       <%= link_to _('Deselect all'), '#', id: 'deselect_all' %>
     </p>
-  
+
     <p class="form-control-static"><strong>All Users</strong></p>
     <div class="checkbox">
       <label for="prefs[users][new_comment]">
@@ -37,22 +37,13 @@
     <% end %>
 
     <p class="form-control-static"><strong>DMP owners and co-owners</strong></p>
-  
+
     <div class="checkbox">
       <label for="prefs[owners_and_coowners][visibility_changed]">
         <%= check_box_tag 'prefs[owners_and_coowners][visibility_changed]', true, @prefs[:owners_and_coowners][:visibility_changed] %><%= _("My DMP's visibility has changed")  %>
-      </label>          
+      </label>
     </div>
 
-    <% if @user.can_org_admin? %>
-      <p class="form-control-static"><strong>DMP administrators</strong></p>
-    
-      <div class="checkbox">
-        <label for="prefs[admins][feedback_requested]">
-          <%= check_box_tag 'prefs[admins][feedback_requested]', true, @prefs[:admins][:feedback_requested] %><%= _('A user has requested feedback on a DMP')  %>
-        </label>
-      </div>
-    <% end %>
     <%= submit_tag _('Save'), class: 'btn btn-default' %>
   <% end %>
 <% end %>

@@ -3,13 +3,12 @@
 # This file is distributed under the same license as the app package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-12 16:41+0000\n"
-"PO-Revision-Date: 2018-03-12 16:41+0000\n"
+"PO-Revision-Date: 2018-06-14 10:58:56-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -36,61 +35,13 @@ msgstr ""
 msgid " by %{user_name}"
 msgstr ""
 
-msgid " current user privileges are: "
-msgstr ""
-
 msgid " has been removed by "
 msgstr ""
 
 msgid " in the project. You can also report bugs and request new features via "
 msgstr ""
 
-msgid "\"#{text}\""
-msgstr ""
-
-msgid "\"Are you sure you want to unlink #{scheme.description} ID?\""
-msgstr ""
-
-msgid "\"Error parsing links for a #{@template.template_type}\""
-msgstr ""
-
-msgid "\"That #{template.template_type} is not currently published.\""
-msgstr ""
-
-msgid "\"The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}\""
-msgstr ""
-
-msgid "\"Unable to create a new version of this #{@template.template_type}. You are currently working with a published copy.\""
-msgstr ""
-
-msgid "\"Unlink your account from #{scheme.description}. You can link again at any time.\""
-msgstr ""
-
-msgid "\"You are viewing a historical version of this #{@template.template_type}. You will not be able to make changes.\""
-msgstr ""
-
-msgid "\"You can not edit a historical version of this #{@template.template_type}.\""
-msgstr ""
-
-msgid "\"You can not publish a historical version of this #{template.template_type}.\""
-msgstr ""
-
-msgid "\"You cannot delete a #{@template.template_type} that has been used to create plans.\""
-msgstr ""
-
-msgid "\"You cannot delete historical versions of this #{@template.template_type}.\""
-msgstr ""
-
-msgid "\"Your #{template.template_type} has been published and is now available to users.\""
-msgstr ""
-
-msgid "\"Your #{template.template_type} is no longer published. Users will not be able to create new DMPs for this #{template.template_type} until you re-publish it\""
-msgstr ""
-
-msgid "\"Your account has been linked to #{scheme.description}.\""
-msgstr ""
-
-msgid "%{add_or_edit} Annotations"
+msgid "#{text}"
 msgstr ""
 
 msgid "%{application_name}"
@@ -126,10 +77,13 @@ msgstr ""
 msgid "%{org_title} Plans"
 msgstr ""
 
-msgid "%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})"
+msgid "%{org} Example Answer"
 msgstr ""
 
-msgid "%{plan_name}"
+msgid "%{org} Guidance"
+msgstr ""
+
+msgid "%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})"
 msgstr ""
 
 msgid "%{plan_owner} has been notified that you have finished providing feedback"
@@ -144,10 +98,22 @@ msgstr ""
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
 msgstr ""
 
-msgid "%{user_name}"
+msgid "%{username}'s profile"
 msgstr ""
 
 msgid "%{value} is not a valid format"
+msgstr ""
+
+msgid "'Download' allows you to download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application."
+msgstr ""
+
+msgid "'Plan Overview' tells you what template and guidance your plan is based on and gives you an overview to the questions that you will be asked."
+msgstr ""
+
+msgid "'Project Details' includes basic administrative details."
+msgstr ""
+
+msgid "'Share' allows you to invite others to read or contribute to your plan."
 msgstr ""
 
 msgid "(CDL) are consortia supported by the University of Edinburgh and the University of California, respectively. Our primary constituency is the research community. We provide services to the UK, US and international higher education sector. "
@@ -157,6 +123,9 @@ msgid "(CDL-US) are now established in our national contexts as the resource for
 msgstr ""
 
 msgid "(if available)"
+msgstr ""
+
+msgid "+ Add New Notification"
 msgstr ""
 
 msgid "+ Add New Theme"
@@ -174,88 +143,13 @@ msgstr ""
 msgid "... (continued)"
 msgstr ""
 
-msgid ""
-"<h3>Your personal details and consent notice</h3> \n"
-"\n"
-"      <p>In order to help identify and administer your account with DMPRoadmap, we need to store your name and email address. We may also use it to contact you to obtain feedback on your use of the tool, or to inform you of the latest developments or releases. The information may be transferred between the DCC and CDL but only for the following legitimate DCC and CDL purposes: marketing, improving our services and informing you of relevant content and events. We will not sell, rent, or trade any personal information you provide to us. \n"
-"\n"
-"\n"
-"        By using this system, you consent to the collection, retention, and use of your personal information in accordance with the above. You have the right to ask us not to process your personal details for marketing purposes.</p> \n"
-"\n"
-"      <h3>Privacy policy</h3> \n"
-"\n"
-"      <p>The information you enter into this system can be seen by you, people you have chosen to share access with, and - solely for the purposes of maintaining the service - system administrators at DCC and CDL. We compile anonymized, automated, and aggregated information from plans, but we will not directly access, make use of, or share your content with anyone else without your permission. Authorized officers of your home organisation may access your plans for specific purposes - for example, to track compliance with funder/organisational requirements, to calculate storage requirements, or to assess demand for data management services across disciplines.</p> \n"
-"\n"
-"      <h3>Freedom of Information</h3> \n"
-"\n"
-"      <p>DCC and CDL hold your plans on your behalf, but they are your property and responsibility. Any FOIA applicants will be referred back to your home organisation.</p> \n"
-"\n"
-"      <h3>Passwords</h3> \n"
-"      <p>Your password is stored in encrypted form and cannot be retrieved. If forgotten it has to be reset.</p>\n"
-"\n"
-"      <h3>Cookies</h3>\n"
-"\n"
-"      <p>Please note that DMPRoadmap uses Cookies. Further information about Cookies and how we use them is available on the <a target='_blank' href='http://www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies'>main DCC website</a>.</p> \n"
-"\n"
-"      <h3>Third party APIs</h3> \n"
-"\n"
-"      <p>Certain features on this website utilize third party services and APIs such as InCommon/Shibboleth or third party hosting of common JavaScript libraries or web fonts. Information used by an external service is governed by the privacy policy of that service.</p>\n"
-"\n"
-"      <h3>Revisions</h3> \n"
-"\n"
-"      <p>This statement was last revised on October 5, 2017 and may be revised at any time. Use of the tool indicates that you understand and agree to these terms and conditions.</p>"
-msgstr ""
-
 msgid "<p>%{application_name} has been developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>"
 msgstr ""
 
 msgid "<p>Hello %{user_name}.</p><p>Your plan \"%{plan_name}\" has been submitted for feedback from an administrator at your organisation. If you have questions pertaining to this action, please contact us at %{organisation_email}.</p>"
 msgstr ""
 
-msgid "<p>To create a new template, first enter a title and description. Once you have saved this you will be presented with options to add one or more phases. </p>"
-msgstr ""
-
-msgid ""
-"<p>When you log in to DMPRoadmap you will be directed to the 'My Dashboard' page. From here you can edit, share, download, copy or remove any of your plans. You will also see plans that have been shared with you by others.</p> \n"
-"\n"
-"          <h3>Create a plan</h3> \n"
-"\n"
-"          <p>To create a plan, click the 'Create plan' button from the 'My Dashboard' page or the top menu. Select options from the menus and tickboxes to determine what questions and guidance you should be presented with. Confirm your selection by clicking 'Create plan.'</p> \n"
-"\n"
-"          <h3>Write your plan</h3> \n"
-"\n"
-"          <p>The tabbed interface allows you to navigate through different functions when editing your plan.</p> \n"
-"          <ul> \n"
-"            <li>'Project Details' includes basic administrative details.</li>\n"
-"            <li>Plan Overview’ tells you what template and guidance your plan is based on and gives you an overview to the questions that you will be asked.</li> \n"
-"            <li>The following tab(s) present the questions to answer. There may be more than one tab if your funder or university asks different sets of questions at different stages e.g. at grant application and post-award.</li> \n"
-"            <li>'Share' allows you to invite others to read or contribute to your plan.</li> \n"
-"            <li>'Download' allows you to download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application.</li>\n"
-"          </ul> \n"
-"\n"
-"          <p>When viewing any of the question tabs, you will see the different sections of your plan displayed. Click into these in turn to answer the questions. You can format your responses using the text editing buttons.</p> \n"
-"\n"
-"          <p>Guidance is displayed in the right-hand panel. If you need more guidance or find there is too much, you can make adjustments on the ‘Project Details’ tab.</p> \n"
-"\n"
-"          <h3>Share plans</h3> \n"
-"\n"
-"          <p>Insert the email address of any collaborators you would like to invite to read or edit your plan. Set the level of permissions you would like to grant them via the radio buttons and click to 'Add collaborator.' Adjust permissions or remove collaborators at any time via the drop-down options. </p> \n"
-"\n"
-"          <p>The ‘Share’ tab is also where you can set your plan visibility.</p>\n"
-"          <ul> \n"
-"            <li>Private: restricted to you and your collaborators.</li>\n"
-"            <li>Organisational: anyone at your organisation can view your plan.</li> \n"
-"            <li>Public: anyone can view your plan in the Public DMPs list.</li> \n"
-"          </ul> \n"
-"\n"
-"          <p>By default all new and test plans will be set to ‘Private’ visibility. ‘Public’ and ‘Organisational’ visibility are intended for finished plans. You must answer at least 50&#37; of the questions to enable these options.</p>\n"
-" \n"
-"          <h3>Request feedback</h3>\n"
-"          <p>There may also be an option to request feedback on your plan. This is available when research support staff at your organisation have enabled this service. Click to ‘Request feedback’ and your local administrators will be alerted to your request. Their comments will be visible in the ‘Comments’ field adjacent to each question. You will be notified by email when an administrator provides feedback.</p> \n"
-"\n"
-"\n"
-"          <h3>Download plans</h3>\n"
-"          <p>From here you can download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application. Choose what format you would like to view/download your plan in and click to download. You can also adjust the formatting (font type, size and margins) for PDF files, which may be helpful if working to page limits.</p>"
+msgid "<strong>Info:</strong> Simple information message, displayed in blue.<br/><strong>Warning:</strong> warning message, for signaling something unusual, displayed in orange.<br/><strong>Danger:</strong> error message, for anything critical, displayed in red"
 msgstr ""
 
 msgid "A Data Management Plan created using "
@@ -276,10 +170,13 @@ msgstr ""
 msgid "A hash is expected for links"
 msgstr ""
 
-msgid "A key \"org\" is expected for links hash"
+msgid "A historical template cannot be retrieved for being modified"
 msgstr ""
 
 msgid "A key %{key} is expected for links hash"
+msgstr ""
+
+msgid "A key \"org\" is expected for links hash"
 msgstr ""
 
 msgid "A new comment has been added to my DMP"
@@ -294,16 +191,10 @@ msgstr ""
 msgid "A required setting has not been provided"
 msgstr ""
 
-msgid "A user has requested feedback on a DMP"
-msgstr ""
-
 msgid "API Information"
 msgstr ""
 
 msgid "API rights"
-msgstr ""
-
-msgid "API rights in %{tool_name}"
 msgstr ""
 
 msgid "API token"
@@ -324,6 +215,9 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
+msgid "Active"
+msgstr ""
+
 msgid "Add Comment"
 msgstr ""
 
@@ -333,10 +227,10 @@ msgstr ""
 msgid "Add Question"
 msgstr ""
 
-msgid "Add Section"
+msgid "Add Standard"
 msgstr ""
 
-msgid "Add Standard"
+msgid "Add a new section"
 msgstr ""
 
 msgid "Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so we suggest you just use the organisation or department name."
@@ -385,6 +279,9 @@ msgid "Administrator privileges granted in %{tool_name}"
 msgstr ""
 
 msgid "Affiliation: "
+msgstr ""
+
+msgid "All (%{count})"
 msgstr ""
 
 msgid "All Templates"
@@ -441,19 +338,25 @@ msgstr ""
 msgid "Are you sure you want to change your organisational affiliation? Doing so will remove your administrative privileges."
 msgstr ""
 
+msgid "Are you sure you want to delete the notification \"%{title}\""
+msgstr ""
+
 msgid "Are you sure you want to delete the theme \"%{title}\"?"
 msgstr ""
 
 msgid "Are you sure you want to disconnect your ORCID ID?"
 msgstr ""
 
-msgid "Are you sure you want to remove \"%{template_title}\"?"
+msgid "Are you sure you want to remove \"%{template_title}\"? Any published versions will become unavailable to users."
 msgstr ""
 
 msgid "Are you sure you want to remove this comment?"
 msgstr ""
 
-msgid "Are you sure you want to remove your customization of \"%{template_title}\"?"
+msgid "Are you sure you want to remove your customization of \"%{template_title}\"? Any published versions will become unavailable to users."
+msgstr ""
+
+msgid "Are you sure you want to unlink #{scheme.description} ID?"
 msgstr ""
 
 msgid "Are you sure you want to unlink your institutional credentials?"
@@ -468,7 +371,13 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
+msgid "Back to customise phase"
+msgstr ""
+
 msgid "Back to edit phase"
+msgstr ""
+
+msgid "Back to phase"
 msgstr ""
 
 msgid "Bad Credentials"
@@ -486,6 +395,9 @@ msgstr ""
 msgid "Below is a list of users registered for your organisation. You can sort the data by each field."
 msgstr ""
 
+msgid "Body"
+msgstr ""
+
 msgid "Bottom"
 msgstr ""
 
@@ -495,10 +407,16 @@ msgstr ""
 msgid "Browse Standards"
 msgstr ""
 
+msgid "By default all new and test plans will be set to ‘Private’ visibility. ‘Public’ and ‘Organisational’ visibility are intended for finished plans. You must answer at least 50% of the questions to enable these options."
+msgstr ""
+
 msgid "Cancel"
 msgstr ""
 
 msgid "Cannot share plan with %{email} since that email matches with the owner of the plan."
+msgstr ""
+
+msgid "Captcha verification failed, please retry."
 msgstr ""
 
 msgid "Change affiliation"
@@ -513,7 +431,13 @@ msgstr ""
 msgid "Changed permissions on a Data Management Plan in %{tool_name}"
 msgstr ""
 
+msgid "Changing your organisation will result in the loss of your administrative privileges."
+msgstr ""
+
 msgid "Check this box when you are ready for guidance associated with this group to appear on user's plans."
+msgstr ""
+
+msgid "Check this box when you are ready for this guidance to appear on user's plans."
 msgstr ""
 
 msgid "Checking this box prevents the template from appearing in the public list of templates."
@@ -540,6 +464,9 @@ msgstr ""
 msgid "Co-owner"
 msgstr ""
 
+msgid "Co-owner: can edit project details, change visibility, and add collaborators"
+msgstr ""
+
 msgid "Comment"
 msgstr ""
 
@@ -555,13 +482,28 @@ msgstr ""
 msgid "Contact email"
 msgstr ""
 
+msgid "Contact email was successfully sent."
+msgstr ""
+
 msgid "Contact us"
 msgstr ""
 
 msgid "Copy"
 msgstr ""
 
+msgid "Copy of %{template}"
+msgstr ""
+
 msgid "Copyright information:"
+msgstr ""
+
+msgid "Could not create your %{o}."
+msgstr ""
+
+msgid "Could not delete the %{o}."
+msgstr ""
+
+msgid "Could not update your %{o}."
 msgstr ""
 
 msgid "Create Organisation"
@@ -571,6 +513,9 @@ msgid "Create a guidance group"
 msgstr ""
 
 msgid "Create a new plan"
+msgstr ""
+
+msgid "Create a plan"
 msgstr ""
 
 msgid "Create a template"
@@ -600,6 +545,12 @@ msgstr ""
 msgid "Created at"
 msgstr ""
 
+msgid "Created date"
+msgstr ""
+
+msgid "Created using the %{application_name} service. Last modified %{date}"
+msgstr ""
+
 msgid "Created using the %{application_name}. Last modified %{date}"
 msgstr ""
 
@@ -624,10 +575,13 @@ msgstr ""
 msgid "Customizable Templates"
 msgstr ""
 
-msgid "Customization %{publication_status}"
+msgid "Customizations are published"
 msgstr ""
 
-msgid "Customize Phase"
+msgid "Customizations are unpublished"
+msgstr ""
+
+msgid "Customize phase"
 msgstr ""
 
 msgid "DMP Background"
@@ -642,7 +596,7 @@ msgstr ""
 msgid "DMPRoadmap"
 msgstr ""
 
-msgid "DMPRoadmap ('the tool', 'the system') is a tool developed by the DCC and CDL as a shared resource for the research community. It is hosted at CDL by the University of California Curation Center."
+msgid "DMPRoadmap ('the tool', 'the system"
 msgstr ""
 
 msgid "DOCX"
@@ -669,9 +623,6 @@ msgstr ""
 msgid "Delete phase"
 msgstr ""
 
-msgid "Delete question"
-msgstr ""
-
 msgid "Description"
 msgstr ""
 
@@ -688,6 +639,9 @@ msgid "Didn't receive unlock instructions?"
 msgstr ""
 
 msgid "Disconnect your account from ORCID. You can reconnect at any time."
+msgstr ""
+
+msgid "Dismissable"
 msgstr ""
 
 msgid "Display additional comment area."
@@ -717,7 +671,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-msgid "Edit Privileges"
+msgid "Edit Profile"
 msgstr ""
 
 msgid "Edit Theme"
@@ -732,19 +686,13 @@ msgstr ""
 msgid "Edit customisation"
 msgstr ""
 
-msgid "Edit phase details"
+msgid "Edit customizations"
+msgstr ""
+
+msgid "Edit phase"
 msgstr ""
 
 msgid "Edit profile"
-msgstr ""
-
-msgid "Edit question"
-msgstr ""
-
-msgid "Edit template details"
-msgstr ""
-
-msgid "Edit user privileges"
 msgstr ""
 
 msgid "Edited"
@@ -753,7 +701,19 @@ msgstr ""
 msgid "Edited Date"
 msgstr ""
 
+msgid "Editing Notification"
+msgstr ""
+
+msgid "Editing privileges for %{username}"
+msgstr ""
+
+msgid "Editing profile for %{username}"
+msgstr ""
+
 msgid "Editor"
+msgstr ""
+
+msgid "Editor: can comment and make changes"
 msgstr ""
 
 msgid "Email"
@@ -786,6 +746,9 @@ msgstr ""
 msgid "Enter your guidance here. You can include links where needed."
 msgstr ""
 
+msgid "Error parsing links for a #{template_type(template)}"
+msgstr ""
+
 msgid "Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long."
 msgstr ""
 
@@ -798,13 +761,13 @@ msgstr ""
 msgid "Example Answer"
 msgstr ""
 
-msgid "Example answer"
-msgstr ""
-
 msgid "Example: my-org.org"
 msgstr ""
 
 msgid "Example: urn:mace:incommon:my-org.org"
+msgstr ""
+
+msgid "Expiration"
 msgstr ""
 
 msgid "Export settings updated successfully."
@@ -849,6 +812,9 @@ msgstr ""
 msgid "Font"
 msgstr ""
 
+msgid "For network and information security purposes."
+msgstr ""
+
 msgid "Forgot password?"
 msgstr ""
 
@@ -858,13 +824,13 @@ msgstr ""
 msgid "Format"
 msgstr ""
 
+msgid "From here you can download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application. Choose what format you would like to view/download your plan in and click to download. You can also adjust the formatting (font type, size and margins) for PDF files, which may be helpful if working to page limits.</p>"
+msgstr ""
+
 msgid "Funder"
 msgstr ""
 
 msgid "Funder Links"
-msgstr ""
-
-msgid "Funder version is unpublished"
 msgstr ""
 
 msgid "Getting Started"
@@ -909,6 +875,9 @@ msgstr ""
 msgid "Guidance group list"
 msgstr ""
 
+msgid "Guidance is displayed in the right-hand panel. If you need more guidance or find there is too much, you can make adjustments on the ‘Project Details’ tab."
+msgstr ""
+
 msgid "Guidance list"
 msgstr ""
 
@@ -936,6 +905,9 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
+msgid "Helpline"
+msgstr ""
+
 msgid "Here you can view previously published versions of your template.  These can no longer be modified."
 msgstr ""
 
@@ -949,6 +921,9 @@ msgid "Home"
 msgstr ""
 
 msgid "How to use the API"
+msgstr ""
+
+msgid "I accept the"
 msgstr ""
 
 msgid "ID"
@@ -978,7 +953,7 @@ msgstr ""
 msgid "If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us}"
 msgstr ""
 
-msgid "If you have questions pertaining to this action, please visit the My Dashboard page in %{tool_name}"
+msgid "If you have any questions, please contact the %{application_name} team at: <a href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>"
 msgstr ""
 
 msgid "If you wish to add an organisational template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students. Your template will be presented to users within your organisation when no funder templates apply. If you want to add questions to funder templates use the 'customise template' options below."
@@ -990,7 +965,13 @@ msgstr ""
 msgid "If you would like to modify one of the templates below, you must first change your organisation affiliation."
 msgstr ""
 
-msgid "Information was successfully created."
+msgid "Information about you: how we use it and with whom we share it"
+msgstr ""
+
+msgid "Insert the email address of any collaborators you would like to invite to read or edit your plan. Set the level of permissions you would like to grant them via the radio buttons and click to 'Add collaborator.' Adjust permissions or remove collaborators at any time via the drop-down options."
+msgstr ""
+
+msgid "Institution"
 msgstr ""
 
 msgid "Institutional credentials"
@@ -1008,7 +989,7 @@ msgstr ""
 msgid "Invalid maximum pages"
 msgstr ""
 
-msgid "Invitation to %{email} issued successfully. \\n"
+msgid "Invitation to %{email} issued successfully. \n"
 msgstr ""
 
 msgid "Invite collaborators"
@@ -1044,6 +1025,9 @@ msgstr ""
 msgid "Left"
 msgstr ""
 
+msgid "Level"
+msgstr ""
+
 msgid "Link text"
 msgstr ""
 
@@ -1057,6 +1041,9 @@ msgid "Links"
 msgstr ""
 
 msgid "Links will be displayed next to your organisation's logo"
+msgstr ""
+
+msgid "Loading ..."
 msgstr ""
 
 msgid "Logout"
@@ -1128,7 +1115,16 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
+msgid "New Question"
+msgstr ""
+
+msgid "New Template"
+msgstr ""
+
 msgid "New Theme"
+msgstr ""
+
+msgid "New notification"
 msgstr ""
 
 msgid "New organisation"
@@ -1140,7 +1136,7 @@ msgstr ""
 msgid "New plans"
 msgstr ""
 
-msgid "New template"
+msgid "New question:"
 msgstr ""
 
 msgid "New users"
@@ -1158,13 +1154,22 @@ msgstr ""
 msgid "No additional comment area will be displayed."
 msgstr ""
 
+msgid "No funder associated with this plan or my funder is not listed"
+msgstr ""
+
 msgid "No items available."
 msgstr ""
 
 msgid "No organisations are currently registered."
 msgstr ""
 
+msgid "No research organisation associated with this plan or my research organisation is not listed"
+msgstr ""
+
 msgid "No themes have been defined. Please contact your administrator for assistance."
+msgstr ""
+
+msgid "No themes selected"
 msgstr ""
 
 msgid "No. Completed Plans"
@@ -1182,19 +1187,34 @@ msgstr ""
 msgid "No. users joined during last year"
 msgstr ""
 
+msgid "None provided"
+msgstr ""
+
+msgid "Not Answered"
+msgstr ""
+
 msgid "Not Applicable"
 msgstr ""
 
-msgid "Not Customised"
+msgid "Not answered yet"
 msgstr ""
 
-msgid "Not answered yet"
+msgid "Not customised (%{count})"
+msgstr ""
+
+msgid "Not customized"
 msgstr ""
 
 msgid "Notice:"
 msgstr ""
 
 msgid "Notification Preferences"
+msgstr ""
+
+msgid "Notification created successfully"
+msgstr ""
+
+msgid "Notification updated successfully"
 msgstr ""
 
 msgid "Notifications"
@@ -1206,13 +1226,25 @@ msgstr ""
 msgid "ORCID iD"
 msgstr ""
 
+msgid "ORCID iD: "
+msgstr ""
+
 msgid "ORCID logo"
 msgstr ""
 
 msgid "ORCID provides a persistent digital identifier that distinguishes you from other researchers. Learn more at orcid.org"
 msgstr ""
 
+msgid "Off"
+msgstr ""
+
+msgid "On"
+msgstr ""
+
 msgid "Optional Subset"
+msgstr ""
+
+msgid "Optional Subset (e.g. School/Department)"
 msgstr ""
 
 msgid "Optional plan components"
@@ -1269,6 +1301,9 @@ msgstr ""
 msgid "Organisational Configuration Information"
 msgstr ""
 
+msgid "Organisational: anyone at your organisation can view your plan."
+msgstr ""
+
 msgid "Organisations"
 msgstr ""
 
@@ -1287,6 +1322,12 @@ msgstr ""
 msgid "Owner"
 msgstr ""
 
+msgid "Owner email"
+msgstr ""
+
+msgid "Owner name"
+msgstr ""
+
 msgid "PDF"
 msgstr ""
 
@@ -1303,6 +1344,9 @@ msgid "Password confirmation"
 msgstr ""
 
 msgid "Permissions"
+msgstr ""
+
+msgid "Permissions removed on a DMP in %{tool_name}"
 msgstr ""
 
 msgid "Personal Details"
@@ -1371,9 +1415,6 @@ msgstr ""
 msgid "Please enter a password confirmation"
 msgstr ""
 
-msgid "Please enter a title for your template."
-msgstr ""
-
 msgid "Please enter a valid number."
 msgstr ""
 
@@ -1401,9 +1442,7 @@ msgstr ""
 msgid "Please make a choice below. After linking your details to a %{application_name} account, you will be able to sign in directly with your institutional credentials."
 msgstr ""
 
-msgid ""
-"Please note that your email address is used as your username.\n"
-"    If you change this, remember to use your new email address on sign in."
+msgid "Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in."
 msgstr ""
 
 msgid "Please select a research organisation and funder to continue."
@@ -1413,6 +1452,9 @@ msgid "Please select a sub-subject"
 msgstr ""
 
 msgid "Please select a subject"
+msgstr ""
+
+msgid "Please select a template"
 msgstr ""
 
 msgid "Please select a valid funding organisation from the list."
@@ -1428,6 +1470,9 @@ msgid "Please select an item from the list."
 msgstr ""
 
 msgid "Please select an organisation from the list"
+msgstr ""
+
+msgid "Please select an organisation from the list, or click the \"My organisation isn't listed\" link and enter your organisation's name."
 msgstr ""
 
 msgid "Please select an organisation from the list, or enter your organisation's name."
@@ -1457,7 +1502,7 @@ msgstr ""
 msgid "Principal investigator"
 msgstr ""
 
-msgid "Privacy policy"
+msgid "Privacy statement"
 msgstr ""
 
 msgid "Private"
@@ -1467,6 +1512,15 @@ msgid "Private: restricted to me and my collaborators"
 msgstr ""
 
 msgid "Private: restricted to me and people I invite."
+msgstr ""
+
+msgid "Private: restricted to you and your collaborators."
+msgstr ""
+
+msgid "Private: visible to me, specified collaborators and administrators at my organisation"
+msgstr ""
+
+msgid "Privileges"
 msgstr ""
 
 msgid "Profile information"
@@ -1493,16 +1547,25 @@ msgstr ""
 msgid "Provides the user with an API token and grants rights to harvest information from the tool"
 msgstr ""
 
+msgid "Public"
+msgstr ""
+
 msgid "Public DMPs"
 msgstr ""
 
-msgid "Public DMPs are plans created using the %{application_name} and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
+msgid "Public DMPs are plans created using the %{application_name} service and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
 msgstr ""
 
 msgid "Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
 msgstr ""
 
+msgid "Public: anyone can view"
+msgstr ""
+
 msgid "Public: anyone can view on the web"
+msgstr ""
+
+msgid "Public: anyone can view your plan in the Public DMPs list."
 msgstr ""
 
 msgid "Public: anyone can view."
@@ -1517,10 +1580,19 @@ msgstr ""
 msgid "Published"
 msgstr ""
 
+msgid "Published (%{count})"
+msgstr ""
+
+msgid "Published?"
+msgstr ""
+
 msgid "Query or feedback related to %{tool_name}"
 msgstr ""
 
 msgid "Question"
+msgstr ""
+
+msgid "Question %{number}:"
 msgstr ""
 
 msgid "Question Number"
@@ -1532,6 +1604,9 @@ msgstr ""
 msgid "Question number"
 msgstr ""
 
+msgid "Question options"
+msgstr ""
+
 msgid "Question text"
 msgstr ""
 
@@ -1541,10 +1616,19 @@ msgstr ""
 msgid "Read only"
 msgstr ""
 
+msgid "Read only: can view and comment, but not make changes"
+msgstr ""
+
 msgid "Reference"
 msgstr ""
 
+msgid "Remember email"
+msgstr ""
+
 msgid "Remove"
+msgstr ""
+
+msgid "Remove logo"
 msgstr ""
 
 msgid "Remove the filter"
@@ -1568,6 +1652,9 @@ msgstr ""
 msgid "Requestor"
 msgstr ""
 
+msgid "Restricted access to View All the records"
+msgstr ""
+
 msgid "Right"
 msgstr ""
 
@@ -1575,6 +1662,9 @@ msgid "Role"
 msgstr ""
 
 msgid "Run your own filter"
+msgstr ""
+
+msgid "Same as Principal Investigator"
 msgstr ""
 
 msgid "Sample Plan Links"
@@ -1613,10 +1703,16 @@ msgstr ""
 msgid "Security check"
 msgstr ""
 
+msgid "See the full list"
+msgstr ""
+
 msgid "See the full list of participating organisations"
 msgstr ""
 
 msgid "See the full list of partner institutions."
+msgstr ""
+
+msgid "Select 'Transfer customisation' in the Actions menu to review your customisation(s) and make any necessary changes. When you are done, you must return to the Actions menu and publish your customisation(s)."
 msgstr ""
 
 msgid "Select all"
@@ -1625,10 +1721,10 @@ msgstr ""
 msgid "Select an organisation from the list."
 msgstr ""
 
-msgid "Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, as well as that from other sources e.g. the %{org_name} guidance or any Schools/Departments that you provide guidance for."
+msgid "Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question."
 msgstr ""
 
-msgid "Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question."
+msgid "Select one theme that is relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags."
 msgstr ""
 
 msgid "Select phase to download"
@@ -1658,6 +1754,9 @@ msgstr ""
 msgid "Share"
 msgstr ""
 
+msgid "Share plans"
+msgstr ""
+
 msgid "Shared"
 msgstr ""
 
@@ -1667,16 +1766,28 @@ msgstr ""
 msgid "Shibboleth Entity Id"
 msgstr ""
 
-msgid "Show"
+msgid "Should be after start date"
 msgstr ""
 
-msgid "Show Phase"
+msgid "Should be before expiration date"
+msgstr ""
+
+msgid "Should be today or later"
+msgstr ""
+
+msgid "Should be tomorrow or later"
+msgstr ""
+
+msgid "Show"
 msgstr ""
 
 msgid "Show password"
 msgstr ""
 
 msgid "Show passwords"
+msgstr ""
+
+msgid "Show phase"
 msgstr ""
 
 msgid "Sign in"
@@ -1691,7 +1802,13 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
+msgid "Skip to main content"
+msgstr ""
+
 msgid "Someone has requested a link to change your %{tool_name} password. You can do this through the link below."
+msgstr ""
+
+msgid "Start"
 msgstr ""
 
 msgid "Start date"
@@ -1706,7 +1823,16 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
+msgid "Successfully %{action} %{username}'s account."
+msgstr ""
+
+msgid "Successfully %{action} your %{object}."
+msgstr ""
+
 msgid "Successfully deleted your theme"
+msgstr ""
+
+msgid "Successfully destroyed your notification"
 msgstr ""
 
 msgid "Successfully signed in"
@@ -1715,10 +1841,19 @@ msgstr ""
 msgid "Successfully unlinked your account from %{is}."
 msgstr ""
 
+msgid "Successfully unpublished your #{template_type(template)}"
+msgstr ""
+
+msgid "Successfully updated %{username}"
+msgstr ""
+
 msgid "Super Admin"
 msgstr ""
 
 msgid "Template"
+msgstr ""
+
+msgid "Template Customisation History"
 msgstr ""
 
 msgid "Template History"
@@ -1727,7 +1862,10 @@ msgstr ""
 msgid "Template Name"
 msgstr ""
 
-msgid "Template created using the %{application_name}. Last modified %{date}"
+msgid "Template Overview"
+msgstr ""
+
+msgid "Template created using the %{application_name} service. Last modified %{date}"
 msgstr ""
 
 msgid "Template details"
@@ -1763,16 +1901,34 @@ msgstr ""
 msgid "That email address is already registered."
 msgstr ""
 
+msgid "That template is no longer customizable."
+msgstr ""
+
+msgid "That template is not customizable."
+msgstr ""
+
+msgid "The %{org_name} processes the personal data of %{application_name} users in order to deliver and improve the %{application_name} service in a customised manner and to ensure each user receives relevant information."
+msgstr ""
+
 msgid "The %{tool_name} team"
 msgstr ""
 
 msgid "The Digital Curation Centre and UC3 team at the California Digital Library have developed and delivered tools for data management planning since the advent of open data policies in 2011. "
 msgstr ""
 
+msgid "The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}"
+msgstr ""
+
 msgid "The email address you entered is not registered."
 msgstr ""
 
 msgid "The following answer cannot be saved"
+msgstr ""
+
+msgid "The following tab(s) present the questions to answer. There may be more than one tab if your funder or university asks different sets of questions at different stages e.g. at grant application and post-award."
+msgstr ""
+
+msgid "The information you provide will be used by the %{org_name} to offer you access to and personalisation of the %{application_name} service."
 msgstr ""
 
 msgid "The key %{key} does not have a valid set of object links"
@@ -1790,6 +1946,18 @@ msgstr ""
 msgid "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
 msgstr ""
 
+msgid "The processing of your personal data by the %{org_name} is necessary for pursuing the following legitimate interests:"
+msgstr ""
+
+msgid "The search space does not have elements associated"
+msgstr ""
+
+msgid "The search_space does not respond to each"
+msgstr ""
+
+msgid "The tabbed interface allows you to navigate through different functions when editing your plan."
+msgstr ""
+
 msgid "The table below lists the plans that users at your organisation have created and shared within your organisation. This allows you to download a PDF and view their plans as samples or to discover new research data."
 msgstr ""
 
@@ -1797,6 +1965,9 @@ msgid "The table below lists the plans that you have created, and that have been
 msgstr ""
 
 msgid "The theme with id %{id} could not be destroyed"
+msgstr ""
+
+msgid "The ‘Share’ tab is also where you can set your plan visibility."
 msgstr ""
 
 msgid "Theme created successfully"
@@ -1823,16 +1994,22 @@ msgstr ""
 msgid "There is no data available for users joined yet."
 msgstr ""
 
+msgid "There is no notification associated with id  %{id}"
+msgstr ""
+
 msgid "There is no plan associated with id %{id}"
 msgstr ""
 
 msgid "There is no plan with id %{id} for which to create or update an answer"
 msgstr ""
 
-msgid "There is no question with id %{question_id} associated to plan id %{plan_id}for which to create or update an answer"
+msgid "There is no question with id %{question_id} associated to plan id %{plan_id} for which to create or update an answer"
 msgstr ""
 
 msgid "There is no theme associated with id %{id}"
+msgstr ""
+
+msgid "There may also be an option to request feedback on your plan. This is available when research support staff at your organisation have enabled this service. Click to ‘Request feedback’ and your local administrators will be alerted to your request. Their comments will be visible in the ‘Comments’ field adjacent to each question. You will be notified by email when an administrator provides feedback."
 msgstr ""
 
 msgid "There seems to be a problem with your logo. Please upload it again."
@@ -1850,10 +2027,25 @@ msgstr ""
 msgid "This information can only be changed by a system administrator. Contact the Help Desk if you have questions or to request changes."
 msgstr ""
 
+msgid "This is a"
+msgstr ""
+
+msgid "This plan is based on the"
+msgstr ""
+
 msgid "This plan is based on the \"%{template_title}\" template provided by %{org_name}."
 msgstr ""
 
+msgid "This plan is based on the default template."
+msgstr ""
+
+msgid "This statement was last revised on %{revdate} and may be revised at any time with prior notice."
+msgstr ""
+
 msgid "This template is new and does not yet have any publication history."
+msgstr ""
+
+msgid "This template is published changes but has unpublished changes!"
 msgstr ""
 
 msgid "This will create an account and link it to your credentials."
@@ -1862,13 +2054,25 @@ msgstr ""
 msgid "This will link your existing account to your credentials."
 msgstr ""
 
+msgid "This will remove your organisation's logo"
+msgstr ""
+
 msgid "Title"
+msgstr ""
+
+msgid "To create a plan, click the 'Create plan' button from the 'My Dashboard' page or the top menu. Select options from the menus and tickboxes to determine what questions and guidance you should be presented with. Confirm your selection by clicking 'Create plan.'"
 msgstr ""
 
 msgid "To help you write your plan, %{application_name} can show you guidance from a variety of organisations."
 msgstr ""
 
 msgid "To help you write your plan, %{application_name} can show you guidance from a variety of organisations. Please choose up to 6 organisations of the following organisations who offer guidance relevant to your plan."
+msgstr ""
+
+msgid "To keep you up to date with news about %{application_name} such as new features or improvements, or changes to our Privacy Policy."
+msgstr ""
+
+msgid "To provide access to the %{application_name} service and personalisation of your user experience e.g. provision of relevant templates and guidance for your organisation."
 msgstr ""
 
 msgid "Top"
@@ -1895,6 +2099,9 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
+msgid "Unable to %{action} %{username}"
+msgstr ""
+
 msgid "Unable to change the plan's status since it is needed at least %{percentage} percentage responded"
 msgstr ""
 
@@ -1902,6 +2109,15 @@ msgid "Unable to change the plan's test status"
 msgstr ""
 
 msgid "Unable to change your organisation affiliation at this time."
+msgstr ""
+
+msgid "Unable to create a new section because the phase you specified does not exist."
+msgstr ""
+
+msgid "Unable to create a new version of this template."
+msgstr ""
+
+msgid "Unable to customize that template."
 msgstr ""
 
 msgid "Unable to download the DMP Template at this time."
@@ -1919,19 +2135,43 @@ msgstr ""
 msgid "Unable to link your account to %{scheme}."
 msgstr ""
 
+msgid "Unable to load the question's content at this time."
+msgstr ""
+
+msgid "Unable to load the section's content at this time."
+msgstr ""
+
 msgid "Unable to notify user that you have finished providing feedback."
+msgstr ""
+
+msgid "Unable to publish your #{template_type(template)}."
 msgstr ""
 
 msgid "Unable to remove the plan"
 msgstr ""
 
+msgid "Unable to save since notification parameter is missing"
+msgstr ""
+
 msgid "Unable to save since theme parameter is missing"
+msgstr ""
+
+msgid "Unable to submit your request"
 msgstr ""
 
 msgid "Unable to submit your request for feedback at this time."
 msgstr ""
 
+msgid "Unable to transfer your customizations."
+msgstr ""
+
 msgid "Unable to unlink your account from %{is}."
+msgstr ""
+
+msgid "Unable to unpublish your #{template_type(template)}."
+msgstr ""
+
+msgid "Unable to update %{username}"
 msgstr ""
 
 msgid "Unknown"
@@ -1949,6 +2189,9 @@ msgstr ""
 msgid "Unknown organisation."
 msgstr ""
 
+msgid "Unlink your account from #{scheme.description}. You can link again at any time."
+msgstr ""
+
 msgid "Unlink your account from your organisation. You can link again at any time."
 msgstr ""
 
@@ -1959,6 +2202,9 @@ msgid "Unpublish"
 msgstr ""
 
 msgid "Unpublished"
+msgstr ""
+
+msgid "Unpublished (%{count})"
 msgstr ""
 
 msgid "Unpublished changes"
@@ -1976,6 +2222,9 @@ msgstr ""
 msgid "Usage"
 msgstr ""
 
+msgid "Usage statistics"
+msgstr ""
+
 msgid "Use API"
 msgstr ""
 
@@ -1983,6 +2232,9 @@ msgid "Use the filters to generate organisational usage statistics for a custom 
 msgstr ""
 
 msgid "User accounts"
+msgstr ""
+
+msgid "User not found."
 msgstr ""
 
 msgid "Users"
@@ -2009,6 +2261,12 @@ msgstr ""
 msgid "View all templates"
 msgstr ""
 
+msgid "View all users"
+msgstr ""
+
+msgid "View customizations"
+msgstr ""
+
 msgid "View less"
 msgstr ""
 
@@ -2027,7 +2285,16 @@ msgstr ""
 msgid "We invite you to peruse the DMPRoadmap GitHub wiki to learn how to "
 msgstr ""
 
+msgid "We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward."
+msgstr ""
+
+msgid "We will hold the personal data you provided us for as long as you continue using the %{application_name} service. Your personal data can be removed from this service upon request to the %{application_name} team within a period of 30 days."
+msgstr ""
+
 msgid "Welcome"
+msgstr ""
+
+msgid "Welcome to #{Rails.configuration.branding[:application][:name]}."
 msgstr ""
 
 msgid "Welcome to %{application_name}"
@@ -2042,13 +2309,16 @@ msgstr ""
 msgid "Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them."
 msgstr ""
 
-msgid "Welcome."
-msgstr ""
-
 msgid "What research project are you planning?"
 msgstr ""
 
+msgid "When viewing any of the question tabs, you will see the different sections of your plan displayed. Click into these in turn to answer the questions. You can format your responses using the text editing buttons."
+msgstr ""
+
 msgid "When you create a new phase for your template, a version will automatically be created. Once you complete the form below you will be provided with options to create sections and questions."
+msgstr ""
+
+msgid "When you log in to DMPRoadmap you will be directed to the 'My Dashboard' page. From here you can edit, share, download, copy or remove any of your plans. You will also see plans that have been shared with you by others."
 msgstr ""
 
 msgid "Which DMP template would you like to use?"
@@ -2058,6 +2328,9 @@ msgid "Write Plan"
 msgstr ""
 
 msgid "Write plan"
+msgstr ""
+
+msgid "Write your plan"
 msgstr ""
 
 msgid "Yes"
@@ -2075,10 +2348,10 @@ msgstr ""
 msgid "You are about to delete '%{org_name}'. Are you sure?"
 msgstr ""
 
-msgid "You are about to delete '%{question_text}'. Are you sure?"
+msgid "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
 msgstr ""
 
-msgid "You are about to delete '%{section_title}'. This will affect questions linked to this section. Are you sure?"
+msgid "You are about to delete question #%{question_number}. Are you sure?"
 msgstr ""
 
 msgid "You are about to delete the '%{phase_title}' phase. This will remove all of the sections and questions listed below. Are you sure?"
@@ -2096,6 +2369,9 @@ msgstr ""
 msgid "You are viewing a historical version of this template. You will not be able to make changes."
 msgstr ""
 
+msgid "You can add an example answer to help users respond. These will be presented above the answer box and can be copied/ pasted."
+msgstr ""
+
 msgid "You can also grant rights to other collaborators."
 msgstr ""
 
@@ -2108,10 +2384,19 @@ msgstr ""
 msgid "You can edit any of the details below."
 msgstr ""
 
+msgid "You can not publish a historical version of this #{template_type(template)}."
+msgstr ""
+
 msgid "You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup that should present across the board). Writing generic guidance by theme saves you time and effort as your advice will be automatically displayed across all templates rather than having to write guidance to accompany each."
 msgstr ""
 
 msgid "You cannot be assigned to other organisation since that option does not exist in the system. Please contact your system administrators."
+msgstr ""
+
+msgid "You cannot delete a #{template_type(template)} that has been used to create plans."
+msgstr ""
+
+msgid "You canot add a phase to a historical version of a template."
 msgstr ""
 
 msgid "You don't have access to use the API. An api token is needed to generate usage statistics."
@@ -2126,7 +2411,7 @@ msgstr ""
 msgid "You have been revoked administrator privileges in %{tool_name}."
 msgstr ""
 
-msgid "You have unpublished changes"
+msgid "You have unpublished changes! Select \"Publish changes\" in the Actions menu when you are ready to make them available to users."
 msgstr ""
 
 msgid "You may change your notification preferences on your profile page."
@@ -2135,13 +2420,22 @@ msgstr ""
 msgid "You must accept the terms and conditions to register."
 msgstr ""
 
+msgid "You must agree to the term and conditions."
+msgstr ""
+
 msgid "You must enter a valid URL (e.g. https://organisation.org)."
 msgstr ""
 
 msgid "You must enter a valid email address."
 msgstr ""
 
+msgid "You must select a funder from the list or click the checkbox."
+msgstr ""
+
 msgid "You must select a funding organisation from the list."
+msgstr ""
+
+msgid "You must select a research organisation from the list or click the checkbox."
 msgstr ""
 
 msgid "You must select a research organisation from the list."
@@ -2159,6 +2453,9 @@ msgstr ""
 msgid "Your"
 msgstr ""
 
+msgid "Your #{template_type(template)} has been published and is now available to users."
+msgstr ""
+
 msgid "Your ORCID"
 msgstr ""
 
@@ -2166,6 +2463,9 @@ msgid "Your Selected Standards:"
 msgstr ""
 
 msgid "Your access to "
+msgstr ""
+
+msgid "Your account has been linked to #{scheme.description}."
 msgstr ""
 
 msgid "Your account has been linked to your organisation. You can now login with that method."
@@ -2213,6 +2513,12 @@ msgstr ""
 msgid "account has been locked due to an excessive number of unsuccessful sign in attempts."
 msgstr ""
 
+msgid "activate"
+msgstr ""
+
+msgid "activated"
+msgstr ""
+
 msgid "activerecord.errors.messages.record_invalid"
 msgstr ""
 
@@ -2226,6 +2532,9 @@ msgid "activerecord.errors.models.user.attributes.password.blank"
 msgstr ""
 
 msgid "activerecord.errors.models.user.attributes.password_confirmation.confirmation"
+msgstr ""
+
+msgid "answered"
 msgstr ""
 
 msgid "are not authorized to view that plan"
@@ -2255,6 +2564,9 @@ msgstr ""
 msgid "comment"
 msgstr ""
 
+msgid "completed_plans"
+msgstr ""
+
 msgid "copied"
 msgstr ""
 
@@ -2262,6 +2574,18 @@ msgid "created"
 msgstr ""
 
 msgid "customisation"
+msgstr ""
+
+msgid "customize! requires a template from a funder"
+msgstr ""
+
+msgid "customize! requires an organisation target"
+msgstr ""
+
+msgid "deactivate"
+msgstr ""
+
+msgid "deactivated"
 msgstr ""
 
 msgid "deleted"
@@ -2279,6 +2603,12 @@ msgstr ""
 msgid "for internal %{org_name} use only"
 msgstr ""
 
+msgid "generate_copy! requires an organisation target"
+msgstr ""
+
+msgid "generate_version! requires a published template"
+msgstr ""
+
 msgid "guidance"
 msgstr ""
 
@@ -2291,7 +2621,13 @@ msgstr ""
 msgid "into your browser"
 msgstr ""
 
-msgid "link name"
+msgid "locals should be a Hash object"
+msgstr ""
+
+msgid "logo"
+msgstr ""
+
+msgid "mock project for testing, practice, or educational purposes"
 msgstr ""
 
 msgid "must be logged in"
@@ -2310,6 +2646,12 @@ msgid "must have access to plans api"
 msgstr ""
 
 msgid "note"
+msgstr ""
+
+msgid "obj should be a Phase, Section, Question, or Annotation"
+msgstr ""
+
+msgid "obj should be a Template, Phase, Section, Question, or Annotation"
 msgstr ""
 
 msgid "on the homepage."
@@ -2333,6 +2675,9 @@ msgstr ""
 msgid "password"
 msgstr ""
 
+msgid "path_params should be a Hash object"
+msgstr ""
+
 msgid "permissions"
 msgstr ""
 
@@ -2345,6 +2690,9 @@ msgstr ""
 msgid "plan's visibility"
 msgstr ""
 
+msgid "plans"
+msgstr ""
+
 msgid "preferences"
 msgstr ""
 
@@ -2354,13 +2702,23 @@ msgstr ""
 msgid "profile"
 msgstr ""
 
+msgid "project details coversheet"
+msgstr ""
+
 msgid "public"
 msgstr ""
 
+msgid "query_params should be a Hash object"
+msgstr ""
+
 msgid "question"
-msgid_plural "questions"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
+
+msgid "question text and section headings"
+msgstr ""
+
+msgid "questions"
+msgstr ""
 
 msgid "read the plan and leave comments."
 msgstr ""
@@ -2383,24 +2741,55 @@ msgstr ""
 msgid "saved"
 msgstr ""
 
+msgid "scope should be an ActiveRecord::Relation object"
+msgstr ""
+
 msgid "section"
-msgid_plural "sections"
-msgstr[0] ""
-msgstr[1] ""
+msgstr ""
+
+msgid "sections"
+msgstr ""
 
 msgid "since %{name} saved the answer below while you were editing. Please, combine your changes and then save the answer again."
+msgstr ""
+
+msgid "supplementary section(s) not requested by funding organisation"
 msgstr ""
 
 msgid "template"
 msgstr ""
 
+msgid "template with customisations by the"
+msgstr ""
+
+msgid "terms and conditions"
+msgstr ""
+
 msgid "test"
+msgstr ""
+
+msgid "test plan"
+msgstr ""
+
+msgid "unanswered questions"
+msgstr ""
+
+msgid "updated"
+msgstr ""
+
+msgid "upgrade_customization! cannot be carried out since there is no published template of its current funder"
+msgstr ""
+
+msgid "upgrade_customization! requires a customised template"
 msgstr ""
 
 msgid "user"
 msgstr ""
 
 msgid "user must be in your organisation"
+msgstr ""
+
+msgid "users_joined"
 msgstr ""
 
 msgid "write and edit the plan in a collaborative manner."

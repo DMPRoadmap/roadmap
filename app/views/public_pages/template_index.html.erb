@@ -1,3 +1,4 @@
+<% title _('DMP Templates') %>
 <div class="row">
   <div class="col-md-12">
     <h1><%= raw _('DMP Templates') %></h1>
@@ -15,7 +16,8 @@
         partial: '/paginable/templates/publicly_visible',
         controller: 'paginable/templates',
         action: 'publicly_visible', 
-        scope: @templates) %>
+        scope: @templates,
+        query_params: { sort_field: 'templates.title', sort_direction: :asc }) %>
     <% end %>
   </div>
 </div>
