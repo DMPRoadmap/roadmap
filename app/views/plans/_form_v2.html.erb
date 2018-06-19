@@ -30,11 +30,8 @@
           <%= _('Would you like to use the default template "Default Template"?') %>
         </p>
         <button class="btn btn-primary"><%= _('Use Default Template') %></button>
-        <%= hidden_field_tag('own_org_name', current_user.org.name) %>
-        <%= hidden_field_tag('own_org_id', current_user.org.id) %>
-        <p>
-          <%= _('Your organisation provides multiple templates, would you like to choose one of them') %>
-        </p>
+        <%= hidden_field_tag('own_org_name', @default_org.name) %>
+        <%= hidden_field_tag('own_org_id', @default_org.id) %>
       </div>
 
       <!-- "Other organisation" tab -->
@@ -51,9 +48,6 @@
                             required: true,
                             error: _('You must select a research organisation from the list.'),
                             tooltip: _('Please select a valid research organisation from the list.')} %>
-        <p>
-          <%= _('The chosen organisation has more than one template, please choose one of them') %>
-        </p>
       </div>
 
       <!-- "Funder" tab -->
@@ -70,18 +64,21 @@
                             required: true,
                             error: _('You must select a funding organisation from the list.'),
                             tooltip: _('Please select a valid funding organisation from the list.')} %>
-        <p>
-          <%= _('The chosen funder has more than one template, please choose one of them') %>
-        </p>
       </div>
 
-      <%= check_box_tag(:plan_no_org, '', false, style: 'display: block;') %>
-      <%= check_box_tag(:plan_no_funder, '', true, style: 'display: block;') %>
-      <%= hidden_field_tag 'template-option-target', org_admin_template_options_path %>
-      <%= select_tag(
-        :plan_template_id, options_from_collection_for_select(
-          @templates, 'id', 'title', @templates.first.id
-        )) %>
+      <% cb_display = (params[:debug] == "true" ? "block" : "none") %>
+      <%= check_box_tag(:plan_no_org, '', false, style: "display: #{cb_display};") %>
+      <%= check_box_tag(:plan_no_funder, '', true, style: "display: #{cb_display};") %>
+      <div id="available-templates" style="visibility: none;">
+        <p>
+          <%= _('Multiple templates where found for this organisation, which one would you like to use ?') %>
+        </p>
+        <%= hidden_field_tag 'template-option-target', org_admin_template_options_path %>
+        <%= select_tag(
+          :plan_template_id, options_from_collection_for_select(
+            @templates, 'id', 'title', @templates.first.id
+          )) %>
+      </div>
 
       <!-- Submit and other buttons -->
       <div class="pull-right">
