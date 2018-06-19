@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-12 16:41+0000\n"
-"PO-Revision-Date: 2018-06-14 10:58:56-0700\n"
+"PO-Revision-Date: 2018-06-19 10:25:08-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -37,9 +37,6 @@ msgstr ""
 
 msgid " has been removed by "
 msgstr ""
-
-#msgid " or "
-#msgstr ""
 
 msgid "#{text}"
 msgstr ""
@@ -103,21 +100,6 @@ msgstr ""
 
 msgid "%{value} is not a valid format"
 msgstr ""
-
-#msgid "'Download' allows you to download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application."
-#msgstr ""
-
-#msgid "'Plan Overview' tells you what template and guidance your plan is based on and gives you an overview to the questions that you will be asked."
-#msgstr ""
-
-#msgid "'Project Details' includes basic administrative details."
-#msgstr ""
-
-#msgid "'Share' allows you to invite others to read or contribute to your plan."
-#msgstr ""
-
-#msgid "(CDL) are consortia supported by the University of Edinburgh and the University of California, respectively. Our primary constituency is the research community. We provide services to the UK, US and international higher education sector. "
-#msgstr ""
 
 msgid "(Linux, Mac, Windows; free)"
 msgstr ""
@@ -363,9 +345,6 @@ msgid "A required setting has not been provided"
 msgstr ""
 
 msgid "A searchable and browsable list of repositories can be found at these websites:<ul><li><a href=\"%{re3data_url}\">re3data.org</a>: a REgistry of REsearch data REpositories</li><li><a href=\"%{open_access_url}\">Data Repositories</a> in the Open Access Directory: a list of repositories hosted by Simmons College</li><li><a href=\"%{fairshare_url}\">FAIRSharing</a>: a directory of life sciences databases and reporting standards, now expanded to include all disciplines</li></ul>"
-msgstr ""
-
-msgid "A user has requested feedback on a DMP"
 msgstr ""
 
 msgid "A:  The <a href=\"%{admin_help_url}\">help menu for administrators</a> contains detailed instructions for creating themed guidance. The basic steps include:<ol><li>Creating a guidance group (you will already have a default guidance group for your organization; it is optional to create additional groups or subgroups, for example, for a specific department)</li><li>Creating guidance by entering text, assigning one or more themes, and attaching it to a guidance group</li><li>Publishing the guidance</li></ol>"
@@ -707,9 +686,6 @@ msgstr ""
 msgid "By default all new and test plans will be set to Private visibility. Public and Organizational visibility are intended for finished plans. You must answer at least 50% of the questions to enable these options."
 msgstr ""
 
-#msgid "By default all new and test plans will be set to ‘Private’ visibility. ‘Public’ and ‘Organisational’ visibility are intended for finished plans. You must answer at least 50% of the questions to enable these options."
-#msgstr ""
-
 msgid "Can I see customized templates and guidance created by administrators at other organizations?"
 msgstr ""
 
@@ -952,9 +928,6 @@ msgstr ""
 
 msgid "DMP Visibility Changed: %{plan_title}"
 msgstr ""
-
-#msgid "DMPRoadmap ('the tool', 'the system"
-#msgstr ""
 
 msgid "DMPTool"
 msgstr ""
@@ -1298,9 +1271,6 @@ msgstr ""
 msgid "Freedom of Information"
 msgstr ""
 
-#msgid "From here you can download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application. Choose what format you would like to view/download your plan in and click to download. You can also adjust the formatting (font type, size and margins) for PDF files, which may be helpful if working to page limits.</p>"
-#msgstr ""
-
 msgid "Funder"
 msgstr ""
 
@@ -1372,9 +1342,6 @@ msgstr ""
 
 msgid "Guidance group list"
 msgstr ""
-
-#msgid "Guidance is displayed in the right-hand panel. If you need more guidance or find there is too much, you can make adjustments on the ‘Project Details’ tab."
-#msgstr ""
 
 msgid "Guidance list"
 msgstr ""
@@ -1571,9 +1538,6 @@ msgstr ""
 msgid "Input the email address(es) of any collaborators you would like to invite to read or edit your plan. Set their permissions via the radio buttons and click to \"Add collaborator.\" Adjust permissions or remove collaborators at any time via the drop-down options in the table."
 msgstr ""
 
-#msgid "Insert the email address of any collaborators you would like to invite to read or edit your plan. Set the level of permissions you would like to grant them via the radio buttons and click to 'Add collaborator.' Adjust permissions or remove collaborators at any time via the drop-down options."
-#msgstr ""
-
 msgid "Institution"
 msgstr ""
 
@@ -1754,9 +1718,6 @@ msgstr ""
 msgid "My privileges"
 msgstr ""
 
-#msgid "My research organisation is not on the list"
-#msgstr ""
-
 msgid "N/A"
 msgstr ""
 
@@ -1804,9 +1765,6 @@ msgstr ""
 
 msgid "No additional comment area will be displayed."
 msgstr ""
-
-#msgid "No funder associated with this plan"
-#msgstr ""
 
 msgid "No funder associated with this plan or my funder is not listed"
 msgstr ""
@@ -1975,9 +1933,6 @@ msgstr ""
 
 msgid "Organisational admin privileges"
 msgstr ""
-
-#msgid "Organisational: anyone at your organisation can view your plan."
-#msgstr ""
 
 msgid "Organisations"
 msgstr ""
@@ -2207,9 +2162,6 @@ msgstr ""
 msgid "Principal Investigator / Researcher"
 msgstr ""
 
-msgid "Principal investigator"
-msgstr ""
-
 msgid "Privacy policy"
 msgstr ""
 
@@ -2224,9 +2176,6 @@ msgstr ""
 
 msgid "Private: restricted to me and people I invite."
 msgstr ""
-
-#msgid "Private: restricted to you and your collaborators."
-#msgstr ""
 
 msgid "Private: visible to me, specified collaborators and administrators at my organisation"
 msgstr ""
@@ -2284,9 +2233,6 @@ msgstr ""
 
 msgid "Public: anyone can view on the web"
 msgstr ""
-
-#msgid "Public: anyone can view your plan in the Public DMPs list."
-#msgstr ""
 
 msgid "Public: anyone can view."
 msgstr ""
@@ -2526,9 +2472,6 @@ msgid "See the full list"
 msgstr ""
 
 msgid "See the full list of participating institutions"
-msgstr ""
-
-msgid "See the full list of participating organisations"
 msgstr ""
 
 msgid "See the full list of partner institutions."
@@ -2813,9 +2756,6 @@ msgstr ""
 msgid "The following answer cannot be saved"
 msgstr ""
 
-#msgid "The following tab(s) present the questions to answer. There may be more than one tab if your funder or university asks different sets of questions at different stages e.g. at grant application and post-award."
-#msgstr ""
-
 msgid "The information you enter into this system can be seen by you, people you have chosen to share access with, and—solely for the purposes of maintaining the service—system administrators at the CDL. We compile anonymized, automated, and aggregated information from plans, but we will not directly access, make use of, or share your content with anyone beyond CDL and your home institution without your permission. Authorized users at your home institution may access your plans for specific purposes—for example, to track compliance with funder/institutional requirements, to calculate storage requirements, or to assess demand for data management services across disciplines. For a detailed description of what information (other than the plans) we collect from visitors to this website and how it is used and managed, please see the CDL Privacy Policy and Baseline Supporting Practices listed at <a href=\"%{policies_url}\">%{policies_url}</a>"
 msgstr ""
 
@@ -2863,9 +2803,6 @@ msgstr ""
 
 msgid "The theme with id %{id} could not be destroyed"
 msgstr ""
-
-#msgid "The ‘Share’ tab is also where you can set your plan visibility."
-#msgstr ""
 
 msgid "Theme created successfully"
 msgstr ""
@@ -2920,9 +2857,6 @@ msgstr ""
 
 msgid "There may also be an option to request feedback on your plan (on the “Share” tab). This is available when research support staff at your institution have enabled the service. Click to “Request feedback” and your local administrators will be alerted to your request. Their comments will be visible in the “Comments” field adjacent to each question. You will receive an email notification when an administrator provides feedback."
 msgstr ""
-
-#msgid "There may also be an option to request feedback on your plan. This is available when research support staff at your organisation have enabled this service. Click to ‘Request feedback’ and your local administrators will be alerted to your request. Their comments will be visible in the ‘Comments’ field adjacent to each question. You will be notified by email when an administrator provides feedback."
-#msgstr ""
 
 msgid "There seems to be a problem with your logo. Please upload it again."
 msgstr ""
@@ -2980,9 +2914,6 @@ msgstr ""
 
 msgid "To be sure that your backup system is working, periodically retrieve your data files and confirm that you can read them. You should do this when you initially set up the system and on a regular schedule thereafter."
 msgstr ""
-
-#msgid "To create a plan, click the 'Create plan' button from the 'My Dashboard' page or the top menu. Select options from the menus and tickboxes to determine what questions and guidance you should be presented with. Confirm your selection by clicking 'Create plan.'"
-#msgstr ""
 
 msgid "To create a plan, click the “Create plan” button on My dashboard or the top menu. This will take you to a wizard that helps you select the appropriate template:"
 msgstr ""
@@ -3293,9 +3224,6 @@ msgstr ""
 msgid "Welcome to %{tool_name}, %{username}"
 msgstr ""
 
-#msgid "Welcome."
-#msgstr ""
-
 msgid "What are the benefits of participating in the DMPTool?"
 msgstr ""
 
@@ -3335,14 +3263,8 @@ msgstr ""
 msgid "What's the source of the data?"
 msgstr ""
 
-#msgid "When viewing any of the question tabs, you will see the different sections of your plan displayed. Click into these in turn to answer the questions. You can format your responses using the text editing buttons."
-#msgstr ""
-
 msgid "When you create a new phase for your template, a version will automatically be created. Once you complete the form below you will be provided with options to create sections and questions."
 msgstr ""
-
-#msgid "When you log in to DMPRoadmap you will be directed to the 'My Dashboard' page. From here you can edit, share, download, copy or remove any of your plans. You will also see plans that have been shared with you by others."
-#msgstr ""
 
 msgid "When you log in you will be directed to “My dashboard.” From here you can create, edit, share, download, copy, or remove any of your plans. You will also see plans that have been shared with you by others."
 msgstr ""
@@ -3745,9 +3667,6 @@ msgstr ""
 
 msgid "must have access to plans api"
 msgstr ""
-
-#msgid "no research organisation is associated with this plan"
-#msgstr ""
 
 msgid "note"
 msgstr ""
