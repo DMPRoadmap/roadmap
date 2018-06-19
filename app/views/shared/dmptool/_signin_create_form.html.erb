@@ -29,7 +29,7 @@
 
       <div class="tab-content">
         <div id="signin-create-content" role="tabpanel" class="tab-pane active">
-          <%= form_for resource, as: 'user', url: url, 
+          <%= form_for resource, as: 'user', url: url,
                      html: {autocomplete: "off", id: "signin_create_form"} do |f| %>
             <div class="row create-account-fields<%= signin ? ' hide' : '' %>">
               <div class="col-md-6">
