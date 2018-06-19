@@ -70,6 +70,8 @@ module OrgAdmin
         # modifiable (versioned) question
         attrs = question_params
         attrs = transfer_associations(question) if question.id != params[:id]
+        # If the user unchecked all of the themes set the association to an empty array
+        attrs[:theme_ids] = [] unless attrs[:theme_ids].present?
         if question.update!(attrs)
           flash[:notice] = success_message(_('question'), _('updated'))
         else

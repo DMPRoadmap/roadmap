@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2018-06-06 11:32:34-0700\n"
+"PO-Revision-Date: 2018-06-14 10:58:56-0700\n"
 "Last-Translator: Benilton de Sá Carvalho benilton@unicamp.br\n"
 "Language-Team: Portugues do Brasil\n"
 "Language: pt_BR\n"
@@ -191,9 +191,6 @@ msgstr "Um plano foi compartilhado comigo"
 
 msgid "A required setting has not been provided"
 msgstr "Uma configuração obrigatória não foi fornecida"
-
-msgid "A user has requested feedback on a DMP"
-msgstr "Um usuário solicitou feedback sobre um PGD"
 
 msgid "API Information"
 msgstr "Informação sobre a API"
@@ -967,7 +964,7 @@ msgid "If you would like to change your password please complete the following f
 msgstr "Se você deseja mudar sua senha, por favor, complete os campos a seguir."
 
 msgid "If you would like to modify one of the templates below, you must first change your organisation affiliation."
-msgstr "Se você deseja modificar um dos modelos abaixo, precisa primeiro trocar sua afiliação organizacional.??"
+msgstr "Se você deseja modificar um dos modelos abaixo, precisa primeiro trocar sua afiliação organizacional."
 
 msgid "Information about you: how we use it and with whom we share it"
 msgstr "Informações sobre você: como as usamos e com quem as compartilhamos"
@@ -1173,6 +1170,9 @@ msgstr "Nenhuma organização de pesquisa associada a este plano ou a minha orga
 msgid "No themes have been defined. Please contact your administrator for assistance."
 msgstr "Nenhum tema foi definido. Por favor, contate seu administrador para ajuda."
 
+msgid "No themes selected"
+msgstr "Nenhum tema selecionado"
+
 msgid "No. Completed Plans"
 msgstr "Núm. Planos Concluídos"
 
@@ -1318,7 +1318,7 @@ msgid "Original funder template has changed!"
 msgstr "O modelo original do órgão financiador mudou"
 
 msgid "Own Templates"
-msgstr "Modelos Próprios???"
+msgstr "Modelos Próprios"
 
 msgid "Owner"
 msgstr "Proprietário"
@@ -1472,6 +1472,9 @@ msgstr "Por favor, selecione um item na lista."
 
 msgid "Please select an organisation from the list"
 msgstr "Por favor, selecione uma organização na lista."
+
+msgid "Please select an organisation from the list, or click the \"My organisation isn't listed\" link and enter your organisation's name."
+msgstr "Selecione uma organização na lista ou clique no link \"Minha organização não está listada\" e insira o nome da sua organização."
 
 msgid "Please select an organisation from the list, or enter your organisation's name."
 msgstr "Por favor, selecione uma organização na lista, ou insira o nome de sua organização."
@@ -1701,6 +1704,9 @@ msgstr "Seções"
 msgid "Security check"
 msgstr "Verificação de segurança"
 
+msgid "See the full list"
+msgstr "Veja a lista completa"
+
 msgid "See the full list of participating organisations"
 msgstr "Veja a lista completa de organizações participantes"
 
@@ -1716,11 +1722,11 @@ msgstr "Selecionar tudo"
 msgid "Select an organisation from the list."
 msgstr "Selecione uma organização da lista."
 
-msgid "Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, as well as that from other sources e.g. the %{org_name} guidance or any Schools/Departments that you provide guidance for."
-msgstr "Selecione um ou mais temas relevantes para estas instruções. Serão exibidas instruções genéricas no âmbito de sua organização e de outras fontes, e.g. as instruções %{org_name} ou de quaisquer faculdades ou departamentos para os quais você produz instruções. "
-
 msgid "Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question."
 msgstr "Selecione um ou mais temas relevantes para esta pergunta. Isso permitirá que sejam exibidas, junto com sua pergunta, instruções com temas similares no âmbito de sua organização."
+
+msgid "Select one theme that is relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags."
+msgstr "Selecione um tema relevante para esta instruções. Isso exibirá sua instruções genérica em nível de organização ou quaisquer Escolas/Departamentos para os quais você criar grupos de instruções em todos os modelos que tiverem perguntas com as tags de tema correspondentes."
 
 msgid "Select phase to download"
 msgstr "Selecione a fase a ser baixada"
@@ -1796,6 +1802,9 @@ msgstr "Inscrever-se"
 
 msgid "Size"
 msgstr "Tamanho"
+
+msgid "Skip to main content"
+msgstr "Ir para o conteúdo principal"
 
 msgid "Someone has requested a link to change your %{tool_name} password. You can do this through the link below."
 msgstr "Alguém solicitou um link para mudar sua senha em %{tool_name} password. Você pode fazer isso usando o link abaixo."
@@ -1921,7 +1930,7 @@ msgid "The following tab(s) present the questions to answer. There may be more t
 msgstr "As abas a seguir apresentam as perguntas para responder. Pode haver mais de um separador se o seu financiador ou universidade solicitar diferentes conjuntos de perguntas em diferentes fases, por ex. no pedido de subvenção e pós-adjudicação."
 
 msgid "The information you provide will be used by the %{org_name} to offer you access to and personalisation of the %{application_name} service."
-msgstr "As informações fornecidas serão usadas pelo %{org_name} para oferecer acesso e customização do serviço %application_name}."
+msgstr "As informações fornecidas serão usadas pelo %{org_name} para oferecer acesso e customização do serviço %{application_name}."
 
 msgid "The key %{key} does not have a valid set of object links"
 msgstr "A chave %{key} não possui um conjunto válido de links de objeto"
@@ -1984,7 +1993,7 @@ msgid "There is no data available for plans yet."
 msgstr "Ainda não há dados disponíveis para planos."
 
 msgid "There is no data available for users joined yet."
-msgstr "Ainda não há dados disponíveis para usuários associados.??"
+msgstr "Ainda não há dados disponíveis para usuários associados."
 
 msgid "There is no notification associated with id  %{id}"
 msgstr "Não há nenhum plano associado à id %{id}"
@@ -2017,7 +2026,7 @@ msgid "This field is required."
 msgstr "Este campo é obrigatório."
 
 msgid "This information can only be changed by a system administrator. Contact the Help Desk if you have questions or to request changes."
-msgstr "Esta informação só pode ser modificada por um administrador do sistema. Entre em contato com a Help Desk ?? se quiser fazer perguntas ou pedir mudanças."
+msgstr "Esta informação só pode ser modificada por um administrador do sistema. Entre em contato com a Help Desk se quiser fazer perguntas ou pedir mudanças."
 
 msgid "This is a"
 msgstr "Isto é um"
@@ -2214,11 +2223,14 @@ msgstr "Atualizado"
 msgid "Usage"
 msgstr "Uso"
 
+msgid "Usage statistics"
+msgstr "Estatísticas de utilização"
+
 msgid "Use API"
 msgstr "Usar API"
 
 msgid "Use the filters to generate organisational usage statistics for a custom date range. The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph."
-msgstr "Use os filtros para gerar estatísticas de uso organizacional para uma faixa de datas customizada??. Os gráficos mostram novos usuários e planos para sua organização ao longo do último ano. Você pode baixar um relatório em formato CSV para cada gráfico."
+msgstr "Use os filtros para gerar estatísticas de uso organizacional para uma faixa de datas customizada. Os gráficos mostram novos usuários e planos para sua organização ao longo do último ano. Você pode baixar um relatório em formato CSV para cada gráfico."
 
 msgid "User accounts"
 msgstr "Contas de usuários"
@@ -2283,6 +2295,9 @@ msgstr "Nós manteremos os dados pessoais fornecidos por você enquanto você co
 msgid "Welcome"
 msgstr "Bem-vindo"
 
+msgid "Welcome to #{Rails.configuration.branding[:application][:name]}."
+msgstr "Bem-vindo a #{Rails.configuration.branding[:application][:name]}."
+
 msgid "Welcome to %{application_name}"
 msgstr "Bem-vindo a  %{application_name}"
 
@@ -2294,9 +2309,6 @@ msgstr "Bem-vindo a %{tool_name}, %{username}"
 
 msgid "Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them."
 msgstr "Bem vinda! Você se inscreveu com sucesso com suas credenciais institucionais. Agora você poderá acessar sua conta com eles."
-
-msgid "Welcome."
-msgstr "Bem-vindo."
 
 msgid "What research project are you planning?"
 msgstr "Que projeto de pesquisa você está planejando?"
@@ -2395,7 +2407,7 @@ msgid "You have been granted administrator privileges in %{tool_name}:"
 msgstr "Você recebeu privilégios de administrador para %{tool_name}:"
 
 msgid "You have been granted permission by your organisation to use our API. Your API token and instructions for using the API endpoints can be found at: %{link}"
-msgstr "Você recebeu permissão de sua organização para usar nossa API. Seu token da API e as instruções para usar as telas [endpoints??] da API podem ser encontrados em: %{link}"
+msgstr "Você recebeu permissão de sua organização para usar nossa API. Seu token da API e as instruções para usar as telas metas de API podem ser encontrados em: %{link}"
 
 msgid "You have been revoked administrator privileges in %{tool_name}."
 msgstr "Seus privilégios de administrador de %{tool_name} foram revogados."
@@ -2418,8 +2430,14 @@ msgstr "Você deve inserir uma URL válida (e.g. https://organizacao.org)."
 msgid "You must enter a valid email address."
 msgstr "Você deve inserir um email válido."
 
+msgid "You must select a funder from the list or click the checkbox."
+msgstr "Você deve selecionar um financiador na lista ou clicar na caixa de seleção."
+
 msgid "You must select a funding organisation from the list."
 msgstr "Você deve selecionar uma entidade financiadora na lista."
+
+msgid "You must select a research organisation from the list or click the checkbox."
+msgstr "Você deve selecionar uma organização de pesquisa na lista ou clicar na caixa de seleção."
 
 msgid "You must select a research organisation from the list."
 msgstr "Você deve selecionar uma instituição de pesquisa na lista."

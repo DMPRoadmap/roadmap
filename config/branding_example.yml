@@ -51,8 +51,6 @@ defaults: &defaults
         feedback_provided: true
       owners_and_coowners:
         visibility_changed: true
-      admins:
-        feedback_requested: true
 
 
 development:

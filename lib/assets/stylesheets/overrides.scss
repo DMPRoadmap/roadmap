@@ -58,7 +58,12 @@ th.date-column {
   min-width: 120px;
 }
 
-// Fix issues with dropdwon within tables being cut off
+/* Help-Block */
+.help-block {
+  color: $red;
+}
+
+/* Fix issues with dropdwon within tables being cut off */
 .table-responsive > .table {
   width: 100%;
   margin-bottom: 15px;
@@ -167,7 +172,7 @@ th.date-column {
   border-top-left-radius: 0px;
 }
 
-/* label stylying */
+/* label stlying */
 .label {
   font-size: 85%;
 }
@@ -228,7 +233,7 @@ $cancel-button-color: #F17D04;
   background-color: $grey;
   color: $white;
   border-color: $grey;
-  outline: none;
+  outline-color: transparent;
   margin-top: 5px;
   margin-bottom: 10px;
 }
@@ -244,7 +249,7 @@ $cancel-button-color: #F17D04;
   background-color: $grey;
   color: $white;
   border-color: $grey;
-  outline: none;
+  outline-color: transparent;
   margin-top: 5px;
   margin-bottom: 10px;
 }
@@ -497,9 +502,6 @@ $tooltip-background: $grey;
     font-size: 30px;
     font-weight: normal;
   }
-  .red {
-    margin-left: 15px;
-  }
 }
 
 /* Templates page table pre-defined filters */
@@ -548,7 +550,7 @@ $tooltip-background: $grey;
 /* Fieldset styling */
 fieldset.project-details {
   border: 0.5px groove #ddd;
-  padding: 1em;
+  padding: 0 5px;
   margin: 0px;
   width: 480px;
   -webkit-box-shadow:  0px 0px 0px 0px #000;
@@ -557,10 +559,12 @@ fieldset.project-details {
 
 legend.project-details {
     font-weight: bold;
+    font-size: 100%;
     text-align: left !important;
     width:auto;
-    padding:0px;
+    margin-bottom: 5px;
     border-bottom:none;
+    text-transform: capitalize;
 }
 @media (max-width: 768px) {
   fieldset.project-details {
@@ -582,4 +586,23 @@ div.skip a:focus {
   width:auto; 
   height:auto; 
   overflow:visible !important;
+}
+
+/* adjust the position of the 'remove - X' button for links */
+.link .fa-times-circle {
+  margin-top: 30px;
+}
+
+/* Link as button styling */
+a.link_as_button {
+  color: $white;
+  border: none;
+  text-decoration: none;
+}
+
+/* shibboleth DS page institution list formatting */
+#full_list .section-heading {
+  background-color: $grey;
+  color: $white;
+  padding: 10px;
 }
