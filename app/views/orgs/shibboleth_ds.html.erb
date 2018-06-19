@@ -34,14 +34,14 @@
           <p class="centered">
             <strong>- <%= _('or') %> -</strong>
             <br />
-            <a id="show_list" href="#"><%= _('See the full list of participating organisations') %></a>
+            <a id="show_list" href="#"><%= _('See the full list of participating institutions') %></a>
           </p>
         <% end %>
 
       </div>
     <% end %>
   
-    <div id="full_list" style="display: none" aria-hidden="true">
+    <div id="full_list" class="hidden col-xs-10" aria-hidden="true">
       <div id="org-list">
         <%
         increment, cols, letter, total, row = 50, 1, '', @orgs.length, 0
@@ -60,7 +60,7 @@
           <% end %>
 
           <% unless org.name[0].capitalize == letter %>
-            <li class="bg-primary"><%= org.name[0].capitalize %></li>
+            <li class="section-heading"><%= org.name[0].capitalize %></li>
             <% row += 1 %>
             <% letter = org.name[0].capitalize %>
           <% end %>
