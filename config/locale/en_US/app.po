@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2018-06-11 14:22:35-0700\n"
+"PO-Revision-Date: 2018-06-14 10:58:56-0700\n"
 "Last-Translator: Brian Riley brian.riley@ucop.edu\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en_US\n"
@@ -1855,6 +1855,9 @@ msgstr "No research organization associated with this plan or my research organi
 msgid "No themes have been defined. Please contact your administrator for assistance."
 msgstr ""
 
+msgid "No themes selected"
+msgstr ""
+
 msgid "No. Completed Plans"
 msgstr ""
 
@@ -2211,6 +2214,9 @@ msgstr ""
 
 msgid "Please select an organisation from the list"
 msgstr "Please select an organization from the list"
+
+msgid "Please select an organisation from the list, or click the \"My organisation isn't listed\" link and enter your organisation's name."
+msgstr "Please select an organization from the list, or click the \"My organization isn't listed\" link and enter your organization's name."
 
 msgid "Please select an organisation from the list, or enter your organisation's name."
 msgstr "Please select an organization from the list, or enter your organization's name."
@@ -2581,11 +2587,11 @@ msgstr ""
 msgid "Select an organisation from the list."
 msgstr "Select an organization from the list."
 
-msgid "Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, as well as that from other sources e.g. the %{org_name} guidance or any Schools/Departments that you provide guidance for."
-msgstr "Select one or more themes that are relevant to this guidance. This will display your generic organization-level guidance, as well as that from other sources e.g. the %{org_name} guidance or any Schools/Departments that you provide guidance for."
-
 msgid "Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question."
 msgstr "Select one or more themes that are relevant to this question. This will allow similarly themed organization-level guidance to appear alongside your question."
+
+msgid "Select one theme that is relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags."
+msgstr "Select one theme that is relevant to this guidance. This will display your generic organization-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags."
 
 msgid "Select phase to download"
 msgstr ""
@@ -2680,6 +2686,9 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
+msgid "Skip to main content"
+msgstr ""
+
 msgid "Someone has requested a link to change your %{tool_name} password. You can do this through the link below."
 msgstr ""
 
@@ -2745,9 +2754,6 @@ msgstr ""
 
 msgid "Template"
 msgstr ""
-
-msgid "Template Customisation History"
-msgstr "Template Customization History"
 
 msgid "Template History"
 msgstr ""
@@ -3238,6 +3244,9 @@ msgstr ""
 msgid "Usage"
 msgstr ""
 
+msgid "Usage statistics"
+msgstr ""
+
 msgid "Use API"
 msgstr ""
 
@@ -3565,8 +3574,14 @@ msgstr ""
 msgid "You must enter a valid email address."
 msgstr ""
 
+msgid "You must select a funder from the list or click the checkbox."
+msgstr ""
+
 msgid "You must select a funding organisation from the list."
 msgstr "You must select a funding organization from the list."
+
+msgid "You must select a research organisation from the list or click the checkbox."
+msgstr "You must select a research organization from the list or click the checkbox."
 
 msgid "You must select a research organisation from the list."
 msgstr "You must select a research organization from the list."
@@ -3811,8 +3826,8 @@ msgstr ""
 msgid "obj should be a Template, Phase, Section, Question, or Annotation"
 msgstr ""
 
-#msgid "on the homepage."
-#msgstr ""
+msgid "on the homepage."
+msgstr ""
 
 msgid "or"
 msgstr ""

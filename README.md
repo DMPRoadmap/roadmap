@@ -13,6 +13,11 @@ Please be advised though that we can only provide limited support for your local
 
 See the [Translations Guide](https://github.com/DMPRoadmap/roadmap/wiki/Translations)
 
+## Current Release
+[v1.1.2](https://github.com/DMPRoadmap/roadmap/releases/tag/v1.1.2)
+[![Build Status](https://travis-ci.org/DMPRoadmap/roadmap.svg)](https://travis-ci.org/DMPRoadmap/roadmap)
+
+
 ## Installation
 
 If you would like to install and run this application, we encourage you to start with a basic [installation of DMPRoadmap](https://github.com/DMPRoadmap/roadmap/wiki/Installation). Follow the instructions and determine if the functionality it provides meets your requirements.

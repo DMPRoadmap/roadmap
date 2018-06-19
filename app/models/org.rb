@@ -34,7 +34,6 @@ class Org < ActiveRecord::Base
                   :feedback_enabled, :feedback_email_subject, :feedback_email_msg
   ##
   # Validators
-#  validates :contact_email, email: true, allow_nil: true
   validates :name, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
   # allow validations for logo upload
   dragonfly_accessor :logo do

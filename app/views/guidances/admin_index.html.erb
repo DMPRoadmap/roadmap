@@ -1,4 +1,4 @@
-<% title 'Guidance' %>
+<% title _('Guidance') %>
 <div class="row">
   <div class="col-md-12">
     <h1><%= _('Guidance') %></h1>
@@ -16,7 +16,9 @@
 
     <!-- START DMPTool customization -->
     <!-- ========================================= -->
-      <a href="<%= admin_new_guidance_group_path %>" class="btn btn-primary pull-right"><%= _('Create a guidance group') %></a>
+      <button type="button" class="btn btn-primary pull-right"> 
+        <a href="<%= admin_new_guidance_group_path %>" class="link_as_button"><%= _('Create a guidance group') %></a>
+      </button>
     <!-- ========================================= -->
     <!-- END DMPTool customization -->
 
@@ -28,11 +30,29 @@
       controller: 'paginable/guidance_groups',
       action: 'index',
       scope: @guidance_groups,
-      query_params: { sort_field: 'guidance_groups.name', sort_direction: :asc }) %> 
+      query_params: { sort_field: 'guidance_groups.name', sort_direction: :asc }) %>
+
+    <!-- START DMPTool customization -->
+    <!-- ========================================= -->
+      <!-- <div> -->
+        <!-- <button type="button" class="btn btn-primary">  -->
+          <!-- <a href="<%#= admin_new_guidance_group_path %>" class="link_as_button"><%#= _('Create a guidance group') %></a> -->
+        <!-- </button> -->
+      <!-- </div> -->
+    <!-- ========================================= -->
+    <!-- END DMPTool customization -->
 
     <h2>
       <%= _('Guidance list') %>
-      <a href="<%= admin_new_guidance_path %>" class="btn btn-primary pull-right"><%= _('Create guidance') %></a>
+
+    <!-- START DMPTool customization -->
+    <!-- ========================================= -->
+      <button type="button" class="btn btn-primary pull-right"> 
+        <a href="<%= admin_new_guidance_path %>" class="link_as_button"><%= _('Create guidance') %></a>
+      </button>
+    <!-- ========================================= -->
+    <!-- END DMPTool customization -->
+
     </h2>
 
     <p class="text-justify">
@@ -53,7 +73,9 @@
   <!-- START DMPTool customization -->
   <!-- ========================================= -->
     <!-- <div> -->
-      <!-- <a href="<%= admin_new_guidance_path %>" class="btn btn-primary"><%#= _('Create guidance') %></a> -->
+      <!-- <button type="button" class="btn btn-primary">  -->
+        <!-- <a href="<%#= admin_new_guidance_path %>" class="link_as_button"><%#= _('Create guidance') %></a> -->
+      <!-- </button> -->
     <!-- </div> -->
   <!-- ========================================= -->
   <!-- END DMPTool customization -->

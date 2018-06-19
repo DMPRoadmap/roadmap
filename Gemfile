@@ -46,7 +46,6 @@ gem 'ledermann-rails-settings'
 gem 'contact_us' # COULD BE EASILY REPLACED WITH OUR OWN CODE
 gem 'recaptcha'
 gem 'dragonfly'              # LOGO UPLOAD
-gem 'formtastic'
 
 # ------------------------------------------------
 #     EXPORTING
