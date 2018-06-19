@@ -10,7 +10,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= form_for(user, as: :super_admin_user, url: super_admin_user_path(user), html: {method: :put, id: 'super_admin_user_edit' }) do |f| %>
+    <%= form_for(user, namespace: :superadmin, as: :user, url: super_admin_user_path(user), html: {method: :put, id: 'super_admin_user_edit' }) do |f| %>
       <div class="form-group col-xs-8">
         <%= f.label(:email, _('Email'), class: 'control-label') %>
         <%= f.email_field(:email, class: "form-control", "aria-required": true, value: user.email) %>
