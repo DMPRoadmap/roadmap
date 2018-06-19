@@ -14,7 +14,7 @@
       
         <div class="form-group col-xs-8">
           <%= f.label _('Name'), for: :name, class: "control-label" %>
-          <%= f.text_field :name, as: :string, class: "form-control", 'data-toggle': 'tooltip', title: _('Add an appropriate name for your guidance group. This name will tell the end user where the guidance has come from. We suggest you use the organisation or department name e.g. "OU" or "Maths & Stats"') %>
+          <%= f.text_field :name, as: :string, class: "form-control", 'aria-required': true, 'data-toggle': 'tooltip', title: _('Add an appropriate name for your guidance group. This name will tell the end user where the guidance has come from. We suggest you use the organisation or department name e.g. "OU" or "Maths & Stats"') %>
         </div>
 
         <div class='form-input col-xs-8'> 

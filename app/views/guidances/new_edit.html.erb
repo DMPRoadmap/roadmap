@@ -13,7 +13,7 @@
     <%= form_for(guidance, url: options[:url], html: { method: options[:method] , id: 'new_edit_guidance'}) do |f| %>
       <div class="form-group" data-toggle="tooltip" title="<%= _('Enter your guidance here. You can include links where needed.') %>">
         <%= f.label :text, class: 'control-label' %>
-        <%= text_area_tag("guidance-text", guidance.text, class: "guidance-text form-control", 'aria-required': true, rows: 10) %>
+        <%= text_area_tag("guidance-text", guidance.text, class: "form-control", 'aria-required': true, rows: 10) %>
       </div>
       <%= render partial: 'org_admin/shared/theme_selector',
                  locals: { f: f, all_themes: themes, as_radio: true, required: true,
