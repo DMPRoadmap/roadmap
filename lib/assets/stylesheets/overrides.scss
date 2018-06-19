@@ -172,7 +172,7 @@ th.date-column {
   border-top-left-radius: 0px;
 }
 
-/* label stylying */
+/* label stlying */
 .label {
   font-size: 85%;
 }
@@ -550,7 +550,7 @@ $tooltip-background: $grey;
 /* Fieldset styling */
 fieldset.project-details {
   border: 0.5px groove #ddd;
-  padding: 1em;
+  padding: 0 5px;
   margin: 0px;
   width: 480px;
   -webkit-box-shadow:  0px 0px 0px 0px #000;
@@ -559,10 +559,12 @@ fieldset.project-details {
 
 legend.project-details {
     font-weight: bold;
+    font-size: 100%;
     text-align: left !important;
     width:auto;
-    padding:0px;
+    margin-bottom: 5px;
     border-bottom:none;
+    text-transform: capitalize;
 }
 @media (max-width: 768px) {
   fieldset.project-details {
