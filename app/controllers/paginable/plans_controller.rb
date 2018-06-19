@@ -13,8 +13,10 @@ class Paginable::PlansController < ApplicationController
   end
   # GET /paginable/plans/publicly_visible/:page
   def publicly_visible
-    paginable_renderise(partial: 'publicly_visible',
-      scope: Plan.publicly_visible)
+    paginable_renderise(
+      partial: 'publicly_visible',
+      scope: Plan.publicly_visible
+    )
   end
   # GET /paginable/plans/org_admin/:page
   def org_admin

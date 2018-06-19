@@ -1,0 +1,34 @@
+# [+Project:+] DMPRoadmap
+# [+Description:+] This file contains all the text present on DMPRoadmap that is not being retrieve from the database.
+# [+Copyright:+] Digital Curation Centre and University of California Curation Center
+
+pt_BR:
+  date:
+    formats:
+      # Use the strftime parameters for formats.
+      # When no format has been given, it uses default.
+      # You can provide other formats here if you like!
+      default: "%m-%d-%Y"
+      short: "%m/%d/%Y"
+      long: "%B %d, %Y"
+
+    day_names: ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado']
+    abbr_day_names: [Dom, Seg, Ter, Qua, Qui, Sex, Sab]
+
+    # Don't forget the nil at the beginning; there's no such thing as a 0th month
+    month_names: [~, Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro]
+    abbr_month_names: [~, Jan, Fev, Mar, Abr, Mai, Jun, Jul, Ago, Set, Out, Nov, Dez]
+    # Used in date_select and datetime_select.
+    order:
+      - dia
+      - meses
+      - ano
+
+  time:
+    formats:
+      default: "%a, %b %d %Y %H:%M:%S %z"
+      short: "%d %b %H:%M"
+      custom: "%m/%d/%Y %H:%M"
+      long: "%B %d, %Y %H:%M"
+    am: "am"
+    pm: "pm"

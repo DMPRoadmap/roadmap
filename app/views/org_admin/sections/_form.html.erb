@@ -1,7 +1,7 @@
 <%= form_for(section, url: url, namespace: section.id.present? ? section.id : 'new_section', html: { method: method }) do |f| %>
   <div class="form-group col-md-10">
     <%= f.label(:title, _('Title') ,class: "control-label") %>
-    <%= f.text_field(:title, { class: "form-control", 'aria-required': false, placeholder: _('Enter a title for the section'), 'data-toggle': 'tooltip', title: _('Enter a title for the section'), 'aria-required': true} ) %>
+    <%= f.text_field(:title, { class: "form-control", placeholder: _('Enter a title for the section'), 'data-toggle': 'tooltip', title: _('Enter a title for the section'), 'aria-required': true} ) %>
   </div>
 
   <div class="form-group">
