@@ -1,13 +1,44 @@
+<% required = required ||= false %>
+<% other_org = Org.find_by(is_other: true) %>
+<%= f.label :org_name, _('Organisation'), class: 'control-label' %>
+<% object_name = (f.options[:namespace].present? ? "#{f.options[:namespace]}_#{f.object_name}" : f.object_name) %>
+<%= render partial: "shared/accessible_combobox",
+             locals: {name: "#{object_name}[org_name]",
+                      id: "#{object_name}_org_name",
+                      default_selection: default_org,
+                      models: orgs,
+                      attribute: 'name',
+                      error: _('Please select an organisation from the list, or click the "My organisation isn\'t listed" link and enter your organisation\'s name.'),
+                      required: required} %>
+
+<% if allow_other_orgs %>
+  <div class="clearfix"></div>
+  <%= f.hidden_field :other_org_id, value: other_org.present? ? other_org.id : '' %>
+  <a href="#" class="other-org-link"><%= _('My organisation isn\'t listed.') %></a>
+
+  <div class="clearfix"></div>
+  <%= f.text_field :other_organisation, autocomplete: "off", class: "form-control hide other-org", 
+                   placeholder: _('Please enter the name of your organisation'),
+                   "aria-label": "other_organisation" %>
+<% end %>
+
+
+
+<% required = required ||= false %>
 <% org_admin = current_user.present? && (current_user.can_org_admin? && !current_user.can_super_admin?) %>
+<% object_name = (f.options[:namespace].present? ? "#{f.options[:namespace]}_#{f.object_name}" : f.object_name) %>
 <% tooltip = _('Select an organisation from the list or leave blank if your organisation is not listed.') %>
 <% tooltip += _(' Warning: Changing your organisation will result in the loss of your administrative privileges.') if org_admin %>
 
 <%= f.label :org_name, _('Organisation'), class: 'control-label' %>
 <%= render partial: 'shared/popover', 
            locals: { message: tooltip, placement: 'right' }%>
+
 <%= render partial: "shared/accessible_combobox",
-             locals: {name: "user[org_name]",
-                      id: "user_org_name",
+             locals: {name: "#{object_name}[org_name]",
+                      id: "#{object_name}_org_name",
                       default_selection: default_org,
                       models: orgs,
-                      attribute: 'name'} %>
+                      attribute: 'name',
+                      error: _('Please select an organisation from the list, or click the "My organisation isn\'t listed" link and enter your organisation\'s name.'),
+                      required: required} %>
