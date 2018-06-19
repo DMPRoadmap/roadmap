@@ -183,7 +183,7 @@ ActiveRecord::Schema.define(version: 20180508151824) do
     t.string   "logo_name"
     t.string   "contact_email"
     t.integer  "org_type",               default: 0,              null: false
-    t.text     "links",                  default: "{\"org\":[]}"
+    t.text     "links"
     t.string   "contact_name"
     t.boolean  "feedback_enabled",       default: false
     t.string   "feedback_email_subject"
@@ -349,7 +349,7 @@ ActiveRecord::Schema.define(version: 20180508151824) do
     t.integer  "customization_of"
     t.integer  "family_id"
     t.boolean  "archived"
-    t.text     "links",            default: "{\"funder\":[], \"sample_plan\":[]}"
+    t.text     "links"
   end
 
   add_index "templates", ["customization_of", "version", "org_id"], name: "index_templates_on_customization_of_and_version_and_org_id", unique: true
