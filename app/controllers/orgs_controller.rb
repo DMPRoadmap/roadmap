@@ -77,11 +77,20 @@ class OrgsController < ApplicationController
   # POST /orgs/shibboleth_ds
   # ----------------------------------------------------------------
   def shibboleth_ds_passthru
-    if !params['shib-ds'][:org_name].blank?
-      session['org_id'] = params['shib-ds'][:org_name]
-
+    
+  # ---------------------------------------------------------
+  # START DMPTool customization - Remove ['shib-ds'] namespace from params
+    #if !params['shib-ds'][:org_name].blank?
+      #session['org_id'] = params['shib-ds'][:org_name]
+      #scheme = IdentifierScheme.find_by(name: 'shibboleth')
+      #shib_entity = OrgIdentifier.where(org_id: params['shib-ds'][:org_id], identifier_scheme: scheme)
+      
+    if !params[:org_name].blank?
+      session['org_id'] = params[:org_name]
       scheme = IdentifierScheme.find_by(name: 'shibboleth')
-      shib_entity = OrgIdentifier.where(org_id: params['shib-ds'][:org_id], identifier_scheme: scheme)
+      shib_entity = OrgIdentifier.where(org_id: params[:org_id], identifier_scheme: scheme)
+  # END DMPTool customization
+  # ---------------------------------------------------------
   
       if !shib_entity.empty?
         # Force SSL
