@@ -41,7 +41,7 @@ module SuperAdmin
      
     private
       def user_params
-        params.require(:super_admin_user).permit(:email, :firstname, :surname, :org_id, :language_id)
+        params.require(:user).permit(:email, :firstname, :surname, :org_id, :language_id, :other_organisation)
       end
   end
 end
