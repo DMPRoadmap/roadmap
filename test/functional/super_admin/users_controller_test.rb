@@ -28,18 +28,18 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   
   test 'unauthorized user cannot edit a user' do
     params = { firstname: 'Foo', surname: 'Bar' }
-    put super_admin_user_path(@user), { super_admin_user: params }
+    put super_admin_user_path(@user), { user: params }
     assert_unauthorized_redirect_to_root_path
     
     sign_in @user
-    put super_admin_user_path(@user), { super_admin_user: params }
+    put super_admin_user_path(@user), { user: params }
     assert_authorized_redirect_to_plans_page
   end
 
   test 'super admin can edit a user' do  
     params = { firstname: 'Foo', surname: 'Bar' }
     sign_in @super_admin
-    put super_admin_user_path(@user), { super_admin_user: params }
+    put super_admin_user_path(@user), { user: params }
     assert_response :redirect
     @user.reload
     assert_equal 'Foo', @user.firstname, "expected the User's firstname to have been updated"
