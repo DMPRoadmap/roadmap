@@ -880,6 +880,10 @@ div[id^="guidance-"] .panel {
   .heading-button, .heading-button .panel-heading {
     background-color: white;
     color: $dark-blue;
+
+    .fa {
+      color: $dark-blue;
+    }
   }
 }
 .form-answer .panel-default .label-default {
