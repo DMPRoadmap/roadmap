@@ -88,7 +88,7 @@ class OrgsController < ApplicationController
     if !params[:org_name].blank?
       session['org_id'] = params[:org_name]
       scheme = IdentifierScheme.find_by(name: 'shibboleth')
-      shib_entity = OrgIdentifier.where(org_id: params[:org_id], identifier_scheme: scheme)
+      shib_entity = OrgIdentifier.where(org_id: params[:org_name], identifier_scheme: scheme)
   # END DMPTool customization
   # ---------------------------------------------------------
   
