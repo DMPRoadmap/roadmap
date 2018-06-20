@@ -1,3 +1,4 @@
+<% title 'Templates' %>
 <div class="row">
   <div class="col-md-12">
     <h1><%= _('Templates') %></h1>
@@ -68,15 +69,16 @@
                   controller: 'paginable/templates',
                   action: action, 
                   scope: templates,
-                  query_params: { sort_field: 'templates.title', sort_direction: :asc },
+                  query_params: query_params,
                   locals: local_assigns) %>
           </div>
         </div>
       </div>
     </div>
 
-    <a href="<%= new_org_admin_template_path %>" class="btn btn-primary" role="button">
-      <%= _('Create a template') %>
-    </a>
+    <button type="button" class="btn btn-primary"> 
+      <a href="<%= new_org_admin_template_path %>" class="link_as_button">
+      <%= _('Create a template') %></a>
+    </button>
   </div>
 </div>

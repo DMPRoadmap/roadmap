@@ -23,7 +23,7 @@ module ExportablePlan
           phase[:sections].each do |section|
             section[:questions].each do |question|
               answer = self.answer(question[:id], false)
-              answer_text = answer.present? ? answer.text : (unanswered ? 'Not Answered' : '')
+              answer_text = answer.present? ? answer.text : (unanswered ? _('Not Answered') : '')
               flds = (hash[:phases].length > 1 ? [phase[:title]] : [])
               if headings
                 if question[:text].is_a? String

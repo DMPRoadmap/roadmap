@@ -1,3 +1,4 @@
+<% title _('My Dashboard') %>
 <div class="row">
   <div class="col-md-12">    
     <h1><%= _('My Dashboard') %></h1>
@@ -25,7 +26,9 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <%= link_to _('Create plan'), new_plan_path, class: "btn btn-primary" %>
+    <button type="button" class="btn btn-primary"> 
+      <%= link_to _('Create plan'), new_plan_path, class: "link_as_button" %>
+    </button>
   </div>
 </div>
 <div class="row">
