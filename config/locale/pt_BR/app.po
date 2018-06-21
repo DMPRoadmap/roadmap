@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2018-06-14 10:58:56-0700\n"
+"PO-Revision-Date: 2018-06-20 16:23:24-0700\n"
 "Last-Translator: Benilton de Sá Carvalho benilton@unicamp.br\n"
 "Language-Team: Portugues do Brasil\n"
 "Language: pt_BR\n"
@@ -1500,8 +1500,8 @@ msgstr "Investigador Principal"
 msgid "Principal Investigator / Researcher"
 msgstr "Investigador / Pesquisador Principal"
 
-msgid "Principal investigator"
-msgstr "Investigador principal"
+#msgid "Principal investigator"
+#msgstr "Investigador principal"
 
 msgid "Privacy statement"
 msgstr "Política de privacidade"
@@ -1707,8 +1707,12 @@ msgstr "Verificação de segurança"
 msgid "See the full list"
 msgstr "Veja a lista completa"
 
-msgid "See the full list of participating organisations"
-msgstr "Veja a lista completa de organizações participantes"
+#, fuzzy
+msgid "See the full list of participating institutions"
+msgstr ""
+
+#msgid "See the full list of participating organisations"
+#msgstr "Veja a lista completa de organizações participantes"
 
 msgid "See the full list of partner institutions."
 msgstr "Veja a lista completa de instituições parceiras"
@@ -1829,6 +1833,10 @@ msgstr "Successo ao %{action} conta do %{username}"
 
 msgid "Successfully %{action} your %{object}."
 msgstr "Sucesso ao %{action} seu %{object}."
+
+#, fuzzy
+msgid "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."
+msgstr ""
 
 msgid "Successfully deleted your theme"
 msgstr "Seu tema foi apagado com sucesso"
