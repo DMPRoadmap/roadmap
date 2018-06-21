@@ -335,7 +335,7 @@ msgid "A new comment has been added to my DMP"
 msgstr ""
 
 msgid "A pertinent ID as determined by the funder and/or organisation."
-msgstr ""
+msgstr "A pertinent ID as determined by the funder and/or organization."
 
 msgid "A plan has been shared with me"
 msgstr ""
@@ -1931,7 +1931,7 @@ msgid "Organisational Configuration Information"
 msgstr "Organizational Configuration Information"
 
 msgid "Organisational admin privileges"
-msgstr ""
+msgstr "Organizational admin privileges"
 
 msgid "Organisations"
 msgstr "Organizations"
@@ -2102,7 +2102,7 @@ msgid "Please make a choice below. After linking your details to a %{application
 msgstr ""
 
 msgid "Please note that your email address is also your username. If you change this remember to use your new email address on sign in. If your account is created with your institutional credentials you must contact us to change your email or organisation."
-msgstr ""
+msgstr "Please note that your email address is also your username. If you change this remember to use your new email address on sign in. If your account is created with your institutional credentials you must contact us to change your email or organization."
 
 msgid "Please note that your email address is used as your username. If you change this, remember to use your new email address on sign in."
 msgstr ""
@@ -3390,7 +3390,7 @@ msgid "You can write pieces of guidance to be displayed by theme (e.g. generic g
 msgstr ""
 
 msgid "You cannot be assigned to other organisation since that option does not exist in the system. Please contact your system administrators."
-msgstr ""
+msgstr "You cannot be assigned to other organization since that option does not exist in the system. Please contact your system administrators."
 
 msgid "You cannot delete a #{template_type(template)} that has been used to create plans."
 msgstr ""
@@ -3405,7 +3405,7 @@ msgid "You have been granted administrator privileges in %{tool_name}:"
 msgstr ""
 
 msgid "You have been granted permission by your organisation to use our API. Your API token and instructions for using the API endpoints can be found at: %{link}"
-msgstr ""
+msgstr "You have been granted permission by your organization to use our API. Your API token and instructions for using the API endpoints can be found at: %{link}"
 
 msgid "You have been revoked administrator privileges in %{tool_name}."
 msgstr ""
@@ -3426,7 +3426,7 @@ msgid "You must agree to the term and conditions."
 msgstr ""
 
 msgid "You must enter a valid URL (e.g. https://organisation.org)."
-msgstr ""
+msgstr "You must enter a valid URL (e.g. https://organization.org)."
 
 msgid "You must enter a valid email address."
 msgstr ""
@@ -3489,7 +3489,7 @@ msgid "Your account is linked to your institutional credentials for login. Pleas
 msgstr ""
 
 msgid "Your account is linked to your institutional credentials for login. Please contact the helpdesk to change your organisation."
-msgstr ""
+msgstr "Your account is linked to your institutional credentials for login. Please contact the helpdesk to change your organization."
 
 msgid "Your email address is also your login id and therefore an important part of your account information. For your safety we require you to confirm your password to make this change."
 msgstr ""
