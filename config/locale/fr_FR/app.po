@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-14 15:10+0100\n"
-"PO-Revision-Date: 2018-06-14 10:58:56-0700\n"
+"PO-Revision-Date: 2018-06-20 16:23:24-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fr_FR\n"
@@ -1496,8 +1496,8 @@ msgstr "Chercheur principal"
 msgid "Principal Investigator / Researcher"
 msgstr "Chercheur principal / Chercheur"
 
-msgid "Principal investigator"
-msgstr "Chercheur principal"
+#msgid "Principal investigator"
+#msgstr "Chercheur principal"
 
 msgid "Privacy statement"
 msgstr "Déclaration de confidentialité"
@@ -1703,8 +1703,12 @@ msgstr "Vérifications de sécurité"
 msgid "See the full list"
 msgstr "Voir la liste complète"
 
-msgid "See the full list of participating organisations"
-msgstr "Voir la liste complète des organismes participants"
+#, fuzzy
+msgid "See the full list of participating institutions"
+msgstr ""
+
+#msgid "See the full list of participating organisations"
+#msgstr "Voir la liste complète des organismes participants"
 
 msgid "See the full list of partner institutions."
 msgstr "Voir la liste des institutions partenaires."
@@ -1825,6 +1829,10 @@ msgstr "Compte de %{username} %{action} avec succès."
 
 msgid "Successfully %{action} your %{object}."
 msgstr "%{object} %{action} avec succès."
+
+#, fuzzy
+msgid "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."
+msgstr ""
 
 msgid "Successfully deleted your theme"
 msgstr "Votre thème a bien été supprimé"
