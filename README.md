@@ -14,7 +14,8 @@ Please be advised though that we can only provide limited support for your local
 See the [Translations Guide](https://github.com/DMPRoadmap/roadmap/wiki/Translations)
 
 ## Current Release
-[v1.1.2](https://github.com/DMPRoadmap/roadmap/releases/tag/v1.1.2)
+[v1.1.3](https://github.com/DMPRoadmap/roadmap/releases/tag/v1.1.3)
+
 [![Build Status](https://travis-ci.org/DMPRoadmap/roadmap.svg)](https://travis-ci.org/DMPRoadmap/roadmap)
 
 
