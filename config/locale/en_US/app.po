@@ -29,7 +29,7 @@ msgid " The above plan creator(s) have agreed that others may use as much of the
 msgstr " The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customize it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal"
 
 msgid " Warning: Changing your organisation will result in the loss of your administrative privileges."
-msgstr ""
+msgstr " Warning: Changing your organization will result in the loss of your administrative privileges."
 
 msgid " by %{user_name}"
 msgstr ""

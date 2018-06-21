@@ -1,6 +1,6 @@
 # Additional translations at https://github.com/plataformatec/devise/wiki/I18n
 
-en_GB:
+pt_BR:
   devise:
     confirmations:
       confirmed: "Sua conta foi confirmada com sucesso. Por favor, inscreva-se."
