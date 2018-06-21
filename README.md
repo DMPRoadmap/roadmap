@@ -10,7 +10,7 @@ The tool has four main functions:
 4. To allow collaborative work when creating Data Management Plans.  
 
 #### Current Release
-[v1.1.2](https://github.com/DMPRoadmap/roadmap/releases/tag/v1.1.2)
+[v1.1.3](https://github.com/DMPRoadmap/roadmap/releases/tag/v1.1.3)
 [![Build Status](https://travis-ci.org/DMPRoadmap/roadmap.svg)](https://travis-ci.org/DMPRoadmap/roadmap)
 
 #### Pre-requisites

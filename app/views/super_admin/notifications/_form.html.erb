@@ -61,8 +61,6 @@
           class: 'btn btn-default',
           method: :delete,
           data: { confirm: _('Are you sure you want to delete the notification "%{title}"') % { title: @notification.title }}) unless @notification.new_record? %>
-    <button type="button" class="btn btn-default"> 
-      <%= link_to _('Cancel'), super_admin_notifications_path, class: 'link_as_button' %>
-    </button>
+    <%= link_to _('Cancel'), super_admin_notifications_path, class: 'btn btn-default', role: 'button' %>
   </div>
 <% end %>
