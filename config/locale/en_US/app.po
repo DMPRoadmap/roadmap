@@ -1481,7 +1481,7 @@ msgid "If you didn't request this, please ignore this email."
 msgstr ""
 
 msgid "If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to BBSRC for example), you can do so by adding guidance to a specific question when you edit your template."
-msgstr ""
+msgstr "If you do have a need to provide guidance for specific funders that would not be useful to a wider audience (e.g. if you have specific instructions for applicants to NIH), you can do so by adding guidance to a specific question when you edit your template."
 
 msgid "If you find it necessary or convenient to work with data in a proprietary/discouraged file format, do so, but consider saving your work in a more archival format when you are finished."
 msgstr ""
@@ -3387,7 +3387,7 @@ msgid "You can not publish a historical version of this #{template_type(template
 msgstr ""
 
 msgid "You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup that should present across the board). Writing generic guidance by theme saves you time and effort as your advice will be automatically displayed across all templates rather than having to write guidance to accompany each."
-msgstr ""
+msgstr "You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup). Writing generic guidance by theme saves you time and effort as it will be displayed across all templates rather than having to write guidance for each."
 
 msgid "You cannot be assigned to other organisation since that option does not exist in the system. Please contact your system administrators."
 msgstr "You cannot be assigned to other organization since that option does not exist in the system. Please contact your system administrators."
