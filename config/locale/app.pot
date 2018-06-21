@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-12 16:41+0000\n"
-"PO-Revision-Date: 2018-06-20 13:58:17-0700\n"
+"PO-Revision-Date: 2018-06-20 16:23:24-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -2471,15 +2471,11 @@ msgstr ""
 msgid "See the full list"
 msgstr ""
 
-msgid "See the full list of participating institutions"
-msgstr ""
-
-#, fuzzy
 msgid "See the full list of participating institutions."
 msgstr ""
 
-#msgid "See the full list of partner institutions."
-#msgstr ""
+msgid "See the full list of participating institutions"
+msgstr ""
 
 msgid "Select 'Transfer customisation' in the Actions menu to review your customisation(s) and make any necessary changes. When you are done, you must return to the Actions menu and publish your customisation(s)."
 msgstr ""

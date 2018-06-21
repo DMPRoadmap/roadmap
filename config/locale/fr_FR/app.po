@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-14 15:10+0100\n"
-"PO-Revision-Date: 2018-06-20 13:58:17-0700\n"
+"PO-Revision-Date: 2018-06-20 16:23:24-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fr_FR\n"
@@ -2847,19 +2847,11 @@ msgstr ""
 msgid "See the full list"
 msgstr "Voir la liste complète"
 
-#, fuzzy
 msgid "See the full list of participating institutions"
-msgstr ""
+msgstr "Voir la liste des institutions partenaires"
 
-#, fuzzy
 msgid "See the full list of participating institutions."
-msgstr ""
-
-#msgid "See the full list of participating organisations"
-#msgstr "Voir la liste complète des organismes participants"
-
-#msgid "See the full list of partner institutions."
-#msgstr "Voir la liste des institutions partenaires."
+msgstr "Voir la liste des institutions partenaires."
 
 msgid "Select 'Transfer customisation' in the Actions menu to review your customisation(s) and make any necessary changes. When you are done, you must return to the Actions menu and publish your customisation(s)."
 msgstr "Sélectionnez 'Transférer la personnalisation' dans le menu Actions afin de vérifier vos personnalisations et appliquer les changements nécessaires. Lorsque que vous avez terminé, vous devez retourner au menu Actions et publier vos personnalisations."
