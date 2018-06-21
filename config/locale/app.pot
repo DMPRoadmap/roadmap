@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-12 16:41+0000\n"
-"PO-Revision-Date: 2018-06-14 10:58:56-0700\n"
+"PO-Revision-Date: 2018-06-20 16:23:24-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -1499,8 +1499,8 @@ msgstr ""
 msgid "Principal Investigator / Researcher"
 msgstr ""
 
-msgid "Principal investigator"
-msgstr ""
+#msgid "Principal investigator"
+#msgstr ""
 
 msgid "Privacy statement"
 msgstr ""
@@ -1706,8 +1706,12 @@ msgstr ""
 msgid "See the full list"
 msgstr ""
 
-msgid "See the full list of participating organisations"
+#, fuzzy
+msgid "See the full list of participating institutions"
 msgstr ""
+
+#msgid "See the full list of participating organisations"
+#msgstr ""
 
 msgid "See the full list of partner institutions."
 msgstr ""
@@ -1827,6 +1831,10 @@ msgid "Successfully %{action} %{username}'s account."
 msgstr ""
 
 msgid "Successfully %{action} your %{object}."
+msgstr ""
+
+#, fuzzy
+msgid "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."
 msgstr ""
 
 msgid "Successfully deleted your theme"

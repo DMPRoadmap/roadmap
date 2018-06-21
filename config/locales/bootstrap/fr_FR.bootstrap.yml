@@ -1,0 +1,17 @@
+
+fr_FR:
+  helpers:
+    actions: "Actions"
+    links:
+      back: "Retour"
+      cancel: "Annuler"
+      confirm: "Êtes-vous sûr?"
+      destroy: "Supprimer"
+      new: "Nouveau"
+      edit: "Modifier"
+    titles:
+      edit: "Modifier"
+      save: "Enregistrer"
+      new: "Nouveau"
+      delete: "Supprimer"
+
