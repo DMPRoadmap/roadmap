@@ -3,7 +3,7 @@
   <%= render partial: "layouts/navigation" %>
 </div>
 <div class="org-branding">
-  <% if user_signed_in? && !current_user.org.nil? && !current_user.org.is_other %>
+  <% if user_signed_in? && !current_user.org.nil? && (!current_user.org.is_other || current_user.can_super_admin?) %>
     <%= render partial: "layouts/branding" , locals: {max_number_links: MAX_NUMBER_LINKS_FUNDER,} %>
   <% end %>
 </div>

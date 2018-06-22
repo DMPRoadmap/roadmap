@@ -37,4 +37,8 @@ module ApplicationHelper
   def fingerprinted_asset(name)
     Rails.env.production? ? "#{name}-#{ASSET_FINGERPRINT}" : name
   end
+
+  def title(page_title)
+    content_for(:title) { page_title }
+  end
 end

@@ -38,7 +38,7 @@ class AnswerLockingTest < ActionDispatch::IntegrationTest
     post create_or_update_answers_path(params)
     assert_response :not_found
     assert_equal(
-      _("There is no question with id %{question_id} associated to plan id %{plan_id}"\
+      _("There is no question with id %{question_id} associated to plan id %{plan_id} "\
         "for which to create or update an answer") %{ :question_id => 'foo', :plan_id => @plan.id }, ActiveSupport::JSON.decode(@response.body)['msg'])
   end
 

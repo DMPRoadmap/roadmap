@@ -55,7 +55,7 @@ class RolesController < ApplicationController
       deliver_if(recipients: @role.user, key: 'users.added_as_coowner') do |r|
         UserMailer.permissions_change_notification(@role, current_user).deliver_now
       end
-      render json: {code: 1, msg: "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."}
+      render json: {code: 1, msg: _("Successfully changed the permissions for #{@role.user.email}. They have been notified via email.")}
     else
       render json: {code: 0, msg: flash[:alert]}
     end
