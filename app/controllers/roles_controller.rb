@@ -21,7 +21,7 @@ class RolesController < ApplicationController
         else
           if user.nil?
             registered = false
-            User.invite!(email: params[:user])
+            User.invite!({ email: params[:user] }, current_user)
             message = _('Invitation to %{email} issued successfully. \n') % {email: params[:user]}
             user = User.find_by(email: params[:user])
           end
@@ -30,7 +30,7 @@ class RolesController < ApplicationController
           if @role.save
             if registered
               deliver_if(recipients: user, key: 'users.added_as_coowner') do |r|
-                UserMailer.sharing_notification(@role, r).deliver_now
+                UserMailer.sharing_notification(@role, r, current_user).deliver_now
               end
             end
             flash[:notice] = message

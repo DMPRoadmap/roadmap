@@ -1,0 +1,156 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: dmpopidor 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-17 07:42+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 2.0.0\n"
+"X-Pootle-Path: /fr_FR/roadmap/app.po\n"
+"X-Pootle-Revision: 3203\n"
+
+msgid "Account expiration in %{tool_name}"
+msgstr "Expiration de votre compte %{tool_name}"
+
+msgid "Account expired in %{tool_name}"
+msgstr "Compte %{tool_name} expiré"
+
+msgid "You have not signed in since %{last_sign_in_date} and your account has been deactivated"
+msgstr "Vous ne vous êtes pas connecté depuis le %{last_sign_in_date}, votre compte a été désactivé"
+
+msgid "All accounts inactive for 5 years are automaticaly deactivated"
+msgstr "Tous les comptes inactifs pendant 5 ans sont automatiquement désactivés"
+
+msgid "You have not signed in since %{last_sign_in_date} and our system will deactivate your account at %{end_date}"
+msgstr "Vous ne vous êtes pas connecté depuis le %{last_sign_in_date}, notre système désactivera votre compte le  %{end_date}"
+
+msgid "All accounts inactive for 5 years are automaticaly deactivated. If you want your account to remain active, please just sign in before %{end_date}"
+msgstr "Tous les comptes inactifs pendant 5 ans sont automatiquement désactivés. Si vous souhaitez que votre compte reste actif, connectez vous avant le  %{end_date}"
+
+msgid "Mailing list"
+msgstr "Liste de diffusion"
+
+msgid "Institutional Access"
+msgstr "Accès institutionnel"
+
+msgid "Individual Access"
+msgstr "Accès individuel"
+
+
+msgid "The information collected that concerns you will be processed and is destined for the Inist-CNRS (UPS76) and the correspondent for Computing and Liberties (CIL). For the following goal: management of user accounts. The recipients of this data are the administrators of the Inist-CNRS. The duration of conservation of the data is 5 years following the last login."
+msgstr "Les informations recueillies vous concernant vont faire l’objet d’un traitement destiné à l'Inist-CNRS (UPS76) et au correspondant Informatique et Libertés. Pour la finalité suivante : gestion des comptes des utilisateurs. Les destinataires de ces données sont les administrateurs DMP OPIDoR de l’Inist-CNRS. La durée de conservation des données est de 5 ans suite à la dernière connexion."
+
+msgid "You have the right of access, of correction, of portability, or of removal of this data, or of a limitation of their processing. You can oppose the processing of the data that concerns you and you have the right to withdraw your agreement at any time, by contacting: <a href='mailto:%{contact_url}'>%{contact_url}</a>. You can also direct a complaint at a controlling body."
+msgstr "Vous bénéficiez d’un droit d’accès, de rectification, de portabilité, d’effacement de celles-ci ou une limitation du traitement. Vous pouvez vous opposer au traitement des données vous concernant et disposez du droit de retirer votre consentement à tout moment en vous adressant à <a href='mailto:%{contact_url}'>%{contact_url}</a>. Vous avez la possibilité d’introduire une réclamation auprès d’une autorité de contrôle."
+
+msgid "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
+msgstr "%{user_name} a partagé un plan de gestion de données avec vous sur %{tool_name}"
+
+msgid "%{sender_name} has invited you to contribute to their Data Management Plan in %{tool_name}"
+msgstr "%{sender_name} vous a invité à contribuer à son plan de gestion de données sur %{tool_name}"
+
+msgid "Tutorials"
+msgstr "Tutoriels"
+
+msgid "Select an answer"
+msgstr "Sélectionnez une réponse"
+
+msgid "Private: visible to me and specified collaborators"
+msgstr "Privé : visible par les collaborateurs et moi"
+
+msgid "Administrator: visible to me, specified collaborators and administrators at my organisation"
+msgstr "Administrateur : Visible par les collaborateurs, les administrateurs de mon organisation et moi"
+
+msgid "Administrator"
+msgstr "Administrateur"
+
+msgid "Organisation Type"
+msgstr "Type d'organisme"
+
+msgid "Background"
+msgstr "Contexte"
+
+msgid "Latest news"
+msgstr "Dernières Nouvelles"
+
+msgid "Welcome!"
+msgstr "Bienvenue !"
+
+msgid "%{tool_name} guides you through the drafting and implementation into practice of data or software management plans."
+msgstr "%{tool_name} vous accompagne à travers l’élaboration et la mise  en pratique de plans de gestion de données et de logiciels."
+
+msgid "Accessible by any member of the High Education and Research community as well as its French or foreign partners"
+msgstr "Accessible à la communauté scientifique de l’ESR et à ses partenaires français ou étrangers"
+
+msgid "Customizable by any research organization willing to implement a data policy"
+msgstr "Personnalisable par tout organisme de recherche pour la mise en place de sa politique de données "
+
+msgid "Enriched by examples and recommendations relevant to research environments"
+msgstr "Enrichi par des exemples et des recommandations adaptés à l’environnement de recherche"
+
+msgid "Collaborative:  it facilitates exchanges between partners of a same project and support staff"
+msgstr "Collaboratif : il facilite les échanges entre les partenaires d’un même projet et les services d’accompagnement"
+
+msgid "Thanks to your feedback %{tool_name} will continue to evolve. The development work is a combined international effort around DMP Roadmap open source software."
+msgstr "%{tool_name} évolue grâce à vos retours. Les développements s’inscrivent dans le cadre d’une collaboration internationale autour du logiciel open source DMPRoadmap"
+
+msgid "Join the %{tool_name} user’s community"
+msgstr "Rejoignez la communauté des utilisateurs de %{tool_name}"
+
+msgid "Create an account, sign in and let you guide!"
+msgstr "Créez un compte, connectez-vous et laissez-vous guider !"
+
+msgid "Discover %{tool_name}"
+msgstr "Découvrez %{tool_name}"
+
+msgid "Choose a template"
+msgstr "Choisissez un modèle"
+
+msgid "Select a research organisation:"
+msgstr "Selectionnez un organisme de recherche :"
+
+msgid "Select a funder:"
+msgstr "Selectionnez un financeur :"
+
+msgid "Select a template:"
+msgstr "Selectionnez un modèle :"
+
+msgid "No research organisation"
+msgstr "Pas d'organisme de recherche"
+
+msgid "No funder associated with this plan"
+msgstr "Pas de financeur associé à ce plan"
+
+msgid "We found multiple DMP templates corresponding to your choices."
+msgstr "Nous avons trouvé plusieurs modèles correspondants à vos choix."
+
+msgid "Several template types are available:"
+msgstr "Différents type de modèles sont disponibles :"
+
+msgid "Organisation templates: Select the organisation and check \"No funder\""
+msgstr "Modèles proposés par les organismes : Sélectionner l’organisme et cocher \"Pas de financeur\""
+
+msgid "Funder templates: Check \"No organisation\" and select the funder"
+msgstr "Modèles proposés par les financeurs : Cocher \"Pas d’organisme\" et sélectionner un financeur"
+
+msgid "Funder templates customized by an organisation: Select the organisation and select the funder"
+msgstr "Modèles de financeurs personnalisés par les organismes : sélectionner l’organisme puis le financeur"
+
+msgid "Default template"
+msgstr "Modèle par défaut"
+
+msgid "Check \"No organisation\" and check "No funder""
+msgstr "Cocher \"Pas d’organisme\" et cocher \"Pas de financeur\""
+
+msgid "Find the list of the available templates"
+msgstr "Retrouvez la liste des modèles disponibles"
+
+msgid "Plan for testing, practice, or educational purposes"
+msgstr "Plan de test, d'entrainement ou créé en vue d'une formation"
+
+

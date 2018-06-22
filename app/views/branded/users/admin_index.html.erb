@@ -1,0 +1,21 @@
+<div class="row org-admin">
+  <div class="col-md-12">
+    <h1><%= _('User accounts') %></h1>
+    <p class="text-justify">
+      <%= _('Below is a list of users registered for your organisation. You can sort the data by each field.')%>
+    </p>
+  </div>
+</div>
+
+<div class="row org-admin">
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <%= paginable_renderise(
+        partial: '/paginable/users/index',
+        controller: 'paginable/users',
+        action: 'index', 
+        scope: @users, 
+        locals: { page: 1 }) %>
+    </div>
+  </div>
+</div>

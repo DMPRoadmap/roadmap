@@ -4,9 +4,9 @@ class PublicPagesController < ApplicationController
   # GET template_index
   # -----------------------------------------------------
   def template_index
-    templates = Template.live(Template.families(Org.funder.pluck(:id)).pluck(:family_id)).publicly_visible.pluck(:id) <<
+    templates = Template.live(Template.families(Org.all.pluck(:id)).pluck(:family_id)).pluck(:id) <<
     Template.where(is_default: true).unarchived.published.pluck(:id)
-    @templates = Template.includes(:org).where(id: templates.uniq.flatten).unarchived.published.order(title: :asc).page(1)
+    @templates = Template.includes(:org).where(id: templates.uniq.flatten).unarchived.published.order("orgs.name asc").page(1)
   end
 
   # GET template_export/:id
@@ -29,10 +29,11 @@ class PublicPagesController < ApplicationController
           render pdf: file_name,
           margin: @formatting[:margin],
           footer: {
-            center:    _('Template created using the %{application_name} service. Last modified %{date}') % {application_name: Rails.configuration.branding[:application][:name], date: l(@template.updated_at.to_date, formats: :short)},
+            center:    _('Template created using the %{application_name}. Last modified %{date}') % {application_name: Rails.configuration.branding[:application][:name], date: l(@template.updated_at.to_date, formats: :short)},
             font_size: 8,
             spacing:   (@formatting[:margin][:bottom] / 2) - 4,
-            right:     '[page] of [topage]'
+            right:     '[page] of [topage]',
+            encoding: 'utf8'
           }
         end
       end

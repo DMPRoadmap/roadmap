@@ -1,0 +1,155 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the app package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: dmpopidor 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2017-05-02 14:54+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+msgid "Account expiration in %{tool_name}"
+msgstr "Account expiration in %{tool_name}"
+
+msgid "Account expired in %{tool_name}"
+msgstr "Account expired in %{tool_name}"
+
+msgid "You have not signed in since %{last_sign_in_date} and your account has been deactivated"
+msgstr "You have not signed in since %{last_sign_in_date} and your account has been deactivated"
+
+msgid "All accounts inactive for 5 years are automaticaly deactivated"
+msgstr "All accounts inactive for 5 years are automaticaly deactivated"
+
+msgid "You have not signed in since %{last_sign_in_date} and our system will deactivate your account at %{end_date}"
+msgstr "You have not signed in since %{last_sign_in_date} and our system will deactivate your account at %{end_date}"
+
+msgid "All accounts inactive for 5 years are automaticaly deactivated. If you want your account to remain active, please just sign in before %{end_date}"
+msgstr "All accounts inactive for 5 years are automaticaly deactivated. If you want your account to remain active, please just sign in before %{end_date}"
+
+msgid "Mailing list"
+msgstr "Mailing list"
+
+msgid "Institutional Access"
+msgstr "Institutional Access"
+
+msgid "Individual Access"
+msgstr "Individual Access"
+
+msgid "The information collected that concerns you will be processed and is destined for the Inist-CNRS (UPS76) and the correspondent for Computing and Liberties (CIL). For the following goal: management of user accounts. The recipients of this data are the administrators of the Inist-CNRS. The duration of conservation of the data is 5 years following the last login."
+msgstr "The information collected that concerns you will be processed and is destined for the Inist-CNRS (UPS76) and the correspondent for Computing and Liberties (CIL). For the following goal: management of user accounts. The recipients of this data are the administrators of the Inist-CNRS. The duration of conservation of the data is 5 years following the last login."
+
+msgid "You have the right of access, of correction, of portability, or of removal of this data, or of a limitation of their processing. You can oppose the processing of the data that concerns you and you have the right to withdraw your agreement at any time, by contacting: <a href='mailto:%{contact_url}'>%{contact_url}</a>. You can also direct a complaint at a controlling body."
+msgstr "You have the right of access, of correction, of portability, or of removal of this data, or of a limitation of their processing. You can oppose the processing of the data that concerns you and you have the right to withdraw your agreement at any time, by contacting: <a href='mailto:%{contact_url}'>%{contact_url}</a>. You can also direct a complaint at a controlling body."
+
+msgid "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
+msgstr "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
+
+msgid "%{sender_name} has invited you to contribute to their Data Management Plan in %{tool_name}"
+msgstr "%{sender_name} has invited you to contribute to their Data Management Plan in %{tool_name}"
+
+msgid "Tutorials"
+msgstr "Tutorials"
+
+msgid "Select an answer"
+msgstr "Select an answer"
+
+msgid "Private: visible to me and specified collaborators"
+msgstr "Private: visible to me and specified collaborators"
+
+msgid "Administrator: visible to me, specified collaborators and administrators at my organisation"
+msgstr "Administrator: visible to me, specified collaborators and administrators at my organisation"
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "Organisation Type"
+msgstr "Organisation Type"
+
+msgid "Background"
+msgstr "Background"
+
+msgid "Latest news"
+msgstr "Latest news"
+
+msgid "Welcome!"
+msgstr "Welcome!"
+
+msgid "%{tool_name} guides you through the drafting and implementation into practice of data or software management plans."
+msgstr "%{tool_name} guides you through the drafting and implementation into practice of data or software management plans."
+
+msgid "Accessible by any member of the High Education and Research community as well as its French or foreign partners"
+msgstr "Accessible by any member of the High Education and Research community as well as its French or foreign partners"
+
+msgid "Customizable by any research organization willing to implement a data policy"
+msgstr "Customizable by any research organization willing to implement a data policy"
+
+msgid "Enriched by examples and recommendations relevant to research environments"
+msgstr "Enriched by examples and recommendations relevant to research environments"
+
+msgid "Collaborative:  it facilitates exchanges between partners of a same project and support staff"
+msgstr "Collaborative:  it facilitates exchanges between partners of a same project and support staff"
+
+msgid "Thanks to your feedback %{tool_name} will continue to evolve. The development work is a combined international effort around DMP Roadmap open source software."
+msgstr "Thanks to your feedback %{tool_name} will continue to evolve. The development work is a combined international effort around DMP Roadmap open source software."
+
+msgid "Join the %{tool_name} user’s community"
+msgstr "Join the %{tool_name} user’s community"
+
+msgid "Create an account, sign in and let you guide!"
+msgstr "Create an account, sign in and let you guide!"
+
+msgid "Discover %{tool_name}"
+msgstr "Discover %{tool_name}"
+
+msgid "Choose a template"
+msgstr "Choose a template"
+
+msgid "Select a research organisation:"
+msgstr "Select a research organisation:"
+
+msgid "Select a funder:"
+msgstr "Select a funder:"
+
+msgid "Select a template:"
+msgstr "Select a template:"
+
+msgid "No research organisation"
+msgstr "No research organisation"
+
+msgid "No funder associated with this plan"
+msgstr "No funder associated with this plan"
+
+msgid "We found multiple DMP templates corresponding to your choices."
+msgstr "We found multiple DMP templates corresponding to your choices."
+
+msgid "Several template types are available:"
+msgstr "Several template types are available:"
+
+msgid "Organisation templates: Select the organisation and check \"No funder\""
+msgstr "Organisation templates: Select the organisation and check \"No funder\""
+
+msgid "Funder templates: Check \"No organisation\" and select the funder"
+msgstr "Funder templates: Check \"No organisation\" and select the funder"
+
+msgid "Funder templates customized by an organisation: Select the organisation and select the funder"
+msgstr "Funder templates customized by an organisation: Select the organisation and select the funder"
+
+msgid "Default template"
+msgstr "Default template"
+
+msgid "Check \"No organisation\" and check "No funder""
+msgstr "Check \"No organisation\" and check "No funder""
+
+msgid "Find the list of the available templates"
+msgstr "Find the list of the available templates"
+
+msgid "Plan for testing, practice, or educational purposes"
+msgstr "Plan for testing, practice, or educational purposes"

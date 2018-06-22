@@ -1738,7 +1738,7 @@ msgid "Select the primary research organisation"
 msgstr "Choisir l'organisme de recherche principal (ou porteur du projet)"
 
 msgid "Select up to 6 organisations to see their guidance."
-msgstr "Choisissez jusqu'à 6 organismes pour voir leurs recommendations."
+msgstr "Choisissez jusqu'à 6 organismes pour voir leurs recommandations."
 
 msgid "Select which group this guidance relates to."
 msgstr "Sélectionnez le groupe auxquel ces recommandations sont liés."
@@ -2078,7 +2078,7 @@ msgid "To keep you up to date with news about %{application_name} such as new fe
 msgstr "Pour vous tenir informer des dernières actualités à propos de %{application_name}, tel que les nouvelles fonctionnalités ou améliorations ou changement de notre Politique de Confidentialité."
 
 msgid "To provide access to the %{application_name} service and personalisation of your user experience e.g. provision of relevant templates and guidance for your organisation."
-msgstr "Afin de fournir l'accès à %{application_name} et personnaliser votre expérience utilisateur (ex: mise à disposition de modèles pertinents et de recommendations provenant de votre organisation)."
+msgstr "Afin de fournir l'accès à %{application_name} et personnaliser votre expérience utilisateur (ex: mise à disposition de modèles pertinents et de recommandations provenant de votre organisation)."
 
 msgid "Top"
 msgstr "Haut"
@@ -2345,7 +2345,7 @@ msgid "Yes, I understand that I will lose my administrative privileges"
 msgstr "Oui, je comprends que je vais perdre mes droits administratifs"
 
 msgid "You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?"
-msgstr "Vous allez effacer '%{guidance_group_name}'. Cela impactera les recommendations. En êtes-vous sûr ?"
+msgstr "Vous allez effacer '%{guidance_group_name}'. Cela impactera les recommandations. En êtes-vous sûr ?"
 
 msgid "You are about to delete '%{guidance_summary}'. Are you sure?"
 msgstr "Vous allez effacer '%{guidance_summary}'. En êtes-vous sûr ?"
@@ -2393,7 +2393,7 @@ msgid "You can not publish a historical version of this #{template_type(template
 msgstr "Vous ne pouvez pas publier une version historisée de ce #{template_type(template)}"
 
 msgid "You can write pieces of guidance to be displayed by theme (e.g. generic guidance on storage and backup that should present across the board). Writing generic guidance by theme saves you time and effort as your advice will be automatically displayed across all templates rather than having to write guidance to accompany each."
-msgstr "Vous pouvez écrire des recommendations qui peuvent être affichées par theme (ex: recommendation générique sur le stockage et la sauvegarde devant être présente systèmatiquement). Ecrire une recommendation générique par theme vous fera gagner du temps car votre conseil sera automatiquement affiché sur tous les modèles plutot que de devoir écrire une recommandation accompagnant chacun d'eux."
+msgstr "Vous pouvez écrire des recommandations qui peuvent être affichées par theme (ex: recommandation générique sur le stockage et la sauvegarde devant être présente systèmatiquement). Ecrire une recommandation générique par theme vous fera gagner du temps car votre conseil sera automatiquement affiché sur tous les modèles plutot que de devoir écrire une recommandation accompagnant chacun d'eux."
 
 msgid "You cannot be assigned to other organisation since that option does not exist in the system. Please contact your system administrators."
 msgstr "Vous ne pouvez pas être assigné à une autre organisation car cette option n'est pas disponible dans le système. Veuillez contacter vos administrateurs système."
@@ -2486,16 +2486,16 @@ msgid "Your email address is also your login id and therefore an important part 
 msgstr "Votre adresse électronique est également votre identifiant de connexion, c'est une information importante de votre compte. Pour votre sécurité, nous vous demandons de confirmer votre mot de passe avant d'effectuer ce changement."
 
 msgid "Your guidance group has been published and is now available to users."
-msgstr "Votre groupe de recommendations a été publié et est disponible pour les utilisateurs."
+msgstr "Votre groupe de recommandations a été publié et est disponible pour les utilisateurs."
 
 msgid "Your guidance group is no longer published and will not be available to users."
 msgstr "Votre groupe de recommentations n'est plus publié et ne sera plus disponible pour les utilisateurs."
 
 msgid "Your guidance has been published and is now available to users."
-msgstr "Votre recommendation a été publiée et est disponible pour les utilisateurs."
+msgstr "Votre recommandation a été publiée et est disponible pour les utilisateurs."
 
 msgid "Your guidance is no longer published and will not be available to users."
-msgstr "Votre recommendation n'est plus publiée et ne sera plus disponible pour les utilisateurs."
+msgstr "Votre recommandation n'est plus publiée et ne sera plus disponible pour les utilisateurs."
 
 msgid "Your organisation affiliation has been changed. You may now edit templates for %{org_name}."
 msgstr "Votre organisme d'affiliation a été changé. Vous pouvez à présent éditer les modèles de %{org_name}."

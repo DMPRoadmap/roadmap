@@ -1,0 +1,41 @@
+<%= form_for resource, as: 'user', url: registration_path("user"), html: {autocomplete: "off", id: "create_account_form"} do |f| %>
+
+  <div class="form-group">
+    <%= f.label(:firstname, _('First Name'), class: "control-label") %>
+    <%= f.text_field(:firstname, class: "form-control", "aria-required": true) %>
+  </div>
+  <div class="form-group">
+    <%= f.label(:surname, _('Last Name'), class: "control-label") %>
+    <%= f.text_field(:surname, class: "form-control", "aria-required": true) %>
+  </div>
+  <div class="form-group">
+    <%= f.label(:email, _('Email'), class: "control-label") %>
+    <%= f.email_field(:email, class: "form-control", "aria-required": true) %>
+  </div>
+  <div class="form-group">
+    <%= render partial: "shared/my_org", 
+               locals: {f: f, default_org: @default_org, 
+                        orgs: Org.where("parent_id IS NULL").order("sort_name ASC, name ASC"), allow_other_orgs: true} %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label(:password, _('Password'), class: "control-label") %>
+    <%= f.password_field(:password, class: "form-control", "aria-required": true) %>
+  </div>
+  <div class="checkbox">
+    <label for="passwords_toggle_sign_up">
+      <input type="checkbox" id="passwords_toggle_sign_up" class="passwords_toggle" /><%= _('Show password') %>
+    </label>
+  </div>
+  <div class="checkbox">
+    <%= f.label(:accept_terms,
+        raw("#{ f.check_box(:accept_terms, "aria-required": true, "data-validation-error": _('You must agree to the term and conditions.')) } #{_('I accept the')} <a href=\"#{terms_path}\">#{_('terms and conditions')}</a>")) %>
+  </div>
+
+  <div class="cil_message">
+  <p><%= raw d_('dmpopidor', "The information collected that concerns you will be processed and is destined for the Inist-CNRS (UPS76) and the correspondent for Computing and Liberties (CIL). For the following goal: management of user accounts. The recipients of this data are the administrators of the Inist-CNRS. The duration of conservation of the data is 5 years following the last login.") %></p>
+  <p><%= raw d_('dmpopidor', "You have the right of access, of correction, of portability, or of removal of this data, or of a limitation of their processing. You can oppose the processing of the data that concerns you and you have the right to withdraw your agreement at any time, by contacting: <a href='mailto:%{contact_url}'>%{contact_url}</a>. You can also direct a complaint at a controlling body.") % {contact_url: Rails.configuration.branding[:organisation][:email]} %></p>
+  </div>
+  
+  <%= f.button(_('Create account'), class: "btn btn-default", type: "submit") %>
+<% end %>

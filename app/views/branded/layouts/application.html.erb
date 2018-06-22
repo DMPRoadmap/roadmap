@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>
+      <%= _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %>
+    </title>
+      <%= favicon_link_tag "favicon.ico" %>
+    <!--[ if lte IE 9]>
+      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>
+         <style type="text/css">
+           .navbar {
+             filter:none !important;
+           }
+         </style>
+    <![endif]-->
+
+    <!--[if gte IE 9]>
+        <style type="text/css">
+          .gradient {
+               filter: none;
+          }
+        </style>
+    <![endif]-->
+
+    <!--[if IE]>
+          <script>
+            $(function() {
+              // Invoke the plugin
+              $('input, textarea').placeholder();
+              $('input, iframe').placeholder();
+          });
+        </script>
+    <![endif]-->
+
+    <%= stylesheet_link_tag fingerprinted_asset('application') %>
+    <%= javascript_include_tag fingerprinted_asset('vendor') %>
+    <%= javascript_include_tag fingerprinted_asset('application') %>
+    <%= csrf_meta_tags %>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  </head>
+  <body>
+
+      <!-- header rendering -->
+      <header class="dmpopidor-branding">
+        <%= render partial: "layouts/header" %>
+      </header>
+
+      <%
+      has_alert = (alert || flash[:alert] || flash[:error])
+      has_notice = (notice || flash[:notice])
+      %>
+
+      <!-- main page content rendering -->
+      <main class="container dmpopidor-branding">
+        <div id="notification-area"
+             class="alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
+                    <%= (has_alert or has_notice) ? 'show' : 'hide' %>"
+             role="<%= (has_notice ? 'status' : (has_alert ? 'alert' : '')) %>">
+          <i class="fa <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
+          <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
+          <span><%= raw (has_alert ? alert : notice) %></span>
+        </div>
+        <%= render "layouts/notifications", notifications: Notification.active_per_user(current_user) %>
+        <%= yield %>
+      </main>
+
+      <!-- footer rendering -->
+      <footer >
+        <%= render "layouts/footer" %>
+      </footer>
+
+    <%
+    constants_json = {
+      PASSWORD_MIN_LENGTH: 8,
+      PASSWORD_MAX_LENGTH: 128,
+      MAX_NUMBER_ORG_URLS: 3,
+      MAX_NUMBER_GUIDANCE_SELECTIONS: 6,
+
+      VALIDATION_MESSAGE_DEFAULT: _('Please enter a valid value.'),
+      VALIDATION_MESSAGE_EMAIL: _('You must enter a valid email address.'),
+      VALIDATION_MESSAGE_URL: _('You must enter a valid URL (e.g. https://organisation.org).'),
+      VALIDATION_MESSAGE_NUMBER: _('Please enter a valid number.'),
+      VALIDATION_MESSAGE_PASSWORD: _('The password must be between 8 and 128 characters.'),
+      VALIDATION_MESSAGE_PASSWORDS_MATCH: _('The passwords must match.'),
+      VALIDATION_MESSAGE_RADIO: _('Please choose one of the options.'),
+      VALIDATION_MESSAGE_CHECKBOX: _('Please check the box to continue.'),
+      VALIDATION_MESSAGE_SELECT: _('Please select a value from the list.'),
+      VALIDATION_MESSAGE_TEXT: _('This field is required.'),
+
+      SHOW_PASSWORD_MESSAGE: _('Show password'),
+      SHOW_SELECT_ORG_MESSAGE: _('Select an organisation from the list.'),
+      SHOW_OTHER_ORG_MESSAGE: _('My organisation isn\'t listed'),
+
+      PLAN_VISIBILITY_WHEN_TEST: _('N/A'),
+      PLAN_VISIBILITY_WHEN_NOT_TEST: _('Private'),
+      PLAN_VISIBILITY_WHEN_NOT_TEST_TOOLTIP: _('Private: restricted to me and people I invite.'),
+
+      SHIBBOLETH_DISCOVERY_SERVICE_HIDE_LIST: _('Hide list.'),
+      SHIBBOLETH_DISCOVERY_SERVICE_SHOW_LIST: _('See the full list of partner institutions.'),
+
+      NO_TEMPLATE_FOUND_ERROR: _('Unable to find a suitable template for the research organisation and funder you selected.'),
+      NEW_PLAN_DISABLED_TOOLTIP: _('Please select a research organisation and funder to continue.'),
+
+      AJAX_LOADING: _('Loading ...'),
+      AJAX_UNABLE_TO_LOAD_TEMPLATE_SECTION: _('Unable to load the section\'s content at this time.'),
+      AJAX_UNABLE_TO_LOAD_TEMPLATE_SECTION_QUESTION: _('Unable to load the question\'s content at this time.')
+    }.to_json
+    %>
+
+    <input type="hidden" id="js-constants" value="<%= constants_json %>" />
+  </body>
+</html>
