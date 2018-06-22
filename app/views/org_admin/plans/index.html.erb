@@ -35,9 +35,7 @@
       </div>
     <% end %>
     <% if @plans.length > 0 %>
-        <button type="button" class="btn btn-default pull-right"> 
-          <%= link_to _('Download plans'), org_admin_download_plans_path(format: :csv), target: '_blank', class: 'link_as_button' %>
-        </button>
+      <%= link_to _('Download plans'), org_admin_download_plans_path(format: :csv), target: '_blank', class: 'btn btn-default pull-right' %>
       <%= paginable_renderise(
         partial: '/paginable/plans/org_admin',
         controller: 'paginable/plans',

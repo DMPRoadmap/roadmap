@@ -7,9 +7,7 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="pull-right">
-      <button type="button" class="btn btn-default"> 
-        <%= link_to(_('+ Add New Theme'), new_super_admin_theme_path, class: 'link_as_button') %>
-      </button>
+      <%= link_to(_('+ Add New Theme'), new_super_admin_theme_path, class: 'btn btn-default', role: 'button') %>
     </div>
     <div class="table-responsive">
       <%= paginable_renderise(
