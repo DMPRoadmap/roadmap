@@ -66,13 +66,13 @@ msgid "%{commenter} has finished providing feedback on the plan \"%{plan_title}\
 msgstr "%{commenter} a fourni une assistance conseil sur le plan \"%{plan_title}\". Pour voir les commentaires, consultez le Tableau de Bord sur %{tool_name} et ouvrez votre plan."
 
 msgid "%{org_name} Plans"
-msgstr "%{org_name} Plans"
+msgstr "Plans %{org_name}"
 
 msgid "%{org_name} Templates"
 msgstr "%{org_name} Modèles"
 
 msgid "%{org_title} Plans"
-msgstr "%{org_title} Plans"
+msgstr "Plans %{org_title}"
 
 msgid "%{org} Example Answer"
 msgstr "Exemple de réponse %{org}"

@@ -1,8 +1,9 @@
+<% title _('Create a new plan') %>
 <div class="row">
   <div class="col-md-12">
     <%= form_for Plan.new, url: plans_path do |f| %>
       <!-- Plan name section -->
-      <h1 id="project-title"><%= _('Project title') %></h1>
+      <h1 id="project-title"><span class="red" title="<%= _('This field is required.') %>">* </span><%= _('Project title') %></h1>
       <div class="form-group row">
         <div class="col-xs-6">
           <%= f.text_field(:title, class: 'form-control', 'aria-describedby': 'project-title', 'aria-required': 'true', 
@@ -27,7 +28,7 @@
         </ul>
         <%= link_to d_('dmpopidor', 'Find the list of the available templates'), public_templates_path, :target => "_blank" %>
       </p>
-      <h2 id="research-org"><%= d_('dmpopidor', 'Select a research organisation:') %></h2>
+      <h2 id="research-org"><span class="red" title="<%= _('You must select a research organisation from the list or click the checkbox.') %>">* </span><%= d_('dmpopidor', 'Select a research organisation:') %></h2>
       <div class="form-group row">
         <div class="col-md-6">
           <%= render partial: "shared/accessible_combobox", 
@@ -43,13 +44,14 @@
         <div class="col-md-1 pad-top-10 create-plan-or"><strong>- <%= _('or') %> -</strong></div>
         <div class="col-md-5 create-plan-checkbox">
           <div class="checkbox">
-            <%= label_tag(:plan_no_org, raw("#{check_box_tag(:plan_no_org)} #{ d_('dmpopidor', 'No research organisation')}")) %>
+            <% primary_research_org_message = d_('dmpopidor', 'No research organisation') %>
+            <%= label_tag(:plan_no_org, raw("#{check_box_tag(:plan_no_org)} #{primary_research_org_message}")) %>
           </div>
         </div>
       </div>
   
       <!-- Funder selection -->
-      <h2 id="funder-org"><%= d_('dmpopidor', 'Select a funder:') %></h2>
+      <h2 id="funder-org"><span class="red" title="<%= _('You must select a funder from the list or click the checkbox.') %>">* </span><%= d_('dmpopidor', 'Select a funder:') %></h2>
       <div class="form-group row">
         <div class="col-xs-6">
           <%= render partial: "shared/accessible_combobox", 
@@ -65,7 +67,8 @@
         <div class="col-md-1 create-plan-or"><strong>- <%= _('or') %> -</strong></div>
         <div class="col-xs-5 create-plan-checkbox">
           <div class="checkbox">
-            <%= label_tag(:plan_no_funder, raw("#{check_box_tag(:plan_no_funder)} #{ d_('dmpopidor', 'No funder associated with this plan')}")) %>
+            <% primary_funding_message = d_('dmpopidor', 'No funder associated with this plan') %>
+            <%= label_tag(:plan_no_funder, raw("#{check_box_tag(:plan_no_funder)} #{primary_funding_message}")) %>
           </div>
         </div>
       </div>

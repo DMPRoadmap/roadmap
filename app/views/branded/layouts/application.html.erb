@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>
-      <%= _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %>
+    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %> 
     </title>
       <%= favicon_link_tag "favicon.ico" %>
     <!--[ if lte IE 9]>
@@ -42,7 +41,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   </head>
   <body>
-
+      <div class="skip">
+        <a href="#maincontent"> _('Skip to main content') </a> 
+      </div>
       <!-- header rendering -->
       <header class="dmpopidor-branding">
         <%= render partial: "layouts/header" %>
@@ -54,7 +55,7 @@
       %>
 
       <!-- main page content rendering -->
-      <main class="container dmpopidor-branding">
+      <main class="container dmpopidor-branding" id="maincontent">
         <div id="notification-area"
              class="alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
                     <%= (has_alert or has_notice) ? 'show' : 'hide' %>"

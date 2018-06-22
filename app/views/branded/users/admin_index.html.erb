@@ -1,3 +1,5 @@
+<% title _('User accounts') %>
+
 <div class="row org-admin">
   <div class="col-md-12">
     <h1><%= _('User accounts') %></h1>
@@ -14,8 +16,8 @@
         partial: '/paginable/users/index',
         controller: 'paginable/users',
         action: 'index', 
-        scope: @users, 
-        locals: { page: 1 }) %>
+        scope: @users,
+        view_all: !current_user.can_super_admin?) %>
     </div>
   </div>
 </div>
