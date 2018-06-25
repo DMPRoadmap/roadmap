@@ -15,7 +15,7 @@ fr_FR:
     body_text_html: "<div class='white_background'><p>Un plan de gestion de données (DMP) est un document qui spécifie quelles données sont collectées ou générées, comment celles-ci sont gérées, partagées et préservées pendant et après le projet. L'élaboration d'un plan de gestion est une bonne pratique pour tout projet de recherche générant des données. Par ailleurs, les organismes de financement et les institutions exigent de plus en plus de leurs chercheurs la production de DMPs.</p><p>DMP OPIDoR est un outil d'aide à la rédaction de DMP.</p><p>DMP OPIDoR est basé sur le code open source DMPRoadmap qui a été developpé par le <a href='http://www.dcc.ac.uk/' target='_blank'>Digital Curation Centre</a> (DCC) et l'<a href='https://www.cdlib.org/uc3/' target='_blank'>University of California Curation Center</a> (UC3). Le code source de DMP OPIDoR est disponible sur <a href='https://github.com/OPIDoR/DMPOPIDoR' target=' blank'>GitHub</a>. DMP OPIDoR a été personnalisé pour les chercheurs français.</p></br>
       <h3>Fonctionnement de l'outil</h3>
       <p>DMP OPIDoR propose un certain nombre de modèles répondant aux exigences d'organismes de financement et d'institutions. Au départ, les utilisateurs doivent répondre à trois questions pour que nous puissions déterminer le modèle qu'il convient d'afficher. Des recommandations vous sont fournies pour vous permettre d'interpréter et de répondre aux questions. Ces recommandations sont proposées par les agences de financement, les institutions et les disciplines.</p>
-      <p>Les recommandations du Digital Curation Centre (DCC) sont issues du document suivant : <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/publications/DMP-themes.pdf'>'Data Management Planning themes'</a> du DCC.</p>
+      <p>Les recommandations du Digital Curation Centre (DCC) sont issues du document suivant : <a target='_blank' href='https://github.com/DMPRoadmap/roadmap/wiki/Themes'>'Data Management Planning themes'</a> du DCC.</p>
       <h3>Pour commencer...</h3>
       <p>En l'absence de compte DMP OPIDoR, cliquez sur <a href='/'>'Créer un compte'</a> en page d'accueil.</p>
       <p>Si vous avez un compte, connectez vous :</p>
@@ -43,15 +43,15 @@ fr_FR:
             Reymonet N., Moysan M., Cartier A., Délémontez R. Université Paris Diderot et Université Paris Descartes. 2018. Ce document a pour vocation d’accompagner les chercheurs et chargés de projets dans la rédact.. 2018.</i>
         </li>
         <li>
-          <a target='_blank' href='http://coop-ist.cirad.fr/content/download/5435/40362/version/4/file/CoopIST-plan-gestion-donnees-recherche-20140717.pdf'>Découvrir des plans de gestion de données de la recherche, en 4 points</a> [PDF, 6 pages]<br />
-          <i>Deboin M.C. 2014. Montpellier (FRA) : CIRAD.</i>
+          <a target='_blank' href='http://coop-ist.cirad.fr/content/download/5435/40362/version/4/file/CoopIST-plan-gestion-donnees-recherche-20140717.pdf'>Se familiariser avec les plans de gestion de données de la recherche, en 6 points</a> [PDF, 6 pages]<br />
+          <i>Deboin M.C. 2018. Montpellier (FRA) : CIRAD.</i>
         </li>
         <li>
           <a target='_blank' href='http://www.inist.fr/?-Tutoriels-multimedias-H2020-'>Tutoriels « Le libre accès aux résultats de la recherche dans le cadre d’Horizon 2020 »</a> [page web]<br />
           <i>Inist-CNRS. 2015.</i>
         </li>
         <li>
-          <a target='_blank' href='http://www.france-grilles.fr/wp-content/uploads/2018/01/ModeleSMP_PRESOFTV3.1.pdf'>Modèle de Plan de Gestion de Logiciel de la Recherche V3.1, Projet PRESOFT, janvier 2018</a> [PDF, 18 pages]<br />
+          <a target='_blank' href='http://www.france-grilles.fr/wp-content/uploads/2018/04/ModeleSMP_PRESOFTV3.2.pdf'>Modèle de Plan de Gestion de Logiciel de la Recherche V3.2, Projet PRESOFT, avril 2018</a> [PDF, 18 pages]<br />
           <i>Gomez-Diaz T., Romier G. 2018.</i>
         </li>
         <li>
@@ -137,15 +137,15 @@ fr_FR:
         Le projet DoRANum a pour objectif de mettre en place un dispositif de formation à distance d’accès coordonné, intégrant différentes ressources d’auto-formation sur la thématique de la gestion et du partage des données de la recherche.
       </li>
       <li>
-        <a target='_blank' href='http://coop-ist.cirad.fr/content/download/6118/44587/version/6/file/CoopIST_initiation_donnees_recherche_20170113.pdf'>S'initier en ligne aux données de la recherche et à leur gestion en 4 points</a> [PDF, 5 pages]<br />
+        <a target='_blank' href='https://coop-ist.cirad.fr/content/download/6118/44587/version/7/file/CoopIST_initiation_donnees_recherche_20170113.pdf'>S'initier en ligne aux données de la recherche et à leur gestion en 4 points</a> [PDF, 5 pages]<br />
         <i>Deboin M.C. 2017. Montpellier (FRA) : CIRAD.</i>
       </li>
       <li>
-        <a target='_blank' href='https://coop-ist.cirad.fr/content/download/5705/42112/version/4/file/CoopIST-rendre-publics-jeux-donnees-avril-2015.pdf'>Rendre publics ses jeux de données scientifiques en 6 points</a> [PDF, 6 pages]<br />
+        <a target='_blank' href='https://coop-ist.cirad.fr/content/download/5705/42112/version/5/file/CoopIST-rendre-publics-jeux-donnees-avril-2015.pdf'>Rendre publics ses jeux de données scientifiques en 6 points</a> [PDF, 6 pages]<br />
         <i>Dedieu L., Fily M.F. 2015. Montpellier (FRA) : CIRAD.</i>
       </li>
       <li>
-        <a target='_blank' href='https://coop-ist.cirad.fr/content/download/5979/43909/version/2/file/CoopIST_Citer_jeu_donnees_scientifiques_20171207bis.pdf'>Citer un jeu de données scientifiques en 5 points</a> [PDF, 5 pages]<br />
+        <a target='_blank' href='https://coop-ist.cirad.fr/content/download/5979/43909/version/4/file/CoopIST_Citer_jeu_donnees_scientifiques_20171207bis.pdf'>Citer un jeu de données scientifiques en 5 points</a> [PDF, 5 pages]<br />
         <i>Deboin M.C. 2017. Montpellier (FRA) : CIRAD.</i>
       </li>
       <li>
@@ -248,9 +248,9 @@ fr_FR:
     <p>La mise en place de liens hypertextes par des tiers vers des pages ou des documents diffusés sur le site du CNRS, est autorisée sous réserve que les liens ne contreviennent pas aux intérêts du CNRS, et, qu'ils garantissent la possibilité pour l'utilisateur d'identifier l'origine et l'auteur du document.</p>
     <h3>Mots de passe</h3>
     <p>Votre mot de passe est mémorisé sous forme cryptée et ne peut pas être récupéré. Si vous avez oublié votre mot de passe, vous devez le réinitialiser.</p>
-    <h3>Cookies et statistiques</h3>
+    <h3 id='cookies'>Cookies et statistiques</h3>
     <p>En vue d’adapter le site aux demandes de ses visiteurs, nous mesurons le nombre de visites, le nombre de pages vues ainsi que l’activité des visiteurs sur le site et leur fréquence de retour.</p>
-    <p><a target='_blank' href='https://piwik.org/'>Piwik</a>, l’outil de statistiques utilisé par le CNRS, génère un cookie avec un identifiant unique, dont la durée de conservation est limitée à 13 mois.</p>
+    <p><a target='_blank' href='https://matomo.org/'>Matomo</a>, l’outil de statistiques utilisé par le CNRS, génère un cookie avec un identifiant unique, dont la durée de conservation est limitée à 13 mois.</p>
     <p>Nous collectons également votre adresse IP, afin de déterminer la ville depuis laquelle vous vous connectez. Celle-ci est immédiatement anonymisée. Le CNRS ne peut donc en aucun cas remonter par ce biais à une personne physique.</p>
     <p>Les données ne sont pas cédées à des tiers ni utilisées à d’autres fins.</p>
     <p>Vous pouvez paramétrer votre navigateur afin qu’il vous signale la présence de cookies et vous propose de les accepter ou non. Vous pouvez accepter ou refuser les cookies au cas par cas ou bien les refuser une fois pour toutes. Il est rappelé que ce paramétrage est susceptible de modifier vos conditions d’accès aux services du site nécessitant l’utilisation de cookies.</p>

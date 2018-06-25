@@ -35,6 +35,14 @@
     <%= stylesheet_link_tag fingerprinted_asset('application') %>
     <%= javascript_include_tag fingerprinted_asset('vendor') %>
     <%= javascript_include_tag fingerprinted_asset('application') %>
+    <%= javascript_tag do %>
+      var options = { 
+        message: '<%= d_("dmpopidor", "By continuing to browse, you accept the use of cookies to measure the traffic of the website with the software Matomo. Those data are not personal, as they are anonymized. We followed directions from the CNIL and configured this tool so that its use does not require your consent.")%>',
+        moreinfo: '<%= terms_path( :anchor => 'cookies') %>',
+        linkmsg: '<%= d_("dmpopidor", "Learn more") %>'
+      };
+      var cb = new Cookiebanner(options); cb.run();
+    <% end %>
     <%= csrf_meta_tags %>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

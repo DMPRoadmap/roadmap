@@ -145,11 +145,17 @@ msgstr "Funder templates customized by an organisation: Select the organisation 
 msgid "Default template"
 msgstr "Default template"
 
-msgid "Check \"No organisation\" and check "No funder""
-msgstr "Check \"No organisation\" and check "No funder""
+msgid "Check \"No organisation\" and check \"No funder\""
+msgstr "Check \"No organisation\" and check \"No funder\""
 
 msgid "Find the list of the available templates"
 msgstr "Find the list of the available templates"
 
 msgid "Plan for testing, practice, or educational purposes"
 msgstr "Plan for testing, practice, or educational purposes"
+
+msgid "By continuing to browse, you accept the use of cookies to measure the traffic of the website with the software Matomo. Those data are not personal, as they are anonymized. We followed directions from the CNIL and configured this tool so that its use does not require your consent."
+msgstr "By continuing to browse, you accept the use of cookies to measure the traffic of the website with the software Matomo. Those data are not personal, as they are anonymized. We followed directions from the CNIL and configured this tool so that its use does not require your consent."
+
+msgid "Learn more"
+msgstr "Learn more"
