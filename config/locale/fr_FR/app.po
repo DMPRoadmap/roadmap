@@ -1098,10 +1098,10 @@ msgid "My Plan"
 msgstr "Mon plan"
 
 msgid "My organisation isn't listed"
-msgstr "Mon organisme n'est pas dans la liste"
+msgstr "Mon organisme n'est pas listé"
 
 msgid "My organisation isn't listed."
-msgstr "Mon établissement nest pas listé."
+msgstr "Mon organisme n'est pas listé."
 
 msgid "My privileges"
 msgstr "Mes droits"
