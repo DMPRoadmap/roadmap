@@ -548,6 +548,18 @@ $tooltip-background: $grey;
 }
 
 /* Fieldset styling */
+
+/* generic styling */
+fieldset {
+  border: none;
+}
+legend {
+  border: none;
+  margin-bottom: 5px;
+  text-transform: capitalize;
+}
+
+/* Specific to project details page */
 fieldset.project-details {
   border: 0.5px groove #ddd;
   padding: 0 5px;

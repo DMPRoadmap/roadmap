@@ -9,23 +9,24 @@
   <% else %>
     <%= hidden_field_tag(:phase_id, @phase_options[0][1]) %>
   <% end %>
-
-  <h3><%= _("Optional plan components") %></h3>
-  <div class="checkbox">
-    <%= label_tag 'export[project_details]', raw("#{check_box_tag 'export[project_details]', true, false} #{_('project details coversheet')}") %>
-  </div>
-  <div class="checkbox">
-    <%= label_tag 'export[question_headings]', raw("#{check_box_tag 'export[question_headings]', true, true} #{_('question text and section headings')}") %>
-  </div>
-  <div class="checkbox">
-    <%= label_tag 'export[unanswered_questions]', raw("#{check_box_tag 'export[unanswered_questions]', true, true} #{_('unanswered questions')}") %>
-  </div>
-  <% if @plan.template.customization_of.present? %>
+  <fieldset>
+    <legend><%= _("Optional plan components") %></legend>
     <div class="checkbox">
-      <%= label_tag 'export[custom_sections]', raw("#{check_box_tag 'export[custom_sections]', true, false} #{_('supplementary section(s) not requested by funding organisation')}") %>
+      <%= label_tag 'export[project_details]', raw("#{check_box_tag 'export[project_details]', true, false} #{_('project details coversheet')}") %>
     </div>
-  <% end %>
-
+    <div class="checkbox">
+      <%= label_tag 'export[question_headings]', raw("#{check_box_tag 'export[question_headings]', true, true} #{_('question text and section headings')}") %>
+    </div>
+    <div class="checkbox">
+      <%= label_tag 'export[unanswered_questions]', raw("#{check_box_tag 'export[unanswered_questions]', true, true} #{_('unanswered questions')}") %>
+    </div>
+    <% if @plan.template.customization_of.present? %>
+      <div class="checkbox">
+        <%= label_tag 'export[custom_sections]', raw("#{check_box_tag 'export[custom_sections]', true, false} #{_('supplementary section(s) not requested by funding organisation')}") %>
+      </div>
+    <% end %>
+  </fieldset>
+  
   <h2><%= _('Format') %></h2>
   <div class="row">
     <div class="form-group col-xs-2">
