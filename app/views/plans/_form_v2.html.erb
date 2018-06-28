@@ -77,10 +77,7 @@
           <%= _('Multiple templates where found, which one would you like to use?') %>
         </p>
         <%= hidden_field_tag 'template-option-target', org_admin_template_options_path %>
-        <%= select_tag(
-          :plan_template_id, options_from_collection_for_select(
-            @templates, 'id', 'title', @templates.first ? @templates.first.id : nil
-          )) %>
+        <%= select_tag(:plan_template_id) %>
       </div>
 
       <!-- In case the user does not belong to an organisation -->

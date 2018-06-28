@@ -4,7 +4,6 @@ class PlansController < ApplicationController
   helper PaginableHelper
   helper SettingsTemplateHelper
   after_action :verify_authorized, except: [:overview]
-  before_filter :set_templates, only: :new
 
   def index
     authorize Plan
@@ -447,10 +446,5 @@ class PlansController < ApplicationController
       end
     end
     plan.delete(src_plan_key)
-  end
-
-  def set_templates
-    @templates = current_user.org.templates.published.organisationally_visible.where(customization_of: nil) if current_user.org
-    @templates ||= []
   end
 end
