@@ -1,5 +1,5 @@
 <%# locals: { plan, template, question, answer, question_guidance, guidance_groups } %>
-<% annotations = question.annotations.where(type: Annotation.types[:guidance]) %>
+<% annotations = question.annotations.where(type: Annotation.types[:guidance]).where.not(text: [nil, ""]) %>
 <% guidance_set = question_guidance[question.id] || {} %>
 <% guidances_active = (annotations.present? || guidance_set.length > 0) %>
 <div id="plan-guidance-tab">
