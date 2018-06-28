@@ -1110,7 +1110,7 @@ msgid "N/A"
 msgstr "N/D"
 
 msgid "Name"
-msgstr "Prénom"
+msgstr "Nom"
 
 msgid "New Question"
 msgstr "Nouvelle question"
