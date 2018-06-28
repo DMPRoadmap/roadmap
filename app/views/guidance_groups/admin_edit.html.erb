@@ -2,9 +2,7 @@
 <div class="row">
   <div class="col-md-12">
     <h1><%= _('Guidance group') %></h1>
-      <button type="button" class="btn btn-default pull-right"> 
-        <%= link_to _('View all guidance'), admin_index_guidance_path(current_user.org_id), class: 'link_as_button' %>
-      </button>
+    <%= link_to _('View all guidance'), admin_index_guidance_path(current_user.org_id), class: 'btn btn-default pull-right' %>
   </div>
 </div>
 
