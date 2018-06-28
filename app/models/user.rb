@@ -302,6 +302,18 @@ class User < ActiveRecord::Base
     notifications << notification if notification.dismissable?
   end
 
+  # Anonymize a user (by removing its personnal data and deactivating its account)
+  def anonymize
+    copy = dup
+
+    update(firstname: 'anonymous', surname: 'user', email: "anonymous#{id}@opidor.fr", last_sign_in_at: nil, encrypted_password: nil)
+
+    if save
+      Rails.logger.info "User #{id} anonymized"
+      UserMailer.anonymization_notice(copy).deliver_now
+    end
+  end
+
   private
   def when_org_changes
     if org_id != org_id_was
