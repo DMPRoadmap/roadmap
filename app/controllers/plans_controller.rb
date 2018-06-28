@@ -450,11 +450,7 @@ class PlansController < ApplicationController
   end
 
   def set_templates
-    @templates = current_user
-                 .org
-                 .templates
-                 .published
-                 .organisationally_visible
-                 .where(customization_of: nil)
+    @templates = current_user.org.templates.published.organisationally_visible.where(customization_of: nil) if current_user.org
+    @templates ||= []
   end
 end

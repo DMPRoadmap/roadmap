@@ -30,8 +30,10 @@
           <%= _('Would you like to use the default template "Default Template"?') %>
         </p>
         <button class="btn btn-primary"><%= _('Use Default Template') %></button>
-        <%= hidden_field_tag('own_org_name', @default_org.name) %>
-        <%= hidden_field_tag('own_org_id', @default_org.id) %>
+        <% if @default_org %>
+          <%= hidden_field_tag('own_org_name', @default_org.name) %>
+          <%= hidden_field_tag('own_org_id', @default_org.id) %>
+        <% end %>
       </div>
 
       <!-- "Other organisation" tab -->
@@ -68,6 +70,8 @@
 
       <%= check_box_tag(:plan_no_org, '', false, style: 'display: none;') %>
       <%= check_box_tag(:plan_no_funder, '', true, style: 'display: none;') %>
+
+      <!-- Multiple templates div (if more than one templates are provided by organisation) -->
       <div id="available-templates" style="display: none;">
         <p>
           <%= _('Multiple templates where found, which one would you like to use?') %>
@@ -75,9 +79,20 @@
         <%= hidden_field_tag 'template-option-target', org_admin_template_options_path %>
         <%= select_tag(
           :plan_template_id, options_from_collection_for_select(
-            @templates, 'id', 'title', @templates.first.id
+            @templates, 'id', 'title', @templates.first ? @templates.first.id : nil
           )) %>
       </div>
+
+      <!-- In case the user does not belong to an organisation -->
+      <% unless @default_org %>
+      <div id="no_org">
+        <p>
+          <%= _('You are not linked to an organisation, we can\'t suggest you a template. Please choose an organisation in your profile') %>
+        </p>
+      </div>
+      <% end %>
+
+      <!-- Single template div (if only one template is provided by organisation) -->
       <div id="single-template" style="display: none;">
         <p>
           <span><%= _('This organisation provides a template. Would you like to create a plan from the') %></span>
