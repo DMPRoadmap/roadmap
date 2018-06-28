@@ -66,18 +66,24 @@
                             tooltip: _('Please select a valid funding organisation from the list.')} %>
       </div>
 
-      <% cb_display = (params[:debug] == "true" ? "block" : "none") %>
-      <%= check_box_tag(:plan_no_org, '', false, style: "display: #{cb_display};") %>
-      <%= check_box_tag(:plan_no_funder, '', true, style: "display: #{cb_display};") %>
-      <div id="available-templates" style="visibility: none;">
+      <%= check_box_tag(:plan_no_org, '', false, style: 'display: none;') %>
+      <%= check_box_tag(:plan_no_funder, '', true, style: 'display: none;') %>
+      <div id="available-templates" style="display: none;">
         <p>
-          <%= _('Multiple templates where found for this organisation, which one would you like to use ?') %>
+          <%= _('Multiple templates where found, which one would you like to use?') %>
         </p>
         <%= hidden_field_tag 'template-option-target', org_admin_template_options_path %>
         <%= select_tag(
           :plan_template_id, options_from_collection_for_select(
             @templates, 'id', 'title', @templates.first.id
           )) %>
+      </div>
+      <div id="single-template" style="display: none;">
+        <p>
+          <span><%= _('This organisation provides a template. Would you like to create a plan from the') %></span>
+          <span id="single-template-name"></span>
+          <span><%= _('template?') %></span>
+        </p>
       </div>
 
       <!-- Submit and other buttons -->
