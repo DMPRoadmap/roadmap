@@ -1,6 +1,6 @@
+require 'pp'
 class PlansController < ApplicationController
   include ConditionalUserMailer
-  require 'pp'
   helper PaginableHelper
   helper SettingsTemplateHelper
   after_action :verify_authorized, except: [:overview]
@@ -158,9 +158,7 @@ class PlansController < ApplicationController
     
     readonly = !plan.editable_by?(current_user.id)
     
-    guidance_groups_ids = plan.guidance_groups.collect(&:id)
-    
-    guidance_groups =  GuidanceGroup.where(published: true, id: guidance_groups_ids)
+    guidance_groups =  GuidanceGroup.where(published: true, id: plan.guidance_group_ids)
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
     # we create a hash whose keys are question id and value is the answer associated
     answers = plan.answers.reduce({}){ |m, a| m[a.question_id] = a; m }
@@ -170,7 +168,8 @@ class PlansController < ApplicationController
       plan: plan, phase: phase, readonly: readonly,
       question_guidance: plan.guidance_by_question_as_hash,
       guidance_groups: guidance_groups,
-      answers: answers })
+      answers: answers,
+      guidance_service: GuidanceService.new(plan) })
   end
   
   # PUT /plans/1
