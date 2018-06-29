@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <div class="row">  
+  <div class="row">
     <div class="form-group col-xs-8">
       <%= f.label :logo, _('Organization logo'), class: "control-label"  %>
 
@@ -32,8 +32,15 @@
 
   <div class="row">
     <div class="col-xs-8">
+      <%= f.label :banner_text, _('Banner text'), class: 'control-label' %>
+      <%= f.text_area :banner_text, class: 'form-control', 'aria-required': true %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-8">
       <%= render(partial: '/shared/links',
-                 locals: { 
+                 locals: {
                    context: 'org',
                    title: _('Organisation URLs'),
                    links: (org.links.present? ? org.links['org'] : []),
@@ -78,7 +85,7 @@
             <%= text_field_tag :shib_domain, shib_domain, class: "form-control", placeholder: _('Example: my-org.org') %>
           </div>
         </div>
-      <% end %>  
+      <% end %>
       <div class="row">
         <div class="form-group col-xs-8">
           <%= f.label _('Organisation Types'), for: :funder, class: 'control-label' %>
@@ -101,7 +108,7 @@
       </dl>
     <% end %>
   </div>
-  
+
   <div class="row">
     <div class="form-group col-xs-8">
       <%= f.button(_('Save'), id:"save_org_submit", class: "btn btn-primary", type: "submit") %>

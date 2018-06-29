@@ -24,3 +24,11 @@ $fa-font-path: "~font-awesome/fonts/";
   clear: left;
   margin-bottom: 10px;
 }
+
+.org-banner-text {
+  display: inline;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
