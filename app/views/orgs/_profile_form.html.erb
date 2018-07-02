@@ -80,19 +80,19 @@
         </div>
       <% end %>  
       <div class="row">
-        <div class="form-group col-xs-8">
-          <%= f.label _('Organisation Types'), for: :funder, class: 'control-label' %>
-          <div class="checkbox">
-            <%= f.label :funder, raw("#{check_box_tag :funder, 2, org.funder?, class: 'org_types'} #{_('Funder')}") %>
-          </div>
-          <div class="checkbox">
-            <%= f.label :institution, raw("#{check_box_tag :institution, 1, org.institution?, class: 'org_types'} #{_('Institution')}") %>
-          </div>
-          <div class="checkbox">
-            <%= f.label :organisation, raw("#{check_box_tag :organisation, 4, org.organisation?, class: 'org_types'} #{_('Organisation')}") %>
-          </div>
-          <%= f.hidden_field :org_type, 'data-validation': 'text', 'data-validation-error': _('You must select at least one organisation type') %>
-        </div>
+        <fieldset class="col-xs-8">
+          <legend><%= _('Organisation Types') %></legend>
+            <div class="checkbox">
+              <%= f.label :funder, raw("#{check_box_tag :funder, 2, org.funder?, class: 'org_types'} #{_('Funder')}") %>
+            </div>
+            <div class="checkbox">
+              <%= f.label :institution, raw("#{check_box_tag :institution, 1, org.institution?, class: 'org_types'} #{_('Institution')}") %>
+            </div>
+            <div class="checkbox">
+              <%= f.label :organisation, raw("#{check_box_tag :organisation, 4, org.organisation?, class: 'org_types'} #{_('Organisation')}") %>
+            </div>
+            <%= f.hidden_field :org_type, 'data-validation': 'text', 'data-validation-error': _('You must select at least one organisation type') %>
+        </fieldset>
       </div>
     <% else %>
       <dl>
