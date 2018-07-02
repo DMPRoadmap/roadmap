@@ -48,7 +48,7 @@
           <% end %>
         </ul>
         <div class="org-banner-text">
-          <%= current_user.org.banner_text %>
+          <%= current_user.org.banner_text.html_safe %>
         </div>
       <% end %>
 
