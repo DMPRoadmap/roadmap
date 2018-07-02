@@ -3,9 +3,7 @@
   <div class="col-xs-12">
     <h4>
       <%= _('Instructions') %>
-      <button type="button" class="btn btn-default pull-right"> 
-        <a href="<%= edit_plan_path(plan_id, phase_id: phase.id) %>" class="link_as_button"><%= _('Write plan') %></a>
-      </button>
+      <a href="<%= edit_plan_path(plan_id, phase_id: phase.id) %>" class="btn btn-default pull-right"><%= _('Write plan') %></a>
     </h4>
     <p class="text-justify">
       <%= raw(phase.description) %>
