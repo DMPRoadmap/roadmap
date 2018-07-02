@@ -2,11 +2,11 @@
   <table class="table table-hover" id="guidance-groups">
     <thead>
       <tr>
-        <th><%= _('Organisation') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
-        <th><%= _('Administrator Email') %>&nbsp;<%= paginable_sort_link('orgs.contact_email') %></th>
-        <th><%= _('Organisation Type(s)') %>&nbsp;<%= paginable_sort_link('orgs.org_type') %></th>
-        <th><%= _('Templates') %></th>
-        <th class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
+        <th scope="col"><%= _('Organisation') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
+        <th scope="col"><%= _('Administrator Email') %>&nbsp;<%= paginable_sort_link('orgs.contact_email') %></th>
+        <th scope="col"><%= _('Organisation Type(s)') %>&nbsp;<%= paginable_sort_link('orgs.org_type') %></th>
+        <th scope="col"><%= _('Templates') %></th>
+        <th scope="col" class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
       </tr>
     </thead>
     <tbody>

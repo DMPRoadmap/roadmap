@@ -5,11 +5,11 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th><%= _('Project Title') %>&nbsp;<%= paginable_sort_link('plans.title') %></th>
-                                <th><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
-                                <th><%= _('Owner') %></th>
-                                <th><%= _('Updated') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
-                                <th class="sorter-false"><%= _('Download') %></th>
+                                <th scope="col"><%= _('Project Title') %>&nbsp;<%= paginable_sort_link('plans.title') %></th>
+                                <th scope="col"><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
+                                <th scope="col"><%= _('Owner') %></th>
+                                <th scope="col"><%= _('Updated') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
+                                <th scope="col" class="sorter-false"><%= _('Download') %></th>
                             </tr>
                         </thead>
                         <tbody>
