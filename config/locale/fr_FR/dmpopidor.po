@@ -130,7 +130,7 @@ msgid "We found multiple DMP templates corresponding to your choices."
 msgstr "Nous avons trouvé plusieurs modèles correspondants à vos choix."
 
 msgid "Several template types are available:"
-msgstr "Différents type de modèles sont disponibles :"
+msgstr "Différents types de modèles sont disponibles :"
 
 msgid "Organisation templates: Select the organisation and check \"No funder\""
 msgstr "Modèles proposés par les organismes : Sélectionner l’organisme et cocher \"Pas de financeur\""
