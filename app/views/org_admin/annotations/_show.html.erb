@@ -1,13 +1,11 @@
 <% if example_answer.present? || guidance.present? %>
   <dl<%= for_plan ? ' class="dl-horizontal"' : '' %>>
     <% if example_answer.present? %>
-      <% label = (for_plan && template.customization_of.present?) ? _('%{org} Example Answer') % { org: example_answer.org.short_name } : _('Example Answer') %>
-      <dt><%= label %></dt>
+      <dt><%= _('%{org} Example Answer') % { org: example_answer.org.short_name } %></dt>
       <dd><%= raw example_answer.text %><dd>
     <% end %>
     <% if guidance.present? %>
-      <% label = (for_plan && template.customization_of.present?) ? _('%{org} Guidance') % { org: guidance.org.short_name } : _('Guidance') %>
-      <dt><%= label %></dt>
+      <dt><%= _('Question Specific Guidance') %></dt>
       <dd><%= raw guidance.text %></dd>
     <% end %>
   </dl>
