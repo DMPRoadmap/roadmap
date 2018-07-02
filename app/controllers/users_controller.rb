@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     authorize User
     if current_user.can_super_admin?
       @users = User.page(1)
+      @total_users = User.count
     else
       @users = current_user.org.users.page(1)
     end
