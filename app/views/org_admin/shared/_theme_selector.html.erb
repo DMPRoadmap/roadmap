@@ -25,6 +25,7 @@
             <div class="col-md-<%= col_size %>">
             <% cntr = 0 %>
           <% end %>
+        <fieldset>
           <div class="checkbox">
             <% namespace = f.object.class.name.downcase %>
             <% id = f.object.id.present? ? f.object.id : 'new' %>
@@ -35,6 +36,7 @@
                    value="<%= theme.id %>"<%= f.object.themes.include?(theme) ? ' checked="checked"' : '' %>>
             <%= theme.title %>
           </div>
+        </fieldset>
           <% cntr += 1 %>
         <% end %>
       </div>
