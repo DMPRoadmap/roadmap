@@ -32,8 +32,11 @@
 
   <div class="row">
     <div class="col-xs-8">
-      <%= f.label :banner_text, _('Banner text'), class: 'control-label' %>
-      <%= f.text_area :banner_text, class: 'form-control', 'aria-required': true %>
+      <% tip = _('Maximum 3 lines (about 250 characters)') %>
+      <div data-toggle="tooltip" data-html="true" title="<%= tip %>">
+        <%= f.label :banner_text, _('Banner text'), class: 'control-label' %>
+        <%= f.text_area :banner_text, class: 'form-control', 'aria-required': true %>
+      </div>
     </div>
   </div>
 
