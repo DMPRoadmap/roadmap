@@ -566,3 +566,10 @@ $light-yellow: #fff9e5;
         padding: 20px 0;
     }
 }
+
+.org-banner-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

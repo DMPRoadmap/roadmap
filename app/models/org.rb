@@ -31,7 +31,7 @@ class Org < ActiveRecord::Base
                   :token_permission_type_ids, :language_id, :contact_email, :contact_name,
                   :language, :org_type, :region, :token_permission_types,
                   :guidance_group_ids, :is_other, :region_id, :logo_uid, :logo_name,
-                  :feedback_enabled, :feedback_email_subject, :feedback_email_msg
+                  :feedback_enabled, :feedback_email_subject, :feedback_email_msg, :banner_text
   ##
   # Validators
   validates :name, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
