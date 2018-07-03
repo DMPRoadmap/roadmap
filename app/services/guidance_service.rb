@@ -20,9 +20,22 @@ class GuidanceService
     end
     return @orgs
   end
+
   def any?(org:nil, question:nil)
-    if org.nil? && question.nil?
-      return hashified_annotations? || hashified_guidance_groups?
+    if org.nil?
+      if question.nil?
+        return hashified_annotations? || hashified_guidance_groups?
+      end
+      if question.present?
+        # check each annotation/guidance group for a response to this question
+        # Would be nice not to have to crawl the entire list each time we want to know this
+        anno = orgs.reduce(false) {|found, o| found || guidance_annotations?(org: o, question: question)}
+        if !anno
+          return orgs.reduce(anno) {|found, o| found || guidance_groups_by_theme?(org: o, question: question)}
+        else
+          return anno
+        end
+      end
     end
     return guidance_annotations?(org: org, question: question) ||
     guidance_groups_by_theme?(org: org, question: question)
