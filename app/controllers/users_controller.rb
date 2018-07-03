@@ -15,6 +15,7 @@ class UsersController < ApplicationController
       @total_users = User.count
     else
       @users = current_user.org.users.page(1)
+      @total_users = current_user.org.users.count
     end
   end
 
