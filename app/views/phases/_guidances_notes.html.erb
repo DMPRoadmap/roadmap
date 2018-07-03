@@ -1,5 +1,5 @@
 <%# locals: { plan, template, question, answer, guidance_service } %>
-<% guidances_active = guidance_service.any? %>
+<% guidances_active = guidance_service.any?(question: question) %>
 <% active_nav = nil %>
 <div id="plan-guidance-tab">
   <!-- Nav tabs -->
@@ -22,7 +22,8 @@
       <% end %>
   </ul>
   <div class="tab-content">
-    <div id="guidances-<%= question.id %>" role="tabpanel" class="tab-pane <%= 'active' if guidances_active %>">
+    <% if guidances_active %>
+    <div id="guidances-<%= question.id %>" role="tabpanel" class="tab-pane active">
       <ul class="nav nav-tabs" role="tablist">
         <% guidance_service.orgs.each_with_index do |org, i| %>
             <% if guidance_service.any?(org: org, question: question) %>
@@ -47,12 +48,12 @@
               <div class="panel panel-default">
                 <div class="panel-body">
                   <% guidance_service.guidance_annotations(org: org, question: question).each do |annotation| %>
-                    <%= 
+                    <%=
                       render partial: 'org_admin/annotations/show', locals: {
                         template: template,
-                        example_answer: nil, 
-                        guidance: annotation, 
-                        for_plan: true } 
+                        example_answer: nil,
+                        guidance: annotation,
+                        for_plan: true }
                     %>
                   <% end %>
                   <% if guidance_service.guidance_annotations?(org: org, question: question) &&
@@ -70,6 +71,7 @@
         <% end %>
       </div>
     </div>
+    <% end %>
 
     <% if plan.present? %>
       <div id="notes-<%= question.id %>" role="tabpanel" class="tab-pane <%= 'active' if !guidances_active %> notes">
