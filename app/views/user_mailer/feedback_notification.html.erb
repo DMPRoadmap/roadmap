@@ -7,6 +7,6 @@
   %>
 
   <p><%= _('Hello %{user_name},') % {user_name: recipient_name} %></p>
-  <p><%= _('%{requestor} has requested feedback on a plan "%{plan_name}." To add comments, please visit the \'Plans\' page under the Admin menu in %{application_name} and open the plan.') % {requestor: requestor_name, plan_name: plan_name, application_name: tool_name} %></p>
+  <p><%= _('%{requestor} has requested feedback on a plan "%{plan_name}." To add comments, please visit the \'Plans\' page under the Admin menu in %{application_name} and open the plan.') % {requestor: requestor_name, plan_name: plan_name, application_name: tool_name, allow_change_prefs: false} %></p>
   <%= render partial: 'email_signature' %>
 <% end %>
