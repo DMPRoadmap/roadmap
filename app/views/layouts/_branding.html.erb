@@ -48,7 +48,9 @@
           <% end %>
         </ul>
         <div class="org-banner-text">
+        <%  if !current_user.org.banner_text.nil?  %>
           <%= current_user.org.banner_text.html_safe %>
+        <% end %>
         </div>
       <% end %>
 
