@@ -7,7 +7,7 @@ class RolesController < ApplicationController
     registered = true
     @role = Role.new(role_params)
     authorize @role
-    
+
     access_level = params[:role][:access_level].to_i
     @role.set_access_level(access_level)
     message = ''
@@ -30,7 +30,8 @@ class RolesController < ApplicationController
           if @role.save
             if registered
               deliver_if(recipients: user, key: 'users.added_as_coowner') do |r|
-                UserMailer.sharing_notification(@role, r).deliver_now
+                UserMailer.sharing_notification(@role, r, inviter: current_user)
+                          .deliver_now
               end
             end
             flash[:notice] = message
@@ -73,7 +74,7 @@ class RolesController < ApplicationController
     end
     redirect_to controller: 'plans', action: 'share', id: @role.plan.id
   end
-    
+
   # This function makes user's role on a plan inactive - i.e. "removes" this from their plans
   def deactivate
     role = Role.find(params[:id])
