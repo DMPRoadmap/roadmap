@@ -159,7 +159,7 @@ class PlansController < ApplicationController
     plan, phase = Plan.load_for_phase(params[:id], params[:phase_id])
 
     readonly = !plan.editable_by?(current_user.id)
-    
+
     guidance_groups =  GuidanceGroup.where(published: true, id: plan.guidance_group_ids)
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
     # we create a hash whose keys are question id and value is the answer associated
