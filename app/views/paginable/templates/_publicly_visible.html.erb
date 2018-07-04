@@ -12,6 +12,7 @@
           <%= _('Sample Plans') %><br><small><%= _('(if available)') %></small>
           <em class="sr-only"><%= sample_plans_tooltip %></em>
         </th>
+        <th><%= _('Actions') %></th>
       </tr>
     </thead>
     <tbody>
@@ -42,6 +43,15 @@
           <td>
             <%= sanitize links_to_a_elements(template.links['sample_plan'], '<br>') %>
           </td>
+          <td class="text-center">
+              <%= link_to(plans_url(plan: {
+                org_id: template.org.id,
+                funder_id: '-1',
+                template_id: template.id,
+              }), method: :post, title: _('Create plan')) do %>
+                <span class="fa fa-plus-square"></span>
+              <% end %>
+            </td>
         </tr>
       <% end %>
     </tbody>
