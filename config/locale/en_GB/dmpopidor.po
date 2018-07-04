@@ -159,3 +159,6 @@ msgstr "By continuing to browse, you accept the use of cookies to measure the tr
 
 msgid "Learn more"
 msgstr "Learn more"
+
+msgid "You"
+msgstr "You"

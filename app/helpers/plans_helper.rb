@@ -35,6 +35,16 @@ module PlansHelper
     return access
   end
 
+  # display the name of the owner of a plan
+  def display_owner(user)
+    if user == current_user
+      name = d_('dmpopidor', 'You')
+    else
+      name = user.name(false)
+    end
+    return name
+  end
+
   # display the visibility of the plan
   def display_visibility(val)
     case val

@@ -6,6 +6,7 @@
               <th><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
               <th><%= _('Edited') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
               <th><%= _('Role') %></th>
+              <th><%= _('Owner') %></th>
               <th class="text-center sorter-false"><%= _('Test') %></th>
               <th><%= _('Visibility') %></th>
               <th><%= _('Shared') %></th>
@@ -24,6 +25,7 @@
                 <td><%= plan.template.title %></td>
                 <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
                 <td><%= display_role(plan.roles.find_by(user: current_user)) %></td>
+                <td><%= display_owner(plan.owner) %></td>
                 <td class="text-center">
                   <% if plan.administerable_by?(current_user.id) then %>
                     <%= form_for plan, url: set_test_plan_path(plan), html: { method: :post, class: 'set_test_plan', remote: true } do |f| %>

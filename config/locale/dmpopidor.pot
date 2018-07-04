@@ -162,3 +162,5 @@ msgstr ""
 msgid "Learn more"
 msgstr ""
 
+msgid "You"
+msgstr ""

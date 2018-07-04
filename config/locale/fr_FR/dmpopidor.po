@@ -159,4 +159,5 @@ msgstr "En poursuivant votre navigation, vous acceptez le dépôt de cookies des
 msgid "Learn more"
 msgstr "En savoir plus"
 
-
+msgid "You"
+msgstr "Vous"
