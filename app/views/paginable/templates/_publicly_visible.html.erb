@@ -8,6 +8,7 @@
         <th class="sorter-false"><%= d_('dmpopidor', 'Description') %></th>
         <th><%= _('Last Updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
         <th class="sorter-false text-center"><%= _('Download') %></th>
+        <th><%= _('Actions') %></th>
       </tr>
     </thead>
     <tbody>
@@ -22,6 +23,15 @@
             <%= link_to _('DOCX'), template_export_path(template.family_id, format: :docx), target: '_blank' %><br>
             <%= link_to _('PDF'), template_export_path(template.family_id, format: :pdf), target: '_blank' %>
           </td>
+          <td class="text-center">
+              <%= link_to(plans_url(plan: {
+                org_id: template.org.id,
+                funder_id: '-1',
+                template_id: template.id,
+              }), method: :post, title: _('Create plan')) do %>
+                <span class="fa fa-plus-square"></span>
+              <% end %>
+            </td>
         </tr>
       <% end %>
     </tbody>
