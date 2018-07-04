@@ -1,6 +1,8 @@
 class UserMailer < ActionMailer::Base
   include MailerHelper
   helper MailerHelper
+  helper FeedbacksHelper
+
   default from: Rails.configuration.branding[:organisation][:email]
 
   def welcome_notification(user)
