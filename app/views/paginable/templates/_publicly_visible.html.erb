@@ -45,9 +45,30 @@
           </td>
           <td class="text-center">
             <%= direct_link(template) %>
+            <a data-toggle="modal" data-target="#link-modal"><span class="fa fa-clipboard"></span></a>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
+</div>
+
+<div id="link-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <button class="close" type="button" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">
+        <%= _('Copy link') %>
+      </h4>
+    </div>
+    <div class="modal-body">
+      <input type="text" id="link" readonly="readonly">
+      <button id="copy-link-btn"><%= _('Copy link') %></button>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-default" type="button" data-dismiss="modal">
+        <%= _('Close') %>
+      </button>
+    </div>
+  </div>
 </div>
