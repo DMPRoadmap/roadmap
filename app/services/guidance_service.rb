@@ -63,6 +63,7 @@ class GuidanceService
   # { guidance_group: { theme: [guidance, ...], ... }, ... }
   def guidance_groups_by_theme(org: nil, question: nil)
     raise ArgumentError unless question.respond_to?(:themes)
+    question = Question.includes(:themes).find(question.id)
     return {} unless hashified_guidance_groups.has_key?(org)
     return hashified_guidance_groups[org].each_key.reduce({}) do |acc, gg|
       filtered_gg = hashified_guidance_groups[org][gg].each_key.reduce({}) do |acc, theme|
