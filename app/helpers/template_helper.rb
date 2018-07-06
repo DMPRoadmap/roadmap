@@ -13,7 +13,7 @@ module TemplateHelper
       template_id: template.id,
     }
 
-    link_to(plans_url(plan: params), method: :post, title: _('Create plan')) do
+    link_to(plans_url(plan: params), method: :post, title: _('Create plan'), class: 'direct-link') do
       '<span class="fa fa-plus-square"></span>'.html_safe
     end
   end
