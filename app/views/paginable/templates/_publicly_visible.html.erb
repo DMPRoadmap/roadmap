@@ -24,14 +24,8 @@
             <%= link_to _('PDF'), template_export_path(template.family_id, format: :pdf), target: '_blank' %>
           </td>
           <td class="text-center">
-              <%= link_to(plans_url(plan: {
-                org_id: template.org.id,
-                funder_id: '-1',
-                template_id: template.id,
-              }), method: :post, title: _('Create plan')) do %>
-                <span class="fa fa-plus-square"></span>
-              <% end %>
-            </td>
+            <%= direct_link(template) %>
+          </td>
         </tr>
       <% end %>
     </tbody>

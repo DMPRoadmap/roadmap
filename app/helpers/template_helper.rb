@@ -5,4 +5,16 @@ module TemplateHelper
     end
     a.join(separator)
   end
+
+  def direct_link(template)
+    params = {
+      org_id: template.org.id,
+      funder_id: '-1',
+      template_id: template.id,
+    }
+
+    link_to(plans_url(plan: params), method: :post, title: _('Create plan')) do
+      '<span class="fa fa-plus-square"></span>'.html_safe
+    end
+  end
 end
