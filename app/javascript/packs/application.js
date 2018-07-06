@@ -47,3 +47,4 @@ import '../views/usage/index';
 import '../views/users/notification_preferences';
 import '../views/users/admin_grant_permissions';
 import '../views/super_admin/notifications/edit';
+import '../views/public_templates/show';
