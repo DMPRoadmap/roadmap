@@ -9,6 +9,10 @@ class PlansController < ApplicationController
     authorize Plan
     @plans = Plan.active(current_user).page(1)
     @organisationally_or_publicly_visible = Plan.organisationally_or_publicly_visible(current_user).page(1)
+
+    if params[:plan].present?
+      @template = Template.find(params[:plan][:template_id])
+    end
   end
 
   # GET /plans/new
@@ -153,18 +157,18 @@ class PlansController < ApplicationController
   def edit
     plan = Plan.find(params[:id])
     authorize plan
-    
+
     plan, phase = Plan.load_for_phase(params[:id], params[:phase_id])
-    
+
     readonly = !plan.editable_by?(current_user.id)
-    
+
     guidance_groups_ids = plan.guidance_groups.collect(&:id)
-    
+
     guidance_groups =  GuidanceGroup.where(published: true, id: guidance_groups_ids)
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
     # we create a hash whose keys are question id and value is the answer associated
     answers = plan.answers.reduce({}){ |m, a| m[a.question_id] = a; m }
-    
+
     render('/phases/edit', locals: {
       base_template_org: phase.template.base_org,
       plan: plan, phase: phase, readonly: readonly,
@@ -172,7 +176,7 @@ class PlansController < ApplicationController
       guidance_groups: guidance_groups,
       answers: answers })
   end
-  
+
   # PUT /plans/1
   # PUT /plans/1.json
   def update
@@ -186,7 +190,7 @@ class PlansController < ApplicationController
         guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i).uniq
         @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
         @plan.save
-      
+
         if @plan.update_attributes(attrs)
           format.html { redirect_to overview_plan_path(@plan), notice: success_message(_('plan'), _('saved')) }
           format.json {render json: {code: 1, msg: success_message(_('plan'), _('saved'))}}
@@ -195,7 +199,7 @@ class PlansController < ApplicationController
           format.html { render action: "edit" }
           format.json {render json: {code: 0, msg: flash[:alert]}}
         end
-        
+
       rescue Exception
         flash[:alert] = failed_update_error(@plan, _('plan'))
         format.html { render action: "edit" }

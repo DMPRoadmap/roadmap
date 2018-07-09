@@ -1,6 +1,6 @@
 <% title _('My Dashboard') %>
 <div class="row">
-  <div class="col-md-12">    
+  <div class="col-md-12">
     <h1><%= _('My Dashboard') %></h1>
     <!-- if the user has projects -->
     <p>
@@ -19,7 +19,7 @@
     <%= paginable_renderise(
       partial: '/paginable/plans/privately_visible',
       controller: 'paginable/plans',
-      action: 'privately_visible', 
+      action: 'privately_visible',
       scope: @plans,
       query_params: { sort_field: 'plans.updated_at', sort_direction: 'desc' }) %>
   </div>
@@ -43,3 +43,5 @@
     <% end %>
   </div>
 </div>
+
+<%= render 'shared/create_plan_modal' unless @template.nil? %>

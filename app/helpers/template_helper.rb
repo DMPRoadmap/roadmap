@@ -6,15 +6,17 @@ module TemplateHelper
     a.join(separator)
   end
 
-  def direct_link(template, hidden = false)
-    params = {
-      org_id: template.org.id,
-      funder_id: '-1',
-      template_id: template.id,
-    }
+  def direct_link(template, hidden = false, text = nil)
+    params = { org_id: template.org.id, funder_id: '-1', template_id: template.id }
+    cls = text.nil? ? 'direct-link' : 'direct-link btn btn-default'
+    style = hidden ? 'display: none' : ''
 
-    link_to(plans_url(plan: params), method: :post, title: _('Create plan'), class: 'direct-link', style: hidden ? 'display: none' : '') do
-      '<span class="fa fa-plus-square"></span>'.html_safe
+    link_to(plans_url(plan: params), method: :post, title: _('Create plan'), class: cls, style: style) do
+      if text.nil?
+        '<span class="fa fa-plus-square"></span>'.html_safe
+      else
+        text.html_safe
+      end
     end
   end
 end
