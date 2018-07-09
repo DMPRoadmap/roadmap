@@ -25,6 +25,44 @@ class PlanTest < ActiveSupport::TestCase
     @plan.reload
   end
 
+  test "readable_by? false when organisation settings is false for org admin" do
+    @creator.update!(org: @org)
+    @org_admin = User.create!(email: "org-admin@example.com",
+                              password: "password",
+                              org: @org)
+
+    @org_admin.perms << Perm.grant_permissions
+    @org_admin.perms << Perm.modify_guidance
+    @org_admin.perms << Perm.modify_templates
+    @org_admin.perms << Perm.change_org_details
+
+    assert @org_admin.reload.can_org_admin?
+    Rails.configuration.stub(:branding, {
+      service_configuration: { plans: { org_admins_read_all: false } }
+    }) do
+      refute @plan.readable_by?(@org_admin)
+    end
+  end
+
+  test "readable_by? true when organisation settings is true for org admin" do
+    @creator.update!(org: @org)
+    @org_admin = User.create!(email: "org-admin@example.com",
+                              password: "password",
+                              org: @org)
+
+    @org_admin.perms << Perm.grant_permissions
+    @org_admin.perms << Perm.modify_guidance
+    @org_admin.perms << Perm.modify_templates
+    @org_admin.perms << Perm.change_org_details
+
+    assert @org_admin.reload.can_org_admin?
+    Rails.configuration.stub(:branding, {
+      service_configuration: { plans: { org_admins_read_all: true } }
+    }) do
+      assert @plan.readable_by?(@org_admin)
+    end
+  end
+
   # ---------------------------------------------------
   test "required fields are required" do
     # TODO: uncomment the validation on Plan and then retest this. The validations appear to be breaking the
@@ -100,10 +138,10 @@ class PlanTest < ActiveSupport::TestCase
     guidance_groups = GuidanceGroup.includes(guidances: :themes).where(published: true)
     @plan.guidance_groups << guidance_groups
     @plan.save!
-    
+
     phase = @template.phases.first
     hash = @plan.guidance_by_question_as_hash
-    
+
     phase.sections.includes(questions: :themes).each do |section|
       section.questions.each do |question|
         question.themes.each do |theme|
@@ -237,7 +275,7 @@ class PlanTest < ActiveSupport::TestCase
     assert @plan.reviewable_by?(usr), "expected the reviewer to be able to review"
     assert @plan.readable_by?(usr), "expected the reviewer to be able to comment"
   end
-  
+
   # ---------------------------------------------------
   test "name returns the title" do
     assert_equal @plan.title, @plan.name
@@ -310,7 +348,7 @@ class PlanTest < ActiveSupport::TestCase
     plan = Plan.new(title: 'Tester', visibility: :is_test)
     verify_belongs_to_relationship(plan, Template.first)
   end
-  
+
   # ---------------------------------------------------
   test "owner_and_coowners returns the correct users" do
     usrs = @plan.owner_and_coowners
@@ -319,14 +357,14 @@ class PlanTest < ActiveSupport::TestCase
       assert [@creator, @administrator].include?(usr), "expected only the creator and co-owner but found #{usr.email}"
     end
   end
-  
+
   # ---------------------------------------------------
   test "can request feedback" do
     scaffold_org_admin(@creator.org)
-    
+
     @plan.request_feedback(@creator)
     assert @plan.feedback_requested, "expected the feedback flag to be set to true"
-    assert @plan.reviewable_by?(@user), "expected the Org Admin to be a reviewer" 
+    assert @plan.reviewable_by?(@user), "expected the Org Admin to be a reviewer"
   end
 
   # ---------------------------------------------------
@@ -336,9 +374,9 @@ class PlanTest < ActiveSupport::TestCase
     @plan.feedback_requested = true
     @plan.roles << Role.new(user: @user, access: val)
     @plan.save!
-    
+
     @plan.complete_feedback(@user)
     assert_not @plan.feedback_requested, "expected the feedback flag to be set to false"
-    assert_not @plan.reviewable_by?(@user), "expected the Org Admin to no longer be a reviewer" 
+    assert_not @plan.reviewable_by?(@user), "expected the Org Admin to no longer be a reviewer"
   end
 end
