@@ -7,6 +7,7 @@ SimpleCov.start 'rails'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'webmock/minitest'
+require 'minitest/mock'
 require 'active_support/inflector' # For pluralization utility
 
 class ActiveSupport::TestCase
@@ -28,7 +29,7 @@ class ActiveSupport::TestCase
   LANGUAGES = Language.all if LANGUAGES.empty?
 
   # Default attributes for model initialization
-  def org_seed  
+  def org_seed
     { name: 'Test Institution',
       abbreviation: 'TST',
       org_type: Org.org_type_values_for(:institution).min,
@@ -41,22 +42,22 @@ class ActiveSupport::TestCase
   end
   def user_seed
     {
-      email: 'test-user@testing-roadmap.org', 
-      firstname: 'Test', 
+      email: 'test-user@testing-roadmap.org',
+      firstname: 'Test',
       surname: 'User',
       language: Language.find_by(abbreviation: FastGettext.locale),
-      password: "password123", 
+      password: "password123",
       password_confirmation: "password123",
-      accept_terms: true, 
-      confirmed_at: Time.zone.now, 
+      accept_terms: true,
+      confirmed_at: Time.zone.now,
     }
   end
 
-  def template_seed 
+  def template_seed
     {
-      title: 'Test template', 
+      title: 'Test template',
       description: 'this is a test template',
-      org: Org.first, 
+      org: Org.first,
     }
   end
   def phase_seed
@@ -75,7 +76,7 @@ class ActiveSupport::TestCase
       modifiable: true,
     }
   end
-  def question_format_seed 
+  def question_format_seed
     {
       title: 'Text area',
       option_based: false,
@@ -104,7 +105,7 @@ class ActiveSupport::TestCase
       is_default: true,
     }
   end
-  def plan_seed 
+  def plan_seed
     {
       title: 'Test plan',
       funder_name: 'Organisation with a lot of funds',
@@ -141,7 +142,7 @@ class ActiveSupport::TestCase
       published: true,
     }
   end
-  
+
   def validate_and_create_obj(obj)
     obj.validate
     if obj.errors.present?
@@ -153,7 +154,7 @@ class ActiveSupport::TestCase
     assert obj.valid?
     obj
   end
-  
+
   # Org initializers
   def init_institution(**props)
     validate_and_create_obj(Org.new(org_seed.merge(props)))
@@ -173,33 +174,33 @@ class ActiveSupport::TestCase
 
   # User initializers
   def init_researcher(org, **props)
-    validate_and_create_obj(User.new(user_seed.merge({ 
-      org: org, 
+    validate_and_create_obj(User.new(user_seed.merge({
+      org: org,
       surname: 'Researcher',
       email: 'researcher@testing-roadmap.org',
      }.merge(props))))
   end
   def init_org_admin(org, **props)
-    perms = Perm.where.not(name: ['admin', 'add_organisations', 
-                                  'change_org_affiliation', 'grant_api_to_orgs', 
+    perms = Perm.where.not(name: ['admin', 'add_organisations',
+                                  'change_org_affiliation', 'grant_api_to_orgs',
                                   'change_org_details'])
-    validate_and_create_obj(User.new(user_seed.merge({ 
-      org: org, 
-      surname: 'OrgAdmin', 
+    validate_and_create_obj(User.new(user_seed.merge({
+      org: org,
+      surname: 'OrgAdmin',
       email: 'org.admin@testing-roadmap.org',
       perms: perms,
      }.merge(props))))
   end
   def init_super_admin(org, **props)
     perms = Perm.all
-    validate_and_create_obj(User.new(user_seed.merge({ 
-      org: org, 
-      surname: 'SuperAdmin', 
+    validate_and_create_obj(User.new(user_seed.merge({
+      org: org,
+      surname: 'SuperAdmin',
       email: 'super.admin@testing-roadmap.org',
-      perms: perms 
+      perms: perms
     }.merge(props))))
   end
-  
+
   # Template initializers
   def init_template(org, **props)
     if org.is_a? Org
@@ -279,7 +280,7 @@ class ActiveSupport::TestCase
       nil
     end
   end
-  
+
   # equality helpers for complex objects
   def assert_annotations_equal(annotation1, annotation2)
     assert_equal annotation1.text, annotation2.text, 'expected the annotations to have the same text'
@@ -347,7 +348,7 @@ class ActiveSupport::TestCase
   # ----------------------------------------------------------------------
   def scaffold_template
     template = Template.new(title: 'Test template',
-                            description: 'My test template', 
+                            description: 'My test template',
                             links: {"funder":[],"sample_plan":[]},
                             org: Org.first, archived: false, family_id: "0000009999")
 
@@ -465,7 +466,7 @@ class ActiveSupport::TestCase
             if relation_obj.respond_to?(:each)
               relation_obj.each do |obj|
                 assert_nil(obj.id, "id should be nil for the relation object from #{obj.class}") if copy.respond_to?(:id)
-              end 
+              end
             end
           end
         end
