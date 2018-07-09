@@ -1,8 +1,8 @@
-<% 
+<%
   tool_name = Rails.configuration.branding[:application][:name]
   helpdesk_email = Rails.configuration.branding[:organisation][:helpdesk_email]
   email_subject = email_subject || _('Query or feedback related to %{tool_name}') %{ :tool_name => tool_name }
-  allow_change_prefs = allow_change_prefs || true
+  allow_change_prefs = allow_change_prefs.nil? ? true : allow_change_prefs
 
   # Override the default Rails route helper for the contact_us page IF an alternate contact_us url was defined
   # in the branding config file
@@ -14,5 +14,5 @@
   <%= _('The %{tool_name} team') %{:tool_name => tool_name} %>
 </p>
 <p>
-  <% if allow_change_prefs %><%= _('You may change your notification preferences on your profile page.') %><% end %>&nbsp;<%= _('Please do not reply to this email.') %>&nbsp;<%= raw(_('If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us}') %{ :helpdesk_email => mail_to(helpdesk_email, helpdesk_email, subject: email_subject), :contact_us => link_to(contact_us, contact_us) }) %>
+  <% if allow_change_prefs %><%= _('You may change your notification preferences on your profile page. ') %><% end %><%= _('Please do not reply to this email.') %>&nbsp;<%= raw(_('If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us}') %{ :helpdesk_email => mail_to(helpdesk_email, helpdesk_email, subject: email_subject), :contact_us => link_to(contact_us, contact_us) }) %>
 </p>
