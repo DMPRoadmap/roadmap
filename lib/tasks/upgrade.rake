@@ -6,6 +6,7 @@ namespace :upgrade do
     Rake::Task['upgrade:check_org_contact_emails'].execute
     Rake::Task['upgrade:check_for_guidance_multiple_themes'].execute
     Rake::Task['upgrade:remove_admin_preferences'].execute
+    Rake::Task['upgrade:add_other_org'].execute
   end
 
   desc "Upgrade to 1.0"
@@ -431,6 +432,44 @@ namespace :upgrade do
           end
         end
       end
+    end
+  end
+  
+  desc "Add the 'other' org if it is not present."
+  task add_other_org: :environment do
+    puts "Checking for existence of an 'Other' org. Unaffiliated users should be affiliated with this org"
+    
+    # Get the helpdesk email from the branding YAML
+    branding = YAML.load(File.open('./config/branding.yml'))
+    if branding.present? && branding['defaults'].present? && branding['defaults']['organisation'].present? && branding['defaults']['organisation']['helpdesk_email'].present?
+      email = branding['defaults']['organisation']['helpdesk_email'] 
+      name = branding['defaults']['organisation']['name'].present? ? "#{branding['defaults']['organisation']['name']} helpdesk" : 'Helpdesk'
+    else
+      email = 'other.organisation@example.org'
+      name = 'Helpdesk'
+    end
+
+    other_org = Org.find_by(is_other: true)
+    if other_org.present?
+      puts "Found the 'Other' org (is_other == true)"
+    else
+      puts "Could not find the 'Other' org (is_other == true), adding 'Other' org"
+      other_org = Org.create!({
+        name: 'Other Organisation',
+        abbreviation: 'OTHER',
+        org_type: Org.org_type_values_for(:organisation).min,
+        contact_email: email,
+        contact_name: name,
+        links: {"org": []},
+        is_other: true,
+      })
+    end
+    
+    unaffiliated = User.where(org_id: nil)
+    unless unaffiliated.empty?
+      puts "The following users are not associated with an org. Assigning them to the 'Other' org."
+      puts unaffiliated.collect(&:email).join(', ')
+      unaffiliated.update_all(org_id: other_org.id)
     end
   end
 end

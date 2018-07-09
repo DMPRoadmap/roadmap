@@ -13,10 +13,10 @@
         <div class="panel-body notifications">
           <table class="table">
             <thead>
-              <th><%= _('Plan') %></th>
-              <th><%= _('Requestor') %></th>
-              <th><%= _('Type') %></th>
-              <th><%= _('Actions') %></th>
+              <th scope="col"><%= _('Plan') %></th>
+              <th scope="col"><%= _('Requestor') %></th>
+              <th scope="col"><%= _('Type') %></th>
+              <th scope="col"><%= _('Actions') %></th>
             </thead>
             <tbody>
               <% @feedback_plans.each do |notice| %>
@@ -35,9 +35,7 @@
       </div>
     <% end %>
     <% if @plans.length > 0 %>
-        <button type="button" class="btn btn-default pull-right"> 
-          <%= link_to _('Download plans'), org_admin_download_plans_path(format: :csv), target: '_blank', class: 'link_as_button' %>
-        </button>
+      <%= link_to _('Download plans'), org_admin_download_plans_path(format: :csv), target: '_blank', class: 'btn btn-default pull-right' %>
       <%= paginable_renderise(
         partial: '/paginable/plans/org_admin',
         controller: 'paginable/plans',

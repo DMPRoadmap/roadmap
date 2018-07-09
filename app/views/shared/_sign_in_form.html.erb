@@ -19,12 +19,10 @@
     <% if session['devise.shibboleth_data'].nil? %>
       <h4 class="text-center">- <%= _('or') %> -</h4>
       <div class="form-group">
-        <button type="button" class="btn btn-default">
-          <span class="center-block btn-group-justified">
-            <% target = (Rails.application.config.shibboleth_use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %> 
-            <a href="<%= target %>" class="link_as_button"><%= _('Sign in with your institutional credentials') %></a>
-          </span>
-        </button>
+        <span class="center-block btn-group-justified">
+          <% target = (Rails.application.config.shibboleth_use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %>
+          <a href="<%= target %>" class="btn btn-default"><%= _('Sign in with your institutional credentials') %></a>
+        </span>
       </div>
     <% else %>
       <%= f.hidden_field :shibboleth_id, :value => session['devise.shibboleth_data']['uid'] %>

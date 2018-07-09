@@ -28,10 +28,10 @@
   <table class="table table-hover table-bordered" id="collaborator-table">
     <thead>
       <tr>
-        <th><%= _('Email address')%></th>
-        <th><%= _('Permissions')%></th>
+        <th scope="col"><%= _('Email address')%></th>
+        <th scope="col"><%= _('Permissions')%></th>
         <% if administerable %>
-          <th><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
+          <th scope="col"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
         <% end %>
       </tr>
     </thead>
@@ -78,33 +78,34 @@
       <%= user.email_field :email, for: :user, name: "user", class: "form-control", "aria-required": true %>
     <% end %>
   </div>
+  
+  <fieldset class="col-xs-12">
+    <legend><%= _('Permissions') %></legend>
+    <div class="form-group">
+      <div class="radio">
+        <%= f.label :access_level, raw("#{f.radio_button :access_level, 3, "aria-required": true} #{_('Co-owner: can edit project details, change visibility, and add collaborators')}") %>
+      </div>
+      <div class="radio">
+        <%= f.label :access_level, raw("#{f.radio_button :access_level, 2} #{_('Editor: can comment and make changes')}") %>
+      </div>
+      <div class="radio">
+        <%= f.label :access_level, raw("#{f.radio_button :access_level, 1} #{_('Read only: can view and comment, but not make changes')}") %>
+      </div>
+
+      <%= f.button(_('Submit'), class: "btn btn-primary", type: "submit") %>
+    </div>
+    <div class="clearfix"></div>
+  <% end %>
+  </fieldset>
+
+  <div class="col-xs-12">
+    <% if plan.owner_and_coowners.include?(current_user) && current_user.org.present? && current_user.org.feedback_enabled? %>
+      <h2><%= _('Request expert feedback') %></h2>
+      <p><%= _('Click below to give data management staff at your organisation access to read and comment on your plan.') %></p>
+      <p><%= _('You can continue to edit and download the plan in the interim.') %></p>
 
   <div class="form-group col-xs-8">
-    <label class="control-label"><%= _('Permissions') %></label>
-    <div class="radio">
-      <%= f.label :access_level, raw("#{f.radio_button :access_level, 3, "aria-required": true} #{_('Co-owner: can edit project details, change visibility, and add collaborators')}") %>
-    </div>
-    <div class="radio">
-      <%= f.label :access_level, raw("#{f.radio_button :access_level, 2} #{_('Editor: can comment and make changes')}") %>
-    </div>
-    <div class="radio">
-      <%= f.label :access_level, raw("#{f.radio_button :access_level, 1} #{_('Read only: can view and comment, but not make changes')}") %>
-    </div>
-
-    <%= f.button(_('Submit'), class: "btn btn-primary", type: "submit") %>
-  </div>
-  <div class="clearfix"></div>
-<% end %>
-
-<% if plan.owner_and_coowners.include?(current_user) && current_user.org.present? && current_user.org.feedback_enabled? %>
-  <h2><%= _('Request expert feedback') %></h2>
-  <p><%= _('Click below to give data management staff at your organisation access to read and comment on your plan.') %></p>
-  <p><%= _('You can continue to edit and download the plan in the interim.') %></p>
-
-  <div class="form-group col-xs-8">
-    <button type="button" class="btn btn-default"> 
-      <%= link_to _('Request feedback'), request_feedback_plan_path, class: "link_as_button#{' disabled' if @plan.feedback_requested?}" %>
-    </button>
+    <%= link_to _('Request feedback'), request_feedback_plan_path, class: "btn btn-default#{' disabled' if @plan.feedback_requested?}" %>
     <span><%= _("Feedback has been requested.") if @plan.feedback_requested? %></span>
   </div>
 <% end %>
