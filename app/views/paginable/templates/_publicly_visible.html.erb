@@ -53,22 +53,4 @@
   </table>
 </div>
 
-<div id="link-modal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-header">
-      <button class="close" type="button" data-dismiss="modal">&times;</button>
-      <h4 class="modal-title">
-        <%= _('Copy link') %>
-      </h4>
-    </div>
-    <div class="modal-body">
-      <input type="text" id="link" readonly="readonly">
-      <button id="copy-link-btn"><%= _('Copy link') %></button>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-default" type="button" data-dismiss="modal">
-        <%= _('Close') %>
-      </button>
-    </div>
-  </div>
-</div>
+<%= render 'shared/copy_link_modal' %>
