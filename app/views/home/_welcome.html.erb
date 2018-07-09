@@ -1,5 +1,6 @@
+<% title _("Welcome to #{Rails.configuration.branding[:application][:name]}.") %>
 <div>
-  <h1><%= _('Welcome.')%></h1>
+  <h1><%= _("Welcome to #{Rails.configuration.branding[:application][:name]}.")%></h1>
   <p>
       <%= raw _('<p>%{application_name} helps you to create, review, and share data management plans that meet institutional and funder requirements. It has been jointly developed by the Digital Curation Centre (DCC) and the University of California Curation Center (UC3).') % {:application_name => Rails.configuration.branding[:application][:name], :organisation_name => Rails.configuration.branding[:organisation][:name]} %>
       <label for="linklist"><%=_('Getting started:')%></label>

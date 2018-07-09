@@ -91,7 +91,7 @@ class UsersController < ApplicationController
 
   def update_email_preferences
     prefs = params[:prefs]
-    authorize current_user, :update?
+    authorize User
     pref = current_user.pref
     # does user not have prefs?
     if pref.blank?
@@ -161,7 +161,7 @@ class UsersController < ApplicationController
 
   private
   def org_swap_params
-    params.require(:superadmin_user).permit(:org_id, :org_name)
+    params.require(:user).permit(:org_id, :org_name)
   end
 
   ##

@@ -1,3 +1,4 @@
+<% title 'Templates' %>
 <div class="row">
   <div class="col-md-12">
     <h1><%= _('Templates') %></h1>
@@ -68,7 +69,7 @@
                   controller: 'paginable/templates',
                   action: action, 
                   scope: templates,
-                  query_params: { sort_field: 'templates.title', sort_direction: :asc },
+                  query_params: query_params,
                   locals: local_assigns) %>
           </div>
         </div>
