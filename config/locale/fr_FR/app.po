@@ -69,7 +69,7 @@ msgid "%{org_name} Plans"
 msgstr "Plans %{org_name}"
 
 msgid "%{org_name} Templates"
-msgstr "%{org_name} Modèles"
+msgstr "Modèles %{org_name}"
 
 msgid "%{org_title} Plans"
 msgstr "Plans %{org_title}"
