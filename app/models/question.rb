@@ -22,18 +22,9 @@ class Question < ActiveRecord::Base
   accepts_nested_attributes_for :question_options, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
   accepts_nested_attributes_for :annotations, :allow_destroy => true
 
-  ##
-  # Possibly needed for active_admin
-  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :default_value, :dependency_id, :dependency_text, :guidance,:number,
-                  :annotation, :text, :section_id, :question_format_id,
-                  :question_options_attributes, :annotations_attributes,
-                  :option_comment_display, :theme_ids, :section, :question_format,
-                  :question_options, :annotations, :answers, :themes,
-                  :modifiable, :option_comment_display, :as => [:default, :admin]
 
   validates :text, :section, :number, presence: {message: _("can't be blank")}
-  
+
   ##
   # returns the text from the question
   #
@@ -58,7 +49,7 @@ class Question < ActiveRecord::Base
     self.themes.each{ |theme| copy.themes << theme }
     return copy
   end
-  
+
 # TODO: consider moving this to a view helper instead and use the built in scopes for guidance. May need to add
 #       a new one for 'thematic_guidance'. This method doesn't even make reference to this class and its returning
 #       a hash that is specific to a view

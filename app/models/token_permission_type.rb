@@ -6,11 +6,6 @@ class TokenPermissionType < ActiveRecord::Base
   has_and_belongs_to_many :orgs, join_table: 'org_token_permissions', unique: true
 
   ##
-  # Possibly needed for active_admin
-  #  - relies on proetected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :token_type, :text_description, :as => [:default, :admin]
-
-  ##
   # Validators
   validates :token_type, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
 

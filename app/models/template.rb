@@ -4,13 +4,13 @@ class Template < ActiveRecord::Base
   include TemplateScope
   validates_with TemplateLinksValidator
 
-  before_validation :set_defaults 
+  before_validation :set_defaults
   after_update :reconcile_published, if: Proc.new { |template| template.published? }
 
   # Stores links as an JSON object: { funder: [{"link":"www.example.com","text":"foo"}, ...], sample_plan: [{"link":"www.example.com","text":"foo"}, ...]}
   # The links is validated against custom validator allocated at validators/template_links_validator.rb
   serialize :links, JSON
-  
+
   ##
   # Associations
   belongs_to :org
@@ -18,15 +18,10 @@ class Template < ActiveRecord::Base
   has_many :phases, dependent: :destroy
   has_many :sections, through: :phases
   has_many :questions, through: :sections
+  has_many :annotations, through: :questions
 
-  ##
-  # Possibly needed for active_admin
-  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :id, :org_id, :description, :published, :title, :locale, :customization_of,
-                  :is_default, :guidance_group_ids, :org, :plans, :phases, :family_id,
-                  :archived, :version, :visibility, :published, :links, :as => [:default, :admin]
 
-  # A standard template should be organisationally visible. Funder templates that are 
+  # A standard template should be organisationally visible. Funder templates that are
   # meant for external use will be publicly visible. This allows a funder to create 'funder' as
   # well as organisational templates. The default template should also always be publicly_visible
   enum visibility: [:organisationally_visible, :publicly_visible]
@@ -38,11 +33,13 @@ class Template < ActiveRecord::Base
 
   validates :org, :title, presence: {message: _("can't be blank")}
 
-  # Class methods gets defined within this 
+  # Class methods gets defined within this
   class << self
+
     def current(family_id)
       unarchived.where(family_id: family_id).order(version: :desc).first
     end
+
     def live(family_id)
       if family_id.respond_to?(:each)
         unarchived.where(family_id: family_id, published: true)
@@ -50,14 +47,15 @@ class Template < ActiveRecord::Base
         unarchived.where(family_id: family_id, published: true).first
       end
     end
+
     def find_or_generate_version!(template)
-      if template.latest?
-        if template.generate_version?
-          return template.generate_version!
-        end
-        return template
+      if template.latest? && template.generate_version?
+        template.generate_version!
+      elsif template.latest? && !template.generate_version?
+        template
+      else
+        raise _('A historical template cannot be retrieved for being modified')
       end
-      raise _('A historical template cannot be retrieved for being modified')
     end
   end
 
@@ -163,7 +161,7 @@ class Template < ActiveRecord::Base
       }, modifiable: false, save: true)
     return customization
   end
-  
+
   # Generates a new copy of self including latest changes from the funder this template is customized_of
   def upgrade_customization!
     raise _('upgrade_customization! requires a customised template') unless customization_of.present?
@@ -230,7 +228,7 @@ class Template < ActiveRecord::Base
       end
       family_id
     end
-    
+
     # Default values to set before running any validation
     def set_defaults
       self.published ||= false
@@ -243,7 +241,7 @@ class Template < ActiveRecord::Base
       self.archived ||= false
       self.links ||= { funder: [], sample_plan: [] }
     end
-    
+
     # Only one version of a template should be published at a time, so if this one was published make sure other versions are not
     def reconcile_published
       # Unpublish all other versions of this template family
