@@ -17,12 +17,12 @@ class UserTest < ActiveSupport::TestCase
                         language: Language.find_by(abbreviation: I18n.locale))
 
     @notification = Notification.create!(
-      notification_type: Notification.notification_types[:global], 
-      title: 'notification_1', 
+      notification_type: Notification.notification_types[:global],
+      title: 'notification_1',
       level: Notification.levels[:info],
-      body: 'notification 1', 
-      dismissable: false, 
-      starts_at: Date.today, 
+      body: 'notification 1',
+      dismissable: false,
+      starts_at: Date.today,
       expires_at: Date.tomorrow)
   end
 
@@ -343,7 +343,7 @@ class UserTest < ActiveSupport::TestCase
   test "after_save removes API token and its perms associated" do
     previous_api_token = @user.api_token
     @user.perms = [Perm.add_orgs, Perm.grant_permissions]
-    previous_perms = @user.perms.to_a 
+    previous_perms = @user.perms.to_a
     @user.org = Org.where.not(id: @user.org_id).first
     @user.save
     assert_not_equal(previous_api_token, @user.api_token)
