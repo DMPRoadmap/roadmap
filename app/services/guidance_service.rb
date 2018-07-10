@@ -23,9 +23,6 @@ class GuidanceService
 
   def any?(org:nil, question:nil)
     if org.nil?
-      if question.nil?
-        return hashified_annotations? || hashified_guidance_groups?
-      end
       if question.present?
         # check each annotation/guidance group for a response to this question
         # Would be nice not to have to crawl the entire list each time we want to know this
@@ -35,6 +32,8 @@ class GuidanceService
         else
           return anno
         end
+      else # question.nil?
+        return hashified_annotations? || hashified_guidance_groups?
       end
     end
     return guidance_annotations?(org: org, question: question) ||
