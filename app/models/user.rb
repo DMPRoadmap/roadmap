@@ -290,7 +290,7 @@ class User < ActiveRecord::Base
   # @param val [string] The string to search for, case insensitive. val is duck typed to check whether or not downcase method exist
   # @return [ActiveRecord::Relation] The result of the search
   def self.where_case_insensitive(field, val)
-    User.where("lower(#{field}) = ?", val.respond_to?(:downcase) ? val.downcase : val.to_s)
+    User.where(field.to_sym => val.to_s.downcase)
   end
 
   # Acknoledge a Notification
