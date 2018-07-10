@@ -1,6 +1,6 @@
 module Paginable
   extend ActiveSupport::Concern
-  
+
   included do
     # Renders paginable layout with the partial view passed
     # partial {String} - Represents a path to where the partial view is stored
@@ -13,7 +13,7 @@ module Paginable
     def paginable_renderise(partial: nil, controller: nil, action: nil, path_params: {}, query_params: {}, scope: nil, locals: {}, **options)
       raise ArgumentError, _('scope should be an ActiveRecord::Relation object') unless scope.is_a?(ActiveRecord::Relation)
       raise ArgumentError, _('path_params should be a Hash object') unless path_params.is_a?(Hash)
-      raise ArgumentError, _('query_params should be a Hash object') unless query_params.is_a?(Hash) 
+      raise ArgumentError, _('query_params should be a Hash object') unless query_params.is_a?(Hash)
       raise ArgumentError, _('locals should be a Hash object') unless locals.is_a?(Hash)
 
       # Default options
@@ -79,17 +79,25 @@ module Paginable
       return 'DESC' if direction_upcased == 'ASC'
       return 'ASC' if direction_upcased == 'DESC'
     end
-    # Refine a scope passed to this concern if any of the params (search, sort_field or page) are present
+
+    # Refine a scope passed to this concern if any of the params (search,
+    # sort_field or page) are present
     def refine_query(scope)
-      scope = scope.search(@paginable_params[:search]) if @paginable_params[:search].present? # Can raise NoMethodError if the scope does not define a search method
+      scope = scope.search(@paginable_params[:search]) if @paginable_params[:search].present?
+      # Can raise NoMethodError if the scope does not define a search method
       if @paginable_params[:sort_field].present?
-        scope = scope.order("#{@paginable_params[:sort_field]} #{upcasing_sort_direction}") # Can raise ActiveRecord::StatementInvalid (e.g. column does not exist, ambiguity on column, etc)
+         # Can raise ActiveRecord::StatementInvalid (e.g. column does not
+         # exist, ambiguity on column, etc)
+         order_sql = ActiveRecord::Base.sanitize("#{@paginable_params[:sort_field]} #{upcasing_sort_direction}")
+        scope = scope.order(order_sql)
       end
       if @paginable_params[:page] != 'ALL'
-        scope = scope.page(@paginable_params[:page]) # Can raise error if page is not a number
+        # Can raise error if page is not a number
+        scope = scope.page(@paginable_params[:page])
       end
       return scope
     end
+
     # Returns the sort link name for a given sort_field. The link name includes html prevented of being escaped
     def sort_link_name(sort_field)
       className = 'fa-sort'
