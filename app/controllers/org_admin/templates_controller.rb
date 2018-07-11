@@ -319,7 +319,7 @@ module OrgAdmin
       end
       
       templates = (templates.count > 0 ? templates.sort{|x,y| x.title <=> y.title} : [])
-      render json: {"templates": templates.collect{|t| {id: t.id, title: t.title} }}.to_json
+      render json: {"templates": templates.collect{|t| { id: t.id, title: t.title, default: t.is_default } }}.to_json
     end
 
     

@@ -98,6 +98,15 @@
         </p>
       </div>
 
+      <!-- Default template div (if the template is the default one (organisation) -->
+      <div id="default-template" style="display: none">
+        <p>
+          <span><%= _('This organisation does not provide a template. Would you like to create a plan using the default') %></span>
+          <span id="single-template-name"></span>
+          <span><%= _('template?') %></span>
+        </p>
+      </div>
+
       <!-- Submit and other buttons -->
       <div class="pull-right">
         <%= f.button(_('Yes'), class: "btn btn-primary", type: "submit") %>
