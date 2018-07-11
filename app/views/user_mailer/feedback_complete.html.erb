@@ -8,9 +8,9 @@
 <p><%= _('Hello %{recipient_name}') % { recipient_name: recipient_name } %></p>
 
 <p>
-  <%= _("%{commenter} has finished providing feedback on the plan \"%{link_html}\". To view the comments, please visit the My Dashboard page in %{tool_name} and open your plan. Plan comments can be found adjacent to your answers in the tabbed panel next to guidance.").html_safe % {
+  <%= _("%{commenter} has finished providing feedback on the plan  \"%{link_html}\". Comments can be found in the 'Write plan' tab on the right side of the page (Guidance/Comments).").html_safe % {
     commenter: requestor,
-    link_html: link_to(plan_name, plan_url(@plan)),
+    link_html: link_to(plan_name, edit_plan_url(@plan, phase_id: @phase.id)),
     tool_name: tool_name
   }%>
 </p>
