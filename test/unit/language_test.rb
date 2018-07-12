@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: languages
+#
+#  id               :integer          not null, primary key
+#  abbreviation     :string
+#  description      :string
+#  name             :string
+#  default_language :boolean
+#
+
 require 'test_helper'
 
 class LanguageTest < ActiveSupport::TestCase
