@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: exported_plans
+#
+#  id         :integer          not null, primary key
+#  format     :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  phase_id   :integer
+#  plan_id    :integer
+#  user_id    :integer
+#
+
 class ExportedPlan < ActiveRecord::Base
   include GlobalHelpers
   include SettingsTemplateHelper

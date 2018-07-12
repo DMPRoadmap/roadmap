@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: notifications
+#
+#  id                :integer          not null, primary key
+#  body              :text
+#  dismissable       :boolean
+#  expires_at        :date
+#  level             :integer
+#  notification_type :integer
+#  starts_at         :date
+#  title             :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
 class Notification < ActiveRecord::Base
   enum level: %i[info warning danger]
   enum notification_type: %i[global]

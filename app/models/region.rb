@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: regions
+#
+#  id              :integer          not null, primary key
+#  abbreviation    :string
+#  description     :string
+#  name            :string
+#  super_region_id :integer
+#
+
 class Region < ActiveRecord::Base
   has_many :sub_regions, class_name: 'Region', foreign_key: 'super_region_id'
   
