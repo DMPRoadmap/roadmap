@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: user_identifiers
+#
+#  id                   :integer          not null, primary key
+#  identifier           :string
+#  created_at           :datetime
+#  updated_at           :datetime
+#  user_id              :integer
+#  identifier_scheme_id :integer
+#
+
 require 'test_helper'
 
 class UserIdentifierTest < ActiveSupport::TestCase

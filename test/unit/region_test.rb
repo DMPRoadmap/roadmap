@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: regions
+#
+#  id              :integer          not null, primary key
+#  abbreviation    :string
+#  description     :string
+#  name            :string
+#  super_region_id :integer
+#
+
 require 'test_helper'
 
 class RegionTest < ActiveSupport::TestCase
