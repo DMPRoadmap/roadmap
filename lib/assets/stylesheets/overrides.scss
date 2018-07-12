@@ -552,7 +552,20 @@ $tooltip-background: $grey;
 /* generic styling */
 fieldset {
   border: none;
+
+  input[type="radio"],
+  input[type="checkbox"] {
+      margin: 0px;
+      vertical-align: middle;
+  }
+
+  .checkbox,
+  .radio {
+    margin-top: 0px;
+    margin-bottom: 3px;
+  }
 }
+
 legend {
   border: none;
   font-size: 14px;
