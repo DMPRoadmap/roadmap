@@ -313,8 +313,8 @@ class PlanTest < ActiveSupport::TestCase
 
   # ---------------------------------------------------
   test "can CRUD Plan" do
-    obj = Plan.create(title: 'Testing CRUD', template: Template.where.not(id: @template.id).first, visibility: :is_test,
-                      roles: [Role.new(user: User.last, creator: true)], description: "should change")
+    obj = Plan.create!(title: 'Testing CRUD', template: Template.where.not(id: @template.id).first, visibility: :is_test, description: "should change")
+    obj.roles.create!(user: User.last, creator: true)
     assert_not obj.id.nil?, "was expecting to be able to create a new Plan! - #{obj.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
 
     obj.description = 'changed'

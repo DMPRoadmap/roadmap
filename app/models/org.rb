@@ -23,16 +23,6 @@ class Org < ActiveRecord::Base
   has_many :identifier_schemes, through: :org_identifiers
 
   ##
-  # Possibly needed for active_admin
-  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-	attr_accessible :abbreviation, :logo, :remove_logo,
-                  :logo_file_name, :name, :links,
-                  :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
-                  :token_permission_type_ids, :language_id, :contact_email, :contact_name,
-                  :language, :org_type, :region, :token_permission_types,
-                  :guidance_group_ids, :is_other, :region_id, :logo_uid, :logo_name,
-                  :feedback_enabled, :feedback_email_subject, :feedback_email_msg
-  ##
   # Validators
   validates :name, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
   # allow validations for logo upload

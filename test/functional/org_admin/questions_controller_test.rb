@@ -1,16 +1,16 @@
 require 'test_helper'
 
 class QuestionsControllerTest < ActionDispatch::IntegrationTest
-  
+
   include Devise::Test::IntegrationHelpers
-  
+
   setup do
     @institution = init_institution
     @researcher = init_researcher(@institution)
     @org_admin = init_org_admin(@institution)
     @template = init_template(@institution, {
-      title: 'Test Template', 
-      published: true, 
+      title: 'Test Template',
+      published: true,
       visibility: Template.visibilities[:publicly_visible]
     })
     @phase = init_phase(@template)
@@ -18,7 +18,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     @text_area = init_question_format({ title: 'Test question format' })
     @question = init_question(@section)
   end
-  
+
   test 'unauthorized user cannot call question_controller#create' do
     params = { question: { text: 'New question test', number: 2, question_format_id: @text_area.id } }
     post org_admin_template_phase_section_questions_path(@template, @phase, @section), params
@@ -27,7 +27,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     post org_admin_template_phase_section_questions_path(@template, @phase, @section), params
     assert_authorized_redirect_to_plans_page
   end
-  
+
   test 'unauthorized user cannot call question_controller#create for another org\'s template' do
     params = { question: { text: 'New question test', number: 2, question_format_id: @text_area.id } }
     funder = init_funder
@@ -38,7 +38,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     post org_admin_template_phase_section_questions_path(funder_template, funder_phase, funder_section), params
     assert_authorized_redirect_to_plans_page
   end
-  
+
   test 'authorized user can call question_controller#create for an unpublished template' do
     @template.update!(published: false)
     params = { question: { text: 'New question test', number: 2, question_format_id: @text_area.id } }
@@ -47,7 +47,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_redirected_to edit_org_admin_template_phase_path(template_id: @template.id, id: @phase.id, section: @section.id)
   end
-  
+
   test 'authorized user can call question_controller#create for a published template' do
     params = { question: { text: 'New question test', number: 2, question_format_id: @text_area.id } }
     sign_in @org_admin
@@ -56,7 +56,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     template = Template.latest_version(@template.family_id).first
     assert_redirected_to edit_org_admin_template_phase_path(template_id: template.id, id: template.phases.first.id, section: template.phases.first.sections.first.id)
   end
-  
+
   test 'unauthorized user cannot call question_controller#edit' do
     params = { section: { text: 'Edited question' } }
     put org_admin_template_phase_section_question_path(@template, @phase, @section, @question), params
@@ -77,7 +77,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     put org_admin_template_phase_section_question_path(funder_template, funder_phase, funder_section, funder_question), params
     assert_authorized_redirect_to_plans_page
   end
-  
+
   test 'authorized user can call question_controller#edit for an unpublished template' do
     @template.update!(published: false)
     params = { section: { text: 'Edited question' } }
@@ -86,7 +86,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_redirected_to edit_org_admin_template_phase_path(template_id: @template.id, id: @phase.id, section: @section.id)
   end
-  
+
   test 'authorized user can call question_controller#edit for a published template' do
     params = { section: { text: 'Edited question' } }
     sign_in @org_admin
@@ -103,7 +103,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     delete org_admin_template_phase_section_question_path(@template, @phase, @section, @question)
     assert_authorized_redirect_to_plans_page
   end
-  
+
   test 'unauthorized user cannot call question_controller#destroy for another org\'s template' do
     funder = init_funder
     funder_template = init_template(funder)
@@ -114,7 +114,7 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     delete org_admin_template_phase_section_question_path(funder_template, funder_phase, funder_section, funder_question)
     assert_authorized_redirect_to_plans_page
   end
-  
+
   test 'authorized user can call question_controller#destroy for an unpublished template' do
     @template.update!(published: false)
     sign_in @org_admin
@@ -122,12 +122,16 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_redirected_to edit_org_admin_template_phase_path(template_id: @template.id, id: @phase.id, section: @section.id)
   end
-  
+
   test 'authorized user can call question_controller#destroy for a published template' do
     sign_in @org_admin
     delete org_admin_template_phase_section_question_path(@template, @phase, @section, @question)
     assert_response :redirect
     template = Template.latest_version(@template.family_id).first
-    assert_redirected_to edit_org_admin_template_phase_path(template_id: template.id, id: template.phases.first.id, section: template.phases.first.sections.first.id)
+    assert_redirected_to edit_org_admin_template_phase_path({
+      id: template.phases.first.id,
+      template_id: template.id,
+      section: template.phases.first.sections.first.id
+    })
   end
 end

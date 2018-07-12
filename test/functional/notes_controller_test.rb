@@ -12,14 +12,13 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
     @plan.assign_reader(@user.id)
     @plan.save!
 
-    @question = Question.create(text: 'Answer Testing', number: 9,
+    @question = Question.create!(text: 'Answer Testing', number: 9,
                                 section: @plan.template.phases.first.sections.first,
                                 question_format: QuestionFormat.find_by(option_based: false))
 
-    @answer = Answer.create(user: @user, plan: @plan, question: @question, text: 'Testing')
+    @answer = Answer.create!(user: @user, plan: @plan, question: @question, text: 'Testing')
 
-    @note = Note.create(user: @user, plan: @plan, answer: @answer, question: @question, archived: false,
-                        text: 'Test Note')
+    @note = Note.create!(user: @user, answer: @answer, archived: false, text: 'Test Note')
   end
 
 # TODO: The following methods SHOULD probably be restful
@@ -45,10 +44,16 @@ class NotesControllerTest < ActionDispatch::IntegrationTest
   # POST /notes (notes_path)
   # ----------------------------------------------------------
   test "create a new note" do
-    params = {user_id: @user.id, answer_id: @answer.id, plan_id: @plan.id, question_id: @question.id, text: 'Test Note'}
+    params = {
+      user_id: @user.id,
+      answer_id: @answer.id,
+      plan_id: @plan.id,
+      question_id: @question.id,
+      text: 'Test Note'
+    }
 
     # Should redirect user to the root path if they are not logged in!
-    post notes_path, {note: params}
+    post notes_path, { note: params }
     assert_unauthorized_redirect_to_root_path
 
     sign_in @user
