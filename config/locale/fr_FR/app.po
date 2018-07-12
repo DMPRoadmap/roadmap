@@ -687,7 +687,7 @@ msgid "Edit customizations"
 msgstr "Editer les personnalisations"
 
 msgid "Edit phase"
-msgstr "Edtier la phase"
+msgstr "Editer la phase"
 
 msgid "Edit profile"
 msgstr "Modifier le profil"
