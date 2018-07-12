@@ -1,7 +1,7 @@
 module OrgAdmin
   class PhasesController < ApplicationController
     include Versionable
-    
+
     after_action :verify_authorized
 
     # GET /org_admin/templates/:template_id/phases/[:id]
@@ -13,11 +13,13 @@ module OrgAdmin
       end
       section = params.fetch(:section, nil)
       render('container',
-        locals: { 
+        locals: {
           partial_path: 'show',
           template: phase.template,
           phase: phase,
-          sections: phase.sections.order(:number).select(:id, :title, :modifiable),
+          prefix_section: phase.prefix_section,
+          sections: phase.template_sections.order(:number),
+          suffix_sections: phase.suffix_sections.order(:number),
           current_section: section.present? ? Section.find_by(id: section, phase_id: phase.id) : nil
         })
     end
@@ -32,7 +34,7 @@ module OrgAdmin
         redirect_to org_admin_template_phase_path(template_id: phase.template, id: phase.id, section: section)
       else
         render('container',
-          locals: { 
+          locals: {
             partial_path: 'edit',
             template: phase.template,
             phase: phase,
@@ -42,29 +44,29 @@ module OrgAdmin
       end
     end
 
-    #preview a phase
+    # preview a phase
     # GET /org_admin/phases/[:id]/preview
     def preview
       phase = Phase.includes(:template).find(params[:id])
       authorize phase
-      render('/org_admin/phases/preview', 
+      render('/org_admin/phases/preview',
         locals: {
           template: phase.template,
           phase: phase
         })
     end
 
-    #add a new phase to a passed template
+    # add a new phase to a passed template
     # GET /org_admin/phases/new
     def new
       template = Template.includes(:phases).find(params[:template_id])
       if template.latest?
         nbr = template.phases.maximum(:number)
-        phase = Phase.new({
+        phase = Phase.new(
           template: template,
           modifiable: true,
           number: (nbr.present? ? nbr + 1 : 1)
-        })
+        )
         authorize phase
         render('/org_admin/templates/container',
           locals: {
@@ -77,8 +79,8 @@ module OrgAdmin
         render org_admin_templates_path, alert: _('You canot add a phase to a historical version of a template.')
       end
     end
-        
-    #create a phase
+
+    # create a phase
     # POST /org_admin/phases
     def create
       phase = Phase.new(phase_params)
@@ -102,7 +104,7 @@ module OrgAdmin
       end
     end
 
-    #update a phase of a template
+    # update a phase of a template
     # PUT /org_admin/phases/[:id]
     def update
       phase = Phase.find(params[:id])
@@ -120,7 +122,14 @@ module OrgAdmin
       redirect_to edit_org_admin_template_phase_path(template_id: phase.template.id, id: phase.id)
     end
 
-    #delete a phase
+    def sort
+      @phase = Phase.find(params[:id])
+      authorize @phase
+      Section.update_numbers!(*params.fetch(:sort_order, []), phase: @phase)
+      head :ok
+    end
+
+    # delete a phase
     # DELETE org_admin/phases/[:id]
     def destroy
       phase = Phase.includes(:template).find(params[:id])
@@ -136,7 +145,7 @@ module OrgAdmin
       rescue StandardError => e
         flash[:alert] = _('Unable to create a new version of this template.')
       end
-      
+
       if flash[:alert].present?
         redirect_to org_admin_template_phase_path(template.id, phase.id)
       else
