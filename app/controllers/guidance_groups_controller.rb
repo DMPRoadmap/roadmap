@@ -19,7 +19,7 @@ class GuidanceGroupsController < ApplicationController
   # POST /guidance_groups
   # POST /guidance_groups.json
   def admin_create
-    @guidance_group = GuidanceGroup.new(params[:guidance_group])
+    @guidance_group = GuidanceGroup.new(guidance_group_params)
     authorize @guidance_group
     @guidance_group.org_id = current_user.org_id
     if params[:save_publish]
@@ -49,8 +49,8 @@ class GuidanceGroupsController < ApplicationController
     @guidance_group.org_id = current_user.org_id
     @guidance_group.published = true unless params[:save_publish].nil?
 
-    if @guidance_group.update_attributes(params[:guidance_group])
-      redirect_to admin_index_guidance_path(params[:guidance_group]), notice: success_message(_('guidance group'), _('saved'))
+    if @guidance_group.update(guidance_group_params)
+      redirect_to admin_index_guidance_path(guidance_group_params), notice: success_message(_('guidance group'), _('saved'))
     else
       flash[:alert] = failed_update_error(@guidance_group, _('guidance group'))
       render 'admin_edit'
@@ -93,4 +93,10 @@ class GuidanceGroupsController < ApplicationController
     end
   end
 
+  private
+
+  def guidance_group_params
+    params.require(:guidance_group)
+          .permit(:org_id, :name, :optional_subset, :published, :org, :guidances)
+  end
 end
