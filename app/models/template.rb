@@ -1,7 +1,7 @@
 class Template < ActiveRecord::Base
   include GlobalHelpers
   include ActiveModel::Validations
-  include TemplateScope
+
   validates_with TemplateLinksValidator
 
   before_validation :set_defaults
