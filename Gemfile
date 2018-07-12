@@ -114,6 +114,9 @@ gem 'kaminari'
 group :development, :test do
   # Ruby fast debugger - base + CLI (http://github.com/deivid-rodriguez/byebug)
   gem "byebug"
+
+  gem "rspec-rails"
+
 end
 
 group :test do
