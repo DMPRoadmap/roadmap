@@ -16,21 +16,45 @@ class SectionTest < ActiveSupport::TestCase
     assert_not Section.new(phase: @phase, number: 9).valid?, "expected the 'title' field to be required"
     assert_not Section.new(title: 'Tester', number: 9).valid?, "expected the 'phase' field to be required"
     assert_not Section.new(phase: @phase, title: 'Tester').valid?, "expected the 'number' field to be required"
-    
+
     # Ensure the bare minimum and complete versions are valid
     a = Section.new(phase: @phase, title: 'Tester', number: 9)
-    assert a.valid?, "expected the 'phase', 'title' and 'number' fields to be enough to create an Section! - #{a.errors.map{|f, m| f.to_s + ' ' + m}.join(', ')}"
+    assert a.valid?, "expected the 'phase', 'title' and 'number' fields to be enough to create an Section! - #{a.errors.map { |f, m| f.to_s + ' ' + m }.join(', ')}"
   end
-  
+
   test "to_s returns the title" do
     assert_equal @section.title, @section.to_s
   end
-  
+
   test "#deep_copy creates a new section object and attaches new question objects" do
     assert_deep_copy(@section, @section.deep_copy, relations: [:questions])
   end
 
   test "default values are properly set on section creation" do
     assert(@section.modifiable, 'expected a new section to be modifiable')
+  end
+
+  test "invalid if number already taken" do
+    @new_section = Section.new(title: "Test section",
+                               number: @phase.number,
+                               phase: @phase)
+    assert(@new_section.invalid?)
+    assert_not_empty(@new_section.errors[:number])
+  end
+
+  test "valid if number is unique" do
+    @new_section = Section.new(title: "Test section",
+                               number: rand(1_000),
+                               phase: @phase)
+    assert(@new_section.valid?)
+    assert_empty(@new_section.errors[:number])
+  end
+
+  test "valid if number is taken in other phase" do
+    @new_section = Section.new(title: "Test section",
+                               number: @phase.number,
+                               phase: Phase.new)
+    assert(@new_section.valid?)
+    assert_empty(@new_section.errors[:number])
   end
 end
