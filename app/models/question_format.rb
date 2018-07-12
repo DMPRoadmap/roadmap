@@ -5,14 +5,9 @@ class QuestionFormat < ActiveRecord::Base
   has_many :questions
 
   enum formattype: [ :textarea, :textfield, :radiobuttons, :checkbox, :dropdown, :multiselectbox, :date, :rda_metadata ]
-  attr_accessible :formattype
 
   validates :title, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
 
-  ##
-  # Possibly needed for active_admin
-  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :title, :description, :option_based, :questions, :as => [:default, :admin]
 
   # Retrieves the id for a given formattype passed
   scope :id_for, -> (formattype) { where(formattype: formattype).pluck(:id).first }

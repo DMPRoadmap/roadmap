@@ -13,22 +13,17 @@ class Phase < ActiveRecord::Base
   belongs_to :template
   has_many :sections, -> { order(:number => :asc) }, dependent: :destroy
 
-  ##
-  # Possibly needed for active_admin
-  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :description, :number, :title, :template_id, 
-                  :template, :sections, :modifiable, :as => [:default, :admin]
 
   validates :title, :number, :template, presence: {message: _("can't be blank")}
 
   scope :titles, -> (template_id) {
     Phase.where(template_id: template_id).select(:id, :title)
   }
-  
+
 # TODO: Remove after implementing new template versioning logic
   # Callbacks
   after_save do |phase|
-    # Updates the template.updated_at attribute whenever a phase has been created/updated 
+    # Updates the template.updated_at attribute whenever a phase has been created/updated
     phase.template.touch if template.present?
   end
 
@@ -37,7 +32,7 @@ class Phase < ActiveRecord::Base
     copy.modifiable = options.fetch(:modifiable, self.modifiable)
     copy.template_id = options.fetch(:template_id, nil)
     copy.save!(validate:false)  if options.fetch(:save, false)
-    options[:phase_id] = id
+    options[:phase_id] = copy.id
     self.sections.each{ |section| copy.sections << section.deep_copy(options) }
     return copy
   end
@@ -47,7 +42,7 @@ class Phase < ActiveRecord::Base
   def num_answered_questions(plan)
     return 0 if plan.nil?
     return sections.reduce(0) do |m, s|
-      m + s.num_answered_questions(plan) 
+      m + s.num_answered_questions(plan)
     end
   end
 
