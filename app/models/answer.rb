@@ -23,12 +23,6 @@ class Answer < ActiveRecord::Base
 
   has_many :notes
 
-  ##
-  # Possibly needed for active_admin
-  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :text, :plan_id, :lock_version, :question_id, :user_id, :question_option_ids,
-                  :question, :user, :plan, :question_options, :notes, :note_ids, :id,
-                  :as => [:default, :admin]
 
   ##
   # Validations

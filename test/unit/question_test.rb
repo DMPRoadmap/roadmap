@@ -4,7 +4,7 @@ class QuestionTest < ActiveSupport::TestCase
 
   setup do
     # Need to clear the tables until we get seed.rb out of test_helper.rb
-    Template.delete_all    
+    Template.delete_all
     @funder = init_funder
     @institution = init_institution
     @template = init_template(@institution, published: true)
@@ -30,23 +30,23 @@ class QuestionTest < ActiveSupport::TestCase
 
   test "option_based? returns the correct boolean value" do
     assert_not @question.option_based?
-# TODO: replace with a call to the init_question_format factory method once seeds.rb is no longer being loaded 
+# TODO: replace with a call to the init_question_format factory method once seeds.rb is no longer being loaded
     @question.question_format = QuestionFormat.find_by(option_based: true)
     @question.save!
     assert @question.option_based?
   end
-  
+
   test "#deep_copy creates a new question object and attaches new annotations/question_options objects" do
     init_annotation(@institution, @question)
     init_question_option(@question)
     assert_deep_copy(@question, @question.deep_copy, relations: [:annotations, :question_options])
   end
-  
+
 # TODO: This method should get moved to a view helper instead
   test "returns the correct themed guidance for the org" do
     theme = init_theme
     guidance_group = init_guidance_group(@institution)
-    funder_guidance_group = init_guidance_group(@funder, { title: 'Test funder guidance group' } )
+    funder_guidance_group = init_guidance_group(@funder, { name: 'Test funder guidance group' } )
     guidance = init_guidance(guidance_group, { themes: [theme] })
     funder_guidance = init_guidance(funder_guidance_group, { themes: [theme] })
 
@@ -63,14 +63,14 @@ class QuestionTest < ActiveSupport::TestCase
     assert_equal 1, funder_guidances.length
     assert_equal funder_guidance, funder_guidances.first.last
   end
-    
+
   # ---------------------------------------------------
   test "returns the correct annotation for the org" do
     annotation = init_annotation(@institution, @question, { type: Annotation.types[:example_answer] })
     annotation2 = init_annotation(@institution, @question)
     funder_annotation = init_annotation(@funder, @question, { text: 'Test funder example answer', type: Annotation.types[:example_answer] } )
     funder_annotation2 = init_annotation(@funder, @question, { text: 'Test funder guidance'} )
-        
+
     institutional_annotations = @question.get_example_answers(@institution)
     assert_equal 1, institutional_annotations.length
     assert_equal annotation, institutional_annotations.first
