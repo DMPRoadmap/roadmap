@@ -2,8 +2,6 @@ class ExportedPlan < ActiveRecord::Base
   include GlobalHelpers
   include SettingsTemplateHelper
 
-# TODO: REMOVE AND HANDLE ATTRIBUTE SECURITY IN THE CONTROLLER!
-  attr_accessible :plan_id, :user_id, :format, :user, :plan, :as => [:default, :admin]
 
   #associations between tables
   belongs_to :plan
