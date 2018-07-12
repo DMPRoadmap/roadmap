@@ -1,3 +1,26 @@
+# == Schema Information
+#
+# Table name: phases
+#
+#  id          :integer          not null, primary key
+#  description :text
+#  modifiable  :boolean
+#  number      :integer
+#  slug        :string
+#  title       :string
+#  created_at  :datetime
+#  updated_at  :datetime
+#  template_id :integer
+#
+# Indexes
+#
+#  index_phases_on_template_id  (template_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (template_id => templates.id)
+#
+
 # [+Project:+] DMPRoadmap
 # [+Description:+] This model describes informmation about the phase of a plan, it's title, order of display and which template it belongs to.
 #
