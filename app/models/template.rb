@@ -4,13 +4,13 @@ class Template < ActiveRecord::Base
   include TemplateScope
   validates_with TemplateLinksValidator
 
-  before_validation :set_defaults 
+  before_validation :set_defaults
   after_update :reconcile_published, if: Proc.new { |template| template.published? }
 
   # Stores links as an JSON object: { funder: [{"link":"www.example.com","text":"foo"}, ...], sample_plan: [{"link":"www.example.com","text":"foo"}, ...]}
   # The links is validated against custom validator allocated at validators/template_links_validator.rb
   serialize :links, JSON
-  
+
   ##
   # Associations
   belongs_to :org
@@ -19,6 +19,123 @@ class Template < ActiveRecord::Base
   has_many :sections, through: :phases
   has_many :questions, through: :sections
 
+  # ==========
+  # = Scopes =
+  # ==========
+
+  scope :archived, -> { where(archived: true) }
+
+  scope :unarchived, -> { where(archived: false) }
+
+  scope :default, -> { where(is_default: true, published: true).last }
+
+  scope :published, -> (family_id = nil) {
+    if family_id.present?
+      unarchived.where(published: true, family_id: family_id)
+    else
+      unarchived.where(published: true)
+    end
+  }
+
+  # Retrieves the latest templates, i.e. those with maximum version associated.
+  # It can be filtered down if family_id is passed. NOTE, the template objects
+  # instantiated only contain version and family attributes populated. See
+  # Template::latest_version scope method for an adequate instantiation of
+  # template instances.
+  scope :latest_version_per_family, -> (family_id = nil) {
+    chained_scope = unarchived.select("MAX(version) AS version", :family_id)
+    if family_id.present?
+      chained_scope = chained_scope.where(family_id: family_id)
+    end
+    chained_scope.group(:family_id)
+  }
+
+  scope :latest_customized_version_per_customised_of, -> (customization_of=nil,
+                                                          org_id = nil) {
+    chained_scope = select("MAX(version) AS version", :customization_of)
+    chained_scope = chained_scope.where(customization_of: customization_of)
+    if org_id.present?
+      chained_scope = chained_scope.where(org_id: org_id)
+    end
+    chained_scope.group(:customization_of)
+  }
+
+  # Retrieves the latest templates, i.e. those with maximum version associated.
+  # It can be filtered down if family_id is passed
+  scope :latest_version, -> (family_id = nil) {
+    unarchived.from(latest_version_per_family(family_id), :current)
+      .joins(<<~SQL)
+        INNER JOIN templates ON current.version = templates.version
+          AND current.family_id = templates.family_id
+        INNER JOIN orgs ON orgs.id = templates.org_id
+      SQL
+  }
+
+  # Retrieves the latest customized versions, i.e. those with maximum version
+  # associated for a set of family_id and an org
+  scope :latest_customized_version, -> (family_id = nil, org_id = nil) {
+    unarchived
+      .from(latest_customized_version_per_customised_of(family_id, org_id),
+            :current)
+      .joins(<<~SQL)
+        INNER JOIN templates ON current.version = templates.version
+          AND current.customization_of = templates.customization_of
+        INNER JOIN orgs ON orgs.id = templates.org_id
+      SQL
+      .where(templates: { org_id: org_id })
+  }
+
+  # Retrieves the latest templates, i.e. those with maximum version associated
+  # for a set of org_id passed
+  scope :latest_version_per_org, -> (org_id = nil) {
+    if org_id.respond_to?(:each)
+      family_ids = families(org_id).pluck(:family_id)
+    else
+      family_ids = families([org_id]).pluck(:family_id)
+    end
+    latest_version(family_ids)
+  }
+
+  # Retrieve all of the latest customizations for the specified org
+  scope :latest_customized_version_per_org, -> (org_id=nil) {
+    family_ids = families(org_id).pluck(:family_id)
+    latest_customized_version(family_ids, org_id)
+  }
+
+  # Retrieves templates with distinct family_id. It can be filtered down if
+  # org_id is passed
+  scope :families, -> (org_id=nil) {
+    if org_id.respond_to?(:each)
+      unarchived.where(org_id: org_id, customization_of: nil).distinct
+    else
+      unarchived.where(customization_of: nil).distinct
+    end
+  }
+
+  # Retrieves the latest version of each customizable funder template (and the
+  # default template)
+  scope :latest_customizable, -> {
+    family_ids = families(Org.funder.collect(&:id)).distinct.pluck(:family_id) << default.family_id
+    published(family_ids.flatten).where('visibility = ? OR is_default = ?', visibilities[:publicly_visible], true)
+  }
+
+  # Retrieves unarchived templates with public visibility
+  scope :publicly_visible, -> {
+    unarchived.where(visibility: visibilities[:publicly_visible])
+  }
+
+  # Retrieves unarchived templates with organisational visibility
+  scope :organisationally_visible, -> {
+    unarchived.where(visibility: visibilities[:organisationally_visible])
+  }
+
+  # Retrieves unarchived templates whose title or org.name includes the term
+  # passed
+  scope :search, -> (term) {
+    unarchived.where("templates.title LIKE :term OR orgs.name LIKE :term",
+                       { term: "%#{term}%" })
+  }
+
   ##
   # Possibly needed for active_admin
   #   -relies on protected_attributes gem as syntax depricated in rails 4.2
@@ -26,7 +143,7 @@ class Template < ActiveRecord::Base
                   :is_default, :guidance_group_ids, :org, :plans, :phases, :family_id,
                   :archived, :version, :visibility, :published, :links, :as => [:default, :admin]
 
-  # A standard template should be organisationally visible. Funder templates that are 
+  # A standard template should be organisationally visible. Funder templates that are
   # meant for external use will be publicly visible. This allows a funder to create 'funder' as
   # well as organisational templates. The default template should also always be publicly_visible
   enum visibility: [:organisationally_visible, :publicly_visible]
@@ -38,7 +155,7 @@ class Template < ActiveRecord::Base
 
   validates :org, :title, presence: {message: _("can't be blank")}
 
-  # Class methods gets defined within this 
+  # Class methods gets defined within this
   class << self
     def current(family_id)
       unarchived.where(family_id: family_id).order(version: :desc).first
@@ -163,7 +280,7 @@ class Template < ActiveRecord::Base
       }, modifiable: false, save: true)
     return customization
   end
-  
+
   # Generates a new copy of self including latest changes from the funder this template is customized_of
   def upgrade_customization!
     raise _('upgrade_customization! requires a customised template') unless customization_of.present?
@@ -230,7 +347,7 @@ class Template < ActiveRecord::Base
       end
       family_id
     end
-    
+
     # Default values to set before running any validation
     def set_defaults
       self.published ||= false
@@ -243,7 +360,7 @@ class Template < ActiveRecord::Base
       self.archived ||= false
       self.links ||= { funder: [], sample_plan: [] }
     end
-    
+
     # Only one version of a template should be published at a time, so if this one was published make sure other versions are not
     def reconcile_published
       # Unpublish all other versions of this template family
