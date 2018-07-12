@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: annotations
+#
+#  id          :integer          not null, primary key
+#  question_id :integer
+#  org_id      :integer
+#  text        :text
+#  type        :integer          default(0), not null
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 require 'test_helper'
 
 class AnnotationTest < ActiveSupport::TestCase
