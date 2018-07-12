@@ -9,10 +9,6 @@ class Section < ActiveRecord::Base
   #Link the data
   accepts_nested_attributes_for :questions, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
 
-  attr_accessible :phase_id, :description, :number, :title, :published,
-                  :questions_attributes, :organisation, :phase, :modifiable,
-                  :as => [:default, :admin]
-
   validates :phase, :title, :number, presence: {message: _("can't be blank")}
 
   before_validation :set_defaults
@@ -42,7 +38,7 @@ class Section < ActiveRecord::Base
     copy.modifiable = options.fetch(:modifiable, self.modifiable)
     copy.phase_id = options.fetch(:phase_id, nil)
     copy.save!(validate: false)  if options.fetch(:save, false)
-    options[:section_id] = id
+    options[:section_id] = copy.id
     self.questions.map{ |question| copy.questions << question.deep_copy(options) }
     return copy
   end
