@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: token_permission_types
+#
+#  id               :integer          not null, primary key
+#  token_type       :string
+#  text_description :text
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+
 require 'test_helper'
 
 class TokenPermissionTypeTest < ActiveSupport::TestCase
