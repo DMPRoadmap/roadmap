@@ -354,8 +354,6 @@ templates = [
    org: Org.find_by(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]),
    is_default: true,
    version: 0,
-   migrated: false,
-   dmptemplate_id: 1,
    visibility: Template.visibilities[:publicly_visible],
    links: {"funder":[],"sample_plan":[]}},
 
@@ -364,9 +362,7 @@ templates = [
    org: Org.find_by(abbreviation: 'GA'),
    is_default: false,
    version: 0,
-   migrated: false,
    visibility: Template.visibilities[:organisationally_visible],
-   dmptemplate_id: 2,
    links: {"funder":[],"sample_plan":[]}},
 
   {title: "Department of Testing Award",
@@ -374,9 +370,7 @@ templates = [
    org: Org.find_by(abbreviation: 'GA'),
    is_default: false,
    version: 0,
-   migrated: false,
    visibility: Template.visibilities[:organisationally_visible],
-   dmptemplate_id: 3,
    links: {"funder":[],"sample_plan":[]}}
 ]
 # Template creation calls defaults handler which sets is_default and

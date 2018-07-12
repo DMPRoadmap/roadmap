@@ -18,6 +18,7 @@ class Template < ActiveRecord::Base
   has_many :phases, dependent: :destroy
   has_many :sections, through: :phases
   has_many :questions, through: :sections
+  has_many :annotations, through: :questions
 
   # ==========
   # = Scopes =
@@ -136,13 +137,6 @@ class Template < ActiveRecord::Base
                        { term: "%#{term}%" })
   }
 
-  ##
-  # Possibly needed for active_admin
-  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :id, :org_id, :description, :published, :title, :locale, :customization_of,
-                  :is_default, :guidance_group_ids, :org, :plans, :phases, :family_id,
-                  :archived, :version, :visibility, :published, :links, :as => [:default, :admin]
-
   # A standard template should be organisationally visible. Funder templates that are
   # meant for external use will be publicly visible. This allows a funder to create 'funder' as
   # well as organisational templates. The default template should also always be publicly_visible
@@ -157,9 +151,11 @@ class Template < ActiveRecord::Base
 
   # Class methods gets defined within this
   class << self
+
     def current(family_id)
       unarchived.where(family_id: family_id).order(version: :desc).first
     end
+
     def live(family_id)
       if family_id.respond_to?(:each)
         unarchived.where(family_id: family_id, published: true)
@@ -167,14 +163,15 @@ class Template < ActiveRecord::Base
         unarchived.where(family_id: family_id, published: true).first
       end
     end
+
     def find_or_generate_version!(template)
-      if template.latest?
-        if template.generate_version?
-          return template.generate_version!
-        end
-        return template
+      if template.latest? && template.generate_version?
+        template.generate_version!
+      elsif template.latest? && !template.generate_version?
+        template
+      else
+        raise _('A historical template cannot be retrieved for being modified')
       end
-      raise _('A historical template cannot be retrieved for being modified')
     end
   end
 
