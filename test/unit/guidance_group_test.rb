@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: guidance_groups
+#
+#  id              :integer          not null, primary key
+#  name            :string
+#  org_id          :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  optional_subset :boolean
+#  published       :boolean
+#
+
 require 'test_helper'
 
 class GuidanceGroupTest < ActiveSupport::TestCase

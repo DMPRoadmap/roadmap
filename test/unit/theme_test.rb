@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: themes
+#
+#  id          :integer          not null, primary key
+#  title       :string
+#  description :text
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  locale      :string
+#
+
 require 'test_helper'
 
 class ThemeTest < ActiveSupport::TestCase
