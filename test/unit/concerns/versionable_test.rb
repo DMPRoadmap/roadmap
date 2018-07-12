@@ -6,30 +6,35 @@ class VersionableTest < ActiveSupport::TestCase
   setup do
     @template = create_template
   end
+
   def create_template
-    funder = init_funder
+    funder   = init_funder
     template = init_template(funder)
-    phase = init_phase(template)
-    section = init_section(phase)
+    phase    = init_phase(template)
+    section  = init_section(phase)
     question = init_question(section)
     init_annotation(funder, question)
     return template
   end
+
   test "versionable concern is included" do
     assert(self.respond_to?(:get_modifiable))
   end
+
   test "#find_in_space raises ArgumentError when search_scape does not respond_to to each" do
     exception = assert_raises(ArgumentError) do
       find_in_space(nil, nil)
     end
     assert_equal(_('The search_space does not respond to each'), exception.message)
   end
+
   test "#find_in_space raises ArgumentError when search_scape does not have elements" do
     exception = assert_raises(ArgumentError) do
       find_in_space(nil, [])
     end
     assert_equal(_('The search space does not have elements associated'), exception.message)
   end
+
   test "#find_in_space looks for the object in the search_scape that has elements of its same class" do
     # Looking for phase
     phase = init_phase(@template)
@@ -59,6 +64,7 @@ class VersionableTest < ActiveSupport::TestCase
     # Looking for something else
     assert_not(find_in_space({}, [{}]))
   end
+
   test "#find_in_space looks for the object in the relation" do
     # Looking for section
     section = init_section(@template.phases.first)
@@ -75,6 +81,7 @@ class VersionableTest < ActiveSupport::TestCase
     # Looking for a question in a not known search_space
     assert_not(find_in_space(Question.new, [{}]))
   end
+
   test "#find_in_space looks for an object that does not belong to the hierarchy" do
     question = init_question(@template.phases.first.sections.first)
     question.phase.number = 2
@@ -175,7 +182,7 @@ class VersionableTest < ActiveSupport::TestCase
       @template.phases.first.sections.first.questions.first,
       @template.phases.first.sections.first.questions.first.annotations.first
     ]
-    
+
     hierarchy_objects.each do |obj|
       exception = assert_raises(RuntimeError) do
         get_modifiable(obj)
@@ -228,21 +235,22 @@ class VersionableTest < ActiveSupport::TestCase
   test "#get_modifiable returns new question when template is published" do
     @template.published = true
     @template.save!
-    question = @template.phases.first.sections.first.questions.first
+    question     = @template.phases.first.sections.first.questions.first
     new_question = get_modifiable(question)
-    assert_not_equal(question.id, new_question.id, 'returns different question id')
-    assert_not_equal(question.section.phase.template, new_question.section.phase.template, 'returns different template belonging')
+    refute_equal(question.id, new_question.id, 'returns different question id')
+    refute_equal(question.section.phase.template, new_question.section.phase.template, 'returns different template belonging')
   end
 
   test "#get_modifiable returns new annotation when template is published" do
     @template.published = true
     @template.save!
-    annotation = @template.phases.first.sections.first.questions.first.annotations.first
-    new_annotation = get_modifiable(annotation)
-    assert_not_equal(annotation.id, new_annotation.id, 'returns different annotation id')
-    assert_not_equal(annotation.question.section.phase.template, new_annotation.question.section.phase.template, 'returns different template belonging')
+    @annotation     = @template.phases.first.sections.first.questions.first.annotations.first
+    @new_annotation = get_modifiable(@annotation)
+    @new_template   = @new_annotation.question.section.phase.template
+    refute_equal(@annotation, @new_annotation, 'returns different annotation id')
+    refute_equal(@template, @new_template, 'returns different template belonging')
   end
-  
+
   test "#get_modifiable returns new question_option when template is published" do
     @template.published = true
     @template.save!

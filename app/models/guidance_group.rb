@@ -9,11 +9,6 @@ class GuidanceGroup < ActiveRecord::Base
   # has_and_belongs_to_many :guidances, join_table: "guidance_in_group"
 
 
-  ##
-  # Possibly needed for active_admin
-  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :org_id, :name, :optional_subset, :published, :org, :guidances,
-                  :as => [:default, :admin]
 
   validates :name, :org, presence: {message: _("can't be blank")}
 
