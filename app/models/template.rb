@@ -138,13 +138,6 @@ class Template < ActiveRecord::Base
                        { term: "%#{term}%" })
   }
 
-  ##
-  # Possibly needed for active_admin
-  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :id, :org_id, :description, :published, :title, :locale, :customization_of,
-                  :is_default, :guidance_group_ids, :org, :plans, :phases, :family_id,
-                  :archived, :version, :visibility, :published, :links, :as => [:default, :admin]
-
   # A standard template should be organisationally visible. Funder templates that are
   # meant for external use will be publicly visible. This allows a funder to create 'funder' as
   # well as organisational templates. The default template should also always be publicly_visible
