@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: prefs
+#
+#  id       :integer          not null, primary key
+#  settings :text
+#  user_id  :integer
+#
+
 class Pref < ActiveRecord::Base
   ##
   # Serialize prefs to JSON
