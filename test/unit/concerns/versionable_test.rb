@@ -67,9 +67,14 @@ class VersionableTest < ActiveSupport::TestCase
 
   test "#find_in_space looks for the object in the relation" do
     # Looking for section
-    section = init_section(@template.phases.first)
-    assert_equal(@template.phases.first.sections.first,
-      find_in_space(section, @template.phases), 'section found in the space through its phase number')
+    @template = Template.create!(title: "New test template", org: Org.create(name: "Gavin's org"))
+    @phase    = @template.phases.create!(title: "New test phase", number: 1)
+    @section       = init_section(@phase, number: rand(10_000))
+    @found_section = find_in_space(@section, @template.phases)
+    @templ_section = @phase.sections.first
+    assert_equal(@found_section, @templ_section,
+                 'section found in the space through its phase number')
+
     # Looking for question
     question = init_question(@template.phases.first.sections.first)
     assert_equal(@template.phases.first.sections.first.questions.first,

@@ -10,6 +10,7 @@ require 'webmock/minitest'
 require 'minitest/mock'
 require 'active_support/inflector' # For pluralization utility
 
+
 class ActiveSupport::TestCase
   include GlobalHelpers
 
