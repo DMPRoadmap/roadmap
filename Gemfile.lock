@@ -60,6 +60,7 @@ GEM
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
     daemons (1.2.6)
+    database_cleaner (1.7.0)
     debug_inspector (0.0.3)
     devise (4.4.3)
       bcrypt (~> 3.0)
@@ -280,6 +281,7 @@ DEPENDENCIES
   binding_of_caller
   byebug
   contact_us
+  database_cleaner
   devise
   devise_invitable
   dragonfly
