@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: settings
+#
+#  id          :integer          not null, primary key
+#  target_type :string           not null
+#  value       :text
+#  var         :string           not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  target_id   :integer          not null
+#
+# Indexes
+#
+#  index_settings_on_target_type_and_target_id_and_var  (target_type,target_id,var) UNIQUE
+#
+
 module Settings
   class Template < RailsSettings::SettingObject
 
