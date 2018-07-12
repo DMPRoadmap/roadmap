@@ -8,19 +8,14 @@
     </div>
   </div>
   <div id="feeback-email">
-    <h3><%= _('Request Expert Feedback - Automated Email:') %></h3>
+    <h3>
+      <%= _('Request Expert Feedback - Message Displayed on Share Plan Tab:') %>
+    </h3>
     <div class="row">
-      <div class="form-group col-xs-8">
-        <%= f.label :feedback_email_subject, _('Subject'), class: "control-label" %>
-
-        <%= f.text_field :feedback_email_subject, class: "form-control", placeholder: feedback_confirmation_default_subject.gsub('%{application_name}', Rails.configuration.branding[:application][:name]) %>
-      </div>
-    </div>
-    <div class="row">
-      <% tip = feedback_confirmation_default_message.gsub('%{organisation_email}',  org.contact_email.present? ? org.contact_email : '%{organisation_email}') %>
-      <div class="form-group col-xs-8" data-toggle="tooltip" data-html="true" title="<%= tip %>">
+      <div class="form-group col-xs-8" data-toggle="tooltip" data-html="true" title="<%= tooltip_for_org_feedback_form(org) %>">
         <%= f.label :feedback_email_msg, _('Message'), class: "control-label" %>
-        <%= f.text_area :feedback_email_msg, class: "form-control" %>
+        <%= f.text_area :feedback_email_msg, class: "form-control",
+                        "aria-required" => true %>
       </div>
     </div>
   </div>
