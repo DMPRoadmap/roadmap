@@ -14,9 +14,6 @@ gem 'railties'
 # THESE GEMS HELP SUPPORT DEPRACATED FUNCTIONALITY AND WILL LOSE SUPPORT IN
 # FUTURE VERSIONS WE SHOULD CONSIDER BRINGING THE CODE UP TO DATE INSTEAD
 
-# Protect attributes from mass assignment in Active Record models (https://github.com/rails/protected_attributes)
-gem 'protected_attributes', '~> 1.1.3'
-
 # A set of Rails responders to dry up your application (http://github.com/plataformatec/responders)
 gem 'responders', '~> 2.0'
 
