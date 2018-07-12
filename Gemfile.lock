@@ -36,6 +36,11 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
+    annotate (2.7.4)
+      activerecord (>= 3.2, < 6.0)
+      rake (>= 10.4, < 13.0)
+    annotate_gem (0.0.12)
+      bundler (~> 1.1)
     ansi (1.5.0)
     arel (6.0.4)
     bcrypt (3.1.11)
@@ -244,6 +249,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  annotate
+  annotate_gem
   better_errors
   binding_of_caller
   byebug
