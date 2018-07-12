@@ -18,6 +18,8 @@ class Template < ActiveRecord::Base
   has_many :phases, dependent: :destroy
   has_many :sections, through: :phases
   has_many :questions, through: :sections
+  has_many :annotations, through: :questions
+
 
   # ==========
   # = Scopes =
@@ -157,9 +159,11 @@ class Template < ActiveRecord::Base
 
   # Class methods gets defined within this
   class << self
+
     def current(family_id)
       unarchived.where(family_id: family_id).order(version: :desc).first
     end
+
     def live(family_id)
       if family_id.respond_to?(:each)
         unarchived.where(family_id: family_id, published: true)
@@ -167,14 +171,15 @@ class Template < ActiveRecord::Base
         unarchived.where(family_id: family_id, published: true).first
       end
     end
+
     def find_or_generate_version!(template)
-      if template.latest?
-        if template.generate_version?
-          return template.generate_version!
-        end
-        return template
+      if template.latest? && template.generate_version?
+        template.generate_version!
+      elsif template.latest? && !template.generate_version?
+        template
+      else
+        raise _('A historical template cannot be retrieved for being modified')
       end
-      raise _('A historical template cannot be retrieved for being modified')
     end
   end
 
