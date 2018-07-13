@@ -9,9 +9,11 @@ module OrgsHelper
   # @return [String] The tooltip message
   def tooltip_for_org_feedback_form(org)
     email = org.contact_email.presence || DEFAULT_EMAIL
-    _("Someone will respond to your request within 48 hours. If you have \
-    questions pertaining to this action please contact us at %{email}") % {
-      email: email
+    _("A data librarian from %{org_name} will respond to your request within 48
+       hours. If you have questions pertaining to this action please contact us
+       at %{organisation_email}.") % {
+      organisation_email: email,
+      org_name: org.name
     }
   end
 end
