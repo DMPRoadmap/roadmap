@@ -29,7 +29,7 @@
         <p>
           <%= _('Would you like to use the default template "Default Template"?') %>
         </p>
-        <button class="btn btn-primary"><%= _('Use Default Template') %></button>
+        <%= direct_link(@default_template, false, _('Use Default Template')) %>
         <!-- Hidden fields to store information about the default organisation (user's org) -->
         <% if @default_org %>
           <%= hidden_field_tag('own_org_name', @default_org.name) %>
@@ -120,7 +120,7 @@
       <div class="pull-right">
         <%= f.button(_('Yes'), class: "btn btn-primary", type: "submit") %>
         <%= link_to _('No'), '', class: 'btn btn-primary', id: 'no-btn' %>
-        <%= link_to _('Default template'), '', class: 'btn btn-primary', id: 'end-default-btn', style: 'display: none;' %>
+        <%= direct_link(@default_template, true, _('Use Default Template'), 'end-default-btn') %>
       </div>
     </div>
     <% end %>

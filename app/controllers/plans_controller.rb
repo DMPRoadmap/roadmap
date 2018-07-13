@@ -24,6 +24,9 @@ class PlansController < ApplicationController
     # Get the current user's org
     @default_org = current_user.org if @orgs.include?(current_user.org)
 
+    # Get the default template
+    @default_template = Template.default
+
     flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>" if params[:test]
     @is_test = params[:test] ||= false
     respond_to :html
