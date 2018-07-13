@@ -103,7 +103,7 @@
       <h2><%= _('Request expert feedback') %></h2>
       <p><%= _('Click below to give data management staff at your organisation access to read and comment on your plan.') %></p>
       <div class="well well-sm">
-        <%= current_user.org.feedback_email_msg.html_safe %>
+        <%= current_user.org.feedback_email_msg %>
       </div>
       <p><%= _('You can continue to edit and download the plan in the interim.') %></p>
 
