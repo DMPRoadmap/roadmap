@@ -34,16 +34,35 @@ class Phase < ActiveRecord::Base
   ##
   # Associations
   belongs_to :template
-  has_many :sections, -> { order(:number => :asc) }, dependent: :destroy
+
+  has_one :prefix_section, -> (phase) {
+    modifiable.where("number < ?",
+                      phase.sections.not_modifiable.minimum(:number))
+  }, class_name: "Section"
+
+  has_many :sections, dependent: :destroy
+
+  has_many :template_sections, -> {
+    not_modifiable
+  }, class_name: "Section"
 
 
-  validates :title, :number, :template, presence: {message: _("can't be blank")}
+  has_many :suffix_sections, -> (phase) {
+    modifiable.where(<<~SQL, phase_id: phase.id, modifiable: false)
+      sections.number > (SELECT MAX(number) FROM sections
+                           WHERE sections.modifiable = :modifiable)
+                           AND sections.phase_id = :phase_id
+    SQL
+  }, class_name: "Section"
+
+
+  validates :title, :number, :template, presence: { message: _("can't be blank") }
 
   scope :titles, -> (template_id) {
     Phase.where(template_id: template_id).select(:id, :title)
   }
 
-# TODO: Remove after implementing new template versioning logic
+  # TODO: Remove after implementing new template versioning logic
   # Callbacks
   after_save do |phase|
     # Updates the template.updated_at attribute whenever a phase has been created/updated
@@ -60,7 +79,7 @@ class Phase < ActiveRecord::Base
     return copy
   end
 
-# TODO: Move this to Plan model as `num_answered_questions(phase=nil)`
+  # TODO: Move this to Plan model as `num_answered_questions(phase=nil)`
   # Returns the number of answered question for the phase.
   def num_answered_questions(plan)
     return 0 if plan.nil?
@@ -76,6 +95,6 @@ class Phase < ActiveRecord::Base
     self.sections.each do |s|
       n+= s.questions.size()
     end
-    return n
+    n
   end
 end
