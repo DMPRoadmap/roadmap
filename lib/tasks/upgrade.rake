@@ -1,6 +1,14 @@
 require 'set'
 namespace :upgrade do
 
+  desc "Ensure all section numbers are unique per Phase."
+  task clean_section_numbers: :environment do
+    Phase.all.each do |phase|
+      ids_in_order = phase.sections.order("number, created_at").pluck(:id)
+      Section.update_numbers!(*ids_in_order, phase: phase)
+    end
+  end
+
   desc "Upgrade to v1.1.2"
   task v1_1_2: :environment do
     Rake::Task['upgrade:check_org_contact_emails'].execute
@@ -434,15 +442,15 @@ namespace :upgrade do
       end
     end
   end
-  
+
   desc "Add the 'other' org if it is not present."
   task add_other_org: :environment do
     puts "Checking for existence of an 'Other' org. Unaffiliated users should be affiliated with this org"
-    
+
     # Get the helpdesk email from the branding YAML
     branding = YAML.load(File.open('./config/branding.yml'))
     if branding.present? && branding['defaults'].present? && branding['defaults']['organisation'].present? && branding['defaults']['organisation']['helpdesk_email'].present?
-      email = branding['defaults']['organisation']['helpdesk_email'] 
+      email = branding['defaults']['organisation']['helpdesk_email']
       name = branding['defaults']['organisation']['name'].present? ? "#{branding['defaults']['organisation']['name']} helpdesk" : 'Helpdesk'
     else
       email = 'other.organisation@example.org'
@@ -464,7 +472,7 @@ namespace :upgrade do
         is_other: true,
       })
     end
-    
+
     unaffiliated = User.where(org_id: nil)
     unless unaffiliated.empty?
       puts "The following users are not associated with an org. Assigning them to the 'Other' org."
