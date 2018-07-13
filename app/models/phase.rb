@@ -40,10 +40,10 @@ class Phase < ActiveRecord::Base
                       phase.sections.not_modifiable.minimum(:number))
   }, class_name: "Section"
 
-  has_many :sections, -> { order(number: :asc) }, dependent: :destroy
+  has_many :sections, dependent: :destroy
 
   has_many :template_sections, -> {
-    not_modifiable.order(number: :asc)
+    not_modifiable
   }, class_name: "Section"
 
 
