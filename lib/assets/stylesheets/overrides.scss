@@ -432,7 +432,7 @@ $tooltip-background: $grey;
 }
 
 .combobox-suggestions {
-  position: static;
+  position: absolute;
   left: 0;
   width: 100%;
   background: $white;
