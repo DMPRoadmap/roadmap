@@ -38,7 +38,9 @@ module OrgAdmin
             partial_path: 'edit',
             template: phase.template,
             phase: phase,
+            prefix_section: phase.prefix_section,
             sections: phase.sections.order(:number).select(:id, :title, :modifiable),
+            suffix_sections: phase.suffix_sections.order(:number),
             current_section: section.present? ? Section.find_by(id: section, phase_id: phase.id) : nil
           })
       end
