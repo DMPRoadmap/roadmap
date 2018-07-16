@@ -318,12 +318,12 @@ body{
 }
 
 /* footer */
-#footer-navbar {
+footer {
+  position: absolute;
   bottom: 0;
   margin-top: 20px;
   margin-bottom: -20px;
   width: 100%;
-  position: absolute;
 }
 
 
@@ -436,7 +436,7 @@ $tooltip-background: $grey;
   left: 0;
   width: 100%;
   background: $white;
-  z-index: 99;
+  z-index: 1100;
 }
 .combobox-suggestion {
   color: $grey;
