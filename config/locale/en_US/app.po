@@ -464,7 +464,7 @@ msgid "Add an appropriate name for your guidance group. This name will be used t
 msgstr "Add an appropriate name for your guidance group. This name will be used to tell the end user where the guidance has come from. It will be appended to text identifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so we suggest you just use the organization or department name."
 
 msgid "Add an appropriate name for your guidance group. This name will tell the end user where the guidance has come from. We suggest you use the organisation or department name e.g. \"OU\" or \"Maths & Stats\""
-msgstr "guidance groupAdd an appropriate name for your guidance group. This name will tell the end user where the guidance has come from. We suggest you use the organization or department name e.g. \"OU\" or \"Maths & Stats\""
+msgstr "Add an appropriate name for your guidance group. This will tell users who supplied the guidance. We suggest you use the organization or department name, e.g., \"UCSF\" or \"Department of Engineering.\""
 
 msgid "Add comments to share with collaborators"
 msgstr ""
@@ -1466,7 +1466,7 @@ msgid "If others at your institution/organization have chose to share their plan
 msgstr ""
 
 msgid "If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard."
-msgstr ""
+msgstr "If the guidance is only meant for a subset of users at your organization, e.g., those in a specific department or institute, check this box. Users can make guidance selections on the Project details page when creating a new plan."
 
 msgid "If you are a researcher or potential user, we suggest you talk to a librarian at your institution. If you are an administrator (librarian or otherwise) and interested in joining, please <a href=\"%{contact_url}\">contact us</a>."
 msgstr ""
