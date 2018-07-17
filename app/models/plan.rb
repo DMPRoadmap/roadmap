@@ -194,11 +194,6 @@ class Plan < ActiveRecord::Base
         end
 
         if self.save!
-          # Send an email confirmation to the owners and co-owners
-          owners = User.joins(:roles).where('roles.plan_id =? AND roles.access IN (?)', self.id, Role.access_values_for(:administrator))
-          deliver_if(recipients: owners, key: 'users.feedback_requested') do |r|
-            UserMailer.feedback_confirmation(r, self, user).deliver_now
-          end
           # Send an email to the org-admin contact
           if user.org.contact_email.present?
             contact = User.new(email: user.org.contact_email, firstname: user.org.contact_name)

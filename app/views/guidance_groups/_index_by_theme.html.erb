@@ -1,0 +1,42 @@
+<%# locals{ guidance_groups_by_theme } %>
+<% parent_id = guidance_groups_by_theme.object_id %>
+<div id="<%= parent_id %>" class="panel-group" role="tablist" aria-multiselectable="true">
+  <div id="guidance-accordion-controls">
+    <div class="accordion-controls" data-parent="<%= parent_id %>">
+      <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
+        <span>|</span>
+      <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
+    </div>
+  </div>
+  <% guidance_groups_by_theme.each_pair do |guidance_group, theme_hash| %>
+    <% theme_hash.each_pair do |theme, guidances| %>
+      <div class="panel panel-default">
+        <div
+          class="heading-button"
+          role="button"
+          data-toggle="collapse"
+          href="<%= "##{guidances.object_id}" %>"
+          aria-expanded="false"
+          aria-controls="<%= "##{guidances.object_id}" %>">
+          <div class="panel-heading" role="tab" id="<%= "panel-heading-#{guidances.object_id}" %>">
+            <h2 class="panel-title">
+              <%= theme.title %>
+              <i class="fa fa-plus pull-right" aria-hidden="true"></i>
+            </h2>
+          </div>
+        </div>
+        <div
+          id="<%= "#{guidances.object_id}" %>"
+          class="panel-collapse collapse"
+          role="tabpanel"
+          aria-labelledby="<%= "panel-heading-#{guidances.object_id}" %>">
+          <div class="panel-body">
+            <% guidances.each do |guidance| %>
+              <%= raw(guidance.text) %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
