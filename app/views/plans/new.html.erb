@@ -1,7 +1,5 @@
-<% if params[:v2] == "true" %>
-<%= link_to 'Form v1', new_plan_path(v2: false) %>
-<%= render "form_v2" %>
+<% if params[:v1] == "true" %>
+  <%= render "form_v1" %>
 <% else %>
-<%= link_to 'Form v2', new_plan_path(v2: true) %>
-<%= render "form_v1" %>
+  <%= render "form_v2" %>
 <% end %>
