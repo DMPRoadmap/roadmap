@@ -3361,7 +3361,7 @@ msgid "You are not authorized to perform this action."
 msgstr "Você não tem permissão para realizar essa ação."
 
 msgid "You are now ready to create your first DMP."
-msgstr "Agora você está prongo para criar seu primeiro PGD."
+msgstr "Agora você está pronto para criar seu primeiro PGD."
 
 msgid "You are viewing a historical version of this template. You will not be able to make changes."
 msgstr "Você está vendo uma versão histórica deste modelo. Você não conseguirá fazer mudanças."
