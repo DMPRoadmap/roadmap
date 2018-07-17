@@ -1,3 +1,29 @@
+# == Schema Information
+#
+# Table name: plans
+#
+#  id                                :integer          not null, primary key
+#  title                             :string
+#  template_id                       :integer
+#  created_at                        :datetime
+#  updated_at                        :datetime
+#  slug                              :string
+#  grant_number                      :string
+#  identifier                        :string
+#  description                       :text
+#  principal_investigator            :string
+#  principal_investigator_identifier :string
+#  data_contact                      :string
+#  funder_name                       :string
+#  visibility                        :integer          default(3), not null
+#  data_contact_email                :string
+#  data_contact_phone                :string
+#  principal_investigator_email      :string
+#  principal_investigator_phone      :string
+#  feedback_requested                :boolean          default(FALSE)
+#  complete                          :boolean          default(FALSE)
+#
+
 require 'test_helper'
 
 class PlanTest < ActiveSupport::TestCase

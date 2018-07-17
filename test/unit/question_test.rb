@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: questions
+#
+#  id                     :integer          not null, primary key
+#  text                   :text
+#  default_value          :text
+#  number                 :integer
+#  section_id             :integer
+#  created_at             :datetime
+#  updated_at             :datetime
+#  question_format_id     :integer
+#  option_comment_display :boolean          default(TRUE)
+#  modifiable             :boolean
+#
+
 require 'test_helper'
 
 class QuestionTest < ActiveSupport::TestCase

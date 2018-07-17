@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: phases
+#
+#  id          :integer          not null, primary key
+#  title       :string
+#  description :text
+#  number      :integer
+#  template_id :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#  slug        :string
+#  modifiable  :boolean
+#
+
 require 'test_helper'
 
 class PhaseTest < ActiveSupport::TestCase
