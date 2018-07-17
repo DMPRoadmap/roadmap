@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: question_formats
+#
+#  id           :integer          not null, primary key
+#  title        :string
+#  description  :text
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  option_based :boolean          default(FALSE)
+#  formattype   :integer          default(0)
+#
+
 require 'test_helper'
 
 class QuestionFormatTest < ActiveSupport::TestCase

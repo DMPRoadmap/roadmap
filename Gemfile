@@ -114,6 +114,12 @@ gem 'kaminari'
 group :development, :test do
   # Ruby fast debugger - base + CLI (http://github.com/deivid-rodriguez/byebug)
   gem "byebug"
+
+  gem "rspec-rails"
+
+  gem "factory_bot_rails"
+
+  gem "faker"
 end
 
 group :test do
@@ -131,6 +137,8 @@ group :test do
 
   # Code coverage for Ruby 1.9+ with a powerful configuration library and automatic merging of coverage across test suites (http://github.com/colszowka/simplecov)
   gem 'simplecov', require: false
+
+  gem 'database_cleaner'
 end
 
 group :development do
