@@ -300,11 +300,14 @@ module OrgAdmin
             end
           end
         end
-        
+
         # If the no funder was specified OR the funder matches the org
         if funder_id.blank? || funder_id == org_id
           # Retrieve the Org's templates
-          templates << Template.published.organisationally_visible.where(org_id: org_id, customization_of: nil).to_a
+          templates << Template.published.organisationally_visible.where(org_id: org_id).to_a.map do |template|
+            template.title = "#{template.title} (#{_('Customized by ')} #{Org.find(org_id).name})" if template.customization_of
+            template
+          end
         end
         templates = templates.flatten.uniq
       end
