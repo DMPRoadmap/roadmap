@@ -1121,7 +1121,7 @@ msgid "English (US)"
 msgstr ""
 
 msgid "Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the coloured banner once a section is opened to edit."
-msgstr "Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. This text will be displayed in the banner once a section is opened to edit."
+msgstr "Enter a basic description. This could be a summary of what is covered in the section or instructions on how to answer. Users will see this text when they open the section accordion as they are writing a plan."
 
 msgid "Enter a basic description. This will be presented to users on the 'Admin Plan' tab, above the summary of the sections and questions which they will be asked to answer."
 msgstr ""
@@ -1130,7 +1130,7 @@ msgid "Enter a description that helps you to differentiate between templates e.g
 msgstr ""
 
 msgid "Enter a title for the phase e.g. intial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP"
-msgstr ""
+msgstr "Enter a title for the phase, e.g., Initial DMP, Final DMP. If there is only one phase, call it something generic, e.g., \"Data Management Plan.\""
 
 msgid "Enter a title for the section"
 msgstr ""
