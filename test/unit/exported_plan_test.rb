@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: exported_plans
+#
+#  id         :integer          not null, primary key
+#  plan_id    :integer
+#  user_id    :integer
+#  format     :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  phase_id   :integer
+#
+
 require 'test_helper'
 
 class ExportedPlanTest < ActiveSupport::TestCase
