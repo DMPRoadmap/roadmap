@@ -7,7 +7,7 @@ echo "Fetching latest roadmap branch"
 git fetch origin roadmap
 git checkout roadmap
 echo "Pulling down latest changes from DMPRoadmap:development"
-git pull cdluc3-roadmap release
+git pull roadmap development
 echo "Pushing updated branch"
 git push origin roadmap
 git checkout development
