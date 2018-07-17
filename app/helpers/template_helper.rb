@@ -6,12 +6,11 @@ module TemplateHelper
     a.join(separator)
   end
 
-  # TODO: to be removed upon merge with direct link feature
-  # Generate a direct plan creation link with based on provided template
+  # Generate a direct plan creation link based on provided template
   # @param template [Template] template used for plan creation
-  # @param hidden [Boolean] should the link be hidden ?
+  # @param hidden [Boolean] should the link be hidden?
   # @param text [String] text for the link
-  # @param id [String] HTML id for the link element
+  # @param id [String] id for the link element
   def direct_link(template, hidden = false, text = nil, id = nil)
     params = { org_id: template.org.id, funder_id: '-1', template_id: template.id }
     cls = text.nil? ? 'direct-link' : 'direct-link btn btn-default'
