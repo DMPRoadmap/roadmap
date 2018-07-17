@@ -26,17 +26,11 @@
         <%= f.label(:password_confirmation, _('Password confirmation'), class: 'control-label') %>
         <%= f.password_field(:password_confirmation, class: 'form-control', "aria-required": true) %>
       </div>
-
-<!-- START DMPTool customization -->
-<!-- ========================================= -->
-  <!-- <div class="checkbox"> -->
-    <!-- <label for="passwords_toggle"> -->
-      <!-- <input type="checkbox" id="passwords_toggle" class="passwords_toggle"/><%#= _('Show passwords') %> -->
-    <!-- </label> -->
-  <!-- </div> -->
-<!-- ========================================= -->
-<!-- END DMPTool customization -->
-
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" id="passwords_toggle" class="passwords_toggle"/><%= _('Show passwords') %>
+        </label>
+      </div>
       <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
 
       <%= render "devise/shared/links" %>
