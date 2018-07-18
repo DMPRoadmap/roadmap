@@ -5,7 +5,7 @@
     data-remote="true"
     class="heading-button ajaxified-section"
     data-toggle="collapse"
-    data-parent="sections-accordion"
+    data-parent="<%= data_parent %>"
     data-target="#collapseSection<%= section.id%>"
     aria-expanded="false"
     aria-controls="#collapseSection<%= section.id%>">
@@ -17,8 +17,9 @@
       <div class="pull-right">
         <i class="fa fa-plus pull-right" aria-hidden="true" title="Click to expand"></i>
         <% if local_assigns[:draggable] %>
-          <i class="fa fa-bars pull-right" aria-hidden="true"
-             title="Drag to reposition"></i>
+          <!-- commenting out until this is working properly -->
+          <!-- <i class="fa fa-bars pull-right" aria-hidden="true"
+             title="Drag to reposition"></i> -->
         <% end %>
       </div>
       <div class="clearfix"></div>
