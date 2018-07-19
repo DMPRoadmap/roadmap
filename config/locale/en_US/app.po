@@ -560,7 +560,7 @@ msgid "An error has occurred while saving/resetting your export settings."
 msgstr ""
 
 msgid "Annotations"
-msgstr ""
+msgstr "Customizations"
 
 msgid "Answer"
 msgstr ""
