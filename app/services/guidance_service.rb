@@ -44,7 +44,7 @@ class GuidanceService
   def guidance_annotations?(org: nil, question: nil)
     return false unless question.respond_to?(:id)
     return false unless hashified_annotations.has_key?(org)
-    return hashified_annotations[org].find{ |annotation| (annotation.question_id == question.id) && (annotation.type == "guidance")}.present?
+    return hashified_annotations[org].find{ |annotation| annotation.question_id == question.id }.present?
   end
   # Returns a hash of guidance groups for an org and question passed with the following structure:
   # { guidance_group: { theme: [guidance, ...], ... }, ... }
@@ -64,7 +64,7 @@ class GuidanceService
   def guidance_annotations(org: nil, question: nil)
     raise ArgumentError unless question.respond_to?(:id)
     return [] unless hashified_annotations.has_key?(org)
-    return hashified_annotations[org].select{ |annotation| (annotation.question_id == question.id) && (annotation.type == "guidance")}
+    return hashified_annotations[org].select{ |annotation| annotation.question_id == question.id }
   end
 
   private
@@ -131,7 +131,7 @@ class GuidanceService
     end
     def hashify_annotations
       return orgs_from_annotations.reduce({}) do |acc, org|
-        annotations = Annotation.where(org_id: org.id, question_id: plan.template.question_ids)
+        annotations = Annotation.where(org_id: org.id, question_id: plan.question_ids)
         acc[org] = annotations.select{ |annotation| annotation.org_id = org.id }
         acc
       end
