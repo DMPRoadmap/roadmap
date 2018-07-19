@@ -53,7 +53,6 @@ class Template < ActiveRecord::Base
   has_many :questions, through: :sections
   has_many :annotations, through: :questions
 
-
   # ==========
   # = Scopes =
   # ==========
