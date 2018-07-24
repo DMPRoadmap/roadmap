@@ -1,4 +1,3 @@
-<%# locals: { plan, phase, readonly, question_guidance, guidance_groups } %>
 <div class="tab-panels" role="tabpanel">
   <div id="phase-#<%= phase.id %>-panel" class="tab-panel active" aria-hidden="false" aria-labelledby="phase-#<%= phase.id %>-tab">
     <div class="row">
@@ -28,14 +27,14 @@
       <% sectionid = section.id %>
       <div class="panel panel-default">
         <div class="heading-button" role="button" data-toggle="collapse"
-             data-parent="sections-accordion" 
+             data-parent="sections-accordion"
              href="#collapse-<%= sectionid %>"
-             aria-expanded="false" 
+             aria-expanded="false"
              aria-controls="collapse-<%= sectionid %>">
 
           <div class="panel-heading" role="tab" id="heading-<%= sectionid %>">
             <div class="panel-title pull-left">
-              <%= section.title %> 
+              <%= section.title %>
               <% if plan.present? %>
                   <span class="section-progress-<%= sectionid %>">
                     <%= render :partial => "/org_admin/sections/progress", locals: { section: section, plan: plan } %>
@@ -62,7 +61,7 @@
                     <!-- Answer Section -->
                     <div class="question-form">
                       <div id="<%= "answer-locking-#{question.id}" %>" class="answer-locking"></div>
-                      <div id="<%= "answer-form-#{question.id}" %>" class="answer-form"> 
+                      <div id="<%= "answer-form-#{question.id}" %>" class="answer-form">
                         <%= render(partial: '/answers/new_edit', locals: { template: phase.template, question: question, answer: answer, readonly: readonly, locking: false, base_template_org: base_template_org }) %>
                       </div>
                       <div id="<%= "answer-status-#{question.id}" %>" class="mt-10">
