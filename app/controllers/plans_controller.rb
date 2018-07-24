@@ -168,7 +168,6 @@ class PlansController < ApplicationController
     render('/phases/edit', locals: {
       base_template_org: phase.template.base_org,
       plan: plan, phase: phase, readonly: readonly,
-      question_guidance: plan.guidance_by_question_as_hash,
       guidance_groups: guidance_groups,
       answers: answers,
       guidance_service: GuidanceService.new(plan) })
@@ -237,9 +236,6 @@ class PlansController < ApplicationController
   def status
     @plan = Plan.find(params[:id])
     authorize @plan
-    respond_to do |format|
-      format.json { render json: @plan.status }
-    end
   end
 
   def answer
@@ -404,25 +400,6 @@ class PlansController < ApplicationController
     end
     groups.values
   end
-
-
-  def fixup_hash(plan)
-    rollup(plan, "notes", "answer_id", "answers")
-    rollup(plan, "answers", "question_id", "questions")
-    rollup(plan, "questions", "section_id", "sections")
-    rollup(plan, "sections", "phase_id", "phases")
-
-    plan["template"]["phases"] = plan.delete("phases")
-
-    ghash = {}
-    plan["guidance_groups"].map{|g| ghash[g["id"]] = g}
-    plan["plans_guidance_groups"].each do |pgg|
-      pgg["guidance_group"] = ghash[ pgg["guidance_group_id"] ]
-    end
-
-    plan["template"]["org"] = Org.find(plan["template"]["org_id"]).serializable_hash()
-  end
-
 
   # find all object under src_plan_key
   # merge them into the items under obj_plan_key using

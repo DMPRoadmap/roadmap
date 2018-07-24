@@ -72,8 +72,7 @@ class Answer < ActiveRecord::Base
     answer.question_options.each do |opt|
       answer_copy.question_options << opt
     end
-    answer_copy.save!
-    return answer_copy
+    answer_copy
   end
 
   # This method helps to decide if an answer option (:radiobuttons, :checkbox, etc ) in form views should be checked or not

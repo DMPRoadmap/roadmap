@@ -33,7 +33,7 @@ class Pref < ActiveRecord::Base
   #
   # @return [JSON] preferences hash
   def self.default_settings
-    return Rails.configuration.branding[:preferences]
+    Branding.fetch(:preferences)
   end
 
 end
