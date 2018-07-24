@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: notes
+#
+#  id          :integer          not null, primary key
+#  user_id     :integer
+#  text        :text
+#  archived    :boolean
+#  answer_id   :integer
+#  archived_by :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 require 'test_helper'
 
 class NoteTest < ActiveSupport::TestCase

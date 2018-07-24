@@ -1,11 +1,11 @@
-<%= form_for resource, as: 'user', url: user_session_path, html: {id: "sign_in_form"} do |f| %>
+<%= form_for resource, as: 'user', namespace: 'signin', url: user_session_path, html: {id: "sign_in_form"} do |f| %>
   <div class="form-group">
     <%= f.label(:email, _('Email'), class: 'control-label') %>
-    <%= f.email_field(:email, class: 'form-control', "aria-required": true, id: nil) %>
+    <%= f.email_field(:email, class: 'form-control', "aria-required": true) %>
   </div>
   <div class="form-group">
     <%= f.label(:password, _('Password'), class: 'control-label') %>
-    <%= f.password_field(:password, class: 'form-control', "aria-required": true, id: nil) %>
+    <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
   </div>
   <div>
     <%= link_to _('Forgot password?'), new_password_path('user') %>

@@ -1,3 +1,37 @@
+# == Schema Information
+#
+# Table name: orgs
+#
+#  id                     :integer          not null, primary key
+#  abbreviation           :string
+#  banner_text            :text
+#  contact_email          :string
+#  contact_name           :string
+#  feedback_email_msg     :text
+#  feedback_email_subject :string
+#  feedback_enabled       :boolean          default(FALSE)
+#  is_other               :boolean
+#  links                  :text             default({"org"=>[]})
+#  logo_file_name         :string
+#  logo_name              :string
+#  logo_uid               :string
+#  name                   :string
+#  org_type               :integer          default(0), not null
+#  sort_name              :string
+#  target_url             :string
+#  wayfless_entity        :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  language_id            :integer
+#  parent_id              :integer
+#  region_id              :integer
+#
+# Foreign Keys
+#
+#  fk_rails_...  (language_id => languages.id)
+#  fk_rails_...  (region_id => regions.id)
+#
+
 class Org < ActiveRecord::Base
   include GlobalHelpers
   include FlagShihTzu
@@ -23,18 +57,7 @@ class Org < ActiveRecord::Base
   has_many :identifier_schemes, through: :org_identifiers
 
   ##
-  # Possibly needed for active_admin
-  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-	attr_accessible :abbreviation, :logo, :remove_logo,
-                  :logo_file_name, :name, :links,
-                  :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
-                  :token_permission_type_ids, :language_id, :contact_email, :contact_name,
-                  :language, :org_type, :region, :token_permission_types,
-                  :guidance_group_ids, :is_other, :region_id, :logo_uid, :logo_name,
-                  :feedback_enabled, :feedback_email_subject, :feedback_email_msg
-  ##
   # Validators
-#  validates :contact_email, email: true, allow_nil: true
   validates :name, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
   # allow validations for logo upload
   dragonfly_accessor :logo do

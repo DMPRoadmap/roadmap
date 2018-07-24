@@ -1,14 +1,20 @@
+# == Schema Information
+#
+# Table name: token_permission_types
+#
+#  id               :integer          not null, primary key
+#  text_description :text
+#  token_type       :string
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+
 class TokenPermissionType < ActiveRecord::Base
   ##
   # Associations
   #has_and_belongs_to_many :org_token_permissions, join_table: "org_token_permissions"
 #  has_and_belongs_to_many :organisations, join_table: 'org_token_permissions', unique: true
   has_and_belongs_to_many :orgs, join_table: 'org_token_permissions', unique: true
-
-  ##
-  # Possibly needed for active_admin
-  #  - relies on proetected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :token_type, :text_description, :as => [:default, :admin]
 
   ##
   # Validators

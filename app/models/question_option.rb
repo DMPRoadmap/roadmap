@@ -1,14 +1,30 @@
+# == Schema Information
+#
+# Table name: question_options
+#
+#  id          :integer          not null, primary key
+#  is_default  :boolean
+#  number      :integer
+#  text        :string
+#  created_at  :datetime
+#  updated_at  :datetime
+#  question_id :integer
+#
+# Indexes
+#
+#  index_question_options_on_question_id  (question_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (question_id => questions.id)
+#
+
 class QuestionOption < ActiveRecord::Base
   ##
   # Associations
   belongs_to :question
   has_and_belongs_to_many :answers, join_table: :answers_question_options
 
-  ##
-  # Possibly needed for active_admin
-  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :text, :question_id, :is_default, :number, :question, 
-                  :as => [:default, :admin]
 
   validates :text, :question, :number, presence: {message: _("can't be blank")}
 

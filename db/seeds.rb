@@ -362,8 +362,6 @@ templates = [
    org: Org.find_by(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]),
    is_default: true,
    version: 0,
-   migrated: false,
-   dmptemplate_id: 1,
    visibility: Template.visibilities[:publicly_visible],
    links: {"funder":[],"sample_plan":[]}},
 
@@ -372,9 +370,7 @@ templates = [
    org: Org.find_by(abbreviation: 'GA'),
    is_default: false,
    version: 0,
-   migrated: false,
    visibility: Template.visibilities[:organisationally_visible],
-   dmptemplate_id: 2,
    links: {"funder":[],"sample_plan":[]}},
 
   {title: "Department of Testing Award",
@@ -382,9 +378,7 @@ templates = [
    org: Org.find_by(abbreviation: 'GA'),
    is_default: false,
    version: 0,
-   migrated: false,
    visibility: Template.visibilities[:organisationally_visible],
-   dmptemplate_id: 3,
    links: {"funder":[],"sample_plan":[]}}
 ]
 # Template creation calls defaults handler which sets is_default and
@@ -469,7 +463,7 @@ sections = [
 
   # Section of old version of Funder Template
   {title: "Data Collection and Preservation",
-   number: 1,
+   number: 11,
    published: false,
    modifiable: true,
    phase: Phase.find_by(title: "Detailed Overview")},
@@ -481,7 +475,7 @@ sections = [
    modifiable: true,
    phase: funder_template_phase_1},
   {title: "Data Description",
-   number: 1,
+   number: 2,
    published: false,
    modifiable: true,
    phase: funder_template_phase_1},
@@ -493,22 +487,22 @@ sections = [
    modifiable: false,
    phase: funder_template_phase_2},
   {title: "Data Format and Storage",
-   number: 1,
+   number: 2,
    published: true,
    modifiable: false,
    phase: funder_template_phase_2},
   {title: "Collection Process",
-   number: 1,
+   number: 3,
    published: true,
    modifiable: false,
    phase: funder_template_phase_2},
   {title: "Ethical Standards",
-   number: 1,
+   number: 4,
    published: true,
    modifiable: false,
    phase: funder_template_phase_2},
   {title: "Preservation and Reuse Policies",
-   number: 1,
+   number: 5,
    published: true,
    modifiable: false,
    phase: funder_template_phase_2}

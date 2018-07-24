@@ -1,3 +1,24 @@
+# == Schema Information
+#
+# Table name: guidance_groups
+#
+#  id              :integer          not null, primary key
+#  name            :string
+#  optional_subset :boolean
+#  published       :boolean
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  org_id          :integer
+#
+# Indexes
+#
+#  index_guidance_groups_on_org_id  (org_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (org_id => orgs.id)
+#
+
 class GuidanceGroup < ActiveRecord::Base
   include GlobalHelpers
   ##
@@ -9,11 +30,6 @@ class GuidanceGroup < ActiveRecord::Base
   # has_and_belongs_to_many :guidances, join_table: "guidance_in_group"
 
 
-  ##
-  # Possibly needed for active_admin
-  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :org_id, :name, :optional_subset, :published, :org, :guidances,
-                  :as => [:default, :admin]
 
   validates :name, :org, presence: {message: _("can't be blank")}
 

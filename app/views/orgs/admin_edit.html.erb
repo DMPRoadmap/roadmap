@@ -20,18 +20,29 @@
         </li>
       <% end %>
     </ul>
-  
-    <div class="tab-content">
-      <div id="profile" role="tabpanel" class="tab-pane active px-2">
-        <%= render partial: 'orgs/profile_form', locals: local_assigns %>
-      </div>
 
-      <% if org.id.present? %>
-        <div id="feedback" role="tabpanel" class="tab-pane">
-          <%= render partial: 'orgs/feedback_form', locals: local_assigns %>
+    <!-- render navigation tabs for the template-->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="profile">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="px-2">
+              <%= render partial: 'orgs/profile_form', locals: local_assigns %>
+            </div>
+          </div>
         </div>
-      <% end %>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="feedback">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <% if org.id.present? %>
+              <div>
+                <%= render partial: 'orgs/feedback_form', locals: local_assigns %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-

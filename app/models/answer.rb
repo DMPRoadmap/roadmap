@@ -1,3 +1,28 @@
+# == Schema Information
+#
+# Table name: answers
+#
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0)
+#  text         :text
+#  created_at   :datetime
+#  updated_at   :datetime
+#  plan_id      :integer
+#  question_id  :integer
+#  user_id      :integer
+#
+# Indexes
+#
+#  index_answers_on_plan_id      (plan_id)
+#  index_answers_on_question_id  (question_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (plan_id => plans.id)
+#  fk_rails_...  (question_id => questions.id)
+#  fk_rails_...  (user_id => users.id)
+#
+
 class Answer < ActiveRecord::Base
 
   after_save do |answer|
@@ -23,12 +48,6 @@ class Answer < ActiveRecord::Base
 
   has_many :notes
 
-  ##
-  # Possibly needed for active_admin
-  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :text, :plan_id, :lock_version, :question_id, :user_id, :question_option_ids,
-                  :question, :user, :plan, :question_options, :notes, :note_ids, :id,
-                  :as => [:default, :admin]
 
   ##
   # Validations

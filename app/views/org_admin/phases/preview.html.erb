@@ -31,19 +31,20 @@
       <div role="tabpanel" class="tab-pane active">
         <div class="panel panel-default">
           <div class="panel-body">
-            <%= render partial: '/phases/edit_plan_answers', 
+            <%= render partial: '/phases/edit_plan_answers',
                   locals: {
-                    plan: nil, 
-                    phase: phase, 
-                    readonly: true, 
-                    question_guidance: {}, 
-                    edit: false, 
-                    guidance_groups: [], 
-                    base_template_org: template.base_org } %>
+                    plan: nil,
+                    phase: phase,
+                    readonly: true,
+                    question_guidance: {},
+                    edit: false,
+                    guidance_groups: [],
+                    base_template_org: template.base_org,
+                    guidance_service: GuidanceService.new(Plan.new(template: phase.template)) } %>
           </div>
         </div>
       </div>
     </div>
-    
+
   </div>
 </div>

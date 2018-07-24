@@ -1,10 +1,33 @@
+# == Schema Information
+#
+# Table name: roles
+#
+#  id         :integer          not null, primary key
+#  access     :integer          default(0), not null
+#  active     :boolean          default(TRUE)
+#  created_at :datetime
+#  updated_at :datetime
+#  plan_id    :integer
+#  user_id    :integer
+#
+# Indexes
+#
+#  index_roles_on_plan_id  (plan_id)
+#  index_roles_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (plan_id => plans.id)
+#  fk_rails_...  (user_id => users.id)
+#
+
 class Role < ActiveRecord::Base
   after_initialize :set_defaults
   include FlagShihTzu
 
   ##
   # Associationsrequire "role"
-  
+
   belongs_to :user
   belongs_to :plan
 
@@ -20,6 +43,21 @@ class Role < ActiveRecord::Base
 
   validates :user, :plan, :access, presence: {message: _("can't be blank")}
   validates :access, numericality: {greater_than: 0, message: _("can't be less than zero")}
+
+  ##
+  # Roles with given FlagShihTzu access flags
+  #
+  # @param flags [Array] One or more symbols that represent access flags
+  #
+  # @return [ActiveRecord::Relation]
+  scope :with_access_flags, -> (*flags) {
+    bad_flag = flags.detect { |flag| !flag.in?(flag_mapping['access'].keys) }
+    raise ArgumentError, "Unkown access flag '#{bad_flag}'" if bad_flag
+    access_values = flags.map { |flag| sql_in_for_flag(flag.to_sym, 'access') }
+                         .flatten
+                         .uniq
+    where(access: access_values)
+  }
 
   ##
   # return the access level for the current project group

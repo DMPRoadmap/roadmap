@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2018-06-11 14:22:35-0700\n"
+"PO-Revision-Date: 2018-06-20 16:23:24-0700\n"
 "Last-Translator: Benilton de Sá Carvalho benilton@unicamp.br\n"
 "Language-Team: Portugues do Brasil\n"
 "Language: pt_BR\n"
@@ -1866,6 +1866,9 @@ msgstr "Nenhuma organização de pesquisa associada a este plano ou a minha orga
 msgid "No themes have been defined. Please contact your administrator for assistance."
 msgstr "Nenhum tema foi definido. Por favor, contate seu administrador para ajuda."
 
+msgid "No themes selected"
+msgstr "Nenhum tema selecionado"
+
 msgid "No. Completed Plans"
 msgstr "Núm. Planos Concluídos"
 
@@ -2223,6 +2226,9 @@ msgstr "Por favor, selecione um item na lista."
 msgid "Please select an organisation from the list"
 msgstr "Por favor, selecione uma organização na lista."
 
+msgid "Please select an organisation from the list, or click the \"My organisation isn't listed\" link and enter your organisation's name."
+msgstr "Selecione uma organização na lista ou clique no link \"Minha organização não está listada\" e insira o nome da sua organização."
+
 msgid "Please select an organisation from the list, or enter your organisation's name."
 msgstr "Por favor, selecione uma organização na lista, ou insira o nome de sua organização."
 
@@ -2250,8 +2256,8 @@ msgstr "Investigador Principal"
 msgid "Principal Investigator / Researcher"
 msgstr "Investigador / Pesquisador Principal"
 
-msgid "Principal investigator"
-msgstr "Investigador principal"
+#msgid "Principal investigator"
+#msgstr "Investigador principal"
 
 msgid "Privacy policy"
 msgstr "Política de privacidade"
@@ -2592,11 +2598,11 @@ msgstr "Selecione uma organização da lista ou deixe em branco se sua organiza�
 msgid "Select an organisation from the list."
 msgstr "Selecione uma organização da lista."
 
-msgid "Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, as well as that from other sources e.g. the %{org_name} guidance or any Schools/Departments that you provide guidance for."
-msgstr "Selecione um ou mais temas relevantes para estas instruções. Serão exibidas instruções genéricas no âmbito de sua organização e de outras fontes, e.g. as instruções %{org_name} ou de quaisquer faculdades ou departamentos para os quais você produz instruções. "
-
 msgid "Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question."
 msgstr "Selecione um ou mais temas relevantes para esta pergunta. Isso permitirá que sejam exibidas, junto com sua pergunta, instruções com temas similares no âmbito de sua organização."
+
+msgid "Select one theme that is relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags."
+msgstr "Selecione um tema relevante para esta instruções. Isso exibirá sua instruções genérica em nível de organização ou quaisquer Escolas/Departamentos para os quais você criar grupos de instruções em todos os modelos que tiverem perguntas com as tags de tema correspondentes."
 
 msgid "Select phase to download"
 msgstr "Selecione a fase a ser baixada"
@@ -2691,6 +2697,9 @@ msgstr "Sair"
 msgid "Size"
 msgstr "Tamanho"
 
+msgid "Skip to main content"
+msgstr "Ir para o conteúdo principal"
+
 msgid "Someone has requested a link to change your %{tool_name} password. You can do this through the link below."
 msgstr "Alguém solicitou um link para mudar sua senha em %{tool_name} password. Você pode fazer isso usando o link abaixo."
 
@@ -2714,6 +2723,10 @@ msgstr "Successo ao %{action} conta do %{username}"
 
 msgid "Successfully %{action} your %{object}."
 msgstr "Sucesso ao %{action} seu %{object}."
+
+#, fuzzy
+msgid "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."
+msgstr ""
 
 msgid "Successfully deleted your theme"
 msgstr "Seu tema foi apagado com sucesso"
@@ -3246,6 +3259,9 @@ msgstr "Atualizado"
 msgid "Usage"
 msgstr "Uso"
 
+msgid "Usage statistics"
+msgstr "Estatísticas de utilização"
+
 msgid "Use API"
 msgstr "Usar API"
 
@@ -3346,7 +3362,7 @@ msgid "Welcome"
 msgstr "Bem-vindo"
 
 msgid "Welcome to #{Rails.configuration.branding[:application][:name]}."
-msgstr "Bem-vindo a  %{Rails.configuration.branding[:application][:name]}."
+msgstr "Bem-vindo a #{Rails.configuration.branding[:application][:name]}."
 
 msgid "Welcome to %{application_name}"
 msgstr "Bem-vindo a  %{application_name}"
@@ -3544,7 +3560,7 @@ msgid "You have been granted administrator privileges in %{tool_name}:"
 msgstr "Você recebeu privilégios de administrador para %{tool_name}:"
 
 msgid "You have been granted permission by your organisation to use our API. Your API token and instructions for using the API endpoints can be found at: %{link}"
-msgstr "Você recebeu permissão de sua organização para usar nossa API. Seu token da API e as instruções para usar as telas [endpoints] da API podem ser encontrados em: %{link}"
+msgstr "Você recebeu permissão de sua organização para usar nossa API. Seu token da API e as instruções para usar as telas metas de API podem ser encontrados em: %{link}"
 
 msgid "You have been revoked administrator privileges in %{tool_name}."
 msgstr "Seus privilégios de administrador de %{tool_name} foram revogados."
@@ -3570,8 +3586,14 @@ msgstr "Você deve inserir uma URL válida (e.g. https://organizacao.org)."
 msgid "You must enter a valid email address."
 msgstr "Você deve inserir um email válido."
 
+msgid "You must select a funder from the list or click the checkbox."
+msgstr "Você deve selecionar um financiador na lista ou clicar na caixa de seleção."
+
 msgid "You must select a funding organisation from the list."
 msgstr "Você deve selecionar uma entidade financiadora na lista."
+
+msgid "You must select a research organisation from the list or click the checkbox."
+msgstr "Você deve selecionar uma organização de pesquisa na lista ou clicar na caixa de seleção."
 
 msgid "You must select a research organisation from the list."
 msgstr "Você deve selecionar uma instituição de pesquisa na lista."

@@ -1,6 +1,22 @@
 require 'set'
 namespace :upgrade do
 
+  desc "Ensure all section numbers are unique per Phase."
+  task clean_section_numbers: :environment do
+    Phase.all.each do |phase|
+      ids_in_order = phase.sections.order("number, created_at").pluck(:id)
+      Section.update_numbers!(*ids_in_order, phase: phase)
+    end
+  end
+
+  desc "Upgrade to v1.1.2"
+  task v1_1_2: :environment do
+    Rake::Task['upgrade:check_org_contact_emails'].execute
+    Rake::Task['upgrade:check_for_guidance_multiple_themes'].execute
+    Rake::Task['upgrade:remove_admin_preferences'].execute
+    Rake::Task['upgrade:add_other_org'].execute
+  end
+
   desc "Upgrade to 1.0"
   task v1_0_0: :environment do
     Rake::Task['upgrade:set_template_visibility'].execute
@@ -368,5 +384,100 @@ namespace :upgrade do
   task remove_duplicated_template_versions: :environment do
     Rake::Task['upgrade:remove_duplicated_non_customised_template_versions'].execute
     Rake::Task['upgrade:remove_duplicated_customised_template_versions'].execute
+  end
+
+  desc "Org.contact_email is now required, sets any nil values to the helpdesk email defined in branding.yml"
+  task check_org_contact_emails: :environment do
+    branding = YAML.load(File.open('./config/branding.yml'))
+    if branding.is_a?(Hash) &&
+        branding['defaults'].present? &&
+        branding['defaults']['organisation'].present? &&
+        branding['defaults']['organisation']['name'].present?
+        branding['defaults']['organisation']['helpdesk_email'].present?
+      email = branding['defaults']['organisation']['helpdesk_email']
+      name = "#{branding['defaults']['organisation']['name']} helpdesk"
+
+      puts "Searching for Orgs with an undefined contact_email ..."
+      Org.where("contact_email IS NULL OR contact_email = ''").each do |org|
+        puts "  Setting contact_email to #{email} for #{org.name}"
+        org.update_attributes(contact_email: email, contact_name: name)
+      end
+    else
+      puts "No helpdesk_email and/or name found in your config/branding.yml. Please add them under the defaults -> organisation section"
+      puts "For example:"
+      puts "  defaults: &defaults"
+      puts "    organisation:"
+      puts "      name: 'Curation Center'"
+      puts "      helpdesk_email: 'helpdesk@example.org'"
+    end
+    puts "Search complete"
+    puts ""
+  end
+
+  desc "The system now only allows for one theme selection per guidance, so check for violations"
+  task check_for_guidance_multiple_themes: :environment do
+    puts "Searching for guidance with multiple theme selections (you will need to manually reconcile these records) ..."
+    ids = Guidance.select('guidances.id, count(themes.id) theme_count').
+            joins(:themes).group('guidances.id').
+            having('count(themes.id) > 1').pluck('guidances.id')
+
+    GuidanceGroup.joins(:guidances).includes(:org).where('guidances.id IN (?)', ids).
+            distinct.order('orgs.name, guidance_groups.name').each do |grp|
+      puts "  #{grp.org.name} - Guidance group, '#{grp.name}', has guidance with multiple themes"
+    end
+    puts "Search complete"
+    puts ""
+  end
+
+  desc "Remove admin preferences"
+  task remove_admin_preferences: :environment do
+    Pref.all.each do |p|
+      if p.settings.present?
+        if p.settings['email'].present?
+          if p.settings['email']['admin'].present?
+            p.settings['email'].delete('admin')
+            p.save!
+          end
+        end
+      end
+    end
+  end
+
+  desc "Add the 'other' org if it is not present."
+  task add_other_org: :environment do
+    puts "Checking for existence of an 'Other' org. Unaffiliated users should be affiliated with this org"
+
+    # Get the helpdesk email from the branding YAML
+    branding = YAML.load(File.open('./config/branding.yml'))
+    if branding.present? && branding['defaults'].present? && branding['defaults']['organisation'].present? && branding['defaults']['organisation']['helpdesk_email'].present?
+      email = branding['defaults']['organisation']['helpdesk_email']
+      name = branding['defaults']['organisation']['name'].present? ? "#{branding['defaults']['organisation']['name']} helpdesk" : 'Helpdesk'
+    else
+      email = 'other.organisation@example.org'
+      name = 'Helpdesk'
+    end
+
+    other_org = Org.find_by(is_other: true)
+    if other_org.present?
+      puts "Found the 'Other' org (is_other == true)"
+    else
+      puts "Could not find the 'Other' org (is_other == true), adding 'Other' org"
+      other_org = Org.create!({
+        name: 'Other Organisation',
+        abbreviation: 'OTHER',
+        org_type: Org.org_type_values_for(:organisation).min,
+        contact_email: email,
+        contact_name: name,
+        links: {"org": []},
+        is_other: true,
+      })
+    end
+
+    unaffiliated = User.where(org_id: nil)
+    unless unaffiliated.empty?
+      puts "The following users are not associated with an org. Assigning them to the 'Other' org."
+      puts unaffiliated.collect(&:email).join(', ')
+      unaffiliated.update_all(org_id: other_org.id)
+    end
   end
 end

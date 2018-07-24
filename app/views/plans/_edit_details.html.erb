@@ -6,7 +6,7 @@
           <%= f.label(:title, _('Project title'), class: 'control-label') %>
         </div>
         <div class="col-md-8">
-          <%= f.text_field(:title, class: "form-control", "aria-required": true, 'data-toggle': 'tooltip', 
+          <%= f.text_field(:title, class: "form-control", "aria-required": true, 'data-toggle': 'tooltip',
             title: _('If applying for funding, state the name exactly as in the grant proposal.')) %>
       <div class="checkbox">
         <%= f.hidden_field :visibility %>
@@ -30,7 +30,7 @@
           <%= f.label(:grant_number, _('Grant number'), class: 'control-label') %>
         </div>
         <div class="col-md-8">
-          <%= f.text_field(:grant_number, class: "form-control", "aria-required": false, 'data-toggle': 'tooltip', 
+          <%= f.text_field(:grant_number, class: "form-control", "aria-required": false, 'data-toggle': 'tooltip',
             title: _('Grant reference number if applicable [POST-AWARD DMPs ONLY]')) %>
         </div>
       </div>
@@ -45,7 +45,6 @@
             "aria-required": false) %>
         </div>
       </div>
-<<<<<<< HEAD
 
     <!-- START DMPTool customization -->
     <!-- ========================================= -->
@@ -60,21 +59,18 @@
     <!-- ========================================= -->
     <!-- END DMPTool customization -->
 
-      <h3><%= _('Principal investigator') %></h3>
-      <div class="form-group"><!-- principal_investigator -->
-        <div class="col-md-12">
-          <%= f.label(:principal_investigator, _('Name'), class: 'control-label') %>
-        </div>
-        <div class="col-md-8">
-          <%= f.text_field(
-            :principal_investigator,
-            class: "form-control",
-            "aria-required": false) %>
-        </div>
-      </div>
-      <div class="form-group"><!-- principal_investigator_identifier -->
-        <div class="col-md-12">
-          <%= f.label(:principal_investigator_identifier, _('ORCID iD'), class: 'control-label') %>
+      <fieldset class="project-details">
+        <legend class="project-details"><%= _("Principal Investigator") %></legend>
+        <div class="form-group"><!-- principal_investigator -->
+          <div class="col-md-12">
+            <%= f.label(:principal_investigator, _('Name'), class: 'control-label') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.text_field(
+              :principal_investigator,
+              class: "form-control",
+              "aria-required": false) %>
+          </div>
         </div>
         <div class="col-md-8">
           <%= f.text_field(
@@ -108,34 +104,8 @@
       <!-- </div> -->
     <!-- ========================================= -->
     <!-- END DMPTool customization -->
+    </fieldset>
 
-      <h3><%= _('Data contact person') %></h3>
-      <div class="checkbox">
-        <% checked = ((@plan.data_contact.present? || @plan.data_contact_phone.present? || @plan.data_contact_email.present?) ? 1 : 0) %>
-        <%= label_tag(:show_data_contact, raw("#{check_box_tag(:show_data_contact, checked, checked == 0)} #{_('Same as Principal Investigator')}"), class: 'control-label') %>
-      </div>
-      <div class="form-group data-contact"><!-- data_contact -->
-        <div class="col-md-12">
-          <%= f.label(:data_contact, _('Name'), class: 'control-label') %>
-        </div>
-        <div class="col-md-8">
-          <%= f.text_field(
-            :data_contact,
-            class: "form-control",
-            "aria-required": false) %>
-        </div>
-        <div class="form-group"><!-- principal_invesigator_phone -->
-          <div class="col-md-12">
-            <%= f.label(:principal_investigator_phone, _('Phone'), class: 'control-label') %>
-          </div>
-          <div class="col-md-12">
-            <%= f.phone_field(
-              :principal_investigator_phone,
-              class: "form-control",
-              "aria-required": false) %>
-          </div>
-        </div>
-      </fieldset>
       <fieldset class="project-details">
         <legend class="project-details"><%= _('Data contact person') %></legend>
         <div class="checkbox">
@@ -186,15 +156,16 @@
     <div class="col-md-4">
       <h2><%= _('Plan Guidance Configuration') %></h2>
       <p><%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations.') %
-        {application_name: Rails.configuration.branding[:application][:name]} %>
-      </p>
-      <p><%= _('Select up to 6 organisations to see their guidance.') %></p>
-      <ul id="priority-guidance-orgs">
-        <%= render partial: "guidance_choices", 
-                      locals: {choices: @important_ggs, form: f,
-                               current_selections: @selected_guidance_groups} %>
-      </ul>
-
+          {application_name: Rails.configuration.branding[:application][:name]} %>
+          </p>
+      <fieldset>
+        <p><%= _('Select up to 6 organisations to see their guidance.') %></p>
+        <ul id="priority-guidance-orgs">
+          <%= render partial: "guidance_choices",
+                        locals: {choices: @important_ggs, form: f,
+                                 current_selections: @selected_guidance_groups} %>
+        </ul>
+      </fieldset>
       <p><%= _('Find guidance from additional organisations below') %></p>
       <%= link_to _('See the full list'), '#', 'data-toggle' =>  'modal', 'data-target' => '#modal-full-guidances', class: 'modal-guidances-window' %>
 
@@ -217,8 +188,8 @@
               </p>
               <p><strong><%= _("Don't forget to save your changes after making your selections.") %></strong></p>
               <ul id="other-guidance-orgs">
-                <%= render partial: "guidance_choices", 
-                           locals: {choices: @all_ggs_grouped_by_org, form: f, 
+                <%= render partial: "guidance_choices",
+                           locals: {choices: @all_ggs_grouped_by_org, form: f,
                                      current_selections: @selected_guidance_groups} %>
               </ul>
             </div>
