@@ -114,7 +114,11 @@ class PlansController < ApplicationController
 
   # GET /plans/show
   def show
-    @plan = Plan.eager_load(params[:id])
+    @plan = Plan.includes(
+              template: { phases: { sections: { questions: :answers }}},
+              plans_guidance_groups: { guidance_group: :guidances }
+            ).find(params[:id])
+
     authorize @plan
 
     @visibility = @plan.visibility.present? ? @plan.visibility.to_s : Rails.application.config.default_plan_visibility
@@ -368,7 +372,9 @@ class PlansController < ApplicationController
 
   def overview
     begin
-      plan = Plan.overview(params[:id])
+      plan = Plan.includes(:phases, :sections, :questions, template: [ :org ])
+                 .find(params[:id])
+
       authorize plan
       render(:overview, locals: { plan: plan })
     rescue ActiveRecord::RecordNotFound

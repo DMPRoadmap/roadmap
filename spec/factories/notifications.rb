@@ -20,8 +20,15 @@ FactoryBot.define do
     title { Faker::Lorem.sentence }
     level { :info }
     body { Faker::Lorem.paragraph }
-    dismissable true
+    dismissable false
     starts_at { Time.current }
-    expires_at { 1.day.from_now }
+    expires_at { starts_at + 2.days  }
+
+    trait :active do
+      starts_at { Date.today }
+    end
+    trait :dismissable do
+      dismissable true
+    end
   end
 end
