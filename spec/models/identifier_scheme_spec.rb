@@ -16,4 +16,12 @@ RSpec.describe IdentifierScheme, type: :model do
 
   end
 
+  context "associations" do
+
+    it { is_expected.to have_many :user_identifiers }
+
+    it { is_expected.to have_many(:users).through(:user_identifiers) }
+
+  end
+
 end
