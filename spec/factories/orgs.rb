@@ -29,8 +29,12 @@
 
 FactoryBot.define do
   factory :org do
-    sequence(:name) { |i| Faker::Company.unique.name + i.to_s }
+    name { Faker::Company.unique.name }
     links { { "org" => [] } }
-    abbreviation { SecureRandom.hex(2) }
+    abbreviation { self.name[0..10] }
+    feedback_enabled false
+    region { Region.first || create(:region) }
+    language { Language.first || create(:language) }
+    is_other false
   end
 end
