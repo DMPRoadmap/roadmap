@@ -51,8 +51,10 @@ defaults: &defaults
         feedback_provided: true
       owners_and_coowners:
         visibility_changed: true
-      admins:
-        feedback_requested: true
+
+  service_configuration:
+    plans:
+      org_admins_read_all: true
 
 
 development:

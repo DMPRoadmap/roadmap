@@ -55,7 +55,7 @@
         </div>
       </div>
       <fieldset class="project-details">
-        <legend class="project-details"><%= _('Principal investigator') %></legend>
+        <legend class="project-details"><%= _("Principal Investigator") %></legend>
         <div class="form-group"><!-- principal_investigator -->
           <div class="col-md-12">
             <%= f.label(:principal_investigator, _('Name'), class: 'control-label') %>
@@ -148,15 +148,16 @@
     <div class="col-md-4">
       <h2><%= _('Plan Guidance Configuration') %></h2>
       <p><%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations.') %
-        {application_name: Rails.configuration.branding[:application][:name]} %>
-      </p>
-      <p><%= _('Select up to 6 organisations to see their guidance.') %></p>
-      <ul id="priority-guidance-orgs">
-        <%= render partial: "guidance_choices", 
-                      locals: {choices: @important_ggs, form: f,
-                               current_selections: @selected_guidance_groups} %>
-      </ul>
-
+          {application_name: Rails.configuration.branding[:application][:name]} %>
+          </p>
+      <fieldset>
+        <p><%= _('Select up to 6 organisations to see their guidance.') %></p>
+        <ul id="priority-guidance-orgs">
+          <%= render partial: "guidance_choices", 
+                        locals: {choices: @important_ggs, form: f,
+                                 current_selections: @selected_guidance_groups} %>
+        </ul>
+      </fieldset>
       <p><%= _('Find guidance from additional organisations below') %></p>
       <%= link_to _('See the full list'), '#', 'data-toggle' =>  'modal', 'data-target' => '#modal-full-guidances', class: 'modal-guidances-window' %>
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2018-06-06 11:32:33-0700\n"
+"PO-Revision-Date: 2018-06-20 16:23:24-0700\n"
 "Last-Translator: Brian Riley brian.riley@ucop.edu\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en_GB\n"
@@ -190,9 +190,6 @@ msgstr ""
 msgid "A required setting has not been provided"
 msgstr ""
 
-msgid "A user has requested feedback on a DMP"
-msgstr ""
-
 msgid "API Information"
 msgstr ""
 
@@ -343,9 +340,6 @@ msgstr ""
 msgid "Are you sure you want to delete the notification \"%{title}\""
 msgstr ""
 
-msgid "Are you sure you want to delete the notification \"%{title}\""
-msgstr ""
-
 msgid "Are you sure you want to delete the theme \"%{title}\"?"
 msgstr ""
 
@@ -360,9 +354,6 @@ msgstr ""
 
 msgid "Are you sure you want to remove your customization of \"%{template_title}\"? Any published versions will become unavailable to users."
 msgstr "Are you sure you want to remove your customisation of \"%{template_title}\"? Any published versions will become unavailable to users."
-
-msgid "Are you sure you want to unlink #{scheme.description} ID?"
-msgstr ""
 
 msgid "Are you sure you want to unlink #{scheme.description} ID?"
 msgstr ""
@@ -383,9 +374,6 @@ msgid "Back to customise phase"
 msgstr ""
 
 msgid "Back to edit phase"
-msgstr ""
-
-msgid "Back to phase"
 msgstr ""
 
 msgid "Back to phase"
@@ -425,9 +413,6 @@ msgid "Cancel"
 msgstr ""
 
 msgid "Cannot share plan with %{email} since that email matches with the owner of the plan."
-msgstr ""
-
-msgid "Captcha verification failed, please retry."
 msgstr ""
 
 msgid "Captcha verification failed, please retry."
@@ -653,9 +638,6 @@ msgid "Didn't receive unlock instructions?"
 msgstr ""
 
 msgid "Disconnect your account from ORCID. You can reconnect at any time."
-msgstr ""
-
-msgid "Dismissable"
 msgstr ""
 
 msgid "Dismissable"
@@ -1045,9 +1027,6 @@ msgstr ""
 msgid "Level"
 msgstr ""
 
-msgid "Level"
-msgstr ""
-
 msgid "Link text"
 msgstr ""
 
@@ -1141,12 +1120,6 @@ msgstr ""
 msgid "New Template"
 msgstr ""
 
-msgid "New Question"
-msgstr ""
-
-msgid "New Template"
-msgstr ""
-
 msgid "New Theme"
 msgstr ""
 
@@ -1193,6 +1166,9 @@ msgid "No research organisation associated with this plan or my research organis
 msgstr ""
 
 msgid "No themes have been defined. Please contact your administrator for assistance."
+msgstr ""
+
+msgid "No themes selected"
 msgstr ""
 
 msgid "No. Completed Plans"
@@ -1495,6 +1471,9 @@ msgstr ""
 msgid "Please select an organisation from the list"
 msgstr ""
 
+msgid "Please select an organisation from the list, or click the \"My organisation isn't listed\" link and enter your organisation's name."
+msgstr ""
+
 msgid "Please select an organisation from the list, or enter your organisation's name."
 msgstr ""
 
@@ -1519,8 +1498,8 @@ msgstr ""
 msgid "Principal Investigator / Researcher"
 msgstr ""
 
-msgid "Principal investigator"
-msgstr ""
+#msgid "Principal investigator"
+#msgstr ""
 
 msgid "Privacy statement"
 msgstr ""
@@ -1627,9 +1606,6 @@ msgstr ""
 msgid "Question options"
 msgstr ""
 
-msgid "Question options"
-msgstr ""
-
 msgid "Question text"
 msgstr ""
 
@@ -1729,8 +1705,12 @@ msgstr ""
 msgid "See the full list"
 msgstr ""
 
-msgid "See the full list of participating organisations"
+#, fuzzy
+msgid "See the full list of participating institutions"
 msgstr ""
+
+#msgid "See the full list of participating organisations"
+#msgstr ""
 
 msgid "See the full list of partner institutions."
 msgstr ""
@@ -1744,10 +1724,10 @@ msgstr ""
 msgid "Select an organisation from the list."
 msgstr ""
 
-msgid "Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, as well as that from other sources e.g. the %{org_name} guidance or any Schools/Departments that you provide guidance for."
+msgid "Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question."
 msgstr ""
 
-msgid "Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question."
+msgid "Select one theme that is relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags."
 msgstr ""
 
 msgid "Select phase to download"
@@ -1825,6 +1805,9 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
+msgid "Skip to main content"
+msgstr ""
+
 msgid "Someone has requested a link to change your %{tool_name} password. You can do this through the link below."
 msgstr ""
 
@@ -1849,10 +1832,11 @@ msgstr ""
 msgid "Successfully %{action} your %{object}."
 msgstr ""
 
-msgid "Successfully deleted your theme"
+#, fuzzy
+msgid "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."
 msgstr ""
 
-msgid "Successfully destroyed your notification"
+msgid "Successfully deleted your theme"
 msgstr ""
 
 msgid "Successfully destroyed your notification"
@@ -2176,9 +2160,6 @@ msgstr ""
 msgid "Unable to save since notification parameter is missing"
 msgstr ""
 
-msgid "Unable to save since notification parameter is missing"
-msgstr ""
-
 msgid "Unable to save since theme parameter is missing"
 msgstr ""
 
@@ -2246,6 +2227,9 @@ msgid "Updated"
 msgstr ""
 
 msgid "Usage"
+msgstr ""
+
+msgid "Usage statistics"
 msgstr ""
 
 msgid "Use API"
@@ -2317,6 +2301,9 @@ msgstr ""
 msgid "Welcome"
 msgstr ""
 
+msgid "Welcome to #{Rails.configuration.branding[:application][:name]}."
+msgstr ""
+
 msgid "Welcome to %{application_name}"
 msgstr ""
 
@@ -2327,9 +2314,6 @@ msgid "Welcome to %{tool_name}, %{username}"
 msgstr ""
 
 msgid "Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them."
-msgstr ""
-
-msgid "Welcome."
 msgstr ""
 
 msgid "What research project are you planning?"
@@ -2452,7 +2436,13 @@ msgstr ""
 msgid "You must enter a valid email address."
 msgstr ""
 
+msgid "You must select a funder from the list or click the checkbox."
+msgstr ""
+
 msgid "You must select a funding organisation from the list."
+msgstr ""
+
+msgid "You must select a research organisation from the list or click the checkbox."
 msgstr ""
 
 msgid "You must select a research organisation from the list."
@@ -2468,9 +2458,6 @@ msgid "You will need to create an account in order to accept your invitation to 
 msgstr ""
 
 msgid "Your"
-msgstr ""
-
-msgid "Your #{template_type(template)} has been published and is now available to users."
 msgstr ""
 
 msgid "Your #{template_type(template)} has been published and is now available to users."
@@ -2666,12 +2653,6 @@ msgid "must have access to plans api"
 msgstr ""
 
 msgid "note"
-msgstr ""
-
-msgid "obj should be a Phase, Section, Question, or Annotation"
-msgstr ""
-
-msgid "obj should be a Template, Phase, Section, Question, or Annotation"
 msgstr ""
 
 msgid "obj should be a Phase, Section, Question, or Annotation"

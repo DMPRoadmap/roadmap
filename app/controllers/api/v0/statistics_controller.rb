@@ -47,7 +47,7 @@ module Api
       def completed_plans
         raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, :statistics).completed_plans?
 
-        roles = Role.where("#{Role.creator_condition} OR #{Role.administrator_condition}")
+        roles = Role.with_access_flags(:administrator, :creator)
 
         users = User.unscoped
         if @user.can_super_admin? && params[:org_id].present?
@@ -87,8 +87,7 @@ module Api
       # Returns the number of created plans within the user's org for the data start_date and end_date specified
       def created_plans
         raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans?
-
-        roles = Role.where("#{Role.creator_condition} OR #{Role.administrator_condition}")
+        roles = Role.with_access_flags(:administrator, :creator)
 
         users = User.unscoped
         if @user.can_super_admin? && params[:org_id].present?

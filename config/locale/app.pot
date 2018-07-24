@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-12 16:41+0000\n"
-"PO-Revision-Date: 2018-06-06 11:32:33-0700\n"
+"PO-Revision-Date: 2018-06-20 16:23:24-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -101,9 +101,6 @@ msgstr ""
 msgid "%{username}'s profile"
 msgstr ""
 
-msgid "%{username}'s profile"
-msgstr ""
-
 msgid "%{value} is not a valid format"
 msgstr ""
 
@@ -155,9 +152,6 @@ msgstr ""
 msgid "<strong>Info:</strong> Simple information message, displayed in blue.<br/><strong>Warning:</strong> warning message, for signaling something unusual, displayed in orange.<br/><strong>Danger:</strong> error message, for anything critical, displayed in red"
 msgstr ""
 
-msgid "<strong>Info:</strong> Simple information message, displayed in blue.<br/><strong>Warning:</strong> warning message, for signaling something unusual, displayed in orange.<br/><strong>Danger:</strong> error message, for anything critical, displayed in red"
-msgstr ""
-
 msgid "A Data Management Plan created using "
 msgstr ""
 
@@ -195,9 +189,6 @@ msgid "A plan has been shared with me"
 msgstr ""
 
 msgid "A required setting has not been provided"
-msgstr ""
-
-msgid "A user has requested feedback on a DMP"
 msgstr ""
 
 msgid "API Information"
@@ -1178,6 +1169,9 @@ msgstr ""
 msgid "No themes have been defined. Please contact your administrator for assistance."
 msgstr ""
 
+msgid "No themes selected"
+msgstr ""
+
 msgid "No. Completed Plans"
 msgstr ""
 
@@ -1478,6 +1472,9 @@ msgstr ""
 msgid "Please select an organisation from the list"
 msgstr ""
 
+msgid "Please select an organisation from the list, or click the \"My organisation isn't listed\" link and enter your organisation's name."
+msgstr ""
+
 msgid "Please select an organisation from the list, or enter your organisation's name."
 msgstr ""
 
@@ -1502,8 +1499,8 @@ msgstr ""
 msgid "Principal Investigator / Researcher"
 msgstr ""
 
-msgid "Principal investigator"
-msgstr ""
+#msgid "Principal investigator"
+#msgstr ""
 
 msgid "Privacy statement"
 msgstr ""
@@ -1709,8 +1706,12 @@ msgstr ""
 msgid "See the full list"
 msgstr ""
 
-msgid "See the full list of participating organisations"
+#, fuzzy
+msgid "See the full list of participating institutions"
 msgstr ""
+
+#msgid "See the full list of participating organisations"
+#msgstr ""
 
 msgid "See the full list of partner institutions."
 msgstr ""
@@ -1724,10 +1725,10 @@ msgstr ""
 msgid "Select an organisation from the list."
 msgstr ""
 
-msgid "Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, as well as that from other sources e.g. the %{org_name} guidance or any Schools/Departments that you provide guidance for."
+msgid "Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question."
 msgstr ""
 
-msgid "Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question."
+msgid "Select one theme that is relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags."
 msgstr ""
 
 msgid "Select phase to download"
@@ -1805,6 +1806,9 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
+msgid "Skip to main content"
+msgstr ""
+
 msgid "Someone has requested a link to change your %{tool_name} password. You can do this through the link below."
 msgstr ""
 
@@ -1827,6 +1831,10 @@ msgid "Successfully %{action} %{username}'s account."
 msgstr ""
 
 msgid "Successfully %{action} your %{object}."
+msgstr ""
+
+#, fuzzy
+msgid "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."
 msgstr ""
 
 msgid "Successfully deleted your theme"
@@ -2222,6 +2230,9 @@ msgstr ""
 msgid "Usage"
 msgstr ""
 
+msgid "Usage statistics"
+msgstr ""
+
 msgid "Use API"
 msgstr ""
 
@@ -2291,6 +2302,9 @@ msgstr ""
 msgid "Welcome"
 msgstr ""
 
+msgid "Welcome to #{Rails.configuration.branding[:application][:name]}."
+msgstr ""
+
 msgid "Welcome to %{application_name}"
 msgstr ""
 
@@ -2301,9 +2315,6 @@ msgid "Welcome to %{tool_name}, %{username}"
 msgstr ""
 
 msgid "Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them."
-msgstr ""
-
-msgid "Welcome."
 msgstr ""
 
 msgid "What research project are you planning?"
@@ -2361,9 +2372,6 @@ msgid "You are not authorized to perform this action."
 msgstr ""
 
 msgid "You are now ready to create your first DMP."
-msgstr ""
-
-msgid "You are viewing a historical version of this #{template_type(template)}. You will not be able to make changes."
 msgstr ""
 
 msgid "You are viewing a historical version of this template. You will not be able to make changes."
@@ -2429,7 +2437,13 @@ msgstr ""
 msgid "You must enter a valid email address."
 msgstr ""
 
+msgid "You must select a funder from the list or click the checkbox."
+msgstr ""
+
 msgid "You must select a funding organisation from the list."
+msgstr ""
+
+msgid "You must select a research organisation from the list or click the checkbox."
 msgstr ""
 
 msgid "You must select a research organisation from the list."
@@ -2503,7 +2517,6 @@ msgstr ""
 
 msgid "Your request for feedback has been submitted."
 msgstr ""
-
 
 msgid "account has been locked due to an excessive number of unsuccessful sign in attempts."
 msgstr ""

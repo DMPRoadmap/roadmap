@@ -1,16 +1,21 @@
+# == Schema Information
+#
+# Table name: themes
+#
+#  id          :integer          not null, primary key
+#  description :text
+#  locale      :string
+#  title       :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 class Theme < ActiveRecord::Base
 
   ##
   # Associations
   has_and_belongs_to_many :questions, join_table: "questions_themes"
   has_and_belongs_to_many :guidances, join_table: "themes_in_guidance"
-
-  ##
-  # Possibly needed for active_admin
-  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :guidance_ids , :as => [:default, :admin]
-  attr_accessible :question_ids, :as => [:default, :admin]
-  attr_accessible :description, :title, :locale , :as => [:default, :admin]
 
 
   validates :title, presence: {message: _("can't be blank")}
