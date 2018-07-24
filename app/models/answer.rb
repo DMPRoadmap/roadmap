@@ -24,6 +24,7 @@
 #
 
 class Answer < ActiveRecord::Base
+  include ValidationMessages
 
   after_save do |answer|
     if answer.plan_id.present?
@@ -49,25 +50,17 @@ class Answer < ActiveRecord::Base
   has_many :notes
 
 
-  ##
-  # Validations
-#  validates :user, :plan, :question, presence: true
-#
-#  # Make sure there is only one answer per question!
-#  validates :question, uniqueness: {scope: [:plan],
-#                                    message: I18n.t('helpers.answer.only_one_per_question')}
-#
-#  # The answer MUST have a text value if the question is NOT option based or a question_option if
-#  # it is option based.
-#  validates :text, presence: true, if: Proc.new{|a|
-#    (a.question.nil? ? false : !a.question.question_format.option_based?)
-#  }
-#  validates :question_options, presence: true, if: Proc.new{|a|
-#    (a.question.nil? ? false : a.question.question_format.option_based?)
-#  }
-#
-#  # Make sure the plan and question are associated with the same template!
-#  validates :plan, :question, answer_for_correct_template: true
+  # ===============
+  # = Validations =
+  # ===============
+
+  validates :plan, presence: { message: PRESENCE_MESSAGE }
+
+  validates :user, presence: { message: PRESENCE_MESSAGE }
+
+  validates :question, presence: { message: PRESENCE_MESSAGE },
+                       uniqueness: { message: UNIQUENESS_MESSAGE,
+                                     scope: :plan_id }
 
   ##
   # deep copy the given answer
@@ -101,6 +94,7 @@ class Answer < ActiveRecord::Base
     end
     return false
   end
+
   # Returns answer notes whose archived is blank sorted by updated_at in descending order
   def non_archived_notes
     return notes.select{ |n| n.archived.blank? }.sort!{ |x,y| y.updated_at <=> x.updated_at }

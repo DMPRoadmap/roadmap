@@ -16,5 +16,8 @@ FactoryBot.define do
   factory :identifier_scheme do
     name { Faker::Company.unique.name }
     description { Faker::StarWars.quote }
+    logo_url { Faker::Internet.url }
+    user_landing_url { Faker::Internet.url }
+    active true
   end
 end

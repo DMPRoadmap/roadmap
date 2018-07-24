@@ -16,6 +16,7 @@ FactoryBot.define do
     name { Faker::Lorem.unique.word }
     org
     published true
+    optional_subset false
     trait :unpublished do
       published false
     end

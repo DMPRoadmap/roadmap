@@ -20,11 +20,25 @@
 #
 
 class UserIdentifier < ActiveRecord::Base
+  include ValidationMessages
+
+  # ================
+  # = Associations =
+  # ================
+
   belongs_to :user
   belongs_to :identifier_scheme
-  
-  # Should only be able to have one identifier per scheme!
-  validates_uniqueness_of :identifier_scheme, scope: :user
-  
-  validates :identifier, :user, :identifier_scheme, presence: {message: _("can't be blank")}
+
+  # ===============
+  # = Validations =
+  # ===============
+
+  validates :user, presence: true
+
+  validates :identifier_scheme, presence: true
+
+  validates :identifier_scheme_id, uniqueness: { scope: :user_id,
+                                                 message: UNIQUENESS_MESSAGE }
+
+  validates :identifier, presence: { message: PRESENCE_MESSAGE }
 end

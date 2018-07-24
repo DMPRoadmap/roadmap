@@ -24,31 +24,68 @@
 #
 
 class Question < ActiveRecord::Base
+  include ValidationMessages
+  include ActsAsSortable
 
+  # include
   ##
   # Sort order: Number ASC
   default_scope { order(number: :asc) }
 
-  ##
-  # Associations
-  has_many :answers, :dependent => :destroy
-  has_many :question_options, :dependent => :destroy, :inverse_of => :question  # inverse_of needed for nester forms
-  has_many :annotations, :dependent => :destroy, :inverse_of => :question
+  # ================
+  # = Associations =
+  # ================
+
+  has_many :answers, dependent: :destroy
+
+  # inverse_of needed for nested forms
+  has_many :question_options, dependent: :destroy, inverse_of: :question
+
+  has_many :annotations, dependent: :destroy, inverse_of: :question
+
   has_and_belongs_to_many :themes, join_table: "questions_themes"
+
   belongs_to :section
+
   belongs_to :question_format
+
   has_one :phase, through: :section
+
   has_one :template, through: :section
 
-  ##
-  # Nested Attributes
+
+  # ===============
+  # = Validations =
+  # ===============
+
+  validates :text, presence: { message: PRESENCE_MESSAGE }
+
+  validates :section, presence: { message: PRESENCE_MESSAGE }
+
+  validates :question_format, presence: { message: PRESENCE_MESSAGE }
+
+  validates :number, presence: { message: PRESENCE_MESSAGE },
+                     uniqueness: { scope: :section_id,
+                                   message: UNIQUENESS_MESSAGE }
+
+
+  # =====================
+  # = Nested Attributes =
+  # =====================
+
   # TODO: evaluate if we need this
-  accepts_nested_attributes_for :answers, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
-  accepts_nested_attributes_for :question_options, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
-  accepts_nested_attributes_for :annotations, :allow_destroy => true
+  accepts_nested_attributes_for :answers, reject_if: -> (a) { a[:text].blank? },
+                                  allow_destroy: true
+
+  accepts_nested_attributes_for :question_options, allow_destroy: true,
+                                  reject_if: -> (a) { a[:text].blank? }
+
+  accepts_nested_attributes_for :annotations, allow_destroy: true
 
 
-  validates :text, :section, :number, presence: {message: _("can't be blank")}
+  # ===========================
+  # = Public instance methods =
+  # ===========================
 
   ##
   # returns the text from the question
