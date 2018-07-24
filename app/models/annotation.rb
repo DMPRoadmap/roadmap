@@ -21,9 +21,14 @@
 #
 
 class Annotation < ActiveRecord::Base
+  include ValidationMessages
+
   enum type: [ :example_answer, :guidance]
-  ##
-  # Associations
+
+  # ================
+  # = Associations =
+  # ================
+
   belongs_to :org
   belongs_to :question
   has_one :section, through: :question
@@ -34,16 +39,23 @@ class Annotation < ActiveRecord::Base
   # I liked type as the name for the enum so overriding inheritance column
   self.inheritance_column = nil
 
-  validates :question, :org,  presence: {message: _("can't be blank")}
+  # ===============
+  # = Validations =
+  # ===============
 
-  ##
-  # returns the text from the annotation
-  #
-  # @return [String] the text from the annotation
-  def to_s
-    "#{text}"
-  end
+  validates :text, presence: { message: PRESENCE_MESSAGE }
 
+  validates :org, presence: { message: PRESENCE_MESSAGE }
+
+  validates :question, presence: { message: PRESENCE_MESSAGE }
+
+  validates :type, presence: { message: PRESENCE_MESSAGE },
+                   uniqueness: { message: UNIQUENESS_MESSAGE,
+                                 scope: :question_id }
+
+  # =================
+  # = Class Methods =
+  # =================
 
   ##
   # deep copy the given annotation and all it's associations
@@ -54,6 +66,18 @@ class Annotation < ActiveRecord::Base
     annotation_copy = annotation.dup
     annotation_copy.save!
     return annotation_copy
+  end
+
+  # ===========================
+  # = Public instance methods =
+  # ===========================
+
+  ##
+  # returns the text from the annotation
+  #
+  # @return [String] the text from the annotation
+  def to_s
+    "#{text}"
   end
 
   def deep_copy(**options)

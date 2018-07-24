@@ -10,22 +10,42 @@
 #
 
 class TokenPermissionType < ActiveRecord::Base
+  include ValidationMessages
+
+  # =============
+  # = Constants =
+  # =============
+
   ##
-  # Associations
-  #has_and_belongs_to_many :org_token_permissions, join_table: "org_token_permissions"
-#  has_and_belongs_to_many :organisations, join_table: 'org_token_permissions', unique: true
+  #
+  GUIDANCES   = TokenPermissionType.where(token_type: 'guidances').first.freeze
+
+  ##
+  #
+  PLANS       = TokenPermissionType.where(token_type: 'plans').first.freeze
+
+  ##
+  #
+  TEMPLATES   = TokenPermissionType.where(token_type: 'templates').first.freeze
+
+  ##
+  #
+  STATISTICS  = TokenPermissionType.where(token_type: 'statistics').first.freeze
+
+
+  # ================
+  # = Associations =
+  # ================
+
   has_and_belongs_to_many :orgs, join_table: 'org_token_permissions', unique: true
 
-  ##
-  # Validators
-  validates :token_type, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
 
-  ##
-  # Constant Token Permission Types
-  GUIDANCES   = TokenPermissionType.where(token_type: 'guidances').first.freeze
-  PLANS       = TokenPermissionType.where(token_type: 'plans').first.freeze
-  TEMPLATES   = TokenPermissionType.where(token_type: 'templates').first.freeze
-  STATISTICS  = TokenPermissionType.where(token_type: 'statistics').first.freeze
+  # ==============
+  # = Validators =
+  # ==============
+
+  validates :token_type, presence: { message: PRESENCE_MESSAGE },
+                         uniqueness: { message: UNIQUENESS_MESSAGE }
 
 
   ##
