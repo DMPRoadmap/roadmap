@@ -1,0 +1,8 @@
+Description:
+    Add a new rule for cleaning invalid database records
+
+Example:
+    rails generate data_cleanup_rule user/fix_missing_emails
+
+    This will create:
+        lib/tasks/data_cleanup/rules/user/fix_missing_emails.rb
