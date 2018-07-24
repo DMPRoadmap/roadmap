@@ -1,7 +1,7 @@
 language: ruby
 rvm:
   - 2.4.4
-before_install: 
+before_install:
   - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && sudo apt-get install -y nodejs
 before_script:
   - cd lib/assets && npm install && npm run bundle -- -p && cd -
@@ -14,7 +14,8 @@ before_script:
   - bundle exec rake db:drop RAILS_ENV=test
   - bundle exec rake db:create RAILS_ENV=test
   - bundle exec rake db:schema:load RAILS_ENV=test
-  - bundle exec rake db:migrate RAILS_ENV=test 
+  - bundle exec rake db:migrate RAILS_ENV=test
 
 script:
   - bundle exec rake test
+  - bundle exec rspec spec
