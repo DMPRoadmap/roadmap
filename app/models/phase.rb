@@ -27,12 +27,17 @@
 # [+Created:+] 03/09/2014
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 class Phase < ActiveRecord::Base
+  include ValidationMessages
+  include ValidationValues
+  include ActsAsSortable
+
   ##
   # Sort order: Number ASC
   default_scope { order(number: :asc) }
 
-  ##
-  # Associations
+  # ================
+  # = Associations =
+  # ================
   belongs_to :template
 
   has_one :prefix_section, -> (phase) {
@@ -56,7 +61,24 @@ class Phase < ActiveRecord::Base
   }, class_name: "Section"
 
 
-  validates :title, :number, :template, presence: { message: _("can't be blank") }
+  # ===============
+  # = Validations =
+  # ===============
+
+  validates :title, presence: { message: PRESENCE_MESSAGE }
+
+  validates :number, presence: { message: PRESENCE_MESSAGE },
+                     uniqueness: { message: UNIQUENESS_MESSAGE,
+                                   scope: :template_id }
+
+  validates :template, presence: { message: PRESENCE_MESSAGE }
+
+  validates :modifiable, inclusion: { in: BOOLEAN_VALUES,
+                                      message: INCLUSION_MESSAGE }
+
+  # ==========
+  # = Scopes =
+  # ==========
 
   scope :titles, -> (template_id) {
     Phase.where(template_id: template_id).select(:id, :title)

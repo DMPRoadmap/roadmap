@@ -22,28 +22,57 @@
 #
 
 class Section < ActiveRecord::Base
-  ##
-  # Associations
+  include ValidationMessages
+  include ValidationValues
+  include ActsAsSortable
+
+  # ================
+  # = Associations =
+  # ================
+
   belongs_to :phase
   belongs_to :organisation
   has_many :questions, dependent: :destroy
   has_one :template, through: :phase
 
-  # Link the data
-  accepts_nested_attributes_for :questions, reject_if: lambda { |a| a[:text].blank? },  allow_destroy: true
+  # ===============
+  # = Validations =
+  # ===============
 
+  validates :phase, presence: { message: PRESENCE_MESSAGE }
 
-  ##
-  # Validations
-  validates :phase, :title, presence: { message: _("can't be blank") }
+  validates :title, presence: { message: PRESENCE_MESSAGE }
 
-  validates :number, presence: { message: _("can't be blank") },
-                     uniqueness: { scope: :phase_id }
+  # validates :description, presence: { message: PRESENCE_MESSAGE }
 
+  validates :number, presence: { message: PRESENCE_MESSAGE },
+                     uniqueness: { scope: :phase_id,
+                                   message: UNIQUENESS_MESSAGE }
+
+  validates :published, inclusion: { in: BOOLEAN_VALUES,
+                                      message: INCLUSION_MESSAGE }
+
+  validates :modifiable, inclusion: { in: BOOLEAN_VALUES,
+                                      message: INCLUSION_MESSAGE }
+
+  # =============
+  # = Callbacks =
+  # =============
+
+  # TODO: Move this down to DB constraints
   before_validation :set_defaults
 
-  ##
-  # Scopes
+  # =====================
+  # = Nested Attributes =
+  # =====================
+
+  accepts_nested_attributes_for :questions,
+    reject_if: -> (a) { a[:text].blank? },
+    allow_destroy: true
+
+  # ==========
+  # = Scopes =
+  # ==========
 
   # The sections for this Phase that have been added by the admin
   #
@@ -57,22 +86,9 @@ class Section < ActiveRecord::Base
   # @return [ActiveRecord::Relation] Returns the sections that aren't modifiable
   scope :not_modifiable, -> { where(modifiable: false) }
 
-  # =================
-  # = Class methods =
-  # =================
-
-  def self.update_numbers!(*ids, phase:)
-    # Ensure only section ids belonging to this Phase are included.
-    ids = ids.map(&:to_i) & phase.section_ids
-    return if ids.empty?
-    case connection.adapter_name
-    when "PostgreSQL" then update_numbers_postgresql!(ids)
-    when "Mysql2"     then update_numbers_mysql2!(ids)
-    else
-      update_numbers_sequentially!(ids)
-    end
-  end
-
+  # ===========================
+  # = Public instance methods =
+  # ===========================
 
   ##
   # return the title of the section
@@ -106,29 +122,9 @@ class Section < ActiveRecord::Base
 
   private
 
-  def self.update_numbers_postgresql!(ids)
-    # Build an Array with each ID and its relative position in the Array
-    values = ids.each_with_index.map { |id, i| "(#{id}, #{i + 1})" }.join(", ")
-    # Run a single UPDATE query for all records.
-    query = <<~SQL
-      UPDATE #{table_name} \
-        SET number = svals.number \
-        FROM (VALUES #{sanitize_sql(values)}) AS svals(id, number) \
-        WHERE svals.id = #{table_name}.id;
-      SQL
-    connection.execute(query)
-  end
-
-  def self.update_numbers_mysql2!(ids)
-    ids_string = ids.map { |id| "'#{id}'" }.join(",")
-    update_all(%Q{ number = FIELD(id, #{sanitize_sql(ids_string)}) })
-  end
-
-  def self.update_numbers_sequentially!(ids)
-    ids.each_with_index.map do |id, number|
-      find(id).update_attribute(:number, number + 1)
-    end
-  end
+  # ============================
+  # = Private instance methods =
+  # ============================
 
   def set_defaults
     self.modifiable = true if modifiable.nil?
