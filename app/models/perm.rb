@@ -24,23 +24,40 @@ class Perm < ActiveRecord::Base
   validates :name, presence: { message: PRESENCE_MESSAGE },
                    uniqueness: { message: UNIQUENESS_MESSAGE }
 
-  # ==========
-  # = Scopes =
-  # ==========
 
-  scope :add_orgs, -> { Perm.find_by(name: 'add_organisations') }
+  # =================
+  # = Class methods =
+  # =================
 
-  scope :change_affiliation, -> { Perm.find_by(name: 'change_org_affiliation') }
+  def self.add_orgs
+    Perm.find_by(name: 'add_organisations')
+  end
 
-  scope :grant_permissions, -> { Perm.find_by(name: 'grant_permissions') }
+  def self.change_affiliation
+    Perm.find_by(name: 'change_org_affiliation')
+  end
 
-  scope :modify_templates, -> { Perm.find_by(name: 'modify_templates') }
+  def self.grant_permissions
+    Perm.find_by(name: 'grant_permissions')
+  end
 
-  scope :modify_guidance, -> { Perm.find_by(name: 'modify_guidance') }
+  def self.modify_templates
+    Perm.find_by(name: 'modify_templates')
+  end
 
-  scope :use_api, -> { Perm.find_by(name: 'use_api') }
+  def self.modify_guidance
+    Perm.find_by(name: 'modify_guidance')
+  end
 
-  scope :change_org_details, -> { Perm.find_by(name: 'change_org_details') }
+  def self.use_api
+    Perm.find_by(name: 'use_api')
+  end
 
-  scope :grant_api, -> { Perm.find_by(name: 'grant_api_to_orgs') }
+  def self.change_org_details
+    Perm.find_by(name: 'change_org_details')
+  end
+
+  def self.grant_api
+    Perm.find_by(name: 'grant_api_to_orgs')
+  end
 end
