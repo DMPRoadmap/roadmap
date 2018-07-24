@@ -12,15 +12,25 @@
 #
 
 class QuestionFormat < ActiveRecord::Base
+  include ValidationMessages
+  include ValidationValues
 
+  ##
+  #
+  FORMAT_TYPES = %i[textarea textfield radiobuttons checkbox dropdown
+                    multiselectbox date rda_metadata]
   ##
   # Associations
   has_many :questions
 
-  enum formattype: [ :textarea, :textfield, :radiobuttons, :checkbox, :dropdown, :multiselectbox, :date, :rda_metadata ]
+  enum formattype: FORMAT_TYPES
 
-  validates :title, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
+  validates :title, presence: { message: PRESENCE_MESSAGE },
+                    uniqueness: { message: UNIQUENESS_MESSAGE }
 
+  validates :description, presence: { message: PRESENCE_MESSAGE }
+
+  validates :option_based, inclusion: { in: BOOLEAN_VALUES }
 
   # Retrieves the id for a given formattype passed
   scope :id_for, -> (formattype) { where(formattype: formattype).pluck(:id).first }

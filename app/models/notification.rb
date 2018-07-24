@@ -15,13 +15,44 @@
 #
 
 class Notification < ActiveRecord::Base
+  include ValidationMessages
+  include ValidationValues
+
   enum level: %i[info warning danger]
   enum notification_type: %i[global]
 
-  has_and_belongs_to_many :users, dependent: :destroy, join_table: 'notification_acknowledgements'
+  # ================
+  # = Associations =
+  # ================
 
-  validates :notification_type, :title, :level, :starts_at, :expires_at, :body, presence: true
-  validate :valid_dates
+  has_and_belongs_to_many :users, dependent: :destroy,
+                          join_table: 'notification_acknowledgements'
+
+
+  # ===============
+  # = Validations =
+  # ===============
+
+  validates :notification_type, presence: { message: PRESENCE_MESSAGE }
+
+  validates :title, presence: { message: PRESENCE_MESSAGE }
+
+  validates :level, presence: { message: PRESENCE_MESSAGE }
+
+  validates :body, presence: { message: PRESENCE_MESSAGE }
+
+  validates :dismissable, inclusion: { in: BOOLEAN_VALUES }
+
+  validates :starts_at, presence: { message: PRESENCE_MESSAGE },
+                        after: { date: Date.today, on: :create }
+
+  validates :expires_at, presence: { message: PRESENCE_MESSAGE },
+                         after: { date: Date.tomorrow, on: :create }
+
+
+  # ==========
+  # = Scopes =
+  # ==========
 
   scope :active, (lambda do
     where('starts_at <= :now and :now < expires_at', now: Time.now)
@@ -42,6 +73,8 @@ class Notification < ActiveRecord::Base
   def acknowledged?(user)
     users.include?(user) if user.present? && dismissable?
   end
+
+  private
 
   # Validate Notification dates
   def valid_dates

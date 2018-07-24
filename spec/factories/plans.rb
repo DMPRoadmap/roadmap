@@ -37,5 +37,8 @@ FactoryBot.define do
     principal_investigator_email { Faker::Internet.safe_email }
     feedback_requested false
     complete false
+    trait :creator do
+      after(:create) { |obj| obj.roles << create(:role, creator: true) }
+    end
   end
 end
