@@ -2872,7 +2872,7 @@ msgid "The information you enter into this system can be seen by you, people you
 msgstr "As informações inseridas neste sistema podem ser vistas por você, pessoas com as quais você optou por compartilhar o acesso e - somente para fins de manutenção do serviço - administradores do sistema na CDL. Compilamos informações anônimas, automatizadas e agregadas de planos, mas não acessaremos diretamente, faremos uso ou compartilharemos seu conteúdo com ninguém além da CDL e de sua instituição de origem sem a sua permissão. Os usuários autorizados em sua instituição de origem podem acessar seus planos para fins específicos, por exemplo, para rastrear a conformidade com os requisitos institucionais / do financiador, calcular os requisitos de armazenamento ou avaliar a demanda por serviços de gerenciamento de dados entre disciplinas. Para uma descrição detalhada de quais informações (além dos planos) coletamos dos visitantes deste site e como elas são usadas e gerenciadas, consulte a Política de Privacidade da CDL e as Práticas de Suporte da Linha de Base listadas em <a href = \"%{policies_url}\">%{policies_url}</a>"
 
 msgid "The information you provide will be used by the %{org_name} to offer you access to and personalisation of the %{application_name} service."
-msgstr "As informações fornecidas serão usadas pelo %{org_name} para oferecer acesso e customização do serviço %application_name}."
+msgstr "As informações fornecidas serão usadas pelo %{org_name} para oferecer acesso e customização do serviço %{application_name}."
 
 msgid "The key %{key} does not have a valid set of object links"
 msgstr "A chave %{key} não possui um conjunto válido de links de objeto"
