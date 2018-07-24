@@ -127,19 +127,27 @@ class Plan < ActiveRecord::Base
   # Note that in ActiveRecord::Enum the mappings are exposed through a class method with the pluralized attribute name (e.g visibilities rather than visibility)
   scope :publicly_visible, -> { includes(:template).where(:visibility => visibilities[:publicly_visible]) }
 
-  # Retrieves any plan in which the user has an active role and it is not a reviewer
+  # Retrieves any plan in which the user has an active role and it is not a
+  # reviewer
   scope :active, -> (user) {
-    includes([:template, :roles]).where({ "roles.active": true, "roles.user_id": user.id }).where(Role.not_reviewer_condition)
+    includes([:template, :roles])
+      .where({ "roles.active": true, "roles.user_id": user.id })
+      .where(Role.not_reviewer_condition)
   }
 
   # Retrieves any plan organisationally or publicly visible for a given org id
   scope :organisationally_or_publicly_visible, -> (user) {
-    includes(:template, {roles: :user})
-      .where({
-        visibility: [visibilities[:organisationally_visible], visibilities[:publicly_visible]],
-        "roles.access": Role.access_values_for(:creator, :administrator, :editor, :commenter).min,
-        "users.org_id": user.org_id})
-      .where(['NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)', user.id])
+    access = Role.access_values_for(:creator,
+                                    :administrator,
+                                    :editor,
+                                    :commenter).min
+    includes(roles: :user)
+      .where(
+        visibility: [visibilities[:organisationally_visible],
+                     visibilities[:publicly_visible]],
+        roles: { access:  access }
+      )
+      .where('NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)', user.id)
   }
 
   scope :search, -> (term) {
@@ -147,10 +155,6 @@ class Plan < ActiveRecord::Base
     joins(:template).where("plans.title LIKE ? OR templates.title LIKE ?", search_pattern, search_pattern)
   }
 
-  # Retrieves plan, template, org, phases, sections and questions
-  scope :overview, -> (id) {
-    Plan.includes(:phases, :sections, :questions, template: [ :org ]).find(id)
-  }
   ##
   # Settings for the template
   has_settings :export, class_name: 'Settings::Template' do |s|
@@ -158,6 +162,60 @@ class Plan < ActiveRecord::Base
   end
   alias_method :super_settings, :settings
 
+  # =================
+  # = Class methods =
+  # =================
+
+  # Pre-fetched a plan phase together with its sections and questions
+  # associated. It also pre-fetches the answers and notes associated to the plan
+  def self.load_for_phase(id, phase_id)
+
+    # Preserves the default order defined in the model relationships
+    plan = Plan
+      .joins(template: :phases)
+      .preload(template: { phases: { sections: :questions }})
+      .where(id: id, phases: { id: phase_id })
+      .merge(Plan.includes(answers: :notes)).first
+
+    phase = plan.template.phases.find do |p|
+      p.id == phase_id.to_i
+    end
+
+    return plan, phase
+  end
+
+  # deep copy the given plan and all of it's associations
+  #
+  # @params [Plan] plan to be deep copied
+  # @return [Plan] saved copied plan
+  def self.deep_copy(plan)
+    plan_copy = plan.dup
+    plan_copy.title = "Copy of " + plan.title
+    plan_copy.save!
+    plan.answers.each do |answer|
+      answer_copy = Answer.deep_copy(answer)
+      answer_copy.plan_id = plan_copy.id
+      answer_copy.save!
+    end
+    plan.guidance_groups.each do |guidance_group|
+      if guidance_group.present?
+        plan_copy.guidance_groups << GuidanceGroup.where(id: guidance_group.id).first
+      end
+    end
+    return plan_copy
+  end
+
+  # Returns visibility message given a Symbol type visibility passed, otherwise
+  # nil
+  def self.visibility_message(type)
+    message = {
+      :organisationally_visible => _('organisational'),
+      :publicly_visible => _('public'),
+      :is_test => _('test'),
+      :privately_visible => _('private')
+    }
+    message[type]
+  end
 
   ##
   # Proxy through to the template settings (or defaults if this plan doesn't have
@@ -762,64 +820,6 @@ class Plan < ActiveRecord::Base
   # Returns the number of questions for a plan.
   def num_questions
     return sections.includes(:questions).joins(:questions).reduce(0){ |m, s| m + s.questions.length }
-  end
-  # the following two methods are for eager loading. One gets used for the plan/show
-  # page and the oter for the plan/edit. The difference is just that one pulls in more than
-  # the other.
-  # TODO: revisit this and work out for sure that maintaining the difference is worthwhile.
-  # it may not be. Also make sure nether is doing more thanit needs to.
-  #
-  def self.eager_load(id)
-    Plan.includes(
-      [{template: [
-                   {phases: {sections: {questions: :answers}}}
-                  ]},
-       {plans_guidance_groups: {guidance_group: :guidances}}
-      ]).find(id)
-  end
-
-  # Pre-fetched a plan phase together with its sections and questions associated. It also pre-fetches the answers and notes associated to the plan
-  def self.load_for_phase(id, phase_id)
-    plan = Plan
-      .joins(template: { phases: { sections: :questions }})
-      .preload(template: { phases: { sections: :questions }}) # Preserves the default order defined in the model relationships
-      .where("plans.id = :id AND phases.id = :phase_id", { id: id, phase_id: phase_id })
-      .merge(Plan.includes(answers: :notes))[0]
-    phase = plan.template.phases.find {|p| p.id==phase_id.to_i }
-
-    return plan, phase
-  end
-
-  # deep copy the given plan and all of it's associations
-  #
-  # @params [Plan] plan to be deep copied
-  # @return [Plan] saved copied plan
-  def self.deep_copy(plan)
-    plan_copy = plan.dup
-    plan_copy.title = "Copy of " + plan.title
-    plan_copy.save!
-    plan.answers.each do |answer|
-      answer_copy = Answer.deep_copy(answer)
-      answer_copy.plan_id = plan_copy.id
-      answer_copy.save!
-    end
-    plan.guidance_groups.each do |guidance_group|
-      if guidance_group.present?
-        plan_copy.guidance_groups << GuidanceGroup.where(id: guidance_group.id).first
-      end
-    end
-    return plan_copy
-  end
-
-  # Returns visibility message given a Symbol type visibility passed, otherwise nil
-  def self.visibility_message(type)
-    message = {
-      :organisationally_visible => _('organisational'),
-      :publicly_visible => _('public'),
-      :is_test => _('test'),
-      :privately_visible => _('private')
-    }
-    message[type]
   end
 
   # Determines whether or not visibility changes are permitted according to the

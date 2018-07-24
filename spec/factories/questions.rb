@@ -21,5 +21,12 @@ FactoryBot.define do
     text { Faker::Lorem.paragraph }
     sequence(:number)
     modifiable false
+    trait :textarea do
+      question_format {
+        QuestionFormat
+          .where(formattype: "textarea")
+          .first_or_create(title: "Text Area", description: "Text area")
+      }
+    end
   end
 end

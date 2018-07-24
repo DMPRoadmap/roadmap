@@ -120,6 +120,8 @@ group :development, :test do
   gem "factory_bot_rails"
 
   gem "faker"
+
+  gem "rspec-collection_matchers"
 end
 
 group :test do
@@ -141,6 +143,13 @@ group :test do
   gem 'database_cleaner', require: false
 
   gem "shoulda", require: false
+
+  gem "mocha", require: false
+
+  gem "spring"
+
+  gem "spring-commands-rspec"
+
 end
 
 group :development do
