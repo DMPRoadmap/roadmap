@@ -11,19 +11,36 @@
 #
 
 class Theme < ActiveRecord::Base
+  include ValidationMessages
 
-  ##
-  # Associations
+  # ================
+  # = Associations =
+  # ================
+
   has_and_belongs_to_many :questions, join_table: "questions_themes"
   has_and_belongs_to_many :guidances, join_table: "themes_in_guidance"
 
+  # ===============
+  # = Validations =
+  # ===============
 
-  validates :title, presence: {message: _("can't be blank")}
+  validates :title, presence: { message: PRESENCE_MESSAGE }
+
+  validates :description, presence: { message: PRESENCE_MESSAGE }
+
+  # ==========
+  # = Scopes =
+  # ==========
 
   scope :search, -> (term) {
     search_pattern = "%#{term}%"
     where("title LIKE ? OR description LIKE ?", search_pattern, search_pattern)
   }
+
+  # ===========================
+  # = Public instance methods =
+  # ===========================
+
   ##
   # returns the title of the theme
   #
@@ -31,5 +48,4 @@ class Theme < ActiveRecord::Base
   def to_s
   	title
   end
-
 end

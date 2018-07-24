@@ -30,23 +30,31 @@
 
 class Guidance < ActiveRecord::Base
   include GlobalHelpers
+  include ValidationMessages
+  include ValidationValues
 
-  ##
-  # Associations
+  # ================
+  # = Associations =
+  # ================
   belongs_to :guidance_group
   has_and_belongs_to_many :themes, join_table: "themes_in_guidance"
-# depricated, but required for migration "single_group_for_guidance"
-  #has_and_belongs_to_many :guidance_groups, join_table: "guidance_in_group"
-
+  belongs_to :question
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?
 
 
+  # ===============
+  # = Validations =
+  # ===============
 
+  validates :text, presence: { message:  PRESENCE_MESSAGE }
 
-  validates :text, presence: {message: _("can't be blank")}
+  validates :guidance_group, presence: { message: PRESENCE_MESSAGE }
+
+  validates :published, inclusion: { message: INCLUSION_MESSAGE,
+                                     in: BOOLEAN_VALUES}
 
   # Retrieves every guidance associated to an org
   scope :by_org, -> (org) {

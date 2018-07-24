@@ -21,6 +21,9 @@
 
 class GuidanceGroup < ActiveRecord::Base
   include GlobalHelpers
+  include ValidationValues
+  include ValidationMessages
+
   ##
   # Associations
   belongs_to :org
@@ -30,8 +33,19 @@ class GuidanceGroup < ActiveRecord::Base
   # has_and_belongs_to_many :guidances, join_table: "guidance_in_group"
 
 
+  # ===============
+  # = Validations =
+  # ===============
 
-  validates :name, :org, presence: {message: _("can't be blank")}
+  validates :name, presence: { message:  PRESENCE_MESSAGE }
+
+  validates :org, presence: { message: PRESENCE_MESSAGE }
+
+  validates :optional_subset, inclusion: { in: BOOLEAN_VALUES,
+                                           message: INCLUSION_MESSAGE }
+
+  validates :published, inclusion: { in: BOOLEAN_VALUES,
+                                     message: INCLUSION_MESSAGE }
 
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW

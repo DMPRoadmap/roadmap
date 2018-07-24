@@ -49,6 +49,9 @@
 
 class User < ActiveRecord::Base
   include ConditionalUserMailer
+  include ValidationMessages
+  include ValidationValues
+
   ##
   # Devise
   #   Include default devise modules. Others available are:
@@ -63,16 +66,27 @@ class User < ActiveRecord::Base
   # User Notification Preferences
   serialize :prefs, Hash
 
-  ##
-  # Associations
+  # ================
+  # = Associations =
+  # ================
+
+
   has_and_belongs_to_many :perms, join_table: :users_perms
+
   belongs_to :language
+
   belongs_to :org
+
   has_one  :pref
+
   has_many :answers
+
   has_many :notes
+
   has_many :exported_plans
+
   has_many :roles, dependent: :destroy
+
   has_many :plans, through: :roles do
     def filter(query)
       return self unless query.present?
@@ -88,14 +102,26 @@ class User < ActiveRecord::Base
     end
   end
 
+
   has_many :user_identifiers
+
   has_many :identifier_schemes, through: :user_identifiers
+
   has_and_belongs_to_many :notifications, dependent: :destroy, join_table: 'notification_acknowledgements'
 
-  validates :email, email: true, allow_nil: true, uniqueness: {message: _("must be unique")}
 
-  ##
-  # Scopes
+  # ===============
+  # = Validations =
+  # ===============
+
+  validates :active, inclusion: { in: BOOLEAN_VALUES,
+                                  message: INCLUSION_MESSAGE }
+
+
+  # ==========
+  # = Scopes =
+  # ==========
+
   default_scope { includes(:org, :perms) }
 
   # Retrieves all of the org_admins for the specified org
@@ -115,7 +141,15 @@ class User < ActiveRecord::Base
     end
   }
 
+  # =============
+  # = Callbacks =
+  # =============
+
   after_update :when_org_changes
+
+  # ===========================
+  # = Public instance methods =
+  # ===========================
 
   ##
   # This method uses Devise's built-in handling for inactive users
@@ -139,7 +173,6 @@ class User < ActiveRecord::Base
     end
   end
 
-
   ##
   # gives either the name of the user, or the email if name unspecified
   #
@@ -161,7 +194,6 @@ class User < ActiveRecord::Base
   def active_plans
     self.plans.includes(:template).where("roles.active": true).where(Role.not_reviewer_condition)
   end
-
 
   ##
   # Returns the user's identifier for the specified scheme name
@@ -349,6 +381,11 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  # ============================
+  # = Private instance methods =
+  # ============================
+
   def when_org_changes
     if org_id != org_id_was
       unless can_change_org?

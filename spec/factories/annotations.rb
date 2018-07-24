@@ -16,5 +16,6 @@ FactoryBot.define do
     question
     org
     text { Faker::Lorem.paragraph }
+    type { [0,1].sample }
   end
 end
