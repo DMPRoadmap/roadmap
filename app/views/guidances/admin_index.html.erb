@@ -28,11 +28,25 @@
       controller: 'paginable/guidance_groups',
       action: 'index',
       scope: @guidance_groups,
-      query_params: { sort_field: 'guidance_groups.name', sort_direction: :asc }) %> 
+      query_params: { sort_field: 'guidance_groups.name', sort_direction: :asc }) %>
+
+    <!-- START DMPTool customization -->
+    <!-- ========================================= -->
+      <!-- <div> -->
+        <!-- <a href="<%#= admin_new_guidance_group_path %>" class="btn btn-primary"><%#= _('Create a guidance group') %></a> -->
+      <!-- </div> -->
+    <!-- ========================================= -->
+    <!-- END DMPTool customization -->
 
     <h2>
       <%= _('Guidance list') %>
+
+    <!-- START DMPTool customization -->
+    <!-- ========================================= -->
       <a href="<%= admin_new_guidance_path %>" class="btn btn-primary pull-right"><%= _('Create guidance') %></a>
+    <!-- ========================================= -->
+    <!-- END DMPTool customization -->
+
     </h2>
 
     <p class="text-justify">
@@ -53,7 +67,7 @@
   <!-- START DMPTool customization -->
   <!-- ========================================= -->
     <!-- <div> -->
-      <!-- <a href="<%= admin_new_guidance_path %>" class="btn btn-primary"><%#= _('Create guidance') %></a> -->
+      <!-- <a href="<%#= admin_new_guidance_path %>" class="btn btn-primary"><%#= _('Create guidance') %></a> -->
     <!-- </div> -->
   <!-- ========================================= -->
   <!-- END DMPTool customization -->

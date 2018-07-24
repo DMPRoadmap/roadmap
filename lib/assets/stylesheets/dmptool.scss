@@ -39,22 +39,28 @@ h1, h2, h3, h4 {
   color: $dark-blue;
 }
 
-a:not(.btn),
-a:not(.btn):hover, a:not(.btn):focus, a:not(.btn):visited, a:not(.btn):active, a:not(.btn):active:hover,
-a:not(.btn) .fa, a:not(.btn) .fa:hover, a:not(.btn) .fa:focus, a:not(.btn) .fa:visited, a:not(.btn) .fa:active, a:not(.btn) .fa:active:hover {
+a, a:hover, a:focus, a:visited, a:active, a:active:hover,
+a .fa, a .fa:hover, a .fa:focus, a .fa:visited, a .fa:active, a .fa:active:hover {
   color: $dark-blue;
   background-color: inherit;
   text-decoration: none;
   font-size: 1.4rem;
 }
 
-a:not(.btn):hover, a:not(.btn):focus, a:not(.btn):active:hover,
-a:not(.btn) .fa:hover, a:not(.btn) .fa:focus, a:not(.btn) .fa:active:hover,
+a:hover, a:focus, a:active:hover,
+a .fa:hover, a .fa:focus, a .fa:active:hover,
 #sign-in-menu li > a:hover, #sign-in-menu li > a:focus, #sign-in-menu li > a:active:hover {
   text-decoration: underline;
 }
 
-a:not(.btn) .fa, a:not(.btn) .fa:hover, a:not(.btn) .fa:focus, a:not(.btn) .fa:visited, a:not(.btn) .fa:active, a:not(.btn) .fa:active:hover {
+a .fa, a .fa:hover, a .fa:focus, a .fa:visited, a .fa:active, a .fa:active:hover {
+  text-decoration: none;
+}
+
+/* Link as button styling */
+a.link_as_button, a.link_as_button:hover, a.link_as_button:focus, a.link_as_button:visited, a.link_as_button:active, a.link_as_button:active:hover {
+  color: $white;
+  border: none;
   text-decoration: none;
 }
 
@@ -99,7 +105,7 @@ th.last-edited {
 tbody td .dropdown-toggle, tbody td .dropdown-toggle:hover, tbody td .dropdown-toggle:focus, tbody td .dropdown-toggle:visited, tbody td .dropdown-toggle:active:hover {
   background-color: inherit;
 }
-th > a:not(.btn), th > a:not(.btn):hover, th > a:not(.btn):focus, th > a:not(.btn):visited, th > a:not(.btn):active, th > a:not(.btn):active:hover {
+th > a, th > a:hover, th > a:focus, th > a:visited, th > a:active, th > a:active:hover {
   color: $white;
   .fa {
     color: $white;
@@ -571,7 +577,8 @@ header {
           li {
             padding-left: 5px;
           
-            a {
+            a, a:focus, a:focus, a:visited, a:active, a:active:hover {
+              color: $dark-blue;
               padding-left: 0;
             }
           }
@@ -874,6 +881,10 @@ div[id^="guidance-"] .panel {
   .heading-button, .heading-button .panel-heading {
     background-color: white;
     color: $dark-blue;
+
+    .fa {
+      color: $dark-blue;
+    }
   }
 }
 .form-answer .panel-default .label-default {

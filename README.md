@@ -6,16 +6,16 @@ The DMPTool is based on the [DMPRoadmap](https://github.com/DMPRoadmap/roadmap) 
 
 ## Support
 
-<<<<<<< HEAD
 Issues should be reported here on [Github Issues](https://github.com/CDLUC3/dmptool/issues)
 Please be advised though that we can only provide limited support for your local installations. Issues will be triaged by our team and if applicable will be moved/opened in the DMPRoadmap repository.
 
 ## Translations
 
 See the [Translations Guide](https://github.com/DMPRoadmap/roadmap/wiki/Translations)
-=======
-#### Current Release
+
+## Current Release
 [v1.1.3](https://github.com/DMPRoadmap/roadmap/releases/tag/v1.1.3)
+
 [![Build Status](https://travis-ci.org/DMPRoadmap/roadmap.svg)](https://travis-ci.org/DMPRoadmap/roadmap)
 
 #### Pre-requisites
@@ -23,7 +23,6 @@ Roadmap is a Ruby on Rails application and you will need to have:
 * Ruby >= 2.4.4
 * Rails >= 4.2
 * MySQL >= 5.0 OR PostgreSQL
->>>>>>> roadmap
 
 ## Installation
 
@@ -61,6 +60,7 @@ The following is a list of customizations that we have made to the base DMPRoadm
 See the [Troubleshooting Guide](https://github.com/DMPRoadmap/roadmap/wiki/Troubleshooting) on the Wiki
 
 ## Contributing
+
 See the [Contributing Guide](https://github.com/DMPRoadmap/roadmap/wiki/Get-involved)
 
 ## License

@@ -17,8 +17,8 @@
       
             <% else %>
               <%= render partial: "shared/accessible_combobox", 
-                         locals: {name: 'org_name',
-                                  id: 'org_name',
+                         locals: {name: 'shib-ds[org_name]',
+                                  id: 'shib-ds_org_name',
                                   default_selection: nil,
                                   models: orgs,
                                   attribute: 'name',
@@ -31,7 +31,7 @@
           <% if orgs.length > 10 %>
             <%= link_to _('See the full list of participating institutions'), '#', id: 'show_list' %>
 
-            <ul id="full_list" class="hide list-unstyled" aria-hidden="true">
+            <ul id="full_list" class="hidden list-unstyled" aria-hidden="true">
               <% current = nil %>
               <% orgs.each do |org| %>
                 <% unless org.name[0].capitalize == current %>
