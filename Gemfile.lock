@@ -214,6 +214,8 @@ GEM
       json
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
+    rspec-collection_matchers (1.1.3)
+      rspec-expectations (>= 2.99.0.beta1)
     rspec-core (3.7.1)
       rspec-support (~> 3.7.0)
     rspec-expectations (3.7.0)
@@ -315,6 +317,7 @@ DEPENDENCIES
   railties
   recaptcha
   responders (~> 2.0)
+  rspec-collection_matchers
   rspec-rails
   ruby_dig
   shoulda

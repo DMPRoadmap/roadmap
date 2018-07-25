@@ -69,7 +69,9 @@ class Template < ActiveRecord::Base
 
   validates :locale, presence: { message: PRESENCE_MESSAGE }
 
-  validates :version, presence: { message: PRESENCE_MESSAGE }
+  validates :version, presence: { message: PRESENCE_MESSAGE },
+                      uniqueness: { message: UNIQUENESS_MESSAGE,
+                                    scope: :family_id }
 
   validates :visibility, presence: { message: PRESENCE_MESSAGE }
 
