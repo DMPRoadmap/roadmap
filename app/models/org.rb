@@ -77,14 +77,16 @@ class Org < ActiveRecord::Base
   validates :name, presence: { message: PRESENCE_MESSAGE },
                    uniqueness: { message: UNIQUENESS_MESSAGE }
 
-  validates :abbreviation, presence: { message: PRESENCE_MESSAGE }
+  validates :abbreviation, presence: { message: PRESENCE_MESSAGE },
+                           uniqueness: { message: UNIQUENESS_MESSAGE }
 
   validates :is_other, inclusion: { in: BOOLEAN_VALUES,
                                     message: INCLUSION_MESSAGE }
 
   validates :language, presence: { message: PRESENCE_MESSAGE }
 
-  validates :contact_email, presence: { message: PRESENCE_MESSAGE,
+  validates :contact_email, email: { allow_nil: true },
+                            presence: { message: PRESENCE_MESSAGE,
                                         if: :feedback_enabled }
 
   validates :org_type, presence: { message: PRESENCE_MESSAGE }

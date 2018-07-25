@@ -6,6 +6,13 @@ RSpec.describe Template, type: :model do
 
     it { is_expected.to allow_values(true, false).for(:published) }
 
+    it "validates uniqueness of version by family_id" do
+      template = create(:template, version: 1, family_id: 1234)
+      new_template = build(:template, version: 1, family_id: 1234)
+      expect(new_template).not_to be_valid
+      expect(new_template).to have(1).error_on(:version)
+    end
+
     # This is currently being set in the defaults before validation
     # it { is_expected.not_to allow_value(nil).for(:published) }
 
