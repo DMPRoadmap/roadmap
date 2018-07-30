@@ -55,6 +55,14 @@ FactoryBot.define do
     trait :school do
       school true
     end
+
+    transient do
+      templates 0
+    end
+
+    after :create do |org, evaluator|
+      create_list(:template, evaluator.templates, :published, org: org)
+    end
   end
 end
 
