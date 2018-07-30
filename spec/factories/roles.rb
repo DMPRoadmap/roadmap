@@ -16,6 +16,7 @@ FactoryBot.define do
     user
     plan
     access 0
+    active true
     trait :active do
       active true
     end
