@@ -12,6 +12,7 @@ module SessionsHelper
   end
 
   def sign_in_as_user(user)
+    clear_cookies!
     visit root_path
     within "#sign-in-form" do
       fill_in "Email", with: user.email
@@ -20,8 +21,4 @@ module SessionsHelper
     end
   end
 
-end
-
-RSpec.configure do |config|
-  config.include(SessionsHelper, type: :feature)
 end
