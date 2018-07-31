@@ -21,12 +21,45 @@ FactoryBot.define do
     text { Faker::Lorem.paragraph }
     sequence(:number)
     modifiable false
+
+    transient do
+      options 0
+    end
+
+    after(:create) do |question, evaluator|
+      create_list(:question_option, evaluator.options, question: question)
+    end
+
     trait :textarea do
-      question_format {
-        QuestionFormat
-          .where(formattype: "textarea")
-          .first_or_create(title: "Text Area", description: "Text area")
-      }
+      question_format { create(:question_format, :textarea) }
+    end
+
+    trait :textfield do
+      question_format { create(:question_format, :textfield) }
+    end
+
+    trait :radiobuttons do
+      question_format { create(:question_format, :radiobuttons) }
+    end
+
+    trait :checkbox do
+      question_format { create(:question_format, :checkbox) }
+    end
+
+    trait :dropdown do
+      question_format { create(:question_format, :dropdown) }
+    end
+
+    trait :multiselectbox do
+      question_format { create(:question_format, :multiselectbox) }
+    end
+
+    trait :date do
+      question_format { create(:question_format, :date) }
+    end
+
+    trait :rda_metadata do
+      question_format { create(:question_format, :rda_metadata) }
     end
   end
 end
