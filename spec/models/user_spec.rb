@@ -675,16 +675,6 @@ RSpec.describe User, type: :model do
 
   end
 
-  describe "#deliver_invitation" do
-
-    pending "To be implemented" do
-      context "Implement" do
-
-      end
-    end
-
-  end
-
   describe ".where_case_insensitive" do
 
     before do
