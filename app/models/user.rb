@@ -324,14 +324,9 @@ class User < ActiveRecord::Base
   # Load the user based on the scheme and id provided by the Omniauth call
   # --------------------------------------------------------------
   def self.from_omniauth(auth)
-    scheme = IdentifierScheme.find_by(name: auth.provider.downcase)
-
-    if scheme.nil?
-      throw Exception.new('Unknown OAuth provider: ' + auth.provider)
-    else
-      joins(:user_identifiers).where('user_identifiers.identifier': auth.uid,
-                   'user_identifiers.identifier_scheme_id': scheme.id).first
-    end
+    joins(user_identifiers: :identifier_scheme)
+      .where(user_identifiers: { identifier: auth.uid },
+             identifier_schemes: { name: auth.provider.downcase }).first
   end
 
   ##
@@ -341,8 +336,8 @@ class User < ActiveRecord::Base
   def get_preferences(key)
     defaults = Pref.default_settings[key.to_sym] || Pref.default_settings[key.to_s]
 
-    if self.pref.present?
-      existing = self.pref.settings[key.to_s].deep_symbolize_keys
+    if pref.present?
+      existing = pref.settings[key.to_s].deep_symbolize_keys
 
       # Check for new preferences
       defaults.keys.each do |grp|
@@ -371,7 +366,10 @@ class User < ActiveRecord::Base
   # @param val [string] The string to search for, case insensitive. val is duck typed to check whether or not downcase method exist
   # @return [ActiveRecord::Relation] The result of the search
   def self.where_case_insensitive(field, val)
-    User.where(field.to_sym => val.to_s.downcase)
+    unless columns.map(&:name).include?(field.to_s)
+      raise ArgumentError, "Field #{field} is not present on users table"
+    end
+    User.where("LOWER(#{field}) = :value", value: val.to_s.downcase)
   end
 
   # Acknoledge a Notification
