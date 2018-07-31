@@ -52,7 +52,7 @@ RSpec.describe Org, type: :model do
     
     it { should belong_to(:region) }
     
-    it { should have_many(:guidance_groups) }
+    it { should have_many(:guidance_groups).dependent(:destroy) }
     
     it { should have_many(:templates) }
     
@@ -60,11 +60,11 @@ RSpec.describe Org, type: :model do
     
     it { should have_many(:annotations) }
     
-    it { should have_and_belong_to_many(:token_permission_types)}
+    it { should have_and_belong_to_many(:token_permission_types).join_table("org_token_permissions") } 
     
     it { should have_many(:org_identifiers) }
     
-    it { should have_many(:identifier_schemes) }
+    it { should have_many(:identifier_schemes).through(:org_identifiers) }
 
   end
 
