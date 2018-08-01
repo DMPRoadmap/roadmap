@@ -56,7 +56,7 @@ class AnswersController < ApplicationController
         }
       }).find(p_params[:plan_id])
       @question = @answer.question
-      @section = @plan.get_section(@question.section_id)
+      @section = @plan.sections.find_by(id: @question.section_id)
       template = @section.phase.template
 
       render json: {
