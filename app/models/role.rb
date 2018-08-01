@@ -27,10 +27,44 @@ class Role < ActiveRecord::Base
   include ValidationMessages
   include ValidationValues
 
-  ##
-  # Associationsrequire "role"
+  # =============
+  # = Constants =
+  # =============
+
+  # Returns a hash of hashes where each key represents an access level
+  # (e.g. see access_level method to understand the integers)
+  #
+  # This method becomes useful for generating template messages (e.g.
+  # permissions change notification mailer)
+  ACCESS_LEVEL_MESSAGES = {
+    5 => {
+      type: _('reviewer'),
+      placeholder1: _('read the plan and provide feedback.'),
+      placeholder2: nil
+    },
+    3 => {
+      type: _('co-owner'),
+      placeholder1: _('write and edit the plan in a collaborative manner.'),
+      placeholder2: _('You can also grant rights to other collaborators.')
+    },
+    2 => {
+      type: _('editor'),
+      placeholder1: _('write and edit the plan in a collaborative manner.'),
+      placeholder2: nil,
+    },
+    1 => {
+      type: _('read-only'),
+      placeholder1: _('read the plan and leave comments.'),
+      placeholder2: nil,
+    }
+  }
+
+  # ================
+  # = Associations =
+  # ================
 
   belongs_to :user
+
   belongs_to :plan
 
   ##
@@ -80,6 +114,10 @@ class Role < ActiveRecord::Base
     where(access: access_values)
   }
 
+  # ===========================
+  # = Public instance methods =
+  # ===========================
+
   ##
   # return the access level for the current project group
   # 5 if the user is a reviewer
@@ -101,52 +139,17 @@ class Role < ActiveRecord::Base
     end
   end
 
-  # Sets access_level according to bit fields defined in the column access
-  # TODO refactor according to the hash defined above (e.g. 1 key is :creator, 2 key is :administrator, etc)
-  def set_access_level(access_level)
-    if access_level >= 1
-      self.commenter = true
-    else
-      self.commenter = false
-    end
-    if access_level >= 2
-      self.editor = true
-    else
-      self.editor = false
-    end
-    if access_level >= 3
-      self.administrator = true
-    else
-      self.administrator = false
-    end
+  def access_level=(value)
+    self.commenter     = value.to_i >= 1
+    self.editor        = value.to_i >= 2
+    self.administrator = value.to_i >= 3
   end
 
-  # Returns a hash of hashes where each key represents an access level (e.g. see access_level method to understand the integers)
-  # This method becomes useful for generating template messages (e.g. permissions change notification mailer)
-  def self.access_level_messages
-    {
-      5 => {
-        :type => _('reviewer'),
-        :placeholder1 => _('read the plan and provide feedback.'),
-        :placeholder2 => nil
-        },
-      3 => {
-        :type => _('co-owner'),
-        :placeholder1 => _('write and edit the plan in a collaborative manner.'),
-        :placeholder2 => _('You can also grant rights to other collaborators.')
-        },
-      2 => {
-        :type => _('editor'),
-        :placeholder1 => _('write and edit the plan in a collaborative manner.'),
-        :placeholder2 => nil,
-        },
-      1 => {
-        :type => _('read-only'),
-        :placeholder1 => _('read the plan and leave comments.'),
-        :placeholder2 => nil,
-      }
-    }
-  end
+  alias :set_access_level :access_level=
+
+  deprecate :set_access_level,
+              deprecator: Cleanup::Deprecators::SetDeprecator.new
+
 
   def set_defaults
     self.active = true if self.new_record?
