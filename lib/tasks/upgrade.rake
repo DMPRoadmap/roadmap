@@ -5,7 +5,7 @@ namespace :upgrade do
   task clean_section_numbers: :environment do
     Phase.all.each do |phase|
       ids_in_order = phase.sections.order("number, created_at").pluck(:id)
-      Section.update_numbers!(*ids_in_order, phase: phase)
+      Section.update_numbers!(*ids_in_order, parent: phase)
     end
   end
 

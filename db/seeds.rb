@@ -2,29 +2,69 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
+require 'factory_bot'
+include FactoryBot::Syntax::Methods
+
 # Identifier Schemes
 # -------------------------------------------------------
 identifier_schemes = [
-  {name: 'orcid', description: 'ORCID', active: true,
-   logo_url:'http://orcid.org/sites/default/files/images/orcid_16x16.png',
-   user_landing_url:'https://orcid.org' },
-  {name: 'shibboleth', description: 'Your institutional credentials', active: true,
+  {
+    name: 'orcid',
+    description: 'ORCID',
+    active: true,
+    logo_url:'http://orcid.org/sites/default/files/images/orcid_16x16.png',
+    user_landing_url:'https://orcid.org'
+  },
+  {
+    name: 'shibboleth',
+    description: 'Your institutional credentials',
+    active: true,
+    logo_url: 'http://newsite.shibboleth.net/wp-content/uploads/2017/01/Shibboleth-logo_2000x1200-1.png',
+    user_landing_url: "https://example.com"
   },
 ]
-identifier_schemes.map{ |is| IdentifierScheme.create!(is) if IdentifierScheme.find_by(name: is[:name]).nil? }
+identifier_schemes.map { |is| create(:identifier_scheme, is) }
 
 # Question Formats
 # -------------------------------------------------------
 question_formats = [
-  {title: "Text area", option_based: false, formattype: 0},
-  {title: "Text field", option_based: false, formattype: 1},
-  {title: "Radio buttons", option_based: true, formattype: 2},
-  {title: "Check box", option_based: true, formattype: 3},
-  {title: "Dropdown", option_based: true, formattype: 4},
-  {title: "Multi select box", option_based: true, formattype: 5},
-  {title: "Date", option_based: true, formattype: 6}
+  {
+    title: "Text area",
+    option_based: false,
+    formattype: 0
+  },
+  {
+    title: "Text field",
+    option_based: false,
+    formattype: 1
+  },
+  {
+    title: "Radio buttons",
+    option_based: true,
+    formattype: 2
+  },
+  {
+    title: "Check box",
+    option_based: true,
+    formattype: 3
+  },
+  {
+    title: "Dropdown",
+    option_based: true,
+    formattype: 4
+  },
+  {
+    title: "Multi select box",
+    option_based: true,
+    formattype: 5
+  },
+  {
+    title: "Date",
+    option_based: true,
+    formattype: 6
+  }
 ]
-question_formats.map{ |qf| QuestionFormat.create!(qf) if QuestionFormat.find_by(title: qf[:title]).nil? }
+question_formats.map{ |qf| create(:question_format, qf) }
 
 # Languages (check config/locales for any ones not defined here)
 # -------------------------------------------------------
@@ -50,7 +90,7 @@ languages = [
    name: 'Español',
    default_language: false}
 ]
-languages.map{ |l| Language.create!(l) if Language.find_by(abbreviation: l[:abbreviation]).nil? }
+languages.map { |l| create(:language, l) }
 
 # Scan through the locale files and add an entry if a file is present but
 # not defined in this seed file
@@ -128,7 +168,7 @@ perms = [
   {name: 'grant_api_to_orgs'}
 ]
 
-perms.map{ |p| Perm.create!(p) if Perm.find_by(name: p[:name]).nil? }
+perms.map{ |p| create(:perm, p) }
 
 # Guidance Themes
 # -------------------------------------------------------
@@ -148,7 +188,7 @@ themes = [
   {title: 'Budget'},
   {title: 'Related Policies'}
 ]
-themes.map{ |t| Theme.create!(t) if Theme.find_by(title: t[:title]).nil? }
+themes.map{ |t| create(:theme, t) }
 
 # Token Permission Types
 # -------------------------------------------------------
@@ -158,15 +198,15 @@ token_permission_types = [
   {token_type: 'templates', text_description: 'allows a user access to the templates api endpoint'},
   {token_type: 'statistics', text_description: 'allows a user access to the statistics api endpoint'}
 ]
-token_permission_types.map{ |tpt| TokenPermissionType.create!(tpt) if TokenPermissionType.find_by(token_type: tpt[:token_type]).nil? }
+token_permission_types.map{ |tpt| create(:token_permission_type, tpt) }
 
 # Create our generic organisation, a funder and a University
 # -------------------------------------------------------
 orgs = [
-  {name: Rails.configuration.branding[:organisation][:name],
-   abbreviation: Rails.configuration.branding[:organisation][:abbreviation],
+  {name: Branding.fetch(:organisation, :name),
+   abbreviation: Branding.fetch(:organisation, :abbreviation),
    org_type: 4, links: {"org":[]},
-   language_id: Language.find_by(abbreviation: 'en_GB'),
+   language: Language.find_by(abbreviation: 'en_GB'),
    token_permission_types: TokenPermissionType.all},
   {name: 'Government Agency',
    abbreviation: 'GA',
@@ -177,7 +217,7 @@ orgs = [
    org_type: 1, links: {"org":[]},
    language: Language.find_by(abbreviation: 'en_GB')}
 ]
-orgs.map{ |o| Org.create!(o) if Org.find_by(abbreviation: o[:abbreviation]).nil? }
+orgs.map{ |o| create(:org, o) }
 
 # Create a Super Admin associated with our generic organisation,
 # an Org Admin for our funder and an Org Admin and User for our University
@@ -188,7 +228,7 @@ users = [
    surname: "Admin",
    password: "password123",
    password_confirmation: "password123",
-   org: Org.find_by(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]),
+   org: Org.find_by(abbreviation: Branding.fetch(:organisation, :abbreviation)),
    language: Language.find_by(abbreviation: FastGettext.locale),
    perms: Perm.all,
    accept_terms: true,
@@ -226,7 +266,7 @@ users = [
    accept_terms: true,
    confirmed_at: Time.zone.now}
 ]
-users.map{ |u| User.create!(u) if User.find_by(email: u[:email]).nil? }
+users.map{ |u| create(:user, u) }
 
 # Create a Guidance Group for our organisation and the funder
 # -------------------------------------------------------
@@ -240,7 +280,7 @@ guidance_groups = [
    optional_subset: false,
    published: true}
 ]
-guidance_groups.map{ |gg| GuidanceGroup.create!(gg) if GuidanceGroup.find_by(name: gg[:name]).nil? }
+guidance_groups.map{ |gg| create(:guidance_group, gg) }
 
 # Initialize with the generic Roadmap guidance and a sample funder guidance
 # -------------------------------------------------------
@@ -343,7 +383,7 @@ inimise any restrictions on the reuse (and subsequent sharing) of third-party da
    published: true,
    themes: [Theme.find_by(title: 'Data Description')]}
 ]
-guidances.map{ |g| Guidance.create!(g) if Guidance.find_by(text: g[:text]).nil? }
+guidances.map{ |g| create(:guidance, g) }
 
 # Create a default template for the curation centre and one for the example funder
 # -------------------------------------------------------
@@ -375,15 +415,7 @@ templates = [
 ]
 # Template creation calls defaults handler which sets is_default and
 # published to false automatically, so update them after creation
-templates.map do |t|
-  if Template.find_by(title: t[:title]).nil?
-    tmplt = Template.create!(t)
-    tmplt.published = t[:published]
-    tmplt.is_default = t[:is_default]
-    tmplt.visibility = t[:visibility]
-    tmplt.save!
-  end
-end
+templates.each { |atts| create(:template, atts) }
 
 # Create 2 phases for the funder's template and one for our generic template
 # -------------------------------------------------------
@@ -407,11 +439,11 @@ phases = [
    modifiable: false,
    template: Template.find_by(title: "Department of Testing Award")}
 ]
-phases.map{ |p| Phase.create!(p) if Phase.find_by(title: p[:title]).nil? }
+phases.map{ |p| create(:phase, p) }
 
 generic_template_phase_1 = Phase.find_by(title: "Generic Data Management Planning Template")
-funder_template_phase_1 = Phase.find_by(title: "Preliminary Statement of Work")
-funder_template_phase_2 = Phase.find_by(title: "Detailed Overview")
+funder_template_phase_1  = Phase.find_by(title: "Preliminary Statement of Work")
+funder_template_phase_2  = Phase.find_by(title: "Detailed Overview")
 
 # Create sections for the 2 templates and their phases
 # -------------------------------------------------------
@@ -499,7 +531,7 @@ sections = [
    modifiable: false,
    phase: funder_template_phase_2}
 ]
-sections.map{ |s| Section.create!(s) if Section.find_by(title: s[:title]).nil? }
+sections.map{ |s| create(:section, s) }
 
 text_area = QuestionFormat.find_by(title: "Text area")
 
@@ -680,9 +712,9 @@ questions = [
    modifiable: false,
    themes: [Theme.find_by(title: "Preservation"), Theme.find_by(title: "Data Sharing")]}
 ]
-questions.map{ |q| Question.create!(q) if Question.find_by(text: q[:text]).nil? }
+questions.map{ |q| create(:question, q) }
 
-drop_down_question = Question.find_by(text: "Where will you store your data during the research period?")
+drop_down_question    = Question.find_by(text: "Where will you store your data during the research period?")
 multi_select_question = Question.find_by(text: "What type(s) of data will you collect?")
 radio_button_question = Question.find_by(text: "Please select the appropriate formats.")
 

@@ -15,5 +15,6 @@ FactoryBot.define do
   factory :question_format do
     title { Faker::Lorem.words(3).join }
     description { Faker::Lorem.sentence }
+    formattype { QuestionFormat::FORMAT_TYPES.sample }
   end
 end

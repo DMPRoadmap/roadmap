@@ -22,8 +22,10 @@
 #
 
 class Role < ActiveRecord::Base
-  after_initialize :set_defaults
+
   include FlagShihTzu
+  include ValidationMessages
+  include ValidationValues
 
   ##
   # Associationsrequire "role"
@@ -41,8 +43,27 @@ class Role < ActiveRecord::Base
             5 => :reviewer,           # 16
             column: 'access'
 
-  validates :user, :plan, :access, presence: {message: _("can't be blank")}
-  validates :access, numericality: {greater_than: 0, message: _("can't be less than zero")}
+  # ===============
+  # = Validations =
+  # ===============
+
+  validates :user, presence: { message: PRESENCE_MESSAGE }
+
+  validates :plan, presence: { message: PRESENCE_MESSAGE }
+
+  validates :active, inclusion: { in: BOOLEAN_VALUES,
+                                  message: INCLUSION_MESSAGE }
+
+  validates :access, presence: { message: PRESENCE_MESSAGE },
+                     numericality: { greater_than: 0, only_integer: true,
+                                     message: _("can't be less than zero") }
+
+  # =============
+  # = Callbacks =
+  # =============
+
+  # TODO: Push this down to the DB constraints
+  after_initialize :set_defaults
 
   ##
   # Roles with given FlagShihTzu access flags
