@@ -135,6 +135,18 @@ class User < ActiveRecord::Base
 
   after_update :when_org_changes
 
+  # =================
+  # = Class methods =
+  # =================
+
+  ##
+  # Load the user based on the scheme and id provided by the Omniauth call
+  def self.from_omniauth(auth)
+    joins(user_identifiers: :identifier_scheme)
+      .where(user_identifiers: { identifier: auth.uid },
+             identifier_schemes: { name: auth.provider.downcase }).first
+  end
+
   # ===========================
   # = Public instance methods =
   # ===========================
@@ -289,20 +301,6 @@ class User < ActiveRecord::Base
         break random_token unless User.exists?(api_token: random_token)
       end
       update_column(:api_token, api_token)  unless new_record?
-    end
-  end
-
-  ##
-  # Load the user based on the scheme and id provided by the Omniauth call
-  # --------------------------------------------------------------
-  def self.from_omniauth(auth)
-    scheme = IdentifierScheme.find_by(name: auth.provider.downcase)
-
-    if scheme.nil?
-      throw Exception.new('Unknown OAuth provider: ' + auth.provider)
-    else
-      joins(:user_identifiers).where('user_identifiers.identifier': auth.uid,
-                   'user_identifiers.identifier_scheme_id': scheme.id).first
     end
   end
 
