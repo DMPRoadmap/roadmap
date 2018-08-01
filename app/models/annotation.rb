@@ -23,6 +23,10 @@
 class Annotation < ActiveRecord::Base
   include ValidationMessages
 
+  ##
+  # I liked type as the name for the enum so overriding inheritance column
+  self.inheritance_column = nil
+
   enum type: [ :example_answer, :guidance]
 
   # ================
@@ -34,10 +38,6 @@ class Annotation < ActiveRecord::Base
   has_one :section, through: :question
   has_one :phase, through: :question
   has_one :template, through: :question
-
-  ##
-  # I liked type as the name for the enum so overriding inheritance column
-  self.inheritance_column = nil
 
   # ===============
   # = Validations =
