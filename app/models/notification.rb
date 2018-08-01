@@ -71,19 +71,6 @@ class Notification < ActiveRecord::Base
   # If no user is given, currently logged in user (if any) is the default
   # @return [Boolean] is the Notification acknowledged ?
   def acknowledged?(user)
-    users.include?(user) if user.present? && dismissable?
-  end
-
-  private
-
-  # Validate Notification dates
-  def valid_dates
-    return false if starts_at.blank? || expires_at.blank?
-    errors.add(:starts_at, _('Should be today or later')) if starts_at < Date.today
-    errors.add(:expires_at, _('Should be tomorrow or later')) if expires_at < Date.tomorrow
-    if starts_at > expires_at
-      errors.add(:starts_at, _('Should be before expiration date'))
-      errors.add(:expires_at, _('Should be after start date'))
-    end
+    dismissable? && user.present? && users.include?(user)
   end
 end
