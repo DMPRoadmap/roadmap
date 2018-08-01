@@ -16,5 +16,6 @@ FactoryBot.define do
     text { Faker::Lorem.sentence }
     guidance_group
     question
+    published false
   end
 end

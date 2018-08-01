@@ -1,4 +1,7 @@
 Rails.application.configure do
+
+  config.i18n.available_locales = %w[en en_GB]
+
   # Settings specified here will take precedence over those in config/application.rb.
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development

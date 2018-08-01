@@ -1,35 +1,47 @@
-require 'database_cleaner'
+# frozen_string_literal: true
 
-# Delete previous database entries before running the next specs
+require "database_cleaner"
+
 RSpec.configure do |config|
 
-  # If there are any tables you wish to exclude from database cleaner,
-  # add them here:
-  DATABASE_CLEANER_EXCEPTIONS = %w[]
-
-  options = { pre_count: true, reset_ids: true, except: DATABASE_CLEANER_EXCEPTIONS }
-
   config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation, options)
+    if config.use_transactional_fixtures?
+      raise(<<~TEXT)
+    Delete line `config.use_transactional_fixtures = true` from rails_helper.rb
+    (or set it to false) to prevent uncommitted transactions being used in
+    JavaScript-dependent specs.
+
+    During testing, the app-under-test that the browser driver connects to
+    uses a different database connection to the database connection used by
+    the spec. The app's database connection would not be able to access
+    uncommitted transaction data setup over the spec's database connection.
+      TEXT
+    end
+    DatabaseCleaner.clean_with(:truncation)
   end
 
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
   end
 
-  config.before(:each, :js => true) do
-    DatabaseCleaner.strategy = :truncation, options
-  end
+  config.before(:each, type: :feature) do
+    # :rack_test driver's Rack app under test shares database connection
+    # with the specs, so continue to use transaction strategy for speed.
+    driver_shares_db_conn_with_specs = Capybara.current_driver == :rack_test
 
-  config.before(:each, :threaded => true) do
-    DatabaseCleaner.strategy = :truncation, options
+    unless driver_shares_db_conn_with_specs
+      # Driver is probably for an external browser with an app
+      # under test that does *not* share a database connection with the
+      # specs, so use truncation strategy.
+      DatabaseCleaner.strategy = :truncation
+    end
   end
 
   config.before(:each) do
     DatabaseCleaner.start
   end
 
-  config.after(:each) do
+  config.append_after(:each) do
     DatabaseCleaner.clean
   end
 
