@@ -125,6 +125,10 @@ group :development, :test do
   gem "faker"
 
   gem "fuubar"
+
+  gem "guard"
+
+  gem "guard-rspec"
 end
 
 group :test do
