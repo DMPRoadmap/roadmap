@@ -1,0 +1,18 @@
+# frozen_string_literal: true
+module DataCleanup
+  module Rules
+    # <%= default_description %>
+    module <%= model_name %>
+      class <%= rule_class_name %> < Rules::Base
+
+        def description
+          "<%= default_description %>"
+        end
+
+        def call
+          ::<%= model_name %>.where(nil).update_all({})
+        end
+      end
+    end
+  end
+end

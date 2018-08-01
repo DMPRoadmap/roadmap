@@ -33,25 +33,58 @@
 
 class Template < ActiveRecord::Base
   include GlobalHelpers
-  include ActiveModel::Validations
+  include ValidationMessages
+  include ValidationValues
 
   validates_with TemplateLinksValidator
 
-  before_validation :set_defaults
-  after_update :reconcile_published, if: Proc.new { |template| template.published? }
 
   # Stores links as an JSON object: { funder: [{"link":"www.example.com","text":"foo"}, ...], sample_plan: [{"link":"www.example.com","text":"foo"}, ...]}
   # The links is validated against custom validator allocated at validators/template_links_validator.rb
   serialize :links, JSON
 
-  ##
-  # Associations
+  # ================
+  # = Associations =
+  # ================
+
   belongs_to :org
+
   has_many :plans
+
   has_many :phases, dependent: :destroy
+
   has_many :sections, through: :phases
+
   has_many :questions, through: :sections
+
   has_many :annotations, through: :questions
+
+  # ===============
+  # = Validations =
+  # ===============
+
+  validates :title, presence: { message: PRESENCE_MESSAGE }
+
+  validates :org, presence: { message: PRESENCE_MESSAGE }
+
+  validates :locale, presence: { message: PRESENCE_MESSAGE }
+
+  validates :version, presence: { message: PRESENCE_MESSAGE },
+                      uniqueness: { message: UNIQUENESS_MESSAGE,
+                                    scope: :family_id }
+
+  validates :visibility, presence: { message: PRESENCE_MESSAGE }
+
+  validates :family_id, presence: { message: PRESENCE_MESSAGE }
+
+
+  # =============
+  # = Callbacks =
+  # =============
+  before_validation :set_defaults
+
+  after_update :reconcile_published, if: -> (template) { template.published? }
+
 
   # ==========
   # = Scopes =

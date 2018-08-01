@@ -117,6 +117,8 @@ group :development, :test do
 
   gem "rspec-rails"
 
+  gem "rspec-collection_matchers"
+
   gem "factory_bot_rails"
 
   gem "faker"
@@ -138,7 +140,9 @@ group :test do
   # Code coverage for Ruby 1.9+ with a powerful configuration library and automatic merging of coverage across test suites (http://github.com/colszowka/simplecov)
   gem 'simplecov', require: false
 
-  gem 'database_cleaner'
+  gem 'database_cleaner', require: false
+
+  gem "shoulda", require: false
 end
 
 group :development do

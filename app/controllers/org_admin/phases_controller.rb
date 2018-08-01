@@ -127,7 +127,7 @@ module OrgAdmin
     def sort
       @phase = Phase.find(params[:id])
       authorize @phase
-      Section.update_numbers!(*params.fetch(:sort_order, []), phase: @phase)
+      Section.update_numbers!(*params.fetch(:sort_order, []), parent: @phase)
       head :ok
     end
 
