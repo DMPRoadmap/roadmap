@@ -38,7 +38,6 @@ class Guidance < ActiveRecord::Base
   # ================
   belongs_to :guidance_group
   has_and_belongs_to_many :themes, join_table: "themes_in_guidance"
-  belongs_to :question
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
