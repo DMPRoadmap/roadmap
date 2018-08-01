@@ -12,6 +12,7 @@
 #
 
 class ExportedPlan < ActiveRecord::Base
+  include ValidationMessages
   include GlobalHelpers
   include SettingsTemplateHelper
 
@@ -20,15 +21,9 @@ class ExportedPlan < ActiveRecord::Base
   belongs_to :plan
   belongs_to :user
 
-  VALID_FORMATS = ['csv', 'html', 'pdf', 'text', 'docx']
+  validates :plan, presence: { message: PRESENCE_MESSAGE }
 
-  validates :format, inclusion: {
-    in: VALID_FORMATS,
-    message: -> (object, data) do
-      _('%{value} is not a valid format') % { :value => data[:value] }
-    end
-  }
-  validates :plan, :format, presence: {message: _("can't be blank")}
+  validates :format, presence: { message: PRESENCE_MESSAGE }
 
   # Store settings with the exported plan so it can be recreated later
   # if necessary (otherwise the settings associated with the plan at a

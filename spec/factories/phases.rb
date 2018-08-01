@@ -19,5 +19,6 @@ FactoryBot.define do
     description { Faker::Lorem.paragraph }
     sequence(:number)
     template
+    modifiable true
   end
 end

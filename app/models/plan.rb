@@ -35,46 +35,93 @@
 class Plan < ActiveRecord::Base
   include ConditionalUserMailer
   include ExportablePlan
-  before_validation :set_creation_defaults
+  include ValidationMessages
+  include ValidationValues
+
+  # =============
+  # = Constants =
+  # =============
 
   ##
-  # Associations
-  belongs_to :template
-  has_many :phases, through: :template
-  has_many :sections, through: :phases
-  has_many :questions, through: :sections
-  has_many :themes, through: :questions
-  has_many :answers, dependent: :destroy
-  has_many :notes, through: :answers
-  has_many :roles, dependent: :destroy
-  has_many :users, through: :roles
-  has_and_belongs_to_many :guidance_groups, join_table: :plans_guidance_groups
+  # (in mm)
+  A4_PAGE_HEIGHT = 297
 
-  accepts_nested_attributes_for :template
-  has_many :exported_plans
+  ##
+  # (in mm)
+  A4_PAGE_WIDTH = 210
 
-  has_many :roles
+  ##
+  # Round estimate up to nearest 5%
+  ROUNDING = 5
 
-# COMMENTED OUT THE DIRECT CONNECTION HERE TO Users to prevent assignment of users without an access_level specified (currently defaults to creator)
-#  has_many :users, through: :roles
+  ##
+  # convert font point size to mm
+  FONT_HEIGHT_CONVERSION_FACTOR = 0.35278
 
+  ##
+  # Assume glyph width averages 2/5 the height
+  FONT_WIDTH_HEIGHT_RATIO = 0.4
 
-  accepts_nested_attributes_for :roles
 
   # public is a Ruby keyword so using publicly
   enum visibility: [:organisationally_visible, :publicly_visible, :is_test, :privately_visible]
 
-  #TODO: work out why this messes up plan creation :
-  #   briley: Removed reliance on :users, its really on :roles (shouldn't have a plan without at least a creator right?) It should be ok like this though now
-#  validates :template, :title, presence: true
+  # ================
+  # = Associations =
+  # ================
 
-  ##
-  # Constants
-  A4_PAGE_HEIGHT = 297 #(in mm)
-  A4_PAGE_WIDTH = 210 #(in mm)
-  ROUNDING = 5 #round estimate up to nearest 5%
-  FONT_HEIGHT_CONVERSION_FACTOR = 0.35278 #convert font point size to mm
-  FONT_WIDTH_HEIGHT_RATIO = 0.4 #Assume glyph width averages 2/5 the height
+  belongs_to :template
+
+  has_many :phases, through: :template
+
+  has_many :sections, through: :phases
+
+  has_many :questions, through: :sections
+
+  has_many :themes, through: :questions
+
+  has_many :answers, dependent: :destroy
+
+  has_many :notes, through: :answers
+
+  has_many :roles, dependent: :destroy
+
+  has_many :users, through: :roles
+
+  has_and_belongs_to_many :guidance_groups, join_table: :plans_guidance_groups
+
+  has_many :exported_plans
+
+  has_many :roles
+
+  # ==============
+  # = Attributes =
+  # ==============
+
+  accepts_nested_attributes_for :template
+
+  accepts_nested_attributes_for :roles
+
+  # ===============
+  # = Validations =
+  # ===============
+
+  validates :title, presence: { message: PRESENCE_MESSAGE }
+
+  validates :template, presence: { message: PRESENCE_MESSAGE }
+
+  validates :feedback_requested, inclusion: { in: BOOLEAN_VALUES }
+
+  validates :complete, inclusion: { in: BOOLEAN_VALUES }
+
+  # =============
+  # = Callbacks =
+  # =============
+  before_validation :set_creation_defaults
+
+  # ==========
+  # = Scopes =
+  # ==========
 
   # Scope queries
   # Note that in ActiveRecord::Enum the mappings are exposed through a class method with the pluralized attribute name (e.g visibilities rather than visibility)
