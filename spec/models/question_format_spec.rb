@@ -9,8 +9,6 @@ RSpec.describe QuestionFormat, type: :model do
     it { is_expected.to validate_uniqueness_of(:title)
                           .with_message("must be unique") }
 
-    it { is_expected.to validate_presence_of(:description) }
-
     it { is_expected.to allow_values(true, false).for(:option_based) }
 
     it { is_expected.not_to allow_value(nil).for(:option_based) }

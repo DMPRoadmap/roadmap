@@ -28,8 +28,6 @@ class QuestionFormat < ActiveRecord::Base
   validates :title, presence: { message: PRESENCE_MESSAGE },
                     uniqueness: { message: UNIQUENESS_MESSAGE }
 
-  validates :description, presence: { message: PRESENCE_MESSAGE }
-
   validates :option_based, inclusion: { in: BOOLEAN_VALUES }
 
   # Retrieves the id for a given formattype passed
