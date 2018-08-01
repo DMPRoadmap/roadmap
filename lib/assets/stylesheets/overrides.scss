@@ -498,9 +498,10 @@ $tooltip-background: $grey;
   .create-plan-mock {
     margin-left: -40px;
   }
-  .h2-label {
-    font-size: 30px;
+  label.new-plan-label {
+    font-size: 27px;
     font-weight: normal;
+    overflow-x: visible;
   }
 }
 
@@ -599,18 +600,18 @@ legend.project-details {
 }
 
 /* Skip to main content link styling */
-div.skip a { 
-  position:absolute; 
-  left:-10000px; 
-  top:auto; 
-  width:1px; 
-  height:1px; 
+div.skip a {
+  position:absolute;
+  left:-10000px;
+  top:auto;
+  width:1px;
+  height:1px;
   overflow: hidden !important;
-} 
- 
-div.skip a:focus { 
-  width:auto; 
-  height:auto; 
+}
+
+div.skip a:focus {
+  width:auto;
+  height:auto;
   overflow:visible !important;
 }
 
