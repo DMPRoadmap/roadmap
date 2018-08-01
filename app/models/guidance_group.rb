@@ -38,7 +38,7 @@ class GuidanceGroup < ActiveRecord::Base
   # ===============
 
   validates :name, presence: { message:  PRESENCE_MESSAGE },
-                   uniqueness: { message: UNIQUENESS_MESSAGE, scope: :org }
+                   uniqueness: { message: UNIQUENESS_MESSAGE, scope: :org_id }
 
   validates :org, presence: { message: PRESENCE_MESSAGE }
 

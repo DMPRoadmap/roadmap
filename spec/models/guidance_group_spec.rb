@@ -7,7 +7,8 @@ RSpec.describe GuidanceGroup, type: :model do
     it { is_expected.to validate_presence_of(:name) }
 
     it { is_expected.to validate_uniqueness_of(:name)
-                          .with_message('must be unique') }
+                          .with_message('must be unique')
+                          .scoped_to(:org_id) }
 
     it { is_expected.to validate_presence_of(:org) }
 
