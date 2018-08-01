@@ -154,7 +154,7 @@ class User < ActiveRecord::Base
   ##
   # This method uses Devise's built-in handling for inactive users
   def active_for_authentication?
-    super && self.active?
+    super && active?
   end
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
