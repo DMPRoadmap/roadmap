@@ -231,13 +231,6 @@ class PlansController < ApplicationController
     end
   end
 
-  # GET /status/1.json
-  # only returns json, why is this here?
-  def status
-    @plan = Plan.find(params[:id])
-    authorize @plan
-  end
-
   def answer
     @plan = Plan.find(params[:id])
     authorize @plan
