@@ -51,7 +51,7 @@ class Annotation < ActiveRecord::Base
 
   validates :type, presence: { message: PRESENCE_MESSAGE },
                    uniqueness: { message: UNIQUENESS_MESSAGE,
-                                 scope: :question_id }
+                                 scope: [:question_id, :org_id] }
 
   # =================
   # = Class Methods =
