@@ -12,7 +12,7 @@ rvm:
 before_install:
   - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && sudo apt-get install -y nodejs
 before_script:
-  - cd lib/assets && npm install && npm run bundle -- -p && cd -
+  - cd lib/assets && npm install && npm run bundle -- --no-watch && cd -
   - cp config/database_example.yml config/database.yml
   - cp config/secrets_example.yml config/secrets.yml
   - cp config/branding_example.yml config/branding.yml
