@@ -45,4 +45,3 @@ namespace :data_cleanup do
     end.sort_by(&:name)
   end
 end
-

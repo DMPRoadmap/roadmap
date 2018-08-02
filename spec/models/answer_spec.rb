@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe Answer, type: :model do
 
   context "validations" do
-
     subject { build(:answer) }
 
     it { is_expected.to validate_presence_of(:plan) }

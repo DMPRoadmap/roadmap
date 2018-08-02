@@ -77,14 +77,16 @@ class Org < ActiveRecord::Base
   validates :name, presence: { message: PRESENCE_MESSAGE },
                    uniqueness: { message: UNIQUENESS_MESSAGE }
 
-  validates :abbreviation, presence: { message: PRESENCE_MESSAGE }
+  validates :abbreviation, presence: { message: PRESENCE_MESSAGE },
+                           uniqueness: { message: UNIQUENESS_MESSAGE }
 
   validates :is_other, inclusion: { in: BOOLEAN_VALUES,
                                     message: INCLUSION_MESSAGE }
 
   validates :language, presence: { message: PRESENCE_MESSAGE }
 
-  validates :contact_email, presence: { message: PRESENCE_MESSAGE,
+  validates :contact_email, email: { allow_nil: true },
+                            presence: { message: PRESENCE_MESSAGE,
                                         if: :feedback_enabled }
 
   validates :org_type, presence: { message: PRESENCE_MESSAGE }
@@ -120,7 +122,9 @@ class Org < ActiveRecord::Base
             column: 'org_type'
 
   # Predefined queries for retrieving the managain organisation and funders
-  scope :managing_orgs, -> { where(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]) }
+  scope :managing_orgs, -> do
+    where(abbreviation: Branding.fetch(:organisation, :abbreviation))
+  end
 
   scope :search, -> (term) {
     search_pattern = "%#{term}%"
@@ -192,17 +196,8 @@ class Org < ActiveRecord::Base
   # returns all published templates belonging to the organisation
   #
   # @return [Array<Template>] published templates
-	def published_templates
-		return templates.where("published = ?", true)
-	end
-
-  def check_api_credentials
-    if token_permission_types.count == 0
-      users.each do |user|
-        user.api_token = ""
-        user.save!
-      end
-    end
+  def published_templates
+    return templates.where("published = ?", true)
   end
 
   def org_admins
