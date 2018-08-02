@@ -26,8 +26,6 @@ class Theme < ActiveRecord::Base
 
   validates :title, presence: { message: PRESENCE_MESSAGE }
 
-  validates :description, presence: { message: PRESENCE_MESSAGE }
-
   # ==========
   # = Scopes =
   # ==========

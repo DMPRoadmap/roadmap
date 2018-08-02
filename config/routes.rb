@@ -152,7 +152,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
 
     resources :plans do
       member do
-        get 'status'
         get 'locked'
         get 'answer'
         put 'update_guidance_choices'

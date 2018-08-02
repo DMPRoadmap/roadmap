@@ -31,10 +31,6 @@ class IdentifierScheme < ActiveRecord::Base
                    presence: { message: PRESENCE_MESSAGE },
                    length: { maximum: NAME_MAXIMUM_LENGTH }
 
-  validates :logo_url, presence: { message: PRESENCE_MESSAGE }
-
-  validates :user_landing_url, presence: { message: PRESENCE_MESSAGE }
-
   validates :active, inclusion: { message: INCLUSION_MESSAGE,
                                   in: BOOLEAN_VALUES }
 

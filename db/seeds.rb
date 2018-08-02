@@ -20,6 +20,9 @@ Faker::Config.locale       = LOCALE
 FastGettext.default_locale = LOCALE
 
 
+require 'factory_bot'
+include FactoryBot::Syntax::Methods
+
 # Identifier Schemes
 # -------------------------------------------------------
 identifier_schemes = [

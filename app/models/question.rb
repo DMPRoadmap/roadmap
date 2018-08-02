@@ -27,6 +27,12 @@ class Question < ActiveRecord::Base
   include ValidationMessages
   include ActsAsSortable
 
+  # ==============
+  # = Attributes =
+  # ==============
+
+  alias_attribute :to_s, :text
+
   # include
   ##
   # Sort order: Number ASC
@@ -83,22 +89,16 @@ class Question < ActiveRecord::Base
   accepts_nested_attributes_for :annotations, allow_destroy: true
 
 
+  # =====================
+  # = Delegated methods =
+  # =====================
+
+  delegate :option_based?, to: :question_format
+
+
   # ===========================
   # = Public instance methods =
   # ===========================
-
-  ##
-  # returns the text from the question
-  #
-  # @return [String] question's text
-  def to_s
-    "#{text}"
-  end
-
-  def option_based?
-    format = self.question_format
-    return format.option_based
-  end
 
   def deep_copy(**options)
     copy = self.dup
@@ -112,20 +112,19 @@ class Question < ActiveRecord::Base
     return copy
   end
 
-# TODO: consider moving this to a view helper instead and use the built in scopes for guidance. May need to add
-#       a new one for 'thematic_guidance'. This method doesn't even make reference to this class and its returning
-#       a hash that is specific to a view
-  ##
-  # guidance for org
+  # TODO: consider moving this to a view helper instead and use the built in
+  # scopes for guidance. May need to add a new one for 'thematic_guidance'.
+  # This method doesn't even make reference to this class and its returning
+  # a hash that is specific to a view guidance for org
   #
   # @param org [Org] the org to find guidance for
   # @return [Hash{String => String}]
   def guidance_for_org(org)
     # pulls together guidance from various sources for question
     guidances = {}
-    theme_ids = themes.collect{|t| t.id}
-    if theme_ids.present?
-      GuidanceGroup.includes(guidances: :themes).where(org_id: org.id).each do |group|
+    if theme_ids.any?
+      GuidanceGroup.includes(guidances: :themes)
+                   .where(org_id: org.id).each do |group|
         group.guidances.each do |g|
           g.themes.each do |theme|
             if theme_ids.include? theme.id
@@ -144,27 +143,38 @@ class Question < ActiveRecord::Base
   #
   # @param org_ids [Array<Integer>] the ids for the organisations
   # @return [Array<Annotation>] the example answers for this question for the specified orgs
-   def get_example_answers(org_ids)
-    org_ids = [org_ids] unless org_ids.is_a?(Array)
-    self.annotations.where(org_id: org_ids, type: Annotation.types[:example_answer]).order(:created_at)
+   def example_answers(org_ids)
+    annotations.where(org_id: Array(org_ids),
+                      type: Annotation.types[:example_answer])
+               .order(:created_at)
    end
+
+   alias get_example_answers example_answers
+
+   deprecate :get_example_answers,
+               deprecator: Cleanup::Deprecators::GetDeprecator.new
 
   ##
   # get guidance belonging to the current user's org for this question(need org
   # to distinguish customizations)
   #
   # @param org_id [Integer] the id for the organisation
-  # @return [String] the annotation guidance for this question for the specified org
-  def get_guidance_annotation(org_id)
-    guidance = self.annotations.where(org_id: org_id).where(type: Annotation.types[:guidance])
-    return guidance.first
+  # @return [String] the annotation guidance for this question for the
+  # specified org
+  def guidance_annotation(org_id)
+    annotations.where(org_id: org_id, type: Annotation.types[:guidance]).first
   end
+
+  alias get_guidance_annotation guidance_annotation
+
+  deprecate :get_guidance_annotation,
+              deprecator: Cleanup::Deprecators::GetDeprecator.new
 
   def annotations_per_org(org_id)
     example_answer = annotations.find_by(org_id: org_id, type: Annotation.types[:example_answer])
-    guidance = annotations.find_by(org_id: org_id, type: Annotation.types[:guidance])
+    guidance       = annotations.find_by(org_id: org_id, type: Annotation.types[:guidance])
     example_answer = annotations.build({ type: :example_answer, text: '', org_id: org_id }) unless example_answer.present?
-    guidance = annotations.build({ type: :guidance, text: '', org_id: org_id }) unless guidance.present?
+    guidance       = annotations.build({ type: :guidance, text: '', org_id: org_id }) unless guidance.present?
     return [example_answer, guidance]
   end
 end
