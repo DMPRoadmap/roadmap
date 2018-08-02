@@ -3,13 +3,22 @@
 # Table name: notes
 #
 #  id          :integer          not null, primary key
-#  user_id     :integer
-#  text        :text
 #  archived    :boolean
-#  answer_id   :integer
 #  archived_by :integer
+#  text        :text
 #  created_at  :datetime
 #  updated_at  :datetime
+#  answer_id   :integer
+#  user_id     :integer
+#
+# Indexes
+#
+#  index_notes_on_answer_id  (answer_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (answer_id => answers.id)
+#  fk_rails_...  (user_id => users.id)
 #
 
 FactoryBot.define do

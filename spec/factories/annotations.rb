@@ -3,12 +3,21 @@
 # Table name: annotations
 #
 #  id          :integer          not null, primary key
-#  question_id :integer
-#  org_id      :integer
 #  text        :text
 #  type        :integer          default(0), not null
 #  created_at  :datetime
 #  updated_at  :datetime
+#  org_id      :integer
+#  question_id :integer
+#
+# Indexes
+#
+#  index_annotations_on_question_id  (question_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (org_id => orgs.id)
+#  fk_rails_...  (question_id => questions.id)
 #
 
 FactoryBot.define do
