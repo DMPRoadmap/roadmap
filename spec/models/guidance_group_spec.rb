@@ -212,34 +212,4 @@ RSpec.describe GuidanceGroup, type: :model do
 
     end
   end
-
-  describe "#display_name" do
-
-    # Creates a default GuidanceGroup when Org is created
-    let!(:org) { create(:org) }
-
-    let!(:guidance_group) { org.guidance_groups.first }
-
-    context "when org has many guidance_groups" do
-
-      before do
-        create(:guidance_group, org: org)
-      end
-
-      it "returns the org name and group name" do
-        result = "#{org.name}: #{guidance_group.name}"
-        expect(guidance_group.display_name).to eql(result)
-      end
-
-    end
-
-    context "when org has one guidance group (self)" do
-
-      it "returns the Org name" do
-        expect(guidance_group.display_name).to eql(org.name)
-      end
-
-    end
-  end
-
 end
