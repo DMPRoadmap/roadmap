@@ -7,7 +7,7 @@
 #  customization_of :integer
 #  description      :text
 #  is_default       :boolean
-#  links            :text             default({"funder"=>[], "sample_plan"=>[]})
+#  links            :text
 #  locale           :string
 #  published        :boolean
 #  title            :string
