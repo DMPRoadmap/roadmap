@@ -3,22 +3,12 @@
 # Table name: roles
 #
 #  id         :integer          not null, primary key
-#  access     :integer          default(0), not null
-#  active     :boolean          default(TRUE)
+#  user_id    :integer
+#  plan_id    :integer
 #  created_at :datetime
 #  updated_at :datetime
-#  plan_id    :integer
-#  user_id    :integer
-#
-# Indexes
-#
-#  index_roles_on_plan_id  (plan_id)
-#  index_roles_on_user_id  (user_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (plan_id => plans.id)
-#  fk_rails_...  (user_id => users.id)
+#  access     :integer          default(0), not null
+#  active     :boolean          default(TRUE)
 #
 
 FactoryBot.define do
