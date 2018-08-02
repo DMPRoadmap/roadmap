@@ -38,14 +38,14 @@
           </dd>
           <!-- Suggested answer or Example-->
           <% if !question.section.phase.template.org.funder? %>
-              <% example_answer = question.get_example_answers(template.base_org.id).first %>
+              <% example_answer = question.example_answers(template.base_org.id).first %>
               <% if example_answer.present?  && example_answer.text.present?  %>
                   <dt><%= _('example answer')%></dt>
                   <dd><%= raw example_answer.text %></dd>
               <% end %>
           <% end %>
           <!-- Guidance linked to this question -->
-          <% guidance = question.get_guidance_annotation(template.base_org.id) %>
+          <% guidance = question.guidance_annotation(template.base_org.id) %>
           <% if guidance.present?  %>
             <dt><%= _('Guidance')%></dt>
             <dd><%= raw guidance.text %></dd>

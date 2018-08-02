@@ -181,9 +181,9 @@ RSpec.describe Question, type: :model do
 
   end
 
-  describe "#get_example_answers" do
+  describe "#example_answers" do
 
-    subject { question.get_example_answers([org.id]) }
+    subject { question.example_answers([org.id]) }
 
     let!(:question) { create(:question) }
 
@@ -224,9 +224,9 @@ RSpec.describe Question, type: :model do
 
   end
 
-  describe "#get_guidance_annotation" do
+  describe "#guidance_annotation" do
 
-    subject { question.get_guidance_annotation(org.id) }
+    subject { question.guidance_annotation(org.id) }
 
     let!(:question) { create(:question) }
 

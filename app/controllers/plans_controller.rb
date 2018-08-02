@@ -126,7 +126,7 @@ class PlansController < ApplicationController
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
 
     # Get all Guidance Groups applicable for the plan and group them by org
-    @all_guidance_groups = @plan.get_guidance_group_options
+    @all_guidance_groups = @plan.guidance_group_options
     @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
     @selected_guidance_groups = @plan.guidance_groups
 
