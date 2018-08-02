@@ -323,6 +323,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    sqlite3 (1.3.13)
     text (1.3.1)
     thin (1.7.2)
       daemons (~> 1.0, >= 1.0.9)
@@ -398,6 +399,7 @@ DEPENDENCIES
   simplecov
   spring
   spring-commands-rspec
+  sqlite3
   thin
   web-console
   webmock
