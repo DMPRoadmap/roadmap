@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180713164120) do
+ActiveRecord::Schema.define(version: 20180802113745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -395,16 +395,16 @@ ActiveRecord::Schema.define(version: 20180713164120) do
   create_table "users", force: :cascade do |t|
     t.string   "firstname"
     t.string   "surname"
-    t.string   "email",                  limit: 80, default: "",   null: false
+    t.string   "email",                  default: "",   null: false
     t.string   "orcid_id"
     t.string   "shibboleth_id"
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
-    t.string   "encrypted_password",                default: ""
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.string   "encrypted_password",     default: ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                     default: 0
+    t.integer  "sign_in_count",          default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -424,7 +424,7 @@ ActiveRecord::Schema.define(version: 20180713164120) do
     t.string   "invited_by_type"
     t.integer  "language_id"
     t.string   "recovery_email"
-    t.boolean  "active",                            default: true
+    t.boolean  "active",                 default: true
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
