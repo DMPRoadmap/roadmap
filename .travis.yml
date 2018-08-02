@@ -1,28 +1,64 @@
+sudo: false
+
+# Ruby is the main language of the project.
 language: ruby
 
+bundler_args: --with development,ci
+
+# Cache third party dependencies for faster builds
+cache:
+  apt: true
+  bundler: true
+  directories:
+    # Cache NPM packages
+    - lib/assets/node_modules
+    - $HOME/.npm
+    
 addons:
+  chrome: beta
   apt:
     sources:
       - google-chrome
     packages:
+      - nodejs
       - google-chrome-stable
 
-rvm:
-  - 2.4.4
-before_install:
-  - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && sudo apt-get install -y nodejs
-before_script:
-  - cd lib/assets && npm install && npm run bundle --no-watch && cd -
-  - cp config/database_example.yml config/database.yml
-  - cp config/secrets_example.yml config/secrets.yml
-  - cp config/branding_example.yml config/branding.yml
-  - cp config/initializers/devise.rb.example config/initializers/devise.rb
-  - cp config/initializers/recaptcha.rb.example config/initializers/recaptcha.rb
-  - cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
-  - bundle exec rake db:drop RAILS_ENV=test
-  - bundle exec rake db:create RAILS_ENV=test
-  - bundle exec rake db:schema:load RAILS_ENV=test
-  - bundle exec rake db:migrate RAILS_ENV=test
+matrix:
+  fast_finish: true
 
+rvm:
+  # Use 2.4.1, since this is installed by default on Travis (1st Aug, 2018)
+  - 2.4.1
+  
+# These env variables will set up a separate testing environment for each
+# combination of variables.
+env:
+  # Run specs once with each database adapter we support
+  - DB_ADAPTER=postgresql
+  - DB_ADAPTER=mysql2
+
+# Main test script
 script:
-  - bundle exec rspec spec
+  # Precompile the assets
+  - cd lib/assets && npm install && npm run bundle --no-watch && cd -
+  # Copy over config files needed for setup, and create DB
+  - bin/setup
+  # Default test stage: Run all specs, listing the 10 slowest.
+  - bundle exec rspec spec --profile=10
+
+# Run these stages in this order:
+stages:
+  - security
+  - test
+
+# Define each stage (test is already defined automatically)
+jobs:
+  include:
+    # Run Brakeman check with warning level 2, except these two checks:
+    - stage: security
+      name: "Brakeman check"
+      script: bundle exec brakeman -w2 --except=Redirect,CrossSiteScripting
+
+    - stage: security
+      name: "Bundle audit"
+      script: bundle exec bundle-audit check --update

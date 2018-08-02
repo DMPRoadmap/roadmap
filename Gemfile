@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '>= 2.4.4'
+ruby '>= 2.4.0'
 
 # ------------------------------------------------
 # RAILS
@@ -19,10 +19,13 @@ gem 'responders', '~> 2.0'
 
 # ------------------------------------------------
 #    DATABASE/SERVER
-# A simple, fast Mysql library for Ruby, binding to libmysql (http://github.com/brianmario/mysql2)
+
+# A simple, fast Mysql library for Ruby, binding to libmysql
+# (http://github.com/brianmario/mysql2)
 gem 'mysql2', '~> 0.4.10'
 
-# Pg is the Ruby interface to the {PostgreSQL RDBMS}[http://www.postgresql.org/] (https://bitbucket.org/ged/ruby-pg)
+# Pg is the Ruby interface to the {PostgreSQL
+# RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
 gem 'pg', '~> 0.19.0'
 
 # Bit fields for ActiveRecord (https://github.com/pboling/flag_shih_tzu)
@@ -137,9 +140,6 @@ group :test do
   # Library for stubbing HTTP requests in Ruby. (http://github.com/bblimke/webmock)
   gem 'webmock'
 
-  # This module allows Ruby programs to interface with the SQLite3 database engine (http://www.sqlite.org) (https://github.com/sparklemotion/sqlite3-ruby)
-  gem 'sqlite3'
-
   # Code coverage for Ruby 1.9+ with a powerful configuration library and automatic merging of coverage across test suites (http://github.com/colszowka/simplecov)
   gem 'simplecov', require: false
 
@@ -174,6 +174,16 @@ group :test do
   gem 'chromedriver-helper'
 end
 
+group :ci do
+  gem "brakeman"
+
+  gem "rubocop"
+
+  gem "rubocop-rspec"
+
+  gem "bundle-audit"
+end
+
 group :development do
   # Better error page for Rails and other Rack apps (https://github.com/charliesome/better_errors)
   gem "better_errors"
@@ -192,4 +202,5 @@ group :development do
 
   # Add comments to your Gemfile with each dependency's description. (https://github.com/ivantsepp/annotate_gem)
   gem "annotate_gem"
+
 end
