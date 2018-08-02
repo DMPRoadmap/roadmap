@@ -14,7 +14,7 @@ FactoryBot.define do
     name "English"
     description "Test language English"
     abbreviation { ("a".."z").to_a.shuffle.take(2).join }
-    default_language true
+    default_language false
     trait :with_dialect do
       abbreviation {
         pre = ("a".."z").to_a.shuffle.take(2).join

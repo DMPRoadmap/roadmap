@@ -118,31 +118,60 @@ group :development, :test do
   # Ruby fast debugger - base + CLI (http://github.com/deivid-rodriguez/byebug)
   gem "byebug"
 
+  # RSpec for Rails (https://github.com/rspec/rspec-rails)
   gem "rspec-rails"
 
+  # factory_bot_rails provides integration between factory_bot and rails 3 or newer (http://github.com/thoughtbot/factory_bot_rails)
   gem "rspec-collection_matchers"
 
   gem "factory_bot_rails"
 
+  # Easily generate fake data (https://github.com/stympy/faker)
   gem "faker"
+
+  gem "fuubar"
+
+  gem "guard"
+
+  gem "guard-rspec"
 end
 
 group :test do
-  # Create customizable Minitest output formats (https://github.com/CapnKernul/minitest-reporters)
-  gem 'minitest-reporters'
-
-  # Simple testing API built on Rack (http://github.com/brynary/rack-test)
-  gem 'rack-test'
-
   # Library for stubbing HTTP requests in Ruby. (http://github.com/bblimke/webmock)
   gem 'webmock'
 
   # Code coverage for Ruby 1.9+ with a powerful configuration library and automatic merging of coverage across test suites (http://github.com/colszowka/simplecov)
   gem 'simplecov', require: false
 
+  # Strategies for cleaning databases.  Can be used to ensure a clean state for testing. (http://github.com/DatabaseCleaner/database_cleaner)
   gem 'database_cleaner', require: false
 
+  # Making tests easy on the fingers and eyes (https://github.com/thoughtbot/shoulda)
   gem "shoulda", require: false
+
+  # Mocking and stubbing library (http://gofreerange.com/mocha/docs)
+  gem "mocha", require: false
+
+  # Rails application preloader (https://github.com/rails/spring)
+  gem "spring"
+
+  # rspec command for spring (https://github.com/jonleighton/spring-commands-rspec)
+  gem "spring-commands-rspec"
+
+  # rspec-collection_matchers-1.1.3 (https://github.com/rspec/rspec-collection_matchers)
+  gem "rspec-collection_matchers"
+
+  # Capybara aims to simplify the process of integration testing Rack applications, such as Rails, Sinatra or Merb (https://github.com/teamcapybara/capybara)
+  gem "capybara"
+
+  # Automatically create snapshots when Cucumber steps fail with Capybara and Rails (http://github.com/mattheworiordan/capybara-screenshot)
+  gem "capybara-screenshot"
+
+  # The next generation developer focused tool for automated testing of webapps (https://github.com/SeleniumHQ/selenium)
+  gem 'selenium-webdriver'
+
+  # Easy installation and use of chromedriver. (https://github.com/flavorjones/chromedriver-helper)
+  gem 'chromedriver-helper'
 end
 
 group :ci do

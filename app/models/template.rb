@@ -90,7 +90,6 @@ class Template < ActiveRecord::Base
 
   after_update :reconcile_published, if: -> (template) { template.published? }
 
-
   # ==========
   # = Scopes =
   # ==========
