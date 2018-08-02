@@ -1,4 +1,7 @@
 language: ruby
+addons:
+  chrome: beta
+
 rvm:
   - 2.4.4
 before_install:
