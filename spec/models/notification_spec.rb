@@ -151,9 +151,7 @@ RSpec.describe Notification, type: :model do
         notification.users << user
       end
 
-      pending "Update this to return false"
-
-      it { is_expected.to eql(nil) }
+      it { is_expected.to eql(false) }
 
     end
 
@@ -165,9 +163,7 @@ RSpec.describe Notification, type: :model do
 
       subject { notification.acknowledged?(user) }
 
-      pending "Update this to return false"
-
-      it { is_expected.to eql(nil) }
+      it { is_expected.to eql(false) }
 
     end
 
@@ -179,9 +175,7 @@ RSpec.describe Notification, type: :model do
 
       subject { notification.acknowledged?(user) }
 
-      pending "Update this to return false"
-
-      it { is_expected.to eql(nil) }
+      it { is_expected.to eql(false) }
 
     end
 
@@ -193,9 +187,7 @@ RSpec.describe Notification, type: :model do
 
       subject { notification.acknowledged?(user) }
 
-      pending "Update this to return false"
-
-      it { is_expected.to eql(nil) }
+      it { is_expected.to eql(false) }
 
     end
 
