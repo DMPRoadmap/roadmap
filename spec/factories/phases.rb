@@ -20,5 +20,13 @@ FactoryBot.define do
     sequence(:number)
     template
     modifiable true
+
+    transient do
+      sections 0
+    end
+
+    after(:create) do |phase, evaluator|
+      create_list(:section, evaluator.sections, phase: phase)
+    end
   end
 end
