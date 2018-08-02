@@ -64,16 +64,16 @@ RSpec.describe Role, type: :model do
 
   end
 
-  describe "#set_access_level" do
+  describe "#access_level=" do
 
-    let!(:role) { build(:role).tap { |r| r.set_access_level(0)} }
+    let!(:role) { build(:role).tap { |r| r.access_level = 0} }
 
     subject { role }
 
     context "when value is 0" do
 
       before do
-        role.set_access_level(0)
+        role.access_level = 0
       end
 
       it "sets commenter to false" do
@@ -93,7 +93,7 @@ RSpec.describe Role, type: :model do
     context "when value is 1" do
 
       before do
-        role.set_access_level(1)
+        role.access_level = 1
       end
 
       it "sets commenter to true" do
@@ -113,7 +113,7 @@ RSpec.describe Role, type: :model do
     context "when value is 2" do
 
       before do
-        role.set_access_level(2)
+        role.access_level = 2
       end
 
       it "sets commenter to true" do
@@ -133,7 +133,7 @@ RSpec.describe Role, type: :model do
     context "when value is 3" do
 
       before do
-        role.set_access_level(3)
+        role.access_level = 3
       end
 
       it "sets commenter to true" do
@@ -153,7 +153,7 @@ RSpec.describe Role, type: :model do
     context "when value is 4" do
 
       before do
-        role.set_access_level(4)
+        role.access_level = 4
       end
 
       it "sets commenter to true" do

@@ -500,11 +500,11 @@ describe Plan do
     end
   end
 
-  describe "#get_guidance_group_options" do
+  describe "#guidance_group_options" do
 
     let!(:plan) { create(:plan) }
 
-    subject { plan.get_guidance_group_options }
+    subject { plan.guidance_group_options }
 
     before do
       @phase          = create(:phase, template: plan.template)
@@ -1187,9 +1187,9 @@ describe Plan do
 
   end
 
-  describe "#shared" do
+  describe "#shared?" do
 
-    subject { plan.shared }
+    subject { plan.shared? }
 
     let!(:plan) { create(:plan) }
 

@@ -66,14 +66,14 @@ class RegistrationsController < Devise::RegistrationsController
           if other_org.nil?
             redirect_to(after_sign_up_error_path_for(resource), alert: _('You cannot be assigned to other organisation since that option does not exist in the system. Please contact your system administrators.')) and return
           end
-          params[:user][:org_id] = other_org.id 
+          params[:user][:org_id] = other_org.id
         end
         build_resource(sign_up_params)
         if resource.save
           if resource.active_for_authentication?
             set_flash_message :notice, :signed_up if is_navigational_format?
             sign_up(resource_name, resource)
-            UserMailer.welcome_notification(current_user).deliver
+            UserMailer.welcome_notification(current_user).deliver_now
             unless oauth.nil?
               # The OAuth provider could not be determined or there was no unique UID!
               unless oauth['provider'].nil? || oauth['uid'].nil?
