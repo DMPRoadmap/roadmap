@@ -15,6 +15,7 @@ cache:
     - $HOME/.npm
 
 addons:
+  chrome: beta
   apt:
     packages:
         - nodejs
