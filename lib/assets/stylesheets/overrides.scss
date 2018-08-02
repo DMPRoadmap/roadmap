@@ -200,7 +200,7 @@ span.sublist {
 }
 
 /* FONTAWESOME STYLING */
-.fa {
+.fa:not(.small) {
   font-size: 2rem;
 }
 .fa-reverse {
@@ -599,18 +599,18 @@ legend.project-details {
 }
 
 /* Skip to main content link styling */
-div.skip a { 
-  position:absolute; 
-  left:-10000px; 
-  top:auto; 
-  width:1px; 
-  height:1px; 
+div.skip a {
+  position:absolute;
+  left:-10000px;
+  top:auto;
+  width:1px;
+  height:1px;
   overflow: hidden !important;
-} 
- 
-div.skip a:focus { 
-  width:auto; 
-  height:auto; 
+}
+
+div.skip a:focus {
+  width:auto;
+  height:auto;
   overflow:visible !important;
 }
 
