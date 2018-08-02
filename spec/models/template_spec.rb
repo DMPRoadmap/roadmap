@@ -5,8 +5,6 @@ RSpec.describe Template, type: :model do
   context "validations" do
     it { is_expected.to validate_presence_of(:title) }
 
-    it { is_expected.to validate_presence_of(:description) }
-
     it { is_expected.to allow_values(true, false).for(:published) }
 
     # This is currently being set in the defaults before validation
