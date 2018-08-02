@@ -18,8 +18,10 @@ RSpec.describe Guidance, type: :model do
 
     it { is_expected.to belong_to :guidance_group }
 
-    it { is_expected.to belong_to :question }
-
+    it do
+      is_expected.to have_and_belong_to_many(:themes)
+                       .join_table("themes_in_guidance")
+    end
   end
 
 
