@@ -31,18 +31,38 @@
             <div class="row">
               <div class="col-md-12">
                 <h2><%= _('Sections') %></h2>
-                <% if phase.sections.length > 1 %>
-                  <div id="sections-accordion-controls">
-                    <div class="accordion-controls" data-parent="sections_accordion">
-                      <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
-                      <span>|</span>
-                      <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
-                    </div>
+
+                <div class="row">
+
+                  <div class="col-sm-6">
+                    <% if phase.sections.many? %>
+                      <div id="sections-accordion-controls">
+                        <div class="accordion-controls"
+                             data-parent="sections_accordion">
+                          <a href="#" data-toggle-direction="show">
+                            <%= _('expand all') %>
+                          </a>
+                          <span>|</span>
+                          <a href="#" data-toggle-direction="hide">
+                            <%= _('collapse all') %>
+                          </a>
+                        </div>
+                      </div>
+                    <% end %>
                   </div>
-                <% end %>
+
+                  <div class="col-sm-6">
+                    <div class='text-right text-muted'>
+                      <i class="fa fa-info-circle small"></i>
+                      Drag arrows to rearrange sections
+                    </div>
+                    <div class="clear">
+                  </div>
+
               </div>
             </div>
-            <%= render partial: 'org_admin/sections/index', locals: local_assigns.merge({ modifiable: modifiable }) %>
+            <%= render partial: 'org_admin/sections/index',
+                       locals: local_assigns.merge(modifiable: modifiable) %>
           </div>
         </div>
       </div>
