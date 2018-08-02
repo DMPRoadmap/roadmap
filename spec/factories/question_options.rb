@@ -3,20 +3,12 @@
 # Table name: question_options
 #
 #  id          :integer          not null, primary key
-#  is_default  :boolean
-#  number      :integer
+#  question_id :integer
 #  text        :string
+#  number      :integer
+#  is_default  :boolean
 #  created_at  :datetime
 #  updated_at  :datetime
-#  question_id :integer
-#
-# Indexes
-#
-#  index_question_options_on_question_id  (question_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (question_id => questions.id)
 #
 
 FactoryBot.define do

@@ -3,33 +3,25 @@
 # Table name: plans
 #
 #  id                                :integer          not null, primary key
-#  complete                          :boolean          default(FALSE)
-#  data_contact                      :string
-#  data_contact_email                :string
-#  data_contact_phone                :string
-#  description                       :text
-#  feedback_requested                :boolean          default(FALSE)
-#  funder_name                       :string
-#  grant_number                      :string
-#  identifier                        :string
-#  principal_investigator            :string
-#  principal_investigator_email      :string
-#  principal_investigator_identifier :string
-#  principal_investigator_phone      :string
-#  slug                              :string
 #  title                             :string
-#  visibility                        :integer          default(3), not null
+#  template_id                       :integer
 #  created_at                        :datetime
 #  updated_at                        :datetime
-#  template_id                       :integer
-#
-# Indexes
-#
-#  index_plans_on_template_id  (template_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (template_id => templates.id)
+#  slug                              :string
+#  grant_number                      :string
+#  identifier                        :string
+#  description                       :text
+#  principal_investigator            :string
+#  principal_investigator_identifier :string
+#  data_contact                      :string
+#  funder_name                       :string
+#  visibility                        :integer          default(3), not null
+#  data_contact_email                :string
+#  data_contact_phone                :string
+#  principal_investigator_email      :string
+#  principal_investigator_phone      :string
+#  feedback_requested                :boolean          default(FALSE)
+#  complete                          :boolean          default(FALSE)
 #
 
 FactoryBot.define do
