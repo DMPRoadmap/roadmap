@@ -11,7 +11,7 @@
 #  feedback_email_subject :string
 #  feedback_enabled       :boolean          default(FALSE)
 #  is_other               :boolean
-#  links                  :text             default({"org"=>[]})
+#  links                  :text
 #  logo_file_name         :string
 #  logo_name              :string
 #  logo_uid               :string

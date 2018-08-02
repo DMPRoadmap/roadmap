@@ -11,7 +11,7 @@
 #  confirmed_at           :datetime
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :string
-#  email                  :string           default(""), not null
+#  email                  :string(80)       default(""), not null
 #  encrypted_password     :string           default("")
 #  firstname              :string
 #  invitation_accepted_at :datetime
