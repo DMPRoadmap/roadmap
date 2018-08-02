@@ -213,107 +213,6 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "#active_plans" do
-    let!(:user) { create(:user) }
-    let!(:plan) { create(:plan) }
-
-    subject { user.active_plans }
-
-    context "user has :reviewer role only and role active" do
-
-      let!(:role) { create(:role, :reviewer, user: user, plan: plan, active: true) }
-
-      it { is_expected.not_to include(plan) }
-
-    end
-
-    context "user has :creator role only and role active" do
-
-      let!(:role) { create(:role, :creator, user: user, plan: plan, active: true) }
-
-      it { is_expected.to include(plan) }
-
-    end
-
-    context "user has :administrator role only and role active" do
-
-      let!(:role) { create(:role, :administrator, user: user, plan: plan, active: true) }
-
-      it { is_expected.to include(plan) }
-
-    end
-
-    context "user has :editor role only and role active" do
-
-      let!(:role) { create(:role, :editor, user: user, plan: plan, active: true) }
-
-      it { is_expected.to include(plan) }
-
-    end
-
-    context "user has :commenter role only and role active" do
-
-      let!(:role) { create(:role, :commenter, user: user, plan: plan, active: true) }
-
-      it { is_expected.to include(plan) }
-
-    end
-
-    context "user has :creator, :administrator, :editor, :commenter roles and
-             role active" do
-
-      let!(:role) do
-        create(:role,
-               :creator,
-               :administrator,
-               :editor,
-               :commenter,
-               user: user,
-               plan: plan,
-               active: true)
-      end
-
-      it { is_expected.to include(plan) }
-
-    end
-
-    context "user has :creator, :administrator, :editor, :commenter roles and
-             role not active" do
-
-      let!(:role) do
-        create(:role,
-               :creator,
-               :administrator,
-               :editor,
-               :commenter,
-               user: user,
-               plan: plan,
-               active: false)
-      end
-
-      it { is_expected.not_to include(plan) }
-
-    end
-
-    context "user has :reviewer and other roles and role active" do
-
-      let!(:role) do
-        create(:role,
-               :reviewer,
-               :creator,
-               :administrator,
-               :editor,
-               :commenter,
-               user: user,
-               plan: plan,
-               active: true)
-      end
-
-      it { is_expected.not_to include(plan) }
-
-    end
-  end
-
   describe "#identifier_for" do
 
     let!(:user) { create(:user) }
@@ -719,11 +618,9 @@ RSpec.describe User, type: :model do
 
       let!(:notification) { create(:notification, :dismissable) }
 
-      it "enter description here" do
-        expect do
-          subject
-          user.reload.notifications
-        end.to change { user.notifications }.to include(notification)
+      it "adds the Notification to the User's notifications" do
+        subject
+        expect(user.notifications).to include(notification)
       end
 
     end
@@ -732,11 +629,9 @@ RSpec.describe User, type: :model do
 
       let!(:notification) { create(:notification) }
 
-      it "adds the Notification to the User's notifications" do
-        expect do
-          subject
-          user.reload.notifications
-        end.not_to change { user.notifications }
+      it "doesn't add the Notification to the User's notifications" do
+        subject
+        expect(user.notifications).not_to include(notification)
       end
 
     end
