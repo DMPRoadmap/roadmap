@@ -114,7 +114,11 @@ class PlansController < ApplicationController
 
   # GET /plans/show
   def show
-    @plan = Plan.eager_load(params[:id])
+    @plan = Plan.includes(
+              template: { phases: { sections: { questions: :answers }}},
+              plans_guidance_groups: { guidance_group: :guidances }
+            ).find(params[:id])
+
     authorize @plan
 
     @visibility = @plan.visibility.present? ? @plan.visibility.to_s : Rails.application.config.default_plan_visibility
@@ -122,7 +126,7 @@ class PlansController < ApplicationController
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
 
     # Get all Guidance Groups applicable for the plan and group them by org
-    @all_guidance_groups = @plan.get_guidance_group_options
+    @all_guidance_groups = @plan.guidance_group_options
     @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
     @selected_guidance_groups = @plan.guidance_groups
 
@@ -357,7 +361,9 @@ class PlansController < ApplicationController
 
   def overview
     begin
-      plan = Plan.overview(params[:id])
+      plan = Plan.includes(:phases, :sections, :questions, template: [ :org ])
+                 .find(params[:id])
+
       authorize plan
       render(:overview, locals: { plan: plan })
     rescue ActiveRecord::RecordNotFound
@@ -367,11 +373,15 @@ class PlansController < ApplicationController
   end
 
   private
+
   def plan_params
-    params.require(:plan).permit(:org_id, :org_name, :funder_id, :funder_name, :template_id, :title, :visibility,
-                                 :grant_number, :description, :identifier, :principal_investigator,
-                                 :principal_investigator_email, :principal_investigator_identifier,
-                                 :data_contact, :data_contact_email, :data_contact_phone, :guidance_group_ids)
+    params.require(:plan)
+          .permit(:org_id, :org_name, :funder_id, :funder_name, :template_id,
+                  :title, :visibility, :grant_number, :description, :identifier,
+                  :principal_investigator_phone, :principal_investigator,
+                  :principal_investigator_email, :data_contact,
+                  :principal_investigator_identifier, :data_contact_email,
+                  :data_contact_phone, :guidance_group_ids)
   end
 
 

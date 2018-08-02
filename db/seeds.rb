@@ -1,6 +1,24 @@
-# -*- coding: utf-8 -*-
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
+#!/usr/bin/env ruby
+# encoding: utf-8
+# frozen_string_literal: true
+# warn_indent: true
+
+# This file should contain all the record creation needed to seed the database
+# with its default values. The data can then be loaded with the rake db:seed
+# (or created alongside the db with db:setup).
+
+require 'factory_bot'
+require 'faker'
+
+include FactoryBot::Syntax::Methods
+
+
+LOCALE = :en
+
+I18n.locale                = LOCALE
+Faker::Config.locale       = LOCALE
+FastGettext.default_locale = LOCALE
+
 
 require 'factory_bot'
 include FactoryBot::Syntax::Methods
@@ -779,71 +797,3 @@ question_options = [
    is_default: false}
 ]
 question_options.map{ |q| QuestionOption.create!(q) if QuestionOption.find_by(text: q[:text]).nil? }
-
-# Create plans
-# -------------------------------------------------------
-=begin
-plans = [
-  {title: "Sample plan",
-   template: Template.find_by(title: "Department of Testing Award"),
-   grant_number: "FUNDER-GRANT-123",
-   identifier: "987654321",
-   description: "This is a sample plan based on a funder template",
-   principal_investigator: "John Doe",
-   principal_investigator_identifier: "ORCID: 12346-000-1234",
-   data_contact: "john.doe@example.com",
-   funder_name: "Example Government Agency",
-   visibility: 0}
-]
-plans.map{ |p| Plan.create!(p) if Plan.find_by(title: "Sample plan").nil? }
-
-plan = Plan.find_by(title: "Sample plan")
-user = User.find_by(email: "org_user@example.com")
-
-answers = [
-  {text: "We will collect data from various sources and create our own analysis.",
-   plan: plan,
-   user: user,
-   question: Question.find_by(text: "Provide an overview of the dataset.")},
-  {text: "We will primarily collect images and video from our telescope and other instruments",
-   plan: plan,
-   user: user,
-   question: Question.find_by(text: "What types/formats of data will you collect?")},
-  {text: "We will store the data on our departmental server and then move it to a commercial data repository afterward.",
-   plan: plan,
-   user: user,
-   question: Question.find_by(text: "How will you store the data and how will it be preserved?")},
-
-  {text: "We want people to be able to access it. ",
-   plan: plan,
-   user: user,
-   question: Question.find_by(text: "What is your policy for long term access to your dataset?")},
-  {plan: plan,
-   user: user,
-   question: drop_down_question,
-   question_options: [QuestionOption.find_by(text: "institutional servers")]},
-  {plan: plan,
-   user: user,
-   question: multi_select_question,
-   question_options: [QuestionOption.find_by(text: "image/video"),
-                      QuestionOption.find_by(text: "other")]},
-  {plan: plan,
-   user: user,
-   question: radio_button_question,
-   question_options: [QuestionOption.find_by(text: "archive files (e.g. tar, zip)"),
-                      QuestionOption.find_by(text: "csv files")]},
-  {text: "Yes",
-   plan: plan,
-   user: user,
-   question: Question.find_by(text: "Will software accompany your dataset?")},
-  {text: "On a local server",
-   plan: plan,
-   user: user,
-   question: Question.find_by(text: "Where will you store your data during the research period?")},
-   {text: "2018-05-01 00:00:01",
-    plan: plan,
-    user: user,
-    question: Question.find_by(text: "When will your data be available for public consumption?")}
-]
-answers.map{ |a| Answer.create!(a) if Answer.where(plan: a[:plan], user: a[:user], question: a[:question]).empty? }
-=end

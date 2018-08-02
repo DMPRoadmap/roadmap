@@ -56,6 +56,10 @@ class QuestionOption < ActiveRecord::Base
   # = Public instance methods =
   # ===========================
 
+  # ===========================
+  # = Public instance methods =
+  # ===========================
+
   def deep_copy(**options)
     copy = self.dup
     copy.question_id = options.fetch(:question_id, nil)

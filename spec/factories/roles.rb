@@ -15,6 +15,28 @@ FactoryBot.define do
   factory :role do
     user
     plan
-    access 1
+    access 0
+    active true
+    trait :active do
+      active true
+    end
+    trait :inactive do
+      active false
+    end
+    trait :creator do
+      creator true
+    end
+    trait :administrator do
+      administrator true
+    end
+    trait :editor do
+      editor true
+    end
+    trait :commenter do
+      commenter true
+    end
+    trait :reviewer do
+      reviewer true
+    end
   end
 end
