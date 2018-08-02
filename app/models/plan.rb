@@ -137,7 +137,6 @@ class Plan < ActiveRecord::Base
   # = Scopes =
   # ==========
 
-
   # Retrieves any plan in which the user has an active role and it is not a
   # reviewer
   scope :active, lambda { |user|
@@ -147,23 +146,13 @@ class Plan < ActiveRecord::Base
   }
 
   # Retrieves any plan organisationally or publicly visible for a given org id
-  scope :organisationally_or_publicly_visible, lambda { |user|
-    access = Role.access_values_for(:creator, :administrator,
-                                    :editor, :commenter).min
-
-    visibilities = [Plan.visibilities[:organisationally_visible],
-                    Plan.visibilities[:publicly_visible]]
-
-    includes(:template, roles: :user)
-      .where(
-        visibility: visibilities,
-        roles: { access: access },
-        users: { org_id: user.org_id }
-      )
-      .where(<<~SQL, user_id: user.id)
-        NOT EXISTS (SELECT 1 FROM roles
-                             WHERE plan_id = plans.id AND user_id = :user_id)
-      SQL
+  scope :organisationally_or_publicly_visible, -> (user) {
+    includes(:template, {roles: :user})
+      .where({
+        visibility: [visibilities[:organisationally_visible], visibilities[:publicly_visible]],
+        "roles.access": Role.access_values_for(:creator, :administrator, :editor, :commenter).min,
+        "users.org_id": user.org_id})
+      .where(['NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)', user.id])
   }
 
   scope :search, lambda { |term|
@@ -192,13 +181,12 @@ class Plan < ActiveRecord::Base
 
   # Pre-fetched a plan phase together with its sections and questions
   # associated. It also pre-fetches the answers and notes associated to the plan
-  def self.load_for_phase(id, phase_id)
+  def self.load_for_phase(plan_id, phase_id)
     # Preserves the default order defined in the model relationships
     plan = Plan.joins(template: { phases: { sections: :questions } })
                .preload(template: { phases: { sections: :questions } })
-               .where(plans: { id: id }, phases: { id: phase_id })
+               .where(id: plan_id, phases: { id: phase_id })
                .merge(Plan.includes(answers: :notes)).first
-
     phase = plan.template.phases.find { |p| p.id == phase_id.to_i }
 
     [plan, phase]
@@ -460,13 +448,8 @@ class Plan < ActiveRecord::Base
   def num_answered_questions
     Answer.where(id: answers.map(&:id))
           .includes(:question_options, { question: :question_format })
-          .reduce(0) do |m, a|
-
-      if a.is_valid?
-        m += 1
-        m
-      end
-    end
+          .to_a
+          .sum { |answer| answer.is_valid? ? 1 : 0 }
   end
 
   # Returns the number of questions for a plan.
