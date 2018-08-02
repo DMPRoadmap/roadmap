@@ -35,10 +35,8 @@ class UserIdentifier < ActiveRecord::Base
 
   validates :user, presence: true
 
-  validates :identifier_scheme, presence: true
-
-  validates :identifier_scheme_id, uniqueness: { scope: :user_id,
-                                                 message: UNIQUENESS_MESSAGE }
+  validates :identifier_scheme, presence: { message: PRESENCE_MESSAGE }
 
   validates :identifier, presence: { message: PRESENCE_MESSAGE }
+
 end

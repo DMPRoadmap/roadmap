@@ -87,27 +87,15 @@ class User < ActiveRecord::Base
 
   has_many :roles, dependent: :destroy
 
-  has_many :plans, through: :roles do
-    def filter(query)
-      return self unless query.present?
-      t = self.arel_table
-      q = "%#{query}%"
-      conditions = t[:title].matches(q)
-      columns = %i(
-        grant_number identifier description principal_investigator data_contact
-      )
-      columns = ['grant_number', 'identifier', 'description', 'principal_investigator', 'data_contact']
-      columns.each {|col| conditions = conditions.or(t[col].matches(q)) }
-      self.where(conditions)
-    end
-  end
+  has_many :plans, through: :roles
 
 
   has_many :user_identifiers
 
   has_many :identifier_schemes, through: :user_identifiers
 
-  has_and_belongs_to_many :notifications, dependent: :destroy, join_table: 'notification_acknowledgements'
+  has_and_belongs_to_many :notifications, dependent: :destroy,
+                          join_table: 'notification_acknowledgements'
 
 
   # ===============
@@ -132,8 +120,9 @@ class User < ActiveRecord::Base
 
   scope :search, -> (term) {
     search_pattern = "%#{term}%"
-    # MySQL does not support standard string concatenation and since concat_ws or concat functions do
-    # not exist for sqlite, we have to come up with this conditional
+    # MySQL does not support standard string concatenation and since concat_ws
+    # or concat functions do not exist for sqlite, we have to come up with this
+    # conditional
     if ActiveRecord::Base.connection.adapter_name == "Mysql2"
       where("concat_ws(' ', firstname, surname) LIKE ? OR email LIKE ?", search_pattern, search_pattern)
     else
@@ -147,6 +136,18 @@ class User < ActiveRecord::Base
 
   after_update :when_org_changes
 
+  # =================
+  # = Class methods =
+  # =================
+
+  ##
+  # Load the user based on the scheme and id provided by the Omniauth call
+  def self.from_omniauth(auth)
+    joins(user_identifiers: :identifier_scheme)
+      .where(user_identifiers: { identifier: auth.uid },
+             identifier_schemes: { name: auth.provider.downcase }).first
+  end
+
   # ===========================
   # = Public instance methods =
   # ===========================
@@ -154,7 +155,7 @@ class User < ActiveRecord::Base
   ##
   # This method uses Devise's built-in handling for inactive users
   def active_for_authentication?
-    super && self.active?
+    super && active?
   end
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
@@ -188,28 +189,12 @@ class User < ActiveRecord::Base
   end
 
   ##
-  # returns all active plans for a user
-  #
-  # @return [Plans]
-  def active_plans
-    self.plans.includes(:template).where("roles.active": true).where(Role.not_reviewer_condition)
-  end
-
-  ##
   # Returns the user's identifier for the specified scheme name
   #
   # @param the identifier scheme name (e.g. ORCID)
   # @return [UserIdentifier] the user's identifier for that scheme
   def identifier_for(scheme)
     user_identifiers.where(identifier_scheme: scheme).first
-  end
-
-  ##
-  # sets a new organisation for the user
-  #
-  # @param new_organisation [Organisation] the new organisation for the user
-  def organisation=(new_org)
-    org_id = new_org.id unless new_org.nil?
   end
 
   ##
@@ -318,15 +303,6 @@ class User < ActiveRecord::Base
       end
       update_column(:api_token, api_token)  unless new_record?
     end
-  end
-
-  ##
-  # Load the user based on the scheme and id provided by the Omniauth call
-  # --------------------------------------------------------------
-  def self.from_omniauth(auth)
-    joins(user_identifiers: :identifier_scheme)
-      .where(user_identifiers: { identifier: auth.uid },
-             identifier_schemes: { name: auth.provider.downcase }).first
   end
 
   ##
