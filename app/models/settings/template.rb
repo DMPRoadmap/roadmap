@@ -10,10 +10,6 @@
 #  updated_at  :datetime         not null
 #  target_id   :integer          not null
 #
-# Indexes
-#
-#  index_settings_on_target_type_and_target_id_and_var  (target_type,target_id,var) UNIQUE
-#
 
 module Settings
   class Template < RailsSettings::SettingObject
