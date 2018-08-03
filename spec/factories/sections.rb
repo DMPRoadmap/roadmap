@@ -3,14 +3,21 @@
 # Table name: sections
 #
 #  id          :integer          not null, primary key
-#  title       :string
 #  description :text
+#  modifiable  :boolean
 #  number      :integer
+#  title       :string
 #  created_at  :datetime
 #  updated_at  :datetime
-#  published   :boolean
 #  phase_id    :integer
-#  modifiable  :boolean
+#
+# Indexes
+#
+#  index_sections_on_phase_id  (phase_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (phase_id => phases.id)
 #
 
 FactoryBot.define do
