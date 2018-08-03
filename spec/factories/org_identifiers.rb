@@ -3,12 +3,17 @@
 # Table name: org_identifiers
 #
 #  id                   :integer          not null, primary key
-#  identifier           :string
 #  attrs                :string
+#  identifier           :string
 #  created_at           :datetime
 #  updated_at           :datetime
-#  org_id               :integer
 #  identifier_scheme_id :integer
+#  org_id               :integer
+#
+# Foreign Keys
+#
+#  fk_rails_...  (identifier_scheme_id => identifier_schemes.id)
+#  fk_rails_...  (org_id => orgs.id)
 #
 
 FactoryBot.define do
