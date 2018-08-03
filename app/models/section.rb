@@ -6,7 +6,6 @@
 #  description :text
 #  modifiable  :boolean
 #  number      :integer
-#  published   :boolean
 #  title       :string
 #  created_at  :datetime
 #  updated_at  :datetime
@@ -48,9 +47,6 @@ class Section < ActiveRecord::Base
   validates :number, presence: { message: PRESENCE_MESSAGE },
                      uniqueness: { scope: :phase_id,
                                    message: UNIQUENESS_MESSAGE }
-
-  validates :published, inclusion: { in: BOOLEAN_VALUES,
-                                      message: INCLUSION_MESSAGE }
 
   validates :modifiable, inclusion: { in: BOOLEAN_VALUES,
                                       message: INCLUSION_MESSAGE }
