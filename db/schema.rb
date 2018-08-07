@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180803105147) do
+ActiveRecord::Schema.define(version: 20180807121126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,10 +80,10 @@ ActiveRecord::Schema.define(version: 20180803105147) do
   create_table "guidance_groups", force: :cascade do |t|
     t.string   "name"
     t.integer  "org_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.boolean  "optional_subset"
-    t.boolean  "published"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.boolean  "optional_subset", default: false, null: false
+    t.boolean  "published",       default: false, null: false
   end
 
   add_index "guidance_groups", ["org_id"], name: "index_guidance_groups_on_org_id", using: :btree
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 20180803105147) do
   create_table "notes", force: :cascade do |t|
     t.integer  "user_id"
     t.text     "text"
-    t.boolean  "archived"
+    t.boolean  "archived",    default: false, null: false
     t.integer  "answer_id"
     t.integer  "archived_by"
     t.datetime "created_at"
@@ -176,7 +176,7 @@ ActiveRecord::Schema.define(version: 20180803105147) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.integer  "parent_id"
-    t.boolean  "is_other"
+    t.boolean  "is_other",               default: false, null: false
     t.string   "sort_name"
     t.text     "banner_text"
     t.string   "logo_file_name"

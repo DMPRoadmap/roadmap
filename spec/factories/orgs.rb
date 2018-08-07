@@ -10,7 +10,7 @@
 #  feedback_email_msg     :text
 #  feedback_email_subject :string
 #  feedback_enabled       :boolean          default(FALSE)
-#  is_other               :boolean
+#  is_other               :boolean          default(FALSE), not null
 #  links                  :text
 #  logo_file_name         :string
 #  logo_name              :string

@@ -12,7 +12,7 @@ module DataCleanup
         end
 
         def call
-          ids = Org.where(language: nil).pluck(:id)
+          ids = ::Org.where(language: nil).pluck(:id)
           log("Setting language to #{DEFAULT_LANGUAGE} for Orgs: #{ids}")
           ::Org.where(language: nil).update_all(language_id: DEFAULT_LANGUAGE.id)
         end

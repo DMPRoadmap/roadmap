@@ -15,7 +15,7 @@ module DataCleanup
                   .find_in_batches do |answers|
 
             answers.each do |answer|
-              log("Updating Answer##{answer.id} with user: #{user.plan.owner}")
+              log("Updating Answer##{answer.id} with user: #{answer.plan.owner}")
               answer.update(user: answer.plan.owner)
             end
           end
