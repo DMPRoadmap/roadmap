@@ -8,6 +8,7 @@ module DataCleanup
         end
 
         def call
+          log("Updating all GuidanceGroups")
           ::GuidanceGroup.where(optional_subset: nil)
                          .update_all(optional_subset: false)
         end
