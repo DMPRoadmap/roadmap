@@ -22,10 +22,12 @@ gem 'responders', '~> 2.0'
 
 # A simple, fast Mysql library for Ruby, binding to libmysql
 # (http://github.com/brianmario/mysql2)
+# A simple, fast Mysql library for Ruby, binding to libmysql (http://github.com/brianmario/mysql2)
 gem 'mysql2', '~> 0.4.10'
 
 # Pg is the Ruby interface to the {PostgreSQL
 # RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
+# Pg is the Ruby interface to the {PostgreSQL RDBMS}[http://www.postgresql.org/] (https://bitbucket.org/ged/ruby-pg)
 gem 'pg', '~> 0.19.0'
 
 # Bit fields for ActiveRecord (https://github.com/pboling/flag_shih_tzu)
@@ -122,17 +124,22 @@ group :development, :test do
   gem "rspec-rails"
 
   # factory_bot_rails provides integration between factory_bot and rails 3 or newer (http://github.com/thoughtbot/factory_bot_rails)
+  # rspec-collection_matchers-1.1.3 (https://github.com/rspec/rspec-collection_matchers)
   gem "rspec-collection_matchers"
 
+  # factory_bot_rails provides integration between factory_bot and rails 3 or newer (http://github.com/thoughtbot/factory_bot_rails)
   gem "factory_bot_rails"
 
   # Easily generate fake data (https://github.com/stympy/faker)
   gem "faker"
 
+  # the instafailing RSpec progress bar formatter (https://github.com/thekompanee/fuubar)
   gem "fuubar"
 
+  # Guard keeps an eye on your file modifications (http://guardgem.org)
   gem "guard"
 
+  # Guard gem for RSpec (https://github.com/guard/guard-rspec)
   gem "guard-rspec"
 end
 
@@ -175,12 +182,16 @@ group :test do
 end
 
 group :ci do
+  # Security vulnerability scanner for Ruby on Rails. (http://brakemanscanner.org)
   gem "brakeman"
 
+  # Automatic Ruby code style checking tool. (https://github.com/rubocop-hq/rubocop)
   gem "rubocop"
 
+  # Code style checking for RSpec files (https://github.com/rubocop-hq/rubocop-rspec)
   gem "rubocop-rspec"
 
+  # Helper gem to require bundler-audit (http://github.com/stewartmckee/bundle-audit)
   gem "bundle-audit"
 end
 
@@ -203,4 +214,6 @@ group :development do
   # Add comments to your Gemfile with each dependency's description. (https://github.com/ivantsepp/annotate_gem)
   gem "annotate_gem"
 
+  # help to kill N+1 queries and unused eager loading. (https://github.com/flyerhzm/bullet)
+  gem "bullet"
 end
