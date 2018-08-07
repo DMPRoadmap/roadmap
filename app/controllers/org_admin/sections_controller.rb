@@ -118,8 +118,9 @@ module OrgAdmin
     end
 
     private
-      def section_params
-        params.require(:section).permit(:title, :description, :number)
-      end
+
+    def section_params
+      params.require(:section).permit(:title, :description)
+    end
   end
 end
