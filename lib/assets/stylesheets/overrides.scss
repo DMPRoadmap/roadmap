@@ -498,9 +498,10 @@ $tooltip-background: $grey;
   .create-plan-mock {
     margin-left: -40px;
   }
-  .h2-label {
-    font-size: 30px;
+  label.new-plan-label {
+    font-size: 27px;
     font-weight: normal;
+    overflow-x: visible;
   }
 }
 

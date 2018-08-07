@@ -8,18 +8,18 @@
 
   <div class="form-group col-xs-8">
     <%= f.label(:email, _('Email'), class: 'control-label') %>
-    <%= f.email_field(:email, class: "form-control", "aria-required": true, value: @user.email) %>
+    <%= f.email_field(:email, class: "form-control", "validatable-required": true, value: @user.email) %>
     <%= hidden_field_tag :original_email, @user.email %>
   </div>
 
   <div class="form-group col-xs-8">
     <%= f.label(:firstname, _('First name'), class: 'control-label') %>
-    <%= f.text_field(:firstname, class: "form-control", "aria-required": true, value: @user.firstname) %>
+    <%= f.text_field(:firstname, class: "form-control", "validatable-required": true, value: @user.firstname) %>
   </div>
 
   <div class="form-group col-xs-8">
     <%= f.label(:surname, _('Last name'), class: 'control-label') %>
-    <%= f.text_field(:surname, class: "form-control", "aria-required": true, value: @user.surname) %>
+    <%= f.text_field(:surname, class: "form-control", "validatable-required": true, value: @user.surname) %>
   </div>
 
   <% org_admin = (current_user.can_org_admin? && !current_user.can_super_admin?) %>
@@ -36,7 +36,7 @@
       <%= f.label(:language_id, _('Language'), class: 'control-label') %>
       <%= select_tag("user[language_id]",
           options_from_collection_for_select(@languages, "id", "name", lang_id),
-          class: "form-control") %>
+          class: "form-control", 'validatable-required': true) %>
     </div>
   <% end %>
 
