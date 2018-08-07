@@ -13,15 +13,15 @@ cache:
     # Cache NPM packages
     - lib/assets/node_modules
     - $HOME/.npm
-    
+
 addons:
   chrome: beta
   apt:
-    sources:
-      - google-chrome
     packages:
       - nodejs
       - google-chrome-stable
+      - google-chrome-stable
+      - chromium-chromedriver
 
 matrix:
   fast_finish: true
@@ -29,7 +29,7 @@ matrix:
 rvm:
   # Use 2.4.1, since this is installed by default on Travis (1st Aug, 2018)
   - 2.4.1
-  
+
 # These env variables will set up a separate testing environment for each
 # combination of variables.
 env:
