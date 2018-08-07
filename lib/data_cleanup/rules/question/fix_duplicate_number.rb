@@ -19,6 +19,7 @@ module DataCleanup
                          .order("number ASC, created_at ASC")
                          .pluck(:id)
             section = ::Section.find(section_id)
+            log("Reordering Question number in Section##{section.id}")
             ::Question.update_numbers!(*ids, parent: section)
           end
         end
