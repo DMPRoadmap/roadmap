@@ -4,6 +4,7 @@ namespace :data_cleanup do
 
   desc "Check each record on the DB is valid and report"
   task :find_invalid_records => :environment do
+    DataCleanup.logger.info("\n== Finding invalid records =======================\n")
     models.each do |model|
       DataCleanup::ModelCheck.new(model).call
     end
@@ -13,6 +14,7 @@ namespace :data_cleanup do
 
   desc "Clean invalid records on the database"
   task :clean_invalid_records => :environment do
+    DataCleanup.logger.info("\n== Cleaning invalid records =======================\n")
     Dir[rule_paths].each do |rule_path|
       load rule_path
       klass_name = rule_path.split("rules/").last.gsub(".rb", '').classify

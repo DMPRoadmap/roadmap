@@ -19,6 +19,7 @@ module DataCleanup
                            .order("number ASC, created_at ASC")
                            .pluck(:id)
             phase = ::Phase.find(phase_id)
+            log("Re-setting number order for Sections in Phase##{phase.id}")
             ::Section.update_numbers!(*ids, parent: phase)
           end
         end

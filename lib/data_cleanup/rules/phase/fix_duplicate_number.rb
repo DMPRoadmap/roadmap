@@ -19,6 +19,7 @@ module DataCleanup
                          .order("number ASC, created_at ASC")
                          .pluck(:id)
             template = ::Template.find(template_id)
+            log("Reordering Phase number within Template##{template.id}")
             ::Phase.update_numbers!(*ids, parent: template)
           end
         end
