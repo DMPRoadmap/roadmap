@@ -20,11 +20,12 @@ namespace :data_cleanup do
       klass_name = rule_path.split("rules/").last.gsub(".rb", '').classify
       model_name = klass_name.split("::").first
       opt, models = ARGV[1].to_s.split("=")
-      case opt
-      when 'INCLUDE'
+      if opt.present? && opt =='INCLUDE'
         next unless model_name.in?(models.split(","))
-      when 'EXCLUDE'
+      elsif opt.present? && opt =='EXCLUDE'
         next if model_name.in?(models.split(","))
+      elsif opt.blank?
+        # :noop:
       else
         raise ArgumentError, "Unknown option: #{opt}"
       end
