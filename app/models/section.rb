@@ -56,7 +56,9 @@ class Section < ActiveRecord::Base
   # =============
 
   # TODO: Move this down to DB constraints
-  before_validation :set_defaults
+  before_validation :set_modifiable
+
+  before_validation :set_number
 
   # =====================
   # = Nested Attributes =
@@ -119,7 +121,12 @@ class Section < ActiveRecord::Base
   # = Private instance methods =
   # ============================
 
-  def set_defaults
+  def set_modifiable
     self.modifiable = true if modifiable.nil?
+  end
+
+  def set_number
+    return if phase.nil?
+    self.number ||= phase.sections.maximum(:number) + 1
   end
 end
