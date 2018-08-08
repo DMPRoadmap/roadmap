@@ -9,6 +9,20 @@ DIMENSION   = Selenium::WebDriver::Dimension.new(*SCREEN_SIZE)
 
 Capybara.default_driver = :rack_test
 
+# This is a customisation of the default :selenium_chrome_headless config in:
+# https://github.com/teamcapybara/capybara/blob/master/lib/capybara.rb
+#
+# This adds the --no-sandbox flag to fix TravisCI as described here:
+# https://docs.travis-ci.com/user/chrome#sandboxing
+Capybara.register_driver :custom_chrome_headless do |app|
+  Capybara::Selenium::Driver.load_selenium
+  browser_options = ::Selenium::WebDriver::Chrome::Options.new
+  browser_options.args << '--headless'
+  browser_options.args << '--no-sandbox'
+  browser_options.args << '--disable-gpu' if Gem.win_platform?
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
+end
+
 RSpec.configure do |config|
 
   config.before(:each, type: :feature, js: false) do
@@ -16,7 +30,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :feature, js: true) do
-    Capybara.current_driver = :selenium_chrome_headless
+    Capybara.current_driver = :custom_chrome_headless
     Capybara.page.driver.browser.manage.window.size = DIMENSION
   end
 
