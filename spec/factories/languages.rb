@@ -4,9 +4,9 @@
 #
 #  id               :integer          not null, primary key
 #  abbreviation     :string
+#  default_language :boolean
 #  description      :string
 #  name             :string
-#  default_language :boolean
 #
 
 FactoryBot.define do

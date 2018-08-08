@@ -39,10 +39,9 @@ class Theme < ActiveRecord::Base
   # = Public instance methods =
   # ===========================
 
-  ##
-  # returns the title of the theme
+  # The title of the Theme
   #
-  # @return [String] title of the theme
+  # Returns String
   def to_s
   	title
   end
