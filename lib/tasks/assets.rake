@@ -11,7 +11,10 @@ namespace :assets do
       # Don't watch asset files for further changes
       webpack_options << "--no-watch"
       # Add the production flag, if env is production
-      webpack_options << "-p" if ENV["RAILS_ENV"] == "production"
+      # -------------------------------------------------------
+      # Added additional check for 'stage' environment specifically for UC3 stage servers 08/08/2018
+      # -------------------------------------------------------
+      webpack_options << "-p" if ENV["RAILS_ENV"] == "production" || ENV["RAILS_ENV"] == "stage"
       # Ensure all dependencies are installed
       system("npm install")
       # Run the webpack command via npm
