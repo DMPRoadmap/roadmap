@@ -175,10 +175,10 @@ group :test do
   gem "capybara-screenshot"
 
   # The next generation developer focused tool for automated testing of webapps (https://github.com/SeleniumHQ/selenium)
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '>= 3.13.1'
 
   # Easy installation and use of chromedriver. (https://github.com/flavorjones/chromedriver-helper)
-  gem 'chromedriver-helper'
+  gem 'chromedriver-helper', ">= 1.2.0"
 end
 
 group :ci do
