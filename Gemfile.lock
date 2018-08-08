@@ -389,7 +389,7 @@ DEPENDENCIES
   byebug
   capybara
   capybara-screenshot
-  chromedriver-helper
+  chromedriver-helper (>= 1.2.0)
   contact_us
   database_cleaner
   devise
@@ -426,7 +426,7 @@ DEPENDENCIES
   rubocop
   rubocop-rspec
   ruby_dig
-  selenium-webdriver
+  selenium-webdriver (>= 3.13.1)
   shoulda
   simplecov
   spring
