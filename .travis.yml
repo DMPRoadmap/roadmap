@@ -38,7 +38,7 @@ env:
 # Main test script
 script:
   # Precompile the assets
-  - rake assets:precompile
+  - bundle exec rake assets:precompile
   # Copy over config files needed for setup, and create DB
   - bin/setup
   # Default test stage: Run all specs, listing the 10 slowest.
