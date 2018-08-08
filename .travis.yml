@@ -19,8 +19,6 @@ addons:
   apt:
     packages:
       - nodejs
-      - google-chrome-stable
-      - chromium-chromedriver
 
 matrix:
   fast_finish: true
