@@ -138,7 +138,9 @@ class Org < ActiveRecord::Base
   # What do they do? do they do it efficiently, and do we need them?
 
   # Determines the locale set for the organisation
-  # @return String or nil
+  #
+  # Returns String
+  # Returns nil
   def get_locale
     if !self.language.nil?
       return self.language.abbreviation
@@ -147,16 +149,14 @@ class Org < ActiveRecord::Base
     end
   end
 
-# TODO: Should these be hardcoded? Also, an Org can currently be multiple org_types at one time.
-#       For example you can do: funder = true; project = true; school = true
-#       Calling type in the above scenario returns "Funder" which is a bit misleading
-#       Is FlagShihTzu's Bit flag the appropriate structure here or should we use an enum?
-#       Tests are setup currently to work with this issue.
-  ##
-  # returns the name of the type of the organisation as a string
-  # defaults to none if no org type present
+  # TODO: Should these be hardcoded? Also, an Org can currently be multiple org_types at
+  # one time. For example you can do: funder = true; project = true; school = true
   #
-  # @return [String]
+  # Calling type in the above scenario returns "Funder" which is a bit misleading
+  # Is FlagShihTzu's Bit flag the appropriate structure here or should we use an enum?
+  # Tests are setup currently to work with this issue.
+  #
+  # Returns String
   def org_type_to_s
     ret = []
     ret << "Institution" if self.institution?
@@ -173,17 +173,17 @@ class Org < ActiveRecord::Base
   end
 
   ##
-  # returns the name of the organisation
+  # The name of the organisation
   #
-  # @return [String]
+  # Returns String
   def to_s
     name
   end
 
   ##
-  # returns the abbreviation for the organisation if it exists, or the name if not
+  # The abbreviation for the organisation if it exists, or the name if not
   #
-  # @return [String] name or abbreviation of the organisation
+  # Returns String
   def short_name
     if abbreviation.nil? then
       return name
@@ -193,9 +193,9 @@ class Org < ActiveRecord::Base
   end
 
   ##
-  # returns all published templates belonging to the organisation
+  # All published templates belonging to the organisation
   #
-  # @return [Array<Template>] published templates
+  # Returns ActiveRecord::Relation
   def published_templates
     return templates.where("published = ?", true)
   end

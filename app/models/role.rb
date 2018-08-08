@@ -102,9 +102,9 @@ class Role < ActiveRecord::Base
   ##
   # Roles with given FlagShihTzu access flags
   #
-  # @param flags [Array] One or more symbols that represent access flags
+  # flags - One or more symbols that represent access flags
   #
-  # @return [ActiveRecord::Relation]
+  # Return ActiveRecord::Relation
   scope :with_access_flags, -> (*flags) {
     bad_flag = flags.detect { |flag| !flag.in?(flag_mapping['access'].keys) }
     raise ArgumentError, "Unkown access flag '#{bad_flag}'" if bad_flag
@@ -118,15 +118,15 @@ class Role < ActiveRecord::Base
   # = Public instance methods =
   # ===========================
 
-  ##
-  # return the access level for the current project group
-  # 5 if the user is a reviewer
-  # 3 if the user is an administrator
-  # 2 if the user is an editor
-  # 1 if the user can only read
+
+  # The access level for the current project group:
+  # - 5 if the user is a reviewer
+  # - 3 if the user is an administrator
+  # - 2 if the user is an editor
+  # - 1 if the user can only read
   # used to facilliatte formtastic
   #
-  # @return [Integer]
+  # Returns Integer
   def access_level
     if self.reviewer?
       return 5

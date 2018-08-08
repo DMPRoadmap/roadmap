@@ -431,7 +431,7 @@ class PlansController < ApplicationController
 
   # Flash notice for successful feedback requests
   #
-  # @return [String]
+  # Returns String
   def request_feedback_flash_notice
     # Use the generic feedback confirmation message unless the Org has
     # specified one
