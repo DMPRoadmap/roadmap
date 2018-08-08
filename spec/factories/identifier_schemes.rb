@@ -3,13 +3,13 @@
 # Table name: identifier_schemes
 #
 #  id               :integer          not null, primary key
-#  name             :string
-#  description      :string
 #  active           :boolean
+#  description      :string
+#  logo_url         :text
+#  name             :string
+#  user_landing_url :text
 #  created_at       :datetime
 #  updated_at       :datetime
-#  logo_url         :text
-#  user_landing_url :text
 #
 
 FactoryBot.define do
