@@ -15,7 +15,7 @@ cache:
     - $HOME/.npm
 
 addons:
-  chrome: beta
+  chrome: stable
   apt:
     packages:
       - nodejs
@@ -24,6 +24,7 @@ addons:
 
 matrix:
   fast_finish: true
+  include:
 
 rvm:
   # Use 2.4.1, since this is installed by default on Travis (1st Aug, 2018)
