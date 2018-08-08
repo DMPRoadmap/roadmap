@@ -14,7 +14,7 @@ Capybara.default_driver = :rack_test
 #
 # This adds the --no-sandbox flag to fix TravisCI as described here:
 # https://docs.travis-ci.com/user/chrome#sandboxing
-Capybara.register_driver :custom_chrome_headless do |app|
+Capybara.register_driver :selenium_chrome_headless do |app|
   Capybara::Selenium::Driver.load_selenium
   browser_options = ::Selenium::WebDriver::Chrome::Options.new
   browser_options.args << '--headless'
@@ -30,7 +30,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :feature, js: true) do
-    Capybara.current_driver = :custom_chrome_headless
+    Capybara.current_driver = :selenium_chrome_headless
     Capybara.page.driver.browser.manage.window.size = DIMENSION
   end
 
