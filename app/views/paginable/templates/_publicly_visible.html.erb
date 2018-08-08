@@ -12,7 +12,7 @@
     </thead>
     <tbody>
       <% scope.each do |template| %>
-        <tr>
+        <tr id="<%= dom_id(template) %>">
           <td><%= template.title %></td>
           <td class="text-center">
             <%= link_to _('DOCX'), template_export_path(template.family_id, format: :docx), target: '_blank' %><br>

@@ -18,7 +18,7 @@
     </thead>
     <tbody>
     <% scope.each do |template| %>
-      <tr>
+      <tr id="<%= dom_id(template) %>">
         <td>
           <%= template.title %>
         </td>
@@ -64,7 +64,7 @@
                   <li><%= link_to _('Copy'), copy_org_admin_template_path(template.id), 'data-method': 'post' %></li>
                   <% if template.removable? %>
                     <li>
-                      <%= link_to _('Remove'), org_admin_template_path(id: template.id), 
+                      <%= link_to _('Remove'), org_admin_template_path(id: template.id),
                                   'data-method': 'delete', rel: 'nofollow',
                                   'data-confirm': _('Are you sure you want to remove "%{template_title}"? Any published versions will become unavailable to users.') % { template_title: template.title} %>
                     </li>
