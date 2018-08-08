@@ -8,7 +8,7 @@ namespace :assets do
   task :precompile do
     FileUtils.cd("lib/assets") do
       system("npm install")
-      system("npm run bundle --no-watch -- -p")
+      system("npm run bundle -- --no-watch -p")
     end
   end
 end
