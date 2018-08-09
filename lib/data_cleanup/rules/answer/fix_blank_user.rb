@@ -10,14 +10,11 @@ module DataCleanup
         end
 
         def call
-          ::Answer.where(user: nil)
-                  .includes(plan: { roles: :user })
-                  .find_in_batches do |answers|
-
-            answers.each do |answer|
-              log("Updating Answer##{answer.id} with user: #{answer.plan.owner}")
-              answer.update(user: answer.plan.owner)
-            end
+          ::Answer.joins("LEFT OUTER JOIN users ON users.id = answers.user_id")
+                  .where(users: { id: nil })
+                  .includes(plan: { roles: :user }).each do |answer|
+            log("Updating Answer##{answer.id} with user: #{answer.plan.owner}")
+            answer.update(user: answer.plan.owner)
           end
         end
 
