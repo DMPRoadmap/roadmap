@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %> 
+    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %>
     </title>
     <%= favicon_link_tag "favicon.ico" %>
     <!--[ if lte IE 9]>
@@ -42,7 +42,7 @@
   </head>
   <body>
       <div class="skip">
-        <a href="#maincontent"> _('Skip to main content') </a> 
+        <a href="#maincontent"> _('Skip to main content') </a>
       </div>
       <!-- header rendering -->
       <header>
@@ -57,7 +57,7 @@
       <!-- main page content rendering -->
       <main class="container" id="maincontent">
         <div id="notification-area"
-             class="alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
+             class="notification-area alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
                     <%= (has_alert or has_notice) ? 'show' : 'hide' %>"
              role="<%= (has_notice ? 'status' : (has_alert ? 'alert' : '')) %>">
           <i class="fa <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
@@ -88,6 +88,7 @@
       VALIDATION_MESSAGE_PASSWORDS_MATCH: _('The passwords must match.'),
       VALIDATION_MESSAGE_RADIO: _('Please choose one of the options.'),
       VALIDATION_MESSAGE_CHECKBOX: _('Please check the box to continue.'),
+      VALIDATION_MESSAGE_MULTI_CHECKBOX: _('Please select at least one of the options to continue.'),
       VALIDATION_MESSAGE_SELECT: _('Please select a value from the list.'),
       VALIDATION_MESSAGE_TEXT: _('This field is required.'),
 

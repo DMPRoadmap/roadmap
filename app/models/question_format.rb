@@ -1,37 +1,61 @@
+# == Schema Information
+#
+# Table name: question_formats
+#
+#  id           :integer          not null, primary key
+#  description  :text
+#  formattype   :integer          default(0)
+#  option_based :boolean          default(FALSE)
+#  title        :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
 class QuestionFormat < ActiveRecord::Base
+  include ValidationMessages
+  include ValidationValues
 
   ##
-  # Associations
+  #
+  FORMAT_TYPES = %i[textarea textfield radiobuttons checkbox dropdown
+                    multiselectbox date rda_metadata]
+
+
+  # ==============
+  # = Attributes =
+  # ==============
+
+  enum formattype: FORMAT_TYPES
+
+  alias_attribute :to_s, :title
+
+  alias_attribute :option_based?, :option_based
+
+  # ================
+  # = Associations =
+  # ================
+
   has_many :questions
 
-  enum formattype: [ :textarea, :textfield, :radiobuttons, :checkbox, :dropdown, :multiselectbox, :date, :rda_metadata ]
-  attr_accessible :formattype
 
-  validates :title, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
+  # ===============
+  # = Validations =
+  # ===============
 
-  ##
-  # Possibly needed for active_admin
-  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :title, :description, :option_based, :questions, :as => [:default, :admin]
+  validates :title, presence: { message: PRESENCE_MESSAGE },
+                    uniqueness: { message: UNIQUENESS_MESSAGE }
+
+  validates :description, presence: { message: PRESENCE_MESSAGE }
+
+  validates :option_based, inclusion: { in: BOOLEAN_VALUES }
+
+
+  # =================
+  # = Class methods =
+  # =================
 
   # Retrieves the id for a given formattype passed
-  scope :id_for, -> (formattype) { where(formattype: formattype).pluck(:id).first }
-
-  ##
-  # Define Bit Field Values so we can test a format without doing string comps
-  # Column type
-
-  # EVALUATE CLASS AND INSTANCE METHODS BELOW
-  #
-  # What do they do? do they do it efficiently, and do we need them?
-
-
-  ##
-  # gives the title of the question_format
-  #
-  # @return [String] title of the question_format
-  def to_s
-    "#{title}"
+  def self.id_for(formattype)
+    where(formattype: formattype).pluck(:id).first
   end
-
 end

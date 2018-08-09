@@ -1,46 +1,114 @@
+# == Schema Information
+#
+# Table name: orgs
+#
+#  id                     :integer          not null, primary key
+#  abbreviation           :string
+#  banner_text            :text
+#  contact_email          :string
+#  contact_name           :string
+#  feedback_email_msg     :text
+#  feedback_email_subject :string
+#  feedback_enabled       :boolean          default(FALSE)
+#  is_other               :boolean
+#  links                  :text
+#  logo_file_name         :string
+#  logo_name              :string
+#  logo_uid               :string
+#  name                   :string
+#  org_type               :integer          default(0), not null
+#  sort_name              :string
+#  target_url             :string
+#  wayfless_entity        :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  language_id            :integer
+#  parent_id              :integer
+#  region_id              :integer
+#
+# Foreign Keys
+#
+#  fk_rails_...  (language_id => languages.id)
+#  fk_rails_...  (region_id => regions.id)
+#
+
 class Org < ActiveRecord::Base
+  include ValidationMessages
+  include ValidationValues
   include GlobalHelpers
   include FlagShihTzu
   extend Dragonfly::Model::Validations
   validates_with OrgLinksValidator
 
+  LOGO_FORMATS = %w[jpeg png gif jpg bmp].freeze
+
   # Stores links as an JSON object: { org: [{"link":"www.example.com","text":"foo"}, ...] }
   # The links are validated against custom validator allocated at validators/template_links_validator.rb
   serialize :links, JSON
 
-  ##
-  # Associations
-#  belongs_to :organisation_type   # depricated, but cannot be removed until migration run
+
+  # ================
+  # = Associations =
+  # ================
+
   belongs_to :language
-  has_many :guidance_groups
+
+  belongs_to :region
+
+  has_many :guidance_groups, dependent: :destroy
+
   has_many :templates
+
   has_many :users
+
   has_many :annotations
 
   has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions", unique: true
 
   has_many :org_identifiers
+
   has_many :identifier_schemes, through: :org_identifiers
 
-  ##
-  # Possibly needed for active_admin
-  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-	attr_accessible :abbreviation, :logo, :remove_logo,
-                  :logo_file_name, :name, :links,
-                  :organisation_type_id, :wayfless_entity, :parent_id, :sort_name,
-                  :token_permission_type_ids, :language_id, :contact_email, :contact_name,
-                  :language, :org_type, :region, :token_permission_types,
-                  :guidance_group_ids, :is_other, :region_id, :logo_uid, :logo_name,
-                  :feedback_enabled, :feedback_email_subject, :feedback_email_msg
-  ##
-  # Validators
-  validates :name, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
+
+  # ===============
+  # = Validations =
+  # ===============
+
+  validates :name, presence: { message: PRESENCE_MESSAGE },
+                   uniqueness: { message: UNIQUENESS_MESSAGE }
+
+  validates :abbreviation, presence: { message: PRESENCE_MESSAGE },
+                           uniqueness: { message: UNIQUENESS_MESSAGE }
+
+  validates :is_other, inclusion: { in: BOOLEAN_VALUES,
+                                    message: INCLUSION_MESSAGE }
+
+  validates :language, presence: { message: PRESENCE_MESSAGE }
+
+  validates :contact_email, email: { allow_nil: true },
+                            presence: { message: PRESENCE_MESSAGE,
+                                        if: :feedback_enabled }
+
+  validates :org_type, presence: { message: PRESENCE_MESSAGE }
+
+  validates :feedback_enabled, inclusion: { in: BOOLEAN_VALUES,
+                                            message: INCLUSION_MESSAGE }
+
+  validates :feedback_email_subject, presence: { message: PRESENCE_MESSAGE,
+                                                 if: :feedback_enabled }
+
+  validates :feedback_email_msg, presence: { message: PRESENCE_MESSAGE,
+                                             if: :feedback_enabled }
+
+  validates_property :format, of: :logo, in: LOGO_FORMATS,
+                     message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp")
+
+  validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
+
   # allow validations for logo upload
   dragonfly_accessor :logo do
     after_assign :resize_image
   end
-  validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif','jpg','bmp'], message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp")
-  validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
 
   ##
   # Define Bit Field values
@@ -54,7 +122,9 @@ class Org < ActiveRecord::Base
             column: 'org_type'
 
   # Predefined queries for retrieving the managain organisation and funders
-  scope :managing_orgs, -> { where(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]) }
+  scope :managing_orgs, -> do
+    where(abbreviation: Branding.fetch(:organisation, :abbreviation))
+  end
 
   scope :search, -> (term) {
     search_pattern = "%#{term}%"
@@ -126,17 +196,8 @@ class Org < ActiveRecord::Base
   # returns all published templates belonging to the organisation
   #
   # @return [Array<Template>] published templates
-	def published_templates
-		return templates.where("published = ?", true)
-	end
-
-  def check_api_credentials
-    if token_permission_types.count == 0
-      users.each do |user|
-        user.api_token = ""
-        user.save!
-      end
-    end
+  def published_templates
+    return templates.where("published = ?", true)
   end
 
   def org_admins
@@ -154,20 +215,25 @@ class Org < ActiveRecord::Base
   end
 
   private
-    ##
-    # checks size of logo and resizes if necessary
-    #
-    def resize_image
-      unless logo.nil?
-        if logo.height != 100
-          self.logo = logo.thumb('x100')  # resize height and maintain aspect ratio
-        end
+
+  ##
+  # checks size of logo and resizes if necessary
+  #
+  def resize_image
+    unless logo.nil?
+      if logo.height != 100
+        self.logo = logo.thumb('x100')  # resize height and maintain aspect ratio
       end
     end
+  end
 
-    # creates a dfefault Guidance Group on create on the Org
-    def create_guidance_group
-      GuidanceGroup.create(name: self.abbreviation? ? self.abbreviation : self.name , org_id: self.id)
-    end
-
+  # creates a dfefault Guidance Group on create on the Org
+  def create_guidance_group
+    GuidanceGroup.create!({
+      name: abbreviation? ? self.abbreviation : self.name ,
+      org: self,
+      optional_subset: false,
+      published: false,
+    })
+  end
 end

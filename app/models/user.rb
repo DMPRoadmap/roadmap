@@ -1,5 +1,57 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :integer          not null, primary key
+#  accept_terms           :boolean
+#  active                 :boolean          default(TRUE)
+#  api_token              :string
+#  confirmation_sent_at   :datetime
+#  confirmation_token     :string
+#  confirmed_at           :datetime
+#  current_sign_in_at     :datetime
+#  current_sign_in_ip     :string
+#  email                  :string(80)       default(""), not null
+#  encrypted_password     :string           default("")
+#  firstname              :string
+#  invitation_accepted_at :datetime
+#  invitation_created_at  :datetime
+#  invitation_sent_at     :datetime
+#  invitation_token       :string
+#  invited_by_type        :string
+#  last_sign_in_at        :datetime
+#  last_sign_in_ip        :string
+#  other_organisation     :string
+#  recovery_email         :string
+#  remember_created_at    :datetime
+#  reset_password_sent_at :datetime
+#  reset_password_token   :string
+#  sign_in_count          :integer          default(0)
+#  surname                :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  invited_by_id          :integer
+#  language_id            :integer
+#  orcid_id               :string
+#  org_id                 :integer
+#  shibboleth_id          :string
+#
+# Indexes
+#
+#  index_users_on_email   (email) UNIQUE
+#  index_users_on_org_id  (org_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (language_id => languages.id)
+#  fk_rails_...  (org_id => orgs.id)
+#
+
 class User < ActiveRecord::Base
   include ConditionalUserMailer
+  include ValidationMessages
+  include ValidationValues
+
   ##
   # Devise
   #   Include default devise modules. Others available are:
@@ -14,39 +66,50 @@ class User < ActiveRecord::Base
   # User Notification Preferences
   serialize :prefs, Hash
 
-  ##
-  # Associations
+  # ================
+  # = Associations =
+  # ================
+
+
   has_and_belongs_to_many :perms, join_table: :users_perms
+
   belongs_to :language
+
   belongs_to :org
+
   has_one  :pref
+
   has_many :answers
+
   has_many :notes
+
   has_many :exported_plans
+
   has_many :roles, dependent: :destroy
-  has_many :plans, through: :roles do
-    def filter(query)
-      return self unless query.present?
-      t = self.arel_table
-      q = "%#{query}%"
-      conditions = t[:title].matches(q)
-      columns = %i(
-        grant_number identifier description principal_investigator data_contact
-      )
-      columns = ['grant_number', 'identifier', 'description', 'principal_investigator', 'data_contact']
-      columns.each {|col| conditions = conditions.or(t[col].matches(q)) }
-      self.where(conditions)
-    end
-  end
+
+  has_many :plans, through: :roles
+
 
   has_many :user_identifiers
+
   has_many :identifier_schemes, through: :user_identifiers
-  has_and_belongs_to_many :notifications, dependent: :destroy, join_table: 'notification_acknowledgements'
 
-  validates :email, email: true, allow_nil: true, uniqueness: {message: _("must be unique")}
+  has_and_belongs_to_many :notifications, dependent: :destroy,
+                          join_table: 'notification_acknowledgements'
 
-  ##
-  # Scopes
+
+  # ===============
+  # = Validations =
+  # ===============
+
+  validates :active, inclusion: { in: BOOLEAN_VALUES,
+                                  message: INCLUSION_MESSAGE }
+
+
+  # ==========
+  # = Scopes =
+  # ==========
+
   default_scope { includes(:org, :perms) }
 
   # Retrieves all of the org_admins for the specified org
@@ -57,8 +120,9 @@ class User < ActiveRecord::Base
 
   scope :search, -> (term) {
     search_pattern = "%#{term}%"
-    # MySQL does not support standard string concatenation and since concat_ws or concat functions do
-    # not exist for sqlite, we have to come up with this conditional
+    # MySQL does not support standard string concatenation and since concat_ws
+    # or concat functions do not exist for sqlite, we have to come up with this
+    # conditional
     if ActiveRecord::Base.connection.adapter_name == "Mysql2"
       where("concat_ws(' ', firstname, surname) LIKE ? OR email LIKE ?", search_pattern, search_pattern)
     else
@@ -66,12 +130,32 @@ class User < ActiveRecord::Base
     end
   }
 
+  # =============
+  # = Callbacks =
+  # =============
+
   after_update :when_org_changes
+
+  # =================
+  # = Class methods =
+  # =================
+
+  ##
+  # Load the user based on the scheme and id provided by the Omniauth call
+  def self.from_omniauth(auth)
+    joins(user_identifiers: :identifier_scheme)
+      .where(user_identifiers: { identifier: auth.uid },
+             identifier_schemes: { name: auth.provider.downcase }).first
+  end
+
+  # ===========================
+  # = Public instance methods =
+  # ===========================
 
   ##
   # This method uses Devise's built-in handling for inactive users
   def active_for_authentication?
-    super && self.active?
+    super && active?
   end
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
@@ -90,7 +174,6 @@ class User < ActiveRecord::Base
     end
   end
 
-
   ##
   # gives either the name of the user, or the email if name unspecified
   #
@@ -106,29 +189,12 @@ class User < ActiveRecord::Base
   end
 
   ##
-  # returns all active plans for a user
-  #
-  # @return [Plans]
-  def active_plans
-    self.plans.includes(:template).where("roles.active": true).where(Role.not_reviewer_condition)
-  end
-
-
-  ##
   # Returns the user's identifier for the specified scheme name
   #
   # @param the identifier scheme name (e.g. ORCID)
   # @return [UserIdentifier] the user's identifier for that scheme
   def identifier_for(scheme)
     user_identifiers.where(identifier_scheme: scheme).first
-  end
-
-  ##
-  # sets a new organisation for the user
-  #
-  # @param new_organisation [Organisation] the new organisation for the user
-  def organisation=(new_org)
-    org_id = new_org.id unless new_org.nil?
   end
 
   ##
@@ -240,28 +306,14 @@ class User < ActiveRecord::Base
   end
 
   ##
-  # Load the user based on the scheme and id provided by the Omniauth call
-  # --------------------------------------------------------------
-  def self.from_omniauth(auth)
-    scheme = IdentifierScheme.find_by(name: auth.provider.downcase)
-
-    if scheme.nil?
-      throw Exception.new('Unknown OAuth provider: ' + auth.provider)
-    else
-      joins(:user_identifiers).where('user_identifiers.identifier': auth.uid,
-                   'user_identifiers.identifier_scheme_id': scheme.id).first
-    end
-  end
-
-  ##
   # Return the user's preferences for a given base key
   #
   # @return [JSON] with symbols as keys
   def get_preferences(key)
     defaults = Pref.default_settings[key.to_sym] || Pref.default_settings[key.to_s]
 
-    if self.pref.present?
-      existing = self.pref.settings[key.to_s].deep_symbolize_keys
+    if pref.present?
+      existing = pref.settings[key.to_s].deep_symbolize_keys
 
       # Check for new preferences
       defaults.keys.each do |grp|
@@ -290,7 +342,10 @@ class User < ActiveRecord::Base
   # @param val [string] The string to search for, case insensitive. val is duck typed to check whether or not downcase method exist
   # @return [ActiveRecord::Relation] The result of the search
   def self.where_case_insensitive(field, val)
-    User.where("lower(#{field}) = ?", val.respond_to?(:downcase) ? val.downcase : val.to_s)
+    unless columns.map(&:name).include?(field.to_s)
+      raise ArgumentError, "Field #{field} is not present on users table"
+    end
+    User.where("LOWER(#{field}) = :value", value: val.to_s.downcase)
   end
 
   # Acknoledge a Notification
@@ -300,6 +355,11 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  # ============================
+  # = Private instance methods =
+  # ============================
+
   def when_org_changes
     if org_id != org_id_was
       unless can_change_org?

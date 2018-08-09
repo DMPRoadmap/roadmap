@@ -1,5 +1,5 @@
 <%# locals: { phase } %>
-<div class="row">
+<div class="row" id="<%= id_for(phase) %>">
   <div class="col-xs-12">
     <h4>
       <%= _('Instructions') %>
@@ -9,8 +9,7 @@
       <%= raw(phase.description) %>
     </p>
   </div>
-</div>
-<div class="row">
+
   <div class="col-xs-12">
     <ul class="list-unstyled">
       <% phase.sections.each do |s| %>
