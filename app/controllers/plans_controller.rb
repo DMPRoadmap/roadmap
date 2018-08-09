@@ -1,6 +1,6 @@
+require 'pp'
 class PlansController < ApplicationController
   include ConditionalUserMailer
-  require 'pp'
   helper PaginableHelper
   helper SettingsTemplateHelper
   include FeedbacksHelper
@@ -114,7 +114,11 @@ class PlansController < ApplicationController
 
   # GET /plans/show
   def show
-    @plan = Plan.eager_load(params[:id])
+    @plan = Plan.includes(
+              template: { phases: { sections: { questions: :answers }}},
+              plans_guidance_groups: { guidance_group: :guidances }
+            ).find(params[:id])
+
     authorize @plan
 
     @visibility = @plan.visibility.present? ? @plan.visibility.to_s : Rails.application.config.default_plan_visibility
@@ -122,7 +126,7 @@ class PlansController < ApplicationController
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
 
     # Get all Guidance Groups applicable for the plan and group them by org
-    @all_guidance_groups = @plan.get_guidance_group_options
+    @all_guidance_groups = @plan.guidance_group_options
     @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
     @selected_guidance_groups = @plan.guidance_groups
 
@@ -159,11 +163,8 @@ class PlansController < ApplicationController
     plan, phase = Plan.load_for_phase(params[:id], params[:phase_id])
 
     readonly = !plan.editable_by?(current_user.id)
-    
-    guidance_groups_ids = plan.guidance_groups.collect(&:id)
-    
-    guidance_groups =  GuidanceGroup.where(published: true, id: guidance_groups_ids)
 
+    guidance_groups =  GuidanceGroup.where(published: true, id: plan.guidance_group_ids)
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
     # we create a hash whose keys are question id and value is the answer associated
     answers = plan.answers.reduce({}){ |m, a| m[a.question_id] = a; m }
@@ -171,9 +172,9 @@ class PlansController < ApplicationController
     render('/phases/edit', locals: {
       base_template_org: phase.template.base_org,
       plan: plan, phase: phase, readonly: readonly,
-      question_guidance: plan.guidance_by_question_as_hash,
       guidance_groups: guidance_groups,
-      answers: answers })
+      answers: answers,
+      guidance_service: GuidanceService.new(plan) })
   end
 
   # PUT /plans/1
@@ -231,16 +232,6 @@ class PlansController < ApplicationController
         flash[:alert] = failed_create_error(@plan, _('plan'))
         format.html { render action: "edit" }
       end
-    end
-  end
-
-  # GET /status/1.json
-  # only returns json, why is this here?
-  def status
-    @plan = Plan.find(params[:id])
-    authorize @plan
-    respond_to do |format|
-      format.json { render json: @plan.status }
     end
   end
 
@@ -370,7 +361,9 @@ class PlansController < ApplicationController
 
   def overview
     begin
-      plan = Plan.overview(params[:id])
+      plan = Plan.includes(:phases, :sections, :questions, template: [ :org ])
+                 .find(params[:id])
+
       authorize plan
       render(:overview, locals: { plan: plan })
     rescue ActiveRecord::RecordNotFound
@@ -380,11 +373,15 @@ class PlansController < ApplicationController
   end
 
   private
+
   def plan_params
-    params.require(:plan).permit(:org_id, :org_name, :funder_id, :funder_name, :template_id, :title, :visibility,
-                                 :grant_number, :description, :identifier, :principal_investigator,
-                                 :principal_investigator_email, :principal_investigator_identifier,
-                                 :data_contact, :data_contact_email, :data_contact_phone, :guidance_group_ids)
+    params.require(:plan)
+          .permit(:org_id, :org_name, :funder_id, :funder_name, :template_id,
+                  :title, :visibility, :grant_number, :description, :identifier,
+                  :principal_investigator_phone, :principal_investigator,
+                  :principal_investigator_email, :data_contact,
+                  :principal_investigator_identifier, :data_contact_email,
+                  :data_contact_phone, :guidance_group_ids)
   end
 
 
@@ -406,25 +403,6 @@ class PlansController < ApplicationController
     end
     groups.values
   end
-
-
-  def fixup_hash(plan)
-    rollup(plan, "notes", "answer_id", "answers")
-    rollup(plan, "answers", "question_id", "questions")
-    rollup(plan, "questions", "section_id", "sections")
-    rollup(plan, "sections", "phase_id", "phases")
-
-    plan["template"]["phases"] = plan.delete("phases")
-
-    ghash = {}
-    plan["guidance_groups"].map{|g| ghash[g["id"]] = g}
-    plan["plans_guidance_groups"].each do |pgg|
-      pgg["guidance_group"] = ghash[ pgg["guidance_group_id"] ]
-    end
-
-    plan["template"]["org"] = Org.find(plan["template"]["org_id"]).serializable_hash()
-  end
-
 
   # find all object under src_plan_key
   # merge them into the items under obj_plan_key using

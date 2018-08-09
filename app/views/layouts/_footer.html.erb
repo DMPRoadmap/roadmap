@@ -8,7 +8,7 @@
 <div id="footer-navbar" class="navbar-inverse navbar-fixed-bottom" role="navigation">
   <div class="container-fluid">
     <ul class="nav navbar-nav">
-      <li><%= link_to "&copy; 2004 - #{Time.now.year} #{Rails.configuration.branding[:organisation][:name]}".sanitize, "#{Rails.configuration.branding[:organisation][:url]}"%></li>
+      <li><%= link_to "&copy; 2010 - #{Time.current.year} #{Rails.configuration.branding[:organisation][:name]}".sanitize, "#{Rails.configuration.branding[:organisation][:url]}"%></li>
       <li>•</li>
       <li><a href="<%= about_us_path %>"><%= _('About') %></a></li>
       <li><a href="<%= contact_us %>"><%= _('Contact us') %></a></li>
@@ -17,10 +17,6 @@
       <li><a href="https://github.com/DMPRoadmap/roadmap"><%= _('Github') %></a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li>
-        <%= link_to( image_tag("uc3_logo_white.png", class: "img-responsive", alt: 'University of California Curation Center'),
-                               "http://www.cdlib.org/uc3/", title: "University of California Curation Center", target: '_blank') %>
-      </li>
       <li>
         <%= link_to( image_tag("dcc_logo_white.png", class: "img-responsive", alt: 'Digital Curation Centre'),
                      "http://www.dcc.ac.uk/", title: "Digital Curation Centre", target: '_blank') %>

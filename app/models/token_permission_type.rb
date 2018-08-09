@@ -1,25 +1,51 @@
+# == Schema Information
+#
+# Table name: token_permission_types
+#
+#  id               :integer          not null, primary key
+#  text_description :text
+#  token_type       :string
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+
 class TokenPermissionType < ActiveRecord::Base
+  include ValidationMessages
+
+  # =============
+  # = Constants =
+  # =============
+
   ##
-  # Associations
-  #has_and_belongs_to_many :org_token_permissions, join_table: "org_token_permissions"
-#  has_and_belongs_to_many :organisations, join_table: 'org_token_permissions', unique: true
+  #
+  GUIDANCES   = TokenPermissionType.where(token_type: 'guidances').first.freeze
+
+  ##
+  #
+  PLANS       = TokenPermissionType.where(token_type: 'plans').first.freeze
+
+  ##
+  #
+  TEMPLATES   = TokenPermissionType.where(token_type: 'templates').first.freeze
+
+  ##
+  #
+  STATISTICS  = TokenPermissionType.where(token_type: 'statistics').first.freeze
+
+
+  # ================
+  # = Associations =
+  # ================
+
   has_and_belongs_to_many :orgs, join_table: 'org_token_permissions', unique: true
 
-  ##
-  # Possibly needed for active_admin
-  #  - relies on proetected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :token_type, :text_description, :as => [:default, :admin]
 
-  ##
-  # Validators
-  validates :token_type, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
+  # ==============
+  # = Validators =
+  # ==============
 
-  ##
-  # Constant Token Permission Types
-  GUIDANCES   = TokenPermissionType.where(token_type: 'guidances').first.freeze
-  PLANS       = TokenPermissionType.where(token_type: 'plans').first.freeze
-  TEMPLATES   = TokenPermissionType.where(token_type: 'templates').first.freeze
-  STATISTICS  = TokenPermissionType.where(token_type: 'statistics').first.freeze
+  validates :token_type, presence: { message: PRESENCE_MESSAGE },
+                         uniqueness: { message: UNIQUENESS_MESSAGE }
 
 
   ##
