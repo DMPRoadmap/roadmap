@@ -9,7 +9,7 @@ class RolesController < ApplicationController
     authorize @role
 
     access_level = params[:role][:access_level].to_i
-    @role.set_access_level(access_level)
+    @role.access_level = access_level
     message = ''
     if params[:user].present?
       if @role.plan.owner.present? && @role.plan.owner.email == params[:user]
@@ -51,7 +51,7 @@ class RolesController < ApplicationController
     @role = Role.find(params[:id])
     authorize @role
     access_level = params[:role][:access_level].to_i
-    @role.set_access_level(access_level)
+    @role.access_level = access_level
     if @role.update_attributes(role_params)
       deliver_if(recipients: @role.user, key: 'users.added_as_coowner') do |r|
         UserMailer.permissions_change_notification(@role, current_user).deliver_now

@@ -1,4 +1,30 @@
+# == Schema Information
+#
+# Table name: answers
+#
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0)
+#  text         :text
+#  created_at   :datetime
+#  updated_at   :datetime
+#  plan_id      :integer
+#  question_id  :integer
+#  user_id      :integer
+#
+# Indexes
+#
+#  index_answers_on_plan_id      (plan_id)
+#  index_answers_on_question_id  (question_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (plan_id => plans.id)
+#  fk_rails_...  (question_id => questions.id)
+#  fk_rails_...  (user_id => users.id)
+#
+
 class Answer < ActiveRecord::Base
+  include ValidationMessages
 
   after_save do |answer|
     if answer.plan_id.present?
@@ -23,32 +49,18 @@ class Answer < ActiveRecord::Base
 
   has_many :notes
 
-  ##
-  # Possibly needed for active_admin
-  #   -relies on protected_attributes gem as syntax depricated in rails 4.2
-  attr_accessible :text, :plan_id, :lock_version, :question_id, :user_id, :question_option_ids,
-                  :question, :user, :plan, :question_options, :notes, :note_ids, :id,
-                  :as => [:default, :admin]
 
-  ##
-  # Validations
-#  validates :user, :plan, :question, presence: true
-#
-#  # Make sure there is only one answer per question!
-#  validates :question, uniqueness: {scope: [:plan],
-#                                    message: I18n.t('helpers.answer.only_one_per_question')}
-#
-#  # The answer MUST have a text value if the question is NOT option based or a question_option if
-#  # it is option based.
-#  validates :text, presence: true, if: Proc.new{|a|
-#    (a.question.nil? ? false : !a.question.question_format.option_based?)
-#  }
-#  validates :question_options, presence: true, if: Proc.new{|a|
-#    (a.question.nil? ? false : a.question.question_format.option_based?)
-#  }
-#
-#  # Make sure the plan and question are associated with the same template!
-#  validates :plan, :question, answer_for_correct_template: true
+  # ===============
+  # = Validations =
+  # ===============
+
+  validates :plan, presence: { message: PRESENCE_MESSAGE }
+
+  validates :user, presence: { message: PRESENCE_MESSAGE }
+
+  validates :question, presence: { message: PRESENCE_MESSAGE },
+                       uniqueness: { message: UNIQUENESS_MESSAGE,
+                                     scope: :plan_id }
 
   ##
   # deep copy the given answer
@@ -60,8 +72,7 @@ class Answer < ActiveRecord::Base
     answer.question_options.each do |opt|
       answer_copy.question_options << opt
     end
-    answer_copy.save!
-    return answer_copy
+    answer_copy
   end
 
   # This method helps to decide if an answer option (:radiobuttons, :checkbox, etc ) in form views should be checked or not
@@ -82,6 +93,7 @@ class Answer < ActiveRecord::Base
     end
     return false
   end
+
   # Returns answer notes whose archived is blank sorted by updated_at in descending order
   def non_archived_notes
     return notes.select{ |n| n.archived.blank? }.sort!{ |x,y| y.updated_at <=> x.updated_at }

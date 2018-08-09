@@ -41,7 +41,7 @@
           <td><%= role.user.name %></td>
           <td>
             <% if role.creator? %>
-                <span><%= _('Owner') %></span> 
+                <span><%= _('Owner') %></span>
             <% else %>
                 <% if administerable && role.user != current_user %>
                       <%= form_for role, url: { controller: :roles, action: :update, id: role.id }, remote: true, html: { method: :put } do |f| %>
@@ -78,7 +78,7 @@
       <%= user.email_field :email, for: :user, name: "user", class: "form-control", "aria-required": true %>
     <% end %>
   </div>
-  
+
   <fieldset class="col-xs-12">
     <legend><%= _('Permissions') %></legend>
     <div class="form-group">
@@ -102,6 +102,9 @@
     <% if plan.owner_and_coowners.include?(current_user) && current_user.org.present? && current_user.org.feedback_enabled? %>
       <h2><%= _('Request expert feedback') %></h2>
       <p><%= _('Click below to give data management staff at your organisation access to read and comment on your plan.') %></p>
+      <div class="well well-sm">
+        <%= current_user.org.feedback_email_msg.to_s.html_safe %>
+      </div>
       <p><%= _('You can continue to edit and download the plan in the interim.') %></p>
 
   <div class="form-group col-xs-8">

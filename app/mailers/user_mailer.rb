@@ -1,6 +1,8 @@
 class UserMailer < ActionMailer::Base
   include MailerHelper
   helper MailerHelper
+  helper FeedbacksHelper
+
   default from: Rails.configuration.branding[:organisation][:email]
 
   def welcome_notification(user)
@@ -64,9 +66,9 @@ class UserMailer < ActionMailer::Base
 
   def feedback_complete(recipient, plan, requestor)
     @requestor = requestor
-    @user = recipient
-    @plan = plan
-
+    @user      = recipient
+    @plan      = plan
+    @phase     = plan.phases.first
     if recipient.active?
       FastGettext.with_locale FastGettext.default_locale do
         mail(to: recipient.email,

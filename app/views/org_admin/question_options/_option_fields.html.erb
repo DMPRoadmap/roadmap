@@ -21,7 +21,7 @@
     <% options_q.number = i %>
     <div class="row" data-attribute="question_option">
       <div class="col-md-3">
-        <%= op.number_field :number, in: 1..20, class: 'form-control' %>
+        <%= op.number_field :number, min: 1, class: 'form-control' %>
       </div>
       <div class="col-md-3">
         <%= op.text_field :text, as: :string, class: 'form-control' %>

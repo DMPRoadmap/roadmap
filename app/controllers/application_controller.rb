@@ -96,64 +96,53 @@ class ApplicationController < ActionController::Base
     "#{_('Successfully %{action} your %{object}.') % {object: obj_name, action: action}}"
   end
 
-  # Check whether the string is a valid array of JSON objects
-  def is_json_array_of_objects?(string)
-    if string.present?
-      begin
-        json = JSON.parse(string)
-        return (json.is_a?(Array) && json.all?{ |o| o.is_a?(Hash) })
-      rescue JSON::ParserError
-        return false
+  private
+
+  # Override rails default render action to look for a branded version of a
+  # template instead of using the default one. If no override exists, the
+  # default version in ./app/views/[:controller]/[:action] will be used
+  #
+  # The path in the app/views/branded/ directory must match the the file it is
+  # replacing. For example:
+  #  app/views/branded/layouts/_header.html.erb -> app/views/layouts/_header.html.erb
+  def prepend_view_paths
+    prepend_view_path "app/views/branded"
+  end
+
+  def errors_to_s(obj)
+    if obj.errors.count > 0
+      msg = "<br />"
+      obj.errors.each do |e,m|
+        if m.include?('empty') || m.include?('blank')
+          msg += "#{_(e)} - #{_(m)}<br />"
+        else
+          msg += "'#{obj[e]}' - #{_(m)}<br />"
+        end
       end
+      msg
     end
   end
 
-  private
-    # Override rails default render action to look for a branded version of a
-    # template instead of using the default one. If no override exists, the
-    # default version in ./app/views/[:controller]/[:action] will be used
-    #
-    # The path in the app/views/branded/ directory must match the the file it is
-    # replacing. For example:
-    #  app/views/branded/layouts/_header.html.erb -> app/views/layouts/_header.html.erb
-    def prepend_view_paths
-      prepend_view_path "app/views/branded"
+  ##
+  # Sign out of Shibboleth SP local session too.
+  # -------------------------------------------------------------
+  def after_sign_out_path_for(resource_or_scope)
+    if Rails.application.config.shibboleth_enabled
+      return Rails.application.config.shibboleth_logout_url + root_url
+      super
+    else
+      super
     end
+  end
+  # -------------------------------------------------------------
 
-    def errors_to_s(obj)
-      if obj.errors.count > 0
-        msg = "<br />"
-        obj.errors.each do |e,m|
-          if m.include?('empty') || m.include?('blank')
-            msg += "#{_(e)} - #{_(m)}<br />"
-          else
-            msg += "'#{obj[e]}' - #{_(m)}<br />"
-          end
-        end
-        msg
-      end
+  def from_external_domain?
+    if request.referer.present?
+      referer = URI.parse(request.referer)
+      home = URI.parse(root_url)
+      referer.host != home.host
+    else
+      false
     end
-
-    ##
-    # Sign out of Shibboleth SP local session too.
-    # -------------------------------------------------------------
-    def after_sign_out_path_for(resource_or_scope)
-      if Rails.application.config.shibboleth_enabled
-        return Rails.application.config.shibboleth_logout_url + root_url
-        super
-      else
-        super
-      end
-    end
-    # -------------------------------------------------------------
-
-    def from_external_domain?
-      if request.referer.present?
-        referer = URI.parse(request.referer)
-        home = URI.parse(root_url)
-        referer.host != home.host
-      else
-        false
-      end
-    end
+  end
 end
