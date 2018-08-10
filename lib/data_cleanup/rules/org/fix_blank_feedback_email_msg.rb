@@ -13,7 +13,7 @@ module DataCleanup
         HTML
 
         def description
-          "Fix orgs where feedback_enabled is true"
+          "Fix orgs feedback_email_message is blank"
         end
 
         def call

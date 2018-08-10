@@ -6,7 +6,7 @@ module DataCleanup
         DEFAULT_SUBJECT = "%{application_name}: Your plan has been submitted for feedback"
 
         def description
-          "Fix orgs where feedback_enabled is true"
+          "Fix orgs where feedback_email_subject is blank"
         end
 
         def call
