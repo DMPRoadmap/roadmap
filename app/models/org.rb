@@ -78,8 +78,7 @@ class Org < ActiveRecord::Base
   validates :name, presence: { message: PRESENCE_MESSAGE },
                    uniqueness: { message: UNIQUENESS_MESSAGE }
 
-  validates :abbreviation, presence: { message: PRESENCE_MESSAGE },
-                           uniqueness: { message: UNIQUENESS_MESSAGE }
+  validates :abbreviation, presence: { message: PRESENCE_MESSAGE }
 
   validates :is_other, inclusion: { in: BOOLEAN_VALUES,
                                     message: INCLUSION_MESSAGE }
