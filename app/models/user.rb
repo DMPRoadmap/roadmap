@@ -32,9 +32,7 @@
 #  updated_at             :datetime         not null
 #  invited_by_id          :integer
 #  language_id            :integer
-#  orcid_id               :string
 #  org_id                 :integer
-#  shibboleth_id          :string
 #
 # Indexes
 #

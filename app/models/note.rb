@@ -3,7 +3,7 @@
 # Table name: notes
 #
 #  id          :integer          not null, primary key
-#  archived    :boolean
+#  archived    :boolean          default(FALSE), not null
 #  archived_by :integer
 #  text        :text
 #  created_at  :datetime
