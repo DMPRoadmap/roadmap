@@ -5,8 +5,8 @@ class RegistrationsController < Devise::RegistrationsController
     @user = current_user
     @prefs = @user.get_preferences(:email)
     @languages = Language.sorted_by_abbreviation
-    @orgs = Org.where(parent_id: nil).order("name")
-    @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
+    @orgs = Org.order("name")
+    @other_organisations = Org.where(is_other: true).pluck(:id)
     @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
     @default_org = current_user.org
 
@@ -102,9 +102,9 @@ class RegistrationsController < Devise::RegistrationsController
   def update
     if user_signed_in? then
       @prefs = @user.get_preferences(:email)
-      @orgs = Org.where(parent_id: nil).order("name")
+      @orgs = Org.order("name")
       @default_org = current_user.org
-      @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
+      @other_organisations = Org.where(is_other: true).pluck(:id)
       @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
       @languages = Language.sorted_by_abbreviation
       if params[:skip_personal_details] == "true"
