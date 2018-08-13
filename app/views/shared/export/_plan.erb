@@ -38,50 +38,48 @@
         <h1><%= download_plan_page_title(@plan, phase, @hash) %></h1>
         <hr />
         <% phase[:sections].each do |section| %>
-          <%# Only render if @show_sections_questions is true and either section not customised or section is customised and @show_custom_sections is true %>
-          <% if @show_sections_questions && (!section[:modifiable] || (@show_custom_sections && section[:modifiable]))  %>
+          <% if display_questions_and_section_headings(section, @show_sections_questions, @show_custom_sections) %>
             <h3><%= section[:title] %></h3>
-          <% end %>
 
-          <% section[:questions].each do |question| %>
-            <div class="question">
-              <%# Only render if @show_sections_questions is true and either section not customised or section is customised and @show_custom_sections is true %>
-              <% if @show_sections_questions && (!section[:modifiable] || (@show_custom_sections && section[:modifiable])) && !@public_plan %>
-                <p><%= raw question[:text].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") if question[:text].present?%></p>
-                <br>
-              <% end %>
-              <% answer = @plan.answer(question[:id], false) %>
-              <% blank = answer.present? ? answer.is_blank? : true %>
-              <% options = answer.present? ? answer.question_options : [] %>
-              <%# case where question has not been answered sufficiently to display%>
-              <% if @show_unanswered && (answer.blank? || (options.blank? && blank))%>
-                <p><%= _('Question not answered.') -%></p>
-              <% else %>
-                <%# case where Question has options %>
-                <% if options.present?%>
-                  <ul>
-                    <% options.each do |opt| %>
-                      <li><%= opt.text %></li>
-                    <% end %>
-                  </ul>
+            <% section[:questions].each do |question| %>
+              <div class="question">
+                <% if !@public_plan %>
+                  <p><%= raw question[:text].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") if question[:text].present?%></p>
+                  <br>
                 <% end %>
-                <%# case for RDA answer display %>
-                <% if question[:format].rda_metadata? && !blank %>
-                  <% ah = answer.answer_hash %>
-                  <% if ah['standards'].present? %>
+                <% answer = @plan.answer(question[:id], false) %>
+                <% blank = answer.present? ? answer.is_blank? : true %>
+                <% options = answer.present? ? answer.question_options : [] %>
+                <%# case where question has not been answered sufficiently to display%>
+                <% if @show_unanswered && (answer.blank? || (options.blank? && blank))%>
+                  <p><%= _('Question not answered.') -%></p>
+                <% else %>
+                  <%# case where Question has options %>
+                  <% if options.any? %>
                     <ul>
-                      <% ah['standards'].each do |id, title| %>
-                        <li><%= title %></li>
+                      <% options.each do |opt| %>
+                        <li><%= opt.text %></li>
                       <% end %>
                     </ul>
                   <% end %>
-                  <p><%= raw ah['text'] %></p>
-                <%# case for displaying comments OR text %>
-                <% elsif !blank %>
-                  <p><%= raw answer.text %></p>
+                  <%# case for RDA answer display %>
+                  <% if question[:format].rda_metadata? && !blank %>
+                    <% ah = answer.answer_hash %>
+                    <% if ah['standards'].present? %>
+                      <ul>
+                        <% ah['standards'].each do |id, title| %>
+                          <li><%= title %></li>
+                        <% end %>
+                      </ul>
+                    <% end %>
+                    <p><%= raw ah['text'] %></p>
+                  <%# case for displaying comments OR text %>
+                  <% elsif !blank %>
+                    <p><%= raw answer.text %></p>
+                  <% end %>
                 <% end %>
-              <% end %>
-            </div>
+              </div>
+            <% end %>
           <% end %>
         <% end %> <!-- sections.each -->
       <% end %>
