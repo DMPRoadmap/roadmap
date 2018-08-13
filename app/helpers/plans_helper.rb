@@ -42,4 +42,9 @@ module PlansHelper
       return _('Private: restricted to me and people I invite.')
     end
   end
+
+  def download_plan_page_title(plan, phase, hash)
+    # If there is more than one phase show the plan title and phase title
+    return hash[:phases].length > 1 ? "#{plan.title} - #{phase[:title]}" : plan.title
+  end
 end

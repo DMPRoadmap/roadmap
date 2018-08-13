@@ -22,13 +22,17 @@
 <% end %>
 
 <% @hash[:phases].each do |phase| %>
+<%# Only render selected phase %>
+<% if phase[:title] == @selected_phase.title %>
 <%= (@hash[:phases].length > 1 ? "#{phase[:title]}" : "") %>
   <% phase[:sections].each do |section| %>
-    <% if @show_sections_questions %>
+    <%# Only render if @show_sections_questions is true and either section not customised or section is customised and @show_custom_sections is true %>
+    <% if @show_sections_questions && (!section[:modifiable] || (@show_custom_sections && section[:modifiable])) %>
 <%= "#{section[:title]}\n" %>
     <% end %>
     <% section[:questions].each do |question| %>
-      <% if @show_sections_questions %>
+      <%# Only render if @show_sections_questions is true and either section not customised or section is customised and @show_custom_sections is true %>
+      <% if @show_sections_questions && (!section[:modifiable] || (@show_custom_sections && section[:modifiable])) %>
         <%# text in this case is an array to accomodate for option_based %>
         <% if question[:text].respond_to?(:each) %>
           <% question[:text].each do |txt| %>
@@ -53,6 +57,6 @@
     <% end %>
   <% end %>
 <% end %>
-
+<% end %>
 <%= "----------------------------------------------------------" %>
 <%= _("A Data Management Plan created using %{application_name}") % { application_name: Rails.configuration.branding[:application][:name] } %>
