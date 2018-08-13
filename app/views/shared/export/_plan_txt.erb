@@ -22,13 +22,14 @@
 <% end %>
 
 <% @hash[:phases].each do |phase| %>
-<%= (@hash[:phases].length > 1 ? "#{phase[:title]}" : "") %>
+<%# Only render selected phase %>
+<% if phase[:title] == @selected_phase.title %>
+  <%= (@hash[:phases].length > 1 ? "#{phase[:title]}" : "") %>
   <% phase[:sections].each do |section| %>
-    <% if @show_sections_questions %>
+    <% if display_questions_and_section_headings(section, @show_sections_questions, @show_custom_sections) %>
 <%= "#{section[:title]}\n" %>
-    <% end %>
-    <% section[:questions].each do |question| %>
-      <% if @show_sections_questions %>
+
+      <% section[:questions].each do |question| %>
         <%# text in this case is an array to accomodate for option_based %>
         <% if question[:text].respond_to?(:each) %>
           <% question[:text].each do |txt| %>
@@ -37,22 +38,22 @@
         <% else %>
 <%= "#{strip_tags(question[:text][0].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,""))}\n" if question[:text].present? && question[:text][0].present? %>
         <% end %>
-      <% end %>
-      <% answer = @plan.answer(question[:id], false) %>
-      <% blank = (answer.present? && answer.is_valid?) ? answer.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '\n').chomp.blank? : true %>
-      <% if blank && @show_unanswered %>
+        <% answer = @plan.answer(question[:id], false) %>
+        <% blank = (answer.present? && answer.is_valid?) ? answer.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '\n').chomp.blank? : true %>
+        <% if blank && @show_unanswered %>
 <%= "    #{_("Question not answered.")}\n\n" %>
-      <% elsif !blank %>
-        <% if answer.question_options.length > 0 %>
-          <% answer.question_options.each do |opt| %>
+        <% elsif !blank %>
+          <% if answer.question_options.length > 0 %>
+            <% answer.question_options.each do |opt| %>
 <%= "    #{opt.text}\n" %>
+            <% end %>
+          <% end %>
+<%= "    #{strip_tags(answer.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '\n').chomp)}\n\n" if answer.text.present? %>
           <% end %>
         <% end %>
-<%= "    #{strip_tags(answer.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '\n').chomp)}\n\n" if answer.text.present? %>
       <% end %>
     <% end %>
   <% end %>
 <% end %>
-
 <%= "----------------------------------------------------------" %>
 <%= _("A Data Management Plan created using %{application_name}") % { application_name: Rails.configuration.branding[:application][:name] } %>
