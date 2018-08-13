@@ -1,11 +1,12 @@
 module Versionable
 
-  ##
   # Takes in a Template, phase, Section, Question, or Annotaion
   # IF the template is published, generates a new template
   # finds the passed object in the new template
-  # @param obj - Template, Phase, Section, Question, Annotation
-  # @return type_of(obj)
+  #
+  # obj - Template, Phase, Section, Question, Annotation
+  #
+  # Returns ActiveRecord::Base
   def get_modifiable(obj)
     if obj.respond_to?(:template)
       template = obj.template

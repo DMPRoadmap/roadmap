@@ -36,6 +36,7 @@
 #
 #  fk_rails_...  (template_id => templates.id)
 #
+
 class Plan < ActiveRecord::Base
   include ConditionalUserMailer
   include ExportablePlan
@@ -194,8 +195,9 @@ class Plan < ActiveRecord::Base
 
   # deep copy the given plan and all of it's associations
   #
-  # @params [Plan] plan to be deep copied
-  # @return [Plan] saved copied plan
+  # plan - Plan to be deep copied
+  #
+  # Returns Plan
   def self.deep_copy(plan)
     plan_copy = plan.dup
     plan_copy.title = "Copy of " + plan.title
@@ -229,15 +231,15 @@ class Plan < ActiveRecord::Base
     template&.settings(key)
   end
 
-  ##
-  # returns the most recent answer to the given question id
-  # optionally can create an answer if none exists
+  # The most recent answer to the given question id optionally can create an answer if
+  # none exists.
   #
-  # @param qid [Integer] the id for the question to find the answer for
-  # @param create_if_missing [Boolean] if true, will genereate a default answer
-  # to the question.
-  # @return [Answer,nil] the most recent answer to the question, or a new
-  # question with default value, or nil.
+  # qid               - The id for the question to find the answer for
+  # create_if_missing - If true, will genereate a default answer
+  #                     to the question (defaults: true).
+  #
+  # Returns Answer
+  # Returns nil
   def answer(qid, create_if_missing = true)
     answer = answers.where(question_id: qid).order("created_at DESC").first
     question = Question.find(qid)
@@ -331,8 +333,9 @@ class Plan < ActiveRecord::Base
   ##
   # determines if the plan is editable by the specified user
   #
-  # @param user_id [Integer] the id for a user
-  # @return [Boolean] true if user can edit the plan
+  # user_id - The id for a user
+  #
+  # Returns Boolean
   def editable_by?(user_id)
     user_id = user_id.id if user_id.is_a?(User)
     role?(user_id, :editor)
@@ -341,8 +344,9 @@ class Plan < ActiveRecord::Base
   ##
   # determines if the plan is readable by the specified user
   #
-  # @param user_id [Integer] the id for a user
-  # @return [Boolean] true if the user can read the plan
+  # user_id - The Integer id for a user
+  #
+  # Returns Boolean
   def readable_by?(user_id)
     user           = user_id.is_a?(User) ? user_id : User.find(user_id)
     owner_orgs     = owner_and_coowners.collect(&:org)
@@ -363,58 +367,57 @@ class Plan < ActiveRecord::Base
     false
   end
 
-  ##
-  # determines if the plan is readable by the specified user
+  # determines if the plan is readable by the specified user.
   #
-  # @param user_id [Integer] the id for a user
-  # @return [Boolean] true if the user can read the plan
+  # user_id - The Integer id for a user
+  #
+  # Returns Boolean
   def commentable_by?(user_id)
     user_id = user_id.id if user_id.is_a?(User)
     role?(user_id, :commenter)
   end
 
-  ##
   # determines if the plan is administerable by the specified user
   #
-  # @param user_id [Integer] the id for the user
-  # @return [Boolean] true if the user can administer the plan
+  # user_id - The Integer id for the user
+  #
+  # Returns Boolean
   def administerable_by?(user_id)
     user_id = user_id.id if user_id.is_a?(User)
     role?(user_id, :administrator)
   end
 
-  ##
   # determines if the plan is reviewable by the specified user
   #
-  # @param user_id [Integer] the id for the user
-  # @return [Boolean] true if the user can administer the plan
+  # user_id - The Integer id for the user
+  #
+  # Returns Boolean
   def reviewable_by?(user_id)
     user_id = user_id.id if user_id.is_a?(User)
     role?(user_id, :reviewer)
   end
 
-  ##
   # Assigns the passed user_id to the creater_role for the project gives the
   # user rights to read, edit, administrate, and defines them as creator
   #
-  # @param user_id [Integer] the user to be given priveleges' id
+  # user_id - The Integer user to be given priveleges' id
+  #
   def assign_creator(user_id)
     user_id = user_id.id if user_id.is_a?(User)
     add_user(user_id, true, true, true)
   end
 
-  ##
   # the datetime for the latest update of this plan
   #
-  # @return [DateTime] the time of latest update
+  # Returns DateTime
   def latest_update
     (phases.pluck(:updated_at) + [updated_at]).max
   end
 
-  ##
   # the owner of the project
   #
-  # @return [User] the creater of the project
+  # Returns User
+  # Returns nil
   def owner
     vals = Role.access_values_for(:creator)
     User.joins(:roles)
@@ -424,7 +427,7 @@ class Plan < ActiveRecord::Base
   ##
   # TODO: Rewrite this description
   #
-  # returns the shared roles of a plan, excluding the creator
+  # Returns Boolean
   def shared?
     roles.where(Role.not_creator_condition).any?
   end
@@ -433,10 +436,9 @@ class Plan < ActiveRecord::Base
 
   deprecate :shared, deprecator: Cleanup::Deprecators::PredicateDeprecator.new
 
-  ##
   # the owner and co-owners of the project
   #
-  # @return [Users]
+  # Returns ActiveRecord::Relation
   def owner_and_coowners
     vals = Role.access_values_for(:creator)
                .concat(Role.access_values_for(:administrator))
@@ -444,7 +446,9 @@ class Plan < ActiveRecord::Base
         .where(roles: { plan_id: id, access: vals })
   end
 
-  # Returns the number of answered questions from the entire plan
+  # The number of answered questions from the entire plan
+  #
+  # Returns Integer
   def num_answered_questions
     Answer.where(id: answers.map(&:id))
           .includes(:question_options, { question: :question_format })
@@ -452,7 +456,9 @@ class Plan < ActiveRecord::Base
           .sum { |answer| answer.is_valid? ? 1 : 0 }
   end
 
-  # Returns the number of questions for a plan.
+  # The number of questions for a plan.
+  #
+  # Returns Integer
   def num_questions
     questions.count
   end
@@ -460,6 +466,8 @@ class Plan < ActiveRecord::Base
   # Determines whether or not visibility changes are permitted according to the
   # percentage of the plan answered in respect to a threshold defined at
   # application.config
+  #
+  # Returns Boolean
   def visibility_allowed?
     value=(num_answered_questions.to_f/num_questions*100).round(2)
     !is_test? && value >= Rails.application
@@ -468,12 +476,16 @@ class Plan < ActiveRecord::Base
   end
 
   # Determines whether or not a question (given its id) exists for the self plan
+  #
+  # Returns Boolean
   def question_exists?(question_id)
     Plan.joins(:questions).exists?(id: id, "questions.id": question_id)
   end
 
   # Checks whether or not the number of questions matches the number of valid
   # answers
+  #
+  # Returns Boolean
   def no_questions_matches_no_answers?
     num_questions = question_ids.length
     pre_fetched_answers = Answer.includes(:question_options,
@@ -502,19 +514,18 @@ class Plan < ActiveRecord::Base
 
   deprecate :has_role, deprecator: Cleanup::Deprecators::PredicateDeprecator.new
 
-  ##
-  # adds a user to the project
-  # if no flags are specified, the user is given read privleges
-  #
-  # @param user_id [Integer] the user to be given privleges
-  # @param is_editor [Boolean] whether or not the user can edit the project
-  # @param is_administrator [Boolean] whether or not the user can administrate
-  # the project
-  # @param is_creator [Boolean] wheter or not the user created the project
-  # @return [Array<ProjectGroup>]
-  #
+  # Adds a user to the project if no flags are specified, the user is given read privleges
   # TODO: change this to specifying uniqueness of user/plan association and
-  # handle that way
+  # handle that way.
+  #
+  #
+  # user_id          - The Integer user ID to be given privleges
+  # is_editor        - Whether or not the user can edit the project (defaults: false)
+  # is_administrator - Whether or not the user can administrate the project
+  #                    (defaults: false)
+  # is_creator       - Wheter or not the user created the project (defaults: false)
+  #
+  # Returns Boolean
   #
   def add_user(user_id, is_editor = false,
                         is_administrator = false,
@@ -547,7 +558,9 @@ class Plan < ActiveRecord::Base
   end
 
   # Initialize the title for new templates
-  # --------------------------------------------------------
+  #
+  # Returns nil
+  # Returns String
   def set_creation_defaults
     # Only run this before_validation because rails fires this before
     # save/create
