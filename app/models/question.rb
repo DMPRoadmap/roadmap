@@ -117,8 +117,9 @@ class Question < ActiveRecord::Base
   # This method doesn't even make reference to this class and its returning
   # a hash that is specific to a view guidance for org
   #
-  # @param org [Org] the org to find guidance for
-  # @return [Hash{String => String}]
+  # org - The Org to find guidance for
+  #
+  # Returns Hash
   def guidance_for_org(org)
     # pulls together guidance from various sources for question
     guidances = {}
@@ -138,11 +139,11 @@ class Question < ActiveRecord::Base
     return guidances
    end
 
-  ##
   # get example answer belonging to the currents user for this question
   #
-  # @param org_ids [Array<Integer>] the ids for the organisations
-  # @return [Array<Annotation>] the example answers for this question for the specified orgs
+  # org_ids - The ids for the organisations
+  #
+  # Returns ActiveRecord::Relation
    def example_answers(org_ids)
     annotations.where(org_id: Array(org_ids),
                       type: Annotation.types[:example_answer])
@@ -154,13 +155,12 @@ class Question < ActiveRecord::Base
    deprecate :get_example_answers,
                deprecator: Cleanup::Deprecators::GetDeprecator.new
 
-  ##
   # get guidance belonging to the current user's org for this question(need org
   # to distinguish customizations)
   #
-  # @param org_id [Integer] the id for the organisation
-  # @return [String] the annotation guidance for this question for the
-  # specified org
+  # org_id - The id for the organisation
+  #
+  # Returns Annotation
   def guidance_annotation(org_id)
     annotations.where(org_id: org_id, type: Annotation.types[:guidance]).first
   end

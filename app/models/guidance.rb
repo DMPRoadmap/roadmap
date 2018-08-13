@@ -72,17 +72,16 @@ class Guidance < ActiveRecord::Base
   # = Class methods =
   # =================
 
-  ##
   # Returns whether or not a given user can view a given guidance
   # we define guidances viewable to a user by those owned by a guidance group:
   #   owned by the managing curation center
   #   owned by a funder organisation
   #   owned by an organisation, of which the user is a member
   #
-  # @param id [Integer] the integer id for a guidance
-  # @param user [User] a user object
-  # @return [Boolean] true if the specified user can view the specified
-  # guidance, false otherwise
+  # id   - The Integer id for a guidance
+  # user - A User object
+  #
+  # Returns Boolean
   def self.can_view?(user, id)
     guidance = Guidance.find_by(id: id)
     viewable = false
@@ -109,15 +108,15 @@ class Guidance < ActiveRecord::Base
     return viewable
   end
 
-  ##
   # Returns a list of all guidances which a specified user can view
   # we define guidances viewable to a user by those owned by a guidance group:
   #   owned by the Managing Curation Center
   #   owned by a funder organisation
   #   owned by an organisation, of which the user is a member
   #
-  # @param user [User] a user object
-  # @return [Array<Guidance>] a list of all "viewable" guidances to a user
+  # user - A User object
+  #
+  # Returns Array
   def self.all_viewable(user)
     managing_groups = Org.includes(guidance_groups: :guidances)
                          .managing_orgs.collect{|o| o.guidance_groups}
@@ -138,13 +137,12 @@ class Guidance < ActiveRecord::Base
     return all_viewable_guidances.flatten
   end
 
-  ##
   # Determine if a guidance is in a group which belongs to a specified
   # organisation
   #
-  # @param org_id [Integer] the integer id for an organisation
-  # @return [Boolean] true if this guidance is in a group belonging to the
-  # specified organisation, false otherwise
+  # org_id - The Integer id for an organisation
+  #
+  # Returns Boolean
   def in_group_belonging_to?(org_id)
     unless guidance_group.nil?
       if guidance_group.org.id == org_id

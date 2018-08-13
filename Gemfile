@@ -214,4 +214,7 @@ group :development do
   # help to kill N+1 queries and unused eager loading. (https://github.com/flyerhzm/bullet)
   gem "bullet"
 
+  gem "yard"
+
+  gem "yard-tomdoc"
 end
