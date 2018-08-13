@@ -4,26 +4,22 @@
 #
 #  id                     :integer          not null, primary key
 #  abbreviation           :string
-#  banner_text            :text
 #  contact_email          :string
 #  contact_name           :string
 #  feedback_email_msg     :text
 #  feedback_email_subject :string
 #  feedback_enabled       :boolean          default(FALSE)
-#  is_other               :boolean
+#  is_other               :boolean          default(FALSE), not null
 #  links                  :text
-#  logo_file_name         :string
 #  logo_name              :string
 #  logo_uid               :string
 #  name                   :string
 #  org_type               :integer          default(0), not null
 #  sort_name              :string
 #  target_url             :string
-#  wayfless_entity        :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  language_id            :integer
-#  parent_id              :integer
 #  region_id              :integer
 #
 # Foreign Keys
