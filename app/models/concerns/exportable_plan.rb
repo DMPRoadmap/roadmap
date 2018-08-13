@@ -4,7 +4,7 @@ module ExportablePlan
     prepare(coversheet)
   end
 
-  def as_csv(headings = true, unanswered = true)
+  def as_csv(headings = true, unanswered = true, selected_phase = nil)
     hash = prepare(false)
 
     CSV.generate do |csv|
@@ -17,23 +17,24 @@ module ExportablePlan
 
       csv << hdrs.flatten
       hash[:phases].each do |phase|
-        phase[:sections].each do |section|
-          section[:questions].each do |question|
-            answer = self.answer(question[:id], false)
-            answer_text = answer.present? ? answer.text : (unanswered ? _('Not Answered') : '')
-            flds = (hash[:phases].length > 1 ? [phase[:title]] : [])
-            if headings
-              if question[:text].is_a? String
-                question_text = question[:text]
+        if  selected_phase.nil? || phase[:title] == selected_phase.title
+          phase[:sections].each do |section|
+            section[:questions].each do |question|
+              answer = self.answer(question[:id], false)
+              answer_text = answer.present? ? answer.text : (unanswered ? _('Not Answered') : '')
+              flds = (hash[:phases].length > 1 ? [phase[:title]] : [])
+              if headings
+                if question[:text].is_a? String
+                  question_text = question[:text]
+                else
+                  question_text = (question[:text].length > 1 ? question[:text].join(', ') : question[:text][0])
+                end
+                flds << [ section[:title], sanitize_text(question_text), sanitize_text(answer_text) ]
               else
-                question_text = (question[:text].length > 1 ? question[:text].join(', ') : question[:text][0])
+                flds << [ sanitize_text(answer_text) ]
               end
-              flds << [ section[:title], sanitize_text(question_text), sanitize_text(answer_text) ]
-            else
-              flds << [ sanitize_text(answer_text) ]
+              csv << flds.flatten
             end
-
-            csv << flds.flatten
           end
         end
       end
@@ -56,7 +57,7 @@ module ExportablePlan
     template.phases.each do |phase|
       phs = { title: phase.title, number: phase.number, sections: [] }
       phase.sections.each do |section|
-        sctn = { title: section.title, number: section.number, questions: [] }
+        sctn = { title: section.title, number: section.number, questions: [], modifiable: section.modifiable }
         section.questions.each do |question|
           txt = question.text
           sctn[:questions] << { id: question.id, text: txt, format: question.question_format }
