@@ -64,6 +64,12 @@ module SuperAdmin
       end
       redirect_to(action: :index)
     end
+
+    def extract
+      @theme = Theme.find(params[:id])
+      render format: :json
+    end
+
     # Private instance methods
     private
 
