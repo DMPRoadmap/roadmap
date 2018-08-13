@@ -162,19 +162,9 @@ class PlansController < ApplicationController
 
     plan, phase = Plan.load_for_phase(params[:id], params[:phase_id])
 
-    readonly = !plan.editable_by?(current_user.id)
-
     guidance_groups =  GuidanceGroup.where(published: true, id: plan.guidance_group_ids)
-    # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
-    # we create a hash whose keys are question id and value is the answer associated
-    answers = plan.answers.reduce({}){ |m, a| m[a.question_id] = a; m }
 
-    render('/phases/edit', locals: {
-      base_template_org: phase.template.base_org,
-      plan: plan, phase: phase, readonly: readonly,
-      guidance_groups: guidance_groups,
-      answers: answers,
-      guidance_service: GuidanceService.new(plan) })
+    render_phases_edit(plan, phase, guidance_groups)
   end
 
   # PUT /plans/1
@@ -196,13 +186,13 @@ class PlansController < ApplicationController
           format.json {render json: {code: 1, msg: success_message(_('plan'), _('saved'))}}
         else
           flash[:alert] = failed_update_error(@plan, _('plan'))
-          format.html { render action: "edit" }
+          format.html { render_phases_edit(@plan, @plan.phases.first, @plan.guidance_groups) }
           format.json {render json: {code: 0, msg: flash[:alert]}}
         end
 
       rescue Exception
         flash[:alert] = failed_update_error(@plan, _('plan'))
-        format.html { render action: "edit" }
+        format.html { render_phases_edit(@plan, @plan.phases.first, @plan.guidance_groups) }
         format.json {render json: {code: 0, msg: flash[:alert]}}
       end
     end
@@ -263,9 +253,13 @@ class PlansController < ApplicationController
     @plan = Plan.includes(:answers).find(params[:id])
     authorize @plan
 
+    @selected_phase = @plan.phases.find(params[:phase_id])
+
     @show_coversheet = params[:export][:project_details].present?
     @show_sections_questions = params[:export][:question_headings].present?
     @show_unanswered = params[:export][:unanswered_questions].present?
+    @show_custom_sections = params[:export][:custom_sections].present?
+
     @public_plan = false
 
     @hash = @plan.as_pdf(@show_coversheet)
@@ -275,7 +269,7 @@ class PlansController < ApplicationController
 
     respond_to do |format|
       format.html { render layout: false }
-      format.csv  { send_data @plan.as_csv(@show_sections_questions),  filename: "#{file_name}.csv" }
+      format.csv  { send_data @plan.as_csv(@show_sections_questions, @show_unanswered, @selected_phase, @show_custom_sections),  filename: "#{file_name}.csv" }
       format.text { send_data render_to_string(partial: 'shared/export/plan_txt'), filename: "#{file_name}.txt" }
       format.docx { render docx: "#{file_name}.docx", content: render_to_string(partial: 'shared/export/plan') }
       format.pdf do
@@ -438,5 +432,24 @@ class PlansController < ApplicationController
     text = current_user.org.feedback_email_msg ||
              feedback_confirmation_default_message
     feedback_constant_to_text(text, current_user, @plan, current_user.org)
+  end
+
+  private
+
+  # ============================
+  # = Private instance methods =
+  # ============================
+
+  def render_phases_edit(plan, phase, guidance_groups)
+    readonly = !plan.editable_by?(current_user.id)
+    # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
+    # we create a hash whose keys are question id and value is the answer associated
+    answers = plan.answers.reduce({}){ |m, a| m[a.question_id] = a; m }
+    render('/phases/edit', locals: {
+      base_template_org: phase.template.base_org,
+      plan: plan, phase: phase, readonly: readonly,
+      guidance_groups: guidance_groups,
+      answers: answers,
+      guidance_service: GuidanceService.new(plan) })
   end
 end
