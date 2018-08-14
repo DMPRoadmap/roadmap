@@ -8,7 +8,9 @@ module DataCleanup
         end
 
         def call
-          ::Plan.where(title: [nil, '']).each do |plan|
+          ids = ::Plan.where(title: [nil, '']).ids
+          ::Plan.find(ids).each do |plan|
+            log("Adding default title to Plan##{plan.id}")
             plan.update(title: "My plan (#{plan.template.title})")
           end
         end

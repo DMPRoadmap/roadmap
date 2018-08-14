@@ -49,34 +49,39 @@ module Api
       end
 
       private
-      # returns the resource from the created instance variable
-      # @return [Object]
+
+      # The resource from the created instance variable
+      #
+      # Returns Object
       def get_resource
         instance_variable_get("@#{resource_name}")
       end
 
-      # Returns the allowed parameters for searching
-      # Override this method in each API controller
-      # to permit additional parameters to search on
-      # @return [Hash]
+      # The allowed parameters for searching. Override this method in each API
+      # controller to permit additional parameters to search on
+      #
+      # Returns Hash
       def query_params
         {}
       end
 
-      # Returns the allowed parameters for pagination
-      # @return [Hash]
+      # The allowed parameters for pagination
+      #
+      # Returns Hash
       def page_params
         params.permit(:page, :page_size)
       end
 
       # The resource class based on the controller
-      # @return [Class]
+      #
+      # Returns Object
       def resource_class
         @resource_class ||= resource_name.classify.constantize
       end
 
       # The singular name for the resource class based on the controller
-      # @return [String]
+      #
+      # Returns String
       def resource_name
         @resource_name ||= self.controller_name.singularize
       end
