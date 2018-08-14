@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180807121126) do
+ActiveRecord::Schema.define(version: 20180813114813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,27 +56,6 @@ ActiveRecord::Schema.define(version: 20180807121126) do
     t.integer  "phase_id"
   end
 
-  create_table "file_types", force: :cascade do |t|
-    t.string   "name"
-    t.string   "icon_name"
-    t.integer  "icon_size"
-    t.string   "icon_location"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  create_table "file_uploads", force: :cascade do |t|
-    t.string   "name"
-    t.string   "title"
-    t.text     "description"
-    t.integer  "size"
-    t.boolean  "published"
-    t.string   "location"
-    t.integer  "file_type_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
   create_table "guidance_groups", force: :cascade do |t|
     t.string   "name"
     t.integer  "org_id"
@@ -93,7 +72,6 @@ ActiveRecord::Schema.define(version: 20180807121126) do
     t.integer  "guidance_group_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.integer  "question_id"
     t.boolean  "published"
   end
 
@@ -172,14 +150,10 @@ ActiveRecord::Schema.define(version: 20180807121126) do
     t.string   "name"
     t.string   "abbreviation"
     t.string   "target_url"
-    t.string   "wayfless_entity"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
-    t.integer  "parent_id"
     t.boolean  "is_other",               default: false, null: false
     t.string   "sort_name"
-    t.text     "banner_text"
-    t.string   "logo_file_name"
     t.integer  "region_id"
     t.integer  "language_id"
     t.string   "logo_uid"
@@ -206,7 +180,6 @@ ActiveRecord::Schema.define(version: 20180807121126) do
     t.integer  "template_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug"
     t.boolean  "modifiable"
   end
 
@@ -217,7 +190,6 @@ ActiveRecord::Schema.define(version: 20180807121126) do
     t.integer  "template_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug"
     t.string   "grant_number"
     t.string   "identifier"
     t.text     "description"
@@ -329,12 +301,6 @@ ActiveRecord::Schema.define(version: 20180807121126) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "splash_logs", force: :cascade do |t|
-    t.string   "destination"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "templates", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -395,8 +361,6 @@ ActiveRecord::Schema.define(version: 20180807121126) do
     t.string   "firstname"
     t.string   "surname"
     t.string   "email",                  limit: 80, default: "",   null: false
-    t.string   "orcid_id"
-    t.string   "shibboleth_id"
     t.datetime "created_at",                                       null: false
     t.datetime "updated_at",                                       null: false
     t.string   "encrypted_password",                default: ""
