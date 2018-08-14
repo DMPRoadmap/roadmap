@@ -4,8 +4,8 @@
 #
 #  id              :integer          not null, primary key
 #  name            :string
-#  optional_subset :boolean
-#  published       :boolean
+#  optional_subset :boolean          default(FALSE), not null
+#  published       :boolean          default(FALSE), not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  org_id          :integer
