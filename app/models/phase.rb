@@ -6,7 +6,6 @@
 #  description :text
 #  modifiable  :boolean
 #  number      :integer
-#  slug        :string
 #  title       :string
 #  created_at  :datetime
 #  updated_at  :datetime

@@ -21,6 +21,7 @@
 #
 #  fk_rails_...  (org_id => orgs.id)
 #
+
 class GuidanceGroup < ActiveRecord::Base
   include GlobalHelpers
   include ValidationValues
@@ -70,17 +71,16 @@ class GuidanceGroup < ActiveRecord::Base
   # = Class methods =
   # =================
 
-  ##
-  # Returns whether or not a given user can view a given guidance group
+  # Whether or not a given user can view a given guidance group
   # we define guidances viewable to a user by those owned by:
   #   the managing curation center
   #   a funder organisation
   #   an organisation, of which the user is a member
   #
-  # @param id [Integer] the integer id for a guidance group
-  # @param user [User] a user object
-  # @return [Boolean] true if the specified user can view the specified
-  # guidance group, false otherwise
+  # id   - The integer id for a guidance group
+  # user - A User object
+  #
+  # Returns Boolean
   def self.can_view?(user, guidance_group)
     viewable = false
     # groups are viewable if they are owned by any of the user's organisations
@@ -95,16 +95,16 @@ class GuidanceGroup < ActiveRecord::Base
     viewable
   end
 
-  ##
-  # Returns a list of all guidance groups which a specified user can view
+
+  # A list of all guidance groups which a specified user can view
   # we define guidance groups viewable to a user by those owned by:
   #   the Managing Curation Center
   #   a funder organisation
   #   an organisation, of which the user is a member
   #
-  # @param user [User] a user object
-  # @return [Array<GuidanceGroup>] a list of all "viewable" guidance groups to
-  # a user
+  # user - A User object
+  #
+  # Returns Array
   def self.all_viewable(user)
     # first find all groups owned by the Managing Curation Center
     managing_org_groups = Org.includes(guidance_groups: [guidances: :themes])
@@ -118,7 +118,7 @@ class GuidanceGroup < ActiveRecord::Base
     organisation_groups = [user.org.guidance_groups]
 
     # pass this organisation guidance groups to the view with respond_with
-    # @all_viewable_groups
+    # all_viewable_groups
     all_viewable_groups = managing_org_groups +
                           funder_groups +
                           organisation_groups
