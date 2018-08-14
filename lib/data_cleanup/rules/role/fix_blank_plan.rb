@@ -10,7 +10,9 @@ module DataCleanup
         end
 
         def call
-          ::Role.where(plan: nil).destroy_all
+          ids = ::Role.where(plan: nil).ids
+          log("Destroying Roles without Plan: #{ids}")
+          ::Role.destroy(ids)
         end
       end
     end
