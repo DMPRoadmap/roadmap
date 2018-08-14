@@ -1,4 +1,7 @@
 Rails.application.configure do
+
+  config.i18n.available_locales = %w[en en_GB]
+
   # Settings specified here will take precedence over those in config/application.rb.
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
@@ -30,9 +33,6 @@ Rails.application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
-
-  # Raise exception on mass assignment protection for Active Record models
-  config.active_record.mass_assignment_sanitizer = :strict
 
   config.action_mailer.perform_deliveries = false
 

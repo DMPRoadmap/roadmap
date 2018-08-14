@@ -1,6 +1,8 @@
 class UserMailer < ActionMailer::Base
   include MailerHelper
   helper MailerHelper
+  helper FeedbacksHelper
+
   default from: Rails.configuration.branding[:organisation][:email]
 
   def welcome_notification(user)
@@ -106,8 +108,8 @@ class UserMailer < ActionMailer::Base
     end
   end
 
-  # @param commenter - User who wrote the comment
-  # @param plan - Plan for which the comment is associated to
+  # commenter - User who wrote the comment
+  # plan      - Plan for which the comment is associated to
   def new_comment(commenter, plan)
     if commenter.is_a?(User) && plan.is_a?(Plan)
       owner = plan.owner

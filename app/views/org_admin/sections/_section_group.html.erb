@@ -1,0 +1,15 @@
+<!-- TODO: Move this away from using ID attr -->
+<div class="panel-group section-group"
+     data-modifiable="<%= modifiable %>"
+     id="<%= panel_id %>"
+     role="tablist">
+  <% sections.each do |section| %>
+    <%= render partial: "org_admin/sections/section",
+               object: section,
+               locals: { phase: phase,
+                         template: template,
+                         current_section: current_section,
+                         data_parent: panel_id,
+                         draggable: section == sections.first } %>
+  <% end%>
+</div>

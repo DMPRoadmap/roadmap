@@ -2,7 +2,7 @@
   tool_name = Rails.configuration.branding[:application][:name]
   username = @user.name
   plan_title = @plan.title
-  plan_visibility = Plan.visibility_message(@plan.visibility.to_sym)
+  plan_visibility = Plan::VISIBILITY_MESSAGE[@plan.visibility.to_sym]
 %>
 <% FastGettext.with_locale FastGettext.default_locale do %>
   <p>

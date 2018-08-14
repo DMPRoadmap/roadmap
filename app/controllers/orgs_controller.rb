@@ -9,7 +9,7 @@ class OrgsController < ApplicationController
     authorize org
     languages = Language.all.order("name")
     org.links = {"org": []} unless org.links.present?
-    render 'admin_edit', locals: {org: org, languages: languages, method: 'PUT', 
+    render 'admin_edit', locals: {org: org, languages: languages, method: 'PUT',
                                   url: admin_update_org_path(org) }
   end
 
@@ -22,23 +22,23 @@ class OrgsController < ApplicationController
     @org.logo = attrs[:logo] if attrs[:logo]
     tab = (attrs[:feedback_enabled].present? ? 'feedback' : 'profile')
     if params[:org_links].present?
-      @org.links = JSON.parse(params[:org_links]) 
+      @org.links = JSON.parse(params[:org_links])
     end
-    
+
     begin
       # Only allow super admins to change the org types and shib info
-      if current_user.can_super_admin?    
+      if current_user.can_super_admin?
         # Handle Shibboleth identifiers if that is enabled
-        if Rails.application.config.shibboleth_use_filtered_discovery_service 
+        if Rails.application.config.shibboleth_use_filtered_discovery_service && params[:shib_id].present?
           shib = IdentifierScheme.find_by(name: 'shibboleth')
           shib_settings = @org.org_identifiers.select{ |ids| ids.identifier_scheme == shib}.first
 
-          if params[:shib_id].present? || params[:shib_domain].present?
+          if !params[:shib_id].blank?
             shib_settings = OrgIdentifier.new(org: @org, identifier_scheme: shib) unless shib_settings.present?
             shib_settings.identifier = params[:shib_id]
             shib_settings.attrs = {domain: params[:shib_domain]}
             shib_settings.save
-          else  
+          else
             if shib_settings.present?
               # The user cleared the shib values so delete the object
               shib_settings.destroy
@@ -46,7 +46,7 @@ class OrgsController < ApplicationController
           end
         end
       end
-      
+
       if @org.update_attributes(attrs)
         flash[:notice] = success_message(_('organisation'), _('saved'))
         redirect_to "#{admin_edit_org_path(@org)}\##{tab}"
@@ -63,14 +63,14 @@ class OrgsController < ApplicationController
   # ----------------------------------------------------------------
   def shibboleth_ds
     redirect_to root_path unless current_user.nil?
-  
+
     @user = User.new
-    # Display the custom Shibboleth discovery service page. 
+    # Display the custom Shibboleth discovery service page.
     @orgs = Org.joins(:identifier_schemes).where('identifier_schemes.name = ?', 'shibboleth').sort{|x,y| x.name <=> y.name }
-  
+
     if @orgs.empty?
       flash[:alert] = _('No organisations are currently registered.')
-      redirect_to user_shibboleth_omniauth_authorize_path 
+      redirect_to user_shibboleth_omniauth_authorize_path
     end
   end
 
@@ -82,12 +82,12 @@ class OrgsController < ApplicationController
 
       scheme = IdentifierScheme.find_by(name: 'shibboleth')
       shib_entity = OrgIdentifier.where(org_id: params['shib-ds'][:org_id], identifier_scheme: scheme)
-  
+
       if !shib_entity.empty?
         # Force SSL
         url = "#{request.base_url.gsub('http:', 'https:')}#{Rails.application.config.shibboleth_login}"
         target = "#{user_shibboleth_omniauth_callback_url.gsub('http:', 'https:')}"
-    
+
         #initiate shibboleth login sequence
         redirect_to "#{url}?target=#{target}&entityID=#{shib_entity.first.identifier}"
       else
@@ -104,6 +104,6 @@ class OrgsController < ApplicationController
   private
     def org_params
       params.require(:org).permit(:name, :abbreviation, :logo, :contact_email, :contact_name, :remove_logo, :org_type,
-                                  :feedback_enabled, :feedback_email_subject, :feedback_email_msg)
+                                  :feedback_enabled, :feedback_email_msg)
     end
 end
