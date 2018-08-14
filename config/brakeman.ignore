@@ -1,0 +1,296 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "10f48f3b8b0b9b24f2d1258d017123dc31ac1c28d3842a589d62ea15c5dffb06",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/shared/export/_plan.erb",
+      "line": 75,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Plan.includes(:answers).find(params[:id]).answer(question[:id], false).answer_hash[\"text\"]",
+      "render_path": [{"type":"controller","class":"PlansController","method":"export","line":277,"file":"app/controllers/plans_controller.rb"},{"type":"template","name":"plans/export","line":2,"file":"app/views/plans/export.erb"}],
+      "location": {
+        "type": "template",
+        "template": "shared/export/_plan"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "162c981ef989558c8e8b7a5cbdbc105837680ba4d2be60ae58242ad18b171ce2",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/plans/_share_form.html.erb",
+      "line": 105,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "current_user.org.feedback_email_msg.to_s",
+      "render_path": null,
+      "location": {
+        "type": "template",
+        "template": "plans/_share_form"
+      },
+      "user_input": "current_user.org.feedback_email_msg",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "181f32bb1f44117835a889acb8f01d807e2ee5485d0503352f7dee356c39a224",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/orgs/shibboleth_ds.html.erb",
+      "line": 17,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Org.joins(:identifier_schemes).where(\"identifier_schemes.name = ?\", \"shibboleth\").sort do\n (x.name <=> y.name)\n end.collect do\n \"<option value=\\\"#{o.id}\\\">#{o.name}</option>\"\n end.join(\"\")",
+      "render_path": [{"type":"controller","class":"OrgsController","method":"shibboleth_ds","line":72,"file":"app/controllers/orgs_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "orgs/shibboleth_ds"
+      },
+      "user_input": "Org.joins(:identifier_schemes).where(\"identifier_schemes.name = ?\", \"shibboleth\")",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "33dc7682a340f04357c5f41cdd038533b3fa36cee21396faab6c5078e7b8325b",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/org_admin/questions/_show.html.erb",
+      "line": 51,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Question.includes(:annotations, :question_options, :section => ({ :phase => :template })).find(params[:id]).guidance_annotation(Question.includes(:annotations, :question_options, :section => ({ :phase => :template })).find(params[:id]).section.phase.template.base_org.id).text",
+      "render_path": [{"type":"controller","class":"OrgAdmin::QuestionsController","method":"show","line":12,"file":"app/controllers/org_admin/questions_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "org_admin/questions/_show"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "34a8618e72614b866bb7b2d92406bb09ffb46f021d5ff6622c475730af607cb9",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/org_admin/questions/_show.html.erb",
+      "line": 44,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Question.includes(:annotations, :question_options, :section => ({ :phase => :template })).find(params[:id]).example_answers(Question.includes(:annotations, :question_options, :section => ({ :phase => :template })).find(params[:id]).section.phase.template.base_org.id).first.text",
+      "render_path": [{"type":"controller","class":"OrgAdmin::QuestionsController","method":"show","line":12,"file":"app/controllers/org_admin/questions_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "org_admin/questions/_show"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "3ea917c822b3e5b1dad1e672ba4a40c0e8e37abf8cea9cf5793772942aa07f99",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/plans_controller.rb",
+      "line": 302,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(Plan.deep_copy(Plan.find(params[:id])), :notice => success_message(_(\"plan\"), _(\"copied\")))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PlansController",
+        "method": "duplicate"
+      },
+      "user_input": "Plan.deep_copy(Plan.find(params[:id]))",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "715556db27ab9050c36a6e9db8f6a79a2ec53bd24bcfc15a967e9e745f357245",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/orgs_controller.rb",
+      "line": 92,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(\"#{\"#{request.base_url.gsub(\"http:\", \"https:\")}#{Rails.application.config.shibboleth_login}\"}?target=#{\"#{user_shibboleth_omniauth_callback_url.gsub(\"http:\", \"https:\")}\"}&entityID=#{OrgIdentifier.where(:org_id => params[\"shib-ds\"][:org_id], :identifier_scheme => IdentifierScheme.find_by(:name => \"shibboleth\")).first.identifier}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "OrgsController",
+        "method": "shibboleth_ds_passthru"
+      },
+      "user_input": "OrgIdentifier.where(:org_id => params[\"shib-ds\"][:org_id], :identifier_scheme => IdentifierScheme.find_by(:name => \"shibboleth\")).first.identifier",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "764c88db5352f612aea973695ee0a62134815f518a5453081dc6d5f6b28baa81",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/org_admin/questions/_show.html.erb",
+      "line": 16,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Question.includes(:annotations, :question_options, :section => ({ :phase => :template })).find(params[:id]).text",
+      "render_path": [{"type":"controller","class":"OrgAdmin::QuestionsController","method":"show","line":12,"file":"app/controllers/org_admin/questions_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "org_admin/questions/_show"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "7bd7ecdde88008eac29303c8c264366d1d670eb468e316c17a6121d4684b8bca",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/user.rb",
+      "line": 348,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "User.where(\"LOWER(#{field}) = :value\", :value => val.to_s.downcase)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "User",
+        "method": "User.where_case_insensitive"
+      },
+      "user_input": "field",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "947cb537b07e43881f0e836cb4afee491a165679350690728e0400b3b523f444",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/shared/export/_plan_coversheet.erb",
+      "line": 28,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Plan.includes(:answers).find(params[:id]).description",
+      "render_path": [{"type":"controller","class":"PlansController","method":"export","line":277,"file":"app/controllers/plans_controller.rb"},{"type":"template","name":"plans/export","line":2,"file":"app/views/plans/export.erb"},{"type":"template","name":"shared/export/_plan","line":31,"file":"app/views/shared/export/_plan.erb"}],
+      "location": {
+        "type": "template",
+        "template": "shared/export/_plan_coversheet"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "9af8ff997f5587d8fa01550ea532d84fdf6b0095d892343d4431945ced6c09da",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/splash_logs_controller.rb",
+      "line": 14,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(params[:destination])",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "SplashLogsController",
+        "method": "create"
+      },
+      "user_input": "params[:destination]",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "a21e892094c534b9931877dd3b7c9ae2a87171b9469be761d2364c54aaa81541",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/org_admin/sections/_show.html.erb",
+      "line": 4,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Section.includes(:questions => ([:annotations, :question_options])).find(params[:id]).description",
+      "render_path": [{"type":"controller","class":"OrgAdmin::SectionsController","method":"show","line":31,"file":"app/controllers/org_admin/sections_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "org_admin/sections/_show"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "a2f11c8d81b0932f4fe0de989fc8bb0e689cbbfdc26fddc2b1a13177ba62c1b5",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/controllers/concerns/paginable.rb",
+      "line": 106,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "scope.search(@paginable_params[:search]).order(\"#{@paginable_params[:sort_field]} #{upcasing_sort_direction}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Paginable",
+        "method": "refine_query"
+      },
+      "user_input": "@paginable_params[:sort_field]",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "e4016073dbfce89f1712e35cc3d55da7b4e54393ab25f8f33b91f744999f9822",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/org_admin/questions/_show.html.erb",
+      "line": 26,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Question.includes(:annotations, :question_options, :section => ({ :phase => :template })).find(params[:id]).default_value",
+      "render_path": [{"type":"controller","class":"OrgAdmin::QuestionsController","method":"show","line":12,"file":"app/controllers/org_admin/questions_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "org_admin/questions/_show"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "f68bebd6980826084889d58192706bba9696247729e304c1f3aabe678e4f32d9",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/shared/export/_plan.erb",
+      "line": 78,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Plan.includes(:answers).find(params[:id]).answer(question[:id], false).text",
+      "render_path": [{"type":"controller","class":"PlansController","method":"export","line":277,"file":"app/controllers/plans_controller.rb"},{"type":"template","name":"plans/export","line":2,"file":"app/views/plans/export.erb"}],
+      "location": {
+        "type": "template",
+        "template": "shared/export/_plan"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "note": ""
+    }
+  ],
+  "updated": "2018-08-07 17:38:06 +0100",
+  "brakeman_version": "4.3.1"
+}

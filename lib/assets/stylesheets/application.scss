@@ -24,3 +24,21 @@ $fa-font-path: "~font-awesome/fonts/";
   clear: left;
   margin-bottom: 10px;
 }
+
+// TODO: Move this into it's own file once CSS has been fixed
+.notification-area {
+}
+.notification-area--floating {
+  position: fixed;
+  top: 4rem;
+  z-index: 1000;
+  // Take up width of the page on mobile
+  right: 5vw;
+  width: 90vw;
+
+  // Non-mobile settings
+  @media (min-width: #{$screen-sm-min}) {
+    right: 4rem;
+    width: 300px;
+  }
+}

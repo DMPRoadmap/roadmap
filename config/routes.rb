@@ -152,7 +152,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
 
     resources :plans do
       member do
-        get 'status'
         get 'locked'
         get 'answer'
         put 'update_guidance_choices'
@@ -269,25 +268,26 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
           patch 'publish', action: :publish, constraints: {format: [:json]}
           patch 'unpublish', action: :unpublish, constraints: {format: [:json]}
         end
-        
+
         # Used for the organisational and customizable views of index
         collection do
           get 'organisational'
           get 'customisable'
         end
-        
-        resources :phases, only: [:show, :edit, :new, :create, :edit, :update, :destroy] do
+
+        resources :phases, except: [:index] do
           member do
             get 'preview'
+            post 'sort'
           end
-          
+
           resources :sections, only: [:index, :show, :edit, :update, :create, :destroy] do
             resources :questions, only: [:show, :edit, :new, :update, :create, :destroy] do
             end
           end
         end
       end
-      
+
       resources :annotations, only: [:create, :destroy, :update] do ; end
 
       get 'template_options' => 'templates#template_options', constraints: {format: [:json]}

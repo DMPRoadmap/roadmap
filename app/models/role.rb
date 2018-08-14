@@ -1,11 +1,70 @@
-class Role < ActiveRecord::Base
-  after_initialize :set_defaults
-  include FlagShihTzu
+# == Schema Information
+#
+# Table name: roles
+#
+#  id         :integer          not null, primary key
+#  access     :integer          default(0), not null
+#  active     :boolean          default(TRUE)
+#  created_at :datetime
+#  updated_at :datetime
+#  plan_id    :integer
+#  user_id    :integer
+#
+# Indexes
+#
+#  index_roles_on_plan_id  (plan_id)
+#  index_roles_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (plan_id => plans.id)
+#  fk_rails_...  (user_id => users.id)
+#
 
-  ##
-  # Associationsrequire "role"
+class Role < ActiveRecord::Base
+
+  include FlagShihTzu
+  include ValidationMessages
+  include ValidationValues
+
+  # =============
+  # = Constants =
+  # =============
+
+  # Returns a hash of hashes where each key represents an access level
+  # (e.g. see access_level method to understand the integers)
+  #
+  # This method becomes useful for generating template messages (e.g.
+  # permissions change notification mailer)
+  ACCESS_LEVEL_MESSAGES = {
+    5 => {
+      type: _('reviewer'),
+      placeholder1: _('read the plan and provide feedback.'),
+      placeholder2: nil
+    },
+    3 => {
+      type: _('co-owner'),
+      placeholder1: _('write and edit the plan in a collaborative manner.'),
+      placeholder2: _('You can also grant rights to other collaborators.')
+    },
+    2 => {
+      type: _('editor'),
+      placeholder1: _('write and edit the plan in a collaborative manner.'),
+      placeholder2: nil,
+    },
+    1 => {
+      type: _('read-only'),
+      placeholder1: _('read the plan and leave comments.'),
+      placeholder2: nil,
+    }
+  }
+
+  # ================
+  # = Associations =
+  # ================
 
   belongs_to :user
+
   belongs_to :plan
 
   ##
@@ -18,15 +77,34 @@ class Role < ActiveRecord::Base
             5 => :reviewer,           # 16
             column: 'access'
 
-  validates :user, :plan, :access, presence: {message: _("can't be blank")}
-  validates :access, numericality: {greater_than: 0, message: _("can't be less than zero")}
+  # ===============
+  # = Validations =
+  # ===============
+
+  validates :user, presence: { message: PRESENCE_MESSAGE }
+
+  validates :plan, presence: { message: PRESENCE_MESSAGE }
+
+  validates :active, inclusion: { in: BOOLEAN_VALUES,
+                                  message: INCLUSION_MESSAGE }
+
+  validates :access, presence: { message: PRESENCE_MESSAGE },
+                     numericality: { greater_than: 0, only_integer: true,
+                                     message: _("can't be less than zero") }
+
+  # =============
+  # = Callbacks =
+  # =============
+
+  # TODO: Push this down to the DB constraints
+  after_initialize :set_defaults
 
   ##
   # Roles with given FlagShihTzu access flags
   #
-  # @param flags [Array] One or more symbols that represent access flags
+  # flags - One or more symbols that represent access flags
   #
-  # @return [ActiveRecord::Relation]
+  # Return ActiveRecord::Relation
   scope :with_access_flags, -> (*flags) {
     bad_flag = flags.detect { |flag| !flag.in?(flag_mapping['access'].keys) }
     raise ArgumentError, "Unkown access flag '#{bad_flag}'" if bad_flag
@@ -36,15 +114,19 @@ class Role < ActiveRecord::Base
     where(access: access_values)
   }
 
-  ##
-  # return the access level for the current project group
-  # 5 if the user is a reviewer
-  # 3 if the user is an administrator
-  # 2 if the user is an editor
-  # 1 if the user can only read
+  # ===========================
+  # = Public instance methods =
+  # ===========================
+
+
+  # The access level for the current project group:
+  # - 5 if the user is a reviewer
+  # - 3 if the user is an administrator
+  # - 2 if the user is an editor
+  # - 1 if the user can only read
   # used to facilliatte formtastic
   #
-  # @return [Integer]
+  # Returns Integer
   def access_level
     if self.reviewer?
       return 5
@@ -57,52 +139,17 @@ class Role < ActiveRecord::Base
     end
   end
 
-  # Sets access_level according to bit fields defined in the column access
-  # TODO refactor according to the hash defined above (e.g. 1 key is :creator, 2 key is :administrator, etc)
-  def set_access_level(access_level)
-    if access_level >= 1
-      self.commenter = true
-    else
-      self.commenter = false
-    end
-    if access_level >= 2
-      self.editor = true
-    else
-      self.editor = false
-    end
-    if access_level >= 3
-      self.administrator = true
-    else
-      self.administrator = false
-    end
+  def access_level=(value)
+    self.commenter     = value.to_i >= 1
+    self.editor        = value.to_i >= 2
+    self.administrator = value.to_i >= 3
   end
 
-  # Returns a hash of hashes where each key represents an access level (e.g. see access_level method to understand the integers)
-  # This method becomes useful for generating template messages (e.g. permissions change notification mailer)
-  def self.access_level_messages
-    {
-      5 => {
-        :type => _('reviewer'),
-        :placeholder1 => _('read the plan and provide feedback.'),
-        :placeholder2 => nil
-        },
-      3 => {
-        :type => _('co-owner'),
-        :placeholder1 => _('write and edit the plan in a collaborative manner.'),
-        :placeholder2 => _('You can also grant rights to other collaborators.')
-        },
-      2 => {
-        :type => _('editor'),
-        :placeholder1 => _('write and edit the plan in a collaborative manner.'),
-        :placeholder2 => nil,
-        },
-      1 => {
-        :type => _('read-only'),
-        :placeholder1 => _('read the plan and leave comments.'),
-        :placeholder2 => nil,
-      }
-    }
-  end
+  alias :set_access_level :access_level=
+
+  deprecate :set_access_level,
+              deprecator: Cleanup::Deprecators::SetDeprecator.new
+
 
   def set_defaults
     self.active = true if self.new_record?

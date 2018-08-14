@@ -122,32 +122,33 @@ module OrgAdmin
     end
 
     private
-      def question_params
-        params.require(:question).permit(:number, :text, :question_format_id, :option_comment_display, :default_value, question_options_attributes: [:id, :number, :text, :is_default, :_destroy], annotations_attributes: [:id, :text, :org_id, :org, :type], theme_ids: [])
-      end
 
-      # When a template gets versioned by changes to one of its questions we need to loop
-      # through the incoming params and ensure that the annotations and question_options
-      # get attached to the new question
-      def transfer_associations(question)
-        attrs = question_params
-        if attrs[:annotations_attributes].present?
-          attrs[:annotations_attributes].each_key do |key|
-            old_annotation = question.annotations.select do |a|
-              a.org_id.to_s == attrs[:annotations_attributes][key][:org_id] && a.type.to_s == attrs[:annotations_attributes][key][:type]
-            end
-            attrs[:annotations_attributes][key][:id] = old_annotation.first.id unless old_annotation.empty?
+    def question_params
+      params.require(:question).permit(:number, :text, :question_format_id, :option_comment_display, :default_value, question_options_attributes: [:id, :number, :text, :is_default, :_destroy], annotations_attributes: [:id, :text, :org_id, :org, :type], theme_ids: [])
+    end
+
+    # When a template gets versioned by changes to one of its questions we need to loop
+    # through the incoming params and ensure that the annotations and question_options
+    # get attached to the new question
+    def transfer_associations(question)
+      attrs = question_params
+      if attrs[:annotations_attributes].present?
+        attrs[:annotations_attributes].each_key do |key|
+          old_annotation = question.annotations.select do |a|
+            a.org_id.to_s == attrs[:annotations_attributes][key][:org_id] && a.type.to_s == attrs[:annotations_attributes][key][:type]
           end
+          attrs[:annotations_attributes][key][:id] = old_annotation.first.id unless old_annotation.empty?
         end
-        # TODO: This question_options id swap feel fragile. We cannot really match on any of the
-        #       data elements because the user may have changed them so we rely on its position
-        #       within the array/query since they should be equivalent.
-        if attrs[:question_options_attributes].present?
-          attrs[:question_options_attributes].each_key do |key|
-            attrs[:question_options_attributes][key][:id] = question.question_options[key.to_i].id.to_s if question.question_options[key.to_i].present?
-          end
-        end
-        attrs
       end
+      # TODO: This question_options id swap feel fragile. We cannot really match on any of the
+      #       data elements because the user may have changed them so we rely on its position
+      #       within the array/query since they should be equivalent.
+      if attrs[:question_options_attributes].present?
+        attrs[:question_options_attributes].each_key do |key|
+          attrs[:question_options_attributes][key][:id] = question.question_options[key.to_i].id.to_s if question.question_options[key.to_i].present?
+        end
+      end
+      attrs
+    end
   end
 end

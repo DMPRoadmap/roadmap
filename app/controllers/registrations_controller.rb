@@ -5,8 +5,8 @@ class RegistrationsController < Devise::RegistrationsController
     @user = current_user
     @prefs = @user.get_preferences(:email)
     @languages = Language.sorted_by_abbreviation
-    @orgs = Org.where(parent_id: nil).order("name")
-    @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
+    @orgs = Org.order("name")
+    @other_organisations = Org.where(is_other: true).pluck(:id)
     @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
     @default_org = current_user.org
 
@@ -66,14 +66,14 @@ class RegistrationsController < Devise::RegistrationsController
           if other_org.nil?
             redirect_to(after_sign_up_error_path_for(resource), alert: _('You cannot be assigned to other organisation since that option does not exist in the system. Please contact your system administrators.')) and return
           end
-          params[:user][:org_id] = other_org.id 
+          params[:user][:org_id] = other_org.id
         end
         build_resource(sign_up_params)
         if resource.save
           if resource.active_for_authentication?
             set_flash_message :notice, :signed_up if is_navigational_format?
             sign_up(resource_name, resource)
-            UserMailer.welcome_notification(current_user).deliver
+            UserMailer.welcome_notification(current_user).deliver_now
             unless oauth.nil?
               # The OAuth provider could not be determined or there was no unique UID!
               unless oauth['provider'].nil? || oauth['uid'].nil?
@@ -102,9 +102,9 @@ class RegistrationsController < Devise::RegistrationsController
   def update
     if user_signed_in? then
       @prefs = @user.get_preferences(:email)
-      @orgs = Org.where(parent_id: nil).order("name")
+      @orgs = Org.order("name")
       @default_org = current_user.org
-      @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
+      @other_organisations = Org.where(is_other: true).pluck(:id)
       @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
       @languages = Language.sorted_by_abbreviation
       if params[:skip_personal_details] == "true"

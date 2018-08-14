@@ -1,7 +1,7 @@
 module OrgAdmin
   class SectionsController < ApplicationController
     include Versionable
-    
+
     respond_to :html
     after_action :verify_authorized
 
@@ -10,14 +10,16 @@ module OrgAdmin
       authorize Section.new
       phase = Phase.includes(:template, :sections).find(params[:phase_id])
       edit = phase.template.latest? && (current_user.can_modify_templates?  &&  (phase.template.org_id == current_user.org_id))
-      render partial: 'index', 
-        locals: { 
-          template: phase.template, 
-          phase: phase, 
-          sections: phase.sections, 
+      render partial: 'index',
+        locals: {
+          template: phase.template,
+          phase: phase,
+          prefix_section: phase.prefix_section,
+          sections: phase.sections,
+          suffix_sections: phase.suffix_sections,
           current_section: phase.sections.first,
           modifiable: edit,
-          edit: edit 
+          edit: edit
         }
     end
 
@@ -26,21 +28,21 @@ module OrgAdmin
       section = Section.find(params[:id])
       authorize section
       section = Section.includes(questions: [:annotations, :question_options]).find(params[:id])
-      render partial: 'show', locals: { 
+      render partial: 'show', locals: {
         template: Template.find(params[:template_id]),
-        section: section 
+        section: section
       }
     end
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/edit
     def edit
-      section = Section.includes({phase: :template}, questions: [:question_options, { annotations: :org }]).find(params[:id])
+      section = Section.includes({ phase: :template }, { questions: [:question_options, { annotations: :org }] }).find(params[:id])
       authorize section
       # User cannot edit a section if its not modifiable or the template is not the latest redirect to show
-      render partial: (section.modifiable? && section.phase.template.latest? ? 'edit' : 'show'), 
-        locals: { 
-          template: section.phase.template, 
-          phase: section.phase, 
+      render partial: (section.modifiable? && section.phase.template.latest? ? 'edit' : 'show'),
+        locals: {
+          template: section.phase.template,
+          phase: section.phase,
           section: section
         }
     end
@@ -49,7 +51,7 @@ module OrgAdmin
     def create
       phase = Phase.find(params[:phase_id])
       if phase.present?
-        section = Section.new(section_params.merge({ phase_id: phase.id }))
+        section = Section.new(section_params.merge(phase_id: phase.id))
         authorize section
         begin
           section = get_new(section)
@@ -84,7 +86,7 @@ module OrgAdmin
       rescue StandardError => e
         flash[:alert] = _('Unable to create a new version of this template.')
       end
-      
+
       if flash[:alert].present?
         redirect_to edit_org_admin_template_phase_path(template_id: section.phase.template.id, id: section.phase.id, section: section.id)
       else
@@ -107,17 +109,18 @@ module OrgAdmin
       rescue StandardError => e
         flash[:alert] = _('Unable to create a new version of this template.')
       end
-      
+
       if flash[:alert].present?
         redirect_to(edit_org_admin_template_phase_path(template_id: phase.template.id, id: phase.id))
       else
         redirect_to(edit_org_admin_template_phase_path(template_id: phase.template.id, id: phase.id))
       end
     end
-    
+
     private
-      def section_params
-        params.require(:section).permit(:title, :description, :number)
-      end
+
+    def section_params
+      params.require(:section).permit(:title, :description)
+    end
   end
 end

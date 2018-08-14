@@ -38,7 +38,7 @@
                   <%= plan.visibility === 'is_test' ? _('N/A') : raw(display_visibility(plan.visibility)) %>
                 </td>
                 <td>
-                  <% if plan.shared %>
+                  <% if plan.shared? %>
                     <%= _("Yes") %>
                   <% else %>
                     <%= _('No') %>
@@ -55,7 +55,7 @@
                     <ul class="dropdown-menu" aria-labelledby="plan-<%= plan.id %>-actions">
                     <% if plan.editable_by?(current_user.id) then %>
                       <li><%= link_to _('Edit'), plan_path(plan) %></li>
-                      
+
                       <% if plan.administerable_by?(current_user.id) %>
                         <li><%= link_to _('Share'), share_plan_path(plan) %></li>
                       <% end %>
@@ -64,7 +64,7 @@
                       <li><%= link_to(_('Make a copy'), duplicate_plan_path(plan), data: { method: :post }) %></li>
                     <% else %>
                       <li><%= link_to _('View'), plan_path(plan) %></li>
-                      
+
                       <% if !plan.reviewable_by?(current_user.id) %>
                         <li><%= link_to _('Download'), download_plan_path(plan) %></li>
                       <% end %>

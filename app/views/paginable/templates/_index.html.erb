@@ -1,4 +1,3 @@
-<% # locals: templates %>
 <div class="table-responsive">
   <table class="table table-hover table-bordered">
     <thead>
@@ -10,31 +9,7 @@
       </tr>
     </thead>
     <tbody>
-    <% scope.each do |template| %>
-      <tr>
-        <td>
-          <%= "#{template.is_default? ? '* ' : ''}#{template.title}" %>
-        </td>
-          <td>
-            <%= template.org.name %>
-          </td>
-          <td>
-            <% if template.published? %>
-              <%= _('Published') %>
-            <% elsif template.draft? %>
-              <% tooltip = _('This template is published changes but has unpublished changes!') %>
-              <%= _('Published') %> <em class="sr-only"><%= tooltip %></em>
-              &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="<%= tooltip %>"></i>
-            <% else %>
-              <%= _('Unpublished') %>
-            <% end %>
-          </td>
-          <td>
-            <% last_temp_updated = template.updated_at %>
-            <%= l last_temp_updated.to_date, formats: :short %>
-          </td>
-       </tr>
-      <% end %>
+      <%= render(partial: "org_admin/templates/row", collection: scope, as: :template) %>
     </tbody>
   </table>
 </div>
