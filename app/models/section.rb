@@ -112,6 +112,11 @@ class Section < ActiveRecord::Base
     return copy
   end
 
+  # Can't be modified as it was duplicatd over from another Phase.
+  def template?
+    !modifiable?
+  end
+
   private
 
   # ============================
