@@ -9,6 +9,7 @@ module DataCleanup
 
         def call
           ::Region.where(description: [nil, '']).each do |region|
+            log("Adding default description to Region##{region.id}")
             region.update!(description: "#{region.name} region")
           end
         end
