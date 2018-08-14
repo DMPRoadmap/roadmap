@@ -1,5 +1,55 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :integer          not null, primary key
+#  accept_terms           :boolean
+#  active                 :boolean          default(TRUE)
+#  api_token              :string
+#  confirmation_sent_at   :datetime
+#  confirmation_token     :string
+#  confirmed_at           :datetime
+#  current_sign_in_at     :datetime
+#  current_sign_in_ip     :string
+#  email                  :string(80)       default(""), not null
+#  encrypted_password     :string           default("")
+#  firstname              :string
+#  invitation_accepted_at :datetime
+#  invitation_created_at  :datetime
+#  invitation_sent_at     :datetime
+#  invitation_token       :string
+#  invited_by_type        :string
+#  last_sign_in_at        :datetime
+#  last_sign_in_ip        :string
+#  other_organisation     :string
+#  recovery_email         :string
+#  remember_created_at    :datetime
+#  reset_password_sent_at :datetime
+#  reset_password_token   :string
+#  sign_in_count          :integer          default(0)
+#  surname                :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  invited_by_id          :integer
+#  language_id            :integer
+#  org_id                 :integer
+#
+# Indexes
+#
+#  index_users_on_email   (email) UNIQUE
+#  index_users_on_org_id  (org_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (language_id => languages.id)
+#  fk_rails_...  (org_id => orgs.id)
+#
+
 class User < ActiveRecord::Base
   include ConditionalUserMailer
+  include ValidationMessages
+  include ValidationValues
+
   ##
   # Devise
   #   Include default devise modules. Others available are:
@@ -14,39 +64,50 @@ class User < ActiveRecord::Base
   # User Notification Preferences
   serialize :prefs, Hash
 
-  ##
-  # Associations
+  # ================
+  # = Associations =
+  # ================
+
+
   has_and_belongs_to_many :perms, join_table: :users_perms
+
   belongs_to :language
+
   belongs_to :org
+
   has_one  :pref
+
   has_many :answers
+
   has_many :notes
+
   has_many :exported_plans
+
   has_many :roles, dependent: :destroy
-  has_many :plans, through: :roles do
-    def filter(query)
-      return self unless query.present?
-      t = self.arel_table
-      q = "%#{query}%"
-      conditions = t[:title].matches(q)
-      columns = %i(
-        grant_number identifier description principal_investigator data_contact
-      )
-      columns = ['grant_number', 'identifier', 'description', 'principal_investigator', 'data_contact']
-      columns.each {|col| conditions = conditions.or(t[col].matches(q)) }
-      self.where(conditions)
-    end
-  end
+
+  has_many :plans, through: :roles
+
 
   has_many :user_identifiers
+
   has_many :identifier_schemes, through: :user_identifiers
-  has_and_belongs_to_many :notifications, dependent: :destroy, join_table: 'notification_acknowledgements'
 
-  validates :email, email: true, allow_nil: true, uniqueness: {message: _("must be unique")}
+  has_and_belongs_to_many :notifications, dependent: :destroy,
+                          join_table: 'notification_acknowledgements'
 
-  ##
-  # Scopes
+
+  # ===============
+  # = Validations =
+  # ===============
+
+  validates :active, inclusion: { in: BOOLEAN_VALUES,
+                                  message: INCLUSION_MESSAGE }
+
+
+  # ==========
+  # = Scopes =
+  # ==========
+
   default_scope { includes(:org, :perms) }
 
   # Retrieves all of the org_admins for the specified org
@@ -57,8 +118,9 @@ class User < ActiveRecord::Base
 
   scope :search, -> (term) {
     search_pattern = "%#{term}%"
-    # MySQL does not support standard string concatenation and since concat_ws or concat functions do
-    # not exist for sqlite, we have to come up with this conditional
+    # MySQL does not support standard string concatenation and since concat_ws
+    # or concat functions do not exist for sqlite, we have to come up with this
+    # conditional
     if ActiveRecord::Base.connection.adapter_name == "Mysql2"
       where("concat_ws(' ', firstname, surname) LIKE ? OR email LIKE ?", search_pattern, search_pattern)
     else
@@ -66,12 +128,33 @@ class User < ActiveRecord::Base
     end
   }
 
+  # =============
+  # = Callbacks =
+  # =============
+
   after_update :when_org_changes
 
+  # =================
+  # = Class methods =
+  # =================
+
   ##
+  # Load the user based on the scheme and id provided by the Omniauth call
+  def self.from_omniauth(auth)
+    joins(user_identifiers: :identifier_scheme)
+      .where(user_identifiers: { identifier: auth.uid },
+             identifier_schemes: { name: auth.provider.downcase }).first
+  end
+
+  # ===========================
+  # = Public instance methods =
+  # ===========================
+
   # This method uses Devise's built-in handling for inactive users
+  #
+  # Returns Boolean
   def active_for_authentication?
-    super && self.active?
+    super && active?
   end
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
@@ -79,7 +162,9 @@ class User < ActiveRecord::Base
   # What do they do? do they do it efficiently, and do we need them?
 
   # Determines the locale set for the user or the organisation he/she belongs
-  # @return String or nil
+  #
+  # Returns String
+  # Returns nil
   def get_locale
     if !self.language.nil?
       return self.language.abbreviation
@@ -90,12 +175,11 @@ class User < ActiveRecord::Base
     end
   end
 
-
-  ##
-  # gives either the name of the user, or the email if name unspecified
+  # Gives either the name of the user, or the email if name unspecified
   #
-  # @param user_email [Boolean] defaults to true, allows the use of email if there is no firstname or surname
-  # @return [String] the email or the firstname and surname of the user
+  # user_email - Use the email if there is no firstname or surname (defaults: true)
+  #
+  # Returns String
   def name(use_email = true)
     if (firstname.blank? && surname.blank?) || use_email then
       return email
@@ -105,130 +189,103 @@ class User < ActiveRecord::Base
     end
   end
 
-  ##
-  # returns all active plans for a user
+  # The user's identifier for the specified scheme name
   #
-  # @return [Plans]
-  def active_plans
-    self.plans.includes(:template).where("roles.active": true).where(Role.not_reviewer_condition)
-  end
-
-
-  ##
-  # Returns the user's identifier for the specified scheme name
+  # scheme - The identifier scheme name (e.g. ORCID)
   #
-  # @param the identifier scheme name (e.g. ORCID)
-  # @return [UserIdentifier] the user's identifier for that scheme
+  # Returns UserIdentifier
   def identifier_for(scheme)
     user_identifiers.where(identifier_scheme: scheme).first
   end
 
-  ##
-  # sets a new organisation for the user
+  # Checks if the user is a super admin. If the user has any privelege which requires
+  # them to see the super admin page then they are a super admin.
   #
-  # @param new_organisation [Organisation] the new organisation for the user
-  def organisation=(new_org)
-    org_id = new_org.id unless new_org.nil?
-  end
-
-  ##
-  # checks if the user is a super admin
-  # if the user has any privelege which requires them to see the super admin page
-  # then they are a super admin
-  #
-  # @return [Boolean] true if the user is an admin
+  # Returns Boolean
   def can_super_admin?
     return self.can_add_orgs? || self.can_grant_api_to_orgs? || self.can_change_org?
   end
 
-  ##
-  # checks if the user is an organisation admin
-  # if the user has any privlege which requires them to see the org-admin pages
-  # then they are an org admin
+  # Checks if the user is an organisation admin if the user has any privlege which
+  # requires them to see the org-admin pages then they are an org admin.
   #
-  # @return [Boolean] true if the user is an organisation admin
+  # Returns Boolean
   def can_org_admin?
     return self.can_grant_permissions? || self.can_modify_guidance? ||
            self.can_modify_templates? || self.can_modify_org_details?
   end
 
-  ##
-  # checks if the user can add new organisations
+  # Can the User add new organisations?
   #
-  # @return [Boolean] true if the user can add new organisations
+  # Returns Boolean
   def can_add_orgs?
     perms.include? Perm.add_orgs
   end
 
-  ##
-  # checks if the user can change their organisation affiliations
+  # Can the User change their organisation affiliations?
   #
-  # @return [Boolean] true if the user can change their organisation affiliations
+  # Returns Boolean
   def can_change_org?
     perms.include? Perm.change_affiliation
   end
 
-  ##
-  # checks if the user can grant their permissions to others
+  # Can the User can grant their permissions to others?
   #
-  # @return [Boolean] true if the user can grant their permissions to others
+  # Returns Boolean
   def can_grant_permissions?
     perms.include? Perm.grant_permissions
   end
 
-  ##
-  # checks if the user can modify organisation templates
+  # Can the User modify organisation templates?
   #
-  # @return [Boolean] true if the user can modify organisation templates
+  # Returns Boolean
   def can_modify_templates?
     self.perms.include? Perm.modify_templates
   end
 
-  ##
-  # checks if the user can modify organisation guidance
+  # Can the User modify organisation guidance?
   #
-  # @return [Boolean] true if the user can modify organistion guidance
+  # Returns Boolean
   def can_modify_guidance?
     perms.include? Perm.modify_guidance
   end
 
-  ##
-  # checks if the user can use the api
+  # Can the User use the API?
   #
-  # @return [Boolean] true if the user can use the api
+  # Returns Boolean
   def can_use_api?
     perms.include? Perm.use_api
   end
 
-  ##
-  # checks if the user can modify their org's details
+  # Can the User modify their org's details?
   #
-  # @return [Boolean] true if the user can modify the org's details
+  # Returns Boolean
   def can_modify_org_details?
     perms.include? Perm.change_org_details
   end
 
-
   ##
-  # checks if the user can grant the api to organisations
+  # Can the User grant the api to organisations?
   #
-  # @return [Boolean] true if the user can grant api permissions to organisations
+  # Returns Boolean
   def can_grant_api_to_orgs?
     perms.include? Perm.grant_api
   end
 
-  ##
-  # removes the api_token from the user
-  # modifies the user model
+  # Removes the api_token from the user
+  #
+  # Returns nil
+  # Returns Boolean
   def remove_token!
     unless api_token.blank?
       update_column(:api_token, "") unless new_record?
     end
   end
 
-  ##
-  # generates a new token for the user unless the user already has a token.
-  # modifies the user's model.
+  # Generates a new token for the user unless the user already has a token.
+  #
+  # Returns nil
+  # Returns Boolean
   def keep_or_generate_token!
     if api_token.nil? || api_token.empty?
       self.api_token = loop do
@@ -239,29 +296,14 @@ class User < ActiveRecord::Base
     end
   end
 
-  ##
-  # Load the user based on the scheme and id provided by the Omniauth call
-  # --------------------------------------------------------------
-  def self.from_omniauth(auth)
-    scheme = IdentifierScheme.find_by(name: auth.provider.downcase)
-
-    if scheme.nil?
-      throw Exception.new('Unknown OAuth provider: ' + auth.provider)
-    else
-      joins(:user_identifiers).where('user_identifiers.identifier': auth.uid,
-                   'user_identifiers.identifier_scheme_id': scheme.id).first
-    end
-  end
-
-  ##
-  # Return the user's preferences for a given base key
+  # The User's preferences for a given base key
   #
-  # @return [JSON] with symbols as keys
+  # Returns Hash
   def get_preferences(key)
     defaults = Pref.default_settings[key.to_sym] || Pref.default_settings[key.to_s]
 
-    if self.pref.present?
-      existing = self.pref.settings[key.to_s].deep_symbolize_keys
+    if pref.present?
+      existing = pref.settings[key.to_s].deep_symbolize_keys
 
       # Check for new preferences
       defaults.keys.each do |grp|
@@ -278,28 +320,42 @@ class User < ActiveRecord::Base
     end
   end
 
-  ##
   # Override devise_invitable email title
-  # --------------------------------------------------------------
   def deliver_invitation(options = {})
     super(options.merge(subject: _('A Data Management Plan in %{application_name} has been shared with you') % {application_name: Rails.configuration.branding[:application][:name]}))
   end
-  ##
+
   # Case insensitive search over User model
-  # @param field [string] The name of the field being queried
-  # @param val [string] The string to search for, case insensitive. val is duck typed to check whether or not downcase method exist
-  # @return [ActiveRecord::Relation] The result of the search
+  #
+  # field - The name of the field being queried
+  # val   - The String to search for, case insensitive. val is duck typed to check
+  #         whether or not downcase method exist.
+  #
+  # Returns ActiveRecord::Relation
+  # Raises ArgumentError
   def self.where_case_insensitive(field, val)
-    User.where(field.to_sym => val.to_s.downcase)
+    unless columns.map(&:name).include?(field.to_s)
+      raise ArgumentError, "Field #{field} is not present on users table"
+    end
+    User.where("LOWER(#{field}) = :value", value: val.to_s.downcase)
   end
 
-  # Acknoledge a Notification
-  # @param notification Notification to acknowledge
+  # Acknowledge a Notification
+  #
+  # notification - Notification to acknowledge
+  #
+  # Returns ActiveRecord::Associations::CollectionProxy
+  # Returns nil
   def acknowledge(notification)
     notifications << notification if notification.dismissable?
   end
 
   private
+
+  # ============================
+  # = Private instance methods =
+  # ============================
+
   def when_org_changes
     if org_id != org_id_was
       unless can_change_org?

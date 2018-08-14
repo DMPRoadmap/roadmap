@@ -84,3 +84,6 @@ lib/assets/node_modules
 lib/assets/npm-debug.log
 lib/assets/.eslintcache
 !.keep
+.byebug_history
+lib/data_cleanup/rules/org/fix_blank_abbreviation.yml
+.rspec

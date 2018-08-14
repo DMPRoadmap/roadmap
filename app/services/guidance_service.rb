@@ -6,6 +6,7 @@ class GuidanceService
     @plan = plan
     @guidance_groups = plan.guidance_groups.where(published: true)
   end
+
   # Returns an Array of orgs according to the guidance related to plan
   # Note the Array is sorted in the following order:
   # First funder org (if the template from the plan is a customization of another)
@@ -78,6 +79,36 @@ class GuidanceService
     raise ArgumentError unless question.respond_to?(:id)
     return [] unless hashified_annotations.has_key?(org)
     return hashified_annotations[org].select{ |annotation| (annotation.question_id == question.id) && (annotation.type == "guidance")}
+  end
+
+
+  # filters through the orgs with annotations and guidance groups to create a
+  # set of tabs with display names and any guidance/annotations to show
+  #
+  # question  - The question to which guidance pretains
+  #
+  # Returns an array of tab hashes.  These
+  def tablist(question)
+    # start with orgs
+    # filter into hash with annotation_presence, main_group presence, and
+    display_tabs = []
+    orgs.each do |org|
+      annotations = guidance_annotations(org: org,question: question)
+      groups = guidance_groups_by_theme(org: org,question: question)
+      main_groups = groups.select{|group| group.optional_subset == false}
+      subsets = groups.reject{|group| group.optional_subset == false}
+      if annotations.present? || main_groups.present? # annotations and main group
+        # Tab with org.abbreviation
+        display_tabs << {name: org.abbreviation, groups: main_groups,
+                        annotations: annotations}
+      end
+      if subsets.present?
+        subsets.each_pair do |group,theme|
+          display_tabs << {name: group.name.truncate(15), groups:{group => theme}}
+        end
+      end
+    end
+    return display_tabs
   end
 
   private

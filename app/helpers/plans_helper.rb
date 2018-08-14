@@ -1,27 +1,10 @@
 module PlansHelper
-  # Shows whether the user has default, template-default or custom settings
-  # for the given plan.
-  # --------------------------------------------------------
-  def plan_settings_indicator(plan)
-    plan_settings     = plan.super_settings(:export)
-    template_settings = plan.template.try(:settings, :export)
-
-    key = if plan_settings.try(:value?)
-      plan_settings.formatting == template_settings.formatting ? "template_formatting" : "custom_formatting"
-    elsif template_settings.try(:value?)
-      "template_formatting"
-    else
-      "default_formatting"
-    end
-
-    content_tag(:small, t("helpers.settings.plans.#{key}"))
-  end
 
   # display the role of the user for a given plan
   def display_role(role)
     if role.creator?
       access = _('Owner')
-      
+
     else
       case role.access_level
         when 3
@@ -48,7 +31,7 @@ module PlansHelper
       return "<span>#{_('Private')}</span>" # Test Plans
     end
   end
-  
+
   def visibility_tooltip(val)
     case val
     when 'organisationally_visible'
@@ -58,5 +41,16 @@ module PlansHelper
     else
       return _('Private: restricted to me and people I invite.')
     end
+  end
+
+  def download_plan_page_title(plan, phase, hash)
+    # If there is more than one phase show the plan title and phase title
+    return hash[:phases].many? ? "#{plan.title} - #{phase[:title]}" : plan.title
+  end
+  
+  def display_questions_and_section_headings(section, show_sections_questions, show_custom_sections)
+    # Return true if show_sections_questions is true and either section not customised, or section is customised
+    # and show_custom_sections is true
+    return show_sections_questions && (!section[:modifiable] || (show_custom_sections && section[:modifiable]))
   end
 end

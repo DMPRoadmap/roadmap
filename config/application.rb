@@ -19,6 +19,19 @@ Bundler.require(*Rails.groups)
 
 module DMPRoadmap
   class Application < Rails::Application
+
+    config.generators do |g|
+      g.orm             :active_record
+      g.template_engine :erb
+      g.test_framework  :rspec
+      g.javascripts false
+      g.stylesheets false
+      g.skip_routes true
+      g.view_specs false
+      g.helper_specs false
+      g.controller_specs false
+    end
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -30,7 +43,7 @@ module DMPRoadmap
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-	
+
 	# Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
@@ -39,8 +52,7 @@ module DMPRoadmap
 
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true
-    
-    config.eager_load_paths << "app/models/scopes"
+
     config.eager_load_paths << "app/services"
 
     # Use SQL instead of Active Record's schema dumper when creating the database.
@@ -52,7 +64,7 @@ module DMPRoadmap
     # This will create an empty whitelist of attributes available for mass-assignment for all models
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
-    #config.active_record.whitelist_attributes = true	
+    #config.active_record.whitelist_attributes = true
 
     config.autoload_paths += %W(#{config.root}/lib)
     config.action_controller.include_all_helpers = true
@@ -83,7 +95,7 @@ module DMPRoadmap
 
     # Load Branded terminology (e.g. organization name, application name, etc.)
     config.branding = config_for(:branding).deep_symbolize_keys
-    
+
     # The default visibility setting for new plans
     #   organisationally_visible  - Any member of the user's org can view, export and duplicate the plan
     #   publicly_visibile         - (NOT advisable because plans will show up in Public DMPs page by default)
