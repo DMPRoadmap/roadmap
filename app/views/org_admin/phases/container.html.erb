@@ -54,9 +54,10 @@
                   <div class="col-sm-6">
                     <div class='text-right text-muted'>
                       <i class="fa fa-info-circle small"></i>
-                        <%= _("Drag arrows to rearrange customized sections. You may place
-                           them before or after the main template sections.") %>
-
+                        <%= _("Drag arrows to rearrange customized sections.") %>
+                        <% unless phase.sections.all?(&:modifiable?) %>
+                          <%= _("You may place them before or after the main template sections.") %>
+                        <% end %>
                     </div>
                     <div class="clear">
                   </div>
