@@ -4,9 +4,9 @@ module Api
       before_action :authenticate
 
 
-      ##
       # GET
-      # @return a list of templates ordered by organisation
+      #
+      # Renders a list of templates ordered by organisation
       def index
         # check if the user has permissions to use the templates API
         raise Pundit::NotAuthorizedError unless Api::V0::TemplatePolicy.new(@user, :guidance_group).index?
