@@ -84,7 +84,7 @@ class Plan < ActiveRecord::Base
 
   has_many :guidances, through: :themes
 
-  has_many :guidance_group_options, -> { GuidanceGroup.published },
+  has_many :guidance_group_options, -> { uniq.published.reorder('id') },
            through: :guidances,
            source: :guidance_group,
            class_name: "GuidanceGroup"
