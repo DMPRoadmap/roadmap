@@ -5,13 +5,16 @@ module Branding
 
   # Loads branding config from YAML file.
   #
-  # @param keys [Array<Object>] A list of the keys to return configs for.
+  # keys - A list of the keys to return configs for.
   #
-  # @example Return a value
+  # Examples:
+  #
+  #   # Return a value
   #   Branding.fetch(:settings, :should_work) # => true
   #   Branding.fetch(:settings, :email) # => 'user@example.com'
   #   Branding.fetch(:settings, :missing) # => nil
-  # @return [Object] The value of the config
+  #
+  # Returns Object
   def fetch(*keys)
     keys = keys.map(&:to_sym)
     Rails.configuration.branding.dig(*keys)

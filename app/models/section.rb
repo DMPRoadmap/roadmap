@@ -74,24 +74,21 @@ class Section < ActiveRecord::Base
 
   # The sections for this Phase that have been added by the admin
   #
-  # @!scope class
-  # @return [ActiveRecord::Relation] Returns the sections that are modifiable
+  # Returns ActiveRecord::Relation
   scope :modifiable, -> { where(modifiable: true) }
 
   # The sections for this Phase that were part of the original Template
   #
-  # @!scope class
-  # @return [ActiveRecord::Relation] Returns the sections that aren't modifiable
+  # Returns ActiveRecord::Relation
   scope :not_modifiable, -> { where(modifiable: false) }
 
   # ===========================
   # = Public instance methods =
   # ===========================
 
-  ##
-  # return the title of the section
+  # The title of the Section
   #
-  # @return [String] the title of the section
+  # Returns String
   def to_s
     "#{title}"
   end

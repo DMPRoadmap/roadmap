@@ -181,15 +181,12 @@ group :test do
   gem 'chromedriver-helper', ">= 1.2.0"
 end
 
-group :ci do
+group :ci, :development do
   # Security vulnerability scanner for Ruby on Rails. (http://brakemanscanner.org)
   gem "brakeman"
 
   # Automatic Ruby code style checking tool. (https://github.com/rubocop-hq/rubocop)
-  gem "rubocop"
-
-  # Code style checking for RSpec files (https://github.com/rubocop-hq/rubocop-rspec)
-  gem "rubocop-rspec"
+  gem "rubocop-dmp_roadmap"
 
   # Helper gem to require bundler-audit (http://github.com/stewartmckee/bundle-audit)
   gem "bundle-audit"
@@ -216,4 +213,8 @@ group :development do
 
   # help to kill N+1 queries and unused eager loading. (https://github.com/flyerhzm/bullet)
   gem "bullet"
+
+  gem "yard"
+
+  gem "yard-tomdoc"
 end
