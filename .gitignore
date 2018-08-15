@@ -28,8 +28,6 @@ app/views/branded/*
 app/assets
 config/locales/static_pages/*.yml
 
-# Ignore gemfile.lock
-#Gemfile.lock
 
 # Ignore db schema.rb
 # db/schema.rb
@@ -40,6 +38,12 @@ db/data.yml
 # Ignore the test DB
 db/test.sqlite3
 db/test.sqlite3-journal
+
+# Ingore DB dump files
+*.sql
+*.psql
+*.sql.gz
+*.psql.gz
 
 # Ignore the SimpleCov output
 coverage
