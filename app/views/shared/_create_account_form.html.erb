@@ -15,7 +15,7 @@
   <div class="form-group">
     <%= render partial: "shared/my_org",
                locals: {f: f, default_org: @default_org,
-                        orgs: Org.where("is_other IS NULL").order("sort_name ASC, name ASC"),
+                        orgs: Org.where(is_other: false).order("sort_name ASC, name ASC"),
                         allow_other_orgs: true, required: false} %>
   </div>
 
