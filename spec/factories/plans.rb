@@ -16,7 +16,6 @@
 #  principal_investigator_email      :string
 #  principal_investigator_identifier :string
 #  principal_investigator_phone      :string
-#  slug                              :string
 #  title                             :string
 #  visibility                        :integer          default(3), not null
 #  created_at                        :datetime

@@ -3,8 +3,8 @@
 # Table name: token_permission_types
 #
 #  id               :integer          not null, primary key
-#  token_type       :string
 #  text_description :text
+#  token_type       :string
 #  created_at       :datetime
 #  updated_at       :datetime
 #
