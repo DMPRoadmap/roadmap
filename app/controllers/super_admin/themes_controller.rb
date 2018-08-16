@@ -66,6 +66,8 @@ module SuperAdmin
     end
 
     def extract
+      authorize(Theme)
+
       @theme = Theme.find(extract_params[:id])
       @answers = @theme.answers
 
