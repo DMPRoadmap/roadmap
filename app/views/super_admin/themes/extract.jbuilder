@@ -1,7 +1,8 @@
 json.theme @theme.title
-json.answers @theme.answers do |a|
+json.answers @answers do |a|
   json.id a.id
   json.answer a.text
+  json.created_at a.created_at
   json.question do
     json.id a.question.id
     json.title a.question.text

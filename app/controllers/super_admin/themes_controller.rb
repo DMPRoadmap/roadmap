@@ -66,7 +66,13 @@ module SuperAdmin
     end
 
     def extract
-      @theme = Theme.find(params[:id])
+      @theme = Theme.find(extract_params[:id])
+      @answers = @theme.answers
+      @answers = @answers.where(plan_id: extract_params[:plan_id]) if extract_params[:plan_id]
+      @answers = @answers.where(question_id: extract_params[:question_id]) if extract_params[:question_id]
+      @answers = @answers.since(extract_params[:start_date])
+      @answers = @answers.until(extract_params[:end_date])
+
       render format: :json
     end
 
@@ -75,6 +81,10 @@ module SuperAdmin
 
     def permitted_params
       params.require(:theme).permit(:title, :description)
+    end
+
+    def extract_params
+      params.permit(:id, :plan_id, :question_id, :start_date, :end_date)
     end
   end
 end
