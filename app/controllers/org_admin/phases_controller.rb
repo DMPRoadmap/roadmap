@@ -91,7 +91,7 @@ module OrgAdmin
       begin
         phase = get_new(phase)
         phase.modifiable = true
-        if phase.save!
+        if phase.save
           flash[:notice] = success_message(_('phase'), _('created'))
         else
           flash[:alert] = failed_create_error(phase, _('phase'))
@@ -113,7 +113,7 @@ module OrgAdmin
       authorize phase
       begin
         phase = get_modifiable(phase)
-        if phase.update!(phase_params)
+        if phase.update(phase_params)
           flash[:notice] = success_message(_('phase'), _('updated'))
         else
           flash[:alert] = failed_update_error(phase, _('phase'))
