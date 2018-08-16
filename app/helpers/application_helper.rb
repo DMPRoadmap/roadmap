@@ -14,16 +14,21 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:user]
   end
 
-  # Determines whether or not the URL path passed matches with the full path (including params) of the last URL requested.
-  # see http://api.rubyonrails.org/classes/ActionDispatch/Request.html#method-i-fullpath for details
-  # ---------------------------------------------------------------------------
-  def isActivePage(path, exact_match = false)
+  # Determines whether or not the URL path passed matches with the full path (including
+  # params) of the last URL requested. See
+  # http://api.rubyonrails.org/classes/ActionDispatch/Request.html#method-i-fullpath
+  # for details
+  def active_page?(path, exact_match = false)
     if exact_match
       return request.fullpath == path
     else
       return request.fullpath.include?(path)
     end
   end
+
+  alias isActivePage active_page?
+
+  deprecate :isActivePage, deprecator: Cleanup::Deprecators::PredicateDeprecator.new
 
   def fingerprinted_asset(name)
     Rails.env.production? ? "#{name}-#{ASSET_FINGERPRINT}" : name
