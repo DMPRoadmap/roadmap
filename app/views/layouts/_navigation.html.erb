@@ -19,10 +19,10 @@
     <div class="collapse navbar-collapse" id="app-navbar-menu">
       <ul class="nav navbar-nav">
         <% if user_signed_in? %>
-          <li class="<%= ' active' if isActivePage(root_path) %>">
+          <li class="<%= ' active' if active_page?(root_path) %>">
             <%= link_to _('My Dashboard'), plans_path %>
           </li>
-          <li <%= 'class=active' if isActivePage(new_plan_path) %>>
+          <li <%= 'class=active' if active_page?(new_plan_path) %>>
             <%= link_to _('Create plans'), new_plan_path %>
           </li>
             <li class="dropdown" id="reference-dropdown">
@@ -32,27 +32,27 @@
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu inverse-dropdown" aria-labelledby="reference-menu">
-                <li <%= 'class=active' if isActivePage(public_plans_path) %>>
+                <li <%= 'class=active' if active_page?(public_plans_path) %>>
                   <%= link_to _('Public DMPs'), public_plans_path %>
                 </li>
-                <li <%= 'class=active' if isActivePage(public_templates_path) %>>
+                <li <%= 'class=active' if active_page?(public_templates_path) %>>
                   <%= link_to _('DMP Templates'), public_templates_path %>
               </ul>
             </a>
           </li>
         <% else %>
-          <li <%= 'class=active' if isActivePage(root_path, true) || isActivePage(plans_path, true) %>>
+          <li <%= 'class=active' if active_page?(root_path, true) || active_page?(plans_path, true) %>>
             <%= link_to _('Home'), root_path %>
           </li>
-          <li <%= 'class=active' if isActivePage(public_plans_path, true) %>>
+          <li <%= 'class=active' if active_page?(public_plans_path, true) %>>
             <%= link_to _('Public DMPs'), public_plans_path %>
           </li>
-          <li <%= 'class=active' if isActivePage(public_templates_path, true) %>>
+          <li <%= 'class=active' if active_page?(public_templates_path, true) %>>
             <%= link_to _('DMP Templates'), public_templates_path %>
           </li>
         <% end %>
         <!-- help page -->
-        <li <%= 'class=active' if isActivePage(help_path, true) %>>
+        <li <%= 'class=active' if active_page?(help_path, true) %>>
           <%= link_to _('Help'), help_path %>
         </li>
       </ul>
@@ -60,7 +60,7 @@
           <%= render "layouts/signin_signout" %>
       </ul>
 
-      <% unless isActivePage(root_path, true) %>
+      <% unless active_page?(root_path, true) %>
         <%= render partial: 'shared/access_controls', layout: 'shared/modal', locals: { id: "header-signin", title: _('Sign in')} %>
       <% end %>
     </div><!-- /.navbar-collapse -->
