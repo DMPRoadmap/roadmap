@@ -49,7 +49,7 @@ module OrgAdmin
       begin
         question = get_new(question)
         section = question.section
-        if question.save!
+        if question.save
           flash[:notice] = success_message(_('question'), _('created'))
         else
           flash[:alert] = failed_create_error(question, _('question'))
@@ -75,7 +75,7 @@ module OrgAdmin
         if attrs[:theme_ids].blank? && attrs[:number].present?
           attrs[:theme_ids] = []
         end
-        if question.update!(attrs)
+        if question.update(attrs)
           flash[:notice] = success_message(_('question'), _('updated'))
         else
           flash[:alert] = failed_update_error(question, _('question'))

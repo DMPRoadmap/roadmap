@@ -123,7 +123,7 @@ module OrgAdmin
       template = Template.new(template_params)
       template.org_id = current_user.org.id
       template.links = (params["template-links"].present? ? ActiveSupport::JSON.decode(params["template-links"]) : {"funder": [], "sample_plan": []})
-      if template.save!
+      if template.save
         redirect_to edit_org_admin_template_path(template), notice: success_message(template_type(template), _('created'))
       else
         flash[:alert] = failed_create_error(template, template_type(template))
@@ -139,7 +139,7 @@ module OrgAdmin
       begin
         template.assign_attributes(template_params)
         template.links = ActiveSupport::JSON.decode(params["template-links"]) if params["template-links"].present?
-        if template.save!
+        if template.save
           render(status: :ok, json: { msg: success_message(template_type(template), _('saved'))})
         else
           # Note failed_update_error may return HTML tags (e.g. <br/>) and therefore the client should parse them accordingly

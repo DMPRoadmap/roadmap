@@ -78,7 +78,7 @@ module OrgAdmin
       authorize section
       begin
         section = get_modifiable(section)
-        if section.update!(section_params)
+        if section.update(section_params)
           flash[:notice] = success_message(_('section'), _('saved'))
         else
           flash[:alert] = failed_update_error(section, _('section'))
