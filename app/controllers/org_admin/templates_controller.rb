@@ -11,18 +11,18 @@ module OrgAdmin
       authorize Template
       templates = Template.latest_version.where(customization_of: nil)
       published = templates.select{|t| t.published? || t.draft? }.length
-      render 'index', locals: { 
-        orgs: Org.all,
-        title: _('All Templates'),
-        templates: templates.includes(:org),
-        action: 'index',
-        query_params: { sort_field: 'templates.title', sort_direction: 'asc' },
-        all_count: templates.length,
-        published_count: published.present? ? published : 0,
-        unpublished_count: published.present? ? (templates.length - published): templates.length
-      }
+
+      @orgs              = Org.all
+      @title             = _('All Templates')
+      @templates         = templates.includes(:org)
+      @query_params      = { sort_field: 'templates.title', sort_direction: 'asc' }
+      @all_count         = templates.length
+      @published_count   = published.present? ? published : 0
+      @unpublished_count = published.present? ? (templates.length - published): templates.length
+
+      render :index
     end
-    
+
     # A version of index that displays only templates that belong to the user's org
     # GET /org_admin/templates/organisational
     # -----------------------------------------------------
@@ -30,17 +30,16 @@ module OrgAdmin
       authorize Template
       templates = Template.latest_version_per_org(current_user.org.id).where(customization_of: nil, org_id: current_user.org.id)
       published = templates.select{|t| t.published? || t.draft? }.length
-      title = current_user.can_super_admin? ? _('%{org_name} Templates') % { org_name: current_user.org.name } : _('Own Templates')
-      render 'index', locals: { 
-        orgs: current_user.can_super_admin? ? Org.all : nil,
-        title: title,
-        templates: templates,
-        action: 'organisational',
-        query_params: { sort_field: 'templates.title', sort_direction: 'asc' },
-        all_count: templates.length,
-        published_count: published.present? ? published : 0,
-        unpublished_count: published.present? ? (templates.length - published): templates.length
-      }
+
+      @orgs              = current_user.can_super_admin? ? Org.all : nil
+      @title             = current_user.can_super_admin? ? _('%{org_name} Templates') % { org_name: current_user.org.name } : _('Own Templates')
+      @templates         = templates
+      @query_params      = { sort_field: 'templates.title', sort_direction: 'asc' }
+      @all_count         = templates.length
+      @published_count   = published.present? ? published : 0
+      @unpublished_count = published.present? ? (templates.length - published): templates.length
+
+      render :index
     end
 
     # A version of index that displays only templates that are customizable
@@ -53,21 +52,21 @@ module OrgAdmin
       # We use this to validate the counts below in the event that a template was customized but the base template
       # org is no longer a funder
       funder_template_families = funder_templates.collect(&:family_id)
-      published = customizations.select{|t| t.published? || t.draft? }.length
-      render 'index', locals: { 
-        orgs: (current_user.can_super_admin? ? Org.all : []),
-        title: _('Customizable Templates'),
-        templates: funder_templates,
-        customizations: customizations,
-        action: 'customisable',
-        query_params: { sort_field: 'templates.title', sort_direction: 'asc' },
-        all_count: funder_templates.length,
-        published_count: published.present? ? published : 0,
-        unpublished_count: published.present? ? (customizations.length - published): customizations.length,
-        not_customized_count: funder_templates.length - customizations.length
-      }
+      published = customizations.select { |t| t.published? || t.draft? }.length
+
+      @orgs                 = current_user.can_super_admin? ? Org.all : []
+      @title                = _('Customizable Templates')
+      @templates            = funder_templates
+      @customizations       = customizations
+      @query_params         = { sort_field: 'templates.title', sort_direction: 'asc' }
+      @all_count            = funder_templates.length
+      @published_count      = published.present? ? published : 0
+      @unpublished_count    = published.present? ? (customizations.length - published) : customizations.length
+      @not_customized_count = funder_templates.length - customizations.length
+
+      render :index
     end
-    
+
     # GET /org_admin/templates/[:id]
     def show
       template = Template.find(params[:id])
@@ -79,13 +78,13 @@ module OrgAdmin
       if !template.latest?
         flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
       end
-      render 'container', locals: { 
-        partial_path: 'show', 
+      render 'container', locals: {
+        partial_path: 'show',
         template: template,
         phases: phases,
         referrer: get_referrer(template, request.referrer) }
     end
-    
+
     # GET /org_admin/templates/:id/edit
     # -----------------------------------------------------
     def edit
@@ -98,24 +97,24 @@ module OrgAdmin
       if !template.latest?
         redirect_to org_admin_template_path(id: template.id)
       else
-        render 'container', locals: { 
-          partial_path: 'edit', 
+        render 'container', locals: {
+          partial_path: 'edit',
           template: template,
           phases: phases,
           referrer: get_referrer(template, request.referrer) }
       end
     end
-    
+
     # GET /org_admin/templates/new
     # -----------------------------------------------------
     def new
       authorize Template
-      render 'container', locals: { 
-        partial_path: 'new', 
+      render 'container', locals: {
+        partial_path: 'new',
         template: Template.new(org: current_user.org),
         referrer: request.referrer.present? ? request.referrer : org_admin_templates_path }
     end
-    
+
     # POST /org_admin/templates
     # -----------------------------------------------------
     def create
@@ -131,12 +130,12 @@ module OrgAdmin
         render partial: "org_admin/templates/new", locals: { template: template, hash: hash }
       end
     end
-    
+
     # PUT /org_admin/templates/:id (AJAXable)
     # -----------------------------------------------------
     def update
       template = Template.find(params[:id])
-      authorize template 
+      authorize template
       begin
         template.assign_attributes(template_params)
         template.links = ActiveSupport::JSON.decode(params["template-links"]) if params["template-links"].present?
@@ -152,7 +151,7 @@ module OrgAdmin
         render(status: :forbidden, json: { msg: e.message }) and return
       end
     end
-    
+
     # DELETE /org_admin/templates/:id
     # -----------------------------------------------------
     def destroy
@@ -179,14 +178,14 @@ module OrgAdmin
       template = Template.find(params[:id])
       authorize template
       templates = Template.where(family_id: template.family_id)
-      render 'history', locals: { 
-        templates: templates, 
+      render 'history', locals: {
+        templates: templates,
         query_params: { sort_field: 'templates.version', sort_direction: 'desc' },
         referrer: template.customization_of.present? ? customisable_org_admin_templates_path : organisational_org_admin_templates_path,
         current: templates.maximum(:version)
       }
     end
-    
+
     # POST /org_admin/templates/:id/customize
     # -----------------------------------------------------
     def customize
@@ -225,7 +224,7 @@ module OrgAdmin
         redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
       end
     end
-    
+
     # POST /org_admin/templates/:id/copy  (AJAX)
     # -----------------------------------------------------
     def copy
@@ -240,7 +239,7 @@ module OrgAdmin
         redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
       end
     end
-    
+
     # PATCH /org_admin/templates/:id/publish  (AJAX)
     # -----------------------------------------------------
     def publish
@@ -273,7 +272,7 @@ module OrgAdmin
       flash[:notice] = _("Successfully unpublished your #{template_type(template)}") unless flash[:alert].present?
       redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
     end
-    
+
     # GET /org_admin/template_options  (AJAX)
     # Collect all of the templates available for the org+funder combination
     # --------------------------------------------------------------------------
@@ -300,7 +299,7 @@ module OrgAdmin
             end
           end
         end
-        
+
         # If the no funder was specified OR the funder matches the org
         if funder_id.blank? || funder_id == org_id
           # Retrieve the Org's templates
@@ -317,31 +316,30 @@ module OrgAdmin
           templates << (customization.present? ? customization : default)
         end
       end
-      
+
       templates = (templates.count > 0 ? templates.sort{|x,y| x.title <=> y.title} : [])
       render json: {"templates": templates.collect{|t| {id: t.id, title: t.title} }}.to_json
     end
 
-    
-    # ======================================================
     private
+
     def plan_params
       params.require(:plan).permit(:org_id, :funder_id)
     end
-    
+
     def template_params
       params.require(:template).permit(:title, :description, :visibility, :links)
     end
-    
+
     def template_type(template)
       template.customization_of.present? ? _('customisation') : _('template')
     end
-   
+
     def get_referrer(template, referrer)
-      if referrer.present?  
-        if referrer.end_with?(new_org_admin_template_path) || referrer.end_with?(edit_org_admin_template_path) || referrer.end_with?(org_admin_template_path) 
-          template.customization_of.present? ? customisable_org_admin_templates_path : organisational_org_admin_templates_path 
-        else 
+      if referrer.present?
+        if referrer.end_with?(new_org_admin_template_path) || referrer.end_with?(edit_org_admin_template_path) || referrer.end_with?(org_admin_template_path)
+          template.customization_of.present? ? customisable_org_admin_templates_path : organisational_org_admin_templates_path
+        else
           request.referrer
         end
       else
