@@ -3,7 +3,6 @@ class PlansController < ApplicationController
   include ConditionalUserMailer
   helper PaginableHelper
   helper SettingsTemplateHelper
-  include FeedbacksHelper
 
   after_action :verify_authorized, except: [:overview]
 
