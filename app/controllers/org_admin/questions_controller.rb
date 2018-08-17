@@ -124,7 +124,12 @@ module OrgAdmin
     private
 
     def question_params
-      params.require(:question).permit(:number, :text, :question_format_id, :option_comment_display, :default_value, question_options_attributes: [:id, :number, :text, :is_default, :_destroy], annotations_attributes: [:id, :text, :org_id, :org, :type], theme_ids: [])
+      params.require(:question)
+            .permit(:number, :text, :question_format_id, :option_comment_display,
+                    :default_value,
+                    question_options_attributes: %i[id number text is_default _destroy],
+                    annotations_attributes: %i[id text org_id org type _destroy],
+                    theme_ids: [])
     end
 
     # When a template gets versioned by changes to one of its questions we need to loop
