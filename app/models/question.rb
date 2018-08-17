@@ -87,8 +87,7 @@ class Question < ActiveRecord::Base
                                   reject_if: -> (a) { a[:text].blank? }
 
   accepts_nested_attributes_for :annotations, allow_destroy: true,
-                                  reject_if: -> (a) { a[:text].blank? }
-
+                                  reject_if: proc { |a| a[:text].blank? && a[:id].blank? }
 
   # =====================
   # = Delegated methods =
