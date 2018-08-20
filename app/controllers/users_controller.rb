@@ -73,7 +73,7 @@ class UsersController < ApplicationController
       end
     end
 
-    if @user.save!
+    if @user.save
       if privileges_changed
         deliver_if(recipients: @user, key: 'users.admin_privileges') do |r|
           UserMailer.admin_privileges(r).deliver_now
@@ -118,7 +118,7 @@ class UsersController < ApplicationController
     end
     if org.present?
       current_user.org = org
-      if current_user.save!
+      if current_user.save
         redirect_to request.referer, notice: _('Your organisation affiliation has been changed. You may now edit templates for %{org_name}.') % {org_name: current_user.org.name}
       else
         redirect_to request.referer, alert: _('Unable to change your organisation affiliation at this time.')
