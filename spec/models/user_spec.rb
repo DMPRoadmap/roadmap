@@ -92,6 +92,67 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "#save" do
+
+    context "when org has changed and can change org" do
+
+      let!(:user) do
+        create(:user, other_organisation: "Foo bar", api_token: "barfoo")
+      end
+
+      subject { user.save }
+
+      before do
+        user.perms << create(:perm, :change_org_affiliation)
+        user.perms << create(:perm, :use_api)
+        user.perms << create(:perm, :modify_guidance)
+        user.perms << create(:perm, :modify_templates)
+        user.perms << create(:perm, :change_org_affiliation)
+        user.perms << create(:perm, :add_organisations)
+        user.org = create(:org)
+      end
+
+      it "sets other_organisation to nil" do
+        expect { subject }.to change { user.other_organisation }.to(nil)
+      end
+
+      it "doesn't destroy user roles" do
+        expect { user.save }.not_to change { user.perms.count }
+      end
+
+      it "doesn't reset api_token" do
+        expect { subject }.not_to change { user.api_token }
+      end
+    end
+
+    context "when org has changed and can not change org" do
+
+      let!(:user) do
+        create(:user, other_organisation: "Foo bar", api_token: "barfoo")
+      end
+
+      before do
+        user.perms << create(:perm, :use_api)
+        user.perms << create(:perm, :modify_guidance)
+        user.perms << create(:perm, :modify_templates)
+        user.org = create(:org)
+      end
+
+      it "sets other_organisation to nil" do
+        expect { user.save }.to change { user.other_organisation }.to(nil)
+      end
+
+      it "destroy's user perms" do
+        expect { user.save }.to change { user.perms.count }.to(0)
+      end
+
+      it "resets api_token to blank string" do
+        expect { user.save }.to change { user.api_token }.to(nil)
+      end
+    end
+
+  end
+
   describe "#get_locale" do
 
     let!(:user) { build(:user) }
@@ -423,7 +484,7 @@ RSpec.describe User, type: :model do
 
       let!(:user) { create(:user, api_token: "an token string") }
 
-      it { expect { subject }.to change { user.api_token }.to "" }
+      it { expect { subject }.to change { user.api_token }.to(nil) }
 
     end
 
@@ -437,7 +498,7 @@ RSpec.describe User, type: :model do
 
     context "when user is not a new record and api_token is an empty string" do
 
-      let!(:user) { create(:user, api_token: "") }
+      let!(:user) { create(:user, api_token: nil) }
 
       it { expect { subject }.not_to change { user.api_token } }
 
