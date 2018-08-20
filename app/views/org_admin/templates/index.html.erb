@@ -3,74 +3,109 @@
   <div class="col-md-12">
     <h1><%= _('Templates') %></h1>
   </div>
+
   <% if current_user.can_super_admin? %>
     <div class="col-md-12">
-      <p><%= _('If you would like to modify one of the templates below, you must first change your organisation affiliation.') %></p>
+      <p>
+        <%= _('If you would like to modify one of the templates below, you must first change your organisation affiliation.') %>
+      </p>
     </div>
     <div class="col-md-6">
-      <%= form_for current_user, url: org_swap_user_path(current_user), namespace: 'superadmin', html: {method: :put, id: 'super-admin-switch-org'} do |f| %>
-        <%= render partial: "shared/my_org", locals: {f: f, default_org: current_user.org, orgs: orgs, allow_other_orgs: false} %>
+      <%= form_for current_user, url: org_swap_user_path(current_user),
+                                 namespace: 'superadmin',
+                                 html: { id: 'super-admin-switch-org' } do |f| %>
+        <%= render partial: "shared/my_org",
+                   locals: { f: f,
+                             default_org: current_user.org,
+                             orgs: @orgs,
+                             allow_other_orgs: false
+                            } %>
         <%= f.submit _('Change affiliation'), class: 'btn btn-default' %>
       <% end %>
     </div>
   <% end %>
+
   <div class="col-md-12">
     <p>
       <%= _('If you wish to add an organisational template for a Data Management Plan, use the \'create template\' button. You can create more than one template if desired e.g. one for researchers and one for PhD students. Your template will be presented to users within your organisation when no funder templates apply. If you want to add questions to funder templates use the \'customise template\' options below.') %>
     </p>
   </div>
 </div>
+
 <div class="row">
   <div class="col-md-12">
     <ul class="nav nav-tabs" role="tablist">
+
       <% if current_user.can_super_admin? %>
-        <li role="presentation" <%= isActivePage(org_admin_templates_path, true) ? ' class=active' : '' %>>
+        <li role="presentation" class="<%= action_name == 'index' ? 'active' : '' %>">
           <%= link_to(_('All Templates'), org_admin_templates_path, { role: 'tab' }) %>
         </li>
       <% end %>
-      <li role="presentation" <%= isActivePage(organisational_org_admin_templates_path) ? ' class=active' : '' %>>
-        <% if current_user.can_super_admin? %>
-          <% link_text = _('%{org_name} Templates') % { org_name: current_user.org.name } %>
-        <% else %>
-          <% link_text = _('Own Templates') %>
+
+      <li role="presentation"
+          class="<%= action_name == 'organisational' ? 'active' : '' %>">
+
+        <%= link_to(organisational_org_admin_templates_path, { role: 'tab' }) do %>
+          <% if current_user.can_super_admin? %>
+            <% _('%{org_name} Templates') % { org_name: current_user.org.name } %>
+          <% else %>
+            <% _('Own Templates') %>
+          <% end %>
         <% end %>
-        <%= link_to(link_text, organisational_org_admin_templates_path, { role: 'tab' }) %>
+
       </li>
+
       <% if !current_user.org.funder_only? %>
-        <li role="presentation" <%= isActivePage(customisable_org_admin_templates_path) ? ' class=active' : '' %>>
-          <%= link_to(_('Customizable Templates'), customisable_org_admin_templates_path, { role: 'tab' }) %>
+        <li role="presentation"
+            class="<%= action_name == 'customisable' ? 'active' : '' %>">
+          <%= link_to(_('Customizable Templates'),
+              customisable_org_admin_templates_path, { role: 'tab' }) %>
         </li>
       <% end %>
     </ul>
-  
+
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active">
         <div class="panel panel-default">
           <div class="panel-body template-scope">
-            <h2><%= title %></h2>
+            <h2><%= @title %></h2>
             <div class="template-table-filters">
-              <% filter_path = "/paginable/templates/#{action}/#{1}" %>
-              <% qry = query_params.collect{ |k,v| "#{k}=#{v}" }.join('&') %>
+              <% filter_path = "/paginable/templates/#{action_name}/#{1}" %>
+              <% qry = @query_params.collect{ |k,v| "#{k}=#{v}" }.join('&') %>
               <ul class="nav navbar-nav">
-                <% if isActivePage(customisable_org_admin_templates_path) %>
-                  <li><%= link_to _('All (%{count})') % { count: all_count}, "#{filter_path}?#{qry}", 'data-remote': "true" %></li>
-                  <li><%= link_to _('Published (%{count})') % { count: published_count}, "#{filter_path}?f=published&#{qry}", 'data-remote': "true" %></li>
-                  <li><%= link_to _('Unpublished (%{count})') % { count: unpublished_count}, "#{filter_path}?f=unpublished&#{qry}", 'data-remote': "true" %></li>
-                  <li><%= link_to _('Not customised (%{count})') % { count: not_customized_count}, "#{filter_path}?f=not-customised&#{qry}", 'data-remote': "true" %></li>
+                <% if action_name == 'customisable' %>
+                  <li>
+                    <%= link_to _('All (%{count})') % { count: @all_count}, "#{filter_path}?#{qry}", 'data-remote': "true" %>
+                  </li>
+                  <li>
+                    <%= link_to _('Published (%{count})') % { count: @published_count}, "#{filter_path}?f=published&#{qry}", 'data-remote': "true" %>
+                  </li>
+                  <li>
+                    <%= link_to _('Unpublished (%{count})') % { count: @unpublished_count}, "#{filter_path}?f=unpublished&#{qry}", 'data-remote': "true" %>
+                  </li>
+                  <li>
+                    <%= link_to _('Not customised (%{count})') % { count: @not_customized_count}, "#{filter_path}?f=not-customised&#{qry}", 'data-remote': "true" %>
+                  </li>
                 <% else %>
-                  <li><%= link_to _('All (%{count})') % { count: all_count}, "#{filter_path}?#{qry}", 'data-remote': "true" %></li>
-                  <li><%= link_to _('Published (%{count})') % { count: published_count}, "#{filter_path}?f=published&#{qry}", 'data-remote': "true" %></li>
-                  <li><%= link_to _('Unpublished (%{count})') % { count: unpublished_count}, "#{filter_path}?f=unpublished&#{qry}", 'data-remote': "true" %></li>
+                  <li>
+                    <%= link_to _('All (%{count})') % { count: @all_count}, "#{filter_path}?#{qry}", 'data-remote': "true" %>
+                  </li>
+                  <li>
+                    <%= link_to _('Published (%{count})') % { count: @published_count}, "#{filter_path}?f=published&#{qry}", 'data-remote': "true" %>
+                  </li>
+                  <li>
+                    <%= link_to _('Unpublished (%{count})') % { count: @unpublished_count}, "#{filter_path}?f=unpublished&#{qry}", 'data-remote': "true" %>
+                  </li>
                 <% end %>
               </ul>
             </div>
             <%= paginable_renderise(
-                  partial: "paginable/templates/#{action}",
+                  partial: "paginable/templates/#{action_name}",
                   controller: 'paginable/templates',
-                  action: action, 
-                  scope: templates,
-                  query_params: query_params,
-                  locals: local_assigns) %>
+                  action: action_name,
+                  scope: @templates,
+                  query_params: @query_params,
+                  locals: { customizations: @customizations }) %>
           </div>
         </div>
       </div>

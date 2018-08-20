@@ -73,7 +73,7 @@
               </dl>
             <% else %>
               <h4> <%= _('Annotations') %> </h4>
-              <%= form_for(question, url: org_admin_template_phase_section_question_path(template_id: template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), namespace: question.id, html: { method: 'put', class: 'question_form' }) do |f| %>
+              <%= form_for(question, url: org_admin_template_phase_section_question_path(template_id: template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), html: { method: 'put', class: 'question_form' }) do |f| %>
                 <%# example_answer and guidance annotations as nested fields %>
                 <% question.annotations_per_org(current_user.org_id).each do |annotation| %>
                   <%= f.fields_for(:annotations, annotation) do |annotation_fields| %>
