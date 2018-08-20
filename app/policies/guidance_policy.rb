@@ -46,20 +46,4 @@ class GuidancePolicy < ApplicationPolicy
   def admin_unpublish?
     user.can_modify_guidance?
   end
-
-  def update_phases?
-    user.can_modify_guidance?
-  end
-
-  def update_versions?
-    user.can_modify_guidance?
-  end
-
-  def update_sections?
-    user.can_modify_guidance?
-  end
-
-  def update_questions?
-    user.can_modify_guidance?
-  end
 end

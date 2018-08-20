@@ -1,33 +1,4 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    resources :users,              only: [:new, :create, :edit, :update, :index, :show]
-    resources :orgs,               only: [:new, :create, :edit, :update, :index, :show]
-    resources :perms,              only: [:new, :create, :edit, :update, :index, :show]
-    resources :languages,          only: [:new, :create, :edit, :update, :index, :show]
-    resources :templates,          only: [:new, :create, :edit, :update, :index, :show]
-    resources :phases,             only: [:new, :create, :edit, :update, :index, :show]
-    resources :sections,           only: [:new, :create, :edit, :update, :index, :show]
-    resources :questions,          only: [:new, :create, :edit, :update, :index, :show]
-    resources :question_formats,   only: [:new, :create, :edit, :update, :index, :show]
-    resources :question_options,   only: [:new, :create, :edit, :update, :index, :show]
-    resources :annotations,        only: [:new, :create, :edit, :update, :index, :show]
-    resources :answers,            only: [:new, :create, :edit, :update, :index, :show]
-    resources :guidances,          only: [:new, :create, :edit, :update, :index, :show]
-    resources :guidance_groups,    only: [:new, :create, :edit, :update, :index, :show]
-    resources :themes,             only: [:new, :create, :edit, :update, :index, :show]
-    resources :notes,              only: [:new, :create, :edit, :update, :index, :show]
-    resources :plans,              only: [:new, :create, :edit, :update, :index, :show]
-    resources :identifier_schemes, only: [:new, :create, :edit, :update, :index, :show]
-    resources :exported_plans,     only: [:new, :create, :edit, :update, :index, :show]
-    resources :regions,            only: [:new, :create, :edit, :update, :index, :show]
-    resources :roles,              only: [:new, :create, :edit, :update, :index, :show]
-    resources :splash_logs,        only: [:new, :create, :edit, :update, :index, :show]
-    resources :user_identifiers,   only: [:new, :create, :edit, :update, :index, :show]
-resources :token_permission_types, only: [:new, :create, :edit, :update, :index, :show]
-#resources :plans_guidance_groups
-
-    root to: "users#index"
-  end
 
   devise_for :users, controllers: {
         registrations: "registrations",
@@ -37,17 +8,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         invitations: 'users/invitations' } do
 
     get "/users/sign_out", :to => "devise/sessions#destroy"
-  end
-
-
-  # WAYFless access point - use query param idp
-  #get 'auth/shibboleth' => 'users/omniauth_shibboleth_request#redirect', :as => 'user_omniauth_shibboleth'
-  #get 'auth/shibboleth/assoc' => 'users/omniauth_shibboleth_request#associate', :as => 'user_shibboleth_assoc'
-  #post '/auth/:provider/callback' => 'sessions#oauth_create'
-
-  # fix for activeadmin signout bug
-  devise_scope :user do
-    delete '/users/sign_out' => 'devise/sessions#destroy'
   end
 
   delete '/users/identifiers/:id', to: 'user_identifiers#destroy', as: 'destroy_user_identifier'
@@ -79,7 +39,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
 
-  patch 'locale/:locale' => 'application#set_locale_session', as: 'locale'
+  patch 'locale/:locale' => 'session_locales#update', as: 'locale'
 
   root :to => 'home#index'
     get "about_us" => 'static_pages#about_us'
@@ -91,16 +51,12 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     get "public_templates" => 'public_pages#template_index'
     get "template_export/:id" => 'public_pages#template_export', as: 'template_export'
     get "plan_export/:id" => 'public_pages#plan_export', as: 'plan_export'
-    get "existing_users" => 'existing_users#index'
 
     #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
     #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
 
     resources :orgs, :path => 'org/admin', only: [] do
       member do
-        get 'children'
-        get 'templates'
-        get 'admin_show'
         get 'admin_edit'
         put 'admin_update'
       end
@@ -108,7 +64,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
 
     resources :guidances, :path => 'org/admin/guidance', only: [] do
       member do
-        get 'admin_show'
         get 'admin_index'
         get 'admin_edit'
         get 'admin_new'
@@ -117,10 +72,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         put 'admin_update'
         put 'admin_publish'
         put 'admin_unpublish'
-        get 'update_phases'
-        get 'update_versions'
-        get 'update_sections'
-        get 'update_questions'
       end
     end
 
@@ -152,30 +103,15 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
 
     resources :plans do
       member do
-        get 'locked'
         get 'answer'
-        put 'update_guidance_choices'
-        post 'delete_recent_locks'
-        post 'lock_section', constraints: {format: [:html, :json]}
-        post 'unlock_section', constraints: {format: [:html, :json]}
-        post 'unlock_all_sections'
-        get 'warning'
-        get 'section_answers'
         get 'share'
         get 'download'
         post 'duplicate'
         get 'export'
-        post 'invite'
         post 'visibility', constraints: {format: [:json]}
         post 'set_test', constraints: {format: [:json]}
         get 'request_feedback'
         get 'overview'
-        get 'phase_status'
-      end
-
-      collection do
-        get 'possible_templates'
-        get 'possible_guidance'
       end
     end
 
@@ -190,8 +126,6 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
     namespace :settings do
       resources :plans, only: [:update]
     end
-
-    resources :token_permission_types, only: [:index]
 
     namespace :api, defaults: {format: :json} do
       namespace :v0 do
@@ -288,16 +222,14 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
         end
       end
 
-      resources :annotations, only: [:create, :destroy, :update] do ; end
-
       get 'template_options' => 'templates#template_options', constraints: {format: [:json]}
       get 'download_plans' => 'plans#download_plans'
     end
 
     namespace :super_admin do
-      resources :orgs, only: [:index, :new, :create, :edit, :update, :destroy]
+      resources :orgs, only: [:index, :new, :create, :destroy]
       resources :themes, only: [:index, :new, :create, :edit, :update, :destroy]
       resources :users, only: [:edit, :update]
-      resources :notifications
+      resources :notifications, except: [:show]
     end
 end
