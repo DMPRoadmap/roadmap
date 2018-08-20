@@ -4,13 +4,17 @@ class ApplicationController < ActionController::Base
   # Look for template overrides before rendering
   before_filter :prepend_view_paths
 
+  before_filter :set_gettext_locale
+
+  after_filter :store_location
 
   include GlobalHelpers
   include Pundit
   helper_method GlobalHelpers.instance_methods
 
-
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
+  private
 
   def user_not_authorized
     if user_signed_in?
@@ -20,21 +24,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  before_filter :set_gettext_locale
-
-  after_filter :store_location
-
   # Sets FastGettext locale for every request made
   def set_gettext_locale
     FastGettext.locale = session[:locale] || FastGettext.default_locale
-  end
-
-  # PATCH /locale/:locale REST method
-  def set_locale_session
-    if FastGettext.default_available_locales.include?(params[:locale])
-      session[:locale] = params[:locale]
-    end
-    redirect_to(request.referer || root_path) #redirects the user to URL where she/he was when the request to this resource was made or root if none is encountered
   end
 
   def store_location
@@ -95,8 +87,6 @@ class ApplicationController < ActionController::Base
   def success_message(obj_name, action)
     "#{_('Successfully %{action} your %{object}.') % {object: obj_name, action: action}}"
   end
-
-  private
 
   # Override rails default render action to look for a branded version of a
   # template instead of using the default one. If no override exists, the
