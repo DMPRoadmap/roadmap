@@ -1,5 +1,7 @@
 module GlobalHelpers
 
+  private
+
   ##
   # Takes in a string which is meant to be constant, and looks it up in the default
   # (en_GB) locale.  This should ensure that the back-end remains constant and
