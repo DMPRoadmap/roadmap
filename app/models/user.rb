@@ -132,7 +132,11 @@ class User < ActiveRecord::Base
   # = Callbacks =
   # =============
 
-  after_update :when_org_changes
+  before_update :clear_other_organisation, if: :org_id_changed?
+
+  after_update :delete_perms!, if: :org_id_changed?, unless: :can_change_org?
+
+  after_update :remove_token!, if: :org_id_changed?, unless: :can_change_org?
 
   # =================
   # = Class methods =
@@ -277,9 +281,8 @@ class User < ActiveRecord::Base
   # Returns nil
   # Returns Boolean
   def remove_token!
-    unless api_token.blank?
-      update_column(:api_token, "") unless new_record?
-    end
+    return if new_record?
+    update_column(:api_token, nil)
   end
 
   # Generates a new token for the user unless the user already has a token.
@@ -356,12 +359,11 @@ class User < ActiveRecord::Base
   # = Private instance methods =
   # ============================
 
-  def when_org_changes
-    if org_id != org_id_was
-      unless can_change_org?
-        perms.delete_all
-        remove_token!
-      end
-    end
+  def delete_perms!
+    perms.destroy_all
+  end
+
+  def clear_other_organisation
+    self.other_organisation = nil
   end
 end
