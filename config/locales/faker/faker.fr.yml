@@ -29,12 +29,12 @@ fr:
       - breton
       - bulgare
       - birman
-      - catalan; valencien
+      - catalan
       - tchèque
       - chamorro
       - tchétchène
       - chinois
-      - slavon d'église; vieux slave; slavon liturgique; vieux bulgare
+      - slavon d'église
       - tchouvache
       - cornique
       - corse
@@ -44,9 +44,9 @@ fr:
       - danois
       - allemand
       - maldivien
-      - néerlandais; flamand
+      - néerlandais
       - dzongkha
-      - grec moderne (après 1453)
+      - grec moderne
       - anglais
       - espéranto
       - estonien
@@ -62,14 +62,14 @@ fr:
       - peul
       - géorgien
       - allemand
-      - gaélique; gaélique écossais
+      - gaélique
       - irlandais
       - galicien
-      - manx; mannois
-      - grec moderne (après 1453)
+      - manx
+      - grec
       - guarani
       - goudjrati
-      - haïtien; créole haïtien
+      - haïtien
       - haoussa
       - hébreu
       - herero
@@ -84,7 +84,7 @@ fr:
       - yi de Sichuan
       - inuktitut
       - interlingue
-      - interlingua (langue auxiliaire internationale)
+      - interlingua
       - indonésien
       - inupiaq
       - islandais
@@ -104,7 +104,7 @@ fr:
       - kom
       - kongo
       - coréen
-      - kuanyama; kwanyama
+      - kuanyama
       - kurde
       - lao
       - latin
@@ -134,12 +134,12 @@ fr:
       - ndébélé du Nord
       - ndonga
       - népalais
-      - néerlandais; flamand
-      - norvégien nynorsk; nynorsk, norvégien
+      - néerlandais
+      - norvégien nynorsk
       - norvégien bokmål
       - norvégien
-      - chichewa; chewa; nyanja
-      - occitan (après 1500)
+      - chichewa
+      - occitan
       - ojibwa
       - oriya
       - galla
@@ -152,8 +152,8 @@ fr:
       - pachto
       - quechua
       - romanche
-      - roumain; moldave
-      - roumain; moldave
+      - roumain
+      - roumain
       - rundi
       - russe
       - sango
@@ -168,7 +168,7 @@ fr:
       - sindhi
       - somali
       - sotho du Sud
-      - espagnol; castillan
+      - espagnol
       - albanais
       - sarde
       - serbe
@@ -185,7 +185,7 @@ fr:
       - thaï
       - tibétain
       - tigrigna
-      - tongan (Îles Tonga)
+      - tongan
       - tswana
       - tsonga
       - turkmène
@@ -204,7 +204,7 @@ fr:
       - xhosa
       - yiddish
       - yoruba
-      - zhuang; chuang
+      - zhuang
       - chinois
       - zoulou
       abbreviations:

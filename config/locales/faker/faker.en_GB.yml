@@ -34,7 +34,7 @@ en_GB:
       - Chamorro
       - Chechen
       - Chinese
-      - Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+      - Church Slavic
       - Chuvash
       - Cornish
       - Corsican
@@ -43,10 +43,10 @@ en_GB:
       - Czech
       - Danish
       - German
-      - Divehi; Dhivehi; Maldivian
-      - Dutch; Flemish
+      - Divehi
+      - Dutch
       - Dzongkha
-      - Greek, Modern (1453-)
+      - Greek
       - English
       - Esperanto
       - Estonian
@@ -62,14 +62,13 @@ en_GB:
       - Fulah
       - Georgian
       - German
-      - Gaelic; Scottish Gaelic
+      - Gaelic
       - Irish
       - Galician
       - Manx
-      - Greek, Modern (1453-)
       - Guarani
       - Gujarati
-      - Haitian; Haitian Creole
+      - Haitian
       - Hausa
       - Hebrew
       - Herero
@@ -81,38 +80,38 @@ en_GB:
       - Igbo
       - Icelandic
       - Ido
-      - Sichuan Yi; Nuosu
+      - Sichuan Yi
       - Inuktitut
-      - Interlingue; Occidental
-      - Interlingua (International Auxiliary Language Association)
+      - Interlingue
+      - Interlingua
       - Indonesian
       - Inupiaq
       - Icelandic
       - Italian
       - Javanese
       - Japanese
-      - Kalaallisut; Greenlandic
+      - Kalaallisut
       - Kannada
       - Kashmiri
       - Georgian
       - Kanuri
       - Kazakh
       - Central Khmer
-      - Kikuyu; Gikuyu
+      - Kikuyu
       - Kinyarwanda
-      - Kirghiz; Kyrgyz
+      - Kirghiz
       - Komi
       - Kongo
       - Korean
-      - Kuanyama; Kwanyama
+      - Kuanyama
       - Kurdish
       - Lao
       - Latin
       - Latvian
-      - Limburgan; Limburger; Limburgish
+      - Limburgan
       - Lingala
       - Lithuanian
-      - Luxembourgish; Letzeburgesch
+      - Luxembourgish
       - Luba-Katanga
       - Ganda
       - Macedonian
@@ -129,36 +128,36 @@ en_GB:
       - Malay
       - Burmese
       - Nauru
-      - Navajo; Navaho
-      - Ndebele, South; South Ndebele
-      - Ndebele, North; North Ndebele
+      - Navajo
+      - Ndebele
+      - Ndebele
       - Ndonga
       - Nepali
-      - Dutch; Flemish
-      - Norwegian Nynorsk; Nynorsk, Norwegian
-      - Bokmål, Norwegian; Norwegian Bokmål
+      - Dutch
+      - Norwegian Nynorsk
+      - Bokmål
       - Norwegian
-      - Chichewa; Chewa; Nyanja
-      - Occitan (post 1500)
+      - Chichewa
+      - Occitan
       - Ojibwa
       - Oriya
       - Oromo
-      - Ossetian; Ossetic
-      - Panjabi; Punjabi
+      - Ossetian
+      - Panjabi
       - Persian
       - Pali
       - Polish
       - Portuguese
-      - Pushto; Pashto
+      - Pushto
       - Quechua
       - Romansh
-      - Romanian; Moldavian; Moldovan
-      - Romanian; Moldavian; Moldovan
+      - Romanian
+      - Romanian
       - Rundi
       - Russian
       - Sango
       - Sanskrit
-      - Sinhala; Sinhalese
+      - Sinhala
       - Slovak
       - Slovak
       - Slovenian
@@ -167,8 +166,8 @@ en_GB:
       - Shona
       - Sindhi
       - Somali
-      - Sotho, Southern
-      - Spanish; Castilian
+      - Sotho
+      - Spanish
       - Albanian
       - Sardinian
       - Serbian
@@ -185,13 +184,13 @@ en_GB:
       - Thai
       - Tibetan
       - Tigrinya
-      - Tonga (Tonga Islands)
+      - Tonga
       - Tswana
       - Tsonga
       - Turkmen
       - Turkish
       - Twi
-      - Uighur; Uyghur
+      - Uighur
       - Ukrainian
       - Urdu
       - Uzbek
@@ -204,7 +203,7 @@ en_GB:
       - Xhosa
       - Yiddish
       - Yoruba
-      - Zhuang; Chuang
+      - Zhuang
       - Chinese
       - Zulu
       abbreviations:
