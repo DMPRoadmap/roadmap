@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 module OrgAdmin
+
   class PhasesController < ApplicationController
+
     include Versionable
 
     after_action :verify_authorized
@@ -9,18 +13,19 @@ module OrgAdmin
       phase = Phase.includes(:template, :sections).order(:number).find(params[:id])
       authorize phase
       if !phase.template.latest?
-        flash[:notice] = _('You are viewing a historical version of this template. You will not be able to make changes.')
+        # rubocop:disable Metrics/LineLength
+        flash[:notice] = _("You are viewing a historical version of this template. You will not be able to make changes.")
+        # rubocop:enable Metrics/LineLength
       end
-      section = params.fetch(:section, nil)
-      render('container',
+      render("container",
         locals: {
-          partial_path: 'show',
+          partial_path: "show",
           template: phase.template,
           phase: phase,
           prefix_section: phase.prefix_section,
           sections: phase.template_sections.order(:number),
           suffix_sections: phase.suffix_sections.order(:number),
-          current_section: section.present? ? Section.find_by(id: section, phase_id: phase.id) : nil
+          current_section: Section.find_by(id: params[:section], phase_id: phase.id)
         })
     end
 
@@ -28,20 +33,23 @@ module OrgAdmin
     def edit
       phase = Phase.includes(:template).find(params[:id])
       authorize phase
-      section = params.fetch(:section, nil)
       # User cannot edit a phase if its a customization so redirect to show
       if phase.template.customization_of.present? || !phase.template.latest?
-        redirect_to org_admin_template_phase_path(template_id: phase.template, id: phase.id, section: section)
+        redirect_to org_admin_template_phase_path(
+          template_id: phase.template,
+          id: phase.id,
+          section: params[:section]
+        )
       else
-        render('container',
+        render("container",
           locals: {
-            partial_path: 'edit',
+            partial_path: "edit",
             template: phase.template,
             phase: phase,
             prefix_section: phase.prefix_section,
             sections: phase.sections.order(:number).select(:id, :title, :modifiable),
             suffix_sections: phase.suffix_sections.order(:number),
-            current_section: section.present? ? Section.find_by(id: section, phase_id: phase.id) : nil
+            current_section: Section.find_by(id: params[:section], phase_id: phase.id)
           })
       end
     end
@@ -51,7 +59,7 @@ module OrgAdmin
     def preview
       phase = Phase.includes(:template).find(params[:id])
       authorize phase
-      render('/org_admin/phases/preview',
+      render("/org_admin/phases/preview",
         locals: {
           template: phase.template,
           phase: phase
@@ -70,15 +78,21 @@ module OrgAdmin
           number: (nbr.present? ? nbr + 1 : 1)
         )
         authorize phase
-        render('/org_admin/templates/container',
+        local_referrer = if request.referrer.present?
+                           request.referrer
+                         else
+                           org_admin_templates_path
+                         end
+        render("/org_admin/templates/container",
           locals: {
-            partial_path: 'new',
+            partial_path: "new",
             template: template,
             phase: phase,
-            referrer: request.referrer.present? ? request.referrer : org_admin_templates_path
+            referrer: local_referrer
           })
       else
-        render org_admin_templates_path, alert: _('You canot add a phase to a historical version of a template.')
+        render org_admin_templates_path,
+               alert: _("You canot add a phase to a historical version of a template.")
       end
     end
 
@@ -92,17 +106,18 @@ module OrgAdmin
         phase = get_new(phase)
         phase.modifiable = true
         if phase.save
-          flash[:notice] = success_message(_('phase'), _('created'))
+          flash[:notice] = success_message(_("phase"), _("created"))
         else
-          flash[:alert] = failed_create_error(phase, _('phase'))
+          flash[:alert] = failed_create_error(phase, _("phase"))
         end
       rescue StandardError => e
-        flash[:alert] = _('Unable to create a new version of this template.')
+        flash[:alert] = _("Unable to create a new version of this template.")
       end
       if flash[:alert].present?
         redirect_to edit_org_admin_template_path(id: phase.template_id)
       else
-        redirect_to edit_org_admin_template_phase_path(template_id: phase.template.id, id: phase.id)
+        redirect_to edit_org_admin_template_phase_path(template_id: phase.template.id,
+                                                       id: phase.id)
       end
     end
 
@@ -114,14 +129,15 @@ module OrgAdmin
       begin
         phase = get_modifiable(phase)
         if phase.update(phase_params)
-          flash[:notice] = success_message(_('phase'), _('updated'))
+          flash[:notice] = success_message(_("phase"), _("updated"))
         else
-          flash[:alert] = failed_update_error(phase, _('phase'))
+          flash[:alert] = failed_update_error(phase, _("phase"))
         end
       rescue StandardError => e
-        flash[:alert] = _('Unable to create a new version of this template.')
+        flash[:alert] = _("Unable to create a new version of this template.")
       end
-      redirect_to edit_org_admin_template_phase_path(template_id: phase.template.id, id: phase.id)
+      redirect_to edit_org_admin_template_phase_path(template_id: phase.template.id,
+                                                     id: phase.id)
     end
 
     def sort
@@ -140,12 +156,12 @@ module OrgAdmin
         phase = get_modifiable(phase)
         template = phase.template
         if phase.destroy!
-          flash[:notice] = success_message(_('phase'), _('deleted'))
+          flash[:notice] = success_message(_("phase"), _("deleted"))
         else
-          flash[:alert] = failed_destroy_error(phase, _('phase'))
+          flash[:alert] = failed_destroy_error(phase, _("phase"))
         end
       rescue StandardError => e
-        flash[:alert] = _('Unable to create a new version of this template.')
+        flash[:alert] = _("Unable to create a new version of this template.")
       end
 
       if flash[:alert].present?
@@ -156,8 +172,11 @@ module OrgAdmin
     end
 
     private
-      def phase_params
-        params.require(:phase).permit(:title, :description, :number)
-      end
+
+    def phase_params
+      params.require(:phase).permit(:title, :description, :number)
+    end
+
   end
+
 end
