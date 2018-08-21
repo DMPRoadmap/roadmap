@@ -40,7 +40,7 @@ module ApplicationHelper
 
   def unique_dom_id(record, prefix = nil)
     klass     = dom_class(record, prefix)
-    record_id = record_key_for_dom_id(record) || SecureRandom.hex(4)
+    record_id = record_key_for_dom_id(record) || record.object_id
     "#{klass}_#{record_id}"
   end
 end
