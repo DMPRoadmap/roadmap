@@ -52,17 +52,21 @@ module OrgAdmin
       # We use this to validate the counts below in the event that a template was customized but the base template
       # org is no longer a funder
       funder_template_families = funder_templates.collect(&:family_id)
+      customizations = customizations.select { |t|
+                  funder_template_families.include?(t.customization_of) }
       published = customizations.select { |t| t.published? || t.draft? }.length
 
       @orgs                 = current_user.can_super_admin? ? Org.all : []
       @title                = _('Customizable Templates')
       @templates            = funder_templates
+      # filter only customizations of valid(published) funder templates
       @customizations       = customizations
+      published = @customizations.select { |t| t.published? || t.draft? }.length
       @query_params         = { sort_field: 'templates.title', sort_direction: 'asc' }
       @all_count            = funder_templates.length
       @published_count      = published.present? ? published : 0
       @unpublished_count    = published.present? ? (customizations.length - published) : customizations.length
-      @not_customized_count = funder_templates.length - customizations.length
+      @not_customized_count = funder_templates.length - @customizations.length
 
       render :index
     end
