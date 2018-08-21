@@ -8,6 +8,7 @@
         <th class="sorter-false"><%= d_('dmpopidor', 'Description') %></th>
         <th><%= _('Last Updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
         <th class="sorter-false text-center"><%= _('Download') %></th>
+        <th><%= _('Actions') %></th>
       </tr>
     </thead>
     <tbody>
@@ -22,8 +23,14 @@
             <%= link_to _('DOCX'), template_export_path(template.family_id, format: :docx), target: '_blank' %><br>
             <%= link_to _('PDF'), template_export_path(template.family_id, format: :pdf), target: '_blank' %>
           </td>
+          <td class="text-center">
+            <%= direct_link(template) %>
+            <a href="" class="copy-link" data-toggle="modal" data-target="#link-modal"><span class="fa fa-clipboard"></span></a>
+          </td>
         </tr>
       <% end %>
     </tbody>
   </table>
 </div>
+
+<%= render 'shared/copy_link_modal' %>
