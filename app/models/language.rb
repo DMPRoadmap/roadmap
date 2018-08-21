@@ -57,4 +57,8 @@ class Language < ActiveRecord::Base
   scope :id_for, -> (abbreviation) {
     where(abbreviation: abbreviation).pluck(:id).first
   }
+
+  def self.many?
+    Rails.cache.fetch([model_name, "many?"], expires_in: 1.hour) { all.many? }
+  end
 end
