@@ -11,9 +11,9 @@
 
 FactoryBot.define do
   factory :language do
-    name "English"
-    description "Test language English"
-    abbreviation { ("a".."z").to_a.shuffle.take(2).join }
+    name { Faker::Language.name }
+    description { "Language for #{name}" }
+    abbreviation { Faker::Language.abbreviation }
     default_language false
     trait :with_dialect do
       abbreviation {

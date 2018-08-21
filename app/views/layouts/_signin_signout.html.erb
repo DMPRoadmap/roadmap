@@ -1,5 +1,5 @@
 <!-- language dropdown -->
-<% if MANY_LANGUAGES %>
+<% if Language.many? %>
   <li class="dropdown" id="change-language">
     <a href="#" class="dropdown-toggle" role="button" id="language-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <i class="fa fa-language" aria-hidden="true">&nbsp;</i>
@@ -7,7 +7,7 @@
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu inverse-dropdown" aria-labelledby="language-menu">
-      <% LANGUAGES.each do |l| %>
+      <% languages.each do |l| %>
         <li <%= 'class=active' if FastGettext.locale == l.abbreviation %>>
           <%= link_to l.name, locale_path(l.abbreviation), method: :patch %>
         </li>
