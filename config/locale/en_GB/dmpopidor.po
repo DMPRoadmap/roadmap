@@ -162,3 +162,6 @@ msgstr "Learn more"
 
 msgid "You"
 msgstr "You"
+
+msgid "Copy link"
+msgstr "Copy link"
