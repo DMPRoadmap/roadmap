@@ -11,7 +11,8 @@
   <% guidance_groups_by_theme.each_pair do |guidance_group, theme_hash| %>
     <% guidances_output = [] %>
     <% theme_hash.each_pair do |theme, guidances| %>
-      <% if (guidances.map{|g| g.id} - guidances_output).any? # any not output%>
+      <%# if guidances with this theme have not been output %>
+      <% if (guidances.map(&:id) - guidances_output).any? %>
         <div class="panel panel-default">
           <div
             class="heading-button"
