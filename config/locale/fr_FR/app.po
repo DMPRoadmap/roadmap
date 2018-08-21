@@ -534,7 +534,7 @@ msgid "Create or connect your ORCID iD"
 msgstr "Créer ou connecter votre identifiant ORCID"
 
 msgid "Create plan"
-msgstr "Create plan"
+msgstr "Créer un plan"
 
 msgid "Create plans"
 msgstr "Créer un plan"
