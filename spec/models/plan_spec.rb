@@ -732,10 +732,13 @@ describe Plan do
 
     subject { plan }
 
-    context "when User has super admin permission" do
+    context "when User is Super admin & system permission" do
 
       before do
         user.perms << create(:perm, name: "add_organisations")
+        Branding.expects(:fetch)
+                .with(:service_configuration, :plans, :super_admins_read_all)
+                .returns(true)
       end
 
       it { is_expected.to be_readable_by(user) }
