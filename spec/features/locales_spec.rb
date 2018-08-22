@@ -4,14 +4,24 @@ RSpec.feature "Locales", type: :feature, js: true do
 
   let!(:languages) {
     [
-      Language.where(default_language: true, name: "English", abbreviation: "en_GB").first_or_create,
-      Language.where(default_language: false, name: "German", abbreviation: "de").first_or_create
+      Language.where(
+        default_language: true,
+        name: "English",
+        abbreviation: "en_GB"
+      ).first_or_create,
+
+      Language.where(
+        default_language: false,
+        name: "German",
+        abbreviation: "de"
+      ).first_or_create
     ]
   }
 
   let!(:user) { create(:user, language: languages.first) }
 
   before do
+    Rails.application.config.i18n.available_locales << languages.last.abbreviation
     FastGettext.default_available_locales << languages.last.abbreviation
     sign_in(user)
   end
