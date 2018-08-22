@@ -57,13 +57,10 @@ module OrgAdmin
     # preview a phase
     # GET /org_admin/phases/[:id]/preview
     def preview
-      phase = Phase.includes(:template).find(params[:id])
-      authorize phase
-      render("/org_admin/phases/preview",
-        locals: {
-          template: phase.template,
-          phase: phase
-        })
+      @phase              = Phase.includes(:template).find(params[:id])
+      authorize @phase
+      @template           = @phase.template
+      @guidance_presenter = GuidancePresenter.new(Plan.new(template: @phase.template))
     end
 
     # add a new phase to a passed template
