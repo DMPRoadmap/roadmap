@@ -16,9 +16,10 @@
       <%= paginable_renderise(
         partial: '/paginable/users/index',
         controller: 'paginable/users',
-        action: 'index', 
+        action: 'index',
         scope: @users,
-        view_all: !current_user.can_super_admin?) %>
+        view_all: !current_user.can_super_admin?,
+        query_params: { sort_field: 'users.last_sign_in_at', sort_direction: 'DESC' }) %>
     </div>
   </div>
 </div>
