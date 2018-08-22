@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180813114813) do
+ActiveRecord::Schema.define(version: 20180815180221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -318,7 +318,6 @@ ActiveRecord::Schema.define(version: 20180813114813) do
     t.text     "links"
   end
 
-  add_index "templates", ["customization_of", "version", "org_id"], name: "index_templates_on_customization_of_and_version_and_org_id", unique: true, using: :btree
   add_index "templates", ["family_id", "version"], name: "index_templates_on_family_id_and_version", unique: true, using: :btree
   add_index "templates", ["family_id"], name: "index_templates_on_family_id", using: :btree
   add_index "templates", ["org_id", "family_id"], name: "template_organisation_dmptemplate_index", using: :btree
