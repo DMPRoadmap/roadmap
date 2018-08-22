@@ -74,7 +74,11 @@
                   <% end %>
                 <% end %>
               <% else %>
-                <li><%= link_to _('Customise'), customize_org_admin_template_path(template.id), 'data-method': 'post' %></li>
+                <li>
+                  <%= link_to _('Customise'),
+                      org_admin_template_customizations_path(template.id),
+                      'data-method': 'post' %>
+                </li>
               <% end %>
             </ul>
           </div>

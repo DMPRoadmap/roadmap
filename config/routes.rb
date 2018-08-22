@@ -194,9 +194,11 @@ Rails.application.routes.draw do
         end
       end
       resources :templates, only: [:index, :show, :new, :edit, :create, :update, :destroy] do
+
+        resources :customizations, only: [:create], controller: "template_customizations"
+
         member do
           get 'history'
-          post 'customize'
           post 'transfer_customization'
           post 'copy', action: :copy, constraints: {format: [:json]}
           patch 'publish', action: :publish, constraints: {format: [:json]}
