@@ -161,3 +161,6 @@ msgstr "En savoir plus"
 
 msgid "You"
 msgstr "Vous"
+
+msgid "Copy link"
+msgstr "Copier le lien"

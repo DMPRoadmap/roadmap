@@ -2,12 +2,12 @@ class UserMailerPreview < ActionMailer::Preview
   def initialize
     @org = Org.first
     @recipient = User.new(email: "recipient@example.org", firstname: "Test", surname: "Recipient",
-                              password: "password123", password_confirmation: "password123", org: @org, 
+                              password: "password123", password_confirmation: "password123", org: @org,
                               accept_terms: true, confirmed_at: Time.zone.now)
     @requestor = User.new(email: "requestor@example.org", firstname: "Test", surname: "Requestor",
-                              password: "password123", password_confirmation: "password123", org: @org, 
+                              password: "password123", password_confirmation: "password123", org: @org,
                               accept_terms: true, confirmed_at: Time.zone.now)
-    @template = Template.new(title: 'Test template', description: 'My test template', org: @org, 
+    @template = Template.new(title: 'Test template', description: 'My test template', org: @org,
                                  archived: false, family_id: "9999999")
     @plan = Plan.new(template: @template, title: 'Test Plan', grant_number: 'Grant-123',
                      principal_investigator: 'Researcher', principal_investigator_identifier: 'researcher-1234',
@@ -19,7 +19,7 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.welcome_notification(@requestor)
   end
   def sharing_notification
-    UserMailer.sharing_notification(@role, @recipient)
+    UserMailer.sharing_notification(@role, @recipient, inviter: @requestor)
   end
   def permissions_change_notification
     UserMailer.permissions_change_notification(@role, @recipient)

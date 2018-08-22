@@ -164,3 +164,6 @@ msgstr ""
 
 msgid "You"
 msgstr ""
+
+msgid "Copy link"
+msgstr ""

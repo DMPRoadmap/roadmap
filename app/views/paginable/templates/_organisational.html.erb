@@ -3,14 +3,14 @@
   <table class="table table-hover table-bordered">
     <thead>
       <tr>
-        <th><%= _('Template Name') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
+        <th scope="col"><%= _('Template Name') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
         <% if action == 'organisational' %>
-          <th><%= _('Description') %>&nbsp;<%= paginable_sort_link('templates.description') %></th>
+          <th scope="col"><%= _('Description') %>&nbsp;<%= paginable_sort_link('templates.description') %></th>
         <% else %>
-          <th><%= (action == 'customizable' ? _('Funder') : _('Organisation')) %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
+          <th scope="col"><%= (action == 'customizable' ? _('Funder') : _('Organisation')) %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
         <% end %>
-        <th><%= _('Status') %></th>
-        <th><%= _('Edited Date') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
+        <th scope="col"><%= _('Status') %></th>
+        <th scope="col"><%= _('Edited Date') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
         <% if action != 'index' %>
           <th>&nbsp;</th>
         <% end %>
