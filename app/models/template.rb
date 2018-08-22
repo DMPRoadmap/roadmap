@@ -20,11 +20,10 @@
 #
 # Indexes
 #
-#  index_templates_on_customization_of_and_version_and_org_id  (customization_of,version,org_id) UNIQUE
-#  index_templates_on_family_id                                (family_id)
-#  index_templates_on_family_id_and_version                    (family_id,version) UNIQUE
-#  index_templates_on_org_id                                   (org_id)
-#  template_organisation_dmptemplate_index                     (org_id,family_id)
+#  index_templates_on_family_id              (family_id)
+#  index_templates_on_family_id_and_version  (family_id,version) UNIQUE
+#  index_templates_on_org_id                 (org_id)
+#  template_organisation_dmptemplate_index   (org_id,family_id)
 #
 # Foreign Keys
 #
@@ -288,8 +287,9 @@ class Template < ActiveRecord::Base
     end
   end
 
-  # Returns whether or not this is the latest version of the current template's
-  # family
+  # Is this the latest version of the current Template's family?
+  #
+  # Returns Boolean
   def latest?
     id == Template.latest_version(family_id).pluck(:id).first
   end
@@ -365,12 +365,12 @@ class Template < ActiveRecord::Base
   def customize!(customizing_org)
     # Assume customizing_org is persisted
     unless customizing_org.is_a?(Org)
-      raise _('customize! requires an organisation target')
+      raise ArgumentError, _('customize! requires an organisation target')
     end
 
     # Assume self has org associated
     if !org.funder_only? && !is_default
-      raise _('customize! requires a template from a funder')
+      raise ArgumentError, _('customize! requires a template from a funder')
     end
 
     customization = deep_copy(
