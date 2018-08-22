@@ -12,7 +12,7 @@
 
   <div class="col-xs-12">
     <ul class="list-unstyled">
-      <% phase.sections.each do |s| %>
+      <% phase.sections.order(:number).each do |s| %>
         <li class="mb-5">
           <%= s.title %>
           <ul>
