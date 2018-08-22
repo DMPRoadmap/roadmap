@@ -8,8 +8,6 @@ class OrgAdmin::PhaseVersionsController < ApplicationController
     @phase = Phase.find(params[:phase_id])
     authorize @phase, :create?
     @new_phase = get_modifiable(@phase)
-    @new_phase.modifiable = true
-    @new_phase.save!
     flash[:notice] = if @new_phase == @phase
                        "This template is already a draft"
                      else
