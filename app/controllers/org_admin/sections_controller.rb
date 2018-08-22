@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 module OrgAdmin
+
   class SectionsController < ApplicationController
+
     include Versionable
 
     respond_to :html
@@ -9,8 +13,10 @@ module OrgAdmin
     def index
       authorize Section.new
       phase = Phase.includes(:template, :sections).find(params[:phase_id])
-      edit = phase.template.latest? && (current_user.can_modify_templates?  &&  (phase.template.org_id == current_user.org_id))
-      render partial: 'index',
+      edit = phase.template.latest? &&
+             (current_user.can_modify_templates? &&
+             (phase.template.org_id == current_user.org_id))
+      render partial: "index",
         locals: {
           template: phase.template,
           phase: phase,
@@ -27,8 +33,9 @@ module OrgAdmin
     def show
       section = Section.find(params[:id])
       authorize section
-      section = Section.includes(questions: [:annotations, :question_options]).find(params[:id])
-      render partial: 'show', locals: {
+      section = Section.includes(questions: [:annotations, :question_options])
+                       .find(params[:id])
+      render partial: "show", locals: {
         template: Template.find(params[:template_id]),
         section: section
       }
@@ -36,10 +43,18 @@ module OrgAdmin
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/edit
     def edit
-      section = Section.includes({ phase: :template }, { questions: [:question_options, { annotations: :org }] }).find(params[:id])
+      section = Section.includes(phase: :template,
+                                 questions: [:question_options, { annotations: :org }])
+                       .find(params[:id])
       authorize section
-      # User cannot edit a section if its not modifiable or the template is not the latest redirect to show
-      render partial: (section.modifiable? && section.phase.template.latest? ? 'edit' : 'show'),
+      # User cannot edit a section if its not modifiable or the template is not the
+      # latest redirect to show
+      partial_name = if section.modifiable? && section.phase.template.latest?
+                       "edit"
+                     else
+                       "show"
+                     end
+      render partial: partial_name,
         locals: {
           template: section.phase.template,
           phase: section.phase,
@@ -56,18 +71,29 @@ module OrgAdmin
         begin
           section = get_new(section)
           if section.save
-            flash[:notice] = success_message(_('section'), _('created'))
-            redirect_to edit_org_admin_template_phase_path(template_id: section.phase.template.id, id: section.phase.id, section: section.id)
+            flash[:notice] = success_message(_("section"), _("created"))
+            redirect_to edit_org_admin_template_phase_path(
+              id: section.phase.id,
+              template_id: section.phase.template.id,
+              section: section.id)
           else
-            flash[:alert] = failed_create_error(section, _('section'))
-            redirect_to edit_org_admin_template_phase_path(template_id: section.phase.template.id, id: section.phase.id)
+            flash[:alert] = failed_create_error(section, _("section"))
+            redirect_to edit_org_admin_template_phase_path(
+              template_id: section.phase.template.id,
+              id: section.phase.id
+            )
           end
         rescue StandardError => e
-          flash[:alert] = _('Unable to create a new version of this template.')
-          redirect_to edit_org_admin_template_phase_path(template_id: section.phase.template.id, id: section.phase.id)
+          flash[:alert] = _("Unable to create a new version of this template.")
+          redirect_to edit_org_admin_template_phase_path(
+            template_id: section.phase.template.id,
+            id: section.phase.id
+                      )
         end
       else
-        flash[:alert] = _('Unable to create a new section because the phase you specified does not exist.')
+        # rubocop:disable Metrics/LineLength
+        flash[:alert] = _("Unable to create a new section because the phase you specified does not exist.")
+        # rubocop:enable Metrics/LineLength
         redirect_to edit_org_admin_template_path(template_id: params[:template_id])
       end
     end
@@ -79,18 +105,24 @@ module OrgAdmin
       begin
         section = get_modifiable(section)
         if section.update(section_params)
-          flash[:notice] = success_message(_('section'), _('saved'))
+          flash[:notice] = success_message(_("section"), _("saved"))
         else
-          flash[:alert] = failed_update_error(section, _('section'))
+          flash[:alert] = failed_update_error(section, _("section"))
         end
       rescue StandardError => e
-        flash[:alert] = _('Unable to create a new version of this template.')
+        flash[:alert] = _("Unable to create a new version of this template.")
       end
 
       if flash[:alert].present?
-        redirect_to edit_org_admin_template_phase_path(template_id: section.phase.template.id, id: section.phase.id, section: section.id)
+        redirect_to edit_org_admin_template_phase_path(
+          template_id: section.phase.template.id,
+          id: section.phase.id, section: section.id
+                    )
       else
-        redirect_to edit_org_admin_template_phase_path(template_id: section.phase.template.id, id: section.phase.id, section: section.id)
+        redirect_to edit_org_admin_template_phase_path(
+          template_id: section.phase.template.id,
+          id: section.phase.id, section: section.id
+                    )
       end
     end
 
@@ -102,18 +134,24 @@ module OrgAdmin
         section = get_modifiable(section)
         phase = section.phase
         if section.destroy!
-          flash[:notice] = success_message(_('section'), _('deleted'))
+          flash[:notice] = success_message(_("section"), _("deleted"))
         else
-          flash[:alert] = failed_destroy_error(section, _('section'))
+          flash[:alert] = failed_destroy_error(section, _("section"))
         end
       rescue StandardError => e
-        flash[:alert] = _('Unable to create a new version of this template.')
+        flash[:alert] = _("Unable to create a new version of this template.")
       end
 
       if flash[:alert].present?
-        redirect_to(edit_org_admin_template_phase_path(template_id: phase.template.id, id: phase.id))
+        redirect_to(edit_org_admin_template_phase_path(
+                      template_id: phase.template.id,
+                      id: phase.id
+                    ))
       else
-        redirect_to(edit_org_admin_template_phase_path(template_id: phase.template.id, id: phase.id))
+        redirect_to(edit_org_admin_template_phase_path(
+                      template_id: phase.template.id,
+                      id: phase.id
+                    ))
       end
     end
 
@@ -122,5 +160,7 @@ module OrgAdmin
     def section_params
       params.require(:section).permit(:title, :description)
     end
+
   end
+
 end
