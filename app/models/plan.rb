@@ -349,15 +349,17 @@ class Plan < ActiveRecord::Base
   def readable_by?(user_id)
     user           = user_id.is_a?(User) ? user_id : User.find(user_id)
     owner_orgs     = owner_and_coowners.collect(&:org)
-    sys_permission = Branding.fetch(:service_configuration, :plans,
+    org_sys_permission = Branding.fetch(:service_configuration, :plans,
                                     :org_admins_read_all)
+    sup_sys_permission = Branding.fetch(:service_configuration, :plans,
+                                    :super_admins_read_all)
 
     # Super Admins can view plans read-only
-    return true if user.can_super_admin?
+    return true if user.can_super_admin? && sup_sys_permission
 
     # Org Admins can view their Org's plans if system permission allows
     return true if user.can_org_admin? && owner_orgs.include?(user.org) &&
-                                          sys_permission
+                                          org_sys_permission
 
     # ...otherwise the user must have the commenter role.
     return true if role?(user.id, :commenter)
