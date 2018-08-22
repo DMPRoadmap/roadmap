@@ -55,6 +55,7 @@ defaults: &defaults
   service_configuration:
     plans:
       org_admins_read_all: true
+      super_admins_read_all: true
 
 
 development:
