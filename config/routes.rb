@@ -212,6 +212,9 @@ Rails.application.routes.draw do
         end
 
         resources :phases, except: [:index] do
+
+          resources :versions, only: [:create], controller: "phase_versions"
+
           member do
             get 'preview'
             post 'sort'
