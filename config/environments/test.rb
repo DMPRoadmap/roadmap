@@ -1,6 +1,9 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # Disable memory store cache set in application.rb
+  config.cache_store = :null_store
+
   # This is required for the Faker gem. See this issue here:
   # https://github.com/stympy/faker/issues/266
   config.i18n.available_locales = %w[en en_GB]

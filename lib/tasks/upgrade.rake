@@ -1,14 +1,6 @@
 require 'set'
 namespace :upgrade do
 
-  desc "Ensure all section numbers are unique per Phase."
-  task clean_section_numbers: :environment do
-    Phase.all.each do |phase|
-      ids_in_order = phase.sections.order("number, created_at").pluck(:id)
-      Section.update_numbers!(*ids_in_order, parent: phase)
-    end
-  end
-
   desc "Upgrade to v1.1.2"
   task v1_1_2: :environment do
     Rake::Task['upgrade:check_org_contact_emails'].execute

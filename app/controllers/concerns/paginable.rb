@@ -1,21 +1,31 @@
+# frozen_string_literal: true
+
 module Paginable
   extend ActiveSupport::Concern
-
-  # frozen_string_literal: true
 
   ##
   # Regex to validate sort_field param is safe
   SORT_COLUMN_FORMAT = /[\w\_]+\.[\w\_]/
 
+  private
 
   # Renders paginable layout with the partial view passed
-  # partial {String} - Represents a path to where the partial view is stored
-  # controller {String} - Represents the name of the controller to handles the pagination
-  # action {String} - Represents the method name within the controller
-  # path_params {Hash} - A hash of additional URL path parameters (e.g. path_paths = { id: 'foo' } for /paginable/templates/:id/history/:page)
-  # query_params {Hash} - A hash of query parameters used to merge with params object from the controller for which this concern is included
-  # scope {ActiveRecord::Relation} - Represents scope variable
-  # locals {Hash} - A hash objects with any additional local variables to be passed to the partial view
+  #
+  # partial       - A String, represents a path to where the partial view is stored
+  # controller    - A String, represents the name of the controller to handles the
+  #                 pagination
+  # action        - A String, represents the action name within the controller
+  # path_params   - A Hash of additional URL path parameters
+  #                 (e.g. path_paths = { id: 'foo' } for
+  #                 /paginable/templates/:id/history/:page)
+  # query_params  - A hash of query parameters used to merge with params object
+  #                 from the controller for which this concern is included
+  # scope         - An {ActiveRecord::Relation}, represents scope variable
+  # locals        - A Hash objects with any additional local variables to be passed to
+  #                 the partial view
+  #
+  # Returns String of valid HTML
+  # Raises ArgumentError
   def paginable_renderise(partial: nil, controller: nil, action: nil, path_params: {}, query_params: {}, scope: nil, locals: {}, **options)
     raise ArgumentError, _('scope should be an ActiveRecord::Relation object') unless scope.is_a?(ActiveRecord::Relation)
     raise ArgumentError, _('path_params should be a Hash object') unless path_params.is_a?(Hash)
@@ -29,8 +39,10 @@ module Paginable
     @paginable_params = params.symbolize_keys
     @paginable_params[:controller] = controller if controller
     @paginable_params[:action] = action if action
-    @paginable_params = query_params.symbolize_keys.merge(@paginable_params) # if duplicate keys, those from @paginable_params take precedence
-    # Additional path_params passed to this function got special treatment (e.g. it is taking into account when building base_url)
+    # if duplicate keys, those from @paginable_params take precedence
+    @paginable_params = query_params.symbolize_keys.merge(@paginable_params)
+    # Additional path_params passed to this function got special treatment (e.g. it is
+    # taking into account when building base_url)
     @paginable_path_params = path_params.symbolize_keys
     if @paginable_params[:page] == 'ALL' && @paginable_params[:search].blank? && @paginable_options[:view_all] == false
       render(status: :forbidden, html: _('Restricted access to View All the records'))
@@ -50,8 +62,9 @@ module Paginable
       action: @paginable_params[:action], page: page }))
   end
 
-  # Returns the base url of the paginable router for a given page passed together with its query_params.
-  # It is used to retain context, i.e. search, sort_field, sort_direction, etc
+  # Returns the base url of the paginable router for a given page passed together with
+  # its query_params. It is used to retain context, i.e. search, sort_field,
+  # sort_direction, etc
   def paginable_base_url_with_query_params(page: 1, **stringify_query_params_options)
     base_url = paginable_base_url(page)
     stringified_query_params = stringify_query_params(stringify_query_params_options)
@@ -77,14 +90,13 @@ module Paginable
     return @refined_scope.respond_to?(:total_pages)
   end
 
-  private
-
-  # Returns the upcase string (e.g ASC or DESC) if sort_direction param is present in any of the forms 'asc', 'desc', 'ASC', 'DESC'
-  # otherwise returns ASC
+  # Returns the upcase string (e.g ASC or DESC) if sort_direction param is present in any
+  # of the forms 'asc', 'desc', 'ASC', 'DESC' otherwise returns ASC
   def upcasing_sort_direction(direction = @paginable_params[:sort_direction])
     directions = ['asc', 'desc', 'ASC', 'DESC']
     return directions.include?(direction) ? direction.upcase : 'ASC'
   end
+
   # Returns DESC when ASC is passed and vice versa, otherwise nil
   def swap_sort_direction(direction = @paginable_params[:sort_direction])
     direction_upcased = upcasing_sort_direction(direction)

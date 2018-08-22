@@ -1,13 +1,14 @@
 <!-- language dropdown -->
-<% if MANY_LANGUAGES %>
+<% if Language.many? %>
   <li class="dropdown" id="change-language">
     <a href="#" class="dropdown-toggle" role="button" id="language-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <i class="fa fa-language" aria-hidden="true">&nbsp;</i>
       <%= _('Language') %>
       <span class="caret"></span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="language-menu">
-      <% LANGUAGES.each do |l| %>
+
+    <ul class="dropdown-menu inverse-dropdown" aria-labelledby="language-menu">
+      <% languages.each do |l| %>
         <li <%= 'class=active' if FastGettext.locale == l.abbreviation %>>
           <%= link_to l.name, locale_path(l.abbreviation), method: :patch %>
         </li>
@@ -34,7 +35,7 @@
     </ul>
   </li>
 <% else %>
-  <% if !isActivePage(root_path, true) %>
+  <% if !active_page?(root_path, true) %>
     <li>
       <a href="#header-signin" data-toggle="modal" data-target="#header-signin">
         <i class="fa fa-sign-in" aria-hidden="true">&nbsp;</i>

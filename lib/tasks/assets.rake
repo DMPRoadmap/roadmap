@@ -15,7 +15,7 @@ namespace :assets do
       # Ensure all dependencies are installed
       system("npm install")
       # Run the webpack command via npm
-      system("npm run bundle -- #{webpack_options.join(" ")}")
+      system("npm run bundle -- #{webpack_options.join(" ")}") or exit()
     end
   end
 end

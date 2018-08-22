@@ -346,15 +346,16 @@ RSpec.describe Org, type: :model do
   describe "#plans" do
 
     let!(:org) { create(:org) }
-    let!(:user) { create(:user, org: org) }
     let!(:plan) { create(:plan) }
+    let(:user) { create(:user, org: org) }
 
     subject { org.plans }
 
     context "when user belongs to Org and plan owner with role :creator" do
 
       before do
-        plan.assign_creator(user)
+        create(:role, :creator, user: user)
+        plan.assign_creator(user.id)
       end
 
       it { is_expected.to include(plan) }
@@ -363,28 +364,84 @@ RSpec.describe Org, type: :model do
 
     context "when user belongs to Org and plan user with role :administrator" do
 
-      pending("TBD") do
-
-        before do
-          plan.assign_administrator(user)
-        end
-
-        it { is_expected.to include(plan) }
-      end
-    end
-
-
-    context "when user belongs to Org and plan user with role :editor" do
-
-      pending("TBD") do
-
-        it { is_expected.not_to include(plan) }
-
+      before do
+        create(:role, :administrator, user: user)
+        # Calling private method #add_user using #send
+        plan.send(:add_user, user.id, false, true, false);
       end
 
+      it { is_expected.to include(plan) }
+     
     end
+
+    context "when user belongs to Org and plan user with role :editor, but not :creator and :administrator" do
+
+      before do
+        create(:role, :editor, user: user)
+        # Calling private method #add_user using #send
+        plan.send(:add_user, user.id, true, false, false)
+      end
+
+      it { is_expected.not_to include(plan) }
+
+    end
+
+    context "when user belongs to Org and plan user with role :commenter, but not :creator and :administrator" do
+
+      before do
+        create(:role, :commenter, user: user, plan: plan)
+        # Calling private method #add_user using #send
+        plan.send(:add_user, user.id, false, false, false)
+      end
+
+      it { is_expected.not_to include(plan) }
+
+    end
+
+    context "when user belongs to Org and plan user with role :reviewer, but not :creator and :administrator" do
+
+      before do
+        create(:role, :reviewer, user: user, plan: plan)
+        # Calling private method #add_user using #send
+        plan.send(:add_user, user.id, false, false, false)
+      end
+
+      it { is_expected.not_to include(plan) }
+
+    end
+
   end
+  
+  context "#grant_api!" do
+    
+    let!(:org) { create(:org) }
+    let(:token_permission_type) { create(:token_permission_type) }
+    
+      subject { org.grant_api!(token_permission_type) }
+    
+    context "when :token_permission_type does not belong to token_permission_types" do
+      
+      it { is_expected.to include(token_permission_type) }
 
-
+    end
+    
+    context "when :token_permission_type belongs to token_permission_types" do
+      
+      before do
+        
+        org.token_permission_types << token_permission_type
+        
+      end
+      
+      it {
+        is_expected.to be nil
+        expect(org.token_permission_types).to include(token_permission_type)
+      }
+      
+    end
+    
+  
+  end
+  
 
 end
