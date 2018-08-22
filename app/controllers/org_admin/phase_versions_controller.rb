@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 class OrgAdmin::PhaseVersionsController < ApplicationController
+
   include Versionable
 
   def create

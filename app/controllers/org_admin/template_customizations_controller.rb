@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 class OrgAdmin::TemplateCustomizationsController < ApplicationController
+
   include Paginable
   include Versionable
   after_action :verify_authorized
@@ -6,7 +9,7 @@ class OrgAdmin::TemplateCustomizationsController < ApplicationController
   # POST /org_admin/templates/:id/customize
   def create
     @template = Template.find(params[:template_id])
-    authorize @template, :customize? policy_class: TemplatePolicy
+    authorize @template, :customize?, policy_class: TemplatePolicy
     if @template.customize?(current_user.org)
       begin
         @customisation = @template.customize!(current_user.org)
@@ -20,5 +23,5 @@ class OrgAdmin::TemplateCustomizationsController < ApplicationController
     end
     redirect_to :back
   end
-end
 
+end

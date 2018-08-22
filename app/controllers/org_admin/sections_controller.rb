@@ -21,7 +21,7 @@ module OrgAdmin
           template: phase.template,
           phase: phase,
           prefix_section: phase.prefix_section,
-          sections: phase.sections,
+          sections: phase.sections.order(:number),
           suffix_sections: phase.suffix_sections,
           current_section: phase.sections.first,
           modifiable: edit,
