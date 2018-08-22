@@ -449,6 +449,6 @@ class PlansController < ApplicationController
       plan: plan, phase: phase, readonly: readonly,
       guidance_groups: guidance_groups,
       answers: answers,
-      guidance_service: GuidanceService.new(plan) })
+      guidance_presenter: GuidancePresenter.new(plan) })
   end
 end

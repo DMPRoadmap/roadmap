@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class GuidanceService
+class GuidancePresenter
 
   attr_accessor :plan
   attr_accessor :guidance_groups
