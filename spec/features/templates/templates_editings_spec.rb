@@ -34,7 +34,8 @@ RSpec.feature "Templates::Editing", type: :feature do
     end
     click_link template.sections.first.title
     within("#edit_question_2") do
-      tinymce_fill_in(:question_annotations_attributes_1_text, "Foo bar")
+      textarea_id = page.body.match(/question\_annotations\_attributes\_annotation\_(\d+)\_text/)
+      tinymce_fill_in(:"question_annotations_attributes_annotation_#{$1}_text", "Foo bar")
       click_button 'Save'
     end
     # Make sure annotation has been updated

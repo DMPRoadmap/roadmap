@@ -186,7 +186,7 @@ group :ci, :development do
   gem "brakeman"
 
   # Automatic Ruby code style checking tool. (https://github.com/rubocop-hq/rubocop)
-  gem "rubocop-dmp_roadmap"
+  gem "rubocop-dmp_roadmap", ">= 1.1.0"
 
   # Helper gem to require bundler-audit (http://github.com/stewartmckee/bundle-audit)
   gem "bundle-audit"
