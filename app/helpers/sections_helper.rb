@@ -18,4 +18,8 @@ module SectionsHelper
                                             id: section.id)
     end
   end
+
+  def draggable_for_section(section, sections)
+    section == sections.first && section.template.latest? && section.template.draft?
+  end
 end

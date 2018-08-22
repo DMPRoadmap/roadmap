@@ -1,5 +1,5 @@
 <!-- TODO: Move this away from using ID attr -->
-<div class="panel-group section-group"
+<div class="panel-group section-group_"
      data-modifiable="<%= modifiable %>"
      id="<%= panel_id %>"
      role="tablist">
@@ -10,6 +10,6 @@
                          template: template,
                          current_section: current_section,
                          data_parent: panel_id,
-                         draggable: section == sections.first } %>
+                         draggable: draggable_for_section(section, sections) } %>
   <% end%>
 </div>
