@@ -1,4 +1,4 @@
-<% title _('%{org_name} Plans') % { org_name: current_user.org.name } %>
+<% title "#{current_user.org.name} Plans" %>
 <div class="row org-admin">
   <div class="col-md-12">    
     <h1><%= _('%{org_name} Plans') % { org_name: current_user.org.name } %></h1>
@@ -13,10 +13,10 @@
         <div class="panel-body notifications">
           <table class="table">
             <thead>
-              <th><%= _('Plan') %></th>
-              <th><%= _('Requestor') %></th>
-              <th><%= _('Type') %></th>
-              <th><%= _('Actions') %></th>
+              <th scope="col"><%= _('Plan') %></th>
+              <th scope="col"><%= _('Requestor') %></th>
+              <th scope="col"><%= _('Type') %></th>
+              <th scope="col"><%= _('Actions') %></th>
             </thead>
             <tbody>
               <% @feedback_plans.each do |notice| %>

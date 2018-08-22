@@ -17,10 +17,10 @@ Once the fork has been created, clone the repository onto your machine. See Gith
 
 On your local machine, add a remote that points to the original DMPRoadmap codebase. This will allow you to pull down the latest changes and sync up your forked repository
 
-Run the following from your local clone of the repository to setup a remote that will allow you to pull down the latest changes from DMPRoadmap. Then pull down the contributions branch:
+Run the following from your local clone of the repository to setup a remote that will allow you to pull down the latest changes from DMPRoadmap. Then pull down the development branch:
 ```bash
 git remote add upstream https://github.com/DMPRoadmap/roadmap.git
-git fetch contributions
+git fetch development
 ```
 
 ### Pulling down the latest changes from DMPRoadmap into your fork
@@ -31,12 +31,12 @@ If you've already forked the project, you should make sure you pull down the lat
 
 ### Create a new feature/bug fix/translations branch 
 
-You should always base your new branch off of the contributions branch. We keep this branch up to date with the latest release. Checkout the contributions branch, sync it with DMPRoadmap and then push the latest up to your own fork:
+You should always base your new branch off of the development branch. We keep this branch up to date with the latest release. Checkout the development branch, sync it with DMPRoadmap and then push the latest up to your own fork:
 
 ```bash
-git checkout contributions
-git pull upstream contributions
-git push origin contributions
+git checkout development
+git pull upstream development
+git push origin development
 git checkout -b [my-branch]
 ```
 
@@ -50,7 +50,7 @@ This is only necessary if you have made more than one git commit on your feature
 
 When you are finished making changes, we ask that all contributors squash their commits into a single git commit. This helps us keep the git history clean and makes it easier to revert any changes if necessary.
 
-_Note that if this is your first time rebasing a branch we recommend making a buckup of the branch first since a rebase creates the potential for you to lose your changes if its done incorrectly: `git checkout -b [feature branch]-bak && git checkout [feature branch]`_
+_Note that if this is your first time rebasing a branch we recommend making a backup of the branch first since a rebase creates the potential for you to lose your changes if its done incorrectly: `git checkout -b [feature branch]-bak && git checkout [feature branch]`_
 
 To rebase your feature branch you should follow this example:
   
@@ -130,7 +130,7 @@ Date:   Fri Jun 14 09:20:41 2018 +0100
 
 Once your changes are complete, push your branch up to your fork, `git push origin [my-branch]`
 
-Then login to Github and go to your fork. Select your branch from the list and click 'New Pull Request'. On the page that opens, select the 'contributions' branch on the DMPRoadmap section. 
+Then login to Github and go to your fork. Select your branch from the list and click 'New Pull Request'. On the page that opens, select the 'development' branch on the DMPRoadmap section. 
 
 Then review your code and provide us with detailed comments about what the changes are doing (e.g. adding a new feature, fixing a recorded bug, etc.). If you are working off of one of our Github issues, then please note that in the PR message with a `Fixes #1234`.
 
@@ -142,11 +142,11 @@ Once we receive your PR, at lest one member of the core development team will re
 
 ### Acceptence of your PR
 
-Once your code has been approved a member of the core development team will merge it into the contributions branch and then into development when we are ready to include it in a sprint. 
+Once your code has been approved a member of the core development team will merge it into the development branchand include it in an upcoming release. 
 
 At this point its a good idea to delete the branch from your fork in Github and also delete it from your local machine via:
 ```bash
-git checkout contributions
+git checkout development
 git branch -D [my-branch]
 ```
 
