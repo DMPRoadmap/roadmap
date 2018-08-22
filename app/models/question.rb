@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: questions
@@ -24,6 +26,7 @@
 #
 
 class Question < ActiveRecord::Base
+
   include ValidationMessages
   include ActsAsSortable
 
@@ -106,10 +109,14 @@ class Question < ActiveRecord::Base
     copy.section_id = options.fetch(:section_id, nil)
     copy.save!(validate: false)  if options.fetch(:save, false)
     options[:question_id] = copy.id
-    self.question_options.each{ |question_option| copy.question_options << question_option.deep_copy(options) }
-    self.annotations.each{ |annotation| copy.annotations << annotation.deep_copy(options) }
-    self.themes.each{ |theme| copy.themes << theme }
-    return copy
+    self.question_options.each do |question_option|
+      copy.question_options << question_option.deep_copy(options)
+    end
+    self.annotations.each do |annotation|
+      copy.annotations << annotation.deep_copy(options)
+    end
+    self.themes.each { |theme| copy.themes << theme }
+    copy
   end
 
   # TODO: consider moving this to a view helper instead and use the built in
@@ -129,14 +136,14 @@ class Question < ActiveRecord::Base
         group.guidances.each do |g|
           g.themes.each do |theme|
             if theme_ids.include? theme.id
-              guidances["#{group.name} " + _('guidance on') + " #{theme.title}"] = g
+              guidances["#{group.name} " + _("guidance on") + " #{theme.title}"] = g
             end
           end
         end
       end
     end
 
-    return guidances
+    guidances
    end
 
   # get example answer belonging to the currents user for this question
@@ -144,16 +151,16 @@ class Question < ActiveRecord::Base
   # org_ids - The ids for the organisations
   #
   # Returns ActiveRecord::Relation
-   def example_answers(org_ids)
+  def example_answers(org_ids)
     annotations.where(org_id: Array(org_ids),
                       type: Annotation.types[:example_answer])
                .order(:created_at)
-   end
+  end
 
-   alias get_example_answers example_answers
+  alias get_example_answers example_answers
 
-   deprecate :get_example_answers,
-               deprecator: Cleanup::Deprecators::GetDeprecator.new
+  deprecate :get_example_answers,
+              deprecator: Cleanup::Deprecators::GetDeprecator.new
 
   # get guidance belonging to the current user's org for this question(need org
   # to distinguish customizations)
@@ -171,10 +178,17 @@ class Question < ActiveRecord::Base
               deprecator: Cleanup::Deprecators::GetDeprecator.new
 
   def annotations_per_org(org_id)
-    example_answer = annotations.find_by(org_id: org_id, type: Annotation.types[:example_answer])
-    guidance       = annotations.find_by(org_id: org_id, type: Annotation.types[:guidance])
-    example_answer = annotations.build({ type: :example_answer, text: '', org_id: org_id }) unless example_answer.present?
-    guidance       = annotations.build({ type: :guidance, text: '', org_id: org_id }) unless guidance.present?
-    return [example_answer, guidance]
+    example_answer = annotations.find_by(org_id: org_id,
+                                         type: Annotation.types[:example_answer])
+    guidance = annotations.find_by(org_id: org_id,
+                                   type: Annotation.types[:guidance])
+    unless example_answer.present?
+      example_answer = annotations.build(type: :example_answer, text: "", org_id: org_id)
+    end
+    unless guidance.present?
+      guidance = annotations.build(type: :guidance, text: "", org_id: org_id)
+    end
+    [example_answer, guidance]
   end
+
 end
