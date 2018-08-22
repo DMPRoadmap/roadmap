@@ -1,12 +1,27 @@
 <% FastGettext.with_locale FastGettext.default_locale do %>
-  <% 
-    recipient_name = @recipient.name(false) 
+  <%
+    recipient_name = @recipient.name(false)
     requestor_name = @user.name(false)
     plan_name = @plan.title
     tool_name = Rails.configuration.branding[:application][:name]
   %>
 
   <p><%= _('Hello %{user_name},') % {user_name: recipient_name} %></p>
-  <p><%= _('%{requestor} has requested feedback on a plan "%{plan_name}." To add comments, please visit the \'Plans\' page under the Admin menu in %{application_name} and open the plan.') % {requestor: requestor_name, plan_name: plan_name, application_name: tool_name} %></p>
-  <%= render partial: 'email_signature' %>
+
+  <p>
+    <%= raw _(%Q{%{requestor} has requested feedback on a plan %{link_html}. To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan.}) % {
+    requestor: requestor_name,
+    plan_name: plan_name,
+    application_name: tool_name,
+    allow_change_prefs: false,
+    link_html: link_to(plan_name, plan_url(@plan))
+    } %>
+  </p>
+
+  <p>
+    Alternatively, you can click the link below:<br>
+    <%= link_to plan_url(@plan), plan_url(@plan) %>
+  </p>
+  
+  <%= render partial: 'email_signature', locals: { allow_change_prefs: false } %>
 <% end %>

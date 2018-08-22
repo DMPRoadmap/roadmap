@@ -1,4 +1,4 @@
-<%= form_for resource, as: 'user', url: registration_path("user"), html: {autocomplete: "off", id: "create_account_form"} do |f| %>
+<%= form_for resource, namespace: 'new', url: registration_path("user"), html: {autocomplete: "off", id: "create_account_form"} do |f| %>
 
   <div class="form-group">
     <%= f.label(:firstname, _('First Name'), class: "control-label") %>
@@ -23,14 +23,18 @@
     <%= f.label(:password, _('Password'), class: "control-label") %>
     <%= f.password_field(:password, class: "form-control", "aria-required": true) %>
   </div>
-  <div class="checkbox">
-    <label for="passwords_toggle_sign_up">
-      <input type="checkbox" id="passwords_toggle_sign_up" class="passwords_toggle" /><%= _('Show password') %>
-    </label>
+  <div class="form-group">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" id="passwords_toggle_sign_up" class="passwords_toggle" /><%= _('Show password') %>
+      </label>
+    </div>
   </div>
-  <div class="checkbox">
-    <%= f.label(:accept_terms,
-        raw("#{ f.check_box(:accept_terms, "aria-required": true, "data-validation-error": _('You must agree to the term and conditions.')) } #{_('I accept the')} <a href=\"#{terms_path}\">#{_('terms and conditions')}</a>")) %>
+  <div class="form-group">
+    <div class="checkbox">
+      <%= f.label(:accept_terms,
+          raw("#{ f.check_box(:accept_terms, "aria-required": true, "data-validation-error": _('You must agree to the term and conditions.')) } #{_('I accept the')} <a href=\"#{terms_path}\">#{_('terms and conditions')}</a>")) %>
+    </div>
   </div>
 
   <div class="cil_message">

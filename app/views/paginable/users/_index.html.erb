@@ -5,15 +5,15 @@
       <table class="table table-hover table-bordered">
         <thead>
           <tr>
-              <th><%= _('Name') %>&nbsp;<%= paginable_sort_link('firstname') %></th>
-              <th><%= _('Email') %>&nbsp;<%= paginable_sort_link('email') %></th>
-              <th><%= _('Organisation') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
-              <th class="text-center date-column"><%= _('Created date') %>&nbsp;<%= paginable_sort_link('created_at') %></th>
-              <th class="text-center date-column"><%= _('Last activity') %>&nbsp;<%= paginable_sort_link('last_sign_in_at') %></th>
-              <th class="text-center sorter-false"><%= _('Plans') %></th>
-              <th class="text-center sorter-false"><%= _('Current Privileges') %></th>
-              <th class="text-center"><%= _('Active') %></th>
-              <th class="text-center sorter-false"><%= _('Privileges') %></th>
+              <th scope="col"><%= _('Name') %>&nbsp;<%= paginable_sort_link('firstname') %></th>
+              <th scope="col"><%= _('Email') %>&nbsp;<%= paginable_sort_link('email') %></th>
+              <th scope="col"><%= _('Organisation') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
+              <th scope="col" class="text-center date-column"><%= _('Created date') %>&nbsp;<%= paginable_sort_link('created_at') %></th>
+              <th scope="col" class="text-center date-column"><%= _('Last activity') %>&nbsp;<%= paginable_sort_link('last_sign_in_at') %></th>
+              <th scope="col" class="text-center sorter-false"><%= _('Plans') %></th>
+              <th scope="col" class="text-center sorter-false"><%= _('Current Privileges') %></th>
+              <th scope="col" class="text-center"><%= _('Active') %></th>
+              <th scope="col" class="text-center sorter-false"><%= _('Privileges') %></th>
           </tr>
         </thead>
         <tbody>

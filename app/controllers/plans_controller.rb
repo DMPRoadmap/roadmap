@@ -3,6 +3,8 @@ class PlansController < ApplicationController
   require 'pp'
   helper PaginableHelper
   helper SettingsTemplateHelper
+  include FeedbacksHelper
+
   after_action :verify_authorized, except: [:overview]
 
   def index
@@ -165,6 +167,7 @@ class PlansController < ApplicationController
     guidance_groups_ids = plan.guidance_groups.collect(&:id)
 
     guidance_groups =  GuidanceGroup.where(published: true, id: guidance_groups_ids)
+
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
     # we create a hash whose keys are question id and value is the answer associated
     answers = plan.answers.reduce({}){ |m, a| m[a.question_id] = a; m }
@@ -354,18 +357,19 @@ class PlansController < ApplicationController
   end
 
   def request_feedback
-    plan = Plan.find(params[:id])
-    authorize plan
+    @plan = Plan.find(params[:id])
+    authorize @plan
     alert = _('Unable to submit your request for feedback at this time.')
 
     begin
-     if plan.request_feedback(current_user)
-       redirect_to share_plan_path(plan), notice: _('Your request for feedback has been submitted.')
+     if @plan.request_feedback(current_user)
+       redirect_to share_plan_path(@plan),
+                   notice: _(request_feedback_flash_notice)
      else
-       redirect_to share_plan_path(plan), alert: alert
+       redirect_to share_plan_path(@plan), alert: alert
      end
     rescue Exception
-      redirect_to share_plan_path(plan), alert: alert
+      redirect_to share_plan_path(@plan), alert: alert
     end
   end
 
@@ -450,5 +454,16 @@ class PlansController < ApplicationController
       end
     end
     plan.delete(src_plan_key)
+  end
+
+  # Flash notice for successful feedback requests
+  #
+  # @return [String]
+  def request_feedback_flash_notice
+    # Use the generic feedback confirmation message unless the Org has
+    # specified one
+    text = current_user.org.feedback_email_msg ||
+             feedback_confirmation_default_message
+    feedback_constant_to_text(text, current_user, @plan, current_user.org)
   end
 end
