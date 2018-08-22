@@ -68,6 +68,9 @@ module OrgAdmin
       # We use this to validate the counts below in the event that a template was
       # customized but the base template org is no longer a funder
       funder_template_families = funder_templates.collect(&:family_id)
+      # filter only customizations of valid(published) funder templates
+      customizations = customizations.select { |t|
+                  funder_template_families.include?(t.customization_of) }
       published = customizations.select { |t| t.published? || t.draft? }.length
 
       @orgs = current_user.can_super_admin? ? Org.all : []
