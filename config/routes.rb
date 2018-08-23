@@ -193,7 +193,7 @@ Rails.application.routes.draw do
           get 'feedback_complete'
         end
       end
-      resources :templates, only: [:index, :show, :new, :edit, :create, :update, :destroy] do
+      resources :templates do
 
         resources :customizations, only: [:create], controller: "template_customizations"
 
