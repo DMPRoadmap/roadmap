@@ -9,7 +9,7 @@ class OrgAdmin::TemplateCustomizationsController < ApplicationController
   # POST /org_admin/templates/:id/customize
   def create
     @template = Template.find(params[:template_id])
-    authorize @template, :customize?, policy_class: TemplatePolicy
+    authorize(@template, :customize?)
     if @template.customize?(current_user.org)
       begin
         @customisation = @template.customize!(current_user.org)
