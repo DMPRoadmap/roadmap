@@ -22,8 +22,8 @@ module SectionsHelper
     end
   end
 
-  def draggable_for_section(section, sections)
-    (section == sections.first) && section.template.latest? && section.template.draft?
+  def draggable_for_section?(section)
+    section.template.latest? && section.modifiable?
   end
 
 end
