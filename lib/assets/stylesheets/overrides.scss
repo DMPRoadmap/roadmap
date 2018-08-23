@@ -745,3 +745,8 @@ a.link_as_button {
   width: 1px;
   word-wrap: normal !important;
 }
+
+.field_with_errors input,
+.field_with_errors .mce-container {
+  border-color: $red;
+}
