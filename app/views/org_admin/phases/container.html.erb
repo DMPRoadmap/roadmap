@@ -57,7 +57,7 @@
 
                   <div class="col-sm-6">
                     <div class='text-right text-muted'>
-                      <% if template.draft? %>
+                      <% if phase.modifiable? %>
                         <i class="fa fa-info-circle small"></i>
                         <%= _("Drag arrows to rearrange customized sections.") %>
                         <% unless phase.sections.all?(&:modifiable?) %>
