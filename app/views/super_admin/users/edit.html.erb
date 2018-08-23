@@ -30,7 +30,7 @@
         <%= render partial: "shared/my_org", locals: {f: f, default_org: default_org, orgs: orgs, allow_other_orgs: true, required: true} %>
       </div>
 
-      <% if MANY_LANGUAGES %>
+      <% if Language.many? %>
         <div class="form-group col-xs-8">
           <% lang_id = user.language.nil? ? Language.id_for(FastGettext.default_locale) : user.language.id %>
           <%= f.label(:language_id, _('Language'), class: 'control-label') %>

@@ -6,6 +6,7 @@ $white: #FFF;
 $red:  #b94a48;
 $grey: #4F5253;
 $gold: #c09853;
+$orange: #f49700;
 $highlight-color: $black;
 $highlight-background-color: #F36F24;
 
@@ -28,18 +29,18 @@ body {
 
 /* ADD a BORDER */
 .bordered {
-  border: 1px solid $grey;
+  border: 1px solid $orange;
   padding: 5px 20px 15px 20px;
 }
 
 /* TABLE STYLING */
 
-.table { border: 1px solid $grey; }
+.table { border: 1px solid $orange; }
 .table thead > tr > th { border-bottom: none; }
-.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td { border: 1px solid $grey; }
+.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td { border: 1px solid $orange; }
 
 thead th {
-  background-color: $grey;
+  background-color: $orange;
   color: $white;
 }
 thead th.table-scope {
@@ -47,7 +48,7 @@ thead th.table-scope {
   font-weight: normal;
 
   a {
-    color: $grey;
+    color: $orange;
     padding: 2px 15px 2px 2px;
   }
 }
@@ -105,7 +106,7 @@ th.date-column {
 
 /* nav-tabs and nav-pills styling */
 .nav-tabs, .nav-pills {
-  background-color: $grey;
+  background-color: $orange;
   color: $white;
   border-bottom: 0px;
 }
@@ -118,8 +119,8 @@ th.date-column {
 .nav-tabs > li.active > a:focus,
 .nav-tabs > li.active > a:hover {
   background-color: $white;
-  color: $grey;
-  border: 1px solid $grey;
+  color: $orange;
+  border: 1px solid $orange;
   border-bottom-color: transparent; /* Only nav-tabs have a transparent border-bottom */
 }
 .nav-pills > li > a:hover,
@@ -128,8 +129,8 @@ th.date-column {
 .nav-pills > li.active > a:focus,
 .nav-pills > li.active > a:hover {
   background-color: $white;
-  color: $grey;
-  border: 1px solid $grey;
+  color: $orange;
+  border: 1px solid $orange;
 }
 .nav-pills > li:last-child > a:hover,
 .nav-pills > li:last-child > a:focus,
@@ -141,10 +142,10 @@ th.date-column {
 /* panel styling */
 
 .panel-default {
-  border-color: $grey;
+  border-color: $orange;
 }
 .heading-button > .panel-heading, .panel-default > .panel-heading {
-  background-color: $grey;
+  background-color: $orange;
   color: $white;
   border-top-right-radius: 0px;
   border-top-left-radius: 0px;
@@ -154,12 +155,12 @@ th.date-column {
   display: block;
   padding: 8px 15px;
   margin: -10px -15px;
-  background-color: $grey;
+  background-color: $orange;
   color: $white;
 }
 .panel-title > a.reverse {
   background-color: $white;
-  color: $grey;
+  color: $orange;
 }
 
 /* list-group styling */
@@ -175,6 +176,14 @@ th.date-column {
 /* label stlying */
 .label {
   font-size: 85%;
+}
+.label-info {
+  background-color: $orange;
+}
+
+/* stats styles, selected on demand through JS */
+.stats {
+  background-color: #777;
 }
 
 /* LIST STYLING */
@@ -204,7 +213,7 @@ span.sublist {
   font-size: 2rem;
 }
 .fa-reverse {
-  color: $grey;
+  color: $orange;
 }
 .fa-sort, .fa-sort-asc, .fa-sort-desc {
   color: $white;
@@ -230,9 +239,9 @@ $cancel-button-color: #F17D04;
 .btn-primary:visited,
 .btn-primary:active:hover,
 .btn-primary.active:hover {
-  background-color: $grey;
+  background-color: $orange;
   color: $white;
-  border-color: $grey;
+  border-color: $orange;
   outline: none;
   margin-top: 5px;
   margin-bottom: 10px;
@@ -246,9 +255,9 @@ $cancel-button-color: #F17D04;
 .btn-default:visited,
 .btn-default:active:hover,
 .btn-default.active:hover {
-  background-color: $grey;
+  background-color: $orange;
   color: $white;
-  border-color: $grey;
+  border-color: $orange;
   outline: none;
   margin-top: 5px;
   margin-bottom: 10px;
@@ -261,13 +270,42 @@ $cancel-button-color: #F17D04;
 .btn-default:active[data-toggle=tooltip],
 .btn-default:visited[data-toggle=tooltip],
 .btn-default:active:hover[data-toggle=tooltip] {
-  color: $grey;
+  color: $orange;
   background-color: $white;
   border: none;
   padding-left: -10px;
   font-size: .8rem;
 }
 
+/* a link */
+a {
+  color: $orange;
+}
+
+/* progress-bar */
+.progress-bar {
+  background-color: $orange;
+}
+
+/* h1 to h6 */
+h1, h2, h3, h4, h5, h6 {
+  color: $orange;
+}
+
+/* btn-link */
+.btn-link {
+  color: $orange;
+}
+
+/* input-group-addon */
+.input-group-addon {
+  background-color: $orange;
+  color: $white;
+}
+
+.dropdown-menu > li > a {
+  color: $orange;
+}
 // Footer (for actions)
 .modal-footer {
   text-align: right; // right align buttons
@@ -296,7 +334,7 @@ $notice-color: $gold;
 $notice-background: #fcf8e3;
 
 /****  ---------------------------------------------------------------------------- ****/
-/**** Main layout configuration ****/
+/**** For sticky footer ****/
 
 main {
   margin-bottom: 100px;
@@ -313,16 +351,10 @@ html {
   position: relative;
 }
 
-body{
-  padding-bottom: 50px;
-}
-
 /* footer */
 footer {
   position: absolute;
   bottom: 0;
-  margin-top: 20px;
-  margin-bottom: -20px;
   width: 100%;
 }
 
@@ -398,7 +430,7 @@ $header-background: linear-gradient(#ED6406, #F59503);
 /* Tooltip Styling */
 
 $tooltip-color: $white;
-$tooltip-background: $grey;
+$tooltip-background: $orange;
 
 .tooltip-inner {
   min-width: 320px;
@@ -439,21 +471,21 @@ $tooltip-background: $grey;
   z-index: 1100;
 }
 .combobox-suggestion {
-  color: $grey;
-  border-bottom: 1px solid $grey;
-  border-left: 1px solid $grey;
-  border-right: 1px solid $grey;
+  color: $orange;
+  border-bottom: 1px solid $orange;
+  border-left: 1px solid $orange;
+  border-right: 1px solid $orange;
   padding: 5px 10px 5px 10px;
   cursor: pointer;
   text-align: left;
 }
 .combobox-suggestion:first-child {
-  border-top: 1px solid $grey;
+  border-top: 1px solid $orange;
 }
 .combobox-suggestion:hover,
 .combobox-suggestion:focus {
   color: $white;
-  background-color: $grey;
+  background-color: $orange;
 }
 
 .combobox-clear-button, .combobox-clear-button:hover, .combobox-clear-button:focus {
@@ -464,7 +496,9 @@ $tooltip-background: $grey;
   right: 5px;
   border: none;
   background: transparent;
-  color: $grey;
+  color: $orange;
+  padding-top: 4px;
+  font-size: 16pt;
 }
 
 /* http://geektnt.com/how-to-remove-x-from-search-input-field-on-chrome-and-ie.html */
@@ -521,8 +555,73 @@ $tooltip-background: $grey;
 .form-control,
 .label,
 .alert,
-.input-group-addon {
+.input-group-addon,
+.modal-content,
+.navbar-toggle {
   border-radius: 0px;
+}
+
+/* navbar branding */
+.navbar-branding {
+  background-color: $orange;
+  border-color: $orange; /* TODO */
+}
+/* Link */
+.navbar-branding .navbar-nav > li > a {
+  color: $white;
+}
+.navbar-branding .navbar-nav > li > a:hover,
+.navbar-branding .navbar-nav > li > a:focus {
+  color: $orange;
+  background-color: $white;
+}
+.navbar-branding .navbar-nav > .active > a,
+.navbar-branding .navbar-nav > .active > a:hover,
+.navbar-branding .navbar-nav > .active > a:focus {
+  color: $orange;
+  background-color: $white;
+}
+.navbar-branding .navbar-nav > .open > a,
+.navbar-branding .navbar-nav > .open > a:hover,
+.navbar-branding .navbar-nav > .open > a:focus {
+  color: $orange;
+  background-color: $white;
+}
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+  color: $white;
+  background-color: $orange;
+}
+/* Mobile version */
+.navbar-branding .navbar-toggle {
+    border-color: $white;
+}
+.navbar-branding .navbar-toggle:hover,
+.navbar-branding .navbar-toggle:focus {
+    background-color: $white;
+}
+.navbar-branding .navbar-toggle .icon-bar {
+    background-color: $orange;
+}
+@media (max-width: 767px) {
+    .navbar-branding .navbar-nav .open .dropdown-menu > li > a {
+        color: $white;
+    }
+    .navbar-branding .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-branding .navbar-nav .open .dropdown-menu > li > a:focus {
+          color: $white;
+    }
+}
+.navbar-branding {
+  background-image: -webkit-linear-gradient(top, #ea5d05 0%, $orange 100%);  /* TODO extract a color */
+  background-image: -o-linear-gradient(top, #ea5d05 0%, $orange 100%);  /* TODO extract a color */
+  background-image: linear-gradient(to bottom, #ea5d05 0%, $orange 100%); /* TODO extract a color */
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ea5d05', endColorstr='$orange', GradientType=0); /* TODO extract a color */
+}
+
+/* content */
+body {
+  background-color: #f9f9f9;  /* TODO extract a color */
 }
 
 /* rda styling */
