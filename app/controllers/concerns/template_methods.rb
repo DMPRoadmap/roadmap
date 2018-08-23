@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# This module holds helper controller methods for controllers that deal with Templates
+#
 module TemplateMethods
 
   private
