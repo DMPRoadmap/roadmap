@@ -243,33 +243,6 @@ module OrgAdmin
       }
     end
 
-    # POST /org_admin/templates/:id/transfer_customization
-    # the funder template's id is passed through here
-    def transfer_customization
-      template = Template.includes(:org).find(params[:id])
-      authorize template
-      if template.upgrade_customization?
-        begin
-          new_customization = template.upgrade_customization!
-          redirect_to org_admin_template_path(new_customization)
-        rescue StandardError => e
-          flash[:alert] = _("Unable to transfer your customizations.")
-          if request.referrer.present?
-            redirect_to request.referrer
-          else
-            redirect_to org_admin_templates_path
-          end
-        end
-      else
-        flash[:notice] = _("That template is no longer customizable.")
-        if request.referrer.present?
-          redirect_to request.referrer
-        else
-          redirect_to org_admin_templates_path
-        end
-      end
-    end
-
     # PATCH /org_admin/templates/:id/publish  (AJAX)
     def publish
       template = Template.find(params[:id])

@@ -1,0 +1,2 @@
+module OrgAdmin::TemplateCustomizationTransfersHelper
+end
