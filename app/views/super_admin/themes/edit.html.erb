@@ -1,0 +1,7 @@
+<%= render partial: 'layouts/errors', locals: { errors: @theme.errors } %>
+<h2>
+  <%= @theme.title %>
+  <%= link_to(_('View all themes'), super_admin_themes_path,
+      class: 'btn btn-default pull-right', role: 'button') %>
+</h2>
+<%= render partial: 'form' %>

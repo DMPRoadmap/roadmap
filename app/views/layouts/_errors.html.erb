@@ -1,0 +1,9 @@
+<% content_for :errors do %>
+  <% if errors.any? %>
+    <ul>
+      <% errors.full_messages.each do |err_msg| %>
+        <li><%= err_msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>
