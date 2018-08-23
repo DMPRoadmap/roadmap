@@ -178,7 +178,7 @@ class PlansController < ApplicationController
     @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, gg|
       (org.nil? ? "" : org.name)
     end
-    @selected_guidance_groups = @selected_guidance_groups.collect { |gg| gg.id }
+    @selected_guidance_groups = @selected_guidance_groups.ids
 
     @based_on = if @plan.template.customization_of.nil?
                   @plan.template
