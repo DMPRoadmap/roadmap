@@ -6,6 +6,8 @@ module OrgAdmin
 
     include Paginable
     include Versionable
+    include TemplateMethods
+
     after_action :verify_authorized
 
     # The root version of index which returns all templates
@@ -268,24 +270,6 @@ module OrgAdmin
       end
     end
 
-    # POST /org_admin/templates/:id/copy (AJAX)
-    def copy
-      template = Template.find(params[:id])
-      authorize template
-      begin
-        new_copy = template.generate_copy!(current_user.org)
-        flash[:notice] = "#{template_type(template).capitalize} was successfully copied."
-        redirect_to edit_org_admin_template_path(new_copy)
-      rescue StandardError => e
-        flash[:alert] = failed_create_error(template, template_type(template))
-        if request.referrer.present?
-          redirect_to request.referrer
-        else
-          redirect_to org_admin_templates_path
-        end
-      end
-    end
-
     # PATCH /org_admin/templates/:id/publish  (AJAX)
     def publish
       template = Template.find(params[:id])
@@ -384,10 +368,6 @@ module OrgAdmin
 
     def template_params
       params.require(:template).permit(:title, :description, :visibility, :links)
-    end
-
-    def template_type(template)
-      template.customization_of.present? ? _("customisation") : _("template")
     end
 
     def get_referrer(template, referrer)

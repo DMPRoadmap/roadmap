@@ -1,0 +1,2 @@
+module OrgAdmin::TemplateCopiesHelper
+end
