@@ -1,7 +1,7 @@
 <%= "#{@plan.title}" %>
 <%= "----------------------------------------------------------\n" %>
 <% if @show_coversheet %>
-<%= @hash[:attribution].length > 1 ? _("Creators: ") : _('Creator:') %> <%= @hash[:attribution].join(', ') %>
+<%= @hash[:attribution].many? ? _("Creators: ") : _('Creator:') %> <%= @hash[:attribution].join(', ') %>
 <%= _("Affiliation: ") + @hash[:affiliation] %>
   <% if @hash[:funder].present? %>
 <%= _("Template: ") + @hash[:funder] %>
@@ -24,7 +24,7 @@
 <% @hash[:phases].each do |phase| %>
 <%# Only render selected phase %>
 <% if phase[:title] == @selected_phase.title %>
-  <%= (@hash[:phases].length > 1 ? "#{phase[:title]}" : "") %>
+<%= (@hash[:phases].many? ? "#{phase[:title]}" : "") %>
   <% phase[:sections].each do |section| %>
     <% if display_questions_and_section_headings(section, @show_sections_questions, @show_custom_sections) %>
 <%= "#{section[:title]}\n" %>
@@ -36,7 +36,7 @@
 <%= "#{strip_tags(txt.gsub(/<br\/?>/, '\n'))}\n" %>
           <% end %>
         <% else %>
-<%= "#{strip_tags(question[:text][0].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,""))}\n" if question[:text].present? && question[:text][0].present? %>
+<%= "#{strip_tags(question[:text].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,""))}\n" if question[:text].present? && question[:text][0].present? %>
         <% end %>
         <% answer = @plan.answer(question[:id], false) %>
         <% blank = (answer.present? && answer.is_valid?) ? answer.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '\n').chomp.blank? : true %>
