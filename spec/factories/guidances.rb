@@ -3,18 +3,25 @@
 # Table name: guidances
 #
 #  id                :integer          not null, primary key
+#  published         :boolean
 #  text              :text
-#  guidance_group_id :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  question_id       :integer
-#  published         :boolean
+#  guidance_group_id :integer
+#
+# Indexes
+#
+#  index_guidances_on_guidance_group_id  (guidance_group_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (guidance_group_id => guidance_groups.id)
 #
 
 FactoryBot.define do
   factory :guidance do
     text { Faker::Lorem.sentence }
     guidance_group
-    question_id { create(:question).id }
+    published false
   end
 end

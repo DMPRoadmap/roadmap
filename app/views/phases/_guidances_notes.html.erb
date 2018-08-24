@@ -23,54 +23,52 @@
   </ul>
   <div class="tab-content">
     <% if guidances_active %>
-    <div id="guidances-<%= question.id %>" role="tabpanel" class="tab-pane active">
-      <ul class="nav nav-tabs" role="tablist">
-        <% guidance_service.orgs.each_with_index do |org, i| %>
-            <% if guidance_service.any?(org: org, question: question) %>
-              <% active_nav ||= org.id %>
-              <li role="presentation" <%= active_nav == org.id ? "class=active" : "" %>>
-                <a
-                  data-target="<%= "#guidance_per_question_#{question.id}_#{i}" %>"
-                  aria-controls="<%= "#guidance_per_question_#{question.id}_#{i}" %>"
-                  role="tab"
-                  data-toggle="tab"
-                  class="view-plan-guidance">
-                  <%= org.abbreviation %>
-                </a>
-              </li>
-            <% end %>
-        <% end %>
-      </ul>
-      <div class="tab-content">
-        <% guidance_service.orgs.each_with_index do |org, i| %>
-          <% if guidance_service.any?(org: org, question: question) %>
-            <div id="<%= "guidance_per_question_#{question.id}_#{i}" %>" role="tabpanel" class="tab-pane <%= active_nav == org.id ? 'active' : '' %>">
-              <div class="panel panel-default">
-                <div class="panel-body">
-                  <% guidance_service.guidance_annotations(org: org, question: question).each do |annotation| %>
-                    <%=
-                      render partial: 'org_admin/annotations/show', locals: {
-                        template: template,
-                        example_answer: nil,
-                        guidance: annotation,
-                        for_plan: true }
-                    %>
-                  <% end %>
-                  <% if guidance_service.guidance_annotations?(org: org, question: question) &&
-                    guidance_service.guidance_groups_by_theme?(org: org, question: question) %>
-                    <hr />
-                  <% end %>
-                  <% if guidance_service.guidance_groups_by_theme?(org: org, question: question) %>
-                    <%= render partial: 'guidance_groups/index_by_theme',
-                        locals: { guidance_groups_by_theme: guidance_service.guidance_groups_by_theme(org: org, question: question) } %>
-                  <% end %>
+      <% tablist = guidance_service.tablist(question) %>
+      <div id="guidances-<%= question.id %>" role="tabpanel" class="tab-pane active">
+        <ul class="nav nav-tabs" role="tablist">
+          <% tablist.each_with_index do |tab, i| %>
+            <% active_nav ||= tab[:name] %>
+            <li role="presentation" <%= active_nav == tab[:name] ? "class=active" : "" %>>
+              <a
+                data-target="<%= "#guidance_per_question_#{question.id}_#{i}" %>"
+                aria-controls="<%= "#guidance_per_question_#{question.id}_#{i}" %>"
+                role="tab"
+                data-toggle="tab"
+                class="view-plan-guidance">
+                <%= tab[:name] %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+        <div class="tab-content">
+          <% tablist.each_with_index do |tab, i| %>
+            <div id="<%= "guidance_per_question_#{question.id}_#{i}" %>" role="tabpanel" class="tab-pane <%= active_nav == tab[:name] ? 'active' : '' %>">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <% if tab[:annotations].present? %>
+                      <% tab[:annotations].each do |annotation| %>
+                        <%=
+                          render partial: 'org_admin/annotations/show', locals: {
+                            template: template,
+                            example_answer: nil,
+                            guidance: annotation,
+                            for_plan: true }
+                        %>
+                      <% end %>
+                      <% if tab[:groups].present? %>
+                        <hr />
+                      <% end %>
+                    <% end %>
+                    <% if tab[:groups].present? %>
+                      <%= render partial: 'guidance_groups/index_by_theme',
+                          locals: { guidance_groups_by_theme: tab[:groups] } %>
+                    <% end %>
+                  </div>
                 </div>
               </div>
-            </div>
           <% end %>
-        <% end %>
+        </div>
       </div>
-    </div>
     <% end %>
 
     <% if plan.present? %>

@@ -3,14 +3,21 @@
 # Table name: phases
 #
 #  id          :integer          not null, primary key
-#  title       :string
 #  description :text
+#  modifiable  :boolean
 #  number      :integer
-#  template_id :integer
+#  title       :string
 #  created_at  :datetime
 #  updated_at  :datetime
-#  slug        :string
-#  modifiable  :boolean
+#  template_id :integer
+#
+# Indexes
+#
+#  index_phases_on_template_id  (template_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (template_id => templates.id)
 #
 
 FactoryBot.define do
@@ -19,5 +26,14 @@ FactoryBot.define do
     description { Faker::Lorem.paragraph }
     sequence(:number)
     template
+    modifiable true
+
+    transient do
+      sections 0
+    end
+
+    after(:create) do |phase, evaluator|
+      create_list(:section, evaluator.sections, phase: phase)
+    end
   end
 end

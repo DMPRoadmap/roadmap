@@ -11,13 +11,18 @@
                       error: _('Please select an organisation from the list, or click the "My organisation isn\'t listed" link and enter your organisation\'s name.'),
                       required: required} %>
 
+<div id="help-org" class="text-danger" style="display: none">
+  <%= _('Please select an organisation from the list, or click the "My organisation isn\'t listed" link and enter your organisation\'s name.') %>
+</div>
+
 <% if allow_other_orgs %>
   <div class="clearfix"></div>
   <%= f.hidden_field :other_org_id, value: other_org.present? ? other_org.id : '' %>
+  <%= f.hidden_field :other_org_name, value: other_org.present? ? other_org.name : '' %>
   <a href="#" class="other-org-link"><%= _('My organisation isn\'t listed.') %></a>
 
   <div class="clearfix"></div>
-  <%= f.text_field :other_organisation, autocomplete: "off", class: "form-control hide other-org", 
+  <%= f.text_field :other_organisation, autocomplete: "off", class: "form-control hide other-org",
                    placeholder: _('Please enter the name of your organisation'),
                    "aria-label": "other_organisation" %>
 <% end %>
