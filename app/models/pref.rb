@@ -8,21 +8,31 @@
 #
 
 class Pref < ActiveRecord::Base
+  include ValidationMessages
+
   ##
   # Serialize prefs to JSON
   # The settings object only stores deviations from the default
   serialize :settings, JSON
 
-  ##
-  # Associations
+  # ================
+  # = Associations =
+  # ================
   belongs_to :user
 
-  ##
-  # Returns the hash generated from default preferences
+  # ===============
+  # = Validations =
+  # ===============
+
+  validates :user, presence: { message: PRESENCE_MESSAGE }
+
+  validates :settings, presence: { message: PRESENCE_MESSAGE }
+
+  # The default preferences
   #
-  # @return [JSON] preferences hash
+  # Returns Hash
   def self.default_settings
-    return Rails.configuration.branding[:preferences]
+    Branding.fetch(:preferences)
   end
 
 end

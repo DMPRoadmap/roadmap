@@ -32,6 +32,19 @@ module DMPRoadmap
       g.controller_specs false
     end
 
+    # TODO: Set up a better Rails cache, preferrably Redis
+    #
+    # From Rails docs:
+    # https://guides.rubyonrails.org/caching_with_rails.html#activesupport-cache-memorystore
+    #
+    # If you're running multiple Ruby on Rails server processes (which is the case if
+    # you're using Phusion Passenger or puma clustered mode), then your Rails server
+    # process instances won't be able to share cache data with each other. This cache
+    # store is not appropriate for large application deployments. However, it can work
+    # well for small, low traffic sites with only a couple of server processes, as well
+    # as development and test environments.
+    config.cache_store = :memory_store, { size: 32.megabytes }
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

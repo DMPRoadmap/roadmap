@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %> 
+    <!-- Version: <%= version %> -->
+    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %>
     </title>
 
   <!-- START DMPTool customization -->
@@ -56,7 +57,7 @@
   </head>
   <body>
       <div class="skip">
-        <a href="#maincontent"> _('Skip to main content') </a> 
+        <a href="#maincontent"> _('Skip to main content') </a>
       </div>
       <!-- header rendering -->
       <header class="container">
@@ -153,7 +154,7 @@
     <!-- ========================================= -->
     <!-- END DMPTool customization -->
 
-    <% 
+    <%
     constants_json = {
       PASSWORD_MIN_LENGTH: 8,
       PASSWORD_MAX_LENGTH: 128,

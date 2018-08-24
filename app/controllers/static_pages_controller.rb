@@ -19,10 +19,14 @@ class StaticPagesController < ApplicationController
   end
 
   def roadmap
-    
   end
 
   def privacy
   end
 
+  def termsuse
+  end
+
+  def help
+  end
 end

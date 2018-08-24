@@ -3,7 +3,7 @@
 # Table name: notes
 #
 #  id          :integer          not null, primary key
-#  archived    :boolean
+#  archived    :boolean          default(FALSE), not null
 #  archived_by :integer
 #  text        :text
 #  created_at  :datetime
@@ -22,12 +22,28 @@
 #
 
 class Note < ActiveRecord::Base
-  ##
-  # Associations
+  include ValidationMessages
+  include ValidationValues
+
+  # ================
+  # = Associations =
+  # ================
+
   belongs_to :answer
+
   belongs_to :user
 
+  # ===============
+  # = Validations =
+  # ===============
 
-  validates :text, :answer, :user, presence: {message: _("can't be blank")}
+  validates :text, presence: { message: PRESENCE_MESSAGE }
+
+  validates :answer, presence: { message: PRESENCE_MESSAGE }
+
+  validates :user, presence: { message: PRESENCE_MESSAGE }
+
+  validates :archived, inclusion: { in: BOOLEAN_VALUES,
+                                    message: INCLUSION_MESSAGE }
 
 end

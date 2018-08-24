@@ -6,7 +6,6 @@
 #  description :text
 #  modifiable  :boolean
 #  number      :integer
-#  slug        :string
 #  title       :string
 #  created_at  :datetime
 #  updated_at  :datetime
@@ -27,13 +26,20 @@
 # [+Created:+] 03/09/2014
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 class Phase < ActiveRecord::Base
+  include ValidationMessages
+  include ValidationValues
+  include ActsAsSortable
+
   ##
   # Sort order: Number ASC
   default_scope { order(number: :asc) }
 
-  ##
-  # Associations
-  belongs_to :template
+  # ================
+  # = Associations =
+  # ================
+  belongs_to :template, touch: true
+
+  belongs_to :plan
 
   has_one :prefix_section, -> (phase) {
     modifiable.where("number < ?",
@@ -56,18 +62,28 @@ class Phase < ActiveRecord::Base
   }, class_name: "Section"
 
 
-  validates :title, :number, :template, presence: { message: _("can't be blank") }
+  # ===============
+  # = Validations =
+  # ===============
+
+  validates :title, presence: { message: PRESENCE_MESSAGE }
+
+  validates :number, presence: { message: PRESENCE_MESSAGE },
+                     uniqueness: { message: UNIQUENESS_MESSAGE,
+                                   scope: :template_id }
+
+  validates :template, presence: { message: PRESENCE_MESSAGE }
+
+  validates :modifiable, inclusion: { in: BOOLEAN_VALUES,
+                                      message: INCLUSION_MESSAGE }
+
+  # ==========
+  # = Scopes =
+  # ==========
 
   scope :titles, -> (template_id) {
     Phase.where(template_id: template_id).select(:id, :title)
   }
-
-  # TODO: Remove after implementing new template versioning logic
-  # Callbacks
-  after_save do |phase|
-    # Updates the template.updated_at attribute whenever a phase has been created/updated
-    phase.template.touch if template.present?
-  end
 
   def deep_copy(**options)
     copy = self.dup
@@ -83,9 +99,7 @@ class Phase < ActiveRecord::Base
   # Returns the number of answered question for the phase.
   def num_answered_questions(plan)
     return 0 if plan.nil?
-    return sections.reduce(0) do |m, s|
-      m + s.num_answered_questions(plan)
-    end
+    sections.to_a.sum { |s| s.num_answered_questions(plan) }
   end
 
   # Returns the number of questions for a phase. Note, this method becomes useful

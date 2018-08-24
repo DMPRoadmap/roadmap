@@ -200,7 +200,7 @@ span.sublist {
 }
 
 /* FONTAWESOME STYLING */
-.fa {
+.fa:not(.small) {
   font-size: 2rem;
 }
 .fa-reverse {

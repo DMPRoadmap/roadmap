@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '>= 2.4.4'
+ruby '>= 2.4.0'
 
 # ------------------------------------------------
 # RAILS
@@ -19,9 +19,14 @@ gem 'responders', '~> 2.0'
 
 # ------------------------------------------------
 #    DATABASE/SERVER
+
+# A simple, fast Mysql library for Ruby, binding to libmysql
+# (http://github.com/brianmario/mysql2)
 # A simple, fast Mysql library for Ruby, binding to libmysql (http://github.com/brianmario/mysql2)
 gem 'mysql2', '~> 0.4.10'
 
+# Pg is the Ruby interface to the {PostgreSQL
+# RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
 # Pg is the Ruby interface to the {PostgreSQL RDBMS}[http://www.postgresql.org/] (https://bitbucket.org/ged/ruby-pg)
 gem 'pg', '~> 0.19.0'
 
@@ -115,29 +120,76 @@ group :development, :test do
   # Ruby fast debugger - base + CLI (http://github.com/deivid-rodriguez/byebug)
   gem "byebug"
 
+  # RSpec for Rails (https://github.com/rspec/rspec-rails)
   gem "rspec-rails"
 
+  # factory_bot_rails provides integration between factory_bot and rails 3 or newer (http://github.com/thoughtbot/factory_bot_rails)
+  # rspec-collection_matchers-1.1.3 (https://github.com/rspec/rspec-collection_matchers)
+  gem "rspec-collection_matchers"
+
+  # factory_bot_rails provides integration between factory_bot and rails 3 or newer (http://github.com/thoughtbot/factory_bot_rails)
   gem "factory_bot_rails"
 
+  # Easily generate fake data (https://github.com/stympy/faker)
   gem "faker"
+
+  # the instafailing RSpec progress bar formatter (https://github.com/thekompanee/fuubar)
+  gem "fuubar"
+
+  # Guard keeps an eye on your file modifications (http://guardgem.org)
+  gem "guard"
+
+  # Guard gem for RSpec (https://github.com/guard/guard-rspec)
+  gem "guard-rspec"
 end
 
 group :test do
-  # Create customizable Minitest output formats (https://github.com/CapnKernul/minitest-reporters)
-  gem 'minitest-reporters'
-
-  # Simple testing API built on Rack (http://github.com/brynary/rack-test)
-  gem 'rack-test'
-
   # Library for stubbing HTTP requests in Ruby. (http://github.com/bblimke/webmock)
   gem 'webmock'
 
-  # This module allows Ruby programs to interface with the SQLite3 database engine (http://www.sqlite.org) (https://github.com/sparklemotion/sqlite3-ruby)
-  gem 'sqlite3'
   # Code coverage for Ruby 1.9+ with a powerful configuration library and automatic merging of coverage across test suites (http://github.com/colszowka/simplecov)
   gem 'simplecov', require: false
 
-  gem 'database_cleaner'
+  # Strategies for cleaning databases.  Can be used to ensure a clean state for testing. (http://github.com/DatabaseCleaner/database_cleaner)
+  gem 'database_cleaner', require: false
+
+  # Making tests easy on the fingers and eyes (https://github.com/thoughtbot/shoulda)
+  gem "shoulda", require: false
+
+  # Mocking and stubbing library (http://gofreerange.com/mocha/docs)
+  gem "mocha", require: false
+
+  # Rails application preloader (https://github.com/rails/spring)
+  gem "spring"
+
+  # rspec command for spring (https://github.com/jonleighton/spring-commands-rspec)
+  gem "spring-commands-rspec"
+
+  # rspec-collection_matchers-1.1.3 (https://github.com/rspec/rspec-collection_matchers)
+  gem "rspec-collection_matchers"
+
+  # Capybara aims to simplify the process of integration testing Rack applications, such as Rails, Sinatra or Merb (https://github.com/teamcapybara/capybara)
+  gem "capybara"
+
+  # Automatically create snapshots when Cucumber steps fail with Capybara and Rails (http://github.com/mattheworiordan/capybara-screenshot)
+  gem "capybara-screenshot"
+
+  # The next generation developer focused tool for automated testing of webapps (https://github.com/SeleniumHQ/selenium)
+  gem 'selenium-webdriver', '>= 3.13.1'
+
+  # Easy installation and use of chromedriver. (https://github.com/flavorjones/chromedriver-helper)
+  gem 'chromedriver-helper', ">= 1.2.0"
+end
+
+group :ci, :development do
+  # Security vulnerability scanner for Ruby on Rails. (http://brakemanscanner.org)
+  gem "brakeman"
+
+  # Automatic Ruby code style checking tool. (https://github.com/rubocop-hq/rubocop)
+  gem "rubocop-dmp_roadmap", ">= 1.1.0"
+
+  # Helper gem to require bundler-audit (http://github.com/stewartmckee/bundle-audit)
+  gem "bundle-audit"
 end
 
 group :development do
@@ -158,6 +210,13 @@ group :development do
 
   # Add comments to your Gemfile with each dependency's description. (https://github.com/ivantsepp/annotate_gem)
   gem "annotate_gem"
+
+  # help to kill N+1 queries and unused eager loading. (https://github.com/flyerhzm/bullet)
+  gem "bullet"
+
+  gem "yard"
+
+  gem "yard-tomdoc"
 end
 
 # START DMPTool customization

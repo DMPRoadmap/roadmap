@@ -2,10 +2,39 @@ class GuidanceService
   attr_accessor :plan
   attr_accessor :guidance_groups
 
+# TODO: Move the customization below to the new GuidancePresenter once its pulled in
+#
+# def get_guidance_group_options
+#    # find all the themes in this plan
+#    # and get the guidance groups they belong to
+#    ggroups = []
+#    Template.includes(phases: [sections: [questions: [themes: [guidances: [guidance_group: :org]]]]]).find(self.template_id).phases.each do |phase|
+#      phase.sections.each do |section|
+#        section.questions.each do |question|
+#          question.themes.each do |theme|
+#            theme.guidances.each do |guidance|
+#
+#            # START DMPTool customization
+#            # ---------------------------------------------------------
+#              #ggroups << guidance.guidance_group if guidance.guidance_group.published
+#              ggroups << guidance.guidance_group if guidance.guidance_group.published && !guidance.guidance_group.org.is_other?
+#            # ---------------------------------------------------------
+#            # END DMPTool customization
+#
+#              # only show published guidance groups
+#            end
+#          end
+#        end
+#      end
+#    end
+#    return ggroups.uniq
+#  end
+
   def initialize(plan)
     @plan = plan
     @guidance_groups = plan.guidance_groups.where(published: true)
   end
+
   # Returns an Array of orgs according to the guidance related to plan
   # Note the Array is sorted in the following order:
   # First funder org (if the template from the plan is a customization of another)
@@ -80,10 +109,47 @@ class GuidanceService
     return hashified_annotations[org].select{ |annotation| (annotation.question_id == question.id) && (annotation.type == "guidance")}
   end
 
+
+  # filters through the orgs with annotations and guidance groups to create a
+  # set of tabs with display names and any guidance/annotations to show
+  #
+  # question  - The question to which guidance pretains
+  #
+  # Returns an array of tab hashes.  These
+  def tablist(question)
+    # start with orgs
+    # filter into hash with annotation_presence, main_group presence, and
+    display_tabs = []
+    orgs.each do |org|
+      annotations = guidance_annotations(org: org,question: question)
+      groups = guidance_groups_by_theme(org: org,question: question)
+      main_groups = groups.select{|group| group.optional_subset == false}
+      subsets = groups.reject{|group| group.optional_subset == false}
+      if annotations.present? || main_groups.present? # annotations and main group
+        # Tab with org.abbreviation
+        display_tabs << {name: org.abbreviation, groups: main_groups,
+                        annotations: annotations}
+      end
+      if subsets.present?
+        subsets.each_pair do |group,theme|
+          display_tabs << {name: group.name.truncate(15), groups:{group => theme}}
+        end
+      end
+    end
+    return display_tabs
+  end
+
   private
     def orgs_from_guidance_groups
       if !defined?(@orgs_from_guidance_groups)
-        @orgs_from_guidance_groups = Org.joins(:guidance_groups).where("guidance_groups.id": guidance_groups.map(&:id)).distinct("orgs.id")
+
+      # START DMPTool customization
+      # ---------------------------------------------------------
+        #@orgs_from_guidance_groups = Org.joins(:guidance_groups).where("guidance_groups.id": guidance_groups.map(&:id)).distinct("orgs.id")
+        @orgs_from_guidance_groups = Org.joins(:guidance_groups).where("orgs.is_other": false, "guidance_groups.id": guidance_groups.map(&:id)).distinct("orgs.id")
+      # ---------------------------------------------------------
+      # END DMPTool customization
+
       end
       return @orgs_from_guidance_groups
     end
@@ -91,7 +157,14 @@ class GuidanceService
       if !defined?(@orgs_from_annotations)
         @orgs_from_annotations = []
         @orgs_from_annotations << Template.find_by(family_id: plan.template.customization_of).org if plan.template.customization_of.present?
-        @orgs_from_annotations << plan.template.org
+
+      # START DMPTool customization
+      # ---------------------------------------------------------
+        #@orgs_from_annotations << plan.template.org
+        @orgs_from_annotations << plan.template.org unless plan.template.org.is_other?
+      # ---------------------------------------------------------
+      # END DMPTool customization
+
       end
       return @orgs_from_annotations
     end

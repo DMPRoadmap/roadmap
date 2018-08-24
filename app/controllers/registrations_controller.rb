@@ -6,14 +6,8 @@ class RegistrationsController < Devise::RegistrationsController
     @prefs = @user.get_preferences(:email)
     @languages = Language.sorted_by_abbreviation
 
-  # ------------------------------------
-  # START DMPTool customization
-    #@orgs = Org.where(parent_id: nil).order("name")
-    #@other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
-    @orgs = Org.where(parent_id: nil, is_other: nil).order("name")
-  # END DMPTool customization
-  # ------------------------------------
-    
+    @orgs = Org.order("name")
+    @other_organisations = Org.where(is_other: true).pluck(:id)
     @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
 
   # ------------------------------------
@@ -80,7 +74,7 @@ class RegistrationsController < Devise::RegistrationsController
           return
         end
       end
-      
+
     # ------------------------------------
     # START DMPTool customization
       #if params[:user][:org_id].blank?
@@ -88,20 +82,20 @@ class RegistrationsController < Devise::RegistrationsController
         #if other_org.nil?
           #redirect_to(after_sign_up_error_path_for(resource), alert: _('You cannot be assigned to other organisation since that option does not exist in the system. Please contact your system administrators.')) and return
         #end
-        #params[:user][:org_id] = other_org.id 
+        #params[:user][:org_id] = other_org.id
       #end
       #build_resource(sign_up_params)
-            
+
       # If the org_id is blank default to the Org marked as 'is_other'
       args = sign_up_params
       if !sign_up_params[:org_id].present? && !Org.find_by(is_other: true).nil?
-        args[:org_id] = Org.find_by(is_other: true).id 
+        args[:org_id] = Org.find_by(is_other: true).id
       end
-      
+
       build_resource(args)
     # END DMPTool customization
     # ------------------------------------
-    
+
       if resource.save
         if resource.active_for_authentication?
           set_flash_message :notice, :signed_up if is_navigational_format?
@@ -114,6 +108,7 @@ class RegistrationsController < Devise::RegistrationsController
         # ------------------------------------
 
           respond_with resource, location: after_sign_up_path_for(resource)
+
         else
           set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
           respond_with resource, location: after_inactive_sign_up_path_for(resource)
@@ -129,22 +124,23 @@ class RegistrationsController < Devise::RegistrationsController
     if user_signed_in? then
       @prefs = @user.get_preferences(:email)
 
+      @orgs = Org.order("name")
+
     # ------------------------------------
     # START DMPTool customization
-      #@orgs = Org.where(parent_id: nil).order("name")
       #@default_org = current_user.org
-      #@other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
-      @orgs = Org.where(parent_id: nil, is_other: nil).order("name")
       @default_org = current_user.org unless current_user.org.nil? || current_user.org.is_other
     # END DMPTool customization
     # ------------------------------------
+
+      @other_organisations = Org.where(is_other: true).pluck(:id)
 
       @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
       @languages = Language.sorted_by_abbreviation
       if params[:skip_personal_details] == "true"
         do_update_password(current_user, params)
       else
-        
+
       # ------------------------------------
       # START DMPTool customization
         # If the user left the org box blank default it to the 'Other' Org
@@ -154,7 +150,7 @@ class RegistrationsController < Devise::RegistrationsController
         end
       # END DMPTool customization
       # ------------------------------------
-        
+
         do_update(require_password=needs_password?(current_user, params))
       end
     else
