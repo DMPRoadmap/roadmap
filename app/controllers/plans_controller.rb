@@ -268,7 +268,7 @@ class PlansController < ApplicationController
 
     respond_to do |format|
       format.html { render layout: false }
-      format.csv  { send_data @plan.as_csv(@show_sections_questions, @show_unanswered, @selected_phase, @show_custom_sections),  filename: "#{file_name}.csv" }
+      format.csv  { send_data @plan.as_csv(@show_sections_questions, @show_unanswered, @selected_phase, @show_custom_sections, @show_coversheet),  filename: "#{file_name}.csv" }
       format.text { send_data render_to_string(partial: 'shared/export/plan_txt'), filename: "#{file_name}.txt" }
       format.docx { render docx: "#{file_name}.docx", content: render_to_string(partial: 'shared/export/plan') }
       format.pdf do
