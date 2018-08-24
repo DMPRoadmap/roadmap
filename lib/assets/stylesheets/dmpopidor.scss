@@ -278,7 +278,9 @@ $light-yellow: #fff9e5;
     .panel-title {
         color: $white;
     }
-
+    .plan-guidance-tab {
+        word-wrap: break-word;
+    }
     .plan-details {
         .guidance-configuration {
             border-left: 2px solid $rust;
