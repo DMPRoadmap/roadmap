@@ -45,9 +45,7 @@
               <div class="question">
                 <% if !@public_plan %>
                   <p>
-                    <% if question[:text].present? %>
-                      <%= sanitize question[:text] %>
-                    <% end %>
+                    <%= sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %>
                   </p>
                   <br>
                 <% end %>
