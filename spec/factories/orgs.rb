@@ -37,7 +37,7 @@ FactoryBot.define do
     region { Region.first || create(:region) }
     language { Language.first || create(:language) }
     is_other false
-
+    contact_email { Faker::Internet.safe_email }
     trait :institution do
       institution true
     end

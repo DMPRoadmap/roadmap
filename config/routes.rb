@@ -101,6 +101,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :feedback_requests, only: [:create]
+
     resources :plans do
       member do
         get 'answer'
@@ -110,7 +112,6 @@ Rails.application.routes.draw do
         get 'export'
         post 'visibility', constraints: {format: [:json]}
         post 'set_test', constraints: {format: [:json]}
-        get 'request_feedback'
         get 'overview'
       end
     end

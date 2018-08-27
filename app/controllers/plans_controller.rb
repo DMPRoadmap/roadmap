@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "pp"
 class PlansController < ApplicationController
 
   include ConditionalUserMailer
@@ -39,7 +38,6 @@ class PlansController < ApplicationController
   end
 
   # POST /plans
-  # -------------------------------------------------------------------
   def create
     @plan = Plan.new
     authorize @plan
@@ -109,11 +107,13 @@ class PlansController < ApplicationController
         elsif !@plan.template.customization_of.nil?
           # rubocop:disable Metrics/LineLength
           # We used a customized version of the the funder template
+          # rubocop:disable Metrics/LineLength
           msg += " #{_('This plan is based on the')} #{plan_params[:funder_name]}: '#{@plan.template.title}' #{_('template with customisations by the')} #{plan_params[:org_name]}"
           # rubocop:enable Metrics/LineLength
         else
           # rubocop:disable Metrics/LineLength
           # We used the specified org's or funder's template
+          # rubocop:disable Metrics/LineLength
           msg += " #{_('This plan is based on the')} #{@plan.template.org.name}: '#{@plan.template.title}' template."
           # rubocop:enable Metrics/LineLength
         end
@@ -139,7 +139,6 @@ class PlansController < ApplicationController
       template: { phases: { sections: { questions: :answers } } },
       plans_guidance_groups: { guidance_group: :guidances }
             ).find(params[:id])
-
     authorize @plan
 
     @visibility = if @plan.visibility.present?
@@ -212,7 +211,6 @@ class PlansController < ApplicationController
                              else
                                params[:guidance_group_ids].map(&:to_i).uniq
                              end
-
         @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
         @plan.save
         if @plan.update_attributes(attrs)
@@ -238,7 +236,9 @@ class PlansController < ApplicationController
         format.html do
           render_phases_edit(@plan, @plan.phases.first, @plan.guidance_groups)
         end
-        format.json { render json: { code: 0, msg: flash[:alert] } }
+        format.json do
+          render json: { code: 0, msg: flash[:alert] }
+        end
       end
     end
     # rubocop:enable Metrics/BlockLength
@@ -255,15 +255,15 @@ class PlansController < ApplicationController
     end
   end
 
-
   def destroy
     @plan = Plan.find(params[:id])
     authorize @plan
     if @plan.destroy
       respond_to do |format|
-        format.html {
-          redirect_to plans_url, notice: success_message(_("plan"), _("deleted"))
-        }
+        format.html do
+          redirect_to plans_url,
+                      notice: success_message(_("plan"), _("deleted"))
+        end
       end
     else
       respond_to do |format|
@@ -278,9 +278,9 @@ class PlansController < ApplicationController
     authorize @plan
     if !params[:q_id].nil?
       respond_to do |format|
-        format.json {
+        format.json do
           render json: @plan.answer(params[:q_id], false).to_json(include: :options)
-        }
+        end
       end
     else
       respond_to do |format|
@@ -309,13 +309,30 @@ class PlansController < ApplicationController
     @hash = @plan.as_pdf(@show_coversheet)
     @formatting = params[:export][:formatting] || @plan.settings(:export).formatting
     file_name = @plan.title.gsub(/ /, "_")
+
+    # rubocop:disable Metrics/BlockLength
     respond_to do |format|
       format.html { render layout: false }
-      format.csv { export_as_csv(file_name) }
-      format.text { export_as_text(file_name) }
-      format.docx { export_as_docx(file_name) }
-      format.pdf { export_as_pdf(file_name) }
+      format.csv  { send_data @plan.as_csv(@show_sections_questions, @show_unanswered, @selected_phase, @show_custom_sections, @show_coversheet),  filename: "#{file_name}.csv" }
+      format.text { send_data render_to_string(partial: 'shared/export/plan_txt'), filename: "#{file_name}.txt" }
+      format.docx { render docx: "#{file_name}.docx", content: render_to_string(partial: 'shared/export/plan') }
+      format.pdf do
+        # rubocop:disable Metrics/LineLength
+        render pdf: file_name,
+               margin: @formatting[:margin],
+               footer: {
+                 center: _("Created using the %{application_name}. Last modified %{date}") % {
+                   application_name: Rails.configuration.branding[:application][:name],
+                   date: l(@plan.updated_at.to_date, formats: :short)
+                  },
+                 font_size: 8,
+                 spacing:   (Integer(@formatting[:margin][:bottom]) / 2) - 4,
+                 right:     "[page] of [topage]"
+               }
+        # rubocop:enable Metrics/LineLength
+      end
     end
+    # rubocop:enable Metrics/BlockLength
   end
 
   def duplicate
@@ -349,7 +366,9 @@ class PlansController < ApplicationController
         else
           # rubocop:disable Metrics/LineLength
           render status: :internal_server_error,
-                 json: { msg: _("Error raised while saving the visibility for plan id %{plan_id}") % {  plan_id: params[:id] } }
+                 json: {
+                   msg: _("Error raised while saving the visibility for plan id %{plan_id}") % {  plan_id: params[:id] }
+                 }
           # rubocop:enable Metrics/LineLength
         end
       else
@@ -363,8 +382,8 @@ class PlansController < ApplicationController
       end
     else
       render status: :not_found,
-             json: {
-               msg: _("Unable to find plan id %{plan_id}") % {  plan_id: params[:id] }
+             json: { msg: _("Unable to find plan id %{plan_id}") % {
+               plan_id: params[:id] }
              }
     end
   end
@@ -373,34 +392,18 @@ class PlansController < ApplicationController
     plan = Plan.find(params[:id])
     authorize plan
     plan.visibility = (params[:is_test] === "1" ? :is_test : :privately_visible)
-    message = if plan.is_test?
-                _("Your project is now a test.")
-              else
-                _("Your project is no longer a test.")
-              end
+    # rubocop:disable Metrics/LineLength
     if plan.save
-      render json: { code: 1, msg: message }
+      render json: {
+               code: 1,
+               msg: (plan.is_test? ? _("Your project is now a test.") : _("Your project is no longer a test."))
+             }
     else
-      render status: :bad_request,
-             json: { code: 0, msg: _("Unable to change the plan's test status") }
+      render status: :bad_request, json: {
+               code: 0, msg: _("Unable to change the plan's test status")
+             }
     end
-  end
-
-  def request_feedback
-    @plan = Plan.find(params[:id])
-    authorize @plan
-    alert = _("Unable to submit your request for feedback at this time.")
-
-    begin
-      if @plan.request_feedback(current_user)
-        redirect_to share_plan_path(@plan),
-                    notice: _(request_feedback_flash_notice)
-      else
-        redirect_to share_plan_path(@plan), alert: alert
-      end
-     rescue Exception
-       redirect_to share_plan_path(@plan), alert: alert
-    end
+    # rubocop:enable Metrics/LineLength
   end
 
   def overview
@@ -429,7 +432,6 @@ class PlansController < ApplicationController
                   :principal_investigator_identifier, :data_contact_email,
                   :data_contact_phone, :guidance_group_ids)
   end
-
 
   # different versions of the same template have the same family_id
   # but different version numbers so for each set of templates with the
@@ -475,17 +477,6 @@ class PlansController < ApplicationController
     plan.delete(src_plan_key)
   end
 
-  # Flash notice for successful feedback requests
-  #
-  # Returns String
-  def request_feedback_flash_notice
-    # Use the generic feedback confirmation message unless the Org has
-    # specified one
-    text = current_user.org.feedback_email_msg ||
-             feedback_confirmation_default_message
-    feedback_constant_to_text(text, current_user, @plan, current_user.org)
-  end
-
   private
 
   # ============================
@@ -499,45 +490,13 @@ class PlansController < ApplicationController
     answers = plan.answers.reduce({}) { |m, a| m[a.question_id] = a; m }
     render("/phases/edit", locals: {
       base_template_org: phase.template.base_org,
-      plan: plan, phase: phase, readonly: readonly,
+      plan: plan,
+      phase: phase,
+      readonly: readonly,
       guidance_groups: guidance_groups,
       answers: answers,
-      guidance_presenter: GuidancePresenter.new(plan) })
-  end
-
-  def export_as_csv(file_name)
-    data = @plan.as_csv(@show_sections_questions,
-                        @show_unanswered,
-                        @selected_phase,
-                        @show_custom_sections)
-    send_data(data, filename: "#{file_name}.csv")
-  end
-
-  def export_as_csv(file_name)
-    send_data(render_to_string(partial: "shared/export/plan_txt"),
-                               filename: "#{file_name}.txt")
-  end
-
-  def export_as_docx(file_name)
-    render docx: "#{file_name}.docx",
-           content: render_to_string(partial: "shared/export/plan")
-  end
-
-  def export_as_pdf(file_name)
-    # rubocop:disable Metrics/LineLength
-    center_text = _("Created using the %{application_name}. Last modified %{date}") % {
-      application_name: Rails.configuration.branding[:application][:name],
-      date: l(@plan.updated_at.to_date, formats: :short)
-    }
-    # rubocop:enable Metrics/LineLength
-    render pdf: file_name,
-           margin: @formatting[:margin],
-           footer: {
-             center: center_text,
-             font_size: 8,
-             spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-             right: "[page] of [topage]"
-           }
+      guidance_service: GuidanceService.new(plan)
+    })
   end
 
 end

@@ -108,7 +108,10 @@
       <p><%= _('You can continue to edit and download the plan in the interim.') %></p>
 
   <div class="form-group col-xs-8">
-    <%= link_to _('Request feedback'), request_feedback_plan_path, class: "btn btn-default#{' disabled' if @plan.feedback_requested?}" %>
+    <%= link_to _('Request feedback'),
+                feedback_requests_path(plan_id: @plan.id),
+                data: { method: 'post' },
+                class: "btn btn-default#{' disabled' if @plan.feedback_requested?}" %>
     <span><%= _("Feedback has been requested.") if @plan.feedback_requested? %></span>
   </div>
 <% end %>
