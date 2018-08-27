@@ -8,6 +8,7 @@
         <%= f.label :visibility_privately_visible do %>
           <%= f.radio_button :visibility, :privately_visible %>
           <%= _('Private: visible to me, specified collaborators and administrators at my organisation') %>
+        <% end %>
       </div>
       <div class="radio">
         <%= f.label :visibility_organisationally_visible do %>
@@ -119,7 +120,7 @@
       <h2><%= _('Request expert feedback') %></h2>
       <p><%= _('Click below to give data management staff at your organisation access to read and comment on your plan.') %></p>
       <div class="well well-sm">
-        <%= current_user.org.feedback_email_msg.to_s.html_safe %>
+        <%= sanitize current_user.org.feedback_email_msg.to_s %>
       </div>
       <p><%= _('You can continue to edit and download the plan in the interim.') %></p>
 

@@ -46,7 +46,8 @@
                 <% if !@public_plan %>
                   <p>
                     <% if question[:text].present? %>
-                    <%= sanitize question[:text] %>
+                      <%= sanitize question[:text] %>
+                    <% end %>
                   </p>
                   <br>
                 <% end %>
