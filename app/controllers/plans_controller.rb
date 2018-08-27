@@ -1,6 +1,7 @@
 require 'pp'
 class PlansController < ApplicationController
   include ConditionalUserMailer
+  include FeedbacksHelper
   helper PaginableHelper
   helper SettingsTemplateHelper
 
