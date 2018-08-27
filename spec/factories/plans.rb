@@ -51,6 +51,10 @@ FactoryBot.define do
     trait :creator do
       after(:create) { |obj| obj.roles << create(:role, creator: true) }
     end
+    trait :commenter do
+      after(:create) { |obj| obj.roles << create(:role, commenter: true) }
+    end
+
     trait :organisationally_visible do
       visibility "organisationally_visible"
     end
