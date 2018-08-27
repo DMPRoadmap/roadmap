@@ -24,7 +24,7 @@ RSpec.feature "Templates::Editing", type: :feature do
   end
 
   scenario "Admin edits a Template's existing question", :js do
-    click_link "Customisable Templates Templates"
+    click_link "Customisable Templates"
     within("#template_#{template.id}") do
       click_button "Actions"
     end
