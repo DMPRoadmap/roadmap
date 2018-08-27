@@ -6,11 +6,14 @@
           <%= f.label(:title, _('Project title'), class: 'control-label') %>
         </div>
         <div class="col-md-8">
-          <%= f.text_field(:title, class: "form-control", "aria-required": true, 'data-toggle': 'tooltip', 
+          <%= f.text_field(:title, class: "form-control", "aria-required": true, 'data-toggle': 'tooltip',
             title: _('If applying for funding, state the name exactly as in the grant proposal.')) %>
       <div class="checkbox">
         <%= f.hidden_field :visibility %>
-        <%= f.label(:is_test, raw("#{check_box_tag(:is_test,1, @plan.is_test? , "aria-label": "is_test")} #{_('mock project for testing, practice, or educational purposes')}"), class: 'control-label') %>
+        <%= f.label(:is_test, class: 'control-label') do %>
+          <%= check_box_tag(:is_test, 1, @plan.is_test?, "aria-label": "is_test") %>
+          <%= _('mock project for testing, practice, or educational purposes') %>
+        <% end %>
       </div>
         </div>
       </div>
@@ -30,7 +33,7 @@
           <%= f.label(:grant_number, _('Grant number'), class: 'control-label') %>
         </div>
         <div class="col-md-8">
-          <%= f.text_field(:grant_number, class: "form-control", "aria-required": false, 'data-toggle': 'tooltip', 
+          <%= f.text_field(:grant_number, class: "form-control", "aria-required": false, 'data-toggle': 'tooltip',
             title: _('Grant reference number if applicable [POST-AWARD DMPs ONLY]')) %>
         </div>
       </div>
@@ -50,7 +53,7 @@
           <%= f.label(:identifier, _('ID'), class: 'control-label') %>
         </div>
         <div class="col-md-8">
-          <%= f.text_field(:identifier, class: "form-control", "aria-required": false, 'data-toggle': "tooltip", 
+          <%= f.text_field(:identifier, class: "form-control", "aria-required": false, 'data-toggle': "tooltip",
                            title: _('A pertinent ID as determined by the funder and/or organisation.')) %>
         </div>
       </div>
@@ -106,7 +109,10 @@
         <legend class="project-details"><%= _('Data contact person') %></legend>
         <div class="checkbox">
           <% checked = ((@plan.data_contact.present? || @plan.data_contact_phone.present? || @plan.data_contact_email.present?) ? 1 : 0) %>
-          <%= label_tag(:show_data_contact, raw("#{check_box_tag(:show_data_contact, checked, checked == 0)} #{_('Same as Principal Investigator')}"), class: 'control-label') %>
+          <%= label_tag(:show_data_contact, class: 'control-label') do %>
+            <%= check_box_tag(:show_data_contact, checked, checked == 0) %>
+            <%= _('Same as Principal Investigator') %>
+          <% end %>
         </div>
         <div class="form-group data-contact"><!-- data_contact -->
           <div class="col-md-12">
@@ -153,7 +159,7 @@
       <fieldset>
         <p><%= _('Select up to 6 organisations to see their guidance.') %></p>
         <ul id="priority-guidance-orgs">
-          <%= render partial: "guidance_choices", 
+          <%= render partial: "guidance_choices",
                         locals: {choices: @important_ggs, form: f,
                                  current_selections: @selected_guidance_groups} %>
         </ul>
@@ -180,8 +186,8 @@
               </p>
               <p><strong><%= _("Don't forget to save your changes after making your selections.") %></strong></p>
               <ul id="other-guidance-orgs">
-                <%= render partial: "guidance_choices", 
-                           locals: {choices: @all_ggs_grouped_by_org, form: f, 
+                <%= render partial: "guidance_choices",
+                           locals: {choices: @all_ggs_grouped_by_org, form: f,
                                      current_selections: @selected_guidance_groups} %>
               </ul>
             </div>

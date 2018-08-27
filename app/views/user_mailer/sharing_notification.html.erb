@@ -15,7 +15,7 @@
     } %>
   </p>
   <p>
-    <%= raw(_('%{click_here} to accept the invitation, (or copy %{link} into your browser). If you don\'t want to accept the invitation, please ignore this email.') % { click_here: link_to(_('Click here'), link), link: link }) %>
+    <%= sanitize(_('%{click_here} to accept the invitation, (or copy %{link} into your browser). If you don\'t want to accept the invitation, please ignore this email.') % { click_here: link_to(_('Click here'), link), link: link }) %>
   </p>
   <%= render partial: 'email_signature' %>
 <% end %>

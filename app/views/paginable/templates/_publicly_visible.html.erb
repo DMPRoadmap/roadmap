@@ -21,10 +21,10 @@
           <td><%= template.org.name %></td>
           <td><%= l(template.updated_at.to_date, formats: :short) %></td>
           <td>
-            <%= raw links_to_a_elements(template.links['funder'], '<br>') %>
+            <%= sanitize links_to_a_elements(template.links['funder'], '<br>') %>
           </td>
           <td>
-            <%= raw links_to_a_elements(template.links['sample_plan'], '<br>') %>
+            <%= sanitize links_to_a_elements(template.links['sample_plan'], '<br>') %>
           </td>
         </tr>
       <% end %>

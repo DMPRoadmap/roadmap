@@ -20,7 +20,7 @@
         </div>
       </h3>
       <p class="pull-left">
-        <%= raw phase.description %>
+        <%= sanitize phase.description %>
       </p>
     </div>
   </div>
@@ -44,7 +44,7 @@
                     <ul>
                       <% section.questions.each do |question| %>
                         <li>
-                          <%= raw question.text %>
+                          <%= sanitize question.text %>
                           <% if question.question_options.length > 0 %>
                             <ul>
                               <% question.question_options.each do |option| %>
