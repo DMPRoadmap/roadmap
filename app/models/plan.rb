@@ -37,6 +37,7 @@
 #
 
 class Plan < ActiveRecord::Base
+
   include ConditionalUserMailer
   include ExportablePlan
   include ValidationMessages
@@ -50,10 +51,10 @@ class Plan < ActiveRecord::Base
   # Returns visibility message given a Symbol type visibility passed, otherwise
   # nil
   VISIBILITY_MESSAGE = {
-    organisationally_visible: _('organisational'),
-    publicly_visible: _('public'),
-    is_test: _('test'),
-    privately_visible: _('private')
+    organisationally_visible: _("organisational"),
+    publicly_visible: _("public"),
+    is_test: _("test"),
+    privately_visible: _("private")
   }
 
   # ==============
@@ -84,7 +85,7 @@ class Plan < ActiveRecord::Base
 
   has_many :guidances, through: :themes
 
-  has_many :guidance_group_options, -> { uniq.published.reorder('id') },
+  has_many :guidance_group_options, -> { uniq.published.reorder("id") },
            through: :guidances,
            source: :guidance_group,
            class_name: "GuidanceGroup"
@@ -147,12 +148,18 @@ class Plan < ActiveRecord::Base
 
   # Retrieves any plan organisationally or publicly visible for a given org id
   scope :organisationally_or_publicly_visible, -> (user) {
-    includes(:template, {roles: :user})
-      .where({
-        visibility: [visibilities[:organisationally_visible], visibilities[:publicly_visible]],
-        "roles.access": Role.access_values_for(:creator, :administrator, :editor, :commenter).min,
-        "users.org_id": user.org_id})
-      .where(['NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)', user.id])
+    vis_value = [visibilities[:organisationally_visible], visibilities[:publicly_visible]]
+    includes(:template, roles: :user)
+      .where(
+        visibility: vis_value,
+        roles: {
+          access: Role.access_values_for(:creator, :administrator, :editor, :commenter)
+                      .min,
+        },
+        users: { org_id: user.org_id })
+      .where(
+        ["NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)",
+         user.id])
   }
 
   scope :search, lambda { |term|
@@ -169,7 +176,7 @@ class Plan < ActiveRecord::Base
 
   ##
   # Settings for the template
-  has_settings :export, class_name: 'Settings::Template' do |s|
+  has_settings :export, class_name: "Settings::Template" do |s|
     s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
   alias super_settings settings
@@ -312,10 +319,10 @@ class Plan < ActiveRecord::Base
         if save!
           # Send an email confirmation to the owners and co-owners
           owners = User.joins(:roles)
-                       .where('roles.plan_id =? AND roles.access IN (?)',
+                       .where("roles.plan_id =? AND roles.access IN (?)",
                               id, Role.access_values_for(:administrator))
 
-          deliver_if(recipients: owners, key: 'users.feedback_provided') do |r|
+          deliver_if(recipients: owners, key: "users.feedback_provided") do |r|
             UserMailer.feedback_complete(r, self, org_admin).deliver_now
           end
           true
@@ -422,7 +429,7 @@ class Plan < ActiveRecord::Base
   def owner
     vals = Role.access_values_for(:creator)
     User.joins(:roles)
-        .where('roles.plan_id = ? AND roles.access IN (?)', id, vals).first
+        .where("roles.plan_id = ? AND roles.access IN (?)", id, vals).first
   end
 
   ##
@@ -452,7 +459,7 @@ class Plan < ActiveRecord::Base
   # Returns Integer
   def num_answered_questions
     Answer.where(id: answers.map(&:id))
-          .includes(:question_options, { question: :question_format })
+          .includes(:question_options, question: :question_format)
           .to_a
           .sum { |answer| answer.is_valid? ? 1 : 0 }
   end
@@ -470,7 +477,7 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def visibility_allowed?
-    value=(num_answered_questions.to_f/num_questions*100).round(2)
+    value = (num_answered_questions.to_f / num_questions * 100).round(2)
     !is_test? && value >= Rails.application
                                .config
                                .default_plan_percentage_answered
@@ -493,7 +500,7 @@ class Plan < ActiveRecord::Base
                                           question: :question_format)
                                 .where(id: answer_ids)
     num_answers = pre_fetched_answers.reduce(0) do |m, a|
-      m+=1 if a.is_valid?
+      m += 1 if a.is_valid?
       m
     end
     num_questions == num_answers
@@ -503,12 +510,8 @@ class Plan < ActiveRecord::Base
 
   # Returns whether or not the user has the specified role for the plan
   def role?(user_id, role_as_sym)
-    if user_id.is_a?(Integer) && role_as_sym.is_a?(Symbol)
-      vals = Role.access_values_for(role_as_sym)
-      roles.where(user_id: user_id, access: vals, active: true).any?
-    else
-      false
-    end
+    vals = Role.access_values_for(role_as_sym.to_sym)
+    roles.where(user_id: user_id, access: vals, active: true).any?
   end
 
   alias has_role role?
@@ -568,4 +571,5 @@ class Plan < ActiveRecord::Base
     return if id?
     self.title = "My plan (#{template.title})" if title.nil? && !template.nil?
   end
+
 end
