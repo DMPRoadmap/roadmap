@@ -503,12 +503,8 @@ class Plan < ActiveRecord::Base
 
   # Returns whether or not the user has the specified role for the plan
   def role?(user_id, role_as_sym)
-    if user_id.is_a?(Integer) && role_as_sym.is_a?(Symbol)
-      vals = Role.access_values_for(role_as_sym)
-      roles.where(user_id: user_id, access: vals, active: true).any?
-    else
-      false
-    end
+    vals = Role.access_values_for(role_as_sym.to_sym)
+    roles.where(user_id: user_id, access: vals, active: true).any?
   end
 
   alias has_role role?

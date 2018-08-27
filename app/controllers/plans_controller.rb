@@ -137,7 +137,6 @@ class PlansController < ApplicationController
       template: { phases: { sections: { questions: :answers } } },
       plans_guidance_groups: { guidance_group: :guidances }
             ).find(params[:id])
-
     authorize @plan
 
     @visibility = if @plan.visibility.present?
