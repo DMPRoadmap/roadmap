@@ -3,7 +3,6 @@
 class PlansController < ApplicationController
 
   include ConditionalUserMailer
-  include FeedbacksHelper
   helper PaginableHelper
   helper SettingsTemplateHelper
 
@@ -423,26 +422,6 @@ class PlansController < ApplicationController
     # rubocop:enable Metrics/LineLength
   end
 
-  def request_feedback
-    @plan = Plan.find(params[:id])
-    authorize @plan
-    alert = _("Unable to submit your request for feedback at this time.")
-    error = _("An error occurred when requesting feedback for this plan.")
-    begin
-      result = @plan.request_feedback(current_user)
-      logger.info("Result was: #{result}")
-      if result
-        redirect_to share_plan_path(@plan),
-                    notice: _(request_feedback_flash_notice)
-      else
-        redirect_to share_plan_path(@plan), alert: alert
-      end
-    rescue Exception
-
-      redirect_to share_plan_path(@plan), alert: alert
-    end
-  end
-
   def overview
     begin
       plan = Plan.includes(:phases, :sections, :questions, template: [ :org ])
@@ -510,17 +489,6 @@ class PlansController < ApplicationController
       end
     end
     plan.delete(src_plan_key)
-  end
-
-  # Flash notice for successful feedback requests
-  #
-  # Returns String
-  def request_feedback_flash_notice
-    # Use the generic feedback confirmation message unless the Org has
-    # specified one
-    text = current_user.org.feedback_email_msg ||
-             feedback_confirmation_default_message
-    feedback_constant_to_text(text, current_user, @plan, current_user.org)
   end
 
   private
