@@ -34,4 +34,5 @@ class FeedbackRequestsController < ApplicationController
     text = current_user.org.feedback_email_msg || feedback_confirmation_default_message
     feedback_constant_to_text(text, current_user, @plan, current_user.org)
   end
+
 end
