@@ -4,10 +4,10 @@
 #
 #  id               :integer          not null, primary key
 #  active           :boolean
-#  description      :string
-#  logo_url         :text
-#  name             :string
-#  user_landing_url :text
+#  description      :string(255)
+#  logo_url         :string(255)
+#  name             :string(255)
+#  user_landing_url :string(255)
 #  created_at       :datetime
 #  updated_at       :datetime
 #

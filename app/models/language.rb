@@ -3,10 +3,10 @@
 # Table name: languages
 #
 #  id               :integer          not null, primary key
-#  abbreviation     :string
+#  abbreviation     :string(255)
 #  default_language :boolean
-#  description      :string
-#  name             :string
+#  description      :string(255)
+#  name             :string(255)
 #
 
 class Language < ActiveRecord::Base

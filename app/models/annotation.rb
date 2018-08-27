@@ -3,7 +3,7 @@
 # Table name: annotations
 #
 #  id          :integer          not null, primary key
-#  text        :text
+#  text        :text(65535)
 #  type        :integer          default(0), not null
 #  created_at  :datetime
 #  updated_at  :datetime
@@ -12,6 +12,7 @@
 #
 # Indexes
 #
+#  fk_rails_aca7521f72               (org_id)
 #  index_annotations_on_question_id  (question_id)
 #
 # Foreign Keys

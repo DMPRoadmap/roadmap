@@ -3,7 +3,7 @@
 # Table name: user_identifiers
 #
 #  id                   :integer          not null, primary key
-#  identifier           :string
+#  identifier           :string(255)
 #  created_at           :datetime
 #  updated_at           :datetime
 #  identifier_scheme_id :integer
@@ -11,6 +11,7 @@
 #
 # Indexes
 #
+#  fk_rails_fe95df7db0                (identifier_scheme_id)
 #  index_user_identifiers_on_user_id  (user_id)
 #
 # Foreign Keys

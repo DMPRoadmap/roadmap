@@ -11,17 +11,17 @@ module DataCleanup
         end
 
         def call
-          if File.exists?(YAML_FILE_PATH)
-            YAML.load_file(YAML_FILE_PATH).each do |attributes|
-              attributes   = attributes.with_indifferent_access
-              name         = attributes['name']
-              abbreviation = attributes['abbreviation']
-              log("Adding abbreviation #{abbreviation} to Org '#{name}'")
-              ::Org.where(name: name).update_all(abbreviation: abbreviation)
-            end
-          else
-            raise "Please create a YAML file at #{YAML_FILE_PATH}"
-          end
+          #if File.exists?(YAML_FILE_PATH)
+          #  YAML.load_file(YAML_FILE_PATH).each do |attributes|
+          #    attributes   = attributes.with_indifferent_access
+          #    name         = attributes['name']
+          #    abbreviation = attributes['abbreviation']
+          #    log("Adding abbreviation #{abbreviation} to Org '#{name}'")
+          #    ::Org.where(name: name).update_all(abbreviation: abbreviation)
+          #  end
+          #else
+          #  raise "Please create a YAML file at #{YAML_FILE_PATH}"
+          #end
         end
       end
     end

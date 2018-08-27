@@ -1,15 +1,14 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: questions
 #
 #  id                     :integer          not null, primary key
-#  default_value          :text
+#  default_value          :text(65535)
 #  modifiable             :boolean
 #  number                 :integer
 #  option_comment_display :boolean          default(TRUE)
-#  text                   :text
+#  text                   :text(65535)
 #  created_at             :datetime
 #  updated_at             :datetime
 #  question_format_id     :integer
@@ -17,6 +16,7 @@
 #
 # Indexes
 #
+#  fk_rails_4fbc38c8c7            (question_format_id)
 #  index_questions_on_section_id  (section_id)
 #
 # Foreign Keys

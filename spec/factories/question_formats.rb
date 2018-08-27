@@ -3,10 +3,10 @@
 # Table name: question_formats
 #
 #  id           :integer          not null, primary key
-#  description  :text
+#  description  :text(65535)
 #  formattype   :integer          default(0)
 #  option_based :boolean          default(FALSE)
-#  title        :string
+#  title        :string(255)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
