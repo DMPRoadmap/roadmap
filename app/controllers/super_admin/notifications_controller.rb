@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 module SuperAdmin
+
   class NotificationsController < ApplicationController
+
     before_action :set_notification, only: %i[show edit update destroy acknowledge]
     before_action :set_notifications, only: :index
 
@@ -27,45 +31,42 @@ module SuperAdmin
     # POST /notifications.json
     def create
       authorize(Notification)
-      begin
-        n = Notification.new(notification_params)
-        n.notification_type = 'global'
-        n.save!
-        flash[:notice] = _('Notification created successfully')
-      rescue ActionController::ParameterMissing
-        flash[:alert] = _('Unable to save since notification parameter is missing')
-      rescue ActiveRecord::RecordInvalid => e
-        flash[:alert] = e.message
+      @notification = Notification.new(notification_params)
+      @notification.notification_type = "global"
+      if @notification.save
+        flash.now[:notice] = success_message(_("created"), _("notification"))
+        render :edit
+      else
+        puts "WHA????"
+        flash.now[:alert] = failure_message(_("create"), _("notification"))
+        render :new
       end
-      redirect_to action: :index
     end
 
     # PATCH/PUT /notifications/1
     # PATCH/PUT /notifications/1.json
     def update
       authorize(Notification)
-      begin
-        @notification.update!(notification_params)
-        flash[:notice] = _('Notification updated successfully')
-      rescue ActionController::ParameterMissing
-        flash[:alert] = _('Unable to save since notification parameter is missing')
-      rescue ActiveRecord::RecordInvalid => e
-        flash[:alert] = e.message
+      if @notification.update(notification_params)
+        flash.now[:notice] = success_message(_("updated"), _("notification"))
+      else
+        flash.now[:alert] = failure_message(_("create"), _("notification"))
       end
-      redirect_to action: :index
+      render :edit
     end
 
     # DELETE /notifications/1
     # DELETE /notifications/1.json
     def destroy
       authorize(Notification)
-      begin
-        @notification.destroy
-        flash[:notice] = _('Successfully destroyed your notification')
-      rescue ActiveRecord::RecordNotDestroyed
-        flash[:alert] = _('The theme with id %{id} could not be destroyed') % { id: params[:id] }
+      if @notification.destroy
+        flash.now[:notice] = success_message(_("deleted"), _("notification"))
+        redirect_to super_admin_notifications_path,
+            notice: success_message(_("deleted"), _("notification"))
+      else
+        flash.now[:alert] = failure_message(_("delete"), _("notification"))
+        render :edit
       end
-      redirect_to action: :index
     end
 
     # GET /notifications/1/acknowledge
@@ -79,9 +80,6 @@ module SuperAdmin
     # Use callbacks to share common setup or constraints between actions.
     def set_notification
       @notification = Notification.find(params[:id] || params[:notification_id])
-    rescue ActiveRecord::RecordNotFound
-      flash[:alert] = _('There is no notification associated with id  %{id}') % { id: params[:id] }
-      redirect_to action: :index
     end
 
     # Use callbacks to share common setup or constraints between actions.
@@ -91,7 +89,10 @@ module SuperAdmin
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def notification_params
-      params.require(:notification).permit(:title, :level, :body, :dismissable, :starts_at, :expires_at)
+      params.require(:notification).permit(:title, :level, :body,
+        :dismissable, :starts_at, :expires_at)
     end
+
   end
+
 end

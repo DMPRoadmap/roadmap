@@ -48,10 +48,10 @@ class OrgsController < ApplicationController
       end
 
       if @org.update_attributes(attrs)
-        flash[:notice] = success_message(_('organisation'), _('saved'))
+        flash.now[:notice] = success_message(_('saved'), @org)
         redirect_to "#{admin_edit_org_path(@org)}\##{tab}"
       else
-        failure = failed_update_error(@org, _('organisation')) if failure.blank?
+        failure = failure_message(_("save"), @org) if failure.blank?
         redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: failure
       end
     rescue Dragonfly::Job::Fetch::NotFound => dflye

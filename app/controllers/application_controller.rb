@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
+
   protect_from_forgery with: :exception
 
   # Look for template overrides before rendering
@@ -13,6 +16,11 @@ class ApplicationController < ActionController::Base
   helper_method GlobalHelpers.instance_methods
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
+  # When we are in production reroute Record Not Found errors to the branded 404 page
+  if Rails.env.production?
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+  end
 
   private
 
@@ -72,20 +80,13 @@ class ApplicationController < ActionController::Base
     redirect_to root_path unless user_signed_in? && (current_user.can_add_orgs? || current_user.can_change_org? || current_user.can_super_admin?)
   end
 
-  def failed_create_error(obj, obj_name)
-    "#{_('Could not create your %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
+  def failure_message(action, object_name = _("record"))
+
+    _("Unable to %{action} your %{object}.") % { object: object_name, action: action }
   end
 
-  def failed_update_error(obj, obj_name)
-    "#{_('Could not update your %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
-  end
-
-  def failed_destroy_error(obj, obj_name)
-    "#{_('Could not delete the %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
-  end
-
-  def success_message(obj_name, action)
-    "#{_('Successfully %{action} your %{object}.') % {object: obj_name, action: action}}"
+  def success_message(action, object_name = _("record"))
+    _('Successfully %{action} your %{object}.') % { object: object_name, action: action }
   end
 
   # Override rails default render action to look for a branded version of a
@@ -97,20 +98,6 @@ class ApplicationController < ActionController::Base
   #  app/views/branded/layouts/_header.html.erb -> app/views/layouts/_header.html.erb
   def prepend_view_paths
     prepend_view_path "app/views/branded"
-  end
-
-  def errors_to_s(obj)
-    if obj.errors.count > 0
-      msg = "<br />"
-      obj.errors.each do |e,m|
-        if m.include?('empty') || m.include?('blank')
-          msg += "#{_(e)} - #{_(m)}<br />"
-        else
-          msg += "'#{obj[e]}' - #{_(m)}<br />"
-        end
-      end
-      msg
-    end
   end
 
   ##
@@ -134,5 +121,11 @@ class ApplicationController < ActionController::Base
     else
       false
     end
+  end
+
+  # Handles all ActiveRecord::RecordNotFound errors
+  def render_not_found
+    # Send it to the view that is specific for Post not found
+    render file: "#{Rails.root}/public/404", layout: true, status: :not_found
   end
 end
