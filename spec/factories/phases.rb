@@ -26,7 +26,7 @@ FactoryBot.define do
     description { Faker::Lorem.paragraph }
     sequence(:number)
     template
-    modifiable true
+    modifiable false
 
     transient do
       sections 0

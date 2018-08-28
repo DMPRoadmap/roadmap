@@ -6,6 +6,8 @@ module OrgAdmin
 
     include Paginable
     include Versionable
+    include TemplateMethods
+
     after_action :verify_authorized
 
     # The root version of index which returns all templates
@@ -241,77 +243,6 @@ module OrgAdmin
       }
     end
 
-    # POST /org_admin/templates/:id/customize
-    def customize
-      template = Template.find(params[:id])
-      authorize template
-      if template.customize?(current_user.org)
-        begin
-          customisation = template.customize!(current_user.org)
-          redirect_to org_admin_template_path(customisation)
-        rescue StandardError => e
-          flash[:alert] = _("Unable to customize that template.")
-          if request.referrer.present?
-            redirect_to request.referrer
-          else
-            redirect_to org_admin_templates_path
-          end
-        end
-      else
-        flash[:notice] = _("That template is not customizable.")
-        if request.referrer.present?
-          redirect_to request.referrer
-        else
-          redirect_to org_admin_templates_path
-        end
-      end
-    end
-
-    # POST /org_admin/templates/:id/transfer_customization
-    # the funder template's id is passed through here
-    def transfer_customization
-      template = Template.includes(:org).find(params[:id])
-      authorize template
-      if template.upgrade_customization?
-        begin
-          new_customization = template.upgrade_customization!
-          redirect_to org_admin_template_path(new_customization)
-        rescue StandardError => e
-          flash[:alert] = _("Unable to transfer your customizations.")
-          if request.referrer.present?
-            redirect_to request.referrer
-          else
-            redirect_to org_admin_templates_path
-          end
-        end
-      else
-        flash[:notice] = _("That template is no longer customizable.")
-        if request.referrer.present?
-          redirect_to request.referrer
-        else
-          redirect_to org_admin_templates_path
-        end
-      end
-    end
-
-    # POST /org_admin/templates/:id/copy (AJAX)
-    def copy
-      template = Template.find(params[:id])
-      authorize template
-      begin
-        new_copy = template.generate_copy!(current_user.org)
-        flash[:notice] = "#{template_type(template).capitalize} was successfully copied."
-        redirect_to edit_org_admin_template_path(new_copy)
-      rescue StandardError => e
-        flash[:alert] = failed_create_error(template, template_type(template))
-        if request.referrer.present?
-          redirect_to request.referrer
-        else
-          redirect_to org_admin_templates_path
-        end
-      end
-    end
-
     # PATCH /org_admin/templates/:id/publish  (AJAX)
     def publish
       template = Template.find(params[:id])
@@ -410,10 +341,6 @@ module OrgAdmin
 
     def template_params
       params.require(:template).permit(:title, :description, :visibility, :links)
-    end
-
-    def template_type(template)
-      template.customization_of.present? ? _("customisation") : _("template")
     end
 
     def get_referrer(template, referrer)

@@ -1,5 +1,5 @@
-<%# locals: { plan, template, question, answer, guidance_service } %>
-<% guidances_active = guidance_service.any?(question: question) %>
+<%# locals: { plan, template, question, answer, guidance_presenter } %>
+<% guidances_active = guidance_presenter.any?(question: question) %>
 <% active_nav = nil %>
 <div id="plan-guidance-tab">
   <!-- Nav tabs -->
@@ -23,7 +23,7 @@
   </ul>
   <div class="tab-content">
     <% if guidances_active %>
-      <% tablist = guidance_service.tablist(question) %>
+      <% tablist = guidance_presenter.tablist(question) %>
       <div id="guidances-<%= question.id %>" role="tabpanel" class="tab-pane active">
         <ul class="nav nav-tabs" role="tablist">
           <% tablist.each_with_index do |tab, i| %>

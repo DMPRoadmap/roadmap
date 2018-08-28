@@ -47,7 +47,8 @@ module OrgAdmin
             template: phase.template,
             phase: phase,
             prefix_section: phase.prefix_section,
-            sections: phase.sections.order(:number).select(:id, :title, :modifiable),
+            sections: phase.sections.order(:number)
+                                    .select(:id, :title, :modifiable, :phase_id),
             suffix_sections: phase.suffix_sections.order(:number),
             current_section: Section.find_by(id: params[:section], phase_id: phase.id)
           })
@@ -57,13 +58,10 @@ module OrgAdmin
     # preview a phase
     # GET /org_admin/phases/[:id]/preview
     def preview
-      phase = Phase.includes(:template).find(params[:id])
-      authorize phase
-      render("/org_admin/phases/preview",
-        locals: {
-          template: phase.template,
-          phase: phase
-        })
+      @phase = Phase.includes(:template).find(params[:id])
+      authorize @phase
+      @template = @phase.template
+      @guidance_presenter = GuidancePresenter.new(Plan.new(template: @phase.template))
     end
 
     # add a new phase to a passed template
