@@ -1,17 +1,32 @@
 class PlanExportsController < ApplicationController
 
-  def show
-    @show_coversheet         = params[:export][:project_details].present?
-    @show_sections_questions = params[:export][:question_headings].present?
-    @show_unanswered         = params[:export][:unanswered_questions].present?
-    @show_custom_sections    = params[:export][:custom_sections].present?
+  after_action :verify_authorized
 
+  def show
     @plan = Plan.includes(:answers).find(params[:plan_id])
-    authorize @plan, :export?
-    @selected_phase = @plan.phases.find(params[:phase_id])
-    @public_plan    = false
+
+    if publicly_authorized?
+      skip_authorization
+      @show_coversheet         = true
+      @show_sections_questions = true
+      @show_unanswered         = true
+      @show_custom_sections    = true
+      @public_plan             = true
+
+    elsif privately_authorized?
+      @show_coversheet         = export_params[:project_details].present?
+      @show_sections_questions = export_params[:question_headings].present?
+      @show_unanswered         = export_params[:unanswered_questions].present?
+      @show_custom_sections    = export_params[:custom_sections].present?
+      @public_plan             = false
+
+    else
+      raise Pundit::NotAuthorizedError
+    end
+
     @hash           = @plan.as_pdf(@show_coversheet)
     @formatting     = params[:export][:formatting] || @plan.settings(:export).formatting
+    @selected_phase = @plan.phases.find(params[:phase_id])
 
     respond_to do |format|
       format.html { show_html }
@@ -63,5 +78,18 @@ class PlanExportsController < ApplicationController
 
   def file_name
     @plan.title.gsub(/ /, "_")
+  end
+
+  def publicly_authorized?
+    PublicPagePolicy.new(@plan, current_user).plan_organisationally_exportable? ||
+      PublicPagePolicy.new(@plan).plan_export?
+  end
+
+  def privately_authorized?
+    authorize @plan, :export?
+  end
+
+  def export_params
+    params[:export]
   end
 end

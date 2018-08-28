@@ -31,10 +31,8 @@
                 <td><%= plan.owner.present? ? plan.owner.name : _('Unknown') %></td>
                 <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
                 <td class="text-center">
-                  <%= link_to _('PDF'),
-                  plan_export_path(plan_id: plan.id,
-                  format: :pdf),
-                  target: '_blank' %>
+                  <%= link_to _('PDF'), plan_export_path(plan, format: :pdf),
+                      target: '_blank' %>
                 </td>
               </tr>
             <% end %>
