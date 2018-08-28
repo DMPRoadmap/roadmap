@@ -6,7 +6,7 @@
   <dt><%= _('Grant Number') %></dt>
   <dd><%= plan.grant_number %></dd>
   <dt><%= _('Project Abstract') %></dt>
-  <dd><%= raw plan.description %></dd>
+  <dd><%= sanitize plan.description %></dd>
   <dt><%= _('ID') %></dt>
   <dd><%= plan.identifier %></dd>
 </dl>

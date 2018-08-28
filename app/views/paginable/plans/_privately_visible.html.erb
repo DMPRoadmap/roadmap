@@ -35,7 +35,7 @@
                   <% end %>
                 </td>
                 <td class="plan-visibility">
-                  <%= plan.visibility === 'is_test' ? _('N/A') : raw(display_visibility(plan.visibility)) %>
+                  <%= plan.visibility === 'is_test' ? _('N/A') : sanitize(display_visibility(plan.visibility)) %>
                 </td>
                 <td>
                   <% if plan.shared? %>

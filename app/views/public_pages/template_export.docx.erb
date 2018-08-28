@@ -21,7 +21,7 @@
         <h3><%= section.title %></h3>
         <% section.questions.each do |question|%>
           <div>
-            <p><%= raw question.text.chomp.strip %></p>
+            <p><%= sanitize question.text.chomp.strip %></p>
             <% q_format = question.question_format %>
             <% if q_format.option_based? %>
               <ul>
@@ -31,13 +31,13 @@
               </ul>
             <% end %>
           </div>
-        
+
           <div class="guidance">
             <% question.annotations.each do |annotation| %>
               <% unless annotation.text.chomp.strip.gsub(/<\/?p>/, '').gsub(/<br\s?\/>/, '').blank? %>
                 <br>
                 <p><i><%= annotation.type == 'example_answer' ? _('Example Answer') : _('Guidance') %></i>:</p>
-                <%= raw annotation.text.chomp.strip %>
+                <%= sanitize annotation.text.chomp.strip %>
               <% end %>
             <% end %>
           </div>

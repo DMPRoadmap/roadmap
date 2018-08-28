@@ -13,7 +13,9 @@
     <%= _('A colleague has invited you to contribute to their Data Management Plan in %{tool_name}') %{ :tool_name => tool_name } %>
   </p>
   <p>
-    <%= raw(_('%{click_here} to accept the invitation, (or copy %{link} into your browser). If you don\'t want to accept the invitation, please ignore this email.') %{ :click_here => link_to(_('Click here'), link), :link => link }) %>
+    <%= sanitize(_('%{click_here} to accept the invitation, (or copy %{link} into your browser). If you don\'t want to accept the invitation, please ignore this email.') % {
+      click_here: link_to(_('Click here'), link), link: link
+    }) %>
   </p>
   <p>
     <%= _('All the best') %>
@@ -21,6 +23,11 @@
     <%= _('The %{tool_name} team') %{:tool_name => tool_name} %>
   </p>
   <p>
-    <%= _('Please do not reply to this email.') %>&nbsp;<%= raw(_('If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us}') %{ :helpdesk_email => mail_to(helpdesk_email, helpdesk_email, subject: email_subject), :contact_us_url => link_to(contact_us, contact_us) }) %>
+    <%= _('Please do not reply to this email.') %>&nbsp;
+    <%= sanitize(_('If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us}') % {
+      helpdesk_email: mail_to(helpdesk_email, helpdesk_email,
+      subject: email_subject),
+      contact_us_url: link_to(contact_us, contact_us)
+    }) %>
   </p>
 <% end %>
