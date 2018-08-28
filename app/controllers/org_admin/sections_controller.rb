@@ -21,7 +21,7 @@ module OrgAdmin
           template: phase.template,
           phase: phase,
           prefix_section: phase.prefix_section,
-          sections: phase.sections,
+          sections: phase.sections.order(:number),
           suffix_sections: phase.suffix_sections,
           current_section: phase.sections.first,
           modifiable: edit,
@@ -31,14 +31,12 @@ module OrgAdmin
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]
     def show
-      section = Section.find(params[:id])
-      authorize section
-      section = Section.includes(questions: [:annotations, :question_options])
-                       .find(params[:id])
-      render partial: "show", locals: {
-        template: Template.find(params[:template_id]),
-        section: section
-      }
+      @section = Section.find(params[:id])
+      authorize @section
+      @section = Section.includes(questions: [:annotations, :question_options])
+                        .find(params[:id])
+      @template = Template.find(params[:template_id])
+      render partial: "show", locals: { template: @template, section: @section }
     end
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/edit

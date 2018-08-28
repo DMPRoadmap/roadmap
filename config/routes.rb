@@ -194,12 +194,19 @@ Rails.application.routes.draw do
           get 'feedback_complete'
         end
       end
-      resources :templates, only: [:index, :show, :new, :edit, :create, :update, :destroy] do
+      resources :templates do
+
+        resources :customizations, only: [:create], controller: "template_customizations"
+
+        resources :copies, only: [:create],
+                           controller: "template_copies",
+                           constraints: { format: [:json] }
+
+        resources :customization_transfers, only: [:create],
+                                           controller: "template_customization_transfers"
+
         member do
           get 'history'
-          post 'customize'
-          post 'transfer_customization'
-          post 'copy', action: :copy, constraints: {format: [:json]}
           patch 'publish', action: :publish, constraints: {format: [:json]}
           patch 'unpublish', action: :unpublish, constraints: {format: [:json]}
         end
@@ -211,6 +218,9 @@ Rails.application.routes.draw do
         end
 
         resources :phases, except: [:index] do
+
+          resources :versions, only: [:create], controller: "phase_versions"
+
           member do
             get 'preview'
             post 'sort'

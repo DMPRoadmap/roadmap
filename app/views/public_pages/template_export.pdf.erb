@@ -61,7 +61,7 @@
     <% @template.phases.each do |phase| %>
       <div style="page-break-before:always;"></div> <!-- Page break before each phase -->
       <h1><%= "#{@template.org.name}: #{@template.title}" %><%= @template.phases.length > 1 ? " - #{phase.title}" : "" %></h1>
-      <% phase.sections.each do |section| %>
+      <% phase.sections.order(:number).each do |section| %>
         <h2><%= section.title %></h2>
         <% section.questions.each do |question| %>
         <div class="question">

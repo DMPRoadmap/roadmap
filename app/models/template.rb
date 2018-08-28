@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: templates
@@ -20,11 +22,10 @@
 #
 # Indexes
 #
-#  index_templates_on_customization_of_and_version_and_org_id  (customization_of,version,org_id) UNIQUE
-#  index_templates_on_family_id                                (family_id)
-#  index_templates_on_family_id_and_version                    (family_id,version) UNIQUE
-#  index_templates_on_org_id                                   (org_id)
-#  template_organisation_dmptemplate_index                     (org_id,family_id)
+#  index_templates_on_family_id              (family_id)
+#  index_templates_on_family_id_and_version  (family_id,version) UNIQUE
+#  index_templates_on_org_id                 (org_id)
+#  template_organisation_dmptemplate_index   (org_id,family_id)
 #
 # Foreign Keys
 #
@@ -32,6 +33,7 @@
 #
 
 class Template < ActiveRecord::Base
+
   include GlobalHelpers
   include ValidationMessages
   include ValidationValues
@@ -166,7 +168,7 @@ class Template < ActiveRecord::Base
                                      .pluck(:family_id) + [default.family_id]
 
     published(family_ids.flatten)
-      .where('visibility = :visibility OR is_default = :is_default',
+      .where("visibility = :visibility OR is_default = :is_default",
              visibility: visibilities[:publicly_visible], is_default: true)
   }
 
@@ -194,7 +196,7 @@ class Template < ActiveRecord::Base
   enum visibility: %i[organisationally_visible publicly_visible]
 
   # defines the export setting for a template object
-  has_settings :export, class_name: 'Settings::Template' do |s|
+  has_settings :export, class_name: "Settings::Template" do |s|
     s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
 
@@ -226,7 +228,7 @@ class Template < ActiveRecord::Base
     elsif template.latest? && !template.generate_version?
       template
     else
-      raise _('A historical template cannot be retrieved for being modified')
+      raise _("A historical template cannot be retrieved for being modified")
     end
   end
 
@@ -288,8 +290,9 @@ class Template < ActiveRecord::Base
     end
   end
 
-  # Returns whether or not this is the latest version of the current template's
-  # family
+  # Is this the latest version of the current Template's family?
+  #
+  # Returns Boolean
   def latest?
     id == Template.latest_version(family_id).pluck(:id).first
   end
@@ -334,7 +337,8 @@ class Template < ActiveRecord::Base
   # Returns a new unpublished copy of self with a new family_id, version = zero
   # for the specified org
   def generate_copy!(org)
-    raise _('generate_copy! requires an organisation target') unless org.is_a?(Org) # Assume customizing_org is persisted
+    # Assume customizing_org is persisted
+    raise _("generate_copy! requires an organisation target") unless org.is_a?(Org)
     template = deep_copy(
       attributes: {
         version: 0,
@@ -342,7 +346,7 @@ class Template < ActiveRecord::Base
         family_id: new_family_id,
         org: org,
         is_default: false,
-        title: format(_('Copy of %{template}'), template: title)
+        title: format(_("Copy of %{template}"), template: title)
       }, modifiable: true, save: true
     )
     template
@@ -350,7 +354,7 @@ class Template < ActiveRecord::Base
 
   # Generates a new copy of self with an incremented version number
   def generate_version!
-    raise _('generate_version! requires a published template') unless published
+    raise _("generate_version! requires a published template") unless published
     template = deep_copy(
       attributes: {
         version: version + 1,
@@ -365,12 +369,12 @@ class Template < ActiveRecord::Base
   def customize!(customizing_org)
     # Assume customizing_org is persisted
     unless customizing_org.is_a?(Org)
-      raise _('customize! requires an organisation target')
+      raise ArgumentError, _("customize! requires an organisation target")
     end
 
     # Assume self has org associated
     if !org.funder_only? && !is_default
-      raise _('customize! requires a template from a funder')
+      raise ArgumentError, _("customize! requires a template from a funder")
     end
 
     customization = deep_copy(
@@ -391,12 +395,14 @@ class Template < ActiveRecord::Base
   # template is customized_of
   def upgrade_customization!
     if customization_of.blank?
-      raise _('upgrade_customization! requires a customised template')
+      raise _("upgrade_customization! requires a customised template")
     end
     funder_template = Template.published(customization_of).first
 
     if funder_template.blank?
+      # rubocop:disable Metrics/LineLength
       raise _("upgrade_customization! cannot be carried out since there is no published template of its current funder")
+      # rubocop:enable Metrics/LineLength
     end
 
     # preserves modifiable flags from the self template copied
@@ -421,6 +427,7 @@ class Template < ActiveRecord::Base
 
     # Merges modifiable sections or questions from source into customization
     # template object
+    # rubocop:disable Metrics/BlockLength
     customization.phases.each do |customization_phase|
       # Search for the phase in the source template whose number matches the
       # customization_phase
@@ -436,7 +443,9 @@ class Template < ActiveRecord::Base
       modifiable_sections = candidate_phase.sections.select(&:modifiable)
 
       # Attaches modifiable sections into the customization_phase
-      modifiable_sections.each { |modifiable_section| customization_phase.sections << modifiable_section }
+      modifiable_sections.each do |modifiable_section|
+        customization_phase.sections << modifiable_section
+      end
 
       # Sorts the sections for the customization_phase
       sorted_sections = customization_phase.sections.sort_by(&:number)
@@ -448,23 +457,38 @@ class Template < ActiveRecord::Base
         # Search for modifiable questions within the unmodifiable_section
         # from candidate_phase
         modifiable_questions  = unmodifiable_section.questions.select(&:modifiable)
-        customization_section = sorted_sections.bsearch { |section| unmodifiable_section.number <=> section.number }
+        customization_section = sorted_sections.bsearch do |section|
+          unmodifiable_section.number <=> section.number
+        end
         # The funder could have deleted the section
         if customization_section.present?
-          modifiable_questions.each { |modifiable_question| customization_section.questions << modifiable_question; }
+          modifiable_questions.each do |modifiable_question|
+            customization_section.questions << modifiable_question
+          end
         end
-        # Search for unmodifiable questions within the unmodifiable_section in case source template added annotations
+        # Search for unmodifiable questions within the unmodifiable_section in case
+        # source template added annotations
         unmodifiable_questions = unmodifiable_section.questions.reject(&:modifiable)
         sorted_questions = customization_section.questions.sort_by(&:number)
         unmodifiable_questions.each do |unmodifiable_question|
-          customization_question = sorted_questions.bsearch { |question| unmodifiable_question.number <=> question.number }
-          if customization_question.present?  # The funder could have deleted the question
-            annotations_added_by_customiser = unmodifiable_question.annotations.select { |annotation| annotation.org_id == source.org_id }
-            annotations_added_by_customiser.each { |annotation| customization_question.annotations << annotation }
+          customization_question = sorted_questions.bsearch do |question|
+            unmodifiable_question.number <=> question.number
+          end
+          # The funder could have deleted the question
+          if customization_question.present?
+            annotations_added_by_customiser = unmodifiable_question.annotations
+                                                                   .select do |annotation|
+              annotation.org_id == source.org_id
+            end
+            annotations_added_by_customiser.each do |annotation|
+              customization_question.annotations << annotation
+            end
           end
         end
       end
     end
+    # rubocop:enable Metrics/BlockLength
+
     # Appends the modifiable phases from source
     source.phases.select(&:modifiable).each do |modifiable_phase|
       customization.phases << modifiable_phase
@@ -493,7 +517,13 @@ class Template < ActiveRecord::Base
     self.archived ||= false
     self.is_default ||= false
     self.version ||= 0
-    self.visibility = (org.present? && org.funder_only?) || is_default? ? Template.visibilities[:publicly_visible] : Template.visibilities[:organisationally_visible] if id.blank?
+    unless id?
+      self.visibility = if (org.present? && org.funder_only?) || is_default?
+                          Template.visibilities[:publicly_visible]
+                        else
+                          Template.visibilities[:organisationally_visible]
+                        end
+    end
     self.customization_of ||= nil
     self.family_id ||= new_family_id
     self.archived ||= false
@@ -509,4 +539,5 @@ class Template < ActiveRecord::Base
             .where.not(id: id)
             .update_all(published: false)
   end
+
 end

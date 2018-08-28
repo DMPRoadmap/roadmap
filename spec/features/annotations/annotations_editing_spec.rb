@@ -39,6 +39,7 @@ RSpec.feature "Annotations::Editing", type: :feature do
     }.to change { Template.count }.by(1)
 
     click_link "Customise phase"
+
     click_link section.title
 
     # NOTE: This is annotation 2, since Annotation was copied upon clicking "Customise"

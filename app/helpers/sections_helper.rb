@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module SectionsHelper
+
   # HREF attribute value for headers in the section partials. If the section
   # is modifiable, returns the section path, otherwise the edit section path.
   #
@@ -18,4 +21,9 @@ module SectionsHelper
                                             id: section.id)
     end
   end
+
+  def draggable_for_section?(section)
+    section.template.latest? && section.modifiable?
+  end
+
 end

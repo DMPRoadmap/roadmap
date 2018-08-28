@@ -543,7 +543,7 @@ describe Plan do
 
     subject { plan.request_feedback(user) }
 
-    let!(:org)  { create(:org) }
+    let!(:org)  { create(:org, contact_email: nil) }
 
     let!(:user) { create(:user, org: org) }
 
@@ -554,6 +554,7 @@ describe Plan do
       create_list(:user, 2, org: org).each do |user|
         user.perms << Perm.where(name: 'modify_guidance').first_or_create
       end
+      ActionMailer::Base.deliveries = []
     end
 
     it "changes plan's feedback_requested value to true" do
