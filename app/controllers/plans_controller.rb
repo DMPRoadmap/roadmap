@@ -285,6 +285,10 @@ class PlansController < ApplicationController
     @formatting = params[:export][:formatting] || @plan.settings(:export).formatting
     file_name = @plan.title.gsub(/ /, "_")
 
+    if params[:phase_id]
+      phase_nb = @plan.phases.find_by(id: params[:phase_id]).number
+      @hash[:phases] = @hash[:phases].select { |p| p[:number] == phase_nb }
+    end
 
     respond_to do |format|
       format.html { render layout: false }
