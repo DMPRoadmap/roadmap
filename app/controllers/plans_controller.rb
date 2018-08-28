@@ -495,7 +495,7 @@ class PlansController < ApplicationController
       readonly: readonly,
       guidance_groups: guidance_groups,
       answers: answers,
-      guidance_service: GuidanceService.new(plan)
+      guidance_presenter: GuidancePresenter.new(plan)
     })
   end
 
