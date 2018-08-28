@@ -15,15 +15,17 @@
           <div class="col-md-4">
             <% if plan.present? && phase.present? %>
               <div class="progress">
-                <%= render :partial => "/plans/progress", locals: { plan: plan, current_phase: phase } %>
+                <%= render partial: "/plans/progress",
+                           locals: { plan: plan, current_phase: phase } %>
               </div>
             <% end %>
           </div>
         </div>
       </div>
     </div>
-    <div class="panel-group" id="sections-accordion" role="tablist" aria-multiselectable="true">
-    <% phase.sections.each do |section| %>
+    <div class="panel-group" id="sections-accordion" role="tablist"
+         aria-multiselectable="true">
+    <% phase.sections.order(:number).each do |section| %>
       <div class="panel panel-default">
         <div class="heading-button" role="button" data-toggle="collapse"
              id="section-panel-<%= section.id %>"
@@ -37,7 +39,8 @@
               <%= section.title %>
               <% if plan.present? %>
                   <span class="section-progress-<%= section.id %>">
-                    <%= render :partial => "/org_admin/sections/progress", locals: { section: section, plan: plan } %>
+                    <%= render partial: "/org_admin/sections/progress",
+                               locals: { section: section, plan: plan } %>
                   </span>
               <% end %>
             </div>
@@ -60,12 +63,21 @@
                   <div class="col-md-8">
                     <!-- Answer Section -->
                     <div class="question-form">
-                      <div id="<%= "answer-locking-#{question.id}" %>" class="answer-locking"></div>
+                      <div id="<%= "answer-locking-#{question.id}" %>"
+                           class="answer-locking">
+                      </div>
                       <div id="<%= "answer-form-#{question.id}" %>" class="answer-form">
-                        <%= render(partial: '/answers/new_edit', locals: { template: phase.template, question: question, answer: answer, readonly: readonly, locking: false, base_template_org: base_template_org }) %>
+                        <%= render(partial: '/answers/new_edit',
+                                   locals: { template: phase.template,
+                                             question: question,
+                                             answer: answer,
+                                             readonly: readonly,
+                                             locking: false,
+                                             base_template_org: base_template_org }) %>
                       </div>
                       <div id="<%= "answer-status-#{question.id}" %>" class="mt-10">
-                        <%= render(partial: '/answers/status', locals: { answer: answer }) %>
+                        <%= render(partial: '/answers/status',
+                                   locals: { answer: answer }) %>
                       </div>
                     </div>
                   </div>
@@ -76,7 +88,7 @@
                       template: phase.template,
                       question: question,
                       answer: answer,
-                      guidance_service: guidance_service } %>
+                      guidance_presenter: guidance_presenter } %>
                   </div>
                 </div>
                 <% if i != section.questions.length - 1 %>

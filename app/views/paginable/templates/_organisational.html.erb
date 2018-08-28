@@ -61,7 +61,12 @@
                   <% elsif !template.published? %>
                     <li><%= link_to _('Publish'), publish_org_admin_template_path(template.id), 'data-method': 'patch' %></li>
                   <% end %>
-                  <li><%= link_to _('Copy'), copy_org_admin_template_path(template.id), 'data-method': 'post' %></li>
+                  <li>
+                    <%= link_to _('Copy'),
+                        org_admin_template_copies_path(template.id),
+                        data: { method: 'post' }
+                    %>
+                  </li>
                   <% if template.removable? %>
                     <li>
                       <%= link_to _('Remove'), org_admin_template_path(id: template.id),

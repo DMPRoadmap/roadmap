@@ -24,13 +24,13 @@ class PlansController < ApplicationController
     @funders = Org.funder
                   .joins(:templates)
                   .where(templates: { published: true }).uniq.sort(&:name)
-    @orgs = (Org.organisation + Org.institution + Org.managing_orgs)
-              .flatten.uniq.sort { |x, y| x.name <=> y.name }
+    @orgs = (Org.organisation + Org.institution + Org.managing_orgs).flatten
+                                                                    .uniq.sort(&:name)
 
     # Get the current user's org
     @default_org = current_user.org if @orgs.include?(current_user.org)
 
-    if params[:test]
+    if params.key?(:test)
       flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>"
     end
     @is_test = params[:test] ||= false
@@ -105,11 +105,13 @@ class PlansController < ApplicationController
           msg += " #{_('This plan is based on the default template.')}"
 
         elsif !@plan.template.customization_of.nil?
+          # rubocop:disable Metrics/LineLength
           # We used a customized version of the the funder template
           # rubocop:disable Metrics/LineLength
           msg += " #{_('This plan is based on the')} #{plan_params[:funder_name]}: '#{@plan.template.title}' #{_('template with customisations by the')} #{plan_params[:org_name]}"
           # rubocop:enable Metrics/LineLength
         else
+          # rubocop:disable Metrics/LineLength
           # We used the specified org's or funder's template
           # rubocop:disable Metrics/LineLength
           msg += " #{_('This plan is based on the')} #{@plan.template.org.name}: '#{@plan.template.title}' template."
@@ -175,15 +177,13 @@ class PlansController < ApplicationController
     @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, gg|
       (org.nil? ? "" : org.name)
     end
-    @selected_guidance_groups = @selected_guidance_groups.collect do |gg|
-      gg.id
-    end
+    @selected_guidance_groups = @selected_guidance_groups.ids
+
     @based_on = if @plan.template.customization_of.nil?
                   @plan.template
                 else
                   Template.where(family_id: @plan.template.customization_of).first
                 end
-
     respond_to :html
   end
 
@@ -213,7 +213,6 @@ class PlansController < ApplicationController
                              end
         @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
         @plan.save
-
         if @plan.update_attributes(attrs)
           format.html do
             redirect_to overview_plan_path(@plan),
@@ -301,16 +300,12 @@ class PlansController < ApplicationController
   def export
     @plan = Plan.includes(:answers).find(params[:id])
     authorize @plan
-
     @selected_phase = @plan.phases.find(params[:phase_id])
-
     @show_coversheet = params[:export][:project_details].present?
     @show_sections_questions = params[:export][:question_headings].present?
     @show_unanswered = params[:export][:unanswered_questions].present?
     @show_custom_sections = params[:export][:custom_sections].present?
-
     @public_plan = false
-
     @hash = @plan.as_pdf(@show_coversheet)
     @formatting = params[:export][:formatting] || @plan.settings(:export).formatting
     file_name = @plan.title.gsub(/ /, "_")
@@ -339,7 +334,6 @@ class PlansController < ApplicationController
     end
     # rubocop:enable Metrics/BlockLength
   end
-
 
   def duplicate
     plan = Plan.find(params[:id])
@@ -379,10 +373,11 @@ class PlansController < ApplicationController
         end
       else
         # rubocop:disable Metrics/LineLength
-
         render status: :forbidden, json: {
-          msg: _("Unable to change the plan's status since it is needed at least "\
-            "%{percentage} percentage responded") % {  percentage: Rails.application.config.default_plan_percentage_answered } }
+          msg: _("Unable to change the plan's status since it is needed at least %{percentage} percentage responded") % {
+              percentage: Rails.application.config.default_plan_percentage_answered
+          }
+        }
         # rubocop:enable Metrics/LineLength
       end
     else
@@ -419,7 +414,9 @@ class PlansController < ApplicationController
       authorize plan
       render(:overview, locals: { plan: plan })
     rescue ActiveRecord::RecordNotFound
-      flash[:alert] = _("There is no plan associated with id %{id}") % { id: params[:id] }
+      flash[:alert] = _("There is no plan associated with id %{id}") % {
+        id: params[:id]
+      }
       redirect_to(action: :index)
     end
   end
@@ -498,7 +495,7 @@ class PlansController < ApplicationController
       readonly: readonly,
       guidance_groups: guidance_groups,
       answers: answers,
-      guidance_service: GuidanceService.new(plan)
+      guidance_presenter: GuidancePresenter.new(plan)
     })
   end
 

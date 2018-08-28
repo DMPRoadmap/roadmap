@@ -290,15 +290,15 @@ class Plan < ActiveRecord::Base
                                firstname: user.org.contact_name)
             UserMailer.feedback_notification(contact, self, user).deliver_now
           end
-          true
+          return true
         else
           puts "save was false"
 
-          false
+          return false
         end
       rescue Exception => e
         Rails.logger.error e
-        false
+        return false
       end
     end
   end
