@@ -266,6 +266,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     authorize @plan
     @phase_options = @plan.phases.order(:number).pluck(:title,:id)
+    @phase_options.unshift([_('All'), nil])
     @export_settings = @plan.settings(:export)
     render 'download'
   end
@@ -285,7 +286,7 @@ class PlansController < ApplicationController
     @formatting = params[:export][:formatting] || @plan.settings(:export).formatting
     file_name = @plan.title.gsub(/ /, "_")
 
-    if params[:phase_id]
+    if params[:phase_id].present?
       phase_nb = @plan.phases.find_by(id: params[:phase_id]).number
       @hash[:phases] = @hash[:phases].select { |p| p[:number] == phase_nb }
     end
