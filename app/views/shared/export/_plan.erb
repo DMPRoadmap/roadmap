@@ -44,7 +44,9 @@
             <% section[:questions].each do |question| %>
               <div class="question">
                 <% if !@public_plan %>
-                  <p><%= raw question[:text].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") if question[:text].present?%></p>
+                  <p>
+                    <%= sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %>
+                  </p>
                   <br>
                 <% end %>
                 <% answer = @plan.answer(question[:id], false) %>
@@ -72,10 +74,10 @@
                         <% end %>
                       </ul>
                     <% end %>
-                    <p><%= raw ah['text'] %></p>
+                    <p><%= sanitize ah['text'] %></p>
                   <%# case for displaying comments OR text %>
                   <% elsif !blank %>
-                    <p><%= raw answer.text %></p>
+                    <p><%= sanitize answer.text %></p>
                   <% end %>
                 <% end %>
               </div>

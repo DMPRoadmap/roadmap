@@ -5,14 +5,22 @@
   <fieldset<%= (allow_visibility ? '' : ' disabled') %>>
     <div class="form-group col-xs-8">
       <div class="radio">
-        <%= f.label :visibility_privately_visible, raw("#{f.radio_button :visibility, :privately_visible}\
-        #{_('Private: visible to me, specified collaborators and administrators at my organisation')}") %>
+        <%= f.label :visibility_privately_visible do %>
+          <%= f.radio_button :visibility, :privately_visible %>
+          <%= _('Private: visible to me, specified collaborators and administrators at my organisation') %>
+        <% end %>
       </div>
       <div class="radio">
-        <%= f.label :visibility_organisationally_visible, raw("#{f.radio_button :visibility, :organisationally_visible} #{_('Organisation: anyone at my organisation can view')}") %>
+        <%= f.label :visibility_organisationally_visible do %>
+          <%= f.radio_button :visibility, :organisationally_visible %>
+          <%= _('Organisation: anyone at my organisation can view') %>
+        <% end %>
       </div>
       <div class="radio">
-        <%= f.label :visibility_publicly_visible, raw("#{f.radio_button :visibility, :publicly_visible} #{_('Public: anyone can view')}") %>
+        <%= f.label :visibility_publicly_visible do %>
+          <%= f.radio_button :visibility, :publicly_visible %>
+          <%= _('Public: anyone can view') %>
+        <% end %>
       </div>
     </div>
     <div class="col-xs-8">
@@ -83,13 +91,22 @@
     <legend><%= _('Permissions') %></legend>
     <div class="form-group">
       <div class="radio">
-        <%= f.label :access_level, raw("#{f.radio_button :access_level, 3, "aria-required": true} #{_('Co-owner: can edit project details, change visibility, and add collaborators')}") %>
+        <%= f.label :access_level do %>
+          <%= f.radio_button :access_level, 3, "aria-required": true %>
+          <%= _('Co-owner: can edit project details, change visibility, and add collaborators') %>
+        <% end %>
       </div>
       <div class="radio">
-        <%= f.label :access_level, raw("#{f.radio_button :access_level, 2} #{_('Editor: can comment and make changes')}") %>
+        <%= f.label :access_level do %>
+          <%= f.radio_button :access_level, 2 %>
+          <%= _('Editor: can comment and make changes') %>
+        <% end %>
       </div>
       <div class="radio">
-        <%= f.label :access_level, raw("#{f.radio_button :access_level, 1} #{_('Read only: can view and comment, but not make changes')}") %>
+        <%= f.label :access_level do %>
+          <%= f.radio_button :access_level, 1 %>
+          <%= _('Read only: can view and comment, but not make changes') %>
+        <% end %>
       </div>
 
       <%= f.button(_('Submit'), class: "btn btn-primary", type: "submit") %>
@@ -103,7 +120,7 @@
       <h2><%= _('Request expert feedback') %></h2>
       <p><%= _('Click below to give data management staff at your organisation access to read and comment on your plan.') %></p>
       <div class="well well-sm">
-        <%= current_user.org.feedback_email_msg.to_s.html_safe %>
+        <%= sanitize current_user.org.feedback_email_msg.to_s %>
       </div>
       <p><%= _('You can continue to edit and download the plan in the interim.') %></p>
 

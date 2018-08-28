@@ -25,7 +25,7 @@
           <td><%= plan.users.first.name(false) %></td>
           <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
           <td class="plan-visibility">
-            <%= plan.visibility === 'is_test' ? _('Test') : raw(display_visibility(plan.visibility)) %>
+            <%= plan.visibility === 'is_test' ? _('Test') : sanitize(display_visibility(plan.visibility)) %>
           </td>
         </tr>
       <% end %>

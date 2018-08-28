@@ -9,7 +9,7 @@
     <% scope.each do |theme| %>
       <tr>
         <td><%= link_to(theme.title, edit_super_admin_theme_path(theme)) %></td>
-        <td><%= raw(theme.description) %></td>
+        <td><%= sanitize(theme.description) %></td>
       </tr>
     <% end %>
   </tbody>
