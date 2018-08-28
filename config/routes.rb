@@ -104,12 +104,14 @@ Rails.application.routes.draw do
     resources :feedback_requests, only: [:create]
 
     resources :plans do
+
+      resource :export, controller: "plan_exports"
+
       member do
         get 'answer'
         get 'share'
         get 'download'
         post 'duplicate'
-        get 'export'
         post 'visibility', constraints: {format: [:json]}
         post 'set_test', constraints: {format: [:json]}
         get 'overview'
