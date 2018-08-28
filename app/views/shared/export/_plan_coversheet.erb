@@ -5,7 +5,9 @@
 </em></p>
 <br/>
 <div class="cover-page">
-  <p><%= @hash[:attribution].length > 1 ? _("Creators: ") : _('Creator:') %> <%= @hash[:attribution].join(', ') %></p><br>
+  <p>
+    <%= plan_attribution(@hash[:attribution]) %>
+  </p><br>
 
   <p><%= _("Affiliation: ") + @hash[:affiliation] %></p><br>
 
@@ -32,7 +34,11 @@
 
   <% if @public_plan %>
     <p><%= _("Copyright information:") %></p>
-    <div style="margin-left: 15px;"><p><%= _(" The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customise it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal") %></p></div>
+    <div style="margin-left: 15px;">
+      <p>
+        <%= _(" The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customise it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal") %>
+      </p>
+    </div>
   <% end %>
 </div>
 <hr class="bottom" />
