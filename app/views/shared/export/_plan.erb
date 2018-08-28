@@ -29,6 +29,7 @@
   <body>
     <% if @show_coversheet %>
       <%= render partial: '/shared/export/plan_coversheet' %>
+      <div class="-page-break"></div>
     <% end %>
 
     <% @hash[:phases].each do |phase| %>
@@ -42,6 +43,7 @@
             <h3><%= section[:title] %></h3>
 
             <% section[:questions].each do |question| %>
+              <br>
               <div class="question">
                 <% if !@public_plan %>
                   <p>
@@ -54,8 +56,10 @@
                 <% options = answer.present? ? answer.question_options : [] %>
                 <%# case where question has not been answered sufficiently to display%>
                 <% if @show_unanswered && (answer.blank? || (options.blank? && blank))%>
+                  <br>
                   <p><%= _('Question not answered.') -%></p>
                 <% else %>
+                  <br>
                   <%# case where Question has options %>
                   <% if options.any? %>
                     <ul>
@@ -81,6 +85,7 @@
                   <% end %>
                 <% end %>
               </div>
+              <br>
             <% end %>
           <% end %>
         <% end %> <!-- sections.each -->

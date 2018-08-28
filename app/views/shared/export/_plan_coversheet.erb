@@ -1,7 +1,7 @@
 <hr />
 <h1><%= @plan.title %></h1>
 <p><em>
-  <%= _("A Data Management Plan created using ") + Rails.configuration.branding[:application][:name] %>
+<%= _("A Data Management Plan created using ") + Rails.configuration.branding[:application][:name] %>
 </em></p>
 <br/>
 <div class="cover-page">
@@ -24,7 +24,7 @@
   <% end %>
 
   <% if @plan.description.present? %>
-    <p><%= _("Project abstract: ") %></p>
+    <p><%= _("Project abstract: ") %></p> <br>
     <div style="margin-left: 15px;"><%= sanitize(@plan.description) %></div><br>
   <% end %>
 
