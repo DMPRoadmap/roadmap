@@ -442,6 +442,7 @@ DEPENDENCIES
   simplecov
   spring
   spring-commands-rspec
+  text
   thin
   web-console
   webmock
