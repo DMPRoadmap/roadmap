@@ -20,6 +20,11 @@ Bundler.require(*Rails.groups)
 module DMPRoadmap
   class Application < Rails::Application
 
+    # HTML tags that are allowed to pass through `sanitize`.
+    config.action_view.sanitized_allowed_tags = %w[
+      p br strong em a table thead tbody tr td th tfoot caption ul ol li
+    ]
+
     config.generators do |g|
       g.orm             :active_record
       g.template_engine :erb

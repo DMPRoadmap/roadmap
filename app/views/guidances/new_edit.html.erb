@@ -22,7 +22,13 @@
                 :id, :name, {prompt: false}, {multiple: false, 'data-toggle': 'tooltip', title: _('Select which group this guidance relates to.'), class: 'form-control', 'aria-required': true})%>
       </div>
       <div class="checkbox">
-        <%= f.label :published, raw("#{f.check_box :published, as: :check_boxes, 'data-toggle': 'tooltip', title: _("Check this box when you are ready for this guidance to appear on user's plans.")} #{_('Published?')}") %>
+        <%= f.label :published do %>
+          <%= f.check_box :published,
+                          as: :check_boxes,
+                          data: { toggle: 'tooltip' },
+                          title: _("Check this box when you are ready for this guidance to appear on user's plans.") %>
+          <%= _('Published?') %>
+        <% end %>
       </div>
       <div class="form-group clear-fix">
         <%= f.submit _('Save'), name: "edit_guidance_submit", class: "btn btn-primary" %>

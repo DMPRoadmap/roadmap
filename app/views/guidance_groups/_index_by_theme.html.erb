@@ -41,7 +41,7 @@
                 <% end %>
                 <p>
                   <% unless guidances_output.include?(guidance.id) %>
-                    <%= raw(guidance.text) %>
+                    <%= sanitize(guidance.text) %>
                     <% guidances_output << guidance.id %>
                     <% multiple = true %>
                   <% end %>

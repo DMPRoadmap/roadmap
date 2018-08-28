@@ -11,10 +11,13 @@
     <%= link_to _('Forgot password?'), new_password_path('user') %>
   </div>
   <div class="checkbox">
-    <%= label_tag 'remember_email', raw("#{check_box_tag 'remember_email'}#{_('Remember email')}") %>
+    <%= label_tag 'remember_email' do %>
+      <%= check_box_tag 'remember_email' %>
+      <%= _('Remember email') %>
+    <% end %>
   </div>
   <%= f.button(_('Sign in'), class: "btn btn-default", type: "submit") %>
-  
+
   <% if Rails.application.config.shibboleth_enabled %>
     <% if session['devise.shibboleth_data'].nil? %>
       <h4 class="text-center">- <%= _('or') %> -</h4>

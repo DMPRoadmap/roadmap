@@ -131,7 +131,16 @@ module Paginable
     if @paginable_params[:sort_field] == sort_field
       className = upcasing_sort_direction == 'ASC'? 'fa-sort-asc' : 'fa-sort-desc'
     end
-    return raw("<i class=\"fa #{className}\" aria-hidden=\"true\" style=\"float: right; font-size: 1.2em;\"><span class=\"screen-reader-text\">Sort by #{sort_field.split('.').first}</i>")
+    sanitize <<~HTML
+      <i class="fa #{className}"
+         aria-hidden="true"
+         style="float: right; font-size: 1.2em;">
+
+        <span class="screen-reader-text">
+
+        Sort by #{sort_field.split('.').first}
+      </i>
+    HTML
   end
 
   # Returns the sort url for a given sort_field.

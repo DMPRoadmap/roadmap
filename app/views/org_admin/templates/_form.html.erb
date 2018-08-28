@@ -12,12 +12,16 @@
   <!-- If the Org is a funder and another org type then allow then to set the visibility -->
   <div class="form-group col-xs-8">
     <%= f.label _('Visibility'), class: 'control-label' %>
-    <%= render partial: 'shared/popover', 
+    <%= render partial: 'shared/popover',
                locals: { message: _('Checking this box prevents the template from appearing in the public list of templates.'),
                          placement: 'right' }%>
     <div class="checkbox">
-      <%= f.label(:visibility,
-          raw("#{check_box_tag('template_visibility', '0', (template.visibility == 'organisationally_visible'))} #{_('for internal %{org_name} use only') % {org_name: template.org.name}}")) %>
+      <%= f.label(:visibility) do %>
+        <%= check_box_tag('template_visibility', '0',
+                            (template.visibility == 'organisationally_visible')) %>
+
+        <%= _('for internal %{org_name} use only') % { org_name: template.org.name } %>
+      <% end %>
     </div>
   </div>
 <% end %>
@@ -53,7 +57,7 @@
 <% if template.org.funder? %>
   <div class="col-xs-8">
     <%= render(partial: '/shared/links',
-    locals: { 
+    locals: {
       context: 'funder',
       title: _('Funder Links'),
       links: Hash(template.links).fetch('funder', []),
@@ -62,7 +66,7 @@
   </div>
   <div class="col-xs-8">
     <%= render(partial: '/shared/links',
-    locals: { 
+    locals: {
       context: 'sample_plan',
       title: _('Sample Plan Links'),
       links: Hash(template.links).fetch('sample_plan', []),

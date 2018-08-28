@@ -23,7 +23,7 @@
       </ul>
       <p><%= _("We will hold the personal data you provided us for as long as you continue using the %{application_name} service. Your personal data can be removed from this service upon request to the %{application_name} team within a period of 30 days.") %
              { :application_name => Rails.configuration.branding[:application][:name] } %></p>
-      <p><%= raw _("If you have any questions, please contact the %{application_name} team at: <a href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>") %
+      <p><%= sanitize _("If you have any questions, please contact the %{application_name} team at: <a href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>") %
                  { :application_name => Rails.configuration.branding[:application][:name], :helpdesk_email => Rails.configuration.branding[:organisation][:helpdesk_email] } %></p>
       <h3>Revisions</h3>
 
