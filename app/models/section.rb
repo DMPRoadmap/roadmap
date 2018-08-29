@@ -129,6 +129,6 @@ class Section < ActiveRecord::Base
 
   def set_number
     return if phase.nil?
-    self.number ||= phase.sections.maximum(:number) + 1
+    self.number ||= phase.sections.maximum(:number).to_i + 1
   end
 end
