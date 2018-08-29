@@ -17,11 +17,17 @@ Rails.application.routes.draw do
   post '/orgs/shibboleth', to: 'orgs#shibboleth_ds_passthru'
 
   resources :users, path: 'users', only: [] do
+
+    resources :org_swaps, only: [:create],
+                          controller: "super_admin/org_swaps",
+                          constraints: { format: /json/ }
+
     member do
       put 'update_email_preferences'
-      put 'org_swap', constraints: {format: [:json]}
     end
+
     post '/acknowledge_notification', to: 'users#acknowledge_notification'
+
   end
 
   #organisation admin area
