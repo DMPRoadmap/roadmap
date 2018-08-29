@@ -19,8 +19,7 @@ Rails.application.routes.draw do
   resources :users, path: 'users', only: [] do
 
     resources :org_swaps, only: [:create],
-                          controller: "super_admin/org_swaps",
-                          constraints: { format: /json/ }
+                          controller: "super_admin/org_swaps"
 
     member do
       put 'update_email_preferences'
