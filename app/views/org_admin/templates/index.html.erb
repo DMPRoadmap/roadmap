@@ -11,8 +11,9 @@
       </p>
     </div>
     <div class="col-md-6">
-      <%= form_for current_user, url: org_swap_user_path(current_user),
+      <%= form_for current_user, url: user_org_swaps_path(current_user),
                                  namespace: 'superadmin',
+                                 method: "post",
                                  html: { id: 'super-admin-switch-org' } do |f| %>
         <%= render partial: "shared/my_org",
                    locals: { f: f,
