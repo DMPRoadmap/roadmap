@@ -86,7 +86,7 @@
 
       <!-- Template selection -->
       <div id="available-templates" style="visibility: none;">
-        <%= hidden_field_tag 'template-option-target', org_admin_template_options_path %>
+        <%= hidden_field_tag 'template-option-target', template_options_path %>
         <h2 id="template-selection"><%= _('Which DMP template would you like to use?') %></h2>
         <div class="form-group row">
           <div class="col-xs-6">
@@ -94,7 +94,9 @@
                            class: 'form-control', 'aria-describedby': 'template-selection') %>
           </div>
           <div class="col-xs-6">
-            <span id="multiple-templates"><%= _('We found multiple DMP templates corresponding to your funder.') %></span>
+            <span id="multiple-templates">
+              <%= _('We found multiple DMP templates corresponding to your funder.') %>
+            </span>
           </div>
         </div>
       </div>
