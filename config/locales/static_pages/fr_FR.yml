@@ -43,10 +43,6 @@ fr_FR:
             Reymonet N., Moysan M., Cartier A., Délémontez R. Université Paris Diderot et Université Paris Descartes. 2018. Ce document a pour vocation d’accompagner les chercheurs et chargés de projets dans la rédact.. 2018.</i>
         </li>
         <li>
-          <a target='_blank' href='http://coop-ist.cirad.fr/content/download/5435/40362/version/4/file/CoopIST-plan-gestion-donnees-recherche-20140717.pdf'>Se familiariser avec les plans de gestion de données de la recherche, en 6 points</a> [PDF, 6 pages]<br />
-          <i>Deboin M.C. 2018. Montpellier (FRA) : CIRAD.</i>
-        </li>
-        <li>
           <a target='_blank' href='http://www.inist.fr/?-Tutoriels-multimedias-H2020-'>Tutoriels « Le libre accès aux résultats de la recherche dans le cadre d’Horizon 2020 »</a> [page web]<br />
           <i>Inist-CNRS. 2015.</i>
         </li>
@@ -81,7 +77,7 @@ fr_FR:
         </li>
      </ul>
     <h3>Exemples de Data Management Plans</h3>
-    <p><b>Quelques exemples de DMP rédigés dans le cadre de projets Horizon 2020 :</b></p>
+    <p><b>Quelques exemples de DMPs rédigés dans le cadre de projets Horizon 2020 :</b></p>
     <ul>
       <li> <a target='_blank' href='http://www.amecrys-project.eu/images/documents/Deliverable-7.2---Data-Management-Plan.pdf'>AMECRYS</a> Revolutionising Downstream Processing of Monoclonal Antibodies by Continuous Template-Assisted Membrane Crystallization. [PDF, 23 pages]</li>
       <li> <a target='_blank' href='http://pieproject.eu/wp-content/uploads/2017/01/PIE_D1.2_FIN.pdf'>PIE News</a> Poverty, Income, and Employment News NEWS. [PDF, 29 pages]</li>
@@ -93,6 +89,10 @@ fr_FR:
       <li>
         <a target='_blank' href='https://riojournal.com/browse_journal_articles.php?form_name=filter_articles&sortby=0&journal_id=17&search_in_=0&section_type%5B%5D=231'>Rio journal Data Management Plan collection</a> [page web]<br />
         Une sélection de plans de gestion de données publiés dans RIO (Research Ideas and Outcomes journal).
+      </li>
+      <li>
+        <a target='_blank' href='https://libereurope.eu/dmpcatalogue/'>LIBER DMP Catalogue</a> [page web]<br />
+  Catalogue de DMPs proposé par le groupe de travail « Research Data Management Working Group » du LIBER.
       </li>
       <li>
         <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/adocs/Leeds-RoaDMaP-DMPs.pdf'>Two social science DMPs</a> [PDF, 7 pages]<br />
@@ -111,8 +111,8 @@ fr_FR:
         5 DMP soumis à la NSF, partagés par la <i>DataOne initiative.</i>
       </li>
       <li>
-       <a target='_blank' href='http://library.umassmed.edu/necdmc/dmp'>Biology and chemistry DMPs</a> [page web]<br />
-       Trois exemples de DMP américains partagés par NECDMC, un outil pédagogique pour la formation à la gestion de données de recherche d'étudiants de niveaux L, M et en recherche en Sciences, Technologies et Médecine.
+       <a target='_blank' href='https://library.umassmed.edu/resources/necdmc/dmp'>Biology and chemistry DMPs</a> [page web]<br />
+       Trois exemples de DMPs américains partagés par NECDMC, un outil pédagogique pour la formation à la gestion de données de recherche d'étudiants de niveaux L, M et en recherche en Sciences, Technologies et Médecine.
       </li><li>
         <a target='_blank' href='http://www.neh.gov/divisions/odh/grant-news/data-management-plans-successful-grant-applications-2011-2014-now-available'>Data management plans from successful grant applications (2011-2014)</a> [page web]<br />
   National Endowment for the Humanities (NEH).
@@ -137,23 +137,15 @@ fr_FR:
         Le projet DoRANum a pour objectif de mettre en place un dispositif de formation à distance d’accès coordonné, intégrant différentes ressources d’auto-formation sur la thématique de la gestion et du partage des données de la recherche.
       </li>
       <li>
-        <a target='_blank' href='https://coop-ist.cirad.fr/content/download/6118/44587/version/7/file/CoopIST_initiation_donnees_recherche_20170113.pdf'>S'initier en ligne aux données de la recherche et à leur gestion en 4 points</a> [PDF, 5 pages]<br />
-        <i>Deboin M.C. 2017. Montpellier (FRA) : CIRAD.</i>
-      </li>
-      <li>
-        <a target='_blank' href='https://coop-ist.cirad.fr/content/download/5705/42112/version/5/file/CoopIST-rendre-publics-jeux-donnees-avril-2015.pdf'>Rendre publics ses jeux de données scientifiques en 6 points</a> [PDF, 6 pages]<br />
-        <i>Dedieu L., Fily M.F. 2015. Montpellier (FRA) : CIRAD.</i>
-      </li>
-      <li>
-        <a target='_blank' href='https://coop-ist.cirad.fr/content/download/5979/43909/version/4/file/CoopIST_Citer_jeu_donnees_scientifiques_20171207bis.pdf'>Citer un jeu de données scientifiques en 5 points</a> [PDF, 5 pages]<br />
-        <i>Deboin M.C. 2017. Montpellier (FRA) : CIRAD.</i>
+        <a target='_blank' href='https://coop-ist.cirad.fr/gestion-de-l-information/gerer-les-donnees-de-la-recherche'>Gérer les données de la recherche</a> [page web]<br />
+        <i>CoopIST Coopérer en information scientifique et technique - CIRAD.</i>
       </li>
       <li>
         <a target='_blank' href='http://www.donneesdelarecherche.fr'>Site d'information sur les Données de la Recherche</a> [page web]<br />
         <i>Avec le support du Ministère français de l'Enseignement Supérieur et de la Recherche, L'inist-CNRS développe une plateforme d'information sur les données de la recherche. Directrice de la rédaction: Thérèse Hameau.</i>
       </li>
       <li>
-        <a target='_blank' href='http://guides-formadoct.ueb.eu/donnees_recherche?hs=a'>Les données de la recherche</a> [pageWeb]<br />
+        <a target='_blank' href='http://guides-formadoct.ueb.eu/donnees_recherche?hs=a'>Les données de la recherche</a> [page web]<br />
         <i>Serres A., Vignale F. In UEB (Université Européenne de Bretagne). Form@doct. Rennes : UEB, janvier  2016.</i>
       </li>
       <li>
@@ -228,7 +220,7 @@ fr_FR:
             <li>Télécopie : +33 (0)3 83 50 46 50</li><br/>
         </ul>
     <p><b>Directeur de la publication:</b> Antoine Petit</p>
-    <p><b>Directeur de rédaction:</b> Dominique Wolf</p>
+    <p><b>Directeur de rédaction:</b> Claire François</p>
     <p><b>Service utilisateurs:</b> <a href='&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#45;&#111;&#112;&#105;&#100;&#111;&#114;&#64;&#105;&#110;&#105;&#115;&#116;&#46;&#102;&#114;' target='_top'>&#105;&#110;&#102;&#111;&#45;&#111;&#112;&#105;&#100;&#111;&#114;&#64;&#105;&#110;&#105;&#115;&#116;&#46;&#102;&#114;</a></p>
     <h3>Données personnelles</h3>
     <p>Afin de nous aider à identifier et gérer votre compte utilisateur, nous avons besoin de collecter et stocker des informations qui vous sont propres : courriel, nom, prénom, organisme d'appartenance, identifiant ORCID, date de dernière connexion. Il est possible que nous utilisions ces informations pour vous informer des derniers développements de l’outil, des opérations de maintenance et de sécurité. Nous nous engageons à ne pas vendre ni louer ni échanger ni distribuer à des tiers les informations recueillies vous concernant.</p>

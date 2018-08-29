@@ -42,10 +42,6 @@ en_GB:
 Reymonet N., Moysan M., Cartier A., Délémontez R. Université Paris Diderot et Université Paris Descartes. 2018.</i>
         </li>
         <li>
-          <a target='_blank' href='http://coop-ist.cirad.fr/content/download/5435/40362/version/4/file/CoopIST-plan-gestion-donnees-recherche-20140717.pdf'>Se familiariser avec les plans de gestion de données de la recherche, en 6 points </a> [PDF, 6 pages]<br />
-          <i>Deboin M.C. 2018. Montpellier (FRA): CIRAD.</i>
-        </li>
-        <li>
           <a target='_blank' href='http://www.inist.fr/?-Tutoriels-multimedias-H2020-'>Tutoriels « Le libre accès aux résultats de la recherche dans le cadre d’Horizon 2020 »</a> [webpage]<br />
           <i>Inist-CNRS. 2015.</i>
         </li>
@@ -94,6 +90,10 @@ Reymonet N., Moysan M., Cartier A., Délémontez R. Université Paris Diderot et
   A selection of DMPs published in the Research Information and Outcomes journal.
       </li>
       <li>
+        <a target='_blank' href='https://libereurope.eu/dmpcatalogue/'>LIBER DMP Catalogue</a> [webpage]<br />
+  Data Management Plan Catalogue (DMP) of the LIBER Research Data Management Working Group.
+      </li>
+      <li>
         <a target='_blank' href='http://www.dcc.ac.uk/sites/default/files/documents/adocs/Leeds-RoaDMaP-DMPs.pdf'>Two social science DMPs</a> [PDF, 7 pages]<br />
   Example plans from researchers at the University of Leeds, shared as part of the Leeds RoaDMaP training materials.
       </li>
@@ -110,7 +110,7 @@ Reymonet N., Moysan M., Cartier A., Délémontez R. Université Paris Diderot et
   5 DMPs submitted to the NSF, shared by the DataOne initiative.
       </li>
       <li>
-        <a target='_blank' href='http://library.umassmed.edu/necdmc/dmp'>Biology and chemistry DMPs</a> [webpage]<br />
+        <a target='_blank' href='https://library.umassmed.edu/resources/necdmc/dmp'>Biology and chemistry DMPs</a> [webpage]<br />
   Three example DMPs from the USA shared by NECDMC, an instructional tool for teaching RDM to undergraduates, graduate students, and researchers in the health sciences, sciences and engineering.
       </li><li>
         <a target='_blank' href='http://www.neh.gov/divisions/odh/grant-news/data-management-plans-successful-grant-applications-2011-2014-now-available'>Data management plans from successful grant applications (2011-2014)</a> [webpage]<br />
@@ -136,16 +136,8 @@ Reymonet N., Moysan M., Cartier A., Délémontez R. Université Paris Diderot et
         DoRANum project aims to establish a coordinated access remote training system, integrating different self-training on the theme of the management and sharing of research data resources.
       </li>
       <li>
-        <a target='_blank' href='https://coop-ist.cirad.fr/content/download/6118/44587/version/7/file/CoopIST_initiation_donnees_recherche_20170113.pdf'>S'initier en ligne aux données de la recherche et à leur gestion en 4 points</a> [PDF, 5 pages]<br />
-        <i>Deboin M.C. 2017. Montpellier (FRA) : CIRAD.</i>
-      </li>
-      <li>
-        <a target='_blank' href='https://coop-ist.cirad.fr/content/download/5705/42112/version/5/file/CoopIST-rendre-publics-jeux-donnees-avril-2015.pdf'>Rendre publics ses jeux de données scientifiques en 6 points</a> [PDF, 6 pages]<br />
-        <i>Dedieu L., Fily M.F. 2015. Montpellier (FRA) : CIRAD.</i>
-      </li>
-      <li>
-        <a target='_blank' href='https://coop-ist.cirad.fr/content/download/5979/43909/version/4/file/CoopIST_Citer_jeu_donnees_scientifiques_20171207bis.pdf'>Citer un jeu de données scientifiques en 5 points</a> [PDF, 5 pages]<br />
-        <i>Deboin M.C. 2017. Montpellier (FRA) : CIRAD.</i>
+        <a target='_blank' href='https://coop-ist.cirad.fr/gestion-de-l-information/gerer-les-donnees-de-la-recherche'>Gérer les données de la recherche</a> [webpage]<br />
+        <i>CoopIST Coopérer en information scientifique et technique - CIRAD.</i>
       </li>
       <li>
         <a target='_blank' href='http://www.donneesdelarecherche.fr'>Site d'information sur les Données de la Recherche</a> [webpage]<br />
@@ -225,7 +217,7 @@ Reymonet N., Moysan M., Cartier A., Délémontez R. Université Paris Diderot et
             <li>Fax: +33 (0)3 83 50 46 50</li><br/>
         </ul>
     <p><b>Publisher:</b> Antoine Petit</p>
-    <p><b>Editorial Director:</b> Dominique Wolf</p>
+    <p><b>Editorial Director:</b> Claire François</p>
     <p><b>User support Department:</b> <a href='&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#105;&#110;&#102;&#111;&#45;&#111;&#112;&#105;&#100;&#111;&#114;&#64;&#105;&#110;&#105;&#115;&#116;&#46;&#102;&#114;' target='_top'>&#105;&#110;&#102;&#111;&#45;&#111;&#112;&#105;&#100;&#111;&#114;&#64;&#105;&#110;&#105;&#115;&#116;&#46;&#102;&#114;</a></p>
     <h3>Your personal details</h3>
     <p>To help identify and administer your account with DMP OPIDoR, we need to store specific user information: email address, surname, first name, home institution, ORCID, last login. We may also use it to inform you of the latest developments of the tool, maintenance and security issues. We will not sell, rent, deliver or trade any personal information you provide us with.</p>
