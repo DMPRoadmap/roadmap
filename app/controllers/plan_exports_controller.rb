@@ -25,8 +25,13 @@ class PlanExportsController < ApplicationController
     end
 
     @hash           = @plan.as_pdf(@show_coversheet)
-    @formatting     = params[:export][:formatting] || @plan.settings(:export).formatting
-    @selected_phase = @plan.phases.find(params[:phase_id])
+    @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
+    if params.key?(:phase_id)
+      @selected_phase = @plan.phases.find(params[:phase_id])
+    else
+      @selected_phase = @plan.phases.order("phases.updated_at DESC")
+                                    .detect { |p| p.visibility_allowed?(@plan) }
+    end
 
     respond_to do |format|
       format.html { show_html }
@@ -90,6 +95,6 @@ class PlanExportsController < ApplicationController
   end
 
   def export_params
-    params[:export]
+    params.fetch(:export, {})
   end
 end

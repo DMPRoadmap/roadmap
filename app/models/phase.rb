@@ -111,4 +111,9 @@ class Phase < ActiveRecord::Base
     end
     n
   end
+
+  def visibility_allowed?(plan)
+    value = Rational(num_answered_questions(plan), num_questions) * 100
+    value >= Rails.application.config.default_plan_percentage_answered
+  end
 end
