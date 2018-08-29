@@ -57,6 +57,7 @@ jobs:
       name: "Brakeman check"
       script: bundle exec brakeman -w2 --except=Redirect,CrossSiteScripting
 
-    - stage: security
-      name: "Bundle audit"
-      script: bundle exec bundle-audit check --update
+    # Temporarily disabled this
+    # - stage: security
+    #   name: "Bundle audit"
+    #   script: bundle exec bundle-audit check --update
