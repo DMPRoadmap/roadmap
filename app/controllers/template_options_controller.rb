@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-class OrgAdmin::TemplateOptionsController < ApplicationController
+class TemplateOptionsController < ApplicationController
 
   after_action :verify_authorized
 
-  # GET /org_admin/template_options  (AJAX)
+  # GET /template_options  (AJAX)
   # Collect all of the templates available for the org+funder combination
   def index
     org_id = (plan_params[:org_id] == "-1" ? "" : plan_params[:org_id])

@@ -188,6 +188,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :template_options, only: [:index], constraints: { format: /json/ }
+
   # ORG ADMIN specific pages
   namespace :org_admin do
     resources :plans, only: [:index] do
@@ -195,8 +197,6 @@ Rails.application.routes.draw do
         get 'feedback_complete'
       end
     end
-
-    resources :template_options, only: [:index], constraints: { format: /json/ }
 
     resources :templates do
 
