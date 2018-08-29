@@ -144,31 +144,27 @@ module OrgAdmin
     # GET /org_admin/templates/new
     def new
       authorize Template
-      render "container", locals: {
-        partial_path: "new",
-        template: Template.new(org: current_user.org),
-        referrer: request.referrer.present? ? request.referrer : org_admin_templates_path
-      }
+      @template = current_org.templates.new
     end
 
     # POST /org_admin/templates
     def create
       authorize Template
       # creates a new template with version 0 and new family_id
-      template = Template.new(template_params)
-      template.org_id = current_user.org.id
-      template.links = if params["template-links"].present?
-                         ActiveSupport::JSON.decode(params["template-links"])
-                       else
-                         { "funder": [], "sample_plan": [] }
-                       end
-      if template.save
-        redirect_to edit_org_admin_template_path(template),
-                    notice: success_message(template_type(template), _("created"))
+      @template = Template.new(template_params)
+      @template.org_id = current_user.org.id
+      @template.locale = current_org.language.abbreviation
+      @template.links = if params["template-links"].present?
+                          ActiveSupport::JSON.decode(params["template-links"])
+                        else
+                          { "funder": [], "sample_plan": [] }
+                        end
+      if @template.save
+        redirect_to edit_org_admin_template_path(@template),
+                    notice: success_message(template_type(@template), _("created"))
       else
-        flash[:alert] = failed_create_error(template, template_type(template))
-        render partial: "org_admin/templates/new",
-               locals: { template: template, hash: hash }
+        flash[:alert] = failed_create_error(@template, template_type(@template))
+        render :new
       end
     end
 

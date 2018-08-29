@@ -18,9 +18,9 @@
     <div class="checkbox">
       <%= f.label(:visibility) do %>
         <%= check_box_tag('template_visibility', '0',
-                            (template.visibility == 'organisationally_visible')) %>
+                            (f.object.visibility == 'organisationally_visible')) %>
 
-        <%= _('for internal %{org_name} use only') % { org_name: template.org.name } %>
+        <%= _('for internal %{org_name} use only') % { org_name: f.object.org.name } %>
       <% end %>
     </div>
   </div>
@@ -29,9 +29,9 @@
 <div class="form-group col-xs-8">
   <%= label_tag(:status, _('Status'), class: "control-label") %>
     <p class="form-control-static">
-      <% if template.published? %>
+      <% if f.object.published? %>
         <%= _('Published') %>
-      <% elsif (template.version.present? && template.version <= 0) || !template.id.present? %>
+      <% elsif (f.object.version.present? && f.object.version <= 0) || !f.object.id.present? %>
         <%= _('Unpublished') %>
       <% else %>
         <%= _('Draft') %>
@@ -39,28 +39,28 @@
     </p>
 </div>
 
-<% if template.id.present? %>
+<% if f.object.id.present? %>
   <div class="form-group col-xs-8">
     <%= label_tag(:created_at, _('Created at'), class: "control-label") %>
     <p class="form-control-static">
-      <%= l template.created_at.to_date, formats: :short %>
+      <%= l f.object.created_at.to_date, formats: :short %>
     </p>
   </div>
   <div class="form-group col-xs-8">
     <%= label_tag(:updated, _('Last updated'), class: "control-label") %>
     <p class="form-control-static">
-      <%= l template.updated_at.to_date, formats: :short %>
+      <%= l f.object.updated_at.to_date, formats: :short %>
     </p>
   </div>
 <% end %>
 
-<% if template.org.funder? %>
+<% if f.object.org.funder? %>
   <div class="col-xs-8">
     <%= render(partial: '/shared/links',
     locals: {
       context: 'funder',
       title: _('Funder Links'),
-      links: Hash(template.links).fetch('funder', []),
+      links: Hash(f.object.links).fetch('funder', []),
       max_number_links: MAX_NUMBER_LINKS_FUNDER,
       tooltip: _('Add links to funder websites that provide additional information about the requirements for this template') }) %>
   </div>
@@ -69,11 +69,11 @@
     locals: {
       context: 'sample_plan',
       title: _('Sample Plan Links'),
-      links: Hash(template.links).fetch('sample_plan', []),
+      links: Hash(f.object.links).fetch('sample_plan', []),
       max_number_links: MAX_NUMBER_LINKS_SAMPLE_PLAN,
       tooltip: _('Add links to sample plans if provided by the funder.') }) %>
   </div>
-  <%= hidden_field_tag('template-links', ActiveSupport::JSON.encode(template.links)) %>
+  <%= hidden_field_tag('template-links', ActiveSupport::JSON.encode(f.object.links)) %>
 <% end %>
 
 <div class="form-group col-xs-8">
