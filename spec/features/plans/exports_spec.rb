@@ -15,6 +15,23 @@ RSpec.describe "PlansExports", type: :feature, js: true do
     sign_in(user)
   end
 
+  scenario "User downloads plan from dashboard" do
+    new_plan  = create(:plan, :publicly_visible, template: template)
+    new_phase = create(:phase, template: template, sections: 2)
+    new_phase.sections do |sect|
+      create_list(:question, 2, section: sect)
+    end
+    new_plan.questions.each do |question|
+      create(:answer, question: question, plan: new_plan)
+    end
+    new_user  = create(:user, org: org)
+    create(:role, :creator, :commenter, :administrator, :editor,
+           plan: new_plan,
+           user: new_user)
+    sign_in(user)
+    click_link "PDF"
+  end
+
   scenario "User downloads public plan belonging to other User" do
     new_plan = create(:plan, :publicly_visible, template: template)
     create(:role, :creator, plan: new_plan)
