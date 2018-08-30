@@ -1,6 +1,5 @@
 module DMPRoadmap
   class Application < Rails::Application
-    puts system("which wkhtmltopdf")
     WickedPdf.config = {
       exe_path: ENV['WICKED_PDF_PATH'] || '/usr/local/bin/wkhtmltopdf'
     }
