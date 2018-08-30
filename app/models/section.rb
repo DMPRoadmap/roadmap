@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: sections
@@ -21,6 +23,7 @@
 #
 
 class Section < ActiveRecord::Base
+
   include ValidationMessages
   include ValidationValues
   include ActsAsSortable
@@ -108,8 +111,8 @@ class Section < ActiveRecord::Base
     copy.phase_id = options.fetch(:phase_id, nil)
     copy.save!(validate: false)  if options.fetch(:save, false)
     options[:section_id] = copy.id
-    self.questions.map{ |question| copy.questions << question.deep_copy(options) }
-    return copy
+    self.questions.map { |question| copy.questions << question.deep_copy(options) }
+    copy
   end
 
   # Can't be modified as it was duplicatd over from another Phase.
@@ -129,6 +132,7 @@ class Section < ActiveRecord::Base
 
   def set_number
     return if phase.nil?
-    self.number ||= phase.sections.maximum(:number) + 1
+    self.number ||= phase.sections.maximum(:number).to_i + 1
   end
+
 end

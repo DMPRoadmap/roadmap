@@ -19,6 +19,7 @@ addons:
   apt:
     packages:
       - nodejs
+      - wkhtmltopdf
 
 matrix:
   fast_finish: true
@@ -37,6 +38,7 @@ env:
 
 # Main test script
 script:
+  - export WICKED_PDF_PATH=./vendor/bundle/ruby/2.4.0/bin/wkhtmltopdf
   # Copy over config files needed for setup, and create DB
   - bin/setup
   # Precompile the assets
@@ -48,6 +50,7 @@ script:
 stages:
   - security
   - test
+  - hygiene
 
 # Define each stage (test is already defined automatically)
 jobs:
@@ -63,3 +66,7 @@ jobs:
     # - stage: security
     #   name: "Bundle audit"
     #   script: bundle exec bundle-audit check --update
+
+    - stage: hygiene
+      name: "Check seeds are valid"
+      script: bin/setup && bundle exec rake db:seed
