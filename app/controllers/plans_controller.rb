@@ -297,44 +297,6 @@ class PlansController < ApplicationController
     render "download"
   end
 
-  def export
-    @plan = Plan.includes(:answers).find(params[:id])
-    authorize @plan
-    @selected_phase = @plan.phases.find(params[:phase_id])
-    @show_coversheet = params[:export][:project_details].present?
-    @show_sections_questions = params[:export][:question_headings].present?
-    @show_unanswered = params[:export][:unanswered_questions].present?
-    @show_custom_sections = params[:export][:custom_sections].present?
-    @public_plan = false
-    @hash = @plan.as_pdf(@show_coversheet)
-    @formatting = params[:export][:formatting] || @plan.settings(:export).formatting
-    file_name = @plan.title.gsub(/ /, "_")
-
-    # rubocop:disable Metrics/BlockLength
-    respond_to do |format|
-      format.html { render layout: false }
-      format.csv  { send_data @plan.as_csv(@show_sections_questions, @show_unanswered, @selected_phase, @show_custom_sections, @show_coversheet),  filename: "#{file_name}.csv" }
-      format.text { send_data render_to_string(partial: 'shared/export/plan_txt'), filename: "#{file_name}.txt" }
-      format.docx { render docx: "#{file_name}.docx", content: render_to_string(partial: 'shared/export/plan') }
-      format.pdf do
-        # rubocop:disable Metrics/LineLength
-        render pdf: file_name,
-               margin: @formatting[:margin],
-               footer: {
-                 center: _("Created using the %{application_name}. Last modified %{date}") % {
-                   application_name: Rails.configuration.branding[:application][:name],
-                   date: l(@plan.updated_at.to_date, formats: :short)
-                  },
-                 font_size: 8,
-                 spacing:   (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-                 right:     "[page] of [topage]"
-               }
-        # rubocop:enable Metrics/LineLength
-      end
-    end
-    # rubocop:enable Metrics/BlockLength
-  end
-
   def duplicate
     plan = Plan.find(params[:id])
     authorize plan

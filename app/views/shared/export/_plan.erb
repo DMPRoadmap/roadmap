@@ -1,25 +1,10 @@
-<%
-  font_face = (@formatting[:font_face].present? ? "#{@formatting[:font_face]}" : 'Arial, Helvetica, Sans-Serif')
-  font_size = (@formatting[:font_size].present? ? "#{@formatting[:font_size]}" : '12')
-  margin_top = '5'
-  margin_bottom = '10'
-  margin_left = '12'
-  margin_right = '12'
-
-  if @formatting[:margin].present?
-    margin_top = (@formatting[:margin][:top].is_a?(Integer) ? @formatting[:margin][:top] * 4 : @formatting[:margin][:top]) if @formatting[:margin][:top].present?
-    margin_right = (@formatting[:margin][:right].is_a?(Integer) ? @formatting[:margin][:right] * 4 : @formatting[:margin][:right]) if @formatting[:margin][:right].present?
-    margin_bottom = (@formatting[:margin][:bottom].is_a?(Integer) ? @formatting[:margin][:bottom] * 4 : @formatting[:margin][:bottom]) if @formatting[:margin][:bottom].present?
-    margin_left = (@formatting[:margin][:left].is_a?(Integer) ? @formatting[:margin][:left] * 4 : @formatting[:margin][:left]) if @formatting[:margin][:left].present?
-  end
-%>
-
 <!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title><%= @plan.title %></title>
-    <%= render partial: '/shared/export/plan_styling',
+
+    <%= render partial: 'shared/export/plan_styling',
                locals: {
                  font_face: font_face,
                  font_size: "#{font_size}pt",
@@ -28,13 +13,14 @@
   </head>
   <body>
     <% if @show_coversheet %>
-      <%= render partial: '/shared/export/plan_coversheet' %>
+      <%= render partial: 'shared/export/plan_coversheet' %>
     <% end %>
 
     <% @hash[:phases].each do |phase| %>
       <%# Only render selected phase %>
       <% if phase[:title] == @selected_phase.title %>
-        <div style="page-break-before:always;"></div> <!-- Page break before each phase -->
+      <!-- Page break before each phase -->
+        <div style="page-break-before:always;"></div>
         <h1><%= download_plan_page_title(@plan, phase, @hash) %></h1>
         <hr />
         <% phase[:sections].each do |section| %>
@@ -56,6 +42,7 @@
                 <% if @show_unanswered && (answer.blank? || (options.blank? && blank))%>
                   <p><%= _('Question not answered.') -%></p>
                 <% else %>
+
                   <%# case where Question has options %>
                   <% if options.any? %>
                     <ul>
