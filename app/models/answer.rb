@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: answers
@@ -24,27 +26,22 @@
 #
 
 class Answer < ActiveRecord::Base
+
   include ValidationMessages
 
-  after_save do |answer|
-    if answer.plan_id.present?
-      plan = answer.plan
-      complete = plan.no_questions_matches_no_answers?
-      if plan.complete != complete
-        plan.complete = complete
-        plan.save!
-      else
-        plan.touch  # Force updated_at changes if nothing changed since save only saves if changes were made to the record
-      end
-    end
-  end
 
-  ##
-  # Associations
-	belongs_to :question
-	belongs_to :user
-	belongs_to :plan
+  # ================
+  # = Associations =
+  # ================
+
+  belongs_to :question
+
+  belongs_to :user
+
+  belongs_to :plan
+
   has_many :notes, dependent: :destroy
+
   has_and_belongs_to_many :question_options, join_table: "answers_question_options"
 
   has_many :notes
@@ -59,8 +56,15 @@ class Answer < ActiveRecord::Base
   validates :user, presence: { message: PRESENCE_MESSAGE }
 
   validates :question, presence: { message: PRESENCE_MESSAGE },
-                       uniqueness: { message: UNIQUENESS_MESSAGE,
-                                     scope: :plan_id }
+                      uniqueness: { message: UNIQUENESS_MESSAGE,
+                                    scope: :plan_id }
+
+  # =============
+  # = Callbacks =
+  # =============
+
+  after_save :set_plan_complete
+
 
   ##
   # deep copy the given answer
@@ -81,7 +85,7 @@ class Answer < ActiveRecord::Base
   #
   # Returns Boolean
   def has_question_option(option_id)
-    self.question_option_ids.include?(option_id)
+    question_option_ids.include?(option_id)
   end
 
   # If the answer's question is option_based, it is checked if exist any question_option
@@ -90,21 +94,21 @@ class Answer < ActiveRecord::Base
   #
   # Returns Boolean
   def is_valid?
-    if self.question.present?
-      if self.question.question_format.option_based?
-        return !self.question_options.empty?
+    if question.present?
+      if question.question_format.option_based?
+        return question_options.any?
       else  # (e.g. textarea or textfield question formats)
-        return self.text.present?
+        return text.present?
       end
     end
-    return false
+    false
   end
 
   # Answer notes whose archived is blank sorted by updated_at in descending order
   #
   # Returns Array
   def non_archived_notes
-    return notes.select{ |n| n.archived.blank? }.sort!{ |x,y| y.updated_at <=> x.updated_at }
+    notes.select { |n| n.archived.blank? }.sort! { |x, y| y.updated_at <=> x.updated_at }
   end
 
   # Returns True if answer text is blank, false otherwise specificly we want to remove
@@ -112,11 +116,11 @@ class Answer < ActiveRecord::Base
   #
   # Returns Boolean
   def is_blank?
-    if self.text.present?
-      return self.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '').chomp.blank?
+    if text.present?
+      return text.gsub(/<\/?p>/, "").gsub(/<br\s?\/?>/, "").chomp.blank?
     end
     # no text so blank
-    return true
+    true
   end
 
   # The parsed JSON hash for the current answer object. Generates a new hash if none
@@ -124,13 +128,13 @@ class Answer < ActiveRecord::Base
   #
   # Returns Hash
   def answer_hash
-    default = {'standards' => {}, 'text' => ''}
+    default = { "standards" => {}, "text" => "" }
     begin
-      h = self.text.nil? ? default : JSON.parse(self.text)
+      h = text.nil? ? default : JSON.parse(text)
     rescue JSON::ParserError => e
       h = default
     end
-    return h
+    h
   end
 
   ##
@@ -141,10 +145,23 @@ class Answer < ActiveRecord::Base
   # text      - A String with option comment text
   #
   # Returns String
-  def update_answer_hash(standards={},text="")
+  def update_answer_hash(standards = {}, text = "")
     h = {}
-    h['standards'] = standards
-    h['text'] = text
+    h["standards"] = standards
+    h["text"] = text
     self.text = h.to_json
   end
+
+  def set_plan_complete
+    return unless plan_id?
+    complete = plan.no_questions_matches_no_answers?
+    if plan.complete != complete
+      plan.update!(complete: complete)
+    else
+      # Force updated_at changes if nothing changed since save only saves if changes
+      # were made to the record
+      plan.touch
+    end
+  end
+
 end
