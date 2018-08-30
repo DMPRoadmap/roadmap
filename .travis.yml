@@ -48,6 +48,7 @@ script:
 stages:
   - security
   - test
+  - hygiene
 
 # Define each stage (test is already defined automatically)
 jobs:
@@ -57,6 +58,10 @@ jobs:
       name: "Brakeman check"
       script: bundle exec brakeman -w2 --except=Redirect,CrossSiteScripting
 
-    - stage: security
-      name: "Bundle audit"
-      script: bundle exec bundle-audit check --update
+    # - stage: security
+    #   name: "Bundle audit"
+    #   script: bundle exec bundle-audit check --update
+
+    - stage: hygiene
+      name: "Check seeds are valid"
+      script: bundle exec rake db:seed
