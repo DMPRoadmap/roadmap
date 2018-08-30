@@ -47,7 +47,7 @@ module PlansHelper
     # If there is more than one phase show the plan title and phase title
     return hash[:phases].many? ? "#{plan.title} - #{phase[:title]}" : plan.title
   end
-  
+
   def display_questions_and_section_headings(section, show_sections_questions, show_custom_sections)
     # Return true if show_sections_questions is true and either section not customised, or section is customised
     # and show_custom_sections is true
