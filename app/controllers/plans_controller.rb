@@ -23,9 +23,9 @@ class PlansController < ApplicationController
     # Get all of the available funders and non-funder orgs
     @funders = Org.funder
                   .joins(:templates)
-                  .where(templates: { published: true }).uniq.sort(&:name)
+                  .where(templates: { published: true }).uniq.sort_by(&:name)
     @orgs = (Org.organisation + Org.institution + Org.managing_orgs).flatten
-                                                                    .uniq.sort(&:name)
+                                                                    .uniq.sort_by(&:name)
 
     # Get the current user's org
     @default_org = current_user.org if @orgs.include?(current_user.org)
