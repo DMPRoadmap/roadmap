@@ -71,9 +71,10 @@ module ExportablePlan
 
   def prepare(coversheet = false)
     hash = coversheet ? prepare_coversheet : {}
-    template = Template.includes(phases: { sections: {questions: :question_format } }).
-    joins(phases: { sections: { questions: :question_format } }).
-    where(id: self.template_id).order('sections.number', 'questions.number').first
+    template = Template.includes(phases: { sections: {questions: :question_format } })
+                       .joins(phases: { sections: { questions: :question_format } })
+                       .where(id: self.template_id)
+                       .order('sections.number', 'questions.number').first
 
     hash[:title] = self.title
     hash[:answers] = self.answers
@@ -83,10 +84,17 @@ module ExportablePlan
     template.phases.each do |phase|
       phs = { title: phase.title, number: phase.number, sections: [] }
       phase.sections.each do |section|
-        sctn = { title: section.title, number: section.number, questions: [], modifiable: section.modifiable }
+        sctn = { title: section.title,
+                 number: section.number,
+                 questions: [],
+                 modifiable: section.modifiable }
         section.questions.each do |question|
           txt = question.text
-          sctn[:questions] << { id: question.id, text: txt, format: question.question_format }
+          sctn[:questions] << {
+            id: question.id,
+            text: txt,
+            format: question.question_format
+          }
         end
         phs[:sections] << sctn
       end
