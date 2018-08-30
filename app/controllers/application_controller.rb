@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
+
   protect_from_forgery with: :exception
 
   # Look for template overrides before rendering
@@ -16,11 +19,15 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def current_org
+    current_user.org
+  end
+
   def user_not_authorized
     if user_signed_in?
-      redirect_to plans_url, alert: _('You are not authorized to perform this action.')
+      redirect_to plans_url, alert: _("You are not authorized to perform this action.")
     else
-      redirect_to root_url, alert: _('You need to sign in or sign up before continuing.')
+      redirect_to root_url, alert: _("You need to sign in or sign up before continuing.")
     end
   end
 
@@ -30,7 +37,8 @@ class ApplicationController < ActionController::Base
   end
 
   def store_location
-    # store last url - this is needed for post-login redirect to whatever the user last visited.
+    # store last url - this is needed for post-login redirect to whatever the user last
+    # visited.
     unless ["/users/sign_in",
             "/users/sign_up",
             "/users/password",
@@ -43,7 +51,9 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     referer_path = URI(request.referer).path unless request.referer.nil? or nil
-    if from_external_domain? || referer_path.eql?(new_user_session_path) || referer_path.eql?(new_user_registration_path) || referer_path.nil?
+    if from_external_domain? || referer_path.eql?(new_user_session_path) ||
+         referer_path.eql?(new_user_registration_path) ||
+         referer_path.nil?
       root_path
     else
       request.referer
@@ -51,8 +61,10 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_up_path_for(resource)
-    referer_path = URI(request.referer).path unless request.referer.nil? or nil
-    if from_external_domain? || referer_path.eql?(new_user_session_path) || referer_path.nil?
+    referer_path = URI(request.referer).path unless request.referer.nil?
+    if from_external_domain? ||
+         referer_path.eql?(new_user_session_path) ||
+         referer_path.nil?
       root_path
     else
       request.referer
@@ -69,23 +81,27 @@ class ApplicationController < ActionController::Base
 
   def authenticate_admin!
     # currently if admin has any super-admin task, they can view the super-admin
-    redirect_to root_path unless user_signed_in? && (current_user.can_add_orgs? || current_user.can_change_org? || current_user.can_super_admin?)
+    unless user_signed_in? && (current_user.can_add_orgs? ||
+                               current_user.can_change_org? ||
+                               current_user.can_super_admin?)
+      redirect_to root_path
+    end
   end
 
   def failed_create_error(obj, obj_name)
-    "#{_('Could not create your %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
+    "#{_('Could not create your %{o}.') % { o: obj_name }} #{errors_to_s(obj)}"
   end
 
   def failed_update_error(obj, obj_name)
-    "#{_('Could not update your %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
+    "#{_('Could not update your %{o}.') % { o: obj_name }} #{errors_to_s(obj)}"
   end
 
   def failed_destroy_error(obj, obj_name)
-    "#{_('Could not delete the %{o}.') % {o: obj_name}} #{errors_to_s(obj)}"
+    "#{_('Could not delete the %{o}.') % { o: obj_name }} #{errors_to_s(obj)}"
   end
 
   def success_message(obj_name, action)
-    "#{_('Successfully %{action} your %{object}.') % {object: obj_name, action: action}}"
+    _("Successfully %{action} your %{object}.") % { object: obj_name, action: action }
   end
 
   # Override rails default render action to look for a branded version of a
@@ -102,8 +118,8 @@ class ApplicationController < ActionController::Base
   def errors_to_s(obj)
     if obj.errors.count > 0
       msg = "<br />"
-      obj.errors.each do |e,m|
-        if m.include?('empty') || m.include?('blank')
+      obj.errors.each do |e, m|
+        if m.include?("empty") || m.include?("blank")
           msg += "#{_(e)} - #{_(m)}<br />"
         else
           msg += "'#{obj[e]}' - #{_(m)}<br />"
@@ -135,4 +151,5 @@ class ApplicationController < ActionController::Base
       false
     end
   end
+
 end
