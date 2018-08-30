@@ -35,10 +35,10 @@ env:
   # Run specs once with each database adapter we support
   - DB_ADAPTER=postgresql
   - DB_ADAPTER=mysql2
-  - WICKED_PDF_PATH=./vendor/bundle/ruby/2.4.0/bin/wkhtmltopdf
 
 # Main test script
 script:
+  - export WICKED_PDF_PATH=./vendor/bundle/ruby/2.4.0/bin/wkhtmltopdf
   # Copy over config files needed for setup, and create DB
   - bin/setup
   # Precompile the assets
