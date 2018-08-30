@@ -47,14 +47,16 @@ class PublicPagesController < ApplicationController
   # -------------------------------------------------------------
   def plan_export
     @plan = Plan.includes(:answers).find(params[:id])
-    # covers authorization for this action.  Pundit dosent support passing objects into scoped policies
-    raise Pundit::NotAuthorizedError unless PublicPagePolicy.new(@plan, current_user).plan_organisationally_exportable? || PublicPagePolicy.new(@plan).plan_export?
-    skip_authorization
+    # covers authorization for this action.  Pundit dosent support passing objects into
+    # scoped policies
+    if PublicPagePolicy.new(@plan, current_user).plan_organisationally_exportable? ||
+           PublicPagePolicy.new(@plan).plan_export?
+      skip_authorization
+    else
+      raise Pundit::NotAuthorizedError
+    end
 
-    @show_coversheet = true
-    @show_sections_questions = true
-    @show_unanswered = true
-    @public_plan = true
+
 
     @hash = @plan.as_pdf(@show_coversheet)
     @formatting = @plan.settings(:export).formatting
