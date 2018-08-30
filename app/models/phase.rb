@@ -98,8 +98,7 @@ class Phase < ActiveRecord::Base
   # TODO: Move this to Plan model as `num_answered_questions(phase=nil)`
   # Returns the number of answered question for the phase.
   def num_answered_questions(plan)
-    return 0 if plan.nil?
-    sections.to_a.sum { |s| s.num_answered_questions(plan) }
+    plan&.num_answered_questions.to_i
   end
 
   # Returns the number of questions for a phase. Note, this method becomes useful
@@ -110,5 +109,10 @@ class Phase < ActiveRecord::Base
       n+= s.questions.size()
     end
     n
+  end
+
+  def visibility_allowed?(plan)
+    value = Rational(num_answered_questions(plan), plan.num_questions) * 100
+    value >= Rails.application.config.default_plan_percentage_answered.to_f
   end
 end

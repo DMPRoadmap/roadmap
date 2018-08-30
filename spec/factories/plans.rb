@@ -45,6 +45,7 @@ FactoryBot.define do
     feedback_requested false
     complete false
     transient do
+      phases 0
       answers 0
       guidance_groups 0
     end
