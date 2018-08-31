@@ -1,56 +1,31 @@
-<div id="branding-nav" class="row">
-  <div class="col-md-12 inset-nav">
-    <% if !user_signed_in? %>
-      <%= link_to(image_tag("DMPTool_logo_blue_shades_v1b3b.svg",
-                            alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
-                            class: "app-logo",
-                            title: Rails.configuration.branding[:application][:name]),
-                  root_path) %>
-
-    <% else %>
-      <div class="row">
-        <div class="col-md-3">
-          <% if current_user.org.present? && current_user.org.logo.present? %>
-            <%= link_to(image_tag(current_user.org.logo.thumb('100x100%').url,
-                                  alt: current_user.org.name,
-                                  class: "org-logo",
-                                  title: current_user.org.name),
-                        root_path) %>
-          <% else %>
-            <%= link_to(image_tag("DMPTool_logo_blue_shades_v1b3b.svg",
-                                  alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
-                                  class: "app-logo",
-                                  title: Rails.configuration.branding[:application][:name]),
-                        root_path) %>
-          <% end %>
-        </div>
-        <% if current_user.org.present? && !current_user.org.is_other? %>
-          <div class="col-md-5 org-name-nav text-center">
-            <div id="banner-org-name"><%= current_user.org.name %></div>
-          </div>
-          <div class="col-md-4" id="org-links">
-            <div>
-              <ul class="list-unstyled">
-                <% if current_user.org.links.present? && current_user.org.links['org'].present? %>
-                  <% current_user.org.links['org'].each_with_index do |link, i| %>
-                    <% if !link.blank? && i <= MAX_NUMBER_LINKS_ORG %>
-                      <li class="org-links">
-                        <%= link_to link['text'].truncate(40), link['link'], target: '_blank', class: 'org-a' %>
-                      </li>
-                    <% end %>
-                  <% end %>
-                <% end %>
-                <% if !current_user.org.contact_email.blank? %>
-                  <li>
-                    <i class="fa fa-envelope" aria-hidden="true">&nbsp;</i>
-                    <%= mail_to current_user.org.contact_email, current_user.org.contact_name, class: 'org-a' %>
-                  </li>
-                <% end %>
-              </ul>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+<% if user_signed_in? && !current_user.org.is_other? %>
+  <div class="branding-name">
+    <%= current_user.org.name %>
   </div>
+<% end %>
+
+<div class="branding-logo">
+  <%= render partial: "layouts/dmptool/logo" %>
 </div>
+
+<% if user_signed_in? && !current_user.org.is_other? %>
+  <div class="branding-links">
+    <ul>
+      <% if current_user.org.links.present? && current_user.org.links['org'].present? %>
+        <% current_user.org.links['org'].each_with_index do |link, i| %>
+          <% if !link.blank? && i <= MAX_NUMBER_LINKS_ORG %>
+            <li>
+              <%= link_to link['text'].truncate(40), link['link'], target: '_blank', class: 'org-a' %>
+            </li>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% if !current_user.org.contact_email.blank? %>
+        <li>
+          <i class="fa fa-envelope" aria-hidden="true">&nbsp;</i>
+          <%= mail_to current_user.org.contact_email, current_user.org.contact_name, class: 'org-a' %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

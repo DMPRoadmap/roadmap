@@ -14,13 +14,13 @@
 
       <ul id="access-control-tabs" class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
-          <a data-target="#sign-in-form-tab" role="tab" aria-controls="sign-in-form" data-toggle="tab" 
+          <a data-target="#sign-in-form-tab" role="tab" aria-controls="sign-in-form" data-toggle="tab"
              data-action="<%= user_session_path %>" data-method="POST">
             <%= _('Sign in') %>
           </a>
         </li>
         <li role="presentation">
-          <a data-target="#create-account-form-tab" role="tab" aria-controls="create-account-form" data-toggle="tab" 
+          <a data-target="#create-account-form-tab" role="tab" aria-controls="create-account-form" data-toggle="tab"
              data-action="<%= registration_path('user') %>" data-method="POST">
             <%= _('Create account') %>
           </a>
@@ -91,7 +91,7 @@
             <div class="row">
               <div class="col-md-6">
                 <input type="hidden" value="<%= org.present? ? org.id : '' %>" id="user_org_id" name="user[org_id]" />
-                <button type="submit" class="btn btn-default" value=""></button>
+                <button type="submit" class="btn btn-default" value=""><%= _("Sign in") %></button>
               </div>
               <div class="col-md-6 signin-fields<%= !signin ? ' hide' : '' %>">
                 <div class="pull-right"><%= link_to _('Forgot email?'), users_ldap_username_path %></div>

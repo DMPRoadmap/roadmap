@@ -1,0 +1,72 @@
+/* LINKS AND BUTTONS */
+/* --------------------------------------- */
+
+a, a:hover, a:focus, a:visited, a:active, a:active:hover,
+li > a, li > a:hover, li > a:focus, li > a:visited, li > a:active, li > a:active:hover,
+.navbar-nav > li > a, .navbar-nav > li > a:hover, .navbar-nav > li > a:focus, .navbar-nav > li > a:visited, .navbar-nav > li > a:active, .navbar-nav > li > a:active:hover,
+.dropdown-menu > li > a, .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-menu > li > a:visited, .dropdown-menu > li > a:active, .dropdown-menu > li > a:active:hover {
+  color: $dark-blue;
+  background-color: inherit;
+  text-decoration: none;
+  font-size: inherit;
+
+  .fa {
+    font-size: 1.5rem;
+  }
+}
+
+a:focus, a:hover, a:active, a:active:hover,
+li > a:focus, li > a:hover, li > a:active, li > a:active:hover
+.navbar-nav > li > a:focus, .navbar-nav > li > a:hover, .navbar-nav > li > a:active, .navbar-nav > li > a:active:hover,
+.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover, .dropdown-menu > li > a:active, .dropdown-menu > li > a:active:hover,
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover, .nav .open > a:active, .nav .open > a:active:hover {
+  text-decoration: underline;
+  font-size: inherit;
+  background-color: inherit;
+
+  .fa {
+    font-size: 1.5rem;
+  }
+}
+
+
+/*
+#sign-in-menu li.dropdown {
+  a, a:hover, a:focus, a:visited, a:active, a:active:hover {
+    background-color: $white !important;
+  }
+}
+.fa-external-link {
+  display: inline;
+  color: $dark-blue;
+}
+
+a, a:hover, a:focus, a:visited, a:active, a:active:hover,
+a .fa, a .fa:hover, a .fa:focus, a .fa:visited, a .fa:active, a .fa:active:hover {
+  color: $dark-blue;
+  background-color: inherit;
+  text-decoration: none;
+  font-size: 1.4rem;
+}
+
+a:hover, a:focus, a:active:hover,
+a .fa:hover, a .fa:focus, a .fa:active:hover,
+#sign-in-menu li > a:hover, #sign-in-menu li > a:focus, #sign-in-menu li > a:active:hover {
+  text-decoration: underline;
+}
+
+a .fa, a .fa:hover, a .fa:focus, a .fa:visited, a .fa:active, a .fa:active:hover {
+  text-decoration: none;
+}
+
+li, .navbar > li {
+ a, a:hover, a:focus, a:visited, a:active, a:active:hover {
+  color: $dark-blue;
+  background-color: inherit;
+ }
+}
+
+li > a:hover, li > a:focus, .nav > li > a:hover, .nav > li > a:focus {
+  background-color: $white;
+  text-decoration: underline;
+}*/

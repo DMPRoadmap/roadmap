@@ -1,0 +1,278 @@
+/* MEDIA SPECIFIC CHANGES */
+/* ----------------------------------------------------------------------- */
+@media all and (max-width: 768px) {
+  .navbar-fixed-top {
+    .navbar-toggle, .navbar-toggle:visited, .navbar-toggle:hover, .navbar-toggle:focus, .navbar-toggle:active {
+      margin: 2px 5px 0 0;
+      background-color: $dark-blue;
+
+      .icon-bar {
+        background-color: $white;
+      }
+    }
+    .navbar-toggle:not(.collapsed) .icon-bar:nth-child(2) {
+      transform: rotate(45deg) translate(5px, 4px);
+      transition: ease all .2s;
+    }
+    .navbar-toggle:not(.collapsed) .icon-bar:nth-child(3) {
+      opacity: 0;
+      transition: ease all .2s;
+    }
+    .navbar-toggle:not(.collapsed) .icon-bar:nth-child(4) {
+      transform: rotate(-45deg) translate(4px, -4px);
+      transition: ease all .2s;
+    }
+
+    ul[aria-labelledby="language-menu-button"] > li,
+    ul[aria-labelledby="profile-menu-button"] > li,
+    ul[aria-labelledby="signin-menu-button"] > li {
+      margin-left: 15px;
+    }
+  }
+
+  header > .fixed-menu, header > .branding, header > .app-menu , footer > .footer {
+    display: none;
+  }
+
+  .notifications {
+    margin-top: 60px;
+  }
+
+  footer {
+    width: 100%;
+    border-radius: 0;
+
+    .footer-mobile {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+    }
+
+    ul {
+      padding-left: 5px;
+
+      li {
+        list-style: none;
+
+        .fa-twitter-square, .fa-rss-square {
+          font-size: 2rem;
+        }
+      }
+    }
+
+    img {
+      margin-top: 10px;
+      max-width: 100px;
+    }
+    p, p > a {
+      font-size: 1.2rem;
+    }
+  }
+
+  /* Homepage */
+  .communications > div {
+    flex: 1 100%;
+  }
+}
+
+/* Homepage images and welcome message */
+/* --------------------------------------------------- */
+@media (min-width: 320px) and (max-width: 480px) {
+  .notifications {
+    margin-top: 25px;
+  }
+
+  .welcome {
+    position: relative;
+    padding: 0;
+    background: none;
+    margin-top: -15px;
+
+    .welcome-message {
+      margin: 0 auto;
+      color: $white;
+      font-size: 1.7rem;
+      padding: 5px;
+
+      h1 {
+        font-weight: bold;
+        font-size: 3rem;
+        color: $dark-blue;
+      }
+
+      p {
+        color: $dark-blue;
+      }
+
+      .btn-inverse {
+        color: $white;
+        background-color: $dark-blue;
+        padding: 10px 45px;
+        border-radius: 7px;
+        font-size: 1.8rem;
+        margin-top: 0;
+        float: none;
+      }
+    }
+  }
+
+  .welcome > div {
+    width: 100%;
+    margin-top: 0;
+    background: none;
+    padding: 5px 0 10px 0;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+  .homepage-img-1 { background-image: url('../images/homepage/1-small.jpg'); }
+  .homepage-img-2 { background-image: url('../images/homepage/2-small.png'); }
+  .homepage-img-3 { background-image: url('../images/homepage/3-small.jpg'); }
+  .homepage-img-4 { background-image: url('../images/homepage/4-small.jpg'); }
+  .homepage-img-5 { background-image: url('../images/homepage/5-small.png'); }
+
+  .notifications {
+    margin-top: 25px;
+  }
+
+  .welcome {
+    height: 180px;
+
+    .welcome-message {
+      margin: 0 auto;
+      color: $white;
+      font-size: 1.3rem;
+      padding: 5px;
+
+      h1 {
+        color: $white;
+        margin-top: 5px;
+        font-weight: bold;
+        font-size: 1.6rem;
+      }
+      p {
+        color: $white;
+      }
+
+      .btn-inverse {
+        color: $dark-blue;
+        background-color: $white;
+        padding: 5px 15px;
+        border-radius: 7px;
+        font-size: 1.2rem;
+        float: none;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .welcome > div {
+    width: 100%;
+    background: rgba(14,86,130,.9);
+    margin-top: 45px;
+    padding: 5px 0 10px 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .homepage-img-1 { background-image: url('../images/homepage/1-med.jpg'); }
+  .homepage-img-2 { background-image: url('../images/homepage/2-med.png'); }
+  .homepage-img-3 { background-image: url('../images/homepage/3-med.jpg'); }
+  .homepage-img-4 { background-image: url('../images/homepage/4-med.jpg'); }
+  .homepage-img-5 { background-image: url('../images/homepage/5-med.png'); }
+  .welcome { height: 393px; }
+}
+@media (min-width: 1140px) {
+  .homepage-img-1 { background-image: url('../images/homepage/1-large.jpg'); }
+  .homepage-img-2 { background-image: url('../images/homepage/2-large.png'); }
+  .homepage-img-3 { background-image: url('../images/homepage/3-large.jpg'); }
+  .homepage-img-4 { background-image: url('../images/homepage/4-large.jpg'); }
+  .homepage-img-5 { background-image: url('../images/homepage/5-large.png'); }
+  .welcome { height: 493px; }
+}
+
+
+@media all and (min-width: 768px) {
+  body {
+    header, main, footer, .notifications, .navbar-fixed-top, .welcome-message {
+      min-width: 480px;
+      max-width: 1180px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header, main, footer, .notifications, .welcome-message {
+      position: relative;
+    }
+
+    header > .fixed-menu-mobile, footer > .footer-mobile {
+      display: none;
+    }
+
+    ul[aria-labelledby="learn-menu-button"] {
+      width: 550px;
+    }
+
+    ul[aria-labelledby="signin-menu-button"] {
+      min-width: 450px;
+      padding: 10px 15px;
+      text-align: center;
+
+      h3 {
+        margin-top: 25px;
+        font-size: 1.6rem;
+      }
+      a {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      a.btn {
+        width: 80%;
+      }
+    }
+
+    header > .branding {
+      margin-top: 50px;
+    }
+
+    footer {
+      padding: 0;
+      margin-top: 25px;
+
+      .footer-top, .footer-bottom {
+        display: flex;
+        flex: row wrap;
+        justify-content: space-between;
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+
+      .footer-menu,
+      .footer-social {
+        .navbar {
+          margin-bottom: 0;
+        }
+
+        .container-fluid {
+          padding-left: 0;
+
+          .navbar-nav > li > a {
+            color: $dark-blue;
+          }
+        }
+      }
+
+      .footer-menu .navbar-nav > li > a {
+        padding: 0 10px 0 0;
+      }
+
+      .footer-social .navbar-nav > li > a {
+        padding: 0 0 0 10px;
+
+        .fa {
+          font-size: 1.8rem;
+        }
+      }
+    }
+  }
+}

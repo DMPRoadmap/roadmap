@@ -1,0 +1,88 @@
+
+<div class="home-page">
+  <div class="metrics">
+    <!-- By the Numbers metrics -->
+    <div class="overview">
+      <div class="top">
+        <h2><%= _('DMPTool by the Numbers') %></h2>
+      </div>
+
+      <div class="bottom">
+        <div class="metric">
+          <div class="fa fa-users"></div>
+          <div class="numbers"><%= number_with_delimiter(stats[:user_count]) || '?' %></div>
+          <p><%= _("Users") %></p>
+        </div>
+
+        <div class="metric">
+          <div class="fa fa-file"></div>
+          <div class="numbers"><%= number_with_delimiter(stats[:completed_plan_count]) || '?' %></div>
+          <p><%= _('Plans')%></p>
+          <div class="more">
+            <a href="<%= public_plans_path %>"
+               title="<%= _("View the list of public data management plans") %>"><%= _('More') %></a>
+          </div>
+        </div>
+
+        <div class="metric">
+          <div class="fa fa-building"></div>
+          <div class="numbers"><%= number_with_delimiter(stats[:institution_count]) || '?' %></div>
+          <p><%= _('Participating Institutions')%></p>
+          <div class="more">
+            <a href="<%= public_orgs_path %>"
+               title="<%= _("View the list of participating institutions") %>"><%= _('More') %></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top 5 Templates -->
+    <div class="top-5">
+      <div class="top">
+        <h2><%= _('Top 5 Templates') %></h2>
+      </div>
+
+      <div class="bottom">
+        <ul>
+          <% top_5.each do |title| %>
+            <li><%= title %></li>
+          <% end %>
+        </ul>
+        <div class="more">
+          <a href="<%= public_templates_path %>"
+             title="<%= _("View the full list of funder requirements") %>"><%= _('More') %></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="communications">
+    <div class="heading">
+      <h2 id="home-news"><%= _('DMPTool News') %></h2>
+    </div>
+
+    <!-- RSS Feed -->
+    <div class="feed">
+      <% if rss %>
+        <p id="home-news-link"></p>
+        <%
+          json = []
+          rss.each do |i|
+            json << { "title": "#{truncate(i.title, length: 120)}", "link": "#{i.link}" }
+          end
+        %>
+        <input type="hidden" id="home-news-array" value="<%= escape_javascript JSON.generate(json) %>" />
+      <% else %>
+        <p><%= _('News is currently unavailable') %></p>
+      <% end %>
+    </div>
+
+    <!-- Blog links -->
+    <div class="links">
+      <a href="https://blog.dmptool.org/" target="_blank"><%= _('Go to the blog') %></a><br>
+      <a href="https://blog.dmptool.org/feed/" target="_blank" class="pull-right">
+        <span class="fa fa-rss-square"></span>
+      </a>
+    </div>
+  </div>
+</div>

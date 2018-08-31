@@ -1,0 +1,25 @@
+/* Link as button styling */
+a.link_as_button, a.link_as_button:hover, a.link_as_button:focus, a.link_as_button:visited, a.link_as_button:active, a.link_as_button:active:hover {
+  color: $white;
+  border: none;
+  text-decoration: none;
+}
+
+.btn {
+  border-radius: 5px;
+  padding: 3px 12px 4px 12px;
+}
+.btn, .btn:hover, .btn:focus, .btn:active, .btn:visited, .btn:active:hover,
+.nav-tabs, .nav-pills,
+.table thead > tr > th,
+.table tbody > tr > th,
+.table tfoot > tr > th {
+  background-color: $dark-blue;
+}
+.btn-default, .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default:visited, .btn-default:active:hover, .btn-default.active:hover {
+  margin-bottom: 8px;
+}
+
+.combobox-clear-button, .combobox-clear-button:hover, .combobox-clear-button:focus {
+  top: 3px;
+}

@@ -1,0 +1,17 @@
+/* Lists */
+/* --------------------------------------- */
+ul, ol {
+  list-style: none;
+}
+
+li {
+  padding-top: 3px;
+}
+
+li.bg-primary {
+  background-color: $dark-blue;
+  color: $white;
+  font-size: 1.6rem;
+  padding: 3px 0 5px 3px;
+  margin-top: 5px;
+}
