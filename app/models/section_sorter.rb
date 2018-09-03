@@ -1,13 +1,33 @@
 # frozen_string_literal: true
 
+# Private: Takes a list of Sections and sorts them in the correct display order based on
+# the number, modifiable, and id attributes.
+#
+# Examples:
+#
+#   SectionSorter.new(*@phase.sections).sort! # => Array of sorted Sections
+#
+#
 class SectionSorter
 
+  ##
+  # Access the array of Sections
+  #
+  # Returns Array
   attr_accessor :sections
 
+  ##
+  # Initialize a new SectionSorter
+  #
+  # sections - A set of Section records
+  #
   def initialize(*sections)
     @sections = sections
   end
 
+  # Re-order {#sections} into the correct order.
+  #
+  # Returns Array of Sections
   def sort!
     if all_sections_unmodifiable?
       sort_as_homogenous_group
