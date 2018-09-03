@@ -56,7 +56,6 @@ Rails.application.routes.draw do
   get "public_plans" => 'public_pages#plan_index'
   get "public_templates" => 'public_pages#template_index'
   get "template_export/:id" => 'public_pages#template_export', as: 'template_export'
-  get "plan_export/:id" => 'public_pages#plan_export', as: 'plan_export'
 
   #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
   #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
@@ -110,12 +109,14 @@ Rails.application.routes.draw do
   resources :feedback_requests, only: [:create]
 
   resources :plans do
+
+    resource :export, only: [:show], controller: "plan_exports"
+
     member do
       get 'answer'
       get 'share'
       get 'download'
       post 'duplicate'
-      get 'export'
       post 'visibility', constraints: {format: [:json]}
       post 'set_test', constraints: {format: [:json]}
       get 'overview'
