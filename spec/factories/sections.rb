@@ -10,7 +10,7 @@
 #  created_at     :datetime
 #  updated_at     :datetime
 #  phase_id       :integer
-#  versionable_id :string
+#  versionable_id :string(36)
 #
 # Indexes
 #

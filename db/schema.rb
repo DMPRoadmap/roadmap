@@ -20,10 +20,10 @@ ActiveRecord::Schema.define(version: 20180903131335) do
     t.integer  "question_id"
     t.integer  "org_id"
     t.text     "text"
-    t.integer  "type",           default: 0, null: false
+    t.integer  "type",                      default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "versionable_id"
+    t.string   "versionable_id", limit: 36
   end
 
   add_index "annotations", ["question_id"], name: "index_annotations_on_question_id", using: :btree
@@ -183,7 +183,7 @@ ActiveRecord::Schema.define(version: 20180903131335) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "modifiable"
-    t.string   "versionable_id"
+    t.string   "versionable_id", limit: 36
   end
 
   add_index "phases", ["template_id"], name: "index_phases_on_template_id", using: :btree
@@ -252,9 +252,9 @@ ActiveRecord::Schema.define(version: 20180903131335) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "question_format_id"
-    t.boolean  "option_comment_display", default: true
+    t.boolean  "option_comment_display",            default: true
     t.boolean  "modifiable"
-    t.string   "versionable_id"
+    t.string   "versionable_id",         limit: 36
   end
 
   add_index "questions", ["section_id"], name: "index_questions_on_section_id", using: :btree
@@ -294,7 +294,7 @@ ActiveRecord::Schema.define(version: 20180903131335) do
     t.datetime "updated_at"
     t.integer  "phase_id"
     t.boolean  "modifiable"
-    t.string   "versionable_id"
+    t.string   "versionable_id", limit: 36
   end
 
   add_index "sections", ["phase_id"], name: "index_sections_on_phase_id", using: :btree

@@ -12,7 +12,7 @@
 #  updated_at             :datetime
 #  question_format_id     :integer
 #  section_id             :integer
-#  versionable_id         :string
+#  versionable_id         :string(36)
 #
 # Indexes
 #

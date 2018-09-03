@@ -9,7 +9,7 @@
 #  updated_at     :datetime
 #  org_id         :integer
 #  question_id    :integer
-#  versionable_id :string
+#  versionable_id :string(36)
 #
 # Indexes
 #
