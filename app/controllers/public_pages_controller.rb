@@ -43,43 +43,6 @@ class PublicPagesController < ApplicationController
 
   end
 
-  # GET plan_export/:id
-  # -------------------------------------------------------------
-  def plan_export
-    @plan = Plan.includes(:answers).find(params[:id])
-    # covers authorization for this action.  Pundit dosent support passing objects into
-    # scoped policies
-    if PublicPagePolicy.new(@plan, current_user).plan_organisationally_exportable? ||
-           PublicPagePolicy.new(@plan).plan_export?
-      skip_authorization
-    else
-      raise Pundit::NotAuthorizedError
-    end
-
-
-
-    @hash = @plan.as_pdf(@show_coversheet)
-    @formatting = @plan.settings(:export).formatting
-    file_name = @plan.title.gsub(/ /, "_")
-
-    respond_to do |format|
-      format.html
-      format.csv  { send_data @exported_plan.as_csv(@sections, @unanswered_question, @question_headings),  filename: "#{file_name}.csv" }
-      format.text { send_data @exported_plan.as_txt(@sections, @unanswered_question, @question_headings, @show_details),  filename: "#{file_name}.txt" }
-      format.docx { render docx: 'export', filename: "#{file_name}.docx" }
-      format.pdf do
-        render pdf: file_name,
-          margin: @formatting[:margin],
-          footer: {
-            center:    _('Created using the %{application_name} service. Last modified %{date}') % {application_name: Rails.configuration.branding[:application][:name], date: l(@plan.updated_at.to_date, formats: :short)},
-            font_size: 8,
-            spacing:   (@formatting[:margin][:bottom] / 2) - 4,
-            right:     '[page] of [topage]'
-          }
-      end
-    end
-  end
-
   # GET /plans_index
   # ------------------------------------------------------------------------------------
   def plan_index
