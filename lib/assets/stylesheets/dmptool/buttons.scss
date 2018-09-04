@@ -1,4 +1,5 @@
 /* Link as button styling */
+/* --------------------------------------- */
 a.link_as_button, a.link_as_button:hover, a.link_as_button:focus, a.link_as_button:visited, a.link_as_button:active, a.link_as_button:active:hover {
   color: $white;
   border: none;
@@ -15,6 +16,7 @@ a.link_as_button, a.link_as_button:hover, a.link_as_button:focus, a.link_as_butt
 .table tbody > tr > th,
 .table tfoot > tr > th {
   background-color: $dark-blue;
+  font-size: 1.3rem;
 }
 .btn-default, .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default:visited, .btn-default:active:hover, .btn-default.active:hover {
   margin-bottom: 8px;

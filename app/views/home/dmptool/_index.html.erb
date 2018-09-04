@@ -43,11 +43,11 @@
       </div>
 
       <div class="bottom">
-        <ul>
+        <ol>
           <% top_5.each do |title| %>
             <li><%= title %></li>
           <% end %>
-        </ul>
+        </ol>
         <div class="more">
           <a href="<%= public_templates_path %>"
              title="<%= _("View the full list of funder requirements") %>"><%= _('More') %></a>
@@ -80,7 +80,7 @@
     <!-- Blog links -->
     <div class="links">
       <a href="https://blog.dmptool.org/" target="_blank"><%= _('Go to the blog') %></a><br>
-      <a href="https://blog.dmptool.org/feed/" target="_blank" class="pull-right">
+      <a href="https://blog.dmptool.org/feed/" target="_blank">
         <span class="fa fa-rss-square"></span>
       </a>
     </div>

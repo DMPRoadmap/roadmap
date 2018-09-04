@@ -1,6 +1,6 @@
 /* Lists */
 /* --------------------------------------- */
-ul, ol {
+ul {
   list-style: none;
 }
 
@@ -14,4 +14,11 @@ li.bg-primary {
   font-size: 1.6rem;
   padding: 3px 0 5px 3px;
   margin-top: 5px;
+}
+
+/* Page Specific */
+/* --------------------------------------- */
+.top-5 > .bottom > ol {
+  list-style-position: inside;
+  padding-left: 10px;
 }

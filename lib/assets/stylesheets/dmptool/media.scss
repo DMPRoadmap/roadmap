@@ -30,6 +30,11 @@
     }
   }
 
+  main > .content > .row {
+
+    margin-right: 0;
+  }
+
   header > .fixed-menu, header > .branding, header > .app-menu , footer > .footer {
     display: none;
   }
@@ -232,7 +237,11 @@
     }
 
     header > .branding {
-      margin-top: 50px;
+      margin-top: 30px;
+    }
+
+    header > .app-menu > .navbar > .navbar-nav > li > a {
+      font-size: 2rem;
     }
 
     footer {
@@ -273,6 +282,12 @@
           font-size: 1.8rem;
         }
       }
+    }
+
+    /* Page specific */
+    /* ------------------------------------------ */
+    .home-page > .communications > .links .fa-rss-square {
+      float: right;
     }
   }
 }
