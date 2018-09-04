@@ -21,7 +21,7 @@ RSpec.describe "SuperAdmins OrgSwaps", type: :feature, js: true do
     click_link "Templates"
     find('[aria-describedby="label-id-superadmin_user_org_name"]').click
     fill_in(:superadmin_user_org_name, with: @org2.name[0..4])
-    find("#suggestion-2-0").click
+    choose_suggestion(@org2.name)
     click_button "Change affiliation"
     expect(current_path).to eql(org_admin_templates_path)
     expect(page).to have_text(@org2.name)
