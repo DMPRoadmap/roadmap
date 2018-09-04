@@ -64,6 +64,7 @@
           <i class="fa <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
           <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
           <span><%= sanitize (has_alert ? alert : notice) %></span>
+          <%= yield :errors %>
         </div>
         <%= render "layouts/notifications", notifications: Notification.active_per_user(current_user) %>
         <%= yield %>
@@ -81,17 +82,7 @@
       MAX_NUMBER_ORG_URLS: 3,
       MAX_NUMBER_GUIDANCE_SELECTIONS: 6,
 
-      VALIDATION_MESSAGE_DEFAULT: _('Please enter a valid value.'),
-      VALIDATION_MESSAGE_EMAIL: _('You must enter a valid email address.'),
-      VALIDATION_MESSAGE_URL: _('You must enter a valid URL (e.g. https://organisation.org).'),
-      VALIDATION_MESSAGE_NUMBER: _('Please enter a valid number.'),
-      VALIDATION_MESSAGE_PASSWORD: _('The password must be between 8 and 128 characters.'),
-      VALIDATION_MESSAGE_PASSWORDS_MATCH: _('The passwords must match.'),
-      VALIDATION_MESSAGE_RADIO: _('Please choose one of the options.'),
-      VALIDATION_MESSAGE_CHECKBOX: _('Please check the box to continue.'),
-      VALIDATION_MESSAGE_MULTI_CHECKBOX: _('Please select at least one of the options to continue.'),
-      VALIDATION_MESSAGE_SELECT: _('Please select a value from the list.'),
-      VALIDATION_MESSAGE_TEXT: _('This field is required.'),
+      REQUIRED_FIELD_TEXT: _('This field is required.'),
 
       SHOW_PASSWORD_MESSAGE: _('Show password'),
       SHOW_SELECT_ORG_MESSAGE: _('Select an organisation from the list.'),

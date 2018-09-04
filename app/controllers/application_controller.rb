@@ -17,6 +17,11 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  # When we are in production reroute Record Not Found errors to the branded 404 page
+   if Rails.env.production?
+     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+   end
+
   private
 
   def current_org
@@ -100,7 +105,11 @@ class ApplicationController < ActionController::Base
     "#{_('Could not delete the %{o}.') % { o: obj_name }} #{errors_to_s(obj)}"
   end
 
-  def success_message(obj_name, action)
+  def failure_message(action, object_name = _("record"))
+    _("Unable to %{action} your %{object}.") % { object: object_name, action: action }
+  end
+
+  def success_message(action, obj_name = _("record"))
     _("Successfully %{action} your %{object}.") % { object: obj_name, action: action }
   end
 
@@ -113,20 +122,6 @@ class ApplicationController < ActionController::Base
   #  app/views/branded/layouts/_header.html.erb -> app/views/layouts/_header.html.erb
   def prepend_view_paths
     prepend_view_path "app/views/branded"
-  end
-
-  def errors_to_s(obj)
-    if obj.errors.count > 0
-      msg = "<br />"
-      obj.errors.each do |e, m|
-        if m.include?("empty") || m.include?("blank")
-          msg += "#{_(e)} - #{_(m)}<br />"
-        else
-          msg += "'#{obj[e]}' - #{_(m)}<br />"
-        end
-      end
-      msg
-    end
   end
 
   ##
