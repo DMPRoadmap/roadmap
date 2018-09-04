@@ -127,6 +127,23 @@
     background: none;
     padding: 5px 0 10px 0;
   }
+
+  main > .content > ul:not(.toc) {
+    list-style-type: circle;
+    list-style-position: inside;
+    padding-left: 20px;
+
+    li {
+      margin-top: 5px;
+    }
+  }
+  main > .content > .toc > li {
+    margin-top: 10px;
+  }
+
+  .col-md-12 {
+    width: 95%;
+  }
 }
 
 @media (min-width: 480px) and (max-width: 768px) {

@@ -6,6 +6,10 @@ $light-grey: #F0F0F0;
 $red: #B30000;
 $green: #008000;
 
+blockquote {
+  font-size: 1.3rem;
+}
+
 @import '/accordions.scss';
 @import '/alerts.scss';
 @import '/anchors.scss';

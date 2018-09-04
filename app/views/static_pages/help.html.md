@@ -3,11 +3,14 @@
 
 <h3><%= _('Contents') %></h3>
 
-[<%= _('Who can use the tool?') %>](#who-can-use-the-tool)   
-[<%= _('How do I log in or create an account?') %>](#how-do-i-log-in-or-create-an-account)   
-[<%= _('Overview of My dashboard') %>](#overview-of-my-dashboard)   
-[<%= _('How do I create a data management plan?') %>](#how-do-i-create-a-data-management-plan)   
-[<%= _('How do I get help from someone at my institution?') %>](#how-do-i-get-help-from-someone-at-my-institution)   
+<ul class="toc">
+  <li><a href="#who-can-use-the-tool"><%= _('Who can use the tool?') %></a></li>
+  <li><a href="#how-do-i-log-in-or-create-an-account"><%= _('How do I log in or create an account?') %></a></li>
+  <li><a href="#overview-of-my-dashboard"><%= _('Overview of My dashboard') %></a></li>
+  <li><a href="#how-do-i-create-a-data-management-plan"><%= _('How do I create a data management plan?') %></a></li>
+  <li><a href="#how-do-i-get-help-from-someone-at-my-institution"><%= _('How do I get help from someone at my institution?') %></a></li>
+</ul>
+
 <hr>
 
 <h3 id="who-can-use-the-tool"><%= _('Who can use the tool?') %></h3>
@@ -24,7 +27,7 @@
 <img src="https://github.com/CDLUC3/dmptool/blob/master/docs/quickstartguide/UCR-signin-ai.png?raw=true" alt="UCR sign in" style="width: 40%; margin-left: 45px;" />
 
 <hr>
-  
+
 <h3 id="overview-of-my-dashboard"><%= _('Overview of My dashboard') %></h3>
 
 <%= _('When you log in you will be directed to “My dashboard.” From here you can create, edit, share, download, copy, or remove any of your plans. You will also see plans that have been shared with you by others.') %>
@@ -32,7 +35,7 @@
 <%= raw _('If others at your institution/organization have chose to share their plans internally, you will see a second table of organizational plans. This allows you to download a PDF and view their plans as samples or to discover new research data. Additional samples are available in the list of <a href="%{public_plans_url}">public plans</a>.') % { public_plans_url: public_plans_path } %>
 
 <img src="https://github.com/CDLUC3/dmptool/blob/master/docs/quickstartguide/my-dashboard-ai.png?raw=true" alt="My dashboard" style="width: 80%; margin-left: 45px;" />
-<hr> 
+<hr>
 
 <h3 id="how-do-i-create-a-data-management-plan"><%= _('How do I create a data management plan?') %></h3>
 <br>
@@ -51,7 +54,7 @@
 <%= _('You can also make a copy of an existing plan (from the Actions menu next to the plan on My dashboard) and update it for a new research project and/or grant proposal.') %>
 <br>
 
-<br> 
+<br>
 <h4><%= _('Write your plan') %></h4>
 
 <%= raw _('The tabbed interface allows you to navigate through different functions when editing your plan.<ul><li>“Project details” includes basic administrative details. The right-hand side of the page is where you can select up to 6 organizations to view additional guidance as you write your plan. The more information you provide here, the more useful your plan will be to you and others in the future (e.g., for data reuse and proper attribution). On the Edit profile page you can create or connect your ORCID iD; this is required by some funders and a growing list of publishers (Learn more at <a href="%{orcid_url}\">orcid.org</a>).</li><li>“Plan overview” provides an overview of the questions that you will be asked. The following tab(s) present the questions to answer. There may be more than one tab if your funder or institution asks different sets of questions at different stages, e.g., at grant application and post-award. Guidance and comments are displayed in the right-hand panel beside each question. If you need more guidance or find there is too much, you can make adjustments on the “Project details” tab.</li><li>“Share” allows you to invite others to contribute to or comment on your plan. This is also where you can set your plan visibility (details below).</li><li>“Download” allows you to download your plan in various formats. You can adjust the formatting (font type, size, and margins) for PDF files, which may be helpful if working to page limits (e.g., NSF data management plans are limited to 2 pages).</li></ul>') % {orcid_url: 'https://orcid.org' } %>
@@ -66,11 +69,11 @@
 <%= _('By default all new and test plans will be set to Private visibility. Public and Organizational visibility are intended for finished plans. You must answer at least 50% of the questions to enable these options.') %>
 
 <img src="https://github.com/CDLUC3/dmptool/blob/master/docs/quickstartguide/share-tab-ai.png?raw=true" alt="Share tab" style="width: 80%; margin-left: 45px;" />
-<hr> 
+<hr>
 
 <h3 id="how-do-i-get-help-from-someone-at-my-institution"><%= _('How do I get help from someone at my institution?') %></h3>
 
 <%= _('After logging in, you will find an email address and URL for help at the top of the page.') %>
- 
+
 <%= _('There may also be an option to request feedback on your plan (on the “Share” tab). This is available when research support staff at your institution have enabled the service. Click to “Request feedback” and your local administrators will be alerted to your request. Their comments will be visible in the “Comments” field adjacent to each question. You will receive an email notification when an administrator provides feedback.') %>
 
