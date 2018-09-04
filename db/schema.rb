@@ -309,6 +309,15 @@ ActiveRecord::Schema.define(version: 20180903131335) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "stats", force: :cascade do |t|
+    t.integer  "count",      limit: 8, default: 0
+    t.date     "date",                             null: false
+    t.string   "type",                             null: false
+    t.integer  "org_id"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
   create_table "templates", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
