@@ -1,4 +1,3 @@
-# app/controllers/registrations_controller.rb
 class RegistrationsController < Devise::RegistrationsController
 
   def edit
@@ -45,10 +44,11 @@ class RegistrationsController < Devise::RegistrationsController
       oauth = session["devise.#{scheme.name.downcase}_data"] unless session["devise.#{scheme.name.downcase}_data"].nil?
     end
 
-    if !sign_up_params[:accept_terms]
+    if params[:accept_terms].to_s == "0"
       redirect_to after_sign_up_error_path_for(resource), alert: _('You must accept the terms and conditions to register.')
     elsif params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
-      redirect_to after_sign_up_error_path_for(resource), alert: _('Please select an organisation from the list, or enter your organisation\'s name.')
+      redirect_to after_sign_up_error_path_for(resource),
+                alert: _('Please select an organisation from the list, or enter your organisation\'s name.')
     else
       existing_user = User.where_case_insensitive('email', sign_up_params[:email]).first
       if existing_user.present?
@@ -94,7 +94,8 @@ class RegistrationsController < Devise::RegistrationsController
           end
         else
           clean_up_passwords resource
-          redirect_to after_sign_up_error_path_for(resource), alert: _('Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long.')
+          redirect_to after_sign_up_error_path_for(resource),
+                      alert: _("Unable to create your account.#{errors_for_display(resource)}")
         end
     end
   end
@@ -178,12 +179,12 @@ class RegistrationsController < Devise::RegistrationsController
       end
       session[:locale] = current_user.get_locale unless current_user.get_locale.nil?
       set_gettext_locale  #Method defined at controllers/application_controller.rb
-      set_flash_message :notice, success_message(_('profile'), _('saved'))
+      set_flash_message :notice, success_message(current_user, _('saved'))
       sign_in current_user, bypass: true  # Sign in the user bypassing validation in case his password changed
       redirect_to "#{edit_user_registration_path}\#personal-details", notice: success_message(_('profile'), _('saved'))
 
     else
-      flash[:alert] = message.blank? ? failed_update_error(current_user, _('profile')) : message
+      flash[:alert] = message.blank? ? failure_message(current_user, _('save')) : message
       render "edit"
     end
   end
@@ -202,12 +203,12 @@ class RegistrationsController < Devise::RegistrationsController
     if successfully_updated
       session[:locale] = current_user.get_locale unless current_user.get_locale.nil?
       set_gettext_locale  #Method defined at controllers/application_controller.rb
-      set_flash_message :notice, success_message(_('password'), _('saved'))
+      set_flash_message :notice, success_message(current_user, _('saved'))
       sign_in current_user, bypass: true  # TODO this method is deprecated
       redirect_to "#{edit_user_registration_path}\#password-details", notice: success_message(_('password'), _('saved'))
 
     else
-      flash[:alert] = message.blank? ? failed_update_error(current_user, _('profile')) : message
+      flash[:alert] = message.blank? ? failure_message(current_user, _('save')) : message
       redirect_to "#{edit_user_registration_path}\#password-details"
     end
   end

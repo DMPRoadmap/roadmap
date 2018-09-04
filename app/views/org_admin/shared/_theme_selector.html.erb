@@ -1,45 +1,44 @@
 <%# locals: all_themes, as_radio & popover_message %>
 <% as_radio ||= false %>
 <% required ||= false %>
+<% in_error ||= false %>
 
 <div class="form-group">
-  <div class="form-group col-md-12">
-    <% if all_themes.length > 0 %>
-      <% 
-        cntr = 0
-        nbr_of_cols = (all_themes.length.to_f / MAX_NUMBER_THEMES_PER_COLUMN.to_f).ceil
-        col_size = (12 / (nbr_of_cols > 4 ? 3 : nbr_of_cols)).round
-      %>
-      <fieldset>
-        <legend>
-          <%= _('Themes') %>
-          <%= render partial: 'shared/popover', 
-                     locals: { message: popover_message, placement: 'right' }%>
-        </legend>
+  <% if all_themes.length > 0 %>
+    <%
+      cntr = 0
+      nbr_of_cols = (all_themes.length.to_f / MAX_NUMBER_THEMES_PER_COLUMN.to_f).ceil
+      col_size = (12 / (nbr_of_cols > 4 ? 3 : nbr_of_cols)).round
+    %>
+    <fieldset<%= in_error ? ' class=field_with_errors' : '' %>>
+      <legend>
+        <%= _('Themes') %>
+        <%= render partial: 'shared/popover',
+                   locals: { message: popover_message, placement: 'right' }%>
+      </legend>
 
-        <div class="col-md-<%= col_size %>">
-          <% all_themes.each do |theme| %>
-            <% if cntr >= MAX_NUMBER_THEMES_PER_COLUMN %>
-              </div>
-              <div class="col-md-<%= col_size %>">
-              <% cntr = 0 %>
-            <% end %>
-            <div class="checkbox">
-              <% namespace = f.object.class.name.downcase %>
-              <% id = f.object.id.present? ? f.object.id : 'new' %>
-              <input id="<%= id %>_<%= namespace %>_theme_ids_<%= theme.id %>" 
-                     name="<%= namespace %>[theme_ids][]" 
-                     type="<%= as_radio ? 'radio' : 'checkbox' %>"
-                     <%= required && (theme == all_themes.first ? ' aria-required=true ' : '') %> 
-                     value="<%= theme.id %>"<%= f.object.themes.include?(theme) ? ' checked="checked"' : '' %>>
-              <%= theme.title %>
+      <div class="col-md-<%= col_size %>">
+        <% all_themes.each do |theme| %>
+          <% if cntr >= MAX_NUMBER_THEMES_PER_COLUMN %>
             </div>
-            <% cntr += 1 %>
+            <div class="col-md-<%= col_size %>">
+            <% cntr = 0 %>
           <% end %>
-        </div>
-      </fieldset>
-    <% else %>
-      <p><%= _('No themes have been defined. Please contact your administrator for assistance.') %></p>
-    <% end %>
-  </div>
+          <div class="checkbox">
+            <% namespace = f.object.class.name.downcase %>
+            <% id = f.object.id.present? ? f.object.id : 'new' %>
+            <input id="<%= id %>_<%= namespace %>_theme_ids_<%= theme.id %>"
+                   name="<%= namespace %>[theme_ids][]"
+                   type="<%= as_radio ? 'radio' : 'checkbox' %>"
+                   <%= required && (theme == all_themes.first ? ' aria-required=true ' : '') %>
+                   value="<%= theme.id %>"<%= f.object.themes.include?(theme) ? ' checked="checked"' : '' %>>
+            <%= theme.title %>
+          </div>
+          <% cntr += 1 %>
+        <% end %>
+      </div>
+    </fieldset>
+  <% else %>
+    <p><%= _('No themes have been defined. Please contact your administrator for assistance.') %></p>
+  <% end %>
 </div>
