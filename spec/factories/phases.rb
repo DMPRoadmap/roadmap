@@ -2,18 +2,20 @@
 #
 # Table name: phases
 #
-#  id          :integer          not null, primary key
-#  description :text
-#  modifiable  :boolean
-#  number      :integer
-#  title       :string
-#  created_at  :datetime
-#  updated_at  :datetime
-#  template_id :integer
+#  id             :integer          not null, primary key
+#  description    :text
+#  modifiable     :boolean
+#  number         :integer
+#  title          :string
+#  created_at     :datetime
+#  updated_at     :datetime
+#  template_id    :integer
+#  versionable_id :string(36)
 #
 # Indexes
 #
-#  index_phases_on_template_id  (template_id)
+#  index_phases_on_template_id     (template_id)
+#  index_phases_on_versionable_id  (versionable_id)
 #
 # Foreign Keys
 #
@@ -27,7 +29,6 @@ FactoryBot.define do
     sequence(:number)
     template
     modifiable false
-
     transient do
       sections 0
     end
