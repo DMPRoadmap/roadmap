@@ -1,6 +1,8 @@
 module Api
   module V0
     class ThemesController < Api::V0::BaseController
+      before_action :authenticate
+
       def extract
         @theme = Theme.find(extract_params[:id])
         @answers = @theme.answers
