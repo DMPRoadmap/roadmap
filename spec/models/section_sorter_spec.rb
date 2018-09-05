@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe SectionSorter do
+RSpec.describe SectionSorter, type: :model do
 
   class StubSection < Struct.new(:number, :modifiable, :id)
     alias modifiable? modifiable
@@ -54,8 +54,8 @@ RSpec.describe SectionSorter do
 
       let!(:sections_array) do
         [
-          StubSection.new(1, true, 34),
           StubSection.new(1, false, 12),
+          StubSection.new(1, true, 34),
           StubSection.new(2, false, 54),
           StubSection.new(3, false, 199),
           StubSection.new(4, true, 84),
@@ -65,12 +65,12 @@ RSpec.describe SectionSorter do
       end
 
       it "moves the modifiable one to the front" do
-        expect(subject.first).to have_number(1)
+        expect(subject.first).to have_id(34)
         expect(subject.first).to be_modifiable
       end
 
       it "moves the unmodifiable one to the second position" do
-        expect(subject.second).to have_number(2)
+        expect(subject.second).to have_id(12)
         expect(subject.second).to be_unmodifiable
       end
 

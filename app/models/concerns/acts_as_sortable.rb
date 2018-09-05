@@ -32,7 +32,8 @@ module ActsAsSortable
 
     def update_numbers_mysql2!(ids)
       ids_string = ids.map { |id| "'#{id}'" }.join(",")
-      update_all(%Q{ number = FIELD(id, #{sanitize_sql(ids_string)}) })
+      update_all(%Q{ number = FIELD(id, #{sanitize_sql(ids_string)})
+                     WHERE id IN (#{sanitize_sql(ids_string)}) })
     end
 
     def update_numbers_sequentially!(ids)
