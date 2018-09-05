@@ -12,10 +12,12 @@
 #  updated_at             :datetime
 #  question_format_id     :integer
 #  section_id             :integer
+#  versionable_id         :string(36)
 #
 # Indexes
 #
-#  index_questions_on_section_id  (section_id)
+#  index_questions_on_section_id      (section_id)
+#  index_questions_on_versionable_id  (versionable_id)
 #
 # Foreign Keys
 #

@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Section, type: :model do
 
+  it_behaves_like "VersionableModel"
+
   context "validations" do
     it { is_expected.to validate_presence_of(:title) }
 
@@ -9,9 +11,12 @@ RSpec.describe Section, type: :model do
 
     it { is_expected.to validate_presence_of(:phase) }
 
-    it { is_expected.to validate_uniqueness_of(:number)
+    it "validates uniqueness of number" do
+      subject.versionable_id = SecureRandom.uuid
+      expect(subject).to validate_uniqueness_of(:number)
                           .scoped_to(:phase_id)
-                          .with_message("must be unique") }
+                          .with_message("must be unique")
+    end
 
     it { is_expected.to allow_values(true, false).for(:modifiable) }
 

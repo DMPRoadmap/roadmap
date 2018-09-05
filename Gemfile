@@ -193,6 +193,11 @@ group :ci, :development do
 end
 
 group :development do
+
+  gem "progress_bar", require: false
+
+  gem "text", require: false
+
   # Better error page for Rails and other Rack apps (https://github.com/charliesome/better_errors)
   gem "better_errors"
 

@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Annotation, type: :model do
 
+  it_behaves_like "VersionableModel"
+
   context "validations" do
 
     subject { build(:annotation) }
