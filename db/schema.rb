@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180901095920) do
+ActiveRecord::Schema.define(version: 20180903131335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,12 +20,14 @@ ActiveRecord::Schema.define(version: 20180901095920) do
     t.integer  "question_id"
     t.integer  "org_id"
     t.text     "text"
-    t.integer  "type",        default: 0, null: false
+    t.integer  "type",                      default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "versionable_id", limit: 36
   end
 
   add_index "annotations", ["question_id"], name: "index_annotations_on_question_id", using: :btree
+  add_index "annotations", ["versionable_id"], name: "index_annotations_on_versionable_id", using: :btree
 
   create_table "answers", force: :cascade do |t|
     t.text     "text"
@@ -181,9 +183,11 @@ ActiveRecord::Schema.define(version: 20180901095920) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "modifiable"
+    t.string   "versionable_id", limit: 36
   end
 
   add_index "phases", ["template_id"], name: "index_phases_on_template_id", using: :btree
+  add_index "phases", ["versionable_id"], name: "index_phases_on_versionable_id", using: :btree
 
   create_table "plans", force: :cascade do |t|
     t.string   "title"
@@ -248,11 +252,13 @@ ActiveRecord::Schema.define(version: 20180901095920) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "question_format_id"
-    t.boolean  "option_comment_display", default: true
+    t.boolean  "option_comment_display",            default: true
     t.boolean  "modifiable"
+    t.string   "versionable_id",         limit: 36
   end
 
   add_index "questions", ["section_id"], name: "index_questions_on_section_id", using: :btree
+  add_index "questions", ["versionable_id"], name: "index_questions_on_versionable_id", using: :btree
 
   create_table "questions_themes", id: false, force: :cascade do |t|
     t.integer "question_id", null: false
@@ -288,9 +294,11 @@ ActiveRecord::Schema.define(version: 20180901095920) do
     t.datetime "updated_at"
     t.integer  "phase_id"
     t.boolean  "modifiable"
+    t.string   "versionable_id", limit: 36
   end
 
   add_index "sections", ["phase_id"], name: "index_sections_on_phase_id", using: :btree
+  add_index "sections", ["versionable_id"], name: "index_sections_on_versionable_id", using: :btree
 
   create_table "settings", force: :cascade do |t|
     t.string   "var",         null: false

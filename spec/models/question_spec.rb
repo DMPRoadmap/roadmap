@@ -2,15 +2,20 @@ require 'rails_helper'
 
 RSpec.describe Question, type: :model do
 
+  it_behaves_like "VersionableModel"
+
   context "validations" do
 
     it { is_expected.to validate_presence_of(:text) }
 
     it { is_expected.to validate_presence_of(:number) }
 
-    it { is_expected.to validate_uniqueness_of(:number)
+    it "validates uniqueness of number" do
+      subject.versionable_id = SecureRandom.uuid
+      expect(subject).to validate_uniqueness_of(:number)
                           .scoped_to(:section_id)
-                          .with_message("must be unique") }
+                          .with_message("must be unique")
+    end
 
     it { is_expected.to validate_presence_of(:section) }
 

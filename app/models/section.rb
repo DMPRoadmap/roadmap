@@ -1,21 +1,22 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: sections
 #
-#  id          :integer          not null, primary key
-#  description :text
-#  modifiable  :boolean
-#  number      :integer
-#  title       :string
-#  created_at  :datetime
-#  updated_at  :datetime
-#  phase_id    :integer
+#  id             :integer          not null, primary key
+#  description    :text
+#  modifiable     :boolean
+#  number         :integer
+#  title          :string
+#  created_at     :datetime
+#  updated_at     :datetime
+#  phase_id       :integer
+#  versionable_id :string(36)
 #
 # Indexes
 #
-#  index_sections_on_phase_id  (phase_id)
+#  index_sections_on_phase_id        (phase_id)
+#  index_sections_on_versionable_id  (versionable_id)
 #
 # Foreign Keys
 #
@@ -23,10 +24,11 @@
 #
 
 class Section < ActiveRecord::Base
-
   include ValidationMessages
   include ValidationValues
   include ActsAsSortable
+  include VersionableModel
+
 
   # ================
   # = Associations =
@@ -116,7 +118,7 @@ class Section < ActiveRecord::Base
   end
 
   # Can't be modified as it was duplicatd over from another Phase.
-  def template?
+  def unmodifiable?
     !modifiable?
   end
 
