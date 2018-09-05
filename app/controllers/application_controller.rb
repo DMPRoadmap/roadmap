@@ -93,6 +93,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+=begin
   def failed_create_error(obj, obj_name)
     "#{_('Could not create your %{o}.') % { o: obj_name }} #{errors_to_s(obj)}"
   end
@@ -104,6 +105,7 @@ class ApplicationController < ActionController::Base
   def failed_destroy_error(obj, obj_name)
     "#{_('Could not delete the %{o}.') % { o: obj_name }} #{errors_to_s(obj)}"
   end
+=end
 
   def failure_message(action, object_name = _("record"))
     _("Unable to %{action} your %{object}.") % { object: object_name, action: action }

@@ -103,6 +103,9 @@ class User < ActiveRecord::Base
   validates :active, inclusion: { in: BOOLEAN_VALUES,
                                   message: INCLUSION_MESSAGE }
 
+  validates :firstname, presence: { message: PRESENCE_MESSAGE }
+  validates :surname, presence: { message: PRESENCE_MESSAGE }
+  validates :org, presence: { message: PRESENCE_MESSAGE }
 
   # ==========
   # = Scopes =

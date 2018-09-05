@@ -39,7 +39,7 @@ class NotesController < ApplicationController
       deliver_if(recipients: owner, key: 'users.new_comment') do |r|
         UserMailer.new_comment(current_user, plan).deliver_now()
       end
-      @notice = success_message(_('comment'), _('created'))
+      @notice = success_message(_('created'), _('comment')
       render(json: {
         "notes" => {
           "id" => note_params[:question_id],
@@ -52,7 +52,7 @@ class NotesController < ApplicationController
       }.to_json, status: :created)
     else
       @status = false
-      @notice = failed_create_error(@note, _('note'))
+      @notice = failure_message(_('create'), _('note'))
       render json: {
         "msg" => @notice
       }.to_json, status: :bad_request
@@ -71,7 +71,7 @@ class NotesController < ApplicationController
     question_id = @note.answer.question_id.to_s
 
     if @note.update(note_params)
-      @notice = success_message(_('comment'), _('saved'))
+      @notice = success_message(_('saved'), _('comment'))
       render(json: {
         "notes" => {
           "id" => question_id,
@@ -83,7 +83,7 @@ class NotesController < ApplicationController
         }
       }.to_json, status: :ok)
     else
-      @notice = failed_update_error(@note, _('note'))
+      @notice = failure_message(_('save'), _('note'))
       render json: {
         "msg" => @notice
       }.to_json, status: :bad_request
@@ -103,7 +103,7 @@ class NotesController < ApplicationController
     question_id = @note.answer.question_id.to_s
 
     if @note.update(note_params)
-      @notice = success_message(_('comment'), _('removed'))
+      @notice = success_message(_('removed'), _('comment'))
       render(json: {
         "notes" => {
           "id" => question_id,
@@ -115,7 +115,7 @@ class NotesController < ApplicationController
         }
       }.to_json, status: :ok)
     else
-      @notice = failed_destroy_error(@note, _('note'))
+      @notice = failure_message(_('remove'), _('note'))
       render json: {
         "msg" => @notice
       }.to_json, status: :bad_request

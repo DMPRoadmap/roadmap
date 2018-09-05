@@ -36,7 +36,7 @@ class RolesController < ApplicationController
             end
             flash[:notice] = message
           else
-            flash[:alert] = failed_create_error(@role, _('role'))
+            flash[:alert] = failure_message(_("create"), _('role'))
           end
         end
       end

@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 class GuidanceGroupsController < ApplicationController
+
   after_action :verify_authorized
   respond_to :html
 
@@ -27,10 +30,11 @@ class GuidanceGroupsController < ApplicationController
     end
 
     if @guidance_group.save
-      redirect_to admin_index_guidance_path, notice: success_message(_('guidance group'), _('created'))
+      flash.now[:notice] = success_message(_("created"), _("guidance group"))
+      render :admin_edit
     else
-      flash[:alert] = failed_create_error(@guidance_group, _('guidance group'))
-      render 'admin_new'
+      flash.now[:alert] = failure_message(_("create"), _("guidance group"))
+      render :admin_new
     end
   end
 
@@ -50,10 +54,11 @@ class GuidanceGroupsController < ApplicationController
     @guidance_group.published = true unless params[:save_publish].nil?
 
     if @guidance_group.update(guidance_group_params)
-      redirect_to admin_index_guidance_path(guidance_group_params), notice: success_message(_('guidance group'), _('saved'))
+      flash.now[:notice] = success_message(_("saved"), _("guidance group"))
+      render :admin_edit
     else
-      flash[:alert] = failed_update_error(@guidance_group, _('guidance group'))
-      render 'admin_edit'
+      flash.now[:alert] = failure_message(_("save"), _("guidance group"))
+      render :admin_edit
     end
   end
 
@@ -64,8 +69,13 @@ class GuidanceGroupsController < ApplicationController
     @guidance_group.org.id = current_user.org.id
     @guidance_group.published = true
 
-    @guidance_group.save
-    flash[:notice] = _('Your guidance group has been published and is now available to users.')
+    if @guidance_group.save
+      # rubocop:disable LineLength
+      flash[:notice] = _("Your guidance group has been published and is now available to users.")
+      # rubocop:enable LineLength
+    else
+      flash[:alert] = failure_message(_("publish"), _("guidance group"))
+    end
     redirect_to admin_index_guidance_path
   end
 
@@ -76,8 +86,13 @@ class GuidanceGroupsController < ApplicationController
     @guidance_group.org.id = current_user.org.id
     @guidance_group.published = false
 
-    @guidance_group.save
-    flash[:notice] = _('Your guidance group is no longer published and will not be available to users.')
+    if @guidance_group.save
+      # rubocop:disable LineLength
+      flash[:notice] = _("Your guidance group is no longer published and will not be available to users.")
+      # rubocop:enable LineLength
+    else
+      flash[:alert] = failure_message(_("unpublish"), _("guidance group"))
+    end
     redirect_to admin_index_guidance_path
   end
 
@@ -87,10 +102,11 @@ class GuidanceGroupsController < ApplicationController
     @guidance_group = GuidanceGroup.find(params[:id])
     authorize @guidance_group
     if @guidance_group.destroy
-      redirect_to admin_index_guidance_path, notice: success_message(_('guidance group'), _('deleted'))
+      flash[:notice] = success_message(_("deleted"), _("guidance group"))
     else
-      redirect_to admin_index_guidance_path, alert: failed_destroy_error(@guidance_group, _('guidance group'))
+      flash[:alert] = failure_message(_("delete"), _("guidance group"))
     end
+    redirect_to admin_index_guidance_path
   end
 
   private
@@ -99,4 +115,5 @@ class GuidanceGroupsController < ApplicationController
     params.require(:guidance_group)
           .permit(:org_id, :name, :optional_subset, :published, :org, :guidances)
   end
+
 end

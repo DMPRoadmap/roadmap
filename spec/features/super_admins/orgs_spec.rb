@@ -2,45 +2,46 @@ require "rails_helper"
 
 RSpec.describe "SuperAdmins Orgs", type: :feature, js: true do
 
+  include LinksHelper
+
   before do
-    @org1, @org2 = *create_list(:org, 2)
+    @org = create(:org)
+    @user = create(:user, :super_admin, org: @org)
+    sign_in(@user)
   end
 
   scenario "Super admin submits invalid data" do
-
+    click_link "Admin"
+    click_link "Organisations"
+    click_link "Create Organisation"
+    expect(page).to have_text("New organisation")
+    click_button "Save"
+    expect(current_path).to eql(super_admin_orgs_path)
+    expect(page).to have_text("Error: Unable to create your organisation.")
   end
 
 
   scenario "Super admin adds links" do
-
+    click_link "Admin"
+    click_link "Organisations"
+    # Edit the first org in the table
+    find('table .dropdown-toggle').click
+    find('.dropdown-menu > li > a').click
+    nbr_links = all('.link').length
+    addLink
+    expect(all('.link').length).to eql(nbr_links + 1)
   end
 
   scenario "Super admin removes links" do
-
-  end
-
-
-  scenario "Org admin attempts to change to new org" do
-    @user = create(:user, :org_admin, org: @org1)
-    sign_in(@user)
     click_link "Admin"
-    click_link "Templates"
-    expect(page).not_to have_text('Change affiliation')
-  end
-
-  scenario "Super admin changes to new org" do
-    @user = create(:user, :super_admin, org: @org1)
-    sign_in(@user)
-    click_link "Admin"
-    click_link "Templates"
-    find('[aria-describedby="label-id-superadmin_user_org_name"]').click
-    fill_in(:superadmin_user_org_name, with: @org2.name[0..4])
-    choose_suggestion(@org2.name)
-    click_button "Change affiliation"
-    expect(current_path).to eql(org_admin_templates_path)
-    expect(page).to have_text(@org2.name)
-    expect(page).not_to have_text(@org1.name)
-    expect(@user.reload.org).to eql(@org2)
+    click_link "Organisations"
+    # Edit the first org in the table
+    find('table .dropdown-toggle').click
+    find('.dropdown-menu > li > a').click
+    addLink
+    nbr_links = all('.link').length
+    removeLink
+    expect(all('.link').length).to eql(nbr_links - 1)
   end
 
 end
