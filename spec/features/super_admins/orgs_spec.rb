@@ -1,0 +1,47 @@
+require "rails_helper"
+
+RSpec.describe "SuperAdmins Orgs", type: :feature, js: true do
+
+  before do
+    @org1, @org2 = *create_list(:org, 2)
+  end
+
+  scenario "Super admin submits invalid data" do
+
+  end
+
+
+  scenario "Super admin adds links" do
+
+  end
+
+  scenario "Super admin removes links" do
+
+  end
+
+
+  scenario "Org admin attempts to change to new org" do
+    @user = create(:user, :org_admin, org: @org1)
+    sign_in(@user)
+    click_link "Admin"
+    click_link "Templates"
+    expect(page).not_to have_text('Change affiliation')
+  end
+
+  scenario "Super admin changes to new org" do
+    @user = create(:user, :super_admin, org: @org1)
+    sign_in(@user)
+    click_link "Admin"
+    click_link "Templates"
+    find('[aria-describedby="label-id-superadmin_user_org_name"]').click
+    fill_in(:superadmin_user_org_name, with: @org2.name[0..4])
+    choose_suggestion(@org2.name)
+    click_button "Change affiliation"
+    expect(current_path).to eql(org_admin_templates_path)
+    expect(page).to have_text(@org2.name)
+    expect(page).not_to have_text(@org1.name)
+    expect(@user.reload.org).to eql(@org2)
+  end
+
+end
+
