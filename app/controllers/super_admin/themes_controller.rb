@@ -65,32 +65,11 @@ module SuperAdmin
       redirect_to(action: :index)
     end
 
-    def extract
-      authorize(Theme)
-
-      @theme = Theme.find(extract_params[:id])
-      @answers = @theme.answers
-
-      extract_filtering_params.each do |key, value|
-        @answers = @answers.public_send(key, value) if value
-      end
-
-      render format: :json
-    end
-
     # Private instance methods
     private
 
     def permitted_params
       params.require(:theme).permit(:title, :description)
-    end
-
-    def extract_params
-      params.permit(:id, :plan_id, :question_id, :start_date, :end_date)
-    end
-
-    def extract_filtering_params
-      extract_params.slice(:plan_id, :question_id, :start_date, :end_date)
     end
   end
 end

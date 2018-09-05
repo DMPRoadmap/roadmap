@@ -21,7 +21,4 @@ class ThemePolicy < ApplicationPolicy
   def destroy?
     @user.can_super_admin?
   end
-  def extract?
-    @user.can_super_admin?
-  end
 end

@@ -210,6 +210,11 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
             get :plans
           end
         end
+        resources :themes, only: [] do
+          member do
+            get 'extract', to: 'themes#extract'
+          end
+        end
       end
     end
 
@@ -297,11 +302,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
 
     namespace :super_admin do
       resources :orgs, only: [:index, :new, :create, :edit, :update, :destroy]
-      resources :themes, only: [:index, :new, :create, :edit, :update, :destroy] do
-        member do
-          get 'extract' => 'themes#extract'
-        end
-      end
+      resources :themes, only: [:index, :new, :create, :edit, :update, :destroy]
       resources :users, only: [:edit, :update]
       resources :notifications
     end
