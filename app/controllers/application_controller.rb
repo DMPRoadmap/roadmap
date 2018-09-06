@@ -18,9 +18,9 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   # When we are in production reroute Record Not Found errors to the branded 404 page
-   if Rails.env.production?
-     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
-   end
+  if Rails.env.production?
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+  end
 
   private
 
@@ -110,7 +110,7 @@ class ApplicationController < ActionController::Base
 
   def errors_for_display(obj)
     if obj.present? && obj.errors.any?
-      msgs = obj.errors.full_messages.uniq.collect{ |msg| "<li>#{msg}</li>" }
+      msgs = obj.errors.full_messages.uniq.collect { |msg| "<li>#{msg}</li>" }
       "<ul>#{msgs.join('')}</li></ul>"
     end
   end
