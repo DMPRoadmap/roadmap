@@ -165,5 +165,5 @@ msgstr "Vous"
 msgid "Copy link"
 msgstr "Copier le lien"
 
-msgid "Public, Administrator or organizational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
-msgstr "La visibilité par les administrateurs, par l’organisme ou par tous (public) concerne les plans partiellement remplis. Vous devez avoir répondu à au moins %{percentage}%% des questions afin d'activer cette option. Note : Les plans de test sont privés par défaut."
+msgid "Public, Administrator or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
+msgstr "La visibilité par les administrateurs, par l’organisme ou par tous (public) concerne les plans partiellement remplis. Vous devez avoir répondu à au moins %{percentage}%% des questions afin d'activer l’une de ces options. Note : les plans de test sont privés par défaut."
