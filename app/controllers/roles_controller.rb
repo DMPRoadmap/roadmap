@@ -36,12 +36,12 @@ class RolesController < ApplicationController
             end
             flash[:notice] = message
           else
-            flash[:alert] = failure_message(_("create"), _('role'))
+            flash[:alert] = _("You must provide a valid email address and select a permission level.")
           end
         end
       end
     else
-      flash[:notice] = _('Please enter an email address')
+      flash[:alert] = _('Please enter an email address')
     end
     redirect_to controller: 'plans', action: 'share', id: @role.plan.id
   end

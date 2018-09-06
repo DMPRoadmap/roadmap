@@ -44,7 +44,9 @@ class RegistrationsController < Devise::RegistrationsController
       oauth = session["devise.#{scheme.name.downcase}_data"] unless session["devise.#{scheme.name.downcase}_data"].nil?
     end
 
-    if params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
+    if params[:accept_terms].to_s == "0"
+      redirect_to after_sign_up_error_path_for(resource), alert: _('You must accept the terms and conditions to register.')
+    elsif params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
       redirect_to after_sign_up_error_path_for(resource),
                 alert: _('Please select an organisation from the list, or enter your organisation\'s name.')
     else

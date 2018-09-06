@@ -108,8 +108,6 @@ class User < ActiveRecord::Base
 
   validates :org, presence: { message: PRESENCE_MESSAGE }
 
-  validates :accept_terms, acceptance: true
-
   # ==========
   # = Scopes =
   # ==========

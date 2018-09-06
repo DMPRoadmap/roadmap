@@ -222,12 +222,13 @@ class PlansController < ApplicationController
             render json: { code: 1, msg: success_message(@plan, _("saved")) }
           end
         else
-          flash[:alert] = failure_message(@plan, _("save"))
           format.html do
-            render_phases_edit(@plan, @plan.phases.first, @plan.guidance_groups)
+            # TODO: Should do a `render :show` here instead but show defines too many
+            #       instance variables in the controller
+            redirect_to "#{plan_path(@plan)}", alert: failure_message(@plan, _("save"))
           end
           format.json do
-            render json: { code: 0, msg: flash[:alert] }
+            render json: { code: 0, msg: failure_message(@plan, _("save")) }
           end
         end
 

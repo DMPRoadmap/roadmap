@@ -93,7 +93,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def failure_message(obj)
+  def failure_message(obj, action = "save")
     _("Unable to %{action} the %{object}.%{errors}") % {
       object: obj_name_for_display(obj),
       action: action || "save",
@@ -101,7 +101,7 @@ class ApplicationController < ActionController::Base
     }
   end
 
-  def success_message(obj, action = "save")
+  def success_message(obj, action = "saved")
     _("Successfully %{action} the %{object}.") % {
       object: obj_name_for_display(obj),
       action: action || "save",
@@ -110,21 +110,25 @@ class ApplicationController < ActionController::Base
 
   def errors_for_display(obj)
     if obj.present? && obj.errors.any?
-     "<ul>#{obj.errors.full_messages.collect{ |msg| "<li>#{msg}</li>" }.join('')}</li></ul>"
+      msgs = obj.errors.full_messages.uniq.collect{ |msg| "<li>#{msg}</li>" }
+      "<ul>#{msgs.join('')}</li></ul>"
     end
   end
 
   def obj_name_for_display(obj)
     display_name = {
-      "ExportedPlan": _("plan"),
-      "Note": _("comment"),
-      "Org": _("organisation"),
-      "Perm": _("permission"),
-      "Pref": _("preferences"),
-      "Template": obj.send(:customization_of).present? ? _("customization") : _("template"),
-      "User": obj == current_user ? _("profile") : _("user")
+      ExportedPlan: _("plan"),
+      GuidanceGroup: _("guidance group"),
+      Note: _("comment"),
+      Org: _("organisation"),
+      Perm: _("permission"),
+      Pref: _("preferences"),
+      User: obj == current_user ? _("profile") : _("user")
     }
-    display_name["#{obj.class.name}"] || obj.class.name.downcase || "record"
+    if obj.respond_to?(:customization_of) && obj.send(:customization_of).present?
+      display_name[:Template] = "customization"
+    end
+    display_name[obj.class.name.to_sym] || obj.class.name.downcase || "record"
   end
 
   # Override rails default render action to look for a branded version of a

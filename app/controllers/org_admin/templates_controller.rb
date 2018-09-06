@@ -179,18 +179,27 @@ module OrgAdmin
           template.links = ActiveSupport::JSON.decode(params["template-links"])
         end
         if template.save
-          render(status: :ok,
-                 json: { msg: success_message(@template, _("saved")) })
+          render(json: {
+            status: 200,
+            msg: success_message(template, _("saved"))
+          })
         else
-          render(status: :bad_request,
-                 json: { msg: failure_message(@template, _("save")) })
+          render(json: {
+            status: :bad_request,
+            msg: failure_message(template, _("save"))
+          })
         end
       rescue ActiveSupport::JSON.parse_error
-        render(status: :bad_request,
-               json: { msg: _("Error parsing links for a #{template_type(template)}") })
+        render(json: {
+          status: :bad_request,
+          msg: _("Error parsing links for a #{template_type(template)}")
+        })
         return
       rescue => e
-        render(status: :forbidden, json: { msg: e.message }) and return
+        render(json: {
+          status: :forbidden,
+          msg: e.message
+        }) and return
       end
     end
 
@@ -202,9 +211,9 @@ module OrgAdmin
       if versions.select { |t| t.plans.length > 0 }.empty?
         versions.each do |version|
           if version.destroy!
-            flash[:notice] = success_message(@template, _("removed"))
+            flash[:notice] = success_message(template, _("removed"))
           else
-            flash[:alert] = failure_message(@template, _("remove"))
+            flash[:alert] = failure_message(template, _("remove"))
           end
         end
       else
