@@ -81,6 +81,16 @@ gem 'recaptcha'
 # Ideal gem for handling attachments in Rails, Sinatra and Rack applications. (http://github.com/markevans/dragonfly)
 gem 'dragonfly'
 
+gem 'bootstrap-sass', '~> 3.3.7'
+
+# This is required for Font-Awesome, but not used as the main sass compiler
+gem "sass-rails", require: false
+gem 'font-awesome-sass', '~> 4.2.0'
+
+gem 'sassc-rails'
+
+gem 'uglifier'
+
 # ------------------------------------------------
 # EXPORTING
 # Provides binaries for WKHTMLTOPDF project in an easily accessible package.

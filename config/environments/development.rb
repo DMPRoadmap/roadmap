@@ -43,9 +43,11 @@ Rails.application.configure do
     ActiveRecord::Base.logger.level = Logger::INFO
     ActiveRecord::Base.logger.level = Logger::DEBUG
   end
-  # Assets pipeline
-  config.assets.enabled = false
-  config.assets.debug = false
-  config.assets.compile = false
-  config.assets.quiet = true
+
+  # This option may cause significant delays in view rendering with a large
+  # number of complex assets.
+  config.assets.debug   = true
+
+  # yet still be able to expire them through the digest params.
+  config.assets.digest = true
 end
