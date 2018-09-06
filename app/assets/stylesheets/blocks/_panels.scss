@@ -1,0 +1,23 @@
+// Override Bootstrap 3.0's Panels
+
+.panel-default {
+  border-color: $grey;
+}
+.heading-button > .panel-heading, .panel-default > .panel-heading {
+  background-color: $grey;
+  color: $white;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+.panel-title a {
+  display: block;
+  padding: 8px 15px;
+  margin: -10px -15px;
+  background-color: $grey;
+  color: $white;
+}
+.panel-title > a.reverse {
+  background-color: $white;
+  color: $grey;
+}
