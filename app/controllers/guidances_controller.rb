@@ -45,9 +45,9 @@ class GuidancesController < ApplicationController
           guidance_group.save
         end
       end
-      flash.now[:notice] = success_message(_("created"), _("guidance"))
+      flash.now[:notice] = success_message(@guidance, _("created"))
     else
-      flash.now[:alert] = failure_message(_("create"), _("guidance"))
+      flash.now[:alert] = failure_message(@guidance, _("create"))
     end
     render :new_edit
   end
@@ -67,9 +67,9 @@ class GuidancesController < ApplicationController
           guidance_group.save
         end
       end
-      flash.now[:notice] = success_message(_("saved"), _("guidance"))
+      flash.now[:notice] = success_message(@guidance, _("saved"))
     else
-      flash.now[:alert] = failure_message(_("save"), _("guidance"))
+      flash.now[:alert] = failure_message(@guidance, _("save"))
     end
     render :new_edit
   end
@@ -85,10 +85,10 @@ class GuidancesController < ApplicationController
         guidance_group.published = false
         guidance_group.save
       end
-      flash[:notice] = success_message(_("deleted"), _("guidance"))
+      flash[:notice] = success_message(@guidance, _("deleted"))
       redirect_to(action: :admin_index)
     else
-      flash[:alert] = failure_message(_("delete"), _("guidance"))
+      flash[:alert] = failure_message(@guidance, _("delete"))
       redirect_to(action: :admin_index)
     end
   end
@@ -107,7 +107,7 @@ class GuidancesController < ApplicationController
       flash[:notice] = _("Your guidance has been published and is now available to users.")
       # rubocop:enable LineLength
     else
-      flash[:alert] = failure_message(_("publish"), _("guidance"))
+      flash[:alert] = failure_message(@guidance, _("publish"))
     end
     redirect_to(action: :admin_index)
   end
@@ -126,7 +126,7 @@ class GuidancesController < ApplicationController
       flash[:notice] = _("Your guidance is no longer published and will not be available to users.")
       # rubocop:enable LineLength
     else
-      flash[:alert] = failure_message(_("unpublish"), _("guidance"))
+      flash[:alert] = failure_message(@guidance, _("unpublish"))
     end
     redirect_to(action: :admin_index)
   end

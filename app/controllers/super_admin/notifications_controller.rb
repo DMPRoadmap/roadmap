@@ -35,10 +35,10 @@ module SuperAdmin
       # Will eventually need to be removed if we introduce new notification types
       @notification.notification_type = "global"
       if @notification.save
-        flash.now[:notice] = success_message(_("created"), _("notification"))
+        flash.now[:notice] = success_message(@notification, _("created"))
         render :edit
       else
-        flash.now[:alert] = failure_message(_("create"), _("notification"))
+        flash.now[:alert] = failure_message(@notification, _("create"))
         render :new
       end
     end
@@ -48,9 +48,9 @@ module SuperAdmin
     def update
       authorize(Notification)
       if @notification.update(notification_params)
-        flash.now[:notice] = success_message(_("updated"), _("notification"))
+        flash.now[:notice] = success_message(@notification, _("updated"))
       else
-        flash.now[:alert] = failure_message(_("create"), _("notification"))
+        flash.now[:alert] = failure_message(@notification, _("update"))
       end
       render :edit
     end
@@ -60,10 +60,10 @@ module SuperAdmin
     def destroy
       authorize(Notification)
       if @notification.destroy
-        msg = success_message(_("deleted"), _("notification"))
+        msg = success_message(@notification, _("deleted"))
         redirect_to super_admin_notifications_path, notice: msg
       else
-        flash.now[:alert] = failure_message(_("delete"), _("notification"))
+        flash.now[:alert] = failure_message(@notification, _("delete"))
         render :edit
       end
     end

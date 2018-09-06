@@ -98,7 +98,7 @@ class PlansController < ApplicationController
 
         default = Template.default
 
-        msg = "#{success_message(_('created'), _('plan'))}<br />"
+        msg = "#{success_message(@plan, _('created'))}<br />"
 
         if !default.nil? && default == @plan.template
           # We used the generic/default template
@@ -126,7 +126,7 @@ class PlansController < ApplicationController
       else
         # Something went wrong so report the issue to the user
         respond_to do |format|
-          flash[:alert] = failure_message(_("create"), "Plan")
+          flash[:alert] = failure_message(@plan, _("create"))
           format.html { redirect_to new_plan_path }
         end
       end
@@ -216,13 +216,13 @@ class PlansController < ApplicationController
         if @plan.update_attributes(attrs)
           format.html do
             redirect_to overview_plan_path(@plan),
-                        notice: success_message(_("saved"), _("plan"))
+                        notice: success_message(@plan, _("saved"))
           end
           format.json do
-            render json: { code: 1, msg: success_message(_("saved"), _("plan")) }
+            render json: { code: 1, msg: success_message(@plan, _("saved")) }
           end
         else
-          flash[:alert] = failure_message(_("save"), _("plan"))
+          flash[:alert] = failure_message(@plan, _("save"))
           format.html do
             render_phases_edit(@plan, @plan.phases.first, @plan.guidance_groups)
           end
@@ -232,7 +232,7 @@ class PlansController < ApplicationController
         end
 
       rescue Exception
-        flash[:alert] = failure_message(_("save"), _("plan"))
+        flash[:alert] = failure_message(@plan, _("save"))
         format.html do
           render_phases_edit(@plan, @plan.phases.first, @plan.guidance_groups)
         end
@@ -262,12 +262,12 @@ class PlansController < ApplicationController
       respond_to do |format|
         format.html do
           redirect_to plans_url,
-                      notice: success_message(_("deleted"), _("plan"))
+                      notice: success_message(@plan, _("deleted"))
         end
       end
     else
       respond_to do |format|
-        flash[:alert] = failure_message(_("delete"), _("plan"))
+        flash[:alert] = failure_message(@plan, _("delete"))
         format.html { render action: "edit" }
       end
     end
@@ -304,9 +304,9 @@ class PlansController < ApplicationController
     respond_to do |format|
       if @plan.save
         @plan.assign_creator(current_user)
-        format.html { redirect_to @plan, notice: success_message(_("copied"), _("plan")) }
+        format.html { redirect_to @plan, notice: success_message(@plan, _("copied")) }
       else
-        format.html { redirect_to plans_path, alert: failure_message(_("copy"), "Plan") }
+        format.html { redirect_to plans_path, alert: failure_message(@plan, _("copy")) }
       end
     end
   end
@@ -324,14 +324,10 @@ class PlansController < ApplicationController
             UserMailer.plan_visibility(r, plan).deliver_now()
           end
           render status: :ok,
-                 json: { msg: success_message(_("changed"), _("plan's visibility")) }
+                 json: { msg: success_message(plan, _("updated")) }
         else
-          # rubocop:disable Metrics/LineLength
           render status: :internal_server_error,
-                 json: {
-                   msg: _("Error raised while saving the visibility for plan id %{plan_id}") % {  plan_id: params[:id] }
-                 }
-          # rubocop:enable Metrics/LineLength
+                 json: { msg: failure_message(plan, _("update")) }
         end
       else
         # rubocop:disable Metrics/LineLength

@@ -73,14 +73,14 @@ module OrgAdmin
       authorize @section
       @section = get_new(@section)
       if @section.save
-        flash[:notice] = success_message(_("created"), _("section"))
+        flash[:notice] = success_message(@section, _("created"))
         redirect_to edit_org_admin_template_phase_path(
           id: @section.phase_id,
           template_id: @phase.template_id,
           section: @section.id
         )
       else
-        flash[:alert] = failure_message(_("create"), _("section"))
+        flash[:alert] = failure_message(@section, _("create"))
         redirect_to edit_org_admin_template_phase_path(
           template_id: @phase.template_id,
           id: @section.phase_id
@@ -95,9 +95,9 @@ module OrgAdmin
       begin
         section = get_modifiable(section)
         if section.update(section_params)
-          flash[:notice] = success_message(_("saved"), _("section"))
+          flash[:notice] = success_message(section, _("saved"))
         else
-          flash[:alert] = failure_message(_("save"), _("section"))}
+          flash[:alert] = failure_message(section, _("save"))
         end
       rescue StandardError => e
         flash[:alert] = _("Unable to create a new version of this template.")
@@ -124,9 +124,9 @@ module OrgAdmin
         section = get_modifiable(section)
         phase = section.phase
         if section.destroy!
-          flash[:notice] = success_message(_("deleted"), _("section"))
+          flash[:notice] = success_message(section, _("deleted"))
         else
-          flash[:alert] = failure_message(_("delete"), _("section"))
+          flash[:alert] = failure_message(section, _("delete"))
         end
       rescue StandardError => e
         flash[:alert] = _("Unable to create a new version of this template.")

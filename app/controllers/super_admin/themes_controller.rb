@@ -19,10 +19,10 @@ module SuperAdmin
       authorize(Theme)
       @theme = Theme.new(permitted_params)
       if @theme.save
-        flash.now[:notice] = success_message(_("created"), _("theme"))
+        flash.now[:notice] = success_message(@theme, _("created"))
         render :edit
       else
-        flash.now[:alert] = failure_message(_("create"), _("theme"))
+        flash.now[:alert] = failure_message(@theme, _("create"))
         render :new
       end
     end
@@ -36,9 +36,9 @@ module SuperAdmin
       authorize(Theme)
       @theme = Theme.find(params[:id])
       if @theme.update_attributes(permitted_params)
-        flash.now[:notice] = success_message(_("updated"), _("theme"))
+        flash.now[:notice] = success_message(@theme, _("updated"))
       else
-        flash.now[:alert] = failure_message(_("update"), _("theme"))
+        flash.now[:alert] = failure_message(@theme, _("update"))
       end
       render :edit
     end
@@ -47,10 +47,10 @@ module SuperAdmin
       authorize(Theme)
       @theme = Theme.find(params[:id])
       if @theme.destroy
-        msg = success_message(_("deleted"), _("theme"))
+        msg = success_message(@theme, _("deleted"))
         redirect_to super_admin_themes_path, notice: msg
       else
-        flash.now[:alert] = failure_message(_("delete"), _("theme"))
+        flash.now[:alert] = failure_message(@theme, _("delete"))
         redner :edit
       end
     end

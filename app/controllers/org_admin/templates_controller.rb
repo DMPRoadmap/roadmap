@@ -161,9 +161,9 @@ module OrgAdmin
                         end
       if @template.save
         redirect_to edit_org_admin_template_path(@template),
-                    notice: success_message(_("created"), template_type(@template))
+                    notice: success_message(@template, _("created"))
       else
-        flash[:alert] = flash[:alert] = failure_message(_("create"), template_type(@template))
+        flash[:alert] = flash[:alert] = failure_message(@template, _("create"))
         render :new
       end
     end
@@ -180,12 +180,10 @@ module OrgAdmin
         end
         if template.save
           render(status: :ok,
-                 json: { msg: success_message(_("saved"), template_type(template)) })
+                 json: { msg: success_message(@template, _("saved")) })
         else
-          # Note failed_update_error may return HTML tags (e.g. <br/>) and therefore the
-          # client should parse them accordingly
           render(status: :bad_request,
-                 json: { msg: failure_message(_("save"), template_type(template)) })
+                 json: { msg: failure_message(@template, _("save")) })
         end
       rescue ActiveSupport::JSON.parse_error
         render(status: :bad_request,
@@ -204,9 +202,9 @@ module OrgAdmin
       if versions.select { |t| t.plans.length > 0 }.empty?
         versions.each do |version|
           if version.destroy!
-            flash[:notice] = success_message(_("removed"), template_type(template))
+            flash[:notice] = success_message(@template, _("removed"))
           else
-            flash[:alert] = failure_message(_("remove"), template_type(template))
+            flash[:alert] = failure_message(@template, _("remove"))
           end
         end
       else

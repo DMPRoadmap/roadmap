@@ -30,10 +30,10 @@ class GuidanceGroupsController < ApplicationController
     end
 
     if @guidance_group.save
-      flash.now[:notice] = success_message(_("created"), _("guidance group"))
+      flash.now[:notice] = success_message(@guidance_group, _("created"))
       render :admin_edit
     else
-      flash.now[:alert] = failure_message(_("create"), _("guidance group"))
+      flash.now[:alert] = failure_message(@guidance_group, _("create"))
       render :admin_new
     end
   end
@@ -54,10 +54,10 @@ class GuidanceGroupsController < ApplicationController
     @guidance_group.published = true unless params[:save_publish].nil?
 
     if @guidance_group.update(guidance_group_params)
-      flash.now[:notice] = success_message(_("saved"), _("guidance group"))
+      flash.now[:notice] = success_message(@guidance_group, _("saved"))
       render :admin_edit
     else
-      flash.now[:alert] = failure_message(_("save"), _("guidance group"))
+      flash.now[:alert] = failure_message(@guidance_group, _("save"))
       render :admin_edit
     end
   end
@@ -74,7 +74,7 @@ class GuidanceGroupsController < ApplicationController
       flash[:notice] = _("Your guidance group has been published and is now available to users.")
       # rubocop:enable LineLength
     else
-      flash[:alert] = failure_message(_("publish"), _("guidance group"))
+      flash[:alert] = failure_message(@guidance_group, _("publish"))
     end
     redirect_to admin_index_guidance_path
   end
@@ -91,7 +91,7 @@ class GuidanceGroupsController < ApplicationController
       flash[:notice] = _("Your guidance group is no longer published and will not be available to users.")
       # rubocop:enable LineLength
     else
-      flash[:alert] = failure_message(_("unpublish"), _("guidance group"))
+      flash[:alert] = failure_message(@guidance_group, _("unpublish"))
     end
     redirect_to admin_index_guidance_path
   end
@@ -102,9 +102,9 @@ class GuidanceGroupsController < ApplicationController
     @guidance_group = GuidanceGroup.find(params[:id])
     authorize @guidance_group
     if @guidance_group.destroy
-      flash[:notice] = success_message(_("deleted"), _("guidance group"))
+      flash[:notice] = success_message(@guidance_group, _("deleted"))
     else
-      flash[:alert] = failure_message(_("delete"), _("guidance group"))
+      flash[:alert] = failure_message(@guidance_group, _("delete"))
     end
     redirect_to admin_index_guidance_path
   end

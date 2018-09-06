@@ -62,9 +62,9 @@ module OrgAdmin
         question = get_new(question)
         section = question.section
         if question.save
-          flash[:notice] = success_message(_("created"), _("question")
+          flash[:notice] = success_message(question, _("created"))
         else
-          flash[:alert] = failure_message(_("create"), _("question"))
+          flash[:alert] = failure_message(question, _("create"))
         end
       rescue StandardError => e
         flash[:alert] = _("Unable to create a new version of this template.")
@@ -91,9 +91,9 @@ module OrgAdmin
           attrs[:theme_ids] = []
         end
         if question.update(attrs)
-          flash[:notice] = success_message(_("updated"), _("question")
+          flash[:notice] = success_message(question, _("updated"))
         else
-          flash[:alert] = flash[:alert] = failure_message(_("update"), _("question"))
+          flash[:alert] = flash[:alert] = failure_message(question, _("update"))
         end
       rescue StandardError => e
         puts e.message
@@ -121,9 +121,9 @@ module OrgAdmin
         question = get_modifiable(question)
         section = question.section
         if question.destroy!
-          flash[:notice] = success_message(_("deleted"), _("question")
+          flash[:notice] = success_message(question, _("deleted"))
         else
-          flash[:alert] = flash[:alert] = failure_message(_("delete"), _("question"))
+          flash[:alert] = flash[:alert] = failure_message(question, _("delete"))
         end
       rescue StandardError => e
         flash[:alert] = _("Unable to create a new version of this template.")

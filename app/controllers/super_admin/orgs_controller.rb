@@ -48,10 +48,10 @@ module SuperAdmin
         end
 
         if org.save
-          msg = success_message(_("created"), _("organisation"))
+          msg = success_message(org, _("created"))
           redirect_to admin_edit_org_path(org.id), notice: msg
         else
-          flash.now[:alert] = failure_message(_("create"), _("organisation"))
+          flash.now[:alert] = failure_message(org, _("create"))
           render "orgs/admin_edit", locals: {
             org: org,
             languages: Language.all.order("name"),
@@ -80,10 +80,10 @@ module SuperAdmin
         org.guidance_groups.delete_all
 
         if org.destroy!
-          msg = success_message(_("removed"), _("organisation"))
+          msg = success_message(org, _("removed"))
           redirect_to super_admin_orgs_path, notice: msg
         else
-          failure = failure_message(_("remove"), _("organisation"))
+          failure = failure_message(org, _("remove"))
           redirect_to super_admin_orgs_path, alert: failure
         end
       end

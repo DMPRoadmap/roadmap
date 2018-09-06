@@ -93,26 +93,38 @@ class ApplicationController < ActionController::Base
     end
   end
 
-=begin
-  def failed_create_error(obj, obj_name)
-    "#{_('Could not create your %{o}.') % { o: obj_name }} #{errors_to_s(obj)}"
+  def failure_message(obj)
+    _("Unable to %{action} the %{object}.%{errors}") % {
+      object: obj_name_for_display(obj),
+      action: action || "save",
+      errors: errors_for_display(obj),
+    }
   end
 
-  def failed_update_error(obj, obj_name)
-    "#{_('Could not update your %{o}.') % { o: obj_name }} #{errors_to_s(obj)}"
+  def success_message(obj, action = "save")
+    _("Successfully %{action} the %{object}.") % {
+      object: obj_name_for_display(obj),
+      action: action || "save",
+    }
   end
 
-  def failed_destroy_error(obj, obj_name)
-    "#{_('Could not delete the %{o}.') % { o: obj_name }} #{errors_to_s(obj)}"
-  end
-=end
-
-  def failure_message(action, object_name = _("record"))
-    _("Unable to %{action} your %{object}.") % { object: object_name, action: action }
+  def errors_for_display(obj)
+    if obj.present? && obj.errors.any?
+     "<ul>#{obj.errors.full_messages.collect{ |msg| "<li>#{msg}</li>" }.join('')}</li></ul>"
+    end
   end
 
-  def success_message(action, obj_name = _("record"))
-    _("Successfully %{action} your %{object}.") % { object: obj_name, action: action }
+  def obj_name_for_display(obj)
+    display_name = {
+      "ExportedPlan": _("plan"),
+      "Note": _("comment"),
+      "Org": _("organisation"),
+      "Perm": _("permission"),
+      "Pref": _("preferences"),
+      "Template": obj.send(:customization_of).present? ? _("customization") : _("template"),
+      "User": obj == current_user ? _("profile") : _("user")
+    }
+    display_name["#{obj.class.name}"] || obj.class.name.downcase || "record"
   end
 
   # Override rails default render action to look for a branded version of a

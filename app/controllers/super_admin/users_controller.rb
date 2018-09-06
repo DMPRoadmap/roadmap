@@ -24,9 +24,9 @@ module SuperAdmin
       # not read 'Successfully updated your profile for John Doe'
       topic = _("profile for %{username}") % { username: @user.name(false) }
       if @user.update_attributes(user_params)
-        flash.now[:notice] = success_message(_("updated"), topic).gsub("your", "the")
+        flash.now[:notice] = success_message(@user, _("updated"))
       else
-        flash.now[:alert] = failure_message(_("update"), topic).gsub("your", "the")
+        flash.now[:alert] = failure_message(@user, _("update"))
       end
       render :edit
     end

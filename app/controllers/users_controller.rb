@@ -89,7 +89,7 @@ class UsersController < ApplicationController
                                              locals: { user: @user }, formats: [:html])
         })
     else
-      render(json: { code: 0, msg: failed_update_error(@user, _("user")) })
+      render(json: { code: 0, msg: failure_message(@user, _("updated")) })
     end
   end
 
@@ -108,7 +108,7 @@ class UsersController < ApplicationController
 
     # Include active tab in redirect path
     redirect_to "#{edit_user_registration_path}\#notification-preferences",
-                notice: success_message(_("preferences"), _("saved"))
+                notice: success_message(pref, _("saved"))
   end
 
   # PUT /users/:id/activate

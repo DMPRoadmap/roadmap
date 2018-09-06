@@ -104,9 +104,9 @@ module OrgAdmin
         phase = get_new(phase)
         phase.modifiable = true
         if phase.save
-          flash[:notice] = success_message(_("created"),_("phase"))
+          flash[:notice] = success_message(phase, _("created")
         else
-          flash[:alert] = failure_message(_("create"), _("phase"))
+          flash[:alert] = failure_message(pahse, _("create"))
         end
       rescue StandardError => e
         flash[:alert] = _("Unable to create a new version of this template.")
@@ -127,9 +127,9 @@ module OrgAdmin
       begin
         phase = get_modifiable(phase)
         if phase.update(phase_params)
-          flash[:notice] = success_message(_("updated"), _("phase")
+          flash[:notice] = success_message(phase, _("updated"))
         else
-          flash[:alert] = failure_message(_("update"), _("phase"))
+          flash[:alert] = failure_message(phase, _("update"))
         end
       rescue StandardError => e
         flash[:alert] = _("Unable to create a new version of this template.")
@@ -154,9 +154,9 @@ module OrgAdmin
         phase = get_modifiable(phase)
         template = phase.template
         if phase.destroy!
-          flash[:notice] = success_message(_("deleted"), _("phase"))
+          flash[:notice] = success_message(phase, _("deleted"))
         else
-          flash[:alert] = failure_message(_("delete"), _("phase"))
+          flash[:alert] = failure_message(phase, _("delete"))
         end
       rescue StandardError => e
         flash[:alert] = _("Unable to create a new version of this template.")
