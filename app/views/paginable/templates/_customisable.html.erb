@@ -13,7 +13,7 @@
     <tbody>
     <% scope.each do |template| %>
       <% customization = customizations.find{ |customization| customization.customization_of == template.family_id } %>
-      <tr>
+      <tr id="<%= dom_id(template) %>">
         <td>
           <%= "#{template.is_default ? '* ' : ''}#{template.title}" %>
         </td>
@@ -53,7 +53,12 @@
             <ul class="dropdown-menu">
               <% if customization.present? %>
                 <% if customization.created_at < template.created_at %>
-                  <li><%= link_to _('Transfer customisation'), transfer_customization_org_admin_template_path(customization.id), 'data-method': 'post' %></li>
+                  <li>
+                    <%= link_to _('Transfer customisation'),
+                        org_admin_template_customization_transfers_path(customization.id),
+                        data: { method: 'post' }
+                    %>
+                  </li>
                 <% else %>
                   <li><%= link_to _('Edit customisation'), org_admin_template_path(id: customization.id) %></li>
                   <li><%= link_to _('History'), history_org_admin_template_path(customization.id) %></li>
@@ -67,14 +72,18 @@
                   <% end %>
                   <% if customization.removable? %>
                     <li>
-                      <%= link_to _('Remove'), org_admin_template_path(id: customization.id), 
+                      <%= link_to _('Remove'), org_admin_template_path(id: customization.id),
                                   'data-method': 'delete', rel: 'nofollow',
                                   'data-confirm': _('Are you sure you want to remove your customization of "%{template_title}"? Any published versions will become unavailable to users.') % { template_title: customization.title} %>
                     </li>
                   <% end %>
                 <% end %>
               <% else %>
-                <li><%= link_to _('Customise'), customize_org_admin_template_path(template.id), 'data-method': 'post' %></li>
+                <li>
+                  <%= link_to _('Customise'),
+                      org_admin_template_customizations_path(template.id),
+                      'data-method': 'post' %>
+                </li>
               <% end %>
             </ul>
           </div>

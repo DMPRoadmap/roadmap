@@ -12,11 +12,11 @@
   <% group.keys.each_with_index do |theme, i| %>
     <div class="panel panel-default">
       <div class="heading-button" role="button" data-toggle="collapse"
-           data-parent="<%= question.id %>-guidance" 
+           data-parent="<%= question.id %>-guidance"
            href="#collapse-guidance-<%= question.id %>-<%= guidance_accordion_id %>-<%= i %>"
-           aria-expanded="false" 
+           aria-expanded="false"
            aria-controls="#collapse-guidance-<%= question.id %>-<%= guidance_accordion_id %>-<%= i %>">
-           
+
         <div class="panel-heading" role="tab" id="heading-<%= i %>">
           <h2 class="panel-title">
             <%= theme %>
@@ -28,7 +28,7 @@
          aria-labelledby="heading-guidance-<%= question.id %>-<%= guidance_accordion_id %>-<%= i %>">
         <div class="panel-body">
           <% group[theme].each do |guidance| %>
-            <%= raw guidance %>
+            <%= sanitize guidance %>
           <% end %>
         </div>
       </div>

@@ -200,7 +200,7 @@ span.sublist {
 }
 
 /* FONTAWESOME STYLING */
-.fa {
+.fa:not(.small) {
   font-size: 2rem;
 }
 .fa-reverse {
@@ -552,6 +552,7 @@ $tooltip-background: $grey;
 /* generic styling */
 fieldset {
   border: none;
+  padding: 0 10px 10px 10px;
 
   input[type="radio"],
   input[type="checkbox"] {
@@ -568,6 +569,7 @@ fieldset {
 
 legend {
   border: none;
+  width: auto;
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 5px;
@@ -599,18 +601,18 @@ legend.project-details {
 }
 
 /* Skip to main content link styling */
-div.skip a { 
-  position:absolute; 
-  left:-10000px; 
-  top:auto; 
-  width:1px; 
-  height:1px; 
+div.skip a {
+  position:absolute;
+  left:-10000px;
+  top:auto;
+  width:1px;
+  height:1px;
   overflow: hidden !important;
-} 
- 
-div.skip a:focus { 
-  width:auto; 
-  height:auto; 
+}
+
+div.skip a:focus {
+  width:auto;
+  height:auto;
   overflow:visible !important;
 }
 
@@ -646,3 +648,14 @@ a.link_as_button {
   width: 1px;
   word-wrap: normal !important;
 }
+
+.field_with_errors input,
+.field_with_errors textarea,
+.field_with_errors select,
+.field_with_errors .mce-container,
+.field_with_errors ~ .mce-container {
+   border-color: $red;
+ }
+ fieldset.field_with_errors {
+  border: 1px solid $red;
+ }
