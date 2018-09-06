@@ -2,7 +2,7 @@
 // we should provide utility classes which can provide the desired style to this object
 .org-logo-controls {
   display: inline-block;
-  margin-left: 15px;
+  margin-left: $grid-gutter-width / 2;
   input { display: inline-block; }
   strong { margin: 0 10px; }
 }

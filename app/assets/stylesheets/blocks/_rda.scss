@@ -4,10 +4,8 @@
 }
 
 .browse-standards-border {
-  border: 1px solid $grey;
-  -webkit-border-radius: 0px;
-     -moz-border-radius: 0px;
-          border-radius: 0px;
+  border: 1px solid $color-border-default;
+  border-radius: 0px;
   padding: 10px 10px 5px 10px;
   margin-bottom:10px;
   overflow-y: scroll;

@@ -1,4 +1,4 @@
 .template-table-filters .navbar-nav > li > a {
-  color: $grey;
-  padding: 5px 15px 5px 5px;
+  color: $color-text-grey;
+  padding: 5px ($grid-gutter-width / 2) 5px 5px;
 }

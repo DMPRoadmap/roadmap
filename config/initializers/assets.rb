@@ -1,8 +1,12 @@
-Rails.application.config.assets.precompile += %w[ *.ico *.png *.jpg *.jpeg *.gif ]
+Rails.application.config.assets.precompile += %w[
+  *.ico *.png *.jpg *.jpeg *.gif
+  vendor.js
+]
 
 if Rails.env.staging? or Rails.env.production?
   # Compress JavaScripts and CSS.
-  Rails.application.config.assets.js_compressor = :uglifier
+  # Rails.application.config.assets.js_compressor = Uglifier.new(harmony: true)
+  # Rails.application.config.assets.js_compressor = nil
 
   Rails.application.config.assets.css_compressor = :sass
 

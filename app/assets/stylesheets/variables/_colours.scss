@@ -1,18 +1,33 @@
-$black: #000;
-$white: #FFF;
-$red:  #b94a48;
-$grey: #4F5253;
-$gold: #c09853;
-$highlight-color: $black;
-$highlight-background-color: #F36F24;
+// Colors:
+$color-black: #000;
+$color-white: #FFF;
+$color-red: #b94a48;
+$color-grey: #4F5253;
+$color-muted: #CCC;
 
-/* MESSAGES */
-$error-color: $red;
-$error-background: #f2dede;
+// Text colors
+$color-text-white: $color-white;
+$color-text-red: $color-red;
+$color-text-grey: $color-grey;
+$color-text-black: $color-black;
 
-$notice-color: $gold;
-$notice-background: #fcf8e3;
+// Background colors
+$color-background-white: $color-white;
+$color-background-grey: $color-grey;
+$color-background-black: $color-black;
+$color-background-muted: $color-muted;
 
 
-$tooltip-color: $white;
-$tooltip-background: $grey;
+// Borders colors
+$color-border-default: $color-grey;
+$color-border-light: #ddd;
+
+// Shadow colors
+$color-shadow-dark: $color-black;
+
+// Tooltips
+$tooltip-color: $color-white;
+$tooltip-background: $color-text-grey;
+
+$dropdown-inverse-bg: #222222;
+$dropdown-inverse-border: #080808;

@@ -1,16 +1,16 @@
 /* For dark (inverse) navbars */
 .inverse-dropdown {
-  background-color: #222 !important;
-  border-color: #080808 !important;
+  background-color: $dropdown-inverse-bg !important;
+  border-color: $dropdown-inverse-border !important;
   & > li > a {
     color: #999 !important;
     &:hover {
       color: #fff !important;
-      background-color: #000 !important;
+      background-color: $color-background-black !important;
     }
   }
   .active a {
-      color: #fff !important;
-      background-color: #000 !important;
+    color: #fff !important;
+    background-color: $color-background-black !important;
   }
 }

@@ -1,0 +1,35 @@
+{
+  "name": "roadmap",
+  "version": "1.1.0",
+  "description": "Roadmap front-end dependencies",
+  "main": "null",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DMPRoadmap/roadmap.git"
+  },
+  "author": "California Digital Library (CDL)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DMPRoadmap/roadmap/issues"
+  },
+  "homepage": "https://github.com/DMPRoadmap/roadmap#readme",
+  "dependencies": {
+    "@rails/webpacker": "3.5",
+    "bootstrap-sass": "^3.3.7",
+    "chart.js": "^2.7.2",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.3.1",
+    "jquery-accessible-autocomplete-list-aria": "^1.6.1",
+    "jquery-ui": "^1.12.1",
+    "jquery-ujs": "^1.2.2",
+    "js-cookie": "^2.2.0",
+    "moment": "^2.22.2",
+    "number-to-text": "^0.3.4",
+    "placeholder": "^1.0.2",
+    "timeago.js": "^3.0.2",
+    "tinymce": "^4.8.2"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "2.11.2"
+  }
+}

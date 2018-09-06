@@ -6,6 +6,6 @@
   width: 100%;
   border-radius:0px;
   ul {
-    padding-right:15px;
+    padding-right: $grid-gutter-width / 2;
   }
 }

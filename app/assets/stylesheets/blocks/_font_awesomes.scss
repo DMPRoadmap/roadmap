@@ -5,13 +5,13 @@
   font-size: 2rem;
 }
 .fa-reverse {
-  color: $grey;
+  color: $color-text-grey;
 }
 .fa-sort, .fa-sort-asc, .fa-sort-desc {
-  color: $white;
+  color: $color-white;
 }
 
 /* adjust the position of the 'remove - X' button for links */
 .link .fa-times-circle {
-  margin-top: 30px;
+  margin-top: $grid-gutter-width;
 }
