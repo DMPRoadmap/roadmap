@@ -1,16 +1,13 @@
 # frozen_string_literal: true
 
-class UsageController < ApplicationController
+class UsageDownloadsController < ApplicationController
 
-  def index
+  def index 
     check_authorized!
-    render("index",
-      locals: {
-        orgs: Org.all,
-        total_org_users: current_user.org.users.size,
-        total_org_plans: current_user.org.plans.size
-      }
-    )
+    data = Org::TotalCountStatService.call
+    data_csvified = Csvable.from_array_of_hashes(data)
+
+    send_data(data_csvified, filename: 'totals.csv')
   end
 
   private

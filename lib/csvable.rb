@@ -3,6 +3,8 @@ module Csvable
     def from_array_of_hashes(data = [])
       return '' unless data.first&.keys
       headers = data.first.keys
+        .map(&:to_s)
+        .map(&:humanize)
       CSV.generate do |csv|
         csv << headers
         data.each do |row|

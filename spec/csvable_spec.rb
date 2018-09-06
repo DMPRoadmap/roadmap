@@ -20,14 +20,14 @@ RSpec.describe Csvable do
       stringified_csv = described_class.from_array_of_hashes(data)
 
       header = /[^\n]+/.match(stringified_csv)[0]
-      expect("column1,column2").to eq(header)
+      expect("Column1,Column2").to eq(header)
     end
 
     it 'returns each hash within the array' do
       stringified_csv = described_class.from_array_of_hashes(data)
 
       output = <<~HERE
-        column1,column2
+        Column1,Column2
         value row1.1,value row1.2
         value row2.1,value row2.2
         value row3.1,value row3.2
