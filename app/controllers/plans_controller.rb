@@ -57,11 +57,12 @@ class PlansController < ApplicationController
       end
     else
       # Otherwise create the plan
-      @plan.principal_investigator = if current_user.surname.blank?
-                                       nil
-                                     else
-                                       "#{current_user.firstname} #{current_user.surname}"
-                                     end
+      if current_user.surname.blank?
+        @plan.principal_investigator = nil
+      else
+        @plan.principal_investigator = current_user.name(false)
+      end
+
       @plan.principal_investigator_email = current_user.email
 
       orcid = current_user.identifier_for(IdentifierScheme.find_by(name: "orcid"))

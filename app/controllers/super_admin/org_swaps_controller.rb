@@ -34,4 +34,5 @@ class SuperAdmin::OrgSwapsController < ApplicationController
   def org_swap_params
     params.require(:user).permit(:org_id, :org_name)
   end
+
 end
