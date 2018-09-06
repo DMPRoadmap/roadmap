@@ -10,6 +10,7 @@
             title: _('If applying for funding, state the name exactly as in the grant proposal.')) %>
       <div class="checkbox">
         <%= f.hidden_field :visibility %>
+        <%= f.hidden_field :default_visibility, value: Rails.configuration.default_plan_visibility %>
         <%= f.label(:is_test, raw("#{check_box_tag(:is_test,1, @plan.is_test? , "aria-label": "is_test")} #{_('mock project for testing, practice, or educational purposes')}"), class: 'control-label') %>
       </div>
         </div>
