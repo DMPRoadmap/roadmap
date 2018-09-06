@@ -104,15 +104,15 @@ module OrgAdmin
         phase = get_new(phase)
         phase.modifiable = true
         if phase.save
-          flash[:notice] = success_message(_("phase"), _("created"))
+          flash[:notice] = success_message(phase, _("created"))
         else
-          flash[:alert] = failed_create_error(phase, _("phase"))
+          flash[:alert] = failure_message(phase, _("create"))
         end
       rescue StandardError => e
         flash[:alert] = _("Unable to create a new version of this template.")
       end
       if flash[:alert].present?
-        redirect_to edit_org_admin_template_path(id: phase.template_id)
+        redirect_to new_org_admin_template_phase_path(template_id: phase.template.id)
       else
         redirect_to edit_org_admin_template_phase_path(template_id: phase.template.id,
                                                        id: phase.id)
@@ -127,9 +127,9 @@ module OrgAdmin
       begin
         phase = get_modifiable(phase)
         if phase.update(phase_params)
-          flash[:notice] = success_message(_("phase"), _("updated"))
+          flash[:notice] = success_message(phase, _("updated"))
         else
-          flash[:alert] = failed_update_error(phase, _("phase"))
+          flash[:alert] = failure_message(phase, _("update"))
         end
       rescue StandardError => e
         flash[:alert] = _("Unable to create a new version of this template.")
@@ -154,9 +154,9 @@ module OrgAdmin
         phase = get_modifiable(phase)
         template = phase.template
         if phase.destroy!
-          flash[:notice] = success_message(_("phase"), _("deleted"))
+          flash[:notice] = success_message(phase, _("deleted"))
         else
-          flash[:alert] = failed_destroy_error(phase, _("phase"))
+          flash[:alert] = failure_message(phase, _("delete"))
         end
       rescue StandardError => e
         flash[:alert] = _("Unable to create a new version of this template.")
@@ -172,7 +172,7 @@ module OrgAdmin
     private
 
     def phase_params
-      params.require(:phase).permit(:title, :description, :number)
+      params.require(:phase).permit(:title, :description, :number, :template_id)
     end
 
   end

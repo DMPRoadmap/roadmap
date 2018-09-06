@@ -14,8 +14,8 @@ module ConditionalUserMailer
     return false unless block_given?
 
     Array(recipients).each do |recipient|
-      email_hash = recipient.get_preferences('email').with_indifferent_access
-      preference_value = !!email_hash.dig(*key.to_s.split('.'))
+      email_hash = recipient.get_preferences("email").with_indifferent_access
+      preference_value = !!email_hash.dig(*key.to_s.split("."))
       block.call(recipient) if preference_value
     end
 
