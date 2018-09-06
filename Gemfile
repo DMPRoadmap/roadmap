@@ -30,6 +30,12 @@ gem 'mysql2', '~> 0.4.10'
 # Pg is the Ruby interface to the {PostgreSQL RDBMS}[http://www.postgresql.org/] (https://bitbucket.org/ged/ruby-pg)
 gem 'pg', '~> 0.19.0'
 
+# A thin and fast web server (http://code.macournoyer.com/thin/)
+gem 'thin'
+
+# Puma is a simple, fast, threaded, and highly concurrent HTTP 1.1 server for Ruby/Rack applications (http://puma.io)
+gem 'puma'
+
 # Bit fields for ActiveRecord (https://github.com/pboling/flag_shih_tzu)
 gem 'flag_shih_tzu'  # Allows for bitfields in activereccord
 
@@ -85,9 +91,6 @@ gem 'dragonfly'
 # EXPORTING
 # Provides binaries for WKHTMLTOPDF project in an easily accessible package.
 gem 'wkhtmltopdf-binary'
-
-# A thin and fast web server (http://code.macournoyer.com/thin/)
-gem 'thin'
 
 # PDF generator (from HTML) gem for Ruby on Rails (https://github.com/mileszs/wicked_pdf)
 gem 'wicked_pdf'
@@ -186,6 +189,7 @@ group :ci, :development do
   gem "brakeman"
 
   # Automatic Ruby code style checking tool. (https://github.com/rubocop-hq/rubocop)
+  # Rubocop style checks for DMP Roadmap projects. (https://github.com/DMPRoadmap/rubocop-DMP_Roadmap)
   gem "rubocop-dmp_roadmap", ">= 1.1.0"
 
   # Helper gem to require bundler-audit (http://github.com/stewartmckee/bundle-audit)
@@ -194,8 +198,10 @@ end
 
 group :development do
 
+  # Simple Progress Bar for output to a terminal (http://github.com/paul/progress_bar)
   gem "progress_bar", require: false
 
+  # A collection of text algorithms (http://github.com/threedaymonk/text)
   gem "text", require: false
 
   # Better error page for Rails and other Rack apps (https://github.com/charliesome/better_errors)
@@ -219,7 +225,9 @@ group :development do
   # help to kill N+1 queries and unused eager loading. (https://github.com/flyerhzm/bullet)
   gem "bullet"
 
+  # Documentation tool for consistent and usable documentation in Ruby. (http://yardoc.org)
   gem "yard"
 
+  # TomDoc for YARD (http://rubyworks.github.com/yard-tomdoc)
   gem "yard-tomdoc"
 end
