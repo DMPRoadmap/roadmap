@@ -17,6 +17,11 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  # When we are in production reroute Record Not Found errors to the branded 404 page
+  if Rails.env.production?
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+  end
+
   private
 
   def current_org
@@ -88,20 +93,42 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def failed_create_error(obj, obj_name)
-    "#{_('Could not create your %{o}.') % { o: obj_name }} #{errors_to_s(obj)}"
+  def failure_message(obj, action = "save")
+    _("Unable to %{action} the %{object}.%{errors}") % {
+      object: obj_name_for_display(obj),
+      action: action || "save",
+      errors: errors_for_display(obj),
+    }
   end
 
-  def failed_update_error(obj, obj_name)
-    "#{_('Could not update your %{o}.') % { o: obj_name }} #{errors_to_s(obj)}"
+  def success_message(obj, action = "saved")
+    _("Successfully %{action} the %{object}.") % {
+      object: obj_name_for_display(obj),
+      action: action || "save",
+    }
   end
 
-  def failed_destroy_error(obj, obj_name)
-    "#{_('Could not delete the %{o}.') % { o: obj_name }} #{errors_to_s(obj)}"
+  def errors_for_display(obj)
+    if obj.present? && obj.errors.any?
+      msgs = obj.errors.full_messages.uniq.collect { |msg| "<li>#{msg}</li>" }
+      "<ul>#{msgs.join('')}</li></ul>"
+    end
   end
 
-  def success_message(obj_name, action)
-    _("Successfully %{action} your %{object}.") % { object: obj_name, action: action }
+  def obj_name_for_display(obj)
+    display_name = {
+      ExportedPlan: _("plan"),
+      GuidanceGroup: _("guidance group"),
+      Note: _("comment"),
+      Org: _("organisation"),
+      Perm: _("permission"),
+      Pref: _("preferences"),
+      User: obj == current_user ? _("profile") : _("user")
+    }
+    if obj.respond_to?(:customization_of) && obj.send(:customization_of).present?
+      display_name[:Template] = "customization"
+    end
+    display_name[obj.class.name.to_sym] || obj.class.name.downcase || "record"
   end
 
   # Override rails default render action to look for a branded version of a
@@ -113,20 +140,6 @@ class ApplicationController < ActionController::Base
   #  app/views/branded/layouts/_header.html.erb -> app/views/layouts/_header.html.erb
   def prepend_view_paths
     prepend_view_path "app/views/branded"
-  end
-
-  def errors_to_s(obj)
-    if obj.errors.count > 0
-      msg = "<br />"
-      obj.errors.each do |e, m|
-        if m.include?("empty") || m.include?("blank")
-          msg += "#{_(e)} - #{_(m)}<br />"
-        else
-          msg += "'#{obj[e]}' - #{_(m)}<br />"
-        end
-      end
-      msg
-    end
   end
 
   ##
