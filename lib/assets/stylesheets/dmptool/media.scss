@@ -3,6 +3,10 @@
 /* Phones */
 /* ----------------------------------------------------------------------- */
 @media all and (max-width: 768px) {
+  header > .fixed-menu, header > .branding, header > .app-menu , footer > .footer {
+    display: none;
+  }
+
   .navbar-fixed-top {
     .navbar-toggle, .navbar-toggle:visited, .navbar-toggle:hover, .navbar-toggle:focus, .navbar-toggle:active {
       margin: 2px 5px 0 0;
@@ -45,23 +49,18 @@
       }
     }
 
-    .org-logo {
-      min-height: 50px;
-      max-height: 70px;
+    .org-logo, .org-logo:hover, .org-logo:focus, .org-logo:active, .org-logo:visited {
+      font-size: 1.6rem;
+      padding-left: 0;
     }
   }
 
   main > .content > .row {
-
-    margin-right: 0;
-  }
-
-  header > .fixed-menu, header > .branding, header > .app-menu , footer > .footer {
-    display: none;
+    /*margin-right: 0;*/
   }
 
   .notifications {
-    margin-top: 60px;
+    margin-top: 20px;
   }
 
   footer {
@@ -96,6 +95,31 @@
   }
 
   /* Homepage */
+  .welcome {
+    background: none;
+    padding: 0 5px;
+
+    > div {
+      background: none;
+      margin-top: 0;
+    }
+
+    .welcome-message {
+      color: $dark-blue;
+
+      h1 {
+        color: $dark-blue;
+      }
+
+      .btn-inverse {
+        float: none;
+        background-color: $dark-blue;
+        color: $white;
+        margin-top: 10px;
+      }
+    }
+  }
+
   .communications > div {
     flex: 1 100%;
   }
@@ -104,10 +128,6 @@
 /* Tablets */
 /* --------------------------------------------------- */
 @media (min-width: 768px) and (max-width: 1200px) {
-  .branding {
-    margin-top: 25px;
-  }
-
   header > .fixed-menu-mobile, footer > .footer-mobile {
     display: none;
   }
@@ -120,61 +140,7 @@
 
   .welcome {
     position: relative;
-    padding: 0;
     height: 393px;
-    background: none;
-    margin-top: -15px;
-
-    .welcome-message {
-      margin: 0 auto;
-      color: $white;
-      font-size: 1.7rem;
-      padding: 5px;
-
-      h1 {
-        font-weight: bold;
-        font-size: 3rem;
-        color: $dark-blue;
-      }
-
-      p {
-        color: $dark-blue;
-      }
-
-      .btn-inverse {
-        color: $white;
-        background-color: $dark-blue;
-        padding: 10px 45px;
-        border-radius: 7px;
-        font-size: 1.8rem;
-        margin-top: 0;
-        float: none;
-      }
-    }
-  }
-
-  .welcome > div {
-    width: 100%;
-    margin-top: 0;
-    background: none;
-    padding: 5px 0 10px 0;
-  }
-
-  main > .content > ul:not(.toc) {
-    list-style-type: circle;
-    list-style-position: inside;
-    padding-left: 20px;
-
-    li {
-      margin-top: 5px;
-    }
-  }
-  main > .content > .toc > li {
-    margin-top: 10px;
-  }
-
-  .col-md-12 {
-    width: 95%;
   }
 }
 
@@ -182,6 +148,10 @@
 /* --------------------------------------------------- */
 @media all and (min-width: 1200px) {
   body {
+    header > .fixed-menu-mobile, footer > .footer-mobile {
+      display: none;
+    }
+
     header, main, footer, .notifications, .navbar-fixed-top, .welcome-message {
       min-width: 480px;
       max-width: 1180px;
@@ -198,36 +168,6 @@
 
     header, main, footer, .notifications, .welcome-message {
       position: relative;
-    }
-
-    header > .fixed-menu-mobile, footer > .footer-mobile {
-      display: none;
-    }
-
-    ul[aria-labelledby="learn-menu-button"] {
-      width: 550px;
-    }
-
-    ul[aria-labelledby="signin-menu-button"] {
-      min-width: 450px;
-      padding: 10px 15px;
-      text-align: center;
-
-      h3 {
-        margin-top: 25px;
-        font-size: 1.6rem;
-      }
-      a {
-        margin-left: auto;
-        margin-right: auto;
-      }
-      a.btn {
-        width: 80%;
-      }
-    }
-
-    header > .branding {
-      margin-top: 30px;
     }
 
     header > .app-menu > .navbar > .navbar-nav > li > a {

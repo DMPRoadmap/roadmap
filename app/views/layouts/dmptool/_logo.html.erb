@@ -1,6 +1,6 @@
 <% if user_signed_in? && current_user.org.present? && current_user.org.logo.present? %>
   <%= link_to(image_tag(current_user.org.logo.thumb('100x100%').url,
-                                  alt: current_user.org.name,
+                                  alt: "#{current_user.org.name} logo",
                                   class: "org-logo",
                                   title: current_user.org.name),
                         root_path) %>

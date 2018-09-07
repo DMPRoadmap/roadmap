@@ -49,13 +49,42 @@ header, .notifications, main, footer {
   flex-flow: row wrap;
 }
 
+.fixed-menu {
+  ul[aria-labelledby="learn-menu-button"] {
+    width: 550px;
+  }
+
+  ul[aria-labelledby="signin-menu-button"] {
+    min-width: 450px;
+    padding: 10px 15px;
+    text-align: center;
+
+    h3 {
+      margin-top: 25px;
+      font-size: 1.6rem;
+    }
+    a {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    a.btn {
+      width: 80%;
+    }
+  }
+}
+
 .branding {
   justify-content: space-between;
   align-items: baseline;
+  margin-top: 35px;
 
   .branding-links > ul {
     list-style: none;
   }
+}
+
+.app-menu {
+  font-size: 2rem;
 }
 
 footer {
