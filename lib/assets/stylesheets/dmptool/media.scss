@@ -1,4 +1,6 @@
 /* MEDIA SPECIFIC CHANGES */
+
+/* Phones */
 /* ----------------------------------------------------------------------- */
 @media all and (max-width: 768px) {
   .navbar-fixed-top {
@@ -24,9 +26,28 @@
     }
 
     ul[aria-labelledby="language-menu-button"] > li,
+    ul[aria-labelledby="org-menu-button"] > li,
     ul[aria-labelledby="profile-menu-button"] > li,
     ul[aria-labelledby="signin-menu-button"] > li {
       margin-left: 15px;
+      position: relative;
+
+      .fa-envelope {
+        display: none;
+      }
+      .fa-envelope ~ a:after {
+        content: '\f0e0';
+        font-family: FontAwesome;
+        font-size: 1.3rem;
+        color: $dark-blue;
+        margin:0px 0px 0px 10px;
+        text-decoration:none;
+      }
+    }
+
+    .org-logo {
+      min-height: 50px;
+      max-height: 70px;
     }
   }
 
@@ -80,16 +101,27 @@
   }
 }
 
-/* Homepage images and welcome message */
+/* Tablets */
 /* --------------------------------------------------- */
-@media (min-width: 320px) and (max-width: 480px) {
-  .notifications {
+@media (min-width: 768px) and (max-width: 1200px) {
+  .branding {
     margin-top: 25px;
   }
+
+  header > .fixed-menu-mobile, footer > .footer-mobile {
+    display: none;
+  }
+
+  .homepage-img-1 { background-image: url('../images/homepage/1-med.jpg'); }
+  .homepage-img-2 { background-image: url('../images/homepage/2-med.png'); }
+  .homepage-img-3 { background-image: url('../images/homepage/3-med.jpg'); }
+  .homepage-img-4 { background-image: url('../images/homepage/4-med.jpg'); }
+  .homepage-img-5 { background-image: url('../images/homepage/5-med.png'); }
 
   .welcome {
     position: relative;
     padding: 0;
+    height: 393px;
     background: none;
     margin-top: -15px;
 
@@ -146,75 +178,9 @@
   }
 }
 
-@media (min-width: 480px) and (max-width: 768px) {
-  .homepage-img-1 { background-image: url('../images/homepage/1-small.jpg'); }
-  .homepage-img-2 { background-image: url('../images/homepage/2-small.png'); }
-  .homepage-img-3 { background-image: url('../images/homepage/3-small.jpg'); }
-  .homepage-img-4 { background-image: url('../images/homepage/4-small.jpg'); }
-  .homepage-img-5 { background-image: url('../images/homepage/5-small.png'); }
-
-  .notifications {
-    margin-top: 25px;
-  }
-
-  .welcome {
-    height: 180px;
-
-    .welcome-message {
-      margin: 0 auto;
-      color: $white;
-      font-size: 1.3rem;
-      padding: 5px;
-
-      h1 {
-        color: $white;
-        margin-top: 5px;
-        font-weight: bold;
-        font-size: 1.6rem;
-      }
-      p {
-        color: $white;
-      }
-
-      .btn-inverse {
-        color: $dark-blue;
-        background-color: $white;
-        padding: 5px 15px;
-        border-radius: 7px;
-        font-size: 1.2rem;
-        float: none;
-        margin: 0 auto;
-      }
-    }
-  }
-
-  .welcome > div {
-    width: 100%;
-    background: rgba(14,86,130,.9);
-    margin-top: 45px;
-    padding: 5px 0 10px 0;
-  }
-}
-
-@media (min-width: 768px) {
-  .homepage-img-1 { background-image: url('../images/homepage/1-med.jpg'); }
-  .homepage-img-2 { background-image: url('../images/homepage/2-med.png'); }
-  .homepage-img-3 { background-image: url('../images/homepage/3-med.jpg'); }
-  .homepage-img-4 { background-image: url('../images/homepage/4-med.jpg'); }
-  .homepage-img-5 { background-image: url('../images/homepage/5-med.png'); }
-  .welcome { height: 393px; }
-}
-@media (min-width: 1140px) {
-  .homepage-img-1 { background-image: url('../images/homepage/1-large.jpg'); }
-  .homepage-img-2 { background-image: url('../images/homepage/2-large.png'); }
-  .homepage-img-3 { background-image: url('../images/homepage/3-large.jpg'); }
-  .homepage-img-4 { background-image: url('../images/homepage/4-large.jpg'); }
-  .homepage-img-5 { background-image: url('../images/homepage/5-large.png'); }
-  .welcome { height: 493px; }
-}
-
-
-@media all and (min-width: 768px) {
+/* Laptops and Desktops */
+/* --------------------------------------------------- */
+@media all and (min-width: 1200px) {
   body {
     header, main, footer, .notifications, .navbar-fixed-top, .welcome-message {
       min-width: 480px;
@@ -222,6 +188,13 @@
       width: 100%;
       margin: 0 auto;
     }
+
+    .homepage-img-1 { background-image: url('../images/homepage/1-large.jpg'); }
+    .homepage-img-2 { background-image: url('../images/homepage/2-large.png'); }
+    .homepage-img-3 { background-image: url('../images/homepage/3-large.jpg'); }
+    .homepage-img-4 { background-image: url('../images/homepage/4-large.jpg'); }
+    .homepage-img-5 { background-image: url('../images/homepage/5-large.png'); }
+    .welcome { height: 493px; }
 
     header, main, footer, .notifications, .welcome-message {
       position: relative;
