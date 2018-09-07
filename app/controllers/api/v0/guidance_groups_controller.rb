@@ -1,25 +1,25 @@
-module Api
-  module V0
-    class GuidanceGroupsController  < Api::V0::BaseController
-      before_action :authenticate
-      #after_action :verify_authorized
+# frozen_string_literal: true
 
-      def index
-        raise Pundit::NotAuthorizedError unless Api::V0::GuidanceGroupPolicy.new(@user, :guidance_group).index?
-        @all_viewable_groups = GuidanceGroup.all_viewable(@user)
-        respond_with @all_viewable_groups
-      end
+class Api::V0::GuidanceGroupsController < Api::V0::BaseController
 
-      def pundit_user
-        return @user
-      end
+  before_action :authenticate
 
-
-      private
-        def query_params
-          params.permit(:id)
-        end
-
+  def index
+    unless Api::V0::GuidanceGroupPolicy.new(@user, :guidance_group).index?
+      raise Pundit::NotAuthorizedError
     end
+    @all_viewable_groups = GuidanceGroup.all_viewable(@user)
+    respond_with @all_viewable_groups
   end
+
+  def pundit_user
+    @user
+  end
+
+
+  private
+  def query_params
+    params.permit(:id)
+  end
+
 end

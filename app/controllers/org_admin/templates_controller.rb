@@ -161,9 +161,9 @@ module OrgAdmin
                         end
       if @template.save
         redirect_to edit_org_admin_template_path(@template),
-                    notice: success_message(template_type(@template), _("created"))
+                    notice: success_message(@template, _("created"))
       else
-        flash[:alert] = failed_create_error(@template, template_type(@template))
+        flash[:alert] = flash[:alert] = failure_message(@template, _("create"))
         render :new
       end
     end
@@ -179,20 +179,27 @@ module OrgAdmin
           template.links = ActiveSupport::JSON.decode(params["template-links"])
         end
         if template.save
-          render(status: :ok,
-                 json: { msg: success_message(template_type(template), _("saved")) })
+          render(json: {
+            status: 200,
+            msg: success_message(template, _("saved"))
+          })
         else
-          # Note failed_update_error may return HTML tags (e.g. <br/>) and therefore the
-          # client should parse them accordingly
-          render(status: :bad_request,
-                 json: { msg: failed_update_error(template, template_type(template)) })
+          render(json: {
+            status: :bad_request,
+            msg: failure_message(template, _("save"))
+          })
         end
       rescue ActiveSupport::JSON.parse_error
-        render(status: :bad_request,
-               json: { msg: _("Error parsing links for a #{template_type(template)}") })
+        render(json: {
+          status: :bad_request,
+          msg: _("Error parsing links for a #{template_type(template)}")
+        })
         return
       rescue => e
-        render(status: :forbidden, json: { msg: e.message }) and return
+        render(json: {
+          status: :forbidden,
+          msg: e.message
+        }) and return
       end
     end
 
@@ -204,9 +211,9 @@ module OrgAdmin
       if versions.select { |t| t.plans.length > 0 }.empty?
         versions.each do |version|
           if version.destroy!
-            flash[:notice] = success_message(template_type(template), _("removed"))
+            flash[:notice] = success_message(template, _("removed"))
           else
-            flash[:alert] = failed_destroy_error(template, template_type(template))
+            flash[:alert] = failure_message(template, _("remove"))
           end
         end
       else
