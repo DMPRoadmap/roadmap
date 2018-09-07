@@ -47,4 +47,3 @@ describe('destroyEditorsById test suite', () => {
 afterEach(() => {
   $('body').html('');
 });
-

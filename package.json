@@ -10,7 +10,7 @@
   "scripts": {
     "test": "./node_modules/.bin/karma start",
     "bundle": "./node_modules/.bin/webpack",
-    "lint": "yarn run eslint -- --ext .js --ext .jsx app/assets/javascripts"
+    "lint": "yarn run eslint --ext .js --ext .jsx app/assets/javascripts/**/*.js"
   },
   "author": "California Digital Library (CDL)",
   "license": "MIT",
@@ -22,7 +22,6 @@
     "@rails/webpacker": "3.5",
     "bootstrap-sass": "3.3.7",
     "chart.js": "^2.7.2",
-    "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
     "jquery-accessible-autocomplete-list-aria": "^1.6.1",
     "jquery-ui": "^1.12.1",
@@ -32,7 +31,6 @@
     "number-to-text": "^0.3.4",
     "placeholder": "^1.0.2",
     "popper": "^1.0.1",
-    "rails-ujs": "^5.2.1",
     "timeago.js": "^3.0.2",
     "tinymce": "^4.8.2"
   },
@@ -42,10 +40,26 @@
     "eslint-loader": "^2.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-react": "^7.11.1",
+    "fixture": "^0.1.2",
     "html2js": "^0.2.0",
     "jasmine": "^3.2.0",
+    "jasmine-core": "^3.2.1",
+    "jasmine-jquery": "^2.1.1",
+    "json-fixtures": "^0.1.1",
     "karma": "^3.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-fixture": "^0.2.6",
+    "karma-html2js-preprocessor": "^1.1.0",
+    "karma-jasmine": "^1.1.2",
+    "karma-jquery": "^0.2.3",
+    "karma-json-fixtures-preprocessor": "^0.0.6",
+    "karma-ng-html2js-define-preprocessor": "^1.1.0",
+    "karma-ng-html2js-preprocessor": "^1.0.0",
+    "karma-safari-launcher": "^1.0.0",
+    "karma-webpack": "^3.0.4",
+    "phantomjs-polyfill": "^0.0.2",
     "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0",
     "webpack-dev-server": "2.11.2"
   }
 }

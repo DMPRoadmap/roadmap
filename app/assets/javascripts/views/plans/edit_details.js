@@ -76,4 +76,3 @@ $(() => {
 
   toggleCheckboxes($('#priority-guidance-orgs input[type="checkbox"]:checked').map((i, el) => $(el).val()).get());
 });
-

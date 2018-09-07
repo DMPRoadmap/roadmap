@@ -4,12 +4,12 @@ module.exports = function webpackKarmaConf(config) {
     // ... normal karma configuration
     files: [
       // all files ending in "_test"
-      { pattern: './javascripts/**/*Spec.js', watched: false },
+      { pattern: 'app/assets/javascripts/**/*Spec.js', watched: false },
       // each file acts as entry point for the webpack configuration
     ],
 
     preprocessors: {
-      './javascripts/**/*Spec.js': ['webpack'],
+      'app/assets/javascripts/**/*Spec.js': ['webpack'],
     },
 
     webpack: {

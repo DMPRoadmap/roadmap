@@ -1,5 +1,5 @@
 // config/webpack/loaders/eslint.js
-const { env } = require('../configuration.js')
+const { env } = require('../environment.js')
 
 module.exports = {
   enforce: 'pre',

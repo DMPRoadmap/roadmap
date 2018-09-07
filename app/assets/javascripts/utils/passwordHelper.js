@@ -13,8 +13,7 @@ const togglePassword = (password) => {
   $(password).attr('type', ($(password).attr('type') === 'password' ? 'text' : 'password'));
 };
 
-const isValid = ((pwd, confirmation) =>
-  pwd === confirmation
+const isValid = ((pwd, confirmation) => pwd === confirmation
 );
 
 const valid = (el, block) => {

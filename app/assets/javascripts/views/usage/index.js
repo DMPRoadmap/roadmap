@@ -18,7 +18,8 @@ $(() => {
       acc[id] = {
         start_date: getLastMonth().startOf('month').subtract(i, 'month').format('YYYY-MM-DD'),
         end_date: getLastMonth().endOf('month').subtract(i, 'month').format('YYYY-MM-DD'),
-        id };
+        id,
+      };
       return acc;
     }, {});
 
@@ -89,7 +90,8 @@ $(() => {
         dataTotals !== null ? dataTopics.find('[data-totals]').html(dataTotals) : undefined; // eslint-disable-line no-unused-expressions
         views.show();
         dataTopics.show();
-      }); // TODO request error handling
+      },
+    ); // TODO request error handling
   });
   /*
     Click event associated to each Export button

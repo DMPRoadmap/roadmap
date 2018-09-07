@@ -9,8 +9,8 @@ $(() => {
   // Returns Boolean
   function prefixSectionExists(draggableSections) {
     return !!draggableSections
-      .has('[data-modifiable=true]:nth-child(1)').length &&
-      !!draggableSections.has('[data-modifiable=true]:nth-child(2)').length;
+      .has('[data-modifiable=true]:nth-child(1)').length
+      && !!draggableSections.has('[data-modifiable=true]:nth-child(2)').length;
   }
 
   // Initialize the draggable-sections element as a jQuery sortable.

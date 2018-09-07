@@ -14,10 +14,9 @@ $(() => {
       - #note_archive${note.id}
   */
   const getCurrentViewSelector = questionId => currentViewSelector[questionId];
-  const putCurrentViewSelector =
-    (questionId, value) => {
-      currentViewSelector[questionId] = value;
-    };
+  const putCurrentViewSelector = (questionId, value) => {
+    currentViewSelector[questionId] = value;
+  };
   const initialiseCurrentViewSelector = () => {
     $('.note_new').each((i, e) => {
       const questionId = $(e).attr('data-question-id');
@@ -25,13 +24,13 @@ $(() => {
     });
   };
   const success = (data) => {
-    if (isObject(data) &&
-      isObject(data.notes) &&
-      isString(data.notes.id) &&
-      isString(data.notes.html) &&
-      isObject(data.title) &&
-      isString(data.title.id) &&
-      isString(data.title.html)) {
+    if (isObject(data)
+      && isObject(data.notes)
+      && isString(data.notes.id)
+      && isString(data.notes.html)
+      && isObject(data.title)
+      && isString(data.title.id)
+      && isString(data.title.html)) {
       $(`#notes-${data.notes.id}`).html(data.notes.html);
       $(`#notes-title-${data.title.id}`).html(data.title.html);
     }
@@ -110,8 +109,8 @@ $(() => {
     const formElements = jQueryForm.serializeArray();
     const noteText = formElements.find(el => el.name === 'note[text]');
     const id = $(source).closest('form').find('[name="note[text]"]').attr('id');
-    const questionId = $(source).closest('.note_new').attr('data-question-id') ||
-      $(source).closest('.note_edit').attr('data-question-id');
+    const questionId = $(source).closest('.note_new').attr('data-question-id')
+      || $(source).closest('.note_edit').attr('data-question-id');
     noteText.value = Tinymce.findEditorById(id).getContent();
     $.ajax({
       method: getMethod(jQueryForm),
@@ -140,8 +139,8 @@ $(() => {
   };
   const noteCancelHandler = (e) => {
     const source = e.target;
-    const questionId = $(source).closest('.note_edit').attr('data-question-id') ||
-      $(source).closest('.note_archive').attr('data-question-id');
+    const questionId = $(source).closest('.note_edit').attr('data-question-id')
+      || $(source).closest('.note_archive').attr('data-question-id');
     const viewSelectorSelected = getCurrentViewSelector(questionId);
     $(viewSelectorSelected)
       .hide({ complete: () => destroyCurrentViewEditor($(viewSelectorSelected)) });

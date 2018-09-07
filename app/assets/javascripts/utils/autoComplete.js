@@ -1,6 +1,6 @@
-import debounce from '../utils/debounce';
-import { isObject } from '../utils/isType';
-import { isValidText } from '../utils/isValidInputType';
+import debounce from './debounce';
+import { isObject } from './isType';
+import { isValidText } from './isValidInputType';
 
 /*
  * Looks up the id for the text selected by the user in the jquery autocomplete combobox and

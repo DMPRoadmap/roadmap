@@ -12,13 +12,14 @@ import 'tinymce/plugins/advlist';
 // Other dependencies
 import { isObject, isString } from './isType';
 
-// Configuration extracted from https://www.tinymce.com/docs/advanced/usage-with-module-loaders/
-require.context(
-  'file-loader?name=./stylesheets/[path][name].[ext]&context=node_modules/tinymce!tinymce/skins',
-  true,
-  /.*/,
-);
-
+// // Configuration extracted from
+// // https://www.tinymce.com/docs/advanced/usage-with-module-loaders/
+// require.context(
+//   'node_modules/tinymce/skins/lightgray/skin.min.css',
+//   true,
+//   /.*/,
+// );
+//
 export const defaultOptions = {
   selector: '.tinymce',
   statusbar: false,

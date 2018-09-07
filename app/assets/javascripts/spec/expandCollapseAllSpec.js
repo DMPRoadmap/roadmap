@@ -1,7 +1,7 @@
 import expandCollapseAll from '../utils/expandCollapseAll';
 
 describe('expandCollapseAll test suite', () => {
-  beforeAll(() => fixture.setBase('javascripts/spec/fixtures'));
+  beforeAll(() => fixture.setBase('app/assets/javascripts/spec/fixtures'));
 
   beforeEach(() => {
     this.form = fixture.load('accordion.html');

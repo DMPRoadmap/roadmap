@@ -1,7 +1,8 @@
 import {
   isObject,
   isNumber,
-  isString } from '../../utils/isType';
+  isString,
+} from '../../utils/isType';
 import { Tinymce } from '../../utils/tinymce';
 import debounce from '../../utils/debounce';
 import TimeagoFactory from '../../utils/timeagoFactory';
@@ -73,8 +74,9 @@ $(() => {
   };
   const failCallback = (error, jQuery) => {
     closestErrorSavingMessage(jQuery).html(
-      (isObject(error.responseJSON) && isString(error.responseJSON.detail)) ?
-        error.responseJSON.detail : error.statusText).show();
+      (isObject(error.responseJSON) && isString(error.responseJSON.detail))
+        ? error.responseJSON.detail : error.statusText,
+    ).show();
   };
   const changeHandler = (e) => {
     const target = $(e.target);

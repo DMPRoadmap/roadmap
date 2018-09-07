@@ -26,8 +26,8 @@ $(() => {
   const success = (data) => {
     hideNotifications();
 
-    if (isObject(data) &&
-        isArray(data.templates)) {
+    if (isObject(data)
+        && isArray(data.templates)) {
       // Display the available_templates section
       if (data.templates.length > 0) {
         data.templates.forEach((t) => {

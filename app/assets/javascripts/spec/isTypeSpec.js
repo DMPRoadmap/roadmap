@@ -8,7 +8,8 @@ import {
   isObject,
   isRegExp,
   isString,
-  isUndefined } from '../utils/isType';
+  isUndefined,
+} from '../utils/isType';
 
 describe('isArray test suite', () => {
   it('expect true for []', () => expect(isArray([])).toBe(true));

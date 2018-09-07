@@ -20,8 +20,8 @@ $(() => {
     if (isUndefined(num)) {
       // for each top level standard
       Object.keys(minTree).forEach((knum) => {
-        const child = Object.keys(minTree[knum].children).find(x =>
-          minTree[knum].children[x].name === name);
+        const child = Object.keys(minTree[knum].children)
+          .find(x => minTree[knum].children[x].name === name);
         if (isObject(child)) {
           delete minTree[knum].children[child];
           $(`.rda_metadata .sub-subject select option[value="${name}"]`).remove();

@@ -1,12 +1,16 @@
 {
-    "extends": "airbnb-base",
-    "env": {
-        "jasmine": true,
-        "jquery": true
-    },
-    "globals": {
-        "timeago": true,
-        "fixture": true,
-        "spyOnEvent": true
-    }
+  "extends": "airbnb-base",
+  "env": {
+    "jasmine": true,
+    "jquery": true
+  },
+  "globals": {
+    "timeago": true,
+    "fixture": true,
+    "spyOnEvent": true
+  },
+  "rules": {
+    "prefer-destructuring": "off",
+    "no-restricted-globals": "off"
+  }
 }

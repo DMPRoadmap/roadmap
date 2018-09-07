@@ -6,9 +6,8 @@ if (!Array.prototype.find) {
       throw new TypeError('predicate must be a function');
     }
     const array = Object(this);
-    const length = array.length;
     let i = 0;
-    while (i < length) {
+    while (i < array.length) {
       if (predicate.call(this, array[i], i, array)) {
         return array[i];
       }
@@ -17,4 +16,3 @@ if (!Array.prototype.find) {
     return undefined;
   };
 }
-

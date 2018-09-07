@@ -96,3 +96,8 @@ lib/data_cleanup/rules/org/fix_blank_abbreviation.yml
 yarn-debug.log*
 .yarn-integrity
 yarn-error.log
+/public/packs
+/public/packs-test
+/node_modules
+yarn-debug.log*
+.yarn-integrity

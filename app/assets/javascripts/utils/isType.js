@@ -1,4 +1,5 @@
 const toString = Object.prototype.toString;
+
 /*
   Checks whether or the value passed is type Array.
   @param value to check

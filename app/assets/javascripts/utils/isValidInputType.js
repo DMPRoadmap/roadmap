@@ -44,10 +44,11 @@ export const isValidNumber = (value) => {
   @return true or false
 */
 export const isValidPassword = (value) => {
+  const minLength = getConstant('PASSWORD_MIN_LENGTH') || 8;
+  const maxLength = getConstant('PASSWORD_MAX_LENGTH') || 128;
   if (isString(value)) {
     const trimmed = value.trim();
-    return trimmed.length >= getConstant('PASSWORD_MIN_LENGTH') &&
-    trimmed.length <= getConstant('PASSWORD_MAX_LENGTH');
+    return trimmed.length >= minLength && trimmed.length <= maxLength;
   }
   return false;
 };

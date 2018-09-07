@@ -2,19 +2,18 @@ import 'number-to-text/converters/en-us';
 import { convertToText } from 'number-to-text/index';
 import { isFunction } from './isType';
 
-const getLinks = elem =>
-  $(elem).find('.link').map((i, el) => {
-    const link = $(el);
-    // toggleValidations(link);
-    const linkVal = link.find('input[name="link_link"]').val();
-    const textVal = link.find('input[name="link_text"]').val();
-    if (linkVal || textVal) {
-      return { link: linkVal, text: textVal };
-    }
-    // If linkVal and textVal are empty trigger delete handler
-    link.find('.delete').first().trigger('click');
-    return undefined;
-  }).get();
+const getLinks = elem => $(elem).find('.link').map((i, el) => {
+  const link = $(el);
+  // toggleValidations(link);
+  const linkVal = link.find('input[name="link_link"]').val();
+  const textVal = link.find('input[name="link_text"]').val();
+  if (linkVal || textVal) {
+    return { link: linkVal, text: textVal };
+  }
+  // If linkVal and textVal are empty trigger delete handler
+  link.find('.delete').first().trigger('click');
+  return undefined;
+}).get();
 
 /*
  * Iterates through any links class found and for each one found,

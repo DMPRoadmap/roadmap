@@ -32,7 +32,7 @@ const onChangeQuestionFormat = (e) => {
       questionOptions.hide();
       opComment.show();
       break;
-    default :
+    default:
       break;
   }
 };
