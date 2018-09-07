@@ -64,6 +64,10 @@ jobs:
       name: "Bundle audit"
       script: bundle exec bundle-audit check --update
 
+    - stage: test
+      name: "Karma JS tests"
+      script: npm run test
+
     - stage: hygiene
       name: "Check seeds are valid"
       script: bin/setup && bundle exec rake db:seed
