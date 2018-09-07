@@ -17,7 +17,7 @@ RSpec.describe "SuperAdmins Orgs", type: :feature, js: true do
     expect(page).to have_text("New organisation")
     click_button "Save"
     expect(current_path).to eql(super_admin_orgs_path)
-    expect(page).to have_text("Error: Unable to create your organisation.")
+    expect(page).to have_text("Error: Unable to create the organisation.")
   end
 
 
