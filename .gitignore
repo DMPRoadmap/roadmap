@@ -95,3 +95,4 @@ lib/data_cleanup/rules/org/fix_blank_abbreviation.yml
 /node_modules
 yarn-debug.log*
 .yarn-integrity
+yarn-error.log
