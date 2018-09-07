@@ -1,3 +1,7 @@
+// Rails setup
+import 'jquery-ujs';
+import 'jquery-accessible-autocomplete-list-aria/jquery-accessible-autocomplete-list-aria';
+
 // Generic JS that is applicable across multiple pages
 import 'utils/array';
 import 'utils/paginable';
@@ -6,17 +10,13 @@ import 'utils/links';
 import 'utils/tabHelper';
 import 'utils/tooltipHelper';
 import 'utils/popoverHelper';
+import 'utils/requiredField';
 
 // Page specific JS
 import 'views/answers/edit';
 import 'views/answers/rda_metadata';
-import 'views/contacts/new';
-import 'views/devise/invitations/edit';
 import 'views/devise/passwords/edit';
-import 'views/devise/passwords/new';
 import 'views/devise/registrations/edit';
-import 'views/guidance_groups/admin_edit';
-import 'views/guidance_groups/admin_new';
 import 'views/guidances/new_edit';
 import 'views/notes/index';
 import 'views/org_admin/phases/new_edit';
@@ -45,5 +45,3 @@ import 'views/usage/index';
 import 'views/users/notification_preferences';
 import 'views/users/admin_grant_permissions';
 import 'views/super_admin/notifications/edit';
-
-alert('it works!');

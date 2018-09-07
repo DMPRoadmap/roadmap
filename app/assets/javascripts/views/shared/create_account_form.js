@@ -1,10 +1,8 @@
-import ariatiseForm from '../../utils/ariatiseForm';
 import { togglisePasswords } from '../../utils/passwordHelper';
 import { initOrgSelection, validateOrgSelection } from './my_org';
 
 $(() => {
   const options = { selector: '#create-account-form' };
-  ariatiseForm(options);
   togglisePasswords(options);
   initOrgSelection(options);
 

@@ -7,6 +7,11 @@
     "type": "git",
     "url": "git+https://github.com/DMPRoadmap/roadmap.git"
   },
+  "scripts": {
+    "test": "./node_modules/.bin/karma start",
+    "bundle": "./node_modules/.bin/webpack",
+    "lint": "yarn run eslint -- --ext .js --ext .jsx app/assets/javascripts"
+  },
   "author": "California Digital Library (CDL)",
   "license": "MIT",
   "bugs": {
@@ -15,7 +20,7 @@
   "homepage": "https://github.com/DMPRoadmap/roadmap#readme",
   "dependencies": {
     "@rails/webpacker": "3.5",
-    "bootstrap-sass": "^3.3.7",
+    "bootstrap-sass": "3.3.7",
     "chart.js": "^2.7.2",
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
@@ -26,10 +31,21 @@
     "moment": "^2.22.2",
     "number-to-text": "^0.3.4",
     "placeholder": "^1.0.2",
+    "popper": "^1.0.1",
+    "rails-ujs": "^5.2.1",
     "timeago.js": "^3.0.2",
     "tinymce": "^4.8.2"
   },
   "devDependencies": {
+    "eslint": "^5.5.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-react": "^7.11.1",
+    "html2js": "^0.2.0",
+    "jasmine": "^3.2.0",
+    "karma": "^3.0.0",
+    "webpack": "^4.17.2",
     "webpack-dev-server": "2.11.2"
   }
 }
