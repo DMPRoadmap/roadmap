@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StaticPagesController < ApplicationController
 
   def about_us
@@ -23,4 +25,5 @@ class StaticPagesController < ApplicationController
 
   def help
   end
+
 end

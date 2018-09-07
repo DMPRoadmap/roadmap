@@ -33,7 +33,7 @@
   <div class="form-group">
     <div class="checkbox">
       <%= f.label(:accept_terms) do %>
-        <%= f.check_box(:accept_terms, "aria-required": true, "data-validation-error": _('You must agree to the term and conditions.')) %>
+        <%= f.check_box(:accept_terms, "aria-required": true) %>
         <%= _('I accept the') %>
         <%= link_to _('terms and conditions'), terms_path %>
       <% end %>

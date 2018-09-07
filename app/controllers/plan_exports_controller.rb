@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PlanExportsController < ApplicationController
 
   after_action :verify_authorized
@@ -58,13 +60,13 @@ class PlanExportsController < ApplicationController
   end
 
   def show_text
-    send_data render_to_string(partial: 'shared/export/plan_txt'),
+    send_data render_to_string(partial: "shared/export/plan_txt"),
               filename: "#{file_name}.txt"
   end
 
   def show_docx
     render docx: "#{file_name}.docx",
-           content: render_to_string(partial: 'shared/export/plan')
+           content: render_to_string(partial: "shared/export/plan")
   end
 
   def show_pdf
@@ -97,4 +99,5 @@ class PlanExportsController < ApplicationController
   def export_params
     params.fetch(:export, {})
   end
+
 end
