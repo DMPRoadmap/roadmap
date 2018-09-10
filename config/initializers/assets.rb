@@ -1,7 +1,6 @@
-Rails.application.config.assets.precompile += %w[
-  *.ico *.png *.jpg *.jpeg *.gif
-  vendor.js
-]
+# Rails.application.config.assets.precompile += %w[
+#   *.ico *.png *.jpg *.jpeg *.gif
+# ]
 
 if Rails.env.staging? or Rails.env.production?
   # Compress JavaScripts and CSS.
@@ -20,6 +19,7 @@ if Rails.env.staging? or Rails.env.production?
   # yet still be able to expire them through the digest params.
   Rails.application.config.assets.digest = true
 
+  Rails.logger.debug("Digest: #{Rails.application.config.assets.digest}")
 
 elsif Rails.env.development?
 

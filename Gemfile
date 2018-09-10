@@ -88,11 +88,9 @@ gem "sass-rails", require: false
 
 gem 'font-awesome-sass', '~> 4.2.0'
 
-gem 'webpacker', '~> 3.5'
+gem 'webpacker'
 
 gem "autoprefixer-rails"
-
-gem 'yarn'
 
 # ------------------------------------------------
 # EXPORTING

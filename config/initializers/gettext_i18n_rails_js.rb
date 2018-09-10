@@ -1,5 +1,5 @@
 GettextI18nRailsJs.config do |config|
-  config.output_path = "lib/assets/javascripts/locale"
+  config.output_path = Rails.root.join("app", "assets", "javascripts", "locale")
 
   config.handlebars_function = "__"
   config.javascript_function = "__"
