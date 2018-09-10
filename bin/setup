@@ -38,4 +38,5 @@ Dir.chdir APP_ROOT do
   system "touch tmp/restart.txt"
 end
 
-
+# Install Yarn dependencies...
+yarn install
