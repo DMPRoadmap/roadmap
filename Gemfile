@@ -85,13 +85,14 @@ gem 'bootstrap-sass', '~> 3.3.7'
 
 # This is required for Font-Awesome, but not used as the main sass compiler
 gem "sass-rails", require: false
+
 gem 'font-awesome-sass', '~> 4.2.0'
 
 gem 'webpacker', '~> 3.5'
 
 gem "autoprefixer-rails"
 
-gem 'uglifier'
+gem 'yarn'
 
 # ------------------------------------------------
 # EXPORTING
