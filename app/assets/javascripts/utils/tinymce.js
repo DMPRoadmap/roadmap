@@ -14,12 +14,6 @@ import { isObject, isString } from './isType';
 
 // // Configuration extracted from
 // // https://www.tinymce.com/docs/advanced/usage-with-module-loaders/
-// require.context(
-//   'node_modules/tinymce/skins/lightgray/skin.min.css',
-//   true,
-//   /.*/,
-// );
-//
 export const defaultOptions = {
   selector: '.tinymce',
   statusbar: false,
@@ -43,7 +37,9 @@ export const defaultOptions = {
   table_default_attributes: {
     border: 1,
   },
-  skin_url: '/stylesheets/skins/lightgray', // editorManager.baseURL is not resolved properly for IE since document.currentScript is not supported, see issue https://github.com/tinymce/tinymce/issues/3584
+  // editorManager.baseURL is not resolved properly for IE since document.currentScript
+  // is not supported, see issue https://github.com/tinymce/tinymce/issues/358
+  skin_url: '/stylesheets/skins/lightgray',
 };
 /*
   This function is invoked anytime a new editor is initialised (e.g. Tinymce.init())

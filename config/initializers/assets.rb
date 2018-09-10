@@ -1,3 +1,8 @@
+Rails.application.config.assets.paths << Rails.root.join('node_modules')
+
+Rails.application.config.assets.precompile += %w[ tinymce/lightgray/skin.min.css ]
+
+
 if Rails.env.staging? or Rails.env.production?
 
   # Compress JavaScripts and CSS.
@@ -16,7 +21,7 @@ if Rails.env.staging? or Rails.env.production?
   # yet still be able to expire them through the digest params.
   Rails.application.config.assets.digest = true
 
-elsif Rails.env.development?
+else
 
   Rails.application.config.sass.inline_source_maps = true
 
