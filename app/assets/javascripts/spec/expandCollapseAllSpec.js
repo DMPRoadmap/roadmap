@@ -4,7 +4,7 @@ describe('expandCollapseAll test suite', () => {
   beforeAll(() => fixture.setBase('app/assets/javascripts/spec/fixtures'));
 
   beforeEach(() => {
-    this.form = fixture.load('accordion.html');
+    $('body').html(fixture.load('accordion.html'));
     expandCollapseAll({ selector: '#accordion' });
   });
 
