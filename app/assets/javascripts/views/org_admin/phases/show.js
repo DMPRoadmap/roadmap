@@ -13,23 +13,21 @@ $(() => {
     // How many modifiable sections are there?
     const modifiableSections = draggableSections.has('[data-modifiable=true]').length;
     // If all sections are modifiable, return false;
-    if (numberOfSections == modifiableSections) {
+    if (numberOfSections === modifiableSections) {
       return false;
     }
-    ////
     // Assuming all sections are NOT modifiable...
 
     // A boolean to check if there a modifible prefix Section
-    const firS = draggableSections.has('[data-modifiable=true]:nth-child(1)').length == 1;
+    const prefix1 = draggableSections
+      .has('[data-modifiable=true]:nth-child(1)').length === 1;
 
     // A boolean to check if there's a second prefix Section (this is invalid!)
-    const secS = draggableSections.has('[data-modifiable=true]:nth-child(2)').length == 1;
+    const prefix2 = draggableSections
+      .has('[data-modifiable=true]:nth-child(2)').length === 1;
 
-    if (firS && secS) {
-      return true;
-    } else {
-      return false;
-    }
+    // Return whether there are two prefixes or not?
+    return prefix1 && prefix2;
   }
 
   // Initialize the draggable-sections element as a jQuery sortable.

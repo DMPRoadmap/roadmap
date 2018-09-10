@@ -1,13 +1,10 @@
-# Rails.application.config.assets.precompile += %w[
-#   *.ico *.png *.jpg *.jpeg *.gif
-# ]
-
 if Rails.env.staging? or Rails.env.production?
+
   # Compress JavaScripts and CSS.
-  # Rails.application.config.assets.js_compressor = Uglifier.new(harmony: true)
-  # Rails.application.config.assets.js_compressor = nil
 
   Rails.application.config.assets.css_compressor = :sass
+
+  Rails.application.config.sass.inline_source_maps = false
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   Rails.application.config.assets.compile = false
@@ -19,11 +16,9 @@ if Rails.env.staging? or Rails.env.production?
   # yet still be able to expire them through the digest params.
   Rails.application.config.assets.digest = true
 
-  Rails.logger.debug("Digest: #{Rails.application.config.assets.digest}")
-
 elsif Rails.env.development?
 
-  Rails.application.config.sass.inline_source_maps = false
+  Rails.application.config.sass.inline_source_maps = true
 
   Rails.application.config.assets.compile = true
 
