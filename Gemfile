@@ -140,10 +140,6 @@ group :development, :test do
   gem "rspec-rails"
 
   # factory_bot_rails provides integration between factory_bot and rails 3 or newer (http://github.com/thoughtbot/factory_bot_rails)
-  # rspec-collection_matchers-1.1.3 (https://github.com/rspec/rspec-collection_matchers)
-  gem "rspec-collection_matchers"
-
-  # factory_bot_rails provides integration between factory_bot and rails 3 or newer (http://github.com/thoughtbot/factory_bot_rails)
   gem "factory_bot_rails"
 
   # Easily generate fake data (https://github.com/stympy/faker)
