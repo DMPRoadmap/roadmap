@@ -16,8 +16,6 @@ class StaticPagesController < ApplicationController
 
     render 'static_pages/dmptool/about_us'
   end
-# END DMPTool customization
-# ------------------------------------
 
   def contact_us
   end
@@ -36,5 +34,27 @@ class StaticPagesController < ApplicationController
   def help
     render 'static_pages/dmptool/help'
   end
+
+  def promote
+    render 'static_pages/dmptool/promote'
+  end
+
+  def researchers
+    render 'static_pages/dmptool/researchers'
+  end
+
+  def faq
+    render 'static_pages/dmptool/faq'
+  end
+
+  def general_guidance
+    render 'static_pages/dmptool/general_guidance'
+  end
+
+  def news_media
+    render 'static_pages/dmptool/news_media'
+  end
+# END DMPTool customization
+# ------------------------------------
 
 end
