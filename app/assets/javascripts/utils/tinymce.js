@@ -39,7 +39,7 @@ export const defaultOptions = {
   },
   // editorManager.baseURL is not resolved properly for IE since document.currentScript
   // is not supported, see issue https://github.com/tinymce/tinymce/issues/358
-  skin_url: '/stylesheets/skins/lightgray',
+  skin_url: '/tinymce/skins/lightgray',
 };
 /*
   This function is invoked anytime a new editor is initialised (e.g. Tinymce.init())
