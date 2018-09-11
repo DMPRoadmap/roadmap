@@ -74,7 +74,9 @@ jobs:
 
     - stage: test
       name: "Karma JS tests"
-      script: npm install && npm run test
+      script:
+        - npm install
+        - npm run test
 
     - stage: hygiene
       name: "Check seeds are valid"
