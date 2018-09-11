@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class SessionsController < Devise::SessionsController
-  
+
   def new
     redirect_to(root_path)
   end
@@ -9,18 +11,28 @@ class SessionsController < Devise::SessionsController
   def create
     existing_user = User.find_by(email: params[:user][:email])
     if !existing_user.nil?
-      
+
       # Until ORCID login is supported
-      if !session['devise.shibboleth_data'].nil?
-        if u = UserIdentifier.create(identifier_scheme: IdentifierScheme.find_by(name: 'shibboleth'),
-                                 identifier: session['devise.shibboleth_data']['uid'],
-                                 user: existing_user)
-          success = _('Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them.')
+      if !session["devise.shibboleth_data"].nil?
+        args = {
+          identifier_scheme: IdentifierScheme.find_by(name: "shibboleth"),
+          identifier: session["devise.shibboleth_data"]["uid"],
+          user: existing_user
+        }
+        if UserIdentifier.create(args)
+          # rubocop:disable LineLength
+          success = _("Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them.")
+          # rubocop:enable LineLength
         end
-        existing_user.update_attributes(shibboleth_id: session['devise.shibboleth_data'][:uid])
+        existing_user.update_attributes(
+          shibboleth_id: session["devise.shibboleth_data"][:uid]
+        )
       end
-      session[:locale] = existing_user.get_locale unless existing_user.get_locale.nil?
-      set_gettext_locale  #Method defined at controllers/application_controller.rb
+      unless existing_user.get_locale.nil?
+        session[:locale] = existing_user.get_locale
+      end
+      # Method defined at controllers/application_controller.rb
+      set_gettext_locale
     end
     super
     if success
@@ -31,6 +43,8 @@ class SessionsController < Devise::SessionsController
   def destroy
     super
     session[:locale] = nil
-    set_gettext_locale  #Method defined at controllers/application_controller.rb
+    # Method defined at controllers/application_controller.rb
+    set_gettext_locale
   end
+
 end

@@ -6,6 +6,8 @@ module OrgAdmin
 
     include Paginable
     include Versionable
+    include TemplateMethods
+
     after_action :verify_authorized
 
     # The root version of index which returns all templates
@@ -142,31 +144,27 @@ module OrgAdmin
     # GET /org_admin/templates/new
     def new
       authorize Template
-      render "container", locals: {
-        partial_path: "new",
-        template: Template.new(org: current_user.org),
-        referrer: request.referrer.present? ? request.referrer : org_admin_templates_path
-      }
+      @template = current_org.templates.new
     end
 
     # POST /org_admin/templates
     def create
       authorize Template
       # creates a new template with version 0 and new family_id
-      template = Template.new(template_params)
-      template.org_id = current_user.org.id
-      template.links = if params["template-links"].present?
-                         ActiveSupport::JSON.decode(params["template-links"])
-                       else
-                         { "funder": [], "sample_plan": [] }
-                       end
-      if template.save
-        redirect_to edit_org_admin_template_path(template),
-                    notice: success_message(template_type(template), _("created"))
+      @template = Template.new(template_params)
+      @template.org_id = current_user.org.id
+      @template.locale = current_org.language.abbreviation
+      @template.links = if params["template-links"].present?
+                          ActiveSupport::JSON.decode(params["template-links"])
+                        else
+                          { "funder": [], "sample_plan": [] }
+                        end
+      if @template.save
+        redirect_to edit_org_admin_template_path(@template),
+                    notice: success_message(@template, _("created"))
       else
-        flash[:alert] = failed_create_error(template, template_type(template))
-        render partial: "org_admin/templates/new",
-               locals: { template: template, hash: hash }
+        flash[:alert] = flash[:alert] = failure_message(@template, _("create"))
+        render :new
       end
     end
 
@@ -181,20 +179,27 @@ module OrgAdmin
           template.links = ActiveSupport::JSON.decode(params["template-links"])
         end
         if template.save
-          render(status: :ok,
-                 json: { msg: success_message(template_type(template), _("saved")) })
+          render(json: {
+            status: 200,
+            msg: success_message(template, _("saved"))
+          })
         else
-          # Note failed_update_error may return HTML tags (e.g. <br/>) and therefore the
-          # client should parse them accordingly
-          render(status: :bad_request,
-                 json: { msg: failed_update_error(template, template_type(template)) })
+          render(json: {
+            status: :bad_request,
+            msg: failure_message(template, _("save"))
+          })
         end
       rescue ActiveSupport::JSON.parse_error
-        render(status: :bad_request,
-               json: { msg: _("Error parsing links for a #{template_type(template)}") })
+        render(json: {
+          status: :bad_request,
+          msg: _("Error parsing links for a #{template_type(template)}")
+        })
         return
       rescue => e
-        render(status: :forbidden, json: { msg: e.message }) and return
+        render(json: {
+          status: :forbidden,
+          msg: e.message
+        }) and return
       end
     end
 
@@ -206,9 +211,9 @@ module OrgAdmin
       if versions.select { |t| t.plans.length > 0 }.empty?
         versions.each do |version|
           if version.destroy!
-            flash[:notice] = success_message(template_type(template), _("removed"))
+            flash[:notice] = success_message(template, _("removed"))
           else
-            flash[:alert] = failed_destroy_error(template, template_type(template))
+            flash[:alert] = failure_message(template, _("remove"))
           end
         end
       else
@@ -239,77 +244,6 @@ module OrgAdmin
         referrer: local_referrer,
         current: templates.maximum(:version)
       }
-    end
-
-    # POST /org_admin/templates/:id/customize
-    def customize
-      template = Template.find(params[:id])
-      authorize template
-      if template.customize?(current_user.org)
-        begin
-          customisation = template.customize!(current_user.org)
-          redirect_to org_admin_template_path(customisation)
-        rescue StandardError => e
-          flash[:alert] = _("Unable to customize that template.")
-          if request.referrer.present?
-            redirect_to request.referrer
-          else
-            redirect_to org_admin_templates_path
-          end
-        end
-      else
-        flash[:notice] = _("That template is not customizable.")
-        if request.referrer.present?
-          redirect_to request.referrer
-        else
-          redirect_to org_admin_templates_path
-        end
-      end
-    end
-
-    # POST /org_admin/templates/:id/transfer_customization
-    # the funder template's id is passed through here
-    def transfer_customization
-      template = Template.includes(:org).find(params[:id])
-      authorize template
-      if template.upgrade_customization?
-        begin
-          new_customization = template.upgrade_customization!
-          redirect_to org_admin_template_path(new_customization)
-        rescue StandardError => e
-          flash[:alert] = _("Unable to transfer your customizations.")
-          if request.referrer.present?
-            redirect_to request.referrer
-          else
-            redirect_to org_admin_templates_path
-          end
-        end
-      else
-        flash[:notice] = _("That template is no longer customizable.")
-        if request.referrer.present?
-          redirect_to request.referrer
-        else
-          redirect_to org_admin_templates_path
-        end
-      end
-    end
-
-    # POST /org_admin/templates/:id/copy (AJAX)
-    def copy
-      template = Template.find(params[:id])
-      authorize template
-      begin
-        new_copy = template.generate_copy!(current_user.org)
-        flash[:notice] = "#{template_type(template).capitalize} was successfully copied."
-        redirect_to edit_org_admin_template_path(new_copy)
-      rescue StandardError => e
-        flash[:alert] = failed_create_error(template, template_type(template))
-        if request.referrer.present?
-          redirect_to request.referrer
-        else
-          redirect_to org_admin_templates_path
-        end
-      end
     end
 
     # PATCH /org_admin/templates/:id/publish  (AJAX)
@@ -347,73 +281,10 @@ module OrgAdmin
       redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
     end
 
-    # GET /org_admin/template_options  (AJAX)
-    # Collect all of the templates available for the org+funder combination
-    def template_options
-      org_id = (plan_params[:org_id] == "-1" ? "" : plan_params[:org_id])
-      funder_id = (plan_params[:funder_id] == "-1" ? "" : plan_params[:funder_id])
-      authorize Template.new
-      templates = []
-
-      if org_id.present? || funder_id.present?
-        unless funder_id.blank?
-          # Load the funder's template(s) minus the default template (that gets swapped
-          # in below if NO other templates are available)
-          templates = Template.latest_customizable
-                              .where(org_id: funder_id).select { |t| !t.is_default? }
-          unless org_id.blank?
-            # Swap out any organisational cusotmizations of a funder template
-            templates = templates.map do |tmplt|
-              customization = Template.published
-                                      .latest_customized_version(tmplt.family_id,
-                                                                 org_id).first
-              # Only provide the customized version if its still up to date with the
-              # funder template!
-              if customization.present? && !customization.upgrade_customization?
-                customization
-              else
-                tmplt
-              end
-            end
-          end
-        end
-
-        # If the no funder was specified OR the funder matches the org
-        if funder_id.blank? || funder_id == org_id
-          # Retrieve the Org's templates
-          templates << Template.published
-                               .organisationally_visible
-                               .where(org_id: org_id, customization_of: nil).to_a
-        end
-        templates = templates.flatten.uniq
-      end
-
-      # If no templates were available use the default template
-      if templates.empty?
-        default = Template.default
-        if default.present?
-          customization = Template.published.latest_customized_version(default.family_id,
-                                                                       org_id).first
-          templates << (customization.present? ? customization : default)
-        end
-      end
-      render json: {
-        templates: templates.sort(&:title).collect { |t| { id: t.id, title: t.title } }
-      }
-    end
-
     private
-
-    def plan_params
-      params.require(:plan).permit(:org_id, :funder_id)
-    end
 
     def template_params
       params.require(:template).permit(:title, :description, :visibility, :links)
-    end
-
-    def template_type(template)
-      template.customization_of.present? ? _("customisation") : _("template")
     end
 
     def get_referrer(template, referrer)

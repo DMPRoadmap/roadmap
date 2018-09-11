@@ -16,7 +16,7 @@
           </thead>
           <tbody>
             <% scope.each do |plan| %>
-              <tr>
+              <tr id="<%= dom_id(plan) %>">
                 <td>
                   <%= link_to "#{plan.title.length > 60 ? "#{plan.title[0..59]} ..." : plan.title}",
                       plan_path(plan) %>
@@ -35,7 +35,7 @@
                   <% end %>
                 </td>
                 <td class="plan-visibility">
-                  <%= plan.visibility === 'is_test' ? _('N/A') : raw(display_visibility(plan.visibility)) %>
+                  <%= plan.visibility === 'is_test' ? _('N/A') : sanitize(display_visibility(plan.visibility)) %>
                 </td>
                 <td>
                   <% if plan.shared? %>

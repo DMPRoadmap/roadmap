@@ -20,6 +20,11 @@ Bundler.require(*Rails.groups)
 module DMPRoadmap
   class Application < Rails::Application
 
+    # HTML tags that are allowed to pass through `sanitize`.
+    config.action_view.sanitized_allowed_tags = %w[
+      p br strong em a table thead tbody tr td th tfoot caption ul ol li
+    ]
+
     config.generators do |g|
       g.orm             :active_record
       g.template_engine :erb
@@ -66,7 +71,7 @@ module DMPRoadmap
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true
 
-    config.eager_load_paths << "app/services"
+    config.eager_load_paths << "app/presenters"
 
     # Use SQL instead of Active Record's schema dumper when creating the database.
     # This is necessary if your schema can't be completely dumped by the schema dumper,

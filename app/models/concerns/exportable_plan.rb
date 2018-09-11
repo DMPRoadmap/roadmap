@@ -4,10 +4,30 @@ module ExportablePlan
     prepare(coversheet)
   end
 
-  def as_csv(headings = true, unanswered = true, selected_phase = nil, show_custom_sections = true)
-    hash = prepare(false)
+  def as_csv(headings = true, unanswered = true, selected_phase = nil, show_custom_sections = true, show_coversheet = false)
+    hash = prepare(show_coversheet)
 
     CSV.generate do |csv|
+      if show_coversheet
+        csv << [ hash[:attribution].many? ? _("Creators: ") : _('Creator:'), _(hash[:attribution].join(', ')) ]
+        csv << [ "Affiliation: ", _(hash[:affiliation]) ]
+        if hash[:funder].present?
+          csv <<  [ _("Template: "), _(hash[:funder]) ]
+        else
+          csv << [ _("Template: "), _(hash[:template] + hash[:customizer]) ]
+        end
+        if self.grant_number.present?
+          csv << [ _("Grant number: "), _(self.grant_number) ]
+        end
+        if self.description.present?
+          csv << [ _("Project abstract: "), _(Nokogiri::HTML(self.description).text) ]
+        end
+        csv << [ _("Last modified: "), _(self.updated_at.to_date.strftime("%d-%m-%Y")) ]
+        csv << [ _("Copyright information:"), _("The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customise it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal") ]
+        csv << []
+        csv << []
+      end
+
       hdrs = (hash[:phases].many? ? [_('Phase')] : [])
       if headings
         hdrs << [_('Section'),_('Question'),_('Answer')]
@@ -51,9 +71,10 @@ module ExportablePlan
 
   def prepare(coversheet = false)
     hash = coversheet ? prepare_coversheet : {}
-    template = Template.includes(phases: { sections: {questions: :question_format } }).
-    joins(phases: { sections: { questions: :question_format } }).
-    where(id: self.template_id).order('sections.number', 'questions.number').first
+    template = Template.includes(phases: { sections: {questions: :question_format } })
+                       .joins(phases: { sections: { questions: :question_format } })
+                       .where(id: self.template_id)
+                       .order('sections.number', 'questions.number').first
 
     hash[:title] = self.title
     hash[:answers] = self.answers
@@ -63,10 +84,17 @@ module ExportablePlan
     template.phases.each do |phase|
       phs = { title: phase.title, number: phase.number, sections: [] }
       phase.sections.each do |section|
-        sctn = { title: section.title, number: section.number, questions: [], modifiable: section.modifiable }
+        sctn = { title: section.title,
+                 number: section.number,
+                 questions: [],
+                 modifiable: section.modifiable }
         section.questions.each do |question|
           txt = question.text
-          sctn[:questions] << { id: question.id, text: txt, format: question.question_format }
+          sctn[:questions] << {
+            id: question.id,
+            text: txt,
+            format: question.question_format
+          }
         end
         phs[:sections] << sctn
       end

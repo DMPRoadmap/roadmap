@@ -21,7 +21,7 @@ module OrgAdmin
           template: phase.template,
           phase: phase,
           prefix_section: phase.prefix_section,
-          sections: phase.sections,
+          sections: phase.sections.order(:number),
           suffix_sections: phase.suffix_sections,
           current_section: phase.sections.first,
           modifiable: edit,
@@ -31,14 +31,12 @@ module OrgAdmin
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]
     def show
-      section = Section.find(params[:id])
-      authorize section
-      section = Section.includes(questions: [:annotations, :question_options])
-                       .find(params[:id])
-      render partial: "show", locals: {
-        template: Template.find(params[:template_id]),
-        section: section
-      }
+      @section = Section.find(params[:id])
+      authorize @section
+      @section = Section.includes(questions: [:annotations, :question_options])
+                        .find(params[:id])
+      @template = Template.find(params[:template_id])
+      render partial: "show", locals: { template: @template, section: @section }
     end
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/edit
@@ -64,37 +62,29 @@ module OrgAdmin
 
     # POST /org_admin/templates/[:template_id]/phases/[:phase_id]/sections
     def create
-      phase = Phase.find(params[:phase_id])
-      if phase.present?
-        section = Section.new(section_params.merge(phase_id: phase.id))
-        authorize section
-        begin
-          section = get_new(section)
-          if section.save
-            flash[:notice] = success_message(_("section"), _("created"))
-            redirect_to edit_org_admin_template_phase_path(
-              id: section.phase.id,
-              template_id: section.phase.template.id,
-              section: section.id)
-          else
-            flash[:alert] = failed_create_error(section, _("section"))
-            redirect_to edit_org_admin_template_phase_path(
-              template_id: section.phase.template.id,
-              id: section.phase.id
-            )
-          end
-        rescue StandardError => e
-          flash[:alert] = _("Unable to create a new version of this template.")
-          redirect_to edit_org_admin_template_phase_path(
-            template_id: section.phase.template.id,
-            id: section.phase.id
-                      )
-        end
-      else
-        # rubocop:disable Metrics/LineLength
-        flash[:alert] = _("Unable to create a new section because the phase you specified does not exist.")
-        # rubocop:enable Metrics/LineLength
+      @phase = Phase.find_by(id: params[:phase_id])
+      if @phase.nil?
+        flash[:alert] =
+          _("Unable to create a new section. The phase you specified does not exist.")
         redirect_to edit_org_admin_template_path(template_id: params[:template_id])
+        return
+      end
+      @section = @phase.sections.new(section_params)
+      authorize @section
+      @section = get_new(@section)
+      if @section.save
+        flash[:notice] = success_message(@section, _("created"))
+        redirect_to edit_org_admin_template_phase_path(
+          id: @section.phase_id,
+          template_id: @phase.template_id,
+          section: @section.id
+        )
+      else
+        flash[:alert] = failure_message(@section, _("create"))
+        redirect_to edit_org_admin_template_phase_path(
+          template_id: @phase.template_id,
+          id: @section.phase_id
+        )
       end
     end
 
@@ -105,9 +95,9 @@ module OrgAdmin
       begin
         section = get_modifiable(section)
         if section.update(section_params)
-          flash[:notice] = success_message(_("section"), _("saved"))
+          flash[:notice] = success_message(section, _("saved"))
         else
-          flash[:alert] = failed_update_error(section, _("section"))
+          flash[:alert] = failure_message(section, _("save"))
         end
       rescue StandardError => e
         flash[:alert] = _("Unable to create a new version of this template.")
@@ -134,9 +124,9 @@ module OrgAdmin
         section = get_modifiable(section)
         phase = section.phase
         if section.destroy!
-          flash[:notice] = success_message(_("section"), _("deleted"))
+          flash[:notice] = success_message(section, _("deleted"))
         else
-          flash[:alert] = failed_destroy_error(section, _("section"))
+          flash[:alert] = failure_message(section, _("delete"))
         end
       rescue StandardError => e
         flash[:alert] = _("Unable to create a new version of this template.")

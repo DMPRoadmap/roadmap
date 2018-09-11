@@ -1,5 +1,10 @@
 <% required = required ||= false %>
 <% other_org = Org.find_by(is_other: true) %>
+
+<% if f.object.errors[:org].present? %>
+  <div class="field_with_errors">
+<% end %>
+
 <%= f.label :org_name, _('Organisation'), class: 'control-label' %>
 <% object_name = (f.options[:namespace].present? ? "#{f.options[:namespace]}_#{f.object_name}" : f.object_name) %>
 <%= render partial: "shared/accessible_combobox",
@@ -11,9 +16,11 @@
                       error: _('Please select an organisation from the list, or click the "My organisation isn\'t listed" link and enter your organisation\'s name.'),
                       required: required} %>
 
-<div id="help-org" class="text-danger" style="display: none">
-  <%= _('Please select an organisation from the list, or click the "My organisation isn\'t listed" link and enter your organisation\'s name.') %>
-</div>
+<% if f.object.errors[:org].present? %>
+  <div id="help-org" class="text-danger">
+    <%= _('Please select an organisation from the list, or click the "My organisation isn\'t listed" link and enter your organisation\'s name.') %>
+  </div>
+<% end %>
 
 <% if allow_other_orgs %>
   <div class="clearfix"></div>
@@ -25,4 +32,8 @@
   <%= f.text_field :other_organisation, autocomplete: "off", class: "form-control hide other-org",
                    placeholder: _('Please enter the name of your organisation'),
                    "aria-label": "other_organisation" %>
+<% end %>
+
+<% if f.object.errors[:org].present? %>
+  </div>
 <% end %>

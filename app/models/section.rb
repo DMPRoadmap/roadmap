@@ -1,19 +1,22 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: sections
 #
-#  id          :integer          not null, primary key
-#  description :text
-#  modifiable  :boolean
-#  number      :integer
-#  title       :string
-#  created_at  :datetime
-#  updated_at  :datetime
-#  phase_id    :integer
+#  id             :integer          not null, primary key
+#  description    :text
+#  modifiable     :boolean
+#  number         :integer
+#  title          :string
+#  created_at     :datetime
+#  updated_at     :datetime
+#  phase_id       :integer
+#  versionable_id :string(36)
 #
 # Indexes
 #
-#  index_sections_on_phase_id  (phase_id)
+#  index_sections_on_phase_id        (phase_id)
+#  index_sections_on_versionable_id  (versionable_id)
 #
 # Foreign Keys
 #
@@ -24,6 +27,8 @@ class Section < ActiveRecord::Base
   include ValidationMessages
   include ValidationValues
   include ActsAsSortable
+  include VersionableModel
+
 
   # ================
   # = Associations =
@@ -108,12 +113,12 @@ class Section < ActiveRecord::Base
     copy.phase_id = options.fetch(:phase_id, nil)
     copy.save!(validate: false)  if options.fetch(:save, false)
     options[:section_id] = copy.id
-    self.questions.map{ |question| copy.questions << question.deep_copy(options) }
-    return copy
+    self.questions.map { |question| copy.questions << question.deep_copy(options) }
+    copy
   end
 
   # Can't be modified as it was duplicatd over from another Phase.
-  def template?
+  def unmodifiable?
     !modifiable?
   end
 
@@ -129,6 +134,7 @@ class Section < ActiveRecord::Base
 
   def set_number
     return if phase.nil?
-    self.number ||= phase.sections.maximum(:number) + 1
+    self.number ||= phase.sections.maximum(:number).to_i + 1
   end
+
 end

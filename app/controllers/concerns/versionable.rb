@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Versionable
 
   private
@@ -16,7 +18,7 @@ module Versionable
       template = obj
     else
       raise ArgumentError,
-        _('obj should be a Template, Phase, Section, Question, or Annotation')
+        _("obj should be a Template, Phase, Section, Question, or Annotation")
     end
 
     # raises RuntimeError if template is not latest
@@ -26,10 +28,10 @@ module Versionable
       if obj.is_a?(Template)
         obj = new_template
       else
-        obj = find_in_space(obj,new_template.phases)
+        obj = find_in_space(obj, new_template.phases)
       end
     end
-    return obj
+    obj
   end
 
   ##
@@ -40,7 +42,7 @@ module Versionable
   def get_new(obj)
     unless obj.respond_to?(:template)
       raise ArgumentError,
-        _('obj should be a Phase, Section, Question, or Annotation')
+        _("obj should be a Phase, Section, Question, or Annotation")
     end
 
     template = obj.template
@@ -59,7 +61,7 @@ module Versionable
         belongs = :question
       else
         raise ArgumentError,
-          _('obj should be a Phase, Section, Question, or Annotation')
+          _("obj should be a Phase, Section, Question, or Annotation")
       end
 
       if belongs == :template
@@ -71,7 +73,7 @@ module Versionable
         obj.send("#{belongs}=", found)
       end
     end
-    return obj
+    obj
   end
 
   # Locates an object (e.g. phase, section, question, annotation) in a
@@ -80,17 +82,17 @@ module Versionable
   # method or the org_id and text for annotations
   def find_in_space(obj, search_space)
     unless search_space.respond_to?(:each)
-      raise ArgumentError, _('The search_space does not respond to each')
+      raise ArgumentError, _("The search_space does not respond to each")
     end
     unless search_space.length > 0
       raise ArgumentError,
-        _('The search space does not have elements associated')
+        _("The search space does not have elements associated")
     end
 
     if obj.is_a?(search_space.first.class)
       # object is an instance of Phase, Section or Question
       if obj.respond_to?(:number)
-        return search_space.find{ |search| search.number == obj.number }
+        return search_space.find { |search| search.number == obj.number }
       # object is an instance of Annotation
       elsif obj.respond_to?(:org_id) && obj.respond_to?(:text)
         return search_space.find do |annotation|
@@ -114,11 +116,12 @@ module Versionable
       return nil
     end
 
-    search_space = search_space.find{ |search| search.number == number }
+    search_space = search_space.find { |search| search.number == number }
 
     if search_space.present?
       return find_in_space(obj, search_space.send(relation))
     end
-    return nil
+    nil
   end
+
 end

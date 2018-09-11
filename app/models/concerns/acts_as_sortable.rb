@@ -30,12 +30,12 @@ module ActsAsSortable
       connection.execute(query)
     end
 
-    def self.update_numbers_mysql2!(ids)
+    def update_numbers_mysql2!(ids)
       ids_string = ids.map { |id| "'#{id}'" }.join(",")
       update_all(%Q{ number = FIELD(id, #{sanitize_sql(ids_string)}) })
     end
 
-    def self.update_numbers_sequentially!(ids)
+    def update_numbers_sequentially!(ids)
       ids.each_with_index.map do |id, number|
         find(id).update_attribute(:number, number + 1)
       end
