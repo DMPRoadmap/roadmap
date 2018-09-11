@@ -39,4 +39,4 @@ Dir.chdir APP_ROOT do
 end
 
 # Install Yarn dependencies...
-yarn install
+`yarn install`
