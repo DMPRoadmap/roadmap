@@ -88,17 +88,12 @@ header, .notifications, main, footer {
 }
 
 footer {
+  border-top: 1px solid $dark-blue;
+  padding-top: 10px;
   position: relative;
-  background-color: $light-blue;
-  border-top: none;
-  border-radius: 5px;
-  padding-left: 5px;
 
   .footer-menu .container-fluid .navbar-nav > li > a {
     padding: 0 10px 0 0;
-  }
-  .navbar-nav > li > a, .navbar-nav > li > a:hover, .navbar-nav > li > a:focus, .navbar-nav > li > a:visited, .navbar-nav > li > a:active, .navbar-nav > li > a:active:hover, {
-    background-color: $light-blue;
   }
 
   .footer-bottom {
@@ -117,6 +112,16 @@ footer {
         width: 150px;
       }
     }
+  }
+}
+footer.blue {
+  background-color: $light-blue;
+  border-top: none;
+  border-radius: 5px;
+  padding-left: 5px;
+
+  .navbar-nav > li > a, .navbar-nav > li > a:hover, .navbar-nav > li > a:focus, .navbar-nav > li > a:visited, .navbar-nav > li > a:active, .navbar-nav > li > a:active:hover, {
+    background-color: $light-blue;
   }
 }
 

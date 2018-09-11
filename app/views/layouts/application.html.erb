@@ -91,7 +91,7 @@
           <%= yield %>
         </div>
       </main>
-      <footer>
+      <footer<%= user_signed_in? ? ' class=blue' : '' %>>
         <div class="footer">
           <%= render partial: "layouts/dmptool/footer" %>
         </div>

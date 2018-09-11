@@ -4,7 +4,7 @@
                                   class: "org-logo",
                                   title: current_user.org.name),
                         root_path) %>
-<% else %>
+<% elsif !user_signed_in? || (user_signed_in? && current_user.org.is_other?) %>
   <%= link_to(image_tag("DMPTool_logo_blue_shades_v1b3b.svg",
                         alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
                         class: "app-logo",
