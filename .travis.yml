@@ -36,6 +36,12 @@ env:
   - DB_ADAPTER=postgresql
   - DB_ADAPTER=mysql2
 
+# This is a temporary bug fix for Karma tests
+# See here: https://github.com/travis-ci/travis-ci/issues/9024
+before_script:
+  - "sudo chown root /opt/google/chrome/chrome-sandbox"
+  - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
+
 # Main test script
 script:
   - export WICKED_PDF_PATH=./vendor/bundle/ruby/2.4.0/bin/wkhtmltopdf
