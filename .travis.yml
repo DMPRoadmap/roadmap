@@ -36,8 +36,7 @@ env:
   - DB_ADAPTER=mysql2
 
 before_install:
-  - curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-  - sudo apt-get install -y nodejs
+  - nvm install 10.10.0
 
 install:
   - bundle install --with development,ci --path=${BUNDLE_PATH:-vendor/bundle}
@@ -79,9 +78,7 @@ jobs:
 
     - stage: test
       name: "Karma JS tests"
-      script:
-        - yarn install
-        - yarn run eslint --ext .js --ext .jsx app/assets/javascripts/**/*.js
+      script: yarn run eslint --ext .js --ext .jsx app/assets/javascripts/**/*.js
 
     - stage: hygiene
       name: "Check seeds are valid"
