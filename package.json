@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/DMPRoadmap/roadmap#readme",
   "dependencies": {
-    "@rails/webpacker": "3.5",
+    "@rails/webpacker": "4.0.0-pre.2",
     "bootstrap-sass": "3.3.7",
     "chart.js": "^2.7.2",
     "eslint-config-airbnb-base": "^13.1.0",
@@ -44,6 +44,7 @@
     "eslint": "^5.5.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-react": "^7.11.1",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "fixture": "^0.1.2",
     "html2js": "^0.2.0",
     "jasmine": "^3.2.0",
