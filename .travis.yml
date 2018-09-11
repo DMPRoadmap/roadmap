@@ -75,8 +75,8 @@ jobs:
     - stage: test
       name: "Karma JS tests"
       script:
-        - npm install
-        - npm run test
+        - yarn install
+        - yarn run eslint --ext .js --ext .jsx app/assets/javascripts/**/*.js
 
     - stage: hygiene
       name: "Check seeds are valid"
