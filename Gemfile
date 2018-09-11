@@ -95,6 +95,8 @@ gem 'webpacker'
 
 gem "autoprefixer-rails"
 
+gem 'mini_racer'
+
 # ------------------------------------------------
 # EXPORTING
 # Provides binaries for WKHTMLTOPDF project in an easily accessible package.
