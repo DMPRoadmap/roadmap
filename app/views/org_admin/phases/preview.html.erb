@@ -1,18 +1,31 @@
-<% title "#{template.title}" %>
-<% modifiable = template.latest? && !template.customization_of.present? && template.id.present? && (template.org_id = current_user.org.id) %>
+<% title "#{@template.title}" %>
+<% modifiable = @template.latest? && !@template.customization_of.present? && @template.id.present? && (@template.org_id = current_user.org.id) %>
 <div class="row">
   <div class="col-md-12">
-    <h1><%= template.title %></h1>
+    <h1><%= @template.title %></h1>
     <div class="pull-right">
       <ul class="list-inline">
-        <% if template.latest? %>
-          <% if template.customization_of.present? %>
-            <li><%= link_to _('Back to customise phase'), org_admin_template_phase_path(template_id: template.id, id: phase.id), class: 'btn btn-primary' %></li>
+        <% if @template.latest? %>
+          <% if @template.customization_of.present? %>
+            <li>
+              <%= link_to _('Back to customise phase'),
+                  org_admin_template_phase_path(template_id: @template.id,
+                                                id: @phase.id),
+                  class: 'btn btn-primary' %>
+            </li>
           <% else %>
-            <li><%= link_to _('Back to edit phase'), edit_org_admin_template_phase_path(template_id: template.id, id: phase.id), class: 'btn btn-primary' %></li>
+            <li>
+              <%= link_to _('Back to edit phase'),
+                  edit_org_admin_template_phase_path(template_id: @template.id,
+                                                     id: @phase.id),
+                  class: 'btn btn-primary' %>
+            </li>
           <% end %>
         <% else %>
-          <li><%= link_to _('Back to phase'), org_admin_template_phase_path(template_id: template.id, id: phase.id), class: 'btn btn-primary' %></li>
+          <li>
+            <%= link_to _('Back to phase'),
+                org_admin_template_phase_path(template_id: @template.id, id: @phase.id),
+                class: 'btn btn-primary' %></li>
         <% end %>
       </ul>
     </div>
@@ -34,12 +47,12 @@
             <%= render partial: '/phases/edit_plan_answers',
                   locals: {
                     plan: nil,
-                    phase: phase,
+                    phase: @phase,
                     readonly: true,
                     edit: false,
                     guidance_groups: [],
-                    base_template_org: template.base_org,
-                    guidance_service: GuidanceService.new(Plan.new(template: phase.template)) } %>
+                    base_template_org: @template.base_org,
+                    guidance_presenter: @guidance_presenter } %>
           </div>
         </div>
       </div>

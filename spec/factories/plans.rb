@@ -45,12 +45,17 @@ FactoryBot.define do
     feedback_requested false
     complete false
     transient do
+      phases 0
       answers 0
       guidance_groups 0
     end
     trait :creator do
       after(:create) { |obj| obj.roles << create(:role, creator: true) }
     end
+    trait :commenter do
+      after(:create) { |obj| obj.roles << create(:role, commenter: true) }
+    end
+
     trait :organisationally_visible do
       visibility "organisationally_visible"
     end

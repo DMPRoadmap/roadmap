@@ -84,12 +84,12 @@ class UsersController < ApplicationController
       end
       render(json: {
         code: 1,
-        msg: success_message(_("permissions"), _("saved")),
+        msg: success_message(perms.first, _("saved")),
         current_privileges: render_to_string(partial: "users/current_privileges",
                                              locals: { user: @user }, formats: [:html])
         })
     else
-      render(json: { code: 0, msg: failed_update_error(@user, _("user")) })
+      render(json: { code: 0, msg: failure_message(@user, _("updated")) })
     end
   end
 
@@ -108,34 +108,7 @@ class UsersController < ApplicationController
 
     # Include active tab in redirect path
     redirect_to "#{edit_user_registration_path}\#notification-preferences",
-                notice: success_message(_("preferences"), _("saved"))
-  end
-
-  # PUT /users/:id/org_swap
-  # -----------------------------------------------------
-  def org_swap
-    # Allows the user to swap their org affiliation on the fly
-    authorize current_user
-    begin
-      org = Org.find(org_swap_params[:org_id])
-    rescue ActiveRecord::RecordNotFound
-      redirect_to(request.referer,
-                  alert: _("Please select an organisation from the list")) and return
-    end
-    # rubocop:disable Metrics/LineLength
-    if org.present?
-      current_user.org = org
-      if current_user.save
-        redirect_to request.referer,
-                    notice: _("Your organisation affiliation has been changed. You may now edit templates for %{org_name}.") % { org_name: current_user.org.name }
-      else
-        redirect_to request.referer,
-                    alert: _("Unable to change your organisation affiliation at this time.")
-      end
-    else
-      redirect_to request.referer, alert: _("Unknown organisation.")
-    end
-    # rubocop:enable Metrics/LineLength
+                notice: success_message(pref, _("saved"))
   end
   
   # PUT /users/:id/activate
@@ -206,10 +179,6 @@ class UsersController < ApplicationController
 
 
   private
-
-  def org_swap_params
-    params.require(:user).permit(:org_id, :org_name)
-  end
 
   ##
   # html forms return our boolean values as strings, this converts them to true/false

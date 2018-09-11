@@ -4,7 +4,7 @@
 
   <!-- START DMPTool customization -->
   <!-- ========================================= -->
-    <!-- <h1><%#= raw _('DMP Templates') %></h1> -->
+    <!-- <h1><%#= _('DMP Templates') %></h1> -->
     <h1><%= raw _('Funder Requirements') %></h1>
   <!-- ========================================= -->
   <!-- END DMPTool customization -->
@@ -22,7 +22,7 @@
       <%= paginable_renderise(
         partial: '/paginable/templates/publicly_visible',
         controller: 'paginable/templates',
-        action: 'publicly_visible', 
+        action: 'publicly_visible',
         scope: @templates,
         query_params: { sort_field: 'templates.title', sort_direction: :asc }) %>
     <% end %>

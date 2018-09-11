@@ -13,7 +13,7 @@
           <dt><%= _('Question number')%></dt>
           <dd><%= question.number %></dd>
           <dt><%= _('Question text')%></dt>
-          <dd><%= raw question.text %></dd>
+          <dd><%= sanitize question.text %></dd>
           <!-- question.option_based? -->
           <% if question.option_based? %>
             <dt><%= _('Question options') %></dt>
@@ -23,7 +23,7 @@
           <% if q_format.textfield? || q_format.textarea? %>
             <% if !question.default_value.nil? %>
               <dt><%= _('Default value')%></dt>
-              <dd><%= raw question.default_value %></dd>
+              <dd><%= sanitize question.default_value %></dd>
             <% end %>
           <% end %>
           <!-- Format title -->
@@ -41,14 +41,14 @@
               <% example_answer = question.example_answers(template.base_org.id).first %>
               <% if example_answer.present?  && example_answer.text.present?  %>
                   <dt><%= _('example answer')%></dt>
-                  <dd><%= raw example_answer.text %></dd>
+                  <dd><%= sanitize example_answer.text %></dd>
               <% end %>
           <% end %>
           <!-- Guidance linked to this question -->
           <% guidance = question.guidance_annotation(template.base_org.id) %>
           <% if guidance.present?  %>
             <dt><%= _('Guidance')%></dt>
-            <dd><%= raw guidance.text %></dd>
+            <dd><%= sanitize guidance.text %></dd>
           <% end %>
           <!-- Themes -->
           <% themes_q = question.themes %>
@@ -68,7 +68,7 @@
               <dl class="dl-horizontal">
                 <% question.annotations_per_org(current_user.org_id).each do |annotation| %>
                   <dt><%= annotation.type.humanize %></dt>
-                  <dd><%= annotation.text.present? ? raw(annotation.text) : _('None provided') %></dd>
+                  <dd><%= annotation.text.present? ? sanitize(annotation.text) : _('None provided') %></dd>
                 <% end %>
               </dl>
             <% else %>
@@ -106,7 +106,9 @@
             <dl class="dl-horizontal">
               <% question.annotations_per_org(current_user.org_id).each do |annotation| %>
                 <dt><%= annotation.type.humanize %></dt>
-                <dd><%= annotation.text.present? ? raw(annotation.text) : _('None provided') %></dd>
+                <dd>
+                  <%= annotation.text.present? ? sanitize(annotation.text) : _('None provided') %>
+                </dd>
               <% end %>
             </dl>
           <% end %>

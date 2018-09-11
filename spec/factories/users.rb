@@ -57,5 +57,23 @@ FactoryBot.define do
     email        { Faker::Internet.unique.safe_email }
     password     { "password" }
     accept_terms { true }
+
+    trait :org_admin do
+      after(:create) do |user, evaluator|
+        %w[modify_templates modify_guidance change_org_details grant_permissions].each do |perm_name|
+          user.perms << Perm.find_or_create_by(name: perm_name)
+        end
+      end
+    end
+
+    trait :super_admin do
+      after(:create) do |user, evaluator|
+        %w[change_org_affiliation add_organisations
+           grant_permissions use_api change_org_details grant_api_to_orgs
+           modify_templates modify_guidance].each do |perm_name|
+          user.perms << Perm.find_or_create_by(name: perm_name)
+        end
+      end
+    end
   end
 end

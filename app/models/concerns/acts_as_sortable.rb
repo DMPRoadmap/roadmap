@@ -31,23 +31,11 @@ module ActsAsSortable
     end
 
     def update_numbers_mysql2!(ids)
-      # Build an Array with each ID and its relative position in the Array
-       values = ids.each_with_index.map{ |id, i| { "#{id}": i + 1 } }.reduce({}, :merge)
-       # Update the records individually
-       ids.each do |id|
-         query = <<~SQL
-         UPDATE #{table_name} \
-         SET number = #{sanitize_sql(values[:"#{id.to_s}"])} \
-         WHERE id = #{sanitize_sql(id)}
-         SQL
-         connection.execute(query)
-       end
-
-      #ids_string = ids.map { |id| "'#{id}'" }.join(",")
-      #update_all(%Q{ number = FIELD(id, #{sanitize_sql(ids_string)}) })
+      ids_string = ids.map { |id| "'#{id}'" }.join(",")
+      update_all(%Q{ number = FIELD(id, #{sanitize_sql(ids_string)}) })
     end
 
-    def self.update_numbers_sequentially!(ids)
+    def update_numbers_sequentially!(ids)
       ids.each_with_index.map do |id, number|
         find(id).update_attribute(:number, number + 1)
       end

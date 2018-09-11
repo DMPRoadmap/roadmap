@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StaticPagesController < ApplicationController
 
 # ------------------------------------
@@ -11,6 +13,8 @@ class StaticPagesController < ApplicationController
       format.rss { redirect_to dcc_news_feed_url }
       format.html
     end
+
+    render 'static_pages/dmptool/about_us'
   end
 # END DMPTool customization
 # ------------------------------------
@@ -22,11 +26,15 @@ class StaticPagesController < ApplicationController
   end
 
   def privacy
+    render 'static_pages/dmptool/privacy'
   end
 
   def termsuse
+    render 'static_pages/dmptool/termsuse'
   end
 
   def help
+    render 'static_pages/dmptool/help'
   end
+
 end

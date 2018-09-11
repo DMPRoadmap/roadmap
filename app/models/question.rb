@@ -13,11 +13,12 @@
 #  updated_at             :datetime
 #  question_format_id     :integer
 #  section_id             :integer
+#  versionable_id         :string(36)
 #
 # Indexes
 #
-#  fk_rails_4fbc38c8c7            (question_format_id)
-#  index_questions_on_section_id  (section_id)
+#  index_questions_on_section_id      (section_id)
+#  index_questions_on_versionable_id  (versionable_id)
 #
 # Foreign Keys
 #
@@ -26,9 +27,9 @@
 #
 
 class Question < ActiveRecord::Base
-
   include ValidationMessages
   include ActsAsSortable
+  include VersionableModel
 
   # ==============
   # = Attributes =
@@ -97,7 +98,6 @@ class Question < ActiveRecord::Base
   # =====================
 
   delegate :option_based?, to: :question_format
-
 
   # ===========================
   # = Public instance methods =

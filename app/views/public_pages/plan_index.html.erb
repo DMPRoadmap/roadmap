@@ -4,7 +4,7 @@
 
   <!-- START DMPTool customization -->
   <!-- ========================================= -->
-    <!-- <h1><%#= raw _('Public DMPs') %></h1> -->
+    <!-- <h1><%#= _('Public DMPs') %></h1> -->
     <h1><%= raw _('Public Plans') %></h1>
   <!-- ========================================= -->
   <!-- END DMPTool customization -->
@@ -42,7 +42,7 @@
       <%= paginable_renderise(
         partial: '/paginable/plans/publicly_visible',
         controller: 'paginable/plans',
-        action: 'publicly_visible', 
+        action: 'publicly_visible',
         query_params: query_params,
         scope: @plans) %>
     <% end %>

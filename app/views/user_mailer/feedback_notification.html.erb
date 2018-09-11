@@ -9,7 +9,7 @@
   <p><%= _('Hello %{user_name},') % {user_name: recipient_name} %></p>
 
   <p>
-    <%= raw _(%Q{%{requestor} has requested feedback on a plan %{link_html}. To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan.}) % {
+    <%= sanitize _(%Q{%{requestor} has requested feedback on a plan %{link_html}. To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan.}) % {
     requestor: requestor_name,
     plan_name: plan_name,
     application_name: tool_name,
@@ -22,6 +22,6 @@
     Alternatively, you can click the link below:<br>
     <%= link_to plan_url(@plan), plan_url(@plan) %>
   </p>
-  
+
   <%= render partial: 'email_signature', locals: { allow_change_prefs: false } %>
 <% end %>

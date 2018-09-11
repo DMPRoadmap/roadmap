@@ -1,11 +1,14 @@
+# frozen_string_literal: true
+
 require 'rss'
 
 class HomeController < ApplicationController
+
   respond_to :html
 
 # START DMPTool customization
 # ---------------------------------------------------------
-  
+
   ##
   # Index
   #
@@ -16,15 +19,17 @@ class HomeController < ApplicationController
   def index
     if user_signed_in?
       name = current_user.name(false)
-# TODO: Investigate if this is even relevant anymore. The name var will never be blank here because the logic in
-#       User says to return the email if the firstname and surname are empty regardless of the flag passed in
+      # TODO: Investigate if this is even relevant anymore.
+      # The name var will never be blank here because the logic in
+      # User says to return the email if the firstname and surname are empty
+      # regardless of the flag passed in
       if name.blank?
         redirect_to edit_user_registration_path
       else
         redirect_to plans_url
       end
     else
-    
+
       # Usage stats
       stats = Rails.cache.read('stats') || {}
       if stats.empty?
@@ -33,7 +38,7 @@ class HomeController < ApplicationController
         stats[:institution_count] = Org.select(:id).count
         cache_content('stats', stats)
       end
-    
+
       # Top 5 templates
       top_5 = Rails.cache.read('top_5')
       if top_5.nil?
@@ -43,14 +48,14 @@ class HomeController < ApplicationController
         top_5 = Template.where(id: ids[0..4]).pluck(:title)
         cache_content('top_5', top_5)
       end
-    
+
       # Retrieve/cache the DMPTool blog's latest posts
       rss = Rails.cache.read('rss')
       if rss.nil?
         begin
           rss_xml = open(Rails.application.config.rss).read
           rss = RSS::Parser.parse(rss_xml, false).items.first(5)
-          cache_content('rss', rss)  
+          cache_content('rss', rss)
 
         rescue Exception
           # If we were unable to connect to the blog rss
@@ -58,7 +63,7 @@ class HomeController < ApplicationController
         end
       end
 
-      render 'index', locals: { stats: stats, top_5: top_5, rss: rss } 
+      render 'index', locals: { stats: stats, top_5: top_5, rss: rss }
     end
   end
 

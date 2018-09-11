@@ -23,7 +23,7 @@
           <%= template.title %>
         </td>
           <td>
-            <%= action_name == 'organisational' ? raw(template.description) : template.org.name %>
+            <%= action_name == 'organisational' ? sanitize(template.description) : template.org.name %>
           </td>
           <td>
             <%# Leaving this line here as a placeholder for determining how to notify user of changes now that dirty flag is removed %>
@@ -61,7 +61,12 @@
                   <% elsif !template.published? %>
                     <li><%= link_to _('Publish'), publish_org_admin_template_path(template.id), 'data-method': 'patch' %></li>
                   <% end %>
-                  <li><%= link_to _('Copy'), copy_org_admin_template_path(template.id), 'data-method': 'post' %></li>
+                  <li>
+                    <%= link_to _('Copy'),
+                        org_admin_template_copies_path(template.id),
+                        data: { method: 'post' }
+                    %>
+                  </li>
                   <% if template.removable? %>
                     <li>
                       <%= link_to _('Remove'), org_admin_template_path(id: template.id),

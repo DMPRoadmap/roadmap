@@ -41,7 +41,7 @@ RSpec.describe "Plans", type: :feature do
       fill_in "ID", with: "ABCDEF"
       fill_in "ORCID iD", with: "My ORCID"
       fill_in "Phone", with: "07787 000 0000"
-      click_button "Submit"
+      click_button "Save"
     end
 
     # Reload the plan to get the latest from memory

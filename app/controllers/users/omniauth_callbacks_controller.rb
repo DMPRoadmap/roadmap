@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 require 'securerandom'
+
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   ##
@@ -20,11 +23,20 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # scheme - The IdentifierScheme for the provider
   #
   def handle_omniauth(scheme)
+
   # ------------------------------------
   # START DMPTool customization
-    #user = User.from_omniauth(request.env["omniauth.auth"].nil? ? request.env : request.env["omniauth.auth"])
+    # if request.env["omniauth.auth"].nil?
+    #  user = User.from_omniauth(request.env)
+    #else
+    #  user = User.from_omniauth(request.env["omniauth.auth"])
+    # end
 
-    omniauth = (request.env["omniauth.auth"].nil? ? request.env : request.env["omniauth.auth"])
+    if request.env["omniauth.auth"].nil?
+      omniauth = request.env
+    else
+      omniauth = request.env["omniauth.auth"]
+    end
     user = User.from_omniauth(omniauth)
     omniauth_info = (omniauth.nil? ? {} : (omniauth.info.nil? ? {} : omniauth.info))
   # END DMPTool customization
@@ -83,10 +95,19 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       else
         # Until ORCID becomes supported as a login method
         if scheme.name == 'shibboleth'
-          set_flash_message(:notice, :success, kind: 'your institutional credentials') if is_navigational_format?
+          if is_navigational_format?
+
+          # START DMPTool Customization
+          # --------------------------------
+            # set_flash_message(:notice, :success, kind: scheme.description)
+            set_flash_message(:notice, :success, kind: 'your institutional credentials')
+          # --------------------------------
+          # END DMPTool Customization
+
+          end
           sign_in_and_redirect user, event: :authentication
         else
-          flash[:notice] = _('Successfully signed in')
+          flash[:notice] = _("Successfully signed in")
           redirect_to new_user_registration_url
         end
       end
@@ -103,7 +124,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
         # START DMPTool customization
         # ------------------------------------
-          #flash[:notice] = _('Your account has been successfully linked to %{scheme}.') % { scheme: scheme.description }
+          # flash[:notice] = _('Your account has been successfully linked to %{scheme}.') % {
+          #   scheme: scheme.description
+          # }
           flash[:notice] = _('Your account has been successfully created.')
         # ------------------------------------
         # END DMPTool customization
@@ -115,9 +138,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       else
         # If a user was found but does NOT match the current user then the identifier has
         # already been attached to another account (likely the user has 2 accounts)
-        identifier = UserIdentifier.where(identifier: request.env["omniauth.auth"].uid).first
+        identifier = UserIdentifier.where(
+          identifier: request.env["omniauth.auth"].uid
+        ).first
         if identifier.user.id != current_user.id
-          flash[:alert] =  _("The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}")
+          # rubocop:disable LineLength
+          flash[:alert] = _("The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}")
+          # rubocop:enable LineLength
         end
 
         # Otherwise, the identifier was found and it matches the one already associated
@@ -132,4 +159,5 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def failure
     redirect_to root_path
   end
+
 end
