@@ -23,18 +23,18 @@ gem 'responders', '~> 2.0'
 # A simple, fast Mysql library for Ruby, binding to libmysql
 # (http://github.com/brianmario/mysql2)
 # A simple, fast Mysql library for Ruby, binding to libmysql (http://github.com/brianmario/mysql2)
-gem 'mysql2', '~> 0.4.10'
+gem 'mysql2', '~> 0.4.10', group: :mysql
 
 # Pg is the Ruby interface to the {PostgreSQL
 # RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
 # Pg is the Ruby interface to the {PostgreSQL RDBMS}[http://www.postgresql.org/] (https://bitbucket.org/ged/ruby-pg)
-gem 'pg', '~> 0.19.0'
+gem 'pg', '~> 0.19.0', group: :pgsql
 
 # A thin and fast web server (http://code.macournoyer.com/thin/)
 gem 'thin'
 
 # Puma is a simple, fast, threaded, and highly concurrent HTTP 1.1 server for Ruby/Rack applications (http://puma.io)
-gem 'puma'
+gem 'puma', group: :puma
 
 # Bit fields for ActiveRecord (https://github.com/pboling/flag_shih_tzu)
 gem 'flag_shih_tzu'  # Allows for bitfields in activereccord
