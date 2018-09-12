@@ -40,7 +40,7 @@ module PlansHelper
     if user == current_user
       name = d_('dmpopidor', 'You')
     else
-      name = user.name(false)
+      name = user&.name(false)
     end
     return name
   end
