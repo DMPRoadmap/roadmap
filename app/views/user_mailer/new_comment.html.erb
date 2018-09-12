@@ -2,7 +2,7 @@
   tool_name = Rails.configuration.branding[:application][:name]
   commenter_name = @commenter.name
   plan_title = @plan.title
-  user_name = @plan.owner.name
+  user_name = @collaborator.name
 %>
 <% FastGettext.with_locale FastGettext.default_locale do %>
   <p>
