@@ -20,21 +20,26 @@ gem 'responders', '~> 2.0'
 # ------------------------------------------------
 #    DATABASE/SERVER
 
-# A simple, fast Mysql library for Ruby, binding to libmysql
-# (http://github.com/brianmario/mysql2)
-# A simple, fast Mysql library for Ruby, binding to libmysql (http://github.com/brianmario/mysql2)
-gem 'mysql2', '~> 0.4.10', group: :mysql
+group :mysql, optional: true do
+  # A simple, fast Mysql library for Ruby, binding to libmysql (http://github.com/brianmario/mysql2)
+  gem 'mysql2', '~> 0.4.10'
+end
 
-# Pg is the Ruby interface to the {PostgreSQL
-# RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
-# Pg is the Ruby interface to the {PostgreSQL RDBMS}[http://www.postgresql.org/] (https://bitbucket.org/ged/ruby-pg)
-gem 'pg', '~> 0.19.0', group: :pgsql
+group :pgsql, optional: true do
+  # Pg is the Ruby interface to the {PostgreSQL
+  # RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
+  gem 'pg', '~> 0.19.0', group: :pgsql
+end
 
-# A thin and fast web server (http://code.macournoyer.com/thin/)
-gem 'thin'
+group :thin, optional: true do
+  # A thin and fast web server (http://code.macournoyer.com/thin/)
+  gem 'thin'
+end
 
-# Puma is a simple, fast, threaded, and highly concurrent HTTP 1.1 server for Ruby/Rack applications (http://puma.io)
-gem 'puma', group: :puma
+group :puma, optional: true do
+  # Puma is a simple, fast, threaded, and highly concurrent HTTP 1.1 server for Ruby/Rack applications (http://puma.io)
+  gem 'puma', group: :puma
+end
 
 # Bit fields for ActiveRecord (https://github.com/pboling/flag_shih_tzu)
 gem 'flag_shih_tzu'  # Allows for bitfields in activereccord

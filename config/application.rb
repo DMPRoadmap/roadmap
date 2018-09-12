@@ -15,8 +15,8 @@ require 'csv'
 #end
 #Bundler.require(:default, Rails.env)
 #Changed when migrated to rails 4.0.0
-#Bundler.require(*Rails.groups)
-Bundler.require(:default, Rails.env)
+Bundler.require(*Rails.groups, :pgsql, :puma)
+#Bundler.require(:default, Rails.env, :pgsql)
 
 module DMPRoadmap
   class Application < Rails::Application
