@@ -20,23 +20,23 @@ gem 'responders', '~> 2.0'
 # ------------------------------------------------
 #    DATABASE/SERVER
 
-group :mysql, optional: true do
+group :mysql do
   # A simple, fast Mysql library for Ruby, binding to libmysql (http://github.com/brianmario/mysql2)
   gem 'mysql2', '~> 0.4.10'
 end
 
-group :pgsql, optional: true do
+group :pgsql do
   # Pg is the Ruby interface to the {PostgreSQL
   # RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
-  gem 'pg', '~> 0.19.0', group: :pgsql
+  gem 'pg', '~> 0.19.0'
 end
 
-group :thin, optional: true do
+group :thin do
   # A thin and fast web server (http://code.macournoyer.com/thin/)
   gem 'thin'
 end
 
-group :puma, optional: true do
+group :puma do
   # Puma is a simple, fast, threaded, and highly concurrent HTTP 1.1 server for Ruby/Rack applications (http://puma.io)
   gem 'puma', group: :puma
 end
@@ -172,9 +172,6 @@ group :test do
 
   # rspec command for spring (https://github.com/jonleighton/spring-commands-rspec)
   gem "spring-commands-rspec"
-
-  # rspec-collection_matchers-1.1.3 (https://github.com/rspec/rspec-collection_matchers)
-  gem "rspec-collection_matchers"
 
   # Capybara aims to simplify the process of integration testing Rack applications, such as Rails, Sinatra or Merb (https://github.com/teamcapybara/capybara)
   gem "capybara"
