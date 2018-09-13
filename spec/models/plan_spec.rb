@@ -213,9 +213,15 @@ describe Plan do
 
     context "when plan visibility is publicly_visible" do
 
+      before do
+        new_user = create(:user, org: user.org)
+        create(:role, :creator, :administrator, :editor, :commenter,
+                      user: new_user, plan: plan)
+      end
+
       let!(:plan) { create(:plan, :publicly_visible) }
 
-      xit "TODO: Fix this spec" do
+      it "includes publicly_visible plans" do
         is_expected.to include(plan)
       end
 
@@ -223,9 +229,15 @@ describe Plan do
 
     context "when plan visibility is organisationally_visible" do
 
+      before do
+        new_user = create(:user, org: user.org)
+        create(:role, :creator, :administrator, :editor, :commenter,
+                      user: new_user, plan: plan)
+      end
+
       let!(:plan) { create(:plan, :organisationally_visible) }
 
-      xit "TODO: Fix this spec" do
+      it "includes organisationally_visible plans" do
         is_expected.to include(plan)
       end
 

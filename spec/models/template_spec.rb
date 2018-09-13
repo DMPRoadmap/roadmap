@@ -116,8 +116,7 @@ RSpec.describe Template, type: :model do
         create(:template, :default, :unpublished)
       end
 
-      xit "returns nil" do
-        # TODO: This is not behaving as expected. Fixed in another branch...
+      it "returns nil" do
         is_expected.to be_nil
       end
 
@@ -129,8 +128,7 @@ RSpec.describe Template, type: :model do
         create(:template, :published, is_default: false)
       end
 
-      xit "returns nil" do
-        # TODO: This is not behaving as expected. Fixed in another branch...
+      it "returns nil" do
         is_expected.to be_nil
       end
 
@@ -248,14 +246,6 @@ RSpec.describe Template, type: :model do
         expect(subject).not_to include(@d)
       end
     end
-  end
-
-  describe ".latest_version_per_family" do
-    xit "This should be moved to a private method"
-  end
-
-  describe ".latest_customized_version_per_customised_of" do
-    xit "This should be moved to a private method"
   end
 
   describe ".latest_customized_version" do
@@ -502,8 +492,11 @@ RSpec.describe Template, type: :model do
 
   describe ".latest_customizable" do
 
-    # TODO: These are breaking because Template.default is returning an
-    # ActiveRecord::Relation instead of a Template record. Investigate.
+    before do
+      create(:template, :default, :published)
+    end
+
+    let!(:template) { create(:template, :published, :publicly_visible, org: org) }
 
     subject { Template.latest_customizable }
 
@@ -511,9 +504,7 @@ RSpec.describe Template, type: :model do
 
       let!(:org) { create(:org, :institution) }
 
-      let!(:template) { create(:template, org: org) }
-
-      xit { is_expected.not_to include(template) }
+      it { is_expected.not_to include(template) }
 
     end
 
@@ -521,9 +512,7 @@ RSpec.describe Template, type: :model do
 
       let!(:org) { create(:org, :funder) }
 
-      let!(:template) { create(:template, org: org) }
-
-      xit { is_expected.to include(template) }
+      it { is_expected.to include(template) }
 
     end
 
@@ -531,9 +520,7 @@ RSpec.describe Template, type: :model do
 
       let!(:org) { create(:org, :organisation) }
 
-      let!(:template) { create(:template, org: org) }
-
-      xit { is_expected.not_to include(template) }
+      it { is_expected.not_to include(template) }
 
     end
 
@@ -541,9 +528,7 @@ RSpec.describe Template, type: :model do
 
       let!(:org) { create(:org, :research_institute) }
 
-      let!(:template) { create(:template, org: org) }
-
-      xit { is_expected.not_to include(template) }
+      it { is_expected.not_to include(template) }
 
     end
 
@@ -551,9 +536,7 @@ RSpec.describe Template, type: :model do
 
       let!(:org) { create(:org, :project) }
 
-      let!(:template) { create(:template, org: org) }
-
-      xit { is_expected.not_to include(template) }
+      it { is_expected.not_to include(template) }
 
     end
 
@@ -561,9 +544,7 @@ RSpec.describe Template, type: :model do
 
       let!(:org) { create(:org, :school) }
 
-      let!(:template) { create(:template, org: org) }
-
-      xit { is_expected.not_to include(template) }
+      it { is_expected.not_to include(template) }
 
     end
 
@@ -571,7 +552,7 @@ RSpec.describe Template, type: :model do
 
       let!(:template) { create(:template, :default, :published) }
 
-      xit { is_expected.to include(template) }
+      it { is_expected.to include(template) }
 
     end
 
@@ -579,7 +560,7 @@ RSpec.describe Template, type: :model do
 
       let!(:template) { create(:template, :default, :unpublished) }
 
-      xit { is_expected.not_to include(template) }
+      it { is_expected.not_to include(template) }
 
     end
 
@@ -596,7 +577,6 @@ RSpec.describe Template, type: :model do
     end
 
     it "excludes archived Templates" do
-      pending "This test needs refactorings in the model before it will pass"
       # The enum is currently overwriting this scope
       expect(subject).not_to include(@a)
     end
@@ -622,7 +602,6 @@ RSpec.describe Template, type: :model do
     end
 
     it "excludes archived Templates" do
-      pending "This test needs refactorings in the model before it will pass"
       # The enum is currently overwriting this scope
       expect(subject).not_to include(@a)
     end
@@ -649,22 +628,18 @@ RSpec.describe Template, type: :model do
     end
 
     it "excludes archived Templates" do
-      pending "This is broken—Template needs refactored"
       expect(subject).not_to include(@a)
     end
 
     it "includes Templates with a matching title" do
-      pending "This is broken—Template needs refactored"
       expect(subject).to include(@b)
     end
 
     it "excludes Templates with a matching description" do
-      pending "This is broken—Template needs refactored"
       expect(subject).not_to include(@c)
     end
 
     it "includes Templates with a matching Org name" do
-      pending "This is broken—Template needs refactored"
       expect(subject).to include(@d)
     end
   end
@@ -1364,11 +1339,6 @@ RSpec.describe Template, type: :model do
       subject.phases.each do |phase|
         expect(phase.modifiable).to eql(false)
       end
-    end
-
-    it "does something with the Phase" do
-      pending "Not really sure what's *supposed* to happen with the rest"
-      expect(true).to eql(false)
     end
 
     context "when customization_of is blank" do
