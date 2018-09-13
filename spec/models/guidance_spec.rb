@@ -8,6 +8,8 @@ RSpec.describe Guidance, type: :model do
 
     it { is_expected.to validate_presence_of(:guidance_group) }
 
+    it { is_expected.to validate_presence_of(:themes) }
+
     it { is_expected.to allow_value(true).for(:published) }
 
     it { is_expected.to allow_value(false).for(:published) }
