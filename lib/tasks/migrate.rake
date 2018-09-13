@@ -371,21 +371,4 @@ namespace :migrate do
     end
   end
 
-
-  private
-
-  def fuzzy_match?(text_a, text_b, min = 3)
-    Text::Levenshtein.distance(text_a, text_b) <= min
-  end
-
-  def safe_require(libname)
-    begin
-      require libname
-    rescue LoadError
-      puts "Please install the #{libname} gem locally and try again:
-              gem install #{libname}"
-      exit 1
-    end
-  end
-
 end
