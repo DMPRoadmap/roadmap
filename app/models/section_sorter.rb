@@ -48,7 +48,7 @@ class SectionSorter
 
         # Collect the unmodifiable Section ids in the order the should be displayed
         unmodifiable = sections
-                        .select { |section| section.unmodifiable? && section.number > 1 }
+                        .select { |section| section.unmodifiable? }
                         .sort_by { |section| [section.number, section.id] }
 
         # Then any additional Sections that come after the main block...
