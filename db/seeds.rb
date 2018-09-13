@@ -12,12 +12,9 @@ require 'faker'
 
 include FactoryBot::Syntax::Methods
 
-
-LOCALE = :en
-
-I18n.locale                = LOCALE
-Faker::Config.locale       = LOCALE
-FastGettext.default_locale = LOCALE
+I18n.locale                = LocaleFormatter.new("en_GB", format: :i18n).to_s
+Faker::Config.locale       = LocaleFormatter.new("en_GB", format: :i18n).to_s
+FastGettext.default_locale = LocaleFormatter.new("en_GB", format: :fast_gettext).to_s
 
 
 require 'factory_bot'

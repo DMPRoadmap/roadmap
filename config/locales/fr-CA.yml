@@ -1,11 +1,11 @@
 ---
-fr_FR:
+fr-CA:
   activerecord:
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
         restrict_dependent_destroy:
-          has_one: "Vous ne pouvez pas supprimer l'enregistrement car un(e) %{record} dépendant(e) existe"
+          has_one: "Vous ne pouvez pas supprimer l'enregistrement car une personne à charge %{record} existe"
           has_many: "Vous ne pouvez pas supprimer l'enregistrement parce que les %{record} dépendants existent"
   date:
     abbr_day_names:
@@ -39,9 +39,9 @@ fr_FR:
     - vendredi
     - samedi
     formats:
-      default: "%d/%m/%Y"
-      short: "%e %b"
-      long: "%e %B %Y"
+      default: "%Y-%m-%d"
+      long: "%d %B %Y"
+      short: "%y-%m-%d"
     month_names:
     -
     - janvier
@@ -57,47 +57,47 @@ fr_FR:
     - novembre
     - décembre
     order:
-    - :day
-    - :month
     - :year
+    - :month
+    - :day
   datetime:
     distance_in_words:
       about_x_hours:
         one: environ une heure
-        other: environ %{count} heures
+        other: environ %{count} heures
       about_x_months:
         one: environ un mois
-        other: environ %{count} mois
+        other: environ %{count} mois
       about_x_years:
         one: environ un an
-        other: environ %{count} ans
+        other: environ %{count} ans
       almost_x_years:
         one: presqu'un an
         other: presque %{count} ans
       half_a_minute: une demi-minute
       less_than_x_minutes:
-        zero: moins d'une minute
-        one: moins d'une minute
-        other: moins de %{count} minutes
+        one: moins d'une minute
+        other: moins de %{count} minutes
+        zero: moins d'une minute
       less_than_x_seconds:
+        one: moins d'une seconde
+        other: moins de %{count} secondes
         zero: moins d'une seconde
-        one: moins d'une seconde
-        other: moins de %{count} secondes
       over_x_years:
         one: plus d'un an
-        other: plus de %{count} ans
+        other: plus de %{count} ans
       x_days:
-        one: 1 jour
-        other: "%{count} jours"
+        one: 1 jour
+        other: "%{count} jours"
       x_minutes:
-        one: 1 minute
-        other: "%{count} minutes"
+        one: 1 minute
+        other: "%{count} minutes"
       x_months:
-        one: 1 mois
-        other: "%{count} mois"
+        one: 1 mois
+        other: "%{count} mois"
       x_seconds:
-        one: 1 seconde
-        other: "%{count} secondes"
+        one: 1 seconde
+        other: "%{count} secondes"
     prompts:
       day: Jour
       hour: Heure
@@ -122,7 +122,7 @@ fr_FR:
       invalid: n'est pas valide
       less_than: doit être inférieur à %{count}
       less_than_or_equal_to: doit être inférieur ou égal à %{count}
-      model_invalid: "Validation échouée : %{errors}"
+      model_invalid: "Validation échouée: %{errors}"
       not_a_number: n'est pas un nombre
       not_an_integer: doit être un nombre entier
       odd: doit être impair
@@ -139,17 +139,17 @@ fr_FR:
         other: ne fait pas la bonne longueur (doit comporter %{count} caractères)
       other_than: doit être différent de %{count}
     template:
-      body: 'Veuillez vérifier les champs suivants : '
+      body: 'Veuillez vérifier les champs suivants : '
       header:
-        one: 'Impossible d''enregistrer ce(tte) %{model} : 1 erreur'
-        other: 'Impossible d''enregistrer ce(tte) %{model} : %{count} erreurs'
+        one: 'Impossible d''enregistrer ce %{model} : 1 erreur'
+        other: 'Impossible d''enregistrer ce %{model} : %{count} erreurs'
   helpers:
     select:
       prompt: Veuillez sélectionner
     submit:
-      create: Créer un(e) %{model}
-      submit: Enregistrer ce(tte) %{model}
-      update: Modifier ce(tte) %{model}
+      create: Créer un %{model}
+      submit: Enregistrer ce %{model}
+      update: Modifier ce %{model}
   number:
     currency:
       format:
@@ -159,7 +159,7 @@ fr_FR:
         separator: ","
         significant: false
         strip_insignificant_zeros: false
-        unit: "€"
+        unit: "$"
     format:
       delimiter: " "
       precision: 3
@@ -170,13 +170,11 @@ fr_FR:
       decimal_units:
         format: "%n %u"
         units:
-          billion: milliard
-          million:
-            one: million
-            other: millions
-          quadrillion: million de milliards
-          thousand: millier
-          trillion: billion
+          billion: Milliard
+          million: Million
+          quadrillion: Million de milliards
+          thousand: Millier
+          trillion: Mille milliard
           unit: ''
       format:
         delimiter: ''
@@ -187,8 +185,8 @@ fr_FR:
         format: "%n %u"
         units:
           byte:
-            one: octet
-            other: octets
+            one: Octet
+            other: Octets
           gb: Go
           kb: ko
           mb: Mo
@@ -208,7 +206,7 @@ fr_FR:
   time:
     am: am
     formats:
-      default: "%d %B %Y %Hh %Mmin %Ss"
-      long: "%A %d %B %Y %Hh%M"
-      short: "%d %b %Hh%M"
+      default: "%H h %M min %S s"
+      long: "%A %d %B %Y %H h %M"
+      short: "%H h %M"
     pm: pm

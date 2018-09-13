@@ -1,6 +1,6 @@
 require 'faker'
 
-LOCALE = 'en_GB'
+LOCALE = 'en-GB'
 
 RSpec.configure do |config|
   config.before(:each) do
