@@ -11,11 +11,11 @@ if Language.table_exists?
   end
 else
   def default_locale
-    Rails.application.config.i18n.available_locales.first
+    Rails.application.config.i18n.available_locales.first || 'en-GB'
   end
 
   def available_locales
-    LocaleSet.new(Array(Rails.application.config.i18n.available_locales))
+    Rails.application.config.i18n.available_locales = LocaleSet.new(['en-GB'])
   end
 end
 
