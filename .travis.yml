@@ -21,6 +21,9 @@ addons:
       - nodejs
       - wkhtmltopdf
 
+  artifacts:
+    s3_region: eu-west-2
+
 matrix:
   fast_finish: true
   include:
@@ -33,8 +36,8 @@ rvm:
 # combination of variables.
 env:
   # Run specs once with each database adapter we support
-  - DB_ADAPTER=postgresql
-  - DB_ADAPTER=mysql2
+  - DB_ADAPTER=postgresql ARTIFACTS_KEY=AKIAJIGI24Z27P2HZSFA ARTIFACTS_SECRET=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 ARTIFACTS_BUCKET=roadmap-test-assets
+  - DB_ADAPTER=mysql2 ARTIFACTS_KEY=AKIAJIGI24Z27P2HZSFA ARTIFACTS_SECRET=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 ARTIFACTS_BUCKET=roadmap-test-assets
 
 # Main test script
 script:
