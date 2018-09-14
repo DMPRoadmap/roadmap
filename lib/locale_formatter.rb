@@ -19,12 +19,26 @@ class LocaleFormatter
   # Regex to extract the components (language and region) from a locale String
   COMPONENT_FORMAT = /[a-z]{2}/i
 
+  # The format to modify the String in
+  #
+  # Returns Symbol
+  attr_reader :format
+
+  # The formatted locale as a string
+  #
+  # Returns String
+  attr_reader :string
+
+  alias to_s string
+
   # Takes a given locale string and formats it properly for the desired framework
   #
   # string - A locale String (e.g. "en_GB", "en-GB", "en", :en)
   # format - A Symbol representing the desired translation framework (defaults: :i18n)
   #
   def initialize(string, format: :i18n)
+    @format = format
+
     language, region = string.to_s.scan(COMPONENT_FORMAT)
     join_char = format.to_sym == :fast_gettext ? FAST_GETTEXT_JOIN : I18N_JOIN
 
@@ -37,14 +51,5 @@ class LocaleFormatter
       @string = language
     end
   end
-
-  # The formatted locale as a string
-  #
-  # Returns String
-  def string
-    @string
-  end
-
-  alias to_s string
 
 end
