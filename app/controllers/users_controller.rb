@@ -84,7 +84,7 @@ class UsersController < ApplicationController
       end
       render(json: {
         code: 1,
-        msg: success_message(perms.first, _("saved")),
+        msg: _("Successfully saved permissions"),
         current_privileges: render_to_string(partial: "users/current_privileges",
                                              locals: { user: @user }, formats: [:html])
         })
