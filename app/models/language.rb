@@ -52,13 +52,22 @@ class Language < ActiveRecord::Base
   # ==========
 
   scope :sorted_by_abbreviation, -> { all.order(:abbreviation) }
-  scope :default, -> { where(default_language: true).first }
+
   # Retrieves the id for a given abbreviation of a language
   scope :id_for, -> (abbreviation) {
     where(abbreviation: abbreviation).pluck(:id).first
   }
 
+  # =================
+  # = Class methods =
+  # =================
+
   def self.many?
     Rails.cache.fetch([model_name, "many?"], expires_in: 1.hour) { all.many? }
   end
+
+  def self.default
+    where(default_language: true).first
+  end
+
 end
