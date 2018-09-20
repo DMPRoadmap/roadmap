@@ -1,5 +1,5 @@
 ---
-en_GB:
+en-GB:
   activerecord:
     errors:
       messages:
@@ -95,7 +95,7 @@ en_GB:
         other: "%{count} months"
       x_years:
         one: 1 year
-        other: "%{count} years"    
+        other: "%{count} years"
       x_seconds:
         one: 1 second
         other: "%{count} seconds"

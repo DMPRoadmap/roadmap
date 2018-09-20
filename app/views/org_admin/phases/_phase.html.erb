@@ -6,7 +6,7 @@
         <%= phase.title %>
         <div class="pull-right">
           <% if template.customization_of.present? && template.latest? %>
-            <%= link_to _('Customize phase'), org_admin_template_phase_path(template.id, phase.id), { class: "btn btn-default", role: 'button' } %>
+            <%= link_to _('Customise phase'), org_admin_template_phase_path(template.id, phase.id), { class: "btn btn-default", role: 'button' } %>
           <% elsif modifiable %>
             <%= link_to _('Edit phase'), edit_org_admin_template_phase_path(template.id, phase.id), { class: "btn btn-default", role: 'button' } %>
           <% else %>

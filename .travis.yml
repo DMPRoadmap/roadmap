@@ -21,6 +21,10 @@ addons:
       - nodejs
       - wkhtmltopdf
 
+  addons:
+    artifacts:
+      s3_region: "eu-west-2"
+
 matrix:
   fast_finish: true
   include:

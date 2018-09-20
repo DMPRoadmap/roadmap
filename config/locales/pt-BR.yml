@@ -2,7 +2,7 @@
 # [+Description:+] This file contains all the text present on DMPRoadmap that is not being retrieve from the database.
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 
-pt_BR:
+pt-BR:
   date:
     formats:
       # Use the strftime parameters for formats.
