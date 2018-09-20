@@ -1,4 +1,4 @@
-en_GB:
+en-US:
   devise:
     invitations:
       send_instructions: 'An invitation email has been sent to %{email}.'

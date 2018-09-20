@@ -7,7 +7,7 @@ RSpec.feature "Locales", type: :feature, js: true do
       Language.where(
         default_language: true,
         name: "English",
-        abbreviation: "en_GB"
+        abbreviation: "en-GB"
       ).first_or_create,
 
       Language.where(
@@ -21,9 +21,19 @@ RSpec.feature "Locales", type: :feature, js: true do
   let!(:user) { create(:user, language: languages.first) }
 
   before do
-    Rails.application.config.i18n.available_locales << languages.last.abbreviation
-    FastGettext.default_available_locales << languages.last.abbreviation
+    locale_set = LocaleSet.new(languages.map(&:abbreviation))
+    I18n.available_locales        = locale_set.for(:i18n)
+    FastGettext.default_available_locales = locale_set.for(:fast_gettext)
+    I18n.locale                   = locale_set.for(:i18n).first
+    FastGettext.locale            = locale_set.for(:fast_gettext).first
     sign_in(user)
+  end
+
+  after do
+    I18n.available_locales        = AVAILABLE_TEST_LOCALES.for(:i18n)
+    FastGettext.default_available_locales = AVAILABLE_TEST_LOCALES.for(:fast_gettext)
+    I18n.default_locale           = AVAILABLE_TEST_LOCALES.for(:i18n).first
+    FastGettext.default_locale    = AVAILABLE_TEST_LOCALES.for(:fast_gettext).first
   end
 
   scenario "user changes their locale" do

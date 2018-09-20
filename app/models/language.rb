@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: languages
@@ -10,6 +12,7 @@
 #
 
 class Language < ActiveRecord::Base
+
   # frozen_string_literal: true
 
   include ValidationValues
@@ -20,7 +23,7 @@ class Language < ActiveRecord::Base
 
   ABBREVIATION_MAXIMUM_LENGTH = 5
 
-  ABBREVIATION_FORMAT = /\A[a-z]{2}(\_[A-Z]{2})?\Z/
+  ABBREVIATION_FORMAT = /\A[a-z]{2}(\-[A-Z]{2})?\Z/
 
   NAME_MAXIMUM_LENGTH = 20
 
@@ -47,6 +50,12 @@ class Language < ActiveRecord::Base
 
   validates :default_language, inclusion: { in: BOOLEAN_VALUES }
 
+  # =============
+  # = Callbacks =
+  # =============
+
+  before_validation :format_abbreviation, if: :abbreviation_changed?
+
   # ==========
   # = Scopes =
   # ==========
@@ -58,7 +67,20 @@ class Language < ActiveRecord::Base
     where(abbreviation: abbreviation).pluck(:id).first
   }
 
+  # ========================
+  # = Public class methods =
+  # ========================
+
   def self.many?
     Rails.cache.fetch([model_name, "many?"], expires_in: 1.hour) { all.many? }
   end
+
+  private
+
+  def format_abbreviation
+    abbreviation.downcase!
+    return if abbreviation.blank? || abbreviation =~ /\A[a-z]{2}\Z/i
+    self.abbreviation = LocaleFormatter.new(abbreviation, format: :i18n).to_s
+  end
+
 end
