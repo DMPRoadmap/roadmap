@@ -75,7 +75,7 @@ module ExportablePlan
                        .joins(phases: { sections: { questions: :question_format } })
                        .where(id: self.template_id)
                        .order('sections.number', 'questions.number').first
-
+    hash[:customization] = template.customization_of.present?
     hash[:title] = self.title
     hash[:answers] = self.answers
 

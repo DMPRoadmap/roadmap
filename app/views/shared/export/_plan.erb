@@ -24,7 +24,7 @@
         <h1><%= download_plan_page_title(@plan, phase, @hash) %></h1>
         <hr />
         <% phase[:sections].each do |section| %>
-          <% if display_questions_and_section_headings(section, @show_sections_questions, @show_custom_sections) %>
+          <% if display_questions_and_section_headings(@hash[:customization], section, @show_sections_questions, @show_custom_sections) %>
             <h3><%= section[:title] %></h3>
 
             <% section[:questions].each do |question| %>
