@@ -12,15 +12,13 @@ RSpec.describe Language, type: :model do
 
     it { is_expected.to validate_presence_of(:abbreviation) }
 
-    it { is_expected.to validate_uniqueness_of(:abbreviation)
-                          .with_message("must be unique") }
+    it "is expected to validate uniquenss of abbreviation" do
+      @language = build(:language, abbreviation: create(:language).abbreviation)
+      expect(@language).not_to be_valid
+      expect(@language).to have(1).errors_on(:abbreviation)
+    end
 
-    it { is_expected.to allow_values('en', 'en_GB').for(:abbreviation) }
-
-    it { is_expected.not_to allow_value('NOOP', 'en_', 'EN')
-                              .for(:abbreviation) }
-
-    it { is_expected.to validate_length_of(:abbreviation).is_at_most(5) }
+    it { is_expected.to allow_values('en', 'en-GB').for(:abbreviation) }
 
   end
 
@@ -94,6 +92,50 @@ RSpec.describe Language, type: :model do
       it "returns empty array" do
         expect(subject).to be_empty
       end
+
+    end
+
+  end
+
+  describe "#abbreviation" do
+
+    context "when region is present" do
+
+      it "forces the hyphenated format" do
+        @language = Language.new(name: "Esperanto", abbreviation: "hh_XX")
+        @language.valid?
+        expect(@language.abbreviation).to eql("hh-XX")
+      end
+
+      it "downcases the language component" do
+        @language = Language.new(name: "Esperanto", abbreviation: "HH_XX")
+        @language.valid?
+        expect(@language.abbreviation).to start_with('hh')
+      end
+
+      it "upcases the region" do
+        @language = Language.new(name: "Esperanto", abbreviation: "hh_xx")
+        @language.valid?
+        expect(@language.abbreviation).to end_with('XX')
+      end
+
+
+    end
+
+    context "when region is absent" do
+
+      it "downases the given value" do
+        @language = Language.new(name: "Esperanto", abbreviation: "HH")
+        @language.valid?
+        expect(@language.abbreviation).to eql("hh")
+      end
+
+      it "doesn't change well-formatted values" do
+        @language = Language.new(name: "Esperanto", abbreviation: "hh")
+        @language.valid?
+        expect(@language.abbreviation).to eql("hh")
+      end
+
 
     end
 

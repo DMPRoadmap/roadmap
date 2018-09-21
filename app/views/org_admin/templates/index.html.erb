@@ -59,7 +59,7 @@
       <% if !current_user.org.funder_only? %>
         <li role="presentation"
             class="<%= action_name == 'customisable' ? 'active' : '' %>">
-          <%= link_to(_('Customizable Templates'),
+          <%= link_to(_('Customisable Templates'),
               customisable_org_admin_templates_path, { role: 'tab' }) %>
         </li>
       <% end %>

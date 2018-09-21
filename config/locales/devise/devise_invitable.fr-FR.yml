@@ -1,4 +1,4 @@
-fr_FR:
+fr-FR:
   devise:
     invitations:
       send_instructions: "Un courriel d'invitation a été envoyé à %{email}."
