@@ -155,12 +155,12 @@ module Paginable
   # Returns the sort link name for a given sort_field. The link name includes
   # html prevented of being escaped
   def sort_link_name(sort_field)
-    className = "fa-sort"
+    class_name = "fa-sort"
     if @paginable_params[:sort_field] == sort_field
-      className = upcasing_sort_direction == "ASC" ? "fa-sort-asc" : "fa-sort-desc"
+      class_name = upcasing_sort_direction == "ASC" ? "fa-sort-asc" : "fa-sort-desc"
     end
-    sanitize <<~HTML
-      <i class="fa #{className}"
+    <<~HTML.html_safe
+      <i class="fa #{class_name}"
          aria-hidden="true"
          style="float: right; font-size: 1.2em;">
 
