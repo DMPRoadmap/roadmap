@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 class RolesController < ApplicationController
+
   include ConditionalUserMailer
   respond_to :html
   after_action :verify_authorized
@@ -9,41 +12,53 @@ class RolesController < ApplicationController
     authorize @role
 
     access_level = params[:role][:access_level].to_i
-    @role.set_access_level(access_level)
-    message = ''
+    @role.access_level = access_level
+    message = ""
     if params[:user].present?
       if @role.plan.owner.present? && @role.plan.owner.email == params[:user]
-        flash[:notice] = _('Cannot share plan with %{email} since that email matches with the owner of the plan.') % {email: params[:user]}
+        # rubocop:disable LineLength
+        flash[:notice] = _("Cannot share plan with %{email} since that email matches with the owner of the plan.") % {
+          email: params[:user]
+        }
+        # rubocop:enable LineLength
       else
-        user = User.where_case_insensitive('email',params[:user]).first
+        user = User.where_case_insensitive("email", params[:user]).first
         if Role.find_by(plan: @role.plan, user: user) # role already exists
-          flash[:notice] = _('Plan is already shared with %{email}.') % {email: params[:user]}
+          flash[:notice] = _("Plan is already shared with %{email}.") % {
+            email: params[:user]
+          }
         else
           if user.nil?
             registered = false
             User.invite!(email: params[:user])
-            message = _('Invitation to %{email} issued successfully. \n') % {email: params[:user]}
+            message = _("Invitation to %{email} issued successfully.") % {
+              email: params[:user]
+            }
             user = User.find_by(email: params[:user])
           end
-          message += _('Plan shared with %{email}.') % {email: user.email}
+          message += _("Plan shared with %{email}.") % {
+            email: user.email
+          }
           @role.user = user
           if @role.save
             if registered
-              deliver_if(recipients: user, key: 'users.added_as_coowner') do |r|
+              deliver_if(recipients: user, key: "users.added_as_coowner") do |r|
                 UserMailer.sharing_notification(@role, r, inviter: current_user)
                           .deliver_now
               end
             end
             flash[:notice] = message
           else
-            flash[:alert] = failed_create_error(@role, _('role'))
+            # rubocop:disable LineLength
+            flash[:alert] = _("You must provide a valid email address and select a permission level.")
+            # rubocop:enable LineLength
           end
         end
       end
     else
-      flash[:notice] = _('Please enter an email address')
+      flash[:alert] = _("Please enter an email address")
     end
-    redirect_to controller: 'plans', action: 'share', id: @role.plan.id
+    redirect_to controller: "plans", action: "share", id: @role.plan.id
   end
 
 
@@ -51,14 +66,19 @@ class RolesController < ApplicationController
     @role = Role.find(params[:id])
     authorize @role
     access_level = params[:role][:access_level].to_i
-    @role.set_access_level(access_level)
+    @role.access_level = access_level
     if @role.update_attributes(role_params)
-      deliver_if(recipients: @role.user, key: 'users.added_as_coowner') do |r|
+      deliver_if(recipients: @role.user, key: "users.added_as_coowner") do |r|
         UserMailer.permissions_change_notification(@role, current_user).deliver_now
       end
-      render json: {code: 1, msg: _("Successfully changed the permissions for #{@role.user.email}. They have been notified via email.")}
+      # rubocop:disable LineLength
+      render json: {
+        code: 1,
+        msg: _("Successfully changed the permissions for #{@role.user.email}. They have been notified via email.")
+      }
+      # rubocop:enable LineLength
     else
-      render json: {code: 0, msg: flash[:alert]}
+      render json: { code: 0, msg: flash[:alert] }
     end
   end
 
@@ -68,14 +88,15 @@ class RolesController < ApplicationController
     user = @role.user
     plan = @role.plan
     @role.destroy
-    flash[:notice] = _('Access removed')
-    deliver_if(recipients: user, key: 'users.added_as_coowner') do |r|
+    flash[:notice] = _("Access removed")
+    deliver_if(recipients: user, key: "users.added_as_coowner") do |r|
       UserMailer.plan_access_removed(user, plan, current_user).deliver_now
     end
-    redirect_to controller: 'plans', action: 'share', id: @role.plan.id
+    redirect_to controller: "plans", action: "share", id: @role.plan.id
   end
 
-  # This function makes user's role on a plan inactive - i.e. "removes" this from their plans
+  # This function makes user's role on a plan inactive
+  # i.e. "removes" this from their plans
   def deactivate
     role = Role.find(params[:id])
     authorize role
@@ -86,9 +107,9 @@ class RolesController < ApplicationController
       role.plan.save
     end
     if role.save
-      flash[:notice] = _('Plan removed')
+      flash[:notice] = _("Plan removed")
     else
-      flash[:alert] = _('Unable to remove the plan')
+      flash[:alert] = _("Unable to remove the plan")
     end
     redirect_to(plans_path)
   end
@@ -98,4 +119,5 @@ class RolesController < ApplicationController
   def role_params
     params.require(:role).permit(:plan_id)
   end
+
 end
