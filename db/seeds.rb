@@ -12,12 +12,11 @@ require 'faker'
 
 include FactoryBot::Syntax::Methods
 
-
-LOCALE = :en
-
-I18n.locale                = LOCALE
-Faker::Config.locale       = LOCALE
-FastGettext.default_locale = LOCALE
+I18n.available_locales = ['en', 'en-GB', 'de', 'fr']
+I18n.locale                = LocaleFormatter.new(:en, format: :i18n).to_s
+# Keep this as :en. Faker doesn't have :en-GB
+Faker::Config.locale       = LocaleFormatter.new(:en, format: :i18n).to_s
+FastGettext.default_locale = LocaleFormatter.new(:en, format: :fast_gettext).to_s
 
 
 require 'factory_bot'
@@ -87,11 +86,11 @@ question_formats.map{ |qf| create(:question_format, qf) }
 # Languages (check config/locales for any ones not defined here)
 # -------------------------------------------------------
 languages = [
-  {abbreviation: 'en_GB',
+  {abbreviation: 'en-GB',
    description: '',
    name: 'English (GB)',
    default_language: true},
-  {abbreviation: 'en_US',
+  {abbreviation: 'en-US',
    description: '',
    name: 'English (US)',
    default_language: false},
@@ -224,16 +223,16 @@ orgs = [
   {name: Branding.fetch(:organisation, :name),
    abbreviation: Branding.fetch(:organisation, :abbreviation),
    org_type: 4, links: {"org":[]},
-   language: Language.find_by(abbreviation: 'en_GB'),
+   language: Language.find_by(abbreviation: 'en-GB'),
    token_permission_types: TokenPermissionType.all},
   {name: 'Government Agency',
    abbreviation: 'GA',
    org_type: 2, links: {"org":[]},
-   language: Language.find_by(abbreviation: 'en_GB')},
+   language: Language.find_by(abbreviation: 'en-GB')},
   {name: 'University of Exampleland',
    abbreviation: 'UOS',
    org_type: 1, links: {"org":[]},
-   language: Language.find_by(abbreviation: 'en_GB')}
+   language: Language.find_by(abbreviation: 'en-GB')}
 ]
 orgs.map{ |o| create(:org, o) }
 

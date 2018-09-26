@@ -1,11 +1,11 @@
 # Additional translations at https://github.com/plataformatec/devise/wiki/I18n
 
-fr_FR:
+fr-FR:
   devise:
     confirmations:
       confirmed: "Votre compte a bien été validé. Veuillez vous connecter."
       send_instructions: "Vous recevrez dans quelques minutes un courriel contenant les directives pour activer votre compte."
-      resend_instructions: "Envoyer de nouveau les directives" 
+      resend_instructions: "Envoyer de nouveau les directives"
       send_paranoid_instructions: "Si votre adresse électronique existe dans notre base de données, vous recevrez dans quelques minutes un courriel contenant les directives pour valider votre compte."
     failure:
       already_authenticated: "Vous êtes déjà connecté(e)."
@@ -63,7 +63,7 @@ fr_FR:
     unlocks:
       send_instructions: "Vous recevrez dans quelques minutes un courriel contenant les directives pour déverrouiller votre compte."
       send_paranoid_instructions: "Si votre compte existe, vous recevrez dans quelques minutes un courriel contenant les directives pour le déverrouiller."
-      resend_unlock_instructions: "Envoyer de nouveau les directives de déverouillage." 
+      resend_unlock_instructions: "Envoyer de nouveau les directives de déverouillage."
       unlocked: "Votre compte a bien été déverrouillé. Veuillez vous connecter pour continuer."
   errors:
     messages:

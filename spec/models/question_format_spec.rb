@@ -36,7 +36,7 @@ RSpec.describe QuestionFormat, type: :model do
 
     context "when record doesn't exist" do
 
-      xit "it returns nil" do
+      it "it returns nil" do
         # TODO: This behaviour is fixed in the refactors branch
         expect(subject).to be_nil
       end

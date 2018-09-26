@@ -48,9 +48,13 @@ module PlansHelper
     return hash[:phases].many? ? "#{plan.title} - #{phase[:title]}" : plan.title
   end
 
-  def display_questions_and_section_headings(section, show_sections_questions, show_custom_sections)
-    # Return true if show_sections_questions is true and either section not customised, or section is customised
-    # and show_custom_sections is true
-    return show_sections_questions && (!section[:modifiable] || (show_custom_sections && section[:modifiable]))
+  def display_questions_and_section_headings(customization, section, show_sections_questions, show_custom_sections)
+    display = false
+    if show_sections_questions
+      display = !customization
+      display ||= customization && !section[:modifiable]
+      display ||= customization && section[:modifiable] && show_custom_sections
+    end
+    return display
   end
 end

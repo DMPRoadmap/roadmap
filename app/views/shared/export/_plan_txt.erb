@@ -26,7 +26,7 @@
 <% if phase[:title] == @selected_phase.title %>
 <%= (@hash[:phases].many? ? "#{phase[:title]}" : "") %>
   <% phase[:sections].each do |section| %>
-    <% if display_questions_and_section_headings(section, @show_sections_questions, @show_custom_sections) %>
+    <% if display_questions_and_section_headings(@hash[:customization], section, @show_sections_questions, @show_custom_sections) %>
 <%= "#{section[:title]}\n" %>
 
       <% section[:questions].each do |question| %>
