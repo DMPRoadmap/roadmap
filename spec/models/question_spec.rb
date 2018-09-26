@@ -180,12 +180,6 @@ RSpec.describe Question, type: :model do
     end
   end
 
-  describe '#guidance_for_org' do
-
-    pending "Ignore this for now. Should move method to view helpers"
-
-  end
-
   describe "#example_answers" do
 
     subject { question.example_answers([org.id]) }

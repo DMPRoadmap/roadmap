@@ -40,6 +40,11 @@ class Template < ActiveRecord::Base
 
   validates_with TemplateLinksValidator
 
+  # A standard template should be organisationally visible. Funder templates
+  # that are meant for external use will be publicly visible. This allows a
+  # funder to create 'funder' as well as organisational templates. The default
+  # template should also always be publicly_visible.
+  enum visibility: %i[organisationally_visible publicly_visible]
 
   # Stores links as an JSON object:
   # {funder: [{"link":"www.example.com","text":"foo"}, ...],
@@ -166,8 +171,7 @@ class Template < ActiveRecord::Base
     funder_ids = Org.funder.pluck(:id)
     family_ids = families(funder_ids).distinct
                                      .pluck(:family_id) + [default.family_id]
-
-    published(family_ids.flatten)
+    published(family_ids.uniq)
       .where("visibility = :visibility OR is_default = :is_default",
              visibility: visibilities[:publicly_visible], is_default: true)
   }
@@ -185,15 +189,10 @@ class Template < ActiveRecord::Base
   # Retrieves unarchived templates whose title or org.name includes the term
   # passed
   scope :search, lambda { |term|
-    unarchived.where("templates.title LIKE :term OR orgs.name LIKE :term",
-                     term: "%#{term}%")
+    unarchived.joins(:org).where("templates.title LIKE :term OR orgs.name LIKE :term",
+                                 term: "%#{term}%")
   }
 
-  # A standard template should be organisationally visible. Funder templates
-  # that are meant for external use will be publicly visible. This allows a
-  # funder to create 'funder' as well as organisational templates. The default
-  # template should also always be publicly_visible.
-  enum visibility: %i[organisationally_visible publicly_visible]
 
   # defines the export setting for a template object
   has_settings :export, class_name: "Settings::Template" do |s|
