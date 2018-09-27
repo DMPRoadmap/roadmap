@@ -2,7 +2,7 @@
 
 /* Phones */
 /* ----------------------------------------------------------------------- */
-@media all and (max-width: 768px) {
+@media all and (max-width: $media-width-breakpoint-1) {
   header > .fixed-menu, header > .branding, header > .app-menu , footer > .footer {
     display: none;
   }
@@ -125,36 +125,17 @@
   }
 }
 
-/* Tablets */
-/* --------------------------------------------------- */
-@media (min-width: 768px) and (max-width: 1200px) {
-  header > .fixed-menu-mobile, footer > .footer-mobile {
-    display: none;
-  }
-
-  .homepage-img-1 { background-image: url('../images/homepage/1-med.jpg'); }
-  .homepage-img-2 { background-image: url('../images/homepage/2-med.png'); }
-  .homepage-img-3 { background-image: url('../images/homepage/3-med.jpg'); }
-  .homepage-img-4 { background-image: url('../images/homepage/4-med.jpg'); }
-  .homepage-img-5 { background-image: url('../images/homepage/5-med.png'); }
-
-  .welcome {
-    position: relative;
-    height: 393px;
-  }
-}
-
 /* Laptops and Desktops */
 /* --------------------------------------------------- */
-@media all and (min-width: 1200px) {
+@media all and (min-width: $media-width-breakpoint-2) {
   body {
     header > .fixed-menu-mobile, footer > .footer-mobile {
       display: none;
     }
 
     header, main, footer, .notifications, .navbar-fixed-top, .welcome-message {
-      min-width: 480px;
-      max-width: 1180px;
+      min-width: $media-width-breakpoint-1;
+      max-width: $media-max-width;
       width: 100%;
       margin: 0 auto;
     }
@@ -172,6 +153,11 @@
 
     header > .app-menu > .navbar > .navbar-nav > li > a {
       font-size: 2rem;
+    }
+
+    .learn-menu ul {
+      padding-left: 20px;
+      padding-right: 30px;
     }
 
     footer {

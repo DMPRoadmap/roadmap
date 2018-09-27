@@ -10,9 +10,20 @@
 
   .welcome-message {
     margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: baseline;
+
     padding: 0 5px;
     color: $white;
     font-size: 1.7rem;
+
+    div {
+      position: relative;
+      flex: 1 content;
+    }
 
     h1 {
       color: $white;
@@ -27,8 +38,8 @@
       padding: 10px 45px;
       border-radius: 7px;
       font-size: 1.8rem;
-      margin-top: -55px;
-      float: right;
+      top: 30px;
+      right: 0;
     }
   }
 }
