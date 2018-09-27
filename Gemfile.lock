@@ -445,15 +445,12 @@ DEPENDENCIES
   rspec-rails
   rubocop-dmp_roadmap (>= 1.1.0)
   ruby_dig
-<<<<<<< HEAD
   selenium-webdriver (>= 3.13.1)
   shoulda
   simplecov
   spring
   spring-commands-rspec
   text
-=======
->>>>>>> mobile-ready
   thin
   web-console
   webmock
