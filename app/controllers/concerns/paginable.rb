@@ -147,7 +147,7 @@ module Paginable
          style="float: right; font-size: 1.2em;">
 
         <span class="screen-reader-text">
-          #{_("Sort by %{sort_field}") % sort_field.split(".").first}
+          #{_("Sort by %{sort_field}") % { sort_field: sort_field.split(".").first }}
         </span>
       </i>
     HTML
