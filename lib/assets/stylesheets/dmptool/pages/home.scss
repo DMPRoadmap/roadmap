@@ -87,6 +87,10 @@
   .top-5 .bottom {
     position: relative;
   }
+  .top-5 > .bottom > ol {
+    list-style-position: inside;
+    padding-left: 10px;
+  }
 
   .more {
     position: absolute;

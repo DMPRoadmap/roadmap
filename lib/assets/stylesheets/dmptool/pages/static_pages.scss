@@ -1,0 +1,23 @@
+.static-page {
+  h1 {
+    font-size: 2.8rem;
+  }
+  h2 {
+    font-size: 1.9rem;
+  }
+  h3 {
+    font-size: 1.6rem;
+  }
+
+  ul {
+    list-style: disc;
+
+    ul {
+      list-style: circle;
+    }
+  }
+
+  ul.toc {
+    padding-left: 10px;
+  }
+}

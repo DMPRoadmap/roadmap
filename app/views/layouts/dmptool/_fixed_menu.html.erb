@@ -1,39 +1,14 @@
 <nav class="navbar navbar-fixed-top">
-  <!-- Language menu -->
-  <% if MANY_LANGUAGES %>
-    <% lang = LANGUAGES.select{ |l| FastGettext.locale == l.abbreviation }.first %>
-    <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-           id="language-menu-button" aria-haspopup="true" aria-expanded="false">
-          <%= lang.present? ? lang.name : _('English (US)') %>
-          <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="language-menu-button">
-          <% LANGUAGES.each do |l| %>
-            <li><%= link_to l.name, locale_path(l.abbreviation), method: :patch %></li>
-          <% end %>
-        </ul>
-      </li>
-    </ul>
-  <% end %>
+  <%= render partial: 'layouts/dmptool/language_menu' %>
 
   <!-- Sign in/out menu -->
-  <% unless isActivePage(user_shibboleth_omniauth_callback_path) || isActivePage(user_orcid_omniauth_callback_path) %>
+  <% unless isActivePage(user_shibboleth_omniauth_callback_path) ||
+            isActivePage(user_orcid_omniauth_callback_path) %>
     <!-- Show this menu ONLY if the user is NOT registering their account after an omniauth login -->
     <ul class="nav navbar-nav navbar-right">
       <li class="dropdown">
-
         <% if user_signed_in? %>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-             id="profile-menu-button" aria-haspopup="true" aria-expanded="false">
-            <%= current_user.name(false) %>
-            <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="profile-menu-button">
-            <li><%= link_to _('Edit profile'), edit_user_registration_path %></li>
-            <li><%= link_to _('Sign out'), destroy_user_session_path, method: :delete %></li>
-          </ul>
+          <%= render partial: 'layouts/dmptool/profile_menu' %>
 
         <% else %>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -45,53 +20,11 @@
             <li><%= render partial: 'shared/dmptool/sign_in_options' %></li>
           </ul>
         <% end %>
-
       </li>
     </ul>
   <% end %>
 
   <!-- Learn/explore menu -->
-  <ul class="nav navbar-nav navbar-right">
-    <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-             id="learn-menu-button" aria-haspopup="true" aria-expanded="false">
-        <%= _('Learn') %>
-        <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
-      </a>
-
-      <ul class="dropdown-menu" aria-labelledby="learn-menu-button">
-        <li>
-          <div class="learn-menu">
-            <div>
-              <ul>
-                <li><%= link_to _('Funder Requirements'), public_templates_path %></li>
-                <li><%= link_to _('Public Plans'), public_plans_path %></li>
-                <li><%= link_to _('Participating Institutions'), public_orgs_path %></li>
-                <li><%= link_to _('FAQ'), faq_path %></li>
-              </ul>
-            </div>
-            <div>
-              <ul>
-                <li><%= _('For Researchers') %>
-                  <ul>
-                    <li><%= link_to _('Quick Start Guide'), help_path %></li>
-                    <li><%= link_to _('Data Management General Guidance'), general_guidance_path %></li>
-                  </ul>
-                </li>
-                <li>
-                  <% lbl = _('For Administrators') %>
-                  <%= link_to raw("#{lbl} <i class=\"fa fa-external-link\">&nbsp;</i>"),
-                             'https://github.com/CDLUC3/dmptool/wiki/Help-for-Administrators' %>
-                  <ul>
-                    <li><%= link_to _('Promote the DMPTool'), promote_path %></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </li>
-  </ul>
+  <%= render partial: 'layouts/dmptool/learn_menu' %>
 
 </nav>

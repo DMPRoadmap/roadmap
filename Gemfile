@@ -223,9 +223,3 @@ group :development do
 
   gem "yard-tomdoc"
 end
-
-# START DMPTool customization
-# ------------------------------------------------
-gem 'redcarpet'   # For Markdown static pages
-# ------------------------------------------------
-# END DMPTool customization

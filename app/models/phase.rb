@@ -3,10 +3,10 @@
 # Table name: phases
 #
 #  id             :integer          not null, primary key
-#  description    :text
+#  description    :text(65535)
 #  modifiable     :boolean
 #  number         :integer
-#  title          :string
+#  title          :string(255)
 #  created_at     :datetime
 #  updated_at     :datetime
 #  template_id    :integer
