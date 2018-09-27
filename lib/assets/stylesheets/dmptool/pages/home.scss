@@ -1,0 +1,121 @@
+/* HOMEPAGE */
+/* --------------------------------------- */
+.welcome {
+  position: relative;
+  padding: 0;
+  background-color: $white;
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  .welcome-message {
+    margin: 0 auto;
+    padding: 0 5px;
+    color: $white;
+    font-size: 1.7rem;
+
+    h1 {
+      color: $white;
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 3rem;
+    }
+
+    .btn-inverse {
+      color: $dark-blue;
+      background-color: $white;
+      padding: 10px 45px;
+      border-radius: 7px;
+      font-size: 1.8rem;
+      margin-top: -55px;
+      float: right;
+    }
+  }
+}
+
+.welcome > div {
+  width: 100%;
+  background: rgba(14,86,130,.9);
+  margin-top: 45px;
+  padding: 5px 0 10px 0;
+}
+
+.home-page {
+  display: felx;
+  flex-flow: column;
+
+  .metrics, .communications {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: baseline;
+
+    width: 100%;
+    margin-top: 35px;
+  }
+
+  .metrics > .overview, .metrics > .top-5 {
+    display: flex;
+    flex-flow: column;
+
+    .bottom {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-around;
+
+      border-top: 1px solid $black;
+
+      .metric {
+        position: relative;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        margin: 25px 45px;
+
+        .fa {
+          margin-bottom: 10px;
+          font-size: 2.5rem;
+        }
+
+        .numbers {
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+
+  .top-5 .bottom {
+    position: relative;
+  }
+
+  .more {
+    position: absolute;
+      bottom: -8px;
+      right: -15px;
+
+    a {
+      font-size: 1.2rem;
+    }
+  }
+
+  .top-5 .more {
+    right: 0;
+  }
+
+  .communications {
+    border-top: 1px solid $black;
+  }
+}
+
+/*   Get Started Page */
+/*   --------------------------------------- */
+#signin-options-get-started {
+  width: 50%;
+  margin: 0 auto;
+}
+
+/*   Signin/Create Account */
+/*   --------------------------------------- */
+.password-toggle {
+  margin: 0 0 0 0;
+}

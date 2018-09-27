@@ -106,9 +106,19 @@ class Org < ActiveRecord::Base
   validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
 
   # allow validations for logo upload
-  dragonfly_accessor :logo do
-    after_assign :resize_image
-  end
+
+  # Start DMPTool Customization
+  # ---------------------------------------
+  # Commenting out the logo resizer. We adjust the logo size via CSS
+  #dragonfly_accessor :logo do
+  #  after_assign :resize_image
+  #end
+  dragonfly_accessor :logo
+  # ---------------------------------------
+  # End DMPTool Customization
+
+  validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif', 'jpg', 'bmp'], message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp")
+  validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
 
   ##
   # Define Bit Field values
@@ -209,11 +219,11 @@ class Org < ActiveRecord::Base
     Plan.includes(:template, :phases, :roles, :users).joins(:roles, :users).where('users.org_id = ? AND roles.access IN (?)',
       self.id, Role.access_values_for(:owner).concat(Role.access_values_for(:administrator)))
   end
-  
+
   def grant_api!(token_permission_type)
     self.token_permission_types << token_permission_type unless self.token_permission_types.include? token_permission_type
   end
-  
+
 # START DMPTool customization
 # ---------------------------------------------------------
   # DMPTool participating institution helpers

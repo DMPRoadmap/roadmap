@@ -1,0 +1,5 @@
+<% if current_user.can_org_admin? %>
+  <nav class="navbar">
+    <%= render partial: 'layouts/dmptool/app_menu_links' %>
+  </nav>
+<% end %>

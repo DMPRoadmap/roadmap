@@ -1,0 +1,32 @@
+/* LINKS AND BUTTONS */
+/* --------------------------------------- */
+
+a, a:hover, a:focus, a:visited, a:active, a:active:hover,
+li > a, li > a:hover, li > a:focus, li > a:visited, li > a:active, li > a:active:hover,
+.navbar-nav > li > a, .navbar-nav > li > a:hover, .navbar-nav > li > a:focus, .navbar-nav > li > a:visited, .navbar-nav > li > a:active, .navbar-nav > li > a:active:hover,
+.dropdown-menu > li > a, .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-menu > li > a:visited, .dropdown-menu > li > a:active, .dropdown-menu > li > a:active:hover {
+  color: $dark-blue;
+  background-color: inherit;
+  text-decoration: none;
+  font-size: inherit;
+
+  .fa {
+    font-size: 1.5rem;
+    color: inherit;
+  }
+}
+
+a:focus, a:hover, a:active, a:active:hover,
+li > a:focus, li > a:hover, li > a:active, li > a:active:hover
+.navbar-nav > li > a:focus, .navbar-nav > li > a:hover, .navbar-nav > li > a:active, .navbar-nav > li > a:active:hover,
+.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover, .dropdown-menu > li > a:active, .dropdown-menu > li > a:active:hover,
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover, .nav .open > a:active, .nav .open > a:active:hover {
+  text-decoration: underline;
+  font-size: inherit;
+  background-color: inherit;
+
+  .fa {
+    font-size: 1.5rem;
+    color: inherit;
+  }
+}

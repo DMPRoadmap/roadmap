@@ -1,0 +1,200 @@
+
+/* LAYOUT */
+/* ----------------------------------------------------------------------- */
+body {
+  font-family: Arial;
+  padding-bottom: 50px;
+}
+
+header, main, footer,
+.fixed-menu, .branding, .app-menu,
+.notifications, .content,
+.footer-top, .footer-bottom {
+  margin: 0;
+}
+
+body {
+  position: relative;
+  width: 100%;
+}
+
+.dmptool {
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.dmptool > header, .dmptool > .notifications, .dmptool > main, .dmptool > footer {
+  flex: 1 100%;
+}
+
+header hr {
+  background-color: $dark-blue;
+  color: $dark-blue;
+  height: 1.2px;
+  margin-top: 8px;
+}
+
+header, .notifications, main, footer {
+  padding: 5px;
+}
+
+.notifications {
+  width: 100%;
+}
+
+.branding, .app-menu, .footer-top, .footer-bottom, .learn-menu, app.menu {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.fixed-menu {
+  ul[aria-labelledby="learn-menu-button"] {
+    width: 550px;
+  }
+
+  ul[aria-labelledby="signin-menu-button"] {
+    min-width: 450px;
+    padding: 10px 15px;
+    text-align: center;
+
+    h3 {
+      margin-top: 25px;
+      font-size: 1.6rem;
+    }
+    a {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    a.btn {
+      width: 80%;
+    }
+  }
+}
+
+.branding {
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 35px;
+
+  .branding-links > ul {
+    list-style: none;
+  }
+}
+
+.app-menu {
+  font-size: 2rem;
+}
+
+footer {
+  border-top: 1px solid $dark-blue;
+  padding-top: 10px;
+  position: relative;
+
+  .footer-menu .container-fluid .navbar-nav > li > a {
+    padding: 0 10px 0 0;
+  }
+
+  .footer-bottom {
+    width: 100%;
+
+    .footer-copyright {
+      p, a, a:hover, a:focus, a:visited, a:active, a:active:hover {
+        font-size: 1.1rem;
+      }
+    }
+
+    .footer-logo {
+      float: right;
+
+      img {
+        width: 150px;
+      }
+    }
+  }
+}
+footer.blue {
+  background-color: $light-blue;
+  border-top: none;
+  border-radius: 5px;
+  padding-left: 5px;
+
+  .navbar-nav > li > a, .navbar-nav > li > a:hover, .navbar-nav > li > a:focus, .navbar-nav > li > a:visited, .navbar-nav > li > a:active, .navbar-nav > li > a:active:hover, {
+    background-color: $light-blue;
+  }
+}
+
+/* FIXED MENU (Learn, Sign in/out, Language) */
+/* ----------------------------------------------------------------------- */
+.navbar-fixed-top {
+  min-height: 30px;
+  padding: 5px 0 5px 5px;
+  background-color: $white;
+  box-shadow: 0 2px $light-grey;
+
+  .navbar-right {
+    margin-right: 0;
+  }
+
+  .navbar-nav > li > a {
+    padding: 0 0 0 25px;
+  }
+
+  .learn-menu ul > li > ul {
+    padding-left: 20px;
+  }
+}
+
+/* BRANDING (DMPTool Logo, Org Logo, Org Name, Org Links) */
+/* ----------------------------------------------------------------------- */
+.branding {
+  align-items: center;
+  justify-content: space-between;
+
+  .branding-name {
+    font-size: 2.2rem;
+    max-width: 300px;
+  }
+
+  .branding-links {
+    .fa {
+      color: $dark-blue;
+      font-size: 1.5rem;
+    }
+  }
+
+  .app-logo {
+    height: auto;
+    width: 200px;
+  }
+
+  .org-logo {
+    height: auto;
+    min-width: 100px;
+    max-width: 300px;
+  }
+}
+
+/* APP MENU (Dashboard, Create Plan, Admin Features) */
+/* ----------------------------------------------------------------------- */
+.app-menu {
+  margin-top: 25px;
+  .navbar {
+    margin-bottom: -20px;
+
+    .navbar-nav > li > a {
+      padding: 0 25px 0 0;
+    }
+  }
+
+  a, a:visited, a:focus, a:active, a:hover {
+    font-size: 2rem;
+  /*  color: $dark-blue;*/
+
+    .fa-sort-desc {
+      /*color: $dark-blue;*/
+      font-size: 1.5rem;
+    }
+  }
+}

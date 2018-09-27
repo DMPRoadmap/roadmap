@@ -1,36 +1,41 @@
 <%= _('FAQ') %>
 ===============
 
-**<%= _('About the DMPTool') %>**  
-[<%= _('What is a data management plan (DMP)?') %>](#q-what-is-a-data-management-plan-dmp)  
-[<%= _('What can I do with the DMPTool?') %>](#q-what-can-i-do-with-the-dmptool)  
-[<%= _('How much does it cost to use the DMPTool?') %>](#q-how-much-does-it-cost-to-use-the-dmptool)  
-[<%= _('Who can use the DMPTool?') %>](#q-who-can-use-the-dmptool)  
-[<%= _('How can my institution participate in the DMPTool?') %>](#q-how-can-my-institution-participate-in-the-dmptool)  
-[<%= _('What are the benefits of participating in the DMPTool?') %>](#q-what-are-the-benefits-of-participating-in-the-dmptool)  
-[<%= _('Have funders endorsed the DMPTool?') %>](#q-have-funders-endorsed-the-dmptool)  
-[<%= _('Who owns the data management plans created with the DMPTool?') %>](#q-who-owns-the-data-management-plans-created-with-the-dmptool)  
-[<%= _('Why am I getting email notifications from the DMPTool?') %>](#q-why-am-i-getting-email-notifications-from-the-dmptool)  
+**<%= _('About the DMPTool') %>**
+<ul class="toc">
+  <li><a href="#q-what-is-a-data-management-plan-dmp"><%= _('What is a data management plan (DMP)?') %></a></li>
+  <li><a href="#q-what-can-i-do-with-the-dmptool"><%= _('What can I do with the DMPTool?') %></a></li>
+  <li><a href="#q-how-much-does-it-cost-to-use-the-dmptool"><%= _('How much does it cost to use the DMPTool?') %></a></li>
+  <li><a href="#q-who-can-use-the-dmptool"><%= _('Who can use the DMPTool?') %></a></li>
+  <li><a href="#q-how-can-my-institution-participate-in-the-dmptool"><%= _('How can my institution participate in the DMPTool?') %></a></li>
+  <li><a href="#q-what-are-the-benefits-of-participating-in-the-dmptool"><%= _('What are the benefits of participating in the DMPTool?') %></a></li>
+  <li><a href="#q-have-funders-endorsed-the-dmptool"><%= _('Have funders endorsed the DMPTool?') %></a></li>
+  <li><a href="#q-who-owns-the-data-management-plans-created-with-the-dmptool"><%= _('Who owns the data management plans created with the DMPTool?') %></a></li>
+  <li><a href="#q-why-am-i-getting-email-notifications-from-the-dmptool"><%= _('Why am I getting email notifications from the DMPTool?') %></a></li>
+</ul>
 
-**<%= _('For Researchers') %>**   
-[<%= _("I'm in a hurry! Is there a quick start guide for creating a data management plan?") %>](#q-im-in-a-hurry-is-there-a-quick-start-guide-for-creating-a-data-management-plan)   
-[<%= _('Where can I read more about funder requirements for data management plans?') %>](#q-where-can-i-read-more-about-funder-requirements-for-data-management-plans)      
-[<%= _('Are there examples of data management plans?') %>](#q-are-there-examples-of-data-management-plans)     
-[<%= _('What\\'s the difference between “sample” and “public” data management plans?') %>](#q-whats-the-difference-between-sample-and-public-data-management-plans)     
-[<%= _('What are the visibility options for my data management plan?') %>](#q-what-are-the-visibility-options-for-my-data-management-plan)   
-[<%= _('I created a test plan. How can I delete it (or hide it)?') %>](#q-i-created-a-test-plan-how-can-i-delete-it-or-hide-it)      
-[<%= _('How long will you save my plans?') %>](#q-how-long-will-you-save-my-plans)   
-[<%= _('What if I move to a new institution?') %>](#q-what-if-i-move-to-a-new-institution)   
-[<%= _('Who can help me at my institution?') %>](#q-who-can-help-me-at-my-institution)   
-[<%= _('I have a collaborator. How can we work on the same plan?') %>](#q-i-have-a-collaborator-how-can-we-work-on-the-same-plan)    
-[<%= _('What happens when I “request feedback” on a plan?') %>](#q-what-happens-when-i-request-feedback-on-a-plan)   
+**<%= _('For Researchers') %>**
+<ul class="toc">
+  <li><a href="#q-im-in-a-hurry-is-there-a-quick-start-guide-for-creating-a-data-management-plan"><%= _("I'm in a hurry! Is there a quick start guide for creating a data management plan?") %></a></li>
+  <li><a href="#q-where-can-i-read-more-about-funder-requirements-for-data-management-plans"><%= _('Where can I read more about funder requirements for data management plans?') %></a></li>
+  <li><a href="#q-are-there-examples-of-data-management-plans"><%= _('Are there examples of data management plans?') %></a></li>
+  <li><a href="#q-whats-the-difference-between-sample-and-public-data-management-plans"><%= _('What\\'s the difference between “sample” and “public” data management plans?') %></a></li>
+  <li><a href="#q-what-are-the-visibility-options-for-my-data-management-plan"><%= _('What are the visibility options for my data management plan?') %></a></li>
+  <li><a href="#q-i-created-a-test-plan-how-can-i-delete-it-or-hide-it"><%= _('I created a test plan. How can I delete it (or hide it)?') %></a></li>
+  <li><a href="#q-how-long-will-you-save-my-plans"><%= _('How long will you save my plans?') %></a></li>
+  <li><a href="#q-what-if-i-move-to-a-new-institution"><%= _('What if I move to a new institution?') %></a></li>
+  <li><a href="#q-who-can-help-me-at-my-institution"><%= _('Who can help me at my institution?') %></a></li>
+  <li><a href="#q-i-have-a-collaborator-how-can-we-work-on-the-same-plan"><%= _('I have a collaborator. How can we work on the same plan?') %></a></li>
+  <li><a href="#q-what-happens-when-i-request-feedback-on-a-plan"><%= _('What happens when I “request feedback” on a plan?') %></a></li>
+</ul>
 
-**<%= _('For Administrators') %>**  
-[<%= _('Where can I find help customizing the DMPTool for my institution/organization?') %>](#q-where-can-i-find-help-customizing-the-dmptool-for-my-institutionorganization)    
-[<%= _('Can I see customized templates and guidance created by administrators at other organizations?') %>](#q-can-i-see-customized-templates-and-guidance-created-by-administrators-at-other-organizations)   
-[<%= _('I created a test template. How can I delete it?') %>](#q-i-created-a-test-template-how-can-i-delete-it)     
-[<%= _('How do I create guidance? And what are themes?') %>](#q-how-do-i-create-guidance-and-what-are-themes)  
-
+**<%= _('For Administrators') %>**
+<ul class="toc">
+  <li><a href="#q-where-can-i-find-help-customizing-the-dmptool-for-my-institutionorganization"><%= _('Where can I find help customizing the DMPTool for my institution/organization?') %></a></li>
+  <li><a href="#q-can-i-see-customized-templates-and-guidance-created-by-administrators-at-other-organizations"><%= _('Can I see customized templates and guidance created by administrators at other organizations?') %></a></li>
+  <li><a href="#q-i-created-a-test-template-how-can-i-delete-it"><%= _('I created a test template. How can I delete it?') %></a></li>
+  <li><a href="#q-how-do-i-create-guidance-and-what-are-themes"><%= _('How do I create guidance? And what are themes?') %></a></li>
+</ul>
 
 <%= raw _("Can't find what you’re looking for? <a href=\"%{contact_us_url}\" >Contact us</a>") % { contact_us_url: contact_us_path } %>
 
@@ -44,14 +49,14 @@
 <%= raw _('Read our <a href="%{general_guidance_url}">Data Management General Guidance</a> for more information about data management plans.') % { general_guidance_url: general_guidance_path } %>
 <hr>
 
-<h5 id="q-what-can-i-do-with-the-dmptool"><%= _('Q: What can I do with the DMPTool?') %></h5>  
+<h5 id="q-what-can-i-do-with-the-dmptool"><%= _('Q: What can I do with the DMPTool?') %></h5>
 <%= raw _('A: The DMPTool helps researchers create data management plans (DMPs). It provides guidance from specific funders who require DMPs, but the tool can be used by anyone interested in developing generic DMPs to help facilitate their research. The tool also offers resources and services available at <a href="%{participating_url}">participating institutions</a> to help fulfill data management requirements.') % { participating_url: public_orgs_path } %>
 
 
 <%= raw _('Use our <a href="%{help_url}">Quick Start Guide</a> to begin creating a plan.') % { help_url: help_path } %>
 <hr>
 
-<h5 id="q-how-much-does-it-cost-to-use-the-dmptool"><%= _('Q: How much does it cost to use the DMPTool?') %></h5>  
+<h5 id="q-how-much-does-it-cost-to-use-the-dmptool"><%= _('Q: How much does it cost to use the DMPTool?') %></h5>
 <%= _('A: The DMPTool is FREE. Anyone can create data management plans using the DMPTool.') %>
 
 <%=raw  _('A login is required to access the DMPTool. If you are a researcher from a <a href="%{participating_url}">participating institutions</a>, you can log in as a user from your institution. If your institution does not participate, you can create your own account.') % { participating_url: public_orgs_path } %>
@@ -86,7 +91,7 @@
 <%= _('Despite the lack of formal endorsements, the DMPTool templates incorporate specific data management planning requirements from a range of funders including foundations and government agencies. We are in close contact with some funders as we create templates and for all funders we monitor public notices and websites for changes.') %>
 <hr>
 
-<h5 id="q-who-owns-the-data-management-plans-created-with-the-dmptool"><%= _('Q: Who owns the data management plans created with the DMPTool?') %></h5>  
+<h5 id="q-who-owns-the-data-management-plans-created-with-the-dmptool"><%= _('Q: Who owns the data management plans created with the DMPTool?') %></h5>
 <%= raw _('A: Data management plans are the intellectual property of their creators. The California Digital Library makes no claim of copyright or ownership to the data management plans created using the DMPTool. You can, however, choose to share your plan publicly and it will appear in our library of <a href="%{public_plans_url}">public plans</a> on the DMPTool website. This will benefit other DMPTool users and promote open research.') % { public_plans_url: public_plans_path } %>
 
 <%= raw _('See the <a href="%{help_url}">Quick Start Guide</a> for more information on setting your plan\\'s visibility.') % { help_url: help_path } %>
@@ -167,7 +172,7 @@
 
 <h5 id="q-how-do-i-create-guidance-and-what-are-themes"><%= _('Q: How do I create guidance? And what are themes?') %></h5>
 <%= raw _('A:  The <a href="%{admin_help_url}">help menu for administrators</a> contains detailed instructions for creating themed guidance. The basic steps include:<ol><li>Creating a guidance group (you will already have a default guidance group for your organization; it is optional to create additional groups or subgroups, for example, for a specific department)</li><li>Creating guidance by entering text, assigning one or more themes, and attaching it to a guidance group</li><li>Publishing the guidance</li></ol>') % { admin_help_url: 'https://github.com/cdluc3/dmptool/wiki/Help-for-Administrators' } %>
-  
+
 <%= _('There are 14 themes that represent the most common topics addressed in data management plans (e.g., Data format, Metadata). Themes work like tags to associate questions and guidance. Questions within a template can be tagged with one or more themes, and guidance can be written by theme to allow organizations to apply their advice over all templates at once. This also alleviates the need to update guidance each time a new template is released.') %>
 <hr>
 

@@ -1,0 +1,34 @@
+/* ============================================================= */
+/*   Write Plan page */
+/*   --------------------------------------- */
+.progress-bar {
+  background-color: $dark-blue;
+}
+.question-form span.label-info, .question-form span.label-warning {
+  padding: 5px 10px;
+  color: $black;
+  font-weight: normal;
+}
+.question-form span.label-info {
+  background-color: $light-blue;
+}
+label[for="answer_text"], label[for="note_text"] {
+  font-weight: normal;
+}
+div[id^="guidance-"] .panel {
+  .heading-button, .heading-button .panel-heading {
+    background-color: white;
+    color: $dark-blue;
+
+    .fa {
+      color: $dark-blue;
+    }
+  }
+}
+.form-answer .panel-default .label-default {
+  color: $dark-blue;
+  background-color: $light-blue;
+}
+a.modal-guidances-window {
+  font-size: 1.6rem;
+}
