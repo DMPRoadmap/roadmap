@@ -12,12 +12,12 @@ class UserMailer < ActionMailer::Base
            subject: _('Welcome to %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
     end
   end
-  
+
   def sharing_notification(role, user, inviter:)
     @role = role
     @user = user
     @inviter = inviter
-    subject  = d_('dmpopidor', '%{user_name} has shared a Data Management Plan with you in %{tool_name}') % { 
+    subject  = d_('dmpopidor', '%{user_name} has shared a Data Management Plan with you in %{tool_name}') % {
       :user_name => @inviter.name(false),
       :tool_name => Rails.configuration.branding[:application][:name]
      }
@@ -110,16 +110,15 @@ class UserMailer < ActionMailer::Base
 
   # @param commenter - User who wrote the comment
   # @param plan - Plan for which the comment is associated to
-  def new_comment(commenter, plan)
+  # @param collaborator - Collaborator to whom the email is sent
+  def new_comment(commenter, plan, collaborator)
     if commenter.is_a?(User) && plan.is_a?(Plan)
-      owner = plan.owner
-      if owner.present? && owner.active? && owner.email != commenter.email
-        @commenter = commenter
-        @plan = plan
-        FastGettext.with_locale FastGettext.default_locale do
-          mail(to: plan.owner.email, subject:
-            _('%{tool_name}: A new comment was added to %{plan_title}') %{ :tool_name => Rails.configuration.branding[:application][:name], :plan_title => plan.title })
-        end
+      @commenter = commenter
+      @plan = plan
+      @collaborator = collaborator
+      FastGettext.with_locale FastGettext.default_locale do
+        mail(to: collaborator.email, subject:
+          _('%{tool_name}: A new comment was added to %{plan_title}') %{ :tool_name => Rails.configuration.branding[:application][:name], :plan_title => plan.title })
       end
     end
   end
@@ -138,7 +137,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @end_date = (@user.last_sign_in_at + 5.years).to_date
     FastGettext.with_locale FastGettext.default_locale do
-      mail(to: @user.email, subject: 
+      mail(to: @user.email, subject:
         d_('dmpopidor', 'Account expiration in %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
     end
   end
@@ -146,7 +145,7 @@ class UserMailer < ActionMailer::Base
   def anonymization_notice(user)
     @user = user
     FastGettext.with_locale FastGettext.default_locale do
-      mail(to: @user.email, subject: 
+      mail(to: @user.email, subject:
         d_('dmpopidor', 'Account expired in %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
     end
   end

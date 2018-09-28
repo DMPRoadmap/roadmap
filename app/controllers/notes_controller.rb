@@ -36,9 +36,11 @@ class NotesController < ApplicationController
       @status = true
       answer = @note.answer
       plan = answer.plan
-      owner = plan.owner
-      deliver_if(recipients: owner, key: 'users.new_comment') do |r|
-        UserMailer.new_comment(current_user, plan).deliver_now()
+      collaborators = plan.users.reject { |u| u == current_user || !u.active }
+      collaborators.uniq.each do |collaborator|
+        deliver_if(recipients: collaborator, key: 'users.new_comment') do |r|
+          UserMailer.new_comment(current_user, plan, collaborator).deliver_later
+        end
       end
       @notice = success_message(_('comment'), _('created'))
       render(json: {
