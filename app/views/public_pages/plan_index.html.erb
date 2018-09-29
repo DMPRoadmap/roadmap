@@ -1,3 +1,4 @@
+<% title _('Public DMPs') %>
 <div class="row">
   <div class="col-md-12">
     <h1><%= raw _('Public DMPs') %></h1>
@@ -21,6 +22,7 @@
         partial: '/paginable/plans/publicly_visible',
         controller: 'paginable/plans',
         action: 'publicly_visible', 
+        query_params: query_params,
         scope: @plans) %>
     <% end %>
   </div>

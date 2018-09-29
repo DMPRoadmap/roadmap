@@ -97,31 +97,8 @@ class Plan < ActiveRecord::Base
   def settings(key)
     self_settings = self.super_settings(key)
     return self_settings if self_settings.value?
-#    self.dmptemplate.settings(key)
     self.template.settings(key) unless self.template.nil?
   end
-
-  ##
-  # returns the template for this plan, or generates an empty template and returns that
-  #
-  # @return [Dmptemplate] the template associated with this plan
-  def dmptemplate
-    #self.project.try(:dmptemplate) || Dmptemplate.new
-    self.template
-  end
-
-
-
-  def base_template
-    base = nil
-    t = self.template
-    if t.customization_of.present?
-      base = Template.where("dmptemplate_id = ? and created_at < ?", t.customization_of, self.created_at).order(version: :desc).first
-    end
-    return base
-  end
-
-
 
   ##
   # returns the most recent answer to the given question id
@@ -198,36 +175,29 @@ class Plan < ActiveRecord::Base
     end
     return ggroups.uniq
   end
-  
+
   ##
   # Sets up the plan for feedback:
   #  emails confirmation messages to owners
-  #  emails org admins and org contact 
+  #  emails org admins and org contact
   #  adds org admins to plan with the 'reviewer' Role
   def request_feedback(user)
     Plan.transaction do
       begin
         val = Role.access_values_for(:reviewer, :commenter).min
         self.feedback_requested = true
-    
+
         # Share the plan with each org admin as the reviewer role
         admins = user.org.org_admins
         admins.each do |admin|
           self.roles << Role.new(user: admin, access: val)
-        end 
+        end
 
         if self.save!
-          # Send an email confirmation to the owners and co-owners
-          owners = User.joins(:roles).where('roles.plan_id =? AND roles.access IN (?)', self.id, Role.access_values_for(:administrator))
-          deliver_if(recipients: owners, key: 'users.feedback_requested') do |r|
-            UserMailer.feedback_confirmation(r, self, user).deliver_now
-          end
-          # Send an email to all of the org admins as well as the Org's administrator email
-          if user.org.contact_email.present? && !admins.collect{ |u| u.email }.include?(user.org.contact_email)
-            admins << User.new(email: user.org.contact_email, firstname: user.org.contact_name)
-          end
-          deliver_if(recipients: admins, key: 'admins.feedback_requested') do |r|
-            UserMailer.feedback_notification(r, self, user).deliver_now
+          # Send an email to the org-admin contact
+          if user.org.contact_email.present?
+            contact = User.new(email: user.org.contact_email, firstname: user.org.contact_name)
+            UserMailer.feedback_notification(contact, self, user).deliver_now
           end
           true
         else
@@ -249,11 +219,11 @@ class Plan < ActiveRecord::Base
     Plan.transaction do
       begin
         self.feedback_requested = false
-        
-        # Remove the org admins reviewer role from the plan 
+
+        # Remove the org admins reviewer role from the plan
         vals = Role.access_values_for(:reviewer)
         self.roles.delete(Role.where(plan: self, access: vals))
-        
+
         if self.save!
           # Send an email confirmation to the owners and co-owners
           owners = User.joins(:roles).where('roles.plan_id =? AND roles.access IN (?)', self.id, Role.access_values_for(:administrator))
@@ -283,12 +253,12 @@ class Plan < ActiveRecord::Base
   def guidance_by_question_as_hash
     # Get all of the selected guidance groups for the plan
     guidance_groups_ids = self.guidance_groups.collect(&:id)
-    guidance_groups =  GuidanceGroup.joins(:org).where("guidance_groups.published = ? AND guidance_groups.id IN (?)", 
+    guidance_groups =  GuidanceGroup.joins(:org).where("guidance_groups.published = ? AND guidance_groups.id IN (?)",
                                                        true, guidance_groups_ids)
 
     # Gather all of the Themes used in the plan as a hash
     # {
-    #  QUESTION: [THEME, THEME], 
+    #  QUESTION: [THEME, THEME],
     #  QUESTION: [THEME]
     # }
     question_themes = {}
@@ -302,7 +272,7 @@ class Plan < ActiveRecord::Base
     # Gather all of the Guidance available for the themes used in the plan as a hash
     # {
     #  THEME: {
-    #    GUIDANCE_GROUP: [GUIDANCE, GUIDANCE], 
+    #    GUIDANCE_GROUP: [GUIDANCE, GUIDANCE],
     #    GUIDANCE_GROUP: [GUIDANCE]
     #  }
     # }
@@ -310,12 +280,12 @@ class Plan < ActiveRecord::Base
     GuidanceGroup.includes(guidances: :themes).joins(:guidances).
           where('guidance_groups.published = ? AND guidances.published = ? AND themes.title IN (?) AND guidance_groups.id IN (?)', true, true, themes_used, guidance_groups.collect(&:id)).
           pluck('guidance_groups.name', 'themes.title', 'guidances.text').each do |tg|
-      
+
       theme_guidance[tg[1]] = {} unless theme_guidance[tg[1]].present?
       theme_guidance[tg[1]][tg[0]] = [] unless theme_guidance[tg[1]][tg[0]].present?
       theme_guidance[tg[1]][tg[0]] << tg[2] unless theme_guidance[tg[1]][tg[0]].include?(tg[2])
     end
-    
+
     # Generate a hash for the view that contains all of a question guidance
     # {
     #   QUESTION: {
@@ -333,11 +303,11 @@ class Plan < ActiveRecord::Base
       question_themes[question].each do |theme|
         groups << theme_guidance[theme].keys if theme_guidance[theme].present?
       end
-        
+
       # Loop through all of the applicable guidance groups and collect their themed guidance
       groups.flatten.uniq.each do |guidance_group|
         guidances_by_theme = {}
-        
+
         # Collect all of the guidances for each theme used by the question
         question_themes[question].each do |theme|
           if theme_guidance[theme].present? && theme_guidance[theme][guidance_group].present?
@@ -348,10 +318,10 @@ class Plan < ActiveRecord::Base
 
         ggs[guidance_group] = guidances_by_theme unless ggs[guidance_group]
       end
-      
+
       question_guidance[question] = ggs
     end
-    
+
     question_guidance
   end
 
@@ -373,8 +343,8 @@ class Plan < ActiveRecord::Base
   def readable_by?(user_id)
     user = user_id.is_a?(User) ? user_id : User.find(user_id)
     owner_orgs = self.owner_and_coowners.collect(&:org)
-    
-    # Super Admins can view plans read-only, Org Admins can view their Org's plans 
+
+    # Super Admins can view plans read-only, Org Admins can view their Org's plans
     # otherwise the user must have the commenter role
     (user.can_super_admin? ||
      user.can_org_admin? && owner_orgs.include?(user.org) ||
@@ -673,7 +643,7 @@ class Plan < ActiveRecord::Base
   ##
   # returns the shared roles of a plan, excluding the creator
   def shared
-    role_values = Role.where(plan: self).where(Role.not_creator_condition).any? 
+    role_values = Role.where(plan: self).where(Role.not_creator_condition).any?
   end
 
   ##
@@ -721,8 +691,7 @@ class Plan < ActiveRecord::Base
   def self.eager_load(id)
     Plan.includes(
       [{template: [
-                   {phases: {sections: {questions: :answers}}},
-                   {customizations: :org}
+                   {phases: {sections: {questions: :answers}}}
                   ]},
        {plans_guidance_groups: {guidance_group: :guidances}}
       ]).find(id)
@@ -791,7 +760,7 @@ class Plan < ActiveRecord::Base
       .includes({ question: :question_format }, :question_options)
       .where(id: answer_ids)
     num_answers = pre_fetched_answers.reduce(0) do |m, a|
-      if a.is_valid? 
+      if a.is_valid?
         m+=1
       end
       m
@@ -864,12 +833,12 @@ class Plan < ActiveRecord::Base
   end
 
   ##
-  # creates a plan for each phase in the dmptemplate associated with this project
+  # creates a plan for each phase in the template associated with this project
   # unless the phase is unpublished, it creates a new plan, and a new version of the plan and adds them to the project's plans
   #
   # @return [Array<Plan>]
   def create_plans
-    dmptemplate.phases.each do |phase|
+    self.template.phases.each do |phase|
       latest_published_version = phase.latest_published_version
       unless latest_published_version.nil?
         new_plan = Plan.new
@@ -899,7 +868,7 @@ class Plan < ActiveRecord::Base
 
     margin_height    = @formatting[:margin][:top].to_i + @formatting[:margin][:bottom].to_i
     page_height      = A4_PAGE_HEIGHT - margin_height # 297mm for A4 portrait
-    available_height = page_height * self.dmptemplate.settings(:export).max_pages
+    available_height = page_height * self.template.settings(:export).max_pages
 
     percentage = (used_height / available_height) * 100
     (percentage / ROUNDING).ceil * ROUNDING # round up to nearest five
@@ -934,7 +903,7 @@ class Plan < ActiveRecord::Base
     (num_lines * font_height) + vertical_margin + leading
   end
 
-  # Initialize the title and dirty flags for new templates
+  # Initialize the title for new templates
   # --------------------------------------------------------
   def set_creation_defaults
     # Only run this before_validation because rails fires this before save/create

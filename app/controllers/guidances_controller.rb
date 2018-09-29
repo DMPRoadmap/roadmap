@@ -36,11 +36,6 @@ class GuidancesController < ApplicationController
     guidance = Guidance.new(guidance_params)
     authorize guidance
     guidance.text = params["guidance-text"]
-
-    guidance.themes = []
-    if !guidance_params[:theme_ids].nil?
-      guidance_params[:theme_ids].map{|t| guidance.themes << Theme.find(t.to_i) unless t.empty? }
-    end
     
     if guidance.save
 
@@ -68,7 +63,6 @@ class GuidancesController < ApplicationController
     guidance.text = params["guidance-text"]
     
     attrs = guidance_params
-    attrs[:theme_ids] = [] unless attrs[:theme_ids]
     
     if guidance.update_attributes(attrs)
       if guidance.published?

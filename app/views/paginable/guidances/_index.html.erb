@@ -2,12 +2,12 @@
   <table class="table table-hover" id="guidances">
     <thead>
       <tr>
-        <th><%= _('Text') %>&nbsp;<%= paginable_sort_link('guidances.text') %></th>
-        <th><%= _('Themes') %></th>
-        <th><%= _('Guidance group') %>&nbsp;<%= paginable_sort_link('guidance_groups.name') %></th>
-        <th><%= _('Status') %>&nbsp;<%= paginable_sort_link('guidances.published') %></th>
-        <th><%= _('Last updated') %>&nbsp;<%= paginable_sort_link('guidances.updated_at') %></th>
-        <th class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
+        <th scope="col"><%= _('Text') %>&nbsp;<%= paginable_sort_link('guidances.text') %></th>
+        <th scope="col"><%= _('Themes') %></th>
+        <th scope="col"><%= _('Guidance group') %>&nbsp;<%= paginable_sort_link('guidance_groups.name') %></th>
+        <th scope="col"><%= _('Status') %>&nbsp;<%= paginable_sort_link('guidances.published') %></th>
+        <th scope="col"><%= _('Last updated') %>&nbsp;<%= paginable_sort_link('guidances.updated_at') %></th>
+        <th scope="col" class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
       </tr>
     </thead>
     <tbody>

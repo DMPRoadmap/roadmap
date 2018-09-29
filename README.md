@@ -10,14 +10,12 @@ The tool has four main functions:
 4. To allow collaborative work when creating Data Management Plans.
 
 #### Current Release
-Official release coming soon!
+[v1.1.3](https://github.com/DMPRoadmap/roadmap/releases/tag/v1.1.3)
 [![Build Status](https://travis-ci.org/DMPRoadmap/roadmap.svg)](https://travis-ci.org/DMPRoadmap/roadmap)
-
-#### Summary
 
 #### Pre-requisites
 Roadmap is a Ruby on Rails application and you will need to have:
-* Ruby >= 2.2.2
+* Ruby >= 2.4.4
 * Rails >= 4.2
 * MySQL >= 5.0 OR PostgreSQL
 
@@ -34,45 +32,7 @@ You may also find the following resources handy:
 * Ruby on Rails Tutorial Book: http://www.railstutorial.org/
 
 #### Installation
-* Create your database. Select UTF-8 Unicode encoding (`utf8mb4` if using MySQL).
-* Clone this repository (or Fork the repository first if you plan on contributing)
-
->     > git clone https://github.com/[your organization]/roadmap.git
-
->     > cd roadmap
-
-* Make copies of the yaml configuration files and update the values for your installation
-
->     > cp config/database_example.yml config/database.yml
->     > cp config/secrets_example.yml config/secrets.yml
-
-* Make copies of the example gem initializer files and update the values for your installation
-
->     > cp config/initializers/devise.rb.example config/initializers/devise.rb
->     > cp config/initializers/recaptcha.rb.example config/initializers/recaptcha.rb
->     > cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
->     > cp config/locales/*.static.yml.example config/locales/*.static.yml
-
-* Create an environment variable for your instance's secret (as defined in config/secrets.yml). You should use the following command to generate secrets for each of your environments, storing the production one in the environment variable:
-
->     > rake secret
-
-* Run bundler and perform the DB migrations
-
->     > gem install bundler (if bundler is not yet installed)
-
->     > bundle install
-
->     > rake db:schema:load
-
->     > rake db:seed    (Unless you are migrating data from an old DMPOnline system)
-
-* Start the application
-
->     > rails server
-
-* Verify that the site is running properly by going to http://localhost:3000
-* Login as the default administrator: 'super_admin@example.com' - 'password123'
+See the [Installation Guide](https://github.com/DMPRoadmap/roadmap/wiki/Installation) on the Wiki
 
 #### Troubleshooting
 See the [Troubleshooting Guide](https://github.com/DMPRoadmap/roadmap/wiki/Troubleshooting) on the Wiki

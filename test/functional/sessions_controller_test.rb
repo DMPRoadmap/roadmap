@@ -29,7 +29,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test "unknown user's session[:locale] set to FastGettext.default_locale" do
     post user_session_path, {user: {email: 'testing.session@example.org'}}
-    assert_equal nil, session[:locale], "expected the new user's locale to be empty"
+    assert_nil session[:locale], "expected the new user's locale to be empty"
     assert_equal FastGettext.default_locale, FastGettext.locale, "expected the FastGettext to use the default locale"
     assert_response :redirect
     assert_redirected_to root_path
@@ -51,7 +51,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------
   test "delete the user session" do
     delete destroy_user_session_path
-    assert_equal nil, session[:locale], "expected the locale to have been deleted from the session"
+    assert_nil session[:locale], "expected the locale to have been deleted from the session"
     assert_response :redirect
     if Rails.application.config.shibboleth_enabled
       assert_redirected_to Rails.application.config.shibboleth_logout_url + root_url

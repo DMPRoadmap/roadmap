@@ -28,7 +28,7 @@ module Api
         if @template.customization_of.nil?
           @plan.funder_name = @template.org.name
         else
-          @plan.funder_name = Template.where(dmptemplate_id: @template.customization_of).first.org.name
+          @plan.funder_name = Template.where(family_id: @template.customization_of).first.org.name
         end
         @plan.template = @template
         @plan.title = params[:plan][:title]

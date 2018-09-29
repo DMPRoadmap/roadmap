@@ -3,6 +3,8 @@ class PlansController < ApplicationController
   require 'pp'
   helper PaginableHelper
   helper SettingsTemplateHelper
+  include FeedbacksHelper
+
   after_action :verify_authorized, except: [:overview]
 
   def index
@@ -144,9 +146,34 @@ class PlansController < ApplicationController
     @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by {|org,gg| (org.nil? ? '' : org.name)}
     @selected_guidance_groups = @selected_guidance_groups.collect{|gg| gg.id}
 
-    @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.where(dmptemplate: @plan.template.customization_of).first)
+    @based_on = (@plan.template.customization_of.nil? ? @plan.template : Template.where(family_id: @plan.template.customization_of).first)
 
     respond_to :html
+  end
+
+  # GET /plans/:plan_id/phases/:id/edit
+  def edit
+    plan = Plan.find(params[:id])
+    authorize plan
+
+    plan, phase = Plan.load_for_phase(params[:id], params[:phase_id])
+
+    readonly = !plan.editable_by?(current_user.id)
+    
+    guidance_groups_ids = plan.guidance_groups.collect(&:id)
+    
+    guidance_groups =  GuidanceGroup.where(published: true, id: guidance_groups_ids)
+
+    # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
+    # we create a hash whose keys are question id and value is the answer associated
+    answers = plan.answers.reduce({}){ |m, a| m[a.question_id] = a; m }
+
+    render('/phases/edit', locals: {
+      base_template_org: phase.template.base_org,
+      plan: plan, phase: phase, readonly: readonly,
+      question_guidance: plan.guidance_by_question_as_hash,
+      guidance_groups: guidance_groups,
+      answers: answers })
   end
 
   # PUT /plans/1
@@ -162,7 +189,7 @@ class PlansController < ApplicationController
         guidance_group_ids = params[:guidance_group_ids].blank? ? [] : params[:guidance_group_ids].map(&:to_i).uniq
         @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
         @plan.save
-      
+
         if @plan.update_attributes(attrs)
           format.html { redirect_to overview_plan_path(@plan), notice: success_message(_('plan'), _('saved')) }
           format.json {render json: {code: 1, msg: success_message(_('plan'), _('saved'))}}
@@ -171,7 +198,7 @@ class PlansController < ApplicationController
           format.html { render action: "edit" }
           format.json {render json: {code: 0, msg: flash[:alert]}}
         end
-        
+
       rescue Exception
         flash[:alert] = failed_update_error(@plan, _('plan'))
         format.html { render action: "edit" }
@@ -325,18 +352,19 @@ class PlansController < ApplicationController
   end
 
   def request_feedback
-    plan = Plan.find(params[:id])
-    authorize plan
+    @plan = Plan.find(params[:id])
+    authorize @plan
     alert = _('Unable to submit your request for feedback at this time.')
 
     begin
-     if plan.request_feedback(current_user)
-       redirect_to share_plan_path(plan), notice: _('Your request for feedback has been submitted.')
+     if @plan.request_feedback(current_user)
+       redirect_to share_plan_path(@plan),
+                   notice: _(request_feedback_flash_notice)
      else
-       redirect_to share_plan_path(plan), alert: alert
+       redirect_to share_plan_path(@plan), alert: alert
      end
     rescue Exception
-      redirect_to share_plan_path(plan), alert: alert
+      redirect_to share_plan_path(@plan), alert: alert
     end
   end
 
@@ -360,13 +388,13 @@ class PlansController < ApplicationController
   end
 
 
-  # different versions of the same template have the same dmptemplate_id
+  # different versions of the same template have the same family_id
   # but different version numbers so for each set of templates with the
-  # same dmptemplate_id choose the highest version number.
+  # same family_id choose the highest version number.
   def get_most_recent( templates )
     groups = Hash.new
     templates.each do |t|
-      k = t.dmptemplate_id
+      k = t.family_id
       if !groups.has_key?(k)
         groups[k] = t
       else
@@ -421,5 +449,16 @@ class PlansController < ApplicationController
       end
     end
     plan.delete(src_plan_key)
+  end
+
+  # Flash notice for successful feedback requests
+  #
+  # @return [String]
+  def request_feedback_flash_notice
+    # Use the generic feedback confirmation message unless the Org has
+    # specified one
+    text = current_user.org.feedback_email_msg ||
+             feedback_confirmation_default_message
+    feedback_constant_to_text(text, current_user, @plan, current_user.org)
   end
 end

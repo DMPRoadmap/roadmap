@@ -1,0 +1,6 @@
+<% new_question = Question.new(section_id: section.id, number: (section.questions.empty? ? 1 : section.questions.order(number: :desc).limit(1).first.number + 1)) %>
+<%= render partial: 'org_admin/questions/form', 
+           locals: local_assigns.merge({ 
+             question: new_question, 
+             method: :post, 
+             url: org_admin_template_phase_section_questions_path(template_id: template.id, phase_id: section.phase.id, section_id: section.id) }) %>

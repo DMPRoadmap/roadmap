@@ -15,7 +15,7 @@ module ExportablePlan
         if headings
           hdrs << [_('Section'),_('Question'),_('Answer')]
         else
-          csv << _('Answer')
+          hdrs << [_('Answer')]
         end
 
         csv << hdrs.flatten
@@ -23,10 +23,14 @@ module ExportablePlan
           phase[:sections].each do |section|
             section[:questions].each do |question|
               answer = self.answer(question[:id], false)
-              answer_text = answer.present? ? answer.text : (unanswered ? 'Not Answered' : '')
+              answer_text = answer.present? ? answer.text : (unanswered ? _('Not Answered') : '')
               flds = (hash[:phases].length > 1 ? [phase[:title]] : [])
               if headings
-                question_text = (question[:text].length > 1 ? question[:text].join(', ') : question[:text][0])
+                if question[:text].is_a? String
+                  question_text = question[:text]
+                else
+                  question_text = (question[:text].length > 1 ? question[:text].join(', ') : question[:text][0])
+                end
                 flds << [ section[:title], sanitize_text(question_text), sanitize_text(answer_text) ]
               else
                 flds << [ sanitize_text(answer_text) ]

@@ -34,7 +34,6 @@ class Org < ActiveRecord::Base
                   :feedback_enabled, :feedback_email_subject, :feedback_email_msg
   ##
   # Validators
-#  validates :contact_email, email: true, allow_nil: true
   validates :name, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
   # allow validations for logo upload
   dragonfly_accessor :logo do
@@ -126,7 +125,7 @@ class Org < ActiveRecord::Base
   ##
   # returns all published templates belonging to the organisation
   #
-  # @return [Array<Dmptemplate>] published dmptemplates
+  # @return [Array<Template>] published templates
 	def published_templates
 		return templates.where("published = ?", true)
 	end

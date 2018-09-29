@@ -7,8 +7,8 @@
     <%= link_to(_('Plan overview'), overview_plan_path(plan), role: 'tab', 'aria-controls': 'content') %>
   </li>
   <% phases.each do |phase| %>
-    <li role="presentation" class="<%= (isActivePage(edit_plan_phase_path(plan, phase)) ? 'active' : '') %>">
-      <a href="<%= edit_plan_phase_path(plan, phase) %>" role="tab" aria-controls="content">
+    <li role="presentation" class="<%= (isActivePage(edit_plan_path(plan.id, phase_id: phase.id)) ? 'active' : '') %>">
+      <a href="<%= edit_plan_path(plan.id, phase_id: phase.id) %>" role="tab" aria-controls="content">
         <%= (phases.size > 1 ? phase.title : _('Write Plan')) %>
       </a>
     </li>
@@ -18,7 +18,7 @@
       <a href="<%= share_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Share') %></a>
     </li>
   <% end %>
-  <% if !plan.reviewable_by?(current_user.id) %>
+  <% if plan.readable_by?(current_user.id) %>
     <li role="presentation" class="<%= (isActivePage(download_plan_path(plan)) ? 'active' : '') %>">
       <a href="<%= download_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Download') %></a>
     </li>
