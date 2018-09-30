@@ -149,3 +149,77 @@ $(() => {
   };
   initialise();
 });
+
+$(() => {
+  const jQuerySelectorSelect = $('select[name=monthly_plans_by_template]');
+  let drawnChart = null;
+  const randomRgb = () => {
+    const { round, random } = Math;
+    const max = 255;
+    const f = () => round(random() * max);
+    return `rgb(${f()},${f()},${f()})`;
+  };
+  const yAxisLabel = date => moment(date).format('MMM-YY');
+
+  const drawHorizontalBar = (canvasSelector, data) => {
+    const chart = new Chart(canvasSelector, { // eslint-disable-line no-new
+      type: 'horizontalBar',
+      data,
+      options: {
+        scales: {
+          xAxes: [{
+            ticks: { beginAtZero: true },
+            precision: 1,
+          }],
+        },
+      },
+    });
+    return chart;
+  };
+
+  const buildData = (data) => {
+    const labels = data.map(current => yAxisLabel(current.date));
+
+    const datasetsMap = data.reduce((acc, statCreatedPlan) => {
+      statCreatedPlan.by_template.forEach((template) => {
+        if (!acc[template.name]) {
+          acc[template.name] = { label: template.name, data: [], backgroundColor: randomRgb() };
+        }
+        acc[template.name].data.push({ x: template.count, y: yAxisLabel(statCreatedPlan.date) });
+      });
+      return acc;
+    }, {});
+
+    const datasets = Object.keys(datasetsMap).map(key => datasetsMap[key]);
+
+    return { labels, datasets };
+  };
+
+  const fetch = (lastDayOfMonth) => {
+    const baseUrl = $('select[name="monthly_plans_by_template"]').attr('data-url');
+    $.ajax({
+      url: `${baseUrl}?start_date=${lastDayOfMonth}`,
+    }).then((data) => {
+      const chartData = buildData(data);
+      const canvasSelector = '#monthly_plans_by_template_canvas';
+      if (drawnChart) {
+        drawnChart.destroy();
+      }
+      drawnChart = drawHorizontalBar($(canvasSelector), chartData);
+    });
+  };
+
+  const handler = () => {
+    const selectedMonth = jQuerySelectorSelect.val();
+    if (selectedMonth) {
+      fetch(selectedMonth);
+    }
+  };
+
+  jQuerySelectorSelect.on('change', (e) => {
+    e.preventDefault();
+    handler();
+  });
+
+  handler();
+});
