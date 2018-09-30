@@ -4,6 +4,7 @@ class UsageController < ApplicationController
 
   def index
     check_authorized!
+
     render("index",
       locals: {
         orgs: Org.all,
