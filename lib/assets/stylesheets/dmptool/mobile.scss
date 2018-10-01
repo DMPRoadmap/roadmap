@@ -1,0 +1,135 @@
+/* MEDIA SPECIFIC CHANGES */
+
+/* Phones */
+/* ----------------------------------------------------------------------- */
+@media all and (max-width: $hide-org-logo-breakpoint) {
+  body > .dmptool .org-logo {
+    display: none;
+  }
+}
+
+@media all and (max-width: $mobile-layout-breakpoint) {
+  body {
+    .dmptool {
+      /* Hide the normal menus and display the mobile ones */
+      header > .fixed-menu, header > .branding, header > .app-menu , footer > .footer {
+        display: none;
+      }
+      header > .fixed-menu-mobile, footer > .footer-mobile {
+        display: block;
+      }
+
+      .navbar-fixed-top {
+        .navbar-toggle, .navbar-toggle:visited, .navbar-toggle:hover, .navbar-toggle:focus, .navbar-toggle:active {
+          margin: 2px 5px 0 0;
+          background-color: $dark-blue;
+
+          .icon-bar {
+            background-color: $white;
+          }
+        }
+        .navbar-toggle:not(.collapsed) .icon-bar:nth-child(2) {
+          transform: rotate(45deg) translate(5px, 4px);
+          transition: ease all .2s;
+        }
+        .navbar-toggle:not(.collapsed) .icon-bar:nth-child(3) {
+          opacity: 0;
+          transition: ease all .2s;
+        }
+        .navbar-toggle:not(.collapsed) .icon-bar:nth-child(4) {
+          transform: rotate(-45deg) translate(4px, -4px);
+          transition: ease all .2s;
+        }
+
+        ul[aria-labelledby="language-menu-button"] > li,
+        ul[aria-labelledby="org-menu-button"] > li,
+        ul[aria-labelledby="profile-menu-button"] > li,
+        ul[aria-labelledby="signin-menu-button"] > li {
+          margin-left: 15px;
+          position: relative;
+
+          .fa-envelope {
+            display: none;
+          }
+          .fa-envelope ~ a:after {
+            content: '\f0e0';
+            font-family: FontAwesome;
+            font-size: 1.3rem;
+            color: $dark-blue;
+            margin:0px 0px 0px 10px;
+            text-decoration:none;
+          }
+        }
+
+        .org-logo, .org-logo:hover, .org-logo:focus, .org-logo:active, .org-logo:visited {
+          font-size: 1.6rem;
+          padding-left: 0;
+        }
+      }
+
+      /* Homepage */
+      .welcome {
+        background: none;
+        padding: 0 5px;
+
+        min-height: auto;
+
+        > div {
+          background: none;
+          margin-top: 0;
+        }
+
+        .welcome-message {
+          color: $dark-blue;
+
+          h1 {
+            color: $dark-blue;
+          }
+
+          .btn-inverse {
+            float: none;
+            background-color: $dark-blue;
+            color: $white;
+            margin-top: 10px;
+          }
+        }
+      }
+
+      .communications > div {
+        flex: 1 100%;
+      }
+
+      footer {
+        width: 100%;
+        border-radius: 0;
+
+        .footer-mobile {
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: space-between;
+        }
+
+        ul {
+          padding-left: 5px;
+
+          li {
+            list-style: none;
+
+            .fa-twitter-square, .fa-rss-square {
+              font-size: 2rem;
+            }
+          }
+        }
+
+        img {
+          margin-top: 10px;
+          max-width: 100px;
+        }
+        p, p > a {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}
+

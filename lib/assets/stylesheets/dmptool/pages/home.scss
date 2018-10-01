@@ -1,58 +1,67 @@
 /* HOMEPAGE */
 /* --------------------------------------- */
+.homepage-img-1 { background-image: url('../images/homepage/1-large.jpg'); }
+.homepage-img-2 { background-image: url('../images/homepage/2-large.png'); }
+.homepage-img-3 { background-image: url('../images/homepage/3-large.jpg'); }
+.homepage-img-4 { background-image: url('../images/homepage/4-large.jpg'); }
+.homepage-img-5 { background-image: url('../images/homepage/5-large.png'); }
+
 .welcome {
-  position: relative;
-  padding: 0;
+  flex: 1 100%;
+  width: 100%;
+  min-height: 493px;
+  margin: 0 auto;
+  padding-top: 55px;
+
   background-color: $white;
   background-position: top;
   background-size: cover;
   background-repeat: no-repeat;
 
-  .welcome-message {
-    margin: 0 auto;
+  > div {
     width: 100%;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    align-items: baseline;
+    background: $translucent-blue;
 
-    padding: 0 5px;
-    color: $white;
-    font-size: 1.7rem;
+    .welcome-message {
+      padding: 5px;
+      margin: 0 auto;
+      max-width: $max-width-breakpoint;
 
-    div {
-      position: relative;
-      flex: 1 content;
-    }
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+      align-items: baseline;
 
-    h1 {
       color: $white;
-      margin-top: 15px;
-      font-weight: bold;
-      font-size: 3rem;
-    }
+      font-size: 1.7rem;
 
-    .btn-inverse {
-      color: $dark-blue;
-      background-color: $white;
-      padding: 10px 45px;
-      border-radius: 7px;
-      font-size: 1.8rem;
-      top: 30px;
-      right: 0;
+      div {
+        position: relative;
+        flex: 1 content;
+      }
+
+      h1 {
+        color: $white;
+        margin-top: 15px;
+        font-weight: bold;
+        font-size: 3rem;
+      }
+
+      .btn-inverse {
+        color: $dark-blue;
+        background-color: $white;
+        padding: 10px 45px;
+        border-radius: 7px;
+        font-size: 1.8rem;
+        top: 30px;
+        right: 0;
+      }
     }
   }
 }
 
-.welcome > div {
-  width: 100%;
-  background: rgba(14,86,130,.9);
-  margin-top: 45px;
-  padding: 5px 0 10px 0;
-}
-
 .home-page {
-  display: felx;
+  display: flex;
   flex-flow: column;
 
   .metrics, .communications {

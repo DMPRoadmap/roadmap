@@ -6,12 +6,14 @@
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
            id="language-menu-button" aria-haspopup="true" aria-expanded="false">
-          <%= lang.present? ? lang.name : _('English (US)') %>
+          <%= _("Language") %>
           <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
         </a>
         <ul class="dropdown-menu" aria-labelledby="language-menu-button">
           <% LANGUAGES.each do |l| %>
-            <li><%= link_to l.name, locale_path(l.abbreviation), method: :patch %></li>
+            <li<%= l.abbreviation == FastGettext.locale ? " class=active" : "" %>>
+              <%= link_to l.name, locale_path(l.abbreviation), method: :patch %>
+            </li>
           <% end %>
         </ul>
       </li>
