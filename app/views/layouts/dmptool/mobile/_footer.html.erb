@@ -10,13 +10,13 @@
     <li><a href="<%= about_us_path %>"><%= _('About') %></a></li>
     <li><a href="<%= terms_path %>"><%= _('Terms of use') %></a></li>
     <li><a href="<%= privacy_path %>"><%= _('Privacy statement') %></a></li>
-    <li><a href="https://www.cdlib.org/about/accessibility.html"><%= _('Accessibility') %> <i class="fa fa-external-link">&nbsp;</i></a></li>
-    <li><a href="https://github.com/cdluc3/dmptool"><%= _('Github') %> <i class="fa fa-external-link">&nbsp;</i></a></li>
+    <li><a href="https://www.cdlib.org/about/accessibility.html"><%= _('Accessibility') %> <em class="sr-only"><%= _('(new window)') %></em> <i class="fa fa-external-link">&nbsp;</i></a></li>
+    <li><a href="https://github.com/cdluc3/dmptool"><%= _('Github') %> <em class="sr-only"><%= _('(new window)') %></em> <i class="fa fa-external-link">&nbsp;</i></a></li>
     <li><a href="<%= contact_us_path %>"><%= _('Contact us') %></a></li>
     <li>
       <!-- Social media -->
-      <a href="https://twitter.com/TheDMPTool"><span class="fa fa-twitter-square">&nbsp;</span></a>
-      <a href="https://blog.dmptool.org/feed"><span class="fa fa-rss-square"></span></a>
+      <a href="https://twitter.com/TheDMPTool"><span class="fa fa-twitter-square"><span class="sr-only"><%= _('Twitter') %></span></span></a>
+      <a href="https://blog.dmptool.org/feed"><span class="fa fa-rss-square"><span class="sr-only"><%= _('RSS') %></span></span></a>
     </li>
   </ul>
 
@@ -26,8 +26,8 @@
   <!-- Copyright -->
   <p class="flex-item navbar-text">
     <%= raw _('DMPTool is a service of the %{uc3} of the %{cdl}') % {
-      uc3: "<a href=\"https://www.cdlib.org/uc3/\" target=\"_blank\">University of California Curation Center</a>",
-      cdl: "<a href=\"http://www.cdlib.org/\" target=\"_blank\">California Digital Library</a>"
+      uc3: "<a href=\"https://www.cdlib.org/uc3/\" target=\"_blank\">University of California Curation Center <em class=\"sr-only\">(new window)</em></a>",
+      cdl: "<a href=\"http://www.cdlib.org/\" target=\"_blank\">California Digital Library <em class=\"sr-only\">(new window)</em></a>"
     } %>
     <br>
     <%= _('Copyright 2010-%{current_year} The Regents of the University of California') % {
