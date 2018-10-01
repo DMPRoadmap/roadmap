@@ -1,6 +1,6 @@
 /* MEDIA SPECIFIC CHANGES */
 
-/* Phones */
+/* Tablets and Phones */
 /* ----------------------------------------------------------------------- */
 @media all and (max-width: $hide-org-logo-breakpoint) {
   body > .dmptool .org-logo {
@@ -8,6 +8,14 @@
   }
 }
 
+@media all and (max-width: 768px) {
+  body > .dmptool .welcome > div .welcome-message div > div.get-started {
+    float: none;
+  }
+}
+
+/* Phones */
+/* ----------------------------------------------------------------------- */
 @media all and (max-width: $mobile-layout-breakpoint) {
   body {
     .dmptool {
@@ -86,11 +94,14 @@
             color: $dark-blue;
           }
 
-          .btn-inverse {
+          .get-started {
             float: none;
-            background-color: $dark-blue;
-            color: $white;
-            margin-top: 10px;
+
+            .btn-inverse {
+              background-color: $dark-blue;
+              color: $white;
+              margin-top: 10px;
+            }
           }
         }
       }

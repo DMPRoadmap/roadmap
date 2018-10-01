@@ -30,14 +30,13 @@
       display: flex;
       flex-flow: row wrap;
       justify-content: space-between;
-      align-items: baseline;
+      align-items: flex-end;
 
       color: $white;
       font-size: 1.7rem;
 
       div {
-        position: relative;
-        flex: 1 content;
+        flex: 1 auto;
       }
 
       h1 {
@@ -47,14 +46,17 @@
         font-size: 3rem;
       }
 
-      .btn-inverse {
-        color: $dark-blue;
-        background-color: $white;
-        padding: 10px 45px;
-        border-radius: 7px;
-        font-size: 1.8rem;
-        top: 30px;
-        right: 0;
+      div > div.get-started {
+        float: right;
+
+        .btn-inverse {
+          color: $dark-blue;
+          background-color: $white;
+          padding: 10px 45px;
+          border-radius: 7px;
+          font-size: 1.8rem;
+          margin-bottom: 10px;
+        }
       }
     }
   }
