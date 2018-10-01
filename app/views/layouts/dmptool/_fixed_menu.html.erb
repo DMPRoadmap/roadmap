@@ -81,8 +81,8 @@
                   </ul>
                 </li>
                 <li>
-                  <% lbl = _('For Administrators') %>
-                  <%= link_to raw("#{lbl} <i class=\"fa fa-external-link\">&nbsp;</i>"),
+                  <% lbl = _('For Administrators <em class="sr-only">(new window)</em>') %>
+                  <%= link_to sanitize("#{lbl} <em class=\"fa fa-external-link\">&nbsp;</em>"),
                              'https://github.com/CDLUC3/dmptool/wiki/Help-for-Administrators' %>
                   <ul>
                     <li><%= link_to _('Promote the DMPTool'), promote_path %></li>
