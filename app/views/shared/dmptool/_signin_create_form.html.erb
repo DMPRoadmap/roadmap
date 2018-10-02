@@ -12,94 +12,34 @@
       <div id="org-sign-in-logo">
       </div>
 
-      <ul id="access-control-tabs" class="nav nav-tabs" role="tablist">
+      <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
-          <a data-target="#sign-in-form-tab" role="tab" aria-controls="sign-in-form" data-toggle="tab"
-             data-action="<%= user_session_path %>" data-method="POST">
+          <a href="#sign-in-panel" role="tab" aria-controls="sign-in-panel" data-toggle="tab">
             <%= _('Sign in') %>
           </a>
         </li>
         <li role="presentation">
-          <a data-target="#create-account-form-tab" role="tab" aria-controls="create-account-form" data-toggle="tab"
-             data-action="<%= registration_path('user') %>" data-method="POST">
+          <a href="#create-account-panel" role="tab" aria-controls="create-account-panel" data-toggle="tab">
             <%= _('Create account') %>
           </a>
         </li>
       </ul>
 
       <div class="tab-content">
-        <div id="signin-create-content" role="tabpanel" class="tab-pane active">
-          <%= form_for resource, as: 'user', url: url,
-                     html: {autocomplete: "off", id: "signin_create_form"} do |f| %>
-            <div class="row create-account-fields<%= signin ? ' hide' : '' %>">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <%= f.label(:firstname, _('First Name'), class: "control-label") %>
-                  <%= f.text_field(:firstname, class: "form-control", "aria-required": true) %>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <%= f.label(:surname, _('Last Name'), class: "control-label") %>
-                  <%= f.text_field(:surname, class: "form-control", "aria-required": true) %>
-                </div>
-              </div>
+        <div id="sign-in-panel" role="tabpanel" class="tab-pane active">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <%= render partial: 'shared/sign_in_form' %>
             </div>
+          </div>
+        </div>
 
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <%= f.label(:email, _('Email'), class: "control-label") %>
-                  <%= f.email_field(:email, class: "form-control", "aria-required": true, 'data-validatable': true) %>
-                </div>
-              </div>
+        <div id="create-account-panel" role="tabpanel" class="tab-pane">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <%= render partial: 'shared/dmptool/create_account_form' %>
             </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <%= f.label(:password, _('Password'), class: "control-label") %>
-                  <%= f.password_field(:password, class: "form-control", "aria-required": true, 'data-validatable': true) %>
-                </div>
-              </div>
-            </div>
-
-            <div class="row signin-fields<%= !signin ? ' hide' : '' %>">
-              <div class="col-md-12">
-                <div class="checkbox">
-                  <%= label_tag 'remember_email', sanitize("#{check_box_tag 'remember_email'}#{_('Remember email')}") %>
-                </div>
-              </div>
-            </div>
-            <div class="row create-account-fields<%= signin ? ' hide' : '' %>">
-              <div class="col-md-12">
-                <div class="checkbox pull-left password-toggle">
-                  <label for="passwords_toggle_sign_up">
-                    <input type="checkbox" id="passwords_toggle_sign_up" class="passwords_toggle" /><%= _('Show password') %>
-                  </label>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <div class="checkbox pull-left">
-                    <%= f.label(:accept_terms,
-                        sanitize("#{ f.check_box(:accept_terms, "aria-required": true, "data-validation-error": _('You must agree to the term and conditions.')) } #{_('I accept the')} <a target=\"_blank\" href=\"#{terms_path}\">#{_('terms and conditions')}<em class=\"sr-only\">(new window)</em></a>")) %>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-6">
-                <input type="hidden" value="<%= org.present? ? org.id : '' %>" id="user_org_id" name="user[org_id]" />
-                <button type="submit" class="btn btn-default" value=""><%= _("Sign in") %></button>
-              </div>
-              <div class="col-md-6 signin-fields<%= !signin ? ' hide' : '' %>">
-                <div class="pull-right"><%= link_to _('Forgot email?'), users_ldap_username_path %></div>
-                <div class="clearfix"></div>
-                <div class="pull-right"><%= link_to _('Forgot password?'), new_password_path('user') %></div>
-              </div>
-            </div>
-          <% end %>
+          </div>
         </div>
       </div>
     </div>
