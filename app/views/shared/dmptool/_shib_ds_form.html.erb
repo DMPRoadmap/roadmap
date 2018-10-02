@@ -14,9 +14,9 @@
                 <option value=""><%= _('Please select one') %></option>
                 <%= raw orgs.collect{|o| "<option value=\"#{o.id}\">#{o.name}</option>" }.join('') %>
               </select>
-      
+
             <% else %>
-              <%= render partial: "shared/accessible_combobox", 
+              <%= render partial: "shared/accessible_combobox",
                          locals: {name: 'shib-ds[org_name]',
                                   id: 'shib-ds_org_name',
                                   default_selection: nil,
@@ -43,8 +43,8 @@
                                   'data-content': org.id %></li>
                 <% else %>
                   <li>
-                    <%= link_to org.name, "#{org_logo_path(org)}", 
-                                class: 'org-sign-in', 'data-content': org.id, 
+                    <%= link_to org.name, "#{org_logo_path(org)}",
+                                class: 'org-sign-in', 'data-content': org.id,
                                 'data-toggle': 'modal', 'data-target': '#org-sign-in' %>
                   </li>
                 <% end %>

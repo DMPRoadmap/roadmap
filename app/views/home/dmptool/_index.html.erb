@@ -28,9 +28,13 @@
           <div class="fa fa-building"></div>
           <div class="numbers"><%= number_with_delimiter(stats[:institution_count]) || '?' %></div>
           <p><%= _('Participating Institutions')%></p>
+          <% sr_text = _("View the list of participating institutions") %>
           <div class="more">
             <a href="<%= public_orgs_path %>"
-               title="<%= _("View the list of participating institutions") %>"><%= _('More') %></a>
+               title="<%= sr_text %>" aria-label="<%= sr_text %>">
+               <%= _('More') %>
+
+            </a>
           </div>
         </div>
       </div>
@@ -48,9 +52,10 @@
             <li><%= title %></li>
           <% end %>
         </ol>
+        <% sr_text = _("View the list of participating institutions") %>
         <div class="more">
           <a href="<%= public_templates_path %>"
-             title="<%= _("View the full list of funder requirements") %>"><%= _('More') %></a>
+             title="<%= sr_text %>" aria-label="<%= sr_text %>"><%= _('More') %></a>
         </div>
       </div>
     </div>
@@ -79,9 +84,10 @@
 
     <!-- Blog links -->
     <div class="links">
-      <a href="https://blog.dmptool.org/" target="_blank"><%= _('Go to the blog') %></a><br>
+      <a href="https://blog.dmptool.org/" target="_blank"><%= _('Go to the blog') %> <em class="sr-only">(new window)</em></a>
+      <br>
       <a href="https://blog.dmptool.org/feed/" target="_blank">
-        <span class="fa fa-rss-square"></span>
+        <span class="fa fa-rss-square"></span>&nbsp;RSS <em class="sr-only">(new window)</em>
       </a>
     </div>
   </div>

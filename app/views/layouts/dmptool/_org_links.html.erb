@@ -2,7 +2,7 @@
   <% current_user.org.links['org'].each_with_index do |link, i| %>
     <% if !link.blank? && i <= MAX_NUMBER_LINKS_ORG %>
       <li>
-        <%= link_to link['text'].truncate(40), link['link'], target: '_blank', class: 'org-a' %>
+        <%= link_to sanitize("#{link['text'].truncate(40)} <em class=\"sr-only\">(new window)</em>"), link['link'], target: '_blank', class: 'org-a' %>
       </li>
     <% end %>
   <% end %>

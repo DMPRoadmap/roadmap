@@ -5,6 +5,12 @@ $light-blue: #D8E3EE;
 $light-grey: #F0F0F0;
 $red: #B30000;
 $green: #008000;
+$translucent-blue: rgba(14,86,130,.9);
+
+/* Screen dimension breakpoints (based on screen width) */
+$mobile-layout-breakpoint: 766px;
+$hide-org-logo-breakpoint: 1024px;
+$max-width-breakpoint: 1280px;
 
 blockquote {
   font-size: 1.3rem;
@@ -28,4 +34,4 @@ blockquote {
 @import '/pages/static_pages.scss';
 
 @import '/layout.scss';
-@import '/media.scss';
+@import '/mobile.scss';

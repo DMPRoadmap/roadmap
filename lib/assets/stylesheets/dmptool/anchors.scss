@@ -21,12 +21,12 @@ li > a:focus, li > a:hover, li > a:active, li > a:active:hover
   background-color: inherit;
 }
 
-a:focus .fa, a:hover .fa, a:active .fa, a:active:hover .fa,
-li > a:focus .fa, li > a:hover .fa, li > a:active .fa, li > a:active:hover
-.navbar-nav > li > a:focus .fa, .navbar-nav > li > a:hover .fa, .navbar-nav > li > a:active .fa, .navbar-nav > li > a:active:hover .fa,
-.dropdown-menu > li > a:focus .fa, .dropdown-menu > li > a:hover .fa, .dropdown-menu > li > a:active .fa, .dropdown-menu > li > a:active:hover .fa,
+a .fa, a:focus .fa, a:hover .fa, a:active .fa, a:active:hover .fa,
+li > a .fa, li > a:focus .fa, li > a:hover .fa, li > a:active .fa, li > a:active:hover
+.navbar-nav > li > a .fa, .navbar-nav > li > a:focus .fa, .navbar-nav > li > a:hover .fa, .navbar-nav > li > a:active .fa, .navbar-nav > li > a:active:hover .fa,
+.dropdown-menu > li > a .fa, .dropdown-menu > li > a:focus .fa, .dropdown-menu > li > a:hover .fa, .dropdown-menu > li > a:active .fa, .dropdown-menu > li > a:active:hover .fa,
 .nav .open > a .fa, .nav .open > a:focus .fa, .nav .open > a:hover .fa, .nav .open > a:active .fa, .nav .open > a:active:hover .fa {
- font-size: 1.5rem;
+ font-size: inherit;
  color: inherit;
 }
 

@@ -66,7 +66,7 @@
             <div class="row signin-fields<%= !signin ? ' hide' : '' %>">
               <div class="col-md-12">
                 <div class="checkbox">
-                  <%= label_tag 'remember_email', raw("#{check_box_tag 'remember_email'}#{_('Remember email')}") %>
+                  <%= label_tag 'remember_email', sanitize("#{check_box_tag 'remember_email'}#{_('Remember email')}") %>
                 </div>
               </div>
             </div>
@@ -82,7 +82,7 @@
                 <div class="form-group">
                   <div class="checkbox pull-left">
                     <%= f.label(:accept_terms,
-                        raw("#{ f.check_box(:accept_terms, "aria-required": true, "data-validation-error": _('You must agree to the term and conditions.')) } #{_('I accept the')} <a target=\"_blank\" href=\"#{terms_path}\">#{_('terms and conditions')}</a>")) %>
+                        sanitize("#{ f.check_box(:accept_terms, "aria-required": true, "data-validation-error": _('You must agree to the term and conditions.')) } #{_('I accept the')} <a target=\"_blank\" href=\"#{terms_path}\">#{_('terms and conditions')}<em class=\"sr-only\">(new window)</em></a>")) %>
                   </div>
                 </div>
               </div>
