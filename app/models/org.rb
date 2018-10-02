@@ -81,9 +81,10 @@ class Org < ActiveRecord::Base
 
   validates :language, presence: { message: PRESENCE_MESSAGE }
 
+  validates :contact_name, presence: { message: PRESENCE_MESSAGE, if: :feedback_enabled }
+
   validates :contact_email, email: { allow_nil: true },
-                            presence: { message: PRESENCE_MESSAGE,
-                                        if: :feedback_enabled }
+                            presence: { message: PRESENCE_MESSAGE, if: :feedback_enabled }
 
   validates :org_type, presence: { message: PRESENCE_MESSAGE }
 
