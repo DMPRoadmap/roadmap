@@ -91,3 +91,6 @@ lib/assets/.eslintcache
 .byebug_history
 lib/data_cleanup/rules/org/fix_blank_abbreviation.yml
 .rspec
+node_modules
+.env
+public/packs
