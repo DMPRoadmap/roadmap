@@ -20,15 +20,26 @@ gem 'responders', '~> 2.0'
 # ------------------------------------------------
 #    DATABASE/SERVER
 
-# A simple, fast Mysql library for Ruby, binding to libmysql
-# (http://github.com/brianmario/mysql2)
-# A simple, fast Mysql library for Ruby, binding to libmysql (http://github.com/brianmario/mysql2)
-gem 'mysql2', '~> 0.4.10'
+group :mysql do
+  # A simple, fast Mysql library for Ruby, binding to libmysql (http://github.com/brianmario/mysql2)
+  gem 'mysql2', '~> 0.4.10'
+end
 
-# Pg is the Ruby interface to the {PostgreSQL
-# RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
-# Pg is the Ruby interface to the {PostgreSQL RDBMS}[http://www.postgresql.org/] (https://bitbucket.org/ged/ruby-pg)
-gem 'pg', '~> 0.19.0'
+group :pgsql do
+  # Pg is the Ruby interface to the {PostgreSQL
+  # RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
+  gem 'pg', '~> 0.19.0'
+end
+
+group :thin do
+  # A thin and fast web server (http://code.macournoyer.com/thin/)
+  gem 'thin'
+end
+
+group :puma do
+  # Puma is a simple, fast, threaded, and highly concurrent HTTP 1.1 server for Ruby/Rack applications (http://puma.io)
+  gem 'puma', group: :puma
+end
 
 # Bit fields for ActiveRecord (https://github.com/pboling/flag_shih_tzu)
 gem 'flag_shih_tzu'  # Allows for bitfields in activereccord
@@ -85,9 +96,6 @@ gem 'dragonfly'
 # EXPORTING
 # Provides binaries for WKHTMLTOPDF project in an easily accessible package.
 gem 'wkhtmltopdf-binary'
-
-# A thin and fast web server (http://code.macournoyer.com/thin/)
-gem 'thin'
 
 # PDF generator (from HTML) gem for Ruby on Rails (https://github.com/mileszs/wicked_pdf)
 gem 'wicked_pdf'
@@ -165,9 +173,6 @@ group :test do
   # rspec command for spring (https://github.com/jonleighton/spring-commands-rspec)
   gem "spring-commands-rspec"
 
-  # rspec-collection_matchers-1.1.3 (https://github.com/rspec/rspec-collection_matchers)
-  gem "rspec-collection_matchers"
-
   # Capybara aims to simplify the process of integration testing Rack applications, such as Rails, Sinatra or Merb (https://github.com/teamcapybara/capybara)
   gem "capybara"
 
@@ -186,6 +191,7 @@ group :ci, :development do
   gem "brakeman"
 
   # Automatic Ruby code style checking tool. (https://github.com/rubocop-hq/rubocop)
+  # Rubocop style checks for DMP Roadmap projects. (https://github.com/DMPRoadmap/rubocop-DMP_Roadmap)
   gem "rubocop-dmp_roadmap", ">= 1.1.0"
 
   # Helper gem to require bundler-audit (http://github.com/stewartmckee/bundle-audit)
@@ -194,8 +200,10 @@ end
 
 group :development do
 
+  # Simple Progress Bar for output to a terminal (http://github.com/paul/progress_bar)
   gem "progress_bar", require: false
 
+  # A collection of text algorithms (http://github.com/threedaymonk/text)
   gem "text", require: false
 
   # Better error page for Rails and other Rack apps (https://github.com/charliesome/better_errors)
@@ -219,7 +227,9 @@ group :development do
   # help to kill N+1 queries and unused eager loading. (https://github.com/flyerhzm/bullet)
   gem "bullet"
 
+  # Documentation tool for consistent and usable documentation in Ruby. (http://yardoc.org)
   gem "yard"
 
+  # TomDoc for YARD (http://rubyworks.github.com/yard-tomdoc)
   gem "yard-tomdoc"
 end
