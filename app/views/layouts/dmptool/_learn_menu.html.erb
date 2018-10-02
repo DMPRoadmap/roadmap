@@ -1,4 +1,5 @@
-<ul class="nav navbar-nav navbar-right">
+<!-- Learn/explore menu -->
+<ul class="nav navbar-nav">
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
            id="learn-menu-button" aria-haspopup="true" aria-expanded="false">
@@ -27,7 +28,7 @@
               </li>
               <li>
                 <% lbl = _('For Administrators') %>
-                <%= link_to raw("#{lbl} <i class=\"fa fa-external-link\">&nbsp;</i>"),
+                <%= link_to sanitize("#{lbl} <em class=\"fa fa-external-link\">&nbsp;</em>"),
                            'https://github.com/CDLUC3/dmptool/wiki/Help-for-Administrators' %>
                 <ul>
                   <li><%= link_to _('Promote the DMPTool'), promote_path %></li>
