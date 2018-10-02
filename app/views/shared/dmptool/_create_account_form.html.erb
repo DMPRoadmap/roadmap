@@ -1,0 +1,39 @@
+<%= form_for resource, namespace: 'new', url: registration_path("user"), html: {autocomplete: "off", id: "create_account_form"} do |f| %>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <%= f.label(:firstname, _('First Name'), class: "control-label") %>
+      <%= f.text_field(:firstname, class: "form-control", "aria-required": true) %>
+    </div>
+    <div class="form-group col-md-6">
+      <%= f.label(:surname, _('Last Name'), class: "control-label") %>
+      <%= f.text_field(:surname, class: "form-control", "aria-required": true) %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label(:email, _('Email'), class: "control-label") %>
+    <%= f.email_field(:email, class: "form-control", "aria-required": true) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label(:password, _('Password'), class: "control-label") %>
+    <%= f.password_field(:password, class: "form-control", "aria-required": true) %>
+  </div>
+  <div class="form-group">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" id="passwords_toggle_sign_up" class="passwords_toggle" /><%= _('Show password') %>
+      </label>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="checkbox">
+      <label for="accept_terms">
+        <%= f.check_box(:accept_terms,
+            "data-validation-error": _('You must agree to the term and conditions.')) %>
+        <%= sanitize(_('<em class="red">*</em> I accept the <a href="%{term_and_conditions_url}" target="_blank">terms and conditions <em class="sr-only">(new window)</em></a>') % { term_and_conditions_url: terms_path }) %>
+      </label>
+    </div>
+  </div>
+  <%= f.button(_('Create account'), class: "btn btn-default", type: "submit") %>
+<% end %>

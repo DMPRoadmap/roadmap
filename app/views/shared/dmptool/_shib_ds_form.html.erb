@@ -1,13 +1,13 @@
 <div class="modal-dialog" role="document">
   <div class="modal-content">
     <div class="modal-body">
-      <button type="button" class="close pull-right" data-dismiss="modal" aria-label="<%= _('Cancel') %>">
-        <span class="fa fa-times" aria-hidden="true">&nbsp;</span>
-      </button>
-
       <div class="row">
         <div class="col-md-11">
           <%= label_tag :org_name, _('Look up your institution here'), class: "control-label" %>
+          <button type="button" class="close pull-right" data-dismiss="modal" aria-label="<%= _('Cancel') %>">
+            <span class="fa fa-times" aria-hidden="true">&nbsp;</span>
+          </button>
+
           <div class="form-group">
             <% if orgs.length <= 10 %>
               <select id="org_name">
@@ -43,7 +43,7 @@
                                   'data-content': org.id %></li>
                 <% else %>
                   <li>
-                    <%= link_to org.name, "#{org_logo_path(org)}",
+                    <%= link_to org.name, "#{logo_org_path(org)}",
                                 class: 'org-sign-in', 'data-content': org.id,
                                 'data-toggle': 'modal', 'data-target': '#org-sign-in' %>
                   </li>

@@ -77,6 +77,8 @@ Rails.application.routes.draw do
     member do
       get 'admin_edit'
       put 'admin_update'
+
+      get 'logo', constraints: {format: :json}
     end
   end
 

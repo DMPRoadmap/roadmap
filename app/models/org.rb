@@ -228,14 +228,10 @@ class Org < ActiveRecord::Base
 # ---------------------------------------------------------
   # DMPTool participating institution helpers
   def self.participating
-    shibbolized = Org.joins(:identifier_schemes).where('is_other IS NULL').pluck(:id)
-    non_shibbolized = Org.where('orgs.is_other IS NULL AND orgs.id NOT IN (?)', shibbolized).pluck(:id)
-    Org.includes(:identifier_schemes).where(id: (shibbolized + non_shibbolized).flatten.uniq)
-  end
-  def self.participating_as_array
-    shibbolized = Org.joins(:identifier_schemes).where('is_other IS NULL')
-    non_shibbolized = Org.where('orgs.is_other IS NULL AND orgs.id NOT IN (?)', shibbolized.collect(&:id))
-    (shibbolized.to_a + non_shibbolized.to_a)
+    Org.includes(:identifier_schemes).where(is_other: false).order(:name)
+    #shibbolized = Org.joins(:identifier_schemes).where('is_other IS NULL').pluck(:id)
+    #non_shibbolized = Org.where('orgs.is_other IS NULL AND orgs.id NOT IN (?)', shibbolized).pluck(:id)
+    #Org.includes(:identifier_schemes).where(id: (shibbolized + non_shibbolized).flatten.uniq)
   end
   def shibbolized?
     self.org_identifiers.where(identifier_scheme: IdentifierScheme.find_by(name: 'shibboleth')).present?

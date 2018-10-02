@@ -60,7 +60,12 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
 
-    if params[:accept_terms].to_s == "0"
+  # ------------------------------------
+  # START DMPTool customization
+    # if params[:accept_terms].to_s == "0"
+    if sign_up_params[:accept_terms].to_s == "0"
+  # END DMPTool customization
+  # ------------------------------------
       redirect_to after_sign_up_error_path_for(resource),
         alert: _("You must accept the terms and conditions to register.")
 
