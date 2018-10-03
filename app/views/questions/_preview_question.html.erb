@@ -10,8 +10,11 @@
       <% if q_format.option_based? %>
         <% options = question.question_options.order("number") %>
 
-        <!--checkbox display-->
-        <% if q_format.checkbox? %>
+        <!--checkbox display (for  backwards compatibility is also being used for
+        questions in multiselectbox format display too as
+        multiselect box display was confusing to some users and has been removed as an
+        option for questions)-->
+        <% if q_format.checkbox? || q_format.multiselectbox? %>
           <% if !options.nil? %>
             <fieldset class="choices">
               <label class="text_colour"><%= sanitize question.text %></label>
@@ -26,16 +29,6 @@
                 <% end %>
               </ol>
             </fieldset>
-          <% end %>
-        <!--multi select box display-->
-        <% elsif q_format.multiselectbox? %>
-          <% if !options.nil? %>
-            <label class="text_colour"><%= sanitize question.text %></label>
-            <select multiple="multiple">
-              <% options.each do |op|%>
-                <option><%= sanitize op.text %></option>
-              <% end %>
-            </select>
           <% end %>
         <!--Radio buttons display-->
         <% elsif q_format.radiobuttons? %>
