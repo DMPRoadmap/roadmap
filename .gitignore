@@ -35,6 +35,7 @@ public/videos/*
 app/views/branded/*
 app/assets
 config/locales/static_pages/*.yml
+lib/assets/images/homepage
 
 
 # Ignore db schema.rb
