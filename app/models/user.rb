@@ -189,11 +189,10 @@ class User < ActiveRecord::Base
   #
   # Returns String
   def name(use_email = true)
-    if (firstname.blank? && surname.blank?) || use_email then
-      return email
+    if (firstname.blank? && surname.blank?) || use_email
+      email
     else
-      name = "#{firstname} #{surname}"
-      return name.strip
+      "#{firstname} #{surname}".strip
     end
   end
 

@@ -11,6 +11,17 @@
 class Perm < ActiveRecord::Base
   include ValidationMessages
 
+  NAME_AND_TEXT = {
+    add_organisations: _('Add organisations'),
+    change_org_affiliation: _('Change affiliation'),
+    grant_permissions: _('Manage user privileges'),
+    modify_templates: _('Manage templates'),
+    modify_guidance: _('Manage guidance'),
+    use_api: _('API rights'),
+    change_org_details: _('Manage organisation details'),
+    grant_api_to_orgs: _('Grant API to organisations')
+  }
+
   # ================
   # = Associations =
   # ================

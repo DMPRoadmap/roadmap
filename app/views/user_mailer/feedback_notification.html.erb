@@ -1,4 +1,4 @@
-<p><%= _('Hello %{@user.name(false)},') % { @user.name(false): @recipient.name(false) } %></p>
+<p><%= _('Hello %{user_name},') % { user_name: @recipient.name(false) } %></p>
 
 <p>
   <%= sanitize _(%Q{%{requestor} has requested feedback on a plan %{link_html}. To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan.}) % {

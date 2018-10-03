@@ -1,15 +1,16 @@
 class UserMailer < ActionMailer::Base
   include MailerHelper
+  include FeedbacksHelper
   helper MailerHelper
   helper FeedbacksHelper
 
-  default from: Rails.configuration.branding[:organisation][:email]
+  default from: Branding.fetch(:organisation, :email)
 
   def welcome_notification(user)
     @user = user
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @user.email,
-           subject: _('Welcome to %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
+           subject: _('Welcome to %{tool_name}') % { tool_name: tool_name })
     end
   end
 
@@ -17,10 +18,9 @@ class UserMailer < ActionMailer::Base
     @role    = role
     @user    = user
     @inviter = inviter
-    subject  = _("A Data Management Plan in %{tool_name} has been shared "\
-                   "with you") % {
-      tool_name: Rails.configuration.branding[:application][:name]
-    }
+    subject  = _("A Data Management Plan in %{tool_name} has been shared with you") % {
+                 tool_name: tool_name
+               }
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @role.user.email, subject: subject)
     end
@@ -32,7 +32,7 @@ class UserMailer < ActionMailer::Base
     if user.active?
       FastGettext.with_locale FastGettext.default_locale do
         mail(to: @role.user.email,
-             subject: _('Changed permissions on a Data Management Plan in %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
+             subject: _('Changed permissions on a Data Management Plan in %{tool_name}') % { tool_name: tool_name })
       end
     end
   end
@@ -44,7 +44,9 @@ class UserMailer < ActionMailer::Base
     if user.active?
       FastGettext.with_locale FastGettext.default_locale do
         mail(to: @user.email,
-             subject: "#{_('Permissions removed on a DMP in %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] }}")
+             subject: _('Permissions removed on a DMP in %{tool_name}') % {
+               tool_name: tool_name
+             })
       end
     end
   end
@@ -53,13 +55,16 @@ class UserMailer < ActionMailer::Base
     @user = requestor
 
     if @user.org.present? && recipient.active?
-      @org = @user.org
-      @plan = plan
+      @org       = @user.org
+      @plan      = plan
       @recipient = recipient
 
       FastGettext.with_locale FastGettext.default_locale do
         mail(to: recipient.email,
-             subject: _("%{application_name}: %{user_name} requested feedback on a plan") % {application_name: Rails.configuration.branding[:application][:name], user_name: @user.name(false)})
+             subject: _("%{tool_name}: %{user_name} requested feedback on a plan") % {
+               tool_name: tool_name,
+               user_name: @user.name(false)
+             })
       end
     end
   end
@@ -72,27 +77,30 @@ class UserMailer < ActionMailer::Base
     if recipient.active?
       FastGettext.with_locale FastGettext.default_locale do
         mail(to: recipient.email,
-             subject: _("%{application_name}: Expert feedback has been provided for %{plan_title}") % {application_name: Rails.configuration.branding[:application][:name], plan_title: @plan.title})
+             subject: _("%{application_name}: Expert feedback has been provided for %{plan_title}") % {
+               application_name: tool_name,
+               plan_title: @plan.title
+             })
       end
     end
   end
 
   def feedback_confirmation(recipient, plan, requestor)
-    user = requestor
+    @user = requestor
 
-    if user.org.present? && recipient.active?
-      org = user.org
+    if @user.org.present? && recipient.active?
+      org = @user.org
       plan = plan
 
       # Use the generic feedback confirmation message unless the Org has specified one
       subject = (org.feedback_email_subject.present? ? org.feedback_email_subject : feedback_confirmation_default_subject)
       message = (org.feedback_email_msg.present? ? org.feedback_email_msg : feedback_confirmation_default_message)
 
-      @body = feedback_constant_to_text(message, user, plan, org)
+      @body = feedback_constant_to_text(message, @user, plan, org)
 
       FastGettext.with_locale FastGettext.default_locale do
         mail(to: recipient.email,
-             subject: feedback_constant_to_text(subject, user, plan, org))
+             subject: feedback_constant_to_text(subject, @user, plan, org))
       end
     end
   end
@@ -103,7 +111,9 @@ class UserMailer < ActionMailer::Base
     if user.active?
       FastGettext.with_locale FastGettext.default_locale do
         mail(to: @user.email,
-             subject: _('DMP Visibility Changed: %{plan_title}') %{ :plan_title => @plan.title })
+             subject: _('DMP Visibility Changed: %{plan_title}') % {
+               plan_title: @plan.title
+             })
       end
     end
   end
@@ -118,7 +128,10 @@ class UserMailer < ActionMailer::Base
         @plan = plan
         FastGettext.with_locale FastGettext.default_locale do
           mail(to: plan.owner.email, subject:
-            _('%{tool_name}: A new comment was added to %{plan_title}') %{ :tool_name => Rails.configuration.branding[:application][:name], :plan_title => plan.title })
+            _('%{tool_name}: A new comment was added to %{plan_title}') % {
+              tool_name: tool_name,
+              plan_title: plan.title
+            })
         end
       end
     end
@@ -129,8 +142,11 @@ class UserMailer < ActionMailer::Base
     if user.active?
       FastGettext.with_locale FastGettext.default_locale do
         mail(to: user.email, subject:
-          _('Administrator privileges granted in %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
+          _('Administrator privileges granted in %{tool_name}') % {
+            tool_name: tool_name
+        })
       end
     end
   end
+
 end

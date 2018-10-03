@@ -1,6 +1,6 @@
 <p><%= _('Hello %{user_name}') % { user_name: @user.name(false) } %></p>
 
-<% if @user.perms.size > 0 %>
+<% if @user.perms.any? %>
 
   <p>
     <%= _('You have been granted administrator privileges in %{tool_name}:') % {
@@ -8,7 +8,13 @@
     } %>
   </p>
 
-  <p><%= sanitize(privileges_list(@user)) %></p>
+  <p>
+    <ul>
+      <% for perm in @user.perms %>
+        <li><%= Perm::NAME_AND_TEXT[perm.name.to_sym] %></li>
+      <% end %>
+    </ul>
+  </p>
 
 <% else %>
 
