@@ -1,6 +1,6 @@
 <%# locals: { f, question, answer } %>
 <% options = question.question_options.by_number %>
-<% if question.question_format.checkbox? %>
+<% if question.question_format.checkbox? || question.question_format.multiselectbox? %>
     <%= f.label(:question_option_ids, sanitize(question.text), class: 'control-label') %>
     <% options.each do |op| %>
         <div class="checkbox">
@@ -20,7 +20,7 @@
             </label>
         </div>
     <% end %>
-<% elsif question.question_format.dropdown? || question.question_format.multiselectbox? %>
+<% elsif question.question_format.dropdown? %>
     <%
         options_html = ""
         options.each do |op|
