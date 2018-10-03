@@ -1,21 +1,18 @@
-<%
-  tool_name = Rails.configuration.branding[:application][:name]
-  username = @user.name
-  plan_title = @role.plan.title
-  access = nil
-  access_level = @role.access_level()
-%>
 <% FastGettext.with_locale FastGettext.default_locale do %>
   <p>
-    <%= _('Hello %{username}') %{ :username => username } %>
+    <%= _('Hello %{user_name}') % { user_name: @user.name(false) } %>
   </p>
+
   <p>
+    <!-- TODO: is there a bug here? -->
     <%= _('Your permissions relating to %{plan_title} have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}') % {
-       plan_title: plan_title,
-       type: Role::ACCESS_LEVEL_MESSAGES[access_level][:type],
-       placeholder1: Role::ACCESS_LEVEL_MESSAGES[access_level][:placeholder1],
-       placeholder2: Role::ACCESS_LEVEL_MESSAGES[access_level][:placeholder2]
+       plan_title: @role.plan.title,
+       type: Role::ACCESS_LEVEL_MESSAGES[nil][:type],
+       placeholder1: Role::ACCESS_LEVEL_MESSAGES[@role.access_level][:placeholder1],
+       placeholder2: Role::ACCESS_LEVEL_MESSAGES[@role.access_level][:placeholder2]
       } %>
   </p>
+
   <%= render partial: 'email_signature' %>
+
 <% end %>
