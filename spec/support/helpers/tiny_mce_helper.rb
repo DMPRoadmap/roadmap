@@ -10,7 +10,7 @@ module TinyMceHelper
   # val - String with the value to input to the text field
   #
   # Returns String
-  def tinymce_fill_in(id, val)
+  def tinymce_fill_in(id, with: '')
     # wait until the TinyMCE editor instance is ready.
     # This is required for cases where the editor is loaded via XHR.
     x = 0
@@ -20,7 +20,7 @@ module TinyMceHelper
     end
     page.execute_script <<~JS
       var editor = tinyMCE.get('#{id}');
-      editor.setContent('#{val}');
+      editor.setContent('#{with}');
       editor.fire('change');
     JS
   end
