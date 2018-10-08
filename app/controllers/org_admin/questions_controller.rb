@@ -4,6 +4,7 @@ module OrgAdmin
 
   class QuestionsController < ApplicationController
 
+    include AllowedQuestionFormats
     include Versionable
 
     respond_to :html
@@ -42,6 +43,7 @@ module OrgAdmin
       question = Question.new(section_id: section.id,
                               question_format: question_format,
                               number: nbr.present? ? nbr + 1 : 1)
+      question_formats = allowed_question_formats
       authorize question
       render partial: "form", locals: {
         template: section.phase.template,
@@ -51,7 +53,8 @@ module OrgAdmin
         url: org_admin_template_phase_section_questions_path(
           template_id: section.phase.template.id,
           phase_id: section.phase.id,
-          id: section.id)
+          id: section.id),
+        question_formats: question_formats
       }
     end
 
