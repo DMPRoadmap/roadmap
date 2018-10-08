@@ -161,3 +161,36 @@ msgstr "En savoir plus"
 
 msgid "You"
 msgstr "Vous"
+
+msgid "Your organisation"
+msgstr "Votre organisation"
+
+msgid "Other organisation"
+msgstr "Autre organisation"
+
+msgid "Use Default Template"
+msgstr "Utiliser le modèle par défaut"
+
+msgid "Would you like to use the default template \"%{template_name}\"?"
+msgstr "Souhaitez-vous utiliser le modèle par défaut \"%{template_name}\" ?"
+
+msgid "Would you like to choose the template of another organisation?"
+msgstr "Souhaitez-vous choisir le modèle d'une autre organisation ?"
+
+msgid "Would you like to choose the template of a funder?"
+msgstr "Souhaitez-vous utiliser le modèle d'un financeur ?"
+
+msgid "The organisation provides multiple templates, which one would you like to use?"
+msgstr "Cette organisation propose plusieurs modèles, lequel souhaitez-vous utiliser ?"
+
+msgid "This organisation provides a template. Would you like to create a plan from the \"__template_title__\" template?"
+msgstr "Cette organisation propose un modèle. Souhaitez-vous créer un plan à partir du modèle \"__template_title__\" ?"
+
+msgid "This organisation does not provide a template. Would you like to create a plan using the default \"__template_title__\" template?"
+msgstr "Cette organisation ne propose pas de modèle. Souhaitez-vous créer un plan à partir du modèle par défaut \"__template_title__\" ?"
+
+msgid "You are not linked to an organisation, we can\'t suggest you a template. Please choose an organisation in your profile"
+msgstr "Vous n'êtes pas liés à une organisation, nous ne pouvons vous proposer un modèle. Veuillez choisir une organisation dans votre profil."
+
+msgid "Customized by "
+msgstr "Personnalisé par "

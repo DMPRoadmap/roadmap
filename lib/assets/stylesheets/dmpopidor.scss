@@ -143,6 +143,11 @@ $light-yellow: #fff9e5;
         font-size: 20px;
     }
 
+    h3 {
+        color: $blue;
+        font-size: 17px;
+    }
+
     a {
         color: $blue;
     }
@@ -572,4 +577,15 @@ $light-yellow: #fff9e5;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+/*
+    PLAN CREATION
+*/
+
+.plan-form {
+    .tab-content {
+        padding: 25px 25px 50px 25px;
+        border: 1px solid $blue;
+    }
 }

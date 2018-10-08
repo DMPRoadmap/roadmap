@@ -305,7 +305,7 @@ module OrgAdmin
         if funder_id.blank? || funder_id == org_id
           # Retrieve the Org's templates
           templates << Template.published.organisationally_visible.where(org_id: org_id).to_a.map do |template|
-            template.title = "#{template.title} (#{_('Customized by ')} #{Org.find(org_id).name})" if template.customization_of
+            template.title = "#{template.title} (#{d_('dmpopidor', 'Customized by ')} #{Org.find(org_id).name})" if template.customization_of
             template
           end
         end
