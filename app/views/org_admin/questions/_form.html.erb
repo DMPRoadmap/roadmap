@@ -25,7 +25,7 @@
     <div class="form-group col-md-4">
       <%= f.label(:question_format_id, _('Answer format'), class: "control-label") %>
         <%= f.select :question_format_id,
-          options_from_collection_for_select(QuestionFormat.all.order("title"),
+          options_from_collection_for_select(question_formats,
           :id,
           :title,
           question.question_format_id),
