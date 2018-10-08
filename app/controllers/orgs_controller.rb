@@ -28,42 +28,37 @@ class OrgsController < ApplicationController
       @org.links = JSON.parse(params[:org_links])
     end
 
-    begin
-      # Only allow super admins to change the org types and shib info
-      if current_user.can_super_admin?
-        # Handle Shibboleth identifiers if that is enabled
-        if Rails.application.config.shibboleth_use_filtered_discovery_service &&
-              params[:shib_id].present?
-          shib = IdentifierScheme.find_by(name: "shibboleth")
-          shib_settings = @org.org_identifiers.select do |ids|
-            ids.identifier_scheme == shib
-          end.first
+    # Only allow super admins to change the org types and shib info
+    if current_user.can_super_admin?
+      # Handle Shibboleth identifiers if that is enabled
+      if Rails.application.config.shibboleth_use_filtered_discovery_service &&
+            params[:shib_id].present?
+        shib = IdentifierScheme.find_by(name: "shibboleth")
+        shib_settings = @org.org_identifiers.select do |ids|
+          ids.identifier_scheme == shib
+        end.first
 
-          if !params[:shib_id].blank?
-            unless shib_settings.present?
-              shib_settings = OrgIdentifier.new(org: @org, identifier_scheme: shib)
-              shib_settings.identifier = params[:shib_id]
-              shib_settings.attrs = { domain: params[:shib_domain] }
-              shib_settings.save
-            end
-          else
-            if shib_settings.present?
-              # The user cleared the shib values so delete the object
-              shib_settings.destroy
-            end
+        if !params[:shib_id].blank?
+          unless shib_settings.present?
+            shib_settings = OrgIdentifier.new(org: @org, identifier_scheme: shib)
+            shib_settings.identifier = params[:shib_id]
+            shib_settings.attrs = { domain: params[:shib_domain] }
+            shib_settings.save
+          end
+        else
+          if shib_settings.present?
+            # The user cleared the shib values so delete the object
+            shib_settings.destroy
           end
         end
       end
+    end
 
-      if @org.update_attributes(attrs)
-        redirect_to "#{admin_edit_org_path(@org)}\##{tab}",
-                    notice: success_message(@org, _("saved"))
-      else
-        failure = failure_message(@org, _("save")) if failure.blank?
-        redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: failure
-      end
-    rescue Dragonfly::Job::Fetch::NotFound => dflye
-      failure = _("There seems to be a problem with your logo. Please upload it again.")
+    if @org.update_attributes(attrs)
+      redirect_to "#{admin_edit_org_path(@org)}\##{tab}",
+                  notice: success_message(@org, _("saved"))
+    else
+      failure = failure_message(@org, _("save")) if failure.blank?
       redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: failure
     end
   end

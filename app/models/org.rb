@@ -129,6 +129,7 @@ class Org < ActiveRecord::Base
   }
 
   before_validation :set_default_feedback_email_subject
+  before_validation :check_for_missing_logo_file
   after_create :create_guidance_group
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
@@ -221,6 +222,27 @@ class Org < ActiveRecord::Base
     unless logo.nil?
       if logo.height != 100
         self.logo = logo.thumb('x100')  # resize height and maintain aspect ratio
+      end
+    end
+  end
+
+  # If the physical logo file is no longer on disk we do not want it to prevent the
+  # model from saving. This typically happens when you copy the database to another
+  # environment. The orgs.logo_uid stores the path to the physical logo file that is
+  # stored in the Dragonfly data store (default is: public/system/dragonfly/[env]/)
+  def check_for_missing_logo_file
+    if self.logo_uid.present?
+      data_store_path = Dragonfly.app.datastore.root_path
+
+      if !File.exist?("#{data_store_path}#{self.logo_uid}")
+        # Attempt to locate the file by name. If it exists update the uid
+        logo = Dir.glob("#{data_store_path}/**/*#{self.logo_name}")
+        if !logo.empty?
+          self.logo_uid = logo.first.gsub(data_store_path, '')
+        else
+          # Otherwise the logo is missing so clear it to prevent save failures
+          self.logo = nil
+        end
       end
     end
   end
