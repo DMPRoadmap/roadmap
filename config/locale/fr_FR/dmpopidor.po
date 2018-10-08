@@ -194,3 +194,9 @@ msgstr "Vous n'êtes pas liés à une organisation, nous ne pouvons vous propose
 
 msgid "Customized by "
 msgstr "Personnalisé par "
+
+msgid "Copy link"
+msgstr "Copier le lien"
+
+msgid "Public, Administrator or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
+msgstr "La visibilité par les administrateurs, par l’organisme ou par tous (public) concerne les plans partiellement remplis. Vous devez avoir répondu à au moins %{percentage}%% des questions afin d'activer l’une de ces options. Note : les plans de test sont privés par défaut."

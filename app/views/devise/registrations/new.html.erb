@@ -21,11 +21,10 @@
             <p><%= render :partial => 'shared/create_account_form', locals: {extended: false} %><br></p>
         </div>
     <% else %>
-        <div>
+        <div id="create-account-form">
             <h2><%= _("Create account") %>&nbsp;&nbsp;<i class="fa fa-user-plus" aria-hidden="true">&nbsp;&nbsp;</i></h2>
-            <%= render :partial => 'shared/create_account_form', locals: {extended: true} %>  
+            <%= render :partial => 'shared/create_account_form', locals: {extended: true} %>
         </div>
     <% end %>
   </div>
 </div>
-    

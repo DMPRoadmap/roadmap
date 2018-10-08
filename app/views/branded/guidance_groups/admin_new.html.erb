@@ -13,17 +13,17 @@
           <%= f.label _('Name'), for: :name, class: "control-label" %>
           <%= f.text_field :name, as: :string, class: "form-control", 'aria-required': true, 'data-toggle': 'tooltip', title: _('Add an appropriate name for your guidance group. This name will tell the end user where the guidance has come from. We suggest you use the organisation or department name e.g. "OU" or "Maths & Stats"') %>
         </div>
-
-        <div class='form-input col-xs-8'> 
-          <%= f.check_box :published, 'data-toggle': 'tooltip', title: _("Check this box when you are ready for guidance associated with this group to appear on user's plans.") %>
-          <%= f.label _('Published'), for: :published, class: "control-label" %>
-        </div>
-        
-        <div class='form-input col-xs-8'>
-          <%= f.check_box :optional_subset, 'data-toggle': 'tooltip', title: _("If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard.") %>
-          <%= f.label _('Optional Subset'), for: :optional_subset, class: "control-label" %><%= _(' (e.g. School/ Department) ') %>
-        </div>
-      
+        <fieldset class='col-xs-12'>
+          <div class='form-input'> 
+            <%= f.check_box :published, 'data-toggle': 'tooltip', title: _("Check this box when you are ready for guidance associated with this group to appear on user's plans.") %>
+            <%= f.label _('Published'), class: "control-label" %>
+          </div>
+          
+          <div class='form-input'>
+            <%= f.check_box :optional_subset, 'data-toggle': 'tooltip', title: _("If the guidance is only meant for a subset of users e.g. those in a specific college or institute, check this box.  Users will be able to select to display this subset guidance when answering questions in the 'create plan' wizard.") %>
+            <%= f.label _('Optional Subset'), class: "control-label" %><%= _(' (e.g. School/ Department) ') %>
+          </div>
+        </fieldset>
         <!-- submit buttons -->
         <div class="form-group col-xs-8">
           <%= f.submit _('Save'), name: "draft", class: "btn btn-primary" %>

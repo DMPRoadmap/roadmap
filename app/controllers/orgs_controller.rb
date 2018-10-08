@@ -29,11 +29,11 @@ class OrgsController < ApplicationController
       # Only allow super admins to change the org types and shib info
       if current_user.can_super_admin?
         # Handle Shibboleth identifiers if that is enabled
-        if Rails.application.config.shibboleth_use_filtered_discovery_service
+        if Rails.application.config.shibboleth_use_filtered_discovery_service && params[:shib_id].present?
           shib = IdentifierScheme.find_by(name: 'shibboleth')
           shib_settings = @org.org_identifiers.select{ |ids| ids.identifier_scheme == shib}.first
 
-          if params[:shib_id].present? || params[:shib_domain].present?
+          if !params[:shib_id].blank?
             shib_settings = OrgIdentifier.new(org: @org, identifier_scheme: shib) unless shib_settings.present?
             shib_settings.identifier = params[:shib_id]
             shib_settings.attrs = {domain: params[:shib_domain]}
@@ -81,7 +81,7 @@ class OrgsController < ApplicationController
       session['org_id'] = params[:org_name]
 
       scheme = IdentifierScheme.find_by(name: 'shibboleth')
-      shib_entity = OrgIdentifier.where(org_id: params[:org_name], identifier_scheme: scheme)
+      shib_entity = OrgIdentifier.where(org_id: params['shib-ds'][:org_id], identifier_scheme: scheme)
 
       if !shib_entity.empty?
         # Force SSL
@@ -104,6 +104,6 @@ class OrgsController < ApplicationController
   private
     def org_params
       params.require(:org).permit(:name, :abbreviation, :logo, :contact_email, :contact_name, :remove_logo, :org_type,
-                                  :feedback_enabled, :feedback_email_subject, :feedback_email_msg, :banner_text)
+                                  :feedback_enabled, :feedback_email_msg)
     end
 end

@@ -195,3 +195,9 @@ msgstr "You are not linked to an organisation, we can\'t suggest you a template.
 
 msgid "Customized by "
 msgstr "Customized by "
+
+msgid "Copy link"
+msgstr "Copy link"
+
+msgid "Public, Administrator or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
+msgstr "Public, Administrator or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
