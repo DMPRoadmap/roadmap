@@ -43,6 +43,7 @@ FactoryBot.define do
     language { Language.first || create(:language) }
     is_other false
     contact_email { Faker::Internet.safe_email }
+    contact_name { Faker::Name.name }
     trait :institution do
       institution true
     end
