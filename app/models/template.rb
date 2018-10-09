@@ -393,6 +393,14 @@ class Template < ActiveRecord::Base
     Template::UpgradeCustomizationService.call(self)
   end
 
+  def publish
+    update(published: true)
+  end
+
+  def publish!
+    update!(published: true)
+  end
+
   private
 
   # ============================
