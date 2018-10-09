@@ -253,7 +253,7 @@ module OrgAdmin
       # rubocop:disable Metrics/LineLength
       if template.latest?
         # Now make the current version published
-        if template.update_attributes!(published: true)
+        if template.publish!
           flash[:notice] = _("Your #{template_type(template)} has been published and is now available to users.")
         else
           flash[:alert] = _("Unable to publish your #{template_type(template)}.")

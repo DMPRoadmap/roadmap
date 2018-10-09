@@ -17,6 +17,11 @@ RSpec.describe "Template::UpgradeCustomizationService", type: :service do
 
     let!(:template) { funder_template.customize!(create(:org, :funder)) }
 
+    before do
+      funder_template.publish!
+      template.publish!
+    end
+
     subject { Template::UpgradeCustomizationService.call(template) }
 
     context "when template is a customization of a published funder template" do
@@ -65,6 +70,22 @@ RSpec.describe "Template::UpgradeCustomizationService", type: :service do
 
     end
 
+    context "when a new phase is present in funder template" do
+
+      let!(:org) { create(:org) }
+
+      let!(:template) { funder_template.customize!(org) }
+
+      before do
+        funder_template.phases << create(:phase)
+      end
+
+      it "copies the new sections" do
+        expect(subject.phases).to have_exactly(2).items
+      end
+
+    end
+
     context "when a new section is present in funder template" do
 
       let!(:org) { create(:org) }
@@ -106,54 +127,6 @@ RSpec.describe "Template::UpgradeCustomizationService", type: :service do
 
     end
 
-    context "when a new phase is present in funder template" do
-
-      let!(:org) { create(:org) }
-
-      let!(:template) { funder_template.customize!(org) }
-
-      before do
-        funder_template.phases << create(:phase)
-      end
-
-      it "copies the new phase" do
-        expect(subject.phases).to have_exactly(2).items
-      end
-
-    end
-
-    context "when a new section is present in funder template" do
-
-      let!(:org) { create(:org) }
-
-      let!(:template) { funder_template.customize!(org) }
-
-      before do
-        funder_template.phases.first.sections << create(:section)
-      end
-
-      it "copies the new sections" do
-        expect(subject.sections).to have_exactly(5).items
-      end
-
-    end
-
-    context "when a new question is present in funder template" do
-
-      let!(:org) { create(:org) }
-
-      let!(:template) { funder_template.customize!(org) }
-
-      before do
-        funder_template.sections.first.questions << create(:question)
-      end
-
-      it "copies the new question" do
-        expect(subject.questions).to have_exactly(9).items
-      end
-
-    end
-
     context "when a new annotation is present in funder template" do
 
       let!(:org) { create(:org) }
@@ -170,7 +143,41 @@ RSpec.describe "Template::UpgradeCustomizationService", type: :service do
 
     end
 
-    context "when a new annotation is present in Org template" do
+    context "when a new section is present in customized template" do
+
+      let!(:org) { create(:org) }
+
+      let!(:template) { funder_template.customize!(org) }
+
+      before do
+        template.phases.first.sections << create(:section, modifiable: true)
+      end
+
+      it "adds the new section to the new customization" do
+        expect(subject.sections.count).to eql(funder_template.sections.count + 1)
+      end
+
+    end
+
+    context "when a new section is present in both templates" do
+
+      let!(:org) { create(:org) }
+
+      let!(:template) { funder_template.customize!(org) }
+
+      before do
+        template.phases.first.sections << build(:section, modifiable: true, number: 5)
+        funder_template.phases.first.sections << build(:section, number: 5)
+      end
+
+      it "updates the customized template's new section with the next free number" do
+        expect(subject.sections.count).to eql(funder_template.sections.count + 1)
+        expect(subject.sections.maximum(:number)).to eql(funder_template.sections.maximum(:number) + 1)
+      end
+
+    end
+
+    context "when a new annotation is present in customized template" do
 
 
       let!(:org) { create(:org) }
