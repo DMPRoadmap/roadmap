@@ -5,23 +5,23 @@ class Template
   # Service object to upgrade a customization Template with new changes from the original
   # funder Template. Remember: {target_template} is a customization of funder Template.
   #
-  # - Duplicate the init template (Duplication called {#source_template})
+  # - Duplicate the init template (Duplication called {#customized_template})
   #
   # - Create a new customisation of funder template (Customization called
   #   {#target_template})
   #
   # - Take each phase on the {#target_template} and iterate to find if there's a
-  #   corresponding one in {#source_template}
+  #   corresponding one in {#customized_template}
   #   - Test for each of a) no corresponding phase in source,
   #                      b) corresponding found
-  #     a) Create a duplicate phase on the source_template
+  #     a) Create a duplicate phase on the customized_template
   #     b) Do nothing at this point
   #   - Copy over each of the modifiable sections from source to the target
   #     - Re-number the sections if necessary to keep the display order (number) the same
   #     - Copy each of the questions and annotations exactly
   #   - For each unmodifiable section, copy over any modifiable questions from target
   #
-  # - Copy each of the modifiable sections from the {#source_template} to the
+  # - Copy each of the modifiable sections from the {#customized_template} to the
   #   {#target_template}
   #
   class UpgradeCustomizationService
@@ -32,6 +32,10 @@ class Template
 
     # Exception raised when no published funder Template can be found.
     class NoFunderTemplateError < StandardError
+    end
+
+    # Exception raised when a Section cannot be transferred to a new Phase.
+    class UntransferrablSectionError < StandardError
     end
 
 
@@ -80,12 +84,12 @@ class Template
         # Search for the phase in the source template whose versionable_id matches the
         # customization_phase
         #
-        # a) If the Org's template ({#source_template}) has the Phase...
+        # a) If the Org's template ({#customized_template}) has the Phase...
         if source_phase = find_matching_record_in_collection(
                             record: target_phase,
-                            collection: source_template.phases)
+                            collection: customized_template.phases)
 
-        # b) If the Org's template ({#source_template}) doesn't have this Phase.
+        # b) If the Org's template ({#customized_template}) doesn't have this Phase.
         #    This is not a problem, since {#customization_template} should have this Phase
         #    copied over from {#template_phase}.
         else
@@ -93,6 +97,7 @@ class Template
         end
 
         copy_modifiable_sections_for_phase(source_phase, target_phase)
+
         sort_sections_within_phase(target_phase)
       end
 
@@ -115,11 +120,8 @@ class Template
     #
     #
     # Returns {Template}
-    def source_template
-      @source_template ||= init_template.deep_copy(attributes: {
-                                                     version: init_template.version + 1,
-                                                     published: false
-                                                   })
+    def customized_template
+      @customized_template ||= init_template.deep_copy(attributes: { version: init_template.version + 1, published: false })
     end
 
     # Creates a new customisation for the published template whose family_id {#template}
@@ -129,11 +131,11 @@ class Template
     def target_template
       @target_template ||= funder_template.deep_copy(
         attributes: {
-          version: source_template.version,
-          published: source_template.published,
-          family_id: source_template.family_id,
-          customization_of: source_template.customization_of,
-          org: source_template.org,
+          version: customized_template.version,
+          published: customized_template.published,
+          family_id: customized_template.family_id,
+          customization_of: customized_template.customization_of,
+          org: customized_template.org,
           visibility: Template.visibilities[:organisationally_visible],
           is_default: false
         }, modifiable: false, save: true
@@ -159,8 +161,12 @@ class Template
     #
     # Returns Array of Sections
     def copy_modifiable_sections_for_phase(source_phase, target_phase)
+      target_section_ids = target_phase.sections.pluck(:versionable_id)
       source_phase.sections.select(&:modifiable?).each do |section|
-        target_phase.sections << section
+        if section.number.in?(target_phase.sections.pluck(:number))
+          section.number = target_phase.sections.maximum(:number) + 1
+        end
+        target_phase.sections << section or raise(UntransferrablSectionError)
       end
     end
 
