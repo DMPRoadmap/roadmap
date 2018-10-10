@@ -22,7 +22,7 @@ module DataCleanup
           else
             # Raise an exception if there are Orgs with no abbreviation and
             # no YAML file was defined
-            if ::Org.where(abbreviation: nil).any?
+            if ::Org.where(abbreviation: ["", nil]).any?
               raise "Please create a YAML file at #{YAML_FILE_PATH}"
             end
           end

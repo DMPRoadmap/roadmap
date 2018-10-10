@@ -10,7 +10,7 @@ module DataCleanup
         end
 
         def call
-          ::QuestionFormat.where(description: "").each do |qf|
+          ::QuestionFormat.where(description: ["", nil]).each do |qf|
             log("Adding default description to QuestionFormat##{qf.id}")
             qf.update!(description: "#{qf.title} format")
           end
