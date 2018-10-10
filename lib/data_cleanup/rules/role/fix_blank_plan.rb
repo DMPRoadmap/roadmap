@@ -10,7 +10,8 @@ module DataCleanup
         end
 
         def call
-          ids = ::Role.where(plan: nil).ids
+          ids = ::Role.joins("LEFT OUTER JOIN plans ON plans.id = roles.plan_id")
+                      .where(plans: { id: nil }).ids
           log("Destroying Roles without Plan: #{ids}")
           ::Role.destroy(ids)
         end
