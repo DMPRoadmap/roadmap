@@ -44,7 +44,7 @@ RSpec.describe StatJoinedUser, type: :model do
         csv = described_class.to_csv(data)
 
         expected_csv = <<~HERE
-          Date,Count
+          date,count
           2018-05-31,20
           2018-06-30,10
         HERE
