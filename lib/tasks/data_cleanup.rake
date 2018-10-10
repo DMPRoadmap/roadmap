@@ -52,8 +52,13 @@ namespace :data_cleanup do
 
     ## Answer
 
+    # Fix blank plan
+    blank_plans = Answer.where.not(plan_id: Plan.all.collect(&:id))
+    report_known_invalidations(blank_plans, "Answer", "plan is blank")
+
     # Fix blank user
-    results = Answer.joins("LEFT OUTER JOIN users ON users.id = answers.user_id")
+    results = Answer.where.not(answers: {id: blank_plans})
+                    .joins("LEFT OUTER JOIN users ON users.id = answers.user_id")
                     .where(users: { id: nil })
                     .includes(plan: { roles: :user })
     report_known_invalidations(results, "Answer", "user is blank")
