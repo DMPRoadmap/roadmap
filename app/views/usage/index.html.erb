@@ -21,6 +21,9 @@
   <div class="col-md-12">
     <p><%= _('Use the filters to generate organisational usage statistics for a custom date range. The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph.') %></p>
   </div>
+  <div class="col-md-12">
+    <%= link_to(_('Download all usage'), usage_downloads_path(format: :csv), class: 'btn btn-default') %>
+  </div>
 </div>
 <div class="row">
   <div class="col-md-12">

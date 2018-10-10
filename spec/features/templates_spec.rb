@@ -42,7 +42,7 @@ RSpec.describe "Templates", type: :feature do
     within "#collapseSectionNew" do
       fill_in :new_section_section_title, with: "My new section"
       tinymce_fill_in :new_section_section_description,
-                      "This is the description of my new section"
+                      with: "This is the description of my new section"
       click_button "Save"
     end
 
