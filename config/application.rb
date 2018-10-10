@@ -8,10 +8,10 @@ require 'csv'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 #if defined?(Bundler)
-  # If you precompile assets before deploying to production, use this line
-  #Bundler.require(*Rails.groups(:assets => %w(development test)))
-  # If you want your assets lazily compiled in production, use this line
-  # Bundler.require(:default, :assets, Rails.env)
+# If you precompile assets before deploying to production, use this line
+#Bundler.require(*Rails.groups(:assets => %w(development test)))
+# If you want your assets lazily compiled in production, use this line
+# Bundler.require(:default, :assets, Rails.env)
 #end
 #Bundler.require(:default, Rails.env)
 #Changed when migrated to rails 4.0.0
@@ -62,7 +62,7 @@ module DMPRoadmap
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-	# Configure the default encoding used in templates for Ruby 1.9.
+    # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.

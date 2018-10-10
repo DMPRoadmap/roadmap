@@ -125,6 +125,8 @@ Rails.application.routes.draw do
 
   resources :usage, only: [:index]
 
+  resources :usage_downloads, only: [:index]
+
   resources :roles, only: [:create, :update, :destroy] do
     member do
       put :deactivate
