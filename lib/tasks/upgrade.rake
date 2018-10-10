@@ -1,24 +1,10 @@
 require 'set'
 namespace :upgrade do
 
-  desc "Update Language abbreviations to use ISO format"
-  task :normalize_language_formats => :environment do
-    Language.all.each do |language|
-      language.update(abbreviation: LocaleFormatter.new(language.abbreviation))
-    end
-    Template.all.each do |template|
-      next if template.locale.blank?
-      template.update(locale: LocaleFormatter.new(template.locale))
-    end
-    Theme.all.each do |theme|
-      next if theme.locale.blank?
-      theme.update(locale: LocaleFormatter.new(theme.locale))
-    end
-  end
-
-  desc "Upgrade to v1.2.0"
-  task v1_2_0: :environment do
+  desc "Upgrade to v2.0.0"
+  task v2_0_0: :environment do
     Rake::Task['upgrade:add_versioning_id_to_templates'].execute
+    Rake::Task['upgrade:normalize_language_formats'].execute
   end
 
   desc "Upgrade to v1.1.2"
@@ -603,10 +589,22 @@ namespace :upgrade do
         end
       end
     end
-
   end
 
-
+  desc "Update Language abbreviations to use ISO format"
+  task :normalize_language_formats => :environment do
+    Language.all.each do |language|
+      language.update(abbreviation: LocaleFormatter.new(language.abbreviation))
+    end
+    Template.all.each do |template|
+      next if template.locale.blank?
+      template.update(locale: LocaleFormatter.new(template.locale))
+    end
+    Theme.all.each do |theme|
+      next if theme.locale.blank?
+      theme.update(locale: LocaleFormatter.new(theme.locale))
+    end
+  end
 
   private
 
@@ -623,6 +621,5 @@ namespace :upgrade do
       exit 1
     end
   end
-
 
 end
