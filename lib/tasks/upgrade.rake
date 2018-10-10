@@ -5,6 +5,7 @@ namespace :upgrade do
   task v2_0_0: :environment do
     Rake::Task['upgrade:add_versioning_id_to_templates'].execute
     Rake::Task['upgrade:normalize_language_formats'].execute
+    Rake::Task['stat:build'].execute
   end
 
   desc "Upgrade to v1.1.2"

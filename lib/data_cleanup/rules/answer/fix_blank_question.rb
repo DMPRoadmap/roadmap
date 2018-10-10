@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 module DataCleanup
   module Rules
-    # Fix blank plan on Answer
+    # Fix blank user on Answer
     module Answer
-      class FixBlankPlan < Rules::Base
+      class FixBlankQuestion < Rules::Base
 
         def description
-          "Fix blank plan on Answer"
+          "Fix blank question on Answer"
         end
 
         def call
-          ::Answer.where.not(plan_id: ::Plan.all.collect(&:id)).each do |answer|
-            unless answer.plan.present?
+          ::Answer.where.not(question_id: ::Question.all.collect(&:id)).each do |answer|
+            unless answer.question.present?
               log("Destroying orphaned Answer##{answer.id}")
               answer.destroy
             end
