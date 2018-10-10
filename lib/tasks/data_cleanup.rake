@@ -132,6 +132,11 @@ namespace :data_cleanup do
                   .where(plans: { id: nil })
     report_known_invalidations(results, "Role", "plan is blank")
 
+    # Fix blank user
+    results = Role.joins("LEFT OUTER JOIN users ON users.id = roles.user_id")
+                  .where(users: { id: nil })
+    report_known_invalidations(results, "Role", "user is blank")
+
     ## Section
 
     # Fix duplicate number
