@@ -65,6 +65,8 @@ class Section < ActiveRecord::Base
 
   before_validation :set_number
 
+  before_save :set_number, on: :update, if: :phase_id_changed?
+
   # =====================
   # = Nested Attributes =
   # =====================
@@ -134,7 +136,7 @@ class Section < ActiveRecord::Base
 
   def set_number
     return if phase.nil?
-    self.number ||= phase.sections.maximum(:number).to_i + 1
+    self.number ||= phase.sections.where.not(id: id).maximum(:number).to_i + 1
   end
 
 end
