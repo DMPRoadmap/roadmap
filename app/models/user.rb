@@ -154,6 +154,9 @@ class User < ActiveRecord::Base
              identifier_schemes: { name: auth.provider.downcase }).first
   end
 
+  def self.to_csv(users)
+    User::AtCsv.new(users).to_csv
+  end
   # ===========================
   # = Public instance methods =
   # ===========================

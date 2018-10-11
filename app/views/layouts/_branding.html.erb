@@ -34,6 +34,7 @@
               <%= link_to link['link'], :target=>'_blank', :class => 'org-a' do %>
                 <i class="fa fa-globe" aria-hidden="true">&nbsp;</i>
                 <%= link['text'].blank? ? link['link'] : link['text'] %>
+                <em class="sr-only"> (new window)</em>
               <% end; i+=1 %>
             <% end %>
           <% end %>
