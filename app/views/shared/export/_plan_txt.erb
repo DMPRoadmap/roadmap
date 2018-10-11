@@ -26,29 +26,32 @@
 <% if phase[:title] == @selected_phase.title %>
 <%= (@hash[:phases].many? ? "#{phase[:title]}" : "") %>
   <% phase[:sections].each do |section| %>
-    <% if display_questions_and_section_headings(@hash[:customization], section, @show_sections_questions, @show_custom_sections) %>
-<%= "#{section[:title]}\n" %>
-
+    <% if display_section?(@hash[:customization], section, @show_custom_sections) %>
+      <% if @show_sections_questions %>
+        <%= "#{section[:title]}\n" %>
+      <% end %>
       <% section[:questions].each do |question| %>
         <%# text in this case is an array to accomodate for option_based %>
-        <% if question[:text].respond_to?(:each) %>
-          <% question[:text].each do |txt| %>
-<%= "#{strip_tags(txt.gsub(/<br\/?>/, '\n'))}\n" %>
+        <% if @show_sections_questions %>
+          <% if question[:text].respond_to?(:each) %>
+            <% question[:text].each do |txt| %>
+              <%= "#{strip_tags(txt.gsub(/<br\/?>/, '\n'))}\n" %>
+            <% end %>
+          <% else %>
+            <%= "#{strip_tags(question[:text].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,""))}\n" if question[:text].present? && question[:text][0].present? %>
           <% end %>
-        <% else %>
-<%= "#{strip_tags(question[:text].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,""))}\n" if question[:text].present? && question[:text][0].present? %>
         <% end %>
         <% answer = @plan.answer(question[:id], false) %>
         <% blank = (answer.present? && answer.is_valid?) ? answer.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '\n').chomp.blank? : true %>
         <% if blank && @show_unanswered %>
-<%= "    #{_("Question not answered.")}\n\n" %>
+          <%= "    #{_("Question not answered.")}\n\n" %>
         <% elsif !blank %>
           <% if answer.question_options.length > 0 %>
             <% answer.question_options.each do |opt| %>
-<%= "    #{opt.text}\n" %>
+              <%= "    #{opt.text}\n" %>
             <% end %>
           <% end %>
-<%= "    #{strip_tags(answer.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '\n').chomp)}\n\n" if answer.text.present? %>
+          <%= "    #{strip_tags(answer.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '\n').chomp)}\n\n" if answer.text.present? %>
           <% end %>
         <% end %>
       <% end %>
