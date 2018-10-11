@@ -108,7 +108,7 @@ class Answer < ActiveRecord::Base
   #
   # Returns Array
   def non_archived_notes
-    notes.select { |n| n.archived.blank? }.sort! { |x, y| y.updated_at <=> x.updated_at }
+    notes.select { |n| n.archived.blank? }.sort! { |x, y| x.created_at <=> y.created_at }
   end
 
   # Returns True if answer text is blank, false otherwise specificly we want to remove

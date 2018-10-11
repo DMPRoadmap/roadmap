@@ -659,3 +659,17 @@ a.link_as_button {
  fieldset.field_with_errors {
   border: 1px solid $red;
  }
+ 
+ /* Use with care to force font size to 5em */
+ .f-large {
+   font-size: 5em !important;
+ }
+
+ .mb-15 {
+   margin-bottom: 15px;
+ }
+
+ .mt-15 {
+   margin-top: 15px;
+ }
+ 

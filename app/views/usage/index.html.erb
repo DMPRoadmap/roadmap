@@ -1,8 +1,24 @@
 <% title _('Usage statistics') %>
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-12" >
     <h1>Usage statistics</h1>
+  </div>
+</div>
+<div class="row mt-15 mb-15">
+  <div class="col-md-12">
+    <div class="col-xs-2">
+      <i class="fa fa-users f-large"></i>
+      <h4><%= total_org_users %> Total users</h4>
+    </div>
+    <div class="col-xs-10">
+      <i class="fa fa-files-o f-large"></i>
+      <h4><%= total_org_plans %> Total plans</h4>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
     <p><%= _('Use the filters to generate organisational usage statistics for a custom date range. The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph.') %></p>
   </div>
 </div>

@@ -113,5 +113,5 @@
     </div>
   </div>
 
-  <%= button_tag(_('Download Plan'), class: "btn btn-primary", type: "submit") %>
+  <%= button_tag(sanitize(_('Download Plan <em class="sr-only">(new window)</em>')), class: "btn btn-primary", type: "submit") %>
 <% end %>

@@ -31,6 +31,7 @@
 class Org < ActiveRecord::Base
   include ValidationMessages
   include ValidationValues
+  include FeedbacksHelper
   include GlobalHelpers
   include FlagShihTzu
   extend Dragonfly::Model::Validations
@@ -80,9 +81,10 @@ class Org < ActiveRecord::Base
 
   validates :language, presence: { message: PRESENCE_MESSAGE }
 
+  validates :contact_name, presence: { message: PRESENCE_MESSAGE, if: :feedback_enabled }
+
   validates :contact_email, email: { allow_nil: true },
-                            presence: { message: PRESENCE_MESSAGE,
-                                        if: :feedback_enabled }
+                            presence: { message: PRESENCE_MESSAGE, if: :feedback_enabled }
 
   validates :org_type, presence: { message: PRESENCE_MESSAGE }
 
@@ -126,6 +128,7 @@ class Org < ActiveRecord::Base
     where("orgs.name LIKE ? OR orgs.contact_email LIKE ?", search_pattern, search_pattern)
   }
 
+  before_validation :set_default_feedback_email_subject
   after_create :create_guidance_group
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
@@ -219,6 +222,12 @@ class Org < ActiveRecord::Base
       if logo.height != 100
         self.logo = logo.thumb('x100')  # resize height and maintain aspect ratio
       end
+    end
+  end
+
+  def set_default_feedback_email_subject
+    if self.feedback_enabled? && !self.feedback_email_subject.present?
+      self.feedback_email_subject = feedback_confirmation_default_subject
     end
   end
 
