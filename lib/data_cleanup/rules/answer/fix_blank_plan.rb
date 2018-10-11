@@ -10,7 +10,7 @@ module DataCleanup
         end
 
         def call
-          ::Answer.where.not(plan_id: ::Plan.all.collect(&:id)).each do |answer|
+          ::Answer.includes(plan).all.each do |answer|
             unless answer.plan.present?
               log("Destroying orphaned Answer##{answer.id}")
               answer.destroy
@@ -20,6 +20,5 @@ module DataCleanup
 
       end
     end
-
   end
 end
