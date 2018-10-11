@@ -2,12 +2,8 @@
 
 class UsageController < ApplicationController
 
-  # GET /usage
   def index
-    unless current_user.present? &&
-          (current_user.can_org_admin? || current_user.can_super_admin?)
-      raise Pundit::NotAuthorizedError
-    end
+    check_authorized!
     render("index",
       locals: {
         orgs: Org.all,
@@ -17,4 +13,12 @@ class UsageController < ApplicationController
     )
   end
 
+  private
+
+  def check_authorized!
+    unless current_user.present? &&
+        (current_user.can_org_admin? || current_user.can_super_admin?)
+      raise Pundit::NotAuthorizedError
+    end
+  end
 end
