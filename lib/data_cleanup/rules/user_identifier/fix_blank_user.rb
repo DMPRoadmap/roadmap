@@ -10,7 +10,8 @@ module DataCleanup
         end
 
         def call
-          ids = ::UserIdentifier.where(user: nil).ids
+          ids = ::UserIdentifier.joins("LEFT OUTER JOIN users ON users.id = user_identifiers.user_id")
+                                .where( users: {id: nil}).ids
           log("Destroying UserIdentifier where ids: #{ids} (no user)")
           ::UserIdentifier.destroy(ids)
         end
