@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: sections
@@ -24,6 +25,7 @@
 #
 
 class Section < ActiveRecord::Base
+
   include ValidationMessages
   include ValidationValues
   include ActsAsSortable
