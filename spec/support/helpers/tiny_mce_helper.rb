@@ -18,11 +18,15 @@ module TinyMceHelper
       x += 1
       sleep 0.2
     end
-    page.execute_script <<~JS
-      var editor = tinyMCE.get('#{id}');
-      editor.setContent('#{with}');
-      editor.fire('change');
-    JS
+    begin
+      page.execute_script <<~JS
+        var editor = tinyMCE.get('#{id}');
+        editor.setContent('#{with}');
+        editor.fire('change');
+      JS
+    rescue Selenium::WebDriver::Error::UnknownError
+      raise "No such tinyMCE element '##{id}'"
+    end
   end
 
 end
