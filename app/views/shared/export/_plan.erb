@@ -24,12 +24,13 @@
         <h1><%= download_plan_page_title(@plan, phase, @hash) %></h1>
         <hr />
         <% phase[:sections].each do |section| %>
-          <% if display_questions_and_section_headings(@hash[:customization], section, @show_sections_questions, @show_custom_sections) %>
-            <h3><%= section[:title] %></h3>
-
+          <% if display_section?(@hash[:customization], section, @show_custom_sections) %>
+            <% if @show_sections_questions %>
+              <h3><%= section[:title] %></h3>
+            <% end %>
             <% section[:questions].each do |question| %>
               <div class="question">
-                <% if !@public_plan %>
+                <% if !@public_plan && @show_sections_questions%>
                   <p>
                     <%= sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %>
                   </p>
