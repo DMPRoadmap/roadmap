@@ -10,7 +10,7 @@ module DataCleanup
         end
 
         def call
-          ::Answer.includes(plan).all.each do |answer|
+          ::Answer.includes(:plan).all.each do |answer|
             unless answer.plan.present?
               log("Destroying orphaned Answer##{answer.id}")
               answer.destroy
