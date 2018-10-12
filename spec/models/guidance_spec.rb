@@ -8,7 +8,12 @@ RSpec.describe Guidance, type: :model do
 
     it { is_expected.to validate_presence_of(:guidance_group) }
 
-    it { is_expected.to validate_presence_of(:themes) }
+    context "if published" do
+
+      before { allow(subject).to receive(:published?).and_return(true) }
+      it { is_expected.to validate_presence_of(:themes) }
+
+    end
 
     it { is_expected.to allow_value(true).for(:published) }
 
