@@ -21,9 +21,11 @@ addons:
       - nodejs
       - wkhtmltopdf
 
-  addons:
-    artifacts:
-      s3_region: "eu-west-2"
+  # artifacts:
+  #   paths: "./log:./tmp/capybara"
+  #   bucket: roadmap-test-assets
+  #   s3_region: "eu-west-2"
+  #   debug: true
 
 matrix:
   fast_finish: true

@@ -167,11 +167,13 @@ RSpec.describe User, type: :model do
 
     context "when user language present" do
 
+      let(:language) { create(:language) }
+
       before do
-        @abbreviation = user.language.abbreviation
+        user.update(language: language)
       end
 
-      it { is_expected.to eql(@abbreviation) }
+      it { is_expected.to eql(language.abbreviation) }
 
     end
 
