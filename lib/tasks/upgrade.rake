@@ -5,7 +5,7 @@ namespace :upgrade do
   task v2_0_0_part_1: :environment do
     Rake::Task['upgrade:add_default_values_v2_0_0'].execute
     Rake::Task['db:migrate'].execute
-    Rake::Task['data_cleanup:find_invalid_records'].execute
+    Rake::Task['data_cleanup:find_known_invalidations'].execute
     puts "If any invalid records were reported above you will need to correct them before running part 2."
   end
 
