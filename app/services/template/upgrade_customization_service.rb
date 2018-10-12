@@ -80,12 +80,12 @@ class Template
           #
           # a) If the Org's template ({#customized_template}) has the Phase...
           if customized_phase = find_matching_record_in_collection(
-                              record: funder_phase,
-                              collection: customized_template.phases)
+            record: funder_phase,
+            collection: customized_template.phases)
 
           # b) If the Org's template ({#customized_template}) doesn't have this Phase.
-          #    This is not a problem, since {#customization_template} should have this Phase
-          #    copied over from {#template_phase}.
+          #    This is not a problem, since {#customization_template} should have this
+          #    Phase copied over from {#template_phase}.
           else
             next
           end
@@ -94,7 +94,7 @@ class Template
         end
         copy_custom_annotations_for_questions
       end
-      return target_template
+      target_template
     end
 
     private
@@ -112,7 +112,10 @@ class Template
     #
     # Returns {Template}
     def customized_template
-      @customized_template ||= init_template.deep_copy(attributes: { version: init_template.version + 1, published: false })
+      @customized_template ||= init_template.deep_copy(attributes: {
+                                 version: init_template.version + 1,
+                                 published: false
+                               })
     end
 
     # Creates a new customisation for the published template whose family_id {#template}
@@ -157,8 +160,8 @@ class Template
         if section.number.in?(target_phase.sections.pluck(:number))
           section.number = target_phase.sections.maximum(:number) + 1
         end
-        section.phase = target_phase
-        section.save!
+        target_phase.sections.append(section) or
+          raise("Unable to add Section##{section.id} to Phase##{target_phase.id}")
       end
     end
 

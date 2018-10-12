@@ -176,14 +176,16 @@ RSpec.describe "Template::UpgradeCustomizationService", type: :service do
 
       before do
         # Gave them different numbers >:]
-        create(:section, phase: template.phases.first,
+        s = create(:section, phase: template.phases.first,
                          modifiable: true,
                          number: 6,
                          title: "Customized's test section")
-        create(:section, phase: funder_template.phases.first,
+        s.questions << create(:question)
+        s = create(:section, phase: funder_template.phases.first,
                          modifiable: true,
                          number: 5,
                          title: "Funder's new section")
+        s.questions << create(:question)
       end
 
       it "updates the customized template's new section with the next free number" do
