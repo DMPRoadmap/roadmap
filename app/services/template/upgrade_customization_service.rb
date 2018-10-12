@@ -157,8 +157,9 @@ class Template
         if section.number.in?(target_phase.sections.pluck(:number))
           section.number = target_phase.sections.maximum(:number) + 1
         end
-        section.phase = target_phase
-        section.save!
+
+        target_phase.sections.append(section) or
+          raise("Unable to add Section##{section.id} to Phase##{target_phase.id}")
       end
     end
 

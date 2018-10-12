@@ -70,7 +70,7 @@ class Question < ActiveRecord::Base
 
   validates :text, presence: { message: PRESENCE_MESSAGE }
 
-  validates :section, presence: { message: PRESENCE_MESSAGE }
+  validates :section, presence: { message: PRESENCE_MESSAGE, on: :update }
 
   validates :question_format, presence: { message: PRESENCE_MESSAGE }
 
