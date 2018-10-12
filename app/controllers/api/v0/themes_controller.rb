@@ -2,8 +2,7 @@ module Api
   module V0
     class ThemesController < Api::V0::BaseController
       before_action :authenticate
-#Theme.find(38).answers.where(plan_id: User.first.plans.pluck(:id))
-
+      
       def extract
         @theme = Theme.find(params[:id])
         @answers = @theme.answers.where(plan_id: @user.plans.pluck(:id))
