@@ -17,9 +17,9 @@ module DataCleanup
         end
 
         def call
-          ids = ::Org.where(feedback_enabled: true, feedback_email_msg: "").pluck(:id)
+          ids = ::Org.where(feedback_enabled: true, feedback_email_msg: [nil, ""]).pluck(:id)
           log("Adding default feedback_enabled for orgs: #{ids}")
-          ::Org.where(feedback_enabled: true, feedback_email_msg: "")
+          ::Org.where(id: ids)
              .update_all(feedback_email_msg: DEFAULT_MSG)
         end
       end
