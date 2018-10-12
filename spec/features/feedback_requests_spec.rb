@@ -12,11 +12,13 @@ RSpec.describe "FeedbackRequests", type: :feature do
   let!(:user) { create(:user, org: org) }
 
   before do
-    plan.roles << create(:role, user: user, commenter: true)
-    plan.roles << create(:role, user: user, creator: true)
-    plan.roles << create(:role, user: user, editor: true)
-    plan.roles << create(:role, user: user, administrator: true)
+    plan.roles << create(:role, :commenter, :creator, :editor, :administrator, user: user)
     sign_in(user)
+    ActionMailer::Base.deliveries = []
+  end
+
+  after do
+    ActionMailer::Base.deliveries = []
   end
 
   scenario "User requests feedback for Plan", :js do
