@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: questions
@@ -27,6 +28,7 @@
 #
 
 class Question < ActiveRecord::Base
+
   include ValidationMessages
   include ActsAsSortable
   include VersionableModel
