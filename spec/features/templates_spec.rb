@@ -5,6 +5,7 @@ RSpec.describe "Templates", type: :feature do
   before do
     @org      = create(:org)
     @template = create(:template, org: @org, phases: 2)
+    @phase    = @template.phases.first
     @template.phases.each { |phase| create_list(:section, 2, phase: phase) }
     @user     = create(:user, org: @org)
     @user.perms << create(:perm, :modify_templates)
@@ -27,7 +28,7 @@ RSpec.describe "Templates", type: :feature do
     expect(current_path).to eql(edit_org_admin_template_path(@template))
 
     # Action
-    within '#phase_1' do
+    within "#phase_#{@phase.id}" do
       click_link "Edit phase"
     end
 
