@@ -190,7 +190,13 @@ namespace :data_cleanup do
       filter.attributes.each do |attr|
         # skip password validaton since the field is encrypted through Devise
         unless attr == :password
-          ids = klass.where.not(attr.to_sym => filter.options[:when]).pluck(:id)
+          # If this is the users.email field send it to the EmailValidator. Devise has its own Regex
+          # but running a Regex query gets messy between different DB types
+          if klass.name == "User" && attr == :email
+            ids, msg = check_local_validators(klass, [attr], EmailValidator)
+          else
+            ids = klass.where.not(attr.to_sym => filter.options[:when]).pluck(:id)
+          end
         end
       end
       ids = ids.flatten.uniq
@@ -255,11 +261,11 @@ namespace :data_cleanup do
 
   def check_local_validators(klass, attributes, validator)
     ids = []
-    klass.all.each do |org|
-      org.valid?
+    klass.all.each do |obj|
+      obj.valid?
       attributes.each do |attr|
-        unless org.errors[attr.to_sym].blank?
-          ids << org.id
+        unless obj.errors[attr.to_sym].blank?
+          ids << obj.id
         end
       end
     end
