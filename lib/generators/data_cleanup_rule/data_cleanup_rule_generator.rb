@@ -6,10 +6,18 @@ class DataCleanupRuleGenerator < Rails::Generators::NamedBase
 
   # Copy the Rule template and create a new Rule file
   def add_rule_file
+    empty_directory "lib/data_cleanup/rules"
+    unless File.exist?(base_class_path)
+      template "base.rb", base_class_path
+    end
     template "rule.rb.erb", rule_path.to_s
   end
 
   private
+
+  def base_class_path
+    Rails.root.join("lib", "data_cleanup", "rules", "base.rb")
+  end
 
   # The name of the model we're fixing (e.g. 'User')
   #
