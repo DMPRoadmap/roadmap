@@ -35,7 +35,7 @@ class OrgIdentifier < ActiveRecord::Base
                                                  message: UNIQUENESS_MESSAGE }
 
   validates :identifier, presence: { message: PRESENCE_MESSAGE },
-                         uniqueness: { message: UNIQUENESS_MESSAGE }
+                         uniqueness: { message: UNIQUENESS_MESSAGE, scope: org_id }
 
   validates :org, presence: { message: PRESENCE_MESSAGE }
 
