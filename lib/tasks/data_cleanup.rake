@@ -148,7 +148,11 @@ namespace :data_cleanup do
       else
         unless attr == "password"
           # Find any records where the field is blank or nil
-          ids = klass.where(attr.to_sym => [nil, ""])
+          if filter.options.present? && filter.options[:if].present?
+            ids = klass.where(attr.to_sym => [nil, ""]).select{ |r| r.send(filter.options[:if]) }.map(&:id)
+          else
+            ids = klass.where(attr.to_sym => [nil, ""])
+          end
           msg = "  #{ids.count} records with a empty #{attr} field"
         end
       end
