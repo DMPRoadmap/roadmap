@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 module DataCleanup
   module Rules
+
     # Base class for rules to clean invalid database records
     class Base
 
@@ -18,5 +21,6 @@ module DataCleanup
       end
 
     end
+
   end
 end
