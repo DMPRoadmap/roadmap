@@ -43,6 +43,8 @@ de:
       default: "%d.%m.%Y"
       long: "%e. %B %Y"
       short: "%e. %b"
+      csv: "%d/%m/%Y"
+
     month_names:
     -
     - Januar
