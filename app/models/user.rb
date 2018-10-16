@@ -244,21 +244,24 @@ class User < ActiveRecord::Base
   #
   # Returns Boolean
   def can_grant_permissions?
-    perms.include? Perm.grant_permissions
+    perms.include?(Perm.grant_permissions) && !self.org.is_other
   end
 
   # Can the User modify organisation templates?
   #
   # Returns Boolean
   def can_modify_templates?
-    self.perms.include? Perm.modify_templates
+
+puts "HERE: #{!self.org.is_other} - #{self.org.abbreviation}"
+
+    self.perms.include?(Perm.modify_templates) && !self.org.is_other
   end
 
   # Can the User modify organisation guidance?
   #
   # Returns Boolean
   def can_modify_guidance?
-    perms.include? Perm.modify_guidance
+    perms.include?(Perm.modify_guidance) && !self.org.is_other
   end
 
   # Can the User use the API?
@@ -272,7 +275,7 @@ class User < ActiveRecord::Base
   #
   # Returns Boolean
   def can_modify_org_details?
-    perms.include? Perm.change_org_details
+    perms.include?(Perm.change_org_details) && !self.org.is_other
   end
 
   ##
