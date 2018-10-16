@@ -2,7 +2,7 @@
 
 class UsageDownloadsController < ApplicationController
 
-  def index 
+  def index
     check_authorized!
     data = Org::TotalCountStatService.call
     data_csvified = Csvable.from_array_of_hashes(data)
