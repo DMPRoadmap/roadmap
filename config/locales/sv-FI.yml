@@ -42,6 +42,8 @@ sv-FI:
       default: "%Y-%m-%d"
       long: "%e %B %Y"
       short: "%e %b"
+      csv: "%d/%m/%Y"
+
     month_names:
     -
     - januari

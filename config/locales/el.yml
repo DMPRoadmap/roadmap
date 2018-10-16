@@ -39,6 +39,8 @@ el:
       default: ! '%d/%m/%Y'
       long: ! '%e %B %Y'
       short: ! '%d %b'
+      csv: "%d/%m/%Y"
+
     month_names:
     -
     - Ιανουάριος
