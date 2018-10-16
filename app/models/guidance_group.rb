@@ -65,7 +65,7 @@ class GuidanceGroup < ActiveRecord::Base
     where("name LIKE ?", search_pattern)
   }
 
-  scope :published, -> { where(published: true) }
+  scope :published, -> { where(published: true).joins(:org).where('orgs.is_other = ?', false) }
 
   # =================
   # = Class methods =
