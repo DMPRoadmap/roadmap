@@ -2,7 +2,12 @@
 
 <div class="row">
   <div class="col-md-12" >
-    <h1>Usage statistics</h1>
+    <div class="col-md-10">
+      <h1>Usage statistics</h1>
+    </div>
+    <div class="col-xs-2">
+      <%= link_to(_('Download global usage'), usage_downloads_path(format: :csv), class: 'btn btn-default mt-25') %>
+    </div>
   </div>
 </div>
 <div class="row mt-15 mb-15">
@@ -20,9 +25,6 @@
 <div class="row">
   <div class="col-md-12">
     <p><%= _('Use the filters to generate organisational usage statistics for a custom date range. The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph.') %></p>
-  </div>
-  <div class="col-md-12">
-    <%= link_to(_('Download all usage'), usage_downloads_path(format: :csv), class: 'btn btn-default') %>
   </div>
 </div>
 <div class="row">
@@ -65,7 +67,7 @@
             <%= hidden_field_tag(:org_id, current_user.org_id) %>
           <% end %>
           <div class="col-md-2">
-            <%= submit_tag(_('Go'), class: 'btn btn-default') %>
+            <%= submit_tag(_('Go'), class: 'btn btn-default mt-25') %>
           </div>
         </div>
       </form>
