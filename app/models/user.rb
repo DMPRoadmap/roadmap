@@ -230,14 +230,14 @@ class User < ActiveRecord::Base
   #
   # Returns Boolean
   def can_add_orgs?
-    perms.include? Perm.add_orgs
+    perms.include?(Perm.add_orgs) && !self.org.is_other
   end
 
   # Can the User change their organisation affiliations?
   #
   # Returns Boolean
   def can_change_org?
-    perms.include? Perm.change_affiliation
+    perms.include?(Perm.change_affiliation)
   end
 
   # Can the User can grant their permissions to others?
@@ -251,9 +251,6 @@ class User < ActiveRecord::Base
   #
   # Returns Boolean
   def can_modify_templates?
-
-puts "HERE: #{!self.org.is_other} - #{self.org.abbreviation}"
-
     self.perms.include?(Perm.modify_templates) && !self.org.is_other
   end
 
@@ -268,7 +265,7 @@ puts "HERE: #{!self.org.is_other} - #{self.org.abbreviation}"
   #
   # Returns Boolean
   def can_use_api?
-    perms.include? Perm.use_api
+    perms.include?(Perm.use_api) && !self.org.is_other
   end
 
   # Can the User modify their org's details?
@@ -283,7 +280,7 @@ puts "HERE: #{!self.org.is_other} - #{self.org.abbreviation}"
   #
   # Returns Boolean
   def can_grant_api_to_orgs?
-    perms.include? Perm.grant_api
+    perms.include?(Perm.grant_api) && !self.org.is_other
   end
 
   # Removes the api_token from the user

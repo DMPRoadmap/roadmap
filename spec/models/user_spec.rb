@@ -398,11 +398,39 @@ RSpec.describe User, type: :model do
 
   end
 
+  describe "#can_add_orgs? when user associated with 'Other' Org" do
+
+    let!(:perms) { create_list(:perm, 1, name: "add_organisations") }
+
+    let!(:org) { create(:org, is_other: true) }
+
+    let!(:user) { create(:user, perms: perms, org: org) }
+
+    subject { user.can_add_orgs? }
+
+    it { is_expected.to eq(false) }
+
+  end
+
   describe "#can_change_org?" do
 
     let!(:perms) { create_list(:perm, 1, name: "change_org_affiliation") }
 
     let!(:user) { create(:user, perms: perms) }
+
+    subject { user.can_change_org? }
+
+    it { is_expected.to eq(true) }
+
+  end
+
+  describe "#can_change_org? when user associated with 'Other' Org" do
+
+    let!(:perms) { create_list(:perm, 1, name: "change_org_affiliation") }
+
+    let!(:org) { create(:org, is_other: true) }
+
+    let!(:user) { create(:user, perms: perms, org: org) }
 
     subject { user.can_change_org? }
 
@@ -422,6 +450,20 @@ RSpec.describe User, type: :model do
 
   end
 
+  describe "#can_grant_permissions? when user associated with 'Other' Org" do
+
+    let!(:perms) { create_list(:perm, 1, name: "grant_permissions") }
+
+    let!(:org) { create(:org, is_other: true) }
+
+    let!(:user) { create(:user, perms: perms, org: org) }
+
+    subject { user.can_grant_permissions? }
+
+    it { is_expected.to eq(false) }
+
+  end
+
   describe "#can_modify_templates?" do
 
     let!(:perms) { create_list(:perm, 1, name: "modify_templates") }
@@ -431,6 +473,20 @@ RSpec.describe User, type: :model do
     subject { user.can_modify_templates? }
 
     it { is_expected.to eq(true) }
+
+  end
+
+  describe "#can_modify_templates? when user associated with 'Other' Org" do
+
+    let!(:perms) { create_list(:perm, 1, name: "modify_templates") }
+
+    let!(:org) { create(:org, is_other: true) }
+
+    let!(:user) { create(:user, perms: perms, org: org) }
+
+    subject { user.can_modify_templates? }
+
+    it { is_expected.to eq(false) }
 
   end
 
@@ -446,6 +502,20 @@ RSpec.describe User, type: :model do
 
   end
 
+  describe "#can_modify_guidance? when user associated with 'Other' Org" do
+
+    let!(:perms) { create_list(:perm, 1, name: "modify_guidance") }
+
+    let!(:org) { create(:org, is_other: true) }
+
+    let!(:user) { create(:user, perms: perms, org: org) }
+
+    subject { user.can_modify_guidance? }
+
+    it { is_expected.to eq(false) }
+
+  end
+
   describe "#can_use_api?" do
 
     let!(:perms) { create_list(:perm, 1, name: "use_api") }
@@ -455,6 +525,20 @@ RSpec.describe User, type: :model do
     subject { user.can_use_api? }
 
     it { is_expected.to eq(true) }
+
+  end
+
+  describe "#can_use_api? when user associated with 'Other' Org" do
+
+    let!(:perms) { create_list(:perm, 1, name: "use_api") }
+
+    let!(:org) { create(:org, is_other: true) }
+
+    let!(:user) { create(:user, perms: perms, org: org) }
+
+    subject { user.can_use_api? }
+
+    it { is_expected.to eq(false) }
 
   end
 
@@ -470,6 +554,20 @@ RSpec.describe User, type: :model do
 
   end
 
+  describe "#can_modify_org_details? when user associated with 'Other' Org" do
+
+    let!(:perms) { create_list(:perm, 1, name: "change_org_details") }
+
+    let!(:org) { create(:org, is_other: true) }
+
+    let!(:user) { create(:user, perms: perms, org: org) }
+
+    subject { user.can_modify_org_details? }
+
+    it { is_expected.to eq(false) }
+
+  end
+
   describe "#can_grant_api_to_orgs?" do
 
     let!(:perms) { create_list(:perm, 1, name: "grant_api_to_orgs") }
@@ -479,6 +577,20 @@ RSpec.describe User, type: :model do
     subject { user.can_grant_api_to_orgs? }
 
     it { is_expected.to eq(true) }
+
+  end
+
+  describe "#can_grant_api_to_orgs? when user associated with 'Other' Org" do
+
+    let!(:perms) { create_list(:perm, 1, name: "grant_api_to_orgs") }
+
+    let!(:org) { create(:org, is_other: true) }
+
+    let!(:user) { create(:user, perms: perms, org: org) }
+
+    subject { user.can_grant_api_to_orgs? }
+
+    it { is_expected.to eq(false) }
 
   end
 
