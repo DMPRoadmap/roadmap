@@ -1,6 +1,6 @@
 <%= form_tag(plan_export_path(@plan), method: :get, target: '_blank', id: 'download_form') do |f| %>
   <h2><%= _("Download settings") %></h2>
-
+  <%= hidden_field_tag 'export[form]', true %>
   <% if @phase_options.length > 1 %>
     <div class="form-group">
       <%= label_tag(:phase_id, _("Select phase to download")) %>
