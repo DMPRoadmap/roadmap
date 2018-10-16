@@ -9,11 +9,11 @@ class Org
 
       private
 
-      def build_model(org_name:, joined_users: 0, created_plans: 0)
+      def build_model(org_name:, total_users: 0, total_plans: 0)
         {
           org_name: org_name,
-          joined_users: joined_users,
-          created_plans: created_plans
+          total_users: total_users,
+          total_plans: total_plans
         }
       end
 
@@ -35,14 +35,14 @@ class Org
       def build_from_joined_user(total = {})
         joined_user_count = Org::TotalCountJoinedUserService.call
         joined_user_count.reduce(total) do |acc, count|
-          reducer_body(acc, count, :joined_users)
+          reducer_body(acc, count, :total_users)
         end
       end
 
       def build_from_created_plan(total = {})
         created_plan_count = Org::TotalCountCreatedPlanService.call
         created_plan_count.reduce(total) do |acc, count|
-          reducer_body(acc, count, :created_plans)
+          reducer_body(acc, count, :total_plans)
         end
       end
     end
