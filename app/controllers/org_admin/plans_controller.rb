@@ -74,7 +74,7 @@ class OrgAdmin::PlansController < ApplicationController
           "#{plan.owner.org.present? ? plan.owner.org.name : ''}",
           "#{plan.owner.name(false)}",
           "#{plan.owner.email}",
-          "#{l(plan.latest_update.to_date, formats: :short)}",
+          "#{l(plan.latest_update.to_date, format: :csv)}",
           "#{Plan::VISIBILITY_MESSAGE[plan.visibility.to_sym].capitalize}"
         ]
       end

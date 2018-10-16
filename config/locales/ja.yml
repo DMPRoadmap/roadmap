@@ -42,6 +42,8 @@ ja:
       default: "%Y/%m/%d"
       long: "%Y年%m月%d日(%a)"
       short: "%m/%d"
+      csv: "%d/%m/%Y"
+
     month_names:
     -
     - 1月
