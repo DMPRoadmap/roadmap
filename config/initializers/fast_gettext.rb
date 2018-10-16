@@ -28,8 +28,8 @@ FastGettext.add_text_domain("app",
   report_warning: false,
 )
 
-I18n.available_locales += available_locales.for(:i18n)
-FastGettext.default_available_locales = available_locales.for(:fast_gettext)
+I18n.available_locales += available_locales.for(:i18n).to_a
+FastGettext.default_available_locales = available_locales.for(:fast_gettext).to_a
 
 FastGettext.default_text_domain       = "app"
 
