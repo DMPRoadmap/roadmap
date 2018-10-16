@@ -6,18 +6,18 @@ class User
     def initialize(users)
       @users = users
     end
-    
+
     def to_csv
       CSV.generate(headers: true) do |csv|
         csv << HEADERS
         @users.each do |user|
           name = "#{user.firstname} #{user.surname}"
           email = user.email
-          created = user.created_at.strftime('%d.%m.%Y')
-          last_activity = user.updated_at.strftime('%d.%m.%Y')
+          created = I18n.l user.created_at.to_date, format: :csv
+          last_activity = I18n.l user.updated_at.to_date, format: :csv
           plans = user.plans.size
           active = user.active ? 'Yes' : 'No'
-      
+
           if user.can_super_admin?
             current_privileges = 'Super Admin'
           elsif  user.can_org_admin?
@@ -25,11 +25,11 @@ class User
           else
             current_privileges = ''
           end
-          
+
           csv << [ name, email, created, last_activity, plans, current_privileges,  active ]
         end
       end
     end
-    
+
   end
 end

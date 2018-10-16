@@ -313,13 +313,10 @@ class Template < ActiveRecord::Base
 
   # Determines whether or not a customized template should be upgraded
   def upgrade_customization?
-    if customization_of.present?
-      funder_template = Template.published(customization_of)
-                                .select(:created_at).first
-
-      return funder_template.created_at > created_at if funder_template.present?
-    end
-    false
+    return false unless customization_of?
+    funder_template = Template.published(customization_of).select(:created_at).first
+    return false unless funder_template.present?
+    funder_template.created_at > created_at
   end
 
   # Checks to see if the template family has a published version and if its not
@@ -394,6 +391,14 @@ class Template < ActiveRecord::Base
   # template is customized_of
   def upgrade_customization!
     Template::UpgradeCustomizationService.call(self)
+  end
+
+  def publish
+    update(published: true)
+  end
+
+  def publish!
+    update!(published: true)
   end
 
   private

@@ -17,7 +17,7 @@ RSpec.describe Question, type: :model do
                           .with_message("must be unique")
     end
 
-    it { is_expected.to validate_presence_of(:section) }
+    it { is_expected.to validate_presence_of(:section).on(:update) }
 
 
     it { is_expected.to validate_presence_of(:question_format) }

@@ -44,7 +44,7 @@ RSpec.feature "Annotations::Editing", type: :feature do
 
     # NOTE: This is annotation 2, since Annotation was copied upon clicking "Customise"
     within("fieldset#fields_annotation_2") do
-      tinymce_fill_in("question_annotations_attributes_annotation_2_text", "Noo bar")
+      tinymce_fill_in("question_annotations_attributes_annotation_2_text", with: "Noo bar")
     end
     # NOTE: This is question 2, since Annotation was copied upon clicking "Customise"
     within('#edit_question_2') do
@@ -69,7 +69,7 @@ RSpec.feature "Annotations::Editing", type: :feature do
     click_link section.title
     # NOTE: This is annotation 2, since Annotation was copied upon clicking "Customise"
     within("fieldset#fields_annotation_2") do
-      tinymce_fill_in("question_annotations_attributes_annotation_2_text", "")
+      tinymce_fill_in("question_annotations_attributes_annotation_2_text", with: "")
     end
     # NOTE: This is question 2, since Annotation was copied upon clicking "Customise"
     within('#edit_question_2') do

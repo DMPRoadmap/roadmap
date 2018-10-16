@@ -4,7 +4,7 @@
 module VersionHelper
 
   # The current release version for HEAD
-  VERSION = `git describe --tags --long`
+  VERSION = `git rev-parse HEAD`.strip
 
   # The current release version for HEAD
   #
