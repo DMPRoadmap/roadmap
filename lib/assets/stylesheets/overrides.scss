@@ -239,6 +239,9 @@ $cancel-button-color: #F17D04;
 }
 
 /* default button */
+.btn-default {
+  margin-top: 5px;
+}
 .btn-default,
 .btn-default:hover,
 .btn-default:focus,
@@ -250,7 +253,6 @@ $cancel-button-color: #F17D04;
   color: $white;
   border-color: $grey;
   outline: none;
-  margin-top: 5px;
   margin-bottom: 10px;
 }
 
@@ -659,7 +661,7 @@ a.link_as_button {
  fieldset.field_with_errors {
   border: 1px solid $red;
  }
- 
+
  /* Use with care to force font size to 5em */
  .f-large {
    font-size: 5em !important;
@@ -672,4 +674,7 @@ a.link_as_button {
  .mt-15 {
    margin-top: 15px;
  }
- 
+
+ .mt-25 {
+   margin-top: 25px;
+ }
