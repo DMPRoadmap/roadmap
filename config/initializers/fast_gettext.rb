@@ -17,7 +17,8 @@ else
   end
 
   def available_locales
-    Rails.application.config.i18n.available_locales = LocaleSet.new(["en-GB", "en"])
+    Rails.application.config.i18n.available_locales =
+      LocaleSet.new(["en-GB", "en"]).for(:i18n).to_a
   end
 end
 
@@ -28,8 +29,8 @@ FastGettext.add_text_domain("app",
   report_warning: false,
 )
 
-I18n.available_locales += available_locales.for(:i18n)
-FastGettext.default_available_locales = available_locales.for(:fast_gettext)
+I18n.available_locales += available_locales.for(:i18n).to_a
+FastGettext.default_available_locales = available_locales.for(:fast_gettext).to_a
 
 FastGettext.default_text_domain       = "app"
 
