@@ -42,6 +42,8 @@ fi:
       default: "%-d.%-m.%Y"
       long: "%A %e. %Bta %Y"
       short: "%d. %b"
+      csv: "%d/%m/%Y"
+
     month_names:
     -
     - tammikuu
