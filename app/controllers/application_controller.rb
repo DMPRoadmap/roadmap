@@ -38,7 +38,11 @@ class ApplicationController < ActionController::Base
 
   # Sets FastGettext locale for every request made
   def set_gettext_locale
-    FastGettext.locale = session[:locale] || FastGettext.default_locale
+    FastGettext.locale = LocaleFormatter.new(current_locale, format: :fast_gettext).to_s
+  end
+
+  def current_locale
+    session[:locale] || FastGettext.default_locale
   end
 
   def store_location
