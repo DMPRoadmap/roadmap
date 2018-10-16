@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: questions
@@ -28,6 +29,7 @@
 #
 
 class Question < ActiveRecord::Base
+
   include ValidationMessages
   include ActsAsSortable
   include VersionableModel
@@ -71,7 +73,7 @@ class Question < ActiveRecord::Base
 
   validates :text, presence: { message: PRESENCE_MESSAGE }
 
-  validates :section, presence: { message: PRESENCE_MESSAGE }
+  validates :section, presence: { message: PRESENCE_MESSAGE, on: :update }
 
   validates :question_format, presence: { message: PRESENCE_MESSAGE }
 

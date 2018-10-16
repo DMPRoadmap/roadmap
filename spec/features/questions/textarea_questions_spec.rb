@@ -31,7 +31,7 @@ RSpec.describe "Questions::Text area questions" do
     find("#section-panel-1").click
     # Fill in the answer form...
     within("#answer-form-#{@question.id}") do
-      tinymce_fill_in "answer-text-#{@question.id}", "My test answer"
+      tinymce_fill_in "answer-text-#{@question.id}", with: "My test answer"
       click_button "Save"
     end
 

@@ -17,6 +17,11 @@ RSpec.describe "Template::UpgradeCustomizationService", type: :service do
 
     let!(:template) { funder_template.customize!(create(:org, :funder)) }
 
+    before do
+      funder_template.publish!
+      template.publish!
+    end
+
     subject { Template::UpgradeCustomizationService.call(template) }
 
     context "when template is a customization of a published funder template" do
@@ -65,47 +70,6 @@ RSpec.describe "Template::UpgradeCustomizationService", type: :service do
 
     end
 
-    context "when a new section is present in funder template" do
-
-      let!(:org) { create(:org) }
-
-      let!(:template) { funder_template.customize!(org) }
-
-      before do
-        # Shuffle the sections
-        phase = funder_template.phases.first
-        Section.update_numbers!(*phase.sections.ids.shuffle, parent: phase)
-      end
-
-      it "preserves the versionable_id" do
-        template.sections.each do |section|
-          matching_section = funder_template.sections.detect do |s|
-            s.description == section.description
-          end
-          expect(section.number).not_to eql(matching_section.number)
-          expect(section.versionable_id).to eql(matching_section.versionable_id)
-          expect(section.description).to eql(matching_section.description)
-        end
-      end
-
-    end
-
-    context "when a new question is present in funder template" do
-
-      let!(:org) { create(:org) }
-
-      let!(:template) { funder_template.customize!(org) }
-
-      before do
-        funder_template.sections.first.questions << create(:question)
-      end
-
-      it "copies the new question" do
-        expect(subject.questions).to have_exactly(9).items
-      end
-
-    end
-
     context "when a new phase is present in funder template" do
 
       let!(:org) { create(:org) }
@@ -116,7 +80,7 @@ RSpec.describe "Template::UpgradeCustomizationService", type: :service do
         funder_template.phases << create(:phase)
       end
 
-      it "copies the new phase" do
+      it "copies the new sections" do
         expect(subject.phases).to have_exactly(2).items
       end
 
@@ -129,11 +93,29 @@ RSpec.describe "Template::UpgradeCustomizationService", type: :service do
       let!(:template) { funder_template.customize!(org) }
 
       before do
-        funder_template.phases.first.sections << create(:section)
+        # Reverse the sections
+        phase = funder_template.phases.first
+        phase.sections << build(:section, title: "New funder section", number: 5, modifiable: true)
       end
 
-      it "copies the new sections" do
-        expect(subject.sections).to have_exactly(5).items
+      it "preserves the versionable_id" do
+        template.sections.each do |section|
+          matching_section = funder_template.sections.detect do |s|
+            s.description == section.description
+          end
+          expect(section.versionable_id).to eql(matching_section.versionable_id)
+        end
+      end
+
+      # Doesn't need to. Number should be flexible if sections are modifiable
+      it "preserves the number" do
+        # byebug
+        template.sections.each do |section|
+          matching_section = funder_template.sections.detect do |s|
+            s.description == section.description
+          end
+          expect(section.number).to eql(matching_section.number)
+        end
       end
 
     end
@@ -170,7 +152,51 @@ RSpec.describe "Template::UpgradeCustomizationService", type: :service do
 
     end
 
-    context "when a new annotation is present in Org template" do
+    context "when a new section is present in customized template" do
+
+      let!(:org) { create(:org) }
+
+      let!(:template) { funder_template.customize!(org) }
+
+      before do
+        template.phases.first.sections << create(:section, modifiable: true)
+      end
+
+      it "adds the new section to the new customization" do
+        expect(subject.sections.count).to eql(funder_template.sections.count + 1)
+      end
+
+    end
+
+    context "when a new section is present in both templates" do
+
+      let!(:org) { create(:org) }
+
+      let!(:template) { funder_template.customize!(org) }
+
+      before do
+        # Gave them different numbers >:]
+        s = create(:section, phase: template.phases.first,
+                         modifiable: true,
+                         number: 6,
+                         title: "Customized's test section")
+        s.questions << create(:question)
+        s = create(:section, phase: funder_template.phases.first,
+                         modifiable: true,
+                         number: 5,
+                         title: "Funder's new section")
+        s.questions << create(:question)
+      end
+
+      it "updates the customized template's new section with the next free number" do
+        # Original 4 sections, plus new funder section, plus new customized section
+        expect(subject.sections).to have_exactly(6).items
+        expect(subject.sections.maximum(:number)).to eql(funder_template.sections.maximum(:number) + 1)
+      end
+
+    end
+
+    context "when a new annotation is present in customized template" do
 
 
       let!(:org) { create(:org) }

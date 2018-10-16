@@ -42,6 +42,8 @@ fr-CA:
       default: "%Y-%m-%d"
       long: "%d %B %Y"
       short: "%y-%m-%d"
+      csv: "%d/%m/%Y"
+
     month_names:
     -
     - janvier

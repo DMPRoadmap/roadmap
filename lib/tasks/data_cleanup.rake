@@ -36,116 +36,68 @@ namespace :data_cleanup do
     end
   end
 
-  desc "Check that each of the known type of invalidation is fixed."
+  desc "Check records for validation errors"
   task :find_known_invalidations => :environment do
-    ## Annotation
+    models.each do |model|
+      DataCleanup.display "Checking #{model.name} records"
+      if model.respond_to?(:_validate_callbacks)
+        model._validate_callbacks.to_a.collect(&:filter).each do |filter|
+          ids, msg   = [], ""
 
-    # Find with blank text
-    results = Annotation.where(text: [nil, ""])
-    report_known_invalidations(results, "Annotation", "text is blank")
+          case filter.class.name
+          when 'ActiveRecord::Validations::PresenceValidator'
+            ids, msg = check_presence(model, filter)
 
-    # Find with duplicate type
-    results = Annotation.group(:question_id, :type, :org_id)
-                .count
-                .select { |k,v| v > 1 }
-    report_known_invalidations(results, "Annotation", "type is a duplicate")
+          when "ActiveRecord::Validations::UniquenessValidator"
+            ids, msg = check_uniqueness(model, filter)
 
-    ## Answer
+          when "ActiveModel::Validations::InclusionValidator"
+            ids, msg = check_inclusion(model, filter)
 
-    # Fix blank user
-    results = Answer.joins("LEFT OUTER JOIN users ON users.id = answers.user_id")
-                    .where(users: { id: nil })
-                    .includes(plan: { roles: :user })
-    report_known_invalidations(results, "Answer", "user is blank")
+          when "ActiveModel::Validations::FormatValidator"
+            ids, msg = check_format(model, filter)
 
-    # Fix duplicate question
-    results = Answer.group(:question_id, :plan_id).count.select { |k,v| v > 1 }
-    report_known_invalidations(results, "Answer", "question is a duplicate")
+          when "ActiveModel::Validations::LengthValidator"
+            ids, msg = check_length(model, filter)
 
-    ## ExportedPlan
+          when "ActiveModel::Validations::NumericalityValidator"
+            ids, msg = check_numericality(model, filter)
 
-    # Fix blank plan
-    results = ExportedPlan
-                .joins("LEFT OUTER JOIN plans on plans.id = exported_plans.plan_id")
-                .where(plans: { id: nil })
-    report_known_invalidations(results, "ExportedPlan", "plan is blank")
+          when "ActiveModel::Validations::ConfirmationValidator"
+            # Skip
 
-    ## Org
+          when "Dragonfly::Model::Validations::PropertyValidator"
+            # Skip
 
-    # Fix blank abbreviation
-    results = Org.where(abbreviation: [nil, ""])
-    report_known_invalidations(results, "Org", "abbreviation is blank")
+          when "Symbol"
+            # Skip
 
-    # Fix blank feedback_email_msg
-    results = Org.where(feedback_enabled: true, feedback_email_msg: [nil, ""])
-    report_known_invalidations(results, "Org", "feedback_email_msg is blank")
+          when "OrgLinksValidator"
+            ids, msg = check_local_validators(model, [:links], "OrgLinksValidator")
 
-    results = Org.where(feedback_enabled: true, feedback_email_subject: [nil, ""])
-    report_known_invalidations(results, "Org", "feedback_email_subject is blank")
+          when "TemplateLinksValidator"
+            # Skip
+            ids, msg = check_local_validators(model, [:links], "TemplateLinksValidator")
 
-    results = Org.where(language: [nil, ""])
-    report_known_invalidations(results, "Org", "language is blank")
+          when "EmailValidator"
+            # Skip
+            ids, msg = check_local_validators(model, filter.attributes, "EmailValidator")
 
-    results = Org.where.not(contact_email: [nil, ""])
-                 .select { |o| o.contact_email !~ /[\w\d\.\-]+@[\w\d\.\-]/ }
-    report_known_invalidations(results, "Org", "contact_email is invalid")
+          when "AfterValidator"
+            # Skip
+            ids, msg = check_local_validators(model, filter.attributes, "AfterValidator")
 
-    ## Phase
+          else
+            p "Unhandled validator type: #{filter.class.name}"
+            p filter.inspect
+          end
 
-    # Fix duplicate number
-    results = Phase.group(:number, :template_id).count.select { |k,v| v > 1 }
-    report_known_invalidations(results, "Phase", "duplicate_number is invalid")
-
-    ## Plan
-
-    # Fix blank title
-    results = Plan.where(title: [nil, ''])
-    report_known_invalidations(results, "Plan", "title is blank")
-
-    ## Question
-
-    # Fix duplicate number
-    results = Question.group(:number, :section_id).count.select { |k,v| v > 1 }
-    report_known_invalidations(results, "Question", "number is duplicate")
-
-    ## QuestionFormat
-
-    # Fix blank description
-    results = QuestionFormat.where(description: ["", nil])
-    report_known_invalidations(results, "QuestionFormat", "description is blank")
-
-    ## Region
-
-    # Fix blank description
-    results = Region.where(description: ["", nil])
-    report_known_invalidations(results, "Region", "description is blank")
-
-    ## Role
-
-    # Fix blank plan
-    results = Role.joins("LEFT OUTER JOIN plans ON plans.id = roles.plan_id")
-                  .where(plans: { id: nil })
-    report_known_invalidations(results, "Role", "plan is blank")
-
-    ## Section
-
-    # Fix duplicate number
-    results = Section.group(:number, :phase_id).count.select { |k,v| v > 1 }
-    report_known_invalidations(results, "Section", "number is duplicate")
-
-    ## Template
-
-    # Fix blank locale
-    results = Template.where(locale: [nil, ""])
-    report_known_invalidations(results, "Template", "locale is blank")
-
-    ## UserIdentifier
-
-    # Fix blank user
-    results = UserIdentifier
-                .joins("LEFT OUTER JOIN users ON users.id = user_identifiers.user_id")
-                .where(users: { id: nil })
-    report_known_invalidations(results, "UserIdentifier", "user is blank")
+          if msg.present?
+            DataCleanup.display msg, color: ids.any? ? :red : :green
+          end
+        end
+      end
+    end
   end
 
   private
@@ -162,5 +114,162 @@ namespace :data_cleanup do
     Dir[Rails.root.join("app", "models", "*.rb")].map do |model_path|
       model_path.split("/").last.gsub(".rb", "").classify.constantize
     end.sort_by(&:name)
+  end
+
+  def singular?(value)
+    str = value.to_s
+    #p "#{str.pluralize} != #{str} && #{str.singularize} == #{str}"
+    str.pluralize != str && str.singularize == str
+  end
+
+  def check_presence(klass, filter)
+    table = klass.name.tableize
+    instance = klass.new
+    ids, msg = [], ""
+    filter.attributes.map(&:to_s).each do |attr|
+      join = attr.pluralize.tableize
+
+      # Determine if its an association so we can check for orphans
+      if models.map(&:name).include?(attr.camelize)
+        # Determine if the model is a child in the relationship
+        if singular?(attr)
+          ids = klass.joins("LEFT OUTER JOIN #{join} ON #{join}.id = #{table}.#{attr}_id")
+                         .where(join.to_sym => { id: nil })
+          msg = "  #{ids.count} orphaned records due to nil or missing #{attr}"
+        end
+
+      elsif instance.send(attr.to_sym).is_a?(ActiveRecord::Associations::CollectionProxy)
+        # If the instance is an association in the other direction just make sure
+        # it has children
+
+        # Skip this one becausue Guidance <--> Themes is a many to many join and this
+        # particular validation is handled elsewhere
+
+      else
+        unless attr == "password"
+          # Find any records where the field is blank or nil
+          if filter.options.present? && filter.options[:if].present?
+            ids = klass.where(attr.to_sym => [nil, ""]).select{ |r| r.send(filter.options[:if]) }.map(&:id)
+          else
+            ids = klass.where(attr.to_sym => [nil, ""])
+          end
+          msg = "  #{ids.count} records with a empty #{attr} field"
+        end
+      end
+    end
+    [ids, msg]
+  end
+
+  def check_uniqueness(klass, filter)
+    instance = klass.new
+    group = [filter.attributes.map{ |a| instance.respond_to?("#{a}_id") ? "#{a}_id".to_sym : a }]
+
+    if filter.options[:scope].present?
+      group << filter.options[:scope]
+    end
+    group = group.flatten.uniq
+    ids = klass.group(group).count.select{ |k, v| v > 1 }
+    [ids, "  #{ids.count} records that are not unique per (#{group.join(', ')})"]
+  end
+
+  def check_inclusion(klass, filter)
+    ids, msg = [], ""
+    if filter.options[:in].present?
+      filter.attributes.each do |attr|
+        ids << klass.where.not(attr.to_sym => filter.options[:in]).pluck(:id)
+      end
+      ids = ids.flatten.uniq
+      msg = "  #{ids.count} records that do not have a valid value for #{filter.attributes}, should be #{filter.options[:in]}"
+    end
+    [ids, msg]
+  end
+
+  def check_format(klass, filter)
+    ids = []
+    if filter.options[:with].present?
+      filter.attributes.each do |attr|
+        # skip password validaton since the field is encrypted through Devise
+        unless attr == :password
+          # If this is the users.email field send it to the EmailValidator. Devise has its own Regex
+          # but running a Regex query gets messy between different DB types
+          if klass.name == "User" && attr == :email
+            ids, msg = check_local_validators(klass, [attr], EmailValidator)
+          else
+            ids = klass.where.not(attr.to_sym => filter.options[:when]).pluck(:id)
+          end
+        end
+      end
+      ids = ids.flatten.uniq
+    end
+    [ids.flatten.uniq, "  #{ids.count} records that do not have valid #{filter.attributes}"]
+  end
+
+  def check_length(klass, filter)
+    ids = []
+    shoulda = ""
+    filter.attributes.each do |attr|
+      unless [:password, :logo].include?(attr)
+        qry = ""
+        if filter.options[:minimum].present?
+          qry += "CHAR_LENGTH(#{attr}) < #{filter.options[:minimum]}"
+          shoulda += ">= #{filter.options[:maximum]}"
+        end
+
+        if filter.options[:maximum].present?
+          unless qry.blank?
+            qry += " OR "
+            should += " and "
+          end
+          qry += "CHAR_LENGTH(#{attr}) > #{filter.options[:maximum]}"
+          shoulda += "<= #{filter.options[:maximum]}"
+        end
+
+        unless qry.blank?
+          ids << klass.where(qry).pluck(:id)
+        end
+      end
+    end
+    ids = ids.flatten.uniq
+    [ids, "  #{ids.count} records that are an invalid length for fields #{filter.attributes} should be #{shoulda}"]
+  end
+
+  def check_numericality(klass, filter)
+    filter.attributes.each do |attr|
+      qry = ""
+      shoulda = ""
+      if filter.options[:only_integer].present?
+        qry = "CEIL(#{attr}) != #{attr}"
+        shoulda = "been an integer"
+      end
+      if filter.options[:greater_than].present?
+        qry += qry.blank? ? "" : " OR "
+        shoulda += shoulda.blank? ? "" : " and "
+        qry += "#{attr} <= #{filter.options[:greater_than]}"
+        shoulda += " length > #{filter.options[:greater_than]}"
+      end
+      if filter.options[:less_than].present?
+        qry += qry.blank? ? "" : " OR "
+        shoulda += shoulda.blank? ? "" : " and "
+        qry += "#{attr} >= #{filter.options[:less_than]}"
+        shoulda += " length < #{filter.options[:less_than]}"
+      end
+
+      ids = klass.where(qry).pluck(:id)
+      [ids, "  #{ids.count} records that are an invalid #{filter.attributes} because it should #{shoulda}"]
+    end
+  end
+
+  def check_local_validators(klass, attributes, validator)
+    ids = []
+    klass.all.each do |obj|
+      obj.valid?
+      attributes.each do |attr|
+        unless obj.errors[attr.to_sym].blank?
+          ids << obj.id
+        end
+      end
+    end
+    ids = ids.flatten.uniq
+    [ids, "  #{ids.count} records that have an invalid #{attributes}. See the #{validator} for further details"]
   end
 end

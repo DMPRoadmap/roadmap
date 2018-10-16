@@ -1,24 +1,20 @@
 require 'set'
 namespace :upgrade do
 
-  desc "Update Language abbreviations to use ISO format"
-  task :normalize_language_formats => :environment do
-    Language.all.each do |language|
-      language.update(abbreviation: LocaleFormatter.new(language.abbreviation))
-    end
-    Template.all.each do |template|
-      next if template.locale.blank?
-      template.update(locale: LocaleFormatter.new(template.locale))
-    end
-    Theme.all.each do |theme|
-      next if theme.locale.blank?
-      theme.update(locale: LocaleFormatter.new(theme.locale))
-    end
+  desc "Upgrade to v2.0.0: Part 1"
+  task v2_0_0_part_1: :environment do
+    Rake::Task['upgrade:add_default_values_v2_0_0'].execute
+    Rake::Task['db:migrate'].execute
+    Rake::Task['data_cleanup:find_known_invalidations'].execute
+    puts "If any invalid records were reported above you will need to correct them before running part 2."
   end
 
-  desc "Upgrade to v1.2.0"
-  task v1_2_0: :environment do
+  desc "Upgrade to v2.0.0: Part 2"
+  task v2_0_0_part_2: :environment do
+    Rake::Task['data_cleanup:clean_invalid_records'].execute
     Rake::Task['upgrade:add_versioning_id_to_templates'].execute
+    Rake::Task['upgrade:normalize_language_formats'].execute
+    Rake::Task['stat:build'].execute
   end
 
   desc "Upgrade to v1.1.2"
@@ -493,6 +489,25 @@ namespace :upgrade do
     end
   end
 
+  desc "Apply default column values for v2.0.0"
+  task :add_default_values_v2_0_0 => :environment do
+    results = GuidanceGroup.where(optional_subset: nil)
+    puts "Found #{results.length} GuidanceGroups with a null optional_subset ... set values to false"
+    results.update_all(optional_subset: false)
+
+    results = GuidanceGroup.where(published: nil)
+    puts "Found #{results.length} GuidanceGroups with a null published ... set values to false"
+    results.update_all(published: false)
+
+    results = Note.where(archived: nil)
+    puts "Found #{results.length} Notes with a null archived ... set values to false"
+    results.update_all(archived: false)
+
+    results = Org.where(is_other: nil)
+    puts "Found #{results.length} Orgs with a null is_other ... set values to false"
+    results.update_all(is_other: false)
+  end
+
   desc "Add verisoning_id to published Templates"
   task :add_versioning_id_to_templates => :environment do
     safe_require 'text'
@@ -603,10 +618,22 @@ namespace :upgrade do
         end
       end
     end
-
   end
 
-
+  desc "Update Language abbreviations to use ISO format"
+  task :normalize_language_formats => :environment do
+    Language.all.each do |language|
+      language.update(abbreviation: LocaleFormatter.new(language.abbreviation))
+    end
+    Template.all.each do |template|
+      next if template.locale.blank?
+      template.update(locale: LocaleFormatter.new(template.locale))
+    end
+    Theme.all.each do |theme|
+      next if theme.locale.blank?
+      theme.update(locale: LocaleFormatter.new(theme.locale))
+    end
+  end
 
   private
 
@@ -623,6 +650,5 @@ namespace :upgrade do
       exit 1
     end
   end
-
 
 end
