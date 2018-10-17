@@ -72,11 +72,6 @@ class SectionSorter
     end
   end
 
-  # needed for the find_invalid_records rake task
-  def self.model_name
-    "SectionSorter"
-  end
-
   private
 
   def modifiable_values
