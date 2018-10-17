@@ -230,49 +230,49 @@ class User < ActiveRecord::Base
   #
   # Returns Boolean
   def can_add_orgs?
-    perms.include? Perm.add_orgs
+    perms.include?(Perm.add_orgs) && !self.org.is_other
   end
 
   # Can the User change their organisation affiliations?
   #
   # Returns Boolean
   def can_change_org?
-    perms.include? Perm.change_affiliation
+    perms.include?(Perm.change_affiliation)
   end
 
   # Can the User can grant their permissions to others?
   #
   # Returns Boolean
   def can_grant_permissions?
-    perms.include? Perm.grant_permissions
+    perms.include?(Perm.grant_permissions) && !self.org.is_other
   end
 
   # Can the User modify organisation templates?
   #
   # Returns Boolean
   def can_modify_templates?
-    self.perms.include? Perm.modify_templates
+    self.perms.include?(Perm.modify_templates) && !self.org.is_other
   end
 
   # Can the User modify organisation guidance?
   #
   # Returns Boolean
   def can_modify_guidance?
-    perms.include? Perm.modify_guidance
+    perms.include?(Perm.modify_guidance) && !self.org.is_other
   end
 
   # Can the User use the API?
   #
   # Returns Boolean
   def can_use_api?
-    perms.include? Perm.use_api
+    perms.include?(Perm.use_api) && !self.org.is_other
   end
 
   # Can the User modify their org's details?
   #
   # Returns Boolean
   def can_modify_org_details?
-    perms.include? Perm.change_org_details
+    perms.include?(Perm.change_org_details) && !self.org.is_other
   end
 
   ##
@@ -280,7 +280,7 @@ class User < ActiveRecord::Base
   #
   # Returns Boolean
   def can_grant_api_to_orgs?
-    perms.include? Perm.grant_api
+    perms.include?(Perm.grant_api) && !self.org.is_other
   end
 
   # Removes the api_token from the user
