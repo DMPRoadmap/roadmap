@@ -12,6 +12,7 @@ module DataCleanup
     end
 
     def call
+      return unless model.superclass == ActiveRecord::Base
       rule, models = ARGV[1].to_s.split("=")
       case rule
       when 'INCLUDE'
