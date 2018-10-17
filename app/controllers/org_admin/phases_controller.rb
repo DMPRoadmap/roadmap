@@ -172,7 +172,7 @@ module OrgAdmin
     private
 
     def phase_params
-      params.require(:phase).permit(:title, :description, :number, :template_id)
+      params.require(:phase).permit(:title, :description, :number)
     end
 
   end
