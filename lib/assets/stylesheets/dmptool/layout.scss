@@ -45,11 +45,11 @@ body {
 
       .fixed-menu {
         ul[aria-labelledby="learn-menu-button"] {
-          width: 550px;
+          min-width: 480px;
         }
 
         ul[aria-labelledby="signin-menu-button"] {
-          min-width: 450px;
+          min-width: 430px;
           padding: 10px 15px;
           text-align: center;
 
@@ -66,13 +66,37 @@ body {
           }
         }
 
-        .learn-menu ul {
-          padding-left: 20px;
-          padding-right: 30px;
+        .learn-menu {
+          div.menu-col {
+            padding: 5px 15px;
+
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
+
+            div {
+              flex: 1 0 auto;
+
+              div {
+                padding-left: 20px;
+              }
+              div:last-child {
+                padding-bottom: 5px;
+              }
+            }
+          }
+
+          /* ul {
+            position: relative;
+
+            padding-left: 20px;
+            padding-right: 30px;
+          } */
         }
       }
 
       .branding {
+        margin-bottom: 20px;
         justify-content: space-between;
         align-items: baseline;
 
@@ -83,6 +107,7 @@ body {
 
       .app-menu {
         font-size: 2rem;
+        border-bottom: 1.5px solid $dark-blue;
       }
     }
   }
@@ -110,6 +135,7 @@ body {
     .footer-menu > .navbar > .container-fluid {
       padding-left: 0;
     }
+
     .footer-social > .navbar > .container-fluid {
       padding-right: 0;
 
@@ -147,15 +173,11 @@ body {
       }
     }
   }
-  footer.blue {
+  footer.blue .footer {
     background-color: $light-blue;
     border-top: none;
     border-radius: 5px;
     padding-left: 5px;
-
-    .navbar-nav > li > a, .navbar-nav > li > a:hover, .navbar-nav > li > a:focus, .navbar-nav > li > a:visited, .navbar-nav > li > a:active, .navbar-nav > li > a:active:hover, {
-      background-color: $light-blue;
-    }
   }
 }
 
