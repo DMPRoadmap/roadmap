@@ -106,8 +106,18 @@
     }
   }
 
-  .top-5 .bottom {
-    position: relative;
+  .top-5 {
+    .bottom {
+      position: relative;
+
+      ol {
+        padding-right: 40px;
+      }
+    }
+
+    .more {
+      right: 0;
+    }
   }
 
   .more {
@@ -118,10 +128,6 @@
     a {
       font-size: 1.2rem;
     }
-  }
-
-  .top-5 .more {
-    right: 0;
   }
 
   .communications {

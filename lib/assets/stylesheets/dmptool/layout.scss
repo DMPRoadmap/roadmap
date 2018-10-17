@@ -93,9 +93,12 @@ body {
   }
 
   footer {
-    border-top: 1px solid $dark-blue;
     padding-top: 10px;
     position: relative;
+
+    .footer {
+      border-top: 2px solid $dark-blue;
+    }
 
     .footer-top, .footer-bottom {
       display: flex;
@@ -116,6 +119,10 @@ body {
         a {
           padding-top: 0;
         }
+      }
+
+      .fa {
+        font-size: 24px !important;
       }
     }
     .footer-menu .container-fluid .navbar-nav > li > a {
