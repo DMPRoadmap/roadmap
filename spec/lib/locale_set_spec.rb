@@ -24,7 +24,7 @@ RSpec.describe LocaleSet do
       let!(:format) { :i18n }
 
       it "returns each item in i18n format" do
-        expect(subject).to eql(['en-GB', 'en-US', 'es', 'fr'])
+        expect(subject).to eql(['en-GB', 'en-US', 'es', 'fr'].to_set)
       end
 
     end
@@ -34,7 +34,7 @@ RSpec.describe LocaleSet do
       let!(:format) { :fast_gettext }
 
       it "returns each item in fast_gettext format" do
-        expect(subject).to eql(['en_GB', 'en_US', 'es', 'fr'])
+        expect(subject).to eql(['en_GB', 'en_US', 'es', 'fr'].to_set)
       end
 
     end
