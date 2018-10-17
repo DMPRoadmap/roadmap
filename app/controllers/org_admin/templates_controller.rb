@@ -250,18 +250,14 @@ module OrgAdmin
     def publish
       template = Template.find(params[:id])
       authorize template
-      # rubocop:disable Metrics/LineLength
-      if template.latest?
-        # Now make the current version published
-        if template.publish!
-          flash[:notice] = _("Your #{template_type(template)} has been published and is now available to users.")
-        else
-          flash[:alert] = _("Unable to publish your #{template_type(template)}.")
-        end
+      template.published = true
+      if template.save
+        # rubocop:disable LineLength
+        flash[:notice] = _("Your #{template_type(template)} has been published and is now available to users.")
+        # rubocop:enable LineLength
       else
-        flash[:alert] = _("You can not publish a historical version of this #{template_type(template)}.")
+        flash[:alert] = failure_message(template, _("publish"))
       end
-      # rubocop:enable Metrics/LineLength
       redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
     end
 
@@ -269,7 +265,7 @@ module OrgAdmin
     def unpublish
       template = Template.find(params[:id])
       authorize template
-      versions = Template.where(family_id: template.family_id)
+      versions = Template.where(family_id: template.family_id, published: true)
       versions.each do |version|
         unless version.update_attributes!(published: false)
           flash[:alert] = _("Unable to unpublish your #{template_type(template)}.")

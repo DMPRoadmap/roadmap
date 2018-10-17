@@ -52,6 +52,8 @@ class GuidanceGroup < ActiveRecord::Base
   validates :published, inclusion: { in: BOOLEAN_VALUES,
                                      message: INCLUSION_MESSAGE }
 
+  validates :published, acceptance: {accept: false, message: PUBLISHABLE_MESSAGE },
+                        unless: :publishable?
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
@@ -66,6 +68,15 @@ class GuidanceGroup < ActiveRecord::Base
   }
 
   scope :published, -> { where(published: true) }
+
+
+  # Can this guidance group be published?
+  # Currently, publishability is solely an attribute of the org
+  #
+  # returns Boolean
+  def publishable?
+    org.can_publish?
+  end
 
   # =================
   # = Class methods =

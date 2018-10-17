@@ -88,6 +88,13 @@ class Template < ActiveRecord::Base
 
   validates :family_id, presence: { message: PRESENCE_MESSAGE }
 
+  validates :published, acceptance: { accept: false, message: PUBLISHABLE_MESSAGE },
+                        unless: :publishable?
+
+  validates :published, acceptance: { message: HISTORIC_MESSAGE },
+                        unless: :latest?
+
+
 
   # =============
   # = Callbacks =
@@ -328,6 +335,14 @@ class Template < ActiveRecord::Base
   def removable?
     versions = Template.includes(:plans).where(family_id: family_id)
     versions.reject { |version| version.plans.empty? }.empty?
+  end
+
+  # Can this guidance group be published?
+  # Currently, publishability is solely an attribute of the org
+  #
+  # returns Boolean
+  def publishable?
+    org.can_publish?
   end
 
   # Returns a new unpublished copy of self with a new family_id, version = zero

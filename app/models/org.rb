@@ -213,6 +213,15 @@ class Org < ActiveRecord::Base
     self.token_permission_types << token_permission_type unless self.token_permission_types.include? token_permission_type
   end
 
+  # Can this org publish content?
+  # Currently, we are saying that all organisations, bar the other_org, can
+  # publish content (Guidance and Templates)
+  #
+  # returns Boolean
+  def can_publish?
+    !self.is_other
+  end
+
   private
 
   ##
