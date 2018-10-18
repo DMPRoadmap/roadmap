@@ -5,7 +5,38 @@ RSpec.describe Template, type: :model do
   context "validations" do
     it { is_expected.to validate_presence_of(:title) }
 
-    it { is_expected.to allow_values(true, false).for(:published) }
+    context "org can publish" do
+
+      before { subject.org.expects(:can_publish?).returns(true) }
+
+      context "latest template" do
+        before { subject.expects(:latest?).returns(true) }
+
+        it { is_expected.to allow_values(true, false).for(:published) }
+
+      end
+
+      context "not latest template" do
+
+        before { subject.expects(:latest?).returns(false) }
+
+        it { is_expected.to allow_value(false).for(:published) }
+
+        it { is_expected.not_to allow_value(true).for(:published) }
+
+      end
+
+    end
+
+    context "org cannot publish" do
+
+      before { subject.org.expects(:can_publish?).returns(false) }
+
+      it { is_expected.to allow_value(false).for(:published) }
+
+      it { is_expected.not_to allow_value(true).for(:published) }
+
+    end
 
     # This is currently being set in the defaults before validation
     # it { is_expected.not_to allow_value(nil).for(:published) }
@@ -1360,6 +1391,31 @@ RSpec.describe Template, type: :model do
       it "raises an error" do
         expect { subject }.to raise_error(StandardError)
       end
+
+    end
+
+  end
+
+
+  describe "#publishable?" do
+
+    let!(:template) { build(:template) }
+
+    subject { template.publishable? }
+
+    context "When org can publish" do
+
+      before { template.org.expects(:can_publish?).returns(true) }
+
+      it { is_expected.to eql(true) }
+
+    end
+
+    context "When org cannot publish" do
+
+      before { template.org.expects(:can_publish?).returns(false) }
+
+      it { is_expected.to eql(false) }
 
     end
 

@@ -10,11 +10,27 @@ RSpec.describe GuidanceGroup, type: :model do
 
     it { is_expected.to allow_value(true).for(:optional_subset)  }
 
-    it { is_expected.to allow_value(true).for(:published) }
-
     it { is_expected.to allow_value(false).for(:optional_subset)  }
 
-    it { is_expected.to allow_value(false).for(:published) }
+    context "publishable" do
+
+      before { subject.expects(:publishable?).returns(true) }
+
+      it { is_expected.to allow_value(true).for(:published) }
+
+      it { is_expected.to allow_value(false).for(:published) }
+
+    end
+
+    context "not publishable" do
+
+      before { subject.expects(:publishable?).returns(false) }
+
+      it { is_expected.to allow_value(false).for(:published) }
+
+      it { is_expected.not_to allow_value(true).for(:published) }
+
+    end
 
   end
 
@@ -23,6 +39,30 @@ RSpec.describe GuidanceGroup, type: :model do
     it { is_expected.to belong_to :org }
 
     it { is_expected.to have_many :guidances }
+
+  end
+
+  describe "#publishable?" do
+
+    let!(:guidance_group) { build(:guidance_group) }
+
+    subject { guidance_group.publishable? }
+
+    context "When org can publish" do
+
+      before { guidance_group.org.expects(:can_publish?).returns(true) }
+
+      it { is_expected.to eql(true) }
+
+    end
+
+    context "When org cannot publish" do
+
+      before { guidance_group.org.expects(:can_publish?).returns(false) }
+
+      it { is_expected.to eql(false) }
+
+    end
 
   end
 
