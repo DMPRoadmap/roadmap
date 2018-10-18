@@ -1,12 +1,12 @@
 namespace :migrate do
 
-  desc "migrate to 1.0" 
+  desc "migrate to 1.0"
   task prep_for_1_0: :environment do
     # Convert existing orgs.target_url to the orgs.links JSON arrays
     Rake::Task['migrate:org_target_url_to_links'].execute
-  end 
+  end
 
-  desc "migrate to 0.4" 
+  desc "migrate to 0.4"
   task to_04: :environment do
     # Default all plans.visibility to the value specified in application.rb
     Rake::Task['migrate:init_plan_visibility'].execute
@@ -274,8 +274,8 @@ namespace :migrate do
       contact = contact.gsub(' , ', '').strip
       contact = contact[0..(contact.length - 2)] if contact.ends_with?(',')
       contact = nil if contact == ','
-      
-      p.update_attributes(data_contact_email: email, data_contact_phone: phone, 
+
+      p.update_attributes(data_contact_email: email, data_contact_phone: phone,
                           data_contact: contact)
     end
   end
@@ -283,25 +283,25 @@ namespace :migrate do
   desc "Move old ORCID from users table to user_identifiers"
   task move_orcids: :environment do
     users = User.includes(:user_identifiers).where('users.orcid_id IS NOT NULL')
-    
+
     # If we have users with orcid ids
     if users.length > 0
       # If orcid isn't defined in the identifier_schemes table add it
       if IdentifierScheme.find_by(name: 'orcid').nil?
-        IdentifierScheme.create!(name: 'orcid', 
-                                 description: 'ORCID', 
+        IdentifierScheme.create!(name: 'orcid',
+                                 description: 'ORCID',
                                  active: true,
                                  logo_url: 'http://orcid.org/sites/default/files/images/orcid_16x16.png',
                                  user_landing_url: 'https://orcid.org')
       end
-    
+
       scheme = IdentifierScheme.find_by(name: 'orcid')
-      
+
       unless scheme.nil?
         users.each do |u|
           if u.orcid_id.gsub('orcid.org/', '').match(/^[\d-]+/)
             schemes = u.user_identifiers.collect{|i| i.identifier_scheme_id}
-            
+
             unless schemes.include?(scheme.id)
               UserIdentifier.create(user: u, identifier_scheme: scheme,
                                     identifier: u.orcid_id.gsub('orcid.org/', ''))
@@ -311,27 +311,27 @@ namespace :migrate do
       end
     end
   end
-  
+
   desc "Move old Shibboleth Ids from users table to user_identifiers"
   task move_shibs: :environment do
     if Rails.configuration.shibboleth_enabled
       users = User.includes(:user_identifiers).where('users.shibboleth_id IS NOT NULL')
-    
+
       # If we have users with orcid ids
       if users.length > 0
         # If orcid isn't defined in the identifier_schemes table add it
         if IdentifierScheme.find_by(name: 'shibboleth').nil?
-          IdentifierScheme.create!(name: 'shibboleth', 
-                                   description: "Your institution credentials", 
+          IdentifierScheme.create!(name: 'shibboleth',
+                                   description: "Your institution credentials",
                                    active: true)
         end
-    
+
         scheme = IdentifierScheme.find_by(name: 'shibboleth')
-      
+
         unless scheme.nil?
           users.each do |u|
             schemes = u.user_identifiers.collect{|i| i.identifier_scheme_id}
-            
+
             unless schemes.include?(scheme.id)
 # TODO: Add logic to move shib identifiers over
 #              UserIdentifier.create(user: u, identifier_scheme: scheme,
@@ -364,10 +364,11 @@ namespace :migrate do
         org.links = [{link: org.target_url, text: ''}]
         org.target_url = nil
 
-        # Running with validations off because Dragonfly will fail if it cannot find the 
+        # Running with validations off because Dragonfly will fail if it cannot find the
         # org logos which live on the deployed instance
         org.save!(validate: false)
       end
     end
   end
+
 end

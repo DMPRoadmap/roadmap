@@ -1,6 +1,6 @@
 <% title "#{current_user.org.name} Plans" %>
 <div class="row">
-  <div class="col-md-12">    
+  <div class="col-md-12">
     <h1><%= _('%{org_name} Plans') % { org_name: current_user.org.name } %></h1>
   </div>
 </div>
@@ -35,7 +35,7 @@
       </div>
     <% end %>
     <% if @plans.length > 0 %>
-      <%= link_to _('Download plans'), org_admin_download_plans_path(format: :csv), target: '_blank', class: 'btn btn-default pull-right' %>
+      <%= link_to sanitize(_('Download plans <em class="sr-only">(new window)</span>')), org_admin_download_plans_path(format: :csv), target: '_blank', class: 'btn btn-default pull-right' %>
       <%= paginable_renderise(
         partial: '/paginable/plans/org_admin',
         controller: 'paginable/plans',

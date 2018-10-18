@@ -10,7 +10,8 @@
 <div class="row">
   <div class="col-md-12">
     <!-- render navigation tabs for the template-->
-    <%= render partial: "/org_admin/templates/navigation", locals: local_assigns.merge({ modifiable: modifiable }) %>
+    <%= render partial: "/org_admin/templates/navigation",
+               locals: local_assigns.merge({ modifiable: modifiable }) %>
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active">
         <div class="panel panel-default">
@@ -20,29 +21,62 @@
               <h2><%= _('Phase details')%></h2>
             </div>
             <div class="pull-right">
-              <%= link_to(_('Preview'), preview_org_admin_template_phase_path(template, phase), { class: 'btn btn-default phase_preview_link', role: 'button' }) %>
+              <%= link_to(_('Preview'),
+                          preview_org_admin_template_phase_path(template, phase),
+                          class: 'btn btn-default phase_preview_link', role: 'button') %>
             </div>
             <div class="clearfix"></div>
             <div class="row">
               <div class="col-md-12">
-                <%= render partial: partial_path, locals: local_assigns.merge({ modifiable: modifiable }) %>
+                <%= render partial: partial_path,
+                           locals: local_assigns.merge({ modifiable: modifiable }) %>
               </div>
             </div>
             <div class="row">
               <div class="col-md-12">
                 <h2><%= _('Sections') %></h2>
-                <% if phase.sections.length > 1 %>
-                  <div id="sections-accordion-controls">
-                    <div class="accordion-controls" data-parent="sections_accordion">
-                      <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
-                      <span>|</span>
-                      <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
-                    </div>
+
+                <div class="row">
+
+                  <div class="col-sm-6">
+                    <% if phase.sections.many? %>
+                      <div id="sections-accordion-controls">
+                        <div class="accordion-controls"
+                             data-parent="sections_accordion">
+                          <a href="#" data-toggle-direction="show">
+                            <%= _('expand all') %>
+                          </a>
+                          <span>|</span>
+                          <a href="#" data-toggle-direction="hide">
+                            <%= _('collapse all') %>
+                          </a>
+                        </div>
+                      </div>
+                    <% end %>
                   </div>
-                <% end %>
+
+                  <div class="col-sm-6">
+                    <div class='text-right text-muted'>
+                      <% if template.latest? && (modifiable || template.customization_of.present?) %>
+                        <i class="fa fa-info-circle small"></i>
+                        <%= _("Drag arrows to rearrange sections.") %>
+                        <% unless phase.sections.all?(&:modifiable?) %>
+                          <%= _("You may place them before or after the main template sections.") %>
+                        <% end %>
+                      <% else %>
+                        <%= link_to _('Re-order sections'),
+                            org_admin_template_phase_versions_path(phase.template, phase),
+                            method: "post",
+                            class: "btn btn-primary btn-sm" %>
+                      <% end %>
+                    </div>
+                    <div class="clear">
+                  </div>
+
               </div>
             </div>
-            <%= render partial: 'org_admin/sections/index', locals: local_assigns.merge({ modifiable: modifiable }) %>
+            <%= render partial: 'org_admin/sections/index',
+                       locals: local_assigns.merge(modifiable: modifiable) %>
           </div>
         </div>
       </div>
