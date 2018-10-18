@@ -4,7 +4,7 @@
     <h1><%= _('Guidance') %></h1>
 
     <p class="text-justify">
-      <%= raw _("First create a guidance group. This could be organisation wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you'll be asked to assign it to a guidance group.") %>
+      <%= sanitize _("First create a guidance group. This could be organisation wide or a subset e.g. a particular College / School, Institute or department. When you create guidance you'll be asked to assign it to a guidance group.") %>
     </p>
   </div>
 </div>
@@ -12,7 +12,7 @@
 <div class="row">
   <div class="col-md-12">
     <h2><%= _('Guidance group list') %></h2>
-  
+
     <!-- List of guidance groups -->
     <%= paginable_renderise(
       partial: '/paginable/guidance_groups/index',
@@ -40,7 +40,7 @@
         action: 'index',
         scope: @guidances,
         query_params: { sort_field: 'guidances.text', sort_direction: :asc }) %>
-  
+
     <div>
       <a href="<%= admin_new_guidance_path %>" class="btn btn-primary"><%= _('Create guidance') %></a>
     </div>

@@ -1,6 +1,22 @@
 require 'set'
 namespace :upgrade do
 
+  desc "Upgrade to v2.0.0: Part 1"
+  task v2_0_0_part_1: :environment do
+    Rake::Task['upgrade:add_default_values_v2_0_0'].execute
+    Rake::Task['db:migrate'].execute
+    Rake::Task['data_cleanup:find_known_invalidations'].execute
+    puts "If any invalid records were reported above you will need to correct them before running part 2."
+  end
+
+  desc "Upgrade to v2.0.0: Part 2"
+  task v2_0_0_part_2: :environment do
+    Rake::Task['data_cleanup:clean_invalid_records'].execute
+    Rake::Task['upgrade:add_versioning_id_to_templates'].execute
+    Rake::Task['upgrade:normalize_language_formats'].execute
+    Rake::Task['stat:build'].execute
+  end
+
   desc "Upgrade to v1.1.2"
   task v1_1_2: :environment do
     Rake::Task['upgrade:check_org_contact_emails'].execute
@@ -434,15 +450,15 @@ namespace :upgrade do
       end
     end
   end
-  
+
   desc "Add the 'other' org if it is not present."
   task add_other_org: :environment do
     puts "Checking for existence of an 'Other' org. Unaffiliated users should be affiliated with this org"
-    
+
     # Get the helpdesk email from the branding YAML
     branding = YAML.load(File.open('./config/branding.yml'))
     if branding.present? && branding['defaults'].present? && branding['defaults']['organisation'].present? && branding['defaults']['organisation']['helpdesk_email'].present?
-      email = branding['defaults']['organisation']['helpdesk_email'] 
+      email = branding['defaults']['organisation']['helpdesk_email']
       name = branding['defaults']['organisation']['name'].present? ? "#{branding['defaults']['organisation']['name']} helpdesk" : 'Helpdesk'
     else
       email = 'other.organisation@example.org'
@@ -464,7 +480,7 @@ namespace :upgrade do
         is_other: true,
       })
     end
-    
+
     unaffiliated = User.where(org_id: nil)
     unless unaffiliated.empty?
       puts "The following users are not associated with an org. Assigning them to the 'Other' org."
@@ -472,4 +488,167 @@ namespace :upgrade do
       unaffiliated.update_all(org_id: other_org.id)
     end
   end
+
+  desc "Apply default column values for v2.0.0"
+  task :add_default_values_v2_0_0 => :environment do
+    results = GuidanceGroup.where(optional_subset: nil)
+    puts "Found #{results.length} GuidanceGroups with a null optional_subset ... set values to false"
+    results.update_all(optional_subset: false)
+
+    results = GuidanceGroup.where(published: nil)
+    puts "Found #{results.length} GuidanceGroups with a null published ... set values to false"
+    results.update_all(published: false)
+
+    results = Note.where(archived: nil)
+    puts "Found #{results.length} Notes with a null archived ... set values to false"
+    results.update_all(archived: false)
+
+    results = Org.where(is_other: nil)
+    puts "Found #{results.length} Orgs with a null is_other ... set values to false"
+    results.update_all(is_other: false)
+  end
+
+  desc "Add verisoning_id to published Templates"
+  task :add_versioning_id_to_templates => :environment do
+    safe_require 'text'
+    safe_require 'progress_bar'
+
+    template_count = Template.latest_version.where(customization_of: nil)
+                             .includes(phases: { sections: { questions: :annotations }})
+                             .count
+    bar = ProgressBar.new(template_count)
+
+
+    # Remove attr_readonly restrictions form these models
+    Phase.attr_readonly.delete('versionable_id')
+    Section.attr_readonly.delete('versionable_id')
+    Question.attr_readonly.delete('versionable_id')
+    Annotation.attr_readonly.delete('versionable_id')
+
+
+    # Get each of the funder templates...
+    Template.latest_version.where(customization_of: nil)
+            .includes(phases: { sections: { questions: :annotations }})
+            .each do |funder_template|
+
+      bar.increment!(1)
+
+      Rails.logger.info "Updating versionable_id for Template: #{funder_template.id}"
+
+      funder_template.phases.each do |funder_phase|
+        Rails.logger.info "Updating versionable_id for Phase: #{funder_phase.id}"
+        funder_phase.update! versionable_id: SecureRandom.uuid
+
+        Phase.joins(:template)
+             .where(templates: { customization_of: funder_template.family_id })
+             .where(number: funder_phase.number).each do |phase|
+
+          if fuzzy_match?(phase.title, funder_phase.title)
+            phase.update! versionable_id: funder_phase.versionable_id
+          end
+        end
+
+        funder_phase.sections.each do |funder_section|
+          Rails.logger.info "Updating versionable_id for Section: #{funder_section.id}"
+          funder_section.update! versionable_id: SecureRandom.uuid
+
+          Section.joins(:template).where(templates: {
+            customization_of: funder_template.family_id
+            }).each do |section|
+
+            # Prefix the match text with the number. This will make it easier to match
+            # Sections where the number hasn't changed
+            text_a = "#{section.number} - #{section.description}"
+            text_b = "#{funder_section.number} - #{funder_section.description}"
+            if fuzzy_match?(text_a, text_b)
+              section.update! versionable_id: funder_section.versionable_id
+            end
+          end
+
+          funder_section.questions.each do |funder_question|
+            Rails.logger.info "Updating versionable_id for Question: #{funder_question.id}"
+
+            funder_question.update! versionable_id: SecureRandom.uuid
+
+            Question.joins(:template).where(templates: {
+              customization_of: funder_template.family_id
+              }).each do |question|
+
+              # Prefix the match text with the number. This will make it easier to match
+              # Questions where the number hasn't changed
+              text_a = "#{question.number} - #{question.text}"
+              text_b = "#{funder_question.number} - #{funder_question.text}"
+
+              if fuzzy_match?(text_a, text_b)
+                question.update! versionable_id: funder_question.versionable_id
+              end
+            end
+
+            funder_question.annotations.each do |funder_annotation|
+              Rails.logger.info "Updating versionable_id for Annotation: #{funder_annotation.id}"
+
+              funder_annotation.update! versionable_id: SecureRandom.uuid
+
+              Annotation.joins(:template).where(templates: {
+                customization_of: funder_template.family_id,
+              }).where(type: funder_annotation.type).each do |ann|
+
+                if fuzzy_match?(ann.text, funder_annotation.text)
+                  ann.update! versionable_id: funder_annotation.versionable_id
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+
+    # Add versionable_id to any customized Sections...
+    Section.joins(:template)
+           .includes(questions: :annotations)
+           .where(templates: { id: Template.latest_version.ids })
+           .where(versionable_id: nil, modifiable: true).each do |section|
+
+      section.update! versionable_id: SecureRandom.uuid
+
+      section.questions.each do |question|
+        question.update! versionable_id: SecureRandom.uuid
+        question.annotations.each do |annotation|
+          annotation.update! versionable_id: SecureRandom.uuid
+        end
+      end
+    end
+  end
+
+  desc "Update Language abbreviations to use ISO format"
+  task :normalize_language_formats => :environment do
+    Language.all.each do |language|
+      language.update(abbreviation: LocaleFormatter.new(language.abbreviation))
+    end
+    Template.all.each do |template|
+      next if template.locale.blank?
+      template.update(locale: LocaleFormatter.new(template.locale))
+    end
+    Theme.all.each do |theme|
+      next if theme.locale.blank?
+      theme.update(locale: LocaleFormatter.new(theme.locale))
+    end
+  end
+
+  private
+
+  def fuzzy_match?(text_a, text_b, min = 3)
+    Text::Levenshtein.distance(text_a, text_b) <= min
+  end
+
+  def safe_require(libname)
+    begin
+      require libname
+    rescue LoadError
+      puts "Please install the #{libname} gem locally and try again:
+              gem install #{libname}"
+      exit 1
+    end
+  end
+
 end
