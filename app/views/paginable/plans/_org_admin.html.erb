@@ -14,14 +14,18 @@
       <% scope.each do |plan| %>
         <tr>
           <td>
-            <%= link_to "#{plan.title.length > 60 ? "#{plan.title[0..59]} ..." : plan.title}", plan_path(plan) %>
+            <% if plan.readable_by?(current_user) %>
+              <%= link_to "#{plan.title.length > 60 ? "#{plan.title[0..59]} ..." : plan.title}", plan_path(plan) %>
+            <% else %>
+              <%= plan.title.truncate(60) %>
+            <% end %>
           </td>
           <td><%= plan.template.title %></td>
           <td><%= plan.users.first.org.name %></td>
           <td><%= plan.users.first.name(false) %></td>
           <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
           <td class="plan-visibility">
-            <%= plan.visibility === 'is_test' ? _('Test') : raw(display_visibility(plan.visibility)) %>
+            <%= plan.visibility === 'is_test' ? _('Test') : sanitize(display_visibility(plan.visibility)) %>
           </td>
         </tr>
       <% end %>
