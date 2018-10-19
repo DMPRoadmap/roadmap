@@ -1,20 +1,6 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
-#require 'devise'
-require 'recaptcha/rails'
-require 'csv'
-
-# Require the gems listed in Gemfile, including any gems
-# you've limited to :test, :development, or :production.
-#if defined?(Bundler)
-# If you precompile assets before deploying to production, use this line
-#Bundler.require(*Rails.groups(:assets => %w(development test)))
-# If you want your assets lazily compiled in production, use this line
-# Bundler.require(:default, :assets, Rails.env)
-#end
-#Bundler.require(:default, Rails.env)
-#Changed when migrated to rails 4.0.0
 Bundler.require(*Rails.groups)
 
 module DMPRoadmap
@@ -112,7 +98,9 @@ module DMPRoadmap
     config.active_record.raise_in_transactional_callbacks = true
 
     # Load Branded terminology (e.g. organization name, application name, etc.)
-    config.branding = config_for(:branding).deep_symbolize_keys
+    if File.exists?(Rails.root.join('config', 'branding.yml'))
+      config.branding = config_for(:branding).deep_symbolize_keys
+    end
 
     # The default visibility setting for new plans
     #   organisationally_visible  - Any member of the user's org can view, export and duplicate the plan

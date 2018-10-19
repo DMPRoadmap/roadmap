@@ -1,0 +1,44 @@
+/* For org navbar custom height */
+#org-navbar {
+  border-radius: 0px;
+  margin-top: -20px;
+}
+@media (min-width: 768px) {
+  #org-navbar .navbar-nav li a {
+    line-height: 102px;
+    height: 102px;
+    padding-top: 0;
+  }
+}
+@media (min-width: 768px) {
+  #admin-dropdown ul li a, #super-admin-dropdown ul li a {
+    line-height: 26px !important;
+    height: 26px !important;
+    margin-top: 3px !important;
+  }
+}
+
+#org-navbar {
+  margin-top: -20px;
+
+  #banner-org-name {
+    margin-top: 40px;
+  }
+}
+@media (min-width: 768px) {
+  #org-navbar .navbar-nav li a {
+    line-height: 102px;
+    height: 102px;
+    padding-top: 0;
+  }
+  #org-navbar .org-links {
+    padding-top: $grid-gutter-width / 2;
+  }
+  #org-navbar .org-a {
+    line-height: 36px !important;
+    height: 36px !important;
+    vertical-align: middle !important;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
