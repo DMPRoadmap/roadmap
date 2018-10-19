@@ -1,0 +1,57 @@
+// This file sets styles for main HTML elements.
+// If it starts to get too large, it would be a good idea to break it into component
+// blocks.
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+/* For sticky footer */
+main {
+  margin-bottom: 100px;
+  @media (max-width: 768px) {
+    margin-bottom: 420px;
+  }
+  @media (min-width: 768px) and (max-width: 1000px) {
+    margin-bottom: 200px;
+  }
+}
+
+body{
+  padding-bottom: 50px;
+}
+
+/* footer */
+footer {
+  position: absolute;
+  bottom: 0;
+  margin-top: 20px;
+  margin-bottom: -20px;
+  width: 100%;
+}
+
+/* generic styling */
+fieldset {
+  border: none;
+
+  input[type="radio"],
+  input[type="checkbox"] {
+      margin: 0px;
+      vertical-align: middle;
+  }
+
+  .checkbox,
+  .radio {
+    margin-top: 0px;
+    margin-bottom: 3px;
+  }
+}
+
+legend {
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-transform: capitalize;
+}
