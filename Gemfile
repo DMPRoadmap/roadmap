@@ -7,6 +7,8 @@ ruby '>= 2.4.0'
 # Full-stack web application framework. (http://www.rubyonrails.org)
 gem 'rails', '~> 4.2.10'
 
+gem "rake"
+
 # Tools for creating, working with, and running Rails applications. (http://www.rubyonrails.org)
 gem 'railties'
 
@@ -92,10 +94,28 @@ gem 'recaptcha'
 # Ideal gem for handling attachments in Rails, Sinatra and Rack applications. (http://github.com/markevans/dragonfly)
 gem 'dragonfly'
 
+gem 'bootstrap-sass', '~> 3.3.7'
+
+# This is required for Font-Awesome, but not used as the main sass compiler
+
+gem "sass-rails", require: false
+
+gem "sassc-rails"
+
+gem 'font-awesome-sass', '~> 4.2.0'
+
+gem 'webpacker', '~> 3.5'
+
+gem "autoprefixer-rails"
+
+gem 'mini_racer'
+
 # ------------------------------------------------
 # EXPORTING
 # Provides binaries for WKHTMLTOPDF project in an easily accessible package.
 gem 'wkhtmltopdf-binary'
+
+gem 'puma'
 
 # PDF generator (from HTML) gem for Ruby on Rails (https://github.com/mileszs/wicked_pdf)
 gem 'wicked_pdf'
@@ -122,6 +142,8 @@ gem 'gettext', require: false, group: :development
 # A pagination engine plugin for Rails 4+ and other modern frameworks (https://github.com/kaminari/kaminari)
 gem 'kaminari'
 
+gem "rails_12factor"
+
 # ------------------------------------------------
 # ENVIRONMENT SPECIFIC DEPENDENCIES
 group :development, :test do
@@ -130,10 +152,6 @@ group :development, :test do
 
   # RSpec for Rails (https://github.com/rspec/rspec-rails)
   gem "rspec-rails"
-
-  # factory_bot_rails provides integration between factory_bot and rails 3 or newer (http://github.com/thoughtbot/factory_bot_rails)
-  # rspec-collection_matchers-1.1.3 (https://github.com/rspec/rspec-collection_matchers)
-  gem "rspec-collection_matchers"
 
   # factory_bot_rails provides integration between factory_bot and rails 3 or newer (http://github.com/thoughtbot/factory_bot_rails)
   gem "factory_bot_rails"

@@ -26,6 +26,6 @@ FactoryBot.define do
     user
     text { Faker::Lorem.sentence }
     answer
-    archived false
+    archived { false }
   end
 end
