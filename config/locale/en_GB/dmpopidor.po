@@ -163,6 +163,39 @@ msgstr "Learn more"
 msgid "You"
 msgstr "You"
 
+msgid "Your organisation"
+msgstr "Your organisation"
+
+msgid "Other organisation"
+msgstr "Other organisation"
+
+msgid "Use Default Template"
+msgstr "Use Default Template"
+
+msgid "Would you like to use the default template \"%{template_name}\"?"
+msgstr "Would you like to use the default template \"%{template_name}\"?"
+
+msgid "Would you like to choose the template of another organisation?"
+msgstr "Would you like to choose the template of another organisation?"
+
+msgid "Would you like to choose the template of a funder?"
+msgstr "Would you like to choose the template of a funder?"
+
+msgid "The organisation provides multiple templates, which one would you like to use?"
+msgstr "The organisation provides multiple templates, which one would you like to use?"
+
+msgid "This organisation provides a template. Would you like to create a plan from the \"__template_title__\" template?"
+msgstr "This organisation provides a template. Would you like to create a plan from the \"__template_title__\" template?"
+
+msgid "This organisation does not provide a template. Would you like to create a plan using the default \"__template_title__\" template?"
+msgstr "This organisation does not provide a template. Would you like to create a plan using the default \"__template_title__\" template?"
+
+msgid "You are not linked to an organisation, we can\'t suggest you a template. Please choose an organisation in your profile"
+msgstr "You are not linked to an organisation, we can\'t suggest you a template. Please choose an organisation in your profile"
+
+msgid "Customized by "
+msgstr "Customized by "
+
 msgid "Copy link"
 msgstr "Copy link"
 
