@@ -222,6 +222,9 @@ group :test do
 
   # Easy installation and use of chromedriver. (https://github.com/flavorjones/chromedriver-helper)
   gem "chromedriver-helper", ">= 1.2.0"
+
+  gem "rspec-collection_matchers"
+
 end
 
 group :ci, :development do
