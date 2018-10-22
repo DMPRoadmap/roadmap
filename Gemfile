@@ -142,7 +142,9 @@ gem 'gettext', require: false, group: :development
 # A pagination engine plugin for Rails 4+ and other modern frameworks (https://github.com/kaminari/kaminari)
 gem 'kaminari'
 
-gem "rails_12factor"
+gem "rails_12factor", group: [:production]
+
+gem "dotenv-rails"
 
 # ------------------------------------------------
 # ENVIRONMENT SPECIFIC DEPENDENCIES
@@ -167,6 +169,7 @@ group :development, :test do
 
   # Guard gem for RSpec (https://github.com/guard/guard-rspec)
   gem "guard-rspec"
+
 end
 
 group :test do
@@ -250,7 +253,5 @@ group :development do
 
   # TomDoc for YARD (http://rubyworks.github.com/yard-tomdoc)
   gem "yard-tomdoc"
-
-  gem "dotenv-rails"
 
 end
