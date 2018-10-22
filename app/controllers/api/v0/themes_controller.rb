@@ -26,8 +26,15 @@ module Api
         if params[:question_id].present? && params[:question_id]
           @answers =  @answers.where(question_id: params[:question_id])
         end
-        
-        @answers +=  admin_answers + org_answers
+
+        if params[:start_date].present? && params[:start_date]
+          @answers =  @answers.where('answers.created_at >=?', params[:start_date])
+        end
+
+        if params[:end_date].present? && params[:end_date]
+          @answers =  @answers.where('answers.created_at <=?', params[:end_date])
+        end
+
       end
 
       def extract_params
