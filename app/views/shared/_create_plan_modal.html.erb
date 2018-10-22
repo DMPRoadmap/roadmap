@@ -5,7 +5,7 @@
       <h4 class="modal-title"><%= _('Create plan') %></h4>
     </div>
     <div class="modal-body">
-      <p><%= _('Would you like to create a plan based on the "%{name}" template?') % { name: @template.title }%></p>
+      <p><%= d_('dmpopidor', 'Would you like to create a plan based on the "%{name}" template?') % { name: @template.title }%></p>
     </div>
     <div class="modal-footer">
       <%= direct_link(@template, false, _('Yes')) %>

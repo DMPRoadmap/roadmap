@@ -30,6 +30,11 @@ class Answer < ActiveRecord::Base
                   :question, :user, :plan, :question_options, :notes, :note_ids, :id,
                   :as => [:default, :admin]
 
+  scope :plan_id, ->(id) { where('answers.plan_id = ?', id) }
+  scope :question_id, ->(id) { where('answers.question_id = ?', id) }
+  scope :since, ->(date) { where('answers.created_at >= ?', date) if date }
+  scope :until, ->(date) { where('answers.created_at <= ?', date) if date }
+
   ##
   # Validations
 #  validates :user, :plan, :question, presence: true

@@ -38,21 +38,24 @@
       <hr />
       <% phase[:sections].each do |section| %>
         <% if @show_sections_questions %>
-          <h3><%= section[:title] %></h3>
+          <h2><%= section[:title] %></h2>
         <% end %>
 
         <% section[:questions].each do |question| %>
           <div class="question">
-            <% if @show_sections_questions && !@public_plan %>
-              <p><%= raw question[:text].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") if question[:text].present?%></p>
-              <br>
-            <% end %>
             <% answer = @plan.answer(question[:id], false) %>
             <% blank = answer.present? ? answer.is_blank? : true %>
             <% options = answer.present? ? answer.question_options : [] %>
+
+            <% if @show_sections_questions && !@public_plan %>
+              <% if question[:text].present?%>
+                <h3><%= raw question[:text].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") unless @show_unanswered == false && blank %></h3>
+              <% end %>
+            <% end %>
             <%# case where question has not been answered sufficiently to display%>
             <% if @show_unanswered && (answer.blank? || (options.blank? && blank))%>
               <p><%= _('Question not answered.') -%></p>
+              <br>
             <% else %>
               <%# case where Question has options %>
               <% if options.present?%>
@@ -77,6 +80,7 @@
               <% elsif !blank %>
                 <p><%= raw answer.text %></p>
               <% end %>
+              <br>
             <% end %>
           </div>
         <% end %>

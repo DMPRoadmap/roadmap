@@ -20,6 +20,7 @@ class TokenPermissionType < ActiveRecord::Base
   PLANS       = TokenPermissionType.where(token_type: 'plans').first.freeze
   TEMPLATES   = TokenPermissionType.where(token_type: 'templates').first.freeze
   STATISTICS  = TokenPermissionType.where(token_type: 'statistics').first.freeze
+  THEMES      = TokenPermissionType.where(token_type: 'themes').first.freeze
 
 
   ##

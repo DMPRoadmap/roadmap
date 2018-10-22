@@ -4,6 +4,7 @@ class Theme < ActiveRecord::Base
   # Associations
   has_and_belongs_to_many :questions, join_table: "questions_themes"
   has_and_belongs_to_many :guidances, join_table: "themes_in_guidance"
+  has_many :answers, through: :questions
 
   ##
   # Possibly needed for active_admin
