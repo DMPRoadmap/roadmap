@@ -64,6 +64,7 @@ module SuperAdmin
       end
       redirect_to(action: :index)
     end
+
     # Private instance methods
     private
 

@@ -1,7 +1,7 @@
 class ThemePolicy < ApplicationPolicy
   def initialize(user, *args)
     raise Pundit::NotAuthorizedError, _("must be logged in") unless user
-    @user = user 
+    @user = user
   end
   def index?
     @user.can_super_admin?
