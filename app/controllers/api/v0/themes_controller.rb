@@ -4,7 +4,9 @@ module Api
       before_action :authenticate
       
       def extract
+        # check if the user has permissions to use the themes API
         @theme = Theme.find(params[:id])
+        raise Pundit::NotAuthorizedError unless Api::V0::ThemePolicy.new(@user, @theme).extract?
         @answers = @theme.answers.where(plan_id: @user.plans.pluck(:id))
         admin_answers = []
         org_answers = []
