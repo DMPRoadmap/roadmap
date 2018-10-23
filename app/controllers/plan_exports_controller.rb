@@ -93,7 +93,11 @@ class PlanExportsController < ApplicationController
   end
 
   def privately_authorized?
-    authorize @plan, :export?
+    if current_user.present?
+      PlanPolicy.new(current_user, @plan).export?
+    else
+      false
+    end
   end
 
   def export_params
