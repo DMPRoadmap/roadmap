@@ -10,36 +10,39 @@
       <% if q_format.option_based? %>
         <% options = question.question_options.order("number") %>
 
-        <!--checkbox display-->
-        <% if q_format.checkbox? %>
-          <%if !options.nil? %>
+        <!--checkbox display (for  backwards compatibility is also being used for
+        questions in multiselectbox format display too as
+        multiselect box display was confusing to some users and has been removed as an
+        option for questions)-->
+        <% if q_format.checkbox? || q_format.multiselectbox? %>
+          <% if !options.nil? %>
             <fieldset class="choices">
-              <label class="text_colour"><%= raw question.text %></label>
+              <label class="text_colour"><%= sanitize question.text %></label>
               <ol class="choices-group">
                 <% options.each do |op|%>
-                  <li class="choice"><label ><input type="checkbox" ><%= raw op.text %></label></li>
+                  <li class="choice">
+                    <label>
+                      <input type="checkbox">
+                      <%= sanitize op.text %>
+                    </label>
+                  </li>
                 <% end %>
               </ol>
             </fieldset>
-          <% end %>
-        <!--multi select box display-->
-        <% elsif q_format.multiselectbox? %>
-          <% if !options.nil? %>
-            <label class="text_colour"><%= raw question.text %></label>
-            <select multiple="multiple">
-              <% options.each do |op|%>
-                <option><%= raw op.text %></option>
-              <% end %>
-            </select>
           <% end %>
         <!--Radio buttons display-->
         <% elsif q_format.radiobuttons? %>
           <% if !options.nil?  %>
             <fieldset class="choices">
-              <label class="text_colour"><%= raw question.text %></label>
+              <label class="text_colour"><%= sanitize question.text %></label>
               <ol class="choices-group">
                 <% options.each do |op|%>
-                  <li class="choice"><label ><input type="radio"><%= raw op.text %></label></li>
+                  <li class="choice">
+                    <label>
+                      <input type="radio">
+                      <%= sanitize op.text %>
+                    </label>
+                  </li>
                 <% end %>
               </ol>
             </fieldset>
@@ -47,10 +50,12 @@
         <!--dropdown display-->
         <% elsif q_format.dropdown? %>
           <% if !options.nil? %>
-            <label class="text_colour" ><%= raw question.text %></label>
+            <label class="text_colour">
+              <%= sanitize question.text %>
+            </label>
             <select>
               <% options.each do |op|%>
-                <option><%= raw op.text %></option>
+                <option><%= sanitize op.text %></option>
               <% end %>
             </select>
           <% end %>
@@ -65,7 +70,7 @@
             </span>
             <div class="suggested-answer-border">
               <p class="suggested-answer">
-                <%= raw annotation.text %>
+                <%= sanitize annotation.text %>
               </p>
             </div>
           </div>
@@ -74,7 +79,7 @@
         <div class="clear"></div>
         <textarea rows="4" style="width: 97%;"><%= question.default_value %></textarea>
       <% else %>
-        <label class="text_colour"><%= raw question.text %></label>
+        <label class="text_colour"><%= sanitize question.text %></label>
         <!--Suggested answer area-->
         <% annotations = question.annotations.find_by(org_id: current_user.org_id) %>
         <% if !annotations.blank? %>
@@ -84,7 +89,7 @@
             </span>
             <div class="suggested-answer-border">
               <p class="suggested-answer">
-                <%= raw annotations.text %>
+                <%= sanitize annotations.text %>
               </p>
             </div>
           </div>

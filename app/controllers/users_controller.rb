@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
+
   helper PaginableHelper
   helper PermsHelper
   include ConditionalUserMailer
@@ -10,10 +13,20 @@ class UsersController < ApplicationController
   # Displays number of roles[was project_group], name, email, and last sign in
   def admin_index
     authorize User
-    if current_user.can_super_admin?
-      @users = User.page(1)
-    else
-      @users = current_user.org.users.page(1)
+
+    respond_to do |format|
+      format.html do
+        if current_user.can_super_admin?
+          @users = User.page(1)
+        else
+          @users = current_user.org.users.page(1)
+        end
+      end
+      
+      format.csv do
+        send_data User.to_csv(current_user.org.users.order(:surname)),
+        filename: "users-accounts-#{Date.today}.csv"
+      end
     end
   end
 
@@ -36,7 +49,7 @@ class UsersController < ApplicationController
     render json: {
       "user" => {
         "id" => user.id,
-        "html" => render_to_string(partial: 'users/admin_grant_permissions',
+        "html" => render_to_string(partial: "users/admin_grant_permissions",
                                    locals: { user: user, perms: perms },
                                    formats: [:html])
       }
@@ -51,7 +64,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     authorize @user
     perms_ids = params[:perm_ids].blank? ? [] : params[:perm_ids].map(&:to_i)
-    perms = Perm.where( id: perms_ids)
+    perms = Perm.where(id: perms_ids)
     privileges_changed = false
     current_user.perms.each do |perm|
       if @user.perms.include? perm
@@ -73,19 +86,20 @@ class UsersController < ApplicationController
       end
     end
 
-    if @user.save!
+    if @user.save
       if privileges_changed
-        deliver_if(recipients: @user, key: 'users.admin_privileges') do |r|
+        deliver_if(recipients: @user, key: "users.admin_privileges") do |r|
           UserMailer.admin_privileges(r).deliver_now
         end
       end
       render(json: {
         code: 1,
-        msg: success_message(_('permissions'), _('saved')),
-        current_privileges: render_to_string(partial: 'users/current_privileges', locals: { user: @user }, formats: [:html])
+        msg: success_message(perms.first_or_initialize, _("saved")),
+        current_privileges: render_to_string(partial: "users/current_privileges",
+                                             locals: { user: @user }, formats: [:html])
         })
     else
-      render(json: { code: 0, msg: failed_update_error(@user, _('user')) })
+      render(json: { code: 0, msg: failure_message(@user, _("updated")) })
     end
   end
 
@@ -103,29 +117,8 @@ class UsersController < ApplicationController
     pref.save
 
     # Include active tab in redirect path
-    redirect_to "#{edit_user_registration_path}\#notification-preferences", notice: success_message(_('preferences'), _('saved'))
-  end
-
-  # PUT /users/:id/org_swap
-  # -----------------------------------------------------
-  def org_swap
-    # Allows the user to swap their org affiliation on the fly
-    authorize current_user
-    begin
-      org = Org.find(org_swap_params[:org_id])
-    rescue ActiveRecord::RecordNotFound
-      redirect_to(request.referer, alert: _('Please select an organisation from the list')) and return
-    end
-    if org.present?
-      current_user.org = org
-      if current_user.save!
-        redirect_to request.referer, notice: _('Your organisation affiliation has been changed. You may now edit templates for %{org_name}.') % {org_name: current_user.org.name}
-      else
-        redirect_to request.referer, alert: _('Unable to change your organisation affiliation at this time.')
-      end
-    else
-      redirect_to request.referer, alert: _('Unknown organisation.')
-    end
+    redirect_to "#{edit_user_registration_path}\#notification-preferences",
+                notice: success_message(pref, _("saved"))
   end
 
   # PUT /users/:id/activate
@@ -140,12 +133,18 @@ class UsersController < ApplicationController
         user.save!
         render json: {
           code: 1,
-          msg: _('Successfully %{action} %{username}\'s account.') % { action: user.active ? _('activated') : _('deactivated'), username: user.name(false) }
+          msg: _("Successfully %{action} %{username}'s account.") % {
+            action: user.active ? _("activated") : _("deactivated"),
+            username: user.name(false)
+          }
         }
       rescue Exception
         render json: {
           code: 0,
-          msg: _('Unable to %{action} %{username}') % { action: user.active ? _('activate') : _('deactivate'), username: user.name(false) }
+          msg: _("Unable to %{action} %{username}") % {
+            action: user.active ? _("activate") : _("deactivate"),
+            username: user.name(false)
+          }
         }
       end
     end
@@ -160,15 +159,12 @@ class UsersController < ApplicationController
   end
 
   private
-  def org_swap_params
-    params.require(:user).permit(:org_id, :org_name)
-  end
 
   ##
   # html forms return our boolean values as strings, this converts them to true/false
   def booleanize_hash(node)
-    #leaf: convert to boolean and return
-    #hash: iterate over leaves
+    # leaf: convert to boolean and return
+    # hash: iterate over leaves
     unless node.is_a?(Hash)
       return node == "true"
     end

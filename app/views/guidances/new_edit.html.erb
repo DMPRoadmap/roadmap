@@ -1,3 +1,13 @@
+<%
+if @guidance.id.present?
+  url = admin_update_guidance_path(@guidance)
+  method = "PUT"
+else
+  url = admin_create_guidance_path
+  method = "POST"
+end
+%>
+
 <% title _('Guidance') %>
 <%# locals: { guidance, themes, guidance_groups, options } %>
 <div class="row">
@@ -8,21 +18,29 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    <%= form_for(guidance, url: options[:url], html: { method: options[:method] , id: 'new_edit_guidance'}) do |f| %>
+    <%= form_for(@guidance, url: url, html: { method: method , id: 'new_edit_guidance'}) do |f| %>
       <div class="form-group" data-toggle="tooltip" title="<%= _('Enter your guidance here. You can include links where needed.') %>">
         <%= f.label :text, class: 'control-label' %>
-        <%= text_area_tag("guidance-text", guidance.text, class: "form-control", 'aria-required': true, rows: 10) %>
+        <%= text_area_tag("guidance-text", @guidance.text, class: "form-control", 'aria-required': true, rows: 10) %>
       </div>
       <%= render partial: 'org_admin/shared/theme_selector',
-                 locals: { f: f, all_themes: themes, as_radio: false, required: true,
+                 locals: { f: f, all_themes: Theme.all.order("title"), as_radio: false, required: true,
+                           in_error: @guidance.errors[:themes].present?,
                            popover_message: _('Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags.') } %>
       <div class="form-group">
         <%= f.label _('Guidance group'), for: :guidance_group_id, class: 'control-label' %>
-        <%= f.collection_select(:guidance_group_id, guidance_groups,
+        <%= f.collection_select(:guidance_group_id,
+                GuidanceGroup.where(org_id: current_user.org_id).order("name ASC"),
                 :id, :name, {prompt: false}, {multiple: false, 'data-toggle': 'tooltip', title: _('Select which group this guidance relates to.'), class: 'form-control', 'aria-required': true})%>
       </div>
       <div class="checkbox">
-        <%= f.label :published, raw("#{f.check_box :published, as: :check_boxes, 'data-toggle': 'tooltip', title: _("Check this box when you are ready for this guidance to appear on user's plans.")} #{_('Published?')}") %>
+        <%= f.label :published do %>
+          <%= f.check_box :published,
+                          as: :check_boxes,
+                          data: { toggle: 'tooltip' },
+                          title: _("Check this box when you are ready for this guidance to appear on user's plans.") %>
+          <%= _('Published?') %>
+        <% end %>
       </div>
       <div class="form-group clear-fix">
         <%= f.submit _('Save'), name: "edit_guidance_submit", class: "btn btn-primary" %>

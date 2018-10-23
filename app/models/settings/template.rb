@@ -1,7 +1,18 @@
+# == Schema Information
+#
+# Table name: settings
+#
+#  id          :integer          not null, primary key
+#  target_type :string           not null
+#  value       :text
+#  var         :string           not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  target_id   :integer          not null
+#
+
 module Settings
   class Template < RailsSettings::SettingObject
-
-  #attr_accessible :var, :target, :target_id, :target_type
 
     VALID_FONT_FACES = [
       '"Times New Roman", Times, Serif',
@@ -13,7 +24,9 @@ module Settings
 
     VALID_ADMIN_FIELDS = ['project_name', 'project_identifier', 'grant_title', 'principal_investigator',
                           'project_data_contact', 'project_description', 'funder', 'institution', 'orcid']
-
+    
+    VALID_FORMATS = ['csv', 'html', 'pdf', 'text', 'docx']
+    
     DEFAULT_SETTINGS = {
       formatting: {
         margin: {

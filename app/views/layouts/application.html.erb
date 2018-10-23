@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %> 
+    <!-- Version: <%= version %> -->
+    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %>
     </title>
     <%= favicon_link_tag "favicon.ico" %>
     <!--[ if lte IE 9]>
@@ -42,7 +43,7 @@
   </head>
   <body>
       <div class="skip">
-        <a href="#maincontent"> _('Skip to main content') </a> 
+        <a href="#maincontent"> _('Skip to main content') </a>
       </div>
       <!-- header rendering -->
       <header>
@@ -57,12 +58,13 @@
       <!-- main page content rendering -->
       <main class="container" id="maincontent">
         <div id="notification-area"
-             class="alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
+             class="notification-area alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
                     <%= (has_alert or has_notice) ? 'show' : 'hide' %>"
              role="<%= (has_notice ? 'status' : (has_alert ? 'alert' : '')) %>">
           <i class="fa <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
           <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
-          <span><%= raw (has_alert ? alert : notice) %></span>
+          <span><%= sanitize (has_alert ? alert : notice) %></span>
+          <%= yield :errors %>
         </div>
         <%= render "layouts/notifications", notifications: Notification.active_per_user(current_user) %>
         <%= yield %>
@@ -75,22 +77,13 @@
 
     <%
     constants_json = {
+      HOST: (Rails.env.development? || Rails.env.test? ? 'localhost' : Socket.gethostname),
       PASSWORD_MIN_LENGTH: 8,
       PASSWORD_MAX_LENGTH: 128,
       MAX_NUMBER_ORG_URLS: 3,
       MAX_NUMBER_GUIDANCE_SELECTIONS: 6,
 
-      VALIDATION_MESSAGE_DEFAULT: _('Please enter a valid value.'),
-      VALIDATION_MESSAGE_EMAIL: _('You must enter a valid email address.'),
-      VALIDATION_MESSAGE_URL: _('You must enter a valid URL (e.g. https://organisation.org).'),
-      VALIDATION_MESSAGE_NUMBER: _('Please enter a valid number.'),
-      VALIDATION_MESSAGE_PASSWORD: _('The password must be between 8 and 128 characters.'),
-      VALIDATION_MESSAGE_PASSWORDS_MATCH: _('The passwords must match.'),
-      VALIDATION_MESSAGE_RADIO: _('Please choose one of the options.'),
-      VALIDATION_MESSAGE_CHECKBOX: _('Please check the box to continue.'),
-      VALIDATION_MESSAGE_MULTI_CHECKBOX: _('Please select at least one of the options to continue.'),
-      VALIDATION_MESSAGE_SELECT: _('Please select a value from the list.'),
-      VALIDATION_MESSAGE_TEXT: _('This field is required.'),
+      REQUIRED_FIELD_TEXT: _('This field is required.'),
 
       SHOW_PASSWORD_MESSAGE: _('Show password'),
       SHOW_SELECT_ORG_MESSAGE: _('Select an organisation from the list.'),

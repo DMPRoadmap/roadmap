@@ -1,13 +1,21 @@
-<%# locals: { plan, phase, readonly, question_guidance } %>
 <% title "#{plan.title} - Write plan" %>
 <div class="row">
   <div class="col-md-12">
-    <h1><%= plan.title %></h1> 
+    <h1><%= plan.title %></h1>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-12">
-    <%= render partial: 'phases/edit_plan_answers', layout: 'plans/navigation', locals: local_assigns %>
+    <%= render partial: 'phases/edit_plan_answers',
+               layout: 'plans/navigation',
+               locals: {
+                 plan: plan,
+                 phase: phase,
+                 answers: answers,
+                 readonly: readonly,
+                 base_template_org: base_template_org,
+                 guidance_presenter: guidance_presenter,
+               } %>
   </div>
 </div>

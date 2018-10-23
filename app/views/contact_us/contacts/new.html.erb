@@ -3,7 +3,7 @@
   <div class="col-md-12">
     <h1><%= _("Contact Us") %></h1>
     <p>
-      <%= raw _('%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href="%{organisation_url}" target="_blank">website</a>. If you would like to contact us about %{application_name}, please fill out the form below.') % {organisation_name: Rails.configuration.branding[:organisation][:name],
+      <%= sanitize _('%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href="%{organisation_url}" target="_blank">website <em class="sr-only">(new window)</em></a>. If you would like to contact us about %{application_name}, please fill out the form below.') % {organisation_name: Rails.configuration.branding[:organisation][:name],
         organisation_url: Rails.configuration.branding[:organisation][:url],
         application_name: Rails.configuration.branding[:application][:name]} %>
     </p>

@@ -4,5 +4,5 @@
   <dt><%= _('Order of display') %></dt>
   <dd><%= phase.number %></dd>
   <dt><%= _('Description') %></dt>
-  <dd><%= raw phase.description %></dd>
+  <dd><%= sanitize phase.description %></dd>
 </dl>

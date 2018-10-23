@@ -1,26 +1,101 @@
+# frozen_string_literal: true
+
+# == Schema Information
+#
+# Table name: sections
+#
+#  id             :integer          not null, primary key
+#  description    :text
+#  modifiable     :boolean
+#  number         :integer
+#  title          :string
+#  created_at     :datetime
+#  updated_at     :datetime
+#  phase_id       :integer
+#  versionable_id :string(36)
+#
+# Indexes
+#
+#  index_sections_on_phase_id        (phase_id)
+#  index_sections_on_versionable_id  (versionable_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (phase_id => phases.id)
+#
+
 class Section < ActiveRecord::Base
-  ##
-  # Associations
+
+  include ValidationMessages
+  include ValidationValues
+  include ActsAsSortable
+  include VersionableModel
+
+
+  # ================
+  # = Associations =
+  # ================
+
   belongs_to :phase
   belongs_to :organisation
-  has_many :questions, :dependent => :destroy
+  has_many :questions, dependent: :destroy
   has_one :template, through: :phase
 
-  #Link the data
-  accepts_nested_attributes_for :questions, :reject_if => lambda {|a| a[:text].blank? },  :allow_destroy => true
+  # ===============
+  # = Validations =
+  # ===============
 
-  attr_accessible :phase_id, :description, :number, :title, :published,
-                  :questions_attributes, :organisation, :phase, :modifiable,
-                  :as => [:default, :admin]
+  validates :phase, presence: { message: PRESENCE_MESSAGE }
 
-  validates :phase, :title, :number, presence: {message: _("can't be blank")}
+  validates :title, presence: { message: PRESENCE_MESSAGE }
 
-  before_validation :set_defaults
+  # validates :description, presence: { message: PRESENCE_MESSAGE }
 
-  ##
-  # return the title of the section
+  validates :number, presence: { message: PRESENCE_MESSAGE },
+                     uniqueness: { scope: :phase_id,
+                                   message: UNIQUENESS_MESSAGE }
+
+  validates :modifiable, inclusion: { in: BOOLEAN_VALUES,
+                                      message: INCLUSION_MESSAGE }
+
+  # =============
+  # = Callbacks =
+  # =============
+
+  # TODO: Move this down to DB constraints
+  before_validation :set_modifiable
+
+  before_validation :set_number, if: :phase_id_changed?
+
+  # =====================
+  # = Nested Attributes =
+  # =====================
+
+  accepts_nested_attributes_for :questions,
+    reject_if: -> (a) { a[:text].blank? },
+    allow_destroy: true
+
+  # ==========
+  # = Scopes =
+  # ==========
+
+  # The sections for this Phase that have been added by the admin
   #
-  # @return [String] the title of the section
+  # Returns ActiveRecord::Relation
+  scope :modifiable, -> { where(modifiable: true) }
+
+  # The sections for this Phase that were part of the original Template
+  #
+  # Returns ActiveRecord::Relation
+  scope :not_modifiable, -> { where(modifiable: false) }
+
+  # ===========================
+  # = Public instance methods =
+  # ===========================
+
+  # The title of the Section
+  #
+  # Returns String
   def to_s
     "#{title}"
   end
@@ -28,13 +103,10 @@ class Section < ActiveRecord::Base
   # Returns the number of answered questions for a given plan
   def num_answered_questions(plan)
     return 0 if plan.nil?
-    questions_hash = questions.reduce({}){ |m, q| m[q.id] = q; m }
-    return plan.answers.includes({ question: :question_format }, :question_options).reduce(0) do |m, a|
-      if questions_hash[a.question_id].present? && a.is_valid?
-        m+= 1
-      end
-      m
-    end
+    plan.answers.includes({ question: :question_format }, :question_options)
+                .where(question_id: question_ids)
+                .to_a
+                .count(&:is_valid?)
   end
 
   def deep_copy(**options)
@@ -42,13 +114,29 @@ class Section < ActiveRecord::Base
     copy.modifiable = options.fetch(:modifiable, self.modifiable)
     copy.phase_id = options.fetch(:phase_id, nil)
     copy.save!(validate: false)  if options.fetch(:save, false)
-    options[:section_id] = id
-    self.questions.map{ |question| copy.questions << question.deep_copy(options) }
-    return copy
+    options[:section_id] = copy.id
+    self.questions.map { |question| copy.questions << question.deep_copy(options) }
+    copy
+  end
+
+  # Can't be modified as it was duplicatd over from another Phase.
+  def unmodifiable?
+    !modifiable?
   end
 
   private
-    def set_defaults
-      self.modifiable = true if modifiable.nil?
-    end
+
+  # ============================
+  # = Private instance methods =
+  # ============================
+
+  def set_modifiable
+    self.modifiable = true if modifiable.nil?
+  end
+
+  def set_number
+    return if phase.nil?
+    self.number = phase.sections.where.not(id: id).maximum(:number).to_i + 1
+  end
+
 end

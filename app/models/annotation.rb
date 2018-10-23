@@ -1,37 +1,86 @@
+# == Schema Information
+#
+# Table name: annotations
+#
+#  id             :integer          not null, primary key
+#  text           :text
+#  type           :integer          default(0), not null
+#  created_at     :datetime
+#  updated_at     :datetime
+#  org_id         :integer
+#  question_id    :integer
+#  versionable_id :string(36)
+#
+# Indexes
+#
+#  index_annotations_on_question_id     (question_id)
+#  index_annotations_on_versionable_id  (versionable_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (org_id => orgs.id)
+#  fk_rails_...  (question_id => questions.id)
+#
+
 class Annotation < ActiveRecord::Base
-  enum type: [ :example_answer, :guidance]
+  include ValidationMessages
+  include VersionableModel
+
   ##
-  # Associations
+  # I liked type as the name for the enum so overriding inheritance column
+  self.inheritance_column = nil
+
+  enum type: [ :example_answer, :guidance]
+
+  # ================
+  # = Associations =
+  # ================
+
   belongs_to :org
   belongs_to :question
   has_one :section, through: :question
   has_one :phase, through: :question
   has_one :template, through: :question
 
-  ##
-  # I liked type as the name for the enum so overriding inheritance column
-  self.inheritance_column = nil
+  # ===============
+  # = Validations =
+  # ===============
 
-  validates :question, :org,  presence: {message: _("can't be blank")}
+  validates :text, presence: { message: PRESENCE_MESSAGE }
 
-  ##
-  # returns the text from the annotation
+  validates :org, presence: { message: PRESENCE_MESSAGE }
+
+  validates :question, presence: { message: PRESENCE_MESSAGE }
+
+  validates :type, presence: { message: PRESENCE_MESSAGE },
+                   uniqueness: { message: UNIQUENESS_MESSAGE,
+                                 scope: [:question_id, :org_id] }
+
+
+  # =================
+  # = Class Methods =
+  # =================
+
+  # Deep copy the given annotation and all it's associations
   #
-  # @return [String] the text from the annotation
-  def to_s
-    "#{text}"
-  end
-
-
-  ##
-  # deep copy the given annotation and all it's associations
+  # annotation - To be deep copied
   #
-  # @params [Annotation] annotation to be deep copied
-  # @return [Annotation] the saved, copied annotation
+  # Returns Annotation
   def self.deep_copy(annotation)
     annotation_copy = annotation.dup
     annotation_copy.save!
     return annotation_copy
+  end
+
+  # ===========================
+  # = Public instance methods =
+  # ===========================
+
+  # The text from the annotation
+  #
+  # Returns String
+  def to_s
+    "#{text}"
   end
 
   def deep_copy(**options)
