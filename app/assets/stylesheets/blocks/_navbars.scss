@@ -172,7 +172,7 @@ $navbar-branding-toggle-border-color: #333 !default;
   }
 
   .btn-link {
-    color: $navbar-link-color;
+    color: $navbar-branding-link-color;
     &:hover,
     &:focus {
       color: $navbar-branding-link-hover-color;
@@ -181,7 +181,7 @@ $navbar-branding-toggle-border-color: #333 !default;
     fieldset[disabled] & {
       &:hover,
       &:focus {
-        color: $navbar-link-disabled-color;
+        color: $navbar-branding-link-disabled-color;
       }
     }
   }
