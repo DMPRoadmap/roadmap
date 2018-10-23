@@ -31,3 +31,22 @@ $tooltip-background: $color-text-grey;
 
 $dropdown-inverse-bg: #222222;
 $dropdown-inverse-border: #080808;
+
+// Navbar branding colours
+
+$navbar-branding-color: #777777 !default;
+$navbar-branding-bg: #222 !default;
+$navbar-branding-border: darken($navbar-branding-bg, 10%) !default;
+$navbar-branding-link-color: lighten(#777777, 15%) !default;
+$navbar-branding-link-hover-color: #fff !default;
+$navbar-branding-link-hover-bg: transparent !default;
+$navbar-branding-link-active-color: $navbar-branding-link-hover-color !default;
+$navbar-branding-link-active-bg: darken($navbar-branding-bg, 10%) !default;
+$navbar-branding-link-disabled-color: #444 !default;
+$navbar-branding-link-disabled-bg: transparent !default;
+$navbar-branding-brand-color: $navbar-branding-link-color !default;
+$navbar-branding-brand-hover-color: #FFFFFF !default;
+$navbar-branding-brand-hover-bg: transparent !default;
+$navbar-branding-toggle-hover-bg: #333 !default;
+$navbar-branding-toggle-icon-bar-bg: #fff !default;
+$navbar-branding-toggle-border-color: #333 !default;
