@@ -1,9 +1,8 @@
 // Import locally defined variables. Load this before 'bootstrap'
-@import "bootstrap";
 @import "variables/*";
+@import "bootstrap";
+@import "blocks/*";
 @import "utils/*";
+
 @import "font-awesome-sprockets";
 @import "font-awesome";
-@import "variables/*";
-@import "utils/*";
-@import "blocks/*";
