@@ -151,6 +151,9 @@ group :development, :test do
 
   # Guard gem for RSpec (https://github.com/guard/guard-rspec)
   gem "guard-rspec"
+
+  gem "dotenv-rails"
+
 end
 
 group :test do
@@ -234,7 +237,5 @@ group :development do
 
   # TomDoc for YARD (http://rubyworks.github.com/yard-tomdoc)
   gem "yard-tomdoc"
-
-  gem "dotenv-rails"
 
 end
