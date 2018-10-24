@@ -122,6 +122,8 @@ gem 'gettext', require: false, group: :development
 # A pagination engine plugin for Rails 4+ and other modern frameworks (https://github.com/kaminari/kaminari)
 gem 'kaminari'
 
+gem 'activerecord-session_store'
+
 # ------------------------------------------------
 # ENVIRONMENT SPECIFIC DEPENDENCIES
 group :development, :test do
