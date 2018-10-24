@@ -12,11 +12,15 @@ Rollbar.configure do |config|
   # By default, Rollbar will try to call the `current_user` controller method
   # to fetch the logged-in user object, and then call that object's `id`
   # method to fetch this property. To customize:
-  # config.person_method = "my_current_user"
-  # config.person_id_method = "my_id"
+  config.person_method = "current_user"
+  config.person_id_method = "id"
+  
+  # Read GDPR guidelines here: https://docs.rollbar.com/docs/ruby#section-gdpr-hipaa
+  config.collect_user_ip = true
+  config.anonymize_user_ip = true
 
   # Additionally, you may specify the following:
-  config.person_username_method = "name"
+  # config.person_username_method = "name"
   # config.person_email_method = "email"
 
   # If you want to attach custom data to all exception and message reports,
