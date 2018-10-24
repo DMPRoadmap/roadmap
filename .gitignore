@@ -103,3 +103,4 @@ lib/data_cleanup/rules/org/fix_blank_abbreviation.yml
 node_modules
 .env
 public/packs
+spec/examples.txt

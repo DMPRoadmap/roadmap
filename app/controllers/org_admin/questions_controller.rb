@@ -32,7 +32,8 @@ module OrgAdmin
       render partial: "edit", locals: {
         template: question.section.phase.template,
         section: question.section,
-        question: question
+        question: question,
+        question_formats: allowed_question_formats
       }
     end
 

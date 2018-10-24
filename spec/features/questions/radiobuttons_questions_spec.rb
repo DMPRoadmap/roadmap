@@ -28,7 +28,7 @@ RSpec.describe "Questions::Tadio button questions" do
     expect(page).to have_text("0/1 answered")
 
     # Action
-    find("#section-panel-1").click
+    find("#section-panel-#{@section.id}").click
     # Fill in the answer form...
     within("#answer-form-#{@question.id}") do
       choose @question.question_options.first.text
