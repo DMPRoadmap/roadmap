@@ -301,7 +301,7 @@ ActiveRecord::Schema.define(version: 20181024120747) do
   add_index "sections", ["versionable_id"], name: "index_sections_on_versionable_id", using: :btree
 
   create_table "sessions", force: :cascade do |t|
-    t.string   "session_id", null: false
+    t.string   "session_id", limit: 255, null: false
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"

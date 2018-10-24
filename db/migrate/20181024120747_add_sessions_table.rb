@@ -1,7 +1,7 @@
 class AddSessionsTable < ActiveRecord::Migration
   def change
     create_table :sessions do |t|
-      t.string :session_id, :null => false
+      t.string :session_id, null: false, limit: 255
       t.text :data
       t.timestamps
     end
