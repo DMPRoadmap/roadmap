@@ -66,6 +66,12 @@ body {
           }
         }
 
+        ul[aria-labelledby="language-menu-button"] {
+          li.active > a, li.active > a:hover, li.active > a:focus, li.active > a:visited, li.active > a:active {
+            color: $white !important;
+          }
+        }
+
         .learn-menu {
           div.menu-col {
             padding: 5px 15px;
