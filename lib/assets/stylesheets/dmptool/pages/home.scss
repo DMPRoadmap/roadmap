@@ -20,11 +20,14 @@
 
   > div {
     width: 100%;
+    margin: 0 auto;
+    padding: 0 5px;
     background: $translucent-blue;
 
     .welcome-message {
       padding: 5px;
       margin: 0 auto;
+      width: 97%;
       max-width: $max-width-breakpoint;
 
       display: flex;
