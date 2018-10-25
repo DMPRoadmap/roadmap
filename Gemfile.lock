@@ -300,6 +300,8 @@ GEM
       json
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
+    rollbar (2.18.0)
+      multi_json
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
       rspec-expectations (~> 3.7.0)
@@ -453,6 +455,7 @@ DEPENDENCIES
   railties
   recaptcha
   responders (~> 2.0)
+  rollbar
   rspec-collection_matchers
   rspec-rails
   rubocop-dmp_roadmap (>= 1.1.0)
