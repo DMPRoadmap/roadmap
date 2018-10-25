@@ -17,6 +17,10 @@ gem 'railties'
 # A set of Rails responders to dry up your application (http://github.com/plataformatec/responders)
 gem 'responders', '~> 2.0'
 
+group :rollbar, optional: true do
+  gem 'rollbar'
+end
+
 # ------------------------------------------------
 #    DATABASE/SERVER
 
