@@ -75,7 +75,6 @@ group :test do
   gem 'minitest-reporters'
   gem 'rack-test'
   gem 'webmock'
-  gem 'sqlite3'
 end
 
 group :development do

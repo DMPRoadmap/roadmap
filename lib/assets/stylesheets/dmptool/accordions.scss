@@ -1,0 +1,25 @@
+/* ACCORDIONS */
+/* --------------------------------------- */
+.heading-button {
+  position: relative;
+  background-color: $dark-blue;
+  color: $white;
+
+  .panel-heading {
+    background-color: $dark-blue;
+    padding-left: 10px;
+  }
+  .panel-title {
+    margin-top: -1px;
+
+    .fa {
+      color: $white;
+      font-size: 1.5rem;
+      padding-right: 5px;
+    }
+  }
+}
+
+.panel-default > .panel-heading, .panel-title a {
+  background-color: $dark-blue;
+}

@@ -1,0 +1,169 @@
+<!-- Mobile friendly version of the header -->
+
+<nav class="navbar navbar-fixed-top">
+  <div class="container-fluid" >
+    <!-- Mobile ready hamburger menu -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse"
+              data-target="#fixed-nav" aria-expanded="false" aria-controls="fixed-nav">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <% if user_signed_in? && current_user.org.present? && current_user.org.logo.present? %>
+        <%= link_to(current_user.org.name, root_path, class: "org-logo") %>
+      <% else %>
+        <%= link_to(image_tag("DMPTool_logo_blue_shades_v1b3b.svg",
+                              alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
+                              class: "app-logo",
+                              title: "#{Rails.configuration.branding[:application][:name]} logo"),
+                    root_path) %>
+      <% end %>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="collapse navbar-collapse" id="fixed-nav">
+      <!-- Learn/explore menu -->
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                 id="learn-menu-button" aria-haspopup="true" aria-expanded="false">
+            <%= _('Learn') %>
+            <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
+          </a>
+
+          <ul class="dropdown-menu" aria-labelledby="learn-menu-button">
+            <li>
+              <div class="learn-menu">
+                <div>
+                  <ul>
+                    <li><%= link_to _('Funder Requirements'), public_templates_path %></li>
+                    <li><%= link_to _('Public Plans'), public_plans_path %></li>
+                    <li><%= link_to _('Participating Institutions'), public_orgs_path %></li>
+                    <li><%= link_to _('FAQ'), faq_path %></li>
+                  </ul>
+                </div>
+                <div>
+                  <ul>
+                    <li><%= _('For Researchers') %>
+                      <ul>
+                        <li><%= link_to _('Quick Start Guide'), help_path %></li>
+                        <li><%= link_to _('Data Management General Guidance'), general_guidance_path %></li>
+                      </ul>
+                    </li>
+                    <li>
+                      <% lbl = _('For Administrators') %>
+                      <%= link_to sanitize("#{lbl} <em class=\"fa fa-external-link\">&nbsp;</em>"),
+                                 'https://github.com/CDLUC3/dmptool/wiki/Help-for-Administrators' %>
+                      <ul>
+                        <li><%= link_to _('Promote the DMPTool'), promote_path %></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <% if user_signed_in? %>
+        <%= render partial: 'layouts/dmptool/app_menu_links' %>
+      <% end %>
+
+      <% if user_signed_in? && current_user.org.present? && !current_user.org.is_other? %>
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+               id="org-menu-button" aria-haspopup="true" aria-expanded="false">
+              <%= current_user.org.abbreviation %> links
+              <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="org-menu-button">
+              <%= render partial: 'layouts/dmptool/org_links' %>
+            </ul>
+          </li>
+        </ul>
+      <% end %>
+
+      <!-- Sign in/out menu -->
+      <% unless isActivePage(user_shibboleth_omniauth_callback_path) || isActivePage(user_orcid_omniauth_callback_path) %>
+        <!-- Show this menu ONLY if the user is NOT registering their account after an omniauth login -->
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+
+            <% if user_signed_in? %>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                 id="profile-menu-button" aria-haspopup="true" aria-expanded="false">
+                <%= current_user.name(false) %>
+                <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="profile-menu-button">
+                <li><%= link_to _('Edit profile'), edit_user_registration_path %></li>
+                <li><%= link_to _('Sign out'), destroy_user_session_path, method: :delete %></li>
+              </ul>
+
+            <% else %>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                 id="signin-menu-button" aria-haspopup="true" aria-expanded="false">
+                <%= _('Sign in') %>
+                <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="signin-menu-button">
+                <% if Rails.application.config.shibboleth_enabled %>
+                  <!-- Shibboleth DS enabled -->
+                  <li>
+                    <% if request.fullpath != "/users/sign_up?nosplash=true" &&
+                          session[:shibboleth_data].nil? %>
+                      <% if Rails.application.config.shibboleth_use_filtered_discovery_service %>
+                        <%= link_to _('Sign in through an affiliated institution'), '#',
+                            'data-toggle': 'modal',
+                            'data-target': '#shib-ds-form' %>
+                      <% else %>
+                        <%= link_to _('Sign in through an affiliated institution'),
+                            user_shibboleth_omniauth_authorize_path %>
+                      <% end %>
+                    <% else %>
+                      <%= f.hidden_field :shibboleth_id, :value => session[:shibboleth_data][:uid] %>
+                    <% end %>
+                  <% end %>
+                </li>
+
+                <li><%= link_to _('Sign in with your email address'), '#', id: 'show-sign-in-form',
+                        'data-toggle': 'modal', 'data-target': '#sign-in-create-account' %></li>
+
+                <li><%= link_to _('Create account with email address'), '#', id: 'show-create-account-form',
+                        'data-toggle': 'modal', 'data-target': '#sign-in-create-account' %></li>
+              </ul>
+            <% end %>
+
+          </li>
+        </ul>
+      <% end %>
+
+      <!-- Language menu -->
+      <% if MANY_LANGUAGES %>
+        <% lang = LANGUAGES.select{ |l| FastGettext.locale == l.abbreviation }.first %>
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+               id="language-menu-button" aria-haspopup="true" aria-expanded="false">
+              <%= _("Language") %>
+              <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="language-menu-button">
+              <% LANGUAGES.each do |l| %>
+                <li<%= l.abbreviation == FastGettext.locale ? " class=active" : "" %>>
+                  <%= link_to l.name, locale_path(l.abbreviation), method: :patch %>
+                </li>
+              <% end %>
+            </ul>
+          </li>
+        </ul>
+      <% end %>
+
+    </div>
+  </div>
+</nav>

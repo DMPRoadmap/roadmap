@@ -1,0 +1,37 @@
+/* COLORS */
+/* --------------------------------------- */
+$dark-blue: #0E5682;
+$light-blue: #D8E3EE;
+$light-grey: #F0F0F0;
+$red: #B30000;
+$green: #008000;
+$translucent-blue: rgba(14,86,130,.9);
+
+/* Screen dimension breakpoints (based on screen width) */
+$mobile-layout-breakpoint: 766px;
+$hide-org-logo-breakpoint: 1024px;
+$max-width-breakpoint: 1280px;
+
+blockquote {
+  font-size: 1.3rem;
+}
+
+@import '/accordions.scss';
+@import '/alerts.scss';
+@import '/anchors.scss';
+@import '/buttons.scss';
+@import '/forms.scss';
+@import '/headers.scss';
+@import '/lists.scss';
+@import '/modals.scss';
+@import '/tables.scss';
+@import '/tabs.scss';
+
+@import '/pages/home.scss';
+@import '/pages/edit_org.scss';
+@import '/pages/edit_profile.scss';
+@import '/pages/write_plan.scss';
+@import '/pages/write_guidance.scss';
+
+@import '/layout.scss';
+@import '/mobile.scss';
