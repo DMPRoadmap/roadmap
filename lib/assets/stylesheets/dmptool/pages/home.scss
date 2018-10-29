@@ -20,11 +20,14 @@
 
   > div {
     width: 100%;
+    margin: 0 auto;
+    padding: 0 5px;
     background: $translucent-blue;
 
     .welcome-message {
       padding: 5px;
       margin: 0 auto;
+      width: 97%;
       max-width: $max-width-breakpoint;
 
       display: flex;
@@ -106,8 +109,20 @@
     }
   }
 
-  .top-5 .bottom {
-    position: relative;
+  .top-5 {
+    .bottom {
+      position: relative;
+
+      ol {
+        list-style: none;
+        padding-right: 40px;
+        margin-top: 15px;
+      }
+    }
+
+    .more {
+      right: 0;
+    }
   }
   .top-5 > .bottom > ol {
     list-style-position: inside;
@@ -122,10 +137,6 @@
     a {
       font-size: 1.2rem;
     }
-  }
-
-  .top-5 .more {
-    right: 0;
   }
 
   .communications {

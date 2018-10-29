@@ -13,6 +13,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
+  ##
   # Processes callbacks from an omniauth provider and directs the user to
   # the appropriate page:
   #   Not logged in and uid had no match ---> Sign Up page
@@ -52,9 +53,23 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         #session["devise.#{scheme.name.downcase}_data"] = request.env["omniauth.auth"]
         #redirect_to new_user_registration_url
 
+      # Otherwise sign them in
+      #else
+        # Until ORCID becomes supported as a login method
+        #if scheme.name == 'shibboleth'
+          #set_flash_message(:notice, :success, kind: scheme.description) if is_navigational_format?
+          #sign_in_and_redirect user, event: :authentication
+        #else
+          #flash[:notice] = _('Successfully signed in')
+          #redirect_to new_user_registration_url
+        #end
+      #end
+
       # If the uid didn't have a match in the system then attempt to find them by email
       if user.nil?
-        user = User.where_case_insensitive('email', omniauth_info.email).first unless omniauth_info.email.nil?
+        email = extract_omniauth_email(omniauth_info)
+        user = User.where_case_insensitive('email', email).first unless email.blank?
+
         # If we could not find the email
         if user.nil?
           # Extract as much info as we can from the omniauth response
@@ -160,4 +175,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     redirect_to root_path
   end
 
+  def extract_omniauth_email(hash)
+    hash.fetch(:email, '').split(';')[0]
+  end
 end
