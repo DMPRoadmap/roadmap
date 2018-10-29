@@ -1,5 +1,5 @@
 <!-- Learn/explore menu -->
-<ul class="nav navbar-nav">
+<ul class="nav navbar-nav navbar-right">
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
            id="learn-menu-button" aria-haspopup="true" aria-expanded="false">
@@ -10,31 +10,24 @@
     <ul class="dropdown-menu" aria-labelledby="learn-menu-button">
       <li>
         <div class="learn-menu">
-          <div>
-            <ul>
-              <li><%= link_to _('Funder Requirements'), public_templates_path %></li>
-              <li><%= link_to _('Public Plans'), public_plans_path %></li>
-              <li><%= link_to _('Participating Institutions'), public_orgs_path %></li>
-              <li><%= link_to _('FAQ'), faq_path %></li>
-            </ul>
+          <div class="menu-col">
+            <div><%= link_to _('Funder Requirements'), public_templates_path %></div>
+            <div><%= link_to _('Public Plans'), public_plans_path %></div>
+            <div><%= link_to _('Participating Institutions'), public_orgs_path %></div>
+            <div><%= link_to _('FAQ'), faq_path %></div>
           </div>
-          <div>
-            <ul>
-              <li><%= _('For Researchers') %>
-                <ul>
-                  <li><%= link_to _('Quick Start Guide'), help_path %></li>
-                  <li><%= link_to _('Data Management General Guidance'), general_guidance_path %></li>
-                </ul>
-              </li>
-              <li>
-                <% lbl = _('For Administrators') %>
-                <%= link_to sanitize("#{lbl} <em class=\"fa fa-external-link\">&nbsp;</em>"),
-                           'https://github.com/CDLUC3/dmptool/wiki/Help-for-Administrators' %>
-                <ul>
-                  <li><%= link_to _('Promote the DMPTool'), promote_path %></li>
-                </ul>
-              </li>
-            </ul>
+          <div class="menu-col">
+            <div>
+              <%= _('For Researchers') %>
+              <div><%= link_to _('Quick Start Guide'), help_path %></div>
+              <div><%= link_to _('Data Management General Guidance'), general_guidance_path %></div>
+            </div>
+            <div>
+              <% lbl = _('For Administrators <em class="sr-only">(new window)</em>') %>
+              <%= link_to sanitize("#{lbl} <em class=\"fa fa-external-link\">&nbsp;</em>"),
+                         'https://github.com/CDLUC3/dmptool/wiki/Help-for-Administrators' %>
+              <div><%= link_to _('Promote the DMPTool'), promote_path %></div>
+            </div>
           </div>
         </div>
       </li>
