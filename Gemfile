@@ -22,6 +22,10 @@ gem 'railties'
 # A set of Rails responders to dry up your application (http://github.com/plataformatec/responders)
 gem 'responders', '~> 2.0'
 
+group :rollbar, optional: true do
+  gem 'rollbar'
+end
+
 # ------------------------------------------------
 #    DATABASE/SERVER
 
@@ -161,6 +165,9 @@ gem "rails_12factor", group: [:production]
 
 # Autoload dotenv in Rails. (https://github.com/bkeepers/dotenv)
 gem "dotenv-rails"
+
+gem 'activerecord-session_store'
+
 
 # ------------------------------------------------
 # ENVIRONMENT SPECIFIC DEPENDENCIES
