@@ -1,7 +1,6 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
-#require 'devise'
 require 'recaptcha/rails'
 require 'csv'
 
@@ -16,6 +15,13 @@ require 'csv'
 #Bundler.require(:default, Rails.env)
 #Changed when migrated to rails 4.0.0
 Bundler.require(*Rails.groups)
+
+begin
+  # If Rollbar has been included in the Bundle, load it here.
+  require "rollbar"
+rescue LoadError => e
+  # noop
+end
 
 module DMPRoadmap
   class Application < Rails::Application
