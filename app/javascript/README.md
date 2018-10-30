@@ -17,7 +17,7 @@ npm run bundle
 and for production, please type:
 
 ```
-npm run bundle -- -p
+npm run bundle -- -p --no-watch
 ```
 
 Note, the above commands have to run within lib/assets directory.
