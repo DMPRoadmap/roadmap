@@ -1,0 +1,60 @@
+// This file contains overrides to the core Bootstrap 3.x styling
+.table { border: 1px solid $color-border-default; }
+.table thead > tr > th { border-bottom: none; }
+.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td { border: 1px solid $color-border-default; }
+
+thead th {
+  background-color: $color-border-default;
+  color: $color-white;
+}
+
+thead th.table-scope {
+  background-color: $color-white;
+  font-weight: normal;
+
+  a {
+    color: $color-text-grey;
+    padding: 2px ($grid-gutter-width / 2) 2px 2px;
+  }
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: $color-background-muted;
+}
+
+th.date-column {
+  min-width: 120px;
+}
+
+/* Fix issues with dropdwon within tables being cut off */
+.table-responsive > .table {
+  width: 100%;
+  margin-bottom: $grid-gutter-width / 2;
+  overflow: auto;
+}
+
+@media (max-width: 768px) {
+  .table-responsive .dropdown-menu,
+  .table-responsive .dropdown-toggle {
+    position: static !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .table-responsive {
+    overflow: visible;
+  }
+}
+
+.notifications {
+  table {
+    border: none;
+
+    thead > tr > th {
+      border: none;
+      background-color: $color-background-white;
+      color: $color-text-black;
+    }
+    tbody > tr > td { border: none; }
+  }
+}
