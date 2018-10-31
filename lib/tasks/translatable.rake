@@ -95,6 +95,28 @@ namespace :translatable do
     end
   end
 
+  # DMPTool customization to remove duplicated strings
+  desc 'Finalize the DMPTool branded pot and po files'
+  task :finalize, [:domain] => [:environment] do |t, args|
+    domain = args.fetch(:domain, 'dmptool')
+    file_name = "config/locale/#{domain}.pot"
+
+    app_header, app_hash = po_to_hash(File.read('config/locale/app.pot'))
+    domain_header, domain_hash = po_to_hash(File.read(file_name))
+
+    domain_hash = domain_hash.select{ |k, v| p k; !app_hash.keys.include?(k) }
+
+p domain_header
+p '------------------------------'
+p '------------------------------'
+p '------------------------------'
+p domain_hash.keys
+
+    File.open(file_name, 'w') do |file|
+      file.write "#{update_revision_date(domain_header)}\n#{hash_to_po(domain_hash)}"
+    end
+  end
+
   MSGID = /msgid[\s]+\"(.*)\"/
   MSGSTR = /msgstr[\s]+\"(.*)\"/
   TRANSLATABLE = /(_\((.|\n)*?[\'\"]\)[\]\)\s\}\,\n\%]+)/
@@ -106,7 +128,11 @@ namespace :translatable do
   # Open the PO/POT file and update its translatation entries
   def process_po_file(file_name, translatable_text)
     puts "Backing up original #{file_name} --> #{file_name}.bak"
-    cp(file_name, "#{file_name}.bak")
+    if File.exists?(file_name)
+      cp(file_name, "#{file_name}.bak")
+    else
+      touch(file_name)
+    end
 
     puts "Reading #{file_name} ..."
     file = File.read(file_name)
@@ -139,6 +165,8 @@ namespace :translatable do
           end
         end
       end
+    else
+      chunks = ['']
     end
     # Return the header portion of the original file and the resulting msgid/msgstr hash
     return chunks[0], hash
@@ -207,7 +235,7 @@ namespace :translatable do
   # TODO: exclude app/views/branded
   def files_to_translate(domain)
     if domain == 'app'
-      Dir.glob("{app,lib,config,locale}/**/*.{rb,erb,md,haml,slim,rhtml}")
+      Dir.glob("{app,lib,config,locale}/**/*.{rb,erb,md,haml,slim,rhtml}").select{ |d| !d.include?('/views/branded') }
     else
       Dir.glob("{app/views/branded}/**/*.{rb,erb,md,haml,slim,rhtml}")
     end

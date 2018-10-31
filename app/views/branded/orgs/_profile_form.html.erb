@@ -70,7 +70,11 @@
         <% shibboleth = org.org_identifiers.select{ |ids| ids.identifier_scheme == IdentifierScheme.find_by(name: 'shibboleth')} %>
         <% shib_id = (shibboleth.first.present? ? shibboleth.first.identifier : '') %>
 
-        <% shib_domain = shibboleth.first.present? ? (shibboleth.first.attrs.present? ? JSON.parse(shibboleth.first.attrs)['domain'] : '') : '' %>
+        <% begin %>
+          <% shib_domain = shibboleth.first.present? ? (shibboleth.first.attrs.present? ? JSON.parse(shibboleth.first.attrs)['domain'] : '') : '' %>
+        <% rescue Exception # catch JSON parse exceptions %>
+          <% shib_domain = '' %>
+        <% end %>
 
         <div class="row">
           <div class="form-group col-xs-8">

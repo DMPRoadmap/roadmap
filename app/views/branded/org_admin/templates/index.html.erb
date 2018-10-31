@@ -26,6 +26,8 @@
     </div>
   <% end %>
 
+  <a href="<%= new_org_admin_template_path %>" class="btn btn-primary pull-right" role="button"><%= _('Create a template') %></a>
+
   <div class="col-md-12">
     <p>
       <%= _('If you wish to add an organisational template for a Data Management Plan, use the \'create template\' button. You can create more than one template if desired e.g. one for researchers and one for PhD students. Your template will be presented to users within your organisation when no funder templates apply. If you want to add questions to funder templates use the \'customise template\' options below.') %>
@@ -111,10 +113,5 @@
         </div>
       </div>
     </div>
-
-    <a href="<%= new_org_admin_template_path %>" class="btn btn-primary" role="button">
-      <%= _('Create a template') %>
-    </a>
-
   </div>
 </div>

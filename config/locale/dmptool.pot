@@ -1,0 +1,1545 @@
+config/locale/dmptool.pot
+
+#, fuzzy
+msgid " Warning: Changing your organisation will result in the loss of your administrative privileges."
+msgstr ""
+
+#, fuzzy
+msgid "(Linux, Mac, Windows; free)"
+msgstr ""
+
+#, fuzzy
+msgid "(Mac; free trial)"
+msgstr ""
+
+#, fuzzy
+msgid "(Windows; free)"
+msgstr ""
+
+#, fuzzy
+msgid "(new window)"
+msgstr ""
+
+#, fuzzy
+msgid "- or -"
+msgstr ""
+
+#, fuzzy
+msgid "- or - "
+msgstr ""
+
+#, fuzzy
+msgid "<a href=\"%{ark_url}\">ARK (Archival Resource Key)</a> – a URL with extra features allowing you to ask for descriptive and archival metadata and to recognize certain kinds of relationships between identifiers. ARKs are used by memory organizations such as libraries, archives, and museums. They are resolved at \"%{nt2_url}\". Resolution depends on HTTP redirection and can be managed through an API or a user interface."
+msgstr ""
+
+#, fuzzy
+msgid "<a href=\"%{doi_url}\">DOI (Digital Object Identifier)</a> – an identifier that becomes actionable when embedded in a URL. DOIs are very popular in academic journal publishing. They are resolved at \"%{doi_resolver_url}\". Resolution depends on HTTP redirection and the Handle identifier protocol, and can be managed through an API or a user interface."
+msgstr ""
+
+#, fuzzy
+msgid "<a href=\"%{handle_url}\">Handle</a> – an identifier that becomes actionable when embedded in a URL. Handles are resolved at \"%{handle_url}\". Resolution depends on HTTP redirection and the Handle protocol, and can be managed through an API or a user interface."
+msgstr ""
+
+#, fuzzy
+msgid "<a href=\"%{inchi_url}\">InChI (IUPAC International Chemical Identifier)</a> – a non-actionable identifier for chemical substances that can be used in printed and electronic data sources, thus enabling easier linking of diverse data compilations."
+msgstr ""
+
+#, fuzzy
+msgid "<a href=\"%{lsid_url}\">LSID (Life Sciences Identifier)</a> – a kind of URN that identifies a biologically significant resources, including species names, concepts, occurrences, and genes or proteins, or data objects that encode information about them. Like other URNs, it becomes actionable when embedded in a URL."
+msgstr ""
+
+#, fuzzy
+msgid "<a href=\"%{ncbi_url}\">NCBI (National Center for Biotechnology Information) ACCESSION</a></li>"
+msgstr ""
+
+#, fuzzy
+msgid "<a href=\"%{purl_url}\">PURL (Persistent Uniform Resource Locator)</a> – a URL that is always redirected through a hostname (often purl.org). Resolution depends on HTTP redirection and can be managed through an API or a user interface."
+msgstr ""
+
+#, fuzzy
+msgid "<em class=\"red\">*</em> I accept the <a href=\"%{term_and_conditions_url}\" target=\"_blank\">terms and conditions <em class=\"sr-only\">(new window)</em></a>"
+msgstr ""
+
+#, fuzzy
+msgid "<ol type=\"1\"><li>Enter a title for your research project. If applying for funding, use the project title as it appears in the proposal.</li><li>Select the primary research organization. If you are associated with a participating institution/organization, this field will be pre-populated. You have the option to clear the field and select another organization from the list. Based on your selection, you will be presented with institution-specific templates and guidance. You can also check the box that “No organization is associated with this plan.”</li><li>Select the primary funding organization. If you are required to include a data management plan as part of a grant proposal, select your funder from the list. You may be presented with a secondary dropdown menu if your funder has different requirements for specific programs (e.g., NSF, DOE). See the complete list of <a href=\"%{public_templates_url}\">funder requirements</a> supported by DMPTool. If your funder is not in the list or you are not applying for a grant, check the box for “No funder associated with this plan;” this selection will provide you with a generic template.</li></ol>"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Access information</strong>: Where and how your data can be accessed by other researchers"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Checksum</strong>: A digest value computed for each file that can be used to detect changes; if a recomputed digest differs from the stored digest, the file must have changed"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Code list</strong>: Explanation of codes or abbreviations used in either the file names or the variables in the data files (e.g. \"999 indicates a missing value in the data\")"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Comply with UC regulations.</strong> Researchers concerned about confidentiality issues with their data should consult the <a href=\"%{uc_policy_url}\">UC policy for Protection of Human Subjects in Research</a>."
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Comply with regulations for health research</strong> set forth in the <a href=\"%{hippa_url}\">Health Insurance Portability and Accountability Act (HIPPA)</a>."
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Creator</strong>: Names and addresses of the organizations or people who created the data; preferred format for personal names is surname first (e.g., Smith, Jane)"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Data can be licensed.</strong> Some data providers apply licenses that limit how the data can be used to protect the privacy of study participants or to guide downstream uses of the data (e.g., requiring attribution or forbidding for-profit use)."
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Dataset documentation</strong><ul><li>Variable names and descriptions</li><li>Explanation of codes and classification schemes used</li><li>Algorithms used to transform data (may include computer code)</li><li>File format and software (including version) used</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Date</strong>: Key dates associated with the data, including: project start and end date; release date; time period covered by the data; and other dates associated with the data lifespan, such as maintenance cycle, update schedule; preferred format is yyyy-mm-dd, or yyyy.mm.dd-yyyy.mm.dd for a range"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Derived / Compiled</strong><ul><li>Generated from existing datasets</li><li>Reproducible, but can be very expensive and time-consuming</li><li>Examples: text and data mining, compiled database, 3D models</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Don't Forget the Documentation</strong>: Document your research and data so others can interpret the data. Begin to document your data at the very beginning of your research project and continue throughout the project. See data documentation and metadata for details."
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Evaluate the anonymity of your data.</strong> Consider to what extent your data contains direct or indirect identifiers that could be combined with other public information to identify research participants."
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Experimental</strong><ul><li>Typically generated in the lab or under controlled conditions</li><li>Often reproducible, but can be expensive or time-consuming</li><li>Examples: gene sequences, chromatograms, magnetic field readings</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>File Formats for Long Term Access</strong>: The file format in which you keep your data is a primary factor in one's ability to use your data in the future. Plan for both hardware and software obsolescence. See file formats and organization for details on long-term storage formats."
+msgstr ""
+
+#, fuzzy
+msgid "<strong>File formats</strong>: Formats of the data, e.g., FITS, SPSS, HTML, JPEG, etc."
+msgstr ""
+
+#, fuzzy
+msgid "<strong>File inventory</strong>: All files associated with the project, including extensions (e.g. \"NWPalaceTR.WRL\", \"stone.mov\")"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>File structure</strong>: Organization of the data file(s) and layout of the variables, where applicable"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Funder</strong>: Organizations or agencies who funded the research"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Identifier</strong>: Unique number used to identify the data, even if it is just an internal project reference number"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Language</strong>: All languages used in the dataset"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Method</strong>: How the data were generated, listing equipment and software used (including model and version numbers), formulae, algorithms, experimental protocols, and other things one might include in a lab notebook"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Much data is not copyrightable in the United States</strong> because facts are not copyrightable. However, a presentation of data (such as a chart or table) may be."
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Necessary software</strong>: Names of any special-purpose software packages required to create, view, analyze, or otherwise use the data"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Observational</strong><ul><li>Captured in real-time, typically outside the lab</li><li>Usually irreplaceable and therefore the most important to safeguard</li><li>Examples: Sensor readings, telemetry, survey results, images</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Obtain a confidentiality review.</strong> A benefit of depositing your data with <a href=\"%{icpsr_url}\">ICPSR</a> is that their staff offers a Disclosure review service to check your data for confidential information."
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Ownership and Privacy</strong>: Make sure that you have considered the implications of sharing data in terms of copyright, IP ownership, and subject confidentiality. See copyright and confidentiality for details."
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Place</strong>: All applicable physical locations"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Processing</strong>: How the data have been altered or processed (e.g., normalized)"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Research Project Documentation</strong><ul><li>Rationale and context for data collection</li><li>Data collection methods</li><li>Structure and organization of data files</li><li>Data sources used (see citing data)</li><li>Data validation and quality assurance</li><li>Transformations of data from the sanitize data through analysis</li><li>Information on confidentiality, access and use conditions</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Rights</strong>: Any known intellectual property rights, statutory rights, licenses, or restrictions on use of the data"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Simulation</strong><ul><li>Machine generated from test models</li><li>Likely to be reproducible if the model and inputs are preserved</li><li>Examples: climate models, economic models</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Source</strong>: Citations to data derived from other sources, including details of where the source data is held and how it was accessed"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Subject</strong>: Keywords or phrases describing the subject or content of the data"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Title</strong>: Name of the dataset or research project that produced it"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>URL (Uniform Resource Locator)</strong> – the typical \"address\" of web content. It is a kind of URI (Uniform Resource Identifier) that begins with \"http://\" and consists of a string of characters used to identify or name a resource on the Internet. Such identification enables interaction with representations of the resource over a network, typically the World Wide Web, using the HTTP protocol. Well-managed URL redirection can make URLs as persistent as any identifier. Resolution depends on HTTP redirection and can be managed through an API or a user interface."
+msgstr ""
+
+#, fuzzy
+msgid "<strong>URN (Uniform Resource Name)</strong> – an identifier that becomes actionable when embedded in a URL. Resolution depends on HTTP redirection and the DDDS protocol, and can be managed through an API or a user interface. A browser plug-in can save you from typing a hostname in front of it."
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Variable list</strong>: All variables in the data files, where applicable"
+msgstr ""
+
+#, fuzzy
+msgid "<strong>Version</strong>: Unique date/time stamp and identifier for each version"
+msgstr ""
+
+#, fuzzy
+msgid "<ul><li>DMPTool Logo (blue), with tagline - <a href=\"%{logo_tagline_eps_url}\">EPS</a>, <a href=\"%{logo_tagline_svg_url}\">SVG</a>, <a href=\"%{logo_tagline_png_url}\">PNG</a></li><li>DMPTool Logo (blue), no tagline - <a href=\"%{logo_eps_url}\">EPS</a>, <a href=\"%{logo_svg_url}\">SVG</a>, <a href=\"%{logo_png_url}\">PNG</a></li><li>DMPTool Logo (green v2), with tagline - <a href=\"%{vintage_logo_tagline_png_url}\">PNG</a></li><li>DMPTool Logo (green v2), no tagline - <a href=\"%{vintage_logo_png_url}\">PNG</a></li><li>Original DMPTool Logo - <a href=\"%{original_logo_png_url}\">PNG</a></li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "<ul><li>Email to individual requesters</li><li>Post online via a project or personal website</li><li>Submit as supplemental material to be hosted on a journal publisher's website</li><li>Deposit in an open repository or archive</li><li>Deposit in an open repository and publish a \"data paper\" describing the data</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "<ul><li>Kumar, Sujai (2012): 20 Nematode Proteomes. figshare. https://doi.org/10.6084/m9.figshare.96035.v2 (Accessed 2016-09-06).</li><li>Morran LT, Parrish II RC, Gelarden IA, Lively CM (2012) Data from: Temporal dynamics of outcrossing and host mortality rates in host-pathogen experimental coevolution. Dryad Digital Repository. https://doi.org/10.5061/dryad.c3gh6</li><li>Donna Strahan. &quot;08-B-1 from Jordan/Petra Great Temple/Upper Temenos/Trench 94/Locus 41&quot;. (2009) In Petra Great Temple Excavations. Martha Sharp Joukowsky (Ed.) Releases: 2009-10-26. Open Context. https://opencontext.org/subjects/30C3F340-5D14-497A-B9D0-7A0DA2C019F1 ARK (Archive): http://n2t.net/ark:/28722/k2125xk7p</li><li>OECD (2008), Social Expenditures aggregates, OECD Social Expenditure Statistics (database). https://doi.org/10.1787/000530172303 (Accessed on 2008-12-02).</li><li>Denhard, Michael (2009): dphase_mpeps: MicroPEPS LAF-Ensemble run by DWD for the MAP D-PHASE project. World Data Center for Climate. https://doi.org/10.1594/WDCC/dphase_mpeps</li><li>Manoug, J L (1882): Useful data on the rise of the Nile. Alexandria : Printing-Office V Penasson. http://n2t.net/ark:/13960/t44q88124</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "<ul><li>Required by publishers (e.g., Cell, Nature, Science)</li><li>Required by government funding agencies (e.g., NIH, NSF)</li><li>Allows data to be used to answer new questions</li><li>Makes research more open</li><li>Makes your papers more useful and citable by other researchers</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "A data management plan is a formal document that outlines what you will do with your data during and after a research project. Most researchers collect data with some form of plan in mind, but it's often inadequately documented and incompletely thought out. Many data management issues can be handled easily or avoided entirely by planning ahead. With the right process and framework it doesn't take too long and can pay off enormously in the long run."
+msgstr ""
+
+#, fuzzy
+msgid "A dataset should be cited formally in an article's reference list, not just informally in the text. Many data repositories and publishers provide explicit instructions for citing their contents. If no citation information is provided, you can still construct a citation following generally agreed-upon guidelines from sources such as the <a href=\"%{force11_citation_url}\">Force 11 Joint Declaration of Data Citation Principles</a> and the current <a href=\"%{datacite_standards_url}\">DataCite Metadata Schema</a>."
+msgstr ""
+
+#, fuzzy
+msgid "A login is required to access the DMPTool. If you are a researcher from a <a href=\"%{participating_url}\">participating institutions</a>, you can log in as a user from your institution. If your institution does not participate, you can create your own account."
+msgstr ""
+
+#, fuzzy
+msgid "A searchable and browsable list of repositories can be found at these websites:<ul><li><a href=\"%{re3data_url}\">re3data.org</a>: a REgistry of REsearch data REpositories</li><li><a href=\"%{open_access_url}\">Data Repositories</a> in the Open Access Directory: a list of repositories hosted by Simmons College</li><li><a href=\"%{fairshare_url}\">FAIRSharing</a>: a directory of life sciences databases and reporting standards, now expanded to include all disciplines</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "A:  The <a href=\"%{admin_help_url}\">help menu for administrators</a> contains detailed instructions for creating themed guidance. The basic steps include:<ol><li>Creating a guidance group (you will already have a default guidance group for your organization; it is optional to create additional groups or subgroups, for example, for a specific department)</li><li>Creating guidance by entering text, assigning one or more themes, and attaching it to a guidance group</li><li>Publishing the guidance</li></ol>"
+msgstr ""
+
+#, fuzzy
+msgid "A: A data management plan is a formal document that outlines what you will do with your data during and after a research project. Most researchers collect data with some form of plan in mind, but it's often inadequately documented and incompletely thought out. Many data management issues can be handled easily or avoided entirely by planning ahead. With the right process and framework it doesn't take too long and can pay off enormously in the long run."
+msgstr ""
+
+#, fuzzy
+msgid "A: Anyone can create data management plans. If you are a researcher from one of the <a href=\"%{participating_url}\">participating institutions</a>, you can log in as a user from your institution and you will be presented with local guidance to help you complete your plan."
+msgstr ""
+
+#, fuzzy
+msgid "A: DMPTool administrators can delete templates. This option is only available if no plans have been created using that template. If you cannot or do not want to delete a template, you can \"Unpublish\" the template so that it will not appear to users. See our <a href=\"%{admin_help_url}\">help documentation</a> on how to do this."
+msgstr ""
+
+#, fuzzy
+msgid "A: Data management plans are the intellectual property of their creators. The California Digital Library makes no claim of copyright or ownership to the data management plans created using the DMPTool. You can, however, choose to share your plan publicly and it will appear in our library of <a href=\"%{public_plans_url}\">public plans</a> on the DMPTool website. This will benefit other DMPTool users and promote open research."
+msgstr ""
+
+#, fuzzy
+msgid "A: First you must create an account in the DMPTool and begin creating a plan. Then you can add your collaborator(s) to your plan as co-owner(s), or grant editor or read only permissions. You can do this on the “Share” tab for your plan. Enter an email address in the field to \"Invite collaborators,” select the desired level of permissions, and click \"Submit\" to send an email invitation."
+msgstr ""
+
+#, fuzzy
+msgid "A: First, check this <a href=\"%{participating_url}\">participating institutions</a> to make sure your institution is not already participating. Learn more about becoming a <a href=\"%{about_url}\">participating institution</a>."
+msgstr ""
+
+#, fuzzy
+msgid "A: Follow these steps to remove your test plan:<ol><li>Log into the DMPTool.</li><li>On \"My Dashboard\" tick the box in the \"Test\" column next to the title of the appropriate plan. This action will remove the plan from the public list if the visibility was set to public (it will become test/private).</li><li>To delete the plan: select \"Remove\" from the Actions menu next to the title of the appropriate plan. You will be asked to confirm this action.</li></ol>"
+msgstr ""
+
+#, fuzzy
+msgid "A: If your institution <a href=\"%{participating_url}\">participates in the DMPTool</a>, you can log into the tool and click on the “Contact” link in the top banner. Your email will be sent directly to an expert on your campus who can follow up with you. If your institution does not participate in the DMPTool, check with a librarian to see if someone on campus can help."
+msgstr ""
+
+#, fuzzy
+msgid "A: No funders have endorsed the use of the DMPTool, although some provide links to the tool or resources within the tool in their public access plans (e.g., NEH, DOT)."
+msgstr ""
+
+#, fuzzy
+msgid "A: Participating institutions can incorporate information about their resources and services to aid researchers with data management. Participating institutions can also provide customized help and suggest answers to the questions asked by funding agencies. Users from particpating institutions that have configured the tool with Shibboleth can log in with their own institutional accounts."
+msgstr ""
+
+#, fuzzy
+msgid "A: Since the DMPTool account is tied to an email address, the information will not automatically follow a user if they change institutions. However, we can connect users to their plans from previous institutions if they contact us. Users who change institutions and assume new institutional credentials must create a new DMPTool account."
+msgstr ""
+
+#, fuzzy
+msgid "A: The <a href=\"%{public_templates_url}\">Funder Requirements page</a> provides direct links to funder guidelines, as well as sample plans if provided. You do not have to be logged into the DMPTool to access this page."
+msgstr ""
+
+#, fuzzy
+msgid "A: The DMPTool helps researchers create data management plans (DMPs). It provides guidance from specific funders who require DMPs, but the tool can be used by anyone interested in developing generic DMPs to help facilitate their research. The tool also offers resources and services available at <a href=\"%{participating_url}\">participating institutions</a> to help fulfill data management requirements."
+msgstr ""
+
+#, fuzzy
+msgid "A: The DMPTool hosts a collection of <a href=\"%{public_plans_url}\">public plans</a>. The collection contains actual plans created by DMPTool users who have opted to share their plans publicly. Please note that these plans have not been vetted for quality. Some funders provide sample plans on their websites; links to these plans are available on the <a href=\"%{public_templates_url}\">Funder Requirements page</a>."
+msgstr ""
+
+#, fuzzy
+msgid "A: The DMPTool is FREE. Anyone can create data management plans using the DMPTool."
+msgstr ""
+
+#, fuzzy
+msgid "A: The request feedback functionality of the DMPTool is an optional feature that institutions may configure to help researchers create data management plans. Submitting a plan for feedback is within-institution only. If this feature is enabled, a button to \"Request feedback\" will be displayed on the \"Share\" tab when writing a plan. If a user clicks the \"Request feedback\" button, the DMPTool will send an email to the plan owner and the institutional administrator contact. The institutional administrator will be granted read only permissions and be able to provide comments on the plan within the tool."
+msgstr ""
+
+#, fuzzy
+msgid "A: The sample plans on the <a href=\"%{public_templates_url}\">Funder Requirements page</a> are created by funders and offered as guidance on their websites. The <a href=\"%{public_plans_url}\">Public Plans</a> are actual plans created by users of the DMPTool (please note that these have not been vetted for quality). Both provide helpful examples for researchers creating their own data management plans."
+msgstr ""
+
+#, fuzzy
+msgid "A: There are multiple actions that generate automatic email notifications from the DMPTool. Users can turn these notifications on/off on the profile page. Navigate to \"Edit profile\" by clicking your name in the upper right dropdown menu, then select the \"Notification preferences\" tab, check/uncheck the appropriate boxes, and click the button to save your changes."
+msgstr ""
+
+#, fuzzy
+msgid "A: There are three visibility options for each plan you create:<ol><li>Private. Your plan will only be visible to you and any specified plan collaborators. Basic plan details (from the project details page, but not the plan content) will be available to administrators at your institution.</li><li>Organization. If your institution/organization participates in the DMPTool, this setting allows administrators and users from your institution to see your plan.</li><li>Public. Your plan will be available on the <a href=\"%{public_plans_url}\">Public Plans</a> page of the DMPTool website. Choose this option to allow others to see your plan without restrictions (under a CC-Zero license).</li></ol>"
+msgstr ""
+
+#, fuzzy
+msgid "A: There is an extensive list of <a href=\"%{admin_help_url}\">help topics for administrators</a> customizing the DMPTool located on GitHub. You will find detailed instructions for:<ol><li>Setting up the DMPTool<ul><li>Enabling Shibboleth</li><li>Granting administrator privileges</li><li>Customizing your organizational profile</li><li>Providing feedback on plans</li><li>Usage information</li></ul></li><li>Quick overview of terms</li><li>Creating guidance</li><li>Customizing funder templates</li><li>Creating templates</li></ol>"
+msgstr ""
+
+#, fuzzy
+msgid "A: We do not plan to delete any plans created with the DMPTool. As a plan owner, however, you can delete plans by going to “My Dashboard” and selecting “Remove” from the Actions menu next to the plan name."
+msgstr ""
+
+#, fuzzy
+msgid "A: Yes! To view guidance created by others, create a new plan in the tool. On the \"Project details\" tab you will see \"Plan guidance configuration\" on the right. Click to \"See the full list\" and you can select up to 6 different organizations at a time. You will see the selected guidance when you navigate to the \"Write plan\" tab."
+msgstr ""
+
+#, fuzzy
+msgid "About the DMPTool"
+msgstr ""
+
+#, fuzzy
+msgid "Access"
+msgstr ""
+
+#, fuzzy
+msgid "Admin Features"
+msgstr ""
+
+#, fuzzy
+msgid "Administrators: if you are interested in enabling this functionality for users at your institution, see the \"Request feedback\" section of the <a href=\"%{admin_help_url}\">help for administrators</a> wiki."
+msgstr ""
+
+#, fuzzy
+msgid "Advertise the DMPTool to students and researchers at your institution.<ul><li><a href=\"%{advertise_pdf1_url}\">Postcard 1: Adobe PDF</a></li><li><a href=\"%{advertise_pdf2_url}\">Postcard 2: Adobe PDF</a></li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "After logging in, you will find an email address and URL for help at the top of the page."
+msgstr ""
+
+#, fuzzy
+msgid "Although data comes from many different sources, they can be grouped into four main categories. The category(ies) your data comes from will affect the choices that you make throughout your data management plan."
+msgstr ""
+
+#, fuzzy
+msgid "Although the core elements are sufficient in the simplest case – citation to the entirety of a static dataset – additional elements may be needed if you wish to cite a dynamic dataset or a subset of a larger dataset.<ul><li><strong>Version</strong> of the dataset analyzed in the citing paper</li><li><strong>Access date</strong> when the data was accessed for analysis in the citing paper</li><li><strong>Subset</strong> of the dataset analyzed (e.g., a range of dates or record numbers, a list of variables)</li><li><strong>Verifier</strong> that the dataset or subset accessed by a reader is identical to the one analyzed by the author (e.g., a Checksum)</li><li><strong>Location</strong> of the dataset on the internet, needed if the identifier is not \"actionable\" (convertable to a web address)</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "Are there examples of data management plans?"
+msgstr ""
+
+#, fuzzy
+msgid "As noted in the CDL privacy policy, this website uses Google Analytics to capture and analyze usage statistics. You may choose to opt-out of having your website activity tracked by Google Analytics. To do so, visit the <a href=\"%{opt_out_url}\">Google Analytics opt-out page</a> and install the add-on for your browser."
+msgstr ""
+
+#, fuzzy
+msgid "Audio: AIFF, WAVE"
+msgstr ""
+
+#, fuzzy
+msgid "Backup Your Data"
+msgstr ""
+
+#, fuzzy
+msgid "Backups and storage"
+msgstr ""
+
+#, fuzzy
+msgid "Basic Directory and File Naming Conventions"
+msgstr ""
+
+#, fuzzy
+msgid "Begin to document your data at the very beginning of your research project and continue throughout the project. Doing so will make the process much easier. If you have to construct the documentation at the end of the project, the process will be painful and important details will have been lost or forgotten. Don't wait to document your data!"
+msgstr ""
+
+#, fuzzy
+msgid "Below are some general aspects of your data that you should document, regardless of your discipline. At minimum, store this documentation in a \"readme.txt\" file, or the equivalent, with the data itself."
+msgstr ""
+
+#, fuzzy
+msgid "Beyond any externally imposed requirments, think about the long-term usefulness of the data. If the data is from an experiment that you anticipate will be repeatable more quickly, inexpensively, and accurately as technology progresses, you may want to store it for a relatively brief period. If the data consists of observations made outside the laborartory that can never be repeated, you may wish to store it indefinitely."
+msgstr ""
+
+#, fuzzy
+msgid "By default all new and test plans will be set to Private visibility. Public and Organizational visibility are intended for finished plans. You must answer at least 50% of the questions to enable these options."
+msgstr ""
+
+#, fuzzy
+msgid "Can I see customized templates and guidance created by administrators at other organizations?"
+msgstr ""
+
+#, fuzzy
+msgid "Can't find the answer you’re looking for? <a href=\"%{contact_url}\">Contact us</a>"
+msgstr ""
+
+#, fuzzy
+msgid "Can't find what you’re looking for? <a href=\"%{contact_us_url}\" >Contact us</a>"
+msgstr ""
+
+#, fuzzy
+msgid "Certain features on this website utilize third party services and APIs such as InCommon/Shibboleth or third party hosting of common JavaScript libraries or web fonts. Information used by an external service is governed by the privacy policy of that service. CDL does not control how information may be used by these services."
+msgstr ""
+
+#, fuzzy
+msgid "Citation Elements"
+msgstr ""
+
+#, fuzzy
+msgid "Citing Data"
+msgstr ""
+
+#, fuzzy
+msgid "Citing data is important in order to:<ul><li>Give the data producer appropriate credit</li><li>Allow easier access to the data for repurposing or reuse</li><li>Enable readers to verify your results</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "Clear and detailed documentation is essential for data to be understood, interpreted, and used. Data documentation describes the content, formats, and internal relationships of your data in detail and will enable other researchers to find, use, and properly cite your data."
+msgstr ""
+
+#, fuzzy
+msgid "Click on Sign in at the top-right of the home page. You can also click the white “Get started” button."
+msgstr ""
+
+#, fuzzy
+msgid "Common additional elements"
+msgstr ""
+
+#, fuzzy
+msgid "Confidentiality and Ethical Concerns"
+msgstr ""
+
+#, fuzzy
+msgid "Considerations when preparing to share data"
+msgstr ""
+
+#, fuzzy
+msgid "Containers: TAR, GZIP, ZIP"
+msgstr ""
+
+#, fuzzy
+msgid "Content Description"
+msgstr ""
+
+#, fuzzy
+msgid "Contents"
+msgstr ""
+
+#, fuzzy
+msgid "Copyright 2010-%{current_year} The Regents of the University of California"
+msgstr ""
+
+#, fuzzy
+msgid "Copyright and Privacy"
+msgstr ""
+
+#, fuzzy
+msgid "Core elements"
+msgstr ""
+
+#, fuzzy
+msgid "Create account with email address"
+msgstr ""
+
+#, fuzzy
+msgid "Create an account"
+msgstr ""
+
+#, fuzzy
+msgid "Create data management plans that meet institutional and funder requirements."
+msgstr ""
+
+#, fuzzy
+msgid "Create your account"
+msgstr ""
+
+#, fuzzy
+msgid "Creator names in non-Roman scripts should be transliterated using the <a href=\"%{romanization_url}\">ALA-LC Romanization Tables</a>."
+msgstr ""
+
+#, fuzzy
+msgid "DMPTool"
+msgstr ""
+
+#, fuzzy
+msgid "DMPTool ('the tool', 'the system"
+msgstr ""
+
+#, fuzzy
+msgid "DMPTool Background"
+msgstr ""
+
+#, fuzzy
+msgid "DMPTool News"
+msgstr ""
+
+#, fuzzy
+msgid "DMPTool Principles"
+msgstr ""
+
+#, fuzzy
+msgid "DMPTool by the Numbers"
+msgstr ""
+
+#, fuzzy
+msgid "DMPTool is a service of the %{uc3} of the %{cdl}"
+msgstr ""
+
+#, fuzzy
+msgid "DMPTool is free for anyone to create data management plans. As a user, you can:<ul><li>Create your own plans.</li><li>Co-author a plan with collaborators.</li><li> If you are a researcher from one of the <a href=\"%{participating_url}\">participating institutions</a>, you can log in using your institutional credentials. You may then be presented with institution-specific guidance and have the option to get feedback from local data experts.</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "DMPTool logo"
+msgstr ""
+
+#, fuzzy
+msgid "DMPTool participants are institutions, profit and nonprofit organizations, individuals, or other groups that leverage the DMPTool as an effective and efficient way to create data management plans. Our community of participating organizations helps to sustain and support the DMPTool in the following ways:<ul><li>Establish institutional authentication with the DMPTool (Shibboleth)</li><li>Customize the tool with resources, help text, suggested answers, or other information</li><li>Contribute to the maintenance and enhancement of the DMPTool codebase</li><li>Help ensure that the DMPTool maintains its relevance and utility by notifying the DMPTool Helpdesk if:<ul><li>Funders release new requirements that are not reflected in the tool</li><li>Errors, mistakes, or misinformation are discovered in the tool</li><li>The tool's functionality is compromised (i.e., slow response times, poor performance, or software bugs)</li></ul></li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "Data Management General Guidance"
+msgstr ""
+
+#, fuzzy
+msgid "Data Security"
+msgstr ""
+
+#, fuzzy
+msgid "Data can also be fixed or changing over the course of the project (and perhaps beyond the project's end). Do the data ever change? Do they grow? Is previously recorded data subject to correction? Will you need to keep track of data versions? With respect to time, the common categories of dataset are:<ul><li><strong>Fixed datasets</strong>: never change after being collected or generated</li><li><strong>Growing datasets</strong>: new data may be added, but the old data is never changed or deleted</li><li><strong>Revisable datasets</strong>: new data may be added, and old data may be changed or deleted</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "Data can come in many forms, including:<ul><li><strong>Text</strong>: field or laboratory notes, survey responses</li><li><strong>Numeric</strong>: tables, counts, measurements</li><li><strong>Audiovisual</strong>: images, sound recordings, video</li><li><strong>Models, computer code</strong></li><li><strong>Discipline-specific</strong>: FITS in astronomy, CIF in chemistry</li><li><strong>Instrument-specific</strong>: equipment outputs</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "Data documentation is commonly called metadata – \"data about data\". Researchers can document their data according to various metadata standards. Some metadata standards are designed for the purpose of documenting the contents of files, others for documenting the technical characteristics of files, and yet others for expressing relationships between files within a set of data. If you want to be able to share or publish your data, the <a href=\"%{datacite_standards_url}\">DataCite metadata standard</a> is of particular signficiance."
+msgstr ""
+
+#, fuzzy
+msgid "Data management general guidance"
+msgstr ""
+
+#, fuzzy
+msgid "Data security is the protection of data from unauthorized access, use, change, disclosure, and destruction. Make sure your data is safe in regards to:<ul><li>Network security<ul><li>Keep confidential data off the Internet</li><li>In extreme cases, put sensitive materials on computers not connected to the internet</li></ul></li><li>Physical security<ul><li>Restrict access to buildings and rooms where computers or media are kept</li><li>Only let trusted individuals troubleshoot computer problems</li></ul></li><li>Computer systems and files<ul><li>Keep virus protection up to date</li><li>Don't send confidential data via e-mail or FTP (or, if you must, use encryption)</li><li>Set passwords on files and computers</li><li>React with skepticism to phone calls and emails that claim to be from your institution's IT department</li></ul></li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "Data that is legally encumbered may also be considered lost. So may data bound by ambiguous or unknown access and archiving rights, because the cost of clarifying the rights situation is often prohibitive. See data rights and licensing for guidance."
+msgstr ""
+
+#, fuzzy
+msgid "Databases: prefer XML or CSV to native binary formats"
+msgstr ""
+
+#, fuzzy
+msgid "Despite the lack of formal endorsements, the DMPTool templates incorporate specific data management planning requirements from a range of funders including foundations and government agencies. We are in close contact with some funders as we create templates and for all funders we monitor public notices and websites for changes."
+msgstr ""
+
+#, fuzzy
+msgid "Encrypted data may be effectively lost if it was encrypted with a key that has been lost (e.g., a forgotten password). For this reason, encrypted data representations are strongly discouraged."
+msgstr ""
+
+#, fuzzy
+msgid "Encryption and Compression"
+msgstr ""
+
+#, fuzzy
+msgid "Example citations"
+msgstr ""
+
+#, fuzzy
+msgid "Examples of preferred format choices:"
+msgstr ""
+
+#, fuzzy
+msgid "FAQ"
+msgstr ""
+
+#, fuzzy
+msgid "File Formats"
+msgstr ""
+
+#, fuzzy
+msgid "File Renaming"
+msgstr ""
+
+#, fuzzy
+msgid "Finding a data repository"
+msgstr ""
+
+#, fuzzy
+msgid "For Administrators"
+msgstr ""
+
+#, fuzzy
+msgid "For Administrators <em class=\"sr-only\">(new window)</em>"
+msgstr ""
+
+#, fuzzy
+msgid "For Researchers"
+msgstr ""
+
+#, fuzzy
+msgid "For a general discussion about publishing your data, applicable to many disciplines, see the <a href=\"%{icpsr_url}\">ICPSR Guide to Social Science Data Preparation and Archiving</a>."
+msgstr ""
+
+#, fuzzy
+msgid "For instance, image data typically requires a lot of storage space, so you'll want to decide whether to retain all your images (and, if not, how you will decide which to discard) and where such large data can be housed. Be sure to know your archiving organization's capacity for storage and backups."
+msgstr ""
+
+#, fuzzy
+msgid "For more information on recommended formats, see the <a href=\"%{recommended_formats_url}\">UK Data Service guidance on recommended formats</a>."
+msgstr ""
+
+#, fuzzy
+msgid "For more information, see <a href=\"%{about_url}\">About participating</a>."
+msgstr ""
+
+#, fuzzy
+msgid "For more information, see the <a href=\"%{help_url}\">Quick Start Guide</a>."
+msgstr ""
+
+#, fuzzy
+msgid "For what or whom are the data intended?"
+msgstr ""
+
+#, fuzzy
+msgid "Forgot email?"
+msgstr ""
+
+#, fuzzy
+msgid "Formats likely to be accessible in the future are:"
+msgstr ""
+
+#, fuzzy
+msgid "Freedom of Information"
+msgstr ""
+
+#, fuzzy
+msgid "Funder Requirements"
+msgstr ""
+
+#, fuzzy
+msgid "Future enhancements will focus on making DMPs machine actionable so please continue sharing your use cases. We invite you to peruse the DMPRoadmap GitHub wiki to learn how to <a href=\"%{get_involved_url}\">get involved</a> in the project."
+msgstr ""
+
+#, fuzzy
+msgid "General Overview"
+msgstr ""
+
+#, fuzzy
+msgid "General purpose slides"
+msgstr ""
+
+#, fuzzy
+msgid "Geographically distribute your local and remote copies to reduce risk of calamity at the same location (power outage, flood, fire, etc.)"
+msgstr ""
+
+#, fuzzy
+msgid "Get started"
+msgstr ""
+
+#, fuzzy
+msgid "Go to the blog"
+msgstr ""
+
+#, fuzzy
+msgid "Good practice is to have three copies in at least two locations (e.g. original + external/local backup + external/remote backup)"
+msgstr ""
+
+#, fuzzy
+msgid "Google Analytics opt-out"
+msgstr ""
+
+#, fuzzy
+msgid "Grant number (optional)"
+msgstr ""
+
+#, fuzzy
+msgid "Have funders endorsed the DMPTool?"
+msgstr ""
+
+#, fuzzy
+msgid "Help spread the word about the DMPTool! Use the materials below to inform researchers, librarians, administrators and others about the tool. All materials are available under a CC-Zero license."
+msgstr ""
+
+#, fuzzy
+msgid "Here are some identifier schemes:"
+msgstr ""
+
+#, fuzzy
+msgid "How can my institution participate in the DMPTool?"
+msgstr ""
+
+#, fuzzy
+msgid "How do I create a data management plan?"
+msgstr ""
+
+#, fuzzy
+msgid "How do I create guidance? And what are themes?"
+msgstr ""
+
+#, fuzzy
+msgid "How do I get help from someone at my institution?"
+msgstr ""
+
+#, fuzzy
+msgid "How do I log in or create an account?"
+msgstr ""
+
+#, fuzzy
+msgid "How long should the data be retained?"
+msgstr ""
+
+#, fuzzy
+msgid "How long will you save my plans?"
+msgstr ""
+
+#, fuzzy
+msgid "How much data will the project produce?"
+msgstr ""
+
+#, fuzzy
+msgid "How much does it cost to use the DMPTool?"
+msgstr ""
+
+#, fuzzy
+msgid "How stable is the data?"
+msgstr ""
+
+#, fuzzy
+msgid "How to Participate in the DMPTool"
+msgstr ""
+
+#, fuzzy
+msgid "How will you document your data?"
+msgstr ""
+
+#, fuzzy
+msgid "I created a test plan. How can I delete it (or hide it)?"
+msgstr ""
+
+#, fuzzy
+msgid "I created a test template. How can I delete it?"
+msgstr ""
+
+#, fuzzy
+msgid "I have a collaborator. How can we work on the same plan?"
+msgstr ""
+
+#, fuzzy
+msgid "I'm in a hurry! Is there a quick start guide for creating a data management plan?"
+msgstr ""
+
+#, fuzzy
+msgid "Identify separate versions of files and datasets using file or directory naming conventions. It can quickly become difficult to identify the \"correct\" version of a file."
+msgstr ""
+
+#, fuzzy
+msgid "Identify the activity or project in the file name."
+msgstr ""
+
+#, fuzzy
+msgid "If others at your institution/organization have chose to share their plans internally, you will see a second table of organizational plans. This allows you to download a PDF and view their plans as samples or to discover new research data. Additional samples are available in the list of <a href=\"%{public_plans_url}\">public plans</a>."
+msgstr ""
+
+#, fuzzy
+msgid "If you are a researcher or potential user, we suggest you talk to a librarian at your institution. If you are an administrator (librarian or otherwise) and interested in joining, please <a href=\"%{contact_url}\">contact us</a>."
+msgstr ""
+
+#, fuzzy
+msgid "If you are just testing the tool or taking a course on data management, check the box “Mock project for test, practice, or educational purposes.” Marking your plans as a test will be reflected in usage statistics and prevent public or organizational sharing; this allows other users to find real sample plans more easily."
+msgstr ""
+
+#, fuzzy
+msgid "If you are uncertain as to your rights to disseminate data, UC researchers can consult with your campus Office of General Council. Note: Laws about data vary outside the U.S."
+msgstr ""
+
+#, fuzzy
+msgid "If you find it necessary or convenient to work with data in a proprietary/discouraged file format, do so, but consider saving your work in a more archival format when you are finished."
+msgstr ""
+
+#, fuzzy
+msgid "If you have an existing DMPTool account, please enter your username and we will provide the associated email address."
+msgstr ""
+
+#, fuzzy
+msgid "If you have forgotten the username and email for your existing DMPTool account, please %{contact_us_link}."
+msgstr ""
+
+#, fuzzy
+msgid "If you want to be able to share or cite your dataset, you'll want to assign a public persistent unique identifier to it. There are a variety of public identifier schemes, but common properties of good schemes are that they are:<ul><li>Actionable (you can \"click\" on them in a web browser)</li><li>Globally unique across the internet</li><li>Persistent for at least the life of your data</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "If you want to promote sharing and unlimited use of your data, you can make your data available under a <a href=\"%{creative_commons_url}\">Creative Commons CC0 Declaration</a> to make your wishes explicit."
+msgstr ""
+
+#, fuzzy
+msgid "If your institution does not participate, you can create your own account."
+msgstr ""
+
+#, fuzzy
+msgid "If your institution/organization is affiliated with DMPTool:<ul><li>Click the first button to sign in with “Your institution.”</li><li>Select your institution from the list and click “Go.”</li><li>Researchers at some institutions will be presented with the institution's authentication page. Log in as you usually do for your institution's web services.</li><li>If your institution has not configured single sign-on, you need to create an account with DMPTool (last bullet).</li><li>If you have already created an account with DMPTool, click the second button to sign in with the email address and password you previously chose. Once logged in, use Edit profile in the top-right menu bar to manage your password and other information.</li><li>If your institution is not affiliated with DMPTool (or has not configured single sign-on), you need to create an account with an email address and password.</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "Image: JPEG, JPG-2000, PNG, TIFF"
+msgstr ""
+
+#, fuzzy
+msgid "In February of 2013, the White House Office of Science and Technology Policy (OSTP) issued a %{memorandum_url} directing Federal agencies that provide significant research funding to develop a plan to expand public access to research. Among other requriments, the plans must:<br><blockquote>\"Ensure that all extramural researchers receiving Federal grants and contracts for scientific research and intramural researchers develop data management plans, as appropriate, describing how they will provide for long-term preservation of, and access to, scientific data in digital formats resulting from federally funded research, or explaining why long-term preservation and access cannot be justified\"</blockquote>"
+msgstr ""
+
+#, fuzzy
+msgid "In common usage by the research community"
+msgstr ""
+
+#, fuzzy
+msgid "In order to help identify and administer your account with the DMPTool, we need to store your email address. We may also use it to contact you to obtain feedback on your use of the tool, or to inform you of the latest developments or releases. The information may be transferred between the CDL and DCC partner organizations but only for legitimate CDL purposes. We will not sell, rent, or trade any personal information you provide to us."
+msgstr ""
+
+#, fuzzy
+msgid "Input the email address(es) of any collaborators you would like to invite to read or edit your plan. Set their permissions via the radio buttons and click to \"Add collaborator.\" Adjust permissions or remove collaborators at any time via the drop-down options in the table."
+msgstr ""
+
+#, fuzzy
+msgid "Institution not in the list?"
+msgstr ""
+
+#, fuzzy
+msgid "Institutional Signin Enabled"
+msgstr ""
+
+#, fuzzy
+msgid "Introduction"
+msgstr ""
+
+#, fuzzy
+msgid "Is there any requirement that the data be retained? If so, for how long? 3-5 years, 10-20 years, permanently? Not all data need to be retained, and some data required to be retained need not be retained indefinitely. Have a good understanding of your obligation for the data's retention."
+msgstr ""
+
+#, fuzzy
+msgid "It is vital to maintain the confidentiality of research subjects both as an ethical matter and to ensure continuing participation in research. Researchers need to understand and manage tensions between confidentiality requirements and the potential benefits of archiving and publishing the data."
+msgstr ""
+
+#, fuzzy
+msgid "Learn"
+msgstr ""
+
+#, fuzzy
+msgid "Look up your institution here"
+msgstr ""
+
+#, fuzzy
+msgid "Making regular backups is an integral part of data management. You can backup data to your personal computer, external hard drives, or departmental or university servers. Software that makes backups for you automatically can simplify this process considerably. The UK Data Archive provides additional <a href=\"%{storage_guidelines_url}\">guidelines on data storage, backup, and security</a>."
+msgstr ""
+
+#, fuzzy
+msgid "Metadata: Data Documentation"
+msgstr ""
+
+#, fuzzy
+msgid "More"
+msgstr ""
+
+#, fuzzy
+msgid "More recently the proliferation of open data policies across the globe has led to an explosion of interest in the DMPTool and the UK-based version, DMPonline. In 2016 UC3 and DCC decided to formalize our partnership to codevelop and maintain a single open-source platform. The new platform—DMPRoadmap—is separate from the services each of our organizations runs on top of it. By providing a core infrastructure for DMPs we can extend our reach and move best practices forward, allowing us to participate in a truly global open science ecosystem."
+msgstr ""
+
+#, fuzzy
+msgid "Most databases to which the UC Libraries subscribe are licensed and prohibit redistribution of data outside of UC."
+msgstr ""
+
+#, fuzzy
+msgid "Need to get others on your campus interested in the DMPTool? Use our Talking Points to guide your discussions. In general, a talking points document is designed to help you stay on track during meetings with those outside of your department. It ensures that your major points are at hand and helps you make progress towards the goals of the meeting.<ul><li>Overview of Talking Points: <a href=\"%{talking_points_overview_pdf_url}\">Adobe PDF</a></li><li>Meeting with your IT Group: <a href=\"%{talking_points_it_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_it_pdf_url}\">Adobe PDF</a></li><li>Meeting with Administrators: <a href=\"%{talking_points_admin_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_admin_pdf_url}\">Adobe PDF</a></li><li>Meeting with Researchers: <a href=\"%{talking_points_researcher_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_researcher_pdf_url}\">Adobe PDF</a> </li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "News is currently unavailable"
+msgstr ""
+
+#, fuzzy
+msgid "Non-proprietary"
+msgstr ""
+
+#, fuzzy
+msgid "Once you have made your selections, click “Create plan.”"
+msgstr ""
+
+#, fuzzy
+msgid "Open, with documented standards"
+msgstr ""
+
+#, fuzzy
+msgid "Option %{number}: If not affiliated and you need an account."
+msgstr ""
+
+#, fuzzy
+msgid "Option %{number}: If your institution is affiliated with DMPTool."
+msgstr ""
+
+#, fuzzy
+msgid "Option %{number}: If your institution is not affiliated with DMPTool."
+msgstr ""
+
+#, fuzzy
+msgid "Organisational admin privileges"
+msgstr ""
+
+#, fuzzy
+msgid "Organizations"
+msgstr ""
+
+#, fuzzy
+msgid "Organizing Files"
+msgstr ""
+
+#, fuzzy
+msgid "Other data preservation considerations"
+msgstr ""
+
+#, fuzzy
+msgid "Other risks to accessibility"
+msgstr ""
+
+#, fuzzy
+msgid "Our work on the DMPTool is guided by the following principles. Organizations that participate in the DMPTool community are expected to understand and abide by these principles.<ul><li>Continuous improvement of the DMPTool's utility and features</li><li>User-driven requirements and priorities for development</li><li>Enthusiasm for the DMPTool</li><li>Commitment to an open process for development, enhancement, and improvement (see <a href=\"%{panton_url}\">Panton Principles</a>)</li><li>Quality of code and materials created <a href=\"%{contributing_url}\">(Contributor guidelines)</a></li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "Overview of My dashboard"
+msgstr ""
+
+#, fuzzy
+msgid "Participating Institutions"
+msgstr ""
+
+#, fuzzy
+msgid "Participating institutions/organizations can configure the tool to point to their resources and services, provide customized help, and provide suggested answers to the questions asked by funding agencies. DMPTool users affiliated with participating institutions can login with their own institutional accounts. For more information visit the %{about_us_link} page."
+msgstr ""
+
+#, fuzzy
+msgid "Passwords"
+msgstr ""
+
+#, fuzzy
+msgid "Persistent Identifiers"
+msgstr ""
+
+#, fuzzy
+msgid "Please note that your email address is also your username. If you change this remember to use your new email address on sign in. If your account is created with your institutional credentials you must contact us to change your email or organisation."
+msgstr ""
+
+#, fuzzy
+msgid "Postcards"
+msgstr ""
+
+#, fuzzy
+msgid "Privacy policy"
+msgstr ""
+
+#, fuzzy
+msgid "Promote the DMPTool"
+msgstr ""
+
+#, fuzzy
+msgid "Public Plans"
+msgstr ""
+
+#, fuzzy
+msgid "Q: Are there examples of data management plans?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: Can I see customized templates and guidance created by administrators at other organizations?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: Have funders endorsed the DMPTool?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: How can my institution participate in the DMPTool?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: How do I create guidance? And what are themes?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: How long will you save my plans?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: How much does it cost to use the DMPTool?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: I created a test plan. How can I delete it (or hide it)?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: I created a test template. How can I delete it?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: I have a collaborator. How can we work on the same plan?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: I'm in a hurry! Is there a quick start guide for creating a data management plan?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: What are the benefits of participating in the DMPTool?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: What are the visibility options for my data management plan?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: What can I do with the DMPTool?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: What happens when I \"request feedback\" on a plan?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: What if I move to a new institution?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: What is a data management plan (DMP)?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: What's the difference between “sample” and “public” data management plans?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: Where can I find help customizing the DMPTool for my institution/organization?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: Where can I read more about funder requirements for data management plans?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: Who can help me at my institution?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: Who can use the DMPTool?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: Who owns the data management plans created with the DMPTool?"
+msgstr ""
+
+#, fuzzy
+msgid "Q: Why am I getting email notifications from the DMPTool?"
+msgstr ""
+
+#, fuzzy
+msgid "Quick Start Guide"
+msgstr ""
+
+#, fuzzy
+msgid "Quick start guide"
+msgstr ""
+
+#, fuzzy
+msgid "RSS"
+msgstr ""
+
+#, fuzzy
+msgid "Read our <a href=\"%{general_guidance_url}\">Data Management General Guidance</a> for more information about data management plans."
+msgstr ""
+
+#, fuzzy
+msgid "Record all changes to a file no matter how small. Discard obsolete versions after making backups."
+msgstr ""
+
+#, fuzzy
+msgid "Research projects generate and collect countless varieties of data. To forumulate a data management plan, it's useful to categorize your data in four ways: by source, format, stability, and volume."
+msgstr ""
+
+#, fuzzy
+msgid "Reserve the 3-letter file extension for the file format, such as .txt, .pdf, or .csv."
+msgstr ""
+
+#, fuzzy
+msgid "Revisions"
+msgstr ""
+
+#, fuzzy
+msgid "Security and Storage"
+msgstr ""
+
+#, fuzzy
+msgid "See a current list of <a href=\"%{participants_url}\">DMPTool participants</a>."
+msgstr ""
+
+#, fuzzy
+msgid "See the <a href=\"%{help_url}\">Quick Start Guide</a> for more information on setting your plan's visibility."
+msgstr ""
+
+#, fuzzy
+msgid "See the full list of participating institutions."
+msgstr ""
+
+#, fuzzy
+msgid "Select an organisation from the list or leave blank if your organisation is not listed."
+msgstr ""
+
+#, fuzzy
+msgid "Send invitation"
+msgstr ""
+
+#, fuzzy
+msgid "Sharing and Archiving"
+msgstr ""
+
+#, fuzzy
+msgid "Sharing data that you have collected from other sources"
+msgstr ""
+
+#, fuzzy
+msgid "Sharing data that you produced/collected yourself"
+msgstr ""
+
+#, fuzzy
+msgid "Sign in options"
+msgstr ""
+
+#, fuzzy
+msgid "Sign in through an affiliated institution"
+msgstr ""
+
+#, fuzzy
+msgid "Sign in with your email address"
+msgstr ""
+
+#, fuzzy
+msgid "Super admin privileges"
+msgstr ""
+
+#, fuzzy
+msgid "Table of Contents"
+msgstr ""
+
+#, fuzzy
+msgid "Tabular data"
+msgstr ""
+
+#, fuzzy
+msgid "Tabular data warrants special mention because it is so common across disciplines, mostly as Excel spreadsheets. If you do your analysis in Excel, you should use the \"Save As...\" command to export your work to .csv format when you are done. Your spreadsheets will be easier to understand and to export if you follow best practices when you set them up, such as:<ul><li>Don't put more than one table on a worksheet</li><li>Include a header row with understandable title for each column</li><li>Create charts on new sheets- don't embed them in the worksheet with the data</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "Talking points"
+msgstr ""
+
+#, fuzzy
+msgid "Technical Description"
+msgstr ""
+
+#, fuzzy
+msgid "Templates for data management plans are based on the specific requirements listed in funder policy documents. The DMPTool maintains these templates, however, researchers should always consult the program officers and policy documents directly for authoritative guidance. Sample plans are provided by a funder or another trusted party."
+msgstr ""
+
+#, fuzzy
+msgid "Terms of use & Privacy policy"
+msgstr ""
+
+#, fuzzy
+msgid "Test your backup system"
+msgstr ""
+
+#, fuzzy
+msgid "Text: plain text (TXT), HTML, XML, PDF/A"
+msgstr ""
+
+#, fuzzy
+msgid "The <a href=\"%{cdlib_url}\">California Digital Library (CDL)</a> is supported by the University of California (UC). Our primary constituency is the UC research community; in addition, we provide services to the United States and international higher education sector."
+msgstr ""
+
+#, fuzzy
+msgid "The CDL holds your plans on your behalf, but they are your property and responsibility. Any FOIA applicants will be referred back to your home institution."
+msgstr ""
+
+#, fuzzy
+msgid "The DMPTool is a free, open-source, online application that helps researchers create data management plans. These plans, or DMPs, are now required by many funding agencies as part of the grant proposal submission process. The DMPTool provides a click-through wizard for creating a DMP that complies with funder requirements. It also has direct links to funder websites, help text for answering questions, and resources for best practices surrounding data management."
+msgstr ""
+
+#, fuzzy
+msgid "The National Science Foundation (NSF) requires a 2-page plan as part of the funding proposal process. Most or all US Federally funded grants will eventually require some form of data management plan."
+msgstr ""
+
+#, fuzzy
+msgid "The \"Share\" tab is also where you can set your plan visibility.<ul><li>Private: restricted to you and your collaborators.</li><li>Organizational: anyone at your organization can view your plan.</li><li>Public: anyone can view your plan in the <a href=\"%{public_plans_url}\">public plans</a> list.</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "The answer to this question affects how you organize the data as well as the level of versioning you will need to undertake. Keeping track of rapidly changing datasets can be a challenge so it is imperative that you begin with a plan to carry you through the entire data management process."
+msgstr ""
+
+#, fuzzy
+msgid "The file format you choose for your data is a primary factor in someone else's ability to access it in the future. Think carefully about what file format will be best to manage, share, and preserve your data. Technology continually changes and all contemporary hardware and software should be expected to become obsolete. Consider how your data will be read if the software used to produce it becomes unavailable. Although any file format you choose today may become unreadable in the future, some formats are more likely to be readable than others."
+msgstr ""
+
+#, fuzzy
+msgid "The information you enter into this system can be seen by you, people you have chosen to share access with, and—solely for the purposes of maintaining the service—system administrators at the CDL. We compile anonymized, automated, and aggregated information from plans, but we will not directly access, make use of, or share your content with anyone beyond CDL and your home institution without your permission. Authorized users at your home institution may access your plans for specific purposes—for example, to track compliance with funder/institutional requirements, to calculate storage requirements, or to assess demand for data management services across disciplines. For a detailed description of what information (other than the plans) we collect from visitors to this website and how it is used and managed, please see the CDL Privacy Policy and Baseline Supporting Practices listed at <a href=\"%{policies_url}\">%{policies_url}</a>"
+msgstr ""
+
+#, fuzzy
+msgid "The original DMPTool was a grassroots effort, beginning in 2011 with eight institutions partnering to provide in-kind contributions of personnel and development. The effort was in direct response to demands from funding agencies, such as the National Science Foundation and the National Institutes of Health, that researchers plan for managing their research data. By joining forces the contributing institutions were able to consolidate expertise and reduce costs in addressing data management needs. Representatives from these institutions participate on the <a href=\"%{steering_committee_url}\">DMPTool Steering Committee</a> that maintains monthly calls."
+msgstr ""
+
+#, fuzzy
+msgid "The original contributing institutions were: %{uc3_url} at the %{cdl_url}, %{data_one_url}, %{dcc_url}, %{smithsonian_url}, %{ucla_url}, %{ucsd_url}, %{uoi_url}, and %{uva_url}. Given the success of the first version of the DMPTool, the founding partners obtained funding from the %{sloan_url} to create a second version of the tool, released in 2014."
+msgstr ""
+
+#, fuzzy
+msgid "The passwords you provided do not match."
+msgstr ""
+
+#, fuzzy
+msgid "The sub-directory structure should have clear, documented naming conventions. Separate files or directories could apply, for example, to each run of an experiment, each version of a dataset, and/or each person in the group."
+msgstr ""
+
+#, fuzzy
+msgid "The tabbed interface allows you to navigate through different functions when editing your plan.<ul><li>“Project details” includes basic administrative details. The right-hand side of the page is where you can select up to 6 organizations to view additional guidance as you write your plan. The more information you provide here, the more useful your plan will be to you and others in the future (e.g., for data reuse and proper attribution). On the Edit profile page you can create or connect your ORCID iD; this is required by some funders and a growing list of publishers (Learn more at <a href=\"%{orcid_url}\">orcid.org</a>).</li><li>“Plan overview” provides an overview of the questions that you will be asked. The following tab(s) present the questions to answer. There may be more than one tab if your funder or institution asks different sets of questions at different stages, e.g., at grant application and post-award. Guidance and comments are displayed in the right-hand panel beside each question. If you need more guidance or find there is too much, you can make adjustments on the “Project details” tab.</li><li>“Share” allows you to invite others to contribute to or comment on your plan. This is also where you can set your plan visibility (details below).</li><li>“Download” allows you to download your plan in various formats. You can adjust the formatting (font type, size, and margins) for PDF files, which may be helpful if working to page limits (e.g., NSF data management plans are limited to 2 pages).</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "There are 14 themes that represent the most common topics addressed in data management plans (e.g., Data format, Metadata). Themes work like tags to associate questions and guidance. Questions within a template can be tagged with one or more themes, and guidance can be written by theme to allow organizations to apply their advice over all templates at once. This also alleviates the need to update guidance each time a new template is released."
+msgstr ""
+
+#, fuzzy
+msgid "There are 5 core elements usually included in a dataset citation, with additional elements added as appropriate.<ul><li><strong>Creator(s)</strong> – may be individuals or organizations</li><li><strong>Title</strong></li><li><strong>Publication year</strong> when the dataset was released (may be different from the Access date)</li><li><strong>Publisher</strong> – the data center, archive, or repository</li><li><strong>Identifier</strong> – a unique public identifier (e.g., an ARK or DOI)</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "There is no account associated with that email address. Please try again or %{contact_us_link}."
+msgstr ""
+
+#, fuzzy
+msgid "There may also be an option to request feedback on your plan (on the “Share” tab). This is available when research support staff at your institution have enabled the service. Click to “Request feedback” and your local administrators will be alerted to your request. Their comments will be visible in the “Comments” field adjacent to each question. You will receive an email notification when an administrator provides feedback."
+msgstr ""
+
+#, fuzzy
+msgid "These are rough guidelines to follow to help manage your data files in case you don't already have your own internal conventions. When organizing files, the top-level directory/folder should include:<ul><li>Project title</li><li>Unique identifier (Guidance on persistent external identifiers is available below)</li><li>Date (yyyy or yyyy.mm.dd)</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "Third party APIs"
+msgstr ""
+
+#, fuzzy
+msgid "This statement was last revised on October 5, 2017 and may be revised at any time. Use of the tool indicates that you understand and agree to these terms and conditions."
+msgstr ""
+
+#, fuzzy
+msgid "To avoid being under-prepared, estimate the growth rate of your data. Some questions to consider are:<ul><li>Are you manually collecting and recording data?</li><li>Are you using observational instruments and computers to collect data?</li><li>Is your data collection highly iterative?</li><li>How much data will you accumluate every month or every 90 days?</li><li>How much data do you anticipate collecting and generating by the end of your project?</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "To be sure that your backup system is working, periodically retrieve your data files and confirm that you can read them. You should do this when you initially set up the system and on a regular schedule thereafter."
+msgstr ""
+
+#, fuzzy
+msgid "To create a plan, click the “Create plan” button on My dashboard or the top menu. This will take you to a wizard that helps you select the appropriate template:"
+msgstr ""
+
+#, fuzzy
+msgid "To ethically share confidential data, you may be able to:<ul><li><strong>Gain informed consent</strong> for data sharing (e.g. deposit in a repository or archive)</li><li><strong>Anonymize</strong> the data by removing identifying information. Be aware, however, that any dataset that contains enough information to be useful will always present some risk.</li><li><strong>Restrict the use of your data.</strong> ICPSR provides a sample <a href=\"%{icpsr_user_url}\">Restricted Data Use Contract</a> and <a href=\"%{icpsr_restricted_url}\">Restricted-Use Data Management Guidance</a>.</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "To view templates created by others (if available), create a new plan in the tool and choose any organization for the second step: \"Select the primary research organization.\" For the third create plan step, if you tick the box  \"No funder associated with this plan\" you will be presented with any available organizational templates. If the field remains gray and no templates with organizational names appear, then the selected organization has not created any of their own templates and you will be presented with the default DMPTool template after clicking the button to \"Create plan.\""
+msgstr ""
+
+#, fuzzy
+msgid "Tools to help you:"
+msgstr ""
+
+#, fuzzy
+msgid "Top Templates"
+msgstr ""
+
+#, fuzzy
+msgid "Twitter"
+msgstr ""
+
+#, fuzzy
+msgid "Types of Data"
+msgstr ""
+
+#, fuzzy
+msgid "Uncompressed (space permitting)"
+msgstr ""
+
+#, fuzzy
+msgid "Uncompressed data will be also be easier to read in the future, but you may need to compress files to conserve disk space.<ul><li>Use a mainstream compression tool (e.g., ZIP, GZIP, TAR)</li><li>Limit compression to the 3rd backup copy</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "Unencrypted data will be more easily read by you and others in the future, but you may need to encrypt sensitive data.<ul><li>Use mainstream encryption tools (e.g., PGP)</li><li>Don't rely on third-party encryption alone</li><li>Keep passwords and keys on paper (2 copies)</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "Use our <a href=\"%{help_url}\">Quick Start Guide</a> to begin creating a plan."
+msgstr ""
+
+#, fuzzy
+msgid "Use the contact form below if you are interested in adding your organization."
+msgstr ""
+
+#, fuzzy
+msgid "Using standard character encodings (i.e., ASCII, UTF-8)"
+msgstr ""
+
+#, fuzzy
+msgid "View the list of funder requirements"
+msgstr ""
+
+#, fuzzy
+msgid "View the list of participating institutions"
+msgstr ""
+
+#, fuzzy
+msgid "View the list of public data management plans"
+msgstr ""
+
+#, fuzzy
+msgid "Ways to share your data"
+msgstr ""
+
+#, fuzzy
+msgid "We can help"
+msgstr ""
+
+#, fuzzy
+msgid "We created a generic slide deck that you can use to introduce researchers and others to the DMPTool.<ul><li><a href=\"%{dmptool_slides_ppt_url}\">Microsoft Powerpoint</a> </li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "We have been working with internal and external partners to make data management plan development less complicated. By getting to know your research and data, we can match your specific needs with data management best practices in your field to develop a data management plan that works for you. If you do this work at the beginning of your research process, you will have a far easier time following through and complying with funding agency and publisher requirements."
+msgstr ""
+
+#, fuzzy
+msgid "We recommend that those applying for funding from US Federal agencies, such as the NSF, use the DMPTool. The DMPTool provides guidance for many of the NSF Directorate and Division requirements, along with links to additional resources, services, and help."
+msgstr ""
+
+#, fuzzy
+msgid "We were unable to determine your organization. Please select your organization below."
+msgstr ""
+
+#, fuzzy
+msgid "Welcome to the DMPTool"
+msgstr ""
+
+#, fuzzy
+msgid "What are the benefits of participating in the DMPTool?"
+msgstr ""
+
+#, fuzzy
+msgid "What are the visibility options for my data management plan?"
+msgstr ""
+
+#, fuzzy
+msgid "What can I do with the DMPTool?"
+msgstr ""
+
+#, fuzzy
+msgid "What happens when I “request feedback” on a plan?"
+msgstr ""
+
+#, fuzzy
+msgid "What if I move to a new institution?"
+msgstr ""
+
+#, fuzzy
+msgid "What is a data management plan (DMP)?"
+msgstr ""
+
+#, fuzzy
+msgid "What is a data management plan?"
+msgstr ""
+
+#, fuzzy
+msgid "What is the DMPTool?"
+msgstr ""
+
+#, fuzzy
+msgid "What to document?"
+msgstr ""
+
+#, fuzzy
+msgid "What's the difference between “sample” and “public” data management plans?"
+msgstr ""
+
+#, fuzzy
+msgid "What's the form of the data?"
+msgstr ""
+
+#, fuzzy
+msgid "What's the source of the data?"
+msgstr ""
+
+#, fuzzy
+msgid "When you log in you will be directed to “My dashboard.” From here you can create, edit, share, download, copy, or remove any of your plans. You will also see plans that have been shared with you by others."
+msgstr ""
+
+#, fuzzy
+msgid "Where can I find help customizing the DMPTool for my institution/organization?"
+msgstr ""
+
+#, fuzzy
+msgid "Where can I read more about funder requirements for data management plans?"
+msgstr ""
+
+#, fuzzy
+msgid "While the first three options above are valid ways to share data, a repository is much better able to provide long-term access. Data deposited in a repository can be supplemented with a \"data paper\"—a relatively new type of publication that describes a dataset, but does not analyze it or dsanitize any conclusions—published in a journal such as <a href=\"%{nature_url}\">Nature Scientific Data</a> or <a href=\"%{geoscience_url}\">Geoscience Data Journal</a>."
+msgstr ""
+
+#, fuzzy
+msgid "Who can help me at my institution?"
+msgstr ""
+
+#, fuzzy
+msgid "Who can use the DMPTool?"
+msgstr ""
+
+#, fuzzy
+msgid "Who can use the tool?"
+msgstr ""
+
+#, fuzzy
+msgid "Who controls the data (e.g., the PI, a student, your lab, your university, your funder)? Before you spend a lot of time figuring out how to store the data, to share it, to name it, etc. you should make sure you have the authority to do so."
+msgstr ""
+
+#, fuzzy
+msgid "Who is responsible for managing and controlling the data?"
+msgstr ""
+
+#, fuzzy
+msgid "Who is your intended audience for the data? How do you expect they will use the data? The answer to these questions will help inform structuring and distributing the data."
+msgstr ""
+
+#, fuzzy
+msgid "Who owns the data management plans created with the DMPTool?"
+msgstr ""
+
+#, fuzzy
+msgid "Who requires a plan?"
+msgstr ""
+
+#, fuzzy
+msgid "Why am I getting email notifications from the DMPTool?"
+msgstr ""
+
+#, fuzzy
+msgid "Why document data?"
+msgstr ""
+
+#, fuzzy
+msgid "Why share your data?"
+msgstr ""
+
+#, fuzzy
+msgid "Yes! The <a href=\"%{help_url}\">Quick Start Guide</a> is available as a website or a PDF you can download."
+msgstr ""
+
+#, fuzzy
+msgid "You can also make a copy of an existing plan (from the Actions menu next to the plan on My dashboard) and update it for a new research project and/or grant proposal."
+msgstr ""
+
+#, fuzzy
+msgid "You may or may not have the rights to do so, depending upon whether that data were accessed under a license with terms of use."
+msgstr ""
+
+#, fuzzy
+msgid "You should select a repository or archive for your data based on the long-term security offered and the ease of discovery and access by colleagues in your field. There are two common types of repository to look for:<ul><li><strong>Discipline specific</strong>: accepts data in a particluar field or of a particluar type (e.g., GenBank accepts nucleotide sequence data)</li><li><strong>Institutional</strong>: accepts data of any type produced within the institution that maintains it (e.g., the University of California's <a href=\"%{dash_url}\">Dash</a>)</li></ul>"
+msgstr ""
+
+#, fuzzy
+msgid "Your account has been verified with your institutional credentials. Please fill out the form below to finish creating your account."
+msgstr ""
+
+#, fuzzy
+msgid "Your account is linked to your institutional credentials for login. Please contact the helpdesk to change your email."
+msgstr ""
+
+#, fuzzy
+msgid "Your account is linked to your institutional credentials for login. Please contact the helpdesk to change your organisation."
+msgstr ""
+
+#, fuzzy
+msgid "Your institution"
+msgstr ""
+
+#, fuzzy
+msgid "Your password is stored in encrypted form and cannot be retrieved. If forgotten it has to be reset."
+msgstr ""
+
+#, fuzzy
+msgid "Your personal details"
+msgstr ""
+
+#, fuzzy
+msgid "new window"
+msgstr ""
