@@ -1,0 +1,81 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, id: 'personal_details_registration_form' }) do |f| %>
+  <p class="form-control-static">
+    <%= _("Please note that your email address is also your username. If you change this remember to use your new email address on sign in. If your account is created with your institutional credentials you must contact us to change your email or organisation.") %>
+  </p>
+
+  <%= hidden_field_tag :unlink_flag, "false", id: 'unlink_flag' %>
+
+  <div class="form-group col-xs-8">
+    <%= f.label(:email, _('Email'), class: 'control-label') %>
+    <% if shibbolized %>
+      <%= render partial: 'shared/popover',
+                 locals: { message: _('Your account is linked to your institutional credentials for login. Please contact the helpdesk to change your email.'), placement: 'right' } %>
+      <input type="email" class="form-control" aria-required="true" value="<%= @user.email %>" disabled />
+      <input type="hidden" name="user[email]" id="user_email" value="<%= @user.email %>" />
+    <% else %>
+      <%= f.email_field(:email, class: "form-control", "aria-required": true, value: @user.email) %>
+    <% end %>
+    <%= hidden_field_tag :original_email, @user.email %>
+  </div>
+
+  <div class="form-group col-xs-8">
+    <%= f.label(:firstname, _('First name'), class: 'control-label') %>
+    <%= f.text_field(:firstname, class: "form-control", "aria-required": true, value: @user.firstname) %>
+  </div>
+
+  <div class="form-group col-xs-8">
+    <%= f.label(:surname, _('Last name'), class: 'control-label') %>
+    <%= f.text_field(:surname, class: "form-control", "aria-required": true, value: @user.surname) %>
+  </div>
+
+  <div class="form-group col-xs-8" id="org-controls">
+    <% if shibbolized %>
+      <label class="control-label"><%= _('Organisation') %></label>
+      <%= render partial: 'shared/popover',
+                 locals: { message: _('Your account is linked to your institutional credentials for login. Please contact the helpdesk to change your organisation.'), placement: 'right' } %>
+      <input type="text" disabled="true" value="<%= @default_org.name if @default_org.present? %>" class="form-control" />
+      <input type="hidden" name="user[org_id]" id="user_org_id" value="<%= current_user.org_id %>">
+    <% else %>
+      <%= render partial: "shared/my_org", locals: {f: f, default_org: @default_org, orgs: @orgs} %>
+    <% end %>
+  </div>
+
+  <% if Language.many? %>
+    <div class="form-group col-xs-8">
+      <% lang_id = current_user.language.nil? ? Language.id_for(FastGettext.default_locale) : current_user.language.id %>
+      <%= f.label(:language_id, _('Language'), class: 'control-label') %>
+      <%= select_tag("user[language_id]",
+          options_from_collection_for_select(@languages, "id", "name", lang_id),
+          class: "form-control") %>
+    </div>
+  <% end %>
+
+  <% if current_user.can_org_admin? %>
+    <div class="form-group col-xs-8">
+      <label><%= _('My privileges') %></label>
+      <p><%= (current_user.can_super_admin? ? _('Super Admin') : _('Organisational Admin')) %></p>
+    </div>
+  <% end %>
+
+  <% @identifier_schemes.each do |scheme| %>
+    <div class="form-group col-xs-8">
+      <% unless scheme.name.downcase == 'shibboleth' %>
+        <% if scheme.name.downcase == 'orcid' %>
+          <%= label_tag(:scheme_name, 'ORCID', class: 'control-label') %>
+        <% end %>
+        <div class='identifier-scheme'>
+          <%= render partial: "external_identifier",
+                     locals: { scheme: scheme,
+                               id: current_user.identifier_for(scheme)} %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="form-group col-xs-8">
+    <%= f.button(_('Save'), class: 'btn btn-default', type: "submit") %>
+  </div>
+
+  <%= render partial: 'password_confirmation', locals: {f: f} %>
+
+<% end %>

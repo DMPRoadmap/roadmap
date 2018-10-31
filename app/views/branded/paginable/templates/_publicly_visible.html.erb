@@ -1,0 +1,41 @@
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+      <!-- START DMPTool customization -->
+      <!-- ========================================= -->
+        <!-- <th><%#= _('Template Name') %>&nbsp;<%#= paginable_sort_link('templates.title') %></th> -->
+        <!-- <th class="sorter-false text-center"><%#= _('Download') %></th> -->
+        <!-- <th><%#= _('Organisation Name') %>&nbsp;<%#= paginable_sort_link('orgs.name') %></th> -->
+        <th scope="col"><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
+        <th scope="col" class="sorter-false text-center"><%= _('Download') %></th>
+        <th scope="col"><%= _('Funder') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
+      <!-- ========================================= -->
+      <!-- END DMPTool customization -->
+
+        <th scope="col" class="last-edited"><%= _('Last Updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
+        <th scope="col" class="sorter-false"><%= _('Funder Links') %></th>
+        <th scope="col" class="sorter-false" data-toggle="tooltip" title="<%= _('Sample plans are provided by a funder, an organisation or a trusted party.') %>"><%= _('Sample Plans') %><br><small><%= _('(if available)') %></small></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% scope.each do |template| %>
+        <tr id="<%= dom_id(template) %>">
+          <td><%= template.title %></td>
+          <td class="text-center">
+            <%= link_to sanitize(_('DOCX <em class="sr-only">(new window)</em>')), template_export_path(template.family_id, format: :docx), target: '_blank' %><br>
+            <%= link_to sanitize(_('PDF <em class="sr-only">(new window)</em>')), template_export_path(template.family_id, format: :pdf), target: '_blank' %>
+          </td>
+          <td><%= template.org.name %></td>
+          <td><%= l(template.updated_at.to_date, formats: :short) %></td>
+          <td>
+            <%= sanitize links_to_a_elements(template.links['funder'], '<br>') %>
+          </td>
+          <td>
+            <%= sanitize links_to_a_elements(template.links['sample_plan'], '<br>') %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

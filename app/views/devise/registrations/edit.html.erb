@@ -1,9 +1,3 @@
-<!-- START DMPTool customization -->
-<!-- ========================================= -->
-<% shibbolized = current_user.identifier_for(IdentifierScheme.find_by(name: 'shibboleth')).present? %>
-<!-- ========================================= -->
-<!-- END DMPTool customization -->
-
 <% title _('Edit profile') %>
 <div class="row">
   <div class="col-md-12">
@@ -17,23 +11,9 @@
         <li role="personal-details" class="active">
           <a href="#personal-details" role="tab" aria-controls="personal-details" data-toggle="tab"><%= _('Personal Details') %></a>
         </li>
-
-<!-- START DMPTool customization -->
-<!-- ========================================= -->
-        <% unless shibbolized %>
-<!-- ========================================= -->
-<!-- END DMPTool customization -->
-
-          <li role="password-details">
-            <a href="#password-details" role="tab" aria-controls="password-details" data-toggle="tab"><%= _('Password') %></a>
-          </li>
-
-<!-- START DMPTool customization -->
-<!-- ========================================= -->
-        <% end %>
-<!-- ========================================= -->
-<!-- END DMPTool customization -->
-
+        <li role="password-details">
+          <a href="#password-details" role="tab" aria-controls="password-details" data-toggle="tab"><%= _('Password') %></a>
+        </li>
         <li role="notification-preferences">
           <a href="#notification-preferences" role="tab" aria-controls="notification-preferences" data-toggle="tab"><%= _('Notification Preferences') %></a>
         </li>
@@ -43,38 +23,17 @@
         <div id="personal-details" role="tabpanel" class="tab-pane active">
           <div class="panel panel-default">
             <div class="panel-body">
-
-<!-- START DMPTool customization -->
-<!-- ========================================= -->
-              <%#= render partial: 'devise/registrations/personal_details' %>
-              <%= render partial: 'devise/registrations/dmptool/personal_details', locals: { shibbolized: shibbolized } %>
-<!-- ========================================= -->
-<!-- END DMPTool customization -->
-
+              <%= render partial: 'devise/registrations/personal_details' %>
             </div>
           </div>
         </div>
-
-<!-- START DMPTool customization -->
-<!-- ========================================= -->
-        <% unless shibbolized %>
-<!-- ========================================= -->
-<!-- END DMPTool customization -->
-
-          <div id="password-details" role="tabpanel" class="tab-pane">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <%= render partial: 'devise/registrations/password_details' %>
-              </div>
+        <div id="password-details" role="tabpanel" class="tab-pane">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <%= render partial: 'devise/registrations/password_details' %>
             </div>
           </div>
-
-<!-- START DMPTool customization -->
-<!-- ========================================= -->
-        <% end %>
-<!-- ========================================= -->
-<!-- END DMPTool customization -->
-
+        </div>
         <div id="notification-preferences" role="tabpanel" class="tab-pane">
           <div class="panel panel-default">
             <div class="panel-body">

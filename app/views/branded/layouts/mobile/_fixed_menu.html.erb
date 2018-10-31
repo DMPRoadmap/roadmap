@@ -1,0 +1,99 @@
+<!-- Mobile friendly version of the header -->
+
+<nav class="navbar navbar-fixed-top">
+  <div class="container-fluid" >
+    <!-- Mobile ready hamburger menu -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse"
+              data-target="#fixed-nav" aria-expanded="false" aria-controls="fixed-nav">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <% if user_signed_in? && current_user.org.present? %>
+        <%= link_to(current_user.org.name, root_path, class: "org-logo") %>
+      <% else %>
+        <%= link_to(image_tag("DMPTool_logo_blue_shades_v1b3b.svg",
+                              alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
+                              class: "app-logo",
+                              title: "#{Rails.configuration.branding[:application][:name]} logo"),
+                    root_path) %>
+      <% end %>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="collapse navbar-collapse" id="fixed-nav">
+      <%= render partial: 'layouts/learn_menu' %>
+
+      <% if user_signed_in? %>
+        <%= render partial: 'layouts/app_menu_links' %>
+      <% end %>
+
+      <% if user_signed_in? && current_user.org.present? && !current_user.org.is_other? %>
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+               id="org-menu-button" aria-haspopup="true" aria-expanded="false">
+              <%= current_user.org.abbreviation %> links
+              <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="org-menu-button">
+              <%= render partial: 'layouts/org_links' %>
+            </ul>
+          </li>
+        </ul>
+      <% end %>
+
+      <!-- Sign in/out menu -->
+      <% unless isActivePage(user_shibboleth_omniauth_callback_path) || isActivePage(user_orcid_omniauth_callback_path) %>
+        <!-- Show this menu ONLY if the user is NOT registering their account after an omniauth login -->
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+
+            <% if user_signed_in? %>
+              <%= render partial: 'layouts/profile_menu' %>
+
+            <% else %>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                 id="signin-menu-button" aria-haspopup="true" aria-expanded="false">
+                <%= _('Sign in') %>
+                <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="signin-menu-button">
+                <% if Rails.application.config.shibboleth_enabled %>
+                  <!-- Shibboleth DS enabled -->
+                  <li>
+                    <% if request.fullpath != "/users/sign_up?nosplash=true" &&
+                          session[:shibboleth_data].nil? %>
+                      <% if Rails.application.config.shibboleth_use_filtered_discovery_service %>
+                        <%= link_to _('Sign in through an affiliated institution'), '#',
+                            'data-toggle': 'modal',
+                            'data-target': '#shib-ds-form' %>
+                      <% else %>
+                        <%= link_to _('Sign in through an affiliated institution'),
+                            user_shibboleth_omniauth_authorize_path %>
+                      <% end %>
+                    <% else %>
+                      <%= f.hidden_field :shibboleth_id, :value => session[:shibboleth_data][:uid] %>
+                    <% end %>
+                  <% end %>
+                </li>
+
+                <li><%= link_to _('Sign in with your email address'), '#', id: 'show-sign-in-form',
+                        'data-toggle': 'modal', 'data-target': '#sign-in-create-account' %></li>
+
+                <li><%= link_to _('Create account with email address'), '#', id: 'show-create-account-form',
+                        'data-toggle': 'modal', 'data-target': '#sign-in-create-account' %></li>
+              </ul>
+            <% end %>
+
+          </li>
+        </ul>
+      <% end %>
+
+      <%= render partial: 'layouts/language_menu' %>
+    </div>
+  </div>
+</nav>

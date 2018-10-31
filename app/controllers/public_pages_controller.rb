@@ -12,7 +12,7 @@ class PublicPagesController < ApplicationController
     render 'orgs', locals: { orgs: Org.participating.where(id: ids) }
   end
   def get_started
-    render '/shared/dmptool/_get_started'
+    render '/shared/_get_started'
   end
 # END DMPTool customization
 # ------------------------------------

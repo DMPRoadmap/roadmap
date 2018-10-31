@@ -36,7 +36,7 @@
             orgs: Org.where(is_other: false).order("name"),
             allow_other_orgs: true,
             required: true } %>
-        <%= render partial: "shared/dmptool/my_org", locals: {
+        <%= render partial: "shared/my_org", locals: {
           f: f,
           default_org: default_org,
           orgs: orgs,

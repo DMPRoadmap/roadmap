@@ -1,16 +1,9 @@
-<!-- START DMPTool customization -->
-<!-- ========================================= -->
-<!-- <div class="row"> -->
-  <!-- <div class="col-md-8"> -->
-    <%#= render partial: 'home/welcome' %>
-  <!-- </div> -->
+<div class="row">
+  <div class="col-md-8">
+    <%= render partial: 'home/welcome' %>
+  </div>
 
-  <!-- <div class="col-md-4"> -->
-    <%#= render partial: 'shared/access_controls' %>
-  <!-- </div> -->
-<!-- </div> -->
-
-<%= render partial: 'home/dmptool/index', locals: { stats: stats, top_5: top_5, rss: rss } %>
-
-<!-- ========================================= -->
-<!-- END DMPTool customization -->
+  <div class="col-md-4">
+    <%= render partial: 'shared/access_controls' %>
+  </div>
+</div>

@@ -34,14 +34,10 @@
              aria-expanded="false"
              aria-controls="collapse-<%= section.id %>">
 
-          <div class="panel-heading" role="tab" id="heading-<%= sectionid %>">
+          <div class="panel-heading" role="tab" id="heading-<%= section.id %>">
             <div class="panel-title pull-left">
 
-            <!-- START DMPTool customization -->
-            <!-- ========================================= -->
               <i class="fa fa-plus" aria-hidden="true"></i>
-            <!-- ========================================= -->
-            <!-- END DMPTool customization -->
 
               <%= section.title %>
 
@@ -52,12 +48,6 @@
                   </span>
               <% end %>
             </div>
-
-          <!-- START DMPTool customization -->
-          <!-- ========================================= -->
-            <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
-          <!-- ========================================= -->
-          <!-- END DMPTool customization -->
 
             <div class="clearfix"></div>
           </div>

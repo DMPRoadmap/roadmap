@@ -129,11 +129,11 @@ class OrgsController < ApplicationController
   # GET /orgs/:id/logo (format: :json)
   # ----------------------------------------------------------------
   def logo
-    org = Org.find(params[:org_id])
+    org = Org.find(params.fetch(:org_id, params[:id]))
     render json: {
       "org" => {
         "id" => params[:org_id],
-        "html" => render_to_string(partial: 'shared/dmptool/org_branding',
+        "html" => render_to_string(partial: 'shared/org_branding',
                                    locals: { org: org },
                                    formats: [:html])
       }

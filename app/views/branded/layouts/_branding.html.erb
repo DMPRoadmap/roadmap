@@ -1,0 +1,17 @@
+<% if user_signed_in? && !current_user.org.is_other? %>
+  <div class="branding-name">
+    <%= current_user.org.name %>
+  </div>
+<% end %>
+
+<div class="branding-logo">
+  <%= render partial: "layouts/logo" %>
+</div>
+
+<% if user_signed_in? && !current_user.org.is_other? %>
+  <div class="branding-links">
+    <ul>
+      <%= render partial: 'layouts/org_links' %>
+    </ul>
+  </div>
+<% end %>

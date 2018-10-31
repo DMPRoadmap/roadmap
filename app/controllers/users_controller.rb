@@ -22,7 +22,7 @@ class UsersController < ApplicationController
           @users = current_user.org.users.page(1)
         end
       end
-      
+
       format.csv do
         send_data User.to_csv(current_user.org.users.order(:surname)),
         filename: "users-accounts-#{Date.today}.csv"
@@ -120,7 +120,7 @@ class UsersController < ApplicationController
     redirect_to "#{edit_user_registration_path}\#notification-preferences",
                 notice: success_message(pref, _("saved"))
   end
-  
+
   # PUT /users/:id/activate
   # -----------------------------------------------------
   def activate
@@ -164,7 +164,7 @@ class UsersController < ApplicationController
   # GET /users/:id/ldap_username
   def ldap_username
     skip_authorization
-    render '/users/dmptool/ldap_username'
+    render '/users/ldap_username'
   end
 
   def ldap_account
@@ -177,9 +177,9 @@ class UsersController < ApplicationController
         msg: _("The DMPTool Account email associated with this username is #{@user.email}"),
       })
     else
-      render(json: { 
+      render(json: {
         code: 0,
-        email: '', 
+        email: '',
         msg: _("We do not recognize the username %{username}. Please try again or contact us if you have forgotten the username and email for your existing DMPTool account.") % { username: params[:username] }
       })
     end

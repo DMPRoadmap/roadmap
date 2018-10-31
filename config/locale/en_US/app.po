@@ -362,7 +362,8 @@ msgid "A Data Management Plan in %{application_name} has been shared with you"
 msgstr ""
 
 #, fuzzy
-msgid "A Data Management Plan in %{tool_name} has been shared \"\"
+msgid "A Data Management Plan in %{tool_name} has been shared \"\
+"
 "                   \"with you"
 msgstr ""
 
@@ -2364,10 +2365,10 @@ msgid "Public"
 msgstr ""
 
 msgid "Public DMPs"
-msgstr ""
+msgstr "Public Plans"
 
 msgid "Public DMPs are plans created using the %{application_name} service and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
-msgstr ""
+msgstr "Public plans are created using the %{application_name} service and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines."
 
 msgid "Public Plans"
 msgstr ""
@@ -2386,7 +2387,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Public: anyone can view your plan in the Public DMPs list."
-msgstr ""
+msgstr "Public: anyone can view your plan in the Public plans list."
 
 msgid "Public: anyone can view."
 msgstr ""
@@ -3023,7 +3024,7 @@ msgid "There are 5 core elements usually included in a dataset citation, with ad
 msgstr ""
 
 msgid "There are currently no public DMPs."
-msgstr ""
+msgstr "There are currently no public plans."
 
 msgid "There are currently no public Templates."
 msgstr ""
@@ -3747,7 +3748,8 @@ msgid "Your account is linked to your institutional credentials for login. Pleas
 msgstr "Your account is linked to your institutional credentials for login. Please contact the helpdesk to change your organization."
 
 #, fuzzy
-msgid "Your colleague %{inviter_name} has invited you to contribute to"
+msgid "Your colleague %{inviter_name} has invited you to contribute to
+"
 "            their Data Management Plan in %{tool_name}"
 msgstr ""
 

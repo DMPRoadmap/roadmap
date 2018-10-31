@@ -6,6 +6,11 @@
   padding-top: 5px;
   padding-bottom: 5px;
   margin-top: 5px;
+
+  a, a:focus, a:hover, a:visited {
+    color: inherit;
+    text-decoration: underline;
+  }
 }
 .alert-info {
   background-color: $green;

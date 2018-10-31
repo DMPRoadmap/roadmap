@@ -1,0 +1,68 @@
+<% user = User.new if user.nil? %>
+<h1><%= _('Create your account') %></h1>
+<p><%= _('Your account has been verified with your institutional credentials. Please fill out the form below to finish creating your account.') %></p>
+<%= form_for user, url: registration_path("user"), html: {autocomplete: "off", id: "omniauth_register_form"} do |f| %>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label(:firstname, _('First Name'), class: "control-label") %>
+            <%= f.text_field(:firstname, class: "form-control", "aria-required": true) %>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <%= f.label(:surname, _('Last Name'), class: "control-label") %>
+            <%= f.text_field(:surname, class: "form-control", "aria-required": true) %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <%= f.label(:email, _('Email'), class: "control-label") %>
+            <%= f.email_field(:email, class: "form-control", "aria-required": true, 'data-validatable': true) %>
+          </div>
+        </div>
+      </div>
+
+      <% if user.org.present? %>
+        <%= f.hidden_field :org_id %>
+      <% else %>
+        <div class="row">
+          <div class="col-md-12">
+            <p><%= _('We were unable to determine your organization. Please select your organization below.') %></p>
+            <div class="form-group">
+              <%= render partial: "shared/accessible_combobox",
+                         locals: {name: 'org_name',
+                                  id: 'org_name',
+                                  default_selection: nil,
+                                  models: orgs,
+                                  attribute: 'name',
+                                  required: true,
+                                  classes: ''} %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="checkbox pull-left">
+            <%= f.label(:accept_terms,
+                raw("#{ f.check_box(:accept_terms, "aria-required": true, "data-validation-error": _('You must agree to the term and conditions.')) } #{_('I accept the')} <a href=\"#{terms_path}\">#{_('terms and conditions')}</a>")) %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.hidden_field :password %>
+          <button type="submit" class="btn btn-default">Sign in</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

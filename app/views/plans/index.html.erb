@@ -1,16 +1,7 @@
 <% title _('My Dashboard') %>
 <div class="row">
   <div class="col-md-12">
-    <h1>
-      <%= _('My Dashboard') %>
-
-    <!-- START DMPTool customization -->
-    <!-- ========================================= -->
-      <%= link_to _('Create plan'), new_plan_path, class: "btn btn-primary pull-right" %>
-    <!-- ========================================= -->
-    <!-- END DMPTool customization -->
-
-    </h1>
+    <h1><%= _('My Dashboard') %></h1>
 
     <!-- if the user has projects -->
     <p>
@@ -35,15 +26,11 @@
   </div>
 </div>
 
-<!-- START DMPTool customization -->
-<!-- ========================================= -->
-<!-- <div class="row"> -->
-  <!-- <div class="col-md-12"> -->
-      <%#= link_to _('Create plan'), new_plan_path, class: "btn btn-primary" %>
-  <!-- </div> -->
-<!-- </div> -->
-<!-- ========================================= -->
-<!-- END DMPTool customization -->
+<div class="row">
+  <div class="col-md-12">
+    <%= link_to _('Create plan'), new_plan_path, class: "btn btn-primary" %>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-md-12">

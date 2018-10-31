@@ -1,36 +1,15 @@
 <% title _('Public DMPs') %>
 <div class="row">
   <div class="col-md-12">
-
-  <!-- START DMPTool customization -->
-  <!-- ========================================= -->
-    <!-- <h1><%#= _('Public DMPs') %></h1> -->
-    <h1><%= raw _('Public Plans') %></h1>
-  <!-- ========================================= -->
-  <!-- END DMPTool customization -->
-
+    <h1><%= _('Public DMPs') %></h1>
     <!-- if the user has projects -->
     <% if @plans.count > 0 %>
       <p class="left-indent">
-
-      <!-- START DMPTool customization -->
-      <!-- ========================================= -->
-        <%#= _('Public DMPs are plans created using the %{application_name} service and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines.') % {application_name: Rails.application.config.branding[:application][:name]} %>
-        <%= _('Public plans are plans created using the %{application_name} service and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines.') % {application_name: Rails.application.config.branding[:application][:name]} %>
-      <!-- ========================================= -->
-      <!-- END DMPTool customization -->
-
+        <%= _('Public DMPs are plans created using the %{application_name} service and shared publicly by their owners. They are not vetted for quality, completeness, or adherence to funder guidelines.') % {application_name: Rails.application.config.branding[:application][:name]} %>
       </p>
     <% else %>
       <p class="left-indent">
-
-      <!-- START DMPTool customization -->
-      <!-- ========================================= -->
-        <%#= _("There are currently no public DMPs.")%>
-        <%= _("There are currently no public plans.")%>
-      <!-- ========================================= -->
-      <!-- END DMPTool customization -->
-
+        <%= _("There are currently no public DMPs.")%>
       </p>
     <% end %>
   </div>
