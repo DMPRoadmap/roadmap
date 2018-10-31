@@ -18,7 +18,6 @@ addons:
   chrome: stable
   apt:
     packages:
-      - nodejs
       - wkhtmltopdf
 
   # artifacts:
@@ -42,12 +41,25 @@ env:
   - DB_ADAPTER=postgresql
   - DB_ADAPTER=mysql2
 
+before_install:
+  - nvm install 10.10.0
+
+install:
+  - bundle install --with development,ci --path=${BUNDLE_PATH:-vendor/bundle}
+  - yarn install --ignore-optional
+
+# This is a temporary bug fix for Karma tests
+# See here: https://github.com/travis-ci/travis-ci/issues/9024
+before_script:
+  - "sudo chown root /opt/google/chrome/chrome-sandbox"
+  - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
+
 # Main test script
 script:
   - export WICKED_PDF_PATH=./vendor/bundle/ruby/2.4.0/bin/wkhtmltopdf
   # Copy over config files needed for setup, and create DB
   - bin/setup
-  # Precompile the assets
+  - bundle exec rake webpacker:compile
   - bundle exec rake assets:precompile
   # Default test stage: Run all specs, listing the 10 slowest.
   - bundle exec rspec spec --profile=10
@@ -69,6 +81,10 @@ jobs:
     - stage: security
       name: "Bundle audit"
       script: bundle exec bundle-audit check --update
+
+    - stage: test
+      name: "Karma JS tests"
+      script: yarn run eslint --ext .js --ext .jsx app/assets/javascripts/**/*.js
 
     - stage: hygiene
       name: "Check seeds are valid"

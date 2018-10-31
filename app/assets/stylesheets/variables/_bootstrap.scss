@@ -1,0 +1,28 @@
+@import "./colours";
+
+// Here you can override Twitter Bootstrap's variables.
+//
+// Values defined here will automatically take priority over the Bootstrap defaults.
+// You can see a list of the Bootstrap variables here:
+// https://getbootstrap.com/docs/3.3/customize/
+
+
+// NOTE: We need to stick to the !default format below, to ensure variables can be set in
+// other files for individual deployments.
+
+// Forms
+$input-border-radius: 0px !default;
+
+
+// Navbar
+$navbar-border-radius: 0px !default;
+
+// Buttons
+$btn-border-radius-base: 0px !default;
+
+$btn-primary-color: $color-text-white !default;
+
+$btn-default-color: $color-text-white !default;
+
+// Panels
+$panel-border-radius: 0px !default;
