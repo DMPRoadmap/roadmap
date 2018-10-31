@@ -14,7 +14,7 @@ FactoryBot.define do
     name { Faker::Language.name }
     description { "Language for #{name}" }
     abbreviation { Faker::Language.abbreviation }
-    default_language false
+    default_language { false }
     trait :with_dialect do
       abbreviation {
         pre = ("a".."z").to_a.shuffle.take(2).join

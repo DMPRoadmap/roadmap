@@ -118,7 +118,9 @@ module DMPRoadmap
     config.active_record.raise_in_transactional_callbacks = true
 
     # Load Branded terminology (e.g. organization name, application name, etc.)
-    config.branding = config_for(:branding).deep_symbolize_keys
+    if File.exists?(Rails.root.join('config', 'branding.yml'))
+      config.branding = config_for(:branding).deep_symbolize_keys
+    end
 
     # The default visibility setting for new plans
     #   organisationally_visible  - Any member of the user's org can view, export and duplicate the plan

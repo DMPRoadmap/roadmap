@@ -31,10 +31,10 @@ FactoryBot.define do
     question_format
     text { Faker::Lorem.paragraph }
     sequence(:number)
-    modifiable false
+    modifiable { false }
 
     transient do
-      options 0
+      options { 0 }
     end
 
     after(:create) do |question, evaluator|

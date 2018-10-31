@@ -1,0 +1,17 @@
+// Override FontAwesome icons
+
+/* FONTAWESOME STYLING */
+.fa:not(.small) {
+  font-size: 2rem;
+}
+.fa-reverse {
+  color: $color-text-grey;
+}
+.fa-sort, .fa-sort-asc, .fa-sort-desc {
+  color: $color-white;
+}
+
+/* adjust the position of the 'remove - X' button for links */
+.link .fa-times-circle {
+  margin-top: $grid-gutter-width;
+}
