@@ -104,6 +104,13 @@ gem 'recaptcha'
 # Ideal gem for handling attachments in Rails, Sinatra and Rack applications. (http://github.com/markevans/dragonfly)
 gem 'dragonfly'
 
+group :aws, optional: true do
+
+  gem 'dragonfly-s3_data_store'
+
+end
+
+
 # bootstrap-sass is a Sass-powered version of Bootstrap 3, ready to drop right into your Sass powered applications. (https://github.com/twbs/bootstrap-sass)
 gem 'bootstrap-sass', '~> 3.3.7'
 
