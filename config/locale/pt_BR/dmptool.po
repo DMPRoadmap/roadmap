@@ -1,7 +1,27 @@
-config/locale/dmptool.pot
+# Brazilian Portuguese translations of DMPTool strings
+# Copyright (C) 2018 The Regeants of the University of California
+# This file is distributed under the same license as the app package.
+# Brian Riley, 2018.
+# Benilton de Sá Carvalho, 2018
+# Vitor Silverio, 2018
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: app 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-12 16:41+0000\n"
+"PO-Revision-Date: 2018-11-01 13:14:22-0700\n"
+"Last-Translator: Benilton de Sá Carvalho\n"
+"Language-Team: CDL UC3 <cdluc3@ucop.edu>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"\n"
 
 msgid " Warning: Changing your organisation will result in the loss of your administrative privileges."
-msgstr " Aviso: alterar sua organização resultará na perda de seus privilégios administrativos."
+msgstr " Aviso: alterar sua organização resultará na perda de seus privilégios administrativos. "
 
 msgid "(Linux, Mac, Windows; free)"
 msgstr "(Linux, Mac, Windows; gratuito)"
@@ -12,15 +32,16 @@ msgstr "(Mac: teste grátis)"
 msgid "(Windows; free)"
 msgstr "(Windows; gratuito)"
 
-#, fuzzy
-msgid "(new window)"
-msgstr ""
-
 msgid "- or -"
 msgstr "- ou -"
 
 msgid "- or - "
 msgstr "- ou - "
+
+msgid "<a href=\"%{ncbi_url}\">NCBI (National Center for Biotechnology Information) ACCESSION</a></li>"
+"    <li>a non-actionable number in use by NCBI."
+msgstr "<a href=\"%{ncbi_url}\">NCBI (National Center for Biotechnology Information) ACCESSION</a></li>"
+"    <li>um número não acionável em uso pelo NCBI."
 
 msgid "<a href=\"%{ark_url}\">ARK (Archival Resource Key)</a> – a URL with extra features allowing you to ask for descriptive and archival metadata and to recognize certain kinds of relationships between identifiers. ARKs are used by memory organizations such as libraries, archives, and museums. They are resolved at \"%{nt2_url}\". Resolution depends on HTTP redirection and can be managed through an API or a user interface."
 msgstr "<a href=\"%{ark_url}\">ARK (Archival Resource Key)</a> - uma URL com recursos extras que lhe permite solicitar metadados descritivos e de arquivamento e reconhecer certos tipos de relacionamentos entre identificadores. As ARKs são usadas por organizações de memória, como bibliotecas, arquivos e museus. Eles são resolvidos em \"%{nt2_url}\". A resolução depende do redirecionamento de HTTP e pode ser gerenciada por meio de uma API ou de uma interface do usuário."
@@ -37,15 +58,8 @@ msgstr "<a href=\"%{inchi_url}\">InChI (IUPAC International Chemical Identifier)
 msgid "<a href=\"%{lsid_url}\">LSID (Life Sciences Identifier)</a> – a kind of URN that identifies a biologically significant resources, including species names, concepts, occurrences, and genes or proteins, or data objects that encode information about them. Like other URNs, it becomes actionable when embedded in a URL."
 msgstr "<a href=\"%{lsid_url}\">LSID (Life Sciences Identifier)</a> – um tipo de URN que identifica recursos biologicamente significativos, incluindo nomes de espécies, conceitos, ocorrências e genes ou proteínas, ou objetos de dados que codificam informações sobre eles. Como outros URNs, ele se torna acionável quando incorporado em uma URL."
 
-msgid "<a href=\"%{ncbi_url}\">NCBI (National Center for Biotechnology Information) ACCESSION</a></li>"
-msgstr "<a href=\"%{ncbi_url}\">NCBI (National Center for Biotechnology Information) ACCESSION</a></li>"
-
 msgid "<a href=\"%{purl_url}\">PURL (Persistent Uniform Resource Locator)</a> – a URL that is always redirected through a hostname (often purl.org). Resolution depends on HTTP redirection and can be managed through an API or a user interface."
 msgstr "<a href=\"%{purl_url}\">PURL (Persistent Uniform Resource Locator)</a> – um URL que é sempre redirecionado por meio de um nome de host (geralmente purl.org). A resolução depende do redirecionamento de HTTP e pode ser gerenciada por meio de uma API ou de uma interface do usuário."
-
-#, fuzzy
-msgid "<em class=\"red\">*</em> I accept the <a href=\"%{term_and_conditions_url}\" target=\"_blank\">terms and conditions <em class=\"sr-only\">(new window)</em></a>"
-msgstr ""
 
 msgid "<ol type=\"1\"><li>Enter a title for your research project. If applying for funding, use the project title as it appears in the proposal.</li><li>Select the primary research organization. If you are associated with a participating institution/organization, this field will be pre-populated. You have the option to clear the field and select another organization from the list. Based on your selection, you will be presented with institution-specific templates and guidance. You can also check the box that “No organization is associated with this plan.”</li><li>Select the primary funding organization. If you are required to include a data management plan as part of a grant proposal, select your funder from the list. You may be presented with a secondary dropdown menu if your funder has different requirements for specific programs (e.g., NSF, DOE). See the complete list of <a href=\"%{public_templates_url}\">funder requirements</a> supported by DMPTool. If your funder is not in the list or you are not applying for a grant, check the box for “No funder associated with this plan;” this selection will provide you with a generic template.</li></ol>"
 msgstr "<ol type=\"1\"><li>Insira um título para o seu projeto de pesquisa. Se estiver solicitando financiamento, use o título do projeto como aparece na proposta.</li><li>Selecione a organização de pesquisa principal. Se você estiver associado a uma instituição/organização participante, esse campo será pré-preenchido. Você tem a opção de limpar o campo e selecionar outra organização na lista. Com base na sua seleção, você receberá modelos e orientações específicos da instituição. Você também pode marcar a caixa “Nenhuma organização está associada a este plano”.</li><li>Selecione a organização principal de financiamento. Se você precisar incluir um plano de gerenciamento de dados como parte de uma proposta de concessão, selecione seu financiador na lista. Você pode receber um menu suspenso secundário se seu financiador tiver requisitos diferentes para programas específicos (por exemplo, NSF, DOE). Veja a lista completa dos <a href=\"%{public_templates_url}\">requisitos do exigências do órgão financiador</a> suportados pelo DMPTool. Se o seu financiador não estiver na lista ou se você não estiver solicitando um subsídio, marque a caixa “Nenhum financiador associado a este plano;” essa seleção fornecerá um modelo genérico.</li></ol>"
@@ -134,9 +148,8 @@ msgstr "<strong>Local</strong>: Todos os locais físicos aplicáveis"
 msgid "<strong>Processing</strong>: How the data have been altered or processed (e.g., normalized)"
 msgstr "<strong>Processamento</strong>: como os dados foram alterados ou processados ​​(por exemplo, normalizados)"
 
-#, fuzzy
-msgid "<strong>Research Project Documentation</strong><ul><li>Rationale and context for data collection</li><li>Data collection methods</li><li>Structure and organization of data files</li><li>Data sources used (see citing data)</li><li>Data validation and quality assurance</li><li>Transformations of data from the sanitize data through analysis</li><li>Information on confidentiality, access and use conditions</li></ul>"
-msgstr ""
+msgid "<strong>Research Project Documentation</strong><ul><li>Rationale and context for data collection</li><li>Data collection methods</li><li>Structure and organization of data files</li><li>Data sources used (see citing data)</li><li>Data validation and quality assurance</li><li>Transformations of data from the raw data through analysis</li><li>Information on confidentiality, access and use conditions</li></ul>"
+msgstr "<strong>Documentação do Projeto de Pesquisa</strong><ul><li>Justificativa e contexto para a coleta de dados</li><li>Métodos de coleta de dados</li><li>Estrutura e organização de arquivos de dados</li><li>Fontes de dados usadas (ver dados citados)</li><li>Validação de dados e garantia de qualidade</li><li>Transformações de dados dos dados brutos através da análise</li><li>Informações sobre confidencialidade, acesso e usar condições</li></ul>"
 
 msgid "<strong>Rights</strong>: Any known intellectual property rights, statutory rights, licenses, or restrictions on use of the data"
 msgstr "<strong>Direitos</strong>: Quaisquer direitos de propriedade intelectual conhecidos, direitos estatutários, licenças ou restrições ao uso dos dados"
@@ -172,7 +185,7 @@ msgid "<ul><li>Email to individual requesters</li><li>Post online via a project 
 msgstr "<ul><li>Email para solicitantes individuais</li><li>Publique conectados por meio de um projeto ou site pessoal</li><li>Envie como material suplementar para ser hospedado no site de um editor de periódico</li><li>Depositar em um repositório ou arquivo aberto</li><li>Depositar em um repositório aberto e publicar um \"paper de dados\" descrevendo os dados</li></ul>"
 
 msgid "<ul><li>Kumar, Sujai (2012): 20 Nematode Proteomes. figshare. https://doi.org/10.6084/m9.figshare.96035.v2 (Accessed 2016-09-06).</li><li>Morran LT, Parrish II RC, Gelarden IA, Lively CM (2012) Data from: Temporal dynamics of outcrossing and host mortality rates in host-pathogen experimental coevolution. Dryad Digital Repository. https://doi.org/10.5061/dryad.c3gh6</li><li>Donna Strahan. &quot;08-B-1 from Jordan/Petra Great Temple/Upper Temenos/Trench 94/Locus 41&quot;. (2009) In Petra Great Temple Excavations. Martha Sharp Joukowsky (Ed.) Releases: 2009-10-26. Open Context. https://opencontext.org/subjects/30C3F340-5D14-497A-B9D0-7A0DA2C019F1 ARK (Archive): http://n2t.net/ark:/28722/k2125xk7p</li><li>OECD (2008), Social Expenditures aggregates, OECD Social Expenditure Statistics (database). https://doi.org/10.1787/000530172303 (Accessed on 2008-12-02).</li><li>Denhard, Michael (2009): dphase_mpeps: MicroPEPS LAF-Ensemble run by DWD for the MAP D-PHASE project. World Data Center for Climate. https://doi.org/10.1594/WDCC/dphase_mpeps</li><li>Manoug, J L (1882): Useful data on the rise of the Nile. Alexandria : Printing-Office V Penasson. http://n2t.net/ark:/13960/t44q88124</li></ul>"
-msgstr ""
+msgstr "<ul><li>Kumar, Sujai (2012): 20 Nematode Proteomes. figshare. https://doi.org/10.6084/m9.figshare.96035.v2 (Accessed 2016-09-06).</li><li>Morran LT, Parrish II RC, Gelarden IA, Lively CM (2012) Data from: Temporal dynamics of outcrossing and host mortality rates in host-pathogen experimental coevolution. Dryad Digital Repository. https://doi.org/10.5061/dryad.c3gh6</li><li>Donna Strahan. &quot;08-B-1 from Jordan/Petra Great Temple/Upper Temenos/Trench 94/Locus 41&quot;. (2009) In Petra Great Temple Excavations. Martha Sharp Joukowsky (Ed.) Releases: 2009-10-26. Open Context. https://opencontext.org/subjects/30C3F340-5D14-497A-B9D0-7A0DA2C019F1 ARK (Archive): http://n2t.net/ark:/28722/k2125xk7p</li><li>OECD (2008), Social Expenditures aggregates, OECD Social Expenditure Statistics (database). https://doi.org/10.1787/000530172303 (Accessed on 2008-12-02).</li><li>Denhard, Michael (2009): dphase_mpeps: MicroPEPS LAF-Ensemble run by DWD for the MAP D-PHASE project. World Data Center for Climate. https://doi.org/10.1594/WDCC/dphase_mpeps</li><li>Manoug, J L (1882): Useful data on the rise of the Nile. Alexandria : Printing-Office V Penasson. http://n2t.net/ark:/13960/t44q88124</li></ul>"
 
 msgid "<ul><li>Required by publishers (e.g., Cell, Nature, Science)</li><li>Required by government funding agencies (e.g., NIH, NSF)</li><li>Allows data to be used to answer new questions</li><li>Makes research more open</li><li>Makes your papers more useful and citable by other researchers</li></ul>"
 msgstr "<ul><li>Requerido pelos editores (por exemplo, Cell, Nature, Science)</li><li>Requerido pelas agências de financiamento do governo (por exemplo, NIH, NSF)</li><li>Permite que os dados sejam usados ​​para responder novas perguntas</li><li>Torna a pesquisa mais aberta</​​li><li>Torna seus artigos mais úteis e citáveis ​​por outros pesquisadores</li></ul>"
@@ -239,7 +252,7 @@ msgid "A: The DMPTool is FREE. Anyone can create data management plans using the
 msgstr "R: DMPTool é GRATUITO. Qualquer pessoa pode criar planos de gestão de dados usando DMPTool."
 
 msgid "A: The request feedback functionality of the DMPTool is an optional feature that institutions may configure to help researchers create data management plans. Submitting a plan for feedback is within-institution only. If this feature is enabled, a button to \"Request feedback\" will be displayed on the \"Share\" tab when writing a plan. If a user clicks the \"Request feedback\" button, the DMPTool will send an email to the plan owner and the institutional administrator contact. The institutional administrator will be granted read only permissions and be able to provide comments on the plan within the tool."
-msgstr "R: A funcionalidade Solicitar feedback do DMPTool é um recurso opcional que as instituições podem configurar para ajudar seus pesquisadores a criar planos de gestão de dados. A solicitação de feedback sobre um plano funciona somente no âmbito interno de uma instituição. Se esse recurso for habilitado, a aba \"Compartilhar\" exibirá um botão \"Solicitar feedbak\" quando o usuário estiver escrevendo um plano. Se um usuário clicar o botão \"Solicitar feedback\", o DMPTool enviará um email para os contatos do proprietário do plano e do administrador institucional. O administrador institucional receberá somente permissão de leitura e poderá fazer comentários sobre o plano usando a ferramenta."
+msgstr "A funcionalidade Solicitar feedback do DMPTool é um recurso opcional que as instituições podem configurar para ajudar seus pesquisadores a criar planos de gestão de dados. A solicitação de feedback sobre um plano funciona somente no âmbito interno de uma instituição. Se esse recurso for habilitado, a aba \"Compartilhar\" exibirá um botão \"Solicitar feedbak\" quando o usuário estiver escrevendo um plano. Se um usuário clicar o botão \"Solicitar feedback\", o DMPTool enviará um email para os contatos do proprietário do plano e do administrador institucional. O administrador institucional receberá somente permissão de leitura e poderá fazer comentários sobre o plano usando a ferramenta."
 
 msgid "A: The sample plans on the <a href=\"%{public_templates_url}\">Funder Requirements page</a> are created by funders and offered as guidance on their websites. The <a href=\"%{public_plans_url}\">Public Plans</a> are actual plans created by users of the DMPTool (please note that these have not been vetted for quality). Both provide helpful examples for researchers creating their own data management plans."
 msgstr "R: As amostras de planos na <a href=\"%{public_templates_url}\">página Exigências do Órgão Financiador</a> são criadas pelos órgãos financiadores e oferecidas como orientção em seus sites. Os <a href=\"%{public_plans_url}\">Planos Públicos</a> são planos reais, criados por usuários do DMPTool (por favor, observe que eles não foram verificados com respeito a sua qualidade). Ambos os conjuntos de planos proporcionam exemplos úteis para pesquisadores que estejam criando seus próprios planos de gestão de dados."
@@ -250,9 +263,8 @@ msgstr "R: Há muitas ações que geram notificações automáticas por email en
 msgid "A: There are three visibility options for each plan you create:<ol><li>Private. Your plan will only be visible to you and any specified plan collaborators. Basic plan details (from the project details page, but not the plan content) will be available to administrators at your institution.</li><li>Organization. If your institution/organization participates in the DMPTool, this setting allows administrators and users from your institution to see your plan.</li><li>Public. Your plan will be available on the <a href=\"%{public_plans_url}\">Public Plans</a> page of the DMPTool website. Choose this option to allow others to see your plan without restrictions (under a CC-Zero license).</li></ol>"
 msgstr "R: Há três opções de visibilidade para cada plano que você cria:<ol><li>Privado. Seu plano será visível apenas para você e para os colaboradores específicos desse plano. Os detalhes básicos do plano (os que aparecem na página de detalhes do projeto, não o conteúdo do plano) estarão disponíveis para os administradores em sua instituição.</li><li>Organização. Se sua instituição/organização participa do DMPTool, esta configuração permite que os administradores e usuários de sua instituição vejam seu plano.</li><li>Público. Seu plano estará disponível na página <a href=\"%{public_plans_url}\">Planos Públicos</a> do site do DMPTool. Escolha esta opção para permitir que outras pessoas vejam seu plano sem restrições (sob uma licença CC-Zero)."
 
-#, fuzzy
 msgid "A: There is an extensive list of <a href=\"%{admin_help_url}\">help topics for administrators</a> customizing the DMPTool located on GitHub. You will find detailed instructions for:<ol><li>Setting up the DMPTool<ul><li>Enabling Shibboleth</li><li>Granting administrator privileges</li><li>Customizing your organizational profile</li><li>Providing feedback on plans</li><li>Usage information</li></ul></li><li>Quick overview of terms</li><li>Creating guidance</li><li>Customizing funder templates</li><li>Creating templates</li></ol>"
-msgstr ""
+msgstr "R: Há uma lista extensa de <a href=\"%{admin_help_url}\">tópicos de ajuda para administradores</a> customizando o DMPTool localizado no GitHub. Você encontrará instruções detalhadas para:<ol><li>Configurando o DMPTool<ul><li>Ativando o Shibboleth</li><li>Concedendo privilégios de administrador</li><li>Customizando seu perfil organizacional</li><li>Fornecendo feedback sobre planos</li><li>Informações de uso</li></ul></li><li>Visão geral rápida de termos</li><li>Criando orientação</li><li>Customizaçãoando modelos de financiador</li><li>Criando modelos</li></ol>"
 
 msgid "A: We do not plan to delete any plans created with the DMPTool. As a plan owner, however, you can delete plans by going to “My Dashboard” and selecting “Remove” from the Actions menu next to the plan name."
 msgstr "R: Não pretendemos apagar nenhum plano criado com o DMPTool. Porém, enquanto proprietário de um plano, você pode apagar planos indo para “Meu Painel de Controle” e selecionando “Remover” no menu Ações, ao lado do nome do plano."
@@ -260,14 +272,14 @@ msgstr "R: Não pretendemos apagar nenhum plano criado com o DMPTool. Porém, en
 msgid "A: Yes! To view guidance created by others, create a new plan in the tool. On the \"Project details\" tab you will see \"Plan guidance configuration\" on the right. Click to \"See the full list\" and you can select up to 6 different organizations at a time. You will see the selected guidance when you navigate to the \"Write plan\" tab."
 msgstr "R: Sim! Para visualizar a orientação criada por outras pessoas, crie um novo plano na ferramenta. Na guia \"Detalhes do projeto\", você verá \"Planejar configuração de orientação\" à direita. Clique para \"Ver a lista completa\" e você pode selecionar até 6 organizações diferentes de cada vez. Você verá a orientação selecionada ao navegar até a guia \"Plano de gravação\"."
 
+msgid "About"
+msgstr "Sobre"
+
 msgid "About the DMPTool"
 msgstr "Sobre o DMPTool"
 
 msgid "Access"
 msgstr "Acesso"
-
-msgid "Admin Features"
-msgstr "Características do Administrador"
 
 msgid "Administrators: if you are interested in enabling this functionality for users at your institution, see the \"Request feedback\" section of the <a href=\"%{admin_help_url}\">help for administrators</a> wiki."
 msgstr "Administradores: se você estiver interessado em ativar essa funcionalidade para usuários de sua instituição, consulte a seção \"Solicitar comentários\" da wiki <a href=\"%{admin_help_url}\">ajuda para administradores</a>."
@@ -291,7 +303,7 @@ msgid "As noted in the CDL privacy policy, this website uses Google Analytics to
 msgstr "Conforme observado na política de privacidade da CDL, este site usa o Google Analytics para capturar e analisar estatísticas de uso. Você pode optar por não ter a atividade do seu website rastreada pelo Google Analytics. Para fazer isso, visite a <a href=\"%{opt_out_url}\">página de desativação do Google Analytics</a> e instale o complemento para seu navegador."
 
 msgid "Audio: AIFF, WAVE"
-msgstr ""
+msgstr "Audio: AIFF, WAVE"
 
 msgid "Backup Your Data"
 msgstr "Faça backup dos seus dados"
@@ -322,6 +334,9 @@ msgstr "Não consegue encontrar a resposta que procura? <a href=\"%{contact_url}
 
 msgid "Can't find what you’re looking for? <a href=\"%{contact_us_url}\" >Contact us</a>"
 msgstr "Não consegue encontrar o que procura? <a href=\"%{contact_us_url}\">Entre em contato</a>"
+
+msgid "Cancel"
+msgstr "Cancelar"
 
 msgid "Certain features on this website utilize third party services and APIs such as InCommon/Shibboleth or third party hosting of common JavaScript libraries or web fonts. Information used by an external service is governed by the privacy policy of that service. CDL does not control how information may be used by these services."
 msgstr "Alguns recursos deste site utilizam serviços e APIs de terceiros, como o InCommon / Shibboleth ou hospedagem de terceiros de bibliotecas JavaScript comuns ou fontes da Web. As informações usadas por um serviço externo são regidas pela política de privacidade desse serviço. A CDL não controla como as informações podem ser usadas por esses serviços."
@@ -359,20 +374,23 @@ msgstr "Descrição do conteúdo"
 msgid "Contents"
 msgstr "Conteúdo"
 
-msgid "Copyright 2010-%{current_year} The Regents of the University of California"
-msgstr "Direitos autorais 2010-%{current_year} The Regents of the University of California"
-
 msgid "Copyright and Privacy"
 msgstr "Direitos autorais e privacidade"
 
 msgid "Core elements"
 msgstr "Elementos centrais"
 
+msgid "Create a plan"
+msgstr "Criar um plano"
+
 msgid "Create account with email address"
 msgstr "Criar conta com endereço de email"
 
 msgid "Create an account"
-msgstr "Criar um conta"
+msgstr "Criar uma conta"
+
+msgid "Create an account with any email address"
+msgstr "Crie uma conta com qualquer endereço de email"
 
 msgid "Create data management plans that meet institutional and funder requirements."
 msgstr "Criar planos de gestão de dados satisfazendo as exigências de instituições e órgãos de financiamento"
@@ -384,34 +402,22 @@ msgid "Creator names in non-Roman scripts should be transliterated using the <a 
 msgstr "Os nomes dos criadores em scripts não romanos devem ser transliterados usando as <a href=\"%{romanization_url}\">ALA-LC Romanization Tables</a>."
 
 msgid "DMPTool"
-msgstr ""
+msgstr "DMPTool"
 
 msgid "DMPTool ('the tool', 'the system"
-msgstr "DMPTool ('a ferramenta', 'o sistema"
-
-msgid "DMPTool Background"
-msgstr "Fundo do DMPTool"
+msgstr "DMPTool (''a ferramenta', 'o sistema"
 
 msgid "DMPTool News"
 msgstr "Notícias do DMPTool"
 
-msgid "DMPTool Principles"
-msgstr "Princípios do DMPTool"
-
 msgid "DMPTool by the Numbers"
 msgstr "DMPTool em Números"
-
-msgid "DMPTool is a service of the %{uc3} of the %{cdl}"
-msgstr "DMPTool é um serviço do %{uc3} da %{cdl}"
 
 msgid "DMPTool is free for anyone to create data management plans. As a user, you can:<ul><li>Create your own plans.</li><li>Co-author a plan with collaborators.</li><li> If you are a researcher from one of the <a href=\"%{participating_url}\">participating institutions</a>, you can log in using your institutional credentials. You may then be presented with institution-specific guidance and have the option to get feedback from local data experts.</li></ul>"
 msgstr "DMPTool pode ser usado gratuitamente por qualquer pessoa que deseje criar planos de gestão de dados. Como usuário, você pode:<ul><li>Criar seus próprios planos.</li><li>Criar um plano em coautoria com colaboradores.</li><li> Se você é pesquisador de uma das the <a href=\"%{participating_url}\">instituições participante</a>, você pode fazer seu login usando suas credenciais institucionais. É possível que você receba orientações específicas para sua instituição ou que consiga ajuda de um especialista em dados local.</li></ul>"
 
 msgid "DMPTool logo"
 msgstr "Logo DMPTool"
-
-msgid "DMPTool participants are institutions, profit and nonprofit organizations, individuals, or other groups that leverage the DMPTool as an effective and efficient way to create data management plans. Our community of participating organizations helps to sustain and support the DMPTool in the following ways:<ul><li>Establish institutional authentication with the DMPTool (Shibboleth)</li><li>Customize the tool with resources, help text, suggested answers, or other information</li><li>Contribute to the maintenance and enhancement of the DMPTool codebase</li><li>Help ensure that the DMPTool maintains its relevance and utility by notifying the DMPTool Helpdesk if:<ul><li>Funders release new requirements that are not reflected in the tool</li><li>Errors, mistakes, or misinformation are discovered in the tool</li><li>The tool's functionality is compromised (i.e., slow response times, poor performance, or software bugs)</li></ul></li></ul>"
-msgstr "Os participantes da DMPTool são instituições, organizações sem fins lucrativos e lucrativas, indivíduos ou outros grupos que aproveitam o DMPTool como uma maneira eficaz e eficiente de criar planos de gerenciamento de dados. Nossa comunidade de organizações participantes ajuda a sustentar e apoiar o DMPTool das seguintes maneiras:<ul><li>Estabelecer autenticação institucional com o DMPTool (Shibboleth)</li><li>Customização a ferramenta com recursos, texto de ajuda, respostas sugeridas ou outras informações</li><li>Contribuir para a manutenção e aprimoramento da base de código do DMPTool</li><li>Ajude a garantir que o DMPTool mantenha sua relevância e utilidade notificando o Helpdesk do DMPTool se:<ul><li>Os financiadores lançam novos requisitos que não estão refletidos na ferramenta</li><li>Erros, erros ou desinformação são descobertos na ferramenta</​li><li>A funcionalidade da ferramenta é comprometida (ou seja, tempos de resposta lentos, falta desempenho ou erros de software)</li></ul></li></ul>"
 
 msgid "Data Management General Guidance"
 msgstr "Guia Geral de Gestão de Dados"
@@ -443,6 +449,12 @@ msgstr "Bancos de dados: prefira XML ou CSV para formatos binários nativos"
 msgid "Despite the lack of formal endorsements, the DMPTool templates incorporate specific data management planning requirements from a range of funders including foundations and government agencies. We are in close contact with some funders as we create templates and for all funders we monitor public notices and websites for changes."
 msgstr "A despeito de não receber endossos formais, os modelos do DMPTool incorporam exigências específicas de uma série de órgãos financiadores a respeito de planos de gestão de dados, incluindo fundações e agências governamentais. Mantemos estreito contato com alguns órgãos financiadores ao criarmos modelos e, para todos os órgãos financiadores, monitoramos os avisos públicos e sites para acompanhar quaisquer mudanças."
 
+msgid "Email"
+msgstr ""
+
+msgid "Email address"
+msgstr "Endereço de email"
+
 msgid "Encrypted data may be effectively lost if it was encrypted with a key that has been lost (e.g., a forgotten password). For this reason, encrypted data representations are strongly discouraged."
 msgstr "Dados criptografados podem ser efetivamente perdidos se forem criptografados com uma chave perdida (por exemplo, uma senha esquecida). Por esse motivo, as representações de dados criptografados são fortemente desencorajadas."
 
@@ -456,7 +468,7 @@ msgid "Examples of preferred format choices:"
 msgstr "Exemplos de opções de formato preferidas:"
 
 msgid "FAQ"
-msgstr ""
+msgstr "FAQ"
 
 msgid "File Formats"
 msgstr "Formatos de arquivo"
@@ -467,12 +479,17 @@ msgstr "Renomeando um arquivo"
 msgid "Finding a data repository"
 msgstr "Encontrando um repositório de dados"
 
+msgid "First Name"
+msgstr "Primeiro nome"
+
+msgid "First name"
+msgstr "Primeiro nome"
+
 msgid "For Administrators"
 msgstr "Para Administradores"
 
-#, fuzzy
 msgid "For Administrators <em class=\"sr-only\">(new window)</em>"
-msgstr ""
+msgstr "Para Administradores <em class=\"sr-only\">(abre em nova janela)</em>"
 
 msgid "For Researchers"
 msgstr "Para Pesquisadores"
@@ -495,10 +512,6 @@ msgstr "Para mais informações, consulte o <a href=\"%{help_url}\">Guia de Iní
 msgid "For what or whom are the data intended?"
 msgstr "Para que ou quem são os dados pretendidos?"
 
-#, fuzzy
-msgid "Forgot email?"
-msgstr ""
-
 msgid "Formats likely to be accessible in the future are:"
 msgstr "Formatos que provavelmente estarão acessíveis no futuro são:"
 
@@ -507,9 +520,6 @@ msgstr "Liberdade de Informação"
 
 msgid "Funder Requirements"
 msgstr "Requisitos para Órgão Financiador"
-
-msgid "Future enhancements will focus on making DMPs machine actionable so please continue sharing your use cases. We invite you to peruse the DMPRoadmap GitHub wiki to learn how to <a href=\"%{get_involved_url}\">get involved</a> in the project."
-msgstr "Futuros aprimoramentos se concentrarão em tornar a máquina DMPs acionável, portanto, continue compartilhando seus casos de uso. Convidamos você a examinar o wiki do DMPRoadmap GitHub para aprender como <a href=\"%{get_involved_url}\">se envolver</a> no projeto."
 
 msgid "General Overview"
 msgstr "Visao geral"
@@ -523,6 +533,9 @@ msgstr "Distribua geograficamente suas cópias locais e remotas para reduzir o r
 msgid "Get started"
 msgstr "Comece"
 
+msgid "Go"
+msgstr "Ir"
+
 msgid "Go to the blog"
 msgstr "Ir para o blog"
 
@@ -531,9 +544,6 @@ msgstr "A boa prática é ter três cópias em pelo menos dois locais (por exemp
 
 msgid "Google Analytics opt-out"
 msgstr "Sair do Google Analytics"
-
-msgid "Grant number (optional)"
-msgstr "Número da Concessão (opcional)"
 
 msgid "Have funders endorsed the DMPTool?"
 msgstr "Os órgãos financiadores aprovaram DMPTool?"
@@ -574,11 +584,11 @@ msgstr "Quanto custa usar o DMPTool?"
 msgid "How stable is the data?"
 msgstr "Quão estáveis são os dados?"
 
-msgid "How to Participate in the DMPTool"
-msgstr "Como participar do DMPTool"
-
 msgid "How will you document your data?"
 msgstr "Como você documentará seus dados?"
+
+msgid "I accept the"
+msgstr "Eu aceito os"
 
 msgid "I created a test plan. How can I delete it (or hide it)?"
 msgstr "Criei um plano de teste. Como faço para apagá-lo (ou escondê-lo)?"
@@ -634,9 +644,8 @@ msgstr "Se sua instituição/organização é afiliada ao DMPTool:<ul><li>Clique
 msgid "Image: JPEG, JPG-2000, PNG, TIFF"
 msgstr "Imagem: JPEG, JPG-2000, PNG, TIFF"
 
-#, fuzzy
 msgid "In February of 2013, the White House Office of Science and Technology Policy (OSTP) issued a %{memorandum_url} directing Federal agencies that provide significant research funding to develop a plan to expand public access to research. Among other requriments, the plans must:<br><blockquote>\"Ensure that all extramural researchers receiving Federal grants and contracts for scientific research and intramural researchers develop data management plans, as appropriate, describing how they will provide for long-term preservation of, and access to, scientific data in digital formats resulting from federally funded research, or explaining why long-term preservation and access cannot be justified\"</blockquote>"
-msgstr ""
+msgstr "Em fevereiro de 2013, o Escritório de Políticas de Ciência e Tecnologia da Casa Branca (OSTP) emitiu um %{memorandum_url} direcionando agências federais que fornecem financiamento de pesquisa significativo para desenvolver um plano para expandir o acesso público à pesquisa. Entre outros requriments, os planos devem:<blockquote>\"Ensure that all extramural researchers receiving Federal grants and contracts for scientific research and intramural researchers develop data management plans, as appropriate, describing how they will provide for long-term preservation of, and access to, scientific data in digital formats resulting from federally funded research, or explaining why long-term preservation and access cannot be justified\"</blockquote>"
 
 msgid "In common usage by the research community"
 msgstr "Em uso comum pela comunidade de pesquisa"
@@ -650,9 +659,6 @@ msgstr "Insira o(s) email9s) de quaisquer colaboradores que você gostaria de co
 msgid "Institution not in the list?"
 msgstr "Instituição que não está na lista?"
 
-msgid "Institutional Signin Enabled"
-msgstr "Login institucional habilitado"
-
 msgid "Introduction"
 msgstr "Introdução"
 
@@ -661,6 +667,15 @@ msgstr "Existe alguma exigência de que os dados sejam mantidos? Se sim, por qua
 
 msgid "It is vital to maintain the confidentiality of research subjects both as an ethical matter and to ensure continuing participation in research. Researchers need to understand and manage tensions between confidentiality requirements and the potential benefits of archiving and publishing the data."
 msgstr "É vital manter a confidencialidade dos assuntos de pesquisa tanto como questão ética quanto para assegurar a participação contínua na pesquisa. Os pesquisadores precisam entender e gerenciar as tensões entre os requisitos de confidencialidade e os benefícios potenciais do arquivamento e publicação dos dados."
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "Last Name"
+msgstr "Sobrenome"
+
+msgid "Last name"
+msgstr "Sobrenome"
 
 msgid "Learn"
 msgstr "Aprender"
@@ -677,11 +692,11 @@ msgstr "Metadados: documentação de dados"
 msgid "More"
 msgstr "Mais"
 
-msgid "More recently the proliferation of open data policies across the globe has led to an explosion of interest in the DMPTool and the UK-based version, DMPonline. In 2016 UC3 and DCC decided to formalize our partnership to codevelop and maintain a single open-source platform. The new platform—DMPRoadmap—is separate from the services each of our organizations runs on top of it. By providing a core infrastructure for DMPs we can extend our reach and move best practices forward, allowing us to participate in a truly global open science ecosystem."
-msgstr "Mais recentemente, a proliferação de políticas de dados abertos em todo o mundo levou a uma explosão de interesse na DMPTool e na versão baseada no Reino Unido, a DMPonline. Em 2016, o UC3 e o DCC decidiram formalizar nossa parceria para co-desenvolver e manter uma única plataforma de código aberto. A nova plataforma - DMPRoadmap - é separada dos serviços que cada uma de nossas organizações executa em cima dela. Ao fornecer uma infra-estrutura básica para os DMPs, podemos ampliar nosso alcance e levar adiante as melhores práticas, permitindo que participemos de um ecossistema verdadeiramente global de ciência aberta."
-
 msgid "Most databases to which the UC Libraries subscribe are licensed and prohibit redistribution of data outside of UC."
 msgstr "A maioria dos bancos de dados aos quais as Bibliotecas de UC se inscrevem é licenciada e proíbe a redistribuição de dados fora da UC."
+
+msgid "My privileges"
+msgstr "Meus privilégios"
 
 msgid "Need to get others on your campus interested in the DMPTool? Use our Talking Points to guide your discussions. In general, a talking points document is designed to help you stay on track during meetings with those outside of your department. It ensures that your major points are at hand and helps you make progress towards the goals of the meeting.<ul><li>Overview of Talking Points: <a href=\"%{talking_points_overview_pdf_url}\">Adobe PDF</a></li><li>Meeting with your IT Group: <a href=\"%{talking_points_it_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_it_pdf_url}\">Adobe PDF</a></li><li>Meeting with Administrators: <a href=\"%{talking_points_admin_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_admin_pdf_url}\">Adobe PDF</a></li><li>Meeting with Researchers: <a href=\"%{talking_points_researcher_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_researcher_pdf_url}\">Adobe PDF</a> </li></ul>"
 msgstr "Precisa fazer outras pessoas no seu campus interessar-se pelo DMPTool? Use nossos Pontos para Discussão na condução de seus encontros. De maneira geral, um documento com pontos de discussão é estruturado para ajudar você a manter sua linha de argumentação em encontros com pessoas de fora de seu departamento. Ele assegura que os pontos mais importantes estejam ao seu alcance e ajuda você a progredir em direção aos objetivos do encontro. <ul><li>Visão geral dos pontos de conversa: <a href=\"%{talking_points_overview_pdf_url}\">Adobe PDF</a></li><li>Encontrando seu grupo de TI: <a href=\"%{talking_points_it_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_it_pdf_url}\">Adobe PDF</a></li><li>Encontrando-se com administradores: <a href=\"%{talking_points_admin_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_admin_pdf_url}\">Adobe PDF</a></li><li>Reunião com pesquisadores: <a href=\"%{talking_points_researcher_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_researcher_pdf_url}\">Adobe PDF</a> </li></ul>"
@@ -707,11 +722,11 @@ msgstr "Opção %{number}: Se sua instituição é afiliada a DMPTool."
 msgid "Option %{number}: If your institution is not affiliated with DMPTool."
 msgstr "Opção %{number}: Se sua instituição não é afiliada a DMPTool."
 
-msgid "Organisational admin privileges"
-msgstr "Privilégios de administrador institucional"
+msgid "Organisation"
+msgstr "Organização"
 
-msgid "Organizations"
-msgstr "Organizações"
+msgid "Organisational Admin"
+msgstr "Administrador Organizacional"
 
 msgid "Organizing Files"
 msgstr "Organizando Arquivos"
@@ -721,9 +736,6 @@ msgstr "Outras considerações de preservação de dados"
 
 msgid "Other risks to accessibility"
 msgstr "Outros riscos para a acessibilidade"
-
-msgid "Our work on the DMPTool is guided by the following principles. Organizations that participate in the DMPTool community are expected to understand and abide by these principles.<ul><li>Continuous improvement of the DMPTool's utility and features</li><li>User-driven requirements and priorities for development</li><li>Enthusiasm for the DMPTool</li><li>Commitment to an open process for development, enhancement, and improvement (see <a href=\"%{panton_url}\">Panton Principles</a>)</li><li>Quality of code and materials created <a href=\"%{contributing_url}\">(Contributor guidelines)</a></li></ul>"
-msgstr "Nosso trabalho na DMPTool é guiado pelos seguintes princípios. Espera-se que as organizações que participam da comunidade DMPTool compreendam e respeitem esses princípios.<ul><li>Melhoria contínua do utilitário e dos recursos do DMPTool</li><li>Requisitos e prioridades orientados pelo usuário para o desenvolvimento</li><li>Entusiasmo para o DMPTool</li><li>Compromisso com um processo aberto para desenvolvimento, aprimoramento e aprimoramento (consulte <a href=\"%{panton_url}\"> Princípios do Panton </a>)</li><li>Qualidade de código e materiais criados <a href=\"%{contributing_url}\">(diretrizes do colaborador)</a></li></ul>"
 
 msgid "Overview of My dashboard"
 msgstr "Visão geral de Meu painel de controle"
@@ -740,8 +752,17 @@ msgstr "Senhas"
 msgid "Persistent Identifiers"
 msgstr "Identificadores Persistentes"
 
+msgid "Plans"
+msgstr "Planos"
+
 msgid "Please note that your email address is also your username. If you change this remember to use your new email address on sign in. If your account is created with your institutional credentials you must contact us to change your email or organisation."
 msgstr "Por favor, observe que seu endereço de email é também seu nome de usuário. Se você mudar de email, lembre-se de usar seu novo email ao entrar.  Se sua conta foi criada com suas credenciais institucionais, você precisará entrar em contato conosco para mudar seu email ou sua organização."
+
+msgid "Please select an organisation from the list, or click the \"My organisation isn't listed\" link and enter your organisation's name."
+msgstr "Selecione uma organização na lista ou clique no link \"Minha organização não está listada\" e insira o nome da sua organização."
+
+msgid "Please select one"
+msgstr "Por favor, selecione um(a)"
 
 msgid "Postcards"
 msgstr "Postais"
@@ -833,9 +854,6 @@ msgstr "Guia de Início Rápido"
 msgid "Quick start guide"
 msgstr "Guia de início rápido"
 
-msgid "RSS"
-msgstr ""
-
 msgid "Read our <a href=\"%{general_guidance_url}\">Data Management General Guidance</a> for more information about data management plans."
 msgstr "Leia nosso <a href=\"%{general_guidance_url}\">Data Management General Guidance</a> para mais informações sobre planos de gestão de dados."
 
@@ -851,23 +869,23 @@ msgstr "Reserve a extensão de arquivo de 3 letras para o formato de arquivo, co
 msgid "Revisions"
 msgstr "Revisões"
 
+msgid "Save"
+msgstr "Salvar"
+
 msgid "Security and Storage"
 msgstr "Segurança e Armazenamento"
-
-msgid "See a current list of <a href=\"%{participants_url}\">DMPTool participants</a>."
-msgstr "Veja uma lista atual de <a href=\"%{participants_url}\">participantes do DMPTool</a>."
 
 msgid "See the <a href=\"%{help_url}\">Quick Start Guide</a> for more information on setting your plan's visibility."
 msgstr "Veja o <a href=\"%{help_url}\">Guia de Início Rápido</a> para mais informações sobre como definir a visibilidade de seu plano."
 
-msgid "See the full list of participating institutions."
-msgstr "Veja a lista completa de instituições participantes."
+msgid "See the full list of participating institutions"
+msgstr "Veja a lista completa de instituições participantes"
 
 msgid "Select an organisation from the list or leave blank if your organisation is not listed."
 msgstr "Selecione uma organização da lista ou deixe em branco se sua organização não estiver listada."
 
-msgid "Send invitation"
-msgstr "Enviar convite"
+msgid "Share plans"
+msgstr "Compartilhe planos"
 
 msgid "Sharing and Archiving"
 msgstr "Compartilhamento e arquivamento"
@@ -881,16 +899,8 @@ msgstr "Compartilhando dados que você produziu/coletou"
 msgid "Sign in options"
 msgstr "Opções de entrada"
 
-#, fuzzy
-msgid "Sign in through an affiliated institution"
-msgstr ""
-
-#, fuzzy
-msgid "Sign in with your email address"
-msgstr ""
-
-msgid "Super admin privileges"
-msgstr "Privilégios de super-administrdor"
+msgid "Super Admin"
+msgstr "Super Administrador"
 
 msgid "Table of Contents"
 msgstr "Conteúdo"
@@ -907,9 +917,6 @@ msgstr "Pontos para discussão"
 msgid "Technical Description"
 msgstr "Descrição técnica"
 
-msgid "Templates for data management plans are based on the specific requirements listed in funder policy documents. The DMPTool maintains these templates, however, researchers should always consult the program officers and policy documents directly for authoritative guidance. Sample plans are provided by a funder or another trusted party."
-msgstr "Os modelos para planos de gestão de dados são baseados nas exigências específicas listadas na documentação regulamentatória do órgão financiador. DMPTool conserva esses modelos, mas os pesquisadores sempre devem consultar diretamente os responsáveis pelos programas e os documentos oficiais para instruções autorizadas. As amostras de planos são fornecidas por um órgão financiador ou um terceiro encarregado disso."
-
 msgid "Terms of use & Privacy policy"
 msgstr "Termos de uso & Política de privacidade"
 
@@ -924,9 +931,6 @@ msgstr "A <a href=\"%{cdlib_url}\">California Digital Library (CDL)</a> é apoia
 
 msgid "The CDL holds your plans on your behalf, but they are your property and responsibility. Any FOIA applicants will be referred back to your home institution."
 msgstr "A CDL mantém seus planos em seu nome, mas eles são sua propriedade e responsabilidade. Quaisquer aplicantes FOIA serão redirecionados a sua instituição de origem."
-
-msgid "The DMPTool is a free, open-source, online application that helps researchers create data management plans. These plans, or DMPs, are now required by many funding agencies as part of the grant proposal submission process. The DMPTool provides a click-through wizard for creating a DMP that complies with funder requirements. It also has direct links to funder websites, help text for answering questions, and resources for best practices surrounding data management."
-msgstr "O DMPTool é um aplicativo on-line gratuito e de código aberto que ajuda os pesquisadores a criar planos de gerenciamento de dados. Esses planos, ou DMPs, são agora exigidos por muitas agências de financiamento como parte do processo de submissão de propostas de subsídios. O DMPTool fornece um assistente de clique para criar um PGD que atenda aos requisitos do exigências do órgão financiador. Ele também tem links diretos para sites financiadores, texto de ajuda para responder perguntas e recursos para as melhores práticas relacionadas ao gerenciamento de dados."
 
 msgid "The National Science Foundation (NSF) requires a 2-page plan as part of the funding proposal process. Most or all US Federally funded grants will eventually require some form of data management plan."
 msgstr "A National Science Foundation (NSF) exige um plano de duas páginas como parte do processo de proposta de financiamento. A maioria dos subsídios financiados pelo governo federal dos EUA acabará exigindo algum tipo de plano de gerenciamento de dados."
@@ -943,16 +947,6 @@ msgstr "O formato de arquivo que você escolhe para seus dados é um fator primo
 msgid "The information you enter into this system can be seen by you, people you have chosen to share access with, and—solely for the purposes of maintaining the service—system administrators at the CDL. We compile anonymized, automated, and aggregated information from plans, but we will not directly access, make use of, or share your content with anyone beyond CDL and your home institution without your permission. Authorized users at your home institution may access your plans for specific purposes—for example, to track compliance with funder/institutional requirements, to calculate storage requirements, or to assess demand for data management services across disciplines. For a detailed description of what information (other than the plans) we collect from visitors to this website and how it is used and managed, please see the CDL Privacy Policy and Baseline Supporting Practices listed at <a href=\"%{policies_url}\">%{policies_url}</a>"
 msgstr "As informações inseridas neste sistema podem ser vistas por você, pessoas com as quais você optou por compartilhar o acesso e - somente para fins de manutenção do serviço - administradores do sistema na CDL. Compilamos informações anônimas, automatizadas e agregadas de planos, mas não acessaremos diretamente, faremos uso ou compartilharemos seu conteúdo com ninguém além da CDL e de sua instituição de origem sem a sua permissão. Os usuários autorizados em sua instituição de origem podem acessar seus planos para fins específicos, por exemplo, para rastrear a conformidade com os requisitos institucionais / do financiador, calcular os requisitos de armazenamento ou avaliar a demanda por serviços de gerenciamento de dados entre disciplinas. Para uma descrição detalhada de quais informações (além dos planos) coletamos dos visitantes deste site e como elas são usadas e gerenciadas, consulte a Política de Privacidade da CDL e as Práticas de Suporte da Linha de Base listadas em <a href = \"%{policies_url}\">%{policies_url}</a>"
 
-msgid "The original DMPTool was a grassroots effort, beginning in 2011 with eight institutions partnering to provide in-kind contributions of personnel and development. The effort was in direct response to demands from funding agencies, such as the National Science Foundation and the National Institutes of Health, that researchers plan for managing their research data. By joining forces the contributing institutions were able to consolidate expertise and reduce costs in addressing data management needs. Representatives from these institutions participate on the <a href=\"%{steering_committee_url}\">DMPTool Steering Committee</a> that maintains monthly calls."
-msgstr "O DMPTool original foi um esforço de base, começando em 2011 com oito instituições em parceria para fornecer contribuições em espécie de pessoal e desenvolvimento. O esforço foi em resposta direta às demandas de agências de financiamento, como a National Science Foundation e os Institutos Nacionais de Saúde, que os pesquisadores planejam para gerenciar seus dados de pesquisa. Ao unir forças, as instituições contribuintes conseguiram consolidar o conhecimento e reduzir os custos para atender às necessidades de gerenciamento de dados. Representantes dessas instituições participam do <a href=\"%{steering_committee_url}\">Comitê Gestor da DMPTool</a>, que mantém as ligações mensais."
-
-msgid "The original contributing institutions were: %{uc3_url} at the %{cdl_url}, %{data_one_url}, %{dcc_url}, %{smithsonian_url}, %{ucla_url}, %{ucsd_url}, %{uoi_url}, and %{uva_url}. Given the success of the first version of the DMPTool, the founding partners obtained funding from the %{sloan_url} to create a second version of the tool, released in 2014."
-msgstr "As instituições que contribuíram originais foram: %{uc3_url} na %{cdl_url}, %{data_one_url}, %{dcc_url}, %{smithsonian_url}, %{ucla_url}, %{ucsd_url}, %{uoi_url} e %{uva_url}. Dado o sucesso da primeira versão do DMPTool, os parceiros fundadores obtiveram financiamento do %{sloan_url} para criar uma segunda versão da ferramenta, lançada em 2014."
-
-#, fuzzy
-msgid "The passwords you provided do not match."
-msgstr ""
-
 msgid "The sub-directory structure should have clear, documented naming conventions. Separate files or directories could apply, for example, to each run of an experiment, each version of a dataset, and/or each person in the group."
 msgstr "A estrutura do subdiretório deve ter convenções de nomenclatura claras e documentadas. Arquivos ou diretórios separados podem se aplicar, por exemplo, a cada execução de um experimento, a cada versão de um conjunto de dados e/ou a cada pessoa no grupo."
 
@@ -964,9 +958,6 @@ msgstr "Há 14 temas que representam os tópicos mais comuns tratados em planos 
 
 msgid "There are 5 core elements usually included in a dataset citation, with additional elements added as appropriate.<ul><li><strong>Creator(s)</strong> – may be individuals or organizations</li><li><strong>Title</strong></li><li><strong>Publication year</strong> when the dataset was released (may be different from the Access date)</li><li><strong>Publisher</strong> – the data center, archive, or repository</li><li><strong>Identifier</strong> – a unique public identifier (e.g., an ARK or DOI)</li></ul>"
 msgstr "Existem 5 elementos principais normalmente incluídos em uma citação do conjunto de dados, com elementos adicionais adicionados conforme apropriado.<ul><li><strong>Criador (es)</strong> - podem ser indivíduos ou organizações</li><li><strong>Título</strong></li><li><strong>Ano de publicação</strong> quando o conjunto de dados foi lançado (pode ser diferente da data de acesso)</li><li><strong>Publicador</strong> - o data center, o archive ou o repositório</li><li><strong>Identifier</strong> - um identificador público exclusivo (por exemplo, um ARK ou DOI)</li></ul>"
-
-msgid "There is no account associated with that email address. Please try again or %{contact_us_link}."
-msgstr "Não há nenhuma conta associada a esse email. Por favor, tente novamente ou %{contact_us_link}."
 
 msgid "There may also be an option to request feedback on your plan (on the “Share” tab). This is available when research support staff at your institution have enabled the service. Click to “Request feedback” and your local administrators will be alerted to your request. Their comments will be visible in the “Comments” field adjacent to each question. You will receive an email notification when an administrator provides feedback."
 msgstr "Também pode haver uma opção para solicitar feedback sobre o seu plano (na guia “Compartilhar”). Isso está disponível quando a equipe de suporte de pesquisa da sua instituição habilitou o serviço. Clique em “Solicitar comentários” e seus administradores locais serão alertados sobre sua solicitação. Seus comentários serão visíveis no campo “Comentários” ao lado de cada pergunta. Você receberá uma notificação por email quando um administrador fornecer feedback."
@@ -989,9 +980,8 @@ msgstr "Para ter certeza de que seu sistema de backup está funcionando, recuper
 msgid "To create a plan, click the “Create plan” button on My dashboard or the top menu. This will take you to a wizard that helps you select the appropriate template:"
 msgstr "Para criar um plano, clique no botão “Criar plano” em Meu painel de controle ou no menu superior. Isso levará você a um programa que o ajudará a selecionar o modelo adequado:"
 
-#, fuzzy
 msgid "To ethically share confidential data, you may be able to:<ul><li><strong>Gain informed consent</strong> for data sharing (e.g. deposit in a repository or archive)</li><li><strong>Anonymize</strong> the data by removing identifying information. Be aware, however, that any dataset that contains enough information to be useful will always present some risk.</li><li><strong>Restrict the use of your data.</strong> ICPSR provides a sample <a href=\"%{icpsr_user_url}\">Restricted Data Use Contract</a> and <a href=\"%{icpsr_restricted_url}\">Restricted-Use Data Management Guidance</a>.</li></ul>"
-msgstr ""
+msgstr "Para compartilhar eticamente dados confidenciais, você pode:<ul><li><strong>Obter consentimento informado</strong> para compartilhamento de dados (por exemplo, depósito em um repositório ou arquivo)</li><li><strong> Tornar anônimo </ strong> os dados removendo as informações de identificação. Esteja ciente, no entanto, que qualquer conjunto de dados que contenha informações suficientes para ser útil sempre apresentará algum risco.</li><li><strong>Restrinja o uso de seus dados.</strong> ICPSR fornece uma amostra <a href = \"%{icpsr_user_url}\">Restricted Data Use Contract</a> e <a href=\"%{icpsr_restricted_url}\">Restricted-Use Data Management Guidance</a>.</li></ul>"
 
 msgid "To view templates created by others (if available), create a new plan in the tool and choose any organization for the second step: \"Select the primary research organization.\" For the third create plan step, if you tick the box  \"No funder associated with this plan\" you will be presented with any available organizational templates. If the field remains gray and no templates with organizational names appear, then the selected organization has not created any of their own templates and you will be presented with the default DMPTool template after clicking the button to \"Create plan.\""
 msgstr "Para visualizar modelos criados por outros (se disponível), crie um novo plano na ferramenta e escolha qualquer organização para a segunda etapa: \"Selecione a organização de pesquisa principal.\" Para a terceira etapa do plano de criação, se você marcar a caixa \"Nenhum financiador associado a este plano\" será apresentado a você qualquer modelo organizacional disponível. Se o campo permanecer cinza e não houver modelos com nomes organizacionais, a organização selecionada não criou nenhum modelo próprio e você será apresentado com o modelo DMPTool padrão depois de clicar no botão para \"Criar plano\"."
@@ -1001,9 +991,6 @@ msgstr "Ferramentas para ajudar você:"
 
 msgid "Top Templates"
 msgstr "Modelos mais acessados"
-
-msgid "Twitter"
-msgstr ""
 
 msgid "Types of Data"
 msgstr "Tipos de dados"
@@ -1020,8 +1007,8 @@ msgstr "Os dados não criptografados serão mais facilmente lidos por você e po
 msgid "Use our <a href=\"%{help_url}\">Quick Start Guide</a> to begin creating a plan."
 msgstr "Use nosso <a href=\"%{help_url}\">Guia de Início Rápido</a> para começar a criar um plano."
 
-msgid "Use the contact form below if you are interested in adding your organization."
-msgstr "Use o formulário de contato abaixo se você estiver interessado em adicionar sua organização."
+msgid "Users"
+msgstr "Usuários"
 
 msgid "Using standard character encodings (i.e., ASCII, UTF-8)"
 msgstr "Usando codificações de caracteres padrão (ou seja, ASCII, UTF-8)"
@@ -1080,9 +1067,6 @@ msgstr "O que é um plano de gestão de dados (PGD)?"
 msgid "What is a data management plan?"
 msgstr "O que é um plano de gestão de dados?"
 
-msgid "What is the DMPTool?"
-msgstr "O que é o DMPTool?"
-
 msgid "What to document?"
 msgstr "O que documentar?"
 
@@ -1104,9 +1088,8 @@ msgstr "Onde posso encontrar ajuda para customizar o DMPTool para minha institui
 msgid "Where can I read more about funder requirements for data management plans?"
 msgstr "Onde posso ler mais sobre as exigências dos órgãos de financiamento a respeito de planos de gestão de dados?"
 
-#, fuzzy
 msgid "While the first three options above are valid ways to share data, a repository is much better able to provide long-term access. Data deposited in a repository can be supplemented with a \"data paper\"—a relatively new type of publication that describes a dataset, but does not analyze it or dsanitize any conclusions—published in a journal such as <a href=\"%{nature_url}\">Nature Scientific Data</a> or <a href=\"%{geoscience_url}\">Geoscience Data Journal</a>."
-msgstr ""
+msgstr "Enquanto as três primeiras opções acima são formas válidas de compartilhar dados, um repositório é muito mais capaz de fornecer acesso de longo prazo. Os dados depositados em um repositório podem ser complementados com um \"data paper\" - um tipo relativamente novo de publicação que descreve um conjunto de dados, mas não o analisa nem tira conclusões - publicado em um periódico como <a href = \"%{nature_url}\">Nature Scientific Data</a> ou <a href=\"%{geoscience_url}\">Geoscience Data Journal</a>."
 
 msgid "Who can help me at my institution?"
 msgstr "Quem pode ajudar-me em minha instituição?"
@@ -1141,6 +1124,9 @@ msgstr "Por que documentar dados?"
 msgid "Why share your data?"
 msgstr "Por que compartilhar seus dados?"
 
+msgid "Write your plan"
+msgstr "Escreva seu plano"
+
 msgid "Yes! The <a href=\"%{help_url}\">Quick Start Guide</a> is available as a website or a PDF you can download."
 msgstr "Sim! O <a href=\"%{help_url}\">Guia de Início Rápido</a> está disponível em um site ou um PDF que você pode baixar."
 
@@ -1149,6 +1135,9 @@ msgstr "Você também pode gerar uma cópia de um plano já existente (no menu A
 
 msgid "You may or may not have the rights to do so, depending upon whether that data were accessed under a license with terms of use."
 msgstr "Você pode ou não ter os direitos para fazê-lo, dependendo se esses dados foram acessados ​​sob uma licença com os termos de uso."
+
+msgid "You must agree to the term and conditions."
+msgstr "Você deve concordar com o termo e condições."
 
 msgid "You should select a repository or archive for your data based on the long-term security offered and the ease of discovery and access by colleagues in your field. There are two common types of repository to look for:<ul><li><strong>Discipline specific</strong>: accepts data in a particluar field or of a particluar type (e.g., GenBank accepts nucleotide sequence data)</li><li><strong>Institutional</strong>: accepts data of any type produced within the institution that maintains it (e.g., the University of California's <a href=\"%{dash_url}\">Dash</a>)</li></ul>"
 msgstr "Você deve selecionar um repositório ou arquivo para seus dados com base na segurança a longo prazo oferecida e na facilidade de descoberta e acesso por colegas em seu campo. Existem dois tipos comuns de repositório para procurar:<ul><li><strong>Disciplina específica</strong>: aceita dados em um campo particular ou de um tipo particular (por exemplo, o GenBank aceita dados de sequência de nucleotídeos)</li><li><strong>Institucional</strong>: aceita dados de qualquer tipo produzidos dentro da instituição que os mantém (por exemplo, <a href=\"%{dash_url}\"> Dash </a> da University of California's)</li></ul>"
@@ -1171,6 +1160,5 @@ msgstr "Sua senha é armazenada com criptografia e não pode ser recuperada. Se 
 msgid "Your personal details"
 msgstr "Seus detalhes pessoais"
 
-#, fuzzy
-msgid "new window"
-msgstr ""
+msgid "terms and conditions"
+msgstr "termos e condições"

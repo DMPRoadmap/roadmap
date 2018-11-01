@@ -1,16 +1,17 @@
-# Portuguese translations for app package.
-# Copyright (C) 2018 THE PACKAGE'S COPYRIGHT HOLDER
+# Brazilian Portuguese translations of DMPRoadmap strings
+# Copyright (C) 2018 The Regeants of the University of California
 # This file is distributed under the same license as the app package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2018.
+# Benilton de Sá Carvalho, 2018
+# Vitor Silverio, 2018
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2018-10-31 11:47:10-0700\n"
-"Last-Translator: Benilton de Sá Carvalho benilton@unicamp.br\n"
-"Language-Team: Portugues do Brasil\n"
+"PO-Revision-Date: 2018-11-01 08:44:27-0700\n"
+"Last-Translator: Benilton de Sá Carvalho\n"
+"Language-Team: CDL UC3 <cdluc3@ucop.edu>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,9 +53,8 @@ msgstr "%{affiliation}"
 msgid "%{application_name}"
 msgstr "%{application_name}"
 
-#, fuzzy
 msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website <em class=\"sr-only\">(new window)</em></a>. If you would like to contact us about %{application_name}, please fill out the form below."
-msgstr ""
+msgstr "%{application_name} é fornecido pelo %{organisation_name}. Pode saber mais sobre nós no nosso <a href=\"%{organisation_url}\" target=\"_blank\">website <em class=\"sr-only\">(abre em nova janela)</em></a>.<br/>Se pretender contactar-nos acerca de %{application_name}, Por favor, preencha o formulário abaixo"
 
 msgid "%{application_name}: %{user_name} requested feedback on a plan"
 msgstr "%{application_name}: %{user_name} solicitado feedback sobre um plano."
@@ -123,7 +123,7 @@ msgstr ""
 
 #, fuzzy
 msgid "'Project Details' includes basic administrative details."
-msgstr ""
+msgstr "'Detalhes do projeto' inclui alguns detalhes administrativos básicos."
 
 #, fuzzy
 msgid "'Share' allows you to invite others to read or contribute to your plan."
@@ -176,11 +176,12 @@ msgstr "Um Plano de Gestão de Dados criado usando %{application_name}"
 msgid "A Data Management Plan in %{application_name} has been shared with you"
 msgstr "Um Plano de Gestão de Dados em %{application_name} foi compartilhado com você"
 
-#, fuzzy
 msgid "A Data Management Plan in %{tool_name} has been shared \"\
 "
 "                   \"with you"
-msgstr ""
+msgstr "Um Plano de Gestão de Dados em %{application_name} foi compartilhado \"\
+"
+"                   \"com você"
 
 msgid "A colleague has invited you to contribute to their Data Management Plan in %{tool_name}"
 msgstr "Um colega convidou você para contribuir com seu Plano de Gestão de Dados em %{tool_name}"
@@ -411,10 +412,10 @@ msgstr "Antes de você começar, precisamos de algumas informações sobre seu p
 msgid "Begin typing to see a filtered list"
 msgstr "Comece a digitar para ver uma lista filtrada"
 
-#, fuzzy
 msgid "Below is a list of users registered for your organisation. You can"
 "        sort the data by each field."
-msgstr ""
+msgstr "Veja abaixo a lista de usuários registrados para sua organização. Você pode "
+"        ordenar os dados segundo os diversos campos."
 
 msgid "Body"
 msgstr "Corpo"
@@ -428,9 +429,8 @@ msgstr "Faça um breve resumo de seu projeto de pesquisa, de forma que as pessoa
 msgid "Browse Standards"
 msgstr "Navegar pelos Padrões"
 
-#, fuzzy
 msgid "By default all new and test plans will be set to ‘Private’ visibility. ‘Public’ and ‘Organisational’ visibility are intended for finished plans. You must answer at least 50% of the questions to enable these options."
-msgstr ""
+msgstr "Por padrão, todo plano novo ou de teste tem visibilidade definida como Privado. Os tiposde visibilidade Público e Organizacional servem para planos já finalizados. Você precisa responder pelo menos 50% das perguntas para habilitar essas opções."
 
 msgid "Cancel"
 msgstr "Cancelar"
@@ -579,24 +579,20 @@ msgstr "Privilégios atuais"
 msgid "Current password"
 msgstr "Senha atual"
 
-#, fuzzy
 msgid "Customisable Templates"
-msgstr ""
+msgstr "Modelos ustomizáveis"
 
-#, fuzzy
 msgid "Customisations are published"
-msgstr ""
+msgstr "As customizações são publicadas"
 
-#, fuzzy
 msgid "Customisations are unpublished"
-msgstr ""
+msgstr "As customizações não são publicadas"
 
 msgid "Customise"
 msgstr "Customizar"
 
-#, fuzzy
 msgid "Customise phase"
-msgstr ""
+msgstr "Customizar Fase"
 
 msgid "Customising for your Organisation"
 msgstr "Customizing para sua organização"
@@ -604,9 +600,8 @@ msgstr "Customizing para sua organização"
 msgid "Customizable Templates"
 msgstr "Modelos customizáveis"
 
-#, fuzzy
 msgid "DMP Background"
-msgstr ""
+msgstr "Fundo do PGD"
 
 msgid "DMP Templates"
 msgstr "Modelos de PGD"
@@ -620,9 +615,8 @@ msgstr "DMPRoadmap"
 msgid "DMPRoadmap ('the tool', 'the system"
 msgstr "DMPRoadmap ('a ferramenta', 'o sistema"
 
-#, fuzzy
 msgid "DOCX <em class=\"sr-only\">(new window)</em>"
-msgstr ""
+msgstr "DOCX <em class=\"sr-only\">(abre em nova janela)</em>"
 
 msgid "Data Contact Person"
 msgstr "Pessoa a contatar sobre os dados"
@@ -679,9 +673,8 @@ msgstr "Não esqueça de salvar suas mudanças após fazer suas seleções."
 msgid "Download"
 msgstr "Baixar"
 
-#, fuzzy
 msgid "Download Plan <em class=\"sr-only\">(new window)</em>"
-msgstr ""
+msgstr "Baixar plano <em class=\"sr-only\">(abre em nova janela)</em>"
 
 #, fuzzy
 msgid "Download global usage"
@@ -690,9 +683,8 @@ msgstr ""
 msgid "Download plans"
 msgstr "Baixar planos"
 
-#, fuzzy
 msgid "Download plans <em class=\"sr-only\">(new window)</span>"
-msgstr ""
+msgstr "Baixar planos <em class=\"sr-only\">(abre em nova janela)</span>"
 
 msgid "Download settings"
 msgstr "Baixar parâmetros"
@@ -788,7 +780,7 @@ msgid "Error parsing links for a %{template}"
 msgstr ""
 
 msgid "Error:"
-msgstr "Erro"
+msgstr "Erro:"
 
 msgid "Example Answer"
 msgstr "Exemplo de Resposta"
@@ -877,7 +869,7 @@ msgid "GitHub Issues"
 msgstr ""
 
 msgid "Github"
-msgstr "Github"
+msgstr ""
 
 msgid "Go"
 msgstr "Ir"
@@ -1027,9 +1019,8 @@ msgstr "Tamanho de fonte inválido"
 msgid "Invalid maximum pages"
 msgstr "Máximo de páginas inválido"
 
-#, fuzzy
 msgid "Invitation to %{email} issued successfully."
-msgstr ""
+msgstr "Convite para %{email} emitido com sucesso."
 
 msgid "Invite collaborators"
 msgstr "Convidar colaboradores"
@@ -1166,9 +1157,8 @@ msgstr "Novo Pergunta"
 msgid "New Template"
 msgstr "Novo modelo"
 
-#, fuzzy
 msgid "New notification"
-msgstr ""
+msgstr "Novo notificações"
 
 msgid "New organisation"
 msgstr "Nova organização"
@@ -1182,9 +1172,8 @@ msgstr "Novos planos"
 msgid "New question:"
 msgstr "Novo perguntas"
 
-#, fuzzy
 msgid "New theme"
-msgstr ""
+msgstr "Novo tema"
 
 msgid "New users"
 msgstr "Novos usuários"
@@ -1375,9 +1364,8 @@ msgstr "Nome do proprietário"
 msgid "PDF"
 msgstr "PDF"
 
-#, fuzzy
 msgid "PDF <em class=\"sr-only\">(new window)</em>"
-msgstr ""
+msgstr "PDF <em class=\"sr-only\">(abre em nova janela)</em>"
 
 msgid "PDF formatting"
 msgstr "Formatação de PDF"
@@ -1445,13 +1433,11 @@ msgstr "Por favor, escolha uma organização."
 msgid "Please do not reply to this email."
 msgstr "Por favor, não responda esta mensagem."
 
-#, fuzzy
 msgid "Please enter a First name. "
-msgstr ""
+msgstr "Por favor, insira o Primeiro nome. "
 
-#, fuzzy
 msgid "Please enter a Last name. "
-msgstr ""
+msgstr "Por favor, insira o sobrenome. "
 
 msgid "Please enter a password confirmation"
 msgstr "Por favor, insira a confirmação de senha."
@@ -1459,9 +1445,8 @@ msgstr "Por favor, insira a confirmação de senha."
 msgid "Please enter an email address"
 msgstr "Por favor, insira um endereço de email."
 
-#, fuzzy
 msgid "Please enter an email address. "
-msgstr ""
+msgstr "Por favor, insira um endereço de email. "
 
 msgid "Please enter the name of your organisation"
 msgstr "Por favor, insira o nome de sua organização."
@@ -1723,9 +1708,8 @@ msgstr "As amostras de planos são fornecidas por um órgão financiador, uma or
 msgid "Save"
 msgstr "Salvar"
 
-#, fuzzy
 msgid "Save Unsuccessful. "
-msgstr ""
+msgstr "Não foi possível salvar. "
 
 msgid "Saving..."
 msgstr "Salvando"
@@ -1755,9 +1739,8 @@ msgstr "Veja a lista completa"
 msgid "See the full list of participating institutions"
 msgstr "Veja a lista completa de instituições participantes"
 
-#, fuzzy
 msgid "See the full list of partner institutions."
-msgstr ""
+msgstr "Veja a lista completa de instituições participantes."
 
 msgid "Select 'Transfer customisation' in the Actions menu to review your customisation(s) and make any necessary changes. When you are done, you must return to the Actions menu and publish your customisation(s)."
 msgstr "Selecione 'Transferir customização' no menu Ações para rever sua (s) customização(ões) e fazer as alterações necessárias. Quando estiver pronto, você deve retornar ao menu Ações e publicar suas Customização(oes)."
@@ -1998,9 +1981,8 @@ msgstr "O espaço de pesquisa não possui elementos associados"
 msgid "The search_space does not respond to each"
 msgstr "O search_space não responde a cada"
 
-#, fuzzy
 msgid "The tabbed interface allows you to navigate through different functions when editing your plan."
-msgstr ""
+msgstr "As abas permitem que você navegue por diferentes funções enquanto edita seu plano."
 
 msgid "The table below lists the plans that users at your organisation have created and shared within your organisation. This allows you to download a PDF and view their plans as samples or to discover new research data."
 msgstr "A tabela abaixo lista os planos que os usuários em sua organização criaram e compartilharam dentro dela. Com ela você pode baixar um PDF e visualizar seus planos como amostras ou descobrir novos dados de pesquisa."
@@ -2008,9 +1990,8 @@ msgstr "A tabela abaixo lista os planos que os usuários em sua organização cr
 msgid "The table below lists the plans that you have created, and that have been shared with you by others. You can edit, share, download, make a copy, or remove these plans at any time."
 msgstr "A tabela abaixo lista os planos que você criou e os que foram compartilhados com  você por outras pessoas. Você pode editar, compartilhar, baixar, copiar ou remover esses planos a qualquer momento."
 
-#, fuzzy
 msgid "The ‘Share’ tab is also where you can set your plan visibility."
-msgstr ""
+msgstr "A aba ‘Compartilhar’ é outro lugar onde você pode definir a visibilidade de seu plano."
 
 msgid "Themes"
 msgstr "Temas"
@@ -2042,9 +2023,8 @@ msgstr "Não há nenhum plano com id %{id} para o qual criar ou atualizar uma re
 msgid "There is no question with id %{question_id} associated to plan id %{plan_id} for which to create or update an answer"
 msgstr "Não há dúvidas com o id %{question_id} associado ao id do plano %{plan_id} para o qual criar ou atualizar uma resposta"
 
-#, fuzzy
 msgid "There may also be an option to request feedback on your plan. This is available when research support staff at your organisation have enabled this service. Click to ‘Request feedback’ and your local administrators will be alerted to your request. Their comments will be visible in the ‘Comments’ field adjacent to each question. You will be notified by email when an administrator provides feedback."
-msgstr ""
+msgstr "Também pode haver uma opção para solicitar feedback sobre o seu plano (na guia “Compartilhar”). Isso está disponível quando a equipe de suporte de pesquisa da sua instituição habilitou o serviço. Clique em “Solicitar comentários” e seus administradores locais serão alertados sobre sua solicitação. Seus comentários serão visíveis no campo “Comentários” ao lado de cada pergunta. Você receberá uma notificação por email quando um administrador fornecer feedback."
 
 msgid "There seems to be a problem with your logo. Please upload it again."
 msgstr "Parece haver um problema com seu logo. Por favor, suba-o novamente."
@@ -2162,9 +2142,8 @@ msgstr "Não criar sua conta no momento."
 msgid "Unable to create your account."
 msgstr "Não criar sua conta"
 
-#, fuzzy
 msgid "Unable to create your account.#{errors_for_display(resource)}"
-msgstr ""
+msgstr "Não criar sua conta.#{errors_for_display(resource)}"
 
 msgid "Unable to customize that template."
 msgstr "Não customização esse modelo."
@@ -2460,9 +2439,8 @@ msgstr "Você tem alterações não publicadas! Selecione \"Publicar alteraçõe
 msgid "You may change your notification preferences on your profile page."
 msgstr "Você pode modificar suas preferências de notificação na página com seu perfil."
 
-#, fuzzy
 msgid "You may change your notification preferences on your profile page. "
-msgstr ""
+msgstr "Você pode modificar suas preferências de notificação na página com seu perfil."
 
 #, fuzzy
 msgid "You may place them before or after the main template sections."
@@ -2520,9 +2498,8 @@ msgstr "Sua conta foi vinculada a sua organização. Você agora pode entrar com
 msgid "Your account has been successfully created."
 msgstr "Sua conta foi criada com sucesso."
 
-#, fuzzy
 msgid "Your account has been successfully linked to %{scheme}."
-msgstr ""
+msgstr "Sua conta foi vinculada às suas %{scheme}."
 
 msgid "Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them."
 msgstr "Sua conta foi vinculada às suas credenciais institucionais. Agora você poderá entrar com eles."
@@ -2624,9 +2601,8 @@ msgstr "copieado"
 msgid "copy"
 msgstr ""
 
-#, fuzzy
 msgid "create"
-msgstr ""
+msgstr "criar"
 
 msgid "created"
 msgstr "criado"

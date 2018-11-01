@@ -81,6 +81,15 @@ namespace :translatable do
         translatables << scan_for_translations(File.read(file))
       end
     end
+
+    # If we are processing a specific domain then remove any duplicated strings
+    # that are already covered in app.pot
+    unless domain == 'app'
+      puts "Removing strings that already appear in app.pot"
+      app_header, app_hash = po_to_hash(File.read('config/locale/app.pot'))
+      translatables = translatables.select{ |k, v| !app_hash.keys.include?(k) }
+    end
+
     translatables = translatables.flatten.uniq.sort{ |a,b,| a <=> b }
 
     unless translatables.empty?
@@ -92,28 +101,6 @@ namespace :translatable do
       end
     else
       puts "No translatable text found!"
-    end
-  end
-
-  # DMPTool customization to remove duplicated strings
-  desc 'Finalize the DMPTool branded pot and po files'
-  task :finalize, [:domain] => [:environment] do |t, args|
-    domain = args.fetch(:domain, 'dmptool')
-    file_name = "config/locale/#{domain}.pot"
-
-    app_header, app_hash = po_to_hash(File.read('config/locale/app.pot'))
-    domain_header, domain_hash = po_to_hash(File.read(file_name))
-
-    domain_hash = domain_hash.select{ |k, v| p k; !app_hash.keys.include?(k) }
-
-p domain_header
-p '------------------------------'
-p '------------------------------'
-p '------------------------------'
-p domain_hash.keys
-
-    File.open(file_name, 'w') do |file|
-      file.write "#{update_revision_date(domain_header)}\n#{hash_to_po(domain_hash)}"
     end
   end
 
