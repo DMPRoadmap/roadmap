@@ -67,7 +67,7 @@
         <%= render partial: "layouts/notifications" %>
       </div>
 
-      <% if isActivePage(root_path, true) && !user_signed_in? %>
+      <% if active_page?(root_path, true) && !user_signed_in? %>
         <%= render partial: "layouts/homepage_image" %>
       <% end %>
 
@@ -86,8 +86,8 @@
       </footer>
     </div>
 
-    <% unless isActivePage(user_shibboleth_omniauth_callback_path) ||
-              isActivePage(user_orcid_omniauth_callback_path) %>
+    <% unless active_page?(user_shibboleth_omniauth_callback_path) ||
+              active_page?(user_orcid_omniauth_callback_path) %>
       <!-- Modal windows for sign in/out -->
       <% unless user_signed_in? %>
         <% if Rails.application.config.shibboleth_use_filtered_discovery_service %>

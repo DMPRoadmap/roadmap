@@ -47,7 +47,8 @@
       <% end %>
 
       <!-- Sign in/out menu -->
-      <% unless isActivePage(user_shibboleth_omniauth_callback_path) || isActivePage(user_orcid_omniauth_callback_path) %>
+      <% unless active_page?(user_shibboleth_omniauth_callback_path) ||
+                active_page?(user_orcid_omniauth_callback_path) %>
         <!-- Show this menu ONLY if the user is NOT registering their account after an omniauth login -->
         <ul class="nav navbar-nav">
           <li class="dropdown">
