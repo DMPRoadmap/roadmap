@@ -1,13 +1,8 @@
 # frozen_string_literal: true
 
-require 'rss'
-
 class HomeController < ApplicationController
 
   respond_to :html
-
-# START DMPTool customization
-# ---------------------------------------------------------
 
   ##
   # Index
@@ -28,8 +23,12 @@ class HomeController < ApplicationController
       else
         redirect_to plans_url
       end
-    else
 
+    # START DMPTool customization
+    # Load the usage stats, top 5 template list and the Blog RSS
+    # Retrieve/store them in the cache
+    # -----------------------------------
+    else
       # Usage stats
       stats = Rails.cache.read('stats') || {}
       if stats.empty?
@@ -43,7 +42,7 @@ class HomeController < ApplicationController
       top_5 = Rails.cache.read('top_5')
       if top_5.nil?
         end_date = Date.today
-        start_date = (end_date - 60)
+        start_date = (end_date - 90)
         ids = Plan.group(:template_id).where('created_at BETWEEN ? AND ?', start_date, end_date).order('count_id DESC').count(:id).keys
         top_5 = Template.where(id: ids[0..4]).pluck(:title)
         cache_content('top_5', top_5)
@@ -53,8 +52,8 @@ class HomeController < ApplicationController
       rss = Rails.cache.read('rss')
       if rss.nil?
         begin
-          rss_xml = open(Rails.application.config.rss).read
-          rss = RSS::Parser.parse(rss_xml, false).items.first(5)
+          xml = HTTParty.get(Rails.application.config.rss).body
+          rss = Feedjira.parse(xml).entries.first(5)
           cache_content('rss', rss)
 
         rescue Exception
@@ -71,12 +70,12 @@ class HomeController < ApplicationController
   private
   def cache_content(type, data)
     begin
-      Rails.cache.write(type, data, :expires_in => 15.minutes)
+      Rails.cache.write(type, data, :expires_in => 60.minutes)
     rescue Exception => e
       logger.error("Caught exception RSS parse: #{e}.")
     end
   end
-# ---------------------------------------------------------
-# END DMPTool customization
+  # ---------------------------------------------------------
+  # END DMPTool customization
 
 end

@@ -70,6 +70,8 @@ Rails.application.routes.draw do
   get "news_media" => 'static_pages#news_media'
   get "public_orgs" => 'public_pages#orgs'
 
+  get "org_logos/:id" => "dmptool/org_logos#show", as: :org_logo
+
   #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
   #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
 
@@ -77,8 +79,6 @@ Rails.application.routes.draw do
     member do
       get 'admin_edit'
       put 'admin_update'
-
-      get 'logo', constraints: {format: :json}
     end
   end
 

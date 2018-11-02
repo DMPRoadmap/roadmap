@@ -1,13 +1,7 @@
 # frozen_string_literal: true
 
 class OrgsController < ApplicationController
-
-  # START DMPTool Cusotmization
-  # ---------------------------------
-  # after_action :verify_authorized, except: ["shibboleth_ds", "shibboleth_ds_passthru"]
-  after_action :verify_authorized, except: ['shibboleth_ds', 'shibboleth_ds_passthru', 'logo']
-  # ---------------------------------
-  # END DMPTool Customization
+  after_action :verify_authorized, except: ['shibboleth_ds', 'shibboleth_ds_passthru']
 
   respond_to :html
 
@@ -90,22 +84,11 @@ class OrgsController < ApplicationController
   # POST /orgs/shibboleth_ds
   # ----------------------------------------------------------------
   def shibboleth_ds_passthru
-
-  # ---------------------------------------------------------
-  # START DMPTool customization - Remove ['shib-ds'] namespace from params
-    #if !params['shib-ds'][:org_name].blank?
-      #session['org_id'] = params['shib-ds'][:org_name]
-      #scheme = IdentifierScheme.find_by(name: 'shibboleth')
-      #shib_entity = OrgIdentifier.where(org_id: params['shib-ds'][:org_id],
-                                         #identifier_scheme: scheme)
-
-    if !params[:org_name].blank?
-      session['org_id'] = params[:org_name]
+    if !params['shib-ds'][:org_name].blank?
+      session['org_id'] = params['shib-ds'][:org_name]
       scheme = IdentifierScheme.find_by(name: 'shibboleth')
-      shib_entity = OrgIdentifier.where(org_id: params[:org_name], identifier_scheme: scheme)
-  # END DMPTool customization
-  # ---------------------------------------------------------
-
+      shib_entity = OrgIdentifier.where(org_id: params['shib-ds'][:org_id],
+                                        identifier_scheme: scheme)
       if !shib_entity.empty?
         # Force SSL
         shib_login = Rails.application.config.shibboleth_login
@@ -124,21 +107,11 @@ class OrgsController < ApplicationController
     end
   end
 
-# ---------------------------------------------------------
-# START DMPTool customization
+  # START DMPTool customization
+  # JSON endpoint
   # GET /orgs/:id/logo (format: :json)
   # ----------------------------------------------------------------
-  def logo
-    org = Org.find(params.fetch(:org_id, params[:id]))
-    render json: {
-      "org" => {
-        "id" => params[:org_id],
-        "html" => render_to_string(partial: 'shared/org_branding',
-                                   locals: { org: org },
-                                   formats: [:html])
-      }
-    }.to_json
-  end
+
 # END DMPTool customization
 # ---------------------------------------------------------
 

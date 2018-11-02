@@ -95,7 +95,6 @@ body {
       }
 
       .branding {
-        margin-bottom: 20px;
         justify-content: space-between;
         align-items: baseline;
 
@@ -206,6 +205,7 @@ body {
 /* BRANDING (DMPTool Logo, Org Logo, Org Name, Org Links) */
 /* ----------------------------------------------------------------------- */
 .branding {
+  margin-bottom: 20px;
   align-items: center;
   justify-content: space-between;
 
@@ -232,6 +232,10 @@ body {
     max-width: 300px;
     min-height: 50px;
     max-height: 150px;
+  }
+
+  #org-sign-in-logo {
+    margin: 0 auto;
   }
 }
 

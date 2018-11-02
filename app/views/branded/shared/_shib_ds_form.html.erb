@@ -39,13 +39,13 @@
                   <li class="bg-primary"><%= current %></li>
                 <% end %>
                 <% if org.shibbolized? %>
-                  <li><%= link_to org.name, "#{shibboleth_ds_path}/#{org.id}",
-                                  'data-content': org.id %></li>
+                  <% qs = "shib-ds[org_name=#{org.id}]&shib-ds[org_id=#{org.id}]" %>
+                  <li><%= link_to org.name, "#{shibboleth_ds_path}/#{org.id}?#{qs}]",
+                                  data: { content: org.id } %></li>
                 <% else %>
                   <li>
-                    <%= link_to org.name, "#{logo_org_path(org)}",
-                                class: 'org-sign-in', 'data-content': org.id,
-                                'data-toggle': 'modal', 'data-target': '#org-sign-in' %>
+                    <%= link_to org.name, "#{org_logo_path(org)}", class: 'org-sign-in',
+                                data: { content: org.id, toggle: 'modal', target: '#org-sign-in' } %>
                   </li>
                 <% end %>
               <% end %>
