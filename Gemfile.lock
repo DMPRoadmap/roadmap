@@ -119,9 +119,13 @@ GEM
       addressable (~> 2.3)
       multi_json (~> 1.0)
       rack (>= 1.3)
+    dragonfly-s3_data_store (1.3.0)
+      dragonfly (~> 1.0)
+      fog-aws
     erubi (1.7.1)
     erubis (2.7.0)
     eventmachine (1.2.7)
+    excon (0.62.0)
     execjs (2.7.0)
     factory_bot (4.11.1)
       activesupport (>= 3.0.0)
@@ -142,6 +146,22 @@ GEM
       sax-machine (>= 1.0)
     ffi (1.9.25)
     flag_shih_tzu (0.3.22)
+    fog-aws (3.3.0)
+      fog-core (~> 2.1)
+      fog-json (~> 1.1)
+      fog-xml (~> 0.1)
+      ipaddress (~> 0.8)
+    fog-core (2.1.2)
+      builder
+      excon (~> 0.58)
+      formatador (~> 0.2)
+      mime-types
+    fog-json (1.2.0)
+      fog-core
+      multi_json (~> 1.10)
+    fog-xml (0.1.3)
+      fog-core
+      nokogiri (>= 1.5.11, < 2.0.0)
     font-awesome-sass (4.2.2)
       sass (~> 3.2)
     formatador (0.2.5)
@@ -184,6 +204,7 @@ GEM
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     io-like (0.3.0)
+    ipaddress (0.8.3)
     jaro_winkler (1.5.1)
     jbuilder (2.6.4)
       activesupport (>= 3.0.0)
@@ -220,6 +241,9 @@ GEM
       mini_mime (>= 0.1.1)
     metaclass (0.0.4)
     method_source (0.9.0)
+    mime-types (3.2.2)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2018.0812)
     mini_mime (1.0.1)
     mini_portile2 (2.3.0)
     mini_racer (0.2.3)
@@ -319,6 +343,8 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    rollbar (2.18.0)
+      multi_json
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)
@@ -472,6 +498,7 @@ DEPENDENCIES
   devise_invitable
   dotenv-rails
   dragonfly
+  dragonfly-s3_data_store
   factory_bot_rails
   faker
   feedjira
