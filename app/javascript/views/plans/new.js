@@ -96,7 +96,7 @@ $(() => {
 
   // Make sure the checkbox is unchecked if we're entering text
   $('#new_plan #plan_org_id, #new_plan #plan_funder_id').change((e) => {
-    const whichOne = $(e.currentTarget).prop('id').split('_')[1];
+    const [, whichOne] = $(e.currentTarget).prop('id').split('_');
     $(`#plan_no_${whichOne}`).prop('checked', false);
     handleComboboxChange();
   });
@@ -104,7 +104,7 @@ $(() => {
   // If the user clicks the no Org/Funder checkbox disable the dropdown
   // and hide clear button
   $('#new_plan #plan_no_org, #new_plan #plan_no_funder').click((e) => {
-    const whichOne = $(e.currentTarget).prop('id').split('_')[2];
+    const [, , whichOne] = $(e.currentTarget).prop('id').split('_');
     handleCheckboxClick(whichOne, e.currentTarget.checked);
   });
 
