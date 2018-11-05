@@ -18,4 +18,15 @@ module OrgsHelper
       org_name: org.name
     }
   end
+
+  # The preferred logo url for the current configuration. If DRAGONFLY_AWS is true, return
+  # the remote_url, otherwise return the url
+  def logo_url_for_org(org)
+    if ENV['DRAGONFLY_AWS'] == "true"
+      org.logo.remote_url
+    else
+      org.logo.url
+    end
+  end
+
 end
