@@ -591,3 +591,9 @@ $light-yellow: #fff9e5;
         border: 1px solid $blue;
     }
 }
+
+#available-templates {
+    .message-block {
+        color: $blue;
+    }
+}

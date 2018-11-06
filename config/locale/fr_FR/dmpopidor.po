@@ -64,7 +64,7 @@ msgid "Private: visible to me and specified collaborators"
 msgstr "Privé : visible par les collaborateurs et moi"
 
 msgid "Administrator: visible to me, specified collaborators and administrators at my organisation"
-msgstr "Administrateur : Visible par les collaborateurs, les administrateurs de mon organisation et moi"
+msgstr "Administrateur : Visible par les collaborateurs, les administrateurs de mon organisme et moi"
 
 msgid "Administrator"
 msgstr "Administrateur"
@@ -163,34 +163,34 @@ msgid "You"
 msgstr "Vous"
 
 msgid "Your organisation"
-msgstr "Votre organisation"
+msgstr "Votre organisme"
 
 msgid "Other organisation"
-msgstr "Autre organisation"
+msgstr "Autre organisme"
 
 msgid "Use Default Template"
 msgstr "Utiliser le modèle par défaut"
 
-msgid "Would you like to use the default template \"%{template_name}\"?"
-msgstr "Souhaitez-vous utiliser le modèle par défaut \"%{template_name}\" ?"
+msgid "Would you like to use the default template \"%{template_name}\" provided by %{org_name}?"
+msgstr "Souhaitez-vous utiliser le modèle par défaut \"%{template_name}\" fournit par %{org_name} ?"
 
 msgid "Would you like to choose the template of another organisation?"
-msgstr "Souhaitez-vous choisir le modèle d'une autre organisation ?"
+msgstr "Souhaitez-vous choisir le modèle d'un autre organisme ?"
 
 msgid "Would you like to choose the template of a funder?"
 msgstr "Souhaitez-vous utiliser le modèle d'un financeur ?"
 
 msgid "The organisation provides multiple templates, which one would you like to use?"
-msgstr "Cette organisation propose plusieurs modèles, lequel souhaitez-vous utiliser ?"
+msgstr "Cet organisme propose plusieurs modèles, lequel souhaitez-vous utiliser ?"
 
-msgid "This organisation provides a template. Would you like to create a plan from the \"__template_title__\" template?"
-msgstr "Cette organisation propose un modèle. Souhaitez-vous créer un plan à partir du modèle \"__template_title__\" ?"
+msgid "This organisation provides the template \"__template_title__\". Would you like to create a plan from this template?"
+msgstr "Cet organisme propose le modèle \"__template_title__\". Souhaitez-vous créer un plan à partir de ce modèle ?"
 
 msgid "This organisation does not provide a template. Would you like to create a plan using the default \"__template_title__\" template?"
-msgstr "Cette organisation ne propose pas de modèle. Souhaitez-vous créer un plan à partir du modèle par défaut \"__template_title__\" ?"
+msgstr "Cet organisme ne propose pas de modèle. Souhaitez-vous créer un plan à partir du modèle par défaut \"__template_title__\" ?"
 
 msgid "You are not linked to an organisation, we can\'t suggest you a template. Please choose an organisation in your profile"
-msgstr "Vous n'êtes pas liés à une organisation, nous ne pouvons vous proposer un modèle. Veuillez choisir une organisation dans votre profil."
+msgstr "Vous n'êtes pas liés à un organisme, nous ne pouvons vous proposer un modèle. Veuillez choisir un organisme dans votre profil."
 
 msgid "Customized by "
 msgstr "Personnalisé par "
@@ -203,3 +203,9 @@ msgstr "La visibilité par les administrateurs, par l’organisme ou par tous (p
 
 msgid "Would you like to create a plan based on the \"%{name}\" template?"
 msgstr "Souhaitez-vous créer un plan basé sur le modèle \"%{name}\" ?"
+
+msgid "Please select a template from the list."
+msgstr "Veuillez sélectionner un modèle dans la liste."
+
+msgid "Please select an organisation from the list."
+msgstr "Veuillez sélectionner un organisme dans la liste."
