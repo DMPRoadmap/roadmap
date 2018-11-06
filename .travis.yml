@@ -84,7 +84,7 @@ jobs:
 
     - stage: test
       name: "Linter checks"
-      script: yarn run eslint --ext .js --ext .jsx app/javascript/**/*.js
+      script: yarn run eslint --no-eslintrc app/javascript/**/*.js
 
     - stage: hygiene
       name: "Check seeds are valid"
