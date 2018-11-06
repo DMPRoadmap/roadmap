@@ -82,9 +82,9 @@ jobs:
       name: "Bundle audit"
       script: bundle exec bundle-audit check --update
 
-    - stage: test
-      name: "Linter checks"
-      script: yarn run eslint --no-eslintrc app/javascript/**/*.js
+    #- stage: test
+    #  name: "Karma JS tests"
+    #  script: yarn run eslint --ext .js --ext .jsx app/javascript/**/*.js
 
     - stage: hygiene
       name: "Check seeds are valid"
