@@ -29,7 +29,7 @@ RSpec.describe "PlansExports", type: :feature, js: true do
            plan: new_plan,
            user: new_user)
     sign_in(user)
-    click_link "PDF"
+    find(:css, 'a i.fa.fa-file-pdf-o').click
   end
 
   scenario "User downloads public plan belonging to other User" do
