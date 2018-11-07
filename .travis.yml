@@ -82,10 +82,10 @@ jobs:
       name: "Bundle audit"
       script: bundle exec bundle-audit check --update
 
-    - stage: test
-      name: "Karma JS tests"
-      script: yarn run eslint --ext .js --ext .jsx app/assets/javascripts/**/*.js
+    #- stage: test
+    #  name: "Karma JS tests"
+    #  script: yarn run eslint --ext .js --ext .jsx app/javascript/**/*.js
 
-    - stage: hygiene
-      name: "Check seeds are valid"
-      script: bin/setup && bundle exec rake db:seed
+    #- stage: hygiene
+    #  name: "Check seeds are valid"
+    #  script: bin/setup && bundle exec rake db:seed

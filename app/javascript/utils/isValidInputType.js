@@ -32,7 +32,7 @@ export const isValidNumber = (value) => {
   if (isString(value)
   && value.trim().length > 0) { // Only if is non-empty string value we try to convert to Number
     // since Number([]), Number(new Date()), Number(null) are converted to zero
-    return !isNaN(Number(value));
+    return !Number.isNaN(Number(value));
   }
   return isNumber(value);
 };
