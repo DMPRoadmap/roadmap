@@ -65,10 +65,11 @@ class Question < ActiveRecord::Base
 
   has_one :template, through: :section
 
-
   # ===============
   # = Validations =
   # ===============
+
+  validate :ensure_has_question_options, if: :option_based?
 
   validates :text, presence: { message: PRESENCE_MESSAGE }
 
@@ -99,7 +100,7 @@ class Question < ActiveRecord::Base
   # = Delegated methods =
   # =====================
 
-  delegate :option_based?, to: :question_format
+  delegate :option_based?, to: :question_format, :allow_nil => true
 
   # ===========================
   # = Public instance methods =
@@ -146,7 +147,7 @@ class Question < ActiveRecord::Base
     end
 
     guidances
-   end
+  end
 
   # get example answer belonging to the currents user for this question
   #
@@ -191,6 +192,14 @@ class Question < ActiveRecord::Base
       guidance = annotations.build(type: :guidance, text: "", org_id: org_id)
     end
     [example_answer, guidance]
+  end
+
+  private
+
+  def ensure_has_question_options
+    if question_options.empty?
+      errors.add :base, OPTION_PRESENCE_MESSAGE
+    end
   end
 
 end
