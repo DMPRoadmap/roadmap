@@ -1,11 +1,11 @@
-const toString = Object.prototype.toString;
+const { toString } = Object.prototype.toString;
 
 /*
   Checks whether or the value passed is type Array.
   @param value to check
   @return true or false
 */
-export const isArray = Array.isArray;
+export const isArray = value => Array.isArray(value);
 /*
   Checks whether or the value passed is type boolean.
   Note the use of new is discouraged, e.g. new Boolean(true) and might return false in some cases
