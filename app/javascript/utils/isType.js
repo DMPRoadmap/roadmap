@@ -1,5 +1,3 @@
-const { toString } = Object.prototype.toString;
-
 /*
   Checks whether or the value passed is type Array.
   @param value to check
@@ -18,7 +16,7 @@ export const isBoolean = value => typeof value === 'boolean';
   @param value to check
   @return true or false
 */
-export const isDate = value => toString.call(value) === '[object Date]';
+export const isDate = value => Object.prototype.toString.call(value) === '[object Date]';
 /*
   Checks whether or the value passed is type function.
   Note the use of new is discouraged, e.g. new Function(...) and might return false in some cases
@@ -53,7 +51,7 @@ export const isObject = value => value !== null && typeof value === 'object';
   @param value to check
   @return true or false
 */
-export const isRegExp = value => toString.call(value) === '[object RegExp]';
+export const isRegExp = value => Object.prototype.toString.call(value) === '[object RegExp]';
 /*
   Checks whether or the value passed is type string.
   Note the use of new is discouraged, e.g. new String('aaa') and might return false in some cases

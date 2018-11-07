@@ -3,7 +3,7 @@ import {
   isValidNumber,
   isValidPassword,
   isValidText,
-} from '../utils/isValidInputType';
+} from '../../app/javascript/utils/isValidInputType';
 
 describe('isValidEmail test suite', () => {
   it('expect true for someone@somewhere.com', () => expect(isValidEmail('someone@somewhere.com')).toBe(true));

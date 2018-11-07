@@ -99,8 +99,6 @@ node_modules
 
 spec/examples.txt
 .babelrc
-.eslintignore
-.eslintrc.json
 .postcssrc.yml
 /public/packs
 /public/packs-test
