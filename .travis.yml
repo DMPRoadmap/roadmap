@@ -88,4 +88,4 @@ jobs:
 
     - stage: hygiene
       name: "Check seeds are valid"
-      script: bundle exec rake db:clean && bundle exec rake db:schema:load && bundle exec rake db:seed
+      script: bundle exec rake db:drop && rake db:create && bundle exec rake db:schema:load && bundle exec rake db:seed
