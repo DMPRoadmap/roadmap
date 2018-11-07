@@ -9,7 +9,7 @@ import {
   isRegExp,
   isString,
   isUndefined,
-} from '../utils/isType';
+} from '../../app/javascript/utils/isType';
 
 describe('isArray test suite', () => {
   it('expect true for []', () => expect(isArray([])).toBe(true));
@@ -42,15 +42,15 @@ describe('isBoolean test suite', () => {
 
 describe('isDate test suite', () => {
   it('expect true for Date', () => expect(isDate(new Date())).toBe(true));
-  it('expect fase for []', () => expect(isDate([])).toBe(false));
-  it('expect fase for Boolean', () => expect(isDate(true)).toBe(false));
-  it('expect fase for Function', () => expect(isDate(() => {})).toBe(false));
-  it('expect fase for Number', () => expect(isDate(1)).toBe(false));
-  it('expect fase for Null', () => expect(isDate(null)).toBe(false));
-  it('expect fase for Object', () => expect(isDate({})).toBe(false));
-  it('expect fase for RegExp', () => expect(isDate(/foo/)).toBe(false));
-  it('expect fase for String', () => expect(isDate('Hello World!')).toBe(false));
-  it('expect fase for zero args', () => expect(isDate(undefined)).toBe(false));
+  it('expect false for []', () => expect(isDate([])).toBe(false));
+  it('expect false for Boolean', () => expect(isDate(true)).toBe(false));
+  it('expect false for Function', () => expect(isDate(() => {})).toBe(false));
+  it('expect false for Number', () => expect(isDate(1)).toBe(false));
+  it('expect false for Null', () => expect(isDate(null)).toBe(false));
+  it('expect false for Object', () => expect(isDate({})).toBe(false));
+  it('expect false for RegExp', () => expect(isDate(/foo/)).toBe(false));
+  it('expect false for String', () => expect(isDate('Hello World!')).toBe(false));
+  it('expect false for zero args', () => expect(isDate(undefined)).toBe(false));
 });
 
 describe('isFunction test suite', () => {

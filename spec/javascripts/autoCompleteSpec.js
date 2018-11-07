@@ -1,7 +1,7 @@
-import initAutoComplete from '../utils/autoComplete';
+import initAutoComplete from '../../app/javascript/utils/autoComplete';
 
 describe('autoComplete test suite', () => {
-  beforeAll(() => fixture.setBase('app/assets/javascripts/spec/fixtures'));
+  beforeAll(() => fixture.setBase('./spec/javascripts/fixtures'));
 
   beforeEach(() => {
     $('body').html(fixture.load('autoComplete.html'));
