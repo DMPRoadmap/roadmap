@@ -12,7 +12,7 @@
         <span class="icon-bar"></span>
       </button>
       <% if user_signed_in? && current_user.org.present? %>
-        <%= link_to(current_user.org.name, root_path, class: "org-logo") %>
+        <p><strong><%= current_user.org.name %></strong></p>
       <% else %>
         <%= link_to(image_tag("DMPTool_logo_blue_shades_v1b3b.svg",
                               alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
