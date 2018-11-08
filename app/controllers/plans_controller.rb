@@ -28,7 +28,7 @@ class PlansController < ApplicationController
     @orgs = (Org.organisation + Org.institution + Org.managing_orgs).flatten.uniq.sort{|x,y| x.name <=> y.name }
 
     # Get the current user's org
-    @default_org = current_user.org if @orgs.include?(current_user.org)
+    @default_org = current_user.org if @orgs.include?(current_user.org) || @funders.include?(current_user.org) 
 
     # Get the default template
     @default_template = Template.default
@@ -97,11 +97,15 @@ class PlansController < ApplicationController
 
         elsif !@plan.template.customization_of.nil?
           # We used a customized version of the the funder template
-          msg += " #{_('This plan is based on the')} #{plan_params[:funder_name]}: '#{@plan.template.title}' #{_('template with customisations by the')} #{plan_params[:org_name]}"
+          msg += " #{d_('dmpopidor', 'This plan is based on the %{funder_name}: %{template_name} template with customisations by the %{org_name}') % { 
+            funder_name: plan_params[:funder_name], 
+            template_name: @plan.template.title,
+            org_name: plan_params[:org_name] 
+            } }"
 
         else
           # We used the specified org's or funder's template
-          msg += " #{_('This plan is based on the')} #{@plan.template.org.name}: '#{@plan.template.title}' template."
+          msg += " #{d_('dmpopidor', 'This plan is based on the %{org_name}: %{template_name} template') % { org_name: @plan.template.org.name, template_name: @plan.template.title} }"
         end
 
         respond_to do |format|

@@ -210,3 +210,12 @@ msgstr "Please select a template from the list."
 
 msgid "Please select an organisation from the list."
 msgstr "Please select an organisation from the list."
+
+msgid "This plan is based on the %{funder_name}: %{template_name} template with customisations by the %{org_name}"
+msgstr ""
+
+msgid "This plan is based on the %{org_name}: %{template_name} template"
+msgstr ""
+
+msgid "You can either choose a template provided by your organisation, another organisation or a funder template."
+msgstr "You can either choose a template provided by your organisation, another organisation or a funder template."

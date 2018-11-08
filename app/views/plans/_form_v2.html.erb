@@ -1,7 +1,12 @@
 <!-- Page title -->
 <div class="row">
   <div class="col-md-12">
-    <h1><%= _('Create a new plan') %></h1>
+    <h1><%= d_('dmpopidor', 'Choose a template') %></h1>
+    <p class="left-indent">
+        <%= d_('dmpopidor', 'You can either choose a template provided by your organisation, another organisation or a funder template.') %>
+        <br/>
+        <%= link_to d_('dmpopidor', 'Find the list of the available templates'), public_templates_path, :target => "_blank" %>
+      </p>
   </div>
 </div>
 
@@ -12,7 +17,7 @@
     <!-- Tabs menu -->
     <ul class="nav nav-tabs form-tabs">
       <li class="active">
-        <a data-toggle="tab" href="#own_org"><%= @default_org.name %></a>
+        <a data-toggle="tab" href="#own_org"><%= @default_org.name  %> (<%= d_('dmpopidor', 'Your organisation') %>) </a>
       </li>
       <li>
         <a data-toggle="tab" href="#other_org"><%= d_('dmpopidor', 'Other organisation') %></a>

@@ -209,3 +209,12 @@ msgstr "Veuillez sélectionner un modèle dans la liste."
 
 msgid "Please select an organisation from the list."
 msgstr "Veuillez sélectionner un organisme dans la liste."
+
+msgid "This plan is based on the %{funder_name}: %{template_name} template with customisations by the %{org_name}"
+msgstr "Ce plan est basé sur le modèle %{template_name} (%{funder_name}), personnalisé par %{org_name}"
+
+msgid "This plan is based on the %{org_name}: %{template_name} template"
+msgstr "Ce plan est basé sur le modèle %{template_name} (%{org_name})"
+
+msgid "You can either choose a template provided by your organisation, another organisation or a funder template."
+msgstr "Vous pouvez choisir soit un modèle fourni par votre organisme soit par un autre organisme, ou un modèle financeur."

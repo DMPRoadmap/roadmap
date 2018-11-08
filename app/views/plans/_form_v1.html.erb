@@ -1,35 +1,36 @@
 <div class="row">
   <div class="col-md-12">
-    <h1><%= _('Create a new plan') %></h1>
-
-    <p class="left-indent">
-      <%= _("Before you get started, we need some information about your research project to set you up with the best DMP template for your needs.") %>
-    </p>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-12">
     <%= form_for Plan.new, url: plans_path do |f| %>
       <!-- Plan name section -->
-      <h2 id="project-title"><%= _('What research project are you planning?') %></h2>
+      <h1 id="project-title"><%= _('Project title') %></h1>
       <div class="form-group row">
         <div class="col-xs-6">
-          <%= f.text_field(:title, class: 'form-control', 'aria-describedby': 'project-title', 'aria-required': 'true',
+          <%= f.text_field(:title, class: 'form-control', 'aria-describedby': 'project-title', 'aria-required': 'true', 
                 'data-toggle': 'tooltip',
                 title: _('If applying for funding, state the project title exactly as in the proposal.')) %>
         </div>
         <div class="col-md-1">&nbsp;</div>
         <div class="col-xs-5 checkbox create-plan-mock">
-          <%= label_tag(:is_test, raw("#{check_box_tag(:is_test, "1", false)} #{_('mock project for testing, practice, or educational purposes')}")) %>
+          <%= label_tag(:is_test, raw("#{check_box_tag(:is_test, "1", false)} #{ d_('dmpopidor', 'Plan for testing, practice, or educational purposes')}")) %>
         </div>
       </div>
 
       <!-- Organisation selection -->
-      <h2 id="research-org"><%= _('Select the primary research organisation') %></h2>
+      <h1><%= d_('dmpopidor', 'Choose a template') %></h1>
+      <p class="left-indent">
+        <%= d_('dmpopidor', 'Several template types are available:') %>
+        <ul>
+          <li><%= d_('dmpopidor', 'Organisation templates: Select the organisation and check "No funder"') %></li>
+          <li><%= d_('dmpopidor', 'Funder templates: Check "No organisation" and select the funder') %></li>
+          <li><%= d_('dmpopidor', 'Funder templates customized by an organisation: Select the organisation and select the funder') %></li>
+          <li><%= raw("#{ d_('dmpopidor', 'Default template')} <strong>H2020 FAIR DMP (anglais)</strong>: #{ d_('dmpopidor', 'Check "No organisation" and check "No funder"')}") %>
+        </ul>
+        <%= link_to d_('dmpopidor', 'Find the list of the available templates'), public_templates_path, :target => "_blank" %>
+      </p>
+      <h2 id="research-org"><%= d_('dmpopidor', 'Select a research organisation:') %></h2>
       <div class="form-group row">
         <div class="col-md-6">
-          <%= render partial: "shared/accessible_combobox",
+          <%= render partial: "shared/accessible_combobox", 
                      locals: {name: 'plan[org_name]',
                               id: 'plan_org_name',
                               default_selection: @default_org,
@@ -42,16 +43,16 @@
         <div class="col-md-1 pad-top-10 create-plan-or"><strong>- <%= _('or') %> -</strong></div>
         <div class="col-md-5 create-plan-checkbox">
           <div class="checkbox">
-            <%= label_tag(:plan_no_org, raw("#{check_box_tag(:plan_no_org)} #{_('My research organisation is not on the list')} <em>#{_(' or ')}</em> #{_('no research organisation is associated with this plan')}")) %>
+            <%= label_tag(:plan_no_org, raw("#{check_box_tag(:plan_no_org)} #{ d_('dmpopidor', 'No research organisation')}")) %>
           </div>
         </div>
       </div>
-
+  
       <!-- Funder selection -->
-      <h2 id="funder-org"><%= _('Select the primary funding organisation') %></h2>
+      <h2 id="funder-org"><%= d_('dmpopidor', 'Select a funder:') %></h2>
       <div class="form-group row">
         <div class="col-xs-6">
-          <%= render partial: "shared/accessible_combobox",
+          <%= render partial: "shared/accessible_combobox", 
                      locals: {name: 'plan[funder_name]',
                               id: 'plan_funder_name',
                               default_selection: nil,
@@ -64,7 +65,7 @@
         <div class="col-md-1 create-plan-or"><strong>- <%= _('or') %> -</strong></div>
         <div class="col-xs-5 create-plan-checkbox">
           <div class="checkbox">
-            <%= label_tag(:plan_no_funder, raw("#{check_box_tag(:plan_no_funder)} #{_('No funder associated with this plan')}")) %>
+            <%= label_tag(:plan_no_funder, raw("#{check_box_tag(:plan_no_funder)} #{ d_('dmpopidor', 'No funder associated with this plan')}")) %>
           </div>
         </div>
       </div>
@@ -72,14 +73,14 @@
       <!-- Template selection -->
       <div id="available-templates" style="visibility: none;">
         <%= hidden_field_tag 'template-option-target', org_admin_template_options_path %>
-        <h2 id="template-selection"><%= _('Which DMP template would you like to use?') %></h2>
+        <h2 id="template-selection"><%= d_('dmpopidor', 'Select a template:') %></h2>
         <div class="form-group row">
           <div class="col-xs-6">
             <%= select_tag(:plan_template_id, "<option value=\"\">#{_('Please select a template')}</option>", name: 'plan[template_id]',
                            class: 'form-control', 'aria-describedby': 'template-selection') %>
           </div>
           <div class="col-xs-6">
-            <span id="multiple-templates"><%= _('We found multiple DMP templates corresponding to your funder.') %></span>
+            <span id="multiple-templates"><%= d_('dmpopidor', 'We found multiple DMP templates corresponding to your choices.') %></span>
           </div>
         </div>
       </div>
