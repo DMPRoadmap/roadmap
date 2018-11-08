@@ -90,6 +90,11 @@ jobs:
       name: "Running JS through Karma tests"
       script: yarn run test
 
-    #- stage: hygiene
-    #  name: "Check seeds are valid"
-    #  script: bin/setup && bundle exec rake db:seed
+    - stage: hygiene
+      name: "Check seeds are valid"
+      script:
+        bin/setup
+        bundle exec rake db:drop
+        bundle exec rake db:create
+        bundle exec rake db:schema:load
+        bundle exec rake db:seed
