@@ -11,10 +11,10 @@ $(() => {
     };
     // Internal links are typically just the path, but also check for other domains
     if (
-      !link.attr('target') &&
-      protocol.test(link.attr('href')) &&
-      !regex.test(link.attr('href')) &&
-      !(exceptions.ids.indexOf(link.attr('id')) >= 0)
+      !link.attr('target')
+      && protocol.test(link.attr('href'))
+      && !regex.test(link.attr('href'))
+      && !(exceptions.ids.indexOf(link.attr('id')) >= 0)
     ) {
       link.attr('target', '_blank');
     }
