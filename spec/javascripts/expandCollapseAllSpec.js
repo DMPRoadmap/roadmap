@@ -1,7 +1,7 @@
-import expandCollapseAll from '../utils/expandCollapseAll';
+import expandCollapseAll from '../../app/javascript/utils/expandCollapseAll';
 
 describe('expandCollapseAll test suite', () => {
-  beforeAll(() => fixture.setBase('app/assets/javascripts/spec/fixtures'));
+  beforeAll(() => fixture.setBase('spec/javascripts/fixtures'));
 
   beforeEach(() => {
     $('body').html(fixture.load('accordion.html'));
