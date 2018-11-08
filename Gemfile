@@ -139,9 +139,6 @@ gem 'mini_racer'
 # Provides binaries for WKHTMLTOPDF project in an easily accessible package.
 gem 'wkhtmltopdf-binary'
 
-# Puma is a simple, fast, threaded, and highly concurrent HTTP 1.1 server for Ruby/Rack applications (http://puma.io)
-gem 'puma'
-
 # PDF generator (from HTML) gem for Ruby on Rails (https://github.com/mileszs/wicked_pdf)
 gem 'wicked_pdf'
 
