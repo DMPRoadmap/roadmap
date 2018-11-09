@@ -26,11 +26,13 @@ FactoryBot.define do
     trait :textarea do
       title { "Text area" }
       formattype { "textarea" }
+      option_based { false }
     end
 
     trait :textfield do
       title { "Text field" }
       formattype { "textfield" }
+      option_based { false }
     end
 
     trait :radiobuttons do
@@ -60,11 +62,21 @@ FactoryBot.define do
     trait :date do
       title { "Date" }
       formattype { "date" }
+      option_based { false }
     end
 
     trait :rda_metadata do
       title { "RDA Metadata" }
       formattype { "rda_metadata" }
+      option_based { false }
+    end
+
+    trait :option_based_true do
+      option_based { true }
+    end
+
+    trait :option_based_false do
+      option_based { false }
     end
 
   end
