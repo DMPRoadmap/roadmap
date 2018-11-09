@@ -2,20 +2,7 @@
 
 class PublicPagesController < ApplicationController
 
-# ------------------------------------
-# START DMPTool customization
-  # after_action :verify_authorized, except: [:template_index, :plan_index]
-  after_action :verify_authorized, except: [:template_index, :plan_index, :orgs, :get_started]
-
-  def orgs
-    ids = Org.where("#{Org.organisation_condition} OR #{Org.institution_condition}").pluck(:id)
-    render 'orgs', locals: { orgs: Org.participating.where(id: ids) }
-  end
-  def get_started
-    render '/shared/_get_started'
-  end
-# END DMPTool customization
-# ------------------------------------
+  after_action :verify_authorized, except: [:template_index, :plan_index]
 
   # GET template_index
   # -----------------------------------------------------
@@ -55,16 +42,7 @@ class PublicPagesController < ApplicationController
     @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
 
     begin
-
-    # START DMPTool Customization
-    # ---------------------------------------
-      # file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, "").gsub(/ /, "_")
-      file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, '').gsub(/ /, "_").gsub('/\n/', '')
-                                 .gsub('/\r/', '').gsub(':', '_')
-      file_name = file_name[0..30] if file_name.length > 31
-    # ---------------------------------------
-    # END DMPTool Cusotmization
-
+      file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, "").gsub(/ /, "_")
       respond_to do |format|
         format.docx do
           render docx: "template_export", filename: "#{file_name}.docx"
@@ -86,7 +64,6 @@ class PublicPagesController < ApplicationController
           # rubocop:enable LineLength
         end
       end
-
     rescue ActiveRecord::RecordInvalid => e
       # What scenario is this triggered in? it's common to our export pages
       redirect_to public_templates_path,

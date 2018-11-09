@@ -49,28 +49,44 @@ Rails.application.routes.draw do
 
   patch 'locale/:locale' => 'session_locales#update', as: 'locale'
 
-  root :to => 'home#index'
+  # ------------------------------------------
+  # Start DMPTool customizations
+  # ------------------------------------------
+  #root :to => 'home#index'
+  root :to => 'dmptool/home#index'
 
-  get "about_us" => 'static_pages#about_us'
-  get "help" => 'static_pages#help'
-  get "roadmap" => 'static_pages#roadmap'
-  get "terms" => 'static_pages#termsuse'
-  get "privacy" => 'static_pages#privacy'
-  get "public_plans" => 'public_pages#plan_index'
-  get "public_templates" => 'public_pages#template_index'
-  get "template_export/:id" => 'public_pages#template_export', as: 'template_export'
+  #get "about_us" => 'static_pages#about_us'
+  get "about_us" => 'dmptool/static_pages#about_us'
+  #get "help" => 'static_pages#help'
+  get "help" => 'dmptool/static_pages#help'
+  #get "roadmap" => 'static_pages#roadmap'
+  get "roadmap" => 'dmptool/static_pages#roadmap'
+  #get "terms" => 'static_pages#termsuse'
+  get "terms" => 'dmptool/static_pages#termsuse'
+  #get "privacy" => 'static_pages#privacy'
+  get "privacy" => 'dmptool/static_pages#privacy'
+  #get "public_plans" => 'public_pages#plan_index'
+  get "public_plans" => 'dmptool/public_pages#plan_index'
+  #get "public_templates" => 'public_pages#template_index'
+  get "public_templates" => 'dmptool/public_pages#template_index'
+  #get "template_export/:id" => 'public_pages#template_export', as: 'template_export'
+  get "template_export/:id" => 'dmptool/public_pages#template_export', as: 'template_export'
 
   # DMPTool specific documentation pages
-  get "get_started" => 'public_pages#get_started', as: 'get_started'
-  get "promote" => 'static_pages#promote'
-  get "researchers" => 'static_pages#researchers'
-  get "faq" => 'static_pages#faq'
-  get "general_guidance" => 'static_pages#general_guidance'
-  get "quick_start_guide" => 'static_pages#help'
-  get "news_media" => 'static_pages#news_media'
-  get "public_orgs" => 'public_pages#orgs'
+  get "get_started" => 'dmptool/public_pages#get_started', as: 'get_started'
+  get "promote" => 'dmptool/static_pages#promote'
+  get "researchers" => 'dmptool/static_pages#researchers'
+  get "faq" => 'dmptool/static_pages#faq'
+  get "general_guidance" => 'dmptool/static_pages#general_guidance'
+  get "quick_start_guide" => 'dmptool/static_pages#help'
+  get "news_media" => 'dmptool/static_pages#news_media'
+  get "public_orgs" => 'dmptool/public_pages#orgs'
 
   get "org_logos/:id" => "dmptool/org_logos#show", as: :org_logo
+
+  # ------------------------------------------
+  # End DMPTool customizations
+  # ------------------------------------------
 
   #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
   #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
