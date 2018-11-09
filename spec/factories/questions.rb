@@ -37,8 +37,8 @@ FactoryBot.define do
       options { 0 }
     end
 
-    after(:create) do |question, evaluator|
-      create_list(:question_option, evaluator.options, question: question)
+    before(:create) do |question, evaluator|
+      question.question_options = create_list(:question_option, evaluator.options)
     end
 
     trait :textarea do
