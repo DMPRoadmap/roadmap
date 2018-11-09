@@ -1,4 +1,22 @@
 <!-- Page title -->
+
+<%= form_for Plan.new, url: plans_path do |f| %>
+<div class="row">
+  <div class="col-md-12">
+    <h1 id="project-title"><%= _('Project title') %></h1>
+      <div class="form-group row">
+        <div class="col-xs-6">
+          <%= f.text_field(:title, class: 'form-control', 'aria-describedby': 'project-title', 'aria-required': 'true', 
+                'data-toggle': 'tooltip',
+                title: _('If applying for funding, state the project title exactly as in the proposal.')) %>
+        </div>
+        <div class="col-md-1">&nbsp;</div>
+        <div class="col-xs-5 checkbox create-plan-mock">
+          <%= label_tag(:is_test, raw("#{check_box_tag(:is_test, "1", false)} #{ d_('dmpopidor', 'Plan for testing, practice, or educational purposes')}")) %>
+        </div>
+      </div>
+  </div>
+</div>
 <div class="row">
   <div class="col-md-12">
     <h1><%= d_('dmpopidor', 'Choose a template') %></h1>
@@ -12,7 +30,6 @@
 
 <div class="row">
   <div class="col-md-12 plan-form">
-    <%= form_for Plan.new, url: plans_path do |f| %>
 
     <!-- Tabs menu -->
     <ul class="nav nav-tabs form-tabs">
@@ -124,6 +141,7 @@
         <%= direct_link(@default_template, true, d_('dmpopidor', 'Use Default Template'), 'end-default-btn') %>
       </div>
     </div>
-    <% end %>
   </div>
 </div>
+
+    <% end %>
