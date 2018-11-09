@@ -3,12 +3,12 @@
 # Table name: prefs
 #
 #  id       :integer          not null, primary key
-#  settings :text(65535)
+#  settings :text
 #  user_id  :integer
 #
 
 FactoryBot.define do
   factory :pref do
-    
+
   end
 end

@@ -3,10 +3,10 @@
 # Table name: languages
 #
 #  id               :integer          not null, primary key
-#  abbreviation     :string(255)
+#  abbreviation     :string
 #  default_language :boolean
-#  description      :string(255)
-#  name             :string(255)
+#  description      :string
+#  name             :string
 #
 
 FactoryBot.define do

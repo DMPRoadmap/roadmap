@@ -3,9 +3,9 @@
 # Table name: regions
 #
 #  id              :integer          not null, primary key
-#  abbreviation    :string(255)
-#  description     :string(255)
-#  name            :string(255)
+#  abbreviation    :string
+#  description     :string
+#  name            :string
 #  super_region_id :integer
 #
 

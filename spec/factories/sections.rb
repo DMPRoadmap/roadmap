@@ -3,10 +3,10 @@
 # Table name: sections
 #
 #  id             :integer          not null, primary key
-#  description    :text(65535)
+#  description    :text
 #  modifiable     :boolean
 #  number         :integer
-#  title          :string(255)
+#  title          :string
 #  created_at     :datetime
 #  updated_at     :datetime
 #  phase_id       :integer

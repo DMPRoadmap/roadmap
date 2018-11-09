@@ -4,7 +4,7 @@
 #
 #  id                :integer          not null, primary key
 #  published         :boolean
-#  text              :text(65535)
+#  text              :text
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  guidance_group_id :integer

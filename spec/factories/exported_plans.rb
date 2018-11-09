@@ -3,7 +3,7 @@
 # Table name: exported_plans
 #
 #  id         :integer          not null, primary key
-#  format     :string(255)
+#  format     :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  phase_id   :integer

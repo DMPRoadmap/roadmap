@@ -3,9 +3,9 @@
 # Table name: themes
 #
 #  id          :integer          not null, primary key
-#  description :text(65535)
-#  locale      :string(255)
-#  title       :string(255)
+#  description :text
+#  locale      :string
+#  title       :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
