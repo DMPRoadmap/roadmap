@@ -57,11 +57,16 @@ $light-yellow: #fff9e5;
     z-index: 50;
 }
 #footer-navbar {
+    margin-bottom: -20px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-radius:0px;
+    border-top: 3px solid $yellow;
     &.navbar-dmpopidor {
         background-color: $blue;
         color: $white;
     }
-    border-top: 3px solid $yellow;
     .navbar-nav {
         li {
             a, a:active,a:focus,a:visited {
@@ -81,6 +86,23 @@ $light-yellow: #fff9e5;
 
     }
  }
+ @media (max-width: 1023px) {
+    #footer-navbar {
+        .break-point {
+            display: none;
+        }
+        li {
+            text-align: center;
+            img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    }
+  }
+
+ 
 
 
 /*
