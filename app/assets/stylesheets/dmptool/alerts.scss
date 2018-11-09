@@ -1,0 +1,23 @@
+/* ALERTS/NOTIFICATIONS */
+/* --------------------------------------- */
+.alert {
+  color: $color-white;
+  font-size: 1.5rem;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 5px;
+
+  a, a:focus, a:hover, a:visited {
+    color: inherit;
+    text-decoration: underline;
+  }
+}
+.alert-info {
+  background-color: $color-green;
+}
+.alert-warning {
+  background-color: $color-red;
+}
+#global-notification-area .alert, #global-notification-area .fa {
+  color: $color-black;
+}

@@ -24,47 +24,47 @@ FactoryBot.define do
     end
 
     trait :textarea do
-      title "Text area"
-      formattype "textarea"
+      title { "Text area" }
+      formattype { "textarea" }
     end
 
     trait :textfield do
-      title "Text field"
-      formattype "textfield"
+      title { "Text field" }
+      formattype { "textfield" }
     end
 
     trait :radiobuttons do
-      title "Radio buttons"
-      formattype "radiobuttons"
-      option_based true
+      title { "Radio buttons" }
+      formattype { "radiobuttons" }
+      option_based { true }
     end
 
     trait :checkbox do
-      title "Check box"
-      formattype "checkbox"
-      option_based true
+      title { "Check box" }
+      formattype { "checkbox" }
+      option_based { true }
     end
 
     trait :dropdown do
-      title "Drop down"
-      formattype "dropdown"
-      option_based true
+      title { "Drop down" }
+      formattype { "dropdown" }
+      option_based { true }
     end
 
     trait :multiselectbox do
-      title "Multi select box"
-      formattype "multiselectbox"
-      option_based true
+      title { "Multi select box" }
+      formattype { "multiselectbox" }
+      option_based { true }
     end
 
     trait :date do
-      title "Date"
-      formattype "date"
+      title { "Date" }
+      formattype { "date" }
     end
 
     trait :rda_metadata do
-      title "RDA Metadata"
-      formattype "rda_metadata"
+      title { "RDA Metadata" }
+      formattype { "rda_metadata" }
     end
 
   end

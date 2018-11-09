@@ -42,12 +42,12 @@ FactoryBot.define do
     funder_name { Faker::Company.name }
     data_contact_email { Faker::Internet.safe_email }
     principal_investigator_email { Faker::Internet.safe_email }
-    feedback_requested false
-    complete false
+    feedback_requested { false }
+    complete { false }
     transient do
-      phases 0
-      answers 0
-      guidance_groups 0
+      phases { 0 }
+      answers { 0 }
+      guidance_groups { 0 }
     end
     trait :creator do
       after(:create) { |obj| obj.roles << create(:role, creator: true) }
@@ -57,19 +57,19 @@ FactoryBot.define do
     end
 
     trait :organisationally_visible do
-      visibility "organisationally_visible"
+      visibility { "organisationally_visible" }
     end
 
     trait :publicly_visible do
-      visibility "publicly_visible"
+      visibility { "publicly_visible" }
     end
 
     trait :is_test do
-      visibility "is_test"
+      visibility { "is_test" }
     end
 
     trait :privately_visible do
-      visibility "privately_visible"
+      visibility { "privately_visible" }
     end
 
     after(:create) do |plan, evaluator|

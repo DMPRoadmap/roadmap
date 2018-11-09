@@ -4,6 +4,10 @@ The DMPTool is a free, open-source, online application that helps researchers cr
 
 The DMPTool is based on the [DMPRoadmap](https://github.com/DMPRoadmap/roadmap) open source project. DMPRoadmap is being collaboratively developed by members of the University of California Curation Center (UC3), the Digital Curation Centre (DCC) and contributions from the community.
 
+Click here for the latest [releases].(https://github.com/CDLUC3/dmptool/releases/)
+
+[![Build Status](https://travis-ci.org/CDLUC3/dmptool.svg)](https://travis-ci.org/CDLUC3/dmptool)
+
 ## Support
 
 Issues should be reported here on [Github Issues](https://github.com/CDLUC3/dmptool/issues)
@@ -12,11 +16,6 @@ Please be advised though that we can only provide limited support for your local
 ## Translations
 
 See the [Translations Guide](https://github.com/DMPRoadmap/roadmap/wiki/Translations)
-
-## Current Release
-[v1.1.3](https://github.com/DMPRoadmap/roadmap/releases/tag/v1.1.3)
-
-[![Build Status](https://travis-ci.org/DMPRoadmap/roadmap.svg)](https://travis-ci.org/DMPRoadmap/roadmap)
 
 #### Pre-requisites
 Roadmap is a Ruby on Rails application and you will need to have:

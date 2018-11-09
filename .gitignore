@@ -1,4 +1,3 @@
-
 # Ignore rbenv files
 .ruby-version
 
@@ -33,10 +32,8 @@ public/videos/*
 
 # Ignore branded content
 #app/views/branded/*
-app/assets
-#config/locales/static_pages/*.yml
-lib/assets/images/homepage
-
+app/assets/images/homepage
+config/locales/static_pages/*.yml
 
 # Ignore db schema.rb
 # db/schema.rb
@@ -64,7 +61,7 @@ config/branding.yml
 
 # Ignore some of the initializers
 config/initializers/recaptcha.rb
-config/initializers/devise.rb
+# config/initializers/devise.rb
 config/initializers/wicked_pdf.rb
 config/initializers/fingerprint.rb
 
@@ -93,14 +90,27 @@ config/locale/*/app.edit.po
 config/locale/*/app.po.time_stamp
 
 # Front-end related
-lib/assets/node_modules
-lib/assets/npm-debug.log
-lib/assets/.eslintcache
 !.keep
 .byebug_history
 lib/data_cleanup/rules/org/fix_blank_abbreviation.yml
 .rspec
-node_modules
+
+yarn-error.log
+yarn-debug.log*
+
+.yarn-integrity
 .env
-public/packs
+
+package-lock.json
+node_modules
+/public/packs
+/public/packs-test
+
 spec/examples.txt
+.babelrc
+.postcssrc.yml
+/public/packs
+/public/packs-test
+/node_modules
+yarn-debug.log*
+.yarn-integrity

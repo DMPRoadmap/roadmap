@@ -1,0 +1,24 @@
+/* Headers */
+/* --------------------------------------- */
+h1 {
+  font-size: 2.8rem;
+}
+h2 {
+  font-size: 2.4rem;
+}
+h3 {
+  font-size: 1.9rem;
+}
+.fa-question-circle {
+  font-size: 1.5rem;
+}
+
+h1, h2, h3, h4,
+.combobox-clear-button, .combobox-clear-button:hover, .combobox-clear-button:focus {
+  color: $color-black;
+}
+
+h1, h2, h3, h4 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
