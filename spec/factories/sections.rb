@@ -28,6 +28,6 @@ FactoryBot.define do
     description { Faker::Lorem.paragraph }
     sequence(:number)
     phase
-    modifiable false
+    modifiable { false }
   end
 end
