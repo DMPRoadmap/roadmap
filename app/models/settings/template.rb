@@ -3,9 +3,9 @@
 # Table name: settings
 #
 #  id          :integer          not null, primary key
-#  target_type :string(255)
-#  value       :text(65535)
-#  var         :string(255)
+#  target_type :string
+#  value       :text
+#  var         :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  target_id   :integer          not null
@@ -24,9 +24,9 @@ module Settings
 
     VALID_ADMIN_FIELDS = ['project_name', 'project_identifier', 'grant_title', 'principal_investigator',
                           'project_data_contact', 'project_description', 'funder', 'institution', 'orcid']
-    
+
     VALID_FORMATS = ['csv', 'html', 'pdf', 'text', 'docx']
-    
+
     DEFAULT_SETTINGS = {
       formatting: {
         margin: {

@@ -5,11 +5,11 @@
 # Table name: questions
 #
 #  id                     :integer          not null, primary key
-#  default_value          :text(65535)
+#  default_value          :text
 #  modifiable             :boolean
 #  number                 :integer
 #  option_comment_display :boolean          default(TRUE)
-#  text                   :text(65535)
+#  text                   :text
 #  created_at             :datetime
 #  updated_at             :datetime
 #  question_format_id     :integer
@@ -18,7 +18,6 @@
 #
 # Indexes
 #
-#  fk_rails_4fbc38c8c7                (question_format_id)
 #  index_questions_on_section_id      (section_id)
 #  index_questions_on_versionable_id  (versionable_id)
 #

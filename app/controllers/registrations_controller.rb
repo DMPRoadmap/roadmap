@@ -6,17 +6,10 @@ class RegistrationsController < Devise::RegistrationsController
     @user = current_user
     @prefs = @user.get_preferences(:email)
     @languages = Language.sorted_by_abbreviation
-
     @orgs = Org.order("name")
     @other_organisations = Org.where(is_other: true).pluck(:id)
     @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
-
-  # ------------------------------------
-  # START DMPTool customization
-    #@default_org = current_user.org
-    @default_org = current_user.org unless current_user.org.nil? || current_user.org.is_other
-  # END DMPTool customization
-  # ------------------------------------
+    @default_org = current_user.org
 
     if !@prefs
       flash[:alert] = "No default preferences found (should be in branding.yml)."
@@ -60,26 +53,14 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
 
-  # ------------------------------------
-  # START DMPTool customization
-    # if params[:accept_terms].to_s == "0"
-    if sign_up_params[:accept_terms].to_s == "0"
-  # END DMPTool customization
-  # ------------------------------------
+    if params[:accept_terms].to_s == "0"
       redirect_to after_sign_up_error_path_for(resource),
         alert: _("You must accept the terms and conditions to register.")
-
-  # ------------------------------------
-  # START DMPTool customization
-    # elsif params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
-      # # rubocop:disable LineLength
-      # redirect_to after_sign_up_error_path_for(resource),
-                # alert: _("Please select an organisation from the list, or enter your organisation's name.")
-      # # rubocop:enable LineLength
-
-  # END DMPTool customization
-  # ------------------------------------
-
+    elsif params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
+      # rubocop:disable LineLength
+      redirect_to after_sign_up_error_path_for(resource),
+                alert: _("Please select an organisation from the list, or enter your organisation's name.")
+      # rubocop:enable LineLength
     else
       existing_user = User.where_case_insensitive("email", sign_up_params[:email]).first
       if existing_user.present?
@@ -97,56 +78,38 @@ class RegistrationsController < Devise::RegistrationsController
         end
       end
 
-    # ------------------------------------
-    # START DMPTool customization
-      #if params[:user][:org_id].blank?
-        #other_org = Org.find_by(is_other: true)
-        #if other_org.nil?
-          # # rubocop:disable LineLength
-          # redirect_to(after_sign_up_error_path_for(resource),
-            # alert: _('You cannot be assigned to other organisation since that option does not exist in the system. Please contact your system administrators.')) and return
-          # # rubocop:enable LineLength
-        #end
-        #params[:user][:org_id] = other_org.id
-      #end
-      #build_resource(sign_up_params)
-
-      # If the org_id is blank default to the Org marked as 'is_other'
-      args = sign_up_params
-      if !sign_up_params[:org_id].present? && !Org.find_by(is_other: true).nil?
-        args[:org_id] = Org.find_by(is_other: true).id
+      if params[:user][:org_id].blank?
+        other_org = Org.find_by(is_other: true)
+        if other_org.nil?
+          # rubocop:disable LineLength
+          redirect_to(after_sign_up_error_path_for(resource),
+            alert: _("You cannot be assigned to other organisation since that option does not exist in the system. Please contact your system administrators.")) and return
+          # rubocop:enable LineLength
+        end
+        params[:user][:org_id] = other_org.id
       end
 
-      build_resource(args)
-    # END DMPTool customization
-    # ------------------------------------
-
+      build_resource(sign_up_params)
       if resource.save
         if resource.active_for_authentication?
           set_flash_message :notice, :signed_up if is_navigational_format?
           sign_up(resource_name, resource)
-
-        # ------------------------------------
-        # START DMPTool customization
-          # UserMailer.welcome_notification(current_user).deliver_now
-          # unless oauth.nil?
-            # # The OAuth provider could not be determined or there was no unique UID!
-            # unless oauth["provider"].nil? || oauth["uid"].nil?
-              # prov = IdentifierScheme.find_by(name: oauth["provider"].downcase)
-              # # Until we enable ORCID signups
-              # if prov.name == "shibboleth"
-                # UserIdentifier.create(identifier_scheme: prov,
-                                      # identifier: oauth["uid"],
-                                      # user: @user)
-                # # rubocop:disable LineLength
-                # flash[:notice] = _("Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them.")
-                # # rubocop:enable LineLength
-              # end
-            # end
-          # end
-        # END DMPTool customization
-        # ------------------------------------
-
+          UserMailer.welcome_notification(current_user).deliver_now
+          unless oauth.nil?
+            # The OAuth provider could not be determined or there was no unique UID!
+            unless oauth["provider"].nil? || oauth["uid"].nil?
+              prov = IdentifierScheme.find_by(name: oauth["provider"].downcase)
+              # Until we enable ORCID signups
+              if prov.name == "shibboleth"
+                UserIdentifier.create(identifier_scheme: prov,
+                                      identifier: oauth["uid"],
+                                      user: @user)
+                # rubocop:disable LineLength
+                flash[:notice] = _("Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them.")
+                # rubocop:enable LineLength
+              end
+            end
+          end
           respond_with resource, location: after_sign_up_path_for(resource)
         else
           if is_navigational_format?
@@ -167,34 +130,14 @@ class RegistrationsController < Devise::RegistrationsController
   def update
     if user_signed_in? then
       @prefs = @user.get_preferences(:email)
-
       @orgs = Org.order("name")
-
-    # ------------------------------------
-    # START DMPTool customization
-      #@default_org = current_user.org
-      @default_org = current_user.org unless current_user.org.nil? || current_user.org.is_other
-    # END DMPTool customization
-    # ------------------------------------
-
+      @default_org = current_user.org
       @other_organisations = Org.where(is_other: true).pluck(:id)
-
       @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
       @languages = Language.sorted_by_abbreviation
       if params[:skip_personal_details] == "true"
         do_update_password(current_user, params)
       else
-
-      # ------------------------------------
-      # START DMPTool customization
-        # If the user left the org box blank default it to the 'Other' Org
-        if params[:user][:org_id].blank?
-          other = Org.find_by(is_other: true)
-          params[:user][:org_id] = other.id if other.present?
-        end
-      # END DMPTool customization
-      # ------------------------------------
-
         do_update(require_password = needs_password?(current_user, params))
       end
     else
@@ -228,18 +171,12 @@ class RegistrationsController < Devise::RegistrationsController
       message += _("Please enter a Last name. ")
       mandatory_params &&= false
     end
-
-  # ------------------------------------
-  # START DMPTool customization
-    # if params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
-      # # rubocop:disable LineLength
-      # message += _("Please select an organisation from the list, or enter your organisation's name.")
-      # # rubocop:enable LineLength
-      # mandatory_params &&= false
-    # end
-  # END DMPTool customization
-  # ------------------------------------
-
+    if params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
+      # rubocop:disable LineLength
+      message += _("Please select an organisation from the list, or enter your organisation's name.")
+      # rubocop:enable LineLength
+      mandatory_params &&= false
+    end
     # has the user entered all the details
     if mandatory_params
       # user is changing email or password

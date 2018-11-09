@@ -5,31 +5,31 @@
 #  id                     :integer          not null, primary key
 #  accept_terms           :boolean
 #  active                 :boolean          default(TRUE)
-#  api_token              :string(255)
+#  api_token              :string
 #  confirmation_sent_at   :datetime
-#  confirmation_token     :string(255)
+#  confirmation_token     :string
 #  confirmed_at           :datetime
 #  current_sign_in_at     :datetime
-#  current_sign_in_ip     :string(255)
+#  current_sign_in_ip     :string
 #  email                  :string(80)       default(""), not null
-#  encrypted_password     :string(255)
-#  firstname              :string(255)
+#  encrypted_password     :string
+#  firstname              :string
 #  invitation_accepted_at :datetime
 #  invitation_created_at  :datetime
 #  invitation_sent_at     :datetime
-#  invitation_token       :string(255)
-#  invited_by_type        :string(255)
+#  invitation_token       :string
+#  invited_by_type        :string
 #  last_sign_in_at        :datetime
-#  last_sign_in_ip        :string(255)
-#  ldap_password          :string(255)
-#  ldap_username          :string(255)
-#  other_organisation     :string(255)
-#  recovery_email         :string(255)
+#  last_sign_in_ip        :string
+#  ldap_password          :string
+#  ldap_username          :string
+#  other_organisation     :string
+#  recovery_email         :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
-#  reset_password_token   :string(255)
+#  reset_password_token   :string
 #  sign_in_count          :integer          default(0)
-#  surname                :string(255)
+#  surname                :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  invited_by_id          :integer
@@ -38,8 +38,7 @@
 #
 # Indexes
 #
-#  fk_rails_45f4f12508    (language_id)
-#  index_users_on_email   (email)
+#  index_users_on_email   (email) UNIQUE
 #  index_users_on_org_id  (org_id)
 #
 # Foreign Keys

@@ -1,13 +1,25 @@
 Rails.application.routes.draw do
 
+  # -----------------------------------
+  # Start DMPTool customization
+  # -----------------------------------
+  #devise_for( :users, controllers: {
+  #  registrations: "registrations",
+  #  passwords: 'passwords',
+  #  sessions: 'sessions',
+  #  omniauth_callbacks: 'users/omniauth_callbacks',
+  #  invitations: 'users/invitations'
+  #  }) do
   devise_for( :users, controllers: {
-    registrations: "registrations",
+    registrations: "dmptool/registrations",
     passwords: 'passwords',
-    sessions: 'sessions',
-    omniauth_callbacks: 'users/omniauth_callbacks',
+    sessions: 'dmptool/sessions',
+    omniauth_callbacks: 'dmptool/users/omniauth_callbacks',
     invitations: 'users/invitations'
     }) do
-
+  # -----------------------------------
+  # End DMPTool customization
+  # -----------------------------------
     get "/users/sign_out", :to => "devise/sessions#destroy"
   end
 
@@ -19,7 +31,14 @@ Rails.application.routes.draw do
   get '/users/ldap_username', to: 'users#ldap_username'
   post '/users/ldap_account', to: 'users#ldap_account'
 
-  resources :users, path: 'users', only: [] do
+  # -----------------------------------
+  # Start DMPTool customization
+  # -----------------------------------
+  #resources :users, path: 'users', only: [] do
+  resources :users, to: 'dmptool/users', path: 'users', only: [] do
+  # -----------------------------------
+  # End DMPTool customization
+  # -----------------------------------
 
     resources :org_swaps, only: [:create],
                           controller: "super_admin/org_swaps"
@@ -188,8 +207,16 @@ Rails.application.routes.draw do
 
   namespace :paginable do
     resources :orgs, only: [] do
-      get 'index/:page', action: :index, on: :collection, as: :index
-      get 'public/:page', action: :public, on: :collection, as: :public
+      # -------------------------------------
+      # Start DMPTool customizations
+      # -------------------------------------
+      #get 'index/:page', action: :index, on: :collection, as: :index
+      #get 'public/:page', action: :public, on: :collection, as: :public
+      get 'index/:page', controller: 'dmptool/paginable/orgs', action: :index, on: :collection, as: :index
+      get 'public/:page', controller: 'dmptool/paginable/orgs', action: :public, on: :collection, as: :public
+      # -------------------------------------
+      # End DMPTool customizations
+      # -------------------------------------
     end
     # Paginable actions for plans
     resources :plans, only: [] do

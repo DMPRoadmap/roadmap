@@ -3,13 +3,13 @@
 # Table name: notifications
 #
 #  id                :integer          not null, primary key
-#  body              :text(65535)
+#  body              :text
 #  dismissable       :boolean
 #  expires_at        :date
 #  level             :integer
 #  notification_type :integer
 #  starts_at         :date
-#  title             :string(255)
+#  title             :string
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #

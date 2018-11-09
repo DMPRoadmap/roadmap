@@ -27,12 +27,8 @@ class PlansController < ApplicationController
     @orgs = (Org.organisation + Org.institution + Org.managing_orgs).flatten
                                                                     .uniq.sort_by(&:name)
 
-  # ------------------------------------
-  # START DMPTool customization
     # Get the current user's org
-    @default_org = current_user.org if @orgs.include?(current_user.org) && !current_user.org.is_other?
-  # END DMPTool customization
-  # ------------------------------------
+    @default_org = current_user.org if @orgs.include?(current_user.org)
 
     if params.key?(:test)
       flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>"
@@ -96,10 +92,7 @@ class PlansController < ApplicationController
         @plan.assign_creator(current_user)
 
         # pre-select org's guidance and the default org's guidance
-
-        # DMPTool hack to select UCOP DMPTool guidance
-        #ids = (Org.managing_orgs << org_id).flatten.uniq
-        ids = [Org.find_by(abbreviation: 'UCOP').id, org_id].uniq
+        ids = (Org.managing_orgs << org_id).flatten.uniq
         ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
         if !ggs.blank? then @plan.guidance_groups << ggs end
@@ -305,7 +298,6 @@ class PlansController < ApplicationController
     @export_settings = @plan.settings(:export)
     render "download"
   end
-
 
   def duplicate
     plan = Plan.find(params[:id])

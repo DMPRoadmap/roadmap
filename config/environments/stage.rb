@@ -48,12 +48,4 @@ Rails.application.configure do
   config.assets.debug = false
   config.assets.compile = false
   config.assets.quiet = true
-
-# START DMPTool customization  
-# ----------------------------------------
-  # Whether or not to use Webpack's fingerprinted assets (code in application_helper.rb)  
-  config.use_fingerprinted_assets = false
-# ----------------------------------------
-# END DMPTool customization
-  
 end

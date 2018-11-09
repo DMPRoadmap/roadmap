@@ -33,14 +33,7 @@ module ApplicationHelper
   deprecate :isActivePage, deprecator: Cleanup::Deprecators::PredicateDeprecator.new
 
   def fingerprinted_asset(name)
-
-  # START DMPTool customization
-  # ---------------------------------------------------------
-    #Rails.env.production? ? "#{name}-#{ASSET_FINGERPRINT}" : name
-    Rails.application.config.use_fingerprinted_assets ? "#{name}-#{ASSET_FINGERPRINT}" : name
-  # ---------------------------------------------------------
-  # END DMPTool customization
-
+    Rails.env.production? ? "#{name}-#{ASSET_FINGERPRINT}" : name
   end
 
   def title(page_title)

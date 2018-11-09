@@ -5,10 +5,10 @@
 # Table name: languages
 #
 #  id               :integer          not null, primary key
-#  abbreviation     :string(255)
+#  abbreviation     :string
 #  default_language :boolean
-#  description      :string(255)
-#  name             :string(255)
+#  description      :string
+#  name             :string
 #
 
 class Language < ActiveRecord::Base
@@ -78,7 +78,7 @@ class Language < ActiveRecord::Base
   def self.default
     where(default_language: true).first
   end
-  
+
   private
 
   def format_abbreviation
