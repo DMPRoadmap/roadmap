@@ -1,3 +1,4 @@
+# frozen_string_literal: true.
 require 'rails_helper'
 
 RSpec.describe Question, type: :model do
@@ -68,13 +69,26 @@ RSpec.describe Question, type: :model do
 
   describe "#option_based?" do
 
-    let!(:question) { create(:question, question_format: question_format) }
-
     subject { question_format.option_based? }
 
-    context "when QuestionFormat is option_based" do
+    context "when QuestionFormat is option_based and has at least one option" do
 
       let!(:question_format) { create(:question_format, option_based: true) }
+      let!(:question) { create(:question, question_format: question_format, options: 1) }
+
+      it { is_expected.to eql(true) }
+
+    end
+
+    context "when QuestionFormat is option_based and has no option" do
+
+      let!(:question_format) { create(:question_format, option_based: true) }
+
+      it {
+        expect {
+          create(:question, question_format: question_format, options: 0)
+        }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: must have at least one option.")
+      }
 
       it { is_expected.to eql(true) }
 
@@ -83,6 +97,7 @@ RSpec.describe Question, type: :model do
     context "when QuestionFormat is not option_based" do
 
       let!(:question_format) { create(:question_format, option_based: false) }
+      let!(:question) { create(:question, question_format: question_format) }
 
       it { is_expected.to eql(false) }
 
