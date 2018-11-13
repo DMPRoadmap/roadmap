@@ -6,8 +6,14 @@ $(() => {
   // uses an iframe and we can't detect when the editor window gains focus. It only works on hover.
   //
   // If the content of the tooltip contains HTML, then add `data-html="true"` to the element
-  $('[data-toggle="tooltip"]').tooltip({
+  // Default behaviour for all tootips, when attribute data-placement not set
+  $('[data-toggle="tooltip"]:not([data-placement])').tooltip({
     animated: 'fade',
     placement: 'right',
+  });
+
+  // Don't set placement property if data-placement present
+  $('[data-toggle="tooltip"][data-placement]').tooltip({
+    animated: 'fade',
   });
 });
