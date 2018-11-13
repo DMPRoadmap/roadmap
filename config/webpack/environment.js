@@ -1,3 +1,5 @@
+import 'images/homepage'
+
 const { environment } = require('@rails/webpacker')
 const webpack = require('webpack')
 
