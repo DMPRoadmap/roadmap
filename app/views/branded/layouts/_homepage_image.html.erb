@@ -6,9 +6,10 @@
      "5-large.png"
    ] %>
 
-<%= homepage_image = asset_pack_path("images/#{available_images[(0..4).to_a.sample]}") %>
+<%= homepage_image = "images/#{available_images[(0..4).to_a.sample]}" %>
+<% import 'images/homepage_image' %>
 
-<div class="welcome" style="background-image: url('<%= homepage_image %>');">
+<div class="welcome" style="background-image: url('<%= asset_pack_path(homepage_image) %>');">
   <div>
     <div class="welcome-message">
       <div>
