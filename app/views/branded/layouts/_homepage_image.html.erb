@@ -1,14 +1,4 @@
-<% available_images = [
-     "1-large.jpg",
-     "2-large.png",
-     "3-large.jpg",
-     "4-large.jpg",
-     "5-large.png"
-   ] %>
-
-<%= homepage_image = "images/#{available_images[(0..4).to_a.sample]}" %>
-
-<div class="welcome" style="background-image: url('<%= asset_pack_path(homepage_image) %>');">
+<div class="welcome homepage-img-<%= (1..5).to_a.sample %>">
   <div>
     <div class="welcome-message">
       <div>
