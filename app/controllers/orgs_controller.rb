@@ -3,6 +3,8 @@
 class OrgsController < ApplicationController
   after_action :verify_authorized, except: ['shibboleth_ds', 'shibboleth_ds_passthru']
 
+  include Dmptool::Orgs
+
   respond_to :html
 
   ##

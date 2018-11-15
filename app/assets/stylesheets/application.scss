@@ -13,6 +13,8 @@
 
 /* START DMPTool customization */
 /* ---------------------------------------- */
-@import "dmptool/general";
+@import "variables/dmptool/*";
+@import "blocks/dmptool/*";
+@import "blocks/dmptool/pages/*";
 /* ---------------------------------------- */
 /* END DMPTool customization */

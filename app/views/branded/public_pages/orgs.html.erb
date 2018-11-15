@@ -6,8 +6,8 @@
     <% if orgs.count > 0 %>
       <%= paginable_renderise(
         partial: '/paginable/orgs/public',
-        controller: 'paginable/orgs',
-        action: 'public', 
+        controller: 'paginable/dmptool/orgs',
+        action: 'public',
         scope: orgs,
         query_params: { sort_field: 'orgs.name', sort_direction: :asc }) %>
     <% end %>

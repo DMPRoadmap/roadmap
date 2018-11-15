@@ -2,6 +2,8 @@
 
 class StaticPagesController < ApplicationController
 
+  include Dmptool::StaticPagesController
+
   def about_us
     dcc_news_feed_url = "http://www.dcc.ac.uk/news/dmponline-0/feed"
     @dcc_news_feed = Feedjira::Feed.fetch_and_parse dcc_news_feed_url

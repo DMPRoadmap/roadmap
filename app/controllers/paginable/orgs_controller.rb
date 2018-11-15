@@ -2,6 +2,8 @@
 
 class Paginable::OrgsController < ApplicationController
 
+  include Dmptool::Paginable::OrgsController
+
   include Paginable
 
   # /paginable/guidances/index/:page

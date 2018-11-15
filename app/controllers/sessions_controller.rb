@@ -2,6 +2,8 @@
 
 class SessionsController < Devise::SessionsController
 
+  include Dmptool:SessionsController
+
   def new
     redirect_to(root_path)
   end
@@ -27,6 +29,19 @@ class SessionsController < Devise::SessionsController
         existing_user.update_attributes(
           shibboleth_id: session["devise.shibboleth_data"][:uid]
         )
+
+      #----------------------------------------------
+      # Start DMPTool customization
+      #----------------------------------------------
+      else
+        # If the user has an old LDAP account attempt to convert their
+        # password over to Devise if it is valid
+        unless existing_user.encrypted_password.present?
+          existing_user.convert_ldap_password?(params[:user][:password])
+        end
+      #----------------------------------------------
+      # End DMPTool customization
+      #----------------------------------------------
       end
       unless existing_user.get_locale.nil?
         session[:locale] = existing_user.get_locale

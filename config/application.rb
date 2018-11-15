@@ -136,9 +136,12 @@ module DMPRoadmap
 
     # The percentage of answered questions needed to enable the plan visibility section of the Share plan page
     config.default_plan_percentage_answered = 50
-    
+
   # START DMPTool customization
   # ----------------------------------------
+    config.autoload_paths += Dir[Rails.root.join('lib', 'dmptool', 'model', '{**}')]
+    config.autoload_paths += Dir[Rails.root.join('lib', 'dmptool', 'controller', '{**}')]
+
     config.rss = 'https://blog.dmptool.org/feed'
   # ----------------------------------------
   # END DMPTool customization
