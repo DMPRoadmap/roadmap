@@ -2,8 +2,6 @@
 
 class SessionsController < Devise::SessionsController
 
-  include Dmptool::Controller::Sessions
-
   def new
     redirect_to(root_path)
   end

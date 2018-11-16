@@ -11,9 +11,9 @@ module Dmptool
       class_methods do
         # DMPTool participating institution helpers
         def participating
-          Org.includes(:identifier_schemes)
-             .where(is_other: false)
-             .order(:name)
+          self.includes(:identifier_schemes)
+              .where(is_other: false)
+              .order(:name)
         end
       end
 
