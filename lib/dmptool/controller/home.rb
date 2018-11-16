@@ -6,26 +6,24 @@ module Dmptool::Controller::Home
 
   def render_home_page
     # Usage stats
-    stats = Rails.cache.read("stats") || {}
-    if stats.empty?
-      stats = statistics
+    @stats = Rails.cache.read("stats") || {}
+    if @stats.empty?
+      @stats = statistics
     end
 
     # Top 5 templates
-    top_5 = Rails.cache.read("top_5")
-    if top_5.nil?
-      top_5 = top_templates
+    @top_5 = Rails.cache.read("top_5")
+    if @top_5.nil?
+      @top_5 = top_templates
     end
 
     # Retrieve/cache the DMPTool blog's latest posts
-    rss = Rails.cache.read("rss")
-    if rss.nil?
-      rss = feed
+    @rss = Rails.cache.read("rss")
+    if @rss.nil?
+      @rss = feed
     end
 
-    render "home/index", locals: {
-      stats: stats, top_5: top_5, rss: rss
-    }
+    render "home/index"
   end
 
   private

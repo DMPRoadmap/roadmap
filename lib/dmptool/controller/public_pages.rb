@@ -2,8 +2,6 @@
 
 module Dmptool::Controller::PublicPages
 
-  after_action :verify_authorized, except: [:orgs, :get_started]
-
   # The publicly accessible list of participating institutions
   def orgs
     skip_authorization
@@ -16,7 +14,7 @@ module Dmptool::Controller::PublicPages
   # on the home page
   def get_started
     skip_authorization
-    #render "/shared/_get_started"
+    render "/shared/_get_started"
   end
 
   protected

@@ -16,6 +16,7 @@ a.link_as_button, a.link_as_button:hover, a.link_as_button:focus, a.link_as_butt
 .table tbody > tr > th,
 .table tfoot > tr > th {
   background-color: $color-dark-blue;
+  color: $color-white;
   font-size: 1.3rem;
 }
 .btn-default, .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default:visited, .btn-default:active:hover, .btn-default.active:hover {

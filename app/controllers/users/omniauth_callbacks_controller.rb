@@ -2,7 +2,7 @@
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
-  include Dmptool::OmniauthCallbacksController
+  include Dmptool::Controller::OmniauthCallbacks
 
   ##
   # Dynamically build a handler for each omniauth provider

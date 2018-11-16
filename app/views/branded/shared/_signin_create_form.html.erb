@@ -9,11 +9,13 @@
         <span class="fa fa-times" aria-hidden="true">&nbsp;</span>
       </button>
 
-      <div class="branding">
-        <div id="org-sign-in-logo" class="org-logo">
-
+      <% unless org.blank? %>
+        <div class="branding">
+          <div id="org-sign-in-logo" class="org-logo">
+            <!-- Logo gets loaded via ajax call after user selects their institution -->
+          </div>
         </div>
-      </div>
+      <% end %>
 
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">

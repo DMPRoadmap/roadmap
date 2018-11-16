@@ -11,14 +11,16 @@
           <%= render partial: 'layouts/profile_menu' %>
 
         <% else %>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-             id="signin-menu-button" aria-haspopup="true" aria-expanded="false">
-            <%= _('Sign in') %>
-            <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="signin-menu-button">
-            <li><%= render partial: 'shared/sign_in_options' %></li>
-          </ul>
+          <% unless active_page?(get_started_path) %>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+               id="signin-menu-button" aria-haspopup="true" aria-expanded="false">
+              <%= _('Sign in') %>
+              <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="signin-menu-button">
+              <li><%= render partial: 'shared/sign_in_options' %></li>
+            </ul>
+          <% end %>
         <% end %>
       </li>
     </ul>

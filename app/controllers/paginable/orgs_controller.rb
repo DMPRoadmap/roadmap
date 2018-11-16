@@ -2,7 +2,7 @@
 
 class Paginable::OrgsController < ApplicationController
 
-  include Dmptool::Paginable::OrgsController
+  include Dmptool::Controller::Paginable::Orgs
 
   include Paginable
 
