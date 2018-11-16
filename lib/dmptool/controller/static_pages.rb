@@ -1,25 +1,28 @@
 # frozen_string_literal: true
 
-module Dmptool::Controller::StaticPages
+module Dmptool
 
-  def promote
-    #render 'static_pages/promote'
-  end
+  module Controller
 
-  def researchers
-    #render 'static_pages/researchers'
-  end
+    module StaticPages
 
-  def faq
-    #render 'static_pages/faq'
-  end
+      def promote
+      end
 
-  def general_guidance
-    #render 'static_pages/general_guidance'
-  end
+      def researchers
+      end
 
-  def news_media
-    #render 'static_pages/news_media'
+      def faq
+      end
+
+      def general_guidance
+      end
+
+      def news_media
+      end
+
+    end
+
   end
 
 end

@@ -1,127 +1,139 @@
 # frozen_string_literal: true
 
-require 'securerandom'
+require "securerandom"
 
-module Dmptool::Controller::OmniauthCallbacks
+module Dmptool
 
-  protected
+  module Controller
 
-  def process_omniauth_callback(scheme)
-    if request.env.present?
-      omniauth = request.env["omniauth.auth"] || request.env
-    else
-      omniauth = {}
-    end
+    module OmniauthCallbacks
 
-    if scheme.name == "shibboleth"
-      provider = _("your institutional credentials")
-    else
-      provider = scheme.description
-    end
+      protected
 
-    # if the user is already signed in then we are attempting to attach
-    # omniauth credentials to an existing account
-    if current_user.present? && omniauth.fetch(:uid, "").present?
-      if attach_omniauth_credentials(current_user, scheme, omniauth)
-        flash[:notice] = _("Your account has been successfully linked to %{scheme}.") % {
-          scheme: provider
-        }
-      else
-        flash[:alert] = _("Unable to link your account to %{scheme}") % {
-          scheme: provider
-        }
-      end
-      redirect_to edit_user_registration_path
+      def process_omniauth_callback(scheme)
+        if request.env.present?
+          omniauth = request.env["omniauth.auth"] || request.env
+        else
+          omniauth = {}
+        end
 
-    else
-      # Attempt to locate the user via the credentials returned by omniauth
-      user = User.from_omniauth(omniauth)
+        if scheme.name == "shibboleth"
+          provider = _("your institutional credentials")
+        else
+          provider = scheme.description
+        end
 
-      # If we found the user by their omniauth creds then sign them in
-      if user.present?
-        flash[:notice] = _("Successfully signed in")
-        sign_in_and_redirect user, event: :authentication
-
-      else
-        # Otherwise attempt to locate the user via the email provided in the omniauth creds
-        new_user = omniauth_hash_to_new_user(omniauth)
-        user = User.where_case_insensitive("email", new_user.email).first
-
-        # If we found the user by email
-        if user.present?
-          # sign them in and attach their omniauth credentials to the account
-          if attach_omniauth_credentials(user, scheme, omniauth)
-            flash[:notice] = _("Successfully signed in with %{scheme}.") % {
+        # if the user is already signed in then we are attempting to attach
+        # omniauth credentials to an existing account
+        if current_user.present? && omniauth.fetch(:uid, "").present?
+          if attach_omniauth_credentials(current_user, scheme, omniauth)
+            # rubocop:disable LineLength
+            flash[:notice] = _("Your account has been successfully linked to %{scheme}.") % {
               scheme: provider
             }
+            # rubocop:enable LineLength
+          else
+            flash[:alert] = _("Unable to link your account to %{scheme}") % {
+              scheme: provider
+            }
+          end
+          redirect_to edit_user_registration_path
+
+        else
+          # Attempt to locate the user via the credentials returned by omniauth
+          user = User.from_omniauth(omniauth)
+
+          # If we found the user by their omniauth creds then sign them in
+          if user.present?
+            flash[:notice] = _("Successfully signed in")
             sign_in_and_redirect user, event: :authentication
 
           else
-            # Unable to attach the omniauth creds to the user
-            flash[:alert] = _("Unable to sign in with %{scheme}") % {
-              scheme: provider
-            }
-            redirect_to new_user_registration_url
-          end
+            # Otherwise attempt to locate the user via the email provided in
+            # the omniauth creds
+            new_user = omniauth_hash_to_new_user(omniauth)
+            user = User.where_case_insensitive("email", new_user.email).first
 
-        # If we could not find a match take them to the account setup page
-        else
-          user = new_user
-          redirect_to new_user_registration_url
+            # If we found the user by email
+            if user.present?
+              # sign them in and attach their omniauth credentials to the account
+              if attach_omniauth_credentials(user, scheme, omniauth)
+                flash[:notice] = _("Successfully signed in with %{scheme}.") % {
+                  scheme: provider
+                }
+                sign_in_and_redirect user, event: :authentication
+
+              else
+                # Unable to attach the omniauth creds to the user
+                flash[:alert] = _("Unable to sign in with %{scheme}") % {
+                  scheme: provider
+                }
+                redirect_to new_user_registration_url
+              end
+
+            # If we could not find a match take them to the account setup page
+            else
+              user = new_user
+              redirect_to new_user_registration_url
+            end
+          end
         end
       end
-    end
-  end
 
-  private
+      private
 
-  def attach_omniauth_credentials(user, scheme, omniauth)
-    # Attempt to find or attach the omniauth creds
-    UserIdentifier.find_or_create(
-      identifier_scheme: scheme,
-      user: user,
-      identifier: omniauth.uid
-    )
-  end
-
-  def omniauth_hash_to_new_user(omniauth)
-    omniauth_info = omniauth.fetch(:info, {})
-    names = extract_omniauth_names(omniauth_info)
-    User.new(
-      email: extract_omniauth_email(omniauth_info),
-      firstname: names.fetch(:firstname, ""),
-      surname: names.fetch(:surname, ""),
-      org: extract_omniauth_org(omniauth_info),
-      password: SecureRandom.uuid
-    )
-  end
-
-  def extract_omniauth_email(hash)
-    hash.fetch(:email, "").split(";")[0]
-  end
-
-  def extract_omniauth_names(hash)
-    firstname = hash.fetch(:givenname, hash.fetch(:firstname, ""))
-    surname = hash.fetch(:sn, hash.fetch(:surname, hash.fetch(:lastname, "")))
-
-    if hash.name.present? && (!firstname.present? || !surname.present?)
-      names = hash.name.split(" ")
-      firstname = names[0]
-      if names.length > 1
-        surname = names[names.length - 1]
+      def attach_omniauth_credentials(user, scheme, omniauth)
+        # Attempt to find or attach the omniauth creds
+        UserIdentifier.find_or_create(
+          identifier_scheme: scheme,
+          user: user,
+          identifier: omniauth.uid
+        )
       end
+
+      def omniauth_hash_to_new_user(omniauth)
+        omniauth_info = omniauth.fetch(:info, {})
+        names = extract_omniauth_names(omniauth_info)
+        User.new(
+          email: extract_omniauth_email(omniauth_info),
+          firstname: names.fetch(:firstname, ""),
+          surname: names.fetch(:surname, ""),
+          org: extract_omniauth_org(omniauth_info),
+          password: SecureRandom.uuid
+        )
+      end
+
+      def extract_omniauth_email(hash)
+        hash.fetch(:email, "").split(";")[0]
+      end
+
+      def extract_omniauth_names(hash)
+        firstname = hash.fetch(:givenname, hash.fetch(:firstname, ""))
+        surname = hash.fetch(:sn, hash.fetch(:surname, hash.fetch(:lastname, "")))
+
+        if hash.name.present? && (!firstname.present? || !surname.present?)
+          names = hash.name.split(" ")
+          firstname = names[0]
+          if names.length > 1
+            surname = names[names.length - 1]
+          end
+        end
+        { firstname: firstname, surname: surname }
+      end
+
+      def extract_omniauth_org(hash)
+        idp_name = hash.fetch(:identity_provider, "").downcase
+        if idp_name.present?
+          idp = OrgIdentifier.where("LOWER(identifier) = ?", idp_name).first
+          if idp.present?
+            org = Org.find_by(id: idp.org_id)
+          end
+        end
+        (org.present? ? org : Org.find_by(is_other: true))
+      end
+
     end
-    { firstname: firstname, surname: surname }
+
   end
 
-  def extract_omniauth_org(hash)
-    idp_name = hash.fetch(:identity_provider, "").downcase
-    if idp_name.present?
-      idp = OrgIdentifier.where("LOWER(identifier) = ?", idp_name).first
-      if idp.present?
-        org = Org.find_by(id: idp.org_id)
-      end
-    end
-    (org.present? ? org : Org.find_by(is_other: true))
-  end
 end

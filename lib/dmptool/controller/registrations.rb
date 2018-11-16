@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 
-module Dmptool::Controller::Registrations
+module Dmptool
+
+  module Controller
+
+    module Registrations
+
+    end
+
+  end
 
 end
