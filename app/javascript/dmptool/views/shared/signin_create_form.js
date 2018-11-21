@@ -81,9 +81,6 @@ $(() => {
       } else {
         renderNotice(data.msg);
       }
-
-console.log(data);
-
       if (data.email === '' || data.email === null) {
         //
       } else {
