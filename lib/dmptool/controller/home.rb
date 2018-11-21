@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rss'
+
 module Dmptool
 
   module Controller
@@ -61,14 +63,16 @@ module Dmptool
       # Get the last 5 blog posts
       def feed
         begin
-          xml = HTTParty.get(Rails.application.config.rss).body
-          rss = Feedjira.parse(xml).entries.first(5)
+          xml = open(Rails.application.config.rss).read
+          rss = RSS::Parser.parse(xml, false).items.first(5)
           cache_content("rss", rss)
 
         rescue Exception
           # If we were unable to connect to the blog rss
           rss = [] if rss.nil?
+          logger.error("Caught exception RSS parse: #{e}.")
         end
+        rss
       end
 
       # Store information in the cache
@@ -76,7 +80,7 @@ module Dmptool
         begin
           Rails.cache.write(type, data, expires_in => 60.minutes)
         rescue Exception => e
-          logger.error("Caught exception RSS parse: #{e}.")
+          logger.error("Unable to add #{type} to the Rails cache: #{e}.")
         end
       end
 
