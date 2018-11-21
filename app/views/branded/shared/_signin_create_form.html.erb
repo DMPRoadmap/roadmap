@@ -1,6 +1,6 @@
-<% signin = true unless signin %>
-<% url = registration_path("user") unless url %>
-<% org = '' unless org %>
+<% default_org = Org.find_by(is_other: true) %>
+<% @user = @user.present? ? @user : User.new(org: default_org) %>
+<% @user.org = default_org unless @user.org.present? %>
 
 <div class="modal-dialog" role="document">
   <div class="modal-content">
@@ -9,13 +9,11 @@
         <span class="fa fa-times" aria-hidden="true">&nbsp;</span>
       </button>
 
-      <% unless org.blank? %>
-        <div class="branding">
-          <div id="org-sign-in-logo" class="org-logo">
-            <!-- Logo gets loaded via ajax call after user selects their institution -->
-          </div>
+      <div class="branding">
+        <div id="org-sign-in-logo">
+          <!-- Logo gets loaded via ajax call after user selects their institution -->
         </div>
-      <% end %>
+      </div>
 
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">

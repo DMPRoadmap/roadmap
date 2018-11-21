@@ -41,27 +41,27 @@ module Dmptool
 
         else
           # Attempt to locate the user via the credentials returned by omniauth
-          user = User.from_omniauth(omniauth)
+          @user = User.from_omniauth(omniauth)
 
           # If we found the user by their omniauth creds then sign them in
-          if user.present?
+          if @user.present?
             flash[:notice] = _("Successfully signed in")
-            sign_in_and_redirect user, event: :authentication
+            sign_in_and_redirect @user, event: :authentication
 
           else
             # Otherwise attempt to locate the user via the email provided in
             # the omniauth creds
             new_user = omniauth_hash_to_new_user(omniauth)
-            user = User.where_case_insensitive("email", new_user.email).first
+            @user = User.where_case_insensitive("email", new_user.email).first
 
             # If we found the user by email
-            if user.present?
+            if @user.present?
               # sign them in and attach their omniauth credentials to the account
-              if attach_omniauth_credentials(user, scheme, omniauth)
+              if attach_omniauth_credentials(@user, scheme, omniauth)
                 flash[:notice] = _("Successfully signed in with %{scheme}.") % {
                   scheme: provider
                 }
-                sign_in_and_redirect user, event: :authentication
+                sign_in_and_redirect @user, event: :authentication
 
               else
                 # Unable to attach the omniauth creds to the user
@@ -73,7 +73,7 @@ module Dmptool
 
             # If we could not find a match take them to the account setup page
             else
-              user = new_user
+              @user = new_user
               redirect_to new_user_registration_url
             end
           end

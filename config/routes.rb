@@ -71,7 +71,7 @@ Rails.application.routes.draw do
   get "news_media" => 'static_pages#news_media'
   get "public_orgs" => 'public_pages#orgs'
 
-  get "org_logos/:id" => "org_logos#show", as: :org_logo
+  get "org_logos/:id" => "orgs#logos", as: :org_logo
   # ------------------------------------------
   # End DMPTool customizations
   # ------------------------------------------

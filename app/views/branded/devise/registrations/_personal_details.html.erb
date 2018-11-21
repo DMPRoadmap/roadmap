@@ -1,3 +1,4 @@
+<% default_org = Org.find_by(is_other: true) %>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, id: 'personal_details_registration_form' }) do |f| %>
   <p class="form-control-static">
     <%= _("Please note that your email address is also your username. If you change this remember to use your new email address on sign in. If your account is created with your institutional credentials you must contact us to change your email or organisation.") %>
@@ -36,7 +37,7 @@
       <input type="text" disabled="true" value="<%= @default_org.name if @default_org.present? %>" class="form-control" />
       <input type="hidden" name="user[org_id]" id="user_org_id" value="<%= current_user.org_id %>">
     <% else %>
-      <%= render partial: "shared/my_org", locals: {f: f, default_org: @default_org, orgs: @orgs} %>
+      <%= render partial: "shared/my_org", locals: {f: f, default_org: default_org, orgs: @orgs} %>
     <% end %>
   </div>
 

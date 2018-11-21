@@ -5,7 +5,7 @@
 <% tooltip += _(' Warning: Changing your organisation will result in the loss of your administrative privileges.') if org_admin %>
 
 <%= f.label :org_name, _('Organisation'), class: 'control-label' %>
-<%= render partial: 'shared/popover', 
+<%= render partial: 'shared/popover',
            locals: { message: tooltip, placement: 'right' }%>
 
 <%= render partial: "shared/accessible_combobox",

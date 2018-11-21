@@ -1,10 +1,10 @@
-<% if org.present? %>
-  <% if org.logo.present? %>
-    <%= image_tag(org.logo.thumb('100x100%').url,
-                  alt: org.name,
+<% if @user.org.present? %>
+  <% if @user.org.logo.present? %>
+    <%= image_tag(@user.org.logo.thumb('100x100%').url,
+                  alt: @user.org.name,
                   class: "org-logo",
-                  title: org.name) %>
+                  title: @user.org.name) %>
   <% else %>
-    <h4><%= org.name %></h4>
+    <div class="branding-name"><%= @user.org.name %></div>
   <% end %>
 <% end %>
