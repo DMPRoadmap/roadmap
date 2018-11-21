@@ -26,6 +26,10 @@ th.date-column {
   min-width: 120px;
 }
 
+th.download-column {
+  min-width: 120px;
+}
+
 /* Fix issues with dropdwon within tables being cut off */
 .table-responsive > .table {
   width: 100%;
