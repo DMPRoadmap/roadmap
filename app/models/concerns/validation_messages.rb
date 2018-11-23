@@ -7,6 +7,8 @@ module ValidationMessages
 
   INCLUSION_MESSAGE = _("isn't a valid value")
   
-  OPTION_PRESENCE_MESSAGE = _("must have at least one option.")
+  OPTION_PRESENCE_MESSAGE = _("You must have at least one option.")
+
+  QUESTION_TEXT_PRESENCE_MESSAGE = _("for 'Question text' can't be blank.")
 
 end
