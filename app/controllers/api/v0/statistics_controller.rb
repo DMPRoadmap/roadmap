@@ -119,12 +119,21 @@ class Api::V0::StatisticsController < Api::V0::BaseController
     if params[:range_dates].present?
       r = {}
       params[:range_dates].each_pair do |k, v|
-        range_date_plans = plans
-          .where("plans.created_at >= ?", v["start_date"])
-          .where("plans.created_at <= ?", v["end_date"])
-        r[k] = roles.joins(:user, :plan).merge(users).merge(range_date_plans)
-                    .select(:plan_id).distinct.count
+        #range_date_plans = plans
+        #  .where("plans.created_at >= ?", v["start_date"])
+        #  .where("plans.created_at <= ?", v["end_date"])
+        start_date = Date.parse(v["start_date"])
+        end_date = Date.parse(v["end_date"])
+        r[k] = current_user.org.plans
+          .where(plans: { created_at: start_date..end_date })
+          .pluck("plans.id")
+          .uniq.count
+        #r[k] = roles.joins(:user, :plan).merge(users).merge(range_date_plans)
+        #            .select(:plan_id).distinct.count
       end
+
+p "RANGED FIND: #{r.inspect}"
+
       respond_to do |format|
         format.json { render(json: r.to_json) }
         format.csv {
@@ -137,13 +146,17 @@ class Api::V0::StatisticsController < Api::V0::BaseController
       end
     else
       if params[:start_date].present?
-        plans = plans.where("plans.created_at >= ?", Date.parse(params[:start_date]))
+        plans = current_user.org.plans
+          .where("plans.created_at >= ?", Date.parse(params[:start_date]))
+          .pluck("plans.id").uniq
+      elsif params[:end_date].present?
+        plans = current_user.org.plans
+          .where("plans.created_at <= ?", Date.parse(params[:end_date]))
+          .pluck("plans.id").uniq
+      else
+        plans = current_user.org.plans.pluck("plans.id").uniq
       end
-      if params[:end_date].present?
-        plans = plans.where("plans.created_at <= ?", Date.parse(params[:end_date]))
-      end
-      count = roles.joins(:user, :plan).merge(users).merge(plans)
-                   .select(:plan_id).distinct.count
+      count = plans.length
       render(json: { created_plans: count })
     end
   end
