@@ -155,6 +155,24 @@ class Role < ActiveRecord::Base
     self.active = true if self.new_record?
   end
 
+  def deactivate!
+    self.active = false
+    if self.save!
+      # If no other creator or administrator is attached to the plan
+      # the deactivate all the other roles
+      if Role.where(plan: self.plan, active: true)
+             .with_access_flags(:creator, :administrator).size <= 0
+        [:editor, :commenter, :reviewer].each do |access|
+          Role.where(plan: self.plan, active: true)
+              .with_access_flags(access).update_all(active: false)
+        end
+      end
+      true
+    else
+      false
+    end
+  end
+
 end
 
 # -----------------------------------------------------
