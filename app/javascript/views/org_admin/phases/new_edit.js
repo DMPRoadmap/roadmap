@@ -3,6 +3,7 @@ import { Tinymce } from '../../../utils/tinymce';
 import { isObject, isString } from '../../../utils/isType';
 import getConstant from '../../../constants';
 import expandCollapseAll from '../../../utils/expandCollapseAll';
+import { addAsterisks } from '../../../utils/requiredField';
 
 import onChangeQuestionFormat from '../questions/sharedEventHandlers';
 import initQuestionOption from '../question_options/index';
@@ -34,6 +35,7 @@ $(() => {
         },
       });
       initQuestionOption(context);
+      addAsterisks(`#${context}`);
       // Swap in the question_formats when the user selects an option based question type
       $(`#${context} select.question_format`).change((e) => {
         onChangeQuestionFormat(e);
