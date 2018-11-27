@@ -100,13 +100,7 @@ class RolesController < ApplicationController
   def deactivate
     role = Role.find(params[:id])
     authorize role
-    role.active = false
-    # if creator, remove from public plans list
-    if role.creator? && role.plan.publicly_visible?
-      role.plan.visibility = Plan.visibilities[:privately_visible]
-      role.plan.save
-    end
-    if role.save
+    if role.deactivate!
       flash[:notice] = _("Plan removed")
     else
       flash[:alert] = _("Unable to remove the plan")
