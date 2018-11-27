@@ -184,7 +184,8 @@ RSpec.describe Role, type: :model do
 
     let!(:other_coowner) { create(:user, org: org2) }
 
-    let!(:plan) { create(:plan, answers: 2, guidance_groups: 2) }
+    let!(:plan) { create(:plan, answers: 2, guidance_groups: 2,
+                         visibility: Plan.visibilities[:organisationally_visible]) }
     let!(:role) { build(:role, :creator, user: creator, plan: plan) }
 
     subject { role }
@@ -224,9 +225,12 @@ RSpec.describe Role, type: :model do
       it "reviewer role is still active" do
         expect(reviewer.roles.find_by(plan: plan).active).to eql(true)
       end
+      it "the plan should have remained organisationally visibile" do
+        expect(plan.organisationally_visible?).to eql(true)
+      end
     end
 
-    context "Plan has been shared but there is no Coowner (aka :administrator)" do
+    context "Plan has been shared with an Editor (aka :editor)" do
       before do
         plan.roles << build(:role, :editor, user: editor, plan: plan)
         plan.roles << build(:role, :commenter, user: commenter, plan: plan)
@@ -237,15 +241,39 @@ RSpec.describe Role, type: :model do
       it "creator role has no longer active" do
         expect(subject.active).to eql(false)
       end
-
       it "editor role is still active" do
-        expect(editor.roles.find_by(plan: plan).active).to eql(false)
+        expect(editor.roles.find_by(plan: plan).active).to eql(true)
       end
+      it "commenter role is still active" do
+        expect(commenter.roles.find_by(plan: plan).active).to eql(true)
+      end
+      it "reviewer role is still active" do
+        expect(reviewer.roles.find_by(plan: plan).active).to eql(true)
+      end
+      it "the plan should have remained organisationally visibile" do
+        expect(plan.organisationally_visible?).to eql(true)
+      end
+    end
+
+    context "Plan has been shared but there is no Coowner or Editor (aka :administrator, :editor)" do
+      before do
+        plan.roles << build(:role, :commenter, user: commenter, plan: plan)
+        plan.roles << build(:role, :reviewer, user: reviewer, plan: plan)
+        role.deactivate!
+      end
+
+      it "creator role has no longer active" do
+        expect(subject.active).to eql(false)
+      end
+
       it "commenter role is still active" do
         expect(commenter.roles.find_by(plan: plan).active).to eql(false)
       end
       it "reviewer role is still active" do
         expect(reviewer.roles.find_by(plan: plan).active).to eql(false)
+      end
+      it "the plan should have been set to private visibility" do
+        expect(plan.organisationally_visible?).to eql(false)
       end
     end
 
@@ -261,6 +289,9 @@ RSpec.describe Role, type: :model do
 
       it "coowner (different org) role is still active" do
         expect(other_coowner.roles.find_by(plan: plan).active).to eql(true)
+      end
+      it "the plan should have remained organisationally visibile" do
+        expect(plan.organisationally_visible?).to eql(true)
       end
     end
 
