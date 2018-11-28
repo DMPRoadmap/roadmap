@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Role, type: :model do
+  include RolesHelper
 
   context "validations" do
     it { is_expected.to validate_presence_of(:user) }
@@ -173,126 +174,62 @@ RSpec.describe Role, type: :model do
   end
 
   describe ".deactivate!" do
-    let!(:org) { create(:org) }
-    let!(:org2) { create(:org) }
-
-    let!(:creator) { create(:user, org: org) }
-    let!(:coowner) { create(:user, org: org) }
-    let!(:editor) { create(:user, org: org) }
-    let!(:commenter) { create(:user, org: org) }
-    let!(:reviewer) { create(:user, org: org) }
-
-    let!(:other_coowner) { create(:user, org: org2) }
-
-    let!(:plan) { create(:plan, answers: 2, guidance_groups: 2,
-                         visibility: Plan.visibilities[:organisationally_visible]) }
-    let!(:role) { build(:role, :creator, user: creator, plan: plan) }
-
-    subject { role }
-
-    context "Plan has not been shared" do
-      before do
-        role.deactivate!
-      end
-
-      it "creator role has no longer active" do
-        expect(subject.active).to eql(false)
-      end
+    before do
+      @plan = build_plan(true, true, true, true)
     end
 
-    context "Plan has been shared with a Coowner (aka :administrator)" do
-      before do
-        plan.roles << build(:role, :administrator, user: coowner, plan: plan)
-        plan.roles << build(:role, :editor, user: editor, plan: plan)
-        plan.roles << build(:role, :commenter, user: commenter, plan: plan)
-        plan.roles << build(:role, :reviewer, user: reviewer, plan: plan)
+    subject { @plan }
+
+    context "different access levels" do
+
+      it "creator is no longer active" do
+        role = subject.roles.creator.first
         role.deactivate!
+        expect(role.active).to eql(false)
       end
 
-      it "creator role has no longer active" do
-        expect(subject.active).to eql(false)
-      end
-      it "coowner role is still active" do
-        expect(coowner.roles.find_by(plan: plan).active).to eql(true)
+      it "administrator is no longer active" do
+        @role = subject.roles.administrator.first
+        @role.deactivate!
+        expect(@role.active).to eql(false)
       end
 
-      it "editor role is still active" do
-        expect(editor.roles.find_by(plan: plan).active).to eql(true)
+      it "editor is no longer active" do
+        @role = subject.roles.editor.first
+        @role.deactivate!
+        expect(@role.active).to eql(false)
       end
-      it "commenter role is still active" do
-        expect(commenter.roles.find_by(plan: plan).active).to eql(true)
+
+      it "commenter is no longer active" do
+        @role = subject.roles.commenter.first
+        @role.deactivate!
+        expect(@role.active).to eql(false)
       end
-      it "reviewer role is still active" do
-        expect(reviewer.roles.find_by(plan: plan).active).to eql(true)
+
+      it "reviewer is no longer active" do
+        @role = subject.roles.reviewer.first
+        @role.deactivate!
+        expect(@role.active).to eql(false)
       end
-      it "the plan should have remained organisationally visibile" do
-        expect(plan.organisationally_visible?).to eql(true)
-      end
+
     end
 
-    context "Plan has been shared with an Editor (aka :editor)" do
-      before do
-        plan.roles << build(:role, :editor, user: editor, plan: plan)
-        plan.roles << build(:role, :commenter, user: commenter, plan: plan)
-        plan.roles << build(:role, :reviewer, user: reviewer, plan: plan)
+    context "Deactivation calls Plan.deactivate! if Plan.authors is empty" do
+
+      it "plan has no other authors" do
+        plan = build_plan(false, false, false, false)
+        role = plan.roles.creator.first
+        role.plan.expects(:deactivate!).times(1)
         role.deactivate!
       end
 
-      it "creator role has no longer active" do
-        expect(subject.active).to eql(false)
-      end
-      it "editor role is still active" do
-        expect(editor.roles.find_by(plan: plan).active).to eql(true)
-      end
-      it "commenter role is still active" do
-        expect(commenter.roles.find_by(plan: plan).active).to eql(true)
-      end
-      it "reviewer role is still active" do
-        expect(reviewer.roles.find_by(plan: plan).active).to eql(true)
-      end
-      it "the plan should have remained organisationally visibile" do
-        expect(plan.organisationally_visible?).to eql(true)
-      end
-    end
-
-    context "Plan has been shared but there is no Coowner or Editor (aka :administrator, :editor)" do
-      before do
-        plan.roles << build(:role, :commenter, user: commenter, plan: plan)
-        plan.roles << build(:role, :reviewer, user: reviewer, plan: plan)
+      it "plan has another author" do
+        plan = build_plan(true, false, false, false)
+        role = plan.roles.creator.first
+        role.plan.expects(:deactivate!).times(0)
         role.deactivate!
       end
 
-      it "creator role has no longer active" do
-        expect(subject.active).to eql(false)
-      end
-
-      it "commenter role is still active" do
-        expect(commenter.roles.find_by(plan: plan).active).to eql(false)
-      end
-      it "reviewer role is still active" do
-        expect(reviewer.roles.find_by(plan: plan).active).to eql(false)
-      end
-      it "the plan should have been set to private visibility" do
-        expect(plan.organisationally_visible?).to eql(false)
-      end
-    end
-
-    context "Plan has been shared with a Coowner (aka :administrator) from a different Org" do
-      before do
-        plan.roles << build(:role, :administrator, user: other_coowner, plan: plan)
-        role.deactivate!
-      end
-
-      it "creator role has no longer active" do
-        expect(subject.active).to eql(false)
-      end
-
-      it "coowner (different org) role is still active" do
-        expect(other_coowner.roles.find_by(plan: plan).active).to eql(true)
-      end
-      it "the plan should have remained organisationally visibile" do
-        expect(plan.organisationally_visible?).to eql(true)
-      end
     end
 
   end

@@ -2,6 +2,8 @@ require 'rails_helper'
 
 describe Plan do
 
+  include RolesHelper
+
   context "validations" do
     it { is_expected.to validate_presence_of(:title) }
 
@@ -657,239 +659,150 @@ describe Plan do
 
   describe "#editable_by?" do
 
-    let!(:user) { create(:user) }
-
-    let!(:plan) { create(:plan) }
+    let!(:plan) { build_plan(true, true, true, true) }
 
     subject { plan }
 
-    context "when User has no Role for this Plan" do
-
-      it { is_expected.not_to be_editable_by(user.id) }
-
+    it "when role is inactive" do
+      role = subject.roles.editor.first
+      role.deactivate!
+      user = role.user
+      expect(subject.editable_by?(user.id)).to eql(false)
     end
 
-    context "when User is passed instead of User ID" do
-
-      before do
-        create(:role, :editor, plan: plan, user: user)
+    it "when user is a creator" do
+      # All creators should be able to edit
+      subject.roles.creator.pluck(:user_id).each do |user_id|
+        expect(subject.editable_by?(user_id)).to eql(true)
       end
-
-      it { is_expected.to be_editable_by(user) }
-
     end
 
-    context "when user Role :creator" do
-
-      before do
-        create(:role, :creator, plan: plan, user: user)
+    it "when user is a administrator" do
+      # All administrators (aka coowners) should be able to edit
+      subject.roles.administrator.pluck(:user_id).each do |user_id|
+        expect(subject.editable_by?(user_id)).to eql(true)
       end
-
-      it { is_expected.not_to be_editable_by(user.id) }
-
     end
 
-    context "when user Role :administrator" do
-
-      before do
-        create(:role, :administrator, plan: plan, user: user)
+    it "when user is a editor" do
+      # All editors should be able to edit
+      subject.roles.editor.pluck(:user_id).each do |user_id|
+        expect(subject.editable_by?(user_id)).to eql(true)
       end
-
-      it { is_expected.not_to be_editable_by(user.id) }
-
     end
 
-    context "when user Role :editor" do
-
-      before do
-        create(:role, :editor, plan: plan, user: user)
+    it "when user is a commenter" do
+      # Commenters should only be able to edit if they are also
+      # a creator, administrator or editor
+      subject.roles.commenter.each do |role|
+        expect(subject.editable_by?(role.user.id)).to eql(role.editor?)
       end
-
-      it { is_expected.to be_editable_by(user.id) }
-
     end
 
-    context "when user Role :commenter" do
-
-      before do
-        create(:role, :commenter, plan: plan, user: user)
+    it "when user is a reviewer" do
+      # Reviewers should only be able to edit if they are also
+      # a creator, administrator or editor
+      subject.roles.reviewer.each do |role|
+        expect(subject.editable_by?(role.user.id)).to eql(role.editor?)
       end
-
-      it { is_expected.not_to be_editable_by(user.id) }
-
-    end
-
-    context "when user Role :reviewer" do
-
-      before do
-        create(:role, :reviewer, plan: plan, user: user)
-      end
-
-      it { is_expected.not_to be_editable_by(user.id) }
-
     end
 
   end
 
   describe "#readable_by?" do
 
-    let!(:plan) { create(:plan) }
-
-    let!(:creator) do
-      create(:user).tap { |u| create(:role, :creator, user: u, plan: plan) }
-    end
-
-    let!(:org) { creator.org }
-
-    let!(:user) { create(:user, org: org) }
+    let!(:user) { create(:user, org: create(:org)) }
+    let!(:plan) { build_plan(true, true, true, true) }
 
     subject { plan }
 
-    context "when User is Super admin & system permission" do
+    context "config allows for admin viewing" do
 
       before do
+        Branding.expects(:fetch)
+                .with(:service_configuration, :plans, :super_admins_read_all)
+                .returns(true)
+
+        Branding.expects(:fetch)
+                .with(:service_configuration, :plans, :org_admins_read_all)
+                .returns(true)
+      end
+
+      it "super admins" do
         user.perms << create(:perm, name: "add_organisations")
+        expect(subject.readable_by?(user.id)).to eql(true)
+      end
+      it "org admins" do
+        user.perms << create(:perm, name: "modify_guidance")
+        expect(subject.readable_by?(user.id)).to eql(true)
+      end
+    end
+
+    context "config does not allow admin viewing" do
+
+      before do
         Branding.expects(:fetch)
                 .with(:service_configuration, :plans, :super_admins_read_all)
-                .returns(true)
+                .returns(false)
+
         Branding.expects(:fetch)
                 .with(:service_configuration, :plans, :org_admins_read_all)
                 .returns(false)
       end
 
-      it { is_expected.to be_readable_by(user) }
-
-    end
-
-    context "when User is Super admin & not system permission" do
-
-      before do
+      it "super admins" do
         user.perms << create(:perm, name: "add_organisations")
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :super_admins_read_all)
-                .returns(false)
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :org_admins_read_all)
-                .returns(false)
+        expect(subject.readable_by?(user.id)).to eql(false)
       end
-
-      it { is_expected.not_to be_readable_by(user) }
-
+      it "org admins" do
+        user.perms << create(:perm, name: "modify_guidance")
+        expect(subject.readable_by?(user.id)).to eql(false)
+      end
     end
 
-    context "when User is Org admin & user is Org owner & system permission" do
+    context "non-admin user" do
 
-      before do
-        user.perms << create(:perm, name: "grant_permissions")
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :org_admins_read_all)
-                .returns(true)
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :super_admins_read_all)
-                .returns(false)
+      it "when role is inactive" do
+        role = subject.roles.commenter.first
+        role.deactivate!
+        user = role.user
+        expect(subject.commentable_by?(user.id)).to eql(false)
       end
 
-      it { is_expected.to be_readable_by(user) }
-
-    end
-
-    context "when User is Org admin & user is Org owner & not system permission" do
-
-      before do
-        user.perms << create(:perm, name: "grant_permissions")
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :org_admins_read_all)
-                .returns(false)
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :super_admins_read_all)
-                .returns(false)
+      it "when user is a creator" do
+        # All creators should be able to read
+        subject.roles.creator.pluck(:user_id).each do |user_id|
+          expect(subject.commentable_by?(user_id)).to eql(true)
+        end
       end
 
-      it { is_expected.not_to be_readable_by(user) }
-
-    end
-
-    context "when User is Org admin & user not Org owner & system permission" do
-
-      before do
-        user.update(org: create(:org))
-
-        user.perms << create(:perm, name: "grant_permissions")
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :org_admins_read_all)
-                .returns(true)
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :super_admins_read_all)
-                .returns(false)
+      it "when user is a administrator" do
+        # All administrators should be able to read
+        subject.roles.administrator.pluck(:user_id).each do |user_id|
+          expect(subject.commentable_by?(user_id)).to eql(true)
+        end
       end
 
-      it { is_expected.not_to be_readable_by(user) }
-
-    end
-
-    context "when User is Org admin & user not Org owner & not system permission" do
-
-      before do
-        user.update(org: create(:org))
-
-        user.perms << create(:perm, name: "grant_permissions")
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :org_admins_read_all)
-                .returns(false)
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :super_admins_read_all)
-                .returns(false)
+      it "when user is a editor" do
+        # All editors should be able to read
+        subject.roles.editor.pluck(:user_id).each do |user_id|
+          expect(subject.commentable_by?(user_id)).to eql(true)
+        end
       end
 
-      it { is_expected.not_to be_readable_by(user) }
-
-    end
-
-    context "when User not Org admin & user not Org owner & system permission" do
-
-      before do
-        user.update(org: create(:org))
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :org_admins_read_all)
-                .returns(true)
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :super_admins_read_all)
-                .returns(false)
+      it "when user is a commenter" do
+        # All commenters should be able to read
+        subject.roles.commenter.pluck(:user_id).each do |user_id|
+          expect(subject.commentable_by?(user_id)).to eql(true)
+        end
       end
 
-      it { is_expected.not_to be_readable_by(user) }
-
-    end
-
-    context "when User not Org admin & user not Org owner & not system permission" do
-
-      before do
-        user.update(org: create(:org))
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :org_admins_read_all)
-                .returns(false)
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :super_admins_read_all)
-                .returns(false)
+      it "when user is a reviewer" do
+        # All reviewers should be able to read
+        subject.roles.reviewer.pluck(:user_id).each do |user_id|
+          expect(subject.commentable_by?(user_id)).to eql(true)
+        end
       end
-
-      it { is_expected.not_to be_readable_by(user) }
-
-    end
-
-    context "when User has commenter role" do
-
-      before do
-        create(:role, :commenter, user: user, plan: plan)
-      end
-
-      it { is_expected.to be_readable_by(user) }
-
-    end
-
-    context "when User doesn't have commenter Role" do
-
-      it { is_expected.not_to be_readable_by(user) }
 
     end
 
@@ -897,228 +810,149 @@ describe Plan do
 
   describe "#commentable_by?" do
 
-    let!(:user) { create(:user) }
-
-    let!(:plan) { create(:plan) }
+    let!(:plan) { build_plan(true, true, true, true) }
 
     subject { plan }
 
-    context "when User has no Role for this Plan" do
-
-      it { is_expected.not_to be_commentable_by(user.id) }
-
+    it "when role is inactive" do
+      role = subject.roles.commenter.first
+      role.deactivate!
+      user = role.user
+      expect(subject.commentable_by?(user.id)).to eql(false)
     end
 
-    context "when User is passed instead of User ID" do
-
-      before do
-        create(:role, :commenter, plan: plan, user: user)
+    it "when user is a creator" do
+      # All creators should be able to comment
+      subject.roles.creator.pluck(:user_id).each do |user_id|
+        expect(subject.commentable_by?(user_id)).to eql(true)
       end
-
-      it { is_expected.to be_commentable_by(user) }
-
     end
 
-    context "when user Role :creator" do
-
-      before do
-        create(:role, :creator, plan: plan, user: user)
+    it "when user is a administrator" do
+      # All administrators should be able to comment
+      subject.roles.administrator.pluck(:user_id).each do |user_id|
+        expect(subject.commentable_by?(user_id)).to eql(true)
       end
-
-      it { is_expected.not_to be_commentable_by(user.id) }
-
     end
 
-    context "when user Role :administrator" do
-
-      before do
-        create(:role, :administrator, plan: plan, user: user)
+    it "when user is a editor" do
+      # All editors should be able to comment
+      subject.roles.editor.pluck(:user_id).each do |user_id|
+        expect(subject.commentable_by?(user_id)).to eql(true)
       end
-
-      it { is_expected.not_to be_commentable_by(user.id) }
-
     end
 
-    context "when user Role :editor" do
-
-      before do
-        create(:role, :editor, plan: plan, user: user)
+    it "when user is a commenter" do
+      # All commenters should be able to comment
+      subject.roles.commenter.pluck(:user_id).each do |user_id|
+        expect(subject.commentable_by?(user_id)).to eql(true)
       end
-
-      it { is_expected.not_to be_commentable_by(user.id) }
-
     end
 
-    context "when user Role :commenter" do
-
-      before do
-        create(:role, :commenter, plan: plan, user: user)
+    it "when user is a reviewer" do
+      # All reviewers should be able to comment
+      subject.roles.reviewer.pluck(:user_id).each do |user_id|
+        expect(subject.commentable_by?(user_id)).to eql(true)
       end
-
-      it { is_expected.to be_commentable_by(user.id) }
-
-    end
-
-    context "when user Role :reviewer" do
-
-      before do
-        create(:role, :reviewer, plan: plan, user: user)
-      end
-
-      it { is_expected.not_to be_commentable_by(user.id) }
-
     end
 
   end
 
   describe "#administerable_by?" do
 
-    let!(:user) { create(:user) }
-
-    let!(:plan) { create(:plan) }
+    let!(:plan) { build_plan(true, true, true, true) }
 
     subject { plan }
 
-    context "when User has no Role for this Plan" do
-
-      it { is_expected.not_to be_administerable_by(user.id) }
-
+    it "when role is inactive" do
+      role = subject.roles.administrator.first
+      role.deactivate!
+      user = role.user
+      expect(subject.administerable_by?(user.id)).to eql(false)
     end
 
-    context "when User is passed instead of User ID" do
-
-      before do
-        create(:role, :administrator, plan: plan, user: user)
+    it "when user is a creator" do
+      # All creators should be able to administer
+      subject.roles.creator.pluck(:user_id).each do |user_id|
+        expect(subject.administerable_by?(user_id)).to eql(true)
       end
-
-      it { is_expected.to be_administerable_by(user) }
-
     end
 
-    context "when user Role :creator" do
-
-      before do
-        create(:role, :creator, plan: plan, user: user)
+    it "when user is a administrator" do
+      # All administrators should be able to administer
+      subject.roles.administrator.pluck(:user_id).each do |user_id|
+        expect(subject.administerable_by?(user_id)).to eql(true)
       end
-
-      it { is_expected.not_to be_administerable_by(user.id) }
-
     end
 
-    context "when user Role :administrator" do
-
-      before do
-        create(:role, :administrator, plan: plan, user: user)
+    it "when user is a editor" do
+      # Editors should only be able to administer if they are also
+      # a creator or administrator
+      subject.roles.editor.each do |role|
+        expect(subject.administerable_by?(role.user.id)).to eql(role.administrator?)
       end
-
-      it { is_expected.to be_administerable_by(user.id) }
-
     end
 
-    context "when user Role :editor" do
-
-      before do
-        create(:role, :editor, plan: plan, user: user)
+    it "when user is a commenter" do
+      # Commenters should only be able to administer if they are also
+      # a creator or administrator
+      subject.roles.commenter.each do |role|
+        expect(subject.administerable_by?(role.user.id)).to eql(role.administrator?)
       end
-
-      it { is_expected.not_to be_administerable_by(user.id) }
-
     end
 
-    context "when user Role :commenter" do
-
-      before do
-        create(:role, :commenter, plan: plan, user: user)
+    it "when user is a reviewer" do
+      # Reviewers should only be able to administer if they are also
+      # a creator or administrator
+      subject.roles.reviewer.each do |role|
+        expect(subject.administerable_by?(role.user.id)).to eql(role.administrator?)
       end
-
-      it { is_expected.not_to be_administerable_by(user.id) }
-
-    end
-
-    context "when user Role :reviewer" do
-
-      before do
-        create(:role, :reviewer, plan: plan, user: user)
-      end
-
-      it { is_expected.not_to be_administerable_by(user.id) }
-
     end
 
   end
 
   describe "#reviewable_by?" do
 
-    let!(:user) { create(:user) }
-
-    let!(:plan) { create(:plan) }
+    let!(:plan) { build_plan(true, true, true, true) }
 
     subject { plan }
 
-    context "when User has no Role for this Plan" do
-
-      it { is_expected.not_to be_reviewable_by(user.id) }
-
+    it "when role is inactive" do
+      role = subject.roles.reviewer.first
+      role.deactivate!
+      user = role.user
+      expect(subject.reviewable_by?(user.id)).to eql(false)
     end
 
-    context "when User is passed instead of User ID" do
-
-      before do
-        create(:role, :reviewer, plan: plan, user: user)
+    it "when user is a creator" do
+      subject.roles.creator.pluck(:user_id).each do |user_id|
+        expect(subject.reviewable_by?(user_id)).to eql(false)
       end
-
-      it { is_expected.to be_reviewable_by(user) }
-
     end
 
-    context "when user Role :creator" do
-
-      before do
-        create(:role, :creator, plan: plan, user: user)
+    it "when user is a administrator" do
+      subject.roles.administrator.pluck(:user_id).each do |user_id|
+        expect(subject.reviewable_by?(user_id)).to eql(false)
       end
-
-      it { is_expected.not_to be_reviewable_by(user.id) }
-
     end
 
-    context "when user Role :administrator" do
-
-      before do
-        create(:role, :administrator, plan: plan, user: user)
+    it "when user is a editor" do
+      subject.roles.editor.pluck(:user_id).each do |user_id|
+        expect(subject.reviewable_by?(user_id)).to eql(false)
       end
-
-      it { is_expected.not_to be_reviewable_by(user.id) }
-
     end
 
-    context "when user Role :editor" do
-
-      before do
-        create(:role, :editor, plan: plan, user: user)
+    it "when user is a commenter" do
+      # Commenters should only be able to review if they are also a reviewer
+      subject.roles.commenter.each do |role|
+        expect(subject.reviewable_by?(role.user.id)).to eql(role.reviewer?)
       end
-
-      it { is_expected.not_to be_reviewable_by(user.id) }
-
     end
 
-    context "when user Role :commenter" do
-
-      before do
-        create(:role, :commenter, plan: plan, user: user)
+    it "when user is a reviewer" do
+      subject.roles.reviewer.pluck(:user_id).each do |user_id|
+        expect(subject.reviewable_by?(user_id)).to eql(true)
       end
-
-      it { is_expected.not_to be_reviewable_by(user.id) }
-
-    end
-
-    context "when user Role :reviewer" do
-
-      before do
-        create(:role, :reviewer, plan: plan, user: user)
-      end
-
-      it { is_expected.to be_reviewable_by(user.id) }
-
     end
 
   end
@@ -1182,440 +1016,134 @@ describe Plan do
 
   describe "#owner" do
 
-    subject { plan.owner }
+    let!(:plan) { build_plan(true, true, true, true) }
 
-    let!(:plan) { create(:plan) }
+    subject { plan }
 
-    let!(:user) { create(:user) }
-
-    context "when user Role is :creator" do
-
-      before do
-        create(:role, :creator, plan: plan, user: user)
-      end
-
-      it { is_expected.to eql(user) }
-
+    it "is the creator" do
+      user = subject.roles.creator.first.user
+      expect(subject.owner).to eql(user)
     end
 
-    context "when user Role is :administrator" do
-
-      before do
-        create(:role, :administrator, plan: plan, user: user)
-      end
-
-      it { is_expected.to be_nil }
-
-    end
-
-    context "when user Role is :editor" do
-
-      before do
-        create(:role, :editor, plan: plan, user: user)
-      end
-
-      it { is_expected.to be_nil }
-
-    end
-
-    context "when user Role is :commenter" do
-
-      before do
-        create(:role, :commenter, plan: plan, user: user)
-      end
-
-      it { is_expected.to be_nil }
-
-    end
-
-    context "when user Role is :reviewer" do
-
-      before do
-        create(:role, :reviewer, plan: plan, user: user)
-      end
-
-      it { is_expected.to be_nil }
-
+    it "is the administrator if there is no creator" do
+      subject.roles.creator.first.deactivate!
+      user = subject.roles.where(active: true).administrator.first.user
+      expect(subject.owner).to eql(user)
     end
 
   end
 
   describe "#shared?" do
 
-    subject { plan.shared? }
-
-    let!(:plan) { create(:plan) }
-
-    context "when roles are: creator" do
-
-      before do
-        create(:role, :creator, plan: plan)
-      end
-
-      it { is_expected.to eql(false) }
-
+    it "is not shared if the only user is the creator" do
+      plan = build_plan
+      expect(plan.shared?).to eql(false)
     end
 
-    context "when roles are: administrator" do
-
-      before do
-        create(:role, :administrator, plan: plan)
-      end
-
-      it { is_expected.to eql(true) }
-
+    it "is shared if the plan has an administrator" do
+      plan = build_plan(true, false, false, false)
+      expect(plan.shared?).to eql(true)
     end
 
-    context "when roles are: creator, administrator" do
-
-      before do
-        create(:role, :creator, :administrator, plan: plan)
-      end
-
-      it { is_expected.to eql(false) }
-
+    it "is shared if the plan has an editor" do
+      plan = build_plan(false, true, false, false)
+      expect(plan.shared?).to eql(true)
     end
 
-    context "when roles are: editor" do
-
-      before do
-        create(:role, :editor, plan: plan)
-      end
-
-      it { is_expected.to eql(true) }
-
+    it "is shared if the plan has an commenter" do
+      plan = build_plan(false, false, true, false)
+      expect(plan.shared?).to eql(true)
     end
 
-    context "when roles are: creator, editor" do
-
-      before do
-        create(:role, :creator, :editor, plan: plan)
-      end
-
-      it { is_expected.to eql(false) }
-
-    end
-
-    context "when roles are: administrator, editor" do
-
-      before do
-        create(:role, :administrator, :editor, plan: plan)
-      end
-
-      it { is_expected.to eql(true) }
-
-    end
-
-    context "when roles are: creator, editor, administrator" do
-
-      before do
-        create(:role, :creator, :editor, :administrator, plan: plan)
-      end
-
-      it { is_expected.to eql(false) }
-
-    end
-
-    context "when roles are: commenter" do
-
-      before do
-        create(:role, :commenter, plan: plan)
-      end
-
-      it { is_expected.to eql(true) }
-
-    end
-
-    context "when roles are: creator, commenter" do
-
-      before do
-        create(:role, :creator, :commenter, plan: plan)
-      end
-
-      it { is_expected.to eql(false) }
-
-    end
-
-    context "when roles are: administrator, commenter" do
-
-      before do
-        create(:role, :administrator, :commenter, plan: plan)
-      end
-
-      it { is_expected.to eql(true) }
-
-    end
-
-    context "when roles are: creator, administrator, commenter" do
-
-      before do
-        create(:role, :creator, :administrator, :commenter, plan: plan)
-      end
-
-      it { is_expected.to eql(false) }
-
-    end
-
-    context "when roles are: editor, commenter" do
-
-      before do
-        create(:role, :editor, :commenter, plan: plan)
-      end
-
-      it { is_expected.to eql(true) }
-
-    end
-
-    context "when roles are: creator, editor, commenter" do
-
-      before do
-        create(:role, :creator, :editor, :commenter, plan: plan)
-      end
-
-      it { is_expected.to eql(false) }
-
-    end
-
-    context "when roles are: administrator, editor, commenter" do
-
-      before do
-        create(:role, :administrator, :editor, :commenter, plan: plan)
-      end
-
-      it { is_expected.to eql(true) }
-
-    end
-
-    context "when roles are: creator, administrator, editor, commenter" do
-
-      before do
-        create(:role, :creator, :administrator, :editor, :commenter, plan: plan)
-      end
-
-      it { is_expected.to eql(false) }
-
-    end
-
-    context "when roles are: reviewer" do
-
-      before do
-        create(:role, :reviewer, plan: plan)
-      end
-
-      it { is_expected.to eql(true) }
-
-    end
-
-    context "when roles are: creator, reviewer" do
-
-      before do
-        create(:role, :creator, :reviewer, plan: plan)
-      end
-
-      it { is_expected.to eql(false) }
-
-    end
-
-    context "when roles are: administrator, reviewer" do
-
-      before do
-        create(:role, :administrator, :reviewer, plan: plan)
-      end
-
-      it { is_expected.to eql(true) }
-
-    end
-
-    context "when roles are: creator, administrator, reviewer" do
-
-      before do
-        create(:role, :creator, :administrator, :reviewer, plan: plan)
-      end
-
-      it { is_expected.to eql(false) }
-
-    end
-
-    context "when roles are: editor, reviewer" do
-
-      before do
-        create(:role, :editor, :reviewer, plan: plan)
-      end
-
-      it { is_expected.to eql(true) }
-
-    end
-
-    context "when roles are: creator, editor, reviewer" do
-
-      before do
-        create(:role, :creator, :editor, :reviewer, plan: plan)
-      end
-
-      it { is_expected.to eql(false) }
-
-    end
-
-    context "when roles are: administrator, editor, reviewer" do
-
-      before do
-        create(:role, :administrator, :editor, :reviewer, plan: plan)
-      end
-
-      it { is_expected.to eql(true) }
-
-    end
-
-    context "when roles are: creator, editor, administrator, reviewer" do
-
-      before do
-        create(:role, :creator, :editor, :administrator, :reviewer, plan: plan)
-      end
-
-      it { is_expected.to eql(false) }
-
-    end
-
-    context "when roles are: commenter, reviewer" do
-
-      before do
-        create(:role, :commenter, :reviewer, plan: plan)
-      end
-
-      it { is_expected.to eql(true) }
-
-    end
-
-    context "when roles are: creator, commenter, reviewer" do
-
-      before do
-        create(:role, :creator, :commenter, :reviewer, plan: plan)
-      end
-
-      it { is_expected.to eql(false) }
-
-    end
-
-    context "when roles are: administrator, commenter, reviewer" do
-
-      before do
-        create(:role, :administrator, :commenter, :reviewer, plan: plan)
-      end
-
-      it { is_expected.to eql(true) }
-
-    end
-
-    context "when roles are: creator, administrator, commenter, reviewer" do
-
-      before do
-        create(:role, :creator, :administrator, :commenter, :reviewer, plan: plan)
-      end
-
-      it { is_expected.to eql(false) }
-
-    end
-
-    context "when roles are: editor, commenter, reviewer" do
-
-      before do
-        create(:role, :editor, :commenter, :reviewer, plan: plan)
-      end
-
-      it { is_expected.to eql(true) }
-
-    end
-
-    context "when roles are: creator, editor, commenter, reviewer" do
-
-      before do
-        create(:role, :creator, :editor, :commenter, :reviewer, plan: plan)
-      end
-
-      it { is_expected.to eql(false) }
-
-    end
-
-    context "when roles are: administrator, editor, commenter, reviewer" do
-
-      before do
-        create(:role, :administrator, :editor, :commenter, :reviewer, plan: plan)
-      end
-
-      it { is_expected.to eql(true) }
-
-    end
-
-    context "when roles are: creator, administrator, editor, commenter, reviewer" do
-
-      before do
-        create(:role, :creator, :administrator, :editor, :commenter, :reviewer, plan: plan)
-      end
-
-      it { is_expected.to eql(false) }
-
+    it "is shared if the plan has an reviewer" do
+      plan = build_plan(false, false, false, true)
+      expect(plan.shared?).to eql(true)
     end
 
   end
 
   describe "#owner_and_coowners" do
 
-    let!(:user) { create(:user) }
+    let!(:plan) { build_plan(true, true, true, true) }
 
-    let!(:plan) { create(:plan) }
+    subject { plan }
 
-    subject { plan.owner_and_coowners }
-
-    context "when role is creator" do
-
-      before do
-        create(:role, :creator, user: user, plan: plan)
-      end
-
-      it { is_expected.to include(user) }
-
+    it "includes the creator" do
+      user = subject.roles.creator.first.user
+      expect(subject.owner_and_coowners).to include(user)
     end
 
-    context "when role is administrator" do
-
-      before do
-        create(:role, :administrator, user: user, plan: plan)
-      end
-
-      it { is_expected.to include(user) }
-
+    it "includes the administrator" do
+      user = subject.roles.administrator.first.user
+      expect(subject.owner_and_coowners).to include(user)
     end
 
-    context "when role is editor" do
-
-      before do
-        create(:role, :editor, user: user, plan: plan)
+    it "does not include the editor" do
+      # Only if the editor is not also an administrator or creator
+      subject.roles.editor.each do |role|
+        if !role.creator? && !role.administrator?
+          expect(subject.owner_and_coowners).to_not include(role.user)
+        end
       end
-
-      it { is_expected.not_to include(user) }
-
     end
 
-    context "when role is commenter" do
-
-      before do
-        create(:role, :commenter, user: user, plan: plan)
+    it "does not include the commenter" do
+      # Only if the commenter is not also an administrator or creator
+      subject.roles.commenter.each do |role|
+        if !role.creator? && !role.administrator?
+          expect(subject.owner_and_coowners).to_not include(role.user)
+        end
       end
-
-      it { is_expected.not_to include(user) }
-
     end
 
-    context "when role is reviewer" do
-
-      before do
-        create(:role, :reviewer, user: user, plan: plan)
+    it "does not include the reviewer" do
+      # Only if the reviewer is not also an administrator or creator
+      subject.roles.reviewer.each do |role|
+        if !role.creator? && !role.administrator?
+          expect(subject.owner_and_coowners).to_not include(role.user)
+        end
       end
-
-      it { is_expected.not_to include(user) }
-
     end
 
+  end
+
+  describe ".authors" do
+    let!(:plan) { build_plan(true, true, true, true) }
+
+    subject { plan }
+
+    it "includes the creator" do
+      user = subject.roles.creator.first.user
+      expect(subject.authors).to include(user)
+    end
+
+    it "includes the administrator" do
+      user = subject.roles.administrator.first.user
+      expect(subject.authors).to include(user)
+    end
+
+    it "includes the editor" do
+      user = subject.roles.editor.first.user
+      expect(subject.authors).to include(user)
+    end
+
+    it "does not include the commenter" do
+      # Only if the commenter is not also an editor, administrator or creator
+      subject.roles.commenter.each do |role|
+        if !role.creator? && !role.administrator? && !role.editor?
+          expect(subject.authors).to_not include(role.user)
+        end
+      end
+    end
+
+    it "does not include the reviewer" do
+      # Only if the reviewer is not also an editor, administrator or creator
+      subject.roles.reviewer.each do |role|
+        if !role.creator? && !role.administrator? && !role.editor?
+          expect(subject.authors).to_not include(role.user)
+        end
+      end
+    end
   end
 
   describe "#num_answered_questions" do
