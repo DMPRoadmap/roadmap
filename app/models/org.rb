@@ -205,7 +205,10 @@ class Org < ActiveRecord::Base
   end
 
   def plans
-    Plan.includes(:template, :phases, :roles, :users).joins(:roles, :users).where('users.org_id = ? AND roles.access IN (?)',
+    Plan.includes(:template, :phases, :roles, :users)
+        .joins(:roles, :users)
+        .where(users: { org_id: self.id }, roles: { access: Role.creator_condition })
+        .where('users.org_id = ? AND roles.access IN (?)',
       self.id, Role.access_values_for(:owner).concat(Role.access_values_for(:administrator)))
   end
 
