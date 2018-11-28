@@ -150,27 +150,23 @@ class Role < ActiveRecord::Base
   deprecate :set_access_level,
               deprecator: Cleanup::Deprecators::SetDeprecator.new
 
-
   def set_defaults
     self.active = true if self.new_record?
   end
 
-  # Set the roles.active flag to false
+  # Set the roles.active flag to false and deactivates the plan
+  # if there are no other authors
   def deactivate!
     self.active = false
     if self.save!
-      plan_roles = Role.where(plan: self.plan, active: true)
-      authors = plan_roles.creator
-                          .concat(plan_roles.administrator)
-                          .concat(plan_roles.editor)
 
-      # If no other :creator, :administrator or :editor is attached
-      # to the plan, then also deactivate all other active roles
-      # and set the plan's visibility to :private
-      if authors.size == 0
-        Role.where(plan: self.plan, active: true).update_all(active: false)
-        self.plan.visibility = Plan.visibilities[:privately_visible]
-        self.plan.save
+p self.plan.roles.size
+
+      if self.plan.authors.size == 0
+
+p "CALLING!"
+
+        self.plan.deactivate!
       end
       true
     else

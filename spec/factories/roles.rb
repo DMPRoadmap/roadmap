@@ -33,20 +33,28 @@ FactoryBot.define do
     trait :inactive do
       active { false }
     end
+
     trait :creator do
       creator { true }
+      administrator { true }
+      editor { true }
+      commenter { true }
     end
     trait :administrator do
       administrator { true }
+      editor { true }
+      commenter { true }
     end
     trait :editor do
       editor { true }
+      commenter { true }
     end
     trait :commenter do
       commenter { true }
     end
     trait :reviewer do
       reviewer { true }
+      commenter { true }
     end
   end
 end
