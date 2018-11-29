@@ -276,12 +276,11 @@ class Plan < ActiveRecord::Base
   def request_feedback(user)
     Plan.transaction do
       begin
-        val = Role.access_values_for(:reviewer, :commenter).min
         self.feedback_requested = true
         # Share the plan with each org admin as the reviewer role
         admins = user.org.org_admins
         admins.each do |admin|
-          roles << Role.new(user: admin, access: val)
+          add_user!(admin.id, :reviewer)
         end
         if save!
           # Send an email to the org-admin contact
@@ -292,8 +291,6 @@ class Plan < ActiveRecord::Base
           end
           return true
         else
-          puts "save was false"
-
           return false
         end
       rescue Exception => e
@@ -313,14 +310,13 @@ class Plan < ActiveRecord::Base
         self.feedback_requested = false
 
         # Remove the org admins reviewer role from the plan
-        vals = Role.access_values_for(:reviewer)
-        roles.delete(Role.where(plan: self, access: vals))
+        roles.delete(Role.where(plan: self).reviewer)
 
         if save!
           # Send an email confirmation to the owners and co-owners
+          admin_ids = Role.where(plan_id: id).administrator.pluck(:user_id).uniq
           owners = User.joins(:roles)
-                       .where("roles.plan_id =? AND roles.access IN (?)",
-                              id, Role.access_values_for(:administrator))
+                       .where(users: { id: admin_ids })
 
           deliver_if(recipients: owners, key: "users.feedback_provided") do |r|
             UserMailer.feedback_complete(r, self, org_admin).deliver_now
@@ -356,9 +352,11 @@ class Plan < ActiveRecord::Base
   def readable_by?(user_id)
     current_user = User.find(user_id)
     if current_user.present?
+      # If the user is a super admin and the config allows for supers to view plans
       if current_user.can_super_admin? &&
           Branding.fetch(:service_configuration, :plans, :super_admins_read_all)
         true
+      # If the user is an org admin and the config allows for org admins to view plans
       elsif current_user.can_org_admin? &&
           Branding.fetch(:service_configuration, :plans, :org_admins_read_all)
         true
@@ -369,26 +367,6 @@ class Plan < ActiveRecord::Base
     else
       false
     end
-
-    #user           = user_id.is_a?(User) ? user_id : User.find(user_id)
-    #owner_orgs     = owner_and_coowners.collect(&:org)
-    #org_sys_permission = Branding.fetch(:service_configuration, :plans,
-    #                                :org_admins_read_all)
-    #sup_sys_permission = Branding.fetch(:service_configuration, :plans,
-    #                                :super_admins_read_all)
-
-    ## Super Admins can view plans read-only
-    #return true if user.can_super_admin? && sup_sys_permission
-
-    ## Org Admins can view their Org's plans if system permission allows
-    #return true if user.can_org_admin? && owner_orgs.include?(user.org) &&
-    #                                      org_sys_permission
-
-    ## ...otherwise the user must have the commenter role.
-    #return true if role?(user.id, :commenter)
-
-    # Else
-    #false
   end
 
   # determines if the plan is readable by the specified user.
@@ -421,16 +399,6 @@ class Plan < ActiveRecord::Base
     (role.present? ? role.reviewer? : false)
   end
 
-  # Assigns the passed user_id to the creater_role for the project gives the
-  # user rights to read, edit, administrate, and defines them as creator
-  #
-  # user_id - The Integer user to be given priveleges' id
-  #
-  def assign_creator(user_id)
-    user_id = user_id.id if user_id.is_a?(User)
-    add_user(user_id, true, true, true)
-  end
-
   # the datetime for the latest update of this plan
   #
   # Returns DateTime
@@ -448,6 +416,40 @@ class Plan < ActiveRecord::Base
                   .order(:created_at)
                   .pluck(:user_id).uniq
     User.where(id: usr_ids).first
+  end
+
+  # Creates a role for the specified user (will update the user's
+  # existing role if it already exists)
+  #
+  # Expects a User.id and access_type from the following list:
+  #  :creator, :administrator, :editor, :commenter
+  #
+  # Returns Boolean
+  def add_user!(user_id, access_type = :commenter)
+    user = User.where(id: user_id).first
+    if user.present?
+      role = Role.find_or_initialize_by(user_id: user_id, plan_id: self.id)
+
+      # Access is cumulative, so set the appropriate flags
+      # (e.g. an administrator can also edit and comment)
+      case access_type
+      when :creator
+        role.creator = true
+        role.administrator = true
+        role.editor = true
+      when :administrator
+        role.administrator = true
+        role.editor = true
+      when :editor
+        role.editor = true
+      when :reviewer
+        role.reviewer = true
+      end
+      role.commenter = true
+      role.save!
+    else
+      false
+    end
   end
 
   ##
@@ -556,59 +558,6 @@ class Plan < ActiveRecord::Base
 
 
   private
-
-  # Returns whether or not the user has the specified role for the plan
-  def role?(user_id, role_as_sym)
-    vals = Role.access_values_for(role_as_sym.to_sym)
-    roles.where(user_id: user_id, access: vals, active: true).any?
-  end
-
-  alias has_role role?
-
-  deprecate :has_role, deprecator: Cleanup::Deprecators::PredicateDeprecator.new
-
-  # Adds a user to the project if no flags are specified, the user is given read privleges
-  # TODO: change this to specifying uniqueness of user/plan association and
-  # handle that way.
-  #
-  #
-  # user_id          - The Integer user ID to be given privleges
-  # is_editor        - Whether or not the user can edit the project (defaults: false)
-  # is_administrator - Whether or not the user can administrate the project
-  #                    (defaults: false)
-  # is_creator       - Wheter or not the user created the project (defaults: false)
-  #
-  # Returns Boolean
-  #
-  def add_user(user_id, is_editor = false,
-                        is_administrator = false,
-                        is_creator = false)
-
-    Role.where(plan_id: id, user_id: user_id).find_each(&:destroy)
-
-    role         = Role.new
-    role.user_id = user_id
-    role.plan_id = id
-
-    # if you get assigned a role you can comment
-    role.commenter = true
-
-    # the rest of the roles are inclusing so creator => administrator => editor
-    if is_creator
-      role.creator       = true
-      role.administrator = true
-      role.editor        = true
-    end
-
-    if is_administrator
-      role.administrator = true
-      role.editor        = true
-    end
-
-    role.editor = true if is_editor
-
-    role.save
-  end
 
   # Initialize the title for new templates
   #

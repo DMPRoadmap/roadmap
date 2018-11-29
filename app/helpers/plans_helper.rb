@@ -3,19 +3,14 @@ module PlansHelper
   # display the role of the user for a given plan
   def display_role(role)
     if role.creator?
-      access = _('Owner')
-
-    else
-      case role.access_level
-        when 3
-          access = _('Co-owner')
-        when 2
-          access = _('Editor')
-        when 1
-          access = _('Read only')
-      end
+      _('Owner')
+    elsif role.administrator?
+      _('Co-owner')
+    elsif role.editor?
+      _('Editor')
+    elsif role.commenter?
+      _('Read only')
     end
-    return access
   end
 
   # display the visibility of the plan
