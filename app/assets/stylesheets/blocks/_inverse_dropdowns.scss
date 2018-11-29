@@ -3,14 +3,14 @@
   background-color: $dropdown-inverse-bg !important;
   border-color: $dropdown-inverse-border !important;
   & > li > a {
-    color: #999 !important;
+    color: $dropdown-inverse-text !important;
     &:hover {
-      color: #fff !important;
-      background-color: $color-background-black !important;
+      color: $dropdown-inverse-text-hoover !important;
+      background-color: $dropdown-inverse-bg-hoover !important;
     }
   }
   .active a {
-    color: #fff !important;
-    background-color: $color-background-black !important;
+    color: $dropdown-inverse-text-hoover !important;
+    background-color: $dropdown-inverse-bg-hoover !important;
   }
 }
