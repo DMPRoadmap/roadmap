@@ -644,7 +644,7 @@ describe Plan do
       it "emails the owners" do
         expect { subject }.to change {
           ActionMailer::Base.deliveries.size
-        }.by(1)
+        }.by(2)
       end
 
     end
@@ -718,21 +718,20 @@ describe Plan do
 
     context "config allows for admin viewing" do
 
-      before do
+      it "super admins" do
         Branding.expects(:fetch)
                 .with(:service_configuration, :plans, :super_admins_read_all)
                 .returns(true)
 
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :org_admins_read_all)
-                .returns(true)
-      end
-
-      it "super admins" do
         user.perms << create(:perm, name: "add_organisations")
         expect(subject.readable_by?(user.id)).to eql(true)
       end
+
       it "org admins" do
+        Branding.expects(:fetch)
+                .with(:service_configuration, :plans, :org_admins_read_all)
+                .returns(true)
+
         user.perms << create(:perm, name: "modify_guidance")
         expect(subject.readable_by?(user.id)).to eql(true)
       end
@@ -740,21 +739,20 @@ describe Plan do
 
     context "config does not allow admin viewing" do
 
-      before do
+      it "super admins" do
         Branding.expects(:fetch)
                 .with(:service_configuration, :plans, :super_admins_read_all)
                 .returns(false)
 
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :org_admins_read_all)
-                .returns(false)
-      end
-
-      it "super admins" do
         user.perms << create(:perm, name: "add_organisations")
         expect(subject.readable_by?(user.id)).to eql(false)
       end
+
       it "org admins" do
+        Branding.expects(:fetch)
+                .with(:service_configuration, :plans, :org_admins_read_all)
+                .returns(false)
+
         user.perms << create(:perm, name: "modify_guidance")
         expect(subject.readable_by?(user.id)).to eql(false)
       end
@@ -957,20 +955,6 @@ describe Plan do
 
   end
 
-  describe "#assign_creator" do
-
-    let!(:plan) { create(:plan) }
-
-    let!(:user) { create(:user) }
-
-    subject { plan.assign_creator(user.id) }
-
-    it "creates a role for the user and plan" do
-      expect { subject }.to change { user.roles.count }.by(1)
-    end
-
-  end
-
   describe "#latest_update" do
 
     let!(:plan) { create(:plan, updated_at: 5.minutes.ago) }
@@ -1029,6 +1013,69 @@ describe Plan do
       subject.roles.creator.first.deactivate!
       user = subject.roles.where(active: true).administrator.first.user
       expect(subject.owner).to eql(user)
+    end
+
+  end
+
+  describe "#add_user" do
+
+    let!(:user) { create(:user, org: create(:org)) }
+    let!(:plan) { build_plan }
+
+    subject { plan }
+
+    it "returns false if user does not exist" do
+      expect(subject.add_user!(326465)).to eql(false)
+    end
+
+    it "adds the creator" do
+      expect(subject.add_user!(user.id, :creator)).to eql(true)
+      role = Role.find_by(user_id: user.id, plan_id: subject.id)
+      expect(role.creator?).to eql(true)
+      expect(role.administrator?).to eql(true)
+      expect(role.editor?).to eql(true)
+      expect(role.commenter?).to eql(true)
+      expect(role.reviewer?).to eql(false)
+    end
+
+    it "adds the administrator" do
+      expect(subject.add_user!(user.id, :administrator)).to eql(true)
+      role = Role.find_by(user_id: user.id, plan_id: subject.id)
+      expect(role.creator?).to eql(false)
+      expect(role.administrator?).to eql(true)
+      expect(role.editor?).to eql(true)
+      expect(role.commenter?).to eql(true)
+      expect(role.reviewer?).to eql(false)
+    end
+
+    it "adds the editor" do
+      expect(subject.add_user!(user.id, :editor)).to eql(true)
+      role = Role.find_by(user_id: user.id, plan_id: subject.id)
+      expect(role.creator?).to eql(false)
+      expect(role.administrator?).to eql(false)
+      expect(role.editor?).to eql(true)
+      expect(role.commenter?).to eql(true)
+      expect(role.reviewer?).to eql(false)
+    end
+
+    it "adds the commenter" do
+      expect(subject.add_user!(user.id, :commenter)).to eql(true)
+      role = Role.find_by(user_id: user.id, plan_id: subject.id)
+      expect(role.creator?).to eql(false)
+      expect(role.administrator?).to eql(false)
+      expect(role.editor?).to eql(false)
+      expect(role.commenter?).to eql(true)
+      expect(role.reviewer?).to eql(false)
+    end
+
+    it "defaults to commenter if access_level is not a known symbol" do
+      expect(subject.add_user!(user.id)).to eql(true)
+      role = Role.find_by(user_id: user.id, plan_id: subject.id)
+      expect(role.creator?).to eql(false)
+      expect(role.administrator?).to eql(false)
+      expect(role.editor?).to eql(false)
+      expect(role.commenter?).to eql(true)
+      expect(role.reviewer?).to eql(false)
     end
 
   end
