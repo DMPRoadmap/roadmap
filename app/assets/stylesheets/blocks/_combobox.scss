@@ -19,11 +19,11 @@
   position: absolute;
   left: 0;
   width: 100%;
-  background: $color-white;
+  background: $color-seccondary-background;
   z-index: 1100;
 }
 .combobox-suggestion {
-  color: $color-text-grey;
+  color: $color-seccondary-text;
   border-bottom: 1px solid $color-border-default;
   border-left: 1px solid $color-border-default;
   border-right: 1px solid $color-border-default;
@@ -36,8 +36,8 @@
 }
 .combobox-suggestion:hover,
 .combobox-suggestion:focus {
-  color: $color-white;
-  background-color: $color-background-grey;
+  color: $color-primary-text;
+  background-color: $color-primary-background;
 }
 
 .combobox-clear-button, .combobox-clear-button:hover, .combobox-clear-button:focus {
@@ -48,7 +48,7 @@
   right: 5px;
   border: none;
   background: transparent;
-  color: $color-text-grey;
+  color: $color-seccondary-text;
 }
 
 /* http://geektnt.com/how-to-remove-x-from-search-input-field-on-chrome-and-ie.html */
