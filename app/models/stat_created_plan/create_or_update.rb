@@ -37,30 +37,21 @@ class StatCreatedPlan
         Plan.where(plans: { created_at: start_date..end_date })
       end
 
-      def creator_admin
-        Role.with_access_flags(:creator, :administrator)
-      end
-
       def count_plans(start_date:, end_date:, org:)
-        users = users(org)
-        plans = plans(start_date: start_date, end_date: end_date)
-
-        Role.joins([:plan, :user])
-          .merge(creator_admin)
-          .merge(users)
-          .merge(plans)
+        Role.joins(:plan, :user)
+          .administrator
+          .merge(users(org))
+          .merge(plans(start_date: start_date, end_date: end_date))
           .select(:plan_id)
           .distinct
           .count
       end
 
       def by_template(start_date:, end_date:, org:)
-        users = users(org)
-        plans = plans(start_date: start_date, end_date: end_date)
         roleable_plan_ids = Role.joins([:plan, :user])
-          .merge(creator_admin)
-          .merge(users)
-          .merge(plans)
+          .administrator
+          .merge(users(org))
+          .merge(plans(start_date: start_date, end_date: end_date))
           .select(:plan_id)
           .distinct
         template_counts = Plan.where(id: roleable_plan_ids).group(:template_id).count

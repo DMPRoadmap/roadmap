@@ -89,7 +89,7 @@ class PlansController < ApplicationController
       end
 
       if @plan.save
-        @plan.assign_creator(current_user)
+        @plan.add_user!(current_user.id, :creator)
 
         # pre-select org's guidance and the default org's guidance
         ids = (Org.managing_orgs << org_id).flatten.uniq

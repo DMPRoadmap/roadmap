@@ -27,38 +27,6 @@ class Role < ActiveRecord::Base
   include ValidationMessages
   include ValidationValues
 
-  # =============
-  # = Constants =
-  # =============
-
-  # Returns a hash of hashes where each key represents an access level
-  # (e.g. see access_level method to understand the integers)
-  #
-  # This method becomes useful for generating template messages (e.g.
-  # permissions change notification mailer)
-  ACCESS_LEVEL_MESSAGES = {
-    5 => {
-      type: _('reviewer'),
-      placeholder1: _('read the plan and provide feedback.'),
-      placeholder2: nil
-    },
-    3 => {
-      type: _('co-owner'),
-      placeholder1: _('write and edit the plan in a collaborative manner.'),
-      placeholder2: _('You can also grant rights to other collaborators.')
-    },
-    2 => {
-      type: _('editor'),
-      placeholder1: _('write and edit the plan in a collaborative manner.'),
-      placeholder2: nil,
-    },
-    1 => {
-      type: _('read-only'),
-      placeholder1: _('read the plan and leave comments.'),
-      placeholder2: nil,
-    }
-  }
-
   # ================
   # = Associations =
   # ================
@@ -118,38 +86,6 @@ class Role < ActiveRecord::Base
   # = Public instance methods =
   # ===========================
 
-
-  # The access level for the current project group:
-  # - 5 if the user is a reviewer
-  # - 3 if the user is an administrator
-  # - 2 if the user is an editor
-  # - 1 if the user can only read
-  # used to facilliatte formtastic
-  #
-  # Returns Integer
-  def access_level
-    if self.reviewer?
-      return 5
-    elsif self.administrator?
-      return 3
-    elsif self.editor?
-      return 2
-    elsif self.commenter?
-      return 1
-    end
-  end
-
-  def access_level=(value)
-    self.commenter     = value.to_i >= 1
-    self.editor        = value.to_i >= 2
-    self.administrator = value.to_i >= 3
-  end
-
-  alias :set_access_level :access_level=
-
-  deprecate :set_access_level,
-              deprecator: Cleanup::Deprecators::SetDeprecator.new
-
   def set_defaults
     self.active = true if self.new_record?
   end
@@ -159,13 +95,7 @@ class Role < ActiveRecord::Base
   def deactivate!
     self.active = false
     if self.save!
-
-p self.plan.roles.size
-
       if self.plan.authors.size == 0
-
-p "CALLING!"
-
         self.plan.deactivate!
       end
       true
