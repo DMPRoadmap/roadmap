@@ -5,10 +5,15 @@
   font-size: 2rem;
 }
 .fa-reverse {
-  color: $color-text-grey;
+  color: $color-seccondary-text;
 }
 .fa-sort, .fa-sort-asc, .fa-sort-desc {
-  color: $color-white;
+  color: $color-primary-text;
+}
+
+/* change color of search icon */
+.fa-search {
+  color: $color-primary-text;
 }
 
 /* adjust the position of the 'remove - X' button for links */
@@ -21,12 +26,12 @@
 a {
    i {
      &.fa {
-       
+
        &.fa-file-pdf-o,
        &.fa-file-word-o {
-         color: $color-black;
+         color: $color-fa;
          margin: 5px;
-         
+
          &:not(.small) {
            font-size: 2.3em;
          }
