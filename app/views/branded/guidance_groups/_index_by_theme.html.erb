@@ -1,0 +1,64 @@
+<%#
+  DMPTool customization overview:
+  ------------------------------------------
+  1. Moved +/- font awesome icon to left of section title
+  2. Made the guidance accordion inverse color (white bg / dark blue txt)
+  3. Added check to prevent expand all/collapse all from showing if only 1 guidance
+ %>
+<% parent_id = guidance_groups_by_theme.object_id %>
+<div id="<%= parent_id %>" class="panel-group" role="tablist" aria-multiselectable="true">
+  <% if guidance_groups_by_theme.inject(0){ |sum, gg| sum + gg[1].length } > 1 %>
+    <div id="guidance-accordion-controls">
+      <div class="accordion-controls" data-parent="<%= parent_id %>">
+        <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
+          <span>|</span>
+        <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
+      </div>
+    </div>
+  <% end %>
+  <% guidance_groups_by_theme.each_pair do |guidance_group, theme_hash| %>
+    <% guidances_output = [] %>
+    <% theme_hash.each_pair do |theme, guidances| %>
+      <%# if guidances with this theme have not been output %>
+      <% if (guidances.map(&:id) - guidances_output).any? %>
+        <div class="panel panel-default">
+          <div
+            class="inverse-heading-button heading-button"
+            role="button"
+            data-toggle="collapse"
+            href="<%= "##{guidances.object_id}" %>"
+            aria-expanded="false"
+            aria-controls="<%= "##{guidances.object_id}" %>">
+            <div class="panel-heading" role="tab" id="<%= "panel-heading-#{guidances.object_id}" %>">
+              <h2 class="panel-title">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                <%= theme.title %>
+              </h2>
+            </div>
+          </div>
+          <div
+            id="<%= "#{guidances.object_id}" %>"
+            class="panel-collapse collapse"
+            role="tabpanel"
+            aria-labelledby="<%= "panel-heading-#{guidances.object_id}" %>">
+            <div class="panel-body">
+              <% multiple = false %>
+              <% guidances.each do |guidance| %>
+                <% if multiple %>
+                  <hr>
+                <% end %>
+                <p>
+                  <% unless guidances_output.include?(guidance.id) %>
+                    <%= sanitize(guidance.text) %>
+                    <% guidances_output << guidance.id %>
+                    <% multiple = true %>
+                  <% end %>
+                </p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
