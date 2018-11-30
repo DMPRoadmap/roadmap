@@ -24,7 +24,7 @@ body{
 
 /* footer */
 footer {
-  position: absolute;
+  position: static;
   bottom: 0;
   margin-top: 20px;
   margin-bottom: -20px;
@@ -54,4 +54,13 @@ legend {
   font-weight: bold;
   margin-bottom: 5px;
   text-transform: capitalize;
+}
+
+a {
+  color: $color-link-text;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  /* font-family: "GillSansLight"; */
+  color: $color-heading-text;
 }
