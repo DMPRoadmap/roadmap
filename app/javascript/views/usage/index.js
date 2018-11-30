@@ -96,7 +96,7 @@ $(() => {
   /*
     Click event associated to each Export button
   */
-  $('button[data-url]').on('click', (e) => {
+  $('button.stat[data-url]').on('click', (e) => {
     const rangeDates = rangeDatesUpToLastYearFromNow();
     $.ajax({
       headers: { Authorization: `Token token="${apiToken}"` },
