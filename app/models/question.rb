@@ -71,7 +71,7 @@ class Question < ActiveRecord::Base
 
   validate :ensure_has_question_options, if: :option_based?
 
-  validates :text, presence: { message: PRESENCE_MESSAGE }
+  validates :text, presence: { message:   QUESTION_TEXT_PRESENCE_MESSAGE }
 
   validates :section, presence: { message: PRESENCE_MESSAGE, on: :update }
 

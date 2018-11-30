@@ -3,7 +3,7 @@ import { isObject } from './isType';
 
 const asterisk = `<span class="red" title="${getConstant('REQUIRED_FIELD_TEXT')}">* </span>`;
 
-const addAsterisk = (el) => {
+export const addAsterisk = (el) => {
   const target = $(el);
   if (isObject(target)) {
     // If the element is part of a Fieldset then place the asterisk before the <fieldset><legend>
@@ -25,12 +25,12 @@ const addAsterisk = (el) => {
   }
 };
 
-export default(el) => {
-  addAsterisk(el);
+export const addAsterisks = (el) => {
+  $(el).find('[aria-required=true]').each((idx, jqObject) => {
+    addAsterisk(jqObject);
+  });
 };
 
 $(() => {
-  $('[aria-required=true]').each((idx, el) => {
-    addAsterisk(el);
-  });
+  addAsterisks('body');
 });

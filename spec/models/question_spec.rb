@@ -7,7 +7,8 @@ RSpec.describe Question, type: :model do
 
   context "validations" do
 
-    it { is_expected.to validate_presence_of(:text) }
+    it { is_expected.to validate_presence_of(:text)
+          .with_message("for 'Question text' can't be blank.") }
 
     it { is_expected.to validate_presence_of(:number) }
 
@@ -87,7 +88,7 @@ RSpec.describe Question, type: :model do
       it {
         expect {
           create(:question, question_format: question_format, options: 0)
-        }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: must have at least one option.")
+        }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: You must have at least one option.")
       }
 
       it { is_expected.to eql(true) }

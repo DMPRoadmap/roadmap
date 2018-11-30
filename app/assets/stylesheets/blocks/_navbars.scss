@@ -30,6 +30,11 @@
     line-height: 102px;
     height: 102px;
     padding-top: 0;
+    color: $navbar-org-link-color;
+    &:hover,
+    &:focus {
+      color: darken($navbar-org-link-hover-color,10%)
+    }
   }
   #org-navbar .org-links {
     padding-top: $grid-gutter-width / 2;
@@ -143,13 +148,6 @@
           }
         }
       }
-    }
-  }
-
-  .navbar-link {
-    color: $navbar-branding-link-color;
-    &:hover {
-      color: $navbar-branding-link-hover-color;
     }
   }
 
