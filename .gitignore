@@ -89,7 +89,7 @@ config/locale/*/app.edit.po
 config/locale/*/app.po.time_stamp
 
 # Front-end related
-node_modules
-npm-debug.log
-.eslintcache
+lib/assets/node_modules    node_modules
+lib/assets/npm-debug.log    npm-debug.log
+lib/assets/.eslintcachenode_modules
 !.keep
