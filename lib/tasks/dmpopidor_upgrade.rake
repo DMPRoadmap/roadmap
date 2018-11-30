@@ -6,6 +6,7 @@ namespace :dmpopidor_upgrade do
     Rake::Task['dmpopidor_upgrade:add_themes_token_permission_types'].execute
     Rake::Task['dmpopidor_upgrade:grant_themes_api_to_all_orgs'].execute
     Rake::Task['dmpopidor_upgrade:grant_themes_api_to_all_orgs'].execute
+    Rake::Task['dmpopidor_upgrade:create_number_field'].execute
   end
 
 
@@ -34,6 +35,13 @@ namespace :dmpopidor_upgrade do
         org.grant_api!(TokenPermissionType.where(token_type: 'templates'))
         org.grant_api!(TokenPermissionType.where(token_type: 'statistics'))
       end
+  end
+
+  desc "Create number field"
+  task create_number_field: :environment do
+    if QuestionFormat.find_by(title: 'Number').nil?
+        QuestionFormat.create!({title: 'Number', option_based: false, formattype: 8})
+    end
   end
 
 end

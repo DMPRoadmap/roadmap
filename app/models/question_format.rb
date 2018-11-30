@@ -4,7 +4,7 @@ class QuestionFormat < ActiveRecord::Base
   # Associations
   has_many :questions
 
-  enum formattype: [ :textarea, :textfield, :radiobuttons, :checkbox, :dropdown, :multiselectbox, :date, :rda_metadata ]
+  enum formattype: [ :textarea, :textfield, :radiobuttons, :checkbox, :dropdown, :multiselectbox, :date, :rda_metadata, :number ]
   attr_accessible :formattype
 
   validates :title, presence: {message: _("can't be blank")}, uniqueness: {message: _("must be unique")}
