@@ -111,7 +111,7 @@
       <h4><%= _('No. users joined during last year') %></h4>
     </div>
     <div class="pull-right">
-      <button type="button" class="btn btn-default" data-url="<%= users_joined_api_v0_statistics_path(format: :csv) %>">
+      <button type="button" class="stat btn btn-default" data-url="<%= users_joined_api_v0_statistics_path(format: :csv) %>">
         <%= _('Download') %> <i class="fa fa-download" aria-hidden="true"></i>
       </button>
     </div>
@@ -124,12 +124,46 @@
       <h4><%= _('No. plans during last year') %></h4>
     </div>
     <div class="pull-right">
-      <button type="button" class="btn btn-default" data-url="<%= created_plans_api_v0_statistics_path(format: :csv) %>">
+      <button type="button" class="stat btn btn-default" data-url="<%= created_plans_api_v0_statistics_path(format: :csv) %>">
         <%= _('Download') %> <i class="fa fa-download" aria-hidden="true"></i>
       </button>
     </div>
     <div class="clearfix"></div>
     <p class="alert alert-info" style="display: none;"><%= _('There is no data available for plans yet.') %></p>
     <canvas id="yearly_plans"></canvas>
+  </div>
+  <div class="col-md-6">
+    <div class="pull-left">
+      <h4><%= _('No. plans by template') %></h4>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="pull-right">
+          <ul class="list-inline">
+            <li>
+              <div class="form-group">
+                <%= label_tag('monthly_plans_by_template', _('Time picker')) %>
+                <select class="form-control" name="monthly_plans_by_template" data-url="<%= stat_created_plans_by_template_index_path %>">
+                  <option value="<%= Date.today.last_month.end_of_month %>"><%= _('Last month') %></option>
+                  <option value="<%= Date.today.months_ago(3).end_of_month %>"><%= _('3 months ago') %></option>
+                  <option value="<%= Date.today.months_ago(6).end_of_month %>"><%= _('6 months ago') %></option>
+                  <option value="<%= Date.today.months_ago(9).end_of_month %>"><%= _('9 months ago') %></option>
+                  <option value="<%= Date.today.months_ago(12).end_of_month %>"><%= _('12 months ago') %></option>
+                </select>
+              </div>
+            </li>
+            <li>
+              <div class="form-group">
+              <a class="btn btn-default" href="<%= stat_created_plans_by_template_index_path(:csv) %>" role="button" id="stat_created_plan_by_template_index" target="_blank">
+                <%= _('Download all') %> <i class="fa fa-download" aria-hidden="true"></i>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="clearfix"></div>
+        <canvas id="monthly_plans_by_template_canvas"></canvas>
+      </div>
+    </div>
   </div>
 </div>
