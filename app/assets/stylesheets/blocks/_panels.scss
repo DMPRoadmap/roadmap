@@ -4,8 +4,8 @@
   border-color: $color-border-default;
 }
 .heading-button > .panel-heading, .panel-default > .panel-heading {
-  background-color: $color-background-grey;
-  color: $color-white;
+  background-color: $color-primary-background;
+  color: $color-primary-text;
   border-top-right-radius: 0px;
   border-top-left-radius: 0px;
 }
@@ -14,10 +14,10 @@
   display: block;
   padding: 8px $grid-gutter-width / 2;
   margin: -10px $grid-gutter-width / -2;
-  background-color: $color-background-grey;
-  color: $color-white;
+  background-color: $color-primary-background;
+  color: $color-primary-text;
 }
 .panel-title > a.reverse {
-  background-color: $color-white;
-  color: $color-text-grey;
+  background-color: $color-seccondary-background;
+  color: $color-seccondary-text;
 }
