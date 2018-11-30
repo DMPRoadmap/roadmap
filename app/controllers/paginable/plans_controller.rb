@@ -20,6 +20,12 @@ class Paginable::PlansController < ApplicationController
     unless Paginable::PlanPolicy.new(current_user).organisationally_or_publicly_visible?
       raise Pundit::NotAuthorizedError
     end
+
+p "ACTIVE =========================="
+p Plan.active(current_user).pluck(:title).join("\n")
+p "ORGANISATIONALLY =========================="
+p Plan.organisationally_or_publicly_visible(current_user).pluck(:title).join("\n")
+
     paginable_renderise(
       partial: "organisationally_or_publicly_visible",
       scope: Plan.organisationally_or_publicly_visible(current_user)

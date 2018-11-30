@@ -138,35 +138,36 @@ class Plan < ActiveRecord::Base
   # = Scopes =
   # ==========
 
-  # Retrieves any plan in which the user has an active role and it is not a
-  # reviewer
+  # Retrieves any plan in which the user has an active role and
+  # is not a reviewer
   scope :active, lambda { |user|
-    includes(%i[template roles])
-      .where("roles.active": true, "roles.user_id": user.id)
-      .where(Role.not_reviewer_condition)
+    plan_ids = Role.where(active: true, user_id: user.id)
+                   .not_reviewer.pluck(:plan_id)
+
+    includes(:template, :roles)
+    .where(id: plan_ids)
   }
 
   # Retrieves any plan organisationally or publicly visible for a given org id
   scope :organisationally_or_publicly_visible, -> (user) {
-    vis_value = [visibilities[:organisationally_visible], visibilities[:publicly_visible]]
+    plan_ids = user.org.plans.pluck(:id)
+
     includes(:template, roles: :user)
-      .where(
-        visibility: vis_value,
-        roles: {
-          access: Role.access_values_for(:creator, :administrator, :editor, :commenter)
-                      .min,
-        },
-        users: { org_id: user.org_id })
-      .where(
-        ["NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)",
-         user.id])
+    .where(id: plan_ids, visibility: [
+      visibilities[:organisationally_visible],
+      visibilities[:publicly_visible]
+    ])
+    .where(
+      "NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)",
+      user.id
+    )
   }
 
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     joins(:template)
-      .where("plans.title LIKE ? OR templates.title LIKE ?",
-             search_pattern, search_pattern)
+    .where("plans.title LIKE ? OR templates.title LIKE ?",
+            search_pattern, search_pattern)
   }
 
   # Retrieves plan, template, org, phases, sections and questions
@@ -446,7 +447,7 @@ class Plan < ActiveRecord::Base
         role.reviewer = true
       end
       role.commenter = true
-      role.save!
+      role.save
     else
       false
     end
@@ -549,7 +550,7 @@ class Plan < ActiveRecord::Base
     # and set the plan's visibility to :private
     if authors.size == 0
       roles.where(active: true).update_all(active: false)
-      visibility = Plan.visibilities[:privately_visible]
+      self.visibility = Plan.visibilities[:privately_visible]
       save!
     else
       false
