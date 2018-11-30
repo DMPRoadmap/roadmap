@@ -315,11 +315,7 @@ class Plan < ActiveRecord::Base
 
         if save!
           # Send an email confirmation to the owners and co-owners
-          admin_ids = Role.where(plan_id: id).administrator.pluck(:user_id).uniq
-          owners = User.joins(:roles)
-                       .where(users: { id: admin_ids })
-
-          deliver_if(recipients: owners, key: "users.feedback_provided") do |r|
+          deliver_if(recipients: owner_and_coowners, key: "users.feedback_provided") do |r|
             UserMailer.feedback_complete(r, self, org_admin).deliver_now
           end
           true
