@@ -218,3 +218,6 @@ msgstr "Ce plan est basé sur le modèle %{template_name} (%{org_name})"
 
 msgid "You can either choose a template provided by your organisation, another organisation or a funder template."
 msgstr "Vous pouvez choisir soit un modèle fourni par votre organisme soit par un autre organisme, ou un modèle financeur."
+
+msgid "Successfully changed the permissions for %{user_email}. They have been notified via email."
+msgstr "Autorisations de %{user_email} modifiées avec succès. L'utilisateur a été informé par mail."

@@ -1151,7 +1151,7 @@ msgid "Grant Number"
 msgstr "Numéro de subvention"
 
 msgid "Grant number"
-msgstr "Titre de la subvention"
+msgstr "Numéro de subvention"
 
 msgid "Grant number: "
 msgstr "Numéro de subvention : "
@@ -2252,7 +2252,7 @@ msgid "Selected option(s)"
 msgstr "Option(s) choisie(s)"
 
 msgid "Send"
-msgstr "Envoyer"
+msgstr "Sauvegarder"
 
 msgid "Set plan visibility"
 msgstr "Définir la visibilité du plan"
@@ -2331,7 +2331,7 @@ msgid "Subject"
 msgstr "Sujet"
 
 msgid "Submit"
-msgstr "Envoyer"
+msgstr "Sauvegarder"
 
 msgid "Successfully %{action} %{username}'s account."
 msgstr "Compte de %{username} %{action} avec succès."
@@ -2339,12 +2339,8 @@ msgstr "Compte de %{username} %{action} avec succès."
 msgid "Successfully %{action} your %{object}."
 msgstr "%{object} %{action} avec succès."
 
-msgid ""
-"Successfully changed the permissions for #{@role.user.email}. They have been "
-"notified via email."
-msgstr ""
-"Autorisations de #{@role.user.email} modifiées avec succès. L'utilisateur a "
-"été informé par mail."
+msgid "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."
+msgstr "Autorisations de #{@role.user.email} modifiées avec succès. L'utilisateur a été informé par mail."
 
 msgid "Successfully deleted your theme"
 msgstr "Votre thème a bien été supprimé"
