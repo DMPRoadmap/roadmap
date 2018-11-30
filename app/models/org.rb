@@ -206,7 +206,8 @@ class Org < ActiveRecord::Base
 
   def plans
     plan_ids = Role.administrator
-                   .where(user_id: self.users.pluck(:id)).pluck(:plan_id).uniq
+                   .where(user_id: self.users.pluck(:id), active: true)
+                   .pluck(:plan_id).uniq
     Plan.includes(:template, :phases, :roles, :users)
         .where(id: plan_ids)
   end
