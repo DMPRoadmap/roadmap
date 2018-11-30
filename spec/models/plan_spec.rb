@@ -51,7 +51,7 @@ describe Plan do
 
     context "when plan visibility is publicly_visible" do
 
-      let!(:plan) { create(:plan, :publicly_visible) }
+      let!(:plan) { create(:plan, :creator, :publicly_visible) }
 
       it { is_expected.to include(plan) }
 
@@ -59,7 +59,7 @@ describe Plan do
 
     context "when plan visibility is organisationally_visible" do
 
-      let!(:plan) { create(:plan, :organisationally_visible) }
+      let!(:plan) { create(:plan, :creator, :organisationally_visible) }
 
       it { is_expected.not_to include(plan) }
 
@@ -67,7 +67,7 @@ describe Plan do
 
     context "when plan visibility is is_test" do
 
-      let!(:plan) { create(:plan, :is_test) }
+      let!(:plan) { create(:plan, :creator, :is_test) }
 
       it { is_expected.not_to include(plan) }
 
@@ -75,7 +75,7 @@ describe Plan do
 
     context "when plan visibility is privately_visible" do
 
-      let!(:plan) { create(:plan, :privately_visible) }
+      let!(:plan) { create(:plan, :creator, :privately_visible) }
 
       it { is_expected.not_to include(plan) }
 
@@ -89,7 +89,7 @@ describe Plan do
 
     context "when plan visibility is publicly_visible" do
 
-      let!(:plan) { create(:plan, :publicly_visible) }
+      let!(:plan) { create(:plan, :creator, :publicly_visible) }
 
       it { is_expected.not_to include(plan) }
 
@@ -97,7 +97,7 @@ describe Plan do
 
     context "when plan visibility is organisationally_visible" do
 
-      let!(:plan) { create(:plan, :organisationally_visible) }
+      let!(:plan) { create(:plan, :creator, :organisationally_visible) }
 
       it { is_expected.to include(plan) }
 
@@ -105,7 +105,7 @@ describe Plan do
 
     context "when plan visibility is is_test" do
 
-      let!(:plan) { create(:plan, :is_test) }
+      let!(:plan) { create(:plan, :creator, :is_test) }
 
       it { is_expected.not_to include(plan) }
 
@@ -113,7 +113,7 @@ describe Plan do
 
     context "when plan visibility is privately_visible" do
 
-      let!(:plan) { create(:plan, :privately_visible) }
+      let!(:plan) { create(:plan, :creator, :privately_visible) }
 
       it { is_expected.not_to include(plan) }
 
@@ -127,7 +127,7 @@ describe Plan do
 
     context "when plan visibility is publicly_visible" do
 
-      let!(:plan) { create(:plan, :publicly_visible) }
+      let!(:plan) { create(:plan, :creator, :publicly_visible) }
 
       it { is_expected.not_to include(plan) }
 
@@ -135,7 +135,7 @@ describe Plan do
 
     context "when plan visibility is organisationally_visible" do
 
-      let!(:plan) { create(:plan, :organisationally_visible) }
+      let!(:plan) { create(:plan, :creator, :organisationally_visible) }
 
       it { is_expected.not_to include(plan) }
 
@@ -143,7 +143,7 @@ describe Plan do
 
     context "when plan visibility is is_test" do
 
-      let!(:plan) { create(:plan, :is_test) }
+      let!(:plan) { create(:plan, :creator, :is_test) }
 
       it { is_expected.not_to include(plan) }
 
@@ -151,7 +151,7 @@ describe Plan do
 
     context "when plan visibility is privately_visible" do
 
-      let!(:plan) { create(:plan, :privately_visible) }
+      let!(:plan) { create(:plan, :creator, :privately_visible) }
 
       it { is_expected.to include(plan) }
 
@@ -171,7 +171,7 @@ describe Plan do
         create(:role, :creator, user: user, plan: plan)
       end
 
-      let!(:plan) { create(:plan, :publicly_visible) }
+      let!(:plan) { create(:plan, :creator, :publicly_visible) }
 
       it { is_expected.not_to include(plan) }
 
@@ -183,7 +183,7 @@ describe Plan do
         create(:role, :administrator, user: user, plan: plan)
       end
 
-      let!(:plan) { create(:plan, :publicly_visible) }
+      let!(:plan) { create(:plan, :creator, :publicly_visible) }
 
       it { is_expected.not_to include(plan) }
 
@@ -195,7 +195,7 @@ describe Plan do
         create(:role, :commenter, user: user, plan: plan)
       end
 
-      let!(:plan) { create(:plan, :publicly_visible) }
+      let!(:plan) { create(:plan, :creator, :publicly_visible) }
 
       it { is_expected.not_to include(plan) }
 
@@ -207,7 +207,7 @@ describe Plan do
         create(:role, :editor, user: user, plan: plan)
       end
 
-      let!(:plan) { create(:plan, :publicly_visible) }
+      let!(:plan) { create(:plan, :creator, :publicly_visible) }
 
       it { is_expected.not_to include(plan) }
 
@@ -221,7 +221,7 @@ describe Plan do
                       user: new_user, plan: plan)
       end
 
-      let!(:plan) { create(:plan, :publicly_visible) }
+      let!(:plan) { create(:plan, :creator, :publicly_visible) }
 
       it "includes publicly_visible plans" do
         is_expected.to include(plan)
@@ -237,7 +237,7 @@ describe Plan do
                       user: new_user, plan: plan)
       end
 
-      let!(:plan) { create(:plan, :organisationally_visible) }
+      let!(:plan) { create(:plan, :creator, :organisationally_visible) }
 
       it "includes organisationally_visible plans" do
         is_expected.to include(plan)
@@ -247,7 +247,7 @@ describe Plan do
 
     context "when plan visibility is is_test" do
 
-      let!(:plan) { create(:plan, :is_test) }
+      let!(:plan) { create(:plan, :creator, :is_test) }
 
       it { is_expected.not_to include(plan) }
 
@@ -255,9 +255,20 @@ describe Plan do
 
     context "when plan visibility is privately_visible" do
 
-      let!(:plan) { create(:plan, :privately_visible) }
+      let!(:plan) { create(:plan, :creator, :privately_visible) }
 
       it { is_expected.not_to include(plan) }
+
+    end
+
+    context "when plan has no active roles" do
+
+      let!(:plan) { build_plan }
+
+      it "should not be included" do
+        plan.roles.inject{ |r| r.deactivate! }
+        is_expected.to_not include(plan)
+      end
 
     end
 
@@ -269,7 +280,7 @@ describe Plan do
 
     context "when plan visibility is publicly_visible" do
 
-      let!(:plan) { create(:plan, :publicly_visible) }
+      let!(:plan) { create(:plan, :creator, :publicly_visible) }
 
       it { is_expected.not_to include(plan) }
 
@@ -277,7 +288,7 @@ describe Plan do
 
     context "when plan visibility is organisationally_visible" do
 
-      let!(:plan) { create(:plan, :organisationally_visible) }
+      let!(:plan) { create(:plan, :creator, :organisationally_visible) }
 
       it { is_expected.not_to include(plan) }
 
@@ -285,7 +296,7 @@ describe Plan do
 
     context "when plan visibility is is_test" do
 
-      let!(:plan) { create(:plan, :is_test) }
+      let!(:plan) { create(:plan, :creator, :is_test) }
 
       it { is_expected.to include(plan) }
 
@@ -293,7 +304,7 @@ describe Plan do
 
     context "when plan visibility is privately_visible" do
 
-      let!(:plan) { create(:plan, :privately_visible) }
+      let!(:plan) { create(:plan, :creator, :privately_visible) }
 
       it { is_expected.not_to include(plan) }
 
@@ -303,7 +314,7 @@ describe Plan do
 
   describe ".active" do
 
-    let!(:plan) { create(:plan) }
+    let!(:plan) { create(:plan, :creator) }
 
     let!(:user) { create(:user) }
 
@@ -345,7 +356,7 @@ describe Plan do
 
     let!(:template) { create(:template) }
 
-    let!(:plan) { create(:plan, template: template) }
+    let!(:plan) { create(:plan, :creator, template: template) }
 
     let!(:phase) { create(:phase, template: template) }
 
@@ -397,7 +408,7 @@ describe Plan do
 
   describe ".deep_copy" do
 
-    let!(:plan) { create(:plan, answers: 2, guidance_groups: 2) }
+    let!(:plan) { create(:plan, :creator, answers: 2, guidance_groups: 2) }
 
     subject { Plan.deep_copy(plan) }
 
@@ -456,7 +467,7 @@ describe Plan do
 
   describe "#answer" do
 
-    let!(:plan) { create(:plan, answers: 1) }
+    let!(:plan) { create(:plan, :creator, answers: 1) }
 
     let!(:question) { create(:question) }
 
@@ -516,7 +527,7 @@ describe Plan do
 
   describe "#guidance_group_options" do
 
-    let!(:plan) { create(:plan) }
+    let!(:plan) { create(:plan, :creator) }
 
     subject { plan.guidance_group_options }
 
@@ -561,7 +572,7 @@ describe Plan do
 
     let!(:user) { create(:user, org: org) }
 
-    let!(:plan) { create(:plan) }
+    let!(:plan) { create(:plan, :creator) }
 
     before do
       # Create 2 Org admins for this Org.
@@ -609,7 +620,8 @@ describe Plan do
 
     let!(:template) { create(:template, phases: 2) }
 
-    let!(:plan) { create(:plan, feedback_requested: true, template: template) }
+    let!(:plan) { create(:plan, feedback_requested: true,
+                                template: template) }
 
     before do
       create(:role, :creator, plan: plan, user: user)
@@ -652,8 +664,6 @@ describe Plan do
   end
 
   describe "#guidance_by_question_as_hash" do
-
-
 
   end
 
@@ -957,7 +967,7 @@ describe Plan do
 
   describe "#latest_update" do
 
-    let!(:plan) { create(:plan, updated_at: 5.minutes.ago) }
+    let!(:plan) { create(:plan, :creator, updated_at: 5.minutes.ago) }
 
     subject { plan.latest_update.to_i }
 
@@ -990,7 +1000,7 @@ describe Plan do
 
   describe "#name" do
 
-    let!(:plan) { build(:plan, title: "Foo bar") }
+    let!(:plan) { build(:plan, :creator, title: "Foo bar") }
 
     it "returns the title" do
       expect(plan.name).to eql("Foo bar")
@@ -1197,7 +1207,7 @@ describe Plan do
 
     let!(:template) { create(:template) }
 
-    let!(:plan) { create(:plan, template: template) }
+    let!(:plan) { create(:plan, :creator, template: template) }
 
     subject { plan.num_answered_questions }
 
@@ -1225,7 +1235,7 @@ describe Plan do
 
     let!(:template) { create(:template) }
 
-    let!(:plan) { create(:plan, template: template) }
+    let!(:plan) { create(:plan, :creator, template: template) }
 
     subject { plan.num_questions }
 
@@ -1247,7 +1257,7 @@ describe Plan do
 
     let!(:template) { create(:template) }
 
-    let!(:plan) { create(:plan, template: template) }
+    let!(:plan) { create(:plan, :creator, template: template) }
 
     subject { plan.visibility_allowed? }
 
@@ -1283,13 +1293,13 @@ describe Plan do
 
   describe "#question_exists?" do
 
-    subject { plan.question_exists?(question.id) }
-
     context "when Question with ID and Plan exists" do
 
       let!(:question) { create(:question) }
 
-      let!(:plan) { create(:plan, template: question.section.phase.template) }
+      let!(:plan) { create(:plan, :creator, template: question.section.phase.template) }
+
+      subject { plan.question_exists?(question.id) }
 
       it { is_expected.to eql(true) }
 
@@ -1299,7 +1309,9 @@ describe Plan do
 
       let!(:question) { create(:question) }
 
-      let!(:plan) { create(:plan) }
+      let!(:plan) { create(:plan, :creator) }
+
+      subject { plan.question_exists?(question.id) }
 
       it { is_expected.to eql(false) }
 
@@ -1309,7 +1321,7 @@ describe Plan do
 
   describe "#no_questions_matches_no_answers?" do
 
-    let!(:plan) { create(:plan) }
+    let!(:plan) { create(:plan, :creator) }
 
     subject { plan.no_questions_matches_no_answers? }
 
