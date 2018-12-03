@@ -1,3 +1,8 @@
+<%#
+  DMPTool customization overview:
+  ------------------------------------------
+  1. Moved +/- font awesome icon to left of section title
+ %>
 <div class="tab-panels" role="tabpanel">
   <div id="phase-#<%= phase.id %>-panel" class="tab-panel active" aria-hidden="false" aria-labelledby="phase-#<%= phase.id %>-tab">
     <div class="row">
@@ -36,7 +41,7 @@
 
           <div class="panel-heading" role="tab" id="heading-<%= section.id %>">
             <div class="panel-title pull-left">
-
+              <i class="fa fa-plus" aria-hidden="true"></i>
               <%= section.title %>
 
               <% if plan.present? %>
@@ -46,9 +51,6 @@
                   </span>
               <% end %>
             </div>
-
-            <i class="fa fa-plus" aria-hidden="true"></i>
-
             <div class="clearfix"></div>
           </div>
         </div>

@@ -37,8 +37,8 @@ $(() => {
   // -----------------------------------------------------
   // handle toggling between shared signin/create account forms
   const toggleSignInCreateAccount = (signin = true) => {
-    const signinTab = $('[aria-controls="sign-in-panel"]');
-    const createTab = $('[aria-controls="create-account-panel"]');
+    const signinTab = $('a[href="#sign-in-panel"]').closest('li');
+    const createTab = $('a[href="#create-account-panel"]').closest('li');
     const signinPanel = $('#sign-in-panel');
     const createAccountPanel = $('#create-account-panel');
 
@@ -86,7 +86,7 @@ $(() => {
       } else {
         toggleSignInCreateAccount(true);
         $('#sign-in-create-account').modal('show');
-        $('input[id=user_email]').val(data.email);
+        $('#signin_user_email').val(data.email);
       }
     }
   });

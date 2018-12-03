@@ -1,6 +1,6 @@
-<% signin = true unless signin %>
-<% url = registration_path("user") unless url %>
-<% org = '' unless org %>
+<% default_org = Org.find_by(is_other: true) %>
+<% @user = @user.present? ? @user : User.new(org: default_org) %>
+<% @user.org = default_org unless @user.org.present? %>
 
 <div class="modal-dialog" role="document">
   <div class="modal-content">
@@ -10,8 +10,8 @@
       </button>
 
       <div class="branding">
-        <div id="org-sign-in-logo" class="org-logo">
-
+        <div id="org-sign-in-logo">
+          <!-- Logo gets loaded via ajax call after user selects their institution -->
         </div>
       </div>
 

@@ -9,13 +9,13 @@
       <div class="bottom">
         <div class="metric">
           <div class="fa fa-users"></div>
-          <div class="numbers"><%= number_with_delimiter(stats[:user_count]) || '?' %></div>
+          <div class="numbers"><%= number_with_delimiter(@stats[:user_count]) || '?' %></div>
           <p><%= _("Users") %></p>
         </div>
 
         <div class="metric">
           <div class="fa fa-file"></div>
-          <div class="numbers"><%= number_with_delimiter(stats[:completed_plan_count]) || '?' %></div>
+          <div class="numbers"><%= number_with_delimiter(@stats[:completed_plan_count]) || '?' %></div>
           <p><%= _('Plans')%></p>
           <div class="more">
             <a href="<%= public_plans_path %>"
@@ -25,7 +25,7 @@
 
         <div class="metric">
           <div class="fa fa-building"></div>
-          <div class="numbers"><%= number_with_delimiter(stats[:institution_count]) || '?' %></div>
+          <div class="numbers"><%= number_with_delimiter(@stats[:institution_count]) || '?' %></div>
           <p><%= _('Participating Institutions')%></p>
           <% sr_text = _("View the list of participating institutions") %>
           <div class="more">
@@ -47,7 +47,7 @@
 
       <div class="bottom">
         <ol>
-          <% top_5.each do |title| %>
+          <% @top_5.each do |title| %>
             <li><%= title %></li>
           <% end %>
         </ol>
@@ -67,11 +67,11 @@
 
     <!-- RSS Feed -->
     <div class="feed">
-      <% if rss %>
+      <% if @rss.present? %>
         <p id="home-news-link"></p>
         <%
           json = []
-          rss.each do |i|
+          @rss.each do |i|
             json << { "title": "#{truncate(i.title, length: 120)}", "link": "#{i.link}" }
           end
         %>

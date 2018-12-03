@@ -34,6 +34,9 @@ class Org < ActiveRecord::Base
   include FeedbacksHelper
   include GlobalHelpers
   include FlagShihTzu
+
+  include Dmptool::Model::Org
+
   extend Dragonfly::Model::Validations
   validates_with OrgLinksValidator
 
@@ -104,6 +107,7 @@ class Org < ActiveRecord::Base
 
   # allow validations for logo upload
 
+  # ---------------------------------------
   # Start DMPTool Customization
   # ---------------------------------------
   # Commenting out the logo resizer. We adjust the logo size via CSS
@@ -113,6 +117,7 @@ class Org < ActiveRecord::Base
   dragonfly_accessor :logo
   # ---------------------------------------
   # End DMPTool Customization
+  # ---------------------------------------
 
   validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif', 'jpg', 'bmp'], message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp")
   validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
@@ -226,21 +231,6 @@ class Org < ActiveRecord::Base
   def grant_api!(token_permission_type)
     self.token_permission_types << token_permission_type unless self.token_permission_types.include? token_permission_type
   end
-
-# START DMPTool customization
-# ---------------------------------------------------------
-  # DMPTool participating institution helpers
-  def self.participating
-    Org.includes(:identifier_schemes).where(is_other: false).order(:name)
-    #shibbolized = Org.joins(:identifier_schemes).where('is_other IS NULL').pluck(:id)
-    #non_shibbolized = Org.where('orgs.is_other IS NULL AND orgs.id NOT IN (?)', shibbolized).pluck(:id)
-    #Org.includes(:identifier_schemes).where(id: (shibbolized + non_shibbolized).flatten.uniq)
-  end
-  def shibbolized?
-    self.org_identifiers.where(identifier_scheme: IdentifierScheme.find_by(name: 'shibboleth')).present?
-  end
-# ---------------------------------------------------------
-# END DMPTool customization
 
   private
 

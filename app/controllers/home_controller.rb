@@ -2,6 +2,8 @@
 
 class HomeController < ApplicationController
 
+  include Dmptool::Controller::Home
+
   respond_to :html
 
   ##
@@ -23,6 +25,15 @@ class HomeController < ApplicationController
       else
         redirect_to plans_url
       end
+
+    # -------------------------------------------------
+    # Start DMPTool customization
+    # -------------------------------------------------
+    else
+      render_home_page
+    # -------------------------------------------------
+    # End DMPTool customization
+    # -------------------------------------------------
     end
   end
 

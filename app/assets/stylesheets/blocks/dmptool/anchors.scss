@@ -26,12 +26,12 @@ li > a .fa, li > a:focus .fa, li > a:hover .fa, li > a:active .fa, li > a:active
 .navbar-nav > li > a .fa, .navbar-nav > li > a:focus .fa, .navbar-nav > li > a:hover .fa, .navbar-nav > li > a:active .fa, .navbar-nav > li > a:active:hover .fa,
 .dropdown-menu > li > a .fa, .dropdown-menu > li > a:focus .fa, .dropdown-menu > li > a:hover .fa, .dropdown-menu > li > a:active .fa, .dropdown-menu > li > a:active:hover .fa,
 .nav .open > a .fa, .nav .open > a:focus .fa, .nav .open > a:hover .fa, .nav .open > a:active .fa, .nav .open > a:active:hover .fa {
- font-size: 19px !important; /* prefer these to be inherit */
+ font-size: 18px !important; /* prefer these to be inherit */
  color: $color-dark-blue; /* prefer these to be inherit */
 }
 
-.fa:not(.small) {
-  font-size: 19px !important; /* prefer these to be inherit */
+.fa.small {
+  font-size: 14px !important; /* prefer these to be inherit */
 }
 
 .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {

@@ -9,11 +9,11 @@
     background-color: $color-dark-blue;
     padding-left: 10px;
   }
-  .panel-title {
+  .panel-title, .pull-right {
     margin-top: -1px;
 
     .fa {
-      color: $color-white;
+      color: $color-white !important;
       font-size: 1.5rem;
       padding-right: 5px;
     }
@@ -22,4 +22,18 @@
 
 .panel-default > .panel-heading, .panel-title a {
   background-color: $color-dark-blue;
+}
+
+.inverse-heading-button {
+  background-color: $color-white;
+  color: $color-dark-blue;
+
+  .panel-heading {
+    background-color: $color-white;
+    color: $color-dark-blue;
+  }
+
+  .panel-title .fa, .pull-right .fa {
+      color: $color-dark-blue !important;
+  }
 }

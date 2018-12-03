@@ -1,4 +1,6 @@
-<%= form_for resource, namespace: 'new', url: registration_path("user"), html: {autocomplete: "off", id: "create_account_form"} do |f| %>
+<%= form_for resource, namespace: 'new', url: registration_path("user"), html: {
+          autocomplete: "off",
+          id: "create_account_form" } do |f| %>
   <div class="row">
     <div class="form-group col-md-6">
       <%= f.label(:firstname, _('First Name'), class: "control-label") %>
@@ -35,5 +37,6 @@
       </label>
     </div>
   </div>
+  <%= f.hidden_field(:org_id, value: @user.org.id) %>
   <%= f.button(_('Create account'), class: "btn btn-default", type: "submit") %>
 <% end %>
