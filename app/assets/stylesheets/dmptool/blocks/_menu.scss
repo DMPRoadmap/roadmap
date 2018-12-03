@@ -1,0 +1,84 @@
+/* FIXED MENU (Learn, Sign in/out, Language) */
+/* ----------------------------------------------------------------------- */
+.navbar-fixed-top {
+  min-height: 30px;
+  padding: 5px 0 5px 5px;
+  background-color: $color-seccondary-background;
+  box-shadow: 0 2px $color-light-grey;
+
+  .navbar-right {
+    margin-right: 0;
+  }
+
+  .nav > li > a:hover, .nav > li > a:focus {
+    background-color: inherit;
+  }
+
+  .navbar-nav > li > a {
+    padding: 0 0 0 25px;
+  }
+
+  .learn-menu ul > li > ul {
+    padding-left: 20px;
+  }
+}
+
+/* BRANDING (DMPTool Logo, Org Logo, Org Name, Org Links) */
+/* ----------------------------------------------------------------------- */
+.branding {
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: space-between;
+
+  .branding-name {
+    font-size: 2.2rem;
+    max-width: 300px;
+  }
+
+  .branding-links {
+    .fa {
+      color: $color-primary-text;
+      font-size: 1.5rem;
+    }
+  }
+
+  .app-logo {
+    height: auto;
+    min-width: 250px;
+    max-width: 300px;
+  }
+
+  .org-logo {
+    min-width: 100px;
+    max-width: 300px;
+    min-height: 50px;
+    max-height: 150px;
+  }
+
+  #org-sign-in-logo {
+    margin: 0 auto;
+  }
+}
+
+/* APP MENU (Dashboard, Create Plan, Admin Features) */
+/* ----------------------------------------------------------------------- */
+.app-menu {
+  margin-top: 25px;
+  .navbar {
+    margin-bottom: -20px;
+
+    .navbar-nav > li > a {
+      padding: 0 25px 0 0;
+    }
+  }
+
+  a, a:visited, a:focus, a:active, a:hover {
+    font-size: 2rem;
+  /*  color: $dark-blue;*/
+
+    .fa-sort-desc {
+      /*color: $dark-blue;*/
+      font-size: 1.5rem;
+    }
+  }
+}

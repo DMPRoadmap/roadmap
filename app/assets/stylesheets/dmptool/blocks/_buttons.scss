@@ -1,0 +1,8 @@
+/* Override the grey color of the magnifying glass on table search boxes */
+.input-group-addon {
+
+  .fa:not(.small) {
+    color: $color-primary-text;
+  }
+
+}
