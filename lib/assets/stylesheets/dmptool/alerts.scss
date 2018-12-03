@@ -13,6 +13,18 @@
 .alert-warning {
   background-color: $red;
 }
+#global-notification-area .alert-info {
+  background-color: #d9edf7;
+  color: #31708f;
+}
+#global-notification-area .alert-warning {
+  background-color: #f2dede;
+  color: #a94442;
+}
+#global-notification-area .alert-error {
+  background-color: $red;
+  color: $white;
+}
 #global-notification-area .alert, #global-notification-area .fa {
   color: $black;
 }
