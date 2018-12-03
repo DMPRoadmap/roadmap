@@ -75,15 +75,18 @@
       <% if user_signed_in? && current_user.org.present? && !current_user.org.is_other? %>
         <ul class="nav navbar-nav">
           <li class="dropdown">
-
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-               id="org-menu-button" aria-haspopup="true" aria-expanded="false">
-              <%= current_user.org.abbreviation %> links
-              <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="org-menu-button">
-              <%= render partial: 'layouts/dmptool/org_links' %>
-            </ul>
+            <% if current_user.org.links.present? %>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                 id="org-menu-button" aria-haspopup="true" aria-expanded="false">
+                <%= current_user.org.abbreviation %>
+                <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="org-menu-button">
+                <%= render partial: 'layouts/dmptool/org_links' %>
+              </ul>
+            <% else %>
+              <%= current_user.org.abbreviation %>
+            <% end %>
           </li>
         </ul>
       <% end %>
