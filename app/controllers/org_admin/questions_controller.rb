@@ -49,7 +49,12 @@ module OrgAdmin
       begin
         question = get_new(question)
         section = question.section
-        if question.save!
+
+        # Briley patch for production issue that is preventing new question creation
+        # Was receiving `question.annotations cannot be blank`
+        question.annotations = []
+
+        if question.save
           flash[:notice] = success_message(_('question'), _('created'))
         else
           flash[:alert] = failed_create_error(question, _('question'))
