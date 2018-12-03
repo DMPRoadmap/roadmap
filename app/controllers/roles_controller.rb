@@ -40,7 +40,7 @@ class RolesController < ApplicationController
             email: user.email
           }
           @role.user = user
-          if @role.save!
+          if @role.save
             if registered
               deliver_if(recipients: user, key: "users.added_as_coowner") do |r|
                 UserMailer.sharing_notification(@role, r, inviter: current_user)
