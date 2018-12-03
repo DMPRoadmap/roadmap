@@ -11,10 +11,10 @@ class RolesController < ApplicationController
     @role = Role.new(role_params)
     authorize @role
 
-    access_level = params[:role][:access_level].to_i
-    @role.access_level = access_level
+    plan = Plan.find(role_params[:plan_id])
+
     message = ""
-    if params[:user].present?
+    if params[:user].present? && plan.present?
       if @role.plan.owner.present? && @role.plan.owner.email == params[:user]
         # rubocop:disable LineLength
         flash[:notice] = _("Cannot share plan with %{email} since that email matches with the owner of the plan.") % {
@@ -65,9 +65,8 @@ class RolesController < ApplicationController
   def update
     @role = Role.find(params[:id])
     authorize @role
-    access_level = params[:role][:access_level].to_i
-    @role.access_level = access_level
-    if @role.update_attributes(role_params)
+
+    if @role.update_attributes(access: role_params[:access])
       deliver_if(recipients: @role.user, key: "users.added_as_coowner") do |r|
         UserMailer.permissions_change_notification(@role, current_user).deliver_now
       end
@@ -100,13 +99,7 @@ class RolesController < ApplicationController
   def deactivate
     role = Role.find(params[:id])
     authorize role
-    role.active = false
-    # if creator, remove from public plans list
-    if role.creator? && role.plan.publicly_visible?
-      role.plan.visibility = Plan.visibilities[:privately_visible]
-      role.plan.save
-    end
-    if role.save
+    if role.deactivate!
       flash[:notice] = _("Plan removed")
     else
       flash[:alert] = _("Unable to remove the plan")
@@ -117,7 +110,7 @@ class RolesController < ApplicationController
   private
 
   def role_params
-    params.require(:role).permit(:plan_id)
+    params.require(:role).permit(:plan_id, :access)
   end
 
 end

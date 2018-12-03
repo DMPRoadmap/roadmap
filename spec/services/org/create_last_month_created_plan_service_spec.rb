@@ -22,10 +22,10 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
     plan = FactoryBot.create(:plan, template: template, created_at: Date.today.last_month)
     plan2 = FactoryBot.create(:plan, template: template, created_at: Date.today.last_month)
     plan3 = FactoryBot.create(:plan, template: template2, created_at: Date.today.last_month)
-    FactoryBot.create(:role, plan: plan, user: user1, access: creator)
-    FactoryBot.create(:role, plan: plan, user: user1, access: administrator)
-    FactoryBot.create(:role, plan: plan2, user: user1, access: creator)
-    FactoryBot.create(:role, plan: plan3, user: user2, access: creator)
+    FactoryBot.create(:role, :creator, plan: plan, user: user1)
+    FactoryBot.create(:role, :administrator, plan: plan, user: user1)
+    FactoryBot.create(:role, :creator, plan: plan2, user: user1)
+    FactoryBot.create(:role, :creator, plan: plan3, user: user2)
   end
 
   describe '.call' do
@@ -59,7 +59,7 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
         expect(last_month.first.count).to eq(3)
 
         new_plan = FactoryBot.create(:plan, template: template2, created_at: Date.today.last_month.end_of_month)
-        FactoryBot.create(:role, plan: new_plan, user: user1, access: creator)
+        FactoryBot.create(:role, :creator, plan: new_plan, user: user1)
 
         described_class.call(org)
 
@@ -68,7 +68,7 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
         expect(last_month.first.count).to eq(4)
       end
     end
-    
+
     context 'when no org is passed' do
       it "generates counts from today's last month" do
         Org.expects(:all).returns([org])
@@ -105,7 +105,7 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
         expect(last_month.first.count).to eq(3)
 
         new_plan = FactoryBot.create(:plan, template: template2, created_at: Date.today.last_month.end_of_month)
-        FactoryBot.create(:role, plan: new_plan, user: user1, access: creator)
+        FactoryBot.create(:role, :creator, plan: new_plan, user: user1)
 
         described_class.call
 
