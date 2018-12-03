@@ -72,8 +72,9 @@
         <%= render partial: 'layouts/dmptool/app_menu_links' %>
       <% end %>
 
-      <% if user_signed_in? && current_user.org.present? && current_user.org.links.present?
-                            && !current_user.org.is_other? %>
+      <% if user_signed_in? && current_user.org.present? &&
+                               current_user.org.links.present? &&
+                              !current_user.org.is_other? %>
         <ul class="nav navbar-nav">
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
