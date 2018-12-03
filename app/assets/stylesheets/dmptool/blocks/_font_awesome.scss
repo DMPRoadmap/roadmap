@@ -1,8 +1,10 @@
+/* Override to just allow fontawesome to inherit size/color */
 .fa:not(.small) {
   font-size: inherit;
   color: inherit;
 }
 
+/* Override to increase the size of the social media icons */
 .fa.large {
   font-size: 2rem;
 }

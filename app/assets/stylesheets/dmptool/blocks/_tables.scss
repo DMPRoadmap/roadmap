@@ -1,11 +1,4 @@
-table {
-
-  thead {
-
-    th {
-      background-color: $color-primary-background;
-    }
-
-  }
-
+/* Override the table heading background color so that it is blue */
+table > thead > th {
+  background-color: $color-primary-background;
 }

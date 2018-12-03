@@ -1,0 +1,5 @@
+/* Override the default nav tab background color so that it's white */
+.nav-tabs, .nav-pills {
+  background-color: $color-seccondary-background;
+  color: $color-seccondary-text;
+}
