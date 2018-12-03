@@ -336,8 +336,7 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def editable_by?(user_id)
-    role = Role.find_by(plan_id: id, user_id: user_id, active: true)
-    (role.present? ? role.editor? : false)
+    Role.editor.where(plan_id: id, user_id: user_id, active: true).any?
   end
 
   ##
@@ -358,8 +357,7 @@ class Plan < ActiveRecord::Base
           Branding.fetch(:service_configuration, :plans, :org_admins_read_all)
         true
       else
-        role = Role.find_by(plan_id: id, user_id: user_id, active: true)
-        (role.present? ? role.commenter? : false)
+        commentable_by?(user_id)
       end
     else
       false
@@ -372,8 +370,7 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def commentable_by?(user_id)
-    role = Role.find_by(plan_id: id, user_id: user_id, active: true)
-    (role.present? ? role.commenter? : false)
+    Role.commenter.where(plan_id: id, user_id: user_id, active: true).any?
   end
 
   # determines if the plan is administerable by the specified user
@@ -382,8 +379,7 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def administerable_by?(user_id)
-    role = Role.find_by(plan_id: id, user_id: user_id, active: true)
-    (role.present? ? role.administrator? : false)
+    Role.administrator.where(plan_id: id, user_id: user_id, active: true).any?
   end
 
   # determines if the plan is reviewable by the specified user
@@ -392,8 +388,7 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def reviewable_by?(user_id)
-    role = Role.find_by(plan_id: id, user_id: user_id, active: true)
-    (role.present? ? role.reviewer? : false)
+    Role.reviewer.where(plan_id: id, user_id: user_id, active: true).any?
   end
 
   # the datetime for the latest update of this plan
