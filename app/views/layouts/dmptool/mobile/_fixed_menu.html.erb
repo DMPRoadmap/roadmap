@@ -11,8 +11,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <% if user_signed_in? && current_user.org.present? && current_user.org.logo.present? %>
-        <%= link_to(current_user.org.name, root_path, class: "org-logo") %>
+      <% if user_signed_in? && current_user.org.present? %>
+        <p><strong><%= current_user.org.name %></strong></p>
       <% else %>
         <%= link_to(image_tag("DMPTool_logo_blue_shades_v1b3b.svg",
                               alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
@@ -72,13 +72,14 @@
         <%= render partial: 'layouts/dmptool/app_menu_links' %>
       <% end %>
 
-      <% if user_signed_in? && current_user.org.present? && !current_user.org.is_other? %>
+      <% if user_signed_in? && current_user.org.present? &&
+                               current_user.org.links.present? &&
+                              !current_user.org.is_other? %>
         <ul class="nav navbar-nav">
           <li class="dropdown">
-
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                id="org-menu-button" aria-haspopup="true" aria-expanded="false">
-              <%= current_user.org.abbreviation %> links
+              <%= current_user.org.abbreviation %>
               <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
             </a>
             <ul class="dropdown-menu" aria-labelledby="org-menu-button">
