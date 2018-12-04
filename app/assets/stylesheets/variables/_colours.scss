@@ -5,7 +5,7 @@
 
 $color-black: #000;
 $color-white: #FFF;
-$color-red: #b94a48;
+$color-red: #B30000;
 $color-grey: #4F5253;
 $color-grey-darkest: #222;
 $color-grey-darker: #333;
@@ -19,11 +19,19 @@ $color-light-blue: #D8E3EE;
 $color-light-grey: #F0F0F0;
 $color-green: #008000;
 $color-translucent-blue: rgba(14,86,130,.9);
+$color-info-blue: #d9edf7;
 
 /* Screen dimension breakpoints (based on screen width) */
 $mobile-layout-breakpoint: 766px;
 $hide-org-logo-breakpoint: 1024px;
 $max-width-breakpoint: 1280px;
+
+$color-alert-error-background: $color-red;
+$color-alert-error-text: $color-white;
+$color-alert-warning-background: #f2dede;
+$color-alert-warning-text: #a94442;
+$color-alert-info-background: $color-green;
+$color-alert-info-text: $color-white;
 
 /*
   Variables to define look and feel

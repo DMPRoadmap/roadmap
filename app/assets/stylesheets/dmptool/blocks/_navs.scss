@@ -1,3 +1,23 @@
+/* Override the default nav tab background color so that it's white */
+.nav-tabs, .nav-pills {
+  background-color: $color-seccondary-background;
+  color: $color-seccondary-text;
+
+  li {
+    background-color: $color-primary-background;
+    color: $color-primary-text;
+  }
+}
+
+/* Overrides the default removal of the right hand border of the nav pills on Write plan */
+.nav-pills > li:last-child > a:hover,
+.nav-pills > li:last-child > a:focus,
+.nav-pills > li.active:last-child > a,
+.nav-pills > li.active:last-child > a:focus,
+.nav-pills > li.active:last-child > a:hover {
+  border-right: 1px solid $color-black;
+}
+
 /* FIXED MENU (Learn, Sign in/out, Language) */
 /* ----------------------------------------------------------------------- */
 .navbar-fixed-top {
@@ -37,7 +57,7 @@
 
   .branding-links {
     .fa {
-      color: $color-primary-text;
+      color: $color-seccondary-text;
       font-size: 1.5rem;
     }
   }
@@ -74,11 +94,20 @@
 
   a, a:visited, a:focus, a:active, a:hover {
     font-size: 2rem;
-  /*  color: $dark-blue;*/
+    color: $color-seccondary-text;
 
     .fa-sort-desc {
-      /*color: $dark-blue;*/
+      color: $color-seccondary-text;
       font-size: 1.5rem;
     }
+  }
+
+  .nav > li > a:hover,
+  .nav > li > a:focus,
+  .dropdown-menu > li > a:hover,
+  .dropdown-menu > li > a:focus {
+    background-color: inherit;
+    color: $color-seccondary-text;
+    text-decoration: underline;
   }
 }

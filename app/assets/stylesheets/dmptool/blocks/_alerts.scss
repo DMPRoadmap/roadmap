@@ -1,0 +1,62 @@
+#notification-area.alert-info {
+  background-color: $color-green;
+  color: $color-primary-text;
+}
+
+#notification-area.alert-warning {
+  background-color: $color-red;
+  color: $color-primary-text;
+}
+
+#notification-area.alert-error {
+  background-color: $color-red;
+  color: $color-primary-text;
+}
+
+#global-notification-area .alert-info {
+  background-color: $color-light-blue;
+  border-color: $color-light-blue;
+  color: $color-seccondary-text;
+
+  /* Override the color of the notification area's close/dismiss button */
+  button[data-dismiss="alert"] {
+    color: $color-seccondary-text;
+    opacity: 1;
+  }
+}
+
+#global-notification-area .alert-warning {
+  background-color: $color-alert-warning-background;
+  color: $color-alert-warning-text;
+
+  /* Override the color of the notification area's close/dismiss button */
+  button[data-dismiss="alert"] {
+    color: $color-alert-warning-text;
+    opacity: 1;
+  }
+}
+
+#global-notification-area .alert-error {
+  background-color: $color-alert-error-background;
+  color: $color-alert-error-text;
+
+  /* Override the color of the notification area's close/dismiss button */
+  button[data-dismiss="alert"] {
+    color: $color-alert-error-text;
+    opacity: 1;
+  }
+}
+
+/* Changes color of 'Saving ...' and answer status */
+.status, .label-info {
+  background-color: $color-light-blue;
+  color: $color-dark-blue;
+}
+.status {
+  padding: 10px 15px 10px 5px;
+}
+
+/* Overrides the write Plan pages's progress bar */
+.progress-bar {
+  background-color: $color-primary-background;
+}
