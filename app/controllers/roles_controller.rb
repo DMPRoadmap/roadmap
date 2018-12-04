@@ -30,7 +30,11 @@ class RolesController < ApplicationController
         else
           if user.nil?
             registered = false
-            User.invite!({ email: params[:user] }, current_user)
+            User.invite!({email:     params[:user],
+                        firstname:  _("First Name"),
+                        surname:    _("Surname"),
+                        org:        current_user.org },
+                        current_user )
             message = _("Invitation to %{email} issued successfully.") % {
               email: params[:user]
             }
