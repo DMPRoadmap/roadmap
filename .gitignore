@@ -35,6 +35,9 @@ public/videos/*
 app/assets/images/homepage
 config/locales/static_pages/*.yml
 
+config/initializers/contact_us.rb
+config/initializers/devise.rb
+
 # Ignore db schema.rb
 # db/schema.rb
 
