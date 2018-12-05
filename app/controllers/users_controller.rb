@@ -5,6 +5,9 @@ class UsersController < ApplicationController
   helper PaginableHelper
   helper PermsHelper
   include ConditionalUserMailer
+
+  include Dmptool::Controller::Users
+
   after_action :verify_authorized
   respond_to :html
 
@@ -22,7 +25,7 @@ class UsersController < ApplicationController
           @users = current_user.org.users.page(1)
         end
       end
-      
+
       format.csv do
         send_data User.to_csv(current_user.org.users.order(:surname)),
         filename: "users-accounts-#{Date.today}.csv"

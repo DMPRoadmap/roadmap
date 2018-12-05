@@ -1,0 +1,113 @@
+/* Override the default nav tab background color so that it's white */
+.nav-tabs, .nav-pills {
+  background-color: $color-seccondary-background;
+  color: $color-seccondary-text;
+
+  li {
+    background-color: $color-primary-background;
+    color: $color-primary-text;
+  }
+}
+
+/* Overrides the default removal of the right hand border of the nav pills on Write plan */
+.nav-pills > li:last-child > a:hover,
+.nav-pills > li:last-child > a:focus,
+.nav-pills > li.active:last-child > a,
+.nav-pills > li.active:last-child > a:focus,
+.nav-pills > li.active:last-child > a:hover {
+  border-right: 1px solid $color-black;
+}
+
+/* FIXED MENU (Learn, Sign in/out, Language) */
+/* ----------------------------------------------------------------------- */
+.navbar-fixed-top {
+  min-height: 30px;
+  padding: 5px 0 5px 5px;
+  background-color: $color-seccondary-background;
+  box-shadow: 0 2px $color-light-grey;
+
+  .navbar-right {
+    margin-right: 0;
+  }
+
+  .nav > li > a:hover, .nav > li > a:focus {
+    background-color: inherit;
+  }
+
+  .navbar-nav > li > a {
+    padding: 0 0 0 25px;
+  }
+
+  .learn-menu ul > li > ul {
+    padding-left: 20px;
+  }
+}
+
+/* BRANDING (DMPTool Logo, Org Logo, Org Name, Org Links) */
+/* ----------------------------------------------------------------------- */
+.branding {
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: space-between;
+
+  .branding-name {
+    font-size: 2.2rem;
+    max-width: 300px;
+  }
+
+  .branding-links {
+    .fa {
+      color: $color-seccondary-text;
+      font-size: 1.5rem;
+    }
+  }
+
+  .app-logo {
+    height: auto;
+    min-width: 250px;
+    max-width: 300px;
+  }
+
+  .org-logo {
+    min-width: 100px;
+    max-width: 300px;
+    min-height: 50px;
+    max-height: 150px;
+  }
+
+  #org-sign-in-logo {
+    margin: 0 auto;
+  }
+}
+
+/* APP MENU (Dashboard, Create Plan, Admin Features) */
+/* ----------------------------------------------------------------------- */
+.app-menu {
+  margin-top: 25px;
+  .navbar {
+    margin-bottom: -20px;
+
+    .navbar-nav > li > a {
+      padding: 0 25px 0 0;
+    }
+  }
+
+  a, a:visited, a:focus, a:active, a:hover {
+    font-size: 2rem;
+    color: $color-seccondary-text;
+
+    .fa-sort-desc {
+      color: $color-seccondary-text;
+      font-size: 1.5rem;
+    }
+  }
+
+  .nav > li > a:hover,
+  .nav > li > a:focus,
+  .dropdown-menu > li > a:hover,
+  .dropdown-menu > li > a:focus {
+    background-color: inherit;
+    color: $color-seccondary-text;
+    text-decoration: underline;
+  }
+}

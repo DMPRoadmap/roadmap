@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class OrgsController < ApplicationController
+  after_action :verify_authorized, except: ['shibboleth_ds', 'shibboleth_ds_passthru']
 
-  after_action :verify_authorized, except: ["shibboleth_ds", "shibboleth_ds_passthru"]
+  include Dmptool::Controller::Orgs
+
   respond_to :html
 
   ##
@@ -84,13 +86,11 @@ class OrgsController < ApplicationController
   # POST /orgs/shibboleth_ds
   # ----------------------------------------------------------------
   def shibboleth_ds_passthru
-    if !params["shib-ds"][:org_name].blank?
-      session["org_id"] = params["shib-ds"][:org_name]
-
-      scheme = IdentifierScheme.find_by(name: "shibboleth")
-      shib_entity = OrgIdentifier.where(org_id: params["shib-ds"][:org_id],
+    if !params['shib-ds'][:org_name].blank?
+      session['org_id'] = params['shib-ds'][:org_name]
+      scheme = IdentifierScheme.find_by(name: 'shibboleth')
+      shib_entity = OrgIdentifier.where(org_id: params['shib-ds'][:org_id],
                                         identifier_scheme: scheme)
-
       if !shib_entity.empty?
         # Force SSL
         shib_login = Rails.application.config.shibboleth_login
@@ -108,6 +108,14 @@ class OrgsController < ApplicationController
       redirect_to shibboleth_ds_path, notice: _("Please choose an organisation")
     end
   end
+
+  # START DMPTool customization
+  # JSON endpoint
+  # GET /orgs/:id/logo (format: :json)
+  # ----------------------------------------------------------------
+
+# END DMPTool customization
+# ---------------------------------------------------------
 
   private
   def org_params

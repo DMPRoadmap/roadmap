@@ -8,7 +8,15 @@
 /log/*.log
 /tmp
 
+# Ignore webpack generate images in public folder
+public/*.jpg
+public/*.png
+
+# Ignore .bak files
+*.bak
+
 # Ignore public subdirectories
+public/*
 public/apidocs/*
 public/assets/*
 public/fonts/*
@@ -23,9 +31,9 @@ public/videos/*
 *.pot.bak
 
 # Ignore branded content
-app/views/branded/*
+#app/views/branded/*
+app/assets/images/homepage
 config/locales/static_pages/*.yml
-
 
 # Ignore db schema.rb
 # db/schema.rb
@@ -92,6 +100,7 @@ yarn-debug.log*
 
 .yarn-integrity
 .env
+
 package-lock.json
 node_modules
 /public/packs

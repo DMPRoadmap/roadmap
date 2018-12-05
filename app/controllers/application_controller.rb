@@ -62,9 +62,17 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     referer_path = URI(request.referer).path unless request.referer.nil? or nil
+    # ---------------------------------------------------------
+    # Start DMPTool Customization
+    # Added `users_ldap_username_path` and `get_started_path` to if statement below
+    # ---------------------------------------------------------
     if from_external_domain? || referer_path.eql?(new_user_session_path) ||
          referer_path.eql?(new_user_registration_path) ||
+         referer_path.eql?(users_ldap_username_path) ||
+         referer_path.eql?(get_started_path) ||
          referer_path.nil?
+      # End DMPTool Customization
+      # ---------------------------------------------------------
       root_path
     else
       request.referer

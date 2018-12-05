@@ -10,3 +10,10 @@
 
 @import "font-awesome-sprockets";
 @import "font-awesome";
+
+/* START DMPTool customization */
+/* ---------------------------------------- */
+@import "dmptool/blocks/*";
+@import "dmptool/utils/*";
+/* ---------------------------------------- */
+/* END DMPTool customization */

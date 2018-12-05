@@ -1,0 +1,18 @@
+<% required = required ||= false %>
+<% org_admin = current_user.present? && (current_user.can_org_admin? && !current_user.can_super_admin?) %>
+<% object_name = (f.options[:namespace].present? ? "#{f.options[:namespace]}_#{f.object_name}" : f.object_name) %>
+<% tooltip = _('Select an organisation from the list or leave blank if your organisation is not listed.') %>
+<% tooltip += _(' Warning: Changing your organisation will result in the loss of your administrative privileges.') if org_admin %>
+
+<%= f.label :org_name, _('Organisation'), class: 'control-label' %>
+<%= render partial: 'shared/popover',
+           locals: { message: tooltip, placement: 'right' }%>
+
+<%= render partial: "shared/accessible_combobox",
+             locals: {name: "#{object_name}[org_name]",
+                      id: "#{object_name}_org_name",
+                      default_selection: default_org,
+                      models: orgs,
+                      attribute: 'name',
+                      error: _('Please select an organisation from the list, or click the "My organisation isn\'t listed" link and enter your organisation\'s name.'),
+                      required: required} %>

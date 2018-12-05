@@ -69,27 +69,34 @@ namespace :translatable do
 
   desc 'Find all translatable text and update all pot/po files'
   task :find, [:domain] => [:environment] do |t, args|
-    if args[:domain].blank?
-      args[:domain] = 'app' # default domain is app
-    end
-    pot_filename = "config/locale/#{args[:domain]}.pot"
+    domain = args.fetch(:domain, 'app')
+    pot_filename = "config/locale/#{domain}.pot"
     translatables = []
 
-    puts "Scanning files for translatable text"
-    files_to_translate(args[:domain]).each do |file|
+    puts "Scanning files for translatable text for domain: #{domain}"
+    files_to_translate(domain).each do |file|
       # Ignore node_modules files
       unless file.include?('node_modules')
         puts "    scanning #{file}"
         translatables << scan_for_translations(File.read(file))
       end
     end
+
+    # If we are processing a specific domain then remove any duplicated strings
+    # that are already covered in app.pot
+    unless domain == 'app'
+      puts "Removing strings that already appear in app.pot"
+      app_header, app_hash = po_to_hash(File.read('config/locale/app.pot'))
+      translatables = translatables.select{ |k, v| !app_hash.keys.include?(k) }
+    end
+
     translatables = translatables.flatten.uniq.sort{ |a,b,| a <=> b }
 
     unless translatables.empty?
       process_po_file(pot_filename, translatables)
 
       puts "Searching for localization files"
-      localization_files(args[:domain]).each do |domain_po|
+      localization_files(domain).each do |domain_po|
         process_po_file(domain_po, translatables)
       end
     else
@@ -103,11 +110,16 @@ namespace :translatable do
   CONTEXTUALIZED_TRANSLATABLE = /(n_\([\'\"](.*?)[\'\"]\,\s*[\'\"](.*?)[\'\"])/
   UNESCAPED_QUOTE = /(?<!\\)\"/
   FUZZY = /#, fuzzy/
+  NEWLINE_FOR_PO = "\"\n\""
 
   # Open the PO/POT file and update its translatation entries
   def process_po_file(file_name, translatable_text)
     puts "Backing up original #{file_name} --> #{file_name}.bak"
-    cp(file_name, "#{file_name}.bak")
+    if File.exists?(file_name)
+      cp(file_name, "#{file_name}.bak")
+    else
+      touch(file_name)
+    end
 
     puts "Reading #{file_name} ..."
     file = File.read(file_name)
@@ -140,6 +152,8 @@ namespace :translatable do
           end
         end
       end
+    else
+      chunks = ['']
     end
     # Return the header portion of the original file and the resulting msgid/msgstr hash
     return chunks[0], hash
@@ -151,15 +165,19 @@ namespace :translatable do
     hash.keys.sort{ |a,b| a <=> b }.each do |key|
       if key != ''
         if hash[key][:obsolete]
-          lines += "\n#msgid \"#{key.gsub(UNESCAPED_QUOTE, '\"')}\"\n#msgstr \"#{hash[key][:text].gsub(UNESCAPED_QUOTE, '\"')}\"\n"
+          lines += "\n#msgid \"#{sanitize_po_string(key)}\"\n#msgstr \"#{sanitize_po_string(hash[key][:text])}\"\n"
         elsif hash[key][:fuzzy]
-          lines += "\n#, fuzzy\nmsgid \"#{key.gsub(UNESCAPED_QUOTE, '\"')}\"\nmsgstr \"#{hash[key][:text].gsub(UNESCAPED_QUOTE, '\"')}\"\n"
+          lines += "\n#, fuzzy\nmsgid \"#{sanitize_po_string(key)}\"\nmsgstr \"#{sanitize_po_string(hash[key][:text])}\"\n"
         else
-          lines += "\nmsgid \"#{key.gsub(UNESCAPED_QUOTE, '\"')}\"\nmsgstr \"#{hash[key][:text].gsub(UNESCAPED_QUOTE, '\"')}\"\n"
+          lines += "\nmsgid \"#{sanitize_po_string(key)}\"\nmsgstr \"#{sanitize_po_string(hash[key][:text])}\"\n"
         end
       end
     end
     lines
+  end
+
+  def sanitize_po_string(val)
+    val.gsub(UNESCAPED_QUOTE, '\"').gsub("\n", NEWLINE_FOR_PO)
   end
 
   # Scan the file contents for translatable text
@@ -204,7 +222,7 @@ namespace :translatable do
   # TODO: exclude app/views/branded
   def files_to_translate(domain)
     if domain == 'app'
-      Dir.glob("{app,lib,config,locale}/**/*.{rb,erb,md,haml,slim,rhtml}")
+      Dir.glob("{app,lib,config,locale}/**/*.{rb,erb,md,haml,slim,rhtml}").select{ |d| !d.include?('/views/branded') }
     else
       Dir.glob("{app/views/branded}/**/*.{rb,erb,md,haml,slim,rhtml}")
     end

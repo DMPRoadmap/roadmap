@@ -253,11 +253,7 @@ Devise.setup do |config|
   # well as an identifier_schemes.schemes section in each locale file!
   OmniAuth.config.full_host = 'https://my_service.hostname'
 
-  config.omniauth :orcid,
-  'client_id', 'client_secret',
-  {
-    #member: false,
-  }
+  config.omniauth :orcid, 'APP-V5JOB35422H02XFE', '2a5e536e-6a55-4080-9ea5-1e6d7dfb7f6b', {"scope": "/authenticate"}
 
   config.omniauth :shibboleth,
   {

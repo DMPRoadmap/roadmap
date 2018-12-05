@@ -1,0 +1,58 @@
+<% shibbolized = current_user.identifier_for(IdentifierScheme.find_by(name: 'shibboleth')).present? %>
+<% @default_org = @orgs.include?(current_user.org) && !current_user.org.is_other? ? current_user.org : nil %>
+
+<% title _('Edit profile') %>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('Edit profile') %></h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="personal-details" class="active">
+          <a href="#personal-details" role="tab" aria-controls="personal-details" data-toggle="tab"><%= _('Personal Details') %></a>
+        </li>
+
+        <% unless shibbolized %>
+          <li role="password-details">
+            <a href="#password-details" role="tab" aria-controls="password-details" data-toggle="tab"><%= _('Password') %></a>
+          </li>
+        <% end %>
+
+        <li role="notification-preferences">
+          <a href="#notification-preferences" role="tab" aria-controls="notification-preferences" data-toggle="tab"><%= _('Notification Preferences') %></a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div id="personal-details" role="tabpanel" class="tab-pane active">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <%= render partial: 'devise/registrations/personal_details', locals: { shibbolized: shibbolized } %>
+            </div>
+          </div>
+        </div>
+
+        <% unless shibbolized %>
+          <div id="password-details" role="tabpanel" class="tab-pane">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <%= render partial: 'devise/registrations/password_details' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <div id="notification-preferences" role="tabpanel" class="tab-pane">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <%= render partial: 'users/notification_preferences' %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>

@@ -118,9 +118,9 @@
       </div>
 
       <%= f.button(_('Submit'), class: "btn btn-primary", type: "submit") %>
+
     </div>
     <div class="clearfix"></div>
-  <% end %>
   </fieldset>
 
   <div class="col-xs-12">
@@ -133,10 +133,10 @@
       <p><%= _('You can continue to edit and download the plan in the interim.') %></p>
 
   <div class="form-group col-xs-8">
-    <%= link_to _('Request feedback'),
+    <%= link_to(_('Request feedback'),
                 feedback_requests_path(plan_id: @plan.id),
                 data: { method: 'post' },
-                class: "btn btn-default#{' disabled' if @plan.feedback_requested?}" %>
+                class: "btn btn-default#{@plan.feedback_requested? ? ' disabled' : ''}") %>
     <span><%= _("Feedback has been requested.") if @plan.feedback_requested? %></span>
   </div>
 <% end %>

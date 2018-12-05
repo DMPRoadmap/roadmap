@@ -34,6 +34,9 @@ class Org < ActiveRecord::Base
   include FeedbacksHelper
   include GlobalHelpers
   include FlagShihTzu
+
+  include Dmptool::Model::Org
+
   extend Dragonfly::Model::Validations
   validates_with OrgLinksValidator
 
@@ -103,9 +106,21 @@ class Org < ActiveRecord::Base
   validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
 
   # allow validations for logo upload
-  dragonfly_accessor :logo do
-    after_assign :resize_image
-  end
+
+  # ---------------------------------------
+  # Start DMPTool Customization
+  # ---------------------------------------
+  # Commenting out the logo resizer. We adjust the logo size via CSS
+  #dragonfly_accessor :logo do
+  #  after_assign :resize_image
+  #end
+  dragonfly_accessor :logo
+  # ---------------------------------------
+  # End DMPTool Customization
+  # ---------------------------------------
+
+  validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif', 'jpg', 'bmp'], message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp")
+  validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
 
   ##
   # Define Bit Field values

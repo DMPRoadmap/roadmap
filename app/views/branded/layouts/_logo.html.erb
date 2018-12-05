@@ -1,0 +1,13 @@
+<% if user_signed_in? && current_user.org.present? && current_user.org.logo.present? %>
+  <%= link_to(image_tag(current_user.org.logo.thumb('100x100%').url,
+                                  alt: "#{current_user.org.name} logo",
+                                  class: "org-logo",
+                                  title: current_user.org.name),
+                        root_path) %>
+<% elsif !user_signed_in? || (user_signed_in? && current_user.org.is_other?) %>
+  <%= link_to(image_tag("DMPTool_logo_blue_shades_v1b3b.svg",
+                        alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
+                        class: "app-logo",
+                        title: Rails.configuration.branding[:application][:name]),
+              root_path) %>
+<% end %>

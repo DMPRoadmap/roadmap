@@ -36,7 +36,11 @@
 
           <div class="panel-heading" role="tab" id="heading-<%= section.id %>">
             <div class="panel-title pull-left">
+
+              <i class="fa fa-plus" aria-hidden="true"></i>
+
               <%= section.title %>
+
               <% if plan.present? %>
                   <span class="section-progress-<%= section.id %>">
                     <%= render partial: "/org_admin/sections/progress",
@@ -44,7 +48,7 @@
                   </span>
               <% end %>
             </div>
-            <i class="fa fa-plus pull-right" aria-hidden="true"></i>
+
             <div class="clearfix"></div>
           </div>
         </div>

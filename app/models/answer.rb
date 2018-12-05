@@ -9,6 +9,7 @@
 #  text         :text
 #  created_at   :datetime
 #  updated_at   :datetime
+#  label_id     :string
 #  plan_id      :integer
 #  question_id  :integer
 #  user_id      :integer
@@ -28,7 +29,6 @@
 class Answer < ActiveRecord::Base
 
   include ValidationMessages
-
 
   # ================
   # = Associations =

@@ -110,7 +110,12 @@ module DMPRoadmap
     # will be driven out to your federation's discovery service
     #
     # A super admin will also be able to associate orgs with their shibboleth entityIds if this is set to true
-    config.shibboleth_use_filtered_discovery_service = false
+
+  # START DMPTool customization
+  # ----------------------------------------
+    config.shibboleth_use_filtered_discovery_service = true
+  # ----------------------------------------
+  # END DMPTool customization
 
     # Active Record will no longer suppress errors raised in after_rollback or after_commit
     # in the next version. Devise appears to be using those callbacks.
@@ -131,5 +136,15 @@ module DMPRoadmap
 
     # The percentage of answered questions needed to enable the plan visibility section of the Share plan page
     config.default_plan_percentage_answered = 50
+
+  # START DMPTool customization
+  # ----------------------------------------
+    config.autoload_paths += Dir[Rails.root.join('lib', 'dmptool', 'model', '{**}')]
+    config.autoload_paths += Dir[Rails.root.join('lib', 'dmptool', 'controller', '{**}')]
+
+    config.rss = 'https://blog.dmptool.org/feed'
+  # ----------------------------------------
+  # END DMPTool customization
+
   end
 end

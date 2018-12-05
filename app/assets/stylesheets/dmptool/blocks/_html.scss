@@ -1,0 +1,269 @@
+
+/* LAYOUT */
+/* ----------------------------------------------------------------------- */
+body {
+  position: relative;
+  width: 100%;
+
+  font-family: Arial;
+  padding-bottom: 50px;
+
+  .dmptool {
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+
+    /* Hide the mobile menus by default */
+    header > .fixed-menu-mobile, footer > .footer-mobile {
+      display: none;
+    }
+
+    header, main, footer, .notifications {
+      flex: 1 100%;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header > div, main > div, footer > div,
+    .notifications > div, .fixed-menu > nav {
+      padding: 5px;
+      width: 97%;
+      margin: 0 auto;
+      max-width: $max-width-breakpoint;
+    }
+
+    /* offset header to accomodate height of fixed menu */
+    header {
+      margin-top: 30px;
+
+      hr {
+        background-color: $color-primary-background;
+        color: $color-seccondary-text;
+        height: 1.2px;
+        margin-top: 8px;
+      }
+
+      .fixed-menu {
+        ul[aria-labelledby="learn-menu-button"] {
+          min-width: 480px;
+        }
+
+        ul[aria-labelledby="signin-menu-button"] {
+          width: 500px;
+          padding: 10px 15px;
+          text-align: center;
+
+          h3 {
+            margin-top: 25px;
+            font-size: 1.6rem;
+          }
+          a {
+            margin-left: auto;
+            margin-right: auto;
+          }
+          a.btn {
+            width: 80%;
+          }
+        }
+
+        ul[aria-labelledby="language-menu-button"] {
+          li.active > a, li.active > a:hover, li.active > a:focus, li.active > a:visited, li.active > a:active {
+            color: $color-primary-text !important;
+          }
+        }
+
+        .learn-menu {
+          div.menu-col {
+            padding: 5px 15px;
+
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
+
+            div {
+              flex: 1 0 auto;
+
+              div {
+                padding-left: 20px;
+              }
+              div:last-child {
+                padding-bottom: 5px;
+              }
+            }
+          }
+        }
+      }
+
+      .branding {
+        justify-content: space-between;
+        align-items: baseline;
+
+        .branding-links > ul {
+          list-style: none;
+        }
+      }
+
+      .app-menu {
+        font-size: 2rem;
+        border-bottom: 1.5px solid $color-seccondary-text;
+      }
+    }
+  }
+
+  .branding, .app-menu, .footer-top, .footer-bottom, .learn-menu, app.menu {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  footer {
+    padding-top: 10px;
+    position: relative;
+
+    .nav > li > a:hover, .nav > li > a:focus {
+      background-color: inherit;
+      text-decoration: underline;
+    }
+
+    .footer {
+      padding-top: 5px;
+      border-top: 2px solid $color-seccondary-text;
+    }
+
+    .footer-top, .footer-bottom {
+      display: flex;
+      flex: row wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .footer-menu > .navbar > .container-fluid {
+      padding-left: 0;
+    }
+
+    .footer-social > .navbar > .container-fluid {
+      padding-right: 0;
+
+      ul > li {
+        padding-top: 0;
+
+        a {
+          padding-top: 0;
+          padding-left: 0;
+        }
+      }
+
+      .fa {
+        font-size: 24px !important;
+      }
+    }
+    .footer-menu .container-fluid .navbar-nav > li > a {
+      padding: 0 15px 0 0;
+    }
+
+    .footer-bottom {
+      width: 100%;
+
+      .footer-copyright {
+        p, a, a:hover, a:focus, a:visited, a:active, a:active:hover {
+          font-size: 1.1rem;
+        }
+      }
+
+      .footer-logo {
+        float: right;
+
+        img {
+          width: 150px;
+        }
+      }
+    }
+  }
+  footer.blue .footer {
+    background-color: $color-light-blue;
+    border-top: none;
+    border-radius: 5px;
+    padding-left: 5px;
+  }
+}
+
+
+/* FIXED MENU (Learn, Sign in/out, Language) */
+/* ----------------------------------------------------------------------- */
+.navbar-fixed-top {
+  min-height: 30px;
+  padding: 5px 0 5px 5px;
+  background-color: $color-seccondary-background;
+  box-shadow: 0 2px $color-light-grey;
+
+  .navbar-right {
+    margin-right: 0;
+  }
+
+  .navbar-nav > li > a {
+    padding: 0 0 0 25px;
+  }
+
+  .learn-menu ul > li > ul {
+    padding-left: 20px;
+  }
+}
+
+/* BRANDING (DMPTool Logo, Org Logo, Org Name, Org Links) */
+/* ----------------------------------------------------------------------- */
+.branding {
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: space-between;
+
+  .branding-name {
+    font-size: 2.2rem;
+    max-width: 300px;
+  }
+
+  .branding-links {
+    .fa {
+      color: $color-primary-text;
+      font-size: 1.5rem;
+    }
+  }
+
+  .app-logo {
+    height: auto;
+    min-width: 250px;
+    max-width: 300px;
+  }
+
+  .org-logo {
+    min-width: 100px;
+    max-width: 300px;
+    min-height: 50px;
+    max-height: 150px;
+  }
+
+  #org-sign-in-logo {
+    margin: 0 auto;
+  }
+}
+
+/* APP MENU (Dashboard, Create Plan, Admin Features) */
+/* ----------------------------------------------------------------------- */
+.app-menu {
+  margin-top: 25px;
+  .navbar {
+    margin-bottom: -20px;
+
+    .navbar-nav > li > a {
+      padding: 0 25px 0 0;
+    }
+  }
+
+  a, a:visited, a:focus, a:active, a:hover {
+    font-size: 2rem;
+  /*  color: $dark-blue;*/
+
+    .fa-sort-desc {
+      /*color: $dark-blue;*/
+      font-size: 1.5rem;
+    }
+  }
+}
