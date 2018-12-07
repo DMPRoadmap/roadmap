@@ -172,7 +172,7 @@ msgid "Use Default Template"
 msgstr "Utiliser le modèle par défaut"
 
 msgid "Would you like to use the default template \"%{template_name}\" provided by %{org_name}?"
-msgstr "Souhaitez-vous utiliser le modèle par défaut \"%{template_name}\" fournit par %{org_name} ?"
+msgstr "Souhaitez-vous utiliser le modèle par défaut \"%{template_name}\" fourni par %{org_name} ?"
 
 msgid "Would you like to choose the template of another organisation?"
 msgstr "Souhaitez-vous choisir le modèle d'un autre organisme ?"
