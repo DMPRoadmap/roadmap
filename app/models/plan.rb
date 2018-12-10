@@ -504,10 +504,6 @@ class Plan < ActiveRecord::Base
   # Returns Boolean
   def visibility_allowed?
     !is_test? && phases.select{ |phase| phase.visibility_allowed?(self) }.any?
-    #value = (num_answered_questions.to_f / num_questions * 100).round(2)
-    #!is_test? && value >= Rails.application
-    #                           .config
-    #                           .default_plan_percentage_answered
   end
 
   # Determines whether or not a question (given its id) exists for the self plan
