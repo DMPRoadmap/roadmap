@@ -3,6 +3,7 @@ require 'rails_helper'
 describe Plan do
 
   include RolesHelper
+  include TemplateHelper
 
   context "validations" do
     it { is_expected.to validate_presence_of(:title) }
@@ -221,7 +222,10 @@ describe Plan do
                       user: new_user, plan: plan)
       end
 
-      let!(:plan) { create(:plan, :creator, :publicly_visible) }
+      let!(:template) { build_template(1, 1, 1) }
+      let!(:plan) { create(:plan, :creator, :organisationally_visible, template: template) }
+      let!(:answer) { create(:answer, plan: plan,
+                             question: template.phases.first.sections.first.questions.first) }
 
       it "includes publicly_visible plans" do
         is_expected.to include(plan)
@@ -237,10 +241,29 @@ describe Plan do
                       user: new_user, plan: plan)
       end
 
-      let!(:plan) { create(:plan, :creator, :organisationally_visible) }
+      let!(:template) { build_template(1, 1, 1) }
+      let!(:plan) { create(:plan, :creator, :organisationally_visible, template: template) }
+      let!(:answer) { create(:answer, plan: plan,
+                             question: template.phases.first.sections.first.questions.first) }
 
       it "includes organisationally_visible plans" do
         is_expected.to include(plan)
+      end
+
+    end
+
+    context "when plan is not complete" do
+
+      before do
+        new_user = create(:user, org: user.org)
+        create(:role, :creator, :administrator, :editor, :commenter,
+                      user: new_user, plan: plan)
+      end
+
+      let!(:plan) { create(:plan, :creator, :organisationally_visible) }
+
+      it "includes organisationally_visible plans" do
+        is_expected.not_to include(plan)
       end
 
     end
