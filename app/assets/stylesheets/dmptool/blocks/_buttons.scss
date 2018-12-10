@@ -1,4 +1,16 @@
+.btn {
+  border-radius: 5px;
+  padding: 3px 12px 4px 12px;
+}
+
 /* Override the grey color of the magnifying glass on table search boxes */
 .input-group-addon .fa:not(.small) {
   color: $color-primary-text;
+}
+
+/* Restrict the width of the buttons on the Get Started page */
+#get-started-page .btn {
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
 }

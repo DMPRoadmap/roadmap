@@ -8,12 +8,12 @@
         <!-- <th class="sorter-false text-center"><%#= _('Download') %></th> -->
         <!-- <th><%#= _('Organisation Name') %>&nbsp;<%#= paginable_sort_link('orgs.name') %></th> -->
         <th scope="col"><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
-        <th scope="col" class="sorter-false text-center"><%= _('Download') %></th>
+        <th scope="col" class="sorter-false text-center download-column"><%= _('Download') %></th>
         <th scope="col"><%= _('Funder') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
       <!-- ========================================= -->
       <!-- END DMPTool customization -->
 
-        <th scope="col" class="last-edited"><%= _('Last Updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
+        <th scope="col" class="date-column"><%= _('Last Updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
         <th scope="col" class="sorter-false"><%= _('Funder Links') %></th>
         <th scope="col" class="sorter-false" data-toggle="tooltip" title="<%= _('Sample plans are provided by a funder, an organisation or a trusted party.') %>"><%= _('Sample Plans') %><br><small><%= _('(if available)') %></small></th>
       </tr>
