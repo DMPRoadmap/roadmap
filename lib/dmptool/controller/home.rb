@@ -78,7 +78,7 @@ module Dmptool
       # Store information in the cache
       def cache_content(type, data)
         begin
-          Rails.cache.write(type, data, expires_in => 60.minutes)
+          Rails.cache.write(type, data, expires_in: 60.minutes)
         rescue Exception => e
           logger.error("Unable to add #{type} to the Rails cache: #{e}.")
         end

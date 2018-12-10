@@ -48,7 +48,7 @@
 }
 
 /* Changes color of 'Saving ...' and answer status */
-.status, .label-info {
+.status, .label-info, .bg-info {
   background-color: $color-light-blue;
   color: $color-dark-blue;
 }

@@ -5,12 +5,12 @@
 
     <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %>
     </title>
+    <%= favicon_link_tag 'apple-touch-icon.png', rel: 'apple-touch-icon', type: 'image/png' %>
+    <%= favicon_link_tag 'favicon-32x32.png', rel: 'icon', sizes: "32x32", type: 'image/png' %>
+    <%= favicon_link_tag 'favicon-16x16.png', rel: 'icon', sizes: "16x16", type: 'image/png' %>
+    <%= favicon_link_tag 'safari-pinned-tab.svg', rel: 'mask-icon', color: "#0E5682" %>
+    <%= favicon_link_tag 'site.webmanifest', rel: 'manifest' %>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-    <link rel="manifest" href="/images/site.webmanifest">
-    <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#0e5682">
     <meta name="msapplication-TileColor" content="#0e5682">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#ffffff">

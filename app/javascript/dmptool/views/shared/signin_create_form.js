@@ -103,7 +103,8 @@ $(() => {
     // Render the html in the org-sign-in modal
     if (isObject(data) && isObject(data.org) && isString(data.org.html)) {
       $('#org-sign-in-logo').html(data.org.html);
-      $('#user_org_id').val(data.org.id);
+      $('#signin_user_org_id').val(data.org.id);
+      $('#new_user_org_id').val(data.org.id);
       toggleSignInCreateAccount(true);
       $('#sign-in-create-account').modal('show');
     }
