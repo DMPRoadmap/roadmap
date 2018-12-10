@@ -150,7 +150,7 @@ class Plan < ActiveRecord::Base
 
   # Retrieves any plan organisationally or publicly visible for a given org id
   scope :organisationally_or_publicly_visible, -> (user) {
-    plan_ids = user.org.plans.pluck(:id)
+    plan_ids = user.org.plans.select{ |p| p.visibility_allowed? }.map{ |p| p.id }
 
     includes(:template, roles: :user)
     .where(id: plan_ids, visibility: [
@@ -503,10 +503,7 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def visibility_allowed?
-    value = (num_answered_questions.to_f / num_questions * 100).round(2)
-    !is_test? && value >= Rails.application
-                               .config
-                               .default_plan_percentage_answered
+    !is_test? && phases.select{ |phase| phase.visibility_allowed?(self) }.any?
   end
 
   # Determines whether or not a question (given its id) exists for the self plan
