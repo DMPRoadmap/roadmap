@@ -309,7 +309,7 @@ class PlansController < ApplicationController
     @plan = Plan.deep_copy(plan)
     respond_to do |format|
       if @plan.save
-        @plan.assign_creator(current_user)
+        @plan.add_user!(current_user.id, :creator)
         format.html { redirect_to @plan, notice: success_message(@plan, _("copied")) }
       else
         format.html { redirect_to plans_path, alert: failure_message(@plan, _("copy")) }
