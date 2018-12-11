@@ -83,7 +83,6 @@
 /* APP MENU (Dashboard, Create Plan, Admin Features) */
 /* ----------------------------------------------------------------------- */
 .app-menu {
-  margin-top: 25px;
   .navbar {
     margin-bottom: -20px;
 
@@ -102,6 +101,14 @@
     }
   }
 
+  .dropdown-menu > li > a,
+  .dropdown-menu > li > a:focus,
+  .dropdown-menu > li > a:hover,
+  .dropdown-menu > li > a:active,
+  .dropdown-menu > li > a:visited {
+    font-size: 1.8rem;
+  }
+
   .nav > li > a:hover,
   .nav > li > a:focus,
   .dropdown-menu > li > a:hover,
@@ -110,4 +117,7 @@
     color: $color-seccondary-text;
     text-decoration: underline;
   }
+}
+body .dmptool header > div.app-menu {
+  margin-top: 25px;
 }
