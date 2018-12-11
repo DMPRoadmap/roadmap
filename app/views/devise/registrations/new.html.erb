@@ -39,10 +39,12 @@
           <p class="text-center">
             <%= _("This will create an account and link it to your credentials.") %>
           </p>
-          <p>
-            <%= render partial: 'shared/create_account_form', locals: {extended: false} %>
-            <br>
-          </p>
+          <div id="create-account-form">
+            <p >
+              <%= render partial: 'shared/create_account_form' %>
+              <br>
+            </p>
+          </div>
         </div>
     <% else %>
       <div>
@@ -50,7 +52,9 @@
           <%= _("Create account") %>&nbsp;&nbsp;
           <i class="fa fa-user-plus" aria-hidden="true">&nbsp;&nbsp;</i>
         </h2>
-        <%= render partial: 'shared/create_account_form', locals: { extended: true } %>
+        <div id="create-account-form">
+          <%= render partial: 'shared/create_account_form' %>
+        </div>
       </div>
     <% end %>
   </div>
