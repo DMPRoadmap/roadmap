@@ -11,8 +11,12 @@ class PlansController < ApplicationController
   def index
     authorize Plan
     @plans = Plan.active(current_user).page(1)
-    @organisationally_or_publicly_visible =
-      Plan.organisationally_or_publicly_visible(current_user).page(1)
+    if current_user.org.is_other?
+      @organisationally_or_publicly_visible = []
+    else
+      @organisationally_or_publicly_visible =
+        Plan.organisationally_or_publicly_visible(current_user).page(1)
+    end
   end
 
   # GET /plans/new
@@ -305,7 +309,7 @@ class PlansController < ApplicationController
     @plan = Plan.deep_copy(plan)
     respond_to do |format|
       if @plan.save
-        @plan.assign_creator(current_user)
+        @plan.add_user!(current_user.id, :creator)
         format.html { redirect_to @plan, notice: success_message(@plan, _("copied")) }
       else
         format.html { redirect_to plans_path, alert: failure_message(@plan, _("copy")) }

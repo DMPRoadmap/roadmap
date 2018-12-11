@@ -150,7 +150,7 @@ class Plan < ActiveRecord::Base
 
   # Retrieves any plan organisationally or publicly visible for a given org id
   scope :organisationally_or_publicly_visible, -> (user) {
-    plan_ids = user.org.plans.select{ |p| p.visibility_allowed? }.map{ |p| p.id }
+    plan_ids = user.org.plans.where(complete: true).pluck(:id)
 
     includes(:template, roles: :user)
     .where(id: plan_ids, visibility: [
@@ -281,7 +281,9 @@ class Plan < ActiveRecord::Base
         # Share the plan with each org admin as the reviewer role
         admins = user.org.org_admins
         admins.each do |admin|
-          add_user!(admin.id, :reviewer)
+          unless admin == user
+            add_user!(admin.id, :reviewer)
+          end
         end
         if save!
           # Send an email to the org-admin contact
