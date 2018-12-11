@@ -24,9 +24,6 @@ class SessionsController < Devise::SessionsController
           success = _("Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them.")
           # rubocop:enable LineLength
         end
-        existing_user.update_attributes(
-          shibboleth_id: session["devise.shibboleth_data"][:uid]
-        )
 
       #----------------------------------------------
       # Start DMPTool customization
@@ -40,6 +37,7 @@ class SessionsController < Devise::SessionsController
       #----------------------------------------------
       # End DMPTool customization
       #----------------------------------------------
+
       end
       unless existing_user.get_locale.nil?
         session[:locale] = existing_user.get_locale
