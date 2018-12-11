@@ -4,6 +4,7 @@ import 'jquery-accessible-autocomplete-list-aria/jquery-accessible-autocomplete-
 
 // Generic JS that is applicable across multiple pages
 import '../utils/array';
+import '../utils/externalLink';
 import '../utils/paginable';
 import '../utils/panelHeading';
 import '../utils/links';
