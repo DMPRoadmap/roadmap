@@ -281,7 +281,9 @@ class Plan < ActiveRecord::Base
         # Share the plan with each org admin as the reviewer role
         admins = user.org.org_admins
         admins.each do |admin|
-          add_user!(admin.id, :reviewer)
+          unless admin == user
+            add_user!(admin.id, :reviewer)
+          end
         end
         if save!
           # Send an email to the org-admin contact
