@@ -150,7 +150,7 @@ class Plan < ActiveRecord::Base
 
   # Retrieves any plan organisationally or publicly visible for a given org id
   scope :organisationally_or_publicly_visible, -> (user) {
-    plan_ids = user.org.plans.select{ |p| p.visibility_allowed? }.map{ |p| p.id }
+    plan_ids = user.org.plans.where(complete: true).pluck(:id)
 
     includes(:template, roles: :user)
     .where(id: plan_ids, visibility: [
