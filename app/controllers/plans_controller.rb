@@ -11,8 +11,12 @@ class PlansController < ApplicationController
   def index
     authorize Plan
     @plans = Plan.active(current_user).page(1)
-    @organisationally_or_publicly_visible =
-      Plan.organisationally_or_publicly_visible(current_user).page(1)
+    if current_user.org.is_other?
+      @organisationally_or_publicly_visible = []
+    else
+      @organisationally_or_publicly_visible =
+        Plan.organisationally_or_publicly_visible(current_user).page(1)
+    end
   end
 
   # GET /plans/new
