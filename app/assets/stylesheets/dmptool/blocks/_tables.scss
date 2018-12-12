@@ -3,7 +3,7 @@ thead th {
   background-color: $color-primary-background;
   color: $color-primary-text;
 
-  .fa {
+  .fa, .fa:not(.small) {
     color: $color-primary-text;
   }
 }
