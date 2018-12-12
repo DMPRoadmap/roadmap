@@ -52,7 +52,9 @@ namespace :logos do
           if File.ftype(path.join(entry)) == "directory"
             entries = entries.merge(find_logos(path.join(entry)))
           else
-            entries["#{entry}"] = path.join(entry).to_s
+            if [".png", ".jpg", ".jpeg", ".tif", ".tiff", ".bmp"].include?(File.extname(entry))
+              entries["#{entry.split("_").last}"] = path.join(entry).to_s
+            end
           end
         end
       end
