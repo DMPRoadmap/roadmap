@@ -21,26 +21,17 @@ else
   end
 end
 
-#["app", "dmptool"].each do |domain|
-#  FastGettext.add_text_domain(domain,
-#    path: "config/locale",
-#    type: :po,
-#    ignore_fuzzy: true,
-#    report_warning: false,
-#  )
-#end
-
-repos = [
-  FastGettext::TranslationRepository.build("app", path: "config/locale"),
-  FastGettext::TranslationRepository.build("dmptool", path: "config/locale")
-]
-FastGettext.add_text_domain "combined", type: :chain, chain: repos
-FastGettext.default_text_domain = "combined"
+FastGettext.add_text_domain("app",
+  path: "config/locale",
+  type: :po,
+  ignore_fuzzy: true,
+  report_warning: false,
+)
 
 I18n.available_locales += available_locales.for(:i18n).to_a
 FastGettext.default_available_locales = available_locales.for(:fast_gettext).to_a
 
-#FastGettext.default_text_domain       = "app"
+FastGettext.default_text_domain       = "app"
 
 I18n.default_locale        = LocaleFormatter.new(default_locale,
                                                  format: :i18n).to_s
