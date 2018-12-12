@@ -31,15 +31,15 @@ public/videos/*
 *.pot.bak
 
 # Ignore branded content
-#app/views/branded/*
 app/assets/images/homepage
 config/locales/static_pages/*.yml
 
+# Ignore initializers that contain sensitive info
 config/initializers/contact_us.rb
 config/initializers/devise.rb
-
-# Ignore db schema.rb
-# db/schema.rb
+config/initializers/recaptcha.rb
+config/initializers/wicked_pdf.rb
+config/initializers/fingerprint.rb
 
 # Ignore seed DBs
 db/data.yml
@@ -57,23 +57,10 @@ db/test.sqlite3-journal
 # Ignore the SimpleCov output
 coverage
 
-# Ignore database configuration and token secrets
+# Ignore yaml files that contain sensitive info
 config/database.yml
 config/secrets.yml
 config/branding.yml
-
-# Ignore some of the initializers
-config/initializers/recaptcha.rb
-# config/initializers/devise.rb
-config/initializers/wicked_pdf.rb
-config/initializers/fingerprint.rb
-
-# Ignore enviroments settings
-#config/environments/development.rb
-#config/environments/production.rb
-#config/environments/test.rb
-
-#config/initializers/contact_us.rb
 
 # ignore IDE files
 .idea/*
