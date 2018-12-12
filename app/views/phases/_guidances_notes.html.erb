@@ -61,7 +61,7 @@
                     <% end %>
                     <% if tab[:groups].present? %>
                       <%= render partial: 'guidance_groups/index_by_theme',
-                          locals: { guidance_groups_by_theme: tab[:groups] } %>
+                          locals: { question: question, guidance_groups_by_theme: tab[:groups] } %>
                     <% end %>
                   </div>
                 </div>
