@@ -42,48 +42,50 @@
         <% end %>
 
         <% section[:questions].each do |question| %>
-          <div class="question">
-            <% answer = @plan.answer(question[:id], false) %>
-            <% blank = answer.present? ? answer.is_blank? : true %>
-            <% options = answer.present? ? answer.question_options : [] %>
 
-            <% if @show_sections_questions && !@public_plan %>
-              <% if question[:text].present?%>
-                <h3><%= raw question[:text].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") unless @show_unanswered == false && blank %></h3>
+          <% answer = @plan.answer(question[:id], false) %>
+          <% blank = answer.present? ? answer.is_blank? : true %>
+          <% options = answer.present? ? answer.question_options : [] %>
+          <%  unless @show_unanswered == false && blank  %>
+            <div class="question">
+              <% if @show_sections_questions && !@public_plan %>
+                <% if question[:text].present?%>
+                  <h3><%= raw question[:text].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,"") %></h3>
+                <% end %>
               <% end %>
-            <% end %>
-            <%# case where question has not been answered sufficiently to display%>
-            <% if @show_unanswered && (answer.blank? || (options.blank? && blank))%>
-              <p><%= _('Question not answered.') -%></p>
-              <br>
-            <% else %>
-              <%# case where Question has options %>
-              <% if options.present?%>
-                <ul>
-                  <% options.each do |opt| %>
-                    <li><%= opt.text %></li>
-                  <% end %>
-                </ul>
-              <% end %>
-              <%# case for RDA answer display %>
-              <% if question[:format].rda_metadata? && !blank %>
-                <% ah = answer.answer_hash %>
-                <% if ah['standards'].present? %>
+              <%# case where question has not been answered sufficiently to display%>
+              <% if @show_unanswered && (answer.blank? || (options.blank? && blank))%>
+                <p><%= _('Question not answered.') -%></p>
+                <br/>
+              <% else %>
+                <%# case where Question has options %>
+                <% if options.present?%>
                   <ul>
-                    <% ah['standards'].each do |id, title| %>
-                      <li><%= title %></li>
+                    <% options.each do |opt| %>
+                      <li><%= opt.text %></li>
                     <% end %>
                   </ul>
                 <% end %>
-                <p><%= raw ah['text'] %></p>
-              <%# case for displaying comments OR text %>
-              <% elsif !blank %>
-                <p><%= raw answer.text %></p>
+                <%# case for RDA answer display %>
+                <% if question[:format].rda_metadata? && !blank %>
+                  <% ah = answer.answer_hash %>
+                  <% if ah['standards'].present? %>
+                    <ul>
+                      <% ah['standards'].each do |id, title| %>
+                        <li><%= title %></li>
+                      <% end %>
+                    </ul>
+                  <% end %>
+                  <p><%= raw ah['text'] %></p>
+                <%# case for displaying comments OR text %>
+                <% elsif !blank %>
+                  <p><%= raw answer.text %></p>
+                <% end %>
+                <br/>
               <% end %>
-              <br>
-            <% end %>
-          </div>
-        <% end %>
+            </div>
+          <% end %>
+        <% end  %>
       <% end %> <!-- sections.each -->
     <% end %>
   </body>
