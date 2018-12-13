@@ -1,0 +1,12 @@
+// Import locally defined variables. Load this before 'bootstrap'
+
+@import "variables/*";
+@debug "1 #{$navbar-branding-bg}";
+@import "bootstrap";
+@debug "2 #{$navbar-branding-bg}";
+@import "blocks/*";
+@debug "3 #{$navbar-branding-bg}";
+@import "utils/*";
+
+@import "font-awesome-sprockets";
+@import "font-awesome";

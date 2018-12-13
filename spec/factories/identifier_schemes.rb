@@ -18,6 +18,6 @@ FactoryBot.define do
     description { Faker::StarWars.quote }
     logo_url { Faker::Internet.url }
     user_landing_url { Faker::Internet.url }
-    active true
+    active { true }
   end
 end

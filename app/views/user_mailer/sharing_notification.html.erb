@@ -2,10 +2,11 @@
   tool_name = Rails.configuration.branding[:application][:name]
   user_email = @user.email
   link = url_for(action: 'show', controller: 'plans', id: @role.plan.id)
+  user_name = User.find_by(email: user_email).nil? ?  user_email : User.find_by(email: user_email).name(false)
 %>
 <% FastGettext.with_locale FastGettext.default_locale do %>
   <p>
-    <%= _('Hello %{user_email}') %{ :user_email => user_email } %>
+    <%= _('Hello %{user_name}') %{ :user_name => user_name } %>
   </p>
   <p>
     <%= _("Your colleague %{inviter_name} has invited you to contribute to "\
