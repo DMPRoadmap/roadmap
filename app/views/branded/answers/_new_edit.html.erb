@@ -59,7 +59,7 @@
     <% elsif question.question_format.textfield?%>
         <%= render(partial: 'questions/new_edit_question_textfield', locals: { f: f, question: question, answer: answer }) %>
     <% elsif question.question_format.date? %>
-        <%= render(partial: 'questions/new_edit_question_numberfield', locals: { f: f, question: question, answer: answer }) %>
+        <%= render(partial: 'questions/new_edit_question_datefield', locals: { f: f, question: question, answer: answer }) %>
     <% elsif question.question_format.number? %>
         <%= render(partial: 'questions/new_edit_question_numberfield', locals: { f: f, question: question, answer: answer }) %>
     <% elsif question.question_format.textarea? %>
