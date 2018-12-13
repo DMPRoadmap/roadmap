@@ -69,31 +69,15 @@
 
   <% @identifier_schemes.each do |scheme| %>
     <div class="form-group col-xs-8">
-      <% if scheme.name.downcase == 'shibboleth' %>
-        <label class='control-label'>
-          <span class="aria-only" aria-hidden="false"><%= _('Institutional credentials') %></span>
-        </label>
-      <% elsif scheme.name.downcase == 'orcid' %>
+      <% if scheme.name.downcase == 'orcid' %>
         <%= label_tag(:scheme_name, 'ORCID', class: 'control-label') %>
-      <% else %>
-        <%= label_tag(:scheme_name, scheme.name.capitalize, class: 'control-label') %>
+
+        <div class='identifier-scheme'>
+          <%= render partial: "external_identifier",
+                     locals: { scheme: scheme,
+                               id: current_user.identifier_for(scheme)} %>
+        </div>
       <% end %>
-
-      <div class='identifier-scheme'>
-        <%= render partial: "external_identifier",
-                   locals: { scheme: scheme,
-                             id: current_user.identifier_for(scheme)} %>
-      </div>
-    </div>
-  <% end %>
-
-  <% unless @user.api_token.blank? %>
-    <div class="form-group col-xs-8 mt-10">
-      <%= f.label(:api_token, _('Your API token:'), class: 'control-label') %>
-      &nbsp;<%= @user.api_token %>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;
-      <%= sanitize _('Click %{api_instructions} for information about using the API.') % {
-        api_instructions: "<a href\"https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation\">#{_('here')}</a>"
-      } %>
     </div>
   <% end %>
 
