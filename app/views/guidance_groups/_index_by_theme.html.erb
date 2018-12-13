@@ -11,6 +11,7 @@
   <% guidance_groups_by_theme.each_pair do |guidance_group, theme_hash| %>
     <% guidances_output = [] %>
     <% theme_hash.each_pair do |theme, guidances| %>
+      <% question_guidance_id = "#{question.object_id}-#{guidances.object_id}" %>
       <%# if guidances with this theme have not been output %>
       <% if (guidances.map(&:id) - guidances_output).any? %>
         <div class="panel panel-default">
@@ -18,10 +19,10 @@
             class="heading-button"
             role="button"
             data-toggle="collapse"
-            href="<%= "##{guidances.object_id}" %>"
+            href="<%= "##{question_guidance_id}" %>"
             aria-expanded="false"
-            aria-controls="<%= "##{guidances.object_id}" %>">
-            <div class="panel-heading" role="tab" id="<%= "panel-heading-#{guidances.object_id}" %>">
+            aria-controls="<%= "##{question_guidance_id}" %>">
+            <div class="panel-heading" role="tab" id="<%= "panel-heading-#{question_guidance_id}" %>">
               <h2 class="panel-title">
                 <%= theme.title %>
                 <i class="fa fa-plus pull-right" aria-hidden="true"></i>
@@ -29,10 +30,10 @@
             </div>
           </div>
           <div
-            id="<%= "#{guidances.object_id}" %>"
+            id="<%= "#{question_guidance_id}" %>"
             class="panel-collapse collapse"
             role="tabpanel"
-            aria-labelledby="<%= "panel-heading-#{guidances.object_id}" %>">
+            aria-labelledby="<%= "panel-heading-#{question_guidance_id}" %>">
             <div class="panel-body">
               <% multiple = false %>
               <% guidances.each do |guidance| %>
