@@ -72,10 +72,10 @@
     <% question.get_example_answers([base_template_org.id, template.org.id]).each do |annotation| %>
       <% if annotation.present? && annotation.org.present? && annotation.text.present? %>
         <div class="panel panel-default example-answer">
-          <span class="label label-default">
+          <span class="label label-default example-answer-link" data-toggle="collapse" data-target="<%= "#example-#{question.id}"  %>">
             <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
           </span>
-          <div class="panel-body">
+          <div class="panel-body collapse in" id="<%= "example-#{question.id}"  %>" >
             <%= raw annotation.text %>
           </div>
         </div>

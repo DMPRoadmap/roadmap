@@ -290,6 +290,11 @@ $light-yellow: #fff9e5;
     // example answer
     .example-answer {
         overflow: auto;
+        .example-answer-link {
+            cursor: pointer;
+            background-color: $blue;
+            display: block;
+        }
     }
     // main border
     .panel-default {
