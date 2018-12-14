@@ -1,5 +1,7 @@
+<% require "securerandom" %>
+
 <% user = User.new if user.nil? %>
-<% orgs = Org.where(is_other: false).order("name") %>
+<% orgs = Org.participating %>
 
 <h1><%= _('Create your account') %></h1>
 <p><%= _('Your account has been verified with your institutional credentials. Please fill out the form below to finish creating your account.') %></p>
@@ -61,7 +63,8 @@
 
       <div class="row">
         <div class="col-md-6">
-          <%= f.hidden_field :password %>
+          <%= f.hidden_field :org_id %>
+          <%= f.password_field :password, value: "#{SecureRandom.uuid}", class: 'hidden' %>
           <button type="submit" class="btn btn-default">Sign in</button>
         </div>
       </div>

@@ -1,4 +1,4 @@
-<% orgs = orgs.select{ |org| !org.is_other? } %>
+<% orgs = Org.participating %>
 
 <div class="modal-dialog" role="document">
   <div class="modal-content">

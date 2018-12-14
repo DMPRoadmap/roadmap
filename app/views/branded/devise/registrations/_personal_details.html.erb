@@ -46,7 +46,7 @@
       <input type="text" disabled="true" value="<%= @default_org.name if @default_org.present? %>" class="form-control" />
       <input type="hidden" name="user[org_id]" id="user_org_id" value="<%= current_user.org_id %>">
     <% else %>
-      <%= render partial: "shared/my_org", locals: {f: f, default_org: default_org, orgs: @orgs} %>
+      <%= render partial: "shared/my_org", locals: {f: f, default_org: default_org, orgs: Org.participating} %>
     <% end %>
   </div>
 

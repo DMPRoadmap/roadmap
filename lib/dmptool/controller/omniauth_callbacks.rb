@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "securerandom"
-
 module Dmptool
 
   module Controller
@@ -72,7 +70,7 @@ module Dmptool
                 flash[:notice] = _('It looks like this is your first time logging in. Please verify and complete the information below to finish creating an account.')
                 render 'devise/registrations/new', locals: {
                   user: @user,
-                  orgs: Org.participating_as_array.sort{ |a, b| a.name <=> b.name }
+                  orgs: Org.participating
                 }
               end
 
@@ -82,7 +80,7 @@ module Dmptool
               flash[:notice] = _('It looks like this is your first time logging in. Please verify and complete the information below to finish creating an account.')
               render 'devise/registrations/new', locals: {
                 user: @new_user,
-                orgs: Org.participating_as_array.sort{ |a, b| a.name <=> b.name }
+                orgs: Org.participating
               }
             end
           end
@@ -107,8 +105,7 @@ module Dmptool
           email: extract_omniauth_email(omniauth_info),
           firstname: names.fetch(:firstname, ""),
           surname: names.fetch(:surname, ""),
-          org: extract_omniauth_org(omniauth_info),
-          password: SecureRandom.uuid
+          org: extract_omniauth_org(omniauth_info)
         )
       end
 
