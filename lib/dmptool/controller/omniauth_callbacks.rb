@@ -79,7 +79,7 @@ module Dmptool
               session["devise.#{scheme.name.downcase}_data"] = omniauth
               flash[:notice] = _('It looks like this is your first time logging in. Please verify and complete the information below to finish creating an account.')
               render 'devise/registrations/new', locals: {
-                user: @new_user,
+                user: new_user,
                 orgs: Org.participating
               }
             end
@@ -91,11 +91,10 @@ module Dmptool
 
       def attach_omniauth_credentials(user, scheme, omniauth)
         # Attempt to find or attach the omniauth creds
-        UserIdentifier.find_or_create(
-          identifier_scheme: scheme,
-          user: user,
-          identifier: omniauth.uid
-        )
+        unless user.user_identifiers.where(identifier_scheme: scheme)
+          UserIdentifier.create(identifier_scheme: scheme, user: user,
+                                identifier: omniauth.uid)
+        end
       end
 
       def omniauth_hash_to_new_user(omniauth)
