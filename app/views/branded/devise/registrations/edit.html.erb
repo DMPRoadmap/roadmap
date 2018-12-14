@@ -1,5 +1,6 @@
 <% shibbolized = current_user.identifier_for(IdentifierScheme.find_by(name: 'shibboleth')).present? %>
 <% @default_org = @orgs.include?(current_user.org) && !current_user.org.is_other? ? current_user.org : nil %>
+<% @orgs = @orgs.select{ |org| !org.is_other? }
 
 <% title _('Edit profile') %>
 <div class="row">

@@ -1,3 +1,7 @@
+<% @all_guidance_groups = @all_guidance_groups.select{ |gg| !gg.org.is_other? } %>
+<% @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.select{ |array| !array.first.is_other? } %>
+<% @important_ggs = @important_ggs.uniq %>
+
 <div class="row">
     <div class="col-md-8">
     <%= form_for plan, html: {method: :put, class: 'form-horizontal edit_plan' } do |f| %>

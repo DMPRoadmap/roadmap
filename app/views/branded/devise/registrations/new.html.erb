@@ -1,4 +1,6 @@
 <% user = User.new if user.nil? %>
+<% orgs = Org.where(is_other: false).order("name") %>
+
 <h1><%= _('Create your account') %></h1>
 <p><%= _('Your account has been verified with your institutional credentials. Please fill out the form below to finish creating your account.') %></p>
 <%= form_for user, url: registration_path("user"), html: {autocomplete: "off", id: "omniauth_register_form"} do |f| %>
@@ -39,7 +41,7 @@
                          locals: {name: 'org_name',
                                   id: 'org_name',
                                   default_selection: nil,
-                                  models: orgs,
+                                  models: @orgs,
                                   attribute: 'name',
                                   required: true,
                                   classes: ''} %>
