@@ -11,7 +11,7 @@
           <%= render partial: 'layouts/profile_menu' %>
 
         <% else %>
-          <% unless active_page?(get_started_path) %>
+          <% unless active_page?(get_started_path) || active_page?(new_user_registration_path) %>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                id="signin-menu-button" aria-haspopup="true" aria-expanded="false">
               <%= _('Sign in') %>
