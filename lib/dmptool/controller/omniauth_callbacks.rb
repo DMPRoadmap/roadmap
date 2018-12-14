@@ -78,8 +78,12 @@ module Dmptool
 
             # If we could not find a match take them to the account setup page
             else
-              @user = new_user
-              redirect_to new_user_registration_url
+              session["devise.#{scheme.name.downcase}_data"] = omniauth
+              flash[:notice] = _('It looks like this is your first time logging in. Please verify and complete the information below to finish creating an account.')
+              render 'devise/registrations/new', locals: {
+                user: @new_user,
+                orgs: Org.participating_as_array.sort{ |a, b| a.name <=> b.name }
+              }
             end
           end
         end
