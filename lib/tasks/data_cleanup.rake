@@ -103,7 +103,7 @@ namespace :data_cleanup do
   desc "Deactivate the roles and plan for any plan that no longer has an owner"
   task :deactivate_orphaned_plans => :environment do
     p "Deactiviating plans that no longer have a owner, coowner or editor"
-    Plan.all(&:deactivate)
+    Plan.all.each{ |plan| plan.deactivate! }
     p "Done"
   end
 
