@@ -12,13 +12,13 @@
     <div class="form-group col-md-4">
       <%= f.label(:number, _('Question Number'), class: "control-label") %>
       <%= f.number_field(:number, in: 1..50, class: "form-control",
-                                  aria: { required: true }) %>
+                                  "aria-required": true) %>
     </div>
 
     <!--Question text -->
     <div class="form-group col-md-10">
       <%= f.label(:text, _('Question text'), class: "control-label") %>
-      <%= f.text_area(:text, class: "question", 'aria-required': true) %>
+      <%= f.text_area(:text, class: "question", "aria-required": true) %>
     </div>
 
     <!-- Question format -->
