@@ -2,7 +2,7 @@ require 'set'
 namespace :upgrade do
 
   desc "Upgrade to v2.1.0:"
-  task v2_1_9: :environment do
+  task v2_1_0: :environment do
     Rake::Task["data_cleanup:deactivate_orphaned_plans"].execute
   end
 
