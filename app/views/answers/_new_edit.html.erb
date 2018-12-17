@@ -59,7 +59,7 @@
     <% elsif question.question_format.textfield?%>
         <%= render(partial: 'questions/new_edit_question_textfield', locals: { f: f, question: question, answer: answer }) %>
     <% elsif question.question_format.textarea? %>
-        <%= render(partial: 'questions/new_edit_question_textarea', locals: { f: f, question: question, answer: answer, locking: locking }) %>
+        <%= render(partial: 'questions/new_edit_question_textarea', locals: { f: f, question: question, answer: answer, locking: locking, readonly: readonly}) %>
     <% end %>
     <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
   </fieldset>
