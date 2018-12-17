@@ -33,36 +33,36 @@ FactoryBot.define do
     name { Faker::Company.unique.name }
     links { { "org" => [] } }
     abbreviation { SecureRandom.hex(4) }
-    feedback_enabled false
+    feedback_enabled { false }
     region { Region.first || create(:region) }
     language do
       Language.first_or_create(name: "English", abbreviation: "en-GB") ||
         create(:language, name: "English", abbreviation: "en-GB")
     end
-    is_other false
+    is_other { false }
     contact_email { Faker::Internet.safe_email }
     contact_name { Faker::Name.name }
     trait :institution do
-      institution true
+      institution { true }
     end
     trait :funder do
-      funder true
+      funder { true }
     end
     trait :organisation do
-      organisation true
+      organisation { true }
     end
     trait :research_institute do
-      research_institute true
+      research_institute { true }
     end
     trait :project do
-      project true
+      project { true }
     end
     trait :school do
-      school true
+      school { true }
     end
 
     transient do
-      templates 0
+      templates { 0 }
     end
 
     after :create do |org, evaluator|

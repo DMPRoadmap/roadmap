@@ -6,7 +6,7 @@
         <th scope="col"><%= _('Themes') %></th>
         <th scope="col"><%= _('Guidance group') %>&nbsp;<%= paginable_sort_link('guidance_groups.name') %></th>
         <th scope="col"><%= _('Status') %>&nbsp;<%= paginable_sort_link('guidances.published') %></th>
-        <th scope="col"><%= _('Last updated') %>&nbsp;<%= paginable_sort_link('guidances.updated_at') %></th>
+        <th scope="col" class="date-column"><%= _('Last updated') %>&nbsp;<%= paginable_sort_link('guidances.updated_at') %></th>
         <th scope="col" class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
       </tr>
     </thead>

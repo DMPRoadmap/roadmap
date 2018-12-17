@@ -1,7 +1,12 @@
+# frozen_string_literal: true
+
 module Csvable
+
+  require "csv"
   class << self
+
     def from_array_of_hashes(data = [])
-      return '' unless data.first&.keys
+      return "" unless data.first&.keys
       headers = data.first.keys
         .map(&:to_s)
         .map(&:humanize)
@@ -12,5 +17,7 @@ module Csvable
         end
       end
     end
+
   end
+
 end

@@ -3,7 +3,7 @@
   username = @user.name
   plan_title = @role.plan.title
   access = nil
-  access_level = @role.access_level()
+  messaging = role_text(@role)
 %>
 <% FastGettext.with_locale FastGettext.default_locale do %>
   <p>
@@ -12,9 +12,9 @@
   <p>
     <%= _('Your permissions relating to %{plan_title} have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}') % {
        plan_title: plan_title,
-       type: Role::ACCESS_LEVEL_MESSAGES[access_level][:type],
-       placeholder1: Role::ACCESS_LEVEL_MESSAGES[access_level][:placeholder1],
-       placeholder2: Role::ACCESS_LEVEL_MESSAGES[access_level][:placeholder2]
+       type: messaging[:type],
+       placeholder1: messaging[:placeholder1],
+       placeholder2: messaging[:placeholder2]
       } %>
   </p>
   <%= render partial: 'email_signature' %>
