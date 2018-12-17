@@ -122,3 +122,10 @@
 body .dmptool header > div.app-menu {
   margin-top: 25px;
 }
+
+/* Override the right border on caret dropdown menu icons */
+.caret {
+  border-top: 4px solid;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+}
