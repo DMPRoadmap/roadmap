@@ -23,10 +23,10 @@ FactoryBot.define do
   factory :guidance_group do
     name { Faker::Lorem.unique.word }
     org
-    published true
-    optional_subset false
+    published { true }
+    optional_subset { false }
     trait :unpublished do
-      published false
+      published { false }
     end
   end
 end

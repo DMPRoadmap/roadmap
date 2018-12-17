@@ -25,28 +25,36 @@ FactoryBot.define do
   factory :role do
     user
     plan
-    access 0
-    active true
+    access { 0 }
+    active { true }
     trait :active do
-      active true
+      active { true }
     end
     trait :inactive do
-      active false
+      active { false }
     end
+
     trait :creator do
-      creator true
+      creator { true }
+      administrator { true }
+      editor { true }
+      commenter { true }
     end
     trait :administrator do
-      administrator true
+      administrator { true }
+      editor { true }
+      commenter { true }
     end
     trait :editor do
-      editor true
+      editor { true }
+      commenter { true }
     end
     trait :commenter do
-      commenter true
+      commenter { true }
     end
     trait :reviewer do
-      reviewer true
+      reviewer { true }
+      commenter { true }
     end
   end
 end

@@ -14,11 +14,11 @@
                 <%= paginable_sort_link('templates.title') %>
               </th>
               <th scope="col"><%= _('Owner') %></th>
-              <th scope="col">
+              <th scope="col" class="date-column">
                 <%= _('Updated') %>&nbsp;
                 <%= paginable_sort_link('plans.updated_at') %>
               </th>
-              <th scope="col" class="sorter-false"><%= _('Download') %></th>
+              <th scope="col" class="sorter-false download-column"><%= _('Download') %></th>
             </tr>
           </thead>
           <tbody>
@@ -31,8 +31,11 @@
                 <td><%= plan.owner.present? ? plan.owner.name : _('Unknown') %></td>
                 <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
                 <td class="text-center">
-                  <%= link_to _('PDF'), plan_export_path(plan, format: :pdf),
-                      target: '_blank' %>
+                  <%= link_to plan_export_path(plan, format: :pdf),
+                      target: '_blank' do %>
+                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                    <em class="sr-only"><%= _('(new window)') %></em>
+                  <% end %>
                 </td>
               </tr>
             <% end %>

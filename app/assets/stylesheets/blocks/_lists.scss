@@ -1,0 +1,17 @@
+// Overrides Bootstrap 3.0's lists
+
+/* list-group styling */
+.list-group-item:last-child {
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.list-group-item:first-child {
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+/* LIST STYLING */
+span.sublist {
+  margin-left: $grid-gutter-width / -2;
+  margin-right: 25px;
+}
