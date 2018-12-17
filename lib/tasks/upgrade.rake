@@ -1,6 +1,11 @@
 require 'set'
 namespace :upgrade do
 
+  desc "Upgrade to v2.1.0:"
+  task v2_1_9: :environment do
+    Rake::Task["data_cleanup:deactivate_orphaned_plans"].execute
+  end
+
   desc "Upgrade to v2.0.0: Part 1"
   task v2_0_0_part_1: :environment do
     Rake::Task['upgrade:add_default_values_v2_0_0'].execute

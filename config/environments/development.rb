@@ -1,4 +1,7 @@
 Rails.application.configure do
+  # Verifies that versions and hashed value of the package contents in the project's
+  # package.json
+  config.webpacker.check_yarn_integrity = false
 
   # Settings specified here will take precedence over those in config/application.rb.
   # In the development environment your application's code is reloaded on
@@ -34,16 +37,12 @@ Rails.application.configure do
 
   config.action_mailer.perform_deliveries = false
 
-  BetterErrors::Midleware.allow_ip! "10.0.2.2" if defined?(BetterErrors) && Rails.env == :development
+  BetterErrors::Middleware.allow_ip! "10.0.2.2" if defined?(BetterErrors)
 
   config.after_initialize do
     ActiveRecord::Base.logger = Rails.logger.clone
     ActiveRecord::Base.logger.level = Logger::INFO
     ActiveRecord::Base.logger.level = Logger::DEBUG
   end
-  # Assets pipeline
-  config.assets.enabled = false
-  config.assets.debug = false
-  config.assets.compile = false
-  config.assets.quiet = true
+
 end

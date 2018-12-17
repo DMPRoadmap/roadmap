@@ -205,8 +205,11 @@ class Org < ActiveRecord::Base
   end
 
   def plans
-    Plan.includes(:template, :phases, :roles, :users).joins(:roles, :users).where('users.org_id = ? AND roles.access IN (?)',
-      self.id, Role.access_values_for(:owner).concat(Role.access_values_for(:administrator)))
+    plan_ids = Role.administrator
+                   .where(user_id: self.users.pluck(:id), active: true)
+                   .pluck(:plan_id).uniq
+    Plan.includes(:template, :phases, :roles, :users)
+        .where(id: plan_ids)
   end
 
   def grant_api!(token_permission_type)
