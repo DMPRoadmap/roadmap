@@ -37,8 +37,7 @@ class OrgAdmin::PlansController < ApplicationController
       # rubocop:enable LineLength
     else
       redirect_to org_admin_plans_path,
-        alert: _("Unable to notify user that you have finished providing feedback."
-      )
+        alert: _("Unable to notify user that you have finished providing feedback.")
     end
   end
 
