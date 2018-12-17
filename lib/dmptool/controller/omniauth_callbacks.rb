@@ -91,10 +91,11 @@ module Dmptool
 
       def attach_omniauth_credentials(user, scheme, omniauth)
         # Attempt to find or attach the omniauth creds
-        ui = user.user_identifiers.where(identifier_scheme: scheme)
+        ui = UserIdentifier.where(identifier_scheme: scheme, user: user).first
         if ui.present?
           if ui.identifier != omniauth.uid
             ui.update(identifier: omniauth.uid)
+
           end
           true
         else
