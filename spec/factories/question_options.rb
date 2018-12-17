@@ -24,6 +24,6 @@ FactoryBot.define do
     question
     text { Faker::Lorem.sentence }
     sequence(:number)
-    is_default false
+    is_default { false }
   end
 end

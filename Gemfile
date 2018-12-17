@@ -5,9 +5,14 @@ ruby '>= 2.4.0'
 # ------------------------------------------------
 # RAILS
 # Full-stack web application framework. (http://www.rubyonrails.org)
+# Full-stack web application framework. (http://rubyonrails.org)
 gem 'rails', '~> 4.2.10'
 
+# Rake is a Make-like program implemented in Ruby (https://github.com/ruby/rake)
+gem "rake"
+
 # Tools for creating, working with, and running Rails applications. (http://www.rubyonrails.org)
+# Tools for creating, working with, and running Rails applications. (http://rubyonrails.org)
 gem 'railties'
 
 # GEMS ADDED TO HELP HANDLE RAILS MIGRATION FROM 3.x to 4.2
@@ -17,17 +22,23 @@ gem 'railties'
 # A set of Rails responders to dry up your application (http://github.com/plataformatec/responders)
 gem 'responders', '~> 2.0'
 
+group :rollbar, optional: true do
+  gem 'rollbar'
+end
+
 # ------------------------------------------------
 #    DATABASE/SERVER
 
 group :mysql do
   # A simple, fast Mysql library for Ruby, binding to libmysql (http://github.com/brianmario/mysql2)
+  # A simple, fast Mysql library for Ruby, binding to libmysql (https://github.com/brianmario/mysql2)
   gem 'mysql2', '~> 0.4.10'
 end
 
 group :pgsql do
   # Pg is the Ruby interface to the {PostgreSQL
   # RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
+  # Pg is the Ruby interface to the {PostgreSQL RDBMS}[http://www.postgresql.org/] (https://bitbucket.org/ged/ruby-pg)
   gem 'pg', '~> 0.19.0'
 end
 
@@ -72,6 +83,7 @@ gem 'ruby_dig'  # for omniauth-orcid
 
 # Gems for repository integration
 # OO authorization for Rails (https://github.com/elabs/pundit)
+# OO authorization for Rails (https://github.com/varvet/pundit)
 gem 'pundit'
 
 # ------------------------------------------------
@@ -91,6 +103,36 @@ gem 'recaptcha'
 
 # Ideal gem for handling attachments in Rails, Sinatra and Rack applications. (http://github.com/markevans/dragonfly)
 gem 'dragonfly'
+
+group :aws, optional: true do
+
+  gem 'dragonfly-s3_data_store'
+
+end
+
+
+# bootstrap-sass is a Sass-powered version of Bootstrap 3, ready to drop right into your Sass powered applications. (https://github.com/twbs/bootstrap-sass)
+gem 'bootstrap-sass', '~> 3.3.7'
+
+# This is required for Font-Awesome, but not used as the main sass compiler
+
+# Sass adapter for the Rails asset pipeline. (https://github.com/rails/sass-rails)
+gem "sass-rails", require: false
+
+# Integrate SassC-Ruby into Rails. (https://github.com/sass/sassc-rails)
+gem "sassc-rails"
+
+# Font-Awesome SASS (https://github.com/FortAwesome/font-awesome-sass)
+gem 'font-awesome-sass', '~> 4.2.0'
+
+# Use webpack to manage app-like JavaScript modules in Rails (https://github.com/rails/webpacker)
+gem 'webpacker', '~> 3.5'
+
+# Parse CSS and add vendor prefixes to CSS rules using values from the Can I Use website. (https://github.com/ai/autoprefixer-rails)
+gem "autoprefixer-rails"
+
+# Minimal embedded v8 for Ruby (https://github.com/discourse/mini_racer)
+gem 'mini_racer'
 
 # ------------------------------------------------
 # EXPORTING
@@ -122,6 +164,15 @@ gem 'gettext', require: false, group: :development
 # A pagination engine plugin for Rails 4+ and other modern frameworks (https://github.com/kaminari/kaminari)
 gem 'kaminari'
 
+# Following best practices from http://12factor.net run a maintainable, clean, and scalable app on Rails (https://github.com/heroku/rails_12factor)
+gem "rails_12factor", group: [:production]
+
+# Autoload dotenv in Rails. (https://github.com/bkeepers/dotenv)
+gem "dotenv-rails"
+
+gem 'activerecord-session_store'
+
+
 # ------------------------------------------------
 # ENVIRONMENT SPECIFIC DEPENDENCIES
 group :development, :test do
@@ -132,10 +183,7 @@ group :development, :test do
   gem "rspec-rails"
 
   # factory_bot_rails provides integration between factory_bot and rails 3 or newer (http://github.com/thoughtbot/factory_bot_rails)
-  # rspec-collection_matchers-1.1.3 (https://github.com/rspec/rspec-collection_matchers)
-  gem "rspec-collection_matchers"
-
-  # factory_bot_rails provides integration between factory_bot and rails 3 or newer (http://github.com/thoughtbot/factory_bot_rails)
+  # factory_bot_rails provides integration between factory_bot and rails 3 or newer (https://github.com/thoughtbot/factory_bot_rails)
   gem "factory_bot_rails"
 
   # Easily generate fake data (https://github.com/stympy/faker)
@@ -149,6 +197,7 @@ group :development, :test do
 
   # Guard gem for RSpec (https://github.com/guard/guard-rspec)
   gem "guard-rspec"
+
 end
 
 group :test do
@@ -184,6 +233,9 @@ group :test do
 
   # Easy installation and use of chromedriver. (https://github.com/flavorjones/chromedriver-helper)
   gem "chromedriver-helper", ">= 1.2.0"
+
+  gem "rspec-collection_matchers"
+
 end
 
 group :ci, :development do
@@ -207,6 +259,7 @@ group :development do
   gem "text", require: false
 
   # Better error page for Rails and other Rack apps (https://github.com/charliesome/better_errors)
+  # Better error page for Rails and other Rack apps (https://github.com/BetterErrors/better_errors)
   gem "better_errors"
 
   # Retrieve the binding of a method's caller. Can also retrieve bindings even further up the stack. (http://github.com/banister/binding_of_caller)
@@ -232,7 +285,5 @@ group :development do
 
   # TomDoc for YARD (http://rubyworks.github.com/yard-tomdoc)
   gem "yard-tomdoc"
-
-  gem "dotenv-rails"
 
 end

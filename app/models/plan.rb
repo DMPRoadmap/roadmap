@@ -138,35 +138,36 @@ class Plan < ActiveRecord::Base
   # = Scopes =
   # ==========
 
-  # Retrieves any plan in which the user has an active role and it is not a
-  # reviewer
+  # Retrieves any plan in which the user has an active role and
+  # is not a reviewer
   scope :active, lambda { |user|
-    includes(%i[template roles])
-      .where("roles.active": true, "roles.user_id": user.id)
-      .where(Role.not_reviewer_condition)
+    plan_ids = Role.where(active: true, user_id: user.id)
+                   .not_reviewer.pluck(:plan_id)
+
+    includes(:template, :roles)
+    .where(id: plan_ids)
   }
 
   # Retrieves any plan organisationally or publicly visible for a given org id
   scope :organisationally_or_publicly_visible, -> (user) {
-    vis_value = [visibilities[:organisationally_visible], visibilities[:publicly_visible]]
+    plan_ids = user.org.plans.where(complete: true).pluck(:id)
+
     includes(:template, roles: :user)
-      .where(
-        visibility: vis_value,
-        roles: {
-          access: Role.access_values_for(:creator, :administrator, :editor, :commenter)
-                      .min,
-        },
-        users: { org_id: user.org_id })
-      .where(
-        ["NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)",
-         user.id])
+    .where(id: plan_ids, visibility: [
+      visibilities[:organisationally_visible],
+      visibilities[:publicly_visible]
+    ])
+    .where(
+      "NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)",
+      user.id
+    )
   }
 
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     joins(:template)
-      .where("plans.title LIKE ? OR templates.title LIKE ?",
-             search_pattern, search_pattern)
+    .where("plans.title LIKE ? OR templates.title LIKE ?",
+            search_pattern, search_pattern)
   }
 
   # Retrieves plan, template, org, phases, sections and questions
@@ -276,12 +277,13 @@ class Plan < ActiveRecord::Base
   def request_feedback(user)
     Plan.transaction do
       begin
-        val = Role.access_values_for(:reviewer, :commenter).min
         self.feedback_requested = true
         # Share the plan with each org admin as the reviewer role
         admins = user.org.org_admins
         admins.each do |admin|
-          roles << Role.new(user: admin, access: val)
+          unless admin == user
+            add_user!(admin.id, :reviewer)
+          end
         end
         if save!
           # Send an email to the org-admin contact
@@ -292,8 +294,6 @@ class Plan < ActiveRecord::Base
           end
           return true
         else
-          puts "save was false"
-
           return false
         end
       rescue Exception => e
@@ -313,16 +313,11 @@ class Plan < ActiveRecord::Base
         self.feedback_requested = false
 
         # Remove the org admins reviewer role from the plan
-        vals = Role.access_values_for(:reviewer)
-        roles.delete(Role.where(plan: self, access: vals))
+        roles.delete(Role.where(plan: self).reviewer)
 
         if save!
           # Send an email confirmation to the owners and co-owners
-          owners = User.joins(:roles)
-                       .where("roles.plan_id =? AND roles.access IN (?)",
-                              id, Role.access_values_for(:administrator))
-
-          deliver_if(recipients: owners, key: "users.feedback_provided") do |r|
+          deliver_if(recipients: owner_and_coowners, key: "users.feedback_provided") do |r|
             UserMailer.feedback_complete(r, self, org_admin).deliver_now
           end
           true
@@ -343,8 +338,7 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def editable_by?(user_id)
-    user_id = user_id.id if user_id.is_a?(User)
-    role?(user_id, :editor)
+    Role.editor.where(plan_id: id, user_id: user_id, active: true).any?
   end
 
   ##
@@ -354,25 +348,22 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def readable_by?(user_id)
-    user           = user_id.is_a?(User) ? user_id : User.find(user_id)
-    owner_orgs     = owner_and_coowners.collect(&:org)
-    org_sys_permission = Branding.fetch(:service_configuration, :plans,
-                                    :org_admins_read_all)
-    sup_sys_permission = Branding.fetch(:service_configuration, :plans,
-                                    :super_admins_read_all)
-
-    # Super Admins can view plans read-only
-    return true if user.can_super_admin? && sup_sys_permission
-
-    # Org Admins can view their Org's plans if system permission allows
-    return true if user.can_org_admin? && owner_orgs.include?(user.org) &&
-                                          org_sys_permission
-
-    # ...otherwise the user must have the commenter role.
-    return true if role?(user.id, :commenter)
-
-    # Else
-    false
+    current_user = User.find(user_id)
+    if current_user.present?
+      # If the user is a super admin and the config allows for supers to view plans
+      if current_user.can_super_admin? &&
+          Branding.fetch(:service_configuration, :plans, :super_admins_read_all)
+        true
+      # If the user is an org admin and the config allows for org admins to view plans
+      elsif current_user.can_org_admin? &&
+          Branding.fetch(:service_configuration, :plans, :org_admins_read_all)
+        true
+      else
+        commentable_by?(user_id)
+      end
+    else
+      false
+    end
   end
 
   # determines if the plan is readable by the specified user.
@@ -381,8 +372,7 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def commentable_by?(user_id)
-    user_id = user_id.id if user_id.is_a?(User)
-    role?(user_id, :commenter)
+    Role.commenter.where(plan_id: id, user_id: user_id, active: true).any?
   end
 
   # determines if the plan is administerable by the specified user
@@ -391,8 +381,7 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def administerable_by?(user_id)
-    user_id = user_id.id if user_id.is_a?(User)
-    role?(user_id, :administrator)
+    Role.administrator.where(plan_id: id, user_id: user_id, active: true).any?
   end
 
   # determines if the plan is reviewable by the specified user
@@ -401,18 +390,7 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def reviewable_by?(user_id)
-    user_id = user_id.id if user_id.is_a?(User)
-    role?(user_id, :reviewer)
-  end
-
-  # Assigns the passed user_id to the creater_role for the project gives the
-  # user rights to read, edit, administrate, and defines them as creator
-  #
-  # user_id - The Integer user to be given priveleges' id
-  #
-  def assign_creator(user_id)
-    user_id = user_id.id if user_id.is_a?(User)
-    add_user(user_id, true, true, true)
+    Role.reviewer.where(plan_id: id, user_id: user_id, active: true).any?
   end
 
   # the datetime for the latest update of this plan
@@ -422,18 +400,54 @@ class Plan < ActiveRecord::Base
     (phases.pluck(:updated_at) + [updated_at]).max
   end
 
-  # the owner of the project
+  # The owner (aka :creator) of the project
   #
   # Returns User
   # Returns nil
   def owner
-    vals = Role.access_values_for(:creator)
-    User.joins(:roles)
-        .where("roles.plan_id = ? AND roles.access IN (?)", id, vals).first
+    usr_ids = Role.where(plan_id: id, active: true)
+                  .administrator
+                  .order(:created_at)
+                  .pluck(:user_id).uniq
+    User.where(id: usr_ids).first
+  end
+
+  # Creates a role for the specified user (will update the user's
+  # existing role if it already exists)
+  #
+  # Expects a User.id and access_type from the following list:
+  #  :creator, :administrator, :editor, :commenter
+  #
+  # Returns Boolean
+  def add_user!(user_id, access_type = :commenter)
+    user = User.where(id: user_id).first
+    if user.present?
+      role = Role.find_or_initialize_by(user_id: user_id, plan_id: self.id)
+
+      # Access is cumulative, so set the appropriate flags
+      # (e.g. an administrator can also edit and comment)
+      case access_type
+      when :creator
+        role.creator = true
+        role.administrator = true
+        role.editor = true
+      when :administrator
+        role.administrator = true
+        role.editor = true
+      when :editor
+        role.editor = true
+      when :reviewer
+        role.reviewer = true
+      end
+      role.commenter = true
+      role.save
+    else
+      false
+    end
   end
 
   ##
-  # TODO: Rewrite this description
+  # Whether or not the plan is associated with users other than the creator
   #
   # Returns Boolean
   def shared?
@@ -444,14 +458,28 @@ class Plan < ActiveRecord::Base
 
   deprecate :shared, deprecator: Cleanup::Deprecators::PredicateDeprecator.new
 
-  # the owner and co-owners of the project
+  # The owner and co-owners (aka :creator and :administrator) of the project
   #
   # Returns ActiveRecord::Relation
   def owner_and_coowners
-    vals = Role.access_values_for(:creator)
-               .concat(Role.access_values_for(:administrator))
-    User.joins(:roles)
-        .where(roles: { plan_id: id, access: vals })
+    # We only need to search for :administrator in the bitflag
+    # since :creator includes :administrator rights
+    usr_ids = Role.where(plan_id: id, active: true)
+                  .administrator
+                  .pluck(:user_id).uniq
+    User.where(id: usr_ids)
+  end
+
+  # The creator, administrator and editors
+  #
+  # Returns ActiveRecord::Relation
+  def authors
+    # We only need to search for :editor in the bitflag
+    # since :creator and :administrator include :editor rights
+    usr_ids = Role.where(plan_id: id, active: true)
+                  .editor
+                  .pluck(:user_id).uniq
+    User.where(id: usr_ids)
   end
 
   # The number of answered questions from the entire plan
@@ -477,10 +505,7 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def visibility_allowed?
-    value = (num_answered_questions.to_f / num_questions * 100).round(2)
-    !is_test? && value >= Rails.application
-                               .config
-                               .default_plan_percentage_answered
+    !is_test? && phases.select{ |phase| phase.visibility_allowed?(self) }.any?
   end
 
   # Determines whether or not a question (given its id) exists for the self plan
@@ -506,60 +531,24 @@ class Plan < ActiveRecord::Base
     num_questions == num_answers
   end
 
-  private
-
-  # Returns whether or not the user has the specified role for the plan
-  def role?(user_id, role_as_sym)
-    vals = Role.access_values_for(role_as_sym.to_sym)
-    roles.where(user_id: user_id, access: vals, active: true).any?
-  end
-
-  alias has_role role?
-
-  deprecate :has_role, deprecator: Cleanup::Deprecators::PredicateDeprecator.new
-
-  # Adds a user to the project if no flags are specified, the user is given read privleges
-  # TODO: change this to specifying uniqueness of user/plan association and
-  # handle that way.
-  #
-  #
-  # user_id          - The Integer user ID to be given privleges
-  # is_editor        - Whether or not the user can edit the project (defaults: false)
-  # is_administrator - Whether or not the user can administrate the project
-  #                    (defaults: false)
-  # is_creator       - Wheter or not the user created the project (defaults: false)
+  # Deactivates the plan (sets all roles to inactive and visibility to :private)
   #
   # Returns Boolean
-  #
-  def add_user(user_id, is_editor = false,
-                        is_administrator = false,
-                        is_creator = false)
-
-    Role.where(plan_id: id, user_id: user_id).find_each(&:destroy)
-
-    role         = Role.new
-    role.user_id = user_id
-    role.plan_id = id
-
-    # if you get assigned a role you can comment
-    role.commenter = true
-
-    # the rest of the roles are inclusing so creator => administrator => editor
-    if is_creator
-      role.creator       = true
-      role.administrator = true
-      role.editor        = true
+  def deactivate!
+    # If no other :creator, :administrator or :editor is attached
+    # to the plan, then also deactivate all other active roles
+    # and set the plan's visibility to :private
+    if authors.size == 0
+      roles.where(active: true).update_all(active: false)
+      self.visibility = Plan.visibilities[:privately_visible]
+      save!
+    else
+      false
     end
-
-    if is_administrator
-      role.administrator = true
-      role.editor        = true
-    end
-
-    role.editor = true if is_editor
-
-    role.save
   end
+
+
+  private
 
   # Initialize the title for new templates
   #

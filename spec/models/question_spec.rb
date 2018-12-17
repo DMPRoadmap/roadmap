@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Question, type: :model do
 
@@ -6,7 +8,8 @@ RSpec.describe Question, type: :model do
 
   context "validations" do
 
-    it { is_expected.to validate_presence_of(:text) }
+    it { is_expected.to validate_presence_of(:text)
+          .with_message("for 'Question text' can't be blank.") }
 
     it { is_expected.to validate_presence_of(:number) }
 
@@ -57,7 +60,7 @@ RSpec.describe Question, type: :model do
   describe "#to_s" do
 
     before do
-      subject.text = 'foo bar'
+      subject.text = "foo bar"
     end
 
     it "returns the Question's text" do
@@ -68,13 +71,28 @@ RSpec.describe Question, type: :model do
 
   describe "#option_based?" do
 
-    let!(:question) { create(:question, question_format: question_format) }
-
     subject { question_format.option_based? }
 
-    context "when QuestionFormat is option_based" do
+    context "when QuestionFormat is option_based and has at least one option" do
 
       let!(:question_format) { create(:question_format, option_based: true) }
+      let!(:question) { create(:question, question_format: question_format, options: 1) }
+
+      it { is_expected.to eql(true) }
+
+    end
+
+    context "when QuestionFormat is option_based and has no option" do
+
+      let!(:question_format) { create(:question_format, option_based: true) }
+
+      it {
+        expect {
+          create(:question, question_format: question_format, options: 0)
+        }.to raise_error(ActiveRecord::RecordInvalid,
+         "Validation failed: You must have at least one option with accompanying text."
+        )
+      }
 
       it { is_expected.to eql(true) }
 
@@ -83,6 +101,7 @@ RSpec.describe Question, type: :model do
     context "when QuestionFormat is not option_based" do
 
       let!(:question_format) { create(:question_format, option_based: false) }
+      let!(:question) { create(:question, question_format: question_format) }
 
       it { is_expected.to eql(false) }
 
@@ -91,13 +110,13 @@ RSpec.describe Question, type: :model do
 
   describe "#deep_copy" do
 
-    let!(:question) { create(:question, {
+    let!(:question) { create(:question,
       default_value: "foo bar",
       modifiable: true,
       number: 12,
       option_comment_display: false,
       text: "How many foos can bar?",
-    }) }
+    ) }
 
     let!(:options) { Hash.new }
 

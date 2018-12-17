@@ -1,3 +1,7 @@
+<% administrator = Role.new(administrator: true, editor: true, commenter: true) %>
+<% editor = Role.new(editor: true, commenter: true) %>
+<% commenter = Role.new(commenter: true) %>
+
 <h2><%= _('Set plan visibility') %></h2>
 <p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default.') % { :percentage => Rails.application.config.default_plan_percentage_answered } %></p>
 <% allow_visibility = @plan.visibility_allowed? %>
@@ -49,13 +53,17 @@
           <td><%= role.user.name %></td>
           <td>
             <% if role.creator? %>
-                <span><%= _('Owner') %></span>
+                <span><%= display_role(role) %></span>
             <% else %>
                 <% if administerable && role.user != current_user %>
                       <%= form_for role, url: { controller: :roles, action: :update, id: role.id }, remote: true, html: { method: :put } do |f| %>
                       <div class="form-group col-xs-8">
                         <%= f.hidden_field :id %>
-                        <%= f.select :access_level, {"#{_('Co-owner')}": 3, "#{_('Editor')}": 2, "#{_('Read only')}": 1}, {}, {id: "#{role.id}-can-edit", class: "toggle-existing-user-access" } %>
+                        <%= f.select :access, {
+                              "#{display_role(administrator)}": administrator.access,
+                              "#{display_role(editor)}": editor.access,
+                              "#{display_role(commenter)}": commenter.access
+                            }, {}, { id: "#{role.id}-can-edit", class: "toggle-existing-user-access" } %>
                       </div>
                     <% end %>
                 <% else %>
@@ -91,20 +99,20 @@
     <legend><%= _('Permissions') %></legend>
     <div class="form-group">
       <div class="radio">
-        <%= f.label :access_level do %>
-          <%= f.radio_button :access_level, 3, "aria-required": true %>
+        <%= f.label :access do %>
+          <%= f.radio_button :access, administrator.access, "aria-required": true %>
           <%= _('Co-owner: can edit project details, change visibility, and add collaborators') %>
         <% end %>
       </div>
       <div class="radio">
-        <%= f.label :access_level do %>
-          <%= f.radio_button :access_level, 2 %>
+        <%= f.label :access do %>
+          <%= f.radio_button :access, editor.access %>
           <%= _('Editor: can comment and make changes') %>
         <% end %>
       </div>
       <div class="radio">
-        <%= f.label :access_level do %>
-          <%= f.radio_button :access_level, 1 %>
+        <%= f.label :access do %>
+          <%= f.radio_button :access, commenter.access %>
           <%= _('Read only: can view and comment, but not make changes') %>
         <% end %>
       </div>
