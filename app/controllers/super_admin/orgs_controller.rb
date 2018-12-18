@@ -8,7 +8,14 @@ module SuperAdmin
 
     def index
       authorize Org
-      render "index", locals: { orgs: Org.includes(:templates, :users) }
+      render "index", locals: {
+        orgs: Org.joins(:templates, :users)
+                 .group("orgs.id")
+                 .select("orgs.*,
+                         count(distinct templates.family_id) as template_count,
+                         count(users.id) as user_count")
+                 .page(1)
+      }
     end
 
     def new
