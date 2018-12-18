@@ -3227,6 +3227,9 @@ msgstr ""
 msgid "Welcome to %{tool_name}, %{username}"
 msgstr ""
 
+msgid "Welcome to the DMPTool"
+msgstr ""
+
 msgid "What are the benefits of participating in the DMPTool?"
 msgstr ""
 
