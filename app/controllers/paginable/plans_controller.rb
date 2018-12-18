@@ -11,7 +11,8 @@ class Paginable::PlansController < ApplicationController
     end
     paginable_renderise(
       partial: "privately_visible",
-      scope: Plan.active(current_user)
+      scope: Plan.active(current_user),
+      query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }
     )
   end
 
@@ -22,7 +23,8 @@ class Paginable::PlansController < ApplicationController
     end
     paginable_renderise(
       partial: "organisationally_or_publicly_visible",
-      scope: Plan.organisationally_or_publicly_visible(current_user)
+      scope: Plan.organisationally_or_publicly_visible(current_user),
+      query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }
     )
   end
 
@@ -30,7 +32,8 @@ class Paginable::PlansController < ApplicationController
   def publicly_visible
     paginable_renderise(
       partial: "publicly_visible",
-      scope: Plan.publicly_visible
+      scope: Plan.publicly_visible,
+      query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }
     )
   end
 
@@ -41,7 +44,8 @@ class Paginable::PlansController < ApplicationController
     end
     paginable_renderise(
       partial: "org_admin",
-      scope: current_user.org.plans
+      scope: current_user.org.plans,
+      query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }
     )
   end
 

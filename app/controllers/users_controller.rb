@@ -14,17 +14,30 @@ class UsersController < ApplicationController
   def admin_index
     authorize User
 
+    if current_user.can_super_admin?
+      users = User.joins(:org, :perms, :plans)
+                  .includes(:org, :perms)
+                  .group("users.id")
+                  .select("users.*,
+                           count(plans.id) as plan_count")
+                  .page(1)
+    else
+      users = User.joins(:org, :perms, :plans)
+                  .includes(:org, :perms)
+                  .where(users: { org_id: current_user.org.id })
+                  .group("users.id")
+                  .select("users.*,
+                           count(plans.id) as plan_count")
+                  .page(1)
+    end
+
     respond_to do |format|
       format.html do
-        if current_user.can_super_admin?
-          @users = User.page(1)
-        else
-          @users = current_user.org.users.page(1)
-        end
+        @users = users
       end
-      
+
       format.csv do
-        send_data User.to_csv(current_user.org.users.order(:surname)),
+        send_data User.to_csv(users),
         filename: "users-accounts-#{Date.today}.csv"
       end
     end
