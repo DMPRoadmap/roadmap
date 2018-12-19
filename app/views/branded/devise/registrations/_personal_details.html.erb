@@ -46,8 +46,13 @@
       <input type="text" disabled="true" value="<%= @default_org.name if @default_org.present? %>" class="form-control" />
       <input type="hidden" name="user[org_id]" id="user_org_id" value="<%= current_user.org_id %>">
     <% else %>
-      <%= render partial: "shared/my_org", locals: {f: f, default_org: current_user.org.is_other? ? nil : current_user.org, orgs: Org.participating} %>
-      <%= f.hidden_field :other_org_id, value: Org.find_by(is_other: true).id %>
+      <%= render partial: "shared/my_org",
+                 locals: {
+                  f: f,
+                  default_org: current_user.org.is_other? ? nil : current_user.org,
+                  orgs: Org.participating,
+                  allow_other_orgs: true
+                } %>
     <% end %>
   </div>
 

@@ -32,7 +32,7 @@ class SessionsController < Devise::SessionsController
         # If the user has an old LDAP account attempt to convert their
         # password over to Devise if it is valid
         unless existing_user.encrypted_password.present?
-          existing_user.convert_ldap_password?(params[:user][:password])
+          existing_user.valid_password?(params[:user][:password])
         end
       #----------------------------------------------
       # End DMPTool customization

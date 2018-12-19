@@ -27,15 +27,13 @@
       </div>
 
       <div class="form-group col-xs-8" id="org-controls">
-
-        <%= render partial: "shared/my_org", locals: {
-          f: f,
-          default_org: default_org,
-          orgs: orgs,
-          allow_other_orgs: false,
-          required: true
-        } %>
-
+        <%= render partial: "shared/my_org",
+                 locals: {
+                  f: f,
+                  default_org: @user.org.is_other? ? nil : @user.org,
+                  orgs: Org.participating,
+                  allow_other_orgs: true
+                } %>
       </div>
 
       <% if Language.many? %>

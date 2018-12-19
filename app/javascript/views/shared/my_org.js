@@ -34,6 +34,18 @@ export const initOrgSelection = (options) => {
         toggleInputs(true);
       });
 
+      // -----------------------------------------------------------------------------
+      // Start DMPTool customization to default to the is_other org when no selection
+      // -----------------------------------------------------------------------------
+      name.blur(() => {
+        if (!name.val()) {
+          id.val(otherOrg.val());
+        }
+      });
+      // -----------------------------------------------------------------------------
+      // End DMPTool customization
+      // -----------------------------------------------------------------------------
+
       // when the user enters a value in the 'Other org' textbox, set the org_id to OTHER_ORG_ID
       text.blur(() => {
         if (isObject(id)) {
