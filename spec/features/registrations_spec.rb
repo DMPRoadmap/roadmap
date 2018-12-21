@@ -2,6 +2,15 @@ require 'rails_helper'
 
 RSpec.describe "Registrations", type: :feature do
 
+  # -------------------------------------------------------------
+  # start DMPTool customization
+  # Initialize the is_other org
+  # -------------------------------------------------------------
+  include DmptoolHelper
+  # -------------------------------------------------------------
+  # end DMPTool customization
+  # -------------------------------------------------------------
+
   let!(:org) { create(:org) }
 
   let(:user_attributes) { attributes_for(:user) }
@@ -12,15 +21,34 @@ RSpec.describe "Registrations", type: :feature do
     # Setup
     visit root_path
 
+    # -------------------------------------------------------------
+    # start DMPTool customization
+    # Access the create account form
+    # -------------------------------------------------------------
     # Action
-    click_link "Create account"
-    within("#create-account-form") do
+    #click_link "Create account"
+    #within("#create-account-form") do
+    access_create_account_modal
+    within("#create_account_form") do
+    # -------------------------------------------------------------
+    # end DMPTool customization
+    # -------------------------------------------------------------
+
       fill_in "First Name", with: user_attributes[:firstname]
       fill_in "Last Name", with: user_attributes[:surname]
       fill_in "Email", with: user_attributes[:email]
-      fill_in "Organisation", with: org.name
-      # Click from the dropdown autocomplete
-      find("#suggestion-1-0").click
+
+      # -------------------------------------------------------------
+      # start DMPTool customization
+      # We do not allow users to select an org
+      # -------------------------------------------------------------
+      #fill_in "Organisation", with: org.name
+      ## Click from the dropdown autocomplete
+      #find("#suggestion-1-0").click
+      # -------------------------------------------------------------
+      # end DMPTool customization
+      # -------------------------------------------------------------
+
       fill_in "Password", with: user_attributes[:password]
       check "Show password"
       check "I accept the terms and conditions"
@@ -39,15 +67,34 @@ RSpec.describe "Registrations", type: :feature do
     # Setup
     visit root_path
 
+    # -------------------------------------------------------------
+    # start DMPTool customization
+    # Access the create account form
+    # -------------------------------------------------------------
     # Action
-    click_link "Create account"
-    within("#create-account-form") do
+    #click_link "Create account"
+    #within("#create-account-form") do
+    access_create_account_modal
+    within("#create_account_form") do
+    # -------------------------------------------------------------
+    # end DMPTool customization
+    # -------------------------------------------------------------
+
       fill_in "First Name", with: user_attributes[:firstname]
       fill_in "Last Name", with: user_attributes[:surname]
       fill_in "Email", with: "invalid-email"
-      fill_in "Organisation", with: org.name
-      # Click from the dropdown autocomplete
-      find("#suggestion-1-0").click
+
+      # -------------------------------------------------------------
+      # start DMPTool customization
+      # We do not allow users to select an org
+      # -------------------------------------------------------------
+      #fill_in "Organisation", with: org.name
+      ## Click from the dropdown autocomplete
+      #find("#suggestion-1-0").click
+      # -------------------------------------------------------------
+      # end DMPTool customization
+      # -------------------------------------------------------------
+
       fill_in "Password", with: user_attributes[:password]
       check "Show password"
       check "I accept the terms and conditions"

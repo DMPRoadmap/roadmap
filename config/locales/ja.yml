@@ -1,167 +1,162 @@
 ---
-en-US:
+ja:
   activerecord:
     errors:
       messages:
-        record_invalid: "Validation failed: %{errors}"
+        record_invalid: "バリデーションに失敗しました: %{errors}"
         restrict_dependent_destroy:
-          has_one: "Cannot delete record because a dependent %{record} exists"
-          has_many: "Cannot delete record because dependent %{record} exist"
+          has_one: "%{record}が存在しているので削除できません"
+          has_many: "%{record}が存在しているので削除できません"
   date:
     abbr_day_names:
-    - Sun
-    - Mon
-    - Tue
-    - Wed
-    - Thu
-    - Fri
-    - Sat
+    - 日
+    - 月
+    - 火
+    - 水
+    - 木
+    - 金
+    - 土
     abbr_month_names:
     -
-    - Jan
-    - Feb
-    - Mar
-    - Apr
-    - May
-    - Jun
-    - Jul
-    - Aug
-    - Sep
-    - Oct
-    - Nov
-    - Dec
+    - 1月
+    - 2月
+    - 3月
+    - 4月
+    - 5月
+    - 6月
+    - 7月
+    - 8月
+    - 9月
+    - 10月
+    - 11月
+    - 12月
     day_names:
-    - Sunday
-    - Monday
-    - Tuesday
-    - Wednesday
-    - Thursday
-    - Friday
-    - Saturday
+    - 日曜日
+    - 月曜日
+    - 火曜日
+    - 水曜日
+    - 木曜日
+    - 金曜日
+    - 土曜日
     formats:
-      default: "%m-%d-%Y"
-      long: "%B %d, %Y"
-      short: "%b %d"
-      csv: "%m/%d/%Y"
+      default: "%Y/%m/%d"
+      long: "%Y年%m月%d日(%a)"
+      short: "%m/%d"
+      csv: "%d/%m/%Y"
+
     month_names:
     -
-    - January
-    - February
-    - March
-    - April
-    - May
-    - June
-    - July
-    - August
-    - September
-    - October
-    - November
-    - December
+    - 1月
+    - 2月
+    - 3月
+    - 4月
+    - 5月
+    - 6月
+    - 7月
+    - 8月
+    - 9月
+    - 10月
+    - 11月
+    - 12月
     order:
+    - :year
     - :month
     - :day
-    - :year
   datetime:
     distance_in_words:
       about_x_hours:
-        one: about 1 hour
-        other: about %{count} hours
+        one: 約1時間
+        other: 約%{count}時間
       about_x_months:
-        one: about 1 month
-        other: about %{count} months
+        one: 約1ヶ月
+        other: 約%{count}ヶ月
       about_x_years:
-        one: about 1 year
-        other: about %{count} years
+        one: 約1年
+        other: 約%{count}年
       almost_x_years:
-        one: almost 1 year
-        other: almost %{count} years
-      half_a_minute: half a minute
+        one: 1年弱
+        other: "%{count}年弱"
+      half_a_minute: 30秒前後
       less_than_x_minutes:
-        one: less than a minute
-        other: less than %{count} minutes
+        one: 1分以内
+        other: "%{count}分未満"
       less_than_x_seconds:
-        one: less than 1 second
-        other: less than %{count} seconds
+        one: 1秒以内
+        other: "%{count}秒未満"
       over_x_years:
-        one: over 1 year
-        other: over %{count} years
+        one: 1年以上
+        other: "%{count}年以上"
       x_days:
-        one: 1 day
-        other: "%{count} days"
+        one: 1日
+        other: "%{count}日"
       x_minutes:
-        one: 1 minute
-        other: "%{count} minutes"
+        one: 1分
+        other: "%{count}分"
       x_months:
-        one: 1 month
-        other: "%{count} months"
+        one: 1ヶ月
+        other: "%{count}ヶ月"
       x_years:
-        one: 1 year
-        other: "%{count} years"
+        one: 1年
+        other: "%{count}年"
       x_seconds:
-        one: 1 second
-        other: "%{count} seconds"
+        one: 1秒
+        other: "%{count}秒"
     prompts:
-      day: Day
-      hour: Hour
-      minute: Minute
-      month: Month
-      second: Seconds
-      year: Year
+      day: 日
+      hour: 時
+      minute: 分
+      month: 月
+      second: 秒
+      year: 年
   errors:
-    format: "%{attribute} %{message}"
+    format: "%{attribute}%{message}"
     messages:
-      accepted: must be accepted
-      blank: can't be blank
-      present: must be blank
-      confirmation: doesn't match %{attribute}
-      empty: can't be empty
-      equal_to: must be equal to %{count}
-      even: must be even
-      exclusion: is reserved
-      greater_than: must be greater than %{count}
-      greater_than_or_equal_to: must be greater than or equal to %{count}
-      inclusion: is not included in the list
-      invalid: is invalid
-      less_than: must be less than %{count}
-      less_than_or_equal_to: must be less than or equal to %{count}
-      model_invalid: "Validation failed: %{errors}"
-      not_a_number: is not a number
-      not_an_integer: must be an integer
-      odd: must be odd
-      required: must exist
-      taken: has already been taken
-      too_long:
-        one: is too long (maximum is 1 character)
-        other: is too long (maximum is %{count} characters)
-      too_short:
-        one: is too short (minimum is 1 character)
-        other: is too short (minimum is %{count} characters)
-      wrong_length:
-        one: is the wrong length (should be 1 character)
-        other: is the wrong length (should be %{count} characters)
-      other_than: must be other than %{count}
+      accepted: を受諾してください
+      blank: を入力してください
+      present: は入力しないでください
+      confirmation: と%{attribute}の入力が一致しません
+      empty: を入力してください
+      equal_to: は%{count}にしてください
+      even: は偶数にしてください
+      exclusion: は予約されています
+      greater_than: は%{count}より大きい値にしてください
+      greater_than_or_equal_to: は%{count}以上の値にしてください
+      inclusion: は一覧にありません
+      invalid: は不正な値です
+      less_than: は%{count}より小さい値にしてください
+      less_than_or_equal_to: は%{count}以下の値にしてください
+      model_invalid: "バリデーションに失敗しました: %{errors}"
+      not_a_number: は数値で入力してください
+      not_an_integer: は整数で入力してください
+      odd: は奇数にしてください
+      required: を入力してください
+      taken: はすでに存在します
+      too_long: は%{count}文字以内で入力してください
+      too_short: は%{count}文字以上で入力してください
+      wrong_length: は%{count}文字で入力してください
+      other_than: は%{count}以外の値にしてください
     template:
-      body: 'There were problems with the following fields:'
+      body: 次の項目を確認してください
       header:
-        one: 1 error prohibited this %{model} from being saved
-        other: "%{count} errors prohibited this %{model} from being saved"
+        one: "%{model}にエラーが発生しました"
+        other: "%{model}に%{count}個のエラーが発生しました"
   helpers:
     select:
-      prompt: Please select
+      prompt: 選択してください
     submit:
-      create: Create %{model}
-      submit: Save %{model}
-      update: Update %{model}
+      create: 登録する
+      submit: 保存する
+      update: 更新する
   number:
     currency:
       format:
         delimiter: ","
-        format: "%u%n"
-        precision: 2
+        format: "%n%u"
+        precision: 0
         separator: "."
         significant: false
         strip_insignificant_zeros: false
-        unit: "$"
+        unit: 円
     format:
       delimiter: ","
       precision: 3
@@ -172,11 +167,11 @@ en-US:
       decimal_units:
         format: "%n %u"
         units:
-          billion: Billion
-          million: Million
-          quadrillion: Quadrillion
-          thousand: Thousand
-          trillion: Trillion
+          billion: 十億
+          million: 百万
+          quadrillion: 千兆
+          thousand: 千
+          trillion: 兆
           unit: ''
       format:
         delimiter: ''
@@ -184,11 +179,9 @@ en-US:
         significant: true
         strip_insignificant_zeros: true
       storage_units:
-        format: "%n %u"
+        format: "%n%u"
         units:
-          byte:
-            one: Byte
-            other: Bytes
+          byte: バイト
           gb: GB
           kb: KB
           mb: MB
@@ -202,13 +195,13 @@ en-US:
         delimiter: ''
   support:
     array:
-      last_word_connector: ", and "
-      two_words_connector: " and "
-      words_connector: ", "
+      last_word_connector: 、
+      two_words_connector: 、
+      words_connector: 、
   time:
-    am: am
+    am: 午前
     formats:
-      default: "%a, %d %b %Y %I:%M:%S %p %Z"
-      long: "%B %d, %Y %I:%M %p"
-      short: "%d %b %I:%M %p"
-    pm: pm
+      default: "%Y/%m/%d %H:%M:%S"
+      long: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
+      short: "%y/%m/%d %H:%M"
+    pm: 午後
