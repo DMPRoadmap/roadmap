@@ -75,7 +75,8 @@ FactoryBot.define do
     trait :shibbolized do
       after :create do |org, evaluator|
         scheme = IdentifierScheme.find_or_create_by(name: "shibboleth")
-        create(:org_identifier, org_id: org.id, identifier_scheme: scheme)
+        create(:org_identifier, org_id: org.id, identifier_scheme: scheme,
+                                identifier: SecureRandom.hex(4))
       end
     end
     # ----------------------------------------------------

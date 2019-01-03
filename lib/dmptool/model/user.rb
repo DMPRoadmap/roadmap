@@ -8,24 +8,6 @@ module Dmptool
 
       extend ActiveSupport::Concern
 
-      class_methods do
-        # Load the user based on the scheme and id provided by the Omniauth call
-        def from_omniauth(auth)
-          scheme = IdentifierScheme.find_by(name: auth.provider.downcase)
-
-          if scheme.nil?
-            throw Exception.new("Unknown OAuth provider: %{provider}" % {
-              provider: auth.provider
-            })
-          else
-            joins(:user_identifiers).where(
-              "user_identifiers.identifier": auth.uid.downcase,
-              "user_identifiers.identifier_scheme_id": scheme.id
-            ).first
-          end
-        end
-      end
-
       included do
         # LDap Users password reset
         def valid_password?(password)

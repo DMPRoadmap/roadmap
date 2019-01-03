@@ -30,14 +30,21 @@ module DmptoolHelper
   end
 
   def mock_shib_call(user)
+    if user.org.org_identifiers.empty?
+      shib = create(:identifier_scheme, name: "shibboleth")
+      create(:org_identifier, identifier_scheme: shib, org_id: user.org.id,
+                              identifier: "shib.#{user.org.abbreviation}")
+    end
+
+    # Mock the OmniAuth callback for Shibboleth
     OmniAuth.config.add_mock(:shibboleth, {
       "omniauth.auth": {
         "uid": "123ABC",
         "info": {
           "email": user.email,
           "givenname": user.firstname,
-          "sn": user.lastname,
-          "identity_provider": user.org.identifiers.first.identifier
+          "sn": user.surname,
+          "identity_provider": user.org.org_identifiers.first.identifier
         }
       }
     })

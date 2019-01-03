@@ -12,9 +12,7 @@ module Dmptool
         def public
           skip_authorization
 
-          ids = Org.where(
-            "#{Org.organisation_condition} OR #{Org.institution_condition}"
-          ).pluck(:id)
+          ids = Org.where.not("#{Org.funder_condition}").pluck(:id)
 
           paginable_renderise(
             partial: "public",

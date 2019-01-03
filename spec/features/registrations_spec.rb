@@ -41,6 +41,8 @@ RSpec.describe "Registrations", type: :feature do
       # -------------------------------------------------------------
       # start DMPTool customization
       # We do not allow users to select an org
+      # For some reason Chrome headless is triggering a:
+      #     'Please include a '@' character' message sometimes
       # -------------------------------------------------------------
       #fill_in "Organisation", with: org.name
       ## Click from the dropdown autocomplete
@@ -54,6 +56,10 @@ RSpec.describe "Registrations", type: :feature do
       check "I accept the terms and conditions"
     end
     click_button "Create account"
+
+# DMPTool issue
+# For some reason this fails. It appears as though the button click is happening
+# before the UI has a chance to fill in the email/password completely
 
     # Expectations
     expect(current_path).to eql(plans_path)

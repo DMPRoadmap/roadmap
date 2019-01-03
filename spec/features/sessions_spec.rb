@@ -66,7 +66,7 @@ RSpec.feature "Sessions", type: :feature do
   # start DMPTool customization
   # Shibboleth sign in
   # -------------------------------------------------------------
-  scenario "User signs in successfully via Shibboleth", :js do
+  scenario "User is redirected to Shibboleth Login for a shibbolized org", :js do
     generate_shibbolized_orgs(12)
     org = Org.participating.first
 
@@ -78,25 +78,29 @@ RSpec.feature "Sessions", type: :feature do
     find("#suggestion-1-0").click
     #click_button "Go"
     click_link "See the full list of participating institutions"
-    click_link "#{org.name}"
+    first("a[href^=\"/orgs/shibboleth/\"]").click
 
-    # TODO: Finish these tests!
-    #       Clicking the final link goes into orgs/shibboleth_ds_passthru
-    #       which redirects to: /Shibboleth.sso/Login?target=https://127.0.0.1:63956/users/auth/shibboleth/callback&entityID=animi
-    # That call to Shibboleth.sso/Login is part of the Shib SP which we need to mock
-    # to send traffic back to the users/auth/shibboleth route so that it falls into the
-    # omniauth mock
-
-    expect(current_path).to eql(edit_user_registration_path)
-    #shib_id = UserIdentifier.where(user_id: user.id, identifier_scheme_id: scheme.id)
-    #expect(shib_id).to eql("123ABC")
+    expect(current_path).to eql("/Shibboleth.sso/Login")
   end
 
-  scenario "User fails sign in via Shibboleth", :js do
+  scenario "User is shown the Org's custom sign in page for non-shibbolized Orgs", :js do
+    org = create(:org, is_other: false)
+    generate_shibbolized_orgs(10)
 
+    # Setup
+    visit root_path
+    access_shib_ds_modal
+    find("#shib-ds_org_name").set(org.name)
+    ## Click from the dropdown autocomplete
+    find("#suggestion-1-0").click
+    #click_button "Go"
+    click_link "See the full list of participating institutions"
+    first("a[href^=\"/org_logos/\"]").click
+
+    expect(find(".branding-name").present?).to eql(true)
   end
   # -------------------------------------------------------------
-    # end DMPTool customization
-    # -------------------------------------------------------------
+  # end DMPTool customization
+  # -------------------------------------------------------------
 
 end

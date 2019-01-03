@@ -9,9 +9,6 @@ module Dmptool
       protected
 
       def process_omniauth_callback(scheme)
-
-p "WE GOT HERE!!!"
-
         if request.env.present?
           omniauth = request.env["omniauth.auth"] || request.env
         else

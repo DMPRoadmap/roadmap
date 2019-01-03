@@ -9,16 +9,10 @@ module Dmptool
       def promote
       end
 
-      def researchers
-      end
-
       def faq
       end
 
       def general_guidance
-      end
-
-      def news_media
       end
 
     end

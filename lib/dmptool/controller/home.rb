@@ -39,7 +39,7 @@ module Dmptool
         stats = {
           user_count: User.select(:id).count,
           completed_plan_count: Plan.select(:id).count,
-          institution_count: Org.select(:id).count
+          institution_count: Org.participating.select(:id).count
         }
         cache_content("stats", stats)
         stats

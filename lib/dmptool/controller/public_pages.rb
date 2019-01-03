@@ -25,11 +25,9 @@ module Dmptool
 
       # Clean up the file name to make it OS friendly (removing newlines, and punctuation)
       def file_name(title)
-        file_name = title.gsub(/[^a-zA-Z\d\s]/, "")
+        file_name = title.gsub(/[\r\n]/, " ")
+                         .gsub(/[^a-zA-Z\d\s]/, "")
                          .gsub(/ /, "_")
-                         .gsub('/\n/', "")
-                         .gsub('/\r/', "")
-                         .gsub(":", "_")
         if file_name.length > 31
           file_name = file_name[0..30]
         end
