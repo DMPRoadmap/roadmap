@@ -29,16 +29,12 @@ module DmptoolHelper
     end
   end
 
-  def mock_shib_call(user)
-    if user.org.org_identifiers.empty?
-      shib = create(:identifier_scheme, name: "shibboleth")
-      create(:org_identifier, identifier_scheme: shib, org_id: user.org.id,
-                              identifier: "shib.#{user.org.abbreviation}")
-    end
+  def mock_omniauth_call(scheme, user)
 
-    # Mock the OmniAuth callback for Shibboleth
-    OmniAuth.config.add_mock(:shibboleth, {
-      "omniauth.auth": {
+    case scheme
+    when "shibboleth"
+      # Mock the OmniAuth payload for Shibboleth
+      {
         "uid": "123ABC",
         "info": {
           "email": user.email,
@@ -47,7 +43,45 @@ module DmptoolHelper
           "identity_provider": user.org.org_identifiers.first.identifier
         }
       }
-    })
+
+    when "orcid"
+      # Moch the Omniauth payload for Orcid
+      {
+        "uid": "ORCID123"
+      }
+    else
+      {}
+    end
+  end
+
+  module ShibbolethOmniauthEnv
+
+    def request
+      OpenStruct.new({
+        "omniauth.auth": mock_omniauth_call("shibboleth", current_user)
+      })
+    end
+
+  end
+
+  module OrcidOmniauthEnv
+
+    def request
+      OpenStruct.new({
+        "omniauth.auth": mock_omniauth_call("orcid", current_user)
+      })
+    end
+
+  end
+
+  module UnknownOmniauthEnv
+
+    def request
+      OpenStruct.new({
+        "omniauth.auth": mock_omniauth_call("unknown", current_user)
+      })
+    end
+
   end
 
 end

@@ -21,6 +21,8 @@ module Dmptool
           provider = scheme.description
         end
 
+p "ENV: #{request.env["omniauth.auth"]}"
+
         # if the user is already signed in then we are attempting to attach
         # omniauth credentials to an existing account
         if current_user.present? && omniauth.fetch(:uid, "").present?
