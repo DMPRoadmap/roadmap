@@ -72,6 +72,7 @@ class UserMailer < ActionMailer::Base
     if recipient.active?
       FastGettext.with_locale FastGettext.default_locale do
         mail(to: recipient.email,
+             from: requestor.org.contact_email,
              subject: _("%{application_name}: Expert feedback has been provided for %{plan_title}") % {application_name: Rails.configuration.branding[:application][:name], plan_title: @plan.title})
       end
     end
