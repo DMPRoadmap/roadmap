@@ -19,21 +19,29 @@
     <% @hash[:phases].each do |phase| %>
       <%# Only render selected phase %>
       <% if phase[:title] == @selected_phase.title %>
-      <!-- Page break before each phase -->
+        <%# Page break before each phase %>
         <div style="page-break-before:always;"></div>
         <h1><%= download_plan_page_title(@plan, phase, @hash) %></h1>
         <hr />
         <% phase[:sections].each do |section| %>
           <% if display_section?(@hash[:customization], section, @show_custom_sections) %>
             <% if @show_sections_questions %>
+              <br>
               <h3><%= section[:title] %></h3>
+              <br>
             <% end %>
             <% section[:questions].each do |question| %>
               <div class="question">
                 <% if !@public_plan && @show_sections_questions%>
-                  <p>
-                    <%= sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %>
-                  </p>
+                  <%# Hack: for DOCX export - otherwise, bold highlightin of question inconsistent. %>
+                  <% if local_assigns[:export_format] && export_format == 'docx' %>
+                    <% question_text = question[:text].to_s %>
+                    <% question_text = question_text.gsub('<p>', '<p><strong>'); %>
+                    <% question_text = question_text.gsub('</p>', '</strong></p>'); %>
+                    <strong><%=  sanitize question_text, scrubber: TableFreeScrubber.new %></strong>
+                  <% else %>
+                    <div class="bold"><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></div>
+                  <% end %>
                   <br>
                 <% end %>
                 <% answer = @plan.answer(question[:id], false) %>
@@ -41,7 +49,9 @@
                 <% options = answer.present? ? answer.question_options : [] %>
                 <%# case where question has not been answered sufficiently to display%>
                 <% if @show_unanswered && (answer.blank? || (options.blank? && blank))%>
+                  <br>
                   <p><%= _('Question not answered.') -%></p>
+                  <br><br>
                 <% else %>
 
                   <%# case where Question has options %>
@@ -63,9 +73,11 @@
                       </ul>
                     <% end %>
                     <p><%= sanitize ah['text'] %></p>
+                    <br>
                   <%# case for displaying comments OR text %>
                   <% elsif !blank %>
-                    <p><%= sanitize answer.text %></p>
+                    <%= sanitize answer.text %>
+                    <br><br>
                   <% end %>
                 <% end %>
               </div>
