@@ -13,6 +13,9 @@ class Theme < ActiveRecord::Base
   attr_accessible :question_ids, :as => [:default, :admin]
   attr_accessible :description, :title, :locale , :as => [:default, :admin]
 
+  ##
+  # Before save & create
+  before_save :generate_slug
 
   validates :title, presence: {message: _("can't be blank")}
 
@@ -28,4 +31,13 @@ class Theme < ActiveRecord::Base
   	title
   end
 
+  def to_slug
+    title.parameterize.truncate(80, omission: '')
+  end
+
+  def generate_slug
+    if self.title
+      self.slug = self.title.parameterize
+    end
+  end
 end

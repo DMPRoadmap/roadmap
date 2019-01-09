@@ -210,7 +210,7 @@ resources :token_permission_types, only: [:new, :create, :edit, :update, :index,
             get :plans
           end
         end
-        resources :themes, only: [] do
+        resources :themes, param: :slug, only: [] do
           member do
             get 'extract', to: 'themes#extract'
           end
