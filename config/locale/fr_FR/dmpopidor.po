@@ -171,8 +171,8 @@ msgstr "Autre organisme"
 msgid "Use Default Template"
 msgstr "Utiliser le modèle par défaut"
 
-msgid "Would you like to use the default template \"%{template_name}\" provided by %{org_name}?"
-msgstr "Souhaitez-vous utiliser le modèle par défaut \"%{template_name}\" fourni par %{org_name} ?"
+msgid "Would you like to use the default template \"%{template_name}\"?"
+msgstr "Souhaitez-vous utiliser le modèle par défaut \"%{template_name}\" ?"
 
 msgid "Would you like to choose the template of another organisation?"
 msgstr "Souhaitez-vous choisir le modèle d'un autre organisme ?"
@@ -180,14 +180,14 @@ msgstr "Souhaitez-vous choisir le modèle d'un autre organisme ?"
 msgid "Would you like to choose the template of a funder?"
 msgstr "Souhaitez-vous utiliser le modèle d'un financeur ?"
 
-msgid "The organisation provides multiple templates, which one would you like to use?"
-msgstr "Cet organisme propose plusieurs modèles, lequel souhaitez-vous utiliser ?"
+msgid "Multiple templates are available, which one would you like to use?"
+msgstr "Plusieurs modèles sont disponibles, lequel souhaitez-vous utiliser ?"
 
-msgid "This organisation provides the template \"__template_title__\". Would you like to create a plan from this template?"
-msgstr "Cet organisme propose le modèle \"__template_title__\". Souhaitez-vous créer un plan à partir de ce modèle ?"
+msgid "The template \"__template_title__\" is available. Would you like to create a plan from this template?"
+msgstr "Le modèle \"__template_title__\" est disponible. Souhaitez-vous créer un plan à partir de ce modèle ?"
 
-msgid "This organisation does not provide a template. Would you like to create a plan using the default \"__template_title__\" template?"
-msgstr "Cet organisme ne propose pas de modèle. Souhaitez-vous créer un plan à partir du modèle par défaut \"__template_title__\" ?"
+msgid "No template available, would you like to create a plan using the default \"__template_title__\" template?"
+msgstr "Aucun modèle de disponible, souhaitez-vous créer un plan à partir du modèle par défaut \"__template_title__\" ?"
 
 msgid "You are not linked to an organisation, we can\'t suggest you a template. Please choose an organisation in your profile"
 msgstr "Vous n'êtes pas liés à un organisme, nous ne pouvons vous proposer un modèle. Veuillez choisir un organisme dans votre profil."

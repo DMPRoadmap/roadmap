@@ -50,9 +50,8 @@
       <!-- "Your organisation" tab -->
       <div id="own_org" class="tab-pane in active">
         <h2>
-          <%= d_('dmpopidor', 'Would you like to use the default template "%{template_name}" provided by %{org_name}?') % { 
-            :template_name => @default_template.title,
-            :org_name => @default_template.org.name 
+          <%= d_('dmpopidor', 'Would you like to use the default template "%{template_name}"?') % { 
+            :template_name => @default_template.title
           } %>
         </h2>
         <%= direct_link(@default_template, false, d_('dmpopidor', 'Use Default Template')) %>
@@ -100,11 +99,13 @@
       <!-- Legacy checkboxes from the v1 form, indicates wether or not organisation or funder is present, handled automaticaly by tab changes -->
       <%= check_box_tag(:plan_no_org, '', false, style: 'display: none;') %>
       <%= check_box_tag(:plan_no_funder, '', true, style: 'display: none;') %>
+      
 
-      <!-- Multiple templates div (if more than one templates are provided by organisation) -->
+
+    <!-- Multiple templates div (if more than one templates are provided by organisation) -->
       <div id="available-templates" style="display: none;">
         <h2>
-          <%= d_('dmpopidor', 'The organisation provides multiple templates, which one would you like to use?') %>
+          <%= d_('dmpopidor', 'Multiple templates are available, which one would you like to use?') %>
         </h2>
         <!-- Hidden field to store the URL from which to get available templates (async) -->
         <%= hidden_field_tag 'template-option-target', org_admin_template_options_path %>
@@ -118,12 +119,12 @@
 
       <!-- Single template div (if only one template is provided by organisation) -->
       <div id="single-template" style="display: none;">
-        <h3 class="single-template-name"><%= d_('dmpopidor', "This organisation provides the template \"__template_title__\". Would you like to create a plan from this template?") %></h3>
+        <h3 class="single-template-name"><%= d_('dmpopidor', "The template \"__template_title__\" is available. Would you like to create a plan from this template?") %></h3>
       </div>
 
       <!-- Default template div (if the template is the default one) -->
       <div id="default-template" style="display: none">
-        <h3 class="single-template-name"><%= d_('dmpopidor', "This organisation does not provide a template. Would you like to create a plan using the default \"__template_title__\" template?") %></h3>
+        <h3 class="single-template-name"><%= d_('dmpopidor', "No template available, would you like to create a plan using the default \"__template_title__\" template?") %></h3>
       </div>
 
       <!-- In case the user does not belong to an organisation -->

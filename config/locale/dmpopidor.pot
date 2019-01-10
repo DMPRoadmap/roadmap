@@ -174,7 +174,7 @@ msgstr ""
 msgid "Use Default Template"
 msgstr ""
 
-msgid "Would you like to use the default template \"%{template_name}\" provided by %{org_name}?"
+msgid "Would you like to use the default template \"%{template_name}\"?"
 msgstr ""
 
 msgid "Would you like to choose the template of another organisation?"
@@ -183,13 +183,13 @@ msgstr ""
 msgid "Would you like to choose the template of a funder?"
 msgstr ""
 
-msgid "The organisation provides multiple templates, which one would you like to use?"
+msgid "Multiple templates are available, which one would you like to use?"
 msgstr ""
 
-msgid "This organisation provides the template \"__template_title__\". Would you like to create a plan from this template?"
+msgid "The template \"__template_title__\" is available. Would you like to create a plan from this template?"
 msgstr ""
 
-msgid "This organisation does not provide a template. Would you like to create a plan using the default \"__template_title__\" template?"
+msgid "No template available, Would you like to create a plan using the default \"__template_title__\" template?"
 msgstr ""
 
 msgid "You are not linked to an organisation, we can\'t suggest you a template. Please choose an organisation in your profile"
