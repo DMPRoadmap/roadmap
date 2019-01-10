@@ -22,7 +22,9 @@
   <div class="col-md-12">
     <h1><%= d_('dmpopidor', 'Choose a template') %></h1>
     <p class="left-indent">
-        <%= d_('dmpopidor', 'You can either choose a template provided by your organisation, another organisation or a funder template.') %>
+        <%= d_('dmpopidor', 'You can either choose a template provided by your organisation, another organisation or a funder template. The default template is "%{template_name}".') % { 
+           :template_name => @default_template.title
+        } %>
         <br/>
         <%= link_to d_('dmpopidor', 'Find the list of the available templates'), public_templates_path, :target => "_blank" %>
       </p>
@@ -49,13 +51,6 @@
     <div class="tab-content">
       <!-- "Your organisation" tab -->
       <div id="own_org" class="tab-pane in active">
-        <h2>
-          <%= d_('dmpopidor', 'Would you like to use the default template "%{template_name}"?') % { 
-            :template_name => @default_template.title
-          } %>
-        </h2>
-        <%= direct_link(@default_template, false, d_('dmpopidor', 'Use Default Template')) %>
-        <!-- Hidden fields to store information about the default organisation (user's org) -->
         <% if @default_org %>
           <%= hidden_field_tag('own_org_name', @default_org.name) %>
           <%= hidden_field_tag('own_org_id', @default_org.id) %>
@@ -124,7 +119,7 @@
 
       <!-- Default template div (if the template is the default one) -->
       <div id="default-template" style="display: none">
-        <h3 class="single-template-name"><%= d_('dmpopidor', "No template available, would you like to create a plan using the default \"__template_title__\" template?") %></h3>
+        <h3 class="single-template-name"><%= d_('dmpopidor', "No template available.") %></h3>
       </div>
 
       <!-- In case the user does not belong to an organisation -->
@@ -138,9 +133,9 @@
 
       <!-- Submit and other buttons -->
       <div class="pull-right">
-        <%= f.button(_('Yes'), class: "btn btn-primary", type: "submit") %>
-        <%= link_to _('No'), '', class: 'btn btn-primary', id: 'no-btn' %>
-        <%= direct_link(@default_template, true, d_('dmpopidor', 'Use Default Template'), 'end-default-btn') %>
+        <%= f.button(_('Create a plan'), class: "btn btn-primary", id: 'create-btn', type: "submit") %>
+        <%= link_to _('Next'), '', class: 'btn btn-primary', id: 'next-btn' %>
+        <%= direct_link(@default_template, false, d_('dmpopidor', 'Use Default Template'), 'end-default-btn') %>
       </div>
     </div>
   </div>

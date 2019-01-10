@@ -187,8 +187,8 @@ msgstr "Multiple templates are available, which one would you like to use?"
 msgid "The template \"__template_title__\" is available. Would you like to create a plan from this template?"
 msgstr "The template \"__template_title__\" is available. Would you like to create a plan from this template?"
 
-msgid "No template available, would you like to create a plan using the default \"__template_title__\" template?"
-msgstr "No template available, would you like to create a plan using the default \"__template_title__\" template?"
+msgid "No template available."
+msgstr "No template available."
 
 msgid "You are not linked to an organisation, we can\'t suggest you a template. Please choose an organisation in your profile"
 msgstr "You are not linked to an organisation, we can\'t suggest you a template. Please choose an organisation in your profile"
@@ -217,8 +217,8 @@ msgstr ""
 msgid "This plan is based on the %{org_name}: %{template_name} template"
 msgstr ""
 
-msgid "You can either choose a template provided by your organisation, another organisation or a funder template."
-msgstr "You can either choose a template provided by your organisation, another organisation or a funder template."
+msgid "You can either choose a template provided by your organisation, another organisation or a funder template. The default template is \"%{template_name}\"."
+msgstr "You can either choose a template provided by your organisation, another organisation or a funder template. The default template is \"%{template_name}\"."
 
 msgid "Successfully changed the permissions for %{user_email}. They have been notified via email."
 msgstr "Autorisations de %{user_email} modifiées avec succès. L'utilisateur a été informé par mail."
