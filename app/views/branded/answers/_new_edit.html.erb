@@ -74,8 +74,9 @@
         <div class="panel panel-default example-answer">
           <span class="label label-default example-answer-link" data-toggle="collapse" data-target="<%= "#example-#{question.id}"  %>">
             <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
+            <i class="more-less glyphicon glyphicon-plus"></i>
           </span>
-          <div class="panel-body collapse in" id="<%= "example-#{question.id}"  %>" >
+          <div class="panel-body collapse" id="<%= "example-#{question.id}"  %>" >
             <%= raw annotation.text %>
           </div>
         </div>
