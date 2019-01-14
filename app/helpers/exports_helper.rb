@@ -3,18 +3,18 @@
 module ExportsHelper
 
   PAGE_MARGINS = {
-    top: '5',
+    top: "5",
     bottom: "10",
     left: "12",
     right: "12",
   }
 
   def font_face
-    @formatting[:font_face].presence || 'Arial, Helvetica, Sans-Serif'
+    @formatting[:font_face].presence || "Arial, Helvetica, Sans-Serif"
   end
 
   def font_size
-    @formatting[:font_size].presence || '12'
+    @formatting[:font_size].presence || "12"
   end
 
   def margin_top
@@ -36,7 +36,7 @@ module ExportsHelper
   def plan_attribution(attribution)
     attribution = Array(attribution)
     prefix = attribution.many? ? _("Creators:") : _("Creator:")
-    "#{prefix} #{attribution.join(', ')}"
+    "<strong>#{prefix}</strong> #{attribution.join(', ')}"
   end
 
   private
@@ -49,4 +49,5 @@ module ExportsHelper
       @formatting.dig(:margin, side).presence || PAGE_MARGINS[side]
     end
   end
+
 end
