@@ -65,8 +65,10 @@ class PlanExportsController < ApplicationController
   end
 
   def show_docx
+    # Using and optional locals_assign export_format
     render docx: "#{file_name}.docx",
-           content: render_to_string(partial: "shared/export/plan")
+           content: render_to_string(partial: "shared/export/plan",
+             locals: { export_format: "docx" })
   end
 
   def show_pdf
