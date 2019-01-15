@@ -7,7 +7,7 @@
   rather cumbersome. As such, this workaround, simplifies the logic when a stale answer is found by rendering the html of the answer directly
   within a paragraph.
 %>
-<div class="form-group">
+<div class="form-group allow-break-words">
     <%= f.label(:text, sanitize(question.text), class: 'control-label') %>
     <% if locking || readonly %>
       <%= sanitize("<p>#{answer.text || question.default_value}</p>") %>
