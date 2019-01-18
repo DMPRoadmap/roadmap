@@ -43,7 +43,7 @@ class NotesController < ApplicationController
       plan = answer.plan
       owner = plan.owner
       deliver_if(recipients: owner, key: "users.new_comment") do |r|
-        UserMailer.new_comment(current_user, plan).deliver_now()
+        UserMailer.new_comment(current_user, plan, answer).deliver_now()
       end
       @notice = success_message(@note, _("created"))
       render(json: {
