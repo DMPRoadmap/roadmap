@@ -9,6 +9,11 @@ module Dmptool
       protected
 
       def process_omniauth_callback(scheme)
+        # There is occassionally a disconnect between the id of the Scheme
+        # when the base controller's dynamic methods were defined and the
+        # time this method is called, so reload the scheme
+        scheme = IdentifierScheme.find_by(name: scheme.name)
+
         if request.env.present?
           omniauth = request.env["omniauth.auth"] || request.env
         else
@@ -20,8 +25,6 @@ module Dmptool
         else
           provider = scheme.description
         end
-
-p "ENV: #{request.env["omniauth.auth"]}"
 
         # if the user is already signed in then we are attempting to attach
         # omniauth credentials to an existing account
@@ -41,7 +44,7 @@ p "ENV: #{request.env["omniauth.auth"]}"
 
         else
           # Attempt to locate the user via the credentials returned by omniauth
-          @user = User.from_omniauth(omniauth)
+          @user = User.from_omniauth(OpenStruct.new(omniauth))
 
           # If we found the user by their omniauth creds then sign them in
           if @user.present?
@@ -95,14 +98,13 @@ p "ENV: #{request.env["omniauth.auth"]}"
         # Attempt to find or attach the omniauth creds
         ui = UserIdentifier.where(identifier_scheme: scheme, user: user).first
         if ui.present?
-          if ui.identifier != omniauth.uid
-            ui.update(identifier: omniauth.uid)
-
+          if ui.identifier != omniauth[:uid]
+            ui.update(identifier: omniauth[:uid])
           end
           true
         else
           UserIdentifier.create(identifier_scheme: scheme, user: user,
-                                identifier: omniauth.uid)
+                                identifier: omniauth[:uid])
         end
       end
 
@@ -125,8 +127,8 @@ p "ENV: #{request.env["omniauth.auth"]}"
         firstname = hash.fetch(:givenname, hash.fetch(:firstname, ""))
         surname = hash.fetch(:sn, hash.fetch(:surname, hash.fetch(:lastname, "")))
 
-        if hash.name.present? && (!firstname.present? || !surname.present?)
-          names = hash.name.split(" ")
+        if hash[:name].present? && (!firstname.present? || !surname.present?)
+          names = hash[:name].split(" ")
           firstname = names[0]
           if names.length > 1
             surname = names[names.length - 1]

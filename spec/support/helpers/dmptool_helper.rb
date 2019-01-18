@@ -35,53 +35,28 @@ module DmptoolHelper
     when "shibboleth"
       # Mock the OmniAuth payload for Shibboleth
       {
-        "uid": "123ABC",
-        "info": {
-          "email": user.email,
-          "givenname": user.firstname,
-          "sn": user.surname,
-          "identity_provider": user.org.org_identifiers.first.identifier
+        provider: scheme,
+        uid: "123ABC",
+        info: {
+          email: user.email,
+          givenname: user.firstname,
+          sn: user.surname,
+          identity_provider: user.org.org_identifiers.first.identifier
         }
       }
 
     when "orcid"
       # Moch the Omniauth payload for Orcid
       {
-        "uid": "ORCID123"
+        provider: scheme,
+        uid: "ORCID123"
       }
     else
-      {}
+      {
+        provider: scheme,
+        uid: "testing"
+      }
     end
-  end
-
-  module ShibbolethOmniauthEnv
-
-    def request
-      OpenStruct.new({
-        "omniauth.auth": mock_omniauth_call("shibboleth", current_user)
-      })
-    end
-
-  end
-
-  module OrcidOmniauthEnv
-
-    def request
-      OpenStruct.new({
-        "omniauth.auth": mock_omniauth_call("orcid", current_user)
-      })
-    end
-
-  end
-
-  module UnknownOmniauthEnv
-
-    def request
-      OpenStruct.new({
-        "omniauth.auth": mock_omniauth_call("unknown", current_user)
-      })
-    end
-
   end
 
 end

@@ -18,7 +18,7 @@ RSpec.describe 'DMPTool custom endpoints for public pages', type: :request do
       expect(response.body.include?("<td>#{funder.name}")).to eql(false)
     end
 
-    it 'returns json that includes the logo if the org has a logo' do
+    it 'returns json that includes the org names if the org is an institution or organisation' do
       get public_orgs_path
       expect(response.body.include?("<td>#{institution.name}")).to eql(true)
       expect(response.body.include?("<td>#{organisation.name}")).to eql(true)
