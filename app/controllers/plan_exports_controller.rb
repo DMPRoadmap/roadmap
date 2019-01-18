@@ -81,7 +81,8 @@ class PlanExportsController < ApplicationController
               },
              font_size: 8,
              spacing:   (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-             right:     "[page] of [topage]"
+             right:     "[page] of [topage]",
+             encoding: "utf8"
            }
   end
 
