@@ -219,7 +219,7 @@ msgstr ""
 msgid "This plan is based on the %{org_name}: %{template_name} template"
 msgstr ""
 
-msgid "You can either choose a template provided by your organisation, another organisation or a funder template. The default template is \"%{template_name}\"."
+msgid "You can either choose a template provided by your organisation, another organisation or a funder template. The default template is "
 msgstr ""
 
 msgid "Successfully changed the permissions for %{user_email}. They have been notified via email."
