@@ -23,7 +23,7 @@
     <h1><%= d_('dmpopidor', 'Choose a template') %></h1>
     <p class="left-indent">
         <%= d_('dmpopidor', 'You can either choose a template provided by your organisation, another organisation or a funder template. The default template is ') %>
-        <strong><%= @default_template.title %></strong>
+        <strong><%= @default_template.title + "." %></strong>
         <br/>
         <%= link_to d_('dmpopidor', 'Find the list of the available templates'), public_templates_path, :target => "_blank" %>
       </p>
@@ -139,5 +139,4 @@
     </div>
   </div>
 </div>
-
-    <% end %>
+<% end %>
