@@ -11,8 +11,8 @@ module TemplateHelper
   # @param hidden [Boolean] should the link be hidden?
   # @param text [String] text for the link
   # @param id [String] id for the link element
-  def direct_link(template, hidden = false, text = nil, id = nil)
-    params = { org_id: template.org.id, funder_id: '-1', template_id: template.id }
+  def direct_link(template, hidden = false, text = nil, id = nil, title = "My Plan")
+    params = { org_id: template.org.id, funder_id: '-1', template_id: template.id, title: title }
     cls = text.nil? ? 'direct-link' : 'direct-link btn btn-default'
     style = hidden ? 'display: none' : ''
 
