@@ -7,7 +7,7 @@
 <!-- footer container -->
 <div id="footer-navbar" class="navbar-dmpopidor navbar-fixed-bottom" role="navigation">
   <div class="container-fluid">
-    <ul class="nav navbar-nav">
+    <ul class="nav navbar-nav navbar-left">
       <li><%= link_to "&copy; 2016 - #{Time.now.year} #{Rails.configuration.branding[:organisation][:abbreviation]}".sanitize, "#{Rails.configuration.branding[:organisation][:url] }", target: "_blank" %></li>
       <li class="break-point"><span style="line-height:50px;padding-left:15px;padding-right:15px;">•</span></li>
       <li><span style="line-height:50px;padding-left:15px;padding-right:15px;"><%= Rails.configuration.branding[:application][:version] %></span></li>
@@ -24,7 +24,7 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li>
-        <%= link_to( image_tag("cnrs.png", class: "img-responsive roadmap-logo", alt: 'CNRS logo'),
+        <%= link_to( image_tag("cnrs80ans.GIF", class: "img-responsive roadmap-logo", alt: 'CNRS logo'),
                          "http://www.cnrs.fr/", title: "CNRS", target: '_blank') %>
       </li>
       <li>

@@ -78,10 +78,16 @@ $light-yellow: #fff9e5;
             }
         }
     }
+    .navbar-left {
+        padding-top: 10px;
+        li {
+            font-size: 16px;
+        }
+    }
     .navbar-right {
-        margin-right: 0;
+        margin-right: 50px;
         .roadmap-logo {
-            height: 55px;
+            height: 85px;
         }
 
     }
@@ -90,6 +96,10 @@ $light-yellow: #fff9e5;
     #footer-navbar {
         .break-point {
             display: none;
+        }
+
+        .navbar-right {
+            margin-right: 0;
         }
         li {
             text-align: center;
