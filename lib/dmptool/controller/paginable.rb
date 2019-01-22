@@ -16,7 +16,8 @@ module Dmptool
 
           paginable_renderise(
             partial: "public",
-            scope: Org.participating.where(id: ids)
+            scope: Org.participating.where(id: ids),
+            query_params: { sort_field: "orgs.name", sort_direction: :asc }
           )
         end
 

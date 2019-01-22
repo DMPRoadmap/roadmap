@@ -13,7 +13,6 @@ module Dmptool
         def participating
           self.includes(:identifier_schemes)
               .where(is_other: false)
-              .order(:name)
         end
       end
 
