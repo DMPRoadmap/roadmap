@@ -59,7 +59,8 @@ class PublicPagesController < ApplicationController
             },
             font_size: 8,
             spacing: (@formatting[:margin][:bottom] / 2) - 4,
-            right: "[page] of [topage]"
+            right: "[page] of [topage]",
+            encoding: "utf8"
           }
           # rubocop:enable LineLength
         end
