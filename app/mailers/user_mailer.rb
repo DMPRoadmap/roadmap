@@ -111,7 +111,15 @@ class UserMailer < ActionMailer::Base
   # commenter - User who wrote the comment
   # plan      - Plan for which the comment is associated to
   def new_comment(commenter, plan)
-    if commenter.is_a?(User) && plan.is_a?(Plan)
+    #------------------------------------------
+    # Start DMPTool Customization
+    #    Do not send the current user an email since they're the one leaving the comment!
+    #------------------------------------------
+    #if commenter.is_a?(User) && plan.is_a?(Plan)
+    if commenter.is_a?(User) && plan.is_a?(Plan) && commenter != current_user
+    #------------------------------------------
+    # End DMPTool Customization
+    #------------------------------------------
       owner = plan.owner
       if owner.present? && owner.active?
         @commenter = commenter
