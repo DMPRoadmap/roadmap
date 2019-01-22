@@ -30,7 +30,7 @@ class Paginable::PlansController < ApplicationController
   def publicly_visible
     paginable_renderise(
       partial: "publicly_visible",
-      scope: Plan.publicly_visible
+      scope: Plan.publicly_visible.includes(:template)
     )
   end
 
