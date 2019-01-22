@@ -5,7 +5,7 @@ RSpec.describe "SuperAdmins Orgs", type: :feature, js: true do
   include LinksHelper
 
   before do
-    @org = create(:org)
+    @org = create(:org, is_other: false)
     @user = create(:user, :super_admin, org: @org)
     sign_in(@user)
   end

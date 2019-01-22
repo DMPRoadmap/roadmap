@@ -20,7 +20,7 @@ module OrgAdmin
 
       @orgs              = Org.all
       @title             = _("All Templates")
-      @templates         = templates.includes(:org)
+      @templates         = templates.includes(:org).page(1)
       @query_params      = { sort_field: "templates.title", sort_direction: "asc" }
       @all_count         = templates.length
       @published_count   = published.present? ? published : 0
@@ -47,7 +47,7 @@ module OrgAdmin
                else
                  _("Own Templates")
                end
-      @templates         = templates
+      @templates         = templates.page(1)
       @query_params      = { sort_field: "templates.title", sort_direction: "asc" }
       @all_count         = templates.length
       @published_count   = published.present? ? published : 0
