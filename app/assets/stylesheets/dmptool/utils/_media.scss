@@ -150,7 +150,10 @@
           font-size: 1.8rem;
         }
         /* Force the checkboxes below the inputs */
-        .col-md-1, .col-xs-5, .col-xs-6 {
+        .col-md-1 {
+          max-width: 15%;
+        }
+        .col-xs-5, .col-xs-6 {
           width: 100%;
 
           input[type="text"] {
