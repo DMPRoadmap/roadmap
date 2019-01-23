@@ -28,12 +28,17 @@
       }
 
       .navbar-fixed-top {
+        .container-fluid {
+          margin-right: 0;
+          margin-left: 0;
+        }
+
         .navbar-toggle, .navbar-toggle:visited, .navbar-toggle:hover, .navbar-toggle:focus, .navbar-toggle:active {
           margin: 2px 5px 0 0;
           background-color: $color-primary-background;
 
           .icon-bar {
-            background-color: $color-primary-background;
+            background-color: $color-seccondary-background;
           }
         }
         .navbar-toggle:not(.collapsed) .icon-bar:nth-child(2) {
@@ -73,6 +78,39 @@
           font-size: 1.6rem;
           padding-left: 0;
         }
+        .app-logo {
+          height: 50px;
+          min-width: auto;
+          max-width: auto;
+          padding-right: 15px;
+        }
+
+        .learn-menu {
+          display: block;
+
+          .menu-col {
+            margin-left: 45px;
+
+            div > div {
+              margin-left: 15px;
+            }
+          }
+          .menu-col > div {
+            margin-bottom: 5px;
+          }
+        }
+
+        a.dropdown, .dropdown-menu > li > a {
+          background-color: $color-seccondary-background;
+          color: $color-seccondary-text;
+        }
+        .dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .notifications {
+        padding-top: 25px;
       }
 
       /* Homepage */
@@ -106,7 +144,29 @@
         }
       }
 
+      /* Create Plan hacks */
+      #new_plan {
+        h2 {
+          font-size: 1.8rem;
+        }
+        /* Force the checkboxes below the inputs */
+        .col-md-1, .col-xs-5, .col-xs-6 {
+          width: 100%;
+
+          input[type="text"] {
+            margin-bottom: 5px;
+          }
+        }
+        .col-xs-5 > .create-plan-mock, .create-plan-checkbox {
+          margin-left: 0;
+        }
+        .create-plan-mock {
+          margin-top: -30px;
+        }
+      }
+
       .communications > div {
+        margin-top: 5px;
         flex: 1 100%;
       }
 
