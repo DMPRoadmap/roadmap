@@ -55,7 +55,7 @@ The following is a list of customizations that we have made to the base DMPRoadm
 
 ## Troubleshooting
 
-See the [Troubleshooting Guide](https://github.com/DMPRoadmap/roadmap/wiki/Troubleshooting) on the Wiki
+See the [Troubleshooting Guide](https://github.com/DMPRoadmap/roadmap/wiki/Troubleshooting) on the DMPRoadmap Wiki
 
 ## Contributing
 
