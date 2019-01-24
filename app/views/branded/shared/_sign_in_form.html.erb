@@ -1,0 +1,28 @@
+<%= form_for resource, as: 'user', namespace: 'signin', url: user_session_path, html: {id: "sign_in_form"} do |f| %>
+  <div class="form-group">
+    <%= f.label(:email, _('Email'), class: 'control-label') %>
+    <%= f.email_field(:email, class: 'form-control', "aria-required": true) %>
+  </div>
+  <div class="form-group">
+    <%= f.label(:password, _('Password'), class: 'control-label') %>
+    <%= f.password_field(:password, class: 'form-control', "aria-required": true) %>
+  </div>
+  <div class="checkbox">
+    <%= label_tag 'remember_email' do %>
+      <%= check_box_tag 'remember_email' %>
+      <%= _('Remember email') %>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.hidden_field(:org_id, value: @user.org.id) %>
+      <button type="submit" class="btn btn-default" value=""><%= _("Sign in") %></button>
+    </div>
+    <div class="col-md-6 signin-fields">
+      <div class="pull-right"><%= link_to _('Forgot email?'), users_ldap_username_path %></div>
+      <div class="clearfix"></div>
+      <div class="pull-right"><%= link_to _('Forgot password?'), new_password_path('user') %></div>
+    </div>
+  </div>
+<% end %>

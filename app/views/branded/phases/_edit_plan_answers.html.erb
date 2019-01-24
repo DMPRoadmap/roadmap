@@ -1,0 +1,110 @@
+<%#
+  DMPTool customization overview:
+  ------------------------------------------
+  1. Moved +/- font awesome icon to left of section title
+ %>
+<div class="tab-panels" role="tabpanel">
+  <div id="phase-#<%= phase.id %>-panel" class="tab-panel active" aria-hidden="false" aria-labelledby="phase-#<%= phase.id %>-tab">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-8">
+            <div id="sections-accordion-controls">
+              <div class="accordion-controls" data-parent="sections-accordion">
+                <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
+                <span>|</span>
+                <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <% if plan.present? && phase.present? %>
+              <div class="progress">
+                <%= render partial: "/plans/progress",
+                           locals: { plan: plan, current_phase: phase } %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-group" id="sections-accordion" role="tablist"
+         aria-multiselectable="true">
+    <% phase.sections.order(:number).each do |section| %>
+      <div class="panel panel-default">
+        <div class="heading-button" role="button" data-toggle="collapse"
+             id="section-panel-<%= section.id %>"
+             data-parent="sections-accordion"
+             href="#collapse-<%= section.id %>"
+             aria-expanded="false"
+             aria-controls="collapse-<%= section.id %>">
+
+          <div class="panel-heading" role="tab" id="heading-<%= section.id %>">
+            <div class="panel-title pull-left">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+              <%= section.title %>
+
+              <% if plan.present? %>
+                  <span class="section-progress-<%= section.id %>">
+                    <%= render partial: "/org_admin/sections/progress",
+                               locals: { section: section, plan: plan } %>
+                  </span>
+              <% end %>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+        <div id="collapse-<%= section.id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= section.id %>">
+          <div class="panel-body"><!-- accordion body -->
+            <div class="section-description"><%= sanitize section.description %></div>
+              <!-- the section body -->
+              <% section.questions.each_with_index do |question, i| %>
+                <% # Load the answer or create a new one
+                  answer = answers[question.id] if plan.present?
+                  if answer.blank?
+                    answer = Answer.new({ plan: plan, question: question })
+                  end
+                %>
+                <div class="row">
+                  <div class="col-md-8">
+                    <!-- Answer Section -->
+                    <div class="question-form">
+                      <div id="<%= "answer-locking-#{question.id}" %>"
+                           class="answer-locking">
+                      </div>
+                      <div id="<%= "answer-form-#{question.id}" %>" class="answer-form">
+                        <%= render(partial: '/answers/new_edit',
+                                   locals: { template: phase.template,
+                                             question: question,
+                                             answer: answer,
+                                             readonly: readonly,
+                                             locking: false,
+                                             base_template_org: base_template_org }) %>
+                      </div>
+                      <div id="<%= "answer-status-#{question.id}" %>" class="mt-10">
+                        <%= render(partial: '/answers/status',
+                                   locals: { answer: answer }) %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <!-- Guidances and notes partial view -->
+                    <%= render partial: '/phases/guidances_notes', locals: {
+                      plan: plan,
+                      template: phase.template,
+                      question: question,
+                      answer: answer,
+                      guidance_presenter: guidance_presenter } %>
+                  </div>
+                </div>
+                <% if i != section.questions.length - 1 %>
+                  <hr>
+                <% end %>
+              <% end %> <!-- section.questions.each do -->
+            </div> <!-- panel-body -->
+          </div> <!-- panel-collapse -->
+        </div> <!-- panel panel-default -->
+      <% end %>   <!-- phase.sections.order(:number).each do -->
+    </div>   <!-- panel-group -->
+  </div> <!-- tab panel -->
+</div> <!-- tab panels -->

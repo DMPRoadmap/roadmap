@@ -1,0 +1,20 @@
+/* Override the table heading background color so that it is blue w/white text */
+thead th {
+  background-color: $color-primary-background;
+  color: $color-primary-text;
+
+  .fa, .fa:not(.small) {
+    color: $color-primary-text;
+  }
+}
+
+/* Makes ever other row within a table have a light-grey background */
+tbody tr:nth-child(even){
+  background-color: $color-light-grey;
+}
+
+/* Makes the background of a row light-blue when hovered over */
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+  background-color: $color-light-blue;
+}

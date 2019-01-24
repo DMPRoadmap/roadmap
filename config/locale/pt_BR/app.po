@@ -3228,6 +3228,9 @@ msgstr "Bem-vindo a %{tool_name}"
 msgid "Welcome to %{tool_name}, %{username}"
 msgstr "Bem-vindo a %{tool_name}, %{username}"
 
+msgid "Welcome to the DMPTool"
+msgstr "Bem-vindo a DMPTool"
+
 msgid "What are the benefits of participating in the DMPTool?"
 msgstr "Quais são os benefícios de participar no DMPTool?"
 

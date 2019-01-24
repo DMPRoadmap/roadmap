@@ -1,8 +1,8 @@
+# frozen_string_literal: true
+
 class StaticPagesController < ApplicationController
 
-# ------------------------------------
-# START DMPTool customization
-  include MarkdownHandler
+  include Dmptool::Controller::StaticPages
 
   def about_us
     dcc_news_feed_url = "http://www.dcc.ac.uk/news/dmponline-0/feed"
@@ -12,17 +12,20 @@ class StaticPagesController < ApplicationController
       format.html
     end
   end
-# END DMPTool customization
-# ------------------------------------
 
   def contact_us
   end
 
   def roadmap
-    
   end
 
   def privacy
+  end
+
+  def termsuse
+  end
+
+  def help
   end
 
 end

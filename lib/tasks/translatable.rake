@@ -12,13 +12,13 @@ namespace :translatable do
       puts "You must provide a ISO-639 language code, name: `rake translatable:add_language[ja,日本語]`"
     end
   end
-  
+
   desc 'Remove the specified language from the database'
   task :remove_language_from_db, [:code] => [:environment] do |t, args|
     if args[:code].present?
       lang = Language.find_by(abbreviation: args[:code])
       default = Language.find_by(default_language: true) || Language.first
-      
+
       if lang.present?
         # Set any users/orgs who had the language to the default
         User.where(language_id: lang.id).update_all(language_id: default.present? ? default.id : nil)
@@ -32,20 +32,20 @@ namespace :translatable do
       puts "You must provide the ISO-639 language code for the language: e.g. `translatable:remove_language[ja]`"
     end
   end
-  
+
   desc 'Find diffs between main app.pot and specified locale'
   task :diffs, [:code] => [:environment] do |t, args|
     if args[:code].present?
       locale_file = "config/locale/#{args[:code]}/app.po"
       msgids, orphaned = [], []
-      
+
       puts "scanning config/locale/app.pot for msgids ..."
       File.open('config/locale/app.pot').each do |line|
         if line.start_with?('msgid ')
           msgids << line unless msgids.include?(line)
         end
       end
-      
+
       puts "comparing msgids with those in #{locale_file} ..."
       File.open(locale_file).each do |line|
         if line.start_with?('msgid ')
@@ -56,7 +56,7 @@ namespace :translatable do
           end
         end
       end
-      
+
       puts "The following msgids were found in the core app.pot file but NOT in the #{args[:code]} version:"
       msgids.map{ |id| puts "\n\t#{id}" }
       puts "---------------------------------------------------------------------"
@@ -66,50 +66,65 @@ namespace :translatable do
       puts "You must specify a locale code (e.g. en_US or fr)"
     end
   end
-  
-  desc 'Find all translatable text and update all pot/po files' 
-  task :find, [:code] => [:environment] do |t, args|
-    app_pot_filename = 'config/locale/app.pot'
+
+  desc 'Find all translatable text and update all pot/po files'
+  task :find, [:domain] => [:environment] do |t, args|
+    domain = args.fetch(:domain, 'app')
+    pot_filename = "config/locale/#{domain}.pot"
     translatables = []
-    
-    puts "Scanning files for translatable text"
-    files_to_translate.each do |file|
+
+    puts "Scanning files for translatable text for domain: #{domain}"
+    files_to_translate(domain).each do |file|
       # Ignore node_modules files
       unless file.include?('node_modules')
         puts "    scanning #{file}"
         translatables << scan_for_translations(File.read(file))
       end
     end
+
+    # If we are processing a specific domain then remove any duplicated strings
+    # that are already covered in app.pot
+    unless domain == 'app'
+      puts "Removing strings that already appear in app.pot"
+      app_header, app_hash = po_to_hash(File.read('config/locale/app.pot'))
+      translatables = translatables.select{ |k, v| !app_hash.keys.include?(k) }
+    end
+
     translatables = translatables.flatten.uniq.sort{ |a,b,| a <=> b }
- 
+
     unless translatables.empty?
-      process_po_file(app_pot_filename, translatables)
-    
+      process_po_file(pot_filename, translatables)
+
       puts "Searching for localization files"
-      localization_files.each do |app_po|
-        process_po_file(app_po, translatables)
+      localization_files(domain).each do |domain_po|
+        process_po_file(domain_po, translatables)
       end
     else
       puts "No translatable text found!"
     end
   end
-  
+
   MSGID = /msgid[\s]+\"(.*)\"/
   MSGSTR = /msgstr[\s]+\"(.*)\"/
   TRANSLATABLE = /(_\((.|\n)*?[\'\"]\)[\]\)\s\}\,\n\%]+)/
   CONTEXTUALIZED_TRANSLATABLE = /(n_\([\'\"](.*?)[\'\"]\,\s*[\'\"](.*?)[\'\"])/
   UNESCAPED_QUOTE = /(?<!\\)\"/
   FUZZY = /#, fuzzy/
-  
+  NEWLINE_FOR_PO = "\"\n\""
+
   # Open the PO/POT file and update its translatation entries
   def process_po_file(file_name, translatable_text)
     puts "Backing up original #{file_name} --> #{file_name}.bak"
-    cp(file_name, "#{file_name}.bak")
-    
+    if File.exists?(file_name)
+      cp(file_name, "#{file_name}.bak")
+    else
+      touch(file_name)
+    end
+
     puts "Reading #{file_name} ..."
     file = File.read(file_name)
     header, hash = po_to_hash(file)
-    
+
     consolidate_translatables(hash, translatable_text)
     update_revision_date(header)
 
@@ -118,14 +133,14 @@ namespace :translatable do
       file.write "#{update_revision_date(header)}\n#{hash_to_po(hash)}"
     end
   end
-  
+
   # Convert the PO/POT to a hash `hash['organisation'] = { text: 'organization', fuzzy: true, obsolete: false }`
   # The fuzzy and obsolete flags get updated in `consolidate_translatables`
   def po_to_hash(file)
     hash = {}
     if file.present?
       # split the file into sections based on the blank line separator
-      chunks = file.to_s.split(/[\r\n]{2}/) 
+      chunks = file.to_s.split(/[\r\n]{2}/)
       chunks.each do |chunk|
         if chunk.match(MSGID)
           msgid = chunk.match(MSGID).to_s.sub(/^msgid\s\"/, '').sub(/\"$/, '')
@@ -137,28 +152,34 @@ namespace :translatable do
           end
         end
       end
+    else
+      chunks = ['']
     end
     # Return the header portion of the original file and the resulting msgid/msgstr hash
     return chunks[0], hash
   end
-  
+
   # Convert the hash to PO/POT format
   def hash_to_po(hash)
     lines = ""
     hash.keys.sort{ |a,b| a <=> b }.each do |key|
       if key != ''
         if hash[key][:obsolete]
-          lines += "\n#msgid \"#{key.gsub(UNESCAPED_QUOTE, '\"')}\"\n#msgstr \"#{hash[key][:text].gsub(UNESCAPED_QUOTE, '\"')}\"\n"
+          lines += "\n#msgid \"#{sanitize_po_string(key)}\"\n#msgstr \"#{sanitize_po_string(hash[key][:text])}\"\n"
         elsif hash[key][:fuzzy]
-          lines += "\n#, fuzzy\nmsgid \"#{key.gsub(UNESCAPED_QUOTE, '\"')}\"\nmsgstr \"#{hash[key][:text].gsub(UNESCAPED_QUOTE, '\"')}\"\n"
+          lines += "\n#, fuzzy\nmsgid \"#{sanitize_po_string(key)}\"\nmsgstr \"#{sanitize_po_string(hash[key][:text])}\"\n"
         else
-          lines += "\nmsgid \"#{key.gsub(UNESCAPED_QUOTE, '\"')}\"\nmsgstr \"#{hash[key][:text].gsub(UNESCAPED_QUOTE, '\"')}\"\n"
+          lines += "\nmsgid \"#{sanitize_po_string(key)}\"\nmsgstr \"#{sanitize_po_string(hash[key][:text])}\"\n"
         end
       end
     end
     lines
   end
-  
+
+  def sanitize_po_string(val)
+    val.gsub(UNESCAPED_QUOTE, '\"').gsub("\n", NEWLINE_FOR_PO)
+  end
+
   # Scan the file contents for translatable text
   def scan_for_translations(file)
     # Look for `_('text')` style markup
@@ -172,7 +193,7 @@ namespace :translatable do
       translatables << parts[1] if parts[1].present?
     end
     # Clean up the translatable text entries
-    translatables.map do |entry| 
+    translatables.map do |entry|
       entry.sub(/^n?_\([\'\"]/, '').              # remove the gettext markup from front of line
         sub(/[\'\"]{1}[\)\]\}\,\s\n\%]*$/, '').   # remove the gettext markup from end of line
         gsub(/[\\]+[\"]/, "\"").                  # remove double escaped quotes (e.g. \\\")
@@ -198,14 +219,19 @@ namespace :translatable do
     return hash
   end
 
-  def files_to_translate
-    Dir.glob("{app,lib,config,locale}/**/*.{rb,erb,md,haml,slim,rhtml}")
+  # TODO: exclude app/views/branded
+  def files_to_translate(domain)
+    if domain == 'app'
+      Dir.glob("{app,lib,config,locale}/**/*.{rb,erb,md,haml,slim,rhtml}").select{ |d| !d.include?('/views/branded') }
+    else
+      Dir.glob("{app/views/branded}/**/*.{rb,erb,md,haml,slim,rhtml}")
+    end
   end
-  
-  def localization_files
-    Dir.glob("{config/locale}/**/app.po")
+
+  def localization_files(domain)
+    Dir.glob("{config/locale}/**/#{domain}.po")
   end
-  
+
   # Update the PO/POT file's revision data with today's date
   def update_revision_date(header_text)
     return header_text.include?('"PO-Revision-Date:') ? header_text.sub(/\"PO\-Revision\-Date\:.*\n/, "\"PO-Revision-Date: #{Time.now.to_s.sub(' -', '-')}\\n\"\n") : header_text

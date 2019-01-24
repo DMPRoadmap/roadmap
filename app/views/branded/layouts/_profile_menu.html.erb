@@ -1,0 +1,9 @@
+<a href="#" class="dropdown-toggle" role="button" id="user-menu-button"
+   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <%= current_user.name(false) %>
+  <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
+</a>
+<ul class="dropdown-menu" aria-labelledby="user-menu-button">
+  <li><%= link_to _('Edit profile'), edit_user_registration_path %></li>
+  <li><%= link_to _('Logout'), destroy_user_session_path, method: :delete %></li>
+</ul>

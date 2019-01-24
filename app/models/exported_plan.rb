@@ -1,23 +1,29 @@
+# == Schema Information
+#
+# Table name: exported_plans
+#
+#  id         :integer          not null, primary key
+#  format     :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  phase_id   :integer
+#  plan_id    :integer
+#  user_id    :integer
+#
+
 class ExportedPlan < ActiveRecord::Base
+  include ValidationMessages
   include GlobalHelpers
   include SettingsTemplateHelper
 
-# TODO: REMOVE AND HANDLE ATTRIBUTE SECURITY IN THE CONTROLLER!
-  attr_accessible :plan_id, :user_id, :format, :user, :plan, :as => [:default, :admin]
 
   #associations between tables
   belongs_to :plan
   belongs_to :user
 
-  VALID_FORMATS = ['csv', 'html', 'pdf', 'text', 'docx']
+  validates :plan, presence: { message: PRESENCE_MESSAGE }
 
-  validates :format, inclusion: {
-    in: VALID_FORMATS,
-    message: -> (object, data) do
-      _('%{value} is not a valid format') % { :value => data[:value] }
-    end
-  }
-  validates :plan, :format, presence: {message: _("can't be blank")}
+  validates :format, presence: { message: PRESENCE_MESSAGE }
 
   # Store settings with the exported plan so it can be recreated later
   # if necessary (otherwise the settings associated with the plan at a

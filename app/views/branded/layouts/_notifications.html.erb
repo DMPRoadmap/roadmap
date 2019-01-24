@@ -1,0 +1,29 @@
+<%
+has_alert = (alert || flash[:alert] || flash[:error])
+has_notice = (notice || flash[:notice])
+%>
+
+<div id="notification-area"
+     class="alert <%= has_alert ? 'alert-warning ' : 'alert-info ' %>
+            <%= (has_alert or has_notice) ? 'show' : 'hide' %>"
+     role="<%= (has_notice ? 'status' : (has_alert ? 'alert' : '')) %>">
+  <i class="fa <%= has_alert ? ' fa-times-circle' : ' fa-check-circle' %>" aria-hidden="true"></i>
+  <span class="aria-only"><%= has_alert ? _('Error:') : _('Notice:') %></span>
+  <span><%= sanitize (has_alert ? alert : notice) %></span>
+</div>
+<div id="global-notification-area">
+  <% Notification.active_per_user(current_user).each do |a| %>
+    <% unless a.acknowledged?(current_user) %>
+      <div class="alert alert-<%= a.level %>">
+        <span class="fa <%= fa_classes(a) %>"></span>
+        <span class="aria-only"><strong><%= "#{a.level.capitalize}:" %></strong></span>
+        <span><%= sanitize a.body %></span>
+        <% if a.dismissable? %>
+          <button class="close" data-dismiss="alert" data-url="<%= user_acknowledge_notification_path(a) %>" data-remote="true" data-method="post" data-params="notification_id=<%= a.id %>" aria-label="Close">
+            <span class="fa fa-times-circle" aria-hidden="true"></span>
+          </button>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

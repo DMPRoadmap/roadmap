@@ -4,6 +4,10 @@ The DMPTool is a free, open-source, online application that helps researchers cr
 
 The DMPTool is based on the [DMPRoadmap](https://github.com/DMPRoadmap/roadmap) open source project. DMPRoadmap is being collaboratively developed by members of the University of California Curation Center (UC3), the Digital Curation Centre (DCC) and contributions from the community.
 
+Click here for the latest [releases].(https://github.com/CDLUC3/dmptool/releases/)
+
+[![Build Status](https://travis-ci.org/CDLUC3/dmptool.svg)](https://travis-ci.org/CDLUC3/dmptool)
+
 ## Support
 
 Issues should be reported here on [Github Issues](https://github.com/CDLUC3/dmptool/issues)
@@ -13,11 +17,11 @@ Please be advised though that we can only provide limited support for your local
 
 See the [Translations Guide](https://github.com/DMPRoadmap/roadmap/wiki/Translations)
 
-## Current Release
-[v1.1.3](https://github.com/DMPRoadmap/roadmap/releases/tag/v1.1.3)
-
-[![Build Status](https://travis-ci.org/DMPRoadmap/roadmap.svg)](https://travis-ci.org/DMPRoadmap/roadmap)
-
+#### Pre-requisites
+Roadmap is a Ruby on Rails application and you will need to have:
+* Ruby >= 2.4.4
+* Rails >= 4.2
+* MySQL >= 5.0 OR PostgreSQL
 
 ## Installation
 
@@ -26,29 +30,28 @@ If you would like to install and run this application, we encourage you to start
 If the basic DMPRoadmap system does not provide the functionality you require please review the list of customizations that we have made below. If our additional changes do not meet your needs, you are encouraged to fork the DMPRoadmap codebase and customize it to your needs. If you do customize it please contact the DMPRoadmap team to let the community know about the additional functionality you plan to offer. It may be useful to the larger community.
 
 If DMPTool meets your organization's needs, you should install it following the DMPRoadmap installation instructions and then perform the folowing tasks:
-- **Homepage images:** While you are free to use the generic images provided along with this repository, it is advisable to replace them with ones more relevant to your user base. The system randomly serves up one of five images that are located in `lib/assets/images/homepage/`. Note that the `lib/stylesheets/dmptool/pages/home.scss` file references these images by name so you the ones you use should match the names in the scss file or you should update the scss file to use your image names.
+
+- **Homepage images:** While you are free to use the images provided along with this repository, it is advisable to replace them with ones more relevant to your user base. The system randomly serves up one of five images that are located in `app/assets/images/homepage/`. Each image has 3 sizes geared towards various device resolutions/format (e.g. smart phone). Follow the image sizes in the provided examples for your images. You must also retain the file names as the `app/assets/stylesheets/dmptool/blocks/_home_welcome.scss` references them by name
 - **Rotating news on the homepage:** Update the `config.rss` value in `config/application.rb` with the address of your blog's RSS feed.
-- **Styles:** The system loads the base DMPRoadmap stylesheet first then the DMPTool stylesheet. We recommend that you add your own additional stylesheet if your changes are minor or update `lib/assets/stylesheets/dmptool.scss` and in `lib/assets/stylesheets/dmptool/*.scss` directly if the changes you nedd to make are extensive. Do not make changes to the other stylesheets in `lib/assets/stylesheets` as they are managed as part of the DMPRoadmap project.
-- **Static Content:** Update/Replace the files in `app/views/static_pages/dmptool` so that they are appropriate for your installation. 
-- **Shibboleth:** Setting up your own Shibboleth service provider (SP) is beyond the scope of this application. If you have an SP available and want to use it, make sure that you enable the shibboleth settings in `config/application.rb` and then add your Shib config to `config/initializers/devise.rb`. Once you are properly setup you will need to add an entity_id for each org so that the user is properly redirected to their IdP. The full list of IdP's can be found in your Shib SP's list of registered IdPs. We recommend adding the entity ids through the UI (admin -> organizations page). To verify that an org is properly configured you should logout of the UI and then click through to the 'sign via your institution' modal and check the contents of the dropdown. If the organization does not appear then its entity_id is not in the DB. If yoou select it and click the submit button you should be driven out to that org's IdP login page.
+- **Styles:** The system loads the base DMPRoadmap stylesheet first then the DMPTool stylesheet. We recommend that you add your own additional stylesheet if your changes are extensive or update `app/assets/stylesheets/dmptool/**/*.scss` directly. Do not make changes to the other stylesheets as they are managed as part of the DMPRoadmap project.
+- **Static Content:** Update the files in `app/views/branded/static_pages/` so that they are appropriate for your installation.
+- **Shibboleth:** Setting up your own Shibboleth service provider (SP) is beyond the scope of this application. If you have an SP available and want to use it, make sure that you enable the shibboleth settings in `config/application.rb` and then add your organization's entity id (found in your Shib SP's list of registered IdPs) within the UI. Then log out and log back in via your institution's credentials to test that things are working properly. Note that the DMPTool only allows users to authenticate via Shibboleth if the organization is regsitered within the system (meaning that it appears in the application's `orgs` table)
 
 ## Variations between DMPRoadmap and DMPTool
 
 The following is a list of customizations that we have made to the base DMPRoadmap codebase:
-- **Homepage:** A complete redesign of the homepage including homepage images found in `lib/assets/images/homepage`
-- **Navigation:** A complete redesign of the header and footer navigation. All of the custom menus have been placed in `views/layouts/dmptool/`.
-- **Static Content:** A complete rewrite of all the base static pages can be found in `app/views/static_pages/dmptool`
-- **Sigin in/Create account:** The sign in and create account workflows has been overhauled to place more emphasis on logging in via institutional credentials (Shibboleth) and removing the need for new users to specify an organization when creating an account via email/password (they are auto-assigned to the Org with `orgs.is_other = true`. All of the DMPTool code for these items have been separated into its own `views/shared/dmptool/` subdirectory. The corresponding JS file can be found at `lib/assets/javascripts/dmptool/`.
-- **Public participating institutions page:** A new Participating Institutions page has been added and is accessible to the public. 
-- **Styling:** We have added a `lib/assets/stylesheets/dmptool.scss` file that gets loaded after the base DMPRoadmap stylesheets and loads in all of the separate SCSS files in `lib/assets/stylesheets/dmptool`
+
+- **Homepage:** A complete redesign of the homepage
+- **Navigation:** A complete redesign of the header and footer navigation. All of the custom menus have been placed in `app/views/branded/layouts/`.
+- **Static Content:** Added a gem to allow the `app/views/branded/static_pages` to be managed via Markdown instead of HTML. Changed the content of existing pages and added new pages
+- **Sigin in/Create account:** The sign in and create account workflows has been overhauled to place more emphasis on logging in via institutional credentials (Shibboleth). All of the DMPTool code for these items have been separated into its own `app/views/branded/shared/` subdirectory. The corresponding JS file can be found at `app/javascript/dmptool/`.
+- **Public participating institutions page:** A new Participating Institutions page has been added and is accessible to the public.
+- **Styling:** We have added `app/assets/stylesheets/dmptool/**/*.scss` files that gets loaded after the base DMPRoadmap stylesheets
 - **Create buttons:** All of the create buttons (e.g. Create Plan, Create Template) have been moved so that they appear on the upper right of their associated tables.
 - **Accordion plus/minus (+/-) icons:** The plus/minus icons on the accordions have been moved so that they appear on the left.
 - **Project details page:** The id field and contact phone numbers have been removed.
-- **External links:** All external links (except ORCID) open in a new tab/window 
-- **Asset fingerprinting:** A new configuration option has been added to allow you to specify whether or not you want the webpack managed assets to be fingerprinted. These options are set in the `config/environments/` files.
 - **Max number of organization links:** Added a new constant for the max number of organization links that can appear in the header
 - **Text/Labels:** Various text and labels have been updated.
-- **Set min size for table columns with dates:** Added a 'last-edited' class to all table columns that contain a date to prevent their contents from wrapping.
 
 ## Troubleshooting
 

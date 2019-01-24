@@ -6,7 +6,7 @@ class OrgPolicy < ApplicationPolicy
     @user = user
     @org = org
   end
-  
+
   def admin_show?
     user.can_modify_org_details? && (user.org_id == org.id)
   end
@@ -31,7 +31,7 @@ class OrgPolicy < ApplicationPolicy
   def destroy?
     user.can_super_admin?
   end
-  
+
   def parent?
     true
   end
@@ -43,13 +43,14 @@ class OrgPolicy < ApplicationPolicy
   def templates?
     true
   end
-  
-# START DMPTool customization
+
+# ---------------------------------------------------------
+# Start DMPTool customization
 # ---------------------------------------------------------
   def public?
     true
   end
 # ---------------------------------------------------------
-# END DMPTool customization
-
+# End DMPTool customization
+# ---------------------------------------------------------
 end

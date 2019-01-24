@@ -3,8 +3,14 @@
   <h2><%= _('Request Feedback') %></h2>
   <div class="row">
     <div class="radio col-xs-8">
-      <%= f.label :feedback_enabled, raw("#{f.radio_button(:feedback_enabled, true)} #{_('On')}") %>
-      <%= f.label :feedback_enabled, raw("#{f.radio_button(:feedback_enabled, false)} #{_('Off')}") %>
+      <%= f.label :feedback_enabled do %>
+        <%= f.radio_button(:feedback_enabled, true) %>
+        <%= _('On') %>
+      <% end %>
+      <%= f.label :feedback_enabled do %>
+        <%= f.radio_button(:feedback_enabled, false) %>
+        <%= _('Off') %>
+      <% end %>
     </div>
   </div>
   <div id="feeback-email">
