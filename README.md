@@ -30,6 +30,7 @@ If you would like to install and run this application, we encourage you to start
 If the basic DMPRoadmap system does not provide the functionality you require please review the list of customizations that we have made below. If our additional changes do not meet your needs, you are encouraged to fork the DMPRoadmap codebase and customize it to your needs. If you do customize it please contact the DMPRoadmap team to let the community know about the additional functionality you plan to offer. It may be useful to the larger community.
 
 If DMPTool meets your organization's needs, you should install it following the DMPRoadmap installation instructions and then perform the folowing tasks:
+
 - **Homepage images:** While you are free to use the images provided along with this repository, it is advisable to replace them with ones more relevant to your user base. The system randomly serves up one of five images that are located in `app/assets/images/homepage/`. Each image has 3 sizes geared towards various device resolutions/format (e.g. smart phone). Follow the image sizes in the provided examples for your images. You must also retain the file names as the `app/assets/stylesheets/dmptool/blocks/_home_welcome.scss` references them by name
 - **Rotating news on the homepage:** Update the `config.rss` value in `config/application.rb` with the address of your blog's RSS feed.
 - **Styles:** The system loads the base DMPRoadmap stylesheet first then the DMPTool stylesheet. We recommend that you add your own additional stylesheet if your changes are extensive or update `app/assets/stylesheets/dmptool/**/*.scss` directly. Do not make changes to the other stylesheets as they are managed as part of the DMPRoadmap project.
@@ -39,6 +40,7 @@ If DMPTool meets your organization's needs, you should install it following the 
 ## Variations between DMPRoadmap and DMPTool
 
 The following is a list of customizations that we have made to the base DMPRoadmap codebase:
+
 - **Homepage:** A complete redesign of the homepage
 - **Navigation:** A complete redesign of the header and footer navigation. All of the custom menus have been placed in `app/views/branded/layouts/`.
 - **Static Content:** Added a gem to allow the `app/views/branded/static_pages` to be managed via Markdown instead of HTML. Changed the content of existing pages and added new pages
