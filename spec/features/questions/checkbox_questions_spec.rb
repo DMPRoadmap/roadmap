@@ -38,7 +38,7 @@ RSpec.describe "Questions::Check box questions" do
     end
 
     # Expectations
-    expect(page).to have_text "Answered just now"
+    expect(page).to have_text "Answered "
     expect(page).to have_text "1/1 answered"
     expect(Answer.where(question_id: @question.id)).to be_any
   end

@@ -12,8 +12,22 @@ RSpec.describe "Registrations", type: :feature do
   # -------------------------------------------------------------
 
   let!(:org) { create(:org) }
-
-  let(:user_attributes) { attributes_for(:user) }
+  # -------------------------------------------------------------
+  # start DMPTool customization
+  #   We have been experiencing inconsistent results between the values
+  #   returned by 'attributes_for' and what is actually submitted to the
+  #   form in Chrome
+  # -------------------------------------------------------------
+  #let(:user_attributes) { attributes_for(:user) }
+  let!(:user_attributes) { {
+    firstname: "John",
+    surname: "Doe",
+    password: "testing123",
+    email: "john.doe@testing-dmproadmap.org"
+  } }
+  # -------------------------------------------------------------
+  # end DMPTool customization
+  # -------------------------------------------------------------
 
   scenario "User creates a new acccount", :js do
     user_count = User.count

@@ -46,7 +46,7 @@ before_install:
 
 install:
   - bundle install --with development,ci --path=${BUNDLE_PATH:-vendor/bundle}
-  - yarn install --ignore-optional
+  - yarn install # --ignore-optional
 
 # This is a temporary bug fix for Karma tests
 # See here: https://github.com/travis-ci/travis-ci/issues/9024

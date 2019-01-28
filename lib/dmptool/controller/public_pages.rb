@@ -9,8 +9,7 @@ module Dmptool
       # The publicly accessible list of participating institutions
       def orgs
         skip_authorization
-        ids = Org.where("#{Org.organisation_condition} OR #{Org.institution_condition}")
-                 .pluck(:id)
+        ids = Org.where.not(Org.funder_condition).pluck(:id)
         @orgs = Org.participating.where(id: ids)
       end
 
