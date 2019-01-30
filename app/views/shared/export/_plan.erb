@@ -33,12 +33,9 @@
             <% section[:questions].each do |question| %>
               <div class="question">
                 <% if !@public_plan && @show_sections_questions%>
-                  <%# Hack: for DOCX export - otherwise, bold highlightin of question inconsistent. %>
+                  <%# Hack: for DOCX export - otherwise, bold highlighting of question inconsistent. %>
                   <% if local_assigns[:export_format] && export_format == 'docx' %>
-                    <% question_text = question[:text].to_s %>
-                    <% question_text = question_text.gsub('<p>', '<p><strong>'); %>
-                    <% question_text = question_text.gsub('</p>', '</strong></p>'); %>
-                    <strong><%=  sanitize question_text, scrubber: TableFreeScrubber.new %></strong>
+                    <strong><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></strong>
                   <% else %>
                     <div class="bold"><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></div>
                   <% end %>
