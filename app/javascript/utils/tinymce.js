@@ -1,10 +1,7 @@
 // Import TinyMCE
 import tinymce from 'tinymce/tinymce';
 // Import TinyMCE theme
-// import 'tinymce/themes/modern/theme';
-
-import 'tinymce/skins/lightgray/content.min.css';
-import 'tinymce/skins/lightgray/skin.min.css';
+import 'tinymce/themes/modern/theme';
 
 // Plugins
 import 'tinymce/plugins/table';
@@ -43,8 +40,7 @@ export const defaultOptions = {
   },
   // editorManager.baseURL is not resolved properly for IE since document.currentScript
   // is not supported, see issue https://github.com/tinymce/tinymce/issues/358
-  // skin_url: '/tinymce/skins/lightgray',
-  skin: false
+  skin_url: '/tinymce/skins/lightgray',
 };
 /*
   This function is invoked anytime a new editor is initialised (e.g. Tinymce.init())
