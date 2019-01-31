@@ -945,7 +945,7 @@ msgid "Editing privileges for %{username}"
 msgstr "Édition des droits de %{username}"
 
 msgid "Editing profile for %{username}"
-msgstr "Édition du profile de %{username}"
+msgstr "Édition du profil de %{username}"
 
 msgid "Editor"
 msgstr "Éditeur"
