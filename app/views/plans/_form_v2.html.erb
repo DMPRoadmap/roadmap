@@ -35,7 +35,7 @@
     <!-- Tabs menu -->
     <ul class="nav nav-tabs form-tabs">
       <li class="active">
-        <a data-toggle="tab" href="#own_org"><%= @default_org.name  %> (<%= d_('dmpopidor', 'Your organisation') %>) </a>
+        <a data-toggle="tab" href="#own_org"><%= @default_org.is_other ? current_user.other_organisation : @default_org.name  %> (<%= d_('dmpopidor', 'Your organisation') %>) </a>
       </li>
       <li>
         <a data-toggle="tab" href="#other_org"><%= d_('dmpopidor', 'Other organisation') %></a>
