@@ -5,7 +5,7 @@ class RegistrationsController < Devise::RegistrationsController
     @user = current_user
     @prefs = @user.get_preferences(:email)
     @languages = Language.sorted_by_abbreviation
-    @orgs = Org.where(parent_id: nil).order("name")
+    @orgs = Org.where(parent_id: nil).where.not('org_type = 2').order("name")
     @other_organisations = Org.where(parent_id: nil, is_other: true).pluck(:id)
     @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
     @default_org = current_user.org
