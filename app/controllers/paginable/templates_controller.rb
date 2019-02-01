@@ -23,6 +23,7 @@ class Paginable::TemplatesController < ApplicationController
     paginable_renderise(
       partial: "index",
       scope: templates.includes(:org),
+      query_params: { sort_field: 'templates.title', sort_direction: :asc },
       locals: { action: "index" }
     )
   end
@@ -44,6 +45,7 @@ class Paginable::TemplatesController < ApplicationController
     paginable_renderise(
       partial: "organisational",
       scope: templates,
+      query_params: { sort_field: 'templates.title', sort_direction: :asc },
       locals: { action: "organisational" }
     )
   end
@@ -67,6 +69,7 @@ class Paginable::TemplatesController < ApplicationController
     paginable_renderise(
       partial: "customisable",
       scope: templates.joins(:org).includes(:org),
+      query_params: { sort_field: 'templates.title', sort_direction: :asc },
       locals: { action: "customisable", customizations: customizations }
     )
   end
@@ -84,7 +87,8 @@ class Paginable::TemplatesController < ApplicationController
       scope: Template.joins(:org)
                      .includes(:org)
                      .where(id: templates.uniq.flatten)
-                     .published
+                     .published,
+      query_params: { sort_field: 'templates.title', sort_direction: :asc }
     )
   end
 
@@ -98,6 +102,7 @@ class Paginable::TemplatesController < ApplicationController
     paginable_renderise(
       partial: "history",
       scope: @templates,
+      query_params: { sort_field: 'templates.title', sort_direction: :asc },
       locals: { current: @templates.maximum(:version) }
     )
   end
