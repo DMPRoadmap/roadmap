@@ -12,7 +12,7 @@ class OrgAdmin::PlansController < ApplicationController
 
     feedback_ids = Role.where(user_id: current_user.id).reviewer.pluck(:plan_id).uniq
     @feedback_plans = Plan.where(id: feedback_ids)
-    @plans = current_user.org.plans
+    @plans = current_user.org.plans.page(1)
   end
 
   # GET org_admin/plans/:id/feedback_complete
