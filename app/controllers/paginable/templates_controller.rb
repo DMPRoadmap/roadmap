@@ -2,6 +2,7 @@
 
 class Paginable::TemplatesController < ApplicationController
 
+  include CustomizableTemplateLinkHelper
   include Paginable
 
   # TODO: Clean up this code for Rubocop
