@@ -15,7 +15,7 @@
       <% customization = customizations.find{ |customization| customization.customization_of == template.family_id } %>
       <tr id="<%= dom_id(template) %>">
         <td>
-          <%= "#{template.is_default ? '* ' : ''}#{template.title}" %>
+          <%= link_to_customizable_template "#{template.is_default ? '* ' : ''}#{template.title}", customization, template %>
         </td>
         <td>
           <%= template.org.name %>
@@ -51,39 +51,24 @@
               <%= _('Actions') %><span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-              <% if customization.present? %>
-                <% if customization.created_at < template.created_at %>
-                  <li>
-                    <%= link_to _('Transfer customisation'),
-                        org_admin_template_customization_transfers_path(customization.id),
-                        data: { method: 'post' }
-                    %>
-                  </li>
-                <% else %>
-                  <li><%= link_to _('Edit customisation'), org_admin_template_path(id: customization.id) %></li>
-                  <li><%= link_to _('History'), history_org_admin_template_path(customization.id) %></li>
-                  <% if customization.draft? || customization.published? %>
-                    <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(customization.id), 'data-method': 'patch' %></li>
-                  <% end %>
-                  <% if customization.draft? %>
-                    <li><%= link_to _('Publish changes'), publish_org_admin_template_path(customization.id), 'data-method': 'patch' %></li>
-                  <% elsif !customization.published? %>
+              <li><%= link_to_customizable_template customization, template %></li>
+              <% if customization.present? && customization.created_at >= template.created_at %>
+                <li><%= link_to _('History'), history_org_admin_template_path(customization.id) %></li>
+                <% if customization.draft? || customization.published? %>
+                  <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(customization.id), 'data-method': 'patch' %></li>
+                <% end %>
+                <% if customization.draft? %>
+                  <li><%= link_to _('Publish changes'), publish_org_admin_template_path(customization.id), 'data-method': 'patch' %></li>
+                <% elsif !customization.published? %>
                     <li><%= link_to _('Publish'), publish_org_admin_template_path(customization.id), 'data-method': 'patch' %></li>
-                  <% end %>
-                  <% if customization.removable? %>
-                    <li>
-                      <%= link_to _('Remove'), org_admin_template_path(id: customization.id),
+                <% end %>
+                <% if customization.removable? %>
+                  <li>
+                    <%= link_to _('Remove'), org_admin_template_path(id: customization.id),
                                   'data-method': 'delete', rel: 'nofollow',
                                   'data-confirm': _('Are you sure you want to remove your customization of "%{template_title}"? Any published versions will become unavailable to users.') % { template_title: customization.title} %>
-                    </li>
-                  <% end %>
+                  </li>
                 <% end %>
-              <% else %>
-                <li>
-                  <%= link_to _('Customise'),
-                      org_admin_template_customizations_path(template.id),
-                      'data-method': 'post' %>
-                </li>
               <% end %>
             </ul>
           </div>
