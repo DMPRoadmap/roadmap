@@ -3,15 +3,42 @@
   commenter_name = @commenter.name
   plan_title = @plan.title
   user_name = @plan.owner.name
+  question = @answer.question
+  question_number = question.number
+  question_text = question.text
+  section_title = question.section.title
+  phase_id = question.section.phase.id
+  phase_link = url_for(action: 'edit', controller: 'plans', id: @plan.id, phase_id: phase_id)
+  comment_number = @answer.notes.size
 %>
 <% FastGettext.with_locale FastGettext.default_locale do %>
   <p>
     <%= _('Hello %{user_name}') %{ :user_name => user_name } %>
   </p>
   <p>
-    <%= _('%{commenter_name} has commented on the plan %{plan_title}. To view the comments, '\
-    'please visit the My Dashboard page in %{tool_name} and open your plan.') %{ :plan_title => plan_title,
-    :commenter_name => commenter_name, :tool_name => tool_name } %>
+    <%= _('%{commenter_name} has commented on the plan %{plan_title}. To view the comment, '\
+    'either follow the phase link below, or navigate to the plan via the My Dashboard page in %{tool_name}. ') \
+    %{ :commenter_name => commenter_name, :plan_title => plan_title, :tool_name => tool_name } %>
   </p>
+  <p>
+    <%=  _('Once there, follow the phase, section, question and comment number to navigate to the comment.') %>
+  </p>
+  <p>
+    <%= _('Phase link: %{phase_link}') %{ :phase_link => phase_link }  %>
+  </p>
+  <p>
+    <%# Added @plan.phases.size > 1 ? question.section.phase.title : _('Write Plan') so translation of 'Write Plan' may be picked up. %>
+    <%= _('Phase: %{phase_title}') %{ :phase_title => @plan.phases.size > 1 ? question.section.phase.title : _('Write Plan') }  %>
+  </p>
+  <p>
+    <%= _('Section: %{section_title}') %{ :section_title => section_title } %>
+  </p>
+  <p>
+    <%= _('Question: %{question_number}. %{question_text}') %{ :question_number => question_number, :question_text => question_text } %>
+  </p>
+  <p>
+    <%= _('Comment Number: %{comment_number}') %{ :comment_number => comment_number } %>
+  </p>
+
   <%= render partial: 'email_signature' %>
 <% end %>
