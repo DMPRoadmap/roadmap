@@ -18,10 +18,14 @@
       <%= _('Request Expert Feedback - Message Displayed on Share Plan Tab:') %>
     </h3>
     <div class="row">
-      <div class="form-group col-xs-8" data-toggle="tooltip" data-html="true" title="<%= tooltip_for_org_feedback_form(org) %>">
+      <div class="form-group col-xs-8" data-html="true">
         <%= f.label :feedback_email_msg, _('Message'), class: "control-label" %>
         <%= f.text_area :feedback_email_msg, class: "form-control",
                         "aria-required" => true %>
+      </div>
+      <div class="form-group col-xs-4">
+        <h4><%= _('Sample Message') %></h4>
+        <%= sanitize sample_message_for_org_feedback_form(org) %>
       </div>
     </div>
   </div>
