@@ -2,17 +2,14 @@
 #
 # Table name: regions
 #
-#  id              :integer          not null, primary key
-#  abbreviation    :string
-#  description     :string
-#  name            :string
-#  super_region_id :integer
+#  id         :integer          not null, primary key
+#  name       :string(30)       not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 FactoryBot.define do
   factory :region do
-    name { Faker::Address.country }
-    abbreviation { SecureRandom.hex(2)  }
-    description { Faker::Lorem.sentence }
+    name { "MyString" }
   end
 end
