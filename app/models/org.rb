@@ -50,7 +50,9 @@ class Org < ActiveRecord::Base
 
   belongs_to :language
 
-  belongs_to :region
+  has_many :org_regions
+  
+  has_many :regions, through: :org_regions
 
   has_many :guidance_groups, dependent: :destroy
 

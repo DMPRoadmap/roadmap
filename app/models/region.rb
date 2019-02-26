@@ -2,34 +2,20 @@
 #
 # Table name: regions
 #
-#  id              :integer          not null, primary key
-#  abbreviation    :string
-#  description     :string
-#  name            :string
-#  super_region_id :integer
+#  id         :integer          not null, primary key
+#  name       :string(30)       not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 class Region < ActiveRecord::Base
-  include ValidationMessages
-
-  # ================
-  # = Associations =
-  # ================
-
-  has_many :sub_regions, class_name: 'Region', foreign_key: 'super_region_id'
-
-  belongs_to :super_region, class_name: 'Region'
-
-  # ===============
-  # = Validations =
-  # ===============
-
-  validates :name, presence: { message: PRESENCE_MESSAGE },
-                   uniqueness: { message: UNIQUENESS_MESSAGE }
-
-  validates :description, presence: true
-
-  validates :abbreviation, presence: { message: PRESENCE_MESSAGE },
-                           uniqueness: { message: UNIQUENESS_MESSAGE }
-
+  
+  has_many :org_regions
+  
+  has_many :orgs, through: :org_regions
+  
+  has_many :templates, through: :orgs
+  
+  has_many :guidances, through: :orgs
+  
 end
