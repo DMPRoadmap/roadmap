@@ -18,14 +18,4 @@ class Region < ActiveRecord::Base
 
   has_many :guidances, through: :orgs
 
-  has_many :region_languages
-
-  has_many :languages, through: :region_languages do
-
-    def region_default
-      where(default: true)
-    end
-
-  end
-
 end
