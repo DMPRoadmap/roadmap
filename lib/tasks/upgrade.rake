@@ -1,8 +1,13 @@
 require 'set'
 namespace :upgrade do
 
+  desc "Upgrade to v2.1.2:"
+  task v2_1_2: :environment do
+    Rake::Task["upgrade:add_date_question_format"].execute
+  end
+
   desc "Upgrade to v2.1.0:"
-  task v2_1_9: :environment do
+  task v2_1_0: :environment do
     Rake::Task["data_cleanup:deactivate_orphaned_plans"].execute
   end
 
@@ -637,6 +642,18 @@ namespace :upgrade do
     Theme.all.each do |theme|
       next if theme.locale.blank?
       theme.update(locale: LocaleFormatter.new(theme.locale))
+    end
+  end
+
+  desc "Adds the Date question format"
+  task :add_date_question_format => :environment do
+    unless QuestionFormat.id_for(QuestionFormat.formattypes[:date]).present?
+      QuestionFormat.create(
+        title: "Date field",
+        description: "Date field format",
+        option_based: false,
+        formattype: QuestionFormat.formattypes[:date]
+      )
     end
   end
 
