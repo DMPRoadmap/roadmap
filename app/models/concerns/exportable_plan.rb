@@ -148,9 +148,12 @@ module ExportablePlan
       if answer.present? || (answer.blank? && unanswered)
         answer_text = answer.present? ? answer.text :
                       (unanswered ? _("Not Answered") : "")
-        if answer.present? && answer.question_options.any?
-          answer_text = answer.question_options.pluck(:text).join(", ")
+
+        if answer.present? && answer.is_valid? && answer.question_options.any?
+          # Prepend answer_text with question_options and line-breaks.
+          answer_text = answer.question_options.pluck(:text).join(", ") + "\n\n" + answer_text
         end
+
       end
       flds = (hash[:phases].many? ? [phase[:title]] : [])
       if headings
