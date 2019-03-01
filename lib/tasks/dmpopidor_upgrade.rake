@@ -5,7 +5,7 @@ namespace :dmpopidor_upgrade do
   task v2_1_0: :environment do
     Rake::Task['dmpopidor_upgrade:add_themes_token_permission_types'].execute
     Rake::Task['dmpopidor_upgrade:grant_themes_api_to_all_orgs'].execute
-    Rake::Task['dmpopidor_upgrade:grant_themes_api_to_all_orgs'].execute
+    Rake::Task['dmpopidor_upgrade:grant_api_to_all_orgs'].execute
     Rake::Task['dmpopidor_upgrade:create_number_field'].execute
   end
 
@@ -27,7 +27,7 @@ namespace :dmpopidor_upgrade do
   end
 
   desc "Grant all API to all orgs"
-  task grant_themes_api_to_all_orgs: :environment do
+  task grant_api_to_all_orgs: :environment do
     orgs = Org.where(is_other: false).select(:id) + Org.where(is_other: nil).select(:id)
     orgs.each do |org|
         org.grant_api!(TokenPermissionType.where(token_type: 'guidances'))
