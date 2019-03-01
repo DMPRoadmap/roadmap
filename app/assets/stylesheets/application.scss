@@ -4,8 +4,10 @@
 @debug "1 #{$navbar-branding-bg}";
 @import "bootstrap";
 @debug "2 #{$navbar-branding-bg}";
-@import "blocks/*";
+@import "jquery-ui/themes/base/datepicker";
 @debug "3 #{$navbar-branding-bg}";
+@import "blocks/*";
+@debug "4 #{$navbar-branding-bg}";
 @import "utils/*";
 
 @import "font-awesome-sprockets";
