@@ -11,8 +11,12 @@ class PlansController < ApplicationController
   def index
     authorize Plan
     @plans = Plan.active(current_user).page(1)
-    @organisationally_or_publicly_visible =
-      Plan.organisationally_or_publicly_visible(current_user).page(1)
+    if current_user.org.is_other?
+      @organisationally_or_publicly_visible = []
+    else
+      @organisationally_or_publicly_visible =
+        Plan.organisationally_or_publicly_visible(current_user).page(1)
+    end
   end
 
   # GET /plans/new
@@ -89,8 +93,6 @@ class PlansController < ApplicationController
       end
 
       if @plan.save
-        @plan.assign_creator(current_user)
-
         # pre-select org's guidance and the default org's guidance
         ids = (Org.managing_orgs << org_id).flatten.uniq
         ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
@@ -118,6 +120,8 @@ class PlansController < ApplicationController
           msg += " #{_('This plan is based on the')} #{@plan.template.org.name}: '#{@plan.template.title}' template."
           # rubocop:enable Metrics/LineLength
         end
+
+        @plan.add_user!(current_user.id, :creator)
 
         respond_to do |format|
           flash[:notice] = msg
@@ -305,7 +309,7 @@ class PlansController < ApplicationController
     @plan = Plan.deep_copy(plan)
     respond_to do |format|
       if @plan.save
-        @plan.assign_creator(current_user)
+        @plan.add_user!(current_user.id, :creator)
         format.html { redirect_to @plan, notice: success_message(@plan, _("copied")) }
       else
         format.html { redirect_to plans_path, alert: failure_message(@plan, _("copy")) }

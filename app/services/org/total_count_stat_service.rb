@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 class Org
+
   class TotalCountStatService
+
     class << self
+
       def call
         total = build_from_joined_user
         build_from_created_plan(total)
@@ -45,6 +50,9 @@ class Org
           reducer_body(acc, count, :total_plans)
         end
       end
+
     end
+
   end
+
 end
