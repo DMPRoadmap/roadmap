@@ -1,3 +1,4 @@
+import 'jquery-ui/ui/widgets/datepicker';
 
 /*
  * Date picker polyfill:
@@ -6,7 +7,7 @@
 export default () => {
   console.log('Init DatePicker');
   if ($('[type="date"]').prop('type') !== 'date') {
-    console.log('BOOM');
+    console.log(`BOOM - WIRING #${$('[type="date"]').attr('id')}`);
 
     $('[type="date"]').datepicker({
       dateFormat: 'yy-mm-dd',
