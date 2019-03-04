@@ -148,10 +148,12 @@ module ExportablePlan
       if answer.present? || (answer.blank? && unanswered)
         answer_text = answer.present? ? answer.text :
                       (unanswered ? _("Not Answered") : "")
-        if answer.present? && answer.question_options.any?
-          answer_text = answer.question_options.pluck(:text).join(", ")
+        if answer.present? && answer.is_valid? && answer.question_options.any?
+          answer_text = answer.question_options.pluck(:text).join(", ") +
+                          " " + answer_text
         end
       end
+      single_line_answer_for_csv = sanitize_text(answer_text).gsub(/\r|\n/, " ")
       flds = (hash[:phases].many? ? [phase[:title]] : [])
       if headings
         if question[:text].is_a? String
@@ -162,10 +164,9 @@ module ExportablePlan
                            question[:text][0])
         end
         flds << [ section[:title], sanitize_text(question_text),
-                  sanitize_text(answer_text)
-                ]
+                  single_line_answer_for_csv ]
       else
-        flds << [ sanitize_text(answer_text) ]
+        flds << [ single_line_answer_for_csv ]
       end
       csv << flds.flatten
     end
