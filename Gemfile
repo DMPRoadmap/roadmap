@@ -16,8 +16,8 @@ gem 'responders', '~> 2.0'  # Allows use of respond_with and respond_to in contr
 
 # ------------------------------------------------
 #    DATABASE/SERVER
-gem 'mysql2', '~> 0.4.10'
-#gem 'pg', '~> 0.19.0'
+#gem 'mysql2', '~> 0.4.10'
+gem 'pg', '~> 0.19.0'
 gem 'flag_shih_tzu'  # Allows for bitfields in activereccord
 
 # ------------------------------------------------
