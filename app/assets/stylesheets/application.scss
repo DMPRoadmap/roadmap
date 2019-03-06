@@ -4,11 +4,14 @@
 @debug "1 #{$navbar-branding-bg}";
 @import "bootstrap";
 @debug "2 #{$navbar-branding-bg}";
-@import "jquery-ui/themes/base/datepicker";
-@debug "3 #{$navbar-branding-bg}";
 @import "blocks/*";
-@debug "4 #{$navbar-branding-bg}";
+@debug "3 #{$navbar-branding-bg}";
 @import "utils/*";
+
+// JQuery-UI CSS for Datepicker
+@import "vendor/jquery-ui/datepicker/jquery-ui.min.css";
+@import "vendor/jquery-ui/datepicker/jquery-ui.structure.min.css";
+@import "vendor/jquery-ui/datepicker/jquery-ui.theme.min.css";
 
 @import "font-awesome-sprockets";
 @import "font-awesome";
