@@ -1,4 +1,11 @@
-.ui-datepicker {
-  background-color: $color-seccondary-background;
-  border: 1px solid $color-primary-background;
+.ui-datepicker-header {
+  background: $color-seccondary-background;
+  color: $color-seccondary-text;
+  border: none;
+}
+.ui-datepicker-prev,
+.ui-datepicker-next {
+  background-image: none;
+  background: $color-seccondary-background;
+  color: $color-seccondary-text;
 }
