@@ -10,7 +10,7 @@ export default () => {
       dateFormat: 'yy-mm-dd',
       constrainInput: true,
       navigationAsDateFormat: true,
-      goToCurrent: true
+      goToCurrent: true,
     });
   }
 };
