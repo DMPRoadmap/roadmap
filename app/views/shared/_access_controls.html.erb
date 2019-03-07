@@ -5,7 +5,7 @@
         <%= _('Sign in') %>
       </a>
     </li>
-    <% unless isActivePage(new_user_registration_path, true) %>
+    <% unless active_page?(new_user_registration_path, true) %>
       <li role="presentation">
         <a href="#create-account-form" role="tab" aria-controls="create-account-form" data-toggle="tab">
           <%= _('Create account') %>
@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <% unless isActivePage(new_user_registration_path, true) %>
+    <% unless active_page?(new_user_registration_path, true) %>
       <div id="create-account-form" role="tabpanel" class="tab-pane">
         <div class="panel panel-default">
           <div class="panel-body">

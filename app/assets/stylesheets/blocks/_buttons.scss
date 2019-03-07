@@ -1,0 +1,54 @@
+// Bootstrap overrides
+
+.btn {
+  border-radius: 0px;
+}
+
+/* primary button */
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:active:hover,
+.btn-primary.active:hover {
+  background-color: $color-primary-background;
+  border-color: $color-border-default;
+  outline: none;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+/* default button */
+.btn-default,
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default:visited,
+.btn-default:active:hover,
+.btn-default.active:hover {
+  background-color: $color-primary-background;
+  border-color: $color-border-default;
+  outline: none;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+/* Popover button */
+.btn-default[data-toggle=tooltip],
+.btn-default:hover[data-toggle=tooltip],
+.btn-default:focus[data-toggle=tooltip],
+.btn-default:active[data-toggle=tooltip],
+.btn-default:visited[data-toggle=tooltip],
+.btn-default:active:hover[data-toggle=tooltip] {
+  color: $color-seccondary-text;
+  background-color: $color-seccondary-background;
+  border: none;
+  padding-left: -10px;
+  font-size: .8rem;
+}
+
+/* link button */
+.btn-link {
+  color: $color-link-text;
+}

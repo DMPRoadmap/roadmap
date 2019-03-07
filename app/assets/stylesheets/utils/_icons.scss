@@ -1,0 +1,5 @@
+/* See `.combobox-clear-button` for an example of this mixin in use */
+@mixin icon($icon) {
+  @extend .fa;
+  @extend .fa-#{$icon}:before;
+}

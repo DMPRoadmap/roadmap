@@ -12,4 +12,33 @@ module MailerHelper
       r+= "</ul>"
     end
   end
+
+  # Returns the messaging for the specified role
+  def role_text(role)
+    if role.reviewer?
+      {
+        type: _('reviewer'),
+        placeholder1: _('read the plan and provide feedback.'),
+        placeholder2: nil
+      }
+    elsif role.administrator?
+      {
+        type: _('co-owner'),
+        placeholder1: _('write and edit the plan in a collaborative manner.'),
+        placeholder2: _('You can also grant rights to other collaborators.')
+      }
+    elsif role.editor?
+      {
+        type: _('editor'),
+        placeholder1: _('write and edit the plan in a collaborative manner.'),
+        placeholder2: nil,
+      }
+    else
+      {
+        type: _('read-only'),
+        placeholder1: _('read the plan and leave comments.'),
+        placeholder2: nil,
+      }
+    end
+  end
 end

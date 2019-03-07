@@ -1,5 +1,5 @@
 <% # locals: { search_term } %>
-<%= form_tag(paginable_base_url_with_query_params(page: 1), method: :get, remote: true, class: 'form-inline paginable-action') do %>
+<%= form_tag(paginable_base_url(1), method: :get, remote: true, class: 'form-inline paginable-action') do %>
   <div class="form-group">
     <div class="input-group">
       <span class="input-group-addon" id="search-addon">
