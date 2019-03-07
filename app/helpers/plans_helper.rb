@@ -13,16 +13,6 @@ module PlansHelper
     end
   end
 
-  # display the name of the owner of a plan
-  def display_owner(user)
-    if user == current_user
-      name = d_('dmpopidor', 'You')
-    else
-      name = user&.name(false)
-    end
-    return name
-  end
-
   # display the visibility of the plan
   def display_visibility(val)
     case val
@@ -31,8 +21,6 @@ module PlansHelper
     when 'publicly_visible'
       return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Public')}</span>"
     when 'privately_visible'
-      return "<span title=\"#{ visibility_tooltip(val) }\">#{d_('dmpopidor', 'Administrator')}</span>"
-    when 'privately_private_visible'
       return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Private')}</span>"
     else
       return "<span>#{_('Private')}</span>" # Test Plans

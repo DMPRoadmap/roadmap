@@ -42,6 +42,7 @@ class Plan < ActiveRecord::Base
   include ExportablePlan
   include ValidationMessages
   include ValidationValues
+  include Dmpopidor::Model::Plan
 
   # =============
   # = Constants =

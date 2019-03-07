@@ -111,6 +111,25 @@ module Dmpopidor
           @export_settings = @plan.settings(:export)
           render "download"
         end
+
+        # Removing test flag now put the plan in privately_private visibility
+        def set_test
+          plan = Plan.find(params[:id])
+          authorize plan
+          plan.visibility = (params[:is_test] === "1" ? :is_test : :privately_private_visible)
+          # rubocop:disable Metrics/LineLength
+          if plan.save
+            render json: {
+                     code: 1,
+                     msg: (plan.is_test? ? _("Your project is now a test.") : _("Your project is no longer a test."))
+                   }
+          else
+            render status: :bad_request, json: {
+                     code: 0, msg: _("Unable to change the plan's test status")
+                   }
+          end
+          # rubocop:enable Metrics/LineLength
+        end
       end
     end
   end
