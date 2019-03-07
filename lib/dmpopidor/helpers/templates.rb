@@ -1,5 +1,5 @@
 module Dmpopidor
-  module Helper
+  module Helpers
     module Templates
       # Generate a direct plan creation link based on provided template
       # @param template [Template] template used for plan creation

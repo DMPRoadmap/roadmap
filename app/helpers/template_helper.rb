@@ -2,7 +2,7 @@
 
 module TemplateHelper
 
-  include Dmpopidor::Helper::Templates
+  include Dmpopidor::Helpers::Templates
 
   def template_details_path(template)
     if template_modifiable?(template)

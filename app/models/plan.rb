@@ -8,20 +8,20 @@
 # Table name: plans
 #
 #  id                                :integer          not null, primary key
-#  complete                          :boolean          default(FALSE)
-#  data_contact                      :string
-#  data_contact_email                :string
-#  data_contact_phone                :string
+#  complete                          :boolean
+#  data_contact                      :string(510)
+#  data_contact_email                :string(510)
+#  data_contact_phone                :string(510)
 #  description                       :text
-#  feedback_requested                :boolean          default(FALSE)
-#  funder_name                       :string
-#  grant_number                      :string
-#  identifier                        :string
-#  principal_investigator            :string
-#  principal_investigator_email      :string
-#  principal_investigator_identifier :string
-#  principal_investigator_phone      :string
-#  title                             :string
+#  feedback_requested                :boolean
+#  funder_name                       :string(510)
+#  grant_number                      :string(510)
+#  identifier                        :string(510)
+#  principal_investigator            :string(510)
+#  principal_investigator_email      :string(510)
+#  principal_investigator_identifier :string(510)
+#  principal_investigator_phone      :string(510)
+#  title                             :string(510)
 #  visibility                        :integer          default(3), not null
 #  created_at                        :datetime
 #  updated_at                        :datetime
@@ -29,7 +29,7 @@
 #
 # Indexes
 #
-#  index_plans_on_template_id  (template_id)
+#  plans_template_id_idx  (template_id)
 #
 # Foreign Keys
 #
@@ -42,7 +42,7 @@ class Plan < ActiveRecord::Base
   include ExportablePlan
   include ValidationMessages
   include ValidationValues
-  include Dmpopidor::Model::Plan
+  include Dmpopidor::Models::Plan
 
   # =============
   # = Constants =

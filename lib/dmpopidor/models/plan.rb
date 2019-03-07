@@ -1,5 +1,5 @@
 module Dmpopidor
-  module Model
+  module Models
     module Plan
       # Deactivates the plan (sets all roles to inactive and visibility to :private)
       #

@@ -1,5 +1,7 @@
 module PlansHelper
 
+  include Dmpopidor::Helpers::Plans
+
   # display the role of the user for a given plan
   def display_role(role)
     if role.creator?

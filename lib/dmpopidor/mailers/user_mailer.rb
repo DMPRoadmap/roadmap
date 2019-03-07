@@ -1,5 +1,5 @@
 module Dmpopidor
-  module Mailer
+  module Mailers
     module UserMailer
       # Mail is sent to the collaborators instead of owner
       # commenter - User who wrote the comment

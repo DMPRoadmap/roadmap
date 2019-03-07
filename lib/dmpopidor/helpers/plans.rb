@@ -1,5 +1,5 @@
 module Dmpopidor
-    module Helper
+    module Helpers
       module Plans
         # display the name of the owner of a plan
         # CHANGE : Added translation
