@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+include FastGettext::TranslationMultidomain
 
 # When Travis runs this, the DB isn't always built yet.
 if Language.table_exists?
