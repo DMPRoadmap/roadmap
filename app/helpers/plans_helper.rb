@@ -1,48 +1,18 @@
 module PlansHelper
-  # Shows whether the user has default, template-default or custom settings
-  # for the given plan.
-  # --------------------------------------------------------
-  def plan_settings_indicator(plan)
-    plan_settings     = plan.super_settings(:export)
-    template_settings = plan.template.try(:settings, :export)
 
-    key = if plan_settings.try(:value?)
-      plan_settings.formatting == template_settings.formatting ? "template_formatting" : "custom_formatting"
-    elsif template_settings.try(:value?)
-      "template_formatting"
-    else
-      "default_formatting"
-    end
-
-    content_tag(:small, t("helpers.settings.plans.#{key}"))
-  end
+  include Dmpopidor::Helpers::Plans
 
   # display the role of the user for a given plan
   def display_role(role)
     if role.creator?
-      access = _('Owner')
-      
-    else
-      case role.access_level
-        when 3
-          access = _('Co-owner')
-        when 2
-          access = _('Editor')
-        when 1
-          access = _('Read only')
-      end
+      _('Owner')
+    elsif role.administrator?
+      _('Co-owner')
+    elsif role.editor?
+      _('Editor')
+    elsif role.commenter?
+      _('Read only')
     end
-    return access
-  end
-
-  # display the name of the owner of a plan
-  def display_owner(user)
-    if user == current_user
-      name = d_('dmpopidor', 'You')
-    else
-      name = user&.name(false)
-    end
-    return name
   end
 
   # display the visibility of the plan
@@ -53,14 +23,12 @@ module PlansHelper
     when 'publicly_visible'
       return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Public')}</span>"
     when 'privately_visible'
-      return "<span title=\"#{ visibility_tooltip(val) }\">#{d_('dmpopidor', 'Administrator')}</span>"
-    when 'privately_private_visible'
       return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Private')}</span>"
     else
       return "<span>#{_('Private')}</span>" # Test Plans
     end
   end
-  
+
   def visibility_tooltip(val)
     case val
     when 'organisationally_visible'
@@ -70,5 +38,17 @@ module PlansHelper
     else
       return _('Private: restricted to me and people I invite.')
     end
+  end
+
+  def download_plan_page_title(plan, phase, hash)
+    # If there is more than one phase show the plan title and phase title
+    return hash[:phases].many? ? "#{plan.title} - #{phase[:title]}" : plan.title
+  end
+
+  def display_section?(customization, section, show_custom_sections)
+    display = !customization
+    display ||= customization && !section[:modifiable]
+    display ||= customization && section[:modifiable] && show_custom_sections
+    return display
   end
 end

@@ -10,24 +10,23 @@
     <%= form_for 'shibboleth_ds', url: shibboleth_ds_path, namespace: 'shib-ds', html: {id: 'shibboleth_ds'} do |f| %>
       <div class="form-group col-xs-8">
         <%= f.label(:org_name, _('Look up your organisation here'), class: "control-label") %>
-  
+
         <% if @orgs.length <= 10 %>
           <select id="org_name">
             <option value=""><%= _('Please select one') %></option>
-            <%= raw @orgs.collect{|o| "<option value=\"#{o.id}\">#{o.name}</option>" }.join('') %>
+            <%= options_for_select(@orgs.map { |o| [o.name, o.id] }) %>
           </select>
-        
         <% else %>
-          <%= render partial: "shared/accessible_combobox", 
-                     locals: {name: "shib-ds[org_name]",
-                              id: 'shib-ds_org_name',
-                              default_selection: nil,
-                              models: @orgs,
-                              attribute: 'name',
-                              required: true,
-                              classes: ''} %>
+          <%= render partial: "shared/accessible_combobox",
+                     locals: { name: "shib-ds[org_name]",
+                               id: 'shib-ds_org_name',
+                               default_selection: nil,
+                               models: @orgs,
+                               attribute: 'name',
+                               required: true,
+                               classes: '' } %>
         <% end %>
-      
+
         <%= f.button(_('Go'), class: "btn btn-default", type: "submit") %>
 
         <% if @orgs.length > 10 %>
@@ -40,13 +39,13 @@
 
       </div>
     <% end %>
-  
+
     <div id="full_list" class="hidden col-xs-10" aria-hidden="true">
       <div id="org-list">
         <%
         increment, cols, letter, total, row = 50, 1, '', @orgs.length, 0
 
-        # Determine how many letter separators 
+        # Determine how many letter separators
         total += @orgs.collect{|o| o.name[0]}.uniq.count
         cols = (total > 100 ? 3 : (total > 50 ? 2 : 1))
         increment = (total / cols)
@@ -70,9 +69,9 @@
         <% end %>
       </div>
     </div>
-  
+
     <hr />
-  
+
     <p>
       <%= _('Organisation not in the list?') %>&nbsp;
       <button type="button" class="btn btn-link" data-toggle="modal" data-target="#header-signin">

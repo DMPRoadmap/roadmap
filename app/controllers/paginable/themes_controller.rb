@@ -1,10 +1,13 @@
-module Paginable 
-  class ThemesController < ApplicationController
-    include Paginable
-    # /paginable/themes/index/:page
-    def index
-      authorize(Theme)
-      paginable_renderise(partial: 'index', scope: Theme.all)
-    end
+# frozen_string_literal: true
+
+class Paginable::ThemesController < ApplicationController
+
+  include Paginable
+
+  # /paginable/themes/index/:page
+  def index
+    authorize(Theme)
+    paginable_renderise(partial: "index", scope: Theme.all)
   end
+
 end

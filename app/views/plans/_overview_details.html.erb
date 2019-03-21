@@ -9,7 +9,7 @@
       <%= _('This plan is based on the "%{template_title}" template provided by %{org_name}.') %{ :template_title => plan.template.title, :org_name => plan.template.org.name } %>
     </p>
     <p>
-      <%= raw(plan.template.description) %>
+      <%= sanitize(plan.template.description) %>
     </p>
   </div>
 </div>
@@ -23,9 +23,9 @@
           <% questions_size = p.sections.map{|s| s.questions.size }.reduce(0){|sum,x| sum + x } %>
           <div class="panel panel-default">
             <div class="heading-button" role="button" data-toggle="collapse"
-                 data-parent="plan-overview-accordion" 
+                 data-parent="plan-overview-accordion"
                  href="#plan-overview-collapse-<%= p.id %>"
-                 aria-expanded="false" 
+                 aria-expanded="false"
                  aria-controls="#plan-overview-collapse-<%= p.id %>">
 
               <div class="panel-heading" role="tab" id="plan-overview-heading-<%= p.id %>">
@@ -33,7 +33,7 @@
                   <div class="pull-left">
                     <%= _("%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})") % {
                       :phase_title => p.title, :sections_size => p.sections.size, :sections => n_('section', 'sections', p.sections.size),
-                      :questions_size => questions_size, 
+                      :questions_size => questions_size,
                       :questions => n_('question', 'questions', questions_size) } %>
                   </div>
                   <div class="pull-right">

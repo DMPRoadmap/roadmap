@@ -11,18 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180508151824) do
+ActiveRecord::Schema.define(version: 20190109143548) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "annotations", force: :cascade do |t|
     t.integer  "question_id"
     t.integer  "org_id"
     t.text     "text"
-    t.integer  "type",        default: 0, null: false
+    t.integer  "type",                      default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "versionable_id", limit: 36
   end
 
-  add_index "annotations", ["question_id"], name: "index_annotations_on_question_id"
+  add_index "annotations", ["org_id"], name: "annotations_org_id_idx", using: :btree
+  add_index "annotations", ["question_id"], name: "annotations_question_id_idx", using: :btree
+  add_index "annotations", ["versionable_id"], name: "index_annotations_on_versionable_id", using: :btree
 
   create_table "answers", force: :cascade do |t|
     t.text     "text"
@@ -34,71 +40,58 @@ ActiveRecord::Schema.define(version: 20180508151824) do
     t.integer  "lock_version", default: 0
   end
 
-  add_index "answers", ["plan_id"], name: "index_answers_on_plan_id"
-  add_index "answers", ["question_id"], name: "index_answers_on_question_id"
+  add_index "answers", ["plan_id"], name: "answers_plan_id_idx", using: :btree
+  add_index "answers", ["question_id"], name: "answers_question_id_idx", using: :btree
+  add_index "answers", ["user_id"], name: "answers_user_id_idx", using: :btree
 
   create_table "answers_question_options", id: false, force: :cascade do |t|
     t.integer "answer_id",          null: false
     t.integer "question_option_id", null: false
   end
 
-  add_index "answers_question_options", ["answer_id"], name: "index_answers_question_options_on_answer_id"
+  add_index "answers_question_options", ["answer_id"], name: "answers_question_options_answer_id_idx", using: :btree
+  add_index "answers_question_options", ["question_option_id"], name: "answers_question_options_question_option_id_idx", using: :btree
 
   create_table "exported_plans", force: :cascade do |t|
     t.integer  "plan_id"
     t.integer  "user_id"
-    t.string   "format"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "format",     limit: 510
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.integer  "phase_id"
   end
 
-  create_table "file_types", force: :cascade do |t|
-    t.string   "name"
-    t.string   "icon_name"
-    t.integer  "icon_size"
-    t.string   "icon_location"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  create_table "file_uploads", force: :cascade do |t|
-    t.string   "name"
-    t.string   "title"
-    t.text     "description"
-    t.integer  "size"
-    t.boolean  "published"
-    t.string   "location"
-    t.integer  "file_type_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
   create_table "guidance_groups", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",            limit: 510
     t.integer  "org_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.boolean  "optional_subset"
-    t.boolean  "published"
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.boolean  "optional_subset",             default: false, null: false
+    t.boolean  "published",                   default: false, null: false
   end
 
-  add_index "guidance_groups", ["org_id"], name: "index_guidance_groups_on_org_id"
+  add_index "guidance_groups", ["org_id"], name: "guidance_groups_org_id_idx", using: :btree
 
   create_table "guidances", force: :cascade do |t|
     t.text     "text"
     t.integer  "guidance_group_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.integer  "question_id"
     t.boolean  "published"
   end
 
-  add_index "guidances", ["guidance_group_id"], name: "index_guidances_on_guidance_group_id"
+  add_index "guidances", ["guidance_group_id"], name: "guidances_guidance_group_id_idx", using: :btree
+
+  create_table "homepage_messages", force: :cascade do |t|
+    t.string   "level",      limit: 510
+    t.text     "text"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "identifier_schemes", force: :cascade do |t|
-    t.string   "name"
-    t.string   "description"
+    t.string   "name",             limit: 510
+    t.string   "description",      limit: 510
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -107,23 +100,24 @@ ActiveRecord::Schema.define(version: 20180508151824) do
   end
 
   create_table "languages", force: :cascade do |t|
-    t.string  "abbreviation"
-    t.string  "description"
-    t.string  "name"
+    t.string  "abbreviation",     limit: 510
+    t.string  "description",      limit: 510
+    t.string  "name",             limit: 510
     t.boolean "default_language"
   end
 
   create_table "notes", force: :cascade do |t|
     t.integer  "user_id"
     t.text     "text"
-    t.boolean  "archived"
+    t.boolean  "archived",    default: false, null: false
     t.integer  "answer_id"
     t.integer  "archived_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "notes", ["answer_id"], name: "index_notes_on_answer_id"
+  add_index "notes", ["answer_id"], name: "notes_answer_id_idx", using: :btree
+  add_index "notes", ["user_id"], name: "notes_user_id_idx", using: :btree
 
   create_table "notification_acknowledgements", force: :cascade do |t|
     t.integer  "user_id"
@@ -132,29 +126,32 @@ ActiveRecord::Schema.define(version: 20180508151824) do
     t.datetime "updated_at"
   end
 
-  add_index "notification_acknowledgements", ["notification_id"], name: "index_notification_acknowledgements_on_notification_id"
-  add_index "notification_acknowledgements", ["user_id"], name: "index_notification_acknowledgements_on_user_id"
+  add_index "notification_acknowledgements", ["notification_id"], name: "notification_acknowledgements_notification_id_idx", using: :btree
+  add_index "notification_acknowledgements", ["user_id"], name: "notification_acknowledgements_user_id_idx", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "notification_type"
-    t.string   "title"
+    t.string   "title",             limit: 510
     t.integer  "level"
     t.text     "body"
     t.boolean  "dismissable"
     t.date     "starts_at"
     t.date     "expires_at"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "org_identifiers", force: :cascade do |t|
-    t.string   "identifier"
-    t.string   "attrs"
+    t.string   "identifier",           limit: 510
+    t.string   "attrs",                limit: 510
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "org_id"
     t.integer  "identifier_scheme_id"
   end
+
+  add_index "org_identifiers", ["identifier_scheme_id"], name: "org_identifiers_identifier_scheme_id_idx", using: :btree
+  add_index "org_identifiers", ["org_id"], name: "org_identifiers_org_id_idx", using: :btree
 
   create_table "org_token_permissions", force: :cascade do |t|
     t.integer  "org_id"
@@ -163,82 +160,83 @@ ActiveRecord::Schema.define(version: 20180508151824) do
     t.datetime "updated_at"
   end
 
-  add_index "org_token_permissions", ["org_id"], name: "index_org_token_permissions_on_org_id"
+  add_index "org_token_permissions", ["org_id"], name: "org_token_permissions_org_id_idx", using: :btree
+  add_index "org_token_permissions", ["token_permission_type_id"], name: "org_token_permissions_token_permission_type_id_idx", using: :btree
 
   create_table "orgs", force: :cascade do |t|
-    t.string   "name"
-    t.string   "abbreviation"
-    t.string   "target_url"
-    t.string   "wayfless_entity"
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
-    t.integer  "parent_id"
-    t.boolean  "is_other"
-    t.string   "sort_name"
-    t.text     "banner_text"
-    t.string   "logo_file_name"
+    t.string   "name",                   limit: 510
+    t.string   "abbreviation",           limit: 510
+    t.string   "target_url",             limit: 510
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.boolean  "is_other",                           default: false, null: false
+    t.string   "sort_name",              limit: 510
     t.integer  "region_id"
     t.integer  "language_id"
-    t.string   "logo_uid"
-    t.string   "logo_name"
-    t.string   "contact_email"
-    t.integer  "org_type",               default: 0,              null: false
+    t.string   "logo_uid",               limit: 510
+    t.string   "logo_name",              limit: 510
+    t.string   "contact_email",          limit: 510
+    t.integer  "org_type",                           default: 0,     null: false
     t.text     "links"
-    t.string   "contact_name"
-    t.boolean  "feedback_enabled",       default: false
-    t.string   "feedback_email_subject"
+    t.string   "contact_name",           limit: 510
+    t.boolean  "feedback_enabled"
+    t.string   "feedback_email_subject", limit: 510
     t.text     "feedback_email_msg"
   end
 
+  add_index "orgs", ["language_id"], name: "orgs_language_id_idx", using: :btree
+  add_index "orgs", ["region_id"], name: "orgs_region_id_idx", using: :btree
+
   create_table "perms", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",       limit: 510
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "phases", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",          limit: 510
     t.text     "description"
     t.integer  "number"
     t.integer  "template_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug"
     t.boolean  "modifiable"
+    t.string   "versionable_id", limit: 36
   end
 
-  add_index "phases", ["template_id"], name: "index_phases_on_template_id"
+  add_index "phases", ["template_id"], name: "phases_template_id_idx", using: :btree
+  add_index "phases", ["versionable_id"], name: "index_phases_on_versionable_id", using: :btree
 
   create_table "plans", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",                             limit: 510
     t.integer  "template_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug"
-    t.string   "grant_number"
-    t.string   "identifier"
+    t.string   "grant_number",                      limit: 510
+    t.string   "identifier",                        limit: 510
     t.text     "description"
-    t.string   "principal_investigator"
-    t.string   "principal_investigator_identifier"
-    t.string   "data_contact"
-    t.string   "funder_name"
-    t.integer  "visibility",                        default: 3,     null: false
-    t.string   "data_contact_email"
-    t.string   "data_contact_phone"
-    t.string   "principal_investigator_email"
-    t.string   "principal_investigator_phone"
-    t.boolean  "feedback_requested",                default: false
-    t.boolean  "complete",                          default: false
+    t.string   "principal_investigator",            limit: 510
+    t.string   "principal_investigator_identifier", limit: 510
+    t.string   "data_contact",                      limit: 510
+    t.string   "funder_name",                       limit: 510
+    t.integer  "visibility",                                    default: 3, null: false
+    t.string   "data_contact_email",                limit: 510
+    t.string   "data_contact_phone",                limit: 510
+    t.string   "principal_investigator_email",      limit: 510
+    t.string   "principal_investigator_phone",      limit: 510
+    t.boolean  "feedback_requested"
+    t.boolean  "complete"
   end
 
-  add_index "plans", ["template_id"], name: "index_plans_on_template_id"
+  add_index "plans", ["template_id"], name: "plans_template_id_idx", using: :btree
 
   create_table "plans_guidance_groups", force: :cascade do |t|
     t.integer "guidance_group_id"
     t.integer "plan_id"
   end
 
-  add_index "plans_guidance_groups", ["guidance_group_id", "plan_id"], name: "index_plans_guidance_groups_on_guidance_group_id_and_plan_id"
+  add_index "plans_guidance_groups", ["guidance_group_id"], name: "plans_guidance_groups_guidance_group_id_idx", using: :btree
+  add_index "plans_guidance_groups", ["plan_id"], name: "plans_guidance_groups_plan_id_idx", using: :btree
 
   create_table "prefs", force: :cascade do |t|
     t.text    "settings"
@@ -246,24 +244,24 @@ ActiveRecord::Schema.define(version: 20180508151824) do
   end
 
   create_table "question_formats", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",        limit: 510
     t.text     "description"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.boolean  "option_based", default: false
-    t.integer  "formattype",   default: 0
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.boolean  "option_based"
+    t.integer  "formattype",               default: 0
   end
 
   create_table "question_options", force: :cascade do |t|
     t.integer  "question_id"
-    t.string   "text"
+    t.string   "text",        limit: 510
     t.integer  "number"
     t.boolean  "is_default"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "question_options", ["question_id"], name: "index_question_options_on_question_id"
+  add_index "question_options", ["question_id"], name: "question_options_question_id_idx", using: :btree
 
   create_table "questions", force: :cascade do |t|
     t.text     "text"
@@ -273,23 +271,27 @@ ActiveRecord::Schema.define(version: 20180508151824) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "question_format_id"
-    t.boolean  "option_comment_display", default: true
+    t.boolean  "option_comment_display"
     t.boolean  "modifiable"
+    t.string   "versionable_id",         limit: 36
   end
 
-  add_index "questions", ["section_id"], name: "index_questions_on_section_id"
+  add_index "questions", ["question_format_id"], name: "questions_question_format_id_idx", using: :btree
+  add_index "questions", ["section_id"], name: "questions_section_id_idx", using: :btree
+  add_index "questions", ["versionable_id"], name: "index_questions_on_versionable_id", using: :btree
 
   create_table "questions_themes", id: false, force: :cascade do |t|
     t.integer "question_id", null: false
     t.integer "theme_id",    null: false
   end
 
-  add_index "questions_themes", ["question_id"], name: "index_questions_themes_on_question_id"
+  add_index "questions_themes", ["question_id"], name: "questions_themes_question_id_idx", using: :btree
+  add_index "questions_themes", ["theme_id"], name: "questions_themes_theme_id_idx", using: :btree
 
   create_table "regions", force: :cascade do |t|
-    t.string  "abbreviation"
-    t.string  "description"
-    t.string  "name"
+    t.string  "abbreviation",    limit: 510
+    t.string  "description",     limit: 510
+    t.string  "name",            limit: 510
     t.integer "super_region_id"
   end
 
@@ -298,49 +300,64 @@ ActiveRecord::Schema.define(version: 20180508151824) do
     t.integer  "plan_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "access",     default: 0,    null: false
-    t.boolean  "active",     default: true
+    t.integer  "access",     default: 0, null: false
+    t.boolean  "active"
   end
 
-  add_index "roles", ["plan_id"], name: "index_roles_on_plan_id"
-  add_index "roles", ["user_id"], name: "index_roles_on_user_id"
+  add_index "roles", ["plan_id"], name: "roles_plan_id_idx", using: :btree
+  add_index "roles", ["user_id"], name: "roles_user_id_idx", using: :btree
 
   create_table "sections", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",          limit: 510
     t.text     "description"
     t.integer  "number"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "published"
     t.integer  "phase_id"
     t.boolean  "modifiable"
+    t.string   "versionable_id", limit: 36
   end
 
-  add_index "sections", ["phase_id"], name: "index_sections_on_phase_id"
+  add_index "sections", ["phase_id"], name: "sections_phase_id_idx", using: :btree
+  add_index "sections", ["versionable_id"], name: "index_sections_on_versionable_id", using: :btree
+
+  create_table "sessions", force: :cascade do |t|
+    t.string   "session_id", limit: 64, null: false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "settings", force: :cascade do |t|
-    t.string   "var",         null: false
+    t.string   "var",         limit: 510, null: false
     t.text     "value"
-    t.integer  "target_id",   null: false
-    t.string   "target_type", null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "target_id",               null: false
+    t.string   "target_type", limit: 510, null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
-  add_index "settings", ["target_type", "target_id", "var"], name: "index_settings_on_target_type_and_target_id_and_var", unique: true
+  add_index "settings", ["target_type", "target_id", "var"], name: "settings_target_type_target_id_var_key", unique: true, using: :btree
 
-  create_table "splash_logs", force: :cascade do |t|
-    t.string   "destination"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+  create_table "stats", force: :cascade do |t|
+    t.integer  "count",      limit: 8, default: 0
+    t.date     "date",                             null: false
+    t.string   "type",                             null: false
+    t.integer  "org_id"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.text     "details"
   end
 
   create_table "templates", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",            limit: 510
     t.text     "description"
     t.boolean  "published"
     t.integer  "org_id"
-    t.string   "locale"
+    t.string   "locale",           limit: 510
     t.boolean  "is_default"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -352,18 +369,17 @@ ActiveRecord::Schema.define(version: 20180508151824) do
     t.text     "links"
   end
 
-  add_index "templates", ["customization_of", "version", "org_id"], name: "index_templates_on_customization_of_and_version_and_org_id", unique: true
-  add_index "templates", ["family_id", "version"], name: "index_templates_on_family_id_and_version", unique: true
-  add_index "templates", ["family_id"], name: "index_templates_on_family_id"
-  add_index "templates", ["org_id", "family_id"], name: "template_organisation_dmptemplate_index"
-  add_index "templates", ["org_id"], name: "index_templates_on_org_id"
+  add_index "templates", ["customization_of", "version", "org_id"], name: "templates_customization_of_version_org_id_key", unique: true, using: :btree
+  add_index "templates", ["family_id", "version"], name: "templates_family_id_version_key", unique: true, using: :btree
+  add_index "templates", ["org_id"], name: "templates_org_id_idx", using: :btree
 
   create_table "themes", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",       limit: 510
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.string   "locale"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "locale",      limit: 510
+    t.string   "slug",        limit: 510
   end
 
   create_table "themes_in_guidance", id: false, force: :cascade do |t|
@@ -371,76 +387,80 @@ ActiveRecord::Schema.define(version: 20180508151824) do
     t.integer "guidance_id"
   end
 
-  add_index "themes_in_guidance", ["guidance_id"], name: "index_themes_in_guidance_on_guidance_id"
-  add_index "themes_in_guidance", ["theme_id"], name: "index_themes_in_guidance_on_theme_id"
+  add_index "themes_in_guidance", ["guidance_id"], name: "themes_in_guidance_guidance_id_idx", using: :btree
+  add_index "themes_in_guidance", ["theme_id"], name: "themes_in_guidance_theme_id_idx", using: :btree
 
   create_table "token_permission_types", force: :cascade do |t|
-    t.string   "token_type"
+    t.string   "token_type",       limit: 510
     t.text     "text_description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "user_identifiers", force: :cascade do |t|
-    t.string   "identifier"
+    t.string   "identifier",           limit: 510
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "identifier_scheme_id"
   end
 
-  add_index "user_identifiers", ["user_id"], name: "index_user_identifiers_on_user_id"
+  add_index "user_identifiers", ["identifier_scheme_id"], name: "user_identifiers_identifier_scheme_id_idx", using: :btree
+  add_index "user_identifiers", ["user_id"], name: "user_identifiers_user_id_idx", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "firstname"
-    t.string   "surname"
-    t.string   "email",                  default: "",   null: false
-    t.string   "orcid_id"
-    t.string   "shibboleth_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.string   "encrypted_password",     default: ""
-    t.string   "reset_password_token"
+    t.string   "firstname",              limit: 510
+    t.string   "surname",                limit: 510
+    t.string   "email",                  limit: 80,  default: "", null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.string   "encrypted_password",     limit: 510, default: ""
+    t.string   "reset_password_token",   limit: 510
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0
+    t.integer  "sign_in_count",                      default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
+    t.string   "current_sign_in_ip",     limit: 510
+    t.string   "last_sign_in_ip",        limit: 510
+    t.string   "confirmation_token",     limit: 510
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "invitation_token"
+    t.string   "invitation_token",       limit: 510
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
-    t.string   "other_organisation"
+    t.string   "other_organisation",     limit: 510
+    t.boolean  "dmponline3"
     t.boolean  "accept_terms"
     t.integer  "org_id"
-    t.string   "api_token"
+    t.string   "api_token",              limit: 510
     t.integer  "invited_by_id"
-    t.string   "invited_by_type"
+    t.string   "invited_by_type",        limit: 510
     t.integer  "language_id"
-    t.string   "recovery_email"
-    t.boolean  "active",                 default: true
+    t.string   "recovery_email",         limit: 510
+    t.boolean  "active"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["org_id"], name: "index_users_on_org_id"
+  add_index "users", ["email"], name: "users_email_key", unique: true, using: :btree
+  add_index "users", ["language_id"], name: "users_language_id_idx", using: :btree
+  add_index "users", ["org_id"], name: "users_org_id_idx", using: :btree
 
   create_table "users_perms", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "perm_id"
   end
 
-  add_index "users_perms", ["user_id"], name: "index_users_perms_on_user_id", using: :btree
+  add_index "users_perms", ["perm_id"], name: "users_perms_perm_id_idx", using: :btree
+  add_index "users_perms", ["user_id"], name: "users_perms_user_id_idx", using: :btree
 
   add_foreign_key "annotations", "orgs"
   add_foreign_key "annotations", "questions"
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
+  add_foreign_key "answers_question_options", "answers"
+  add_foreign_key "answers_question_options", "question_options"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "notes", "answers"
@@ -460,6 +480,8 @@ ActiveRecord::Schema.define(version: 20180508151824) do
   add_foreign_key "question_options", "questions"
   add_foreign_key "questions", "question_formats"
   add_foreign_key "questions", "sections"
+  add_foreign_key "questions_themes", "questions"
+  add_foreign_key "questions_themes", "themes"
   add_foreign_key "roles", "plans"
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"
@@ -470,4 +492,6 @@ ActiveRecord::Schema.define(version: 20180508151824) do
   add_foreign_key "user_identifiers", "users"
   add_foreign_key "users", "languages"
   add_foreign_key "users", "orgs"
+  add_foreign_key "users_perms", "perms"
+  add_foreign_key "users_perms", "users"
 end
