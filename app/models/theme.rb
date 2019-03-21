@@ -4,15 +4,21 @@
 #
 #  id          :integer          not null, primary key
 #  description :text
-#  locale      :string
-#  title       :string
+#  locale      :string(510)
+#  slug        :string(510)
+#  title       :string(510)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
 
 class Theme < ActiveRecord::Base
   include ValidationMessages
-  include Dmpopidor::Model::Theme
+  include Dmpopidor::Models::Theme
+
+
+  ##
+  # Before save & create, generate the slug, method from Dmpopidor::Models::Theme
+  before_save :generate_slug
 
   # ================
   # = Associations =

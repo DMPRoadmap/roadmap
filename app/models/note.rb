@@ -13,7 +13,8 @@
 #
 # Indexes
 #
-#  index_notes_on_answer_id  (answer_id)
+#  notes_answer_id_idx  (answer_id)
+#  notes_user_id_idx    (user_id)
 #
 # Foreign Keys
 #

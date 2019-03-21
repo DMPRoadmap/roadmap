@@ -3,12 +3,16 @@
 # Table name: settings
 #
 #  id          :integer          not null, primary key
-#  target_type :string           not null
+#  target_type :string(510)      not null
 #  value       :text
-#  var         :string           not null
+#  var         :string(510)      not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  target_id   :integer          not null
+#
+# Indexes
+#
+#  settings_target_type_target_id_var_key  (target_type,target_id,var) UNIQUE
 #
 
 module Settings

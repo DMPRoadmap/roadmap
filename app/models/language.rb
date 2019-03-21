@@ -1,14 +1,13 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: languages
 #
 #  id               :integer          not null, primary key
-#  abbreviation     :string
+#  abbreviation     :string(510)
 #  default_language :boolean
-#  description      :string
-#  name             :string
+#  description      :string(510)
+#  name             :string(510)
 #
 
 class Language < ActiveRecord::Base
@@ -23,7 +22,7 @@ class Language < ActiveRecord::Base
 
   ABBREVIATION_MAXIMUM_LENGTH = 5
 
-  ABBREVIATION_FORMAT = /\A[a-z]{2}(\-[A-Z]{2})?\Z/
+  ABBREVIATION_FORMAT = /\A[a-z]{2}(\_[A-Z]{2})?\Z/
 
   NAME_MAXIMUM_LENGTH = 20
 

@@ -5,14 +5,14 @@
 #  id          :integer          not null, primary key
 #  is_default  :boolean
 #  number      :integer
-#  text        :string
+#  text        :string(510)
 #  created_at  :datetime
 #  updated_at  :datetime
 #  question_id :integer
 #
 # Indexes
 #
-#  index_question_options_on_question_id  (question_id)
+#  question_options_question_id_idx  (question_id)
 #
 # Foreign Keys
 #

@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: questions
@@ -8,7 +7,7 @@
 #  default_value          :text
 #  modifiable             :boolean
 #  number                 :integer
-#  option_comment_display :boolean          default(TRUE)
+#  option_comment_display :boolean
 #  text                   :text
 #  created_at             :datetime
 #  updated_at             :datetime
@@ -18,8 +17,9 @@
 #
 # Indexes
 #
-#  index_questions_on_section_id      (section_id)
 #  index_questions_on_versionable_id  (versionable_id)
+#  questions_question_format_id_idx   (question_format_id)
+#  questions_section_id_idx           (section_id)
 #
 # Foreign Keys
 #

@@ -8,9 +8,9 @@
 #  description      :text
 #  is_default       :boolean
 #  links            :text
-#  locale           :string
+#  locale           :string(510)
 #  published        :boolean
-#  title            :string
+#  title            :string(510)
 #  version          :integer
 #  visibility       :integer
 #  created_at       :datetime
@@ -20,10 +20,9 @@
 #
 # Indexes
 #
-#  index_templates_on_family_id              (family_id)
-#  index_templates_on_family_id_and_version  (family_id,version) UNIQUE
-#  index_templates_on_org_id                 (org_id)
-#  template_organisation_dmptemplate_index   (org_id,family_id)
+#  templates_customization_of_version_org_id_key  (customization_of,version,org_id) UNIQUE
+#  templates_family_id_version_key                (family_id,version) UNIQUE
+#  templates_org_id_idx                           (org_id)
 #
 # Foreign Keys
 #

@@ -4,7 +4,7 @@
 #
 #  id               :integer          not null, primary key
 #  text_description :text
-#  token_type       :string
+#  token_type       :string(510)
 #  created_at       :datetime
 #  updated_at       :datetime
 #

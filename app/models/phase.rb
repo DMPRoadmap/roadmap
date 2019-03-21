@@ -6,7 +6,7 @@
 #  description    :text
 #  modifiable     :boolean
 #  number         :integer
-#  title          :string
+#  title          :string(510)
 #  created_at     :datetime
 #  updated_at     :datetime
 #  template_id    :integer
@@ -14,8 +14,8 @@
 #
 # Indexes
 #
-#  index_phases_on_template_id     (template_id)
 #  index_phases_on_versionable_id  (versionable_id)
+#  phases_template_id_idx          (template_id)
 #
 # Foreign Keys
 #

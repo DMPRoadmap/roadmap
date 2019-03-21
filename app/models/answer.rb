@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: answers
@@ -15,8 +14,9 @@
 #
 # Indexes
 #
-#  index_answers_on_plan_id      (plan_id)
-#  index_answers_on_question_id  (question_id)
+#  answers_plan_id_idx      (plan_id)
+#  answers_question_id_idx  (question_id)
+#  answers_user_id_idx      (user_id)
 #
 # Foreign Keys
 #

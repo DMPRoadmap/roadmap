@@ -6,7 +6,7 @@
 #  description    :text
 #  modifiable     :boolean
 #  number         :integer
-#  title          :string
+#  title          :string(510)
 #  created_at     :datetime
 #  updated_at     :datetime
 #  phase_id       :integer
@@ -14,8 +14,8 @@
 #
 # Indexes
 #
-#  index_sections_on_phase_id        (phase_id)
 #  index_sections_on_versionable_id  (versionable_id)
+#  sections_phase_id_idx             (phase_id)
 #
 # Foreign Keys
 #

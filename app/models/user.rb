@@ -4,30 +4,31 @@
 #
 #  id                     :integer          not null, primary key
 #  accept_terms           :boolean
-#  active                 :boolean          default(TRUE)
-#  api_token              :string
+#  active                 :boolean
+#  api_token              :string(510)
 #  confirmation_sent_at   :datetime
-#  confirmation_token     :string
+#  confirmation_token     :string(510)
 #  confirmed_at           :datetime
 #  current_sign_in_at     :datetime
-#  current_sign_in_ip     :string
+#  current_sign_in_ip     :string(510)
+#  dmponline3             :boolean
 #  email                  :string(80)       default(""), not null
-#  encrypted_password     :string           default("")
-#  firstname              :string
+#  encrypted_password     :string(510)      default("")
+#  firstname              :string(510)
 #  invitation_accepted_at :datetime
 #  invitation_created_at  :datetime
 #  invitation_sent_at     :datetime
-#  invitation_token       :string
-#  invited_by_type        :string
+#  invitation_token       :string(510)
+#  invited_by_type        :string(510)
 #  last_sign_in_at        :datetime
-#  last_sign_in_ip        :string
-#  other_organisation     :string
-#  recovery_email         :string
+#  last_sign_in_ip        :string(510)
+#  other_organisation     :string(510)
+#  recovery_email         :string(510)
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
-#  reset_password_token   :string
+#  reset_password_token   :string(510)
 #  sign_in_count          :integer          default(0)
-#  surname                :string
+#  surname                :string(510)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  invited_by_id          :integer
@@ -36,8 +37,9 @@
 #
 # Indexes
 #
-#  index_users_on_email   (email) UNIQUE
-#  index_users_on_org_id  (org_id)
+#  users_email_key        (email) UNIQUE
+#  users_language_id_idx  (language_id)
+#  users_org_id_idx       (org_id)
 #
 # Foreign Keys
 #

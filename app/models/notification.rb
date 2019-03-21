@@ -9,7 +9,7 @@
 #  level             :integer
 #  notification_type :integer
 #  starts_at         :date
-#  title             :string
+#  title             :string(510)
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #

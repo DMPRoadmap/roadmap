@@ -5,8 +5,8 @@
 #  id           :integer          not null, primary key
 #  description  :text
 #  formattype   :integer          default(0)
-#  option_based :boolean          default(FALSE)
-#  title        :string
+#  option_based :boolean
+#  title        :string(510)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
