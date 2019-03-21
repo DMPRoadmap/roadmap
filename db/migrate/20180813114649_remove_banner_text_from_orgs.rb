@@ -1,6 +1,6 @@
 class RemoveBannerTextFromOrgs < ActiveRecord::Migration
   def up
-    remove_column :orgs, :banner_text
+    #remove_column :orgs, :banner_text
   end
 
   def down

@@ -182,6 +182,7 @@ ActiveRecord::Schema.define(version: 20190109143548) do
     t.boolean  "feedback_enabled"
     t.string   "feedback_email_subject", limit: 510
     t.text     "feedback_email_msg"
+    t.text     "banner_text"
   end
 
   add_index "orgs", ["language_id"], name: "orgs_language_id_idx", using: :btree
