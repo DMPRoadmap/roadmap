@@ -2,7 +2,7 @@
 
 class PlansController < ApplicationController
 
-  include Dmpopidor::Controller::Plans
+  include Dmpopidor::Controllers::Plans
   include ConditionalUserMailer
   helper PaginableHelper
   helper SettingsTemplateHelper

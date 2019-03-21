@@ -2,7 +2,7 @@
 
 class RegistrationsController < Devise::RegistrationsController
 
-  include Dmpopidor::Controller::Registrations
+  include Dmpopidor::Controllers::Registrations
 
   def edit
     @user = current_user

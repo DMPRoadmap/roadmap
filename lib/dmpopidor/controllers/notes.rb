@@ -1,5 +1,5 @@
 module Dmpopidor
-  module Controller
+  module Controllers
     module Notes
       # Delivered mail contains the name of the collaborator leaving the note
       def create

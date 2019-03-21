@@ -1,5 +1,5 @@
 module Dmpopidor
-    module Controller
+    module Controllers
       module Paginable
         module Templates
   

@@ -2,7 +2,7 @@
 
 class Paginable::TemplatesController < ApplicationController
 
-  include Dmpopidor::Controller::Paginable::Templates
+  include Dmpopidor::Controllers::Paginable::Templates
   include Paginable
 
   # TODO: Clean up this code for Rubocop

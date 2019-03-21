@@ -2,7 +2,7 @@
 
 class OrgAdmin::PlansController < ApplicationController
 
-  include Dmpopidor::Controller::OrgAdmin::Plans
+  include Dmpopidor::Controllers::OrgAdmin::Plans
 
   # GET org_admin/plans
   def index

@@ -3,7 +3,7 @@
 class RolesController < ApplicationController
 
   include ConditionalUserMailer
-  include Dmpopidor::Controller::Roles
+  include Dmpopidor::Controllers::Roles
   respond_to :html
   after_action :verify_authorized
 

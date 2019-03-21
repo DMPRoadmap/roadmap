@@ -2,7 +2,7 @@
 
 class UsersController < ApplicationController
 
-  include Dmpopidor::Controller::Users
+  include Dmpopidor::Controllers::Users
 
   helper PaginableHelper
   helper PermsHelper

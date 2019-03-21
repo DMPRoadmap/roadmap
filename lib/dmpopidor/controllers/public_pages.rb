@@ -1,5 +1,5 @@
 module Dmpopidor
-    module Controller
+    module Controllers
       module PublicPages
         # GET template_index
         # -----------------------------------------------------

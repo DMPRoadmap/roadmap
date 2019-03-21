@@ -1,5 +1,5 @@
 module Dmpopidor
-  module Controller
+  module Controllers
     module Roles
       # Changed notification message
       def update

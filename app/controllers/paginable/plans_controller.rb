@@ -2,7 +2,7 @@
 
 class Paginable::PlansController < ApplicationController
 
-  include Dmpopidor::Controller::Paginable::Plans
+  include Dmpopidor::Controllers::Paginable::Plans
   include Paginable
 
   # /paginable/plans/privately_visible/:page

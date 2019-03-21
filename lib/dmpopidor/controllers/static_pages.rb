@@ -1,5 +1,5 @@
 module Dmpopidor
-  module Controller
+  module Controllers
     module StaticPages
       # Changed News feed
       def about_us

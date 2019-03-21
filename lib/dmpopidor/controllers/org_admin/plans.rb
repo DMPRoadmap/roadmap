@@ -1,5 +1,5 @@
 module Dmpopidor
-  module Controller
+  module Controllers
     module OrgAdmin
       module Plans
 

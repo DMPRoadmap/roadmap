@@ -2,7 +2,7 @@
 
 class NotesController < ApplicationController
 
-  include Dmpopidor::Controller::Notes
+  include Dmpopidor::Controllers::Notes
   include ConditionalUserMailer
   require "pp"
   after_action :verify_authorized
