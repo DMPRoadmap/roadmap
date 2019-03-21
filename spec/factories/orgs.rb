@@ -4,6 +4,7 @@
 #
 #  id                     :integer          not null, primary key
 #  abbreviation           :string(510)
+#  banner_text            :text
 #  contact_email          :string(510)
 #  contact_name           :string(510)
 #  feedback_email_msg     :text
