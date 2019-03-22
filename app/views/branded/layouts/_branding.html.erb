@@ -65,7 +65,7 @@
               <%= _('Admin') %>
               <span class="caret"></span>
             </a>
-            <ul class="dropdown-menu dmpopidor-dropdow" aria-labelledby="admin-menu">
+            <ul class="dropdown-menu dmpopidor-dropdown" aria-labelledby="admin-menu">
               <% if current_user.can_org_admin? %>
                 <li <%= 'class=active' if active_page?(org_admin_plans_path) %>>
                   <%= link_to _('Plans'), org_admin_plans_path %>

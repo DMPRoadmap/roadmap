@@ -101,7 +101,7 @@
           <%= d_('dmpopidor', 'Multiple templates are available, which one would you like to use?') %>
         </h2>
         <!-- Hidden field to store the URL from which to get available templates (async) -->
-        <%= hidden_field_tag 'template-option-target', org_admin_template_options_path %>
+        <%= hidden_field_tag 'template-option-target', template_options_path %>
         <div class="form-group row">
           <div class="col-md-6">
             <%= select_tag(:plan_template_id, "<option value=\"-1\">#{_('Please select a template')}</option>", name: 'plan[template_id]', class: 'form-control', 'aria-describedby': 'template-selection') %>
