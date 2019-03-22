@@ -19,7 +19,7 @@
     <div class="collapse navbar-collapse" id="app-navbar-menu">
       <ul class="nav navbar-nav">
         <% if user_signed_in? %>
-          <li class="<%= ' active' if active_page?(root_path) %>">
+          <li <%= 'class=active' if active_page?(root_path) %>">
             <%= link_to _('My Dashboard'), plans_path %>
           </li>
           <li <%= 'class=active' if active_page?(new_plan_path) %>>
