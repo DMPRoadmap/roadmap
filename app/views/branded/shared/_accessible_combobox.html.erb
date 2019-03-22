@@ -18,6 +18,9 @@
          data-combobox-search-option="containing"
          data-combobox-allow-suggestion-on-empty="true"
          data-toggle="<%= title == '' ? '' : 'tooltip' %>"
+         <% if defined?(placement) %>
+           data-placement="<%= placement %>"
+         <% end %>
          title="<%= title %>"
          aria-label= "<%= title %>",
          value="<%= default_selection[attribute] unless default_selection.nil? %>" />

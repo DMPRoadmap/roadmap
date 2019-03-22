@@ -10,8 +10,10 @@
             title: _('If applying for funding, state the name exactly as in the grant proposal.')) %>
       <div class="checkbox">
         <%= f.hidden_field :visibility %>
-        <%= f.hidden_field :default_visibility, value: Rails.configuration.default_plan_visibility %>
-        <%= f.label(:is_test, raw("#{check_box_tag(:is_test,1, @plan.is_test? , "aria-label": "is_test")} #{_('mock project for testing, practice, or educational purposes')}"), class: 'control-label') %>
+        <%= f.label(:is_test, class: 'control-label') do %>
+          <%= check_box_tag(:is_test, 1, @plan.is_test?, "aria-label": "is_test") %>
+          <%= _('mock project for testing, practice, or educational purposes') %>
+        <% end %>
       </div>
         </div>
       </div>
@@ -87,8 +89,7 @@
             <%= f.email_field(
               :principal_investigator_email,
               class: "form-control",
-              "aria-required": false,
-              "data-validation": "email") %>
+              "aria-required": false) %>
           </div>
         </div>
         <div class="form-group"><!-- principal_invesigator_phone -->
@@ -107,7 +108,10 @@
         <legend class="project-details"><%= _('Data contact person') %></legend>
         <div class="checkbox">
           <% checked = ((@plan.data_contact.present? || @plan.data_contact_phone.present? || @plan.data_contact_email.present?) ? 1 : 0) %>
-          <%= label_tag(:show_data_contact, raw("#{check_box_tag(:show_data_contact, checked, checked == 0)} #{_('Same as Principal Investigator')}"), class: 'control-label') %>
+          <%= label_tag(:show_data_contact, class: 'control-label') do %>
+            <%= check_box_tag(:show_data_contact, checked, checked == 0) %>
+            <%= _('Same as Principal Investigator') %>
+          <% end %>
         </div>
         <div class="form-group data-contact"><!-- data_contact -->
           <div class="col-md-12">
@@ -128,8 +132,7 @@
             <%= f.email_field(
               :data_contact_email,
               class: "form-control",
-              "aria-required": false,
-              "data-validation": "email") %>
+              "aria-required": false) %>
           </div>
         </div>
         <div class="form-group data-contact"><!-- data_contact_phone -->
@@ -148,48 +151,58 @@
     </div>
     <div class="col-md-5 guidance-configuration">
       <h2><%= _('Plan Guidance Configuration') %></h2>
-      <p><%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations.') %
-          {application_name: Rails.configuration.branding[:application][:name]} %>
-          </p>
-      <fieldset>
-        <p><%= _('Select up to 6 organisations to see their guidance.') %></p>
-        <ul id="priority-guidance-orgs">
-          <%= render partial: "guidance_choices", 
-                        locals: {choices: @important_ggs, form: f,
-                                 current_selections: @selected_guidance_groups} %>
-        </ul>
-      </fieldset>
-      <p><%= _('Find guidance from additional organisations below') %></p>
-      <%= link_to _('See the full list'), '#', 'data-toggle' =>  'modal', 'data-target' => '#modal-full-guidances', class: 'modal-guidances-window' %>
 
-      <br>
-      <%= f.button(_('Submit'), class: "btn btn-default", type: "submit") %>
+      <% if @all_guidance_groups.length > 0 %><% if @all_guidance_groups.length > 0 %>
+        <p><%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations.') %
+            {application_name: Rails.configuration.branding[:application][:name]} %>
+            </p>
+        <fieldset>
+          <p><%= _('Select up to 6 organisations to see their guidance.') %></p>
+          <ul id="priority-guidance-orgs">
+            <%= render partial: "guidance_choices",
+                          locals: {choices: @important_ggs, form: f,
+                                   current_selections: @selected_guidance_groups} %>
+          </ul>
+        </fieldset>
+
+        <% if @all_guidance_groups.length > @important_ggs.length %>
+          <p><%= _('Find guidance from additional organisations below') %></p>
+          <%= link_to _('See the full list'), '#', 'data-toggle' =>  'modal', 'data-target' => '#modal-full-guidances', class: 'modal-guidances-window' %>
+        <% end %>
+        <br>
+        <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+
+      <% else %>
+        <p><%= _("There is no additional guidance for this template.") %></p>
+      <% end %>
     </div>
 
-    <div id="modal-full-guidances" class="modal fade" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="sign-in">
-            <div class="modal-body">
-              <button type="button" class="close pull-right" data-dismiss="modal" aria-label="<%= _('Cancel') %>">
-                <span class="fa fa-times" aria-hidden="true">&nbsp;</span>
-              </button>
-              <h2><%= _('Plan Guidance Configuration') %></h2>
-              <p>
-                <%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations. Please choose up to 6 organisations of the following organisations who offer guidance relevant to your plan.') %
-                {application_name: Rails.configuration.branding[:application][:name]} %>
-              </p>
-              <p><strong><%= _("Don't forget to save your changes after making your selections.") %></strong></p>
-              <ul id="other-guidance-orgs">
-                <%= render partial: "guidance_choices", 
-                           locals: {choices: @all_ggs_grouped_by_org, form: f, 
-                                     current_selections: @selected_guidance_groups} %>
-              </ul>
+    <% if @all_guidance_groups.length > @important_ggs.length %>
+      <div id="modal-full-guidances" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="sign-in">
+              <div class="modal-body">
+                <button type="button" class="close pull-right" data-dismiss="modal" aria-label="<%= _('Cancel') %>">
+                  <span class="fa fa-times" aria-hidden="true">&nbsp;</span>
+                </button>
+                <h2><%= _('Select Guidance') %></h2>
+                <p>
+                  <%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations. Please choose up to 6 organisations of the following organisations who offer guidance relevant to your plan.') %
+                  {application_name: Rails.configuration.branding[:application][:name]} %>
+                </p>
+                <p><strong><%= _("Don't forget to save your changes after making your selections.") %></strong></p>
+                <ul id="other-guidance-orgs">
+                  <%= render partial: "guidance_choices",
+                             locals: {choices: @all_ggs_grouped_by_org, form: f,
+                                       current_selections: @selected_guidance_groups} %>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
 
   <% end %>
 </div>

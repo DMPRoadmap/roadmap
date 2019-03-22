@@ -6,7 +6,9 @@
         <%= link_to _('View all templates'), referrer, class: "btn btn-primary" %>
       </div>
     </h1>
-    <p><%= raw _('Here you can view previously published versions of your template.  These can no longer be modified.')%></p>
+    <p>
+      <%= sanitize _('Here you can view previously published versions of your template.  These can no longer be modified.')%>
+    </p>
   </div>
 </div>
 

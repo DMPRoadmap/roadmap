@@ -1,0 +1,16 @@
+<div class="row super-admin">
+  <div class="col-xs-12">
+    <h2>
+      <%= _("New theme") %>
+      <%= link_to(_('View all themes'), super_admin_themes_path,
+          class: 'btn btn-default pull-right', role: 'button') %>
+    </h2>
+
+  </div>
+</div>
+
+<div class="row super-admin">
+  <div class="col-xs-12">
+    <%= render partial: 'form' %>
+  </div>
+</div>

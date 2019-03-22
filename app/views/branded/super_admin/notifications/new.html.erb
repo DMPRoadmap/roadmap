@@ -1,7 +1,11 @@
 <% title _('New notification') %>
 <div class="row super-admin">
   <div class="col-xs-12">
-    <h2><%= _('New notification') %></h2>
+    <h2>
+      <%= _('New Notification') %>
+      <%= link_to(_('View all notifications'), super_admin_notifications_path,
+          class: 'btn btn-default pull-right', role: 'button') %>
+    </h2>
   </div>
 </div>
 <div class="row super-admin">
