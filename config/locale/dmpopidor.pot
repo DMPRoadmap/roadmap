@@ -224,3 +224,6 @@ msgstr ""
 
 msgid "Successfully changed the permissions for %{user_email}. They have been notified via email."
 msgstr ""
+
+msgid "Banner text"
+msgstr ""

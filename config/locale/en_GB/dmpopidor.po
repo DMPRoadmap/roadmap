@@ -222,3 +222,6 @@ msgstr "You can either choose a template provided by your organisation, another 
 
 msgid "Successfully changed the permissions for %{user_email}. They have been notified via email."
 msgstr "Autorisations de %{user_email} modifiées avec succès. L'utilisateur a été informé par mail."
+
+msgid "Banner text"
+msgstr "Banner text"
