@@ -11,7 +11,7 @@ module Dmpopidor
         # CHANGE : visibility setting to privately_private_visible
         if authors.size == 0
           roles.where(active: true).update_all(active: false)
-          self.visibility = Plan.visibilities[:privately_private_visible]
+          self.visibility = ::Plan.visibilities[:privately_private_visible]
           save!
         else
           false

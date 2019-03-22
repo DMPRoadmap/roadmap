@@ -35,14 +35,14 @@ class Paginable::PlansController < ApplicationController
   end
 
   # GET /paginable/plans/org_admin/:page
-  def org_admin
-    unless current_user.present? && current_user.can_org_admin?
-      raise Pundit::NotAuthorizedError
-    end
-    paginable_renderise(
-      partial: "org_admin",
-      scope: current_user.org.plans
-    )
-  end
+  # def org_admin
+  #   unless current_user.present? && current_user.can_org_admin?
+  #     raise Pundit::NotAuthorizedError
+  #   end
+  #   paginable_renderise(
+  #     partial: "org_admin",
+  #     scope: current_user.org.plans
+  #   )
+  # end
 
 end

@@ -76,18 +76,18 @@ class Paginable::TemplatesController < ApplicationController
 
   # GET /paginable/templates/publicly_visible/:page  (AJAX)
   # -----------------------------------------------------
-  def publicly_visible
-    templates = Template.live(Template.families(Org.funder.pluck(:id)).pluck(:family_id))
-                        .publicly_visible.pluck(:id) <<
-      Template.where(is_default: true).unarchived.published.pluck(:id)
-    paginable_renderise(
-      partial: "publicly_visible",
-      scope: Template.joins(:org)
-                     .includes(:org)
-                     .where(id: templates.uniq.flatten)
-                     .published
-    )
-  end
+  # def publicly_visible
+  #   templates = Template.live(Template.families(Org.funder.pluck(:id)).pluck(:family_id))
+  #                       .publicly_visible.pluck(:id) <<
+  #     Template.where(is_default: true).unarchived.published.pluck(:id)
+  #   paginable_renderise(
+  #     partial: "publicly_visible",
+  #     scope: Template.joins(:org)
+  #                    .includes(:org)
+  #                    .where(id: templates.uniq.flatten)
+  #                    .published
+  #   )
+  # end
 
   # GET /paginable/templates/:id/history/:page  (AJAX)
   # -----------------------------------------------------

@@ -8,69 +8,69 @@ class NotesController < ApplicationController
   after_action :verify_authorized
   respond_to :html
 
-  def create
-    @note = Note.new
-    @note.user_id = note_params[:user_id]
-    # ensure user has access to plan BEFORE creating/finding answer
-    unless Plan.find_by(id: note_params[:plan_id]).readable_by?(@note.user_id)
-      raise Pundit::NotAuthorizedError
-    end
-    Answer.transaction do
-      @answer = Answer.find_by(
-        plan_id: note_params[:plan_id],
-        question_id: note_params[:question_id]
-      )
-      if @answer.blank?
-        @answer             = Answer.new
-        @answer.plan_id     = note_params[:plan_id]
-        @answer.question_id = note_params[:question_id]
-        @answer.user_id     = @note.user_id
-        @answer.save!
-      end
-    end
+  # def create
+  #   @note = Note.new
+  #   @note.user_id = note_params[:user_id]
+  #   # ensure user has access to plan BEFORE creating/finding answer
+  #   unless Plan.find_by(id: note_params[:plan_id]).readable_by?(@note.user_id)
+  #     raise Pundit::NotAuthorizedError
+  #   end
+  #   Answer.transaction do
+  #     @answer = Answer.find_by(
+  #       plan_id: note_params[:plan_id],
+  #       question_id: note_params[:question_id]
+  #     )
+  #     if @answer.blank?
+  #       @answer             = Answer.new
+  #       @answer.plan_id     = note_params[:plan_id]
+  #       @answer.question_id = note_params[:question_id]
+  #       @answer.user_id     = @note.user_id
+  #       @answer.save!
+  #     end
+  #   end
 
-    @note.answer = @answer
-    @note.text = note_params[:text]
+  #   @note.answer = @answer
+  #   @note.text = note_params[:text]
 
-    authorize @note
+  #   authorize @note
 
-    @plan = @answer.plan
+  #   @plan = @answer.plan
 
-    @question = Question.find(note_params[:question_id])
+  #   @question = Question.find(note_params[:question_id])
 
-    if @note.save
-      @status = true
-      answer = @note.answer
-      plan = answer.plan
-      owner = plan.owner
-      deliver_if(recipients: owner, key: "users.new_comment") do |r|
-        UserMailer.new_comment(current_user, plan).deliver_now()
-      end
-      @notice = success_message(@note, _("created"))
-      render(json: {
-        "notes" => {
-          "id" => note_params[:question_id],
-          "html" => render_to_string(partial: "layout", locals: {
-            plan: @plan,
-            question: @question,
-            answer: @answer
-          }, formats: [:html])
-        },
-        "title" => {
-          "id" => note_params[:question_id],
-          "html" => render_to_string(partial: "title", locals: {
-            answer: @answer
-          }, formats: [:html])
-        }
-      }.to_json, status: :created)
-    else
-      @status = false
-      @notice = failure_message(@note, _("create"))
-      render json: {
-        "msg" => @notice
-      }.to_json, status: :bad_request
-    end
-  end
+  #   if @note.save
+  #     @status = true
+  #     answer = @note.answer
+  #     plan = answer.plan
+  #     owner = plan.owner
+  #     deliver_if(recipients: owner, key: "users.new_comment") do |r|
+  #       UserMailer.new_comment(current_user, plan).deliver_now()
+  #     end
+  #     @notice = success_message(@note, _("created"))
+  #     render(json: {
+  #       "notes" => {
+  #         "id" => note_params[:question_id],
+  #         "html" => render_to_string(partial: "layout", locals: {
+  #           plan: @plan,
+  #           question: @question,
+  #           answer: @answer
+  #         }, formats: [:html])
+  #       },
+  #       "title" => {
+  #         "id" => note_params[:question_id],
+  #         "html" => render_to_string(partial: "title", locals: {
+  #           answer: @answer
+  #         }, formats: [:html])
+  #       }
+  #     }.to_json, status: :created)
+  #   else
+  #     @status = false
+  #     @notice = failure_message(@note, _("create"))
+  #     render json: {
+  #       "msg" => @notice
+  #     }.to_json, status: :bad_request
+  #   end
+  # end
 
   def update
     @note = Note.find(params[:id])

@@ -4,18 +4,18 @@ class OrgAdmin::PlansController < ApplicationController
 
   include Dmpopidor::Controllers::OrgAdmin::Plans
 
-  # GET org_admin/plans
-  def index
-    # Test auth directly and throw Pundit error sincePundit
-    # is unaware of namespacing
-    unless current_user.present? && current_user.can_org_admin?
-      raise Pundit::NotAuthorizedError
-    end
+  # # GET org_admin/plans
+  # def index
+  #   # Test auth directly and throw Pundit error sincePundit
+  #   # is unaware of namespacing
+  #   unless current_user.present? && current_user.can_org_admin?
+  #     raise Pundit::NotAuthorizedError
+  #   end
 
-    feedback_ids = Role.where(user_id: current_user.id).reviewer.pluck(:plan_id).uniq
-    @feedback_plans = Plan.where(id: feedback_ids)
-    @plans = current_user.org.plans
-  end
+  #   feedback_ids = Role.where(user_id: current_user.id).reviewer.pluck(:plan_id).uniq
+  #   @feedback_plans = Plan.where(id: feedback_ids)
+  #   @plans = current_user.org.plans
+  # end
 
   # GET org_admin/plans/:id/feedback_complete
   def feedback_complete

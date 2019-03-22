@@ -13,24 +13,24 @@ class UsersController < ApplicationController
   ##
   # GET - List of all users for an organisation
   # Displays number of roles[was project_group], name, email, and last sign in
-  def admin_index
-    authorize User
+  # def admin_index
+  #   authorize User
 
-    respond_to do |format|
-      format.html do
-        if current_user.can_super_admin?
-          @users = User.page(1)
-        else
-          @users = current_user.org.users.page(1)
-        end
-      end
+  #   respond_to do |format|
+  #     format.html do
+  #       if current_user.can_super_admin?
+  #         @users = User.page(1)
+  #       else
+  #         @users = current_user.org.users.page(1)
+  #       end
+  #     end
       
-      format.csv do
-        send_data User.to_csv(current_user.org.users.order(:surname)),
-        filename: "users-accounts-#{Date.today}.csv"
-      end
-    end
-  end
+  #     format.csv do
+  #       send_data User.to_csv(current_user.org.users.order(:surname)),
+  #       filename: "users-accounts-#{Date.today}.csv"
+  #     end
+  #   end
+  # end
 
   ##
   # GET - Displays the permissions available to the selected user
