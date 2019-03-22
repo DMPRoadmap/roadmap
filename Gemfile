@@ -140,7 +140,7 @@ gem 'mini_racer'
 gem 'wkhtmltopdf-binary'
 
 # PDF generator (from HTML) gem for Ruby on Rails (https://github.com/mileszs/wicked_pdf)
-gem 'wicked_pdf'
+gem 'wicked_pdf', '~> 1.1.0'
 
 # This simple gem allows you to create MS Word docx documents from simple html documents. This makes it easy to create dynamic reports and forms that can be downloaded by your users as simple MS Word docx files. (http://github.com/karnov/htmltoword)
 gem 'htmltoword'
