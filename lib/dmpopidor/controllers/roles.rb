@@ -13,7 +13,7 @@ module Dmpopidor
           # rubocop:disable LineLength
           render json: {
             code: 1,
-            msg: d_('dmpopidor', "Successfully changed the permissions for %{user_email}. They have been notified via email.") % { :user_email => @role.user.email }}
+            msg: d_('dmpopidor', "Successfully changed the permissions for %{user_email}. They have been notified via email.") % { :user_email => @role.user.email }
           }
           # rubocop:enable LineLength
         else

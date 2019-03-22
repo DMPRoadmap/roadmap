@@ -19,7 +19,7 @@ module Dmpopidor
             end
             paginable_renderise(
               partial: "org_admin",
-              scope: current_user.org.plans.where.not(:visibility => 4))
+              scope: current_user.org.plans.where.not(:visibility => 4)
             )
           end
         end
