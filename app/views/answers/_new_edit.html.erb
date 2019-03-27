@@ -60,6 +60,8 @@
         <%= render(partial: 'questions/new_edit_question_textfield', locals: { f: f, question: question, answer: answer }) %>
     <% elsif question.question_format.textarea? %>
         <%= render(partial: 'questions/new_edit_question_textarea', locals: { f: f, question: question, answer: answer, locking: locking, readonly: readonly }) %>
+    <% elsif question.question_format.date? %>
+        <%= render(partial: 'questions/new_edit_question_datefield', locals: { f: f, question: question, answer: answer, locking: locking, readonly: readonly }) %>
     <% end %>
     <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
   </fieldset>

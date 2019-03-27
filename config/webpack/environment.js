@@ -12,4 +12,6 @@ environment.plugins.append('Provide', new webpack.ProvidePlugin({
 
 environment.loaders.prepend('ESLint', eslint)
 
+//environment.resolvedModules.append('vendor', 'vendor')
+
 module.exports = environment
