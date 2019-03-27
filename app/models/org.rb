@@ -20,12 +20,10 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  language_id            :integer
-#  region_id              :integer
 #
 # Foreign Keys
 #
 #  fk_rails_...  (language_id => languages.id)
-#  fk_rails_...  (region_id => regions.id)
 #
 
 class Org < ActiveRecord::Base

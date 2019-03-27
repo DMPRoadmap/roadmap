@@ -20,12 +20,10 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  language_id            :integer
-#  region_id              :integer
 #
 # Foreign Keys
 #
 #  fk_rails_...  (language_id => languages.id)
-#  fk_rails_...  (region_id => regions.id)
 #
 
 FactoryBot.define do
@@ -34,7 +32,7 @@ FactoryBot.define do
     links { { "org" => [] } }
     abbreviation { SecureRandom.hex(4) }
     feedback_enabled { false }
-    region { Region.first || create(:region) }
+
     language do
       Language.first_or_create(name: "English", abbreviation: "en-GB") ||
         create(:language, name: "English", abbreviation: "en-GB")

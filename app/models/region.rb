@@ -9,13 +9,23 @@
 #
 
 class Region < ActiveRecord::Base
-  
+
   has_many :org_regions
-  
+
   has_many :orgs, through: :org_regions
-  
+
   has_many :templates, through: :orgs
-  
+
   has_many :guidances, through: :orgs
-  
+
+  has_many :region_languages
+
+  has_many :languages, through: :region_languages do
+
+    def region_default
+      where(default: true)
+    end
+
+  end
+
 end
