@@ -168,11 +168,11 @@ class Template < ActiveRecord::Base
   # default template)
   scope :latest_customizable, lambda {
     funder_ids = Org.funder.pluck(:id)
-    family_ids = families(funder_ids).distinct
-                                     .pluck(:family_id) + [default.family_id]
-    published(family_ids.uniq)
-      .where("visibility = :visibility OR is_default = :is_default",
-             visibility: visibilities[:publicly_visible], is_default: true)
+    family_ids = self.families(funder_ids).distinct.pluck(:family_id)
+    family_ids << 6912
+    self.published(family_ids.uniq)
+        .where("visibility = :visibility OR is_default = :is_default",
+               visibility: visibilities[:publicly_visible], is_default: true)
   }
 
   # Retrieves unarchived templates with public visibility
@@ -207,7 +207,11 @@ class Template < ActiveRecord::Base
   # =================
 
   def self.default
-    where(is_default: true, published: true).last
+    Template.unscope(:where).where(is_default: true, published: true).last
+  end
+
+  def self.default_template_family_id
+    Template.default.family_id
   end
 
   def self.current(family_id)
