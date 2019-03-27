@@ -4,8 +4,29 @@
   border: none;
 }
 .ui-datepicker-prev,
-.ui-datepicker-next {
-  background-image: none;
-  background: $color-seccondary-background;
-  color: $color-seccondary-text;
+.ui-datepicker-next,
+.ui-datepicker-prev:hover, .ui-datepicker-prev:focus,
+.ui-datepicker-next:hover, .ui-datepicker-next:focus {
+  background: $color-primary-background;
+  color: $color-primary-text;
+
+  .ui-icon {
+    background-attachment: none;
+    background-clip: none;
+    background-color: $color-primary-background;
+    background-image: none;
+    background-origin: none;
+    background-position: 1px 1px;
+    color: $color-primary-text;
+  }
+}
+
+.ui-datepicker-next:before {
+  content: '\f0da';
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  margin: 0px 0px 0px 10px;
+  text-decoration: none;
+  width: 15px;
 }
