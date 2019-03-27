@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190226181901) do
+ActiveRecord::Schema.define(version: 20190327144450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -166,7 +166,6 @@ ActiveRecord::Schema.define(version: 20190226181901) do
     t.datetime "updated_at",                             null: false
     t.boolean  "is_other",               default: false, null: false
     t.string   "sort_name"
-    t.integer  "region_id"
     t.integer  "language_id"
     t.string   "logo_uid"
     t.string   "logo_name"
@@ -276,6 +275,14 @@ ActiveRecord::Schema.define(version: 20190226181901) do
   end
 
   add_index "questions_themes", ["question_id"], name: "index_questions_themes_on_question_id", using: :btree
+
+  create_table "region_languages", force: :cascade do |t|
+    t.integer  "region_id"
+    t.integer  "language_id"
+    t.boolean  "default",     default: false, null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
 
   create_table "regions", force: :cascade do |t|
     t.string   "name",       limit: 30, null: false
