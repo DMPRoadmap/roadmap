@@ -38,6 +38,7 @@ FactoryBot.define do
         create(:language, name: "English", abbreviation: "en-GB")
     end
     is_other { false }
+    # is_other false
     contact_email { Faker::Internet.safe_email }
     contact_name { Faker::Name.name }
     trait :institution do
