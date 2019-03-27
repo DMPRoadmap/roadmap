@@ -1,22 +1,29 @@
-<%= form_for resource, namespace: 'new', url: registration_path("user"), html: {autocomplete: "off", id: "create_account_form"} do |f| %>
+<%= form_for resource, namespace: 'new',
+                       url: registration_path("user"),
+                       html: { autocomplete: "off", id: "create_account_form" } do |f| %>
 
   <div class="form-group">
     <%= f.label(:firstname, _('First Name'), class: "control-label") %>
     <%= f.text_field(:firstname, class: "form-control", "aria-required": true) %>
   </div>
+
   <div class="form-group">
     <%= f.label(:surname, _('Last Name'), class: "control-label") %>
     <%= f.text_field(:surname, class: "form-control", "aria-required": true) %>
   </div>
+
   <div class="form-group">
     <%= f.label(:email, _('Email'), class: "control-label") %>
     <%= f.email_field(:email, class: "form-control", "aria-required": true) %>
   </div>
+
   <div class="form-group">
     <%= render partial: "shared/my_org",
-               locals: {f: f, default_org: @default_org,
-                        orgs: Org.where(is_other: false).order("sort_name ASC, name ASC"),
-                        allow_other_orgs: true, required: false} %>
+               locals: { f: f,
+                         default_org: @default_org,
+                         orgs: registration_orgs,
+                         allow_other_orgs: true,
+                         required: false } %>
   </div>
 
   <div class="form-group">
