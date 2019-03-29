@@ -527,7 +527,7 @@ DEPENDENCIES
   puma
   pundit
   rack-mini-profiler
-  rails (~> 4.2.10)
+  rails (~> 4.2.11.1)
   rails_12factor
   railties
   rake
