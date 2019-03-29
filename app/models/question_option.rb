@@ -5,7 +5,7 @@
 #  id          :integer          not null, primary key
 #  is_default  :boolean
 #  number      :integer
-#  text        :string(510)
+#  text        :string
 #  created_at  :datetime
 #  updated_at  :datetime
 #  question_id :integer

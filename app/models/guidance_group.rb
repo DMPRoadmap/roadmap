@@ -6,7 +6,7 @@
 # Table name: guidance_groups
 #
 #  id              :integer          not null, primary key
-#  name            :string(510)
+#  name            :string
 #  optional_subset :boolean          default(FALSE), not null
 #  published       :boolean          default(FALSE), not null
 #  created_at      :datetime         not null

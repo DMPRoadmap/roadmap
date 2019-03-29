@@ -8,9 +8,9 @@
 #  description      :text
 #  is_default       :boolean
 #  links            :text
-#  locale           :string(510)
+#  locale           :string
 #  published        :boolean
-#  title            :string(510)
+#  title            :string
 #  version          :integer
 #  visibility       :integer
 #  created_at       :datetime

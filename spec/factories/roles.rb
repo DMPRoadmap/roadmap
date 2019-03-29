@@ -4,7 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  access     :integer          default(0), not null
-#  active     :boolean
+#  active     :boolean          default(FALSE)
 #  created_at :datetime
 #  updated_at :datetime
 #  plan_id    :integer

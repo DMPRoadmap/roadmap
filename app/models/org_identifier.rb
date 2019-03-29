@@ -3,8 +3,8 @@
 # Table name: org_identifiers
 #
 #  id                   :integer          not null, primary key
-#  attrs                :string(510)
-#  identifier           :string(510)
+#  attrs                :string
+#  identifier           :string
 #  created_at           :datetime
 #  updated_at           :datetime
 #  identifier_scheme_id :integer

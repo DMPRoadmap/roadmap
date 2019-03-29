@@ -3,7 +3,7 @@
 # Table name: user_identifiers
 #
 #  id                   :integer          not null, primary key
-#  identifier           :string(510)
+#  identifier           :string
 #  created_at           :datetime
 #  updated_at           :datetime
 #  identifier_scheme_id :integer

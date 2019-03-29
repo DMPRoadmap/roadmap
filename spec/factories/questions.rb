@@ -6,7 +6,7 @@
 #  default_value          :text
 #  modifiable             :boolean
 #  number                 :integer
-#  option_comment_display :boolean
+#  option_comment_display :boolean          default(TRUE)
 #  text                   :text
 #  created_at             :datetime
 #  updated_at             :datetime

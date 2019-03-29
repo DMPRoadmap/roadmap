@@ -7,7 +7,7 @@
 #  description    :text
 #  modifiable     :boolean
 #  number         :integer
-#  title          :string(510)
+#  title          :string
 #  created_at     :datetime
 #  updated_at     :datetime
 #  phase_id       :integer

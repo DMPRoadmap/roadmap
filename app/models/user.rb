@@ -4,31 +4,31 @@
 #
 #  id                     :integer          not null, primary key
 #  accept_terms           :boolean
-#  active                 :boolean
-#  api_token              :string(510)
+#  active                 :boolean          default(TRUE)
+#  api_token              :string
 #  confirmation_sent_at   :datetime
-#  confirmation_token     :string(510)
+#  confirmation_token     :string
 #  confirmed_at           :datetime
 #  current_sign_in_at     :datetime
-#  current_sign_in_ip     :string(510)
+#  current_sign_in_ip     :string
 #  dmponline3             :boolean
 #  email                  :string(80)       default(""), not null
-#  encrypted_password     :string(510)      default("")
-#  firstname              :string(510)
+#  encrypted_password     :string           default("")
+#  firstname              :string
 #  invitation_accepted_at :datetime
 #  invitation_created_at  :datetime
 #  invitation_sent_at     :datetime
-#  invitation_token       :string(510)
-#  invited_by_type        :string(510)
+#  invitation_token       :string
+#  invited_by_type        :string
 #  last_sign_in_at        :datetime
-#  last_sign_in_ip        :string(510)
-#  other_organisation     :string(510)
-#  recovery_email         :string(510)
+#  last_sign_in_ip        :string
+#  other_organisation     :string
+#  recovery_email         :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
-#  reset_password_token   :string(510)
+#  reset_password_token   :string
 #  sign_in_count          :integer          default(0)
-#  surname                :string(510)
+#  surname                :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  invited_by_id          :integer

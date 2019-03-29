@@ -4,9 +4,9 @@
 #
 #  id          :integer          not null, primary key
 #  description :text
-#  locale      :string(510)
-#  slug        :string(510)
-#  title       :string(510)
+#  locale      :string
+#  slug        :string
+#  title       :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

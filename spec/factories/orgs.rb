@@ -3,21 +3,21 @@
 # Table name: orgs
 #
 #  id                     :integer          not null, primary key
-#  abbreviation           :string(510)
+#  abbreviation           :string
 #  banner_text            :text
-#  contact_email          :string(510)
-#  contact_name           :string(510)
+#  contact_email          :string
+#  contact_name           :string
 #  feedback_email_msg     :text
-#  feedback_email_subject :string(510)
-#  feedback_enabled       :boolean
+#  feedback_email_subject :string
+#  feedback_enabled       :boolean          default(FALSE)
 #  is_other               :boolean          default(FALSE), not null
 #  links                  :text
-#  logo_name              :string(510)
-#  logo_uid               :string(510)
-#  name                   :string(510)
+#  logo_name              :string
+#  logo_uid               :string
+#  name                   :string
 #  org_type               :integer          default(0), not null
-#  sort_name              :string(510)
-#  target_url             :string(510)
+#  sort_name              :string
+#  target_url             :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  language_id            :integer

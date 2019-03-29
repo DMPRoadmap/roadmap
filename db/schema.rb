@@ -55,19 +55,19 @@ ActiveRecord::Schema.define(version: 20190109143548) do
   create_table "exported_plans", force: :cascade do |t|
     t.integer  "plan_id"
     t.integer  "user_id"
-    t.string   "format",     limit: 510
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "format"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer  "phase_id"
   end
 
   create_table "guidance_groups", force: :cascade do |t|
-    t.string   "name",            limit: 510
+    t.string   "name"
     t.integer  "org_id"
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
-    t.boolean  "optional_subset",             default: false, null: false
-    t.boolean  "published",                   default: false, null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.boolean  "optional_subset", default: false, null: false
+    t.boolean  "published",       default: false, null: false
   end
 
   add_index "guidance_groups", ["org_id"], name: "guidance_groups_org_id_idx", using: :btree
@@ -83,15 +83,15 @@ ActiveRecord::Schema.define(version: 20190109143548) do
   add_index "guidances", ["guidance_group_id"], name: "guidances_guidance_group_id_idx", using: :btree
 
   create_table "homepage_messages", force: :cascade do |t|
-    t.string   "level",      limit: 510
+    t.string   "level"
     t.text     "text"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "identifier_schemes", force: :cascade do |t|
-    t.string   "name",             limit: 510
-    t.string   "description",      limit: 510
+    t.string   "name"
+    t.string   "description"
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -100,9 +100,9 @@ ActiveRecord::Schema.define(version: 20190109143548) do
   end
 
   create_table "languages", force: :cascade do |t|
-    t.string  "abbreviation",     limit: 510
-    t.string  "description",      limit: 510
-    t.string  "name",             limit: 510
+    t.string  "abbreviation"
+    t.string  "description"
+    t.string  "name"
     t.boolean "default_language"
   end
 
@@ -131,19 +131,19 @@ ActiveRecord::Schema.define(version: 20190109143548) do
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "notification_type"
-    t.string   "title",             limit: 510
+    t.string   "title"
     t.integer  "level"
     t.text     "body"
     t.boolean  "dismissable"
     t.date     "starts_at"
     t.date     "expires_at"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "org_identifiers", force: :cascade do |t|
-    t.string   "identifier",           limit: 510
-    t.string   "attrs",                limit: 510
+    t.string   "identifier"
+    t.string   "attrs"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "org_id"
@@ -164,38 +164,38 @@ ActiveRecord::Schema.define(version: 20190109143548) do
   add_index "org_token_permissions", ["token_permission_type_id"], name: "org_token_permissions_token_permission_type_id_idx", using: :btree
 
   create_table "orgs", force: :cascade do |t|
-    t.string   "name",                   limit: 510
-    t.string   "abbreviation",           limit: 510
-    t.string   "target_url",             limit: 510
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
-    t.boolean  "is_other",                           default: false, null: false
-    t.string   "sort_name",              limit: 510
+    t.string   "name"
+    t.string   "abbreviation"
+    t.string   "target_url"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "is_other",               default: false, null: false
+    t.string   "sort_name"
+    t.text     "banner_text"
     t.integer  "region_id"
     t.integer  "language_id"
-    t.string   "logo_uid",               limit: 510
-    t.string   "logo_name",              limit: 510
-    t.string   "contact_email",          limit: 510
-    t.integer  "org_type",                           default: 0,     null: false
+    t.string   "logo_uid"
+    t.string   "logo_name"
+    t.string   "contact_email"
+    t.integer  "org_type",               default: 0,     null: false
     t.text     "links"
-    t.string   "contact_name",           limit: 510
-    t.boolean  "feedback_enabled"
-    t.string   "feedback_email_subject", limit: 510
+    t.string   "contact_name"
+    t.boolean  "feedback_enabled",       default: false
+    t.string   "feedback_email_subject"
     t.text     "feedback_email_msg"
-    t.text     "banner_text"
   end
 
   add_index "orgs", ["language_id"], name: "orgs_language_id_idx", using: :btree
   add_index "orgs", ["region_id"], name: "orgs_region_id_idx", using: :btree
 
   create_table "perms", force: :cascade do |t|
-    t.string   "name",       limit: 510
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "phases", force: :cascade do |t|
-    t.string   "title",          limit: 510
+    t.string   "title"
     t.text     "description"
     t.integer  "number"
     t.integer  "template_id"
@@ -209,24 +209,24 @@ ActiveRecord::Schema.define(version: 20190109143548) do
   add_index "phases", ["versionable_id"], name: "index_phases_on_versionable_id", using: :btree
 
   create_table "plans", force: :cascade do |t|
-    t.string   "title",                             limit: 510
+    t.string   "title"
     t.integer  "template_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "grant_number",                      limit: 510
-    t.string   "identifier",                        limit: 510
+    t.string   "grant_number"
+    t.string   "identifier"
     t.text     "description"
-    t.string   "principal_investigator",            limit: 510
-    t.string   "principal_investigator_identifier", limit: 510
-    t.string   "data_contact",                      limit: 510
-    t.string   "funder_name",                       limit: 510
-    t.integer  "visibility",                                    default: 3, null: false
-    t.string   "data_contact_email",                limit: 510
-    t.string   "data_contact_phone",                limit: 510
-    t.string   "principal_investigator_email",      limit: 510
-    t.string   "principal_investigator_phone",      limit: 510
-    t.boolean  "feedback_requested"
-    t.boolean  "complete"
+    t.string   "principal_investigator"
+    t.string   "principal_investigator_identifier"
+    t.string   "data_contact"
+    t.string   "funder_name"
+    t.integer  "visibility",                        default: 3,     null: false
+    t.string   "data_contact_email"
+    t.string   "data_contact_phone"
+    t.string   "principal_investigator_email"
+    t.string   "principal_investigator_phone"
+    t.boolean  "feedback_requested",                default: false
+    t.boolean  "complete",                          default: false
   end
 
   add_index "plans", ["template_id"], name: "plans_template_id_idx", using: :btree
@@ -245,17 +245,17 @@ ActiveRecord::Schema.define(version: 20190109143548) do
   end
 
   create_table "question_formats", force: :cascade do |t|
-    t.string   "title",        limit: 510
+    t.string   "title"
     t.text     "description"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.boolean  "option_based"
-    t.integer  "formattype",               default: 0
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "option_based", default: false
+    t.integer  "formattype",   default: 0
   end
 
   create_table "question_options", force: :cascade do |t|
     t.integer  "question_id"
-    t.string   "text",        limit: 510
+    t.string   "text"
     t.integer  "number"
     t.boolean  "is_default"
     t.datetime "created_at"
@@ -272,7 +272,7 @@ ActiveRecord::Schema.define(version: 20190109143548) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "question_format_id"
-    t.boolean  "option_comment_display"
+    t.boolean  "option_comment_display",            default: true
     t.boolean  "modifiable"
     t.string   "versionable_id",         limit: 36
   end
@@ -290,9 +290,9 @@ ActiveRecord::Schema.define(version: 20190109143548) do
   add_index "questions_themes", ["theme_id"], name: "questions_themes_theme_id_idx", using: :btree
 
   create_table "regions", force: :cascade do |t|
-    t.string  "abbreviation",    limit: 510
-    t.string  "description",     limit: 510
-    t.string  "name",            limit: 510
+    t.string  "abbreviation"
+    t.string  "description"
+    t.string  "name"
     t.integer "super_region_id"
   end
 
@@ -301,15 +301,15 @@ ActiveRecord::Schema.define(version: 20190109143548) do
     t.integer  "plan_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "access",     default: 0, null: false
-    t.boolean  "active"
+    t.integer  "access",     default: 0,     null: false
+    t.boolean  "active",     default: false
   end
 
   add_index "roles", ["plan_id"], name: "roles_plan_id_idx", using: :btree
   add_index "roles", ["user_id"], name: "roles_user_id_idx", using: :btree
 
   create_table "sections", force: :cascade do |t|
-    t.string   "title",          limit: 510
+    t.string   "title"
     t.text     "description"
     t.integer  "number"
     t.datetime "created_at"
@@ -333,12 +333,12 @@ ActiveRecord::Schema.define(version: 20190109143548) do
   add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "settings", force: :cascade do |t|
-    t.string   "var",         limit: 510, null: false
+    t.string   "var",         null: false
     t.text     "value"
-    t.integer  "target_id",               null: false
-    t.string   "target_type", limit: 510, null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.integer  "target_id",   null: false
+    t.string   "target_type", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   add_index "settings", ["target_type", "target_id", "var"], name: "settings_target_type_target_id_var_key", unique: true, using: :btree
@@ -354,11 +354,11 @@ ActiveRecord::Schema.define(version: 20190109143548) do
   end
 
   create_table "templates", force: :cascade do |t|
-    t.string   "title",            limit: 510
+    t.string   "title"
     t.text     "description"
     t.boolean  "published"
     t.integer  "org_id"
-    t.string   "locale",           limit: 510
+    t.string   "locale"
     t.boolean  "is_default"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -375,12 +375,12 @@ ActiveRecord::Schema.define(version: 20190109143548) do
   add_index "templates", ["org_id"], name: "templates_org_id_idx", using: :btree
 
   create_table "themes", force: :cascade do |t|
-    t.string   "title",       limit: 510
+    t.string   "title"
     t.text     "description"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.string   "locale",      limit: 510
-    t.string   "slug",        limit: 510
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "locale"
+    t.string   "slug"
   end
 
   create_table "themes_in_guidance", id: false, force: :cascade do |t|
@@ -392,14 +392,14 @@ ActiveRecord::Schema.define(version: 20190109143548) do
   add_index "themes_in_guidance", ["theme_id"], name: "themes_in_guidance_theme_id_idx", using: :btree
 
   create_table "token_permission_types", force: :cascade do |t|
-    t.string   "token_type",       limit: 510
+    t.string   "token_type"
     t.text     "text_description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "user_identifiers", force: :cascade do |t|
-    t.string   "identifier",           limit: 510
+    t.string   "identifier"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
@@ -410,37 +410,37 @@ ActiveRecord::Schema.define(version: 20190109143548) do
   add_index "user_identifiers", ["user_id"], name: "user_identifiers_user_id_idx", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "firstname",              limit: 510
-    t.string   "surname",                limit: 510
-    t.string   "email",                  limit: 80,  default: "", null: false
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
-    t.string   "encrypted_password",     limit: 510, default: ""
-    t.string   "reset_password_token",   limit: 510
+    t.string   "firstname"
+    t.string   "surname"
+    t.string   "email",                  limit: 80, default: "",   null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.string   "encrypted_password",                default: ""
+    t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0
+    t.integer  "sign_in_count",                     default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 510
-    t.string   "last_sign_in_ip",        limit: 510
-    t.string   "confirmation_token",     limit: 510
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "invitation_token",       limit: 510
+    t.string   "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
-    t.string   "other_organisation",     limit: 510
+    t.string   "other_organisation"
     t.boolean  "dmponline3"
     t.boolean  "accept_terms"
     t.integer  "org_id"
-    t.string   "api_token",              limit: 510
+    t.string   "api_token"
     t.integer  "invited_by_id"
-    t.string   "invited_by_type",        limit: 510
+    t.string   "invited_by_type"
     t.integer  "language_id"
-    t.string   "recovery_email",         limit: 510
-    t.boolean  "active"
+    t.string   "recovery_email"
+    t.boolean  "active",                            default: true
   end
 
   add_index "users", ["email"], name: "users_email_key", unique: true, using: :btree
