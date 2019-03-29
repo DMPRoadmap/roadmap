@@ -352,6 +352,7 @@ ActiveRecord::Schema.define(version: 20190507091025) do
     t.integer  "org_id"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.text     "details"
   end
 
   create_table "templates", force: :cascade do |t|

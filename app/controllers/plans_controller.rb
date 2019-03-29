@@ -148,6 +148,7 @@ class PlansController < ApplicationController
       template: { phases: { sections: { questions: :answers } } },
       plans_guidance_groups: { guidance_group: :guidances }
             ).find(params[:id])
+
     authorize @plan
 
     @visibility = if @plan.visibility.present?
@@ -157,36 +158,6 @@ class PlansController < ApplicationController
                   end
 
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
-
-    # Get all Guidance Groups applicable for the plan and group them by org
-    @all_guidance_groups = @plan.guidance_group_options
-    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
-    @selected_guidance_groups = @plan.guidance_groups
-
-    # Important ones come first on the page - we grab the user's org's GGs and
-    # "Organisation" org type GGs
-    @important_ggs = []
-
-    if @all_ggs_grouped_by_org.include?(current_user.org)
-      @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
-    end
-    @all_ggs_grouped_by_org.each do |org, ggs|
-      if org.organisation?
-        @important_ggs << [org, ggs]
-      end
-
-      # If this is one of the already selected guidance groups its important!
-      if !(ggs & @selected_guidance_groups).empty?
-        @important_ggs << [org, ggs] unless @important_ggs.include?([org, ggs])
-      end
-    end
-
-    # Sort the rest by org name for the accordion
-    @important_ggs = @important_ggs.sort_by { |org, gg| (org.nil? ? "" : org.name) }
-    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, gg|
-      (org.nil? ? "" : org.name)
-    end
-    @selected_guidance_groups = @selected_guidance_groups.ids
 
     @based_on = if @plan.template.customization_of.nil?
                   @plan.template
