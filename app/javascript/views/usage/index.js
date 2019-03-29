@@ -161,15 +161,18 @@ $(() => {
   };
   const yAxisLabel = date => moment(date).format('MMM-YY');
 
-  const drawHorizontalBar = (canvasSelector, data) => {
+  const drawHorizontalBar = (canvasSelector, data, aspectRatio = 1) => {
     const chart = new Chart(canvasSelector, { // eslint-disable-line no-new
       type: 'horizontalBar',
       data,
       options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio,
         scales: {
           xAxes: [{
-            ticks: { beginAtZero: true },
-            precision: 1,
+            position: 'top',
+            ticks: { beginAtZero: true, stepSize: 10 },
           }],
         },
       },
@@ -195,7 +198,7 @@ $(() => {
     return { labels, datasets };
   };
 
-  const fetch = (lastDayOfMonth) => {
+  const fetch = (lastDayOfMonth, aspectRatio = 1) => {
     const baseUrl = $('select[name="monthly_plans_by_template"]').attr('data-url');
     $.ajax({
       url: `${baseUrl}?start_date=${lastDayOfMonth}`,
@@ -205,14 +208,52 @@ $(() => {
       if (drawnChart) {
         drawnChart.destroy();
       }
-      drawnChart = drawHorizontalBar($(canvasSelector), chartData);
+      drawnChart = drawHorizontalBar($(canvasSelector), chartData, aspectRatio);
     });
+  };
+
+  // Set Aspect Rate (width of X-axis/height of Y-axis) based on
+  // choice of selectedLastDayOfMonth in Time picker string value.  Note aspect
+  const getAspectRatio = (selectedLastDayOfMonth) => {
+    let aspectRatio;
+    try {
+      const now = new Date();
+      const dateOfSelectedMonth = new Date(selectedLastDayOfMonth);
+      const diff = new Date(now.getTime() - dateOfSelectedMonth.getTime());
+      const diffInMonths = diff.getUTCMonth();
+
+      switch (diffInMonths) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+        aspectRatio = 4;
+        break;
+      case 4:
+      case 5:
+        aspectRatio = 3;
+        break;
+      case 7:
+      case 8:
+      case 9:
+        aspectRatio = 2;
+        break;
+      default:
+        aspectRatio = 1;
+      }
+    } catch (e) {
+      aspectRatio = 1;
+    }
+
+    return aspectRatio;
   };
 
   const handler = () => {
     const selectedMonth = jQuerySelectorSelect.val();
+
     if (selectedMonth) {
-      fetch(selectedMonth);
+      const aspectRatio = getAspectRatio(selectedMonth);
+      fetch(selectedMonth, aspectRatio);
     }
   };
 
