@@ -11,7 +11,9 @@ module DataCleanup
 
         def call
           ::Guidance.includes(:themes).where(themes: {id: nil}).each do |guidance|
-            guidance.themes << Theme.first
+            guidance.themes << ::Theme.first
+            p "Added theme " + ::Theme.first.title + 
+              " to guidance : (" + guidance.id.to_s + ")'" + (guidance.text if !guidance.text.nil?) + "' "
           end
         end
       end

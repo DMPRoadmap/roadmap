@@ -10,7 +10,7 @@ module DataCleanup
         end
 
         def call
-          ::Org.where(feedback_email_msg: ["", nil]).update_all({feedback_email_msg: "Your feedback email here"})
+          ::Org.where(feedback_email_msg: ["", nil], feedback_enabled: true).update_all({feedback_email_msg: "Your feedback email here"})
         end
       end
     end

@@ -10,7 +10,7 @@ module DataCleanup
         end
 
         def call
-          ::Org.where(language_id: nil).update_all({language_id: ::Language.find_by(name: "Français")})
+          ::Org.where(language_id: nil).update_all({language_id: ::Language.second})
         end
       end
     end

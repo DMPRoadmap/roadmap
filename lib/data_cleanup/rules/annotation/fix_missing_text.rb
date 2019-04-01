@@ -10,7 +10,7 @@ module DataCleanup
         end
 
         def call
-          ::Annotation.where(text: ["", nil]).update_all({text: "Votre annotation"})
+          ::Annotation.where(text: ["", nil]).update_all({text: "Annotation Manquante ?"})
         end
       end
     end

@@ -10,7 +10,7 @@ module DataCleanup
         end
 
         def call
-          ::Template.where(locale: nil).update_all({locale: "fr_FR"})
+          ::Template.where(locale: [nil, ""]).update_all({locale: "fr_FR"})
         end
       end
     end

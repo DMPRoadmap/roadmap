@@ -10,22 +10,22 @@ module DataCleanup
         end
 
         def call
-          # Get all invalid Annotations
-          #invalid_annotations = ::Annotation.all.reject(&:valid?)
+          # # Get all invalid Annotations
+          # invalid_annotations = ::Annotation.all.reject(&:valid?)
           
-          #invalid_annotations.each do |a| 
-              # Checks if the updated_at value is equal to the min updated_at value 
-              # for the annotations with the same question & type
-              # Delete it if true
-              # Logs the deleted
-              #if a.updated_at == ::Annotation.where("question_id = ? AND type = ? ", a.question_id, ::Annotation.types[a.type]).minimum(:updated_at)
-              #  p "Deleted Annotation (" + a.id.to_s + "):'" + a.text + "' "  +
-              #    "Question (" + a.question_id.to_s + "): '" + a.question.text + "' " + 
-              #    "Template (" + a.template.id.to_s + "): '" + a.template.title + "'"
-              #  a.delete
-              #end
+          # invalid_annotations.each do |a| 
+          #     # Checks if the updated_at value is equal to the min updated_at value 
+          #     # for the annotations with the same question & type
+          #     # Delete it if true
+          #     # Logs the deleted
+          #     if a.updated_at == ::Annotation.where("question_id = ? AND type = ? ", a.question_id, ::Annotation.types[a.type]).minimum(:updated_at)
+          #      p "Deleted Annotation (" + a.id.to_s + "):'" + a.text + "' "  +
+          #        "Question (" + a.question_id.to_s + "): '" + a.question.text + "' " + 
+          #        "Template (" + a.template.id.to_s + "): '" + a.template.title + "'"
+          #      a.delete
+          #     end
             
-          #end
+          # end
         end
       end
     end
