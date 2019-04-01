@@ -75,6 +75,8 @@ class User < ActiveRecord::Base
 
   belongs_to :org
 
+  has_many :regions, through: :org
+
   has_one  :pref
 
   has_many :answers
