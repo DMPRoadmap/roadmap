@@ -18,6 +18,8 @@ class Region < ActiveRecord::Base
 
   has_many :guidances, through: :orgs
 
+  has_many :themes, through: :guidances, class_name: "Guidance"
+
   has_many :region_languages
 
   has_many :languages, through: :region_languages do

@@ -67,7 +67,7 @@ module Paginable
       )
     else
       @refined_scope = refine_query(scope)
-      render(layout: "/layouts/paginable",
+      render(layout: "layouts/paginable",
         partial: partial,
         locals: locals.merge(
           scope: @refined_scope,

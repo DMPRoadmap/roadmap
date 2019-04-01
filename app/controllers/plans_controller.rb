@@ -168,7 +168,7 @@ class PlansController < ApplicationController
     plan = Plan.find(params[:id])
     authorize plan
     plan, phase = Plan.load_for_phase(params[:id], params[:phase_id])
-    guidance_groups = GuidanceGroup.where(published: true, id: plan.guidance_group_ids)
+    guidance_groups = plan.guidance_groups.published
     render_phases_edit(plan, phase, guidance_groups)
   end
 

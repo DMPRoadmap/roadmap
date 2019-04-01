@@ -5,9 +5,10 @@ module SuperAdmin
   class ThemesController < ApplicationController
 
     helper PaginableHelper
+
     def index
       authorize(Theme)
-      render(:index, locals: { themes: Theme.all.page(1) })
+      @themes = Theme.all.page(1)
     end
 
     def new
