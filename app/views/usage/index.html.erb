@@ -132,13 +132,13 @@
     <p class="alert alert-info" style="display: none;"><%= _('There is no data available for plans yet.') %></p>
     <canvas id="yearly_plans"></canvas>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-12">
     <div class="pull-left">
       <h4><%= _('No. plans by template') %></h4>
     </div>
     <div class="row">
       <div class="col-md-12">
-        <div class="pull-right">
+        <div class="pull-right"">
           <ul class="list-inline">
             <li>
               <div class="form-group">
@@ -161,8 +161,9 @@
             </li>
           </ul>
         </div>
-        <div class="clearfix"></div>
-        <canvas id="monthly_plans_by_template_canvas"></canvas>
+        <div class="col-md-12" style="position: relative; width: 100%; height: 100%">
+          <canvas id="monthly_plans_by_template_canvas"></canvas>
+        </div>
       </div>
     </div>
   </div>

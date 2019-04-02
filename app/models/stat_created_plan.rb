@@ -50,7 +50,7 @@ class StatCreatedPlan < Stat
       end.call(created_plans)
 
       data = created_plans.map do |created_plan|
-        tuple = { date: created_plan.date }
+        tuple = { Date: created_plan.date.strftime("%b %Y")  }
         template_names.reduce(tuple) do |acc, name|
           acc[name] = 0
           acc
@@ -58,11 +58,10 @@ class StatCreatedPlan < Stat
         created_plan.details&.fetch("by_template", [])&.each do |name_count|
           tuple[name_count.fetch("name")] = name_count.fetch("count")
         end
-        tuple[:count] = created_plan.count
+        tuple[:Count] = created_plan.count
         tuple
       end
-
-      Csvable.from_array_of_hashes(data)
+      Csvable.from_array_of_hashes(data, false)
     end
 
   end
