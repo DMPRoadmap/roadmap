@@ -69,6 +69,14 @@ class Org < ActiveRecord::Base
 
   has_many :users
 
+  has_many :active_users, -> { User.active }, class_name: "User"
+
+  has_many :administrator_roles, -> { Role.administrator },
+                                 class_name: "Role", through: :active_users, source: :roles
+
+
+  has_many :plans, through: :administrator_roles
+
   has_many :annotations
 
   has_and_belongs_to_many :token_permission_types,
@@ -238,14 +246,6 @@ class Org < ActiveRecord::Base
   def org_admins
     User.joins(:perms).where("users.org_id = ? AND perms.name IN (?)", self.id,
       ["grant_permissions", "modify_templates", "modify_guidance", "change_org_details"])
-  end
-
-  def plans
-    plan_ids = Role.administrator
-                   .where(user_id: self.users.pluck(:id), active: true)
-                   .pluck(:plan_id).uniq
-    Plan.includes(:template, :phases, :roles, :users)
-        .where(id: plan_ids)
   end
 
   def grant_api!(token_permission_type)
