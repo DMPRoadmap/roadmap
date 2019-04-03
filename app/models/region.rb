@@ -14,9 +14,13 @@ class Region < ActiveRecord::Base
 
   has_many :orgs, through: :org_regions
 
+  has_many :users, through: :orgs
+
   has_many :templates, through: :orgs
 
   has_many :guidances, through: :orgs
+
+  has_many :plans, through: :orgs
 
   has_many :themes, through: :guidances, class_name: "Guidance"
 
