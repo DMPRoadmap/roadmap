@@ -116,6 +116,8 @@ class User < ActiveRecord::Base
 
   default_scope { includes(:org, :perms) }
 
+  scope :active, -> { where(active: true) }
+
   # Retrieves all of the org_admins for the specified org
   scope :org_admins, -> (org_id) {
     joins(:perms).where("users.org_id = ? AND perms.name IN (?) AND users.active = ?", org_id,
