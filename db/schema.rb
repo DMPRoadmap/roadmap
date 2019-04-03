@@ -95,8 +95,8 @@ ActiveRecord::Schema.define(version: 20190109143548) do
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "logo_url"
-    t.text     "user_landing_url"
+    t.string   "logo_url"
+    t.string   "user_landing_url"
   end
 
   create_table "languages", force: :cascade do |t|
