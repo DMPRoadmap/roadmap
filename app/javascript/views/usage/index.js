@@ -25,6 +25,27 @@ $(() => {
 
     return rangeDates;
   };
+
+  // Register a plugin for displaying a message for no data
+  Chart.plugins.register({
+    afterDraw: (chart) => {
+      if (chart.data.datasets.length === 0) {
+        const { ctx, width, height } = {
+          ctx: chart.chart.ctx,
+          width: chart.chart.width,
+          height: chart.chart.height,
+        };
+        chart.clear();
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = '25px bold';
+        ctx.fillText('No data to display for selected time period', width / 2, height / 2);
+        ctx.restore();
+      }
+    },
+  });
+
   const createChart = ({ selector, data, appendTolabel = '' } = {}) => {
     new Chart($(selector), { // eslint-disable-line no-new
       type: 'bar',
