@@ -1,0 +1,39 @@
+<!-- new_right template -->
+<address>
+  <strong><%= Rails.configuration.branding[:organisation][:name] %></strong><br>
+  <% [Rails.configuration.branding[:organisation][:address_line1],
+      Rails.configuration.branding[:organisation][:address_line2],
+      Rails.configuration.branding[:organisation][:address_line3],
+      Rails.configuration.branding[:organisation][:address_line4],
+      Rails.configuration.branding[:organisation][:address_country]].each do |addr_line| %>
+<% if addr_line.present? %>
+    <%= addr_line %><br>
+<% end %>
+<% end %>
+</address>
+<%
+telephone=Rails.configuration.branding[:organisation][:telephone]
+if telephone.present? %>
+  <strong><%= "#{_('Helpline')} #{telephone}" %></strong>
+<% end %>
+<%
+email=Rails.configuration.branding[:organisation][:email] 
+if email.present? %>
+  <address>
+    <strong><%= _('Email') %></strong>
+      <span><%= raw(email) %></span>
+    </address>
+<% end %>
+<%
+link=Rails.configuration.branding[:organisation][:google_maps_link]
+if link.present? %>
+  <iframe
+    width="90%"
+    height="250"
+    frameborder="0"
+    scrolling="no"
+    marginheight="0"
+    marginwidth="0"
+    src="<%= link %>">
+  </iframe>
+<% end %>
