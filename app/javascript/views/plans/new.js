@@ -25,7 +25,6 @@ $(() => {
   // AJAX success function for available template search
   const success = (data) => {
     hideNotifications();
-
     if (isObject(data)
         && isArray(data.templates)) {
       // Display the available_templates section
@@ -145,14 +144,14 @@ $(() => {
 
   // For form v2
 
-  // Clicking on the 'No' button activates the next tabs
+  // Clicking on the 'Next' button activates the next tabs
   $('#next-btn').click((e) => {
     e.preventDefault();
     const nextTabId = $('.form-tabs li.active').next().children().attr('href');
     if (nextTabId) $(`.nav-tabs a[href="${nextTabId}"]`).tab('show');
   });
 
-  // Watch for tab change for dynamic buttons ('No' and 'Default Template')
+  // Watch for tab change for dynamic buttons ('Next' and 'Default Template')
   $('a[data-toggle="tab"]').on('shown.bs.tab', () => {
     const activeTab = $('.form-tabs li.active a').attr('href');
     const lastTab = $('.form-tabs li a').last().attr('href');
@@ -165,6 +164,8 @@ $(() => {
 
   // First and second tab are equivalent to checking the "No funder" checkbox
   $('a[href="#own_org"], a[href="#other_org"]').on('shown.bs.tab', () => {
+    handleCheckboxClick('org', false);
+    handleCheckboxClick('funder', true);
     $('#plan_no_org').prop('checked', false).change();
     $('#plan_no_funder').prop('checked', true).change();
   });
@@ -188,6 +189,8 @@ $(() => {
 
   //  Last tab is equivalent to checking the "No org" checkbox
   $('a[href="#funder"]').on('shown.bs.tab', () => {
+    handleCheckboxClick('org', true);
+    handleCheckboxClick('funder', false);
     $('#plan_no_org').prop('checked', true).change();
     $('#plan_no_funder').prop('checked', false).change();
   });
