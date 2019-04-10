@@ -12,6 +12,7 @@ import '../utils/tabHelper';
 import '../utils/tooltipHelper';
 import '../utils/popoverHelper';
 import '../utils/requiredField';
+import '../utils/cookiebanner';
 
 // Page specific JS
 import '../views/answers/edit';
