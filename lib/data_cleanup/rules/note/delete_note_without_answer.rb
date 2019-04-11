@@ -10,7 +10,7 @@ module DataCleanup
         end
 
         def call
-          ::Note.where(answer_id: nil).delete_all()
+          ::Note.where(answer_id: ["", nil]).delete_all()
         end
       end
     end
