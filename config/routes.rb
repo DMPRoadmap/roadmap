@@ -272,9 +272,9 @@ Rails.application.routes.draw do
   get 'help', to: 'static/static_pages#show', name: 'help'
   get 'roadmap', to: 'static/static_pages#show', name: 'roadmap'
   get 'terms', to: 'static/static_pages#show', name: 'termsuse'
-  get 'privacy', to: 'static/static_pages#show', name: 'privacy'
 
   get "tutorials", to: 'static_pages#tutorials'
   get "news_feed", to: 'static_pages#news_feed'
+  get "optout", to: 'static_pages#optout'
 
 end

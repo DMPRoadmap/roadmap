@@ -248,3 +248,9 @@ msgstr "Show in menu"
 
 msgid "Content"
 msgstr "Content"
+
+msgid "New Static Page"
+msgstr "New Static Page"
+
+msgid "Editing Static Page"
+msgstr "Editing Static Page"
