@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190109143548) do
+ActiveRecord::Schema.define(version: 20190411123210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -343,6 +343,26 @@ ActiveRecord::Schema.define(version: 20190109143548) do
 
   add_index "settings", ["target_type", "target_id", "var"], name: "settings_target_type_target_id_var_key", unique: true, using: :btree
 
+  create_table "static_page_contents", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "static_page_id", null: false
+    t.integer  "language_id",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "static_page_contents", ["language_id"], name: "index_static_page_contents_on_language_id", using: :btree
+  add_index "static_page_contents", ["static_page_id"], name: "index_static_page_contents_on_static_page_id", using: :btree
+
+  create_table "static_pages", force: :cascade do |t|
+    t.string   "name",                         null: false
+    t.string   "url",                          null: false
+    t.boolean  "in_navigation", default: true
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
   create_table "stats", force: :cascade do |t|
     t.integer  "count",      limit: 8, default: 0
     t.date     "date",                             null: false
@@ -486,6 +506,8 @@ ActiveRecord::Schema.define(version: 20190109143548) do
   add_foreign_key "roles", "plans"
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"
+  add_foreign_key "static_page_contents", "languages"
+  add_foreign_key "static_page_contents", "static_pages"
   add_foreign_key "templates", "orgs"
   add_foreign_key "themes_in_guidance", "guidances"
   add_foreign_key "themes_in_guidance", "themes"

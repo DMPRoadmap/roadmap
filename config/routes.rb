@@ -48,12 +48,6 @@ Rails.application.routes.draw do
   patch 'locale/:locale' => 'session_locales#update', as: 'locale'
 
   root :to => 'home#index'
-  get "about_us" => 'static_pages#about_us'
-  get "help" => 'static_pages#help'
-  get "roadmap" => 'static_pages#roadmap'
-  get "terms" => 'static_pages#termsuse'
-  get "privacy" => 'static_pages#privacy'
-  get "tutorials" => 'static_pages#tutorials'
   get "public_plans" => 'public_pages#plan_index'
   get "public_templates" => 'public_pages#template_index'
   get "template_export/:id" => 'public_pages#template_export', as: 'template_export'
@@ -202,6 +196,10 @@ Rails.application.routes.draw do
     resources :guidance_groups, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
     end
+    # Paginable actions for static pages
+    resources :static_pages, only: [] do
+      get 'index/:page', action: :index, on: :collection, as: :index
+    end
   end
 
   resources :template_options, only: [:index], constraints: { format: /json/ }
@@ -261,5 +259,22 @@ Rails.application.routes.draw do
     resources :themes, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :users, only: [:edit, :update]
     resources :notifications, except: [:show]
+    resources :static_pages
   end
+
+  # Static pages
+  namespace :static do
+    get ':name', to: 'static_pages#show'
+  end
+
+  # Old static page aliases
+  get 'about_us', to: 'static/static_pages#show', name: 'about_us'
+  get 'help', to: 'static/static_pages#show', name: 'help'
+  get 'roadmap', to: 'static/static_pages#show', name: 'roadmap'
+  get 'terms', to: 'static/static_pages#show', name: 'termsuse'
+  get 'privacy', to: 'static/static_pages#show', name: 'privacy'
+
+  get "tutorials", to: 'static_pages#tutorials'
+  get "news_feed", to: 'static_pages#news_feed'
+
 end

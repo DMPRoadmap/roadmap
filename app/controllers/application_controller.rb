@@ -2,6 +2,10 @@
 
 class ApplicationController < ActionController::Base
 
+  include Dmpopidor::Controllers::Application
+  # Set Static Pages to use in navigation
+  before_filter :set_nav_static_pages
+
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?

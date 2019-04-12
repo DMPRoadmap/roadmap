@@ -225,3 +225,26 @@ msgstr "Autorisations de %{user_email} modifiées avec succès. L'utilisateur a 
 
 msgid "Banner text"
 msgstr "Banner text"
+
+msgid "News"
+msgstr "News"
+
+# STATIC PAGES
+
+msgid "More"
+msgstr "More"
+
+msgid "Static pages"
+msgstr "Static pages"
+
+msgid "+ Add New Static page"
+msgstr "+ Add New Static page"
+
+msgid "URL suffix"
+msgstr "URL suffix"
+
+msgid "Show in menu"
+msgstr "Show in menu"
+
+msgid "Content"
+msgstr "Content"

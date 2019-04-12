@@ -227,3 +227,32 @@ msgstr ""
 
 msgid "Banner text"
 msgstr ""
+
+msgid "News"
+msgstr ""
+
+# STATIC PAGES
+
+msgid "More"
+msgstr ""
+
+msgid "Static pages"
+msgstr ""
+
+msgid "+ Add New Static page"
+msgstr ""
+
+msgid "URL suffix"
+msgstr ""
+
+msgid "Show in menu"
+msgstr ""
+
+msgid "Content"
+msgstr ""
+
+msgid "New Static Page"
+msgstr ""
+
+msgid "Editing Static Page"
+msgstr ""

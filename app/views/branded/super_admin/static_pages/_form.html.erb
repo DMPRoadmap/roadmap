@@ -1,0 +1,70 @@
+<%
+url = if @static_page.new_record?
+  super_admin_static_pages_path
+else
+  super_admin_static_page_path(@static_page)
+end
+%>
+
+<%= form_for @static_page, url: url, html: { class: 'static_page' } do |f| %>
+  <div class="row super-admin">
+    <!-- Name field -->
+    <div class="form-group">
+      <%= f.label :name, _('Name'), class: 'control-label' %>
+      <%= f.text_field :name, class: 'form-control', value: @static_page.name, "aria-required": true %>
+    </div>
+
+    <!-- URL field -->
+    <div class="form-group">
+      <%= f.label :url, d_('dmpopidor', 'URL suffix'), class: 'control-label' %>
+      <%= f.text_field :url, class: 'form-control', value: @static_page.url, "aria-required": true, data: { toggle: 'tooltip' }, title: _('Suffix only (e.g. for /about page, type "about")') %>
+    </div>
+
+    <!-- Navigation dropdown checkbox -->
+    <div class="form-group">
+      <%= f.label :in_navigation, d_('dmpopidor', 'Show in menu'), class: 'control-label' %>
+      <%= f.check_box :in_navigation, value: @static_page.in_navigation %>
+    </div>
+
+    <%= f.label d_('dmpopidor', 'Content') %>
+
+    <!-- Tabs for content language -->
+    <ul class="nav nav-tabs">
+      <% @languages.each do |l| %>
+      <li class="<%= active_tab?(l.abbreviation) %>">
+        <a data-toggle="tab" href="#<%= l.abbreviation %>"><%= l.name %></a>
+      </li>
+      <% end %>
+    </ul>
+
+    <!-- Tabs content for content language -->
+    <div class="tab-content">
+      <%= f.fields_for :static_page_contents do |ff| %>
+      <div id="<%= ff.object.language.abbreviation %>" class="tab-pane fade <%= active_tab?(ff.object.language.abbreviation, true) %>">
+        <%= ff.hidden_field :language_id, value: ff.object.language.id %>
+        <div class="form-group">
+          <%= ff.label :title, _('Title'), class: 'control-label' %>
+          <%= ff.text_field :title, value: ff.object.title, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= ff.label :content, d_('dmpopidor', 'Content'), class: 'control-label' %>
+          <%= ff.text_area :content, value: ff.object.content, class: 'content-editor form-control' %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+
+    <!-- Buttons -->
+    <div class="pull-right">
+      <%= f.button _('Save'), class: 'btn btn-default', type: 'submit' %>
+      <%= link_to(
+        _('Delete'),
+        super_admin_static_page_path(@static_page),
+        class: 'btn btn-default',
+        method: :delete,
+        data: { confirm: _('Are you sure you want to delete the Static Page "%{name}"') % { name: @static_page.name }}
+      ) unless @static_page.new_record? %>
+      <%= link_to _('Cancel'), super_admin_static_pages_path, class: 'btn btn-default' %>
+    </div>
+  </div>
+<% end %>

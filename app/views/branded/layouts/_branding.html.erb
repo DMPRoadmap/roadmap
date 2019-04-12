@@ -107,6 +107,11 @@
                 <li <%= 'class=active' if active_page?(usage_index_path) %>>
                   <%= link_to(_('Usage'), usage_index_path) %>
                 </li>
+              <% end %>              
+              <% if current_user.can_super_admin? %>
+                <li <%= 'class=active' if active_page?(super_admin_static_pages_path) %>>
+                  <%= link_to d_('dmpopidor', 'Static pages'), super_admin_static_pages_path %>
+                </li>
               <% end %>
               <% if current_user.can_super_admin? %>
                 <li <%= 'class=active' if active_page?(super_admin_notifications_path) %>>
