@@ -28,6 +28,9 @@ class Api::V0::StatisticsController < Api::V0::BaseController
         r[k] = scoped.where(created_at: dates_to_range(v)).count
       end
 
+      # Reverse hash r, so dates in ascending order
+      r = Hash[r.to_a.reverse]
+
       respond_to do |format|
         format.json { render(json: r.to_json) }
         format.csv {
@@ -66,6 +69,9 @@ class Api::V0::StatisticsController < Api::V0::BaseController
         r[k] = scoped.where(created_at: dates_to_range(v)).count
       end
 
+      # Reverse hash r, so dates in ascending order
+      r = Hash[r.to_a.reverse]
+
       respond_to do |format|
         format.json { render(json: r.to_json) }
         format.csv {
@@ -103,6 +109,9 @@ class Api::V0::StatisticsController < Api::V0::BaseController
       params[:range_dates].each_pair do |k, v|
         r[k] = scoped.where(created_at: dates_to_range(v)).count
       end
+
+      # Reverse hash r, so dates in ascending order
+      r = Hash[r.to_a.reverse]
 
       respond_to do |format|
         format.json { render(json: r.to_json) }
