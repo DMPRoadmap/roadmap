@@ -10,7 +10,9 @@
 <div class="form-group allow-break-words">
     <%= f.label(:text, sanitize(question.text), class: 'control-label') %>
     <% if locking || readonly %>
-      <%= sanitize("<p>#{answer.text || question.default_value}</p>") %>
+      <div class="display-readonly-textarea-content">
+        <%= sanitize("<p>#{answer.text || question.default_value}</p>") %>
+      </div>
     <% else %>
       <%= text_area_tag('answer[text]', answer.text || question.default_value, id: "answer-text-#{question.id}", class: "form-control tinymce_answer") %>
     <% end %>
