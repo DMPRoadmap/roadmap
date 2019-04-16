@@ -85,7 +85,7 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
         described_class.call
 
         last_month_details = StatCreatedPlan.find_by(date: Date.today.last_month.end_of_month, org_id: org.id).details
-        expect(last_month_details).to eq(
+        expect(last_month_details).to match_array(
           {
             'by_template' => [
               { 'name' => template.title, 'count' => 2 },
