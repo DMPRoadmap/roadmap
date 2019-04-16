@@ -74,7 +74,7 @@
             <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
           </span>
           <div class="panel-body">
-            <%= sanitize annotation.text %>
+            <div class="display-readonly-textarea-content"><%= sanitize annotation.text %></div>
           </div>
         </div>
       <% end %>
