@@ -166,7 +166,7 @@ class Plan < ActiveRecord::Base
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     joins(:template)
-    .where("plans.title LIKE ? OR templates.title LIKE ?",
+    .where("lower(plans.title) LIKE lower(?) OR lower(templates.title) LIKE lower(?)",
             search_pattern, search_pattern)
   }
 
@@ -317,9 +317,13 @@ class Plan < ActiveRecord::Base
 
         if save!
           # Send an email confirmation to the owners and co-owners
-          deliver_if(recipients: owner_and_coowners, key: "users.feedback_provided") do |r|
-            UserMailer.feedback_complete(r, self, org_admin).deliver_now
-          end
+          deliver_if(recipients: owner_and_coowners,
+                     key: "users.feedback_provided") do |r|
+                         UserMailer.feedback_complete(
+                           r,
+                           self,
+                           org_admin).deliver_now
+                       end
           true
         else
           false
@@ -505,7 +509,7 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def visibility_allowed?
-    !is_test? && phases.select{ |phase| phase.visibility_allowed?(self) }.any?
+    !is_test? && phases.select { |phase| phase.visibility_allowed?(self) }.any?
   end
 
   # Determines whether or not a question (given its id) exists for the self plan
