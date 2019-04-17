@@ -189,8 +189,10 @@ class Template < ActiveRecord::Base
   # Retrieves unarchived templates whose title or org.name includes the term
   # passed
   scope :search, lambda { |term|
-    unarchived.joins(:org).where("templates.title LIKE :term OR orgs.name LIKE :term",
-                                 term: "%#{term}%")
+    unarchived.joins(:org)
+              .where("lower(templates.title) LIKE lower(:term) OR " +
+                     "lower(orgs.name) LIKE lower(:term)",
+                     term: "%#{term}%")
   }
 
 
