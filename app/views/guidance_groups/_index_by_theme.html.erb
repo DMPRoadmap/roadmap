@@ -45,7 +45,9 @@
                 <% end %>
                 <p>
                   <% unless guidances_output.include?(guidance.id) %>
-                    <%= sanitize(guidance.text) %>
+                    <div class="display-readonly-textarea-content">
+                      <%= sanitize(guidance.text) %>
+                    </div>
                     <% guidances_output << guidance.id %>
                     <% multiple = true %>
                   <% end %>
