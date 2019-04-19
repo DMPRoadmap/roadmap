@@ -9,6 +9,9 @@ namespace :upgrade do
   desc "Upgrade to v2.1.2:"
   task v2_1_2: :environment do
     Rake::Task["upgrade:add_date_question_format"].execute
+    Rake::Task["upgrade:add_reviewer_perm"].execute
+    Rake::Task["upgrade:add_reviewer_to_existing_admin_perms"].execute
+    
   end
 
   desc "Upgrade to v2.1.0:"
@@ -662,9 +665,25 @@ namespace :upgrade do
     end
   end
 
+<<<<<<< HEAD
   desc "Fill blank or nil plan identifiers with plan_id"
   task fill_blank_plan_identifiers: :environment do
     Plan.where(identifier: ["",nil]).update_all('identifier = id')
+=======
+  desc "Adds a new permission for plan reviewers"
+  task add_reviewer_perm: :environment do
+    perm_name = 'review_org_plans'
+    unless Perm.find_by(name: perm_name).present?
+      Perm.create(name: perm_name)
+    end
+  end
+
+  desc "adds the new reviewer perm to all existing admin perms"
+  task add_reviewer_to_existing_admin_perms: :environment do
+    Perm.change_org_details.users.each do |u|
+      u.perms << Perm.review_org_plans
+    end
+>>>>>>> capture progress
   end
 
   private
