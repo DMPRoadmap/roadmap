@@ -8,7 +8,9 @@
   within a paragraph.
 %>
 <div class="form-group allow-break-words">
-    <%= f.label(:text, sanitize(question.text), class: 'control-label') %>
+    <div class="display-readonly-textarea-content">
+      <%= f.label(:text, sanitize(question.text), class: 'control-label') %>
+    </div>
     <% if locking || readonly %>
       <div class="display-readonly-textarea-content">
         <%= sanitize("<p>#{answer.text || question.default_value}</p>") %>
