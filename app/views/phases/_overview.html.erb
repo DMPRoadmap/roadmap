@@ -17,7 +17,11 @@
           <%= s.title %>
           <ul>
             <% s.questions.each do |q| %>
-              <li><%= sanitize(q.text) %></li>
+              <li>
+                <div class="display-readonly-textarea-content">
+                  <%= sanitize(q.text) %>
+                </div>
+              </li>
             <% end %>
           </ul>
         </li>
