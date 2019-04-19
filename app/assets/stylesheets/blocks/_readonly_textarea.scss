@@ -7,7 +7,13 @@
   padding-bottom: 10px;
   
   // Ensure table borders are not lost
-  table td {
-    border: 1px solid black;
+  table {
+    td {
+      border: 1px solid black;
+    }
+    
+    td, tr {
+      padding: 10px;
+    }
   }
 }
