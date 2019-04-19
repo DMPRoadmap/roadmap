@@ -2,10 +2,18 @@
   <dl<%= for_plan ? ' class="dl-horizontal"' : '' %>>
     <% if example_answer.present? %>
       <dt><%= _('%{org} Example Answer') % { org: example_answer.org.short_name } %></dt>
-      <dd><%= sanitize example_answer.text %><dd>
+      <dd>
+        <div class="display-readonly-textarea-content">
+          <%= sanitize example_answer.text %>
+        </div>
+      <dd>
     <% end %>
     <% if guidance.present? %>
-      <dd><%= sanitize guidance.text %></dd>
+      <dd>
+        <div class="display-readonly-textarea-content">
+          <%= sanitize guidance.text %>
+        </div>
+      </dd>
     <% end %>
   </dl>
 <% end %>
