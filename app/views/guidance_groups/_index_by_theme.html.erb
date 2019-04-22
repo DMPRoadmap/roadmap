@@ -1,15 +1,18 @@
 <%# locals{ guidance_groups_by_theme } %>
 <% parent_id = guidance_groups_by_theme.object_id %>
 <div id="<%= parent_id %>" class="panel-group" role="tablist" aria-multiselectable="true">
-  <div id="guidance-accordion-controls">
-    <div class="accordion-controls" data-parent="<%= parent_id %>">
-      <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
-        <span>|</span>
-      <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
-    </div>
-  </div>
   <% guidance_groups_by_theme.each_pair do |guidance_group, theme_hash| %>
     <% guidances_output = [] %>
+    <%# Do not show expand/collapse all links if there is only one item in theme_hash %>
+    <% if theme_hash.length > 1 %>
+    <div id="guidance-accordion-controls">
+      <div class="accordion-controls" data-parent="<%= parent_id %>">
+        <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
+          <span>|</span>
+        <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
+      </div>
+    </div>
+    <% end %>
     <% theme_hash.each_pair do |theme, guidances| %>
       <% question_guidance_id = "#{question.object_id}-#{guidances.object_id}" %>
       <%# if guidances with this theme have not been output %>
@@ -42,7 +45,9 @@
                 <% end %>
                 <p>
                   <% unless guidances_output.include?(guidance.id) %>
-                    <%= sanitize(guidance.text) %>
+                    <div class="display-readonly-textarea-content">
+                      <%= sanitize(guidance.text) %>
+                    </div>
                     <% guidances_output << guidance.id %>
                     <% multiple = true %>
                   <% end %>

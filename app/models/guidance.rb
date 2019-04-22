@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Guidance provides information from organisations to Users, helping them when
 # answering questions. (e.g. "Here's how to think about your data
 # protection responsibilities...")
@@ -24,12 +26,15 @@
 
 # [+Project:+] DMPRoadmap
 # [+Description:+]
-#   This class keeps the information organisations enter to support users when answering questions.
-#   It always belongs to a guidance group class and it can be linked directly to a question or through one or more themes
+#   This class keeps the information organisations enter to support users
+#   when answering questions.
+#   It always belongs to a guidance group class and it can be linked directly
+#   to a question or through one or more themes
 # [+Created:+] 07/07/2014
 # [+Copyright:+] Digital Curation Centre and California Digital Library
 
 class Guidance < ActiveRecord::Base
+
   include GlobalHelpers
   include ValidationMessages
   include ValidationValues
@@ -52,7 +57,7 @@ class Guidance < ActiveRecord::Base
   validates :guidance_group, presence: { message: PRESENCE_MESSAGE }
 
   validates :published, inclusion: { message: INCLUSION_MESSAGE,
-                                     in: BOOLEAN_VALUES}
+                                     in: BOOLEAN_VALUES }
 
   validates :themes, presence: { message: PRESENCE_MESSAGE }, if: :published?
 
@@ -64,7 +69,8 @@ class Guidance < ActiveRecord::Base
   scope :search, -> (term) {
     search_pattern = "%#{term}%"
     joins(:guidance_group)
-      .where("guidances.text LIKE ? OR guidance_groups.name LIKE ?",
+      .where("lower(guidances.text) LIKE lower(?) OR " +
+            "lower(guidance_groups.name) LIKE lower(?)",
              search_pattern,
              search_pattern)
   }
@@ -120,10 +126,10 @@ class Guidance < ActiveRecord::Base
   # Returns Array
   def self.all_viewable(user)
     managing_groups = Org.includes(guidance_groups: :guidances)
-                         .managing_orgs.collect{|o| o.guidance_groups}
+                         .managing_orgs.collect { |o| o.guidance_groups }
     # find all groups owned by a Funder organisation
     funder_groups = Org.includes(guidance_groups: :guidances)
-                       .funder.collect{|org| org.guidance_groups}
+                       .funder.collect { |org| org.guidance_groups }
     # find all groups owned by any of the user's organisations
     organisation_groups = user.org.guidance_groups
 
@@ -152,4 +158,5 @@ class Guidance < ActiveRecord::Base
     end
     return false
   end
+
 end

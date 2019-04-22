@@ -13,7 +13,9 @@
         </div>
         <div id="collapse-guidance-<%= question.id%>" class="guidance-accordion-body collapse">
           <div class="accordion-inner">
-            <%= sanitize question.guidance_annotation(current_user.org).text %>
+            <div class="display-readonly-textarea-content">
+               <%= sanitize question.guidance_annotation(current_user.org).text %>
+            </div>
           </div>
         </div>
       </div>
@@ -29,7 +31,11 @@
             <span class="plus-laranja"> </span></a>
         </div>
         <div id="collapse-guidance-<%= guidance.id%>-<%= question.id %>" class="guidance-accordion-body collapse">
-          <div class="accordion-inner"><%= sanitize guidance.text %></div>
+          <div class="accordion-inner">
+            <div class="display-readonly-textarea-content">
+              <%= sanitize guidance.text %>
+            </div>
+          </div>
         </div>
       </div>
     <% end %>
