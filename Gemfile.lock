@@ -61,9 +61,9 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.3.7)
+    bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
-      sass (>= 3.3.4)
+      sassc (>= 2.0.0)
     brakeman (4.5.0)
     builder (3.2.3)
     bullet (5.9.0)
@@ -485,7 +485,7 @@ DEPENDENCIES
   autoprefixer-rails
   better_errors
   binding_of_caller
-  bootstrap-sass (~> 3.3.7)
+  bootstrap-sass (~> 3.4.1)
   brakeman
   bullet
   bundle-audit
