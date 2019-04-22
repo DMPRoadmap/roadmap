@@ -59,7 +59,8 @@ class PublicPagesController < ApplicationController
             },
             font_size: 8,
             spacing: (@formatting[:margin][:bottom] / 2) - 4,
-            right: "[page] of [topage]"
+            right: "[page] of [topage]",
+            encoding: "utf8"
           }
           # rubocop:enable LineLength
         end
@@ -74,7 +75,7 @@ class PublicPagesController < ApplicationController
   # GET /plans_index
   # ------------------------------------------------------------------------------------
   def plan_index
-    @plans = Plan.publicly_visible.page(1)
+    @plans = Plan.publicly_visible.includes(:template).page(1)
     render "plan_index", locals: {
       query_params: {
         sort_field: "plans.updated_at",
