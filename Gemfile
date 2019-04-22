@@ -6,7 +6,7 @@ ruby '>= 2.4.0'
 # RAILS
 # Full-stack web application framework. (http://www.rubyonrails.org)
 # Full-stack web application framework. (http://rubyonrails.org)
-gem 'rails', '~> 4.2.10'
+gem 'rails', '~> 4.2.11.1'
 
 # Rake is a Make-like program implemented in Ruby (https://github.com/ruby/rake)
 gem "rake"
