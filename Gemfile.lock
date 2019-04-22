@@ -466,8 +466,7 @@ GEM
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
       railties (>= 4.2)
-    wicked_pdf (1.2.1)
-      activesupport
+    wicked_pdf (1.1.0)
     wkhtmltopdf-binary (0.12.4)
     xpath (3.2.0)
       nokogiri (~> 1.8)
