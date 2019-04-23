@@ -192,7 +192,8 @@ module OrgAdmin
       rescue ActiveSupport::JSON.parse_error
         render(json: {
           status: :bad_request,
-          msg: _("Error parsing links for a #{template_type(template)}")
+          msg: _("Error parsing links for a %{template}") %
+               { template: template_type(template) }
         })
         return
       rescue => e

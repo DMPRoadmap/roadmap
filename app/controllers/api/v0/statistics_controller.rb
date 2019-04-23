@@ -135,19 +135,23 @@ class Api::V0::StatisticsController < Api::V0::BaseController
   # Displays the number of DMPs using templates owned/create by the caller's Org
   # between the optional specified dates
   def using_template
+    org_templates = @user.org.templates.where(customization_of: nil)
     unless Api::V0::StatisticsPolicy.new(@user, org_templates.first).using_template?
       raise Pundit::NotAuthorizedError
     end
-    org_templates = @user.org.templates.where(customization_of: nil)
     @templates = {}
     org_templates.each do |template|
       if @templates[template.title].blank?
-        @templates[template.title] = {}
+        @templates[template.title]          = {}
         @templates[template.title][:title]  = template.title
         @templates[template.title][:id]     = template.family_id
+        @templates[template.title][:uses]   = 0
       end
-      scoped = template.plans.where(plans: { created_at: dates_to_range(params) })
-      @templates[template.title][:uses] = scoped.length
+      scoped = template.plans
+      if params["start_date"].present? || params["end_date"].present?
+        scoped = scoped.where(created_at: dates_to_range(params))
+      end
+      @templates[template.title][:uses] += scoped.length
     end
     respond_with @templates
   end
@@ -162,7 +166,11 @@ class Api::V0::StatisticsController < Api::V0::BaseController
       raise Pundit::NotAuthorizedError
     end
     @templates = {}
-    @user.org.plans.each do |plan|
+    scoped = @user.org.plans
+    if params["start_date"].present? || params["end_date"].present?
+      scoped = scoped.where(created_at: dates_to_range(params))
+    end
+    scoped.each do |plan|
       # if hash exists
       if @templates[plan.template.title].blank?
         @templates[plan.template.title] = {}
@@ -185,7 +193,11 @@ class Api::V0::StatisticsController < Api::V0::BaseController
     unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans?
       raise Pundit::NotAuthorizedError
     end
-    respond_with @user.org.plans
+    @org_plans = @user.org.plans
+    if params["start_date"].present? || params["end_date"].present?
+      @org_plans = @org_plans.where(created_at: dates_to_range(params))
+    end
+    respond_with @org_plans
   end
 
 
