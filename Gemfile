@@ -112,7 +112,7 @@ end
 
 
 # bootstrap-sass is a Sass-powered version of Bootstrap 3, ready to drop right into your Sass powered applications. (https://github.com/twbs/bootstrap-sass)
-gem 'bootstrap-sass', '~> 3.3.7'
+gem 'bootstrap-sass', '~> 3.4.1'
 
 # This is required for Font-Awesome, but not used as the main sass compiler
 
@@ -140,7 +140,7 @@ gem 'mini_racer'
 gem 'wkhtmltopdf-binary'
 
 # PDF generator (from HTML) gem for Ruby on Rails (https://github.com/mileszs/wicked_pdf)
-gem 'wicked_pdf'
+gem 'wicked_pdf', '~> 1.1.0'
 
 # This simple gem allows you to create MS Word docx documents from simple html documents. This makes it easy to create dynamic reports and forms that can be downloaded by your users as simple MS Word docx files. (http://github.com/karnov/htmltoword)
 gem 'htmltoword'
