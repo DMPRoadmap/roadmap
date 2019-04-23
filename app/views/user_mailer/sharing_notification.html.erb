@@ -9,8 +9,8 @@
     <%= _('Hello %{user_name}') %{ :user_name => user_name } %>
   </p>
   <p>
-    <%= _("Your colleague %{inviter_name} has invited you to contribute to "\
-            " their Data Management Plan in %{tool_name}") % {
+    <%= _("Your colleague %{inviter_name} has invited you to contribute to
+            their Data Management Plan in %{tool_name}") % {
       tool_name: tool_name,
       inviter_name: @inviter.name(false)
     } %>
