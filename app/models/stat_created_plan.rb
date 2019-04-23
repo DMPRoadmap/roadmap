@@ -21,7 +21,9 @@ class StatCreatedPlan < Stat
   serialize :details, JSON
 
   def by_template
-    by_template = self.details["by_template"]
+    if self.details.present?
+      by_template = self.details["by_template"]
+    end
     return [] unless by_template.present?
     by_template
   end
