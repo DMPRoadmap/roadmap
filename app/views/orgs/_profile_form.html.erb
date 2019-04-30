@@ -18,7 +18,7 @@
 
       <% if org.logo.present? %>
         <div class="clearfix"></div>
-        <%= image_tag org.logo.url, alt: "#{org.name} #{_('logo')}" %>
+        <%= image_tag logo_url_for_org(org), alt: "#{org.name} #{_('logo')}" %>
         <div class="org-logo-controls checkbox">
           <%= f.label :remove_logo do %>
             <%= f.check_box :remove_logo,

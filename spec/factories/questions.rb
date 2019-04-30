@@ -31,14 +31,14 @@ FactoryBot.define do
     question_format
     text { Faker::Lorem.paragraph }
     sequence(:number)
-    modifiable false
+    modifiable { false }
 
     transient do
-      options 0
+      options { 0 }
     end
 
-    after(:create) do |question, evaluator|
-      create_list(:question_option, evaluator.options, question: question)
+    before(:create) do |question, evaluator|
+      question.question_options = create_list(:question_option, evaluator.options)
     end
 
     trait :textarea do

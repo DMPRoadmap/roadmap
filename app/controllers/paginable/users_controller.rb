@@ -15,6 +15,7 @@ class Paginable::UsersController < ApplicationController
     paginable_renderise(
       partial: "index",
       scope: scope,
+      query_params: { sort_field: 'users.surname', sort_direction: :asc },
       view_all: !current_user.can_super_admin?
     )
   end
