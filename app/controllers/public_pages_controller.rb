@@ -22,10 +22,11 @@ class PublicPagesController < ApplicationController
     @template = Template.live(params[:id])
     # covers authorization for this action.
     # Pundit dosent support passing objects into scoped policies
-    unless PublicPagePolicy.new(@template).template_export?
-      raise Pundit::NotAuthorizedError
-    end
     skip_authorization
+    unless PublicPagePolicy.new(@template).template_export?
+      redirect_to public_templates_path, notice: "You are not authorized to export that template" and return
+      #raise Pundit::NotAuthorizedError
+    end
     # now with prefetching (if guidance is added, prefetch annottaions/guidance)
     @template = Template.includes(
       :org,
