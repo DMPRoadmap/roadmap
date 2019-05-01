@@ -1365,4 +1365,54 @@ RSpec.describe Template, type: :model do
 
   end
 
+
+  describe "#publishability" do
+
+    subject { template.publishability }
+
+    # Added an additional type to Org so that funder_only? fails
+    let!(:org) { create(:org, :funder, :organisation) }
+
+    #let!(:template) { create(:template, :default, org: org) }
+
+    # case when template is correctly generated
+    context "When the Template has all components, is latest, and unpublished" do
+
+      let(:template) { create(:template, :default, published: false, org: org, phases: 3)}
+
+      it "returns true" do
+        expect(subject[0]).to eql(true)
+      end
+
+      it "has no errors" do
+        expect(subject[1]).to eql("")
+      end
+
+    end
+
+    # case when the template is historical
+    context "When the template is an historical version" do
+      let(:template) { create(:template, :default, published: true, org: org, phases:3, version: 1)}
+      let(:new_template) { template.generate_version! }
+
+      it "is not the latest template" do
+        expect(template.latest?).to eql(false)
+      end
+
+      it "returns false" do
+        expect(subject[0]).to eql(false)
+      end
+
+      it "has error_message" do
+        expect(subject[1]).to include("You can not publish a historical version of this template.  ")
+      end
+
+    end
+    # case when the template is published
+    # case when template has no phases
+    # case when a template has no sections
+    # case when a section has no questions
+
+  end
+
 end

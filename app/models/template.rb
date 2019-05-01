@@ -403,6 +403,36 @@ class Template < ActiveRecord::Base
     update!(published: true)
   end
 
+  def publishability
+    error = ""
+    publishable = true
+    # template must be the most recent draft
+    if published
+      error += _("You can not publish a published template.  ")
+      publishable = false
+    end
+    if not latest?
+      error += _("You can not publish a historical version of this template.  ")
+      publishable = false
+    # all templates have atleast one phase
+    end
+    if not phases.count > 0
+      error += _("You can not publish a template without phases.  ")
+      publishable = false
+    # all phases must have atleast 1 section
+    end
+    if phases.map{|p| p.sections.count > 0}.reduce(true) { |fin, val| fin and val }
+      error += _("You cannot publish a template without sections in a phase.  ")
+      publishable = false
+    # all sections must have atleast one question
+    end
+    if sections.map{|s| s.questions.count > 0}.reduce(true) { |fin, val| fin and val }
+      error += _("You cannot publish a template without questions in a section.  ")
+      publishable = false
+    end
+    return publishable, error
+  end
+
   private
 
   # ============================
