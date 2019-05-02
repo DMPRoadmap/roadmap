@@ -107,7 +107,7 @@ module Dmpopidor
           @plan = Plan.find(params[:id])
           authorize @plan
           @phase_options = @plan.phases.order(:number).pluck(:title, :id)
-          @phase_options.unshift([_('All'), nil])
+          @phase_options.unshift([_('All'), nil]) unless @phase_options.length < 2 
           @export_settings = @plan.settings(:export)
           render "download"
         end
