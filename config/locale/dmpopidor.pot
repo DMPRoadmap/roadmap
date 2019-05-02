@@ -231,6 +231,9 @@ msgstr ""
 msgid "News"
 msgstr ""
 
+msgid "Template"
+msgstr ""
+
 # STATIC PAGES
 
 msgid "More"
