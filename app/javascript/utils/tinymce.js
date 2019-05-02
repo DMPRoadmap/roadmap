@@ -63,7 +63,7 @@ export const Tinymce = {
   */
   init(options = {}) {
     if (isObject(options)) {
-      tinymce.init($.extend(true, defaultOptions, options)).then(resizeEditors);
+      tinymce.init(Object.assign({}, defaultOptions, options)).then(resizeEditors);
     } else {
       tinymce.init(defaultOptions).then(resizeEditors);
     }
