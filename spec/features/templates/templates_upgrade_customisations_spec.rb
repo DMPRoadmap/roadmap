@@ -67,6 +67,15 @@ RSpec.feature "Templates::UpgradeCustomisations", type: :feature do
       tinymce_fill_in :new_section_section_description, with: "New section title"
       expect { click_button("Save") }.to change { Section.count }.by(3)
     end
+
+    within("#section-#{Section.last.id}") do
+      click_button('Add Question')
+      within("#new_question_new_question") do
+        tinymce_fill_in :new_question_question_text, with: "Text for the question"
+        expect { click_button("Save")}
+      end
+    end
+
     new_funder_template = Template.last
 
     visit organisational_org_admin_templates_path
