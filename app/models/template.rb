@@ -421,13 +421,13 @@ class Template < ActiveRecord::Base
       publishable = false
     # all phases must have atleast 1 section
     end
-    if phases.map{|p| p.sections.count > 0}.reduce(true) { |fin, val| fin and val }
-      error += _("You cannot publish a template without sections in a phase.  ")
+    unless phases.map{|p| p.sections.count > 0}.reduce(true) { |fin, val| fin and val }
+      error += _("You can not publish a template without sections in a phase.  ")
       publishable = false
     # all sections must have atleast one question
     end
-    if sections.map{|s| s.questions.count > 0}.reduce(true) { |fin, val| fin and val }
-      error += _("You cannot publish a template without questions in a section.  ")
+    unless sections.map{|s| s.questions.count > 0}.reduce(true) { |fin, val| fin and val }
+      error += _("You can not publish a template without questions in a section.  ")
       publishable = false
     end
     return publishable, error

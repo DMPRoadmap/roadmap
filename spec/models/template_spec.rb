@@ -1378,7 +1378,7 @@ RSpec.describe Template, type: :model do
     # case when template is correctly generated
     context "When the Template has all components, is latest, and unpublished" do
 
-      let(:template) { create(:template, :default, published: false, org: org, phases: 3)}
+      let(:template) { create(:template, :default, published: false, org: org, phases: 1, sections: 1, questions: 1)}
 
       it "returns true" do
         expect(subject[0]).to eql(true)
@@ -1392,11 +1392,11 @@ RSpec.describe Template, type: :model do
 
     # case when the template is historical
     context "When the template is an historical version" do
-      let(:template) { create(:template, :default, published: true, org: org, phases:3, version: 1)}
-      let(:new_template) { template.generate_version! }
+      let(:template) { create(:template, :default, published: true, org: org, phases: 3, version: 1, sections: 1, questions: 1)}
 
-      it "is not the latest template" do
-        expect(template.latest?).to eql(false)
+      before do
+        template.generate_version!
+        template.update_column(:published,  false)
       end
 
       it "returns false" do
@@ -1408,10 +1408,63 @@ RSpec.describe Template, type: :model do
       end
 
     end
+
     # case when the template is published
+    context "When the Template has all components, is latest, and already published" do
+
+      let(:template) { create(:template, :default, published: true, org: org, phases: 1, sections: 1, questions: 1)}
+
+      it "is not publishable" do
+        expect(subject[0]).to eql(false)
+      end
+
+      it "has error_message" do
+        expect(subject[1]).to include("You can not publish a published template.")
+      end
+
+    end
     # case when template has no phases
+    context "When the Template has no phases" do
+
+      let(:template) { create(:template, :default, published: true, org: org, phases: 0)}
+
+      it "is not publishable" do
+        expect(subject[0]).to eql(false)
+      end
+
+      it "has error_message" do
+        expect(subject[1]).to include("You can not publish a template without phases")
+      end
+
+    end
     # case when a template has no sections
+    context "When the Template has no sections" do
+
+      let(:template) { create(:template, :default, published: true, org: org, phases: 1, sections: 0)}
+
+      it "is not publishable" do
+        expect(subject[0]).to eql(false)
+      end
+
+      it "has error_message" do
+        expect(subject[1]).to include("You can not publish a template without sections in a phase")
+      end
+
+    end
     # case when a section has no questions
+    context "When the Template has no questions" do
+
+      let(:template) { create(:template, :default, published: true, org: org, phases: 1, sections: 1, questions: 0)}
+
+      it "is not publishable" do
+        expect(subject[0]).to eql(false)
+      end
+
+      it "has error_message" do
+        expect(subject[1]).to include("You can not publish a template without questions in a section")
+      end
+
+    end
 
   end
 
