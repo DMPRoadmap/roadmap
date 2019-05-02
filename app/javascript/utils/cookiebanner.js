@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*global window:false, setTimeout:true, console:true */
 /*
 Copyright (C) 2013-2015 Good Code and Cookie Banner contributors
@@ -27,8 +28,6 @@ THE SOFTWARE.
     var win = context, doc = win.document;
 
     var global_instance_name = 'cbinstance';
-
-    /*eslint-disable */
     /*!
      * contentloaded.js
      *
@@ -75,7 +74,6 @@ THE SOFTWARE.
             win[add](pre + 'load', init, false);
         }
     }
-    /*eslint-enable */
 
     var Cookies = {
         get: function (key) {
@@ -585,3 +583,4 @@ THE SOFTWARE.
     }
 
 })(window);
+/* eslint-enable */
