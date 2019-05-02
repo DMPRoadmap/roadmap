@@ -450,6 +450,14 @@ class Plan < ActiveRecord::Base
     end
   end
 
+  ## Update plan identifier.
+  #
+  # Returns Boolean
+  def add_identifier!(identifier)
+    self.update(identifier: identifier)
+    save!
+  end
+
   ##
   # Whether or not the plan is associated with users other than the creator
   #
