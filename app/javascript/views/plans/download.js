@@ -14,4 +14,17 @@ $(() => {
       $('#pdf-formatting').hide();
     }
   });
+
+  $('#select-all-phase').on('click', (e) => {
+    if (e.target.checked) {
+      // Iterate each checkbox
+      $('.phase-checkbox').each(function check() {
+        this.checked = true;
+      });
+    } else {
+      $('.phase-checkbox').each(function check() {
+        this.checked = false;
+      });
+    }
+  });
 });

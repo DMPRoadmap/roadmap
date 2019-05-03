@@ -102,16 +102,6 @@ module Dmpopidor
           end
         end
 
-        # Added 'All' if the user wants to export all phases
-        def download
-          @plan = Plan.find(params[:id])
-          authorize @plan
-          @phase_options = @plan.phases.order(:number).pluck(:title, :id)
-          @phase_options.unshift([_('All'), nil]) unless @phase_options.length < 2 
-          @export_settings = @plan.settings(:export)
-          render "download"
-        end
-
         # Removing test flag now put the plan in privately_private visibility
         def set_test
           plan = Plan.find(params[:id])

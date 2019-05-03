@@ -58,8 +58,8 @@ module ExportablePlan
 
     # add the relevant questions/answers
     phases = []
-    template.phases.each do |phase|
-      phs = { title: phase.title, number: phase.number, sections: [] }
+    template.phases.order(:number).each do |phase|
+      phs = { id: phase.id, title: phase.title, number: phase.number, sections: [] }
       phase.sections.each do |section|
         sctn = { title: section.title,
                  number: section.number,

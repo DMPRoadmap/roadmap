@@ -234,6 +234,9 @@ msgstr ""
 msgid "Template"
 msgstr ""
 
+msgid "All"
+msgstr ""
+
 # STATIC PAGES
 
 msgid "More"

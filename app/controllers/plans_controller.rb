@@ -299,13 +299,13 @@ class PlansController < ApplicationController
     end
   end
 
-  # def download
-  #  @plan = Plan.find(params[:id])
-  #  authorize @plan
-  #  @phase_options = @plan.phases.order(:number).pluck(:title, :id)
-  #  @export_settings = @plan.settings(:export)
-  #  render "download"
-  # end
+  def download
+   @plan = Plan.find(params[:id])
+   authorize @plan
+   @phase_options = @plan.phases.order(:number).pluck(:title, :id)
+   @export_settings = @plan.settings(:export)
+   render "download"
+  end
 
   def duplicate
     plan = Plan.find(params[:id])
