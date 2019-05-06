@@ -52,7 +52,7 @@ GEM
       io-like (~> 0.3.0)
     arel (6.0.4)
     ast (2.4.0)
-    autoprefixer-rails (9.5.0)
+    autoprefixer-rails (9.5.1.1)
       execjs
     bcrypt (3.1.12)
     better_errors (2.5.1)
@@ -61,9 +61,9 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.3.7)
+    bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
-      sass (>= 3.3.4)
+      sassc (>= 2.0.0)
     brakeman (4.5.0)
     builder (3.2.3)
     bullet (5.9.0)
@@ -257,7 +257,7 @@ GEM
     multipart-post (2.0.0)
     mysql2 (0.4.10)
     nenv (0.3.0)
-    nokogiri (1.10.2)
+    nokogiri (1.10.3)
       mini_portile2 (~> 2.4.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
@@ -392,7 +392,7 @@ GEM
     ruby_dig (0.0.2)
     rubyzip (1.2.2)
     safe_yaml (1.0.5)
-    sass (3.7.3)
+    sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -486,7 +486,7 @@ DEPENDENCIES
   autoprefixer-rails
   better_errors
   binding_of_caller
-  bootstrap-sass (~> 3.3.7)
+  bootstrap-sass (~> 3.4.0)
   brakeman
   bullet
   bundle-audit
