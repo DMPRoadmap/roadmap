@@ -2,7 +2,6 @@
 import tinymce from 'tinymce/tinymce';
 // Import TinyMCE theme
 import 'tinymce/themes/modern/theme';
-import 'tinymce/skins/lightgray/skin.min.css';
 
 // Plugins
 import 'tinymce/plugins/table';
