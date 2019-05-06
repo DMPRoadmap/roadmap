@@ -57,9 +57,16 @@ $(() => {
     toggleCheckboxes(selections);
   };
 
-  const grantNumberInfo = (grantId) => {
-    return `Grant number: ${grantId}`;
-  }
+  const grantNumberInfo = grantId => `Grant number: ${grantId}`;
+
+  const setInitialGrantProjectName = () => {
+    const grantId = grantIdHidden.val();
+    const researchProjects = window.researchProjects;
+    const researchProject = researchProjects.find(datum => datum.grant_id === grantId);
+    if (researchProject) {
+      grantIdField.val(researchProject.description);
+    }
+  };
 
   const setUpTypeahead = () => {
     if ($('.edit_plan').length) {
@@ -67,9 +74,7 @@ $(() => {
         window.researchProjects = data;
         const descriptionData = $.map(data, datum => datum.description);
         grantIdField.typeahead({ source: descriptionData });
-      }).then(function() {
-        setInitialGrantProjectName();
-      });
+      }).then(() => { setInitialGrantProjectName(); });
       grantIdField.on('change', () => {
         const current = grantIdField.typeahead('getActive');
         if (current) {
@@ -79,7 +84,7 @@ $(() => {
             return fixString(datum.description) === fixString(current);
           });
           if (currentResearchProject) {
-            const grantId = currentResearchProject.grant_id
+            const grantId = currentResearchProject.grant_id;
             $('#grant_number_info').html(grantNumberInfo(grantId));
             grantIdHidden.val(grantId);
           }
@@ -88,14 +93,6 @@ $(() => {
           grantIdHidden.val('');
         }
       });
-    }
-  };
-
-  const setInitialGrantProjectName = () => {
-    const grantId = grantIdHidden.val();
-    const researchProject = researchProjects.find(datum => datum.grant_id === grantId);
-    if (researchProject) {
-      grantIdField.val(researchProject.description);
     }
   };
 
