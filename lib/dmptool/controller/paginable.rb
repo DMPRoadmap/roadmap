@@ -11,8 +11,7 @@ module Dmptool
         # /paginable/orgs/public/:page
         def public
           skip_authorization
-
-          ids = Org.where.not("#{Org.funder_condition}").pluck(:id)
+          ids = Org.where.not(Org.funder_condition).pluck(:id)
 
           paginable_renderise(
             partial: "public",
