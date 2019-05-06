@@ -54,7 +54,7 @@ module DMPRoadmap
     # store is not appropriate for large application deployments. However, it can work
     # well for small, low traffic sites with only a couple of server processes, as well
     # as development and test environments.
-    config.cache_store = :memory_store, { size: 32.megabytes }
+    # config.cache_store = :memory_store, { size: 32.megabytes }
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
