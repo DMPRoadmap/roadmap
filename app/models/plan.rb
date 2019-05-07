@@ -279,12 +279,6 @@ class Plan < ActiveRecord::Base
       begin
         self.feedback_requested = true
         # Share the plan with each org admin as the reviewer role
-        admins = user.org.org_admins
-        admins.each do |admin|
-          unless admin == user
-            add_user!(admin.id, :reviewer)
-          end
-        end
         if save!
           # Send an email to the org-admin contact
           if user.org.contact_email.present?
@@ -311,10 +305,6 @@ class Plan < ActiveRecord::Base
     Plan.transaction do
       begin
         self.feedback_requested = false
-
-        # Remove the org admins reviewer role from the plan
-        roles.delete(Role.where(plan: self).reviewer)
-
         if save!
           # Send an email confirmation to the owners and co-owners
           deliver_if(recipients: owner_and_coowners,
@@ -376,7 +366,7 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def commentable_by?(user_id)
-    Role.commenter.where(plan_id: id, user_id: user_id, active: true).any?
+    Role.commenter.where(plan_id: id, user_id: user_id, active: true).any? || reviewable_by?(user_id)
   end
 
   # determines if the plan is administerable by the specified user
@@ -394,7 +384,10 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def reviewable_by?(user_id)
-    Role.reviewer.where(plan_id: id, user_id: user_id, active: true).any?
+    reviewer = User.find(user_id)
+    feedback_requested? &&
+    reviewer.org_id == owner.org_id &&
+    reviewer.can_review_plans?
   end
 
   # the datetime for the latest update of this plan
