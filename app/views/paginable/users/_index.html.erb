@@ -41,7 +41,7 @@
                   </td>
                   <td class="text-center">
                       <% unless user.roles.nil? %>
-                      <%= user.roles.where(Role.not_reviewer_condition).length %>
+                      <%= user.roles.length %>
                       <% end %>
                   </td>
                   <%# The content of this column get updated through AJAX whenever the permission for an user are updated %>
