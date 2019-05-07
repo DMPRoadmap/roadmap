@@ -141,8 +141,7 @@ class Plan < ActiveRecord::Base
   # Retrieves any plan in which the user has an active role and
   # is not a reviewer
   scope :active, lambda { |user|
-    plan_ids = Role.where(active: true, user_id: user.id)
-                   .not_reviewer.pluck(:plan_id)
+    plan_ids = Role.where(active: true, user_id: user.id).pluck(:plan_id)
 
     includes(:template, :roles)
     .where(id: plan_ids)
@@ -433,8 +432,6 @@ class Plan < ActiveRecord::Base
         role.editor = true
       when :editor
         role.editor = true
-      when :reviewer
-        role.reviewer = true
       end
       role.commenter = true
       role.save

@@ -259,7 +259,7 @@ class PlansController < ApplicationController
     if @plan.present?
       authorize @plan
       # Get the roles where the user is not a reviewer
-      @plan_roles = @plan.roles.select { |r| !r.reviewer? }
+      @plan_roles = @plan.roles
     else
       redirect_to(plans_path)
     end
