@@ -4,14 +4,14 @@ namespace :upgrade do
   desc "Upgrade to v2.1.3"
   task v2_1_3: :environment do
     Rake::Task['upgrade:fill_blank_plan_identifiers'].execute
+    Rake::Task["upgrade:add_reviewer_perm"].execute
+    Rake::Task["upgrade:add_reviewer_to_existing_admin_perms"].execute
+    Rake::Task["upgrade:migrate_reviewer_roles"].execute
   end
 
   desc "Upgrade to v2.1.2:"
   task v2_1_2: :environment do
     Rake::Task["upgrade:add_date_question_format"].execute
-    Rake::Task["upgrade:add_reviewer_perm"].execute
-    Rake::Task["upgrade:add_reviewer_to_existing_admin_perms"].execute
-    
   end
 
   desc "Upgrade to v2.1.0:"
@@ -665,11 +665,12 @@ namespace :upgrade do
     end
   end
 
-<<<<<<< HEAD
+
   desc "Fill blank or nil plan identifiers with plan_id"
   task fill_blank_plan_identifiers: :environment do
     Plan.where(identifier: ["",nil]).update_all('identifier = id')
-=======
+  end
+
   desc "Adds a new permission for plan reviewers"
   task add_reviewer_perm: :environment do
     perm_name = 'review_org_plans'
@@ -681,9 +682,18 @@ namespace :upgrade do
   desc "adds the new reviewer perm to all existing admin perms"
   task add_reviewer_to_existing_admin_perms: :environment do
     Perm.change_org_details.users.each do |u|
-      u.perms << Perm.review_org_plans
+      u.perms << Perm.review_plans
     end
->>>>>>> capture progress
+  end
+
+  desc "remove the old reviewer roles and ensure these are marked feedback-enabled"
+  task migrate_reviewer_roles: :environment do
+    # remove all roles with nil plan_id
+    Role.reviewer.where(plan_id: nil).destroy_all
+    # Pluck all other plan_ids
+    review_plan_ids = Role.reviewer.pluck(:plan_id).uniq
+    Plan.where(id: review_plan_ids).update_all(feedback_requested: true)
+    Role.reviewer.destroy_all
   end
 
   private
