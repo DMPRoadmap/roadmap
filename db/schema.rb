@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190411123210) do
+ActiveRecord::Schema.define(version: 20190503130010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,8 +38,11 @@ ActiveRecord::Schema.define(version: 20190411123210) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "lock_version", default: 0
+    t.boolean  "is_common",    default: false
+    t.integer  "dataset_id"
   end
 
+  add_index "answers", ["dataset_id"], name: "index_answers_on_dataset_id", using: :btree
   add_index "answers", ["plan_id"], name: "answers_plan_id_idx", using: :btree
   add_index "answers", ["question_id"], name: "answers_question_id_idx", using: :btree
   add_index "answers", ["user_id"], name: "answers_user_id_idx", using: :btree
@@ -51,6 +54,18 @@ ActiveRecord::Schema.define(version: 20190411123210) do
 
   add_index "answers_question_options", ["answer_id"], name: "answers_question_options_answer_id_idx", using: :btree
   add_index "answers_question_options", ["question_option_id"], name: "answers_question_options_question_option_id_idx", using: :btree
+
+  create_table "datasets", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "order"
+    t.text     "description"
+    t.boolean  "is_default",  default: false
+    t.integer  "plan_id"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "datasets", ["plan_id"], name: "index_datasets_on_plan_id", using: :btree
 
   create_table "exported_plans", force: :cascade do |t|
     t.integer  "plan_id"
@@ -477,11 +492,13 @@ ActiveRecord::Schema.define(version: 20190411123210) do
 
   add_foreign_key "annotations", "orgs"
   add_foreign_key "annotations", "questions"
+  add_foreign_key "answers", "datasets"
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
   add_foreign_key "answers_question_options", "answers"
   add_foreign_key "answers_question_options", "question_options"
+  add_foreign_key "datasets", "plans"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "notes", "answers"

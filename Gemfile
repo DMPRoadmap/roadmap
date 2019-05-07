@@ -134,6 +134,9 @@ gem "autoprefixer-rails"
 # Minimal embedded v8 for Ruby (https://github.com/discourse/mini_racer)
 gem 'mini_racer'
 
+# Nested forms for datasets implementation (https://github.com/nathanvda/cocoon)
+gem 'cocoon'
+
 # ------------------------------------------------
 # EXPORTING
 # Provides binaries for WKHTMLTOPDF project in an easily accessible package.

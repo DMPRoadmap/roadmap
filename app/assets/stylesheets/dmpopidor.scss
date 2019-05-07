@@ -668,4 +668,51 @@ $light-yellow: #fff9e5;
       
   }
   
- 
+/*
+  Datasets
+*/
+.nav-tabs {
+    li.disabled {
+        cursor: not-allowed;
+        a {
+        pointer-events: none;
+        }
+    }
+}
+
+.datasets-description {
+    width: 50vw;
+    border: 0.5px groove #ddd;
+    padding: 0 5px;
+    margin-top: 5px;
+    box-shadow: 0px 0px 0px 0px #000;
+
+    .dataset-element {
+        display: flex;
+        flex-direction: row;
+        .dataset-name {
+            width: 30%;
+        }
+        .dataset-description {
+            width: 60%;
+        }
+        .dataset-actions {
+            width: 10%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $blue;
+
+            .handle {
+                cursor: pointer;
+            }
+            a {
+                color: $blue;
+            }
+        }
+        .form-group {
+            margin: 0;
+            margin-right: 5px;
+        }
+    }
+}   

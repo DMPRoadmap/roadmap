@@ -2,10 +2,15 @@ module Dmpopidor
     module Controllers
       module Plans
 
-        # POST /plans
+        # CHANGES:
+        # Added Privately private visibility
+        # Added Datasets Support
         def create
           @plan = Plan.new
           authorize @plan
+
+          # Add default dataset if possible
+          @plan.datasets.new(is_default: true, order: 1) if Dataset.table_exists?
 
           # We set these ids to -1 on the page to trick ariatiseForm into allowing the
           # autocomplete to be blank if the no org/funder checkboxes are checked off
@@ -101,6 +106,58 @@ module Dmpopidor
             end
           end
         end
+        
+
+        # CHANGES :
+        # Added Dataset Support
+        def update
+          @plan = Plan.find(params[:id])
+          authorize @plan
+          attrs = plan_params
+          # rubocop:disable Metrics/BlockLength
+          respond_to do |format|
+            begin
+              # Save the guidance group selections
+              guidance_group_ids = if params[:guidance_group_ids].blank?
+                                    []
+                                  else
+                                    params[:guidance_group_ids].map(&:to_i).uniq
+                                  end
+              @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
+              @plan.save
+              if @plan.update_attributes(attrs)
+                @plan.datasets.toggle_default
+
+                format.html do
+                  redirect_to overview_plan_path(@plan),
+                              notice: success_message(@plan, _("saved"))
+                end
+                format.json do
+                  render json: { code: 1, msg: success_message(@plan, _("saved")) }
+                end
+              else
+                format.html do
+                  # TODO: Should do a `render :show` here instead but show defines too many
+                  #       instance variables in the controller
+                  redirect_to "#{plan_path(@plan)}", alert: failure_message(@plan, _("save"))
+                end
+                format.json do
+                  render json: { code: 0, msg: failure_message(@plan, _("save")) }
+                end
+              end
+
+            rescue Exception
+              flash[:alert] = failure_message(@plan, _("save"))
+              format.html do
+                render_phases_edit(@plan, @plan.phases.first, @plan.guidance_groups)
+              end
+              format.json do
+                render json: { code: 0, msg: flash[:alert] }
+              end
+            end
+          end
+          # rubocop:enable Metrics/BlockLength
+        end
 
         # Removing test flag now put the plan in privately_private visibility
         def set_test
@@ -120,6 +177,16 @@ module Dmpopidor
           end
           # rubocop:enable Metrics/LineLength
         end
+
+        # CHANGES : Datasets support
+        def download
+          @plan = Plan.find(params[:id])
+          authorize @plan
+          @datasets = @plan.datasets
+          @phase_options = @plan.phases.order(:number).pluck(:title, :id)
+          @export_settings = @plan.settings(:export)
+          render "download"
+         end
       end
     end
   end

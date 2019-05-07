@@ -1,6 +1,7 @@
 // Rails setup
 import 'jquery-ujs';
 import 'jquery-accessible-autocomplete-list-aria/jquery-accessible-autocomplete-list-aria';
+import 'cocoon-js';
 
 // Generic JS that is applicable across multiple pages
 import '../utils/array';

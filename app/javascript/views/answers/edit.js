@@ -37,7 +37,7 @@ $(() => {
       if (isObject(data.question)) { // Object related to question within data received
         if (isNumber(data.question.id)) {
           if (isString(data.question.answer_status)) {
-            $(`#answer-status-${data.question.id}`).html(data.question.answer_status);
+            $(`#answer-status-${data.question.id}-${data.dataset.id}`).html(data.question.answer_status);
             TimeagoFactory.render($('time.timeago'));
           }
           if (isString(data.question.locking)) { // When an answer is stale...
@@ -64,11 +64,18 @@ $(() => {
           $('.progress').html(data.plan.progress);
         }
       }
-      if (isObject(data.section)) { // Object related to section within data received
+      /* if (isObject(data.section)) { // Object related to section within data received
         if (isNumber(data.section.id)) {
           if (isString(data.section.progress)) {
             $(`.section-progress-${data.section.id}`).html(data.section.progress);
           }
+        }
+      } */
+      // Update answer id hidden field from data received
+      // Object related to answer within data received
+      if (isObject(data.answer) && isObject(data.question)) {
+        if (isNumber(data.answer.id) && isNumber(data.question.id)) {
+          $(`#answer-form-${data.question.id}`).find('#answer_id').val(data.answer.id);
         }
       }
     }
@@ -186,4 +193,36 @@ $(() => {
   }
   $('.example-answer').on('hidden.bs.collapse', toggleIcon);
   $('.example-answer').on('shown.bs.collapse', toggleIcon);
+
+  // TODO: Finir implé du answer_id ect...
+  $('.is_common_cb').click((e) => {
+    const target = $(e.currentTarget);
+    const targetState = target.prop('checked');
+    const parentTab = target.parents('.main_dataset');
+
+    // Set answers 'is_common' hidden checkbox to the same state
+    // as the master checkbox
+    // Used to indicate that answers from the first dataset are common to all
+    parentTab.find('.ans_is_common').each((i, el) => {
+      $(el).prop('checked', targetState);
+    });
+
+    // Submit the answer after checking the hidden box
+    parentTab.find('.answer_id').each((i, el) => {
+      if ($(el).val()) {
+        $(el).parent().trigger('submit');
+      }
+    });
+
+    // Enable or disable datasets tabs depending on 'is_common' state
+    if (targetState) {
+      $('.datasets_tabs').each((i, el) => {
+        $(el).addClass('disabled');
+      });
+    } else {
+      $('.datasets_tabs').each((i, el) => {
+        $(el).removeClass('disabled');
+      });
+    }
+  }); // .click()
 });

@@ -1,0 +1,11 @@
+<div class="project-details datasets-description">
+  <legend class="project-details"><%= d_('dmpopidor', 'Datasets') %></legend>
+  <div id='datasets'>
+    <%= f.fields_for :datasets do |d| %>
+      <%= render 'dataset_fields', f: d %>
+    <% end %>
+    <div class='links'>
+      <%= link_to_add_association _('Add a dataset'), f, :datasets, class: 'btn btn-default', id: "add-dataset" %>
+    </div>
+  </div>
+</div>

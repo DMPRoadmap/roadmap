@@ -4,7 +4,7 @@ module Dmpopidor
 
         # CHANGES: Can now send multiple phases when exporting
         def show
-            @plan = Plan.includes(:answers).find(params[:plan_id])
+            @plan = Plan.includes(:answers, :datasets).find(params[:plan_id])
         
             if privately_authorized? && export_params[:form].present?
               skip_authorization

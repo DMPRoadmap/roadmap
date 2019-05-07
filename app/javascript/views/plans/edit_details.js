@@ -76,4 +76,13 @@ $(() => {
   });
 
   toggleCheckboxes($('#priority-guidance-orgs input[type="checkbox"]:checked').map((i, el) => $(el).val()).get());
+
+  $('#datasets').sortable({
+    handle: '.dataset-actions .handle',
+    stop: () => {
+      $('#datasets .dataset-element').each(function callback(index) {
+        $(this).find('.dataset-order').val(index + 1);
+      });
+    },
+  });
 });

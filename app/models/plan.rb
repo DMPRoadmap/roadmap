@@ -106,6 +106,30 @@ class Plan < ActiveRecord::Base
 
   has_many :roles
 
+  # DATASETS
+  has_many :datasets, dependent: :destroy, inverse_of: :plan do
+    # Returns the default dataset
+    def default
+      find_by(is_default: true)
+    end
+
+    # Toggles the default dataset between default and normal
+    # Uses the 'is_default' flag:
+    # - Removes it if there are more than one dataset
+    # - Adds it back is there's only one dataset left
+    def toggle_default
+      if count > 1
+        unless default.nil?
+          default.update(name: 'Default dataset') if default.name.nil?
+          default.update(is_default: false)
+        end
+      else
+        last&.update(is_default: true)
+      end
+    end
+  end
+
+
 
   # =====================
   # = Nested Attributes =
@@ -115,6 +139,7 @@ class Plan < ActiveRecord::Base
 
   accepts_nested_attributes_for :roles
 
+  accepts_nested_attributes_for :datasets, reject_if: :all_blank, allow_destroy: true
 
   # ===============
   # = Validations =
@@ -184,7 +209,6 @@ class Plan < ActiveRecord::Base
   end
   alias super_settings settings
 
-
   # =================
   # = Class methods =
   # =================
@@ -240,31 +264,31 @@ class Plan < ActiveRecord::Base
     template&.settings(key)
   end
 
-  # The most recent answer to the given question id optionally can create an answer if
-  # none exists.
-  #
-  # qid               - The id for the question to find the answer for
-  # create_if_missing - If true, will genereate a default answer
-  #                     to the question (defaults: true).
-  #
-  # Returns Answer
-  # Returns nil
-  def answer(qid, create_if_missing = true)
-    answer = answers.where(question_id: qid).order("created_at DESC").first
-    question = Question.find(qid)
-    if answer.nil? && create_if_missing
-      answer             = Answer.new
-      answer.plan_id     = id
-      answer.question_id = qid
-      answer.text        = question.default_value
-      default_options    = []
-      question.question_options.each do |option|
-        default_options << option if option.is_default
-      end
-      answer.question_options = default_options
-    end
-    answer
-  end
+  # # The most recent answer to the given question id optionally can create an answer if
+  # # none exists.
+  # #
+  # # qid               - The id for the question to find the answer for
+  # # create_if_missing - If true, will genereate a default answer
+  # #                     to the question (defaults: true).
+  # #
+  # # Returns Answer
+  # # Returns nil
+  # def answer(qid, create_if_missing = true)
+  #   answer = answers.where(question_id: qid).order("created_at DESC").first
+  #   question = Question.find(qid)
+  #   if answer.nil? && create_if_missing
+  #     answer             = Answer.new
+  #     answer.plan_id     = id
+  #     answer.question_id = qid
+  #     answer.text        = question.default_value
+  #     default_options    = []
+  #     question.question_options.each do |option|
+  #       default_options << option if option.is_default
+  #     end
+  #     answer.question_options = default_options
+  #   end
+  #   answer
+  # end
 
   alias get_guidance_group_options guidance_group_options
 
@@ -548,6 +572,10 @@ class Plan < ActiveRecord::Base
   #     false
   #   end
   # end
+
+
+
+
 
 
   private

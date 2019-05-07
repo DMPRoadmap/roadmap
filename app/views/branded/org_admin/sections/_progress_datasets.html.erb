@@ -1,0 +1,6 @@
+<%# locals: { section, plan } %>
+<!-- Partial template for showing the progress for a section, i.e. the valid answers -->
+<% num_section_questions = section.questions.size() %>
+<span class="right section-status">
+  ( <%= num_section_questions %> <%= num_section_questions > 1  ? _('questions') : _('question') %> )
+</span>

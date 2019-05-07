@@ -150,6 +150,8 @@ class PlansController < ApplicationController
             ).find(params[:id])
     authorize @plan
 
+    @datasets = @plan.datasets.order(:order)
+
     @visibility = if @plan.visibility.present?
                     @plan.visibility.to_s
                   else
@@ -205,54 +207,54 @@ class PlansController < ApplicationController
     render_phases_edit(plan, phase, guidance_groups)
   end
 
-  # PUT /plans/1
-  # PUT /plans/1.json
-  def update
-    @plan = Plan.find(params[:id])
-    authorize @plan
-    attrs = plan_params
-    # rubocop:disable Metrics/BlockLength
-    respond_to do |format|
-      begin
-        # Save the guidance group selections
-        guidance_group_ids = if params[:guidance_group_ids].blank?
-                               []
-                             else
-                               params[:guidance_group_ids].map(&:to_i).uniq
-                             end
-        @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
-        @plan.save
-        if @plan.update_attributes(attrs)
-          format.html do
-            redirect_to overview_plan_path(@plan),
-                        notice: success_message(@plan, _("saved"))
-          end
-          format.json do
-            render json: { code: 1, msg: success_message(@plan, _("saved")) }
-          end
-        else
-          format.html do
-            # TODO: Should do a `render :show` here instead but show defines too many
-            #       instance variables in the controller
-            redirect_to "#{plan_path(@plan)}", alert: failure_message(@plan, _("save"))
-          end
-          format.json do
-            render json: { code: 0, msg: failure_message(@plan, _("save")) }
-          end
-        end
+  # # PUT /plans/1
+  # # PUT /plans/1.json
+  # def update
+  #   @plan = Plan.find(params[:id])
+  #   authorize @plan
+  #   attrs = plan_params
+  #   # rubocop:disable Metrics/BlockLength
+  #   respond_to do |format|
+  #     begin
+  #       # Save the guidance group selections
+  #       guidance_group_ids = if params[:guidance_group_ids].blank?
+  #                              []
+  #                            else
+  #                              params[:guidance_group_ids].map(&:to_i).uniq
+  #                            end
+  #       @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
+  #       @plan.save
+  #       if @plan.update_attributes(attrs)
+  #         format.html do
+  #           redirect_to overview_plan_path(@plan),
+  #                       notice: success_message(@plan, _("saved"))
+  #         end
+  #         format.json do
+  #           render json: { code: 1, msg: success_message(@plan, _("saved")) }
+  #         end
+  #       else
+  #         format.html do
+  #           # TODO: Should do a `render :show` here instead but show defines too many
+  #           #       instance variables in the controller
+  #           redirect_to "#{plan_path(@plan)}", alert: failure_message(@plan, _("save"))
+  #         end
+  #         format.json do
+  #           render json: { code: 0, msg: failure_message(@plan, _("save")) }
+  #         end
+  #       end
 
-      rescue Exception
-        flash[:alert] = failure_message(@plan, _("save"))
-        format.html do
-          render_phases_edit(@plan, @plan.phases.first, @plan.guidance_groups)
-        end
-        format.json do
-          render json: { code: 0, msg: flash[:alert] }
-        end
-      end
-    end
-    # rubocop:enable Metrics/BlockLength
-  end
+  #     rescue Exception
+  #       flash[:alert] = failure_message(@plan, _("save"))
+  #       format.html do
+  #         render_phases_edit(@plan, @plan.phases.first, @plan.guidance_groups)
+  #       end
+  #       format.json do
+  #         render json: { code: 0, msg: flash[:alert] }
+  #       end
+  #     end
+  #   end
+  #   # rubocop:enable Metrics/BlockLength
+  # end
 
   def share
     @plan = Plan.find(params[:id])
@@ -299,13 +301,13 @@ class PlansController < ApplicationController
     end
   end
 
-  def download
-   @plan = Plan.find(params[:id])
-   authorize @plan
-   @phase_options = @plan.phases.order(:number).pluck(:title, :id)
-   @export_settings = @plan.settings(:export)
-   render "download"
-  end
+  # def download
+  #  @plan = Plan.find(params[:id])
+  #  authorize @plan
+  #  @phase_options = @plan.phases.order(:number).pluck(:title, :id)
+  #  @export_settings = @plan.settings(:export)
+  #  render "download"
+  # end
 
   def duplicate
     plan = Plan.find(params[:id])
@@ -398,7 +400,7 @@ class PlansController < ApplicationController
                   :principal_investigator_phone, :principal_investigator,
                   :principal_investigator_email, :data_contact,
                   :principal_investigator_identifier, :data_contact_email,
-                  :data_contact_phone, :guidance_group_ids)
+                  :data_contact_phone, :guidance_group_ids, datasets_attributes: %i[id name description order _destroy])
   end
 
   # different versions of the same template have the same family_id

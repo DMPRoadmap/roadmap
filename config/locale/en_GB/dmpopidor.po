@@ -235,6 +235,12 @@ msgstr "Template"
 msgid "All"
 msgstr "All"
 
+msgid "Select datasets to download"
+msgstr "Select datasets to download"
+
+msgid "Datasets"
+msgstr "Datasets"
+
 # STATIC PAGES
 
 msgid "More"

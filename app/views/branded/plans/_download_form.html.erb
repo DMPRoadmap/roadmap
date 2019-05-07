@@ -1,9 +1,30 @@
+<div class="corner-ribbon top-left sticky red shadow"><%= _('Beta') %></div>
 <%= form_tag(plan_export_path(@plan), method: :get, target: '_blank', id: 'download_form') do |f| %>
   <h2><%= _("Download settings") %></h2>
   <%= hidden_field_tag 'export[form]', true %>
+  <% if @datasets.length > 1 %>
+    <div class="form-group datasets-selection">
+      <strong><%= d_("dmpopidor", "Select datasets to download") %></strong>
+      <ul>
+      <%= check_box_tag("select-all", "none", true, { id: "select-all-datasets" }) %>
+      <%= label_tag("select-all", d_('dmpopidor', 'All')) %>
+      <% @datasets.each do |dataset| %>
+        <li class="checkbox">
+          <%= label_tag "selected_datasets[]" do %>
+            <span class="sublist">└─ </span>
+            <%= check_box_tag("selected_datasets[]", dataset.id, true, { class: "dataset-checkbox" }) %>
+            <%= dataset.name %>
+          <% end %>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+  <% else %>
+    <%= hidden_field_tag(:dataset_id, @datasets[0].id) %>
+  <% end %>
   <% if @phase_options.length > 1 %>
     <div class="form-group phase-selection">
-      <%= _("Select phase to download") %>
+      <strong><%= _("Select phase to download") %></strong>
       <ul>
       <%= check_box_tag("select-all", "none", true, { id: "select-all-phase" }) %>
       <%= label_tag("select-all", d_('dmpopidor', 'All')) %>

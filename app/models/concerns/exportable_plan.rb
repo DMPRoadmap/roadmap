@@ -55,13 +55,15 @@ module ExportablePlan
     hash[:customization] = template.customization_of.present?
     hash[:title] = self.title
     hash[:answers] = self.answers
+    hash[:datasets] = self.datasets
 
     # add the relevant questions/answers
     phases = []
     template.phases.order(:number).each do |phase|
       phs = { id: phase.id, title: phase.title, number: phase.number, sections: [] }
-      phase.sections.each do |section|
-        sctn = { title: section.title,
+      phase.sections.order(:number).each do |section|
+        sctn = { id: section.id,
+                 title: section.title,
                  number: section.number,
                  questions: [],
                  modifiable: section.modifiable }

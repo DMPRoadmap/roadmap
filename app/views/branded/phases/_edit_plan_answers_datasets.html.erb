@@ -1,0 +1,117 @@
+<div class="corner-ribbon top-left sticky red shadow"><%= _('Beta') %></div>
+<div class="tab-panels" role="tabpanel">
+  <div id="phase-#<%= phase.id %>-panel" class="tab-panel active" aria-hidden="false" aria-labelledby="phase-#<%= phase.id %>-tab">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-8">
+            <div id="sections-accordion-controls">
+              <div class="accordion-controls" data-parent="sections-accordion">
+                <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
+                <span>|</span>
+                <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-group" id="sections-accordion" role="tablist" 
+         aria-multiselectable="true">
+      <% phase.sections.order(:number).each do |section| %>
+      <div class="panel panel-default">
+        <div class="heading-button" role="button" data-toggle="collapse"
+             id="section-panel-<%= section.id %>"
+             data-parent="sections-accordion" 
+             href="#collapse-<%= section.id %>"
+             aria-expanded="false" 
+             aria-controls="collapse-<%= section.id %>">
+
+          <div class="panel-heading" role="tab" id="heading-<%= section.id %>">
+            <div class="panel-title pull-left">
+              <%= section.title %> 
+              <% if plan.present? %>
+                  <span class="section-progress-<%= section.id %>">
+                    <%= render partial: "/org_admin/sections/progress_datasets",
+                               locals: { section: section, plan: plan } %>
+                  </span>
+              <% end %>
+            </div>
+            <i class="fa fa-plus pull-right" aria-hidden="true"></i>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+        <div id="collapse-<%= section.id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= section.id %>">
+          <div class="panel-body"><!-- accordion body -->
+            <ul class="nav nav-tabs">
+              <% common_answers = !section.questions.flat_map(&:answers).select(&:is_common?).empty? %>
+              <% plan.datasets.each_with_index do |dataset, i| %>
+                <li class="datasets_tabs <%= 'active' if dataset.main? %> <%= 'disabled' if common_answers %>">
+                  <a href="#section-panel-<%= section.id %>" data-toggle="tab" data-target="#dataset_<%= dataset.id %>_section_<%= section.id %>">
+                    <%= dataset.name %>
+                  </a>
+                </li>
+              <% end if plan.datasets.count > 1 %>
+            </ul>
+            <div class="tab-content panel-body">
+              <% plan.datasets.each_with_index do |dataset, i| %>
+                <div id="dataset_<%= dataset.id %>_section_<%= section.id %>" class="tab-pane fade <%= 'in active' if dataset.main? %> <%= 'main_dataset' if dataset.main? %>">
+                <% if dataset.main? && plan.datasets.count > 1 %>
+                  <p>
+                    <input type="checkbox" class="is_common_cb" <%= 'checked=""' if common_answers %>><%= _('This section\'s answers are common to all datasets') %>
+                  </p>
+                <% end %>
+                <div class="section-description"><%= sanitize section.description %></div>
+                <!-- the section body -->
+                <% section.questions.each_with_index do |question, i| %>
+                <% # Load the answer or create a new one
+                  answer = answers[question.id] if plan.present?
+                  if answer.blank?
+                    answer = Answer.new({ plan: plan, question: question, dataset: dataset })
+                  end
+                %>
+                <div class="row">
+                  <div class="col-md-8">
+                    <!-- Answer Section -->
+                    <div class="question-form">
+                      <div id="<%= "answer-locking-#{question.id}" %>" 
+                           class="answer-locking"></div>
+                      <div id="<%= "answer-form-#{question.id}" %>" class="answer-form"> 
+                        <%= render(partial: '/answers/new_edit',
+                                   locals: { template: phase.template,
+                                             question: question,
+                                             answer: answer,
+                                             readonly: readonly,
+                                             locking: false,
+                                             base_template_org: base_template_org }) %>
+                      </div>
+                      <div id="<%= "answer-status-#{question.id}-#{dataset.id}" %>" class="mt-10">
+                        <%= render(partial: '/answers/status',
+                                   locals: { answer: answer }) %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <!-- Guidances and notes partial view -->
+                    <%= render partial: '/phases/guidances_notes', locals: {
+                      plan: plan,
+                      template: phase.template,
+                      question: question,
+                      answer: answer,
+                      guidance_presenter: guidance_presenter } %>
+                  </div>
+                </div>
+                <% if i != section.questions.length - 1 %>
+                  <hr>
+                <% end %>
+                <% end %> <!-- section.questions.each do -->
+              </div>
+              <% end %>
+            </div>
+          </div> <!-- panel-body -->
+        </div> <!-- panel-collapse -->
+      </div> <!-- panel panel-default -->
+      <% end %>   <!-- phase.sections.order(:number).each do -->
+    </div>   <!-- panel-group -->
+  </div> <!-- tab panel -->
+</div> <!-- tab panels -->

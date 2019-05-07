@@ -237,6 +237,14 @@ msgstr "Modèle"
 msgid "All"
 msgstr "Tous"
 
+msgid "Select datasets to download"
+msgstr "Sélectionner les jeux de données à télécharger"
+
+msgid "Datasets"
+msgstr "Jeux de données"
+
+
+
 # STATIC PAGES
 
 msgid "Static pages"
