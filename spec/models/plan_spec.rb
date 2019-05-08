@@ -363,16 +363,6 @@ describe Plan do
 
     end
 
-    context "where user role is reviewer" do
-
-      before do
-        create(:role, :active, :reviewer, user: user, plan: plan)
-      end
-
-      it { is_expected.not_to include(plan) }
-
-    end
-
   end
 
   describe ".load_for_phase" do
@@ -650,17 +640,12 @@ describe Plan do
       create(:role, :creator, plan: plan, user: user)
       # This person gets the email notification
       create(:role, :administrator, plan: plan, user: admin)
-      create_list(:role, 2, :reviewer, plan: plan)
     end
 
     it "changes plan's feedback_requested value to false" do
       expect { subject }.to change {
         plan.reload.feedback_requested
       }.from(true).to(false)
-    end
-
-    it "destroys the reviewer Roles" do
-      expect { subject }.to change { plan.roles.count }.by(-2)
     end
 
     it "doesn't send any emails" do
@@ -692,7 +677,7 @@ describe Plan do
 
   describe "#editable_by?" do
 
-    let!(:plan) { build_plan(true, true, true, true) }
+    let!(:plan) { build_plan(true, true, true) }
 
     subject { plan }
 
@@ -745,7 +730,7 @@ describe Plan do
   describe "#readable_by?" do
 
     let!(:user) { create(:user, org: create(:org)) }
-    let!(:plan) { build_plan(true, true, true, true) }
+    let!(:plan) { build_plan(true, true, true) }
 
     subject { plan }
 
@@ -797,42 +782,77 @@ describe Plan do
         role = subject.roles.commenter.first
         role.deactivate!
         user = role.user
-        expect(subject.commentable_by?(user.id)).to eql(false)
+        expect(subject.readable_by?(user.id)).to eql(false)
       end
 
       it "when user is a creator" do
         # All creators should be able to read
         subject.roles.creator.pluck(:user_id).each do |user_id|
-          expect(subject.commentable_by?(user_id)).to eql(true)
+          expect(subject.readable_by?(user_id)).to eql(true)
         end
       end
 
       it "when user is a administrator" do
         # All administrators should be able to read
         subject.roles.administrator.pluck(:user_id).each do |user_id|
-          expect(subject.commentable_by?(user_id)).to eql(true)
+          expect(subject.readable_by?(user_id)).to eql(true)
         end
       end
 
       it "when user is a editor" do
         # All editors should be able to read
         subject.roles.editor.pluck(:user_id).each do |user_id|
-          expect(subject.commentable_by?(user_id)).to eql(true)
+          expect(subject.readable_by?(user_id)).to eql(true)
         end
       end
 
       it "when user is a commenter" do
         # All commenters should be able to read
         subject.roles.commenter.pluck(:user_id).each do |user_id|
-          expect(subject.commentable_by?(user_id)).to eql(true)
+          expect(subject.readable_by?(user_id)).to eql(true)
         end
       end
 
-      it "when user is a reviewer" do
-        # All reviewers should be able to read
-        subject.roles.reviewer.pluck(:user_id).each do |user_id|
-          expect(subject.commentable_by?(user_id)).to eql(true)
-        end
+      it "when user is a reviewer and feedback requested" do
+        # All reviewers should be able to comment
+        user = create(:user)
+        user.org = plan.owner.org
+        user.save
+        user.perms << create(:perm, :review_org_plans)
+        plan.feedback_requested = true
+        plan.save
+        expect(subject.readable_by?(user.id)).to eql(true)
+      end
+
+      it "when user is a reviewer and feedback not requested" do
+        user = create(:user)
+        user.org = plan.owner.org
+        user.save
+        user.perms << create(:perm, :review_org_plans)
+        plan.feedback_requested = false
+        plan.save
+        expect(subject.readable_by?(user.id)).to eql(false)
+      end
+
+      it "when user is not reviewer, has no roles on the plan and feedback requested" do
+        # All reviewers should be able to comment
+        user = create(:user)
+        user.org = plan.owner.org
+        user.save
+        plan.feedback_requested = true
+        plan.save
+        expect(subject.readable_by?(user.id)).to eql(false)
+      end
+
+      it "when user is a reviewer of a different org and feedback requested" do
+        # All reviewers should be able to comment
+        user = create(:user)
+        user.org = create(:org)
+        user.save
+        user.perms << create(:perm, :review_org_plans)
+        plan.feedback_requested = true
+        plan.save
+        expect(subject.readable_by?(user.id)).to eql(false)
       end
 
     end
@@ -841,7 +861,7 @@ describe Plan do
 
   describe "#commentable_by?" do
 
-    let!(:plan) { build_plan(true, true, true, true) }
+    let!(:plan) { build_plan(true, true, true) }
 
     subject { plan }
 
@@ -880,18 +900,53 @@ describe Plan do
       end
     end
 
-    it "when user is a reviewer" do
+    it "when user is a reviewer and feedback requested" do
       # All reviewers should be able to comment
-      subject.roles.reviewer.pluck(:user_id).each do |user_id|
-        expect(subject.commentable_by?(user_id)).to eql(true)
-      end
+      user = create(:user)
+      user.org = plan.owner.org
+      user.save
+      user.perms << create(:perm, :review_org_plans)
+      plan.feedback_requested = true
+      plan.save
+      expect(subject.commentable_by?(user.id)).to eql(true)
+    end
+
+    it "when user is a reviewer and feedback not requested" do
+      user = create(:user)
+      user.org = plan.owner.org
+      user.save
+      user.perms << create(:perm, :review_org_plans)
+      plan.feedback_requested = false
+      plan.save
+      expect(subject.commentable_by?(user.id)).to eql(false)
+    end
+
+    it "when user is not reviewer, has no roles on the plan and feedback requested" do
+      # All reviewers should be able to comment
+      user = create(:user)
+      user.org = plan.owner.org
+      user.save
+      plan.feedback_requested = true
+      plan.save
+      expect(subject.commentable_by?(user.id)).to eql(false)
+    end
+
+    it "when user is a reviewer of a different org and feedback requested" do
+      # All reviewers should be able to comment
+      user = create(:user)
+      user.org = create(:org)
+      user.save
+      user.perms << create(:perm, :review_org_plans)
+      plan.feedback_requested = true
+      plan.save
+      expect(subject.commentable_by?(user.id)).to eql(false)
     end
 
   end
 
   describe "#administerable_by?" do
 
-    let!(:plan) { build_plan(true, true, true, true) }
+    let!(:plan) { build_plan(true, true, true) }
 
     subject { plan }
 
@@ -932,58 +987,33 @@ describe Plan do
       end
     end
 
-    it "when user is a reviewer" do
-      # Reviewers should only be able to administer if they are also
-      # a creator or administrator
-      subject.roles.reviewer.each do |role|
-        expect(subject.administerable_by?(role.user.id)).to eql(role.administrator?)
-      end
-    end
-
   end
 
   describe "#reviewable_by?" do
 
-    let!(:plan) { build_plan(true, true, true, true) }
+    let!(:plan) { build_plan(true, true, true) }
+    let!(:user) { create(:user) }
+
+    before do
+      plan.feedback_requested = true
+      plan.save
+      create(:perm, :review_org_plans)
+    end
 
     subject { plan }
 
-    it "when role is inactive" do
-      role = subject.roles.reviewer.first
-      role.deactivate!
-      user = role.user
+    it "when user is not a reviewer" do
       expect(subject.reviewable_by?(user.id)).to eql(false)
     end
 
-    it "when user is a creator" do
-      subject.roles.creator.pluck(:user_id).each do |user_id|
-        expect(subject.reviewable_by?(user_id)).to eql(false)
-      end
-    end
-
-    it "when user is a administrator" do
-      subject.roles.administrator.pluck(:user_id).each do |user_id|
-        expect(subject.reviewable_by?(user_id)).to eql(false)
-      end
-    end
-
-    it "when user is a editor" do
-      subject.roles.editor.pluck(:user_id).each do |user_id|
-        expect(subject.reviewable_by?(user_id)).to eql(false)
-      end
-    end
-
-    it "when user is a commenter" do
-      # Commenters should only be able to review if they are also a reviewer
-      subject.roles.commenter.each do |role|
-        expect(subject.reviewable_by?(role.user.id)).to eql(role.reviewer?)
-      end
-    end
-
     it "when user is a reviewer" do
-      subject.roles.reviewer.pluck(:user_id).each do |user_id|
-        expect(subject.reviewable_by?(user_id)).to eql(true)
-      end
+      user.org = plan.owner.org
+      user.save
+      user.perms << Perm.review_plans
+      expect(subject.owner.org).to eql(user.org)
+      expect(user.can_review_plans?).to eql(true)
+      expect(plan.feedback_requested?).to eql(true)
+      expect(subject.reviewable_by?(user.id)).to eql(true)
     end
 
   end
@@ -1033,7 +1063,7 @@ describe Plan do
 
   describe "#owner" do
 
-    let!(:plan) { build_plan(true, true, true, true) }
+    let!(:plan) { build_plan(true, true, true) }
 
     subject { plan }
 
@@ -1121,22 +1151,17 @@ describe Plan do
     end
 
     it "is shared if the plan has an administrator" do
-      plan = build_plan(true, false, false, false)
+      plan = build_plan(true, false, false)
       expect(plan.shared?).to eql(true)
     end
 
     it "is shared if the plan has an editor" do
-      plan = build_plan(false, true, false, false)
+      plan = build_plan(false, true, false)
       expect(plan.shared?).to eql(true)
     end
 
     it "is shared if the plan has an commenter" do
-      plan = build_plan(false, false, true, false)
-      expect(plan.shared?).to eql(true)
-    end
-
-    it "is shared if the plan has an reviewer" do
-      plan = build_plan(false, false, false, true)
+      plan = build_plan(false, false, true)
       expect(plan.shared?).to eql(true)
     end
 
@@ -1144,7 +1169,7 @@ describe Plan do
 
   describe "#owner_and_coowners" do
 
-    let!(:plan) { build_plan(true, true, true, true) }
+    let!(:plan) { build_plan(true, true, true) }
 
     subject { plan }
 
@@ -1188,7 +1213,7 @@ describe Plan do
   end
 
   describe ".authors" do
-    let!(:plan) { build_plan(true, true, true, true) }
+    let!(:plan) { build_plan(true, true, true) }
 
     subject { plan }
 
