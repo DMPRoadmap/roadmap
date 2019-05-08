@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
 
+  get "oauth2/authorize/:provider" => 'oauth2#authorize', as: "authorize_oauth2"
+
+  get "oauth2/callback/:provider" => 'oauth2#callback', as: "callback_oauth2"
+
+  namespace :zenodo do
+
+    resources :plan_uploads, only: [:create]
+
+  end
+
   devise_for( :users, controllers: {
     registrations: "registrations",
     passwords: 'passwords',

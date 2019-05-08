@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181025220743) do
+ActiveRecord::Schema.define(version: 20190507132706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,6 +139,16 @@ ActiveRecord::Schema.define(version: 20181025220743) do
     t.integer  "identifier_scheme_id"
   end
 
+  create_table "org_regions", force: :cascade do |t|
+    t.integer  "org_id"
+    t.integer  "region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "org_regions", ["org_id"], name: "index_org_regions_on_org_id", using: :btree
+  add_index "org_regions", ["region_id"], name: "index_org_regions_on_region_id", using: :btree
+
   create_table "org_token_permissions", force: :cascade do |t|
     t.integer  "org_id"
     t.integer  "token_permission_type_id"
@@ -156,7 +166,6 @@ ActiveRecord::Schema.define(version: 20181025220743) do
     t.datetime "updated_at",                             null: false
     t.boolean  "is_other",               default: false, null: false
     t.string   "sort_name"
-    t.integer  "region_id"
     t.integer  "language_id"
     t.string   "logo_uid"
     t.string   "logo_name"
@@ -208,9 +217,11 @@ ActiveRecord::Schema.define(version: 20181025220743) do
     t.string   "principal_investigator_phone"
     t.boolean  "feedback_requested",                default: false
     t.boolean  "complete",                          default: false
+    t.integer  "zenodo_id"
   end
 
   add_index "plans", ["template_id"], name: "index_plans_on_template_id", using: :btree
+  add_index "plans", ["zenodo_id"], name: "index_plans_on_zenodo_id", using: :btree
 
   create_table "plans_guidance_groups", force: :cascade do |t|
     t.integer "guidance_group_id"
@@ -267,11 +278,18 @@ ActiveRecord::Schema.define(version: 20181025220743) do
 
   add_index "questions_themes", ["question_id"], name: "index_questions_themes_on_question_id", using: :btree
 
+  create_table "region_languages", force: :cascade do |t|
+    t.integer  "region_id"
+    t.integer  "language_id"
+    t.boolean  "default",     default: false, null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
   create_table "regions", force: :cascade do |t|
-    t.string  "abbreviation"
-    t.string  "description"
-    t.string  "name"
-    t.integer "super_region_id"
+    t.string   "name",       limit: 30, null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   create_table "roles", force: :cascade do |t|
@@ -415,6 +433,7 @@ ActiveRecord::Schema.define(version: 20181025220743) do
     t.integer  "language_id"
     t.string   "recovery_email"
     t.boolean  "active",                            default: true
+    t.string   "zenodo_access_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -442,10 +461,11 @@ ActiveRecord::Schema.define(version: 20181025220743) do
   add_foreign_key "notification_acknowledgements", "users"
   add_foreign_key "org_identifiers", "identifier_schemes"
   add_foreign_key "org_identifiers", "orgs"
+  add_foreign_key "org_regions", "orgs"
+  add_foreign_key "org_regions", "regions"
   add_foreign_key "org_token_permissions", "orgs"
   add_foreign_key "org_token_permissions", "token_permission_types"
   add_foreign_key "orgs", "languages"
-  add_foreign_key "orgs", "regions"
   add_foreign_key "phases", "templates"
   add_foreign_key "plans", "templates"
   add_foreign_key "plans_guidance_groups", "guidance_groups"

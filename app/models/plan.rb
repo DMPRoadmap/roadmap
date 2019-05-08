@@ -26,10 +26,12 @@
 #  created_at                        :datetime
 #  updated_at                        :datetime
 #  template_id                       :integer
+#  zenodo_id                         :integer
 #
 # Indexes
 #
 #  index_plans_on_template_id  (template_id)
+#  index_plans_on_zenodo_id    (zenodo_id)
 #
 # Foreign Keys
 #

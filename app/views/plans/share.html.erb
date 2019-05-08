@@ -10,4 +10,20 @@
   <div class="col-md-12">
     <%= render partial: 'share_form', layout: 'navigation', locals: { plan: @plan } %>
   </div>
+
+  <div class="col-xs-12">
+    <h2>Share on Zenodo</h2>
+    <% if current_user.zenodo_access_token? && @plan.zenodo_id? %>
+      Already shared on Zenodo
+    <% elsif current_user.zenodo_access_token? %>
+      <%= link_to("Share on Zenodo",
+          zenodo_plan_uploads_url(plan_id: @plan.id),
+          method: "post", class: "btn btn-primary") %>
+    <% else %>
+      <%= link_to("Connect with Zenodo",
+          authorize_oauth2_path(provider: "zenodo", plan_id: @plan.id),
+          class: "btn btn-primary") %>
+
+    <% end %>
+  </div>
 </div>
