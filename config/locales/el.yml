@@ -40,6 +40,7 @@ el:
       long: ! '%e %B %Y'
       short: ! '%d %b'
       csv: "%d/%m/%Y"
+      readable: "%d %B %Y"
 
     month_names:
     -

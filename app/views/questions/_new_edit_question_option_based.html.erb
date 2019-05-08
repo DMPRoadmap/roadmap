@@ -41,7 +41,9 @@
     <% text = question.question_format.rda_metadata? ? answer.answer_hash['text'] : answer.text %>
     <%= label_tag('answer[text]', _('Additional Information'), class: 'control-label') %>
     <% if readonly %>
-      <%= sanitize("<p>#{text}</p>") %>
+      <div class="display-readonly-textarea-content">
+        <%= sanitize("<p>#{text}</p>") %>
+      </div>
     <% else %>
       <%= text_area_tag('answer[text]', text, id: "answer-text-#{question.id}", class: "form-control tinymce_answer") %>
     <% end %>

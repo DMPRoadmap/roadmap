@@ -117,20 +117,21 @@ module ExportablePlan
   def prepare_coversheet_for_csv(csv, headings, hash)
     csv << [ hash[:attribution].many? ?
              _("Creators: ") :
-             _("Creator:"), _(hash[:attribution].join(", ")) ]
-    csv << [ "Affiliation: ", _(hash[:affiliation]) ]
+             _("Creator:"), _("%{authors}") % { authors: hash[:attribution].join(", ") } ]
+    csv << [ "Affiliation: ", _("%{affiliation}") % { affiliation: hash[:affiliation] } ]
     if hash[:funder].present?
-      csv << [ _("Template: "), _(hash[:funder]) ]
+      csv << [ _("Template: "), _("%{funder}") % { funder: hash[:funder] } ]
     else
-      csv << [ _("Template: "), _(hash[:template] + hash[:customizer]) ]
+      csv << [ _("Template: "), _("%{template}") % { template: hash[:template] + hash[:customizer] } ]
     end
     if self.grant_number.present?
-      csv << [ _("Grant number: "), _(self.grant_number) ]
+      csv << [ _("Grant number: "), _("%{grant_number}") % { grant_number: self.grant_number } ]
     end
     if self.description.present?
-      csv << [ _("Project abstract: "), _(Nokogiri::HTML(self.description).text) ]
+      csv << [ _("Project abstract: "), _("%{description}") %
+               { description: Nokogiri::HTML(self.description).text } ]
     end
-    csv << [ _("Last modified: "), _(self.updated_at.to_date.strftime("%d-%m-%Y")) ]
+    csv << [ _("Last modified: "), _("%{date}") % { date: self.updated_at.to_date.strftime("%d-%m-%Y") } ]
     csv << [ _("Copyright information:"),
              _("The above plan creator(s) have agreed that others may use as
              much of the text of this plan as they would like in their own plans,

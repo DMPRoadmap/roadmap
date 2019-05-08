@@ -1,6 +1,11 @@
 require 'set'
 namespace :upgrade do
 
+  desc "Upgrade to v2.1.3"
+  task v2_1_3: :environment do
+    Rake::Task['upgrade:fill_blank_plan_identifiers'].execute
+  end
+
   desc "Upgrade to v2.1.2:"
   task v2_1_2: :environment do
     Rake::Task["upgrade:add_date_question_format"].execute
@@ -655,6 +660,11 @@ namespace :upgrade do
         formattype: QuestionFormat.formattypes[:date]
       )
     end
+  end
+
+  desc "Fill blank or nil plan identifiers with plan_id"
+  task fill_blank_plan_identifiers: :environment do
+    Plan.where(identifier: ["",nil]).update_all('identifier = id')
   end
 
   private

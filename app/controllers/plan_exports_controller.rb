@@ -8,6 +8,7 @@ class PlanExportsController < ApplicationController
     @plan = Plan.includes(:answers).find(params[:plan_id])
 
     if privately_authorized? && export_params[:form].present?
+      skip_authorization
       @show_coversheet         = export_params[:project_details].present?
       @show_sections_questions = export_params[:question_headings].present?
       @show_unanswered         = export_params[:unanswered_questions].present?
@@ -75,9 +76,9 @@ class PlanExportsController < ApplicationController
     render pdf: file_name,
            margin: @formatting[:margin],
            footer: {
-             center: _("Created using the %{application_name}. Last modified %{date}") % {
+             center: _("Created using %{application_name}. Last modified %{date}") % {
                application_name: Rails.configuration.branding[:application][:name],
-               date: l(@plan.updated_at.to_date, formats: :short)
+               date: l(@plan.updated_at.to_date, format: :readable)
               },
              font_size: 8,
              spacing:   (Integer(@formatting[:margin][:bottom]) / 2) - 4,
@@ -96,7 +97,11 @@ class PlanExportsController < ApplicationController
   end
 
   def privately_authorized?
-    authorize @plan, :export?
+    if current_user.present?
+      PlanPolicy.new(current_user, @plan).export?
+    else
+      false
+    end
   end
 
   def export_params
