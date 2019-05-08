@@ -123,6 +123,10 @@ class PlansController < ApplicationController
 
         @plan.add_user!(current_user.id, :creator)
 
+        # Set new identifier to plan id by default on create.
+        # (This may be changed by user.)
+        @plan.add_identifier!(@plan.id.to_s)
+
         respond_to do |format|
           flash[:notice] = msg
           format.html { redirect_to plan_path(@plan) }

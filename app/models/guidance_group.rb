@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Set of Guidances that pertain to a certain category of Users (e.g. Maths
 # department, vs Biology department)
 #
@@ -23,6 +25,7 @@
 #
 
 class GuidanceGroup < ActiveRecord::Base
+
   include GlobalHelpers
   include ValidationValues
   include ValidationMessages
@@ -62,7 +65,7 @@ class GuidanceGroup < ActiveRecord::Base
 
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
-    where("name LIKE ?", search_pattern)
+    where("lower(name) LIKE lower(?)", search_pattern)
   }
 
   scope :published, -> { where(published: true) }
@@ -125,4 +128,5 @@ class GuidanceGroup < ActiveRecord::Base
     all_viewable_groups = all_viewable_groups.flatten.uniq
     all_viewable_groups
   end
+
 end

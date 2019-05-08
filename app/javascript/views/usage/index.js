@@ -25,6 +25,27 @@ $(() => {
 
     return rangeDates;
   };
+
+  // Register a plugin for displaying a message for no data
+  Chart.plugins.register({
+    afterDraw: (chart) => {
+      if (chart.data.datasets.length === 0) {
+        const { ctx, width, height } = {
+          ctx: chart.chart.ctx,
+          width: chart.chart.width,
+          height: chart.chart.height,
+        };
+        chart.clear();
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = '25px bold';
+        ctx.fillText('No data to display for selected time period', width / 2, height / 2);
+        ctx.restore();
+      }
+    },
+  });
+
   const createChart = ({ selector, data, appendTolabel = '' } = {}) => {
     new Chart($(selector), { // eslint-disable-line no-new
       type: 'bar',
@@ -171,8 +192,11 @@ $(() => {
         aspectRatio,
         scales: {
           xAxes: [{
-            position: 'top',
             ticks: { beginAtZero: true, stepSize: 10 },
+            stacked: true,
+          }],
+          yAxes: [{
+            stacked: true,
           }],
         },
       },
@@ -182,7 +206,6 @@ $(() => {
 
   const buildData = (data) => {
     const labels = data.map(current => yAxisLabel(current.date));
-
     const datasetsMap = data.reduce((acc, statCreatedPlan) => {
       statCreatedPlan.by_template.forEach((template) => {
         if (!acc[template.name]) {
@@ -192,9 +215,28 @@ $(() => {
       });
       return acc;
     }, {});
-
-    const datasets = Object.keys(datasetsMap).map(key => datasetsMap[key]);
-
+    // const datasets = Object.keys(datasetsMap).map(key => datasetsMap[key]);
+    const compare = (a, b) => {
+      const aIndex = labels.indexOf(a.y);
+      const bIndex = labels.indexOf(b.y);
+      if (aIndex > bIndex) return 1;
+      if (aIndex < bIndex) return -1;
+      return 0;
+    };
+    const datasets = Object.keys(datasetsMap).map((key) => {
+      const datasetByKey = datasetsMap[key];
+      const availableMonths = datasetByKey.data.reduce((acc, value) => {
+        // month has y as key
+        acc.push(value.y);
+        return acc;
+      }, []);
+      // Find missing months in data
+      const missingMonths = labels.filter(month => !availableMonths.includes(month));
+      // Add data for missing months with x value set to 0
+      missingMonths.forEach(month => datasetByKey.data.push({ x: 0, y: month }));
+      datasetByKey.data = datasetByKey.data.sort(compare);
+      return datasetByKey;
+    });
     return { labels, datasets };
   };
 
@@ -225,24 +267,32 @@ $(() => {
       switch (diffInMonths) {
       case 0:
       case 1:
+        aspectRatio = 5;
+        break;
       case 2:
       case 3:
-        aspectRatio = 4;
+        aspectRatio = 3.5;
         break;
       case 4:
       case 5:
-        aspectRatio = 3;
+      case 6:
+        aspectRatio = 2.5;
         break;
       case 7:
       case 8:
       case 9:
+      case 10:
         aspectRatio = 2;
         break;
+      case 11:
+      case 12:
+        aspectRatio = 1.5;
+        break;
       default:
-        aspectRatio = 1;
+        aspectRatio = 0.9;
       }
     } catch (e) {
-      aspectRatio = 1;
+      aspectRatio = 0.9;
     }
 
     return aspectRatio;

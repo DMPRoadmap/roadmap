@@ -29,7 +29,7 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <h3><%= _('Run your own filter') %></h3>
+    <h3 class="bold"><%= _('Run your own filter') %></h3>
     <% if current_user.api_token.present? %>
       <form class="usage_index">
         <%= hidden_field_tag('api_token', current_user.api_token) %>
@@ -105,10 +105,17 @@
     <hr />
   </div>
 </div>
+
+<div class="row">
+  <div class="col-md-12">
+    <p class="red">&#42;&nbsp;<%= _('Move the mouse pointer over the bars of a chart to see numbers.') %></p>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-md-6">
     <div class="pull-left">
-      <h4><%= _('No. users joined during last year') %></h4>
+      <h4 class="bold"><%= _('No. users joined during last year') %></h4>
     </div>
     <div class="pull-right">
       <button type="button" class="stat btn btn-default" data-url="<%= users_joined_api_v0_statistics_path(format: :csv) %>">
@@ -121,7 +128,7 @@
   </div>
   <div class="col-md-6">
     <div class="pull-left">
-      <h4><%= _('No. plans during last year') %></h4>
+      <h4 class="bold"><%= _('No. plans during last year') %></h4>
     </div>
     <div class="pull-right">
       <button type="button" class="stat btn btn-default" data-url="<%= created_plans_api_v0_statistics_path(format: :csv) %>">
@@ -132,23 +139,31 @@
     <p class="alert alert-info" style="display: none;"><%= _('There is no data available for plans yet.') %></p>
     <canvas id="yearly_plans"></canvas>
   </div>
+</div>
+<div class="row">
   <div class="col-md-12">
-    <div class="pull-left">
-      <h4><%= _('No. plans by template') %></h4>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
+    <hr>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+      <div class="col-md-6">
+        <div class="pull-left">
+          <h4 class="bold"><%= _('No. plans by template') %></h4>
+        </div>
+      </div>
+      <div class="col-md-6">
         <div class="pull-right"">
           <ul class="list-inline">
             <li>
               <div class="form-group">
-                <%= label_tag('monthly_plans_by_template', _('Time picker')) %>
+                <%= label_tag('monthly_plans_by_template', _('Time period')) %>
                 <select class="form-control" name="monthly_plans_by_template" data-url="<%= stat_created_plans_by_template_index_path %>">
                   <option value="<%= Date.today.last_month.end_of_month %>"><%= _('Last month') %></option>
-                  <option value="<%= Date.today.months_ago(3).end_of_month %>"><%= _('3 months ago') %></option>
-                  <option value="<%= Date.today.months_ago(6).end_of_month %>"><%= _('6 months ago') %></option>
-                  <option value="<%= Date.today.months_ago(9).end_of_month %>"><%= _('9 months ago') %></option>
-                  <option value="<%= Date.today.months_ago(12).end_of_month %>"><%= _('12 months ago') %></option>
+                  <option value="<%= Date.today.months_ago(3).end_of_month %>"><%= _('Last 3 months') %></option>
+                  <option value="<%= Date.today.months_ago(6).end_of_month %>"><%= _('Last 6 months') %></option>
+                  <option value="<%= Date.today.months_ago(9).end_of_month %>"><%= _('Last 9 months') %></option>
+                  <option value="<%= Date.today.months_ago(12).end_of_month %>"><%= _('Last 12 months') %></option>
                 </select>
               </div>
             </li>
@@ -161,10 +176,11 @@
             </li>
           </ul>
         </div>
-        <div class="col-md-12" style="position: relative; width: 100%; height: 100%">
-          <canvas id="monthly_plans_by_template_canvas"></canvas>
-        </div>
       </div>
     </div>
   </div>
-</div>
+  <div class="row">
+      <div class="col-md-12" style="position: relative; width: 100%; height: 100%">
+         <canvas id="monthly_plans_by_template_canvas"></canvas>
+      </div>
+  </div>

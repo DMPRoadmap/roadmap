@@ -6,7 +6,9 @@
 <% q_format = question.question_format %>
 <% if q_format.rda_metadata? %>
   <p>
-    <strong><%= sanitize question.text %></strong>
+    <div class="display-readonly-textarea-content">
+      <strong><%= sanitize question.text %></strong>
+    </div>
   </p>
   <% answer_hash = answer.answer_hash %>
   <div class="rda_metadata"><button class="remove-standard" style="display:none;"></button>
@@ -74,7 +76,7 @@
             <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
           </span>
           <div class="panel-body">
-            <%= sanitize annotation.text %>
+            <div class="display-readonly-textarea-content"><%= sanitize annotation.text %></div>
           </div>
         </div>
       <% end %>
