@@ -8,6 +8,8 @@ RSpec.feature "Templates::UpgradeCustomisations", type: :feature do
 
   let(:user) { create(:user, org: org) }
 
+  let(:question_format) { create(:question_format, :textarea)}
+
   let(:funder_template) do
     create(:template, :default, :publicly_visible, :published,
            org: funder, title: "Funder Template")
@@ -16,13 +18,12 @@ RSpec.feature "Templates::UpgradeCustomisations", type: :feature do
   before do
     create_list(:phase, 1, template: funder_template).each do |phase|
       create_list(:section, 2, phase: phase).each do |section|
-        create_list(:question, 2, section: section)
+        create_list(:question, 2, :textarea, section: section)
       end
     end
     user.perms << create(:perm, :modify_templates)
     user.perms << create(:perm, :add_organisations)
     user.perms << create(:perm, :change_org_affiliation)
-    user.perms << create(:perm, :add_organisations)
   end
 
   scenario "Admin upgrades customizations from funder Template", :js do
@@ -63,16 +64,22 @@ RSpec.feature "Templates::UpgradeCustomisations", type: :feature do
 
     click_link "Add a new section"
     within('#new_section_new_section') do
-      fill_in :new_section_section_title, with: "New section title"
-      tinymce_fill_in :new_section_section_description, with: "New section title"
+      fill_in :new_section_section_title, with: "Cool New section title"
+      tinymce_fill_in :new_section_section_description, with: "New section Description"
       expect { click_button("Save") }.to change { Section.count }.by(3)
     end
 
+
+
     within("#section-#{Section.last.id}") do
-      click_button('Add Question')
+      within(".new-question-button") do
+        click_link('Add Question')
+      end
+      expect(page).to have_css("#new_question_new_question")
       within("#new_question_new_question") do
-        tinymce_fill_in :new_question_question_text, with: "Text for the question"
-        expect { click_button("Save")}
+        expect(find("#new_question_question_text")).to be_present
+        fill_in :new_question_question_text, with: "Text for this specific question"
+        expect { click_button("Save") }.to change { Question.count }.by(1)
       end
     end
 
@@ -81,8 +88,7 @@ RSpec.feature "Templates::UpgradeCustomisations", type: :feature do
     visit organisational_org_admin_templates_path
 
     click_button "Actions"
-    click_link "Publish changes"
-    expect(page).to have_text('Published')
+    expect { click_link "Publish changes" }.to change { Template.last.published? }.from(false).to(true)
 
     # Go back to the original Org...
 
