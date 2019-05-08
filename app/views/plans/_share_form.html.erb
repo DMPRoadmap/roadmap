@@ -1,6 +1,7 @@
 <% administrator = Role.new(administrator: true, editor: true, commenter: true) %>
 <% editor = Role.new(editor: true, commenter: true) %>
 <% commenter = Role.new(commenter: true) %>
+<% administerable = @plan.administerable_by?(current_user) %>
 
 <h2><%= _('Set plan visibility') %></h2>
 <p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default.') % { :percentage => Rails.application.config.default_plan_percentage_answered } %></p>
@@ -35,7 +36,6 @@
 
 <h2><%= _('Manage collaborators')%></h2>
 <p><%= _('Invite specific people to read, edit, or administer your plan. Invitees will receive an email notification that they have access to this plan.') %></p>
-<% administerable = @plan.administerable_by?(current_user) %>
 <% if @plan.roles.any? then %>
   <table class="table table-hover table-bordered" id="collaborator-table">
     <thead>
@@ -83,60 +83,64 @@
   </table>
 <% end %>
 
-<h2><%= _('Invite collaborators') %></h2>
-<% new_role = Role.new %>
-<% new_role.plan = @plan %>
-<%= form_for new_role, url: {controller: :roles, action: :create }, html: {method: :post} do |f| %>
-  <div class="form-group col-xs-8">
-    <%= f.hidden_field :plan_id %>
-    <%= f.fields_for :user do |user| %>
-      <%= user.label :email, _('Email'), class: 'control-label' %>
-      <%= user.email_field :email, for: :user, name: "user", class: "form-control", "aria-required": true %>
-    <% end %>
-  </div>
-
-  <fieldset class="col-xs-12">
-    <legend><%= _('Permissions') %></legend>
-    <div class="form-group">
-      <div class="radio">
-        <%= f.label :access do %>
-          <%= f.radio_button :access, administrator.access, "aria-required": true %>
-          <%= _('Co-owner: can edit project details, change visibility, and add collaborators') %>
-        <% end %>
-      </div>
-      <div class="radio">
-        <%= f.label :access do %>
-          <%= f.radio_button :access, editor.access %>
-          <%= _('Editor: can comment and make changes') %>
-        <% end %>
-      </div>
-      <div class="radio">
-        <%= f.label :access do %>
-          <%= f.radio_button :access, commenter.access %>
-          <%= _('Read only: can view and comment, but not make changes') %>
-        <% end %>
-      </div>
-
-      <%= f.button(_('Submit'), class: "btn btn-primary", type: "submit") %>
+<% if administerable  %>
+  <h2><%= _('Invite collaborators') %></h2>
+  <% new_role = Role.new %>
+  <% new_role.plan = @plan %>
+  <%= form_for new_role, url: {controller: :roles, action: :create }, html: {method: :post} do |f| %>
+    <div class="form-group col-xs-8">
+      <%= f.hidden_field :plan_id %>
+      <%= f.fields_for :user do |user| %>
+        <%= user.label :email, _('Email'), class: 'control-label' %>
+        <%= user.email_field :email, for: :user, name: "user", class: "form-control", "aria-required": true %>
+      <% end %>
     </div>
-    <div class="clearfix"></div>
-  <% end %>
-  </fieldset>
 
-  <div class="col-xs-12">
-    <% if plan.owner_and_coowners.include?(current_user) && current_user.org.present? && current_user.org.feedback_enabled? %>
-      <h2><%= _('Request expert feedback') %></h2>
-      <p><%= _('Click below to give data management staff at your organisation access to read and comment on your plan.') %></p>
-      <div class="well well-sm">
-        <%= sanitize current_user.org.feedback_email_msg.to_s % { user_name: current_user.name(false), plan_name: plan.title } %>
+    <fieldset class="col-xs-12">
+      <legend><%= _('Permissions') %></legend>
+      <div class="form-group">
+        <div class="radio">
+          <%= f.label :access do %>
+            <%= f.radio_button :access, administrator.access, "aria-required": true %>
+            <%= _('Co-owner: can edit project details, change visibility, and add collaborators') %>
+          <% end %>
+        </div>
+        <div class="radio">
+          <%= f.label :access do %>
+            <%= f.radio_button :access, editor.access %>
+            <%= _('Editor: can comment and make changes') %>
+          <% end %>
+        </div>
+        <div class="radio">
+          <%= f.label :access do %>
+            <%= f.radio_button :access, commenter.access %>
+            <%= _('Read only: can view and comment, but not make changes') %>
+          <% end %>
+        </div>
+
+        <%= f.button(_('Submit'), class: "btn btn-primary", type: "submit") %>
       </div>
-      <p><%= _('You can continue to edit and download the plan in the interim.') %></p>
+      <div class="clearfix"></div>
+    </fieldset>
+  <% end %>
+   
 
-  <div class="form-group col-xs-8">
-    <%= link_to _('Request feedback'),
-                feedback_requests_path(plan_id: @plan.id),
-                data: { method: 'post' },
-                class: "btn btn-default#{' disabled' if @plan.feedback_requested?}" %>
-    <span><%= _("Feedback has been requested.") if @plan.feedback_requested? %></span>
+   <div class="col-xs-12">
+     <% if plan.owner_and_coowners.include?(current_user) && current_user.org.present? && current_user.org.feedback_enabled? %>
+       <h2><%= _('Request expert feedback') %></h2>
+       <p><%= _('Click below to give data management staff at your organisation access to read and comment on your plan.') %></p>
+       <div class="well well-sm">
+         <%= sanitize current_user.org.feedback_email_msg.to_s % { user_name: current_user.name(false), plan_name: plan.title } %>
+       </div>
+       <p><%= _('You can continue to edit and download the plan in the interim.') %></p>
+
+       <div class="form-group col-xs-8">
+         <%= link_to _('Request feedback'),
+                     feedback_requests_path(plan_id: @plan.id),
+                     data: { method: 'post' },
+                     class: "btn btn-default#{' disabled' if @plan.feedback_requested?}" %>
+         <span><%= _("Feedback has been requested.") if @plan.feedback_requested? %></span>
+       </div>
+    <% end %>
   </div>
 <% end %>

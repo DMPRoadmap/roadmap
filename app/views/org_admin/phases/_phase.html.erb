@@ -20,7 +20,9 @@
         </div>
       </h3>
       <p class="pull-left">
-        <%= sanitize phase.description %>
+        <div class="display-readonly-textarea-content">
+          <%= sanitize phase.description %>
+        </div>
       </p>
     </div>
   </div>
@@ -38,7 +40,13 @@
           <tbody>
             <% phase.sections.each do |section| %>
               <tr id="<%= dom_id(section) %>" data-number="<%= section.number %>">
-                <td><p><%= section.title %></p></td>
+                <td>
+                  <p>
+                    <div class="display-readonly-textarea-content">
+                      <%= section.title %>
+                    </div>
+                  </p>
+                </td>
                 <td>
                   <% if section.questions.present? %>
                     <ul>
