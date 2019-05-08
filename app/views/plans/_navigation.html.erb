@@ -13,7 +13,7 @@
       </a>
     </li>
   <% end %>
-  <% if plan.administerable_by?(current_user) %>
+  <% if plan.administerable_by?(current_user) || (current_user.can_org_admin? && current_user.org.plans.include?(plan)) %>
     <li role="presentation" class="<%= (active_page?(share_plan_path(plan)) ? 'active' : '') %>">
       <a href="<%= share_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Share') %></a>
     </li>
