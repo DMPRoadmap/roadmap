@@ -182,7 +182,8 @@ perms = [
   {name: 'modify_guidance'},
   {name: 'use_api'},
   {name: 'change_org_details'},
-  {name: 'grant_api_to_orgs'}
+  {name: 'grant_api_to_orgs'},
+  {name: 'review_org_plans'}
 ]
 
 perms.map{ |p| create(:perm, p) }

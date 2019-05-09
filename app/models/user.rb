@@ -295,6 +295,15 @@ class User < ActiveRecord::Base
     perms.include? Perm.grant_api
   end
 
+
+  ##
+  # Can the user review their organisation's plans?
+  #
+  # Returns Boolean
+  def can_review_plans?
+    perms.include? Perm.review_plans
+  end
+
   # Removes the api_token from the user
   #
   # Returns nil
