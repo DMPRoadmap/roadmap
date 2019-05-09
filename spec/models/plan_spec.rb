@@ -838,7 +838,6 @@ describe Plan do
 
       it "when user is not reviewer, has no roles on the plan and feedback requested" do
         # All reviewers should be able to comment
-        user = create(:user)
         user.org = plan.owner.org
         user.save
         plan.feedback_requested = true
@@ -890,9 +889,11 @@ describe Plan do
       end
     end
 
+    let(:user) { create(:user) }
+
     context "when user is a reviewer" do
+
       before do
-        user = create(:user)
         user.org = plan.owner.org
         user.save
         user.perms << create(:perm, :review_org_plans)
@@ -920,11 +921,11 @@ describe Plan do
         plan.save
         expect(subject.commentable_by?(user.id)).to eql(false)
       end
+
     end
 
     it "when user is not reviewer, has no roles on the plan and feedback requested" do
       # All reviewers should be able to comment
-      user = create(:user)
       user.org = plan.owner.org
       user.save
       plan.feedback_requested = true
