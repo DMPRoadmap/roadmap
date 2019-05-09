@@ -12,6 +12,7 @@ class HomeController < ApplicationController
   # User's contact name is not filled in
   # Is this the desired behavior?
   def index
+    @root = true
     if user_signed_in?
       name = current_user.name(false)
       # TODO: Investigate if this is even relevant anymore.

@@ -51,4 +51,7 @@
 /* link button */
 .btn-link {
   color: $color-link-text;
+  &:hover {
+    color: $color-link-hover-text;
+  }
 }
