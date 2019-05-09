@@ -258,7 +258,6 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     if @plan.present?
       authorize @plan
-      # Get the roles where the user is not a reviewer
       @plan_roles = @plan.roles
     else
       redirect_to(plans_path)
