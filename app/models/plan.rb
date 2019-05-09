@@ -277,7 +277,6 @@ class Plan < ActiveRecord::Base
     Plan.transaction do
       begin
         self.feedback_requested = true
-        # Share the plan with each org admin as the reviewer role
         if save!
           # Send an email to the org-admin contact
           if user.org.contact_email.present?

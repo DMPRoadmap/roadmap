@@ -717,14 +717,6 @@ describe Plan do
       end
     end
 
-    it "when user is a reviewer" do
-      # Reviewers should only be able to edit if they are also
-      # a creator, administrator or editor
-      subject.roles.reviewer.each do |role|
-        expect(subject.editable_by?(role.user.id)).to eql(role.editor?)
-      end
-    end
-
   end
 
   describe "#readable_by?" do
@@ -813,25 +805,35 @@ describe Plan do
         end
       end
 
-      it "when user is a reviewer and feedback requested" do
-        # All reviewers should be able to comment
-        user = create(:user)
-        user.org = plan.owner.org
-        user.save
-        user.perms << create(:perm, :review_org_plans)
-        plan.feedback_requested = true
-        plan.save
-        expect(subject.readable_by?(user.id)).to eql(true)
-      end
+      context "When user is a reviewer" do
+        before do
+          user.org = plan.owner.org
+          user.save
+          user.perms << create(:perm, :review_org_plans)
+        end
 
-      it "when user is a reviewer and feedback not requested" do
-        user = create(:user)
-        user.org = plan.owner.org
-        user.save
-        user.perms << create(:perm, :review_org_plans)
-        plan.feedback_requested = false
-        plan.save
-        expect(subject.readable_by?(user.id)).to eql(false)
+        it "when user is a reviewer and feedback requested" do
+          # All reviewers of the same org should be able to comment
+          plan.feedback_requested = true
+          plan.save
+          expect(subject.readable_by?(user.id)).to eql(true)
+        end
+
+        it "when user is a reviewer and feedback not requested" do
+          plan.feedback_requested = false
+          plan.save
+          expect(subject.readable_by?(user.id)).to eql(false)
+        end
+
+        it "when user is a reviewer of a different org and feedback requested" do
+          # reviewers of other orgs should have no access
+          user.org = create(:org)
+          user.save
+          user.perms << create(:perm, :review_org_plans)
+          plan.feedback_requested = true
+          plan.save
+          expect(subject.readable_by?(user.id)).to eql(false)
+        end
       end
 
       it "when user is not reviewer, has no roles on the plan and feedback requested" do
@@ -843,18 +845,6 @@ describe Plan do
         plan.save
         expect(subject.readable_by?(user.id)).to eql(false)
       end
-
-      it "when user is a reviewer of a different org and feedback requested" do
-        # All reviewers should be able to comment
-        user = create(:user)
-        user.org = create(:org)
-        user.save
-        user.perms << create(:perm, :review_org_plans)
-        plan.feedback_requested = true
-        plan.save
-        expect(subject.readable_by?(user.id)).to eql(false)
-      end
-
     end
 
   end
@@ -900,25 +890,36 @@ describe Plan do
       end
     end
 
-    it "when user is a reviewer and feedback requested" do
-      # All reviewers should be able to comment
-      user = create(:user)
-      user.org = plan.owner.org
-      user.save
-      user.perms << create(:perm, :review_org_plans)
-      plan.feedback_requested = true
-      plan.save
-      expect(subject.commentable_by?(user.id)).to eql(true)
-    end
+    context "when user is a reviewer" do
+      before do
+        user = create(:user)
+        user.org = plan.owner.org
+        user.save
+        user.perms << create(:perm, :review_org_plans)
+      end
+      it "of the same org and feedback requested" do
+        # All reviewers of the same org should be able to comment
+        plan.feedback_requested = true
+        plan.save
+        expect(subject.commentable_by?(user.id)).to eql(true)
+      end
 
-    it "when user is a reviewer and feedback not requested" do
-      user = create(:user)
-      user.org = plan.owner.org
-      user.save
-      user.perms << create(:perm, :review_org_plans)
-      plan.feedback_requested = false
-      plan.save
-      expect(subject.commentable_by?(user.id)).to eql(false)
+      it "of the same org and feedback not requested" do
+        plan.feedback_requested = false
+        plan.save
+        expect(subject.commentable_by?(user.id)).to eql(false)
+      end
+
+      it "of a different org and feedback requested" do
+        # All reviewers of other orgs should not be able to comment
+        user.org = create(:org)
+        user.save
+        # re-add permissions as org-admins will have these removed on save
+        user.perms << create(:perm, :review_org_plans)
+        plan.feedback_requested = true
+        plan.save
+        expect(subject.commentable_by?(user.id)).to eql(false)
+      end
     end
 
     it "when user is not reviewer, has no roles on the plan and feedback requested" do
@@ -926,17 +927,6 @@ describe Plan do
       user = create(:user)
       user.org = plan.owner.org
       user.save
-      plan.feedback_requested = true
-      plan.save
-      expect(subject.commentable_by?(user.id)).to eql(false)
-    end
-
-    it "when user is a reviewer of a different org and feedback requested" do
-      # All reviewers should be able to comment
-      user = create(:user)
-      user.org = create(:org)
-      user.save
-      user.perms << create(:perm, :review_org_plans)
       plan.feedback_requested = true
       plan.save
       expect(subject.commentable_by?(user.id)).to eql(false)
@@ -1201,15 +1191,6 @@ describe Plan do
       end
     end
 
-    it "does not include the reviewer" do
-      # Only if the reviewer is not also an administrator or creator
-      subject.roles.reviewer.each do |role|
-        if !role.creator? && !role.administrator?
-          expect(subject.owner_and_coowners).to_not include(role.user)
-        end
-      end
-    end
-
   end
 
   describe ".authors" do
@@ -1235,15 +1216,6 @@ describe Plan do
     it "does not include the commenter" do
       # Only if the commenter is not also an editor, administrator or creator
       subject.roles.commenter.each do |role|
-        if !role.creator? && !role.administrator? && !role.editor?
-          expect(subject.authors).to_not include(role.user)
-        end
-      end
-    end
-
-    it "does not include the reviewer" do
-      # Only if the reviewer is not also an editor, administrator or creator
-      subject.roles.reviewer.each do |role|
         if !role.creator? && !role.administrator? && !role.editor?
           expect(subject.authors).to_not include(role.user)
         end
