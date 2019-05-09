@@ -9,7 +9,6 @@ class ResearchProjectsController < ApplicationController
 
   def search
     @results = research_projects.select { |r| r.description.match(params[:description]) }
-    logger.debug("Returning #{@results.count} results")
     render json: @results
   end
 
