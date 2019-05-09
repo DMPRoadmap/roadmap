@@ -256,4 +256,15 @@ Rails.application.routes.draw do
     resources :users, only: [:edit, :update]
     resources :notifications, except: [:show]
   end
+
+  get "research_projects/search", action: "search",
+                                  controller: "research_projects",
+                                  constraints: { format: "json" }
+
+  get "research_projects/(:type)", action: "index",
+                                   controller: "research_projects",
+                                   constraints: { format: "json" }
+
+
+
 end
