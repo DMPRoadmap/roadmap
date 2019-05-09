@@ -38,7 +38,7 @@
             <% when 'review_org_plans' %>
               <li class="list-group-item" style="border: none" title="<%= _('Allows the user to review plans submitted by organisational users') %>">
                 <%= check_box_tag "perm_ids[]", perm.id, user.perms.include?(perm), class: 'org_grant_privileges' %>
-                <%= _('Manage organisation details') %></li>
+                <%= _('Review plans') %></li>
             <% end %>
           <% end %>
 
