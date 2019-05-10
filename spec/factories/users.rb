@@ -28,6 +28,7 @@
 #  reset_password_token   :string
 #  sign_in_count          :integer          default(0)
 #  surname                :string
+#  zenodo_access_token    :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  invited_by_id          :integer
