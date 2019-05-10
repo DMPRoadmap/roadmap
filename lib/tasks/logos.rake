@@ -1,5 +1,19 @@
 namespace :logos do
 
+  desc "Migrate logos to S3"
+  task s3_migration: :environment do
+    Org.where.not(logo_uid: nil).each do
+      # Find the old logo path
+      path = File.expand_path("../public/system/dragonfly/production/#{org.logo_uid}")
+      if File.exist?(path)
+        # If the old logo file exists resubmit it through the model so that it goes into S3
+        org.update(logo: File.open(path))
+        org.reload
+        p "Migrated logo for #{org.abbreviation} from '#{path}' to '#{org.logo_uid}'"
+      end
+    end
+  end
+
   desc "Resize all of the logos based on the settings in `models/org.rb`"
   task resize_all: :environment do
     Org.all.each do |org|
