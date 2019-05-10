@@ -1,7 +1,7 @@
 # frozen_string_literal
 class Zenodo::PlanUploadsController < Zenodo::BaseController
 
-  include OAuthAble
+  include OAuthable
 
   def create
     @plan = current_user.plans.find(params[:plan_id])

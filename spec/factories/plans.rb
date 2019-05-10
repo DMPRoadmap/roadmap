@@ -3,6 +3,7 @@
 # Table name: plans
 #
 #  id                                :integer          not null, primary key
+#  arpha_url                         :string
 #  complete                          :boolean          default(FALSE)
 #  data_contact                      :string
 #  data_contact_email                :string

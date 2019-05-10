@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190507132706) do
+ActiveRecord::Schema.define(version: 20190510140844) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -209,6 +209,7 @@ ActiveRecord::Schema.define(version: 20190507132706) do
     t.boolean  "feedback_requested",                default: false
     t.boolean  "complete",                          default: false
     t.integer  "zenodo_id"
+    t.string   "arpha_url"
   end
 
   add_index "plans", ["template_id"], name: "index_plans_on_template_id", using: :btree
@@ -418,6 +419,8 @@ ActiveRecord::Schema.define(version: 20190507132706) do
     t.string   "recovery_email"
     t.boolean  "active",                            default: true
     t.string   "zenodo_access_token"
+    t.string   "arpha_api_key"
+    t.string   "arpha_username"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

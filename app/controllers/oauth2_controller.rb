@@ -2,7 +2,7 @@
 
 class Oauth2Controller < ApplicationController
 
-  include OAuthAble
+  include OAuthable
 
 
   SCOPE_FOR_PROVIDER = {

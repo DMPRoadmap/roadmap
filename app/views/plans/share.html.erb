@@ -11,7 +11,7 @@
     <%= render partial: 'share_form', layout: 'navigation', locals: { plan: @plan } %>
   </div>
 
-  <div class="col-xs-12">
+  <div class="col-xs-12 col-sm-6">
     <h2>Share on Zenodo</h2>
     <% if current_user.zenodo_access_token? && @plan.zenodo_id? %>
       Already shared on Zenodo
@@ -25,5 +25,49 @@
           class: "btn btn-primary") %>
 
     <% end %>
+  </div>
+
+  <div class="col-xs-12 col-sm-6">
+    <h2>Share on Arpha</h2>
+    <% if current_user.arpha_api_key? && @plan.arpha_url? %>
+      <%= link_to "View on Arpha", @plan.arpha_url, class: "btn btn-primary" %>
+    <% elsif current_user.arpha_api_key? %>
+      <%= link_to "Share on Arpha", arpha_plan_uploads_path(plan_id: @plan.id),
+                  method: :post, class: "btn btn-primary" %>
+    <% else %>
+      <%= link_to "Connect to Arpha", '#',
+                  class: "btn btn-primary",
+                  data: { toggle: "modal", target: ".arpha_login_modal" } %>
+    <% end %>
+  </div>
+
+</div>
+
+
+<div class="modal fade arpha_login_modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close pull-right" data-dismiss="modal" aria-label="<%= _('Cancel') %>">
+          <span class="fa fa-times" aria-hidden="true">&nbsp;</span>
+        </button>
+        <h2><%= _('Connect to Arpha') %></h2>
+        <p>
+          <%= _("To upload your DMP to Arpha, you'll need to create an account with <a href='https://pensoft.net' target='_blank'>Pensoft</a>. Once your Pensoft account is created, you can fill in your username and password below to connect.").html_safe %>
+        </p>
+        <%= form_tag(arpha_connections_path) do %>
+          <div class="form-group">
+            <%= label_tag(:username, "Pensoft username", class: "form-label") %>
+            <%= email_field_tag(:username, current_user.email, class: "form-control") %>
+          </div>
+          <div class="form-group">
+            <%= label_tag(:password, "Pensoft password", class: "form-label") %>
+            <%= password_field_tag(:password, "", class: "form-control") %>
+            <em class="text-muted"><%= _("We don't store this at all") %></em>
+          </div>
+          <%= submit_tag "Connect", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

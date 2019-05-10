@@ -7,6 +7,8 @@
 #  accept_terms           :boolean
 #  active                 :boolean          default(TRUE)
 #  api_token              :string
+#  arpha_api_key          :string
+#  arpha_username         :string
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
 #  confirmed_at           :datetime

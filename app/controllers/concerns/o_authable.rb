@@ -1,7 +1,7 @@
 # frozen_string_literal
 
 # Provides additional attributes for controllers that support OAuth functionality
-module OAuthAble
+module OAuthable
 
   # List of trusted OAuth providers
   OAUTH_PROVIDERS = %w[zenodo]

@@ -10,6 +10,14 @@ Rails.application.routes.draw do
 
   end
 
+  namespace :arpha do
+
+    resources :connections, only: [:create]
+
+    resources :plan_uploads, only: [:create]
+
+  end
+
   devise_for( :users, controllers: {
     registrations: "registrations",
     passwords: 'passwords',
