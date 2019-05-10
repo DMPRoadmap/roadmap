@@ -24,8 +24,4 @@ class Zenodo::PlanUploadsController < Zenodo::BaseController
     @client ||= client_for_oauth2_provider("zenodo")
   end
 
-  def token
-    @token ||= OAuth2::AccessToken.new(client, current_user.zenodo_access_token)
-  end
-
 end
