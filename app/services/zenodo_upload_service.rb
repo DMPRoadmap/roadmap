@@ -16,6 +16,8 @@ class ZenodoUploadService
 
   attr_reader :plan
 
+  delegate :logger, to: :Rails
+
   def initialize(plan:, user:)
     @plan = plan
     @user = user
@@ -28,7 +30,9 @@ class ZenodoUploadService
     # Grab the API's JSON response
     @deposition_id = Oj.load(response.body)['id']
     @plan.update!(zenodo_id: @deposition_id)
+    create_deposition_on_api!
     create_file_on_api!
+    publish_deposition_on_api!
     # Return true
     true
   end
@@ -60,9 +64,7 @@ class ZenodoUploadService
   end
 
   def create_deposition_on_api!
-    RestClient.post("#{Zenodo::BASE}/api/deposit/depositions"\
-                               "?access_token=#{access_token}", {
-      title: plan.title,
+    api_post("depositions", {
       metadata: {
         upload_type: "other",
         publication_type: "other",
@@ -70,6 +72,7 @@ class ZenodoUploadService
         title: plan.title,
         description: plan.description.presence || plan.title,
         grants: [ {id: plan.grant_number }],
+        creators: [{ name: plan.owner.name(false) }]
       },
     }.to_json, JSON_HEADERS)
   end
@@ -79,22 +82,30 @@ class ZenodoUploadService
       # Create a file on the local disk for the PDF...
       pdf_renderer.create_tmp_file
       # Post this file our newly created Deposition...
-      url = "#{BASE}/api/deposit/depositions/#@deposition_id/files"\
-              "?access_token=#{user.zenodo_access_token}"
-      response = RestClient.post(url, { file: pdf_renderer.tmp_file }, {
-        params: {
-          filename: pdf_renderer.file_name,
-          'Content-Type' => 'multipart/form-data'
-        }
+      path = "depositions/#@deposition_id/files"
+      api_post(path, { file: pdf_renderer.tmp_file }, {
+        params: { filename: pdf_renderer.file_name }.merge(MULTIPART_HEADERS)
       })
-      # Nomatter what, destroy the new file
     ensure
+      # Nomatter what, destroy the new file
       pdf_renderer.destroy_tmp_file!
     end
   end
 
+  def publish_deposition_on_api!
+    api_post("depositions/#@deposition_id/actions/publish", { }, JSON_HEADERS)
+  end
+
   def access_token
     user.zenodo_access_token
+  end
+
+  def api_post(path, params = {}, headers = {})
+    url = File.join(Zenodo::BASE, "api/deposit", path) + "?access_token=#{access_token}"
+    logger.debug("POST #{url}")
+    logger.debug("Params: #{params}")
+    logger.debug("Headers: #{headers}")
+    RestClient.post(url.to_s, params, headers)
   end
 
 end

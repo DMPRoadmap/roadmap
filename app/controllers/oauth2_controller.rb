@@ -6,7 +6,7 @@ class Oauth2Controller < ApplicationController
 
 
   SCOPE_FOR_PROVIDER = {
-    'zenodo' => "deposit:write"
+    'zenodo' => "deposit:write deposit:actions"
   }
 
   # Base URL for this app. Will not use SSL if host is localhost
