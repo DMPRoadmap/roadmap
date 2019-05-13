@@ -2,6 +2,7 @@ class Arpha::PlanUploadsController < Arpha::BaseController
 
   def create
     @plan = current_user.plans.find(params[:plan_id])
+    authorize @plan, :update?
     if @plan.arpha_url?
       redirect_to share_plan_url(@plan),
                   notice: "Plan already uploaded to Arpha (link: #{@plan.arpha_url})"

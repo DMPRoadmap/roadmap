@@ -5,6 +5,7 @@ class Zenodo::PlanUploadsController < Zenodo::BaseController
 
   def create
     @plan = current_user.plans.find(params[:plan_id])
+    authorize @plan, :update?
     if @plan.zenodo_id?
       redirect_to share_plan_url(@plan),
                   notice: "Plan already uploaded to Zenodo (id: #{@plan.zenodo_id})"
