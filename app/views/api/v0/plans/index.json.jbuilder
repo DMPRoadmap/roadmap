@@ -58,4 +58,4 @@ json.array! @plans.each do |plan|
     end
   end
 
-endrai
+end
