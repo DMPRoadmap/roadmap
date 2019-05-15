@@ -142,7 +142,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     namespace :v0 do
       resources :guidances, only: [:index], controller: 'guidance_groups', path: 'guidances'
-      resources :plans, only: :create
+      resources :plans, only: [:create, :index]
       resources :templates, only: :index
       resource  :statistics, only: [], controller: "statistics", path: "statistics" do
         member do
