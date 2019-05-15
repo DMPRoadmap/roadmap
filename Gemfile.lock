@@ -281,6 +281,7 @@ GEM
       omniauth (>= 1.0.0)
     options (2.3.2)
     orm_adapter (0.5.0)
+    pager_api (0.3.1)
     parallel (1.17.0)
     parser (2.6.2.1)
       ast (~> 2.4.0)
@@ -521,6 +522,7 @@ DEPENDENCIES
   omniauth
   omniauth-orcid
   omniauth-shibboleth
+  pager_api
   pg (~> 0.19.0)
   progress_bar
   puma
