@@ -164,6 +164,8 @@ gem 'gettext', require: false, group: :development
 # A pagination engine plugin for Rails 4+ and other modern frameworks (https://github.com/kaminari/kaminari)
 gem 'kaminari'
 
+gem 'pager_api'
+
 # Following best practices from http://12factor.net run a maintainable, clean, and scalable app on Rails (https://github.com/heroku/rails_12factor)
 gem "rails_12factor", group: [:production]
 

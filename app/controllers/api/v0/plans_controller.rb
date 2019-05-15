@@ -54,4 +54,14 @@ class Api::V0::PlansController < Api::V0::BaseController
     end
   end
 
+  def index
+    unless Api::V0::PlansPolicy.new(@user, nil).index?
+      raise Pundit::NotAuthorizedError
+    end
+    @plans = @user.org.plans.includes( [ {answers: :question_options} ,
+      template: [ { phases: { sections: { questions: :question_format } } }, :org]
+    ])
+    paginate @plans, per_page: 20
+  end
+
 end
