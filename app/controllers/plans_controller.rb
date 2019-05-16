@@ -2,10 +2,10 @@
 
 class PlansController < ApplicationController
 
-  include Dmpopidor::Controllers::Plans
   include ConditionalUserMailer
   helper PaginableHelper
   helper SettingsTemplateHelper
+  include Dmpopidor::Controllers::Plans
 
   after_action :verify_authorized, except: [:overview]
 
