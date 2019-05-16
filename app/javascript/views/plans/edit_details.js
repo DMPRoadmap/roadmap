@@ -4,7 +4,8 @@ import 'bootstrap-3-typeahead';
 
 $(() => {
   const grantIdField = $('.grant-id-typeahead');
-  const grantIdHidden = $('input#plan_grant_number');
+  const grantIdNumber = $('input#plan_grant_number');
+  const clearGrantNumberButton = $('button.clearable-field-clear');
 
   Tinymce.init();
   $('#is_test').click((e) => {
@@ -19,10 +20,17 @@ $(() => {
     }
   };
 
+  clearGrantNumberButton.click((e) => {
+    e.preventDefault();
+    grantIdField.val("");
+  });
+
   $('#show_data_contact').click((e) => {
     showHideDataContact($(e.currentTarget));
   });
   showHideDataContact($('#show_data_contact'));
+
+  grantIdNumber.change((e) => { grantIdField.val(''); });
 
   // Toggle the disabled flags
   const toggleCheckboxes = (selections) => {
@@ -60,7 +68,7 @@ $(() => {
   const grantNumberInfo = grantId => `Grant number: ${grantId}`;
 
   const setInitialGrantProjectName = () => {
-    const grantId = grantIdHidden.val();
+    const grantId = grantIdNumber.val();
     const researchProjects = window.researchProjects;
     const researchProject = researchProjects.find(datum => datum.grant_id === grantId);
     if (researchProject) {
@@ -85,12 +93,10 @@ $(() => {
           });
           if (currentResearchProject) {
             const grantId = currentResearchProject.grant_id;
-            $('#grant_number_info').html(grantNumberInfo(grantId));
-            grantIdHidden.val(grantId);
+            grantIdNumber.val(grantId);
           }
         } else {
-          $('#grant_number_info').html(grantNumberInfo(''));
-          grantIdHidden.val('');
+          grantIdNumber.val('');
         }
       });
     }
