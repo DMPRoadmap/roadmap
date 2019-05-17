@@ -519,6 +519,7 @@ DEPENDENCIES
   mini_racer
   mocha
   mysql2 (~> 0.4.10)
+  nokogiri (>= 1.10.3)
   omniauth
   omniauth-orcid
   omniauth-rails_csrf_protection
