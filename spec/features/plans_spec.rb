@@ -51,7 +51,7 @@ RSpec.describe "Plans", type: :feature do
     expect(page).to have_css("input[type=text][value='#{@plan.title}']")
 
     within "#edit_plan_#{@plan.id}" do
-      fill_in "Grant number", with: "Innodia"
+      fill_in :plan_grant_number_name, with: "Innodia"
       fill_in "Project abstract", with: "Plan abstract..."
       fill_in "ID", with: "ABCDEF"
       fill_in "ORCID iD", with: "My ORCID"
