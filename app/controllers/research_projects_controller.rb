@@ -1,7 +1,6 @@
+# frozen_string_literal
+
 class ResearchProjectsController < ApplicationController
-
-
-  DEFAULT_FUNDER_TYPE = "H2020"
 
   def index
     render json: research_projects
@@ -16,14 +15,14 @@ class ResearchProjectsController < ApplicationController
 
   def research_projects
     @research_projects ||= begin
-      Rails.cache.fetch(["research_projects", funder_type], expires_in: 1.day) do
-        Thread.new { OpenAireRequest.new(funder_type).get!.results }.value
+      Rails.cache.fetch(["research_projects", funder_name], expires_in: 1.day) do
+        Thread.new { OpenAireRequest.new(funder_name).get!.results }.value
       end
     end
   end
 
-  def funder_type
-    params.fetch(:type, DEFAULT_FUNDER_TYPE)
+  def funder_name
+    params[:funder_name] || "unsupported-funder"
   end
 
 end

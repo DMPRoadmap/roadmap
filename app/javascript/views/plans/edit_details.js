@@ -76,9 +76,16 @@ $(() => {
 
   const setUpTypeahead = () => {
     if ($('.edit_plan').length) {
-      $.get('/research_projects.json', (data) => {
+      const funderName = $('[data-funder-name]').data('funder-name');
+      $.get(`/research_projects.json?funder_name=${funderName}`, (data) => {
         window.researchProjects = data;
-        const descriptionData = $.map(data, datum => datum.description);
+        let descriptionData;
+        if (window.researchProjects.length === 0) {
+          grantIdField.parent().hide();
+        } else {
+          descriptionData = $.map(data, datum => datum.description);
+        }
+
         grantIdField.typeahead({ source: descriptionData });
       }).then(() => { setInitialGrantProjectName(); });
       grantIdField.on('change', () => {
