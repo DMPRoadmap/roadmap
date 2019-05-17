@@ -33,7 +33,7 @@
       <div class="form-group">
         <div class="col-md-8">
           <%= f.label(:grant_number, _('Grant number'), class: 'control-label') %>
-          <div class="clearable-field">
+          <div class="clearable-field" style="display:none;">
             <%= text_field_tag(:plan_grant_number_name, '',
                 placeholder: "Start typing a project name or abbreviation to pre-fill grant number",
                 class: "grant-id-typeahead form-control clearable-field-input",

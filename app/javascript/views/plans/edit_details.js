@@ -80,9 +80,8 @@ $(() => {
       $.get(`/research_projects.json?funder_name=${funderName}`, (data) => {
         window.researchProjects = data;
         let descriptionData;
-        if (window.researchProjects.length === 0) {
-          grantIdField.parent().hide();
-        } else {
+        if (window.researchProjects.length > 0) {
+          grantIdField.parent().show();
           descriptionData = $.map(data, datum => datum.description);
         }
 
