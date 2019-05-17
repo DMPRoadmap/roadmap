@@ -22,7 +22,7 @@ $(() => {
 
   clearGrantNumberButton.click((e) => {
     e.preventDefault();
-    grantIdField.val("");
+    grantIdField.val('');
   });
 
   $('#show_data_contact').click((e) => {
@@ -30,7 +30,7 @@ $(() => {
   });
   showHideDataContact($('#show_data_contact'));
 
-  grantIdNumber.change((e) => { grantIdField.val(''); });
+  grantIdNumber.change(() => { grantIdField.val(''); });
 
   // Toggle the disabled flags
   const toggleCheckboxes = (selections) => {
@@ -64,8 +64,6 @@ $(() => {
     });
     toggleCheckboxes(selections);
   };
-
-  const grantNumberInfo = grantId => `Grant number: ${grantId}`;
 
   const setInitialGrantProjectName = () => {
     const grantId = grantIdNumber.val();
