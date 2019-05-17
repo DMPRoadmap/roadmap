@@ -199,6 +199,7 @@ $(() => {
     const target = $(e.currentTarget);
     const targetState = target.prop('checked');
     const parentTab = target.parents('.main_dataset');
+    const sectionContent = target.parents('.section-content');
 
     // Set answers 'is_common' hidden checkbox to the same state
     // as the master checkbox
@@ -216,11 +217,11 @@ $(() => {
 
     // Enable or disable datasets tabs depending on 'is_common' state
     if (targetState) {
-      $('.datasets_tabs').each((i, el) => {
+      sectionContent.find('.datasets_tabs').each((i, el) => {
         $(el).addClass('disabled');
       });
     } else {
-      $('.datasets_tabs').each((i, el) => {
+      sectionContent.find('.datasets_tabs').each((i, el) => {
         $(el).removeClass('disabled');
       });
     }
