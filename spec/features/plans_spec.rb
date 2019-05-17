@@ -7,8 +7,9 @@ RSpec.describe "Plans", type: :feature do
     @org          = create(:org)
     @research_org = create(:org, :organisation, :research_institute,
                            templates: 1)
-    @funding_org  = create(:org, :funder, templates: 1)
-    @template     = create(:template, org: @org)
+    @funding_org  = create(:org, :funder)
+    @template     = create(:template, :published, org: @funding_org,
+                           title: "Horizon 2020 template")
     @user         = create(:user, org: @org)
     sign_in(@user)
 

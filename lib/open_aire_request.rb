@@ -34,7 +34,7 @@ class OpenAireRequest
 
   def results_from_api
     logger.info("Fetching fresh data from #{API_URL % funder_type}")
-    data = open(API_URL % funder_type).read
+    data = open(API_URL % funder_type)
     logger.info("Fetched fresh data from #{API_URL % funder_type}")
     Nokogiri::XML(data).xpath("//pair/displayed-value").map do |node|
       parts = node.content.split("-")
