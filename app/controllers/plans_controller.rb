@@ -457,7 +457,7 @@ class PlansController < ApplicationController
     readonly = !plan.editable_by?(current_user.id)
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
     # we create a hash whose keys are question id and value is the answer associated
-    answers = plan.answers.reduce({}) { |m, a| m[a.question_id] = a; m }
+    answers = plan.answers.reduce({}) { |m, a| m["#{a.question_id}_#{a.dataset_id}"] = a; m }
     render("/phases/edit", locals: {
       base_template_org: phase.template.base_org,
       plan: plan,

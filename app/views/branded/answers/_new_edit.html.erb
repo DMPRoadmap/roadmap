@@ -1,6 +1,6 @@
-<%# locals: { template, question, answer, readonly, locking } %>
+<%# locals: { template, question, answer, dataset, readonly, locking } %>
 <!--
-  This partial creates a form for each type of question. The local variables are: plan, answer, question, readonly
+  This partial creates a form for each type of question. The local variables are: plan, answer, question, dataset, readonly
 -->
 <!-- Question text -->
 <% q_format = question.question_format %>
@@ -10,19 +10,19 @@
   </p>
   <% answer_hash = answer.answer_hash %>
   <div class="rda_metadata"><button class="remove-standard" style="display:none;"></button>
-    <div class="selected_standards"><strong><%=_("Your Selected Standards:")%></strong></br><ul class="list bullet"></ul></div>
+    <div class="selected_standards"><strong><%=_("Your Selected Standards:")%></strong><br/><ul class="list bullet"></ul></div>
     <div class="rda_right" style="float:right;width:50%;margin-bottom:5px;display:none;">
-      OR Search:</br>
-      <input type="text" data-provide="typeahead" class="standards-typeahead"></input></br>
+      OR Search:<br/>
+      <input type="text" data-provide="typeahead" class="standards-typeahead"/><br/>
       <button class="btn btn-primary select_standard_typeahead"><%=_("Add Standard")%></button>
     </div>
-    <div class="subject"><%=_("Please select a subject")%></br>
+    <div class="subject"><%=_("Please select a subject")%><br/>
       <select name="subject" class="form-control"></select>
     </div>
-    <div class="sub-subject"><%=_("Please select a sub-subject")%></br>
+    <div class="sub-subject"><%=_("Please select a sub-subject")%><br/>
       <select name="sub-subject" class="form-control"></select>
     </div>
-    </br>
+    <br/>
     <div class="suggested-answer-div">
       <span class="suggested-answer-intro">
           <strong><%=_("Browse Standards") %></strong>
@@ -36,7 +36,7 @@
       <div>
         <a href="#" class="custom-standard"><strong>Standard not listed?  Add your own.</strong></a>
         <div class="add-custom-standard" style="display:none;">
-          <input type="text" class="custom-standard-name"></input>
+          <input type="text" class="custom-standard-name"/>
           <button class="btn btn-primary submit_custom_standard">Add Standard</button>
         </div>
       </div>
@@ -50,7 +50,7 @@
     <%= f.hidden_field :question_id %>
     <%= f.hidden_field :lock_version %>
     <% if Dataset.table_exists? %>
-      <%= f.hidden_field :dataset_id %>
+      <%= f.hidden_field :dataset_id, :value => dataset.id%>
       <%= f.check_box :is_common, style: 'display: none', class: 'ans_is_common' if answer.dataset.main? %>
       <%= f.hidden_field :id, class: 'answer_id' %>
     <% end %>
@@ -58,17 +58,17 @@
       <%= hidden_field_tag :standards, answer_hash['standards'].to_json %>
     <% end %>
   <% end %>
-  <fieldset <%= 'disabled' if readonly %>>
+  <fieldset <%= 'disabled' if readonly %> >
     <% if question.option_based? || question.question_format.rda_metadata? %>
-        <%= render(partial: 'questions/new_edit_question_option_based', locals: { f: f, question: question, answer: answer }) %>
+        <%= render(partial: 'questions/new_edit_question_option_based', locals: { f: f, question: question, answer: answer, dataset: dataset }) %>
     <% elsif question.question_format.textfield?%>
-        <%= render(partial: 'questions/new_edit_question_textfield', locals: { f: f, question: question, answer: answer }) %>
+        <%= render(partial: 'questions/new_edit_question_textfield', locals: { f: f, question: question, answer: answer, dataset: dataset }) %>
     <% elsif question.question_format.date? %>
-        <%= render(partial: 'questions/new_edit_question_datefield', locals: { f: f, question: question, answer: answer }) %>
+        <%= render(partial: 'questions/new_edit_question_datefield', locals: { f: f, question: question, answer: answer, dataset: dataset }) %>
     <% elsif question.question_format.number? %>
-        <%= render(partial: 'questions/new_edit_question_numberfield', locals: { f: f, question: question, answer: answer }) %>
+        <%= render(partial: 'questions/new_edit_question_numberfield', locals: { f: f, question: question, answer: answer, dataset: dataset }) %>
     <% elsif question.question_format.textarea? %>
-        <%= render(partial: 'questions/new_edit_question_textarea', locals: { f: f, question: question, answer: answer, locking: locking, readonly: readonly}) %>
+        <%= render(partial: 'questions/new_edit_question_textarea', locals: { f: f, question: question, answer: answer, dataset: dataset, locking: locking, readonly: readonly}) %>
     <% end %>
     <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
   </fieldset>

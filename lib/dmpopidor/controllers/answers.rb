@@ -106,6 +106,7 @@ module Dmpopidor
                   template: template,
                   question: @question,
                   answer: @answer,
+                  dataset: @dataset,
                   readonly: false,
                   locking: false,
                   base_template_org: template.base_org

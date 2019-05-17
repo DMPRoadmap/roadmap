@@ -65,7 +65,7 @@
                 <!-- the section body -->
                 <% section.questions.each_with_index do |question, i| %>
                 <% # Load the answer or create a new one
-                  answer = answers[question.id] if plan.present?
+                  answer = answers["#{question.id}_#{dataset.id}"] if plan.present?
                   if answer.blank?
                     answer = Answer.new({ plan: plan, question: question, dataset: dataset })
                   end
@@ -74,18 +74,19 @@
                   <div class="col-md-8">
                     <!-- Answer Section -->
                     <div class="question-form">
-                      <div id="<%= "answer-locking-#{question.id}" %>" 
+                      <div id="<%= "answer-locking-#{question.id}-dataset-#{dataset.id}" %>" 
                            class="answer-locking"></div>
-                      <div id="<%= "answer-form-#{question.id}" %>" class="answer-form"> 
+                      <div id="<%= "answer-form-#{question.id}-dataset-#{dataset.id}" %>" class="answer-form"> 
                         <%= render(partial: '/answers/new_edit',
                                    locals: { template: phase.template,
                                              question: question,
                                              answer: answer,
+                                             dataset: dataset,
                                              readonly: readonly,
                                              locking: false,
                                              base_template_org: base_template_org }) %>
                       </div>
-                      <div id="<%= "answer-status-#{question.id}-#{dataset.id}" %>" class="mt-10">
+                      <div id="<%= "answer-status-#{question.id}-dataset-#{dataset.id}" %>" class="mt-10">
                         <%= render(partial: '/answers/status',
                                    locals: { answer: answer }) %>
                       </div>

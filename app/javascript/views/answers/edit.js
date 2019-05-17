@@ -37,22 +37,22 @@ $(() => {
       if (isObject(data.question)) { // Object related to question within data received
         if (isNumber(data.question.id)) {
           if (isString(data.question.answer_status)) {
-            $(`#answer-status-${data.question.id}-${data.dataset.id}`).html(data.question.answer_status);
+            $(`#answer-status-${data.question.id}-dataset-${data.dataset.id}`).html(data.question.answer_status);
             TimeagoFactory.render($('time.timeago'));
           }
           if (isString(data.question.locking)) { // When an answer is stale...
             // Removes event handlers for the saved form
             detachEventHandlers(form); // eslint-disable-line no-use-before-define
             // Reflesh form view with the new partial form received
-            $(`#answer-form-${data.question.id}`).html(data.question.form);
+            $(`#answer-form-${data.question.id}-dataset-${data.dataset.id}`).html(data.question.form);
             // Retrieves the newly form added to the DOM
-            const newForm = $(`#answer-form-${data.question.id}`).find('form');
+            const newForm = $(`#answer-form-${data.question.id}-dataset-${data.dataset.id}`).find('form');
             // Attaches event handlers for the new form
             attachEventHandlers(newForm); // eslint-disable-line no-use-before-define
             // Refresh optimistic locking view with the form that caused the locking
-            $(`#answer-locking-${data.question.id}`).html(data.question.locking);
+            $(`#answer-locking-${data.question.id}-dataset-${data.dataset.id}`).html(data.question.locking);
           } else { // When answer is NOT stale...
-            $(`#answer-locking-${data.question.id}`).html('');
+            $(`#answer-locking-${data.question.id}-dataset-${data.dataset.id}`).html('');
             if (isNumber(data.question.answer_lock_version)) {
               form.find('#answer_lock_version').val(data.question.answer_lock_version);
             }
