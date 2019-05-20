@@ -1,0 +1,82 @@
+<%# locals: { plan, template, question, answer, dataset, guidance_presenter } %>
+<% guidances_active = guidance_presenter.any?(question: question) %>
+<% active_nav = nil %>
+<div id="plan-guidance-tab">
+  <!-- Nav tabs -->
+  <ul class="nav nav-pills nav-justified mb-10" role="tablist">
+      <% if guidances_active %>
+          <li role="presentation" class="active">
+              <a href="#guidances-<%= question.id %>-dataset-<%= dataset.id %>" 
+                 aria-controls="guidances-<%= question.id %>-dataset-<%= dataset.id %>" role="tab" data-toggle="pill">
+                  <%= _('Guidance') %>
+              </a>
+          </li>
+      <% end %>
+      <% if plan.present? %>
+          <li role="presentation" class="<%= 'active' if !guidances_active %>">
+              <a href="#notes-<%= question.id %>-dataset-<%= dataset.id %>" 
+                 aria-controls="notes-<%= question.id %>-dataset-<%= dataset.id %>" role="tab" data-toggle="pill">
+                  <span id="notes-title-<%= question.id %>-dataset-<%= dataset.id %>">
+                      <%= render partial: '/notes/title', locals: { answer: answer } %>
+                  </span>
+              </a>
+          </li>
+      <% end %>
+  </ul>
+  <div class="tab-content">
+    <% if guidances_active %>
+      <% tablist = guidance_presenter.tablist(question) %>
+      <div id="guidances-<%= question.id %>-dataset-<%= dataset.id %>" role="tabpanel" class="tab-pane active">
+        <ul class="nav nav-tabs" role="tablist">
+          <% tablist.each_with_index do |tab, i| %>
+            <% active_nav ||= tab[:name] %>
+            <li role="presentation" <%= active_nav == tab[:name] ? "class=active" : "" %>>
+              <a
+                data-target="<%= "#guidance_per_question_#{question.id}_dataset_#{dataset.id}_#{i}" %>"
+                aria-controls="<%= "#guidance_per_question_#{question.id}_dataset_#{dataset.id}_#{i}" %>"
+                role="tab"
+                data-toggle="tab"
+                class="view-plan-guidance">
+                <%= tab[:name] %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+        <div class="tab-content">
+          <% tablist.each_with_index do |tab, i| %>
+            <div id="<%= "guidance_per_question_#{question.id}_dataset_#{dataset.id}_#{i}" %>" role="tabpanel" class="tab-pane <%= active_nav == tab[:name] ? 'active' : '' %>">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <% if tab[:annotations].present? %>
+                      <% tab[:annotations].each do |annotation| %>
+                        <%=
+                          render partial: 'org_admin/annotations/show', locals: {
+                            template: template,
+                            example_answer: nil,
+                            guidance: annotation,
+                            for_plan: true }
+                        %>
+                      <% end %>
+                      <% if tab[:groups].present? %>
+                        <hr />
+                      <% end %>
+                    <% end %>
+                    <% if tab[:groups].present? %>
+                      <%= render partial: 'guidance_groups/index_by_theme',
+                          locals: { question: question, guidance_groups_by_theme: tab[:groups] } %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if plan.present? %>
+      <div id="notes-<%= question.id %>-dataset-<%= dataset.id %>" role="tabpanel" class="tab-pane <%= 'active' if !guidances_active %> notes">
+        <%= render partial: '/notes/layout', locals: { plan: plan, question: question, answer: answer, dataset: dataset } %>
+      </div>
+    <% end %>
+  </div>
+</div>

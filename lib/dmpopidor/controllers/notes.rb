@@ -1,7 +1,9 @@
 module Dmpopidor
   module Controllers
     module Notes
+      # CHANGES
       # Delivered mail contains the name of the collaborator leaving the note
+      # Added DATASET SUPPORT
       def create
         @note = Note.new
         @note.user_id = note_params[:user_id]
@@ -12,12 +14,14 @@ module Dmpopidor
         Answer.transaction do
           @answer = Answer.find_by(
             plan_id: note_params[:plan_id],
-            question_id: note_params[:question_id]
+            question_id: note_params[:question_id], 
+            dataset_id: note_params[:dataset_id] 
           )
           if @answer.blank?
             @answer             = Answer.new
             @answer.plan_id     = note_params[:plan_id]
             @answer.question_id = note_params[:question_id]
+            @answer.dataset_id = note_params[:dataset_id]
             @answer.user_id     = @note.user_id
             @answer.save!
           end
@@ -29,6 +33,7 @@ module Dmpopidor
         authorize @note
         
         @plan = @answer.plan
+        @dataset = @answer.dataset
         
         @question = Question.find(note_params[:question_id])
         
@@ -49,7 +54,8 @@ module Dmpopidor
                 "html" => render_to_string(partial: "layout", locals: {
                   plan: @plan,
                   question: @question,
-                  answer: @answer
+                  answer: @answer,
+                  dataset: @dataset
                 }, formats: [:html])
               },
               "title" => {
@@ -57,11 +63,103 @@ module Dmpopidor
                 "html" => render_to_string(partial: "title", locals: {
                   answer: @answer
                 }, formats: [:html])
+              },
+              "dataset" => {
+                "id" => note_params[:dataset_id]
               }
             }.to_json, status: :created)
         else
           @status = false
           @notice = failure_message(@note, _("create"))
+          render json: {
+            "msg" => @notice
+          }.to_json, status: :bad_request
+        end
+      end
+
+      # CHANGES
+      # Dataset support
+      def update
+        @note = Note.find(params[:id])
+        authorize @note
+        @note.text = note_params[:text]
+    
+        @answer = @note.answer
+        @question = @answer.question
+        @plan = @answer.plan
+        @dataset = @answer.dataset
+    
+        question_id = @note.answer.question_id.to_s
+    
+        if @note.update(note_params)
+          @notice = success_message(@note, _("saved"))
+          render(json: {
+            "notes" => {
+              "id" => question_id,
+              "html" => render_to_string(partial: "layout", locals: {
+                plan: @plan,
+                question: @question,
+                answer: @answer,
+                dataset: @dataset
+              }, formats: [:html])
+            },
+            "title" => {
+              "id" => question_id,
+              "html" => render_to_string(partial: "title", locals: {
+                answer: @answer
+              }, formats: [:html])
+            },
+            "dataset" => {
+              "id" => @dataset.id
+            }
+          }.to_json, status: :ok)
+        else
+          @notice = failure_message(@note, _("save"))
+          render json: {
+            "msg" => @notice
+          }.to_json, status: :bad_request
+        end
+      end
+
+      # CHANGES
+      # Dataset support
+      def archive
+        @note = Note.find(params[:id])
+        authorize @note
+        @note.archived = true
+        @note.archived_by = params[:note][:archived_by]
+    
+        @answer = @note.answer
+        @question = @answer.question
+        @plan = @answer.plan
+        @dataset = @answer.dataset
+    
+        question_id = @note.answer.question_id.to_s
+    
+        if @note.update(note_params)
+          @notice = success_message(@note, _("removed"))
+          render(json: {
+            "notes" => {
+              "id" => question_id,
+              "html" => render_to_string(partial: "layout", locals: {
+                plan: @plan,
+                question: @question,
+                answer: @answer,
+                dataset: @dataset
+              }, formats: [:html])
+            },
+            "title" => {
+              "id" => question_id,
+              "html" => render_to_string(partial: "title", locals: {
+                answer: @answer
+              }, formats: [:html])
+            },
+            "dataset" => {
+              "id" => @dataset.id
+            }
+          }.to_json, status: :ok)
+        else
+          @notice = failure_message(@note, _("remove"))
           render json: {
             "msg" => @notice
           }.to_json, status: :bad_request

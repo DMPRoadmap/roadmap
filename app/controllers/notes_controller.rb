@@ -72,87 +72,87 @@ class NotesController < ApplicationController
   #   end
   # end
 
-  def update
-    @note = Note.find(params[:id])
-    authorize @note
-    @note.text = note_params[:text]
+  # def update
+  #   @note = Note.find(params[:id])
+  #   authorize @note
+  #   @note.text = note_params[:text]
 
-    @answer = @note.answer
-    @question = @answer.question
-    @plan = @answer.plan
+  #   @answer = @note.answer
+  #   @question = @answer.question
+  #   @plan = @answer.plan
 
-    question_id = @note.answer.question_id.to_s
+  #   question_id = @note.answer.question_id.to_s
 
-    if @note.update(note_params)
-      @notice = success_message(@note, _("saved"))
-      render(json: {
-        "notes" => {
-          "id" => question_id,
-          "html" => render_to_string(partial: "layout", locals: {
-            plan: @plan,
-            question: @question,
-            answer: @answer
-          }, formats: [:html])
-        },
-        "title" => {
-          "id" => question_id,
-          "html" => render_to_string(partial: "title", locals: {
-            answer: @answer
-          }, formats: [:html])
-        }
-      }.to_json, status: :ok)
-    else
-      @notice = failure_message(@note, _("save"))
-      render json: {
-        "msg" => @notice
-      }.to_json, status: :bad_request
-    end
-  end
+  #   if @note.update(note_params)
+  #     @notice = success_message(@note, _("saved"))
+  #     render(json: {
+  #       "notes" => {
+  #         "id" => question_id,
+  #         "html" => render_to_string(partial: "layout", locals: {
+  #           plan: @plan,
+  #           question: @question,
+  #           answer: @answer
+  #         }, formats: [:html])
+  #       },
+  #       "title" => {
+  #         "id" => question_id,
+  #         "html" => render_to_string(partial: "title", locals: {
+  #           answer: @answer
+  #         }, formats: [:html])
+  #       }
+  #     }.to_json, status: :ok)
+  #   else
+  #     @notice = failure_message(@note, _("save"))
+  #     render json: {
+  #       "msg" => @notice
+  #     }.to_json, status: :bad_request
+  #   end
+  # end
 
-  def archive
-    @note = Note.find(params[:id])
-    authorize @note
-    @note.archived = true
-    @note.archived_by = params[:note][:archived_by]
+  # def archive
+  #   @note = Note.find(params[:id])
+  #   authorize @note
+  #   @note.archived = true
+  #   @note.archived_by = params[:note][:archived_by]
 
-    @answer = @note.answer
-    @question = @answer.question
-    @plan = @answer.plan
+  #   @answer = @note.answer
+  #   @question = @answer.question
+  #   @plan = @answer.plan
 
-    question_id = @note.answer.question_id.to_s
+  #   question_id = @note.answer.question_id.to_s
 
-    if @note.update(note_params)
-      @notice = success_message(@note, _("removed"))
-      render(json: {
-        "notes" => {
-          "id" => question_id,
-          "html" => render_to_string(partial: "layout", locals: {
-            plan: @plan,
-            question: @question,
-            answer: @answer
-          }, formats: [:html])
-        },
-        "title" => {
-          "id" => question_id,
-          "html" => render_to_string(partial: "title", locals: {
-            answer: @answer
-          }, formats: [:html])
-        }
-      }.to_json, status: :ok)
-    else
-      @notice = failure_message(@note, _("remove"))
-      render json: {
-        "msg" => @notice
-      }.to_json, status: :bad_request
-    end
-  end
+  #   if @note.update(note_params)
+  #     @notice = success_message(@note, _("removed"))
+  #     render(json: {
+  #       "notes" => {
+  #         "id" => question_id,
+  #         "html" => render_to_string(partial: "layout", locals: {
+  #           plan: @plan,
+  #           question: @question,
+  #           answer: @answer
+  #         }, formats: [:html])
+  #       },
+  #       "title" => {
+  #         "id" => question_id,
+  #         "html" => render_to_string(partial: "title", locals: {
+  #           answer: @answer
+  #         }, formats: [:html])
+  #       }
+  #     }.to_json, status: :ok)
+  #   else
+  #     @notice = failure_message(@note, _("remove"))
+  #     render json: {
+  #       "msg" => @notice
+  #     }.to_json, status: :bad_request
+  #   end
+  # end
 
   private
 
   def note_params
     params.require(:note)
           .permit(:text, :archived_by, :user_id, :answer_id, :plan_id,
-                  :question_id)
+                  :question_id, :dataset_id)
   end
 
 end
