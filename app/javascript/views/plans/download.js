@@ -15,7 +15,7 @@ $(() => {
     }
   });
 
-  $('#select-all-phase').on('click', (e) => {
+  $('#select-all-phases').on('click', (e) => {
     if (e.target.checked) {
       // Iterate each checkbox
       $('.phase-checkbox').each(function check() {
@@ -23,6 +23,19 @@ $(() => {
       });
     } else {
       $('.phase-checkbox').each(function check() {
+        this.checked = false;
+      });
+    }
+  });
+
+  $('#select-all-datasets').on('click', (e) => {
+    if (e.target.checked) {
+      // Iterate each checkbox
+      $('.dataset-checkbox').each(function check() {
+        this.checked = true;
+      });
+    } else {
+      $('.dataset-checkbox').each(function check() {
         this.checked = false;
       });
     }

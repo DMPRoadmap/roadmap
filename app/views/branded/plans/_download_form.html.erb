@@ -6,8 +6,8 @@
     <div class="form-group datasets-selection">
       <strong><%= d_("dmpopidor", "Select datasets to download") %></strong>
       <ul>
-      <%= check_box_tag("select-all", "none", true, { id: "select-all-datasets" }) %>
-      <%= label_tag("select-all", d_('dmpopidor', 'All')) %>
+      <%= check_box_tag("select-all-datasets", "none", true, { id: "select-all-datasets" }) %>
+      <%= label_tag("select-all-datasets", d_('dmpopidor', 'All')) %>
       <% @datasets.each do |dataset| %>
         <li class="checkbox">
           <%= label_tag "selected_datasets[]" do %>
@@ -26,8 +26,8 @@
     <div class="form-group phase-selection">
       <strong><%= _("Select phase to download") %></strong>
       <ul>
-      <%= check_box_tag("select-all", "none", true, { id: "select-all-phase" }) %>
-      <%= label_tag("select-all", d_('dmpopidor', 'All')) %>
+      <%= check_box_tag("select-all-phases", "none", true, { id: "select-all-phases" }) %>
+      <%= label_tag("select-all-phases", d_('dmpopidor', 'All')) %>
       <% @phase_options.each do |phase| %>
         <li class="checkbox">
           <%= label_tag "selected_phases[]" do %>

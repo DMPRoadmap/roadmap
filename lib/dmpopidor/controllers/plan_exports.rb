@@ -32,6 +32,10 @@ module Dmpopidor
             if params.key?(:selected_phases)
                 @hash[:phases] = @hash[:phases].select { |p| params[:selected_phases].include?(p[:id].to_s)}
             end
+
+            if params.key?(:selected_datasets)
+                @hash[:datasets] = @hash[:datasets].select { |d| params[:selected_datasets].include?(d[:id].to_s)}
+            end
         
             respond_to do |format|
               format.html { show_html }
