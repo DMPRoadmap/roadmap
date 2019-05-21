@@ -235,7 +235,7 @@ class User < ActiveRecord::Base
   # Returns Boolean
   def can_org_admin?
     return self.can_grant_permissions? || self.can_modify_guidance? ||
-           self.can_modify_templates? || self.can_modify_org_details?
+           self.can_modify_templates? || self.can_modify_org_details? || self.can_review_plans?
   end
 
   # Can the User add new organisations?
