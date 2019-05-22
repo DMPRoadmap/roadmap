@@ -17,7 +17,7 @@ if telephone.present? %>
   <strong><%= "#{_('Helpline')} #{telephone}" %></strong>
 <% end %>
 <%
-email=Rails.configuration.branding[:organisation][:email] 
+email=Rails.configuration.branding[:organisation][:safe_email] 
 if email.present? %>
   <address>
     <strong><%= _('Email') %></strong>
