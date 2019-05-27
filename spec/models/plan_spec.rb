@@ -741,7 +741,8 @@ describe Plan do
         Branding.expects(:fetch)
                 .with(:service_configuration, :plans, :org_admins_read_all)
                 .returns(true)
-
+        user.org_id = plan.owner.org_id
+        user.save
         user.perms << create(:perm, name: "modify_guidance")
         expect(subject.readable_by?(user.id)).to eql(true)
       end
@@ -820,6 +821,10 @@ describe Plan do
         end
 
         it "when user is a reviewer and feedback not requested" do
+          Branding.expects(:fetch)
+                  .with(:service_configuration, :plans, :org_admins_read_all)
+                  .returns(false)
+
           plan.feedback_requested = false
           plan.save
           expect(subject.readable_by?(user.id)).to eql(false)

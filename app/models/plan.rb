@@ -349,7 +349,7 @@ class Plan < ActiveRecord::Base
       # If the user is an org admin and the config allows for org admins to view plans
       elsif current_user.can_org_admin? &&
           Branding.fetch(:service_configuration, :plans, :org_admins_read_all)
-        true
+        owner_and_coowners.map(&:org_id).include?(current_user.org_id)
       else
         commentable_by?(user_id)
       end
