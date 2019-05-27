@@ -8,6 +8,7 @@
 # Table name: plans
 #
 #  id                                :integer          not null, primary key
+#  arpha_url                         :string
 #  complete                          :boolean          default(FALSE)
 #  data_contact                      :string
 #  data_contact_email                :string
@@ -26,10 +27,12 @@
 #  created_at                        :datetime
 #  updated_at                        :datetime
 #  template_id                       :integer
+#  zenodo_id                         :integer
 #
 # Indexes
 #
 #  index_plans_on_template_id  (template_id)
+#  index_plans_on_zenodo_id    (zenodo_id)
 #
 # Foreign Keys
 #

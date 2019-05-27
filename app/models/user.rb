@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -8,6 +7,8 @@
 #  accept_terms           :boolean
 #  active                 :boolean          default(TRUE)
 #  api_token              :string
+#  arpha_api_key          :string
+#  arpha_username         :string
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
 #  confirmed_at           :datetime
@@ -30,6 +31,7 @@
 #  reset_password_token   :string
 #  sign_in_count          :integer          default(0)
 #  surname                :string
+#  zenodo_access_token    :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  invited_by_id          :integer

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <document_info>
+    <document_type>Data Management Plan</document_type>
+    <journal_name>Research Ideas and Outcomes</journal_name>
+  </document_info>
+
+  <authors>
+    <%= render partial: "arpha/authors/author",
+               collection: @plan.authors,
+               as: "author",
+               locals: { plan: @plan } %>
+
+  </authors>
+
+  <objects>
+    <article_metadata>
+      <title_and_authors>
+        <fields>
+          <title>
+            <value><%= @plan.title %></value>
+          </title>
+        </fields>
+      </title_and_authors>
+
+      <abstract>
+        <fields>
+          <abstract>
+            <value>
+              <%= @plan.description %>
+            </value>
+          </abstract>
+        </fields>
+      </abstract>
+
+      <funding_agencies>
+      </funding_agencies>
+
+      <funding_programme>
+      </funding_programme>
+
+      <project_info>
+      </project_info>
+
+      <hosting_institution>
+      </hosting_institution>
+
+      <ethics_and_security>
+      </ethics_and_security>
+
+
+      <author_contributions>
+      </author_contributions>
+
+      <conflicts_of_interest>
+      </conflicts_of_interest>
+
+    </article_metadata>
+
+    <main_text>
+      <fields>
+        <main_text>
+          <value><%= @plan.description %></value>
+        </main_text>
+        <main_text_section_title>
+          <value>Introduction</value>
+        </main_text_section_title>
+      </fields>
+      <subsection>
+        <%= render partial: "arpha/phases/phase",
+                   collection: @plan.phases,
+                   locals: { plan: @plan } %>
+      </subsection>
+    </main_text>
+
+    <acknowledgements>
+    </acknowledgements>
+    
+    <references>
+    </references>
+    
+    <supplementary_files>
+    </supplementary_files>
+    
+    <figures>
+    </figures>
+    
+    <tables>
+    </tables>
+    
+    <endnotes>
+    </endnotes>
+    
+  </objects>
+</document>

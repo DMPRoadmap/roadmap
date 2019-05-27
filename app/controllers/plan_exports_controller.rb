@@ -73,18 +73,16 @@ class PlanExportsController < ApplicationController
   end
 
   def show_pdf
-    render pdf: file_name,
-           margin: @formatting[:margin],
-           footer: {
-             center: _("Created using %{application_name}. Last modified %{date}") % {
-               application_name: Rails.configuration.branding[:application][:name],
-               date: l(@plan.updated_at.to_date, format: :readable)
-              },
-             font_size: 8,
-             spacing:   (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-             right:     "[page] of [topage]",
-             encoding: "utf8"
-           }
+    @pdf_renderer = Plan::PdfRenderer.new(@plan, {
+      selected_phase: @selected_phase,
+      formatting: @formatting,
+      show_coversheet: @show_coversheet,
+      show_sections_questions: @show_sections_questions,
+      show_unanswered: @show_unanswered,
+      show_custom_sections: @show_custom_sections,
+      public_plan: @public_plan,
+    })
+    send_data @pdf_renderer.to_pdf, filename: @pdf_renderer.file_name
   end
 
   def file_name

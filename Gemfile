@@ -174,6 +174,9 @@ gem "dotenv-rails"
 
 gem 'activerecord-session_store'
 
+gem "oauth2", "~> 1.4"
+
+gem "rest-client", "~> 2.0"
 
 # ------------------------------------------------
 # ENVIRONMENT SPECIFIC DEPENDENCIES

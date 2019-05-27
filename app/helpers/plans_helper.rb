@@ -38,15 +38,4 @@ module PlansHelper
     end
   end
 
-  def download_plan_page_title(plan, phase, hash)
-    # If there is more than one phase show the plan title and phase title
-    return hash[:phases].many? ? "#{plan.title} - #{phase[:title]}" : plan.title
-  end
-
-  def display_section?(customization, section, show_custom_sections)
-    display = !customization
-    display ||= customization && !section[:modifiable]
-    display ||= customization && section[:modifiable] && show_custom_sections
-    return display
-  end
 end
