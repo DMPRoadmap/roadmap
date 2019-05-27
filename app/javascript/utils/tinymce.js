@@ -22,8 +22,7 @@ export const defaultOptions = {
   plugins: 'table autoresize link paste advlist lists',
   advlist_bullet_styles: 'circle,disc,square', // Only disc bullets display on htmltoword
   target_list: false,
-  autoresize_min_height: 130,
-  autoresize_bottom_margin: 10,
+  autoresize_on_init: true,
   branding: false,
   extended_valid_elements: 'iframe[tooltip] , a[href|target=_blank]',
   default_link_target: '_blank',
