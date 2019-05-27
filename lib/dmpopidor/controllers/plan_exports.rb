@@ -29,12 +29,16 @@ module Dmpopidor
             @hash           = @plan.as_pdf(@show_coversheet)
             @formatting     = export_params[:formatting] || @plan.settings(:export).formattingz
 
+            if @formatting.nil?
+              @formatting     = Settings::Template::DEFAULT_SETTINGS[:formatting]
+            end
+
             if params.key?(:selected_phases)
-                @hash[:phases] = @hash[:phases].select { |p| params[:selected_phases].include?(p[:id].to_s)}
+              @hash[:phases] = @hash[:phases].select { |p| params[:selected_phases].include?(p[:id].to_s)}
             end
 
             if params.key?(:selected_datasets)
-                @hash[:datasets] = @hash[:datasets].select { |d| params[:selected_datasets].include?(d[:id].to_s)}
+              @hash[:datasets] = @hash[:datasets].select { |d| params[:selected_datasets].include?(d[:id].to_s)}
             end
         
             respond_to do |format|
