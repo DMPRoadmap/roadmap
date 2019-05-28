@@ -36,8 +36,9 @@ module Dmpopidor
             # Retrieve the Org's templates
             @templates << Template.published
                                   .organisationally_visible
-                                  .where(org_id: org_id, customization_of: nil).to_a
+                                  .where(org_id: org_id).to_a
           end
+
           @templates = @templates.flatten.uniq
         end
     
@@ -51,7 +52,15 @@ module Dmpopidor
             @templates << (customization.present? ? customization : Template.default)
           end
         end
+
+        @templates.each do |template|
+          if !template.customization_of.nil?
+            template.title += " (#{d_('dmpopidor', 'Customized by ')} #{current_user.org.name})"
+          end
+        end
+
         @templates = @templates.sort_by(&:title)
+        
       end
     end
   end
