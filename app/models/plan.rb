@@ -231,14 +231,24 @@ class Plan < ActiveRecord::Base
   # plan - Plan to be deep copied
   #
   # Returns Plan
+  # CHANGES
+  # Added Dataset Support
   def self.deep_copy(plan)
     plan_copy = plan.dup
     plan_copy.title = "Copy of " + plan.title
     plan_copy.save!
-    plan.answers.each do |answer|
-      answer_copy = Answer.deep_copy(answer)
-      answer_copy.plan_id = plan_copy.id
-      answer_copy.save!
+    plan.datasets.each do |dataset|
+      dataset_copy = Dataset.deep_copy(dataset)
+      dataset_copy.plan_id = plan_copy.id
+      dataset_copy.save!
+
+      dataset.answers.each do |answer|
+        answer_copy = Answer.deep_copy(answer)
+        answer_copy.plan_id = plan_copy.id
+        answer_copy.dataset_id = dataset_copy.id
+        answer_copy.save!
+      end
+
     end
     plan.guidance_groups.each do |guidance_group|
       plan_copy.guidance_groups << guidance_group if guidance_group.present?

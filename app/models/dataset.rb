@@ -34,4 +34,12 @@ class Dataset < ActiveRecord::Base
       !Section.find(section[:id]).questions.flat_map(&:answers).select(&:is_common?).empty?
     end
 
+    ##
+    # deep copy the given dataset
+    #
+    # Returns Dataset
+    def self.deep_copy(dataset)
+      dataset.dup
+    end
+
   end
