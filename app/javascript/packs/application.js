@@ -38,6 +38,7 @@ import '../views/plans/edit_details';
 import '../views/plans/index';
 import '../views/plans/new';
 import '../views/plans/share';
+import '../views/public_templates/show';
 import '../views/roles/edit';
 import '../views/shared/create_account_form';
 import '../views/shared/my_org';
