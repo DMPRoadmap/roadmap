@@ -185,12 +185,12 @@ $(() => {
     });
   }
   // Example answer toggle
-  function toggleIcon(e) {
+  const toggleIcon = (e) => {
     $(e.target)
       .prev('.example-answer-link')
       .find('.more-less')
-      .toggleClass('glyphicon-plus glyphicon-minus');
-  }
+      .toggleClass('fa-plus fa-minus');
+  };
   $('.example-answer').on('hidden.bs.collapse', toggleIcon);
   $('.example-answer').on('shown.bs.collapse', toggleIcon);
 
