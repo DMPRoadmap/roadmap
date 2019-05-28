@@ -6,7 +6,7 @@
       <h1><%= _('Usage statistics') %></h1>
     </div>
     <div class="col-xs-2">
-      <%= link_to(_('Download global usage'), usage_downloads_path(format: :csv), class: 'btn btn-default mt-25') %>
+      <%= link_to(_('Download global usage'), usage_downloads_path(format: :csv), class: 'btn btn-default mt-25') if current_user.can_super_admin? %>
     </div>
   </div>
 </div>
