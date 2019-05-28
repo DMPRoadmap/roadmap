@@ -1,5 +1,6 @@
 import { Tinymce } from '../../utils/tinymce';
 import { isObject, isString } from '../../utils/isType';
+import TimeagoFactory from '../../utils/timeagoFactory';
 
 $(() => {
   const defaultViewSelector = questionId => `#note_new${questionId}`;
@@ -161,6 +162,7 @@ $(() => {
   const initOrReload = () => {
     Tinymce.init({ selector: '.note' });
     eventHandlers({ attachment: 'on' });
+    TimeagoFactory.render($('time.timeago'));
   };
   const clean = () => {
     eventHandlers({ attachment: 'off' });
