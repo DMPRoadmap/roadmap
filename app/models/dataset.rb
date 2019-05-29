@@ -30,8 +30,18 @@ class Dataset < ActiveRecord::Base
       eql?(plan.datasets.where(order: 1).first)
     end
 
-    def has_common_answers?(section)
-      !Section.find(section[:id]).questions.flat_map(&:answers).select(&:is_common?).empty?
+    # Return main dataset
+    def get_main
+      plan.datasets.first
+    end
+
+    def has_common_answers?(section_id)
+      self.answers.each do |answer|
+        if answer.question_id.in?(Section.find(section_id).questions.pluck(:id)) && answer.is_common
+          return true
+        end
+      end
+      return false
     end
 
     ##

@@ -27,13 +27,15 @@
               <h2><%= section[:title] %></h2>
             <% end %>
             <% @hash[:datasets].each do |dataset| %>
-              <% has_common_answers = dataset.main? && dataset.has_common_answers?(section) %>
-              <% if !has_common_answers %>
+              <% section_has_common_answers = dataset.get_main().has_common_answers?(section[:id]) %>
+              <% if !section_has_common_answers %>
                 <div class="dataset">
                   <h3><%= dataset[:name] %></h3>
               <% end %>
                 <% section[:questions].each do |question| %>
-                  <% answer = @plan.answer(question[:id], false, dataset[:id]) %>
+                  <% answer = section_has_common_answers ? 
+                              @plan.answer(question[:id], false, dataset.get_main().id) : 
+                              @plan.answer(question[:id], false, dataset[:id]) %>
                   <% blank = answer.present? ? answer.is_blank? : true %>
                   <% options = answer.present? ? answer.question_options : [] %>
 
@@ -80,10 +82,10 @@
                   <% end %>
                 <% end %> <!-- questions.each -->
 
-              <% if !has_common_answers %>
+              <% if !section_has_common_answers %>
                 </div> <!-- .dataset -->
               <% end %>
-              <% if has_common_answers %>
+              <% if section_has_common_answers %>
                 <% break %> <!-- break if is dataset has common answers, only display the first -->
               <% end %>
             <% end %><!-- datasets.each -->
