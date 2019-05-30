@@ -147,8 +147,9 @@ module ExportablePlan
     section[:questions].each do |question|
       answer = self.answer(question[:id], false)
       if answer.present? || (answer.blank? && unanswered)
-        answer_text = answer.present? ? answer.text :
-                      (unanswered ? _("Not Answered") : "")
+        answer_text = answer.is_blank? ? (unanswered ? _("Not Answered") : "") :
+                      answer.text
+
         if answer.present? && answer.is_valid? && answer.question_options.any?
           answer_text = answer.question_options.pluck(:text).join(", ") +
                           " " + answer_text
