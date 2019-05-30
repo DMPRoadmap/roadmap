@@ -1365,7 +1365,6 @@ RSpec.describe Template, type: :model do
 
   end
 
-
   describe "#publishability" do
 
     subject { template.publishability }
@@ -1463,6 +1462,65 @@ RSpec.describe Template, type: :model do
       it "has error_message" do
         expect(subject[1]).to include("You can not publish a template without questions in a section")
       end
+    end
+  end
+
+
+  describe "#nwo?" do
+
+    context "when title contains NWO" do
+
+      subject { build(:template, title: "This is an NWO template") }
+
+      it { is_expected.to be_nwo }
+
+    end
+
+    context "when title doesn't contain NWO" do
+
+      subject { build(:template, title: "This is another template") }
+
+      it { is_expected.not_to be_nwo }
+
+    end
+
+  end
+
+  describe "#h2020?" do
+
+    context "when title contains Horizon 2020" do
+
+      subject { build(:template, title: "This is an Horizon 2020 template") }
+
+      it { is_expected.to be_h2020 }
+
+    end
+
+    context "when title doesn't contain Horizon 2020" do
+
+      subject { build(:template, title: "This is another template") }
+
+      it { is_expected.not_to be_h2020 }
+
+    end
+
+  end
+
+  describe "#wellcome?" do
+
+    context "when title contains wellcome" do
+
+      subject { build(:template, title: "This is a Wellcome template") }
+
+      it { is_expected.to be_wellcome }
+
+    end
+
+    context "when title doesn't contain wellcome" do
+
+      subject { build(:template, title: "This is another template") }
+
+      it { is_expected.not_to be_wellcome }
 
     end
 

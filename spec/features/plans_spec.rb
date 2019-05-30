@@ -7,8 +7,9 @@ RSpec.describe "Plans", type: :feature do
     @org          = create(:org)
     @research_org = create(:org, :organisation, :research_institute,
                            templates: 1)
-    @funding_org  = create(:org, :funder, templates: 1)
-    @template     = create(:template, org: @org)
+    @funding_org  = create(:org, :funder)
+    @template     = create(:template, :published, org: @funding_org,
+                           title: "Horizon 2020 template")
     @user         = create(:user, org: @org)
     sign_in(@user)
 
@@ -51,7 +52,7 @@ RSpec.describe "Plans", type: :feature do
     expect(page).to have_css("input[type=text][value='#{@plan.title}']")
 
     within "#edit_plan_#{@plan.id}" do
-      fill_in "Grant number", with: "Innodia"
+      fill_in :plan_grant_number_name, with: "Innodia"
       fill_in "Project abstract", with: "Plan abstract..."
       fill_in "ID", with: "ABCDEF"
       fill_in "ORCID iD", with: "My ORCID"

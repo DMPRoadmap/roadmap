@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-8">
     <%= form_for plan, html: {method: :put, class: 'form-horizontal edit_plan' } do |f| %>
+      <div data-funder-name="<%= @plan.template_funder_name %>"></div>
       <div class="form-group"><!-- title -->
         <div class="col-md-12">
           <%= f.label(:title, _('Project title'), class: 'control-label') %>
@@ -28,18 +29,25 @@
             "aria-required": false) %>
         </div>
       </div>
-      <div class="form-group"><!-- grant_number -->
-        <div class="col-md-12">
-          <%= label_tag(:plan_grant_number_name, _('Grant number'), class: 'control-label') %>
-        </div>
 
+      <div class="form-group">
         <div class="col-md-8">
-          <%= text_field_tag(:plan_grant_number_name, '',
-              class: "grant-id-typeahead form-control",
-              autocomplete: "off",
-              aria: { required: false }) %>
-          <%= f.hidden_field(:grant_number) %>
-          <span class="text-muted" id="grant_number_info">Grant number: <%= @plan.grant_number %></span>
+          <%= f.label(:grant_number, _('Grant number'), class: 'control-label') %>
+          <div class="clearable-field" style="display:none;">
+            <%= text_field_tag(:plan_grant_number_name, '',
+                placeholder: "Start typing a project name or abbreviation to pre-fill grant number",
+                class: "grant-id-typeahead form-control clearable-field-input",
+                autocomplete: "off",
+                aria: { required: false }) %>
+            <button class="fa fa-times-circle clearable-field-clear"></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group"><!-- grant_number -->
+        <div class="col-md-8">
+
+          <%= f.text_field(:grant_number, class: "form-control", placeholder: "e.g. 123456") %>
         </div>
       </div>
       <div class="form-group"><!-- description -->

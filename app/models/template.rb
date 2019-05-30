@@ -432,6 +432,28 @@ class Template < ActiveRecord::Base
     end
     return publishable, error
   end
+  
+  def nwo?
+    /NWO/ =~ title.to_s
+  end
+
+  def h2020?
+    /Horizon\s2020/ =~ title.to_s
+  end
+
+  def wellcome?
+    /Wellcome/ =~ title.to_s
+  end
+
+  def funder_name
+    case
+    when nwo? then "nwo"
+    when h2020? then "h2020"
+    when wellcome? then "wellcome"
+    else
+      "unknown"
+    end
+  end
 
   private
 

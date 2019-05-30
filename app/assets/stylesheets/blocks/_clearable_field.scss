@@ -1,0 +1,29 @@
+div.clearable-field {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 2.5rem;
+  overflow: visible;
+  //
+  input.clearable-field-input {
+    //
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+
+  button.clearable-field-clear {
+    //
+    display: block;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    left: auto;
+    bottom: auto;
+    z-index: 10;
+    background-color: white;
+    border: none;
+  }
+}

@@ -128,6 +128,18 @@ class Plan < ActiveRecord::Base
 
 
   # =============
+  # = Delegates =
+  # =============
+
+  delegate :nwo?, to: :template
+
+  delegate :h2020?, to: :template
+
+  delegate :wellcome?, to: :template
+
+  delegate :funder_name, to: :template, prefix: true
+
+  # =============
   # = Callbacks =
   # =============
 
