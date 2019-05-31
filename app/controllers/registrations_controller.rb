@@ -268,14 +268,14 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update_params
     params.require(:user).permit(:firstname, :org_id, :other_organisation,
-                                :language_id, :surname)
+                                :language_id, :surname, :department_id)
   end
 
   def password_update
     params.require(:user).permit(:email, :firstname, :current_password,
                                 :org_id, :language_id, :password,
                                 :password_confirmation, :surname,
-                                :other_organisation)
+                                :other_organisation, :department_id)
   end
 
 end

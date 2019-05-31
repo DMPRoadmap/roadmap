@@ -73,6 +73,7 @@ class Org < ActiveRecord::Base
 
   has_many :identifier_schemes, through: :org_identifiers
 
+  has_many :departments
 
   # ===============
   # = Validations =

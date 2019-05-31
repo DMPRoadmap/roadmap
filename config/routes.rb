@@ -66,6 +66,16 @@ Rails.application.routes.draw do
       put 'admin_update'
     end
   end
+  
+  resources :departments, :path => 'org/admin/department', only: [] do
+    member do
+      get 'admin_new'
+      get 'admin_edit'
+      delete 'admin_destroy'
+      post 'admin_create'
+      put 'admin_update'
+    end
+  end
 
   resources :guidances, :path => 'org/admin/guidance', only: [] do
     member do
@@ -194,6 +204,10 @@ Rails.application.routes.draw do
     end
     # Paginable actions for guidance_groups
     resources :guidance_groups, only: [] do
+      get 'index/:page', action: :index, on: :collection, as: :index
+    end
+    # Paginable actions for departments
+    resources :departments, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
     end
   end

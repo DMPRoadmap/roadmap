@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -32,6 +31,7 @@
 #  surname                :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  department_id          :integer
 #  invited_by_id          :integer
 #  language_id            :integer
 #  org_id                 :integer
@@ -43,6 +43,7 @@
 #
 # Foreign Keys
 #
+#  fk_rails_...  (department_id => departments.id)
 #  fk_rails_...  (language_id => languages.id)
 #  fk_rails_...  (org_id => orgs.id)
 #
@@ -77,6 +78,8 @@ class User < ActiveRecord::Base
   belongs_to :language
 
   belongs_to :org
+  
+  belongs_to :department, required: false
 
   has_one  :pref
 
