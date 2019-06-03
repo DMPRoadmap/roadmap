@@ -45,6 +45,14 @@ module Dmpopidor
           false
         end
       end
+
+
+      # The number of datasets for a plan.
+      #
+      # Returns Integer
+      def num_datasets
+        datasets.count
+      end
     end 
   end
 end
