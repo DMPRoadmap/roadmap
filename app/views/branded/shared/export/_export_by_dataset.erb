@@ -1,0 +1,64 @@
+<%# locals: { datasets, questions, section  } %>
+<% datasets.each do |dataset| %>
+  <% section_has_common_answers = dataset.get_main().has_common_answers?(section[:id]) %>
+  <% if !section_has_common_answers %>
+  <div class="dataset">
+    <h3><%= dataset[:name] %></h3>
+  <% end %>
+  <% questions.each do |question| %>
+    <% answer = section_has_common_answers ? 
+          @plan.answer(question[:id], false, dataset.get_main().id) : 
+          @plan.answer(question[:id], false, dataset[:id]) %>
+    <% blank = answer.present? ? answer.is_blank? : true %>
+    <% options = answer.present? ? answer.question_options : [] %>
+
+    <%  unless @show_unanswered == false && blank  %>
+      <div class="question">
+        <% if !@public_plan && @show_sections_questions%>
+        <p>
+          <h4><%= sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></h4>
+        </p>
+        <br>
+        <% end %>
+        <%# case where question has not been answered sufficiently to display%>
+        <% if @show_unanswered && (answer.blank? || (options.blank? && blank))%>
+        <p><%= _('Question not answered.') -%></p>
+        <br />
+        <% else %>
+
+        <%# case where Question has options %>
+        <% if options.any? %>
+          <ul>
+          <% options.each do |opt| %>
+            <li><%= opt.text %></li>
+          <% end %>
+          </ul>
+        <% end %>
+        <%# case for RDA answer display %>
+        <% if question[:format].rda_metadata? && !blank %>
+          <% ah = answer.answer_hash %>
+          <% if ah['standards'].present? %>
+          <ul>
+            <% ah['standards'].each do |id, title| %>
+            <li><%= title %></li>
+            <% end %>
+          </ul>
+          <% end %>
+          <p><%= sanitize ah['text'] %></p>
+        <%# case for displaying comments OR text %>
+        <% elsif !blank %>
+          <p><%= sanitize answer.text %></p>
+        <% end %>
+        <br />
+        <% end %>
+      </div>
+    <% end %>
+  <% end %> <!-- questions.each -->
+
+  <% if !section_has_common_answers %>
+  </div> <!-- .dataset -->
+  <% end %>
+  <% if section_has_common_answers %>
+  <% break %> <!-- break if is dataset has common answers, only display the first -->
+  <% end %>
+<% end %><!-- datasets.each -->

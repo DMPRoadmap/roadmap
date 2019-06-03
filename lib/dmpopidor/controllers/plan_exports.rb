@@ -28,6 +28,7 @@ module Dmpopidor
         
             @hash           = @plan.as_pdf(@show_coversheet)
             @formatting     = export_params[:formatting] || @plan.settings(:export).formattingz
+            @dataset_export_mode = export_params[:dataset_mode]
 
             if @formatting.nil?
               @formatting     = Settings::Template::DEFAULT_SETTINGS[:formatting]

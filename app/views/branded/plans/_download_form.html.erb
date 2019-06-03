@@ -19,6 +19,21 @@
       <% end %>
       </ul>
     </div>
+    <strong><%= d_("dmpopidor", "Dataset export mode") %></strong>
+      <ul>
+        <li class="checkbox">
+          <%= label_tag 'export[dataset_mode]' do %>
+            <%= radio_button_tag("export[dataset_mode]", "by_section", true) %>
+            <%= d_("dmpopidor", 'Datasets by section') %>
+          <% end %>
+        </li>
+        <li class="checkbox">
+          <%= label_tag 'export[dataset_mode]' do %>
+            <%= radio_button_tag("export[dataset_mode]", "by_question", false) %>
+            <%= d_("dmpopidor", 'Datasets by question') %>
+          <% end %>
+        </li>
+      </ul>
   <% else %>
     <%= hidden_field_tag(:dataset_id, @datasets[0].id) %>
   <% end %>

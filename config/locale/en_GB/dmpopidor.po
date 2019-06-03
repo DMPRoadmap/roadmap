@@ -235,12 +235,6 @@ msgstr "Template"
 msgid "All"
 msgstr "All"
 
-msgid "Select datasets to download"
-msgstr "Select datasets to download"
-
-msgid "Datasets"
-msgstr "Datasets"
-
 # STATIC PAGES
 
 msgid "More"
@@ -266,3 +260,20 @@ msgstr "New Static Page"
 
 msgid "Editing Static Page"
 msgstr "Editing Static Page"
+
+# Datasets
+
+msgid "Select datasets to download"
+msgstr "Select datasets to download"
+
+msgid "Datasets"
+msgstr "Datasets"
+
+msgid "Dataset export mode"
+msgstr "Dataset export mode"
+
+msgid "Datasets by section"
+msgstr "Datasets by section"
+
+msgid "Datasets by question"
+msgstr "Datasets by question"
