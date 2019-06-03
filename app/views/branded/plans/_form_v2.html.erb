@@ -1,143 +1,153 @@
 <!-- Page title -->
-
-<%= form_for Plan.new, url: plans_path do |f| %>
 <div class="row">
   <div class="col-md-12">
-    <h1 id="project-title"><%= _('Project title') %></h1>
-      <div class="form-group row">
-        <div class="col-xs-6">
-          <%= f.text_field(:title, class: 'form-control', 'aria-describedby': 'project-title', 'aria-required': 'true', 
-                'data-toggle': 'tooltip',
-                title: _('If applying for funding, state the project title exactly as in the proposal.')) %>
+    <%= form_for Plan.new, url: plans_path do |f| %>
+    <!-- Plan name section -->
+      <h1 id="project-title">
+        <span class="red" title="<%= _('This field is required.') %>">* </span>
+        <%= _('Project title') %>
+      </h1>
+    <div class="form-group row">
+      <div class="form-group col-xs-6">
+        <%= f.text_field(:title, class: 'form-control', 'aria-describedby': 'project-title', 'aria-required': 'true', 'aria-label': 'project-title',
+              'data-toggle': 'tooltip',
+              'data-placement': 'bottom',
+              title: _('If applying for funding, state the project title exactly as in the proposal.')) %>
+      </div>
+      <div class="col-md-1">&nbsp;</div>
+        <div class="form-group col-xs-5">
+          <div class="checkbox create-plan-mock">
+            <%= label_tag(:is_test) do %>
+              <%= check_box_tag(:is_test, "1", false) %>
+              <%= _('mock project for testing, practice, or educational purposes') %>
+            <% end %>
+          </div>
         </div>
-        <div class="col-md-1">&nbsp;</div>
-        <div class="col-xs-5 checkbox create-plan-mock">
-          <%= label_tag(:is_test, raw("#{check_box_tag(:is_test, "1", false)} #{ d_('dmpopidor', 'Plan for testing, practice, or educational purposes')}")) %>
-        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h1><%= d_('dmpopidor', 'Choose a template') %></h1>
+        <p class="left-indent">
+            <%= d_('dmpopidor', 'You can either choose a template provided by your organisation, another organisation or a funder template. The default template is ') %>
+            <strong><%= @default_template.title + "." %></strong>
+            <br/>
+            <%= link_to d_('dmpopidor', 'Find the list of the available templates'), public_templates_path, :target => "_blank" %>
+          </p>
       </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <h1><%= d_('dmpopidor', 'Choose a template') %></h1>
-    <p class="left-indent">
-        <%= d_('dmpopidor', 'You can either choose a template provided by your organisation, another organisation or a funder template. The default template is ') %>
-        <strong><%= @default_template.title + "." %></strong>
-        <br/>
-        <%= link_to d_('dmpopidor', 'Find the list of the available templates'), public_templates_path, :target => "_blank" %>
-      </p>
-  </div>
-</div>
+    </div>
 
-<div class="row">
-  <div class="col-md-12 plan-form">
+    <div class="row">
+      <div class="col-md-12 plan-form">
 
-    <!-- Tabs menu -->
-    <ul class="nav nav-tabs form-tabs">
-      <li class="active">
-        <a data-toggle="tab" href="#own_org"><%= @default_org.is_other ? current_user.other_organisation : @default_org.name  %> (<%= d_('dmpopidor', 'Your organisation') %>) </a>
-      </li>
-      <li>
-        <a data-toggle="tab" href="#other_org"><%= d_('dmpopidor', 'Other organisation') %></a>
-      </li>
-      <li>
-        <a data-toggle="tab" href="#funder"><%= _('Funder') %></a>
-      </li>
-    </ul>
+        <!-- Tabs menu -->
+        <ul class="nav nav-tabs form-tabs">
+          <li class="active">
+            <a data-toggle="tab" href="#own_org"><%= @default_org.is_other ? current_user.other_organisation : @default_org.name  %> (<%= d_('dmpopidor', 'Your organisation') %>) </a>
+          </li>
+          <li>
+            <a data-toggle="tab" href="#other_org"><%= d_('dmpopidor', 'Other organisation') %></a>
+          </li>
+          <li>
+            <a data-toggle="tab" href="#funder"><%= _('Funder') %></a>
+          </li>
+        </ul>
 
-    <!-- Tabs content -->
-    <div class="tab-content">
-      <!-- "Your organisation" tab -->
-      <div id="own_org" class="tab-pane in active">
-        <% if @default_org %>
-          <%= hidden_field_tag('own_org_name', @default_org.name) %>
-          <%= hidden_field_tag('own_org_id', @default_org.id) %>
-        <% end %>
-      </div>
+        <!-- Tabs content -->
+        <div class="tab-content">
+          <!-- "Your organisation" tab -->
+          <div id="own_org" class="tab-pane in active">
+            <% if @default_org %>
+              <%= hidden_field_tag('own_org_name', @default_org.name) %>
+              <%= hidden_field_tag('own_org_id', @default_org.id) %>
+            <% end %>
+          </div>
 
-      <!-- "Other organisation" tab -->
-      <div id="other_org" class="tab-pane">
-        <h2>
-          <%= d_('dmpopidor', 'Would you like to choose the template of another organisation?') %>
-        </h2>
-        <!-- Combo box for selecting another organisation's template -->
-        <%= render partial: "shared/accessible_combobox",
-                   locals: {name: 'plan[org_name]',
-                            id: 'plan_org_name',
-                            default_selection: @default_org,
-                            models: @orgs,
-                            attribute: 'name',
-                            required: true,
-                            error: _('You must select a research organisation from the list.'),
-                            tooltip: _('Please select a valid research organisation from the list.')} %>
-      </div>
+          <!-- "Other organisation" tab -->
+          <div id="other_org" class="tab-pane">
+            <h2>
+              <%= d_('dmpopidor', 'Would you like to choose the template of another organisation?') %>
+            </h2>
+            <!-- Combo box for selecting another organisation's template -->
+            <%= render partial: "shared/accessible_combobox",
+                      locals: {name: 'plan[org_name]',
+                                id: 'plan_org_name',
+                                default_selection: @default_org,
+                                models: @orgs,
+                                attribute: 'name',
+                                required: true,
+                                error: _('You must select a research organisation from the list.'),
+                                tooltip: _('Please select a valid research organisation from the list.')} %>
+          </div>
 
-      <!-- "Funder" tab -->
-      <div id="funder" class="tab-pane">
-        <h2>
-          <%= d_('dmpopidor', 'Would you like to choose the template of a funder?') %>
-        </h2>
-        <!-- Combo box for selecting a funder's template -->
-        <%= render partial: "shared/accessible_combobox",
-                   locals: {name: 'plan[funder_name]',
-                            id: 'plan_funder_name',
-                            default_selection: nil,
-                            models: @funders,
-                            attribute: 'name',
-                            required: true,
-                            error: _('You must select a funding organisation from the list.'),
-                            tooltip: _('Please select a valid funding organisation from the list.')} %>
-      </div>
+          <!-- "Funder" tab -->
+          <div id="funder" class="tab-pane">
+            <h2>
+              <%= d_('dmpopidor', 'Would you like to choose the template of a funder?') %>
+            </h2>
+            <!-- Combo box for selecting a funder's template -->
+            <%= render partial: "shared/accessible_combobox",
+                      locals: {name: 'plan[funder_name]',
+                                id: 'plan_funder_name',
+                                default_selection: nil,
+                                models: @funders,
+                                attribute: 'name',
+                                required: true,
+                                error: _('You must select a funding organisation from the list.'),
+                                tooltip: _('Please select a valid funding organisation from the list.')} %>
+          </div>
 
-      <!-- Legacy checkboxes from the v1 form, indicates wether or not organisation or funder is present, handled automaticaly by tab changes -->
-      <%= check_box_tag(:plan_no_org, '', false, style: 'display: none;') %>
-      <%= check_box_tag(:plan_no_funder, '', true, style: 'display: none;') %>
-      
+          <!-- Legacy checkboxes from the v1 form, indicates wether or not organisation or funder is present, handled automaticaly by tab changes -->
+          <%= check_box_tag(:plan_no_org, '', false, style: 'display: none;') %>
+          <%= check_box_tag(:plan_no_funder, '', true, style: 'display: none;') %>
+          
 
 
-    <!-- Multiple templates div (if more than one templates are provided by organisation) -->
-      <div id="available-templates" style="display: none;">
-        <h2>
-          <%= d_('dmpopidor', 'Multiple templates are available, which one would you like to use?') %>
-        </h2>
-        <!-- Hidden field to store the URL from which to get available templates (async) -->
-        <%= hidden_field_tag 'template-option-target', template_options_path %>
-        <div class="form-group row">
-          <div class="col-md-6">
-            <%= select_tag(:plan_template_id, "<option value=\"-1\">#{_('Please select a template')}</option>", name: 'plan[template_id]', class: 'form-control', 'aria-describedby': 'template-selection') %>
-            <span class="message-block" style=""><%= d_('dmpopidor', 'Please select a template from the list.') %></span>
+        <!-- Multiple templates div (if more than one templates are provided by organisation) -->
+          <div id="available-templates" style="display: none;">
+            <h2>
+              <%= d_('dmpopidor', 'Multiple templates are available, which one would you like to use?') %>
+            </h2>
+            <!-- Hidden field to store the URL from which to get available templates (async) -->
+            <%= hidden_field_tag 'template-option-target', template_options_path %>
+            <div class="form-group row">
+              <div class="col-md-6">
+                <%= select_tag(:plan_template_id, "<option value=\"-1\">#{_('Please select a template')}</option>", name: 'plan[template_id]', class: 'form-control', 'aria-describedby': 'template-selection') %>
+                <span class="message-block" style=""><%= d_('dmpopidor', 'Please select a template from the list.') %></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Single template div (if only one template is provided by organisation) -->
+          <div id="single-template" style="display: none;">
+            <h3 class="single-template-name"><%= d_('dmpopidor', "The template \"__template_title__\" is available. Would you like to create a plan from this template?") %></h3>
+          </div>
+
+          <!-- Default template div (if the template is the default one) -->
+          <div id="default-template" style="display: none">
+            <h3 class="single-template-name"><%= d_('dmpopidor', "No template available.") %></h3>
+          </div>
+
+          <!-- In case the user does not belong to an organisation -->
+          <% unless @default_org %>
+          <div id="no_org">
+            <h3>
+              <%= d_('dmpopidor', 'You are not linked to an organisation, we can\'t suggest you a template. Please choose an organisation in your profile') %>
+            </h3>
+          </div>
+          <% end %>
+
+          <!-- Submit and other buttons -->
+          <div class="pull-right">
+
+            <%= f.hidden_field(:visibility, value: @is_test ? 'is_test' : Rails.application.config.default_plan_visibility) %>
+            <%= f.button(_('Create a plan'), class: "btn btn-primary", id: 'create-btn', type: "submit") %>
+            <%= link_to _('Next'), '', class: 'btn btn-primary', id: 'next-btn' %>
+            <%= direct_link(@default_template, false, d_('dmpopidor', 'Use Default Template'), 'end-default-btn') %>
           </div>
         </div>
       </div>
-
-      <!-- Single template div (if only one template is provided by organisation) -->
-      <div id="single-template" style="display: none;">
-        <h3 class="single-template-name"><%= d_('dmpopidor', "The template \"__template_title__\" is available. Would you like to create a plan from this template?") %></h3>
-      </div>
-
-      <!-- Default template div (if the template is the default one) -->
-      <div id="default-template" style="display: none">
-        <h3 class="single-template-name"><%= d_('dmpopidor', "No template available.") %></h3>
-      </div>
-
-      <!-- In case the user does not belong to an organisation -->
-      <% unless @default_org %>
-      <div id="no_org">
-        <h3>
-          <%= d_('dmpopidor', 'You are not linked to an organisation, we can\'t suggest you a template. Please choose an organisation in your profile') %>
-        </h3>
-      </div>
-      <% end %>
-
-      <!-- Submit and other buttons -->
-      <div class="pull-right">
-
-        <%= f.hidden_field(:visibility, value: @is_test ? 'is_test' : Rails.application.config.default_plan_visibility) %>
-        <%= f.button(_('Create a plan'), class: "btn btn-primary", id: 'create-btn', type: "submit") %>
-        <%= link_to _('Next'), '', class: 'btn btn-primary', id: 'next-btn' %>
-        <%= direct_link(@default_template, false, d_('dmpopidor', 'Use Default Template'), 'end-default-btn') %>
-      </div>
     </div>
+    <% end %>
   </div>
 </div>
-<% end %>

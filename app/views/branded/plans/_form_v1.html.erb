@@ -2,7 +2,10 @@
   <div class="col-md-12">
     <%= form_for Plan.new, url: plans_path do |f| %>
       <!-- Plan name section -->
-      <h1 id="project-title"><%= _('Project title') %></h1>
+      <h1 id="project-title">
+        <span class="red" title="<%= _('This field is required.') %>">* </span>
+        <%= _('Project title') %>
+      </h1>
       <div class="form-group row">
         <div class="col-xs-6">
           <%= f.text_field(:title, class: 'form-control', 'aria-describedby': 'project-title', 'aria-required': 'true', 
