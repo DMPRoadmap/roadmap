@@ -42,7 +42,7 @@
           <% end %>
         <% end %>
         <% answer = @plan.answer(question[:id], false) %>
-        <% blank = (answer.present? && answer.is_valid?) ? answer.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '\n').chomp.blank? : true %>
+        <% blank = not(answer.present? && answer.is_valid?) %>
         <% if blank && @show_unanswered %>
           <%= "    #{_("Question not answered.")}\n\n" %>
         <% elsif !blank %>
