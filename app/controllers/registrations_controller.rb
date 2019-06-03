@@ -190,7 +190,9 @@ class RegistrationsController < Devise::RegistrationsController
           else
             successfully_updated = current_user.update_with_password(password_update)
             if !successfully_updated
-              message = _("Save unsuccessful. That email address is already registered. You must enter a unique email address.")
+              message = _("Save unsuccessful. \
+                That email address is already registered. \
+                You must enter a unique email address.")
             end
           end
         else
