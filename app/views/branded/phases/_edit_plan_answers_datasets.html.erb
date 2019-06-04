@@ -49,7 +49,6 @@
                 <li class="datasets_tabs <%= 'active' if dataset.main? %> <%= 'disabled' if section_has_common_answers %>">
                   <a href="#section-panel-<%= section.id %>" data-toggle="tab" data-target="#dataset_<%= dataset.id %>_section_<%= section.id %>">
                     <%= dataset.name %>
-                    <%= section_has_common_answers %>
                   </a>
                 </li>
               <% end if plan.datasets.count > 1 %>
