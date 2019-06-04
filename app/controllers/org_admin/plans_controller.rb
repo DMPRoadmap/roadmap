@@ -11,7 +11,7 @@ class OrgAdmin::PlansController < ApplicationController
     end
 
     feedback_ids = Role.creator.joins(:user,:plan)
-      .where('users.org_id = ? AND plans.feedback_requested is TRUE',
+      .where('users.org_id = ? AND plans.feedback_requested is TRUE AND roles.active is TRUE',
               current_user.org_id).pluck(:plan_id)
     @feedback_plans = Plan.where(id: feedback_ids).reject{|p| p.nil?}
     @plans = current_user.org.plans.page(1)
