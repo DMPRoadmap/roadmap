@@ -323,40 +323,40 @@ class PlansController < ApplicationController
     end
   end
 
-  # POST /plans/:id/visibility
-  def visibility
-    plan = Plan.find(params[:id])
-    if plan.present?
-      authorize plan
-      if plan.visibility_allowed?
-        plan.visibility = plan_params[:visibility]
-        if plan.save
-          deliver_if(recipients: plan.owner_and_coowners,
-                     key: "owners_and_coowners.visibility_changed") do |r|
-            UserMailer.plan_visibility(r, plan).deliver_now()
-          end
-          render status: :ok,
-                 json: { msg: success_message(plan, _("updated")) }
-        else
-          render status: :internal_server_error,
-                 json: { msg: failure_message(plan, _("update")) }
-        end
-      else
-        # rubocop:disable Metrics/LineLength
-        render status: :forbidden, json: {
-          msg: _("Unable to change the plan's status since it is needed at least %{percentage} percentage responded") % {
-              percentage: Rails.application.config.default_plan_percentage_answered
-          }
-        }
-        # rubocop:enable Metrics/LineLength
-      end
-    else
-      render status: :not_found,
-             json: { msg: _("Unable to find plan id %{plan_id}") % {
-               plan_id: params[:id] }
-             }
-    end
-  end
+  # # POST /plans/:id/visibility
+  # def visibility
+  #   plan = Plan.find(params[:id])
+  #   if plan.present?
+  #     authorize plan
+  #     if plan.visibility_allowed?
+  #       plan.visibility = plan_params[:visibility]
+  #       if plan.save
+  #         deliver_if(recipients: plan.owner_and_coowners,
+  #                    key: "owners_and_coowners.visibility_changed") do |r|
+  #           UserMailer.plan_visibility(r, plan).deliver_now()
+  #         end
+  #         render status: :ok,
+  #                json: { msg: success_message(plan, _("updated")) }
+  #       else
+  #         render status: :internal_server_error,
+  #                json: { msg: failure_message(plan, _("update")) }
+  #       end
+  #     else
+  #       # rubocop:disable Metrics/LineLength
+  #       render status: :forbidden, json: {
+  #         msg: _("Unable to change the plan's status since it is needed at least %{percentage} percentage responded") % {
+  #             percentage: Rails.application.config.default_plan_percentage_answered
+  #         }
+  #       }
+  #       # rubocop:enable Metrics/LineLength
+  #     end
+  #   else
+  #     render status: :not_found,
+  #            json: { msg: _("Unable to find plan id %{plan_id}") % {
+  #              plan_id: params[:id] }
+  #            }
+  #   end
+  # end
 
   # def set_test
   #  plan = Plan.find(params[:id])

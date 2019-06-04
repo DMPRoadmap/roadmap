@@ -177,6 +177,38 @@ module Dmpopidor
           # rubocop:enable Metrics/BlockLength
         end
 
+        # POST /plans/:id/visibility
+        def visibility
+          plan = Plan.find(params[:id])
+          if plan.present?
+            authorize plan
+            if plan.visibility_allowed?
+              plan.visibility = plan_params[:visibility]
+              if plan.save
+                deliver_if(recipients: plan.owner_and_coowners,
+                          key: "owners_and_coowners.visibility_changed") do |r|
+                  UserMailer.plan_visibility(r, plan).deliver_now()
+                end
+                redirect_to :back, notice: success_message(plan, _("updated"))
+              else
+                redirect_to :back, notice: failure_message(plan, _("update"))
+              end
+            else
+              # rubocop:disable Metrics/LineLength
+              redirect_to :back, notice: failure_message(
+                _("Unable to change the plan's status since it is needed at least %{percentage} percentage responded") % {
+                  percentage: Rails.application.config.default_plan_percentage_answered
+                }
+              )
+              # rubocop:enable Metrics/LineLength
+            end
+          else
+            redirect_to :back, notice: failure_message(
+              _("Unable to find plan id %{plan_id}") % { plan_id: params[:id] }
+            )
+          end
+        end
+
         # Removing test flag now put the plan in privately_private visibility
         def set_test
           plan = Plan.find(params[:id])
