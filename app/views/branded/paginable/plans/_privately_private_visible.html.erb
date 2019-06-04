@@ -2,21 +2,22 @@
         <table class="table table-hover" id="my-plans">
           <thead>
             <tr>
-              <th><%= _('Project Title') %>&nbsp;<%= paginable_sort_link('plans.title') %></th>
-              <th><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
-              <th><%= _('Edited') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
-              <th><%= _('Role') %></th>
-              <th class="text-center sorter-false"><%= _('Test') %></th>
-              <th><%= _('Visibility') %></th>
-              <th><%= _('Shared') %></th>
-              <th class="sorter-false">
+              <th scope="col"><%= _('Project Title') %>&nbsp;<%= paginable_sort_link('plans.title') %></th>
+              <th scope="col"><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
+              <th scope="col"><%= _('Edited') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
+              <th scope="col"><%= _('Role') %></th>
+              <th scope="col"><%= _('Owner') %></th>
+              <th scope="col" class="text-center sorter-false"><%= _('Test') %></th>
+              <th scope="col"><%= _('Visibility') %></th>
+              <th scope="col"><%= _('Shared') %></th>
+              <th scope="col" class="sorter-false">
                 <span aria-hidden="false" class="sr-only"><%= _('Actions') %></span>
               </th>
             </tr>
           </thead>
           <tbody>
             <% scope.each do |plan| %>
-              <tr>
+              <tr id="<%= dom_id(plan) %>">
                 <td>
                   <%= link_to "#{plan.title.length > 60 ? "#{plan.title[0..59]} ..." : plan.title}",
                       plan_path(plan) %>
@@ -24,6 +25,7 @@
                 <td><%= plan.template.title %></td>
                 <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
                 <td><%= display_role(plan.roles.find_by(user: current_user)) %></td>
+                <td><%= display_owner(plan.owner) %></td>
                 <td class="text-center">
                   <% if plan.administerable_by?(current_user.id) then %>
                     <%= form_for plan, url: set_test_plan_path(plan), html: { method: :post, class: 'set_test_plan', remote: true } do |f| %>
@@ -38,7 +40,7 @@
                   <%= plan.visibility === 'is_test' ? _('N/A') : sanitize(display_visibility(plan.visibility)) %>
                 </td>
                 <td>
-                  <% if plan.shared %>
+                  <% if plan.shared? %>
                     <%= _("Yes") %>
                   <% else %>
                     <%= _('No') %>
