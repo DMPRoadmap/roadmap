@@ -48,6 +48,7 @@ GEM
       rake (>= 10.4, < 13.0)
     annotate_gem (0.0.13)
       bundler (~> 1.1)
+    api-pagination (4.8.2)
     archive-zip (0.12.0)
       io-like (~> 0.3.0)
     arel (6.0.4)
@@ -281,7 +282,6 @@ GEM
       omniauth (>= 1.0.0)
     options (2.3.2)
     orm_adapter (0.5.0)
-    pager_api (0.3.1)
     parallel (1.17.0)
     parser (2.6.2.1)
       ast (~> 2.4.0)
@@ -483,6 +483,7 @@ DEPENDENCIES
   activerecord-session_store
   annotate
   annotate_gem
+  api-pagination
   autoprefixer-rails
   better_errors
   binding_of_caller
@@ -522,7 +523,6 @@ DEPENDENCIES
   omniauth
   omniauth-orcid
   omniauth-shibboleth
-  pager_api
   pg (~> 0.19.0)
   progress_bar
   puma

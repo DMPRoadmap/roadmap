@@ -9,8 +9,7 @@ class Paginable::GuidancesController < ApplicationController
     authorize(Guidance)
     paginable_renderise(
       partial: "index",
-      scope: Guidance.by_org(current_user.org)
-                     .includes(:guidance_group, :themes),
+      scope: org.admin,
       query_params: { sort_field: "guidances.text", sort_direction: :asc }
     )
   end
