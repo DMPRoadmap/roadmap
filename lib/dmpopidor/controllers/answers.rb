@@ -99,6 +99,7 @@ module Dmpopidor
                   render_to_string(partial: "answers/locking", locals: {
                     question: @question,
                     answer: @stale_answer,
+                    dataset: @dataset,
                     user: @answer.user
                   }, formats: [:html]) :
                   nil,
