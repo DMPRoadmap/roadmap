@@ -196,6 +196,10 @@ Rails.application.routes.draw do
     resources :guidance_groups, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
     end
+    # Paginable actions for departments
+    resources :departments, only: [] do
+      get 'index/:page', action: :index, on: :collection, as: :index
+    end
   end
 
   resources :template_options, only: [:index], constraints: { format: /json/ }
@@ -246,6 +250,8 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    resources :departments
 
     get 'download_plans' => 'plans#download_plans'
   end

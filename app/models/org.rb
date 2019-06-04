@@ -73,6 +73,7 @@ class Org < ActiveRecord::Base
 
   has_many :identifier_schemes, through: :org_identifiers
 
+  has_many :departments
 
   # ===============
   # = Validations =
@@ -166,9 +167,9 @@ class Org < ActiveRecord::Base
   # Returns nil
   def get_locale
     if !self.language.nil?
-      return self.language.abbreviation
+      self.language.abbreviation
     else
-      return nil
+      nil
     end
   end
 
@@ -188,7 +189,7 @@ class Org < ActiveRecord::Base
     ret << "Research Institute" if self.research_institute?
     ret << "Project" if self.project?
     ret << "School" if self.school?
-    return (ret.length > 0 ? ret.join(", ") : "None")
+    (ret.length > 0 ? ret.join(", ") : "None")
   end
 
   def funder_only?
@@ -209,9 +210,9 @@ class Org < ActiveRecord::Base
   # Returns String
   def short_name
     if abbreviation.nil? then
-      return name
+      name
     else
-      return abbreviation
+      abbreviation
     end
   end
 
@@ -220,7 +221,7 @@ class Org < ActiveRecord::Base
   #
   # Returns ActiveRecord::Relation
   def published_templates
-    return templates.where("published = ?", true)
+    templates.where("published = ?", true)
   end
 
   def org_admins
