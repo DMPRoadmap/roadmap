@@ -29,6 +29,17 @@
   <% if org_admin %>
     <input type="hidden" id="original_org" value="<%= @user.org_id %>">
   <% end %>
+  
+    <% departments = current_user.org.departments %>
+    <div class="form-group col-xs-8">
+      <% dept_id = current_user.department.nil? ? -1 : current_user.department.id  %>
+      <%= f.label(:department_id, _('Department or school'), class: 'control-label') %>
+      <%= select_tag("user[department_id]",
+          options_from_collection_for_select(departments, "id", "name", dept_id),
+          include_blank: true,
+          disabled: departments.count === 0,
+          class: "form-control") %>
+    </div>
 
   <% if Language.many? %>
     <div class="form-group col-xs-8">
