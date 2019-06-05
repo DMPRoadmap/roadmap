@@ -22,7 +22,7 @@ class Department < ActiveRecord::Base
 
   belongs_to :org
 
-  has_many :users
+  has_many :users, dependent: :nullify
 
   # ===============
   # = Validations =
