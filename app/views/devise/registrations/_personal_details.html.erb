@@ -30,7 +30,7 @@
     <input type="hidden" id="original_org" value="<%= @user.org_id %>">
   <% end %>
   
-    <% departments = current_user.org.departments %>
+    <% departments = current_user.org.departments.order(:name) %>
     <div class="form-group col-xs-8">
       <% dept_id = current_user.department.nil? ? -1 : current_user.department.id  %>
       <%= f.label(:department_id, _('Department or school'), class: 'control-label') %>
