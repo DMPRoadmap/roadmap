@@ -42,6 +42,10 @@ class Org < ActiveRecord::Base
 
   LOGO_FORMATS = %w[jpeg png gif jpg bmp].freeze
 
+  HUMANIZED_ATTRIBUTES = {
+    feedback_email_msg: _('Feedback email message')
+  }
+
   # Stores links as an JSON object:
   #  { org: [{"link":"www.example.com","text":"foo"}, ...] }
   # The links are validated against custom validator allocated at
@@ -160,6 +164,11 @@ class Org < ActiveRecord::Base
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?
+
+  # Update humanized attributes with HUMANIZED_ATTRIBUTES
+  def self.human_attribute_name(attr, options = {})
+    HUMANIZED_ATTRIBUTES[attr.to_sym] || super
+  end
 
   # Determines the locale set for the organisation
   #
