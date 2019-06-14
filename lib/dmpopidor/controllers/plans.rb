@@ -126,6 +126,8 @@ module Dmpopidor
         end
         
 
+        # PUT /plans/1
+        # PUT /plans/1.json
         # CHANGES :
         # Added Dataset Support
         def update
@@ -147,7 +149,7 @@ module Dmpopidor
                 @plan.datasets.toggle_default
 
                 format.html do
-                  redirect_to overview_plan_path(@plan),
+                  redirect_to datasets_plan_path(@plan),
                               notice: success_message(@plan, _("saved"))
                 end
                 format.json do
@@ -237,6 +239,7 @@ module Dmpopidor
           @export_settings = @plan.settings(:export)
           render "download"
          end
+
       end
     end
   end

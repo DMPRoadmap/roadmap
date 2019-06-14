@@ -148,8 +148,6 @@
           </div>
         </div>
       </fieldset>
-      <%# Datasets category %>
-      <%= render 'datasets_form', f: f if Dataset.table_exists? %>
 
       <%= f.button(_('Submit'), class: "btn btn-default", type: "submit") %>
     </div>

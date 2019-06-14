@@ -1,11 +1,17 @@
-<div class="project-details datasets-description">
+<%# locals: { plan, datasets } %>
+<div class="datasets-description">
   <legend class="project-details"><%= d_('dmpopidor', 'Datasets') %></legend>
-  <div id='datasets'>
-    <%= f.fields_for :datasets do |d| %>
-      <%= render 'dataset_fields', f: d %>
-    <% end %>
-    <div class='links'>
-      <%= link_to_add_association _('Add a dataset'), f, :datasets, class: 'btn btn-default', id: "add-dataset" %>
+  <%= form_for plan, html: {method: :put, class: 'form-horizontal edit_plan' } do |f| %>
+    <div id='datasets'>
+      <% @datasets.each do |dataset|%>
+        <%= f.fields_for :datasets, dataset do |d| %>
+          <%= render 'plans/dataset_fields', f: d, plan: plan, dataset: dataset %>
+        <% end %>
+      <% end %>
     </div>
-  </div>
+    <div class='links'>
+      <span id="add-dataset", class="btn btn-link"><%= d_('dmpopidor', 'Add a dataset') %></span>
+    </div>
+    <%= f.button(_('Submit'), class: "btn btn-default", type: "submit") %>
+  <% end %>
 </div>

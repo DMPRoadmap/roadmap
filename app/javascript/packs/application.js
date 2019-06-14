@@ -1,7 +1,6 @@
 // Rails setup
 import 'jquery-ujs';
 import 'jquery-accessible-autocomplete-list-aria/jquery-accessible-autocomplete-list-aria';
-import 'cocoon-js';
 
 // Generic JS that is applicable across multiple pages
 import '../utils/array';
@@ -34,6 +33,7 @@ import '../views/org_admin/templates/new';
 import '../views/orgs/admin_edit';
 import '../views/orgs/shibboleth_ds';
 import '../views/plans/download';
+import '../views/plans/datasets';
 import '../views/plans/edit_details';
 import '../views/plans/index';
 import '../views/plans/new';

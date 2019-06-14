@@ -1,4 +1,5 @@
-<div class='nested-fields dataset-element'>
+<%# locals: { plan, dataset } %>
+<div class='dataset-element'>
   <div class='field form-group dataset-name'>
     <%= f.label :name, _('Name'),  class: 'control-label' %>
     <%= f.text_field :name, class: 'form-control', "aria-required": true %>
@@ -10,10 +11,12 @@
     <%= f.hidden_field :order, class: 'dataset-order' %>
   <div class='dataset-actions'>
     <i class="fa fa-arrows pull-left handle" aria-hidden="true"
-             title="<%= _('Move dataset') %>"></i>
-    <%= link_to_remove_association f do %>
-    <i class="fa fa-close pull-right" aria-hidden="true"
-             title="<%= _('Delete dataset') %>" %></i>
+             title="<%= d_('dmpopidor', 'Move dataset') %>"></i>
+    <%= link_to plan_dataset_url(plan, dataset), 
+                data: {:confirm => d_('dmpopidor', 'Deleting this dataset will remove the associated answers. Do you confirm ?')}, 
+                :method => :delete  do %>
+      <i class="fa fa-close pull-right" aria-hidden="true"
+              title="<%= d_('dmpopidor', 'Delete dataset') %>" %></i>
     <% end %>
   </div>
   <hr>
