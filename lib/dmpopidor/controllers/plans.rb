@@ -149,7 +149,7 @@ module Dmpopidor
                 @plan.datasets.toggle_default
 
                 format.html do
-                  redirect_to datasets_plan_path(@plan),
+                  redirect_to plan_datasets_path(@plan),
                               notice: success_message(@plan, _("saved"))
                 end
                 format.json do
