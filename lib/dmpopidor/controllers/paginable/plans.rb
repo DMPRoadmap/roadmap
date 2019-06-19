@@ -2,19 +2,6 @@ module Dmpopidor
     module Controllers
       module Paginable
         module Plans
-  
-          # /paginable/plans/privately_private_visible/:page
-          # Paginable for Privately Private Visibility
-          # Plans that are only visible by the owner of a plan and its collaborators
-          def privately_private_visible
-            unless Paginable::PlanPolicy.new(current_user).privately_private_visible?
-              raise Pundit::NotAuthorizedError
-            end
-            paginable_renderise(
-              partial: "privately_private_visible",
-              scope: Plan.active(current_user)
-            )
-          end
           # GET /paginable/plans/org_admin/:page
           # Renders only the plans with a visibility superior to privately_private
           def org_admin

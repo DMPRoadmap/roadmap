@@ -1,5 +1,8 @@
 module Paginable
   class PlanPolicy < ApplicationPolicy
+
+    include Dmpopidor::Policies::Paginable::Plan
+    
     def initialize(user)
       @user = user
     end
