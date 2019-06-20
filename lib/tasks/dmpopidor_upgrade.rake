@@ -71,7 +71,7 @@ namespace :dmpopidor_upgrade do
   # - "Detach" remaining answers from their research outputs (the default ones)
   # - Drop the research outputs table and reverse the migrations
   desc 'Migrate the database to remove research outputs'
-  task research outputs_disable: :environment do
+  task research_outputs_disable: :environment do
     # Destroy all research outputs which are not defaut research outputs and their answers
     ResearchOutput.where(is_default: false).destroy_all
     Rake::Task['db:migrate:down VERSION=20190503130010'].execute
