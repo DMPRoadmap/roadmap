@@ -120,7 +120,7 @@ class Plan < ActiveRecord::Base
     def toggle_default
       if count > 1
         unless default.nil?
-          default.update(name: 'Default research output') if default.name.nil?
+          default.update(abbreviation: 'Default research output') if default.abbreviation.nil?
           default.update(is_default: false)
         end
       else

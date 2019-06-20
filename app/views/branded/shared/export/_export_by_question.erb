@@ -23,7 +23,7 @@
         <% if @show_unanswered && (answer.blank? || (options.blank? && blank))%>
         <p>
           <% if !section_has_common_answers %>
-            <strong><%= research_output.name %></strong> :  
+            <strong><%= research_output.fullname %></strong> :  
           <% end %>
           <i><%= _('Question not answered.') -%></i>
         </p>
@@ -33,7 +33,7 @@
         <%# case where Question has options %>
         <% if options.any? %>
           <% if !section_has_common_answers %>
-            <strong><%= research_output.name %></strong> :  
+            <strong><%= research_output.fullname %></strong> :  
           <% end %>
           <ul>
           <% options.each do |opt| %>
@@ -46,7 +46,7 @@
           <% ah = answer.answer_hash %>
           <% if ah['standards'].present? %>
             <% if !section_has_common_answers %>
-              <strong><%= research_output.name %></strong> :  
+              <strong><%= research_output.fullname %></strong> :  
             <% end %>
             <ul>
               <% ah['standards'].each do |id, title| %>
@@ -59,7 +59,7 @@
         <% elsif !blank %>
           <p>
             <% if !section_has_common_answers %>
-              <strong><%= research_output.name %></strong> :  
+              <strong><%= research_output.fullname %></strong> :  
             <% end %>
             <%= sanitize answer.text %>
           </p>

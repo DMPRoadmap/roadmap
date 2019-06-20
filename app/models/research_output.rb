@@ -2,18 +2,18 @@
 #
 # Table name: research_outputs
 #
-#  id          :integer          not null, primary key
-#  description :text
-#  is_default  :boolean          default(FALSE)
-#  name        :string
-#  order       :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  plan_id     :integer
+#  id           :integer          not null, primary key
+#  abbreviation :string
+#  fullname     :string
+#  is_default   :boolean          default(FALSE)
+#  order        :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  plan_id      :integer
 #
 # Indexes
 #
-#  index_research_output_on_plan_id  (plan_id)
+#  index_research_outputs_on_plan_id  (plan_id)
 #
 # Foreign Keys
 #

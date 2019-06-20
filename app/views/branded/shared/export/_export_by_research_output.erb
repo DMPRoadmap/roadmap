@@ -3,7 +3,7 @@
   <% section_has_common_answers = research_output.get_main().has_common_answers?(section[:id]) %>
   <% if !section_has_common_answers %>
   <div class="research-output">
-    <h3><%= research_output[:name] %></h3>
+    <h3><%= research_output[:fullname] %></h3>
   <% end %>
   <% questions.each do |question| %>
     <% answer = section_has_common_answers ? 

@@ -48,7 +48,7 @@
               <% plan.research_outputs.each_with_index do |research_output, i| %>
                 <li class="research_outputs_tabs <%= 'active' if research_output.main? %> <%= 'disabled' if section_has_common_answers %>">
                   <a href="#section-panel-<%= section.id %>" data-toggle="tab" data-target="#research_output_<%= research_output.id %>_section_<%= section.id %>">
-                    <%= research_output.name %>
+                    <%= research_output.abbreviation %>
                   </a>
                 </li>
               <% end if plan.research_outputs.count > 1 %>

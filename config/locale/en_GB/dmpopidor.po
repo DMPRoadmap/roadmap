@@ -266,6 +266,12 @@ msgstr "Editing Static Page"
 
 # Research outputs
 
+msgid "Abbreviated Name (20 chars max.)"
+msgstr "Abbreviated Name (20 chars max.)"
+
+msgid "Fullname"
+msgstr "Fullname"
+
 msgid "Select research outputs to download"
 msgstr "Select research outputs to download"
 

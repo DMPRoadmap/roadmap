@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190620120126) do
+ActiveRecord::Schema.define(version: 20190620135111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -300,13 +300,13 @@ ActiveRecord::Schema.define(version: 20190620120126) do
   end
 
   create_table "research_outputs", force: :cascade do |t|
-    t.string   "name"
+    t.string   "abbreviation"
     t.integer  "order"
-    t.text     "description"
-    t.boolean  "is_default",  default: false
+    t.string   "fullname"
+    t.boolean  "is_default",   default: false
     t.integer  "plan_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   add_index "research_outputs", ["plan_id"], name: "index_research_outputs_on_plan_id", using: :btree

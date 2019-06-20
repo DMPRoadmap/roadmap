@@ -266,6 +266,12 @@ msgstr "%{object} %{action} avec succés."
 
 # Research outputs
 
+msgid "Abbreviated Name (20 chars max.)"
+msgstr "Nom abbrégé (20 caractères max.)"
+
+msgid "Fullname"
+msgstr ""
+
 msgid "Select research outputs to download"
 msgstr "Sélectionner les produits de recherche à télécharger"
 

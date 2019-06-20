@@ -13,7 +13,7 @@
           <%= label_tag "selected_research_outputs[]" do %>
             <span class="sublist">└─ </span>
             <%= check_box_tag("selected_research_outputs[]", research_output.id, true, { class: "research-output-checkbox" }) %>
-            <%= research_output.name %>
+            <%= research_output.abbreviation %>
           <% end %>
         </li>
       <% end %>

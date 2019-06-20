@@ -270,6 +270,12 @@ msgstr ""
 
 # Research outputs
 
+msgid "Abbreviated Name (20 chars max.)"
+msgstr ""
+
+msgid "Fullname"
+msgstr ""
+
 msgid "Select research outputs to download"
 msgstr ""
 
