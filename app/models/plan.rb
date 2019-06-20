@@ -106,21 +106,21 @@ class Plan < ActiveRecord::Base
 
   has_many :roles
 
-  # DATASETS
-  has_many :datasets, dependent: :destroy, inverse_of: :plan do
-    # Returns the default dataset
+  # RESEARCH OUTPUTS
+  has_many :research_outputs, dependent: :destroy, inverse_of: :plan do
+    # Returns the default research output
     def default
       find_by(is_default: true)
     end
 
-    # Toggles the default dataset between default and normal
+    # Toggles the default research output between default and normal
     # Uses the 'is_default' flag:
-    # - Removes it if there are more than one dataset
-    # - Adds it back is there's only one dataset left
+    # - Removes it if there are more than one research output
+    # - Adds it back is there's only one research output left
     def toggle_default
       if count > 1
         unless default.nil?
-          default.update(name: 'Default dataset') if default.name.nil?
+          default.update(name: 'Default research output') if default.name.nil?
           default.update(is_default: false)
         end
       else
@@ -139,7 +139,7 @@ class Plan < ActiveRecord::Base
 
   accepts_nested_attributes_for :roles
 
-  accepts_nested_attributes_for :datasets, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :research_outputs, reject_if: :all_blank, allow_destroy: true
 
   # ===============
   # = Validations =
@@ -232,20 +232,20 @@ class Plan < ActiveRecord::Base
   #
   # Returns Plan
   # CHANGES
-  # Added Dataset Support
+  # Added Research Output Support
   def self.deep_copy(plan)
     plan_copy = plan.dup
     plan_copy.title = "Copy of " + plan.title
     plan_copy.save!
-    plan.datasets.each do |dataset|
-      dataset_copy = Dataset.deep_copy(dataset)
-      dataset_copy.plan_id = plan_copy.id
-      dataset_copy.save!
+    plan.research_outputs.each do |research_output|
+      research_output_copy = ResearchOutput.deep_copy(research_output)
+      research_output_copy.plan_id = plan_copy.id
+      research_output_copy.save!
 
-      dataset.answers.each do |answer|
+      research_output.answers.each do |answer|
         answer_copy = Answer.deep_copy(answer)
         answer_copy.plan_id = plan_copy.id
-        answer_copy.dataset_id = dataset_copy.id
+        answer_copy.research_output_id = research_output_copy.id
         answer_copy.save!
       end
 

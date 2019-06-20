@@ -1,14 +1,15 @@
-<%# locals: { datasets, questions, section  } %>
-<% datasets.each do |dataset| %>
-  <% section_has_common_answers = dataset.get_main().has_common_answers?(section[:id]) %>
-  <% if !section_has_common_answers %>
-  <div class="dataset">
-    <h3><%= dataset[:name] %></h3>
+<%# locals: { research_outputs, questions, section  } %>
+<% research_outputs.each do |research_output| %>
+  <% section_has_common_answers = research_output.get_main().has_common_answers?(section[:id]) %>
+  <%= research_output.get_main() %>
+  <% if section_has_common_answers == false %>
+  <div class="research-output">
+    <h3><%= research_output[:name] %></h3>
   <% end %>
   <% questions.each do |question| %>
     <% answer = section_has_common_answers ? 
-          @plan.answer(question[:id], false, dataset.get_main().id) : 
-          @plan.answer(question[:id], false, dataset[:id]) %>
+          @plan.answer(question[:id], false, research_output.get_main().id) : 
+          @plan.answer(question[:id], false, research_output[:id]) %>
     <% blank = answer.present? ? answer.is_blank? : true %>
     <% options = answer.present? ? answer.question_options : [] %>
 
@@ -56,9 +57,9 @@
   <% end %> <!-- questions.each -->
 
   <% if !section_has_common_answers %>
-  </div> <!-- .dataset -->
+  </div> <!-- .research_output -->
   <% end %>
   <% if section_has_common_answers %>
-  <% break %> <!-- break if is dataset has common answers, only display the first -->
+  <% break %> <!-- break if is research output has common answers, only display the first -->
   <% end %>
-<% end %><!-- datasets.each -->
+<% end %><!-- research_outputs.each -->

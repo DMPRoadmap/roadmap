@@ -669,7 +669,7 @@ $light-yellow: #fff9e5;
   }
   
 /*
-  Datasets
+  Research Outputs
 */
 .nav-tabs {
     li.disabled {
@@ -680,21 +680,21 @@ $light-yellow: #fff9e5;
     }
 }
 
-.datasets-description {
+.research-outputs-description {
     width: 50vw;
     padding: 0 5px;
     margin-top: 5px;
 
-    .dataset-element {
+    .research-output-element {
         display: flex;
         flex-direction: row;
-        .dataset-name {
+        .research-output-name {
             width: 30%;
         }
-        .dataset-description {
+        .research-output-description {
             width: 60%;
         }
-        .dataset-actions {
+        .research-output-actions {
             width: 10%;
             display: flex;
             align-items: center;

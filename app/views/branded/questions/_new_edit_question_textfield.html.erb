@@ -1,4 +1,4 @@
-<%# locals: { f, question, answer, dataset } %>
+<%# locals: { f, question, answer, research_output } %>
 <div class="form-group">
     <%= f.label(:text, sanitize(question.text), class: 'control-label') %>
     <%= text_field_tag('answer[text]', strip_tags(answer.text || question.default_value), class: 'form-control') %>

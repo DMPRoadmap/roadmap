@@ -26,17 +26,17 @@
             <% if @show_sections_questions %>
               <h2><%= section[:title] %></h2>
             <% end %>
-            <% if @dataset_export_mode == "by_section" %>
-              <%= render partial: 'shared/export/export_by_dataset',
+            <% if @research_output_export_mode == "by_section" %>
+              <%= render partial: 'shared/export/export_by_research_output',
                          locals: {
-                          datasets: @hash[:datasets],
+                          research_outputs: @hash[:research_outputs],
                           questions: section[:questions],
                           section: section
                         } %>
-            <% elsif @dataset_export_mode == "by_question" %>
+            <% elsif @research_output_export_mode == "by_question" %>
               <%= render partial: 'shared/export/export_by_question',
                          locals: {
-                          datasets: @hash[:datasets],
+                          research_outputs: @hash[:research_outputs],
                           questions: section[:questions],
                           section: section
                         } %>

@@ -1,7 +1,7 @@
 module Dmpopidor
   module Controllers
     module Answers
-      # Added Datasets support
+      # Added Research outputs support
       def create_or_update
         p_params = permitted_params()
 
@@ -34,16 +34,10 @@ module Dmpopidor
         # rubocop:disable BlockLength
         Answer.transaction do
           begin
-            if Dataset.table_exists?
-                @answer = Answer.find_by!({ 
-                    plan_id: p_params[:plan_id], question_id: p_params[:question_id], 
-                    dataset_id: p_params[:dataset_id] 
-                })
-              else
-                @answer = Answer.find_by!({ 
-                    plan_id: p_params[:plan_id], question_id: p_params[:question_id] 
-                })
-              end
+            @answer = Answer.find_by!({ 
+                plan_id: p_params[:plan_id], question_id: p_params[:question_id], 
+                research_output_id: p_params[:research_output_id] 
+            })
             authorize @answer
             @answer.update(p_params.merge(user_id: current_user.id))
             if p_params[:question_option_ids].present?
@@ -89,7 +83,7 @@ module Dmpopidor
               @question = @answer.question
               @section = @plan.sections.find_by(id: @question.section_id)
               template = @section.phase.template
-              @dataset = @answer.dataset
+              @research_output = @answer.research_output
               # rubocop:disable LineLength
               render json: {
               "question" => {
@@ -99,7 +93,7 @@ module Dmpopidor
                   render_to_string(partial: "answers/locking", locals: {
                     question: @question,
                     answer: @stale_answer,
-                    dataset: @dataset,
+                    research_output: @research_output,
                     user: @answer.user
                   }, formats: [:html]) :
                   nil,
@@ -107,7 +101,7 @@ module Dmpopidor
                   template: template,
                   question: @question,
                   answer: @answer,
-                  dataset: @dataset,
+                  research_output: @research_output,
                   readonly: false,
                   locking: false,
                   base_template_org: template.base_org
@@ -130,8 +124,8 @@ module Dmpopidor
                   current_phase: @section.phase
                 }, formats: [:html])
               },
-              "dataset" => {
-                "id" => @dataset.id
+              "research_output" => {
+                "id" => @research_output.id
               }
             }.to_json
             # rubocop:enable LineLength

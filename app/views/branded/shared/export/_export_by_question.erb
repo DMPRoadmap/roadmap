@@ -1,12 +1,12 @@
-<%# locals: { datasets, questions, section  } %>
+<%# locals: { research_outputs, questions, section  } %>
 <% questions.each do |question| %>
   <div class="question">
 
-    <% datasets.each_with_index do |dataset, idx| %>
-      <% section_has_common_answers = dataset.get_main().has_common_answers?(section[:id]) %>
+    <% research_outputs.each_with_index do |research_output, idx| %>
+      <% section_has_common_answers = research_output.get_main().has_common_answers?(section[:id]) %>
       <% answer = section_has_common_answers ? 
-            @plan.answer(question[:id], false, dataset.get_main().id) : 
-            @plan.answer(question[:id], false, dataset[:id]) %>
+            @plan.answer(question[:id], false, research_output.get_main().id) : 
+            @plan.answer(question[:id], false, research_output[:id]) %>
       <% blank = answer.present? ? answer.is_blank? : true %>
       <% options = answer.present? ? answer.question_options : [] %>
 
@@ -23,7 +23,7 @@
         <% if @show_unanswered && (answer.blank? || (options.blank? && blank))%>
         <p>
           <% if !section_has_common_answers %>
-            <strong><%= dataset.name %></strong> :  
+            <strong><%= research_output.name %></strong> :  
           <% end %>
           <i><%= _('Question not answered.') -%></i>
         </p>
@@ -33,7 +33,7 @@
         <%# case where Question has options %>
         <% if options.any? %>
           <% if !section_has_common_answers %>
-            <strong><%= dataset.name %></strong> :  
+            <strong><%= research_output.name %></strong> :  
           <% end %>
           <ul>
           <% options.each do |opt| %>
@@ -46,7 +46,7 @@
           <% ah = answer.answer_hash %>
           <% if ah['standards'].present? %>
             <% if !section_has_common_answers %>
-              <strong><%= dataset.name %></strong> :  
+              <strong><%= research_output.name %></strong> :  
             <% end %>
             <ul>
               <% ah['standards'].each do |id, title| %>
@@ -59,7 +59,7 @@
         <% elsif !blank %>
           <p>
             <% if !section_has_common_answers %>
-              <strong><%= dataset.name %></strong> :  
+              <strong><%= research_output.name %></strong> :  
             <% end %>
             <%= sanitize answer.text %>
           </p>
@@ -68,9 +68,9 @@
         <% end %>
       <% end %>
       <% if section_has_common_answers %>
-        <% break %> <!-- break if is dataset has common answers, only display the first -->
+        <% break %> <!-- break if is research output has common answers, only display the first -->
       <% end %>
-    <% end %> <!-- datasets.each -->
+    <% end %> <!-- research_outputs.each -->
 
   </div>
 <% end %><!-- questions.each -->

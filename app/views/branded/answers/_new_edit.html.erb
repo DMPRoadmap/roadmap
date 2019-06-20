@@ -1,6 +1,6 @@
-<%# locals: { template, question, answer, dataset, readonly, locking } %>
+<%# locals: { template, question, answer, research_output, readonly, locking } %>
 <!--
-  This partial creates a form for each type of question. The local variables are: plan, answer, question, dataset, readonly
+  This partial creates a form for each type of question. The local variables are: plan, answer, question, research_output, readonly
 -->
 <!-- Question text -->
 <% q_format = question.question_format %>
@@ -49,26 +49,24 @@
     <%= f.hidden_field :plan_id %>
     <%= f.hidden_field :question_id %>
     <%= f.hidden_field :lock_version %>
-    <% if Dataset.table_exists? %>
-      <%= f.hidden_field :dataset_id, :value => dataset.id%>
-      <%= f.check_box :is_common, style: 'display: none', class: 'ans_is_common' if answer.dataset.main? %>
-      <%= f.hidden_field :id, class: 'answer_id' %>
-    <% end %>
+    <%= f.hidden_field :research_output_id, :value => research_output.id%>
+    <%= f.check_box :is_common, style: 'display: none', class: 'ans_is_common' if answer.research_output.main? %>
+    <%= f.hidden_field :id, class: 'answer_id' %>
     <% if q_format.rda_metadata? %>
       <%= hidden_field_tag :standards, answer_hash['standards'].to_json %>
     <% end %>
   <% end %>
   <fieldset <%= 'disabled' if readonly %> >
     <% if question.option_based? || question.question_format.rda_metadata? %>
-        <%= render(partial: 'questions/new_edit_question_option_based', locals: { f: f, question: question, answer: answer, dataset: dataset }) %>
+        <%= render(partial: 'questions/new_edit_question_option_based', locals: { f: f, question: question, answer: answer, research_output: research_output }) %>
     <% elsif question.question_format.textfield?%>
-        <%= render(partial: 'questions/new_edit_question_textfield', locals: { f: f, question: question, answer: answer, dataset: dataset }) %>
+        <%= render(partial: 'questions/new_edit_question_textfield', locals: { f: f, question: question, answer: answer, research_output: research_output }) %>
     <% elsif question.question_format.date? %>
-        <%= render(partial: 'questions/new_edit_question_datefield', locals: { f: f, question: question, answer: answer, dataset: dataset }) %>
+        <%= render(partial: 'questions/new_edit_question_datefield', locals: { f: f, question: question, answer: answer, research_output: research_output }) %>
     <% elsif question.question_format.number? %>
-        <%= render(partial: 'questions/new_edit_question_numberfield', locals: { f: f, question: question, answer: answer, dataset: dataset }) %>
+        <%= render(partial: 'questions/new_edit_question_numberfield', locals: { f: f, question: question, answer: answer, research_output: research_output }) %>
     <% elsif question.question_format.textarea? %>
-        <%= render(partial: 'questions/new_edit_question_textarea', locals: { f: f, question: question, answer: answer, dataset: dataset, locking: locking, readonly: readonly}) %>
+        <%= render(partial: 'questions/new_edit_question_textarea', locals: { f: f, question: question, answer: answer, research_output: research_output, locking: locking, readonly: readonly}) %>
     <% end %>
     <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
   </fieldset>
@@ -79,11 +77,11 @@
         <div class="panel panel-default example-answer">
           <span class="label label-default example-answer-link" 
                 data-toggle="collapse" 
-                data-target="<%= "#example-#{question.id}-dataset-#{dataset.id}"  %>">
+                data-target="<%= "#example-#{question.id}-research-output-#{research_output.id}"  %>">
             <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
             <i class="more-less fa fa-plus small"></i>
           </span>
-          <div class="panel-body collapse" id="<%= "example-#{question.id}-dataset-#{dataset.id}"  %>">
+          <div class="panel-body collapse" id="<%= "example-#{question.id}-research-output-#{research_output.id}"  %>">
             <%= sanitize annotation.text %>
           </div>
         </div>

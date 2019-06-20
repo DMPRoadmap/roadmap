@@ -264,34 +264,34 @@ msgstr "Edition d'une page statique"
 msgid "Successfully %{action} the %{object}."
 msgstr "%{object} %{action} avec succés."
 
-# Datasets
+# Research outputs
 
-msgid "Select datasets to download"
-msgstr "Sélectionner les jeux de données à télécharger"
+msgid "Select research outputs to download"
+msgstr "Sélectionner les produits de recherche à télécharger"
 
-msgid "Datasets"
-msgstr "Jeux de données"
+msgid "Research outputs"
+msgstr "Produits de recherche"
 
-msgid "Dataset export mode"
-msgstr "Mode d'export des jeux de données"
+msgid "Research output export mode"
+msgstr "Mode d'export des produits de recherche"
 
-msgid "Datasets by section"
-msgstr "Jeux de données par section"
+msgid "Research outputs by section"
+msgstr "Produits de recherche par section"
 
-msgid "Datasets by question"
-msgstr "Jeux de données par question"
+msgid "Research outputs by question"
+msgstr "Produits de recherche par question"
 
-msgid "Move dataset"
-msgstr "Déplacer le jeu de données"
+msgid "Move research output"
+msgstr "Déplacer le produit de recherche"
 
-msgid "Delete dataset"
-msgstr "Supprimer le jeu de données"
+msgid "Delete research output"
+msgstr "Supprimer le produit de recherche"
 
-msgid "Add a dataset"
-msgstr "Ajouter un jeu de données"
+msgid "Add a research output"
+msgstr "Ajouter un produit de recherche"
 
-msgid "dataset"
-msgstr "Jeu de données"
+msgid "research output"
+msgstr "Produit de recherche"
 
-msgid "Deleting this dataset will remove the associated answers. Do you confirm ?"
-msgstr "En supprimant ce jeu de données, les réponses associées seront également supprimées. Confirmez-vous la suppression ?"
+msgid "Deleting this research output will remove the associated answers. Do you confirm ?"
+msgstr "En supprimant ce produit de recherche, les réponses associées seront également supprimées. Confirmez-vous la suppression ?"

@@ -1,4 +1,4 @@
-<%# locals{ question, dataset, guidance_groups_by_theme } %>
+<%# locals{ question, research_output, guidance_groups_by_theme } %>
 <% parent_id = guidance_groups_by_theme.object_id %>
 <div id="<%= parent_id %>" class="panel-group" role="tablist" aria-multiselectable="true">
   <div id="guidance-accordion-controls">
@@ -11,7 +11,7 @@
   <% guidance_groups_by_theme.each_pair do |guidance_group, theme_hash| %>
     <% guidances_output = [] %>
     <% theme_hash.each_pair do |theme, guidances| %>
-      <% question_guidance_id = "#{question.object_id}-#{guidances.object_id}-dataset-#{dataset.id}" %>
+      <% question_guidance_id = "#{question.object_id}-#{guidances.object_id}-research-output-#{research_output.id}" %>
       <%# if guidances with this theme have not been output %>
       <% if (guidances.map(&:id) - guidances_output).any? %>
         <div class="panel panel-default">

@@ -1,4 +1,4 @@
-<%# locals: { plan, template, question, answer, dataset, guidance_presenter } %>
+<%# locals: { plan, template, question, answer, research_output, guidance_presenter } %>
 <% guidances_active = guidance_presenter.any?(question: question) %>
 <% active_nav = nil %>
 <div id="plan-guidance-tab">
@@ -6,17 +6,17 @@
   <ul class="nav nav-pills nav-justified mb-10" role="tablist">
       <% if guidances_active %>
           <li role="presentation" class="active">
-              <a href="#guidances-<%= question.id %>-dataset-<%= dataset.id %>" 
-                 aria-controls="guidances-<%= question.id %>-dataset-<%= dataset.id %>" role="tab" data-toggle="pill">
+              <a href="#guidances-<%= question.id %>-research-output-<%= research_output.id %>" 
+                 aria-controls="guidances-<%= question.id %>-research-output-<%= research_output.id %>" role="tab" data-toggle="pill">
                   <%= _('Guidance') %>
               </a>
           </li>
       <% end %>
       <% if plan.present? %>
           <li role="presentation" class="<%= 'active' if !guidances_active %>">
-              <a href="#notes-<%= question.id %>-dataset-<%= dataset.id %>" 
-                 aria-controls="notes-<%= question.id %>-dataset-<%= dataset.id %>" role="tab" data-toggle="pill">
-                  <span id="notes-title-<%= question.id %>-dataset-<%= dataset.id %>">
+              <a href="#notes-<%= question.id %>-research-output-<%= research_output.id %>" 
+                 aria-controls="notes-<%= question.id %>-research-output-<%= research_output.id %>" role="tab" data-toggle="pill">
+                  <span id="notes-title-<%= question.id %>-research-output-<%= research_output.id %>">
                       <%= render partial: '/notes/title', locals: { answer: answer } %>
                   </span>
               </a>
@@ -26,14 +26,14 @@
   <div class="tab-content">
     <% if guidances_active %>
       <% tablist = guidance_presenter.tablist(question) %>
-      <div id="guidances-<%= question.id %>-dataset-<%= dataset.id %>" role="tabpanel" class="tab-pane active">
+      <div id="guidances-<%= question.id %>-research-output-<%= research_output.id %>" role="tabpanel" class="tab-pane active">
         <ul class="nav nav-tabs" role="tablist">
           <% tablist.each_with_index do |tab, i| %>
             <% active_nav ||= tab[:name] %>
             <li role="presentation" <%= active_nav == tab[:name] ? "class=active" : "" %>>
               <a
-                data-target="<%= "#guidance_per_question_#{question.id}_dataset_#{dataset.id}_#{i}" %>"
-                aria-controls="<%= "#guidance_per_question_#{question.id}_dataset_#{dataset.id}_#{i}" %>"
+                data-target="<%= "#guidance_per_question_#{question.id}_research_output_#{research_output.id}_#{i}" %>"
+                aria-controls="<%= "#guidance_per_question_#{question.id}_research_output_#{research_output.id}_#{i}" %>"
                 role="tab"
                 data-toggle="tab"
                 class="view-plan-guidance">
@@ -44,7 +44,7 @@
         </ul>
         <div class="tab-content">
           <% tablist.each_with_index do |tab, i| %>
-            <div id="<%= "guidance_per_question_#{question.id}_dataset_#{dataset.id}_#{i}" %>" role="tabpanel" class="tab-pane <%= active_nav == tab[:name] ? 'active' : '' %>">
+            <div id="<%= "guidance_per_question_#{question.id}_research_output_#{research_output.id}_#{i}" %>" role="tabpanel" class="tab-pane <%= active_nav == tab[:name] ? 'active' : '' %>">
                 <div class="panel panel-default">
                   <div class="panel-body">
                     <% if tab[:annotations].present? %>
@@ -63,7 +63,7 @@
                     <% end %>
                     <% if tab[:groups].present? %>
                       <%= render partial: 'guidance_groups/index_by_theme',
-                          locals: { question: question, dataset: dataset, guidance_groups_by_theme: tab[:groups] } %>
+                          locals: { question: question, research_output: research_output, guidance_groups_by_theme: tab[:groups] } %>
                     <% end %>
                   </div>
                 </div>
@@ -74,8 +74,8 @@
     <% end %>
 
     <% if plan.present? %>
-      <div id="notes-<%= question.id %>-dataset-<%= dataset.id %>" role="tabpanel" class="tab-pane <%= 'active' if !guidances_active %> notes">
-        <%= render partial: '/notes/layout', locals: { plan: plan, question: question, answer: answer, dataset: dataset } %>
+      <div id="notes-<%= question.id %>-research-output-<%= research_output.id %>" role="tabpanel" class="tab-pane <%= 'active' if !guidances_active %> notes">
+        <%= render partial: '/notes/layout', locals: { plan: plan, question: question, answer: answer, research_output: research_output } %>
       </div>
     <% end %>
   </div>

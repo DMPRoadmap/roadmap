@@ -37,22 +37,22 @@ $(() => {
       if (isObject(data.question)) { // Object related to question within data received
         if (isNumber(data.question.id)) {
           if (isString(data.question.answer_status)) {
-            $(`#answer-status-${data.question.id}-dataset-${data.dataset.id}`).html(data.question.answer_status);
+            $(`#answer-status-${data.question.id}-research-output-${data.research_output.id}`).html(data.question.answer_status);
             TimeagoFactory.render($('time.timeago'));
           }
           if (isString(data.question.locking)) { // When an answer is stale...
             // Removes event handlers for the saved form
             detachEventHandlers(form); // eslint-disable-line no-use-before-define
             // Reflesh form view with the new partial form received
-            $(`#answer-form-${data.question.id}-dataset-${data.dataset.id}`).html(data.question.form);
+            $(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`).html(data.question.form);
             // Retrieves the newly form added to the DOM
-            const newForm = $(`#answer-form-${data.question.id}-dataset-${data.dataset.id}`).find('form');
+            const newForm = $(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`).find('form');
             // Attaches event handlers for the new form
             attachEventHandlers(newForm); // eslint-disable-line no-use-before-define
             // Refresh optimistic locking view with the form that caused the locking
-            $(`#answer-locking-${data.question.id}-dataset-${data.dataset.id}`).html(data.question.locking);
+            $(`#answer-locking-${data.question.id}-research-output-${data.research_output.id}`).html(data.question.locking);
           } else { // When answer is NOT stale...
-            $(`#answer-locking-${data.question.id}-dataset-${data.dataset.id}`).html('');
+            $(`#answer-locking-${data.question.id}-research-output-${data.research_output.id}`).html('');
             if (isNumber(data.question.answer_lock_version)) {
               form.find('#answer_lock_version').val(data.question.answer_lock_version);
             }
@@ -198,12 +198,12 @@ $(() => {
   $('.is_common_cb').click((e) => {
     const target = $(e.currentTarget);
     const targetState = target.prop('checked');
-    const parentTab = target.parents('.main_dataset');
+    const parentTab = target.parents('.main_research_output');
     const sectionContent = target.parents('.section-content');
 
     // Set answers 'is_common' hidden checkbox to the same state
     // as the master checkbox
-    // Used to indicate that answers from the first dataset are common to all
+    // Used to indicate that answers from the first research output are common to all
     parentTab.find('.ans_is_common').each((i, el) => {
       $(el).prop('checked', targetState);
     });
@@ -215,13 +215,13 @@ $(() => {
       }
     });
 
-    // Enable or disable datasets tabs depending on 'is_common' state
+    // Enable or disable research outputs tabs depending on 'is_common' state
     if (targetState) {
-      sectionContent.find('.datasets_tabs').each((i, el) => {
+      sectionContent.find('.research_outputs_tabs').each((i, el) => {
         $(el).addClass('disabled');
       });
     } else {
-      sectionContent.find('.datasets_tabs').each((i, el) => {
+      sectionContent.find('.research_outputs_tabs').each((i, el) => {
         $(el).removeClass('disabled');
       });
     }

@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: datasets
+# Table name: research_outputs
 #
 #  id          :integer          not null, primary key
 #  description :text
@@ -13,26 +13,26 @@
 #
 # Indexes
 #
-#  index_datasets_on_plan_id  (plan_id)
+#  index_research_output_on_plan_id  (plan_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (plan_id => plans.id)
 #
 
-class Dataset < ActiveRecord::Base
+class ResearchOutput < ActiveRecord::Base
     belongs_to :plan
     has_many :answers, dependent: :destroy
 
     default_scope { order(order: :asc) }
   
     def main?
-      eql?(plan.datasets.where(order: 1).first)
+      eql?(plan.research_outputs.where(order: 1).first)
     end
 
-    # Return main dataset
+    # Return main research output
     def get_main
-      plan.datasets.first
+      plan.research_outputs.first
     end
 
     def has_common_answers?(section_id)
@@ -45,11 +45,11 @@ class Dataset < ActiveRecord::Base
     end
 
     ##
-    # deep copy the given dataset
+    # deep copy the given research output
     #
-    # Returns Dataset
-    def self.deep_copy(dataset)
-      dataset.dup
+    # Returns Research output
+    def self.deep_copy(research_output)
+      research_output.dup
     end
 
   end

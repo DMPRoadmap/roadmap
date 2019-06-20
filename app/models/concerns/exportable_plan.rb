@@ -55,7 +55,7 @@ module ExportablePlan
     hash[:customization] = template.customization_of.present?
     hash[:title] = self.title
     hash[:answers] = self.answers
-    hash[:datasets] = self.datasets
+    hash[:research_outputs] = self.research_outputs
 
     # add the relevant questions/answers
     phases = []

@@ -1,19 +1,19 @@
 module Dmpopidor
   module Models
     module Plan
-      # CHANGES : ADDED DATASET SUPPORT
+      # CHANGES : ADDED RESEARCH OUTPUT SUPPORT
       # The most recent answer to the given question id optionally can create an answer if
       # none exists.
       #
       # qid               - The id for the question to find the answer for
-      # did               - The id for the dataset to find the answer for
+      # roid               - The id for the research output to find the answer for
       # create_if_missing - If true, will genereate a default answer
       #                     to the question (defaults: true).
       #
       # Returns Answer
       # Returns nil
-      def answer(qid, create_if_missing = true, did = nil)
-        answer = answers.where(question_id: qid, dataset_id: did).order("created_at DESC").first
+      def answer(qid, create_if_missing = true, roid = nil)
+        answer = answers.where(question_id: qid, research_output_id: roid).order("created_at DESC").first
         question = Question.find(qid)
         if answer.nil? && create_if_missing
           answer             = Answer.new
@@ -47,11 +47,11 @@ module Dmpopidor
       end
 
 
-      # The number of datasets for a plan.
+      # The number of research outputs for a plan.
       #
       # Returns Integer
-      def num_datasets
-        datasets.count
+      def num_research_outputs
+        research_outputs.count
       end
     end 
   end

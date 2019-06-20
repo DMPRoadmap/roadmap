@@ -2,40 +2,40 @@
 <%= form_tag(plan_export_path(@plan), method: :get, target: '_blank', id: 'download_form') do |f| %>
   <h2><%= _("Download settings") %></h2>
   <%= hidden_field_tag 'export[form]', true %>
-  <% if @datasets.length > 1 %>
-    <div class="form-group datasets-selection">
-      <strong><%= d_("dmpopidor", "Select datasets to download") %></strong>
+  <% if @research_outputs.length > 1 %>
+    <div class="form-group research-outputs-selection">
+      <strong><%= d_("dmpopidor", "Select research outputs to download") %></strong>
       <ul>
-      <%= check_box_tag("select-all-datasets", "none", true, { id: "select-all-datasets" }) %>
-      <%= label_tag("select-all-datasets", d_('dmpopidor', 'All')) %>
-      <% @datasets.each do |dataset| %>
+      <%= check_box_tag("select-all-research-outputs", "none", true, { id: "select-all-research-outputs" }) %>
+      <%= label_tag("select-all-research-outputs", d_('dmpopidor', 'All')) %>
+      <% @research_outputs.each do |research_output| %>
         <li class="checkbox">
-          <%= label_tag "selected_datasets[]" do %>
+          <%= label_tag "selected_research_outputs[]" do %>
             <span class="sublist">└─ </span>
-            <%= check_box_tag("selected_datasets[]", dataset.id, true, { class: "dataset-checkbox" }) %>
-            <%= dataset.name %>
+            <%= check_box_tag("selected_research_outputs[]", research_output.id, true, { class: "research-output-checkbox" }) %>
+            <%= research_output.name %>
           <% end %>
         </li>
       <% end %>
       </ul>
     </div>
-    <strong><%= d_("dmpopidor", "Dataset export mode") %></strong>
+    <strong><%= d_("dmpopidor", "Research output export mode") %></strong>
       <ul>
         <li class="checkbox">
-          <%= label_tag 'export[dataset_mode]' do %>
-            <%= radio_button_tag("export[dataset_mode]", "by_section", true) %>
-            <%= d_("dmpopidor", 'Datasets by section') %>
+          <%= label_tag 'export[research_output_mode]' do %>
+            <%= radio_button_tag("export[research_output_mode]", "by_section", true) %>
+            <%= d_("dmpopidor", 'Research outputs by section') %>
           <% end %>
         </li>
         <li class="checkbox">
-          <%= label_tag 'export[dataset_mode]' do %>
-            <%= radio_button_tag("export[dataset_mode]", "by_question", false) %>
-            <%= d_("dmpopidor", 'Datasets by question') %>
+          <%= label_tag 'export[research_output_mode]' do %>
+            <%= radio_button_tag("export[research_output_mode]", "by_question", false) %>
+            <%= d_("dmpopidor", 'Research outputs by question') %>
           <% end %>
         </li>
       </ul>
   <% else %>
-    <%= hidden_field_tag(:dataset_id, @datasets[0].id) %>
+    <%= hidden_field_tag(:research_output_id, @research_outputs[0].id) %>
   <% end %>
   <% if @phase_options.length > 1 %>
     <div class="form-group phase-selection">

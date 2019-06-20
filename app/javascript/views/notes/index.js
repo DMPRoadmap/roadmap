@@ -31,8 +31,8 @@ $(() => {
       && isObject(data.title)
       && isString(data.title.id)
       && isString(data.title.html)) {
-      $(`#notes-${data.notes.id}-dataset-${data.dataset.id}`).html(data.notes.html);
-      $(`#notes-title-${data.title.id}-dataset-${data.dataset.id}`).html(data.title.html);
+      $(`#notes-${data.notes.id}-research-output-${data.research_output.id}`).html(data.notes.html);
+      $(`#notes-title-${data.title.id}-research-output-${data.research_output.id}`).html(data.title.html);
     }
     clean(); // eslint-disable-line no-use-before-define
     initOrReload(); // eslint-disable-line no-use-before-define

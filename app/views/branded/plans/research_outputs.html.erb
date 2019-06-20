@@ -1,4 +1,4 @@
-<%# locals: { plan, datasets } %>
+<%# locals: { plan, research_outputs } %>
 <div class="corner-ribbon top-left sticky red shadow"><%= _('Beta') %></div>
 <% title "#{plan.title}" %>
 <div class="row">
@@ -9,6 +9,6 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= render partial: 'plans/datasets_form', layout: 'plans/navigation', locals: local_assigns %>
+    <%= render partial: 'plans/research_outputs_form', layout: 'plans/navigation', locals: local_assigns %>
   </div>
 </div>

@@ -4,7 +4,7 @@ module Dmpopidor
 
         # CHANGES: Can now send multiple phases when exporting
         def show
-            @plan = Plan.includes(:answers, :datasets).find(params[:plan_id])
+            @plan = Plan.includes(:answers, :research_outputs).find(params[:plan_id])
         
             if privately_authorized? && export_params[:form].present?
               skip_authorization
@@ -28,7 +28,7 @@ module Dmpopidor
         
             @hash           = @plan.as_pdf(@show_coversheet)
             @formatting     = export_params[:formatting] || @plan.settings(:export).formattingz
-            @dataset_export_mode = export_params[:dataset_mode]
+            @research_output_export_mode = export_params[:research_output_mode]
 
             if @formatting.nil?
               @formatting     = Settings::Template::DEFAULT_SETTINGS[:formatting]
@@ -38,8 +38,8 @@ module Dmpopidor
               @hash[:phases] = @hash[:phases].select { |p| params[:selected_phases].include?(p[:id].to_s)}
             end
 
-            if params.key?(:selected_datasets)
-              @hash[:datasets] = @hash[:datasets].select { |d| params[:selected_datasets].include?(d[:id].to_s)}
+            if params.key?(:selected_research_outputs)
+              @hash[:research_outputs] = @hash[:research_outputs].select { |d| params[:selected_research_outputs].include?(d[:id].to_s)}
             end
         
             respond_to do |format|

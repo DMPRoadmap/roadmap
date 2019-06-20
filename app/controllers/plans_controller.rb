@@ -150,7 +150,7 @@ class PlansController < ApplicationController
             ).find(params[:id])
     authorize @plan
 
-    @datasets = @plan.datasets.order(:order)
+    @research_outputs = @plan.research_outputs.order(:order)
 
     @visibility = if @plan.visibility.present?
                     @plan.visibility.to_s
@@ -400,7 +400,7 @@ class PlansController < ApplicationController
                   :principal_investigator_phone, :principal_investigator,
                   :principal_investigator_email, :data_contact,
                   :principal_investigator_identifier, :data_contact_email,
-                  :data_contact_phone, :guidance_group_ids, datasets_attributes: %i[id name description order _destroy])
+                  :data_contact_phone, :guidance_group_ids, research_outputs_attributes: %i[id name description order _destroy])
   end
 
   # different versions of the same template have the same family_id
@@ -457,7 +457,7 @@ class PlansController < ApplicationController
     readonly = !plan.editable_by?(current_user.id)
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
     # we create a hash whose keys are question id and value is the answer associated
-    answers = plan.answers.reduce({}) { |m, a| m["#{a.question_id}_#{a.dataset_id}"] = a; m }
+    answers = plan.answers.reduce({}) { |m, a| m["#{a.question_id}_#{a.research_output_id}"] = a; m }
     render("/phases/edit", locals: {
       base_template_org: phase.template.base_org,
       plan: plan,

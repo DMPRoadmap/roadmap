@@ -116,7 +116,7 @@ Rails.application.routes.draw do
       post 'set_test', constraints: {format: [:json]}
       get 'overview'
     end
-    resources :datasets, only: [:index, :destroy], controller: 'datasets'
+    resources :research_outputs, only: [:index, :destroy], controller: 'research_outputs'
   end
 
   resources :usage, only: [:index]

@@ -28,14 +28,14 @@ $(() => {
     }
   });
 
-  $('#select-all-datasets').on('click', (e) => {
+  $('#select-all-research-outputs').on('click', (e) => {
     if (e.target.checked) {
       // Iterate each checkbox
-      $('.dataset-checkbox').each(function check() {
+      $('.research-output-checkbox').each(function check() {
         this.checked = true;
       });
     } else {
-      $('.dataset-checkbox').each(function check() {
+      $('.research-output-checkbox').each(function check() {
         this.checked = false;
       });
     }

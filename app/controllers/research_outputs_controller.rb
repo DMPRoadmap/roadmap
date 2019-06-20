@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-class DatasetsController < ApplicationController
+class ResearchOutputsController < ApplicationController
 
   after_action :verify_authorized 
 
-  # GET /plans/:plan_id/datasets
+  # GET /plans/:plan_id/research_outputs
   def index
     begin
       @plan = Plan.find(params[:plan_id])
-      @datasets = @plan.datasets
+      @research_outputs = @plan.research_outputs
 
       authorize @plan
-      render('plans/datasets', locals: { plan: @plan, datasets: @datasets })
+      render('plans/research_outputs', locals: { plan: @plan, research_outputs: @research_outputs })
     rescue ActiveRecord::RecordNotFound
       flash[:alert] = _("There is no plan associated with id %{id}") % {
         id: params[:id]
@@ -22,9 +22,9 @@ class DatasetsController < ApplicationController
 
   def destroy
     @plan = Plan.find(params[:plan_id])
-    @dataset = Dataset.find(params[:id])
+    @research_output = ResearchOutput.find(params[:id])
     authorize @plan
-    if @dataset.destroy
+    if @research_output.destroy
         flash[:notice] = success_message(@plan, _("deleted"))
         redirect_to(:action => 'index')
     else

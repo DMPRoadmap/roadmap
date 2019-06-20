@@ -5,10 +5,10 @@ module Dmpopidor
         def set_nav_static_pages
             @nav_static_pages = StaticPage.navigable
         end
-        # Added Dataset Support
+        # Added Research output Support
         def obj_name_for_display(obj)
           display_name = {
-            Dataset: d_('dmpopidor', "dataset"),
+            ResearchOutput: d_('dmpopidor', "research output"),
             ExportedPlan: _("plan"),
             GuidanceGroup: _("guidance group"),
             Note: _("comment"),

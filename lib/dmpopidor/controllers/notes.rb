@@ -3,7 +3,7 @@ module Dmpopidor
     module Notes
       # CHANGES
       # Delivered mail contains the name of the collaborator leaving the note
-      # Added DATASET SUPPORT
+      # Added RESEARCH OUTPUT SUPPORT
       def create
         @note = Note.new
         @note.user_id = note_params[:user_id]
@@ -15,13 +15,13 @@ module Dmpopidor
           @answer = Answer.find_by(
             plan_id: note_params[:plan_id],
             question_id: note_params[:question_id], 
-            dataset_id: note_params[:dataset_id] 
+            research_output_id: note_params[:research_output_id] 
           )
           if @answer.blank?
             @answer             = Answer.new
             @answer.plan_id     = note_params[:plan_id]
             @answer.question_id = note_params[:question_id]
-            @answer.dataset_id = note_params[:dataset_id]
+            @answer.research_output_id = note_params[:research_output_id]
             @answer.user_id     = @note.user_id
             @answer.save!
           end
@@ -33,7 +33,7 @@ module Dmpopidor
         authorize @note
         
         @plan = @answer.plan
-        @dataset = @answer.dataset
+        @research_output = @answer.research_output
         
         @question = Question.find(note_params[:question_id])
         
@@ -55,7 +55,7 @@ module Dmpopidor
                   plan: @plan,
                   question: @question,
                   answer: @answer,
-                  dataset: @dataset
+                  research_output: @research_output
                 }, formats: [:html])
               },
               "title" => {
@@ -64,8 +64,8 @@ module Dmpopidor
                   answer: @answer
                 }, formats: [:html])
               },
-              "dataset" => {
-                "id" => note_params[:dataset_id]
+              "research_output" => {
+                "id" => note_params[:research_output_id]
               }
             }.to_json, status: :created)
         else
@@ -78,7 +78,7 @@ module Dmpopidor
       end
 
       # CHANGES
-      # Dataset support
+      # Research Output support
       def update
         @note = Note.find(params[:id])
         authorize @note
@@ -87,7 +87,7 @@ module Dmpopidor
         @answer = @note.answer
         @question = @answer.question
         @plan = @answer.plan
-        @dataset = @answer.dataset
+        @research_output = @answer.research_output
     
         question_id = @note.answer.question_id.to_s
     
@@ -100,7 +100,7 @@ module Dmpopidor
                 plan: @plan,
                 question: @question,
                 answer: @answer,
-                dataset: @dataset
+                research_output: @research_output
               }, formats: [:html])
             },
             "title" => {
@@ -109,8 +109,8 @@ module Dmpopidor
                 answer: @answer
               }, formats: [:html])
             },
-            "dataset" => {
-              "id" => @dataset.id
+            "research_output" => {
+              "id" => @research_output.id
             }
           }.to_json, status: :ok)
         else
@@ -122,7 +122,7 @@ module Dmpopidor
       end
 
       # CHANGES
-      # Dataset support
+      # Research Output support
       def archive
         @note = Note.find(params[:id])
         authorize @note
@@ -132,7 +132,7 @@ module Dmpopidor
         @answer = @note.answer
         @question = @answer.question
         @plan = @answer.plan
-        @dataset = @answer.dataset
+        @research_output = @answer.research_output
     
         question_id = @note.answer.question_id.to_s
     
@@ -145,7 +145,7 @@ module Dmpopidor
                 plan: @plan,
                 question: @question,
                 answer: @answer,
-                dataset: @dataset
+                research_output: @research_output
               }, formats: [:html])
             },
             "title" => {
@@ -154,8 +154,8 @@ module Dmpopidor
                 answer: @answer
               }, formats: [:html])
             },
-            "dataset" => {
-              "id" => @dataset.id
+            "research_output" => {
+              "id" => @research_output.id
             }
           }.to_json, status: :ok)
         else

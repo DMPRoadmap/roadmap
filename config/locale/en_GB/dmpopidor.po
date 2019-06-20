@@ -264,34 +264,34 @@ msgstr "New Static Page"
 msgid "Editing Static Page"
 msgstr "Editing Static Page"
 
-# Datasets
+# Research outputs
 
-msgid "Select datasets to download"
-msgstr "Select datasets to download"
+msgid "Select research outputs to download"
+msgstr "Select research outputs to download"
 
-msgid "Datasets"
-msgstr "Datasets"
+msgid "Research outputs"
+msgstr "Research outputs"
 
-msgid "Dataset export mode"
-msgstr "Dataset export mode"
+msgid "Research output export mode"
+msgstr "Research output export mode"
 
-msgid "Datasets by section"
-msgstr "Datasets by section"
+msgid "Research outputs by section"
+msgstr "Research outputs by section"
 
-msgid "Datasets by question"
-msgstr "Datasets by question"
+msgid "Research outputs by question"
+msgstr "Research outputs by question"
 
-msgid "Move dataset"
-msgstr "Move dataset"
+msgid "Move research output"
+msgstr "Move research output"
 
-msgid "Delete dataset"
-msgstr "Delete dataset"
+msgid "Delete research output"
+msgstr "Delete research output"
 
-msgid "Add a dataset"
-msgstr "Add a dataset"
+msgid "Add a research output"
+msgstr "Add a research output"
 
-msgid "dataset"
-msgstr "dataset"
+msgid "research output"
+msgstr "research output"
 
-msgid "Deleting this dataset will remove the associated answers. Do you confirm ?"
-msgstr "Deleting this dataset will remove the associated answers. Do you confirm ?"
+msgid "Deleting this research output will remove the associated answers. Do you confirm ?"
+msgstr "Deleting this research output will remove the associated answers. Do you confirm ?"

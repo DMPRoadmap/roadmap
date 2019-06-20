@@ -1,7 +1,7 @@
 module Dmpopidor
   module Policies
     module Plan
-      def datasets?
+      def research_outputs?
         @plan.readable_by?(@user.id)
       end
     end 

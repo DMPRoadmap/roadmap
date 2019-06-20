@@ -30,11 +30,11 @@
     <div style="margin-left: 15px;"><%= sanitize(@plan.description) %></div><br>
   <% end %>
 
-  <% if @hash[:datasets].length > 1 || !@hash[:datasets][0].main?%>
-    <p><%= _("Datasets: ") %></p>
+  <% if @hash[:research_outputs].length > 1 || !@hash[:research_outputs][0].main?%>
+    <p><%= _("Research outputs: ") %></p>
     <ul>
-      <% @hash[:datasets].each do |dataset| %>
-        <li><%= dataset.name %> - <%= dataset.description %></li>
+      <% @hash[:research_outputs].each do |research_output| %>
+        <li><%= research_output.name %> - <%= research_output.description %></li>
       <% end %>
     </ul>
     <br>

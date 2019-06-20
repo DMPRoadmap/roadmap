@@ -1,4 +1,4 @@
-<%# locals: { f, question, answer, dataset, locking } %>
+<%# locals: { f, question, answer, research_output, locking } %>
 <%#
   When locking variable is true, this partial renders a plain paragraph with the question answer or default value instead.
   Since the partial answers/_locking reuses the partial answers/_new_edit which reuses this partial within, when a stale answer is found
@@ -12,6 +12,6 @@
     <% if locking || readonly %>
       <%= sanitize("<p>#{answer.text || question.default_value}</p>") %>
     <% else %>
-      <%= text_area_tag('answer[text]', answer.text || question.default_value, id: "answer-text-#{question.id}-dataset-#{dataset.id}", class: "form-control tinymce_answer") %>
+      <%= text_area_tag('answer[text]', answer.text || question.default_value, id: "answer-text-#{question.id}-research-output-#{research_output.id}", class: "form-control tinymce_answer") %>
     <% end %>
 </div>

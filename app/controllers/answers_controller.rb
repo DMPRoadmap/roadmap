@@ -135,7 +135,7 @@ class AnswersController < ApplicationController
   def permitted_params
     permitted = params.require(:answer).permit(:id, :text, :plan_id, :user_id,
                                                :question_id, :lock_version,
-                                               :dataset_id, :is_common, 
+                                               :research_output_id, :is_common, 
                                                question_option_ids: [])
     # If question_option_ids has been filtered out because it was a
     # scalar value (e.g. radiobutton answer)

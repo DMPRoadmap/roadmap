@@ -11,7 +11,7 @@ namespace :dmpopidor_upgrade do
   
   desc "Upgrade to 2.2.0"
   task v2_2_0: :environment do
-    Rake::Task['dmpopidor_upgrade:datasets_enable'].execute
+    Rake::Task['dmpopidor_upgrade:research_outputs_enable'].execute
   end
 
 
@@ -50,35 +50,32 @@ namespace :dmpopidor_upgrade do
   end
 
 
-  # Migrates the database to use datasets
-  # - Adds a dataset table to the base (via the above migrations)
-  # - Creates a default dataset for every plan
-  # - Moves all plans' answers to their new default dataset
-  desc 'Migrate the database to use datasets'
-  task datasets_enable: :environment do
+  # Migrates the database to use research_outputs
+  # - Adds a research output table to the base (via the above migrations)
+  # - Creates a default research output for every plan
+  # - Moves all plans' answers to their new default research output
+  desc 'Migrate the database to use research outputs'
+  task research_outputs_enable: :environment do
     # Apply migration
-    # DatasetsMigration.new.up
 
-    # Create datasets and move answers
+    # Create research outputs and move answers
     Plan.all.each do |p|
-      dataset = p.datasets.create(is_default: true, order: 1) if p.datasets.empty?
+      research_output = p.research_outputs.create(is_default: true, order: 1) if p.research_outputs.empty?
 
-      p.answers.each { |a| a.update_column(:dataset_id, dataset.id) }
+      p.answers.each { |a| a.update_column(:research_output_id, research_output.id) }
     end
   end
 
-  # Rollback for the database migration enable the datasets
-  # - Remove all non default datasets and their answers
-  # - "Detach" remaining answers from their datasets (the default ones)
-  # - Drop the datasets table and reverse the migrations
-  desc 'Migrate the database to remove datasets'
-  task datasets_disable: :environment do
-    # Destroy all datasets which are not defaut datasets and their answers
-    Dataset.where(is_default: false).destroy_all
-
-    # Rollback migration
-    # DatasetsMigration.new.down
+  # Rollback for the database migration enable the research outputs
+  # - Remove all non default research outputs and their answers
+  # - "Detach" remaining answers from their research outputs (the default ones)
+  # - Drop the research outputs table and reverse the migrations
+  desc 'Migrate the database to remove research outputs'
+  task research outputs_disable: :environment do
+    # Destroy all research outputs which are not defaut research outputs and their answers
+    ResearchOutput.where(is_default: false).destroy_all
     Rake::Task['db:migrate:down VERSION=20190503130010'].execute
+    Rake::Task['db:migrate:down VERSION=20190620120126'].execute
   end
 
 end

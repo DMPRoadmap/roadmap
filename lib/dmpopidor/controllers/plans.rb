@@ -22,13 +22,13 @@ module Dmpopidor
 
         # CHANGES:
         # Added Privately private visibility
-        # Added Datasets Support
+        # Added Research Output Support
         def create
           @plan = Plan.new
           authorize @plan
 
-          # Add default dataset if possible
-          @plan.datasets.new(is_default: true, order: 1) if Dataset.table_exists?
+          # Add default research output if possible
+          @plan.research_outputs.new(is_default: true, order: 1)
 
           # We set these ids to -1 on the page to trick ariatiseForm into allowing the
           # autocomplete to be blank if the no org/funder checkboxes are checked off
@@ -129,7 +129,7 @@ module Dmpopidor
         # PUT /plans/1
         # PUT /plans/1.json
         # CHANGES :
-        # Added Dataset Support
+        # Added Research Output Support
         def update
           @plan = Plan.find(params[:id])
           authorize @plan
@@ -146,10 +146,10 @@ module Dmpopidor
               @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
               @plan.save
               if @plan.update_attributes(attrs)
-                @plan.datasets.toggle_default
+                @plan.research_outputs.toggle_default
 
                 format.html do
-                  redirect_to plan_datasets_path(@plan),
+                  redirect_to plan_research_outputs_path(@plan),
                               notice: success_message(@plan, _("saved"))
                 end
                 format.json do
@@ -230,11 +230,11 @@ module Dmpopidor
           # rubocop:enable Metrics/LineLength
         end
 
-        # CHANGES : Datasets support
+        # CHANGES : Research Outputs support
         def download
           @plan = Plan.find(params[:id])
           authorize @plan
-          @datasets = @plan.datasets
+          @research_outputs = @plan.research_outputs
           @phase_options = @plan.phases.order(:number).pluck(:title, :id)
           @export_settings = @plan.settings(:export)
           render "download"
