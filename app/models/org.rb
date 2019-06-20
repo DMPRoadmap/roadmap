@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: orgs
@@ -29,6 +31,7 @@
 #
 
 class Org < ActiveRecord::Base
+
   include ValidationMessages
   include ValidationValues
   include FeedbacksHelper
@@ -39,8 +42,10 @@ class Org < ActiveRecord::Base
 
   LOGO_FORMATS = %w[jpeg png gif jpg bmp].freeze
 
-  # Stores links as an JSON object: { org: [{"link":"www.example.com","text":"foo"}, ...] }
-  # The links are validated against custom validator allocated at validators/template_links_validator.rb
+  # Stores links as an JSON object:
+  #  { org: [{"link":"www.example.com","text":"foo"}, ...] }
+  # The links are validated against custom validator allocated at
+  # validators/template_links_validator.rb
   serialize :links, JSON
 
 
@@ -60,7 +65,9 @@ class Org < ActiveRecord::Base
 
   has_many :annotations
 
-  has_and_belongs_to_many :token_permission_types, join_table: "org_token_permissions", unique: true
+  has_and_belongs_to_many :token_permission_types,
+                          join_table: "org_token_permissions",
+                          unique: true
 
   has_many :org_identifiers
 
@@ -81,10 +88,12 @@ class Org < ActiveRecord::Base
 
   validates :language, presence: { message: PRESENCE_MESSAGE }
 
-  validates :contact_name, presence: { message: PRESENCE_MESSAGE, if: :feedback_enabled }
+  validates :contact_name, presence: { message: PRESENCE_MESSAGE,
+                                       if: :feedback_enabled }
 
   validates :contact_email, email: { allow_nil: true },
-                            presence: { message: PRESENCE_MESSAGE, if: :feedback_enabled }
+                            presence: { message: PRESENCE_MESSAGE,
+                                        if: :feedback_enabled }
 
   validates :org_type, presence: { message: PRESENCE_MESSAGE }
 
@@ -98,9 +107,12 @@ class Org < ActiveRecord::Base
                                              if: :feedback_enabled }
 
   validates_property :format, of: :logo, in: LOGO_FORMATS,
-                     message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp")
+                     message: _("must be one of the following formats: " +
+                                "jpeg, jpg, png, gif, bmp")
 
-  validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
+  validates_size_of :logo,
+                    maximum: 500.kilobytes,
+                    message: _("can't be larger than 500KB")
 
   # allow validations for logo upload
   dragonfly_accessor :logo do
@@ -116,7 +128,7 @@ class Org < ActiveRecord::Base
             4 => :research_institute,
             5 => :project,
             6 => :school,
-            column: 'org_type'
+            column: "org_type"
 
   # Predefined queries for retrieving the managain organisation and funders
   scope :managing_orgs, -> do
@@ -125,7 +137,19 @@ class Org < ActiveRecord::Base
 
   scope :search, -> (term) {
     search_pattern = "%#{term}%"
-    where("orgs.name LIKE ? OR orgs.contact_email LIKE ?", search_pattern, search_pattern)
+    where("lower(orgs.name) LIKE lower(?) OR " +
+          "lower(orgs.contact_email) LIKE lower(?)",
+          search_pattern, search_pattern)
+  }
+
+  # Scope used in several controllers
+  scope :with_template_and_user_counts, -> {
+    joins("LEFT OUTER JOIN templates ON orgs.id = templates.org_id")
+      .joins("LEFT OUTER JOIN users ON orgs.id = users.org_id")
+      .group("orgs.id")
+      .select("orgs.*,
+              count(distinct templates.family_id) as template_count,
+              count(users.id) as user_count")
   }
 
   before_validation :set_default_feedback_email_subject
@@ -164,7 +188,7 @@ class Org < ActiveRecord::Base
     ret << "Research Institute" if self.research_institute?
     ret << "Project" if self.project?
     ret << "School" if self.school?
-    return (ret.length > 0 ? ret.join(', ') : "None")
+    return (ret.length > 0 ? ret.join(", ") : "None")
   end
 
   def funder_only?
@@ -201,7 +225,7 @@ class Org < ActiveRecord::Base
 
   def org_admins
     User.joins(:perms).where("users.org_id = ? AND perms.name IN (?)", self.id,
-      ['grant_permissions', 'modify_templates', 'modify_guidance', 'change_org_details'])
+      ["grant_permissions", "modify_templates", "modify_guidance", "change_org_details"])
   end
 
   def plans
@@ -213,7 +237,8 @@ class Org < ActiveRecord::Base
   end
 
   def grant_api!(token_permission_type)
-    self.token_permission_types << token_permission_type unless self.token_permission_types.include? token_permission_type
+    self.token_permission_types << token_permission_type unless
+      self.token_permission_types.include? token_permission_type
   end
 
   private
@@ -224,7 +249,7 @@ class Org < ActiveRecord::Base
   def resize_image
     unless logo.nil?
       if logo.height != 100
-        self.logo = logo.thumb('x100')  # resize height and maintain aspect ratio
+        self.logo = logo.thumb("x100")  # resize height and maintain aspect ratio
       end
     end
   end
@@ -241,7 +266,7 @@ class Org < ActiveRecord::Base
         # Attempt to locate the file by name. If it exists update the uid
         logo = Dir.glob("#{data_store_path}/**/*#{self.logo_name}")
         if !logo.empty?
-          self.logo_uid = logo.first.gsub(data_store_path, '')
+          self.logo_uid = logo.first.gsub(data_store_path, "")
         else
           # Otherwise the logo is missing so clear it to prevent save failures
           self.logo = nil
@@ -258,11 +283,12 @@ class Org < ActiveRecord::Base
 
   # creates a dfefault Guidance Group on create on the Org
   def create_guidance_group
-    GuidanceGroup.create!({
-      name: abbreviation? ? self.abbreviation : self.name ,
+    GuidanceGroup.create!(
+      name: abbreviation? ? self.abbreviation : self.name,
       org: self,
       optional_subset: false,
       published: false,
-    })
+    )
   end
+
 end

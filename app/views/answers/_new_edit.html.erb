@@ -6,7 +6,9 @@
 <% q_format = question.question_format %>
 <% if q_format.rda_metadata? %>
   <p>
-    <strong><%= sanitize question.text %></strong>
+    <div class="display-readonly-textarea-content">
+      <strong><%= sanitize question.text %></strong>
+    </div>
   </p>
   <% answer_hash = answer.answer_hash %>
   <div class="rda_metadata"><button class="remove-standard" style="display:none;"></button>
@@ -55,11 +57,13 @@
   <% end %>
   <fieldset <%= 'disabled' if readonly %>>
     <% if question.option_based? || question.question_format.rda_metadata? %>
-        <%= render(partial: 'questions/new_edit_question_option_based', locals: { f: f, question: question, answer: answer }) %>
+        <%= render(partial: 'questions/new_edit_question_option_based', locals: { f: f, question: question, answer: answer, readonly: readonly }) %>
     <% elsif question.question_format.textfield?%>
         <%= render(partial: 'questions/new_edit_question_textfield', locals: { f: f, question: question, answer: answer }) %>
     <% elsif question.question_format.textarea? %>
-        <%= render(partial: 'questions/new_edit_question_textarea', locals: { f: f, question: question, answer: answer, locking: locking, readonly: readonly}) %>
+        <%= render(partial: 'questions/new_edit_question_textarea', locals: { f: f, question: question, answer: answer, locking: locking, readonly: readonly }) %>
+    <% elsif question.question_format.date? %>
+        <%= render(partial: 'questions/new_edit_question_datefield', locals: { f: f, question: question, answer: answer, locking: locking, readonly: readonly }) %>
     <% end %>
     <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
   </fieldset>
@@ -72,7 +76,7 @@
             <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
           </span>
           <div class="panel-body">
-            <%= sanitize annotation.text %>
+            <div class="display-readonly-textarea-content"><%= sanitize annotation.text %></div>
           </div>
         </div>
       <% end %>

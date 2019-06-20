@@ -44,7 +44,7 @@ defaults: &defaults
   preferences:
     email:
       users:
-        new_comment: true
+        new_comment: false
         admin_privileges: true
         added_as_coowner: true
         feedback_requested: true
