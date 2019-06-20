@@ -12,26 +12,26 @@ class DepartmentPolicy < ApplicationPolicy
   end
 
   def new?
-    @user.can_org_admin?
+    @user.can_org_admin? || @user.can_super_admin?
   end
 
   def create?
-    @user.can_org_admin?
+    @user.can_org_admin? || @user.can_super_admin?
   end
 
   def edit?
-    # Only org_admins can edit their own org's departments
-    @user.can_org_admin? && @user.org.id === @department.org_id
+    (@user.can_org_admin? && @user.org.id === @department.org_id) ||
+       @user.can_super_admin?
   end
 
   def update?
-    # Only org_admins can update their own org's departments
-    @user.can_org_admin? && @user.org.id === @department.org_id
+    (@user.can_org_admin? && @user.org.id === @department.org_id) ||
+      @user.can_super_admin?
   end
 
   def destroy?
-    # Only org_admins can delete their own org's departments
-    @user.can_org_admin? && @user.org.id === @department.org_id
+    (@user.can_org_admin? && @user.org.id === @department.org_id) ||
+      @user.can_super_admin?
   end
 
 end
