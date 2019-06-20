@@ -154,6 +154,8 @@ class User < ActiveRecord::Base
 
   before_update :clear_other_organisation, if: :org_id_changed?
 
+  before_update :clear_department_id, if: :org_id_changed?
+
   after_update :delete_perms!, if: :org_id_changed?, unless: :can_change_org?
 
   after_update :remove_token!, if: :org_id_changed?, unless: :can_change_org?
@@ -401,6 +403,10 @@ class User < ActiveRecord::Base
 
   def clear_other_organisation
     self.other_organisation = nil
+  end
+
+  def clear_department_id
+    self.department_id = nil
   end
 
 end
