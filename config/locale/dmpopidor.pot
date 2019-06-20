@@ -237,6 +237,11 @@ msgstr ""
 msgid "All"
 msgstr ""
 
+msgid "Successfully %{action} the %{object}."
+msgstr ""
+
+
+
 # STATIC PAGES
 
 msgid "More"
@@ -278,4 +283,19 @@ msgid "Datasets by section"
 msgstr ""
 
 msgid "Datasets by question"
+msgstr ""
+
+msgid "Move dataset"
+msgstr ""
+
+msgid "Delete dataset"
+msgstr ""
+
+msgid "Add a dataset"
+msgstr ""
+
+msgid "dataset"
+msgstr ""
+
+msgid "Deleting this dataset will remove the associated answers. Do you confirm ?"
 msgstr ""

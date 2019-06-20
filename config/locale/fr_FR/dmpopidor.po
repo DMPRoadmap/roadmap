@@ -261,6 +261,9 @@ msgstr "Nouvelle page statique"
 msgid "Editing Static Page"
 msgstr "Edition d'une page statique"
 
+msgid "Successfully %{action} the %{object}."
+msgstr "%{object} %{action} avec succés."
+
 # Datasets
 
 msgid "Select datasets to download"
@@ -277,3 +280,18 @@ msgstr "Jeux de données par section"
 
 msgid "Datasets by question"
 msgstr "Jeux de données par question"
+
+msgid "Move dataset"
+msgstr "Déplacer le jeu de données"
+
+msgid "Delete dataset"
+msgstr "Supprimer le jeu de données"
+
+msgid "Add a dataset"
+msgstr "Ajouter un jeu de données"
+
+msgid "dataset"
+msgstr "Jeu de données"
+
+msgid "Deleting this dataset will remove the associated answers. Do you confirm ?"
+msgstr "En supprimant ce jeu de données, les réponses associées seront également supprimées. Confirmez-vous la suppression ?"

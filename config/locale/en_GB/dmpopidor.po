@@ -235,6 +235,9 @@ msgstr "Template"
 msgid "All"
 msgstr "All"
 
+msgid "Successfully %{action} the %{object}."
+msgstr "Successfully %{action} the %{object}."
+
 # STATIC PAGES
 
 msgid "More"
@@ -277,3 +280,18 @@ msgstr "Datasets by section"
 
 msgid "Datasets by question"
 msgstr "Datasets by question"
+
+msgid "Move dataset"
+msgstr "Move dataset"
+
+msgid "Delete dataset"
+msgstr "Delete dataset"
+
+msgid "Add a dataset"
+msgstr "Add a dataset"
+
+msgid "dataset"
+msgstr "dataset"
+
+msgid "Deleting this dataset will remove the associated answers. Do you confirm ?"
+msgstr "Deleting this dataset will remove the associated answers. Do you confirm ?"
