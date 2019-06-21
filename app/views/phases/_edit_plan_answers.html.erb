@@ -50,7 +50,11 @@
         </div>
         <div id="collapse-<%= section.id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= section.id %>">
           <div class="panel-body"><!-- accordion body -->
-            <div class="section-description"><%= sanitize section.description %></div>
+            <div class="section-description">
+              <div class="display-readonly-textarea-content">
+                <%= sanitize section.description %>
+              </div>
+            </div>
               <!-- the section body -->
               <% section.questions.each_with_index do |question, i| %>
                 <% # Load the answer or create a new one

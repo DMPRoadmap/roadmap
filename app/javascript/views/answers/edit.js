@@ -5,6 +5,7 @@ import {
 } from '../../utils/isType';
 import { Tinymce } from '../../utils/tinymce';
 import debounce from '../../utils/debounce';
+import datePicker from '../../utils/datePicker';
 import TimeagoFactory from '../../utils/timeagoFactory';
 
 $(() => {
@@ -184,6 +185,9 @@ $(() => {
       editor.setMode('readonly');
     });
   }
+
+  datePicker();
+
   // Example answer toggle
   const toggleIcon = (e) => {
     $(e.target)

@@ -10,7 +10,8 @@ module Dmpopidor
             end
             paginable_renderise(
               partial: "org_admin",
-              scope: current_user.org.plans.where.not(:visibility => 4)
+              scope: current_user.org.plans.where.not(:visibility => 4),
+              query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }
             )
           end
         end

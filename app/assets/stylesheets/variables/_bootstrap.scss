@@ -30,11 +30,11 @@ $panel-border-radius: 0px !default;
 
 // from colors:
 
-$dropdown-inverse-bg: $color-navbar-background;
-$dropdown-inverse-border: $color-dropdown-inverse-border;
-$dropdown-inverse-text: $color-dropdown-inverse-text;
-$dropdown-inverse-text-hoover: $color-dropdown-inverse-text-hover;
-$dropdown-inverse-bg-hoover: $color-navbar-background-active;
+$dropdown-inverse-bg: $color-navbar-background !default;
+$dropdown-inverse-border: $color-dropdown-inverse-border !default;
+$dropdown-inverse-text: $color-dropdown-inverse-text !default;
+$dropdown-inverse-text-hoover: $color-dropdown-inverse-text-hover !default;
+$dropdown-inverse-bg-hoover: $color-navbar-background-active !default;
 
 // Navbar branding colours
 $navbar-branding-color: $color-navbar-text !default;
@@ -55,5 +55,5 @@ $navbar-branding-toggle-icon-bar-bg: $color-icon-bar-background !default;
 $navbar-branding-toggle-border-color: $color-navbar-background-active !default;
 
 // org-navbar branding colors
-$navbar-org-link-color: $color-org-navbar-links;
-$navbar-org-link-hover-color: $color-org-navbar-links-hover;
+$navbar-org-link-color: $color-org-navbar-links !default;
+$navbar-org-link-hover-color: $color-org-navbar-links-hover !default;

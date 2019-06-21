@@ -14,7 +14,13 @@
       
         <% if !@public_plan && @show_sections_questions && idx == 0 %>
         <p>
-          <h4><%= sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></h4>
+          <%# Hack: for DOCX export - otherwise, bold highlighting of question inconsistent. %>
+          <% if local_assigns[:export_format] && export_format == 'docx' %>
+            <strong><h4><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></h4></strong>
+          <% else %>
+            <div class="bold"><h4><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></h4></div>
+          <% end %>
+          <br>
         </p>
         <br>
         <% end %>
@@ -25,7 +31,9 @@
           <% if !section_has_common_answers %>
             <strong><%= research_output.fullname %></strong> :  
           <% end %>
+          <br>
           <i><%= _('Question not answered.') -%></i>
+          <br><br>
         </p>
         <br />
         <% else %>
@@ -55,6 +63,7 @@
             </ul>
           <% end %>
           <p><%= sanitize ah['text'] %></p>
+          <br>
         <%# case for displaying comments OR text %>
         <% elsif !blank %>
           <p>
@@ -62,6 +71,7 @@
               <strong><%= research_output.fullname %></strong> :  
             <% end %>
             <%= sanitize answer.text %>
+            <br>
           </p>
         <% end %>
         <br />

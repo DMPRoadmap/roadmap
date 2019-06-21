@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: themes
@@ -12,6 +14,7 @@
 #
 
 class Theme < ActiveRecord::Base
+
   include ValidationMessages
   include Dmpopidor::Models::Theme
 
@@ -40,7 +43,8 @@ class Theme < ActiveRecord::Base
 
   scope :search, -> (term) {
     search_pattern = "%#{term}%"
-    where("title LIKE ? OR description LIKE ?", search_pattern, search_pattern)
+    where("lower(title) LIKE lower(?) OR description LIKE lower(?)",
+          search_pattern, search_pattern)
   }
 
   # ===========================
@@ -51,6 +55,7 @@ class Theme < ActiveRecord::Base
   #
   # Returns String
   def to_s
-  	title
+    title
   end
+
 end

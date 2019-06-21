@@ -61,7 +61,11 @@
                     <input type="checkbox" class="is_common_cb" <%= 'checked=""' if section_has_common_answers %>><%= _('This section\'s answers are common to all research outputs') %>
                   </p>
                 <% end %>
-                <div class="section-description"><%= sanitize section.description %></div>
+                <div class="section-description">
+                  <div class="display-readonly-textarea-content">
+                    <%= sanitize section.description %>
+                  </div>
+                </div>
                 <!-- the section body -->
                 <% section.questions.each_with_index do |question, i| %>
                 <% # Load the answer or create a new one
