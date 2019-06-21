@@ -52,10 +52,16 @@ class StatCreatedPlan
           .administrator
           .merge(users(org))
           .merge(plans(start_date: start_date, end_date: end_date))
-          .select(:plan_id)
-          .distinct
-        template_counts = Plan.where(id: roleable_plan_ids).group(:template_id).count
-        template_names = Template.where(id: template_counts.keys).pluck(:id, :title)
+          .pluck(:plan_id)
+          .uniq
+
+        template_counts = Plan.joins(:template).where(id: roleable_plan_ids)
+          .group("templates.family_id").count
+        most_recent_versions = Template.where(family_id: template_counts.keys)
+          .group(:family_id).maximum("version")
+        most_recent_versions = most_recent_versions.map { |k, v| "#{k}=#{v}" }
+        template_names = Template.where("CONCAT(family_id, '=', version) IN (?)",
+          most_recent_versions).pluck(:family_id, :title)
         template_names.map do |t|
           { name: t[1], count: template_counts[t[0]] }
         end

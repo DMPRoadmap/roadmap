@@ -91,7 +91,6 @@ lib/data_cleanup/rules/org/fix_blank_abbreviation.yml
 yarn-error.log
 yarn-debug.log*
 
-.yarn-integrity
 .env
 package-lock.json
 node_modules
@@ -99,7 +98,6 @@ node_modules
 /public/packs-test
 
 spec/examples.txt
-.babelrc
 .postcssrc.yml
 /public/packs
 /public/packs-test

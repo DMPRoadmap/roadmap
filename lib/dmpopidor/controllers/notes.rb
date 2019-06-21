@@ -44,7 +44,7 @@ module Dmpopidor
           collaborators = plan.users.reject { |u| u == current_user || !u.active }
           collaborators.uniq.each do |collaborator|
             deliver_if(recipients: collaborator, key: 'users.new_comment') do |r|
-              UserMailer.new_comment(current_user, plan, collaborator).deliver_later
+              UserMailer.new_comment(current_user, plan, collaborator, answer).deliver_later
             end
           end
           @notice = success_message(@note, _("created"))

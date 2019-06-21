@@ -17,14 +17,16 @@
     <% end %>
 
     <% @hash[:phases].each do |phase| %>
-      <!-- Page break before each phase -->
+      <%# Page break before each phase %>
         <div style="page-break-before:always;"></div>
         <h1><%= download_plan_page_title(@plan, phase, @hash) %></h1>
         <hr />
         <% phase[:sections].each do |section| %>
           <% if display_section?(@hash[:customization], section, @show_custom_sections) %>
             <% if @show_sections_questions %>
+              <br>
               <h2><%= section[:title] %></h2>
+              <br>
             <% end %>
             <% if @research_output_export_mode == "by_section" %>
               <%= render partial: 'shared/export/export_by_research_output',

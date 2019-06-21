@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -48,6 +50,7 @@
 #
 
 class User < ActiveRecord::Base
+
   include ConditionalUserMailer
   include ValidationMessages
   include ValidationValues
@@ -59,7 +62,7 @@ class User < ActiveRecord::Base
   #   :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable, :omniauthable,
-         :omniauth_providers => [:shibboleth, :orcid]
+         omniauth_providers: [:shibboleth, :orcid]
 
 
   ##
@@ -95,7 +98,7 @@ class User < ActiveRecord::Base
   has_many :identifier_schemes, through: :user_identifiers
 
   has_and_belongs_to_many :notifications, dependent: :destroy,
-                          join_table: 'notification_acknowledgements'
+                          join_table: "notification_acknowledgements"
 
 
   # ===============
@@ -118,8 +121,14 @@ class User < ActiveRecord::Base
 
   # Retrieves all of the org_admins for the specified org
   scope :org_admins, -> (org_id) {
-    joins(:perms).where("users.org_id = ? AND perms.name IN (?) AND users.active = ?", org_id,
-      ['grant_permissions', 'modify_templates', 'modify_guidance', 'change_org_details'], true)
+    joins(:perms).where("users.org_id = ? AND perms.name IN (?) AND " +
+                        "users.active = ?",
+                        org_id,
+                        ["grant_permissions",
+                         "modify_templates",
+                         "modify_guidance",
+                         "change_org_details"],
+                         true)
   }
 
   scope :search, -> (term) {
@@ -128,9 +137,12 @@ class User < ActiveRecord::Base
     # or concat functions do not exist for sqlite, we have to come up with this
     # conditional
     if ActiveRecord::Base.connection.adapter_name == "Mysql2"
-      where("concat_ws(' ', firstname, surname) LIKE ? OR email LIKE ?", search_pattern, search_pattern)
+      where("lower(concat_ws(' ', firstname, surname)) LIKE lower(?) OR " +
+            "lower(email) LIKE lower(?)",
+            search_pattern, search_pattern)
     else
-      where("firstname || ' ' || surname LIKE ? OR email LIKE ?", search_pattern, search_pattern)
+      where("lower(firstname || ' ' || surname) LIKE lower(?) OR " +
+            "email LIKE lower(?)", search_pattern, search_pattern)
     end
   }
 
@@ -390,4 +402,5 @@ class User < ActiveRecord::Base
   def clear_other_organisation
     self.other_organisation = nil
   end
+
 end

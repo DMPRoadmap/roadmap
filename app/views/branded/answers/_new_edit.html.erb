@@ -6,7 +6,9 @@
 <% q_format = question.question_format %>
 <% if q_format.rda_metadata? %>
   <p>
-    <strong><%= sanitize question.text %></strong>
+    <div class="display-readonly-textarea-content">
+      <strong><%= sanitize question.text %></strong>
+    </div>
   </p>
   <% answer_hash = answer.answer_hash %>
   <div class="rda_metadata"><button class="remove-standard" style="display:none;"></button>
@@ -58,15 +60,15 @@
   <% end %>
   <fieldset <%= 'disabled' if readonly %> >
     <% if question.option_based? || question.question_format.rda_metadata? %>
-        <%= render(partial: 'questions/new_edit_question_option_based', locals: { f: f, question: question, answer: answer, research_output: research_output }) %>
+        <%= render(partial: 'questions/new_edit_question_option_based', locals: { f: f, question: question, answer: answer, research_output: research_output, readonly: readonly }) %>
     <% elsif question.question_format.textfield?%>
         <%= render(partial: 'questions/new_edit_question_textfield', locals: { f: f, question: question, answer: answer, research_output: research_output }) %>
-    <% elsif question.question_format.date? %>
-        <%= render(partial: 'questions/new_edit_question_datefield', locals: { f: f, question: question, answer: answer, research_output: research_output }) %>
-    <% elsif question.question_format.number? %>
-        <%= render(partial: 'questions/new_edit_question_numberfield', locals: { f: f, question: question, answer: answer, research_output: research_output }) %>
     <% elsif question.question_format.textarea? %>
         <%= render(partial: 'questions/new_edit_question_textarea', locals: { f: f, question: question, answer: answer, research_output: research_output, locking: locking, readonly: readonly}) %>
+    <% elsif question.question_format.date? %>
+        <%= render(partial: 'questions/new_edit_question_datefield', locals: { f: f, question: question, answer: answer, research_output: research_output, readonly: readonly }) %>
+    <% elsif question.question_format.number? %>
+        <%= render(partial: 'questions/new_edit_question_numberfield', locals: { f: f, question: question, answer: answer, research_output: research_output, readonly: readonly }) %>
     <% end %>
     <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
   </fieldset>

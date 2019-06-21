@@ -12,7 +12,7 @@ module Dmpopidor
 
           feedback_ids = Role.where(user_id: current_user.id).reviewer.pluck(:plan_id).uniq
           @feedback_plans = Plan.where(id: feedback_ids)
-          @plans = current_user.org.plans.where.not(visibility: [Plan.visibilities[:privately_private_visible], Plan.visibilities[:is_test]])
+          @plans = current_user.org.plans.where.not(visibility: [Plan.visibilities[:privately_private_visible], Plan.visibilities[:is_test]]).page(1)
         end
 
         # CHANGES

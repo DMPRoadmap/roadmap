@@ -20,7 +20,7 @@
     <% scope.each do |template| %>
       <tr id="<%= dom_id(template) %>">
         <td>
-          <%= template.title %>
+          <%= link_to "#{template.title}", edit_org_admin_template_path(template.id) %>
         </td>
           <td>
             <%= action_name == 'organisational' ? sanitize(template.description) : template.org.name %>

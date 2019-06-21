@@ -19,9 +19,9 @@ class UsersController < ApplicationController
   #   respond_to do |format|
   #     format.html do
   #       if current_user.can_super_admin?
-  #         @users = User.page(1)
+  #         @users = User.includes(:roles).page(1)
   #       else
-  #         @users = current_user.org.users.page(1)
+  #         @users = current_user.org.users.includes(:roles).page(1)
   #       end
   #     end
       

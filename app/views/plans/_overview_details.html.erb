@@ -9,7 +9,9 @@
       <%= _('This plan is based on the "%{template_title}" template provided by %{org_name}.') %{ :template_title => plan.template.title, :org_name => plan.template.org.name } %>
     </p>
     <p>
-      <%= sanitize(plan.template.description) %>
+      <div class="display-readonly-textarea-content">
+        <%= sanitize(plan.template.description) %>
+      </div>
     </p>
   </div>
 </div>
