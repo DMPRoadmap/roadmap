@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190620135111) do
+ActiveRecord::Schema.define(version: 20190620144049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -299,17 +299,29 @@ ActiveRecord::Schema.define(version: 20190620135111) do
     t.integer "super_region_id"
   end
 
+  create_table "research_output_types", force: :cascade do |t|
+    t.string   "label",                      null: false
+    t.string   "slug",                       null: false
+    t.boolean  "is_other",   default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
   create_table "research_outputs", force: :cascade do |t|
     t.string   "abbreviation"
     t.integer  "order"
     t.string   "fullname"
-    t.boolean  "is_default",   default: false
+    t.boolean  "is_default",              default: false
     t.integer  "plan_id"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.string   "pid"
+    t.string   "other_type_label"
+    t.integer  "research_output_type_id"
   end
 
   add_index "research_outputs", ["plan_id"], name: "index_research_outputs_on_plan_id", using: :btree
+  add_index "research_outputs", ["research_output_type_id"], name: "index_research_outputs_on_research_output_type_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.integer  "user_id"
@@ -520,6 +532,7 @@ ActiveRecord::Schema.define(version: 20190620135111) do
   add_foreign_key "questions_themes", "questions"
   add_foreign_key "questions_themes", "themes"
   add_foreign_key "research_outputs", "plans"
+  add_foreign_key "research_outputs", "research_output_types"
   add_foreign_key "roles", "plans"
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"

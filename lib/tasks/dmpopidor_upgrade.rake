@@ -12,6 +12,7 @@ namespace :dmpopidor_upgrade do
   desc "Upgrade to 2.2.0"
   task v2_2_0: :environment do
     Rake::Task['dmpopidor_upgrade:research_outputs_enable'].execute
+    Rake::Task['dmpopidor_upgrade:create_research_output_types'].execute
   end
 
 
@@ -76,6 +77,29 @@ namespace :dmpopidor_upgrade do
     ResearchOutput.where(is_default: false).destroy_all
     Rake::Task['db:migrate:down VERSION=20190503130010'].execute
     Rake::Task['db:migrate:down VERSION=20190620120126'].execute
+  end
+
+  desc 'Create Research output types'
+  task create_research_output_types: :environment do
+    research_output_types = [
+      {label: 'Audiovisual'},
+      {label: 'Collection'},
+      {label: 'DataPaper'},
+      {label: 'Dataset'},
+      {label: 'Event'},
+      {label: 'Image'},
+      {label: 'Interactive Resource'},
+      {label: 'Model'},
+      {label: 'Physical Object'},
+      {label: 'Service'},
+      {label: 'Software'},
+      {label: 'Sound'},
+      {label: 'Text'},
+      {label: 'Workflow'},
+      {label: 'Other', is_other: true},
+    ]
+
+    research_output_types.map{ |s| ResearchOutputType.create!(s) if ResearchOutputType.find_by(label: s[:label]).nil? }
   end
 
 end

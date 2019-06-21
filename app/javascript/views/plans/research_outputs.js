@@ -16,21 +16,42 @@ $(() => {
     const duplicatedId = `plan_research_outputs_attributes_${new Date().getTime()}`;
     const duplicatedName = `plan[research_outputs_attributes][${new Date().getTime()}]`;
 
-    // Research Output name
-    duplicated.find('.research-output-name input').attr('id', `${duplicatedId}_name`);
-    duplicated.find('.research-output-name input').attr('name', `${duplicatedName}[name]`);
-    duplicated.find('.research-output-name label').attr('for', `${duplicatedId}_name`);
-    duplicated.find('.research-output-name input').val(null);
-    // Research Output description
-    duplicated.find('.research-output-description input').attr('id', `${duplicatedId}_description`);
-    duplicated.find('.research-output-description input').attr('name', `${duplicatedName}[description]`);
-    duplicated.find('.research-output-description label').attr('for', `${duplicatedId}_description`);
-    duplicated.find('.research-output-description input').val(null);
+    // Research Output abbreviation
+    duplicated.find('.research-output-abbreviation input').attr('id', `${duplicatedId}_abbreviation`);
+    duplicated.find('.research-output-abbreviation input').attr('name', `${duplicatedName}[abbreviation]`);
+    duplicated.find('.research-output-abbreviation label').attr('for', `${duplicatedId}_abbreviation`);
+    duplicated.find('.research-output-abbreviation input').val(null);
+    // Research Output fullname
+    duplicated.find('.research-output-fullname input').attr('id', `${duplicatedId}_fullname`);
+    duplicated.find('.research-output-fullname input').attr('name', `${duplicatedName}[fullname]`);
+    duplicated.find('.research-output-fullname label').attr('for', `${duplicatedId}_fullname`);
+    duplicated.find('.research-output-fullname input').val(null);
+    // Research Output pid
+    duplicated.find('.research-output-pid input').attr('id', `${duplicatedId}_pid`);
+    duplicated.find('.research-output-pid input').attr('name', `${duplicatedName}[pid]`);
+    duplicated.find('.research-output-pid label').attr('for', `${duplicatedId}_pid`);
+    duplicated.find('.research-output-pid input').val(null);
+    // Research Output type
+    duplicated.find('.research-output-type select').attr('id', `${duplicatedId}_research_output_type_id`);
+    duplicated.find('.research-output-type select').attr('name', `${duplicatedName}[research_output_type_id]`);
+    duplicated.find('.research-output-type label').attr('for', `${duplicatedId}_research_output_type_id`);
+    duplicated.find('.research-output-type select').val(null);
     // Research Output order
     duplicated.find('.research-output-order').attr('id', `${duplicatedId}_order`);
     duplicated.find('.research-output-order').attr('name', `${duplicatedName}[order]`);
     duplicated.find('.research-output-order').val(lastResearchOutputOrder + 1);
 
     duplicated.appendTo('#research-outputs');
+  });
+
+  $('.research-output-type-select').change((e) => {
+    const selectElement = $(e.target);
+    const parentElement = selectElement.closest('.research-output-element');
+    const otherTypeElement = parentElement.find('.research-output-other-type');
+    if (selectElement.find('option:selected').data('other')) {
+      otherTypeElement.show();
+    } else {
+      otherTypeElement.hide();
+    }
   });
 });

@@ -9,9 +9,11 @@ class ResearchOutputsController < ApplicationController
     begin
       @plan = Plan.find(params[:plan_id])
       @research_outputs = @plan.research_outputs
+      @research_output_types = ResearchOutputType.all
 
       authorize @plan
-      render('plans/research_outputs', locals: { plan: @plan, research_outputs: @research_outputs })
+      render('plans/research_outputs', locals: { plan: @plan, research_outputs: @research_outputs, 
+                                                 research_output_types: @research_output_types })
     rescue ActiveRecord::RecordNotFound
       flash[:alert] = _("There is no plan associated with id %{id}") % {
         id: params[:id]

@@ -270,7 +270,10 @@ msgid "Abbreviated Name (20 chars max.)"
 msgstr "Nom abbrégé (20 caractères max.)"
 
 msgid "Fullname"
-msgstr ""
+msgstr "Nom complet"
+
+msgid "Persistent Identifier"
+msgstr "Identifiant Pérenne"
 
 msgid "Select research outputs to download"
 msgstr "Sélectionner les produits de recherche à télécharger"

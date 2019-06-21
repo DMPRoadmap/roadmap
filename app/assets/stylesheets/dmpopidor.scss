@@ -680,22 +680,31 @@ $light-yellow: #fff9e5;
     }
 }
 
-.research-outputs-description {
-    width: 50vw;
+#research-outputs {
+    width: 100%;
     padding: 0 5px;
     margin-top: 5px;
+    .form-group {
+        margin: 0;
+        margin-right: 5px;
+    }
 
     .research-output-element {
         display: flex;
         flex-direction: row;
-        .research-output-name {
-            width: 30%;
-        }
-        .research-output-description {
-            width: 60%;
+        margin: 5px 0;
+
+        .research-output-fields {
+            flex: 9;
+            border: 0.5px groove $color-border-light;
+            box-shadow:  0px 0px 0px 0px $color-shadow-dark;
+            padding: 5px;
+            .research-output-abbreviation, .research-output-pid, .research-output-type {
+                width: 30%;
+            }
         }
         .research-output-actions {
-            width: 10%;
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -707,10 +716,6 @@ $light-yellow: #fff9e5;
             a {
                 color: $blue;
             }
-        }
-        .form-group {
-            margin: 0;
-            margin-right: 5px;
         }
     }
 }   

@@ -272,6 +272,9 @@ msgstr "Abbreviated Name (20 chars max.)"
 msgid "Fullname"
 msgstr "Fullname"
 
+msgid "Persistent Identifier"
+msgstr "Persistent Identifier"
+
 msgid "Select research outputs to download"
 msgstr "Select research outputs to download"
 

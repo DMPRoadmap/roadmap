@@ -276,6 +276,9 @@ msgstr ""
 msgid "Fullname"
 msgstr ""
 
+msgid "Persistent Identifier"
+msgstr ""
+
 msgid "Select research outputs to download"
 msgstr ""
 

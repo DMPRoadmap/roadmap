@@ -809,3 +809,23 @@ annotations = [
    question: Question.find_by(text: "What types of data will you collect and how will it be stored?")},
 ]
 annotations.map{ |s| Annotation.create!(s) if Annotation.find_by(text: s[:text]).nil? }
+
+research_output_types = [
+  {label: 'Audiovisual'},
+  {label: 'Collection'},
+  {label: 'DataPaper'},
+  {label: 'Dataset'},
+  {label: 'Event'},
+  {label: 'Image'},
+  {label: 'Interactive Resource'},
+  {label: 'Model'},
+  {label: 'Physical Object'},
+  {label: 'Service'},
+  {label: 'Software'},
+  {label: 'Sound'},
+  {label: 'Text'},
+  {label: 'Workflow'},
+  {label: 'Other', is_other: true},
+]
+
+research_output_types.map{ |s| ResearchOutputType.create!(s) if ResearchOutputType.find_by(label: s[:label]).nil? }
