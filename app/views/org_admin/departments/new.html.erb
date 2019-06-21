@@ -1,4 +1,4 @@
-<% departments_url = admin_edit_org_path(current_user.org_id) + '#departments' %>
+<% departments_url = admin_edit_org_path(@org_id) + '#departments' %>
 <div class="row">
   <div class="col-md-12">
     <h1><%= _('Create a School/Department') %></h1>
@@ -8,7 +8,8 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= form_for :department, url: org_admin_departments_path, html: { method: :post, id: 'create_department_form' } do |f| %>
+    <%= form_for :department, url: org_departments_path(@org_id), html: { method: :post, id: 'create_department_form' } do |f| %>
+        <%= f.hidden_field :org_id, value: @org_id %>
         <div class="form-group col-xs-8">
           <%= f.label _('Name'), for: :name, class: "control-label" %>
           <%= f.text_field :name, as: :string, class: "form-control", 'aria-required': true, 'data-toggle': 'tooltip', title: _('Add the name of a school/department.') %>
