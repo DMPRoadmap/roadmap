@@ -12,9 +12,16 @@ class  Paginable::DepartmentsController < ApplicationController
     authorize Department
     paginable_renderise(
       partial: "index",
-      scope: Department.by_org(current_user.org),
+      scope: departments,
       query_params: { sort_field: "departments.name", sort_direction: :asc }
     )
+  end
+
+  private
+
+  def departments
+    current_user.can_super_admin? ? Department.by_org(Org.find(params[:id])) :
+      Department.by_org(Org.find(current_user.org_id))
   end
 
 end

@@ -24,8 +24,8 @@
                 <%= _('Actions') %><span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="department-<%= department.id %>-actions">
-                <li><%= link_to _('Edit'), edit_org_admin_department_path(department) %></li>
-                <li><%= link_to _('Remove'),  org_admin_department_path(department), method: :delete, data: { confirm: _("You are about to delete '%{department_name}'. This will affect guidance. Are you sure?") % { :department_name => department.name }} %></li>
+                <li><%= link_to _('Edit'), edit_org_department_path(org_id: department.org_id, id: department.id) %></li>
+                <li><%= link_to _('Remove'),  org_department_path(org_id: department.org_id, id: department.id), method: :delete, data: { confirm: _("You are about to delete '%{department_name}'. This will affect guidance. Are you sure?") % { :department_name => department.name }} %></li>
               </ul>
             </div>
           </td>
