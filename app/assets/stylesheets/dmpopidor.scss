@@ -635,6 +635,17 @@ $light-yellow: #fff9e5;
     }
 }
 
+/*
+    Share Form
+*/
+.share-form {
+    display: flex;
+    flex-direction: column;
+
+    #new_role {
+        border-bottom: 0.5px groove $color-border-light;
+    }
+}
 /* Beta ribbons */
 
 .corner-ribbon{
