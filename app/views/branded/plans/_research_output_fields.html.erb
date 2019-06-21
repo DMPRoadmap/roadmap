@@ -1,5 +1,5 @@
 <%# locals: { plan, research_output, research_output_types } %>
-<% other_type_displayed = research_output.research_output_type.is_other ? '' : 'display:none;' %>
+<% other_type_displayed = research_output.research_output_type && research_output.research_output_type.is_other ? '' : 'display:none;' %>
 <div class='research-output-element'>
   <div class='research-output-fields'>
     <div class='field form-group research-output-abbreviation'>
