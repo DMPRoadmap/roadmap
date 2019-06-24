@@ -28,7 +28,7 @@
               <h2><%= section[:title] %></h2>
               <br>
             <% end %>
-            <% if @research_output_export_mode == "by_section" %>
+            <% if @research_output_export_mode == "by_section" || @research_outputs_number == 1 %>
               <%= render partial: 'shared/export/export_by_research_output',
                          locals: {
                           research_outputs: @hash[:research_outputs],
