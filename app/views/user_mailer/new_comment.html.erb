@@ -3,6 +3,8 @@
   commenter_name = @commenter.name
   plan_title = @plan.title
   user_name = @plan.owner.name
+  research_output = @answer.research_output
+  research_output_name = @answer.research_output.fullname
   question = @answer.question
   question_number = question.number
   section_title = question.section.title
@@ -29,6 +31,12 @@
   </p>
   <p>
     <%= _('Section name: %{section_title}') %{ :section_title => section_title } %>
+  </p>
+  <p>
+    <%= research_output.is_default == false ? 
+        d_('dmpopidor', 'Research output name: %{research_output_name}') %{ :research_output_name => research_output_name } :
+        nil
+     %>
   </p>
   <p>
     <%= _('Question: %{question_number}') %{ :question_number => question_number } %>

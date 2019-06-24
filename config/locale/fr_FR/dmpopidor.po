@@ -304,3 +304,6 @@ msgstr "Produit de recherche"
 
 msgid "Deleting this research output will remove the associated answers. Do you confirm ?"
 msgstr "En supprimant ce produit de recherche, les réponses associées seront également supprimées. Confirmez-vous la suppression ?"
+
+msgid "Research output name: %{research_output_name}"
+msgstr "Nom du produit de recherche : %{research_output_name}"

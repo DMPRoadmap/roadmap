@@ -1,6 +1,5 @@
 class UserMailer < ActionMailer::Base
   include MailerHelper
-  include Dmpopidor::Mailers::UserMailer
   helper MailerHelper
   helper FeedbacksHelper
 

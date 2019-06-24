@@ -308,3 +308,6 @@ msgstr ""
 
 msgid "Deleting this research output will remove the associated answers. Do you confirm ?"
 msgstr ""
+
+msgid "Research output name: %{research_output_name}"
+msgstr ""
