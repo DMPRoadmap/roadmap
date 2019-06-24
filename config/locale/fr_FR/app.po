@@ -74,6 +74,9 @@ msgstr "%{click_here} pour accepter l'invitation, (ou copier %{link} dans votre 
 msgid "%{commenter_name} has commented on your plan %{plan_title}. To view the comments, follow the link to the DMP below, or navigate to the plan via My Dashboard page in %{tool_name}."
 msgstr "%{commenter_name} a laissé un commentaire sur le plan %{plan_title}. Pour voir les commentaires, suivez le lien ci-dessous vers le plan ou accédez au plus via le Tableau de Bord de  %{tool_name}."
 
+msgid "%{commenter} has finished providing feedback on the plan \"%{plan_title}\". To view the comments, please visit the My Dashboard page in %{tool_name} and open your plan."
+msgstr "%{commenter_name} a terminé son assistance conseil sur le plan \"%{plan_title}\". Pour voir les commentaires, visitez le Tableau de Bord dans %{tool_name} et ouvrez votre plan."
+
 msgid "%{date}"
 msgstr "%{date}"
 
@@ -117,7 +120,7 @@ msgid "%{tool_name} will help you to develop your Data Management Plan. If you h
 msgstr "%{tool_name} vous aidera à élaborer votre DMP. Si vous avez des questions ou suggestions, contactez nous à %{helpdesk_email} ou par %{contact_us}"
 
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
-msgstr "%{tool_name}: Un nouveau commentaire a été ajouté à %{plan_title}"
+msgstr "%{tool_name}: Un nouveau commentaire a été ajouté au plan %{plan_title}"
 
 #msgid "%{username}'s profile"
 #msgstr "Profil de %{username}"
@@ -387,7 +390,7 @@ msgid "Anything you enter here will display in the answer box. If you want an an
 msgstr "Tout ce que vous écrivez saffiche dans la boîte de réponse. Si vous souhaitez une réponse ayant une certaine forme (par ex. : des tableaux), cest ici que vous pouvez entrer ce style."
 
 msgid "Are you sure you want to change your organisational affiliation? Doing so will remove your administrative privileges."
-msgstr "Souhaitez-vous vraiment changer d'organisme d'affiliation ? Vous perdrez vos privilèges d'administrateur."
+msgstr "Souhaitez-vous vraiment changer d'organisme d'affiliation ? Vous perdrez vos droits d'administrateur."
 
 msgid "Are you sure you want to delete the Static Page \"%{name}\""
 msgstr "Souhaitez-vous vraiment supprimer la Page Statique  \"%{name}\""
@@ -503,7 +506,7 @@ msgid "Changed permissions on a Data Management Plan in %{tool_name}"
 msgstr "Modification des autorisations sur un plan de %{tool_name}"
 
 msgid "Changing your organisation will result in the loss of your administrative privileges."
-msgstr "Le changement d'organisme entrainera la perte de vos droits d'administration."
+msgstr "Le changement d'organisme entrainera la perte de vos droits d'administrateur."
 
 msgid "Check this box when you are ready for guidance associated with this group to appear on user's plans."
 msgstr "Cochez cette case pour faire apparaître la recommandation associée à ce groupe dans les plans de l'utilisateur."
@@ -1686,13 +1689,13 @@ msgid "Private"
 msgstr "Privé"
 
 msgid "Private: restricted to me and my collaborators"
-msgstr "Privé : accès restreint aux collaborateurs"
+msgstr "Privé : visible par les collaborateurs et moi"
 
 msgid "Private: restricted to me and people I invite."
-msgstr "Privé : accès restreint aux personnes que j'invite."
+msgstr "Privé : visible par les personnes que j'invite."
 
 msgid "Private: restricted to you and your collaborators."
-msgstr "Privé : accès restreint aux collaborateurs"
+msgstr "Privé : visible par les collaborateurs"
 
 msgid "Private: visible to me, specified collaborators and administrators at my organisation"
 msgstr "Privé : visible par moi, les collaborateurs invités et les administrateurs de mon organisation"
@@ -2196,7 +2199,7 @@ msgstr "La nouvelle plateforme sera distincte des services que chacune de nos é
 #msgstr "Les mots de passe doivent correspondre."
 
 msgid "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
-msgstr "La visibilité du plan %{plan_title} a changé pour %{plan_visibility}."
+msgstr "La visibilité du plan \"%{plan_title}\" a changé pour %{plan_visibility}."
 
 msgid "The processing of your personal data by the %{org_name} is necessary for pursuing the following legitimate interests:"
 msgstr "Le traitenement de vos données personnelle par %{org_name} est nécessaire pour les intérêts suivants :"
@@ -2625,7 +2628,7 @@ msgid "Yes"
 msgstr "Oui"
 
 msgid "Yes, I understand that I will lose my administrative privileges"
-msgstr "Oui, je comprends que je vais perdre mes droits administratifs"
+msgstr "Oui, je comprends que je vais perdre mes droits d'administrateur"
 
 msgid "You are about to delete '%{guidance_group_name}'. This will affect guidance. Are you sure?"
 msgstr "Vous êtes sur le point de supprimer '%{guidance_group_name}'. Ceci aura des répercussions sur les recommandations. Êtes-vous sûr de vouloir le supprimer ?"
@@ -2694,7 +2697,7 @@ msgid "You don't have access to use the API. An api token is needed to generate 
 msgstr "Vous n'avez pas accès à l'API. Un jeton d'API est nécessaire pour générer des statistiques d'utilisation."
 
 msgid "You have been granted administrator privileges in %{tool_name}:"
-msgstr "Vous avez reçu des privilèges d'administrateur dans % {tool_name} :"
+msgstr "Vous avez reçu des droits d'administrateur dans % {tool_name} :"
 
 msgid "You have been granted permission by your organisation to use our API. Your API token and instructions for using the API endpoints can be found at: %{link}"
 msgstr "Votre organisme vous a accordé les droits pour utiliser notre API. Votre jeton d'API ainsi que les instructions concernant l'utilisation de l'API endpoint peuvent être trouvés à l'adresse suivante : %{link}"
@@ -3020,7 +3023,7 @@ msgid "or copy"
 msgstr "ou copiez"
 
 msgid "organisation"
-msgstr "organisme"
+msgstr "Organisme"
 
 msgid "organisational"
 msgstr "organisme"
@@ -3056,7 +3059,7 @@ msgid "preferences"
 msgstr "préférences"
 
 msgid "private"
-msgstr "privé"
+msgstr "Privé"
 
 msgid "profile"
 msgstr "profil"
@@ -3068,7 +3071,7 @@ msgid "project details coversheet"
 msgstr "page de renseignements sur le projet"
 
 msgid "public"
-msgstr "public"
+msgstr "Public"
 
 msgid "publish"
 msgstr "publier"
@@ -3174,3 +3177,9 @@ msgstr "users_joined"
 
 msgid "write and edit the plan in a collaborative manner."
 msgstr "rédiger et modifier le plan de manière collaborative."
+
+msgid "help for administrators page"
+msgstr "aide pour les administrateurs"
+
+msgid "If you have questions pertaining to this action, please visit the My Dashboard page in %{tool_name}"
+msgstr "Si vous avez des questions concernant cette action, visitez le Tableau de Bord de %{tool_name}"

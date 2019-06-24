@@ -64,7 +64,7 @@ msgid "Private: visible to me and specified collaborators"
 msgstr "Privé : visible par les collaborateurs et moi"
 
 msgid "Administrator: visible to me, specified collaborators and administrators at my organisation"
-msgstr "Administrateur : Visible par les collaborateurs, les administrateurs de mon organisme et moi"
+msgstr "Administrateur : visible par les collaborateurs, les administrateurs de mon organisme et moi"
 
 msgid "Administrator"
 msgstr "Administrateur"
@@ -310,3 +310,9 @@ msgstr "Nom du produit de recherche : %{research_output_name}"
 
 msgid "This section's answers are common to all research outputs"
 msgstr "Les réponses de cette section sont communes à tous les produits de recherche"
+
+msgid "All Users"
+msgstr "Tous les utilisateurs"
+
+msgid "DMP owners and co-owners"
+msgstr "Propriétaires et co-propriétaires de plans"

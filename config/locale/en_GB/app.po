@@ -3193,3 +3193,9 @@ msgstr ""
 
 msgid "write and edit the plan in a collaborative manner."
 msgstr ""
+
+msgid "help for administrators page"
+msgstr ""
+
+msgid "If you have questions pertaining to this action, please visit the My Dashboard page in %{tool_name}"
+msgstr ""
