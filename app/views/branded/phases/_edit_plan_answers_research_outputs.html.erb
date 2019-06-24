@@ -58,7 +58,7 @@
                 <div id="research_output_<%= research_output.id %>_section_<%= section.id %>" class="tab-pane fade <%= 'in active' if research_output.main? %> <%= 'main_research_output' if research_output.main? %>">
                 <% if research_output.main? && plan.research_outputs.count > 1 %>
                   <p>
-                    <input type="checkbox" class="is_common_cb" <%= 'checked=""' if section_has_common_answers %>><%= _('This section\'s answers are common to all research outputs') %>
+                    <input type="checkbox" class="is_common_cb" <%= 'checked=""' if section_has_common_answers %>><%= d_('dmpopidor', 'This section\'s answers are common to all research outputs') %>
                   </p>
                 <% end %>
                 <div class="section-description">
