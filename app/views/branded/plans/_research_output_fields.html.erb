@@ -53,7 +53,7 @@
     <%= link_to plan_research_output_url(plan, research_output), 
                 data: {:confirm => d_('dmpopidor', 'Deleting this research output will remove the associated answers. Do you confirm ?')}, 
                 :method => :delete  do %>
-      <i class="fa fa-close pull-right" aria-hidden="true" style="<%= display_values %>"
+      <i class="fa fa-close pull-right delete" aria-hidden="true" style="<%= display_values %>"
               title="<%= d_('dmpopidor', 'Delete research output') %>" %></i>
     <% end %>
   </div>

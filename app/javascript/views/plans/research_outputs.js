@@ -1,5 +1,23 @@
 
 $(() => {
+  const displayROInputs = (researchOutputDiv) => {
+    researchOutputDiv.find('.input').each((idx, inp) => {
+      $(inp).show();
+    });
+    researchOutputDiv.find('span').each((idx, val) => {
+      $(val).hide();
+    });
+  };
+  const displayROValues = (researchOutputDiv) => {
+    researchOutputDiv.find('.input').each((idx, inp) => {
+      $(inp).hide();
+    });
+    researchOutputDiv.find('span').each((idx, val) => {
+      $(val).show();
+    });
+  };
+
+
   $('#research-outputs').sortable({
     handle: '.research-output-actions .handle',
     stop: () => {
@@ -15,6 +33,9 @@ $(() => {
     const duplicated = lastResearchOutput.clone(true, true);
     const duplicatedId = `plan_research_outputs_attributes_${new Date().getTime()}`;
     const duplicatedName = `plan[research_outputs_attributes][${new Date().getTime()}]`;
+    const editElement = duplicated.find('.edit');
+    const cancelElement = duplicated.find('.cancel');
+    const deleteElement = duplicated.find('.delete');
 
     // Research Output abbreviation
     duplicated.find('.research-output-abbreviation input').attr('id', `${duplicatedId}_abbreviation`);
@@ -43,6 +64,10 @@ $(() => {
     duplicated.find('.research-output-order').val(lastResearchOutputOrder + 1);
 
     duplicated.appendTo('#research-outputs');
+    displayROInputs(duplicated);
+    editElement.hide();
+    cancelElement.hide();
+    deleteElement.hide();
   });
 
   $('.research-output-type-select').change((e) => {
@@ -60,12 +85,7 @@ $(() => {
     const editElement = $(e.target);
     const parentElement = $(e.target).closest('.research-output-element');
     const cancelElement = parentElement.find('.cancel');
-    parentElement.find('.input').each((idx, inp) => {
-      $(inp).show();
-    });
-    parentElement.find('span').each((idx, val) => {
-      $(val).hide();
-    });
+    displayROInputs(parentElement);
 
     editElement.hide();
     cancelElement.show();
@@ -75,12 +95,7 @@ $(() => {
     const cancelElement = $(e.target);
     const parentElement = $(e.target).closest('.research-output-element');
     const editElement = parentElement.find('.edit');
-    parentElement.find('.input').each((idx, inp) => {
-      $(inp).hide();
-    });
-    parentElement.find('span').each((idx, val) => {
-      $(val).show();
-    });
+    displayROValues(parentElement);
 
     editElement.show();
     cancelElement.hide();

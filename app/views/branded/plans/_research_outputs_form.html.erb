@@ -1,6 +1,6 @@
 <%# locals: { plan, research_outputs, research_output_types } %>
 <div class="research-outputs-description">
-  <legend class="project-details"><%= d_('dmpopidor', 'Research outputs') %></legend>
+  <h2 class="project-details"><%= d_('dmpopidor', 'Research outputs') %></h2>
   <%= form_for plan, html: {method: :put, class: 'form-horizontal edit_plan' } do |f| %>
     <div id='research-outputs'>
       <% @research_outputs.each do |research_output|%>
