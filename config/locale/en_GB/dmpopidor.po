@@ -264,6 +264,9 @@ msgstr "New Static Page"
 msgid "Editing Static Page"
 msgstr "Editing Static Page"
 
+msgid "Title displayed on the static page"
+msgstr "Title displayed on the static page"
+
 # Research outputs
 
 msgid "Abbreviated Name (20 chars max.)"

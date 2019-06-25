@@ -43,7 +43,7 @@ end
       <div id="<%= ff.object.language.abbreviation %>" class="tab-pane fade <%= active_tab?(ff.object.language.abbreviation, true) %>">
         <%= ff.hidden_field :language_id, value: ff.object.language.id %>
         <div class="form-group">
-          <%= ff.label :title, _('Title'), class: 'control-label' %>
+          <%= ff.label :title, d_('dmpopidor', 'Title displayed on the static page'), class: 'control-label' %>
           <%= ff.text_field :title, value: ff.object.title, class: 'form-control' %>
         </div>
         <div class="form-group">

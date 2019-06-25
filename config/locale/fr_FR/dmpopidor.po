@@ -264,6 +264,9 @@ msgstr "Edition d'une page statique"
 msgid "Successfully %{action} the %{object}."
 msgstr "%{object} %{action} avec succés."
 
+msgid "Title displayed on the static page"
+msgstr "Titre affiché sur la page statique"
+
 # Research outputs
 
 msgid "Abbreviated Name (20 chars max.)"
