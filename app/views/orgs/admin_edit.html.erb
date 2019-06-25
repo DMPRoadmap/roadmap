@@ -51,7 +51,7 @@
           <div class="panel-body">
             <% if org.id.present? %>
               <div>
-                <%= render partial: 'orgs/departments', locals: local_assigns.merge({ departments: org.departments }) %>
+                <%= render partial: 'orgs/departments', locals: local_assigns.merge({ departments: org.departments, org_id: org.id }) %>
               </div>
             <% end %>
           </div>

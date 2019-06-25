@@ -65,6 +65,7 @@ Rails.application.routes.draw do
       get 'admin_edit'
       put 'admin_update'
     end
+    resources :departments, controller: 'org_admin/departments'
   end
 
   resources :guidances, :path => 'org/admin/guidance', only: [] do
@@ -251,9 +252,8 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :departments
-
     get 'download_plans' => 'plans#download_plans'
+
   end
 
   namespace :super_admin do
