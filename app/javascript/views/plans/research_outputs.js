@@ -50,10 +50,8 @@ $(() => {
     const parentElement = selectElement.closest('.research-output-element');
     const otherTypeElement = parentElement.find('.research-output-other-type');
     if (selectElement.find('option:selected').data('other')) {
-      console.log('ici');
       otherTypeElement.show();
     } else {
-      console.log('ici');
       otherTypeElement.hide();
     }
   });
