@@ -323,3 +323,9 @@ msgstr ""
 
 msgid "DMP owners and co-owners"
 msgstr ""
+
+msgid "Edit research output"
+msgstr ""
+
+msgid "Cancel research output edition"
+msgstr ""

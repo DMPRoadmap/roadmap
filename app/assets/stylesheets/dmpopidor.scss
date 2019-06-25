@@ -710,8 +710,17 @@ $light-yellow: #fff9e5;
             border: 0.5px groove $color-border-light;
             box-shadow:  0px 0px 0px 0px $color-shadow-dark;
             padding: 5px;
-            .research-output-abbreviation, .research-output-pid, .research-output-type {
+            .research-output-pid, .research-output-type {
                 width: 30%;
+            }
+            .research-output-names {
+                display: flex;
+                .research-output-fullname {
+                    flex: 8;
+                }
+                .research-output-abbreviation {
+                    flex: 3;
+                }
             }
         }
         .research-output-actions {
@@ -721,7 +730,7 @@ $light-yellow: #fff9e5;
             justify-content: center;
             color: $blue;
 
-            .handle {
+            .handle, .edit, .cancel {
                 cursor: pointer;
             }
             a {

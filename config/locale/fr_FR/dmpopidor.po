@@ -319,3 +319,9 @@ msgstr "Tous les utilisateurs"
 
 msgid "DMP owners and co-owners"
 msgstr "Propriétaires et co-propriétaires de plans"
+
+msgid "Edit research output"
+msgstr "Modifier le produit de recherche"
+
+msgid "Cancel research output edition"
+msgstr "Annuler la modification du produit de recherche"

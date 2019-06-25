@@ -319,3 +319,9 @@ msgstr "All Users"
 
 msgid "DMP owners and co-owners"
 msgstr "DMP owners and co-owners"
+
+msgid "Edit research output"
+msgstr "Edit research output"
+
+msgid "Cancel research output edition"
+msgstr "Cancel research output edition"
