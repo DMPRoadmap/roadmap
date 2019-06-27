@@ -9,6 +9,10 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= render partial: 'plans/research_outputs_form', layout: 'plans/navigation', locals: local_assigns %>
+    <% if @plan.editable_by?(current_user) %>
+      <%= render partial: 'plans/edit_research_outputs', layout: 'plans/navigation', locals: local_assigns %>
+      <% else %>
+        <%= render partial: 'plans/show_research_outputs', layout: 'plans/navigation', locals: local_assigns %>
+      <% end %>
   </div>
 </div>

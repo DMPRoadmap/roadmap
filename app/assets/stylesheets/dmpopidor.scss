@@ -702,7 +702,6 @@ $light-yellow: #fff9e5;
 
     .research-output-element {
         display: flex;
-        flex-direction: row;
         margin: 5px 0;
 
         .research-output-fields {
@@ -738,4 +737,26 @@ $light-yellow: #fff9e5;
             }
         }
     }
-}   
+}
+
+
+#show-research-outputs {
+    display: flex;
+    flex-direction: column;
+    .research-output-element {
+        margin: 5px 0;
+        padding: 5px;
+
+        border: 0.5px groove $color-border-light;
+        box-shadow:  0px 0px 0px 0px $color-shadow-dark;
+        .research-output-names {
+            display: flex;
+            .research-output-fullname {
+                flex: 8;
+            }
+            .research-output-abbreviation {
+                flex: 3;
+            }
+        }
+    }
+}
