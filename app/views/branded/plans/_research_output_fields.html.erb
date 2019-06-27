@@ -1,19 +1,19 @@
 <%# locals: { plan, research_output, research_output_types } %>
 <% other_type_displayed = research_output.research_output_type && research_output.research_output_type.is_other ? '' : 'display:none;' %>
-<% display_inputs = research_output.is_default ? '' : "display:none;" %>
-<% display_values = research_output.is_default ? "display:none;" : '' %>
+<% edit_mode = research_output.is_default ? '' : "display:none;" %>
+<% display_mode = research_output.is_default ? "display:none;" : '' %>
 <div class='research-output-element'>
   <div class='research-output-fields'>
     <div class='research-output-names'>
       <div class='research-output-field form-group research-output-abbreviation'>
         <%= f.label :name, d_('dmpopidor', 'Abbreviated Name (20 chars max.)'),  class: 'control-label' %>
-        <%= f.text_field :abbreviation, maxlength: 20, class: 'form-control input', "aria-required": true, style: display_inputs %>
-        <span style="<%= display_values %>"><%= research_output.abbreviation ? research_output.abbreviation : _('None') %></span>
+        <%= f.text_field :abbreviation, maxlength: 20, class: 'form-control input', "aria-required": true, style: edit_mode %>
+        <span style="<%= display_mode %>"><%= research_output.abbreviation ? research_output.abbreviation : _('None') %></span>
       </div>
       <div class='research-output-field form-group research-output-fullname'>
         <%= f.label :fullname, d_('dmpopidor', 'Fullname'), class: 'control-label' %>
-        <%= f.text_field :fullname, class: 'form-control input', "aria-required": true, style: display_inputs  %>
-        <span style="<%= display_values %>"><%= research_output.fullname ? research_output.fullname : _('None')  %></span>
+        <%= f.text_field :fullname, class: 'form-control input', "aria-required": true, style: edit_mode  %>
+        <span style="<%= display_mode %>"><%= research_output.fullname ? research_output.fullname : _('None')  %></span>
       </div>
     </div>
     <div class='research-output-field form-group research-output-type'>
@@ -27,33 +27,33 @@
                       selected: research_output.research_output_type_id, disabled: ""
                     ),
                     { prompt: d_('dmpopidor', 'Please select the type of your research output.') },
-                    { multiple: false, class: 'form-control research-output-type-select input', "aria-required": true, style: display_inputs}) 
+                    { multiple: false, class: 'form-control research-output-type-select input', "aria-required": true, style: edit_mode}) 
       %>
-      <span style="<%= display_values %>"><%= research_output.research_output_type ? research_output.research_output_type.label : _('None')  %></span>
+      <span style="<%= display_mode %>"><%= research_output.research_output_type ? research_output.research_output_type.label : _('None')  %></span>
     </div>
     <div class='research-output-field form-group research-output-other-type' style='<%= other_type_displayed %>'>
       <%= f.label :other_type_label, d_('dmpopidor', 'Other Type'), class: 'control-label' %>
-      <%= f.text_field :other_type_label, class: 'form-control input', style: display_inputs %>
-        <span style="<%= display_values %>"><%= research_output.other_type_label %></span>
+      <%= f.text_field :other_type_label, class: 'form-control input', style: edit_mode %>
+        <span style="<%= display_mode %>"><%= research_output.other_type_label %></span>
     </div>
     <div class='research-output-field form-group research-output-pid'>
       <%= f.label :pid, d_('dmpopidor', 'Persistent Identifier'), class: 'control-label' %>
-      <%= f.text_field :pid, class: 'form-control input', style: display_inputs %>
-        <span style="<%= display_values %>"><%= research_output.pid ? research_output.pid : _('None') %></span>
+      <%= f.text_field :pid, class: 'form-control input', style: edit_mode %>
+        <span style="<%= display_mode %>"><%= research_output.pid ? research_output.pid : _('None') %></span>
     </div>
     <%= f.hidden_field :order, class: 'research-output-order' %>
   </div>
   <div class='research-output-actions'>
-    <i class="fa fa-edit pull-left edit" aria-hidden="true" style="<%= display_values %>"
+    <i class="fa fa-edit pull-left edit" aria-hidden="true" style="<%= display_mode %>"
              title="<%= d_('dmpopidor', 'Edit research output') %>"></i>
-    <i class="fa fa-ban pull-left cancel" aria-hidden="true" style="<%= display_values %>"
+    <i class="fa fa-ban pull-left cancel" aria-hidden="true" style="<%= edit_mode %>"
              title="<%= d_('dmpopidor', 'Cancel research output edition') %>"></i>
-    <i class="fa fa-arrows handle" aria-hidden="true" style="<%= display_values %>"
+    <i class="fa fa-arrows handle" aria-hidden="true" style="<%= display_mode %>"
              title="<%= d_('dmpopidor', 'Move research output') %>"></i>
     <%= link_to plan_research_output_url(plan, research_output), 
                 data: {:confirm => d_('dmpopidor', 'Deleting this research output will remove the associated answers. Do you confirm ?')}, 
                 :method => :delete  do %>
-      <i class="fa fa-close pull-right delete" aria-hidden="true" style="<%= display_values %>"
+      <i class="fa fa-close pull-right delete" aria-hidden="true" style="<%= display_mode %>"
               title="<%= d_('dmpopidor', 'Delete research output') %>" %></i>
     <% end %>
   </div>
