@@ -4,28 +4,28 @@
   <% @research_outputs.each do |research_output|%>
     <% other_type_displayed = research_output.research_output_type && research_output.research_output_type.is_other ? '' : 'display:none;' %>
     <div class='research-output-element'>
-      <div class='research-output-names'>
-        <div class='research-output-abbreviation'>
-          <strong><%=  d_('dmpopidor', 'Abbreviated Name') %></strong>
-          <span><%= research_output.abbreviation ? research_output.abbreviation : _('None') %></span>
-        </div>
-        <div class='research-output-fullname'>
+      <div class='research-output-value'>
+        <strong><%=  d_('dmpopidor', 'Abbreviated Name') %></strong>
+        <span><%= research_output.abbreviation ? research_output.abbreviation : _('None') %></span>
+      </div>
+      <div class='research-output-value'>
           <strong><%=  d_('dmpopidor', 'Fullname') %></strong>
           <span><%= research_output.fullname ? research_output.fullname : _('None')  %></span>
-        </div>
       </div>
-      <div class='research-output-type'>
-        <strong><%=  d_('dmpopidor', 'Type') %></strong>
-        <a href="<%= research_output_types_path %>" target="_blank" >
-          <i class="fa fa-info-circle"></i>
-        </a>
+      <div class='research-output-value'>
+        <strong>
+          <%=  d_('dmpopidor', 'Type') %> 
+          <a href="<%= research_output_types_path %>" target="_blank" >
+            <i class="fa fa-info-circle"></i>
+          </a>
+        </strong>
         <span><%= research_output.research_output_type ? research_output.research_output_type.label : _('None')  %></span>
       </div>
-      <div class='research-output-other-type' style='<%= other_type_displayed %>'>
+      <div class='research-output-value' style='<%= other_type_displayed %>'>
         <strong><%=  d_('dmpopidor', 'Other Type') %></strong>
         <span><%= research_output.other_type_label %></span>
       </div>
-      <div class='research-output-pid'>
+      <div class='research-output-value'>
         <strong><%=  d_('dmpopidor', 'Persistent Identifier') %></strong>
         <span><%= research_output.pid ? research_output.pid : _('None') %></span>
       </div>

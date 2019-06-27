@@ -276,6 +276,9 @@ msgstr ""
 msgid "Abbreviated Name (20 chars max.)"
 msgstr ""
 
+msgid "Abbreviated Name"
+msgstr ""
+
 msgid "Fullname"
 msgstr ""
 

@@ -749,13 +749,15 @@ $light-yellow: #fff9e5;
 
         border: 0.5px groove $color-border-light;
         box-shadow:  0px 0px 0px 0px $color-shadow-dark;
-        .research-output-names {
+        .research-output-value {
             display: flex;
-            .research-output-fullname {
-                flex: 8;
+            strong {
+                flex: 2;
+                text-align: right;
             }
-            .research-output-abbreviation {
-                flex: 3;
+            span {
+                padding-left: 20px;
+                flex: 8;
             }
         }
     }

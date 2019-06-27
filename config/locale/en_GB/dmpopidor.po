@@ -272,6 +272,9 @@ msgstr "Title displayed on the static page"
 msgid "Abbreviated Name (20 chars max.)"
 msgstr "Abbreviated Name (20 chars max.)"
 
+msgid "Abbreviated Name"
+msgstr "Abbreviated Name"
+
 msgid "Fullname"
 msgstr "Fullname"
 
