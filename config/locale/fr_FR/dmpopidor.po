@@ -270,10 +270,10 @@ msgstr "Titre affiché sur la page statique"
 # Research outputs
 
 msgid "Abbreviated Name (20 chars max.)"
-msgstr "Nom abbrégé (20 caractères max.)"
+msgstr "Nom abrégé (20 caractères max.)"
 
 msgid "Abbreviated Name"
-msgstr "Nom abbrégé"
+msgstr "Nom abrégé"
 
 msgid "Fullname"
 msgstr "Nom complet"
