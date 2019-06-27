@@ -1,6 +1,11 @@
 <div class="corner-ribbon top-left sticky red shadow"><%= _('Beta') %></div>
 <div class="tab-panels" role="tabpanel">
   <div id="phase-#<%= phase.id %>-panel" class="tab-panel active" aria-hidden="false" aria-labelledby="phase-#<%= phase.id %>-tab">
+    <div class="section-description">
+      <div class="display-readonly-textarea-content">
+        <%= sanitize phase.description %>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-8">
         <div class="row">
@@ -43,6 +48,11 @@
         </div>
         <div id="collapse-<%= section.id %>" class="panel-collapse collapse section-content" role="tabpanel" aria-labelledby="heading-<%= section.id %>">
           <div class="panel-body"><!-- accordion body -->
+            <div class="section-description">
+              <div class="display-readonly-textarea-content">
+                <%= sanitize section.description %>
+              </div>
+            </div>
             <ul class="nav nav-tabs">
               <% section_has_common_answers = plan.research_outputs.first.has_common_answers?(section.id) %>
               <% plan.research_outputs.each_with_index do |research_output, i| %>
