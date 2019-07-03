@@ -11,8 +11,8 @@ namespace :dmpopidor_upgrade do
   
   desc "Upgrade to 2.2.0"
   task v2_2_0: :environment do
-    Rake::Task['dmpopidor_upgrade:research_outputs_enable'].execute
     Rake::Task['dmpopidor_upgrade:create_research_output_types'].execute
+    Rake::Task['dmpopidor_upgrade:research_outputs_enable'].execute
   end
 
 
@@ -61,7 +61,13 @@ namespace :dmpopidor_upgrade do
 
     # Create research outputs and move answers
     Plan.all.each do |p|
-      research_output = p.research_outputs.create(is_default: true, order: 1) if p.research_outputs.empty?
+      research_output = p.research_outputs.create(
+        abbreviation: 'Default', 
+        fullname: 'Default research output',
+        is_default: true, 
+        research_output_type: ResearchOutputType.first,
+        order: 1
+      ) if p.research_outputs.empty?
 
       p.answers.each { |a| a.update_column(:research_output_id, research_output.id) }
     end
