@@ -3,11 +3,11 @@ module Dmpopidor
       module Plans
         # display the name of the owner of a plan
         # CHANGE : Added translation
-        def display_owner(user)
-          if user == current_user
+        def display_owner(owner)
+          if owner == current_user
             name = d_('dmpopidor', 'You')
           else
-            name = user&.name(false)
+            name = owner&.name(false)
           end
           return name
         end

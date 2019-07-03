@@ -1,6 +1,18 @@
 module Dmpopidor
   module Models
     module Plan
+
+
+
+      # CHANGE : Fix to creator display
+      def owner
+        usr_ids = Role.where(plan_id: id, active: true)
+                      .creator
+                      .order(:created_at)
+                      .pluck(:user_id).uniq
+        User.where(id: usr_ids).first
+      end
+
       # CHANGES : ADDED RESEARCH OUTPUT SUPPORT
       # The most recent answer to the given question id optionally can create an answer if
       # none exists.

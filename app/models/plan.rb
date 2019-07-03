@@ -443,14 +443,14 @@ class Plan < ActiveRecord::Base
   # The owner (aka :creator) of the project
   #
   # Returns User
-  # Returns nil
-  def owner
-    usr_ids = Role.where(plan_id: id, active: true)
-                  .administrator
-                  .order(:created_at)
-                  .pluck(:user_id).uniq
-    User.where(id: usr_ids).first
-  end
+  # # Returns nil
+  # def owner
+  #   usr_ids = Role.where(plan_id: id, active: true)
+  #                 .administrator
+  #                 .order(:created_at)
+  #                 .pluck(:user_id).uniq
+  #   User.where(id: usr_ids).first
+  # end
 
   # Creates a role for the specified user (will update the user's
   # existing role if it already exists)
