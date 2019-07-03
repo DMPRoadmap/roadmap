@@ -201,7 +201,7 @@ msgstr ""
 msgid "Copy link"
 msgstr ""
 
-msgid "Public, Administrator or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default."
+msgid "Public, Administrator or organisational visibility is intended for finished plans. Note: test plans are set to private visibility by default."
 msgstr ""
 
 msgid "Would you like to create a plan based on the \"%{name}\" template?"

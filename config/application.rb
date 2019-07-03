@@ -131,6 +131,6 @@ module DMPRoadmap
     config.default_plan_visibility = 'privately_private_visible'
 
     # The percentage of answered questions needed to enable the plan visibility section of the Share plan page
-    config.default_plan_percentage_answered = 50
+    config.default_plan_percentage_answered = 0
   end
 end
