@@ -45,6 +45,8 @@ class ResearchOutput < ActiveRecord::Base
 
   validates :fullname, presence: { message: PRESENCE_MESSAGE }
 
+  validates :research_output_type, presence: { message: PRESENCE_MESSAGE }
+
 
   # ==========
   # = Scopes =
