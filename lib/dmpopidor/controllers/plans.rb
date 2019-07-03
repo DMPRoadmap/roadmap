@@ -28,7 +28,13 @@ module Dmpopidor
           authorize @plan
 
           # Add default research output if possible
-          @plan.research_outputs.new(abbreviation: 'Default', fullname: 'Default research output', is_default: true, order: 1)
+          @plan.research_outputs.new(
+            abbreviation: 'Default', 
+            fullname: 'Default research output',
+            is_default: true, 
+            research_output_type: ResearchOutputType.first,
+            order: 1
+          )
 
           # We set these ids to -1 on the page to trick ariatiseForm into allowing the
           # autocomplete to be blank if the no org/funder checkboxes are checked off

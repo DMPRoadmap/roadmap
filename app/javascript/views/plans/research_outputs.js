@@ -86,5 +86,4 @@ $(() => {
 
     editElement.hide();
   });
-
 });
