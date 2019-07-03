@@ -8,14 +8,6 @@ $(() => {
       $(val).hide();
     });
   };
-  const displayROValues = (researchOutputDiv) => {
-    researchOutputDiv.find('.input').each((idx, inp) => {
-      $(inp).hide();
-    });
-    researchOutputDiv.find('span').each((idx, val) => {
-      $(val).show();
-    });
-  };
 
 
   $('#research-outputs').sortable({
@@ -58,6 +50,12 @@ $(() => {
     duplicated.find('.research-output-type label').attr('for', `${duplicatedId}_research_output_type_id`);
     duplicated.find('.research-output-type select').val(null);
     duplicated.find('.research-output-type select').trigger('change');
+
+    duplicated.find('.research-output-other-type input').attr('id', `${duplicatedId}_other_type`);
+    duplicated.find('.research-output-other-type input').attr('name', `${duplicatedName}[other-type]`);
+    duplicated.find('.research-output-other-type label').attr('for', `${duplicatedId}_other_type`);
+    duplicated.find('.research-output-other-type input').val(null);
+
     // Research Output order
     duplicated.find('.research-output-order').attr('id', `${duplicatedId}_order`);
     duplicated.find('.research-output-order').attr('name', `${duplicatedName}[order]`);
@@ -84,20 +82,9 @@ $(() => {
   $('#research-outputs').on('click', ' .research-output-actions .edit', (e) => {
     const editElement = $(e.target);
     const parentElement = $(e.target).closest('.research-output-element');
-    const cancelElement = parentElement.find('.cancel');
     displayROInputs(parentElement);
 
     editElement.hide();
-    cancelElement.show();
   });
 
-  $('#research-outputs').on('click', ' .research-output-actions .cancel', (e) => {
-    const cancelElement = $(e.target);
-    const parentElement = $(e.target).closest('.research-output-element');
-    const editElement = parentElement.find('.edit');
-    displayROValues(parentElement);
-
-    editElement.show();
-    cancelElement.hide();
-  });
 });
