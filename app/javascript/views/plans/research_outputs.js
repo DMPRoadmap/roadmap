@@ -4,7 +4,7 @@ $(() => {
     researchOutputDiv.find('.input').each((idx, inp) => {
       $(inp).show();
     });
-    researchOutputDiv.find('span').each((idx, val) => {
+    researchOutputDiv.find('.readonly-value').each((idx, val) => {
       $(val).hide();
     });
   };
