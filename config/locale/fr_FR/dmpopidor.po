@@ -328,3 +328,6 @@ msgstr "Modifier le produit de recherche"
 
 msgid "Cancel research output edition"
 msgstr "Annuler la modification du produit de recherche"
+
+msgid "Click here to find out more about research output types."
+msgstr "Cliquez ici pour en savoir plus à propos des types de produits de recherche"

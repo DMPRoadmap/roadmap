@@ -1,6 +1,11 @@
 <%# locals: { plan, research_outputs, research_output_types } %>
 <div class="research-outputs-description">
   <h2 class="project-details"><%= d_('dmpopidor', 'Research outputs') %></h2>
+  <div class="display-readonly-textarea-content">
+    <a href="<%= research_output_types_path %>" target="_blank" >
+      <%= d_('dmpopidor', 'Click here to find out more about research output types.') %>
+    </a>
+  </div>
   <%= form_for plan, html: {method: :put, class: 'form-horizontal edit_plan' } do |f| %>
     <div id='research-outputs'>
       <% @research_outputs.each do |research_output|%>

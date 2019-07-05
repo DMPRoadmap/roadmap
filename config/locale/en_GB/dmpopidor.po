@@ -328,3 +328,6 @@ msgstr "Edit research output"
 
 msgid "Cancel research output edition"
 msgstr "Cancel research output edition"
+
+msgid "Click here to find out more about research output types."
+msgstr "Click here to find out more about research output types."
