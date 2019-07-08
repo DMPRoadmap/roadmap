@@ -1,9 +1,23 @@
 <style>
-  /*
-  @import 'https://fonts.googleapis.com/css?family=<%= font_face.downcase.include?('times') ? 'Times' : 'Helvetica' %>';
-*/
+  /* latin */
+  @font-face {
+    font-family: 'Times';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/assets/Times.woff2') format('woff2');
+  }
+
+  /* latin */
+  @font-face {
+    font-family: 'Helvetica';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/assets/Helvetica.woff2') format('woff2');
+  }
+
+
   body {
-    font-family: @font-face;
+    font-family: '<%= font_face.downcase.include?('times') ? 'Times' : 'Helvetica' %>';
     font-size: <%= font_size %>;
     margin: <%= margin %>;
   }
