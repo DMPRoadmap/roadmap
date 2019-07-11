@@ -97,24 +97,34 @@
     </div>
 
     <fieldset class="col-xs-12">
-      <legend><%= _('Permissions') %></legend>
+      <div class="flex-container">
+        <div class="width95">
+          <legend><%= _('Permissions') %></legend>
+        </div>
+        <div>
+          <a href="#"><i data-toggle="tooltip" data-placement="right" title='
+        <%= _("Co-owner: Has admin-rights to the plan (can invite other users, view the plan, answer questions, or comment") %><br><%= _("Editor: Has edit-rights to the plan (can view the plan, answer questions, or comment)<br>Read Only: Has read-rights to the plan(can view the plan or comment)") %>' data-html="true" class="fa fa-question-circle fa-reverse" ></i>
+          </a>
+        </div>
+      </div>
+
       <div class="form-group">
         <div class="radio">
           <%= f.label :access do %>
             <%= f.radio_button :access, administrator.access, "aria-required": true %>
-            <%= _('Co-owner: can edit project details, change visibility, and add collaborators') %>
+            <%= _('Co-owner') %>
           <% end %>
         </div>
         <div class="radio">
           <%= f.label :access do %>
             <%= f.radio_button :access, editor.access %>
-            <%= _('Editor: can comment and make changes') %>
+            <%= _('Editor') %>
           <% end %>
         </div>
         <div class="radio">
           <%= f.label :access do %>
             <%= f.radio_button :access, commenter.access %>
-            <%= _('Read only: can view and comment, but not make changes') %>
+            <%= _('Read only') %>
           <% end %>
         </div>
 
