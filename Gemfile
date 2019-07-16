@@ -78,6 +78,12 @@ gem 'omniauth-shibboleth'
 # ORCID OAuth 2.0 Strategy for OmniAuth 1.0 (https://github.com/datacite/omniauth-orcid)
 gem 'omniauth-orcid'
 
+# This gem provides a mitigation against CVE-2015-9284 (Cross-Site Request Forgery on the request phase
+# when using OmniAuth gem with a Ruby on Rails application) by implementing a CSRF token verifier that
+# directly uses ActionController::RequestForgeryProtection code from Rails.
+#   https://nvd.nist.gov/vuln/detail/CVE-2015-9284
+gem "omniauth-rails_csrf_protection"
+
 # Pure Ruby implementation of Array#dig and Hash#dig for Ruby < 2.3. (https://github.com/Invoca/ruby_dig)
 gem 'ruby_dig'  # for omniauth-orcid
 

@@ -8,6 +8,8 @@ class OrgAdmin::DepartmentsController < ApplicationController
   # GET add new department
   def new
     @department = Department.new
+    @org_id = org_id
+    @department.org_id = @org_id
     authorize @department
   end
 
@@ -15,8 +17,9 @@ class OrgAdmin::DepartmentsController < ApplicationController
   # POST /departments.json
   def create
     @department = Department.new(department_params)
+    @org_id = org_id
+
     authorize @department
-    @department.org_id = current_user.org_id
 
     if @department.save
       flash.now[:notice] = success_message(@department, _("created"))
@@ -32,14 +35,15 @@ class OrgAdmin::DepartmentsController < ApplicationController
   # GET /departments/1/edit
   def edit
     @department = Department.find(params[:id])
+    @org_id = org_id
     authorize @department
   end
 
   # PUT /departments/1
   def update
     @department = Department.find(params[:id])
+    @org_id = org_id
     authorize @department
-    @department.org_id = current_user.org_id
 
     if @department.update(department_params)
       flash.now[:notice] = success_message(@department, _("saved"))
@@ -53,8 +57,10 @@ class OrgAdmin::DepartmentsController < ApplicationController
   # DELETE /departments/1
   def destroy
     @department = Department.find(params[:id])
+    @org_id = org_id
     authorize @department
-    url = "#{admin_edit_org_path(current_user.org_id)}\#departments"
+    url = "#{admin_edit_org_path(@org_id)}\#departments"
+
     if @department.destroy
       flash[:notice] = success_message(@department, _("deleted"))
       redirect_to url
@@ -69,6 +75,10 @@ class OrgAdmin::DepartmentsController < ApplicationController
 
   def department_params
     params.require(:department).permit(:id, :name, :code, :org_id)
+  end
+
+  def org_id
+    current_user.can_super_admin? ? params[:org_id] : current_user.org_id
   end
 
 end
