@@ -69,6 +69,11 @@
     webpack "^3.12.0"
     webpack-manifest-plugin "^1.3.2"
 
+"@types/jquery@^2.0.40":
+  version "2.0.53"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.53.tgz#89c53bc83d820e50c3b667ae2fdf4276df8b3aba"
+  integrity sha512-MZKPWUhp5TKkoJ/58NSq6io+CSUCOHm2b3Z6U4+r9v70kktB0JM+eRjdp6YmDHtw0kK2XB7L2K7/FMIoziHjUA==
+
 "@types/node@^8.10.50":
   version "8.10.50"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.50.tgz#f3d68482b1f54b5f4fba8daaac385db12bb6a706"
@@ -9442,10 +9447,12 @@ time-stamp@^2.0.0:
   resolved "https://registry.yarnpkg.com/time-stamp/-/time-stamp-2.2.0.tgz#917e0a66905688790ec7bbbde04046259af83f57"
   integrity sha512-zxke8goJQpBeEgD82CXABeMh0LSJcj7CXEd0OHOg45HgcofF7pxNwZm9+RknpxpDhwN4gFpySkApKfFYfRQnUA==
 
-timeago.js@^4.0.0-beta.1:
-  version "4.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/timeago.js/-/timeago.js-4.0.0-beta.2.tgz#4e50a7250626b67e168a934d5e15052119366db1"
-  integrity sha512-MQkHiYGoB6qZC4DNWsLc9bav+L9hpdulL6sL7okzKR8r1Ipask/tXKAio8T+4jeby8FbpbDvbnCKGrh1bLop3g==
+timeago.js@4.0.0-beta.1:
+  version "4.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/timeago.js/-/timeago.js-4.0.0-beta.1.tgz#9fd9523e42747f7957430f1d1df57de11a66741f"
+  integrity sha512-4nqHcIbOwiB9q28rHowuIjjxQHBUDO2nHb4Hb3OOtaIhmzYWqNOZjIZkSTiRf0Ch7YzFw4t1bXsQA6prpKSfag==
+  dependencies:
+    "@types/jquery" "^2.0.40"
 
 timers-browserify@^1.0.1:
   version "1.4.2"
