@@ -8,7 +8,7 @@
     </a>
     <ul class="dropdown-menu inverse-dropdown" aria-labelledby="language-menu">
       <% languages.each do |l| %>
-        <li <%= 'class=active' if FastGettext.locale == l.abbreviation %>>
+        <li <%= 'class=active' if I18n.locale == l.abbreviation %>>
           <%= link_to l.name, locale_path(l.abbreviation), method: :patch %>
         </li>
       <% end %>

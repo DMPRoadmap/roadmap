@@ -5,7 +5,7 @@
   access = nil
   messaging = role_text(@role)
 %>
-<% FastGettext.with_locale FastGettext.default_locale do %>
+<% I18n.with_locale I18n.default_locale do %>
   <p>
     <%= _('Hello %{username}') %{ :username => username } %>
   </p>

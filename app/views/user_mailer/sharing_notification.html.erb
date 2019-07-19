@@ -4,7 +4,7 @@
   link = url_for(action: 'show', controller: 'plans', id: @role.plan.id)
   user_name = User.find_by(email: user_email).nil? ?  user_email : User.find_by(email: user_email).name(false)
 %>
-<% FastGettext.with_locale FastGettext.default_locale do %>
+<% I18n.with_locale I18n.default_locale do %>
   <p>
     <%= _('Hello %{user_name}') %{ :user_name => user_name } %>
   </p>
@@ -20,4 +20,3 @@
   </p>
   <%= render partial: 'email_signature' %>
 <% end %>
-
