@@ -13,10 +13,10 @@ require 'faker'
 include FactoryBot::Syntax::Methods
 
 I18n.available_locales = ['en', 'en-GB', 'de', 'fr']
-I18n.locale                = LocaleFormatter.new(:en, format: :i18n).to_s
+I18n.locale                = 'en'
 # Keep this as :en. Faker doesn't have :en-GB
-Faker::Config.locale       = LocaleFormatter.new(:en, format: :i18n).to_s
-FastGettext.default_locale = LocaleFormatter.new(:en, format: :fast_gettext).to_s
+Faker::Config.locale       = 'en'
+I18n.default_locale = 'en'
 
 
 require 'factory_bot'
@@ -247,7 +247,7 @@ users = [
    password: "password123",
    password_confirmation: "password123",
    org: Org.find_by(abbreviation: Branding.fetch(:organisation, :abbreviation)),
-   language: Language.find_by(abbreviation: FastGettext.locale),
+   language: Language.find_by(abbreviation: I18n.locale),
    perms: Perm.all,
    accept_terms: true,
    api_token: 'abcd1234',
@@ -258,7 +258,7 @@ users = [
    password: "password123",
    password_confirmation: "password123",
    org: Org.find_by(abbreviation: 'GA'),
-   language: Language.find_by(abbreviation: FastGettext.locale),
+   language: Language.find_by(abbreviation: I18n.locale),
    perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),
    accept_terms: true,
    api_token: 'efgh5678',
@@ -269,7 +269,7 @@ users = [
    password: "password123",
    password_confirmation: "password123",
    org: Org.find_by(abbreviation: 'UOS'),
-   language: Language.find_by(abbreviation: FastGettext.locale),
+   language: Language.find_by(abbreviation: I18n.locale),
    perms: Perm.where.not(name: ['admin', 'add_organisations', 'change_org_affiliation', 'grant_api_to_orgs']),
    accept_terms: true,
    api_token: 'ijkl9012',
@@ -280,7 +280,7 @@ users = [
    password: "password123",
    password_confirmation: "password123",
    org: Org.find_by(abbreviation: 'UOS'),
-   language: Language.find_by(abbreviation: FastGettext.locale),
+   language: Language.find_by(abbreviation: I18n.locale),
    accept_terms: true,
    confirmed_at: Time.zone.now}
 ]
