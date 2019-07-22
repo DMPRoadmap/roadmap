@@ -21,6 +21,10 @@ public/videos/*
 # Ignore PO/POT backups
 *.po.bak
 *.pot.bak
+# Ignore PO/POT/MO client files
+client.mo
+client.po
+client.pot
 
 # Ignore branded content
 app/views/branded/*

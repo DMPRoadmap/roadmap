@@ -156,17 +156,8 @@ gem 'feedjira'
 
 # ------------------------------------------------
 # INTERNATIONALIZATION
-# Simple FastGettext Rails integration. (http://github.com/grosser/gettext_i18n_rails)
-gem 'gettext_i18n_rails'
-
-# Extends gettext_i18n_rails making your .po files available to client side javascript as JSON (https://github.com/webhippie/gettext_i18n_rails_js)
-gem 'gettext_i18n_rails_js'
-
-# Gettext is a pure Ruby libary and tools to localize messages. (http://ruby-gettext.github.com/)
-gem 'gettext', require: false, group: :development
-
 # Localize your app with YAML or GetText. Synchronize with your translators on Translation.io. (https://translation.io)
-gem 'translation', git: 'https://github.com/xsrust/rails', branch: 'multi_domain_2'
+gem 'translation'
 
 # ------------------------------------------------
 # PAGINATION

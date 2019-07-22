@@ -6,6 +6,7 @@ if !ENV['DOMAIN'] || ENV['DOMAIN'] == 'app'
     config.text_domain          = 'app'
     config.bound_text_domains   = ['app', 'client']
     config.ignored_source_paths = ['app/views/branded/']
+    config.locales_path         = Rails.root.join('config','locale')
   end
 elsif ENV['DOMAIN'] == 'client'
   TranslationIO.configure do |config|
@@ -16,18 +17,15 @@ elsif ENV['DOMAIN'] == 'client'
     config.bound_text_domains   =['client']
     config.ignored_source_paths = Dir.glob('**/*').select { |f| File.directory? f }.collect { |name| "#{name}/" } - ['app/', 'app/views/', 'app/views/branded/', "app/views/branded/public_pages/", "app/views/branded/home/", "app/views/branded/contact_us/", "app/views/branded/contact_us/contacts/", "app/views/branded/shared/", "app/views/branded/layouts/", "app/views/branded/static_pages/"]
     config.disable_yaml         = true
+    config.locales_path         = Rails.root.join('config','locale')
   end
 end
 
-# configure shared options
-TranslationIO.configure do |config|
-  config.locales_path = Rails.root.join('config','locale')
-end
 
 # Setup languages
 if Language.table_exists?
   def default_locale
-    Language.default.try(:abbreviation) || "en"
+    Language.default.try(:abbreviation) || "en-GB"
   end
 
   def available_locales
@@ -37,15 +35,14 @@ if Language.table_exists?
   end
 else
   def default_locale
-    Rails.application.config.i18n.available_locales.first || "en"
+    Rails.application.config.i18n.available_locales.first || "en-GB"
   end
 
   def available_locales
-    Rails.application.config.i18n.available_locales = LocaleSet.new(["en-GB", "en"])
+    Rails.application.config.i18n.available_locales = LocaleSet.new(["en-GB", "en-US"])
   end
 end
 
-
 I18n.available_locales = Language.all.pluck(:abbreviation)
 
-I18n.default_locale        = Language.default.try(:abbreviation) || "en-GB"
+I18n.default_locale    = Language.default.try(:abbreviation) || "en-GB"
