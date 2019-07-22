@@ -155,8 +155,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def do_update(require_password = true, confirm = false)
-    Rails.logger.debug("Before Anything")
-    Rails.logger.debug(I18n.locale)
     mandatory_params = true
     # added to by below, overwritten otherwise
     message = _("Save Unsuccessful. ")
@@ -224,13 +222,8 @@ class RegistrationsController < Devise::RegistrationsController
         current_user.save!
       end
       session[:locale] = current_user.get_locale unless current_user.get_locale.nil?
-      Rails.logger.debug("------------LOCALE----------------")
-      Rails.logger.debug(session[:locale])
       # Method defined at controllers/application_controller.rb
-      Rails.logger.debug(I18n.locale)
       set_locale
-      Rails.logger.debug("After set_locale")
-      Rails.logger.debug(I18n.locale)
       set_flash_message :notice, success_message(current_user, _("saved"))
       # Sign in the user bypassing validation in case his password changed
       sign_in current_user, bypass: true

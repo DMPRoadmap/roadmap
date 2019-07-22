@@ -41,11 +41,9 @@ class ApplicationController < ActionController::Base
   # Sets FastGettext locale for every request made
   def set_locale
     I18n.locale = current_locale
-    Rails.logger.debug("Locale set to : #{I18n.locale}")
   end
 
   def current_locale
-    Rails.logger.debug("Setting Locale to, #{session[:locale]} OR #{I18n.default_locale}")
     session[:locale].present? ? session[:locale] : I18n.default_locale
   end
 
