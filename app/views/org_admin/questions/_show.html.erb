@@ -207,7 +207,7 @@
           <% if section.modifiable? %>
             <div class="form-group col-md-10">
               <div class="pull-right">
-                <%= link_to _('Edit'), edit_org_admin_template_phase_section_question_path(template_id: question.section.phase.template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), class: "btn btn-default ajaxified-question", remote: true %>
+                <%= link_to _('Edit'), edit_org_admin_template_phase_section_question_path(template_id: question.section.phase.template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), class: "btn btn-default ajaxified-question edit-button", remote: true %>
               </div>
             </div>
           <% end %>
