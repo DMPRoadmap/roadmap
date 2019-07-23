@@ -25,6 +25,7 @@ import '../views/org_admin/phases/preview';
 import '../views/org_admin/phases/show';
 import '../views/org_admin/question_options/index';
 import '../views/org_admin/questions/sharedEventHandlers';
+import '../views/org_admin/questions/basicDisplay';
 import '../views/org_admin/sections/index';
 import '../views/org_admin/templates/edit';
 import '../views/org_admin/templates/index';
