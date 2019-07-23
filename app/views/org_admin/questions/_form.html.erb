@@ -42,8 +42,18 @@
       <div class="col-md-offset-2">
         <%= render "/org_admin/question_options/option_fields", f: f, q: question %>
         <!--display for selecting comment box when multiple choice is being used-->
+        <%= link_to _('Add logic'), '#', class: "logic-class btn btn-default" %>
+        <div id="content">
+          <% if current_format.radiobuttons? || current_format.dropdown? %>
+            <p>
+              If you select 
+            </p>
+          <% end %>
+        </div>
       </div>
     </div>
+
+    <!-- eventual adding of tooltip ^ : _('Save answer format as checkbox, dropdown, or radio buttons to add logic here.') -->
 
     <% comment_disp = current_format.option_based? || current_format.rda_metadata? %>
     <div class="form-group col-md-10" data-attribute="option_comment"
