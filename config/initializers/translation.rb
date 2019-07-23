@@ -10,7 +10,7 @@ if !ENV['DOMAIN'] || ENV['DOMAIN'] == 'app'
   end
 elsif ENV['DOMAIN'] == 'client'
   TranslationIO.configure do |config|
-    config.api_key              = ENV['TRANSLATION_API_TUULI']
+    config.api_key              = ENV['TRANSLATION_API_CLIENT']
     config.source_locale        = 'en'
     config.target_locales       = ['fi', 'sv-FI']
     config.text_domain          = 'client'
