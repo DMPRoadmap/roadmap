@@ -30,11 +30,16 @@
       </div>
       <div class="form-group"><!-- grant_number -->
         <div class="col-md-12">
-          <%= f.label(:grant_number, _('Grant number'), class: 'control-label') %>
+          <%= label_tag(:plan_grant_number_name, _('Grant number'), class: 'control-label') %>
         </div>
+
         <div class="col-md-8">
-          <%= f.text_field(:grant_number, class: "form-control", "aria-required": false, 'data-toggle': 'tooltip',
-            title: _('Grant reference number if applicable [POST-AWARD DMPs ONLY]')) %>
+          <%= text_field_tag(:plan_grant_number_name, '',
+              class: "grant-id-typeahead form-control",
+              autocomplete: "off",
+              aria: { required: false }) %>
+          <%= f.hidden_field(:grant_number) %>
+          <span class="text-muted" id="grant_number_info">Grant number: <%= @plan.grant_number %></span>
         </div>
       </div>
       <div class="form-group"><!-- description -->

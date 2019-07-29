@@ -24,7 +24,7 @@
       <div class="form-group">
         <span class="center-block btn-group-justified">
           <% target = (Rails.application.config.shibboleth_use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %>
-          <a href="<%= target %>" class="btn btn-default"><%= _('Sign in with your institutional credentials') %></a>
+          <%= link_to _('Sign in with your institutional credentials'), target, method: :post, class: 'btn btn-default' %>
         </span>
       </div>
     <% else %>
