@@ -65,6 +65,7 @@ Rails.application.routes.draw do
       get 'admin_edit'
       put 'admin_update'
     end
+    resources :departments, controller: 'org_admin/departments'
   end
 
   resources :guidances, :path => 'org/admin/guidance', only: [] do
@@ -142,7 +143,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     namespace :v0 do
       resources :guidances, only: [:index], controller: 'guidance_groups', path: 'guidances'
-      resources :plans, only: :create
+      resources :plans, only: [:create, :index]
       resources :templates, only: :index
       resource  :statistics, only: [], controller: "statistics", path: "statistics" do
         member do
@@ -194,6 +195,10 @@ Rails.application.routes.draw do
     end
     # Paginable actions for guidance_groups
     resources :guidance_groups, only: [] do
+      get 'index/:page', action: :index, on: :collection, as: :index
+    end
+    # Paginable actions for departments
+    resources :departments, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
     end
   end
@@ -248,6 +253,7 @@ Rails.application.routes.draw do
     end
 
     get 'download_plans' => 'plans#download_plans'
+
   end
 
   namespace :super_admin do
@@ -256,4 +262,15 @@ Rails.application.routes.draw do
     resources :users, only: [:edit, :update]
     resources :notifications, except: [:show]
   end
+
+  get "research_projects/search", action: "search",
+                                  controller: "research_projects",
+                                  constraints: { format: "json" }
+
+  get "research_projects/(:type)", action: "index",
+                                   controller: "research_projects",
+                                   constraints: { format: "json" }
+
+
+
 end

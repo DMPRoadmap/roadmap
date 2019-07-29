@@ -16,12 +16,14 @@ import { isObject, isString } from './isType';
 // // https://www.tinymce.com/docs/advanced/usage-with-module-loaders/
 export const defaultOptions = {
   selector: '.tinymce',
-  statusbar: false,
+  statusbar: true,
   menubar: false,
   toolbar: 'bold italic | bullist numlist | link | table',
   plugins: 'table autoresize link paste advlist lists',
   advlist_bullet_styles: 'circle,disc,square', // Only disc bullets display on htmltoword
   target_list: false,
+  elementpath: false,
+  resize: true,
   autoresize_min_height: 130,
   autoresize_bottom_margin: 10,
   branding: false,
@@ -33,7 +35,6 @@ export const defaultOptions = {
   paste_remove_styles_if_webkit: true,
   paste_remove_spans: true,
   paste_strip_class_attributes: 'all',
-  max_height: 350,
   table_default_attributes: {
     border: 1,
   },
