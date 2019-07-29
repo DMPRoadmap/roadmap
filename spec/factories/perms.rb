@@ -51,5 +51,10 @@ FactoryBot.define do
       name { 'grant_api_to_orgs' }
       initialize_with { Perm.find_or_create_by(name: name) }
     end
+
+    trait :review_org_plans do
+      name { 'review_org_plans' }
+      initialize_with { Perm.find_or_create_by(name: name) }
+    end
   end
 end

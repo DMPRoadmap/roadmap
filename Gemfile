@@ -78,6 +78,12 @@ gem 'omniauth-shibboleth'
 # ORCID OAuth 2.0 Strategy for OmniAuth 1.0 (https://github.com/datacite/omniauth-orcid)
 gem 'omniauth-orcid'
 
+# This gem provides a mitigation against CVE-2015-9284 (Cross-Site Request Forgery on the request phase
+# when using OmniAuth gem with a Ruby on Rails application) by implementing a CSRF token verifier that
+# directly uses ActionController::RequestForgeryProtection code from Rails.
+#   https://nvd.nist.gov/vuln/detail/CVE-2015-9284
+gem "omniauth-rails_csrf_protection"
+
 # Pure Ruby implementation of Array#dig and Hash#dig for Ruby < 2.3. (https://github.com/Invoca/ruby_dig)
 gem 'ruby_dig'  # for omniauth-orcid
 
@@ -163,6 +169,8 @@ gem 'gettext', require: false, group: :development
 # PAGINATION
 # A pagination engine plugin for Rails 4+ and other modern frameworks (https://github.com/kaminari/kaminari)
 gem 'kaminari'
+
+gem 'api-pagination'
 
 # Following best practices from http://12factor.net run a maintainable, clean, and scalable app on Rails (https://github.com/heroku/rails_12factor)
 gem "rails_12factor", group: [:production]
