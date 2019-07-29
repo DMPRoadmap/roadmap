@@ -26,6 +26,10 @@ addons:
   #   s3_region: "eu-west-2"
   #   debug: true
 
+services:
+  - mysql
+  - postgresql
+
 matrix:
   fast_finish: true
   include:
