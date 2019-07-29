@@ -31,6 +31,9 @@ class QuestionOption < ActiveRecord::Base
 
   has_and_belongs_to_many :answers, join_table: :answers_question_options
 
+  has_many :conditions
+
+  accepts_nested_attributes_for :conditions, allow_destroy: true
 
   # ===============
   # = Validations =

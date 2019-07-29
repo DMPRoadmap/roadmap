@@ -1,0 +1,11 @@
+<div id="condition-container">
+  <%= render partial: 'org_admin/conditions/form', locals: { f: f, question: question } %>
+  <div class="row">
+    <div class="col-md-12">
+      <%# link_to(_('Add option'), edit_org_admin_template_phase_section_question_path(template_id: template.id, phase_id: section.phase.id, section_id: section.id)) %>
+      <%= link_to(_('Add option'), fetch_conditions_path(:question_id), remote: true ) %>
+      <%# link_to(_('Add option'), fetch_conditions_path(:question_option_id), remote: true ) %>
+
+    </div>
+  </div>
+</div>
