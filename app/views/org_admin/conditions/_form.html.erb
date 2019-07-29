@@ -1,0 +1,18 @@
+<div class="form-group row" data-attribute="condition_form">
+  <%= f.fields_for :conditions do |c| %>
+    <div class="col-md-9">
+      If you select
+      <!-- list of question_options -->
+      <%= select_tag(:question_option, options_from_collection_for_select(question.question_options, "id", "text", question.question_options[0])) %>
+      then
+      <%= select_tag(:action_type, raw("<option selected='selected'>remove</option><option>add webhook...</option>")) %>
+      <!-- list of questions to remove-->
+      <%= select_tag(:remove_question_id, grouped_options_for_select(question.section.phase.sections.map{ |s| [s.title, s.questions.map { |q| [q.text, q.id] } ] })) %>
+    </div>
+    <div class="col-md-3">
+      <%= c.hidden_field :_destroy, class: 'destroy-condition' %>
+      <!-- otherwise...--> <%# link_to _('Remove'), [c, c.question_option, c.question_option.question], method: :delete %>
+      <a href="#anotherurl" class="delete-condition"><%= _('Remove') %></a>
+    </div>
+  <% end %>
+</div>
