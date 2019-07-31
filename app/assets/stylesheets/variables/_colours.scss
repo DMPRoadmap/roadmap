@@ -11,7 +11,9 @@ $color-grey-darker: #333;
 $color-grey-light: #777;
 $color-grey-lighter: #999;
 $color-blue: #337ab7;
+$color-blue-alice-darkest: #107896;
 $color-muted: #CCC;
+
 
 /*
   Variables to define look and feel
@@ -33,7 +35,7 @@ $color-heading-text: $color-black;
 $color-navbar-text: $color-grey-light;
 $color-navbar-text-hover: $color-white;
 $color-navbar-text-disabled: $color-grey-darker;
-$color-link-text: $color-blue;
+$color-link-text: $color-blue-alice-darkest;
 $color-navbar-link-text: lighten($color-navbar-text, 15%);
 $color-org-navbar-links: $color-grey-light;
 $color-org-navbar-links-hover: $color-grey-darker;
