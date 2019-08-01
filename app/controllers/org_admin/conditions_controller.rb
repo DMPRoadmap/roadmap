@@ -1,11 +1,5 @@
 class OrgAdmin::ConditionsController < ApplicationController
 
-  def from_question
-    @selected = Condition.where(question_id: :question_id)
-    respond_to :js
-      #format.html { render :form }
-  end
-
 	def new_or_edit 
     begin
 		  question_option = QuestionOption.find(params[:question_option_id])
