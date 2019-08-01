@@ -88,42 +88,51 @@
   <% new_role = Role.new %>
   <% new_role.plan = @plan %>
   <%= form_for new_role, url: {controller: :roles, action: :create }, html: {method: :post} do |f| %>
-    <div class="form-group col-xs-8">
+    <div class="form-group col-xs-6">
       <%= f.hidden_field :plan_id %>
       <%= f.fields_for :user do |user| %>
-        <%= user.label :email, _('Email'), class: 'control-label' %>
-        <%= user.email_field :email, for: :user, name: "user", class: "form-control", "aria-required": true %>
+        <%= user.label :email, _('Email'), class: 'control-label'%>
+        <%= user.email_field :email, for: :user, name: "user", class: "form-control",
+                            "aria-required": true,
+                            'data-toggle': 'tooltip',
+                            'data-html': true,
+                            title: _("Enter the email address of your collaborator: <ul><li> If they are already using #{Rails.configuration.branding[:application][:name]}, they will see this plan on their dashboard, and recieve an email. </li> <li> If they are not currently using #{Rails.configuration.branding[:application][:name]}, they will recieve an email inviting them to the tool so they can collaborate on your plan.</li></ul>") %>
       <% end %>
     </div>
-
-    <fieldset class="col-xs-12">
-      <legend><%= _('Permissions') %></legend>
+    <div class="clearfix"></div>
+    <%= field_set_tag  nil, class: 'col-xs-2',
+                    'data-toggle': 'tooltip',
+                    'data-html': true,
+                    title: _('Co-owner: Has admin-rights to the plan (can invite other users, view the plan, answer questions, or comment) <br /> Editor: Has edit-rights to the plan (can view the plan, answer questions, or comment) <br /> Read Only: Has read-rights to the plan(can view the plan or comment)'),
+                    'data-placement':'right' do %>
+      <%= content_tag :legend , _('Permissions') %>
       <div class="form-group">
         <div class="radio">
           <%= f.label :access do %>
             <%= f.radio_button :access, administrator.access, "aria-required": true %>
-            <%= _('Co-owner: can edit project details, change visibility, and add collaborators') %>
+            <%= _('Co-owner') %>
           <% end %>
         </div>
         <div class="radio">
           <%= f.label :access do %>
             <%= f.radio_button :access, editor.access %>
-            <%= _('Editor: can comment and make changes') %>
+            <%= _('Editor') %>
           <% end %>
         </div>
         <div class="radio">
           <%= f.label :access do %>
             <%= f.radio_button :access, commenter.access %>
-            <%= _('Read only: can view and comment, but not make changes') %>
+            <%= _('Read only') %>
           <% end %>
         </div>
-
-        <%= f.button(_('Submit'), class: "btn btn-primary", type: "submit") %>
       </div>
-      <div class="clearfix"></div>
-    </fieldset>
+    <% end %>
+    <div class="clearfix"></div>
+    <div class="form-group col-xs-2">
+    <%= f.button(_('Submit'), class: "btn btn-primary", type: "submit") %>
+    </div>
   <% end %>
-   
+
 
   <div class="col-xs-12">
     <% if plan.owner_and_coowners.include?(current_user) && plan.owner.org.feedback_enabled? %>
