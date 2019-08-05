@@ -58,7 +58,7 @@
       <%= f.label(:default_value, _('Default answer'), class: "control-label") %>
       <div class="" data-toggle="tooltip" title="<%= _('Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here.') %>">
         <span data-attribute="textfield" style="<%= current_format.textfield? ? '' : 'display:none;' %>">
-          <%= f.text_field(:default_value, class: 'form-control') %>
+          <%= f.text_field(:default_value, class: 'form-control', spellcheck: true) %>
         </span>
         <span data-attribute="textarea" style="<%= current_format.textarea? ? '' : 'display:none;' %>">
           <%= text_area_tag('question[default_value]', question.default_value, id: "#{question.id.present? ? question.id : 'new'}_question_default_value_area", class: "form-control question") %>
