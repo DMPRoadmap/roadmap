@@ -506,7 +506,7 @@ RSpec.describe User, type: :model do
 
     context "when user is not a new record and api_token is an empty string" do
 
-      let!(:user) { create(:user, api_token: nil) }
+      let!(:user) { create(:user, api_token: "") }
 
       it { expect { subject }.not_to change { user.api_token } }
 
@@ -535,7 +535,7 @@ RSpec.describe User, type: :model do
 
     context "when user is not a new record and api_token is nil" do
 
-      let!(:user) { create(:user, api_token: "") }
+      let!(:user) { create(:user, api_token: nil) }
 
       it { expect { subject }.to change { user.api_token } }
 
@@ -545,7 +545,7 @@ RSpec.describe User, type: :model do
 
       let!(:user) { build(:user, api_token: "") }
 
-      it { expect { subject }.not_to change { user.new_record? } }
+      it { expect { subject }.not_to change { user.api_token } }
 
     end
   end
