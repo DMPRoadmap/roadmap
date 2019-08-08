@@ -508,7 +508,7 @@ RSpec.describe User, type: :model do
 
       let!(:user) { create(:user, api_token: "") }
 
-      it { expect { subject }.not_to change { user.api_token } }
+      it { expect { subject }.to change { user.api_token }.to(nil) }
 
     end
 
