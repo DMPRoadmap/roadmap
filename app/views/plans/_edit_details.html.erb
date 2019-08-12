@@ -6,7 +6,8 @@
           <%= f.label(:title, _('Project title'), class: 'control-label') %>
         </div>
         <div class="col-md-8">
-          <%= f.text_field(:title, class: "form-control", "aria-required": true, 'data-toggle': 'tooltip',
+          <%= f.text_field(:title, class: "form-control", "aria-required": true,
+            'data-toggle': 'tooltip', spellcheck: true,
             title: _('If applying for funding, state the name exactly as in the grant proposal.')) %>
       <div class="checkbox">
         <%= f.hidden_field :visibility %>
@@ -25,6 +26,7 @@
           <%= f.text_field(
             :funder_name,
             class: "form-control",
+            spellcheck: true,
             "aria-required": false) %>
         </div>
       </div>
@@ -58,7 +60,8 @@
           <%= f.label(:identifier, _('ID'), class: 'control-label') %>
         </div>
         <div class="col-md-8">
-          <%= f.text_field(:identifier, class: "form-control", "aria-required": false, 'data-toggle': "tooltip",
+          <%= f.text_field(:identifier, class: "form-control", "aria-required": false,
+                           'data-toggle': "tooltip", spellcheck: true,
                            title: _('A pertinent ID as determined by the funder and/or organisation.')) %>
         </div>
       </div>
