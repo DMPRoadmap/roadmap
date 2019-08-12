@@ -46,12 +46,12 @@ export const initOrgSelection = (options) => {
       if (isValidText(id.val())) {
         if (id.val().toString() === otherOrg.val().toString()) {
           toggleInputs(false);
+          text.blur();
         }
       }
     }
   }
 };
-
 export const validateOrgSelection = (options) => {
   if (isObject(options) && options.selector) {
     const orgId = $(`${options.selector} [name="user[org_id]"]`);
