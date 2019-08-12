@@ -28,3 +28,27 @@ div.skip a:focus {
   height:auto;
   overflow:visible !important;
 }
+
+/** Focus outline required for accessibility */
+a, input, select, .form-control {
+  &:focus,
+  &:hover,
+  &:active {
+    outline-style: solid !important;
+    outline-color: $color-focus-outline !important;
+    outline-width: 2px !important;
+  }
+}
+  
+  /** button outline-width increased for better visibility of outline */
+  button {
+
+    &:focus,
+    &:hover,
+    &:active {
+      outline-style: solid !important;
+      outline-color: $color-focus-outline !important;
+      outline-width: 3px !important;
+    }
+  }
+  
