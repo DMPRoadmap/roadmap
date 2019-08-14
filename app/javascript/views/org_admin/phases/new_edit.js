@@ -116,6 +116,49 @@ $(() => {
     }
   });
 
+  // Attach handlers for changing the conditions of a question
+  const updateConditions = (id) => {
+    const parent = $('#' + id + '.question_container');
+    const content = parent.find('#content');
+    content.html('');
+    const add_logic_btn = parent.find('a.add-logic[data-remote="true"]');
+
+    // display conditions already saved
+    if (add_logic_btn.attr('data-loaded') == 'true') {
+      add_logic_btn.trigger('click');
+    }
+
+    parent.on('ajax:success', 'a.add-logic[data-remote="true"]', (e, data) => {
+      add_logic_btn.attr('data-loaded', 'true');
+      add_logic_btn.css('cursor', 'auto');
+      add_logic_btn.css('background-color', '#CCC');
+      add_logic_btn.css('border', 'none');
+      if (isObject(content)) {
+        content.html(data);
+      }
+    });
+
+    // add condition
+    parent.on('ajax:success', 'a.add-condition[data-remote="true"]', (e, data) => {
+      const conditionList = $(e.target).closest('#condition-container').find('.condition-list');
+      const addDiv = $(e.target).closest('#condition-container').find('.add-condition-div');
+      if (isObject(conditionList)) {
+        conditionList.attr('data-loaded', 'true');
+        conditionList.append(data['attachmentPartial']);
+        addDiv.html(data['add_link']);
+        conditionList.attr('data-loaded', 'false');
+        // SHOULD REMOVE THE LINE ABOVE BUT CURRENTLY NEEDED TO RUN AJAX:SUCCESS MULTIPLE TIMES
+      }
+    });
+
+    // remove condition
+    parent.on('click', '.delete-condition', (e) => {
+      e.preventDefault();
+      const source = $(e.target).closest('.condition-partial');
+      source.empty();
+    });
+  };
+
   // Attach handlers for the Question show/edit/new
   $(parentSelector).on('ajax:before', 'a.ajaxified-question[data-remote="true"]', (e) => {
     const panelBody = getQuestionPanel($(e.target));
@@ -134,6 +177,7 @@ $(() => {
       // Display the section's html
       panelBody.html(data);
       initQuestion(id);
+      updateConditions(id);
       if (panelBody.is('.new-question')) {
         target.hide();
       }
