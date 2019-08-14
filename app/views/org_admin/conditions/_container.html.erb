@@ -1,11 +1,14 @@
 <div id="condition-container">
-  <%= render partial: 'org_admin/conditions/form', locals: { f: f, question: question } %>
-  <div class="row">
-    <div class="col-md-12">
-      <%# link_to(_('Add option'), edit_org_admin_template_phase_section_question_path(template_id: template.id, phase_id: section.phase.id, section_id: section.id)) %>
-      <%= link_to(_('Add option'), fetch_conditions_path(:question_id), remote: true ) %>
-      <%# link_to(_('Add option'), fetch_conditions_path(:question_option_id), remote: true ) %>
+  <div class="condition-list" data-loaded="false">
+    <% conditions.to_a.sort_by{|c| c.id}.each_with_index do |cond, i| %>
+      <div class="condition-form" id="0"> <!-- will be replaced with set id -->
+        <%= render partial: 'org_admin/conditions/form', locals: { question: question, condition: cond, condition_no: i } %>
+      </div>
+    <% end %>
+  </div>
 
-    </div>
+  <div class="add-condition-div">
+    <% condition_no = conditions.size %>
+    <%= render partial: 'org_admin/conditions/add', locals: { question: question, condition_no: condition_no } %>
   </div>
 </div>

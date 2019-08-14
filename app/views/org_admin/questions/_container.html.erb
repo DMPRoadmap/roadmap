@@ -1,5 +1,6 @@
 <div class="question_container" 
      id="<%= "question_#{question.id}" %>">
+  <% conditions_array = question.list_conditions %>
   <%= render partial: "org_admin/questions/show", 
-             locals: local_assigns.merge({ question: question }) %>
+             locals: local_assigns.merge({ question: question, conditions: conditions_array }) %>
 </div>
