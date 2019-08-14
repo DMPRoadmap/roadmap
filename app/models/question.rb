@@ -194,6 +194,34 @@ class Question < ActiveRecord::Base
     [example_answer, guidance]
   end
 
+  def update_conditions(conditions_outer)
+    self.question_options.each do |question_option|
+      question_option.conditions.destroy_all
+    end
+    if conditions_outer.present?
+      conditions = conditions_outer[0]
+      conditions.each do |key, hash|
+        c = self.question_options.find(conditions[key]["question_option"]).conditions.build
+        c.action_type = conditions[key]["action_type"]
+        c.remove_question_id = conditions[key]["remove_question_id"]
+        c.save
+      end
+      return true
+    end 
+    puts 'no conditions present'
+    return false
+  end
+
+  def list_conditions()
+    conditions_array = []
+    self.question_options.each do |qo| 
+      qo.conditions.each do |condition|
+        conditions_array.push(condition)
+      end
+    end
+    return conditions_array
+  end
+
   private
 
   def ensure_has_question_options

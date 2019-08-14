@@ -16,11 +16,20 @@ module OrgAdmin
                                    section: { phase: :template })
                          .find(params[:id])
       authorize question
+      conditions_array = question.list_conditions
       render partial: "show", locals: {
         template: question.section.phase.template,
         section: question.section,
-        question: question
+        question: question,
+        conditions: conditions_array
       }
+    end
+
+    def open_conditions
+      question = Question.find(params[:question_id])
+      authorize question
+      conditions_array = question.list_conditions
+      render partial: "org_admin/conditions/container", locals: { question: question, conditions: conditions_array }
     end
 
     def edit
@@ -29,11 +38,13 @@ module OrgAdmin
                                    section: { phase: :template })
                          .find(params[:id])
       authorize question
+      conditions_array = question.list_conditions
       render partial: "edit", locals: {
         template: question.section.phase.template,
         section: question.section,
         question: question,
-        question_formats: allowed_question_formats
+        question_formats: allowed_question_formats,
+        conditions: conditions_array
       }
     end
 
@@ -95,6 +106,7 @@ module OrgAdmin
           attrs[:theme_ids] = []
         end
         if question.update(attrs)
+          question.update_conditions(params["conditions"])
           flash[:notice] = success_message(question, _("updated"))
         else
           flash[:alert] = flash[:alert] = failure_message(question, _("update"))
