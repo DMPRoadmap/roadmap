@@ -97,8 +97,6 @@ Rails.application.routes.draw do
     post 'create_or_update', on: :collection
   end
 
-  get '/fetch_conditions' =>  'org_admin/conditions#from_question', as: 'fetch_conditions'
-
   # Question Formats controller, currently just the one action
   get 'question_formats/rda_api_address' => 'question_formats#rda_api_address'
 
@@ -218,6 +216,11 @@ Rails.application.routes.draw do
     resources :users, only: [:edit, :update], controller: "users" do
       member do
         get 'user_plans'
+      end
+    end
+    resources :questions, only: [] do
+      get 'open_conditions'
+      resources :conditions, only: [:new, :show] do
       end
     end
     resources :plans, only: [:index] do
