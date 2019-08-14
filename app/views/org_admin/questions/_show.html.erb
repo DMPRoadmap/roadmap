@@ -48,6 +48,25 @@
               <%= _('No additional comment area will be displayed.')%>
             <% end %>
           </dd>
+
+          <!-- question conditions -->
+          <% if local_assigns.has_key? :conditions %>
+            <dt><%= _('Question conditions') %></dt>
+            <% for condition in conditions %>  
+              <% if condition.action_type == 'remove' %>
+                <dd>
+                  <% remove_question = Question.find(condition.remove_question_id) %>
+                  <% question_text = sanitize strip_tags remove_question.text %>
+                  <%= _('Answering ') + condition.question_option.text + _(' will remove ') + question_text %>.
+                </dd>
+              <% else %>
+                <dd>
+                  <%= _('Answering ') + condition.question_option.text + _(' will add a webhook.')%>
+                </dd>
+              <% end %> 
+            <% end %>
+          <% end %>
+
           <!-- Suggested answer or Example-->
           <% if !question.section.phase.template.org.funder? %>
             <% example_answer = question.example_answers(template.base_org.id).first %>
@@ -207,7 +226,7 @@
           <% if section.modifiable? %>
             <div class="form-group col-md-10">
               <div class="pull-right">
-                <%= link_to _('Edit'), edit_org_admin_template_phase_section_question_path(template_id: question.section.phase.template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), class: "btn btn-default ajaxified-question edit-button", remote: true %>
+                <%= link_to _('Edit'), edit_org_admin_template_phase_section_question_path(template_id: question.section.phase.template.id, phase_id: question.section.phase.id, section_id: question.section.id, id: question.id), class: "btn btn-default ajaxified-question", remote: true %>
               </div>
             </div>
           <% end %>
