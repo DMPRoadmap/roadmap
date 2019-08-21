@@ -54,6 +54,7 @@ class User < ActiveRecord::Base
   include ConditionalUserMailer
   include ValidationMessages
   include ValidationValues
+  extend UniqueRandom
 
   ##
   # Devise
@@ -326,10 +327,7 @@ class User < ActiveRecord::Base
   # Returns Boolean
   def keep_or_generate_token!
     if api_token.nil? || api_token.empty?
-      new_token = loop do
-        random_token = SecureRandom.urlsafe_base64(nil, false)
-        break random_token unless User.exists?(api_token: random_token)
-      end
+      new_token = User.unique_random(field_name: 'api_token')
       update_column(:api_token, new_token)  unless new_record?
     end
   end
@@ -389,6 +387,41 @@ class User < ActiveRecord::Base
   # Returns nil
   def acknowledge(notification)
     notifications << notification if notification.dismissable?
+  end
+
+  # remove personal data from the user account and save
+  # leave account in-place, with org for statistics (until we refactor those)
+  #
+  # Returns boolean
+  def archive
+    firstname = 'Deleted'
+    surname = 'User'
+    email = User.unique_random(field_name: 'email', prefix: 'user_',
+      suffix: '@removed_users.dcc', length: 5)
+    recovery_email = nil
+    api_token = nil
+    encrypted_password = nil
+    last_sign_in_ip = nil
+    current_sign_in_ip =  nil
+    active = false
+    return self.save
+  end
+
+  def merge(to_be_merged)
+    # merge logic
+    # => answers -> map id
+    to_be_merged.answers.update_all(user_id: self.id)
+    # => comments -> map id
+    to_be_merged.comments.update_all(user_id: self.id)
+    # => plans -> map on id roles
+    to_me_merged.roles.update_all(user_id: self.id)
+    # => prefs -> Keep's from self
+    # => auths -> map onto keep id only if keep does not have the identifier
+    to_be_merged.user_identifiers.
+          where.not(identifier_scheme_id: self.identifier_scheme_ids)
+          .update_all(user_id: self.id)
+    # => ignore any perms the deleted user has
+    to_be_merged.destroy
   end
 
   private
