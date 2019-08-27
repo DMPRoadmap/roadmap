@@ -46,7 +46,7 @@
         <!--display for selecting comment box when multiple choice is being used-->
       </div>
       <% if question.id != nil %>
-        <%= link_to _('Add logic'), org_admin_question_open_conditions_path(question_id: question.id, conditions: conditions), class: "add-logic btn btn-default", 'data-loaded': (conditions.size > 0).to_s, remote: true %>
+        <%= link_to _('Add Conditions'), org_admin_question_open_conditions_path(question_id: question.id, conditions: conditions), class: "add-logic btn btn-default", 'data-loaded': (conditions.size > 0).to_s, remote: true %>
         <div id="content" class="col-md-offset-2">
           <% if current_format.radiobuttons? || current_format.dropdown? %>
             <p>
