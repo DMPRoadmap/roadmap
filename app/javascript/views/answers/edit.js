@@ -5,6 +5,7 @@ import {
 } from '../../utils/isType';
 import { Tinymce } from '../../utils/tinymce.js.erb';
 import debounce from '../../utils/debounce';
+import { updateSectionProgress, getQuestionDiv } from '../../utils/sectionUpdate';
 import datePicker from '../../utils/datePicker';
 import TimeagoFactory from '../../utils/timeagoFactory';
 
@@ -16,6 +17,17 @@ $(() => {
   const questionId = jQuery => jQuery.closest('.form-answer').attr('data-autosave');
   const isStale = jQuery => jQuery.closest('.question-form').find('.answer-locking').text().trim().length !== 0;
   const isReadOnly = () => $('.form-answer fieldset:disabled').length > 0;
+  const showOrHideQuestions = (data, form) => {
+    data.qn_data.to_hide.forEach((info) => {
+      getQuestionDiv(info.qn_id).slideUp();
+      updateSectionProgress(info.sec_id, info.no_ans, info.no_qns);
+    });
+    data.qn_data.to_show.forEach((info) => {
+      getQuestionDiv(info.qn_id).slideDown();
+      // eventually consider the case that a question has been answered, hidden, then reopened
+      updateSectionProgress(info.sec_id, info.no_ans, info.no_qns);
+    });
+  };
   /*
    * A map of debounced functions, one for each input, textarea or select change at any
    * form with class form-answer. The key represents a question id and the value holds
@@ -64,13 +76,7 @@ $(() => {
           $('.progress').html(data.plan.progress);
         }
       }
-      if (isObject(data.section)) { // Object related to section within data received
-        if (isNumber(data.section.id)) {
-          if (isString(data.section.progress)) {
-            $(`.section-progress-${data.section.id}`).html(data.section.progress);
-          }
-        }
-      }
+      showOrHideQuestions(data, form);
     }
   };
   const failCallback = (error, jQuery) => {
