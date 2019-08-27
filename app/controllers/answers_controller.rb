@@ -3,6 +3,7 @@
 class AnswersController < ApplicationController
 
   respond_to :html
+  include ConditionsHelper
 
   # POST /answers/create_or_update
   def create_or_update
@@ -22,6 +23,8 @@ class AnswersController < ApplicationController
         # rubocop:enable Metrics/LineLength
         return
       end
+      remove_list_before = remove_list(p)
+
     rescue ActiveRecord::RecordNotFound
       # rubocop:disable Metrics/LineLength
       render(status: :not_found, json: {
@@ -87,8 +90,13 @@ class AnswersController < ApplicationController
       @section = @plan.sections.find_by(id: @question.section_id)
       template = @section.phase.template
 
-      # rubocop:disable Metrics/LineLength
+      remove_list_after = remove_list(@plan)
+      # get section info for the questions to be hidden and shown for this plan
+      qn_data = sections_info_from_questions(list_compare(remove_list_before, remove_list_after), @plan) 
+
+      # rubocop:disable LineLength
       render json: {
+        "qn_data": qn_data,
         "question" => {
           "id" => @question.id,
           "answer_lock_version" => @answer.lock_version,
@@ -128,6 +136,48 @@ class AnswersController < ApplicationController
       }.to_json
       # rubocop:enable Metrics/LineLength
     end
+  end
+
+  def list_compare(before, after) # hash of an array of question ids to show and of ids to hide
+    id_hash = {}
+    id_hash.merge!(to_hide: comparison(after, before)) # hide what questions (by id) have just been added to to_remove
+    id_hash.merge!(to_show: comparison(before, after)) # show what questions (by id) just no longer in to_remove
+    id_hash
+  end
+
+  def comparison(array1, array2) # in set notation returns array1 \ array2
+    show_or_hide = []
+    array1.each do |id|
+      if !array2.include?(id)
+        show_or_hide.push(id)
+      end
+    end
+    show_or_hide.uniq
+  end
+
+  # get the section info relating to the questions to add and remove.
+  # section info: section id, number of questions per section, and number of answers per section all for a given question id
+  def sections_info_from_questions(qn_hash, plan) 
+    sec_hash = {}
+    sec_hash.merge!(to_hide: merge_info(qn_hash[:to_hide], plan))
+    sec_hash.merge!(to_show: merge_info(qn_hash[:to_show], plan))
+    sec_hash
+  end
+
+  # goes from array of question ids to array of hashes of section info 
+  def merge_info(show_or_hide_array, plan)
+    show_or_hide_info = []
+    show_or_hide_array.each do |id|
+      question = Question.find(id)
+      info = section_info(plan, question.section)
+      question_hash = {}
+                        .merge!(qn_id: id)
+                        .merge!(sec_id: info[:id])
+                        .merge!(no_qns: info[:no_qns])
+                        .merge!(no_ans: info[:no_ans])
+      show_or_hide_info.push(question_hash)
+    end
+    show_or_hide_info.uniq
   end
 
   private

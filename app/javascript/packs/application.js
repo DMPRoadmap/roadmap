@@ -14,9 +14,11 @@ import '../utils/tabHelper';
 import '../utils/tooltipHelper';
 import '../utils/popoverHelper';
 import '../utils/requiredField';
+import '../utils/sectionUpdate';
 
 // Page specific JS
 import '../views/answers/edit';
+import '../views/answers/conditions';
 import '../views/answers/rda_metadata';
 import '../views/devise/passwords/edit';
 import '../views/devise/registrations/edit';

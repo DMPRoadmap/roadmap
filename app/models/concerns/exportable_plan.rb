@@ -2,6 +2,8 @@
 
 module ExportablePlan
 
+  include ConditionsHelper
+
   def as_pdf(coversheet = false)
     prepare(coversheet)
   end
@@ -12,7 +14,6 @@ module ExportablePlan
              show_custom_sections = true,
              show_coversheet = false)
     hash = prepare(show_coversheet)
-
     CSV.generate do |csv|
       if show_coversheet
         prepare_coversheet_for_csv(csv, headings, hash)
@@ -142,7 +143,10 @@ module ExportablePlan
   end
 
   def show_section_for_csv(csv, phase, section, headings, unanswered, hash)
-    section[:questions].each do |question|
+    section[:questions].each do |question|      
+      if remove_list(hash).include?(question[:id]) 
+        next
+      end
       answer = self.answer(question[:id], false)
       answer_text = ""
       if answer.present?

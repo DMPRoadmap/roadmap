@@ -9,7 +9,7 @@ class OrgAdmin::ConditionsController < ApplicationController
                                               layout: false,
                                               locals: { question: question, 
                                                         condition_no: next_condition_no }),
-                   attachmentPartial: render_to_string(partial: 'form',
+                   attachment_partial: render_to_string(partial: 'form',
                                                        formats: :html, 
                                                        layout: false, 
                                                        locals: { question: question, 
