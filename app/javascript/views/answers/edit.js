@@ -172,19 +172,6 @@ $(() => {
     Tinymce.init({ selector: `#${tinymceId}` });
     editorHandlers(Tinymce.findEditorById(tinymceId));
   };
-  // Initial load
-  TimeagoFactory.render($('time.timeago'));
-  Tinymce.init({ selector: `.${editorClass}`, toolbar });
-  if (!isReadOnly()) {
-    // Attaches form and tinymce event handlers
-    Tinymce.findEditorsByClassName(editorClass).forEach(editorHandlers);
-    formHandlers({ jQuery: $('.form-answer'), attachment: 'on' });
-  } else {
-    // Sets the editor mode for each editor to readonly
-    Tinymce.findEditorsByClassName(editorClass).forEach((editor) => {
-      editor.setMode('readonly');
-    });
-  }
 
   datePicker();
 
@@ -230,4 +217,29 @@ $(() => {
       });
     }
   }); // .click()
+  $('.section-content').on('shown.bs.collapse', (e) => {
+    const sectionId = $(e.target).attr('id');
+    // Initial load
+    TimeagoFactory.render($('time.timeago'));
+    Tinymce.init({
+      selector: `#${sectionId} .${editorClass}`,
+      toolbar,
+    });
+    if (!isReadOnly()) {
+      // Attaches form and tinymce event handlers
+      Tinymce.findEditorsByClassName(editorClass).forEach(editorHandlers);
+      formHandlers({ jQuery: $('.form-answer'), attachment: 'on' });
+    } else {
+      // Sets the editor mode for each editor to readonly
+      Tinymce.findEditorsByClassName(editorClass).forEach((editor) => {
+        editor.setMode('readonly');
+      });
+    }
+  });
+  $('.section-content').on('hide.bs.collapse', (e) => {
+    const sectionId = $(e.target).attr('id');
+    $(`#${sectionId} .${editorClass}`).each((i, editor) => {
+      Tinymce.destroyEditorById(`${$(editor).attr('id')}`);
+    });
+  });
 });
