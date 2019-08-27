@@ -14,7 +14,6 @@ export default function updateConditions(id) {
 
   // display conditions (editing) upon click of 'Add Logic'
   parent.on('ajax:success', 'a.add-logic[data-remote="true"]', (e, data) => {
-    console.log('add logic clicked');
     addLogicButton.attr('data-loaded', 'true');
     addLogicButton.css({ cursor: 'auto', 'background-color': '#CCC', border: 'none' });
     if (isObject(content)) {
