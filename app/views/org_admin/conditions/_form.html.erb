@@ -1,7 +1,7 @@
 <div class="row condition-partial">
-  <% action_type_arr = [["remove", :remove], ["add webhook", :add_webhook]] %> <!-- DRYing things up... -->
+  <% action_type_arr = [["remove", :remove], ["add webhook", :add_webhook]] %>
   <% name_start = "conditions[]condition_" + condition_no.to_s %>
-  <% remove_question_collection = question.section.phase.sections.map{ |s| [s.title, s.questions.map { |q| [ strip_tags(q.text), q.id] } ] } %>
+  <% remove_question_collection = remove_question_collection(question) %>
   <% condition_exists = local_assigns.has_key? :condition %>
   <% type_default = condition_exists ? (condition.action_type == "remove" ? :remove : :add_webhook) : :remove %>
   <% remove_question_group = condition_exists ? 
@@ -9,12 +9,12 @@
      grouped_options_for_select(remove_question_collection) %>
 
   <div class="col-md-9">
-    <%= _('If you select') %>
+    <%= _('Select') %>
     <%= select_tag(:question_option, options_from_collection_for_select(question.question_options, "id", "text",
     condition_exists ? condition.question_option.id : question.question_options[0]), name: name_start + "[question_option]") %> 
-    <%= _('then') %>
-    <%= select_tag(:action_type, options_for_select(action_type_arr, type_default), name: name_start + "[action_type]") %>
-    <%= select_tag(:remove_question_id, remove_question_group, name: name_start + "[remove_question_id]") %>
+    <%= _('to') %>
+    <%= select_tag(:action_type, options_for_select(action_type_arr, type_default), {name: name_start + "[action_type]", class: 'action-type'}) %>
+    <%= select_tag(:remove_question_id, remove_question_group, {name: name_start + "[remove_question_id]", class: 'remove-question'}) %>
   </div>
 
   <div class="col-md-3">

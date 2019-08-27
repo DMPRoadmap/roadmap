@@ -16,20 +16,18 @@ module OrgAdmin
                                    section: { phase: :template })
                          .find(params[:id])
       authorize question
-      conditions_array = question.list_conditions
       render partial: "show", locals: {
         template: question.section.phase.template,
         section: question.section,
         question: question,
-        conditions: conditions_array
+        conditions: question.conditions
       }
     end
 
     def open_conditions
       question = Question.find(params[:question_id])
       authorize question
-      conditions_array = question.list_conditions
-      render partial: "org_admin/conditions/container", locals: { question: question, conditions: conditions_array }
+      render partial: "org_admin/conditions/container", locals: { question: question, conditions: question.conditions }
     end
 
     def edit
@@ -38,13 +36,12 @@ module OrgAdmin
                                    section: { phase: :template })
                          .find(params[:id])
       authorize question
-      conditions_array = question.list_conditions
       render partial: "edit", locals: {
         template: question.section.phase.template,
         section: question.section,
         question: question,
         question_formats: allowed_question_formats,
-        conditions: conditions_array
+        conditions: question.conditions
       }
     end
 

@@ -1,6 +1,6 @@
 <div id="condition-container">
   <div class="condition-list" data-loaded="false">
-    <% conditions.to_a.sort_by{|c| c.id}.each_with_index do |cond, i| %>
+    <% conditions.to_a.sort_by{|c| c.id}.each_with_index do |cond, i| %> <!-- iterate through conditions sorted by order of creation where i is condition number-->
       <div class="condition-form" id="0"> <!-- will be replaced with set id -->
         <%= render partial: 'org_admin/conditions/form', locals: { question: question, condition: cond, condition_no: i } %>
       </div>
@@ -8,7 +8,7 @@
   </div>
 
   <div class="add-condition-div">
-    <% condition_no = conditions.size %>
+    <% condition_no = conditions.length %>
     <%= render partial: 'org_admin/conditions/add', locals: { question: question, condition_no: condition_no } %>
   </div>
 </div>

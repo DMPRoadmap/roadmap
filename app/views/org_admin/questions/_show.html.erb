@@ -50,14 +50,14 @@
           </dd>
 
           <!-- question conditions -->
-          <% if local_assigns.has_key? :conditions %>
+          <% if conditions.length > 0 %>
             <dt><%= _('Question conditions') %></dt>
             <% for condition in conditions %>  
               <% if condition.action_type == 'remove' %>
                 <dd>
                   <% remove_question = Question.find(condition.remove_question_id) %>
                   <% question_text = sanitize strip_tags remove_question.text %>
-                  <%= _('Answering ') + condition.question_option.text + _(' will remove ') + question_text %>.
+                  <%= _('Answering ') + condition.question_option.text + _(' will remove ') + truncate(question_text, length: 50, separator: " ") %>.
                 </dd>
               <% else %>
                 <dd>
