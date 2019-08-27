@@ -1,14 +1,35 @@
 <% title _('Usage statistics') %>
 
 <div class="row">
+  <div class="col-md-12" >
+    <div class="col-md-10">
+      <h1>Usage statistics</h1>
+    </div>
+    <div class="col-xs-2">
+      <%= link_to(_('Download global usage'), usage_downloads_path(format: :csv), class: 'btn btn-default mt-25') %>
+    </div>
+  </div>
+</div>
+<div class="row mt-15 mb-15">
   <div class="col-md-12">
-    <h1>Usage statistics</h1>
+    <div class="col-xs-2">
+      <i class="fa fa-users f-large"></i>
+      <h4><%= total_org_users %> Total users</h4>
+    </div>
+    <div class="col-xs-10">
+      <i class="fa fa-files-o f-large"></i>
+      <h4><%= total_org_plans %> Total plans</h4>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
     <p><%= _('Use the filters to generate organisational usage statistics for a custom date range. The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph.') %></p>
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
-    <h3><%= _('Run your own filter') %></h3>
+    <h3 class="bold"><%= _('Run your own filter') %></h3>
     <% if current_user.api_token.present? %>
       <form class="usage_index">
         <%= hidden_field_tag('api_token', current_user.api_token) %>
@@ -46,7 +67,7 @@
             <%= hidden_field_tag(:org_id, current_user.org_id) %>
           <% end %>
           <div class="col-md-2">
-            <%= submit_tag(_('Go'), class: 'btn btn-default') %>
+            <%= submit_tag(_('Go'), class: 'btn btn-default mt-25') %>
           </div>
         </div>
       </form>
@@ -84,13 +105,20 @@
     <hr />
   </div>
 </div>
+
+<div class="row">
+  <div class="col-md-12">
+    <p class="red">&#42;&nbsp;<%= _('Move the mouse pointer over the bars of a chart to see numbers.') %></p>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-md-6">
     <div class="pull-left">
-      <h4><%= _('No. users joined during last year') %></h4>
+      <h4 class="bold"><%= _('No. users joined during last year') %></h4>
     </div>
     <div class="pull-right">
-      <button type="button" class="btn btn-default" data-url="<%= users_joined_api_v0_statistics_path(format: :csv) %>">
+      <button type="button" class="stat btn btn-default" data-url="<%= users_joined_api_v0_statistics_path(format: :csv) %>">
         <%= _('Download') %> <i class="fa fa-download" aria-hidden="true"></i>
       </button>
     </div>
@@ -100,10 +128,10 @@
   </div>
   <div class="col-md-6">
     <div class="pull-left">
-      <h4><%= _('No. plans during last year') %></h4>
+      <h4 class="bold"><%= _('No. plans during last year') %></h4>
     </div>
     <div class="pull-right">
-      <button type="button" class="btn btn-default" data-url="<%= created_plans_api_v0_statistics_path(format: :csv) %>">
+      <button type="button" class="stat btn btn-default" data-url="<%= created_plans_api_v0_statistics_path(format: :csv) %>">
         <%= _('Download') %> <i class="fa fa-download" aria-hidden="true"></i>
       </button>
     </div>
@@ -112,3 +140,47 @@
     <canvas id="yearly_plans"></canvas>
   </div>
 </div>
+<div class="row">
+  <div class="col-md-12">
+    <hr>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+      <div class="col-md-6">
+        <div class="pull-left">
+          <h4 class="bold"><%= _('No. plans by template') %></h4>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="pull-right"">
+          <ul class="list-inline">
+            <li>
+              <div class="form-group">
+                <%= label_tag('monthly_plans_by_template', _('Time period')) %>
+                <select class="form-control" name="monthly_plans_by_template" data-url="<%= stat_created_plans_by_template_index_path %>">
+                  <option value="<%= Date.today.last_month.end_of_month %>"><%= _('Last month') %></option>
+                  <option value="<%= Date.today.months_ago(3).end_of_month %>"><%= _('Last 3 months') %></option>
+                  <option value="<%= Date.today.months_ago(6).end_of_month %>"><%= _('Last 6 months') %></option>
+                  <option value="<%= Date.today.months_ago(9).end_of_month %>"><%= _('Last 9 months') %></option>
+                  <option value="<%= Date.today.months_ago(12).end_of_month %>"><%= _('Last 12 months') %></option>
+                </select>
+              </div>
+            </li>
+            <li>
+              <div class="form-group">
+              <a class="btn btn-default" href="<%= stat_created_plans_by_template_index_path(:csv) %>" role="button" id="stat_created_plan_by_template_index" target="_blank">
+                <%= _('Download all') %> <i class="fa fa-download" aria-hidden="true"></i>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-md-12" style="position: relative; width: 100%; height: 100%">
+         <canvas id="monthly_plans_by_template_canvas"></canvas>
+      </div>
+  </div>

@@ -1,6 +1,8 @@
 module NotificationsHelper
-  # Return FA html class depending on Notification level
-  # @return [String] Font Awesome HTML class
+
+  # FA html class depending on Notification level
+  #
+  # Returns String
   def fa_classes(notification)
     case notification.level
     when 'warning'

@@ -4,7 +4,11 @@
   <dd><%= template.title %></dd>
   <dt><%= _('Description') %></dt>
   <dd>
-    <%= (!template.description.nil? && template.description != "" ? raw(template.description) : '-') %>
+    <% if !template.description.nil? && template.description != "" %>
+      <%= sanitize(template.description) %>
+    <% else %>
+      -
+    <% end %>
   </dd>
   <dt><%= _('Status') %></dt>
   <dd>
@@ -12,14 +16,14 @@
       <%= _('Original funder template has changed!') %>
     <% else %>
       <% if template.published? %>
-        <%= template.customization_of.present? ? _('Customizations are published') : _('Published') %>
+        <%= template.customization_of.present? ? _('Customisations are published') : _('Published') %>
       <% elsif template.draft? %>
-        <% tooltip = _('You have unpublished changes! Select "Publish changes" in the Actions menu when you are ready to make them available to users.') %> 
-        <%= template.customization_of.present? ? _('Customizations are published') :_('Published')%>
+        <% tooltip = _('You have unpublished changes! Select "Publish changes" in the Actions menu when you are ready to make them available to users.') %>
+        <%= template.customization_of.present? ? _('Customisations are published') :_('Published')%>
         <em class="sr-only"><%= tooltip %></em>
         &nbsp;&nbsp;<i class="fa fa-pencil-square-o red" aria-hidden="true" data-toggle="tooltip" title="<%= tooltip %>"></i>
       <% else %>
-        <%= template.customization_of.present? ? _('Customizations are unpublished') :_('Unpublished') %>
+        <%= template.customization_of.present? ? _('Customisations are unpublished') :_('Unpublished') %>
       <% end %>
     <% end %>
   </dd>
@@ -27,7 +31,7 @@
     <!-- If the Org is a funder and another org type then allow then to set the visibility -->
     <dt><%= _('Visibility') %></dt>
     <dd>
-      <% if template.visibility == 'organisationally_visible' %> 
+      <% if template.visibility == 'organisationally_visible' %>
         <%= _('for internal %{org_name} use only') % {org_name: template.org.name} %>
       <% else %>
         <%=  _('available to the public') + (template.published? ? '' : ' (once published)') %>

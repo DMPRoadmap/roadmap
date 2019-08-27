@@ -18,6 +18,9 @@
         <li role="feedback">
           <a href="#feedback" role="tab" aria-controls="feedback" data-toggle="tab"><%= _('Request feedback') %></a>
         </li>
+        <li role="form">
+          <a href="#departments" role="tab" aria-controls="form" data-toggle="tab"><%= _('Schools/Departments') %></a>
+        </li>
       <% end %>
     </ul>
 
@@ -38,6 +41,17 @@
             <% if org.id.present? %>
               <div>
                 <%= render partial: 'orgs/feedback_form', locals: local_assigns %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="departments">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <% if org.id.present? %>
+              <div>
+                <%= render partial: 'orgs/departments', locals: local_assigns.merge({ departments: org.departments, org_id: org.id }) %>
               </div>
             <% end %>
           </div>

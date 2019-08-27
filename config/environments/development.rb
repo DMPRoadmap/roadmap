@@ -1,4 +1,8 @@
 Rails.application.configure do
+  # Verifies that versions and hashed value of the package contents in the project's
+  # package.json
+  config.webpacker.check_yarn_integrity = false
+
   # Settings specified here will take precedence over those in config/application.rb.
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
@@ -9,7 +13,11 @@ Rails.application.configure do
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
+  if File.exist?(Rails.root.join('tmp', 'caching-dev.txt'))
+    config.action_controller.perform_caching = true
+  else
+    config.action_controller.perform_caching = false
+  end
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
@@ -31,21 +39,14 @@ Rails.application.configure do
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
 
-  # Raise exception on mass assignment protection for Active Record models
-  config.active_record.mass_assignment_sanitizer = :strict
-
   config.action_mailer.perform_deliveries = false
 
-  BetterErrors::Midleware.allow_ip! "10.0.2.2" if defined?(BetterErrors) && Rails.env == :development
+  BetterErrors::Middleware.allow_ip! "10.0.2.2" if defined?(BetterErrors)
 
   config.after_initialize do
     ActiveRecord::Base.logger = Rails.logger.clone
     ActiveRecord::Base.logger.level = Logger::INFO
     ActiveRecord::Base.logger.level = Logger::DEBUG
   end
-  # Assets pipeline
-  config.assets.enabled = false
-  config.assets.debug = false
-  config.assets.compile = false
-  config.assets.quiet = true
+
 end

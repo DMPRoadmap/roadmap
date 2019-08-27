@@ -8,7 +8,7 @@
     <%= _('Hello %{username}') %{ :username => username } %>
   </p>
   <p>
-    <%= raw(_('You have been granted permission by your organisation to use our API. Your API token and instructions for using the API endpoints can be found at: %{link}') %{ :link => link_to(api_documentation_url, api_documentation_url) }) %>
+    <%= sanitize(_('You have been granted permission by your organisation to use our API. Your API token and instructions for using the API endpoints can be found at: %{link}') %{ :link => link_to(api_documentation_url, api_documentation_url) }) %>
   </p>
   <%= render partial: 'email_signature' %>
 <% end %>

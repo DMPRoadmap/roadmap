@@ -1,7 +1,7 @@
 <% title _('DMP Templates') %>
 <div class="row">
   <div class="col-md-12">
-    <h1><%= raw _('DMP Templates') %></h1>
+    <h1><%= _('DMP Templates') %></h1>
     <% if @templates.count > 0 %>
       <p class="left-indent"><%= _('Templates are provided by a funder, an organisation, or a trusted party.') %></p>
     <% else %>
@@ -15,7 +15,7 @@
       <%= paginable_renderise(
         partial: '/paginable/templates/publicly_visible',
         controller: 'paginable/templates',
-        action: 'publicly_visible', 
+        action: 'publicly_visible',
         scope: @templates,
         query_params: { sort_field: 'templates.title', sort_direction: :asc }) %>
     <% end %>

@@ -39,6 +39,9 @@ ro:
       default: "%d-%m-%Y"
       long: "%d %B %Y"
       short: "%d %b"
+      csv: "%d/%m/%Y"
+      readable: "%d %B %Y"
+
     month_names:
     -
     - Ianuarie

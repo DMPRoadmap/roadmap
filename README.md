@@ -9,8 +9,7 @@ The tool has four main functions:
 3. To export attractive and useful plans in a variety of formats;
 4. To allow collaborative work when creating Data Management Plans.
 
-#### Current Release
-[v1.1.3](https://github.com/DMPRoadmap/roadmap/releases/tag/v1.1.3)
+Click here for the latest [releases].(https://github.com/DMPRoadmap/roadmap/releases/)
 [![Build Status](https://travis-ci.org/DMPRoadmap/roadmap.svg)](https://travis-ci.org/DMPRoadmap/roadmap)
 
 #### Pre-requisites
@@ -56,6 +55,3 @@ See the [Contribution Guide](https://github.com/DMPRoadmap/roadmap/wiki/Contribu
 #### License
 The DMP Roadmap project uses the <a href="./LICENSE.md">MIT License</a>.
 
-#### Docker
-We have added docker setup to easily setup your own local development and testing environment.
-Please refer to the [Docker Guide](./README_DOCKER) for more information.

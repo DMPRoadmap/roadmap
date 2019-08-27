@@ -37,4 +37,7 @@ class PhasePolicy < ApplicationPolicy
     user.can_modify_templates?  &&  (phase.template.org_id == user.org_id)
   end
 
+  def sort?
+    user.can_modify_templates?  &&  (phase.template.org_id == user.org_id)
+  end
 end
