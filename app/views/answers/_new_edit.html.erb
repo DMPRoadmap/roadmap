@@ -73,7 +73,7 @@
       <% if annotation.present? && annotation.org.present? && annotation.text.present? %>
         <div class="panel panel-default">
           <span class="label label-default">
-            <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
+            <%="#{annotation.org.abbreviation} "%><%=_('example answer')%>
           </span>
           <div class="panel-body">
             <div class="display-readonly-textarea-content"><%= sanitize annotation.text %></div>
