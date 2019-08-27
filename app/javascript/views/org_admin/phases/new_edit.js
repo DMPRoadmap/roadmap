@@ -7,7 +7,7 @@ import { addAsterisks } from '../../../utils/requiredField';
 
 import onChangeQuestionFormat from '../questions/sharedEventHandlers';
 import initQuestionOption from '../question_options/index';
-import { updateConditions } from '../conditions/updateConditions';
+import updateConditions from '../conditions/updateConditions';
 
 $(() => {
   // Attach handlers for the expand/collapse all accordions
