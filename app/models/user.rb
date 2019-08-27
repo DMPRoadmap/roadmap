@@ -326,11 +326,11 @@ class User < ActiveRecord::Base
   # Returns Boolean
   def keep_or_generate_token!
     if api_token.nil? || api_token.empty?
-      self.api_token = loop do
+      new_token = loop do
         random_token = SecureRandom.urlsafe_base64(nil, false)
         break random_token unless User.exists?(api_token: random_token)
       end
-      update_column(:api_token, api_token)  unless new_record?
+      update_column(:api_token, new_token)  unless new_record?
     end
   end
 
