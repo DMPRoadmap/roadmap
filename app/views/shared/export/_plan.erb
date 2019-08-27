@@ -31,6 +31,9 @@
               <br>
             <% end %>
             <% section[:questions].each do |question| %>
+              <% if remove_list(@plan).include?(question[:id]) %> 
+                <% next %>
+              <% end %>
               <div class="question">
                 <% if !@public_plan && @show_sections_questions%>
                   <%# Hack: for DOCX export - otherwise, bold highlighting of question inconsistent. %>

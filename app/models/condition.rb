@@ -20,5 +20,7 @@
 
 class Condition < ActiveRecord::Base
   belongs_to :question_option
+  has_one :question, through: :question_option
+  belongs_to :remove_question, class_name: "Question" 
   enum action_type: [:remove, :add_webhook]
 end
