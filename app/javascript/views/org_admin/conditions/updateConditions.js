@@ -1,7 +1,7 @@
 import { isObject } from '../../../utils/isType';
 
 // Attach handlers for changing the conditions of a question
-export default (id) => {
+export default function updateConditions(id) {
   const parent = $(`#${id}.question_container`);
   const content = parent.find('#content');
   content.html('');
@@ -14,6 +14,7 @@ export default (id) => {
 
   // display conditions (editing) upon click of 'Add Logic'
   parent.on('ajax:success', 'a.add-logic[data-remote="true"]', (e, data) => {
+    console.log('add logic clicked');
     addLogicButton.attr('data-loaded', 'true');
     addLogicButton.css({ cursor: 'auto', 'background-color': '#CCC', border: 'none' });
     if (isObject(content)) {
