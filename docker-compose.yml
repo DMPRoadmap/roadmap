@@ -2,6 +2,7 @@ version: '3'
 
 volumes:
   db:
+    driver: local
 
 services:
 
@@ -14,16 +15,16 @@ services:
       - db:/var/lib/mysql
 
   web:
-    image: ualbertalib/dmp_roadmap:master
+    image: ualbertalib/dmp_roadmap:docker
     restart: always
     environment:
       DATABASE_URL: 'mysql2://root:thisisasecret@db/roadmap'
       RAILS_ENV: development
-    command: bash -c 'rm -f tmp/pids/server.pid && rails s -p 3001 -b "0.0.0.0"'
+    command: bin/docker-start
     volumes:
       - .:/app
     depends_on:
       - db
 
     ports:
-      - 3001:3001
+      - "3000:3000"
