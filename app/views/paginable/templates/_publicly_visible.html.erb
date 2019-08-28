@@ -1,3 +1,4 @@
+<% sample_plans_tooltip =  _('Sample plans are provided by a funder, an organisation or a trusted party.') %>
 <div class="table-responsive">
   <table class="table table-hover">
     <thead>
@@ -7,7 +8,10 @@
         <th scope="col"><%= _('Organisation Name') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
         <th scope="col" class="date-column"><%= _('Last Updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
         <th scope="col" class="sorter-false"><%= _('Funder Links') %></th>
-        <th scope="col" class="sorter-false" data-toggle="tooltip" title="<%= _('Sample plans are provided by a funder, an organisation or a trusted party.') %>"><%= _('Sample Plans') %><br><small><%= _('(if available)') %></small></th>
+        <th scope="col" class="sorter-false" data-toggle="tooltip" title="<%= sample_plans_tooltip %>">
+          <%= _('Sample Plans') %><br><small><%= _('(if available)') %></small>
+          <em class="sr-only"><%= sample_plans_tooltip %></em>
+        </th>
       </tr>
     </thead>
     <tbody>
