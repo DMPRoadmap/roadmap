@@ -32,7 +32,7 @@ module Dmpopidor
             abbreviation: 'Default', 
             fullname: 'Default research output',
             is_default: true, 
-            research_output_type: ResearchOutputType.first,
+            research_output_type: ResearchOutputType.find_by(label: "Dataset"),
             order: 1
           )
 

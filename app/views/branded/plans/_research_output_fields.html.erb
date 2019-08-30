@@ -18,9 +18,6 @@
     </div>
     <div class='research-output-field form-group research-output-type'>
       <%= f.label :research_output_type_id, d_('dmpopidor', 'Type'), class: 'control-label' %>
-      <a href="<%= research_output_types_path %>" target="_blank" >
-        <i class="fa fa-info-circle"></i>
-      </a>
       <%= f.select(:research_output_type_id, 
                     options_for_select(
                       research_output_types.map{ |r| [r.label, r.id, { 'data-other' => r.is_other }] }, 
