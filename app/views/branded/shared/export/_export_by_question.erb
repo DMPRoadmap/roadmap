@@ -11,26 +11,27 @@
       <% options = answer.present? ? answer.question_options : [] %>
 
       <%  unless @show_unanswered == false && blank  %>
-      
+
         <% if !@public_plan && @show_sections_questions && idx == 0 %>
         <p>
           <%# Hack: for DOCX export - otherwise, bold highlighting of question inconsistent. %>
           <% if local_assigns[:export_format] && export_format == 'docx' %>
-            <strong><h4><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></h4></strong>
+            <strong><h3><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></h3></strong>
           <% else %>
-            <div class="bold"><h4><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></h4></div>
+            <div class="bold"><h3><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></h3></div>
           <% end %>
           <br>
         </p>
         <br>
         <% end %>
 
+        <% if !section_has_common_answers %>
+          <h4><%= research_output.fullname %></h4>
+        <% end %>
+        
         <%# case where question has not been answered sufficiently to display%>
         <% if @show_unanswered && (answer.blank? || (options.blank? && blank))%>
         <p>
-          <% if !section_has_common_answers %>
-            <strong><%= research_output.fullname %></strong> :  
-          <% end %>
           <br>
           <i><%= _('Question not answered.') -%></i>
           <br><br>
@@ -40,22 +41,16 @@
 
         <%# case where Question has options %>
         <% if options.any? %>
-          <% if !section_has_common_answers %>
-            <strong><%= research_output.fullname %></strong> :  
-          <% end %>
-          <ul>
+          <ol>
           <% options.each do |opt| %>
             <li><%= opt.text %></li>
           <% end %>
-          </ul>
+          </ol>
         <% end %>
         <%# case for RDA answer display %>
         <% if question[:format].rda_metadata? && !blank %>
           <% ah = answer.answer_hash %>
           <% if ah['standards'].present? %>
-            <% if !section_has_common_answers %>
-              <strong><%= research_output.fullname %></strong> :  
-            <% end %>
             <ul>
               <% ah['standards'].each do |id, title| %>
               <li><%= title %></li>
@@ -67,9 +62,6 @@
         <%# case for displaying comments OR text %>
         <% elsif !blank %>
           <p>
-            <% if !section_has_common_answers %>
-              <strong><%= research_output.fullname %></strong> :  
-            <% end %>
             <%= sanitize answer.text %>
             <br>
           </p>

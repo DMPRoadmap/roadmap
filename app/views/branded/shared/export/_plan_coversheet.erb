@@ -10,9 +10,9 @@
   <p><b><%= _("Affiliation: ") %></b><%= @hash[:affiliation] %></p><br>
 
   <% if @hash[:funder].present? %>
-    <p><%= _("Template: ") + @hash[:funder] %></p><br>
+    <p><b><%= _("Template: ") %></b><%= @hash[:funder] %></p><br>
   <% else %>
-    <p><%= _("Template: ") + @hash[:template] + @hash[:customizer] %></p><br>
+    <p><b><%= _("Template: ") %></b><%= @hash[:template] + @hash[:customizer] %></p><br>
   <% end %>
 
   <% if @plan.principal_investigator_identifier.present? %>
@@ -29,19 +29,17 @@
   <% end %>
 
   <% if @hash[:research_outputs].length > 1 || !@hash[:research_outputs][0].main?%>
-    <p><b><%= d_('dmpopidor', "Research outputs: ") %></b></p>
-    <ul>
+    <p><b><%= d_('dmpopidor', "Research outputs") %> : </b></p>
+    <ol>
       <% @hash[:research_outputs].each do |research_output| %>
         <li>
-        <%= research_output.fullname %> ( 
-          <%= 
+        <%= research_output.fullname %> ( <%= 
           research_output.research_output_type && research_output.research_output_type.is_other  ? 
           research_output.research_output_type.label + ' : ' + research_output.other_type_label :
           research_output.research_output_type.label
-          %>
-        )</li>
+        %> )</li>
       <% end %>
-    </ul>
+    </ol>
     <br>
   <% end %>
 

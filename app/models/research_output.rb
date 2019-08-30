@@ -77,6 +77,10 @@ class ResearchOutput < ActiveRecord::Base
     return false
   end
 
+  def get_answers_for_section(section_id)
+    self.answers.select { |answer| answer.question_id.in?(Section.find(section_id).questions.pluck(:id)) }
+  end
+
   ##
   # deep copy the given research output
   #

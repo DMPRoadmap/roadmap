@@ -1,9 +1,12 @@
 <%# locals: { research_outputs, questions, section  } %>
 <% research_outputs.each do |research_output| %>
   <% section_has_common_answers = research_output.get_main().has_common_answers?(section[:id]) %>
+  <% show_research_output_content = @show_unanswered || (!@show_unanswered && !research_output.get_answers_for_section(section[:id]).empty?) %>
   <% research_output_default_and_alone = research_output.is_default && research_outputs.length == 1 %>
 
-  <% if !section_has_common_answers %>
+  <% if !research_output_default_and_alone && 
+        !section_has_common_answers && 
+        show_research_output_content %>
   <div class="research-output">
     <h3><%= research_output[:fullname] %></h3>
   <% end %>
@@ -38,11 +41,11 @@
 
         <%# case where Question has options %>
         <% if options.any? %>
-          <ul>
+          <ol>
           <% options.each do |opt| %>
             <li><%= opt.text %></li>
           <% end %>
-          </ul>
+          </ol>
         <% end %>
         <%# case for RDA answer display %>
         <% if question[:format].rda_metadata? && !blank %>
@@ -67,7 +70,7 @@
     <% end %>
   <% end %> <!-- questions.each -->
 
-  <% if !section_has_common_answers %>
+  <% if !section_has_common_answers && show_research_output_content %>
   </div> <!-- .research_output -->
   <% end %>
   <% if section_has_common_answers %>
