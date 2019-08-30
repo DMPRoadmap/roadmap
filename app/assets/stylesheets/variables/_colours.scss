@@ -11,9 +11,12 @@ $color-grey-darker: #333 !default;
 $color-grey-light: #777 !default;
 $color-grey-lighter: #999 !default;
 $color-blue: #337ab7 !default;
+$color-blue-alice-darkest: #107896 !default;
 $color-muted: #CCC !default;
 $color-orange: #f49700 !default;
 $color-dark-orange: #EA5D05 !default;
+
+
 
 /*
   Variables to define look and feel
@@ -35,7 +38,7 @@ $color-heading-text: $color-orange !default;
 $color-navbar-text: $color-white !default;
 $color-navbar-text-hover: $color-orange !default;
 $color-navbar-text-disabled: $color-grey-darker !default;
-$color-link-text: $color-orange !default;
+$color-link-text: $color-blue-alice-darkest !default;
 $color-link-hover-text: $color-dark-orange !default;
 $color-navbar-link-text: $color-white !default;
 $color-org-navbar-links: $color-orange !default;
@@ -59,4 +62,14 @@ $color-navbar-border: darken($color-navbar-background, 10%) !default;
 $color-shadow-dark: $color-black !default;
 
 // FontAwesome Colors
+<<<<<<< HEAD
 $color-fa: $color-orange !default;
+
+// Focus colors
+$color-focus-outline: $color-blue-alice-darkest !default;
+=======
+$color-fa: $color-grey;
+
+// Focus colors
+$color-focus-outline: $color-blue-alice-darkest;
+>>>>>>> 8b4e4611510b5ad433c7866b5147253629f30e1c
