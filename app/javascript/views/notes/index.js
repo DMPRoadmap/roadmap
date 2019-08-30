@@ -24,6 +24,7 @@ $(() => {
     });
   };
   const success = (data) => {
+    console.log(data);
     if (isObject(data)
       && isObject(data.notes)
       && isString(data.notes.id)
@@ -34,8 +35,8 @@ $(() => {
       $(`#notes-${data.notes.id}-research-output-${data.research_output.id}`).html(data.notes.html);
       $(`#notes-title-${data.title.id}-research-output-${data.research_output.id}`).html(data.title.html);
     }
-    clean(); // eslint-disable-line no-use-before-define
-    initOrReload(); // eslint-disable-line no-use-before-define
+    clean(`#research_output_${data.research_output.id}_section_${data.section.id}`); // eslint-disable-line no-use-before-define
+    initOrReload(`#research_output_${data.research_output.id}_section_${data.section.id}`); // eslint-disable-line no-use-before-define
   };
   const error = () => {
     // TODO adequate error handling for network error
@@ -112,6 +113,7 @@ $(() => {
     const questionId = $(source).closest('.note_new').attr('data-question-id')
       || $(source).closest('.note_edit').attr('data-question-id');
     noteText.value = Tinymce.findEditorById(id).getContent();
+    Tinymce.findEditorById(id).setProgressState(true);
     $.ajax({
       method: getMethod(jQueryForm),
       url: getAction(jQueryForm),
@@ -158,8 +160,13 @@ $(() => {
     $('.archive_note')[attachment]('submit', archiveNoteDestroyHandler);
     $('.archive_note button[type="button"]')[attachment]('click', noteCancelHandler);
   };
-  const initOrReload = () => {
-    Tinymce.init({ selector: '.note' });
+  const initOrReload = (researchOutputId = null) => {
+    console.log(researchOutputId);
+    if (researchOutputId) {
+      Tinymce.init({ selector: `${researchOutputId} .note` });
+    } else {
+      Tinymce.init({ selector: '.note' });
+    }
     eventHandlers({ attachment: 'on' });
   };
   const clean = () => {

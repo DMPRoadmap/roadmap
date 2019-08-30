@@ -36,6 +36,7 @@ module Dmpopidor
         @research_output = @answer.research_output
         
         @question = Question.find(note_params[:question_id])
+        section_id = @question.section_id
         
         if @note.save
           @status = true
@@ -66,7 +67,10 @@ module Dmpopidor
               },
               "research_output" => {
                 "id" => note_params[:research_output_id]
-              }
+              },
+              "section" => {
+                "id" => section_id
+              },
             }.to_json, status: :created)
         else
           @status = false
@@ -90,6 +94,7 @@ module Dmpopidor
         @research_output = @answer.research_output
     
         question_id = @note.answer.question_id.to_s
+        section_id = @question.section_id
     
         if @note.update(note_params)
           @notice = success_message(@note, _("saved"))
@@ -111,7 +116,10 @@ module Dmpopidor
             },
             "research_output" => {
               "id" => @research_output.id
-            }
+            },
+            "section" => {
+              "id" => section_id
+            },
           }.to_json, status: :ok)
         else
           @notice = failure_message(@note, _("save"))
@@ -135,6 +143,7 @@ module Dmpopidor
         @research_output = @answer.research_output
     
         question_id = @note.answer.question_id.to_s
+        section_id = @question.section_id
     
         if @note.update(note_params)
           @notice = success_message(@note, _("removed"))
@@ -156,7 +165,10 @@ module Dmpopidor
             },
             "research_output" => {
               "id" => @research_output.id
-            }
+            },
+            "section" => {
+              "id" => section_id
+            },
           }.to_json, status: :ok)
         else
           @notice = failure_message(@note, _("remove"))
