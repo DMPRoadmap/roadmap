@@ -24,7 +24,6 @@ $(() => {
     });
   };
   const success = (data) => {
-    console.log(data);
     if (isObject(data)
       && isObject(data.notes)
       && isString(data.notes.id)
@@ -161,7 +160,6 @@ $(() => {
     $('.archive_note button[type="button"]')[attachment]('click', noteCancelHandler);
   };
   const initOrReload = (researchOutputId = null) => {
-    console.log(researchOutputId);
     if (researchOutputId) {
       Tinymce.init({ selector: `${researchOutputId} .note` });
     } else {
