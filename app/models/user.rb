@@ -381,10 +381,11 @@ class User < ActiveRecord::Base
   def anonymize
     copy = dup
 
-    update(firstname: 'anonymous', surname: 'user', email: "anonymous#{id}@opidor.fr", last_sign_in_at: nil, encrypted_password: nil)
+    update(firstname: 'anonymous', surname: 'user', email: "anonymous#{id}@opidor.fr", last_sign_in_at: nil, encrypted_password: nil, active: false)
 
     if save
       Rails.logger.info "User #{id} anonymized"
+      p "User #{id} anonymized"
       UserMailer.anonymization_notice(copy).deliver_now
     end
   end

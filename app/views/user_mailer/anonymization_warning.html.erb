@@ -6,9 +6,6 @@
       <%= d_('dmpopidor', 'All accounts inactive for 5 years are automaticaly deactivated. If you want your account to remain active, please just sign in before %{end_date}') % { :end_date => @end_date } %>.
     </p>
   
-    <p>
-        <%=_('All the best,')%><br/>
-        <%= _('The %{tool_name} team') %{:tool_name => tool_name} %>
-    </p>
+    <%= render partial: 'email_signature' %>
   <% end %>
   

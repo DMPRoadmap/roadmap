@@ -3,9 +3,9 @@ namespace :usercleaning do
     task non_accepted_invitations: :environment do
       Rails.logger.info 'Deleting user uncomfirmed users invited over a month ago'
       User
-        .where('invitation_sent_at < ? AND invitation_accepted_at IS NULL ', 1.month.ago)
+        .where('invitation_sent_at < ? AND invitation_accepted_at IS NULL AND last_sign_in_at IS NULL', 1.month.ago)
         .each do |user|
-        Rails.logger.info user.email + ' deleted'
+        p user.email + ' deleted'
         user.destroy
       end
     end
