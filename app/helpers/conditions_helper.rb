@@ -116,4 +116,68 @@ module ConditionsHelper
     current_question.phase.number < dropdown_question.phase.number # later phase
   end
 
+  def group_show_conditions(conditions) # given a conditions array group conditions from the same question option
+    conditions_grouping = {}
+    conditions.each do |condition|
+      conditions_grouping.merge!(condition.question_option => [condition]){|op, cond1, cond2| 
+        if cond1.kind_of?(Array) && cond2.kind_of?(Array)
+          cond1 + cond2
+        else
+          pp 'error: cond2 should be type Array'
+          ['type error']
+        end
+      }
+    end 
+    return conditions_grouping
+  end
+
+  def conditions_ordered(conditions) # ensures condtions of type 'remove' come first
+    grouped_conditions = group_show_conditions(conditions)
+    grouped_conditions.each do |option, conditions| 
+      conditions.sort_by{|condition| condition.action_type.to_s.length}
+    end
+    grouped_conditions
+  end
+
+  def list_questions(conditions) 
+    return_string = _('Answering ') + conditions[0].question_option.text
+    no_removes = conditions.count{|condition| condition.action_type == 'remove'}
+    conditions.each_with_index do |condition, idx|
+      if idx < no_removes
+        if idx == 0
+          return_string += _(' will remove ')
+        elsif idx < no_removes - 1
+          return_string += ", "
+        elsif idx == no_removes - 1
+          return_string += _(', and ')
+        end
+        return_string += question_text_formatted(condition.remove_question_id)
+      else
+        if idx > 0 
+          return_string += _(', and ')
+        end
+        return_string += _(' will add a webhook')
+      end
+    end
+    return_string += "."
+    return_string
+  end
+
+  def question_text_formatted(id)
+    remove_question = Question.find(id)
+    question_text = sanitize strip_tags remove_question.text
+    truncate(question_text, length: 50, separator: " ")
+  end
 end
+
+
+
+
+
+
+
+
+
+
+
+

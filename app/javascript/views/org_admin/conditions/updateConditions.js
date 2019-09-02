@@ -19,6 +19,8 @@ export default function updateConditions(id) {
     if (isObject(content)) {
       content.html(data);
     }
+    setSelectPicker();
+//    countChecked();
   });
 
   // add condition
@@ -30,8 +32,27 @@ export default function updateConditions(id) {
       conditionList.append(data.attachment_partial);
       addDiv.html(data.add_link);
       conditionList.attr('data-loaded', 'false');
+      setSelectPicker();
     }
   });
+
+  const setSelectPicker = () => {
+    $('.selectpicker.narrow').selectpicker({width: 120});
+    $('.selectpicker.regular').selectpicker({width: 150});
+    $('.selectpicker.wide').selectpicker();
+  };
+
+  // const countChecked = () => {
+  //   $('#condition-container').find('.condition-partial').each((idx, partial) => {
+  //     $(partial).find('.selectpicker.wide').each((condNo, selectObj) => {
+  //       $(selectObj).parent().find('button.btn').focusout(() => {
+  //         $(selectObj).parent().find('li.selected').each((qnNo, question) => {
+  //           $(question).attr
+  //         });
+  //       }); 
+  //     });
+  //   });
+  // };
 
   // remove condition
   parent.on('click', '.delete-condition', (e) => {
