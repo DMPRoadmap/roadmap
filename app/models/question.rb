@@ -199,14 +199,21 @@ class Question < ActiveRecord::Base
 
   # upon saving of question update conditions (via a delete and create) from params
   def update_conditions(param_conditions)
-    self.conditions.destroy_all
+    self.question_options.each do |question_option|
+      question_option.conditions.each do |condition|
+        condition.destroy
+      end
+    end
+    #self.conditions.destroy_all
     if param_conditions.present?
       conditions = param_conditions[0]
       conditions.each do |key, value|
-        c = self.question_options.find(conditions[key]["question_option"]).conditions.build
-        c.action_type = conditions[key]["action_type"]
-        c.remove_question_id = conditions[key]["remove_question_id"]
-        c.save
+        conditions[key]['remove_question_id'].each_with_index do |remove_id, idx| # may need to treat case when is integer not array
+          c = self.question_options.find(conditions[key]['question_option']).conditions.build
+          c.action_type = conditions[key]['action_type']
+          c.remove_question_id = conditions[key]['remove_question_id'][idx]
+          c.save
+        end
       end
       return true
     end 
