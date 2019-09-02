@@ -8,11 +8,11 @@
   <p><%== plan_attribution(@hash[:attribution]) %></p><br>
 
   <p><b><%= _("Affiliation: ") %></b><%= @hash[:affiliation] %></p><br>
-
-  <% if @hash[:funder].present? %>
-    <p><b><%= _("Template: ") %></b><%= @hash[:funder] %></p><br>
-  <% else %>
+  
+  <% if @hash[:customizer].present? %>
     <p><b><%= _("Template: ") %></b><%= @hash[:template] + @hash[:customizer] %></p><br>
+  <% else %>
+    <p><b><%= _("Template: ") %></b><%= @hash[:template] %></p><br>
   <% end %>
 
   <% if @plan.principal_investigator_identifier.present? %>
