@@ -19,8 +19,8 @@
 #
 
 class Condition < ActiveRecord::Base
-  belongs_to :question_option
+  belongs_to :question_option # replace with has_and_belongs_to_many :question_options
   has_one :question, through: :question_option
-  belongs_to :remove_question, class_name: "Question" 
+  belongs_to :remove_question, class_name: "Question" # replace with has_many :remove_questions, class_name: "Question"
   enum action_type: [:remove, :add_webhook]
 end

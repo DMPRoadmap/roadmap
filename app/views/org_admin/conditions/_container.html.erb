@@ -1,5 +1,18 @@
 <div id="condition-container">
   <div class="condition-list" data-loaded="false">
+    <div class="row">
+      <div class="col-md-3 bold">
+        <%= label(:text, _('Option'), class: "control-label")%>
+      </div>
+      <div class="col-md-2">
+        <%= label(:text, _('Action'), class: "control-label") %>
+      </div>
+      <div class="col-md-4 bold">
+        <%= _('Remove')%>
+      </div>
+      <div class="col-md-3">
+      </div>
+    </div>
     <% conditions.to_a.sort_by{|c| c.id}.each_with_index do |cond, i| %> <!-- iterate through conditions sorted by order of creation where i is condition number-->
       <div class="condition-form" id="0"> <!-- will be replaced with set id -->
         <%= render partial: 'org_admin/conditions/form', locals: { question: question, condition: cond, condition_no: i } %>

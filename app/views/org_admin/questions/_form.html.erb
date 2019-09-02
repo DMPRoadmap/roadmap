@@ -48,7 +48,7 @@
       <% if question.id != nil %>
         <%= link_to _('Add Conditions'), org_admin_question_open_conditions_path(question_id: question.id, conditions: conditions), class: "add-logic btn btn-default", 'data-loaded': (conditions.size > 0).to_s, remote: true %>
         <div id="content" class="col-md-offset-2">
-          <% if current_format.radiobuttons? || current_format.dropdown? %>
+          <% if current_format.option_based? %>
             <p>
               <%= render partial: 'org_admin/conditions/container', locals: { f: f, question: question, conditions: conditions } %>
             </p>
