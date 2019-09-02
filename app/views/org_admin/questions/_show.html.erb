@@ -51,19 +51,12 @@
 
           <!-- question conditions -->
           <% if conditions.length > 0 %>
+            <% grouped_conditions = conditions_ordered(conditions) %>
             <dt><%= _('Question conditions') %></dt>
-            <% for condition in conditions %>  
-              <% if condition.action_type == 'remove' %>
-                <dd>
-                  <% remove_question = Question.find(condition.remove_question_id) %>
-                  <% question_text = sanitize strip_tags remove_question.text %>
-                  <%= _('Answering ') + condition.question_option.text + _(' will remove ') + truncate(question_text, length: 50, separator: " ") %>.
-                </dd>
-              <% else %>
-                <dd>
-                  <%= _('Answering ') + condition.question_option.text + _(' will add a webhook.')%>
-                </dd>
-              <% end %> 
+            <% grouped_conditions.each do |option, conditions| %> 
+              <dd>
+                <%= list_questions(conditions) %>
+              </dd>
             <% end %>
           <% end %>
 
