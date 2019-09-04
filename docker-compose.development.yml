@@ -3,8 +3,6 @@ version: '3'
 volumes:
   db:
     driver: local
-  web:
-    driver: local
 
 services:
 
@@ -15,18 +13,5 @@ services:
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci --init-connect='SET NAMES UTF8;' --innodb-flush-log-at-trx-commit=0 --port=33066
     volumes:
       - db:/var/lib/mysql
-
-  web:
-    image: ualbertalib/dmp_roadmap:uat
-    restart: always
-    environment:
-      DATABASE_URL: 'mysql2://root:thisisasecret@db/roadmap'
-      RAILS_ENV: development
-    command: bin/docker-start
-    volumes:
-      - web:/app
-    depends_on:
-      - db
-
     ports:
-      - "3000:3000"
+      - 33066:33066
