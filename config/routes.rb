@@ -259,7 +259,13 @@ Rails.application.routes.draw do
   namespace :super_admin do
     resources :orgs, only: [:index, :new, :create, :destroy]
     resources :themes, only: [:index, :new, :create, :edit, :update, :destroy]
-    resources :users, only: [:edit, :update]
+    resources :users, only: [:edit, :update] do
+      member do
+        put :merge
+        put :archive
+        get :search
+      end
+    end
     resources :notifications, except: [:show]
   end
 
