@@ -36,7 +36,7 @@ module SuperAdmin
       authorize @user
       remove = User.find(params[:merge_id])
       topic = _("profile for %{remove} into %{keep}" % {
-        remove: remove.name(false)}, keep: @user.name(false))
+        remove: remove.name(false), keep: @user.name(false)})
       if @user.merge(remove)
         flash.now[:notice] = success_message(@user, _("merged"))
       else
