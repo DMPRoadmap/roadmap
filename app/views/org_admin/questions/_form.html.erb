@@ -1,3 +1,5 @@
+<% question_default_value_tooltip = _('Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here.') %>
+
 <h4>
   <%= question.id.present? ? _('Question %{number}:') % { number: question.number } : _('New question:') %>
 </h4>
@@ -56,7 +58,8 @@
   <!--Question default_value -->
     <div class="form-group col-md-10" data-attribute="default_value" style="<%= current_format.textfield? || current_format.textarea? ? '' : 'display: none;' %>">
       <%= f.label(:default_value, _('Default answer'), class: "control-label") %>
-      <div class="" data-toggle="tooltip" title="<%= _('Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here.') %>">
+      <div class="" data-toggle="tooltip" title="<%= question_default_value_tooltip %>">
+        <em class="sr-only"><%= question_default_value_tooltip %></em>
         <span data-attribute="textfield" style="<%= current_format.textfield? ? '' : 'display:none;' %>">
           <%= f.text_field(:default_value, class: 'form-control', spellcheck: true) %>
         </span>
