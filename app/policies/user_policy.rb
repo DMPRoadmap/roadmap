@@ -49,6 +49,18 @@ class UserPolicy < ApplicationPolicy
     true
   end
 
+  def merge?
+    signed_in_user.can_super_admin?
+  end
+
+  def archive?
+    signed_in_user.can_super_admin?
+  end
+
+  def search?
+    signed_in_user.can_super_admin?
+  end
+
   class Scope < Scope
     def resolve
       scope.where(org_id: user.org_id)
