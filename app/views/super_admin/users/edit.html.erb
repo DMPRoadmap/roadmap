@@ -68,7 +68,7 @@
               <span class="input-group-addon" id="search-addon">
                 <span class="fa fa-search" aria-hidden="true"></span>
               </span>
-            <%= text_field_tag(:email, 'Email', class: "form-control") %>
+            <%= text_field_tag(:email, nil, class: "form-control", placeholder: _("Email")) %>
             </div>
           </div>
           <%= submit_tag( _("Search"), class: 'btn btn-default', style: 'margin-top: 8px;') %>
