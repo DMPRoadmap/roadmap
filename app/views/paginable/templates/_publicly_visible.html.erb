@@ -19,13 +19,19 @@
         <tr id="<%= dom_id(template) %>">
           <td><%= template.title %></td>
           <td class="text-center">
-            <%= link_to template_export_path(template.family_id, format: :docx), target: '_blank' do %>
+            <%= link_to template_export_path(template.family_id, format: :docx),
+                        target: '_blank',
+                        class: 'has-new-window-popup-info' do %>
                <i class="fa fa-file-word-o" aria-hidden="true"></i>
                <em class="sr-only"><%= _('(new window)') %></em>
+               <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
             <% end %>
-            <%= link_to template_export_path(template.family_id, format: :pdf), target: '_blank' do %>
+            <%= link_to template_export_path(template.family_id, format: :pdf),
+                        target: '_blank',
+                        class: 'has-new-window-popup-info' do %>
                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                <em class="sr-only"><%= _('(new window)') %></em>
+               <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
             <% end %>
           </td>
           <td><%= template.org.name %></td>
