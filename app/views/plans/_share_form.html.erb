@@ -2,6 +2,8 @@
 <% editor = Role.new(editor: true, commenter: true) %>
 <% commenter = Role.new(commenter: true) %>
 <% administerable = @plan.administerable_by?(current_user) %>
+<% email_tooltip = _("Enter the email address of your collaborator: If they are already using #{Rails.configuration.branding[:application][:name]}, they will see this plan on their dashboard, and recieve an email. If they are not currently using #{Rails.configuration.branding[:application][:name]}, they will recieve an email inviting them to the tool so they can collaborate on your plan.") %>
+<% permissions_tooltip = _('Co-owner: Has admin-rights to the plan (can invite other users, view the plan, answer questions, or comment). Editor: Has edit-rights to the plan (can view the plan, answer questions, or comment). Read Only: Has read-rights to the plan (can view the plan or comment)') %>
 
 <h2><%= _('Set plan visibility') %></h2>
 <p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default.') % { :percentage => Rails.application.config.default_plan_percentage_answered } %></p>
@@ -92,18 +94,20 @@
       <%= f.hidden_field :plan_id %>
       <%= f.fields_for :user do |user| %>
         <%= user.label :email, _('Email'), class: 'control-label'%>
+         <em class="sr-only"><%= email_tooltip %></em>
         <%= user.email_field :email, for: :user, name: "user", class: "form-control",
                             "aria-required": true,
                             'data-toggle': 'tooltip',
                             'data-html': true,
-                            title: _("Enter the email address of your collaborator: <ul><li> If they are already using #{Rails.configuration.branding[:application][:name]}, they will see this plan on their dashboard, and recieve an email. </li> <li> If they are not currently using #{Rails.configuration.branding[:application][:name]}, they will recieve an email inviting them to the tool so they can collaborate on your plan.</li></ul>") %>
+                            title: email_tooltip %>
       <% end %>
     </div>
     <div class="clearfix"></div>
+    <em class="sr-only"><%= permissions_tooltip %></em>
     <%= field_set_tag  nil, class: 'col-xs-2',
                     'data-toggle': 'tooltip',
                     'data-html': true,
-                    title: _('Co-owner: Has admin-rights to the plan (can invite other users, view the plan, answer questions, or comment) <br /> Editor: Has edit-rights to the plan (can view the plan, answer questions, or comment) <br /> Read Only: Has read-rights to the plan(can view the plan or comment)'),
+                    title: permissions_tooltip,
                     'data-placement':'right' do %>
       <%= content_tag :legend , _('Permissions') %>
       <div class="form-group">
