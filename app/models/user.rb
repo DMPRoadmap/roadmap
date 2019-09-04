@@ -411,10 +411,10 @@ class User < ActiveRecord::Base
     # merge logic
     # => answers -> map id
     to_be_merged.answers.update_all(user_id: self.id)
-    # => comments -> map id
-    to_be_merged.comments.update_all(user_id: self.id)
+    # => notes -> map id
+    to_be_merged.notes.update_all(user_id: self.id)
     # => plans -> map on id roles
-    to_me_merged.roles.update_all(user_id: self.id)
+    to_be_merged.roles.update_all(user_id: self.id)
     # => prefs -> Keep's from self
     # => auths -> map onto keep id only if keep does not have the identifier
     to_be_merged.user_identifiers.

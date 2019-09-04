@@ -58,17 +58,22 @@
       <h2>
         <%= _('Merge Accounts') %>
       </h2>
-      <%= form_tag(search_super_admin_user_path(@user), method: 'get', remote: true, class: 'form-inline', id: 'merge_form') do %>
-        <div class="form-group">
-          <div class="input-group">
-            <span class="input-group-addon" id="search-addon">
-              <span class="fa fa-search" aria-hidden="true"></span>
-            </span>
-          <%= text_field_tag(:email, 'Search for a User by Email', class: "form-control") %>
+      <div id='merge_form_container'>
+        <p>
+          <%= sanitize _("First, search for a user by email, then select them from the list.") %>
+        </p>
+        <%= form_tag(search_super_admin_user_path(@user), method: 'get', remote: true, class: 'form-inline', id: 'merge_form') do %>
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon" id="search-addon">
+                <span class="fa fa-search" aria-hidden="true"></span>
+              </span>
+            <%= text_field_tag(:email, 'Email', class: "form-control") %>
+            </div>
           </div>
-        </div>
-        <%= submit_tag( _("Search"), class: 'btn btn-default', style: 'margin-top: 8px;') %>
-      <% end %>
+          <%= submit_tag( _("Search"), class: 'btn btn-default', style: 'margin-top: 8px;') %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
