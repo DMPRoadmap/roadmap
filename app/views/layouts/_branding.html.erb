@@ -31,10 +31,11 @@
               <% if i.odd? %>
                 </li><li class="org-links">
               <% end %>
-              <%= link_to link['link'], :target=>'_blank', :class => 'org-a' do %>
+              <%= link_to link['link'], :target=>'_blank', :class => 'org-a has-new-window-popup-info' do %>
                 <i class="fa fa-globe" aria-hidden="true">&nbsp;</i>
                 <%= link['text'].blank? ? link['link'] : link['text'] %>
                 <em class="sr-only"> (new window)</em>
+                <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
               <% end; i+=1 %>
             <% end %>
           <% end %>
