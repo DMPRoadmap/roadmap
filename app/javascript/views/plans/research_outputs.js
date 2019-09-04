@@ -51,10 +51,10 @@ $(() => {
     duplicated.find('.research-output-type select').val(null);
     duplicated.find('.research-output-type select').trigger('change');
 
-    duplicated.find('.research-output-other-type input').attr('id', `${duplicatedId}_other_type`);
-    duplicated.find('.research-output-other-type input').attr('name', `${duplicatedName}[other-type]`);
-    duplicated.find('.research-output-other-type label').attr('for', `${duplicatedId}_other_type`);
-    duplicated.find('.research-output-other-type input').val(null);
+    duplicated.find('.research-output-other-type-label input').attr('id', `${duplicatedId}_other_type_label`);
+    duplicated.find('.research-output-other-type-label input').attr('name', `${duplicatedName}[other_type_label]`);
+    duplicated.find('.research-output-other-type-label label').attr('for', `${duplicatedId}_other_type_label`);
+    duplicated.find('.research-output-other-type-label input').val(null);
 
     // Research Output order
     duplicated.find('.research-output-order').attr('id', `${duplicatedId}_order`);

@@ -282,6 +282,12 @@ msgstr ""
 msgid "Fullname"
 msgstr ""
 
+msgid "Other Type"
+msgstr ""
+
+msgid "Other: "
+msgstr ""
+
 msgid "Persistent Identifier"
 msgstr ""
 

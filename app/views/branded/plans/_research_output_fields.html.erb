@@ -26,9 +26,9 @@
                     { prompt: d_('dmpopidor', 'Please select the type of your research output.') },
                     { multiple: false, class: 'form-control research-output-type-select input', "aria-required": true, style: edit_mode}) 
       %>
-      <span style="<%= display_mode %>"><%= research_output.research_output_type ? research_output.research_output_type.label : _('None')  %></span>
+      <span class="readonly-value"  style="<%= display_mode %>"><%= research_output.research_output_type ? research_output.research_output_type.label : _('None')  %></span>
     </div>
-    <div class='research-output-field form-group research-output-other-type' style='<%= other_type_displayed %>'>
+    <div class='research-output-field form-group research-output-other-type-label' style='<%= other_type_displayed %>'>
       <%= f.label :other_type_label, d_('dmpopidor', 'Other Type'), class: 'control-label' %>
       <%= f.text_field :other_type_label, class: 'form-control input', style: edit_mode %>
         <span class="readonly-value" style="<%= display_mode %>"><%= research_output.other_type_label %></span>

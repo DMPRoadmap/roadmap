@@ -35,7 +35,7 @@
         <li>
         <%= research_output.fullname %> ( <%= 
           research_output.research_output_type && research_output.research_output_type.is_other  ? 
-          research_output.research_output_type.label + ' : ' + research_output.other_type_label :
+          d_('dmpopidor', 'Other: ') + research_output.other_type_label :
           research_output.research_output_type.label
         %> )</li>
       <% end %>

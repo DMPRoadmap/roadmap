@@ -278,6 +278,12 @@ msgstr "Nom abrégé"
 msgid "Fullname"
 msgstr "Nom complet"
 
+msgid "Other Type"
+msgstr "Autre type"
+
+msgid "Other: "
+msgstr "Autre : "
+
 msgid "Persistent Identifier"
 msgstr "Identifiant Pérenne"
 
