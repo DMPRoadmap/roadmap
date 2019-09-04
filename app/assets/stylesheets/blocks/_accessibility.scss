@@ -1,3 +1,8 @@
+/* Setting font-family for improving screen legibility */
+body, .tooltip, .popover {
+  font-family: $font-family;
+}
+
 /* Text meant only for screen readers. */
 .screen-reader-text {
   border: 0;
