@@ -1,4 +1,3 @@
-<div class="corner-ribbon top-left sticky red shadow"><%= _('Beta') %></div>
 <%= form_tag(plan_export_path(@plan), method: :get, target: '_blank', id: 'download_form') do |f| %>
   <h2><%= _("Download settings") %></h2>
   <%= hidden_field_tag 'export[form]', true %>
