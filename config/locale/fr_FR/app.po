@@ -1683,7 +1683,7 @@ msgid "Principal Investigator / Researcher"
 msgstr "Chercheur principal / Chercheur"
 
 msgid "Privacy statement"
-msgstr "Déclaration de confidentialité"
+msgstr "Politique de confidentialité"
 
 msgid "Private"
 msgstr "Privé"

@@ -274,6 +274,7 @@ Rails.application.routes.draw do
   get 'help', to: 'static/static_pages#show', name: 'help'
   get 'roadmap', to: 'static/static_pages#show', name: 'roadmap'
   get 'terms', to: 'static/static_pages#show', name: 'termsuse'
+  get 'privacy', to: 'static/static_pages#show', name: 'privacy'
   get 'research_output_types', to: 'static/static_pages#show', name: 'research_output_types'
 
   get "tutorials", to: 'static_pages#tutorials'
