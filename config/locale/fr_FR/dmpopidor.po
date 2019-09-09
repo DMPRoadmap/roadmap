@@ -153,8 +153,8 @@ msgstr "Retrouvez la liste des modèles disponibles"
 msgid "Plan for testing, practice, or educational purposes"
 msgstr "Plan de test, d'entrainement ou créé en vue d'une formation"
 
-msgid "By continuing to browse, you accept the use of cookies to measure the traffic of the website with the software Matomo. Those data are not personal, as they are anonymized. We followed directions from the CNIL and configured this tool so that its use does not require your consent."
-msgstr "En poursuivant votre navigation, vous acceptez le dépôt de cookies destinés à mesurer la fréquentation du site grâce au logiciel Matomo. Ces données ne sont pas personnelles, car anonymisées. Nous avons suivi les indications de la CNIL et paramétré cet outil afin que son utilisation ne requière pas votre consentement."
+msgid "By continuing to browse, without changing your settings, you accept the use of cookies to measure the traffic of the website with the software Matomo. For more information, to change or manage your settings, please visit our Privacy Statement page."
+msgstr "En poursuivant votre navigation, sans modifier vos paramètres, vous acceptez l'utilisation et le dépôt de cookies destinés à mesurer la fréquentation du site grâce au logiciel Matomo. Pour plus d'information, pour gérer ou modifier les paramètres, vous pouvez vous rendre sur notre page de politique de confidentialité."
 
 msgid "Learn more"
 msgstr "En savoir plus"

@@ -154,8 +154,8 @@ msgstr "Find the list of the available templates"
 msgid "Plan for testing, practice, or educational purposes"
 msgstr "Plan for testing, practice, or educational purposes"
 
-msgid "By continuing to browse, you accept the use of cookies to measure the traffic of the website with the software Matomo. Those data are not personal, as they are anonymized. We followed directions from the CNIL and configured this tool so that its use does not require your consent."
-msgstr "By continuing to browse, you accept the use of cookies to measure the traffic of the website with the software Matomo. Those data are not personal, as they are anonymized. We followed directions from the CNIL and configured this tool so that its use does not require your consent."
+msgid "By continuing to browse, without changing your settings, you accept the use of cookies to measure the traffic of the website with the software Matomo. For more information, to change or manage your settings, please visit our Privacy Statement page."
+msgstr "By continuing to browse, without changing your settings, you accept the use of cookies to measure the traffic of the website with the software Matomo. For more information, to change or manage your settings, please visit our Privacy Statement page."
 
 msgid "Learn more"
 msgstr "Learn more"

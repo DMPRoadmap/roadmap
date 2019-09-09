@@ -2,12 +2,12 @@
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
 
-  config.secret_key = ENV['DEVISE_SECRET_KEY']
+  config.secret_key = '392039f978b64c66a429be2dba9a5e07aeb14ea52fdd791d48e3d49c43df98516a1cf533bdf8e824f0dcf152710bad283d7a62caf8a3469963740caf57e5766f'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
-  config.mailer_sender = "example@email.address"
+  config.mailer_sender = "info-opidor@inist.fr"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
@@ -89,7 +89,7 @@ Devise.setup do |config|
   	config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  config.pepper = "EXAMPLE OF PEPPER TO GENERATE THE ENCRYPTED PASSWORD"
+  config.pepper = "de451fa8d44af2c286d922f753d1b10fd23b99c10747143d9ba118988b9fa9601fea66bfe31266ffc6a331dc7331c71ebe845af8abcdb84c24b42b8063386530"
 
   # ==> Configuration for :invitable
   # The period the generated invitation token is valid, after
