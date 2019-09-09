@@ -4,17 +4,15 @@
 <% display_mode = research_output.is_default ? "display:none;" : '' %>
 <div class='research-output-element'>
   <div class='research-output-fields'>
-    <div class='research-output-names'>
-      <div class='research-output-field form-group research-output-abbreviation'>
-        <%= f.label :name, d_('dmpopidor', 'Abbreviated Name (20 chars max.)'),  class: 'control-label' %>
-        <%= f.text_field :abbreviation, maxlength: 20, class: 'form-control input', "aria-required": true, style: edit_mode %>
-        <span class="readonly-value" style="<%= display_mode %>"><%= research_output.abbreviation ? research_output.abbreviation : _('None') %></span>
-      </div>
-      <div class='research-output-field form-group research-output-fullname'>
-        <%= f.label :fullname, d_('dmpopidor', 'Fullname'), class: 'control-label' %>
-        <%= f.text_field :fullname, class: 'form-control input', "aria-required": true, style: edit_mode  %>
-        <span class="readonly-value" style="<%= display_mode %>"><%= research_output.fullname ? research_output.fullname : _('None')  %></span>
-      </div>
+    <div class='research-output-field form-group research-output-abbreviation'>
+      <%= f.label :name, d_('dmpopidor', 'Abbreviated Name (20 chars max.)'),  class: 'control-label' %>
+      <%= f.text_field :abbreviation, maxlength: 20, class: 'form-control input', "aria-required": true, style: edit_mode %>
+      <span class="readonly-value" style="<%= display_mode %>"><%= research_output.abbreviation ? research_output.abbreviation : _('None') %></span>
+    </div>
+    <div class='research-output-field form-group research-output-fullname'>
+      <%= f.label :fullname, d_('dmpopidor', 'Fullname'), class: 'control-label' %>
+      <%= f.text_field :fullname, class: 'form-control input', "aria-required": true, style: edit_mode  %>
+      <span class="readonly-value" style="<%= display_mode %>"><%= research_output.fullname ? research_output.fullname : _('None')  %></span>
     </div>
     <div class='research-output-field form-group research-output-type'>
       <%= f.label :research_output_type_id, d_('dmpopidor', 'Type'), class: 'control-label' %>

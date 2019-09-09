@@ -55,6 +55,8 @@ $(() => {
     duplicated.find('.research-output-other-type-label input').attr('name', `${duplicatedName}[other_type_label]`);
     duplicated.find('.research-output-other-type-label label').attr('for', `${duplicatedId}_other_type_label`);
     duplicated.find('.research-output-other-type-label input').val(null);
+    duplicated.find('.research-output-other-type-label').hide();
+
 
     // Research Output order
     duplicated.find('.research-output-order').attr('id', `${duplicatedId}_order`);
@@ -71,7 +73,7 @@ $(() => {
   $('.research-output-type-select').change((e) => {
     const selectElement = $(e.target);
     const parentElement = selectElement.closest('.research-output-element');
-    const otherTypeElement = parentElement.find('.research-output-other-type');
+    const otherTypeElement = parentElement.find('.research-output-other-type-label');
     if (selectElement.find('option:selected').data('other')) {
       otherTypeElement.show();
     } else {

@@ -712,15 +712,6 @@ $light-yellow: #fff9e5;
             .research-output-pid, .research-output-type {
                 width: 30%;
             }
-            .research-output-names {
-                display: flex;
-                .research-output-fullname {
-                    flex: 8;
-                }
-                .research-output-abbreviation {
-                    flex: 3;
-                }
-            }
         }
         .research-output-actions {
             flex: 1;
