@@ -9,12 +9,12 @@ class OrgAdmin::ConditionsController < ApplicationController
                                               layout: false,
                                               locals: { question: question, 
                                                         condition_no: next_condition_no }),
-                   attachment_partial: render_to_string(partial: 'form',
-                                                       formats: :html, 
-                                                       layout: false, 
-                                                       locals: { question: question, 
-                                                                 cond:  Condition.new(question_option: question.question_options.first),
-                                                                 condition_no: condition_no }) }
+                 attachment_partial: render_to_string(partial: 'form',
+                                                      formats: :html, 
+                                                      layout: false, 
+                                                      locals: { question: question, 
+                                                                cond:  Condition.new(question_option: question.question_options.first),
+                                                                condition_no: condition_no }) }
   end
 
 	private
