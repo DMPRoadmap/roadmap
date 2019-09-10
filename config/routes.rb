@@ -207,6 +207,11 @@ Rails.application.routes.draw do
 
   # ORG ADMIN specific pages
   namespace :org_admin do
+    resources :questions, only: [] do
+      get 'open_conditions'
+      resources :conditions, only: [:new, :show] do
+      end
+    end
     resources :plans, only: [:index] do
       member do
         get 'feedback_complete'
