@@ -1,8 +1,8 @@
 <% question_default_value_tooltip = _('Anything you enter here will display in the answer box. If you want an answer in a certain format (e.g. tables), you can enter that style here.') %>
 
-<p class="fontsize-h4">
+<h4>
   <%= question.id.present? ? _('Question %{number}:') % { number: question.number } : _('New question:') %>
-</p>
+</h4>
 
 <%= form_for(question, url: url,
                        namespace: question.id.present? ? question.id : 'new_question',
