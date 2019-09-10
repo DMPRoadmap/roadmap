@@ -115,9 +115,7 @@ class Question < ActiveRecord::Base
     copy.section_id = options.fetch(:section_id, nil)
     copy.save!(validate: false)  if options.fetch(:save, false)
     options[:question_id] = copy.id
-    self.question_options.each do |question_option|
-      copy.question_options << question_option.deep_copy(options)
-    end
+    self.question_options.map { |question_option| copy.question_options << question_option.deep_copy(options) }
     self.annotations.each do |annotation|
       copy.annotations << annotation.deep_copy(options)
     end
@@ -204,23 +202,43 @@ class Question < ActiveRecord::Base
         condition.destroy
       end
     end
-    #self.conditions.destroy_all
+    #self.conditions.destroy_all not working rn
     if param_conditions.present?
       conditions = param_conditions[0]
       conditions.each do |key, value|
-        conditions[key]['remove_question_id'].each_with_index do |remove_id, idx| # may need to treat case when is integer not array
-          c = self.question_options.find(conditions[key]['question_option']).conditions.build
-          c.action_type = conditions[key]['action_type']
-          c.remove_question_id = conditions[key]['remove_question_id'][idx]
-          c.save
+        value['question_option'].each do |option_id|
+          if value['action_type'] == 'remove'
+            value['remove_question_id'].each do |remove_id|
+              saveCondition(value, option_id, remove_id)
+            end
+          else
+            saveCondition(value, option_id)
+          end
         end
       end
       return true
-    end 
+    end
     puts 'no conditions present'
     return false
   end
 
+
+  def saveCondition(value, option_id, remove_id = nil)
+    c = self.question_options.find(option_id).conditions.build
+    c.action_type = value['action_type']
+    c.remove_question_id = remove_id
+    c.number = value['number']
+    c.webhook_data = get_webhook(value)
+    c.save
+  end
+
+  def get_webhook(value)
+    data_hash = {}
+                  .merge!({name: ActionController::Base.helpers.sanitize(value['webhook-name'])})
+                  .merge!({email: ActionController::Base.helpers.sanitize(value['webhook-email'])})
+                  .merge!({subject: ActionController::Base.helpers.sanitize(value['webhook-subject'])})
+                  .merge!({message: ActionController::Base.helpers.sanitize(value['webhook-message'])}).to_json
+  end
 
   private
 

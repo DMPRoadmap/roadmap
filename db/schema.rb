@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(version: 20200212145931) do
     t.integer  "action_type"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.integer  "number"
+    t.string   "webhook_data"
   end
 
   add_index "conditions", ["question_option_id"], name: "index_conditions_on_question_option_id", using: :btree
