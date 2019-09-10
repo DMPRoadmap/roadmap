@@ -1,7 +1,7 @@
 // Rails setup
 import 'jquery-ujs';
 import 'jquery-accessible-autocomplete-list-aria/jquery-accessible-autocomplete-list-aria';
-import 'bootstrap-select/js/bootstrap-select.js'
+import 'bootstrap-select/js/bootstrap-select';
 
 // Generic JS that is applicable across multiple pages
 import '../utils/array';

@@ -145,7 +145,7 @@ module ExportablePlan
   end
 
   def show_section_for_csv(csv, phase, section, headings, unanswered, hash)
-    section[:questions].each do |question|      
+    section[:questions].each do |question|     
       if remove_list(hash).include?(question[:id]) 
         next
       end

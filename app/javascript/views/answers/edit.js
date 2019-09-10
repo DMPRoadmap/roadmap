@@ -17,7 +17,9 @@ $(() => {
   const questionId = jQuery => jQuery.closest('.form-answer').attr('data-autosave');
   const isStale = jQuery => jQuery.closest('.question-form').find('.answer-locking').text().trim().length !== 0;
   const isReadOnly = () => $('.form-answer fieldset:disabled').length > 0;
-  const showOrHideQuestions = (data, form) => {
+  const showOrHideQuestions = (data) => {
+    const currentInfo = data.this_section_info.to_show[0];
+    updateSectionProgress(currentInfo.sec_id, currentInfo.no_ans, currentInfo.no_qns);
     data.qn_data.to_hide.forEach((info) => {
       getQuestionDiv(info.qn_id).slideUp();
       updateSectionProgress(info.sec_id, info.no_ans, info.no_qns);
@@ -76,7 +78,7 @@ $(() => {
           $('.progress').html(data.plan.progress);
         }
       }
-      showOrHideQuestions(data, form);
+      showOrHideQuestions(data);
     }
   };
   const failCallback = (error, jQuery) => {

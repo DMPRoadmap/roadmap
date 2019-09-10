@@ -93,10 +93,12 @@ class AnswersController < ApplicationController
       remove_list_after = remove_list(@plan)
       # get section info for the questions to be hidden and shown for this plan
       qn_data = sections_info_from_questions(list_compare(remove_list_before, remove_list_after), @plan) 
-
+      this_section_info = sections_info_from_questions({to_show: [@answer.question_id], to_hide: []}, @plan)
+      send_webhooks(current_user, @answer)
       # rubocop:disable LineLength
       render json: {
         "qn_data": qn_data,
+        "this_section_info": this_section_info,
         "question" => {
           "id" => @question.id,
           "answer_lock_version" => @answer.lock_version,
@@ -117,13 +119,6 @@ class AnswersController < ApplicationController
           }, formats: [:html]),
           "answer_status" => render_to_string(partial: "answers/status", locals: {
             answer: @answer
-          }, formats: [:html])
-        },
-        "section" => {
-          "id" => @section.id,
-          "progress" => render_to_string(partial: "/org_admin/sections/progress", locals: {
-            section: @section,
-            plan: @plan
           }, formats: [:html])
         },
         "plan" => {

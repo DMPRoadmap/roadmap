@@ -8,19 +8,94 @@ export default function updateConditions(id) {
   const addLogicButton = parent.find('a.add-logic[data-remote="true"]');
 
   // display conditions already saved
-  if (addLogicButton.attr('data-loaded').toString() === 'true') {
-    addLogicButton.trigger('click');
+  if (addLogicButton.length > 0) {
+    if (addLogicButton.attr('data-loaded').toString() === 'true') {
+      addLogicButton.trigger('click');
+    }
   }
+
+  // set up selectpicker select boxes for condition options
+  const setSelectPicker = () => {
+    $('.selectpicker.narrow').selectpicker({ width: 120 });
+    $('.selectpicker.regular').selectpicker({ width: 150 });
+  };
+
+  // test if a webhook is selected and set up if so
+  const allowWebhook = (selectObject, webhook = false) => { // webhook false => new condition
+    const condition = $(selectObject).closest('.condition-partial');
+    if (webhook === false) {
+      if ($(selectObject).val() === 'add_webhook') { // condition type is webhook
+        condition.find('.pseudo-webhook-btn').trigger('click');
+      } else { // condition type is remove
+        condition.find('.remove-dropdown').show();
+        condition.find('.webhook-replacement').hide();
+      }
+    } else { // loading already saved conditions
+      // populate webhook inputs
+      const nameString = condition.find('select.action-type').attr('name');
+      const nameStart = nameString.substring(0, nameString.length - 13);
+      const fields = ['name', 'email', 'subject', 'message'];
+      fields.forEach((field, idx) => {
+        let inputType = 'input';
+        if (idx === 3) {
+          inputType = 'textarea';
+        }
+        condition.find(`${inputType}[name="${nameStart}[webhook-${field}]"]`).val(JSON.parse(webhook)[`${field}`]);
+      });
+      $(selectObject).on('change', () => {
+        allowWebhook(selectObject, undefined);
+      });
+    }
+    // allow discarding of webhook data on click of exit symbol
+    const exit = condition.find('.close');
+    exit.on('click', () => {
+      exit.closest('.modal').find('.form-control').each((idx, field) => {
+        $(field).val('');
+      });
+    });
+    if ($(selectObject).val() === 'add_webhook') {
+      // display edit email section
+      condition.find('.remove-dropdown').hide();
+      condition.find('.webhook-replacement').show();
+      condition.find('.webhook-replacement').on('click', (event) => {
+        event.preventDefault();
+        condition.find('.pseudo-webhook-btn').trigger('click');
+      });
+    }
+  };
+
+  // setup when to test for a webhook selected
+  const webhookSelected = (selectObject, webhook = false) => {
+    if (webhook) { // current list of conditions
+      allowWebhook(selectObject, webhook);
+    } else { // new condition is added
+      $(selectObject).on('change', () => {
+        allowWebhook(selectObject, undefined);
+      });
+    }
+  };
+
+  // webhook form
+  const webhookForm = (webhooks = false, selectObject = false) => {
+    if (selectObject === false) {
+      $('.selectpicker.action-type').each((idx, selectObject2) => {
+        webhookSelected(selectObject2, webhooks[idx]);
+      });
+    } else {
+      webhookSelected(selectObject, undefined);
+    }
+  };
 
   // display conditions (editing) upon click of 'Add Logic'
   parent.on('ajax:success', 'a.add-logic[data-remote="true"]', (e, data) => {
     addLogicButton.attr('data-loaded', 'true');
-    addLogicButton.css({ cursor: 'auto', 'background-color': '#CCC', border: 'none' });
+    addLogicButton.addClass('disabled');
+    addLogicButton.blur();
     if (isObject(content)) {
-      content.html(data);
+      content.html(data.container);
     }
     setSelectPicker();
-//    countChecked();
+    webhookForm(data.webhooks, undefined);
   });
 
   // add condition
@@ -33,26 +108,10 @@ export default function updateConditions(id) {
       addDiv.html(data.add_link);
       conditionList.attr('data-loaded', 'false');
       setSelectPicker();
+      const selectObject = conditionList.find('.selectpicker.action-type').last();
+      webhookForm(undefined, selectObject);
     }
   });
-
-  const setSelectPicker = () => {
-    $('.selectpicker.narrow').selectpicker({width: 120});
-    $('.selectpicker.regular').selectpicker({width: 150});
-    $('.selectpicker.wide').selectpicker();
-  };
-
-  // const countChecked = () => {
-  //   $('#condition-container').find('.condition-partial').each((idx, partial) => {
-  //     $(partial).find('.selectpicker.wide').each((condNo, selectObj) => {
-  //       $(selectObj).parent().find('button.btn').focusout(() => {
-  //         $(selectObj).parent().find('li.selected').each((qnNo, question) => {
-  //           $(question).attr
-  //         });
-  //       }); 
-  //     });
-  //   });
-  // };
 
   // remove condition
   parent.on('click', '.delete-condition', (e) => {
@@ -60,4 +119,4 @@ export default function updateConditions(id) {
     const source = $(e.target).closest('.condition-partial');
     source.empty();
   });
-};
+}
