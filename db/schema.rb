@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190729122353) do
+ActiveRecord::Schema.define(version: 20190905174033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(version: 20190729122353) do
     t.integer  "action_type"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.integer  "number"
+    t.string   "webhook_data"
   end
 
   add_index "conditions", ["question_option_id"], name: "index_conditions_on_question_option_id", using: :btree

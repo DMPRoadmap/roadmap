@@ -164,21 +164,4 @@ class Answer < ActiveRecord::Base
     end
   end
 
-  def questions_to_remove(conditions, question_option_ids) 
-    remove_ids = []
-    conditions.each do |condition|
-      if question_option_ids.kind_of?(Array)
-        if question_option_ids.include?(condition.question_option_id.to_s) && condition.action_type == 'remove'
-          remove_ids.push(condition.remove_question_id)
-        end
-      else
-        if question_option_ids.to_i == condition.question_option_id && condition.action_type == 'remove'
-          remove_ids.push(condition.remove_question_id)
-        end
-      end
-    end
-    remove_ids
-  end
-
-
 end

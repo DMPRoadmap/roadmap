@@ -4,6 +4,8 @@
 #
 #  id                 :integer          not null, primary key
 #  action_type        :integer
+#  number             :integer
+#  webhook_data       :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  question_option_id :integer

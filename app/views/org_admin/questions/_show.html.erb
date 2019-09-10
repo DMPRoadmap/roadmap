@@ -53,9 +53,9 @@
           <% if conditions.length > 0 %>
             <% grouped_conditions = conditions_ordered(conditions) %>
             <dt><%= _('Question conditions') %></dt>
-            <% grouped_conditions.each do |option, conditions| %> 
+            <% grouped_conditions.each do |number, conditions| %> 
               <dd>
-                <%= list_questions(conditions) %>
+                <%= raw list_questions(conditions) %>
               </dd>
             <% end %>
           <% end %>
