@@ -36,7 +36,7 @@
       <%= f.label(:language_id, _('Language'), class: 'control-label') %>
       <%= select_tag("user[language_id]",
           options_from_collection_for_select(@languages, "id", "name", lang_id),
-          class: "form-control") %>
+          class: "form-control", id: "user_org_id") %>
     </div>
   <% end %>
 
