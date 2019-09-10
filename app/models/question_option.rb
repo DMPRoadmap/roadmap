@@ -64,6 +64,8 @@ class QuestionOption < ActiveRecord::Base
   def deep_copy(**options)
     copy = self.dup
     copy.question_id = options.fetch(:question_id, nil)
+    #copy.save!(validate: false)  if options.fetch(:save, false)
+    #self.conditions.map { |condition| copy.conditions << condition }
     return copy
   end
 end
