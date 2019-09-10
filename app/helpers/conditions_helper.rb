@@ -210,7 +210,6 @@ module ConditionsHelper
   end
 
   def text_formatted(object)
-    pp object
     length = 50
     if object.kind_of?(Integer) # when remove question id
       text = Question.find(object).text
