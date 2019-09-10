@@ -10,4 +10,9 @@ $(() => {
       e.preventDefault();
     }
   });
+
+  $('#merge_form').on('ajax:success', (e, data) => {
+    // replace the search form with the merge form
+    $('#merge_form_container').html(data.form);
+  });
 });
