@@ -90,9 +90,7 @@ namespace :dmpopidor_upgrade do
     research_output_types = [
       {label: 'Audiovisual'},
       {label: 'Collection'},
-      {label: 'DataPaper'},
       {label: 'Dataset'},
-      {label: 'Event'},
       {label: 'Image'},
       {label: 'Interactive Resource'},
       {label: 'Model'},
