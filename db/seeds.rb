@@ -813,9 +813,7 @@ annotations.map{ |s| Annotation.create!(s) if Annotation.find_by(text: s[:text])
 research_output_types = [
   {label: 'Audiovisual'},
   {label: 'Collection'},
-  {label: 'DataPaper'},
   {label: 'Dataset'},
-  {label: 'Event'},
   {label: 'Image'},
   {label: 'Interactive Resource'},
   {label: 'Model'},
