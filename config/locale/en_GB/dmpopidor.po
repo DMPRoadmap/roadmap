@@ -337,3 +337,18 @@ msgstr "Cancel research output edition"
 
 msgid "Click here to find out more about research output types."
 msgstr "Click here to find out more about research output types."
+
+msgid "Research output: dataset, software, workflow, sample, protocol..."
+msgstr "Research output: dataset, software, workflow, sample, protocol..."
+
+msgid "Research output name (20 chars max.)"
+msgstr "Research output name (20 chars max.)"
+
+msgid "Research output fullname"
+msgstr "Research output fullname"
+
+msgid "Please select a resource type from the list."
+msgstr "Please select a resource type from the list."
+
+msgid "If exists, please fill in the research output persistant identifier."
+msgstr "If exists, please fill in the research output persistant identifier."

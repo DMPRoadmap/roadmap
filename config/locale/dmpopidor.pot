@@ -341,3 +341,18 @@ msgstr ""
 
 msgid "Click here to find out more about research output types."
 msgstr ""
+
+msgid "Research output: dataset, software, workflow, sample, protocol..."
+msgstr ""
+
+msgid "Research output name (20 chars max.)"
+msgstr ""
+
+msgid "Research output fullname"
+msgstr ""
+
+msgid "Please select a resource type from the list."
+msgstr ""
+
+msgid "If exists, please fill in the research output persistant identifier."
+msgstr ""

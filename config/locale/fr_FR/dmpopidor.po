@@ -337,3 +337,18 @@ msgstr "Annuler la modification du produit de recherche"
 
 msgid "Click here to find out more about research output types."
 msgstr "Cliquez ici pour en savoir plus à propos des types de produits de recherche"
+
+msgid "Research output: dataset, software, workflow, sample, protocol..."
+msgstr "Produit de recherche : jeu de données, logiciel, workflow, échantillon, protocole..."
+
+msgid "Research output name (20 chars max.)"
+msgstr "Nom du produit de recherche (limité à 20 caractères.)"
+
+msgid "Research output fullname"
+msgstr "Nom développé du produit de recherche"
+
+msgid "Please select a resource type from the list."
+msgstr "Sélectionnez un type de ressource à partir de la liste déroulante."
+
+msgid "If exists, please fill in the research output persistant identifier."
+msgstr "Renseigner l’identifiant pérenne du produit de recherche s’il existe."
