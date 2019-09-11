@@ -75,8 +75,10 @@ $(() => {
     const parentElement = selectElement.closest('.research-output-element');
     const otherTypeElement = parentElement.find('.research-output-other-type-label');
     if (selectElement.find('option:selected').data('other')) {
+      otherTypeElement.prop('required', true);
       otherTypeElement.show();
     } else {
+      otherTypeElement.prop('required', false);
       otherTypeElement.hide();
     }
   });
