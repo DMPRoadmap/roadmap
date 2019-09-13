@@ -144,6 +144,9 @@ class Template < ActiveRecord::Base
                  else
                    families([org_id]).pluck(:family_id)
                  end
+    if family_ids.empty? 
+      family_ids = nil
+    end
     latest_version(family_ids)
   }
 
@@ -241,6 +244,7 @@ class Template < ActiveRecord::Base
     if family_id.present?
       chained_scope = chained_scope.where(family_id: family_id)
     end
+    chained_scope = chained_scope.where(family_id: nil)
     chained_scope.group(:family_id)
   end
 
