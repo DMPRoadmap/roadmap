@@ -283,7 +283,9 @@ class Template < ActiveRecord::Base
     options[:template_id] = copy.id
     phases.each { |phase| copy.phases << phase.deep_copy(options) }
     copy.conditions.each do |cond|
-      cond.update_column(:remove_question_id, copy.questions.find_by(versionable_id: Question.find(cond.remove_question_id).versionable_id).id)
+      if cond.remove_question_id != nil
+        cond.update_column(:remove_question_id, copy.questions.find_by(versionable_id: Question.find(cond.remove_question_id).versionable_id).id)
+      end
     end
     copy
   end

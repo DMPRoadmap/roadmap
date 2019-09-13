@@ -1,7 +1,7 @@
 module ConditionsHelper
 
   # refactor with polymorphism - doesn't seem to make it any cleaner though...
-  def remove_list(object) # returns list of questions to remove given a Plan, Answer, or Plan Hash
+  def remove_list(object, old_list = []) # returns list of questions to remove given a Plan, Answer, or Plan Hash
     id_list = []
     if object.is_a?(Answer)
       id_list += answer_conditions(object)
@@ -14,8 +14,10 @@ module ConditionsHelper
       return []
     end
     planAnswers.each do |answer|
-      answer_conditions(answer).each do |remove_id|
-        id_list.push(remove_id)
+      answer_conditions(answer).each do |remove_ids|
+        if !old_list.include?(answer.question.id)
+          id_list.push(remove_ids)
+        end
       end
     end
     id_list.uniq
@@ -29,11 +31,11 @@ module ConditionsHelper
       p_conditions.each do |number, p_condition|
         a1 = answer.question_option_ids
         a2 = p_condition[:question_option_id]
-        if a1 & a2 == a2 && a1.length == a2.length # test if right question option selection
+        if a1 & a2 == a2 && a1.length == a2.length # test if right question option selection a.k.a. arrays are equal
           if p_condition[:action_type] == 'remove' # both expressions should have the same boolean value
             id_list += p_condition[:remove_question_id]
           elsif user != nil
-            pp UserMailer.question_answered(JSON.parse(p_condition[:webhook_data]), user, answer, options_string(a2)) # .deliver_now()
+            UserMailer.question_answered(JSON.parse(p_condition[:webhook_data]), user, answer, options_string(a2)).deliver_now()
           end
         end
       end
@@ -59,7 +61,11 @@ module ConditionsHelper
   end
 
   # number of questions in a section after update with conditions
-  def num_section_questions(plan, section)
+  def num_section_questions(plan, section, phase = nil)
+    if section.kind_of?(Hash) && phase != nil && plan.kind_of?(Plan) # when section and phase are a hash in exports
+      phase_id = plan.phases.where(number: phase[:number]).first.id
+      section = plan.sections.where(phase_id: phase_id, title: section[:title]).first
+    end
     count = 0
     plan.questions.each do |question|
       if question.section.id == section.id &&
@@ -108,11 +114,11 @@ module ConditionsHelper
   end
 
   def question_title(question)
-    "Qn. " + question.number.to_s + ": " + truncate(strip_tags(question.text), length: 50, separator: " ")
+    raw "Qn. " + question.number.to_s + ": " + truncate(strip_tags(question.text), length: 50, separator: " ", escape: false)
   end
 
   def section_title(section)
-    "Sec. " + section.number.to_s + ": " + truncate(strip_tags(section.title), length: 50, separator: " ")
+    raw "Sec. " + section.number.to_s + ": " + truncate(strip_tags(section.title), length: 50, separator: " ", escape: false)
   end
 
   def not_previous_phase?(current_question, dropdown_phase)
@@ -131,7 +137,7 @@ module ConditionsHelper
     current_question.phase.number < dropdown_question.phase.number # later phase
   end
 
-  def group_show_conditions(conditions) # given a conditions array group conditions by number as a hash
+  def group_show_conditions(conditions) # given a conditions array, group conditions by number as a hash
     conditions_grouping = {}
     conditions.each do |condition|
       conditions_grouping.merge!(condition.number => [condition]){|op, cond1, cond2| 
@@ -143,7 +149,7 @@ module ConditionsHelper
     return conditions_grouping
   end
 
-  def conditions_ordered(conditions) # ensures conditions of type 'remove' come first
+  def conditions_ordered(conditions) # ensures conditions of type 'remove' come first. conditions of type Condition
     grouped_conditions = group_show_conditions(conditions)
     grouped_conditions.each do |option, conditions| 
       conditions.sort_by{|condition| condition.action_type.to_s.length}
@@ -156,14 +162,14 @@ module ConditionsHelper
     return_string += options_string(conditions)
     if conditions.size == 1 && conditions[0].action_type == 'add_webhook'
       subject_string = text_formatted(JSON.parse(conditions[0].webhook_data)['subject'])
-      return_string += _(' will add a webhook with subject ') + subject_string
+      return_string += _(' will ') + make_tags('b', _('send an email')) + _(' with subject ') + subject_string
     else 
       remove_array = conditions.select{|c| c.action_type == 'remove'}.map(&:remove_question_id).uniq
       no_removes = remove_array.uniq.size
       remove_array.each_with_index do |id, idx|
         if idx < no_removes
           if idx == 0
-            return_string += _(' will remove ')
+            return_string += _(' will ') + make_tags('b', _('remove '))
           elsif idx < no_removes - 1
             return_string += _(', ')
           elsif idx == no_removes - 1
@@ -174,11 +180,15 @@ module ConditionsHelper
           if idx > 0 
             return_string += _(', and ')
           end
-          return_string += _(' will add a webhook')
+          return_string += _(' will ') + make_tags('b', _('send an email'))
         end
       end
     end
     return_string += "."
+  end
+
+  def make_tags(tag, string)
+    "<#{tag}> #{string} </#{tag}>"
   end
 
   def options_string(object_array)
@@ -213,7 +223,7 @@ module ConditionsHelper
     length = 50
     if object.kind_of?(Integer) # when remove question id
       text = Question.find(object).text
-    elsif object.kind_of?(String) # when webhook subject
+    elsif object.kind_of?(String) # when email subject
       text = object
       length = 30
     else 
