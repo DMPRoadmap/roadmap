@@ -91,6 +91,7 @@ class AnswersController < ApplicationController
       template = @section.phase.template
 
       remove_list_after = remove_list(@plan)
+      remove_list_after = remove_list(@plan, remove_list_after) # in case of any condition chains
       # get section info for the questions to be hidden and shown for this plan
       qn_data = sections_info_from_questions(list_compare(remove_list_before, remove_list_after), @plan) 
       this_section_info = sections_info_from_questions({to_show: [@answer.question_id], to_hide: []}, @plan)

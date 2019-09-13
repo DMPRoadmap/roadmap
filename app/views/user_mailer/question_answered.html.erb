@@ -10,7 +10,7 @@
 
 <% FastGettext.with_locale FastGettext.default_locale do %>
   <p>
-    <%= raw sanitize(_('Hello %{recipient_name}') % { recipient_name: recipient_name }) %>
+    <%= raw sanitize(_('Hello %{recipient_name},') % { recipient_name: recipient_name }) %>
   </p>
   <p>
     <%= raw sanitize(_("%{user_name} is creating a Data Management Plan and has answered %{answer_text} to %{question_title} in a plan called %{plan_title} based on the template %{template_title}") % { user_name: user_name, question_title: question_title, plan_title: plan_title, template_title: template_title}) %> 
