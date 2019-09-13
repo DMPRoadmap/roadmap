@@ -240,6 +240,8 @@ msgstr "Tous"
 msgid "DMP templates provided by a funder or research organisations, available on DMP OPIDoR. You can download these templates and related guidances, create a plan from these templates."
 msgstr "Modèles de DMP proposés par les financeurs ou par les organisations de recherche, disponibles dans DMP OPIDoR. Vous pouvez télécharger ces modèles et les recommandations associées, créer un plan à partir de ces modèles."
 
+msgid "Accept"
+msgstr "J'accepte"
 
 # STATIC PAGES
 
