@@ -115,7 +115,7 @@ class Question < ActiveRecord::Base
     copy.section_id = options.fetch(:section_id, nil)
     copy.save!(validate: false)  if options.fetch(:save, false)
     options[:question_id] = copy.id
-    self.question_options.map { |question_option| copy.question_options << question_option.deep_copy(options) }
+    self.question_options.each { |question_option| copy.question_options << question_option.deep_copy(options) }
     self.annotations.each do |annotation|
       copy.annotations << annotation.deep_copy(options)
     end
@@ -202,12 +202,16 @@ class Question < ActiveRecord::Base
         condition.destroy
       end
     end
-    #self.conditions.destroy_all not working rn
+    #self.conditions.destroy_all not working right now
     if param_conditions.present?
       conditions = param_conditions[0]
       conditions.each do |key, value|
         value['question_option'].each do |option_id|
-          if value['action_type'] == 'remove'
+          if value['action_type'] == 'remove' 
+            if !value.key?('remove_question_id')
+              # add an error message that remove list is empty (so no conditions saved)
+              next
+            end
             value['remove_question_id'].each do |remove_id|
               saveCondition(value, option_id, remove_id)
             end
@@ -218,7 +222,7 @@ class Question < ActiveRecord::Base
       end
       return true
     end
-    puts 'no conditions present'
+    # no conditions present
     return false
   end
 
