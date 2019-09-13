@@ -238,6 +238,9 @@ msgstr "All"
 msgid "Successfully %{action} the %{object}."
 msgstr "Successfully %{action} the %{object}."
 
+msgid "DMP templates provided by a funder or research organisations, available on DMP OPIDoR. You can download these templates and related guidances, create a plan from these templates."
+msgstr "DMP templates provided by a funder or research organisations, available on DMP OPIDoR. You can download these templates and related guidances, create a plan from these templates."
+
 # STATIC PAGES
 
 msgid "More"

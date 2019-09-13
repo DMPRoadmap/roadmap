@@ -1,0 +1,23 @@
+<% title _('DMP Templates') %>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('DMP Templates') %></h1>
+    <% if @templates.count > 0 %>
+      <p class="left-indent"><%= d_('dmpopidor', 'DMP templates provided by a funder or research organisations, available on DMP OPIDoR. You can download these templates and related guidances, create a plan from these templates.') %></p>
+    <% else %>
+      <p class="left-indent"><%= _('There are currently no public Templates.')%></p>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <% if @templates.count > 0 %>
+      <%= paginable_renderise(
+        partial: '/paginable/templates/publicly_visible',
+        controller: 'paginable/templates',
+        action: 'publicly_visible',
+        scope: @templates,
+        query_params: { sort_field: 'orgs.name', sort_direction: 'asc' }) %>
+    <% end %>
+  </div>
+</div>
