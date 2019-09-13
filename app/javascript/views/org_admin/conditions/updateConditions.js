@@ -47,7 +47,7 @@ export default function updateConditions(id) {
       });
     }
     // allow discarding of webhook data on click of exit symbol
-    const exit = condition.find('.close');
+    const exit = condition.find('.discard');
     exit.on('click', () => {
       exit.closest('.modal').find('.form-control').each((idx, field) => {
         $(field).val('');
