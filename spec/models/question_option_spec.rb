@@ -51,6 +51,14 @@ RSpec.describe QuestionOption, type: :model do
 
     context "when no options provided" do
 
+      before do
+        create_list(:condition, 5, question_option: question_option)
+      end
+
+      it "checks number of conditions" do
+        expect(subject.conditions.size).to eql(question_option.conditions.size)
+      end
+
       it "builds a new record" do
         expect(subject).to be_new_record
       end

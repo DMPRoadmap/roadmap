@@ -6,5 +6,11 @@
     <span class="label label-info status" data-status="saved-at">
       <%= _('Answered')%> <time class="timeago" datetime="<%= answer.updated_at.iso8601 %>"></time>
       <%= _(' by %{user_name}') %{ :user_name => answer.user.name } if answer.user.present? %>
-    </span>
+    </span><br>
+    <% conditions_size = answer_conditions(answer).size %>
+    <% if conditions_size > 0 %>
+      <span class="label label-info status" data-status="saved-at">
+        <%= _('This answer removes ') + conditions_size.to_s + _(' questions from your plan.') %>
+      </span>
+    <% end %>
 <% end %>
