@@ -39,6 +39,9 @@
       var options = { 
         message: '<%= d_("dmpopidor", "By continuing to browse, without changing your settings, you accept the use of cookies to measure the traffic of the website with the software Matomo. For more information, to change or manage your settings, please visit our Privacy Statement page.")%>',
         moreinfo: '<%= privacy_path %>',
+        'close-text': 'Ok',
+        'close-precedes': false,
+        'close-style': 'padding-left:5px; color: rgb(170, 170, 170);',
         linkmsg: '<%= d_("dmpopidor", "Learn more") %>'
       };
       var cb = new Cookiebanner(options); cb.run();
