@@ -64,8 +64,10 @@ class QuestionOption < ActiveRecord::Base
   def deep_copy(**options)
     copy = self.dup
     copy.question_id = options.fetch(:question_id, nil)
-    #copy.save!(validate: false)  if options.fetch(:save, false)
-    #self.conditions.map { |condition| copy.conditions << condition }
-    return copy
+    copy.save!(validate: false)  if options.fetch(:save, false)
+    options[:question_option_id] = copy.id
+    self.conditions.map { |condition| copy.conditions << condition.deep_copy(options) }
+    copy.conditions = copy.conditions.sort_by(&:number)
+    copy
   end
 end

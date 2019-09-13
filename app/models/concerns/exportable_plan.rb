@@ -36,7 +36,7 @@ module ExportablePlan
             show_section ||= customization && !section[:modifiable]
             show_section ||= customization && section[:modifiable] && show_custom_sections
 
-            if show_section
+            if show_section && num_section_questions(self, section, phase) > 0
               show_section_for_csv(csv, phase, section, headings, unanswered, hash)
             end
           end
