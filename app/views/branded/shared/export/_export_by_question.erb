@@ -1,8 +1,9 @@
 <%# locals: { research_outputs, questions, section  } %>
 <% questions.each do |question| %>
   <div class="question">
+    <% question_displayed = false %>
 
-    <% research_outputs.each_with_index do |research_output, idx| %>
+    <% research_outputs.each do |research_output| %>
       <% section_has_common_answers = research_output.get_main().has_common_answers?(section[:id]) %>
       <% answer = section_has_common_answers ? 
             @plan.answer(question[:id], false, research_output.get_main().id) : 
@@ -12,7 +13,7 @@
 
       <%  unless @show_unanswered == false && blank  %>
 
-        <% if !@public_plan && @show_sections_questions && idx == 0 %>
+        <% if !@public_plan && @show_sections_questions && question_displayed == false %>
         <p>
           <%# Hack: for DOCX export - otherwise, bold highlighting of question inconsistent. %>
           <% if local_assigns[:export_format] && export_format == 'docx' %>
@@ -24,6 +25,7 @@
         </p>
         <br>
         <% end %>
+        <% question_displayed = true %>
 
         <% if !section_has_common_answers %>
           <h4><%= research_output.fullname %></h4>
