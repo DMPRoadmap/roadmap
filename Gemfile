@@ -64,7 +64,7 @@ gem 'jbuilder', '~> 2.6.0'
 #    USERS
 # devise for user authentication
 # Flexible authentication solution for Rails with Warden (https://github.com/plataformatec/devise)
-gem 'devise'
+gem 'devise', ">= 4.7.1"
 
 # An invitation strategy for Devise (https://github.com/scambra/devise_invitable)
 gem 'devise_invitable'
