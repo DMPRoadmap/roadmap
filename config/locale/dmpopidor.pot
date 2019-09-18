@@ -360,3 +360,7 @@ msgstr ""
 
 msgid "If exists, please fill in the research output persistant identifier."
 msgstr ""
+
+msgid "Please fill in separately for research outputs requireing a management specific to their nature or discipline."
+msgstr ""
+

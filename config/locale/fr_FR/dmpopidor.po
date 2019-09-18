@@ -357,3 +357,6 @@ msgstr "Sélectionnez un type de ressource à partir de la liste déroulante."
 
 msgid "If exists, please fill in the research output persistant identifier."
 msgstr "Renseigner l’identifiant pérenne du produit de recherche s’il existe."
+
+msgid "Please fill in separately for research outputs requireing a management specific to their nature or discipline."
+msgstr "A renseigner séparément pour des produits de recherche nécessitant une gestion spécifique à leur nature ou discipline."

@@ -357,3 +357,6 @@ msgstr "Please select a resource type from the list."
 
 msgid "If exists, please fill in the research output persistant identifier."
 msgstr "If exists, please fill in the research output persistant identifier."
+
+msgid "Please fill in separately for research outputs requireing a management specific to their nature or discipline."
+msgstr "Please fill in separately for research outputs requireing a management specific to their nature or discipline."
