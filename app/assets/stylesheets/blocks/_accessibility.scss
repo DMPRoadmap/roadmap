@@ -57,3 +57,12 @@ a, input, select, .form-control {
     }
   }
   
+  td {
+    &:focus-within,
+    &:focus,
+    &:hover {
+      outline-style: solid !important;
+      outline-color: $color-focus-outline !important;
+      outline-width: 2px !important;
+    }
+  }
