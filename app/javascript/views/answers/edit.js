@@ -153,6 +153,12 @@ $(() => {
     editor.on('Blur', () => blurHandler(editor));
     editor.on('Focus', () => focusHandler(editor));
   };
+
+  const detachEditorHandlers = (editor) => {
+    // Remove listeners to blur and focus events for a tinymce instance
+    editor.on('Blur', () => false);
+    editor.on('Focus', () => false);
+  };
   /*
   Detaches events from a specific form including its tinymce editor
   @param { objecg } - jQueryForm to remove events
@@ -160,6 +166,7 @@ $(() => {
   const detachEventHandlers = (jQueryForm) => {
     formHandlers({ jQuery: jQueryForm, attachment: 'off' });
     const tinymceId = jQueryForm.find(`.${editorClass}`).attr('id');
+    detachEditorHandlers(Tinymce.findEditorById(tinymceId));
     Tinymce.destroyEditorById(tinymceId);
   };
   /*
@@ -226,9 +233,11 @@ $(() => {
       toolbar,
     });
     if (!isReadOnly()) {
-      // Attaches form and tinymce event handlers
-      Tinymce.findEditorsByClassName(editorClass).forEach(editorHandlers);
-      formHandlers({ jQuery: $('.form-answer'), attachment: 'on' });
+      $(`#${sectionId} .${editorClass}`).each((i, editor) => {
+        // Attaches form and tinymce event handlers
+        editorHandlers(Tinymce.findEditorById(`${$(editor).attr('id')}`));
+      });
+      formHandlers({ jQuery: $(`#${sectionId} .form-answer`), attachment: 'on' });
     } else {
       // Sets the editor mode for each editor to readonly
       Tinymce.findEditorsByClassName(editorClass).forEach((editor) => {
@@ -238,7 +247,9 @@ $(() => {
   });
   $('.section-content').on('hide.bs.collapse', (e) => {
     const sectionId = $(e.target).attr('id');
+    formHandlers({ jQuery: $(`#${sectionId} .form-answer`), attachment: 'off' });
     $(`#${sectionId} .${editorClass}`).each((i, editor) => {
+      detachEditorHandlers(Tinymce.findEditorById(`${$(editor).attr('id')}`));
       Tinymce.destroyEditorById(`${$(editor).attr('id')}`);
     });
   });
