@@ -272,6 +272,41 @@ msgstr "%{object} %{action} avec succés."
 msgid "Title displayed on the static page"
 msgstr "Titre affiché sur la page statique"
 
+msgid "%{plan_title} - Last modified %{date}"
+msgstr "%{plan_title} - Version du %{date}"
+
+msgid "DMP Identifier"
+msgstr "Identifiant du PGD"
+
+msgid "Indicate: Project Acronym - Project Title"
+msgstr "Indiquez : Acronyme du projet - Titre du projet"
+
+msgid "DMP Creators:"
+msgstr "Créateurs du PDG :"
+
+msgid "DMP Creator:"
+msgstr "Créateur du PDG :"
+
+msgid "Principal Investigator Affiliation: "
+msgstr "Affiliation du créateur principal : "
+
+msgid "Funder: "
+msgstr "Financeur : "
+
+msgid "Principal Investigator: "
+msgstr "Chercheur Principal : "
+
+msgid "Data Contact Person: "
+msgstr "Contact pour les Données : "
+
+msgid "DMP Template: "
+msgstr "Modèlé du PGD : "
+
+msgid "Last modified: "
+msgstr "Dernière modification du PGD : "
+
+
+
 # Research outputs
 
 msgid "Abbreviated Name (20 chars max.)"

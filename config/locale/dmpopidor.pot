@@ -246,6 +246,43 @@ msgstr ""
 msgid "Accept"
 msgstr ""
 
+msgid "%{plan_title} - Last modified %{date}"
+msgstr ""
+
+msgid "DMP Identifier"
+msgstr ""
+
+msgid "Indicate: Project Acronym - Project Title"
+msgstr ""
+
+msgid "DMP Creators:"
+msgstr ""
+
+msgid "DMP Creator:"
+msgstr ""
+
+msgid "Principal Investigator Affiliation: "
+msgstr ""
+
+msgid "Funder: "
+msgstr ""
+
+msgid "Principal Investigator: "
+msgstr ""
+
+msgid "Data Contact Person: "
+msgstr ""
+
+msgid "DMP Template: "
+msgstr ""
+
+msgid "Last modified: "
+msgstr ""
+
+
+
+
+
 # STATIC PAGES
 
 msgid "More"

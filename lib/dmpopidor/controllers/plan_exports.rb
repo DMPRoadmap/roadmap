@@ -52,6 +52,21 @@ module Dmpopidor
             end
           end
         
+          # CHANGES: Changed footer
+          def show_pdf
+            render pdf: file_name,
+                  margin: @formatting[:margin],
+                  footer: {
+                    center: d_("dmpopidor", "%{plan_title} - Last modified %{date}") % {
+                      plan_title: @plan.title,
+                      date: l(@plan.updated_at.to_date, formats: :short)
+                      },
+                    font_size: 8,
+                    spacing:   (Integer(@formatting[:margin][:bottom]) / 2) - 4,
+                    right:     "[page] of [topage]",
+                    encoding: "utf8"
+                  }
+          end
       end
     end
   end

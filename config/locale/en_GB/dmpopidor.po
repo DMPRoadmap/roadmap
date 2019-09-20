@@ -243,6 +243,40 @@ msgstr "DMP templates provided by a funder or research organisations, available 
 
 msgid "Accept"
 msgstr "Accept"
+
+msgid "%{plan_title} - Last modified %{date}"
+msgstr "%{plan_title} - Last modified %{date}"
+
+msgid "DMP Identifier"
+msgstr "DMP Identifier"
+
+msgid "Indicate: Project Acronym - Project Title"
+msgstr "Indicate: Project Acronym - Project Title"
+
+msgid "DMP Creators:"
+msgstr "DMP Creators:"
+
+msgid "DMP Creator:"
+msgstr "DMP Creator:"
+
+msgid "Principal Investigator Affiliation: "
+msgstr "Principal Investigator Affiliation: "
+
+msgid "Funder: "
+msgstr "Funder: "
+
+msgid "Principal Investigator: "
+msgstr "Principal Investigator: "
+
+msgid "Data Contact Person: "
+msgstr "Data Contact Person: "
+
+msgid "DMP Template: "
+msgstr "DMP Template: "
+
+msgid "Last modified: "
+msgstr "Last modified: "
+
 # STATIC PAGES
 
 msgid "More"

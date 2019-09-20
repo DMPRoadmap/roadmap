@@ -7,7 +7,7 @@
         </div>
         <div class="col-md-8">
           <%= f.text_field(:title, class: "form-control", "aria-required": true, 'data-toggle': 'tooltip', 
-            title: _('If applying for funding, state the name exactly as in the grant proposal.')) %>
+            title: d_('dmpopidor', 'Indicate: Project Acronym - Project Title')) %>
       <div class="checkbox">
         <%= f.hidden_field :visibility %>
         <%= f.label(:is_test, class: 'control-label') do %>
@@ -54,7 +54,7 @@
         </div>
         <div class="col-md-8">
           <%= f.text_field(:identifier, class: "form-control", "aria-required": false, 'data-toggle': "tooltip", 
-                           title: _('A pertinent ID as determined by the funder and/or organisation.')) %>
+                           title: d_('dmpopidor', 'DMP Identifier')) %>
         </div>
       </div>
       <fieldset class="project-details">

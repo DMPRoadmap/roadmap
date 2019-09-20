@@ -7,16 +7,18 @@
   <%# Allow raw html (==) for plan_attribution as it has <b> tags %>
   <p><%== plan_attribution(@hash[:attribution]) %></p><br>
 
-  <p><b><%= _("Affiliation: ") %></b><%= @hash[:affiliation] %></p><br>
+  <p><b><%= d_("dmpopidor", "Principal Investigator Affiliation: ") %></b><%= @hash[:affiliation] %></p><br>
   
   <% if @hash[:customizer].present? %>
-    <p><b><%= _("Template: ") %></b><%= @hash[:template] + @hash[:customizer] %></p><br>
+    <p><b><%= d_("dmpopidor", "DMP Template: ") %></b><%= @hash[:template] + @hash[:customizer] %></p><br>
   <% else %>
-    <p><b><%= _("Template: ") %></b><%= @hash[:template] %></p><br>
+    <p><b><%= d_("dmpopidor", "DMP Template: ") %></b><%= @hash[:template] %></p><br>
   <% end %>
-
-  <% if @plan.principal_investigator_identifier.present? %>
-    <p><b><%= _("ORCID iD: ") %></b><%= @plan.principal_investigator_identifier %></p> <br>
+  
+  <p><b><%= d_("dmpopidor", "Last modified: ") %></b><%=  l(@plan.updated_at.to_date, formats: :short) %></p> <br>
+  
+  <% if @plan.funder_name.present? %>
+    <p><b><%= d_("dmpopidor", "Funder: ") %></b><%=  @plan.funder_name %></p> <br>
   <% end %>
 
   <% if @plan.grant_number.present? %>
@@ -26,6 +28,20 @@
   <% if @plan.description.present? %>
     <p><b><%= _("Project abstract: ") %></b></p>
     <div style="margin-left: 15px;"><%= sanitize(@plan.description) %></div><br>
+  <% end %>
+
+  <% if @plan.principal_investigator.present? %>
+    <p><b><%= d_("dmpopidor", "Principal Investigator: ") %></b><%= @plan.principal_investigator %></p> <br>
+  <% end %>
+
+  <% if @plan.principal_investigator_identifier.present? %>
+    <p><b><%= _("ORCID iD: ") %></b><%= @plan.principal_investigator_identifier %></p> <br>
+  <% end %>
+
+  <% if @plan.data_contact.present? %>
+    <p><b><%= d_("dmpopidor", "Data Contact Person: ") %></b><%= @plan.data_contact %></p> <br>
+  <% elsif @plan.principal_investigator.present? %>
+    <p><b><%= d_("dmpopidor", "Data Contact Person: ") %></b><%= @plan.principal_investigator %></p> <br>
   <% end %>
 
   <% if @hash[:research_outputs].length > 1 || !@hash[:research_outputs][0].main?%>
@@ -43,7 +59,6 @@
     <br>
   <% end %>
 
-  <p><b><%= _("Last modified: ") %></b><%=  l(@plan.updated_at.to_date, formats: :short) %></p> <br>
 
   <% if @public_plan %>
     <p><%= _("Copyright information:") %></p>
