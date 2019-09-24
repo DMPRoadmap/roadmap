@@ -169,7 +169,6 @@ class Template < ActiveRecord::Base
   scope :latest_customizable, lambda {
     funder_ids = Org.funder.pluck(:id)
     family_ids = self.families(funder_ids).distinct.pluck(:family_id)
-    family_ids << 6912
     self.published(family_ids.uniq)
         .where("visibility = :visibility OR is_default = :is_default",
                visibility: visibilities[:publicly_visible], is_default: true)

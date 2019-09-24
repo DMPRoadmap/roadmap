@@ -10,6 +10,6 @@
 
 FactoryBot.define do
   factory :region do
-    name { "MyString" }
+    name { Faker::Movies::StarWars.unique.planet }
   end
 end
