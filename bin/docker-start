@@ -1,7 +1,11 @@
 #!/bin/sh
 set -e
 
-bundle exec rake db:setup
+db_exists=$(bundle exec rake db:create 2>&1)
+echo $db_exists
+if [ "$db_exists" != "roadmap already exists" ]; then
+  bundle exec rake db:reset
+fi  
 bundle exec rake webpacker:yarn_install
 rm -rf tmp/pids/server.pid
 

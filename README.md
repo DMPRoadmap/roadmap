@@ -55,3 +55,70 @@ See the [Contribution Guide](https://github.com/DMPRoadmap/roadmap/wiki/Contribu
 #### License
 The DMP Roadmap project uses the <a href="./LICENSE.md">MIT License</a>.
 
+# Docker
+This project comes with a docker setup to easily setup your own local development environment for jupiter in just a few steps.
+
+## Step 1: Make sure you have docker and docker-compose installed:
+
+1. [Install Docker](https://docs.docker.com/engine/installation/) (Requires version 1.13.0+)
+2. [Install Docker Compose](https://docs.docker.com/compose/install/) (Requires version 1.10.0+)
+
+### Still need more help? Check out the following
+
+#### OSX / Windows
+- If you are on Mac, check out [Docker for Mac](https://docs.docker.com/docker-for-mac/)
+- If you are on Windows, check out [Docker for Windows](https://docs.docker.com/docker-for-windows/)
+
+These will install `docker`, `docker-compose`, and `docker-machine` on your machine.
+
+#### Linux
+
+Use your distribution's package manager to install `docker` and `docker-compose`.
+
+## Step 2: Get DMP Roadmap source code
+Clone the Jupiter repository from github:
+```shell
+git clone git@github.com:ualbertalib/DMP_roadmap.git
+cd DMP_roadmap
+```
+
+## Step 3: Start docker and docker compose
+
+### For development environment
+To start and setup your docker containers run:
+```shell
+docker-compose -f docker-compose.lightweight.yml up -d
+```
+
+Now everything should be up and running. If you need seed to setup your database, then run the following command:
+```shell
+bundle exec rake db:setup
+```
+
+Then start your rails server run:
+```shell
+bundle exec rails s
+```
+### For UAT environment
+To start your docker containers run:
+```shell
+docker-compose -f docker-compose.yml up -d
+```
+
+Now everything should be up and running. The rails runs on port 3000. If you need to setup your database, then run the following command:
+```shell
+docker system exec -it dmproadmap_web_1 /bin/bash
+```
+
+At this point, you should be on your web docker. Now, you can run the following command to setup your database.
+```shell
+bundle exec rake db:reset
+```
+
+## Step 4: Open and view DMP Roadmap!
+Now everything is ready, you can go and view DMPRoadmap! Just open your favorite browser and go to the following url:
+
+  - Development environment: [localhost:3000](http://localhost:3000)
+  - UAT environment: [uatsrv01.library.ualberta.ca:3000](http://uatsrv01.library.ualberta.ca:3000/)
+
+
