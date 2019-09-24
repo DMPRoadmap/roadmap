@@ -4,7 +4,7 @@
 </div>
 <div id='show-research-outputs'>
   <% @research_outputs.each do |research_output|%>
-    <% other_type_displayed = research_output.research_output_type && research_output.research_output_type.is_other ? '' : 'display:none;' %>
+    <% other_type_displayed = research_output.type && research_output.type.is_other ? '' : 'display:none;' %>
     <div class='research-output-element'>
       <div class='research-output-value'>
         <strong><%=  d_('dmpopidor', 'Abbreviated Name') %></strong>
@@ -22,7 +22,7 @@
             <i class="fa fa-info-circle"></i>
           </a>
         </strong>
-        <span><%= research_output.research_output_type ? research_output.research_output_type.label : _('None')  %></span>
+        <span><%= research_output.type ? research_output.type.label : _('None')  %></span>
       </div>
       <div class='research-output-value' style='<%= other_type_displayed %>'>
         <strong><%=  d_('dmpopidor', 'Other Type') %></strong>

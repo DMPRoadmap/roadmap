@@ -1,5 +1,5 @@
 <%# locals: { plan, research_output, research_output_types } %>
-<% other_type_displayed = research_output.research_output_type && research_output.research_output_type.is_other ? '' : 'display:none;' %>
+<% other_type_displayed = research_output.type && research_output.type.is_other ? '' : 'display:none;' %>
 <% edit_mode = research_output.is_default ? '' : "display:none;" %>
 <% display_mode = research_output.is_default ? "display:none;" : '' %>
 <div class='research-output-element'>
@@ -31,7 +31,7 @@
                     { multiple: false, class: 'form-control research-output-type-select input', "aria-required": true, style: edit_mode,
                    'data-toggle': 'tooltip', title: d_('dmpopidor', 'Please select a resource type from the list.') }) 
       %>
-      <span class="readonly-value"  style="<%= display_mode %>"><%= research_output.research_output_type ? research_output.research_output_type.label : _('None')  %></span>
+      <span class="readonly-value"  style="<%= display_mode %>"><%= research_output.type ? research_output.type.label : _('None')  %></span>
     </div>
     <div class='research-output-field form-group research-output-other-type-label' style='<%= other_type_displayed %>'>
       <%= f.label :other_type_label, d_('dmpopidor', 'Other Type'), class: 'control-label' %>

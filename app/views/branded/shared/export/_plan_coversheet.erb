@@ -50,9 +50,9 @@
       <% @hash[:research_outputs].each do |research_output| %>
         <li>
         <%= research_output.fullname %> ( <%= 
-          research_output.research_output_type && research_output.research_output_type.is_other  ? 
+          research_output.type && research_output.type.is_other  ? 
           d_('dmpopidor', 'Other: ') + research_output.other_type_label :
-          research_output.research_output_type.label
+          research_output.type.label
         %> )</li>
       <% end %>
     </ol>

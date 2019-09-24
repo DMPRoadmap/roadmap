@@ -65,7 +65,7 @@ namespace :dmpopidor_upgrade do
         abbreviation: 'Default', 
         fullname: 'Default research output',
         is_default: true, 
-        research_output_type: ResearchOutputType.first,
+        type: ResearchOutputType.find_by(label: "Dataset"),
         order: 1
       ) if p.research_outputs.empty?
 

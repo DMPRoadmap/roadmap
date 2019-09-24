@@ -33,9 +33,10 @@ class ResearchOutput < ActiveRecord::Base
   # ================
   belongs_to :plan
 
-  belongs_to :research_output_type
+  belongs_to :type, class_name: ResearchOutputType, foreign_key: "research_output_type_id"
 
   has_many :answers, dependent: :destroy
+
 
   # ===============
   # = Validations =
@@ -45,7 +46,7 @@ class ResearchOutput < ActiveRecord::Base
 
   validates :fullname, presence: { message: PRESENCE_MESSAGE }
 
-  validates :research_output_type, presence: { message: PRESENCE_MESSAGE }
+  validates :type, presence: { message: PRESENCE_MESSAGE }
 
 
   # ==========
