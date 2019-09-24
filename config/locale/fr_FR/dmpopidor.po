@@ -282,10 +282,10 @@ msgid "Indicate: Project Acronym - Project Title"
 msgstr "Indiquez : Acronyme du projet - Titre du projet"
 
 msgid "DMP Creators:"
-msgstr "Créateurs du PDG :"
+msgstr "Créateurs du PGD :"
 
 msgid "DMP Creator:"
-msgstr "Créateur du PDG :"
+msgstr "Créateur du PGD :"
 
 msgid "Principal Investigator Affiliation: "
 msgstr "Affiliation du créateur principal : "
@@ -300,7 +300,7 @@ msgid "Data Contact Person: "
 msgstr "Contact pour les Données : "
 
 msgid "DMP Template: "
-msgstr "Modèlé du PGD : "
+msgstr "Modèle du PGD : "
 
 msgid "Last modified: "
 msgstr "Dernière modification du PGD : "
