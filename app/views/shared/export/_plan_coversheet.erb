@@ -1,39 +1,37 @@
 <hr />
 <h1><%= @plan.title %></h1>
-<p><em>
-  <%= _("A Data Management Plan created using ") + Rails.configuration.branding[:application][:name] %>
-</em></p>
+<p><em><%= _("A Data Management Plan created using ") + Rails.configuration.branding[:application][:name] %></em></p>
 <br/>
 <div class="cover-page">
-  <p>
-    <%= plan_attribution(@hash[:attribution]) %>
-  </p><br>
-
-  <p><%= _("Affiliation: ") + @hash[:affiliation] %></p><br>
+  <%# Using <b> tags as the htmltoword gem does not recognise css styles defined %>
+  <%# Allow raw html (==) for plan_attribution as it has <b> tags %>
+  <p><%== plan_attribution(@hash[:attribution]) %></p><br>
+  
+  <p><b><%= _("Affiliation: ") %></b><%= @hash[:affiliation] %></p><br>
 
   <% if @hash[:funder].present? %>
-    <p><%= _("Template: ") + @hash[:funder] %></p><br>
+    <p><b><%= _("Template: ") %></b><%= @hash[:funder] %></p><br>
   <% else %>
-    <p><%= _("Template: ") + @hash[:template] + @hash[:customizer] %></p><br>
+    <p><b><%= _("Template: ") %></b><%= @hash[:template] + @hash[:customizer] %></p><br>
   <% end %>
 
   <% if @plan.principal_investigator_identifier.present? %>
-    <p><%= _("ORCID iD: ") + @plan.principal_investigator_identifier %></p> <br>
+    <p><b><%= _("ORCID iD: ") %></b><%= @plan.principal_investigator_identifier %></p> <br>
   <% end %>
 
   <% if @plan.grant_number.present? %>
-    <p><%= _("Grant number: ") + @plan.grant_number %></p> <br>
+    <p><b><%= _("Grant number: ") %></b><%= @plan.grant_number %></p> <br>
   <% end %>
 
   <% if @plan.description.present? %>
-    <p><%= _("Project abstract: ") %></p>
+    <p><b><%= _("Project abstract: ") %></b></p>
     <div style="margin-left: 15px;"><%= sanitize(@plan.description) %></div><br>
   <% end %>
 
-  <p><%= _("Last modified: ") + l(@plan.updated_at.to_date, formats: :short) %></p> <br>
+  <p><b><%= _("Last modified: ") %></b><%=  l(@plan.updated_at.to_date, formats: :short) %></p> <br>
 
   <% if @public_plan %>
-    <p><%= _("Copyright information:") %></p>
+    <p><b><%= _("Copyright information:") %></b></p>
     <div style="margin-left: 15px;">
       <p>
         <%= _(" The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customise it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal") %>

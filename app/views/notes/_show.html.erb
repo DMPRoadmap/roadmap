@@ -2,10 +2,14 @@
 <% if !note.nil? %>
     <% user = User.find(note.user_id) %>
     <ul class="list-unstyled">
-        <li><%= sanitize note.text %></li>
+        <li>
+          <div class="display-readonly-textarea-content">
+            <%= sanitize note.text %>
+          </div>
+        </li>
         <li>
             <span class="label label-info">
-                <%= "#{user.name} at #{l(note.updated_at, format: :short)}" %>
+                <%= "#{user.name} " %> <time class="timeago" datetime="<%= note.updated_at.iso8601 %>"></time>
             </span>
         </li>
     </ul>

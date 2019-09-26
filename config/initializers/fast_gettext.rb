@@ -22,7 +22,7 @@ else
 end
 
 FastGettext.add_text_domain("app",
-  path: "config/locale",
+  path: Rails.root.join("config/locale"),
   type: :po,
   ignore_fuzzy: true,
   report_warning: false,

@@ -62,6 +62,19 @@ config/database.yml
 config/secrets.yml
 config/branding.yml
 
+# Ignore some of the initializers
+config/initializers/recaptcha.rb
+config/initializers/devise.rb
+config/initializers/wicked_pdf.rb
+config/initializers/fingerprint.rb
+
+# Ignore enviroments settings
+#config/environments/development.rb
+#config/environments/production.rb
+#config/environments/test.rb
+
+#config/initializers/contact_us.rb
+
 # ignore IDE files
 .idea/*
 
@@ -88,7 +101,6 @@ lib/data_cleanup/rules/org/fix_blank_abbreviation.yml
 yarn-error.log
 yarn-debug.log*
 
-.yarn-integrity
 .env
 
 package-lock.json
@@ -97,7 +109,6 @@ node_modules
 /public/packs-test
 
 spec/examples.txt
-.babelrc
 .postcssrc.yml
 /public/packs
 /public/packs-test

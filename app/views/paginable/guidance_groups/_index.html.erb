@@ -3,9 +3,9 @@
     <thead>
       <tr>
         <th scope="col"><%= _('Name') %></th>
-        <th scope="col" class="text-center"><%= _('Status') %>&nbsp;<%= paginable_sort_link('published') %></th>
-        <th scope="col" class="text-center"><%= _('Optional subset') %>&nbsp;<%= paginable_sort_link('optional_subset') %></th>
-        <th scope="col" class="text-center date-column"><%= _('Last updated') %>&nbsp;<%= paginable_sort_link('updated_at') %></th>
+        <th scope="col" class="text-center"><%= _('Status') %>&nbsp;<%= paginable_sort_link('guidance_groups.published') %></th>
+        <th scope="col" class="text-center"><%= _('Optional subset') %>&nbsp;<%= paginable_sort_link('guidance_groups.optional_subset') %></th>
+        <th scope="col" class="text-center date-column"><%= _('Last updated') %>&nbsp;<%= paginable_sort_link('guidance_groups.updated_at') %></th>
         <th scope="col" class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
       </tr>
     </thead>

@@ -66,21 +66,24 @@ class PlanExportsController < ApplicationController
   end
 
   def show_docx
+    # Using and optional locals_assign export_format
     render docx: "#{file_name}.docx",
-           content: render_to_string(partial: "shared/export/plan")
+           content: render_to_string(partial: "shared/export/plan",
+             locals: { export_format: "docx" })
   end
 
   def show_pdf
     render pdf: file_name,
            margin: @formatting[:margin],
            footer: {
-             center: _("Created using the %{application_name}. Last modified %{date}") % {
+             center: _("Created using %{application_name}. Last modified %{date}") % {
                application_name: Rails.configuration.branding[:application][:name],
-               date: l(@plan.updated_at.to_date, formats: :short)
+               date: l(@plan.updated_at.to_date, format: :readable)
               },
              font_size: 8,
              spacing:   (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-             right:     "[page] of [topage]"
+             right:     "[page] of [topage]",
+             encoding: "utf8"
            }
   end
 

@@ -26,6 +26,10 @@ addons:
   #   s3_region: "eu-west-2"
   #   debug: true
 
+services:
+  - mysql
+  - postgresql
+
 matrix:
   fast_finish: true
   include:
@@ -80,7 +84,7 @@ jobs:
 
     - stage: security
       name: "Bundle audit"
-      script: bundle exec bundle-audit check --update
+      script: bundle exec bundle-audit check --update --ignore CVE-2015-9284
 
     - stage: test
       name: "Running JS through linter checks"

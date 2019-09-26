@@ -40,6 +40,12 @@
 <% if question.option_comment_display %><!-- Comment text area for option_based questions -->
     <% text = question.question_format.rda_metadata? ? answer.answer_hash['text'] : answer.text %>
     <%= label_tag('answer[text]', _('Additional Information'), class: 'control-label') %>
-    <%= text_area_tag('answer[text]', text, id: "answer-text-#{question.id}", class: "form-control tinymce_answer") %>
+    <% if readonly %>
+      <div class="display-readonly-textarea-content">
+        <%= sanitize("<p>#{text}</p>") %>
+      </div>
+    <% else %>
+      <%= text_area_tag('answer[text]', text, id: "answer-text-#{question.id}", class: "form-control tinymce_answer") %>
+    <% end %>
 <% end %>
 </div>

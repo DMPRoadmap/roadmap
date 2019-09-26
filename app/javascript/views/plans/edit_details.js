@@ -1,7 +1,11 @@
 import { Tinymce } from '../../utils/tinymce';
 import getConstant from '../../constants';
+import 'bootstrap-3-typeahead';
 
 $(() => {
+  const grantIdField = $('.grant-id-typeahead');
+  const grantIdHidden = $('input#plan_grant_number');
+
   Tinymce.init();
   $('#is_test').click((e) => {
     $('#plan_visibility').val($(e.target).is(':checked') ? 'is_test' : 'privately_visible');
@@ -53,6 +57,45 @@ $(() => {
     toggleCheckboxes(selections);
   };
 
+  const grantNumberInfo = grantId => `Grant number: ${grantId}`;
+
+  const setInitialGrantProjectName = () => {
+    const grantId = grantIdHidden.val();
+    const researchProjects = window.researchProjects;
+    const researchProject = researchProjects.find(datum => datum.grant_id === grantId);
+    if (researchProject) {
+      grantIdField.val(researchProject.description);
+    }
+  };
+
+  const setUpTypeahead = () => {
+    if ($('.edit_plan').length) {
+      $.get('/research_projects.json', (data) => {
+        window.researchProjects = data;
+        const descriptionData = $.map(data, datum => datum.description);
+        grantIdField.typeahead({ source: descriptionData });
+      }).then(() => { setInitialGrantProjectName(); });
+      grantIdField.on('change', () => {
+        const current = grantIdField.typeahead('getActive');
+        if (current) {
+          // match or partial match found
+          const currentResearchProject = window.researchProjects.find((datum) => {
+            const fixString = string => String(string).toLowerCase();
+            return fixString(datum.description) === fixString(current);
+          });
+          if (currentResearchProject) {
+            const grantId = currentResearchProject.grant_id;
+            $('#grant_number_info').html(grantNumberInfo(grantId));
+            grantIdHidden.val(grantId);
+          }
+        } else {
+          $('#grant_number_info').html(grantNumberInfo(''));
+          grantIdHidden.val('');
+        }
+      });
+    }
+  };
+
   $('#other-guidance-orgs').find('input[type="checkbox"]').click((e) => {
     const checkbox = $(e.target);
     // Since this is the modal window, copy any selections over to the priority list
@@ -70,9 +113,12 @@ $(() => {
     }
     syncGuidance(checkbox.closest('ul[id]'));
   });
+
   $('#priority-guidance-orgs').find('input[type="checkbox"]').click((e) => {
     syncGuidance($(e.target).closest('ul[id]'));
   });
 
   toggleCheckboxes($('#priority-guidance-orgs input[type="checkbox"]:checked').map((i, el) => $(el).val()).get());
+
+  setUpTypeahead();
 });

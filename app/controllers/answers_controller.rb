@@ -144,6 +144,10 @@ class AnswersController < ApplicationController
     if !permitted[:id].present?
       permitted.delete(:id)
     end
+    # If no question options has been chosen.
+    if params[:answer][:question_option_ids].nil?
+        permitted[:question_option_ids] = []
+    end
     permitted
   end
 

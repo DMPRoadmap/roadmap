@@ -10,12 +10,11 @@ class OrgAdmin::PlansController < ApplicationController
       raise Pundit::NotAuthorizedError
     end
 
-    feedback_ids = Role.joins(user: :org)
-                       .where(roles: { user_id: current_user.id }, orgs: { is_other: false })
-                       .reviewer
-                       .pluck(:plan_id).uniq
-    @feedback_plans = Plan.where(id: feedback_ids)
-    @plans = current_user.org.plans
+    feedback_ids = Role.creator.joins(:user,:plan)
+      .where('users.org_id = ? AND plans.feedback_requested is TRUE AND roles.active is TRUE',
+              current_user.org_id).pluck(:plan_id)
+    @feedback_plans = Plan.where(id: feedback_ids).reject{|p| p.nil?}
+    @plans = current_user.org.plans.page(1)
   end
 
   # GET org_admin/plans/:id/feedback_complete

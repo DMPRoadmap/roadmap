@@ -1,0 +1,36 @@
+<div class="table-responsive">
+  <table class="table table-hover" id="departments">
+    <thead>
+      <tr>
+        <th scope="col" class="text-center"><%=  _('School or Department') %>&nbsp;<%= paginable_sort_link('departments.name') %></th>
+        <th scope="col" class="text-center"><%= _('Abbreviated Name or Code') %>&nbsp;<%= paginable_sort_link('departments.code') %></th>
+        <th scope="col" class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% scope.each do |department| %>
+        <tr>
+          <td><%= department.name %></td>
+          <td class="text-center"><%= department.code %></td>
+          <td>
+            <div class="dropdown">
+              <button
+                class="btn btn-link dropdown-toggle"
+                type="button"
+                id="department-<%= department.id %>-actions"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="true">
+                <%= _('Actions') %><span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="department-<%= department.id %>-actions">
+                <li><%= link_to _('Edit'), edit_org_department_path(org_id: department.org_id, id: department.id) %></li>
+                <li><%= link_to _('Remove'),  org_department_path(org_id: department.org_id, id: department.id), method: :delete, data: { confirm: _("You are about to delete '%{department_name}'. This will affect guidance. Are you sure?") % { :department_name => department.name }} %></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

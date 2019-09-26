@@ -6,7 +6,7 @@ ruby '>= 2.4.0'
 # RAILS
 # Full-stack web application framework. (http://www.rubyonrails.org)
 # Full-stack web application framework. (http://rubyonrails.org)
-gem 'rails', '~> 4.2.10'
+gem 'rails', '~> 4.2.11.1'
 
 # Rake is a Make-like program implemented in Ruby (https://github.com/ruby/rake)
 gem "rake"
@@ -64,7 +64,7 @@ gem 'jbuilder', '~> 2.6.0'
 #    USERS
 # devise for user authentication
 # Flexible authentication solution for Rails with Warden (https://github.com/plataformatec/devise)
-gem 'devise'
+gem 'devise', ">= 4.7.1"
 
 # An invitation strategy for Devise (https://github.com/scambra/devise_invitable)
 gem 'devise_invitable'
@@ -77,6 +77,12 @@ gem 'omniauth-shibboleth'
 
 # ORCID OAuth 2.0 Strategy for OmniAuth 1.0 (https://github.com/datacite/omniauth-orcid)
 gem 'omniauth-orcid'
+
+# This gem provides a mitigation against CVE-2015-9284 (Cross-Site Request Forgery on the request phase
+# when using OmniAuth gem with a Ruby on Rails application) by implementing a CSRF token verifier that
+# directly uses ActionController::RequestForgeryProtection code from Rails.
+#   https://nvd.nist.gov/vuln/detail/CVE-2015-9284
+gem "omniauth-rails_csrf_protection"
 
 # Pure Ruby implementation of Array#dig and Hash#dig for Ruby < 2.3. (https://github.com/Invoca/ruby_dig)
 gem 'ruby_dig'  # for omniauth-orcid
@@ -112,7 +118,7 @@ end
 
 
 # bootstrap-sass is a Sass-powered version of Bootstrap 3, ready to drop right into your Sass powered applications. (https://github.com/twbs/bootstrap-sass)
-gem 'bootstrap-sass', '~> 3.3.7'
+gem 'bootstrap-sass', '~> 3.4.1'
 
 # This is required for Font-Awesome, but not used as the main sass compiler
 
@@ -140,7 +146,7 @@ gem 'mini_racer'
 gem 'wkhtmltopdf-binary'
 
 # PDF generator (from HTML) gem for Ruby on Rails (https://github.com/mileszs/wicked_pdf)
-gem 'wicked_pdf'
+gem 'wicked_pdf', '~> 1.1.0'
 
 # This simple gem allows you to create MS Word docx documents from simple html documents. This makes it easy to create dynamic reports and forms that can be downloaded by your users as simple MS Word docx files. (http://github.com/karnov/htmltoword)
 gem 'htmltoword'
@@ -163,6 +169,8 @@ gem 'gettext', require: false, group: :development
 # PAGINATION
 # A pagination engine plugin for Rails 4+ and other modern frameworks (https://github.com/kaminari/kaminari)
 gem 'kaminari'
+
+gem 'api-pagination'
 
 # Following best practices from http://12factor.net run a maintainable, clean, and scalable app on Rails (https://github.com/heroku/rails_12factor)
 gem "rails_12factor", group: [:production]
