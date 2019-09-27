@@ -9,9 +9,13 @@
 @import "utils/*";
 
 // JQuery-UI CSS for Datepicker
-@import "vendor/jquery-ui/datepicker/jquery-ui.min.css";
-@import "vendor/jquery-ui/datepicker/jquery-ui.structure.min.css";
-@import "vendor/jquery-ui/datepicker/jquery-ui.theme.min.css";
+// @import "./vendor/jquery-ui/datepicker/jquery-ui.min.css";
+// @import "./vendor/jquery-ui/datepicker/jquery-ui.structure.min.css";
+// @import "./vendor/jquery-ui/datepicker/jquery-ui.theme.min.css";
+
+/*
+ *= require jquery-ui/datepicker
+ */
 
 @import "font-awesome-sprockets";
 @import "font-awesome";
