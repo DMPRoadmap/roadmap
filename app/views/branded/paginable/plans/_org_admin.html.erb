@@ -21,8 +21,8 @@
             <% end %>
           </td>
           <td><%= plan.template.title %></td>
-          <td><%= plan.owner.org.name %></td>
-          <td><%= plan.owner.name(false) %></td>
+          <td><%= plan.owner ? plan.owner.org.name : current_user.org.name %></td>
+          <td><%= plan.owner ? plan.owner.name(false) : _('Unknown') %></td>
           <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
           <td class="plan-visibility">
             <%= plan.visibility === 'is_test' ? _('Test') : sanitize(display_visibility(plan.visibility)) %>
