@@ -3183,3 +3183,33 @@ msgstr "aide pour les administrateurs"
 
 msgid "If you have questions pertaining to this action, please visit the My Dashboard page in %{tool_name}"
 msgstr "Si vous avez des questions concernant cette action, visitez le Tableau de Bord de %{tool_name}"
+
+msgid "Schools/Departments"
+msgstr "Ecoles/Départements"
+
+msgid "Create school/department"
+msgstr "Créer école/département"
+
+msgid "School or Department"
+msgstr "Ecole ou Département"
+
+msgid "Abbreviated Name or Code"
+msgstr "Nom abbrégé ou Code"
+
+msgid "Create a School/Department"
+msgstr "Créer une Ecole/Département"
+
+msgid "Edit the School/Department"
+msgstr "Modifier l'Ecole/Département"
+
+msgid "View all departments"
+msgstr "Voir tous les départements"
+
+msgid "Add the name of a school/department."
+msgstr "Ajoutez le nom d'une école ou département"
+
+msgid "Add the abbreviated name or code for the school/department."
+msgstr "Ajoutez le nom abbrégé ou le code de l'école ou du département."
+
+msgid "department"
+msgstr "département"

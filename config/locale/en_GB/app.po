@@ -3199,3 +3199,33 @@ msgstr ""
 
 msgid "If you have questions pertaining to this action, please visit the My Dashboard page in %{tool_name}"
 msgstr ""
+
+msgid "Schools/Departments"
+msgstr ""
+
+msgid "Create school/department"
+msgstr ""
+
+msgid "School or Department"
+msgstr ""
+
+msgid "Abbreviated Name or Code"
+msgstr ""
+
+msgid "Create a School/Department"
+msgstr ""
+
+msgid "Edit the School/Department"
+msgstr ""
+
+msgid "View all departments"
+msgstr ""
+
+msgid "Add the name of a school/department."
+msgstr ""
+
+msgid "Add the abbreviated name or code for the school/department."
+msgstr ""
+
+msgid "department"
+msgstr ""
