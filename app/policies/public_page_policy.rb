@@ -15,6 +15,7 @@ class PublicPagePolicy < ApplicationPolicy
 
   def template_export?
     true
+    #@object.present? && ( @object.is_default? || @object.org.funder? ) && @object.published?
   end
 
   def plan_export?

@@ -9,7 +9,7 @@
         </li>
         <li>
             <span class="label label-info">
-                <%= "#{user.name} at #{l(note.updated_at, format: :short)}" %>
+                <%= "#{user.name} " %> <time class="timeago" datetime="<%= note.updated_at.iso8601 %>"></time>
             </span>
         </li>
     </ul>

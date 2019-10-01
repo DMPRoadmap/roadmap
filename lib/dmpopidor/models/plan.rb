@@ -6,11 +6,11 @@ module Dmpopidor
 
       # CHANGE : Fix to creator display
       def owner
-        usr_ids = Role.where(plan_id: id, active: true)
+        usr_id = Role.where(plan_id: id, active: true)
                       .creator
                       .order(:created_at)
-                      .pluck(:user_id).uniq
-        User.where(id: usr_ids).first
+                      .pluck(:user_id).first
+        User.find(usr_id)
       end
 
       # CHANGES : ADDED RESEARCH OUTPUT SUPPORT
