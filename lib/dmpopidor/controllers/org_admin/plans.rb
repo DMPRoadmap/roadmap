@@ -10,8 +10,10 @@ module Dmpopidor
             raise Pundit::NotAuthorizedError
           end
 
-          feedback_ids = Role.where(user_id: current_user.id).reviewer.pluck(:plan_id).uniq
-          @feedback_plans = Plan.where(id: feedback_ids)
+          feedback_ids = Role.creator.joins(:user,:plan)
+            .where('users.org_id = ? AND plans.feedback_requested is TRUE AND roles.active is TRUE',
+              current_user.org_id).pluck(:plan_id)
+          @feedback_plans = Plan.where(id: feedback_ids).reject{|p| p.nil?}
           @plans = current_user.org.plans.where.not(visibility: [Plan.visibilities[:privately_private_visible], Plan.visibilities[:is_test]]).page(1)
         end
 

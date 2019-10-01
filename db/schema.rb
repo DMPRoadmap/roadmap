@@ -55,6 +55,16 @@ ActiveRecord::Schema.define(version: 20190620144049) do
   add_index "answers_question_options", ["answer_id"], name: "answers_question_options_answer_id_idx", using: :btree
   add_index "answers_question_options", ["question_option_id"], name: "answers_question_options_question_option_id_idx", using: :btree
 
+  create_table "departments", force: :cascade do |t|
+    t.string   "name"
+    t.string   "code"
+    t.integer  "org_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "departments", ["org_id"], name: "index_departments_on_org_id", using: :btree
+
   create_table "exported_plans", force: :cascade do |t|
     t.integer  "plan_id"
     t.integer  "user_id"
@@ -488,6 +498,7 @@ ActiveRecord::Schema.define(version: 20190620144049) do
     t.integer  "language_id"
     t.string   "recovery_email"
     t.boolean  "active",                            default: true
+    t.integer  "department_id"
   end
 
   add_index "users", ["email"], name: "users_email_key", unique: true, using: :btree
@@ -543,6 +554,7 @@ ActiveRecord::Schema.define(version: 20190620144049) do
   add_foreign_key "themes_in_guidance", "themes"
   add_foreign_key "user_identifiers", "identifier_schemes"
   add_foreign_key "user_identifiers", "users"
+  add_foreign_key "users", "departments"
   add_foreign_key "users", "languages"
   add_foreign_key "users", "orgs"
   add_foreign_key "users_perms", "perms"

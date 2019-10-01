@@ -18,6 +18,10 @@ module Api
       def create?
         @template.present?
       end
+
+      def index?
+        @user.can_org_admin?
+      end
     end
   end
 end

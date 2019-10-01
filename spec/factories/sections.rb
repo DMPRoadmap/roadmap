@@ -29,5 +29,13 @@ FactoryBot.define do
     sequence(:number)
     phase
     modifiable { false }
+
+    transient do
+      questions { 0 }
+    end
+
+    after(:create) do |section, evaluator|
+      create_list(:question, evaluator.questions, section: section)
+    end
   end
 end

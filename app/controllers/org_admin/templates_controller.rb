@@ -252,15 +252,15 @@ module OrgAdmin
       template = Template.find(params[:id])
       authorize template
       # rubocop:disable Metrics/LineLength
-      if template.latest?
-        # Now make the current version published
+      publishable, errors = template.publishability
+      if publishable
         if template.publish!
           flash[:notice] = _("Your #{template_type(template)} has been published and is now available to users.")
         else
           flash[:alert] = _("Unable to publish your #{template_type(template)}.")
         end
       else
-        flash[:alert] = _("You can not publish a historical version of this #{template_type(template)}.")
+        flash[:alert] = errors
       end
       # rubocop:enable Metrics/LineLength
       redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path

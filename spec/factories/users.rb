@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -31,6 +33,7 @@
 #  surname                :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  department_id          :integer
 #  invited_by_id          :integer
 #  language_id            :integer
 #  org_id                 :integer
@@ -43,6 +46,7 @@
 #
 # Foreign Keys
 #
+#  fk_rails_...  (department_id => departments.id)
 #  fk_rails_...  (language_id => languages.id)
 #  fk_rails_...  (org_id => orgs.id)
 #
@@ -58,7 +62,9 @@ FactoryBot.define do
 
     trait :org_admin do
       after(:create) do |user, evaluator|
-        %w[modify_templates modify_guidance change_org_details grant_permissions].each do |perm_name|
+        %w[modify_templates modify_guidance
+           change_org_details
+           grant_permissions].each do |perm_name|
           user.perms << Perm.find_or_create_by(name: perm_name)
         end
       end

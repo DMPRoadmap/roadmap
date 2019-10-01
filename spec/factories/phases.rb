@@ -32,10 +32,11 @@ FactoryBot.define do
 
     transient do
       sections { 0 }
+      questions { 0 }
     end
 
     after(:create) do |phase, evaluator|
-      create_list(:section, evaluator.sections, phase: phase)
+      create_list(:section, evaluator.sections, phase: phase, questions: evaluator.questions)
     end
   end
 end
