@@ -141,8 +141,7 @@ class Plan < ActiveRecord::Base
   # Retrieves any plan in which the user has an active role and
   # is not a reviewer
   scope :active, lambda { |user|
-    plan_ids = Role.where(active: true, user_id: user.id)
-                   .not_reviewer.pluck(:plan_id)
+    plan_ids = Role.where(active: true, user_id: user.id).pluck(:plan_id)
 
     includes(:template, :roles)
     .where(id: plan_ids)
@@ -278,13 +277,6 @@ class Plan < ActiveRecord::Base
     Plan.transaction do
       begin
         self.feedback_requested = true
-        # Share the plan with each org admin as the reviewer role
-        admins = user.org.org_admins
-        admins.each do |admin|
-          unless admin == user
-            add_user!(admin.id, :reviewer)
-          end
-        end
         if save!
           # Send an email to the org-admin contact
           if user.org.contact_email.present?
@@ -311,10 +303,6 @@ class Plan < ActiveRecord::Base
     Plan.transaction do
       begin
         self.feedback_requested = false
-
-        # Remove the org admins reviewer role from the plan
-        roles.delete(Role.where(plan: self).reviewer)
-
         if save!
           # Send an email confirmation to the owners and co-owners
           deliver_if(recipients: owner_and_coowners,
@@ -361,7 +349,7 @@ class Plan < ActiveRecord::Base
       # If the user is an org admin and the config allows for org admins to view plans
       elsif current_user.can_org_admin? &&
           Branding.fetch(:service_configuration, :plans, :org_admins_read_all)
-        true
+        owner_and_coowners.map(&:org_id).include?(current_user.org_id)
       else
         commentable_by?(user_id)
       end
@@ -376,7 +364,7 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def commentable_by?(user_id)
-    Role.commenter.where(plan_id: id, user_id: user_id, active: true).any?
+    Role.commenter.where(plan_id: id, user_id: user_id, active: true).any? || reviewable_by?(user_id)
   end
 
   # determines if the plan is administerable by the specified user
@@ -394,7 +382,10 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def reviewable_by?(user_id)
-    Role.reviewer.where(plan_id: id, user_id: user_id, active: true).any?
+    reviewer = User.find(user_id)
+    feedback_requested? &&
+    reviewer.org_id == owner.org_id &&
+    reviewer.can_review_plans?
   end
 
   # the datetime for the latest update of this plan
@@ -409,11 +400,11 @@ class Plan < ActiveRecord::Base
   # Returns User
   # Returns nil
   def owner
-    usr_ids = Role.where(plan_id: id, active: true)
+    usr_id = Role.where(plan_id: id, active: true)
                   .administrator
                   .order(:created_at)
-                  .pluck(:user_id).uniq
-    User.where(id: usr_ids).first
+                  .pluck(:user_id).first
+    User.find(usr_id)
   end
 
   # Creates a role for the specified user (will update the user's
@@ -440,14 +431,20 @@ class Plan < ActiveRecord::Base
         role.editor = true
       when :editor
         role.editor = true
-      when :reviewer
-        role.reviewer = true
       end
       role.commenter = true
       role.save
     else
       false
     end
+  end
+
+  ## Update plan identifier.
+  #
+  # Returns Boolean
+  def add_identifier!(identifier)
+    self.update(identifier: identifier)
+    save!
   end
 
   ##

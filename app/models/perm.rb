@@ -60,4 +60,8 @@ class Perm < ActiveRecord::Base
   def self.grant_api
     Perm.find_by(name: 'grant_api_to_orgs')
   end
+
+  def self.review_plans
+    Perm.find_by(name: 'review_org_plans')
+  end
 end
