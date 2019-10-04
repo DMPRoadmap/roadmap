@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'webdrivers/chromedriver'
 require_relative "helpers/capybara_helper"
 require_relative "helpers/sessions_helper"
 require_relative "helpers/tiny_mce_helper"
@@ -9,6 +10,9 @@ SCREEN_SIZE = [2400, 1350]
 DIMENSION   = Selenium::WebDriver::Dimension.new(*SCREEN_SIZE)
 
 Capybara.default_driver = :rack_test
+
+# Cache for one hour
+Webdrivers.cache_time = 3600
 
 # This is a customisation of the default :selenium_chrome_headless config in:
 # https://github.com/teamcapybara/capybara/blob/master/lib/capybara.rb
