@@ -53,21 +53,21 @@
 
                   <%# case where Question has options %>
                   <% if options.any? %>
-                    <ul>
+                    <ol>
                       <% options.each do |opt| %>
                         <li><%= opt.text %></li>
                       <% end %>
-                    </ul>
+                    </ol>
                   <% end %>
                   <%# case for RDA answer display %>
                   <% if question[:format].rda_metadata? && !blank %>
                     <% ah = answer.answer_hash %>
                     <% if ah['standards'].present? %>
-                      <ul>
+                      <ol>
                         <% ah['standards'].each do |id, title| %>
                           <li><%= title %></li>
                         <% end %>
-                      </ul>
+                      </ol>
                     <% end %>
                     <p><%= sanitize ah['text'] %></p>
                     <br>
