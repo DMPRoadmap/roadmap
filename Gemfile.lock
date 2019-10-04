@@ -43,11 +43,11 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    annotate (2.6.5)
-      activerecord (>= 2.3.0)
-      rake (>= 0.8.7)
-    annotate_gem (0.0.14)
-      bundler (>= 1.1)
+    annotate (2.7.5)
+      activerecord (>= 3.2, < 7.0)
+      rake (>= 10.4, < 13.0)
+    annotate_gem (0.0.13)
+      bundler (~> 1.1)
     api-pagination (4.8.2)
     archive-zip (0.12.0)
       io-like (~> 0.3.0)
@@ -87,7 +87,8 @@ GEM
     capybara-screenshot (1.0.23)
       capybara (>= 1.0, < 4)
       launchy
-    childprocess (1.0.0)
+    childprocess (2.0.0)
+      rake (< 13.0)
     chromedriver-helper (2.1.1)
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
@@ -516,6 +517,7 @@ DEPENDENCIES
   mini_racer
   mocha
   mysql2 (~> 0.4.10)
+  nokogiri (>= 1.10.3)
   omniauth
   omniauth-orcid
   omniauth-rails_csrf_protection
@@ -554,7 +556,7 @@ DEPENDENCIES
   yard-tomdoc
 
 RUBY VERSION
-   ruby 2.5.1p57
+   ruby 2.4.0p0
 
 BUNDLED WITH
    1.17.2

@@ -167,7 +167,7 @@
     <div class="col-md-4">
       <h2><%= _('Select Guidance') %></h2>
 
-      <% if @all_guidance_groups.length > 0 %>
+      <% if @plan.guidance_group_options.length > 0 %>
         <p><%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations.') %
             {application_name: Rails.configuration.branding[:application][:name]} %>
             </p>
@@ -175,12 +175,12 @@
           <p><%= _('Select up to 6 organisations to see their guidance.') %></p>
           <ul id="priority-guidance-orgs">
             <%= render partial: "guidance_choices",
-                          locals: {choices: @important_ggs, form: f,
-                                   current_selections: @selected_guidance_groups} %>
+                          locals: {choices: important_guidance_groups_for_plan(@plan), form: f,
+                                   current_selections: selected_guidance_groups_for_plan(@plan) } %>
           </ul>
         </fieldset>
 
-        <% if @all_guidance_groups.length > @important_ggs.length %>
+        <% if @plan.guidance_group_options.length > important_guidance_groups_for_plan(@plan).length %>
           <p><%= _('Find guidance from additional organisations below') %></p>
           <%= link_to _('See the full list'), '#', 'data-toggle' =>  'modal', 'data-target' => '#modal-full-guidances', class: 'modal-guidances-window' %>
         <% end %>
@@ -192,7 +192,7 @@
       <% end %>
     </div>
 
-    <% if @all_guidance_groups.length > @important_ggs.length %>
+    <% if @plan.guidance_group_options.length > important_guidance_groups_for_plan(@plan).length %>
       <div id="modal-full-guidances" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -209,8 +209,8 @@
                 <p><strong><%= _("Don't forget to save your changes after making your selections.") %></strong></p>
                 <ul id="other-guidance-orgs">
                   <%= render partial: "guidance_choices",
-                             locals: {choices: @all_ggs_grouped_by_org, form: f,
-                                       current_selections: @selected_guidance_groups} %>
+                             locals: {choices: all_guidance_groups_by_org_for_plan(@plan), form: f,
+                                       current_selections: selected_guidance_groups_for_plan(@plan) } %>
                 </ul>
               </div>
             </div>

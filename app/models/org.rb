@@ -22,12 +22,10 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  language_id            :integer
-#  region_id              :integer
 #
 # Foreign Keys
 #
 #  fk_rails_...  (language_id => languages.id)
-#  fk_rails_...  (region_id => regions.id)
 #
 
 class Org < ActiveRecord::Base
@@ -59,13 +57,25 @@ class Org < ActiveRecord::Base
 
   belongs_to :language
 
-  belongs_to :region
+  has_many :org_regions, dependent: :destroy
+
+  has_many :regions, through: :org_regions
 
   has_many :guidance_groups, dependent: :destroy
+
+  has_many :guidances, through: :guidance_groups
 
   has_many :templates
 
   has_many :users
+
+  has_many :active_users, -> { User.active }, class_name: "User"
+
+  has_many :administrator_roles, -> { Role.administrator },
+                                 class_name: "Role", through: :active_users, source: :roles
+
+
+  has_many :plans, through: :administrator_roles
 
   has_many :annotations
 
@@ -236,14 +246,6 @@ class Org < ActiveRecord::Base
   def org_admins
     User.joins(:perms).where("users.org_id = ? AND perms.name IN (?)", self.id,
       ["grant_permissions", "modify_templates", "modify_guidance", "change_org_details"])
-  end
-
-  def plans
-    plan_ids = Role.administrator
-                   .where(user_id: self.users.pluck(:id), active: true)
-                   .pluck(:plan_id).uniq
-    Plan.includes(:template, :phases, :roles, :users)
-        .where(id: plan_ids)
   end
 
   def grant_api!(token_permission_type)

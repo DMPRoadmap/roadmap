@@ -50,7 +50,9 @@ RSpec.describe Org, type: :model do
 
     it { should belong_to(:language) }
 
-    it { should belong_to(:region) }
+    it { is_expected.to have_many :org_regions }
+    
+    it { should have_many(:regions).through(:org_regions) }
 
     it { should have_many(:guidance_groups).dependent(:destroy) }
 

@@ -17,6 +17,8 @@ class ApplicationController < ActionController::Base
   include Pundit
   helper_method GlobalHelpers.instance_methods
 
+  helper_method :current_org
+
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   # When we are in production reroute Record Not Found errors to the branded 404 page

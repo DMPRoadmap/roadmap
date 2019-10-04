@@ -35,6 +35,9 @@ class Language < ActiveRecord::Base
 
   has_many :orgs
 
+  has_many :region_languages
+
+  has_many :regions, through: :region_languages
 
   # ===============
   # = Validations =
@@ -78,7 +81,7 @@ class Language < ActiveRecord::Base
   def self.default
     where(default_language: true).first
   end
-  
+
   private
 
   def format_abbreviation

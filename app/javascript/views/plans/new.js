@@ -51,6 +51,8 @@ $(() => {
 
   // When one of the autocomplete fields changes, fetch the available templates
   const handleComboboxChange = debounce(() => {
+    // Re-display link if hidden
+    $('#plan_show_all_templates').show();
     const validOrg = (isValidText($('#plan_org_id').val()) || $('#plan_no_org').prop('checked'));
     const validFunder = (isValidText($('#plan_funder_id').val()) || $('#plan_no_funder').prop('checked'));
 
@@ -83,6 +85,20 @@ $(() => {
       $(`#plan_${name}_id`).val('');
     }
     handleComboboxChange();
+  };
+
+  // When the all link is clicked (only visible on certain deployments)
+  const handleAllLinkClick = (e) => {
+    e.preventDefault();
+    $('#plan_show_all_templates').fadeOut();
+    $('#plan_template_id option').remove();
+
+    // Fetch the available templates based on the funder and research org selected
+    const qryStr = `?all=true`;
+    $.ajax({
+      url: `${$('#template-option-target').val()}${qryStr}`
+    }).done(success).fail(error);
+
   };
 
   initAutoComplete();
@@ -119,4 +135,6 @@ $(() => {
   if ($('#plan_no_funder').prop('checked')) {
     handleCheckboxClick('funder', $('#plan_no_funder').prop('checked'));
   }
+
+  $('body').on('click', '#plan_show_all_templates', handleAllLinkClick);
 });

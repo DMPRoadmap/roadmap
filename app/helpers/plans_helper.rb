@@ -1,4 +1,40 @@
+# frozen_string_literal
+
 module PlansHelper
+
+  def selected_guidance_groups_for_plan(plan)
+    plan.guidance_groups.ids
+  end
+
+  def all_guidance_groups_by_org_for_plan(plan)
+    plan.guidance_group_options.sort.group_by(&:org)
+  end
+
+  def important_guidance_groups_for_plan(plan)
+    all_ggs_grouped_by_org   = all_guidance_groups_by_org_for_plan(plan)
+    selected_guidance_groups = selected_guidance_groups_for_plan(plan)
+
+    # Important ones come first on the page - we grab the user's org's GGs and
+    # "Organisation" org type GGs
+    important_ggs = []
+
+    if all_ggs_grouped_by_org.include?(current_user.org)
+      important_ggs << [current_user.org, all_ggs_grouped_by_org[current_user.org]]
+    end
+    all_ggs_grouped_by_org.each do |org, ggs|
+      if org.organisation?
+        important_ggs << [org, ggs]
+      end
+
+      # If this is one of the already selected guidance groups its important!
+      if !(ggs & selected_guidance_groups).empty?
+        important_ggs << [org, ggs] unless important_ggs.include?([org, ggs])
+      end
+    end
+
+    # Sort the rest by org name for the accordion
+    important_ggs.sort_by { |org, gg| (org.nil? ? "" : org.name) }
+  end
 
   # display the role of the user for a given plan
   def display_role(role)

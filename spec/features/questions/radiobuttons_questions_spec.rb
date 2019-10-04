@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Questions::Tadio button questions" do
+RSpec.describe "Questions::Radio button questions" do
 
   before do
     @default_template  = create(:template, :default, :published)
