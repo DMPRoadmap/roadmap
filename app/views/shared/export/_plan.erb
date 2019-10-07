@@ -35,7 +35,8 @@
                 <% if !@public_plan && @show_sections_questions%>
                   <%# Hack: for DOCX export - otherwise, bold highlighting of question inconsistent. %>
                   <% if local_assigns[:export_format] && export_format == 'docx' %>
-                    <strong><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></strong>
+                    <%  question_text_for_docx = question[:text].to_s.gsub('<ul>', '<ol>').gsub('</ul>', '</ol>') %>
+                    <strong><%=  sanitize question_text_for_docx, scrubber: TableFreeScrubber.new %></strong>
                   <% else %>
                     <div class="bold"><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></div>
                   <% end %>
@@ -53,27 +54,53 @@
 
                   <%# case where Question has options %>
                   <% if options.any? %>
-                    <ol>
+                    <% if local_assigns[:export_format] && export_format == 'docx' %>
+                      <ol>
+                    <% else %>
+                      <ul>
+                    <% end %>
                       <% options.each do |opt| %>
                         <li><%= opt.text %></li>
                       <% end %>
-                    </ol>
+                    <% if local_assigns[:export_format] && export_format == 'docx' %>
+                      </ol>
+                    <% else %>
+                      </ul>
+                    <% end %>
                   <% end %>
                   <%# case for RDA answer display %>
                   <% if question[:format].rda_metadata? && !blank %>
                     <% ah = answer.answer_hash %>
                     <% if ah['standards'].present? %>
-                      <ol>
+                      <% if local_assigns[:export_format] && export_format == 'docx' %>
+                        <ol>
+                      <% else %>
+                        <ul>
+                      <% end %>
                         <% ah['standards'].each do |id, title| %>
                           <li><%= title %></li>
                         <% end %>
-                      </ol>
+                      <% if local_assigns[:export_format] && export_format == 'docx' %>
+                        </ol>
+                      <% else %>
+                        </ul>
+                      <% end %>
                     <% end %>
-                    <p><%= sanitize ah['text'] %></p>
+                    <% if local_assigns[:export_format] && export_format == 'docx' %>
+                      <%  ah_text_for_docx = sanitize ah['text'].to_s.gsub('<ul>', '<ol>').gsub('</ul>', '</ol>') %>
+                      <p><%=  ah_text_for_docx %></p>
+                    <% else %>
+                      <p><%= sanitize ah['text'] %></p>
+                    <% end %>
                     <br>
                   <%# case for displaying comments OR text %>
                   <% elsif !blank %>
-                    <%= sanitize answer.text %>
+                    <% if local_assigns[:export_format] && export_format == 'docx' %>
+                      <%  answer_text_for_docx = sanitize answer.text.gsub('<ul>', '<ol>').gsub('</ul>', '</ol>') %>
+                      <%= answer_text_for_docx %>
+                    <% else %>
+                      <%= sanitize answer.text %>
+                    <% end %>
                     <br><br>
                   <% end %>
                 <% end %>
