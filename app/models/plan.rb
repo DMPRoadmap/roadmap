@@ -165,8 +165,11 @@ class Plan < ActiveRecord::Base
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     joins(:template)
-    .where("lower(plans.title) LIKE lower(?) OR lower(templates.title) LIKE lower(?)",
-            search_pattern, search_pattern)
+    .where("lower(plans.title) LIKE lower(:search_pattern)
+            OR lower(templates.title) LIKE lower(:search_pattern)
+            OR lower(plans.principal_investigator) LIKE lower(:search_pattern)
+            OR lower(plans.principal_investigator_identifier) LIKE lower(:search_pattern)",
+            search_pattern: search_pattern)
   }
 
   # Retrieves plan, template, org, phases, sections and questions
