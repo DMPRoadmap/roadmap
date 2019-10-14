@@ -88,7 +88,15 @@ class PlanExportsController < ApplicationController
   end
 
   def file_name
-    @plan.title.gsub(/ /, "_")
+    # Sanitize bad characters and replace spaces with underscores
+    ret = @plan.title
+    Zaru.sanitize! ret
+    ret = ret.strip.gsub(/\s+/, "_")
+    # limit the filename length to 100 chars. Windows systems have a MAX_PATH allowance
+    # of 255 characters, so this should provide enough of the title to allow the user
+    # to understand which DMP it is and still allow for the file to be saved to a deeply
+    # nested directory
+    ret[0, 100]
   end
 
   def publicly_authorized?

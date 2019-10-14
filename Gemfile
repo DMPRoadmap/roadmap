@@ -154,6 +154,9 @@ gem 'htmltoword'
 # A feed fetching and parsing library (http://feedjira.com)
 gem 'feedjira'
 
+# Filename sanitization for Ruby. This is useful when you generate filenames for downloads from user input
+gem 'zaru'
+
 # ------------------------------------------------
 # INTERNATIONALIZATION
 # Simple FastGettext Rails integration. (http://github.com/grosser/gettext_i18n_rails)
