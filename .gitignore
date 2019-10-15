@@ -38,7 +38,7 @@ db/test.sqlite3
 db/test.sqlite3-journal
 
 # Ingore DB dump files
-*.sql
+# *.sql
 *.psql
 *.sql.gz
 *.psql.gz
