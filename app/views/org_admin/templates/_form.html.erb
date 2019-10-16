@@ -20,8 +20,7 @@
                          placement: 'right' }%>
     <div class="checkbox">
       <%= f.label(:visibility) do %>
-        <%= check_box_tag('template_visibility', '0',
-                            (f.object.visibility == 'organisationally_visible')) %>
+        <%= f.check_box(:visibility, checked: f.object.visibility == 'organisationally_visible') %>
 
         <%= _('for internal %{org_name} use only') % { org_name: f.object.org.name } %>
       <% end %>

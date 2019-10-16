@@ -174,7 +174,11 @@ module OrgAdmin
       template = Template.find(params[:id])
       authorize template
       begin
-        template.assign_attributes(template_params)
+        args = template_params
+        # Swap in the appropriate visibility enum value for the checkbox value
+        args[:visibility] = args.fetch(:visibility, '0') == '1' ? 'organisationally_visible' : 'publicly_visible'
+
+        template.assign_attributes(args)
         if params["template-links"].present?
           template.links = ActiveSupport::JSON.decode(params["template-links"])
         end
