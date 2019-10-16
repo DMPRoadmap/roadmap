@@ -14,6 +14,11 @@ $light-rust: #faefed;
 $yellow: #FFCC00;
 $light-yellow: #fff9e5;
 
+body {
+    display: flex;
+    flex-direction: column;
+}
+
 /*
     MENU & FOOTER
 */
@@ -58,7 +63,7 @@ $light-yellow: #fff9e5;
 }
 #footer-navbar {
     margin-bottom: -20px;
-    position: static;
+    position: absolute;
     bottom: 0;
     width: 100%;
     border-radius:0px;
@@ -94,6 +99,7 @@ $light-yellow: #fff9e5;
  }
  @media (max-width: 1023px) {
     #footer-navbar {
+        position: unset;
         .break-point {
             display: none;
         }
@@ -110,7 +116,7 @@ $light-yellow: #fff9e5;
             }
         }
     }
-  }
+}
 
  
 
