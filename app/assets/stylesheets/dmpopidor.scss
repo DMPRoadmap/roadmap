@@ -17,6 +17,7 @@ $light-yellow: #fff9e5;
 body {
     display: flex;
     flex-direction: column;
+    padding-bottom: 0;
 }
 
 /*
@@ -61,61 +62,92 @@ body {
 .navbar-fixed-bottom {
     z-index: 50;
 }
-#footer-navbar {
-    margin-bottom: -20px;
-    position: absolute;
+
+#dmpopidor-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     bottom: 0;
-    width: 100%;
-    border-radius:0px;
+    color: $white;
     border-top: 3px solid $yellow;
-    &.navbar-dmpopidor {
-        background-color: $blue;
-        color: $white;
-    }
-    .navbar-nav {
-        li {
-            a, a:active,a:focus,a:visited {
-                color: $white;
+    background-color: $blue;
+    
+    
+    .footer-content {
+        padding: 0px 100px;
+        width: 100%;
+        
+        .footer-links-logos {
+            flex: 9;
+            display: flex;
+
+            .footer-links {
+                flex: 9;
             }
-            a:hover, a:focus {
-                color: $white;
-                background-color: $blue;
+            .footer-logos {
+                flex: 1;
+                padding: 5px;
+                display: flex;
+                align-items: center;
+
+                img {
+                    max-height: 50px;
+                }
             }
         }
-    }
-    .navbar-left {
-        padding-top: 10px;
-        li {
-            font-size: 16px;
-        }
-    }
-    .navbar-right {
-        margin-right: 50px;
-        .roadmap-logo {
-            height: 85px;
+        .footer-infos-sn {
+            display: flex;
+            flex: 1;
+            
+            .footer-infos {
+                flex: 9;
+            }
+            .footer-sn {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+            }
+
         }
 
+        span {
+            line-height: 50px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+
+    
+    a, a:active,a:focus,a:visited {
+        color: $white;
+        text-decoration: none;
+    }
+    a:hover, a:focus {
+        color: $white;
+        background-color: $blue;
     }
  }
- @media (max-width: 1023px) {
-    #footer-navbar {
-        position: unset;
+
+@media (max-width: 1023px) {
+    .footer-links-logos {
+        flex-direction: column;  
+        align-items: center;
         .break-point {
             display: none;
         }
-
-        .navbar-right {
-            margin-right: 0;
-        }
-        li {
-            text-align: center;
-            img {
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-            }
+        .footer-links {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
         }
     }
+    .footer-infos-sn {
+        flex-direction: column;  
+        align-items: center;
+    }
+     
 }
 
  

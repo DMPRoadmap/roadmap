@@ -4,35 +4,42 @@
   contact_us = Rails.application.config.branding[:organisation][:contact_us_url] || contact_us_path
 %>
 
-<!-- footer container -->
-<div id="footer-navbar" class="navbar-dmpopidor" role="navigation">
-  <div class="container-fluid">
-    <ul class="nav navbar-nav navbar-left">
-      <li><%= link_to "&copy; 2016 - #{Time.now.year} #{Rails.configuration.branding[:organisation][:abbreviation]}".sanitize, "#{Rails.configuration.branding[:organisation][:url] }", target: "_blank" %></li>
-      <li class="break-point"><span style="line-height:50px;padding-left:15px;padding-right:15px;">•</span></li>
-      <li><span style="line-height:50px;padding-left:15px;padding-right:15px;"><%= Rails.configuration.branding[:application][:version] %></span></li>
-      <li class="break-point"><span style="line-height:50px;padding-left:15px;padding-right:15px;">•</span></li>
-      <li><a href="<%= about_us_path %>"><%= _('About') %></a></li>  
-      <li><a href="<%= news_feed_path %>"><%= d_('dmpopidor', 'News') %></a></li>  
-      <li><a href="<%= terms_path %>"><%= _('Terms of use') %></a></li>
-      <li><a href="<%= privacy_path %>"><%= _('Privacy statement') %></a></li>
-      <li><a href="<%= tutorials_path %>"><%= d_('dmpopidor', 'Tutorials') %></a></li>
-      <li class="break-point"><span style="line-height:50px;padding-left:15px;padding-right:15px;">•</span></li>
-      <li><a href="<%= contact_us %>"><%= _('Contact us') %></a></li>
-      <li><a title="Github" target="_blank" href="<%= Rails.configuration.branding[:application][:url] %>" target="_blank"><i class="fa fa-github"></i></a></li> 
-      <!-- <li><a title="Twitter" target="_blank" href="<%= Rails.configuration.branding[:application][:twitter_url] %>"><i class="fa fa-twitter"></i></a></li>-->
-      <li><a title="<%= d_('dmpopidor', 'Mailing list') %>"  target="_blank" href="<%= Rails.configuration.branding[:application][:user_group_subscription_url] %>"><i class="fa fa-comments"></i></a></li>
-    
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li>
-        <%= link_to( image_tag("cnrs.gif", class: "img-responsive roadmap-logo", alt: 'CNRS logo'),
+<!-- footer content -->
+<div class="footer-content">
+  <div class="footer-links-logos">
+    <div class="footer-links">
+      <span><a href="<%= about_us_path %>"><%= _('About') %></a></span>
+      <span><a href="<%= terms_path %>"><%= _('Terms of use') %></a></a></span>
+      <span><a href="<%= privacy_path %>"><%= _('Privacy statement') %></a></span>
+      <span class="break-point">•</span>
+      <span><a href="<%= news_feed_path %>"><%= d_('dmpopidor', 'News') %></a></span>
+      <span><a href="<%= tutorials_path %>"><%= d_('dmpopidor', 'Tutorials') %></a></span>
+      <span><a href="<%= contact_us %>"><%= _('Contact us') %></a></a></span>
+    </div>
+    <div class="footer-logos">
+    <span>
+        <%= link_to( image_tag("cnrs.gif", class: "cnrs-logo", alt: 'CNRS logo'),
                          "http://www.cnrs.fr/", title: "CNRS", target: '_blank') %>
-      </li>
-      <li>
-        <%= link_to( image_tag("roadmap_logo_orange_white.png", class: "img-responsive roadmap-logo", alt: 'DMPRoadmap Github'),
+      </span>
+      <span>
+        <%= link_to( image_tag("roadmap_logo_orange_white.png", class: "roadmap-logo", alt: 'DMPRoadmap Github'),
                              "https://github.com/DMPRoadmap/roadmap", title: "DMPRoadmap Github", target: '_blank') %>
-      </li>
-    </ul>
+      </span>
+    </div>
   </div>
+
+  <!-- footer application version, credits & socials networks links -->
+  <div class="footer-infos-sn">
+    <div class="footer-infos">
+      <span><%= link_to "&copy; 2016 - #{Time.now.year} #{Rails.configuration.branding[:organisation][:abbreviation]}".sanitize, "#{Rails.configuration.branding[:organisation][:url] }", target: "_blank" %></span>
+      <span class="break-point">•</span>
+      <span><%= Rails.configuration.branding[:application][:version] %></span>
+    </div>
+    <div class="footer-sn">
+      <span><a title="Github" target="_blank" href="<%= Rails.configuration.branding[:application][:url] %>" target="_blank"><i class="fa fa-github"></i></a></span>
+      <span><a title="Twitter" target="_blank" href="<%= Rails.configuration.branding[:application][:twitter_url] %>"><i class="fa fa-twitter"></i></a></span>
+      <span><a title="<%= d_('dmpopidor', 'Mailing list') %>"  target="_blank" href="<%= Rails.configuration.branding[:application][:user_group_subscription_url] %>"><i class="fa fa-comments"></i></a></span>
+    </div>
+  </div>
+  
 </div>
