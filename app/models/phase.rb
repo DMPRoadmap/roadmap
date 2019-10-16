@@ -52,6 +52,8 @@ class Phase < ActiveRecord::Base
 
   has_many :sections, dependent: :destroy
 
+  has_many :questions, through: :sections
+
   has_many :template_sections, -> {
     not_modifiable
   }, class_name: "Section"
