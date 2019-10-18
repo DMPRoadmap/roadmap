@@ -6,6 +6,6 @@ update answers
 	where id > 0 and not (text = '' or text is null);
 select * from answers 
 	limit 100;
-rollback;
+commit;
 
     
