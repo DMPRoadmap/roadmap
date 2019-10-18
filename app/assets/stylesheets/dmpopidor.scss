@@ -69,17 +69,16 @@ body {
     align-items: center;
 
     bottom: 0;
-    color: $white;
-    border-top: 3px solid $yellow;
-    background-color: $blue;
     font-size: 16px;
     
     .footer-content {
-        padding: 0px 100px;
         width: 100%;
+        padding: 0px 100px;
+        color: $white;
+        background-color: $blue;
+        border-top: 3px solid $yellow;
         
         .footer-links-logos {
-            flex: 9;
             display: flex;
 
             .footer-links {
@@ -98,7 +97,7 @@ body {
         }
         .footer-infos-sn {
             display: flex;
-            flex: 1;
+            border-top: 1px solid $white;
             
             .footer-infos {
                 flex: 9;
@@ -122,11 +121,6 @@ body {
     
     a, a:active,a:focus,a:visited {
         color: $white;
-        text-decoration: none;
-    }
-    a:hover, a:focus {
-        color: $white;
-        background-color: $blue;
     }
  }
 
