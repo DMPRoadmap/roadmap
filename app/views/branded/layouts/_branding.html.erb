@@ -48,11 +48,6 @@
             <% end %>
           <% end %>
         </ul>
-        <div class="org-banner-text">
-        <%  if !current_user.org.banner_text.nil?  %>
-          <%= current_user.org.banner_text.html_safe %>
-        <% end %>
-        </div>
       <% end %>
 
       <!-- Navigation for organisation admin -->
@@ -124,4 +119,10 @@
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
+
+  <%  if !current_user.org.banner_text.nil?  %>
+    <div class="org-banner-text">
+        <%= current_user.org.banner_text.html_safe %>
+    </div>
+  <% end %>
 </nav>

@@ -20,6 +20,7 @@ body {
     padding-bottom: 0;
 }
 
+
 /*
     MENU & FOOTER
 */
@@ -27,13 +28,27 @@ body {
 /*
     MENU
 */
+
+header .main-nav {
+    display: flex;
+    justify-content: center;
+}
 #app-navbar {
+    position: fixed;
+    top: 0;
+    z-index: 5;
+    width: 100%;
     
     &.navbar-dmpopidor {
         background-color: $white;
         color: $blue;
     }
-    border-bottom: 3px solid $rust;
+    border-bottom: 2px solid $rust;
+
+    .navbar-content {
+        max-width: 1264px;
+    }
+
     .navbar-nav {
         li {
             a, a:active,a:focus,a:visited {
@@ -56,6 +71,34 @@ body {
  .navbar-toggle .icon-bar {
      background-color: $blue;
  }
+
+
+/*
+    ORG BRANDING
+*/
+.org-branding {
+    padding-top: 75px;
+
+    .container-fluid {
+        max-width: 1264px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .org-banner-text {
+        color: #1a1a1a;
+        text-align: center;
+        border-top: 1px solid #e7e7e7;
+        margin: auto;
+        padding-top: 5px;
+    }
+}
+
+
+/*
+    MAIN CONTENT
+*/
+
+
  /*
     FOOTER
  */
@@ -140,6 +183,15 @@ body {
     .footer-infos-sn {
         flex-direction: column;  
         align-items: center;
+    }
+    .org-branding {
+        padding-top: 175px;
+    }
+     
+}
+@media (max-width: 767px) {
+    .org-branding {
+        padding-top: 75px;
     }
      
 }
@@ -643,12 +695,6 @@ body {
     }
 }
 
-.org-banner-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
 
 /*
     PLAN CREATION
