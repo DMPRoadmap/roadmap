@@ -6,8 +6,8 @@ CREATE FUNCTION random_email()
     RETURNS VARCHAR(19)
     NO SQL
     BEGIN
-        DECLARE v_email VARCHAR(100) DEFAULT '';
-        SET v_email := CONCAT(LOWER(str_random_lipsum(1, null, null)), '@', LOWER(str_random_lipsum(1, null, null)), '.ca');
+        DECLARE v_email VARCHAR(255) DEFAULT '';
+        SET v_email := CONCAT(LEFT(MD5(RAND()), 8), '@', LOWER(str_random_lipsum(1, null, null)), '.ca');
         RETURN v_email;
     END;
 //
