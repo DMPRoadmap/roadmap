@@ -34,11 +34,11 @@ class UserPolicy < ApplicationPolicy
   end
 
   def edit?
-    signed_in_user.can_super_admin?
+    signed_in_user.can_super_admin? || signed_in_user.can_org_admin?
   end
 
   def update?
-    signed_in_user.can_super_admin?
+    signed_in_user.can_super_admin? || signed_in_user.can_org_admin?
   end
 
   def update_email_preferences?

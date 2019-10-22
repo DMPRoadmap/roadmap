@@ -168,6 +168,7 @@ Rails.application.routes.draw do
       get 'organisationally_or_publicly_visible/:page', action: :organisationally_or_publicly_visible, on: :collection, as: :organisationally_or_publicly_visible
       get 'publicly_visible/:page', action: :publicly_visible, on: :collection, as: :publicly_visible
       get 'org_admin/:page', action: :org_admin, on: :collection, as: :org_admin
+      get 'org_admin_other_user/:page', action: :org_admin_other_user, on: :collection, as: :org_admin_other_user
     end
     # Paginable actions for users
     resources :users, only: [] do
@@ -207,6 +208,7 @@ Rails.application.routes.draw do
 
   # ORG ADMIN specific pages
   namespace :org_admin do
+    resources :users, only: [:edit, :update], controller: "users"
     resources :plans, only: [:index] do
       member do
         get 'feedback_complete'
