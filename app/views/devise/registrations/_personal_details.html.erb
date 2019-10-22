@@ -34,7 +34,7 @@
     <% if departments.count > 0 %>
     <div class="form-group col-xs-8">
       <% dept_id = current_user.department.nil? ? -1 : current_user.department.id  %>
-      <%= f.label(:department_id, _('Department or school'), class: 'control-label') %>
+      <%= f.label(:department_id, _('School or Department'), class: 'control-label') %>
       <%= select_tag("user[department_id]",
           options_from_collection_for_select(departments, "id", "name", dept_id),
           include_blank: true,

@@ -460,8 +460,8 @@ msgid "Below is a list of users registered for your organisation. You can"
 msgstr "La liste ci-dessous indique les utilisateurs de votre organisme."
 "        Ces informations peuvent être triées par champ."
 
-#msgid "Below is a list of users registered for your organisation. You can sort the data by each field."
-#msgstr "La liste ci-dessous indique les utilisateurs de votre organisme. Ces informations peuvent être triées par champ."
+msgid "Below is a list of users registered for your organisation. You can sort the data by each field."
+msgstr "La liste ci-dessous indique les utilisateurs de votre organisme. Ces informations peuvent être triées par champ."
 
 msgid "Below is a summary of the sections and questions which have comments."
 msgstr "Le résumé ci-dessous présente les sections et les questions possédant des commentaires."
@@ -3213,3 +3213,30 @@ msgstr "Ajoutez le nom abbrégé ou le code de l'école ou du département."
 
 msgid "department"
 msgstr "département"
+
+msgid "Feedback email message"
+msgstr "Message du mail de l'assistance conseil"
+
+msgid "You can not publish a published template.  "
+msgstr "Vous ne pouvez pas publier un modèle publié.  "
+
+msgid "You can not publish a historical version of this template.  "
+msgstr "Vous ne pouvez pas publier une ancienne version de ce modèle.  "
+
+msgid "You can not publish a template without phases.  "
+msgstr "Vous ne pouvez pas publier un modèle san phase.  "
+
+msgid "You can not publish a template without sections in a phase.  "
+msgstr "Vous ne pouvez pas publier un modèle sans section dans une phase.  "
+
+msgid "You can not publish a template without questions in a section.  "
+msgstr "Vous ne pouvez pas publier un modèle sans question dans une section.  "
+
+msgid "Template version %{template_version}, published on %{published_date}"
+msgstr "Version %{template_version} du modèle, publiée le %{published_date}"
+
+msgid "Enter the email address of your collaborator: <ul><li> If they are already using %{tool_name}, they will see this plan on their dashboard, and receive an email. </li> <li> If they are not currently using %{tool_name}, they will receive an email inviting them to the tool so they can collaborate on your plan.</li></ul>"
+msgstr "Renseignez le couriel de votre collaborateur: <ul><li> Si ils utilisent déjà %{tool_name}, ils recevront un courriel et ce plan apparaîtra sur leur Tableau de Bord. </li> <li> S'ils n'utilisent pas %{tool_name}, ils recevront un courriel les invitant à s'inscrire à l'outil afin de pouvoir collaborer à ce plan.</li></ul>"
+
+msgid "Review plans"
+msgstr "Relecture des plans"
