@@ -20,8 +20,14 @@ update projects
 update projects
 	set principal_investigator_identifier = random_orcid()
     where id > 0 and not (principal_investigator_identifier = '' or principal_investigator_identifier is null);
+    
+-- update field data_contact with random email
+update projects
+	set data_contact = CONCAT(LEFT(MD5(RAND()), 8), '@', LOWER(str_random_lipsum(1, null, null)), '.ca')
+	where id > 0 and not (data_contact = '' or data_contact is null);
 
 select title, description, principal_investigator, grant_number, principal_investigator_identifier 
 from projects	
 limit 100;
+
 commit;
