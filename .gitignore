@@ -103,3 +103,5 @@ spec/examples.txt
 /node_modules
 yarn-debug.log*
 .yarn-integrity
+
+!portage_db_migration/db/*
