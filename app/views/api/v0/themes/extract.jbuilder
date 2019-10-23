@@ -1,7 +1,12 @@
 json.theme @theme.title
 json.answers @answers do |a|
   json.id a.id
-  json.answer a.text
+  if a.question.question_format.option_based
+    json.answer a.question_options.pluck(:text)
+    json.comment a.text
+  else 
+    json.answer a.text
+  end
   json.created_at a.created_at
   json.question do
     json.id a.question.id
