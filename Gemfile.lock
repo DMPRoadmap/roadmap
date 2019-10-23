@@ -507,7 +507,7 @@ DEPENDENCIES
   gettext_i18n_rails_js
   guard
   guard-rspec
-  htmltoword
+  htmltoword (= 1.1.0)
   jbuilder (~> 2.6.0)
   kaminari
   ledermann-rails-settings
