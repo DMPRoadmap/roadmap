@@ -17,4 +17,8 @@ json.answers @answers do |a|
     json.id a.plan.id
     json.title a.plan.title
   end
+  json.research_output do
+    json.id a.research_output.id
+    json.title a.research_output.abbreviation
+  end
 end
