@@ -90,24 +90,24 @@ RSpec.describe Org::CreateCreatedPlanService do
                                                        "2018-07-31"],
                                                        org_id: org.id)
         expect(april.details).to match_array(
-          "by_template" => [
+          "any_template" => [
             { "name" => template.title, "count" => 1 },
             { "name" => template2.title, "count" => 1 },
           ]
         )
         expect(may.details).to match_array(
-          "by_template" => [
+          "any_template" => [
             { "name" => template.title, "count" => 1 },
           ]
         )
         expect(june.details).to match_array(
-          "by_template" => [
+          "any_template" => [
             { "name" => template.title, "count" => 1 },
             { "name" => template2.title, "count" => 1 },
           ]
         )
         expect(july.details).to match_array(
-          "by_template" => []
+          "any_template" => []
         )
       end
 
@@ -159,24 +159,24 @@ RSpec.describe Org::CreateCreatedPlanService do
                                                        org_id: org.id)
 
         expect(april.details).to match_array(
-          "by_template" => [
+          "any_template" => [
             { "name" => template.title, "count" => 1 },
             { "name" => template2.title, "count" => 1 },
           ]
         )
         expect(may.details).to match_array(
-          "by_template" => [
+          "any_template" => [
             { "name" => template.title, "count" => 1 },
           ]
         )
         expect(june.details).to match_array(
-          "by_template" => [
+          "any_template" => [
             { "name" => template.title, "count" => 1 },
             { "name" => template2.title, "count" => 1 },
           ]
         )
         expect(july.details).to match_array(
-          "by_template" => []
+          "any_template" => []
         )
       end
 

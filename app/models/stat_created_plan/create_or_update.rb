@@ -8,12 +8,13 @@ class StatCreatedPlan
 
       def do(start_date:, end_date:, org:)
         count = count_plans(start_date: start_date, end_date: end_date, org: org)
-        by_template = by_template(start_date: start_date, end_date: end_date, org: org)
+        any_template = any_template(start_date: start_date, end_date: end_date, org: org)
+        org_template = org_template(start_date: start_date, end_date: end_date, org: org)
         attrs = {
           date: end_date.to_date,
           org_id: org.id,
           count: count,
-          details: { by_template: by_template }
+          details: { any_template: any_template, org_template: org_template }
         }
         stat_created_plan = StatCreatedPlan.find_by(
           date: attrs[:date],
@@ -47,7 +48,7 @@ class StatCreatedPlan
           .count
       end
 
-      def by_template(start_date:, end_date:, org:)
+      def any_template(start_date:, end_date:, org:)
         roleable_plan_ids = Role.joins([:plan, :user])
           .administrator
           .merge(users(org))
@@ -59,6 +60,22 @@ class StatCreatedPlan
           .group("templates.family_id").count
         most_recent_versions = Template.where(family_id: template_counts.keys)
           .group(:family_id).maximum("version")
+        most_recent_versions = most_recent_versions.map { |k, v| "#{k}=#{v}" }
+        template_names = Template.where("CONCAT(family_id, '=', version) IN (?)",
+          most_recent_versions).pluck(:family_id, :title)
+        template_names.map do |t|
+          { name: t[1], count: template_counts[t[0]] }
+        end
+      end
+
+      def org_template(start_date:, end_date:, org:)
+        org_templates_ids = org.templates.pluck(:id)
+
+        template_counts = Plan.joins(:template).where(template_id: org_templates_ids)
+          .merge(plans(start_date: start_date, end_date: end_date))
+          .group("templates.family_id").count
+        most_recent_versions = Template.where(family_id: template_counts.keys)
+        .group(:family_id).maximum("version")
         most_recent_versions = most_recent_versions.map { |k, v| "#{k}=#{v}" }
         template_names = Template.where("CONCAT(family_id, '=', version) IN (?)",
           most_recent_versions).pluck(:family_id, :title)

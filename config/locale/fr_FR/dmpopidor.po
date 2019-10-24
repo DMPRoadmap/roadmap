@@ -395,3 +395,9 @@ msgstr "Renseigner l’identifiant pérenne du produit de recherche s’il exist
 
 msgid "Please fill in separately for research outputs requireing a management specific to their nature or discipline."
 msgstr "A renseigner séparément pour des produits de recherche nécessitant une gestion spécifique à leur nature ou discipline."
+
+msgid "Templates used by %{org_name} users."
+msgstr "Modèles utilisés par les utilisateurs %{org_name}."
+
+msgid "No. plans created using %{org_name} templates."
+msgstr "Nombre de plans créés avec les modèles %{org_name}."

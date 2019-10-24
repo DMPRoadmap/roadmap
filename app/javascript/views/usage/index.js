@@ -172,8 +172,7 @@ $(() => {
 });
 
 $(() => {
-  const jQuerySelectorSelect = $('select[name=monthly_plans_by_template]');
-  let drawnChart = null;
+  const drawnChart = {};
   const randomRgb = () => {
     const { round, random } = Math;
     const max = 255;
@@ -204,10 +203,10 @@ $(() => {
     return chart;
   };
 
-  const buildData = (data) => {
+  const buildData = (data, templateFilter) => {
     const labels = data.map(current => yAxisLabel(current.date));
     const datasetsMap = data.reduce((acc, statCreatedPlan) => {
-      statCreatedPlan.by_template.forEach((template) => {
+      statCreatedPlan[`${templateFilter}_template`].forEach((template) => {
         if (!acc[template.name]) {
           acc[template.name] = { label: template.name, data: [], backgroundColor: randomRgb() };
         }
@@ -240,17 +239,24 @@ $(() => {
     return { labels, datasets };
   };
 
-  const fetch = (lastDayOfMonth, aspectRatio = 1) => {
-    const baseUrl = $('select[name="monthly_plans_by_template"]').attr('data-url');
-    $.ajax({
-      url: `${baseUrl}?start_date=${lastDayOfMonth}`,
-    }).then((data) => {
-      const chartData = buildData(data);
-      const canvasSelector = '#monthly_plans_by_template_canvas';
-      if (drawnChart) {
-        drawnChart.destroy();
-      }
-      drawnChart = drawHorizontalBar($(canvasSelector), chartData, aspectRatio);
+  const fetch = (lastDayOfMonth, aspectRatio = 1, filter = null) => {
+
+    const selectElements = filter ? $('select[name="monthly_plans_by_template"]').filter(`[data-template-filter="${filter}"]`) : $('select[name="monthly_plans_by_template"]');
+
+    selectElements.each((i, selectElem) => {
+      const baseUrl = $(selectElem).attr('data-url');
+      const templateFilter = $(selectElem).attr('data-template-filter');
+      $.ajax({
+        url: `${baseUrl}?start_date=${lastDayOfMonth}&templates=${templateFilter}`,
+      }).then((data) => {
+        const chartData = buildData(data, templateFilter);
+        const canvasSelector = `#monthly_plans_using_${templateFilter}_template_canvas`;
+        if (drawnChart[templateFilter]) {
+          drawnChart[templateFilter].destroy();
+          delete drawnChart[templateFilter];
+        }
+        drawnChart[templateFilter] = drawHorizontalBar($(canvasSelector), chartData, aspectRatio);
+      });
     });
   };
 
@@ -298,18 +304,22 @@ $(() => {
     return aspectRatio;
   };
 
-  const handler = () => {
-    const selectedMonth = jQuerySelectorSelect.val();
-
+  const handler = (selectedMonth = null, templateFilter = null) => {
     if (selectedMonth) {
       const aspectRatio = getAspectRatio(selectedMonth);
-      fetch(selectedMonth, aspectRatio);
+      fetch(selectedMonth, aspectRatio, templateFilter);
+    } else {
+      const month = $('select[name=monthly_plans_by_template]').val();
+      const aspectRatio = getAspectRatio(month);
+      fetch(month, aspectRatio, templateFilter);
     }
   };
 
-  jQuerySelectorSelect.on('change', (e) => {
+  $('select[name=monthly_plans_by_template]').on('change', (e) => {
+    const selectedMonth = $(e.target).val();
+    const templateFilter = $(e.target).attr('data-template-filter');
     e.preventDefault();
-    handler();
+    handler(selectedMonth, templateFilter);
   });
 
   handler();

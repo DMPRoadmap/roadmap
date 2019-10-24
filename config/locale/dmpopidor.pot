@@ -401,3 +401,8 @@ msgstr ""
 msgid "Please fill in separately for research outputs requireing a management specific to their nature or discipline."
 msgstr ""
 
+msgid "Templates used by %{org_name} users."
+msgstr ""
+
+msgid "No. plans created using %{org_name} templates."
+msgstr ""

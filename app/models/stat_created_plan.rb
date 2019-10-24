@@ -20,31 +20,41 @@ class StatCreatedPlan < Stat
 
   serialize :details, JSON
 
-  def by_template
+  def any_template
     if self.details.present?
-      by_template = self.details["by_template"]
+      any_template = self.details["any_template"]
     end
-    return [] unless by_template.present?
-    by_template
+    return [] unless any_template.present?
+    any_template
+  end
+
+  def org_template
+    if self.details.present?
+      org_template = self.details["org_template"]
+    end
+    return [] unless org_template.present?
+    org_template
   end
 
   class << self
 
-    def to_csv(created_plans, details: { by_template: false })
-      if details[:by_template]
-        to_csv_by_template(created_plans)
-      else
+    def to_csv(created_plans, details: { any_template: false, org_template: false,})
+      if details[:any_template]
+        to_csv_by_template(created_plans, "any_template")
+      elsif details[:org_template]
+        to_csv_by_template(created_plans, "org_template")
+      else 
         super(created_plans)
       end
     end
 
     private
 
-    def to_csv_by_template(created_plans)
+    def to_csv_by_template(created_plans, template_filter)
       template_names = lambda do |created_plans|
         unique = Set.new
         created_plans.each do |created_plan|
-          created_plan.details&.fetch("by_template", [])&.each do |name_count|
+          created_plan.details&.fetch(template_filter, [])&.each do |name_count|
             unique.add(name_count.fetch("name"))
           end
         end
@@ -57,7 +67,7 @@ class StatCreatedPlan < Stat
           acc[name] = 0
           acc
         end
-        created_plan.details&.fetch("by_template", [])&.each do |name_count|
+        created_plan.details&.fetch(template_filter, [])&.each do |name_count|
           tuple[name_count.fetch("name")] = name_count.fetch("count")
         end
         tuple[:Count] = created_plan.count

@@ -48,13 +48,13 @@ RSpec.describe "/stat_created_plan_by_template", type: :request do
       context "when there are stats" do
         before do
           create(:stat_created_plan, date: "2018-07-31", count: 5, org: org,
-            details: { by_template: [{ name: "Template1", count: 3 },
+            details: { any_template: [{ name: "Template1", count: 3 },
               { name: "Template2", count: 2 }] })
           create(:stat_created_plan, date: "2018-08-31", count: 10, org: org,
-            details: { by_template: [{ name: "Template1", count: 6 },
+            details: { any_template: [{ name: "Template1", count: 6 },
               { name: "Template2", count: 4 }] })
           create(:stat_created_plan, date: "2018-09-30", count: 10,
-            org: org, details: { by_template: [{ name: "Template1", count: 6 },
+            org: org, details: { any_template: [{ name: "Template1", count: 6 },
               { name: "Template2", count: 4 }] })
         end
 
@@ -62,13 +62,13 @@ RSpec.describe "/stat_created_plan_by_template", type: :request do
           get path
 
           expect(parsed_response).to eq([
-            { date: "2018-09-30", count: 10, by_template: [
+            { date: "2018-09-30", count: 10, any_template: [
               { name: "Template1", count: 6 },
               { name: "Template2", count: 4 }] },
-            { date: "2018-08-31", count: 10, by_template: [
+            { date: "2018-08-31", count: 10, any_template: [
               { name: "Template1", count: 6 },
               { name: "Template2", count: 4 }] },
-            { date: "2018-07-31", count: 5, by_template: [
+            { date: "2018-07-31", count: 5, any_template: [
               { name: "Template1", count: 3 },
               { name: "Template2", count: 2 }] }
           ])
@@ -90,10 +90,10 @@ RSpec.describe "/stat_created_plan_by_template", type: :request do
           get path, start_date: "2018-08-31", end_date: "2018-09-30"
 
           expect(parsed_response).to eq([
-            { date: "2018-09-30", count: 10, by_template: [
+            { date: "2018-09-30", count: 10, any_template: [
               { name: "Template1", count: 6 },
               { name: "Template2", count: 4 }] },
-            { date: "2018-08-31", count: 10, by_template: [
+            { date: "2018-08-31", count: 10, any_template: [
               { name: "Template1", count: 6 },
               { name: "Template2", count: 4 }] }
           ])
@@ -103,10 +103,10 @@ RSpec.describe "/stat_created_plan_by_template", type: :request do
           get path, start_date: "2018-08-31"
 
           expect(parsed_response).to eq([
-            { date: "2018-09-30", count: 10, by_template: [
+            { date: "2018-09-30", count: 10, any_template: [
               { name: "Template1", count: 6 },
               { name: "Template2", count: 4 }] },
-            { date: "2018-08-31", count: 10, by_template: [
+            { date: "2018-08-31", count: 10, any_template: [
               { name: "Template1", count: 6 },
               { name: "Template2", count: 4 }] },
           ])
@@ -116,10 +116,10 @@ RSpec.describe "/stat_created_plan_by_template", type: :request do
           get path, end_date: "2018-08-31"
 
           expect(parsed_response).to eq([
-            { date: "2018-08-31", count: 10, by_template: [
+            { date: "2018-08-31", count: 10, any_template: [
               { name: "Template1", count: 6 },
               { name: "Template2", count: 4 }] },
-            { date: "2018-07-31", count: 5, by_template: [
+            { date: "2018-07-31", count: 5, any_template: [
               { name: "Template1", count: 3 },
               { name: "Template2", count: 2 }] }
           ])

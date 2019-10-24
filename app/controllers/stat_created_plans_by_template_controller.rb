@@ -6,12 +6,25 @@ class StatCreatedPlansByTemplateController < ApplicationController
     check_authorized!
 
     data = StatCreatedPlan.monthly_range(index_filter).order(date: :desc)
+    template_filter = params[:templates]
 
     if params[:format] == "csv"
-      data_csvified = StatCreatedPlan.to_csv(data, details: { by_template: true })
-      send_data(data_csvified, filename: "created_plan_by_template.csv")
+      p params
+      case template_filter
+      when 'any'
+        data_csvified = StatCreatedPlan.to_csv(data, details: { any_template: true })
+      when 'org'
+        data_csvified = StatCreatedPlan.to_csv(data, details: { org_template: true })
+      end 
+
+      send_data(data_csvified, filename: "created_plan_any_template.csv")
     else
-      render(json: data.as_json(only: [:date, :count], methods: :by_template))
+      case template_filter
+      when 'any'
+        render(json: data.as_json(only: [:date, :count], methods: :any_template))
+      when 'org'
+        render(json: data.as_json(only: [:date, :count], methods: :org_template))
+      end 
     end
   end
 

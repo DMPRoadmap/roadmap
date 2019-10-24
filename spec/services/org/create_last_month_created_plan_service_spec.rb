@@ -55,7 +55,7 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
           org_id: org.id).details
 
         expect(last_month_details).to match_array(
-          "by_template" => [
+          "any_template" => [
             { "name" => template.title, "count" => 2 },
             { "name" => template2.title, "count" => 1 },
           ]
@@ -111,7 +111,7 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
           org_id: org.id).details
 
         expect(last_month_details).to match_array(
-          "by_template" => [
+          "any_template" => [
             { "name" => template.title, "count" => 2 },
             { "name" => template2.title, "count" => 1 },
           ]

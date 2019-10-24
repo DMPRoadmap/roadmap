@@ -394,3 +394,9 @@ msgstr "If exists, please fill in the research output persistant identifier."
 
 msgid "Please fill in separately for research outputs requireing a management specific to their nature or discipline."
 msgstr "Please fill in separately for research outputs requireing a management specific to their nature or discipline."
+
+msgid "Templates used by %{org_name} users."
+msgstr "Templates used by %{org_name} users."
+
+msgid "No. plans created using %{org_name} templates."
+msgstr "No. plans created using %{org_name} templates."
