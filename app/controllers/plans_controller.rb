@@ -264,6 +264,16 @@ class PlansController < ApplicationController
     end
   end
 
+  def request_feedback
+    @plan = Plan.find(params[:id])
+    if @plan.present?
+      authorize @plan
+      @plan_roles = @plan.roles
+    else
+      redirect_to(plans_path)
+    end
+  end
+
   def destroy
     @plan = Plan.find(params[:id])
     authorize @plan
