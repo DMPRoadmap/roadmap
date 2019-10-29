@@ -69,6 +69,7 @@ $(() => {
     }
   };
 
+  /* eslint-disable */
   const setUpTypeahead = () => {
     if ($('.edit_plan').length) {
       $.get('/research_projects.json', (data) => {
@@ -96,6 +97,7 @@ $(() => {
       });
     }
   };
+  /* eslint-enable */
 
   $('#other-guidance-orgs').find('input[type="checkbox"]').click((e) => {
     const checkbox = $(e.target);
