@@ -198,8 +198,8 @@ msgstr "Personnalisé par "
 msgid "Copy link"
 msgstr "Copier le lien"
 
-msgid "Public, Administrator or organisational visibility is intended for finished plans. Note: test plans are set to private visibility by default."
-msgstr "La visibilité par les administrateurs, par l’organisme ou par tous (public) concerne les plans partiellement remplis. Note : les plans de test sont privés par défaut."
+msgid "Public, Administrator or organisational visibility is intended for finished plans. Note: test plans are set to private visibility."
+msgstr "La visibilité par les administrateurs, par l’organisme ou par tous (public) concerne les plans partiellement remplis. Note : les plans de test sont privés."
 
 msgid "Would you like to create a plan based on the \"%{name}\" template?"
 msgstr "Souhaitez-vous créer un plan basé sur le modèle \"%{name}\" ?"
@@ -401,3 +401,9 @@ msgstr "Modèles utilisés par les utilisateurs %{org_name}."
 
 msgid "No. plans created using %{org_name} templates."
 msgstr "Nombre de plans créés avec les modèles %{org_name}."
+
+msgid "Plan components"
+msgstr "Eléments du plan"
+
+msgid "If you need more informations about how to use DMP OPIDoR, you can consult our <a href=\"https://opidor.fr/planifier/#faqService\" target=\"_blank\">FAQ</a>."
+msgstr "Si vous souhaitez plus d'informations sur l'utilisation de DMP OPIDoR, vous pouvez consulter notre <a href=\"https://opidor.fr/planifier/#faqService\" target=\"_blank\">Foire aux Questions</a>."

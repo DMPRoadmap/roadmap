@@ -119,7 +119,7 @@
   <% end %>
   <h2><%= _('Set plan visibility') %></h2>
   <p class="form-control-static">
-    <%= d_('dmpopidor', 'Public, Administrator or organisational visibility is intended for finished plans. Note: test plans are set to private visibility by default.') %>
+    <%= d_('dmpopidor', 'Public, Administrator or organisational visibility is intended for finished plans. Note: test plans are set to private visibility.') %>
   </p>
   <% allow_visibility = @plan.visibility_allowed? %>
   <%= form_for(@plan, url: visibility_plan_path, method: :post, html: { id: 'set_visibility' }) do |f| %>
