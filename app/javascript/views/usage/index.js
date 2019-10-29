@@ -240,9 +240,7 @@ $(() => {
   };
 
   const fetch = (lastDayOfMonth, aspectRatio = 1, filter = null) => {
-
     const selectElements = filter ? $('select[name="monthly_plans_by_template"]').filter(`[data-template-filter="${filter}"]`) : $('select[name="monthly_plans_by_template"]');
-
     selectElements.each((i, selectElem) => {
       const baseUrl = $(selectElem).attr('data-url');
       const templateFilter = $(selectElem).attr('data-template-filter');
