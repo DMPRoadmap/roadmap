@@ -25,8 +25,16 @@ RSpec.describe "FeedbackRequests", type: :feature do
     # Actions
     click_link plan.title
     expect(current_path).to eql(plan_path(plan))
-    click_link "Share"
-    click_link "Request feedback"
+
+    # Click "Request feedback" tab
+    within("ul.nav.nav-tabs") do
+      click_link "Request feedback"
+    end
+
+    # Click "Request feedback" button within panel
+    within("div.panel") do
+      click_link "Request feedback"
+    end
 
     # Expectations
     expect(plan.reload).to be_feedback_requested
