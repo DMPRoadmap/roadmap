@@ -405,5 +405,5 @@ msgstr "Nombre de plans créés avec les modèles %{org_name}."
 msgid "Plan components"
 msgstr "Eléments du plan"
 
-msgid "If you need more informations about how to use DMP OPIDoR, you can consult our <a href=\"https://opidor.fr/planifier/#faqService\" target=\"_blank\">FAQ</a>."
-msgstr "Si vous souhaitez plus d'informations sur l'utilisation de DMP OPIDoR, vous pouvez consulter notre <a href=\"https://opidor.fr/planifier/#faqService\" target=\"_blank\">Foire aux Questions</a>."
+msgid "If you need more informations about how to use DMP OPIDoR, you can consult our <a href=\"https://opidor.fr/category/dmp-faq/\" target=\"_blank\">FAQ</a>."
+msgstr "Si vous souhaitez plus d'informations sur l'utilisation de DMP OPIDoR, vous pouvez consulter notre <a href=\"https://opidor.fr/category/dmp-faq/\" target=\"_blank\">Foire aux Questions</a>."
