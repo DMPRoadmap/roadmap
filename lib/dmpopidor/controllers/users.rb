@@ -12,10 +12,10 @@ module Dmpopidor
         respond_to do |format|
           format.html do
             if current_user.can_super_admin?
-              @users = User.order("last_sign_in_at is NULL, last_sign_in_at desc").includes(:roles).page(1)
+              @users = User.order("last_sign_in_at desc NULLS LAST").includes(:roles).page(1)
               @total_users = User.count
             else
-              @users = current_user.org.users.order("last_sign_in_at is NULL, last_sign_in_at desc").includes(:roles).page(1)
+              @users = current_user.org.users.order("last_sign_in_at desc NULLS LAST").includes(:roles).page(1)
               @total_users = current_user.org.users.count
             end
           end
