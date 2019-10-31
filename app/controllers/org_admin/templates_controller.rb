@@ -286,6 +286,60 @@ module OrgAdmin
       redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
     end
 
+    # GET template_export/:id
+    # -----------------------------------------------------
+    def template_export
+      @template = Template.find(params[:id])
+
+      authorize @template
+      # now with prefetching (if guidance is added, prefetch annottaions/guidance)
+      @template = Template.includes(
+        :org,
+        phases: {
+          sections: {
+            questions: [
+              :question_options,
+              :question_format,
+              :annotations
+            ]
+          }
+        }
+      ).find(@template.id)
+
+      @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
+
+      begin
+        file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, "").gsub(/ /, "_") + '_v' + @template.version.to_s
+        respond_to do |format|
+          format.docx do
+            render docx: "template_exports/template_export", filename: "#{file_name}.docx"
+          end
+
+          format.pdf do
+            # rubocop:disable LineLength
+            render pdf: file_name,
+              template: "template_exports/template_export",
+              margin: @formatting[:margin],
+              footer: {
+                center:    _("Template created using the %{application_name} service. Last modified %{date}") % {
+                application_name: Rails.configuration.branding[:application][:name],
+                date: l(@template.updated_at.to_date, formats: :short)
+              },
+              font_size: 8,
+              spacing: (@formatting[:margin][:bottom] / 2) - 4,
+              right: "[page] of [topage]",
+              encoding: "utf8"
+            }
+            # rubocop:enable LineLength
+          end
+        end
+      rescue ActiveRecord::RecordInvalid => e
+        # What scenario is this triggered in? it's common to our export pages
+        redirect_to public_templates_path,
+                    alert: _("Unable to download the DMP Template at this time.")
+      end
+    end
+
     private
 
     def template_params
