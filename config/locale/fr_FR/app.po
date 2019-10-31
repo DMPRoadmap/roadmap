@@ -2783,26 +2783,8 @@ msgstr "Votre compte a été lié à %{scheme} avec succès."
 msgid "Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them."
 msgstr "Votre compte a été lié avec succès à votre compte institutionnel. Vous pouvez maintenant vous connecter par l'accès institutionnel."
 
-#msgid "Your colleague %{inviter_name} has invited you to contribute to"
-#msgstr ""
-
-msgid "Your colleague %{inviter_name} has invited you to contribute to
-"
-"            their Data Management Plan in %{tool_name}"
-msgstr "Votre collègue %{inviter_name} vous a invité à contribuer à
-"
-"            leur plan de gestion de données dans %{tool_name}"
-
-msgid "Your colleague %{inviter_name} has invited you to contribute to \"\
-"
-"            \" their Data Management Plan in %{tool_name}"
-msgstr "Votre collègue %{inviter_name} vous a invité à contribuer à \"\
-"
-"            \" leur plan de gestion de données dans %{tool_name}"
-
-#msgid "Your colleague %{inviter_name} has invited you to contribute to \"\
-"
-#msgstr ""
+msgid "Your colleague %{inviter_name} has invited you to contribute to their Data Management Plan in %{tool_name}"
+msgstr "Votre collègue %{inviter_name} vous a invité à contribuer à leur plan de gestion de données dans %{tool_name}"
 
 msgid "Your email address is also your login id and therefore an important part of your account information. For your safety we require you to confirm your password to make this change."
 msgstr "Votre adresse électronique est également votre identifiant de connexion et donc une information importante pour votre compte. Pour votre sécurité, nous vous demandons de confirmer votre mot de passe avant d'effectuer cette modification."

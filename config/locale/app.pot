@@ -2810,23 +2810,8 @@ msgstr ""
 msgid "Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them."
 msgstr ""
 
-#msgid "Your colleague %{inviter_name} has invited you to contribute to
-"
-#msgstr ""
-
-msgid "Your colleague %{inviter_name} has invited you to contribute to
-"
-"            their Data Management Plan in %{tool_name}"
+msgid "Your colleague %{inviter_name} has invited you to contribute to their Data Management Plan in %{tool_name}"
 msgstr ""
-
-msgid "Your colleague %{inviter_name} has invited you to contribute to \"\
-"
-"            \" their Data Management Plan in %{tool_name}"
-msgstr ""
-
-#msgid "Your colleague %{inviter_name} has invited you to contribute to \"\
-"
-#msgstr ""
 
 msgid "Your email address is also your login id and therefore an important part of your account information. For your safety we require you to confirm your password to make this change."
 msgstr ""
