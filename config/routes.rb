@@ -214,6 +214,7 @@ Rails.application.routes.draw do
       end
     end
 
+
     resources :templates do
 
       resources :customizations, only: [:create], controller: "template_customizations"
@@ -227,6 +228,7 @@ Rails.application.routes.draw do
 
       member do
         get 'history'
+        get 'template_export',  action: :template_export
         patch 'publish', action: :publish, constraints: {format: [:json]}
         patch 'unpublish', action: :unpublish, constraints: {format: [:json]}
       end
