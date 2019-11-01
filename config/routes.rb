@@ -116,6 +116,7 @@ Rails.application.routes.draw do
     member do
       get 'answer'
       get 'share'
+      get 'request_feedback'
       get 'download'
       post 'duplicate'
       post 'visibility', constraints: {format: [:json]}
