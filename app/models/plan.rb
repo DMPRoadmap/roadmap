@@ -165,8 +165,11 @@ class Plan < ActiveRecord::Base
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     joins(:template)
-    .where("lower(plans.title) LIKE lower(?) OR lower(templates.title) LIKE lower(?)",
-            search_pattern, search_pattern)
+    .where("lower(plans.title) LIKE lower(:search_pattern)
+            OR lower(templates.title) LIKE lower(:search_pattern)
+            OR lower(plans.principal_investigator) LIKE lower(:search_pattern)
+            OR lower(plans.principal_investigator_identifier) LIKE lower(:search_pattern)",
+            search_pattern: search_pattern)
   }
 
   # Retrieves plan, template, org, phases, sections and questions
@@ -486,11 +489,13 @@ class Plan < ActiveRecord::Base
   # The number of answered questions from the entire plan
   #
   # Returns Integer
-  def num_answered_questions
-    Answer.where(id: answers.map(&:id))
-          .includes(:question_options, question: :question_format)
-          .to_a
-          .sum { |answer| answer.is_valid? ? 1 : 0 }
+  def num_answered_questions(phase = nil)
+    return answers.select { |answer| answer.answered? }.length unless phase.present?
+
+    answered = answers.select do |answer|
+      answer.answered? && phase.questions.include?(answer.question)
+    end
+    answered.length
   end
 
   # The number of questions for a plan.
@@ -526,7 +531,7 @@ class Plan < ActiveRecord::Base
                                           question: :question_format)
                                 .where(id: answer_ids)
     num_answers = pre_fetched_answers.reduce(0) do |m, a|
-      m += 1 if a.is_valid?
+      m += 1 if a.answered?
       m
     end
     num_questions == num_answers
