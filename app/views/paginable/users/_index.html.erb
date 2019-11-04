@@ -1,4 +1,5 @@
 <% is_super_admin = current_user.can_super_admin? %>
+<% is_org_admin = current_user.can_org_admin? %>
 <div class="row">
   <div class="col-md-12">
     <div class="table-responsive">
@@ -23,7 +24,13 @@
                 <tr>
                   <td>
                       <% if !user.name.nil? %>
-                          <%= is_super_admin ? link_to(user.name(false), edit_super_admin_user_path(user)) : user.name(false) %>
+                         <% if is_super_admin %>
+                          <%=  link_to(user.name(false), edit_super_admin_user_path(user)) %>
+                         <% elsif is_org_admin %>
+                           <%=  link_to(user.name(false), edit_org_admin_user_path(user)) %>
+                         <% else %>
+                          <%= user.name(false) %>
+                         <% end %>
                       <% else %>
                           <%= is_super_admin ? link_to(_('Edit Profile'), edit_user_registration_path(user)) : '' %>
                       <% end %>
