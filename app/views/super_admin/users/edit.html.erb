@@ -35,6 +35,18 @@
             required: true } %>
       </div>
 
+      <% if @departments.any? %>
+      <div class="form-group col-xs-8">
+        <% dept_id = @user.department.nil? ? -1 : @user.department.id  %>
+        <%= f.label(:department_id, _('Department or school'), class: 'control-label') %>
+        <%= select_tag(:department_id,
+            options_from_collection_for_select(@departments, "id", "name", dept_id),
+            include_blank: true,
+            class: "form-control",
+            name: 'user[department_id]') %>
+      </div>
+      <% end %>
+
       <% if Language.many? %>
         <div class="form-group col-xs-12">
           <% lang_id = @user.language.nil? ? Language.id_for(FastGettext.default_locale) : @user.language.id %>
@@ -75,5 +87,23 @@
         <% end %>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h2><%= _('Plans') % { username: @user.name(false) } %></h2>
+    <!-- if the user has projects -->
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <%= paginable_renderise(
+      partial: '/paginable/plans/org_admin_other_user',
+      controller: 'paginable/plans',
+      action: 'org_admin_other_user',
+      scope: @plans,
+      query_params: { sort_field: 'plans.updated_at', sort_direction: 'desc' }) %>
+  </div>
   </div>
 </div>
