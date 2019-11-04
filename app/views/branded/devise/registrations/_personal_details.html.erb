@@ -2,13 +2,11 @@
   DMPTool customization overview:
   ------------------------------------------
   1. Added default_org var
-  2. Added namespace to form
-  3. Added if 'shibbolized' check for Org selector/text
-  4. Removed shib account linking link
-  5. Removed API token
+  2. Added if 'shibbolized' check for Org selector/text
+  3. Removed shib account linking link
  %>
 <% default_org = Org.find_by(is_other: true) %>
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, id: 'personal_details_registration_form' }) do |f| %>
+<%= form_for(resource, namespace: current_user.id, as: resource_name, url: registration_path(resource_name), html: {method: :put, id: 'personal_details_registration_form' }) do |f| %>
   <p class="form-control-static">
     <%= sanitize _("Please note that your email address is also your username. If you change this remember to use your new email address on sign in. If your account is created with your institutional credentials you must contact us to change your email or organisation.") %>
   </p>
@@ -54,6 +52,15 @@
                   allow_other_orgs: true
                 } %>
     <% end %>
+
+    <% departments = current_user.org.departments.order(:name) %>
+    <% if departments.count > 0 %>
+      <div class="form-group col-xs-8">
+        <% dept_id = current_user.department.nil? ? -1 : current_user.department.id  %>
+        <%= f.label(:department_id, _('Department or school'), class: 'control-label') %>
+        <%= select_tag("user[department_id]", options_from_collection_for_select(departments, "id", "name", dept_id), include_blank: true, disabled: departments.count === 0, class: "form-control") %>
+      </div>
+    <% end %>
   </div>
 
   <% if Language.many? %>
@@ -84,6 +91,17 @@
                                id: current_user.identifier_for(scheme)} %>
         </div>
       <% end %>
+    </div>
+  <% end %>
+
+  <% unless @user.api_token.blank? %>
+    <div class="form-group col-xs-8">
+      <%= f.label(:api_token, _('API token'), class: 'control-label') %>
+      <%= @user.api_token %>
+    </div>
+    <div class="form-group col-xs-8">
+      <%= label_tag(:api_information, _('API Information'), class: 'control-label') %>
+      <a href="https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation"><%= _('How to use the API') %></a>
     </div>
   <% end %>
 
