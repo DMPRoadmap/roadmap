@@ -42,7 +42,7 @@
           <% end %>
         <% end %>
         <% answer = @plan.answer(question[:id], false) %>
-        <% blank = not(answer.present? && answer.is_valid?) %>
+        <% blank = not(answer.present? && answer.answered?) %>
         <% if blank && @show_unanswered %>
           <%= "    #{_("Question not answered.")}\n\n" %>
         <% elsif !blank %>

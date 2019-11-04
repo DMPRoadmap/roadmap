@@ -149,10 +149,13 @@ gem 'wkhtmltopdf-binary'
 gem 'wicked_pdf', '~> 1.1.0'
 
 # This simple gem allows you to create MS Word docx documents from simple html documents. This makes it easy to create dynamic reports and forms that can be downloaded by your users as simple MS Word docx files. (http://github.com/karnov/htmltoword)
-gem 'htmltoword'
+gem 'htmltoword', '1.1.0'
 
 # A feed fetching and parsing library (http://feedjira.com)
 gem 'feedjira'
+
+# Filename sanitization for Ruby. This is useful when you generate filenames for downloads from user input
+gem 'zaru'
 
 # ------------------------------------------------
 # INTERNATIONALIZATION
@@ -236,11 +239,7 @@ group :test do
   # Automatically create snapshots when Cucumber steps fail with Capybara and Rails (http://github.com/mattheworiordan/capybara-screenshot)
   gem "capybara-screenshot"
 
-  # The next generation developer focused tool for automated testing of webapps (https://github.com/SeleniumHQ/selenium)
-  gem "selenium-webdriver", "~> 3.14"
-
-  # Easy installation and use of chromedriver. (https://github.com/flavorjones/chromedriver-helper)
-  gem "chromedriver-helper", ">= 1.2.0"
+  gem 'webdrivers', '~> 3.0'
 
   gem "rspec-collection_matchers"
 
