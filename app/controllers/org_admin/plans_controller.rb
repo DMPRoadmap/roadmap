@@ -4,7 +4,8 @@ class OrgAdmin::PlansController < ApplicationController
 
   prepend Dmpopidor::Controllers::OrgAdmin::Plans
 
-  # # GET org_admin/plans
+  # GET org_admin/plans
+  # SEE MODULE
   def index
     # Test auth directly and throw Pundit error sincePundit
     # is unaware of namespacing
@@ -45,7 +46,8 @@ class OrgAdmin::PlansController < ApplicationController
     end
   end
 
-  # # GET /org_admin/download_plans
+  # GET /org_admin/download_plans
+  # SEE MODULE
   def download_plans
     # Test auth directly and throw Pundit error sincePundit
     # is unaware of namespacing

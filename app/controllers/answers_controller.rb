@@ -6,6 +6,7 @@ class AnswersController < ApplicationController
   respond_to :html
 
   # POST /answers/create_or_update
+  # SEE MODULE
   def create_or_update
     p_params = permitted_params()
 

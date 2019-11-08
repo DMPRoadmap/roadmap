@@ -38,6 +38,7 @@ class Paginable::PlansController < ApplicationController
   end
 
   # GET /paginable/plans/org_admin/:page
+  # SEE MODULE
   def org_admin
     unless current_user.present? && current_user.can_org_admin?
       raise Pundit::NotAuthorizedError

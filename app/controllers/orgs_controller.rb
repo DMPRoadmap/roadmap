@@ -20,6 +20,7 @@ class OrgsController < ApplicationController
 
   ##
   # PUT /organisations/1
+  # SEE MODULE
   def admin_update
     attrs = org_params
     @org = Org.find(params[:id])

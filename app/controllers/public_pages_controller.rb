@@ -8,6 +8,7 @@ class PublicPagesController < ApplicationController
 
   # GET template_index
   # -----------------------------------------------------
+  # SEE MODULE
   def template_index
     templates = Template.live(Template.families(Org.funder.pluck(:id)).pluck(:family_id))
                         .publicly_visible.pluck(:id) <<

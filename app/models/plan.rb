@@ -282,6 +282,7 @@ class Plan < ActiveRecord::Base
   #
   # Returns Answer
   # Returns nil
+  # SEE MODULE
   def answer(qid, create_if_missing = true)
     answer = answers.where(question_id: qid).order("created_at DESC").first
     question = Question.find(qid)
@@ -435,6 +436,7 @@ class Plan < ActiveRecord::Base
   #
   # Returns User
   # Returns nil
+  # SEE MODULE
   def owner
     usr_id = Role.where(plan_id: id, active: true)
                   .administrator
@@ -571,6 +573,7 @@ class Plan < ActiveRecord::Base
   # Deactivates the plan (sets all roles to inactive and visibility to :private)
   #
   # Returns Boolean
+  # SEE MODULE
   def deactivate!
     # If no other :creator, :administrator or :editor is attached
     # to the plan, then also deactivate all other active roles

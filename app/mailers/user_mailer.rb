@@ -113,6 +113,7 @@ class UserMailer < ActionMailer::Base
   # commenter - User who wrote the comment
   # plan      - Plan for which the comment is associated to
   # answer - Answer commented on
+  # SEE MODULE
   def new_comment(commenter, plan, answer)
     if commenter.is_a?(User) && plan.is_a?(Plan)
       owner = plan.owner

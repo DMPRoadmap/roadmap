@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   ##
   # GET - List of all users for an organisation
   # Displays number of roles[was project_group], name, email, and last sign in
+  # SEE MODULE
   def admin_index
     authorize User
 

@@ -90,6 +90,7 @@ class Paginable::TemplatesController < ApplicationController
 
   # GET /paginable/templates/publicly_visible/:page  (AJAX)
   # -----------------------------------------------------
+  # SEE MODULE
   def publicly_visible
     templates = Template.live(Template.families(Org.funder.pluck(:id)).pluck(:family_id))
                         .publicly_visible.pluck(:id) <<

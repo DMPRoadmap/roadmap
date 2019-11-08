@@ -5,6 +5,7 @@ class PlanExportsController < ApplicationController
   prepend Dmpopidor::Controllers::PlanExports
   after_action :verify_authorized
 
+  # SEE MODULE
   def show
     @plan = Plan.includes(:answers).find(params[:plan_id])
 
@@ -73,6 +74,7 @@ class PlanExportsController < ApplicationController
              locals: { export_format: "docx" })
   end
 
+  # SEE MODULE
   def show_pdf
     render pdf: file_name,
            margin: @formatting[:margin],

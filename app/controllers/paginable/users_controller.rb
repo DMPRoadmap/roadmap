@@ -6,6 +6,7 @@ class Paginable::UsersController < ApplicationController
   include Paginable
 
   # /paginable/users/index/:page
+  # SEE MODULE
   def index
     authorize User
     if current_user.can_super_admin?

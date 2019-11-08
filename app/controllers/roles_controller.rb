@@ -67,6 +67,7 @@ class RolesController < ApplicationController
   end
 
 
+  # SEE MODULE
   def update
     @role = Role.find(params[:id])
     authorize @role

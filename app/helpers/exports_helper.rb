@@ -35,6 +35,7 @@ module ExportsHelper
     get_margin_value_for_side(:right)
   end
 
+  # SEE MODULE
   def plan_attribution(attribution)
     attribution = Array(attribution)
     prefix = attribution.many? ? _("Creators:") : _("Creator:")

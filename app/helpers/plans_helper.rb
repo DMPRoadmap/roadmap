@@ -16,6 +16,7 @@ module PlansHelper
   end
 
   # display the visibility of the plan
+  # SEE MODULE
   def display_visibility(val)
     case val
     when 'organisationally_visible'
@@ -29,6 +30,7 @@ module PlansHelper
     end
   end
 
+  # SEE MODULE
   def visibility_tooltip(val)
     case val
     when 'organisationally_visible'

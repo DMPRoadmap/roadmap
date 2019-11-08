@@ -8,6 +8,7 @@ class NotesController < ApplicationController
   after_action :verify_authorized
   respond_to :html
 
+  # SEE MODULE
   def create
     @note = Note.new
     @note.user_id = note_params[:user_id]
@@ -72,6 +73,7 @@ class NotesController < ApplicationController
     end
   end
 
+  # SEE MODULE
   def update
     @note = Note.find(params[:id])
     authorize @note
@@ -109,6 +111,7 @@ class NotesController < ApplicationController
     end
   end
 
+  # SEE MODULE
   def archive
     @note = Note.find(params[:id])
     authorize @note

@@ -4,6 +4,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   prepend Dmpopidor::Controllers::Registrations
 
+  # SEE MODULE
   def edit
     @user = current_user
     @prefs = @user.get_preferences(:email)

@@ -7,6 +7,7 @@ class TemplateOptionsController < ApplicationController
 
   # GET /template_options  (AJAX)
   # Collect all of the templates available for the org+funder combination
+  # SEE MODULE
   def index
     org_id = (plan_params[:org_id] == "-1" ? "" : plan_params[:org_id])
     funder_id = (plan_params[:funder_id] == "-1" ? "" : plan_params[:funder_id])

@@ -9,6 +9,7 @@ class PlansController < ApplicationController
 
   after_action :verify_authorized, except: [:overview]
 
+  # SEE MODULE
   def index
     authorize Plan
     @plans = Plan.active(current_user).page(1)
@@ -46,6 +47,7 @@ class PlansController < ApplicationController
   end
 
   # POST /plans
+  # SEE MODULE
   def create
     @plan = Plan.new
     authorize @plan
@@ -213,6 +215,7 @@ class PlansController < ApplicationController
 
   # # PUT /plans/1
   # PUT /plans/1.json
+  # SEE MODULE
   def update
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -304,6 +307,7 @@ class PlansController < ApplicationController
     end
   end
 
+  # SEE MODULE
   def download
    @plan = Plan.find(params[:id])
    authorize @plan
@@ -327,6 +331,7 @@ class PlansController < ApplicationController
   end
 
   # # POST /plans/:id/visibility
+  # SEE MODULE
   def visibility
     plan = Plan.find(params[:id])
     if plan.present?
@@ -361,6 +366,7 @@ class PlansController < ApplicationController
     end
   end
 
+  # SEE MODULE
   def set_test
    plan = Plan.find(params[:id])
    authorize plan

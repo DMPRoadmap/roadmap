@@ -111,6 +111,7 @@ class ApplicationController < ActionController::Base
     }
   end
 
+  # SEE MODULE
   def success_message(obj, action = "saved")
     _("Successfully %{action} the %{object}.") % {
       object: obj_name_for_display(obj),
@@ -125,6 +126,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # SEE MODULE
   def obj_name_for_display(obj)
     display_name = {
       ExportedPlan: _("plan"),
