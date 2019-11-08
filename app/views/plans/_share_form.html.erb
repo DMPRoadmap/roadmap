@@ -112,20 +112,20 @@
       <%= content_tag :legend , _('Permissions') %>
       <div class="form-group">
         <div class="radio">
-          <%= f.label :access do %>
-            <%= f.radio_button :access, administrator.access, "aria-required": true %>
+          <%= f.label :administrator_access do %>
+            <%= f.radio_button :access, administrator.access, id: "role_administrator_access", "aria-required": true %>
             <%= _('Co-owner') %>
           <% end %>
         </div>
         <div class="radio">
-          <%= f.label :access do %>
-            <%= f.radio_button :access, editor.access %>
+          <%= f.label :editor_access do %>
+            <%= f.radio_button :access, editor.access , id: "role_editor_access" %>
             <%= _('Editor') %>
           <% end %>
         </div>
         <div class="radio">
-          <%= f.label :access do %>
-            <%= f.radio_button :access, commenter.access %>
+          <%= f.label :commenter_access do %>
+            <%= f.radio_button :access, commenter.access, id: "role_commenter_access" %>
             <%= _('Read only') %>
           <% end %>
         </div>
