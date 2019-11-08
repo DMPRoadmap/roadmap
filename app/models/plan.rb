@@ -42,7 +42,7 @@ class Plan < ActiveRecord::Base
   include ExportablePlan
   include ValidationMessages
   include ValidationValues
-  include Dmpopidor::Models::Plan
+  prepend Dmpopidor::Models::Plan
 
   # =============
   # = Constants =
@@ -273,31 +273,31 @@ class Plan < ActiveRecord::Base
     template&.settings(key)
   end
 
-  # # The most recent answer to the given question id optionally can create an answer if
-  # # none exists.
-  # #
-  # # qid               - The id for the question to find the answer for
-  # # create_if_missing - If true, will genereate a default answer
-  # #                     to the question (defaults: true).
-  # #
-  # # Returns Answer
-  # # Returns nil
-  # def answer(qid, create_if_missing = true)
-  #   answer = answers.where(question_id: qid).order("created_at DESC").first
-  #   question = Question.find(qid)
-  #   if answer.nil? && create_if_missing
-  #     answer             = Answer.new
-  #     answer.plan_id     = id
-  #     answer.question_id = qid
-  #     answer.text        = question.default_value
-  #     default_options    = []
-  #     question.question_options.each do |option|
-  #       default_options << option if option.is_default
-  #     end
-  #     answer.question_options = default_options
-  #   end
-  #   answer
-  # end
+  # The most recent answer to the given question id optionally can create an answer if
+  # none exists.
+  #
+  # qid               - The id for the question to find the answer for
+  # create_if_missing - If true, will genereate a default answer
+  #                     to the question (defaults: true).
+  #
+  # Returns Answer
+  # Returns nil
+  def answer(qid, create_if_missing = true)
+    answer = answers.where(question_id: qid).order("created_at DESC").first
+    question = Question.find(qid)
+    if answer.nil? && create_if_missing
+      answer             = Answer.new
+      answer.plan_id     = id
+      answer.question_id = qid
+      answer.text        = question.default_value
+      default_options    = []
+      question.question_options.each do |option|
+        default_options << option if option.is_default
+      end
+      answer.question_options = default_options
+    end
+    answer
+  end
 
   alias get_guidance_group_options guidance_group_options
 
@@ -434,14 +434,14 @@ class Plan < ActiveRecord::Base
   # The owner (aka :creator) of the project
   #
   # Returns User
-  # # Returns nil
-  # def owner
-  #   usr_id = Role.where(plan_id: id, active: true)
-  #                 .administrator
-  #                 .order(:created_at)
-  #                 .pluck(:user_id).first
-  #   User.find(usr_id)
-  # end
+  # Returns nil
+  def owner
+    usr_id = Role.where(plan_id: id, active: true)
+                  .administrator
+                  .order(:created_at)
+                  .pluck(:user_id).first
+    User.find(usr_id)
+  end
 
   # Creates a role for the specified user (will update the user's
   # existing role if it already exists)
@@ -571,18 +571,18 @@ class Plan < ActiveRecord::Base
   # Deactivates the plan (sets all roles to inactive and visibility to :private)
   #
   # Returns Boolean
-  # def deactivate!
-  #   # If no other :creator, :administrator or :editor is attached
-  #   # to the plan, then also deactivate all other active roles
-  #   # and set the plan's visibility to :private
-  #   if authors.size == 0
-  #     roles.where(active: true).update_all(active: false)
-  #     self.visibility = Plan.visibilities[:privately_visible]
-  #     save!
-  #   else
-  #     false
-  #   end
-  # end
+  def deactivate!
+    # If no other :creator, :administrator or :editor is attached
+    # to the plan, then also deactivate all other active roles
+    # and set the plan's visibility to :private
+    if authors.size == 0
+      roles.where(active: true).update_all(active: false)
+      self.visibility = Plan.visibilities[:privately_visible]
+      save!
+    else
+      false
+    end
+  end
 
 
 

@@ -2,7 +2,7 @@
 
 class Paginable::TemplatesController < ApplicationController
 
-  include Dmpopidor::Controllers::Paginable::Templates
+  prepend Dmpopidor::Controllers::Paginable::Templates
   include CustomizableTemplateLinkHelper
   include Paginable
 
@@ -90,19 +90,19 @@ class Paginable::TemplatesController < ApplicationController
 
   # GET /paginable/templates/publicly_visible/:page  (AJAX)
   # -----------------------------------------------------
-  # def publicly_visible
-  #   templates = Template.live(Template.families(Org.funder.pluck(:id)).pluck(:family_id))
-  #                       .publicly_visible.pluck(:id) <<
-  #     Template.where(is_default: true).unarchived.published.pluck(:id)
-  #   paginable_renderise(
-  #     partial: "publicly_visible",
-  #     scope: Template.joins(:org)
-  #                    .includes(:org)
-  #                    .where(id: templates.uniq.flatten)
-  #                    .published
-  #     query_params: { sort_field: 'templates.title', sort_direction: :asc }
-  #   )
-  # end
+  def publicly_visible
+    templates = Template.live(Template.families(Org.funder.pluck(:id)).pluck(:family_id))
+                        .publicly_visible.pluck(:id) <<
+      Template.where(is_default: true).unarchived.published.pluck(:id)
+    paginable_renderise(
+      partial: "publicly_visible",
+      scope: Template.joins(:org)
+                     .includes(:org)
+                     .where(id: templates.uniq.flatten)
+                     .published
+      query_params: { sort_field: 'templates.title', sort_direction: :asc }
+    )
+  end
 
   # GET /paginable/templates/:id/history/:page  (AJAX)
   # -----------------------------------------------------

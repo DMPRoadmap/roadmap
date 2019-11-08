@@ -2,7 +2,7 @@
 
 module ExportsHelper
 
-  include Dmpopidor::Helpers::Exports
+  prepend Dmpopidor::Helpers::Exports
 
   PAGE_MARGINS = {
     top: "5",
@@ -35,11 +35,11 @@ module ExportsHelper
     get_margin_value_for_side(:right)
   end
 
-  # def plan_attribution(attribution)
-  #   attribution = Array(attribution)
-  #   prefix = attribution.many? ? _("Creators:") : _("Creator:")
-  #   "<strong>#{prefix}</strong> #{attribution.join(', ')}"
-  # end
+  def plan_attribution(attribution)
+    attribution = Array(attribution)
+    prefix = attribution.many? ? _("Creators:") : _("Creator:")
+    "<strong>#{prefix}</strong> #{attribution.join(', ')}"
+  end
 
   private
 

@@ -32,7 +32,7 @@ class Phase < ActiveRecord::Base
   include ValidationValues
   include ActsAsSortable
   include VersionableModel
-  include Dmpopidor::Models::Phase
+  prepend Dmpopidor::Models::Phase
 
 
   ##
@@ -116,9 +116,9 @@ class Phase < ActiveRecord::Base
     n
   end
 
-  # def visibility_allowed?(plan)
-  #   value = Rational(num_answered_questions(plan), plan.num_questions) * 100
-  #   value >= Rails.application.config.default_plan_percentage_answered.to_f
-  # end
+  def visibility_allowed?(plan)
+    value = Rational(num_answered_questions(plan), plan.num_questions) * 100
+    value >= Rails.application.config.default_plan_percentage_answered.to_f
+  end
 
 end

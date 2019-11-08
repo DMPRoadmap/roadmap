@@ -2,7 +2,7 @@
 
 class Paginable::PlansController < ApplicationController
 
-  include Dmpopidor::Controllers::Paginable::Plans
+  prepend Dmpopidor::Controllers::Paginable::Plans
   include Paginable
 
   # /paginable/plans/privately_visible/:page
@@ -38,14 +38,14 @@ class Paginable::PlansController < ApplicationController
   end
 
   # GET /paginable/plans/org_admin/:page
-  # def org_admin
-  #   unless current_user.present? && current_user.can_org_admin?
-  #     raise Pundit::NotAuthorizedError
-  #   end
-  #   paginable_renderise(
-  #     partial: "org_admin",
-  #     scope: current_user.org.plans,
-  #     query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }
-  #   )
-  # end
+  def org_admin
+    unless current_user.present? && current_user.can_org_admin?
+      raise Pundit::NotAuthorizedError
+    end
+    paginable_renderise(
+      partial: "org_admin",
+      scope: current_user.org.plans,
+      query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }
+    )
+  end
 end
