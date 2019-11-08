@@ -1,6 +1,5 @@
 <% # locals: templates %>
-<% export_as_docx = _('Export as docx') %>
-<% export_as_pdf = _('Export as pdf') %>
+<% export_as_pdf = _('Download') %>
 
 <div class="table-responsive">
   <table class="table table-hover table-bordered">
@@ -77,22 +76,10 @@
                                   'data-confirm': _('Are you sure you want to remove "%{template_title}"? Any published versions will become unavailable to users.') % { template_title: template.title} %>
                     </li>
                   <% end %>
-                    <li><%= link_to template_export_org_admin_template_url(template, format: :docx),
-                                    title: export_as_docx,
-                                    target: '_blank',
-                                    class: 'has-new-window-popup-info' do %>
-                                    <i class="fa fa-file-word-o" aria-hidden="true"></i>
-                                    <%= export_as_docx %>
-                                    <em class="sr-only"><%= _('(new window)') %></em>
-                                    <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
-                        <% end %>
-
-                    </li>
                     <li><%= link_to template_export_org_admin_template_url(template, format: :pdf),
-                                    title: export_as_docx,
+                                    title: export_as_pdf,
                                     target: '_blank',
                                     class: 'has-new-window-popup-info' do %>
-                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                             <%= export_as_pdf %>
                             <em class="sr-only"><%= _('(new window)') %></em>
                             <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
