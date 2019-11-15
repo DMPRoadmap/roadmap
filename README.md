@@ -7,7 +7,7 @@ The tool has four main functions:
 1. To help create and maintain different versions of Data Management Plans;
 2. To provide useful guidance on data management issues and how to meet research funders' requirements;
 3. To export attractive and useful plans in a variety of formats;
-4. To allow collaborative work when creating Data Management Plans.
+4. To allow collaborative work when authoring Data Management Plans.
 
 Click here for the latest [releases].(https://github.com/DMPRoadmap/roadmap/releases/)
 [![Build Status](https://travis-ci.org/DMPRoadmap/roadmap.svg)](https://travis-ci.org/DMPRoadmap/roadmap)
