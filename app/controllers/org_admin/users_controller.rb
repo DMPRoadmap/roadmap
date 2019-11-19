@@ -37,7 +37,12 @@ module OrgAdmin
       render :edit
     end
 
-
+    def user_plans
+      @user = User.find(params[:id])
+      authorize @user
+      @plans = Plan.active(@user).page(1)
+      render "org_admin/users/plans"
+    end
 
 
     private

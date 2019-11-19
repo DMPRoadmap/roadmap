@@ -26,7 +26,7 @@
       </div>
 
       <% if @departments.any? %>
-      <div class="form-group col-xs-8">
+      <div class="form-group col-xs-12">
         <% dept_id = @user.department.nil? ? -1 : @user.department.id  %>
         <%= f.label(:department_id, _('Department or school'), class: 'control-label') %>
         <%= select_tag(:department_id,
@@ -73,5 +73,5 @@
       scope: @plans,
       query_params: { sort_field: 'plans.updated_at', sort_direction: 'desc' }) %>
   </div>
-  </div>
+</div>
 </div>

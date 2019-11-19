@@ -208,7 +208,11 @@ Rails.application.routes.draw do
 
   # ORG ADMIN specific pages
   namespace :org_admin do
-    resources :users, only: [:edit, :update], controller: "users"
+    resources :users, only: [:edit, :update], controller: "users" do
+      member do
+        get 'user_plans'
+      end
+    end
     resources :plans, only: [:index] do
       member do
         get 'feedback_complete'
