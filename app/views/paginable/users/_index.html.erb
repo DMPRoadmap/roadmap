@@ -50,9 +50,15 @@
                       <% end %>
                   </td>
                   <td class="text-center">
-                      <% unless user.roles.nil? %>
-                      <%= user.roles.length %>
+                    <% roles  = user.roles.select(&:active) %>
+                    <% if roles.any? %>
+                      <% roles_length = roles.length %>
+                      <% if is_super_admin || is_org_admin %>
+                        <%=  link_to(roles_length, user_plans_org_admin_user_path(user)) %>
+                      <% else %>
+                        <%= roles_length %>
                       <% end %>
+                    <% end %>
                   </td>
                   <%# The content of this column get updated through AJAX whenever the permission for an user are updated %>
                   <td class="text-center" data-descriptor="current_privileges">
