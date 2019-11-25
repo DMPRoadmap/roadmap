@@ -14,7 +14,7 @@ module Dmpopidor
             .where('users.org_id = ? AND plans.feedback_requested is TRUE AND roles.active is TRUE',
               current_user.org_id).pluck(:plan_id)
           @feedback_plans = Plan.where(id: feedback_ids).reject{|p| p.nil?}
-          @plans = current_user.org.plans.where.not(visibility: [Plan.visibilities[:privately_private_visible], Plan.visibilities[:is_test]]).page(1)
+          @plans = current_user.org.plans.where.not(visibility: [Plan.visibilities[:privately_visible], Plan.visibilities[:is_test]]).page(1)
         end
 
         # CHANGES
@@ -43,7 +43,7 @@ module Dmpopidor
           plans = CSV.generate do |csv|
             csv << header_cols
             org.plans
-                .where.not(visibility: Plan.visibilities[:privately_private_visible])
+                .where.not(visibility: Plan.visibilities[:privately_visible])
                 .includes(template: :org).order(updated_at: :desc).each do |plan|
               owner = plan.owner
               csv << [

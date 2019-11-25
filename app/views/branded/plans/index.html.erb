@@ -17,9 +17,9 @@
 <div class="row">
   <div class="col-md-12">
     <%= paginable_renderise(
-      partial: '/paginable/plans/privately_private_visible',
+      partial: '/paginable/plans/privately_visible',
       controller: 'paginable/plans',
-      action: 'privately_private_visible',
+      action: 'privately_visible',
       scope: @plans,
       query_params: { sort_field: 'plans.updated_at', sort_direction: 'desc' }) %>
   </div>

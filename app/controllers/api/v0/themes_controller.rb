@@ -15,7 +15,7 @@ module Api
           org_answers = []
 
           if params[:admin_visible].present? && params[:admin_visible]
-            admin_answers =  @theme.answers.where(plan_id: @user.org.plans.privately_visible)
+            admin_answers =  @theme.answers.where(plan_id: @user.org.plans.administrator_visible)
           end
 
           if params[:org_visible].present? && params[:org_visible]

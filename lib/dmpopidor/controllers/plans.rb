@@ -221,11 +221,11 @@ module Dmpopidor
           end
         end
 
-        # Removing test flag now put the plan in privately_private visibility
+        # Removing test flag now put the plan in privately visibility
         def set_test
           plan = Plan.find(params[:id])
           authorize plan
-          plan.visibility = (params[:is_test] === "1" ? :is_test : :privately_private_visible)
+          plan.visibility = (params[:is_test] === "1" ? :is_test : :privately_visible)
           # rubocop:disable Metrics/LineLength
           if plan.save
             render json: {

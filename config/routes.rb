@@ -165,7 +165,7 @@ Rails.application.routes.draw do
     end
     # Paginable actions for plans
     resources :plans, only: [] do
-      get 'privately_private_visible/:page', action: :privately_private_visible, on: :collection, as: :privately_private_visible
+      get 'administrator_visible/:page', action: :administrator_visible, on: :collection, as: :administrator_visible
       get 'privately_visible/:page', action: :privately_visible, on: :collection, as: :privately_visible
       get 'organisationally_or_publicly_visible/:page', action: :organisationally_or_publicly_visible, on: :collection, as: :organisationally_or_publicly_visible
       get 'publicly_visible/:page', action: :publicly_visible, on: :collection, as: :publicly_visible
