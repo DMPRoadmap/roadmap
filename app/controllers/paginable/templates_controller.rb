@@ -100,7 +100,7 @@ class Paginable::TemplatesController < ApplicationController
       scope: Template.joins(:org)
                      .includes(:org)
                      .where(id: templates.uniq.flatten)
-                     .published
+                     .published,
       query_params: { sort_field: 'templates.title', sort_direction: :asc }
     )
   end
