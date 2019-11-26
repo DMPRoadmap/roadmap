@@ -41,6 +41,10 @@ class UserPolicy < ApplicationPolicy
     signed_in_user.can_super_admin? || signed_in_user.can_org_admin?
   end
 
+  def user_plans?
+    signed_in_user.can_super_admin? || signed_in_user.can_org_admin?
+  end
+
   def update_email_preferences?
     true
   end
