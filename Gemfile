@@ -209,6 +209,9 @@ group :development, :test do
   # Guard gem for RSpec (https://github.com/guard/guard-rspec)
   gem "guard-rspec"
 
+  gem "capistrano"
+
+  gem "capistrano-rails"
 end
 
 group :test do
