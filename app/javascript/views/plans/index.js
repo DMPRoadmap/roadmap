@@ -26,4 +26,6 @@ $(() => {
   $(paginableSelector).on('ajax:error', '.set_test_plan', () => {
     // TODO adequate error handling for network error
   });
+
+  $('#create-modal').modal('show');
 });
