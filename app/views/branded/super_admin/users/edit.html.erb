@@ -31,7 +31,7 @@
             f: f,
             default_org: @user.org.is_other? ? nil : @user.org,
             orgs: Org.participating,
-            allow_other_orgs: true
+            allow_other_orgs: true,
             required: true } %>
       </div>
 
