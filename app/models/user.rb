@@ -394,16 +394,18 @@ class User < ActiveRecord::Base
   #
   # Returns boolean
   def archive
-    firstname = 'Deleted'
-    surname = 'User'
-    email = User.unique_random(field_name: 'email', prefix: 'user_',
-      suffix: '@removed_users.dcc', length: 5)
-    recovery_email = nil
-    api_token = nil
-    encrypted_password = nil
-    last_sign_in_ip = nil
-    current_sign_in_ip =  nil
-    active = false
+    self.firstname = 'Deleted'
+    self.surname = 'User'
+    self.email = User.unique_random(field_name: 'email',
+      prefix: 'user_',
+      suffix: Rails.configuration.branding[:application].fetch(:archived_accounts_email_suffix, '@example.org'),
+      length: 5)
+    self.recovery_email = nil
+    self.api_token = nil
+    self.encrypted_password = nil
+    self.last_sign_in_ip = nil
+    self.current_sign_in_ip =  nil
+    self.active = false
     return self.save
   end
 

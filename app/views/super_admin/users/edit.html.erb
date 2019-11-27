@@ -59,8 +59,9 @@
 
       <div class="form-group col-xs-12">
         <%= f.button(_('Save'), class: 'btn btn-default', type: "submit", id: "personal_details_registration_form_submit") %>
-        <%= link_to _('Archive'), super_admin_user_path(id: @user.id), 'data-method': 'delete', rel: 'nofollow',
-            'data-confirm': _("You are about to archive %{user_name}.  This will remove their personal information, but retain their plans, answers, and comments.  They will be unable to sign-in. Are you sure?") % {user_name: @user.name},
+
+        <%= link_to _('Archive'), archive_super_admin_user_path(id: @user.id),
+            data: { method: :put, confirm: _("You are about to archive %{user_name}.  This will remove their personal information, but retain their plans, answers, and comments.  They will be unable to sign-in. Are you sure?") % {user_name: @user.name } },
             class: 'btn btn-default', role: 'button' %>
       </div>
     <% end %>
