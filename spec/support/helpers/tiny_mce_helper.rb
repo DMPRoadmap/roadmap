@@ -14,7 +14,16 @@ module TinyMceHelper
     # wait until the TinyMCE editor instance is ready.
     # This is required for cases where the editor is loaded via XHR.
     x = 0
-    until x == 50 || page.evaluate_script("tinyMCE.get('#{id}') !== null")
+    # ------------------------------------------------
+    # start DMPTool customization
+    #    increase the wait time for XHR loaded tinyMCE elements
+    #    we should investigate why its taking longer to load
+    # ------------------------------------------------
+    #until x == 50 || page.evaluate_script("tinyMCE.get('#{id}') !== null")
+    until x == 100 || page.evaluate_script("tinyMCE.get('#{id}') !== null")
+    # ------------------------------------------------
+    # end DMPTool customization
+    # ------------------------------------------------
       x += 1
       sleep 0.2
     end

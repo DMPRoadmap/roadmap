@@ -41,7 +41,7 @@
                    context: 'org',
                    title: _('Organisation URLs'),
                    links: (org.links.present? ? org.links['org'] : []),
-                   max_number_links: MAX_NUMBER_LINKS_FUNDER,
+                   max_number_links: MAX_NUMBER_LINKS_ORG,
                    tooltip: _('Links will be displayed next to your organisation\'s logo') }) %>
       <%= hidden_field_tag('org_links', value: org.links) %>
     </div>
@@ -69,7 +69,9 @@
       <% if Rails.application.config.shibboleth_use_filtered_discovery_service %>
         <% shibboleth = org.org_identifiers.select{ |ids| ids.identifier_scheme == IdentifierScheme.find_by(name: 'shibboleth')} %>
         <% shib_id = (shibboleth.first.present? ? shibboleth.first.identifier : '') %>
+
         <% shib_domain = shibboleth.first.present? ? (shibboleth.first.attrs.present? ? JSON.parse(shibboleth.first.attrs)['domain'] : '') : '' %>
+
         <div class="row">
           <div class="form-group col-xs-8">
             <%= f.label :shib_id, _('Shibboleth Entity Id'), class: "control-label" %>

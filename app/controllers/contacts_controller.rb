@@ -4,6 +4,7 @@ class ContactUs::ContactsController < ApplicationController
 
   def create
     @contact = ContactUs::Contact.new(params[:contact_us_contact])
+    flash[:alert] = nil
 
     if !user_signed_in?
       unless verify_recaptcha(model: @contact) && @contact.save

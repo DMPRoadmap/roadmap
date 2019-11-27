@@ -1,0 +1,64 @@
+.homepage-img-1 { background-image: url('homepage/1-large.jpg'); }
+.homepage-img-2 { background-image: url('homepage/2-large.png'); }
+.homepage-img-3 { background-image: url('homepage/3-large.jpg'); }
+.homepage-img-4 { background-image: url('homepage/4-large.jpg'); }
+.homepage-img-5 { background-image: url('homepage/5-large.png'); }
+
+.welcome {
+  flex: 1 100%;
+  width: 100%;
+  min-height: 493px;
+  margin: 0 auto;
+  padding-top: 55px;
+
+  background-color: $color-seccondary-background;
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  > div {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 5px;
+    background: $color-translucent-blue;
+
+    .welcome-message {
+      padding: 5px;
+      margin: 0 auto;
+      width: 97%;
+      max-width: $max-width-breakpoint;
+
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+
+      color: $color-white;
+      font-size: 1.7rem;
+
+      div {
+        flex: 1 auto;
+      }
+
+      h1 {
+        color: $color-primary-text;
+        margin-top: 15px;
+        font-weight: bold;
+        font-size: 3rem;
+      }
+
+      div > div.get-started {
+        float: right;
+
+        .btn-inverse {
+          color: $color-seccondary-text;
+          background-color: $color-seccondary-background;
+          padding: 10px 45px;
+          border-radius: 7px;
+          font-size: 1.8rem;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}

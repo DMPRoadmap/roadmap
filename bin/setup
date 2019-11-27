@@ -17,6 +17,18 @@ Dir.chdir APP_ROOT do
     system "cp config/branding.yml.sample config/branding.yml"
     system "cp config/database.yml.sample config/database.yml"
     system "cp config/secrets.yml.sample config/secrets.yml"
+
+    # ------------------------------------------------
+    # Start DMPTool customization
+    #    Need to include the initializers as well to satisfy Travis.CI
+    # ------------------------------------------------
+    system "cp config/initializers/devise.rb.example config/initializers/devise.rb"
+    system "cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb"
+    system "cp config/initializers/recaptcha.rb.example config/initializers/recaptcha.rb"
+    system "cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb"
+    # ------------------------------------------------
+    # End DMPTool customization
+    # ------------------------------------------------
   end
 
   puts "\n== Preparing database =="

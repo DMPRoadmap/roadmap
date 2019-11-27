@@ -1,0 +1,15 @@
+<% if current_user.org.links.present? && current_user.org.links['org'].present? %>
+  <% current_user.org.links['org'].each_with_index do |link, i| %>
+    <% if !link.blank? && i <= MAX_NUMBER_LINKS_ORG %>
+      <li>
+        <%= link_to sanitize("#{link['text'].truncate(40)} <em class=\"sr-only\">(new window)</em>"), link['link'], target: '_blank', class: 'org-a' %>
+      </li>
+    <% end %>
+  <% end %>
+<% end %>
+<% if !current_user.org.contact_email.blank? %>
+  <li>
+    <i class="fa fa-envelope" aria-hidden="true">&nbsp;</i>
+    <%= mail_to current_user.org.contact_email, current_user.org.contact_name, class: 'org-a' %>
+  </li>
+<% end %>

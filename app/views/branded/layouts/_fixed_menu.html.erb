@@ -1,0 +1,31 @@
+<nav class="navbar navbar-fixed-top">
+  <%= render partial: 'layouts/language_menu' %>
+
+  <!-- Sign in/out menu -->
+  <% unless active_page?(user_shibboleth_omniauth_callback_path) ||
+            active_page?(user_orcid_omniauth_callback_path) %>
+    <!-- Show this menu ONLY if the user is NOT registering their account after an omniauth login -->
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <% if user_signed_in? %>
+          <%= render partial: 'layouts/profile_menu' %>
+
+        <% else %>
+          <% unless active_page?(get_started_path) || active_page?(new_user_registration_path) %>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+               id="signin-menu-button" aria-haspopup="true" aria-expanded="false">
+              <%= _('Sign in') %>
+              <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="signin-menu-button">
+              <li><%= render partial: 'shared/sign_in_options' %></li>
+            </ul>
+          <% end %>
+        <% end %>
+      </li>
+    </ul>
+  <% end %>
+
+  <!-- Learn/explore menu -->
+  <%= render partial: 'layouts/learn_menu' %>
+</nav>

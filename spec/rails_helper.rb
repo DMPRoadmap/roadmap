@@ -55,4 +55,25 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   config.include Devise::Test::IntegrationHelpers, type: :request
+
+  # ------------------------------------------------------
+  # start DMPTool customizations
+  # ------------------------------------------------------
+  # Devise helpers
+  config.include Warden::Test::Helpers
+
+  config.after :each do
+    Warden.test_reset!
+  end
+
+  # Mock omniauth calls
+  OmniAuth.config.test_mode = true
+
+  # Create the default is_other Org (required to display the login forms)
+  config.before :each do
+    create(:org, is_other: true) unless Org.find_by(is_other: true).present?
+  end
+  # ------------------------------------------------------
+  # end DMPTool customization
+  # ------------------------------------------------------
 end

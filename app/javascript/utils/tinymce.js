@@ -2,6 +2,7 @@
 import tinymce from 'tinymce/tinymce';
 // Import TinyMCE theme
 import 'tinymce/themes/modern/theme';
+
 // Plugins
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/lists';

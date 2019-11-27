@@ -2,9 +2,10 @@
   Colors
   - to be used as utilities within this file to define text+bg colors
 */
+
 $color-black: #000;
 $color-white: #FFF;
-$color-red: #b94a48;
+$color-red: #B30000;
 $color-grey: #4F5253;
 $color-grey-darkest: #222;
 $color-grey-darker: #333;
@@ -13,41 +14,57 @@ $color-grey-lighter: #999;
 $color-blue: #337ab7;
 $color-muted: #CCC;
 
+$color-dark-blue: #0E5682;
+$color-light-blue: #D8E3EE;
+$color-light-grey: #F0F0F0;
+$color-green: #008000;
+$color-translucent-blue: rgba(14,86,130,.9);
+$color-info-blue: #d9edf7;
+
+/* Screen dimension breakpoints (based on screen width) */
+$mobile-layout-breakpoint: 766px;
+$hide-org-logo-breakpoint: 1024px;
+$max-width-breakpoint: 1280px;
+
+$color-alert-error-background: $color-red;
+$color-alert-error-text: $color-white;
+$color-alert-warning-background: #f2dede;
+$color-alert-warning-text: #a94442;
+$color-alert-info-background: $color-green;
+$color-alert-info-text: $color-white;
+
 /*
   Variables to define look and feel
 */
 // Backgrounds
-$color-primary-background: $color-grey;
+$color-primary-background: $color-dark-blue;
 $color-seccondary-background: $color-white;
 $color-muted-background: $color-muted;
-$color-navbar-background: $color-grey-darkest;
-$color-navbar-background-active: darken($color-navbar-background, 10%) ;
-$color-footer-background: $color-navbar-background;
-$color-tooltip-background: $color-primary-background;
+$color-navbar-background: $color-white; /*$color-dark-blue;*/
+$color-navbar-background-active: $color-white;
+$color-footer-background: $color-white;
+$color-tooltip-background: $color-dark-blue;
 $color-icon-bar-background: $color-white;
 
 // Text
 $color-primary-text: $color-white;
-$color-seccondary-text: $color-grey;
+$color-seccondary-text: $color-dark-blue;
 $color-heading-text: $color-black;
-$color-navbar-text: $color-grey-light;
-$color-navbar-text-hover: $color-white;
-$color-navbar-text-disabled: $color-grey-darker;
-$color-link-text: $color-blue;
+$color-navbar-text: $color-dark-blue;
+$color-navbar-text-hover: $color-dark-blue;
+$color-navbar-text-disabled: $color-muted;
+$color-link-text: $color-dark-blue;
 $color-navbar-link-text: lighten($color-navbar-text, 15%);
-$color-org-navbar-links: $color-grey-light;
-$color-org-navbar-links-hover: $color-grey-darker;
-$color-dropdown-inverse-text: $color-grey-lighter;
+$color-org-navbar-links: $color-dark-blue;
+$color-org-navbar-links-hover: $color-dark-blue;
+$color-dropdown-inverse-text: $color-white;
 $color-dropdown-inverse-text-hover: $color-white;
-// $color-footer-links:;
-// $color-footer-links-hover:;
-// $color-tooltip-text:;
 $color-text-red: $color-red;
 $color-text-grey: $color-grey;
 $color-text-black: $color-black;
 
 // Borders colors
-$color-border-default: $color-grey;
+$color-border-default: $color-black;
 $color-border-light: #ddd;
 $color-dropdown-inverse-border: #080808;
 $color-navbar-border: darken($color-navbar-background, 10%);

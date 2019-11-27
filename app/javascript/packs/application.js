@@ -30,7 +30,15 @@ import '../views/org_admin/templates/edit';
 import '../views/org_admin/templates/index';
 import '../views/org_admin/templates/new';
 import '../views/orgs/admin_edit';
-import '../views/orgs/shibboleth_ds';
+
+// ----------------------------------------
+// START DMPTool customization
+// ----------------------------------------
+// import '../views/orgs/shibboleth_ds';
+// ----------------------------------------
+// END DMPTool customization
+// ----------------------------------------
+
 import '../views/plans/download';
 import '../views/plans/edit_details';
 import '../views/plans/index';
@@ -38,7 +46,15 @@ import '../views/plans/new';
 import '../views/plans/share';
 import '../views/roles/edit';
 import '../views/shared/create_account_form';
-import '../views/shared/my_org';
+
+// ----------------------------------------
+// START DMPTool customization
+// ----------------------------------------
+// import '../views/shared/my_org';
+// ----------------------------------------
+// END DMPTool customization
+// ----------------------------------------
+
 import '../views/shared/sign_in_form';
 import '../views/super_admin/themes/new_edit';
 import '../views/super_admin/users/edit';
@@ -46,3 +62,12 @@ import '../views/usage/index';
 import '../views/users/notification_preferences';
 import '../views/users/admin_grant_permissions';
 import '../views/super_admin/notifications/edit';
+
+// ----------------------------------------
+// START DMPTool customization
+// ----------------------------------------
+import '../dmptool/views/home/index';
+import '../dmptool/views/shared/signin_create_form';
+// ----------------------------------------
+// END DMPTool customization
+// ----------------------------------------

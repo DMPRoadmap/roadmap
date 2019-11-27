@@ -32,6 +32,7 @@ class Paginable::PlansController < ApplicationController
   def publicly_visible
     paginable_renderise(
       partial: "publicly_visible",
+      scope: Plan.publicly_visible.includes(:template)
       scope: Plan.publicly_visible.includes(:template),
       query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }
     )
