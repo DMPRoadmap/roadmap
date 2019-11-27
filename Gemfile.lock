@@ -43,9 +43,9 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
-    annotate (2.6.5)
-      activerecord (>= 2.3.0)
-      rake (>= 0.8.7)
+    annotate (2.7.5)
+      activerecord (>= 3.2, < 7.0)
+      rake (>= 10.4, < 13.0)
     annotate_gem (0.0.14)
       bundler (>= 1.1)
     api-pagination (4.8.2)
@@ -553,7 +553,7 @@ DEPENDENCIES
   zaru
 
 RUBY VERSION
-   ruby 2.5.1p57
+   ruby 2.4.0p0
 
 BUNDLED WITH
    1.17.2

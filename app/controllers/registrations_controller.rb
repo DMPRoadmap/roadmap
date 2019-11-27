@@ -53,7 +53,7 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
 
-    if params[:accept_terms].to_s == "0"
+    if sign_up_params[:accept_terms].to_s == "0"
       redirect_to after_sign_up_error_path_for(resource),
         alert: _("You must accept the terms and conditions to register.")
     elsif params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
@@ -94,7 +94,16 @@ class RegistrationsController < Devise::RegistrationsController
         if resource.active_for_authentication?
           set_flash_message :notice, :signed_up if is_navigational_format?
           sign_up(resource_name, resource)
-          UserMailer.welcome_notification(current_user).deliver_now
+
+          # ----------------------------------------------------------
+          # Start DMPTool customization
+          # Comment out the welcome email. DMPTool does not send one!
+          # ----------------------------------------------------------
+          # UserMailer.welcome_notification(current_user).deliver_now
+          # ----------------------------------------------------------
+          # End DMPTool customization
+          # ----------------------------------------------------------
+
           unless oauth.nil?
             # The OAuth provider could not be determined or there was no unique UID!
             unless oauth["provider"].nil? || oauth["uid"].nil?

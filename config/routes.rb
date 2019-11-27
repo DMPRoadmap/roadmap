@@ -7,7 +7,6 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks',
     invitations: 'users/invitations'
     }) do
-
     get "/users/sign_out", :to => "devise/sessions#destroy"
   end
 
@@ -16,9 +15,10 @@ Rails.application.routes.draw do
   get '/orgs/shibboleth', to: 'orgs#shibboleth_ds', as: 'shibboleth_ds'
   get '/orgs/shibboleth/:org_name', to: 'orgs#shibboleth_ds_passthru'
   post '/orgs/shibboleth', to: 'orgs#shibboleth_ds_passthru'
+  get '/users/ldap_username', to: 'users#ldap_username'
+  post '/users/ldap_account', to: 'users#ldap_account'
 
   resources :users, path: 'users', only: [] do
-
     resources :org_swaps, only: [:create],
                           controller: "super_admin/org_swaps"
 
@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   patch 'locale/:locale' => 'session_locales#update', as: 'locale'
 
   root :to => 'home#index'
+
   get "about_us" => 'static_pages#about_us'
   get "help" => 'static_pages#help'
   get "roadmap" => 'static_pages#roadmap'
@@ -56,6 +57,24 @@ Rails.application.routes.draw do
   get "public_plans" => 'public_pages#plan_index'
   get "public_templates" => 'public_pages#template_index'
   get "template_export/:id" => 'public_pages#template_export', as: 'template_export'
+
+  # ------------------------------------------
+  # Start DMPTool customizations
+  # ------------------------------------------
+  # DMPTool specific documentation pages
+  get "get_started" => 'public_pages#get_started', as: 'get_started'
+  get "promote" => 'static_pages#promote'
+  get "researchers" => 'static_pages#researchers'
+  get "faq" => 'static_pages#faq'
+  get "general_guidance" => 'static_pages#general_guidance'
+  get "quick_start_guide" => 'static_pages#help'
+  get "news_media" => 'static_pages#news_media'
+  get "public_orgs" => 'public_pages#orgs'
+
+  get "org_logos/:id" => "orgs#logos", as: :org_logo
+  # ------------------------------------------
+  # End DMPTool customizations
+  # ------------------------------------------
 
   #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
   #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
@@ -162,6 +181,7 @@ Rails.application.routes.draw do
   namespace :paginable do
     resources :orgs, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
+      get 'public/:page', action: :public, on: :collection, as: :public
     end
     # Paginable actions for plans
     resources :plans, only: [] do

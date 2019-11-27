@@ -68,6 +68,20 @@ FactoryBot.define do
     after :create do |org, evaluator|
       create_list(:template, evaluator.templates, :published, org: org)
     end
+
+    # ----------------------------------------------------
+    # start DMPTool customization
+    # ----------------------------------------------------
+    trait :shibbolized do
+      after :create do |org, evaluator|
+        scheme = IdentifierScheme.find_or_create_by(name: "shibboleth")
+        create(:org_identifier, org_id: org.id, identifier_scheme: scheme,
+                                identifier: SecureRandom.hex(4))
+      end
+    end
+    # ----------------------------------------------------
+    # end DMPTool customization
+    # ----------------------------------------------------
   end
 end
 

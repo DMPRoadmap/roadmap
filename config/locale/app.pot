@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-12 16:41+0000\n"
-"PO-Revision-Date: 2018-10-19 11:10:54-0700\n"
+"PO-Revision-Date: 2018-11-01 08:44:27-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -44,19 +44,14 @@ msgstr ""
 msgid "#{text}"
 msgstr ""
 
-#, fuzzy
 msgid "%{affiliation}"
 msgstr ""
 
 msgid "%{application_name}"
 msgstr ""
 
-#, fuzzy
 msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website <em class=\"sr-only\">(new window)</em></a>. If you would like to contact us about %{application_name}, please fill out the form below."
 msgstr ""
-
-#msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
-#msgstr ""
 
 msgid "%{application_name}: %{user_name} requested feedback on a plan"
 msgstr ""
@@ -67,7 +62,6 @@ msgstr ""
 msgid "%{application_name}: Your plan has been submitted for feedback"
 msgstr ""
 
-#, fuzzy
 msgid "%{authors}"
 msgstr ""
 
@@ -77,22 +71,15 @@ msgstr ""
 msgid "%{commenter_name} has commented on the plan %{plan_title}. To view the comments, please visit the My Dashboard page in %{tool_name} and open your plan."
 msgstr ""
 
-#msgid "%{commenter} has finished providing feedback on the plan \"%{plan_title}\". To view the comments, please visit the My Dashboard page in %{tool_name} and open your plan."
-#msgstr ""
-
-#, fuzzy
 msgid "%{date}"
 msgstr ""
 
-#, fuzzy
 msgid "%{description}"
 msgstr ""
 
-#, fuzzy
 msgid "%{funder}"
 msgstr ""
 
-#, fuzzy
 msgid "%{grant_number}"
 msgstr ""
 
@@ -108,19 +95,12 @@ msgstr ""
 msgid "%{org} Example Answer"
 msgstr ""
 
-#msgid "%{org} Guidance"
-#msgstr ""
-
 msgid "%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questions})"
 msgstr ""
 
 msgid "%{plan_owner} has been notified that you have finished providing feedback"
 msgstr ""
 
-#msgid "%{requestor} has requested feedback on a plan \"%{plan_name}.\" To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan."
-#msgstr ""
-
-#, fuzzy
 msgid "%{template}"
 msgstr ""
 
@@ -129,12 +109,6 @@ msgstr ""
 
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
 msgstr ""
-
-#msgid "%{username}'s profile"
-#msgstr ""
-
-#msgid "%{value} is not a valid format"
-#msgstr ""
 
 msgid "'Download' allows you to download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application."
 msgstr ""
@@ -193,13 +167,10 @@ msgstr ""
 msgid "A Data Management Plan in %{application_name} has been shared with you"
 msgstr ""
 
-#, fuzzy
-msgid "A Data Management Plan in %{tool_name} has been shared \"\"
+msgid "A Data Management Plan in %{tool_name} has been shared \"\
+"
 "                   \"with you"
 msgstr ""
-
-#msgid "A Data Management Plan in %{tool_name} has been shared with you"
-#msgstr ""
 
 msgid "A colleague has invited you to contribute to their Data Management Plan in %{tool_name}"
 msgstr ""
@@ -245,9 +216,6 @@ msgstr ""
 
 msgid "Access removed"
 msgstr ""
-
-#msgid "Accessibility"
-#msgstr ""
 
 msgid "Actions"
 msgstr ""
@@ -351,7 +319,6 @@ msgstr ""
 msgid "An error has occurred while saving/resetting your export settings."
 msgstr ""
 
-#, fuzzy
 msgid "An error occurred when requesting feedback for this plan."
 msgstr ""
 
@@ -433,13 +400,9 @@ msgstr ""
 msgid "Begin typing to see a filtered list"
 msgstr ""
 
-#, fuzzy
 msgid "Below is a list of users registered for your organisation. You can"
 "        sort the data by each field."
 msgstr ""
-
-#msgid "Below is a list of users registered for your organisation. You can sort the data by each field."
-#msgstr ""
 
 msgid "Body"
 msgstr ""
@@ -543,15 +506,6 @@ msgstr ""
 msgid "Copyright information:"
 msgstr ""
 
-#msgid "Could not create your %{o}."
-#msgstr ""
-
-#msgid "Could not delete the %{o}."
-#msgstr ""
-
-#msgid "Could not update your %{o}."
-#msgstr ""
-
 msgid "Create Organisation"
 msgstr ""
 
@@ -594,16 +548,12 @@ msgstr ""
 msgid "Created date"
 msgstr ""
 
-#msgid "Created using the %{application_name} service. Last modified %{date}"
-#msgstr ""
-
 msgid "Created using the %{application_name}. Last modified %{date}"
 msgstr ""
 
 msgid "Creator:"
 msgstr ""
 
-#, fuzzy
 msgid "Creators:"
 msgstr ""
 
@@ -616,22 +566,18 @@ msgstr ""
 msgid "Current password"
 msgstr ""
 
-#, fuzzy
 msgid "Customisable Templates"
 msgstr ""
 
-#, fuzzy
 msgid "Customisations are published"
 msgstr ""
 
-#, fuzzy
 msgid "Customisations are unpublished"
 msgstr ""
 
 msgid "Customise"
 msgstr ""
 
-#, fuzzy
 msgid "Customise phase"
 msgstr ""
 
@@ -640,15 +586,6 @@ msgstr ""
 
 msgid "Customizable Templates"
 msgstr ""
-
-#msgid "Customizations are published"
-#msgstr ""
-
-#msgid "Customizations are unpublished"
-#msgstr ""
-
-#msgid "Customize phase"
-#msgstr ""
 
 msgid "DMP Background"
 msgstr ""
@@ -665,10 +602,6 @@ msgstr ""
 msgid "DMPRoadmap ('the tool', 'the system"
 msgstr ""
 
-#msgid "DOCX"
-#msgstr ""
-
-#, fuzzy
 msgid "DOCX <em class=\"sr-only\">(new window)</em>"
 msgstr ""
 
@@ -726,35 +659,27 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#msgid "Download Plan"
-#msgstr ""
-
-#, fuzzy
 msgid "Download Plan <em class=\"sr-only\">(new window)</em>"
 msgstr ""
 
-#, fuzzy
 msgid "Download global usage"
 msgstr ""
 
 msgid "Download plans"
 msgstr ""
 
-#, fuzzy
 msgid "Download plans <em class=\"sr-only\">(new window)</span>"
 msgstr ""
 
 msgid "Download settings"
 msgstr ""
 
-#, fuzzy
 msgid "Download users"
 msgstr ""
 
 msgid "Draft"
 msgstr ""
 
-#, fuzzy
 msgid "Drag arrows to rearrange sections."
 msgstr ""
 
@@ -763,9 +688,6 @@ msgstr ""
 
 msgid "Edit Profile"
 msgstr ""
-
-#msgid "Edit Theme"
-#msgstr ""
 
 msgid "Edit User Privileges"
 msgstr ""
@@ -836,18 +758,8 @@ msgstr ""
 msgid "Enter your guidance here. You can include links where needed."
 msgstr ""
 
-#msgid "Error parsing links for a #{template_type(template)}"
-#msgstr ""
-
-#, fuzzy
 msgid "Error parsing links for a %{template}"
 msgstr ""
-
-#msgid "Error processing registration. Please check that you have entered a valid email address and that your chosen password is at least 8 characters long."
-#msgstr ""
-
-#msgid "Error raised while saving the visibility for plan id %{plan_id}"
-#msgstr ""
 
 msgid "Error:"
 msgstr ""
@@ -1083,17 +995,16 @@ msgstr ""
 msgid "Invalid maximum pages"
 msgstr ""
 
-#, fuzzy
 msgid "Invitation to %{email} issued successfully."
 msgstr ""
-
-#msgid "Invitation to %{email} issued successfully. \n"
-#msgstr ""
 
 msgid "Invite collaborators"
 msgstr ""
 
 msgid "Invite specific people to read, edit, or administer your plan. Invitees will receive an email notification that they have access to this plan."
+msgstr ""
+
+msgid "It looks like this is your first time logging in. Please verify and complete the information below to finish creating an account."
 msgstr ""
 
 msgid "Language"
@@ -1213,7 +1124,6 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#, fuzzy
 msgid "New Notification"
 msgstr ""
 
@@ -1222,9 +1132,6 @@ msgstr ""
 
 msgid "New Template"
 msgstr ""
-
-#msgid "New Theme"
-#msgstr ""
 
 msgid "New notification"
 msgstr ""
@@ -1241,7 +1148,6 @@ msgstr ""
 msgid "New question:"
 msgstr ""
 
-#, fuzzy
 msgid "New theme"
 msgstr ""
 
@@ -1316,12 +1222,6 @@ msgstr ""
 
 msgid "Notification Preferences"
 msgstr ""
-
-#msgid "Notification created successfully"
-#msgstr ""
-
-#msgid "Notification updated successfully"
-#msgstr ""
 
 msgid "Notifications"
 msgstr ""
@@ -1437,7 +1337,6 @@ msgstr ""
 msgid "PDF"
 msgstr ""
 
-#, fuzzy
 msgid "PDF <em class=\"sr-only\">(new window)</em>"
 msgstr ""
 
@@ -1480,9 +1379,6 @@ msgstr ""
 msgid "Plan Description"
 msgstr ""
 
-#msgid "Plan Guidance Configuration"
-#msgstr ""
-
 msgid "Plan ID"
 msgstr ""
 
@@ -1504,48 +1400,24 @@ msgstr ""
 msgid "Plans"
 msgstr ""
 
-#msgid "Please check the box to continue."
-#msgstr ""
-
 msgid "Please choose an organisation"
 msgstr ""
-
-#msgid "Please choose one of the options."
-#msgstr ""
 
 msgid "Please do not reply to this email."
 msgstr ""
 
-#msgid "Please enter a First name."
-#msgstr ""
-
-#, fuzzy
 msgid "Please enter a First name. "
 msgstr ""
 
-#msgid "Please enter a Last name."
-#msgstr ""
-
-#, fuzzy
 msgid "Please enter a Last name. "
 msgstr ""
 
 msgid "Please enter a password confirmation"
 msgstr ""
 
-#msgid "Please enter a valid number."
-#msgstr ""
-
-#msgid "Please enter a valid value."
-#msgstr ""
-
 msgid "Please enter an email address"
 msgstr ""
 
-#msgid "Please enter an email address."
-#msgstr ""
-
-#, fuzzy
 msgid "Please enter an email address. "
 msgstr ""
 
@@ -1585,9 +1457,6 @@ msgstr ""
 msgid "Please select a valid research organisation from the list."
 msgstr ""
 
-#msgid "Please select a value from the list."
-#msgstr ""
-
 msgid "Please select an item from the list."
 msgstr ""
 
@@ -1620,9 +1489,6 @@ msgstr ""
 
 msgid "Principal Investigator / Researcher"
 msgstr ""
-
-#msgid "Principal investigator"
-#msgstr ""
 
 msgid "Privacy statement"
 msgstr ""
@@ -1735,7 +1601,6 @@ msgstr ""
 msgid "Questions"
 msgstr ""
 
-#, fuzzy
 msgid "Re-order sections"
 msgstr ""
 
@@ -1763,10 +1628,6 @@ msgstr ""
 msgid "Remove this link"
 msgstr ""
 
-#msgid "Request Expert Feedback - Automated Email:"
-#msgstr ""
-
-#, fuzzy
 msgid "Request Expert Feedback - Message Displayed on Share Plan Tab:"
 msgstr ""
 
@@ -1794,7 +1655,6 @@ msgstr ""
 msgid "Run your own filter"
 msgstr ""
 
-#, fuzzy
 msgid "SAMPLE MESSAGE: A data librarian from %{org_name} will respond to your request within 48"
 "       hours. If you have questions pertaining to this action please contact us"
 "       at %{organisation_email}."
@@ -1815,10 +1675,6 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#msgid "Save Unsuccessful."
-#msgstr ""
-
-#, fuzzy
 msgid "Save Unsuccessful. "
 msgstr ""
 
@@ -1846,12 +1702,8 @@ msgstr ""
 msgid "See the full list"
 msgstr ""
 
-#, fuzzy
 msgid "See the full list of participating institutions"
 msgstr ""
-
-#msgid "See the full list of participating organisations"
-#msgstr ""
 
 msgid "See the full list of partner institutions."
 msgstr ""
@@ -1859,7 +1711,6 @@ msgstr ""
 msgid "Select 'Transfer customisation' in the Actions menu to review your customisation(s) and make any necessary changes. When you are done, you must return to the Actions menu and publish your customisation(s)."
 msgstr ""
 
-#, fuzzy
 msgid "Select Guidance"
 msgstr ""
 
@@ -1869,15 +1720,11 @@ msgstr ""
 msgid "Select an organisation from the list."
 msgstr ""
 
-#, fuzzy
 msgid "Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags."
 msgstr ""
 
 msgid "Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question."
 msgstr ""
-
-#msgid "Select one theme that is relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags."
-#msgstr ""
 
 msgid "Select phase to download"
 msgstr ""
@@ -1909,29 +1756,11 @@ msgstr ""
 msgid "Share plans"
 msgstr ""
 
-msgid "Shared"
-msgstr ""
-
 msgid "Shibboleth Domain"
 msgstr ""
 
 msgid "Shibboleth Entity Id"
 msgstr ""
-
-#msgid "Should be after start date"
-#msgstr ""
-
-#msgid "Should be before expiration date"
-#msgstr ""
-
-#msgid "Should be today or later"
-#msgstr ""
-
-#msgid "Should be tomorrow or later"
-#msgstr ""
-
-#msgid "Show"
-#msgstr ""
 
 msgid "Show password"
 msgstr ""
@@ -1960,7 +1789,6 @@ msgstr ""
 msgid "Someone has requested a link to change your %{tool_name} password. You can do this through the link below."
 msgstr ""
 
-#, fuzzy
 msgid "Sort by %{sort_field}"
 msgstr ""
 
@@ -1982,22 +1810,11 @@ msgstr ""
 msgid "Successfully %{action} %{username}'s account."
 msgstr ""
 
-#, fuzzy
 msgid "Successfully %{action} the %{object}."
 msgstr ""
 
-#msgid "Successfully %{action} your %{object}."
-#msgstr ""
-
-#, fuzzy
 msgid "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."
 msgstr ""
-
-#msgid "Successfully deleted your theme"
-#msgstr ""
-
-#msgid "Successfully destroyed your notification"
-#msgstr ""
 
 msgid "Successfully signed in"
 msgstr ""
@@ -2007,9 +1824,6 @@ msgstr ""
 
 msgid "Successfully unpublished your #{template_type(template)}"
 msgstr ""
-
-#msgid "Successfully updated %{username}"
-#msgstr ""
 
 msgid "Super Admin"
 msgstr ""
@@ -2077,10 +1891,12 @@ msgstr ""
 msgid "The %{tool_name} team"
 msgstr ""
 
+msgid "The DMPTool Account email associated with this username is #{@user.email}"
+msgstr ""
+
 msgid "The Digital Curation Centre and UC3 team at the California Digital Library have developed and delivered tools for data management planning since the advent of open data policies in 2011. "
 msgstr ""
 
-#, fuzzy
 msgid "The above plan creator(s) have agreed that others may use as"
 "             much of the text of this plan as they would like in their own plans,"
 "             and customise it as necessary. You do not need to credit the creator(s)"
@@ -2110,12 +1926,6 @@ msgstr ""
 msgid "The new platform will be separate from the services each of our teams runs on top of it. Our shared goal: provide a combined DMPRoadmap platform as a core infrastructure for DMPs. Future enhancements will focus on making DMPs machine actionable so please continue sharing your use cases."
 msgstr ""
 
-#msgid "The password must be between 8 and 128 characters."
-#msgstr ""
-
-#msgid "The passwords must match."
-#msgstr ""
-
 msgid "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
 msgstr ""
 
@@ -2137,17 +1947,8 @@ msgstr ""
 msgid "The table below lists the plans that you have created, and that have been shared with you by others. You can edit, share, download, make a copy, or remove these plans at any time."
 msgstr ""
 
-#msgid "The theme with id %{id} could not be destroyed"
-#msgstr ""
-
 msgid "The ‘Share’ tab is also where you can set your plan visibility."
 msgstr ""
-
-#msgid "Theme created successfully"
-#msgstr ""
-
-#msgid "Theme updated successfully"
-#msgstr ""
 
 msgid "Themes"
 msgstr ""
@@ -2179,17 +1980,11 @@ msgstr ""
 msgid "There is no question with id %{question_id} associated to plan id %{plan_id} for which to create or update an answer"
 msgstr ""
 
-#msgid "There is no theme associated with id %{id}"
-#msgstr ""
-
 msgid "There may also be an option to request feedback on your plan. This is available when research support staff at your organisation have enabled this service. Click to ‘Request feedback’ and your local administrators will be alerted to your request. Their comments will be visible in the ‘Comments’ field adjacent to each question. You will be notified by email when an administrator provides feedback."
 msgstr ""
 
 msgid "There seems to be a problem with your logo. Please upload it again."
 msgstr ""
-
-#msgid "This allows you to order sections."
-#msgstr ""
 
 msgid "This allows you to order the phases of your template."
 msgstr ""
@@ -2275,7 +2070,6 @@ msgstr ""
 msgid "Unable to %{action} %{username}"
 msgstr ""
 
-#, fuzzy
 msgid "Unable to %{action} the %{object}.%{errors}"
 msgstr ""
 
@@ -2288,17 +2082,18 @@ msgstr ""
 msgid "Unable to change your organisation affiliation at this time."
 msgstr ""
 
-#msgid "Unable to create a new section because the phase you specified does not exist."
-#msgstr ""
-
-#, fuzzy
 msgid "Unable to create a new section. The phase you specified does not exist."
 msgstr ""
 
 msgid "Unable to create a new version of this template."
 msgstr ""
 
-#, fuzzy
+msgid "Unable to create your account at this time."
+msgstr ""
+
+msgid "Unable to create your account."
+msgstr ""
+
 msgid "Unable to create your account.#{errors_for_display(resource)}"
 msgstr ""
 
@@ -2317,9 +2112,6 @@ msgstr ""
 msgid "Unable to identify a suitable template for your plan."
 msgstr ""
 
-msgid "Unable to link your account to %{scheme}."
-msgstr ""
-
 msgid "Unable to load the question's content at this time."
 msgstr ""
 
@@ -2335,29 +2127,17 @@ msgstr ""
 msgid "Unable to remove the plan"
 msgstr ""
 
-#msgid "Unable to save since notification parameter is missing"
-#msgstr ""
-
-#msgid "Unable to save since theme parameter is missing"
-#msgstr ""
-
 msgid "Unable to submit your request"
 msgstr ""
 
 msgid "Unable to submit your request for feedback at this time."
 msgstr ""
 
-#msgid "Unable to transfer your customizations."
-#msgstr ""
-
 msgid "Unable to unlink your account from %{is}."
 msgstr ""
 
 msgid "Unable to unpublish your #{template_type(template)}."
 msgstr ""
-
-#msgid "Unable to update %{username}"
-#msgstr ""
 
 msgid "Unknown"
 msgstr ""
@@ -2419,9 +2199,6 @@ msgstr ""
 msgid "User accounts"
 msgstr ""
 
-#msgid "User not found."
-#msgstr ""
-
 msgid "Users"
 msgstr ""
 
@@ -2437,7 +2214,6 @@ msgstr ""
 msgid "View all guidance"
 msgstr ""
 
-#, fuzzy
 msgid "View all notifications"
 msgstr ""
 
@@ -2450,7 +2226,6 @@ msgstr ""
 msgid "View all templates"
 msgstr ""
 
-#, fuzzy
 msgid "View all themes"
 msgstr ""
 
@@ -2472,14 +2247,14 @@ msgstr ""
 msgid "Visibility definitions:"
 msgstr ""
 
+msgid "We do not recognize the username %{username}. Please try again or contact us if you have forgotten the username and email for your existing DMPTool account."
+msgstr ""
+
 msgid "We found multiple DMP templates corresponding to your funder."
 msgstr ""
 
 msgid "We invite you to peruse the DMPRoadmap GitHub wiki to learn how to "
 msgstr ""
-
-#msgid "We were unable to verify your account. Please use the following form to create a new account. You will be able to link your new account afterward."
-#msgstr ""
 
 msgid "We will hold the personal data you provided us for as long as you continue using the %{application_name} service. Your personal data can be removed from this service upon request to the %{application_name} team within a period of 30 days."
 msgstr ""
@@ -2610,27 +2385,15 @@ msgstr ""
 msgid "You may change your notification preferences on your profile page."
 msgstr ""
 
-#, fuzzy
 msgid "You may change your notification preferences on your profile page. "
 msgstr ""
 
-#, fuzzy
 msgid "You may place them before or after the main template sections."
 msgstr ""
 
 msgid "You must accept the terms and conditions to register."
 msgstr ""
 
-#msgid "You must agree to the term and conditions."
-#msgstr ""
-
-#msgid "You must enter a valid URL (e.g. https://organisation.org)."
-#msgstr ""
-
-#msgid "You must enter a valid email address."
-#msgstr ""
-
-#, fuzzy
 msgid "You must provide a valid email address and select a permission level."
 msgstr ""
 
@@ -2676,14 +2439,17 @@ msgstr ""
 msgid "Your account has been linked to your organisation. You can now login with that method."
 msgstr ""
 
+msgid "Your account has been successfully created."
+msgstr ""
+
 msgid "Your account has been successfully linked to %{scheme}."
 msgstr ""
 
 msgid "Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them."
 msgstr ""
 
-#, fuzzy
-msgid "Your colleague %{inviter_name} has invited you to contribute to"
+msgid "Your colleague %{inviter_name} has invited you to contribute to
+"
 "            their Data Management Plan in %{tool_name}"
 msgstr ""
 
@@ -2716,9 +2482,6 @@ msgstr ""
 
 msgid "Your project is now a test."
 msgstr ""
-
-#msgid "Your request for feedback has been submitted."
-#msgstr ""
 
 msgid "account has been locked due to an excessive number of unsuccessful sign in attempts."
 msgstr ""
@@ -2762,9 +2525,6 @@ msgstr ""
 msgid "can't be less than zero"
 msgstr ""
 
-#msgid "changed"
-#msgstr ""
-
 msgid "co-owner"
 msgstr ""
 
@@ -2780,11 +2540,9 @@ msgstr ""
 msgid "copied"
 msgstr ""
 
-#, fuzzy
 msgid "copy"
 msgstr ""
 
-#, fuzzy
 msgid "create"
 msgstr ""
 
@@ -2806,7 +2564,6 @@ msgstr ""
 msgid "deactivated"
 msgstr ""
 
-#, fuzzy
 msgid "delete"
 msgstr ""
 
@@ -2831,12 +2588,8 @@ msgstr ""
 msgid "generate_version! requires a published template"
 msgstr ""
 
-#, fuzzy
 msgid "get involved<em class=\"sr-only\"> (new window)</em>"
 msgstr ""
-
-#msgid "guidance"
-#msgstr ""
 
 msgid "guidance group"
 msgstr ""
@@ -2847,7 +2600,6 @@ msgstr ""
 msgid "into your browser"
 msgstr ""
 
-#, fuzzy
 msgid "isn't a valid value"
 msgstr ""
 
@@ -2860,7 +2612,6 @@ msgstr ""
 msgid "mock project for testing, practice, or educational purposes"
 msgstr ""
 
-#, fuzzy
 msgid "must be after %{date}"
 msgstr ""
 
@@ -2878,9 +2629,6 @@ msgstr ""
 
 msgid "must have access to plans api"
 msgstr ""
-
-#msgid "note"
-#msgstr ""
 
 msgid "obj should be a Phase, Section, Question, or Annotation"
 msgstr ""
@@ -2906,27 +2654,14 @@ msgstr ""
 msgid "page for guidance."
 msgstr ""
 
-#msgid "password"
-#msgstr ""
-
 msgid "path_params should be a Hash object"
 msgstr ""
 
-#, fuzzy
 msgid "permission"
 msgstr ""
 
-#msgid "permissions"
-#msgstr ""
-
-#msgid "phase"
-#msgstr ""
-
 msgid "plan"
 msgstr ""
-
-#msgid "plan's visibility"
-#msgstr ""
 
 msgid "plans"
 msgstr ""
@@ -2940,7 +2675,6 @@ msgstr ""
 msgid "profile"
 msgstr ""
 
-#, fuzzy
 msgid "profile for %{username}"
 msgstr ""
 
@@ -2950,7 +2684,6 @@ msgstr ""
 msgid "public"
 msgstr ""
 
-#, fuzzy
 msgid "publish"
 msgstr ""
 
@@ -2975,7 +2708,6 @@ msgstr ""
 msgid "read-only"
 msgstr ""
 
-#, fuzzy
 msgid "remove"
 msgstr ""
 
@@ -2985,10 +2717,6 @@ msgstr ""
 msgid "reviewer"
 msgstr ""
 
-#msgid "role"
-#msgstr ""
-
-#, fuzzy
 msgid "save"
 msgstr ""
 
@@ -3028,23 +2756,17 @@ msgstr ""
 msgid "unanswered questions"
 msgstr ""
 
-#, fuzzy
 msgid "unpublish"
 msgstr ""
 
-#, fuzzy
 msgid "update"
 msgstr ""
 
 msgid "updated"
 msgstr ""
 
-#, fuzzy
 msgid "upgrade cannot be carried out since there is no published template of its current funder"
 msgstr ""
-
-#msgid "upgrade_customization! cannot be carried out since there is no published template of its current funder"
-#msgstr ""
 
 msgid "upgrade_customization! requires a customised template"
 msgstr ""

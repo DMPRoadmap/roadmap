@@ -14,7 +14,7 @@
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :string
 #  email                  :string(80)       default(""), not null
-#  encrypted_password     :string           default("")
+#  encrypted_password     :string
 #  firstname              :string
 #  invitation_accepted_at :datetime
 #  invitation_created_at  :datetime
@@ -23,6 +23,8 @@
 #  invited_by_type        :string
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string
+#  ldap_password          :string
+#  ldap_username          :string
 #  other_organisation     :string
 #  recovery_email         :string
 #  remember_created_at    :datetime
@@ -49,6 +51,9 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 
+require_relative "../support/helpers/dmptool_helper"
+include DmptoolHelper
+
 FactoryBot.define do
   factory :user do
     org
@@ -57,6 +62,20 @@ FactoryBot.define do
     email        { Faker::Internet.unique.safe_email }
     password     { "password" }
     accept_terms { true }
+
+    # ---------------------------------------------------
+    # start DMPTool customization
+    # DMPTool uses the is_other Org as a default. If the
+    # user doesn't have an org defined then attach them to
+    # the is_other Org.
+    # ---------------------------------------------------
+#    before(:create) do |user, evaluator|
+#      init_other_org
+#      user.org = Org.find_by(is_other: true) unless user.org.present?
+#    end
+    # ---------------------------------------------------
+    # end DMPTool customization
+    # ---------------------------------------------------
 
     trait :org_admin do
       after(:create) do |user, evaluator|

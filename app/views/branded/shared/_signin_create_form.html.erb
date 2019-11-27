@@ -1,0 +1,50 @@
+<% default_org = Org.find_by(is_other: true) %>
+<% @user = @user.present? ? @user : User.new(org: default_org) %>
+<% @user.org = default_org unless @user.org.present? %>
+
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-body">
+      <button type="button" class="close pull-right" data-dismiss="modal" aria-label="<%= _('Cancel') %>">
+        <span class="fa fa-times" aria-hidden="true">&nbsp;</span>
+      </button>
+
+      <div class="branding">
+        <div id="org-sign-in-logo">
+          <!-- Logo gets loaded via ajax call after user selects their institution -->
+        </div>
+      </div>
+
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+          <a href="#sign-in-panel" role="tab" aria-controls="sign-in-panel" data-toggle="tab">
+            <%= _('Sign in') %>
+          </a>
+        </li>
+        <li role="presentation">
+          <a href="#create-account-panel" role="tab" aria-controls="create-account-panel" data-toggle="tab">
+            <%= _('Create account') %>
+          </a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div id="sign-in-panel" role="tabpanel" class="tab-pane active">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <%= render partial: 'shared/sign_in_form' %>
+            </div>
+          </div>
+        </div>
+
+        <div id="create-account-panel" role="tabpanel" class="tab-pane">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <%= render partial: 'shared/create_account_form' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

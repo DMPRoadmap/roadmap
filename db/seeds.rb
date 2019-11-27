@@ -105,6 +105,14 @@ languages = [
   {abbreviation: 'es',
    description: '',
    name: 'Español',
+   default_language: false},
+  {abbreviation: 'pt-BR',
+    description: '',
+    name: 'Português (Brasil)',
+    default_language: false},
+  {abbreviation: 'ja',
+   description: '',
+   name: '日本語',
    default_language: false}
 ]
 languages.map { |l| create(:language, l) }

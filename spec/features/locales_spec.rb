@@ -28,7 +28,7 @@ RSpec.feature "Locales", type: :feature, js: true do
   let!(:user) { create(:user, language: languages.first) }
 
   before do
-    locale_set = LocaleSet.new(%w[en-GB de pt-BR])
+    locale_set = LocaleSet.new(%w[en-GB en de pt-BR])
     I18n.available_locales        = locale_set.for(:i18n)
     FastGettext.default_available_locales = locale_set.for(:fast_gettext)
     I18n.locale                   = locale_set.for(:i18n).first

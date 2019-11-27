@@ -14,7 +14,7 @@
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :string
 #  email                  :string(80)       default(""), not null
-#  encrypted_password     :string           default("")
+#  encrypted_password     :string
 #  firstname              :string
 #  invitation_accepted_at :datetime
 #  invitation_created_at  :datetime
@@ -23,6 +23,8 @@
 #  invited_by_type        :string
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string
+#  ldap_password          :string
+#  ldap_username          :string
 #  other_organisation     :string
 #  recovery_email         :string
 #  remember_created_at    :datetime
@@ -55,6 +57,8 @@ class User < ActiveRecord::Base
   include ValidationMessages
   include ValidationValues
   extend UniqueRandom
+
+  include Dmptool::Model::User
 
   ##
   # Devise

@@ -1,0 +1,19 @@
+<!-- Language menu -->
+<% if Language.many? %>
+  <ul class="nav navbar-nav navbar-right">
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" role="button" id="language-menu-button"
+         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= _('Language') %>
+        <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="language-menu-button">
+        <% languages.each do |l| %>
+          <li <%= 'class=active' if FastGettext.locale == l.abbreviation %>>
+            <%= link_to l.name, locale_path(l.abbreviation), method: :patch %>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+  </ul>
+<% end %>

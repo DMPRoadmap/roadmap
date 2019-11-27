@@ -1,0 +1,36 @@
+<div>
+  <h2 class="text-center"><%= _('Sign in options') %></h2>
+
+  <div class="form-group">
+    <% step_counter = 1 %>
+    <% if Rails.application.config.shibboleth_enabled %>
+      <!-- Shibboleth DS enabled -->
+      <% if request.fullpath != "/users/sign_up?nosplash=true" && session[:shibboleth_data].nil? then%>
+        <h3><%= _('Option %{number}: If your institution is affiliated with DMPTool.') % { number: step_counter } %></h3>
+        <% step_counter += 1 %>
+        <% if Rails.application.config.shibboleth_use_filtered_discovery_service %>
+          <%= link_to _('Your institution'), '#', class: 'btn btn-default btn-block',
+                      'data-toggle': 'modal', 'data-target': '#shib-ds-form' %>
+        <% else %>
+          <%= link_to _('Your institution'), user_shibboleth_omniauth_authorize_path, class: 'btn btn-default btn-block' %>
+        <% end %>
+        <p><strong><%= _('- or - ') %></strong></p>
+      <%else%>
+        <%= f.hidden_field :shibboleth_id, :value => session[:shibboleth_data][:uid] %>
+      <%end%>
+    <% end %>
+
+    <h3><%= _('Option %{number}: If your institution is not affiliated with DMPTool.') % { number: step_counter } %></h3>
+    <% step_counter += 1 %>
+    <%= link_to _('Email address'), '#', class: 'btn btn-default btn-block', id: 'show-sign-in-form',
+                'data-toggle': 'modal', 'data-target': '#sign-in-create-account' %>
+    <p><strong><%= _('- or -') %></strong></p>
+    <h3><%= _('Option %{number}: If not affiliated and you need an account.') % { number: step_counter } %></h3>
+    <div class="text-center">
+      <%= link_to _('Create account with email address'), '#', id: 'show-create-account-form', class: 'btn btn-default btn-block',
+                  'data-toggle': 'modal', 'data-target': '#sign-in-create-account' %>
+    </div>
+  </div>
+</div>
+
+<!-- Referenced modals are located on the main layouts/application file -->

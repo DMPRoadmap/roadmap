@@ -1,0 +1,19 @@
+/* Override to just allow fontawesome to inherit size/color */
+.fa:not(.small) {
+  font-size: inherit;
+  color: inherit;
+}
+
+/* Override to increase the size of the social media icons */
+.fa.large {
+  font-size: 2rem;
+}
+
+/* Override the size of the DOCX and PDF icons */
+a i.fa.fa-file-pdf-o:not(.small), a i.fa.fa-file-word-o:not(.small) {
+  font-size: 2.3rem;
+}
+
+.fa-question-circle:not(.small) {
+  font-size: 1.8rem;
+}

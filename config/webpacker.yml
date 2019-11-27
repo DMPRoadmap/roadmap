@@ -8,7 +8,7 @@ default: &default
 
   # Additional paths webpack should lookup modules
   # ['app/assets', 'engine/foo/app/assets']
-  resolved_paths: []
+  resolved_paths: ['app/assets']
 
   # Reload manifest.json on all requests so we reload latest compiled packs
   cache_manifest: false
@@ -57,6 +57,15 @@ test:
 
   # Compile test packs to a separate directory
   public_output_path: packs-test
+
+stage:
+  <<: *default
+
+  # Production depends on precompilation of packs prior to booting for performance.
+  compile: false
+
+  # Cache manifest.json for performance
+  cache_manifest: true
 
 production:
   <<: *default

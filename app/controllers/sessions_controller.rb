@@ -24,6 +24,20 @@ class SessionsController < Devise::SessionsController
           success = _("Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them.")
           # rubocop:enable LineLength
         end
+
+      #----------------------------------------------
+      # Start DMPTool customization
+      #----------------------------------------------
+      else
+        # If the user has an old LDAP account attempt to convert their
+        # password over to Devise if it is valid
+        unless existing_user.encrypted_password.present?
+          existing_user.valid_password?(params[:user][:password])
+        end
+      #----------------------------------------------
+      # End DMPTool customization
+      #----------------------------------------------
+
       end
       unless existing_user.get_locale.nil?
         session[:locale] = existing_user.get_locale
