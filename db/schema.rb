@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180903131335) do
+ActiveRecord::Schema.define(version: 20190507091025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,16 @@ ActiveRecord::Schema.define(version: 20180903131335) do
   end
 
   add_index "answers_question_options", ["answer_id"], name: "index_answers_question_options_on_answer_id", using: :btree
+
+  create_table "departments", force: :cascade do |t|
+    t.string   "name"
+    t.string   "code"
+    t.integer  "org_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "departments", ["org_id"], name: "index_departments_on_org_id", using: :btree
 
   create_table "exported_plans", force: :cascade do |t|
     t.integer  "plan_id"
@@ -300,6 +310,16 @@ ActiveRecord::Schema.define(version: 20180903131335) do
   add_index "sections", ["phase_id"], name: "index_sections_on_phase_id", using: :btree
   add_index "sections", ["versionable_id"], name: "index_sections_on_versionable_id", using: :btree
 
+  create_table "sessions", force: :cascade do |t|
+    t.string   "session_id", limit: 64, null: false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
+
   create_table "settings", force: :cascade do |t|
     t.string   "var",         null: false
     t.text     "value"
@@ -316,6 +336,7 @@ ActiveRecord::Schema.define(version: 20180903131335) do
     t.integer  "org_id"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.text     "details"
   end
 
   create_table "templates", force: :cascade do |t|
@@ -404,6 +425,7 @@ ActiveRecord::Schema.define(version: 20180903131335) do
     t.integer  "language_id"
     t.string   "recovery_email"
     t.boolean  "active",                            default: true
+    t.integer  "department_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -452,6 +474,7 @@ ActiveRecord::Schema.define(version: 20180903131335) do
   add_foreign_key "themes_in_guidance", "themes"
   add_foreign_key "user_identifiers", "identifier_schemes"
   add_foreign_key "user_identifiers", "users"
+  add_foreign_key "users", "departments"
   add_foreign_key "users", "languages"
   add_foreign_key "users", "orgs"
   add_foreign_key "users_perms", "perms"

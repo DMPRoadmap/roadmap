@@ -20,7 +20,7 @@ module OrgAdmin
 
       @orgs              = Org.all
       @title             = _("All Templates")
-      @templates         = templates.includes(:org)
+      @templates         = templates.includes(:org).page(1)
       @query_params      = { sort_field: "templates.title", sort_direction: "asc" }
       @all_count         = templates.length
       @published_count   = published.present? ? published : 0
@@ -47,7 +47,7 @@ module OrgAdmin
                else
                  _("Own Templates")
                end
-      @templates         = templates
+      @templates         = templates.page(1)
       @query_params      = { sort_field: "templates.title", sort_direction: "asc" }
       @all_count         = templates.length
       @published_count   = published.present? ? published : 0
@@ -252,15 +252,15 @@ module OrgAdmin
       template = Template.find(params[:id])
       authorize template
       # rubocop:disable Metrics/LineLength
-      if template.latest?
-        # Now make the current version published
+      publishable, errors = template.publishability
+      if publishable
         if template.publish!
           flash[:notice] = _("Your #{template_type(template)} has been published and is now available to users.")
         else
           flash[:alert] = _("Unable to publish your #{template_type(template)}.")
         end
       else
-        flash[:alert] = _("You can not publish a historical version of this #{template_type(template)}.")
+        flash[:alert] = errors
       end
       # rubocop:enable Metrics/LineLength
       redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path

@@ -33,9 +33,8 @@
         </script>
     <![endif]-->
 
-    <%= stylesheet_link_tag fingerprinted_asset('application') %>
-    <%= javascript_include_tag fingerprinted_asset('vendor') %>
-    <%= javascript_include_tag fingerprinted_asset('application') %>
+    <%= stylesheet_link_tag(stylesheet_manifest_file) %>
+    <%= javascript_pack_tag(javascript_manifest_file) %>
     <%= csrf_meta_tags %>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -106,5 +105,6 @@
     %>
 
     <input type="hidden" id="js-constants" value="<%= constants_json %>" />
+
   </body>
 </html>

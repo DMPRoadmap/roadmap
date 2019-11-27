@@ -98,7 +98,7 @@ class Answer < ActiveRecord::Base
       if question.question_format.option_based?
         return question_options.any?
       else  # (e.g. textarea or textfield question formats)
-        return text.present?
+        return not(is_blank?)
       end
     end
     false

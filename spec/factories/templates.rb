@@ -35,10 +35,10 @@ FactoryBot.define do
     org
     title { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph }
-    locale "en_GB"
-    is_default false
-    published false
-    archived false
+    locale { "en_GB" }
+    is_default { false }
+    published { false }
+    archived { false }
     sequence(:version)
     family_id { rand(10_000) }
 
@@ -55,27 +55,29 @@ FactoryBot.define do
     end
 
     trait :archived do
-      archived true
+      archived { true }
     end
 
     trait :default do
-      is_default true
+      is_default { true }
     end
 
     trait :published do
-      published true
+      published { true }
     end
 
     trait :unpublished do
-      published false
+      published { false }
     end
 
     transient do
-      phases 0
+      phases { 0 }
+      sections { 0 }
+      questions { 0 }
     end
 
     after(:create) do |template, evaluator|
-      create_list(:phase, evaluator.phases, template: template)
+      create_list(:phase, evaluator.phases, template: template, sections: evaluator.sections, questions: evaluator.questions)
     end
 
   end

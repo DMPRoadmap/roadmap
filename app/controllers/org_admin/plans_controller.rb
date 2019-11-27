@@ -10,11 +10,11 @@ class OrgAdmin::PlansController < ApplicationController
       raise Pundit::NotAuthorizedError
     end
 
-    vals = Role.access_values_for(:reviewer)
-    @feedback_plans = Plan.joins(:roles).where(
-      "roles.user_id = ? and roles.access IN (?)", current_user.id, vals
-    )
-    @plans = current_user.org.plans
+    feedback_ids = Role.creator.joins(:user,:plan)
+      .where('users.org_id = ? AND plans.feedback_requested is TRUE AND roles.active is TRUE',
+              current_user.org_id).pluck(:plan_id)
+    @feedback_plans = Plan.where(id: feedback_ids).reject{|p| p.nil?}
+    @plans = current_user.org.plans.page(1)
   end
 
   # GET org_admin/plans/:id/feedback_complete
@@ -53,6 +53,7 @@ class OrgAdmin::PlansController < ApplicationController
 
     org = current_user.org
     file_name = org.name.gsub(/ /, "_")
+                        .gsub(/[\.;,]/, "")
     header_cols = [
       "#{_('Project title')}",
       "#{_('Template')}",

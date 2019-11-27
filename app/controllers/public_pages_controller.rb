@@ -2,8 +2,6 @@
 
 class PublicPagesController < ApplicationController
 
-  after_action :verify_authorized, except: [:template_index, :plan_index]
-
   # GET template_index
   # -----------------------------------------------------
   def template_index
@@ -23,9 +21,9 @@ class PublicPagesController < ApplicationController
     # covers authorization for this action.
     # Pundit dosent support passing objects into scoped policies
     unless PublicPagePolicy.new(@template).template_export?
-      raise Pundit::NotAuthorizedError
+      redirect_to public_templates_path, notice: "You are not authorized to export that template" and return
+      #raise Pundit::NotAuthorizedError
     end
-    skip_authorization
     # now with prefetching (if guidance is added, prefetch annottaions/guidance)
     @template = Template.includes(
       :org,
@@ -59,7 +57,8 @@ class PublicPagesController < ApplicationController
             },
             font_size: 8,
             spacing: (@formatting[:margin][:bottom] / 2) - 4,
-            right: "[page] of [topage]"
+            right: "[page] of [topage]",
+            encoding: "utf8"
           }
           # rubocop:enable LineLength
         end
@@ -74,7 +73,7 @@ class PublicPagesController < ApplicationController
   # GET /plans_index
   # ------------------------------------------------------------------------------------
   def plan_index
-    @plans = Plan.publicly_visible.page(1)
+    @plans = Plan.publicly_visible.includes(:template).page(1)
     render "plan_index", locals: {
       query_params: {
         sort_field: "plans.updated_at",

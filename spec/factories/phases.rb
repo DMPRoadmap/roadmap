@@ -28,13 +28,15 @@ FactoryBot.define do
     description { Faker::Lorem.paragraph }
     sequence(:number)
     template
-    modifiable false
+    modifiable { false }
+
     transient do
-      sections 0
+      sections { 0 }
+      questions { 0 }
     end
 
     after(:create) do |phase, evaluator|
-      create_list(:section, evaluator.sections, phase: phase)
+      create_list(:section, evaluator.sections, phase: phase, questions: evaluator.questions)
     end
   end
 end

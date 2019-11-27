@@ -189,6 +189,11 @@ class RegistrationsController < Devise::RegistrationsController
             successfully_updated = false
           else
             successfully_updated = current_user.update_with_password(password_update)
+            if !successfully_updated
+              message = _("Save unsuccessful. \
+                That email address is already registered. \
+                You must enter a unique email address.")
+            end
           end
         else
           # This case is never reached since this method when called with
@@ -265,14 +270,14 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update_params
     params.require(:user).permit(:firstname, :org_id, :other_organisation,
-                                :language_id, :surname)
+                                :language_id, :surname, :department_id)
   end
 
   def password_update
     params.require(:user).permit(:email, :firstname, :current_password,
                                 :org_id, :language_id, :password,
                                 :password_confirmation, :surname,
-                                :other_organisation)
+                                :other_organisation, :department_id)
   end
 
 end

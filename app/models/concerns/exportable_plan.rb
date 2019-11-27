@@ -146,13 +146,18 @@ module ExportablePlan
   def show_section_for_csv(csv, phase, section, headings, unanswered, hash)
     section[:questions].each do |question|
       answer = self.answer(question[:id], false)
-      if answer.present? || (answer.blank? && unanswered)
-        answer_text = answer.present? ? answer.text :
-                      (unanswered ? _("Not Answered") : "")
-        if answer.present? && answer.question_options.any?
-          answer_text = answer.question_options.pluck(:text).join(", ")
+      answer_text = ""
+      if answer.present?
+        if answer.question_options.any?
+          answer_text += answer.question_options.pluck(:text).join(", ")
         end
+        if !answer.is_blank?
+          answer_text += answer.text
+        end
+      elsif unanswered
+        answer_text += _("Not Answered")
       end
+      single_line_answer_for_csv = sanitize_text(answer_text).gsub(/\r|\n/, " ")
       flds = (hash[:phases].many? ? [phase[:title]] : [])
       if headings
         if question[:text].is_a? String
@@ -163,10 +168,9 @@ module ExportablePlan
                            question[:text][0])
         end
         flds << [ section[:title], sanitize_text(question_text),
-                  sanitize_text(answer_text)
-                ]
+                  single_line_answer_for_csv ]
       else
-        flds << [ sanitize_text(answer_text) ]
+        flds << [ single_line_answer_for_csv ]
       end
       csv << flds.flatten
     end
