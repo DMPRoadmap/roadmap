@@ -29,5 +29,4 @@ $(() => {
     userSelect.on('change', () => updateMergeConfirmation(userSelect));
     userSelect.change();
   });
-
 });
