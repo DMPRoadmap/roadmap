@@ -1,3 +1,5 @@
+<% remove_filter_tooltip = _('Remove the filter') %>
+
 <div class="tablefilter form-group pull-right">
   <form>
     <ul class="list-inline">
@@ -8,9 +10,10 @@
             class="clear_filter"
             href="#"
             data-toggle="tooltip"
-            title="<%= _('Remove the filter') -%>" 
-            aria-label="<%= _('Remove the filter') %>">
+            title="<%= remove_filter_tooltip %>"
+            aria-label="<%= remove_filter_tooltip %>">
               <i class="fa fa-times" aria-hidden="true"></i>
+              <em class="sr-only"><%= remove_filter_tooltip %></em>
           </a>
       </li>
     </ul>

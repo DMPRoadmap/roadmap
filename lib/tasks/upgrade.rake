@@ -1,8 +1,21 @@
 require 'set'
 namespace :upgrade do
 
+  desc "Upgrade to v2.1.3"
+  task v2_1_3: :environment do
+    Rake::Task['upgrade:fill_blank_plan_identifiers'].execute
+    Rake::Task["upgrade:add_reviewer_perm"].execute
+    Rake::Task["upgrade:add_reviewer_to_existing_admin_perms"].execute
+    Rake::Task["upgrade:migrate_reviewer_roles"].execute
+  end
+
+  desc "Upgrade to v2.1.2:"
+  task v2_1_2: :environment do
+    Rake::Task["upgrade:add_date_question_format"].execute
+  end
+
   desc "Upgrade to v2.1.0:"
-  task v2_1_9: :environment do
+  task v2_1_0: :environment do
     Rake::Task["data_cleanup:deactivate_orphaned_plans"].execute
   end
 
@@ -638,6 +651,49 @@ namespace :upgrade do
       next if theme.locale.blank?
       theme.update(locale: LocaleFormatter.new(theme.locale))
     end
+  end
+
+  desc "Adds the Date question format"
+  task :add_date_question_format => :environment do
+    unless QuestionFormat.id_for(QuestionFormat.formattypes[:date]).present?
+      QuestionFormat.create(
+        title: "Date field",
+        description: "Date field format",
+        option_based: false,
+        formattype: QuestionFormat.formattypes[:date]
+      )
+    end
+  end
+
+
+  desc "Fill blank or nil plan identifiers with plan_id"
+  task fill_blank_plan_identifiers: :environment do
+    Plan.where(identifier: ["",nil]).update_all('identifier = id')
+  end
+
+  desc "Adds a new permission for plan reviewers"
+  task add_reviewer_perm: :environment do
+    perm_name = 'review_org_plans'
+    unless Perm.find_by(name: perm_name).present?
+      Perm.create(name: perm_name)
+    end
+  end
+
+  desc "adds the new reviewer perm to all existing admin perms"
+  task add_reviewer_to_existing_admin_perms: :environment do
+    Perm.change_org_details.users.each do |u|
+      u.perms << Perm.review_plans
+    end
+  end
+
+  desc "remove the old reviewer roles and ensure these are marked feedback-enabled"
+  task migrate_reviewer_roles: :environment do
+    # remove all roles with nil plan_id
+    Role.reviewer.where(plan_id: nil).destroy_all
+    # Pluck all other plan_ids
+    review_plan_ids = Role.reviewer.pluck(:plan_id).uniq
+    Plan.where(id: review_plan_ids).update_all(feedback_requested: true)
+    Role.reviewer.destroy_all
   end
 
   private

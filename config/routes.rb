@@ -65,6 +65,7 @@ Rails.application.routes.draw do
       get 'admin_edit'
       put 'admin_update'
     end
+    resources :departments, controller: 'org_admin/departments'
   end
 
   resources :guidances, :path => 'org/admin/guidance', only: [] do
@@ -115,6 +116,7 @@ Rails.application.routes.draw do
     member do
       get 'answer'
       get 'share'
+      get 'request_feedback'
       get 'download'
       post 'duplicate'
       post 'visibility', constraints: {format: [:json]}
@@ -142,7 +144,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     namespace :v0 do
       resources :guidances, only: [:index], controller: 'guidance_groups', path: 'guidances'
-      resources :plans, only: :create
+      resources :plans, only: [:create, :index]
       resources :templates, only: :index
       resource  :statistics, only: [], controller: "statistics", path: "statistics" do
         member do
@@ -167,6 +169,7 @@ Rails.application.routes.draw do
       get 'organisationally_or_publicly_visible/:page', action: :organisationally_or_publicly_visible, on: :collection, as: :organisationally_or_publicly_visible
       get 'publicly_visible/:page', action: :publicly_visible, on: :collection, as: :publicly_visible
       get 'org_admin/:page', action: :org_admin, on: :collection, as: :org_admin
+      get 'org_admin_other_user/:page', action: :org_admin_other_user, on: :collection, as: :org_admin_other_user
     end
     # Paginable actions for users
     resources :users, only: [] do
@@ -196,17 +199,27 @@ Rails.application.routes.draw do
     resources :guidance_groups, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
     end
+    # Paginable actions for departments
+    resources :departments, only: [] do
+      get 'index/:page', action: :index, on: :collection, as: :index
+    end
   end
 
   resources :template_options, only: [:index], constraints: { format: /json/ }
 
   # ORG ADMIN specific pages
   namespace :org_admin do
+    resources :users, only: [:edit, :update], controller: "users" do
+      member do
+        get 'user_plans'
+      end
+    end
     resources :plans, only: [:index] do
       member do
         get 'feedback_complete'
       end
     end
+
 
     resources :templates do
 
@@ -221,6 +234,7 @@ Rails.application.routes.draw do
 
       member do
         get 'history'
+        get 'template_export',  action: :template_export
         patch 'publish', action: :publish, constraints: {format: [:json]}
         patch 'unpublish', action: :unpublish, constraints: {format: [:json]}
       end
@@ -248,12 +262,30 @@ Rails.application.routes.draw do
     end
 
     get 'download_plans' => 'plans#download_plans'
+
   end
 
   namespace :super_admin do
     resources :orgs, only: [:index, :new, :create, :destroy]
     resources :themes, only: [:index, :new, :create, :edit, :update, :destroy]
-    resources :users, only: [:edit, :update]
+    resources :users, only: [:edit, :update] do
+      member do
+        put :merge
+        put :archive
+        get :search
+      end
+    end
     resources :notifications, except: [:show]
   end
+
+  get "research_projects/search", action: "search",
+                                  controller: "research_projects",
+                                  constraints: { format: "json" }
+
+  get "research_projects/(:type)", action: "index",
+                                   controller: "research_projects",
+                                   constraints: { format: "json" }
+
+
+
 end

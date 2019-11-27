@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -30,6 +32,7 @@
 #  surname                :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  department_id          :integer
 #  invited_by_id          :integer
 #  language_id            :integer
 #  org_id                 :integer
@@ -41,14 +44,17 @@
 #
 # Foreign Keys
 #
+#  fk_rails_...  (department_id => departments.id)
 #  fk_rails_...  (language_id => languages.id)
 #  fk_rails_...  (org_id => orgs.id)
 #
 
 class User < ActiveRecord::Base
+
   include ConditionalUserMailer
   include ValidationMessages
   include ValidationValues
+  extend UniqueRandom
 
   ##
   # Devise
@@ -57,7 +63,7 @@ class User < ActiveRecord::Base
   #   :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable, :omniauthable,
-         :omniauth_providers => [:shibboleth, :orcid]
+         omniauth_providers: [:shibboleth, :orcid]
 
 
   ##
@@ -74,6 +80,8 @@ class User < ActiveRecord::Base
   belongs_to :language
 
   belongs_to :org
+
+  belongs_to :department, required: false
 
   has_one  :pref
 
@@ -93,7 +101,7 @@ class User < ActiveRecord::Base
   has_many :identifier_schemes, through: :user_identifiers
 
   has_and_belongs_to_many :notifications, dependent: :destroy,
-                          join_table: 'notification_acknowledgements'
+                          join_table: "notification_acknowledgements"
 
 
   # ===============
@@ -116,8 +124,14 @@ class User < ActiveRecord::Base
 
   # Retrieves all of the org_admins for the specified org
   scope :org_admins, -> (org_id) {
-    joins(:perms).where("users.org_id = ? AND perms.name IN (?) AND users.active = ?", org_id,
-      ['grant_permissions', 'modify_templates', 'modify_guidance', 'change_org_details'], true)
+    joins(:perms).where("users.org_id = ? AND perms.name IN (?) AND " +
+                        "users.active = ?",
+                        org_id,
+                        ["grant_permissions",
+                         "modify_templates",
+                         "modify_guidance",
+                         "change_org_details"],
+                         true)
   }
 
   scope :search, -> (term) {
@@ -126,9 +140,12 @@ class User < ActiveRecord::Base
     # or concat functions do not exist for sqlite, we have to come up with this
     # conditional
     if ActiveRecord::Base.connection.adapter_name == "Mysql2"
-      where("concat_ws(' ', firstname, surname) LIKE ? OR email LIKE ?", search_pattern, search_pattern)
+      where("lower(concat_ws(' ', firstname, surname)) LIKE lower(?) OR " +
+            "lower(email) LIKE lower(?)",
+            search_pattern, search_pattern)
     else
-      where("firstname || ' ' || surname LIKE ? OR email LIKE ?", search_pattern, search_pattern)
+      where("lower(firstname || ' ' || surname) LIKE lower(?) OR " +
+            "email LIKE lower(?)", search_pattern, search_pattern)
     end
   }
 
@@ -137,6 +154,8 @@ class User < ActiveRecord::Base
   # =============
 
   before_update :clear_other_organisation, if: :org_id_changed?
+
+  before_update :clear_department_id, if: :org_id_changed?
 
   after_update :delete_perms!, if: :org_id_changed?, unless: :can_change_org?
 
@@ -178,11 +197,11 @@ class User < ActiveRecord::Base
   # Returns nil
   def get_locale
     if !self.language.nil?
-      return self.language.abbreviation
+      self.language.abbreviation
     elsif !self.org.nil?
-      return self.org.get_locale
+      self.org.get_locale
     else
-      return nil
+      nil
     end
   end
 
@@ -193,10 +212,10 @@ class User < ActiveRecord::Base
   # Returns String
   def name(use_email = true)
     if (firstname.blank? && surname.blank?) || use_email then
-      return email
+      email
     else
       name = "#{firstname} #{surname}"
-      return name.strip
+      name.strip
     end
   end
 
@@ -214,7 +233,7 @@ class User < ActiveRecord::Base
   #
   # Returns Boolean
   def can_super_admin?
-    return self.can_add_orgs? || self.can_grant_api_to_orgs? || self.can_change_org?
+    self.can_add_orgs? || self.can_grant_api_to_orgs? || self.can_change_org?
   end
 
   # Checks if the user is an organisation admin if the user has any privlege which
@@ -222,8 +241,9 @@ class User < ActiveRecord::Base
   #
   # Returns Boolean
   def can_org_admin?
-    return self.can_grant_permissions? || self.can_modify_guidance? ||
-           self.can_modify_templates? || self.can_modify_org_details?
+    self.can_grant_permissions? || self.can_modify_guidance? ||
+      self.can_modify_templates? || self.can_modify_org_details? ||
+      self.can_review_plans?
   end
 
   # Can the User add new organisations?
@@ -283,6 +303,15 @@ class User < ActiveRecord::Base
     perms.include? Perm.grant_api
   end
 
+
+  ##
+  # Can the user review their organisation's plans?
+  #
+  # Returns Boolean
+  def can_review_plans?
+    perms.include? Perm.review_plans
+  end
+
   # Removes the api_token from the user
   #
   # Returns nil
@@ -298,11 +327,8 @@ class User < ActiveRecord::Base
   # Returns Boolean
   def keep_or_generate_token!
     if api_token.nil? || api_token.empty?
-      self.api_token = loop do
-        random_token = SecureRandom.urlsafe_base64(nil, false)
-        break random_token unless User.exists?(api_token: random_token)
-      end
-      update_column(:api_token, api_token)  unless new_record?
+      new_token = User.unique_random(field_name: 'api_token')
+      update_column(:api_token, new_token)  unless new_record?
     end
   end
 
@@ -332,7 +358,10 @@ class User < ActiveRecord::Base
 
   # Override devise_invitable email title
   def deliver_invitation(options = {})
-    super(options.merge(subject: _('A Data Management Plan in %{application_name} has been shared with you') % {application_name: Rails.configuration.branding[:application][:name]}))
+    super(options.merge(subject: _("A Data Management Plan in " +
+      "%{application_name} has been shared with you") %
+      { application_name: Rails.configuration.branding[:application][:name] })
+    )
   end
 
   # Case insensitive search over User model
@@ -360,6 +389,43 @@ class User < ActiveRecord::Base
     notifications << notification if notification.dismissable?
   end
 
+  # remove personal data from the user account and save
+  # leave account in-place, with org for statistics (until we refactor those)
+  #
+  # Returns boolean
+  def archive
+    self.firstname = 'Deleted'
+    self.surname = 'User'
+    self.email = User.unique_random(field_name: 'email',
+      prefix: 'user_',
+      suffix: Rails.configuration.branding[:application].fetch(:archived_accounts_email_suffix, '@example.org'),
+      length: 5)
+    self.recovery_email = nil
+    self.api_token = nil
+    self.encrypted_password = nil
+    self.last_sign_in_ip = nil
+    self.current_sign_in_ip =  nil
+    self.active = false
+    return self.save
+  end
+
+  def merge(to_be_merged)
+    # merge logic
+    # => answers -> map id
+    to_be_merged.answers.update_all(user_id: self.id)
+    # => notes -> map id
+    to_be_merged.notes.update_all(user_id: self.id)
+    # => plans -> map on id roles
+    to_be_merged.roles.update_all(user_id: self.id)
+    # => prefs -> Keep's from self
+    # => auths -> map onto keep id only if keep does not have the identifier
+    to_be_merged.user_identifiers.
+          where.not(identifier_scheme_id: self.identifier_scheme_ids)
+          .update_all(user_id: self.id)
+    # => ignore any perms the deleted user has
+    to_be_merged.destroy
+  end
+
   private
 
   # ============================
@@ -373,4 +439,9 @@ class User < ActiveRecord::Base
   def clear_other_organisation
     self.other_organisation = nil
   end
+
+  def clear_department_id
+    self.department_id = nil
+  end
+
 end

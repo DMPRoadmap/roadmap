@@ -13,7 +13,7 @@ class NotePolicy < ApplicationPolicy
   end
 
   def update?
-    Plan.find(@note.answer.plan_id).commentable_by?(@user.id)
+    Plan.find(@note.answer.plan_id).commentable_by?(@user.id) && @note.user_id = @user.id
   end
 
   def archive?

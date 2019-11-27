@@ -8,6 +8,7 @@ class PlanExportsController < ApplicationController
     @plan = Plan.includes(:answers).find(params[:plan_id])
 
     if privately_authorized? && export_params[:form].present?
+      skip_authorization
       @show_coversheet         = export_params[:project_details].present?
       @show_sections_questions = export_params[:question_headings].present?
       @show_unanswered         = export_params[:unanswered_questions].present?
@@ -65,26 +66,37 @@ class PlanExportsController < ApplicationController
   end
 
   def show_docx
+    # Using and optional locals_assign export_format
     render docx: "#{file_name}.docx",
-           content: render_to_string(partial: "shared/export/plan")
+           content: render_to_string(partial: "shared/export/plan",
+             locals: { export_format: "docx" })
   end
 
   def show_pdf
     render pdf: file_name,
            margin: @formatting[:margin],
            footer: {
-             center: _("Created using the %{application_name}. Last modified %{date}") % {
+             center: _("Created using %{application_name}. Last modified %{date}") % {
                application_name: Rails.configuration.branding[:application][:name],
-               date: l(@plan.updated_at.to_date, formats: :short)
+               date: l(@plan.updated_at.to_date, format: :readable)
               },
              font_size: 8,
              spacing:   (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-             right:     "[page] of [topage]"
+             right:     "[page] of [topage]",
+             encoding: "utf8"
            }
   end
 
   def file_name
-    @plan.title.gsub(/ /, "_")
+    # Sanitize bad characters and replace spaces with underscores
+    ret = @plan.title
+    Zaru.sanitize! ret
+    ret = ret.strip.gsub(/\s+/, "_")
+    # limit the filename length to 100 chars. Windows systems have a MAX_PATH allowance
+    # of 255 characters, so this should provide enough of the title to allow the user
+    # to understand which DMP it is and still allow for the file to be saved to a deeply
+    # nested directory
+    ret[0, 100]
   end
 
   def publicly_authorized?
@@ -93,7 +105,11 @@ class PlanExportsController < ApplicationController
   end
 
   def privately_authorized?
-    authorize @plan, :export?
+    if current_user.present?
+      PlanPolicy.new(current_user, @plan).export?
+    else
+      false
+    end
   end
 
   def export_params

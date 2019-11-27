@@ -38,7 +38,7 @@ class RolesController < ApplicationController
             message = _("Invitation to %{email} issued successfully.") % {
               email: params[:user]
             }
-            user = User.find_by(email: params[:user])
+            user = User.where_case_insensitive("email", params[:user]).first
           end
           message += _("Plan shared with %{email}.") % {
             email: user.email

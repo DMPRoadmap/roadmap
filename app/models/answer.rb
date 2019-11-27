@@ -93,12 +93,12 @@ class Answer < ActiveRecord::Base
   # presence of text
   #
   # Returns Boolean
-  def is_valid?
+  def answered?
     if question.present?
       if question.question_format.option_based?
         return question_options.any?
       else  # (e.g. textarea or textfield question formats)
-        return text.present?
+        return not(is_blank?)
       end
     end
     false

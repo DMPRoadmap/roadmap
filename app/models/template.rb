@@ -189,8 +189,10 @@ class Template < ActiveRecord::Base
   # Retrieves unarchived templates whose title or org.name includes the term
   # passed
   scope :search, lambda { |term|
-    unarchived.joins(:org).where("templates.title LIKE :term OR orgs.name LIKE :term",
-                                 term: "%#{term}%")
+    unarchived.joins(:org)
+              .where("lower(templates.title) LIKE lower(:term) OR " +
+                     "lower(orgs.name) LIKE lower(:term)",
+                     term: "%#{term}%")
   }
 
 
@@ -399,6 +401,36 @@ class Template < ActiveRecord::Base
 
   def publish!
     update!(published: true)
+  end
+
+  def publishability
+    error = ""
+    publishable = true
+    # template must be the most recent draft
+    if published
+      error += _("You can not publish a published template.  ")
+      publishable = false
+    end
+    if not latest?
+      error += _("You can not publish a historical version of this template.  ")
+      publishable = false
+    # all templates have atleast one phase
+    end
+    if not phases.count > 0
+      error += _("You can not publish a template without phases.  ")
+      publishable = false
+    # all phases must have atleast 1 section
+    end
+    unless phases.map{|p| p.sections.count > 0}.reduce(true) { |fin, val| fin and val }
+      error += _("You can not publish a template without sections in a phase.  ")
+      publishable = false
+    # all sections must have atleast one question
+    end
+    unless sections.map{|s| s.questions.count > 0}.reduce(true) { |fin, val| fin and val }
+      error += _("You can not publish a template without questions in a section.  ")
+      publishable = false
+    end
+    return publishable, error
   end
 
   private

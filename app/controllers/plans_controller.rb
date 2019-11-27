@@ -17,6 +17,10 @@ class PlansController < ApplicationController
       @organisationally_or_publicly_visible =
         Plan.organisationally_or_publicly_visible(current_user).page(1)
     end
+
+    if params[:plan].present?
+      @template = Template.find(params[:plan][:template_id])
+    end
   end
 
   # GET /plans/new
@@ -122,6 +126,10 @@ class PlansController < ApplicationController
         end
 
         @plan.add_user!(current_user.id, :creator)
+
+        # Set new identifier to plan id by default on create.
+        # (This may be changed by user.)
+        @plan.add_identifier!(@plan.id.to_s)
 
         respond_to do |format|
           flash[:notice] = msg
@@ -254,8 +262,17 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     if @plan.present?
       authorize @plan
-      # Get the roles where the user is not a reviewer
-      @plan_roles = @plan.roles.select { |r| !r.reviewer? }
+      @plan_roles = @plan.roles
+    else
+      redirect_to(plans_path)
+    end
+  end
+
+  def request_feedback
+    @plan = Plan.find(params[:id])
+    if @plan.present?
+      authorize @plan
+      @plan_roles = @plan.roles
     else
       redirect_to(plans_path)
     end

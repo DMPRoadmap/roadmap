@@ -4,5 +4,9 @@
   <dt><%= _('Order of display') %></dt>
   <dd><%= phase.number %></dd>
   <dt><%= _('Description') %></dt>
-  <dd><%= sanitize phase.description %></dd>
+  <dd>
+    <div class="display-readonly-textarea-content">
+      <%= sanitize phase.description %>
+    </div>
+  </dd>
 </dl>

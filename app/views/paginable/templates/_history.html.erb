@@ -3,6 +3,7 @@
     <thead>
       <tr>
         <th scope="col"><%= _('Title') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
+        <th scope="col" class="text-center sorter-false"><%= _('Download') %></th>
         <th scope="col" class="text-center"><%= _('Version') %>&nbsp;<%= paginable_sort_link('templates.version') %></th>
         <th scope="col" class="text-center"><%= _('Published') %>&nbsp;<%= paginable_sort_link('templates.published') %></th>
         <th scope="col" class="date-column"><%= _('Last updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
@@ -16,6 +17,22 @@
             <%= template.title%>
             <% if template.draft? && template.latest? %>
               &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;&nbsp;<em><%=_('Draft')%></em>
+            <% end %>
+          </td>
+          <td class="text-center">
+            <%= link_to template_export_org_admin_template_url(template, format: :docx),
+                        target: '_blank',
+                        class: 'has-new-window-popup-info' do %>
+               <i class="fa fa-file-word-o" aria-hidden="true"></i>
+               <em class="sr-only"><%= _('(new window)') %></em>
+               <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
+            <% end %>
+            <%= link_to template_export_org_admin_template_url(template, format: :pdf),
+                        target: '_blank',
+                        class: 'has-new-window-popup-info' do %>
+               <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+               <em class="sr-only"><%= _('(new window)') %></em>
+               <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
             <% end %>
           </td>
           <td class="text-center">
