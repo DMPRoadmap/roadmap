@@ -52,7 +52,7 @@
       <%= hidden_field_tag('org_links', value: org.links) %>
     </div>
   </div>
-  
+
   <div class="row">
     <div class="form-group col-xs-8">
       <h3><%= _("Administrator contact") %></h3>
@@ -79,7 +79,7 @@
         <div class="row">
           <div class="form-group col-xs-8">
             <%= f.label :shib_id, _('Shibboleth Entity Id'), class: "control-label" %>
-            <%= text_field_tag :shib_id, shib_id, class: "form-control", placeholder: _('Example: urn:mace:incommon:my-org.org') %>
+            <%= text_field_tag :shib_id, shib_id, class: "form-control", placeholder: _('Example: https://idp.my-org.org/... or urn:mace:...') %>
           </div>
         </div>
         <div class="row">
