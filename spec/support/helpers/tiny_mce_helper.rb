@@ -19,8 +19,8 @@ module TinyMceHelper
     #    increase the wait time for XHR loaded tinyMCE elements
     #    we should investigate why its taking longer to load
     # ------------------------------------------------
-    #until x == 50 || page.evaluate_script("tinyMCE.get('#{id}') !== null")
-    until x == 100 || page.evaluate_script("tinyMCE.get('#{id}') !== null")
+    until x == 50 || page.evaluate_script("tinyMCE.get('#{id}') !== null")
+    #until x == 100 || page.evaluate_script("tinyMCE.get('#{id}') !== null")
     # ------------------------------------------------
     # end DMPTool customization
     # ------------------------------------------------
