@@ -34,9 +34,17 @@ RSpec.describe "Plans", type: :feature do
     fill_in :plan_title, with: "My test plan"
     fill_in :plan_org_name, with: @research_org.name
 
-    find('#suggestion-2-0').click
+    # --------------------------------------------------------
+    # Start DMPTool Customization
+    # --------------------------------------------------------
+    #find('#suggestion-2-0').click
+    #fill_in :plan_funder_name, with: @funding_org.name
+    #find('#suggestion-3-0').click
+    find('#suggestion-1-0').click
     fill_in :plan_funder_name, with: @funding_org.name
-    find('#suggestion-3-0').click
+    # --------------------------------------------------------
+    # End DMPTool Customization
+    # --------------------------------------------------------
     click_button "Create plan"
 
     # Expectations
@@ -61,7 +69,7 @@ RSpec.describe "Plans", type: :feature do
       # so that it complies with their standards. E.g. send out an
       # email to the PI that asks them to assert the connection
       # --------------------------------------------------------
-      fill_in "ORCID iD", with: "My ORCID"
+      #fill_in "ORCID iD", with: "My ORCID"
       # --------------------------------------------------------
       # End DMPTool Customization
       # --------------------------------------------------------
@@ -87,7 +95,7 @@ RSpec.describe "Plans", type: :feature do
     # so that it complies with their standards. E.g. send out an
     # email to the PI that asks them to assert the connection
     # --------------------------------------------------------
-    expect(@plan.principal_investigator_identifier).to eql("My ORCID")
+    #expect(@plan.principal_investigator_identifier).to eql("My ORCID")
     # --------------------------------------------------------
     # End DMPTool Customization
     # --------------------------------------------------------
