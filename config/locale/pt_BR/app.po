@@ -1155,8 +1155,8 @@ msgstr "Erro levantado ao salvar a visibilidade para o plano com id %{plan_id}"
 msgid "Error:"
 msgstr "Erro"
 
-msgid "Example Answer"
-msgstr "Exemplo de Resposta"
+msgid "Example answer"
+msgstr "Exemplo de resposta"
 
 msgid "Example citations"
 msgstr "Citações de exemplo"
