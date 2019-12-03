@@ -1,0 +1,16 @@
+a.has-new-window-popup-info,
+button.has-new-window-popup-info {
+
+  &:hover,
+  &:focus,
+  &:active {
+
+    & > span.new-window-popup-info {
+      border:1px solid $color-dark-blue;
+      background-color: $color-light-blue;
+      color: $color-dark-blue;
+    }
+
+  }
+
+}
