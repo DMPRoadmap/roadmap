@@ -2613,8 +2613,8 @@ msgstr "Successo ao %{action} conta do %{username}"
 msgid "Successfully %{action} your %{object}."
 msgstr "Sucesso ao %{action} seu %{object}."
 
-msgid "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."
-msgstr "Alterou com sucesso as permissões para #{@role.user.email}. Eles foram notificados por email."
+msgid "Successfully changed the permissions for %{email}. They have been notified via email."
+msgstr "Alterou com sucesso as permissões para %{email}. Eles foram notificados por email."
 
 msgid "Successfully deleted your theme"
 msgstr "Seu tema foi apagado com sucesso"
