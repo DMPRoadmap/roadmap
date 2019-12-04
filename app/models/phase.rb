@@ -54,6 +54,10 @@ class Phase < ActiveRecord::Base
 
   has_many :questions, through: :sections
 
+  has_many :answers, through: :questions
+
+  has_many :annotations, through: :questions
+
   has_many :template_sections, -> {
     not_modifiable
   }, class_name: "Section"
