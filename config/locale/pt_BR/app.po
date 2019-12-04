@@ -195,7 +195,8 @@ msgid "A Data Management Plan in %{application_name} has been shared with you"
 msgstr "Um Plano de Gestão de Dados em %{application_name} foi compartilhado com você"
 
 #, fuzzy
-msgid "A Data Management Plan in %{tool_name} has been shared \"\"
+msgid "A Data Management Plan in %{tool_name} has been shared \"\
+"
 "                   \"with you"
 msgstr ""
 
@@ -1991,8 +1992,8 @@ msgstr ""
 #msgstr "Sucesso ao %{action} seu %{object}."
 
 #, fuzzy
-msgid "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."
-msgstr ""
+msgid "Successfully changed the permissions for %{email}. They have been notified via email."
+msgstr "Alterou com sucesso as permissões para %{email}. Eles foram notificados por email."
 
 #msgid "Successfully deleted your theme"
 #msgstr "Seu tema foi apagado com sucesso"
@@ -2684,7 +2685,8 @@ msgid "Your account has been successfully linked to your institutional credentia
 msgstr "Sua conta foi vinculada às suas credenciais institucionais. Agora você poderá entrar com eles."
 
 #, fuzzy
-msgid "Your colleague %{inviter_name} has invited you to contribute to"
+msgid "Your colleague %{inviter_name} has invited you to contribute to
+"
 "            their Data Management Plan in %{tool_name}"
 msgstr ""
 
