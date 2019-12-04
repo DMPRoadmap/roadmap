@@ -16,7 +16,7 @@
     <p>
         <span class="bold"><%= _('Template version %{template_version}, published on %{published_date}') \
                   %{ :template_version => plan.template.version, \
-                     :published_date =>  l(plan.updated_at.to_date, format: :readable) } %>
+                     :published_date =>  l(plan.template.updated_at.to_date, format: :readable) } %>
         </span>
     </p>
   </div>
