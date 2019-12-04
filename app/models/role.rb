@@ -96,7 +96,7 @@ class Role < ActiveRecord::Base
   #
   # Returns [Integer]
   def self.bit_values(access)
-    Role.send(access.to_s + "_condition").split(' in ').last[1...-2].split(',').map(&:to_i)
+    Role.send(:chained_flags_values, 'access', access)
   end
 
   # ===========================
