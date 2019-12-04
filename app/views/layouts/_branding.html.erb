@@ -10,11 +10,10 @@
       </button>
       <% if user_signed_in? && !current_user.org.nil? %>
         <% if current_user.org.logo.present? %>
-          <%= link_to(image_tag(logo_url_for_org(current_user.org),
+          <%= image_tag(logo_url_for_org(current_user.org),
                                 alt: current_user.org.name,
                                 class: "org-logo",
-                                title: current_user.org.name),
-                      current_user.org.target_url) %>
+                                title: current_user.org.name) %>
         <% else %>
           <h4 id="banner-org-name"><%= current_user.org.name %></h4>
         <% end %>
@@ -31,10 +30,11 @@
               <% if i.odd? %>
                 </li><li class="org-links">
               <% end %>
-              <%= link_to link['link'], :target=>'_blank', :class => 'org-a' do %>
+              <%= link_to link['link'], :target=>'_blank', :class => 'org-a has-new-window-popup-info' do %>
                 <i class="fa fa-globe" aria-hidden="true">&nbsp;</i>
                 <%= link['text'].blank? ? link['link'] : link['text'] %>
                 <em class="sr-only"> (new window)</em>
+                <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
               <% end; i+=1 %>
             <% end %>
           <% end %>
