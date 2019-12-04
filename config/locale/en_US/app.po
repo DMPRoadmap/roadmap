@@ -1814,7 +1814,7 @@ msgstr ""
 msgid "Successfully %{action} the %{object}."
 msgstr ""
 
-msgid "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."
+msgid "Successfully changed the permissions for %{email}. They have been notified via email."
 msgstr ""
 
 msgid "Successfully signed in"
