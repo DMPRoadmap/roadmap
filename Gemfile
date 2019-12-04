@@ -143,7 +143,7 @@ gem 'mini_racer'
 # ------------------------------------------------
 # EXPORTING
 # Provides binaries for WKHTMLTOPDF project in an easily accessible package.
-gem 'wkhtmltopdf-binary'
+gem 'wkhtmltopdf-binary', '0.12.4'
 
 # PDF generator (from HTML) gem for Ruby on Rails (https://github.com/mileszs/wicked_pdf)
 gem 'wicked_pdf', '~> 1.1.0'
