@@ -49,4 +49,18 @@ class Paginable::PlansController < ApplicationController
     )
   end
 
+  # GET /paginable/plans/org_admin/:page
+  def org_admin_other_user
+    @user = User.find(params[:id])
+    authorize @user
+    unless current_user.present? && current_user.can_org_admin? && @user.present?
+      raise Pundit::NotAuthorizedError
+    end
+    paginable_renderise(
+      partial: "org_admin_other_user",
+      scope: Plan.organisationally_or_publicly_visible(@user),
+      query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }
+    )
+  end
+
 end
