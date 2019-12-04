@@ -82,6 +82,23 @@ class Role < ActiveRecord::Base
     where(access: access_values)
   }
 
+
+  # =================
+  # = Class Methods =
+  # =================
+
+  ##
+  # Get the integer values that correspond to a given access flag
+  # Convert into a condition, take the numerical half, remove formatting
+  # split on commas, and then convert each to an integer
+  #
+  # access - The symbol corresponding to the user's access, i.e. :editor
+  #
+  # Returns [Integer]
+  def self.bit_values(access)
+    Role.send(access.to_s + "_condition").split(' in ').last[1...-2].split(',').map(&:to_i)
+  end
+
   # ===========================
   # = Public instance methods =
   # ===========================
