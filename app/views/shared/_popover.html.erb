@@ -1,7 +1,8 @@
 <%# available locals: message, placement %>
 <% if message.present? %>
-  <a href="#" class="btn btn-default" data-toggle="tooltip" 
+  <a href="#" class="btn btn-default" data-toggle="tooltip"
      title="<%= message %>" placement="<%= placement %>">
     <i class="fa fa-question-circle"></i>
+    <em class="sr-only"><%= message %>></em>
   </a>
 <% end %>

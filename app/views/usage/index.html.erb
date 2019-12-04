@@ -169,10 +169,11 @@
             </li>
             <li>
               <div class="form-group">
-              <a class="btn btn-default" href="<%= stat_created_plans_by_template_index_path(:csv) %>" role="button" id="stat_created_plan_by_template_index" target="_blank">
-                <%= _('Download all') %> <i class="fa fa-download" aria-hidden="true"></i>
+                <a class="btn btn-default has-new-window-popup-info" href="<%= stat_created_plans_by_template_index_path(:csv) %>" role="button" id="stat_created_plan_by_template_index" target="_blank">
+                  <%= _('Download all') %> <i class="fa fa-download" aria-hidden="true"></i>
+                  <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
                 </a>
-              </div>
+             </div>
             </li>
           </ul>
         </div>

@@ -4,7 +4,6 @@ UUID_REGEX ||= /\A[\w\d]{8}(\-[\w\d]{4}){3}-[\w\d]{12}\Z/i
 
 shared_examples_for "VersionableModel" do
 
-
   context "attributes" do
 
     it { is_expected.to have_readonly_attribute(:versionable_id) }

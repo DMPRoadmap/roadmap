@@ -1,9 +1,12 @@
+<% description_tooltip = _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences') %>
+
 <div class="form-group col-xs-8">
   <%= f.label(:title, _('Title'), class: "control-label") %>
-  <%= f.text_field(:title, class: "form-control", "aria-required": true) %>
+  <%= f.text_field(:title, class: "form-control", spellcheck: true, "aria-required": true) %>
 </div>
 
-<div class="form-group col-xs-8" data-toggle="tooltip" title="<%= _('Enter a description that helps you to differentiate between templates e.g. if you have ones for different audiences') %>">
+<div class="form-group col-xs-8" data-toggle="tooltip" title="<%=  description_tooltip %>">
+  <em class="sr-only"><%= description_tooltip %></em>
   <%= f.label(:description, _('Description'), class: "control-label") %>
   <%= f.text_area(:description, class: "template") %>
 </div>
@@ -17,8 +20,7 @@
                          placement: 'right' }%>
     <div class="checkbox">
       <%= f.label(:visibility) do %>
-        <%= check_box_tag('template_visibility', '0',
-                            (f.object.visibility == 'organisationally_visible')) %>
+        <%= f.check_box(:visibility, checked: f.object.visibility == 'organisationally_visible') %>
 
         <%= _('for internal %{org_name} use only') % { org_name: f.object.org.name } %>
       <% end %>

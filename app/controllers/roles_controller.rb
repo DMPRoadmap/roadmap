@@ -77,7 +77,7 @@ class RolesController < ApplicationController
       # rubocop:disable LineLength
       render json: {
         code: 1,
-        msg: _("Successfully changed the permissions for #{@role.user.email}. They have been notified via email.")
+        msg: _("Successfully changed the permissions for %{email}. They have been notified via email.") % { email: @role.user.email }
       }
       # rubocop:enable LineLength
     else

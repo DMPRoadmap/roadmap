@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2><%= _('Plans of %{username}') % { username: @user.name(false) } %></h2>
+    <!-- if the user has projects -->
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <%= paginable_renderise(
+      partial: '/paginable/plans/org_admin_other_user',
+      controller: 'paginable/plans',
+      action: 'org_admin_other_user',
+      scope: @plans,
+      query_params: { sort_field: 'plans.updated_at', sort_direction: 'desc' }) %>
+  </div>
+</div>
+</div>
