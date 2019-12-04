@@ -110,8 +110,16 @@ gem 'recaptcha'
 # Ideal gem for handling attachments in Rails, Sinatra and Rack applications. (http://github.com/markevans/dragonfly)
 gem 'dragonfly'
 
-group :aws, optional: true do
-
+# ------------------------------------------------
+# Start DMPTool customization
+# For some reason capistrano's `set :bundle_with` is not working
+# so we remove the optional flag to ensure this gem gets installed
+# ------------------------------------------------
+#group :aws, optional: true do
+group :aws do
+# ------------------------------------------------
+# End DMPTool customization
+# ------------------------------------------------
   gem 'dragonfly-s3_data_store'
 
 end
