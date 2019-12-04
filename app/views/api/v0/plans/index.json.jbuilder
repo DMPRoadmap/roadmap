@@ -6,6 +6,8 @@ json.array! @plans.each do |plan|
   json.id             plan.id
   json.title          plan.title
   json.grant_number   plan.grant_number
+  json.last_updated   plan.updated_at
+  json.creation_date  plan.created_at
   json.template do
     json.title        plan.template.title
     json.id           plan.template.family_id
@@ -25,7 +27,6 @@ json.array! @plans.each do |plan|
   end
   json.users plan.roles.each do |role|
     json.email       role.user.email
-
   end
   json.description    plan.description
   json.plan_content plan.template.phases.each do |phase|
@@ -40,6 +41,9 @@ json.array! @plans.each do |plan|
         json.number     question.number
         json.format     question.question_format.title
         json.option_based   question.question_format.option_based
+        json.themes  question.themes.each do |theme|
+          json.theme  theme.title
+        end
         answer = plan.answers.select{ |a| a.question_id = question.id }.first
         if answer.present?
           json.answered   true

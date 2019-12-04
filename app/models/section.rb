@@ -103,10 +103,11 @@ class Section < ActiveRecord::Base
   # Returns the number of answered questions for a given plan
   def num_answered_questions(plan)
     return 0 if plan.nil?
-    plan.answers.includes({ question: :question_format }, :question_options)
-                .where(question_id: question_ids)
-                .to_a
-                .count(&:is_valid?)
+
+    answered = plan.answers.select do |answer|
+      answer.answered? && questions.include?(answer.question)
+    end
+    answered.length
   end
 
   def deep_copy(**options)

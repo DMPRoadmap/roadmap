@@ -1,3 +1,4 @@
+<% sample_plans_tooltip =  _('Sample plans are provided by a funder, an organisation or a trusted party.') %>
 <div class="table-responsive">
   <table class="table table-hover">
     <thead>
@@ -7,7 +8,11 @@
         <th scope="col"><%= _('Organisation Name') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
         <th scope="col" class="date-column"><%= _('Last Updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
         <th scope="col" class="sorter-false"><%= _('Funder Links') %></th>
-        <th scope="col" class="sorter-false" data-toggle="tooltip" title="<%= _('Sample plans are provided by a funder, an organisation or a trusted party.') %>"><%= _('Sample Plans') %><br><small><%= _('(if available)') %></small></th>
+        <th><%= _('Create a new plan') %></th>
+        <th scope="col" class="sorter-false" data-toggle="tooltip" title="<%= sample_plans_tooltip %>">
+          <%= _('Sample Plans') %><br><small><%= _('(if available)') %></small>
+          <em class="sr-only"><%= sample_plans_tooltip %></em>
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -15,19 +20,29 @@
         <tr id="<%= dom_id(template) %>">
           <td><%= template.title %></td>
           <td class="text-center">
-            <%= link_to template_export_path(template.family_id, format: :docx), target: '_blank' do %>
+            <%= link_to template_export_path(template.family_id, format: :docx),
+                        target: '_blank',
+                        class: 'has-new-window-popup-info' do %>
                <i class="fa fa-file-word-o" aria-hidden="true"></i>
                <em class="sr-only"><%= _('(new window)') %></em>
+               <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
             <% end %>
-            <%= link_to template_export_path(template.family_id, format: :pdf), target: '_blank' do %>
+            <%= link_to template_export_path(template.family_id, format: :pdf),
+                        target: '_blank',
+                        class: 'has-new-window-popup-info' do %>
                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                <em class="sr-only"><%= _('(new window)') %></em>
+               <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
             <% end %>
           </td>
           <td><%= template.org.name %></td>
           <td><%= l(template.updated_at.to_date, formats: :short) %></td>
           <td>
             <%= sanitize links_to_a_elements(template.links['funder'], '<br>') %>
+          </td>
+          <td class="text-center">
+            <%= direct_link(template) %>
+            <a href="" class="copy-link" data-toggle="modal" data-target="#link-modal" title="<%= _('Copy link to create a new plan') %>"><span class="fa fa-clipboard"></span></a>
           </td>
           <td>
             <%= sanitize links_to_a_elements(template.links['sample_plan'], '<br>') %>
@@ -37,3 +52,5 @@
     </tbody>
   </table>
 </div>
+
+<%= render 'shared/copy_link_modal' %>

@@ -34,11 +34,15 @@ class UserPolicy < ApplicationPolicy
   end
 
   def edit?
-    signed_in_user.can_super_admin?
+    signed_in_user.can_super_admin? || signed_in_user.can_org_admin?
   end
 
   def update?
-    signed_in_user.can_super_admin?
+    signed_in_user.can_super_admin? || signed_in_user.can_org_admin?
+  end
+
+  def user_plans?
+    signed_in_user.can_super_admin? || signed_in_user.can_org_admin?
   end
 
   def update_email_preferences?
@@ -47,6 +51,18 @@ class UserPolicy < ApplicationPolicy
 
   def acknowledge_notification?
     true
+  end
+
+  def merge?
+    signed_in_user.can_super_admin?
+  end
+
+  def archive?
+    signed_in_user.can_super_admin?
+  end
+
+  def search?
+    signed_in_user.can_super_admin?
   end
 
   class Scope < Scope
