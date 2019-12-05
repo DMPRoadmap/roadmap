@@ -53,7 +53,9 @@ group :puma do
 end
 
 # Bit fields for ActiveRecord (https://github.com/pboling/flag_shih_tzu)
-gem 'flag_shih_tzu'  # Allows for bitfields in activereccord
+gem 'flag_shih_tzu', '~> 0.3.23' # Allows for bitfields in activereccord
+# Pinned here because we're using a private method in Role.rb
+# if this gets updated, check this method still exists
 
 # ------------------------------------------------
 #    JSON DSL - USED BY API
