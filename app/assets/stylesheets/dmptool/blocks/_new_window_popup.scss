@@ -1,6 +1,11 @@
 a.has-new-window-popup-info,
 button.has-new-window-popup-info {
 
+  & > span.new-window-popup-info {
+    left: auto;
+    right: 10px;
+  }
+
   &:hover,
   &:focus,
   &:active {
@@ -9,6 +14,8 @@ button.has-new-window-popup-info {
       border:1px solid $color-dark-blue;
       background-color: $color-light-blue;
       color: $color-dark-blue;
+      left: auto;
+      right: 10px;
     }
 
   }

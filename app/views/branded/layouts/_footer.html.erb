@@ -13,8 +13,8 @@
           <li><a href="<%= about_us_path %>"><%= _('About') %></a></li>
           <li><a href="<%= terms_path %>"><%= _('Terms of use') %></a></li>
           <li><a href="<%= privacy_path %>"><%= _('Privacy statement') %></a></li>
-          <li><a href="https://www.cdlib.org/about/accessibility.html"><%= _('Accessibility') %> <em class="sr-only"><%= _('new window') %></em> <i class="fa fa-external-link">&nbsp;</i></a></li>
-          <li><a href="https://github.com/cdluc3/dmptool"><%= _('Github') %> <em class="sr-only"><%= _('new window') %></em> <i class="fa fa-external-link">&nbsp;</i></a></li>
+          <li><a href="https://www.cdlib.org/about/accessibility.html"><%= _('Accessibility') %></a></li>
+          <li><a href="https://github.com/cdluc3/dmptool"><%= _('Github') %></a></li>
           <li><a href="<%= contact_us_path %>"><%= _('Contact us') %></a></li>
         </ul>
       </div>
@@ -26,10 +26,10 @@
       <div class="container-fluid">
         <ul class="nav navbar-nav">
           <li>
-            <a href="https://twitter.com/TheDMPTool" target="_blank"><span class="fa fa-twitter-square large"><span class="sr-only"><%= _("Twitter") %></span></span></a>
+            <a href="https://twitter.com/TheDMPTool"><span class="fa fa-twitter-square large"><span class="sr-only"><%= _("Twitter") %></span></span></a>
           </li>
           <li>
-            <a href="https://blog.dmptool.org/feed" target="_blank"><span class="fa fa-rss-square large"><span class="sr-only"><%= _("RSS") %></span></span></a>
+            <a href="https://blog.dmptool.org/feed"><span class="fa fa-rss-square large"><span class="sr-only"><%= _("RSS") %></span></span></a>
           </li>
         </ul>
       </div>
@@ -42,7 +42,7 @@
     <!-- Copyright -->
     <p>
       <%= sanitize _('DMPTool is a service of the %{uc3} of the %{cdl}') % {
-        uc3: "<a href=\"https://www.cdlib.org/uc3/\" target=\"_blank\">University of California Curation Center <em class=\"sr-only\">(new window)</em></a>",
+        uc3: "<a href=\"https://cdlib.org/services/uc3/\" target=\"_blank\">University of California Curation Center <em class=\"sr-only\">(new window)</em></a>",
         cdl: "<a href=\"http://www.cdlib.org/\" target=\"_blank\">California Digital Library <em class=\"sr-only\">(new window)</em></a>"
       } %>
       <br>
