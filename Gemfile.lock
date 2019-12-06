@@ -499,7 +499,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   feedjira
-  flag_shih_tzu
+  flag_shih_tzu (~> 0.3.23)
   font-awesome-sass (~> 4.2.0)
   fuubar
   gettext
