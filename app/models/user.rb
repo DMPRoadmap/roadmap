@@ -54,6 +54,7 @@ class User < ActiveRecord::Base
   include ConditionalUserMailer
   include ValidationMessages
   include ValidationValues
+  extend UniqueRandom
 
   ##
   # Devise
@@ -326,11 +327,8 @@ class User < ActiveRecord::Base
   # Returns Boolean
   def keep_or_generate_token!
     if api_token.nil? || api_token.empty?
-      self.api_token = loop do
-        random_token = SecureRandom.urlsafe_base64(nil, false)
-        break random_token unless User.exists?(api_token: random_token)
-      end
-      update_column(:api_token, api_token)  unless new_record?
+      new_token = User.unique_random(field_name: 'api_token')
+      update_column(:api_token, new_token)  unless new_record?
     end
   end
 
@@ -389,6 +387,43 @@ class User < ActiveRecord::Base
   # Returns nil
   def acknowledge(notification)
     notifications << notification if notification.dismissable?
+  end
+
+  # remove personal data from the user account and save
+  # leave account in-place, with org for statistics (until we refactor those)
+  #
+  # Returns boolean
+  def archive
+    self.firstname = 'Deleted'
+    self.surname = 'User'
+    self.email = User.unique_random(field_name: 'email',
+      prefix: 'user_',
+      suffix: Rails.configuration.branding[:application].fetch(:archived_accounts_email_suffix, '@example.org'),
+      length: 5)
+    self.recovery_email = nil
+    self.api_token = nil
+    self.encrypted_password = nil
+    self.last_sign_in_ip = nil
+    self.current_sign_in_ip =  nil
+    self.active = false
+    return self.save
+  end
+
+  def merge(to_be_merged)
+    # merge logic
+    # => answers -> map id
+    to_be_merged.answers.update_all(user_id: self.id)
+    # => notes -> map id
+    to_be_merged.notes.update_all(user_id: self.id)
+    # => plans -> map on id roles
+    to_be_merged.roles.update_all(user_id: self.id)
+    # => prefs -> Keep's from self
+    # => auths -> map onto keep id only if keep does not have the identifier
+    to_be_merged.user_identifiers.
+          where.not(identifier_scheme_id: self.identifier_scheme_ids)
+          .update_all(user_id: self.id)
+    # => ignore any perms the deleted user has
+    to_be_merged.destroy
   end
 
   private

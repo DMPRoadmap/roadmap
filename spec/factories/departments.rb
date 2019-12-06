@@ -20,6 +20,6 @@ FactoryBot.define do
   factory :department do
     name { Faker::Commerce.department }
     code { SecureRandom.hex(5) }
-    org_id { Faker::Number.number(5) }
+    org_id { Faker::Number.number(digits: 5) }
   end
 end
