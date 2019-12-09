@@ -136,7 +136,7 @@ GEM
     feedjira (3.0.0)
       loofah (>= 2.2.1)
       sax-machine (>= 1.0)
-    ffi (1.11.1)
+    ffi (1.11.3)
     flag_shih_tzu (0.3.23)
     fog-aws (3.5.2)
       fog-core (~> 2.1)
@@ -287,7 +287,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
     public_suffix (4.0.1)
-    puma (4.2.0)
+    puma (4.3.1)
       nio4r (~> 2.0)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
@@ -499,7 +499,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   feedjira
-  flag_shih_tzu
+  flag_shih_tzu (~> 0.3.23)
   font-awesome-sass (~> 4.2.0)
   fuubar
   gettext
