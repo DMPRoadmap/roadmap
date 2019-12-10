@@ -17,13 +17,12 @@ jobs:
       uses: actions/setup-ruby@v1
       with:
         ruby-version: 2.4.x
-    - name: Setup DMPRoadmap config
-      env:
-        key: WICKED_PDF_PATH=./vendor/bundle/ruby/2.4.0/bin/wkhtmltopdf
-      run: bin/setup
     - name: Build and test with Rspec
+      env:
+        WICKED_PDF_PATH: ./vendor/bundle/ruby/2.4.0/bin/wkhtmltopdf
       run: |
         gem install bundler
+        bin/setup
         bundle exec rake webpacker:compile
         bundle exec rake assets:precompile
         bundle install --jobs 4 --retry 3
