@@ -43,11 +43,11 @@
 
         <%# case where Question has options %>
         <% if options.any? %>
-          <ol>
+          <ul>
           <% options.each do |opt| %>
             <li><%= opt.text %></li>
           <% end %>
-          </ol>
+          </ul>
         <% end %>
         <%# case for RDA answer display %>
         <% if question[:format].rda_metadata? && !blank %>

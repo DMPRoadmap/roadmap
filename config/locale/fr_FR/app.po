@@ -206,8 +206,11 @@ msgstr "Plan de gestion de données créé à l'aide de %{application_name}"
 #msgid "A Data Management Plan in %{application_name} has been shared with you"
 #msgstr ""
 
-#msgid "A Data Management Plan in %{tool_name} has been shared \"
-#msgstr ""
+#, fuzzy
+msgid "A Data Management Plan in %{tool_name} has been shared \"\
+"
+"                   \"with you"
+msgstr ""
 
 #msgid "A Data Management Plan in %{tool_name} has been shared with you"
 #msgstr "Un plan de gestion de données a été partagé avec vous sur %{tool_name}"
@@ -574,7 +577,7 @@ msgid "Copy"
 msgstr "Copier"
 
 msgid "Copy link"
-msgstr "Lien de copie"
+msgstr "Copier le lien"
 
 msgid "Copy of %{template}"
 msgstr "Copie de %{template}"
@@ -767,6 +770,9 @@ msgstr "Télécharger"
 
 msgid "Download Plan <em class=\"sr-only\">(new window)</em>"
 msgstr "Télécharger le plan <em class=\"sr-only\">(nouvelle fenêtre)</em>"
+
+msgid "Download Plan <em class=\"sr-only\">(new window)</em><span class=\"new-window-popup-info\">%{open_in_new_window_text}</span>"
+msgstr "Télécharger le plan <em class=\"sr-only\">(new window)</em><span class=\"new-window-popup-info\">%{open_in_new_window_text}</span>"
 
 msgid "Download all"
 msgstr "Tout télécharger"
@@ -2054,8 +2060,8 @@ msgstr "%{object} %{action} avec succès."
 #msgid "Successfully %{action} your %{object}."
 #msgstr "%{object} %{action} avec succès."
 
-msgid "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."
-msgstr "Autorisations de #{@role.user.email} modifiées avec succès. L'utilisateur a été informé par mail."
+msgid "Successfully changed the permissions for %{email}. They have been notified via email."
+msgstr "Autorisations de %{email} modifiées avec succès. L'utilisateur a été informé par mail."
 
 #msgid "Successfully deleted your theme"
 #msgstr "Votre thème a bien été supprimé"
@@ -3217,8 +3223,11 @@ msgstr "Vous ne pouvez pas publier un modèle sans question dans une section.  "
 msgid "Template version %{template_version}, published on %{published_date}"
 msgstr "Version %{template_version} du modèle, publiée le %{published_date}"
 
-msgid "Enter the email address of your collaborator: <ul><li> If they are already using %{tool_name}, they will see this plan on their dashboard, and receive an email. </li> <li> If they are not currently using %{tool_name}, they will receive an email inviting them to the tool so they can collaborate on your plan.</li></ul>"
-msgstr "Renseignez le couriel de votre collaborateur: <ul><li> Si ils utilisent déjà %{tool_name}, ils recevront un courriel et ce plan apparaîtra sur leur Tableau de Bord. </li> <li> S'ils n'utilisent pas %{tool_name}, ils recevront un courriel les invitant à s'inscrire à l'outil afin de pouvoir collaborer à ce plan.</li></ul>"
+msgid "Enter the email address of your collaborator: If they are already using #{Rails.configuration.branding[:application][:name]}, they will see this plan on their dashboard, and recieve an email. If they are not currently using #{Rails.configuration.branding[:application][:name]}, they will recieve an email inviting them to the tool so they can collaborate on your plan."
+msgstr "Renseignez le couriel de votre collaborateur: Si ils utilisent déjà #{Rails.configuration.branding[:application][:name]}, ils recevront un courriel et ce plan apparaîtra sur leur Tableau de Bord. S'ils n'utilisent pas #{Rails.configuration.branding[:application][:name]}, ils recevront un courriel les invitant à s'inscrire à l'outil afin de pouvoir collaborer à ce plan."
 
 msgid "Review plans"
 msgstr "Relecture des plans"
+
+msgid "Opens in new window"
+msgstr "S'ouvre dans une nouvelle fenêtre"

@@ -3,7 +3,6 @@
 class RolesController < ApplicationController
 
   include ConditionalUserMailer
-  prepend Dmpopidor::Controllers::Roles
   respond_to :html
   after_action :verify_authorized
 
@@ -67,7 +66,6 @@ class RolesController < ApplicationController
   end
 
 
-  # SEE MODULE
   def update
     @role = Role.find(params[:id])
     authorize @role
@@ -79,7 +77,7 @@ class RolesController < ApplicationController
       # rubocop:disable LineLength
       render json: {
         code: 1,
-        msg: _("Successfully changed the permissions for #{@role.user.email}. They have been notified via email.")
+        msg: _("Successfully changed the permissions for %{email}. They have been notified via email.") % { email: @role.user.email }
       }
       # rubocop:enable LineLength
     else
