@@ -14,12 +14,12 @@ class FeedbackRequestsController < ApplicationController
     authorize @plan, :request_feedback?
     begin
       if @plan.request_feedback(current_user)
-        redirect_to share_plan_path(@plan), notice: _(request_feedback_flash_notice)
+        redirect_to request_feedback_plan_path(@plan), notice: _(request_feedback_flash_notice)
       else
-        redirect_to share_plan_path(@plan), alert: ALERT
+        redirect_to request_feedback_plan_path(@plan), alert: ALERT
       end
     rescue Exception
-      redirect_to share_plan_path(@plan), alert: ERROR
+      redirect_to request_feedback_plan_path(@plan), alert: ERROR
     end
   end
 

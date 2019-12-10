@@ -3,24 +3,6 @@ module Dmpopidor
       module Plans
 
         # CHANGES:
-        # Added plan creation from link
-        def index
-          authorize Plan
-          @plans = Plan.active(current_user).page(1)
-          if current_user.org.is_other?
-            @organisationally_or_publicly_visible = []
-          else
-            @organisationally_or_publicly_visible =
-              Plan.organisationally_or_publicly_visible(current_user).page(1)
-          end
-
-          if params[:plan].present?
-            @template = Template.find(params[:plan][:template_id])
-          end
-          
-        end
-
-        # CHANGES:
         # Added Privately private visibility
         # Added Research Output Support
         def create

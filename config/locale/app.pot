@@ -212,9 +212,11 @@ msgstr ""
 #msgid "A Data Management Plan in %{application_name} has been shared with you"
 #msgstr ""
 
-#msgid "A Data Management Plan in %{tool_name} has been shared \"\
+#, fuzzy
+msgid "A Data Management Plan in %{tool_name} has been shared \"\
 "
-#msgstr ""
+"                   \"with you"
+msgstr ""
 
 #msgid "A Data Management Plan in %{tool_name} has been shared with you"
 #msgstr ""
@@ -786,6 +788,9 @@ msgstr ""
 #msgstr ""
 
 msgid "Download Plan <em class=\"sr-only\">(new window)</em>"
+msgstr ""
+
+msgid "Download Plan <em class=\"sr-only\">(new window)</em><span class=\"new-window-popup-info\">%{open_in_new_window_text}</span>"
 msgstr ""
 
 msgid "Download all"
@@ -2079,7 +2084,7 @@ msgstr ""
 #msgid "Successfully %{action} your %{object}."
 #msgstr ""
 
-msgid "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."
+msgid "Successfully changed the permissions for %{email}. They have been notified via email."
 msgstr ""
 
 #msgid "Successfully deleted your theme"
@@ -3255,10 +3260,13 @@ msgstr ""
 msgid "Template version %{template_version}, published on %{published_date}"
 msgstr ""
 
-msgid "Enter the email address of your collaborator: <ul><li> If they are already using %{tool_name}, they will see this plan on their dashboard, and receive an email. </li> <li> If they are not currently using %{tool_name}, they will receive an email inviting them to the tool so they can collaborate on your plan.</li></ul>"
+msgid "Enter the email address of your collaborator: If they are already using #{Rails.configuration.branding[:application][:name]}, they will see this plan on their dashboard, and recieve an email. If they are not currently using #{Rails.configuration.branding[:application][:name]}, they will recieve an email inviting them to the tool so they can collaborate on your plan."
 msgstr ""
 
 msgid "Review plans"
+msgstr ""
+
+msgid "Opens in new window"
 msgstr ""
 
 

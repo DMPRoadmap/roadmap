@@ -9,7 +9,6 @@ class PlansController < ApplicationController
 
   after_action :verify_authorized, except: [:overview]
 
-  # SEE MODULE
   def index
     authorize Plan
     @plans = Plan.active(current_user).page(1)
@@ -18,6 +17,10 @@ class PlansController < ApplicationController
     else
       @organisationally_or_publicly_visible =
         Plan.organisationally_or_publicly_visible(current_user).page(1)
+    end
+
+    if params[:plan].present?
+      @template = Template.find(params[:plan][:template_id])
     end
   end
 
@@ -264,6 +267,16 @@ class PlansController < ApplicationController
   end
 
   def share
+    @plan = Plan.find(params[:id])
+    if @plan.present?
+      authorize @plan
+      @plan_roles = @plan.roles
+    else
+      redirect_to(plans_path)
+    end
+  end
+
+  def request_feedback
     @plan = Plan.find(params[:id])
     if @plan.present?
       authorize @plan

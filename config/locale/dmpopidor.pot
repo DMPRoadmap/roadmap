@@ -222,9 +222,6 @@ msgstr ""
 msgid "You can either choose a template provided by your organisation, another organisation or a funder template. The default template is "
 msgstr ""
 
-msgid "Successfully changed the permissions for %{user_email}. They have been notified via email."
-msgstr ""
-
 msgid "Banner text"
 msgstr ""
 
