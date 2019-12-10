@@ -13,15 +13,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Set up Ruby 2.4
+    - name: Set up Ruby 2.5
       uses: actions/setup-ruby@v1
       with:
-        ruby-version: 2.4.x
+        ruby-version: 2.5.x
     - name: Build and test with Rspec
       env:
         WICKED_PDF_PATH: ./vendor/bundle/ruby/2.4.0/bin/wkhtmltopdf
       run: |
-        gem install bundler
+        gem install bundler -v 1.17.2
         bin/setup
         bundle exec rake webpacker:compile
         bundle exec rake assets:precompile
