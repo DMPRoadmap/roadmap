@@ -118,17 +118,13 @@ group :aws, optional: true do
 
 end
 
-
 # bootstrap-sass is a Sass-powered version of Bootstrap 3, ready to drop right into your Sass powered applications. (https://github.com/twbs/bootstrap-sass)
 gem 'bootstrap-sass', '~> 3.4.1'
 
 # This is required for Font-Awesome, but not used as the main sass compiler
-
-# Sass adapter for the Rails asset pipeline. (https://github.com/rails/sass-rails)
-gem "sass-rails", require: false
-
 # Integrate SassC-Ruby into Rails. (https://github.com/sass/sassc-rails)
-gem "sassc-rails"
+gem "sassc-rails", '2.1.0'
+gem "sassc", "2.1.0"
 
 # Font-Awesome SASS (https://github.com/FortAwesome/font-awesome-sass)
 gem 'font-awesome-sass', '~> 4.2.0'
