@@ -16,7 +16,7 @@ jobs:
     - name: Install db packages
       run: |
         sudo apt-get update
-        sudo apt-get install libmysqlclient-dev postgresql postgresql-contrib libpq-dev
+        sudo apt-get install libmysqlclient-dev
         
     - name: Set up Ruby 2.5
       uses: actions/setup-ruby@v1
@@ -51,6 +51,7 @@ jobs:
     - name: Setup default configs
       env:
         WICKED_PDF_PATH: ./vendor/bundle/ruby/2.4.0/bin/wkhtmltopdf
+        DB_ADAPTER: mysql2
       run: |
         cp config/branding.yml.sample config/branding.yml
         cp config/database.yml.sample config/database.yml
