@@ -36,9 +36,16 @@ jobs:
       env:
         WICKED_PDF_PATH: ./vendor/bundle/ruby/2.4.0/bin/wkhtmltopdf
       run: |
-        bin/setup
+        cp config/branding.yml.sample config/branding.yml
+        cp config/database.yml.sample config/database.yml
+        cp config/secrets.yml.sample config/secrets.yml
+        cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
+        cp config/initializers/devise.rb.example config/initializers/devise.rb
+        cp config/initializers/recaptcha.rb.example config/initializers/recaptcha.rb
+        cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
         bundle exec rake webpacker:compile
         bundle exec rake assets:precompile
+        bin/rake db:setup
 
     - name: Run Rubocop
       run: bundle exec rubocop --parallel
