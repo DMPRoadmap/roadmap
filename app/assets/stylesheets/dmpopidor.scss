@@ -99,7 +99,6 @@ header .main-nav {
     MAIN CONTENT
 */
 
-
  /*
     FOOTER
  */
@@ -155,7 +154,7 @@ header .main-nav {
 
         }
 
-        span {
+        span:not(.new-window-popup-info) {
             line-height: 50px;
             padding-left: 15px;
             padding-right: 15px;
@@ -831,4 +830,25 @@ header .main-nav {
             }
         }
     }
+}
+
+/*
+ * ACCESSIBILITY
+ */
+
+ a.has-new-window-popup-info,
+button.has-new-window-popup-info {
+  &:hover,
+  &:focus,
+  &:active {
+
+    & > span.new-window-popup-info {
+      width:15em;
+      border:1px solid $blue;
+      background-color: white;
+      color:$blue;
+    }
+    
+  }
+  
 }
