@@ -523,8 +523,8 @@ msgstr "Cocher cette case évite de faire apparaître le modèle dans la liste d
 msgid "Clear search results"
 msgstr "Effacez les résultats de la recherche."
 
-msgid "Click below to give data management staff at your organisation access to read and comment on your plan."
-msgstr "Cliquez ci-dessous pour permettre au service d'accompagnement de votre organisme de lire et commenter votre plan."
+msgid "Click below to give data management staff at %{org_name}, the Plan Owner's org, access to read and comment on your plan."
+msgstr "Cliquez ci-dessous pour permettre au service d'accompagnement de votre organisme (%{org_name}) de lire et commenter votre plan."
 
 msgid "Click here"
 msgstr "Cliquez ici"
@@ -3230,4 +3230,25 @@ msgid "Review plans"
 msgstr "Relecture des plans"
 
 msgid "Opens in new window"
-msgstr "S'ouvre dans une nouvelle fenêtre"
+msgstr "Ouvre une nouvelle fenêtre"
+
+msgid "merged"
+msgstr "fusionné"
+
+msgid "Archive"
+msgstr "Archiver"
+
+msgid "You are about to archive %{user_name}.  This will remove their personal information, but retain their plans, answers, and comments.  They will be unable to sign-in. Are you sure?"
+msgstr "Vous êtes sur le point d'archiver %{user_name}. Toutes ses informations personnelles seront supprimées, ormis ses plans, réponses et commentaires. Il lui sera impossible de se connecter. Êtes-vous sûr ?"
+
+msgid "Merge Accounts"
+msgstr "Fusionner les comptes"
+
+msgid "First, search for a user by email, then select them from the list."
+msgstr "Chercher d'abord l'utilisateur avec son courriel, puis sélectionnez le dans la liste."
+
+msgid "<br>The selected user's content will be merged into the account for %{user_email}. <br> The selected account will then be removed"
+msgstr "<br>Le contenu de l'utilisateur sélectionné sera fusionné avec le compte de %{user_email}. <br> Le compte sélectionné sera ensuite supprimé."
+
+msgid "Merge"
+msgstr "Fusionner"

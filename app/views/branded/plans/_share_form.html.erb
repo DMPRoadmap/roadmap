@@ -74,14 +74,12 @@
       
         <% end %>
       </div>
-
-      <fieldset class="col-xs-12">
-        <em class="sr-only"><%= permissions_tooltip %></em>
-        <%= field_set_tag  nil, class: 'col-xs-2',
-                        'data-toggle': 'tooltip',
-                        'data-html': true,
-                        title: permissions_tooltip,
-                        'data-placement':'right' do %>
+      <em class="sr-only"><%= permissions_tooltip %></em>
+      <%= field_set_tag  nil, class: 'col-xs-12',
+                      'data-toggle': 'tooltip',
+                      'data-html': true,
+                      title: permissions_tooltip,
+                      'data-placement':'right' do %>
         <legend><%= _('Permissions') %></legend>
         <div class="form-group">
           <div class="radio">
@@ -105,7 +103,8 @@
 
           <%= f.button(_('Submit'), class: "btn btn-primary", type: "submit") %>
         </div>
-        <div class="clearfix"></div>
+      <% end %>
+      <div class="clearfix"></div>
     <% end %>  
   <% end %>
   <h2><%= _('Set plan visibility') %></h2>
@@ -116,9 +115,11 @@
   <%= form_for(@plan, url: visibility_plan_path, method: :post, html: { id: 'set_visibility' }) do |f| %>
     <fieldset <%= (allow_visibility ? '' : ' disabled') %>>
       <div class="form-group col-xs-8">
-      <div class="radio">
-        <%= f.label :visibility_privately_visible, raw("#{f.radio_button :visibility, :privately_visible}\
-          #{d_('dmpopidor', 'Private: visible to me and specified collaborators')}") %>
+        <div class="radio">
+          <%= f.label :visibility_privately_visible do %>
+            <%= f.radio_button :visibility, :privately_visible %>
+            <%= d_('dmpopidor', 'Private: visible to me and specified collaborators') %>
+          <% end %>
         </div>
         <div class="radio">
           <%= f.label :visibility_administrator_visible do %>

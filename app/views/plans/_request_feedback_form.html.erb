@@ -4,7 +4,9 @@
   <div class="col-xs-12">
     <% if plan.owner_and_coowners.include?(current_user) && plan.owner.org.feedback_enabled? %>
       <h2><%= _('Request expert feedback') %></h2>
-      <p><%= _("Click below to give data management staff at #{plan.owner.org.name}, the Plan Owner's org, access to read and comment on your plan.") %></p>
+      <p><%= _("Click below to give data management staff at %{org_name}, the Plan Owner's org, access to read and comment on your plan.") % {
+        org_name: plan.owner.org.name
+      } %></p>
       <div class="well well-sm">
         <%= sanitize plan.owner.org.feedback_email_msg.to_s % { user_name: current_user.name(false), plan_name: plan.title } %>
       </div>

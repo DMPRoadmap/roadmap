@@ -543,7 +543,7 @@ msgstr ""
 msgid "Clear search results"
 msgstr ""
 
-msgid "Click below to give data management staff at your organisation access to read and comment on your plan."
+msgid "Click below to give data management staff at %{org_name}, the Plan Owner's org, access to read and comment on your plan."
 msgstr ""
 
 msgid "Click here"
@@ -3269,4 +3269,23 @@ msgstr ""
 msgid "Opens in new window"
 msgstr ""
 
+msgid "merged"
+msgstr ""
 
+msgid "Archive"
+msgstr ""
+
+msgid "You are about to archive %{user_name}.  This will remove their personal information, but retain their plans, answers, and comments.  They will be unable to sign-in. Are you sure?"
+msgstr ""
+
+msgid "Merge Accounts"
+msgstr ""
+
+msgid "First, search for a user by email, then select them from the list."
+msgstr ""
+
+msgid "<br>The selected user's content will be merged into the account for %{user_email}. <br> The selected account will then be removed"
+msgstr ""
+
+msgid "Merge"
+msgstr ""
