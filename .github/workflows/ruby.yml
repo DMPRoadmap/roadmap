@@ -16,7 +16,7 @@ jobs:
     - name: Install db packages
       run: |
         sudo apt-get update
-        sudo apt-get install libmysqlclient-dev
+        sudo apt-get install libmysqlclient-dev libpq-dev
         
     - name: Set up Ruby 2.5
       uses: actions/setup-ruby@v1
