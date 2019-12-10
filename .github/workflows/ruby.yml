@@ -13,18 +13,41 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: Install mysql packages
+      run: |
+        sudo apt-get update
+        sudo apt-get install libmysqlclient-dev libpq-dev libsqlite3-dev libncurses5-dev
     - name: Set up Ruby 2.5
       uses: actions/setup-ruby@v1
       with:
         ruby-version: 2.5.x
-    - name: Build and test with Rspec
+    - name: Setup default configs
       env:
         WICKED_PDF_PATH: ./vendor/bundle/ruby/2.4.0/bin/wkhtmltopdf
       run: |
-        gem install bundler -v 1.17.2
         bin/setup
         bundle exec rake webpacker:compile
         bundle exec rake assets:precompile
-        bundle install --jobs 4 --retry 3
-        yarn install
+    - name: Cache gems
+      uses: actions/gem-cache@v1
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gem-
+    - name: Install gems
+      run: |
+        bundle config path vendor/bundle
+        bundle install --jobs 4 --retry 3 --with development,ci
+    - name: Cache JS
+      uses: actions/yarn-cache@v1
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+    - name: Install Webpack Dependencies
+      run: yarn install
+    - name: Run Tests
+      run: 
         bundle exec rspec
