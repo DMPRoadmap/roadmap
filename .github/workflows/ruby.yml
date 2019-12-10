@@ -1,4 +1,4 @@
-name: Ruby
+name: MySQL
 
 on:
   pull_request:
@@ -34,7 +34,7 @@ jobs:
       run: |
         gem install bundler -v 1.17.2
         bundle config path vendor/bundle
-        bundle install --jobs 4 --retry 3 --with development,ci
+        bundle install --jobs 4 --retry 3 --with development,ci --without pgsql,rollbar,aws
 
     - name: Cache JS
       uses: actions/cache@v1
