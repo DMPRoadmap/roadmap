@@ -52,7 +52,7 @@ install:
   # sassc-rails causes a build failure when running assets:precompile in Travis
   # for the mysql2 env. Forcing the gem to install and build ffi locally fixes
   # the issue: https://github.com/sass/sassc-ruby/issues/146
-  - gem install sassc -- --disable-march-tune-native
+  #- gem install sassc -- --disable-march-tune-native
 
   # Install all gem and JS dependencies
   - bundle install --with development,ci --path=${BUNDLE_PATH:-vendor/bundle}
