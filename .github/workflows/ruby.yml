@@ -1,4 +1,4 @@
-name: MySQL
+name: DMPRoadmap tests
 
 on:
   pull_request:
@@ -13,11 +13,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Install mysql packages
+    - name: Install db packages
       run: |
         sudo apt-get update
-        sudo apt-get install libmysqlclient-dev libpq-dev libsqlite3-dev libncurses5-dev
-
+        sudo apt-get install libmysqlclient-dev postgresql postgresql-contrib libpq-dev
+        
     - name: Set up Ruby 2.5
       uses: actions/setup-ruby@v1
       with:
