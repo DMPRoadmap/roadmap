@@ -13,6 +13,10 @@ jobs:
       db:
         image: postgres:11
         ports: ['5432:5432']
+        env: 
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: roadmap_test
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -74,6 +78,10 @@ jobs:
       run: yarn install
     
     - name: 'Setup Test DB'
+      env:
+        POSTGRES_HOST: localhost
+        POSTGRES_PORT: 5432
+        DB_ADAPTER: postgresql
       run: bundle exec rake db:setup RAILS_ENV=test
     
     - name: 'Compile Assets'
