@@ -28,6 +28,9 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install libpq-dev
+        echo which postgres
+        echo postgres -V
+        echo service postgresql status
     
     - name: Set up Ruby 2.4
       uses: actions/setup-ruby@v1
