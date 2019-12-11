@@ -90,5 +90,5 @@ jobs:
         yarn add karma
         yarn run test
 
-    #- name: 'Run Rspec Tests'
-    #  run: bundle exec rspec spec/
+    - name: 'Run Rspec Tests'
+      run: bundle exec rspec spec/
