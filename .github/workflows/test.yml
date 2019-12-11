@@ -79,14 +79,10 @@ jobs:
     
     - name: 'Setup Test DB'
       env:
-        POSTGRES_HOST: localhost
-        POSTGRES_PORT: 5432
-        DB_ADAPTER: postgresql
+        DATABASE_URL: postgres://postgres:@localhost:5432/roadmap_test
       run: bundle exec rake db:setup RAILS_ENV=test
     
     - name: 'Compile Assets'
-      env:
-        DATABASE_URL: postgres://postgres:@localhost:5432/roadmap_test
       run: |
         bundle exec rake webpacker:compile
         bundle exec rake assets:precompile
