@@ -1,4 +1,4 @@
-name: Run tests
+name: Run Tests
 
 on:
   pull_request:
@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Setup postgres
+    - name: Setup PostgreSQL
       uses: harmon758/postgresql-action@v1
       with: 
         postgresql version: '11'  # See https://hub.docker.com/_/postgres for available versions
@@ -23,7 +23,7 @@ jobs:
       with:
         ruby-version: 2.4.x
 
-    - name: Cache gems
+    - name: Cache Gems
       uses: actions/cache@v1
       with:
         path: vendor/bundle
@@ -31,13 +31,13 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gem-
           
-    - name: Install gems
+    - name: Install Gems
       run: |
         gem install bundler -v 1.17.2
         bundle config path vendor/bundle
-        bundle install --jobs 4 --retry 3 --with development,ci --without pgsql,rollbar,aws
+        bundle install --jobs 4 --retry 3 --without mysql rollbar aws
 
-    - name: Cache yarn
+    - name: Cache Yarn
       uses: actions/cache@v1
       with:
         path: node_modules/
@@ -45,10 +45,10 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-yarn-
           
-    - name: Install Webpack Dependencies
+    - name: Install Yarn
       run: yarn install
 
-    - name: Setup default configs
+    - name: Setup Default Configuration
       env:
         WICKED_PDF_PATH: ./vendor/bundle/ruby/2.4.0/bin/wkhtmltopdf
       run: |
