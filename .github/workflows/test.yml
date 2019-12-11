@@ -74,11 +74,11 @@ jobs:
           ${{ runner.os }}-yarn-
           
     - name: 'Yarn Install'
-      run: yarn install
+      run: |
+        yarn install
+        yarn add karma
     
     - name: 'Setup Test DB'
-      #env:
-      #  DATABASE_URL: postgres://postgres:@localhost:5432/roadmap_test
       run: bundle exec rake db:setup RAILS_ENV=test
     
     - name: 'Compile Assets'
@@ -89,5 +89,5 @@ jobs:
     - name: 'Run Karma Tests'
       run: yarn test
 
-    - name: 'Run Rspec Tests'
-      run: bundle exec rspec spec/
+    #- name: 'Run Rspec Tests'
+    #  run: bundle exec rspec spec/
