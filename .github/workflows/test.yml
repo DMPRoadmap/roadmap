@@ -25,6 +25,17 @@ jobs:
       with:
         ruby-version: 2.4.x
     
+    - name: 'Setup Default Configuration'
+      run: |
+        # Make copies of all the example config files
+        cp config/branding.yml.sample config/branding.yml
+        cp config/database.yml.sample config/database.yml
+        cp config/secrets.yml.sample config/secrets.yml
+        cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
+        cp config/initializers/devise.rb.example config/initializers/devise.rb
+        cp config/initializers/recaptcha.rb.example config/initializers/recaptcha.rb
+        cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
+
     - name: 'Install Dependencies'
       run: |
         gem install bundler -v 1.17.2
@@ -50,17 +61,6 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-yarn-
     
-    - name: 'Setup Default Configuration'
-      run: |
-        # Make copies of all the example config files
-        cp config/branding.yml.sample config/branding.yml
-        cp config/database.yml.sample config/database.yml
-        cp config/secrets.yml.sample config/secrets.yml
-        cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
-        cp config/initializers/devise.rb.example config/initializers/devise.rb
-        cp config/initializers/recaptcha.rb.example config/initializers/recaptcha.rb
-        cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
-
     - name: 'Run Karma Tests'
       run: yarn test
 
