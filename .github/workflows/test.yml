@@ -76,7 +76,6 @@ jobs:
     - name: 'Yarn Install'
       run: |
         yarn install
-        yarn add karma
     
     - name: 'Setup Test DB'
       run: bundle exec rake db:setup RAILS_ENV=test
@@ -87,7 +86,9 @@ jobs:
         bundle exec rake assets:precompile
     
     - name: 'Run Karma Tests'
-      run: yarn run test
+      run: |
+        yarn add karma
+        yarn run test
 
     #- name: 'Run Rspec Tests'
     #  run: bundle exec rspec spec/
