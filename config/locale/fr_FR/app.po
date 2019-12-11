@@ -2094,7 +2094,7 @@ msgid "Surname"
 msgstr "Nom de famille"
 
 msgid "Template"
-msgstr "Template"
+msgstr "Modèle"
 
 msgid "Template Customisation History"
 msgstr "Historique des personnalisations du modèle"
