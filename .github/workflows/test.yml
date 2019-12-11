@@ -87,7 +87,7 @@ jobs:
         bundle exec rake assets:precompile
     
     - name: 'Run Karma Tests'
-      run: yarn test
+      run: yarn run test
 
     #- name: 'Run Rspec Tests'
     #  run: bundle exec rspec spec/
