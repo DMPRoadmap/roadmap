@@ -19,6 +19,9 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
+    env:
+      DATABASE_URL: postgres://postgres:@localhost:5432/roadmap_test
+      
     steps:
     - uses: actions/checkout@v1
       with:
@@ -74,8 +77,8 @@ jobs:
       run: yarn install
     
     - name: 'Setup Test DB'
-      env:
-        DATABASE_URL: postgres://postgres:@localhost:5432/roadmap_test
+      #env:
+      #  DATABASE_URL: postgres://postgres:@localhost:5432/roadmap_test
       run: bundle exec rake db:setup RAILS_ENV=test
     
     - name: 'Compile Assets'
