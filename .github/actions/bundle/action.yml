@@ -1,0 +1,21 @@
+name: 'Bundle DMPRoadmap'
+description: 'Run bundler and yarn to install all external dependencies'
+author: 'DMPRoadmap development team'
+inputs:
+  database: 
+    description: 'Choose from either `mysql` or `postgresql` (default)'
+    default: postgresql
+run: |
+  gem install bundler -v 1.17.2
+  bundle config path vendor/bundle
+  
+run: bundle install --jobs 4 --retry 3 --without mysql rollbar aws
+  if: job.database == 'postgresql'
+  
+run: bundle install --jobs 4 --retry 3 --without pgsql rollbar aws
+  if: job.database == 'mysql'
+ 
+run: |
+  yarn install
+  bundle exec rake webpacker:compile
+  bundle exec rake assets:precompile
