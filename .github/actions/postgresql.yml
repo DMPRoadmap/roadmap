@@ -1,0 +1,6 @@
+name: 'Setup PostgreSQL'
+description: 'Install PostgreSQL'
+author: 'DMPRoadmap development team'
+run: |
+  sudo apt-get update
+  sudo apt-get install libpq-dev
