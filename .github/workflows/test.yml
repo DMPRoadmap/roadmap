@@ -69,7 +69,10 @@ jobs:
           
     - name: 'Yarn Install'
       run: yarn install
-        
+    
+    - name: 'Setup Test DB'
+      run: bundle exec rake db:setup RAILS_ENV=test
+    
     - name: 'Compile Assets'
       env:
         DATABASE_URL: postgres://postgres:@localhost:5432/test
