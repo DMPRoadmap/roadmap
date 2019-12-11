@@ -80,10 +80,10 @@ jobs:
     - name: 'Check for WKHTMLTOPDF'
       env:
         WICKED_PDF_PATH: ./vendor/bundle/ruby/2.4.0/bin/wkhtmltopdf
-      run: which wkhtmltopdf
+      run: echo `which wkhtmltopdf`
     
     - name: 'Whats in vendor Ruby?'
-      run: ls -la ./vendor/bundle/ruby/
+      run: echo `ls -la ./vendor/bundle/ruby/`
       
     - name: 'Setup Test DB'
       run: bundle exec rake db:setup RAILS_ENV=test
