@@ -62,7 +62,6 @@ jobs:
         cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
         bundle exec rake webpacker:compile
         bundle exec rake assets:precompile
-        bin/rake db:test:prepare
 
     - name: Run Rubocop
       run: bundle exec rubocop --parallel
