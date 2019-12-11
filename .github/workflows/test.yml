@@ -86,7 +86,7 @@ jobs:
     
     - name: 'Compile Assets'
       env:
-        DATABASE_URL: postgres://postgres:@localhost:5432/test
+        DATABASE_URL: postgres://postgres:@localhost:5432/roadmap_test
       run: |
         bundle exec rake webpacker:compile
         bundle exec rake assets:precompile
