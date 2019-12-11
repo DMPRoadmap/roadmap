@@ -94,5 +94,6 @@ jobs:
       env:
         WICKED_PDF_PATH: ./vendor/bundle/ruby/2.4.0/bin/wkhtmltopdf
       run: |
-        echo `which wkhtmltopdf`
+        which wkhtmltopdf
+        ls -la ./vendor/bundle/ruby/
         bundle exec rspec spec/
