@@ -15,3 +15,4 @@ run: bundle install --jobs 4 --retry 3 --without mysql rollbar aws
 run: bundle install --jobs 4 --retry 3 --without pgsql rollbar aws
   if: job.database == 'mysql'
  
+run: yarn install
