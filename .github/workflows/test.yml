@@ -91,4 +91,8 @@ jobs:
         yarn run test
 
     - name: 'Run Rspec Tests'
-      run: bundle exec rspec spec/
+      env:
+        WICKED_PDF_PATH: ./vendor/bundle/ruby/2.4.0/bin/wkhtmltopdf
+      run: |
+        echo `which wkhtmltopdf`
+        bundle exec rspec spec/
