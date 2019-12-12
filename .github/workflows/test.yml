@@ -82,7 +82,10 @@ jobs:
         path: node_modules/
         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
         restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
           ${{ runner.os }}-yarn-
+          ${{ runner.os }}-
     
     # Install the JS dependencies
     - name: 'Yarn Install'
@@ -101,9 +104,9 @@ jobs:
     
     # Run the JS tests
     - name: 'Run Karma Tests'
-      run: yarn run test
-    #    yarn add karma
-        
+      run: |
+        yarn add karma
+        yarn run test
     
     # Run the Rspec tests
     - name: 'Run Rspec Tests'
