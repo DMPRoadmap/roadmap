@@ -40,6 +40,9 @@ jobs:
       with:
         ruby-version: 2.4.x
     
+    - name: 'Check Environment'
+      run: echo "env"
+    
     - name: 'Setup Default Configuration'
       run: |
         # Make copies of all the example config files
@@ -78,12 +81,10 @@ jobs:
         yarn install
     
     - name: 'Check for WKHTMLTOPDF'
-      env:
-        WICKED_PDF_PATH: ./vendor/bundle/ruby/2.4.0/bin/wkhtmltopdf
-      run: echo `which wkhtmltopdf`
+      run: echo "which wkhtmltopdf"
     
     - name: 'Whats in vendor Ruby?'
-      run: echo `ls -la ./vendor/bundle/ruby/`
+      run: echo "ls -la ./vendor/bundle/ruby/"
       
     - name: 'Setup Test DB'
       run: bundle exec rake db:setup RAILS_ENV=test
