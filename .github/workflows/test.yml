@@ -80,12 +80,6 @@ jobs:
       run: |
         yarn install
     
-    - name: 'Check for WKHTMLTOPDF'
-      run: echo "which wkhtmltopdf"
-    
-    - name: 'Whats in vendor Ruby?'
-      run: echo "ls -la ./vendor/bundle/ruby/"
-      
     - name: 'Setup Test DB'
       run: bundle exec rake db:setup RAILS_ENV=test
     
@@ -100,6 +94,8 @@ jobs:
         yarn run test
 
     - name: 'Run Rspec Tests'
-      env:
-        WICKED_PDF_PATH: ./vendor/bundle/ruby/2.4.0/bin/wkhtmltopdf
-      run: bundle exec rspec spec/
+      env: 
+        WICKED_PDF_PATH: ${{ echo "bundle show wicked_pdf" }}
+      run: |
+        echo ${{ env }}
+        bundle exec rspec spec/
