@@ -93,9 +93,8 @@ jobs:
         yarn add karma
         yarn run test
 
+    - name: 'Locate WickedPdf Gem'
+      run: echo ::set-env name=WICKED_PDF_PATH::$(echo bundle show wicked_pdf)
+      
     - name: 'Run Rspec Tests'
-      env: 
-        WICKED_PDF_PATH: ${{ bundle show wicked_pdf }}
-      run: |
-        echo ${{ env }}
-        bundle exec rspec spec/
+      run: bundle exec rspec spec/
