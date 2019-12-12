@@ -26,4 +26,4 @@ jobs:
       uses: Freshly/Octocop@v0.0.1
       with:
         github_token: ${{ secrets.github_token }}
-        rubocop_flags: "-c rubocop/rubocop.yml"
+        additional-gems: 'rubocop-dmp_roadmap'
