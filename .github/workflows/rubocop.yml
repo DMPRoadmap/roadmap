@@ -21,8 +21,9 @@ jobs:
         ruby-version: ${{ env.RUBY_VERSION }}
       
     # Will run Rubocop checks on the PR diffs and report any errors as commentary on the PR
+    #   https://github.com/marketplace/actions/octocop
     - name: Octocop
       uses: Freshly/Octocop@v0.0.1
       with:
         github_token: ${{ secrets.github_token }}
-        rubocop_flags: "-c ./rubocop.yml"
+        rubocop_flags: "-c $GITHUB_WORKSPACE/rubocop.yml"
