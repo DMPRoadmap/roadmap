@@ -95,7 +95,7 @@ jobs:
 
     - name: 'Run Rspec Tests'
       env: 
-        WICKED_PDF_PATH: ${{ echo "bundle show wicked_pdf" }}
+        WICKED_PDF_PATH: ${{ bundle show wicked_pdf }}
       run: |
         echo ${{ env }}
         bundle exec rspec spec/
