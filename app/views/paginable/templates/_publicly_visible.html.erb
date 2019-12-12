@@ -19,10 +19,6 @@
       <% scope.each do |template| %>
         <tr id="<%= dom_id(template) %>">
           <td><%= template.title %></td>
-          <td><%= template.org.name %></td>
-          <td><%= _(template.org.org_type_to_s) %></td>
-          <td><%= raw template.description %></td>
-          <td><%= l(template.updated_at.to_date, formats: :short) %></td>
           <td class="text-center">
             <%= link_to template_export_path(template.family_id, format: :docx),
                         target: '_blank',
