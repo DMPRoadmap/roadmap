@@ -44,7 +44,7 @@ jobs:
     - name: 'Install Ruby'
       uses: actions/setup-ruby@v1
       with:
-        ruby-version: ${{ echo $RUBY_VERSION }}
+        ruby-version: ${{ env.RUBY_VERSION }}
     
     # Copy all of the example configs over
     - name: 'Setup Default Configuration'
