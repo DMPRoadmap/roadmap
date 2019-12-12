@@ -1,3 +1,118 @@
-inherit_gem:
-  rubocop-dmp_roadmap:
-    - config/default.yml
+AllCops:
+  # Cache the results for faster processing
+  UseCache: true
+  # Show the name of the cops being voilated in the feedback
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  # We're using Ruby 2.4 right now. So force that version or higher.
+  TargetRubyVersion: 2.4
+  # Don't check these files. So many of them are boilerplate code with violations.
+  Exclude:
+    - 'bin/*'
+    - 'lib/tasks/**/*'
+    - 'Gemfile'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - '**/Rakefile'
+    - '**/config.ru'
+
+# Ignore this cop. The Rubocop default is sensible, but the rubocop-rails gem modifies
+# this to position end keywords awkwardly.
+Layout/EndAlignment:
+  Enabled: true
+  EnforcedStyleAlignWith: keyword
+
+# Force no empty lines at the start or end of a block's body. Ignore specs, since this
+# improves readability within the RSpec blocks.
+Layout/EmptyLinesAroundBlockBody:
+  Exclude:
+    - 'spec/**/*'
+
+# Force a single blank line around a class's body. Adding this whitespace makes code
+# a bit easier to read.
+Layout/EmptyLinesAroundClassBody:
+  Enabled: true
+  EnforcedStyle: empty_lines
+
+# Force a single blank line around a module's body. Adding this whitespace makes code
+# a bit easier to read.
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: true
+  EnforcedStyle: empty_lines
+
+Layout/IndentationWidth:
+  Description: 'Use 2 spaces for indentation.'
+  StyleGuide: '#spaces-indentation'
+  Enabled: true
+
+# The difference between `rails` and `normal` is that the `rails` style
+# prescribes that in classes and modules the `protected` and `private`
+# modifier keywords shall be indented the same as public methods and that
+# protected and private members shall be indented one step more than the
+# modifiers. Other than that, both styles mean that entities on the same
+# logical depth shall have the same indentation.
+Layout/IndentationConsistency:
+  Description: 'Keep indentation straight.'
+  StyleGuide: '#spaces-indentation'
+  Enabled: true
+  EnforcedStyle: normal
+
+# Enforce this in the main code but ignore it in specs since the Rspec core methods
+# are defined as potentially ambiguous blocks
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/**/*'
+
+# Restrict the length of each line of code to 90 characters. Enforcing this is important
+# as many developers are working on smaller screens, or split screens. Having to scroll
+# to read a full line of code makes code harder to read and more frustrating to work with.
+Metrics/LineLength:
+  # I've found that 90 is a suitable limit. Many developers balk at the 80 character
+  # default.
+  Max: 90
+  Exclude:
+    # Excludes the spec helper, since this boilerplate file has comments that are much
+    # longer.
+    - 'spec/spec_helper.rb'
+
+# Restrict the number of lines of code that may be within a block of code. This should
+# force developers to break their code into smaller discrete methods or objects.
+Metrics/BlockLength:
+  # Exclude specs, since those are defined as large blocks of code
+  Exclude:
+    - 'spec/**/*'
+
+# This cop enforces the use of boolean and/or "&&" and "||" over "and" "or".
+# Sometimes using "and"/"or" is preferrable, when these are used as control flow.
+#
+# For example:
+#
+#   render text: "Hello world" and return
+#
+Style/AndOr:
+  Enabled: false
+
+# This cop enforces how modules and classes are nested within another module or class.
+# In Rails code (e.g. models and controllers) nesting with a colon is preferrable (e.g.
+# User::Session).
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'app/**/*'
+
+# This cop enforces each class to have documentation at the top. That's not always
+# practical or necessary in Rails apps (e.g. the purpose of helpers is self evident).
+Style/Documentation:
+  Enabled: false
+
+# Enforce double quotes. Don't allow single quotes. This is preferred since double
+# quotes are more useful (they support escaping characters, and interpolation).
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+# Enforce empty methods to be written across two lines, like any normal method would be.
+# This allows for easy modification of the method in future.
+Style/EmptyMethod:
+  Enabled: true
+  EnforcedStyle: expanded
