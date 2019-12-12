@@ -58,7 +58,7 @@ class Annotation < ActiveRecord::Base
 
 
   def thisShouldCauseARubocopError
-    "ejhgiehgojerhjgoertjgoketegerteegghjoertrgoehneogbjgnjkgrhtyhjrthrwhgwtrrghrwhwrthwrhtwrthwtrhwrhwrhwrhwrhtwrhwrthwrhtwrhwrhwrhrthtrhrthrthwrhwrhrthrthwrhrwh"
+    "ejhgiehgojerhj5089u56yu45yugoertjgoketegerteegghjoertrgoehneogbjgnjkgrhtyhjrthrwhgwtrrghrwhwrthwrhtwrthwtrhwrhwrhwrhwrhtwrhwrthwrhtwrhwrhwrhrthtrhrthrthwrhwrhrthrthwrhrwh"
   end
 
   # =================
