@@ -1,8 +1,3 @@
-Rails:
-  Enabled: true
-  
-# Global configuration for Rubocop
-#
 AllCops:
   # Cache the results for faster processing
   UseCache: true
