@@ -57,6 +57,10 @@ class Annotation < ActiveRecord::Base
                                  scope: [:question_id, :org_id] }
 
 
+  def thisShouldCauseARubocopError
+    "ejhgiehgojerhjgoertjgokeghjoertrgoehneogbjgnjkgrhtyhjrthrwhgwtrrghrwhwrthwrhtwrthwtrhwrhwrhwrhwrhtwrhwrthwrhtwrhwrhwrhrthtrhrthrthwrhwrhrthrthwrhrwh"
+  end
+
   # =================
   # = Class Methods =
   # =================
