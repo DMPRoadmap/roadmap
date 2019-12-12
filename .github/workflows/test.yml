@@ -94,7 +94,7 @@ jobs:
         yarn run test
 
     - name: 'Locate WickedPdf Gem'
-      run: echo ::set-env name=WICKED_PDF_PATH::$(echo bundle show wicked_pdf)
+      run: echo ::set-env name=WICKED_PDF_PATH::$(echo `bundle show wicked_pdf`)
       
     - name: 'Run Rspec Tests'
       run: bundle exec rspec spec/
