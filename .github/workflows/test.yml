@@ -23,7 +23,6 @@ jobs:
 
     env:
       DATABASE_URL: postgres://postgres:@localhost:5432/roadmap_test
-      WICKED_PDF_PATH: ./vendor/bundle/ruby/2.4.0/bin/wkhtmltopdf
       
     steps:
     # Checkout the repo
@@ -38,10 +37,12 @@ jobs:
         sudo apt-get install libpq-dev
     
     # Install Ruby
-    - name: Set up Ruby 2.4.0
+    # Pegged to Ruby version in Gemfile.lock. Would be good to extract that version from the Gemfile.lock
+    # into an env variable for use here :/
+    - name: Set up Ruby 2.4
       uses: actions/setup-ruby@v1
       with:
-        ruby-version: 2.4.0
+        ruby-version: 2.4
     
     # Copy all of the example configs over
     - name: 'Setup Default Configuration'
@@ -102,8 +103,8 @@ jobs:
         yarn run test
 
     # Find the wkhtmltopdf executable and set the env variable
-    #- name: 'Locate WKHTMLTOPDF'
-      #run: echo ::set-env name=WICKED_PDF_PATH::$(echo `which wkhtmltopdf`)
+    - name: 'Locate WKHTMLTOPDF'
+      run: echo ::set-env name=WICKED_PDF_PATH::$(echo `ls ./vendor/bundle/ruby/*/bin/wkhtmltopdf`)
     
     # Run the Rspec tests
     - name: 'Run Rspec Tests'
