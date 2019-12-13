@@ -1,4 +1,4 @@
-name: Run Tests Against MySQL
+name: Run Tests (mySQL)
 
 on: [pull_request]
 
@@ -9,12 +9,12 @@ jobs:
     services:
       # MySQL installation
       db:
-        image: mysql:5.7
+        image: mysql:5.7.28
         ports: ['3306:3306']
         env:
           MYSQL_USER: root
-          MYSQL_PASSWORD: 'root'
-          MYSQL_ROOT_PASSWORD: 'root'
+          MYSQL_PASSWORD: ''
+          MYSQL_ROOT_PASSWORD: ''
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     env:
