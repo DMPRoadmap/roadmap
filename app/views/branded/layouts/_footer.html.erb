@@ -14,9 +14,8 @@
       <span><a href="<%= privacy_path %>"><%= _('Privacy statement') %></a></span>
       <span class="break-point">•</span>
       <span>
-        <a href="https://opidor.fr/category/dmp-faq/" title="DMPOPIDoR FAQ" target="_blank" class="has-new-window-popup-info" >
+        <a href="https://opidor.fr/category/dmp-faq/" title="DMPOPIDoR FAQ - <%= _("Opens in new window") %>" target="_blank">
           <%= _('FAQ') %>
-          <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
         </a>
       </span>
       <span><a href="<%= news_feed_path %>"><%= d_('dmpopidor', 'News') %></a></span>
@@ -25,15 +24,13 @@
     </div>
     <div class="footer-logos">
       <span>
-        <%= link_to("http://www.cnrs.fr/", title: "CNRS", target: '_blank', class: 'has-new-window-popup-info')  do %>
+        <%= link_to("http://www.cnrs.fr/", title: d_("dmpopidor", "CNRS website") + " - " + _("Opens in new window"), target: '_blank')  do %>
           <%= image_tag("cnrs.gif", alt: 'CNRS logo (opens in a new window)') %>
-          <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
         <% end %>
       </span>
       <span>
-        <%= link_to("https://github.com/DMPRoadmap/roadmap", title: "DMPRoadmap Github", target: '_blank', class: 'has-new-window-popup-info')  do %>
+        <%= link_to("https://github.com/DMPRoadmap/roadmap", title: "DMPRoadmap Github - " + _("Opens in new window"), target: '_blank')  do %>
           <%= image_tag("roadmap_logo_orange_white.png", alt: 'DMPRoadmap Github (opens in a new window)') %>
-          <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
         <% end %>
       </span>
     </div>
@@ -43,9 +40,9 @@
   <div class="footer-infos-sn">
     <div class="footer-infos">
       <span>
-        <%= link_to("#{Rails.configuration.branding[:organisation][:url]}", title: "INIST", target: '_blank', class: 'has-new-window-popup-info' ) do %>
+        <%= link_to("#{Rails.configuration.branding[:organisation][:url]}", 
+                    title: d_("dmpopidor", "INIST website") + " - " + _("Opens in new window"), target: '_blank' ) do %>
           <%= "&copy; 2016 - #{Time.now.year} #{Rails.configuration.branding[:organisation][:abbreviation]}".sanitize %>
-          <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
           <% end %>
       </span>
       <span class="break-point">•</span>
@@ -53,21 +50,18 @@
     </div>
     <div class="footer-sn">
       <span>
-        <a title="DMPOPIDoR Github" target="_blank" href="<%= Rails.configuration.branding[:application][:url] %>" target="_blank" class="has-new-window-popup-info">
+        <a title="DMPOPIDoR Github - <%= _("Opens in new window") %>" target="_blank" href="<%= Rails.configuration.branding[:application][:url] %>" target="_blank">
           <i class="fa fa-github-alt"></i>
-          <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
         </a>
       </span>
       <span>
-        <a title="OPIDoR Twitter" target="_blank" href="<%= Rails.configuration.branding[:application][:twitter_url] %>" class="has-new-window-popup-info">
+        <a title="OPIDoR Twitter - <%= _("Opens in new window") %>" target="_blank" href="<%= Rails.configuration.branding[:application][:twitter_url] %>">
           <i class="fa fa-twitter"></i>
-          <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
         </a>
       </span>
       <span>
-        <a title="<%= d_('dmpopidor', 'Mailing list') %>"  target="_blank" href="<%= Rails.configuration.branding[:application][:user_group_subscription_url] %>" class="has-new-window-popup-info">
+        <a title="<%= d_('dmpopidor', 'Mailing list') %> - <%= _("Opens in new window") %>"  target="_blank" href="<%= Rails.configuration.branding[:application][:user_group_subscription_url] %>">
           <i class="fa fa-comments"></i>
-          <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
         </a>
         </span>
     </div>

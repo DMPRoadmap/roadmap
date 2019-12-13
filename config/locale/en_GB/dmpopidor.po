@@ -403,3 +403,9 @@ msgstr "Plan components"
 
 msgid "If you need more informations about how to use DMP OPIDoR, you can consult our <a href=\"https://opidor.fr/category/dmp-faq/\" target=\"_blank\">FAQ</a>."
 msgstr "If you need more informations about how to use DMP OPIDoR, you can consult our <a href=\"https://opidor.fr/category/dmp-faq/\" target=\"_blank\">FAQ</a>."
+
+msgid "CNRS website"
+msgstr "CNRS website"
+
+msgid "INIST website"
+msgstr "INIST website"
