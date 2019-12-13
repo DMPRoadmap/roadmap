@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      #DATABASE_URL: postgres://postgres:@localhost:5432/roadmap_test
+      DB_ADAPTER: mysql2
       WICKED_PDF_PATH: vendor/bundle/bin/wkhtmltopdf
 
     steps:
