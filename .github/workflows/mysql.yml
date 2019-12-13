@@ -6,19 +6,8 @@ jobs:
   mysql:
     runs-on: ubuntu-latest
 
-    services:
-      # MySQL installation
-      db:
-        image: mysql:5.7.28
-        ports: ['3306:3306']
-        env:
-          MYSQL_USER: root
-          MYSQL_PASSWORD: 'root'
-          MYSQL_ROOT_PASSWORD: 'root'
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
     env:
-      DATABASE_URL: postgres://postgres:@localhost:5432/roadmap_test
+      #DATABASE_URL: postgres://postgres:@localhost:5432/roadmap_test
       WICKED_PDF_PATH: vendor/bundle/bin/wkhtmltopdf
 
     steps:
