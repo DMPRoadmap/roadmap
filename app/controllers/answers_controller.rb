@@ -46,6 +46,7 @@ class AnswersController < ApplicationController
         if p_params[:question_option_ids].present?
           # Saves the record with the updated_at set to the current time.
           # Needed if only answer.question_options is updated
+          #
           @answer.touch()
         end
         if q.question_format.rda_metadata?
