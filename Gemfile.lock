@@ -49,8 +49,6 @@ GEM
     annotate_gem (0.0.14)
       bundler (>= 1.1)
     api-pagination (4.8.2)
-    archive-zip (0.12.0)
-      io-like (~> 0.3.0)
     arel (6.0.4)
     ast (2.4.0)
     autoprefixer-rails (9.7.3)
@@ -88,9 +86,6 @@ GEM
       capybara (>= 1.0, < 4)
       launchy
     childprocess (3.0.0)
-    chromedriver-helper (2.1.1)
-      archive-zip (~> 0.10)
-      nokogiri (~> 1.8)
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
     contact_us (1.2.0)
@@ -194,13 +189,12 @@ GEM
     hashdiff (1.0.0)
     hashie (3.6.0)
     highline (2.0.3)
-    htmltoword (1.1.1)
+    htmltoword (1.1.0)
       actionpack
       nokogiri
       rubyzip (>= 1.0)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
-    io-like (0.3.0)
     ipaddress (0.8.3)
     jaro_winkler (1.5.4)
     jbuilder (2.6.4)
@@ -244,7 +238,7 @@ GEM
     mini_racer (0.2.8)
       libv8 (>= 6.9.411)
     minitest (5.13.0)
-    mocha (1.10.2)
+    mocha (1.11.0)
     multi_json (1.14.1)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -391,7 +385,7 @@ GEM
       rubocop (>= 0.68.1)
     ruby-progressbar (1.10.1)
     ruby_dig (0.0.2)
-    rubyzip (2.0.0)
+    rubyzip (1.3.0)
     safe_yaml (1.0.5)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
@@ -453,6 +447,10 @@ GEM
       activemodel (>= 4.2)
       debug_inspector
       railties (>= 4.2)
+    webdrivers (3.9.4)
+      nokogiri (~> 1.6)
+      rubyzip (~> 1.0)
+      selenium-webdriver (~> 3.0)
     webmock (3.7.6)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -469,6 +467,7 @@ GEM
     yard-tomdoc (0.7.1)
       tomparse (>= 0.4.0)
       yard
+    zaru (0.3.0)
 
 PLATFORMS
   ruby
@@ -488,10 +487,9 @@ DEPENDENCIES
   byebug
   capybara
   capybara-screenshot
-  chromedriver-helper (>= 1.2.0)
   contact_us
   database_cleaner
-  devise
+  devise (>= 4.7.1)
   devise_invitable
   dotenv-rails
   dragonfly
@@ -499,7 +497,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   feedjira
-  flag_shih_tzu
+  flag_shih_tzu (~> 0.3.23)
   font-awesome-sass (~> 4.2.0)
   fuubar
   gettext
@@ -507,7 +505,7 @@ DEPENDENCIES
   gettext_i18n_rails_js
   guard
   guard-rspec
-  htmltoword
+  htmltoword (= 1.1.0)
   jbuilder (~> 2.6.0)
   kaminari
   ledermann-rails-settings
@@ -536,7 +534,6 @@ DEPENDENCIES
   ruby_dig
   sass-rails
   sassc-rails
-  selenium-webdriver (~> 3.14)
   shoulda
   simplecov
   spring
@@ -544,15 +541,17 @@ DEPENDENCIES
   text
   thin
   web-console
+  webdrivers (~> 3.0)
   webmock
   webpacker (~> 3.5)
   wicked_pdf (~> 1.1.0)
   wkhtmltopdf-binary
   yard
   yard-tomdoc
+  zaru
 
 RUBY VERSION
-   ruby 2.5.1p57
+   ruby 2.4.0p0
 
 BUNDLED WITH
    1.17.2

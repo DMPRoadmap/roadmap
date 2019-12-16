@@ -40,15 +40,16 @@ class PublicPagesController < ApplicationController
     @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
 
     begin
-      file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, "").gsub(/ /, "_")
+      file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, "").gsub(/ /, "_") + '_v' + @template.version.to_s
       respond_to do |format|
         format.docx do
-          render docx: "template_export", filename: "#{file_name}.docx"
+          render docx: "template_exports/template_export", filename: "#{file_name}.docx"
         end
 
         format.pdf do
-          # rubocop:disable LineLength
+          # rubocop:disable Metrics/LineLength
           render pdf: file_name,
+            template: "template_exports/template_export",
             margin: @formatting[:margin],
             footer: {
               center:    _("Template created using the %{application_name} service. Last modified %{date}") % {
@@ -60,7 +61,7 @@ class PublicPagesController < ApplicationController
             right: "[page] of [topage]",
             encoding: "utf8"
           }
-          # rubocop:enable LineLength
+          # rubocop:enable Metrics/LineLength
         end
       end
     rescue ActiveRecord::RecordInvalid => e
