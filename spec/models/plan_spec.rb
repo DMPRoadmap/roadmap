@@ -421,12 +421,17 @@ describe Plan do
 
   describe ".deep_copy" do
 
-    let!(:plan) { create(:plan, :creator, answers: 2, guidance_groups: 2) }
+    let!(:plan) { create(:plan, :creator, answers: 2, guidance_groups: 2,
+                         feedback_requested: true) }
 
     subject { Plan.deep_copy(plan) }
 
     it "prepends the title with 'Copy'" do
       expect(subject.title).to include("Copy")
+    end
+
+    it "sets feedback_requested to false" do
+      expect(subject.feedback_requested).to eql(false)
     end
 
     it "copies the title from source" do
