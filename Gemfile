@@ -123,8 +123,7 @@ gem 'bootstrap-sass', '~> 3.4.1'
 
 # This is required for Font-Awesome, but not used as the main sass compiler
 # Integrate SassC-Ruby into Rails. (https://github.com/sass/sassc-rails)
-gem "sassc-rails"
-gem "sassc"
+gem "sassc-rails", '~> 2.0.0'
 
 # Font-Awesome SASS (https://github.com/FortAwesome/font-awesome-sass)
 gem 'font-awesome-sass', '~> 4.2.0'
