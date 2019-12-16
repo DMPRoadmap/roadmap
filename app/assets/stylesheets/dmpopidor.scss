@@ -2,14 +2,13 @@
  DMPOPIDoR Stylesheet
 */
 
-$dark-blue: #4891bd;
-$blue: #51a2d2;
+$blue: #2c7dad;
 $light-blue: #92c5de;
 $very-light-blue: #dcecf6;
 $very-very-light-blue: #edf5fa;
 $white: #fff;
 $black: #000;
-$rust: #d6604d;
+$rust: #c6503d;
 $light-rust: #faefed;
 $yellow: #FFCC00;
 $light-yellow: #fff9e5;
@@ -92,6 +91,18 @@ header .main-nav {
         margin: auto;
         padding-top: 5px;
     }
+
+}
+
+#org-navbar {
+    .navbar-nav 
+    {
+        li {
+            a {
+                color: #727272;
+            }
+        }
+    }
 }
 
 
@@ -154,10 +165,23 @@ header .main-nav {
 
         }
 
-        span:not(.new-window-popup-info) {
+        span {
             line-height: 50px;
             padding-left: 15px;
             padding-right: 15px;
+        }
+
+
+        a {
+            &:focus,
+            &:active {
+            outline-style: dotted !important;
+            outline-color: white !important;
+            outline-width: 1px !important;
+            }
+            &:hover {
+            outline-style: none !important;
+            }
         }
     }
 
@@ -214,7 +238,7 @@ header .main-nav {
             }
             a:hover {
                 color: $white;
-                background-color: $light-blue;
+                background-color: $blue;
             }
         }
         li.active {
@@ -247,11 +271,39 @@ header .main-nav {
 */
 
 .dmpopidor-branding {
+    .alert-warning {
+        color: #5D4A27;
+    }
+
+    /** Focus outline required for accessibility */
+    input, select, .form-control {
+        &:focus,
+        &:hover,
+        &:active {
+        outline-style: solid !important;
+        outline-color: $blue !important;
+        outline-width: 2px !important;
+        }
+    }
+
+    a {
+        &:focus,
+        &:active {
+        outline-style: dotted !important;
+        outline-color: $blue !important;
+        outline-width: 1px !important;
+        }
+        
+        &:hover {
+        outline-style: none !important;
+        }
+    }
+    
     /*
         PUBLIC AREA
     */
     h1{
-        color: $dark-blue;
+        color: $blue;
     }
     
     h2 {
@@ -338,14 +390,14 @@ header .main-nav {
         color: $blue;
     }
     .btn-link {
-        color: $dark-blue;
+        color: $blue;
     }
     /* 
         PLAN EDIT
     */
     // Progress bar 
     .progress-bar {
-        background-color: $dark-blue;
+        background-color: $blue;
     }
     // Tabs
     .nav-tabs {
