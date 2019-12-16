@@ -86,8 +86,8 @@ jobs:
     # Compile the assets
     - name: 'Compile Assets'
       run: |
-        bundle exec rake webpacker:compile
-        bundle exec rake assets:precompile
+        bundle exec rake webpacker:compile RAILS_ENV=test
+        bundle exec rake assets:precompile RAILS_ENV=test
 
     # Run the JS tests
     - name: 'Run Karma Tests'
@@ -97,4 +97,4 @@ jobs:
 
     # Run the Rspec tests
     - name: 'Run Rspec Tests'
-      run: bundle exec rspec spec/
+      run: bundle exec rspec spec/ RAILS_ENV=test
