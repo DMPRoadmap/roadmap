@@ -8,6 +8,7 @@ jobs:
 
     env:
       DB_ADAPTER: mysql2
+      MYSQL_PWD: root
       WICKED_PDF_PATH: vendor/bundle/bin/wkhtmltopdf
 
     steps:
