@@ -144,6 +144,9 @@ class AnswersController < ApplicationController
     if !permitted[:id].present?
       permitted.delete(:id)
     end
+
+    long_text = 'etjgehtghiehgkehgkjehgkjegjnegrthrthrhrthrhtretjgehtghiehgkehgkjehgkjegjnegrthrthrhrthrhtretjgehtghiehgkehgkjehgkjegjnegrthrthrhrthrhtr'
+
     # If no question options has been chosen.
     if params[:answer][:question_option_ids].nil?
         permitted[:question_option_ids] = []
