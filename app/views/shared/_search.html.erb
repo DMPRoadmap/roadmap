@@ -5,7 +5,7 @@
       <span class="input-group-addon" id="search-addon">
         <span class="fa fa-search" aria-hidden="true"></span>
       </span>
-      <%= text_field_tag(:search, search_term, class: 'form-control', 'aria-labelledby': 'search',
+      <%= text_field_tag(:search, search_term, class: 'form-control', 'aria-labelledby': 'search', title: _("Type here to search in the table"),
                         spellcheck: true, 'aria-describedby': 'search-addon', 'aria-required': true) %>
     </div>
   </div>

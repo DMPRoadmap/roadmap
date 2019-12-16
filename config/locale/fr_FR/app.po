@@ -3252,3 +3252,9 @@ msgstr "<br>Le contenu de l'utilisateur sélectionné sera fusionné avec le com
 
 msgid "Merge"
 msgstr "Fusionner"
+
+msgid "Type here to search in the table"
+msgstr "Tapez ici pour rechercher dans le tableau"
+
+msgid "Is it a test plan ?"
+msgstr "Est-ce un plan de test ?"

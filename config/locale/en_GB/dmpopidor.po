@@ -359,6 +359,9 @@ msgstr "Research output name: %{research_output_name}"
 msgid "This section's answers are common to all research outputs"
 msgstr "This section's answers are common to all research outputs"
 
+msgid "Please click to indicate that this section's answers are common to all research outputs"
+msgstr "Please click to indicate that this section's answers are common to all research outputs"
+
 msgid "All Users"
 msgstr "All Users"
 

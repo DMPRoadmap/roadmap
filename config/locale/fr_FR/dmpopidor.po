@@ -360,6 +360,9 @@ msgstr "Nom du produit de recherche : %{research_output_name}"
 msgid "This section's answers are common to all research outputs"
 msgstr "Les réponses de cette section sont communes à tous les produits de recherche"
 
+msgid "Please click to indicate that this section's answers are common to all research outputs"
+msgstr "Cliquez ici pour indiquer que les réponses de cette section sont communes à tous les produits de recherche"
+
 msgid "All Users"
 msgstr "Tous les utilisateurs"
 

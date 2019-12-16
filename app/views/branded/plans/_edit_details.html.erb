@@ -167,7 +167,7 @@
         <p><%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations.') %
             {application_name: Rails.configuration.branding[:application][:name]} %>
             </p>
-        <fieldset>
+        <fieldset aria-labelledby="guidance selector">
           <p><%= _('Select up to 6 organisations to see their guidance.') %></p>
           <ul id="priority-guidance-orgs">
             <%= render partial: "guidance_choices",

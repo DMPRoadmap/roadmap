@@ -3271,3 +3271,9 @@ msgstr ""
 
 msgid "Merge"
 msgstr ""
+
+msgid "Type here to search in the table"
+msgstr "Type here to search in the table"
+
+msgid "Is it a test plan ?"
+msgstr "Is it a test plan ?"

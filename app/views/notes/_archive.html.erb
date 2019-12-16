@@ -1,7 +1,7 @@
 <%# locals: { note } %>
 <% if !note.nil? %>
-  <%= form_for(note, url: archive_note_path(note), method: :patch, html: { class: 'archive_note' }) do |f| %>
-    <%= f.hidden_field :archived_by, :value => current_user.id %>
+  <%= form_for(note, url: archive_note_path(note), method: :patch, html: { class: 'archive_note', id: "archive_note_#{note.id}" }) do |f| %>
+    <%= f.hidden_field :archived_by, :value => current_user.id, id: nil %>
 
     <%= render partial: "notes/show", locals: { note: note }, formats: [:html] %>
 

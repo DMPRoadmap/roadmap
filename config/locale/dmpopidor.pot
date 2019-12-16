@@ -365,6 +365,9 @@ msgstr ""
 msgid "This section's answers are common to all research outputs"
 msgstr ""
 
+msgid "Please click to indicate that this section's answers are common to all research outputs"
+msgstr ""
+
 msgid "All Users"
 msgstr ""
 

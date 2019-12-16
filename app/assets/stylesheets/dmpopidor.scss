@@ -273,6 +273,13 @@ header .main-nav {
 .dmpopidor-branding {
     .alert-warning {
         color: #5D4A27;
+        a {
+            color: #5D4A27;
+            text-decoration: underline;
+        }
+    }
+    .label-info {
+        background-color: $blue;
     }
 
     /** Focus outline required for accessibility */
