@@ -80,10 +80,12 @@ jobs:
     # Run Brakeman check with warning level 2, except these two checks:
     - stage: security
       name: "Brakeman check"
+      if: branch = master
       script: bundle exec brakeman -w2 --except=Redirect,CrossSiteScripting
 
     - stage: security
       name: "Bundle audit"
+      if: branch = master
       script: bundle exec bundle-audit check --update --ignore CVE-2015-9284
 
     - stage: test
