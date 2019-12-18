@@ -12,29 +12,29 @@ class AnswersController < ApplicationController
     begin
       p = Plan.find(p_params[:plan_id])
       if !p.question_exists?(p_params[:question_id])
-        # rubocop:disable LineLength
+        # rubocop:disable Metrics/LineLength
         render(status: :not_found, json: {
           msg: _("There is no question with id %{question_id} associated to plan id %{plan_id} for which to create or update an answer") % {
             question_id: p_params[:question_id],
             plan_id: p_params[:plan_id]
           }
         })
-        # rubocop:enable LineLength
+        # rubocop:enable Metrics/LineLength
         return
       end
     rescue ActiveRecord::RecordNotFound
-      # rubocop:disable LineLength
+      # rubocop:disable Metrics/LineLength
       render(status: :not_found, json: {
         msg: _("There is no plan with id %{id} for which to create or update an answer") % {
           id: p_params[:plan_id]
         }
       })
-      # rubocop:enable LineLength
+      # rubocop:enable Metrics/LineLength
       return
     end
     q = Question.find(p_params[:question_id])
 
-    # rubocop:disable BlockLength
+    # rubocop:disable Metrics/BlockLength
     Answer.transaction do
       begin
         @answer = Answer.find_by!(
@@ -72,7 +72,7 @@ class AnswersController < ApplicationController
         )
       end
     end
-    # rubocop:enable BlockLength
+    # rubocop:enable Metrics/BlockLength
 
     if @answer.present?
       @plan = Plan.includes(
@@ -87,7 +87,7 @@ class AnswersController < ApplicationController
       @section = @plan.sections.find_by(id: @question.section_id)
       template = @section.phase.template
 
-      # rubocop:disable LineLength
+      # rubocop:disable Metrics/LineLength
       render json: {
         "question" => {
           "id" => @question.id,
@@ -126,7 +126,7 @@ class AnswersController < ApplicationController
           }, formats: [:html])
         }
       }.to_json
-      # rubocop:enable LineLength
+      # rubocop:enable Metrics/LineLength
     end
   end
 
