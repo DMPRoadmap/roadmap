@@ -36,7 +36,7 @@ matrix:
 
 rvm:
   # Use 2.4.1, since this is installed by default on Travis (1st Aug, 2018)
-  - 2.4.1
+  - 2.4.4
 
 # These env variables will set up a separate testing environment for each
 # combination of variables.
@@ -47,9 +47,15 @@ env:
 
 before_install:
   - nvm install 10.10.0
-
+  
+  # sassc-rails causes a build failure when running assets:precompile in Travis
+  # for the mysql2 env. Forcing the gem to install and build ffi locally fixes
+  # the issue: https://github.com/sass/sassc-ruby/issues/146
+  #- gem install sassc -- --disable-march-tune-native
+  
 install:
   - gem install bundler -v 1.17.2
+  # Install all gem and JS dependencies
   - bundle install --with development,ci --path=${BUNDLE_PATH:-vendor/bundle}
   - yarn install --ignore-optional
 
