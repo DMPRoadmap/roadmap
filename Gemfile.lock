@@ -289,6 +289,8 @@ GEM
       nio4r (~> 2.0)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
+    pundit-matchers (1.6.0)
+      rspec-rails (>= 3.0.0)
     rack (1.6.11)
     rack-mini-profiler (1.1.4)
       rack (>= 1.2.0)
@@ -520,6 +522,7 @@ DEPENDENCIES
   progress_bar
   puma
   pundit
+  pundit-matchers
   rack-mini-profiler
   rails (~> 4.2.11.1)
   rails_12factor

@@ -126,10 +126,14 @@ Rails.application.routes.draw do
   end
 
   resources :usage, only: [:index]
+  post 'usage_plans_by_template', controller: 'usage', action: 'plans_by_template'
+  post 'usage_filter', controller: 'usage', action: 'filter'
+  get 'usage_all_plans_by_template', controller: 'usage', action: 'all_plans_by_template'
+  get 'usage_global_statistics', controller: 'usage', action: 'global_statistics'
+  get 'usage_yearly_users', controller: 'usage', action: 'yearly_users'
+  get 'usage_yearly_plans', controller: 'usage', action: 'yearly_plans'
 
   resources :usage_downloads, only: [:index]
-
-  resources :stat_created_plans_by_template, only: [:index]
 
   resources :roles, only: [:create, :update, :destroy] do
     member do
