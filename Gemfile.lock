@@ -291,7 +291,7 @@ GEM
       nio4r (~> 2.0)
     pundit (2.1.0)
       activesupport (>= 3.0.0)
-    rack (1.6.11)
+    rack (1.6.12)
     rack-mini-profiler (1.1.0)
       rack (>= 1.2.0)
     rack-proxy (0.6.5)
@@ -499,7 +499,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   feedjira
-  flag_shih_tzu
+  flag_shih_tzu (~> 0.3.23)
   font-awesome-sass (~> 4.2.0)
   fuubar
   gettext
