@@ -53,7 +53,7 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
 
-    if params[:accept_terms].to_s == ""
+    if params[:user][:accept_terms].to_s == "0"
       redirect_to after_sign_up_error_path_for(resource),
         alert: _("You must accept the terms and conditions to register.")
     elsif params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
