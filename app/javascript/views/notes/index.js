@@ -163,8 +163,6 @@ $(() => {
   const initOrReload = (researchOutputId = null) => {
     if (researchOutputId) {
       Tinymce.init({ selector: `${researchOutputId} .note` });
-    } else {
-      Tinymce.init({ selector: '.note' });
     }
     eventHandlers({ attachment: 'on' });
     TimeagoFactory.render($('time.timeago'));
@@ -173,6 +171,7 @@ $(() => {
     eventHandlers({ attachment: 'off' });
     Tinymce.destroyEditorsByClassName('note');
   };
+
   initOrReload();
   initialiseCurrentViewSelector();
 });
