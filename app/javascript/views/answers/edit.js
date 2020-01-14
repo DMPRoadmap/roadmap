@@ -232,6 +232,10 @@ $(() => {
       selector: `#${sectionId} .${editorClass}`,
       toolbar,
     });
+    Tinymce.init({
+      selector: `#${sectionId} .note`,
+      toolbar,
+    });
     if (!isReadOnly()) {
       $(`#${sectionId} .${editorClass}`).each((i, editor) => {
         // Attaches form and tinymce event handlers
@@ -250,6 +254,9 @@ $(() => {
     formHandlers({ jQuery: $(`#${sectionId} .form-answer`), attachment: 'off' });
     $(`#${sectionId} .${editorClass}`).each((i, editor) => {
       detachEditorHandlers(Tinymce.findEditorById(`${$(editor).attr('id')}`));
+      Tinymce.destroyEditorById(`${$(editor).attr('id')}`);
+    });
+    $(`#${sectionId} .note`).each((i, editor) => {
       Tinymce.destroyEditorById(`${$(editor).attr('id')}`);
     });
   });
