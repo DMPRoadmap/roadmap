@@ -3,6 +3,17 @@
   <head>
     <!-- Version: <%= version %> -->
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <% gkey = Rails.configuration.branding[:keys][:google_analytics_key] %>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<%= gkey %>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', '<%= gkey %>');
+    </script>
+
     <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %>
     </title>
     <%= favicon_link_tag 'apple-touch-icon.png', rel: 'apple-touch-icon', type: 'image/png' %>

@@ -130,11 +130,16 @@ namespace :upgrade do
     Rake::Task['upgrade:add_missing_token_permission_types'].execute
     orgs = Org.where(is_other: false).select(:id)
     orgs.each do |org|
-      org.grant_api!(TokenPermissionType.where(token_type: 'statistics'))
+      unless org.token_permission_types.include?(TokenPermissionType::STATISTICS)
+        org.grant_api!(TokenPermissionType.where(token_type: 'statistics'))
+      end
+      unless org.token_permission_types.include?(TokenPermissionType::PLANS)
+        org.grant_api!(TokenPermissionType.where(token_type: 'plans'))
+      end
     end
     users = User.joins(:perms).where(org_id: orgs).where(api_token: [nil, ''])
     users.each do |user|
-      if user.can_org_admin?
+      if user.can_org_admin? && user.api_token.blank?
         # Generate the tokens directly instead of via the User.keep_or_generate_token! method so that we do not spam users!!
         user.api_token = loop do
           random_token = SecureRandom.urlsafe_base64(nil, false)
