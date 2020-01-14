@@ -3260,7 +3260,7 @@ msgstr ""
 msgid "Template version %{template_version}, published on %{published_date}"
 msgstr ""
 
-msgid "Enter the email address of your collaborator: If they are already using #{Rails.configuration.branding[:application][:name]}, they will see this plan on their dashboard, and recieve an email. If they are not currently using #{Rails.configuration.branding[:application][:name]}, they will recieve an email inviting them to the tool so they can collaborate on your plan."
+msgid "Enter the email address of your collaborator: If they are already using %{tool_name}, they will see this plan on their dashboard, and recieve an email. If they are not currently using %{tool_name}, they will recieve an email inviting them to the tool so they can collaborate on your plan."
 msgstr ""
 
 msgid "Review plans"
