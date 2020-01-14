@@ -53,7 +53,9 @@ group :puma do
 end
 
 # Bit fields for ActiveRecord (https://github.com/pboling/flag_shih_tzu)
-gem 'flag_shih_tzu'  # Allows for bitfields in activereccord
+gem 'flag_shih_tzu', '~> 0.3.23' # Allows for bitfields in activereccord
+# Pinned here because we're using a private method in Role.rb
+# if this gets updated, check this method still exists
 
 # ------------------------------------------------
 #    JSON DSL - USED BY API
@@ -110,8 +112,16 @@ gem 'recaptcha'
 # Ideal gem for handling attachments in Rails, Sinatra and Rack applications. (http://github.com/markevans/dragonfly)
 gem 'dragonfly'
 
-group :aws, optional: true do
-
+# ------------------------------------------------
+# Start DMPTool customization
+# For some reason capistrano's `set :bundle_with` is not working
+# so we remove the optional flag to ensure this gem gets installed
+# ------------------------------------------------
+#group :aws, optional: true do
+group :aws do
+# ------------------------------------------------
+# End DMPTool customization
+# ------------------------------------------------
   gem 'dragonfly-s3_data_store'
 
 end
@@ -143,16 +153,27 @@ gem 'mini_racer'
 # ------------------------------------------------
 # EXPORTING
 # Provides binaries for WKHTMLTOPDF project in an easily accessible package.
-gem 'wkhtmltopdf-binary'
+# ------------------------------------------------
+# Start DMPTool customization
+# 0.12.5 does not work on our new linux2 instances. Pegging at 0.12.4 for now
+# ------------------------------------------------
+#gem 'wkhtmltopdf-binary'
+gem 'wkhtmltopdf-binary', '0.12.4'
+# ------------------------------------------------
+# End DMPTool customization
+# ------------------------------------------------
 
 # PDF generator (from HTML) gem for Ruby on Rails (https://github.com/mileszs/wicked_pdf)
 gem 'wicked_pdf', '~> 1.1.0'
 
 # This simple gem allows you to create MS Word docx documents from simple html documents. This makes it easy to create dynamic reports and forms that can be downloaded by your users as simple MS Word docx files. (http://github.com/karnov/htmltoword)
-gem 'htmltoword'
+gem 'htmltoword', '1.1.0'
 
 # A feed fetching and parsing library (http://feedjira.com)
 gem 'feedjira'
+
+# Filename sanitization for Ruby. This is useful when you generate filenames for downloads from user input
+gem 'zaru'
 
 # ------------------------------------------------
 # INTERNATIONALIZATION
@@ -206,6 +227,9 @@ group :development, :test do
   # Guard gem for RSpec (https://github.com/guard/guard-rspec)
   gem "guard-rspec"
 
+  gem "capistrano"
+
+  gem "capistrano-rails"
 end
 
 group :test do
@@ -236,11 +260,7 @@ group :test do
   # Automatically create snapshots when Cucumber steps fail with Capybara and Rails (http://github.com/mattheworiordan/capybara-screenshot)
   gem "capybara-screenshot"
 
-  # The next generation developer focused tool for automated testing of webapps (https://github.com/SeleniumHQ/selenium)
-  gem "selenium-webdriver", "~> 3.14"
-
-  # Easy installation and use of chromedriver. (https://github.com/flavorjones/chromedriver-helper)
-  gem "chromedriver-helper", ">= 1.2.0"
+  gem 'webdrivers', '~> 3.0'
 
   gem "rspec-collection_matchers"
 

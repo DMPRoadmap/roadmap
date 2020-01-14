@@ -31,7 +31,7 @@
             f: f,
             default_org: @user.org.is_other? ? nil : @user.org,
             orgs: Org.participating,
-            allow_other_orgs: true
+            allow_other_orgs: true,
             required: true } %>
       </div>
 
@@ -59,7 +59,7 @@
 
       <div class="form-group col-xs-12">
         <%= f.button(_('Save'), class: 'btn btn-default', type: "submit", id: "personal_details_registration_form_submit") %>
-        <%= link_to _('Archive'), super_admin_user_path(id: @user.id), 'data-method': 'delete', rel: 'nofollow',
+        <%= link_to _('Archive'), archive_super_admin_user_path(id: @user.id), 'data-method': 'put', rel: 'nofollow',
             'data-confirm': _("You are about to archive %{user_name}.  This will remove their personal information, but retain their plans, answers, and comments.  They will be unable to sign-in. Are you sure?") % {user_name: @user.name},
             class: 'btn btn-default', role: 'button' %>
       </div>
@@ -104,6 +104,5 @@
       action: 'org_admin_other_user',
       scope: @plans,
       query_params: { sort_field: 'plans.updated_at', sort_direction: 'desc' }) %>
-  </div>
   </div>
 </div>

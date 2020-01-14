@@ -3,7 +3,7 @@
  <%= form_for @theme, url: url, html: { class: 'theme' } do |f| %>
    <div class="form-group">
      <%= f.label(:title, _('Title'), class: 'control-label') %>
-     <%= f.text_field(:title, class: "form-control", "aria-required": true) %>
+     <%= f.text_field(:title, class: "form-control", spellcheck: true, "aria-required": true) %>
    </div>
    <div class="form-group">
      <%= f.label(:description, _('Guidance')) %>

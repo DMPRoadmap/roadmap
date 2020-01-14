@@ -2611,8 +2611,7 @@ msgstr ""
 msgid "Successfully %{action} your %{object}."
 msgstr ""
 
-#, fuzzy
-msgid "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."
+msgid "Successfully changed the permissions for %{email}. They have been notified via email."
 msgstr ""
 
 msgid "Successfully deleted your theme"

@@ -8,6 +8,7 @@ import '../utils/externalLink';
 import '../utils/paginable';
 import '../utils/panelHeading';
 import '../utils/links';
+import '../utils/outOfFocus';
 import '../utils/tabHelper';
 import '../utils/tooltipHelper';
 import '../utils/popoverHelper';
@@ -62,6 +63,7 @@ import '../views/usage/index';
 import '../views/users/notification_preferences';
 import '../views/users/admin_grant_permissions';
 import '../views/super_admin/notifications/edit';
+import '../views/public_templates/show';
 
 // ----------------------------------------
 // START DMPTool customization

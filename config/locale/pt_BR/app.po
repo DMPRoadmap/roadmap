@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2018-06-20 16:23:24-0700\n"
-"Last-Translator: Benilton de Sá Carvalho benilton@unicamp.br\n"
+"PO-Revision-Date: 2019-10-23 11:10:54-0700\n"
+"Last-Translator: Hugo Ebert Carl hugoec@al.insper.edu.br\n"
 "Language-Team: Portugues do Brasil\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -42,11 +42,14 @@ msgstr " foi removido por "
 msgid "#{text}"
 msgstr "#{text}"
 
+msgid "%{affiliation}"
+msgstr "%{affiliation}"
+
 msgid "%{application_name}"
 msgstr "%{application_name}"
 
-msgid "%{application_name} is provided by the %{organisation_name}. You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>.<br />If you would like to contact us about %{application_name}, please fill out the form below."
-msgstr "%{application_name} é fornecido pelo %{organisation_name}. Pode saber mais sobre nós no nosso <a href=\"%{organisation_url}\" target=\"_blank\">website</a>.<br/>Se pretender contactar-nos acerca de %{application_name}, Por favor, preencha o formulário abaixo"
+msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website <em class=\"sr-only\">(new window)</em></a>. If you would like to contact us about %{application_name}, please fill out the form below."
+msgstr "%{application_name} é fornecido(a) por %{organisation_name}.<br /> Você pode descobrir mais sobre nós no nosso <a href=\"%{organisation_url}\" target=\"_blank\">website <em class=\"sr-only\">(new window)</em></a>. Caso você queira nos contatar %{application_name}, porfavor preencha o formulário abaixo."
 
 msgid "%{application_name}: %{user_name} requested feedback on a plan"
 msgstr "%{application_name}: %{user_name} solicitado feedback sobre um plano."
@@ -57,6 +60,9 @@ msgstr "%{application_name}: Feedback especializado fornecido para %{plan_title}
 msgid "%{application_name}: Your plan has been submitted for feedback"
 msgstr "%{application_name}: Seu plano foi submetido para feedback."
 
+msgid "%{authors}"
+msgstr "%{authors}"
+
 msgid "%{click_here} to accept the invitation, (or copy %{link} into your browser). If you don't want to accept the invitation, please ignore this email."
 msgstr "%{click_here} para aceitar o convite, (ou copie %{link} em seu navegador). Se não quiser aceitar o convite, por favor, ignore esta mensagem."
 
@@ -65,6 +71,18 @@ msgstr "%{commenter_name} fez comentários sobre o plano %{plan_title}. Para ver
 
 msgid "%{commenter} has finished providing feedback on the plan \"%{plan_title}\". To view the comments, please visit the My Dashboard page in %{tool_name} and open your plan."
 msgstr "%{commenter} concluiu o feedback sobre o plano \"%{plan_title}\". Para ver seus comentários, por favor, visite a página Meu Painel de Controle em %{tool_name} e abra seu plano."
+
+msgid "%{date}"
+msgstr "%{date}"
+
+msgid "%{description}"
+msgstr "%{description}"
+
+msgid "%{funder}"
+msgstr "%{funder}"
+
+msgid "%{grant_number}"
+msgstr "%{grant_number}"
 
 msgid "%{org_name} Plans"
 msgstr "%{org_name} Planos"
@@ -90,6 +108,9 @@ msgstr "%{plan_owner} foi avisado de que você terminou de dar feedback"
 msgid "%{requestor} has requested feedback on a plan \"%{plan_name}.\" To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan."
 msgstr "%{requestor} solicitou feedback sobre um plano \"%{plan_name}.\" Para adicionar comentários, visite a página 'Planos' no menu Admin em %{application_name} e abra o plano."
 
+msgid "%{template}"
+msgstr "%{template}"
+
 msgid "%{tool_name} will help you to develop your Data Management Plan. If you have any queries or feedback as you use the tool, please contact us at %{helpdesk_email} or visit %{contact_us}"
 msgstr "%{tool_name} vai ajudá-lo a desenvolver seu Plano de Gestão de Dados. Se você tiver dúvidas ou quiser enviar-nos algum feedback enquanto estiver usando a ferramenta, por favor, entre em contato conosco em %{helpdesk_email} ou visite %{contact_us}"
 
@@ -98,6 +119,12 @@ msgstr "%{tool_name}: Um novo comentário foi adicionado a %{plan_title}"
 
 msgid "%{username}'s profile"
 msgstr "%{username}'s perfil"
+
+msgid "'Download' allows you to download your plan in various formats. This may be useful if you need to submit your plan as part of a grant application."
+msgstr "'Download' permite que você baixe seu plano em vários formatos. Isso pode ser útil se você precisar enviar seu plano como parte de um pedido de subsídio."
+
+msgid "'Plan Overview' tells you what template and guidance your plan is based on and gives you an overview to the questions that you will be asked."
+msgstr "'Visão Geral do Plano' informa em que modelo e orientação seu plano se baseia e fornece uma visão geral das perguntas que serão feitas."
 
 msgid "%{value} is not a valid format"
 msgstr "%{value} não é um formato válido"
@@ -306,8 +333,12 @@ msgstr "Um Plano de Gestão de Dados criado usando %{application_name}"
 msgid "A Data Management Plan in %{application_name} has been shared with you"
 msgstr "Um Plano de Gestão de Dados em %{application_name} foi compartilhado com você"
 
-msgid "A Data Management Plan in %{tool_name} has been shared with you"
-msgstr "Um Plano de Gestão de Dados em %{tool_name} foi compartilhado com você"
+msgid "A Data Management Plan in %{tool_name} has been shared \"\
+"
+"                   \"with you"
+msgstr "O Plano de Gerenciamento de Dados %{tool_name} foi compartilhado \"\
+"
+"                   \"com você"
 
 msgid "A colleague has invited you to contribute to their Data Management Plan in %{tool_name}"
 msgstr "Um colega convidou você para contribuir com seu Plano de Gestão de Dados em %{tool_name}"
@@ -561,6 +592,9 @@ msgstr "Embora os elementos principais sejam suficientes no caso mais simples - 
 msgid "An error has occurred while saving/resetting your export settings."
 msgstr "Ocorreu um erro ao salvar/redefinir seus parâmetros de exportação."
 
+msgid "An error occurred when requesting feedback for this plan."
+msgstr "Um erro ocorreu ao solicitar avaliação sobre este plano"
+
 msgid "Annotations"
 msgstr "Anotações"
 
@@ -663,11 +697,13 @@ msgstr "Comece a digitar para ver uma lista filtrada"
 msgid "Below are some general aspects of your data that you should document, regardless of your discipline. At minimum, store this documentation in a \"readme.txt\" file, or the equivalent, with the data itself."
 msgstr "Abaixo estão alguns aspectos gerais de seus dados que você deve documentar, independentemente da sua disciplina. No mínimo, armazene esta documentação em um arquivo \"readme.txt\", ou o equivalente, com os dados em si."
 
-msgid "Below is a list of users registered for your organisation. You can sort the data by each field."
-msgstr "Veja abaixo a lista de usuários registrados para sua organização. Você pode ordenar os dados segundo os diversos campos."
-
 msgid "Beyond any externally imposed requirments, think about the long-term usefulness of the data. If the data is from an experiment that you anticipate will be repeatable more quickly, inexpensively, and accurately as technology progresses, you may want to store it for a relatively brief period. If the data consists of observations made outside the laborartory that can never be repeated, you may wish to store it indefinitely."
 msgstr "Além de quaisquer requisitos impostos externamente, pense na utilidade a longo prazo dos dados. Se os dados forem provenientes de um experimento que você prevê que será reproduzível com mais rapidez, baixo custo e precisão conforme a tecnologia avança, você pode armazená-lo por um período relativamente breve. Se os dados consistirem em observações feitas fora do laboratório que nunca poderão ser repetidas, você poderá armazená-las indefinidamente."
+
+msgid "Below is a list of users registered for your organisation. You can"
+"        sort the data by each field."
+msgstr "Abaixo está a lista de usuários registrados para sua organização. Você pode"
+"        organizar os dados por cada campo."
 
 msgid "Body"
 msgstr "Corpo"
@@ -900,6 +936,9 @@ msgstr "Os nomes dos criadores em scripts não romanos devem ser transliterados 
 msgid "Creator:"
 msgstr "Criador:"
 
+msgid "Creators:"
+msgstr "Ciadores:"
+
 msgid "Creators: "
 msgstr "Criadores:"
 
@@ -908,9 +947,6 @@ msgstr "Privilégios atuais"
 
 msgid "Current password"
 msgstr "Senha atual"
-
-msgid "Customise"
-msgstr "Customizar"
 
 msgid "Customizable Templates"
 msgstr "Modelos customizáveis"
@@ -923,6 +959,30 @@ msgstr "As customizações não são publicadas"
 
 msgid "Customize phase"
 msgstr "Customizar Fase"
+
+msgid "Customisable Templates"
+msgstr "Modelos customizáveis"
+
+msgid "Customisations are published"
+msgstr "Customizações estão publicadas"
+
+msgid "Customisations are unpublished"
+msgstr "Customizações estão despublicadas"
+
+msgid "Customise"
+msgstr "Customizar"
+
+msgid "Customise phase"
+msgstr "Fase de customização"
+
+msgid "Customising for your Organisation"
+msgstr "Customizing para sua organização"
+
+msgid "Customizable Templates"
+msgstr "Modelos customizáveis"
+
+msgid "DMP Background"
+msgstr "fundo do PGD"
 
 msgid "DMP Templates"
 msgstr "Modelos de PGD"
@@ -962,6 +1022,9 @@ msgstr "Os participantes da DMPTool são instituições, organizações sem fins
 
 msgid "DOCX"
 msgstr "DOCX"
+
+msgid "DOCX <em class=\"sr-only\">(new window)</em>"
+msgstr "DOCX <em class=\"sr-only\">(nova janela)</em>"
 
 msgid "Data Contact Person"
 msgstr "Pessoa a contatar sobre os dados"
@@ -1044,17 +1107,33 @@ msgstr "Não esqueça de salvar suas mudanças após fazer suas seleções."
 msgid "Download"
 msgstr "Baixar"
 
+
 msgid "Download Plan"
 msgstr "Baixar plano"
+
+msgid "Download Plan <em class=\"sr-only\">(new window)</em>"
+msgstr "Baixar Plano <em class=\"sr-only\">(nova janela)</em>"
+
+msgid "Download global usage"
+msgstr "Baixar uso global"
 
 msgid "Download plans"
 msgstr "Baixar planos"
 
+msgid "Download plans <em class=\"sr-only\">(new window)</span>"
+msgstr "Baixar planos <em class=\"sr-only\">(nova janela)</span>"
+
 msgid "Download settings"
 msgstr "Baixar parâmetros"
 
+msgid "Download users"
+msgstr "Baixar usuários"
+
 msgid "Draft"
 msgstr "Rascunho"
+
+msgid "Drag arrows to rearrange sections."
+msgstr "Arrastar setas para rearranjar seções"
 
 msgid "Edit"
 msgstr "Editar"
@@ -1143,6 +1222,9 @@ msgstr "Insira instruções específicas para acompanhar esta pergunta. Se você
 msgid "Enter your guidance here. You can include links where needed."
 msgstr "Insira suas instruções aqui. Você pode incluir links onde necessário."
 
+msgid "Error parsing links for a %{template}"
+msgstr "Erro analisando links para um %{template}"
+
 msgid "Error parsing links for a #{template_type(template)}"
 msgstr "Erro ao analisar links para um #{template_type(template)}"
 
@@ -1155,8 +1237,8 @@ msgstr "Erro levantado ao salvar a visibilidade para o plano com id %{plan_id}"
 msgid "Error:"
 msgstr "Erro"
 
-msgid "Example Answer"
-msgstr "Exemplo de Resposta"
+msgid "Example answer"
+msgstr "Exemplo de resposta"
 
 msgid "Example citations"
 msgstr "Citações de exemplo"
@@ -1566,8 +1648,8 @@ msgstr "Tamanho de fonte inválido"
 msgid "Invalid maximum pages"
 msgstr "Máximo de páginas inválido"
 
-msgid "Invitation to %{email} issued successfully. \n"
-msgstr "Convite para %{email} emitido com sucesso. \n"
+msgid "Invitation to %{email} issued successfully."
+msgstr "Convite para %{email} enviado com sucesso."
 
 msgid "Invite collaborators"
 msgstr "Convidar colaboradores"
@@ -1728,6 +1810,9 @@ msgstr "Nome"
 msgid "Need to get others on your campus interested in the DMPTool? Use our Talking Points to guide your discussions. In general, a talking points document is designed to help you stay on track during meetings with those outside of your department. It ensures that your major points are at hand and helps you make progress towards the goals of the meeting.<ul><li>Overview of Talking Points: <a href=\"%{talking_points_overview_pdf_url}\">Adobe PDF</a></li><li>Meeting with your IT Group: <a href=\"%{talking_points_it_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_it_pdf_url}\">Adobe PDF</a></li><li>Meeting with Administrators: <a href=\"%{talking_points_admin_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_admin_pdf_url}\">Adobe PDF</a></li><li>Meeting with Researchers: <a href=\"%{talking_points_researcher_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_researcher_pdf_url}\">Adobe PDF</a> </li></ul>"
 msgstr "Precisa fazer outras pessoas no seu campus interessar-se pelo DMPTool? Use nossos Pontos para Discussão na condução de seus encontros. De maneira geral, um documento com pontos de discussão é estruturado para ajudar você a manter sua linha de argumentação em encontros com pessoas de fora de seu departamento. Ele assegura que os pontos mais importantes estejam ao seu alcance e ajuda você a progredir em direção aos objetivos do encontro. <ul><li>Visão geral dos pontos de conversa: <a href=\"%{talking_points_overview_pdf_url}\">Adobe PDF</a></li><li>Encontrando seu grupo de TI: <a href=\"%{talking_points_it_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_it_pdf_url}\">Adobe PDF</a></li><li>Encontrando-se com administradores: <a href=\"%{talking_points_admin_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_admin_pdf_url}\">Adobe PDF</a></li><li>Reunião com pesquisadores: <a href=\"%{talking_points_researcher_docx_url}\">Microsoft Word</a> or <a href=\"%{talking_points_researcher_pdf_url}\">Adobe PDF</a> </li></ul>"
 
+msgid "New Notification"
+msgstr "Nova notificação"
+
 msgid "New Question"
 msgstr "Novo Pergunta"
 
@@ -1751,6 +1836,9 @@ msgstr "Novos planos"
 
 msgid "New question:"
 msgstr "Novo perguntas"
+
+msgid "New theme"
+msgstr "Novo tema"
 
 msgid "New users"
 msgstr "Novos usuários"
@@ -1977,6 +2065,9 @@ msgstr "Nome do proprietário"
 msgid "PDF"
 msgstr "PDF"
 
+msgid "PDF <em class=\"sr-only\">(new window)</em>"
+msgstr "PDF <em class=\"sr-only\">(nova janela)</em>"
+
 msgid "PDF formatting"
 msgstr "Formatação de PDF"
 
@@ -2055,19 +2146,19 @@ msgstr "Planos"
 msgid "Please check the box to continue."
 msgstr "Por favor, selecione a caixa para continuar."
 
-msgid "Please choose an organisation"
-msgstr "Por favor, escolha uma organização."
-
 msgid "Please choose one of the options."
 msgstr "Por favor, escolha uma das opções."
+
+msgid "Please choose an organisation"
+msgstr "Por favor, escolha uma organização."
 
 msgid "Please do not reply to this email."
 msgstr "Por favor, não responda esta mensagem."
 
-msgid "Please enter a First name."
-msgstr "Por favor, insira o Primeiro Nome."
+msgid "Please enter a First name. "
+msgstr "Por favor, insira o Primeiro nome"
 
-msgid "Please enter a Last name."
+msgid "Please enter a Last name. "
 msgstr "Por favor, insira o Sobrenome"
 
 msgid "Please enter a password confirmation"
@@ -2082,7 +2173,7 @@ msgstr "Por favor, insira um valor válido."
 msgid "Please enter an email address"
 msgstr "Por favor, insira um endereço de email."
 
-msgid "Please enter an email address."
+msgid "Please enter an email address. "
 msgstr "Por favor, insira um endereço de email."
 
 msgid "Please enter the name of your organisation"
@@ -2358,6 +2449,9 @@ msgstr "Guia de Início Rápido"
 msgid "Quick start guide"
 msgstr "Guia de início rápido"
 
+msgid "Re-order sections"
+msgstr "Reordenar seções"
+
 msgid "Read only"
 msgstr "Somente leitura"
 
@@ -2390,6 +2484,9 @@ msgstr "Remover este link"
 
 msgid "Request Expert Feedback - Automated Email:"
 msgstr "Solicitar feedback de especialista - Email automático"
+
+msgid "Request Expert Feedback - Message Displayed on Share Plan Tab:"
+msgstr "Solicitar feedback de especialista - Mensagem Disponível na Aba de Compartilhar Plano"
 
 msgid "Request Feedback"
 msgstr "Solicitar feedback"
@@ -2424,6 +2521,13 @@ msgstr "Papel"
 msgid "Run your own filter"
 msgstr "Use seu próprio filtro"
 
+msgid "SAMPLE MESSAGE: A data librarian from %{org_name} will respond to your request within 48"
+"       hours. If you have questions pertaining to this action please contact us"
+"       at %{organisation_email}."
+msgstr "AMOSTRA DE MENSAGEM: Um(a) bibliotecário(o) de dados do(a) %{org_name} vai responder sua requesição em até 48"
+"       horas. Caso você tenha perguntas pendentes sobre este assunto porfavor nos contate"
+"       em %{organisation_email}."
+
 msgid "Same as Principal Investigator"
 msgstr "O mesmo que Investigador Principal"
 
@@ -2439,7 +2543,7 @@ msgstr "As amostras de planos são fornecidas por um órgão financiador, uma or
 msgid "Save"
 msgstr "Salvar"
 
-msgid "Save Unsuccessful."
+msgid "Save Unsuccessful. "
 msgstr "Não foi possível salvar."
 
 msgid "Saving..."
@@ -2473,13 +2577,16 @@ msgid "See the full list"
 msgstr "Veja a lista completa"
 
 msgid "See the full list of participating institutions"
-msgstr "Veja a lista completa de instituições participantes"
+msgstr "Veja a lista completa das instituições participantes"
 
 msgid "See the full list of participating institutions."
 msgstr "Veja a lista completa de instituições participantes."
 
 msgid "Select 'Transfer customisation' in the Actions menu to review your customisation(s) and make any necessary changes. When you are done, you must return to the Actions menu and publish your customisation(s)."
 msgstr "Selecione 'Transferir customização' no menu Ações para rever sua (s) customização(ões) e fazer as alterações necessárias. Quando estiver pronto, você deve retornar ao menu Ações e publicar suas Customização(oes)."
+
+msgid "Select Guidance"
+msgstr "Selecione a orientação"
 
 msgid "Select all"
 msgstr "Selecionar tudo"
@@ -2490,11 +2597,11 @@ msgstr "Selecione uma organização da lista ou deixe em branco se sua organiza�
 msgid "Select an organisation from the list."
 msgstr "Selecione uma organização da lista."
 
+msgid "Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags."
+msgstr "Selecione um tema relevante para esta instruções. Isso exibirá sua instruções genérica em nível de organização ou quaisquer Escolas/Departamentos para os quais você criar grupos de instruções em todos os modelos que tiverem perguntas com as tags de tema correspondentes."
+
 msgid "Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question."
 msgstr "Selecione um ou mais temas relevantes para esta pergunta. Isso permitirá que sejam exibidas, junto com sua pergunta, instruções com temas similares no âmbito de sua organização."
-
-msgid "Select one theme that is relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags."
-msgstr "Selecione um tema relevante para esta instruções. Isso exibirá sua instruções genérica em nível de organização ou quaisquer Escolas/Departamentos para os quais você criar grupos de instruções em todos os modelos que tiverem perguntas com as tags de tema correspondentes."
 
 msgid "Select phase to download"
 msgstr "Selecione a fase a ser baixada"
@@ -2592,6 +2699,9 @@ msgstr "Ir para o conteúdo principal"
 msgid "Someone has requested a link to change your %{tool_name} password. You can do this through the link below."
 msgstr "Alguém solicitou um link para mudar sua senha em %{tool_name} password. Você pode fazer isso usando o link abaixo."
 
+msgid "Sort by %{sort_field}"
+msgstr "Ordenar por %{sort_field}"
+
 msgid "Start"
 msgstr "Compartilhar"
 
@@ -2613,14 +2723,17 @@ msgstr "Successo ao %{action} conta do %{username}"
 msgid "Successfully %{action} your %{object}."
 msgstr "Sucesso ao %{action} seu %{object}."
 
-msgid "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."
-msgstr "Alterou com sucesso as permissões para #{@role.user.email}. Eles foram notificados por email."
+msgid "Successfully changed the permissions for %{email}. They have been notified via email."
+msgstr "Alterou com sucesso as permissões para %{email}. Eles foram notificados por email."
 
 msgid "Successfully deleted your theme"
 msgstr "Seu tema foi apagado com sucesso"
 
 msgid "Successfully destroyed your notification"
 msgstr "Destruiu com sucesso sua notificação"
+
+msgid "Successfully %{action} the %{object}."
+msgstr "Sucesso ao %{action} o %{object}."
 
 msgid "Successfully signed in"
 msgstr "Entrada bem sucedida"
@@ -2748,6 +2861,19 @@ msgstr "A aba \"Compartilhar\" é outro lugar onde você pode definir a visibili
 msgid "The answer to this question affects how you organize the data as well as the level of versioning you will need to undertake. Keeping track of rapidly changing datasets can be a challenge so it is imperative that you begin with a plan to carry you through the entire data management process."
 msgstr "A resposta a esta questão afeta como você organiza os dados, bem como o nível de versionamento que você precisará realizar. Manter o controle de conjuntos de dados que mudam rapidamente pode ser um desafio, por isso é imperativo começar com um plano para levá-lo a todo o processo de gerenciamento de dados."
 
+msgid "The above plan creator(s) have agreed that others may use as"
+"             much of the text of this plan as they would like in their own plans,"
+"             and customise it as necessary. You do not need to credit the creator(s)"
+"             as the source of the language used, but using any of the plan's text"
+"             does not imply that the creator(s) endorse, or have any relationship to,"
+"             your project or proposal"
+msgstr "Os criadores do plano acima concordaram que outros podem usar o"
+"             quanto quiser do texto deste plano em seus próprios planos,"
+"             e customizar caso necessário. Você não precisa fornecer crédito aos criadores"
+"             quanto a linguagem fonte utilizada, mas quando utilizada qualquer porção do texto contido no plano"
+"             não implica que os criadores endossem, ou tenham alguma relação"
+"             com a proposta do seu projeto"
+
 msgid "The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}"
 msgstr "A iD do #{scheme.description} atual já foi vinculada a um usuário com email #{identifier.user.email}"
 
@@ -2814,6 +2940,9 @@ msgstr "Tema criado com sucesso"
 msgid "Theme updated successfully"
 msgstr "Tema atualizado com sucesso"
 
+msgid "The ‘Share’ tab is also where you can set your plan visibility."
+msgstr "A guia ‘Compartilhar’ também é onde você pode definir a visibilidade do seu plano."
+
 msgid "Themes"
 msgstr "Temas"
 
@@ -2859,8 +2988,8 @@ msgstr "Não há dúvidas com o id %{question_id} associado ao id do plano %{pla
 msgid "There is no theme associated with id %{id}"
 msgstr "Não há nenhum tema associado com a id %{id}"
 
-msgid "There may also be an option to request feedback on your plan (on the “Share” tab). This is available when research support staff at your institution have enabled the service. Click to “Request feedback” and your local administrators will be alerted to your request. Their comments will be visible in the “Comments” field adjacent to each question. You will receive an email notification when an administrator provides feedback."
-msgstr "Também pode haver uma opção para solicitar feedback sobre o seu plano (na guia “Compartilhar”). Isso está disponível quando a equipe de suporte de pesquisa da sua instituição habilitou o serviço. Clique em “Solicitar comentários” e seus administradores locais serão alertados sobre sua solicitação. Seus comentários serão visíveis no campo “Comentários” ao lado de cada pergunta. Você receberá uma notificação por email quando um administrador fornecer feedback."
+msgid "There may also be an option to request feedback on your plan. This is available when research support staff at your organisation have enabled this service. Click to ‘Request feedback’ and your local administrators will be alerted to your request. Their comments will be visible in the ‘Comments’ field adjacent to each question. You will be notified by email when an administrator provides feedback."
+msgstr "Também pode haver uma opção para solicitar feedback sobre seu plano. Isso está disponível quando a equipe de suporte de pesquisa da sua organização habilitou esse serviço. Clique para ‘Solicitar comentários’ e seus administradores locais serão alertados sobre sua solicitação. Seus comentários ficarão visíveis no campo ‘Comentários’ ao lado de cada pergunta. Você será notificado por e-mail quando um administrador fornecer feedback."
 
 msgid "There seems to be a problem with your logo. Please upload it again."
 msgstr "Parece haver um problema com seu logo. Por favor, suba-o novamente."
@@ -2985,6 +3114,9 @@ msgstr "URL"
 msgid "Unable to %{action} %{username}"
 msgstr "Incapaz de %{action} %{username}"
 
+msgid "Unable to %{action} the %{object}.%{errors}"
+msgstr "Incapaz de %{action} o %{object}.%{errors}"
+
 msgid "Unable to change the plan's status since it is needed at least %{percentage} percentage responded"
 msgstr "Não conseguimos mudar o status do plano. É preciso pelo menos %{percentage} de respostas."
 
@@ -2994,17 +3126,20 @@ msgstr "Não conseguimos mudar o status de teste do plano"
 msgid "Unable to change your organisation affiliation at this time."
 msgstr "Não conseguimos mudar sua afiliação organizacional neste momento."
 
-msgid "Unable to create a new section because the phase you specified does not exist."
-msgstr "Não criar uma nova seção porque a fase que você especificou não existe."
+msgid "Unable to create a new section. The phase you specified does not exist."
+msgstr "Não conseguimos criar uma nova seção. A fase especificada não existe."
 
 msgid "Unable to create a new version of this template."
-msgstr "Não criar uma nova versão deste modelo."
+msgstr "Não conseguimos criar uma nova versão deste modelo."
 
 msgid "Unable to create your account at this time."
 msgstr "Não criar sua conta no momento."
 
 msgid "Unable to create your account."
 msgstr "Não criar sua conta"
+
+msgid "Unable to create your account.#{errors_for_display(resource)}"
+msgstr "Não conseguimos criar sua conta.#{errors_for_display(resource)}"
 
 msgid "Unable to customize that template."
 msgstr "Não customização esse modelo."
@@ -3156,6 +3291,9 @@ msgstr "Ver tudo"
 msgid "View all guidance"
 msgstr "Ver toda a instrução"
 
+msgid "View all notifications"
+msgstr "Ver todas Notificações"
+
 msgid "View all organisations"
 msgstr "Ver todas as organizações"
 
@@ -3164,6 +3302,9 @@ msgstr "Ver todos os resultados da busca"
 
 msgid "View all templates"
 msgstr "Ver todos os modelos"
+
+msgid "View all themes"
+msgstr "Ver todos os temas"
 
 msgid "View all users"
 msgstr "Ver todos os usuários"
@@ -3423,6 +3564,12 @@ msgstr "Você pode modificar suas preferências de notificação na página com 
 msgid "You may or may not have the rights to do so, depending upon whether that data were accessed under a license with terms of use."
 msgstr "Você pode ou não ter os direitos para fazê-lo, dependendo se esses dados foram acessados ​​sob uma licença com os termos de uso."
 
+msgid "You may change your notification preferences on your profile page. "
+msgstr "Você pode modificar suas preferências de notificação na sua página de perfil. "
+
+msgid "You may place them before or after the main template sections."
+msgstr "Você pode colocá-las antes ou depois da seção de modelos principais."
+
 msgid "You must accept the terms and conditions to register."
 msgstr "Você deve aceitar os termos e condições para registrar-se."
 
@@ -3434,6 +3581,9 @@ msgstr "Você deve inserir uma URL válida (e.g. https://organizacao.org)."
 
 msgid "You must enter a valid email address."
 msgstr "Você deve inserir um email válido."
+
+msgid "You must provide a valid email address and select a permission level."
+msgstr "Você deve fornecer um email valido e selecionar um nível de permissão."
 
 msgid "You must select a funder from the list or click the checkbox."
 msgstr "Você deve selecionar um financiador na lista ou clicar na caixa de seleção."
@@ -3494,6 +3644,13 @@ msgstr "Para entrar no sistema, sua conta foi vinculada a suas credenciais insti
 
 msgid "Your account is linked to your institutional credentials for login. Please contact the helpdesk to change your organisation."
 msgstr "Para entrar no sistema, sua conta foi vinculada a suas credenciais institucionais. Por favor, entre em contato com o helpdesk para alterar sua organização."
+
+msgid "Your colleague %{inviter_name} has invited you to contribute to
+"
+"            their Data Management Plan in %{tool_name}"
+msgstr "Seu colega %{inviter_name} convidou você para contribuir em
+"
+"            seu Plano de Gestão de Dados %{tool_name}"
 
 msgid "Your email address is also your login id and therefore an important part of your account information. For your safety we require you to confirm your password to make this change."
 msgstr "Seu email é também sua id para entrar no sistema. É portanto uma parte importante das informações de sua conta. Para sua segurança, solicitamos que confirme sua senha para realizar essa mudança."
@@ -3598,7 +3755,13 @@ msgid "completed_plans"
 msgstr "completed_plans"
 
 msgid "copied"
-msgstr "copieado"
+msgstr "copiado"
+
+msgid "copy"
+msgstr "copiar"
+
+msgid "create"
+msgstr "criar"
 
 msgid "created"
 msgstr "criado"
@@ -3617,6 +3780,9 @@ msgstr "desativar"
 
 msgid "deactivated"
 msgstr "desativado"
+
+msgid "delete"
+msgstr "apagar"
 
 msgid "deleted"
 msgstr "apagado"
@@ -3642,6 +3808,9 @@ msgstr "generate_version! requer um modelo publicado"
 msgid "guidance"
 msgstr "instruções"
 
+msgid "get involved<em class=\"sr-only\"> (new window)</em>"
+msgstr "se envolver<em class=\"sr-only\"> (nova janela)</em>"
+
 msgid "guidance group"
 msgstr "grupo de instruções"
 
@@ -3651,6 +3820,9 @@ msgstr "instruções sobre"
 msgid "into your browser"
 msgstr "em seu navegador"
 
+msgid "isn't a valid value"
+msgstr "Não é um valor válido"
+
 msgid "locals should be a Hash object"
 msgstr "locals deve ser um objeto Hash"
 
@@ -3659,6 +3831,9 @@ msgstr "logo"
 
 msgid "mock project for testing, practice, or educational purposes"
 msgstr "projeto simulado para testes, prática ou propósitos educacionais"
+
+msgid "must be after %{date}"
+msgstr "necessita ser depois de %{date}"
 
 msgid "must be logged in"
 msgstr "deve estar logado"
@@ -3699,6 +3874,9 @@ msgstr "organizacional"
 msgid "password"
 msgstr "senha"
 
+msgid "page for guidance."
+msgstr "página para orientação."
+
 msgid "path_params should be a Hash object"
 msgstr "path_params deve ser um objeto hash"
 
@@ -3707,6 +3885,9 @@ msgstr "permissões"
 
 msgid "phase"
 msgstr "fase"
+
+msgid "permission"
+msgstr "permissão"
 
 msgid "plan"
 msgstr "plano"
@@ -3726,11 +3907,17 @@ msgstr "privado"
 msgid "profile"
 msgstr "perfil"
 
+msgid "profile for %{username}"
+msgstr "perfil de %{username}"
+
 msgid "project details coversheet"
 msgstr "capa com detalhes do projeto"
 
 msgid "public"
 msgstr "público"
+
+msgid "publish"
+msgstr "publicar"
 
 msgid "query_params should be a Hash object"
 msgstr "query_params deve ser um objeto hash"
@@ -3753,6 +3940,9 @@ msgstr "ler o plano e dar feedback."
 msgid "read-only"
 msgstr "somente leitura"
 
+msgid "remove"
+msgstr "remover"
+
 msgid "removed"
 msgstr "removido"
 
@@ -3761,6 +3951,9 @@ msgstr "revisor"
 
 msgid "role"
 msgstr "papel"
+
+msgid "save"
+msgstr "salvar"
 
 msgid "saved"
 msgstr "salvo"
@@ -3798,11 +3991,20 @@ msgstr "plano de teste"
 msgid "unanswered questions"
 msgstr "questões não respondida"
 
+msgid "upgrade_customization! cannot be carried out since there is no published template of its current funder"
+msgstr "upgrade_customization! não pode ser realizado, uma vez que não existe um modelo publicado do seu financiador atual"
+
+msgid "unpublish"
+msgstr "despublicar"
+
+msgid "update"
+msgstr "atualizar"
+
 msgid "updated"
 msgstr "Atualizado"
 
-msgid "upgrade_customization! cannot be carried out since there is no published template of its current funder"
-msgstr "upgrade_customization! não pode ser realizado, uma vez que não existe um modelo publicado do seu financiador atual"
+msgid "upgrade cannot be carried out since there is no published template of its current funder"
+msgstr "atualização não pode ser realizada porque não existe um modelo publicado do seu financiador atual"
 
 msgid "upgrade_customization! requires a customised template"
 msgstr "upgrade_customization! requer um modelo customizado"

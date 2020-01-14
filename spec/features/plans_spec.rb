@@ -30,32 +30,21 @@ RSpec.describe "Plans", type: :feature do
 
   scenario "User creates a new Plan", :js do
     # Action
-    # -------------------------------------------------------------
-    # start DMPTool customization
-    # The DMPTool menu item and button have the same label!
-    # -------------------------------------------------------------
-    #click_link "Create plan"
-    find("a.btn[href=\"#{new_plan_path}\"]").click
-    # -------------------------------------------------------------
-    # end DMPTool customization
-    # -------------------------------------------------------------
-
+    click_link "Create plan"
     fill_in :plan_title, with: "My test plan"
     fill_in :plan_org_name, with: @research_org.name
 
-    # -------------------------------------------------------------
-    # start DMPTool customization
-    # -------------------------------------------------------------
+    # --------------------------------------------------------
+    # Start DMPTool Customization
+    # --------------------------------------------------------
     #find('#suggestion-2-0').click
     #fill_in :plan_funder_name, with: @funding_org.name
     #find('#suggestion-3-0').click
     find('#suggestion-1-0').click
     fill_in :plan_funder_name, with: @funding_org.name
-    find('#suggestion-2-0').click
-    # -------------------------------------------------------------
-    # end DMPTool customization
-    # -------------------------------------------------------------
-
+    # --------------------------------------------------------
+    # End DMPTool Customization
+    # --------------------------------------------------------
     click_button "Create plan"
 
     # Expectations
@@ -72,65 +61,20 @@ RSpec.describe "Plans", type: :feature do
     within "#edit_plan_#{@plan.id}" do
       fill_in "Grant number", with: "Innodia"
       fill_in "Project abstract", with: "Plan abstract..."
-
-      # -------------------------------------------------------------
-      # start DMPTool customization
-      # DMPTool does not expose an identifier
-      # -------------------------------------------------------------
-      #fill_in "ID", with: "ABCDEF"
-      # -------------------------------------------------------------
-      # end DMPTool customization
-      # -------------------------------------------------------------
-
-      fill_in "ORCID iD", with: "My ORCID"
-
-      # -------------------------------------------------------------
-      # start DMPTool customization
-      # DMPTool does not expose a phone number and relabelled button
-      # -------------------------------------------------------------
-      #fill_in "Phone", with: "07787 000 0000"
-      #click_button "Save"
-      click_button "Submit"
-      # -------------------------------------------------------------
-      # end DMPTool customization
-      # -------------------------------------------------------------
-
-      # Reload the plan to get the latest from memory
-      @plan.reload
-
-# DMPTool issue
-# For some reason these assertions sometimes happen before the UI has
-# had a chance to clik the Submit button
-
-      expect(current_path).to eql(overview_plan_path(@plan))
-      expect(@plan.title).to eql("My test plan")
-      expect(@plan.funder_name).to eql(@funding_org.name)
-      expect(@plan.grant_number).to eql("1234")
-      expect(@plan.description).to eql("Plan abstract...")
-
-      # -------------------------------------------------------------
-      # start DMPTool customization
-      # DMPTool does not expose an identifier
-      # -------------------------------------------------------------
-      #expect(@plan.identifier).to eql("ABCDEF")
-      # -------------------------------------------------------------
-      # end DMPTool customization
-      # -------------------------------------------------------------
-
-      name = [@user.firstname, @user.surname].join(" ")
-      expect(@plan.principal_investigator).to eql(name)
-      expect(@plan.principal_investigator_identifier).to eql("My ORCID")
-      expect(@plan.principal_investigator_email).to eql(@user.email)
-
-      # -------------------------------------------------------------
-      # start DMPTool customization
-      # DMPTool does not expose a phone number and relabelled button
-      # -------------------------------------------------------------
-      #expect(@plan.principal_investigator_phone).to eql("07787 000 0000")
-      # -------------------------------------------------------------
-      # end DMPTool customization
-      # -------------------------------------------------------------
-
+      fill_in "ID", with: "ABCDEF"
+      # --------------------------------------------------------
+      # Start DMPTool Customization
+      # ORCID sent us a complaint about allowing people to manually
+      # enter in an ORCID id. We will have to revise this workflow
+      # so that it complies with their standards. E.g. send out an
+      # email to the PI that asks them to assert the connection
+      # --------------------------------------------------------
+      #fill_in "ORCID iD", with: "My ORCID"
+      # --------------------------------------------------------
+      # End DMPTool Customization
+      # --------------------------------------------------------
+      fill_in "Phone", with: "07787 000 0000"
+      click_button "Save"
     end
 
     # Reload the plan to get the latest from memory
@@ -144,7 +88,17 @@ RSpec.describe "Plans", type: :feature do
     expect(@plan.identifier).to eql("ABCDEF")
     name = [@user.firstname, @user.surname].join(" ")
     expect(@plan.principal_investigator).to eql(name)
-    expect(@plan.principal_investigator_identifier).to eql("My ORCID")
+    # --------------------------------------------------------
+    # Start DMPTool Customization
+    # ORCID sent us a complaint about allowing people to manually
+    # enter in an ORCID id. We will have to revise this workflow
+    # so that it complies with their standards. E.g. send out an
+    # email to the PI that asks them to assert the connection
+    # --------------------------------------------------------
+    #expect(@plan.principal_investigator_identifier).to eql("My ORCID")
+    # --------------------------------------------------------
+    # End DMPTool Customization
+    # --------------------------------------------------------
     expect(@plan.principal_investigator_email).to eql(@user.email)
     expect(@plan.principal_investigator_phone).to eql("07787 000 0000")
   end
