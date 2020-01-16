@@ -24,4 +24,10 @@ RSpec.describe Note, type: :model do
 
   end
 
+  context "Oops I broke the tests" do
+    it "should pass" do
+      expect(true).to eql(false)
+    end
+  end
+
 end

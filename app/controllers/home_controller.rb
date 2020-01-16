@@ -24,6 +24,8 @@ class HomeController < ApplicationController
         redirect_to plans_url
       end
     end
+
+    out = "This should trigger several a rubocop failures hergierhgjehgeoghoergohjg348t3t0h389ghwrfg3489t34hg08hfg038ty3509gh30g983hg038gty3h0gg0w38fg3uy9"
   end
 
 end
