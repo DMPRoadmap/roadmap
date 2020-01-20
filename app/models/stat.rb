@@ -1,17 +1,16 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: stats
 #
 #  id         :integer          not null, primary key
-#  count      :bigint(8)        default(0)
+#  count      :integer          default("0")
 #  date       :date             not null
-#  details    :text
 #  type       :string           not null
+#  org_id     :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  org_id     :integer
+#  details    :text
 #
 
 class Stat < ActiveRecord::Base

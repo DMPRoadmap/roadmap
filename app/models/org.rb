@@ -1,39 +1,33 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: orgs
 #
 #  id                     :integer          not null, primary key
-#  abbreviation           :string
-#  banner_text            :text
-#  contact_email          :string
-#  contact_name           :string
-#  feedback_email_msg     :text
-#  feedback_email_subject :string
-#  feedback_enabled       :boolean          default(FALSE)
-#  is_other               :boolean          default(FALSE), not null
-#  links                  :text
-#  logo_name              :string
-#  logo_uid               :string
 #  name                   :string
-#  org_type               :integer          default(0), not null
-#  sort_name              :string
+#  abbreviation           :string
 #  target_url             :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  language_id            :integer
+#  is_other               :boolean          default("false"), not null
+#  sort_name              :string
+#  banner_text            :text
 #  region_id              :integer
+#  language_id            :integer
+#  logo_uid               :string
+#  logo_name              :string
+#  contact_email          :string
+#  org_type               :integer          default("0"), not null
+#  links                  :text
+#  contact_name           :string
+#  feedback_enabled       :boolean          default("false")
+#  feedback_email_subject :string
+#  feedback_email_msg     :text
 #
 # Indexes
 #
 #  orgs_language_id_idx  (language_id)
 #  orgs_region_id_idx    (region_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (language_id => languages.id)
-#  fk_rails_...  (region_id => regions.id)
 #
 
 class Org < ActiveRecord::Base
@@ -84,6 +78,8 @@ class Org < ActiveRecord::Base
   has_many :identifier_schemes, through: :org_identifiers
 
   has_many :departments
+
+  has_many :structured_data_schemas
 
   # ===============
   # = Validations =
