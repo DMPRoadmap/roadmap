@@ -2,8 +2,8 @@ class CreateStructuredAnswers < ActiveRecord::Migration
   def change
     create_table :structured_answers do |t|
       t.json :data
-      t.integer :answer_id
-      t.integer :structured_data_schema_id
+      t.belongs_to :answer, foreign_key: true, index: true
+      t.belongs_to :structured_data_schema, foreign_key: true, index: true
 
       t.timestamps null: false
     end
