@@ -285,15 +285,16 @@ ActiveRecord::Schema.define(version: 20200120134348) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "question_format_id"
-    t.boolean  "option_comment_display",            default: true
+    t.boolean  "option_comment_display",               default: true
     t.boolean  "modifiable"
-    t.string   "versionable_id",         limit: 36
-    t.boolean  "structured",                        default: false, null: false
-    t.integer  "schema_id"
+    t.string   "versionable_id",            limit: 36
+    t.boolean  "structured",                           default: false, null: false
+    t.integer  "structured_data_schema_id"
   end
 
   add_index "questions", ["question_format_id"], name: "questions_question_format_id_idx", using: :btree
   add_index "questions", ["section_id"], name: "questions_section_id_idx", using: :btree
+  add_index "questions", ["structured_data_schema_id"], name: "index_questions_on_structured_data_schema_id", using: :btree
   add_index "questions", ["versionable_id"], name: "index_questions_on_versionable_id", using: :btree
 
   create_table "questions_themes", id: false, force: :cascade do |t|
@@ -420,6 +421,9 @@ ActiveRecord::Schema.define(version: 20200120134348) do
     t.datetime "updated_at",                null: false
   end
 
+  add_index "structured_answers", ["answer_id"], name: "index_structured_answers_on_answer_id", using: :btree
+  add_index "structured_answers", ["structured_data_schema_id"], name: "index_structured_answers_on_structured_data_schema_id", using: :btree
+
   create_table "structured_data_schemas", force: :cascade do |t|
     t.string   "label"
     t.string   "name"
@@ -430,6 +434,8 @@ ActiveRecord::Schema.define(version: 20200120134348) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "structured_data_schemas", ["org_id"], name: "index_structured_data_schemas_on_org_id", using: :btree
 
   create_table "templates", force: :cascade do |t|
     t.string   "title"
@@ -561,6 +567,7 @@ ActiveRecord::Schema.define(version: 20200120134348) do
   add_foreign_key "question_options", "questions"
   add_foreign_key "questions", "question_formats"
   add_foreign_key "questions", "sections"
+  add_foreign_key "questions", "structured_data_schemas"
   add_foreign_key "questions_themes", "questions"
   add_foreign_key "questions_themes", "themes"
   add_foreign_key "research_outputs", "plans"
@@ -570,6 +577,9 @@ ActiveRecord::Schema.define(version: 20200120134348) do
   add_foreign_key "sections", "phases"
   add_foreign_key "static_page_contents", "languages"
   add_foreign_key "static_page_contents", "static_pages"
+  add_foreign_key "structured_answers", "answers"
+  add_foreign_key "structured_answers", "structured_data_schemas"
+  add_foreign_key "structured_data_schemas", "orgs"
   add_foreign_key "templates", "orgs"
   add_foreign_key "themes_in_guidance", "guidances"
   add_foreign_key "themes_in_guidance", "themes"

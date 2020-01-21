@@ -12,6 +12,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_structured_data_schemas_on_org_id  (org_id)
+#
 
 class StructuredDataSchema < ActiveRecord::Base
   belongs_to :org

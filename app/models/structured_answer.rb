@@ -9,6 +9,11 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #
+# Indexes
+#
+#  index_structured_answers_on_answer_id                  (answer_id)
+#  index_structured_answers_on_structured_data_schema_id  (structured_data_schema_id)
+#
 
 class StructuredAnswer < ActiveRecord::Base
   belongs_to :answer
