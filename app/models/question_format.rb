@@ -3,12 +3,12 @@
 # Table name: question_formats
 #
 #  id           :integer          not null, primary key
-#  description  :text
-#  formattype   :integer          default(0)
-#  option_based :boolean          default(FALSE)
 #  title        :string
+#  description  :text
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  option_based :boolean          default("false")
+#  formattype   :integer          default("0")
 #
 
 class QuestionFormat < ActiveRecord::Base

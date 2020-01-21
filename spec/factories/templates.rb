@@ -3,30 +3,26 @@
 # Table name: templates
 #
 #  id               :integer          not null, primary key
-#  archived         :boolean
-#  customization_of :integer
-#  description      :text
-#  is_default       :boolean
-#  links            :text
-#  locale           :string
-#  published        :boolean
 #  title            :string
-#  version          :integer
-#  visibility       :integer
+#  description      :text
+#  published        :boolean
+#  org_id           :integer
+#  locale           :string
+#  is_default       :boolean
 #  created_at       :datetime
 #  updated_at       :datetime
+#  version          :integer
+#  visibility       :integer
+#  customization_of :integer
 #  family_id        :integer
-#  org_id           :integer
+#  archived         :boolean
+#  links            :text
 #
 # Indexes
 #
 #  templates_customization_of_version_org_id_key  (customization_of,version,org_id) UNIQUE
 #  templates_family_id_version_key                (family_id,version) UNIQUE
 #  templates_org_id_idx                           (org_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (org_id => orgs.id)
 #
 
 FactoryBot.define do

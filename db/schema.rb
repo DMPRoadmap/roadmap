@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190620144049) do
+ActiveRecord::Schema.define(version: 20200120134348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -288,6 +288,8 @@ ActiveRecord::Schema.define(version: 20190620144049) do
     t.boolean  "option_comment_display",            default: true
     t.boolean  "modifiable"
     t.string   "versionable_id",         limit: 36
+    t.boolean  "structured",                        default: false, null: false
+    t.integer  "schema_id"
   end
 
   add_index "questions", ["question_format_id"], name: "questions_question_format_id_idx", using: :btree
@@ -408,6 +410,25 @@ ActiveRecord::Schema.define(version: 20190620144049) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.text     "details"
+  end
+
+  create_table "structured_answers", force: :cascade do |t|
+    t.json     "data"
+    t.integer  "answer_id"
+    t.integer  "structured_data_schema_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  create_table "structured_data_schemas", force: :cascade do |t|
+    t.string   "label"
+    t.string   "name"
+    t.integer  "version"
+    t.json     "schema"
+    t.integer  "org_id"
+    t.string   "object"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "templates", force: :cascade do |t|

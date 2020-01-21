@@ -4,27 +4,24 @@
 # Table name: questions
 #
 #  id                     :integer          not null, primary key
-#  default_value          :text
-#  modifiable             :boolean
-#  number                 :integer
-#  option_comment_display :boolean          default(TRUE)
 #  text                   :text
+#  default_value          :text
+#  number                 :integer
+#  section_id             :integer
 #  created_at             :datetime
 #  updated_at             :datetime
 #  question_format_id     :integer
-#  section_id             :integer
+#  option_comment_display :boolean          default("true")
+#  modifiable             :boolean
 #  versionable_id         :string(36)
+#  structured             :boolean          default("false"), not null
+#  schema_id              :integer
 #
 # Indexes
 #
 #  index_questions_on_versionable_id  (versionable_id)
 #  questions_question_format_id_idx   (question_format_id)
 #  questions_section_id_idx           (section_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (question_format_id => question_formats.id)
-#  fk_rails_...  (section_id => sections.id)
 #
 
 class Question < ActiveRecord::Base
@@ -64,6 +61,8 @@ class Question < ActiveRecord::Base
   has_one :phase, through: :section
 
   has_one :template, through: :section
+
+  belongs_to :structured_data_schema
 
   # ===============
   # = Validations =
