@@ -538,6 +538,7 @@ DEPENDENCIES
   simplecov
   spring
   spring-commands-rspec
+  sprockets (~> 3.2)
   text
   thin
   web-console
