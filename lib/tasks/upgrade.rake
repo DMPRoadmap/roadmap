@@ -1,6 +1,11 @@
 require 'set'
 namespace :upgrade do
 
+  desc "Upgrade to v.2.2.0"
+   task v2_2_0: :environment do
+     Rake::Task['upgrade:default_orgs_to_managed'].execute
+   end
+
   desc "Upgrade to v2.1.3"
   task v2_1_3: :environment do
     Rake::Task['upgrade:fill_blank_plan_identifiers'].execute
@@ -694,6 +699,11 @@ namespace :upgrade do
     review_plan_ids = Role.reviewer.pluck(:plan_id).uniq
     Plan.where(id: review_plan_ids).update_all(feedback_requested: true)
     Role.reviewer.destroy_all
+  end
+
+  desc "Sets the new managed flag for all existing Orgs to managed = true" do
+  task default_orgs_to_managed: :environment do
+    Org.all.update_all(managed: true)
   end
 
   private

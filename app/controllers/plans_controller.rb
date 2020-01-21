@@ -32,8 +32,8 @@ class PlansController < ApplicationController
     @funders = Org.funder
                   .joins(:templates)
                   .where(templates: { published: true }).uniq.sort_by(&:name)
-    @orgs = (Org.organisation + Org.institution + Org.managing_orgs).flatten
-                                                                    .uniq.sort_by(&:name)
+    @orgs = (Org.organisation + Org.institution + Org.default_orgs)
+    @orgs = @orgs.flatten.uniq.sort_by(&:name)
 
     # Get the current user's org
     @default_org = current_user.org if @orgs.include?(current_user.org)
@@ -98,7 +98,7 @@ class PlansController < ApplicationController
 
       if @plan.save
         # pre-select org's guidance and the default org's guidance
-        ids = (Org.managing_orgs << org_id).flatten.uniq
+        ids = (Org.default_orgs.pluck(:id) << org_id).flatten.uniq
         ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
         if !ggs.blank? then @plan.guidance_groups << ggs end

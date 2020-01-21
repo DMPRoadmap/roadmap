@@ -51,7 +51,16 @@ class OrgsController < ApplicationController
       end
     end
 
+p "IN: #{attrs[:managed]} :: #{@org.managed} <-- #{attrs[:managed] == "1"}"
+
+    attrs[:managed] = attrs[:managed] == "1" ? true : false
+
+p attrs.inspect
+
     if @org.update_attributes(attrs)
+
+p @org.reload.managed?
+
       redirect_to "#{admin_edit_org_path(@org)}\##{tab}",
                   notice: success_message(@org, _("saved"))
     else
@@ -109,7 +118,7 @@ class OrgsController < ApplicationController
   private
   def org_params
     params.require(:org).permit(:name, :abbreviation, :logo, :contact_email,
-                                :contact_name, :remove_logo, :org_type,
+                                :contact_name, :remove_logo, :org_type, :managed,
                                 :feedback_enabled, :feedback_email_msg)
   end
 

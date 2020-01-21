@@ -16,6 +16,15 @@
       <%= f.text_field :abbreviation, id: "org_abbreviation", class: "form-control", "aria-required": true %>
     </div>
   </div>
+  <div class="row">
+    <div class="form-group col-xs-8">
+      <%= f.label :managed do %>
+        <%= f.check_box :managed, id: "org_managed", "aria-required": true,
+              title: _("A managed Org is one that can have its own Guidance and/or Templates. An unmanaged Org is one that was automatically created by the system when a user entered/selected it.") %>
+        <%= _('Managed? (allows Org Admins to access the Admin menu)') %>
+      <% end %>
+    </div>
+  </div>
 
   <div class="row">
     <div class="form-group col-xs-8">

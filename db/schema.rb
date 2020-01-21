@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190507091025) do
+ActiveRecord::Schema.define(version: 202001072190035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -177,6 +177,7 @@ ActiveRecord::Schema.define(version: 20190507091025) do
     t.boolean  "feedback_enabled",       default: false
     t.string   "feedback_email_subject"
     t.text     "feedback_email_msg"
+    t.boolean  "managed",                default: false, null: false
   end
 
   create_table "perms", force: :cascade do |t|
@@ -457,6 +458,7 @@ ActiveRecord::Schema.define(version: 20190507091025) do
   add_foreign_key "org_token_permissions", "token_permission_types"
   add_foreign_key "orgs", "languages"
   add_foreign_key "orgs", "regions"
+  add_foreign_key "orgs", "managed"
   add_foreign_key "phases", "templates"
   add_foreign_key "plans", "templates"
   add_foreign_key "plans_guidance_groups", "guidance_groups"
