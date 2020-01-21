@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(version: 20190507091025) do
     t.datetime "updated_at"
     t.text     "logo_url"
     t.text     "user_landing_url"
+    t.integer  "context",     default: 0, null: false
   end
 
   create_table "languages", force: :cascade do |t|

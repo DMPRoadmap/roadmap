@@ -73,7 +73,7 @@ class PlansController < ApplicationController
 
       @plan.principal_investigator_email = current_user.email
 
-      orcid = current_user.identifier_for(IdentifierScheme.find_by(name: "orcid"))
+      orcid = current_user.identifier_for(IdentifierScheme.by_name("orcid"))
       @plan.principal_investigator_identifier = orcid.identifier unless orcid.nil?
 
       @plan.funder_name = plan_params[:funder_name]

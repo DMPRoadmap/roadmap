@@ -19,5 +19,6 @@ FactoryBot.define do
     logo_url { Faker::Internet.url }
     user_landing_url { Faker::Internet.url }
     active { true }
+    context { [0, 1].sample }
   end
 end

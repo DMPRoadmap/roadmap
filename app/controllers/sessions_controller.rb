@@ -15,7 +15,7 @@ class SessionsController < Devise::SessionsController
       # Until ORCID login is supported
       if !session["devise.shibboleth_data"].nil?
         args = {
-          identifier_scheme: IdentifierScheme.find_by(name: "shibboleth"),
+          identifier_scheme: IdentifierScheme.by_name("shibboleth"),
           identifier: session["devise.shibboleth_data"]["uid"],
           user: existing_user
         }

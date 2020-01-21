@@ -40,6 +40,14 @@ class OrgIdentifier < ActiveRecord::Base
 
   validates :identifier_scheme, presence: { message: PRESENCE_MESSAGE }
 
+  # ===============
+  # = Scopes =
+  # ===============
+
+  def self.by_scheme_name(value)
+    where(identifier_scheme: IdentifierScheme.by_name(value))
+  end
+
   # ===========================
   # = Public instance methods =
   # ===========================

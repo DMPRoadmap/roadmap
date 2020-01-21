@@ -28,6 +28,28 @@ RSpec.describe OrgIdentifier, type: :model do
 
   end
 
+  context "scopes" do
+    describe "#by_scheme_name" do
+      before(:each) do
+        org = create(:org, is_other: false)
+        @scheme = create(:identifier_scheme, context: 0)
+        @scheme2 = create(:identifier_scheme, context: 0)
+
+        @id = create(:org_identifier, identifier_scheme: @scheme, org: org)
+        @id2 = create(:org_identifier, identifier_scheme: @scheme2, org: org)
+
+        @rslts = described_class.by_scheme_name(@scheme.name)
+      end
+
+      it "returns the correct identifier" do
+        expect(@rslts.include?(@id)).to eql(true)
+      end
+      it "does not return the identifier for the other scheme" do
+        expect(@rslts.include?(@id2)).to eql(false)
+      end
+    end
+  end
+
   describe "#attrs=" do
 
     context "when hash is a Hash" do

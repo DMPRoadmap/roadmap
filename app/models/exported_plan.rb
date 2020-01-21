@@ -76,7 +76,7 @@ class ExportedPlan < ActiveRecord::Base
   end
 
   def orcid
-    scheme = IdentifierScheme.find_by(name: 'orcid')
+    scheme = IdentifierScheme.by_name("orcid")
     if self.owner.nil?
       ''
     else

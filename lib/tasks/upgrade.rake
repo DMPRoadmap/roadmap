@@ -1,6 +1,12 @@
 require 'set'
 namespace :upgrade do
 
+  desc "Upgrade to v.2.2.0"
+  task v2_2_0: :environment do
+    Rake::Task['upgrade:add_ror_fundref_schemes'].execute
+    Rake::Task['upgrade:update_identifier_scheme_contexts'].execute
+  end
+
   desc "Upgrade to v2.1.3"
   task v2_1_3: :environment do
     Rake::Task['upgrade:fill_blank_plan_identifiers'].execute
@@ -694,6 +700,27 @@ namespace :upgrade do
     review_plan_ids = Role.reviewer.pluck(:plan_id).uniq
     Plan.where(id: review_plan_ids).update_all(feedback_requested: true)
     Role.reviewer.destroy_all
+  end
+
+  desc "adds ROR and Fundref identifier_schemes"
+  task add_ror_fundref_schemes: :environment do
+    unless IdentifierScheme.find_by(name: "ror").present?
+      p "Creating ROR identifier_scheme"
+      IdentifierScheme.create(name: 'ror', user_landing_url: 'https://ror.org',
+        active: 1, description: 'Research Organization Registry (ROR)')
+    end
+    unless IdentifierScheme.find_by(name: "fundref").present?
+      p "Creating FundRef identifier_scheme"
+      IdentifierScheme.create(name: 'fundref', user_landing_url: 'https://search.crossref.org/funding?q=',
+        active: 1, description: 'Crossref Funder Registry (FundRef)')
+    end
+  end
+
+  desc "assigns the correct context (user or org) to each identifier scheme"
+  task update_identifier_scheme_contexts: :environment do
+    IdentifierScheme.all.each do |scheme|
+      scheme.update(context: %w[shibboleth orcid].include?(scheme.name.downcase) ? 1 : 0)
+    end
   end
 
   private

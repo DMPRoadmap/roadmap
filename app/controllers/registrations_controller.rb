@@ -8,7 +8,7 @@ class RegistrationsController < Devise::RegistrationsController
     @languages = Language.sorted_by_abbreviation
     @orgs = Org.order("name")
     @other_organisations = Org.where(is_other: true).pluck(:id)
-    @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
+    @identifier_schemes = IdentifierScheme.user_schemes(active: true).order(:name)
     @default_org = current_user.org
 
     if !@prefs
@@ -19,7 +19,7 @@ class RegistrationsController < Devise::RegistrationsController
   # GET /resource
   def new
     oauth = { provider: nil, uid: nil }
-    IdentifierScheme.all.each do |scheme|
+    IdentifierScheme.user_schemes.all.each do |scheme|
       unless session["devise.#{scheme.name.downcase}_data"].nil?
         oauth = session["devise.#{scheme.name.downcase}_data"]
       end
@@ -36,7 +36,7 @@ class RegistrationsController < Devise::RegistrationsController
           application_name: Rails.configuration.branding[:application][:name]
         }
         # rubocop:enable Metrics/LineLength
-        scheme = IdentifierScheme.find_by(name: oauth["provider"].downcase)
+        scheme = IdentifierScheme.by_name(oauth["provider"])
         UserIdentifier.create(identifier_scheme: scheme,
                               identifier: oauth["uid"],
                               user: @user)
@@ -47,7 +47,7 @@ class RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     oauth = { provider: nil, uid: nil }
-    IdentifierScheme.all.each do |scheme|
+    IdentifierScheme.user_schemes.each do |scheme|
       unless session["devise.#{scheme.name.downcase}_data"].nil?
         oauth = session["devise.#{scheme.name.downcase}_data"]
       end
@@ -98,7 +98,7 @@ class RegistrationsController < Devise::RegistrationsController
           unless oauth.nil?
             # The OAuth provider could not be determined or there was no unique UID!
             unless oauth["provider"].nil? || oauth["uid"].nil?
-              prov = IdentifierScheme.find_by(name: oauth["provider"].downcase)
+              prov = IdentifierScheme.by_name(oauth["provider"])
               # Until we enable ORCID signups
               if prov.name == "shibboleth"
                 UserIdentifier.create(identifier_scheme: prov,
@@ -133,7 +133,7 @@ class RegistrationsController < Devise::RegistrationsController
       @orgs = Org.order("name")
       @default_org = current_user.org
       @other_organisations = Org.where(is_other: true).pluck(:id)
-      @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
+      @identifier_schemes = IdentifierScheme.user_schemes(active: true).order(:name)
       @languages = Language.sorted_by_abbreviation
       if params[:skip_personal_details] == "true"
         do_update_password(current_user, params)

@@ -39,7 +39,7 @@ module SuperAdmin
 
         # Handle Shibboleth identifiers if that is enabled
         if Rails.application.config.shibboleth_use_filtered_discovery_service
-          shib = IdentifierScheme.find_by(name: "shibboleth")
+          shib = IdentifierScheme.by_name("shibboleth")
 
           if params[:shib_id].present? || params[:shib_domain].present?
             org.org_identifiers << OrgIdentifier.new(

@@ -32,7 +32,7 @@ class OrgsController < ApplicationController
     if current_user.can_super_admin?
       # Handle Shibboleth identifiers if that is enabled
       if Rails.application.config.shibboleth_use_filtered_discovery_service
-        shib = IdentifierScheme.find_by(name: "shibboleth")
+        shib = IdentifierScheme.by_name("shibboleth")
         shib_settings = @org.org_identifiers.select do |ids|
           ids.identifier_scheme == shib
         end.first
@@ -84,9 +84,8 @@ class OrgsController < ApplicationController
     if !params["shib-ds"][:org_name].blank?
       session["org_id"] = params["shib-ds"][:org_name]
 
-      scheme = IdentifierScheme.find_by(name: "shibboleth")
-      shib_entity = OrgIdentifier.where(org_id: params["shib-ds"][:org_id],
-                                        identifier_scheme: scheme)
+      shib_entity = OrgIdentifier.by_scheme_name("shibboleth")
+                                 .where(org_id: params["shib-ds"][:org_id])
 
       if !shib_entity.empty?
         # Force SSL
