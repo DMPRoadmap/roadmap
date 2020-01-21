@@ -81,6 +81,11 @@ class Question < ActiveRecord::Base
                      uniqueness: { scope: :section_id,
                                    message: UNIQUENESS_MESSAGE }
 
+  validates :structured_data_schema, presence: { 
+                                      if: :structured,
+                                      message: PRESENCE_MESSAGE 
+                                  }
+
 
   # =====================
   # = Nested Attributes =
