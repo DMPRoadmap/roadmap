@@ -110,7 +110,7 @@ RSpec.describe Org, type: :model do
     end
     describe "#unmanaged" do
       it "returns only the un-managed orgs" do
-        rslts = described_class.managed
+        rslts = described_class.unmanaged
         expect(rslts.include?(@managed)).to eql(false)
         expect(rslts.include?(@unmanaged)).to eql(true)
       end
