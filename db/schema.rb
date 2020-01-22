@@ -180,6 +180,8 @@ ActiveRecord::Schema.define(version: 202001072190035) do
     t.boolean  "managed",                default: false, null: false
   end
 
+  add_index "orgs", ["managed"], name: "index_orga_on_managed", using: :btree
+
   create_table "perms", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -458,7 +460,6 @@ ActiveRecord::Schema.define(version: 202001072190035) do
   add_foreign_key "org_token_permissions", "token_permission_types"
   add_foreign_key "orgs", "languages"
   add_foreign_key "orgs", "regions"
-  add_foreign_key "orgs", "managed"
   add_foreign_key "phases", "templates"
   add_foreign_key "plans", "templates"
   add_foreign_key "plans_guidance_groups", "guidance_groups"
