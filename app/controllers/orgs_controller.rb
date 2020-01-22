@@ -51,7 +51,7 @@ class OrgsController < ApplicationController
       end
     end
 
-    attrs[:managed] = attrs[:managed] == "1" ? true : false
+    attrs[:managed] = attrs[:managed] == "1"
     if @org.update_attributes(attrs)
       redirect_to "#{admin_edit_org_path(@org)}\##{tab}",
                   notice: success_message(@org, _("saved"))
