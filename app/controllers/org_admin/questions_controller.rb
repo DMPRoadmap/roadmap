@@ -6,6 +6,7 @@ module OrgAdmin
 
     include AllowedQuestionFormats
     include Versionable
+    include ConditionsHelper
 
     respond_to :html
     after_action :verify_authorized
@@ -19,8 +20,21 @@ module OrgAdmin
       render partial: "show", locals: {
         template: question.section.phase.template,
         section: question.section,
-        question: question
+        question: question,
+        conditions: question.conditions
       }
+    end
+
+    def open_conditions
+      question = Question.find(params[:question_id])
+      authorize question
+     # render partial: "org_admin/conditions/container", locals: { question: question, conditions: question.conditions }
+      render json: {container: render_to_string(partial: 'org_admin/conditions/container',
+                                                formats: :html, 
+                                                layout: false,
+                                                locals: { question: question, 
+                                                          conditions: question.conditions }),
+                    webhooks: webhook_hash(question.conditions)}
     end
 
     def edit
@@ -33,7 +47,8 @@ module OrgAdmin
         template: question.section.phase.template,
         section: question.section,
         question: question,
-        question_formats: allowed_question_formats
+        question_formats: allowed_question_formats,
+        conditions: question.conditions
       }
     end
 
@@ -95,6 +110,7 @@ module OrgAdmin
           attrs[:theme_ids] = []
         end
         if question.update(attrs)
+          question.update_conditions(params["conditions"])
           flash[:notice] = success_message(question, _("updated"))
         else
           flash[:alert] = flash[:alert] = failure_message(question, _("update"))

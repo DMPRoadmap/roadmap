@@ -12,11 +12,11 @@
   </div>
 </div>
 <% if q.question_options.count == 0 %>
-  <% 2.times {q.question_options.build } %>
+  <% 2.times { q.question_options.build } %>
 <% end %>
 <% i = 0 %>
-  <% q.question_options.to_a.sort_by{|op| op['number']}.each do |options_q| %>
-    <%= f.fields_for :question_options, options_q do |op|%>
+<% q.question_options.to_a.sort_by{|op| op['number']}.each do |options_q| %>
+  <%= f.fields_for :question_options, options_q do |op| %>
     <% i = i + 1 %>
     <% options_q.number = i %>
     <div class="row" data-attribute="question_option">
@@ -38,8 +38,8 @@
         <a href="#" class="delete_question_option"><%= _('Remove') %></a>
       </div>
     </div>
-    <% end %>
   <% end %>
+<% end %>
 <div class="row">
   <div class="col-md-12">
     <a href="#" class="new_question_option"><%= _('Add option') %></a>

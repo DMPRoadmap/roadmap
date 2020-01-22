@@ -90,7 +90,7 @@ module OrgAdmin
           })
       else
         render org_admin_templates_path,
-               alert: _("You canot add a phase to a historical version of a template.")
+               alert: _("You cannot add a phase to a historical version of a template.")
       end
     end
 

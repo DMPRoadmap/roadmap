@@ -79,6 +79,10 @@ RSpec.describe Phase, type: :model do
         create_list(:section, 2, phase: phase)
       end
 
+      it "checks number of sections" do 
+        expect(subject.sections.size).to eql(phase.sections.size)
+      end
+
       it "doesn't persist the record" do
         expect(subject).to be_a_new_record
       end

@@ -31,6 +31,7 @@ class QuestionOption < ActiveRecord::Base
 
   has_and_belongs_to_many :answers, join_table: :answers_question_options
 
+  has_many :conditions, dependent: :destroy
 
   # ===============
   # = Validations =
@@ -63,6 +64,10 @@ class QuestionOption < ActiveRecord::Base
   def deep_copy(**options)
     copy = self.dup
     copy.question_id = options.fetch(:question_id, nil)
-    return copy
+    copy.save!(validate: false)  if options.fetch(:save, false)
+    options[:question_option_id] = copy.id
+    self.conditions.map { |condition| copy.conditions << condition.deep_copy(options) }
+    copy.conditions = copy.conditions.sort_by(&:number)
+    copy
   end
 end

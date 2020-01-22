@@ -3,4 +3,5 @@
            locals: local_assigns.merge({ 
              question: new_question, 
              method: :post, 
+             conditions: [], #shouldn't be needed
              url: org_admin_template_phase_section_questions_path(template_id: template.id, phase_id: section.phase.id, section_id: section.id) }) %>
