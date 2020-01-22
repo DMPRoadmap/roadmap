@@ -53,7 +53,7 @@ module ConditionsHelper
     count = 0
     plan.answers.each do |answer|
       if answer.question.section.id == section.id &&
-       !remove_list(plan).include?(answer.question.id) && section.answered_questions(plan).include?(answer) && answer.is_valid?
+       !remove_list(plan).include?(answer.question.id) && section.answered_questions(plan).include?(answer) && answer.answered?
         count += 1
       end
     end
