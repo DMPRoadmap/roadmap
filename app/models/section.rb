@@ -102,7 +102,7 @@ class Section < ActiveRecord::Base
 
   # Returns the number of answered questions for a given plan
   def num_answered_questions(plan)
-    self.answered_questions(plan).count(&:is_valid?)
+    self.answered_questions(plan).count(&:answered?)
   end
 
   # Returns an array of answered questions for a given plan
