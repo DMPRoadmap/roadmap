@@ -125,7 +125,6 @@ RSpec.describe ExternalApis::RorService do
     end
   end
 
-
   context "private methods" do
     describe "#query_ror" do
       before(:each) do
