@@ -91,9 +91,7 @@ jobs:
 
     # Setup the database
     - name: 'Setup Test DB'
-      run: |
-        bundle exec rake db:migrate RAILS_ENV=test
-        bundle exec rake db:setup RAILS_ENV=test
+      run: bundle exec rake db:setup RAILS_ENV=test
 
     # Compile the assets
     - name: 'Compile Assets'
