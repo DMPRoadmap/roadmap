@@ -104,7 +104,10 @@ RSpec.configure do |config|
 
       # Allow Capybara to make localhost requests and also contact the
       # google api chromedriver store
-      WebMock.disable_net_connect!(allow_localhost: true)
+      WebMock.disable_net_connect!(
+        allow_localhost: true,
+        allow: %w[chromedriver.storage.googleapis.com]
+      )
     end
   end
 
