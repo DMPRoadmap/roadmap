@@ -94,4 +94,19 @@ RSpec.configure do |config|
   # test failures related to randomization by passing the same `--seed` value
   # as the one that triggered the failure.
   Kernel.srand config.seed
+
+  # Enable Capybara webmocks if we are testing a feature
+  config.before(:each) do |example|
+    if example.metadata[:type] == :feature
+      Capybara::Webmock.start
+
+      # Allow Capybara to make localhost requests and also contact the
+      # google api chromedriver store
+      WebMock.disable_net_connect!(allow_localhost: true)
+    end
+  end
+
+  config.after(:suite) do
+    Capybara::Webmock.stop
+  end
 end

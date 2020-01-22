@@ -244,6 +244,9 @@ group :test do
   # Automatically create snapshots when Cucumber steps fail with Capybara and Rails (http://github.com/mattheworiordan/capybara-screenshot)
   gem "capybara-screenshot"
 
+  # Browser integration tests are expensive. We can mock external requests in our tests, but once a browser is involved, we lose control.
+  gem "capybara-webmock"
+
   gem 'webdrivers', '~> 3.0'
 
   gem "rspec-collection_matchers"
