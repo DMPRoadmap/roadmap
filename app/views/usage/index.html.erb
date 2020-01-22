@@ -17,9 +17,8 @@
       <h4 class="bold"><%= _('No. users joined during last year') %></h4>
     </div>
     <div class="pull-right">
-      <%= link_to usage_yearly_users_path, class: 'stat btn btn-default has-new-window-popup-info', role: 'button', target: '_blank' do %>
+      <%= link_to usage_yearly_users_path, class: 'stat btn btn-default', role: 'button', target: '_blank' do %>
         <%= _('Download') %> <i class="fa fa-download" aria-hidden="true"></i>
-        <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
       <% end %>
     </div>
     <div class="clearfix"></div>
@@ -33,9 +32,8 @@
       <h4 class="bold"><%= _('No. plans during last year') %></h4>
     </div>
     <div class="pull-right">
-      <%= link_to usage_yearly_plans_path, class: 'stat btn btn-default has-new-window-popup-info', role: 'button', target: '_blank' do %>
+      <%= link_to usage_yearly_plans_path, class: 'stat btn btn-default', role: 'button', target: '_blank' do %>
         <%= _('Download') %> <i class="fa fa-download" aria-hidden="true"></i>
-        <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
       <% end %>
     </div>
     <div class="clearfix"></div>
@@ -78,9 +76,8 @@
             </li>
             <li>
               <div class="form-group">
-                <%= link_to usage_all_plans_by_template_path, class: 'btn btn-default has-new-window-popup-info', role: 'button', target: '_blank' do %>
+                <%= link_to usage_all_plans_by_template_path, class: 'btn btn-default', role: 'button', target: '_blank' do %>
                   <%= _('Download all') %> <i class="fa fa-download" aria-hidden="true"></i>
-                  <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
                 <% end %>
              </div>
             </li>
