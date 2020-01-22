@@ -8,14 +8,14 @@ describe UsageHelper do
   context "chart data preparation" do
     describe "#prep_data_for_yearly_users_chart" do
       it "defers to #default_chart_prep" do
-        self.expects(:default_chart_prep).with(data: nil)
+        expects(:default_chart_prep).with(data: nil)
         prep_data_for_yearly_users_chart(data: nil)
       end
     end
 
     describe "#prep_data_for_yearly_plans_chart" do
       it "properly formats the data " do
-        self.expects(:default_chart_prep).with(data: nil)
+        expects(:default_chart_prep).with(data: nil)
         prep_data_for_yearly_plans_chart(data: nil)
       end
     end
@@ -55,9 +55,9 @@ describe UsageHelper do
           # Mock some Stat records
           @data = [
             build(:stat_created_plan, date: @last_month,
-              details: { "by_template": [@template1] }).to_json,
+                                      details: { "by_template": [@template1] }).to_json,
             build(:stat_created_plan, date: @two_months,
-              details: { "by_template": [@template2] }).to_json,
+                                      details: { "by_template": [@template2] }).to_json
           ]
 
           @json = JSON.parse(prep_data_for_template_plans_chart(data: @data))
@@ -131,7 +131,8 @@ describe UsageHelper do
 
   describe "#prep_date_for_charts" do
     it "converts the date" do
-      expect(prep_date_for_charts(date: Date.today.to_s)).to eql(Date.today.strftime("%b-%y"))
+      rslt = prep_date_for_charts(date: Date.today.to_s)
+      expect(rslt).to eql(Date.today.strftime("%b-%y"))
     end
   end
 
