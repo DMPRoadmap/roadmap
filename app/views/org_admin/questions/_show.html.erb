@@ -48,6 +48,18 @@
               <%= _('No additional comment area will be displayed.')%>
             <% end %>
           </dd>
+
+          <!-- question conditions -->
+          <% if conditions.length > 0 %>
+            <% grouped_conditions = conditions_ordered(conditions) %>
+            <dt><%= _('Question conditions') %></dt>
+            <% grouped_conditions.each do |number, conditions| %> 
+              <dd>
+                <%= raw list_questions(conditions) %>
+              </dd>
+            <% end %>
+          <% end %>
+
           <!-- Suggested answer or Example-->
           <% if !question.section.phase.template.org.funder? %>
             <% example_answer = question.example_answers(template.base_org.id).first %>

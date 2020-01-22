@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190507091025) do
+ActiveRecord::Schema.define(version: 20190905174033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,18 @@ ActiveRecord::Schema.define(version: 20190507091025) do
 
   add_index "answers_question_options", ["answer_id"], name: "index_answers_question_options_on_answer_id", using: :btree
 
+  create_table "conditions", force: :cascade do |t|
+    t.integer  "question_option_id"
+    t.integer  "remove_question_id"
+    t.integer  "action_type"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "number"
+    t.string   "webhook_data"
+  end
+
+  add_index "conditions", ["question_option_id"], name: "index_conditions_on_question_option_id", using: :btree
+
   create_table "departments", force: :cascade do |t|
     t.string   "name"
     t.string   "code"
@@ -66,6 +78,27 @@ ActiveRecord::Schema.define(version: 20190507091025) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "phase_id"
+  end
+
+  create_table "file_types", force: :cascade do |t|
+    t.string   "name"
+    t.string   "icon_name"
+    t.integer  "icon_size"
+    t.string   "icon_location"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "file_uploads", force: :cascade do |t|
+    t.string   "name"
+    t.string   "title"
+    t.text     "description"
+    t.integer  "size"
+    t.boolean  "published"
+    t.string   "location"
+    t.integer  "file_type_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "guidance_groups", force: :cascade do |t|
@@ -329,6 +362,12 @@ ActiveRecord::Schema.define(version: 20190507091025) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "splash_logs", force: :cascade do |t|
+    t.string   "destination"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "stats", force: :cascade do |t|
     t.integer  "count",      limit: 8, default: 0
     t.date     "date",                             null: false
@@ -445,6 +484,7 @@ ActiveRecord::Schema.define(version: 20190507091025) do
   add_foreign_key "answers", "users"
   add_foreign_key "answers_question_options", "answers"
   add_foreign_key "answers_question_options", "question_options"
+  add_foreign_key "conditions", "question_options"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "notes", "answers"

@@ -212,6 +212,9 @@ Rails.application.routes.draw do
     resources :users, only: [:edit, :update], controller: "users" do
       member do
         get 'user_plans'
+    resources :questions, only: [] do
+      get 'open_conditions'
+      resources :conditions, only: [:new, :show] do
       end
     end
     resources :plans, only: [:index] do

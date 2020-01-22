@@ -70,6 +70,10 @@ class Template < ActiveRecord::Base
 
   has_many :annotations, through: :questions
 
+  has_many :question_options, through: :questions
+
+  has_many :conditions, through: :question_options
+
   # ===============
   # = Validations =
   # ===============
@@ -278,6 +282,11 @@ class Template < ActiveRecord::Base
     copy.save! if options.fetch(:save, false)
     options[:template_id] = copy.id
     phases.each { |phase| copy.phases << phase.deep_copy(options) }
+    copy.conditions.each do |cond|
+      if cond.remove_question_id != nil
+        cond.update_column(:remove_question_id, copy.questions.find_by(versionable_id: Question.find(cond.remove_question_id).versionable_id).id)
+      end
+    end
     copy
   end
 
