@@ -82,9 +82,9 @@ RSpec.describe Org, type: :model do
       context "when Org has same abbr as branding" do
 
         let!(:org) do
-          create(:org,
-                  abbreviation: Rails.configuration
-                                     .branding.dig(:organisation, :abbreviation))
+          abbrev = Rails.configuration.branding.dig(:organisation,
+                                                    :abbreviation)
+          create(:org, abbreviation: abbrev)
 
         end
 
@@ -94,7 +94,7 @@ RSpec.describe Org, type: :model do
 
       context "when Org doesn't have same abbr as branding" do
 
-        let!(:org) { create(:org, abbreviation: 'foo-bar') }
+        let!(:org) { create(:org, abbreviation: "foo-bar") }
 
         it { is_expected.not_to include(org) }
 

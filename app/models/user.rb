@@ -241,14 +241,14 @@ class User < ActiveRecord::Base
   #
   # Returns Boolean
   def can_org_admin?
-    return true if self.can_super_admin?
+    return true if can_super_admin?
 
     # Automatically false if the user has no Org or the Org is not managed
-    return false unless (self.org.present? && self.org.managed?)
+    return false unless org.present? && org.managed?
 
-    self.can_grant_permissions? || self.can_modify_guidance? ||
-      self.can_modify_templates? || self.can_modify_org_details? ||
-      self.can_review_plans?
+    can_grant_permissions? || can_modify_guidance? ||
+      can_modify_templates? || can_modify_org_details? ||
+      can_review_plans?
   end
 
   # Can the User add new organisations?
