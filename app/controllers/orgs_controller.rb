@@ -34,20 +34,21 @@ class OrgsController < ApplicationController
 
     # Only allow super admins to change the org types and shib info
     if current_user.can_super_admin?
-      # Handle Shibboleth identifiers if that is enabled
+      identifiers = []
+      attrs[:managed] = attrs[:managed] == "1"
+
+      # Handle Shibboleth identifier if that is enabled
       if Rails.application.config.shibboleth_use_filtered_discovery_service
         shib = IdentifierScheme.by_name("shibboleth").first
-        entity_id = attrs.fetch(:identifiers, {})
-        if params[:shib_id].blank? &&
-            entity_id[:identifier_scheme_id] == shib.id.to_s
-          identifier = Identifier.new(
-            identifier_scheme: shib,
-            value: entity_id.fetch(:value, ""),
-            attrs: {}
+
+        if shib.present? && attrs.fetch(:identifiers_attributes, {}).any?
+          entity_id = attrs[:identifiers_attributes].first[1][:value]
+          identifier = Identifier.find_or_initialize_by(
+            identifiable: @org, identifier_scheme: shib, value: entity_id
           )
-          @org.save_identifiers!(array: [identifier])
+          @org = process_identifier_change(org: @org, identifier: identifier)
         end
-        attrs.delete(:identifiers)
+        attrs.delete(:identifiers_attributes)
       end
 
       attrs[:managed] = attrs[:managed] == "1"
@@ -55,7 +56,8 @@ class OrgsController < ApplicationController
       # See if the user selected a new Org via the Org Lookup and
       # convert it into an Org
       lookup = org_from_params(params_in: attrs)
-      identifiers = identifiers_from_params(params_in: attrs)
+      ids = identifiers_from_params(params_in: attrs)
+      identifiers += ids.select { |id| id.value.present? }
 
       # Remove the extraneous Org Selector hidden fields
       attrs = remove_org_selection_params(params_in: attrs)
@@ -64,8 +66,12 @@ class OrgsController < ApplicationController
     if @org.update(attrs)
       # Save any identifiers that were found
       if current_user.can_super_admin? && lookup.present?
-        @org.save_identifiers!(array: identifiers)
-        @org.reload
+        # Loop through the identifiers and then replace the existing
+        # identifier and save the new one
+        identifiers.each do |id|
+          @org = process_identifier_change(org: @org, identifier: id)
+        end
+        @org.save
       end
 
       redirect_to "#{admin_edit_org_path(@org)}\##{tab}",
@@ -165,11 +171,32 @@ class OrgsController < ApplicationController
           .permit(:name, :abbreviation, :logo, :contact_email, :contact_name,
                   :remove_logo, :org_type, :managed, :feedback_enabled,
                   :feedback_email_msg, :org_id, :org_name, :org_crosswalk,
-                  identifiers: [:identifier_scheme_id, :value])
+                  identifiers_attributes: [:identifier_scheme_id, :value])
   end
 
   def search_params
     params.require(:org).permit(:name, :type)
+  end
+
+  # Destroy the identifier if it exists and was blanked out, replace the
+  # identifier if it was updated, create the identifier if its new, or
+  # ignore it
+  def process_identifier_change(org:, identifier:)
+    return org unless identifier.is_a?(Identifier)
+
+    if !identifier.new_record? && identifier.value.blank?
+      # Remove the identifier if it has been blanked out
+      identifier.destroy
+    elsif identifier.value.present?
+      # If the identifier already exists then remove it
+      current = org.identifier_for_scheme(scheme: identifier.identifier_scheme)
+      current.destroy if current.present? && current.value != identifier.value
+
+      identifier.identifiable = org
+      org.identifiers << identifier
+    end
+
+    org
   end
 
 end

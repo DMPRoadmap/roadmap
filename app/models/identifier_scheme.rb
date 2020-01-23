@@ -5,10 +5,7 @@
 #  id               :integer          not null, primary key
 #  active           :boolean
 #  description      :string
-#  for_auth         :boolean          default(FALSE)
-#  for_orgs         :boolean          default(FALSE)
-#  for_plans        :boolean          default(FALSE)
-#  for_users        :boolean          default(FALSE)
+#  context          :integer
 #  logo_url         :text
 #  name             :string
 #  user_landing_url :string
@@ -17,6 +14,8 @@
 #
 
 class IdentifierScheme < ActiveRecord::Base
+
+  include FlagShihTzu
   include ValidationMessages
   include ValidationValues
 
@@ -42,17 +41,23 @@ class IdentifierScheme < ActiveRecord::Base
   # ===========================
 
   scope :active, -> { where(active: true) }
-  scope :for_users, -> { active.where(for_users: true) }
-  scope :for_orgs, -> { active.where(for_orgs: true) }
-  scope :for_plans, -> { active.where(for_plans: true) }
-  scope :authenticatable, -> { active.where(for_auth: true) }
   scope :by_name, ->(value) { active.where("LOWER(name) = LOWER(?)", value) }
+
+  ##
+  # Define Bit Field values for the scheme's context
+  # These are used to determine when and where an identifier scheme is applicable
+  has_flags 1 =>  :for_authentication,
+            2 =>  :for_orgs,
+            3 =>  :for_plans,
+            4 =>  :for_users,
+            5 =>  :for_contributors,
+            column: "context"
 
   # ===========================
   # = Instance Methods =
   # ===========================
 
-  # The name is used by the OrgSelection Services as a Has key. For example:
+  # The name is used by the OrgSelection Services as a Hash key. For example:
   #    { "ror": "12345" }
   # so we cannot allow spaces or non alpha characters!
   def name=(value)

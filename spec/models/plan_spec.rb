@@ -1424,4 +1424,22 @@ describe Plan do
     end
   end
 
+  describe "#landing_page" do
+    let!(:plan) { create(:plan, :creator) }
+
+    it "returns nil if no DOI or ARK is available" do
+      expect(plan.landing_page).to eql(nil)
+    end
+    it "returns the DOI if available" do
+      id = create(:identifier, identifiable: plan, value: "10.9999/123erge/45f")
+      plan.reload
+      expect(plan.landing_page).to eql(id)
+    end
+    it "returns the ARK if available" do
+      id = create(:identifier, identifiable: plan, value: "ark:10.9999/123")
+      plan.reload
+      expect(plan.landing_page).to eql(id)
+    end
+  end
+
 end

@@ -14,7 +14,7 @@ json.array! @plans.each do |plan|
     json.id           plan.template.family_id
   end
   json.funder do
-    json.name         (plan.template.org.funder? ? plan.template.org.name : plan.funder_name)
+    json.name         (plan.template.org.funder? ? plan.template.org.name : plan.funder&.name)
   end
   json.principal_investigator do
     json.name         plan.principal_investigator

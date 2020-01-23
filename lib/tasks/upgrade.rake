@@ -708,22 +708,20 @@ namespace :upgrade do
     Role.reviewer.destroy_all
   end
 
-  desc "add the Fundref and ROR identifier schemes"
-  task add_fundref_and_ror: :environment do
+  desc "add the ROR and Fundref identifier schemes"
+  task add_new_identifier_schemes: :environment do
     unless IdentifierScheme.where(name: "fundref").any?
       IdentifierScheme.create(
         name: "fundref",
         description: "Crossref Funder Registry (FundRef)",
-        active: true,
-        user_landing_url: "https://search.crossref.org/funding?q="
+        active: true
       )
     end
     unless IdentifierScheme.where(name: "ror").any?
       IdentifierScheme.create(
         name: "ror",
         description: "Research Organization Registry (ROR)",
-        active: true,
-        user_landing_url: "https://ror.org"
+        active: true
       )
     end
   end
@@ -738,17 +736,30 @@ namespace :upgrade do
 
   desc "Contextualize the Identifier Schemes (e.g. which ones are for orgs, etc."
   task contextualize_identifier_schemes: :environment do
-    IdentifierScheme.where(name: "shibboleth")
-                    .update_all(for_orgs: true, for_users: true, for_auth: true)
+    # Identifier schemes for multiple uses
+    shib = IdentifierScheme.find_or_initialize_by(name: "shibboleth")
+    shib.for_users = true
+    shib.for_orgs = true
+    shib.for_authentication = true
+    shib.save
 
-    IdentifierScheme.where(name: "orcid")
-                    .update_all(for_users: true, for_auth: true)
+    orcid = IdentifierScheme.find_or_initialize_by(name: "orcid")
+    orcid.for_users = true
+    orcid.for_contributors = true
+    orcid.for_authentication = true
+    orcid.identifier_prefix = "https://orcid.org/"
+    orcid.save
 
-    IdentifierScheme.where(name: %w[ror fundref])
-                    .update_all(for_orgs: true)
+    # Org identifier schemes
+    ror = IdentifierScheme.find_or_initialize_by(name: "ror")
+    ror.for_orgs = true
+    ror.identifier_prefix = "https://ror.org/"
+    ror.save
 
-    IdentifierScheme.where(name: "doi")
-                    .update_all(for_plans: true)
+    fundref = IdentifierScheme.find_or_initialize_by(name: "fundref")
+    fundref.for_orgs = true
+    fundref.identifier_prefix = "https://api.crossref.org/funders/"
+    fundref.save
   end
 
   desc "migrate the old user_identifiers over to the polymorphic identifiers table"
@@ -761,6 +772,7 @@ namespace :upgrade do
       ui.user.identifiers << Identifier.new(
         identifier_scheme: ui.identifier_scheme,
         value: ui.identifier,
+        type: (ui.identifier_scheme.name == "orcid" ? "url" : "other"),
         attrs: {}.to_json
       )
     end
@@ -773,9 +785,13 @@ namespace :upgrade do
     OrgIdentifier.joins(:org, :identifier_scheme)
                  .includes(:org, :identifier_scheme).all.each do |ui|
 
+      val = ui.identifier
+      val = "https://orcid.org/#{val}" if ui.identifier_scheme.name == "orcid" && !val.starts_with?("http")
+
       ui.org.identifiers << Identifier.new(
         identifier_scheme: ui.identifier_scheme,
-        value: ui.identifier,
+        value: val,
+        type: (ui.identifier_scheme.name == "orcid" ? "url" : "other"),
         attrs: ui.attrs
       )
     end
@@ -789,7 +805,7 @@ namespace :upgrade do
   desc "Attempts to migrate other_organisation entries to Orgs"
   task migrate_other_organisation_to_org: :environment do
     names = User.all.where.not(other_organisation: nil)
-                .pluck(:other_organisation).uniq
+                 .pluck(:other_organisation).uniq
     names.each do |name|
       # Skip any blank names
       next if name.gsub(/\s/, "").blank?
@@ -810,7 +826,7 @@ namespace :upgrade do
     end
   end
 
-  desc "adds ROR as a identifier_scheme and then retrieves ROR ids for each of the Orgs defined in the database"
+  desc "retrieves ROR ids for each of the Orgs defined in the database"
   task retrieve_ror_fundref_ids: :environment do
     ror = IdentifierScheme.find_by(name: "ror")
     fundref = IdentifierScheme.find_by(name: "fundref")
@@ -824,31 +840,43 @@ namespace :upgrade do
         p "The CSV file contains the Org name stored in your DB next to the ROR org name that was matched. Use these 2 values to determine if the match was valid."
         p "You can use the ROR search page to find the correct match for any organizations that need to be corrected: https://ror.org/search"
         p ""
-        Org.includes(org_identifiers: :identifier_scheme)
-           .where(is_other: false).each do |org|
+        Org.includes(identifiers: :identifier_scheme)
+           .where(is_other: false).order(:name).each do |org|
 
           # If the Org already has a ROR identifier skip it
-          next if org.identifier_schemes.include?(ror)
+          next if org.identifiers.select { |id| id.identifier_scheme_id == ror.id }.any?
 
           # The abbreviation sometimes causes weird results so strip it off
           # in this instance
           org_name = org.name.gsub(" (#{org.abbreviation})", "")
-          rslts = ExternalApis::RorService.search(name: org_name)
+          rslts = OrgSelection::SearchService.search_externally(search_term: org_name)
           next unless rslts.any?
 
-          # Just use the first match
-          rslt = rslts.first
-          next if rslt.is_a?(Org)
+          # Just use the first match that contains the search term
+          rslt = rslts.select { |rslt| rslt[:weight] <= 1 }.first
+          next unless rslt.present?
 
-          add_org_identifier(org_id: org.id, scheme_id: ror.id, id: rslt[:id],
-                             attrs: { "name": rslt[:name] })
-          p "    #{org.name} -> ROR: #{rslt[:id]}, #{rslt[:name]}"
-          csv << [org.id, org.name, rslt[:name], rslt[:id], rslt[:fundref_id]]
-          next unless rslt[:fundref_id].present?
+          ror_id = rslt[:ror]
+          fundref_id = rslt[:fundref]
 
-          add_org_identifier(org_id: org.id, scheme_id: fundref.id,
-                               id: rslt[:fundref_id], attrs: { "provenance": "ROR" })
-          p "                         FUNDREF: #{rslt[:fundref_id]}"
+          if ror_id.present?
+            ror_ident = Identifier.find_or_initialize_by(identifiable: org,
+                                                         identifier_scheme: ror)
+            ror_ident.value = "#{ror.identifier_prefix}#{ror_id}"
+            ror_ident.save
+            p "    #{org.name} -> ROR: #{ror_ident.value}, #{rslt[:name]}"
+          end
+          if fundref_id.present?
+            fr_ident = Identifier.find_or_initialize_by(identifiable: org,
+                                                        identifier_scheme: fundref)
+            fr_ident.value = "#{fundref.identifier_prefix}#{fundref_id}"
+            fr_ident.save
+            p "    #{org.name} -> FUNDRF: #{fr_ident.value}, #{rslt[:name]}"
+          end
+
+          if ror_id.present? || fundref_id.present?
+            csv << [org.id, org.name, rslt[:name], ror_ident&.value, fr_ident&.value]
+          end
         end
       else
         p "ROR appears to be offline or your configuration is invalid. Heartbeat check failed. Refer to the log for more information."

@@ -475,40 +475,4 @@ RSpec.describe Org, type: :model do
     end
   end
 
-  describe "#save_identifiers!(array:)" do
-    before(:each) do
-      @scheme = create(:identifier_scheme)
-      @org = create(:org, managed: true)
-      @value = Faker::Lorem.unique.word
-      create(:identifier, :for_org, identifiable: @org, value: @value,
-                                    identifier_scheme: @scheme)
-      @org.reload
-    end
-
-    it "returns true if the array is nil" do
-      expect(@org.save_identifiers!(array: nil)).to eql(false)
-    end
-    it "returns true if the array is empty" do
-      expect(@org.save_identifiers!(array: [])).to eql(false)
-    end
-    it "destroys identifiers that were blanked out" do
-      array = [build(:identifier, identifier_scheme: @scheme, value: "")]
-      expect(@org.save_identifiers!(array: array)).to eql(true)
-      expect(@org.identifiers.empty?).to eql(true)
-    end
-    it "replaces identifier values" do
-      array = [build(:identifier, identifier_scheme: @scheme, value: "Foo")]
-      expect(@org.save_identifiers!(array: array)).to eql(true)
-      expect(@org.identifiers.first.identifier_scheme).to eql(@scheme)
-      expect(@org.identifiers.first.value).to eql("Foo")
-    end
-    it "adds new identiers" do
-      scheme2 = create(:identifier_scheme)
-      array = [build(:identifier, identifier_scheme: scheme2, value: "Foo")]
-      expect(@org.save_identifiers!(array: array)).to eql(true)
-      expect(@org.identifiers.last.identifier_scheme).to eql(scheme2)
-      expect(@org.identifiers.last.value).to eql("Foo")
-    end
-  end
-
 end

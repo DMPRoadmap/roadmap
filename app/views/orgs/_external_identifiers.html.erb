@@ -7,21 +7,7 @@
 
 <%# If the user is a super admin then they can edit these identifiers %>
 <% if editable %>
-  <div class="row">
-    <div id="org-details-org-controls" class="form-group col-xs-10">
-      <%= render partial: "shared/org_selectors/external_only",
-             locals: {
-               form: form,
-               label: _("Organisation Lookup"),
-               default_org: nil,
-               required: false
-             } %>
-    </div>
-  </div>
-
   <% if !org.new_record? %>
-    <p><%= _("Note: ROR and FundRef ids are both retrieved by selecting an item from the Organisation Lookup field above") %></p>
-
     <%
     schemes = presenter.schemes.select do |s|
       %w[ror fundref].include?(s.name)
@@ -31,7 +17,7 @@
         <div class="form-group col-xs-10">
           <% id = presenter.id_for_scheme(scheme: scheme) %>
           <span class="bold"><%= scheme.description %>:</span>
-          <%= presenter.id_for_display(scheme: scheme, id: id).html_safe %>
+          <%= presenter.id_for_display(id: id).html_safe %>
         </div>
       </div>
     <% end %>
@@ -54,6 +40,19 @@
         </div>
       </div>
     <% end %>
+
+  <% else %>
+    <div class="row">
+       <div id="org-details-org-controls" class="form-group col-xs-10">
+         <%= render partial: "shared/org_selectors/external_only",
+                locals: {
+                  form: form,
+                  label: _("Organisation Lookup"),
+                  default_org: nil,
+                  required: false
+                } %>
+       </div>
+     </div>
   <% end %>
 
 <%# Otherwise this is an Org Admin so just display the identifiers %>
@@ -63,7 +62,7 @@
       <div class="form-group col-xs-10">
         <% id = presenter.id_for_scheme(scheme: scheme) %>
         <span class="bold"><%= scheme.description %>:</span>
-        <%= presenter.id_for_display(scheme: scheme, id: id).html_safe %>
+        <%= presenter.id_for_display(id: id).html_safe %>
       </div>
     </div>
   <% end %>

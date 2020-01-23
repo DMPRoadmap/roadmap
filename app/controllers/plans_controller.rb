@@ -4,6 +4,7 @@ class PlansController < ApplicationController
 
   include ConditionalUserMailer
   include OrgSelectable
+
   helper PaginableHelper
   helper SettingsTemplateHelper
 
@@ -132,7 +133,7 @@ class PlansController < ApplicationController
           # rubocop:disable Metrics/LineLength
           # We used a customized version of the the funder template
           # rubocop:disable Metrics/LineLength
-          msg += " #{_('This plan is based on the')} #{plan_params[:funder_name]}: '#{@plan.template.title}' #{_('template with customisations by the')} #{plan_params[:org_name]}"
+          msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{plan_params[:org_name]}"
           # rubocop:enable Metrics/LineLength
         else
           # rubocop:disable Metrics/LineLength
@@ -146,7 +147,7 @@ class PlansController < ApplicationController
 
         # Set new identifier to plan id by default on create.
         # (This may be changed by user.)
-        @plan.add_identifier!(@plan.id.to_s)
+        @plan.identifier = @plan.id.to_s
 
         respond_to do |format|
           flash[:notice] = msg
@@ -245,21 +246,8 @@ class PlansController < ApplicationController
 
         # TODO: For some reason the `fields_for` isn't adding the
         #       appropriate namespace, so org_id represents our funder
-        if attrs[:org_id].present?
-          funder = org_from_params(params_in: attrs)
-          if funder.new_record?
-            funder.save
-            funder.reload
-            identifiers_from_params(params_in: attrs).each do |identifier|
-              next unless identifier.value.present?
-
-              identifier.identifiable = funder
-              identifier.save
-            end
-
-          end
-          @plan.funder = funder
-        end
+        funder = org_from_params(params_in: attrs, allow_create: true)
+        @plan.funder_id = funder.id if funder.present?
         attrs = remove_org_selection_params(params_in: attrs)
 
         #@plan.save
@@ -285,7 +273,8 @@ class PlansController < ApplicationController
       rescue Exception => e
         flash[:alert] = failure_message(@plan, _("save"))
         format.html do
-          render_phases_edit(@plan, @plan.phases.first, @plan.guidance_groups)
+          Rails.logger.error "Unable to save plan #{@plan&.id} - #{e.message}"
+          redirect_to "#{plan_path(@plan)}", alert: failure_message(@plan, _("save"))
         end
         format.json do
           render json: { code: 0, msg: flash[:alert] }
@@ -447,8 +436,8 @@ class PlansController < ApplicationController
                   :description, :identifier, :principal_investigator_phone,
                   :principal_investigator, :principal_investigator_email,
                   :data_contact, :principal_investigator_identifier,
-                  :data_contact_email, :data_contact_phone,
-                  :guidance_group_ids, :org_id, :org_name, :org_crosswalk,
+                  :data_contact_email, :data_contact_phone, :guidance_group_ids,
+                  :org_id, :org_name, :org_crosswalk, :identifier,
                   org: [:org_id, :org_name, :org_sources, :org_crosswalk],
                   funder: [:org_id, :org_name, :org_sources, :org_crosswalk])
   end
@@ -496,8 +485,6 @@ class PlansController < ApplicationController
     end
     plan.delete(src_plan_key)
   end
-
-  private
 
   # ============================
   # = Private instance methods =
