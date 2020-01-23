@@ -29,6 +29,7 @@
 #
 # Indexes
 #
+#  index_plans_on_org_id       (org_id)
 #  index_plans_on_template_id  (template_id)
 #
 # Foreign Keys
@@ -104,6 +105,7 @@ class Plan < ActiveRecord::Base
 
   has_many :roles
 
+  has_many :identifiers, as: :identifiable
 
   # =====================
   # = Nested Attributes =

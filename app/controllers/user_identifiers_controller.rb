@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UserIdentifiersController < ApplicationController
+class IdentifiersController < ApplicationController
 
   respond_to :html
   after_action :verify_authorized

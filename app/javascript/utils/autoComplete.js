@@ -1,88 +1,139 @@
-import debounce from './debounce';
-import { isObject } from './isType';
-import { isValidText } from './isValidInputType';
+import 'jquery-ui/ui/widgets/autocomplete';
 
-/*
- * Looks up the id for the text selected by the user in the jquery autocomplete combobox and
- * then sets updates the hidden id field with the id value so that its available on form submit.
- * The id-text mappings are stored as JSON in the corresponding hidden crosswalk field
- * @param the combobox element
- */
-const updateIdField = (el) => {
-  const crosswalk = $(`#${$(el).attr('id')}_crosswalk`);
-  const idField = $(el).attr('id').replace(/_name/, '_id');
-  if (isObject(crosswalk) && isObject($(idField))) {
-    const json = JSON.parse(`${$(crosswalk).val().replace(/\\"/g, '"').replace(/\\'/g, '\'')}`);
-    const selection = (json[$(el).val()] === undefined ? '' : json[$(el).val()]);
-    $(el).parent().siblings(`#${idField}`).val(selection)
-      .change();
-  }
-};
+import getConstant from '../constants';
+import { isObject, isString, isArray } from './isType';
 
-/*
- * The accessible autocomplete box escapes characters so we need to decode any valid ones
- * so that they appear correctly to the user and are able to be matched to the JSON list
- * so we can retrieve the correct org id.
- * We only decode certain characters here by design.
- */
-const decodeHtml = (el) => {
-  if (isObject(el)) {
-    return $(el).val()
-      .replace(/&amp;/g, '&')
-      .replace(/&apos;/g, '\'')
-      .replace(/&quot;/g, '"');
-  }
-  return '';
-};
+// Updates the ARIA help text that lets the user know how many suggestions
+const updateAriaHelper = (autocomplete, suggestionCount) => {
+  if (isObject(autocomplete)) {
+    const helper = autocomplete.siblings('.autocomplete-help');
 
-/*
- * Shows/hides the combobox's clear button based on whether or not text is present
- * @param the combobox id
- */
-const toggleClearButton = (el) => {
-  const clearButton = $(el).parent().find('.combobox-clear-button');
-  if (isObject(clearButton)) {
-    if (isValidText($(el).val())) {
-      $(clearButton).removeClass('hidden');
+    if (isObject(helper)) {
+      const text = getConstant('AUTOCOMPLETE_ARIA_HELPER');
+      helper.html(text.replace('%{n}', suggestionCount));
     } else {
-      $(clearButton).addClass('hidden');
+      helper.html(getConstant('AUTOCOMPLETE_ARIA_HELPER_EMPTY'));
     }
   }
 };
 
-/*
- * Wires up the jquery autocomplete combobox so that it calls the above 2 functions when the
- * user changes the text values in the combobox by typing or selecting a value
- */
-export default () => {
-  $('.js-combobox').each((idx, el) => {
-    // Swap out the 'X' with a fontawesome icon
-    $(el).siblings('.combobox-clear-button').text('')
-      .addClass('fa')
-      .addClass('fa-times-circle');
+// Places the results into the crosswalk, updates the Aria helper and then
+// extracts the 'name' from each result and returns it for consumption by
+// the JQuery UI autocomplete widget
+const processAjaxResults = (autocomplete, crosswalk, results) => {
+  let out = [];
 
-    const debounced = debounce((e) => {
-      toggleClearButton(e);
-      updateIdField(e);
-    }, 100);
-
-    // When the value in the combobox changes update the hidden id field
-    $(el).on('keyup focus', (e) => {
-      const txt = $(e.target);
-      $(txt).val(decodeHtml(txt));
-      debounced(txt);
-    });
-
-    // Clear the text and hide the button when the user clicks the clear button
-    $(el).parent().find('.combobox-clear-button').on('click', () => {
-      $(el).val('');
-      debounced(el);
-    });
-
-    // add a Bootstrap 'hide' class to the invisible help text
-    $('.invisible').addClass('hide');
-
-    // Show/hide the clear button on page load
-    toggleClearButton(el);
-  });
+  if (isObject(autocomplete) && isObject(crosswalk) && isArray(results)) {
+    crosswalk.attr('value', JSON.stringify(results));
+    updateAriaHelper(autocomplete, results.length);
+    out = results.map(item => item.name);
+  } else {
+    crosswalk.attr('value', JSON.stringify([]));
+    updateAriaHelper(autocomplete, 0);
+  }
+  return out;
 };
+
+// Extract the AJAX query arguments from the autocomplete
+const queryArgs = (autocomplete, searchTerm) => {
+  const namespace = autocomplete.attr('data-namespace');
+  const attribute = autocomplete.attr('data-attribute');
+
+  return `{"${namespace}":{"${attribute}":"${searchTerm}"}}`;
+};
+
+// Makes an AJAX request to the specified target
+const search = (autocomplete, term, crosswalk, callback) => {
+  if (isObject(autocomplete) && isObject(crosswalk) && isString(term)) {
+    const url = autocomplete.attr('data-url');
+    const method = autocomplete.attr('data-method');
+    const data = JSON.parse(queryArgs(autocomplete, term));
+
+    if (isString(url) && term.length > 2) {
+      $.ajax({
+        url, method, data,
+      }).done((results) => {
+        callback(processAjaxResults(autocomplete, crosswalk, results));
+      }).fail(() => {
+        callback(processAjaxResults(autocomplete, crosswalk, []));
+      });
+    }
+  }
+};
+
+// Updates the hidden id field with the contents from the crosswalk for the
+// selected name
+const select = (autocomplete, crosswalk) => {
+  let out;
+
+  if (isObject(autocomplete) && isObject(crosswalk)) {
+    const json = JSON.parse(crosswalk.val());
+    out = json.find(item => item.name === autocomplete.val());
+  }
+  return out ? JSON.stringify(out) : null;
+};
+
+const toggleWarning = (context, value) => {
+  if (isObject(context)) {
+    if (value) {
+      context.addClass('hide');
+    } else {
+      context.removeClass('hide');
+    }
+  }
+};
+
+export const initAutocomplete = (selector) => {
+  if (isString(selector)) {
+    const context = $(selector);
+
+    if (isObject(context) && context.length > 0) {
+      const id = context.attr('id');
+      const crosswalk = context.siblings(`#${id.replace('_name', '_crosswalk')}`);
+      const hidden = context.siblings(`#${id.replace('_name', '_id')}`);
+
+      // If the crosswalk is empty, make sure it is valid JSON
+      if (!crosswalk.val()) {
+        crosswalk.val(JSON.stringify([]));
+      }
+
+      // If a data-url was defined then this is an AJAX autocomplete
+      if (context.attr('data-url') && isObject(crosswalk)) {
+        // Setup the autocomplete and set it's source to the appropriate
+        context.autocomplete({
+          source: (req, resp) => search(context, req.term, crosswalk, resp),
+          minLength: 3,
+          delay: 600,
+        });
+      } else {
+        const source = context.siblings(`#${id.replace('_name', '_sources')}`);
+        if (source) {
+          // Setup the autocomplete and set it's source to the appropriate
+          context.autocomplete({
+            source: JSON.parse(source.val()),
+            minLength: 1,
+            delay: 300,
+          });
+        }
+      }
+
+      context.on('blur', () => {
+        // Grab the full result id + name and stuff it into the id
+        // field which is sent back to the controller for processing
+        hidden.val(select(context, crosswalk));
+
+        const warning = context.siblings('.autocomplete-warning');
+        if (isObject(warning)) {
+          toggleWarning(warning, hidden.val());
+        }
+
+        // If the user entered text that was NOT one of the suggestions
+        if (!hidden.val()) {
+          hidden.val(JSON.stringify({ name: context.val() }));
+        }
+      });
+    }
+  }
+};
+
+export { initAutocomplete as default };

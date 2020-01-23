@@ -1,7 +1,8 @@
-module ComboboxHelper
+module AutoCompleteHelper
 
   def choose_suggestion(suggestion_text)
-    matching_element = all(:css, '.js-suggestion').detect do |element|
+    matcher = ".ui-autocomplete .ui-menu-item"
+    matching_element = all(:css, matcher).detect do |element|
       element.text.strip == suggestion_text.strip
     end
     unless matching_element.present?

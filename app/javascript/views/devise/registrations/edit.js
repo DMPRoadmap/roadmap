@@ -1,4 +1,4 @@
-import { initOrgSelection, validateOrgSelection } from '../../shared/my_org';
+import { initAutocomplete } from '../../../utils/autoComplete';
 import { isString } from '../../../utils/isType';
 import { isValidPassword } from '../../../utils/isValidInputType';
 import { addMatchingPasswordValidator, togglisePasswords } from '../../../utils/passwordHelper';
@@ -6,14 +6,7 @@ import { addMatchingPasswordValidator, togglisePasswords } from '../../../utils/
 $(() => {
   addMatchingPasswordValidator({ selector: '#password_details_registration_form' });
   togglisePasswords({ selector: '#password_details_registration_form' });
-  initOrgSelection({ selector: '#org-controls' });
-
-  $('#personal_details_registration_form').on('submit', (e) => {
-    // Additional validation to force the user to choose an org or type something for other
-    if (!validateOrgSelection({ selector: '#personal_details_registration_form' })) {
-      e.preventDefault();
-    }
-  });
+  initAutocomplete('#profile-org-controls .autocomplete');
 
   const sensitiveInfoCheck = (event) => {
     const originalEmail = $('#original_email').val();

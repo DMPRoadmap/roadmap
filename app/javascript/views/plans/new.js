@@ -1,5 +1,5 @@
 import debounce from '../../utils/debounce';
-import initAutoComplete from '../../utils/autoComplete';
+import { initAutocomplete } from '../../utils/autoComplete';
 import getConstant from '../../constants';
 import { isObject, isArray, isString } from '../../utils/isType';
 import { isValidText } from '../../utils/isValidInputType';
@@ -49,10 +49,22 @@ $(() => {
     }
   };
 
+  const validOptions = (context) => {
+    if ($(context).length > 0) {
+      const hidden = $(context).find('input[id$="_org_id"]');
+      const checkbox = $(context).find('input.toggle-autocomplete');
+
+      return isValidText(hidden.val()) || checkbox.prop('checked');
+    }
+    return false;
+  };
+
   // When one of the autocomplete fields changes, fetch the available templates
   const handleComboboxChange = debounce(() => {
-    const validOrg = (isValidText($('#plan_org_id').val()) || $('#plan_no_org').prop('checked'));
-    const validFunder = (isValidText($('#plan_funder_id').val()) || $('#plan_no_funder').prop('checked'));
+    const orgContext = $('#research-org-controls');
+    const funderContext = $('#funder-org-controls');
+    const validOrg = validOptions(orgContext);
+    const validFunder = validOptions(funderContext);
 
     if (!validOrg || !validFunder) {
       $('#available-templates').fadeOut();
@@ -61,31 +73,66 @@ $(() => {
       // Clear out the old template dropdown contents
       $('#plan_template_id option').remove();
 
+      const orgId = orgContext.find('input[id$="_org_id"]').val();
+      const funderId = funderContext.find('input[id$="_org_id"]').val();
+      const data = `{"plan": {"research_org_id":${orgId},"funder_id":${funderId}}}`;
+
       // Fetch the available templates based on the funder and research org selected
-      const qryStr = `?plan[org_id]=${$('#plan_org_id').val()}&plan[funder_id]=${$('#plan_funder_id').val()}`;
       $.ajax({
-        url: `${$('#template-option-target').val()}${qryStr}`,
+        url: $('#template-option-target').val(),
+        data: JSON.parse(data),
       }).done(success).fail(error);
     }
   }, 150);
 
   // When one of the checkboxes is clicked, disable the autocomplete input and clear its contents
-  const handleCheckboxClick = (name, checked) => {
-    $(`#plan_${name}_name`).prop('disabled', checked);
-    $('#plan_template_id').val('').change();
+  const handleCheckboxClick = (autocomplete, checkbox, hidden) => {
+    const checked = checkbox.prop('checked');
+
+    autocomplete.prop('disabled', checked);
+    hidden.val('').change();
     $('#available-templates').fadeOut();
+    autocomplete.siblings('.autocomplete-warning').hide();
+    autocomplete.val('');
 
     if (checked) {
-      $(`#plan_${name}_name`).val('');
-      $(`#plan_${name}_id`).val('-1');
-      $(`#plan_${name}_name`).siblings('.combobox-clear-button').hide();
-    } else {
-      $(`#plan_${name}_id`).val('');
+      hidden.val('');
+      toggleSubmit();
     }
     handleComboboxChange();
   };
 
-  initAutoComplete();
+  const initOrgSelection = (context) => {
+    const section = $(context);
+
+    if (section.length > 0) {
+      initAutocomplete(`${context} .autocomplete`);
+
+      const autocomplete = $(section).find('.autocomplete');
+      const hidden = autocomplete.siblings('input[id$="_org_id"]');
+      const checkbox = $(section).find('input.toggle-autocomplete');
+
+      autocomplete.on('change', () => {
+        checkbox.prop('checked', false);
+        handleComboboxChange();
+      });
+
+      checkbox.on('click', () => {
+        handleCheckboxClick(autocomplete, checkbox, hidden);
+      });
+
+      if (checkbox.prop('checked')) {
+        handleCheckboxClick(autocomplete, checkbox, hidden);
+      }
+    }
+  };
+
+  ['#research-org-controls', '#funder-org-controls'].forEach((el) => {
+    if ($(el).length > 0) {
+      initOrgSelection(el);
+    }
+  });
+
   const defaultVisibility = $('#plan_visibility').val();
 
   // When the user checks the 'mock project' box we need to set the
@@ -94,29 +141,8 @@ $(() => {
     $('#plan_visibility').val(($(e.currentTarget)[0].checked ? 'is_test' : defaultVisibility));
   });
 
-  // Make sure the checkbox is unchecked if we're entering text
-  $('#new_plan #plan_org_id, #new_plan #plan_funder_id').change((e) => {
-    const [, whichOne] = $(e.currentTarget).prop('id').split('_');
-    $(`#plan_no_${whichOne}`).prop('checked', false);
-    handleComboboxChange();
-  });
-
-  // If the user clicks the no Org/Funder checkbox disable the dropdown
-  // and hide clear button
-  $('#new_plan #plan_no_org, #new_plan #plan_no_funder').click((e) => {
-    const [, , whichOne] = $(e.currentTarget).prop('id').split('_');
-    handleCheckboxClick(whichOne, e.currentTarget.checked);
-  });
-
   // Initialize the form
   $('#new_plan #available-templates').hide();
   handleComboboxChange();
   toggleSubmit();
-
-  if ($('#plan_no_org').prop('checked')) {
-    handleCheckboxClick('org', $('#plan_no_org').prop('checked'));
-  }
-  if ($('#plan_no_funder').prop('checked')) {
-    handleCheckboxClick('funder', $('#plan_no_funder').prop('checked'));
-  }
 });

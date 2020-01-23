@@ -1,9 +1,9 @@
 // Rails setup
 import 'jquery-ujs';
-import 'jquery-accessible-autocomplete-list-aria/jquery-accessible-autocomplete-list-aria';
 
 // Generic JS that is applicable across multiple pages
 import '../utils/array';
+import '../utils/autoComplete';
 import '../utils/externalLink';
 import '../utils/paginable';
 import '../utils/panelHeading';
@@ -39,7 +39,6 @@ import '../views/plans/new';
 import '../views/plans/share';
 import '../views/roles/edit';
 import '../views/shared/create_account_form';
-import '../views/shared/my_org';
 import '../views/shared/sign_in_form';
 import '../views/super_admin/themes/new_edit';
 import '../views/super_admin/users/edit';

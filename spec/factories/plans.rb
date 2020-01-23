@@ -24,6 +24,7 @@
 #
 # Indexes
 #
+#  index_plans_on_org_id       (org_id)
 #  index_plans_on_template_id  (template_id)
 #
 # Foreign Keys
