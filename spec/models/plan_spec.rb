@@ -23,6 +23,9 @@ describe Plan do
 
     it { is_expected.to belong_to :template }
 
+    it { is_expected.to belong_to :org }
+
+    it { is_expected.to belong_to :funder }
 
     it { is_expected.to have_many :phases }
 
@@ -43,6 +46,8 @@ describe Plan do
     it { is_expected.to have_many :exported_plans }
 
     it { is_expected.to have_many :setting_objects }
+
+    it { is_expected.to have_many(:identifiers) }
 
   end
 
@@ -755,6 +760,12 @@ describe Plan do
 
     context "config does not allow admin viewing" do
 
+      before(:each) do
+        Branding.expects(:fetch)
+                .with(:service_configuration, :plans, :org_admins_read_all)
+                .returns(false)
+      end
+
       it "super admins" do
         Branding.expects(:fetch)
                 .with(:service_configuration, :plans, :super_admins_read_all)
@@ -765,10 +776,6 @@ describe Plan do
       end
 
       it "org admins" do
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :org_admins_read_all)
-                .returns(false)
-
         user.perms << create(:perm, name: "modify_guidance")
         expect(subject.readable_by?(user.id)).to eql(false)
       end

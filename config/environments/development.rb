@@ -50,3 +50,6 @@ Rails.application.configure do
   end
 
 end
+
+Rails.application.routes.default_url_options[:host] = "dmproadmap.org"
+
