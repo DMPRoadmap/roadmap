@@ -170,6 +170,21 @@ class Org < ActiveRecord::Base
               count(users.id) as user_count")
   }
 
+  # Scope that retrieves the Org based on the Identifiers passed in
+  scope :from_identifiers, ->(identifiers) {
+    return [] unless identifiers.present? && identifiers.is_a?(Array)
+
+    out = []
+    identifiers.each do |id|
+      # Stop once we find the first match
+      break if out.any?
+
+      out << Identifier.where(identifier_scheme: id.identifier_scheme,
+                              value: id.value, identifiable_type: "Org").first
+    end
+    out.compact.map { |identifier| find_by(id: identifier.identifiable_id) }
+  }
+
   before_validation :set_default_feedback_email_subject
   before_validation :check_for_missing_logo_file
   after_create :create_guidance_group
@@ -266,6 +281,26 @@ class Org < ActiveRecord::Base
   def grant_api!(token_permission_type)
     self.token_permission_types << token_permission_type unless
       self.token_permission_types.include? token_permission_type
+  end
+
+  # Takes an array of Identifiers and create/update/delete them for this Org
+  # TODO: For some reason accepts_nested_atributes_for does not work for
+  #       polymorphic relationships, so using this instead. Reevaluate
+  #       post Rails 5 upgrade
+  def save_identifiers!(array:)
+    return false unless array.present? && array.any?
+
+    array.each do |identifier|
+      scheme = identifier.identifier_scheme
+      current = identifiers.by_scheme_name(scheme.name, "Org").first
+
+      current.destroy if current.present?
+      next unless identifier.value.present?
+
+      identifier.identifiable = self
+      identifier.save
+    end
+    true
   end
 
   private
