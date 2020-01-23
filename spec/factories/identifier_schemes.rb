@@ -5,9 +5,13 @@
 #  id               :integer          not null, primary key
 #  active           :boolean
 #  description      :string
+#  for_auth         :boolean          default(FALSE)
+#  for_orgs         :boolean          default(FALSE)
+#  for_plans        :boolean          default(FALSE)
+#  for_users        :boolean          default(FALSE)
 #  logo_url         :text
 #  name             :string
-#  user_landing_url :text
+#  user_landing_url :string
 #  created_at       :datetime
 #  updated_at       :datetime
 #
@@ -19,5 +23,9 @@ FactoryBot.define do
     logo_url { Faker::Internet.url }
     user_landing_url { Faker::Internet.url }
     active { true }
+    for_auth { false }
+    for_orgs { false }
+    for_plans { false }
+    for_users { true }
   end
 end

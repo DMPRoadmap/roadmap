@@ -2,13 +2,15 @@
 
 class RegistrationsController < Devise::RegistrationsController
 
+  include OrgSelectable
+
   def edit
     @user = current_user
     @prefs = @user.get_preferences(:email)
     @languages = Language.sorted_by_abbreviation
     @orgs = Org.order("name")
     @other_organisations = Org.where(is_other: true).pluck(:id)
-    @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
+    @identifier_schemes = IdentifierScheme.for_users.order(:name)
     @default_org = current_user.org
 
     if !@prefs
@@ -19,7 +21,7 @@ class RegistrationsController < Devise::RegistrationsController
   # GET /resource
   def new
     oauth = { provider: nil, uid: nil }
-    IdentifierScheme.all.each do |scheme|
+    IdentifierScheme.for_users.each do |scheme|
       unless session["devise.#{scheme.name.downcase}_data"].nil?
         oauth = session["devise.#{scheme.name.downcase}_data"]
       end
@@ -36,10 +38,11 @@ class RegistrationsController < Devise::RegistrationsController
           application_name: Rails.configuration.branding[:application][:name]
         }
         # rubocop:enable Metrics/LineLength
-        scheme = IdentifierScheme.find_by(name: oauth["provider"].downcase)
-        UserIdentifier.create(identifier_scheme: scheme,
-                              identifier: oauth["uid"],
-                              user: @user)
+        scheme = IdentifierScheme.by_name(oauth["provider"].downcase)
+        Identifier.create(identifier_scheme: scheme,
+                          value: oauth["uid"],
+                          attrs: oauth,
+                          identifiable: @user)
       end
     end
   end
@@ -47,7 +50,7 @@ class RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     oauth = { provider: nil, uid: nil }
-    IdentifierScheme.all.each do |scheme|
+    IdentifierScheme.for_users.each do |scheme|
       unless session["devise.#{scheme.name.downcase}_data"].nil?
         oauth = session["devise.#{scheme.name.downcase}_data"]
       end
@@ -56,7 +59,7 @@ class RegistrationsController < Devise::RegistrationsController
     if params[:user][:accept_terms].to_s == "0"
       redirect_to after_sign_up_error_path_for(resource),
         alert: _("You must accept the terms and conditions to register.")
-    elsif params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
+    elsif params[:user][:org_id].blank?
       # rubocop:disable Metrics/LineLength
       redirect_to after_sign_up_error_path_for(resource),
                 alert: _("Please select an organisation from the list, or enter your organisation's name.")
@@ -78,18 +81,12 @@ class RegistrationsController < Devise::RegistrationsController
         end
       end
 
-      if params[:user][:org_id].blank?
-        other_org = Org.find_by(is_other: true)
-        if other_org.nil?
-          # rubocop:disable Metrics/LineLength
-          redirect_to(after_sign_up_error_path_for(resource),
-            alert: _("You cannot be assigned to other organisation since that option does not exist in the system. Please contact your system administrators.")) and return
-          # rubocop:enable Metrics/LineLength
-        end
-        params[:user][:org_id] = other_org.id
-      end
+      # Handle the Org selection
+      attrs = sign_up_params
+      attrs = handle_org(attrs: attrs)
 
-      build_resource(sign_up_params)
+      build_resource(attrs)
+
       if resource.save
         if resource.active_for_authentication?
           set_flash_message :notice, :signed_up if is_navigational_format?
@@ -101,9 +98,10 @@ class RegistrationsController < Devise::RegistrationsController
               prov = IdentifierScheme.find_by(name: oauth["provider"].downcase)
               # Until we enable ORCID signups
               if prov.name == "shibboleth"
-                UserIdentifier.create(identifier_scheme: prov,
-                                      identifier: oauth["uid"],
-                                      user: @user)
+                Identifier.create(identifier_scheme: prov,
+                                  value: oauth["uid"],
+                                  attrs: oauth,
+                                  identifiable: @user)
                 # rubocop:disable Metrics/LineLength
                 flash[:notice] = _("Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them.")
                 # rubocop:enable Metrics/LineLength
@@ -133,7 +131,7 @@ class RegistrationsController < Devise::RegistrationsController
       @orgs = Org.order("name")
       @default_org = current_user.org
       @other_organisations = Org.where(is_other: true).pluck(:id)
-      @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
+      @identifier_schemes = IdentifierScheme.for_users.order(:name)
       @languages = Language.sorted_by_abbreviation
       if params[:skip_personal_details] == "true"
         do_update_password(current_user, params)
@@ -179,6 +177,11 @@ class RegistrationsController < Devise::RegistrationsController
     end
     # has the user entered all the details
     if mandatory_params
+
+      # Handle the Org selection
+      attrs = update_params
+      attrs = handle_org(attrs: attrs)
+
       # user is changing email or password
       if require_password
         # if user is changing email
@@ -199,11 +202,11 @@ class RegistrationsController < Devise::RegistrationsController
           # This case is never reached since this method when called with
           # require_password = true is because the email changed.
           # The case for password changed goes to do_update_password instead
-          successfully_updated = current_user.update_without_password(update_params)
+          successfully_updated = current_user.update_without_password(attrs)
         end
       else
         # password not required
-        successfully_updated = current_user.update_without_password(update_params)
+        successfully_updated = current_user.update_without_password(attrs)
       end
     else
       successfully_updated = false
@@ -265,19 +268,52 @@ class RegistrationsController < Devise::RegistrationsController
   def sign_up_params
     params.require(:user).permit(:email, :password, :password_confirmation,
                                  :firstname, :surname, :recovery_email,
-                                 :accept_terms, :org_id, :other_organisation)
+                                 :accept_terms, :org_id, :org_name,
+                                 :org_crosswalk)
   end
 
   def update_params
-    params.require(:user).permit(:firstname, :org_id, :other_organisation,
-                                :language_id, :surname, :department_id)
+    params.require(:user).permit(:firstname, :org_id, :language_id,
+                                 :surname, :department_id, :org_id,
+                                 :org_name, :org_crosswalk)
   end
 
   def password_update
     params.require(:user).permit(:email, :firstname, :current_password,
-                                :org_id, :language_id, :password,
-                                :password_confirmation, :surname,
-                                :other_organisation, :department_id)
+                                 :language_id, :password,
+                                 :password_confirmation, :surname,
+                                 :department_id, :org_id, :org_name,
+                                 :org_crosswalk)
+  end
+
+  # Finds or creates the selected org and then returns it's id
+  def handle_org(attrs:)
+    return attrs unless attrs.present? && attrs[:org_id].present?
+
+    # See if the user selected a new Org via the Org Lookup and
+    # convert it into an Org
+    lookup = org_from_params(params_in: attrs)
+    return attrs unless lookup.present?
+
+    # If this is a new Org we need to save it first before attaching
+    # it to the user
+    if lookup.new_record?
+      lookup.save
+      identifiers_from_params(params_in: attrs).each do |identifier|
+        next unless identifier.value.present?
+
+        identifier.identifiable = lookup
+        identifier.save
+      end
+      lookup.reload
+    end
+
+    # Remove the extraneous Org Selector hidden fields
+    attrs = remove_org_selection_params(params_in: attrs)
+
+    # reattach the org_id but with the Org id instead of the hash
+    attrs[:org_id] = lookup.id
+    attrs
   end
 
 end

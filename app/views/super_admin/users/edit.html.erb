@@ -26,13 +26,13 @@
         <%= f.text_field(:surname, class: "form-control", "aria-required": true) %>
       </div>
 
-      <div class="form-group col-xs-12" id="org-controls">
-        <%= render partial: "shared/my_org", locals: {
-            f: f,
-            default_org: @user.org,
-            orgs: Org.where(is_other: false).order("name"),
-            allow_other_orgs: true,
-            required: true } %>
+      <div class="form-group col-xs-12" id="super-admin-user-org-controls">
+        <%= render partial: "shared/org_selectors/combined",
+               locals: {
+                 form: f,
+                 default_org: @user.org,
+                 required: true
+               } %>
       </div>
 
       <% if @departments.any? %>

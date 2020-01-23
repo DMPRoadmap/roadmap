@@ -30,6 +30,7 @@ $(() => {
       createChart('#yearly_users', usersData);
     }
   }
+
   // Create the Plans created chart
   if (!isUndefined($('#plans_created').val())) {
     const plansData = JSON.parse($('#plans_created').val());
