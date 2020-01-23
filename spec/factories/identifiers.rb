@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: identifiers
@@ -21,7 +23,7 @@ FactoryBot.define do
     for_user
 
     value { Faker::Lorem.word }
-    attrs { Hash.new }
+    attrs { {} }
 
     trait :for_plan do
       association :identifiable, factory: :plan

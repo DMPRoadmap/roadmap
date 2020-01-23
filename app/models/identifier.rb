@@ -34,9 +34,9 @@ class Identifier < ActiveRecord::Base
   # ===============
 
   validates :identifier_scheme,
-    presence: { message: PRESENCE_MESSAGE },
-    uniqueness: { scope: %i[identifiable_id identifiable_type],
-                  message: UNIQUENESS_MESSAGE }
+            presence: { message: PRESENCE_MESSAGE },
+            uniqueness: { scope: %i[identifiable_id identifiable_type],
+                          message: UNIQUENESS_MESSAGE }
 
   validates :value, presence: { message: PRESENCE_MESSAGE }
 
@@ -47,8 +47,8 @@ class Identifier < ActiveRecord::Base
   # ===============
 
   def self.by_scheme_name(value, identifiable_type)
-     where(identifier_scheme: IdentifierScheme.by_name(value),
-           identifiable_type: identifiable_type)
+    where(identifier_scheme: IdentifierScheme.by_name(value),
+          identifiable_type: identifiable_type)
   end
 
   # ===========================
@@ -56,7 +56,7 @@ class Identifier < ActiveRecord::Base
   # ===========================
 
   def attrs=(hash)
-    write_attribute(:attrs, (hash.is_a?(Hash) ? hash.to_json.to_s : '{}'))
+    write_attribute(:attrs, (hash.is_a?(Hash) ? hash.to_json.to_s : "{}"))
   end
 
 end

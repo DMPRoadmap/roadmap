@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class IdentifierPolicy < ApplicationPolicy
   attr_reader :user_identifier
 

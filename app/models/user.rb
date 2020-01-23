@@ -166,8 +166,8 @@ class User < ActiveRecord::Base
   # Load the user based on the scheme and id provided by the Omniauth call
   def self.from_omniauth(auth)
     Identifier.by_scheme_name(auth.provider.downcase, "User")
-               .where(value: auth.uid)
-               .first&.identifiable
+              .where(value: auth.uid)
+              .first&.identifiable
   end
 
   def self.to_csv(users)
@@ -407,19 +407,19 @@ class User < ActiveRecord::Base
   end
 
   def merge(to_be_merged)
-    scheme_ids = self.identifiers.pluck(:identifier_scheme_id)
+    scheme_ids = identifiers.pluck(:identifier_scheme_id)
     # merge logic
     # => answers -> map id
-    to_be_merged.answers.update_all(user_id: self.id)
+    to_be_merged.answers.update_all(user_id: id)
     # => notes -> map id
-    to_be_merged.notes.update_all(user_id: self.id)
+    to_be_merged.notes.update_all(user_id: id)
     # => plans -> map on id roles
-    to_be_merged.roles.update_all(user_id: self.id)
+    to_be_merged.roles.update_all(user_id: id)
     # => prefs -> Keep's from self
     # => auths -> map onto keep id only if keep does not have the identifier
     to_be_merged.identifiers
                 .where.not(identifier_scheme_id: scheme_ids)
-                .update_all(user_id: self.id)
+                .update_all(user_id: id)
     # => ignore any perms the deleted user has
     to_be_merged.destroy
   end

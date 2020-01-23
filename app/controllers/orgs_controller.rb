@@ -39,17 +39,18 @@ class OrgsController < ApplicationController
           # The user cleared the shib values so delete the object
           shib_settings.destroy
         else
-          unless shib_settings.present?
+          if shib_settings.present?
+            shib_settings.value = params[:shib_id]
+            shib_settings.attrs = { domain: params[:shib_domain] }
+            shib_settings.save
+          else
             identifier = Identifier.new(
               identifier_scheme: shib,
               value: params[:shib_id],
-              attrs: { domain: params[:shib_domain] }
+              attrs: { domain: params[:shib_domain] },
+              identifiable: @org
             )
-            shib_settings = @org.identifiers << identifier
           end
-          shib_settings.value = params[:shib_id]
-          shib_settings.attrs = { domain: params[:shib_domain] }
-          shib_settings.save
         end
       end
     end

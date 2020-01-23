@@ -67,17 +67,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           }
         end
 
-      else
+      elsif user.id != current_user.id
         # If a user was found but does NOT match the current user then the identifier has
         # already been attached to another account (likely the user has 2 accounts)
-        if user.id != current_user.id
-          # rubocop:disable Metrics/LineLength
-          flash[:alert] = _("The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}")
-          # rubocop:enable Metrics/LineLength
-        end
-
-        # Otherwise, the identifier was found and it matches the one already associated
-        # with the current user so nothing else needs to be done
+        # rubocop:disable Metrics/LineLength
+        flash[:alert] = _("The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}")
+        # rubocop:enable Metrics/LineLength
       end
 
       # Redirect to the User Profile page

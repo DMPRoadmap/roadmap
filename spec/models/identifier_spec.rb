@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Identifier, type: :model do
 
@@ -7,8 +9,8 @@ RSpec.describe Identifier, type: :model do
       subject.identifier_scheme = create(:identifier_scheme)
       subject.value = Faker::Lorem.word
       is_expected.to validate_uniqueness_of(:identifier_scheme)
-                       .scoped_to(%i[identifiable_id identifiable_type])
-                       .with_message("must be unique")
+        .scoped_to(%i[identifiable_id identifiable_type])
+        .with_message("must be unique")
     end
 
     it { is_expected.to validate_presence_of(:value) }
@@ -49,7 +51,7 @@ RSpec.describe Identifier, type: :model do
 
     it "when hash is a Hash sets attrs to a String of JSON" do
       identifier.attrs = { foo: "bar" }
-      expect(identifier.attrs).to eql({"foo" => "bar"}.to_json)
+      expect(identifier.attrs).to eql({ "foo": "bar" }.to_json)
     end
 
     it "when hash is nil sets attrs to empty JSON object" do
@@ -58,7 +60,7 @@ RSpec.describe Identifier, type: :model do
     end
 
     it "when hash is a String sets attrs to empty JSON object" do
-      identifier.attrs = ''
+      identifier.attrs = ""
       expect(identifier.attrs).to eql({}.to_json)
     end
   end

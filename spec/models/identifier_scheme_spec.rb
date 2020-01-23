@@ -24,21 +24,21 @@ RSpec.describe IdentifierScheme, type: :model do
     end
 
     describe "#by_name scope" do
-     it "is case insensitive" do
-       rslt = described_class.by_name(@scheme.name.upcase).first
-       expect(rslt).to eql(@scheme)
-     end
+      it "is case insensitive" do
+        rslt = described_class.by_name(@scheme.name.upcase).first
+        expect(rslt).to eql(@scheme)
+      end
 
       it "returns the IdentifierScheme" do
-       rslt = described_class.by_name(@scheme.name).first
-       expect(rslt).to eql(@scheme)
-     end
+        rslt = described_class.by_name(@scheme.name).first
+        expect(rslt).to eql(@scheme)
+      end
 
       it "returns empty ActiveRecord results if nothing is found" do
-       rslts = described_class.by_name(Faker::Lorem.sentence)
-       expect(rslts.empty?).to eql(true)
-     end
-   end
+        rslts = described_class.by_name(Faker::Lorem.sentence)
+        expect(rslts.empty?).to eql(true)
+      end
+    end
   end
 
 end
