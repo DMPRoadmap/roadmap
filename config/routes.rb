@@ -163,6 +163,14 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    namespace :v1 do
+      get :heartbeat, controller: "base_api"
+      post :authenticate, controller: "authentication"
+
+      resources :plans, only: [:create, :show]
+      resources :templates, only: [:index]
+    end
   end
 
   namespace :paginable do
@@ -214,6 +222,10 @@ Rails.application.routes.draw do
     resources :departments, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
     end
+    # Paginable actions for api_clients
+     resources :api_clients, only: [] do
+       get 'index/:page', action: :index, on: :collection, as: :index
+     end
   end
 
   resources :template_options, only: [:index], constraints: { format: /json/ }
@@ -287,6 +299,12 @@ Rails.application.routes.draw do
       end
     end
     resources :notifications, except: [:show]
+    resources :api_clients do
+       member do
+         get :email_credentials
+         get :refresh_credentials
+       end
+     end
   end
 
   get "research_projects/search", action: "search",
