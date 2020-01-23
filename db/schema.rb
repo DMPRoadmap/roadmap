@@ -190,7 +190,10 @@ ActiveRecord::Schema.define(version: 20200123162357) do
     t.boolean  "feedback_enabled",       default: false
     t.string   "feedback_email_subject"
     t.text     "feedback_email_msg"
+    t.boolean  "managed",                default: false, null: false
   end
+
+  add_index "orgs", ["managed"], name: "index_orga_on_managed", using: :btree
 
   create_table "perms", force: :cascade do |t|
     t.string   "name"

@@ -756,6 +756,12 @@ describe Plan do
 
     context "config does not allow admin viewing" do
 
+      before(:each) do
+        Branding.expects(:fetch)
+                .with(:service_configuration, :plans, :org_admins_read_all)
+                .returns(false)
+      end
+
       it "super admins" do
         Branding.expects(:fetch)
                 .with(:service_configuration, :plans, :super_admins_read_all)
@@ -766,10 +772,6 @@ describe Plan do
       end
 
       it "org admins" do
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :org_admins_read_all)
-                .returns(false)
-
         user.perms << create(:perm, name: "modify_guidance")
         expect(subject.readable_by?(user.id)).to eql(false)
       end

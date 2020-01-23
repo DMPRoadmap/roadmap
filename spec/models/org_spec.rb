@@ -20,6 +20,8 @@ RSpec.describe Org, type: :model do
 
     it { is_expected.to validate_presence_of(:language) }
 
+    it { is_expected.to allow_values(0, 1).for(:managed) }
+
     it "validates presence of contact_email if feedback_enabled" do
       subject.feedback_enabled = true
       is_expected.to validate_presence_of(:contact_email)
@@ -66,29 +68,50 @@ RSpec.describe Org, type: :model do
 
   end
 
-  describe ".managing_orgs" do
+  context "scopes" do
+    before(:each) do
+      @managed = create(:org, managed: true)
+      @unmanaged = create(:org, managed: false)
+    end
 
-    subject { Org.managing_orgs }
+    describe ".default_orgs" do
+      subject { Org.default_orgs }
 
-    context "when Org has same abbr as branding" do
+      context "when Org has same abbr as branding" do
 
-      let!(:org) do
-        create(:org,
-                abbreviation: Rails.configuration
-                                   .branding.dig(:organisation, :abbreviation))
+        let!(:org) do
+          abbrev = Rails.configuration.branding.dig(:organisation,
+                                                    :abbreviation)
+          create(:org, abbreviation: abbrev)
+
+        end
+
+        it { is_expected.to include(org) }
 
       end
 
-      it { is_expected.to include(org) }
+      context "when Org doesn't have same abbr as branding" do
 
+        let!(:org) { create(:org, abbreviation: "foo-bar") }
+
+        it { is_expected.not_to include(org) }
+
+      end
     end
 
-    context "when Org doesn't have same abbr as branding" do
-
-      let!(:org) { create(:org, abbreviation: 'foo-bar') }
-
-      it { is_expected.not_to include(org) }
-
+    describe "#managed" do
+      it "returns only the managed orgs" do
+        rslts = described_class.managed
+        expect(rslts.include?(@managed)).to eql(true)
+        expect(rslts.include?(@unmanaged)).to eql(false)
+      end
+    end
+    describe "#unmanaged" do
+      it "returns only the un-managed orgs" do
+        rslts = described_class.unmanaged
+        expect(rslts.include?(@managed)).to eql(false)
+        expect(rslts.include?(@unmanaged)).to eql(true)
+      end
     end
   end
 

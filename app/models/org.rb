@@ -23,6 +23,7 @@
 #  updated_at             :datetime         not null
 #  language_id            :integer
 #  region_id              :integer
+#  managed                :boolean          default(false), not null
 #
 # Foreign Keys
 #
@@ -109,6 +110,9 @@ class Org < ActiveRecord::Base
   validates :feedback_email_msg, presence: { message: PRESENCE_MESSAGE,
                                              if: :feedback_enabled }
 
+  validates :managed, inclusion: { in: BOOLEAN_VALUES,
+                                   message: INCLUSION_MESSAGE }
+
   validates_property :format, of: :logo, in: LOGO_FORMATS,
                      message: _("must be one of the following formats: " +
                                 "jpeg, jpg, png, gif, bmp")
@@ -133,10 +137,17 @@ class Org < ActiveRecord::Base
             6 => :school,
             column: "org_type"
 
-  # Predefined queries for retrieving the managain organisation and funders
-  scope :managing_orgs, -> do
+  # The default Org is the one whose guidance is auto-attached to
+  # plans when a plan is created
+  def self.default_orgs
     where(abbreviation: Branding.fetch(:organisation, :abbreviation))
   end
+
+  # The managed flag is set by a Super Admin. A managed org typically has
+  # at least one Org Admini and can have associated Guidance and Templates
+  scope :managed, -> { where(managed: true) }
+  # An un-managed Org is one created on the fly by the system
+  scope :unmanaged, -> { where(managed: false) }
 
   scope :search, -> (term) {
     search_pattern = "%#{term}%"

@@ -5,6 +5,7 @@ namespace :upgrade do
   task v2_2_0: :environment do
     Rake::Task["upgrade:convert_user_identifiers"].execute
     Rake::Task["upgrade:convert_org_identifiers"].execute
+    Rake::Task['upgrade:default_orgs_to_managed'].execute
   end
 
   desc "Upgrade to v2.1.3"
@@ -730,6 +731,10 @@ namespace :upgrade do
         attrs: ui.attrs
       )
     end
+
+  desc "Sets the new managed flag for all existing Orgs to managed = true"
+  task default_orgs_to_managed: :environment do
+    Org.all.update_all(managed: true)
   end
 
   private

@@ -14,7 +14,7 @@ module SuperAdmin
     end
 
     def new
-      org = Org.new
+      org = Org.new(managed: true)
       authorize org
       org.links = { "org": [] }
       render "orgs/admin_edit", locals: { org: org, languages: Language.all.order("name"),
@@ -25,6 +25,7 @@ module SuperAdmin
       authorize Org
       org = Org.new(org_params)
       org.language = Language.default
+      org.managed = org_params[:managed] == "1" ? true : false
       org.logo = params[:logo] if params[:logo]
       if params[:org_links].present?
         org.links = JSON.parse(params[:org_links])
@@ -95,9 +96,11 @@ module SuperAdmin
     private
 
     def org_params
-      params.require(:org).permit(:name, :abbreviation, :logo, :contact_email,
-                                  :contact_name, :remove_logo, :feedback_enabled,
-                                  :feedback_email_subject, :feedback_email_msg)
+      params.require(:org).permit(:name, :abbreviation, :logo, :managed,
+                                  :contact_email, :contact_name,
+                                  :remove_logo, :feedback_enabled,
+                                  :feedback_email_subject,
+                                  :feedback_email_msg)
     end
 
   end

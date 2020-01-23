@@ -335,7 +335,6 @@ RSpec.describe User, type: :model do
   end
 
   describe "#can_org_admin?" do
-
     subject { user.can_org_admin? }
 
     context "when user includes Perm with name 'grant_permissions'" do
