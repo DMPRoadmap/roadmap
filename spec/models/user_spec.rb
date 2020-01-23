@@ -540,9 +540,9 @@ RSpec.describe User, type: :model do
   describe ".from_omniauth" do
     let!(:user) { create(:user) }
     let!(:auth) do
-      OpenStruct.new(provider: Faker::Lorem.word, uid: Faker::Lorem.word)
+      OpenStruct.new(provider: Faker::Lorem.unique.word, uid: Faker::Lorem.word)
     end
-    let!(:scheme) { create(:identifier_scheme, name: auth[:provider]) }
+    let!(:scheme) { create(:identifier_scheme, name: auth[:provider], identifier_prefix: nil) }
 
     subject { User.from_omniauth(auth) }
 
@@ -550,7 +550,7 @@ RSpec.describe User, type: :model do
       let!(:identifier) do
         create(:identifier, :for_user, identifiable: user,
                                        identifier_scheme: scheme,
-                                       value: Faker::Lorem.word)
+                                       value: Faker::Lorem.unique.word)
       end
 
       it { is_expected.to be_nil }

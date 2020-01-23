@@ -23,8 +23,6 @@
 #  invited_by_type        :string
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string
-#  ldap_password          :string
-#  ldap_username          :string
 #  other_organisation     :string
 #  recovery_email         :string
 #  remember_created_at    :datetime
@@ -58,6 +56,8 @@ class User < ActiveRecord::Base
   include ConditionalUserMailer
   include ValidationMessages
   include ValidationValues
+  include Identifiable
+
   extend UniqueRandom
 
   ##
@@ -98,8 +98,6 @@ class User < ActiveRecord::Base
   has_many :roles, dependent: :destroy
 
   has_many :plans, through: :roles
-
-  has_many :identifiers, as: :identifiable
 
   has_and_belongs_to_many :notifications, dependent: :destroy,
                           join_table: "notification_acknowledgements"

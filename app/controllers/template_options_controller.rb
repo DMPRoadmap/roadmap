@@ -67,8 +67,6 @@ class TemplateOptionsController < ApplicationController
       end
     end
 
-p @templates.collect(&:title)
-
     @templates = @templates.sort_by(&:title)
   end
 

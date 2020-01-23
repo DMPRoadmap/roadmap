@@ -34,6 +34,7 @@ placeholder = _("Begin typing to see a list of suggestions.")
                               attribute: "name"
                             } %>
 <span class="autocomplete-help sr-only" role="status"></span>
+<div id="<%= SecureRandom.hex(6) %>_ui-front" class="ui-front"></div>
 
 <%# crosswalk contains an array of hashes that contain the Org name, id,
     identifiers like ROR and other info used by the OrgSelectionService %>

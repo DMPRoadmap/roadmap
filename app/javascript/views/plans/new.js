@@ -37,6 +37,7 @@ $(() => {
         if (data.templates.length === 1) {
           $('#plan_template_id option').attr('selected', 'true');
           $('#multiple-templates').hide();
+          $('#available-templates').fadeOut();
         } else {
           $('#multiple-templates').show();
           $('#available-templates').fadeIn();
@@ -54,7 +55,7 @@ $(() => {
     if (context.length > 0) {
       const hidden = $(context).find('.autocomplete-result');
       if (hidden.length > 0 && hidden.val().length > 0
-          && hidden.val() !== '{}' && hidden.val() !== '{"name":""}') {
+         && hidden.val() !== '{}' && hidden.val() !== '{"name":""}') {
         return hidden.val();
       }
     }
@@ -123,6 +124,7 @@ $(() => {
     const checked = checkbox.prop('checked');
     autocomplete.val('');
     autocomplete.prop('disabled', checked);
+    autocomplete.siblings('.autocomplete-result').val('');
     autocomplete.siblings('.autocomplete-warning').hide();
 
     handleComboboxChange();
