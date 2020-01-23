@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200203190734) do
+ActiveRecord::Schema.define(version: 20200215190747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,17 +96,16 @@ ActiveRecord::Schema.define(version: 20200203190734) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "logo_url"
-    t.text     "user_landing_url"
-    t.boolean  "for_auth",                     default: false
-    t.boolean  "for_orgs",                     default: false
-    t.boolean  "for_plans",                    default: false
-    t.boolean  "for_users",                    default: false
+    t.string   "identifier_prefix"
+    t.integer  "context"
   end
 
-    create_table "identifiers", force: :cascade do |t|
+  add_index "identifier_schemes", ["context"], name: "index_identifier_schemes_on_context", using: :btree
+
+  create_table "identifiers", force: :cascade do |t|
     t.string   "value",                null: false
     t.text     "attrs"
-    t.integer  "identifier_scheme_id", null: false
+    t.integer  "identifier_scheme_id"
     t.integer  "identifiable_id"
     t.string   "identifiable_type"
     t.datetime "created_at"
@@ -238,8 +237,8 @@ ActiveRecord::Schema.define(version: 20200203190734) do
     t.string   "principal_investigator_phone"
     t.boolean  "feedback_requested",                default: false
     t.boolean  "complete",                          default: false
-    t.integer  "org_id",                            limit: 4
-    t.integer  "funder_id",                         limit: 4
+    t.integer  "org_id"
+    t.integer  "funder_id"
   end
 
   add_index "plans", ["template_id"], name: "index_plans_on_template_id", using: :btree

@@ -6,7 +6,7 @@ RSpec.describe IdentifierPresenter do
 
   before(:each) do
     @user = create(:user)
-    @user_scheme = create(:identifier_scheme)
+    @user_scheme = create(:identifier_scheme, for_users: true)
     @plan_scheme = create(:identifier_scheme, for_plans: true, for_users: false)
     @org_scheme = create(:identifier_scheme, for_orgs: true, for_users: false)
   end
@@ -49,37 +49,46 @@ RSpec.describe IdentifierPresenter do
     end
   end
 
-  describe "#id_for_display(scheme:, id:)" do
+  describe "#id_for_display(id:, with_scheme_name)" do
     before(:each) do
       @none = _("None defined")
       @presenter = described_class.new(identifiable: @user)
+
+      url = Faker::Internet.url
+      @user_scheme.identifier_prefix = url
+      val = "#{url}/#{Faker::Lorem.word}"
+      @identifier = create(:identifier, identifier_scheme: @user_scheme,
+                                        value: val)
     end
 
+    it "defaults to showing the scheme name" do
+      rslt = @presenter.id_for_display(id: @identifier)
+      expect(rslt.include?(@user_scheme.identifier_prefix)).to eql(true)
+    end
+    it "does not display the scheme name if flag is set" do
+      rslt = @presenter.id_for_display(id: @identifier, with_scheme_name: false)
+      expect(rslt.include?(@user_scheme.name)).to eql(false)
+    end
     it "returns the correct text when the identifier is new" do
       id = build(:identifier)
-      rslt = @presenter.id_for_display(scheme: @user_scheme, id: id)
+      rslt = @presenter.id_for_display(id: id)
       expect(rslt).to eql(@none)
     end
     it "returns the correct text when the identifier is blank" do
-      id = create(:identifier, identifiable: @user)
-      id.value = ""
-      rslt = @presenter.id_for_display(scheme: @user_scheme, id: id)
+      @identifier.value = ""
+      rslt = @presenter.id_for_display(id: @identifier)
       expect(rslt).to eql(@none)
     end
-    it "returns the value when the scheme has no user_landing_url" do
+    it "returns the value when the scheme has no identifier_prefix" do
       val = Faker::Lorem.word
-      @user_scheme.update(user_landing_url: nil)
-      id = create(:identifier, identifiable: @user, value: val,
-                               identifier_scheme: @user_scheme)
-      rslt = @presenter.id_for_display(scheme: @user_scheme, id: id)
+      @user_scheme.identifier_prefix = nil
+      @identifier.value = val
+      rslt = @presenter.id_for_display(id: @identifier)
       expect(rslt).to eql(val)
     end
-    it "returns the value as a link when the scheme has a user_landing_url" do
-      val = Faker::Lorem.word
-      id = create(:identifier, identifiable: @user, value: val)
-      rslt = @presenter.id_for_display(scheme: @user_scheme, id: id)
-      expected = "#{@user_scheme.user_landing_url}/#{val}"
-      expect(rslt.include?(expected)).to eql(true)
+    it "returns the value as a link when the scheme has a identifier_prefix" do
+      rslt = @presenter.id_for_display(id: @identifier)
+      expect(rslt.include?(@identifier.value)).to eql(true)
     end
   end
 

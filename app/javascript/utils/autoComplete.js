@@ -116,6 +116,7 @@ export const initAutocomplete = (selector) => {
 
     if (isObject(context) && context.length > 0) {
       const id = context.attr('id');
+      const front = context.siblings('div[id$="_ui-front"]');
       const crosswalk = context.siblings(`#${id.replace('_name', '_crosswalk')}`);
       const hidden = context.siblings('.autocomplete-result');
 
@@ -134,6 +135,7 @@ export const initAutocomplete = (selector) => {
           select: (e, ui) => handleSelection(context, hidden, crosswalk, ui.item.label),
           minLength: 3,
           delay: 600,
+          appendTo: front,
         });
       } else {
         const source = context.siblings(`#${id.replace('_name', '_sources')}`);
@@ -144,6 +146,7 @@ export const initAutocomplete = (selector) => {
             select: (e, ui) => handleSelection(context, hidden, crosswalk, ui.item.label),
             minLength: 1,
             delay: 300,
+            appendTo: front,
           });
         }
       }

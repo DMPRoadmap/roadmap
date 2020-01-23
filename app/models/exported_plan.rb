@@ -67,7 +67,8 @@ class ExportedPlan < ActiveRecord::Base
   end
 
   def funder
-    org = self.plan.template.try(:org)
+    org = self.plan.funder
+    org = self.plan.template.try(:org) unless org.present?
     org.name if org.present? && org.funder?
   end
 

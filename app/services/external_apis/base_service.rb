@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'httparty'
+
 module ExternalApis
 
   class ExternalApiError < StandardError; end
@@ -43,19 +45,29 @@ module ExternalApis
       # by sending your changes in the `additional_headers` attribute of
       # `http_get`
       def headers
-        {
+        hash = {
           "Content-Type": "application/json",
           "Accept": "application/json",
-          "Accept-Encoding": "gzip",
-          "Host": URI(api_base_url).hostname.to_s,
           "User-Agent": "#{app_name} (#{app_email})"
         }
+        hash.merge({ "Host": URI(api_base_url).hostname.to_s })
+
+      rescue URI::InvalidURIError => e
+        handle_uri_failure(method: "BaseService.headers #{e.message}",
+                           uri: api_base_url)
+        hash
       end
 
       # Logs the results of a failed HTTP response
       def handle_http_failure(method:, http_response:)
         content = http_response.inspect
         msg = "received a #{http_response&.code} response with: #{content}!"
+        log_error(method: method, error: ExternalApiError.new(msg))
+      end
+
+      # Logs the results of a failed HTTP response
+      def handle_uri_failure(method:, uri:)
+        msg = "received an invalid uri: '#{uri&.to_s}'!"
         log_error(method: method, error: ExternalApiError.new(msg))
       end
 
@@ -76,7 +88,7 @@ module ExternalApis
 
       # Retrieves the application name from branding.yml or uses the App name
       def app_name
-        config.fetch(:application, {}).fetch(:name, Rails.application.class.name)
+        ApplicationService.application_name
       end
 
       # Retrieves the helpdesk email from branding.yml or uses the contact page url
@@ -87,44 +99,32 @@ module ExternalApis
 
       # Makes a GET request to the specified uri with the additional headers.
       # Additional headers are combined with the base headers defined above.
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-      def http_get(uri:, additional_headers: {}, tries: 1)
+      # rubocop:disable Metrics/MethodLength
+      def http_get(uri:, additional_headers: {}, debug: false)
         return nil unless uri.present?
 
-        target, http = prep_http(target: uri)
-        req = Net::HTTP::Get.new(target.request_uri)
-        req = prep_headers(request: req, additional_headers: additional_headers)
-        resp = http.request(req)
-        # If we received a redirect then follow it as long as
-        if resp.is_a?(Net::HTTPRedirection) && (tries < max_redirects)
-          resp = http_get(uri: resp["location"], additional_headers: {},
-                          tries: tries + 1)
-        end
-        resp
-      rescue StandardError => e
-        log_error(method: uri, error: e)
+        HTTParty.get(uri, options(additional_headers: additional_headers,
+                                  debug: debug))
+
+      rescue URI::InvalidURIError => e
+        handle_uri_failure(method: "BaseService.http_get #{e.message}",
+                           uri: uri)
         nil
+      rescue HTTParty::Error => e
+        handle_http_failure(method: "BaseService.http_get #{e.message}",
+                            http_response: resp)
+        resp
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:enable Metrics/MethodLength
 
-      # Prepares the URI and a Net::HTTP object
-      def prep_http(target:)
-        return nil, nil unless target.present?
-
-        uri = URI.parse(target)
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = true if uri.scheme == "https"
-        [uri, http]
-      end
-
-      # Appends specified headers to the default headers and attaches them to
-      # the specified Net::HTTP::[verb] object
-      def prep_headers(request:, additional_headers: {})
-        return nil unless request.present?
-
-        headers.each { |k, v| request[k] = v }
-        additional_headers.each { |k, v| request[k] = v }
-        request
+      # Options for the HTTParty call
+      def options(additional_headers: {}, debug: false)
+        hash = {
+          headers: headers.merge(additional_headers),
+          follow_redirects: true
+        }
+        hash[:debug_output] = STDOUT if debug
+        hash
       end
 
     end

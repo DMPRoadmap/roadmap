@@ -28,8 +28,8 @@ RSpec.describe RegistrationsController, type: :controller do
         @user = build(:user)
 
         @controller.stubs(:org_from_params).returns(build(:org))
-        @controller.stubs(:remove_org_selection_params)
-                   .returns({ other_param: Faker::Lorem.word })
+        #@controller.stubs(:remove_org_selection_params)
+        #             .returns({ other_param: Faker::Lorem.word })
       end
 
       it "returns nil if the params are not present" do
@@ -40,18 +40,11 @@ RSpec.describe RegistrationsController, type: :controller do
         rslt = @controller.send(:handle_org, attrs: {})
         expect(rslt).to eql({})
       end
-      it "calls org_from_params to retrieve the Org" do
-        @controller.expects(:org_from_params).at_least(1)
-        rslt = @controller.send(:handle_org, attrs: @params)
-      end
       it "saved the org if it was a new record" do
         count = Org.all.length
-        rslt = @controller.send(:handle_org, attrs: @params)
-        expect(Org.all.length).to eql(count + 1)
-      end
-      it "calls remove_org_selection_params" do
-        @controller.expects(:org_from_params).at_least(1)
+        @controller.stubs(:org_from_params).returns(create(:org))
         @controller.send(:handle_org, attrs: @params)
+        expect(Org.all.length).to eql(count + 1)
       end
     end
 

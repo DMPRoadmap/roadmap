@@ -51,7 +51,7 @@ module ExternalApis
         return true unless active && heartbeat_path.present?
 
         resp = http_get(uri: "#{api_base_url}#{heartbeat_path}")
-        resp.is_a?(Net::HTTPSuccess)
+        resp.code == 200
       end
 
       # Search the ROR API for the given string.
@@ -76,7 +76,7 @@ module ExternalApis
 
       # If a JSON parse error occurs then return results of a local table search
       rescue JSON::ParserError => e
-        log_error(method: "search", error: e)
+        log_error(method: "ROR search", error: e)
         []
       end
 
@@ -91,9 +91,11 @@ module ExternalApis
         query = query_string(term: term, page: page, filters: filters)
 
         # Call the ROR API and log any errors
-        resp = http_get(uri: "#{target}?#{query}")
-        unless resp.is_a?(Net::HTTPSuccess)
-          handle_http_failure(method: "search", http_response: resp)
+        resp = http_get(uri: "#{target}?#{query}", additional_headers: {},
+                        debug: false)
+
+        unless resp.code == 200
+          handle_http_failure(method: "ROR search", http_response: resp)
           return []
         end
         JSON.parse(resp.body)
@@ -130,7 +132,7 @@ module ExternalApis
       # If we encounter a JSON parse error on subsequent page requests then just
       # return what we have so far
       rescue JSON::ParserError => e
-        log_error(method: "search", error: e)
+        log_error(method: "ROR search", error: e)
         results || []
       end
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

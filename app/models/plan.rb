@@ -49,6 +49,7 @@ class Plan < ActiveRecord::Base
   include ExportablePlan
   include ValidationMessages
   include ValidationValues
+  include Identifiable
 
   # =============
   # = Constants =
@@ -114,8 +115,6 @@ class Plan < ActiveRecord::Base
   has_many :exported_plans
 
   has_many :roles
-
-  has_many :identifiers, as: :identifiable
 
   # =====================
   # = Nested Attributes =
@@ -419,7 +418,7 @@ class Plan < ActiveRecord::Base
                   .administrator
                   .order(:created_at)
                   .pluck(:user_id).first
-    User.find(usr_id)
+    usr_id.present? ? User.find(usr_id) : nil
   end
 
   # Creates a role for the specified user (will update the user's
@@ -452,14 +451,6 @@ class Plan < ActiveRecord::Base
     else
       false
     end
-  end
-
-  ## Update plan identifier.
-  #
-  # Returns Boolean
-  def add_identifier!(identifier)
-    self.update(identifier: identifier)
-    save!
   end
 
   ##
@@ -565,6 +556,10 @@ class Plan < ActiveRecord::Base
     end
   end
 
+  # Returns the plan's identifier (either a DOI/ARK)
+  def landing_page
+    identifiers.select { |i| %w[doi ark].include?(i.identifier_format) }.first
+  end
 
   private
 

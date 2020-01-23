@@ -221,6 +221,8 @@ gem 'activerecord-session_store'
 # UTILITIES
 gem 'parallel'
 
+gem 'httparty'
+
 # ------------------------------------------------
 # ENVIRONMENT SPECIFIC DEPENDENCIES
 group :development, :test do

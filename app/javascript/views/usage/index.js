@@ -14,12 +14,15 @@ $(() => {
 
   // attach listener to separator select menu
   // on change look for "stat" elements and chnage their query param
-  document.getElementById('csv-field-sep').addEventListener('click', (e) => {
-    const statElems = document.getElementsByClassName('stat');
-    const newSep = 'sep='.concat(encodeURIComponent(e.target.value));
-    const changeStatFn = changeStatFnGen(newSep);
-    Array.from(statElems).forEach(changeStatFn);
-  });
+  const fieldSep = document.getElementById('csv-field-sep');
+  if (fieldSep !== null) {
+    fieldSep.addEventListener('click', (e) => {
+      const statElems = document.getElementsByClassName('stat');
+      const newSep = 'sep='.concat(encodeURIComponent(e.target.value));
+      const changeStatFn = changeStatFnGen(newSep);
+      Array.from(statElems).forEach(changeStatFn);
+    });
+  }
 
   initializeCharts();
 

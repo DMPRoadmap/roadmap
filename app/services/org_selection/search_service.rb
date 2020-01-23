@@ -66,14 +66,18 @@ module OrgSelection
       def local_search(search_term:)
         return [] unless search_term.present?
 
-        Org.includes(identifiers: :identifier_scheme)
-           .search(name_without_alias(name: search_term)).to_a
+        Rails.cache.fetch(["org_selection-local", search_term], expires_in: 1.day) do
+          Org.includes(identifiers: :identifier_scheme)
+             .search(name_without_alias(name: search_term)).to_a
+        end
       end
 
       def externals_search(search_term:)
         return [] unless ExternalApis::RorService.active && search_term.present?
 
-        ExternalApis::RorService.search(term: search_term)
+        Rails.cache.fetch(["org_selection-ror", search_term], expires_in: 1.day) do
+          ExternalApis::RorService.search(term: search_term)
+        end
       end
 
       # Prepares all of the records for the view. Records that are Org models get
