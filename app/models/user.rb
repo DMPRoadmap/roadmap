@@ -95,6 +95,7 @@ class User < ActiveRecord::Base
 
   has_many :plans, through: :roles
 
+  has_many :identifiers, as: :identifiable
 
   has_many :user_identifiers
 

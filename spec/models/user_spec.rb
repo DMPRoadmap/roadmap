@@ -57,11 +57,7 @@ RSpec.describe User, type: :model do
 
     it { is_expected.to have_many(:plans).through(:roles) }
 
-    it { is_expected.to have_many(:user_identifiers) }
-
-    it {
-      is_expected.to have_many(:identifier_schemes).through(:user_identifiers)
-    }
+    it { should have_many(:identifiers) }
 
     it {
       is_expected.to have_and_belong_to_many(:notifications).dependent(:destroy)
