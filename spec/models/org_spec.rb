@@ -20,6 +20,8 @@ RSpec.describe Org, type: :model do
 
     it { is_expected.to validate_presence_of(:language) }
 
+    it { is_expected.to allow_values(0, 1).for(:managed) }
+
     it "validates presence of contact_email if feedback_enabled" do
       subject.feedback_enabled = true
       is_expected.to validate_presence_of(:contact_email)
@@ -62,35 +64,57 @@ RSpec.describe Org, type: :model do
 
     it { should have_and_belong_to_many(:token_permission_types).join_table("org_token_permissions") }
 
-    it { should have_many(:org_identifiers) }
+    it { should have_many(:identifiers) }
 
-    it { should have_many(:identifier_schemes).through(:org_identifiers) }
+    it { should have_many(:plans) }
 
+    it { should have_many(:funded_plans) }
   end
 
-  describe ".managing_orgs" do
+  context "scopes" do
+    before(:each) do
+      @managed = create(:org, managed: true)
+      @unmanaged = create(:org, managed: false)
+    end
 
-    subject { Org.managing_orgs }
+    describe ".default_orgs" do
+      subject { Org.default_orgs }
 
-    context "when Org has same abbr as branding" do
+      context "when Org has same abbr as branding" do
 
-      let!(:org) do
-        create(:org,
-                abbreviation: Rails.configuration
-                                   .branding.dig(:organisation, :abbreviation))
+        let!(:org) do
+          abbrev = Rails.configuration.branding.dig(:organisation,
+                                                    :abbreviation)
+          create(:org, abbreviation: abbrev)
+
+        end
+
+        it { is_expected.to include(org) }
 
       end
 
-      it { is_expected.to include(org) }
+      context "when Org doesn't have same abbr as branding" do
 
+        let!(:org) { create(:org, abbreviation: "foo-bar") }
+
+        it { is_expected.not_to include(org) }
+
+      end
     end
 
-    context "when Org doesn't have same abbr as branding" do
-
-      let!(:org) { create(:org, abbreviation: 'foo-bar') }
-
-      it { is_expected.not_to include(org) }
-
+    describe "#managed" do
+      it "returns only the managed orgs" do
+        rslts = described_class.managed
+        expect(rslts.include?(@managed)).to eql(true)
+        expect(rslts.include?(@unmanaged)).to eql(false)
+      end
+    end
+    describe "#unmanaged" do
+      it "returns only the un-managed orgs" do
+        rslts = described_class.unmanaged
+        expect(rslts.include?(@managed)).to eql(false)
+        expect(rslts.include?(@unmanaged)).to eql(true)
+      end
     end
   end
 
@@ -434,8 +458,57 @@ RSpec.describe Org, type: :model do
 
     end
 
-
   end
 
+  describe "#links" do
+    it "returns the contents of the field" do
+      links = { "org": [{
+        "link": Faker::Internet.url,
+        "text": Faker::Lorem.word
+      }] }
+      org = build(:org, links: links)
+      expect(org.links).to eql(JSON.parse(links.to_json))
+    end
+    it "defaults to {'org': }" do
+      org = build(:org)
+      expect(org.links).to eql(JSON.parse({ "org": [] }.to_json))
+    end
+  end
+
+  describe "#save_identifiers!(array:)" do
+    before(:each) do
+      @scheme = create(:identifier_scheme)
+      @org = create(:org, managed: true)
+      @value = Faker::Lorem.unique.word
+      create(:identifier, :for_org, identifiable: @org, value: @value,
+                                    identifier_scheme: @scheme)
+      @org.reload
+    end
+
+    it "returns true if the array is nil" do
+      expect(@org.save_identifiers!(array: nil)).to eql(false)
+    end
+    it "returns true if the array is empty" do
+      expect(@org.save_identifiers!(array: [])).to eql(false)
+    end
+    it "destroys identifiers that were blanked out" do
+      array = [build(:identifier, identifier_scheme: @scheme, value: "")]
+      expect(@org.save_identifiers!(array: array)).to eql(true)
+      expect(@org.identifiers.empty?).to eql(true)
+    end
+    it "replaces identifier values" do
+      array = [build(:identifier, identifier_scheme: @scheme, value: "Foo")]
+      expect(@org.save_identifiers!(array: array)).to eql(true)
+      expect(@org.identifiers.first.identifier_scheme).to eql(@scheme)
+      expect(@org.identifiers.first.value).to eql("Foo")
+    end
+    it "adds new identiers" do
+      scheme2 = create(:identifier_scheme)
+      array = [build(:identifier, identifier_scheme: scheme2, value: "Foo")]
+      expect(@org.save_identifiers!(array: array)).to eql(true)
+      expect(@org.identifiers.last.identifier_scheme).to eql(scheme2)
+      expect(@org.identifiers.last.value).to eql("Foo")
+    end
+  end
 
 end

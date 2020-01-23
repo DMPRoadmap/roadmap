@@ -4,6 +4,8 @@ module SuperAdmin
 
   class UsersController < ApplicationController
 
+    include OrgSelectable
+
     after_action :verify_authorized
 
     def edit
@@ -29,7 +31,28 @@ module SuperAdmin
       # Replace the 'your' word from the canned responses so that it does
       # not read 'Successfully updated your profile for John Doe'
       topic = _("profile for %{username}") % { username: @user.name(false) }
-      if @user.update_attributes(user_params)
+
+      # See if the user selected a new Org via the Org Lookup and
+      # convert it into an Org
+      attrs = user_params
+      lookup = org_from_params(params_in: attrs)
+      identifiers = identifiers_from_params(params_in: attrs)
+
+      # Remove the extraneous Org Selector hidden fields
+      attrs = remove_org_selection_params(params_in: attrs)
+
+      if @user.update_attributes(attrs)
+        # If its a new Org create it
+        if lookup.present? && lookup.new_record?
+          lookup.save
+          identifiers.each do |identifier|
+            identifier.identifiable = lookup
+            identifier.save
+          end
+          lookup.reload
+        end
+        @user.update(org_id: lookup.id) if lookup.present?
+
         flash.now[:notice] = success_message(@user, _("updated"))
       else
         flash.now[:alert] = failure_message(@user, _("update"))
@@ -90,7 +113,7 @@ module SuperAdmin
       params.require(:user).permit(:email,
                                    :firstname,
                                    :surname,
-                                   :org_id,
+                                   :org_id, :org_name, :org_crosswalk,
                                    :department_id,
                                    :language_id,
                                    :other_organisation)

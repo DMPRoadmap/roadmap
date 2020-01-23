@@ -1,16 +1,6 @@
 import getConstant from '../../constants';
-import { initOrgSelection, validateOrgSelection } from '../shared/my_org';
 
 $(() => {
-  initOrgSelection({ selector: '#personal_details_registration_form' });
-
-  $('#personal_details_registration_form').on('submit', (e) => {
-    // Additional validation to force the user to choose an org or type something for other
-    if (!validateOrgSelection({ selector: '#personal_details_registration_form' })) {
-      e.preventDefault();
-    }
-  });
-
   $('#show_list').click((e) => {
     e.preventDefault();
     if ($('#full_list').is('.hidden')) {

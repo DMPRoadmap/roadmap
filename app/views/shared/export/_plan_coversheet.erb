@@ -1,6 +1,6 @@
 <hr />
 <h1><%= @plan.title %></h1>
-<p><em><%= _("A Data Management Plan created using ") + Rails.configuration.branding[:application][:name] %></em></p>
+<p><em><%= _("A Data Management Plan created using %{application_name}") % { application_name: Rails.configuration.branding[:application].fetch(:name, "DMPRoadmap") } %></em></p>
 <br/>
 <div class="cover-page">
   <%# Using <b> tags as the htmltoword gem does not recognise css styles defined %>

@@ -4,6 +4,8 @@ module SuperAdmin
 
   class OrgsController < ApplicationController
 
+    include OrgSelectable
+
     after_action :verify_authorized
 
     def index
@@ -14,17 +16,29 @@ module SuperAdmin
     end
 
     def new
-      org = Org.new
-      authorize org
-      org.links = { "org": [] }
-      render "orgs/admin_edit", locals: { org: org, languages: Language.all.order("name"),
-                                          method: "POST", url: super_admin_orgs_path }
+      @org = Org.new(managed: true)
+      authorize @org
+      @org.links = { "org": [] }
     end
 
     def create
       authorize Org
-      org = Org.new(org_params)
+      attrs = org_params
+
+      # See if the user selected a new Org via the Org Lookup and
+      # convert it into an Org
+      org = org_from_params(params_in: attrs)
+      identifiers = identifiers_from_params(params_in: attrs)
+
+      # Remove the extraneous Org Selector hidden fields
+      attrs = remove_org_selection_params(params_in: attrs)
+
+      # In the event that the params would create an invalid user, the
+      # org selectable returns nil because Org.new(params) fails
+      org = Org.new unless org.present?
+
       org.language = Language.default
+      org.managed = org_params[:managed] == "1" ? true : false
       org.logo = params[:logo] if params[:logo]
       if params[:org_links].present?
         org.links = JSON.parse(params[:org_links])
@@ -37,30 +51,14 @@ module SuperAdmin
         org.institution = params[:institution].present?
         org.organisation = params[:organisation].present?
 
-        # Handle Shibboleth identifiers if that is enabled
-        if Rails.application.config.shibboleth_use_filtered_discovery_service
-          shib = IdentifierScheme.find_by(name: "shibboleth")
-
-          if params[:shib_id].present? || params[:shib_domain].present?
-            org.org_identifiers << OrgIdentifier.new(
-              identifier_scheme: shib,
-              identifier: params[:shib_id],
-              attrs: { domain: params[:shib_domain] }.to_json.to_s
-            )
-          end
-        end
-
-        if org.save
+        if org.update(attrs)
           msg = success_message(org, _("created"))
           redirect_to admin_edit_org_path(org.id), notice: msg
         else
           flash.now[:alert] = failure_message(org, _("create"))
-          render "orgs/admin_edit", locals: {
-            org: org,
-            languages: Language.all.order("name"),
-            method: "POST",
-            url: super_admin_orgs_path
-          }
+          @org = org
+          @org.links = { "org": [] } unless org.links.present?
+          render "super_admin/orgs/new"
         end
       rescue Dragonfly::Job::Fetch::NotFound => dflye
         failure = _("There seems to be a problem with your logo. Please upload it again.")
@@ -95,9 +93,12 @@ module SuperAdmin
     private
 
     def org_params
-      params.require(:org).permit(:name, :abbreviation, :logo, :contact_email,
-                                  :contact_name, :remove_logo, :feedback_enabled,
-                                  :feedback_email_subject, :feedback_email_msg)
+      params.require(:org).permit(:name, :abbreviation, :logo, :managed,
+                                  :contact_email, :contact_name,
+                                  :remove_logo, :feedback_enabled,
+                                  :feedback_email_subject,
+                                  :feedback_email_msg,
+                                  :org_id, :org_name, :org_crosswalk)
     end
 
   end

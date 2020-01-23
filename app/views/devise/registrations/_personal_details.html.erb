@@ -23,8 +23,13 @@
   </div>
 
   <% org_admin = (current_user.can_org_admin? && !current_user.can_super_admin?) %>
-  <div class="form-group col-xs-8" id="org-controls" <%= "data-toggle=\"tooltip\" title=\"#{_('Changing your organisation will result in the loss of your administrative privileges.')}\"" if org_admin %>>
-    <%= render partial: "shared/my_org", locals: {f: f, default_org: @default_org, orgs: @orgs, allow_other_orgs: true, required: true} %>
+  <div class="form-group col-xs-8" id="profile-org-controls" <%= "data-toggle=\"tooltip\" title=\"#{_('Changing your organisation will result in the loss of your administrative privileges.')}\"" if org_admin %>>
+    <%= render partial: "shared/org_selectors/combined",
+               locals: {
+                 form: f,
+                 default_org: current_user.org,
+                 required: true
+               } %>
   </div>
   <% if org_admin %>
     <input type="hidden" id="original_org" value="<%= @user.org_id %>">
@@ -75,7 +80,7 @@
       <div class='identifier-scheme'>
         <%= render partial: "external_identifier",
                    locals: { scheme: scheme,
-                             id: current_user.identifier_for(scheme)} %>
+                             id: current_user.identifier_for(scheme.name)} %>
       </div>
     </div>
   <% end %>
