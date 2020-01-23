@@ -7,6 +7,210 @@
       <%= render partial: "plans/project_details",
                  locals: { form: f, plan: plan } %>
 
+<<<<<<< HEAD
+=======
+      <div id="funder-org-controls" class="form-group"><!-- funder -->
+        <% if plan.template.org == plan.funder %>
+          <%# If the plan's funder is the same as the template owner then just
+              display the identifiers %>
+          <div class="col-md-12">
+            <%= f.label(:funder_name, _('Funder'), class: 'control-label') %>
+          </div>
+          <div class="col-md-8">
+            <%= plan.funder.name %>:
+          </div>
+
+          <% id_presenter = IdentifierPresenter.new(identifiable: plan.funder) %>
+          <ul>
+            <% %w[fundref ror].each do |scheme_name| %>
+              <%
+              scheme = id_presenter.scheme_by_name(name: scheme_name).first
+              identifier = id_presenter.id_for_scheme(scheme: scheme)
+              %>
+              <div class="col-md-8">
+                <li><%= id_presenter.id_for_display(id: identifier).html_safe %></li>
+              </div>
+            <% end %>
+          </ul>
+        <% else %>
+          <%# Otherwise display the Org typeahead for funders %>
+          <div class="col-md-8">
+            <%= fields_for :funder, plan.funder do |funder_fields| %>
+              <%= render partial: "shared/org_selectors/combined",
+                         locals: {
+                           form: f,
+                           funder_only: true,
+                           label: _("Funder"),
+                           default_org: plan.funder,
+                           required: false
+                         } %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="form-group"><!-- grant_number -->
+        <%# If the OpenAire grant typeahead if enabled use it %>
+        <% if Rails.configuration.x.open_aire.active %>
+          <!-- Using the research_project.json source for typeahead -->
+          <div class="col-md-12">
+            <%= label_tag(:plan_grant_number_name, _('Grant number'),
+                                                   class: 'control-label') %>
+          </div>
+
+          <div class="col-md-8">
+            <%= text_field_tag(:plan_grant_number_name, '',
+                               class: "grant-id-typeahead form-control",
+                               autocomplete: "off",
+                               aria: { required: false }) %>
+            <%= f.hidden_field(:grant_number) %>
+            <span class="text-muted" id="grant_number_info">Grant number: <%= @plan.grant_number %></span>
+          </div>
+        <% else %>
+          <%# Otherwise just use a regular text field %>
+          <div class="col-md-12">
+            <%= f.label(:grant_number, _("Grant number/url"), class: "control-label") %>
+          </div>
+          <div class="col-md-8">
+            <%= f.text_field(:grant_number, class: "form-control") %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="form-group"><!-- description -->
+        <div class="col-md-12">
+          <%= f.label(:description, _('Project abstract'), class: 'control-label') %>
+        </div>
+        <div class="col-md-8" data-toggle="tooltip" title="<%= project_abstract_tooltip %>">
+          <em class="sr-only"><%= project_abstract_tooltip %></em>
+          <%= f.text_area(
+            :description, rows: 6,
+            class: 'form-control tinymce',
+            "aria-required": false) %>
+        </div>
+      </div>
+
+      <%# if DOI minting is enabled %>
+      <% landing_page = plan.landing_page %>
+      <% if Rails.configuration.x.doi&.active && landing_page.present? %>
+        <div class="form-group"><!-- identifier -->
+          <div class="col-md-12">
+            <%= f.label(:identifier, _('Landing page'), class: 'control-label') %>
+          </div>
+          <div class="col-md-8">
+            <% if landing_page.value.starts_with?("http") %>
+              <%= link_to landing_page.value, landing_page.value %>
+            <% else %>
+              <%= landing_page.value %>
+            <% end %>
+          </div>
+        </div>
+      <% else %>
+        <div class="form-group">
+          <div class="col-md-12">
+            <%= f.label :id, _("ID"), class: "control-label" %>
+          </div>
+          <div class="col-md-8">
+            <em class="sr-only"><%= id_tooltip %></em>
+            <%= f.text_field :identifier, class: "form-control",
+                                          aria: { required: false },
+                                          data: { toggle: "tooltip" },
+                                          spellcheck: true, title: id_tooltip %>
+          </div>
+        </div>
+      <% end %>
+
+      <fieldset class="project-details">
+        <legend class="project-details"><%= _("Principal Investigator") %></legend>
+        <div class="form-group"><!-- principal_investigator -->
+          <div class="col-md-12">
+            <%= f.label(:principal_investigator, _('Name'), class: 'control-label') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.text_field(
+              :principal_investigator,
+              class: "form-control",
+              "aria-required": false) %>
+          </div>
+        </div>
+        <div class="form-group"><!-- principal_investigator_identifier -->
+          <div class="col-md-12">
+            <%= f.label(:principal_investigator_identifier, _('ORCID iD'), class: 'control-label') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.text_field(
+              :principal_investigator_identifier,
+              class: "form-control",
+              "aria-required": false) %>
+          </div>
+        </div>
+        <div class="form-group"><!-- principal_investigator_email -->
+          <div class="col-md-12">
+            <%= f.label(:principal_investigator_email, _('Email'), class: 'control-label') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.email_field(
+              :principal_investigator_email,
+              class: "form-control",
+              "aria-required": false) %>
+          </div>
+        </div>
+        <div class="form-group"><!-- principal_invesigator_phone -->
+          <div class="col-md-12">
+            <%= f.label(:principal_investigator_phone, _('Phone'), class: 'control-label') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.phone_field(
+              :principal_investigator_phone,
+              class: "form-control",
+              "aria-required": false) %>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset class="project-details">
+        <legend class="project-details"><%= _('Data contact person') %></legend>
+        <div class="checkbox">
+          <% checked = ((@plan.data_contact.present? || @plan.data_contact_phone.present? || @plan.data_contact_email.present?) ? 1 : 0) %>
+          <%= label_tag(:show_data_contact, class: 'control-label') do %>
+            <%= check_box_tag(:show_data_contact, checked, checked == 0) %>
+            <%= _('Same as Principal Investigator') %>
+          <% end %>
+        </div>
+        <div class="form-group data-contact"><!-- data_contact -->
+          <div class="col-md-12">
+            <%= f.label(:data_contact, _('Name'), class: 'control-label') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.text_field(
+              :data_contact,
+              class: "form-control",
+              "aria-required": false) %>
+          </div>
+        </div>
+        <div class="form-group data-contact"><!-- data_contact_email -->
+          <div class="col-md-12">
+            <%= f.label(:data_contact_email, _('Email'), class: 'control-label') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.email_field(
+              :data_contact_email,
+              class: "form-control",
+              "aria-required": false) %>
+          </div>
+        </div>
+        <div class="form-group data-contact"><!-- data_contact_phone -->
+          <div class="col-md-12">
+            <%= f.label(:data_contact_phone, _('Phone'), class: 'control-label') %>
+          </div>
+          <div class="col-md-12">
+            <%= f.phone_field(
+              :data_contact_phone,
+              class: "form-control",
+              "aria-required": false) %>
+          </div>
+        </div>
+      </fieldset>
+>>>>>>> bb5a32ed... updated identifier and identifiable and org_Selector
       <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
     </div>
     <div class="col-md-4">
