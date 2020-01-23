@@ -85,6 +85,11 @@ GEM
     capybara-screenshot (1.0.24)
       capybara (>= 1.0, < 4)
       launchy
+    capybara-webmock (0.5.5)
+      capybara (>= 2.4, < 4)
+      rack (>= 1.4)
+      rack-proxy (>= 0.6.0)
+      selenium-webdriver (~> 3.0)
     childprocess (3.0.0)
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
@@ -485,6 +490,7 @@ DEPENDENCIES
   byebug
   capybara
   capybara-screenshot
+  capybara-webmock
   contact_us
   database_cleaner
   devise (>= 4.7.1)
