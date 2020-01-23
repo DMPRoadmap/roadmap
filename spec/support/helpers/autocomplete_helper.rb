@@ -30,4 +30,12 @@ module AutoCompleteHelper
     sleep(0.2)
   end
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 end
+=======
+end
+>>>>>>> dabc254b... added identifiers polymorphic table
+=======
+end
+>>>>>>> bb5a32ed... updated identifier and identifiable and org_Selector
