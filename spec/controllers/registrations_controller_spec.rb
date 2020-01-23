@@ -28,8 +28,6 @@ RSpec.describe RegistrationsController, type: :controller do
         @user = build(:user)
 
         @controller.stubs(:org_from_params).returns(build(:org))
-        #@controller.stubs(:remove_org_selection_params)
-        #             .returns({ other_param: Faker::Lorem.word })
       end
 
       it "returns nil if the params are not present" do
