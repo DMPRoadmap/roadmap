@@ -116,6 +116,8 @@ class Plan < ActiveRecord::Base
 
   has_many :roles
 
+  has_many :contributors, dependent: :destroy
+
   # =====================
   # = Nested Attributes =
   # =====================
@@ -124,6 +126,7 @@ class Plan < ActiveRecord::Base
 
   accepts_nested_attributes_for :roles
 
+  accepts_nested_attributes_for :contributors
 
   # ===============
   # = Validations =
@@ -173,16 +176,16 @@ class Plan < ActiveRecord::Base
     )
   }
 
+  # TODO: Add in a left join here so we can search contributors as well when
+  #       we move to Rails 5:
+  #           OR lower(contributors.name) LIKE lower(:search_pattern)
+  #           OR lower(identifiers.value) LIKE lower(:search_pattern)",
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     joins(:template, roles: [user: :org])
     .where(Role.creator_condition)
     .where("lower(plans.title) LIKE lower(:search_pattern)
-            OR lower(orgs.name) LIKE lower (:search_pattern)
-            OR lower(orgs.abbreviation) LIKE lower (:search_pattern)
-            OR lower(templates.title) LIKE lower(:search_pattern)
-            OR lower(plans.principal_investigator) LIKE lower(:search_pattern)
-            OR lower(plans.principal_investigator_identifier) LIKE lower(:search_pattern)",
+            OR lower(templates.title) LIKE lower(:search_pattern)",
             search_pattern: search_pattern)
   }
 
