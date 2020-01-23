@@ -27,13 +27,15 @@ class Api::V0::PlansController < Api::V0::BaseController
 
     # initialize the plan
     @plan = Plan.new
-    if plan_user.surname.blank?
-      @plan.principal_investigator = nil
-    else
-      @plan.principal_investigator = plan_user.anem(false)
-    end
 
-    @plan.data_contact = plan_user.email
+    # Attach the user as the PI and Data Contact
+    @plan.contributors << Contributor.new(
+      name: [plan_user.firstname, plan_user.surname].join(" "),
+      email: plan_user.email,
+      investigation: true,
+      data_curation: true
+    )
+
     # set funder name to template's org, or original template's org
     if @template.customization_of.nil?
       @plan.funder_id = @template.org.id

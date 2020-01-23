@@ -772,7 +772,6 @@ namespace :upgrade do
       ui.user.identifiers << Identifier.new(
         identifier_scheme: ui.identifier_scheme,
         value: ui.identifier,
-        #type: (ui.identifier_scheme.name == "orcid" ? "url" : "other"),
         attrs: {}.to_json
       )
     end
@@ -791,7 +790,6 @@ namespace :upgrade do
       ui.org.identifiers << Identifier.new(
         identifier_scheme: ui.identifier_scheme,
         value: val,
-        # type: (ui.identifier_scheme.name == "orcid" ? "url" : "other"),
         attrs: ui.attrs
       )
     end
