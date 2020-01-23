@@ -75,10 +75,6 @@ class Org < ActiveRecord::Base
 
   has_many :identifiers, as: :identifiable
 
-  has_many :org_identifiers
-
-  has_many :identifier_schemes, through: :org_identifiers
-
   has_many :departments
 
   # ===============

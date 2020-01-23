@@ -29,7 +29,7 @@
   <% if org_admin %>
     <input type="hidden" id="original_org" value="<%= @user.org_id %>">
   <% end %>
-  
+
     <% departments = current_user.org.departments.order(:name) %>
     <% if departments.count > 0 %>
     <div class="form-group col-xs-8">
@@ -75,7 +75,7 @@
       <div class='identifier-scheme'>
         <%= render partial: "external_identifier",
                    locals: { scheme: scheme,
-                             id: current_user.identifier_for(scheme)} %>
+                             id: current_user.identifier_for(scheme.name)} %>
       </div>
     </div>
   <% end %>

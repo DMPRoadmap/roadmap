@@ -42,10 +42,10 @@ module SuperAdmin
           shib = IdentifierScheme.find_by(name: "shibboleth")
 
           if params[:shib_id].present? || params[:shib_domain].present?
-            org.org_identifiers << OrgIdentifier.new(
+            org.identifiers << Identifier.new(
               identifier_scheme: shib,
-              identifier: params[:shib_id],
-              attrs: { domain: params[:shib_domain] }.to_json.to_s
+              value: params[:shib_id],
+              attrs: { domain: params[:shib_domain] }
             )
           end
         end

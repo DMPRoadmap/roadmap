@@ -5,7 +5,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   ##
   # Dynamically build a handler for each omniauth provider
   # -------------------------------------------------------------
-  IdentifierScheme.where(active: true).each do |scheme|
+  IdentifierScheme.authenticatable.each do |scheme|
     define_method(scheme.name.downcase) do
       handle_omniauth(scheme)
     end
@@ -52,9 +52,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       # If the user could not be found by that uid then attach it to their record
       if user.nil?
-        if UserIdentifier.create(identifier_scheme: scheme,
-                                 identifier: request.env["omniauth.auth"].uid,
-                                 user: current_user)
+        if Identifier.create(identifier_scheme: scheme,
+                             value: request.env["omniauth.auth"].uid,
+                             attrs: request.env["omniauth.auth"],
+                             identifiable: current_user)
           # rubocop:disable Metrics/LineLength
           flash[:notice] = _("Your account has been successfully linked to %{scheme}.") % {
             scheme: scheme.description
@@ -69,10 +70,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       else
         # If a user was found but does NOT match the current user then the identifier has
         # already been attached to another account (likely the user has 2 accounts)
-        identifier = UserIdentifier.where(
-          identifier: request.env["omniauth.auth"].uid
-        ).first
-        if identifier.user.id != current_user.id
+        if user.id != current_user.id
           # rubocop:disable Metrics/LineLength
           flash[:alert] = _("The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}")
           # rubocop:enable Metrics/LineLength

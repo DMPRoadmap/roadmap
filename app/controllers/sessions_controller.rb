@@ -16,10 +16,11 @@ class SessionsController < Devise::SessionsController
       if !session["devise.shibboleth_data"].nil?
         args = {
           identifier_scheme: IdentifierScheme.find_by(name: "shibboleth"),
-          identifier: session["devise.shibboleth_data"]["uid"],
-          user: existing_user
+          value: session["devise.shibboleth_data"]["uid"],
+          identifiable: existing_user,
+          attrs: session["devise.shibboleth_data"]
         }
-        if UserIdentifier.create(args)
+        if Identifier.create(args)
           # rubocop:disable Metrics/LineLength
           success = _("Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them.")
           # rubocop:enable Metrics/LineLength

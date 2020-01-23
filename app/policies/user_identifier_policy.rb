@@ -1,4 +1,4 @@
-class UserIdentifierPolicy < ApplicationPolicy
+class IdentifierPolicy < ApplicationPolicy
   attr_reader :user_identifier
 
   def initialize(user, users)

@@ -97,10 +97,6 @@ class User < ActiveRecord::Base
 
   has_many :identifiers, as: :identifiable
 
-  has_many :user_identifiers
-
-  has_many :identifier_schemes, through: :user_identifiers
-
   has_and_belongs_to_many :notifications, dependent: :destroy,
                           join_table: "notification_acknowledgements"
 
@@ -169,9 +165,9 @@ class User < ActiveRecord::Base
   ##
   # Load the user based on the scheme and id provided by the Omniauth call
   def self.from_omniauth(auth)
-    joins(user_identifiers: :identifier_scheme)
-      .where(user_identifiers: { identifier: auth.uid },
-             identifier_schemes: { name: auth.provider.downcase }).first
+    Identifier.by_scheme_name(auth.provider.downcase, "User")
+               .where(value: auth.uid)
+               .first&.identifiable
   end
 
   def self.to_csv(users)
@@ -226,7 +222,7 @@ class User < ActiveRecord::Base
   #
   # Returns UserIdentifier
   def identifier_for(scheme)
-    user_identifiers.where(identifier_scheme: scheme).first
+    identifiers.by_scheme_name(scheme, "User").first
   end
 
   # Checks if the user is a super admin. If the user has any privelege which requires
@@ -411,6 +407,7 @@ class User < ActiveRecord::Base
   end
 
   def merge(to_be_merged)
+    scheme_ids = self.identifiers.pluck(:identifier_scheme_id)
     # merge logic
     # => answers -> map id
     to_be_merged.answers.update_all(user_id: self.id)
@@ -420,9 +417,9 @@ class User < ActiveRecord::Base
     to_be_merged.roles.update_all(user_id: self.id)
     # => prefs -> Keep's from self
     # => auths -> map onto keep id only if keep does not have the identifier
-    to_be_merged.user_identifiers.
-          where.not(identifier_scheme_id: self.identifier_scheme_ids)
-          .update_all(user_id: self.id)
+    to_be_merged.identifiers
+                .where.not(identifier_scheme_id: scheme_ids)
+                .update_all(user_id: self.id)
     # => ignore any perms the deleted user has
     to_be_merged.destroy
   end
