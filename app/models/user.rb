@@ -95,10 +95,7 @@ class User < ActiveRecord::Base
 
   has_many :plans, through: :roles
 
-
-  has_many :user_identifiers
-
-  has_many :identifier_schemes, through: :user_identifiers
+  has_many :identifiers, as: :identifiable
 
   has_and_belongs_to_many :notifications, dependent: :destroy,
                           join_table: "notification_acknowledgements"
@@ -168,9 +165,9 @@ class User < ActiveRecord::Base
   ##
   # Load the user based on the scheme and id provided by the Omniauth call
   def self.from_omniauth(auth)
-    joins(user_identifiers: :identifier_scheme)
-      .where(user_identifiers: { identifier: auth.uid },
-             identifier_schemes: { name: auth.provider.downcase }).first
+    Identifier.by_scheme_name(auth.provider.downcase, "User")
+              .where(value: auth.uid)
+              .first&.identifiable
   end
 
   def self.to_csv(users)
@@ -225,7 +222,7 @@ class User < ActiveRecord::Base
   #
   # Returns UserIdentifier
   def identifier_for(scheme)
-    user_identifiers.where(identifier_scheme: scheme).first
+    identifiers.by_scheme_name(scheme, "User").first
   end
 
   # Checks if the user is a super admin. If the user has any privelege which requires
@@ -241,9 +238,14 @@ class User < ActiveRecord::Base
   #
   # Returns Boolean
   def can_org_admin?
-    self.can_grant_permissions? || self.can_modify_guidance? ||
-      self.can_modify_templates? || self.can_modify_org_details? ||
-      self.can_review_plans?
+    return true if can_super_admin?
+
+    # Automatically false if the user has no Org or the Org is not managed
+    return false unless org.present? && org.managed?
+
+    can_grant_permissions? || can_modify_guidance? ||
+      can_modify_templates? || can_modify_org_details? ||
+      can_review_plans?
   end
 
   # Can the User add new organisations?
@@ -410,18 +412,19 @@ class User < ActiveRecord::Base
   end
 
   def merge(to_be_merged)
+    scheme_ids = identifiers.pluck(:identifier_scheme_id)
     # merge logic
     # => answers -> map id
-    to_be_merged.answers.update_all(user_id: self.id)
+    to_be_merged.answers.update_all(user_id: id)
     # => notes -> map id
-    to_be_merged.notes.update_all(user_id: self.id)
+    to_be_merged.notes.update_all(user_id: id)
     # => plans -> map on id roles
-    to_be_merged.roles.update_all(user_id: self.id)
+    to_be_merged.roles.update_all(user_id: id)
     # => prefs -> Keep's from self
     # => auths -> map onto keep id only if keep does not have the identifier
-    to_be_merged.user_identifiers.
-          where.not(identifier_scheme_id: self.identifier_scheme_ids)
-          .update_all(user_id: self.id)
+    to_be_merged.identifiers
+                .where.not(identifier_scheme_id: scheme_ids)
+                .update_all(user_id: id)
     # => ignore any perms the deleted user has
     to_be_merged.destroy
   end

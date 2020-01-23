@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     get "/users/sign_out", :to => "devise/sessions#destroy"
   end
 
-  delete '/users/identifiers/:id', to: 'user_identifiers#destroy', as: 'destroy_user_identifier'
+  delete '/users/identifiers/:id', to: 'identifiers#destroy', as: 'destroy_user_identifier'
 
   get '/orgs/shibboleth', to: 'orgs#shibboleth_ds', as: 'shibboleth_ds'
   get '/orgs/shibboleth/:org_name', to: 'orgs#shibboleth_ds_passthru'

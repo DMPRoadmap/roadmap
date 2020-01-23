@@ -1,6 +1,13 @@
 require 'set'
 namespace :upgrade do
 
+  desc "Upgrade to v2.2.0"
+  task v2_2_0: :environment do
+    Rake::Task["upgrade:convert_user_identifiers"].execute
+    Rake::Task["upgrade:convert_org_identifiers"].execute
+    Rake::Task['upgrade:default_orgs_to_managed'].execute
+  end
+
   desc "Upgrade to v2.1.3"
   task v2_1_3: :environment do
     Rake::Task['upgrade:fill_blank_plan_identifiers'].execute
@@ -694,6 +701,41 @@ namespace :upgrade do
     review_plan_ids = Role.reviewer.pluck(:plan_id).uniq
     Plan.where(id: review_plan_ids).update_all(feedback_requested: true)
     Role.reviewer.destroy_all
+  end
+
+  desc "migrate the old user_identifiers over to the polymorphic identifiers table"
+  task convert_user_identifiers: :environment do
+    p "Transferring existing user_identifiers over to the identifiers table"
+    p "this may take in excess of 30 minutes depending on the size of your users table ..."
+    UserIdentifier.joins(:user, :identifier_scheme)
+                  .includes(:user, :identifier_scheme).all.each do |ui|
+
+      ui.user.identifiers << Identifier.new(
+        identifier_scheme: ui.identifier_scheme,
+        value: ui.identifier,
+        attrs: {}.to_json
+      )
+    end
+  end
+
+  desc "migrate the old org_identifiers over to the polymorphic identifiers table"
+  task convert_org_identifiers: :environment do
+    p "Transferring existing org_identifiers over to the identifiers table"
+    p "please wait ..."
+    OrgIdentifier.joins(:org, :identifier_scheme)
+                 .includes(:org, :identifier_scheme).all.each do |ui|
+
+      ui.org.identifiers << Identifier.new(
+        identifier_scheme: ui.identifier_scheme,
+        value: ui.identifier,
+        attrs: ui.attrs
+      )
+    end
+  end
+
+  desc "Sets the new managed flag for all existing Orgs to managed = true"
+  task default_orgs_to_managed: :environment do
+    Org.all.update_all(managed: true)
   end
 
   private

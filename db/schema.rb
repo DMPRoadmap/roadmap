@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190507091025) do
+ActiveRecord::Schema.define(version: 20200123162357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,19 @@ ActiveRecord::Schema.define(version: 20190507091025) do
     t.text     "user_landing_url"
   end
 
+    create_table "identifiers", force: :cascade do |t|
+    t.string   "value",                null: false
+    t.text     "attrs"
+    t.integer  "identifier_scheme_id", null: false
+    t.integer  "identifiable_id"
+    t.string   "identifiable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "identifiers", ["identifiable_type", "identifiable_id"], name: "index_identifiers_on_identifiable_type_and_identifiable_id", using: :btree
+  add_index "identifiers", ["value", "identifiable_type"], name: "index_identifiers_on_identifiable_type_and_value", using: :btree
+
   create_table "languages", force: :cascade do |t|
     t.string  "abbreviation"
     t.string  "description"
@@ -177,7 +190,10 @@ ActiveRecord::Schema.define(version: 20190507091025) do
     t.boolean  "feedback_enabled",       default: false
     t.string   "feedback_email_subject"
     t.text     "feedback_email_msg"
+    t.boolean  "managed",                default: false, null: false
   end
+
+  add_index "orgs", ["managed"], name: "index_orga_on_managed", using: :btree
 
   create_table "perms", force: :cascade do |t|
     t.string   "name"

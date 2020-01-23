@@ -42,6 +42,7 @@ FactoryBot.define do
     is_other { false }
     contact_email { Faker::Internet.safe_email }
     contact_name { Faker::Name.name }
+    managed { true }
     trait :institution do
       institution { true }
     end

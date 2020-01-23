@@ -75,7 +75,7 @@
       <div class='identifier-scheme'>
         <%= render partial: "external_identifier",
                    locals: { scheme: scheme,
-                             id: current_user.identifier_for(scheme)} %>
+                             id: current_user.identifier_for(scheme.name)} %>
       </div>
     </div>
   <% end %>
