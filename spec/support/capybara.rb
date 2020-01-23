@@ -4,7 +4,7 @@ require 'webdrivers/chromedriver'
 require_relative "helpers/capybara_helper"
 require_relative "helpers/sessions_helper"
 require_relative "helpers/tiny_mce_helper"
-require_relative "helpers/combobox_helper"
+require_relative "helpers/autocomplete_helper"
 
 Capybara.default_driver = :rack_test
 
@@ -39,5 +39,5 @@ RSpec.configure do |config|
   config.include(CapybaraHelper, type: :feature)
   config.include(SessionsHelper, type: :feature)
   config.include(TinyMceHelper,  type: :feature)
-  config.include(ComboboxHelper, type: :feature)
+  config.include(AutoCompleteHelper, type: :feature)
 end

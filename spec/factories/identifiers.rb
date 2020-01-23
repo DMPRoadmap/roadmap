@@ -6,15 +6,16 @@
 #
 #  id                   :integer          not null, primary key
 #  attrs                :text
+#  identifiable_type    :string
 #  value                :string           not null
 #  created_at           :datetime
 #  updated_at           :datetime
 #  identifiable_id      :integer
-#  identifiable_type    :string
+#  identifier_scheme_id :integer          not null
 #
-# Foreign Keys
+# Indexes
 #
-#  fk_rails_...  (identifier_scheme_id => identifier_schemes.id)
+#  index_identifiers_on_identifiable_type_and_identifiable_id  (identifiable_type,identifiable_id)
 #
 
 FactoryBot.define do

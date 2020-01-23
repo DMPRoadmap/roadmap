@@ -2,18 +2,16 @@
 
 class OrgsController < ApplicationController
 
-  after_action :verify_authorized, except: ["shibboleth_ds", "shibboleth_ds_passthru"]
+  after_action :verify_authorized, except: %w[
+    shibboleth_ds shibboleth_ds_passthru search
+  ]
   respond_to :html
 
   ##
   # GET /organisations/1/edit
   def admin_edit
-    org = Org.find(params[:id])
-    authorize org
-    languages = Language.all.order("name")
-    org.links = { "org": [] } unless org.links.present?
-    render "admin_edit", locals: { org: org, languages: languages, method: "PUT",
-                                   url: admin_update_org_path(org) }
+    @org = Org.find(params[:id])
+    authorize @org
   end
 
   ##
@@ -56,7 +54,24 @@ class OrgsController < ApplicationController
     end
 
     attrs[:managed] = attrs[:managed] == "1"
-    if @org.update_attributes(attrs)
+
+    # See if the user selected a new Org via the Org Lookup
+    # if so, update this org's identifiers with the ones found
+    if attrs[:org_id].present? && attrs[:org_id].is_a?(String)
+      id_hash = JSON.parse(attrs[:org_id]).with_indifferent_access
+    end
+    # Remove the extraneous Org Selector hidden fields
+    attrs.delete(:org_id)
+    attrs.delete(:org_name)
+    attrs.delete(:org_crosswalk)
+
+    if @org.update(attrs)
+      if id_hash.present?
+        ids = OrgSelection::HashToOrgService.to_identifiers(hash: id_hash)
+        @org.save_identifiers!(array: ids)
+        @org.reload
+      end
+
       redirect_to "#{admin_edit_org_path(@org)}\##{tab}",
                   notice: success_message(@org, _("saved"))
     else
@@ -108,11 +123,47 @@ class OrgsController < ApplicationController
     end
   end
 
+  # POST /orgs/search  (via AJAX)
+  # ----------------------------------------------------------------
+  def search
+    args = search_params
+    # If the search term is greater than 2 characters
+    if args.present? && args.fetch(:name, "").length > 2
+      type = params.fetch(:type, "local")
+
+      # If we are including external API results
+      case type
+      when "combined"
+        orgs = OrgSelection::SearchService.search_combined(
+          search_term: args[:name]
+        )
+      when "external"
+        orgs = OrgSelection::SearchService.search_externally(
+          search_term: args[:name]
+        )
+      else
+        orgs = OrgSelection::SearchService.search_locally(
+          search_term: args[:name]
+        )
+      end
+      render json: orgs
+
+    else
+      render json: []
+    end
+  end
+
   private
+
   def org_params
-    params.require(:org).permit(:name, :abbreviation, :logo, :contact_email,
-                                :contact_name, :remove_logo, :org_type, :managed,
-                                :feedback_enabled, :feedback_email_msg)
+    params.require(:org)
+          .permit(:name, :abbreviation, :logo, :contact_email, :contact_name,
+                  :remove_logo, :org_type, :managed, :feedback_enabled,
+                  :feedback_email_msg, :org_id, :org_name, :org_crosswalk)
+  end
+
+  def search_params
+    params.require(:org).permit(:name, :type)
   end
 
 end

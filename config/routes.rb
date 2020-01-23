@@ -56,8 +56,8 @@ Rails.application.routes.draw do
   get "public_templates" => 'public_pages#template_index'
   get "template_export/:id" => 'public_pages#template_export', as: 'template_export'
 
-  #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
-  #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
+  # AJAX call used to search for Orgs based on user input into autocompletes
+  post "orgs" => "orgs#search", as: "orgs_search"
 
   resources :orgs, :path => 'org/admin', only: [] do
     member do

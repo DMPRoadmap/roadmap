@@ -13,6 +13,7 @@
 #  links                  :text
 #  logo_name              :string
 #  logo_uid               :string
+#  managed                :boolean          default(FALSE), not null
 #  name                   :string
 #  org_type               :integer          default(0), not null
 #  sort_name              :string
@@ -20,12 +21,14 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  language_id            :integer
-#  region_id              :integer
+#
+# Indexes
+#
+#  fk_rails_5640112cab  (language_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (language_id => languages.id)
-#  fk_rails_...  (region_id => regions.id)
 #
 
 FactoryBot.define do

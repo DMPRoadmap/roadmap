@@ -5,17 +5,17 @@
 # Table name: identifiers
 #
 #  id                   :integer          not null, primary key
-#  attrs                :string
+#  attrs                :text
+#  identifiable_type    :string
 #  value                :string           not null
 #  created_at           :datetime
 #  updated_at           :datetime
+#  identifiable_id      :integer
 #  identifier_scheme_id :integer          not null
-#  identifiable_id      :integer          not null
-#  identifiable_type    :string           not null
 #
-# Foreign Keys
+# Indexes
 #
-#  fk_rails_...  (identifier_scheme_id => identifier_schemes.id)
+#  index_identifiers_on_identifiable_type_and_identifiable_id  (identifiable_type,identifiable_id)
 #
 class Identifier < ActiveRecord::Base
 

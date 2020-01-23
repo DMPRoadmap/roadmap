@@ -29,7 +29,27 @@ module SuperAdmin
       # Replace the 'your' word from the canned responses so that it does
       # not read 'Successfully updated your profile for John Doe'
       topic = _("profile for %{username}") % { username: @user.name(false) }
+
+      org_hash = params[:user][:org_id]
+      user_params.delete(:org_id)
+      user_params.delete(:org_name)
+      user_params.delete(:org_crosswalk)
+
       if @user.update_attributes(user_params)
+        # Handle the Org selection and attach the user to it
+        org = params_to_org!(org_id: org_hash)
+
+        if org.present? && org.id != @user.org.id
+          org.save if org.new_record?
+
+          ids = OrgSelection::HashToOrgService.to_identifiers(
+            hash: JSON.parse(params[:user][:org_id])
+          )
+          org.save_identifiers!(array: ids)
+
+          @user.update(org_id: org.id)
+        end
+
         flash.now[:notice] = success_message(@user, _("updated"))
       else
         flash.now[:alert] = failure_message(@user, _("update"))
@@ -90,10 +110,23 @@ module SuperAdmin
       params.require(:user).permit(:email,
                                    :firstname,
                                    :surname,
-                                   :org_id,
+                                   :org_id, :org_name, :org_crosswalk,
                                    :department_id,
                                    :language_id,
                                    :other_organisation)
+    end
+
+    # Finds or creates the selected org and then returns it's id
+    def params_to_org!(org_id:)
+      return nil unless org_id.present? && org_id.is_a?(String)
+
+      json = JSON.parse(org_id).with_indifferent_access
+      OrgSelection::HashToOrgService.to_org(hash: json)
+
+    rescue JSON::ParserError => pe
+      log.error "Unable to parse org_id param from RegistrationsController:"
+      log.error "  #{pe.message} :: org_id hash: #{org_id.inspect}"
+      nil
     end
 
   end

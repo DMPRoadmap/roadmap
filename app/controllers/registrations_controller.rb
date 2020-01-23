@@ -57,7 +57,7 @@ class RegistrationsController < Devise::RegistrationsController
     if params[:user][:accept_terms].to_s == "0"
       redirect_to after_sign_up_error_path_for(resource),
         alert: _("You must accept the terms and conditions to register.")
-    elsif params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
+    elsif params[:user][:org_id].blank?
       # rubocop:disable Metrics/LineLength
       redirect_to after_sign_up_error_path_for(resource),
                 alert: _("Please select an organisation from the list, or enter your organisation's name.")
@@ -92,6 +92,21 @@ class RegistrationsController < Devise::RegistrationsController
 
       build_resource(sign_up_params)
       if resource.save
+
+        # Handle the Org selection and attach the user to it
+        org = params_to_org!(org_id: params[:user][:org_id])
+
+        if org.present?
+          org.save if org.new_record?
+
+          ids = OrgSelection::HashToOrgService.to_identifiers(
+            hash: JSON.parse(params[:user][:org_id])
+          )
+          org.save_identifiers!(array: ids)
+
+          resource.update(org_id: org.id)
+        end
+
         if resource.active_for_authentication?
           set_flash_message :notice, :signed_up if is_navigational_format?
           sign_up(resource_name, resource)
@@ -211,6 +226,20 @@ class RegistrationsController < Devise::RegistrationsController
       successfully_updated = false
     end
 
+    # Handle the Org selection and attach the user to it
+    org = params_to_org!(org_id: params[:user][:org_id])
+
+    if org.present? && org.id != current_user.org.id
+      org.save if org.new_record?
+
+      ids = OrgSelection::HashToOrgService.to_identifiers(
+        hash: JSON.parse(params[:user][:org_id])
+      )
+      org.save_identifiers!(array: ids)
+
+      current_user.update_without_password(org_id: org.id)
+    end
+
     # unlink shibboleth from user's details
     if params[:unlink_flag] == "true" then
       current_user.update_attributes(shibboleth_id: "")
@@ -282,4 +311,16 @@ class RegistrationsController < Devise::RegistrationsController
                                 :other_organisation, :department_id)
   end
 
+  # Finds or creates the selected org and then returns it's id
+  def params_to_org!(org_id:)
+    return nil unless org_id.present? && org_id.is_a?(String)
+
+    json = JSON.parse(org_id).with_indifferent_access
+    OrgSelection::HashToOrgService.to_org(hash: json)
+
+  rescue JSON::ParserError => pe
+    log.error "Unable to parse org_id param from RegistrationsController:"
+    log.error "  #{pe.message} :: org_id hash: #{org_id.inspect}"
+    nil
+  end
 end

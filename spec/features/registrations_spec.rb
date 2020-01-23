@@ -20,7 +20,7 @@ RSpec.describe "Registrations", type: :feature do
       fill_in "Email", with: user_attributes[:email]
       fill_in "Organisation", with: org.name
       # Click from the dropdown autocomplete
-      find("#suggestion-1-0").click
+      first(".ui-autocomplete .ui-menu-item").click
       fill_in "Password", with: user_attributes[:password]
       check "Show password"
       check "I accept the terms and conditions"
@@ -47,7 +47,7 @@ RSpec.describe "Registrations", type: :feature do
       fill_in "Email", with: "invalid-email"
       fill_in "Organisation", with: org.name
       # Click from the dropdown autocomplete
-      find("#suggestion-1-0").click
+      first("#.ui-autocomplete .ui-menu-item").click
       fill_in "Password", with: user_attributes[:password]
       check "Show password"
       check "I accept the terms and conditions"

@@ -146,12 +146,12 @@ module ExternalApis
           next unless item["id"].present? && item["name"].present?
 
           results << {
-            id: item["id"].gsub(/^#{landing_page_url}/, ""),
+            ror: item["id"].gsub(/^#{landing_page_url}/, ""),
             name: org_name(item: item),
             sort_name: item["name"],
             url: item.fetch("links", []).first,
             language: org_language(item: item),
-            fundref_id: fundref_id(item: item),
+            fundref: fundref_id(item: item),
             abbreviation: item.fetch("acronyms", []).first
           }
         end
