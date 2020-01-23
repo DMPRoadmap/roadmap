@@ -14,27 +14,51 @@
           <%= f.text_field(:title, class: "form-control", "aria-required": true,
             'data-toggle': 'tooltip', spellcheck: true,
             title: project_title_tooltip) %>
-      <div class="checkbox">
-        <%= f.hidden_field :visibility %>
-        <%= f.label(:is_test, class: 'control-label') do %>
-          <%= check_box_tag(:is_test, 1, @plan.is_test?, "aria-label": "is_test") %>
-          <%= _('mock project for testing, practice, or educational purposes') %>
-        <% end %>
-      </div>
-        </div>
-      </div>
-      <div class="form-group"><!-- funder_name -->
-        <div class="col-md-12">
-          <%= f.label(:funder_name, _('Funder'), class: 'control-label') %>
         </div>
         <div class="col-md-8">
-          <%= f.text_field(
-            :funder_name,
-            class: "form-control",
-            spellcheck: true,
-            "aria-required": false) %>
+          <div class="checkbox">
+            <%= f.hidden_field :visibility %>
+            <%= f.label(:is_test, class: 'control-label') do %>
+              <%= check_box_tag(:is_test, 1, @plan.is_test?, "aria-label": "is_test") %>
+              <%= _('mock project for testing, practice, or educational purposes') %>
+            <% end %>
+          </div>
         </div>
       </div>
+
+      <div id="funder-org-controls" class="form-group">
+        <% if plan.template.org == plan.funder %>
+          <div class="col-md-12">
+            <%= f.label(:funder_name, _('Funder'), class: 'control-label') %>
+          </div>
+          <%
+          id_presenter = IdentifierPresenter.new(identifiable: plan.funder)
+          scheme = id_presenter.scheme_by_name(name: "fundref").first
+          identifier = id_presenter.id_for_scheme(scheme: scheme)
+          %>
+          <div class="col-md-8">
+            <%= plan.funder.name %>:
+          </div>
+          <div class="col-md-8">
+            <%= id_presenter.id_for_display(scheme: scheme, id: identifier).html_safe %>
+          </div>
+
+        <% else %>
+          <div class="col-md-8">
+            <%= fields_for :funder, plan.funder do |funder_fields| %>
+              <%= render partial: "shared/org_selectors/combined",
+                 locals: {
+                   form: f,
+                   funder_only: true,
+                   label: _("Funder"),
+                   default_org: plan.funder,
+                   required: false
+                 } %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
       <div class="form-group"><!-- grant_number -->
         <div class="col-md-12">
           <%= label_tag(:plan_grant_number_name, _('Grant number'), class: 'control-label') %>

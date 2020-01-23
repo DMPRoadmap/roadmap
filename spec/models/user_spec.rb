@@ -57,11 +57,7 @@ RSpec.describe User, type: :model do
 
     it { is_expected.to have_many(:plans).through(:roles) }
 
-    it { is_expected.to have_many(:user_identifiers) }
-
-    it {
-      is_expected.to have_many(:identifier_schemes).through(:user_identifiers)
-    }
+    it { should have_many(:identifiers) }
 
     it {
       is_expected.to have_and_belong_to_many(:notifications).dependent(:destroy)
@@ -283,30 +279,22 @@ RSpec.describe User, type: :model do
   end
 
   describe "#identifier_for" do
-
     let!(:user) { create(:user) }
+    let!(:scheme) { create(:identifier_scheme) }
 
-    let!(:identifier_scheme) { create(:identifier_scheme) }
+    subject { user.identifier_for(scheme.name) }
 
-    subject { user.identifier_for(identifier_scheme) }
-
-    context "when user has an user_identifier present" do
-
-      let!(:user_identifier) do
-        create(:user_identifier, identifier_scheme: identifier_scheme,
-                                 user: user)
+    context "when user has an identifier present" do
+      let!(:identifier) do
+        create(:identifier, :for_user, identifier_scheme: scheme,
+                                       identifiable: user)
       end
 
-      it { is_expected.to eql(user_identifier) }
-
+      it { is_expected.to eql(identifier) }
     end
 
     context "when user has no user_identifier present" do
-
-      let!(:user_identifier) { create(:user_identifier, user: user) }
-
-      it { is_expected.not_to eql(user_identifier) }
-
+      it { is_expected.not_to eql("") }
     end
   end
 
@@ -347,7 +335,6 @@ RSpec.describe User, type: :model do
   end
 
   describe "#can_org_admin?" do
-
     subject { user.can_org_admin? }
 
     context "when user includes Perm with name 'grant_permissions'" do
@@ -551,44 +538,32 @@ RSpec.describe User, type: :model do
   end
 
   describe ".from_omniauth" do
-
     let!(:user) { create(:user) }
-
-    let!(:auth) { stub(provider: "auth-provider", uid: "1234abcd") }
+    let!(:auth) do
+      OpenStruct.new(provider: Faker::Lorem.word, uid: Faker::Lorem.word)
+    end
+    let!(:scheme) { create(:identifier_scheme, name: auth[:provider]) }
 
     subject { User.from_omniauth(auth) }
 
-
     context "when User has UserIdentifier, with different ID" do
-
-      let!(:identifier_scheme) do
-        create(:identifier_scheme, name: "auth-provider")
-      end
-
-      let!(:user_identifier) do
-        create(:user_identifier, user: user,
-                                 identifier_scheme: identifier_scheme,
-                                 identifier: "another-auth-uid")
+      let!(:identifier) do
+        create(:identifier, :for_user, identifiable: user,
+                                       identifier_scheme: scheme,
+                                       value: Faker::Lorem.word)
       end
 
       it { is_expected.to be_nil }
-
     end
 
     context "when user Identifier and auth Provider are the same string" do
-
-      let!(:identifier_scheme) do
-        create(:identifier_scheme, name: "auth-provider")
-      end
-
-      let!(:user_identifier) do
-        create(:user_identifier, user: user,
-                                 identifier_scheme: identifier_scheme,
-                                 identifier: "1234abcd")
+      let!(:identifier) do
+        create(:identifier, :for_user, identifiable: user,
+                                       identifier_scheme: scheme,
+                                       value: auth[:uid])
       end
 
       it { is_expected.to eql(user) }
-
     end
 
   end
