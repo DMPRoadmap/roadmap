@@ -26,15 +26,25 @@
 #  created_at                        :datetime
 #  updated_at                        :datetime
 #  template_id                       :integer
+#  org_id                            :integer
+#  funder_id                         :integer
+#  grant_id                          :integer
+#  api_client_id                     :integer
 #
 # Indexes
 #
 #  index_plans_on_template_id  (template_id)
+#  index_plans_on_funder_id    (funder_id)
+#  index_plans_on_grant_id     (grant_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (template_id => templates.id)
+#  fk_rails_...  (org_id => orgs.id)
 #
+
+# TODO: Drop the funder_name and grant_number columns once the funder_id has
+#       been back filled and we're removing the is_other org stuff
 
 class Plan < ActiveRecord::Base
 
@@ -42,11 +52,11 @@ class Plan < ActiveRecord::Base
   include ExportablePlan
   include ValidationMessages
   include ValidationValues
+  include Identifiable
 
   # =============
   # = Constants =
   # =============
-
 
   # Returns visibility message given a Symbol type visibility passed, otherwise
   # nil
@@ -65,15 +75,17 @@ class Plan < ActiveRecord::Base
   enum visibility: %i[organisationally_visible publicly_visible
                       is_test privately_visible]
 
-
   alias_attribute :name, :title
-
 
   # ================
   # = Associations =
   # ================
 
   belongs_to :template
+
+  belongs_to :org
+
+  belongs_to :funder, class_name: "Org"
 
   has_many :phases, through: :template
 
@@ -104,6 +116,7 @@ class Plan < ActiveRecord::Base
 
   has_many :roles
 
+  has_many :contributors, dependent: :destroy
 
   # =====================
   # = Nested Attributes =
@@ -113,6 +126,7 @@ class Plan < ActiveRecord::Base
 
   accepts_nested_attributes_for :roles
 
+  accepts_nested_attributes_for :contributors
 
   # ===============
   # = Validations =
@@ -126,13 +140,13 @@ class Plan < ActiveRecord::Base
 
   validates :complete, inclusion: { in: BOOLEAN_VALUES }
 
+  validate :end_date_after_start_date
 
   # =============
   # = Callbacks =
   # =============
 
-  before_validation :set_creation_defaults
-
+  before_validation :set_creation_default
 
   # ==========
   # = Scopes =
@@ -183,7 +197,6 @@ class Plan < ActiveRecord::Base
     s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
   alias super_settings settings
-
 
   # =================
   # = Class methods =
@@ -407,7 +420,7 @@ class Plan < ActiveRecord::Base
                   .administrator
                   .order(:created_at)
                   .pluck(:user_id).first
-    User.find(usr_id)
+    usr_id.present? ? User.find(usr_id) : nil
   end
 
   # Creates a role for the specified user (will update the user's
@@ -440,14 +453,6 @@ class Plan < ActiveRecord::Base
     else
       false
     end
-  end
-
-  ## Update plan identifier.
-  #
-  # Returns Boolean
-  def add_identifier!(identifier)
-    self.update(identifier: identifier)
-    save!
   end
 
   ##
@@ -553,6 +558,17 @@ class Plan < ActiveRecord::Base
     end
   end
 
+  # Returns the identifier associated with the grant_id
+  def grant
+    return nil unless grant_id.present?
+
+    identifiers.select { |identifier| identifier.id == grant_id }.first
+  end
+
+  # Returns the plan's identifier (either a DOI/ARK or the URL)
+  def landing_page
+    identifiers.select { |i| %w[doi ark].include?(i.identifier_format) }.first
+  end
 
   private
 
@@ -560,11 +576,21 @@ class Plan < ActiveRecord::Base
   #
   # Returns nil
   # Returns String
-  def set_creation_defaults
+  def set_creation_default
     # Only run this before_validation because rails fires this before
     # save/create
     return if id?
     self.title = "My plan (#{template.title})" if title.nil? && !template.nil?
+  end
+
+  # Validation to prevent end date from coming before the start date
+  def end_date_after_start_date
+    # allow nil values
+    return true if end_date.blank? || start_date.blank?
+
+    if end_date < start_date
+      errors.add(:end_date, _("must be after the start date"))
+    end
   end
 
 end

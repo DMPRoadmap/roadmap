@@ -15,7 +15,7 @@ RDoc::Task.new :rdoc do |rdoc|
   #change above to fit needs
 
   rdoc.title = "DMPRoadmap Documentation"
-  rdoc.options << "--all" 
+  rdoc.options << "--all"
 end
 
 task default: :test

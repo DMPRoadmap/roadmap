@@ -1,7 +1,7 @@
 ## Introduction
 The goal of the DMPRoadmap project is to provide the community with a reliable and stable platform for managing data management plans. This means that all development efforts should adhere to some basic tenets to ensure that the system remains stable and provides functionality for the community as a whole.
 
-These guidelines are an attempt to ensure that we are able to provide the community with a reliable system, stable APIs, a clear roadmap, and a predictable release schedule. 
+These guidelines are an attempt to ensure that we are able to provide the community with a reliable system, stable APIs, a clear roadmap, and a predictable release schedule.
 
 A contribution consists of any work that is voluntarily submitted to the project. This includes bug fixes, enhancements and documentation that is intended as an improvement to the DMP Roadmap system.
 
@@ -29,7 +29,7 @@ If you've already forked the project, you should make sure you pull down the lat
 
 
 
-### Create a new feature/bug fix/translations branch 
+### Create a new feature/bug fix/translations branch
 
 You should always base your new branch off of the development branch. We keep this branch up to date with the latest release. Checkout the development branch, sync it with DMPRoadmap and then push the latest up to your own fork:
 
@@ -40,7 +40,7 @@ git push origin development
 git checkout -b [my-branch]
 ```
 
-The name of the branch is up to you. Once your branch has been created you can start making changes. 
+The name of the branch is up to you. Once your branch has been created you can start making changes.
 
 Please refer to the pull request checklists below to make sure you've included everything we require in your PR!
 
@@ -53,7 +53,7 @@ When you are finished making changes, we ask that all contributors squash their 
 _Note that if this is your first time rebasing a branch we recommend making a backup of the branch first since a rebase creates the potential for you to lose your changes if its done incorrectly: `git checkout -b [feature branch]-bak && git checkout [feature branch]`_
 
 To rebase your feature branch you should follow this example:
-  
+
 First locate the last commit that occurred before your changes were made in the feature branch by using `git log`. Here is an of a recent bug fix branch:
 ```bash
 commit c74a4ecdb37c0d4396e97db019f35d8a5000d069 (HEAD -> issue1603)
@@ -115,7 +115,7 @@ Author: John Doe <john.doe@example.org>
 Date:   Fri Jun 15 13:26:40 2018 -0700
 
     fixed issue with active tab                                 <--- Our first commit (the one we picked)
-    
+
     added isActiveTab for profile and reference pages
 
 commit bd9b31d8ca1dcee5e82639dfd9b41a4e2618e2bc (upstream/development, development)
@@ -130,19 +130,19 @@ Date:   Fri Jun 14 09:20:41 2018 +0100
 
 Once your changes are complete, push your branch up to your fork, `git push origin [my-branch]`
 
-Then login to Github and go to your fork. Select your branch from the list and click 'New Pull Request'. On the page that opens, select the 'development' branch on the DMPRoadmap section. 
+Then login to Github and go to your fork. Select your branch from the list and click 'New Pull Request'. On the page that opens, select the 'development' branch on the DMPRoadmap section.
 
 Then review your code and provide us with detailed comments about what the changes are doing (e.g. adding a new feature, fixing a recorded bug, etc.). If you are working off of one of our Github issues, then please note that in the PR message with a `Fixes #1234`.
 
-The project team will evaluate each PR as time permits and communicate with the contributor via comments on the PR. We will not accept a contribution until it adheres to the guidelines outlined in this document. If your contribution fits well with the project roadmap, the team will merge it into the project and schedule it for the next upcoming release. 
+The project team will evaluate each PR as time permits and communicate with the contributor via comments on the PR. We will not accept a contribution until it adheres to the guidelines outlined in this document. If your contribution fits well with the project roadmap, the team will merge it into the project and schedule it for the next upcoming release.
 
-### Code review  
- 
+### Code review
+
 Once we receive your PR, at lest one member of the core development team will review the code and provide you with feedback through GitHub PR review feature. If any changes are requested, you should follow the process above to commit your additional changes, rebase again, and push your changes back up to Github. You do not need to close the PR and open another if you are working with the same branch. Note that if you rebase again you will need to force the push: `git push -f origin [my-branch]`
 
 ### Acceptence of your PR
 
-Once your code has been approved a member of the core development team will merge it into the development branchand include it in an upcoming release. 
+Once your code has been approved a member of the core development team will merge it into the development branchand include it in an upcoming release.
 
 At this point its a good idea to delete the branch from your fork in Github and also delete it from your local machine via:
 ```bash

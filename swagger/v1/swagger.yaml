@@ -1,0 +1,333 @@
+---
+swagger: '2.0'
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/authenticate":
+    post:
+      summary: Issues an authorization token
+      tags:
+      - Authentication
+      consumes:
+      - - application/json
+      produces:
+      - - application/json
+      parameters:
+      - name: credentials
+        in: body
+        schema:
+          type: object
+          properties:
+            grant_type:
+              type: string
+              example: client_credentials
+            client_id:
+              type: string
+              example: "<My client id>"
+            client_secret:
+              type: string
+              example: "<My client secret>"
+          required:
+          - grant_type
+          - client_id
+          - client_secret
+      responses:
+        '200':
+          description: authentication successful
+        '400':
+          description: missing or invalid JSON
+        '401':
+          description: unauthorized
+  "/api/v1/heartbeat":
+    get:
+      summary: Endpoint to determine whether or not the API is online
+      tags:
+      - Heartbeat
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: API is online
+        '503':
+          description: API is offline
+  "/api/v1/plans":
+    post:
+      summary: Creates a plan
+      tags:
+      - Plans
+      consumes:
+      - application/x-www-form-urlencoded
+      security:
+      - http: []
+      parameters:
+      - name: authorization
+        in: header
+        type: string
+      - name: json
+        in: body
+        schema:
+          type: object
+          properties:
+            total_items:
+              type: integer
+              example: 1
+            items:
+              type: array
+              items:
+                "$ref": "#/definitions/dmp"
+      responses:
+        '201':
+          description: created
+        '400':
+          description: bad request - if JSON is invalid or Plan already exists
+        '401':
+          description: authorization failed - please provide your credentials
+  "/api/v1/templates":
+    get:
+      summary: Returns the templates
+      tags:
+      - Templates
+      consumes:
+      - application/x-www-form-urlencoded
+      security:
+      - http: []
+      parameters:
+      - name: authorization
+        in: header
+        type: string
+      responses:
+        '200':
+          description: success
+        '401':
+          description: authorization failed - please provide your credentials
+securityDefinitions:
+  bearerAuth:
+    type: apiKey
+    description: Bearer token
+    name: Authorization
+    in: header
+definitions:
+  dmp:
+    type: object
+    properties:
+      title:
+        type: string
+        example: My research project
+      description:
+        type: string
+        example: An abstract describing the project and the data we intend to collect
+      created:
+        type: string
+        example: 2020-03-10 17:40:56 UTC
+      modified:
+        type: string
+        example: 2020-03-10 17:40:56 UTC
+      language:
+        type: string
+        example: en, es, de, etc.
+      ethical_issues:
+        type: string
+        enum:
+        - unknown
+        - 'yes'
+        - 'no'
+        example: unknown
+      ethical_issues_description:
+        type: string
+        example: An explanation of the types of ethical concerns our data may contain
+          or deal with (e.g. 'We will anonymize patient data.')
+      ethical_issues_report:
+        type: string
+        example: https://my.school.edu/path/to/a/report/on/ethics_and_privacy/statements.pdf
+      dmp_ids:
+        type: array
+        items:
+          "$ref": "#/definitions/dmp_identifier"
+      contact:
+        "$ref": "#/definitions/contact"
+      contributors:
+        type: array
+        items:
+          "$ref": "#/definitions/contributor"
+      project:
+        "$ref": "#/definitions/project"
+    required:
+    - title
+    - ethical_issues
+    - contact
+    - project
+  dmp_identifier:
+    type: object
+    properties:
+      type:
+        type: string
+        description: One of the following identifier types
+        enum:
+        - doi
+        - urldmptool
+        example: doi
+      identifier:
+        type: string
+        example: https://my-site.org/dmps/123
+    required:
+    - type
+    - identifier
+  person_identifier:
+    type: object
+    properties:
+      type:
+        type: string
+        description: One of the following identifier types or the local identifier
+          from your system.
+        enum:
+        - orcid
+        - isni
+        - openid
+        - other
+      identifier:
+        type: string
+        example: 0000-0000-0000-0000
+    required:
+    - type
+    - identifier
+  organization_identifier:
+    type: object
+    properties:
+      type:
+        type: string
+        description: One of the following identifier types or the local identifier
+          from your system.
+        enum:
+        - ror
+        - fundref
+      identifier:
+        type: string
+        example: https://ror.org/x123y12z
+    required:
+    - type
+    - identifier
+  contact:
+    type: object
+    properties:
+      name:
+        type: string
+        example: Jane Doe
+      mbox:
+        type: string
+        example: jane.doe@nowhere.edu
+      affiliation:
+        "$ref": "#/definitions/affiliation"
+      contact_id:
+        "$ref": "#/definitions/person_identifier"
+    required:
+    - name
+    - mbox
+  contributor:
+    type: object
+    properties:
+      name:
+        type: string
+        example: Jane Doe
+      mbox:
+        type: string
+        example: jane.doe@nowhere.edu
+      role:
+        type: string
+        enum:
+        - - https://dictionary.casrai.org/Contributor_Roles/Conceptualization
+          - https://dictionary.casrai.org/Contributor_Roles/Data_curation
+          - https://dictionary.casrai.org/Contributor_Roles/Formal_analysis
+          - https://dictionary.casrai.org/Contributor_Roles/Funding_acquisition
+          - https://dictionary.casrai.org/Contributor_Roles/Investigation
+          - https://dictionary.casrai.org/Contributor_Roles/Methodology
+          - https://dictionary.casrai.org/Contributor_Roles/Project_administration
+          - https://dictionary.casrai.org/Contributor_Roles/Resources
+          - https://dictionary.casrai.org/Contributor_Roles/Software
+          - https://dictionary.casrai.org/Contributor_Roles/Supervision
+          - https://dictionary.casrai.org/Contributor_Roles/Validation
+          - https://dictionary.casrai.org/Contributor_Roles/Visualization
+          - https://dictionary.casrai.org/Contributor_Roles/Writing_original_draft
+          - https://dictionary.casrai.org/Contributor_Roles/Writing_review_editing
+        example: https://dictionary.casrai.org/Contributor_Roles/Conceptualization
+      affiliation:
+        "$ref": "#/definitions/affiliation"
+      contributor_id:
+        "$ref": "#/definitions/person_identifier"
+    required:
+    - name
+    - mbox
+    - role
+  affiliation:
+    type: object
+    properties:
+      name:
+        type: string
+        example: University of Nowhere
+      abbreviation:
+        type: string
+        example: UN
+      region:
+        type: string
+        example: United States
+      affiliation_id:
+        "$ref": "#/definitions/organization_identifier"
+    required:
+    - name
+  project:
+    type: object
+    properties:
+      title:
+        type: string
+        example: Study of API development in open source codebases
+      description:
+        type: string
+        example: An abstract describing the overall research project
+      start:
+        type: string
+        example: 2020-06-10 17:40:56 UTC
+      end:
+        type: string
+        example: 2023-05-10 17:40:56 UTC
+      funding:
+        type: array
+        items:
+          "$ref": "#/definitions/funding"
+    required:
+    - title
+    - start
+    - end
+  funding:
+    type: object
+    properties:
+      name:
+        type: string
+        example: National Science Foundation
+      funding_status:
+        type: string
+        enum:
+        - planned
+        - applied
+        - granted
+        - rejected
+        example: granted
+      funder_id:
+        "$ref": "#/definitions/organization_identifier"
+      grant_id:
+        type: object
+        properties:
+          type:
+            type: string
+            enum:
+            - url
+            - other
+          identifier:
+            type: string
+            example: https://funder.org/999
+        required:
+        - type
+        - identifier
+    required:
+    - name
+    - funding_status
+    - grant_id

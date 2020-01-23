@@ -14,9 +14,11 @@ class OpenAireRequest
   end
 
   def get!
-    Rails.logger.info("Fetching fresh data from #{API_URL % funder_type}")
-    data = open(API_URL % funder_type)
-    Rails.logger.info("Fetched fresh data from #{API_URL % funder_type}")
+    return self unless api_url.present?
+
+    Rails.logger.info("Fetching fresh data from #{api_url % funder_type}")
+    data = open(api_url % funder_type)
+    Rails.logger.info("Fetched fresh data from #{api_url % funder_type}")
     @results = Nokogiri::XML(data).xpath("//pair/displayed-value").map do |node|
       parts = node.content.split("-")
       grant_id = parts.shift.to_s.strip
@@ -28,6 +30,10 @@ class OpenAireRequest
 
   def results
     Array(@results)
+  end
+
+  def api_url
+    Rails.configuration.x.open_aire&.api_url
   end
 
 end

@@ -17,7 +17,7 @@ The tool has four main functions
 == Bugs & Feature Requests
 
 * Bug Reports & Feature Requests: https://github.com/DMPRoadmap/roadmap/issues
-* Please prefix your request with either: 'Bug:' or 'Feature:' 
+* Please prefix your request with either: 'Bug:' or 'Feature:'
 
 == Prerequisites
 

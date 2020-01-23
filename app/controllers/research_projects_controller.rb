@@ -1,8 +1,5 @@
 class ResearchProjectsController < ApplicationController
 
-
-  DEFAULT_FUNDER_TYPE = "H2020"
-
   def index
     render json: research_projects
   end
@@ -10,6 +7,10 @@ class ResearchProjectsController < ApplicationController
   def search
     @results = research_projects.select { |r| r.description.match(params[:description]) }
     render json: @results
+  end
+
+  def default_funder_type
+    Rails.configuration.x.open_aire&.default_funder || "H2020"
   end
 
   private
@@ -23,7 +24,7 @@ class ResearchProjectsController < ApplicationController
   end
 
   def funder_type
-    params.fetch(:type, DEFAULT_FUNDER_TYPE)
+    params.fetch(:type, default_funder_type)
   end
 
 end

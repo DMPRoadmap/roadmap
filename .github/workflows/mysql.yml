@@ -92,6 +92,10 @@ jobs:
     - name: 'Determine wkhtmltopdf location'
       run: echo ::set-env name=WICKED_PDF_PATH::$(echo `bundle exec which wkhtmltopdf`)
 
+    # Startup MySQL
+    - name: 'Start MySQL'
+      run: sudo systemctl start mysql
+
     # Setup the database
     - name: 'Setup Test DB'
       run: bundle exec rake db:setup RAILS_ENV=test

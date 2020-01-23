@@ -993,16 +993,6 @@ RSpec.describe Template, type: :model do
 
     end
 
-    context "when param not Org" do
-
-      let!(:org) { stub(:banana) }
-
-      let!(:template) { create(:template, org: create(:org, :funder)) }
-
-      it { is_expected.to eql(false) }
-
-    end
-
   end
 
   describe "#upgrade_customization?" do
@@ -1144,7 +1134,7 @@ RSpec.describe Template, type: :model do
 
     context "when org is not an Org" do
 
-      let!(:org) { stub(:banana) }
+      let!(:org) { build(:identifier_scheme) }
 
       it "raises a StandardError" do
         expect { subject }.to raise_error(StandardError)

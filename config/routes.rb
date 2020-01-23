@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
   devise_for( :users, controllers: {
     registrations: "registrations",
     passwords: 'passwords',
@@ -11,7 +13,7 @@ Rails.application.routes.draw do
     get "/users/sign_out", :to => "devise/sessions#destroy"
   end
 
-  delete '/users/identifiers/:id', to: 'user_identifiers#destroy', as: 'destroy_user_identifier'
+  delete '/users/identifiers/:id', to: 'identifiers#destroy', as: 'destroy_user_identifier'
 
   get '/orgs/shibboleth', to: 'orgs#shibboleth_ds', as: 'shibboleth_ds'
   get '/orgs/shibboleth/:org_name', to: 'orgs#shibboleth_ds_passthru'
@@ -56,8 +58,8 @@ Rails.application.routes.draw do
   get "public_templates" => 'public_pages#template_index'
   get "template_export/:id" => 'public_pages#template_export', as: 'template_export'
 
-  #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
-  #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
+  # AJAX call used to search for Orgs based on user input into autocompletes
+  post "orgs" => "orgs#search", as: "orgs_search"
 
   resources :orgs, :path => 'org/admin', only: [] do
     member do
@@ -112,10 +114,13 @@ Rails.application.routes.draw do
 
     resource :export, only: [:show], controller: "plan_exports"
 
+    resources :contributors, except: %i[show]
+
     member do
       get 'answer'
       get 'share'
       get 'request_feedback'
+      get 'landing'
       get 'download'
       post 'duplicate'
       post 'visibility', constraints: {format: [:json]}
@@ -161,11 +166,23 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    namespace :v1 do
+      get :heartbeat, controller: "base_api"
+      post :authenticate, controller: "authentication"
+
+      resources :plans, only: [:create, :show]
+      resources :templates, only: [:index]
+    end
   end
 
   namespace :paginable do
     resources :orgs, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
+    end
+    # Paginable actions for contributors
+    resources :contributors, only: %i[index] do
+      get "index/:page", action: :index, on: :collection, as: :index
     end
     # Paginable actions for plans
     resources :plans, only: [] do
@@ -205,6 +222,10 @@ Rails.application.routes.draw do
     end
     # Paginable actions for departments
     resources :departments, only: [] do
+      get 'index/:page', action: :index, on: :collection, as: :index
+    end
+    # Paginable actions for api_clients
+    resources :api_clients, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
     end
   end
@@ -280,6 +301,13 @@ Rails.application.routes.draw do
       end
     end
     resources :notifications, except: [:show]
+
+    resources :api_clients do
+      member do
+        get :email_credentials
+        get :refresh_credentials
+      end
+    end
   end
 
   get "research_projects/search", action: "search",

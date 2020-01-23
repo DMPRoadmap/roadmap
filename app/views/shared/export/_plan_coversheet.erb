@@ -1,11 +1,17 @@
 <hr />
 <h1><%= @plan.title %></h1>
-<p><em><%= _("A Data Management Plan created using ") + Rails.configuration.branding[:application][:name] %></em></p>
+<p><em><%= _("A Data Management Plan created using %{application_name}") % { application_name: Rails.configuration.branding[:application].fetch(:name, "DMPRoadmap") } %></em></p>
 <br/>
 <div class="cover-page">
   <%# Using <b> tags as the htmltoword gem does not recognise css styles defined %>
   <%# Allow raw html (==) for plan_attribution as it has <b> tags %>
   <p><%== plan_attribution(@hash[:attribution]) %></p><br>
+
+  <%# if DOI minting is enabled %>
+  <% landing_page = @plan.landing_page %>
+  <% if Rails.configuration.x.doi&.active && landing_page.present? %>
+    <p><%= landing_page %></p><br>
+  <% end %>
 
   <p><b><%= _("Affiliation: ") %></b><%= @hash[:affiliation] %></p><br>
 
@@ -14,7 +20,7 @@
   <% end %>
 
     <p><b><%= _("Template: ") %></b><%= @hash[:template] + @hash[:customizer] %></p><br>
-  
+
 
   <% if @plan.principal_investigator_identifier.present? %>
     <p><b><%= _("ORCID iD: ") %></b><%= @plan.principal_investigator_identifier %></p> <br>

@@ -17,12 +17,37 @@ describe Plan do
     it { is_expected.to allow_values(true, false).for(:complete) }
 
     it { is_expected.not_to allow_value(nil).for(:complete) }
+
+    describe "dates" do
+      before(:each) do
+        @plan = build(:plan)
+      end
+
+      it "allows start_date to be nil" do
+        @plan.start_date = nil
+        @plan.end_date = Time.now + 3.days
+        expect(@plan.valid?).to eql(true)
+      end
+      it "allows end_date to be nil" do
+        @plan.start_date = Time.now + 3.days
+        @plan.end_date = nil
+        expect(@plan.valid?).to eql(true)
+      end
+      it "does not allow end_date to come before start_date" do
+        @plan.start_date = Time.now + 3.days
+        @plan.end_date = Time.now
+        expect(@plan.valid?).to eql(false)
+      end
+    end
   end
 
   context "associations" do
 
     it { is_expected.to belong_to :template }
 
+    it { is_expected.to belong_to :org }
+
+    it { is_expected.to belong_to :funder }
 
     it { is_expected.to have_many :phases }
 
@@ -44,6 +69,9 @@ describe Plan do
 
     it { is_expected.to have_many :setting_objects }
 
+    it { is_expected.to have_many :contributors }
+
+    it { is_expected.to have_many(:identifiers) }
   end
 
   describe ".publicly_visible" do
@@ -755,6 +783,12 @@ describe Plan do
 
     context "config does not allow admin viewing" do
 
+      before(:each) do
+        Branding.expects(:fetch)
+                .with(:service_configuration, :plans, :org_admins_read_all)
+                .returns(false)
+      end
+
       it "super admins" do
         Branding.expects(:fetch)
                 .with(:service_configuration, :plans, :super_admins_read_all)
@@ -765,10 +799,6 @@ describe Plan do
       end
 
       it "org admins" do
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :org_admins_read_all)
-                .returns(false)
-
         user.perms << create(:perm, name: "modify_guidance")
         expect(subject.readable_by?(user.id)).to eql(false)
       end
@@ -1414,6 +1444,38 @@ describe Plan do
 
       it { is_expected.to eql(false) }
 
+    end
+  end
+
+  describe "#grant" do
+    let!(:plan) { create(:plan, :creator) }
+    let!(:grant) { create(:identifier, identifiable: plan, identifier_scheme: nil) }
+
+    it "returns nil if no grant_id is defined" do
+      expect(plan.grant).to eql(nil)
+    end
+    it "returns the grant as an Identifier" do
+      plan.update(grant_id: grant.id)
+      plan.reload
+      expect(plan.grant).to eql(grant)
+    end
+  end
+
+  describe "#landing_page" do
+    let!(:plan) { create(:plan, :creator) }
+
+    it "returns nil if no DOI or ARK is available" do
+      expect(plan.landing_page).to eql(nil)
+    end
+    it "returns the DOI if available" do
+      id = create(:identifier, identifiable: plan, value: "10.9999/123erge/45f")
+      plan.reload
+      expect(plan.landing_page).to eql(id)
+    end
+    it "returns the ARK if available" do
+      id = create(:identifier, identifiable: plan, value: "ark:10.9999/123")
+      plan.reload
+      expect(plan.landing_page).to eql(id)
     end
   end
 

@@ -30,14 +30,13 @@ identifier_schemes = [
     description: 'ORCID',
     active: true,
     logo_url:'http://orcid.org/sites/default/files/images/orcid_16x16.png',
-    user_landing_url:'https://orcid.org'
+    identifier_prefix:'https://orcid.org/'
   },
   {
     name: 'shibboleth',
     description: 'Your institutional credentials',
     active: true,
-    logo_url: 'http://newsite.shibboleth.net/wp-content/uploads/2017/01/Shibboleth-logo_2000x1200-1.png',
-    user_landing_url: "https://example.com"
+    logo_url: 'http://newsite.shibboleth.net/wp-content/uploads/2017/01/Shibboleth-logo_2000x1200-1.png'
   },
 ]
 identifier_schemes.map { |is| create(:identifier_scheme, is) }
