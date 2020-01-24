@@ -29,7 +29,7 @@
   <% if org_admin %>
     <input type="hidden" id="original_org" value="<%= @user.org_id %>">
   <% end %>
-  
+
     <% departments = current_user.org.departments.order(:name) %>
     <% if departments.count > 0 %>
     <div class="form-group col-xs-8">
@@ -45,7 +45,7 @@
 
   <% if Language.many? %>
     <div class="form-group col-xs-8">
-      <% lang_id = current_user.language.nil? ? Language.id_for(FastGettext.default_locale) : current_user.language.id %>
+      <% lang_id = current_user.language.nil? ? Language.default : current_user.language.id %>
       <%= f.label(:language_id, _('Language'), class: 'control-label') %>
       <%= select_tag("user[language_id]",
           options_from_collection_for_select(@languages, "id", "name", lang_id),
