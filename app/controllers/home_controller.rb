@@ -24,7 +24,7 @@ class HomeController < ApplicationController
         redirect_to plans_url
       end
     elsif session["devise.shibboleth_data"].present?
-    # NOTE: Update this to handle ORCiD as well when we enable it as a login method
+      # NOTE: Update this to handle ORCiD as well when we enable it as a login method
       redirect_to new_user_registration_url
     end
   end
