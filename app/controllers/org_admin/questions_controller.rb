@@ -4,6 +4,7 @@ module OrgAdmin
 
   class QuestionsController < ApplicationController
 
+    prepend Dmpopidor::Controllers::OrgAdmin::Questions
     include AllowedQuestionFormats
     include Versionable
 
@@ -141,6 +142,7 @@ module OrgAdmin
 
     private
 
+    # SEE MODULE
     def question_params
       params.require(:question)
             .permit(:number, :text, :question_format_id, :option_comment_display,

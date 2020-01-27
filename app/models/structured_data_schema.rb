@@ -21,4 +21,9 @@ class StructuredDataSchema < ActiveRecord::Base
   belongs_to :org
   has_many :structured_answers
   has_many :questions
+
+
+  def detailed_name 
+    label + " ( " + name + "_V" + version.to_s + " )"
+  end
 end
