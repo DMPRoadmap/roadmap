@@ -40,6 +40,8 @@ module Dmpopidor
             end
             if attrs[:structured] == "1"
               attrs[:question_format_id] = nil
+            else 
+              attrs[:structured_data_schema_id] = nil
             end 
             if question.update(attrs)
               flash[:notice] = success_message(question, _("updated"))
