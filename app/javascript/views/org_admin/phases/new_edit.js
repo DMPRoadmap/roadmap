@@ -38,7 +38,6 @@ $(() => {
       addAsterisks(`#${context}`);
       // Swap in the question_formats when the user selects an option based question type
       $(`#${context} .question_format select`).change((e) => {
-        console.log('ici');
         onChangeQuestionFormat(e);
       });
     }
