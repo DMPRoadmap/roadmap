@@ -2,7 +2,7 @@ module Dmpopidor
   module Controllers
     module Orgs
 
-      # CHANGE: ADDED BANNER TEXT
+      # CHANGE: ADDED BANNER TEXT and ACTIVE
       def admin_update
         attrs = org_params
         @org = Org.find(params[:id])
@@ -36,6 +36,12 @@ module Dmpopidor
               shib_settings.save
             end
           end
+
+          # if active is false, unpublish all published tempaltes
+          if params[:active] != "1"
+            p @org.published_templates.update_all(published: false)
+          end
+
         end
     
         if @org.update_attributes(attrs)
