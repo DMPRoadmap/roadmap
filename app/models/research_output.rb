@@ -4,25 +4,20 @@
 #
 #  id                      :integer          not null, primary key
 #  abbreviation            :string
-#  fullname                :string
-#  is_default              :boolean          default(FALSE)
 #  order                   :integer
-#  other_type_label        :string
-#  pid                     :string
+#  fullname                :string
+#  is_default              :boolean          default("false")
+#  plan_id                 :integer
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  plan_id                 :integer
+#  pid                     :string
+#  other_type_label        :string
 #  research_output_type_id :integer
 #
 # Indexes
 #
 #  index_research_outputs_on_plan_id                  (plan_id)
 #  index_research_outputs_on_research_output_type_id  (research_output_type_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (plan_id => plans.id)
-#  fk_rails_...  (research_output_type_id => research_output_types.id)
 #
 
 class ResearchOutput < ActiveRecord::Base
