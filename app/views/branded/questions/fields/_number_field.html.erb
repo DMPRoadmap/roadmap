@@ -1,0 +1,12 @@
+<div class="field">
+    <%= f.label field_name, field_label %>
+    <%= f.number_field field_name, value: field_value, multiple: multiple %>
+    <% if multiple  %>
+        <span class="add-record">Add</span>
+        <% if index != 0 %>
+            <span class="remove-record">Remove</span>
+        <% else %>
+            <span class="remove-record" style="display:none">Remove</span>
+        <% end %>
+    <% end %>
+</div>

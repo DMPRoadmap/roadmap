@@ -1,0 +1,15 @@
+<%# locals: { f, question, answer, research_output } %>
+
+<p><strong><%= question.text %></strong></p>
+<div class="form-group">
+    <% schema['properties'].each do |key, prop| %>
+        <% case prop['type'] %>
+            <% when 'string' %>
+                <%= create_text_field(f, nil, key, prop['label']) %>
+            <% when 'integer' %>
+                <%= create_number_field(f, nil, key, prop['label']) %>
+            <% when 'boolean' %>
+                <%= create_checkbox_field(f, nil, key, prop['label']) %>
+        <% end %>
+    <% end %>
+</div>

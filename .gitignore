@@ -104,3 +104,4 @@ spec/examples.txt
 /node_modules
 yarn-debug.log*
 .yarn-integrity
+reset.sh
