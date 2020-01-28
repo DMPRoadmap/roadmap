@@ -23,7 +23,6 @@ describe Plan do
 
     it { is_expected.to belong_to :template }
 
-
     it { is_expected.to have_many :phases }
 
     it { is_expected.to have_many :sections }
@@ -43,6 +42,8 @@ describe Plan do
     it { is_expected.to have_many :exported_plans }
 
     it { is_expected.to have_many :setting_objects }
+
+    it { is_expected.to have_many(:identifiers) }
 
   end
 

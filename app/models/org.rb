@@ -73,9 +73,7 @@ class Org < ActiveRecord::Base
                           join_table: "org_token_permissions",
                           unique: true
 
-  has_many :org_identifiers
-
-  has_many :identifier_schemes, through: :org_identifiers
+  has_many :identifiers, as: :identifiable
 
   has_many :departments
 

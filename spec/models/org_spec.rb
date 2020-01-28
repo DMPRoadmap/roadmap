@@ -62,9 +62,7 @@ RSpec.describe Org, type: :model do
 
     it { should have_and_belong_to_many(:token_permission_types).join_table("org_token_permissions") }
 
-    it { should have_many(:org_identifiers) }
-
-    it { should have_many(:identifier_schemes).through(:org_identifiers) }
+    it { should have_many(:identifiers) }
 
   end
 

@@ -20,8 +20,7 @@ class IdentifierScheme < ActiveRecord::Base
   # The maximum length for a name
   NAME_MAXIMUM_LENGTH = 30
 
-  has_many :user_identifiers
-  has_many :users, through: :user_identifiers
+  has_many :identifiers
 
   # ===============
   # = Validations =
@@ -34,4 +33,14 @@ class IdentifierScheme < ActiveRecord::Base
   validates :active, inclusion: { message: INCLUSION_MESSAGE,
                                   in: BOOLEAN_VALUES }
 
+  # ===========================
+  # = Scopes =
+  # ===========================
+
+  scope :active, -> { where(active: true) }
+  scope :for_users, -> { active.where(name: %w[shibboleth orcid]) }
+  scope :for_orgs, -> { active.where(name: %w[shibboleth ror fundref]) }
+  scope :for_plans, -> { active.where(name: %w[doi]) }
+  scope :authenticatable, -> { active.where(name: %w[shibboleth orcid]) }
+  scope :by_name, ->(value) { active.where("LOWER(name) = LOWER(?)", value) }
 end
