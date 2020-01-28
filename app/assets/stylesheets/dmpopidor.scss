@@ -19,6 +19,13 @@ body {
     padding-bottom: 0;
 }
 
+.modal-backdrop {
+    z-index: 4;
+}
+
+#header-signin {
+    z-index: 7;
+}
 
 /*
     MENU & FOOTER
