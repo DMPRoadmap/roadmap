@@ -196,7 +196,7 @@ ActiveRecord::Schema.define(version: 20200128100507) do
     t.boolean  "feedback_enabled",       default: false
     t.string   "feedback_email_subject"
     t.text     "feedback_email_msg"
-    t.boolean  "active",                 default: false
+    t.boolean  "active",                 default: true
   end
 
   add_index "orgs", ["language_id"], name: "orgs_language_id_idx", using: :btree
