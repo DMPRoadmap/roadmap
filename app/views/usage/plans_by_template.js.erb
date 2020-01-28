@@ -1,0 +1,10 @@
+// Using straight (non-jquery) JS here because the js.erb does not have access to JQuery!
+// TODO: We should fix this and load JS and other assets correctly when we move to Rails 5
+//       it would be much cleaner to just rerender the html.erb
+window.templatePlansChart.dispatchEvent(new CustomEvent('destroyChart'));
+
+window.templatePlansChart.dispatchEvent(
+  new CustomEvent('renderChart', {
+    detail: JSON.parse('<%= prep_data_for_template_plans_chart(data: @plans_per_month).html_safe %>')
+  })
+);
