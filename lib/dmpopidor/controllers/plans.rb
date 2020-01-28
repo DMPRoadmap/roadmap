@@ -3,7 +3,35 @@ module Dmpopidor
       module Plans
 
         # CHANGES:
-        # Added Privately private visibility
+        # Added Active Flag on Org
+        def new
+          @plan = Plan.new
+          authorize @plan
+
+          # Get all of the available funders and non-funder orgs
+          @funders = Org.funder
+                        .joins(:templates)
+                        .where(templates: { published: true }).uniq.sort_by(&:name)
+          @orgs = (Org.organisation + Org.institution + Org.managing_orgs).flatten
+                                                                          .select { |org| org.active == true }
+                                                                          .uniq.sort_by(&:name)
+
+          # Get the current user's org
+          @default_org = current_user.org if @orgs.include?(current_user.org) || @funders.include?(current_user.org) 
+
+          # Get the default template
+          @default_template = Template.default
+
+          if params.key?(:test)
+            flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>"
+          end
+          @is_test = params[:test] ||= false
+          respond_to :html
+        end
+
+
+
+        # CHANGES:
         # Added Research Output Support
         def create
           @plan = Plan.new

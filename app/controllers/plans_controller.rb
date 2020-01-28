@@ -25,6 +25,7 @@ class PlansController < ApplicationController
   end
 
   # GET /plans/new
+  # SEE MODULE
   def new
     @plan = Plan.new
     authorize @plan

@@ -1443,10 +1443,10 @@ msgid "Organisation Name"
 msgstr "Nom de l'organisme"
 
 msgid "Organisation Type(s)"
-msgstr "Type(s) d'organismes"
+msgstr "Type(s) d'organisme"
 
 msgid "Organisation Types"
-msgstr "Types d'organismes"
+msgstr "Types d'organisme"
 
 msgid "Organisation URLs"
 msgstr "URLs de l'organisme"

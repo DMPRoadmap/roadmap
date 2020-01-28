@@ -126,6 +126,17 @@
             %>
         </fieldset>
       </div>
+      <div class="row">
+        <fieldset class="col-xs-8">
+          <legend><%= _('Deactivate') %></legend>
+            <div class="checkbox">
+              <%= f.label :active do %>
+                <%= f.check_box :active%>
+                <%= _('Active') %>
+              <% end %>
+            </div>
+        </fieldset>
+      </div>
     <% else %>
       <dl>
         <dt><%= _('Organisation type(s)') %></dt>

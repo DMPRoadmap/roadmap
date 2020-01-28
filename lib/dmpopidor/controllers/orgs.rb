@@ -46,6 +46,13 @@ module Dmpopidor
           redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: failure
         end
       end
+
+
+      def org_params
+        params.require(:org).permit(:name, :abbreviation, :logo, :contact_email,
+                                    :contact_name, :remove_logo, :org_type,
+                                    :feedback_enabled, :feedback_email_msg, :banner_text, :active)
+      end
     end
   end
 end
