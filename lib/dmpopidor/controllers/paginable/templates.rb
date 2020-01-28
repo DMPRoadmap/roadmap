@@ -15,7 +15,7 @@ module Dmpopidor
                             .includes(:org)
                             .where(id: templates.uniq.flatten)
                             .published,
-              query_params: { sort_field: 'templates.title', sort_direction: :asc }
+              query_params: { sort_field: 'orgs.name', sort_direction: :asc }
             )
           end
         end
