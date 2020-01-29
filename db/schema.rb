@@ -80,27 +80,6 @@ ActiveRecord::Schema.define(version: 20200212145931) do
     t.integer  "phase_id"
   end
 
-  create_table "file_types", force: :cascade do |t|
-    t.string   "name"
-    t.string   "icon_name"
-    t.integer  "icon_size"
-    t.string   "icon_location"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  create_table "file_uploads", force: :cascade do |t|
-    t.string   "name"
-    t.string   "title"
-    t.text     "description"
-    t.integer  "size"
-    t.boolean  "published"
-    t.string   "location"
-    t.integer  "file_type_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
   create_table "guidance_groups", force: :cascade do |t|
     t.string   "name"
     t.integer  "org_id"
@@ -359,12 +338,6 @@ ActiveRecord::Schema.define(version: 20200212145931) do
     t.text     "value"
     t.integer  "target_id",   null: false
     t.string   "target_type", null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  create_table "splash_logs", force: :cascade do |t|
-    t.string   "destination"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
