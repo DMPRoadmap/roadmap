@@ -49,11 +49,13 @@ module ConditionsHelper
   end
 
   # number of answers in a section after answers updated with conditions
-  def num_section_answers(plan, section) 
+  def num_section_answers(plan, section)
     count = 0
     plan.answers.each do |answer|
       if answer.question.section.id == section.id &&
-       !remove_list(plan).include?(answer.question.id) && section.answered_questions(plan).include?(answer) && answer.answered?
+         !remove_list(plan).include?(answer.question.id) &&
+         section.answered_questions(plan).include?(answer) &&
+         answer.answered?
         count += 1
       end
     end
@@ -62,24 +64,28 @@ module ConditionsHelper
 
   # number of questions in a section after update with conditions
   def num_section_questions(plan, section, phase = nil)
-    if section.kind_of?(Hash) && phase != nil && plan.kind_of?(Plan) # when section and phase are a hash in exports
+    # when section and phase are a hash in exports
+    if section.is_a?(Hash) &&
+       !phase.nil? &&
+       plan.is_a?(Plan)
       phase_id = plan.phases.where(number: phase[:number]).first.id
       section = plan.sections.where(phase_id: phase_id, title: section[:title]).first
     end
     count = 0
     plan.questions.each do |question|
       if question.section.id == section.id &&
-        !remove_list(plan).include?(question.id)
+         !remove_list(plan).include?(question.id)
         count += 1
       end
     end
     count
   end
 
-  # returns an array of hashes of section_id, number of section questions, and number of section answers
-  def sections_info(plan) 
+  # returns an array of hashes of
+  #   section_id, number of section questions, and number of section answers
+  def sections_info(plan)
     info = []
-    plan.sections.each do |section| 
+    plan.sections.each do |section|
       info.push(section_info(plan, section))
     end
     info
@@ -93,77 +99,88 @@ module ConditionsHelper
     section_hash
   end
 
-
-	# returns a collection of questions to remove (hide). Choose from these which are to be removed by a given condition
+  # TODO: the logic of this is WAY too complex
+  # needs rewriting
+  # returns a collection of questions to remove (hide).
+  # Choose from these which are to be removed by a given condition
   def remove_question_collection(question)
     collection = []
     question.section.phase.template.phases.each_with_index do |ph, idx|
-      if not_previous_phase?(question, ph)
-        sections = ph.sections.map { |s|
-                  [section_title(s), s.questions.map { |q| 
-                  [question_title(q), q.id] if not_previous_question?(question, q) }.compact 
-                  ] if not_previous_section?(question, s) }.compact
-        if idx == 0
-          collection = sections
-        else
-          collection += sections
-        end
-      end
+      next if previous_phase?(question, ph)
+      sections = ph.sections.map { |s|
+                  [section_title(s),
+                   s.questions.map { |q|
+                     [question_title(q), q.id] if not_previous_question?(question, q)
+                   }.compact
+                  ] if not_previous_section?(question, s)
+                 }.compact
+      collection += sections
     end
     collection
   end
 
   def question_title(question)
-    raw "Qn. " + question.number.to_s + ": " + truncate(strip_tags(question.text), length: 50, separator: " ", escape: false)
+    raw "Qn. " + question.number.to_s + ": " +
+        truncate(strip_tags(question.text),
+                 length: 50,
+                 separator: " ",
+                 escape: false)
   end
 
   def section_title(section)
-    raw "Sec. " + section.number.to_s + ": " + truncate(strip_tags(section.title), length: 50, separator: " ", escape: false)
+    raw "Sec. " + section.number.to_s + ": " +
+        truncate(strip_tags(section.title),
+                 length: 50,
+                 separator: " ",
+                 escape: false)
   end
 
-  def not_previous_phase?(current_question, dropdown_phase)
-    current_question.phase.number <= dropdown_phase.number
+  def previous_phase?(current_question, dropdown_phase)
+    current_question.phase.number > dropdown_phase.number
   end
 
   def not_previous_section?(current_question, dropdown_section)
-    current_question.section.number < dropdown_section.number || # later section
-    current_question.phase.number < dropdown_section.phase.number || # later phase
-    (current_question.section.number == dropdown_section.number && current_question.number != dropdown_section.questions.size) # not last question of this section
+    later_section = current_question.section.number < dropdown_section.number
+    later_phase = current_question.phase.number < dropdown_section.phase.number
+    not_last_section_question = (current_question.section.number == dropdown_section.number &&
+                                 current_question.number != dropdown_section.questions.size)
+    return later_section || later_phase || not_last_section_question
   end
 
   def not_previous_question?(current_question, dropdown_question)
-    current_question.number < dropdown_question.number || # later question
-    current_question.section.number < dropdown_question.section.number || # later section
-    current_question.phase.number < dropdown_question.phase.number # later phase
+    later_question = current_question.number < dropdown_question.number
+    later_section = current_question.section.number < dropdown_question.section.number
+    later_phase = current_question.phase.number < dropdown_question.phase.number
+    return later_question || later_section || later_phase
   end
 
-  def group_show_conditions(conditions) # given a conditions array, group conditions by number as a hash
+  # given a conditions array, group conditions by number as a hash
+  def group_show_conditions(conditions)
     conditions_grouping = {}
     conditions.each do |condition|
-      conditions_grouping.merge!(condition.number => [condition]){|op, cond1, cond2| 
-        if cond1.kind_of?(Array) && cond2.kind_of?(Array)
-          cond1 + cond2
-        end
+      conditions_grouping.merge!(condition.number => [condition]) {|_op, cond1, cond2|
+          cond1 + cond2 if cond1.is_a?(Array) && cond2.is_a?(Array)
       }
-    end 
-    return conditions_grouping
+    end
+    conditions_grouping
   end
 
-  def conditions_ordered(conditions) # ensures conditions of type 'remove' come first. conditions of type Condition
+  # ensures conditions of type 'remove' come first. conditions of type Condition
+  def conditions_ordered(conditions)
     grouped_conditions = group_show_conditions(conditions)
-    grouped_conditions.each do |option, conditions| 
+    grouped_conditions.each do |option, conditions|
       conditions.sort_by{|condition| condition.action_type.to_s.length}
     end
     grouped_conditions
   end
 
-  def list_questions(conditions) 
+  def list_questions(conditions)
     return_string = _('Answering ')
     return_string += options_string(conditions)
     if conditions.size == 1 && conditions[0].action_type == 'add_webhook'
       subject_string = text_formatted(JSON.parse(conditions[0].webhook_data)['subject'])
       return_string += _(' will ') + make_tags('b', _('send an email')) + _(' with subject ') + subject_string
-    else 
+    else
       remove_array = conditions.select{|c| c.action_type == 'remove'}.map(&:remove_question_id).uniq
       no_removes = remove_array.uniq.size
       remove_array.each_with_index do |id, idx|
@@ -177,7 +194,7 @@ module ConditionsHelper
           end
           return_string += text_formatted(id)
         else
-          if idx > 0 
+          if idx > 0
             return_string += _(', and ')
           end
           return_string += _(' will ') + make_tags('b', _('send an email'))
@@ -197,7 +214,7 @@ module ConditionsHelper
       options = get_options(object_array)
     elsif object_array[0].kind_of?(Integer)
       options = QuestionOption.find(object_array).map(&:text)
-    end  
+    end 
     return_string = ""
     options.each_with_index do |option, idx|
       return_string += text_formatted(option)
@@ -226,7 +243,7 @@ module ConditionsHelper
     elsif object.kind_of?(String) # when email subject
       text = object
       length = 30
-    else 
+    else
       pp 'type error'
     end
     cleaned_text = text
@@ -238,9 +255,9 @@ module ConditionsHelper
     param_conditions = {}
     conditions.each do |condition|
       title = "condition" + condition[:number].to_s
-      condition_hash = {title => 
-                        {question_option_id: [condition.question_option_id], 
-                        action_type: condition.action_type, 
+      condition_hash = {title =>
+                        {question_option_id: [condition.question_option_id],
+                        action_type: condition.action_type,
                         number: condition.number,
                         remove_question_id: [condition.remove_question_id],
                         webhook_data: condition.webhook_data}
