@@ -782,7 +782,7 @@ namespace :upgrade do
     end
   end
 
-  desc "Sets the new managed flag for all existing Orgs to managed = true" do
+  desc "Sets the new managed flag for all existing Orgs to managed = true"
   task default_orgs_to_managed: :environment do
     Org.all.update_all(managed: true)
   end
