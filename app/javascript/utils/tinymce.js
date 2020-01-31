@@ -20,6 +20,7 @@ export const defaultOptions = {
   menubar: false,
   toolbar: 'bold italic | bullist numlist | link | table',
   plugins: 'table autoresize link paste advlist lists',
+  browser_spellcheck: true,
   advlist_bullet_styles: 'circle,disc,square', // Only disc bullets display on htmltoword
   target_list: false,
   elementpath: false,
