@@ -24,7 +24,7 @@ module OrgSelection
         return nil unless hash.present?
 
         # Allow for the hash to have either symbol or string keys
-        hash = ActiveSupport::HashWithIndifferentAccess.new(hash)
+        hash = hash.with_indifferent_access
 
         # 1st: if id is present - find the Org and then verify names match
         org = Org.where(id: hash[:id]).first if hash[:id].present?
@@ -52,10 +52,10 @@ module OrgSelection
 
         out = []
         # Process each of the identifiers
+        hash = hash.with_indifferent_access
         hash.select { |k, _v| identifier_keys.include?(k) }.each do |k, v|
           attrs = hash.select { |k, v| attr_keys(hash: hash).include?(k) }
           attrs = {} unless attrs.present?
-
           out << Identifier.new(
             identifier_scheme_id: IdentifierScheme.by_name(k).first&.id,
             value: v,
@@ -82,6 +82,7 @@ module OrgSelection
           is_other: false,
           abbreviation: abbreviation_from_hash(hash: hash)
         )
+        org.identifiers = ids
         org
       end
 
@@ -115,14 +116,14 @@ module OrgSelection
       end
 
       def attr_keys(hash:)
-        return [] unless hash.present?
+        return {} unless hash.present?
 
         non_attr_keys = identifier_keys + %w[sort_name weight score]
         hash.keys.select { |k| !non_attr_keys.include?(k) }
       end
 
       def exact_match?(rec:, name2:)
-        return false unless rec.present?
+        return false unless rec.present? && name2.present?
 
         OrgSelection::SearchService.exact_match?(name1: rec.name, name2: name2)
       end
