@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200130160919) do
+ActiveRecord::Schema.define(version: 20200203190734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,10 +97,10 @@ ActiveRecord::Schema.define(version: 20200130160919) do
     t.datetime "updated_at"
     t.text     "logo_url"
     t.text     "user_landing_url"
-    t.boolean  "for_auth",                       default: false
-    t.boolean  "for_orgs",                       default: false
-    t.boolean  "for_plans",                      default: false
-    t.boolean  "for_users",                      default: false
+    t.boolean  "for_auth",                     default: false
+    t.boolean  "for_orgs",                     default: false
+    t.boolean  "for_plans",                    default: false
+    t.boolean  "for_users",                    default: false
   end
 
     create_table "identifiers", force: :cascade do |t|
@@ -238,9 +238,12 @@ ActiveRecord::Schema.define(version: 20200130160919) do
     t.string   "principal_investigator_phone"
     t.boolean  "feedback_requested",                default: false
     t.boolean  "complete",                          default: false
+    t.integer  "org_id",                            limit: 4
+    t.integer  "funder_id",                         limit: 4
   end
 
   add_index "plans", ["template_id"], name: "index_plans_on_template_id", using: :btree
+  add_index "plans", ["funder_id"], name: "index_plans_on_funder_id", using: :btree
 
   create_table "plans_guidance_groups", force: :cascade do |t|
     t.integer "guidance_group_id"
@@ -478,6 +481,7 @@ ActiveRecord::Schema.define(version: 20200130160919) do
   add_foreign_key "orgs", "languages"
   add_foreign_key "orgs", "regions"
   add_foreign_key "phases", "templates"
+  add_foreign_key "plans", "orgs"
   add_foreign_key "plans", "templates"
   add_foreign_key "plans_guidance_groups", "guidance_groups"
   add_foreign_key "plans_guidance_groups", "plans"
