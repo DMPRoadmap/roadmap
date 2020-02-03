@@ -50,7 +50,6 @@ Rails.application.routes.draw do
   root :to => 'home#index'
   get "about_us" => 'static_pages#about_us'
   get "help" => 'static_pages#help'
-  get "roadmap" => 'static_pages#roadmap'
   get "terms" => 'static_pages#termsuse'
   get "privacy" => 'static_pages#privacy'
   get "public_plans" => 'public_pages#plan_index'
