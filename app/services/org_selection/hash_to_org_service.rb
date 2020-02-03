@@ -20,6 +20,10 @@ module OrgSelection
 
     class << self
 
+      # Disabling some Rubocop here as I feel that this would be more
+      # confusing if broken apart further
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/CyclomaticComplexity
       def to_org(hash:)
         return nil unless hash.present?
 
@@ -44,8 +48,9 @@ module OrgSelection
         return org if exact_match?(rec: org, name2: hash[:name])
 
         # Otherwise: Create an Org
-        org = initialize_org(hash: hash)
+        initialize_org(hash: hash)
       end
+      # rubocop:enable Metrics/CyclomaticComplexity
 
       def to_identifiers(hash:)
         return [] unless hash.present?
@@ -53,21 +58,24 @@ module OrgSelection
         out = []
         # Process each of the identifiers
         hash = hash.with_indifferent_access
-        hash.select { |k, _v| identifier_keys.include?(k) }.each do |k, v|
-          attrs = hash.select { |k, v| attr_keys(hash: hash).include?(k) }
+        idents = hash.select { |k, _v| identifier_keys.include?(k) }
+        idents.each do |key, value|
+          attrs = hash.select { |k, _v| attr_keys(hash: hash).include?(k) }
           attrs = {} unless attrs.present?
           out << Identifier.new(
-            identifier_scheme_id: IdentifierScheme.by_name(k).first&.id,
-            value: v,
+            identifier_scheme_id: IdentifierScheme.by_name(key).first&.id,
+            value: value,
             attrs: attrs
           )
         end
         out
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       private
 
       # Initialize a new Org from the hash
+      # rubocop:disable Metrics/MethodLength
       def initialize_org(hash:)
         return nil unless hash.present? && hash[:name].present?
 
@@ -82,6 +90,7 @@ module OrgSelection
         )
         org
       end
+      # rubocop:enable Metrics/MethodLength
 
       # Convert the name and website into Org.links
       def links_from_hash(name:, website:)
@@ -116,7 +125,7 @@ module OrgSelection
         return {} unless hash.present?
 
         non_attr_keys = identifier_keys + %w[sort_name weight score]
-        hash.keys.select { |k| !non_attr_keys.include?(k) }
+        hash.keys.reject { |k| non_attr_keys.include?(k) }
       end
 
       def exact_match?(rec:, name2:)
