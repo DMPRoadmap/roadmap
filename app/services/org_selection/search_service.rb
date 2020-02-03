@@ -12,7 +12,10 @@ module OrgSelection
 
       # Search for organizations both locally and externally
       def search_combined(search_term:)
+        return [] unless search_term.present? && search_term.length > 2
+
         orgs = local_search(search_term: search_term)
+        orgs = [] unless orgs.present?
         # If we got an exact match out of the database then skip the
         # external searches
         matches = orgs.select do |org|
@@ -20,8 +23,9 @@ module OrgSelection
         end
         return orgs if matches.any?
 
-        orgs = orgs + externals_search(search_term: search_term)
-        prepare(search_term: search_term, records: orgs)
+        externals = externals_search(search_term: search_term)
+        externals = [] unless externals.present?
+        prepare(search_term: search_term, records: orgs + externals)
       end
 
       # Search for organizations via External APIs
@@ -33,10 +37,10 @@ module OrgSelection
       end
 
       # Search for organizations in the local DB only
-      #   funders_only      => excludes Non-Funder Orgs from the results
-      def search_locally(search_term:, funders_only: false)
+      def search_locally(search_term:)
+        return [] unless search_term.present? && search_term.length > 2
+
         orgs = local_search(search_term: search_term)
-        orgs = orgs.select { |org| org.funder? } if funders_only
         prepare(search_term: search_term, records: orgs)
       end
 
@@ -155,8 +159,8 @@ module OrgSelection
 
         array.select do |hash|
           # If the natural language processing score is <= 25 OR the
-          # weight is less than 2 (starts with or includes the search term)
-          hash[:score].present? && (hash[:score] <= 25 || hash[:weight] < 2)
+          # weight is less than 1 (starts with or includes the search term)
+          hash.fetch(:score, 0) <= 25 || hash.fetch(:weight, 1) < 2
         end
       end
 

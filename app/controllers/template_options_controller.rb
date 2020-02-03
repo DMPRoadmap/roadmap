@@ -2,6 +2,8 @@
 
 class TemplateOptionsController < ApplicationController
 
+  include OrgSelectable
+
   after_action :verify_authorized
 
   # GET /template_options  (AJAX)
@@ -12,17 +14,16 @@ class TemplateOptionsController < ApplicationController
     authorize Template.new, :template_options?
 
     if org_hash.present?
-      org = OrgSelection::HashToOrgService.to_org(hash: org_hash)
-      org.save if org.new_record?
+      org = org_from_params(params_in: { org_id: org_hash })
     end
     if funder_hash.present?
-      funder = OrgSelection::HashToOrgService.to_org(hash: funder_hash)
-      funder.save if funder.new_record?
+      funder = org_from_params(params_in: { org_id: funder_hash })
     end
 
     @templates = []
 
-    if org.present? && org.id.present? || (funder.present? && funder.id.present?)
+    if (org.present? && !org.new_record?) ||
+        (funder.present? && !funder.new_record?)
       unless funder.id.blank?
         # Load the funder's template(s) minus the default template (that gets swapped
         # in below if NO other templates are available)
@@ -65,8 +66,6 @@ class TemplateOptionsController < ApplicationController
         @templates << (customization.present? ? customization : Template.default)
       end
     end
-
-p @templates.inspect
 
     @templates = @templates.sort_by(&:title)
   end

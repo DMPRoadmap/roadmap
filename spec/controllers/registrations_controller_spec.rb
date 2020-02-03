@@ -15,39 +15,48 @@ RSpec.describe RegistrationsController, type: :controller do
       @controller = described_class.new
     end
 
-    describe "#params_to_org_id!(org_id:)" do
+    describe "#handle_org(params:, user:)" do
 
       before(:each) do
-        @hash = {
-          id: @org.id.to_s,
-          name: Faker::Lorem.word,
-          ror: Faker::Lorem.word
-        }.to_json
+        @params = ActionController::Parameters.new({
+          org_id: {
+            id: @org.id.to_s,
+            name: Faker::Lorem.word,
+            ror: Faker::Lorem.word
+          }
+        })
+        @user = build(:user)
+
+        @controller.stubs(:org_from_params).returns(build(:org))
+        @controller.stubs(:remove_org_selection_params)
+                   .returns({ other_param: Faker::Lorem.word })
       end
 
-      it "returns nil if the org_id is not a string" do
-        rslt = @controller.send(:params_to_org_id!, org_id: nil)
+      it "returns nil if the params are not present" do
+        rslt = @controller.send(:handle_org, params: nil, user: @user)
         expect(rslt).to eql(nil)
       end
-
-      it "returns the correct org" do
-        rslt = @controller.send(:params_to_org_id!, org_id: @hash)
-        expect(rslt).to eql(@org.id)
+      it "returns the params if the params[:org_id] is not present" do
+        rslt = @controller.send(:handle_org, params: {}, user: @user)
+        expect(rslt).to eql({})
       end
-
-      it "returns nil if there is a JSON parse error with org_id" do
-        Rails.logger.stubs(:error).returns(true)
-        rslt = @controller.send(:params_to_org_id!, org_id: "#{@hash}7fy]")
-        expect(rslt).to eql(nil)
+      it "returns the params if the user is not present" do
+        rslt = @controller.send(:handle_org, params: @params, user: nil)
+        expect(rslt).to eql(@params)
       end
-
-      it 'creates a new org' do
-        hash = { name: Faker::Lorem.sentence }
-        rslt = @controller.send(:params_to_org_id!, org_id: hash.to_json)
-        expect(rslt.name).to eql(hash[:name])
-        expect(rslt.id.present?).to eql(true)
+      it "calls org_from_params to retrieve the Org" do
+        @controller.expects(:org_from_params).at_least(1)
+        rslt = @controller.send(:handle_org, params: @params, user: @user)
       end
-
+      it "saved the org if it was a new record" do
+        count = Org.all.length
+        rslt = @controller.send(:handle_org, params: @params, user: @user)
+        expect(Org.all.length).to eql(count + 1)
+      end
+      it "calls remove_org_selection_params" do
+        @controller.expects(:org_from_params).at_least(1)
+        @controller.send(:handle_org, params: @params, user: @user)
+      end
     end
 
   end

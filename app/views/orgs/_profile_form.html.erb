@@ -1,13 +1,12 @@
-<%# locals: org %>
+<%# locals: org, url, method %>
 
 <%
   shared_links_tooltip = _('Links will be displayed next to your organisation\'s logo')
   org_config_info_tooltip =  _('This information can only be changed by a system administrator. Contact the Help Desk if you have questions or to request changes.')
 %>
 
-<%= form_for(org, url: admin_update_org_path(@org),
-                  html: { multipart: true, method: :put,
-                          id: "edit_org_profile_form" } ) do |f| %>
+<%= form_for(org, url: url, html: { multipart: true, method: method,
+                                    id: "edit_org_profile_form" } ) do |f| %>
 
   <div class="row">
     <div class="form-group col-xs-8">
@@ -38,9 +37,9 @@
     <div class="form-group col-xs-8">
       <%= f.label :logo, _('Organization logo'), class: "control-label"  %>
 
-      <% if @org.logo.present? %>
+      <% if org.logo.present? %>
         <div class="clearfix"></div>
-        <%= image_tag logo_url_for_org(@org), alt: "#{@org.name} #{_('logo')}" %>
+        <%= image_tag logo_url_for_org(org), alt: "#{org.name} #{_('logo')}" %>
         <div class="org-logo-controls checkbox">
           <%= f.label :remove_logo do %>
             <%= f.check_box :remove_logo,
@@ -62,19 +61,19 @@
         <legend><%= _('Organisation Types') %></legend>
           <div class="checkbox">
             <%= f.label :funder do %>
-              <%= check_box_tag :funder, 2, @org.funder?, class: 'org_types' %>
+              <%= check_box_tag :funder, 2, org.funder?, class: 'org_types' %>
               <%= _('Funder') %>
             <% end %>
           </div>
           <div class="checkbox">
             <%= f.label :institution do %>
-              <%= check_box_tag :institution, 1, @org.institution?, class: 'org_types' %>
+              <%= check_box_tag :institution, 1, org.institution?, class: 'org_types' %>
               <%= _('Institution') %>
             <% end %>
           </div>
           <div class="checkbox">
             <%= f.label :organisation do %>
-              <%= check_box_tag :organisation, 4, @org.organisation?, class: 'org_types' %>
+              <%= check_box_tag :organisation, 4, org.organisation?, class: 'org_types' %>
               <%= _('Organisation') %>
             <% end %>
           </div>
@@ -87,7 +86,7 @@
       <div class="col-xs-8">
         <dl>
           <dt><%= _('Organisation type(s)') %></dt>
-          <dd><%= @org.org_type_to_s %></dd>
+          <dd><%= org.org_type_to_s %></dd>
         </dl>
       </div>
     <% end %>
@@ -102,10 +101,10 @@
                  locals: {
                    context: 'org',
                    title: _('Organisation URLs'),
-                   links: @org.links.fetch("org", []),
+                   links: org.links.fetch("org", []),
                    max_number_links: MAX_NUMBER_LINKS_FUNDER,
                    tooltip: shared_links_tooltip }) %>
-      <%= hidden_field_tag('org_links', value: @org.links) %>
+      <%= hidden_field_tag('org_links', value: org.links) %>
     </div>
   </div>
 

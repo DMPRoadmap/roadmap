@@ -1,7 +1,7 @@
 <%# locals: org %>
 
 <% title _('Request Feedback') %>
-<%= form_for(@org, url: admin_update_org_path(@org),
+<%= form_for(org, url: admin_update_org_path(org),
                    html: { multipart: true, method: :put,
                            id: "edit_org_feedback_form" } ) do |f| %>
   <h2><%= _('Request Feedback') %></h2>
@@ -29,7 +29,7 @@
       </div>
       <div class="form-group col-xs-4">
         <h4><%= _('Sample Message') %></h4>
-        <%= sanitize sample_message_for_org_feedback_form(@org) %>
+        <%= sanitize sample_message_for_org_feedback_form(org) %>
       </div>
     </div>
   </div>
