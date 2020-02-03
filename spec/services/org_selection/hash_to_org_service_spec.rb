@@ -109,11 +109,6 @@ RSpec.describe OrgSelection::HashToOrgService do
         expect(rslt.institution?).to eql(true)
         expect(rslt.abbreviation).to eql(@abbrev)
       end
-      it "includes the Org's idenitifers" do
-        rslt = described_class.send(:initialize_org, hash: @hash)
-        expect(rslt.identifiers.length).to eql(1)
-        expect(rslt.identifiers.first.value).to eql(@hash[:"#{@scheme.name}"])
-      end
     end
 
     describe "#links_from_hash(name:, website:)" do

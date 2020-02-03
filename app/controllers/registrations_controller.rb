@@ -82,16 +82,8 @@ class RegistrationsController < Devise::RegistrationsController
       end
 
       # Handle the Org selection
-p "SIGN UP PARAMS:"
-p sign_up_params.inspect
-
-      # TODO: For some reason sign_up_params is nil when it gets
-      #       passed into the handle_org method.
       attrs = sign_up_params
       attrs = handle_org(attrs: attrs)
-
-p "ORG IS:"
-p attrs[:org_id]
 
       build_resource(attrs)
 
