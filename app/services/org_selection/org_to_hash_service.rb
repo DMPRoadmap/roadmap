@@ -6,7 +6,6 @@ module OrgSelection
 
   # This class provides a search mechanism for Orgs that looks at records in the
   # the database along with any available external APIs
-  # rubocop:disable Metrics/ClassLength
   class OrgToHashService
 
     class << self

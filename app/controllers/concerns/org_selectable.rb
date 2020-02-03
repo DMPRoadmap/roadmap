@@ -6,8 +6,8 @@ module OrgSelectable
 
   extend ActiveSupport::Concern
 
+  # rubocop:disable Metrics/BlockLength
   included do
-
     private
 
     # Converts the incoming params_into an Org by either locating it
@@ -28,7 +28,7 @@ module OrgSelectable
     def identifiers_from_params(params_in:)
       params_in = params_in.with_indifferent_access
       return [] unless params_in[:org_id].present? &&
-                        params_in[:org_id].is_a?(String)
+                       params_in[:org_id].is_a?(String)
 
       hash = org_hash_from_params(params_in: params_in)
       return [] unless hash.present?
@@ -48,13 +48,12 @@ module OrgSelectable
     # Just does a JSON parse of the org_id hash
     def org_hash_from_params(params_in:)
       JSON.parse(params_in[:org_id]).with_indifferent_access
-
-    rescue JSON::ParserError => pe
-      Rails.logger.error "Unable to parse Org Selection JSON: #{pe.message}"
+    rescue JSON::ParserError => e
+      Rails.logger.error "Unable to parse Org Selection JSON: #{e.message}"
       Rails.logger.error params_in.inspect
-      return {}
+      {}
     end
-
   end
+  # rubocop:enable Metrics/BlockLength
 
 end
