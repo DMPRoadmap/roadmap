@@ -64,6 +64,10 @@ class Org < ActiveRecord::Base
 
   has_many :guidance_groups, dependent: :destroy
 
+  has_many :plans
+
+  has_many :funded_plans, class_name: "Plan", foreign_key: "funder_id"
+
   has_many :templates
 
   has_many :users

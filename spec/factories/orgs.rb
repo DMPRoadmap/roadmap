@@ -67,10 +67,12 @@ FactoryBot.define do
 
     transient do
       templates { 0 }
+      plans { 0 }
     end
 
     after :create do |org, evaluator|
       create_list(:template, evaluator.templates, :published, org: org)
+      create_list(:plan, evaluator.plans)
     end
   end
 end

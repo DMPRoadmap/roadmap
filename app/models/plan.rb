@@ -26,15 +26,22 @@
 #  created_at                        :datetime
 #  updated_at                        :datetime
 #  template_id                       :integer
+#  org_id                            :integer
+#  funder_id                         :integer
 #
 # Indexes
 #
 #  index_plans_on_template_id  (template_id)
+#  index_plans_on_funder_id    (funder_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (template_id => templates.id)
+#  fk_rails_...  (org_id => orgs.id)
 #
+
+# TODO: Drop the funder_name column once the funder_id has been back
+#       filled and we're removing the is_other org stuff
 
 class Plan < ActiveRecord::Base
 
@@ -74,6 +81,10 @@ class Plan < ActiveRecord::Base
   # ================
 
   belongs_to :template
+
+  belongs_to :org
+
+  belongs_to :funder, class_name: "Org"
 
   has_many :phases, through: :template
 

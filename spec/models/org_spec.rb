@@ -66,6 +66,9 @@ RSpec.describe Org, type: :model do
 
     it { should have_many(:identifiers) }
 
+    it { should have_many(:plans) }
+
+    it { should have_many(:funded_plans) }
   end
 
   context "scopes" do

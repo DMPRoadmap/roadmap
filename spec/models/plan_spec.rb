@@ -23,6 +23,10 @@ describe Plan do
 
     it { is_expected.to belong_to :template }
 
+    it { is_expected.to belong_to :org }
+
+    it { is_expected.to belong_to :funder }
+
     it { is_expected.to have_many :phases }
 
     it { is_expected.to have_many :sections }
