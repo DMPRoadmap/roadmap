@@ -2,6 +2,8 @@
 
 class RegistrationsController < Devise::RegistrationsController
 
+  include OrgSelectable
+
   def edit
     @user = current_user
     @prefs = @user.get_preferences(:email)
@@ -79,34 +81,21 @@ class RegistrationsController < Devise::RegistrationsController
         end
       end
 
-      if params[:user][:org_id].blank?
-        other_org = Org.find_by(is_other: true)
-        if other_org.nil?
-          # rubocop:disable Metrics/LineLength
-          redirect_to(after_sign_up_error_path_for(resource),
-            alert: _("You cannot be assigned to other organisation since that option does not exist in the system. Please contact your system administrators.")) and return
-          # rubocop:enable Metrics/LineLength
-        end
-        params[:user][:org_id] = other_org.id
-      end
+      # Handle the Org selection
+p "SIGN UP PARAMS:"
+p sign_up_params.inspect
 
-      build_resource(sign_up_params)
+      # TODO: For some reason sign_up_params is nil when it gets
+      #       passed into the handle_org method.
+      attrs = sign_up_params
+      attrs = handle_org(attrs: attrs)
+
+p "ORG IS:"
+p attrs[:org_id]
+
+      build_resource(attrs)
+
       if resource.save
-
-        # Handle the Org selection and attach the user to it
-        org = params_to_org!(org_id: params[:user][:org_id])
-
-        if org.present?
-          org.save if org.new_record?
-
-          ids = OrgSelection::HashToOrgService.to_identifiers(
-            hash: JSON.parse(params[:user][:org_id])
-          )
-          org.save_identifiers!(array: ids)
-
-          resource.update(org_id: org.id)
-        end
-
         if resource.active_for_authentication?
           set_flash_message :notice, :signed_up if is_navigational_format?
           sign_up(resource_name, resource)
@@ -196,6 +185,11 @@ class RegistrationsController < Devise::RegistrationsController
     end
     # has the user entered all the details
     if mandatory_params
+
+      # Handle the Org selection
+      attrs = update_params
+      attrs = handle_org(attrs: attrs)
+
       # user is changing email or password
       if require_password
         # if user is changing email
@@ -216,28 +210,14 @@ class RegistrationsController < Devise::RegistrationsController
           # This case is never reached since this method when called with
           # require_password = true is because the email changed.
           # The case for password changed goes to do_update_password instead
-          successfully_updated = current_user.update_without_password(update_params)
+          successfully_updated = current_user.update_without_password(attrs)
         end
       else
         # password not required
-        successfully_updated = current_user.update_without_password(update_params)
+        successfully_updated = current_user.update_without_password(attrs)
       end
     else
       successfully_updated = false
-    end
-
-    # Handle the Org selection and attach the user to it
-    org = params_to_org!(org_id: params[:user][:org_id])
-
-    if org.present? && org.id != current_user.org.id
-      org.save if org.new_record?
-
-      ids = OrgSelection::HashToOrgService.to_identifiers(
-        hash: JSON.parse(params[:user][:org_id])
-      )
-      org.save_identifiers!(array: ids)
-
-      current_user.update_without_password(org_id: org.id)
     end
 
     # unlink shibboleth from user's details
@@ -296,31 +276,52 @@ class RegistrationsController < Devise::RegistrationsController
   def sign_up_params
     params.require(:user).permit(:email, :password, :password_confirmation,
                                  :firstname, :surname, :recovery_email,
-                                 :accept_terms, :org_id, :other_organisation)
+                                 :accept_terms, :org_id, :org_name,
+                                 :org_crosswalk)
   end
 
   def update_params
-    params.require(:user).permit(:firstname, :org_id, :other_organisation,
-                                :language_id, :surname, :department_id)
+    params.require(:user).permit(:firstname, :org_id, :language_id,
+                                 :surname, :department_id, :org_id,
+                                 :org_name, :org_crosswalk)
   end
 
   def password_update
     params.require(:user).permit(:email, :firstname, :current_password,
-                                :org_id, :language_id, :password,
-                                :password_confirmation, :surname,
-                                :other_organisation, :department_id)
+                                 :language_id, :password,
+                                 :password_confirmation, :surname,
+                                 :department_id, :org_id, :org_name,
+                                 :org_crosswalk)
   end
 
   # Finds or creates the selected org and then returns it's id
-  def params_to_org!(org_id:)
-    return nil unless org_id.present? && org_id.is_a?(String)
+  def handle_org(attrs:)
+    return attrs unless attrs.present? && attrs[:org_id].present?
 
-    json = JSON.parse(org_id).with_indifferent_access
-    OrgSelection::HashToOrgService.to_org(hash: json)
+    # See if the user selected a new Org via the Org Lookup and
+    # convert it into an Org
+    lookup = org_from_params(params_in: attrs)
+    return attrs unless lookup.present?
 
-  rescue JSON::ParserError => pe
-    log.error "Unable to parse org_id param from RegistrationsController:"
-    log.error "  #{pe.message} :: org_id hash: #{org_id.inspect}"
-    nil
+    # If this is a new Org we need to save it first before attaching
+    # it to the user
+    if lookup.new_record?
+      lookup.save
+      identifiers_from_params(params_in: attrs).each do |identifier|
+        next unless identifier.value.present?
+
+        identifier.identifiable = lookup
+        identifier.save
+      end
+      lookup.reload
+    end
+
+    # Remove the extraneous Org Selector hidden fields
+    attrs = remove_org_selection_params(params_in: attrs)
+
+    # reattach the org_id but with the Org id instead of the hash
+    attrs[:org_id] = lookup.id
+    attrs
   end
+
 end

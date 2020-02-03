@@ -5,8 +5,7 @@ require "rails_helper"
 RSpec.describe OrgSelection::SearchService do
 
   before(:each) do
-    @org = create(:org, name: "Fooville Community College", is_other: false)
-    @ror_records = [
+    @records = [
       {
         id: Faker::Internet.url,
         name: "Foo College (test.edu)",
@@ -28,141 +27,100 @@ RSpec.describe OrgSelection::SearchService do
         sort_name: "University of Foo"
       }
     ]
-    @records = @ror_records + [@org]
 
     # Mock calls to the RorService
     ExternalApis::RorService.stubs(:active).returns(true)
-    ExternalApis::RorService.stubs(:search).returns(@ror_records)
+    ExternalApis::RorService.stubs(:search).returns(@records)
   end
 
-  describe "#search" do
-    it "returns an empty array if the search term is blank" do
-      expect(described_class.search(search_term: nil)).to eql([])
+  describe "#search_combined(search_term:)" do
+    it "returns an empty array if the search term is not provided" do
+      expect(described_class.search_combined(search_term: nil)).to eql([])
     end
-    it "returns an empty array if the search term is less than 3 characters" do
-      expect(described_class.search(search_term: "Fo")).to eql([])
+    it "returns an empty array if the search term is less than 2 chars" do
+      expect(described_class.search_combined(search_term: "Ab")).to eql([])
     end
-    it "includes the local DB records and excludes external APIs by default" do
-      rslts = described_class.search(search_term: "Foo")
-      expect(rslts.length).to eql(1)
-      expect(rslts.first[:id]).to eql(@org.id)
+    it "only searches locally if an exact match was found" do
+      org = create(:org)
+      described_class.expects(:local_search).returns([org]).at_least(1)
+      described_class.expects(:externals_search).at_least(0)
+      described_class.search_combined(search_term: org.name)
     end
-    it "skips the local DB records if specified" do
-      rslts = described_class.search(search_term: "Foo", include_locals: false)
-      expect(rslts.length).to eql(0)
-    end
-    it "includes the external API records if specified" do
-      rslts = described_class.search(search_term: "Foo", include_externals: true)
-      expect(rslts.length).to eql(4)
-    end
-    it "skips the external APIs if we had a local exact_match" do
-      term = "Fooville Community College (FOO)"
-      rslts = described_class.search(search_term: term, include_externals: true)
-      expect(rslts.length).to eql(1)
-      expect(rslts.first[:id]).to eql(@org.id)
+    it "calls both search_locally and search_externally" do
+      described_class.expects(:local_search).at_least(1)
+      described_class.expects(:externals_search).at_least(1)
+      described_class.search_combined(search_term: Faker::Company.name)
     end
   end
 
-  describe "#convert_hash_to_org" do
-    before(:each) do
-      @scheme = create(:identifier_scheme)
-      identifier = Faker::Lorem.unique.word
-      OrgIdentifier.create(org_id: @org.id, identifier: identifier,
-                           identifier_scheme_id: @scheme.id)
-      @hash = {
-        "id": @org.id.to_s,
-        "name": "#{@org.name} (#{Faker::Lorem.word.upcase})",
-        "#{@scheme.name.downcase}": identifier
-      }
+  describe "#search_externally(search_term:)" do
+    it "returns an empty array if the search term is not provided" do
+      expect(described_class.search_externally(search_term: nil)).to eql([])
     end
-
-    it "initializes a new Org" do
-      ident = Faker::Lorem.unique.word
-      hash = {
-        "name": Faker::Lorem.sentence,
-        "#{@scheme.name.downcase}": ident
-      }
-      rslt = described_class.send(:convert_hash_to_org, hash: hash)
-      expect(rslt.name).to eql(hash[:name])
-      expect(rslt.org_identifiers.first.identifier).to eql(ident)
+    it "returns an empty array if the search term is less than 2 chars" do
+      expect(described_class.search_externally(search_term: "Ab")).to eql([])
     end
-
-    context "finds an existing Org" do
-      context "by id" do
-        before(:each) do
-          @hash[:"#{@scheme.name.downcase}"] = ""
-        end
-
-        it "finds an Org" do
-          rslt = described_class.send(:convert_hash_to_org, hash: @hash)
-          expect(rslt).to eql(@org)
-        end
-        it "initializes a new Org if the names do not match" do
-          @hash[:name] = Faker::Lorem.sentence
-          rslt = described_class.send(:convert_hash_to_org, hash: @hash)
-          expect(rslt.new_record?).to eql(true)
-        end
-      end
-      context "by org_identifier" do
-        before(:each) do
-          @hash[:id] = ""
-        end
-
-        it "finds an Org" do
-          rslt = described_class.send(:convert_hash_to_org, hash: @hash)
-          expect(rslt).to eql(@org)
-        end
-        it "initializes a new Org if the names do not match" do
-          @hash[:name] = Faker::Lorem.sentence
-          rslt = described_class.send(:convert_hash_to_org, hash: @hash)
-          expect(rslt.new_record?).to eql(true)
-        end
-      end
-      context "by name" do
-        before(:each) do
-          @hash[:"#{@scheme.name.downcase}"] = ""
-          @hash[:id] = ""
-        end
-
-        it "finds an Org" do
-          rslt = described_class.send(:convert_hash_to_org, hash: @hash)
-          expect(rslt).to eql(@org)
-        end
-        it "initializes a new Org if the names do not match" do
-          @hash[:name] = Faker::Lorem.sentence
-          rslt = described_class.send(:convert_hash_to_org, hash: @hash)
-          expect(rslt.new_record?).to eql(true)
-        end
-      end
+    it "calls the private externals_search method" do
+      described_class.expects(:externals_search).at_least(1)
+      described_class.search_externally(search_term: Faker::Company.name)
     end
   end
 
-  describe "#convert_org_to_hash" do
-    before(:each) do
-      @org.name = "#{@org.name} (example.org)"
-      @rslt = described_class.send(:convert_org_to_hash, org: @org)
+  describe "#search_locally(search_term:)" do
+    it "returns an empty array if the search term is not provided" do
+      expect(described_class.search_locally(search_term: nil)).to eql([])
     end
+    it "returns an empty array if the search term is less than 2 chars" do
+      expect(described_class.search_locally(search_term: "Ab")).to eql([])
+    end
+    it "calls the private locals_search method" do
+      described_class.expects(:local_search).at_least(1)
+      described_class.search_locally(search_term: Faker::Company.name)
+    end
+  end
 
-    it "returns an empty hash if the incoming org is not an Org" do
-      expect(described_class.send(:convert_org_to_hash, org: nil)).to eql({})
+  describe "#name_without_alias(name:)" do
+    it "returns an empty string if name is not present" do
+      expect(described_class.name_without_alias(name: nil)).to eql("")
     end
-    it "converts the Org to a hash" do
-      expect(@rslt.is_a?(Hash)).to eql(true)
+    it "returns the name without the abbreviation alias" do
+      name = Faker::Company.name
+      rslt = described_class.name_without_alias(name: "#{name} (ABC)")
+      expect(rslt).to eql(name)
     end
-    it "the converted hash has the Org's id" do
-      expect(@rslt[:id]).to eql(@org.id)
+    it "returns the name without the domain alias" do
+      name = Faker::Company.name
+      rslt = described_class.name_without_alias(name: "#{name} (example.edu)")
+      expect(rslt).to eql(name)
     end
-    it "the converted hash has the Org's name" do
-      expect(@rslt[:name]).to eql(@org.name)
+  end
+
+  describe "#exact_match?(name1:, name2:)" do
+    it "returns false if name1 is nil" do
+      rslt = described_class.exact_match?(name1: nil, name2: "Foo")
+      expect(rslt).to eql(false)
     end
-    it "the converted hash properly removes the Org's abbreviation if present" do
-      expect(@rslt[:sort_name]).to eql(@org.name.gsub(" (example.org)", ""))
+    it "returns false if name2 is nil" do
+      rslt = described_class.exact_match?(name1: "Foo", name2: nil)
+      expect(rslt).to eql(false)
+    end
+    it "returns false if the names do not match" do
+      rslt = described_class.exact_match?(name1: "Bar", name2: "Foo")
+      expect(rslt).to eql(false)
+    end
+    it "returns true if the names match" do
+      rslt = described_class.exact_match?(name1: "Foo", name2: "Foo")
+      expect(rslt).to eql(true)
+    end
+    it "returns true if the names match but their cases do not" do
+      rslt = described_class.exact_match?(name1: "foo", name2: "Foo")
+      expect(rslt).to eql(true)
     end
   end
 
   context "private methods" do
 
-    describe "#local_search" do
+    describe "#local_search(search_term:)" do
       it "returns an empty array if the search term is blank" do
         rslts = described_class.send(:local_search, search_term: nil)
         expect(rslts).to eql([])
@@ -172,13 +130,14 @@ RSpec.describe OrgSelection::SearchService do
         expect(rslts).to eql([])
       end
       it "returns an array of matching Orgs" do
+        create(:org, name: "Foo Bar")
         rslts = described_class.send(:local_search, search_term: "Foo")
         expect(rslts.length).to eql(1)
         expect(rslts.is_a?(Array)).to eql(true)
       end
     end
 
-    describe "#externals_search" do
+    describe "#externals_search(search_term:)" do
       before(:each) do
         ExternalApis::RorService.stubs(:active).returns(true)
       end
@@ -204,45 +163,49 @@ RSpec.describe OrgSelection::SearchService do
       end
     end
 
-    describe "#prepare" do
+    describe "#prepare(search_term:, records:)" do
       it "returns an empty array if the search term is blank" do
-        rslts = described_class.send(:prepare, search_term: nil, records: @records)
+        rslts = described_class.send(:prepare, search_term: nil,
+                                               records: @records)
         expect(rslts).to eql([])
       end
       it "returns an empty array if the records is not an array" do
-        rslts = described_class.send(:prepare, search_term: "Foo", records: nil)
+        rslts = described_class.send(:prepare, search_term: "Foo",
+                                               records: nil)
         expect(rslts).to eql([])
       end
       it "handles Org models" do
-        rslts = described_class.send(:prepare, search_term: "Foo", records: @records)
-        rec = rslts.select { |item| item[:name].include?("Community") }.first
-        expect(rec[:name]).to eql("Fooville Community College")
+        recs = [create(:org, name: "Fooville Community College")]
+        rslts = described_class.send(:prepare, search_term: "Foo",
+                                               records: recs)
+        expect(rslts.first[:name]).to eql("Fooville Community College")
       end
       it "handles non-Org models" do
-        rslts = described_class.send(:prepare, search_term: "Foo", records: @records)
+        rslts = described_class.send(:prepare, search_term: "Foo",
+                                               records: @records)
         rec = rslts.select { |item| item[:name].include?("Ireland") }.first
         expect(rec[:name]).to eql("Foo University (Ireland)")
       end
     end
 
-    describe "#deduplicate" do
+    describe "#deduplicate(records:)" do
       it "returns an empty array if the incoming records is not an Array" do
         expect(described_class.send(:deduplicate, records: nil)).to eql([])
       end
       it "includes all of the unique records" do
-        rslts = described_class.send(:deduplicate, records: @ror_records)
+        rslts = described_class.send(:deduplicate, records: @records)
         expect(rslts.length).to eql(3)
       end
       it "removes the duplicate" do
-        rslts = described_class.send(:deduplicate, records: @ror_records)
+        rslts = described_class.send(:deduplicate, records: @records)
         dupe = rslts.select { |rec| rec[:name] == "Foo College (other.edu)" }
         expect(dupe).to eql([])
       end
     end
 
-    describe "#sort" do
+    describe "#sort(array:)" do
       before(:each) do
-        @sortable = @ror_records.each_with_index.map do |rec, idx|
+        @sortable = @records.each_with_index.map do |rec, idx|
           rec.merge(weight: idx, score: idx + 1)
         end
         # Mix up the records since we scored them in order
@@ -274,211 +237,122 @@ RSpec.describe OrgSelection::SearchService do
       end
     end
 
-    describe "#evaluate" do
+    describe "#evaluate(reord:, search_term:)" do
       before(:each) do
         described_class.stubs(:score).returns(0)
         described_class.stubs(:weigh).returns(0)
-        @record = @ror_records.first
+        @record = @records.first
       end
       it "returns the record if search term is nil" do
-        rslt = described_class.send(:evaluate, record: @record, search_term: nil)
+        rslt = described_class.send(:evaluate, record: @record,
+                                               search_term: nil)
         expect(rslt).to eql(@record)
       end
       it "returns a nil if record is nil" do
-        rslt = described_class.send(:evaluate, record: nil, search_term: "Foo")
+        rslt = described_class.send(:evaluate, record: nil,
+                                               search_term: "Foo")
         expect(rslt).to eql(nil)
       end
       it "adds a score to each item" do
-        rslt = described_class.send(:evaluate, record: @record, search_term: "Foo")
+        rslt = described_class.send(:evaluate, record: @record,
+                                               search_term: "Foo")
         expect(rslt[:score]).to eql(0)
       end
       it "adds a weight to each item" do
-        rslt = described_class.send(:evaluate, record: @record, search_term: "Foo")
+        rslt = described_class.send(:evaluate, record: @record,
+                                               search_term: "Foo")
         expect(rslt[:weight]).to eql(0)
       end
     end
 
-    describe "#score" do
+    describe "#score(search_term:, item_name:)" do
       it "returns a high value '99' if term is nil" do
-        rslt = described_class.send(:score, search_term: nil, item_name: "Foo")
+        rslt = described_class.send(:score, search_term: nil,
+                                            item_name: "Foo")
         expect(rslt).to eql(99)
       end
       it "returns a high value '99' if item_name is nil" do
-        rslt = described_class.send(:score, search_term: "Foo", item_name: nil)
+        rslt = described_class.send(:score, search_term: "Foo",
+                                            item_name: nil)
         expect(rslt).to eql(99)
       end
       it "calls the base class' natuaral language comparison method" do
         Text::Levenshtein.stubs(:distance).returns(0)
-        rslt = described_class.send(:score, search_term: "Foo", item_name: "Bar")
+        rslt = described_class.send(:score, search_term: "Foo",
+                                            item_name: "Bar")
         expect(rslt).to eql(0)
       end
     end
 
-    describe "#weigh" do
+    describe "#weigh(search_term:, item_name:)" do
       before(:each) do
-        @term = Faker::Lorem.word
+        @term = "Foo"
       end
       it "expects a weight of 3 if the search_term is blank" do
-        rslt = described_class.send(:weigh, search_term: nil, item_name: @term)
+        rslt = described_class.send(:weigh, search_term: nil,
+                                            item_name: @term)
         expect(rslt).to eql(3)
       end
       it "expects a weight of 3 if the search_term is blank" do
-        rslt = described_class.send(:weigh, search_term: @term, item_name: nil)
+        rslt = described_class.send(:weigh, search_term: @term,
+                                            item_name: nil)
         expect(rslt).to eql(3)
       end
       it "expects a result that starts with the search term to weigh zero" do
         item = "#{@term.downcase}#{Faker::Lorem.sentence}"
-        rslt = described_class.send(:weigh, search_term: @term, item_name: item)
+        rslt = described_class.send(:weigh, search_term: @term,
+                                            item_name: item)
         expect(rslt).to eql(0)
       end
       it "expects a result that contains the search term to weigh one" do
         item = "#{Faker::Lorem.sentence}#{@term.downcase}"
-        rslt = described_class.send(:weigh, search_term: @term, item_name: item)
+        rslt = described_class.send(:weigh, search_term: @term,
+                                            item_name: item)
         expect(rslt).to eql(1)
       end
       it "expects a result that does not contain the search term to weigh two" do
         item = Faker::Lorem.sentence.to_s.gsub(@term, "foo bar")
-        rslt = described_class.send(:weigh, search_term: @term, item_name: item)
+        rslt = described_class.send(:weigh, search_term: @term,
+                                            item_name: item)
         expect(rslt).to eql(2)
       end
     end
 
-    describe "#filter" do
+    describe "#filter(array:)" do
       it "returns an empty array if the array in is not an Array" do
         expect(described_class.send(:filter, array: nil)).to eql([])
       end
-      it "returns all records if they do not have a 'score'" do
-        expect(described_class.send(:filter, array: @records).length).to eql(5)
+      it "returns all records if they do not have a 'score' and 'weight'" do
+        recs = [
+          { name: Faker::Lorem.word },
+          { name: Faker::Lorem.word }
+        ]
+        rslts = described_class.send(:filter, array: recs)
+        expect(rslts.length).to eql(2)
       end
-      it "discards any item whose score is > 25" do
-        recs = @records.map { |rec| rec.is_a?(Org) ? rec : rec.merge(score: 26) }
-        expect(described_class.send(:filter, array: recs).length).to eql(1)
+      it "discards any item whose score is > 25 and weight > 1" do
+        recs = [
+          { name: Faker::Lorem.word },
+          { name: Faker::Lorem.word, score: 26, weight: 2 }
+        ]
+        rslts = described_class.send(:filter, array: recs)
+        expect(rslts.length).to eql(1)
       end
-    end
-
-    describe "#name_without_alias" do
-      it "returns an empty string if the specified name is nil" do
-        expect(described_class.send(:name_without_alias, name: nil)).to eql("")
+      it "does not discard an item whose weight is > 1 but score < 25" do
+        recs = [
+          { name: Faker::Lorem.word },
+          { name: Faker::Lorem.word, score: 20, weight: 2 }
+        ]
+        rslts = described_class.send(:filter, array: recs)
+        expect(rslts.length).to eql(2)
       end
-      it "returns an empty string if the name only contains parenthesis content" do
-        rslt = described_class.send(:name_without_alias, name: "  (foo) ")
-        expect(rslt).to eql("")
-      end
-      it "returns the name sans parenthesis content" do
-        rslt = described_class.send(:name_without_alias, name: "  Foo  (bar)")
-        expect(rslt).to eql("Foo")
-      end
-    end
-
-    describe "#exact_match?" do
-      it "returns false if name1 is nil" do
-        rslt = described_class.send(:exact_match?, name1: nil, name2: "Foo")
-        expect(rslt).to eql(false)
-      end
-      it "returns false if name2 is nil" do
-        rslt = described_class.send(:exact_match?, name1: "Foo", name2: nil)
-        expect(rslt).to eql(false)
-      end
-      it "returns false if the names do not match" do
-        rslt = described_class.send(:exact_match?, name1: "Bar", name2: "Foo")
-        expect(rslt).to eql(false)
-      end
-      it "returns true if the names match" do
-        rslt = described_class.send(:exact_match?, name1: "Foo", name2: "Foo")
-        expect(rslt).to eql(true)
-      end
-      it "returns true if the names match but their cases do not" do
-        rslt = described_class.send(:exact_match?, name1: "foo", name2: "Foo")
-        expect(rslt).to eql(true)
-      end
-    end
-
-    describe "#init_org_from_hash(hash:)" do
-      it "returns nil if hash is nil" do
-        rslt = described_class.send(:init_org_from_hash, hash: nil)
-        expect(rslt).to eql(nil)
-      end
-      it "returns nil if no name is in the hash" do
-        rslt = described_class.send(:init_org_from_hash, hash: { id: "1" })
-        expect(rslt).to eql(nil)
-      end
-      it "returns a new instance of an Org" do
-        hash = { name: Faker::Company.name }
-        rslt = described_class.send(:init_org_from_hash, hash: hash)
-        expect(rslt.name).to eql(hash[:name])
-        expect(rslt.institution).to eql(true)
-        expect(rslt.is_other).to eql(false)
-      end
-      it "returns a new instance of an Org with identifiers" do
-        scheme = create(:identifier_scheme)
-        hash = { name: Faker::Company.name, "#{scheme.name.downcase}": "1" }
-        rslt = described_class.send(:init_org_from_hash, hash: hash)
-        expect(rslt.org_identifiers.length).to eql(1)
-      end
-    end
-
-    describe "#links_from_hash(name:, website:)" do
-      before(:each) do
-        @url = Faker::Internet.url,
-               @name = Faker::Company.name
-      end
-
-      it "returns the empty stub if name is blank" do
-        rslt = described_class.send(:links_from_hash, name: nil,
-                                                      website: @url)
-        expect(rslt).to eql("org": [])
-      end
-      it "returns the empty stub if website is blank" do
-        rslt = described_class.send(:links_from_hash, name: @name,
-                                                      website: nil)
-        expect(rslt).to eql("org": [])
-      end
-      it "converts the hash to Org links" do
-        rslt = described_class.send(:links_from_hash, name: @name,
-                                                      website: @url)
-        expect(rslt).to eql("org": [{ "link": @url, "text": @name }])
-      end
-    end
-
-    describe "#abbreviation_from_hash(hash:)" do
-      it "returns nil if the hash is nil" do
-        rslt = described_class.send(:abbreviation_from_hash, hash: nil)
-        expect(rslt).to eql(nil)
-      end
-      it "returns the specified abbreviation" do
-        hash = { name: "Test Abbreviation function", abbreviation: "ABC" }
-        rslt = described_class.send(:abbreviation_from_hash, hash: hash)
-        expect(rslt).to eql("ABC")
-      end
-      it "returns the first letter of each word in the name" do
-        hash = { name: "Test Abbreviation function" }
-        rslt = described_class.send(:abbreviation_from_hash, hash: hash)
-        expect(rslt).to eql("TAF")
-      end
-    end
-
-    describe "#language_from_hash(hash:)" do
-      before(:each) do
-        @default_lang = create(:language, default_language: true)
-      end
-
-      it "returns the default language if the hash is nil" do
-        rslt = described_class.send(:language_from_hash, hash: nil)
-        expect(rslt).to eql(@default_lang)
-      end
-      it "returns the default language if no language is specified" do
-        hash = { name: Faker::Company.name }
-        rslt = described_class.send(:language_from_hash, hash: hash)
-        expect(rslt).to eql(@default_lang)
-      end
-      it "returns the specified language" do
-        lang = create(:language, default_language: false)
-        hash = {
-          name: "Test Abbreviation function",
-          language: lang.abbreviation
-        }
-        rslt = described_class.send(:language_from_hash, hash: hash)
-        expect(rslt).to eql(lang)
+      it "does not discard an item whose weight is < 2 but score > 25" do
+        recs = [
+          { name: Faker::Lorem.word },
+          { name: Faker::Lorem.word, score: 26, weight: 1 }
+        ]
+        rslts = described_class.send(:filter, array: recs)
+        expect(rslts.length).to eql(2)
       end
     end
 

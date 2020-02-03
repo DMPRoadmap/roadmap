@@ -29,8 +29,6 @@ RSpec.describe OrgSelection::OrgToHashService do
       expect(@rslt[:sort_name]).to eql(@name)
     end
     it "places identifiers into the correct `[scheme.name]: [value]` format" do
-p @rslt
-
       expect(@rslt[:"#{@scheme.name}"]).to eql(@id.value)
     end
   end

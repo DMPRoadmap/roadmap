@@ -2,6 +2,8 @@
 
 class OrgsController < ApplicationController
 
+  include OrgSelectable
+
   after_action :verify_authorized, except: %w[
     shibboleth_ds shibboleth_ds_passthru search
   ]
@@ -10,8 +12,12 @@ class OrgsController < ApplicationController
   ##
   # GET /organisations/1/edit
   def admin_edit
-    @org = Org.find(params[:id])
-    authorize @org
+    org = Org.find(params[:id])
+    authorize org
+    languages = Language.all.order("name")
+    org.links = { "org": [] } unless org.links.present?
+    render "admin_edit", locals: { org: org, languages: languages, method: "PUT",
+                                   url: admin_update_org_path(org) }
   end
 
   ##
@@ -55,20 +61,18 @@ class OrgsController < ApplicationController
 
     attrs[:managed] = attrs[:managed] == "1"
 
-    # See if the user selected a new Org via the Org Lookup
-    # if so, update this org's identifiers with the ones found
-    if attrs[:org_id].present? && attrs[:org_id].is_a?(String)
-      id_hash = JSON.parse(attrs[:org_id]).with_indifferent_access
-    end
+    # See if the user selected a new Org via the Org Lookup and
+    # convert it into an Org
+    lookup = org_from_params(params_in: attrs)
+    identifiers = identifiers_from_params(params_in: attrs)
+
     # Remove the extraneous Org Selector hidden fields
-    attrs.delete(:org_id)
-    attrs.delete(:org_name)
-    attrs.delete(:org_crosswalk)
+    attrs = remove_org_selection_params(params_in: attrs)
 
     if @org.update(attrs)
-      if id_hash.present?
-        ids = OrgSelection::HashToOrgService.to_identifiers(hash: id_hash)
-        @org.save_identifiers!(array: ids)
+      # Save any identifiers that were found
+      if lookup.present?
+        @org.save_identifiers!(array: identifiers)
         @org.reload
       end
 

@@ -71,8 +71,6 @@ module OrgSelection
       def initialize_org(hash:)
         return nil unless hash.present? && hash[:name].present?
 
-        ids = to_identifiers(hash: hash)
-
         org = Org.new(
           name: hash[:name],
           links: links_from_hash(name: hash[:name], website: hash[:url]),
@@ -82,7 +80,6 @@ module OrgSelection
           is_other: false,
           abbreviation: abbreviation_from_hash(hash: hash)
         )
-        org.identifiers = ids
         org
       end
 

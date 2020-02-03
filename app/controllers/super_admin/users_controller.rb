@@ -4,6 +4,8 @@ module SuperAdmin
 
   class UsersController < ApplicationController
 
+    include OrgSelectable
+
     after_action :verify_authorized
 
     def edit
@@ -30,25 +32,26 @@ module SuperAdmin
       # not read 'Successfully updated your profile for John Doe'
       topic = _("profile for %{username}") % { username: @user.name(false) }
 
-      org_hash = params[:user][:org_id]
-      user_params.delete(:org_id)
-      user_params.delete(:org_name)
-      user_params.delete(:org_crosswalk)
+      # See if the user selected a new Org via the Org Lookup and
+      # convert it into an Org
+      attrs = user_params
+      lookup = org_from_params(params_in: attrs)
+      identifiers = identifiers_from_params(params_in: attrs)
 
-      if @user.update_attributes(user_params)
-        # Handle the Org selection and attach the user to it
-        org = params_to_org!(org_id: org_hash)
+      # Remove the extraneous Org Selector hidden fields
+      attrs = remove_org_selection_params(params_in: attrs)
 
-        if org.present? && org.id != @user.org.id
-          org.save if org.new_record?
-
-          ids = OrgSelection::HashToOrgService.to_identifiers(
-            hash: JSON.parse(params[:user][:org_id])
-          )
-          org.save_identifiers!(array: ids)
-
-          @user.update(org_id: org.id)
+      if @user.update_attributes(attrs)
+        # If its a new Org create it
+        if lookup.present? && lookup.new_record?
+          lookup.save
+          identifiers.each do |identifier|
+            identifier.identifiable = lookup
+            identifier.save
+          end
+          lookup.reload
         end
+        @user.update(org_id: lookup.id) if lookup.present?
 
         flash.now[:notice] = success_message(@user, _("updated"))
       else
@@ -114,19 +117,6 @@ module SuperAdmin
                                    :department_id,
                                    :language_id,
                                    :other_organisation)
-    end
-
-    # Finds or creates the selected org and then returns it's id
-    def params_to_org!(org_id:)
-      return nil unless org_id.present? && org_id.is_a?(String)
-
-      json = JSON.parse(org_id).with_indifferent_access
-      OrgSelection::HashToOrgService.to_org(hash: json)
-
-    rescue JSON::ParserError => pe
-      log.error "Unable to parse org_id param from RegistrationsController:"
-      log.error "  #{pe.message} :: org_id hash: #{org_id.inspect}"
-      nil
     end
 
   end
