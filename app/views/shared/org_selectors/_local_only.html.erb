@@ -5,6 +5,9 @@
 required = required || false
 # The label to use
 label = label || _("Organisation")
+# Allows the hidden id field to be renamed for instances where there are
+# multiple org selectors on the same form
+id_field = id_field || :org_id
 
 presenter = OrgSelectionPresenter.new(orgs: orgs, selection: default_org)
 placeholder = _("Begin typing to see a list of suggestions.")
@@ -29,7 +32,12 @@ placeholder = _("Begin typing to see a list of suggestions.")
 <%= form.hidden_field :org_crosswalk, value: presenter.crosswalk %>
 <%# gets updated with the matching record from crosswalk when the user
     selects or enters something %>
-<%= form.hidden_field :org_id %>
+<% if form.object[id_field]&.to_s =~ /[0-9]+/ %>
+  <% val = presenter.crosswalk_entry_from_org_id(value: form.object[id_field]) %>
+  <%= form.hidden_field id_field, value: val, class: "autocomplete-result" %>
+<% else %>
+  <%= form.hidden_field :org_id, class: "autocomplete-result" %>
+<% end %>
 
 <p class="autocomplete-warning red hide">
   <%= _("The name you entered was not one of the listed suggestions!") %>

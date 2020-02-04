@@ -35,7 +35,8 @@ placeholder = _("Begin typing to see a list of suggestions.")
 <%= form.hidden_field :org_crosswalk, value: presenter.crosswalk %>
 <%# gets updated with the matching record from crosswalk when the user
     selects or enters something %>
-<%= form.hidden_field :org_id, value: default_org %>
+<%= form.hidden_field :org_id, value: default_org,
+                               class: "autocomplete-result" %>
 
 <p class="autocomplete-warning red hide">
   <%= _("Please select an item from the list or, if your organisation's name does not appear in the list, make sure you have entered the full name of your organization (do not abbreviate).") %>

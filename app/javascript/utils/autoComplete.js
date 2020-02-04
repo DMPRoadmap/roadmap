@@ -90,7 +90,7 @@ export const initAutocomplete = (selector) => {
     if (isObject(context) && context.length > 0) {
       const id = context.attr('id');
       const crosswalk = context.siblings(`#${id.replace('_name', '_crosswalk')}`);
-      const hidden = context.siblings(`#${id.replace('_name', '_id')}`);
+      const hidden = context.siblings('.autocomplete-result');
 
       // If the crosswalk is empty, make sure it is valid JSON
       if (!crosswalk.val()) {

@@ -19,6 +19,7 @@ RSpec.describe OrgSelectable do
       other_param: Faker::Company.name,
       org_id: { id: Faker::Number.number, name: Faker::Company.name }.to_json,
       org_name: Faker::Company.name,
+      org_sources: [Faker::Company.name],
       org_crosswalk: [{ id: Faker::Number.number }]
     })
   end
@@ -89,6 +90,7 @@ RSpec.describe OrgSelectable do
       it "removes the org_selector params" do
         expect(@rslt[:org_id].present?).to eql(false)
         expect(@rslt[:org_name].present?).to eql(false)
+        expect(@rslt[:org_sources].present?).to eql(false)
         expect(@rslt[:org_crosswalk].present?).to eql(false)
       end
       it "does not remove other params" do

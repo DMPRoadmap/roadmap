@@ -41,6 +41,7 @@ module OrgSelectable
     def remove_org_selection_params(params_in:)
       params_in.delete(:org_id)
       params_in.delete(:org_name)
+      params_in.delete(:org_sources)
       params_in.delete(:org_crosswalk)
       params_in
     end
