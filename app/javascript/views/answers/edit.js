@@ -3,7 +3,7 @@ import {
   isNumber,
   isString,
 } from '../../utils/isType';
-import { Tinymce } from '../../utils/tinymce';
+import { Tinymce } from '../../utils/tinymce.js.erb';
 import debounce from '../../utils/debounce';
 import datePicker from '../../utils/datePicker';
 import TimeagoFactory from '../../utils/timeagoFactory';
