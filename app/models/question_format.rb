@@ -9,6 +9,7 @@
 #  updated_at   :datetime         not null
 #  option_based :boolean          default("false")
 #  formattype   :integer          default("0")
+#  structured   :boolean          default("false"), not null
 #
 
 class QuestionFormat < ActiveRecord::Base

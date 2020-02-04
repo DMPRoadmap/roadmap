@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200120134348) do
+ActiveRecord::Schema.define(version: 20200204102955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -264,6 +264,7 @@ ActiveRecord::Schema.define(version: 20200120134348) do
     t.datetime "updated_at",                   null: false
     t.boolean  "option_based", default: false
     t.integer  "formattype",   default: 0
+    t.boolean  "structured",   default: false, null: false
   end
 
   create_table "question_options", force: :cascade do |t|
@@ -288,7 +289,6 @@ ActiveRecord::Schema.define(version: 20200120134348) do
     t.boolean  "option_comment_display",               default: true
     t.boolean  "modifiable"
     t.string   "versionable_id",            limit: 36
-    t.boolean  "structured",                           default: false, null: false
     t.integer  "structured_data_schema_id"
   end
 

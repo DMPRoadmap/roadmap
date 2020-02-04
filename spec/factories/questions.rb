@@ -13,7 +13,6 @@
 #  option_comment_display    :boolean          default("true")
 #  modifiable                :boolean
 #  versionable_id            :string(36)
-#  structured                :boolean          default("false"), not null
 #  structured_data_schema_id :integer
 #
 # Indexes
