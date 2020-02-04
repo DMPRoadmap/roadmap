@@ -51,10 +51,10 @@ $(() => {
 
   const validOptions = (context) => {
     if ($(context).length > 0) {
-      const hidden = $(context).find('input[id$="_org_id"]');
+      const hidden = $(context).find('.autocomplete-result');
       const checkbox = $(context).find('input.toggle-autocomplete');
-
-      return isValidText(hidden.val()) || checkbox.prop('checked');
+      return checkbox.prop('checked')
+             || (isValidText(hidden.val()) && hidden.val() !== '{}');
     }
     return false;
   };
@@ -73,8 +73,8 @@ $(() => {
       // Clear out the old template dropdown contents
       $('#plan_template_id option').remove();
 
-      const orgId = orgContext.find('input[id$="_org_id"]').val();
-      const funderId = funderContext.find('input[id$="_org_id"]').val();
+      const orgId = orgContext.find('input[id$="org_id"]').val();
+      const funderId = funderContext.find('input[id$="funder_id"]').val();
       const data = `{"plan": {"research_org_id":${orgId},"funder_id":${funderId}}}`;
 
       // Fetch the available templates based on the funder and research org selected
@@ -109,7 +109,7 @@ $(() => {
       initAutocomplete(`${context} .autocomplete`);
 
       const autocomplete = $(section).find('.autocomplete');
-      const hidden = autocomplete.siblings('input[id$="_org_id"]');
+      const hidden = autocomplete.siblings('.autocomplete-result');
       const checkbox = $(section).find('input.toggle-autocomplete');
 
       autocomplete.on('change', () => {

@@ -1,10 +1,12 @@
-<%# locals: form, default_org, required, include_locals, include_externals %>
+<%# locals: form, default_org, required, funder_only, label %>
 
 <%# Note the 'data' args in the org_name definition. These are used by the utils/autocomplete.js to determine how to process the AJAX call to the controller. In this case it will make a POST to OrgsController#search with the { org: { name: 'foo' } } params %>
 
 <%
 # Whether or not the org selection is required
 required = required || false
+# Whether or not to restrict the Orgs to funders
+funder_only = funder_only || false
 # The label to use
 label = label || _("Organisation")
 
@@ -23,7 +25,10 @@ placeholder = _("Begin typing to see a list of suggestions.")
                               required: required
                             },
                             data: {
-                              url: orgs_search_path(type: "combined"),
+                              url: orgs_search_path(
+                                type: "combined",
+                                funder_only: funder_only.to_s
+                              ),
                               method: "POST",
                               namespace: "org",
                               attribute: "name"
@@ -35,7 +40,8 @@ placeholder = _("Begin typing to see a list of suggestions.")
 <%= form.hidden_field :org_crosswalk, value: presenter.crosswalk %>
 <%# gets updated with the matching record from crosswalk when the user
     selects or enters something %>
-<%= form.hidden_field :org_id, value: default_org %>
+<%= form.hidden_field :org_id, value: default_org,
+                               class: "autocomplete-result" %>
 
 <p class="autocomplete-warning red hide">
   <%= _("Please select an item from the list or, if your organisation's name does not appear in the list, make sure you have entered the full name of your organization (do not abbreviate).") %>

@@ -50,13 +50,16 @@
         <div class="form-group col-md-6">
            <em class="sr-only"><%= research_org_tooltip %></em>
            <%# TODO: create a relationship on the plans table to org for this (org_id)! %>
-           <%= render partial: "shared/org_selectors/local_only",
-                      locals: {
-                        form: f,
-                        default_org: current_user.org,
-                        orgs: @orgs,
-                        required: false
-                      } %>
+           <%= fields_for :org, @plan.org do |org_fields| %>
+             <%= render partial: "shared/org_selectors/local_only",
+                        locals: {
+                          form: org_fields,
+                          id_field: :id,
+                          default_org: current_user.org,
+                          orgs: @orgs,
+                          required: false
+                        } %>
+          <% end %>
         </div>
         <div class="col-md-1 pad-top-10 create-plan-or"><strong>- <%= _('or') %> -</strong></div>
         <div class="form-group col-md-5 create-plan-checkbox">
@@ -76,13 +79,16 @@
         <div class="form-group col-xs-6">
           <em class="sr-only"><%= primary_funding_tooltip %></em>
           <%# TODO: create a relationship on the plans table to org for this! (funder_id) to replace the existing funder_name field %>
-          <%= render partial: "shared/org_selectors/local_only",
-                      locals: {
-                        form: f,
-                        default_org: nil,
-                        orgs: @funders,
-                        required: false
-                      } %>
+          <%= fields_for :funder, @plan.org do |funder_fields| %>
+            <%= render partial: "shared/org_selectors/local_only",
+                        locals: {
+                          form: funder_fields,
+                          id_field: :id,
+                          default_org: nil,
+                          orgs: @funders,
+                          required: false
+                        } %>
+          <% end %>
         </div>
         <div class="col-md-1 create-plan-or"><strong>- <%= _('or') %> -</strong></div>
         <div class="form-group col-xs-5 create-plan-checkbox">

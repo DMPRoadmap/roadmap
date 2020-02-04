@@ -30,4 +30,11 @@ class OrgSelectionPresenter
     @crosswalk.map { |rec| rec[:name] }.to_json
   end
 
+  def crosswalk_entry_from_org_id(value:)
+    return {}.to_json unless value.present? && value.to_s =~ /[0-9]+/
+
+    entry = @crosswalk.select { |entry| entry[:id].to_s == value.to_s }.first
+    entry.present? ? entry.to_json : {}.to_json
+  end
+
 end

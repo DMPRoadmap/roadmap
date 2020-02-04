@@ -3,6 +3,7 @@
 class PlansController < ApplicationController
 
   include ConditionalUserMailer
+  include OrgSelectable
   helper PaginableHelper
   helper SettingsTemplateHelper
 
@@ -30,13 +31,15 @@ class PlansController < ApplicationController
 
     # Get all of the available funders and non-funder orgs
     @funders = Org.funder
+                  .includes(identifiers: :identifier_scheme)
                   .joins(:templates)
                   .where(templates: { published: true }).uniq.sort_by(&:name)
-    @orgs = (Org.organisation + Org.institution + Org.default_orgs)
+    @orgs = (Org.includes(identifiers: :identifier_scheme).organisation +
+             Org.includes(identifiers: :identifier_scheme).institution +
+             Org.includes(identifiers: :identifier_scheme).default_orgs)
     @orgs = @orgs.flatten.uniq.sort_by(&:name)
 
-    # Get the current user's org
-    @default_org = current_user.org if @orgs.include?(current_user.org)
+    @plan.org_id = current_user.org&.id
 
     if params.key?(:test)
       flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>"
@@ -76,8 +79,6 @@ class PlansController < ApplicationController
       orcid = current_user.identifiers.by_scheme_name("orcid", "Org").first
       @plan.principal_investigator_identifier = orcid.value unless orcid.nil?
 
-      @plan.funder_name = plan_params[:funder_name]
-
       @plan.visibility = if plan_params["visibility"].blank?
                            Rails.application.config.default_plan_visibility
                          else
@@ -94,6 +95,22 @@ class PlansController < ApplicationController
                       end
       else
         @plan.title = plan_params[:title]
+      end
+
+      # bit of hackery here. There are 2 org selectors on the page
+      # and each is within its own specific context, plan.org or
+      # plan.funder which forces the hidden id hash to be :id
+      # so we need to convert it to :org_id so it works with the
+      # OrgSelectable and OrgSelection services
+      if params[:org][:id].present?
+        attrs = params[:org]
+        attrs[:org_id] = attrs[:id]
+        @plan.org = org_from_params(params_in: attrs)
+      end
+      if params[:funder][:id].present?
+        attrs = params[:funder]
+        attrs[:org_id] = attrs[:id]
+        @plan.funder = org_from_params(params_in: attrs)
       end
 
       if @plan.save
@@ -225,8 +242,28 @@ class PlansController < ApplicationController
                                params[:guidance_group_ids].map(&:to_i).uniq
                              end
         @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
-        @plan.save
-        if @plan.update_attributes(attrs)
+
+        # TODO: For some reason the `fields_for` isn't adding the
+        #       appropriate namespace, so org_id represents our funder
+        if attrs[:org_id].present?
+          funder = org_from_params(params_in: attrs)
+          if funder.new_record?
+            funder.save
+            funder.reload
+            identifiers_from_params(params_in: attrs).each do |identifier|
+              next unless identifier.value.present?
+
+              identifier.identifiable = funder
+              identifier.save
+            end
+
+          end
+          @plan.funder = funder
+        end
+        attrs = remove_org_selection_params(params_in: attrs)
+
+        #@plan.save
+        if @plan.update(attrs) #_attributes(attrs)
           format.html do
             redirect_to overview_plan_path(@plan),
                         notice: success_message(@plan, _("saved"))
@@ -245,7 +282,7 @@ class PlansController < ApplicationController
           end
         end
 
-      rescue Exception
+      rescue Exception => e
         flash[:alert] = failure_message(@plan, _("save"))
         format.html do
           render_phases_edit(@plan, @plan.phases.first, @plan.guidance_groups)
@@ -406,12 +443,14 @@ class PlansController < ApplicationController
 
   def plan_params
     params.require(:plan)
-          .permit(:org_id, :org_name, :funder_id, :funder_name, :template_id,
-                  :title, :visibility, :grant_number, :description, :identifier,
-                  :principal_investigator_phone, :principal_investigator,
-                  :principal_investigator_email, :data_contact,
-                  :principal_investigator_identifier, :data_contact_email,
-                  :data_contact_phone, :guidance_group_ids)
+          .permit(:template_id, :title, :visibility, :grant_number,
+                  :description, :identifier, :principal_investigator_phone,
+                  :principal_investigator, :principal_investigator_email,
+                  :data_contact, :principal_investigator_identifier,
+                  :data_contact_email, :data_contact_phone,
+                  :guidance_group_ids, :org_id, :org_name, :org_crosswalk,
+                  org: [:org_id, :org_name, :org_sources, :org_crosswalk],
+                  funder: [:org_id, :org_name, :org_sources, :org_crosswalk])
   end
 
   # different versions of the same template have the same family_id
