@@ -14,22 +14,22 @@ class TemplateOptionsController < ApplicationController
     authorize Template.new, :template_options?
 
     if org_hash.present?
-      org = org_from_params(params_in: { org_id: org_hash })
+      org = org_from_params(params_in: { org_id: org_hash.to_json })
     end
     if funder_hash.present?
-      funder = org_from_params(params_in: { org_id: funder_hash })
+      funder = org_from_params(params_in: { org_id: funder_hash.to_json })
     end
 
     @templates = []
 
     if (org.present? && !org.new_record?) ||
         (funder.present? && !funder.new_record?)
-      unless funder.id.blank?
+      if funder.present? && !funder.new_record?
         # Load the funder's template(s) minus the default template (that gets swapped
         # in below if NO other templates are available)
         @templates = Template.latest_customizable
                              .where(org_id: funder.id, is_default: false)
-        unless org.id.blank?
+        if org.present? && !org.new_record?
           # Swap out any organisational cusotmizations of a funder template
           @templates = @templates.map do |tmplt|
             customization = Template.published
@@ -47,7 +47,7 @@ class TemplateOptionsController < ApplicationController
       end
 
       # If the no funder was specified OR the funder matches the org
-      if funder.id.blank? || funder.id == org.id
+      if (funder.present? && !funder.new_record?) || funder&.id == org.id
         # Retrieve the Org's templates
         @templates << Template.published
                               .organisationally_visible

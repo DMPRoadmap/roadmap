@@ -57,21 +57,21 @@ class OrgsController < ApplicationController
           end
         end
       end
+
+      attrs[:managed] = attrs[:managed] == "1"
+
+      # See if the user selected a new Org via the Org Lookup and
+      # convert it into an Org
+      lookup = org_from_params(params_in: attrs)
+      identifiers = identifiers_from_params(params_in: attrs)
+
+      # Remove the extraneous Org Selector hidden fields
+      attrs = remove_org_selection_params(params_in: attrs)
     end
-
-    attrs[:managed] = attrs[:managed] == "1"
-
-    # See if the user selected a new Org via the Org Lookup and
-    # convert it into an Org
-    lookup = org_from_params(params_in: attrs)
-    identifiers = identifiers_from_params(params_in: attrs)
-
-    # Remove the extraneous Org Selector hidden fields
-    attrs = remove_org_selection_params(params_in: attrs)
 
     if @org.update(attrs)
       # Save any identifiers that were found
-      if lookup.present?
+      if current_user.can_super_admin? && lookup.present?
         @org.save_identifiers!(array: identifiers)
         @org.reload
       end
