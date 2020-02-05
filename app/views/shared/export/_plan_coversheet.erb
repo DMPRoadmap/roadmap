@@ -6,14 +6,15 @@
   <%# Using <b> tags as the htmltoword gem does not recognise css styles defined %>
   <%# Allow raw html (==) for plan_attribution as it has <b> tags %>
   <p><%== plan_attribution(@hash[:attribution]) %></p><br>
-  
+
   <p><b><%= _("Affiliation: ") %></b><%= @hash[:affiliation] %></p><br>
 
   <% if @hash[:funder].present? %>
-    <p><b><%= _("Template: ") %></b><%= @hash[:funder] %></p><br>
-  <% else %>
-    <p><b><%= _("Template: ") %></b><%= @hash[:template] + @hash[:customizer] %></p><br>
+    <p><b><%= _("Funder: ") %></b><%= @hash[:funder] %></p><br>
   <% end %>
+
+    <p><b><%= _("Template: ") %></b><%= @hash[:template] + @hash[:customizer] %></p><br>
+  
 
   <% if @plan.principal_investigator_identifier.present? %>
     <p><b><%= _("ORCID iD: ") %></b><%= @plan.principal_investigator_identifier %></p> <br>
