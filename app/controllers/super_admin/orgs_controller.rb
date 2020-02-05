@@ -4,6 +4,8 @@ module SuperAdmin
 
   class OrgsController < ApplicationController
 
+    include OrgSelectable
+
     after_action :verify_authorized
 
     def index
@@ -14,16 +16,23 @@ module SuperAdmin
     end
 
     def new
-      org = Org.new(managed: true)
-      authorize org
-      org.links = { "org": [] }
-      render "orgs/admin_edit", locals: { org: org, languages: Language.all.order("name"),
-                                          method: "POST", url: super_admin_orgs_path }
+      @org = Org.new(managed: true)
+      authorize @org
+      @org.links = { "org": [] }
     end
 
     def create
       authorize Org
-      org = Org.new(org_params)
+      attrs = org_params
+
+      # See if the user selected a new Org via the Org Lookup and
+      # convert it into an Org
+      org = org_from_params(params_in: attrs)
+      identifiers = identifiers_from_params(params_in: attrs)
+
+      # Remove the extraneous Org Selector hidden fields
+      attrs = remove_org_selection_params(params_in: attrs)
+
       org.language = Language.default
       org.managed = org_params[:managed] == "1" ? true : false
       org.logo = params[:logo] if params[:logo]
@@ -51,7 +60,16 @@ module SuperAdmin
           end
         end
 
-        if org.save
+p attrs
+p org.inspect
+
+        if org.update(attrs)
+          # Save any identifiers that were found
+          if identifiers.present? && identifiers.any?
+            org.save_identifiers!(array: identifiers)
+            org.reload
+          end
+
           msg = success_message(org, _("created"))
           redirect_to admin_edit_org_path(org.id), notice: msg
         else
@@ -100,7 +118,8 @@ module SuperAdmin
                                   :contact_email, :contact_name,
                                   :remove_logo, :feedback_enabled,
                                   :feedback_email_subject,
-                                  :feedback_email_msg)
+                                  :feedback_email_msg,
+                                  :org_id, :org_name, :org_crosswalk)
     end
 
   end

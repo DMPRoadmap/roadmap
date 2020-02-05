@@ -2,7 +2,6 @@ import debounce from '../../utils/debounce';
 import { initAutocomplete } from '../../utils/autoComplete';
 import getConstant from '../../constants';
 import { isObject, isArray, isString } from '../../utils/isType';
-import { isValidText } from '../../utils/isValidInputType';
 import { renderAlert, hideNotifications } from '../../utils/notificationHelper';
 
 $(() => {
@@ -49,12 +48,24 @@ $(() => {
     }
   };
 
+  // TODO: Refactor this whole thing when we redo the create plan
+  //       workflow and use js.erb instead!
+  const getValue = (context) => {
+    if (context.length > 0) {
+      const hidden = $(context).find('.autocomplete-result');
+
+      if (hidden.length > 0 && hidden.val().length > 0
+          && hidden.val() !== '{}' && hidden.val() !== '{"name":""}') {
+        return hidden.val();
+      }
+    }
+    return '{}';
+  };
+
   const validOptions = (context) => {
     if ($(context).length > 0) {
-      const hidden = $(context).find('.autocomplete-result');
       const checkbox = $(context).find('input.toggle-autocomplete');
-      return checkbox.prop('checked')
-             || (isValidText(hidden.val()) && hidden.val() !== '{}');
+      return checkbox.prop('checked') || (getValue(context) !== '{}');
     }
     return false;
   };
@@ -73,8 +84,16 @@ $(() => {
       // Clear out the old template dropdown contents
       $('#plan_template_id option').remove();
 
-      const orgId = orgContext.find('input[id$="org_id"]').val();
-      const funderId = funderContext.find('input[id$="funder_id"]').val();
+      let orgId = orgContext.find('input[id$="org_id"]').val();
+      let funderId = funderContext.find('input[id$="funder_id"]').val();
+
+      if (orgId.length <= 0) {
+        orgId = '{}';
+      }
+      if (funderId.length <= 0) {
+        funderId = '{}';
+      }
+
       const data = `{"plan": {"research_org_id":${orgId},"funder_id":${funderId}}}`;
 
       // Fetch the available templates based on the funder and research org selected

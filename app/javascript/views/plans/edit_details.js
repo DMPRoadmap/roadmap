@@ -120,8 +120,6 @@ $(() => {
   });
 
   initAutocomplete('#funder-org-controls .autocomplete');
-  $('#funder-org-controls .autocomplete').focus();
-  $('#plan_title').focus();
 
   toggleCheckboxes($('#priority-guidance-orgs input[type="checkbox"]:checked').map((i, el) => $(el).val()).get());
 

@@ -61,18 +61,6 @@ const search = (autocomplete, term, crosswalk, callback) => {
   }
 };
 
-// Updates the hidden id field with the contents from the crosswalk for the
-// selected name
-const select = (autocomplete, crosswalk) => {
-  let out;
-
-  if (isObject(autocomplete) && isObject(crosswalk)) {
-    const json = JSON.parse(crosswalk.val());
-    out = json.find(item => item.name === autocomplete.val());
-  }
-  return out ? JSON.stringify(out) : null;
-};
-
 const toggleWarning = (context, value) => {
   if (isObject(context)) {
     if (value) {
@@ -81,6 +69,20 @@ const toggleWarning = (context, value) => {
       context.removeClass('hide');
     }
   }
+};
+
+// Updates the hidden id field with the contents from the crosswalk for the
+// selected name
+const select = (autocomplete, crosswalk) => {
+  let out;
+
+  if (autocomplete.length > 0 && crosswalk.length > 0) {
+    const json = JSON.parse(crosswalk.val());
+    out = json.find(item => item != null && item.name === autocomplete.val());
+    // If the crosswalk was empty then out becomes undefined
+    out = out === undefined ? '' : out;
+  }
+  return out ? JSON.stringify(out) : null;
 };
 
 export const initAutocomplete = (selector) => {
@@ -124,7 +126,15 @@ export const initAutocomplete = (selector) => {
 
         const warning = context.siblings('.autocomplete-warning');
         if (isObject(warning)) {
-          toggleWarning(warning, hidden.val());
+          // If there was no matching selection then use whatever
+          // the user typed.
+          // Arbitrarily picked 5+ characters. Adjust if necessary.
+          if (hidden.val().length <= 0 && context.val().length > 4) {
+            hidden.val(`{"name":"${context.val()}"}`);
+            toggleWarning(warning, false);
+          } else {
+            toggleWarning(warning, hidden.val());
+          }
         }
 
         // If the user entered text that was NOT one of the suggestions

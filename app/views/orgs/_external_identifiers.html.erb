@@ -19,16 +19,18 @@
     </div>
   </div>
 
-  <p><%= _("Note: ROR and FundRef ids are both retrieved by selecting an item from the Organisation Lookup field above") %></p>
+  <% if !org.new_record? %>
+    <p><%= _("Note: ROR and FundRef ids are both retrieved by selecting an item from the Organisation Lookup field above") %></p>
 
-  <% presenter.schemes.each do |scheme| %>
-    <div class="row">
-      <div class="form-group col-xs-10">
-        <% id = presenter.id_for_scheme(scheme: scheme) %>
-        <span class="bold"><%= scheme.description %>:</span>
-        <%= presenter.id_for_display(scheme: scheme, id: id).html_safe %>
+    <% presenter.schemes.each do |scheme| %>
+      <div class="row">
+        <div class="form-group col-xs-10">
+          <% id = presenter.id_for_scheme(scheme: scheme) %>
+          <span class="bold"><%= scheme.description %>:</span>
+          <%= presenter.id_for_display(scheme: scheme, id: id).html_safe %>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 
   <%

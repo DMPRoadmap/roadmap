@@ -26,16 +26,16 @@
       <div class="form-group"><!-- funder_name -->
         <div id="funder-org-controls" class="col-md-8">
           <% if plan.template.org == plan.funder %>
-            <div class="col-md-8">
+            <div class="col-md-10">
               <%= f.label(:funder_name, _('Funder'), class: 'control-label') %>
               <%
               id_presenter = IdentifierPresenter.new(identifiable: plan.funder)
-              scheme = id_presenter.scheme_by_name("fundref")
+              scheme = id_presenter.scheme_by_name(name: "fundref").first
+              identifier = id_presenter.id_for_scheme(scheme: scheme)
               %>
               <div>
-                <%= plan.funder.name %>&nbsp;<%= scheme.description %>:
-                <%= id_presenter.id_for_display(scheme: scheme,
-                                                id: plan.funder.id) %>
+                <%= plan.funder.name %>:
+                <%= id_presenter.id_for_display(scheme: scheme, id: identifier).html_safe %>
               </div>
             </div>
 
