@@ -715,7 +715,7 @@ namespace :upgrade do
         name: "fundref",
         description: "Crossref Funder Registry (FundRef)",
         active: true,
-        user_landing_url: "https://api.crossref.org/funders"
+        user_landing_url: "https://search.crossref.org/funding?q="
       )
     end
     unless IdentifierScheme.where(name: "ror").any?

@@ -28,7 +28,8 @@ class IdentifierPresenter
     return id.value unless scheme.user_landing_url.present?
 
     link = "#{scheme.user_landing_url}/#{id.value}"
-    "<a href=\"#{link}\" class=\"has-new-window-popup-info\">#{link}</a>"
+    "<a href=\"#{link}\" class=\"has-new-window-popup-info\"> " +
+      "#{scheme.description}: #{id.value}</a>"
   end
 
   private
