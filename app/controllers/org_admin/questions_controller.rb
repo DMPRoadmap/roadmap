@@ -29,12 +29,12 @@ module OrgAdmin
       question = Question.find(params[:question_id])
       authorize question
      # render partial: "org_admin/conditions/container", locals: { question: question, conditions: question.conditions }
-      render json: {container: render_to_string(partial: 'org_admin/conditions/container',
-                                                formats: :html, 
-                                                layout: false,
-                                                locals: { question: question, 
-                                                          conditions: question.conditions }),
-                    webhooks: webhook_hash(question.conditions)}
+      render json: { container: render_to_string(partial: "org_admin/conditions/container",
+                                                 formats: :html,
+                                                 layout: false,
+                                                 locals: { question: question,
+                                                           conditions: question.conditions.order(:number) }),
+                    webhooks: webhook_hash(question.conditions) }
     end
 
     def edit

@@ -50,16 +50,17 @@ ActiveRecord::Schema.define(version: 20200212145931) do
   add_index "answers_question_options", ["answer_id"], name: "index_answers_question_options_on_answer_id", using: :btree
 
   create_table "conditions", force: :cascade do |t|
-    t.integer  "question_option_id"
-    t.integer  "remove_question_id"
+    t.integer  "question_id"
+    t.text     "option_list"
     t.integer  "action_type"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
     t.integer  "number"
-    t.string   "webhook_data"
+    t.text     "remove_data"
+    t.text     "webhook_data"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
-  add_index "conditions", ["question_option_id"], name: "index_conditions_on_question_option_id", using: :btree
+  add_index "conditions", ["question_id"], name: "index_conditions_on_question_id", using: :btree
 
   create_table "departments", force: :cascade do |t|
     t.string   "name"
@@ -458,7 +459,7 @@ ActiveRecord::Schema.define(version: 20200212145931) do
   add_foreign_key "answers", "users"
   add_foreign_key "answers_question_options", "answers"
   add_foreign_key "answers_question_options", "question_options"
-  add_foreign_key "conditions", "question_options"
+  add_foreign_key "conditions", "questions"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "notes", "answers"

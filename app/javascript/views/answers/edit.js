@@ -18,16 +18,14 @@ $(() => {
   const isStale = jQuery => jQuery.closest('.question-form').find('.answer-locking').text().trim().length !== 0;
   const isReadOnly = () => $('.form-answer fieldset:disabled').length > 0;
   const showOrHideQuestions = (data) => {
-    const currentInfo = data.this_section_info.to_show[0];
-    updateSectionProgress(currentInfo.sec_id, currentInfo.no_ans, currentInfo.no_qns);
-    data.qn_data.to_hide.forEach((info) => {
-      getQuestionDiv(info.qn_id).slideUp();
-      updateSectionProgress(info.sec_id, info.no_ans, info.no_qns);
+    data.section_data.forEach((section) => {
+      updateSectionProgress(section.sec_id, section.no_ans, section.no_qns);
     });
-    data.qn_data.to_show.forEach((info) => {
-      getQuestionDiv(info.qn_id).slideDown();
-      // eventually consider the case that a question has been answered, hidden, then reopened
-      updateSectionProgress(info.sec_id, info.no_ans, info.no_qns);
+    data.qn_data.to_hide.forEach((questionid) => {
+      getQuestionDiv(questionid).slideUp();
+    });
+    data.qn_data.to_show.forEach((questionid) => {
+      getQuestionDiv(questionid).slideDown();
     });
   };
   /*

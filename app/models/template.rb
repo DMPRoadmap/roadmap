@@ -72,7 +72,7 @@ class Template < ActiveRecord::Base
 
   has_many :question_options, through: :questions
 
-  has_many :conditions, through: :question_options
+  has_many :conditions, through: :questions
 
   # ===============
   # = Validations =
