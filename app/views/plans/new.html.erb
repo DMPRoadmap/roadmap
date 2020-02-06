@@ -80,7 +80,7 @@
         <div class="form-group col-xs-6">
           <em class="sr-only"><%= primary_funding_tooltip %></em>
           <%# TODO: create a relationship on the plans table to org for this! (funder_id) to replace the existing funder_name field %>
-          <%= fields_for :funder, @plan.org do |funder_fields| %>
+          <%= fields_for :funder, @plan.funder = Org.new do |funder_fields| %>
             <%= render partial: "shared/org_selectors/local_only",
                         locals: {
                           form: funder_fields,
