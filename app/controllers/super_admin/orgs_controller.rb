@@ -60,9 +60,6 @@ module SuperAdmin
           end
         end
 
-p attrs
-p org.inspect
-
         if org.update(attrs)
           # Save any identifiers that were found
           if identifiers.present? && identifiers.any?
