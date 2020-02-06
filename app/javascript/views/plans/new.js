@@ -87,11 +87,13 @@ $(() => {
       let orgId = orgContext.find('input[id$="org_id"]').val();
       let funderId = funderContext.find('input[id$="funder_id"]').val();
 
+      // For some reason Rails freaks out it everything is empty so send
+      // the word "none" instead and handle on the controller side
       if (orgId.length <= 0) {
-        orgId = '{}';
+        orgId = '"none"';
       }
       if (funderId.length <= 0) {
-        funderId = '{}';
+        funderId = '"none"';
       }
 
       const data = `{"plan": {"research_org_id":${orgId},"funder_id":${funderId}}}`;
@@ -164,4 +166,6 @@ $(() => {
   $('#new_plan #available-templates').hide();
   handleComboboxChange();
   toggleSubmit();
+  // Hide all warnings on page load
+  $('.autocomplete-warning').hide();
 });
