@@ -31,6 +31,8 @@ class Section < ActiveRecord::Base
   include ActsAsSortable
   include VersionableModel
 
+  # Sort order: Number ASC
+  default_scope { order(number: :asc) }
 
   # ================
   # = Associations =

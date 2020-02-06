@@ -50,14 +50,9 @@
           </dd>
 
           <!-- question conditions -->
-          <% if conditions.length > 0 %>
-            <% grouped_conditions = conditions_ordered(conditions) %>
+          <% if conditions.count > 0 %>
             <dt><%= _('Question conditions') %></dt>
-            <% grouped_conditions.each do |number, conditions| %> 
-              <dd>
-                <%= raw list_questions(conditions) %>
-              </dd>
-            <% end %>
+             <%= raw condition_to_text(conditions) %>
           <% end %>
 
           <!-- Suggested answer or Example-->
@@ -74,7 +69,7 @@
                        <%= sanitize example_answer.text %>
                     <% end %>
                   </dd>
-                  
+
               <% end %>
           <% end %>
           <!-- Guidance linked to this question -->
@@ -95,7 +90,7 @@
           <% end %>
         </dl>
       </div>
-      
+
       <div class="col-md-4">
         <% has_org_themed_guidance = false %>
         <% themes_q = question.themes %>
@@ -103,7 +98,7 @@
           <div class="panel-group" id="<%= question.id %>-guidance">
             <% ggs = GuidanceGroup.where(org_id: current_user.org.id) %>
             <h4><%= _("Themed Guidance") %></h4>
-            
+
             <% if ggs.length > 0 %>
               <%# To determine if any themes associated with question exist. %>
               <% ggs.each do |guidance_group| %>
@@ -119,7 +114,7 @@
                   <% end %>
                 <% end %>
               <% end %>
-              
+
               <% if has_org_themed_guidance %>
                 <% ggs.each do |guidance_group| %>
                   <% themes_q.each do |theme| %>
@@ -135,7 +130,7 @@
                                href="#collapseGuidance-<%= guidance.id%>-<%= question.id %>"
                                aria-expanded="false"
                                aria-controls="#collapseGuidance-<%= guidance.id%>-<%= question.id %>">
-                               
+
                             <div class="panel-heading"
                                         role="tab"
                                         id="#headingGuidance-<%= guidance.id%>-<%= question.id %>">
@@ -177,7 +172,7 @@
         <% end %>
       </div>
     </div>
-    
+
     <div class="row">
       <div class="col-md-12">
         <% if template.latest? %>
