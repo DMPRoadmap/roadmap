@@ -1,59 +1,58 @@
+# frozen_string_literal: true
+
 module ConditionsHelper
 
-  # refactor with polymorphism - doesn't seem to make it any cleaner though...
-  def remove_list(object, old_list = []) # returns list of questions to remove given a Plan, Answer, or Plan Hash
+
+  # return a list of question ids to open/hide
+  def remove_list(object)
     id_list = []
-    if object.is_a?(Answer)
-      id_list += answer_conditions(object)
-      return id_list.uniq
-    elsif object.is_a?(Plan)
-      planAnswers = object.answers
+    if object.is_a?(Plan)
+      plan_answers = object.answers
     elsif object.is_a?(Hash)
-      planAnswers = object[:answers]
+      plan_answers = object[:answers]
     else
+      # TODO: change this to an exception as it shouldn't happen
       return []
     end
-    planAnswers.each do |answer|
-      answer_conditions(answer).each do |remove_ids|
-        if !old_list.include?(answer.question.id)
-          id_list.push(remove_ids)
-        end
-      end
-    end
-    id_list.uniq
-  end
-
-  # returns an array of ids to remove based on the conditions associated with an answer
-  def answer_conditions(answer, user = nil)
-    id_list = []
-    if answer.question.option_based?
-      p_conditions = conditions_to_param_form(answer.question.conditions)
-      p_conditions.each do |number, p_condition|
-        a1 = answer.question_option_ids
-        a2 = p_condition[:question_option_id]
-        if a1 & a2 == a2 && a1.length == a2.length # test if right question option selection a.k.a. arrays are equal
-          if p_condition[:action_type] == 'remove' # both expressions should have the same boolean value
-            id_list += p_condition[:remove_question_id]
-          elsif user != nil
-            UserMailer.question_answered(JSON.parse(p_condition[:webhook_data]), user, answer, options_string(a2)).deliver_now()
-          end
-        end
-      end
+    plan_answers.each do |answer|
+      id_list += answer_remove_list(answer)
     end
     id_list
   end
 
-  # this will be omitted (and replaced with answer_conditions(answer, user)) but used to show specific webhook call
+  # returns an array of ids to remove based on the conditions associated with an answer
+  # or trigger the email (TODO: combining these is a bit icky!)
+  def answer_remove_list(answer, user = nil)
+    id_list = []
+    return id_list unless answer.question.option_based?
+    answer.question.conditions.each do |cond|
+      opts = cond.option_list.map{ |s| s.to_i }
+      action = cond.action_type
+      chosen = answer.question_option_ids
+      if chosen == opts
+        if action == "remove"
+          rems = cond.remove_data.map{ |s| s.to_i }
+          id_list += rems
+        elsif !user.nil?
+          UserMailer.question_answered(JSON.parse(cond.webhook_data), user, answer, chosen.join(" and ")).deliver_now
+        end
+      end
+    end
+    # uniq because could get same remove id from diff conds
+    id_list.uniq
+  end
+
   def send_webhooks(user, answer)
-    answer_conditions(answer, user)
+    answer_remove_list(answer, user)
   end
 
   # number of answers in a section after answers updated with conditions
   def num_section_answers(plan, section)
     count = 0
+    plan_remove_list = remove_list(plan)
     plan.answers.each do |answer|
       if answer.question.section.id == section.id &&
-         !remove_list(plan).include?(answer.question.id) &&
+         !plan_remove_list.include?(answer.question.id) &&
          section.answered_questions(plan).include?(answer) &&
          answer.answered?
         count += 1
@@ -72,17 +71,17 @@ module ConditionsHelper
       section = plan.sections.where(phase_id: phase_id, title: section[:title]).first
     end
     count = 0
+    plan_remove_list = remove_list(plan)
     plan.questions.each do |question|
       if question.section.id == section.id &&
-         !remove_list(plan).include?(question.id)
+         !plan_remove_list.include?(question.id)
         count += 1
       end
     end
     count
   end
 
-  # returns an array of hashes of
-  #   section_id, number of section questions, and number of section answers
+  # returns an array of hashes of section_id, number of section questions, and number of section answers
   def sections_info(plan)
     info = []
     plan.sections.each do |section|
@@ -99,25 +98,39 @@ module ConditionsHelper
     section_hash
   end
 
-  # TODO: the logic of this is WAY too complex
-  # needs rewriting
-  # returns a collection of questions to remove (hide).
-  # Choose from these which are to be removed by a given condition
-  def remove_question_collection(question)
-    collection = []
-    question.section.phase.template.phases.each_with_index do |ph, idx|
-      next if previous_phase?(question, ph)
-      sections = ph.sections.map { |s|
-                  [section_title(s),
-                   s.questions.map { |q|
-                     [question_title(q), q.id] if not_previous_question?(question, q)
-                   }.compact
-                  ] if not_previous_section?(question, s)
-                 }.compact
-      collection += sections
+  # collection of questions that could be removed by this question
+  # basically all question forward if this one
+  # in a form which is suitable for the bootstrap-select menus
+  # of the form
+  # { secion_title => [
+  #    [question_title, question_id],
+  #    [question_title, question_id],
+  #    ...
+  #  ]
+  # }
+  def later_question_list(question)
+    collection = {}
+    question.section.phase.template.phases.each do |phase|
+      next if phase.number < question.phase.number
+      phase.sections.each do |section|
+        next if phase.number == question.phase.number &&
+                section.number < question.section.number
+        section.questions.each do |q|
+          next if phase.number == question.phase.number &&
+            section.number == question.section.number &&
+            q.number <= question.number
+          key = section_title(section)
+          if collection.has_key?(key)
+            collection[key] += [[question_title(q), q.id]]
+          else
+            collection[key] = [[question_title(q), q.id]]
+          end
+        end
+      end
     end
     collection
   end
+
 
   def question_title(question)
     raw "Qn. " + question.number.to_s + ": " +
@@ -135,105 +148,33 @@ module ConditionsHelper
                  escape: false)
   end
 
-  def previous_phase?(current_question, dropdown_phase)
-    current_question.phase.number > dropdown_phase.number
-  end
 
-  def not_previous_section?(current_question, dropdown_section)
-    later_section = current_question.section.number < dropdown_section.number
-    later_phase = current_question.phase.number < dropdown_section.phase.number
-    not_last_section_question = (current_question.section.number == dropdown_section.number &&
-                                 current_question.number != dropdown_section.questions.size)
-    return later_section || later_phase || not_last_section_question
-  end
+  # used when displaying a question while editing the template
+  # converts condition into text
+  def condition_to_text(conditions)
+    return_string = ""
+    conditions.each do |cond|
+      opts = cond.option_list.map{ |opt| QuestionOption.find(opt).text }
+      return_string += "</dd>" if return_string.length > 0
+      return_string += "<dd>" + _("Answering") + " "
+      return_string += opts.join(" and ")
+      if cond.action_type == "add_webhook"
+        subject_string = text_formatted(cond.webhook_data['subject'])
+        return_string += _(" will <b>send an email</b> with subject ") + subject_string
+      else
+        remove_data = cond.remove_data
+        rems = remove_data.map{ |rem| '"' + Question.find(rem).text + '"' }
 
-  def not_previous_question?(current_question, dropdown_question)
-    later_question = current_question.number < dropdown_question.number
-    later_section = current_question.section.number < dropdown_question.section.number
-    later_phase = current_question.phase.number < dropdown_question.phase.number
-    return later_question || later_section || later_phase
-  end
-
-  # given a conditions array, group conditions by number as a hash
-  def group_show_conditions(conditions)
-    conditions_grouping = {}
-    conditions.each do |condition|
-      conditions_grouping.merge!(condition.number => [condition]) {|_op, cond1, cond2|
-          cond1 + cond2 if cond1.is_a?(Array) && cond2.is_a?(Array)
-      }
-    end
-    conditions_grouping
-  end
-
-  # ensures conditions of type 'remove' come first. conditions of type Condition
-  def conditions_ordered(conditions)
-    grouped_conditions = group_show_conditions(conditions)
-    grouped_conditions.each do |option, conditions|
-      conditions.sort_by{|condition| condition.action_type.to_s.length}
-    end
-    grouped_conditions
-  end
-
-  def list_questions(conditions)
-    return_string = _('Answering ')
-    return_string += options_string(conditions)
-    if conditions.size == 1 && conditions[0].action_type == 'add_webhook'
-      subject_string = text_formatted(JSON.parse(conditions[0].webhook_data)['subject'])
-      return_string += _(' will ') + make_tags('b', _('send an email')) + _(' with subject ') + subject_string
-    else
-      remove_array = conditions.select{|c| c.action_type == 'remove'}.map(&:remove_question_id).uniq
-      no_removes = remove_array.uniq.size
-      remove_array.each_with_index do |id, idx|
-        if idx < no_removes
-          if idx == 0
-            return_string += _(' will ') + make_tags('b', _('remove '))
-          elsif idx < no_removes - 1
-            return_string += _(', ')
-          elsif idx == no_removes - 1
-            return_string += _(', and ')
-          end
-          return_string += text_formatted(id)
+        if rems.length == 1
+          return_string += _(" will <b>remove</b> question ")
+          return_string += rems.join(" and ")
         else
-          if idx > 0
-            return_string += _(', and ')
-          end
-          return_string += _(' will ') + make_tags('b', _('send an email'))
+          return_string += _(" will <b>remove</b> questions ")
+          return_string += rems.join(" and ")
         end
       end
     end
-    return_string += "."
-  end
-
-  def make_tags(tag, string)
-    "<#{tag}> #{string} </#{tag}>"
-  end
-
-  def options_string(object_array)
-    options = []
-    if object_array[0].kind_of?(Condition)
-      options = get_options(object_array)
-    elsif object_array[0].kind_of?(Integer)
-      options = QuestionOption.find(object_array).map(&:text)
-    end 
-    return_string = ""
-    options.each_with_index do |option, idx|
-      return_string += text_formatted(option)
-      if idx != options.length - 1 && options.length != 1
-        return_string += _(', ')
-      end
-      if idx == options.length - 2
-        return_string += _('and ')
-      end
-    end
-    return_string
-  end
-
-  def get_options(conditions)
-    options_list = []
-    conditions.each do |condition|
-      options_list.push(condition.question_option.text)
-    end
-    options_list.uniq
+    return_string + "</dd>"
   end
 
   def text_formatted(object)
@@ -251,15 +192,16 @@ module ConditionsHelper
     text = _('"') + text + _('"')
   end
 
+  # convert a set of conditions into multi-select form
   def conditions_to_param_form(conditions)
     param_conditions = {}
     conditions.each do |condition|
       title = "condition" + condition[:number].to_s
       condition_hash = {title =>
-                        {question_option_id: [condition.question_option_id],
+                        {question_option_id: condition.option_list,
                         action_type: condition.action_type,
                         number: condition.number,
-                        remove_question_id: [condition.remove_question_id],
+                        remove_question_id: condition.remove_data,
                         webhook_data: condition.webhook_data}
                        }
       if param_conditions.has_key?(title)
@@ -276,7 +218,7 @@ module ConditionsHelper
     end
     param_conditions
   end
-
+ 
   # returns an hash of hashes of webhook data given a condition array
   def webhook_hash(conditions)
     web_hash = {}
@@ -286,12 +228,4 @@ module ConditionsHelper
     end
     web_hash
   end
-
 end
-
-
-
-
-
-
-

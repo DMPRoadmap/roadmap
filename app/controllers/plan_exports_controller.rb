@@ -4,7 +4,7 @@ class PlanExportsController < ApplicationController
 
   after_action :verify_authorized
 
- include ConditionsHelper
+  include ConditionsHelper
 
   def show
     @plan = Plan.includes(:answers).find(params[:plan_id])
