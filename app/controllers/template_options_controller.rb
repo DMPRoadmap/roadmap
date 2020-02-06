@@ -47,7 +47,7 @@ class TemplateOptionsController < ApplicationController
       end
 
       # If the no funder was specified OR the funder matches the org
-      if (funder.present? && !funder.new_record?) || funder&.id == org.id
+      if funder.blank? || funder.id == org.id
         # Retrieve the Org's templates
         @templates << Template.published
                               .organisationally_visible

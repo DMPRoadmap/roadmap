@@ -50,12 +50,13 @@
         <div class="form-group col-md-6">
            <em class="sr-only"><%= research_org_tooltip %></em>
            <%# TODO: create a relationship on the plans table to org for this (org_id)! %>
+           <% dflt = @orgs.include?(current_user.org) ? current_user.org : nil %>
            <%= fields_for :org, @plan.org do |org_fields| %>
              <%= render partial: "shared/org_selectors/local_only",
                         locals: {
                           form: org_fields,
                           id_field: :id,
-                          default_org: current_user.org,
+                          default_org: dflt,
                           orgs: @orgs,
                           required: false
                         } %>

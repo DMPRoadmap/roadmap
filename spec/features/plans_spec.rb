@@ -32,11 +32,10 @@ RSpec.describe "Plans", type: :feature do
     # Action
     click_link "Create plan"
     fill_in :plan_title, with: "My test plan"
-    fill_in :plan_org_name, with: @research_org.name
-
-    find('#suggestion-2-0').click
-    fill_in :plan_funder_name, with: @funding_org.name
-    find('#suggestion-3-0').click
+    fill_in :org_org_name, with: @research_org.name
+    choose_suggestion(@research_org.name)
+    fill_in :funder_org_name, with: @funding_org.name
+    choose_suggestion(@funding_org.name)
     click_button "Create plan"
 
     # Expectations
@@ -64,7 +63,8 @@ RSpec.describe "Plans", type: :feature do
 
     expect(current_path).to eql(overview_plan_path(@plan))
     expect(@plan.title).to eql("My test plan")
-    expect(@plan.funder_name).to eql(@funding_org.name)
+    expect(@plan.org_id).to eql(@research_org.id)
+    expect(@plan.funder_id).to eql(@funding_org.id)
     expect(@plan.grant_number).to eql("115797")
     expect(@plan.description).to eql("Plan abstract...")
     expect(@plan.identifier).to eql("ABCDEF")
