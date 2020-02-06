@@ -65,8 +65,7 @@ class Question < ActiveRecord::Base
 
   has_one :template, through: :section
 
-  has_many :conditions, through: :question_options
-
+  has_many :conditions, dependent: :destroy, inverse_of: :question
 
   # ===============
   # = Validations =
@@ -120,6 +119,8 @@ class Question < ActiveRecord::Base
       copy.annotations << annotation.deep_copy(options)
     end
     self.themes.each { |theme| copy.themes << theme }
+    self.conditions.each { |condition| copy.conditions << condition.deep_copy(options) }
+    copy.conditions = copy.conditions.sort_by(&:number)
     copy
   end
 
@@ -197,28 +198,14 @@ class Question < ActiveRecord::Base
 
   # upon saving of question update conditions (via a delete and create) from params
   def update_conditions(param_conditions)
-    self.question_options.each do |question_option|
-      question_option.conditions.each do |condition|
-        condition.destroy
-      end
+    self.conditions.each do |condition|
+      condition.destroy
     end
     #self.conditions.destroy_all not working right now
     if param_conditions.present?
       conditions = param_conditions[0]
-      conditions.each do |key, value|
-        value['question_option'].each do |option_id|
-          if value['action_type'] == 'remove' 
-            if !value.key?('remove_question_id')
-              # add an error message that remove list is empty (so no conditions saved)
-              next
-            end
-            value['remove_question_id'].each do |remove_id|
-              saveCondition(value, option_id, remove_id)
-            end
-          else
-            saveCondition(value, option_id)
-          end
-        end
+      conditions.each do |_key, value|
+        saveCondition(value)
       end
       return true
     end
@@ -227,21 +214,22 @@ class Question < ActiveRecord::Base
   end
 
 
-  def saveCondition(value, option_id, remove_id = nil)
-    c = self.question_options.find(option_id).conditions.build
-    c.action_type = value['action_type']
-    c.remove_question_id = remove_id
+  def saveCondition(value)
+    c = self.conditions.build
+    c.action_type = value["action_type"]
     c.number = value['number']
-    c.webhook_data = get_webhook(value)
+    c.option_list = value["question_option"]
+    if value["action_type"] == "remove"
+      c.remove_data = value["remove_question_id"]
+    else
+      c.webhook_data = {
+        name: ActionController::Base.helpers.sanitize(value['webhook-name']),
+        email: ActionController::Base.helpers.sanitize(value['webhook-email']),
+        subject: ActionController::Base.helpers.sanitize(value['webhook-subject']),
+        message: ActionController::Base.helpers.sanitize(value['webhook-message'])
+      }.to_json
+    end
     c.save
-  end
-
-  def get_webhook(value)
-    data_hash = {}
-                  .merge!({name: ActionController::Base.helpers.sanitize(value['webhook-name'])})
-                  .merge!({email: ActionController::Base.helpers.sanitize(value['webhook-email'])})
-                  .merge!({subject: ActionController::Base.helpers.sanitize(value['webhook-subject'])})
-                  .merge!({message: ActionController::Base.helpers.sanitize(value['webhook-message'])}).to_json
   end
 
   private
