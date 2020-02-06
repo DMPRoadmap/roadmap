@@ -23,7 +23,6 @@ class AnswersController < ApplicationController
         # rubocop:enable Metrics/LineLength
         return
       end
-      remove_list_before = remove_list(p)
     rescue ActiveRecord::RecordNotFound
       # rubocop:disable Metrics/LineLength
       render(status: :not_found, json: {
@@ -90,22 +89,31 @@ class AnswersController < ApplicationController
       template = @section.phase.template
 
       remove_list_after = remove_list(@plan)
-      # in case of any condition chains
-      remove_list_after = remove_list(@plan, remove_list_after)
-      # get section info for the questions to be hidden and shown for this plan
-      qn_data = sections_info_from_questions(list_compare(remove_list_before, remove_list_after), @plan)
-      this_section_info = sections_info_from_questions(
-        {
-          to_show: [@answer.question_id],
-          to_hide: []
-        }, 
-        @plan
-      )
+
+      all_question_ids = @plan.questions.pluck(:id)
+      all_answers = @plan.answers
+      qn_data = {
+        to_show: all_question_ids - remove_list_after,
+        to_hide: remove_list_after
+      }
+
+      section_data = []
+      @plan.sections.each do |section|
+        next if section.number < @section.number
+        n_qs, n_ans = check_answered(section, qn_data[:to_show], all_answers)
+        this_section_info = {
+          sec_id: section.id,
+          no_qns: n_qs,
+          no_ans: n_ans
+        }
+        section_data << this_section_info
+      end
+
       send_webhooks(current_user, @answer)
       # rubocop:disable Metrics/LineLength
       render json: {
         "qn_data": qn_data,
-        "this_section_info": this_section_info,
+        "section_data": section_data,
         "question" => {
           "id" => @question.id,
           "answer_lock_version" => @answer.lock_version,
@@ -140,55 +148,6 @@ class AnswersController < ApplicationController
     end
   end
 
-  # hash of an array of question ids to show and of ids to hide
-  def list_compare(before, after)
-    id_hash = {}
-    # hide what questions (by id) have just been added to to_remove
-    id_hash.merge!(to_hide: comparison(after, before))
-    # show what questions (by id) just no longer in to_remove
-    id_hash.merge!(to_show: comparison(before, after))
-    id_hash
-  end
-
- # in set notation returns array1 \ array2
-  def comparison(array1, array2)
-    show_or_hide = []
-    array1.each do |id|
-      unless array2.include?(id)
-        show_or_hide.push(id)
-      end
-    end
-    show_or_hide.uniq
-  end
-
-  # get the section info relating to the questions to add and remove.
-  # section info:
-  #   section id,
-  #   number of questions per section,
-  #   number of answers per section
-  # all for a given question id
-  def sections_info_from_questions(qn_hash, plan)
-    sec_hash = {}
-    sec_hash.merge!(to_hide: merge_info(qn_hash[:to_hide], plan))
-    sec_hash.merge!(to_show: merge_info(qn_hash[:to_show], plan))
-    sec_hash
-  end
-
-  # goes from array of question ids to array of hashes of section info
-  def merge_info(show_or_hide_array, plan)
-    show_or_hide_info = []
-    show_or_hide_array.each do |id|
-      question = Question.find(id)
-      info = section_info(plan, question.section)
-      question_hash = {}
-                        .merge!(qn_id: id)
-                        .merge!(sec_id: info[:id])
-                        .merge!(no_qns: info[:no_qns])
-                        .merge!(no_ans: info[:no_ans])
-      show_or_hide_info.push(question_hash)
-    end
-    show_or_hide_info.uniq
-  end
 
   private
   def permitted_params
@@ -209,6 +168,12 @@ class AnswersController < ApplicationController
         permitted[:question_option_ids] = []
     end
     permitted
+  end
+
+  def check_answered(section, q_array, all_answers)
+    n_qs = section.questions.select{ |question| q_array.include?(question.id) }.length
+    n_ans = all_answers.select{ |ans| q_array.include?(ans.question.id) and ans.answered? }.length
+    [n_qs, n_ans]
   end
 
 end
