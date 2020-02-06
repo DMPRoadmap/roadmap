@@ -78,6 +78,7 @@ RSpec.describe "Plans", type: :feature do
     expect(@plan.principal_investigator_identifier).to eql("My ORCID")
     expect(@plan.principal_investigator_email).to eql(@user.email)
     expect(@plan.principal_investigator_phone).to eql("07787 000 0000")
-  end
 =end
+  end
+
 end
