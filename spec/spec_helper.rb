@@ -106,7 +106,7 @@ RSpec.configure do |config|
       # google api chromedriver store
       WebMock.disable_net_connect!(
         allow_localhost: true,
-        allow: %w[chromedriver.storage.googleapis.com 127.0.0.1]
+        allow: %w[chromedriver.storage.googleapis.com]
       )
     end
   end

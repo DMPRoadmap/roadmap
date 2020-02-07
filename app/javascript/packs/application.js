@@ -18,6 +18,7 @@ import '../utils/requiredField';
 // Page specific JS
 import '../views/answers/edit';
 import '../views/answers/rda_metadata';
+import '../views/devise/invitations/edit';
 import '../views/devise/passwords/edit';
 import '../views/devise/registrations/edit';
 import '../views/guidances/new_edit';

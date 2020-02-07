@@ -42,10 +42,6 @@ RSpec.describe OrgSelectable do
         rslt = @controller.send(:org_from_params, params_in: @params)
         expect(rslt.is_a?(Org)).to eql(true)
       end
-      it "returns an Org with identifiers" do
-        rslt = @controller.send(:org_from_params, params_in: @params)
-        expect(rslt.identifiers.any?).to eql(true)
-      end
     end
 
     describe "#identifiers_from_params(params:)" do

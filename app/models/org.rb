@@ -298,10 +298,6 @@ class Org < ActiveRecord::Base
       next unless identifier.value.present?
 
       identifier.identifiable = self
-
-p identifier.valid?
-p identifier.errors.collect{|e,m| "#{e} - #{m}"}.join(', ')
-
       identifier.save
     end
     true

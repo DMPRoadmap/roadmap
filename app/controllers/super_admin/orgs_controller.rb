@@ -27,11 +27,18 @@ module SuperAdmin
 
       # See if the user selected a new Org via the Org Lookup and
       # convert it into an Org
+
+p attrs
+
       org = org_from_params(params_in: attrs)
       identifiers = identifiers_from_params(params_in: attrs)
 
       # Remove the extraneous Org Selector hidden fields
       attrs = remove_org_selection_params(params_in: attrs)
+
+      # In the event that the params would create an invalid user, the
+      # org selectable returns nil because Org.new(params) fails
+      org = Org.new unless org.present?
 
       org.language = Language.default
       org.managed = org_params[:managed] == "1" ? true : false
@@ -71,12 +78,9 @@ module SuperAdmin
           redirect_to admin_edit_org_path(org.id), notice: msg
         else
           flash.now[:alert] = failure_message(org, _("create"))
-          render "orgs/admin_edit", locals: {
-            org: org,
-            languages: Language.all.order("name"),
-            method: "POST",
-            url: super_admin_orgs_path
-          }
+          @org = org
+          @org.links = { "org": [] } unless org.links.present?
+          render "super_admin/orgs/new"
         end
       rescue Dragonfly::Job::Fetch::NotFound => dflye
         failure = _("There seems to be a problem with your logo. Please upload it again.")

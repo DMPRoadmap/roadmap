@@ -12,6 +12,7 @@ RSpec.describe "Plans", type: :feature do
     @user         = create(:user, org: @org)
     sign_in(@user)
 
+=begin
     OpenURI.expects(:open_uri).returns(<<~XML
       <form-value-pairs>
         <value-pairs value-pairs-name="H2020projects" dc-term="relation">
@@ -25,7 +26,7 @@ RSpec.describe "Plans", type: :feature do
       </form-value-pairs>
     XML
     )
-
+=end
   end
 
   scenario "User creates a new Plan", :js do

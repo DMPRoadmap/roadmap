@@ -28,7 +28,7 @@
 
       <div id="funder-org-controls" class="form-group">
         <% if plan.template.org == plan.funder %>
-          <div class="col-md-10">
+          <div class="col-md-12">
             <%= f.label(:funder_name, _('Funder'), class: 'control-label') %>
           </div>
           <%
@@ -44,16 +44,18 @@
           </div>
 
         <% else %>
-          <%= fields_for :funder, plan.funder do |funder_fields| %>
-            <%= render partial: "shared/org_selectors/combined",
-               locals: {
-                 form: f,
-                 funder_only: true,
-                 label: _("Funder"),
-                 default_org: plan.funder,
-                 required: false
-               } %>
-          <% end %>
+          <div class="col-md-8">
+            <%= fields_for :funder, plan.funder do |funder_fields| %>
+              <%= render partial: "shared/org_selectors/combined",
+                 locals: {
+                   form: f,
+                   funder_only: true,
+                   label: _("Funder"),
+                   default_org: plan.funder,
+                   required: false
+                 } %>
+            <% end %>
+          </div>
         <% end %>
       </div>
 
