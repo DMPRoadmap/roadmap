@@ -19,7 +19,7 @@ class QuestionFormat < ActiveRecord::Base
   ##
   #
   FORMAT_TYPES = %i[textarea textfield radiobuttons checkbox dropdown
-                    multiselectbox date rda_metadata number]
+                    multiselectbox date rda_metadata number structured]
 
 
   # ==============
