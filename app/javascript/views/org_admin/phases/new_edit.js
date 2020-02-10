@@ -156,17 +156,6 @@ $(() => {
     panel.html('');
     panel.closest('.panel-body').find('.new-question-button a.ajaxified-question[data-remote="true"]').show();
   });
-  // Handles Structured checkbox, when clicked hides Question Format, unclicked hides Data Schemas
-  $(parentSelector).on('click', '.structured-checkbox', (e) => {
-    const panelBody = getQuestionPanel($(e.target));
-    if ($(e.target).is(':checked')) {
-      panelBody.find('.question_format select').attr('disabled', true);
-      panelBody.find('.question_schema select').attr('disabled', false);
-    } else {
-      panelBody.find('.question_format select').attr('disabled', false);
-      panelBody.find('.question_schema select').attr('disabled', true);
-    }
-  });
   // Handle the section that has focus on initial page load
   const currentSection = $('.section-group .in');
   if (currentSection.length > 0) {

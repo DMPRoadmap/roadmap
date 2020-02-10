@@ -22,13 +22,27 @@
       <%= f.label(:text, _('Question text'), class: "control-label") %>
       <%= f.text_area(:text, class: "question", "aria-required": true) %>
     </div>
-    <!-- Structured checkbox -->
-    <div class="form-group col-md-10">
-        <%= f.label(:question_format_id, _('Structured'), class: "control-label") %>
-        <%= f.check_box :structured, class: "structured-checkbox"%>
+    <!-- Question format -->
+    <div class="form-group col-md-10 question_format">
+      <%= f.label(:question_format_id, _('Answer format'), class: "control-label") %>
+        <%= f.select :question_format_id,
+          options_for_select(
+            question_formats.map{ |qf| [qf.title, qf.id, {'data-structured'=>qf.structured}] },
+            question.question_format_id
+          ),
+          {},
+          class: "form-control",
+          'data-toggle': 'tooltip',
+          'data-html': true,
+          title: _("You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>")
+        %>
     </div>
+
     <!-- Structured Data Schemas -->
-    <div class="form-group col-md-10 question_schema">
+    <div class="form-group col-md-10 question_schema"
+        data-attribute="question_schema" 
+        style="<%= 'display:none' if question.question_format.structured == false %>"
+    >
       <%= f.label(:structured_data_schema_id, _('Data Schema'), class: "control-label") %>
         <%= f.select :structured_data_schema_id,
           options_from_collection_for_select(structured_data_schemas,
@@ -36,29 +50,10 @@
           :detailed_name,
           question.structured_data_schema_id),
           {},
-          :disabled => !question.structured,
           class: "form-control"
        %>
     </div>
 
-    <!-- Question format -->
-    <div class="form-group col-md-10 question_format" 
-         <%= 'disabled' if question.structured == false %>
-    >
-      <%= f.label(:question_format_id, _('Answer format'), class: "control-label") %>
-        <%= f.select :question_format_id,
-          options_from_collection_for_select(question_formats,
-          :id,
-          :title,
-          question.question_format_id),
-          {},
-          :disabled => question.structured,
-          class: "form-control",
-          'data-toggle': 'tooltip',
-          'data-html': true,
-          title: _("You can choose from:<ul><li>- text area (large box for paragraphs);</li> <li>- text field (for a short answer);</li> <li>- checkboxes where options are presented in a list and multiple values can be selected;</li> <li>- radio buttons where options are presented in a list but only one can be selected;</li> <li>- dropdown like this box - only one option can be selected;</li> <li>- multiple select box allows users to select several options from a scrollable list, using the CTRL key;</li></ul>")
-        %>
-    </div>
 
     <!--display form to enter option for option_based questions -->
     <div class="form-group col-md-10" data-attribute="question_options" style="<%= current_format.option_based? ? '' : 'display:none;' %>">

@@ -74,19 +74,11 @@ class Question < ActiveRecord::Base
 
   validates :section, presence: { message: PRESENCE_MESSAGE, on: :update }
 
-  validates :question_format, presence: { 
-                                      unless: :structured,
-                                      message: PRESENCE_MESSAGE 
-                                  }
+  validates :question_format, presence: { message: PRESENCE_MESSAGE }
 
   validates :number, presence: { message: PRESENCE_MESSAGE },
                      uniqueness: { scope: :section_id,
                                    message: UNIQUENESS_MESSAGE }
-
-  validates :structured_data_schema, presence: { 
-                                      if: :structured,
-                                      message: PRESENCE_MESSAGE 
-                                  }
 
 
   # =====================
