@@ -15,6 +15,13 @@ namespace :dmpopidor_upgrade do
     Rake::Task['dmpopidor_upgrade:research_outputs_enable'].execute
   end
 
+  desc "Add Structured question format in table"
+  task add_structure_question_format: :environment do
+    if QuestionFormat.find_by(title: "Structured").nil?
+      QuestionFormat.create!({ title: "Structured", description: "Structured question format", 
+                                option_based: false, formattype: 9, structured: true })
+    end
+  end
 
   desc "Add the themes token permission type"
   task add_themes_token_permission_types: :environment do
