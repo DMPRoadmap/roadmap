@@ -41,7 +41,7 @@
     <!-- Structured Data Schemas -->
     <div class="form-group col-md-10 question_schema"
         data-attribute="question_schema" 
-        style="<%= 'display:none' if question.question_format.structured == false %>"
+        style="<%= 'display:none' if !question.question_format.structured?%>"
     >
       <%= f.label(:structured_data_schema_id, _('Data Schema'), class: "control-label") %>
         <%= f.select :structured_data_schema_id,

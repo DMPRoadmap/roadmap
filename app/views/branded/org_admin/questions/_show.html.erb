@@ -44,10 +44,10 @@
           <!-- Structured -->
           <dt><%= _('Structured')%></dt>
           <dd>
-            <%= q_format.structured ? _('Yes') : _('No')%>
+            <%= q_format.structured? ? _('Yes') : _('No')%>
           </dd>
           <!-- Format title -->
-          <% if q_format.structured %>
+          <% if q_format.structured? %>
             <dt><%= _('Data Schema')%></dt>
             <dd>
               <%= q_schema.detailed_name %>
