@@ -43,7 +43,7 @@ module UsageHelper
         # Replace any of the month/year plan counts for this template IF it has
         # any plans defined
         template_hash[:data] = template_hash[:data].map do |data|
-          data[:y] == date ? { x: template["count"], y: data[:y] } : data
+          data[:y] == date ? { x: template["count"] + data[:x], y: data[:y] } : data
         end
         datasets[template["name"]] = template_hash
       end
