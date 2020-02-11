@@ -75,6 +75,9 @@ class Api::V0::PlansController < Api::V0::BaseController
     if params["updated_after"].present? || params["updated_before"].present?
       @plans = @plans.where(updated_at: dates_to_range(params,"updated_after","updated_before"))
     end
+    if params["remove_tests"].present? && params["remove_tests"].downcase == "true"
+      @plans = @plans.where.not(visibility: Plan.visibilities[:is_test])
+    end
     # filter on funder (dmptemplate_id)
     template_ids = extract_param_list(params, "template")
     @plans = @plans.where(templates: {family_id: template_ids}) if template_ids.present?
