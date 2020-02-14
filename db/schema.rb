@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200203190734) do
+ActiveRecord::Schema.define(version: 20200218213414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,19 @@ ActiveRecord::Schema.define(version: 20200203190734) do
   end
 
   add_index "answers_question_options", ["answer_id"], name: "index_answers_question_options_on_answer_id", using: :btree
+
+  create_table "contributors", force: :cascade do |t|
+    t.string   "firstname"
+    t.string   "surname"
+    t.string   "email",                     null: false
+    t.string   "phone"
+    t.integer  "org_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contributors", ["email"], name: "index_contributors_on_email", using: :btree
+  add_index "contributors", ["org_id"], name: "index_contributors_on_org_id", using: :btree
 
   create_table "departments", force: :cascade do |t|
     t.string   "name"
@@ -238,12 +251,27 @@ ActiveRecord::Schema.define(version: 20200203190734) do
     t.string   "principal_investigator_phone"
     t.boolean  "feedback_requested",                default: false
     t.boolean  "complete",                          default: false
+    t.integer  "ethical_issues"
+    t.text     "ethical_issues_description"
+    t.string   "ethical_issues_report"
     t.integer  "org_id",                            limit: 4
     t.integer  "funder_id",                         limit: 4
   end
 
   add_index "plans", ["template_id"], name: "index_plans_on_template_id", using: :btree
   add_index "plans", ["funder_id"], name: "index_plans_on_funder_id", using: :btree
+
+  create_table "plans_contributors", force: :cascade do |t|
+    t.integer  "contributor_id"
+    t.integer  "plan_id"
+    t.integer  "roles"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "plans_contributors", ["contributor_id"], name: "index_plans_contributors_on_contributor_id", using: :btree
+  add_index "plans_contributors", ["plan_id"], name: "index_plans_contributors_on_plan_id", using: :btree
+  add_index "plans_contributors", ["roles"], name: "index_plans_contributors_on_roles", using: :btree
 
   create_table "plans_guidance_groups", force: :cascade do |t|
     t.integer "guidance_group_id"
@@ -468,6 +496,7 @@ ActiveRecord::Schema.define(version: 20200203190734) do
   add_foreign_key "answers", "users"
   add_foreign_key "answers_question_options", "answers"
   add_foreign_key "answers_question_options", "question_options"
+  add_foreign_key "contributors", "orgs"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "notes", "answers"
@@ -483,6 +512,8 @@ ActiveRecord::Schema.define(version: 20200203190734) do
   add_foreign_key "phases", "templates"
   add_foreign_key "plans", "orgs"
   add_foreign_key "plans", "templates"
+  add_foreign_key "plans_contributors", "contributors"
+  add_foreign_key "plans_contributors", "plans"
   add_foreign_key "plans_guidance_groups", "guidance_groups"
   add_foreign_key "plans_guidance_groups", "plans"
   add_foreign_key "question_options", "questions"

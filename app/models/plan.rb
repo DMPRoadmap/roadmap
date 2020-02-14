@@ -26,6 +26,9 @@
 #  created_at                        :datetime
 #  updated_at                        :datetime
 #  template_id                       :integer
+#  ethical_issues                    :integer
+#  ethical_issues_description        :text
+#  ethical_issues_report             :string
 #  org_id                            :integer
 #  funder_id                         :integer
 #
@@ -116,6 +119,10 @@ class Plan < ActiveRecord::Base
   has_many :roles
 
   has_many :identifiers, as: :identifiable
+
+  has_many :plans_contributors, dependent: :destroy
+
+  has_many :contributors, through: :plans_contributors
 
   # =====================
   # = Nested Attributes =
@@ -420,7 +427,7 @@ class Plan < ActiveRecord::Base
                   .administrator
                   .order(:created_at)
                   .pluck(:user_id).first
-    User.find(usr_id)
+    usr_id.present? ? User.find(usr_id) : nil
   end
 
   # Creates a role for the specified user (will update the user's
