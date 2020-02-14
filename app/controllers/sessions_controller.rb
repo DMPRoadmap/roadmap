@@ -20,9 +20,9 @@ class SessionsController < Devise::SessionsController
           user: existing_user
         }
         if UserIdentifier.create(args)
-          # rubocop:disable LineLength
+          # rubocop:disable Metrics/LineLength
           success = _("Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them.")
-          # rubocop:enable LineLength
+          # rubocop:enable Metrics/LineLength
         end
       end
       unless existing_user.get_locale.nil?
