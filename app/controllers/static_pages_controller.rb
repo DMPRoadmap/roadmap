@@ -14,9 +14,6 @@ class StaticPagesController < ApplicationController
   def contact_us
   end
 
-  def roadmap
-  end
-
   def privacy
   end
 
