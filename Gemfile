@@ -248,6 +248,8 @@ group :test do
 
   gem "rspec-collection_matchers"
 
+  # A set of RSpec matchers for testing Pundit authorisation policies.
+  gem 'pundit-matchers'
 end
 
 group :ci, :development do

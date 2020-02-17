@@ -58,7 +58,7 @@ class Paginable::PlansController < ApplicationController
     end
     paginable_renderise(
       partial: "org_admin_other_user",
-      scope: Plan.organisationally_or_publicly_visible(@user),
+      scope: Plan.active(@user),
       query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }
     )
   end
