@@ -201,16 +201,12 @@ class Question < ActiveRecord::Base
     self.conditions.each do |condition|
       condition.destroy
     end
-    #self.conditions.destroy_all not working right now
     if param_conditions.present?
-      conditions = param_conditions[0]
-      conditions.each do |_key, value|
+      #conditions = param_conditions[0]
+      param_conditions.each do |_key, value|
         saveCondition(value)
       end
-      return true
     end
-    # no conditions present
-    return false
   end
 
 
@@ -223,10 +219,10 @@ class Question < ActiveRecord::Base
       c.remove_data = value["remove_question_id"]
     else
       c.webhook_data = {
-        name: ActionController::Base.helpers.sanitize(value['webhook-name']),
-        email: ActionController::Base.helpers.sanitize(value['webhook-email']),
-        subject: ActionController::Base.helpers.sanitize(value['webhook-subject']),
-        message: ActionController::Base.helpers.sanitize(value['webhook-message'])
+        name: value['webhook-name'],
+        email: value['webhook-email'],
+        subject: value['webhook-subject'],
+        message: value['webhook-message']
       }.to_json
     end
     c.save
