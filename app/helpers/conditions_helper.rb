@@ -112,14 +112,18 @@ module ConditionsHelper
     collection = {}
     question.section.phase.template.phases.each do |phase|
       next if phase.number < question.phase.number
+
       phase.sections.each do |section|
         next if phase.number == question.phase.number &&
                 section.number < question.section.number
+
         section.questions.each do |q|
           next if phase.number == question.phase.number &&
             section.number == question.section.number &&
             q.number <= question.number
+
           key = section_title(section)
+
           if collection.has_key?(key)
             collection[key] += [[question_title(q), q.id]]
           else
