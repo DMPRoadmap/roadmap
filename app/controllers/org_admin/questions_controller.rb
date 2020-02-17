@@ -98,26 +98,21 @@ module OrgAdmin
     def update
       question = Question.find(params[:id])
       authorize question
-      begin
-        question = get_modifiable(question)
-        # Need to reattach the incoming annotation's and question_options to the
-        # modifiable (versioned) question
-        attrs = question_params
-        attrs = transfer_associations(question) if question.id != params[:id]
-        # If the user unchecked all of the themes set the association to an empty array
-        # add check for number present to ensure this is not just an annotation
-        if attrs[:theme_ids].blank? && attrs[:number].present?
-          attrs[:theme_ids] = []
-        end
-        if question.update(attrs)
-          question.update_conditions(params["conditions"])
-          flash[:notice] = success_message(question, _("updated"))
-        else
-          flash[:alert] = flash[:alert] = failure_message(question, _("update"))
-        end
-      rescue StandardError => e
-        puts e.message
-        flash[:alert] = _("Unable to create a new version of this template.")
+      question = get_modifiable(question)
+      # Need to reattach the incoming annotation's and question_options to the
+      # modifiable (versioned) question
+      attrs = question_params
+      attrs = transfer_associations(question) if question.id != params[:id]
+      # If the user unchecked all of the themes set the association to an empty array
+      # add check for number present to ensure this is not just an annotation
+      if attrs[:theme_ids].blank? && attrs[:number].present?
+        attrs[:theme_ids] = []
+      end
+      if question.update(attrs)
+        question.update_conditions(sanitize_hash(params["conditions"]))
+        flash[:notice] = success_message(question, _("updated"))
+      else
+        flash[:alert] = flash[:alert] = failure_message(question, _("update"))
       end
       if question.section.phase.template.customization_of.present?
         redirect_to org_admin_template_phase_path(
@@ -156,6 +151,33 @@ module OrgAdmin
     end
 
     private
+
+    # param_condiions looks like:
+    #   [
+    #     {
+    #       "conditions_N" => {
+    #         name: ...
+    #         subject ...
+    #         ...
+    #       }
+    #       ...
+    #     }
+    #   ]
+    def sanitize_hash(param_conditions)
+      return {} unless param_conditions.length > 0
+
+      res = {}
+      hash_of_hashes = param_conditions[0]
+      hash_of_hashes.each do |cond_name, cond_hash|
+        sanitized_hash = {}
+        cond_hash.each do |k,v|
+          v = ActionController::Base.helpers.sanitize(v) if k.start_with?("webhook")
+          sanitized_hash[k] = v
+        end
+        res[cond_name] = sanitized_hash
+      end
+      res
+    end
 
     def question_params
       params.require(:question)
