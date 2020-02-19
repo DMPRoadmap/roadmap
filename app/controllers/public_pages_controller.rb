@@ -51,7 +51,7 @@ class PublicPagesController < ApplicationController
         end
 
         format.pdf do
-          # rubocop:disable LineLength
+          # rubocop:disable Metrics/LineLength
           render pdf: file_name,
             template: "template_exports/template_export",
             margin: @formatting[:margin],
@@ -65,7 +65,7 @@ class PublicPagesController < ApplicationController
             right: "[page] of [topage]",
             encoding: "utf8"
           }
-          # rubocop:enable LineLength
+          # rubocop:enable Metrics/LineLength
         end
       end
     rescue ActiveRecord::RecordInvalid => e
