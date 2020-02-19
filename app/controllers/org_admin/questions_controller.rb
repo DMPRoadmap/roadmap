@@ -164,6 +164,7 @@ module OrgAdmin
     #     }
     #   ]
     def sanitize_hash(param_conditions)
+      return {} if param_conditions.nil?
       return {} unless param_conditions.length > 0
 
       res = {}
