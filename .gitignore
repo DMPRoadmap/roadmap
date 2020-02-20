@@ -105,3 +105,4 @@ spec/examples.txt
 yarn-debug.log*
 .yarn-integrity
 reset.sh
+docker
