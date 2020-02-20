@@ -58,10 +58,10 @@
       <%= hidden_field_tag :standards, answer_hash['standards'].to_json %>
     <% end %>
   <% end %>
-  <fieldset aria-labelledby="answer-fieldset" <%= 'disabled' if readonly %> >%>
+  <fieldset aria-labelledby="answer-fieldset" <%= 'disabled' if readonly %> >
     <% if question.option_based? || question.question_format.rda_metadata? %>
         <%= render(partial: 'questions/new_edit_question_option_based', locals: { f: f, question: question, answer: answer, research_output: research_output, readonly: readonly }) %>
-    <% elsif question.question_format.structured? %>
+    <% elsif question.question_format.structured %>
       <%= render(partial: 'questions/new_edit_question_structured', locals: { f: f, question: question, answer: answer, research_output: research_output, readonly: readonly, schema: question.structured_data_schema.schema }) %>
     <% elsif question.question_format.textfield?%>
         <%= render(partial: 'questions/new_edit_question_textfield', locals: { f: f, question: question, answer: answer, research_output: research_output }) %>
