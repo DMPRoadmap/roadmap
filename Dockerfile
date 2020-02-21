@@ -13,7 +13,7 @@ ENV HOME=/root \
 
 # Fetching Yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 # Installing package dependencies
 RUN apt-get -qqy update \
@@ -69,10 +69,12 @@ WORKDIR /dmponline
 RUN echo $RUBY_VERSION > .ruby-version \
     && gem install bundler -v 1.17.3 \
     && echo 'gem "tzinfo-data"' >> Gemfile \
-    && bundle install --without mysql puma thin
+    # && bundle install --without mysql puma thin
+    && bundle install --without mysql
+RUN yarn
 
 # Run the app using the rails.sh script
 COPY ./rails.sh /usr/local/bin/
 RUN chmod a+x /usr/local/bin/rails.sh
-RUN mkdir -p /dmponline/public/system/dragonfly && chmod a+rw  -R /dmponline/public/system/dragonfly
+# RUN mkdir -p /dmponline/public/system/dragonfly && chmod a+rw  -R /dmponline/public/system/dragonfly
 CMD ["rails.sh"]
