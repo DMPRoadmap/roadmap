@@ -13,6 +13,8 @@ class UsageController < ApplicationController
     plan_data(args: args, as_json: true)
     total_plans(args: min_max_dates(args: args))
     total_users(args: min_max_dates(args: args))
+    #TODO: pull this in from branding.yml
+    @separators = [",", "|", "#"]
   end
 
   # POST /usage_plans_by_template
@@ -35,7 +37,8 @@ class UsageController < ApplicationController
     authorize :usage
 
     data = Org::TotalCountStatService.call
-    data_csvified = Csvable.from_array_of_hashes(data)
+    sep = params["sep"]
+    data_csvified = Csvable.from_array_of_hashes(data, true, sep)
 
     send_data(data_csvified, filename: "totals.csv")
   end
@@ -71,7 +74,8 @@ class UsageController < ApplicationController
     authorize :usage
 
     user_data(args: default_query_args)
-    send_data(CSV.generate do |csv|
+    sep = params["sep"]
+    send_data(CSV.generate({:col_sep => sep}) do |csv|
       csv << [_("Month"), _("No. Users joined")]
       total = 0
       @users_per_month.each do |data|
@@ -89,7 +93,8 @@ class UsageController < ApplicationController
     authorize :usage
 
     plan_data(args: default_query_args)
-    send_data(CSV.generate do |csv|
+    sep = params["sep"]
+    send_data(CSV.generate({:col_sep => sep}) do |csv|
       csv << [_("Month"), _("No. Completed Plans")]
       total = 0
       @plans_per_month.each do |data|
@@ -108,9 +113,11 @@ class UsageController < ApplicationController
 
     args = default_query_args
     args[:start_date] = first_plan_date
+    sep = params["sep"]
+    {:col_sep => sep}
 
     plan_data(args: args, sort: :desc)
-    data_csvified = StatCreatedPlan.to_csv(@plans_per_month, details: { by_template: true })
+    data_csvified = StatCreatedPlan.to_csv(@plans_per_month, details: { by_template: true, sep: sep })
     send_data(data_csvified, filename: "created_plan_by_template.csv")
   end
 
