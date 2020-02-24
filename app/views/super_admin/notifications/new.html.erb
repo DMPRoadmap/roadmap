@@ -1,8 +1,7 @@
 <% title _('New notification') %>
-<h2>
-   <%= _('New Notification') %>
-   <%= link_to(_('View all notifications'), super_admin_notifications_path,
-       class: 'btn btn-default pull-right', role: 'button') %>
- </h2>
 
-<%= render 'form' %>
+  <h1><%= _('New Notification') %>
+  <%= link_to(_('View all notifications'), super_admin_notifications_path,
+       class: 'btn btn-default pull-right', role: 'button') %>
+  </h1>     
+  <%= render 'form' %>
