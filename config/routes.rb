@@ -278,7 +278,11 @@ Rails.application.routes.draw do
         get :search
       end
     end
-    resources :notifications, except: [:show]
+    resources :notifications, except: [:show] do
+      member do
+        post 'set_active', constraints: {format: [:json]}
+      end
+    end
   end
 
   get "research_projects/search", action: "search",

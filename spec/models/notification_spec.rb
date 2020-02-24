@@ -16,6 +16,10 @@ RSpec.describe Notification, type: :model do
 
     it { is_expected.not_to allow_value(nil).for(:dismissable) }
 
+    it { is_expected.to allow_values(true, false).for(:active) }
+
+    it { is_expected.not_to allow_value(nil).for(:active) }
+
     it { is_expected.to validate_presence_of(:starts_at) }
 
     it { is_expected.to validate_presence_of(:expires_at) }
