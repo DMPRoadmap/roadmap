@@ -1,0 +1,18 @@
+defaults: &defaults
+  adapter: postgresql
+  username: postgres
+  password: postgres
+  host: jenkins-ruby_db
+  pool: 5
+
+development:
+  <<: *defaults
+  database: madmp_ci_dev
+
+production:
+  <<: *defaults
+  database: madmp_ci_prod
+
+test:
+  <<: *defaults
+  database: madmp_ci_test
