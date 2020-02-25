@@ -1,17 +1,17 @@
 /* For display of readonly textarea content without the TinyMCE editor */
 .display-readonly-textarea-content {
   // Replicating some TinyMCE styling of textarea
-  overflow-y: hidden;
+  overflow: visible;
   padding-left: 1px;
   padding-right: 1px;
   padding-bottom: 10px;
-  
+
   // Ensure table borders are not lost
   table {
     td {
       border: 1px solid black;
     }
-    
+
     td, tr {
       padding: 10px;
     }
