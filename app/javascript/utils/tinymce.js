@@ -20,6 +20,7 @@ export const defaultOptions = {
   menubar: false,
   toolbar: 'bold italic | bullist numlist | link | table',
   plugins: 'table autoresize link paste advlist lists',
+  browser_spellcheck: true,
   advlist_bullet_styles: 'circle,disc,square', // Only disc bullets display on htmltoword
   target_list: false,
   elementpath: false,
@@ -56,6 +57,23 @@ const resizeEditors = (editors) => {
   });
 };
 
+/*
+  This function is invoked after the Tinymce widget is initialized. It moves the
+  connection with the label from the hidden field (that the Tinymce writes to
+  behind the scenes) to the Tinymce iframe so that screen readers read the correct
+  label when the tinymce iframe receives focus.
+ */
+const attachLabelToIframe = (tinymceContext) => {
+  const iframe = $(tinymceContext).siblings('.mce-container').find('iframe');
+  if (isObject(iframe)) {
+    const lbl = iframe.closest('form').find('label');
+    if (isObject(lbl)) {
+      // Connect the label to the iframe
+      lbl.attr('for', iframe.attr('id'));
+    }
+  }
+};
+
 export const Tinymce = {
   /*
     Initialises a tinymce editor given the object passed. If a non-valid object is passed,
@@ -68,6 +86,11 @@ export const Tinymce = {
     } else {
       tinymce.init(defaultOptions).then(resizeEditors);
     }
+
+    // Connect the label to the Tinymce iframe
+    $(options.selector).each((idx, el) => {
+      attachLabelToIframe(el);
+    });
   },
   /*
     Finds any tinyMCE editor whose target element/textarea has the className passed

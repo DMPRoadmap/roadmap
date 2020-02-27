@@ -32,4 +32,8 @@ class Stat < ActiveRecord::Base
 
   end
 
+  def to_json(methods: nil)
+    super(only: %i[count date], methods: methods)
+  end
+
 end

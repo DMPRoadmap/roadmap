@@ -234,6 +234,7 @@ class Plan < ActiveRecord::Base
   def self.deep_copy(plan)
     plan_copy = plan.dup
     plan_copy.title = "Copy of " + plan.title
+    plan_copy.feedback_requested = false
     plan_copy.save!
     plan.research_outputs.each do |research_output|
       research_output_copy = ResearchOutput.deep_copy(research_output)

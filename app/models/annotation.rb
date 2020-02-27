@@ -52,7 +52,6 @@ class Annotation < ActiveRecord::Base
                    uniqueness: { message: UNIQUENESS_MESSAGE,
                                  scope: [:question_id, :org_id] }
 
-
   # =================
   # = Class Methods =
   # =================
