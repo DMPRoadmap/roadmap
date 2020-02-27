@@ -37,7 +37,7 @@ class UsageController < ApplicationController
     authorize :usage
 
     data = Org::TotalCountStatService.call
-    sep = params["sep"]
+    sep = sep_param
     data_csvified = Csvable.from_array_of_hashes(data, true, sep)
 
     send_data(data_csvified, filename: "totals.csv")
@@ -74,7 +74,7 @@ class UsageController < ApplicationController
     authorize :usage
 
     user_data(args: default_query_args)
-    sep = params["sep"]
+    sep = sep_param
     send_data(CSV.generate({:col_sep => sep}) do |csv|
       csv << [_("Month"), _("No. Users joined")]
       total = 0
@@ -93,7 +93,7 @@ class UsageController < ApplicationController
     authorize :usage
 
     plan_data(args: default_query_args)
-    sep = params["sep"]
+    sep = sep_param
     send_data(CSV.generate({:col_sep => sep}) do |csv|
       csv << [_("Month"), _("No. Completed Plans")]
       total = 0
@@ -113,7 +113,7 @@ class UsageController < ApplicationController
 
     args = default_query_args
     args[:start_date] = first_plan_date
-    sep = params["sep"]
+    sep = sep_param
     {:col_sep => sep}
 
     plan_data(args: args, sort: :desc)
@@ -158,6 +158,11 @@ class UsageController < ApplicationController
       start_date: Date.today.months_ago(12).end_of_month.strftime("%Y-%m-%d"),
       end_date: Date.today.last_month.end_of_month.strftime("%Y-%m-%d")
     }
+  end
+
+  # set the csv separator or default to comma
+  def sep_param
+    params["sep"] || ','
   end
 
   def min_max_dates(args:)
