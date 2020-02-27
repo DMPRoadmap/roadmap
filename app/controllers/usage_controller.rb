@@ -188,7 +188,8 @@ class UsageController < ApplicationController
   end
 
   def first_plan_date
-    StatCreatedPlan.all.order(:date).limit(1).pluck(:date).first
+    StatCreatedPlan.all.order(:date).limit(1).pluck(:date).first \
+    || Date.today.last_month.end_of_month
   end
 
 end
