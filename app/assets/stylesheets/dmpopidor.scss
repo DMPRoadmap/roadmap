@@ -233,7 +233,7 @@ header .main-nav {
 /*
     DROPDOWNS
 */
-#change-language, #signin-signout, #app-navbar-menu {
+#change-language, #signin-signout, #app-navbar-menu, #admin-dropdown, .plan-actions {
 
     .dmpopidor-dropdown {
         background-color: $white;
@@ -307,7 +307,7 @@ header .main-nav {
         outline-width: 1px !important;
         }
         
-        &:hover {
+        &:hover:not(.accessible) {
         outline-style: none !important;
         }
     }
@@ -485,8 +485,6 @@ header .main-nav {
     .question-divider {
         border-bottom: 2px solid $very-very-light-blue;
     }
-
-
 
     /*
         ADMIN AREA
@@ -725,6 +723,20 @@ header .main-nav {
 
 }
 
+
+/* 
+    COOKIE BANNER
+*/
+
+.cookiebanner-close {
+    &:focus,
+    &:hover,
+    &:active {
+    outline-style: solid !important;
+    outline-color: $blue !important;
+    outline-width: 2px !important;
+    }
+}
 
 /*
     FRONT PAGE

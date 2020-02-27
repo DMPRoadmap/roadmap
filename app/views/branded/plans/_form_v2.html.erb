@@ -141,7 +141,7 @@
 
             <%= f.hidden_field(:visibility, value: @is_test ? 'is_test' : Rails.application.config.default_plan_visibility) %>
             <%= f.button(_('Create a plan'), class: "btn btn-primary", id: 'create-btn', type: "submit") %>
-            <%= link_to _('Next'), '', class: 'btn btn-primary', id: 'next-btn' %>
+            <%= link_to _('Next'), '', class: 'btn btn-primary accessible', id: 'next-btn' %>
             <%= direct_link(@default_template, false, d_('dmpopidor', 'Use Default Template'), 'end-default-btn') %>
           </div>
         </div>

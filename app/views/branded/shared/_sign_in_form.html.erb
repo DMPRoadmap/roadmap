@@ -5,7 +5,7 @@
       <div class="form-group">
         <span class="center-block btn-group-justified">
           <% target = (Rails.application.config.shibboleth_use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %>
-          <%= link_to _('Sign in'), target, method: :post, class: 'btn btn-default institution-login' %>
+          <%= link_to _('Sign in'), target, method: :post, class: 'btn btn-default institution-login accessible' %>
         </span>
       </div>
     <% else %>

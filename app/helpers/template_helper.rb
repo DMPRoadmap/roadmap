@@ -40,7 +40,7 @@ module TemplateHelper
   # @param id [String] id for the link element
   def direct_link(template, hidden = false, text = nil, id = nil)
     params = { org_id: template.org.id, funder_id: '-1', template_id: template.id }
-    cls = text.nil? ? 'direct-link' : 'direct-link btn btn-default'
+    cls = text.nil? ? 'direct-link' : 'direct-link btn btn-default accessible'
     style = hidden ? 'display: none' : ''
 
     link_to(plans_url(plan: params), method: :post, title: _('Create plan'), class: cls, id: id, style: style) do
