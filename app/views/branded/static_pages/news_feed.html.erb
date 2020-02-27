@@ -4,8 +4,8 @@
 </h1>
 
 <div class="dmp_details_body static_page_content">
-	<% news_left = @dcc_news_feed.entries.count %>
-	<% @dcc_news_feed.entries.each do |entry| %>
+	<% news_left = @news_feed.entries.count %>
+	<% @news_feed.entries.each do |entry| %>
 		<h3><%= entry.title.sanitize %></h3>
 		<% summary = entry.summary.sanitize %>
 		<% summary = summary.gsub(/\A<img([^>])+>/, "") %>

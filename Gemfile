@@ -159,6 +159,9 @@ gem 'htmltoword', '1.1.0'
 # A feed fetching and parsing library (http://feedjira.com)
 gem 'feedjira'
 
+# Http requests library (https://github.com/jnunemaker/httparty) 
+gem 'httparty'
+
 # Filename sanitization for Ruby. This is useful when you generate filenames for downloads from user input
 gem 'zaru'
 
