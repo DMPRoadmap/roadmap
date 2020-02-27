@@ -5,6 +5,17 @@ RSpec.describe StatJoinedUser, type: :model do
     @org = FactoryBot.create(:org)
   end
 
+  describe ".to_json" do
+    it "returns only the count and date if no details are defined" do
+      stat = build(:stat_joined_user)
+      json = JSON.parse(stat.to_json)
+      expect(json["count"]).to eql(stat.count)
+      expect(json["date"]).to eql(stat.date.strftime("%Y-%m-%d"))
+      expect(json["by_template"]).to eql(nil)
+      expect(json["org_id"]).to eql(nil)
+      expect(json["created_at"]).to eql(nil)
+    end
+  end
   describe '.to_csv' do
     context 'when no instances' do
       it 'returns empty' do

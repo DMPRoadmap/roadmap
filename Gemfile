@@ -8,6 +8,9 @@ ruby '>= 2.4.0'
 # Full-stack web application framework. (http://rubyonrails.org)
 gem 'rails', '~> 4.2.11.1'
 
+# TODO: See if pegging gems is still necessary after migrating to Rails 5
+gem 'sprockets', '~> 3.2'
+
 # Rake is a Make-like program implemented in Ruby (https://github.com/ruby/rake)
 gem "rake"
 
@@ -245,6 +248,8 @@ group :test do
 
   gem "rspec-collection_matchers"
 
+  # A set of RSpec matchers for testing Pundit authorisation policies.
+  gem 'pundit-matchers'
 end
 
 group :ci, :development do
