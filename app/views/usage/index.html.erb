@@ -1,7 +1,7 @@
 <% title _('Usage statistics') %>
 
 <%= render partial: 'usage/total_usage',
-           locals: { user_count: @total_org_users, plan_count: @total_org_plans } %>
+           locals: { user_count: @total_org_users, plan_count: @total_org_plans, separators: @separators } %>
 
 <%= render partial: 'usage/filter' %>
 
@@ -17,7 +17,7 @@
       <h4 class="bold"><%= _('No. users joined during last year') %></h4>
     </div>
     <div class="pull-right">
-      <%= link_to usage_yearly_users_path, class: 'stat btn btn-default', role: 'button', target: '_blank' do %>
+      <%= link_to usage_yearly_users_path(sep: ","), class: 'stat btn btn-default', role: 'button', target: '_blank' do %>
         <%= _('Download') %> <i class="fa fa-download" aria-hidden="true"></i>
       <% end %>
     </div>
@@ -32,7 +32,7 @@
       <h4 class="bold"><%= _('No. plans during last year') %></h4>
     </div>
     <div class="pull-right">
-      <%= link_to usage_yearly_plans_path, class: 'stat btn btn-default', role: 'button', target: '_blank' do %>
+      <%= link_to usage_yearly_plans_path(sep: ","), class: 'stat btn btn-default', role: 'button', target: '_blank' do %>
         <%= _('Download') %> <i class="fa fa-download" aria-hidden="true"></i>
       <% end %>
     </div>
@@ -65,7 +65,7 @@
                   <%= f.label :template_plans_range, _('Time period') %>
                   <ul class="list-inline">
                     <li>
-                      <%= f.select :template_plans_range, plans_per_template_ranges, {}, { class: "form-control" } %>
+                      <%= f.select :template_plans_range, plans_per_template_ranges.reverse, {}, { class: "form-control" } %>
                     </li>
                     <li>
                       <%= f.submit _('Go'), class: 'btn btn-default mt-25' %>
@@ -76,7 +76,7 @@
             </li>
             <li>
               <div class="form-group">
-                <%= link_to usage_all_plans_by_template_path, class: 'btn btn-default', role: 'button', target: '_blank' do %>
+                <%= link_to usage_all_plans_by_template_path(sep: ","), class: 'btn btn-default stat', role: 'button', target: '_blank' do %>
                   <%= _('Download all') %> <i class="fa fa-download" aria-hidden="true"></i>
                 <% end %>
              </div>
@@ -89,8 +89,9 @@
   <div class="row">
       <div class="col-md-12" style="position: relative; width: 100%; height: 100%">
          <div id="plans_by_template_chart">
+           <%# pp @plans_per_month %>
           <%= render partial: 'usage/plans_by_template_chart',
-                     locals: { data: [@plans_per_month.last] } %>
+                     locals: { data: @plans_per_month } %>
         </div>
       </div>
   </div>
