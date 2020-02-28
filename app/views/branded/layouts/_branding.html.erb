@@ -119,7 +119,7 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 
-  <%  if !current_user.org.banner_text.nil?  %>
+  <%  unless current_user.org.banner_text.nil? || current_user.org.banner_text.empty?  %>
     <div class="org-banner-text">
         <%= current_user.org.banner_text.html_safe %>
     </div>
