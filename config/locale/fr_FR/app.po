@@ -765,8 +765,8 @@ msgstr "N'oubliez pas de sauvegarder vos changements après avoir fait vos séle
 msgid "Download"
 msgstr "Télécharger"
 
-#msgid "Download Plan"
-#msgstr "Télécharger le plan"
+msgid "Download Plan"
+msgstr "Télécharger le plan"
 
 msgid "Download Plan <em class=\"sr-only\">(new window)</em>"
 msgstr "Télécharger le plan <em class=\"sr-only\">(nouvelle fenêtre)</em>"

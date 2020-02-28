@@ -1,0 +1,33 @@
+<%# locals: { phase } %>
+<div class="row" id="<%= dom_id(phase) %>">
+  <div class="col-xs-12">
+    <h4>
+      <%= _('Instructions') %>
+      <a href="<%= edit_plan_path(plan_id, phase_id: phase.id) %>" class="btn btn-default pull-right accessible"><%= _('Write plan') %></a>
+    </h4>
+    <p class="text-justify">
+        <div class="display-readonly-textarea-content">
+          <%= sanitize(phase.description) %>
+        </div>
+    </p>
+  </div>
+
+  <div class="col-xs-12">
+    <ul class="list-unstyled">
+      <% phase.sections.order(:number).each do |s| %>
+        <li class="mb-5">
+          <%= s.title %>
+          <ul>
+            <% s.questions.each do |q| %>
+              <li>
+                <div class="display-readonly-textarea-content">
+                  <%= sanitize(q.text) %>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

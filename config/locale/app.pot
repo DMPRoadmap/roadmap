@@ -784,8 +784,8 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#msgid "Download Plan"
-#msgstr ""
+msgid "Download Plan"
+msgstr ""
 
 msgid "Download Plan <em class=\"sr-only\">(new window)</em>"
 msgstr ""
