@@ -4,6 +4,7 @@ json.plans @org_plans.each do |plan|
   json.id             plan.id
   json.grant_number   plan.grant_number
   json.title          plan.title
+  json.test_plan      plan.is_test?
 
   json.template do
     json.title        plan.template.title
