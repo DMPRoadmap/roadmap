@@ -33,17 +33,17 @@ class StatCreatedPlan < Stat
 
   class << self
 
-    def to_csv(created_plans, details: { by_template: false })
+    def to_csv(created_plans, details: { by_template: false, sep: "," })
       if details[:by_template]
-        to_csv_by_template(created_plans)
+        to_csv_by_template(created_plans, details[:sep])
       else
-        super(created_plans)
+        super(created_plans, details[:sep])
       end
     end
 
     private
 
-    def to_csv_by_template(created_plans)
+    def to_csv_by_template(created_plans, sep = ",")
       template_names = lambda do |created_plans|
         unique = Set.new
         created_plans.each do |created_plan|
@@ -66,7 +66,7 @@ class StatCreatedPlan < Stat
         tuple[:Count] = created_plan.count
         tuple
       end
-      Csvable.from_array_of_hashes(data, false)
+      Csvable.from_array_of_hashes(data, false, sep)
     end
 
   end

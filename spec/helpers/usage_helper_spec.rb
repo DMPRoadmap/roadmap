@@ -47,8 +47,8 @@ describe UsageHelper do
 
       context "with data" do
         before(:each) do
-          @template1 = { name: Faker::Lorem.word, count: Faker::Number.number(digits: 1) }
-          @template2 = { name: Faker::Lorem.word, count: Faker::Number.number(digits: 1) }
+          @template1 = { name: Faker::Lorem.unique.word, count: Faker::Number.number(digits: 1) }
+          @template2 = { name: Faker::Lorem.unique.word, count: Faker::Number.number(digits: 1) }
           @last_month = Date.today.last_month.end_of_month
           @two_months = Date.today.months_ago(2).end_of_month
 
