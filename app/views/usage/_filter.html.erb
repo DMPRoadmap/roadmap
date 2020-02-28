@@ -32,16 +32,16 @@
           </div>
         </div>
         <% if current_user.can_super_admin? %>
-            <div class="col-md-4">
+            <div class="col-md-5">
               <div class="form-group">
                 <%= f.label :org_id, _('Organisation') %>
                 <%= f.select :org_id, options_from_collection_for_select(Org.all, :id, :name, current_user.org_id), {}, class: 'form-control' %>
               </div>
             </div>
         <% end %>
-        <div class="col-md-2">
+        <div class="col-md-1">
           <div class="mt-20">
-            <%= f.submit _('Go'), class: 'btn btn-default' %>
+            <%= f.submit _('Go'), class: 'btn btn-default pull-right' %>
           </div>
         </div>
       </div>
