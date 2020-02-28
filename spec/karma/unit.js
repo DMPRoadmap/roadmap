@@ -29,7 +29,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'node_modules/babel-polyfill/dist/polyfill.js',
-      'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
+      // 'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
       'spec/javascripts/**/*Spec.js',
       'spec/javascripts/fixtures/*',
     ],
@@ -42,9 +42,13 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       'spec/javascripts/**/*.js': ['webpack'],
+      'spec/javascripts/**/*.js.erb': ['webpack'],
       'spec/javascripts/fixtures/*.html': ['html2js'],
       'spec/javascripts/fixtures/*.json': ['json_fixtures'],
     },
+
+    webpack: require('../../config/webpack/test.js'),
+    
 
     // Preprocessor configuration
     jsonFixturesPreprocessor: {
@@ -77,8 +81,15 @@ module.exports = function(config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: [
-      'ChromeHeadless'
+      'ChromeHeadlessCustom'
     ],
+    // defining a custom browser to let this run in docker
+    customLaunchers: {
+      ChromeHeadlessCustom: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
+      }
+    },
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits

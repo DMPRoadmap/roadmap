@@ -1,4 +1,4 @@
-import { Tinymce } from '../../app/javascript/utils/tinymce';
+import { Tinymce } from '../../app/javascript/utils/tinymce.js.erb';
 
 beforeEach(() => {
   $('body').append('<textarea class="test" id="test1"></textarea>');
