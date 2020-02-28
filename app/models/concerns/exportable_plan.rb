@@ -2,6 +2,8 @@
 
 module ExportablePlan
 
+  prepend Dmpopidor::Concerns::ExportablePlan
+
   def as_pdf(coversheet = false)
     prepare(coversheet)
   end
@@ -86,6 +88,7 @@ module ExportablePlan
     hash
   end
 
+  # SEE MODULE
   def prepare_coversheet
     hash = {}
     # name of owner and any co-owners
