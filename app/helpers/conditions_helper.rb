@@ -83,6 +83,8 @@ module ConditionsHelper
 
   # returns an array of hashes of section_id, number of section questions, and number of section answers
   def sections_info(plan)
+    return [] if plan.nil?
+
     info = []
     plan.sections.each do |section|
       info.push(section_info(plan, section))
