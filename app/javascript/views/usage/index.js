@@ -2,6 +2,25 @@ import { isObject } from '../../utils/isType';
 import { initializeCharts, createChart, drawHorizontalBar } from '../../utils/charts';
 
 $(() => {
+  // fns to handle the separator character menu
+  // for CSV download
+  const changeStatFnGen = (str) => {
+    const fn = (item) => {
+      /* eslint no-param-reassign: ["error", { "props": false }] */
+      item.href = item.href.replace(/sep=.*/, str);
+    };
+    return fn;
+  };
+
+  // attach listener to separator select menu
+  // on change look for "stat" elements and chnage their query param
+  document.getElementById('csv-field-sep').addEventListener('click', (e) => {
+    const statElems = document.getElementsByClassName('stat');
+    const newSep = 'sep='.concat(encodeURIComponent(e.target.value));
+    const changeStatFn = changeStatFnGen(newSep);
+    Array.from(statElems).forEach(changeStatFn);
+  });
+
   initializeCharts();
 
   // Create the Users joined chart
