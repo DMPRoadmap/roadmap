@@ -552,6 +552,9 @@ msgstr "Copropriétaire"
 msgid "Co-owner: can edit project details, change visibility, and add collaborators"
 msgstr "Co-propriétaire: peut modifier les détails du projet, changer la visibilité et ajouter des collaborateurs."
 
+msgid "Co-owner: Has admin-rights to the plan (can invite other users, view the plan, answer questions, or comment). Editor: Has edit-rights to the plan (can view the plan, answer questions, or comment). Read Only: Has read-rights to the plan (can view the plan or comment)"
+msgstr "Co-propriétaire: Possède des droits d'administration sur le plan (peut inviter d'autres utilisateurs, consulter le plan, répondre à des questions ou commenter). Editeur: Possède des droits d'édition sur le plan (peut consulter le plan, répondre à des questions ou commenter). Lecture Seule: Possède des droits de lecture sur le plan (peut consulter le plan ou commenter) "
+
 msgid "Comment"
 msgstr "Commentaire"
 
