@@ -276,6 +276,9 @@ msgstr ""
 msgid "Last modified: "
 msgstr ""
 
+msgid "Your organisation has been deactivated. Please choose a new organisation from your <a href=\"/users/profile\">user profile</a>."
+msgstr ""
+
 
 
 

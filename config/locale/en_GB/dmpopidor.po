@@ -274,6 +274,10 @@ msgstr "DMP Template: "
 msgid "Last modified: "
 msgstr "Last modified: "
 
+msgid "Your organisation has been deactivated. Please choose a new organisation from your <a href=\"/users/profile\">user profile</a>."
+msgstr "Your organisation has been deactivated. Please choose a new organisation from your <a href=\"/users/profile\">user profile</a>."
+
+
 # STATIC PAGES
 
 msgid "More"
