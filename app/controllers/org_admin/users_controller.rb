@@ -6,11 +6,12 @@ module OrgAdmin
 
     after_action :verify_authorized
 
+    # SEE MODULE
     def edit
       @user = User.find(params[:id])
       authorize @user
       @departments = @user.org.departments.order(:name)
-      @plans = Plan.active(@user).page(1)
+      @plans = Plan.org_admin_visible(@user).page(1)
       render "org_admin/users/edit",
              locals: { user: @user,
                        departments: @departments,

@@ -185,6 +185,21 @@ class Plan < ActiveRecord::Base
     )
   }
 
+  scope :org_admin_visible, -> (user) {
+    plan_ids = user.org.plans.pluck(:id)
+
+    includes(:template, roles: :user)
+    .where(id: plan_ids, visibility: [
+      visibilities[:administrator_visible],
+      visibilities[:organisationally_visible],
+      visibilities[:publicly_visible]
+    ])
+    .where(
+      "NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)",
+      user.id
+    )
+  }
+
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     joins(:template)
