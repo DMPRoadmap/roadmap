@@ -1,5 +1,36 @@
 <% title _('Usage statistics') %>
 
+<div class="row">
+  <div class="col-md-12" >
+    <h1>Usage statistics</h1>
+  </div>
+</div>
+
+<% if @funder.present? %>
+  <%# usage-dashboard section for funders %>
+  <div class="row">
+    <div class="col-md-12" >
+      <h2>Statistics on your Templates</h2>
+    </div>
+  </div>
+
+  <div class="row">
+      <div class="col-md-12" style="position: relative; width: 100%; height: 100%">
+         <div id="plans_using_template_chart">
+           <%# pp @plans_per_month %>
+          <%= render partial: 'usage/plans_by_template_chart',
+                     locals: { data: @plans_per_month, subset: "using_template"} %>
+        </div>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12" >
+      <h2>Statistics on your Users</h2>
+    </div>
+  </div>
+<% end  %>
+
 <%= render partial: 'usage/total_usage',
            locals: { user_count: @total_org_users, plan_count: @total_org_plans, separators: @separators } %>
 
