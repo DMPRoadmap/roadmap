@@ -34,16 +34,26 @@ module Dmpopidor
         # rubocop:disable BlockLength
         Answer.transaction do
           begin
-            @answer = Answer.find_by!({ 
-                plan_id: p_params[:plan_id], question_id: p_params[:question_id], 
-                research_output_id: p_params[:research_output_id] 
+            @answer = Answer.find_by!({
+                plan_id: p_params[:plan_id], question_id: p_params[:question_id],
+                research_output_id: p_params[:research_output_id]
             })
             authorize @answer
-            @answer.update(p_params.merge(user_id: current_user.id))
+            p = p_params.merge(user_id: current_user.id).select { |k, v| !schema_params.include?(k) }
+            @answer.update(p)
             if p_params[:question_option_ids].present?
               # Saves the record with the updated_at set to the current time.
               # Needed if only answer.question_options is updated
               @answer.touch()
+            end
+            if q.question_format.structured
+              form_data = p_params.select { |k, v| schema_params.include?(k) }
+                s_answer = StructuredAnswer.find_or_initialize_by(answer_id: @answer.id) do |sa|
+                  sa.answer = @answer
+                  sa.structured_data_schema = q.structured_data_schema
+                end
+                s_answer.assign_attributes(data: data_reformater(json_schema, form_data))
+                s_answer.save
             end
             if q.question_format.rda_metadata?
               @answer.update_answer_hash(
@@ -52,9 +62,19 @@ module Dmpopidor
               @answer.save!
             end
             rescue ActiveRecord::RecordNotFound
-              @answer = Answer.new(p_params.merge(user_id: current_user.id))
+              p = p_params.merge(user_id: current_user.id).select { |k, v| !schema_params.include?(k) }
+              @answer = Answer.new(p)
               @answer.lock_version = 1
               authorize @answer
+              if q.question_format.structured
+                form_data = p_params.select { |k, v| schema_params.include?(k) }
+                  s_answer = StructuredAnswer.find_or_initialize_by(answer_id: @answer.id) do |sa|
+                    sa.answer = @answer
+                    sa.structured_data_schema = q.structured_data_schema
+                  end
+                  s_answer.assign_attributes(data: data_reformater(json_schema, form_data))
+                  s_answer.save
+              end
               if q.question_format.rda_metadata?
                 @answer.update_answer_hash(
                   JSON.parse(params[:standards]), p_params[:text]
@@ -130,6 +150,69 @@ module Dmpopidor
             }.to_json
             # rubocop:enable LineLength
           end
+        end
+
+        private
+
+        def data_reformater(schema, data)
+          schema["properties"].each do |key, value|
+            case value["type"]
+            when "integer"
+              data[key] = data[key].to_i
+            when "boolean"
+              data[key] = data[key] == "1"
+            when "array"
+              data[key] = data[key].kind_of?(Array) ? data[key] : [data[key]]
+            when "object"
+              if value["dictionnary"]
+                data[key] = JSON.parse(DictionnaryValue.where(id: data[key]).select(:id, :uri, :label).take.to_json)
+              end
+            end
+          end
+          data
+        end
+
+        def permitted_params_from_properties(properties)
+            parameters = Array.new
+            properties.each do |key, prop|
+                if prop["type"] == "array"
+                    parameters.append({key => []})
+                else
+                    parameters.append(key)
+                end
+            end
+            parameters
+        end
+
+        def json_schema
+          question = Question.find(params['question_id'])
+
+          question.structured_data_schema.schema
+        end
+
+        def schema_params
+          permitted_params_from_properties(json_schema['properties'])
+        end
+
+        def permitted_params
+          permitted = params.require(:answer).permit([:id, :text, :plan_id, :user_id,
+                                                     :question_id, :lock_version,
+                                                     :research_output_id, :is_common,
+                                                     question_option_ids: []].append(schema_params))
+          # If question_option_ids has been filtered out because it was a
+          # scalar value (e.g. radiobutton answer)
+          if !params[:answer][:question_option_ids].nil? &&
+             !permitted[:question_option_ids].present?
+            permitted[:question_option_ids] = [params[:answer][:question_option_ids]]
+          end
+          if !permitted[:id].present?
+            permitted.delete(:id)
+          end
+          # If no question options has been chosen.
+          if params[:answer][:question_option_ids].nil?
+              permitted[:question_option_ids] = []
+          end
+          permitted
         end
       end
     end

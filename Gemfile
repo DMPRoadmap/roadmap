@@ -185,6 +185,9 @@ gem "dotenv-rails"
 
 gem 'activerecord-session_store'
 
+# JSON Schema validation
+gem 'json_schemer'
+
 
 # ------------------------------------------------
 # ENVIRONMENT SPECIFIC DEPENDENCIES

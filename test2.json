@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "A person",
+    "type":"object",
+    "properties": {
+        "lastName":{
+            "description": "The last name of the person",
+            "type": "string",
+            "label": "Nom"
+        },
+        "firstName": {
+            "description": "This person's first name",
+            "type": "string",
+            "label": "Prénom"
+        },
+        "mbox": {
+            "description": "This person's mail addres",
+            "type": "string",
+            "format": "email",
+            "label": "Courriel"
+        },
+        "personId": {
+            "description": "This person's identifier, e.g. ORCID Id",
+            "type": "string",
+            "label": "Identifiant"
+        }
+    },
+
+    "required": ["lastName","firstName","mbox"]
+}

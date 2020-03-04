@@ -3,13 +3,14 @@
 <p><strong><%= question.text %></strong></p>
 <div class="form-group">
     <% schema['properties'].each do |key, prop| %>
+        <% value = answer.structured_answer.data[key] unless answer.structured_answer.nil? %>
         <% case prop['type'] %>
             <% when 'string' %>
-                <%= create_text_field(f, nil, key, prop['label']) %>
+                <%= create_text_field(f, value, key, prop['label']) %>
             <% when 'integer' %>
-                <%= create_number_field(f, nil, key, prop['label']) %>
+                <%= create_number_field(f, value, key, prop['label']) %>
             <% when 'boolean' %>
-                <%= create_checkbox_field(f, nil, key, prop['label']) %>
+                <%= create_checkbox_field(f, value, key, prop['label']) %>
         <% end %>
     <% end %>
 </div>

@@ -1,0 +1,29 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "The description of license data",
+    "type":"object",
+    "properties": {
+        "title":{
+            "description": "The title of this license. The value is a quoted string followed by '@' and a 2 letter language code",
+            "type": "string",
+            "pattern": "\".*\"@[a-z][a-z]"
+        },
+        "licenseUrl": {
+            "description": "The URL where a description of this certification can be found",
+            "type": "string",
+            "format": "uri"
+        },
+        "startDate": {
+            "description": "The date at which this data is subject to the license",
+            "type": "string",
+            "format": "date"
+        },
+        "endDate": {
+            "description": "The date at which this data is no longer subject to the license",
+            "type": "string",
+            "format": "date"
+        }
+    },
+
+    "required": ["title","certificationUrl","startDate","endDate"]
+}
