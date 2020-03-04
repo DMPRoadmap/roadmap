@@ -9,7 +9,13 @@ jobs:
     services:
       # Postgres installation
       db:
-        image: postgres:11
+        image: postgres
+        env:
+          # Latest version of Postgres has increased security. We can use the default
+          # user/password in this testing scenario though so use the following env
+          # variable to bypass this changes:
+          # https://github.com/docker-library/postgres/issues/681
+          POSTGRES_HOST_AUTH_METHOD: trust
         ports: ['5432:5432']
         options: >-
           --health-cmd pg_isready
@@ -83,6 +89,10 @@ jobs:
           ${{ runner.os }}-build-
           ${{ runner.os }}-yarn-
           ${{ runner.os }}-
+
+    # Figure out where wkhtmltopdf is installed
+    - name: 'Determine wkhtmltopdf location'
+      run: echo ::set-env name=WICKED_PDF_PATH::$(echo `bundle exec which wkhtmltopdf`)
 
     # Install the JS dependencies
     - name: 'Yarn Install'
