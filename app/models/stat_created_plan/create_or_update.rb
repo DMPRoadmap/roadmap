@@ -9,11 +9,12 @@ class StatCreatedPlan
       def do(start_date:, end_date:, org:)
         count = count_plans(start_date: start_date, end_date: end_date, org: org)
         by_template = by_template(start_date: start_date, end_date: end_date, org: org)
+        using_template = using_template(start_date: start_date, end_date: end_date, org: org)
         attrs = {
           date: end_date.to_date,
           org_id: org.id,
           count: count,
-          details: { by_template: by_template }
+          details: { by_template: by_template, using_template: using_template }
         }
         stat_created_plan = StatCreatedPlan.find_by(
           date: attrs[:date],
@@ -35,6 +36,11 @@ class StatCreatedPlan
 
       def plans(start_date:, end_date:)
         Plan.where(plans: { created_at: start_date..end_date })
+      end
+
+      def own_template_plans(org)
+        template_ids = Template.where(org_id: org.id ).pluck(:id)
+        Plan.where(plans: { template_id: template_ids })
       end
 
       def count_plans(start_date:, end_date:, org:)
@@ -65,6 +71,27 @@ class StatCreatedPlan
         template_names.map do |t|
           { name: t[1], count: template_counts[t[0]] }
         end
+      end
+
+      def using_template(start_date:, end_date:, org:)
+        roleable_plan_ids = Role.joins([:plan, :user]) \
+          .administrator \
+          .merge(plans(start_date: start_date, end_date: end_date)) \
+          .merge(own_template_plans(org)) \
+          .pluck(:plan_id) \
+          .uniq
+
+          template_counts = Plan.joins(:template).where(id: roleable_plan_ids) \
+            .group("templates.family_id").count
+          most_recent_versions = Template.where(family_id: template_counts.keys) \
+            .group(:family_id).maximum("version")
+          most_recent_versions = most_recent_versions.map { |k, v| "#{k}=#{v}" }
+          template_names = Template.where("CONCAT(family_id, '=', version) IN (?)",
+            most_recent_versions).pluck(:family_id, :title)
+          template_names.map do |t|
+            { name: t[1], count: template_counts[t[0]] }
+          end
+
       end
 
     end
