@@ -10,7 +10,6 @@ jobs:
       DB_ADAPTER: mysql2
       MYSQL_PWD: root
       RAILS_ENV: test
-      WICKED_PDF_PATH: vendor/bundle/bin/wkhtmltopdf
 
     steps:
     # Checkout the repo
@@ -78,6 +77,10 @@ jobs:
     - name: 'Yarn Install'
       run: |
         yarn install
+
+    # Figure out where wkhtmltopdf is installed
+    - name: 'Determine wkhtmltopdf location'
+      run: echo ::set-env name=WICKED_PDF_PATH::$(echo `bundle exec which wkhtmltopdf`)
 
     # Setup the database
     - name: 'Setup Test DB'
