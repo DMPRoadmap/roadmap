@@ -344,19 +344,17 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def readable_by?(user_id)
+    return true if commentable_by?(user_id)
     current_user = User.find(user_id)
-    if current_user.present?
-      # If the user is a super admin and the config allows for supers to view plans
-      if current_user.can_super_admin? &&
-          Branding.fetch(:service_configuration, :plans, :super_admins_read_all)
-        true
-      # If the user is an org admin and the config allows for org admins to view plans
-      elsif current_user.can_org_admin? &&
-          Branding.fetch(:service_configuration, :plans, :org_admins_read_all)
-        owner_and_coowners.map(&:org_id).include?(current_user.org_id)
-      else
-        commentable_by?(user_id)
-      end
+    return false unless current_user.present?
+    # If the user is a super admin and the config allows for supers to view plans
+    if current_user.can_super_admin? &&
+        Branding.fetch(:service_configuration, :plans, :super_admins_read_all)
+      true
+    # If the user is an org admin and the config allows for org admins to view plans
+    elsif current_user.can_org_admin? &&
+        Branding.fetch(:service_configuration, :plans, :org_admins_read_all)
+      owner_and_coowners.map(&:org_id).include?(current_user.org_id)
     else
       false
     end
@@ -388,6 +386,7 @@ class Plan < ActiveRecord::Base
   def reviewable_by?(user_id)
     reviewer = User.find(user_id)
     feedback_requested? &&
+    reviewer.present? &&
     reviewer.org_id == owner.org_id &&
     reviewer.can_review_plans?
   end
