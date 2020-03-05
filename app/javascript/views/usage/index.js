@@ -54,10 +54,12 @@ $(() => {
 
   let drawnChartUsingTemplate = null;
   const monthlyPlanUsingTemplatesChart = document.getElementById('monthly_plans_using_template');
-  // Add event listeners that draw the chart
-  monthlyPlanUsingTemplatesChart.addEventListener('renderChart', (e) => {
-    drawnChartUsingTemplate = drawHorizontalBar($('#monthly_plans_using_template'), e.detail);
-  });
+  // Add event listeners that draw the chart if it exists
+  if(isObject(monthlyPlanUsingTemplatesChart)) {
+    monthlyPlanUsingTemplatesChart.addEventListener('renderChart', (e) => {
+      drawnChartUsingTemplate = drawHorizontalBar($('#monthly_plans_using_template'), e.detail);
+    });
+  }
 
   // Create the initial Plans per template chart
   const templatePlansData = JSON.parse($('#plans_by_template').val());
@@ -66,9 +68,9 @@ $(() => {
     document.getElementById('monthly_plans_by_template').dispatchEvent(drawPer);
   }
 
-  // Create the initial Plans using template chart
-  const usingTemplatePlansData = JSON.parse($('#plans_using_template').val());
-  if (isObject(usingTemplatePlansData)) {
+  // Create the initial Plans using template chart if the chart exists
+  if (isObject(monthlyPlanUsingTemplatesChart)) {
+    const usingTemplatePlansData = JSON.parse($('#plans_using_template').val());
     const drawUsing = new CustomEvent('renderChart', { detail: usingTemplatePlansData });
     document.getElementById('monthly_plans_using_template').dispatchEvent(drawUsing);
   }
