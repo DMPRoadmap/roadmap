@@ -59,6 +59,8 @@ class StatCreatedPlan
           .merge(plans(start_date: start_date, end_date: end_date))
         if own_templates
           roleable_plans = roleable_plans.merge(own_template_plans(org))
+        else
+          roleable_plans = roleable_plans.merge(users(org))
         end
         roleable_plan_ids = roleable_plans.pluck(:plan_id).uniq
 
