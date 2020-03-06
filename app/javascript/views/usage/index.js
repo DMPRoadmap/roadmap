@@ -52,12 +52,11 @@ $(() => {
     }
   });
 
-  let drawnChartUsingTemplate = null;
   const monthlyPlanUsingTemplatesChart = document.getElementById('monthly_plans_using_template');
   // Add event listeners that draw the chart if it exists
-  if(isObject(monthlyPlanUsingTemplatesChart)) {
+  if (isObject(monthlyPlanUsingTemplatesChart)) {
     monthlyPlanUsingTemplatesChart.addEventListener('renderChart', (e) => {
-      drawnChartUsingTemplate = drawHorizontalBar($('#monthly_plans_using_template'), e.detail);
+      drawHorizontalBar($('#monthly_plans_using_template'), e.detail);
     });
   }
 
