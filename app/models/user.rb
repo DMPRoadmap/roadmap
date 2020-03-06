@@ -148,7 +148,7 @@ class User < ActiveRecord::Base
   # = Callbacks =
   # =============
 
-  before_update :clear_other_organisation, if: :org_id_changed?
+  before_update :clear_other_organisation, :if => proc { org_id_changed? &&  org_id != Org.find_by(is_other: true).id }
 
   before_update :clear_department_id, if: :org_id_changed?
 

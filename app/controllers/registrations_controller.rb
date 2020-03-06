@@ -2,9 +2,6 @@
 
 class RegistrationsController < Devise::RegistrationsController
 
-  prepend Dmpopidor::Controllers::Registrations
-
-  # SEE MODULE
   def edit
     @user = current_user
     @prefs = @user.get_preferences(:email)
@@ -229,7 +226,7 @@ class RegistrationsController < Devise::RegistrationsController
       set_gettext_locale
       set_flash_message :notice, success_message(current_user, _("saved"))
       # Sign in the user bypassing validation in case his password changed
-      sign_in current_user, bypass: true
+      sign_in current_user, bypass_sign_in: true
       redirect_to "#{edit_user_registration_path}\#personal-details",
         notice: success_message(current_user, _("saved"))
 
@@ -255,7 +252,7 @@ class RegistrationsController < Devise::RegistrationsController
       # Method defined at controllers/application_controller.rbset_gettext_locale
       set_flash_message :notice, success_message(current_user, _("saved"))
       # TODO this method is deprecated
-      sign_in current_user, bypass: true
+      sign_in current_user, bypass_sign_in: true
       redirect_to "#{edit_user_registration_path}\#password-details",
         notice: success_message(current_user, _("saved"))
 
