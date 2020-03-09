@@ -1,7 +1,7 @@
 <%# locals: { phase } %>
 <div class="row" id="<%= dom_id(phase) %>">
   <div class="col-xs-12">
-    <h4>
+    <h4 class=''>
       <%= _('Instructions') %>
       <a href="<%= edit_plan_path(plan_id, phase_id: phase.id) %>" class="btn btn-default pull-right"><%= _('Write plan') %></a>
     </h4>
