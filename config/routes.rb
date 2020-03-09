@@ -209,6 +209,10 @@ Rails.application.routes.draw do
     resources :departments, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
     end
+    # Paginable actions for structured data schemas
+    resources :structured_data_schemas, only: [] do
+      get 'index/:page', action: :index, on: :collection, as: :index
+    end
   end
 
   resources :template_options, only: [:index], constraints: { format: /json/ }
@@ -283,6 +287,7 @@ Rails.application.routes.draw do
     end
     resources :notifications, except: [:show]
     resources :static_pages
+    resources :structured_data_schemas
   end
 
   # Static pages
