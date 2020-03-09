@@ -1,6 +1,6 @@
 <div class="field">
-    <%= f.label field_name, field_label %>
-    <%= f.number_field field_name, value: field_value, multiple: multiple %>
+    <%= f.label field_name, field_label, class: 'control-label' %>
+    <%= f.number_field field_name, value: field_value, multiple: multiple, class: 'form-control' %>
     <% if multiple  %>
         <span class="add-record">Add</span>
         <% if index != 0 %>
