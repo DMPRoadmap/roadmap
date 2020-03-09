@@ -1,6 +1,6 @@
 <%# locals: { f, question, answer, research_output } %>
 
-<p><strong><%= question.text %></strong></p>
+<%= f.label(:text, sanitize(question.text), class: 'control-label') %>
 <div class="form-group">
     <% schema['properties'].each do |key, prop| %>
         <% value = answer.structured_answer.data[key] unless answer.structured_answer.nil? %>
