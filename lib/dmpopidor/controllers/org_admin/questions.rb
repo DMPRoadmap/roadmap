@@ -24,6 +24,33 @@ module Dmpopidor
 
 
         # CHANGES
+        # Added Structured Data Schema list
+        def new
+          section = Section.includes(:questions, phase: :template).find(params[:section_id])
+          nbr = section.questions.maximum(:number)
+          question_format = QuestionFormat.find_by(title: "Text area")
+          question = Question.new(section_id: section.id,
+                                  question_format: question_format,
+                                  number: nbr.present? ? nbr + 1 : 1)
+          question_formats = allowed_question_formats
+          structured_data_schemas = StructuredDataSchema.all
+          authorize question
+          render partial: "form", locals: {
+            template: section.phase.template,
+            section: section,
+            question: question,
+            method: "post",
+            url: org_admin_template_phase_section_questions_path(
+              template_id: section.phase.template.id,
+              phase_id: section.phase.id,
+              id: section.id),
+            question_formats: question_formats,
+            structured_data_schemas: structured_data_schemas
+          }
+        end
+
+
+        # CHANGES
         # Added Structured param
         def question_params
           params.require(:question)
