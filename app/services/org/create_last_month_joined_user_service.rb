@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+import OrgDateRangeable
+
 class Org
 
   class CreateLastMonthJoinedUserService
@@ -8,7 +10,8 @@ class Org
 
       def call(org = nil)
         orgs = org.nil? ? ::Org.all : [org]
-        orgs.each do |org|
+
+        Parallel.each(orgs, in_threads: 2) do |org|
           months = OrgDateRangeable.split_months_from_creation(org)
           last = months.last
           if last.present?

@@ -12,6 +12,45 @@ namespace :stat do
     Rake::Task['stat:create_last_month:exported_plan'].execute
   end
 
+  task build_parallel: :environment do
+    tasks = ["stat:create:created_plan",
+             "stat:create:joined_user",
+             "stat:create:shared_plan",
+             "stat:create:exported_plan",
+             "stat:create_last_month:created_plan",
+             "stat:create_last_month:joined_user",
+             "stat:create_last_month:shared_plan",
+             "stat:create_last_month:exported_plan"]
+
+      Parallel.each(tasks, progress: "Building Stats", in_processes: 4) do |task|
+        Rake::Task[task].execute
+        task
+      end
+   end
+
+  task build_last_month: :environment do
+    tasks = ["stat:create_last_month:created_plan",
+             "stat:create_last_month:joined_user",
+             "stat:create_last_month:shared_plan",
+             "stat:create_last_month:exported_plan"]
+
+    tasks.each do |task|
+      Rake::Task[task].execute
+    end
+  end
+
+  task build_last_month_parallel: :environment do
+    tasks = ["stat:create_last_month:created_plan",
+             "stat:create_last_month:joined_user",
+             "stat:create_last_month:shared_plan",
+             "stat:create_last_month:exported_plan"]
+
+    Parallel.each(tasks) do |task|
+      Rake::Task[task].execute
+      task
+    end
+  end
+
   namespace :create do
     desc "Creates created plan stats for every org since they joined"
     task created_plan: :environment do
