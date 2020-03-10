@@ -278,6 +278,7 @@ Rails.application.routes.draw do
   namespace :super_admin do
     resources :orgs, only: [:index, :new, :create, :destroy]
     resources :themes, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :structured_data_schemas, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :users, only: [:edit, :update] do
       member do
         put :merge
@@ -287,7 +288,6 @@ Rails.application.routes.draw do
     end
     resources :notifications, except: [:show]
     resources :static_pages
-    resources :structured_data_schemas
   end
 
   # Static pages
