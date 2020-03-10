@@ -8,7 +8,7 @@
         <th scope="col"><%= _('Organisation Name') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
         <th scope="col" class="date-column"><%= _('Last Updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
         <th scope="col" class="sorter-false"><%= _('Funder Links') %></th>
-        <th><%= _('Actions') %></th>
+        <th><%= _('Create a new plan') %></th>
         <th scope="col" class="sorter-false" data-toggle="tooltip" title="<%= sample_plans_tooltip %>">
           <%= _('Sample Plans') %><br><small><%= _('(if available)') %></small>
           <em class="sr-only"><%= sample_plans_tooltip %></em>
@@ -42,7 +42,7 @@
           </td>
           <td class="text-center">
             <%= direct_link(template) %>
-            <a href="" class="copy-link" data-toggle="modal" data-target="#link-modal"><span class="fa fa-clipboard"></span></a>
+            <a href="" class="copy-link" data-toggle="modal" data-target="#link-modal" title="<%= _('Copy link to create a new plan') %>"><span class="fa fa-clipboard"></span></a>
           </td>
           <td>
             <%= sanitize links_to_a_elements(template.links['sample_plan'], '<br>') %>

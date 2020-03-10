@@ -13,9 +13,9 @@ class Users::InvitationsController < Devise::InvitationsController
     super
     if flash[:alert].present?
       flash[:alert] = nil
-      # rubocop:disable LineLength
+      # rubocop:disable Metrics/LineLength
       flash[:notice] = _("You are already signed in as another user. Please log out to activate your invitation.")
-      # rubocop:enable LineLength
+      # rubocop:enable Metrics/LineLength
     end
   end
 

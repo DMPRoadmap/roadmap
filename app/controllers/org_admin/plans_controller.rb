@@ -30,13 +30,13 @@ class OrgAdmin::PlansController < ApplicationController
     end
 
     if plan.complete_feedback(current_user)
-      # rubocop:disable LineLength
+      # rubocop:disable Metrics/LineLength
       redirect_to(org_admin_plans_path,
         notice: _("%{plan_owner} has been notified that you have finished providing feedback") % {
           plan_owner: plan.owner.name(false)
         }
       )
-      # rubocop:enable LineLength
+      # rubocop:enable Metrics/LineLength
     else
       redirect_to org_admin_plans_path,
         alert: _("Unable to notify user that you have finished providing feedback.")

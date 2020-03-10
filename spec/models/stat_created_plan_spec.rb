@@ -3,6 +3,17 @@
 require "rails_helper"
 
 RSpec.describe StatCreatedPlan, type: :model do
+  describe ".to_json" do
+    it "returns only the count and date if no details are defined" do
+      stat = build(:stat_created_plan)
+      json = JSON.parse(stat.to_json)
+      expect(json["count"]).to eql(stat.count)
+      expect(json["date"]).to eql(stat.date.strftime("%Y-%m-%d"))
+      expect(json["by_template"]).to eql([])
+      expect(json["org_id"]).to eql(nil)
+      expect(json["created_at"]).to eql(nil)
+    end
+  end
   describe ".to_csv" do
     context "when no instances" do
       it "returns empty" do
@@ -56,7 +67,7 @@ RSpec.describe StatCreatedPlan, type: :model do
             count: 0)
           data = [may, june, july]
 
-          csv = described_class.to_csv(data, details: { by_template: true })
+          csv = described_class.to_csv(data, details: { by_template: true, sep: ","})
 
           expected_csv = <<~HERE
           Date,Template1,Template2,Template3,Count

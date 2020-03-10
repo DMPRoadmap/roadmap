@@ -1,0 +1,21 @@
+name: Brakeman
+
+on:
+  pull_request:
+    branches:
+      master
+
+jobs:
+  brakeman:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    # Will run Brakeman checks on dependencies
+    #   https://github.com/marketplace/actions/brakeman-linter
+    - name: Brakeman
+      uses: devmasx/brakeman-linter-action@v1.0.0
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
