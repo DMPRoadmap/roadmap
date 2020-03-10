@@ -30,8 +30,10 @@
             <% end %>
           </td>
           <td class="text-center">
-            <%= direct_link(template) %>
-            <a href="" class="copy-link" data-toggle="modal" data-target="#link-modal"><span class="fa fa-clipboard"></span></a>
+            <% if current_user.org.active? %>
+              <%= direct_link(template) %>
+              <a href="" class="copy-link" data-toggle="modal" data-target="#link-modal"><span class="fa fa-clipboard"></span></a>
+            <% end %>
           </td>
         </tr>
       <% end %>

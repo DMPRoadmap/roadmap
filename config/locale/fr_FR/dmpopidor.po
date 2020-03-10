@@ -240,8 +240,8 @@ msgstr "Modèles de DMP proposés par les financeurs ou par les organisations de
 msgid "Accept"
 msgstr "J'accepte"
 
-msgid "Your organisation has been deactivated. Please choose a new organisation from your <a href=\"/users/profile\">user profile</a>."
-msgstr "Votre organisation a été désactivée. Veuillez choisir une nouvelle organisation à partir de votre <a href=\"/users/profile\">profil utilisateur</a>."
+msgid "Your organisation has been deactivated. Please choose a new organisation from your <a href=\"/users/edit\">user profile</a>."
+msgstr "Votre organisation a été désactivée. Veuillez choisir une nouvelle organisation à partir de votre <a href=\"/users/edit\">profil utilisateur</a>."
 
 # STATIC PAGES
 
