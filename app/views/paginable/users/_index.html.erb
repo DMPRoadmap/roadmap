@@ -37,7 +37,6 @@
                   </td>
                   <td><%= user.email %></td>
                   <td><%= user.department.nil? ? '' : user.department.name %></td>
-                  </td>
                   <td><%= user.org.name if user.org.present? %></td>
                   <td class="text-center">
                       <% if !user.created_at.nil? %>
