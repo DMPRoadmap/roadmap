@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+#import statements fix Circular dependancy errors due to threading
 import OrgDateRangeable
+import StatJoinedUser
+import StatJoinedUser::CreateOrUpdate
+import User
 
 class Org
 
