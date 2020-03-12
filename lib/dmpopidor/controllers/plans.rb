@@ -12,7 +12,7 @@ module Dmpopidor
           @funders = Org.funder
                         .joins(:templates)
                         .where(templates: { published: true }).uniq.sort_by(&:name)
-          @orgs = (Org.organisation + Org.institution + Org.managing_orgs).flatten
+          @orgs = (Org.organisation + Org.institution + Org.managing_orgs + Org.where(is_other: true)).flatten
                                                                           .select { |org| org.active == true }
                                                                           .uniq.sort_by(&:name)
 
