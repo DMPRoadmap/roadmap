@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+#import statements fix Circular dependancy errors due to threading
 import OrgDateRangeable
+import StatSharedPlan
+import StatSharedPlan::CreateOrUpdate
+import User
 import Role
 
 class Org

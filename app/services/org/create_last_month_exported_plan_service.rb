@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
+#import statements fix Circular dependancy errors
 import OrgDateRangeable
+import StatExportedPlan
+import StatExportedPlan::CreateOrUpdate
 import Role
+import User
+import ExportedPlan
 
 class Org
 
