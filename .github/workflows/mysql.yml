@@ -82,6 +82,10 @@ jobs:
       run: |
         yarn install
 
+    # Figure out where wkhtmltopdf is installed
+    - name: 'Determine wkhtmltopdf location'
+      run: echo ::set-env name=WICKED_PDF_PATH::$(echo `bundle exec which wkhtmltopdf`)
+
     # Setup the database
     - name: 'Setup Test DB'
       run: bundle exec rake db:setup RAILS_ENV=test
