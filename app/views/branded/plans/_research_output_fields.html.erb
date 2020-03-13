@@ -2,7 +2,7 @@
 <% other_type_displayed = research_output.type && research_output.type.is_other ? '' : 'display:none;' %>
 <% edit_mode = research_output.is_default ? '' : "display:none;" %>
 <% display_mode = research_output.is_default ? "display:none;" : '' %>
-<div class='research-output-element'>
+<div class='research-output-element <%= research_output_index != 0 ? '' : 'inactive' %>'>
   <div class='research-output-fields'>
     <div class='research-output-field form-group research-output-abbreviation'>
       <%= f.label :abbreviation, d_('dmpopidor', 'Abbreviated Name (20 chars max.)'),  class: 'control-label' %>
