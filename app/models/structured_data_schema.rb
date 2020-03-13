@@ -8,7 +8,7 @@
 #  version    :integer
 #  schema     :json
 #  org_id     :integer
-#  object     :string
+#  class_name :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
