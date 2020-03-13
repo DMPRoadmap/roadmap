@@ -8,7 +8,7 @@
 #  version    :integer
 #  schema     :json
 #  org_id     :integer
-#  class_name :string
+#  classname  :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -21,6 +21,15 @@ class StructuredDataSchema < ActiveRecord::Base
   belongs_to :org
   has_many :structured_answers
   has_many :questions
+
+  delegate :costs, 
+           :dmps, 
+           :funders,
+           :metas,
+           :partners,
+           :persons,
+           :projects,
+           :research_outputs, to: :structured_answers
 
 
   def detailed_name 

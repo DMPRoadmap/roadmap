@@ -9,7 +9,6 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
-#  parent_id                 :integer
 #
 # Indexes
 #
@@ -17,10 +16,10 @@
 #  index_structured_answers_on_structured_data_schema_id  (structured_data_schema_id)
 #
 
-FactoryBot.define do
-  factory :structured_answer do
-    data { "" }
-    answer_id { 1 }
-    schema_id { 1 }
-  end
+class Fragment::Dmp < StructuredAnswer
+    has_many :research_outputs, class_name: 'Fragment::ResearchOutput', foreign_key: 'parent_id' 
+    has_many :costs, class_name: 'Fragment::Cost', foreign_key: 'parent_id' 
+
+    has_one :meta, class_name: 'Fragment::Meta', foreign_key: 'parent_id' 
+    has_one :project, class_name: 'Fragment::Project', foreign_key: 'parent_id' 
 end

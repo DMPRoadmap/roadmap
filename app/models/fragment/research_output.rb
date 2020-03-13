@@ -17,10 +17,7 @@
 #  index_structured_answers_on_structured_data_schema_id  (structured_data_schema_id)
 #
 
-FactoryBot.define do
-  factory :structured_answer do
-    data { "" }
-    answer_id { 1 }
-    schema_id { 1 }
-  end
+class Fragment::ResearchOutput < StructuredAnswer
+    belongs_to :dmp, class_name: 'Fragment::Dmp'
+    belongs_to :contact, class_name: 'Fragment::Person'
 end
