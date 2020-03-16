@@ -54,22 +54,22 @@ namespace :stat do
   namespace :create do
     desc "Creates created plan stats for every org since they joined"
     task created_plan: :environment do
-      Org::CreateCreatedPlanService.call
+      Org::CreateCreatedPlanService.call(threads: 2)
     end
 
     desc "Creates joined user stats for every org since they joined"
     task joined_user: :environment do
-      Org::CreateJoinedUserService.call
+      Org::CreateJoinedUserService.call(threads: 2)
     end
 
     desc "Creates shared plan stats for every org since they joined"
     task shared_plan: :environment do
-      Org::CreateSharedPlanService.call
+      Org::CreateSharedPlanService.call(threads: 2)
     end
 
     desc "Creates exported plan stats for every org since they joined"
     task exported_plan: :environment do
-      Org::CreateExportedPlanService.call
+      Org::CreateExportedPlanService.call(threads: 2)
     end
 
   end
@@ -77,22 +77,22 @@ namespace :stat do
   namespace :create_last_month do
     desc "Creates created plan stats for today's last month for every org"
     task created_plan: :environment do
-      Org::CreateLastMonthCreatedPlanService.call
+      Org::CreateLastMonthCreatedPlanService.call(threads: 2)
     end
 
     desc "Creates joined user stats for today's last month for every org"
     task joined_user: :environment do
-      Org::CreateLastMonthJoinedUserService.call
+      Org::CreateLastMonthJoinedUserService.call(threads: 2)
     end
 
     desc "Creates shared plan stats for today's last month for every org"
     task shared_plan: :environment do
-      Org::CreateLastMonthSharedPlanService.call
+      Org::CreateLastMonthSharedPlanService.call(threads: 2)
     end
 
     desc "created exported plan stats for today's last month for every org"
     task exported_plan: :environment do
-      Org::CreateLastMonthExportedPlanService.call
+      Org::CreateLastMonthExportedPlanService.call(threads: 2)
     end
   end
 
