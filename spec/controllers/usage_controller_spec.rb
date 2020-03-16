@@ -10,7 +10,7 @@ RSpec.describe UsageController, type: :controller do
     @plan_stat = create(:stat_created_plan, date: @date, org: @org, details: @details)
     @user_stat = create(:stat_joined_user, date: @date, org: @org)
 
-    sign_in(create(:user, :org_admin, org: @org))
+    sign_in(create(:user, :super_admin, org: @org))
   end
 
   describe "GET /usage (aka index)" do
