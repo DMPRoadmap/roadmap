@@ -282,11 +282,23 @@ class Template < ActiveRecord::Base
     copy.save! if options.fetch(:save, false)
     options[:template_id] = copy.id
     phases.each { |phase| copy.phases << phase.deep_copy(options) }
+    # transfer the conditions to the new template
+    #  done here as the new questions are not accessible when the conditions deep copy
     copy.conditions.each do |cond|
-      if cond.remove_question_id != nil
-        cond.update_column(:remove_question_id, copy.questions.find_by(versionable_id: Question.find(cond.remove_question_id).versionable_id).id)
+      if cond.option_list.any?
+        versionable_ids = QuestionOption.where(id: cond.option_list).pluck(:versionable_id)
+        cond.option_list = copy.question_options.where(versionable_id: versionable_ids).pluck(:id).map(&:to_s)
+        # TODO: these seem to be stored as strings, not sure if that's required by other code
+      end # TODO: would it be safe to remove conditions without an option list?
+
+      if cond.remove_data.any?
+        versionable_ids = Question.where(id: cond.remove_data).pluck(:versionable_id)
+        cond.remove_data = copy.questions.where(versionable_id: versionable_ids).pluck(:id).map(&:to_s)
       end
+
+      cond.save if cond.changed?
     end
+
     copy
   end
 
