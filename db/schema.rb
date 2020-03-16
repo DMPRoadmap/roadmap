@@ -264,9 +264,11 @@ ActiveRecord::Schema.define(version: 20200212145931) do
     t.boolean  "is_default"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "versionable_id", limit: 36
   end
 
   add_index "question_options", ["question_id"], name: "index_question_options_on_question_id", using: :btree
+  add_index "question_options", ["versionable_id"], name: "index_question_options_on_versionable_id", using: :btree
 
   create_table "questions", force: :cascade do |t|
     t.text     "text"
