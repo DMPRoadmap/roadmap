@@ -36,6 +36,7 @@
 
 <%= render partial: 'usage/filter' %>
 
+
 <div class="row">
   <div class="col-md-12">
     <p class="red">&#42;&nbsp;<%= _('Move the mouse pointer over the bars of a chart to see numbers.') %></p>
@@ -45,7 +46,7 @@
 <div class="row">
   <div class="col-md-6">
     <div class="pull-left">
-      <h4 class="bold"><%= _('No. users joined during last year') %></h4>
+      <p class="bold fontsize-h4"><%= _('No. users joined during last year') %></p>
     </div>
     <div class="pull-right">
       <%= link_to usage_yearly_users_path(sep: ","), class: 'stat btn btn-default', role: 'button', target: '_blank' do %>
@@ -60,7 +61,7 @@
   </div>
   <div class="col-md-6">
     <div class="pull-left">
-      <h4 class="bold"><%= _('No. plans during last year') %></h4>
+      <p class="bold fontsize-h4"><%= _('No. plans during last year') %></p>
     </div>
     <div class="pull-right">
       <%= link_to usage_yearly_plans_path(sep: ","), class: 'stat btn btn-default', role: 'button', target: '_blank' do %>
@@ -83,7 +84,7 @@
   <div class="col-md-12">
       <div class="col-md-6">
         <div class="pull-left">
-          <h4 class="bold"><%= _('No. plans by template') %></h4>
+          <p class="bold fontsize-h4"><%= _('No. plans by template') %></p>
         </div>
       </div>
 

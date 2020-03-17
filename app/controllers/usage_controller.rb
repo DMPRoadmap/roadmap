@@ -44,6 +44,17 @@ class UsageController < ApplicationController
     send_data(data_csvified, filename: "totals.csv")
   end
 
+  # GET
+  def org_statistics
+    authorize :usage
+
+    data = Org::MonthlyUsageService.call
+    sep = sep_param
+    data_csvified = Csvable.from_array_of_hashes(data, true, sep)
+
+    send_data(data_csvified, filename: "totals.csv")
+  end
+
   # POST /usage_filter
   # rubocop:disable Metrics/MethodLength
   def filter

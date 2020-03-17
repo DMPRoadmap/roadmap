@@ -1,7 +1,7 @@
 <% title _('Themes') %>
 <div class="row">
   <div class="col-xs-12">
-    <h2><%= _('Themes') %></h2>
+    <h1 class="fontsize-h2"><%= _('Themes') %></h1>
   </div>
 </div>
 <div class="row">
@@ -13,9 +13,9 @@
       <%= paginable_renderise(
         partial: '/paginable/themes/index',
         controller: 'paginable/themes',
-        action: 'index', 
+        action: 'index',
         scope: themes,
-        query_params: { sort_field: 'themes.title', sort_direction: :asc }) 
+        query_params: { sort_field: 'themes.title', sort_direction: :asc })
       %>
     </div>
   </div>
