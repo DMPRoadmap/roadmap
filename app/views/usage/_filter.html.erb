@@ -2,13 +2,13 @@
 
 <div class="row">
   <div class="col-md-12">
-    <p><%= _('Use the filters to generate organisational usage statistics for a custom date range. The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph.') %></p>
+    <p><%= _('Use the filters to run organisational usage statistics for a custom date range.') %></p>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-12">
-    <h2 class="bold fontsize-h3"><%= _('Run your own filter') %></h2>
+    <h2><%= _('Run your own filter') %></h2>
     <%= form_for :usage, url: usage_filter_path, remote: true do |f| %>
       <div class="row">
         <div class="col-md-2">
