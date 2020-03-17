@@ -77,6 +77,12 @@ jobs:
     - name: 'Determine wkhtmltopdf location'
       run: echo ::set-env name=WICKED_PDF_PATH::$(echo `bundle exec which wkhtmltopdf`)
 
+    # Startup MySQL
+    - name: 'Start MySQL'
+      run: sudo systemctl start mysql
+
+
+
     # Install the JS dependencies
     - name: 'Yarn Install'
       run: |
