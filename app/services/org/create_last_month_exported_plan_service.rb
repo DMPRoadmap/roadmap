@@ -1,19 +1,16 @@
 # frozen_string_literal: true
 
-#import statements fix Circular dependancy errors due to threading
+#import statements fix Circular dependancy errors
 import OrgDateRangeable
-import StatCreatedPlan
-import StatCreatedPlan::CreateOrUpdate
+import StatExportedPlan
+import StatExportedPlan::CreateOrUpdate
 import Role
 import User
-import Plan
-import Perm
-import Template
-
+import ExportedPlan
 
 class Org
 
-  class CreateLastMonthCreatedPlanService
+  class CreateLastMonthExportedPlanService
 
     class << self
 
@@ -24,7 +21,7 @@ class Org
           months = OrgDateRangeable.split_months_from_creation(org)
           last = months.last
           if last.present?
-            StatCreatedPlan::CreateOrUpdate.do(
+            StatExportedPlan::CreateOrUpdate.do(
               start_date: last[:start_date],
               end_date: last[:end_date],
               org: org
