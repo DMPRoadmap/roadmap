@@ -15,6 +15,7 @@ class UsageController < ApplicationController
     total_users(args: min_max_dates(args: args))
     #TODO: pull this in from branding.yml
     @separators = [",", "|", "#"]
+    @funder = current_user.org.funder?
   end
 
   # POST /usage_plans_by_template
