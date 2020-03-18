@@ -8,7 +8,7 @@
 <div id="footer-navbar" class="navbar-inverse navbar-fixed-bottom" role="navigation">
   <div class="container-fluid">
     <ul class="nav navbar-nav">
-      <li><%= link_to "&copy; 2004 - #{Time.now.year} #{Rails.configuration.branding[:organisation][:name]}".sanitize, "#{Rails.configuration.branding[:organisation][:url]}"%></li>
+      <li><%= link_to sanitize("&copy; 2004 - #{Time.now.year} #{Rails.configuration.branding[:organisation][:name]}"), "#{Rails.configuration.branding[:organisation][:url]}"%></li>
       <li>•</li>
       <li><a href="<%= about_us_path %>"><%= _('About') %></a></li>
       <li><a href="<%= contact_us %>"><%= _('Contact us') %></a></li>

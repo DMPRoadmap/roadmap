@@ -15,7 +15,7 @@ module UsageHelper
   # appropriately by passing along the labels for the Y axis and the datasets
   # for the X axis
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def prep_data_for_template_plans_chart(data:)
+  def prep_data_for_template_plans_chart(data:, subset: "by_template")
     last_month = Date.today.last_month.end_of_month.strftime('%b-%y')
     return { labels: [last_month], datasets: [] }.to_json if data.blank? || data.empty?
 
@@ -29,7 +29,7 @@ module UsageHelper
     # Loop through the data and organize the datasets by template instead of date
     data.each do |rec|
       date = prep_date_for_charts(date: rec["date"])
-      rec["by_template"].each do |template|
+      rec[subset].each do |template|
         # We need a placeholder for each month/year - template combo. The
         # default is to assume that there are zero plans for that month/year + template
         dflt = {
@@ -43,7 +43,7 @@ module UsageHelper
         # Replace any of the month/year plan counts for this template IF it has
         # any plans defined
         template_hash[:data] = template_hash[:data].map do |data|
-          data[:y] == date ? { x: template["count"], y: data[:y] } : data
+          data[:y] == date ? { x: template["count"] + data[:x], y: data[:y] } : data
         end
         datasets[template["name"]] = template_hash
       end
