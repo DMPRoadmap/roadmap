@@ -45,10 +45,7 @@
         <%= render "/org_admin/question_options/option_fields", f: f, q: question %>
         <!--display for selecting comment box when multiple choice is being used-->
       </div>
-      <p>Question ID: <%= question.id %></p>
-      <p>Question Option Text: <%= question.question_options[0].text %></p>
       <% if question.id != nil && question.question_options[0].text != nil %>
-        <p>BRANCH 1</p>
         <%= link_to _('Add Conditions'), org_admin_question_open_conditions_path(question_id: question.id, conditions: conditions), class: "add-logic btn btn-default", 'data-loaded': (conditions.size > 0).to_s, remote: true %>
         <div id="content" class="col-md-offset-2">
           <p>
@@ -56,7 +53,6 @@
           </p>
         </div>
       <% else %> 
-        <p>BRANCH 2</p>
         <div class="form-group" data-toggle="tooltip", title="<%= _('Save this question before adding conditions.') %>" >
           <%= link_to _('Add Conditions'), '#', class: "add-logic btn btn-default disabled" %>
         </div>
