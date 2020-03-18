@@ -129,6 +129,7 @@ Rails.application.routes.draw do
   post 'usage_filter', controller: 'usage', action: 'filter'
   get 'usage_all_plans_by_template', controller: 'usage', action: 'all_plans_by_template'
   get 'usage_global_statistics', controller: 'usage', action: 'global_statistics'
+  get 'usage_org_statistics', controller: 'usage', action: 'org_statistics'
   get 'usage_yearly_users', controller: 'usage', action: 'yearly_users'
   get 'usage_yearly_plans', controller: 'usage', action: 'yearly_plans'
 

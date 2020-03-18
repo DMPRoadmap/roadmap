@@ -2,16 +2,16 @@
 
 <div class="row">
   <div class="col-md-12">
-    <p><%= _('Use the filters to generate organisational usage statistics for a custom date range. The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph.') %></p>
+    <p><%= _('Use the filters to run organisational usage statistics for a custom date range.') %></p>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-12">
-    <h3 class="bold"><%= _('Run your own filter') %></h3>
+    <h2><%= _('Run your own filter') %></h2>
     <%= form_for :usage, url: usage_filter_path, remote: true do |f| %>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
           <div class="form-group">
             <%= f.label :topic, _('Topic') %>
             <%= f.select :topic, [
@@ -31,20 +31,21 @@
             <%= f.date_field :end_date, class: 'form-control' %>
           </div>
         </div>
-        <div class="col-md-2">
-          <%= f.submit _('Go'), class: 'btn btn-default' %>
-        </div>
-      </div>
-      <% if current_user.can_super_admin? %>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <%= f.label :org_id, _('Organisation') %>
-              <%= f.select :org_id, options_from_collection_for_select(Org.all, :id, :name, current_user.org_id), {}, class: 'form-control' %>
+        <% if current_user.can_super_admin? %>
+            <div class="col-md-5">
+              <div class="form-group">
+                <%= f.label :org_id, _('Organisation') %>
+                <%= f.select :org_id, options_from_collection_for_select(Org.all, :id, :name, current_user.org_id), {}, class: 'form-control' %>
+              </div>
             </div>
+        <% end %>
+        <div class="col-md-1">
+          <div class="mt-20">
+            <%= f.submit _('Go'), class: 'btn btn-default pull-right' %>
           </div>
         </div>
-      <% end %>
+      </div>
+
     <% end %>
   </div>
 </div>
