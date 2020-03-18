@@ -39,8 +39,7 @@ class StatCreatedPlan
       end
 
       def own_template_plans(org)
-        template_ids = Template.where(org_id: org.id ).pluck(:id)
-        Plan.where(plans: { template_id: template_ids })
+        Plan.joins(:template).where(templates: { org_id: org.id })
       end
 
       def count_plans(start_date:, end_date:, org:)
