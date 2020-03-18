@@ -65,6 +65,10 @@ class UserPolicy < ApplicationPolicy
     signed_in_user.can_super_admin?
   end
 
+  def org_admin_other_user?
+    signed_in_user.can_super_admin? || signed_in_user.can_org_admin?
+  end
+
   class Scope < Scope
     def resolve
       scope.where(org_id: user.org_id)

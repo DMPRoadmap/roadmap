@@ -1,4 +1,4 @@
-import { Tinymce } from '../../../utils/tinymce';
+import { Tinymce } from '../../../utils/tinymce.js.erb';
 
 //add the info on selecting the check from notification suitable
 import { paginableSelector } from '../../../utils/paginable';
