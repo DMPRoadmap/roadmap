@@ -6,6 +6,9 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
   let(:org) do
     FactoryBot.create(:org, created_at: DateTime.new(2018, 04, 01))
   end
+  let(:org2) do
+    FactoryBot.create(:org)
+  end
   let(:template) do
     FactoryBot.create(:template, org: org)
   end
@@ -17,6 +20,9 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
   end
   let(:user2) do
     FactoryBot.create(:user, org: org)
+  end
+  let(:user3) do
+    FactoryBot.create(:user, org: org2)
   end
   let(:creator) { Role.access_values_for(:creator).first }
   let(:administrator) { Role.access_values_for(:administrator).first }
@@ -30,10 +36,14 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
     plan3 = FactoryBot.create(:plan,
                               template: template2,
                               created_at: Date.today.last_month)
+    plan4 = FactoryBot.create(:plan,
+                              template: template2,
+                              created_at: Date.today.last_month)
     FactoryBot.create(:role, :creator, plan: plan, user: user1)
     FactoryBot.create(:role, :administrator, plan: plan, user: user1)
     FactoryBot.create(:role, :creator, plan: plan2, user: user1)
     FactoryBot.create(:role, :creator, plan: plan3, user: user2)
+    FactoryBot.create(:role, :creator, plan: plan4, user: user3)
   end
 
   describe ".call" do
@@ -52,12 +62,27 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
 
         last_month_details = StatCreatedPlan.find_by(
           date: Date.today.last_month.end_of_month,
-          org_id: org.id).details
+          org_id: org.id).by_template
 
         expect(last_month_details).to match_array(
-          "by_template" => [
+          [
             { "name" => template.title, "count" => 2 },
             { "name" => template2.title, "count" => 1 },
+          ]
+        )
+      end
+
+      it "generates counts by template from today's last month" do
+        described_class.call(org)
+
+        last_month_details = StatCreatedPlan.find_by(
+          date: Date.today.last_month.end_of_month,
+          org_id: org.id).using_template
+
+        expect(last_month_details).to match_array(
+          [
+            { "name" => template.title, "count" => 2 },
+            { "name" => template2.title, "count" => 2 },
           ]
         )
       end
@@ -108,12 +133,29 @@ RSpec.describe Org::CreateLastMonthCreatedPlanService do
 
         last_month_details = StatCreatedPlan.find_by(
           date: Date.today.last_month.end_of_month,
-          org_id: org.id).details
+          org_id: org.id).by_template
 
         expect(last_month_details).to match_array(
-          "by_template" => [
+          [
             { "name" => template.title, "count" => 2 },
             { "name" => template2.title, "count" => 1 },
+          ]
+        )
+      end
+
+      it "generates counts using template from today's last month" do
+        Org.expects(:all).returns([org])
+
+        described_class.call
+
+        last_month_details = StatCreatedPlan.find_by(
+          date: Date.today.last_month.end_of_month,
+          org_id: org.id).using_template
+
+        expect(last_month_details).to match_array(
+          [
+            { "name" => template.title, "count" => 2 },
+            { "name" => template2.title, "count" => 2 },
           ]
         )
       end
