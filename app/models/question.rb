@@ -202,7 +202,6 @@ class Question < ActiveRecord::Base
       condition.destroy
     end
     if param_conditions.present?
-      #conditions = param_conditions[0]
       param_conditions.each do |_key, value|
         saveCondition(value)
       end

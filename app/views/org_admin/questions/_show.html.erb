@@ -21,7 +21,7 @@
           <!-- question.option_based? -->
           <% if question.option_based? %>
             <dt><%= _('Question options') %></dt>
-            <dd><%= question.question_options.collect(&:text).join(', ') %></dd>
+            <dd><%= question.question_options.order(:number).collect(&:text).join(', ') %></dd>
           <% end %>
           <!-- Default value -->
           <% if q_format.textfield? || q_format.textarea? %>
