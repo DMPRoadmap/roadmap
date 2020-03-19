@@ -165,7 +165,7 @@ module ConditionsHelper
       return_string += "<dd>" + _("Answering") + " "
       return_string += opts.join(" and ")
       if cond.action_type == "add_webhook"
-        subject_string = text_formatted(cond.webhook_data['subject'])
+        subject_string = text_formatted(JSON.parse(cond.webhook_data)["subject"])
         return_string += _(" will <b>send an email</b> with subject ") + subject_string
       else
         remove_data = cond.remove_data
