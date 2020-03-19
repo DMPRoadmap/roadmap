@@ -205,16 +205,6 @@ module OrgAdmin
           end
         end
       end
-      # TODO: This question_options id swap feel fragile. We cannot really match on any
-      # of the data elements because the user may have changed them so we rely on its
-      # position within the array/query since they should be equivalent.
-      if attrs[:question_options_attributes].present?
-        attrs[:question_options_attributes].each_key do |key|
-          next unless question.question_options[key.to_i].present?
-          hash      = attrs.dig(:question_options_attributes, key)
-          hash[:id] = question.question_options[key.to_i].id.to_s
-        end
-      end
       attrs
     end
 
