@@ -67,7 +67,7 @@ RSpec.describe StatCreatedPlan, type: :model do
             count: 0)
           data = [may, june, july]
 
-          csv = described_class.to_csv(data, details: { by_template: true })
+          csv = described_class.to_csv(data, details: { by_template: true, sep: ","})
 
           expected_csv = <<~HERE
           Date,Template1,Template2,Template3,Count
