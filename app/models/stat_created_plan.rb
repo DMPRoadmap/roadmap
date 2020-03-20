@@ -21,14 +21,21 @@ class StatCreatedPlan < Stat
   serialize :details, JSON
 
   def by_template
-    return [] unless details.present?
+    parse_details.fetch("by_template", [])
+  end
 
-    json = details.is_a?(String) ? JSON.parse(details) : details
-    json.fetch("by_template", [])
+  def using_template
+    parse_details.fetch("using_template", [])
   end
 
   def to_json(options = nil)
-    super(methods: :by_template)
+    super(methods: [:by_template, :using_template])
+  end
+
+  def parse_details
+    return JSON.parse({}) unless details.present?
+
+    json = details.is_a?(String) ? JSON.parse(details) : details
   end
 
   class << self

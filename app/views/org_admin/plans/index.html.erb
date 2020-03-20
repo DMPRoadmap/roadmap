@@ -24,7 +24,7 @@
                 <!-- TODO: correct this behavior once the notification table is in place -->
                 <tr>
                   <td><%= link_to notice.name, plan_path(notice) %></td>
-                  <td><%= notice.owner.name(false) %></td>
+                  <td><%= notice.owner&.name(false) %></td>
                   <td><%= _('Feedback requested') %></td>
                   <td><%= link_to _('Complete'), feedback_complete_org_admin_plan_path(notice), 'data-toggle': 'tooltip', title: _('Notify the plan owner that I have finished providing feedback') %></td>
                 </tr>
