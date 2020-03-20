@@ -64,9 +64,9 @@ class Notification < ActiveRecord::Base
   scope :active_per_user, (lambda do |user|
     if user.present?
       acknowledgement_ids = user.notifications.map(&:id)
-      active.where.not(id: acknowledgement_ids).where(active: true)
+      active.where.not(id: acknowledgement_ids)
     else
-      active.where(dismissable: false).where(active: true)
+      active.where(dismissable: false)
     end
   end)
 
