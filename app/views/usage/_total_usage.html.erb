@@ -1,26 +1,34 @@
-<%# locals: user_count, plan_count %>
+<%# locals: user_count, plan_count, separators %>
 
-<div class="row">
-  <div class="col-md-12" >
-    <div class="col-md-10">
-      <h1>Usage statistics</h1>
+<div class="row mt-15 mb-15">
+  <div class="col-md-3">
+    <div class="col-xs-6">
+      <i class="fa fa-users f-large"></i>
+      <p class="fontsize-h4"><%= user_count.to_i %> Total users</p>
     </div>
-    <div class="col-xs-2">
-      <%= link_to usage_global_statistics_path, class: 'stat btn btn-default', role: 'button', target: '_blank' do %>
-        <%= _('Download global usage') %> <i class="fa fa-download" aria-hidden="true"></i>
-      <% end %>
+    <div class="col-xs-6">
+      <i class="fa fa-files-o f-large"></i>
+      <p  class="fontsize-h4"><%= plan_count.to_i %> Total plans</p>
     </div>
   </div>
-</div>
-<div class="row mt-15 mb-15">
-  <div class="col-md-12">
-    <div class="col-xs-2">
-      <i class="fa fa-users f-large"></i>
-      <h4><%= user_count %> Total users</h4>
-    </div>
-    <div class="col-xs-10">
-      <i class="fa fa-files-o f-large"></i>
-      <h4><%= plan_count %> Total plans</h4>
-    </div>
+  <div class="col-md-3">
+    <form class="form-inline mt-10 mb-10 pull-right">
+      <label for="csv-field-sep">
+        <%= _('csv download field separator') %>:
+      </label>
+      <%= select_tag "csv-field-sep", options_for_select(separators, separators[0]), {class: "single-char-select"} %>
+    </form>
+  </div>
+  <div class="col-md-3">
+    <% if current_user.can_super_admin? %>
+      <%= link_to usage_global_statistics_path(sep: ","), class: 'stat btn btn-default', role: 'button', target: '_blank' do %>
+        <%= _('Download global usage') %> <i class="fa fa-download" aria-hidden="true"></i>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="col-md-3">
+    <%= link_to usage_org_statistics_path(sep: ","), class: 'stat btn btn-default pull-right', role: 'button', target: '_blank' do %>
+      <%= _('Download Monthly Usage') %> <i class="fa fa-download" aria-hidden="true"></i>
+    <% end %>
   </div>
 </div>

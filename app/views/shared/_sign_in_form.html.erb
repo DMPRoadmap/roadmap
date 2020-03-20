@@ -20,7 +20,7 @@
 
   <% if Rails.application.config.shibboleth_enabled %>
     <% if session['devise.shibboleth_data'].nil? %>
-      <h4 class="text-center">- <%= _('or') %> -</h4>
+      <p class="text-center fontsize-h4">- <%= _('or') %> -</p>
       <div class="form-group">
         <span class="center-block btn-group-justified">
           <% target = (Rails.application.config.shibboleth_use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %>

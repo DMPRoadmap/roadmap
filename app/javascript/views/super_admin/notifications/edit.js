@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 import { Tinymce } from '../../../utils/tinymce';
 // add the info on selecting the check from notification suitable
+=======
+import { Tinymce } from '../../../utils/tinymce.js.erb';
+
+//add the info on selecting the check from notification suitable
+>>>>>>> 8cebbdfe52128dbb2af7c3e1f7f1407be62795c4
 import { paginableSelector } from '../../../utils/paginable';
 import * as notifier from '../../../utils/notificationHelper';
 
