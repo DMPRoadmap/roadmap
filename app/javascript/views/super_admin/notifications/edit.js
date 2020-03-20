@@ -22,13 +22,5 @@ $(() => {
     } else {
       notifier.renderAlert(data.msg);
     }
-    /* remove or display the div
-    if (form.find('input[type="checkbox"]').is(':checked')) {
-      form.parent().siblings('.plan-visibility').html(getConstant('PLAN_VISIBILITY_WHEN_TEST'))
-        .attr('title', '');
-     } else {
-       form.parent().siblings('.plan-visibility').html(getConstant('PLAN_VISIBILITY_WHEN_NOT_TEST'))
-        .attr('title', getConstant('PLAN_VISIBILITY_WHEN_NOT_TEST_TOOLTIP'));
-    } */
   });
 });

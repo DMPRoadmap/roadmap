@@ -61,7 +61,7 @@ module SuperAdmin
 
       notification = Notification.find(params[:id])
       notification.active = (params[:active] === "1")
-authorize(Notification)
+      authorize(Notification)
       # rubocop:disable Metrics/LineLength
       if notification.save
         render json: {
