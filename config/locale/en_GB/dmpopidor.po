@@ -416,3 +416,6 @@ msgstr "CNRS website"
 
 msgid "INIST website"
 msgstr "INIST website"
+
+msgid "Selected Template"
+msgstr "Selected Template"

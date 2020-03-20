@@ -416,3 +416,6 @@ msgstr "Site CNRS"
 
 msgid "INIST website"
 msgstr "Site INIST"
+
+msgid "Selected Template"
+msgstr "Modèle choisi"

@@ -421,3 +421,7 @@ msgstr ""
 
 msgid "INIST website"
 msgstr ""
+
+msgid "Selected Template"
+msgstr ""
+
