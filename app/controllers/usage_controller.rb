@@ -15,6 +15,7 @@ class UsageController < ApplicationController
     total_users(args: min_max_dates(args: args))
     #TODO: pull this in from branding.yml
     @separators = [",", "|", "#"]
+    @funder = current_user.org.funder?
   end
 
   # POST /usage_plans_by_template
@@ -37,6 +38,17 @@ class UsageController < ApplicationController
     authorize :usage
 
     data = Org::TotalCountStatService.call
+    sep = sep_param
+    data_csvified = Csvable.from_array_of_hashes(data, true, sep)
+
+    send_data(data_csvified, filename: "totals.csv")
+  end
+
+  # GET
+  def org_statistics
+    authorize :usage
+
+    data = Org::MonthlyUsageService.call
     sep = sep_param
     data_csvified = Csvable.from_array_of_hashes(data, true, sep)
 

@@ -185,6 +185,9 @@ gem "dotenv-rails"
 
 gem 'activerecord-session_store'
 
+# -------------------------------------------------
+# UTILITIES
+gem 'parallel'
 
 # ------------------------------------------------
 # ENVIRONMENT SPECIFIC DEPENDENCIES
