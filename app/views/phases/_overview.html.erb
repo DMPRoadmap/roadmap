@@ -1,10 +1,10 @@
 <%# locals: { phase } %>
 <div class="row" id="<%= dom_id(phase) %>">
   <div class="col-xs-12">
-    <h4>
+    <p class='fontsize-h4'>
       <%= _('Instructions') %>
       <a href="<%= edit_plan_path(plan_id, phase_id: phase.id) %>" class="btn btn-default pull-right"><%= _('Write plan') %></a>
-    </h4>
+    </p>
     <p class="text-justify">
         <div class="display-readonly-textarea-content">
           <%= sanitize(phase.description) %>
