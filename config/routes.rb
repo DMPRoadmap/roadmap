@@ -209,6 +209,10 @@ Rails.application.routes.draw do
     resources :departments, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
     end
+    # Paginable actions for structured data schemas
+    resources :structured_data_schemas, only: [] do
+      get 'index/:page', action: :index, on: :collection, as: :index
+    end
   end
 
   resources :template_options, only: [:index], constraints: { format: /json/ }
@@ -274,6 +278,7 @@ Rails.application.routes.draw do
   namespace :super_admin do
     resources :orgs, only: [:index, :new, :create, :destroy]
     resources :themes, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :structured_data_schemas, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :users, only: [:edit, :update] do
       member do
         put :merge

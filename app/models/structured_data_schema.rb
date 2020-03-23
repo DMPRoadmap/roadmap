@@ -18,6 +18,8 @@
 #
 
 class StructuredDataSchema < ActiveRecord::Base
+  include ValidationMessages
+
   belongs_to :org
   has_many :structured_answers
   has_many :questions
@@ -32,7 +34,14 @@ class StructuredDataSchema < ActiveRecord::Base
            :research_outputs, to: :structured_answers
 
 
+  validates :name, presence: { message: PRESENCE_MESSAGE },
+                      uniqueness: { message: UNIQUENESS_MESSAGE }
+
+  #validates :schema, presence:  { message: PRESENCE_MESSAGE },
+  #                    json: true
+                      
   def detailed_name 
     label + " ( " + name + "_V" + version.to_s + " )"
   end
+  
 end
