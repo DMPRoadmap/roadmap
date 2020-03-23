@@ -16,7 +16,8 @@ module Dmpopidor
             Perm: _("permission"),
             Pref: _("preferences"),
             Department: _("department"),
-            User: obj == current_user ? _("profile") : _("user")
+            User: obj == current_user ? _("profile") : _("user"),
+            StructuredDataSchema: _("schema")
           }
           if obj.respond_to?(:customization_of) && obj.send(:customization_of).present?
             display_name[:Template] = "customization"
