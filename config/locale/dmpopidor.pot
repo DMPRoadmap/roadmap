@@ -341,10 +341,13 @@ msgstr ""
 msgid "Research output export mode"
 msgstr ""
 
-msgid "Research outputs by section"
+msgid "Export by research output"
 msgstr ""
 
-msgid "Research outputs by question"
+msgid "Export by section"
+msgstr ""
+
+msgid "Export by question"
 msgstr ""
 
 msgid "Move research output"

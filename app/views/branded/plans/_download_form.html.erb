@@ -22,14 +22,20 @@
       <ul>
         <li class="checkbox">
           <%= label_tag 'export[research_output_mode]' do %>
+            <%= radio_button_tag("export[research_output_mode]", "by_research_output", false) %>
+            <%= d_("dmpopidor", 'Export by research output') %>
+          <% end %>
+        </li>
+        <li class="checkbox">
+          <%= label_tag 'export[research_output_mode]' do %>
             <%= radio_button_tag("export[research_output_mode]", "by_section", true) %>
-            <%= d_("dmpopidor", 'Research outputs by section') %>
+            <%= d_("dmpopidor", 'Export by section') %>
           <% end %>
         </li>
         <li class="checkbox">
           <%= label_tag 'export[research_output_mode]' do %>
             <%= radio_button_tag("export[research_output_mode]", "by_question", false) %>
-            <%= d_("dmpopidor", 'Research outputs by question') %>
+            <%= d_("dmpopidor", 'Export by question') %>
           <% end %>
         </li>
       </ul>
