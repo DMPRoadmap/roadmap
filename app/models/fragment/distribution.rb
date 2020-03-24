@@ -9,7 +9,6 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
-#  parent_id                 :integer
 #
 # Indexes
 #
@@ -19,4 +18,8 @@
 
 class Fragment::Distribution < StructuredAnswer
 
+    def researchOutput
+        Fragment::ResearchOutput.where(id: data['research_output'])
+    end
+    
 end

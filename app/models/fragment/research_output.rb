@@ -9,7 +9,6 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
-#  parent_id                 :integer
 #
 # Indexes
 #
@@ -18,6 +17,51 @@
 #
 
 class Fragment::ResearchOutput < StructuredAnswer
-    belongs_to :dmp, class_name: 'Fragment::Dmp'
-    belongs_to :contact, class_name: 'Fragment::Person'
+    
+    def contact
+        Fragment::Person.where(id: data['contact']).first
+    end
+
+    def dmp
+        Fragment::Dmp.where(id: data['dmp']).first
+    end
+
+    def documentation 
+        Fragment::Documentation.where("(data->>'research_output')::int = ?", id).first
+    end
+
+    def preservationIssue 
+        Fragment::PreservationIssue.where("(data->>'research_output')::int = ?", id).first
+    end
+
+    def sharing 
+        Fragment::Sharing.where("(data->>'research_output')::int = ?", id).first
+    end
+
+    def technicalResourceUsage 
+        Fragment::TechnicalResourceUsage.where("(data->>'research_output')::int = ?", id).first
+    end
+
+
+
+    def distributions
+        Fragment::Distribution.where("(data->>'research_output')::int = ?", id)
+    end
+
+    def ethicalIssues
+        Fragment::EthicalIssue.where("(data->>'research_output')::int = ?", id)
+    end
+
+    def methodologyIssues
+        Fragment::MethodologyIssue.where("(data->>'research_output')::int = ?", id)
+    end
+
+    def reuseDatas
+        Fragment::ReuseData.where("(data->>'research_output')::int = ?", id)
+    end
+
+    def staffMembers
+        Fragment::StaffMember.where("(data->>'research_output')::int = ?", id)
+    end
+
 end

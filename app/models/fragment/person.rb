@@ -9,7 +9,6 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
-#  parent_id                 :integer
 #
 # Indexes
 #
@@ -18,8 +17,13 @@
 #
 
 class Fragment::Person < StructuredAnswer
-    has_one :meta, class_name: 'Fragment::Meta', foreign_key: 'parent_id'
-    has_one :project, class_name: 'Fragment::Project', foreign_key: 'parent_id'
-    has_one :research_output, class_name: 'Fragment::ResearchOutput', foreign_key: 'parent_id'
+
+    def legalIssues
+        Fragment::LegalIssue.where("(data->>'legalAdvisor')::int = ?", id)
+    end
+
+    def metas
+        Fragment::Meta.where("(data->>'contact')::int = ?", id)
+    end
 
 end

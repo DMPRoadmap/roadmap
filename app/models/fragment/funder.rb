@@ -9,7 +9,6 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
-#  parent_id                 :integer
 #
 # Indexes
 #
@@ -18,5 +17,9 @@
 #
 
 class Fragment::Funder < StructuredAnswer
-    belongs_to :project, class_name: 'Fragment::Project'
+
+    def project
+        Fragment::Project.where(id: data['project']).first
+    end
+
 end

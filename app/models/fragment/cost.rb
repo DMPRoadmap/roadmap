@@ -9,7 +9,6 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
-#  parent_id                 :integer
 #
 # Indexes
 #
@@ -18,5 +17,9 @@
 #
 
 class Fragment::Cost < StructuredAnswer
-    belongs_to :dmp, class_name: 'Fragment::Dmp'
+    
+    def dmp
+        Fragment::Dmp.where(id: data['dmp']).first
+    end
+    
 end

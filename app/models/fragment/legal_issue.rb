@@ -9,7 +9,6 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
-#  parent_id                 :integer
 #
 # Indexes
 #
@@ -18,5 +17,13 @@
 #
 
 class Fragment::LegalIssue < StructuredAnswer
+
+    def legalAdvisor
+        Fragment::Person.where(id: data['legalAdvisor']).first
+    end
+
+    def personalData
+        Fragment::PersonalData.where(id: data['personalData']).first
+    end
 
 end

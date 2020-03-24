@@ -17,9 +17,21 @@
 #
 
 class Fragment::Dmp < StructuredAnswer
-    has_many :research_outputs, class_name: 'Fragment::ResearchOutput', foreign_key: 'parent_id' 
-    has_many :costs, class_name: 'Fragment::Cost', foreign_key: 'parent_id' 
 
-    has_one :meta, class_name: 'Fragment::Meta', foreign_key: 'parent_id' 
-    has_one :project, class_name: 'Fragment::Project', foreign_key: 'parent_id' 
+    def cost
+        Fragment::Cost.where("(data->>'dmp')::int = ?", id)
+    end
+
+    def meta
+        Fragment::Meta.where("(data->>'dmp')::int = ?", id)
+    end
+
+    def project
+        Fragment::Project.where("(data->>'dmp')::int = ?", id)
+    end
+
+    def researchOutputs
+        Fragment::ResearchOutput.where("(data->>'dmp')::int = ?", id)
+    end
+
 end

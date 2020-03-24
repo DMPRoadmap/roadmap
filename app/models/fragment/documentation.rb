@@ -9,7 +9,6 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
-#  parent_id                 :integer
 #
 # Indexes
 #
@@ -18,5 +17,17 @@
 #
 
 class Fragment::Documentation < StructuredAnswer
+
+    def documentationAdministrator
+        Fragment::Person.where(id: data['documentationAdministrator'])
+    end
+
+    def metadataFormat
+        Fragment::MetadataFormat.where(id: data['metadataFormat'])
+    end
+
+    def researchOutput
+        Fragment::ResearchOutput.where(id: data['research_output'])
+    end
 
 end

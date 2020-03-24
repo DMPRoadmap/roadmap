@@ -9,7 +9,6 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
-#  parent_id                 :integer
 #
 # Indexes
 #
@@ -18,7 +17,13 @@
 #
 
 class Fragment::Meta < StructuredAnswer
-    belongs_to :dmp, class_name: 'Fragment::Dmp'
-    belongs_to :contact, class_name: 'Fragment::Person'
+
+    def contact
+        Fragment::Person.where(id: data['contact']).first
+    end
+    
+    def dmp
+        Fragment::Dmp.where(id: data['dmp']).first
+    end
     
 end

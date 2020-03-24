@@ -9,7 +9,6 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
-#  parent_id                 :integer
 #
 # Indexes
 #
@@ -18,9 +17,24 @@
 #
 
 class Fragment::Project < StructuredAnswer
-    belongs_to :dmp, class_name: 'Fragment::Dmp'
-    belongs_to :principal_investigator, class_name: 'Fragment::Person'
+
+    def dmp
+        Fragment::Dmp.where(id: data['dmp']).first
+    end
+
+    def principalInvestigator
+        Fragment::Person.where(id: data['principalInvestigator']).first
+    end
+
+
     
-    has_many :funders, class_name: 'Fragment::Funder', foreign_key: 'parent_id' 
-    has_many :partners, class_name: 'Fragment::Partner', foreign_key: 'parent_id' 
+    def funders
+        Fragment::Funder.where("(data->>'project')::int = ?", id)
+    end
+
+    def partners
+        Fragment::Partner.where("(data->>'project')::int = ?", id)
+    end
+
+    
 end

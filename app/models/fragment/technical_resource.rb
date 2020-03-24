@@ -9,7 +9,6 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
-#  parent_id                 :integer
 #
 # Indexes
 #
@@ -19,4 +18,7 @@
 
 class Fragment::TechnicalResource < StructuredAnswer
 
+    def technicalResourceUsage
+        Fragment::TechnicalResourceUsage.where("(data->>'technical_resource')::int = ?", id)
+    end
 end
