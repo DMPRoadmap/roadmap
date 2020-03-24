@@ -9,7 +9,6 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
-#  parent_id                 :integer
 #
 # Indexes
 #
@@ -20,6 +19,7 @@
 class StructuredAnswer < ActiveRecord::Base
   belongs_to :answer
   belongs_to :structured_data_schema
+
   self.inheritance_column = :classname 
 
 

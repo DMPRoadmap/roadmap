@@ -22,7 +22,6 @@
 #  feedback_enabled       :boolean          default("false")
 #  feedback_email_subject :string
 #  feedback_email_msg     :text
-#  active                 :boolean          default("true")
 #
 # Indexes
 #
