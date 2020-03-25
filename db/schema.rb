@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200204102955) do
+ActiveRecord::Schema.define(version: 20200313135459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -419,6 +419,7 @@ ActiveRecord::Schema.define(version: 20200204102955) do
     t.integer  "structured_data_schema_id"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.string   "classname"
   end
 
   add_index "structured_answers", ["answer_id"], name: "index_structured_answers_on_answer_id", using: :btree
@@ -430,7 +431,7 @@ ActiveRecord::Schema.define(version: 20200204102955) do
     t.integer  "version"
     t.json     "schema"
     t.integer  "org_id"
-    t.string   "object"
+    t.string   "classname"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

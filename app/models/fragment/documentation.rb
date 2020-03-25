@@ -16,10 +16,18 @@
 #  index_structured_answers_on_structured_data_schema_id  (structured_data_schema_id)
 #
 
-FactoryBot.define do
-  factory :structured_answer do
-    data { "" }
-    answer_id { 1 }
-    schema_id { 1 }
-  end
+class Fragment::Documentation < StructuredAnswer
+
+    def documentationAdministrator
+        Fragment::Person.where(id: data['documentationAdministrator'])
+    end
+
+    def metadataFormat
+        Fragment::MetadataFormat.where(id: data['metadataFormat'])
+    end
+
+    def researchOutput
+        Fragment::ResearchOutput.where(id: data['research_output'])
+    end
+
 end

@@ -16,10 +16,14 @@
 #  index_structured_answers_on_structured_data_schema_id  (structured_data_schema_id)
 #
 
-FactoryBot.define do
-  factory :structured_answer do
-    data { "" }
-    answer_id { 1 }
-    schema_id { 1 }
-  end
+class Fragment::Meta < StructuredAnswer
+
+    def contact
+        Fragment::Person.where(id: data['contact']).first
+    end
+    
+    def dmp
+        Fragment::Dmp.where(id: data['dmp']).first
+    end
+    
 end
