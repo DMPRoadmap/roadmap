@@ -26,9 +26,9 @@ module ConditionsHelper
     id_list = []
     return id_list unless answer.question.option_based?
     answer.question.conditions.each do |cond|
-      opts = cond.option_list.map{ |s| s.to_i }
+      opts = cond.option_list.map{ |s| s.to_i }.sort
       action = cond.action_type
-      chosen = answer.question_option_ids
+      chosen = answer.question_option_ids.sort
       if chosen == opts
         if action == "remove"
           rems = cond.remove_data.map{ |s| s.to_i }
