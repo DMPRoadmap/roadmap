@@ -41,17 +41,6 @@ module Dmpopidor
 
           @templates = @templates.flatten.uniq
         end
-    
-        # If no templates were available use the default template
-        if @templates.empty?
-          if Template.default.present?
-            customization = Template.published
-                              .latest_customized_version(Template.default.family_id,
-                                                         org_id).first
-    
-            @templates << (customization.present? ? customization : Template.default)
-          end
-        end
 
         @templates.each do |template|
           if !template.customization_of.nil?
