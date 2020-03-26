@@ -8,7 +8,7 @@
         !section_has_common_answers && 
         show_research_output_content %>
   <div class="research-output">
-    <h3><%= research_output[:fullname] %></h3>
+    <h3><%= research_output[:abbreviation] %> : <%= research_output[:fullname] %></h3>
   <% end %>
   <% questions.each do |question| %>
     <% answer = section_has_common_answers ? 
