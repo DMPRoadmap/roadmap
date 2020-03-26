@@ -11,11 +11,13 @@
                      plan_count: @total_org_plans,
                      separators: @separators } %>
 
+<% if @funder.present? %>
+  <%= render partial: 'usage/template_statistics' %>
+<% else %>
+  <div class="panel-group usage-accordion" role="tablist" aria-multiselectable="true">
+    <%= render partial: 'usage/user_statistics_accordion', locals: {expanded: true} %>
+    <%= render partial: 'usage/template_statistics_accordion', locals: {expanded: false} %>
+  </div>
 
-<div class="panel-group usage-accordion" role="tablist" aria-multiselectable="true">
-  <%= render partial: 'usage/template_statistics', locals: {expanded: @funder.present?} %>
-  <%= render partial: 'usage/user_statistics', locals: {expanded: !@funder.present?} %>
-</div>
-
-
-<%= render partial: 'usage/filter' %>
+  <%= render partial: 'usage/filter' %>
+<% end %>
