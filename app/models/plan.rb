@@ -40,6 +40,9 @@ class Plan < ActiveRecord::Base
   include ValidationValues
   prepend Dmpopidor::Models::Plan
 
+  after_create :create_plan_fragments
+  after_update :update_plan_fragments
+
   # =============
   # = Constants =
   # =============

@@ -22,6 +22,8 @@
 
 class ResearchOutput < ActiveRecord::Base
   include ValidationMessages
+
+  after_save :create_or_update_fragments
   
   # ================
   # = Associations =
@@ -77,6 +79,36 @@ class ResearchOutput < ActiveRecord::Base
     self.answers.select { |answer| answer.question_id.in?(Section.find(section_id).questions.pluck(:id)) }
   end
 
+  def json_fragment
+    Fragment::ResearchOutput.where("(data->>'research_output_id')::int = ?", id).first
+  end
+
+  def create_or_update_fragments
+    fragment = self.json_fragment()
+    dmp_fragment = self.plan.json_fragment()
+    if fragment.nil?
+      fragment = Fragment::ResearchOutput.create(
+        data: {
+          "research_output_id" => self.id,
+          "title" => self.abbreviation,
+          "description" => self.fullname,
+          "type" => self.type.label
+        },
+        dmp_id: dmp_fragment.id,
+        parent_id: dmp_fragment.id
+      )
+    else
+      fragment.update(
+        data: {
+          "research_output_id" => self.id,
+          "title" => self.abbreviation,
+          "description" => self.fullname,
+          "type" => self.type.label
+        }
+      )
+    end
+  end
+
   ##
   # deep copy the given research output
   #
@@ -84,5 +116,6 @@ class ResearchOutput < ActiveRecord::Base
   def self.deep_copy(research_output)
     research_output.dup
   end
+  
 
 end
