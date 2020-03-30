@@ -9,6 +9,8 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
+#  dmp_id                    :integer
+#  parent_id                 :integer
 #
 # Indexes
 #
@@ -19,6 +21,8 @@
 class StructuredAnswer < ActiveRecord::Base
   belongs_to :answer
   belongs_to :structured_data_schema
+  belongs_to :dmp, class_name: "Fragment::Dmp", foreign_key: "dmp_id"
+  has_many :children, class_name: "StructuredAnswer", foreign_key: "parent_id"
 
   self.inheritance_column = :classname 
 
