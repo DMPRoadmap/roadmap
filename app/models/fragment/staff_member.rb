@@ -24,8 +24,12 @@ class Fragment::StaffMember < StructuredAnswer
         Fragment::Person.where(id: data['agent'])
     end
 
+    def dmp
+        Fragment::Dmp.where(id: dmp_id).first
+    end
+
     def research_output
-        Fragment::ResearchOutput.where(id: data['research_output'])
+        Fragment::ResearchOutput.where(id: parent_id)
     end
 
 end

@@ -20,6 +20,10 @@
 
 class Fragment::TechnicalResource < StructuredAnswer
 
+    def dmp
+        Fragment::Dmp.where(id: dmp_id).first
+    end
+
     def technicalResourceUsage
         Fragment::TechnicalResourceUsage.where("(data->>'technical_resource')::int = ?", id)
     end

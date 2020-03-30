@@ -20,6 +20,10 @@
 
 class Fragment::Person < StructuredAnswer
 
+    def dmp
+        Fragment::Dmp.where(id: dmp_id).first
+    end
+
     def legalIssues
         Fragment::LegalIssue.where("(data->>'legalAdvisor')::int = ?", id)
     end

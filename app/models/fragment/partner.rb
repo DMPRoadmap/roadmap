@@ -19,6 +19,10 @@
 #
 
 class Fragment::Partner < StructuredAnswer
+
+    def dmp
+        Fragment::Dmp.where(id: dmp_id).first
+    end
     
     def project
         Fragment::Project.where(id: data['project']).first

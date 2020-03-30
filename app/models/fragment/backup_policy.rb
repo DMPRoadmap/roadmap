@@ -20,6 +20,10 @@
 
 class Fragment::BackupPolicy < StructuredAnswer
 
+    def dmp
+        Fragment::Dmp.where(id: dmp_id).first
+    end
+
     def technicalResourceUsage
         Fragment::TechnicalResourceUsage.where("(data->>'backup_policy')::int = ?", id)
     end

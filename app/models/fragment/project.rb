@@ -21,11 +21,11 @@
 class Fragment::Project < StructuredAnswer
 
     def dmp
-        Fragment::Dmp.where(id: data['dmp']).first
+        Fragment::Dmp.where(id: dmp_id).first
     end
 
     def principalInvestigator
-        Fragment::Person.where(id: data['principalInvestigator']).first
+        Fragment::Person.where(id: data['principalInvestigator']['dbId']).first
     end
 
 

@@ -21,19 +21,23 @@
 class Fragment::Dmp < StructuredAnswer
 
     def cost
-        Fragment::Cost.where("(data->>'dmp')::int = ?", id)
+        Fragment::Cost.where(dmp_id: id)
     end
 
     def meta
-        Fragment::Meta.where("(data->>'dmp')::int = ?", id)
+        Fragment::Meta.where(dmp_id: id).first
     end
 
     def project
-        Fragment::Project.where("(data->>'dmp')::int = ?", id)
+        Fragment::Project.where(dmp_id: id).first
     end
 
     def researchOutputs
-        Fragment::ResearchOutput.where("(data->>'dmp')::int = ?", id)
+        Fragment::ResearchOutput.where(dmp_id: id)
+    end
+
+    def persons
+        Fragment::Person.where(dmp_id: id)
     end
 
 end

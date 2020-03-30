@@ -20,6 +20,10 @@
 
 class Fragment::MetadataFormat < StructuredAnswer
 
+    def dmp
+        Fragment::Dmp.where(id: dmp_id).first
+    end
+
     def documentation
         Fragment::Documentation.where("(data->>'metadata_format')::int = ?", id)
     end

@@ -25,7 +25,7 @@ class Fragment::ResearchOutput < StructuredAnswer
     end
 
     def dmp
-        Fragment::Dmp.where(id: data['dmp']).first
+        Fragment::Dmp.where(id: dmp_id).first
     end
 
     def documentation 

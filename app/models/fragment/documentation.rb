@@ -20,6 +20,10 @@
 
 class Fragment::Documentation < StructuredAnswer
 
+    def dmp
+        Fragment::Dmp.where(id: dmp_id).first
+    end
+
     def documentationAdministrator
         Fragment::Person.where(id: data['documentationAdministrator'])
     end
@@ -29,7 +33,7 @@ class Fragment::Documentation < StructuredAnswer
     end
 
     def researchOutput
-        Fragment::ResearchOutput.where(id: data['research_output'])
+        Fragment::ResearchOutput.where(id: parent_id)
     end
 
 end

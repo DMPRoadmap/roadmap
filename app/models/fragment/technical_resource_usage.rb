@@ -24,8 +24,12 @@ class Fragment::TechnicalResourceUsage < StructuredAnswer
         Fragment::BackupPolicy.where(id: data['backup_policy']).first
     end
 
+    def dmp
+        Fragment::Dmp.where(id: dmp_id).first
+    end
+
     def researchOutput
-        Fragment::ResearchOutput.where(id: data['research_output']).first
+        Fragment::ResearchOutput.where(id: parent_id).first
     end
 
     def technicalResource
