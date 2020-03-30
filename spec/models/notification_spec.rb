@@ -104,7 +104,7 @@ RSpec.describe Notification, type: :model do
 
       let!(:user) { nil }
 
-      let!(:notification) { create(:notification, :active, :dismissable) }
+      let!(:notification) { create(:notification, :enable, :dismissable) }
 
       subject { Notification.active_per_user(user) }
 
