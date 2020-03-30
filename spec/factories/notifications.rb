@@ -23,7 +23,7 @@ FactoryBot.define do
     body { Faker::Lorem.paragraph }
     dismissable { false }
     starts_at { Time.current }
-    enable { false }
+    enable { true }
     expires_at { starts_at + 2.days  }
 
     trait :active do
