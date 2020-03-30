@@ -5,7 +5,7 @@
       <th scope="col"><%= _('Level') %>&nbsp;<%= paginable_sort_link('notifications.level') %></th>
       <th scope="col"><%= _('Start') %>&nbsp;<%= paginable_sort_link('notifications.starts_at') %></th>
       <th scope="col"><%= _('Expiration') %>&nbsp;<%= paginable_sort_link('notifications.expires_at') %></th>
-      <th scope="col"><%= _('Active') %>&nbsp;<%= paginable_sort_link('notifications.active') %></th>
+      <th scope="col"><%= _('Active') %>&nbsp;<%= paginable_sort_link('notifications.enable') %></th>
     </tr>
   </thead>
   <tbody>
@@ -17,7 +17,7 @@
         <td><%= notification.expires_at %></td>
         <td>
           <%= form_for notification, url: set_active_super_admin_notification_path(notification), html: { method: :post, remote: true, class: 'set_active_notification'  } do |f| %>
-            <%= check_box_tag(:active, "1", notification.active, "aria-label": "active" ) %>
+            <%= check_box_tag(:enable, "1", notification.enable, "aria-label": "active" ) %>
             <%= f.submit(_('Update'), style: 'display: none;') %>
           <% end %>
         </td>
@@ -25,6 +25,3 @@
     <% end %>
   </tbody>
 </table>
-
-
-<%# = notification.active? ? _('Yes') : _('No') %>

@@ -60,7 +60,7 @@ module SuperAdmin
     def set_active
 
       notification = Notification.find(params[:id])
-      notification.active = (params[:active] === "1")
+      notification.enable = (params[:enable] === "1")
       authorize(Notification)
       # rubocop:disable Metrics/LineLength
       if notification.save
@@ -115,7 +115,7 @@ module SuperAdmin
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def notification_params
-      params.require(:notification).permit(:title, :level, :body, :dismissable, :active,
+      params.require(:notification).permit(:title, :level, :body, :dismissable, :enable,
                                            :starts_at, :expires_at)
     end
 

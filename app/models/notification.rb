@@ -10,7 +10,7 @@
 #  notification_type :integer
 #  starts_at         :date
 #  title             :string
-#  active            :boolean
+#  enable            :boolean
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
@@ -44,7 +44,7 @@ class Notification < ActiveRecord::Base
 
   validates :dismissable, inclusion: { in: BOOLEAN_VALUES }
 
-  validates :active, inclusion: { in: BOOLEAN_VALUES }
+  validates :enable, inclusion: { in: BOOLEAN_VALUES }
 
   validates :starts_at, presence: { message: PRESENCE_MESSAGE },
                         after: { date: Date.today, on: :create }
@@ -58,7 +58,7 @@ class Notification < ActiveRecord::Base
   # ==========
 
   scope :active, (lambda do
-    where('starts_at <= :now and :now < expires_at', now: Time.now).where(active: true)
+    where('starts_at <= :now and :now < expires_at', now: Time.now).where(enable: true)
   end)
 
   scope :active_per_user, (lambda do |user|

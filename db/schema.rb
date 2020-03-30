@@ -126,7 +126,6 @@ ActiveRecord::Schema.define(version: 20200212145931) do
   end
 
   add_index "notification_acknowledgements", ["notification_id"], name: "index_notification_acknowledgements_on_notification_id", using: :btree
-  add_index "notification_acknowledgements", ["user_id"], name: "index_notification_acknowledgements_on_user_id", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "notification_type"
@@ -138,7 +137,7 @@ ActiveRecord::Schema.define(version: 20200212145931) do
     t.date     "expires_at"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.boolean  "active"
+    t.boolean  "enable"
   end
 
   create_table "org_identifiers", force: :cascade do |t|
@@ -439,28 +438,12 @@ ActiveRecord::Schema.define(version: 20200212145931) do
 
   add_index "users_perms", ["user_id"], name: "index_users_perms_on_user_id", using: :btree
 
-  add_foreign_key "annotations", "orgs"
-  add_foreign_key "annotations", "questions"
-  add_foreign_key "answers", "plans"
-  add_foreign_key "answers", "questions"
-  add_foreign_key "answers", "users"
-  add_foreign_key "answers_question_options", "answers"
-  add_foreign_key "answers_question_options", "question_options"
-  add_foreign_key "guidance_groups", "orgs"
-  add_foreign_key "guidances", "guidance_groups"
-  add_foreign_key "notes", "answers"
-  add_foreign_key "notes", "users"
-  add_foreign_key "notification_acknowledgements", "notifications"
-  add_foreign_key "notification_acknowledgements", "users"
-  add_foreign_key "org_identifiers", "identifier_schemes"
   add_foreign_key "org_identifiers", "orgs"
   add_foreign_key "org_token_permissions", "orgs"
   add_foreign_key "org_token_permissions", "token_permission_types"
-  add_foreign_key "orgs", "languages"
   add_foreign_key "orgs", "regions"
   add_foreign_key "phases", "templates"
   add_foreign_key "plans", "templates"
-  add_foreign_key "plans_guidance_groups", "guidance_groups"
   add_foreign_key "plans_guidance_groups", "plans"
   add_foreign_key "question_options", "questions"
   add_foreign_key "questions", "question_formats"
@@ -471,12 +454,8 @@ ActiveRecord::Schema.define(version: 20200212145931) do
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"
   add_foreign_key "templates", "orgs"
-  add_foreign_key "themes_in_guidance", "guidances"
   add_foreign_key "themes_in_guidance", "themes"
-  add_foreign_key "user_identifiers", "identifier_schemes"
   add_foreign_key "user_identifiers", "users"
-  add_foreign_key "users", "departments"
-  add_foreign_key "users", "languages"
   add_foreign_key "users", "orgs"
   add_foreign_key "users_perms", "perms"
   add_foreign_key "users_perms", "users"
