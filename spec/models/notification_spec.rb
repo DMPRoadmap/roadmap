@@ -40,7 +40,7 @@ RSpec.describe Notification, type: :model do
 
     context "when now is before starts_at" do
 
-      let!(:notification) { create(:notification, starts_at: 1.week.from_now) }
+      let!(:notification) { create(:notification, enable: True ,starts_at: 1.week.from_now) }
 
       it { is_expected.not_to include(notification) }
 
