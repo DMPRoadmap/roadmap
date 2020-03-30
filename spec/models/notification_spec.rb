@@ -49,7 +49,7 @@ RSpec.describe Notification, type: :model do
     context "when now lies between starts_at and expires_at" do
 
       let!(:notification) do
-        record = build(:notification, :enable, starts_at: 1.day.ago,
+        record = build(:notification, starts_at: 1.day.ago,
                                       expires_at: 1.day.from_now)
         record.save(validate: false)
         record
@@ -62,7 +62,7 @@ RSpec.describe Notification, type: :model do
     context "when now is after expires_at" do
 
       let!(:notification) do
-        create(:notification, :enable, starts_at: 1.week.from_now)
+        create(:notification, starts_at: 1.week.from_now)
       end
 
       it { is_expected.not_to include(notification) }
@@ -74,7 +74,7 @@ RSpec.describe Notification, type: :model do
 
     context "when User is present and Notification is general" do
 
-      let!(:notification) { create(:notification, :enable) }
+      let!(:notification) { create(:notification) }
 
       let!(:user) { create(:user) }
 
@@ -88,7 +88,7 @@ RSpec.describe Notification, type: :model do
 
       let!(:user) { create(:user) }
 
-      let!(:notification) { create(:notification, :enable) }
+      let!(:notification) { create(:notification) }
 
       before do
         notification.users << user
@@ -104,7 +104,7 @@ RSpec.describe Notification, type: :model do
 
       let!(:user) { nil }
 
-      let!(:notification) { create(:notification, :enable, :dismissable) }
+      let!(:notification) { create(:notification, :dismissable) }
 
       subject { Notification.active_per_user(user) }
 
@@ -116,7 +116,7 @@ RSpec.describe Notification, type: :model do
 
       let!(:user) { nil }
 
-      let!(:notification) { create(:notification, :enable) }
+      let!(:notification) { create(:notification) }
 
       subject { Notification.active_per_user(user) }
 
