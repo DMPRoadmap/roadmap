@@ -28,7 +28,6 @@ FactoryBot.define do
 
     trait :active do
       starts_at { Date.today }
-      enable { true }
     end
     trait :dismissable do
       dismissable { true }
