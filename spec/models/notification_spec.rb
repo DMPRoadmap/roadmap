@@ -16,9 +16,9 @@ RSpec.describe Notification, type: :model do
 
     it { is_expected.not_to allow_value(nil).for(:dismissable) }
 
-    it { is_expected.to allow_values(true, false).for(:enable) }
+    it { is_expected.to allow_values(true, false).for(:enabled) }
 
-    it { is_expected.not_to allow_value(nil).for(:enable) }
+    it { is_expected.not_to allow_value(nil).for(:enabled) }
 
     it { is_expected.to validate_presence_of(:starts_at) }
 
@@ -38,19 +38,21 @@ RSpec.describe Notification, type: :model do
 
     subject { Notification.active }
 
-    context "when now is before starts_at" do
+    context "when enabled and now is before starts_at" do
 
-      let!(:notification) { create(:notification, enable: True ,starts_at: 1.week.from_now) }
+      let!(:notification) { create(:notification, starts_at: 1.week.from_now,
+                                                  enabled: true) }
 
       it { is_expected.not_to include(notification) }
 
     end
 
-    context "when now lies between starts_at and expires_at" do
+    context "when enabled and now lies between starts_at and expires_at" do
 
       let!(:notification) do
         record = build(:notification, starts_at: 1.day.ago,
-                                      expires_at: 1.day.from_now)
+                                      expires_at: 1.day.from_now,
+                                      enabled: true)
         record.save(validate: false)
         record
       end
@@ -59,22 +61,36 @@ RSpec.describe Notification, type: :model do
 
     end
 
-    context "when now is after expires_at" do
+    context "when enabled and now is after expires_at" do
 
       let!(:notification) do
-        create(:notification, starts_at: 1.week.from_now)
+        create(:notification, starts_at: 1.week.from_now, enabled: true)
       end
 
       it { is_expected.not_to include(notification) }
 
     end
+
+    context "when disabled and now lies between starts_at and expires_at" do
+
+      let!(:notification) do
+        record = build(:notification, starts_at: 1.day.ago,
+                                      expires_at: 1.day.from_now)
+        record.save(validate: false)
+        record
+      end
+
+      it { is_expected.not_to include(notification) }
+
+    end
+
   end
 
   describe ".active_per_user" do
 
     context "when User is present and Notification is general" do
 
-      let!(:notification) { create(:notification) }
+      let!(:notification) { create(:notification, :active) }
 
       let!(:user) { create(:user) }
 
@@ -88,7 +104,7 @@ RSpec.describe Notification, type: :model do
 
       let!(:user) { create(:user) }
 
-      let!(:notification) { create(:notification) }
+      let!(:notification) { create(:notification, :active) }
 
       before do
         notification.users << user
@@ -104,7 +120,7 @@ RSpec.describe Notification, type: :model do
 
       let!(:user) { nil }
 
-      let!(:notification) { create(:notification, :dismissable) }
+      let!(:notification) { create(:notification, :active, :dismissable) }
 
       subject { Notification.active_per_user(user) }
 
@@ -116,11 +132,35 @@ RSpec.describe Notification, type: :model do
 
       let!(:user) { nil }
 
-      let!(:notification) { create(:notification) }
+      let!(:notification) { create(:notification, :active) }
 
       subject { Notification.active_per_user(user) }
 
       it { is_expected.to include(notification) }
+
+    end
+
+    context "when User is present and Notification is disabled" do
+
+      let!(:notification) { create(:notification, :active, enabled: false) }
+
+      let!(:user) { create(:user) }
+
+      subject { Notification.active_per_user(user) }
+
+      it { is_expected.not_to include(notification) }
+
+    end
+
+    context "when User is nil and Notification is not dismissable or enabled" do
+
+      let!(:user) { nil }
+
+      let!(:notification) { create(:notification) }
+
+      subject { Notification.active_per_user(user) }
+
+      it { is_expected.not_to include(notification) }
 
     end
   end
