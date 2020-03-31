@@ -281,7 +281,7 @@ Rails.application.routes.draw do
     end
     resources :notifications, except: [:show] do
       member do
-        post 'set_active', constraints: {format: [:json]}
+        post 'enable', constraints: {format: [:json]}
       end
     end
   end

@@ -57,16 +57,16 @@ module SuperAdmin
 
 
     # edit active field displayed in the table
-    def set_active
-
+    def enable
       notification = Notification.find(params[:id])
-      notification.enable = (params[:enable] === "1")
       authorize(Notification)
+      notification.enabled = (params[:enabled] === "1")
+
       # rubocop:disable Metrics/LineLength
       if notification.save
         render json: {
                  code: 1,
-                 msg: (notification.active ? _("Your notification is now active.") : _("Your notification is no longer active."))
+                 msg: (notification.enabled ? _("Your notification is now active.") : _("Your notification is no longer active."))
                }
       else
         render status: :bad_request, json: {
@@ -115,7 +115,7 @@ module SuperAdmin
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def notification_params
-      params.require(:notification).permit(:title, :level, :body, :dismissable, :enable,
+      params.require(:notification).permit(:title, :level, :body, :dismissable, :enabled,
                                            :starts_at, :expires_at)
     end
 
