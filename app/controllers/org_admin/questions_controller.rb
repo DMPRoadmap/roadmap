@@ -99,42 +99,49 @@ module OrgAdmin
       question = Question.find(params[:id])
       authorize question
 
-      # get a map from option number to id
-      old_number_to_id = {}
-      question.question_options.each do |opt|
-        old_number_to_id[opt.number] = opt.id
-      end
-      
-      # get a map from question versionable id to old id
+      new_version = question.template.generate_version?
+
       old_question_ids = {}
-      question.template.questions.each do |q|
-        old_question_ids[q.versionable_id] = q.id
+      if new_version
+        # get a map from option number to id
+        old_number_to_id = {}
+        question.question_options.each do |opt|
+          old_number_to_id[opt.number] = opt.id
+        end
+      
+        # get a map from question versionable id to old id
+        question.template.questions.each do |q|
+          old_question_ids[q.versionable_id] = q.id
+        end
       end
 
       question = get_modifiable(question)
 
-      # params now out of sync (after versioning) with the question_options
-      # so when we do the question.update it'll mess up
-      # need to remap params to keep them consistent
-      old_to_new_opts = {}
-      question.question_options.each do |opt|
-        old_id = old_number_to_id[opt.number]
-        old_to_new_opts[old_id.to_s] = opt.id.to_s
-      end
-
       question_id_map = {}
-      question.template.questions.each do |q|
-        question_id_map[old_question_ids[q.versionable_id].to_s] = q.id.to_s
+      if new_version
+        # params now out of sync (after versioning) with the question_options
+        # so when we do the question.update it'll mess up
+        # need to remap params to keep them consistent
+        old_to_new_opts = {}
+        question.question_options.each do |opt|
+          old_id = old_number_to_id[opt.number]
+          old_to_new_opts[old_id.to_s] = opt.id.to_s
+        end
+
+        question.template.questions.each do |q|
+          question_id_map[old_question_ids[q.versionable_id].to_s] = q.id.to_s
+        end
       end
       
       # rewrite the question_option ids so they match the new
       # version of the question
       # and also rewrite the remove_data question ids
-      attrs = update_option_ids(question_params, old_to_new_opts)
+      attrs = question_params
+      attrs = update_option_ids(attrs, old_to_new_opts) if new_version
 
       # Need to reattach the incoming annotation's and question_options to the
       # modifiable (versioned) question
-      attrs = transfer_associations(attrs, question) if question.id != params[:id]
+      attrs = transfer_associations(attrs, question) if new_version
 
       # If the user unchecked all of the themes set the association to an empty array
       # add check for number present to ensure this is not just an annotation
@@ -142,7 +149,7 @@ module OrgAdmin
         attrs[:theme_ids] = []
       end
       if question.update(attrs)
-        question.update_conditions(sanitize_hash(params["conditions"]), old_to_new_opts, question_id_map)
+        question.update_conditions(sanitize_hash(params["conditions"]), old_to_new_opts, question_id_map) if new_version
         flash[:notice] = success_message(question, _("updated"))
       else
         flash[:alert] = flash[:alert] = failure_message(question, _("update"))
