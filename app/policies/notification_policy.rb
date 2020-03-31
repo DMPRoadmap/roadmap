@@ -28,7 +28,7 @@ class NotificationPolicy < ApplicationPolicy
     @user.can_super_admin?
   end
 
-  def set_active?
+  def enable?
     @user.can_super_admin?
   end
 
