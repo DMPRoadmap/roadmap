@@ -200,9 +200,8 @@ class Question < ActiveRecord::Base
   # the old_to_new_opts map allows us to rewrite the question_option ids which may be out of sync
   # after versioning
   def update_conditions(param_conditions, old_to_new_opts, question_id_map)
-    self.conditions.each do |condition|
-      condition.destroy
-    end
+    self.conditions.destroy_all
+
     if param_conditions.present?
       param_conditions.each do |_key, value|
         saveCondition(value, old_to_new_opts, question_id_map)
@@ -216,20 +215,24 @@ class Question < ActiveRecord::Base
     c.action_type = value["action_type"]
     c.number = value['number']
     # question options may have changed so rewrite them
-    question_options = value["question_option"]
-    new_question_options = []
-    question_options.each do |qopt|
-      new_question_options << opt_map[qopt]
+    c.option_list = value["question_option"]
+    unless opt_map.blank?
+      new_question_options = []
+      c.option_list.each do |qopt|
+        new_question_options << opt_map[qopt]
+      end
+      c.option_list = new_question_options
     end
-    c.option_list = new_question_options
 
     if value["action_type"] == "remove"
-      question_ids = value["remove_question_id"]
-      new_question_ids = []
-      question_ids.each do |qid|
-        new_question_ids << question_id_map[qid]
+      c.remove_data = value["remove_question_id"]
+      unless question_id_map.blank?
+        new_question_ids = []
+        question_ids.each do |qid|
+          new_question_ids << question_id_map[qid]
+        end
+        c.remove_data = new_question_ids
       end
-      c.remove_data = new_question_ids
     else
       c.webhook_data = {
         name: value['webhook-name'],
