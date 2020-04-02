@@ -28,4 +28,9 @@ class Fragment::EthicalIssue < StructuredAnswer
         Fragment::ResearchOutput.where(id: parent_id)
     end
 
+
+    
+    def self.sti_name
+        "ethical_issue"
+    end
 end

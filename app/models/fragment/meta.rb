@@ -28,4 +28,9 @@ class Fragment::Meta < StructuredAnswer
         Fragment::Dmp.where(id: dmp_id).first
     end
     
+
+    
+    def self.sti_name
+        "meta"
+    end
 end

@@ -32,4 +32,9 @@ class Fragment::LegalIssue < StructuredAnswer
         Fragment::PersonalData.where(id: data['personalData']).first
     end
 
+    
+    def self.sti_name
+        "legal_issue"
+    end
+
 end

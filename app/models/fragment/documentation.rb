@@ -36,4 +36,9 @@ class Fragment::Documentation < StructuredAnswer
         Fragment::ResearchOutput.where(id: parent_id)
     end
 
+    
+    def self.sti_name
+        "documentation"
+    end
+
 end

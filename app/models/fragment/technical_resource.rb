@@ -27,4 +27,9 @@ class Fragment::TechnicalResource < StructuredAnswer
     def technicalResourceUsage
         Fragment::TechnicalResourceUsage.where("(data->>'technical_resource')::int = ?", id)
     end
+
+    
+    def self.sti_name
+        "technical_resource"
+    end
 end

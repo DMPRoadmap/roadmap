@@ -66,4 +66,8 @@ class Fragment::ResearchOutput < StructuredAnswer
         Fragment::StaffMember.where("(data->>'research_output')::int = ?", id)
     end
 
+
+    def self.sti_name
+        "research_output"
+    end
 end

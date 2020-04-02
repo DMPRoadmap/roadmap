@@ -28,4 +28,9 @@ class Fragment::Sharing < StructuredAnswer
         Fragment::ResearchOutput.where(id: data['research_output'])
     end
 
+    
+    def self.sti_name
+        "sharing"
+    end
+
 end

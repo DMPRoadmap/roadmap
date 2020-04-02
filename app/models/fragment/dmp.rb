@@ -40,4 +40,8 @@ class Fragment::Dmp < StructuredAnswer
         Fragment::Person.where(dmp_id: id)
     end
 
+
+    def self.sti_name
+        "dmp"
+    end
 end

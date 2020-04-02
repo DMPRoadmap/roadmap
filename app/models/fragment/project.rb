@@ -38,5 +38,10 @@ class Fragment::Project < StructuredAnswer
         Fragment::Partner.where("(data->>'project')::int = ?", id)
     end
 
+
+    
+    def self.sti_name
+        "project"
+    end
     
 end

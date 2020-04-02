@@ -27,25 +27,30 @@ class StructuredAnswer < ActiveRecord::Base
   self.inheritance_column = :classname 
 
 
-  scope :backup_policies, -> { where(classname: 'Fragment::BackupPolicy') } 
-  scope :costs, -> { where(classname: 'Fragment::Cost') } 
-  scope :distributions, -> { where(classname: 'Fragment::Distribution') } 
-  scope :dmps, -> { where(classname: 'Fragment::Dmp') } 
-  scope :documentations, -> { where(classname: 'Fragment::Documentation') } 
-  scope :ethical_issues, -> { where(classname: 'Fragment::EthicalIssue') } 
-  scope :funders, -> { where(classname: 'Fragment::Funder') } 
-  scope :metas, -> { where(classname: 'Fragment::Meta') } 
-  scope :metadata_formats, -> { where(classname: 'Fragment::MetadataFormat') } 
-  scope :methodology_issues, -> { where(classname: 'Fragment::MethodologyIssue') } 
-  scope :partners, -> { where(classname: 'Fragment::Partner') } 
-  scope :persons, -> { where(classname: 'Fragment::Person') }
-  scope :personal_datas, -> { where(classname: 'Fragment::PersonalData') }
-  scope :preservation_issues, -> { where(classname: 'Fragment::PreservationIssue') }
-  scope :projects, -> { where(classname: 'Fragment::Project') } 
-  scope :research_outputs, -> { where(classname: 'Fragment::ResearchOutput') } 
-  scope :reuse_datas, -> { where(classname: 'Fragment::ReuseData') } 
-  scope :sharings, -> { where(classname: 'Fragment::Sharing') } 
-  scope :staff_members, -> { where(classname: 'Fragment::StaffMember') } 
-  scope :technical_resource_usages, -> { where(classname: 'Fragment::TechnicalResourceUsage') } 
-  scope :technical_resources, -> { where(classname: 'Fragment::TechnicalResource') } 
+  scope :backup_policies, -> { where(classname: 'backup_policy') } 
+  scope :costs, -> { where(classname: 'cost') } 
+  scope :distributions, -> { where(classname: 'distribution') } 
+  scope :dmps, -> { where(classname: 'dmp') } 
+  scope :documentations, -> { where(classname: 'documentation') } 
+  scope :ethical_issues, -> { where(classname: 'ethicalIssue') } 
+  scope :funders, -> { where(classname: 'funder') } 
+  scope :metas, -> { where(classname: 'meta') } 
+  scope :metadata_formats, -> { where(classname: 'metadata_format') } 
+  scope :methodology_issues, -> { where(classname: 'methodology_issue') } 
+  scope :partners, -> { where(classname: 'partner') } 
+  scope :persons, -> { where(classname: 'person') }
+  scope :personal_datas, -> { where(classname: 'personal_data') }
+  scope :preservation_issues, -> { where(classname: 'preservation_issue') }
+  scope :projects, -> { where(classname: 'project') } 
+  scope :research_outputs, -> { where(classname: 'research_output') } 
+  scope :reuse_datas, -> { where(classname: 'reuse_data') } 
+  scope :sharings, -> { where(classname: 'sharing') } 
+  scope :staff_members, -> { where(classname: 'staff_member') } 
+  scope :technical_resource_usages, -> { where(classname: 'technical_resource_usage') } 
+  scope :technical_resources, -> { where(classname: 'technical_resource') } 
+
+
+  def self.find_sti_class(type_name)
+    self
+  end
 end

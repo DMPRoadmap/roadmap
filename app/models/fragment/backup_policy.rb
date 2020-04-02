@@ -28,4 +28,9 @@ class Fragment::BackupPolicy < StructuredAnswer
         Fragment::TechnicalResourceUsage.where("(data->>'backup_policy')::int = ?", id)
     end
 
+
+    def self.sti_name
+        "backup_policy"
+    end
+
 end

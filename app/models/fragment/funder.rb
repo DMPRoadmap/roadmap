@@ -28,4 +28,9 @@ class Fragment::Funder < StructuredAnswer
         Fragment::Project.where(id: data['project']).first
     end
 
+    
+    def self.sti_name
+        "funder"
+    end
+
 end

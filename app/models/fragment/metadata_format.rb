@@ -28,4 +28,9 @@ class Fragment::MetadataFormat < StructuredAnswer
         Fragment::Documentation.where("(data->>'metadata_format')::int = ?", id)
     end
 
+    
+    def self.sti_name
+        "metadata_format"
+    end
+
 end

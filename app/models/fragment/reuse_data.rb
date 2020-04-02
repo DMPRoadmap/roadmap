@@ -28,4 +28,9 @@ class Fragment::ReuseData < StructuredAnswer
         Fragment::ResearchOutput.where(id: parent_id).first
     end
 
+
+    
+    def self.sti_name
+        "reuse_data"
+    end
 end

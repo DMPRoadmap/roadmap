@@ -27,5 +27,9 @@ class Fragment::Distribution < StructuredAnswer
     def researchOutput
         Fragment::ResearchOutput.where(id: parent_id)
     end
+
     
+    def self.sti_name
+        "distribution"
+    end
 end

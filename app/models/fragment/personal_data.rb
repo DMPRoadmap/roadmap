@@ -28,4 +28,9 @@ class Fragment::PersonalData < StructuredAnswer
         Fragment::LegalIssue.where("(data->>'legalIssue')::int = ?", id).first
     end
 
+    
+    def self.sti_name
+        "personal_data"
+    end
+
 end

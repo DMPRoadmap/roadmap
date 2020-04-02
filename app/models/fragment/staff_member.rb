@@ -32,4 +32,9 @@ class Fragment::StaffMember < StructuredAnswer
         Fragment::ResearchOutput.where(id: parent_id)
     end
 
+    
+    def self.sti_name
+        "sharing"
+    end
+
 end

@@ -36,4 +36,9 @@ class Fragment::TechnicalResourceUsage < StructuredAnswer
         Fragment::RechnicalResource.where(id: data['technical_resource']).first
     end
 
+    
+    def self.sti_name
+        "technical_resource_usage"
+    end
+
 end

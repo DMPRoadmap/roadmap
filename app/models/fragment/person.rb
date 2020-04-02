@@ -32,4 +32,9 @@ class Fragment::Person < StructuredAnswer
         Fragment::Meta.where("(data->>'contact')::int = ?", id)
     end
 
+    
+    def self.sti_name
+        "person"
+    end
+
 end

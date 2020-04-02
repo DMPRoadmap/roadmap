@@ -23,5 +23,10 @@ class Fragment::Cost < StructuredAnswer
     def dmp
         Fragment::Dmp.where(id: dmp_id).first
     end
+
+
+    def self.sti_name
+        "cost"
+    end
     
 end
