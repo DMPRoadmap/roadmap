@@ -71,9 +71,11 @@
                 <% if research_output.main? && plan.research_outputs.count > 1 %>
                   <p>
                     <input type="checkbox" class="is_common_cb" 
+                          data-target-url="<%= set_answers_as_common_answers_path %>"
                           title="<%= d_("dmpopidor", "Please click to indicate that this section\'s answers are common to all research outputs" ) %>"
                           <%= 'checked=""' if section_has_common_answers %>> <%= d_('dmpopidor', 'This section\'s answers are common to all research outputs') %>
                   </p>
+                  <span class="common_changed label label-info" style="display:none"><%= d_('dmpopidor', 'Changes saved.')%></span>
                 <% end %>
                 <!-- the section body -->
                 <% section.questions.each_with_index do |question, i| %>

@@ -91,6 +91,7 @@ Rails.application.routes.draw do
 
   resources :answers, only: [] do
     post 'create_or_update', on: :collection
+    post 'set_answers_as_common', on: :collection
   end
 
   # Question Formats controller, currently just the one action

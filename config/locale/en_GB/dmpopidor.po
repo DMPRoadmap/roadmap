@@ -422,3 +422,6 @@ msgstr "INIST website"
 
 msgid "Selected Template"
 msgstr "Selected Template"
+
+msgid "Changes saved."
+msgstr "Changes saved."

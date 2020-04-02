@@ -428,3 +428,5 @@ msgstr ""
 msgid "Selected Template"
 msgstr ""
 
+msgid "Changes saved."
+msgstr ""

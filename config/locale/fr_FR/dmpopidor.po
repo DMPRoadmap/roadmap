@@ -422,3 +422,6 @@ msgstr "Site INIST"
 
 msgid "Selected Template"
 msgstr "Modèle choisi"
+
+msgid "Changes saved."
+msgstr "Changements enregistrés."
