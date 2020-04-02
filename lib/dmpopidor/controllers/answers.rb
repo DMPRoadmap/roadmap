@@ -87,6 +87,9 @@ module Dmpopidor
               @research_output = @answer.research_output
               # rubocop:disable LineLength
               render json: {
+              "answer" => {
+                "id" => @answer.id
+              },
               "question" => {
                 "id" => @question.id,
                 "answer_lock_version" => @answer.lock_version,
