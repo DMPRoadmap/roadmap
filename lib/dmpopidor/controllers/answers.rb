@@ -39,8 +39,9 @@ module Dmpopidor
                 research_output_id: p_params[:research_output_id]
             })
             authorize @answer
-            p = p_params.merge(user_id: current_user.id).select { |k, v| !schema_params.include?(k) }
-            @answer.update(p)
+            pa = p_params.merge(user_id: current_user.id)
+            pa = pa.select { |k, v| !schema_params.include?(k) } if q.question_format.structured
+            @answer.update(pa)
             if p_params[:question_option_ids].present?
               # Saves the record with the updated_at set to the current time.
               # Needed if only answer.question_options is updated
@@ -62,8 +63,9 @@ module Dmpopidor
               @answer.save!
             end
             rescue ActiveRecord::RecordNotFound
-              p = p_params.merge(user_id: current_user.id).select { |k, v| !schema_params.include?(k) }
-              @answer = Answer.new(p)
+              pa = p_params.merge(user_id: current_user.id)
+              pa = pa.select { |k, v| !schema_params.include?(k) } if q.question_format.structured  
+              @answer = Answer.new(pa)
               @answer.lock_version = 1
               authorize @answer
               if q.question_format.structured
@@ -195,10 +197,12 @@ module Dmpopidor
         end
 
         def permitted_params
-          permitted = params.require(:answer).permit([:id, :text, :plan_id, :user_id,
-                                                     :question_id, :lock_version,
-                                                     :research_output_id, :is_common,
-                                                     question_option_ids: []].append(schema_params))
+          permit_arr = [:id, :text, :plan_id, :user_id,
+            :question_id, :lock_version,
+            :research_output_id, :is_common,
+            question_option_ids: []]
+          permit_arr.append(schema_params) if Question.find(params[:question_id]).question_format.structured
+          permitted = params.require(:answer).permit(permit_arr)
           # If question_option_ids has been filtered out because it was a
           # scalar value (e.g. radiobutton answer)
           if !params[:answer][:question_option_ids].nil? &&
