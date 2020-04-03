@@ -13,6 +13,7 @@
 </div>
 <% if q.question_options.count == 0 %>
   <% 2.times { q.question_options.build } %>
+  <% q.question_options.each {|qopt| qopt.id=0} %>
 <% end %>
 <% i = 0 %>
 <% q.question_options.to_a.sort_by{|op| op['number']}.each do |options_q| %>
@@ -35,7 +36,7 @@
       </div>
       <div class="col-md-3">
         <%= op.hidden_field :_destroy, class: 'destroy-question-option' %>
-        <a href="#" class="delete_question_option"><%= _('Remove') %></a>
+        <%= link_to _('Remove'), org_admin_question_option_path(options_q), method: :delete %>
       </div>
     </div>
   <% end %>
