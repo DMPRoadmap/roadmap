@@ -98,6 +98,8 @@ class Answer < ActiveRecord::Base
     if question.present?
       if question.question_format.option_based?
         return question_options.any?
+      elsif question.question_format.structured
+        return !structured_answer.nil?
       else  # (e.g. textarea or textfield question formats)
         return not(is_blank?)
       end
@@ -162,6 +164,16 @@ class Answer < ActiveRecord::Base
       # Force updated_at changes if nothing changed since save only saves if changes
       # were made to the record
       plan.touch
+    end
+  end
+
+  def age
+    if question.present?
+      if question.question_format.structured
+        return structured_answer.updated_at.iso8601
+      else
+        updated_at.iso8601
+      end
     end
   end
 
