@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
 
     # Will run ES Lint checks on javascript files
     #   https://github.com/marketplace/actions/run-eslint

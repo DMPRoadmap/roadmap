@@ -21,6 +21,10 @@ class UsagePolicy < Struct.new(:user, :usage)
   end
 
   def global_statistics?
+    @user.can_super_admin?
+  end
+
+  def org_statistics?
     @user.can_org_admin?
   end
 

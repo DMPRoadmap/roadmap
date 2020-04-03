@@ -1,4 +1,4 @@
-import { Tinymce } from '../../../utils/tinymce';
+import { Tinymce } from '../../../utils/tinymce.js.erb';
 import { eachLinks } from '../../../utils/links';
 
 $(() => {
