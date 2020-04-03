@@ -54,14 +54,14 @@ module Dmpopidor
         Fragment::Dmp.where("(data->>'plan_id')::int = ?", id).first
       end
 
-      def create_project_json
+      def create_project_json(pi_frag_id = nil)
         {
           "title" => self.title,
           "grantId" => {
             "value" => self.grant_number ? self.grant_number : ""
           },
           "principalInvestigator" => {
-            "dbId" => json_fragment().project.principalInvestigator.id
+            "dbId" => pi_frag_id ? pi_frag_id : json_fragment().project.principalInvestigator.id
           }
         }
       end
@@ -94,7 +94,7 @@ module Dmpopidor
           )
 
           project_fragment = Fragment::Project.create(
-            data: create_project_json(),
+            data: create_project_json(principal_investigator_fragment.id),
             dmp_id: dmp_fragment.id,
             parent_id: dmp_fragment.id
           )

@@ -82,6 +82,7 @@ class StructuredAnswer < ActiveRecord::Base
 
       classified_children.each do |classname, children|
         if children.count >= 2
+          # if there is more than 1 child, should pluralize the classname
           parent_data[classname.pluralize(children.count)] = children.map { |c| { "dbId" => c.id } }
         else 
           parent_data[classname] = children.map { |c| { "dbId" => c.id } }
