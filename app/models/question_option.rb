@@ -47,6 +47,8 @@ class QuestionOption < ActiveRecord::Base
   validates :is_default, inclusion: { in: BOOLEAN_VALUES,
                                       message: INCLUSION_MESSAGE }
 
+  before_destroy :check_condition_options
+
   # ==========
   # = Scopes =
   # ==========
@@ -69,4 +71,19 @@ class QuestionOption < ActiveRecord::Base
     options[:question_option_id] = copy.id
     copy
   end
+
+  private 
+
+  # if we destroy a question_option
+  # we need to remove any conditions which depend on it
+  # even if they depend on something else as well
+  def check_condition_options
+    id = self.id.to_s
+    self.question.conditions.each do |cond|
+      if cond.option_list.include?(id)
+        cond.destroy
+      end
+    end
+  end
+
 end

@@ -3,7 +3,8 @@ export default (context) => {
     e.preventDefault();
     const source = $(e.target).closest('[data-attribute="question_option"]');
     source.find('.destroy-question-option').val(true);
-    source.hide();
+    source.next().remove();
+    source.remove();
     // $(source).closest('[data-attribute="question_option"]').remove();
   });
   $(`#${context} .new_question_option`).on('click', (e) => {
