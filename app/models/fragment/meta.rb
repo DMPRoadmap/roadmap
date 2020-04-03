@@ -21,7 +21,7 @@
 class Fragment::Meta < StructuredAnswer
 
     def contact
-        Fragment::Person.where(id: data['contact']).first
+        Fragment::Person.where(id: data['contact']['dbId']).first
     end
     
     def dmp
