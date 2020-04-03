@@ -119,6 +119,9 @@ module ConditionsHelper
         next if phase.number == question.phase.number &&
                 section.number < question.section.number
 
+        # original funder template sections will not be modifiable
+        next unless section.modifiable
+
         section.questions.each do |q|
           next if phase.number == question.phase.number &&
             section.number == question.section.number &&
