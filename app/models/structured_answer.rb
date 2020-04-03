@@ -19,14 +19,21 @@
 #
 
 class StructuredAnswer < ActiveRecord::Base
+
+  # ================
+  # = Associations =
+  # ================
+
   belongs_to :answer
   belongs_to :structured_data_schema
   belongs_to :dmp, class_name: "Fragment::Dmp", foreign_key: "dmp_id"
   has_many :children, class_name: "StructuredAnswer", foreign_key: "parent_id"
+  belongs_to :parent, class_name: "StructuredAnswer", foreign_key: "parent_id" 
 
+  # ================
+  # = Single Table Inheritence =
+  # ================
   self.inheritance_column = :classname 
-
-
   scope :backup_policies, -> { where(classname: 'backup_policy') } 
   scope :costs, -> { where(classname: 'cost') } 
   scope :distributions, -> { where(classname: 'distribution') } 
@@ -49,6 +56,40 @@ class StructuredAnswer < ActiveRecord::Base
   scope :technical_resource_usages, -> { where(classname: 'technical_resource_usage') } 
   scope :technical_resources, -> { where(classname: 'technical_resource') } 
 
+
+  # =============
+  # = Callbacks =
+  # =============
+
+  after_create  :update_parent_references
+  after_destroy :update_parent_references
+
+  # =================
+  # = Class methods =
+  # =================
+
+
+  # This method generates references to the child fragments in the parent fragment
+  # it updates the json "data" field in the database
+  # it groups the children fragment by classname and extracts the list of ids
+  # to create the json structure needed to update the "data" field
+  # this method should be called when creating or deleting a child fragment
+  def update_parent_references
+    unless self.parent.nil?
+      # Get each fragment grouped by its classname
+      classified_children = parent.children.group_by(&:classname)
+      parent_data = self.parent.data
+
+      classified_children.each do |classname, children|
+        if children.count >= 2
+          parent_data[classname.pluralize(children.count)] = children.map { |c| { "dbId" => c.id } }
+        else 
+          parent_data[classname] = children.map { |c| { "dbId" => c.id } }
+        end 
+      end
+      self.parent.update(data: parent_data)
+    end
+  end
 
   def self.find_sti_class(type_name)
     self
