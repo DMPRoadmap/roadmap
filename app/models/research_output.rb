@@ -24,6 +24,7 @@ class ResearchOutput < ActiveRecord::Base
   include ValidationMessages
 
   after_save :create_or_update_fragments
+  after_destroy :destroy_json_fragment
   
   # ================
   # = Associations =
@@ -81,6 +82,10 @@ class ResearchOutput < ActiveRecord::Base
 
   def json_fragment
     Fragment::ResearchOutput.where("(data->>'research_output_id')::int = ?", id).first
+  end
+
+  def destroy_json_fragment
+    Fragment::ResearchOutput.where("(data->>'research_output_id')::int = ?", id).destroy_all
   end
 
   def create_or_update_fragments
