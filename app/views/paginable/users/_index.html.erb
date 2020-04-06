@@ -16,6 +16,7 @@
               <th scope="col" class="text-center sorter-false"><%= _('Current Privileges') %></th>
               <th scope="col" class="text-center"><%= _('Active') %></th>
               <th scope="col" class="text-center sorter-false"><%= _('Privileges') %></th>
+              <th scope="col" class="text-center sorter-false"><%= _('Identifiers') %></th>
           </tr>
         </thead>
         <tbody>
@@ -78,6 +79,11 @@
                     <%# Do not allow a user to change their own permissions or a super admin's permissions if they are not a super admin %>
                     <% unless current_user == user || !is_super_admin && user.can_super_admin? %>
                       <%= link_to( _('Edit'), admin_grant_permissions_user_path(user)) %>
+                    <% end %>
+                  </td>
+                  <td class="text-center">
+                    <% user.user_identifiers.each do |user_identifier| %>
+                      <p><%= user_identifier.identifier_scheme.name %> = <%= user_identifier.identifier %></p>
                     <% end %>
                   </td>
                 </tr>
