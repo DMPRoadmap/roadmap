@@ -550,11 +550,7 @@ RSpec.describe User, type: :model do
       let!(:identifier) do
         create(:identifier, :for_user, identifiable: user,
                                        identifier_scheme: scheme,
-<<<<<<< HEAD
                                        value: Faker::Movies::StarWars.character)
-=======
-                                       value: Faker::Lorem.unique.word)
->>>>>>> bb5a32ed... updated identifier and identifiable and org_Selector
       end
 
       it { is_expected.to be_nil }

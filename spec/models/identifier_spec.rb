@@ -189,7 +189,6 @@ RSpec.describe Identifier, type: :model do
     end
   end
 
-<<<<<<< HEAD
   describe "#value=(val)" do
     before(:each) do
       @scheme = create(:identifier_scheme, identifier_prefix: Faker::Internet.url)
@@ -199,56 +198,29 @@ RSpec.describe Identifier, type: :model do
       val = Faker::Lorem.word
       id = build(:identifier, value: val, identifier_scheme: nil)
       expect(id.value).to eql(val)
-=======
-  describe "#append_scheme_prefix" do
-    before(:each) do
-      @scheme = create(:identifier_scheme, identifier_prefix: Faker::Internet.url)
-    end
-    
-    it "returns the value if the identifier_scheme is not present" do
-      val = Faker::Lorem.word
-      id = build(:identifier, value: val, identifier_scheme: nil)
-      expect(id.append_scheme_prefix).to eql(val)
->>>>>>> bb5a32ed... updated identifier and identifiable and org_Selector
     end
     it "returns the value if the identifier_scheme has no prefix" do
       val = Faker::Lorem.word
       @scheme.identifier_prefix = nil
       id = build(:identifier, value: val, identifier_scheme: @scheme)
-<<<<<<< HEAD
       expect(id.value).to eql(val)
-=======
-      expect(id.append_scheme_prefix).to eql(val)
->>>>>>> bb5a32ed... updated identifier and identifiable and org_Selector
     end
     it "returns the value if the value is already a URL" do
       val = "#{@scheme.identifier_prefix}/#{Faker::Lorem.word}"
       id = build(:identifier, value: val, identifier_scheme: @scheme)
-<<<<<<< HEAD
       expect(id.value).to eql(val)
-=======
-      expect(id.append_scheme_prefix).to eql(val)
->>>>>>> bb5a32ed... updated identifier and identifiable and org_Selector
     end
     it "appends the identifier scheme prefix to the value" do
       val = Faker::Lorem.word
       id = build(:identifier, value: val, identifier_scheme: @scheme)
       expected = @scheme.identifier_prefix
-<<<<<<< HEAD
       expect(id.value.starts_with?(expected)).to eql(true)
-=======
-      expect(id.append_scheme_prefix.starts_with?(expected)).to eql(true)
->>>>>>> bb5a32ed... updated identifier and identifiable and org_Selector
     end
     it "appends the identifier scheme prefix to the value even if its a URL" do
       val = Faker::Internet.url
       id = build(:identifier, value: val, identifier_scheme: @scheme)
       expected = @scheme.identifier_prefix
-<<<<<<< HEAD
       expect(id.value.starts_with?(expected)).to eql(true)
-=======
-      expect(id.append_scheme_prefix.starts_with?(expected)).to eql(true)
->>>>>>> bb5a32ed... updated identifier and identifiable and org_Selector
     end
   end
 
