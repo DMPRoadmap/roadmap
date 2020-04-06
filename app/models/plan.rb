@@ -120,11 +120,8 @@ class Plan < ActiveRecord::Base
 
   has_many :roles
 
-<<<<<<< HEAD
   has_many :contributors, dependent: :destroy
 
-=======
->>>>>>> bb5a32ed... updated identifier and identifiable and org_Selector
   # =====================
   # = Nested Attributes =
   # =====================

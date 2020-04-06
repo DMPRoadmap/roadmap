@@ -42,15 +42,6 @@ class Identifier < ActiveRecord::Base
 
   validate :value_uniqueness_without_scheme, unless: :has_scheme?
 
-<<<<<<< HEAD
-=======
-  # =============
-  # = Callbacks =
-  # =============
-
-  before_save :append_scheme_prefix
-
->>>>>>> bb5a32ed... updated identifier and identifiable and org_Selector
   # ===============
   # = Scopes =
   # ===============
@@ -92,18 +83,12 @@ class Identifier < ActiveRecord::Base
                         identifier_scheme.identifier_prefix.present?
 
     base = identifier_scheme.identifier_prefix
-<<<<<<< HEAD
-    value.gsub(base, "").sub(%r{^\/}, "")
-=======
-    value.gsub(base, "").sub(/^\//, "")
->>>>>>> bb5a32ed... updated identifier and identifiable and org_Selector
-  end
+    value.gsub(base, "").sub(%r{^\/}, "")  end
 
   # Appends the identifier scheme's prefix to the identifier if necessary
   # For example:
   #   value   '0000-0000-0000-0001'
   #   becomes 'https://orcid.org/0000-0000-0000-0001'
-<<<<<<< HEAD
   def value=(val)
     if identifier_scheme.present? &&
        identifier_scheme.identifier_prefix.present? &&
@@ -116,16 +101,6 @@ class Identifier < ActiveRecord::Base
     else
       super(val)
     end
-=======
-  def append_scheme_prefix
-    return self.value unless identifier_scheme.present? &&
-                             identifier_scheme.identifier_prefix.present? &&
-                             !self.value.starts_with?(identifier_scheme.identifier_prefix)
-
-    base = identifier_scheme.identifier_prefix
-    base += "/" unless base.ends_with?("/")
-    self.value = "#{base}#{value}"
->>>>>>> bb5a32ed... updated identifier and identifiable and org_Selector
   end
 
   private
@@ -150,11 +125,7 @@ class Identifier < ActiveRecord::Base
   # Verify the uniqueness of :value across :identifier_scheme
   def value_uniqueness_with_scheme
     if Identifier.where(identifier_scheme: self.identifier_scheme,
-<<<<<<< HEAD
                         value: self.value).any?
-=======
-                        value: self.append_scheme_prefix).any?
->>>>>>> bb5a32ed... updated identifier and identifiable and org_Selector
       errors.add(:value, _("already assigned"))
     end
     if Identifier.where(identifier_scheme: self.identifier_scheme,
