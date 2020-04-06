@@ -34,19 +34,20 @@ class StructuredAnswer < ActiveRecord::Base
   # = Single Table Inheritence =
   # ================
   self.inheritance_column = :classname 
-  scope :backup_policies, -> { where(classname: 'backup_policy') } 
   scope :costs, -> { where(classname: 'cost') } 
+  scope :data_collections, -> { where(classname: 'data_collection') } 
+  scope :data_qualities, -> { where(classname: 'data_quality') } 
   scope :distributions, -> { where(classname: 'distribution') } 
   scope :dmps, -> { where(classname: 'dmp') } 
   scope :documentations, -> { where(classname: 'documentation') } 
   scope :ethical_issues, -> { where(classname: 'ethicalIssue') } 
   scope :funders, -> { where(classname: 'funder') } 
+  scope :fundings, -> { where(classname: 'funding') } 
   scope :metas, -> { where(classname: 'meta') } 
   scope :metadata_formats, -> { where(classname: 'metadata_format') } 
-  scope :methodology_issues, -> { where(classname: 'methodology_issue') } 
   scope :partners, -> { where(classname: 'partner') } 
   scope :persons, -> { where(classname: 'person') }
-  scope :personal_datas, -> { where(classname: 'personal_data') }
+  scope :personal_data_issues, -> { where(classname: 'personal_data_issue') }
   scope :preservation_issues, -> { where(classname: 'preservation_issue') }
   scope :projects, -> { where(classname: 'project') } 
   scope :research_outputs, -> { where(classname: 'research_output') } 

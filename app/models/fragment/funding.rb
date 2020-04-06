@@ -18,19 +18,19 @@
 #  index_structured_answers_on_structured_data_schema_id  (structured_data_schema_id)
 #
 
-class Fragment::MethodologyIssue < StructuredAnswer
+class Fragment::Funding < StructuredAnswer
 
-    def dmp
-        Fragment::Dmp.where(id: dmp_id).first
+    def project
+        Fragment::Project.where(id: data['project']['dbId']).first
     end
 
-    def researchOutput
-        Fragment::ResearchOutput.where(id: parent_id)
+    def funder
+        Fragment::Funder.where(id: data['funder']['dbId']).first
     end
 
     
     def self.sti_name
-        "methodology_issue"
+        "funding"
     end
 
 end

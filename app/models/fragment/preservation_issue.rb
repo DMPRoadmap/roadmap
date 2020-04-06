@@ -20,12 +20,8 @@
 
 class Fragment::PreservationIssue < StructuredAnswer
 
-    def dmp
-        Fragment::Dmp.where(id: dmp_id).first
-    end
-
-    def researchOutput
-        Fragment::ResearchOutput.where(id: parent_id)
+    def research_output
+        self.parent
     end
 
     

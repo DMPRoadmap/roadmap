@@ -18,19 +18,15 @@
 #  index_structured_answers_on_structured_data_schema_id  (structured_data_schema_id)
 #
 
-class Fragment::BackupPolicy < StructuredAnswer
+class Fragment::PersonalDataIssue < StructuredAnswer
 
-    def dmp
-        Fragment::Dmp.where(id: dmp_id).first
+    def research_output
+        self.parent
     end
 
-    def technicalResourceUsage
-        Fragment::TechnicalResourceUsage.where("(data->>'backup_policy')::int = ?", id)
-    end
-
-
+    
     def self.sti_name
-        "backup_policy"
+        "personal_data_issue"
     end
 
 end

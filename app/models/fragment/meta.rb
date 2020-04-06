@@ -24,10 +24,6 @@ class Fragment::Meta < StructuredAnswer
         Fragment::Person.where(id: data['contact']['dbId']).first
     end
     
-    def dmp
-        Fragment::Dmp.where(id: dmp_id).first
-    end
-    
 
     
     def self.sti_name

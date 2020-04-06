@@ -140,10 +140,6 @@ module Dmpopidor
             #contact_fragment_id = contact_fragment.id
           end
 
-          p "#################################"
-          p contact_fragment_id
-          p "#################################"
-
           dmp_fragment.meta.update(
             data: create_meta_json(contact_fragment_id)
           )

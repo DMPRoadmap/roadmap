@@ -18,19 +18,14 @@
 #  index_structured_answers_on_structured_data_schema_id  (structured_data_schema_id)
 #
 
-class Fragment::PersonalData < StructuredAnswer
+class Fragment::DataQuality < StructuredAnswer
 
-    def dmp
-        Fragment::Dmp.where(id: dmp_id).first
+    def research_output
+        self.parent
     end
-
-    def legalIssue
-        Fragment::LegalIssue.where("(data->>'legalIssue')::int = ?", id).first
-    end
-
     
     def self.sti_name
-        "personal_data"
+        "data_quality"
     end
 
 end

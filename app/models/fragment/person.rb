@@ -20,16 +20,29 @@
 
 class Fragment::Person < StructuredAnswer
 
-    def dmp
-        Fragment::Dmp.where(id: dmp_id).first
+
+    def documentations
+        Fragment::Documentation.where("(data->>'documentation_administrator'->>'dbId')::int = ?", id)
     end
 
-    def legalIssues
-        Fragment::LegalIssue.where("(data->>'legalAdvisor')::int = ?", id)
+    def legal_issues
+        Fragment::LegalIssue.where("(data->>'legal_advisor'->>'dbId')::int = ?", id)
     end
 
     def metas
-        Fragment::Meta.where("(data->>'contact')::int = ?", id)
+        Fragment::Meta.where("(data->>'contact'->>'dbId')::int = ?", id)
+    end
+
+    def projects
+        Fragment::Project.where("(data->>'principal_investigator'->>'dbId')::int = ?", id)
+    end
+
+    def research_outputs
+        Fragment::ResearchOutput.where("(data->>'contact'->>'dbId')::int = ?", id)
+    end
+
+    def staff_members
+        Fragment::StaffMember.where("(data->>'agent'->>'dbId')::int = ?", id)
     end
 
     

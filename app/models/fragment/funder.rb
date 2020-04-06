@@ -20,14 +20,9 @@
 
 class Fragment::Funder < StructuredAnswer
 
-    def dmp
-        Fragment::Dmp.where(id: dmp_id).first
+    def fundings
+        Fragment::Funding.where("(data->>'funder'->>'dbId')::int = ?", id)
     end
-
-    def project
-        Fragment::Project.where(id: data['project']).first
-    end
-
     
     def self.sti_name
         "funder"

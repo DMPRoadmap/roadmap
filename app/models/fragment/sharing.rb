@@ -20,12 +20,8 @@
 
 class Fragment::Sharing < StructuredAnswer
 
-    def dmp
-        Fragment::Dmp.where(id: dmp_id).first
-    end
-
-    def researchOutput
-        Fragment::ResearchOutput.where(id: data['research_output'])
+    def research_output
+        self.parent
     end
 
     

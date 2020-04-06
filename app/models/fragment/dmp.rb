@@ -20,10 +20,6 @@
 
 class Fragment::Dmp < StructuredAnswer
 
-    def cost
-        Fragment::Cost.where(dmp_id: id)
-    end
-
     def meta
         Fragment::Meta.where(dmp_id: id).first
     end
@@ -32,7 +28,7 @@ class Fragment::Dmp < StructuredAnswer
         Fragment::Project.where(dmp_id: id).first
     end
 
-    def researchOutputs
+    def research_outputs
         Fragment::ResearchOutput.where(dmp_id: id)
     end
 

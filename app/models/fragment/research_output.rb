@@ -21,49 +21,62 @@
 class Fragment::ResearchOutput < StructuredAnswer
     
     def contact
-        Fragment::Person.where(id: data['contact']).first
+        Fragment::Person.where(id: data['contact']['dbId']).first
     end
-
-    def dmp
-        Fragment::Dmp.where(id: dmp_id).first
+    
+    def data_collection
+        Fragment::DataCollection.where(parent_id: id).first
+    end
+    
+    def data_quality
+        Fragment::DataQuality.where(parent_id: id).first
     end
 
     def documentation 
-        Fragment::Documentation.where("(data->>'research_output')::int = ?", id).first
+        Fragment::Documentation.where(parent_id: id).first
     end
 
-    def preservationIssue 
-        Fragment::PreservationIssue.where("(data->>'research_output')::int = ?", id).first
+    def preservation_issue 
+        Fragment::PreservationIssue.where(parent_id: id).first
     end
 
     def sharing 
-        Fragment::Sharing.where("(data->>'research_output')::int = ?", id).first
-    end
-
-    def technicalResourceUsage 
-        Fragment::TechnicalResourceUsage.where("(data->>'research_output')::int = ?", id).first
+        Fragment::Sharing.where(parent_id: id).first
     end
 
 
+
+    def costs
+        Fragment::Cost.where(parent_id: id)
+    end
 
     def distributions
-        Fragment::Distribution.where("(data->>'research_output')::int = ?", id)
+        Fragment::Distribution.where(parent_id: id)
     end
 
-    def ethicalIssues
-        Fragment::EthicalIssue.where("(data->>'research_output')::int = ?", id)
+    def ethical_issues
+        Fragment::EthicalIssue.where(parent_id: id)
     end
 
-    def methodologyIssues
-        Fragment::MethodologyIssue.where("(data->>'research_output')::int = ?", id)
+    def legal_issues
+        Fragment::LegalIssue.where(parent_id: id)
     end
 
-    def reuseDatas
-        Fragment::ReuseData.where("(data->>'research_output')::int = ?", id)
+
+    def personal_data_issues
+        Fragment::PersonalDataIssue.where(parent_id: id)
     end
 
-    def staffMembers
-        Fragment::StaffMember.where("(data->>'research_output')::int = ?", id)
+    def reuse_datas
+        Fragment::ReuseData.where(parent_id: id)
+    end
+
+    def staff_members
+        Fragment::StaffMember.where(parent_id: id)
+    end
+
+    def technical_resource_usages
+        Fragment::TechnicalResourceUsage.where(parent_id: id)
     end
 
 

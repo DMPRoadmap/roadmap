@@ -20,22 +20,17 @@
 
 class Fragment::Project < StructuredAnswer
 
-    def dmp
-        Fragment::Dmp.where(id: dmp_id).first
-    end
-
     def principalInvestigator
         Fragment::Person.where(id: data['principalInvestigator']['dbId']).first
     end
 
-
     
-    def funders
-        Fragment::Funder.where("(data->>'project')::int = ?", id)
+    def fundings
+        Fragment::Funding.where("(data->>'project'->>'dbId')::int = ?", id)
     end
 
     def partners
-        Fragment::Partner.where("(data->>'project')::int = ?", id)
+        Fragment::Partner.where("(data->>'project'->>'dbId')::int = ?", id)
     end
 
 

@@ -20,15 +20,9 @@
 
 class Fragment::EthicalIssue < StructuredAnswer
 
-    def dmp
-        Fragment::Dmp.where(id: dmp_id).first
+    def research_output
+        self.parent
     end
-
-    def researchOutput
-        Fragment::ResearchOutput.where(id: parent_id)
-    end
-
-
     
     def self.sti_name
         "ethical_issue"

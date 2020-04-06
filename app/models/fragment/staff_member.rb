@@ -21,20 +21,16 @@
 class Fragment::StaffMember < StructuredAnswer
 
     def agent 
-        Fragment::Person.where(id: data['agent'])
-    end
-
-    def dmp
-        Fragment::Dmp.where(id: dmp_id).first
+        Fragment::Person.where(id: data['agent']['dbId'])
     end
 
     def research_output
-        Fragment::ResearchOutput.where(id: parent_id)
+        self.parent
     end
 
     
     def self.sti_name
-        "sharing"
+        "staff_member"
     end
 
 end

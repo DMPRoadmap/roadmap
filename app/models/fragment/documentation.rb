@@ -20,20 +20,16 @@
 
 class Fragment::Documentation < StructuredAnswer
 
-    def dmp
-        Fragment::Dmp.where(id: dmp_id).first
+    def research_output
+        self.parent
     end
 
-    def documentationAdministrator
-        Fragment::Person.where(id: data['documentationAdministrator'])
+    def documentation_administrator
+        Fragment::Person.where(id: data['documentation_administrator']['dbId'])
     end
 
-    def metadataFormat
-        Fragment::MetadataFormat.where(id: data['metadataFormat'])
-    end
-
-    def researchOutput
-        Fragment::ResearchOutput.where(id: parent_id)
+    def metadata_format
+        Fragment::MetadataFormat.where(id: data['metadata_format']['dbId'])
     end
 
     
