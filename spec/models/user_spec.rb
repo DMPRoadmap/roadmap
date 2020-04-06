@@ -546,11 +546,11 @@ RSpec.describe User, type: :model do
 
     subject { User.from_omniauth(auth) }
 
-    context "when User has UserIdentifier, with different ID" do
+    context "when User has Identifier, with different ID" do
       let!(:identifier) do
         create(:identifier, :for_user, identifiable: user,
                                        identifier_scheme: scheme,
-                                       value: Faker::Lorem.unique.word)
+                                       value: Faker::Movies::StarWars.character)
       end
 
       it { is_expected.to be_nil }
