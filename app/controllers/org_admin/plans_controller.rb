@@ -14,7 +14,8 @@ class OrgAdmin::PlansController < ApplicationController
       .where('users.org_id = ? AND plans.feedback_requested is TRUE AND roles.active is TRUE',
               current_user.org_id).pluck(:plan_id)
     @feedback_plans = Plan.where(id: feedback_ids).reject{|p| p.nil?}
-    @plans = current_user.org.plans.page(1)
+    @super_admin = current_user.can_super_admin?
+    @plans = @super_admin ? Plan.all.page(1) : current_user.org.plans.page(1)
   end
 
   # GET org_admin/plans/:id/feedback_complete
