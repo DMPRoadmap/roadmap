@@ -21,6 +21,6 @@ class RolePolicy < ApplicationPolicy
   end
 
   def deactivate?
-    @role.user_id = @user.id
+    @role.user_id == @user.id
   end
 end
