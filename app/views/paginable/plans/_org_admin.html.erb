@@ -4,7 +4,7 @@
       <tr>
         <th scope="col"><%= _('Project Title') %>&nbsp;<%= paginable_sort_link('plans.title') %></th>
         <th scope="col"><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
-        <th scope="col"><%= _('Organisation') %></th>
+        <th scope="col"><%= _('Organisation') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
         <th scope="col"><%= _('Owner') %></th>
         <th scope="col" class="date-column"><%= _('Updated') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
         <th scope="col"><%= _('Visibility') %></th>

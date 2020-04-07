@@ -164,8 +164,11 @@ class Plan < ActiveRecord::Base
 
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
-    joins(:template)
+    joins(:template, roles: [user: :org])
+    .where(Role.creator_condition)
     .where("lower(plans.title) LIKE lower(:search_pattern)
+            OR lower(orgs.name) LIKE lower (:search_pattern)
+            OR lower(orgs.abbreviation) LIKE lower (:search_pattern)
             OR lower(templates.title) LIKE lower(:search_pattern)
             OR lower(plans.principal_investigator) LIKE lower(:search_pattern)
             OR lower(plans.principal_investigator_identifier) LIKE lower(:search_pattern)",
