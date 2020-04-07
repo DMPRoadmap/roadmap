@@ -425,3 +425,25 @@ msgstr "Selected Template"
 
 msgid "Changes saved."
 msgstr "Changes saved."
+
+
+msgid "Structures"
+msgstr "Structures"
+
+msgid "Create structure"
+msgstr "Create structure"
+
+msgid "Structure"
+msgstr "Structure"
+
+msgid "Create a Structure"
+msgstr "Create a Structure"
+
+msgid "Edit the Structure"
+msgstr "Edit the Structure"
+
+msgid "View all structures"
+msgstr "View all structures"
+
+msgid "Add the abbreviated name or code for the structure."
+msgstr "Add the abbreviated name or code for the structure."

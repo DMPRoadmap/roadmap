@@ -430,3 +430,25 @@ msgstr ""
 
 msgid "Changes saved."
 msgstr ""
+
+
+msgid "Structures"
+msgstr ""
+
+msgid "Create structure"
+msgstr ""
+
+msgid "Structure"
+msgstr ""
+
+msgid "Create a Structure"
+msgstr ""
+
+msgid "Edit the Structure"
+msgstr ""
+
+msgid "View all structures"
+msgstr ""
+
+msgid "Add the abbreviated name or code for the structure."
+msgstr ""

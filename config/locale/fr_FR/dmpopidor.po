@@ -425,3 +425,26 @@ msgstr "Modèle choisi"
 
 msgid "Changes saved."
 msgstr "Changements enregistrés."
+
+
+
+msgid "Structures"
+msgstr "Structures"
+
+msgid "Create structure"
+msgstr "Créer une structure"
+
+msgid "Structure"
+msgstr "Structure"
+
+msgid "Create a Structure"
+msgstr "Créer une structure"
+
+msgid "Edit the Structure"
+msgstr "Modifier la structure"
+
+msgid "View all structures"
+msgstr "Voir toutes les structures"
+
+msgid "Add the abbreviated name or code for the structure."
+msgstr "Ajoutez le nom abbrégé ou le code de la structure"

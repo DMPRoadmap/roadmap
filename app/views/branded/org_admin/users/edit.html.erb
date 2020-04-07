@@ -28,7 +28,7 @@
       <% if @departments.any? %>
       <div class="form-group col-xs-12">
         <% dept_id = @user.department.nil? ? -1 : @user.department.id  %>
-        <%= f.label(:department_id, _('Department or school'), class: 'control-label') %>
+        <%= f.label(:department_id, d_('dmpopidor', 'Structure'), class: 'control-label') %>
         <%= select_tag(:department_id,
             options_from_collection_for_select(@departments, "id", "name", dept_id),
             include_blank: true,
