@@ -42,9 +42,15 @@ class Paginable::PlansController < ApplicationController
     unless current_user.present? && current_user.can_org_admin?
       raise Pundit::NotAuthorizedError
     end
+    #check if current user if super_admin
+    @super_admin = current_user.can_super_admin?
+    plans = @super_admin ? Plan.all : current_user.org.plans
+    plans = plans.joins(:template, roles: [user: :org]).where(Role.creator_condition)
+
     paginable_renderise(
       partial: "org_admin",
-      scope: current_user.org.plans,
+      scope: plans,
+      view_all: !current_user.can_super_admin?,
       query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }
     )
   end
