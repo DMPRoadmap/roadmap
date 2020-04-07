@@ -24,7 +24,7 @@ msgstr ""
 msgid "Account expired in %{tool_name}"
 msgstr ""
 
-msgid "You have not signed in since %{last_sign_in_date} and your account has been deactivated"
+msgid "Your account has been deactivated"
 msgstr ""
 
 msgid "All accounts inactive for 5 years are automaticaly deactivated"

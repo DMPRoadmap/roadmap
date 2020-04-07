@@ -20,8 +20,8 @@ msgstr "Expiration de votre compte %{tool_name}"
 msgid "Account expired in %{tool_name}"
 msgstr "Compte %{tool_name} expiré"
 
-msgid "You have not signed in since %{last_sign_in_date} and your account has been deactivated"
-msgstr "Vous ne vous êtes pas connecté depuis le %{last_sign_in_date}, votre compte a été désactivé"
+msgid "Your account has been deactivated"
+msgstr "Votre compte a été désactivé"
 
 msgid "All accounts inactive for 5 years are automaticaly deactivated"
 msgstr "Tous les comptes inactifs pendant 5 ans sont automatiquement désactivés"
