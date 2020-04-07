@@ -6,11 +6,17 @@ module Dmpopidor
 
       # CHANGE : Fix to creator display
       def owner
-        usr_id = Role.where(plan_id: id, active: true)
+        usr_id = ::Role.where(plan_id: id, active: true)
                       .creator
                       .order(:created_at)
                       .pluck(:user_id).first
-        User.find(usr_id)
+        if usr_id.nil?
+          usr_id = ::Role.where(plan_id: id, active: true)
+                        .administrator
+                        .order(:created_at)
+                        .pluck(:user_id).first
+        end
+        ::User.find(usr_id)
       end
 
       # CHANGES : ADDED RESEARCH OUTPUT SUPPORT
