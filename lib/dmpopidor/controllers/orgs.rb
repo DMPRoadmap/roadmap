@@ -44,6 +44,7 @@ module Dmpopidor
           # if active is false, unpublish all published tempaltes
           if !@org.active 
             @org.published_templates.update_all(published: false)
+            @org.guidance_groups.update_all(published: false)
           end
 
           redirect_to "#{admin_edit_org_path(@org)}\##{tab}",
