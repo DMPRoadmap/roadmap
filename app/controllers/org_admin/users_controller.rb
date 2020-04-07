@@ -22,6 +22,7 @@ module OrgAdmin
                        default_org: @user.org }
     end
 
+    # SEE MODULE
     def update
       @user = User.find(params[:id])
       authorize @user
