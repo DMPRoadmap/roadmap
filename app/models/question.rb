@@ -230,7 +230,7 @@ class Question < ActiveRecord::Base
       c.remove_data = value["remove_question_id"]
       unless question_id_map.blank?
         new_question_ids = []
-        question_ids.each do |qid|
+        c.remove_data.each do |qid|
           new_question_ids << question_id_map[qid]
         end
         c.remove_data = new_question_ids
