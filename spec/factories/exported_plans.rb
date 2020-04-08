@@ -13,9 +13,6 @@
 
 FactoryBot.define do
   factory :exported_plan do
-    user
-    plan
-    phase_id { create(:phase).id }
-    format { ExportedPlan::VALID_FORMATS.sample }
+    format { %w[csv txt docx pdf xml].sample }
   end
 end

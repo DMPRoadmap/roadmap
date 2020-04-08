@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190507091025) do
+ActiveRecord::Schema.define(version: 20200323213847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,35 @@ ActiveRecord::Schema.define(version: 20190507091025) do
   end
 
   add_index "answers_question_options", ["answer_id"], name: "index_answers_question_options_on_answer_id", using: :btree
+
+  create_table "api_clients", force: :cascade do |t|
+    t.string   "name",                      null: false
+    t.string   "description"
+    t.string   "homepage"
+    t.string   "contact_name"
+    t.string   "contact_email",             null: false
+    t.string   "client_id",                 null: false
+    t.string   "client_secret",             null: false
+    t.date     "last_access"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "api_clients", ["name"], name: "index_api_clients_on_name", using: :btree
+
+  create_table "contributors", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "phone"
+    t.integer  "roles",                     null: false
+    t.integer  "org_id"
+    t.integer  "plan_id",                   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contributors", ["email"], name: "index_contributors_on_email", using: :btree
+  add_index "contributors", ["org_id"], name: "index_contributors_on_org_id", using: :btree
 
   create_table "departments", force: :cascade do |t|
     t.string   "name"
@@ -100,9 +129,25 @@ ActiveRecord::Schema.define(version: 20190507091025) do
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "logo_url",         limit: 255
-    t.string   "user_landing_url", limit: 255
+    t.text     "logo_url"
+    t.string   "identifier_prefix"
+    t.integer  "context"
   end
+
+  add_index "identifier_schemes", ["context"], name: "index_identifier_schemes_on_context", using: :btree
+
+  create_table "identifiers", force: :cascade do |t|
+    t.string   "value",                null: false
+    t.text     "attrs"
+    t.integer  "identifier_scheme_id"
+    t.integer  "identifiable_id"
+    t.string   "identifiable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "identifiers", ["identifiable_type", "identifiable_id"], name: "index_identifiers_on_identifiable_type_and_identifiable_id", using: :btree
+  add_index "identifiers", ["value", "identifiable_type"], name: "index_identifiers_on_identifiable_type_and_value", using: :btree
 
   create_table "languages", force: :cascade do |t|
     t.string  "abbreviation",     limit: 255
@@ -169,28 +214,28 @@ ActiveRecord::Schema.define(version: 20190507091025) do
   add_index "org_token_permissions", ["token_permission_type_id"], name: "fk_rails_2aa265f538", using: :btree
 
   create_table "orgs", force: :cascade do |t|
-    t.string   "name",                   limit: 255
-    t.string   "abbreviation",           limit: 255
-    t.string   "target_url",             limit: 255
-    t.datetime "created_at",                                           null: false
-    t.datetime "updated_at",                                           null: false
-    t.boolean  "is_other",                             default: false, null: false
-    t.string   "sort_name",              limit: 255
-    t.integer  "region_id",              limit: 4
-    t.integer  "language_id",            limit: 4
-    t.string   "logo_uid",               limit: 255
-    t.string   "logo_name",              limit: 255
-    t.string   "contact_email",          limit: 255
-    t.integer  "org_type",               limit: 4,     default: 0,     null: false
-    t.text     "links",                  limit: 65535
-    t.boolean  "feedback_enabled",                     default: false
-    t.string   "feedback_email_subject", limit: 255
-    t.text     "feedback_email_msg",     limit: 65535
-    t.string   "contact_name",           limit: 255
+    t.string   "name"
+    t.string   "abbreviation"
+    t.string   "target_url"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "is_other",               default: false, null: false
+    t.string   "sort_name"
+    t.integer  "region_id"
+    t.integer  "language_id"
+    t.string   "logo_uid"
+    t.string   "logo_name"
+    t.string   "contact_email"
+    t.integer  "org_type",               default: 0,     null: false
+    t.text     "links"
+    t.string   "contact_name"
+    t.boolean  "feedback_enabled",       default: false
+    t.string   "feedback_email_subject"
+    t.text     "feedback_email_msg"
+    t.boolean  "managed",                default: false, null: false
   end
 
-  add_index "orgs", ["language_id"], name: "fk_rails_5640112cab", using: :btree
-  add_index "orgs", ["region_id"], name: "fk_rails_5a6adf6bab", using: :btree
+  add_index "orgs", ["managed"], name: "index_orga_on_managed", using: :btree
 
   create_table "perms", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -217,23 +262,32 @@ ActiveRecord::Schema.define(version: 20190507091025) do
     t.integer  "template_id",                       limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "grant_number",                      limit: 255
-    t.string   "identifier",                        limit: 255
-    t.text     "description",                       limit: 65535
-    t.string   "principal_investigator",            limit: 255
-    t.string   "principal_investigator_identifier", limit: 255
-    t.string   "data_contact",                      limit: 255
-    t.string   "funder_name",                       limit: 255
-    t.integer  "visibility",                        limit: 4,     default: 3,     null: false
-    t.string   "data_contact_email",                limit: 255
-    t.string   "data_contact_phone",                limit: 255
-    t.string   "principal_investigator_email",      limit: 255
-    t.string   "principal_investigator_phone",      limit: 255
-    t.boolean  "feedback_requested",                              default: false
-    t.boolean  "complete",                                        default: false
+    t.string   "grant_number"
+    t.string   "identifier"
+    t.text     "description"
+    t.string   "principal_investigator"
+    t.string   "principal_investigator_identifier"
+    t.string   "data_contact"
+    t.string   "funder_name"
+    t.integer  "visibility",                        default: 3,     null: false
+    t.string   "data_contact_email"
+    t.string   "data_contact_phone"
+    t.string   "principal_investigator_email"
+    t.string   "principal_investigator_phone"
+    t.boolean  "feedback_requested",                default: false
+    t.boolean  "complete",                          default: false
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer  "org_id"
+    t.integer  "funder_id"
+    t.integer  "grant_id"
+    t.integer  "api_client_id"
   end
 
   add_index "plans", ["template_id"], name: "index_plans_on_template_id", using: :btree
+  add_index "plans", ["funder_id"], name: "index_plans_on_funder_id", using: :btree
+  add_index "plans", ["grant_id"], name: "index_plans_on_grant_id", using: :btree
+  add_index "plans", ["api_client_id"], name: "index_plans_on_api_client_id", using: :btree
 
   create_table "plans_guidance_groups", force: :cascade do |t|
     t.integer "guidance_group_id", limit: 4
@@ -444,19 +498,18 @@ ActiveRecord::Schema.define(version: 20190507091025) do
     t.datetime "invitation_accepted_at"
     t.string   "other_organisation",     limit: 255
     t.boolean  "accept_terms"
-    t.integer  "org_id",                 limit: 4
-    t.string   "api_token",              limit: 255
-    t.integer  "invited_by_id",          limit: 4
-    t.string   "invited_by_type",        limit: 255
-    t.integer  "language_id",            limit: 4
-    t.string   "recovery_email",         limit: 255
-    t.string   "ldap_password",          limit: 255
-    t.string   "ldap_username",          limit: 255
-    t.boolean  "active",                             default: true
-    t.integer  "department_id",          limit: 4
+    t.integer  "org_id"
+    t.string   "api_token"
+    t.integer  "invited_by_id"
+    t.string   "invited_by_type"
+    t.integer  "language_id"
+    t.string   "recovery_email"
+    t.boolean  "active",                            default: true
+    t.integer  "department_id"
+    t.datetime "last_api_access"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["org_id"], name: "index_users_on_org_id", using: :btree
 
   create_table "users_perms", id: false, force: :cascade do |t|
@@ -472,6 +525,10 @@ ActiveRecord::Schema.define(version: 20190507091025) do
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
+  add_foreign_key "answers_question_options", "answers"
+  add_foreign_key "answers_question_options", "question_options"
+  add_foreign_key "contributors", "plans"
+  add_foreign_key "contributors", "orgs"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "notes", "answers"
@@ -485,6 +542,7 @@ ActiveRecord::Schema.define(version: 20190507091025) do
   add_foreign_key "orgs", "languages"
   add_foreign_key "orgs", "regions"
   add_foreign_key "phases", "templates"
+  add_foreign_key "plans", "orgs"
   add_foreign_key "plans", "templates"
   add_foreign_key "plans_guidance_groups", "guidance_groups"
   add_foreign_key "plans_guidance_groups", "plans"

@@ -97,7 +97,7 @@ module ExportablePlan
     hash[:affiliation] = self.owner.present? ? self.owner.org.name : ""
 
     # set the funder name
-    hash[:funder] = self.funder_name.present? ? self.funder_name :  ""
+    hash[:funder] = self.funder.present? ? self.funder.name : ""
 
     # set the template name and customizer name if applicable
     hash[:template] = self.template.title

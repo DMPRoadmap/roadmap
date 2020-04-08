@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     get "/users/sign_out", :to => "devise/sessions#destroy"
   end
 
-  delete '/users/identifiers/:id', to: 'user_identifiers#destroy', as: 'destroy_user_identifier'
+  delete '/users/identifiers/:id', to: 'identifiers#destroy', as: 'destroy_user_identifier'
 
   get '/orgs/shibboleth', to: 'orgs#shibboleth_ds', as: 'shibboleth_ds'
   get '/orgs/shibboleth/:org_name', to: 'orgs#shibboleth_ds_passthru'
@@ -75,6 +75,9 @@ Rails.application.routes.draw do
   # End DMPTool customizations
   # ------------------------------------------
 
+  # AJAX call used to search for Orgs based on user input into autocompletes
+  post "orgs" => "orgs#search", as: "orgs_search"
+  
   #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
   #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
 
@@ -131,6 +134,8 @@ Rails.application.routes.draw do
 
     resource :export, only: [:show], controller: "plan_exports"
 
+    resources :contributors, except: %i[show]
+
     member do
       get 'answer'
       get 'share'
@@ -180,6 +185,14 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    namespace :v1 do
+      get :heartbeat, controller: "base_api"
+      post :authenticate, controller: "authentication"
+
+      resources :plans, only: [:create, :show]
+      resources :templates, only: [:index]
+    end
   end
 
   namespace :paginable do
@@ -194,6 +207,11 @@ Rails.application.routes.draw do
       get 'publicly_visible/:page', action: :publicly_visible, on: :collection, as: :publicly_visible
       get 'org_admin/:page', action: :org_admin, on: :collection, as: :org_admin
       get 'org_admin_other_user/:page', action: :org_admin_other_user, on: :collection, as: :org_admin_other_user
+
+      # Paginable actions for contributors
+      resources :contributors, only: %i[index] do
+        get "index/:page", action: :index, on: :collection, as: :index
+      end
     end
     # Paginable actions for users
     resources :users, only: [] do
@@ -227,6 +245,10 @@ Rails.application.routes.draw do
     resources :departments, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
     end
+    # Paginable actions for api_clients
+     resources :api_clients, only: [] do
+       get 'index/:page', action: :index, on: :collection, as: :index
+     end
   end
 
   resources :template_options, only: [:index], constraints: { format: /json/ }
@@ -300,6 +322,12 @@ Rails.application.routes.draw do
       end
     end
     resources :notifications, except: [:show]
+    resources :api_clients do
+       member do
+         get :email_credentials
+         get :refresh_credentials
+       end
+     end
   end
 
   get "research_projects/search", action: "search",
