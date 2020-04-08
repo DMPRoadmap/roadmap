@@ -1,7 +1,7 @@
 class User
   class AtCsv
 
-    HEADERS = ['Name', 'E-Mail', 'Created Date', 'Last Activity', 'Plans', 'Current Privileges',  'Active']
+    HEADERS = ['Name', 'E-Mail', 'Created Date', 'Last Activity', 'Plans', 'Current Privileges',  'Active', 'Department' ]
 
     def initialize(users)
       @users = users
@@ -26,7 +26,9 @@ class User
             current_privileges = ''
           end
 
-          csv << [ name, email, created, last_activity, plans, current_privileges,  active ]
+          department = user&.department&.name || ''
+
+          csv << [ name, email, created, last_activity, plans, current_privileges,  active, department ]
         end
       end
     end

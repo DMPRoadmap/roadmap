@@ -8,6 +8,7 @@ json.array! @plans.each do |plan|
   json.grant_number   plan.grant_number
   json.last_updated   plan.updated_at
   json.creation_date  plan.created_at
+  json.test_plan      plan.is_test?
   json.template do
     json.title        plan.template.title
     json.id           plan.template.family_id
@@ -44,7 +45,7 @@ json.array! @plans.each do |plan|
         json.themes  question.themes.each do |theme|
           json.theme  theme.title
         end
-        answer = plan.answers.select{ |a| a.question_id = question.id }.first
+        answer = plan.answers.select { |a| a.question_id == question.id }.first
         if answer.present?
           json.answered   true
           json.answer do

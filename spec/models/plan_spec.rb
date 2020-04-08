@@ -421,12 +421,17 @@ describe Plan do
 
   describe ".deep_copy" do
 
-    let!(:plan) { create(:plan, :creator, answers: 2, guidance_groups: 2) }
+    let!(:plan) { create(:plan, :creator, answers: 2, guidance_groups: 2,
+                         feedback_requested: true) }
 
     subject { Plan.deep_copy(plan) }
 
     it "prepends the title with 'Copy'" do
       expect(subject.title).to include("Copy")
+    end
+
+    it "sets feedback_requested to false" do
+      expect(subject.feedback_requested).to eql(false)
     end
 
     it "copies the title from source" do
@@ -851,6 +856,36 @@ describe Plan do
       end
     end
 
+    context "explicit sharing does not conflict with admin-viewing" do
+
+      it "super admins" do
+        Branding.expects(:fetch)
+                .with(:service_configuration, :plans, :super_admins_read_all)
+                .at_most_once
+                .returns(false)
+
+        user.perms << create(:perm, name: "add_organisations")
+        role = subject.roles.commenter.first
+        role.user_id = user.id
+        role.save!
+
+        expect(subject.readable_by?(user.id)).to eql(true)
+      end
+
+      it "org admins" do
+        Branding.expects(:fetch)
+                .with(:service_configuration, :plans, :org_admins_read_all)
+                .at_most_once
+                .returns(false)
+
+        user.perms << create(:perm, name: "modify_guidance")
+        role = subject.roles.commenter.first
+        role.user_id = user.id
+        role.save!
+
+        expect(subject.readable_by?(user.id)).to eql(true)
+      end
+    end
   end
 
   describe "#commentable_by?" do

@@ -6,7 +6,7 @@ class Paginable::TemplatesController < ApplicationController
   include Paginable
 
   # TODO: Clean up this code for Rubocop
-  # rubocop:disable LineLength
+  # rubocop:disable Metrics/LineLength
 
   # GET /paginable/templates/:page  (AJAX)
   # -----------------------------------------------------
@@ -75,7 +75,7 @@ class Paginable::TemplatesController < ApplicationController
     )
   end
 
-  # rubocop:enable LineLength
+  # rubocop:enable Metrics/LineLength
 
   # GET /paginable/templates/publicly_visible/:page  (AJAX)
   # -----------------------------------------------------
