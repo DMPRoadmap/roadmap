@@ -30,6 +30,10 @@ class QuestionOption < ActiveRecord::Base
 
   belongs_to :question
 
+  has_one :section, through: :question
+
+  has_one :phase, through: :question
+
   has_one :template, through: :question
 
   has_and_belongs_to_many :answers, join_table: :answers_question_options
