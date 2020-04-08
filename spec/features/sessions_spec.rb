@@ -79,7 +79,6 @@ RSpec.feature "Sessions", type: :feature do
     #click_button "Go"
     click_link "See the full list of participating institutions"
     first("a[href^=\"/orgs/shibboleth/\"]").click
-
     expect(current_path).to eql("/Shibboleth.sso/Login")
   end
 
