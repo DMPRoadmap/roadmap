@@ -26,15 +26,26 @@
 #  created_at                        :datetime
 #  updated_at                        :datetime
 #  template_id                       :integer
+#  org_id                            :integer
+#  funder_id                         :integer
+#  grant_id                          :integer
+#  api_client_id                     :integer
 #
 # Indexes
 #
-#  index_plans_on_template_id  (template_id)
+#  index_plans_on_template_id   (template_id)
+#  index_plans_on_funder_id     (funder_id)
+#  index_plans_on_grant_id      (grant_id)
+#  index_plans_on_api_client_id (api_client_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (template_id => templates.id)
+#  fk_rails_...  (org_id => orgs.id)
 #
+
+# TODO: Drop the funder_name and grant_number columns once the funder_id has
+#       been back filled and we're removing the is_other org stuff
 
 class Plan < ActiveRecord::Base
 
@@ -42,6 +53,7 @@ class Plan < ActiveRecord::Base
   include ExportablePlan
   include ValidationMessages
   include ValidationValues
+  include Identifiable
 
   # =============
   # = Constants =
@@ -75,6 +87,10 @@ class Plan < ActiveRecord::Base
 
   belongs_to :template
 
+  belongs_to :org
+
+  belongs_to :funder, class_name: "Org"
+
   has_many :phases, through: :template
 
   has_many :sections, through: :phases
@@ -104,6 +120,7 @@ class Plan < ActiveRecord::Base
 
   has_many :roles
 
+  has_many :contributors, dependent: :destroy
 
   # =====================
   # = Nested Attributes =
@@ -113,6 +130,7 @@ class Plan < ActiveRecord::Base
 
   accepts_nested_attributes_for :roles
 
+  accepts_nested_attributes_for :contributors
 
   # ===============
   # = Validations =
@@ -126,13 +144,13 @@ class Plan < ActiveRecord::Base
 
   validates :complete, inclusion: { in: BOOLEAN_VALUES }
 
+  validate :end_date_after_start_date
 
   # =============
   # = Callbacks =
   # =============
 
   before_validation :set_creation_defaults
-
 
   # ==========
   # = Scopes =
@@ -162,13 +180,15 @@ class Plan < ActiveRecord::Base
     )
   }
 
+  # TODO: Add in a left join here so we can search contributors as well when
+  #       we move to Rails 5:
+  #           OR lower(contributors.name) LIKE lower(:search_pattern)
+  #           OR lower(identifiers.value) LIKE lower(:search_pattern)",
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     joins(:template)
     .where("lower(plans.title) LIKE lower(:search_pattern)
-            OR lower(templates.title) LIKE lower(:search_pattern)
-            OR lower(plans.principal_investigator) LIKE lower(:search_pattern)
-            OR lower(plans.principal_investigator_identifier) LIKE lower(:search_pattern)",
+            OR lower(templates.title) LIKE lower(:search_pattern)",
             search_pattern: search_pattern)
   }
 
@@ -407,7 +427,7 @@ class Plan < ActiveRecord::Base
                   .administrator
                   .order(:created_at)
                   .pluck(:user_id).first
-    User.find(usr_id)
+    usr_id.present? ? User.find(usr_id) : nil
   end
 
   # Creates a role for the specified user (will update the user's
@@ -440,14 +460,6 @@ class Plan < ActiveRecord::Base
     else
       false
     end
-  end
-
-  ## Update plan identifier.
-  #
-  # Returns Boolean
-  def add_identifier!(identifier)
-    self.update(identifier: identifier)
-    save!
   end
 
   ##
@@ -553,6 +565,17 @@ class Plan < ActiveRecord::Base
     end
   end
 
+  # Returns the plan's identifier (either a DOI/ARK)
+  def landing_page
+    identifiers.select { |i| %w[doi ark].include?(i.identifier_format) }.first
+  end
+
+  # Returns the identifier associated with the grant_id
+  def grant
+    return nil unless grant_id.present?
+
+    identifiers.select { |identifier| identifier.id == grant_id }.first
+  end
 
   private
 
@@ -564,7 +587,16 @@ class Plan < ActiveRecord::Base
     # Only run this before_validation because rails fires this before
     # save/create
     return if id?
+
     self.title = "My plan (#{template.title})" if title.nil? && !template.nil?
+  end
+
+  # Validation to prevent end date from coming before the start date
+  def end_date_after_start_date
+    # allow nil values
+    return true if end_date.blank? || start_date.blank?
+
+    errors.add(:end_date, _("must be after the start date")) if end_date < start_date
   end
 
 end
