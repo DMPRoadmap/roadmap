@@ -856,6 +856,36 @@ describe Plan do
       end
     end
 
+    context "explicit sharing does not conflict with admin-viewing" do
+
+      it "super admins" do
+        Branding.expects(:fetch)
+                .with(:service_configuration, :plans, :super_admins_read_all)
+                .at_most_once
+                .returns(false)
+
+        user.perms << create(:perm, name: "add_organisations")
+        role = subject.roles.commenter.first
+        role.user_id = user.id
+        role.save!
+
+        expect(subject.readable_by?(user.id)).to eql(true)
+      end
+
+      it "org admins" do
+        Branding.expects(:fetch)
+                .with(:service_configuration, :plans, :org_admins_read_all)
+                .at_most_once
+                .returns(false)
+
+        user.perms << create(:perm, name: "modify_guidance")
+        role = subject.roles.commenter.first
+        role.user_id = user.id
+        role.save!
+
+        expect(subject.readable_by?(user.id)).to eql(true)
+      end
+    end
   end
 
   describe "#commentable_by?" do
