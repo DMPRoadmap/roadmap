@@ -3,9 +3,15 @@
 class OrgsController < ApplicationController
   after_action :verify_authorized, except: ['shibboleth_ds', 'shibboleth_ds_passthru']
 
-  include Dmptool::Controller::Orgs
-
   include OrgSelectable
+
+  # =====================================
+  # Start DMPTool Customization
+  # =====================================
+  include DMPTool::Controllers::Org
+  # =====================================
+  # End DMPTool Customization
+  # =====================================
 
   after_action :verify_authorized, except: %w[
     shibboleth_ds shibboleth_ds_passthru search
@@ -54,8 +60,6 @@ class OrgsController < ApplicationController
         attrs.delete(:identifiers_attributes)
       end
 
-      attrs[:managed] = attrs[:managed] == "1"
-
       # See if the user selected a new Org via the Org Lookup and
       # convert it into an Org
       lookup = org_from_params(params_in: attrs)
@@ -85,6 +89,11 @@ class OrgsController < ApplicationController
     end
   end
 
+  # --------------------------------------------------------
+  # Start DMPTool customization
+  #   Commenting out so that our customization is used
+  # --------------------------------------------------------
+=begin
   # GET /orgs/shibboleth_ds
   # ----------------------------------------------------------------
   def shibboleth_ds
@@ -127,6 +136,10 @@ class OrgsController < ApplicationController
       redirect_to shibboleth_ds_path, notice: _("Please choose an organisation")
     end
   end
+=end
+  # --------------------------------------------------------
+  # End DMPTool customization
+  # --------------------------------------------------------
 
   # POST /orgs/search  (via AJAX)
   # ----------------------------------------------------------------

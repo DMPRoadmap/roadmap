@@ -37,6 +37,21 @@ class RegistrationsController < Devise::RegistrationsController
         flash[:notice] = _("Please make a choice below. After linking your details to a %{application_name} account, you will be able to sign in directly with your institutional credentials.") % {
           application_name: Rails.configuration.branding[:application][:name]
         }
+
+        # ---------------------------------------
+        # Start DMPTool Customization
+        # Determine which Org Idp we came from and make it available to form
+        # ---------------------------------------
+        entity_id = oauth.fetch("info", {})["identity_provider"]
+        if entity_id.present?
+          identifier = Identifier.where(identifiable_type: "Org",
+                                        value: entity_id).first
+          @user.org = identifier.identifiable if identifier.present?
+        end
+        # ---------------------------------------
+        # End DMPTool Customization
+        # ---------------------------------------
+
         # rubocop:enable Metrics/LineLength
         scheme = IdentifierScheme.by_name(oauth["provider"].downcase).first
         Identifier.create(identifier_scheme: scheme,

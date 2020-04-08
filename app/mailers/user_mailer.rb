@@ -1,5 +1,14 @@
 class UserMailer < ActionMailer::Base
   include MailerHelper
+
+  # =====================================
+  # Start DMPTool Customization
+  # =====================================
+  include Dmptool::Mailers::UserMailer
+  # =====================================
+  # End DMPTool Customization
+  # =====================================
+
   helper MailerHelper
   helper FeedbacksHelper
 
@@ -146,4 +155,5 @@ class UserMailer < ActionMailer::Base
       end
     end
   end
+
 end

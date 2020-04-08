@@ -102,7 +102,7 @@
       <% unless user_signed_in? %>
         <% if Rails.application.config.shibboleth_use_filtered_discovery_service %>
           <div id="shib-ds-form" class="modal fade" tabindex="-1" role="dialog">
-            <%= render partial: 'shared/shib_ds_form', locals: {orgs: Org.participating} %>
+            <%= render partial: 'shared/shib_ds_form' %>
           </div>
         <% end %>
 

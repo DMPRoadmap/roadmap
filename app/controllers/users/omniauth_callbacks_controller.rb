@@ -2,12 +2,18 @@
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
-  include Dmptool::Controller::OmniauthCallbacks
+  # --------------------------------
+  # Start DMPTool Customization
+  # --------------------------------
+  include Dmptool::Controllers::OmniauthCallbacks
+  # --------------------------------
+  # End DMPTool Customization
+  # --------------------------------
 
   ##
   # Dynamically build a handler for each omniauth provider
   # -------------------------------------------------------------
-  IdentifierScheme.authenticatable.each do |scheme|
+  IdentifierScheme.for_authentication.each do |scheme|
     define_method(scheme.name.downcase) do
       handle_omniauth(scheme)
     end
@@ -29,7 +35,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     process_omniauth_callback(scheme)
 
     # DMPTool -- commented out the entire block below
-    
+
 =begin
     # The user is already logged in and just registering the uid with us
     else

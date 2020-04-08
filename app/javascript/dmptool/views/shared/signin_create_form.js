@@ -1,12 +1,13 @@
 /* eslint-env browser */ // This allows us to reference 'window' below
 import * as Cookies from 'js-cookie';
-import initAutoComplete from '../../../utils/autoComplete';
+import { initAutocomplete } from '../../../utils/autoComplete';
 import { isObject, isString } from '../../../utils/isType';
-import { renderAlert, renderNotice } from '../../../utils/notificationHelper';
 import getConstant from '../../../constants';
 
 $(() => {
-  initAutoComplete();
+  initAutocomplete('#create-account-org-controls .autocomplete');
+  initAutocomplete('#shib-ds-org-controls .autocomplete');
+
   const email = Cookies.get('dmproadmap_email');
 
   // Signin remember me
@@ -71,32 +72,6 @@ $(() => {
     toggleSignInCreateAccount(true);
   });
 
-  // Old LDAP username lookup
-  // -----------------------------------------------------
-  // Handling ldap username lookup here to take advantage of shared signin-create logic
-  $('form#forgot_email_form').on('ajax:success', (e, data) => {
-    if (isObject(data) && isString(data.msg)) {
-      if (data.code === 0) {
-        renderAlert(data.msg);
-      } else {
-        renderNotice(data.msg);
-      }
-      if (data.email === '' || data.email === null) {
-        //
-      } else {
-        toggleSignInCreateAccount(true);
-        $('#sign-in-create-account').modal('show');
-        $('#signin_user_email').val(data.email);
-      }
-    }
-  });
-  $('form#forgot_email_form').on('ajax:error', (e, xhr) => {
-    const error = xhr.responseJSON;
-    if (isObject(error) && isString(error)) {
-      renderAlert(error.msg);
-    }
-  });
-
   // Shibboleth DS
   // -----------------------------------------------------
   const logoSuccess = (data) => {
@@ -115,18 +90,7 @@ $(() => {
     $('#access-control-tabs a[data-target="#sign-in-form"]').tab('show');
   };
 
-  $('.org-sign-in').click((e) => {
-    const target = $(e.target);
-    $('#org-sign-in').html('');
-    $.ajax({
-      method: 'GET',
-      url: target.attr('href'),
-    }).done((data) => {
-      logoSuccess(data);
-    }, logoError);
-    e.preventDefault();
-  });
-
+  // Toggles the full Org list on/off
   $('#show_list').click((e) => {
     e.preventDefault();
     const target = $('#full_list');
@@ -139,23 +103,42 @@ $(() => {
     }
   });
 
-  // When the user clicks 'Go' click the corresponding link from the list
-  // of all orgs
-  $('#org-select-go').click((e) => {
-    e.preventDefault();
-    const id = $('#shib-ds_org_id').val();
-    if (isString(id)) {
-      const link = $(`a[data-content="${id}"]`);
-      if (isObject(link)) {
-        // If the org doesn't have a shib setup then display the org sign in modal
-        if (link.is('.org-sign-in')) {
-          link.click();
-        } else {
-          window.location.replace(link.attr('href'));
-        }
+  // Only enable the Institutional Signin 'Go' Button if the user selected a
+  // value from the list
+  $('#shib-ds-org-controls').on('change', '#org_id', (e) => {
+    const id = $(e.target);
+    const json = JSON.parse(id.val());
+    const button = $('#org-select-go');
+    clearLogo();
+    if (json !== undefined) {
+      if (json.id !== undefined) {
+        button.prop('disabled', false);
+      } else {
+        button.prop('disable', true);
       }
     }
+  }).on('ajax:success', (e, data) => {
+   logoSuccess(data);
+  }).on('ajax:error', () => {
+   logoError();
   });
+
+  // When the user selects an Org from the autocomplete and clicks 'Go'
+  // Update the form's target with the selected org id before submission
+  $('#org-select-go').on('click', (e) => {
+    const json = JSON.parse($('#shib-ds-org-controls #org_id').val());
+    if (json !== undefined && json.id !== undefined) {
+      const go = $(e.target);
+      const form = go.closest('form');
+      form.attr('action', `${form.attr('action')}/${json.id}`);
+    } else {
+      e.preventDefault();
+    }
+  });
+
+  // Hide the vanilla Roadmap 'Sign in with your institutional credentials' button
+  $('#sign_in_form h4').addClass('hide');
+  $('#sign_in_form a[href="/orgs/shibboleth"]').addClass('hide');
 
   // Get Started button click
   // -----------------------------------------------------

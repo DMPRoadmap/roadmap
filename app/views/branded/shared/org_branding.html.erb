@@ -1,0 +1,29 @@
+<div class="form-group">
+  <div class="row col-md-12">
+    <% if @user.org.logo.present? %>
+      <%= image_tag(@user.org.logo.thumb('100x100%').url,
+                        alt: @user.org.name,
+                        class: "org-logo",
+                        title: @user.org.name) %>
+    <% else %>
+      <h1><%= @user.org.name %></h1>
+    <% end %>
+
+    <div id="org-branding" class="row">
+      <div id="dual_columns" class="container" style="display:table">
+        <div class="col-md-6 table-bordered">
+          <h2><%= _("Sign in") %></h2>
+          <br>
+          <%= render partial: "shared/sign_in_form", resource: @user %>
+        </div>
+        <div class="col-md-6 table-bordered">
+          <h2><%= _("Create account") %></h2>
+          <br>
+          <%= hidden_field_tag "default_org_id", @user.org.id %>
+          <%= hidden_field_tag "default_org_name", @user.org.name %>
+          <%= render partial: "shared/create_account_form" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

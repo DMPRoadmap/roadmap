@@ -2,7 +2,7 @@
 
 module Dmptool
 
-  module Controller
+  module Controllers
 
     module PublicPages
 
@@ -15,22 +15,22 @@ module Dmptool
 
       # The sign in/account creation options page accessed via the 'Get Started' button
       # on the home page
+      # rubocop:disable Naming/AccessorMethodName
       def get_started
         skip_authorization
         render "/shared/_get_started"
       end
+      # rubocop:enable Naming/AccessorMethodName
 
       protected
 
       # Clean up the file name to make it OS friendly (removing newlines, and punctuation)
       def file_name(title)
-        file_name = title.gsub(/[\r\n]/, " ")
-                         .gsub(/[^a-zA-Z\d\s]/, "")
-                         .gsub(/ /, "_")
-        if file_name.length > 31
-          file_name = file_name[0..30]
-        end
-        file_name
+        name = title.gsub(/[\r\n]/, " ")
+                    .gsub(/[^a-zA-Z\d\s]/, "")
+                    .gsub(/ /, "_")
+
+        name.length > 31 ? name[0..30] : name
       end
 
     end

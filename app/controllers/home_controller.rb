@@ -2,7 +2,13 @@
 
 class HomeController < ApplicationController
 
-  include Dmptool::Controller::Home
+  # --------------------------------
+  # Start DMPTool Customization
+  # --------------------------------
+  include Dmptool::Controllers::Home
+  # --------------------------------
+  # End DMPTool Customization
+  # --------------------------------
 
   respond_to :html
 

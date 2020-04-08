@@ -23,9 +23,11 @@ append :linked_files, 'config/branding.yml',
                       'config/secrets.yml',
                       'config/initializers/contact_us.rb',
                       'config/initializers/devise.rb',
+                      'config/initializers/dmptool_version.rb',
                       'config/initializers/dragonfly.rb',
                       'config/initializers/recaptcha.rb',
-                      'config/initializers/wicked_pdf.rb'
+                      'config/initializers/wicked_pdf.rb',
+                      'config/initializers/external_apis/open_aire.rb'
 
 # Default value for linked_dirs is []
 append :linked_dirs, 'log',
@@ -40,6 +42,7 @@ set :keep_releases, 5
 
 namespace :deploy do
   before :deploy, 'config:install_shared_dir'
+  after :deploy, 'git:version'
   after :deploy, 'cleanup:copy_tinymce_skins'
   after :deploy, 'cleanup:copy_logo'
   after :deploy, 'cleanup:copy_favicon'
@@ -54,6 +57,15 @@ namespace :config do
       execute "if [ ! -d '#{deploy_path}/shared/' ]; then cd #{deploy_path}/ && git clone #{fetch :config_repo} shared; fi"
       execute "cd #{deploy_path}/shared/ && git checkout #{fetch :config_branch} && git pull origin #{fetch :config_branch}"
     end
+  end
+end
+
+namespace :git do
+  desc 'Add the version file so that we can display the git version in the footer'
+  task :version do
+    on roles(:app), wait: 1 do
+    execute "echo #{repo_path}"
+    execute "cd #{repo_path} && git describe --tags >> #{release_path}/.version"
   end
 end
 

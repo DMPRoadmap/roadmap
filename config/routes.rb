@@ -12,11 +12,26 @@ Rails.application.routes.draw do
 
   delete '/users/identifiers/:id', to: 'identifiers#destroy', as: 'destroy_user_identifier'
 
-  get '/orgs/shibboleth', to: 'orgs#shibboleth_ds', as: 'shibboleth_ds'
+  # GET is triggered by user clicking an org in the list
+  get '/orgs/shibboleth/:id', to: 'orgs#shibboleth_ds_passthru'
+  # POST is triggered by user selecting an org from autocomplete
+  post '/orgs/shibboleth/:id', to: 'orgs#shibboleth_ds_passthru'
+
   get '/orgs/shibboleth/:org_name', to: 'orgs#shibboleth_ds_passthru'
   post '/orgs/shibboleth', to: 'orgs#shibboleth_ds_passthru'
   get '/users/ldap_username', to: 'users#ldap_username'
   post '/users/ldap_account', to: 'users#ldap_account'
+
+  # ------------------------------------------
+  # Start DMPTool customizations
+  # ------------------------------------------
+  # Handle logouts when on the localhost dev environment
+  unless %w[stage production].include?(Rails.env)
+    get "/Shibboleth.sso/Logout", to: redirect("/")
+  end
+  # ------------------------------------------
+  # End DMPTool Customization
+  # ------------------------------------------
 
   resources :users, path: 'users', only: [] do
     resources :org_swaps, only: [:create],
@@ -77,7 +92,7 @@ Rails.application.routes.draw do
 
   # AJAX call used to search for Orgs based on user input into autocompletes
   post "orgs" => "orgs#search", as: "orgs_search"
-  
+
   #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
   #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
 

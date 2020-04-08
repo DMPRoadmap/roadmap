@@ -2,7 +2,7 @@
 
 module Dmptool
 
-  module Controller
+  module Controllers
 
     module StaticPages
 

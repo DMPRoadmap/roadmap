@@ -40,7 +40,13 @@ class Org < ActiveRecord::Base
   include FlagShihTzu
   include Identifiable
 
-  include Dmptool::Model::Org
+  # --------------------------------
+  # Start DMPTool Customization
+  # --------------------------------
+  include Dmptool::Models::Org
+  # --------------------------------
+  # End DMPTool Customization
+  # --------------------------------
 
   extend Dragonfly::Model::Validations
   validates_with OrgLinksValidator
