@@ -149,8 +149,9 @@ module OrgAdmin
         attrs[:theme_ids] = []
       end
       if question.update(attrs)
-        question.update_conditions(sanitize_hash(params["conditions"]), old_to_new_opts, question_id_map)
-        flash[:notice] = success_message(question, _("updated"))
+        if question.update_conditions(sanitize_hash(params["conditions"]), flash, old_to_new_opts, question_id_map)
+          flash[:notice] = success_message(question, _("updated"))
+        end
       else
         flash[:alert] = flash[:alert] = failure_message(question, _("update"))
       end
