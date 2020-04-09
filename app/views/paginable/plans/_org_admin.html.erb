@@ -1,3 +1,13 @@
+<% if @filter.present? %>
+  <p><%= _(<<-TEXT
+    The data on the usage dashboard is historical in nature. This means that the number of records below may not
+    match the count shown on the usage dashboard. For example if one of your users created a plan in October and
+    then removed that plan in November, it would have been included on the usage dashboard's total for October but
+    would not appear in the list below.
+  TEXT
+  ) %></p>
+<% end %>
+
 <div class="table-responsive">
   <table class="table table-hover" id="my-plans">
     <thead>
