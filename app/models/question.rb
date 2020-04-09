@@ -201,18 +201,20 @@ class Question < ActiveRecord::Base
   # upon saving of question update conditions (via a delete and create) from params
   # the old_to_new_opts map allows us to rewrite the question_option ids which may be out of sync
   # after versioning
-  def update_conditions(param_conditions, old_to_new_opts, question_id_map)
+  def update_conditions(param_conditions, flash, old_to_new_opts, question_id_map)
+    res = true
     self.conditions.destroy_all
 
     if param_conditions.present?
       param_conditions.each do |_key, value|
-        saveCondition(value, old_to_new_opts, question_id_map)
+        res = saveCondition(value, flash, old_to_new_opts, question_id_map)
       end
     end
+    return res
   end
 
 
-  def saveCondition(value, opt_map, question_id_map)
+  def saveCondition(value, flash, opt_map, question_id_map)
     c = self.conditions.build
     c.action_type = value["action_type"]
     c.number = value['number']
@@ -236,6 +238,10 @@ class Question < ActiveRecord::Base
         c.remove_data = new_question_ids
       end
     else
+      unless value['webhook-email'] =~ URI::MailTo::EMAIL_REGEXP
+        flash[:alert] = "bad email address"
+        return false
+      end
       c.webhook_data = {
         name: value['webhook-name'],
         email: value['webhook-email'],
