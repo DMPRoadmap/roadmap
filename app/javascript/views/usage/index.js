@@ -23,18 +23,55 @@ $(() => {
 
   initializeCharts();
 
+  const labelToUrl = (label) => {
+    const parts = label.split('-');
+    const crosswalk = {
+      Jan: '01',
+      Feb: '02',
+      Mar: '03',
+      Apr: '04',
+      May: '05',
+      Jun: '06',
+      Jul: '07',
+      Aug: '08',
+      Sep: '09',
+      Oct: '10',
+      Nov: '11',
+      Dec: '12',
+    };
+    return `20${parts[1]}-${crosswalk[parts[0]]}`;
+  };
+
   // Create the Users joined chart
   if (!isUndefined($('#users_joined').val())) {
     const usersData = JSON.parse($('#users_joined').val());
     if (isObject(usersData)) {
-      createChart('#yearly_users', usersData);
+      const chart = createChart('#yearly_users', usersData, '', (event) => {
+        const segment = chart.getElementAtEvent(event)[0];
+        if (!isUndefined(segment)) {
+          const target = $('#users_click_target').val();
+          /* eslint-disable no-underscore-dangle, no-restricted-globals */
+          const label = chart.data.labels[segment._index];
+          $(location).attr('href', `${target}?month=${labelToUrl(label)}`);
+          /* eslint-enable no-underscore-dangle, no-restricted-globals */
+        }
+      });
     }
   }
   // Create the Plans created chart
   if (!isUndefined($('#plans_created').val())) {
     const plansData = JSON.parse($('#plans_created').val());
     if (isObject(plansData)) {
-      createChart('#yearly_plans', plansData);
+      const chart = createChart('#yearly_plans', plansData, '', (event) => {
+        const segment = chart.getElementAtEvent(event)[0];
+        if (!isUndefined(segment)) {
+          const target = $('#plans_click_target').val();
+          /* eslint-disable no-underscore-dangle, no-restricted-globals */
+          const label = chart.data.labels[segment._index];
+          $(location).attr('href', `${target}?month=${labelToUrl(label)}`);
+          /* eslint-enable no-underscore-dangle, no-restricted-globals */
+        }
+      });
     }
   }
   // TODO: Most of these event listeners would not be necessary if JQuery and

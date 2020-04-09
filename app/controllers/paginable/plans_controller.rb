@@ -44,8 +44,25 @@ class Paginable::PlansController < ApplicationController
     end
     #check if current user if super_admin
     @super_admin = current_user.can_super_admin?
-    plans = @super_admin ? Plan.all : current_user.org.plans
-    plans = plans.joins(:template, roles: [user: :org]).where(Role.creator_condition)
+    @filter = params[:month]
+
+    if @super_admin && !@filter.present?
+      plans = Plan.all
+    elsif @filter.present?
+      # Convert an incoming month from the usage dashboard into a date range query
+      # the month is appended to the query string when a user clicks on a bar in
+      # the plans created chart
+      start_date = Date.parse("#{@filter}-01")
+
+      # Also ignore tests here since the usage dashboard ignores them and showing
+      # them here may be confusing to the user
+      plans = current_user.org.plans
+                          .where.not(visibility: Plan.visibilities[:is_test])
+                          .where("plans.created_at BETWEEN ? AND ?",
+                                 start_date.to_s, start_date.end_of_month.to_s)
+    else
+      plans = current_user.org.plans
+    end
 
     paginable_renderise(
       partial: "org_admin",
