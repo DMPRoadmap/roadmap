@@ -18,7 +18,7 @@
         <div class="md-form mb-5">
           <i class="fa fa-envelope prefix grey-text"></i> <!-- mdbootstrap should have treatment for bad input for this -->
           <%= label_tag name_start + "[webhook-email]", _('Email'), {'data-error': 'wrong', 'data-success': 'right'} %>
-          <%= text_field_tag name_start + "[webhook-email]", nil, placeholder: _('recipient_email@example.com'), class: 'form-control validate' %>
+          <%= email_field_tag name_start + "[webhook-email]", nil, placeholder: _('recipient_email@example.com'), class: 'form-control validate' %>
         </div>
 
         <div class="md-form mb-5">
