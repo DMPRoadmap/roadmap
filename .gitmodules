@@ -1,0 +1,3 @@
+[submodule "lib/data_cleanup/rules"]
+	path = lib/data_cleanup/rules
+	url = https://github.com/DigitalCurationCentre/data_cleanup_rules.git
