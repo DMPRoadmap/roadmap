@@ -1,0 +1,34 @@
+version: '3'
+services:
+  server:
+    build:
+      context: ./
+    volumes:
+      - ../roadmap:/usr/src/app:cached
+      - ./config/database_example.yml:/usr/src/app/config/database.yml:cached
+      - ./config/secrets_example.yml:/usr/src/app/config/secrets.yml:cached
+      - ./config/initializers/contact_us.rb.example:/usr/src/app/config/initializers/contact_us.rb:cached
+      - ./config/initializers/devise.rb.example:/usr/src/app/config/initializers/devise.rb:cached
+      - ./config/initializers/recaptcha.rb.example:/usr/src/app/config/initializers/recaptcha.rb:cached
+      - ./config/initializers/wicked_pdf.rb.example:/usr/src/app/config/initializers/wicked_pdf.rb:cached
+      - ../db_backups/:/tmp/dat/:cached
+      - bundle:/bundle
+    command: /usr/src/app/scripts/start.sh
+    environment:
+      DATABASE_URL: 'mysql2://db'
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_volume:/var/lib/mysql
+    env_file:
+      - ./.env
+volumes:
+  db_volume:
+  bundle:
