@@ -15,7 +15,26 @@ class OrgAdmin::PlansController < ApplicationController
               current_user.org_id).pluck(:plan_id)
     @feedback_plans = Plan.where(id: feedback_ids).reject{|p| p.nil?}
     @super_admin = current_user.can_super_admin?
-    @plans = @super_admin ? Plan.all.page(1) : current_user.org.plans.page(1)
+    @filter = params[:month]
+
+    if current_user.can_super_admin? && !@filter.present?
+      @plans = Plan.all.page(1)
+    elsif @filter.present?
+      # Convert an incoming month from the usage dashboard into a date range query
+      # the month is appended to the query string when a user clicks on a bar in
+      # the plans created chart
+      start_date = Date.parse("#{@filter}-01")
+
+      # Also ignore tests here since the usage dashboard ignores them and showing
+      # them here may be confusing to the user
+      @plans = current_user.org.plans
+                           .where.not(visibility: Plan.visibilities[:is_test])
+                           .where("plans.created_at BETWEEN ? AND ?",
+                                  start_date.to_s, start_date.end_of_month.to_s)
+                           .page(1)
+    else
+      @plans = current_user.org.plans.page(1)
+    end
   end
 
   # GET org_admin/plans/:id/feedback_complete
