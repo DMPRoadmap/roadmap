@@ -8,7 +8,7 @@ class OrgsController < ApplicationController
   # =====================================
   # Start DMPTool Customization
   # =====================================
-  include DMPTool::Controllers::Org
+  include Dmptool::Controllers::Orgs
   # =====================================
   # End DMPTool Customization
   # =====================================

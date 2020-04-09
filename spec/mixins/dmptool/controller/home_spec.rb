@@ -6,7 +6,8 @@ RSpec.describe 'DMPTool custom home page', type: :request do
 
     context 'statistics' do
 
-      let!(:other_org) { create(:org, is_other: true) }
+      let!(:org) { create(:org, managed: true) }
+      let!(:other_org) { create(:org, managed: false) }
 
       it 'has the correct number of users' do
         (0..4).each { create(:user, org: other_org) }
@@ -21,16 +22,16 @@ RSpec.describe 'DMPTool custom home page', type: :request do
       end
 
       it 'has the correct number of orgs' do
-        (0..4).each { create(:org, is_other: false) }
+        (0..4).each { create(:org, managed: true) }
         get root_path
-        expect(assigns(:stats)[:institution_count]).to eql(5)
+        expect(assigns(:stats)[:institution_count]).to eql(6)
       end
 
     end
 
     context 'top_templates' do
 
-      let!(:org) { create(:org, is_other: false) }
+      let!(:org) { create(:org, managed: true) }
       let!(:templates) { (0..12).map { create(:template, :published, phases: 1, org: org) } }
 
       before do

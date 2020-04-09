@@ -11,8 +11,8 @@ RSpec.describe Org, type: :model do
 
     context ".participating" do
 
-      it "is_other org is not included in list of participating" do
-        org = create(:org, is_other: true)
+      it "managed org is not included in list of participating" do
+        org = create(:org, managed: false)
         expect(Org.participating.include?(org)).to eql(false)
       end
 
@@ -25,7 +25,7 @@ RSpec.describe Org, type: :model do
     context ".shibbolized?" do
 
       it "when Org does not have an identifier for Shibboleth" do
-        org = create(:org, is_other: false)
+        org = create(:org, managed: false)
         expect(org.shibbolized?).to eql(false)
       end
 

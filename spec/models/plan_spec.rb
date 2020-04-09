@@ -647,6 +647,9 @@ describe Plan do
       end
 
       it "emails the admins" do
+
+p user.org.contact_email
+
         expect { subject }.to change {
           ActionMailer::Base.deliveries.size
         }.by(1)

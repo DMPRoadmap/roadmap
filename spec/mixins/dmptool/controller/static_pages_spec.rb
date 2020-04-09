@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'DMPTool custom endpoints to static pages', type: :request do
 
+  let!(:institution) { create(:org, :institution) }
+  
   it "#promote should be accessible when not logged in" do
     get promote_path
     expect(response).to have_http_status(:success)

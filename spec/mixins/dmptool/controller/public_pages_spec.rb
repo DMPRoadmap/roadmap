@@ -28,6 +28,8 @@ RSpec.describe 'DMPTool custom endpoints for public pages', type: :request do
 
   describe "#get_started" do
 
+    let!(:institution) { create(:org, :institution) }
+    
     it "should be accessible when not logged in" do
       get get_started_path
       expect(response).to have_http_status(:success)

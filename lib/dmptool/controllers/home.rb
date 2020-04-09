@@ -56,7 +56,7 @@ module Dmptool
         top_five = Template.where(id: ids[0..4])
                            .pluck(:title)
         cache_content("top_five", top_five)
-        top_5
+        top_five
       end
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
