@@ -1,12 +1,23 @@
-defaults: &defaults
-  adapter: <%= ENV['DB_ADAPTER'] || 'postgresql' %>
-  encoding: <%= ENV['DB_ADAPTER'] == "mysql2" ? "utf8mb4" : "" %>
-  username: <%= ENV["DB_ADAPTER"] == "postgresql" ? 'postgres' : '' %>
-  database: roadmap_<%= ENV['RAILS_ENV'] %>
-  pool: 5
-
 development:
-  <<: *defaults
+  adapter: mysql2
+  database: <%= ENV["MYSQL_DATABASE"] %>
+  username: <%= ENV["MYSQL_USER"] %>
+  password: <%= ENV["MYSQL_PASSWORD"] %>
+  host: <%= ENV["DATABASE_URL"] %>
+  encoding: utf8
 
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
 test:
-  <<: *defaults
+  adapter: sqlite3
+  database: db/test.sqlite3
+  pool: 5
+  timeout: 5000
+
+production:
+  adapter: mysql2
+  database: roadmap
+  username: root
+  password:
+  encoding: utf8mb4
