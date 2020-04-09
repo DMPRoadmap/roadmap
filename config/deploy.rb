@@ -45,6 +45,7 @@ namespace :deploy do
   after :deploy, 'cleanup:copy_favicon'
   after :deploy, 'cleanup:remove_example_configs'
   after :deploy, 'cleanup:restart_passenger'
+  after :deploy, 'git:symlink_git'
 end
 
 namespace :config do
@@ -53,6 +54,15 @@ namespace :config do
     on roles(:app), wait: 1 do
       execute "if [ ! -d '#{deploy_path}/shared/' ]; then cd #{deploy_path}/ && git clone #{fetch :config_repo} shared; fi"
       execute "cd #{deploy_path}/shared/ && git checkout #{fetch :config_branch} && git pull origin #{fetch :config_branch}"
+    end
+  end
+end
+
+namespace :git do
+  desc "Symlink the git executable into the bin/ dir"
+  task :symlink_git do
+    on roles(:app), wait: 1 do
+      execute "ln -s /bin/git #{release_path}/bin/"
     end
   end
 end
