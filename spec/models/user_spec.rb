@@ -106,6 +106,8 @@ RSpec.describe User, type: :model do
         create(:user, other_organisation: "Foo bar", api_token: "barfoo")
       end
 
+      let!(:org)  { create(:org, is_other: true) }
+
       subject { user.save }
 
       before do
@@ -136,6 +138,8 @@ RSpec.describe User, type: :model do
       let!(:user) do
         create(:user, other_organisation: "Foo bar", api_token: "barfoo")
       end
+
+      let!(:org)  { create(:org, is_other: true) }
 
       before do
         user.perms << create(:perm, :use_api)

@@ -11,9 +11,7 @@ RSpec.describe Answer, type: :model do
 
     it { is_expected.to validate_presence_of(:question) }
 
-    it { is_expected.to validate_uniqueness_of(:question)
-                          .scoped_to(:plan_id)
-                          .with_message("must be unique") }
+    it { is_expected.to validate_presence_of(:research_output) }
   end
 
   describe ".deep_copy" do

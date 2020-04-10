@@ -10,11 +10,10 @@
 #  updated_at :datetime         not null
 #
 
-
 FactoryBot.define do
-    factory :research_output_type do
-      label { Faker::Movies::StarWars.planet }
-      slug { Faker::Internet.slug }
-      is_other { false }
-    end
+  factory :research_output_type do
+    label { Faker::Company.bs }
+    slug { Faker::Internet.domain_word }
+    is_other { false }
   end
+end

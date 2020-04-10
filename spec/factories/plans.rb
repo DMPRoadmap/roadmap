@@ -44,6 +44,7 @@ FactoryBot.define do
       phases { 0 }
       answers { 0 }
       guidance_groups { 0 }
+      research_outputs { 0 }
     end
     trait :creator do
       after(:create) do |obj|
@@ -71,6 +72,10 @@ FactoryBot.define do
       visibility { "privately_visible" }
     end
 
+    after(:create) do |plan, evaluator|
+      create_list(:research_output, evaluator.research_outputs, plan: plan)
+    end
+      
     after(:create) do |plan, evaluator|
       create_list(:answer, evaluator.answers, plan: plan)
     end
