@@ -41,7 +41,7 @@ module Dmptool
       end
 
       # Collect  the list of the top 5 most used templates for the past 90 days
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/MethodLength
       def top_templates
         cached = Rails.cache.read("top_five")
         return cached unless cached.nil?
@@ -58,7 +58,7 @@ module Dmptool
         cache_content("top_five", top_five)
         top_five
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:enable Metrics/MethodLength
 
       # Get the last 5 blog posts
       # rubocop:disable Metrics/AbcSize

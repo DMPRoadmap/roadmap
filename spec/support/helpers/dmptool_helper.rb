@@ -25,7 +25,7 @@ module DmptoolHelper
 
   def generate_shibbolized_orgs(count)
     (1..count).each do |idx|
-      create(:org, :organisation, :shibbolized, is_other: false)
+      create(:org, :organisation, :shibbolized, managed: true)
     end
   end
 
@@ -57,6 +57,12 @@ module DmptoolHelper
         uid: "testing"
       }
     end
+  end
+
+  def mock_blog
+    stub_request(:get, "https://blog.dmptool.org/feed").to_return(
+      status: 200, body: "", headers: {}
+    )
   end
 
 end

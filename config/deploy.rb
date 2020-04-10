@@ -63,17 +63,18 @@ namespace :config do
 end
 
 namespace :git do
-  desc 'Add the version file so that we can display the git version in the footer'
-  task :version do
-    on roles(:app), wait: 1 do
-    execute "echo #{repo_path}"
-    execute "cd #{repo_path} && git describe --tags >> #{release_path}/.version"
-
   desc "Symlink the git executable into the bin/ dir"
   task :symlink_git do
     on roles(:app), wait: 1 do
       execute "ln -s /bin/git #{release_path}/bin/"
     end
+  end
+
+  desc 'Add the version file so that we can display the git version in the footer'
+  task :version do
+    on roles(:app), wait: 1 do
+    execute "echo #{repo_path}"
+    execute "cd #{repo_path} && bin/git describe --tags >> #{release_path}/.version"
   end
 end
 

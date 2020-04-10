@@ -2,11 +2,13 @@
 
 module Dmptool
 
-  module Mailer
+  module Mailers
 
     module UserMailer
 
       def api_plan_creation(plan, contributor)
+        return false unless contributor.present? && plan.present?
+
         @contributor = contributor
         @plan = plan
 
