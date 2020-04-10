@@ -1228,7 +1228,7 @@ msgstr ""
 msgid "Look up your organisation here"
 msgstr ""
 
-msgid "Make a copy"
+msgid "Copy"
 msgstr ""
 
 msgid "Manage collaborators"
@@ -2539,10 +2539,34 @@ msgstr ""
 msgid "Usage statistics"
 msgstr ""
 
+msgid "There is no data available for plans created yet."
+msgstr ""
+
+msgid "Statistics on your Templates"
+msgstr ""
+
+msgid "No. plans created based off your templates"
+msgstr ""
+
+msgid "csv download field separator"
+msgstr ""
+
+msgid "Download Monthly Usage"
+msgstr ""
+
+msgid "Statistics on your Users"
+msgstr ""
+
+msgid "The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph."
+msgstr ""
+
+msgid "Move the mouse pointer over the bars of a chart to see numbers."
+msgstr ""
+
 msgid "Use API"
 msgstr ""
 
-msgid "Use the filters to generate organisational usage statistics for a custom date range. The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph."
+msgid "Use the filters to run organisational usage statistics for a custom date range."
 msgstr ""
 
 msgid "User accounts"
@@ -3298,3 +3322,7 @@ msgstr ""
 
 msgid "Is it a test plan ?"
 msgstr ""
+
+msgid "Sign in or Create account"
+msgstr ""
+

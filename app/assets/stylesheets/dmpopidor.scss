@@ -332,12 +332,12 @@ header .main-nav {
         color: $blue;
     }
     
-    h2 {
+    h2, .fontsize-h2 {
         color: $rust;
         font-size: 20px;
     }
 
-    h3 {
+    h3, .fontsize-h3 {
         color: $blue;
         font-size: 17px;
     }

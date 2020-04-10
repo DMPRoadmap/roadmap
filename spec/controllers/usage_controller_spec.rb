@@ -6,11 +6,11 @@ RSpec.describe UsageController, type: :controller do
   before(:each) do
     @date = Date.today.last_month.end_of_month
     @org = create(:org, :organisation)
-    @details = { "by_template": [stat_details] }
+    @details = { "by_template": [stat_details], "using_template": [] }
     @plan_stat = create(:stat_created_plan, date: @date, org: @org, details: @details)
     @user_stat = create(:stat_joined_user, date: @date, org: @org)
 
-    sign_in(create(:user, :org_admin, org: @org))
+    sign_in(create(:user, :super_admin, org: @org))
   end
 
   describe "GET /usage (aka index)" do
@@ -156,6 +156,7 @@ RSpec.describe UsageController, type: :controller do
   def obj_to_hash(obj:)
     hash = { "count": obj.count, "date": obj.date.strftime("%Y-%m-%d") }
     hash["by_template"] = obj.details.fetch("by_template", []) if obj.details.present?
+    hash["using_template"] = obj.details.fetch("using_template", []) if obj.details.present?
     [hash.to_json]
   end
 

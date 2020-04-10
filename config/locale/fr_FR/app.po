@@ -781,7 +781,7 @@ msgid "Download all"
 msgstr "Tout télécharger"
 
 msgid "Download global usage"
-msgstr "Télécharger les statistiques globales"
+msgstr "Télécharger statistiques globales"
 
 msgid "Download plans"
 msgstr "Télécharger les plans"
@@ -1209,8 +1209,8 @@ msgstr "Déconnexion"
 msgid "Look up your organisation here"
 msgstr "Rechercher votre organisme ici"
 
-msgid "Make a copy"
-msgstr "Créer une copie"
+msgid "Copy"
+msgstr "Copier"
 
 msgid "Manage collaborators"
 msgstr "Gérer les collaborateurs"
@@ -2367,10 +2367,10 @@ msgid "Total "
 msgstr "Total "
 
 msgid "Total plans"
-msgstr "Nbre total de plans"
+msgstr "Plans"
 
 msgid "Total users"
-msgstr "Nbre total d'utilisateurs"
+msgstr "Utilisateurs"
 
 msgid "Transfer customisation"
 msgstr "Transférer la personnalisation"
@@ -2519,11 +2519,35 @@ msgstr "Statistiques"
 msgid "Usage statistics"
 msgstr "Statistiques d'utilisation"
 
+msgid "There is no data available for plans created yet."
+msgstr "Il n'y a pas encore de données disponibles pour les plans créés."
+
+msgid "Statistics on your Templates"
+msgstr "Statistiques de vos modèles"
+
+msgid "No. plans created based off your templates"
+msgstr "Nombre de plan créé à partir de vos modèles"
+
+msgid "csv download field separator"
+msgstr "séparateur csv"
+
+msgid "Download Monthly Usage"
+msgstr "Télécharger statistiques mensuelles"
+
+msgid "Statistics on your Users"
+msgstr "Statistiques de vos utilisateurs"
+
+msgid "The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph."
+msgstr "Les graphiques affichent les nouveaux utilisateurs et plans de votre organisation au cours des 12 dernièers mois. Vus pouvez télécharger un rapport CSV de chaque graphique."
+
+msgid "Move the mouse pointer over the bars of a chart to see numbers."
+msgstr "Passez la souris sur le graphique pour voir les nombres."
+
 msgid "Use API"
 msgstr "Utiliser l'API"
 
-msgid "Use the filters to generate organisational usage statistics for a custom date range. The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph."
-msgstr "Utiliser les filtres pour générer des statistiques d'utilisation d'un organisme pour une période de temps définie. Les graphiques illustrent le nombre des nouveaux utilisateurs et des nouveaux plans pour votre organisme au cours de la dernière année. Vous pouvez télécharger un rapport au format CSV pour chaque graphique."
+msgid "Use the filters to run organisational usage statistics for a custom date range."
+msgstr "Utiliser les filtres pour générer des statistiques d'utilisation d'un organisme pour une période de temps définie."
 
 msgid "User accounts"
 msgstr "Comptes utilisateurs"
@@ -3261,3 +3285,6 @@ msgstr "Tapez ici pour rechercher dans le tableau"
 
 msgid "Is it a test plan ?"
 msgstr "Est-ce un plan de test ?"
+
+msgid "Sign in or Create account"
+msgstr "Se connecter ou Créer un compte"

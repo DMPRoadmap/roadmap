@@ -11,6 +11,8 @@ import 'tinymce/plugins/paste';
 import 'tinymce/plugins/advlist';
 // Other dependencies
 import { isObject, isString } from './isType';
+// Pull in the rails helper functions
+<% helpers = ActionController::Base.helpers %>
 
 // // Configuration extracted from
 // // https://www.tinymce.com/docs/advanced/usage-with-module-loaders/
@@ -42,7 +44,7 @@ export const defaultOptions = {
   // editorManager.baseURL is not resolved properly for IE since document.currentScript
   // is not supported, see issue https://github.com/tinymce/tinymce/issues/358
   skin_url: '/tinymce/skins/lightgray',
-  content_css: ['/assets/blocks/_tinymce_content.css'],
+  content_css: ['<%= helpers.asset_path "/assets/blocks/_tinymce_content.css"  %>'],
 };
 /*
   This function is invoked anytime a new editor is initialised (e.g. Tinymce.init())
