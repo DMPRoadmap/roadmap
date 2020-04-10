@@ -5,7 +5,7 @@ module Csvable
   require "csv"
   class << self
 
-    def from_array_of_hashes(data = [], humanize = true)
+    def from_array_of_hashes(data = [], humanize = true, sep = ",")
       return "" unless data.first&.keys
       if humanize
         headers = data.first.keys
@@ -16,7 +16,7 @@ module Csvable
           .map(&:to_s)
       end
 
-      CSV.generate do |csv|
+      CSV.generate({col_sep: sep}) do |csv|
         csv << headers
         data.each do |row|
           csv << row.values
