@@ -48,6 +48,8 @@ namespace :deploy do
   after :deploy, 'cleanup:copy_favicon'
   after :deploy, 'cleanup:remove_example_configs'
   after :deploy, 'cleanup:restart_passenger'
+  after :deploy, 'git:symlink_git'
+  after :deploy, 'git:version'
 end
 
 namespace :config do
@@ -66,6 +68,12 @@ namespace :git do
     on roles(:app), wait: 1 do
     execute "echo #{repo_path}"
     execute "cd #{repo_path} && git describe --tags >> #{release_path}/.version"
+
+  desc "Symlink the git executable into the bin/ dir"
+  task :symlink_git do
+    on roles(:app), wait: 1 do
+      execute "ln -s /bin/git #{release_path}/bin/"
+    end
   end
 end
 

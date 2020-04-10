@@ -4,9 +4,9 @@ RSpec.describe 'DMPTool custom endpoints for public pages', type: :request do
 
   describe '#orgs' do
 
-    let!(:funder) { create(:org, :funder) }
-    let!(:institution) { create(:org, :institution) }
-    let!(:organisation) { create(:org, :organisation) }
+    let!(:funder) { create(:org, :funder, name: Faker::Name.unique.name) }
+    let!(:institution) { create(:org, :institution, name: Faker::Name.unique.name) }
+    let!(:organisation) { create(:org, :organisation, name: Faker::Name.unique.name) }
 
     it "should be accessible when not logged in" do
       get public_orgs_path

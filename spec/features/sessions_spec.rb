@@ -74,6 +74,7 @@ RSpec.feature "Sessions", type: :feature do
     visit root_path
     access_shib_ds_modal
     find("#shib-ds_org_name").set(org.name)
+    sleep(0.2)
     ## Click from the dropdown autocomplete
     find("#suggestion-1-0").click
     #click_button "Go"
@@ -90,6 +91,7 @@ RSpec.feature "Sessions", type: :feature do
     visit root_path
     access_shib_ds_modal
     find("#shib-ds_org_name").set(org.name)
+    sleep(0.2)
     ## Click from the dropdown autocomplete
     find("#suggestion-1-0").click
     #click_button "Go"

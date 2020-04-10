@@ -12,8 +12,8 @@
 
 FactoryBot.define do
   factory :region do
-    name { Faker::Address.country }
-    abbreviation { SecureRandom.hex(2)  }
+    name { Faker::Address.unique.country }
+    abbreviation { SecureRandom.hex(3)  }
     description { Faker::Lorem.sentence }
   end
 end
