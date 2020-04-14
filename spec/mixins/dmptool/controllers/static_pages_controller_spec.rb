@@ -1,10 +1,18 @@
-require 'rails_helper'
+# frozen_string_literal: true
 
-RSpec.describe 'DMPTool custom endpoints to static pages', type: :request do
+require "rails_helper"
 
-  let!(:institution) { create(:org, :institution) }
-  
-  it "#promote should be accessible when not logged in" do
+RSpec.describe Dmptool::Controllers::StaticPagesController, type: :request do
+
+  before(:each) do
+    @controller = ::StaticPagesController.new
+  end
+
+  it "StaticPagesController includes our customizations" do
+    expect(@controller.respond_to?(:faq)).to eql(true)
+  end
+
+  it "#pages are accessible when not logged in" do
     get promote_path
     expect(response).to have_http_status(:success)
     expect(response.body.include?("<h1>Promote the DMPTool")).to eql(true)

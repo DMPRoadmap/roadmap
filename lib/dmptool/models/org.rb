@@ -17,7 +17,7 @@ module Dmptool
 
       included do
         def shibbolized?
-          identifier_for_scheme(scheme: "shibboleth").present?
+          managed? && identifier_for_scheme(scheme: "shibboleth").present?
         end
       end
 

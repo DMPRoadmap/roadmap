@@ -6,7 +6,7 @@ module Dmptool
 
     module Paginable
 
-      module Orgs
+      module OrgsController
 
         # /paginable/orgs/public/:page
         def public

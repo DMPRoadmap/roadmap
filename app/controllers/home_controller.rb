@@ -5,7 +5,7 @@ class HomeController < ApplicationController
   # --------------------------------
   # Start DMPTool Customization
   # --------------------------------
-  include Dmptool::Controllers::Home
+  include Dmptool::Controllers::HomeController
   # --------------------------------
   # End DMPTool Customization
   # --------------------------------

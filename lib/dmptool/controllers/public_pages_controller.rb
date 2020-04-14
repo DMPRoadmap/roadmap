@@ -4,7 +4,7 @@ module Dmptool
 
   module Controllers
 
-    module PublicPages
+    module PublicPagesController
 
       # The publicly accessible list of participating institutions
       def orgs

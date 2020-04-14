@@ -4,7 +4,7 @@ module Dmptool
 
   module Controllers
 
-    module StaticPages
+    module StaticPagesController
 
       def promote
       end

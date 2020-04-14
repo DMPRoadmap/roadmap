@@ -7,9 +7,7 @@ module Dmptool
 
   module Controllers
 
-    module Home
-
-      protected
+    module HomeController
 
       def render_home_page
         # Usage stats
@@ -81,6 +79,8 @@ module Dmptool
 
       # Store information in the cache
       def cache_content(type, data)
+        return nil unless type.present?
+
         Rails.cache.write(type, data, expires_in: 60.minutes)
       rescue StandardError => e
         logger.error("Unable to add #{type} to the Rails cache: #{e}.")

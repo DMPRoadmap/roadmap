@@ -68,6 +68,7 @@ RSpec.configure do |config|
   # ------------------------------------------------------
   # start DMPTool customizations
   # ------------------------------------------------------
+
   # Devise helpers
   config.include Warden::Test::Helpers
 
