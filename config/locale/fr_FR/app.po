@@ -1330,7 +1330,7 @@ msgid "No items available."
 msgstr "Aucun enregistrement disponible."
 
 msgid "No organisations are currently registered."
-msgstr "Aucune organisation n'est actuellement enregistrée."
+msgstr "Aucun organisme n'est actuellement enregistrée."
 
 msgid "No research organisation associated with this plan or my research organisation is not listed"
 msgstr "Aucun organisme de recherché n'est associé à ce plan ou mon organisme de recherche n'est pas listé"
@@ -1707,7 +1707,7 @@ msgid "Private: restricted to you and your collaborators."
 msgstr "Privé : visible par les collaborateurs"
 
 msgid "Private: visible to me, specified collaborators and administrators at my organisation"
-msgstr "Privé : visible par moi, les collaborateurs invités et les administrateurs de mon organisation"
+msgstr "Privé : visible par moi, les collaborateurs invités et les administrateurs de mon organisme"
 
 msgid "Privileges"
 msgstr "Droits"
@@ -1941,13 +1941,13 @@ msgid "Select an organisation from the list."
 msgstr "Sélectionner un organisme dans la liste."
 
 msgid "Select one or more themes that are relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags."
-msgstr "Sélectionnez un thème pertinent pour cette recommandation. Cela affichera votre guide générique au niveau de l'organisation, ou toutes les écoles/départements pour lesquels vous créez des groupes de guidage, parmi tous les modèles qui ont des questions avec les tags de thème correspondants."
+msgstr "Sélectionnez un thème pertinent pour cette recommandation. Cela affichera votre guide générique au niveau de l'organisme, ou toutes les écoles/départements pour lesquels vous créez des groupes de guidage, parmi tous les modèles qui ont des questions avec les tags de thème correspondants."
 
 msgid "Select one or more themes that are relevant to this question. This will allow similarly themed organisation-level guidance to appear alongside your question."
 msgstr "Choisir un ou plusieurs thèmes concernant cette question. Cela permettra d'afficher des recommandations similaires au niveau des organismes à côté de votre question."
 
 #msgid "Select one theme that is relevant to this guidance. This will display your generic organisation-level guidance, or any Schools/Departments for which you create guidance groups, across all templates that have questions with the corresponding theme tags."
-#msgstr "Sélectionnez un thème pertinent pour cette recommandation. Cela affichera votre guide générique au niveau de l'organisation, ou toutes les écoles/départements pour lesquels vous créez des groupes de guidage, parmi tous les modèles qui ont des questions avec les tags de thème correspondants."
+#msgstr "Sélectionnez un thème pertinent pour cette recommandation. Cela affichera votre guide générique au niveau de l'organisme, ou toutes les écoles/départements pour lesquels vous créez des groupes de guidage, parmi tous les modèles qui ont des questions avec les tags de thème correspondants."
 
 msgid "Select phase to download"
 msgstr "Sélectionner la phase à télécharger"
@@ -2538,7 +2538,7 @@ msgid "Statistics on your Users"
 msgstr "Statistiques de vos utilisateurs"
 
 msgid "The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph."
-msgstr "Les graphiques affichent les nouveaux utilisateurs et plans de votre organisation au cours des 12 dernièers mois. Vus pouvez télécharger un rapport CSV de chaque graphique."
+msgstr "Les graphiques affichent les nouveaux utilisateurs et plans de votre organisme au cours des 12 derniers mois. Vous pouvez télécharger un rapport CSV de chaque graphique."
 
 msgid "Move the mouse pointer over the bars of a chart to see numbers."
 msgstr "Passez la souris sur le graphique pour voir les nombres."
