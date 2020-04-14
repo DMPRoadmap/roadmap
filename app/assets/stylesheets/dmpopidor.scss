@@ -98,19 +98,6 @@ header .main-nav {
         margin: auto;
         padding-top: 5px;
     }
-    .org-deactivated {
-        max-width: 1264px;
-        color: $rust;
-        text-align: center;
-        border-top: 1px solid #e7e7e7;
-        margin: auto;
-        padding-top: 5px;
-        font-weight: 600;
-
-        a {
-            color: black;
-        }
-    }
 
 }
 
@@ -299,6 +286,19 @@ header .main-nav {
     }
     .label-info {
         background-color: $blue;
+    }
+
+    .org-deactivated {
+        max-width: 1264px;
+        color: $rust;
+        text-align: center;
+        margin: auto;
+        padding-top: 5px;
+        font-weight: 600;
+
+        a {
+            color: black;
+        }
     }
 
     /** Focus outline required for accessibility */
