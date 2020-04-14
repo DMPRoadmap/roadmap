@@ -4,6 +4,8 @@ module OrgAdmin
 
   class UsersController < ApplicationController
 
+    prepend Dmpopidor::Controllers::OrgAdmin::Users
+
     after_action :verify_authorized
 
     # SEE MODULE
@@ -39,6 +41,7 @@ module OrgAdmin
       render :edit
     end
 
+    # SEE MODULE
     def user_plans
       @user = User.find(params[:id])
       authorize @user

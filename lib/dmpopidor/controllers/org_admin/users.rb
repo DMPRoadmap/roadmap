@@ -1,7 +1,7 @@
 module Dmpopidor
   module Controllers
     module OrgAdmin
-      module Plans
+      module Users
   
         # CHANGES : Org Admin should access plan with administrator, organisation & public plan when editing a user
         def edit
@@ -19,7 +19,6 @@ module Dmpopidor
               default_org: @user.org }
         end
 
-        # SEE MODULE
         def update
           @user = User.find(params[:id])
           authorize @user
@@ -33,7 +32,16 @@ module Dmpopidor
           else
             flash.now[:alert] = failure_message(@user, _("update"))
           end
+          
           render :edit
+        end
+
+
+        def user_plans
+          @user = User.find(params[:id])
+          authorize @user
+          @plans = Plan.org_admin_visible(@user).page(1)
+          render "org_admin/users/plans"
         end
           
       end
