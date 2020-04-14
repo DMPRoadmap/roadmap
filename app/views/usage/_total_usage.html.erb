@@ -17,8 +17,8 @@
   <% unless current_user.can_super_admin? %>
     <div class="col-md-2"></div>
   <% end %>
-  <div class="col-md-2">
-    <form class="form-inline mt-10 mb-10 pull-right">
+  <div class="col-md-3">
+    <form class="form-inline mt-10 mb-10">
       <label for="csv-field-sep">
         <%= _('csv download field separator') %>:
       </label>
