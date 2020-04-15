@@ -167,7 +167,7 @@ class Plan < ActiveRecord::Base
     if date_range?(term: term)
       joins(:template, roles: [user: :org])
         .where(Role.creator_condition)
-        .by_data_range(:created_at, term)
+        .by_date_range(:created_at, term)
     else
       search_pattern = "%#{term}%"
       joins(:template, roles: [user: :org])
