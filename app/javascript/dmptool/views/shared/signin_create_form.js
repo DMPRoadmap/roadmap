@@ -118,9 +118,9 @@ $(() => {
       }
     }
   }).on('ajax:success', (e, data) => {
-   logoSuccess(data);
+    logoSuccess(data);
   }).on('ajax:error', () => {
-   logoError();
+    logoError();
   });
 
   // When the user selects an Org from the autocomplete and clicks 'Go'
