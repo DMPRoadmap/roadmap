@@ -16,19 +16,10 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html do
-        @filter = params[:month]
+        @clicked_through = params[:click_through].present?
 
-        if current_user.can_super_admin? && !@filter.present?
+        if current_user.can_super_admin?
           @users = User.includes(:roles).page(1)
-        elsif @filter.present?
-          # Convert an incoming month from the usage dashboard into a date range query
-          # the month is appended to the query string when a user clicks on a bar in
-          # the users joined chart
-          start_date = Date.parse("#{@filter}-01")
-          @users = current_user.org.users.includes(:roles)
-                               .where("users.created_at BETWEEN ? AND ?",
-                                      start_date.to_s, start_date.end_of_month.to_s)
-                               .page(1)
         else
           @users = current_user.org.users.includes(:roles).page(1)
         end
