@@ -1,5 +1,4 @@
 <% # locals: { search_term } %>
-<% search_term = @filter if @filter.present? && !search_term.present? %>
 <%= form_tag(paginable_base_url(1), method: :get, remote: true, class: 'form-inline paginable-action') do %>
   <div class="form-group">
     <div class="input-group">
