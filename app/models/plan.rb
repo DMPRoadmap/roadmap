@@ -42,6 +42,7 @@ class Plan < ActiveRecord::Base
   include ExportablePlan
   include ValidationMessages
   include ValidationValues
+  include DateRangeable
 
   # =============
   # = Constants =
@@ -163,16 +164,22 @@ class Plan < ActiveRecord::Base
   }
 
   scope :search, lambda { |term|
-    search_pattern = "%#{term}%"
-    joins(:template, roles: [user: :org])
-    .where(Role.creator_condition)
-    .where("lower(plans.title) LIKE lower(:search_pattern)
-            OR lower(orgs.name) LIKE lower (:search_pattern)
-            OR lower(orgs.abbreviation) LIKE lower (:search_pattern)
-            OR lower(templates.title) LIKE lower(:search_pattern)
-            OR lower(plans.principal_investigator) LIKE lower(:search_pattern)
-            OR lower(plans.principal_investigator_identifier) LIKE lower(:search_pattern)",
-            search_pattern: search_pattern)
+    if date_range?(term: term)
+      joins(:template, roles: [user: :org])
+        .where(Role.creator_condition)
+        .by_data_range(:created_at, term)
+    else
+      search_pattern = "%#{term}%"
+      joins(:template, roles: [user: :org])
+        .where(Role.creator_condition)
+        .where("lower(plans.title) LIKE lower(:search_pattern)
+                OR lower(orgs.name) LIKE lower (:search_pattern)
+                OR lower(orgs.abbreviation) LIKE lower (:search_pattern)
+                OR lower(templates.title) LIKE lower(:search_pattern)
+                OR lower(plans.principal_investigator) LIKE lower(:search_pattern)
+                OR lower(plans.principal_investigator_identifier) LIKE lower(:search_pattern)",
+               search_pattern: search_pattern)
+    end
   }
 
   # Retrieves plan, template, org, phases, sections and questions
@@ -410,7 +417,7 @@ class Plan < ActiveRecord::Base
                   .administrator
                   .order(:created_at)
                   .pluck(:user_id).first
-    User.find(usr_id)
+    User.find(usr_id) if usr_id.present?
   end
 
   # Creates a role for the specified user (will update the user's
