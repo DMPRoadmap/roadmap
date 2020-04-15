@@ -149,7 +149,7 @@ module OrgAdmin
         attrs[:theme_ids] = []
       end
       if question.update(attrs)
-        if question.update_conditions(sanitize_hash(params["conditions"]), flash, old_to_new_opts, question_id_map)
+        if question.update_conditions(sanitize_hash(params["conditions"]), old_to_new_opts, question_id_map)
           flash[:notice] = success_message(question, _("updated"))
         end
       else
