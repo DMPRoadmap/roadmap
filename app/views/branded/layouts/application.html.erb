@@ -1,20 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Version: <%= version %> -->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <% if Rails.configuration.branding[:keys].present? %>
-      <% gkey = Rails.configuration.branding[:keys][:google_analytics_key] %>
-      <script async src="https://www.googletagmanager.com/gtag/js?id=<%= gkey %>"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', '<%= gkey %>');
-      </script>
-    <% end %>
+    <!-- Google Analytics and UserSnap -->
+    <%= render partial: 'layouts/analytics' %>
 
     <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %>
     </title>
@@ -67,7 +55,7 @@
   </head>
   <body>
     <div class="skip">
-      <a href="#maincontent"> _('Skip to main content') </a>
+      <a href="#maincontent"> <%= _('Skip to main content') %> </a>
     </div>
 
     <div class="dmptool">
@@ -120,7 +108,5 @@
 
     <%= render partial: "layouts/constants" %>
 
-    <!-- Google Analytics -->
-    <%= render partial: 'layouts/analytics' %>
   </body>
 </html>

@@ -24,7 +24,7 @@
             <p class="text-center">
               <%= _("This will link your existing account to your credentials.") %>
             </p>
-            <p><%= render partial: 'shared/sign_in_form' %><br></p>
+            <p><%= render partial: 'shared/sign_in_form', locals: { resource: resource } %><br></p>
         </div>
 
         <div class="col-md-6"
@@ -57,7 +57,7 @@
               <%# --------------------------------------------------- %>
               <%# End DMPTool Customization %>
               <%# --------------------------------------------------- %>
-              <%= render partial: 'shared/create_account_form' %>
+              <%= render partial: 'shared/create_account_form', locals: { resource: resource } %>
               <br>
             </p>
           </div>

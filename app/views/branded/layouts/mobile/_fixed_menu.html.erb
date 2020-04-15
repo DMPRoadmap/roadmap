@@ -11,6 +11,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+
       <% if user_signed_in? && current_user.org.present? && !current_user.org.is_other? %>
         <p><strong><%= current_user.org.name %></strong></p>
       <% else %>
@@ -46,7 +47,6 @@
         </ul>
       <% end %>
 
-      <!-- Sign in/out menu -->
       <% unless active_page?(user_shibboleth_omniauth_callback_path) ||
                 active_page?(user_orcid_omniauth_callback_path) ||
                 active_page?(new_user_registration_path) %>
