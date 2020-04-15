@@ -14,9 +14,8 @@ module DateRangeable
 
     # Search the specified field for the specified month
     def by_data_range(field, term)
-      start_date = Date.parse("1st #{term}")
-      end_date = start_date.next_month - 1.day
-      where("#{table_name}.#{field} BETWEEN ? AND ?", start_date, end_date)
+      date = Date.parse("1st #{term}")
+      where("#{table_name}.#{field} BETWEEN ? AND ?", date, date.end_of_month)
     end
 
   end

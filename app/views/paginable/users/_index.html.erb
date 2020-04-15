@@ -1,6 +1,6 @@
 <% is_super_admin = current_user.can_super_admin? %>
 <% is_org_admin = current_user.can_org_admin? %>
-<% if @filter.present? %>
+<% if @clicked_through %>
   <p><%= _(<<-TEXT
     The data on the usage dashboard is historical in nature. This means that the number of records below may not
     match the count shown on the usage dashboard. For example if one of your users joined in October and then

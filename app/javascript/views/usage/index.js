@@ -25,21 +25,7 @@ $(() => {
 
   const labelToUrl = (label) => {
     const parts = label.split('-');
-    const crosswalk = {
-      Jan: '01',
-      Feb: '02',
-      Mar: '03',
-      Apr: '04',
-      May: '05',
-      Jun: '06',
-      Jul: '07',
-      Aug: '08',
-      Sep: '09',
-      Oct: '10',
-      Nov: '11',
-      Dec: '12',
-    };
-    return `20${parts[1]}-${crosswalk[parts[0]]}`;
+    return `search=${parts[0]} 20${parts[1]}&commit=Search&click_through=true`;
   };
 
   // Create the Users joined chart
@@ -52,7 +38,7 @@ $(() => {
           const target = $('#users_click_target').val();
           /* eslint-disable no-underscore-dangle, no-restricted-globals */
           const label = chart.data.labels[segment._index];
-          $(location).attr('href', `${target}?month=${labelToUrl(label)}`);
+          $(location).attr('href', `${target}?${labelToUrl(label)}`);
           /* eslint-enable no-underscore-dangle, no-restricted-globals */
         }
       });
@@ -68,7 +54,7 @@ $(() => {
           const target = $('#plans_click_target').val();
           /* eslint-disable no-underscore-dangle, no-restricted-globals */
           const label = chart.data.labels[segment._index];
-          $(location).attr('href', `${target}?month=${labelToUrl(label)}`);
+          $(location).attr('href', `${target}?${labelToUrl(label)}`);
           /* eslint-enable no-underscore-dangle, no-restricted-globals */
         }
       });
