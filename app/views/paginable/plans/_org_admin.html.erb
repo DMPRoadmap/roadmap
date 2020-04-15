@@ -1,3 +1,4 @@
+
 <% if @filter.present? %>
   <p><%= _(<<-TEXT
     The data on the usage dashboard is historical in nature. This means that the number of records below may not
@@ -8,6 +9,7 @@
   ) %></p>
 <% end %>
 
+<p><%= _("Note: You can filter this table by 'Created' dates. Enter the month abbreviation and a 4 digit year into the search box above.<br>For example: 'Oct 2019' or 'Jun 2013'.").html_safe %></p>
 <div class="table-responsive">
   <table class="table table-hover" id="my-plans">
     <thead>
@@ -16,6 +18,7 @@
         <th scope="col"><%= _('Template') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
         <th scope="col"><%= _('Organisation') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
         <th scope="col"><%= _('Owner') %></th>
+        <th scope="col" class="date-column"><%= _('Created') %>&nbsp;<%= paginable_sort_link('plans.created_at') %></th>
         <th scope="col" class="date-column"><%= _('Updated') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
         <th scope="col"><%= _('Visibility') %></th>
       </tr>
@@ -31,8 +34,9 @@
             <% end %>
           </td>
           <td><%= plan.template.title %></td>
-          <td><%= plan.owner.org.name %></td>
-          <td><%= plan.owner.name(false) %></td>
+          <td><%= plan.owner&.org&.name %></td>
+          <td><%= plan.owner&.name(false) %></td>
+          <td><%= l(plan.created_at.to_date, formats: :short) %></td>
           <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
           <td class="plan-visibility">
             <%= plan.visibility === 'is_test' ? _('Test') : sanitize(display_visibility(plan.visibility)) %>
