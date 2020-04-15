@@ -138,7 +138,7 @@ class User < ActiveRecord::Base
 
   scope :search, -> (term) {
     if date_range?(term: term)
-      by_data_range(:created_at, term)
+      by_date_range(:created_at, term)
     else
       search_pattern = "%#{term}%"
       # MySQL does not support standard string concatenation and since concat_ws
