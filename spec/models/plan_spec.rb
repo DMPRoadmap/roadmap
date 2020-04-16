@@ -487,7 +487,7 @@ describe Plan do
 
     context "when Plan title matches term" do
 
-      let!(:plan)  { create(:plan, title: "foolike title") }
+      let!(:plan)  { create(:plan, :creator, title: "foolike title") }
 
       it { is_expected.to include(plan) }
 
@@ -497,15 +497,43 @@ describe Plan do
 
       let!(:template) { create(:template, title: "foolike title") }
 
-      let!(:plan)  { create(:plan, template: template) }
+      let!(:plan)  { create(:plan, :creator, template: template) }
 
       it { is_expected.to include(plan) }
 
     end
 
+    context "when Organisation name matches term" do
+
+      let!(:plan)  { create(:plan, :creator, description: "foolike desc") }
+
+      let!(:org) { create(:org, name: 'foolike name') }
+
+      before do
+        user = plan.owner
+        user.org = org
+        user.save
+      end
+
+      it "returns organisation name" do
+        expect(subject).to include(plan)
+      end
+
+    end
+
+    # TODO: Add this one in once we are able to easily do LEFT JOINs in Rails 5
+    context "when Contributor name matches term" do
+      let!(:plan) { create(:plan, :creator, description: "foolike desc") }
+      let!(:contributor) { create(:contributor, plan: plan, name: "Dr. Foo Bar") }
+
+      xit "returns contributor name" do
+        expect(subject).to include(plan)
+      end
+    end
+
     context "when neither title matches term" do
 
-      let!(:plan)  { create(:plan, description: "foolike desc") }
+      let!(:plan)  { create(:plan, :creator, description: "foolike desc") }
 
       it { is_expected.not_to include(plan) }
 
