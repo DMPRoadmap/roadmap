@@ -5,7 +5,7 @@ module.exports = {
   use: [{
     loader: 'rails-erb-loader',
     options: {
-      runner: (/^win/.test(process.platform) ? 'ruby ' : '') + ' bundle exec bin/rails runner',
+      runner: 'ruby bin/rails runner',
     }
   }]
 }
