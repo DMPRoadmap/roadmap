@@ -7,6 +7,8 @@ set :branch, ENV['BRANCH'] if ENV['BRANCH']
 
 set :default_env, { path: "/dmp/local/bin:$PATH" }
 
+set :version_number, `git describe --tags`
+
 # Include optional Gem groups
 # TODO: For some reason this does not work
 #set :bundle_with, %w{ aws mysql }.join(' ')
@@ -65,9 +67,8 @@ namespace :git do
   desc 'Add the version file so that we can display the git version in the footer'
   task :version do
     on roles(:app), wait: 1 do
-      execute "ln -s /bin/git #{release_path}/bin/"
       execute "touch #{release_path}/.version"
-      execute "cd #{deploy_path} && git describe --tags >> #{release_path}/.version"
+      execute "echo `#{fetch :version_number}` >> #{release_path}/.version"
     end
   end
 end
