@@ -49,7 +49,6 @@ namespace :deploy do
   after :deploy, 'cleanup:remove_example_configs'
   after :deploy, 'cleanup:restart_passenger'
   after :deploy, 'git:symlink_git'
-  after :deploy, 'git:version'
 end
 
 namespace :config do
@@ -63,6 +62,8 @@ namespace :config do
 end
 
 namespace :git do
+  after :symlink_git, 'git:version'
+
   desc "Symlink the git executable into the bin/ dir"
   task :symlink_git do
     on roles(:app), wait: 1 do
