@@ -24,6 +24,7 @@ placeholder = _("Begin typing to see a list of suggestions.")
                             },
                             data: { source: "" } %>
 <span class="autocomplete-help sr-only" role="status"></span>
+<div id="<%= SecureRandom.hex(6) %>_ui-front" class="ui-front"></div>
 
 <%# sources contains an array of Org names %>
 <%= form.hidden_field :org_sources, value: presenter.select_list %>

@@ -58,6 +58,8 @@ class User < ActiveRecord::Base
   include ConditionalUserMailer
   include ValidationMessages
   include ValidationValues
+  include Identifiable
+
   extend UniqueRandom
 
   ##
@@ -98,8 +100,6 @@ class User < ActiveRecord::Base
   has_many :roles, dependent: :destroy
 
   has_many :plans, through: :roles
-
-  has_many :identifiers, as: :identifiable
 
   has_and_belongs_to_many :notifications, dependent: :destroy,
                           join_table: "notification_acknowledgements"

@@ -54,12 +54,12 @@ RSpec.describe ExternalApis::BaseService do
     context "#app_name" do
       it "defaults to the Rails.application.class.name" do
         Rails.configuration.branding[:application].delete(:name)
-        expected = Rails.application.class.name
+        expected = ApplicationService.application_name
         expect(described_class.send(:app_name)).to eql(expected)
       end
       it "returns the application name defined in branding.yml" do
         Rails.configuration.branding[:application][:name] = "Foo"
-        expect(described_class.send(:app_name)).to eql("Foo")
+        expect(described_class.send(:app_name)).to eql("foo")
       end
     end
     context "#app_email" do
@@ -90,7 +90,7 @@ RSpec.describe ExternalApis::BaseService do
       it "returns an HTTP response" do
         stub_request(:get, @uri).with(headers: described_class.headers)
                                 .to_return(status: 200, body: "", headers: {})
-        expect(described_class.send(:http_get, uri: @uri).code).to eql("200")
+        expect(described_class.send(:http_get, uri: @uri).code).to eql(200)
       end
       it "follows redirects" do
         uri2 = "#{@uri}/redirected"
@@ -99,67 +99,37 @@ RSpec.describe ExternalApis::BaseService do
                                 .to_return(status: 200, body: "", headers: {})
 
         resp = described_class.send(:http_get, uri: @uri)
-        expect(resp.is_a?(Net::HTTPSuccess)).to eql(true)
-      end
-      it "does not allow more than the max number of redirects" do
-        described_class.max_redirects.times.each do |i|
-          stub_redirect(uri: "#{@uri}/redirect#{i}",
-                        redirect_to: "#{@uri}/redirect#{i + 1}")
-        end
-        final_uri = "#{@uri}/redirect#{described_class.max_redirects}"
-        stub_request(:get, final_uri).with(headers: described_class.headers)
-                                     .to_return(status: 200, body: "", headers: {})
-
-        resp = described_class.send(:http_get, uri: "#{@uri}/redirect0")
-        expect(resp.is_a?(Net::HTTPRedirection)).to eql(true)
+        expect(resp.code).to eql(200)
       end
     end
 
-    context "#prep_http" do
+    context "#options(additional_headers:, debug:)" do
       before(:each) do
-        @uri = Faker::Internet.url
+        described_class.stubs(:headers).returns({ "Accept": "*/*" })
       end
-      it "returns nil if no target is specified" do
-        target, http = described_class.send(:prep_http, target: nil)
-        expect(target).to eql(nil)
-        expect(http).to eql(nil)
+      it "headers just include base headers if no :additional_headers" do
+        result = described_class.send(:options)
+        expect(result[:headers][:Accept]).to eql("*/*")
       end
-      it "accomodates HTTP" do
-        uri = @uri.gsub("https:", "http:")
-        target, http = described_class.send(:prep_http, target: uri)
-        expect(target).to eql(URI.parse(uri))
-        expect(http.use_ssl?).to eql(false)
+      it "merges additonal headers into the :headers option" do
+        result = described_class.send(:options, additional_headers: { foo: "bar" })
+        expect(result[:headers][:Accept]).to eql("*/*")
+        expect(result[:headers][:foo]).to eql("bar")
       end
-      it "accomodates HTTPS" do
-        uri = @uri.gsub("http:", "https:")
-        target, http = described_class.send(:prep_http, target: uri)
-        expect(target).to eql(URI.parse(uri))
-        expect(http.use_ssl?).to eql(true)
+      it "does not include :debug_output if :debug is false" do
+        result = described_class.send(:options)
+        expect(result[:debug_output]).to eql(nil)
+      end
+      it "includes :debug_output if :debug is true" do
+        result = described_class.send(:options, additional_headers: {}, debug: true)
+        expect(result[:debug_output].nil?).to eql(false)
+      end
+      it "includes :follow_redirects option" do
+        result = described_class.send(:options)
+        expect(result[:follow_redirects]).to eql(true)
       end
     end
 
-    context "#prep_headers" do
-      before(:each) do
-        @headers = described_class.headers
-        @req = Net::HTTP::Get.new(Faker::Internet.url)
-      end
-      it "returns nil if no Net request is specified" do
-        expect(described_class.send(:prep_headers, request: nil)).to eql(nil)
-      end
-      it "allows additional headers" do
-        hdrs = JSON.parse({ "Foo": Faker::Lorem.word }.to_json)
-        req = described_class.send(:prep_headers, request: @req,
-                                                  additional_headers: hdrs)
-        expect(req["Foo"].present?).to eql(true)
-      end
-      it "allows base headers to be overwritten" do
-        word = Faker::Lorem.word
-        hdrs = JSON.parse({ "Accept": word }.to_json)
-        req = described_class.send(:prep_headers, request: @req,
-                                                  additional_headers: hdrs)
-        expect(req["Accept"]).to eql(word)
-      end
-    end
   end
 
   def stub_redirect(uri:, redirect_to:)

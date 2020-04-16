@@ -38,7 +38,7 @@ class RegistrationsController < Devise::RegistrationsController
           application_name: Rails.configuration.branding[:application][:name]
         }
         # rubocop:enable Metrics/LineLength
-        scheme = IdentifierScheme.by_name(oauth["provider"].downcase)
+        scheme = IdentifierScheme.by_name(oauth["provider"].downcase).first
         Identifier.create(identifier_scheme: scheme,
                           value: oauth["uid"],
                           attrs: oauth,
@@ -97,11 +97,11 @@ class RegistrationsController < Devise::RegistrationsController
             unless oauth["provider"].nil? || oauth["uid"].nil?
               prov = IdentifierScheme.find_by(name: oauth["provider"].downcase)
               # Until we enable ORCID signups
-              if prov.name == "shibboleth"
+              if prov.present? && prov.name == "shibboleth"
                 Identifier.create(identifier_scheme: prov,
                                   value: oauth["uid"],
                                   attrs: oauth,
-                                  identifiable: @user)
+                                  identifiable: resource)
                 # rubocop:disable Metrics/LineLength
                 flash[:notice] = _("Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them.")
                 # rubocop:enable Metrics/LineLength
@@ -290,29 +290,13 @@ class RegistrationsController < Devise::RegistrationsController
   def handle_org(attrs:)
     return attrs unless attrs.present? && attrs[:org_id].present?
 
-    # See if the user selected a new Org via the Org Lookup and
-    # convert it into an Org
-    lookup = org_from_params(params_in: attrs)
-    return attrs unless lookup.present?
-
-    # If this is a new Org we need to save it first before attaching
-    # it to the user
-    if lookup.new_record?
-      lookup.save
-      identifiers_from_params(params_in: attrs).each do |identifier|
-        next unless identifier.value.present?
-
-        identifier.identifiable = lookup
-        identifier.save
-      end
-      lookup.reload
-    end
+    org = org_from_params(params_in: attrs, allow_create: true)
 
     # Remove the extraneous Org Selector hidden fields
     attrs = remove_org_selection_params(params_in: attrs)
 
     # reattach the org_id but with the Org id instead of the hash
-    attrs[:org_id] = lookup.id
+    attrs[:org_id] = org.id
     attrs
   end
 

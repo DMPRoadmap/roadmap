@@ -36,8 +36,9 @@ module OrgSelection
 
         # 2nd: Search by the external identifiers (e.g. "ror", "fundref", etc.)
         # and then verify a name match
-        ids = to_identifiers(hash: hash)
-        org = Org.from_identifiers(ids).first if ids.any?
+        identifiers = hash.select { |k, _v| identifier_keys.include?(k) }
+        ids = identifiers.map { |k, v| { name: k, value: v } }
+        org = Org.from_identifiers(array: ids) if ids.any?
         return org if exact_match?(rec: org, name2: hash[:name])
 
         # 3rd: Search by name and then verify exact_match

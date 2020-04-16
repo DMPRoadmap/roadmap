@@ -70,7 +70,7 @@ RSpec.describe OrgSelection::HashToOrgService do
       expect(@rslt.first.identifier_scheme).to eql(@scheme)
     end
     it "returned Identifiers have a value" do
-      expect(@rslt.first.value).to eql(@hash[:"#{@scheme.name}"])
+      expect(@rslt.first.value.ends_with?(@hash[:"#{@scheme.name}"])).to eql(true)
     end
     it "returned Identifiers have attrs" do
       expected = JSON.parse({

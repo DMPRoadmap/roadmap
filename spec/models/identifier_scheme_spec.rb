@@ -33,46 +33,6 @@ RSpec.describe IdentifierScheme, type: :model do
       end
     end
 
-    describe "#for_users" do
-      it "returns identifier schemes that are for users" do
-        expect(described_class.for_users.first).to eql(@scheme)
-      end
-      it "does not return identifier schemes that are NOT for users" do
-        @scheme.update(for_users: false)
-        expect(described_class.for_users.first).to eql(nil)
-      end
-    end
-
-    describe "#for_orgs" do
-      it "does not return identifier schemes that are NOT for orgs" do
-        expect(described_class.for_orgs.first).to eql(nil)
-      end
-      it "returns identifier schemes that are for orgs" do
-        @scheme.update(for_orgs: true)
-        expect(described_class.for_orgs.first).to eql(@scheme)
-      end
-    end
-
-    describe "#for_plans" do
-      it "does not return identifier schemes that are NOT for plans" do
-        expect(described_class.for_plans.first).to eql(nil)
-      end
-      it "returns identifier schemes that are for plans" do
-        @scheme.update(for_plans: true)
-        expect(described_class.for_plans.first).to eql(@scheme)
-      end
-    end
-
-    describe "#authenticatable" do
-      it "does not return identifier schemes that are NOT for auth" do
-        expect(described_class.authenticatable.first).to eql(nil)
-      end
-      it "returns identifier schemes that are for auth" do
-        @scheme.update(for_auth: true)
-        expect(described_class.authenticatable.first).to eql(@scheme)
-      end
-    end
-
     describe "#by_name scope" do
       it "is case insensitive" do
         rslt = described_class.by_name(@scheme.name.upcase).first

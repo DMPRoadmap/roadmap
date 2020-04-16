@@ -30,6 +30,8 @@ module OrgSelection
         }
         # tack on any identifiers
         org.identifiers.each do |id|
+          next unless id.identifier_scheme.present?
+
           out[:"#{id.identifier_scheme.name.downcase}"] = id.value
         end
         out
