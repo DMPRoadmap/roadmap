@@ -1,6 +1,18 @@
 require 'set'
 namespace :upgrade do
 
+  desc "Upgrade to v2.2.0"
+  task v2_2_0: :environment do
+    Rake::Task["upgrade:add_new_identifier_schemes"].execute
+    Rake::Task["upgrade:update_shibboleth_description"].execute
+    Rake::Task["upgrade:contextualize_identifier_schemes"].execute
+    Rake::Task["upgrade:convert_user_identifiers"].execute
+    Rake::Task["upgrade:convert_org_identifiers"].execute
+    Rake::Task["upgrade:default_orgs_to_managed"].execute
+    Rake::Task["upgrade:migrate_other_organisation_to_org"].execute
+    Rake::Task["upgrade:retrieve_ror_fundref_ids"].execute
+  end
+
   desc "Upgrade to v2.1.3"
   task v2_1_3: :environment do
     Rake::Task['upgrade:fill_blank_plan_identifiers'].execute
@@ -694,6 +706,188 @@ namespace :upgrade do
     review_plan_ids = Role.reviewer.pluck(:plan_id).uniq
     Plan.where(id: review_plan_ids).update_all(feedback_requested: true)
     Role.reviewer.destroy_all
+  end
+
+  desc "add the ROR and Fundref identifier schemes"
+  task add_new_identifier_schemes: :environment do
+    unless IdentifierScheme.where(name: "fundref").any?
+      IdentifierScheme.create(
+        name: "fundref",
+        description: "Crossref Funder Registry (FundRef)",
+        active: true
+      )
+    end
+    unless IdentifierScheme.where(name: "ror").any?
+      IdentifierScheme.create(
+        name: "ror",
+        description: "Research Organization Registry (ROR)",
+        active: true
+      )
+    end
+  end
+
+  desc "update the Shibboleth scheme description"
+  task update_shibboleth_description: :environment do
+    scheme = IdentifierScheme.where(name: "shibboleth")
+    if scheme.any?
+      scheme.first.update(description: "Institutional Sign In (Shibboleth)")
+    end
+  end
+
+  desc "Contextualize the Identifier Schemes (e.g. which ones are for orgs, etc."
+  task contextualize_identifier_schemes: :environment do
+    # Identifier schemes for multiple uses
+    shib = IdentifierScheme.find_or_initialize_by(name: "shibboleth")
+    shib.for_users = true
+    shib.for_orgs = true
+    shib.for_authentication = true
+    shib.save
+
+    orcid = IdentifierScheme.find_or_initialize_by(name: "orcid")
+    orcid.for_users = true
+    orcid.for_contributors = true
+    orcid.for_authentication = true
+    orcid.identifier_prefix = "https://orcid.org/"
+    orcid.save
+
+    # Org identifier schemes
+    ror = IdentifierScheme.find_or_initialize_by(name: "ror")
+    ror.for_orgs = true
+    ror.identifier_prefix = "https://ror.org/"
+    ror.save
+
+    fundref = IdentifierScheme.find_or_initialize_by(name: "fundref")
+    fundref.for_orgs = true
+    fundref.identifier_prefix = "https://api.crossref.org/funders/"
+    fundref.save
+  end
+
+  desc "migrate the old user_identifiers over to the polymorphic identifiers table"
+  task convert_user_identifiers: :environment do
+    p "Transferring existing user_identifiers over to the identifiers table"
+    p "this may take in excess of 30 minutes depending on the size of your users table ..."
+    UserIdentifier.joins(:user, :identifier_scheme)
+                  .includes(:user, :identifier_scheme).all.each do |ui|
+
+      ui.user.identifiers << Identifier.new(
+        identifier_scheme: ui.identifier_scheme,
+        value: ui.identifier,
+        #type: (ui.identifier_scheme.name == "orcid" ? "url" : "other"),
+        attrs: {}.to_json
+      )
+    end
+  end
+
+  desc "migrate the old org_identifiers over to the polymorphic identifiers table"
+  task convert_org_identifiers: :environment do
+    p "Transferring existing org_identifiers over to the identifiers table"
+    p "please wait ..."
+    OrgIdentifier.joins(:org, :identifier_scheme)
+                 .includes(:org, :identifier_scheme).all.each do |ui|
+
+      val = ui.identifier
+      val = "https://orcid.org/#{val}" if ui.identifier_scheme.name == "orcid" && !val.starts_with?("http")
+
+      ui.org.identifiers << Identifier.new(
+        identifier_scheme: ui.identifier_scheme,
+        value: val,
+        # type: (ui.identifier_scheme.name == "orcid" ? "url" : "other"),
+        attrs: ui.attrs
+      )
+    end
+  end
+
+  desc "Sets the new managed flag for all existing Orgs to managed = true"
+  task default_orgs_to_managed: :environment do
+    Org.all.update_all(managed: true)
+  end
+
+  desc "Attempts to migrate other_organisation entries to Orgs"
+  task migrate_other_organisation_to_org: :environment do
+    names = User.all.where.not(other_organisation: nil)
+                 .pluck(:other_organisation).uniq
+    names.each do |name|
+      # Skip any blank names
+      next if name.gsub(/\s/, "").blank?
+
+      matches = OrgSelection::SearchService.search_locally(search_term: name)
+
+      # If any matches were found then we will use that as the Org
+      org = matches.first if matches.any?
+      p "Found matching org: search: '#{name}' => '#{org[:name]}'" if org.present?
+
+      # Otherwise create the Org
+      org = Org.create(name: name, managed: false, is_other: false) if matches.empty?
+      p "Created new org: search: '#{name}'" if org.present?
+      next unless org.present? && org.is_a?(Org)
+
+      # Attach all users with that other_organisation to the Org
+      User.where(other_organisation: name).update_all(org_id: org.id)
+    end
+  end
+
+  desc "retrieves ROR ids for each of the Orgs defined in the database"
+  task retrieve_ror_fundref_ids: :environment do
+    ror = IdentifierScheme.find_by(name: "ror")
+    fundref = IdentifierScheme.find_by(name: "fundref")
+
+    out = CSV.generate do |csv|
+      csv << %w[org_id org_name ror_name ror_id fundref_id]
+
+      if ExternalApis::RorService.ping
+        p "Scanning ROR for each of your existing Orgs"
+        p "The results will be written to tmp/ror_fundref_ids.csv to facilitate review and any corrections that may need to be made."
+        p "The CSV file contains the Org name stored in your DB next to the ROR org name that was matched. Use these 2 values to determine if the match was valid."
+        p "You can use the ROR search page to find the correct match for any organizations that need to be corrected: https://ror.org/search"
+        p ""
+        Org.includes(identifiers: :identifier_scheme)
+           .where(is_other: false).order(:name).each do |org|
+
+          # If the Org already has a ROR identifier skip it
+          next if org.identifiers.select { |id| id.identifier_scheme_id == ror.id }.any?
+
+          # The abbreviation sometimes causes weird results so strip it off
+          # in this instance
+          org_name = org.name.gsub(" (#{org.abbreviation})", "")
+          rslts = OrgSelection::SearchService.search_externally(search_term: org_name)
+          next unless rslts.any?
+
+          # Just use the first match that contains the search term
+          rslt = rslts.select { |rslt| rslt[:weight] <= 1 }.first
+          next unless rslt.present?
+
+          ror_id = rslt[:ror]
+          fundref_id = rslt[:fundref]
+
+          if ror_id.present?
+            ror_ident = Identifier.find_or_initialize_by(identifiable: org,
+                                                         identifier_scheme: ror)
+            ror_ident.value = "#{ror.identifier_prefix}#{ror_id}"
+            ror_ident.save
+            p "    #{org.name} -> ROR: #{ror_ident.value}, #{rslt[:name]}"
+          end
+          if fundref_id.present?
+            fr_ident = Identifier.find_or_initialize_by(identifiable: org,
+                                                        identifier_scheme: fundref)
+            fr_ident.value = "#{fundref.identifier_prefix}#{fundref_id}"
+            fr_ident.save
+            p "    #{org.name} -> FUNDRF: #{fr_ident.value}, #{rslt[:name]}"
+          end
+
+          if ror_id.present? || fundref_id.present?
+            csv << [org.id, org.name, rslt[:name], ror_ident&.value, fr_ident&.value]
+          end
+        end
+      else
+        p "ROR appears to be offline or your configuration is invalid. Heartbeat check failed. Refer to the log for more information."
+      end
+    end
+
+    if out.present?
+      file = File.open("tmp/ror_fundref_ids.csv", "w")
+      file.puts out
+      file.close
+    end
   end
 
   private
