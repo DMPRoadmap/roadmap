@@ -66,7 +66,7 @@ namespace :git do
   task :version do
     on roles(:app), wait: 1 do
       execute "ln -s /bin/git #{release_path}/bin/"
-      execute "cd #{release_path} && bin/git describe --tags >> #{release_path}/.version"
+      execute "cd #{release_path} && touch #{release_path}/.version && bin/git describe --tags >> #{release_path}/.version"
     end
   end
 end
