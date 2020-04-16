@@ -26,15 +26,22 @@
 #  created_at                        :datetime
 #  updated_at                        :datetime
 #  template_id                       :integer
+#  org_id                            :integer
+#  funder_id                         :integer
 #
 # Indexes
 #
 #  index_plans_on_template_id  (template_id)
+#  index_plans_on_funder_id    (funder_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (template_id => templates.id)
+#  fk_rails_...  (org_id => orgs.id)
 #
+
+# TODO: Drop the funder_name column once the funder_id has been back
+#       filled and we're removing the is_other org stuff
 
 class Plan < ActiveRecord::Base
 
@@ -42,6 +49,7 @@ class Plan < ActiveRecord::Base
   include ExportablePlan
   include ValidationMessages
   include ValidationValues
+  include Identifiable
 
   # =============
   # = Constants =
@@ -75,6 +83,10 @@ class Plan < ActiveRecord::Base
 
   belongs_to :template
 
+  belongs_to :org
+
+  belongs_to :funder, class_name: "Org"
+
   has_many :phases, through: :template
 
   has_many :sections, through: :phases
@@ -103,7 +115,6 @@ class Plan < ActiveRecord::Base
   has_many :exported_plans
 
   has_many :roles
-
 
   # =====================
   # = Nested Attributes =
@@ -410,7 +421,7 @@ class Plan < ActiveRecord::Base
                   .administrator
                   .order(:created_at)
                   .pluck(:user_id).first
-    User.find(usr_id)
+    usr_id.present? ? User.find(usr_id) : nil
   end
 
   # Creates a role for the specified user (will update the user's
@@ -443,14 +454,6 @@ class Plan < ActiveRecord::Base
     else
       false
     end
-  end
-
-  ## Update plan identifier.
-  #
-  # Returns Boolean
-  def add_identifier!(identifier)
-    self.update(identifier: identifier)
-    save!
   end
 
   ##
@@ -556,6 +559,10 @@ class Plan < ActiveRecord::Base
     end
   end
 
+  # Returns the plan's identifier (either a DOI/ARK)
+  def landing_page
+    identifiers.select { |i| %w[doi ark].include?(i.identifier_format) }.first
+  end
 
   private
 

@@ -14,7 +14,7 @@
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :string
 #  email                  :string(80)       default(""), not null
-#  encrypted_password     :string           default("")
+#  encrypted_password     :string
 #  firstname              :string
 #  invitation_accepted_at :datetime
 #  invitation_created_at  :datetime
@@ -23,6 +23,8 @@
 #  invited_by_type        :string
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string
+#  ldap_password          :string
+#  ldap_username          :string
 #  other_organisation     :string
 #  recovery_email         :string
 #  remember_created_at    :datetime
@@ -39,7 +41,9 @@
 #
 # Indexes
 #
-#  index_users_on_email   (email) UNIQUE
+#  fk_rails_45f4f12508    (language_id)
+#  fk_rails_f29bf9cdf2    (department_id)
+#  index_users_on_email   (email)
 #  index_users_on_org_id  (org_id)
 #
 # Foreign Keys

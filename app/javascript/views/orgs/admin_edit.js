@@ -3,6 +3,7 @@ import 'number-to-text/converters/en-us';
 import { isObject } from '../../utils/isType';
 import { Tinymce } from '../../utils/tinymce.js.erb';
 import { eachLinks } from '../../utils/links';
+import { initAutocomplete } from '../../utils/autoComplete';
 
 $(() => {
   const toggleFeedback = () => {
@@ -24,6 +25,9 @@ $(() => {
   Tinymce.init({ selector: '#org_feedback_email_msg' });
   toggleFeedback();
 
+  if ($('#org-details-org-controls').length > 0) {
+    initAutocomplete('#org-details-org-controls .autocomplete');
+  }
 
   // update the hidden org_type field based on the checkboxes selected
   const calculateOrgType = () => {
