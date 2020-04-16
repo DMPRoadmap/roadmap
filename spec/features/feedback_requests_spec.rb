@@ -2,6 +2,8 @@ require "rails_helper"
 
 RSpec.describe "FeedbackRequests", type: :feature do
 
+  include Webmocks
+
   let!(:plan) { create(:plan, :organisationally_visible) }
 
   let!(:org) do
@@ -15,6 +17,7 @@ RSpec.describe "FeedbackRequests", type: :feature do
     plan.roles << create(:role, :commenter, :creator, :editor, :administrator, user: user)
     sign_in(user)
     ActionMailer::Base.deliveries = []
+    stub_openaire
   end
 
   after do
