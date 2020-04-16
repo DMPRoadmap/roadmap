@@ -1,4 +1,4 @@
-import { Tinymce } from '../../../utils/tinymce.js.erb';
+import { Tinymce } from '../../../utils/tinymce.js';
 import { eachLinks } from '../../../utils/links';
 import { isObject, isString } from '../../../utils/isType';
 import { renderNotice, renderAlert } from '../../../utils/notificationHelper';
