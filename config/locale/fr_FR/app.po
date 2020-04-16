@@ -74,8 +74,8 @@ msgstr "%{click_here} pour accepter l'invitation, (ou copier %{link} dans votre 
 msgid "%{commenter_name} has commented on your plan %{plan_title}. To view the comments, follow the link to the DMP below, or navigate to the plan via My Dashboard page in %{tool_name}."
 msgstr "%{commenter_name} a laissé un commentaire sur le plan %{plan_title}. Pour voir les commentaires, suivez le lien ci-dessous vers le plan ou accédez au plus via le Tableau de Bord de  %{tool_name}."
 
-msgid "%{commenter} has finished providing feedback on the plan \"%{plan_title}\". To view the comments, please visit the My Dashboard page in %{tool_name} and open your plan."
-msgstr "%{commenter_name} a terminé son assistance conseil sur le plan \"%{plan_title}\". Pour voir les commentaires, visitez le Tableau de Bord dans %{tool_name} et ouvrez votre plan."
+msgid "%{commenter} has finished providing feedback on the plan  \"%{link_html}\". Comments can be found in the 'Write plan' tab on the right side of the page (Guidance/Comments)."
+msgstr "%{commenter_name} a terminé son assistance conseil sur le plan \"%{link_html}\". Vous retrouverez les commentaires dans l'onglet 'Rédiger', sur la droite de la page (Recommandations/Commentaires)."
 
 msgid "%{date}"
 msgstr "%{date}"
