@@ -1495,17 +1495,43 @@ describe Plan do
     end
   end
 
-  describe "#grant" do
+  describe "#grant association sanity checks" do
     let!(:plan) { create(:plan, :creator) }
-    let!(:grant) { create(:identifier, identifiable: plan, identifier_scheme: nil) }
 
-    it "returns nil if no grant_id is defined" do
-      expect(plan.grant).to eql(nil)
+    it "allows a grant identifier to be associated" do
+      plan.grant = build(:identifier, identifier_scheme: nil)
+      plan.save
+      expect(plan.grant.new_record?).to eql(false)
     end
-    it "returns the grant as an Identifier" do
-      plan.update(grant_id: grant.id)
-      plan.reload
-      expect(plan.grant).to eql(grant)
+    it "allows a grant identifier to be deleted" do
+      plan.grant = build(:identifier, identifier_scheme: nil)
+      plan.save
+      plan.grant = nil
+      plan.save
+      expect(plan.grant).to eql(nil)
+      expect(Identifier.last).to eql(nil)
+    end
+    it "does not allow multiple grants on a single plan" do
+      plan.grant = build(:identifier, identifier_scheme: nil)
+      plan.save
+      val = SecureRandom.uuid
+      plan.grant = build(:identifier, identifier_scheme: nil, value: val)
+      plan.save
+      expect(plan.grant.new_record?).to eql(false)
+      expect(plan.grant.value).to eql(val)
+      expect(Identifier.all.length).to eql(1)
+    end
+    it "allows the same grant to be associated with different plans" do
+      val = SecureRandom.uuid
+      id = build(:identifier, identifier_scheme: nil, value: val)
+      plan.grant = id
+      plan.save
+      plan2 = create(:plan, grant: id)
+      expect(plan2.grant).to eql(plan.grant)
+      expect(plan2.grant.value).to eql(plan.grant.value)
+      # Make sure that deleting the plan does not delete the shared grant!
+      plan.destroy
+      expect(plan2.grant).not_to eql(nil)
     end
   end
 
