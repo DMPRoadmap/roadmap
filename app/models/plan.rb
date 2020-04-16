@@ -185,6 +185,8 @@ class Plan < ActiveRecord::Base
     joins(:template, roles: [user: :org])
     .where(Role.creator_condition)
     .where("lower(plans.title) LIKE lower(:search_pattern)
+            OR lower(orgs.name) LIKE lower (:search_pattern)
+            OR lower(orgs.abbreviation) LIKE lower (:search_pattern)
             OR lower(templates.title) LIKE lower(:search_pattern)",
             search_pattern: search_pattern)
   }
