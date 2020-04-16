@@ -128,10 +128,10 @@ class OrgsController < ApplicationController
     end
   end
 
-  # START DMPTool customization
-  # JSON endpoint
-  # GET /orgs/:id/logo (format: :json)
-  # ----------------------------------------------------------------
+# START DMPTool customization
+# JSON endpoint
+# GET /orgs/:id/logo (format: :json)
+# ----------------------------------------------------------------
 
 # END DMPTool customization
 # ---------------------------------------------------------
