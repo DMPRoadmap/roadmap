@@ -9,6 +9,8 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
+#  dmp_id                    :integer
+#  parent_id                 :integer
 #
 # Indexes
 #
@@ -18,12 +20,34 @@
 
 class Fragment::Person < StructuredAnswer
 
-    def legalIssues
-        Fragment::LegalIssue.where("(data->>'legalAdvisor')::int = ?", id)
+
+    def documentations
+        Fragment::Documentation.where("(data->>'documentation_administrator'->>'dbId')::int = ?", id)
+    end
+
+    def legal_issues
+        Fragment::LegalIssue.where("(data->>'legal_advisor'->>'dbId')::int = ?", id)
     end
 
     def metas
-        Fragment::Meta.where("(data->>'contact')::int = ?", id)
+        Fragment::Meta.where("(data->>'contact'->>'dbId')::int = ?", id)
+    end
+
+    def projects
+        Fragment::Project.where("(data->>'principal_investigator'->>'dbId')::int = ?", id)
+    end
+
+    def research_outputs
+        Fragment::ResearchOutput.where("(data->>'contact'->>'dbId')::int = ?", id)
+    end
+
+    def staff_members
+        Fragment::StaffMember.where("(data->>'agent'->>'dbId')::int = ?", id)
+    end
+
+    
+    def self.sti_name
+        "person"
     end
 
 end

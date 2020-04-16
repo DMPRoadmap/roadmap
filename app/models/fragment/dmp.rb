@@ -9,6 +9,8 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
+#  dmp_id                    :integer
+#  parent_id                 :integer
 #
 # Indexes
 #
@@ -18,20 +20,24 @@
 
 class Fragment::Dmp < StructuredAnswer
 
-    def cost
-        Fragment::Cost.where("(data->>'dmp')::int = ?", id)
-    end
-
     def meta
-        Fragment::Meta.where("(data->>'dmp')::int = ?", id)
+        Fragment::Meta.where(dmp_id: id).first
     end
 
     def project
-        Fragment::Project.where("(data->>'dmp')::int = ?", id)
+        Fragment::Project.where(dmp_id: id).first
     end
 
-    def researchOutputs
-        Fragment::ResearchOutput.where("(data->>'dmp')::int = ?", id)
+    def research_outputs
+        Fragment::ResearchOutput.where(dmp_id: id)
     end
 
+    def persons
+        Fragment::Person.where(dmp_id: id)
+    end
+
+
+    def self.sti_name
+        "dmp"
+    end
 end

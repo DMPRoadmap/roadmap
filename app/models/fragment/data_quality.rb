@@ -9,6 +9,8 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
+#  dmp_id                    :integer
+#  parent_id                 :integer
 #
 # Indexes
 #
@@ -16,10 +18,14 @@
 #  index_structured_answers_on_structured_data_schema_id  (structured_data_schema_id)
 #
 
-class Fragment::BackupPolicy < StructuredAnswer
+class Fragment::DataQuality < StructuredAnswer
 
-    def technicalResourceUsage
-        Fragment::TechnicalResourceUsage.where("(data->>'backup_policy')::int = ?", id)
+    def research_output
+        self.parent
+    end
+    
+    def self.sti_name
+        "data_quality"
     end
 
 end

@@ -79,5 +79,9 @@ FactoryBot.define do
       plan.guidance_groups << create_list(:guidance_group, evaluator.guidance_groups)
     end
 
+    # after(:create) do |plan, evaluator|
+    #   create(:structured_answer, classname: "dmp", data: { "plan_id" => plan.id })
+    # end
+
   end
 end

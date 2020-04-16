@@ -9,6 +9,8 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
+#  dmp_id                    :integer
+#  parent_id                 :integer
 #
 # Indexes
 #
@@ -18,16 +20,17 @@
 
 class Fragment::TechnicalResourceUsage < StructuredAnswer
 
-    def backupPolicy
-        Fragment::BackupPolicy.where(id: data['backup_policy']).first
+    def research_output
+        self.parent
     end
 
-    def researchOutput
-        Fragment::ResearchOutput.where(id: data['research_output']).first
+    def technical_resource
+        Fragment::RechnicalResource.where(id: data['technical_resource']['dbId']).first
     end
 
-    def technicalResource
-        Fragment::RechnicalResource.where(id: data['technical_resource']).first
+    
+    def self.sti_name
+        "technical_resource_usage"
     end
 
 end

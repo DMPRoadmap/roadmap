@@ -18,15 +18,14 @@
 #  index_structured_answers_on_structured_data_schema_id  (structured_data_schema_id)
 #
 
-class Fragment::Cost < StructuredAnswer
-    
+class Fragment::DataCollection < StructuredAnswer
+
     def research_output
         self.parent
     end
-
-
-    def self.sti_name
-        "cost"
-    end
     
+    def self.sti_name
+        "data_collection"
+    end
+
 end

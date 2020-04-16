@@ -9,6 +9,8 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
+#  dmp_id                    :integer
+#  parent_id                 :integer
 #
 # Indexes
 #
@@ -19,7 +21,12 @@
 class Fragment::MetadataFormat < StructuredAnswer
 
     def documentation
-        Fragment::Documentation.where("(data->>'metadata_format')::int = ?", id)
+        Fragment::Documentation.where("(data->>'metadata_format'->>'dbId')::int = ?", id)
+    end
+
+    
+    def self.sti_name
+        "metadata_format"
     end
 
 end

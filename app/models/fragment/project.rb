@@ -9,6 +9,8 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
+#  dmp_id                    :integer
+#  parent_id                 :integer
 #
 # Indexes
 #
@@ -18,23 +20,23 @@
 
 class Fragment::Project < StructuredAnswer
 
-    def dmp
-        Fragment::Dmp.where(id: data['dmp']).first
+    def principalInvestigator
+        Fragment::Person.where(id: data['principalInvestigator']['dbId']).first
     end
 
-    def principalInvestigator
-        Fragment::Person.where(id: data['principalInvestigator']).first
+    
+    def fundings
+        Fragment::Funding.where("(data->>'project'->>'dbId')::int = ?", id)
+    end
+
+    def partners
+        Fragment::Partner.where("(data->>'project'->>'dbId')::int = ?", id)
     end
 
 
     
-    def funders
-        Fragment::Funder.where("(data->>'project')::int = ?", id)
+    def self.sti_name
+        "project"
     end
-
-    def partners
-        Fragment::Partner.where("(data->>'project')::int = ?", id)
-    end
-
     
 end

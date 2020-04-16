@@ -9,6 +9,8 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
+#  dmp_id                    :integer
+#  parent_id                 :integer
 #
 # Indexes
 #
@@ -19,11 +21,12 @@
 class Fragment::Meta < StructuredAnswer
 
     def contact
-        Fragment::Person.where(id: data['contact']).first
+        Fragment::Person.where(id: data['contact']['dbId']).first
     end
     
-    def dmp
-        Fragment::Dmp.where(id: data['dmp']).first
-    end
+
     
+    def self.sti_name
+        "meta"
+    end
 end

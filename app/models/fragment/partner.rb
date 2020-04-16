@@ -9,6 +9,8 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
+#  dmp_id                    :integer
+#  parent_id                 :integer
 #
 # Indexes
 #
@@ -19,7 +21,12 @@
 class Fragment::Partner < StructuredAnswer
     
     def project
-        Fragment::Project.where(id: data['project']).first
+        Fragment::Project.where(id: data['project']['dbId']).first
+    end
+
+    
+    def self.sti_name
+        "partner"
     end
     
 end

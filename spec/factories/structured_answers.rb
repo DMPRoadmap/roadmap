@@ -9,6 +9,8 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
+#  dmp_id                    :integer
+#  parent_id                 :integer
 #
 # Indexes
 #
@@ -18,8 +20,17 @@
 
 FactoryBot.define do
   factory :structured_answer do
-    data { "" }
-    answer_id { 1 }
-    schema_id { 1 }
+    data { { } }
+    classname { "dmp" }
+    answer
+    structured_data_schema
+
+    trait :data do 
+      data { { } }
+    end
+
+    trait :classname do 
+      classname { "dmp" }
+    end
   end
 end

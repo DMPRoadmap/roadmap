@@ -9,6 +9,8 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
+#  dmp_id                    :integer
+#  parent_id                 :integer
 #
 # Indexes
 #
@@ -16,10 +18,15 @@
 #  index_structured_answers_on_structured_data_schema_id  (structured_data_schema_id)
 #
 
-class Fragment::MethodologyIssue < StructuredAnswer
+class Fragment::PersonalDataIssue < StructuredAnswer
 
-    def researchOutput
-        Fragment::ResearchOutput.where(id: data['research_output'])
+    def research_output
+        self.parent
+    end
+
+    
+    def self.sti_name
+        "personal_data_issue"
     end
 
 end

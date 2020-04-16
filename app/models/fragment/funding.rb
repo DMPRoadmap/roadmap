@@ -9,6 +9,8 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
+#  dmp_id                    :integer
+#  parent_id                 :integer
 #
 # Indexes
 #
@@ -16,10 +18,19 @@
 #  index_structured_answers_on_structured_data_schema_id  (structured_data_schema_id)
 #
 
-class Fragment::PersonalData < StructuredAnswer
+class Fragment::Funding < StructuredAnswer
 
-    def legalIssue
-        Fragment::LegalIssue.where("(data->>'legalIssue')::int = ?", id).first
+    def project
+        Fragment::Project.where(id: data['project']['dbId']).first
+    end
+
+    def funder
+        Fragment::Funder.where(id: data['funder']['dbId']).first
+    end
+
+    
+    def self.sti_name
+        "funding"
     end
 
 end

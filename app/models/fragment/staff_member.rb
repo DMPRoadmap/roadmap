@@ -9,6 +9,8 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
+#  dmp_id                    :integer
+#  parent_id                 :integer
 #
 # Indexes
 #
@@ -19,11 +21,16 @@
 class Fragment::StaffMember < StructuredAnswer
 
     def agent 
-        Fragment::Person.where(id: data['agent'])
+        Fragment::Person.where(id: data['agent']['dbId'])
     end
 
     def research_output
-        Fragment::ResearchOutput.where(id: data['research_output'])
+        self.parent
+    end
+
+    
+    def self.sti_name
+        "staff_member"
     end
 
 end
