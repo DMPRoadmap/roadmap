@@ -1,4 +1,4 @@
-import { Tinymce } from '../../utils/tinymce.js';
+import { Tinymce } from '../../utils/tinymce';
 import { isObject, isString } from '../../utils/isType';
 import TimeagoFactory from '../../utils/timeagoFactory';
 

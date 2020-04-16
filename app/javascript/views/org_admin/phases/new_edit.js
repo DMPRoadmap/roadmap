@@ -1,5 +1,5 @@
 import 'bootstrap-sass/assets/javascripts/bootstrap/collapse';
-import { Tinymce } from '../../../utils/tinymce.js';
+import { Tinymce } from '../../../utils/tinymce';
 import { isObject, isString } from '../../../utils/isType';
 import getConstant from '../../../constants';
 import expandCollapseAll from '../../../utils/expandCollapseAll';
