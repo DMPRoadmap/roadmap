@@ -3,7 +3,13 @@
 class OrgsController < ApplicationController
   after_action :verify_authorized, except: ['shibboleth_ds', 'shibboleth_ds_passthru']
 
-  include Dmptool::Controller::Orgs
+  # =====================================
+  # Start DMPTool Customization
+  # =====================================
+  include Dmptool::Controllers::OrgsController
+  # =====================================
+  # End DMPTool Customization
+  # =====================================
 
   include OrgSelectable
 
@@ -85,56 +91,57 @@ class OrgsController < ApplicationController
     end
   end
 
-  # GET /orgs/shibboleth_ds
-  # ----------------------------------------------------------------
-  def shibboleth_ds
-    redirect_to root_path unless current_user.nil?
+  # --------------------------------------------------------
+  # Start DMPTool customization
+  #   Commenting out so that our customization is used
+  # --------------------------------------------------------
 
-    @user = User.new
-    # Display the custom Shibboleth discovery service page.
-    @orgs = Identifier.by_scheme_name("shibboleth", "Org").order(:name)
+  # # GET /orgs/shibboleth_ds
+  # # ----------------------------------------------------------------
+  # def shibboleth_ds
+  #   redirect_to root_path unless current_user.nil?
 
-    if @orgs.empty?
-      flash.now[:alert] = _("No organisations are currently registered.")
-      redirect_to user_shibboleth_omniauth_authorize_path
-    end
-  end
+  #   @user = User.new
+  #   # Display the custom Shibboleth discovery service page.
+  #   @orgs = Identifier.by_scheme_name("shibboleth", "Org").order(:name)
 
-  # POST /orgs/shibboleth_ds
-  # ----------------------------------------------------------------
-  def shibboleth_ds_passthru
-    if !params["shib-ds"][:org_name].blank?
-      session["org_id"] = params["shib-ds"][:org_name]
+  #   if @orgs.empty?
+  #     flash.now[:alert] = _("No organisations are currently registered.")
+  #     redirect_to user_shibboleth_omniauth_authorize_path
+  #   end
+  # end
 
-      org = Org.where(id: params["shib-ds"][:org_id])
-      shib_entity = Identifier.by_scheme_name("shibboleth", "Org")
-                              .where(identifiable: org)
+  # # POST /orgs/shibboleth_ds
+  # # ----------------------------------------------------------------
+  # def shibboleth_ds_passthru
+  #   if !params["shib-ds"][:org_name].blank?
+  #     session["org_id"] = params["shib-ds"][:org_name]
 
-      if !shib_entity.empty?
-        # Force SSL
-        shib_login = Rails.application.config.shibboleth_login
-        url = "#{request.base_url.gsub("http:", "https:")}#{shib_login}"
-        target = "#{user_shibboleth_omniauth_callback_url.gsub('http:', 'https:')}"
+  #     org = Org.where(id: params["shib-ds"][:org_id])
+  #     shib_entity = Identifier.by_scheme_name("shibboleth", "Org")
+  #                             .where(identifiable: org)
 
-        # initiate shibboleth login sequence
-        redirect_to "#{url}?target=#{target}&entityID=#{shib_entity.first.value}"
-      else
-        failure = _("Your organisation does not seem to be properly configured.")
-        redirect_to shibboleth_ds_path, alert: failure
-      end
+  #     if !shib_entity.empty?
+  #       # Force SSL
+  #       shib_login = Rails.application.config.shibboleth_login
+  #       url = "#{request.base_url.gsub("http:", "https:")}#{shib_login}"
+  #       target = "#{user_shibboleth_omniauth_callback_url.gsub('http:', 'https:')}"
 
-    else
-      redirect_to shibboleth_ds_path, notice: _("Please choose an organisation")
-    end
-  end
+  #       # initiate shibboleth login sequence
+  #       redirect_to "#{url}?target=#{target}&entityID=#{shib_entity.first.value}"
+  #     else
+  #       failure = _("Your organisation does not seem to be properly configured.")
+  #       redirect_to shibboleth_ds_path, alert: failure
+  #     end
 
-# START DMPTool customization
-# JSON endpoint
-# GET /orgs/:id/logo (format: :json)
-# ----------------------------------------------------------------
+  #   else
+  #     redirect_to shibboleth_ds_path, notice: _("Please choose an organisation")
+  #   end
+  # end
 
-# END DMPTool customization
-# ---------------------------------------------------------
+  # --------------------------------------------------------
+  # End DMPTool customization
+  # --------------------------------------------------------
 
   # POST /orgs/search  (via AJAX)
   # ----------------------------------------------------------------

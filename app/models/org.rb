@@ -43,7 +43,7 @@ class Org < ActiveRecord::Base
   # ----------------------------------------
   # Start DMPTool Customization
   # ----------------------------------------
-  include Dmptool::Model::Org
+  include Dmptool::Models::Org
   # ----------------------------------------
   # End DMPTool Customization
   # ----------------------------------------

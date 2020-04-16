@@ -2,7 +2,13 @@
 
 class StaticPagesController < ApplicationController
 
-  include Dmptool::Controller::StaticPages
+  # --------------------------------
+  # Start DMPTool Customization
+  # --------------------------------
+  include Dmptool::Controllers::StaticPagesController
+  # --------------------------------
+  # End DMPTool Customization
+  # --------------------------------
 
   def about_us
   end

@@ -1,54 +1,51 @@
-<% orgs = Org.participating.order(:name) %>
+<%
+  presenter = Dmptool::Presenters::OrgPresenter.new
+  participating = presenter.participating_orgs
+ %>
 
 <div class="modal-dialog" role="document">
   <div class="modal-content">
     <div class="modal-body">
       <div class="row">
         <div class="col-md-12">
-          <%= label_tag :org_name, _('Look up your institution here'), class: "control-label" %>
           <button type="button" class="close pull-right" data-dismiss="modal" aria-label="<%= _('Cancel') %>">
             <span class="fa fa-times" aria-hidden="true">&nbsp;</span>
           </button>
 
           <div class="form-group">
-            <% if orgs.length <= 10 %>
-              <select id="org_name">
-                <option value=""><%= _('Please select one') %></option>
-                <%= raw orgs.collect{|o| "<option value=\"#{o.id}\">#{o.name}</option>" }.join('') %>
-              </select>
-
-            <% else %>
-              <%= render partial: "shared/accessible_combobox",
-                         locals: {name: 'shib-ds[org_name]',
-                                  id: 'shib-ds_org_name',
-                                  default_selection: nil,
-                                  models: orgs,
-                                  attribute: 'name',
-                                  required: true,
-                                  classes: ''} %>
+            <%= form_for Org.new, url: shibboleth_ds_path, method: :post do |f| %>
+              <div id="shib-ds-org-controls" class="row">
+                <div class="form-group col-md-12">
+                  <%= render partial: "shared/org_selectors/local_only",
+                             locals: {
+                                 form: f,
+                                 id_field: :id,
+                                 default_org: nil,
+                                 orgs: participating,
+                                 required: false,
+                                 label: _("Look up your institution here")
+                              } %>
+                </div>
+              </div>
+              <%= button_tag _('Go'), class: "btn btn-default", id: "org-select-go", disabled: "disabled" %>
             <% end %>
-            <%= button_tag _('Go'), class: "btn btn-default", id: "org-select-go" %>
           </div>
 
-          <% if orgs.length > 10 %>
-            <%= link_to _('See the full list of participating institutions'), '#', id: 'show_list' %>
+          <% if participating.length > 10 %>
+            <%= link_to _('Or see the full list of participating institutions'), '#', id: 'show_list' %>
 
             <ul id="full_list" class="hidden list-unstyled" aria-hidden="true">
               <% current = nil %>
-              <% orgs.each do |org| %>
+              <% participating.each do |org| %>
                 <% unless org.name[0].capitalize == current %>
                   <% current = org.name[0].capitalize %>
                   <li class="bg-primary"><%= current %></li>
                 <% end %>
-                <% if org.shibbolized? %>
-                  <% qs = "shib-ds[org_name=#{org.id}]&shib-ds[org_id=#{org.id}]" %>
-                  <li><%= link_to org.name, "#{shibboleth_ds_path}/#{org.id}?#{qs}]",
-                                  data: { content: org.id } %></li>
+                <% target = presenter.sign_in_url(org: org) %>
+                <% if target.present? && target.include?("shib-ds") %>
+                  <li><%= link_to org.name, target, data: { content: org.id } %></li>
                 <% else %>
-                  <li>
-                    <%= link_to org.name, "#{org_logo_path(org)}", class: 'org-sign-in',
-                                data: { content: org.id, toggle: 'modal', target: '#org-sign-in' } %>
-                  </li>
+                  <li><%= link_to org.name, target, class: "org-sign-in" %></li>
                 <% end %>
               <% end %>
             </ul>

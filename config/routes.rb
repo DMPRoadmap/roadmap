@@ -18,6 +18,28 @@ Rails.application.routes.draw do
   get '/users/ldap_username', to: 'users#ldap_username'
   post '/users/ldap_account', to: 'users#ldap_account'
 
+  # ------------------------------------------
+  # Start DMPTool customizations
+  # ------------------------------------------
+  # GET is triggered by user clicking an org in the list
+  get '/orgs/shibboleth/:id', to: 'orgs#shibboleth_ds_passthru'
+  # POST is triggered by user selecting an org from autocomplete
+  post '/orgs/shibboleth/:id', to: 'orgs#shibboleth_ds_passthru'
+  # ------------------------------------------
+  # End DMPTool Customization
+  # ------------------------------------------
+  
+  # ------------------------------------------
+  # Start DMPTool customizations
+  # ------------------------------------------
+  # Handle logouts when on the localhost dev environment
+  unless %w[stage production].include?(Rails.env)
+    get "/Shibboleth.sso/Logout", to: redirect("/")
+  end
+  # ------------------------------------------
+  # End DMPTool Customization
+  # ------------------------------------------
+
   resources :users, path: 'users', only: [] do
     resources :org_swaps, only: [:create],
                           controller: "super_admin/org_swaps"

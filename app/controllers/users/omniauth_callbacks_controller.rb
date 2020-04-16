@@ -2,7 +2,13 @@
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
-  include Dmptool::Controller::OmniauthCallbacks
+  # --------------------------------
+  # Start DMPTool Customization
+  # --------------------------------
+  include Dmptool::Controllers::Users::OmniauthCallbacksController
+  # --------------------------------
+  # End DMPTool Customization
+  # --------------------------------
 
   ##
   # Dynamically build a handler for each omniauth provider
@@ -26,7 +32,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     # --------------------------------------------------------
     # Start DMPTool customization
     # --------------------------------------------------------
-    process_omniauth_callback(scheme)
+    process_omniauth_callback(scheme: scheme)
 
     # DMPTool -- commented out the entire block below
 

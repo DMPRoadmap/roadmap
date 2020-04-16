@@ -1,7 +1,3 @@
-<% default_org = Org.find_by(is_other: true) %>
-<% @user = @user.present? ? @user : User.new(org: default_org) %>
-<% @user.org = default_org unless @user.org.present? %>
-
 <div class="modal-dialog" role="document">
   <div class="modal-content">
     <div class="modal-body">

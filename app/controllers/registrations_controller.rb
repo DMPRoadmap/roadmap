@@ -38,6 +38,21 @@ class RegistrationsController < Devise::RegistrationsController
           application_name: Rails.configuration.branding[:application][:name]
         }
         # rubocop:enable Metrics/LineLength
+
+        # ---------------------------------------
+        # Start DMPTool Customization
+        # Determine which Org Idp we came from and make it available to form
+        # ---------------------------------------
+        entity_id = oauth.fetch("info", {})["identity_provider"]
+        if entity_id.present?
+          identifier = Identifier.where(identifiable_type: "Org",
+                                        value: entity_id).first
+          @user.org = identifier.identifiable if identifier.present?
+        end
+        # ---------------------------------------
+        # End DMPTool Customization
+        # ---------------------------------------
+
         scheme = IdentifierScheme.by_name(oauth["provider"].downcase).first
         Identifier.create(identifier_scheme: scheme,
                           value: oauth["uid"],
