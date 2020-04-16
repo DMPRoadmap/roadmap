@@ -23,7 +23,7 @@ FactoryBot.define do
     name { "MyString" }
     version { 1 }
     schema { "" }
-    org_id { 1 }
-    object { "MyString" }
+    org
+    classname { Faker::Company.bs }
   end
 end
