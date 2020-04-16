@@ -1,10 +1,10 @@
 // Rails setup
 import 'jquery-ujs';
-import 'jquery-accessible-autocomplete-list-aria/jquery-accessible-autocomplete-list-aria';
 
 // Generic JS that is applicable across multiple pages
 import '../utils/array';
 import '../utils/charts';
+import '../utils/autoComplete';
 import '../utils/externalLink';
 import '../utils/paginable';
 import '../utils/panelHeading';
@@ -18,6 +18,7 @@ import '../utils/requiredField';
 // Page specific JS
 import '../views/answers/edit';
 import '../views/answers/rda_metadata';
+import '../views/devise/invitations/edit';
 import '../views/devise/passwords/edit';
 import '../views/devise/registrations/edit';
 import '../views/guidances/new_edit';

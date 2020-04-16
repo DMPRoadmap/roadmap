@@ -41,7 +41,9 @@
 #
 # Indexes
 #
-#  index_users_on_email   (email) UNIQUE
+#  fk_rails_45f4f12508    (language_id)
+#  fk_rails_f29bf9cdf2    (department_id)
+#  index_users_on_email   (email)
 #  index_users_on_org_id  (org_id)
 #
 # Foreign Keys

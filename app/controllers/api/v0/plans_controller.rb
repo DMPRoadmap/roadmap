@@ -36,11 +36,11 @@ class Api::V0::PlansController < Api::V0::BaseController
     @plan.data_contact = plan_user.email
     # set funder name to template's org, or original template's org
     if @template.customization_of.nil?
-      @plan.funder_name = @template.org.name
+      @plan.funder_id = @template.org.id
     else
-      @plan.funder_name = Template.where(
+      @plan.funder_id = Template.where(
         family_id: @template.customization_of
-      ).first.org.name
+      ).first.org.id
     end
     @plan.template = @template
     @plan.title = params[:plan][:title]

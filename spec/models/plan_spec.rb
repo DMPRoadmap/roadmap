@@ -23,6 +23,9 @@ describe Plan do
 
     it { is_expected.to belong_to :template }
 
+    it { is_expected.to belong_to :org }
+
+    it { is_expected.to belong_to :funder }
 
     it { is_expected.to have_many :phases }
 
@@ -43,6 +46,8 @@ describe Plan do
     it { is_expected.to have_many :exported_plans }
 
     it { is_expected.to have_many :setting_objects }
+
+    it { is_expected.to have_many(:identifiers) }
 
   end
 
@@ -457,7 +462,7 @@ describe Plan do
 
     context "when Plan title matches term" do
 
-      let!(:plan)  { create(:plan, title: "foolike title") }
+      let!(:plan)  { create(:plan, :creator, title: "foolike title") }
 
       it { is_expected.to include(plan) }
 
@@ -467,19 +472,38 @@ describe Plan do
 
       let!(:template) { create(:template, title: "foolike title") }
 
-      let!(:plan)  { create(:plan, template: template) }
+      let!(:plan)  { create(:plan, :creator, template: template) }
 
       it { is_expected.to include(plan) }
 
     end
 
+    context "when Organisation name matches term" do
+
+      let!(:plan)  { create(:plan, :creator, description: "foolike desc") }
+
+      let!(:org) { create(:org, name: 'foolike name') }
+
+      before do
+        user = plan.owner
+        user.org = org
+        user.save
+      end
+
+      it "returns organisation name" do
+          expect(subject).to include(plan)
+      end
+
+    end
+
     context "when neither title matches term" do
 
-      let!(:plan)  { create(:plan, description: "foolike desc") }
+      let!(:plan)  { create(:plan, :creator, description: "foolike desc") }
 
       it { is_expected.not_to include(plan) }
 
     end
+
 
   end
 
@@ -755,6 +779,12 @@ describe Plan do
 
     context "config does not allow admin viewing" do
 
+      before(:each) do
+        Branding.expects(:fetch)
+                .with(:service_configuration, :plans, :org_admins_read_all)
+                .returns(false)
+      end
+
       it "super admins" do
         Branding.expects(:fetch)
                 .with(:service_configuration, :plans, :super_admins_read_all)
@@ -765,10 +795,6 @@ describe Plan do
       end
 
       it "org admins" do
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :org_admins_read_all)
-                .returns(false)
-
         user.perms << create(:perm, name: "modify_guidance")
         expect(subject.readable_by?(user.id)).to eql(false)
       end
@@ -1414,6 +1440,24 @@ describe Plan do
 
       it { is_expected.to eql(false) }
 
+    end
+  end
+
+  describe "#landing_page" do
+    let!(:plan) { create(:plan, :creator) }
+
+    it "returns nil if no DOI or ARK is available" do
+      expect(plan.landing_page).to eql(nil)
+    end
+    it "returns the DOI if available" do
+      id = create(:identifier, identifiable: plan, value: "10.9999/123erge/45f")
+      plan.reload
+      expect(plan.landing_page).to eql(id)
+    end
+    it "returns the ARK if available" do
+      id = create(:identifier, identifiable: plan, value: "ark:10.9999/123")
+      plan.reload
+      expect(plan.landing_page).to eql(id)
     end
   end
 
