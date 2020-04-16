@@ -122,6 +122,8 @@ class Plan < ActiveRecord::Base
 
   has_many :contributors, dependent: :destroy
 
+  has_one :grant, class_name: "Identifier"
+
   # =====================
   # = Nested Attributes =
   # =====================
@@ -186,8 +188,10 @@ class Plan < ActiveRecord::Base
   #           OR lower(identifiers.value) LIKE lower(:search_pattern)",
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
-    joins(:template)
+    joins(:template, roles: [user: :org])
     .where("lower(plans.title) LIKE lower(:search_pattern)
+            OR lower(orgs.name) LIKE lower (:search_pattern)
+            OR lower(orgs.abbreviation) LIKE lower (:search_pattern)
             OR lower(templates.title) LIKE lower(:search_pattern)",
             search_pattern: search_pattern)
   }
