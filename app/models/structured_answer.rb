@@ -19,6 +19,8 @@
 #
 
 class StructuredAnswer < ActiveRecord::Base
+  
+  include ValidationMessages
 
   # ================
   # = Associations =
@@ -29,6 +31,12 @@ class StructuredAnswer < ActiveRecord::Base
   belongs_to :dmp, class_name: "Fragment::Dmp", foreign_key: "dmp_id"
   has_many :children, class_name: "StructuredAnswer", foreign_key: "parent_id"
   belongs_to :parent, class_name: "StructuredAnswer", foreign_key: "parent_id" 
+
+  # ===============
+  # = Validations =
+  # ===============
+
+  #validates :structured_data_schema, presence: { message: PRESENCE_MESSAGE }
 
   # ================
   # = Single Table Inheritence =
@@ -86,7 +94,7 @@ class StructuredAnswer < ActiveRecord::Base
           # if there is more than 1 child, should pluralize the classname
           parent_data[classname.pluralize(children.count)] = children.map { |c| { "dbId" => c.id } }
         else 
-          parent_data[classname] = children.map { |c| { "dbId" => c.id } }
+          parent_data[classname] =  { "dbId" => children.first.id }
         end 
       end
       self.parent.update(data: parent_data)
