@@ -34,10 +34,12 @@
       <div class="col-md-3">
         <%= op.check_box :is_default %>
       </div>
-      <div class="col-md-3">
-        <%= op.hidden_field :_destroy, class: 'destroy-question-option' %>
-        <%= link_to _('Remove'), org_admin_question_option_path(options_q), method: :delete %>
-      </div>
+      <% if i > 1 %>
+        <div class="col-md-3">
+          <%= op.hidden_field :_destroy, class: 'destroy-question-option' %>
+          <%= link_to _('Remove'), org_admin_question_option_path(options_q), method: :delete %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 <% end %>
