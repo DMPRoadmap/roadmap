@@ -575,13 +575,6 @@ class Plan < ActiveRecord::Base
     identifiers.select { |i| %w[doi ark].include?(i.identifier_format) }.first
   end
 
-  # Returns the identifier associated with the grant_id
-  def grant
-    return nil unless grant_id.present?
-
-    identifiers.select { |identifier| identifier.id == grant_id }.first
-  end
-
   private
 
   # Initialize the title for new templates
