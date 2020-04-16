@@ -241,7 +241,7 @@ msgid "Accept"
 msgstr "J'accepte"
 
 msgid "Your organisation has been deactivated. Please choose a new organisation from your <a href=\"/users/edit\">user profile</a>."
-msgstr "Votre organisme a été désactivée. Veuillez choisir un nouvel organisme à partir de votre <a href=\"/users/edit\">profil utilisateur</a>."
+msgstr "Votre organisme a été désactivé. Veuillez choisir un nouvel organisme à partir de votre <a href=\"/users/edit\">profil utilisateur</a>."
 
 # STATIC PAGES
 
