@@ -38,12 +38,15 @@ class Org < ActiveRecord::Base
   include FeedbacksHelper
   include GlobalHelpers
   include FlagShihTzu
-<<<<<<< HEAD
-
-  include Dmptool::Model::Org
-=======
   include Identifiable
->>>>>>> 9ad58151eb11d3e04797975f52358619e436fff3
+
+  # ----------------------------------------
+  # Start DMPTool Customization
+  # ----------------------------------------
+  include Dmptool::Model::Org
+  # ----------------------------------------
+  # End DMPTool Customization
+  # ----------------------------------------
 
   extend Dragonfly::Model::Validations
   validates_with OrgLinksValidator
