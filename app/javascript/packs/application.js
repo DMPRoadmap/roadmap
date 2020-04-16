@@ -14,6 +14,7 @@ import '../utils/tabHelper';
 import '../utils/tooltipHelper';
 import '../utils/popoverHelper';
 import '../utils/requiredField';
+import '../utils/tinymce';
 
 // Page specific JS
 import '../views/answers/edit';
