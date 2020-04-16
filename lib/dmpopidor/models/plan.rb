@@ -83,8 +83,6 @@ module Dmpopidor
 
       private 
         def create_plan_fragments
-          research_output = self.research_outputs.first
-
           dmp_fragment = Fragment::Dmp.create(
             data: {
               "plan_id" => self.id
@@ -96,13 +94,12 @@ module Dmpopidor
             dmp_id: dmp_fragment.id,
             parent_id: dmp_fragment.id
           )
- 
+  
           Fragment::Meta.create(
             data: create_meta_json(),
             dmp_id: dmp_fragment.id,
             parent_id: dmp_fragment.id
-          )
-          
+          )  
         end
 
         def update_plan_fragments
