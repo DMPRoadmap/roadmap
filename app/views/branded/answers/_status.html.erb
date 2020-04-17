@@ -4,7 +4,7 @@
 <span class="label label-warning status" style="display: none;" data-status="error-saving"></span>
 <% if answer.answered? %>
     <span class="label label-info status" data-status="saved-at">
-      <%= _('Answered')%> <time class="timeago" datetime="<%= answer.updated_at.iso8601 %>"></time>
+      <%= _('Answered')%> <time class="timeago" datetime="<%= answer.age %>"></time>
       <%= _(' by %{user_name}') %{ :user_name => answer.user.name } if answer.user.present? %>
     </span>
 <% end %>
