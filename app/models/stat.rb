@@ -14,7 +14,7 @@
 #  org_id     :integer
 #
 
-class Stat < ActiveRecord::Base
+class Stat < ApplicationRecord
 
   extend OrgDateRangeable
 

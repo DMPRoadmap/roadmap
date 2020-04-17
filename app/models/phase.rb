@@ -27,9 +27,7 @@
 #
 # [+Created:+] 03/09/2014
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
-class Phase < ActiveRecord::Base
-  include ValidationMessages
-  include ValidationValues
+class Phase < ApplicationRecord
   include ActsAsSortable
   include VersionableModel
 

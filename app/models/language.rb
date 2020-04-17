@@ -11,11 +11,7 @@
 #  name             :string
 #
 
-class Language < ActiveRecord::Base
-
-  # frozen_string_literal: true
-
-  include ValidationValues
+class Language < ApplicationRecord
 
   # =============
   # = Constants =

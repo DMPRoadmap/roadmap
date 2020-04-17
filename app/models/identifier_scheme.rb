@@ -13,11 +13,9 @@
 #  updated_at       :datetime
 #
 
-class IdentifierScheme < ActiveRecord::Base
+class IdentifierScheme < ApplicationRecord
 
   include FlagShihTzu
-  include ValidationMessages
-  include ValidationValues
 
   ##
   # The maximum length for a name

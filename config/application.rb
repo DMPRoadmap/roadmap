@@ -6,14 +6,6 @@ require 'csv'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-#if defined?(Bundler)
-# If you precompile assets before deploying to production, use this line
-#Bundler.require(*Rails.groups(:assets => %w(development test)))
-# If you want your assets lazily compiled in production, use this line
-# Bundler.require(:default, :assets, Rails.env)
-#end
-#Bundler.require(:default, Rails.env)
-#Changed when migrated to rails 4.0.0
 Bundler.require(*Rails.groups)
 
 begin
@@ -25,36 +17,9 @@ end
 
 module DMPRoadmap
   class Application < Rails::Application
-
-    # HTML tags that are allowed to pass through `sanitize`.
-    config.action_view.sanitized_allowed_tags = %w[
-      p br strong em a table thead tbody tr td th tfoot caption ul ol li
-    ]
-
-    config.generators do |g|
-      g.orm             :active_record
-      g.template_engine :erb
-      g.test_framework  :rspec
-      g.javascripts false
-      g.stylesheets false
-      g.skip_routes true
-      g.view_specs false
-      g.helper_specs false
-      g.controller_specs false
-    end
-
-    # TODO: Set up a better Rails cache, preferrably Redis
-    #
-    # From Rails docs:
-    # https://guides.rubyonrails.org/caching_with_rails.html#activesupport-cache-memorystore
-    #
-    # If you're running multiple Ruby on Rails server processes (which is the case if
-    # you're using Phusion Passenger or puma clustered mode), then your Rails server
-    # process instances won't be able to share cache data with each other. This cache
-    # store is not appropriate for large application deployments. However, it can work
-    # well for small, low traffic sites with only a couple of server processes, as well
-    # as development and test environments.
-    config.cache_store = :memory_store, { size: 32.megabytes }
+    # Initialize configuration defaults for originally generated Rails version.
+    #   See: https://apidock.com/rails/v5.2.3/Rails/Application/Configuration/load_defaults
+    config.load_defaults 5.0
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -68,8 +33,39 @@ module DMPRoadmap
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    # Configure the default encoding used in templates for Ruby 1.9.
-    config.encoding = "utf-8"
+    # Do not swallow errors in after_commit/after_rollback callbacks.
+    config.active_record.raise_in_transactional_callbacks = true
+
+    # Returning `false` from a Model callback used to halt the entire callback
+    # chain. This pattern has been deprecated and returning `false` will no longer
+    # halt the entire chain. In later versions of Rails we will need to `throw(:abort)`
+    # to halt the chain.
+    # TODO: Leaving this enabled for now for backward compatibility. It will
+    #       throw deprecation warnings until we clean it up
+    ActiveSupport.halt_callback_chains_on_return_false = true
+
+    # Autoloading is now disabled after booting in the production environment by default.
+    # Eager loading the application is part of the boot process, so top-level constants
+    # are fine and are still autoloaded, no need to require their files.
+    # Constants in deeper places only executed at runtime, like regular method bodies,
+    # are also fine because the file defining them will have been eager loaded while booting.
+    #
+    # TODO: For the vast majority of applications this change needs no action. But
+    #       in the very rare event that your application needs autoloading while running
+    #       in production mode, set this value to `true`
+    config.enable_dependency_loading = false
+
+    # TODO: Setting this to false for now so that our form submissions remain the same
+    action_view.form_with_generates_remote_forms = false
+
+    # The following are carried over from Rails 4.2 version of DMPRoadmap
+    # TODO: Determine if these are still necessary
+    # ------------------------------------------------------------
+
+    # HTML tags that are allowed to pass through `sanitize`.
+    config.action_view.sanitized_allowed_tags = %w[
+      p br strong em a table thead tbody tr td th tfoot caption ul ol li
+    ]
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
@@ -77,20 +73,6 @@ module DMPRoadmap
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true
 
-    config.eager_load_paths << "app/presenters"
-
-    # Use SQL instead of Active Record's schema dumper when creating the database.
-    # This is necessary if your schema can't be completely dumped by the schema dumper,
-    # like if you have constraints or database-specific column types
-    # config.active_record.schema_format = :sql
-
-    # Enforce whitelist mode for mass assignment.
-    # This will create an empty whitelist of attributes available for mass-assignment for all models
-    # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
-    # parameters by using an attr_accessible or attr_protected declaration.
-    #config.active_record.whitelist_attributes = true
-
-    config.autoload_paths += %W(#{config.root}/lib)
     config.action_controller.include_all_helpers = true
 
     # Set the default host for mailer URLs
@@ -112,12 +94,9 @@ module DMPRoadmap
     # A super admin will also be able to associate orgs with their shibboleth entityIds if this is set to true
     config.shibboleth_use_filtered_discovery_service = false
 
-    # Active Record will no longer suppress errors raised in after_rollback or after_commit
-    # in the next version. Devise appears to be using those callbacks.
-    # To accept the new behaviour use 'true' otherwise use 'false'
-    config.active_record.raise_in_transactional_callbacks = true
-
     # Load Branded terminology (e.g. organization name, application name, etc.)
+    # TODO: Consider moving the branding stuff to an initializer like the pattern
+    #       used in the initializers/external_apis/*.rb
     if File.exists?(Rails.root.join('config', 'branding.yml'))
       config.branding = config_for(:branding).deep_symbolize_keys
     end

@@ -53,11 +53,9 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
 
   include ConditionalUserMailer
-  include ValidationMessages
-  include ValidationValues
   include Identifiable
 
   extend UniqueRandom

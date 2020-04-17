@@ -19,10 +19,8 @@
 #  fk_rails_...  (question_id => questions.id)
 #
 
-class QuestionOption < ActiveRecord::Base
-  include ValidationMessages
-  include ValidationValues
-
+class QuestionOption < ApplicationRecord
+  
   # ================
   # = Associations =
   # ================

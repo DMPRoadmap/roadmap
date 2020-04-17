@@ -32,12 +32,10 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 
-class Template < ActiveRecord::Base
+class Template < ApplicationRecord
 
   include GlobalHelpers
-  include ValidationMessages
-  include ValidationValues
-
+  
   validates_with TemplateLinksValidator
 
   # A standard template should be organisationally visible. Funder templates

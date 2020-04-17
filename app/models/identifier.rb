@@ -17,9 +17,7 @@
 #
 #  index_identifiers_on_identifiable_type_and_identifiable_id  (identifiable_type,identifiable_id)
 #
-class Identifier < ActiveRecord::Base
-
-  include ValidationMessages
+class Identifier < ApplicationRecord
 
   # ================
   # = Associations =
@@ -28,7 +26,7 @@ class Identifier < ActiveRecord::Base
   belongs_to :identifiable, polymorphic: true
 
   # TODO: uncomment 'optional: true' once we are on Rails 5
-  belongs_to :identifier_scheme #, optional: true
+  belongs_to :identifier_scheme, optional: true
 
   # ===============
   # = Validations =

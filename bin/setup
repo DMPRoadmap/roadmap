@@ -13,11 +13,9 @@ Dir.chdir APP_ROOT do
   system "bundle check || bundle install"
 
   puts "\n== Copying sample files =="
-  unless File.exist?("config/database.yml")
-    system "cp config/branding.yml.sample config/branding.yml"
-    system "cp config/database.yml.sample config/database.yml"
-    system "cp config/secrets.yml.sample config/secrets.yml"
-  end
+  system "cp config/branding.yml.sample config/branding.yml" unless File.exist?("config/branding.yml")
+  system "cp config/database.yml.sample config/database.yml" unless File.exist?("config/database.yml")
+  system "cp config/secrets.yml.sample config/secrets.yml" unless File.exist?("config/secrets.yml")
 
   puts "\n== Preparing database =="
   system "bin/rake db:setup"
