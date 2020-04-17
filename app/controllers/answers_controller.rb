@@ -103,8 +103,8 @@ class AnswersController < ApplicationController
         n_qs, n_ans = check_answered(section, qn_data[:to_show], all_answers)
         this_section_info = {
           sec_id: section.id,
-          no_qns: n_qs,
-          no_ans: n_ans
+          no_qns: num_section_questions(@plan, section),
+          no_ans: num_section_answers(@plan, section)
         }
         section_data << this_section_info
       end
