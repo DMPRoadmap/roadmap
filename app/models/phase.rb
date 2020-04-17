@@ -105,12 +105,6 @@ class Phase < ActiveRecord::Base
     return copy
   end
 
-  # TODO: Move this to Plan model as `num_answered_questions(phase=nil)`
-  # Returns the number of answered question for the phase.
-  def num_answered_questions(plan)
-    plan&.num_answered_questions.to_i
-  end
-
   # Returns the number of questions for a phase. Note, this method becomes useful
   # for when sections and their questions are eager loaded so that avoids SQL queries.
   def num_questions
@@ -123,22 +117,22 @@ class Phase < ActiveRecord::Base
 
   def num_questions_not_removed(plan)
     count = 0
-    self.sections.each do |section|
-      count += num_section_questions(plan, section)
+    sections.each do |section|
+      count += section.num_visible_questions(plan)
     end
     count
   end
 
   def num_answers_not_removed(plan)
     count = 0
-    self.sections.each do |section|
-      count += num_section_answers(plan, section)
+    sections.each do |section|
+      count += section.num_visible_answers(plan)
     end
     count
   end
 
   def visibility_allowed?(plan)
-    value = Rational(num_answered_questions(plan), plan.num_questions) * 100
+    value = Rational(plan.num_visible_answers, plan.num_visible_questions) * 100
     value >= Rails.application.config.default_plan_percentage_answered.to_f
   end
 

@@ -187,6 +187,14 @@ class Plan < ActiveRecord::Base
   end
   alias super_settings settings
 
+  # return a list of question ids to hide due to conditions
+  def hidden_questions
+    id_list = []
+    self.answers.each do |answer|
+      id_list += answer.remove_list
+    end
+    id_list
+  end
 
   # =================
   # = Class methods =
@@ -489,17 +497,20 @@ class Plan < ActiveRecord::Base
     User.where(id: usr_ids)
   end
 
-  # The number of answered questions from the entire plan
-  #
-  # Returns Integer
-  def num_answered_questions(phase = nil)
-    return answers.select { |answer| answer.answered? }.length unless phase.present?
-
-    answered = answers.select do |answer|
-      answer.answered? && phase.questions.include?(answer.question)
-    end
-    answered.length
+  def num_visible_questions
+    num_by_section = sections.map{ |section| section.num_visible_questions(self) }
+    sum = 0
+    num_by_section.each { |n| sum += n }
+    sum
   end
+
+  def num_visible_answers
+    num_by_section = sections.map{ |section| section.num_visible_answers(self) }
+    sum = 0
+    num_by_section.each { |n| sum += n }
+    sum
+  end
+
 
   # The number of questions for a plan.
   #

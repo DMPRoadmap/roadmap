@@ -9,7 +9,7 @@
       <%= _('Answered')%> <time class="timeago" datetime="<%= answer.updated_at.iso8601 %>"></time>
       <%= _(' by %{user_name}') %{ :user_name => answer.user.name } if answer.user.present? %>
     </span><br>
-    <% n_question_to_remove = answer_remove_list(answer).size %>
+    <% n_question_to_remove = answer.remove_list.length %>
     <% if n_question_to_remove > 0 %>
       <span class="label label-info status" data-status="saved-at">
         <%= _('This answer removes ') + n_question_to_remove.to_s + _(' questions from your plan.') %>

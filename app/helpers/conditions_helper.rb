@@ -2,86 +2,16 @@
 
 module ConditionsHelper
 
-
-  # return a list of question ids to open/hide
-  def remove_list(object)
-    id_list = []
-    if object.is_a?(Plan)
-      plan_answers = object.answers
-    elsif object.is_a?(Hash)
-      plan_answers = object[:answers]
-    else
-      # TODO: change this to an exception as it shouldn't happen
-      return []
-    end
-    plan_answers.each do |answer|
-      id_list += answer_remove_list(answer)
-    end
-    id_list
-  end
-
-  # returns an array of ids to remove based on the conditions associated with an answer
-  # or trigger the email (TODO: combining these is a bit icky!)
-  def answer_remove_list(answer, user = nil)
-    id_list = []
-    return id_list unless answer.question.option_based?
-    answer.question.conditions.each do |cond|
-      opts = cond.option_list.map{ |s| s.to_i }.sort
-      action = cond.action_type
-      chosen = answer.question_option_ids.sort
-      if chosen == opts
-        if action == "remove"
-          rems = cond.remove_data.map{ |s| s.to_i }
-          id_list += rems
-        elsif !user.nil?
-          UserMailer.question_answered(JSON.parse(cond.webhook_data), user, answer, chosen.join(" and ")).deliver_now
-        end
-      end
-    end
-    # uniq because could get same remove id from diff conds
-    id_list.uniq
-  end
-
-  def send_webhooks(user, answer)
-    answer_remove_list(answer, user)
-  end
-
-  # number of answers in a section after answers updated with conditions
-  def num_section_answers(plan, section)
-    count = 0
-    plan_remove_list = remove_list(plan)
-    plan.answers.each do |answer|
-      if answer.question.section.id == section.id &&
-         !plan_remove_list.include?(answer.question.id) &&
-         section.answered_questions(plan).include?(answer) &&
-         answer.answered?
-        count += 1
-      end
-    end
-    count
-  end
-
   # number of questions in a section after update with conditions
-  def num_section_questions(plan, section, phase = nil)
+  # only used for export where section and phase are hashes
+  def num_section_questions(plan, section)
     # when section and phase are a hash in exports
-    if section.is_a?(Hash) &&
-       !phase.nil? &&
-       plan.is_a?(Plan)
-      phase_id = plan.phases.where(number: phase[:number]).first.id
-      section = plan.sections.where(phase_id: phase_id, title: section[:title]).first
-    end
-    count = 0
-    plan_remove_list = remove_list(plan)
-    plan.questions.each do |question|
-      if question.section.id == section.id &&
-         !plan_remove_list.include?(question.id)
-        count += 1
-      end
-    end
-    count
+    plan_remove_list = plan.hidden_questions
+    section[:questions].select{ |q| !plan_remove_list.include?(q[:id]) }.length
   end
 
-  # returns an array of hashes of section_id, number of section questions, and number of section answers
+  # returns an array of hashes of section_id,
+  # number of section questions, and number of section answers
   def sections_info(plan)
     return [] if plan.nil?
 
@@ -95,8 +25,8 @@ module ConditionsHelper
   def section_info(plan, section)
     section_hash = {}
     section_hash[:id] = section.id
-    section_hash[:no_qns] = num_section_questions(plan, section)
-    section_hash[:no_ans] = num_section_answers(plan, section)
+    section_hash[:no_qns] = section.num_visible_questions(plan)
+    section_hash[:no_ans] = section.num_visible_answers(plan)
     section_hash
   end
 

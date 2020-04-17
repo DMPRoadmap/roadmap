@@ -88,7 +88,7 @@ class AnswersController < ApplicationController
       @section = @plan.sections.find_by(id: @question.section_id)
       template = @section.phase.template
 
-      remove_list_after = remove_list(@plan)
+      remove_list_after = @plan.hidden_questions
 
       all_question_ids = @plan.questions.pluck(:id)
       all_answers = @plan.answers
@@ -103,13 +103,14 @@ class AnswersController < ApplicationController
         n_qs, n_ans = check_answered(section, qn_data[:to_show], all_answers)
         this_section_info = {
           sec_id: section.id,
-          no_qns: num_section_questions(@plan, section),
-          no_ans: num_section_answers(@plan, section)
+          no_qns: section.num_visible_questions(@plan),
+          no_ans: section.num_visible_answers(@plan)
         }
         section_data << this_section_info
       end
 
-      send_webhooks(current_user, @answer)
+      @answer.send_emails(current_user)
+
       # rubocop:disable Metrics/LineLength
       render json: {
         "qn_data": qn_data,

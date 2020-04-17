@@ -130,6 +130,19 @@ class Section < ActiveRecord::Base
     !modifiable?
   end
 
+  def num_visible_answers(plan)
+    plan_remove_list = plan.hidden_questions
+    all_section_answers = answered_questions(plan)
+    visible_answers = all_section_answers.select{ |ans| !plan_remove_list.include?(ans.question.id) }
+    visible_answers.length
+  end
+
+  # number of questions in a section after update with conditions
+  def num_visible_questions(plan)
+    plan_remove_list = plan.hidden_questions
+    visible_questions = questions.select{ |q| !plan_remove_list.include?(q.id) }
+    visible_questions.length
+  end
   private
 
   # ============================

@@ -12,7 +12,7 @@
               </div>
             </div>
           </div>
-          <div id="progress-data" data-sections="<%= sections_info(plan).to_json %>" data-remove="<%= remove_list(plan).to_json %>">
+          <div id="progress-data" data-sections="<%= sections_info(plan).to_json %>" data-remove="<%= plan.hidden_questions.to_json %>">
           </div>
           <div class="col-md-4">
             <% if plan.present? && phase.present? %>

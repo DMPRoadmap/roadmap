@@ -65,6 +65,37 @@ class Answer < ActiveRecord::Base
 
   after_save :set_plan_complete
 
+  # list of question ids which need hidden as a result of this answer
+  def remove_list
+    id_list = []
+    return id_list unless question.option_based?
+    question.conditions.each do |cond|
+      opts = cond.option_list.map{ |s| s.to_i }.sort
+      action = cond.action_type
+      chosen = question_option_ids.sort
+      if chosen == opts
+        if action == "remove"
+          rems = cond.remove_data.map{ |s| s.to_i }
+          id_list += rems
+        end
+      end
+    end
+    # uniq because could get same remove id from diff conds
+    id_list.uniq
+  end
+
+  def send_emails(user = nil)
+    if question.option_based?
+      question.conditions.each do |cond|
+        opts = cond.option_list.map{ |s| s.to_i }.sort
+        action = cond.action_type
+        chosen = question_option_ids.sort
+        if chosen == opts and action == "add_webhook" and !user.nil?
+          UserMailer.question_answered(JSON.parse(cond.webhook_data), user, answer, chosen.join(" and ")).deliver_now
+        end
+      end
+    end
+  end
 
   ##
   # deep copy the given answer
