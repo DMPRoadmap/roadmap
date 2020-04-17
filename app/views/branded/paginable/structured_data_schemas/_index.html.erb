@@ -4,6 +4,7 @@
       <tr>
         <th scope="col"><%= _('Label') %>&nbsp;<%= paginable_sort_link('structured_data_schemas.label') %></th>
         <th scope="col"><%= _('Name') %>&nbsp;<%= paginable_sort_link('structured_data_schemas.name') %></th>
+        <th scope="col"><%= _('Classname') %></th>
         <th scope="col"><%= _('Version') %></th>
         <th scope="col" class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
       </tr>
@@ -13,6 +14,7 @@
         <tr>
           <td><%= schema.label %></td>
           <td><%= schema.name %></td>
+          <td><%= schema.classname %></td>
           <td><%= schema.version %></td>
           <td>
             <div class="dropdown">

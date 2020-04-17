@@ -58,7 +58,7 @@ module SuperAdmin
     private
 
     def permitted_params
-      params.require(:structured_data_schema).permit(:label, :name, :version, :schema)
+      params.require(:structured_data_schema).permit(:label, :name, :version, :classname, :schema)
     end
     
   end
