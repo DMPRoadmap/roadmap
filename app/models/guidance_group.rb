@@ -24,11 +24,7 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 
-class GuidanceGroup < ActiveRecord::Base
-
-  include GlobalHelpers
-  include ValidationValues
-  include ValidationMessages
+class GuidanceGroup < ApplicationRecord
 
   # ================
   # = Associations =

@@ -43,12 +43,10 @@
 # TODO: Drop the funder_name column once the funder_id has been back
 #       filled and we're removing the is_other org stuff
 
-class Plan < ActiveRecord::Base
+class Plan < ApplicationRecord
 
   include ConditionalUserMailer
   include ExportablePlan
-  include ValidationMessages
-  include ValidationValues
   include Identifiable
 
   # =============

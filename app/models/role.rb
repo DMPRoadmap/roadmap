@@ -21,12 +21,10 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
-class Role < ActiveRecord::Base
+class Role < ApplicationRecord
 
   include FlagShihTzu
-  include ValidationMessages
-  include ValidationValues
-
+  
   # ================
   # = Associations =
   # ================

@@ -33,11 +33,7 @@
 # [+Created:+] 07/07/2014
 # [+Copyright:+] Digital Curation Centre and California Digital Library
 
-class Guidance < ActiveRecord::Base
-
-  include GlobalHelpers
-  include ValidationMessages
-  include ValidationValues
+class Guidance < ApplicationRecord
 
   # ================
   # = Associations =

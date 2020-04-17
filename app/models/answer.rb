@@ -29,10 +29,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
-class Answer < ActiveRecord::Base
-
-  include ValidationMessages
-
+class Answer < ApplicationRecord
 
   # ================
   # = Associations =

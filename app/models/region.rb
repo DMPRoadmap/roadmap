@@ -10,8 +10,7 @@
 #  updated_at   :datetime         not null
 #
 
-class Region < ActiveRecord::Base
-  include ValidationMessages
+class Region < ApplicationRecord
 
   # ================
   # = Associations =

@@ -24,10 +24,8 @@
 #  fk_rails_...  (phase_id => phases.id)
 #
 
-class Section < ActiveRecord::Base
+class Section < ApplicationRecord
 
-  include ValidationMessages
-  include ValidationValues
   include ActsAsSortable
   include VersionableModel
 

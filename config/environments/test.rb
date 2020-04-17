@@ -1,9 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # Disable memory store cache set in application.rb
-  config.cache_store = :null_store
-
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that
   # your test database is "scratch space" for the test suite and is wiped
@@ -17,7 +14,6 @@ Rails.application.configure do
 
   # Configure static file server for tests with Cache-Control for performance.
   config.serve_static_files   = true
-
   config.static_cache_control = 'public, max-age=3600'
 
   # Show full error reports and disable caching.
@@ -43,8 +39,6 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-
 end
 
 Rails.application.routes.default_url_options[:host] = "example.org"
-

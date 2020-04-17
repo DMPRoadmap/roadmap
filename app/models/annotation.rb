@@ -23,8 +23,7 @@
 #  fk_rails_...  (question_id => questions.id)
 #
 
-class Annotation < ActiveRecord::Base
-  include ValidationMessages
+class Annotation < ApplicationRecord
   include VersionableModel
 
   ##
