@@ -14,6 +14,7 @@ import '../utils/tabHelper';
 import '../utils/tooltipHelper';
 import '../utils/popoverHelper';
 import '../utils/requiredField';
+import '../utils/tinymce.js.erb';
 
 // Page specific JS
 import '../views/answers/edit';
@@ -49,15 +50,6 @@ import '../views/plans/new';
 import '../views/plans/share';
 import '../views/roles/edit';
 import '../views/shared/create_account_form';
-
-// ----------------------------------------
-// START DMPTool customization
-// ----------------------------------------
-// import '../views/shared/my_org';
-// ----------------------------------------
-// END DMPTool customization
-// ----------------------------------------
-
 import '../views/shared/sign_in_form';
 import '../views/super_admin/themes/new_edit';
 import '../views/super_admin/users/edit';
@@ -71,6 +63,7 @@ import '../views/public_templates/show';
 // START DMPTool customization
 // ----------------------------------------
 import '../dmptool/views/home/index';
+import '../dmptool/views/shared/org_branding';
 import '../dmptool/views/shared/signin_create_form';
 // ----------------------------------------
 // END DMPTool customization

@@ -49,13 +49,19 @@ describe "layouts/_notifications.html.erb" do
   end
 
   context "global notifications" do
-    it "displays nothing when user is not logged in" do
+    it "displays nothing when user is not logged in and there are no messages" do
+      render
+      expect(rendered.include?("global-notification-area\">\n</div>")).to eql(true)
+    end
+
+    it "displays nothing when user is not logged in and no enabled messages" do
+      create(:notification, dismissable: false, enabled: false)
       render
       expect(rendered.include?("global-notification-area\">\n</div>")).to eql(true)
     end
 
     it "displays the non-dismissable notification when user not logged in" do
-      notification = create(:notification, dismissable: false)
+      notification = create(:notification, dismissable: false, enabled: true)
       render
       expect(rendered.include?("global-notification-area")).to eql(true)
       expect(rendered.include?(notification.body)).to eql(true)
@@ -63,7 +69,7 @@ describe "layouts/_notifications.html.erb" do
     end
 
     it "displays the non-dismissable notification when user is logged in" do
-      notification = create(:notification, dismissable: false)
+      notification = create(:notification, dismissable: false, enabled: true)
       sign_in create(:user)
       render
       expect(rendered.include?("global-notification-area")).to eql(true)
@@ -72,13 +78,13 @@ describe "layouts/_notifications.html.erb" do
     end
 
     it "does not display the dismissable notification when user not logged in" do
-      create(:notification, dismissable: true)
+      create(:notification, dismissable: true, enabled: true)
       render
       expect(rendered.include?("global-notification-area\">\n</div>")).to eql(true)
     end
 
     it "displays the dismissable notification when user is logged in" do
-      notification = create(:notification, dismissable: true)
+      notification = create(:notification, dismissable: true, enabled: true)
       sign_in create(:user)
       render
       expect(rendered.include?("global-notification-area")).to eql(true)
@@ -87,7 +93,7 @@ describe "layouts/_notifications.html.erb" do
     end
 
     it "does not display the dismissable notification when user has already dismissed" do
-      notification = create(:notification, dismissable: true)
+      notification = create(:notification, dismissable: true, enabled: true)
       user = create(:user)
       notification.users << user
       notification.save

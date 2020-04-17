@@ -13,7 +13,7 @@ module DmptoolHelper
 
   def access_create_account_modal
     access_sign_in_options_modal
-    click_on "Create account with email address"
+    click_on "Create an account"
   end
 
   def access_shib_ds_modal

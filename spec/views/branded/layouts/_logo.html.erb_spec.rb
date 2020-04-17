@@ -23,6 +23,9 @@ describe "layouts/_logo.html.erb" do
   it "renders correctly when user is logged in" do
     sign_in create(:user, org: @org)
     render
+
+p rendered
+
     expect(rendered.include?("org-logo")).to eql(true)
     expect(rendered.include?(@org.name)).to eql(true)
     expect(rendered.include?("app-logo")).to eql(false)

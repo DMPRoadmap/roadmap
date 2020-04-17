@@ -6,6 +6,7 @@ describe "contact_us/contacts/_new_right.html.erb" do
 
   it "renders the panel correctly" do
     controller.prepend_view_path "app/views/branded"
+    # rubocop:disable Metrics/LineLength
     org = {
       name: Faker::Company.name,
       address_line1: Faker::Address.street_address,
@@ -15,9 +16,10 @@ describe "contact_us/contacts/_new_right.html.erb" do
       address_country: Faker::Address.country,
       google_maps_link: Faker::Internet.url
     }
+    # rubocop:enable Metrics/LineLength
     Rails.configuration.branding[:organisation] = org
     render
-    expect(rendered.include?("<strong>#{org[:name]}</strong>")).to eql(true)
+    expect(rendered.include?("<strong>#{org[:name]}")).to eql(true)
     expect(rendered.include?("#{org[:address_line1]}<br>")).to eql(true)
     expect(rendered.include?("#{org[:address_line2]}<br>")).to eql(true)
     expect(rendered.include?("#{org[:address_line3]}<br>")).to eql(true)

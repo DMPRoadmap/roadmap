@@ -38,7 +38,7 @@ class Identifier < ActiveRecord::Base
 
   validates :identifiable, presence: { message: PRESENCE_MESSAGE }
 
-  validate :value_uniqueness_with_scheme, if: :has_scheme?
+  validate :value_uniqueness_with_scheme, if: :has_scheme?, on: :create
 
   validate :value_uniqueness_without_scheme, unless: :has_scheme?
 

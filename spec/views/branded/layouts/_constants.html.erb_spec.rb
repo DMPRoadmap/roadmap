@@ -27,7 +27,9 @@ describe "layouts/_constants.html.erb" do
     expect(rendered.include?("OPENS_IN_A_NEW_WINDOW_TEXT")).to eql(true)
     expect(rendered.include?("AJAX_LOADING")).to eql(true)
     expect(rendered.include?("AJAX_UNABLE_TO_LOAD_TEMPLATE_SECTION")).to eql(true)
-    expect(rendered.include?("AJAX_UNABLE_TO_LOAD_TEMPLATE_SECTION_QUESTION")).to eql(true)
+    expect(
+      rendered.include?("AJAX_UNABLE_TO_LOAD_TEMPLATE_SECTION_QUESTION")
+    ).to eql(true)
     expect(rendered.include?("AUTOCOMPLETE_ARIA_HELPER")).to eql(true)
     expect(rendered.include?("AUTOCOMPLETE_ARIA_HELPER_EMPTY")).to eql(true)
     expect(rendered.include?("js-constants")).to eql(true)

@@ -25,6 +25,10 @@ RSpec.describe "Registrations", type: :feature do
     password: "testing123",
     email: "john.doe@testing-dmproadmap.org"
   } }
+
+  before(:each) do
+    mock_blog
+  end
   # -------------------------------------------------------------
   # end DMPTool customization
   # -------------------------------------------------------------

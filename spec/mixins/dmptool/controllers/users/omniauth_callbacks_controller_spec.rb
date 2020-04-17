@@ -40,7 +40,9 @@ RSpec.describe Dmptool::Controllers::Users::OmniauthCallbacksController,
       describe "linking account to shibboleth" do
         before do
           request.env["omniauth.auth"] = @omniauth_hash["omniauth.auth"]
+          # rubocop:disable Metrics/LineLength
           @msg = "Your account has been successfully linked to your institutional credentials."
+          # rubocop:enable Metrics/LineLength
           @uid = @omniauth_hash["omniauth.auth"]["uid"]
         end
 
@@ -87,7 +89,9 @@ RSpec.describe Dmptool::Controllers::Users::OmniauthCallbacksController,
         it "should display success message and login" do
           @user.identifiers.destroy_all
           get :shibboleth
+          # rubocop:disable Metrics/LineLength
           expect(flash[:notice]).to eql("Successfully signed in with your institutional credentials.")
+          # rubocop:enable Metrics/LineLength
           expect(response).to redirect_to("/")
           expect(@user.reload.identifiers.last.value).to eql(@uid)
         end
@@ -97,10 +101,12 @@ RSpec.describe Dmptool::Controllers::Users::OmniauthCallbacksController,
         it "should display a warning message and load the finish account creation page" do
           @user.update(email: Faker::Internet.unique.email)
           get :shibboleth
+          # rubocop:disable Metrics/LineLength
           expect(flash[:notice]).to eql("It looks like this is your first time logging in. Please verify and complete the information below to finish creating an account.")
           expect(response).to redirect_to("/users/sign_up")
           expect(@user.identifiers.length).to eql(0)
           expect(session["devise.shibboleth_data"]).to eql(@omniauth_hash["omniauth.auth"])
+          # rubocop:enable Metrics/LineLength
         end
       end
 
