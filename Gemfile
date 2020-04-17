@@ -7,7 +7,7 @@ ruby ">= 2.4.0"
 # ------------------------------------------------
 # RAILS
 # Full-stack web application framework. (http://rubyonrails.org)
-gem "rails", "~> 4.2.11.1"
+gem "rails", "~> 5.0"
 
 # TODO: See if pegging gems is still necessary after migrating to Rails 5
 gem "sprockets", "~> 3.2"
@@ -26,7 +26,7 @@ gem "railties"
 
 # A set of Rails responders to dry up your application
 # (http://github.com/plataformatec/responders)
-gem "responders", "~> 2.0"
+gem "responders"
 
 group :rollbar, optional: true do
   # Rollbar-gem is the SDK for Ruby apps and includes support for apps using
@@ -71,14 +71,14 @@ gem "flag_shih_tzu", "~> 0.3.23" # Allows for bitfields in activereccord
 #    JSON DSL - USED BY API
 # Create JSON structures via a Builder-style DSL
 # (https://github.com/rails/jbuilder)
-gem "jbuilder", "~> 2.6.0"
+gem "jbuilder"
 
 # ------------------------------------------------
 #    USERS
 # devise for user authentication
 # Flexible authentication solution for Rails with Warden
 # (https://github.com/plataformatec/devise)
-gem "devise", ">= 4.7.1"
+gem "devise"
 
 # An invitation strategy for Devise
 # (https://github.com/scambra/devise_invitable)
@@ -141,7 +141,7 @@ end
 # bootstrap-sass is a Sass-powered version of Bootstrap 3, ready to drop
 # right into your Sass powered applications.
 # (https://github.com/twbs/bootstrap-sass)
-gem "bootstrap-sass", "~> 3.4.1"
+gem "bootstrap-sass"
 
 # This is required for Font-Awesome, but not used as the main sass compiler
 
@@ -153,11 +153,11 @@ gem "sass-rails", require: false
 gem "sassc-rails"
 
 # Font-Awesome SASS (https://github.com/FortAwesome/font-awesome-sass)
-gem "font-awesome-sass", "~> 4.2.0"
+gem "font-awesome-sass"
 
 # Use webpack to manage app-like JavaScript modules in Rails
 # (https://github.com/rails/webpacker)
-gem "webpacker", "~> 3.5"
+gem "webpacker"
 
 # Parse CSS and add vendor prefixes to CSS rules using values from the Can
 # I Use website. (https://github.com/ai/autoprefixer-rails)
@@ -173,13 +173,13 @@ gem "wkhtmltopdf-binary"
 
 # PDF generator (from HTML) gem for Ruby on Rails
 # (https://github.com/mileszs/wicked_pdf)
-gem "wicked_pdf", "~> 1.1.0"
+gem "wicked_pdf"
 
 # This simple gem allows you to create MS Word docx documents from simple
 # html documents. This makes it easy to create dynamic reports and forms
 # that can be downloaded by your users as simple MS Word docx files.
 # (http://github.com/karnov/htmltoword)
-gem "htmltoword", "1.1.0"
+gem "htmltoword"
 
 # Filename sanitization for Ruby. This is useful when you generate filenames for downloads from user input
 gem 'zaru'
@@ -272,13 +272,6 @@ group :test do
   # Mocking and stubbing library (http://gofreerange.com/mocha/docs)
   gem "mocha", require: false
 
-  # Rails application preloader (https://github.com/rails/spring)
-  gem "spring"
-
-  # rspec command for spring
-  # (https://github.com/jonleighton/spring-commands-rspec)
-  gem "spring-commands-rspec"
-
   # Capybara aims to simplify the process of integration testing Rack
   # applications, such as Rails, Sinatra or Merb
   # (https://github.com/teamcapybara/capybara)
@@ -294,7 +287,7 @@ group :test do
 
   # Run Selenium tests more easily with automatic installation and updates
   # for all supported webdrivers.
-  gem "webdrivers", "~> 3.0"
+  gem "webdrivers"
 
   # RSpec::CollectionMatchers lets you express expected outcomes on
   # collections of an object in an example.
@@ -317,7 +310,7 @@ group :ci, :development do
   # (https://github.com/rubocop-hq/rubocop)
   # Rubocop style checks for DMP Roadmap projects.
   # (https://github.com/DMPRoadmap/rubocop-DMP_Roadmap)
-  gem "rubocop-dmp_roadmap", ">= 1.1.0"
+  gem "rubocop-dmp_roadmap"
 
   # Helper gem to require bundler-audit
   # (http://github.com/stewartmckee/bundle-audit)
@@ -343,6 +336,20 @@ group :development do
   # A debugging tool for your Ruby on Rails applications.
   # (https://github.com/rails/web-console)
   gem "web-console"
+
+  # Rails application preloader (https://github.com/rails/spring)
+  gem "spring"
+
+  # rspec command for spring
+  # (https://github.com/jonleighton/spring-commands-rspec)
+  gem "spring-commands-rspec"
+
+  # The Listen gem listens to file modifications and notifies you about the changes.
+  gem "listen"
+
+  # This gem makes Spring watch the filesystem for changes using Listen rather
+  # than by polling the filesystem.
+  gem "spring-watcher-listen"
 
   # Profiles loading speed for rack applications. (http://miniprofiler.com)
   gem "rack-mini-profiler"
