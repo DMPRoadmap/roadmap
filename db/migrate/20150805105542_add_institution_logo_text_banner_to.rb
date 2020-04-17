@@ -1,4 +1,4 @@
-class AddInstitutionLogoTextBannerTo < ActiveRecord::Migration
+class AddInstitutionLogoTextBannerTo < ActiveRecord::Migration[4.2]
   def change
     add_column :organisations, :banner_text, :text
     add_column :organisations, :logo_file_name, :string

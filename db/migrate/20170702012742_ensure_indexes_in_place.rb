@@ -1,4 +1,4 @@
-class EnsureIndexesInPlace < ActiveRecord::Migration
+class EnsureIndexesInPlace < ActiveRecord::Migration[4.2]
   def change
     #users_perms
     remove_foreign_key :users_perms, :perms

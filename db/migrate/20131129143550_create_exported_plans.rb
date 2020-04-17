@@ -1,4 +1,4 @@
-class CreateExportedPlans < ActiveRecord::Migration
+class CreateExportedPlans < ActiveRecord::Migration[4.2]
   def change
     create_table :exported_plans do |t|
       t.references :plan

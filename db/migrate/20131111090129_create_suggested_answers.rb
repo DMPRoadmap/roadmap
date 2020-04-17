@@ -1,4 +1,4 @@
-class CreateSuggestedAnswers < ActiveRecord::Migration
+class CreateSuggestedAnswers < ActiveRecord::Migration[4.2]
   def change
     create_table :suggested_answers do |t|
       t.references :question
