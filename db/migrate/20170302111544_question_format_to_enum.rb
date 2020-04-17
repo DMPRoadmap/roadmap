@@ -1,4 +1,4 @@
-class QuestionFormatToEnum < ActiveRecord::Migration
+class QuestionFormatToEnum < ActiveRecord::Migration[4.2]
   def self.up
     add_column  :question_formats, :formattype, :integer, :default => 0
     QuestionFormat.all.each do |qf|

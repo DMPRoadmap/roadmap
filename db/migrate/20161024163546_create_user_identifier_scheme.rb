@@ -1,4 +1,4 @@
-class CreateUserIdentifierScheme < ActiveRecord::Migration
+class CreateUserIdentifierScheme < ActiveRecord::Migration[4.2]
   def change
     create_table :identifier_schemes do |t|
       t.string :name

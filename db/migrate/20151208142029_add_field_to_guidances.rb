@@ -1,4 +1,4 @@
-class AddFieldToGuidances < ActiveRecord::Migration
+class AddFieldToGuidances < ActiveRecord::Migration[4.2]
   def change
      add_column :guidances, :published, :boolean
 

@@ -302,6 +302,10 @@ group :test do
 
   # A set of RSpec matchers for testing Pundit authorisation policies.
   gem 'pundit-matchers'
+
+  # This gem brings back assigns to your controller tests as well as assert_template
+  # to both controller and integration tests.
+  gem 'rails-controller-testing'
 end
 
 group :ci, :development do

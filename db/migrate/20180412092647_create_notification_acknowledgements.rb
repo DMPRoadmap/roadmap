@@ -1,4 +1,4 @@
-class CreateNotificationAcknowledgements < ActiveRecord::Migration
+class CreateNotificationAcknowledgements < ActiveRecord::Migration[4.2]
   def change
     create_table :notification_acknowledgements do |t|
       t.belongs_to :user, foreign_key: true, index: true
