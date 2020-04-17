@@ -1,4 +1,4 @@
-class ReplacingPlanRolesWithBitflags < ActiveRecord::Migration
+class ReplacingPlanRolesWithBitflags < ActiveRecord::Migration[4.2]
   def change
     # create the field to hold the user's role in plans
     add_column :roles, :access, :integer, null: false, default: 0

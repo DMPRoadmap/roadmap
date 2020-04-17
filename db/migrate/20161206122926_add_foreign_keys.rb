@@ -1,4 +1,4 @@
-class AddForeignKeys < ActiveRecord::Migration
+class AddForeignKeys < ActiveRecord::Migration[4.2]
     # this migraiton modifies data in tables, and thus depends on being at a specific
     # point in the history of the codebase.  Specificly the models must reflect the
     # relationships expected within this code

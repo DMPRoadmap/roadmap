@@ -1,4 +1,4 @@
-class NewPlanTemplateStructure < ActiveRecord::Migration
+class NewPlanTemplateStructure < ActiveRecord::Migration[4.2]
   def up
     # new template tables
     create_table :templates do |t|

@@ -19,7 +19,7 @@ module DMPRoadmap
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     #   See: https://apidock.com/rails/v5.2.3/Rails/Application/Configuration/load_defaults
-    config.load_defaults 5.0
+    # config.load_defaults 5.0
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

@@ -1,4 +1,4 @@
-class AddDefaultValueToIsOtherOnOrgs < ActiveRecord::Migration
+class AddDefaultValueToIsOtherOnOrgs < ActiveRecord::Migration[4.2]
   def up
     change_column :orgs, :is_other, :boolean, default: false, null: false
   end
