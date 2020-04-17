@@ -8,8 +8,7 @@
 #  updated_at :datetime         not null
 #
 
-class Perm < ActiveRecord::Base
-  include ValidationMessages
+class Perm < ApplicationRecord
 
   # ================
   # = Associations =

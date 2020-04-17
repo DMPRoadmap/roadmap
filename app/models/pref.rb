@@ -7,8 +7,7 @@
 #  user_id  :integer
 #
 
-class Pref < ActiveRecord::Base
-  include ValidationMessages
+class Pref < ApplicationRecord
 
   ##
   # Serialize prefs to JSON

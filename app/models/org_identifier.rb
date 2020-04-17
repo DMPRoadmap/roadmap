@@ -21,8 +21,7 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 
-class OrgIdentifier < ActiveRecord::Base
-  include ValidationMessages
+class OrgIdentifier < ApplicationRecord
 
   # ================
   # = Associations =

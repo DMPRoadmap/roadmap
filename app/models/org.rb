@@ -31,12 +31,9 @@
 #  fk_rails_...  (language_id => languages.id)
 #
 
-class Org < ActiveRecord::Base
+class Org < ApplicationRecord
 
-  include ValidationMessages
-  include ValidationValues
   include FeedbacksHelper
-  include GlobalHelpers
   include FlagShihTzu
   include Identifiable
 

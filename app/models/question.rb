@@ -28,9 +28,8 @@
 #  fk_rails_...  (section_id => sections.id)
 #
 
-class Question < ActiveRecord::Base
+class Question < ApplicationRecord
 
-  include ValidationMessages
   include ActsAsSortable
   include VersionableModel
 

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  # The priority is based upon order of creation: first created -> highest priority.
+  # See how all your routes lay out with "rake routes".
 
   devise_for( :users, controllers: {
     registrations: "registrations",
@@ -11,7 +13,7 @@ Rails.application.routes.draw do
     get "/users/sign_out", :to => "devise/sessions#destroy"
   end
 
-  delete '/users/identifiers/:id', to: 'identifiers#destroy', as: 'destroy_user_identifier'
+  delete '/users/identifiers/:id', to: 'user_identifiers#destroy', as: 'destroy_user_identifier'
 
   get '/orgs/shibboleth', to: 'orgs#shibboleth_ds', as: 'shibboleth_ds'
   get '/orgs/shibboleth/:org_name', to: 'orgs#shibboleth_ds_passthru'
@@ -56,8 +58,8 @@ Rails.application.routes.draw do
   get "public_templates" => 'public_pages#template_index'
   get "template_export/:id" => 'public_pages#template_export', as: 'template_export'
 
-  # AJAX call used to search for Orgs based on user input into autocompletes
-  post "orgs" => "orgs#search", as: "orgs_search"
+  #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
+  #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
 
   resources :orgs, :path => 'org/admin', only: [] do
     member do
@@ -279,11 +281,7 @@ Rails.application.routes.draw do
         get :search
       end
     end
-    resources :notifications, except: [:show] do
-      member do
-        post 'enable', constraints: {format: [:json]}
-      end
-    end
+    resources :notifications, except: [:show]
   end
 
   get "research_projects/search", action: "search",
@@ -293,7 +291,4 @@ Rails.application.routes.draw do
   get "research_projects/(:type)", action: "index",
                                    controller: "research_projects",
                                    constraints: { format: "json" }
-
-
-
 end
