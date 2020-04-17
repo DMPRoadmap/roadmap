@@ -19,7 +19,7 @@ module DMPRoadmap
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     #   See: https://apidock.com/rails/v5.2.3/Rails/Application/Configuration/load_defaults
-    # config.load_defaults 5.0
+    config.load_defaults 5.0
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -34,7 +34,7 @@ module DMPRoadmap
     # config.i18n.default_locale = :de
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
+    # config.active_record.raise_in_transactional_callbacks = true
 
     # Returning `false` from a Model callback used to halt the entire callback
     # chain. This pattern has been deprecated and returning `false` will no longer
@@ -42,7 +42,7 @@ module DMPRoadmap
     # to halt the chain.
     # TODO: Leaving this enabled for now for backward compatibility. It will
     #       throw deprecation warnings until we clean it up
-    ActiveSupport.halt_callback_chains_on_return_false = true
+    # ActiveSupport.halt_callback_chains_on_return_false = true
 
     # Autoloading is now disabled after booting in the production environment by default.
     # Eager loading the application is part of the boot process, so top-level constants
@@ -56,11 +56,13 @@ module DMPRoadmap
     config.enable_dependency_loading = false
 
     # TODO: Setting this to false for now so that our form submissions remain the same
-    action_view.form_with_generates_remote_forms = false
+    # action_view.form_with_generates_remote_forms = false
 
     # The following are carried over from Rails 4.2 version of DMPRoadmap
     # TODO: Determine if these are still necessary
     # ------------------------------------------------------------
+
+    config.autoload_paths += %W(#{config.root}/lib)
 
     # HTML tags that are allowed to pass through `sanitize`.
     config.action_view.sanitized_allowed_tags = %w[
