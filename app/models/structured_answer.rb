@@ -48,7 +48,7 @@ class StructuredAnswer < ActiveRecord::Base
   scope :distributions, -> { where(classname: 'distribution') } 
   scope :dmps, -> { where(classname: 'dmp') } 
   scope :documentations, -> { where(classname: 'documentation') } 
-  scope :ethical_issues, -> { where(classname: 'ethicalIssue') } 
+  scope :ethical_issues, -> { where(classname: 'ethical_issue') } 
   scope :funders, -> { where(classname: 'funder') } 
   scope :fundings, -> { where(classname: 'funding') } 
   scope :metas, -> { where(classname: 'meta') } 
