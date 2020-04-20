@@ -91,9 +91,9 @@ roles_tooltip = _("Select each role that applies to the contributor.")
     <%= form.button(_("Save"), class: "btn btn-default", type: "submit") %>
     <% unless contributor.new_record? %>
       <%= link_to _("Remove"), plan_contributor_path(plan, contributor),
-                             method: :delete, class: "btn btn-default" %>
-    <% end %>
-    <%= link_to _("Cancel"), plan_contributors_path(plan),
-                             class: "btn btn-default" %>
+                               method: :delete, class: "btn btn-default" %>
+      <% end %>
+      <%= link_to _("Cancel"), plan_contributors_path(plan),
+                               class: "btn btn-default" %>
   </div>
 </div>
