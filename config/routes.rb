@@ -114,6 +114,8 @@ Rails.application.routes.draw do
 
     resource :export, only: [:show], controller: "plan_exports"
 
+    resources :contributors, except: %i[show]
+
     member do
       get 'answer'
       get 'share'
@@ -128,7 +130,6 @@ Rails.application.routes.draw do
 
   resources :usage, only: [:index]
   post 'usage_plans_by_template', controller: 'usage', action: 'plans_by_template'
-  post 'usage_filter', controller: 'usage', action: 'filter'
   get 'usage_all_plans_by_template', controller: 'usage', action: 'all_plans_by_template'
   get 'usage_global_statistics', controller: 'usage', action: 'global_statistics'
   get 'usage_org_statistics', controller: 'usage', action: 'org_statistics'
@@ -176,6 +177,11 @@ Rails.application.routes.draw do
       get 'publicly_visible/:page', action: :publicly_visible, on: :collection, as: :publicly_visible
       get 'org_admin/:page', action: :org_admin, on: :collection, as: :org_admin
       get 'org_admin_other_user/:page', action: :org_admin_other_user, on: :collection, as: :org_admin_other_user
+
+      # Paginable actions for contributors
+      resources :contributors, only: %i[index] do
+        get "index/:page", action: :index, on: :collection, as: :index
+      end
     end
     # Paginable actions for users
     resources :users, only: [] do
@@ -209,6 +215,10 @@ Rails.application.routes.draw do
     resources :departments, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
     end
+    # Paginable actions for api_clients
+     resources :api_clients, only: [] do
+       get 'index/:page', action: :index, on: :collection, as: :index
+     end
   end
 
   resources :template_options, only: [:index], constraints: { format: /json/ }
@@ -281,7 +291,19 @@ Rails.application.routes.draw do
         get :search
       end
     end
-    resources :notifications, except: [:show]
+
+    resources :notifications, except: [:show] do
+      member do
+        post 'enable', constraints: {format: [:json]}
+      end
+    end
+
+    resources :api_clients do
+       member do
+         get :email_credentials
+         get :refresh_credentials
+       end
+     end
   end
 
   get "research_projects/search", action: "search",
