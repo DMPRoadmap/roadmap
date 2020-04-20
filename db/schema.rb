@@ -49,20 +49,6 @@ ActiveRecord::Schema.define(version: 20200218213103) do
 
   add_index "answers_question_options", ["answer_id"], name: "index_answers_question_options_on_answer_id", using: :btree
 
-  create_table "contributors", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "phone"
-    t.integer  "roles",                     null: false
-    t.integer  "org_id"
-    t.integer  "plan_id",                   null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "contributors", ["email"], name: "index_contributors_on_email", using: :btree
-  add_index "contributors", ["org_id"], name: "index_contributors_on_org_id", using: :btree
-
   create_table "api_clients", force: :cascade do |t|
     t.string   "name",                      null: false
     t.string   "description"
@@ -78,6 +64,20 @@ ActiveRecord::Schema.define(version: 20200218213103) do
 
   add_index "api_clients", ["name"], name: "index_api_clients_on_name", using: :btree
 
+  create_table "contributors", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "phone"
+    t.integer  "roles",                     null: false
+    t.integer  "org_id"
+    t.integer  "plan_id",                   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contributors", ["email"], name: "index_contributors_on_email", using: :btree
+  add_index "contributors", ["org_id"], name: "index_contributors_on_org_id", using: :btree
+  
   create_table "departments", force: :cascade do |t|
     t.string   "name"
     t.string   "code"
