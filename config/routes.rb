@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     get "/users/sign_out", :to => "devise/sessions#destroy"
   end
 
-  delete '/users/identifiers/:id', to: 'user_identifiers#destroy', as: 'destroy_user_identifier'
+  delete '/users/identifiers/:id', to: 'identifiers#destroy', as: 'destroy_user_identifier'
 
   get '/orgs/shibboleth', to: 'orgs#shibboleth_ds', as: 'shibboleth_ds'
   get '/orgs/shibboleth/:org_name', to: 'orgs#shibboleth_ds_passthru'
@@ -56,8 +56,8 @@ Rails.application.routes.draw do
   get "public_templates" => 'public_pages#template_index'
   get "template_export/:id" => 'public_pages#template_export', as: 'template_export'
 
-  #post 'contact_form' => 'contacts', as: 'localized_contact_creation'
-  #get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
+  # AJAX call used to search for Orgs based on user input into autocompletes
+  post "orgs" => "orgs#search", as: "orgs_search"
 
   resources :orgs, :path => 'org/admin', only: [] do
     member do
@@ -111,6 +111,8 @@ Rails.application.routes.draw do
   resources :plans do
 
     resource :export, only: [:show], controller: "plan_exports"
+
+    resources :contributors, except: %i[show]
 
     member do
       get 'answer'
@@ -173,6 +175,11 @@ Rails.application.routes.draw do
       get 'publicly_visible/:page', action: :publicly_visible, on: :collection, as: :publicly_visible
       get 'org_admin/:page', action: :org_admin, on: :collection, as: :org_admin
       get 'org_admin_other_user/:page', action: :org_admin_other_user, on: :collection, as: :org_admin_other_user
+
+      # Paginable actions for contributors
+      resources :contributors, only: %i[index] do
+        get "index/:page", action: :index, on: :collection, as: :index
+      end
     end
     # Paginable actions for users
     resources :users, only: [] do
@@ -206,6 +213,10 @@ Rails.application.routes.draw do
     resources :departments, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
     end
+    # Paginable actions for api_clients
+     resources :api_clients, only: [] do
+       get 'index/:page', action: :index, on: :collection, as: :index
+     end
   end
 
   resources :template_options, only: [:index], constraints: { format: /json/ }
@@ -278,11 +289,19 @@ Rails.application.routes.draw do
         get :search
       end
     end
+
     resources :notifications, except: [:show] do
       member do
         post 'enable', constraints: {format: [:json]}
       end
     end
+
+    resources :api_clients do
+       member do
+         get :email_credentials
+         get :refresh_credentials
+       end
+     end
   end
 
   get "research_projects/search", action: "search",

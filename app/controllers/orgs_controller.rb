@@ -2,7 +2,11 @@
 
 class OrgsController < ApplicationController
 
-  after_action :verify_authorized, except: ["shibboleth_ds", "shibboleth_ds_passthru"]
+  include OrgSelectable
+
+  after_action :verify_authorized, except: %w[
+    shibboleth_ds shibboleth_ds_passthru search
+  ]
   respond_to :html
 
   ##
@@ -30,28 +34,46 @@ class OrgsController < ApplicationController
 
     # Only allow super admins to change the org types and shib info
     if current_user.can_super_admin?
-      # Handle Shibboleth identifiers if that is enabled
-      if Rails.application.config.shibboleth_use_filtered_discovery_service
-        shib = IdentifierScheme.find_by(name: "shibboleth")
-        shib_settings = @org.org_identifiers.select do |ids|
-          ids.identifier_scheme == shib
-        end.first
+      identifiers = []
+      attrs[:managed] = attrs[:managed] == "1"
 
-        if params[:shib_id].blank? && shib_settings.present?
-          # The user cleared the shib values so delete the object
-          shib_settings.destroy
-        else
-          unless shib_settings.present?
-            shib_settings = OrgIdentifier.new(org: @org, identifier_scheme: shib)
-          end
-          shib_settings.identifier = params[:shib_id]
-          shib_settings.attrs = { domain: params[:shib_domain] }
-          shib_settings.save
+      # Handle Shibboleth identifier if that is enabled
+      if Rails.application.config.shibboleth_use_filtered_discovery_service
+        shib = IdentifierScheme.by_name("shibboleth").first
+
+        if shib.present? && attrs.fetch(:identifiers_attributes, {}).any?
+          entity_id = attrs[:identifiers_attributes].first[1][:value]
+          identifier = Identifier.find_or_initialize_by(
+            identifiable: @org, identifier_scheme: shib, value: entity_id
+          )
+          @org = process_identifier_change(org: @org, identifier: identifier)
         end
+        attrs.delete(:identifiers_attributes)
       end
+
+      attrs[:managed] = attrs[:managed] == "1"
+
+      # See if the user selected a new Org via the Org Lookup and
+      # convert it into an Org
+      lookup = org_from_params(params_in: attrs)
+      ids = identifiers_from_params(params_in: attrs)
+      identifiers += ids.select { |id| id.value.present? }
+
+      # Remove the extraneous Org Selector hidden fields
+      attrs = remove_org_selection_params(params_in: attrs)
     end
 
-    if @org.update_attributes(attrs)
+    if @org.update(attrs)
+      # Save any identifiers that were found
+      if current_user.can_super_admin? && lookup.present?
+        # Loop through the identifiers and then replace the existing
+        # identifier and save the new one
+        identifiers.each do |id|
+          @org = process_identifier_change(org: @org, identifier: id)
+        end
+        @org.save
+      end
+
       redirect_to "#{admin_edit_org_path(@org)}\##{tab}",
                   notice: success_message(@org, _("saved"))
     else
@@ -67,10 +89,7 @@ class OrgsController < ApplicationController
 
     @user = User.new
     # Display the custom Shibboleth discovery service page.
-    @orgs = Org.joins(:identifier_schemes)
-               .where("identifier_schemes.name = ?", "shibboleth").sort do |x, y|
-                  x.name <=> y.name
-                end
+    @orgs = Identifier.by_scheme_name("shibboleth", "Org").order(:name)
 
     if @orgs.empty?
       flash.now[:alert] = _("No organisations are currently registered.")
@@ -84,9 +103,9 @@ class OrgsController < ApplicationController
     if !params["shib-ds"][:org_name].blank?
       session["org_id"] = params["shib-ds"][:org_name]
 
-      scheme = IdentifierScheme.find_by(name: "shibboleth")
-      shib_entity = OrgIdentifier.where(org_id: params["shib-ds"][:org_id],
-                                        identifier_scheme: scheme)
+      org = Org.where(id: params["shib-ds"][:org_id])
+      shib_entity = Identifier.by_scheme_name("shibboleth", "Org")
+                              .where(identifiable: org)
 
       if !shib_entity.empty?
         # Force SSL
@@ -95,7 +114,7 @@ class OrgsController < ApplicationController
         target = "#{user_shibboleth_omniauth_callback_url.gsub('http:', 'https:')}"
 
         # initiate shibboleth login sequence
-        redirect_to "#{url}?target=#{target}&entityID=#{shib_entity.first.identifier}"
+        redirect_to "#{url}?target=#{target}&entityID=#{shib_entity.first.value}"
       else
         failure = _("Your organisation does not seem to be properly configured.")
         redirect_to shibboleth_ds_path, alert: failure
@@ -106,11 +125,78 @@ class OrgsController < ApplicationController
     end
   end
 
+  # POST /orgs/search  (via AJAX)
+  # ----------------------------------------------------------------
+  def search
+    args = search_params
+    # If the search term is greater than 2 characters
+    if args.present? && args.fetch(:name, "").length > 2
+      type = params.fetch(:type, "local")
+
+      # If we are including external API results
+      case type
+      when "combined"
+        orgs = OrgSelection::SearchService.search_combined(
+          search_term: args[:name]
+        )
+      when "external"
+        orgs = OrgSelection::SearchService.search_externally(
+          search_term: args[:name]
+        )
+      else
+        orgs = OrgSelection::SearchService.search_locally(
+          search_term: args[:name]
+        )
+      end
+
+      # If we need to restrict the results to funding orgs then
+      # only return the ones with a valid fundref
+      if orgs.present? && params.fetch(:funder_only, "false") == true
+        orgs = orgs.select do |org|
+          org[:fundref].present? && !org[:fundref].blank?
+        end
+      end
+
+      render json: orgs
+
+    else
+      render json: []
+    end
+  end
+
   private
+
   def org_params
-    params.require(:org).permit(:name, :abbreviation, :logo, :contact_email,
-                                :contact_name, :remove_logo, :org_type,
-                                :feedback_enabled, :feedback_email_msg)
+    params.require(:org)
+          .permit(:name, :abbreviation, :logo, :contact_email, :contact_name,
+                  :remove_logo, :org_type, :managed, :feedback_enabled,
+                  :feedback_email_msg, :org_id, :org_name, :org_crosswalk,
+                  identifiers_attributes: [:identifier_scheme_id, :value])
+  end
+
+  def search_params
+    params.require(:org).permit(:name, :type)
+  end
+
+  # Destroy the identifier if it exists and was blanked out, replace the
+  # identifier if it was updated, create the identifier if its new, or
+  # ignore it
+  def process_identifier_change(org:, identifier:)
+    return org unless identifier.is_a?(Identifier)
+
+    if !identifier.new_record? && identifier.value.blank?
+      # Remove the identifier if it has been blanked out
+      identifier.destroy
+    elsif identifier.value.present?
+      # If the identifier already exists then remove it
+      current = org.identifier_for_scheme(scheme: identifier.identifier_scheme)
+      current.destroy if current.present? && current.value != identifier.value
+
+      identifier.identifiable = org
+      org.identifiers << identifier
+    end
+
+    org
   end
 
 end
