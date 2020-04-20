@@ -139,4 +139,14 @@ class UserMailer < ActionMailer::Base
       end
     end
   end
+
+  def api_credentials(api_client)
+    @api_client = api_client
+    if @api_client.contact_email.present?
+      FastGettext.with_locale FastGettext.default_locale do
+        mail(to: @api_client.contact_email,
+             subject: _("%{tool_name} API changes") % { tool_name: Rails.configuration.branding[:application][:name] })
+      end
+    end
+  end
 end
