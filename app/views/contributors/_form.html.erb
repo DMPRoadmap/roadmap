@@ -27,7 +27,8 @@ roles_tooltip = _("Select each role that applies to the contributor.")
   <% orcid = ContributorPresenter.orcid(contributor: contributor) %>
   <%= form.fields_for :identifiers, orcid do |orcid_fields| %>
     <%= orcid_fields.hidden_field :id %>
-    <%= orcid_fields.hidden_field :identifier_scheme_id, value: orcid.identifier_scheme_id %>
+    <%= orcid_fields.hidden_field :identifier_scheme_id,
+                                  value: orcid.identifier_scheme_id %>
     <div class="col-md-12">
       <%= orcid_fields.label(:value, _("ORCID"), class: "control-label") %>
     </div>
