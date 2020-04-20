@@ -128,7 +128,6 @@ Rails.application.routes.draw do
 
   resources :usage, only: [:index]
   post 'usage_plans_by_template', controller: 'usage', action: 'plans_by_template'
-  post 'usage_filter', controller: 'usage', action: 'filter'
   get 'usage_all_plans_by_template', controller: 'usage', action: 'all_plans_by_template'
   get 'usage_global_statistics', controller: 'usage', action: 'global_statistics'
   get 'usage_org_statistics', controller: 'usage', action: 'org_statistics'
@@ -214,6 +213,10 @@ Rails.application.routes.draw do
     resources :departments, only: [] do
       get 'index/:page', action: :index, on: :collection, as: :index
     end
+    # Paginable actions for api_clients
+     resources :api_clients, only: [] do
+       get 'index/:page', action: :index, on: :collection, as: :index
+     end
   end
 
   resources :template_options, only: [:index], constraints: { format: /json/ }
@@ -286,7 +289,19 @@ Rails.application.routes.draw do
         get :search
       end
     end
-    resources :notifications, except: [:show]
+
+    resources :notifications, except: [:show] do
+      member do
+        post 'enable', constraints: {format: [:json]}
+      end
+    end
+
+    resources :api_clients do
+       member do
+         get :email_credentials
+         get :refresh_credentials
+       end
+     end
   end
 
   get "research_projects/search", action: "search",

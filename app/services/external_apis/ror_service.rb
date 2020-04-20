@@ -51,7 +51,7 @@ module ExternalApis
         return true unless active && heartbeat_path.present?
 
         resp = http_get(uri: "#{api_base_url}#{heartbeat_path}")
-        resp.code == 200
+        resp.present? && resp.code == 200
       end
 
       # Search the ROR API for the given string.
@@ -94,7 +94,7 @@ module ExternalApis
         resp = http_get(uri: "#{target}?#{query}", additional_headers: {},
                         debug: false)
 
-        unless resp.code == 200
+        unless resp.present? && resp.code == 200
           handle_http_failure(method: "ROR search", http_response: resp)
           return []
         end
