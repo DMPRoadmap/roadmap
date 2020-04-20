@@ -1,4 +1,7 @@
-class NotificationPolicy < ApplicationPolicy
+# frozen_string_literal: true
+
+class ApiClientPolicy < ApplicationPolicy
+
   def initialize(user, *_args)
     raise Pundit::NotAuthorizedError, _('must be logged in') unless user
     @user = user
@@ -28,9 +31,12 @@ class NotificationPolicy < ApplicationPolicy
     @user.can_super_admin?
   end
 
-  def enable?
+  def refresh_credentials?
     @user.can_super_admin?
   end
 
+  def email_credentials?
+    @user.can_super_admin?
+  end
 
 end

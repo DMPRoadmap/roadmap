@@ -44,6 +44,7 @@ FactoryBot.define do
     title { Faker::Company.bs }
     template
     org
+    funder
     # TODO: Drop this column once the funder_id has been back filled
     #       and we're removing the is_other org stuff
     grant_number { SecureRandom.rand(1_000) }
