@@ -28,11 +28,15 @@
 #  template_id                       :integer
 #  org_id                            :integer
 #  funder_id                         :integer
+#  grant_id                          :integer
+#  api_client_id                     :integer
 #
 # Indexes
 #
-#  index_plans_on_template_id  (template_id)
-#  index_plans_on_funder_id    (funder_id)
+#  index_plans_on_template_id   (template_id)
+#  index_plans_on_funder_id     (funder_id)
+#  index_plans_on_grant_id      (grant_id)
+#  index_plans_on_api_client_id (api_client_id)
 #
 # Foreign Keys
 #
@@ -40,8 +44,8 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 
-# TODO: Drop the funder_name column once the funder_id has been back
-#       filled and we're removing the is_other org stuff
+# TODO: Drop the funder_name and grant_number columns once the funder_id has
+#       been back filled and we're removing the is_other org stuff
 
 class Plan < ActiveRecord::Base
 
@@ -118,6 +122,8 @@ class Plan < ActiveRecord::Base
 
   has_many :contributors, dependent: :destroy
 
+  has_one :grant, as: :identifiable, dependent: :destroy, class_name: "Identifier"
+
   # =====================
   # = Nested Attributes =
   # =====================
@@ -140,13 +146,13 @@ class Plan < ActiveRecord::Base
 
   validates :complete, inclusion: { in: BOOLEAN_VALUES }
 
+  validate :end_date_after_start_date
 
   # =============
   # = Callbacks =
   # =============
 
   before_validation :set_creation_defaults
-
 
   # ==========
   # = Scopes =
@@ -587,7 +593,16 @@ class Plan < ActiveRecord::Base
     # Only run this before_validation because rails fires this before
     # save/create
     return if id?
+
     self.title = "My plan (#{template.title})" if title.nil? && !template.nil?
+  end
+
+  # Validation to prevent end date from coming before the start date
+  def end_date_after_start_date
+    # allow nil values
+    return true if end_date.blank? || start_date.blank?
+
+    errors.add(:end_date, _("must be after the start date")) if end_date < start_date
   end
 
 end

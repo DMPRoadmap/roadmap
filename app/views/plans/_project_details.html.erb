@@ -36,6 +36,21 @@
   </div>
 </div>
 
+<div class="form-group"><!-- start / end dates -->
+  <div class="col-md-4">
+    <%= form.label(:start_date, _("Project Start"), class: "control-label") %>
+    <%= form.date_field :start_date, class: "form-control",
+                                     data: { toggle: "tooltip" },
+                                     title: _("The estimated date on which you will begin this project.") %>
+  </div>
+  <div class="col-md-4">
+    <%= form.label(:end_date, _("Project End"), class: "control-label") %>
+    <%= form.date_field :end_date, class: "form-control",
+                                   data: { toggle: "tooltip" },
+                                   title: _("The estimated date on which you will complete this project.") %>
+  </div>
+</div>
+
 <%# if DOI minting is enabled %>
 <% landing_page = plan.landing_page %>
 <% if Rails.configuration.x.doi&.active && landing_page.present? %>
@@ -124,12 +139,16 @@
       <span class="text-muted" id="grant_number_info">Grant number: <%= @plan.grant_number %></span>
     </div>
   <% else %>
-    <%# Otherwise just use a regular text field %>
-    <div class="col-md-12">
-      <%= form.label(:grant_number, _("Grant number/url"), class: "control-label") %>
-    </div>
-    <div class="col-md-8">
-      <%= form.text_field(:grant_number, class: "form-control") %>
-    </div>
+    <%= fields_for :grant, @plan.grant do |grant_fields| %>
+      <div class="col-md-12">
+        <%= grant_fields.label(:value, _("Grant number/url"), class: "control-label") %>
+      </div>
+      <div class="col-md-8">
+        <%= grant_fields.text_field(:value, class: "form-control",
+                                            data: { toggle: "tooltip" },
+                                            title: _("Provide a URL to the award's landing page if possible, if not please provide the award/grant number.")) %>
+        <%= grant_fields.hidden_field :id %>
+      </div>
+    <% end %>
   <% end %>
 </div>

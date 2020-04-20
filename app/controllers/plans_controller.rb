@@ -237,8 +237,8 @@ class PlansController < ApplicationController
         funder = org_from_params(params_in: attrs, allow_create: true)
         @plan.funder_id = funder.id if funder.present?
         attrs = remove_org_selection_params(params_in: attrs)
+        process_grant(hash: params[:grant])
 
-        #@plan.save
         if @plan.update(attrs) #_attributes(attrs)
           format.html do
             redirect_to plan_contributors_path(@plan),
@@ -422,6 +422,7 @@ class PlansController < ApplicationController
     params.require(:plan)
           .permit(:template_id, :title, :visibility, :grant_number,
                   :description, :identifier, :guidance_group_ids,
+                  :start_date, :end_date,
                   :org_id, :org_name, :org_crosswalk, :identifier,
                   org: [:org_id, :org_name, :org_sources, :org_crosswalk],
                   funder: [:org_id, :org_name, :org_sources, :org_crosswalk])
@@ -490,5 +491,27 @@ class PlansController < ApplicationController
       guidance_presenter: GuidancePresenter.new(plan)
     })
   end
+
+  # Update, destroy or add the grant
+  def process_grant(hash:)
+    if hash.present?
+      if hash[:id].present?
+        grant = @plan.grant
+        # delete it if it has been blanked out
+        if hash[:value].blank?
+          grant.destroy
+          @plan.grant_id = nil
+        elsif hash[:value] != grant.value
+          # update it iif iit has changed
+          grant.update(value: hash[:value])
+        end
+      else
+        identifier = Identifier.create(identifier_scheme: nil,
+                                       identifiable: @plan, value: hash[:value])
+        @plan.grant_id = identifier.id
+      end
+    end
+  end
+
 
 end
