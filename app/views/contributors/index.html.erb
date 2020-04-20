@@ -11,7 +11,7 @@
   <div class="row">
     <div class="col-md-12">
       <p>
-        <%= _("Please list the project’s Principle Investigator(s) and those responsible for data management.<br/>For an explanation of the various roles, please see: %{link_to_ontology}").html_safe % { link_to_ontology: link_to(Contributor::ONTOLOGY_NAME, Contributor::ONTOLOGY_LANDING_PAGE) } %>
+        <%= _("Please list the project’s Principle Investigator(s) and those responsible for data management.") %>
       </p>
       <br/>
 
@@ -29,7 +29,7 @@
       <% end %>
 
       <%= link_to _("Add a contributor"), new_plan_contributor_path(@plan),
-                  class: "btn btn-primary" %>
+                                          class: "btn btn-primary" %>
     </div>
   </div>
 <% end %>

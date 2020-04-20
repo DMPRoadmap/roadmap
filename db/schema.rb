@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200215190747) do
+ActiveRecord::Schema.define(version: 20200218213103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,20 @@ ActiveRecord::Schema.define(version: 20200215190747) do
   end
 
   add_index "answers_question_options", ["answer_id"], name: "index_answers_question_options_on_answer_id", using: :btree
+
+  create_table "contributors", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "phone"
+    t.integer  "roles",                     null: false
+    t.integer  "org_id"
+    t.integer  "plan_id",                   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contributors", ["email"], name: "index_contributors_on_email", using: :btree
+  add_index "contributors", ["org_id"], name: "index_contributors_on_org_id", using: :btree
 
   create_table "api_clients", force: :cascade do |t|
     t.string   "name",                      null: false
@@ -484,6 +498,8 @@ ActiveRecord::Schema.define(version: 20200215190747) do
   add_foreign_key "answers", "users"
   add_foreign_key "answers_question_options", "answers"
   add_foreign_key "answers_question_options", "question_options"
+  add_foreign_key "contributors", "plans"
+  add_foreign_key "contributors", "orgs"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "notes", "answers"

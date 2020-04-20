@@ -112,6 +112,8 @@ Rails.application.routes.draw do
 
     resource :export, only: [:show], controller: "plan_exports"
 
+    resources :contributors, except: %i[show]
+
     member do
       get 'answer'
       get 'share'
@@ -174,6 +176,11 @@ Rails.application.routes.draw do
       get 'publicly_visible/:page', action: :publicly_visible, on: :collection, as: :publicly_visible
       get 'org_admin/:page', action: :org_admin, on: :collection, as: :org_admin
       get 'org_admin_other_user/:page', action: :org_admin_other_user, on: :collection, as: :org_admin_other_user
+
+      # Paginable actions for contributors
+      resources :contributors, only: %i[index] do
+        get "index/:page", action: :index, on: :collection, as: :index
+      end
     end
     # Paginable actions for users
     resources :users, only: [] do

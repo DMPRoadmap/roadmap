@@ -1,4 +1,4 @@
-<%# locals: plan, contributors %>
+<%# locals: @plan, scope %>
 
 <table class="table table-hover">
   <thead>
@@ -14,7 +14,7 @@
         <%= _("Affiliation") %>&nbsp;<%= paginable_sort_link("orgs.name") %>
       </th>
       <th scope="col" class="sorter-false"><%= _("Roles") %></th>
-      <% if plan.administerable_by?(current_user) %>
+      <% if @plan.administerable_by?(current_user) %>
         <th scope="col" class="sorter-false">
           <span aria-hidden="false" class="sr-only"><%= _("Actions") %></span>
         </th>
@@ -45,7 +45,7 @@
           <% end %>
         </td>
         <td><%= ContributorPresenter.display_roles(roles: contributor.selected_roles) %></td>
-        <% if plan.administerable_by?(current_user) %>
+        <% if @plan.administerable_by?(current_user) %>
           <td>
             <div class="dropdown">
               <button class="btn btn-link dropdown-toggle"
@@ -57,9 +57,9 @@
               </button>
               <ul class="dropdown-menu" aria-labelledby="contributor-<%= contributor.id %>-actions">
                 <li><%= link_to _('Edit'),
-                                edit_plan_contributor_path(plan_id: plan, id: contributor) %></li>
+                        edit_plan_contributor_path(plan_id: @plan.id, id: contributor) %></li>
                 <li><%= link_to _('Remove'),
-                                plan_contributor_path(plan, contributor),
+                                plan_contributor_path(@plan.id, contributor),
                                 data: { confirm: _("You are about to delete '%{contributor_name}'. Are you sure?") % { contributor_name: contributor.name } },
                                 method: :delete %>
                 </li>
@@ -70,5 +70,4 @@
       </tr>
     <% end %>
   </tbody>
- </table>
- 
+</table>
