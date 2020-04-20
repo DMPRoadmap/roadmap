@@ -12,19 +12,6 @@ $(() => {
     $('#plan_visibility').val($(e.target).is(':checked') ? 'is_test' : 'privately_visible');
   });
 
-  const showHideDataContact = (el) => {
-    if ((el).is(':checked')) {
-      $('div.data-contact').fadeOut();
-    } else {
-      $('div.data-contact').fadeIn();
-    }
-  };
-
-  $('#show_data_contact').click((e) => {
-    showHideDataContact($(e.currentTarget));
-  });
-  showHideDataContact($('#show_data_contact'));
-
   // Toggle the disabled flags
   const toggleCheckboxes = (selections) => {
     $('#priority-guidance-orgs, #other-guidance-orgs').find('input[type="checkbox"]').each((i, el) => {

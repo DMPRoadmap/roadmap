@@ -11,6 +11,7 @@ namespace :upgrade do
     Rake::Task["upgrade:default_orgs_to_managed"].execute
     Rake::Task["upgrade:migrate_other_organisation_to_org"].execute
     Rake::Task["upgrade:retrieve_ror_fundref_ids"].execute
+    Rake::Task["upgrade:migrate_contributors"].execute
   end
 
   desc "Upgrade to v2.1.3"
@@ -772,7 +773,6 @@ namespace :upgrade do
       ui.user.identifiers << Identifier.new(
         identifier_scheme: ui.identifier_scheme,
         value: ui.identifier,
-        #type: (ui.identifier_scheme.name == "orcid" ? "url" : "other"),
         attrs: {}.to_json
       )
     end
@@ -791,7 +791,6 @@ namespace :upgrade do
       ui.org.identifiers << Identifier.new(
         identifier_scheme: ui.identifier_scheme,
         value: val,
-        # type: (ui.identifier_scheme.name == "orcid" ? "url" : "other"),
         attrs: ui.attrs
       )
     end
@@ -890,6 +889,69 @@ namespace :upgrade do
     end
   end
 
+  desc "migrates any data_contact/principal_investigator information from plans table to contributors"
+  task migrate_contributors: :environment do
+    orcid = IdentifierScheme.find_by(name: "orcid")
+
+    # Loop through the plans and convert the Data Contact, owners and PI
+    # into Contributors
+    Plan.includes(:contributors, roles: :user).joins(roles: :user).each do |plan|
+      next if plan.contributors.any?
+
+      p "--------------------------------------------------"
+      p "Processing Plan: '#{plan.id} - #{plan.title}'"
+
+      owner = plan.owner
+
+      # Either use the Data Contact specified on the plan
+      if plan.data_contact_email.present? || plan.data_contact.present?
+        contact, contact_id = to_contributor(plan, plan.data_contact,
+                                             plan.data_contact_email,
+                                             plan.data_contact_phone, nil, nil)
+
+      elsif owner.present?
+        contact, contact_id = to_contributor(plan, owner.name(false),
+          owner.email, nil, owner.identifier_for(orcid)&.first&.value, owner.org_id)
+      end
+      # Add the DMP Data Contact
+      if contact.present?
+        contact.save
+        contact.data_curation = true
+        p "    adding contact: #{contact.name} #{contact.email} (#{contact_id&.value})"
+        contact.save
+        contact_id.save if contact_id.present?
+      end
+
+      # Get the PI
+      pi, pi_id = to_contributor(plan, plan.principal_investigator,
+                                 plan.principal_investigator_email,
+                                 plan.principal_investigator_phone,
+                                 plan.principal_investigator_identifier, nil)
+      # Add the Principal Investigator
+      if pi.present?
+        pi.save
+        pi.investigation = true
+        p "    adding PI:      #{pi.name} #{pi.email} (#{pi_id&.value})"
+        pi.save
+        pi_id.save if pi_id.present?
+      end
+
+      # Add the authors
+      if owner.present? && owner == contact
+        user, id = to_contributor(plan, owner.name(false),
+          owner.email, nil, owner.identifier_for(orcid)&.first&.value, owner.org_id)
+
+        if user.present?
+          user.save
+          user.data_curation = true
+          p "    adding author:  #{user.name} #{user.email} (#{id&.value})"
+          user.save
+          id.save if id.present?
+        end
+      end
+    end
+  end
+
   private
 
   def fuzzy_match?(text_a, text_b, min = 3)
@@ -904,6 +966,45 @@ namespace :upgrade do
               gem install #{libname}"
       exit 1
     end
+  end
+
+  # Converts the names, email and phone into a Contributor and an
+  # Identifier model
+  def to_contributor(plan, name, email, phone, identifier, org)
+    return nil, nil unless name.present? || email.present?
+
+    # If the name is not an array already split it up
+    orcid = IdentifierScheme.find_by(name: "orcid")
+
+    # If no Org and/or identifier were nil try to look them up in the User table
+    user = User.includes(:identifiers).where(email: email).first
+    if user.present?
+      org = user.org_id unless org.present?
+
+      unless identifier.present?
+        ident = user.identifiers.select { |i| i.identifier_scheme == orcid }.first
+        identifier = ident.value if ident.present?
+      end
+    end
+
+    contributor = Contributor.where("plan_id = ? AND (LOWER(email) = LOWER(?) OR LOWER(name) = LOWER(?))", plan.id, email, name).first
+    unless contributor.present?
+      contributor = Contributor.new(email: email, plan: plan)
+      contributor.name = name
+      contributor.phone = phone
+      contributor.org_id = org
+    end
+    return contributor, nil if identifier.nil?
+
+    # Get the ORCID id from the string
+    matched = identifier.match(/([0-9]{4}-?){4}/)
+    orcid_id = matched[0] if matched.present?
+    return contributor, nil unless orcid_id.present?
+
+    id = Identifier.find_or_initialize_by(identifiable: contributor,
+                                          identifier_scheme: orcid)
+    id.value = orcid_id
+    return contributor, id
   end
 
 end
