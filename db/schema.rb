@@ -63,6 +63,21 @@ ActiveRecord::Schema.define(version: 20200218213103) do
   add_index "contributors", ["email"], name: "index_contributors_on_email", using: :btree
   add_index "contributors", ["org_id"], name: "index_contributors_on_org_id", using: :btree
 
+  create_table "api_clients", force: :cascade do |t|
+    t.string   "name",                      null: false
+    t.string   "description"
+    t.string   "homepage"
+    t.string   "contact_name"
+    t.string   "contact_email",             null: false
+    t.string   "client_id",                 null: false
+    t.string   "client_secret",             null: false
+    t.date     "last_access"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "api_clients", ["name"], name: "index_api_clients_on_name", using: :btree
+
   create_table "departments", force: :cascade do |t|
     t.string   "name"
     t.string   "code"
@@ -463,6 +478,7 @@ ActiveRecord::Schema.define(version: 20200218213103) do
     t.string   "recovery_email"
     t.boolean  "active",                            default: true
     t.integer  "department_id"
+    t.datetime "last_api_access"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
