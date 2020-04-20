@@ -50,16 +50,15 @@ module Paginable
     @paginable_options = {}.merge(options)
     @paginable_options[:view_all] = options.fetch(:view_all, true)
     # Assignment for paginable_params based on arguments passed to the method
-    @paginable_params = params.symbolize_keys
-    @paginable_params[:controller] = controller if controller
-    @paginable_params[:action] = action if action
+    paginable_params[:controller] = controller if controller
+    paginable_params[:action] = action if action
     # if duplicate keys, those from @paginable_params take precedence
-    @paginable_params = query_params.symbolize_keys.merge(@paginable_params)
+    paginable_params = query_params.symbolize_keys.merge(paginable_params.to_h)
     # Additional path_params passed to this function got special treatment
     # (e.g. it is taking into account when building base_url)
     @paginable_path_params = path_params.symbolize_keys
-    if @paginable_params[:page] == "ALL" &&
-       @paginable_params[:search].blank? &&
+    if paginable_params[:page] == "ALL" &&
+       paginable_params[:search].blank? &&
        @paginable_options[:view_all] == false
       render(
         status: :forbidden,
@@ -71,7 +70,7 @@ module Paginable
         partial: partial,
         locals: locals.merge(
           scope: @refined_scope,
-          search_term: @paginable_params[:search])
+          search_term: paginable_params[:search])
       )
     end
   end
@@ -79,8 +78,8 @@ module Paginable
   # Returns the base url of the paginable route for a given page passed
   def paginable_base_url(page = 1)
     url_params = @paginable_path_params.merge(
-      controller: @paginable_params[:controller],
-      action: @paginable_params[:action],
+      controller: paginable_params[:controller],
+      action: paginable_params[:action],
       page: page
     )
     url_for(url_params)
@@ -100,7 +99,7 @@ module Paginable
 
   # Determines whether or not the latest request included the search functionality
   def searchable?
-    @paginable_params[:search].present?
+    paginable_params[:search].present?
   end
 
   # Determines whether or not the scoped query is paginated or not
@@ -111,34 +110,34 @@ module Paginable
   # Refine a scope passed to this concern if any of the params (search,
   # sort_field or page) are present
   def refine_query(scope)
-    if @paginable_params[:search].present?
-      scope = scope.search(@paginable_params[:search])
+    if paginable_params[:search].present?
+      scope = scope.search(paginable_params[:search])
     end
     # Can raise NoMethodError if the scope does not define a search method
-    if @paginable_params[:sort_field].present?
-      unless @paginable_params[:sort_field][SORT_COLUMN_FORMAT]
+    if paginable_params[:sort_field].present?
+      unless paginable_params[:sort_field][SORT_COLUMN_FORMAT]
         raise ArgumentError, "sort_field param looks unsafe"
       end
       # Can raise ActiveRecord::StatementInvalid (e.g. column does not
       # exist, ambiguity on column, etc)
-      scope = scope.order("#{@paginable_params[:sort_field]} #{sort_direction}")
+      scope = scope.order("#{paginable_params[:sort_field]} #{sort_direction}")
     end
-    if @paginable_params[:page] != "ALL"
+    if paginable_params[:page] != "ALL"
       # Can raise error if page is not a number
-      scope = scope.page(@paginable_params[:page])
+      scope = scope.page(paginable_params[:page])
     end
     scope
   end
 
   def sort_direction
-    @sort_direction ||= SortDirection.new(@paginable_params[:sort_direction])
+    @sort_direction ||= SortDirection.new(paginable_params[:sort_direction])
   end
 
   # Returns the sort link name for a given sort_field. The link name includes
   # html prevented of being escaped
   def sort_link_name(sort_field)
     class_name = "fa-sort"
-    if @paginable_params[:sort_field] == sort_field
+    if paginable_params[:sort_field] == sort_field
       class_name = "fa-sort-#{sort_direction.downcase}"
     end
     <<~HTML.html_safe
@@ -156,9 +155,9 @@ module Paginable
   # Returns the sort url for a given sort_field.
   def sort_link_url(sort_field)
     query_params = {}
-    query_params[:page] = @paginable_params[:page] == "ALL" ? "ALL" : 1
+    query_params[:page] = paginable_params[:page] == "ALL" ? "ALL" : 1
     query_params[:sort_field] = sort_field
-    if @paginable_params[:sort_field] == sort_field
+    if paginable_params[:sort_field] == sort_field
       query_params[:sort_direction] = sort_direction.opposite
     else
       query_params[:sort_direction] = sort_direction
@@ -172,11 +171,11 @@ module Paginable
 
   # Retrieve any query params that are not a part of the paginable concern
   def stringify_nonpagination_query_params
-    @paginable_params.except(*PAGINATION_QUERY_PARAMS).to_param
+    paginable_params.except(*PAGINATION_QUERY_PARAMS).to_param
   end
 
-  def stringify_query_params(page: 1, search: @paginable_params[:search],
-    sort_field: @paginable_params[:sort_field],
+  def stringify_query_params(page: 1, search: paginable_params[:search],
+    sort_field: paginable_params[:sort_field],
     sort_direction: nil)
 
     query_string = {}
@@ -186,6 +185,10 @@ module Paginable
       query_string["sort_direction"] = SortDirection.new(sort_direction)
     end
     query_string.to_param
+  end
+
+  def paginable_params
+    params.permit(PAGINATION_QUERY_PARAMS)
   end
 
 end
