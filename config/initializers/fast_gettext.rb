@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+FastGettext.add_text_domain 'app', path: 'config/locale', type: :po,
+                                   ignore_fuzzy: true, report_warning: true
+FastGettext.default_text_domain = 'app'
+
 # When Travis runs this, the DB isn't always built yet.
 if Language.table_exists?
   def default_locale
@@ -21,19 +25,10 @@ else
   end
 end
 
-FastGettext.add_text_domain("app",
-  path: Rails.root.join("config/locale"),
-  type: :po,
-  ignore_fuzzy: true,
-  report_warning: false,
-)
-
-I18n.available_locales += available_locales.for(:i18n).to_a
+# FastGettext config
 FastGettext.default_available_locales = available_locales.for(:fast_gettext).to_a
+FastGettext.default_locale = LocaleFormatter.new(default_locale, format: :fast_gettext).to_s
 
-FastGettext.default_text_domain       = "app"
-
-I18n.default_locale        = LocaleFormatter.new(default_locale,
-                                                 format: :i18n).to_s
-FastGettext.default_locale = LocaleFormatter.new(default_locale,
-                                                 format: :fast_gettext).to_s
+# I18n config
+I18n.available_locales += available_locales.for(:i18n).to_a
+I18n.default_locale = LocaleFormatter.new(default_locale, format: :i18n).to_s
