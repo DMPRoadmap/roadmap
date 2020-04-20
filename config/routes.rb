@@ -128,7 +128,6 @@ Rails.application.routes.draw do
 
   resources :usage, only: [:index]
   post 'usage_plans_by_template', controller: 'usage', action: 'plans_by_template'
-  post 'usage_filter', controller: 'usage', action: 'filter'
   get 'usage_all_plans_by_template', controller: 'usage', action: 'all_plans_by_template'
   get 'usage_global_statistics', controller: 'usage', action: 'global_statistics'
   get 'usage_org_statistics', controller: 'usage', action: 'org_statistics'
