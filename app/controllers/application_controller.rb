@@ -7,11 +7,11 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   # Look for template overrides before rendering
-  before_filter :prepend_view_paths
+  before_action :prepend_view_paths
 
-  before_filter :set_gettext_locale
+  before_action :set_gettext_locale
 
-  after_filter :store_location
+  after_action :store_location
 
   include GlobalHelpers
   include Pundit

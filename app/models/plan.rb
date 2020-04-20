@@ -118,8 +118,6 @@ class Plan < ApplicationRecord
 
   has_many :exported_plans
 
-  has_many :roles
-
   has_many :contributors, dependent: :destroy
 
   has_one :grant, as: :identifiable, dependent: :destroy, class_name: "Identifier"
