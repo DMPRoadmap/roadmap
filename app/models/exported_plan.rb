@@ -51,11 +51,15 @@ class ExportedPlan < ActiveRecord::Base
   end
 
   def principal_investigator
-    self.plan.principal_investigator
+    self.plan.contributors.investigation
   end
 
   def project_data_contact
-    self.plan.data_contact
+    self.plan.contributors.data_curation
+  end
+
+  def project_admins
+    self.plan.contributors.project_administration
   end
 
   def project_description
