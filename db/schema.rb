@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200218213103) do
+ActiveRecord::Schema.define(version: 20200323213847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20200218213103) do
 
   add_index "contributors", ["email"], name: "index_contributors_on_email", using: :btree
   add_index "contributors", ["org_id"], name: "index_contributors_on_org_id", using: :btree
-  
+
   create_table "departments", force: :cascade do |t|
     t.string   "name"
     t.string   "code"
@@ -267,12 +267,18 @@ ActiveRecord::Schema.define(version: 20200218213103) do
     t.string   "principal_investigator_phone"
     t.boolean  "feedback_requested",                default: false
     t.boolean  "complete",                          default: false
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.integer  "org_id"
     t.integer  "funder_id"
+    t.integer  "grant_id"
+    t.integer  "api_client_id"
   end
 
   add_index "plans", ["template_id"], name: "index_plans_on_template_id", using: :btree
   add_index "plans", ["funder_id"], name: "index_plans_on_funder_id", using: :btree
+  add_index "plans", ["grant_id"], name: "index_plans_on_grant_id", using: :btree
+  add_index "plans", ["api_client_id"], name: "index_plans_on_api_client_id", using: :btree
 
   create_table "plans_guidance_groups", force: :cascade do |t|
     t.integer "guidance_group_id"
