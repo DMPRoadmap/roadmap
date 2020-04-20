@@ -83,7 +83,8 @@ class Identifier < ActiveRecord::Base
                         identifier_scheme.identifier_prefix.present?
 
     base = identifier_scheme.identifier_prefix
-    value.gsub(base, "").sub(%r{^\/}, "")  end
+    value.gsub(base, "").sub(%r{^\/}, "")
+  end
 
   # Appends the identifier scheme's prefix to the identifier if necessary
   # For example:

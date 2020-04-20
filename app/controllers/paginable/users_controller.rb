@@ -7,11 +7,14 @@ class Paginable::UsersController < ApplicationController
   # /paginable/users/index/:page
   def index
     authorize User
+    @clicked_through = params[:click_through].present?
+
     if current_user.can_super_admin?
       scope = User.includes(:roles)
     else
       scope = current_user.org.users.includes(:roles)
     end
+
     paginable_renderise(
       partial: "index",
       scope: scope,

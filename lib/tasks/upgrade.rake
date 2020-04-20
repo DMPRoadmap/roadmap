@@ -3,7 +3,7 @@ namespace :upgrade do
 
   desc "Upgrade to v2.2.0"
   task v2_2_0: :environment do
-    Rake::Task["upgrade:add_fundref_and_ror"].execute
+    Rake::Task["upgrade:add_new_identifier_schemes"].execute
     Rake::Task["upgrade:update_shibboleth_description"].execute
     Rake::Task["upgrade:contextualize_identifier_schemes"].execute
     Rake::Task["upgrade:convert_user_identifiers"].execute
@@ -731,7 +731,7 @@ namespace :upgrade do
   task update_shibboleth_description: :environment do
     scheme = IdentifierScheme.where(name: "shibboleth")
     if scheme.any?
-      scheme.update(description: "Institutional Sign In (Shibboleth)")
+      scheme.first.update(description: "Institutional Sign In (Shibboleth)")
     end
   end
 
@@ -773,7 +773,6 @@ namespace :upgrade do
       ui.user.identifiers << Identifier.new(
         identifier_scheme: ui.identifier_scheme,
         value: ui.identifier,
-        type: (ui.identifier_scheme.name == "orcid" ? "url" : "other"),
         attrs: {}.to_json
       )
     end
@@ -792,7 +791,6 @@ namespace :upgrade do
       ui.org.identifiers << Identifier.new(
         identifier_scheme: ui.identifier_scheme,
         value: val,
-        type: (ui.identifier_scheme.name == "orcid" ? "url" : "other"),
         attrs: ui.attrs
       )
     end
@@ -815,12 +813,12 @@ namespace :upgrade do
 
       # If any matches were found then we will use that as the Org
       org = matches.first if matches.any?
-      p "Found matching org: search: '#{name}' => '#{org.name}'" if org.present?
+      p "Found matching org: search: '#{name}' => '#{org[:name]}'" if org.present?
 
       # Otherwise create the Org
       org = Org.create(name: name, managed: false, is_other: false) if matches.empty?
       p "Created new org: search: '#{name}'" if org.present?
-      next unless org.present? && org.id.present?
+      next unless org.present? && org.is_a?(Org)
 
       # Attach all users with that other_organisation to the Org
       User.where(other_organisation: name).update_all(org_id: org.id)

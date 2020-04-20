@@ -26,7 +26,7 @@ class Api::V0::PlansController < Api::V0::BaseController
     ends
 
     # initialize the plan
-    @plan = Plan.news
+    @plan = Plan.new
 
     # Attach the user as the PI and Data Contact
     @plan.contributors << Contributor.new(

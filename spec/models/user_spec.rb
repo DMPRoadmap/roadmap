@@ -537,6 +537,7 @@ RSpec.describe User, type: :model do
     end
   end
 
+  # Test creationg a User from an omniauth callback like Shibboleth
   describe ".from_omniauth" do
     let!(:user) { create(:user) }
     let!(:auth) do

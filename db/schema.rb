@@ -181,8 +181,9 @@ ActiveRecord::Schema.define(version: 20200323213847) do
     t.boolean  "dismissable"
     t.date     "starts_at"
     t.date     "expires_at"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.boolean  "enabled",           default: true
   end
 
   create_table "org_identifiers", force: :cascade do |t|
