@@ -49,6 +49,7 @@
       <div id="research-org-controls" class="row">
         <div class="form-group col-md-6">
            <em class="sr-only"><%= research_org_tooltip %></em>
+           <%# TODO: create a relationship on the plans table to org for this (org_id)! %>
            <% dflt = @orgs.include?(current_user.org) ? current_user.org : nil %>
            <%= fields_for :org, @plan.org do |org_fields| %>
              <%= render partial: "shared/org_selectors/local_only",
@@ -78,6 +79,7 @@
       <div id="funder-org-controls" class="row">
         <div class="form-group col-xs-6">
           <em class="sr-only"><%= primary_funding_tooltip %></em>
+          <%# TODO: create a relationship on the plans table to org for this! (funder_id) to replace the existing funder_name field %>
           <%= fields_for :funder, @plan.funder = Org.new do |funder_fields| %>
             <%= render partial: "shared/org_selectors/local_only",
                         locals: {
