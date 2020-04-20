@@ -44,8 +44,8 @@ module OrgAdmin
       render "org_admin/users/plans"
     end
 
-
     private
+
     def user_params
       params.require(:user).permit(:department_id)
     end

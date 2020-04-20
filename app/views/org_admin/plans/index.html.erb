@@ -43,13 +43,15 @@
                   target: '_blank',
                   class: 'btn btn-default pull-right has-new-window-popup-info' %>
       <% end %>
-      <%= paginable_renderise(
-        partial: '/paginable/plans/org_admin',
-        controller: 'paginable/plans',
-        action: 'org_admin',
-        scope: @plans,
-        view_all: !current_user.can_super_admin?,
-        query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }) %>
+      <div class="table-responsive">
+        <%= paginable_renderise(
+          partial: '/paginable/plans/org_admin',
+          controller: 'paginable/plans',
+          action: 'org_admin',
+          scope: @plans,
+          view_all: !current_user.can_super_admin?,
+          query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }) %>
+      </div>
     <% end %>
   </div>
 </div>
