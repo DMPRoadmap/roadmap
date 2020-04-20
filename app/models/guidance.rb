@@ -81,7 +81,7 @@ class Guidance < ActiveRecord::Base
 
   # Returns whether or not a given user can view a given guidance
   # we define guidances viewable to a user by those owned by a guidance group:
-  #   owned by the managing curation center
+  #   owned by the default orgs
   #   owned by a funder organisation
   #   owned by an organisation, of which the user is a member
   #
@@ -99,9 +99,8 @@ class Guidance < ActiveRecord::Base
         if guidance.guidance_group.org == user.org
           viewable = true
         end
-        # guidance groups are viewable if they are owned by the Managing
-        # Curation Center
-        if Org.managing_orgs.include?(guidance.guidance_group.org)
+        # guidance groups are viewable if they are owned by the Default Orgs
+        if Org.default_orgs.include?(guidance.guidance_group.org)
           viewable = true
         end
 
@@ -117,7 +116,7 @@ class Guidance < ActiveRecord::Base
 
   # Returns a list of all guidances which a specified user can view
   # we define guidances viewable to a user by those owned by a guidance group:
-  #   owned by the Managing Curation Center
+  #   owned by the Default Orgs
   #   owned by a funder organisation
   #   owned by an organisation, of which the user is a member
   #
@@ -125,8 +124,8 @@ class Guidance < ActiveRecord::Base
   #
   # Returns Array
   def self.all_viewable(user)
-    managing_groups = Org.includes(guidance_groups: :guidances)
-                         .managing_orgs.collect { |o| o.guidance_groups }
+    default_groups = Org.includes(guidance_groups: :guidances)
+                         .default_orgs.collect { |o| o.guidance_groups }
     # find all groups owned by a Funder organisation
     funder_groups = Org.includes(guidance_groups: :guidances)
                        .funder.collect { |org| org.guidance_groups }
@@ -134,7 +133,7 @@ class Guidance < ActiveRecord::Base
     organisation_groups = user.org.guidance_groups
 
     # find all guidances belonging to any of the viewable groups
-    all_viewable_groups = (managing_groups +
+    all_viewable_groups = (default_groups +
                             funder_groups +
                             organisation_groups).flatten
     all_viewable_guidances = all_viewable_groups.collect do |group|

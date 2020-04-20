@@ -123,6 +123,7 @@ class ApplicationController < ActionController::Base
 
   def obj_name_for_display(obj)
     display_name = {
+      ApiClient: _("API client"),
       ExportedPlan: _("plan"),
       GuidanceGroup: _("guidance group"),
       Note: _("comment"),
