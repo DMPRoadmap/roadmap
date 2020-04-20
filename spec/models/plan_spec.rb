@@ -491,9 +491,19 @@ describe Plan do
       end
 
       it "returns organisation name" do
-          expect(subject).to include(plan)
+        expect(subject).to include(plan)
       end
 
+    end
+
+    # TODO: Add this one in once we are able to easily do LEFT JOINs in Rails 5
+    context "when Contributor name matches term" do
+      let!(:plan) { create(:plan, :creator, description: "foolike desc") }
+      let!(:contributor) { create(:contributor, plan: plan, name: "Dr. Foo Bar") }
+
+      xit "returns contributor name" do
+        expect(subject).to include(plan)
+      end
     end
 
     context "when neither title matches term" do
