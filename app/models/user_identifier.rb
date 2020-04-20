@@ -11,6 +11,7 @@
 #
 # Indexes
 #
+#  fk_rails_fe95df7db0                (identifier_scheme_id)
 #  index_user_identifiers_on_user_id  (user_id)
 #
 # Foreign Keys
