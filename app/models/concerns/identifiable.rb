@@ -39,6 +39,7 @@ module Identifiable
                               identifiable_type: name).first
         break if id.present?
       end
+
       id.present? ? id.identifiable : nil
     end
 

@@ -53,12 +53,12 @@ class Plan < ActiveRecord::Base
   include ExportablePlan
   include ValidationMessages
   include ValidationValues
+  include DateRangeable
   include Identifiable
 
   # =============
   # = Constants =
   # =============
-
 
   # Returns visibility message given a Symbol type visibility passed, otherwise
   # nil
@@ -187,14 +187,22 @@ class Plan < ActiveRecord::Base
   #           OR lower(contributors.name) LIKE lower(:search_pattern)
   #           OR lower(identifiers.value) LIKE lower(:search_pattern)",
   scope :search, lambda { |term|
-    search_pattern = "%#{term}%"
-    joins(:template, roles: [user: :org])
-    .where(Role.creator_condition)
-    .where("lower(plans.title) LIKE lower(:search_pattern)
-            OR lower(orgs.name) LIKE lower (:search_pattern)
-            OR lower(orgs.abbreviation) LIKE lower (:search_pattern)
-            OR lower(templates.title) LIKE lower(:search_pattern)",
-            search_pattern: search_pattern)
+    if date_range?(term: term)
+      joins(:template, roles: [user: :org])
+        .where(Role.creator_condition)
+        .by_date_range(:created_at, term)
+    else
+      search_pattern = "%#{term}%"
+      joins(:template, roles: [user: :org])
+        .where(Role.creator_condition)
+        .where("lower(plans.title) LIKE lower(:search_pattern)
+                OR lower(orgs.name) LIKE lower (:search_pattern)
+                OR lower(orgs.abbreviation) LIKE lower (:search_pattern)
+                OR lower(templates.title) LIKE lower(:search_pattern)
+                OR lower(plans.principal_investigator) LIKE lower(:search_pattern)
+                OR lower(plans.principal_investigator_identifier) LIKE lower(:search_pattern)",
+               search_pattern: search_pattern)
+    end
   }
 
   # Retrieves plan, template, org, phases, sections and questions
