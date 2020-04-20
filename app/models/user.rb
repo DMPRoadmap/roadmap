@@ -56,6 +56,9 @@
 class User < ApplicationRecord
 
   include ConditionalUserMailer
+  include ValidationMessages
+  include ValidationValues
+  include DateRangeable
   include Identifiable
 
   extend UniqueRandom
@@ -134,17 +137,21 @@ class User < ApplicationRecord
   }
 
   scope :search, -> (term) {
-    search_pattern = "%#{term}%"
-    # MySQL does not support standard string concatenation and since concat_ws
-    # or concat functions do not exist for sqlite, we have to come up with this
-    # conditional
-    if ActiveRecord::Base.connection.adapter_name == "Mysql2"
-      where("lower(concat_ws(' ', firstname, surname)) LIKE lower(?) OR " +
-            "lower(email) LIKE lower(?)",
-            search_pattern, search_pattern)
+    if date_range?(term: term)
+      by_date_range(:created_at, term)
     else
-      where("lower(firstname || ' ' || surname) LIKE lower(?) OR " +
-            "email LIKE lower(?)", search_pattern, search_pattern)
+      search_pattern = "%#{term}%"
+      # MySQL does not support standard string concatenation and since concat_ws
+      # or concat functions do not exist for sqlite, we have to come up with this
+      # conditional
+      if ActiveRecord::Base.connection.adapter_name == "Mysql2"
+        where("lower(concat_ws(' ', firstname, surname)) LIKE lower(?) OR " +
+              "lower(email) LIKE lower(?)",
+              search_pattern, search_pattern)
+      else
+        where("lower(firstname || ' ' || surname) LIKE lower(?) OR " +
+              "email LIKE lower(?)", search_pattern, search_pattern)
+      end
     end
   }
 
