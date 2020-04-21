@@ -7,10 +7,10 @@ ruby ">= 2.4.0"
 # ------------------------------------------------
 # RAILS
 # Full-stack web application framework. (http://rubyonrails.org)
-gem "rails", "~> 5.0"
+gem "rails", "~> 5.2"
 
 # TODO: See if pegging gems is still necessary after migrating to Rails 5
-gem "sprockets", "~> 3.2"
+gem "sprockets" #, "~> 3.2"
 
 # Rake is a Make-like program implemented in Ruby
 # (https://github.com/ruby/rake)
@@ -40,7 +40,7 @@ end
 group :mysql do
   # A simple, fast Mysql library for Ruby, binding to libmysql
   # (http://github.com/brianmario/mysql2)
-  gem "mysql2", "~> 0.4.10"
+  gem "mysql2" #, "~> 0.4.10"
 end
 
 group :pgsql do
@@ -48,7 +48,7 @@ group :pgsql do
   # RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
   # Pg is the Ruby interface to the {PostgreSQL RDBMS}
   # [http://www.postgresql.org/] (https://bitbucket.org/ged/ruby-pg)
-  gem "pg", "~> 0.19.0"
+  gem "pg" #, "~> 0.19.0"
 end
 
 group :thin do
@@ -63,7 +63,8 @@ group :puma do
 end
 
 # Bit fields for ActiveRecord (https://github.com/pboling/flag_shih_tzu)
-gem "flag_shih_tzu", "~> 0.3.23" # Allows for bitfields in activereccord
+gem "flag_shih_tzu" #, "~> 0.3.23"
+# Allows for bitfields in activereccord
 # Pinned here because we're using a private method in Role.rb
 # if this gets updated, check this method still exists
 
