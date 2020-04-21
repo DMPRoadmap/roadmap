@@ -10,11 +10,13 @@ class SessionLocalesController < ApplicationController
   private
 
   def available_locales
-    LocaleSet.new(FastGettext.default_available_locales).for(:fast_gettext)
+    FastGettext.default_available_locales.map do |locale|
+      LocaleService.to_gettext(string: locale).to_s
+    end
   end
 
   def param_locale
-    LocaleFormatter.new(params[:locale], format: :fast_gettext).to_s
+    LocaleService.to_gettext(string: params[:locale]).to_s
   end
 
 end

@@ -35,7 +35,7 @@ class Section < ApplicationRecord
   # ================
 
   belongs_to :phase
-  belongs_to :organisation
+  belongs_to :organisation, optional: true
   has_many :questions, dependent: :destroy
   has_one :template, through: :phase
 

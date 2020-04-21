@@ -18,7 +18,7 @@ class Region < ApplicationRecord
 
   has_many :sub_regions, class_name: 'Region', foreign_key: 'super_region_id'
 
-  belongs_to :super_region, class_name: 'Region'
+  belongs_to :super_region, class_name: 'Region', optional: true
 
   # ===============
   # = Validations =

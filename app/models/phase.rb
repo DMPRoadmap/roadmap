@@ -41,7 +41,7 @@ class Phase < ApplicationRecord
   # ================
   belongs_to :template, touch: true
 
-  belongs_to :plan
+  belongs_to :plan, optional: true
 
   has_one :prefix_section, -> (phase) {
     modifiable.where("number < ?",

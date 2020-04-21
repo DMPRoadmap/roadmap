@@ -80,7 +80,8 @@ class Language < ApplicationRecord
   def format_abbreviation
     abbreviation.downcase!
     return if abbreviation.blank? || abbreviation =~ /\A[a-z]{2}\Z/i
-    self.abbreviation = LocaleFormatter.new(abbreviation, format: :i18n).to_s
+
+    self.abbreviation = LocaleService.to_i18n(locale: abbreviation).to_s
   end
 
 end
