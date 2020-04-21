@@ -91,8 +91,8 @@ class Identifier < ApplicationRecord
   def value=(val)
     if identifier_scheme.present? &&
        identifier_scheme.identifier_prefix.present? &&
-       !val.strip.blank? &&
-       !val.starts_with?(identifier_scheme.identifier_prefix)
+       !val.to_s.strip.blank? &&
+       !val.to_s.starts_with?(identifier_scheme.identifier_prefix)
 
       base = identifier_scheme.identifier_prefix
       base += "/" unless base.ends_with?("/")

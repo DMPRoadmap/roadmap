@@ -102,6 +102,9 @@ gem "omniauth-orcid"
 #   https://nvd.nist.gov/vuln/detail/CVE-2015-9284
 gem "omniauth-rails_csrf_protection"
 
+# A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
+gem 'jwt'
+
 # Pure Ruby implementation of Array#dig and Hash#dig for Ruby < 2.3.
 # (https://github.com/Invoca/ruby_dig)
 gem "ruby_dig" # for omniauth-orcid
