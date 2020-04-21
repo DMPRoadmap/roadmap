@@ -109,7 +109,7 @@ module OrgAdmin
           flash[:alert] = failure_message(phase, _("create"))
         end
       rescue StandardError => e
-        flash[:alert] = _("Unable to create a new version of this template.")
+        flash[:alert] = _("Unable to create a new version of this template.") + "<br>" + e.message
       end
       if flash[:alert].present?
         redirect_to new_org_admin_template_phase_path(template_id: phase.template.id)
@@ -132,7 +132,7 @@ module OrgAdmin
           flash[:alert] = failure_message(phase, _("update"))
         end
       rescue StandardError => e
-        flash[:alert] = _("Unable to create a new version of this template.")
+        flash[:alert] = _("Unable to create a new version of this template.") + "<br>" + e.message
       end
       redirect_to edit_org_admin_template_phase_path(template_id: phase.template.id,
                                                      id: phase.id)
@@ -159,7 +159,7 @@ module OrgAdmin
           flash[:alert] = failure_message(phase, _("delete"))
         end
       rescue StandardError => e
-        flash[:alert] = _("Unable to create a new version of this template.")
+        flash[:alert] = _("Unable to create a new version of this template.") + "<br>" + e.message
       end
 
       if flash[:alert].present?
