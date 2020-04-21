@@ -12,11 +12,13 @@ require 'faker'
 
 include FactoryBot::Syntax::Methods
 
-I18n.available_locales = ['en', 'en-GB', 'de', 'fr']
-I18n.locale                = LocaleFormatter.new(:en, format: :i18n).to_s
+available = LocaleService.available_locales
+default = LocaleService.default_locale
+I18n.available_locales = available.map { |l| LocaleService.to_i18n(locale: l) }
+I18n.locale = LocaleService.to_i18n(locale: default)
 # Keep this as :en. Faker doesn't have :en-GB
-Faker::Config.locale       = LocaleFormatter.new(:en, format: :i18n).to_s
-FastGettext.default_locale = LocaleFormatter.new(:en, format: :fast_gettext).to_s
+Faker::Config.locale       = LocaleService.to_i18n(locale: default)
+FastGettext.default_locale = LocaleService.to_gettext(locale: default)
 
 
 require 'factory_bot'
@@ -221,8 +223,8 @@ token_permission_types.map{ |tpt| create(:token_permission_type, tpt) }
 # Create our generic organisation, a funder and a University
 # -------------------------------------------------------
 orgs = [
-  {name: Branding.fetch(:organisation, :name),
-   abbreviation: Branding.fetch(:organisation, :abbreviation),
+  {name: Rails.configuration.x.organisation.name,
+   abbreviation: Rails.configuration.x.organisation.abbreviation,
    org_type: 4, links: {"org":[]},
    language: Language.find_by(abbreviation: 'en-GB'),
    token_permission_types: TokenPermissionType.all},
@@ -246,7 +248,7 @@ users = [
    surname: "Admin",
    password: "password123",
    password_confirmation: "password123",
-   org: Org.find_by(abbreviation: Branding.fetch(:organisation, :abbreviation)),
+   org: Org.find_by(abbreviation: Rails.configuration.x.organisation.abbreviation),
    language: Language.find_by(abbreviation: FastGettext.locale),
    perms: Perm.all,
    accept_terms: true,
@@ -290,7 +292,7 @@ users.map{ |u| create(:user, u) }
 # -------------------------------------------------------
 guidance_groups = [
   {name: "Generic Guidance (provided by the example curation centre)",
-   org: Org.find_by(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]),
+   org: Org.find_by(abbreviation: Rails.configuration.x.organisation.abbreviation),
    optional_subset: true,
    published: true},
   {name: "Government Agency Advice (Funder specific guidance)",
@@ -409,7 +411,7 @@ templates = [
   {title: "My Curation Center's Default Template",
    description: "The default template",
    published: true,
-   org: Org.find_by(abbreviation: Rails.configuration.branding[:organisation][:abbreviation]),
+   org: Org.find_by(abbreviation: Rails.configuration.x.organisation.abbreviation),
    is_default: true,
    version: 0,
    visibility: Template.visibilities[:publicly_visible],
