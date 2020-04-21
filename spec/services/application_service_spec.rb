@@ -16,12 +16,12 @@ RSpec.describe ApplicationService do
   end
 
   describe "#application_name" do
-    it "returns the application name defined in the config/branding.yml" do
-      Rails.application.config.branding[:application][:name] = "foo"
+    it "returns the application name defined in the dmproadmap.rb initializer" do
+      Rails.configuration.x.application.name = "foo"
       expect(described_class.application_name).to eql("foo")
     end
-    it "returns the Rails application name if no config/branding.yml entry" do
-      Rails.application.config.branding[:application].delete(:name)
+    it "returns the Rails application name if no dmproadmap.rb initializer entry" do
+      Rails.configuration.x.application.delete(:name)
       expected = Rails.application.class.name.split('::').first.downcase
       expect(described_class.application_name).to eql(expected)
     end

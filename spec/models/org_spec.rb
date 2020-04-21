@@ -80,11 +80,10 @@ RSpec.describe Org, type: :model do
     describe ".default_orgs" do
       subject { Org.default_orgs }
 
-      context "when Org has same abbr as branding" do
+      context "when Org has same abbr as dmproadmap.rb initializer setting" do
 
         let!(:org) do
-          abbrev = Rails.configuration.branding.dig(:organisation,
-                                                    :abbreviation)
+          abbrev = Rails.configuration.x.organisation.abbreviation)
           create(:org, abbreviation: abbrev)
 
         end
@@ -93,7 +92,7 @@ RSpec.describe Org, type: :model do
 
       end
 
-      context "when Org doesn't have same abbr as branding" do
+      context "when Org doesn't have same abbr as dmproadmap.rb initializer setting" do
 
         let!(:org) { create(:org, abbreviation: "foo-bar") }
 

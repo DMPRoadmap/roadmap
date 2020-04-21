@@ -22,7 +22,7 @@ RSpec.describe Pref, type: :model do
   describe ".default_settings" do
 
     it "returns Rails configuration for preferences" do
-      expect(Pref.default_settings).to eql(Rails.configuration.branding[:preferences])
+      expect(Pref.default_settings).to eql(Rails.configuration.x.application.preferences)
       expect(Pref.default_settings).not_to be_nil
     end
 

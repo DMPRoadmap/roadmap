@@ -77,7 +77,7 @@ class PlanExportsController < ApplicationController
            margin: @formatting[:margin],
            footer: {
              center: _("Created using %{application_name}. Last modified %{date}") % {
-               application_name: Rails.configuration.branding[:application][:name],
+               application_name: ApplicationService.application_name,
                date: l(@plan.updated_at.to_date, format: :readable)
               },
              font_size: 8,

@@ -31,7 +31,7 @@ class Pref < ApplicationRecord
   #
   # Returns Hash
   def self.default_settings
-    Branding.fetch(:preferences)
+    Rails.configuration.x.application.preferences
   end
 
 end

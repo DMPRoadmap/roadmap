@@ -1,5 +1,5 @@
 <%
-  tool_name = Rails.configuration.branding[:application][:name]
+  tool_name = ApplicationService.application_name
   username = @user.name
   plan_title = @plan.title
   plan_visibility = Plan::VISIBILITY_MESSAGE[@plan.visibility.to_sym]
