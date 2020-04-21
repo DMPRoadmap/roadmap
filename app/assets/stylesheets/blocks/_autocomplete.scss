@@ -13,6 +13,7 @@ ul.ui-menu {
     padding: 5px 10px 5px 10px;
 
     .ui-menu-item-wrapper {
+      background-color: inherit;
       font-family: $font-family;
     }
   }
