@@ -13,7 +13,7 @@
         <div class="col-md-6" style="border-top:1px solid black; border-bottom:1px solid black; border-left:1px solid black; display:table-cell; float:none">
             <p class="text-center">
               <%= _("Do you have a %{application_name} account?") % {
-                application_name: Rails.configuration.branding[:application][:name]} %>
+                application_name: ApplicationService.application_name} %>
             </p>
             <p class="text-center fontsize-h3 color-heading-text">
               <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
@@ -32,7 +32,7 @@
 
           <p class="text-center fontsize-h3 color-heading-text">
             <%= _("No %{application_name} account?") % {
-              application_name: Rails.configuration.branding[:application][:name]} %>
+              application_name: ApplicationService.application_name} %>
           </p>
 
           <p class="text-center">

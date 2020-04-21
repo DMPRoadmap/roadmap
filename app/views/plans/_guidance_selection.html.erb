@@ -1,6 +1,6 @@
 <%# locals: form, all_guidance_groups, important_ggs, selected_guidance_groups %>
 
-<% app_name = Rails.configuration.branding[:application][:name] %>
+<% app_name = ApplicationService.application_name %>
 
 <% if all_guidance_groups.length > 0 %>
   <p><%= _('To help you write your plan, %{application_name} can show you guidance from a variety of organisations.') % { application_name: app_name } %>

@@ -69,7 +69,7 @@ class PlansController < ApplicationController
       end
     else
       @plan.visibility = if plan_params["visibility"].blank?
-                           Rails.application.config.default_plan_visibility
+                           Rails.configuration.x.plans.default_visibility
                          else
                            plan_params[:visibility]
                          end
@@ -163,7 +163,7 @@ class PlansController < ApplicationController
     @visibility = if @plan.visibility.present?
                     @plan.visibility.to_s
                   else
-                    Rails.application.config.default_plan_visibility
+                    Rails.configuration.x.plans.default_visibility
                   end
 
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
@@ -370,7 +370,7 @@ class PlansController < ApplicationController
         # rubocop:disable Metrics/LineLength
         render status: :forbidden, json: {
           msg: _("Unable to change the plan's status since it is needed at least %{percentage} percentage responded") % {
-              percentage: Rails.application.config.default_plan_percentage_answered
+              percentage: Rails.configuration.x.plans.default_percentage_answered
           }
         }
         # rubocop:enable Metrics/LineLength

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <!-- Version: <%= version %> -->
-    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %>
+    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => ApplicationService.application_name } %>
     </title>
     <%= favicon_link_tag "favicon.ico" %>
     <!--[ if lte IE 9]>

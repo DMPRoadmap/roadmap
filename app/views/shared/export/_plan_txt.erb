@@ -59,4 +59,4 @@
   <% end %>
 <% end %>
 <%= "----------------------------------------------------------" %>
-<%= _("A Data Management Plan created using %{application_name}") % { application_name: Rails.configuration.branding[:application][:name] } %>
+<%= _("A Data Management Plan created using %{application_name}") % { application_name: ApplicationService.application_name } %>

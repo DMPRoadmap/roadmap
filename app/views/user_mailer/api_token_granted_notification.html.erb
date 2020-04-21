@@ -1,7 +1,7 @@
 <%
-  tool_name = Rails.configuration.branding[:application][:name]
+  tool_name = x.organisation.name
   username = @user.name
-  api_documentation_url = Rails.configuration.branding[:application][:api_documentation_url]
+  api_documentation_url = Rails.configuration.application.api_documentation_url
 %>
 <% FastGettext.with_locale FastGettext.default_locale do %>
   <p>

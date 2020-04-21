@@ -379,12 +379,10 @@ class Plan < ApplicationRecord
     current_user = User.find(user_id)
     return false unless current_user.present?
     # If the user is a super admin and the config allows for supers to view plans
-    if current_user.can_super_admin? &&
-        Branding.fetch(:service_configuration, :plans, :super_admins_read_all)
+    if current_user.can_super_admin? && Rails.configuration.x.plans.super_admins_read_all
       true
     # If the user is an org admin and the config allows for org admins to view plans
-    elsif current_user.can_org_admin? &&
-        Branding.fetch(:service_configuration, :plans, :org_admins_read_all)
+  elsif current_user.can_org_admin? && Rails.configuration.x.plans.org_admins_read_all
       owner_and_coowners.map(&:org_id).include?(current_user.org_id)
     else
       false

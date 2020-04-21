@@ -371,7 +371,7 @@ class User < ApplicationRecord
   def deliver_invitation(options = {})
     super(options.merge(subject: _("A Data Management Plan in " +
       "%{application_name} has been shared with you") %
-      { application_name: Rails.configuration.branding[:application][:name] })
+      { application_name: ApplicationService.application_name })
     )
   end
 
@@ -409,7 +409,7 @@ class User < ApplicationRecord
     self.surname = 'User'
     self.email = User.unique_random(field_name: 'email',
       prefix: 'user_',
-      suffix: Rails.configuration.branding[:application].fetch(:archived_accounts_email_suffix, '@example.org'),
+      suffix: Rails.configuration.x.application.fetch(:archived_accounts_email_suffix, '@example.org'),
       length: 5)
     self.recovery_email = nil
     self.api_token = nil

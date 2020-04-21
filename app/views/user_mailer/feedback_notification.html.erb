@@ -3,7 +3,7 @@
     recipient_name = @recipient.name(false)
     requestor_name = @user.name(false)
     plan_name = @plan.title
-    tool_name = Rails.configuration.branding[:application][:name]
+    tool_name = ApplicationService.application_name
   %>
 
   <p><%= _('Hello %{user_name},') % {user_name: recipient_name} %></p>
