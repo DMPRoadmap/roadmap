@@ -451,6 +451,10 @@ class Template < ActiveRecord::Base
       error += _("You can not publish a template without questions in a section.  ")
       publishable = false
     end
+    if invalid_condition_order
+      error += _("Conditions in the template refer backwards")
+      publishable = false
+    end
     return publishable, error
   end
 
@@ -498,4 +502,26 @@ class Template < ActiveRecord::Base
             .update_all(published: false)
   end
 
+  def invalid_condition_order
+    self.questions.each do |question|
+      if question.option_based?
+        question.conditions.each do |condition|
+          if condition.action_type == "remove"
+            condition.remove_data.each do |rem_id|
+              rem_question = Question.find(rem_id.to_s)
+              if before(rem_question,question)
+                return true
+              end
+            end
+          end
+        end
+      end
+    end
+    false
+  end
+
+  def before(q1,q2)
+    q1.section.number < q2.section.number ||
+      (q1.section.number == q2.section.number && q1.number < q2.number)
+  end
 end
