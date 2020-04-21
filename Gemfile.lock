@@ -514,6 +514,7 @@ DEPENDENCIES
   htmltoword (= 1.1.0)
   httparty
   jbuilder (~> 2.6.0)
+  jwt
   kaminari
   ledermann-rails-settings
   mini_racer
