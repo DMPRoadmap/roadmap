@@ -53,7 +53,7 @@ msgstr ""
 msgid "%{application_name}"
 msgstr ""
 
-msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website <em class=\"sr-only\">(new window)</em></a>. If you would like to contact us about %{application_name}, please fill out the form below."
+msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" class=\"has-new-window-popup-info\" target=\"_blank\">website <em class=\"sr-only\">(new window)</em><span class=\"new-window-popup-info\">%{open_in_new_window_text}</span></a>. If you would like to contact us about %{application_name}, please fill out the form below."
 msgstr ""
 
 #msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
@@ -116,8 +116,11 @@ msgstr ""
 msgid "%{plan_owner} has been notified that you have finished providing feedback"
 msgstr ""
 
-#msgid "%{requestor} has requested feedback on a plan \"%{plan_name}.\" To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan."
-#msgstr ""
+msgid "%{requestor} has requested feedback on a plan %{link_html}. To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan."
+msgstr ""
+
+msgid "Alternatively, you can click the link below:"
+msgstr ""
 
 msgid "%{template}"
 msgstr ""
@@ -486,7 +489,7 @@ msgstr ""
 #msgid "Below is a list of users registered for your organisation. You can sort the data by each field."
 #msgstr ""
 
-msgid "Below is a summary of the sections and questions which have comments."
+msgid "Below the question, research output and section where the comment is located.
 msgstr ""
 
 msgid "Beta"
@@ -1267,7 +1270,7 @@ msgstr ""
 msgid "Month"
 msgstr ""
 
-msgid "More information about administering the %{tool_name} for users at your organisation is available at the %{help_url}."
+msgid "More information about administering the %{tool_name} are available on %{help_url}."
 msgstr ""
 
 msgid "Move the mouse pointer over the bars of a chart to see numbers."
@@ -2978,6 +2981,9 @@ msgid "delete"
 msgstr ""
 
 msgid "deleted"
+msgstr ""
+
+msgid "archived"
 msgstr ""
 
 msgid "editor"

@@ -52,9 +52,6 @@ msgstr "You have the right of access, of correction, of portability, or of remov
 msgid "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
 msgstr "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
 
-msgid "%{sender_name} has invited you to contribute to their Data Management Plan in %{tool_name}"
-msgstr "%{sender_name} has invited you to contribute to their Data Management Plan in %{tool_name}"
-
 msgid "Tutorials"
 msgstr "Tutorials"
 
@@ -277,6 +274,8 @@ msgstr "Last modified: "
 msgid "Your organisation has been deactivated. Please choose a new organisation from your <a href=\"/users/edit\">user profile</a>."
 msgstr "Your organisation has been deactivated. Please choose a new organisation from your <a href=\"/users/edit\">user profile</a>."
 
+msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" title=\"%{open_in_new_window_text}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
+msgstr "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" title=\"%{open_in_new_window_text}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
 
 # STATIC PAGES
 

@@ -50,14 +50,14 @@ msgstr "%{affiliation}"
 msgid "%{application_name}"
 msgstr "%{application_name}"
 
-msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website <em class=\"sr-only\">(new window)</em></a>. If you would like to contact us about %{application_name}, please fill out the form below."
-msgstr "%{application_name} est mis à disposition par %{organisation_name}.<br /> Vous pouvez trouver plus d'informations sur notre <a href=\"%{organisation_url}\" target=\"_blank\">site internet</a>. Si vous souhaitez nous contacter à propos de %{application_name}, remplissez le formulaire ci dessous."
+msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" class=\"has-new-window-popup-info\" target=\"_blank\">website <em class=\"sr-only\">(new window)</em><span class=\"new-window-popup-info\">%{open_in_new_window_text}</span></a>. If you would like to contact us about %{application_name}, please fill out the form below."
+msgstr "%{application_name} est mis à disposition par %{organisation_name}.<br /> Vous pouvez trouver plus d'informations sur notre <a href=\"%{organisation_url}\" class=\"has-new-window-popup-info\" target=\"_blank\">site internet <em class=\"sr-only\">(new window)</em><span class=\"new-window-popup-info\">%{open_in_new_window_text}</span></a>. Si vous souhaitez nous contacter à propos de %{application_name}, remplissez le formulaire ci dessous."
 
 #msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
 #msgstr "%{application_name} est mis à disposition par %{organisation_name}.<br /> Vous pouvez trouver plus d'informations sur notre <a href=\"%{organisation_url}\" target=\"_blank\">site internet</a>. Si vous souhaitez nous contacter à propos de %{application_name}, remplissez le formulaire ci dessous."
 
 msgid "%{application_name}: %{user_name} requested feedback on a plan"
-msgstr "%{application_name} : %{user_name} a demandé de l'assistance conseil pour un plan."
+msgstr "%{application_name} : %{user_name} a demandé de une assistance conseil pour un plan."
 
 msgid "%{application_name}: Expert feedback has been provided for %{plan_title}"
 msgstr "%{application_name} : Une assistance conseil a été fournie pour %{plan_title}"
@@ -75,7 +75,7 @@ msgid "%{commenter_name} has commented on your plan %{plan_title}. To view the c
 msgstr "%{commenter_name} a laissé un commentaire sur le plan %{plan_title}. Pour voir les commentaires, suivez le lien ci-dessous vers le plan ou accédez au plus via le Tableau de Bord de  %{tool_name}."
 
 msgid "%{commenter} has finished providing feedback on the plan  \"%{link_html}\". Comments can be found in the 'Write plan' tab on the right side of the page (Guidance/Comments)."
-msgstr "%{commenter_name} a terminé son assistance conseil sur le plan \"%{link_html}\". Vous retrouverez les commentaires dans l'onglet 'Rédiger', sur la droite de la page (Recommandations/Commentaires)."
+msgstr "%{commenter} a terminé son assistance conseil sur le plan \"%{link_html}\". Vous retrouverez les commentaires dans l'onglet 'Rédiger', sur la droite de la page (Recommandations/Commentaires)."
 
 msgid "%{date}"
 msgstr "%{date}"
@@ -110,14 +110,17 @@ msgstr "%{phase_title} (%{sections_size} %{sections}, %{questions_size} %{questi
 msgid "%{plan_owner} has been notified that you have finished providing feedback"
 msgstr "%{plan_owner} a été informé que vous avez finalisé l'assistance conseil"
 
-#msgid "%{requestor} has requested feedback on a plan \"%{plan_name}.\" To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan."
-#msgstr "%{requestor} a demandé de l'assistance conseil pour le plan \"%{plan_name}.\" Pour ajouter des commentaires, consultez la page 'Plans' dans le menu Administration de %{application_name} et ouvrez le plan."
+msgid "%{requestor} has requested feedback on a plan %{link_html}. To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan."
+msgstr "%{requestor} a demandé de une assistance conseil pour le plan %{link_html}. Pour ajouter des commentaires, consultez la page 'Plans' dans le menu Administration de %{application_name} et ouvrez le plan."
+
+msgid "Alternatively, you can click the link below:"
+msgstr "Vous pouvez également cliquer sur le lien ci-dessous :"
 
 msgid "%{template}"
 msgstr "%{template}"
 
 msgid "%{tool_name} will help you to develop your Data Management Plan. If you have any queries or feedback as you use the tool, please contact us at %{helpdesk_email} or visit %{contact_us}"
-msgstr "%{tool_name} vous aidera à élaborer votre DMP. Si vous avez des questions ou suggestions, contactez nous à %{helpdesk_email} ou par %{contact_us}"
+msgstr "%{tool_name} vous acompagne pour élaborer votre DMP. Si vous avez des questions ou suggestions, contactez nous à %{helpdesk_email} ou par %{contact_us}"
 
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
 msgstr "%{tool_name}: Un nouveau commentaire a été ajouté au plan %{plan_title}"
@@ -466,8 +469,8 @@ msgstr "La liste ci-dessous indique les utilisateurs de votre organisme."
 msgid "Below is a list of users registered for your organisation. You can sort the data by each field."
 msgstr "La liste ci-dessous indique les utilisateurs de votre organisme. Ces informations peuvent être triées par champ."
 
-msgid "Below is a summary of the sections and questions which have comments."
-msgstr "Le résumé ci-dessous présente les sections et les questions possédant des commentaires."
+msgid "Below the question, research output and section where the comment is located."
+msgstr "Ci-dessous la question, le produit de recherche et la section auxquels se rapporte le commentaire."
 
 msgid "Beta"
 msgstr "Béta"
@@ -1087,10 +1090,10 @@ msgid "If you have an account please sign in and start creating or editing your 
 msgstr "Si vous avez un compte, connectez-vous puis commencez à créer ou à modifier votre DMP."
 
 msgid "If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us_url}"
-msgstr "Si vous avez des questions ou si vous avez besoin d'aide, merci de nous contacter à %{helpdesk_email} ou consulter %{contact_us_url}"
+msgstr "Si vous avez des questions ou si vous avez besoin d'aide, merci de nous contacter à %{helpdesk_email} ou par %{contact_us_url}"
 
 msgid "If you have any questions or need help, please contact us at %{helpdesk_email} or visit %{contact_us}"
-msgstr "Si vous avez des questions ou si vous avez besoin d'aide, merci de nous contacter à %{helpdesk_email} ou consulter %{contact_us}"
+msgstr "Si vous avez des questions ou si vous avez besoin d'aide, merci de nous contacter à %{helpdesk_email} ou par %{contact_us}"
 
 msgid "If you have any questions, please contact the %{application_name} team at: <a href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>"
 msgstr "Si vous avez des questions, contactez l'équipe %{application_name} ici : <a href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>"
@@ -1248,8 +1251,8 @@ msgstr "Message"
 msgid "Month"
 msgstr "Mois"
 
-msgid "More information about administering the %{tool_name} for users at your organisation is available at the %{help_url}."
-msgstr "Plus d'informations concernant l'administration de %{tool_name} pour les utilisateurs de votre organisme sont disponibles à %{help_url}."
+msgid "More information about administering the %{tool_name} are available on %{help_url}."
+msgstr "Plus d'informations concernant l'administration de %{tool_name} sont disponibles sur %{help_url}."
 
 msgid "Move the mouse pointer over the bars of a chart to see numbers."
 msgstr "Bougez votre pointeur au dessus des barres du graphique afin de voir les nombres."
@@ -2028,7 +2031,7 @@ msgid "Skip to main content"
 msgstr "Passer au contenu principal"
 
 msgid "Someone has requested a link to change your %{tool_name} password. You can do this through the link below."
-msgstr "Quelqu'un a demandé un lien pour modifier votre mot de passe% {tool_name}. Vous pouvez le faire via le lien ci-dessous."
+msgstr "Quelqu'un a demandé un lien pour modifier votre mot de passe %{tool_name}. Vous pouvez le faire via le lien ci-dessous."
 
 msgid "Sort by %{sort_field}"
 msgstr "Trier par %{sort_field}"
@@ -2817,7 +2820,7 @@ msgid "Your account has been successfully linked to your institutional credentia
 msgstr "Votre compte a été lié avec succès à votre compte institutionnel. Vous pouvez maintenant vous connecter par l'accès institutionnel."
 
 msgid "Your colleague %{inviter_name} has invited you to contribute to their Data Management Plan in %{tool_name}"
-msgstr "Votre collègue %{inviter_name} vous a invité à contribuer à leur plan de gestion de données dans %{tool_name}"
+msgstr "Votre collègue %{inviter_name} vous a invité à contribuer à son plan de gestion de données dans %{tool_name}"
 
 msgid "Your email address is also your login id and therefore an important part of your account information. For your safety we require you to confirm your password to make this change."
 msgstr "Votre adresse électronique est également votre identifiant de connexion et donc une information importante pour votre compte. Pour votre sécurité, nous vous demandons de confirmer votre mot de passe avant d'effectuer cette modification."
@@ -2941,6 +2944,9 @@ msgstr "supprimer"
 
 msgid "deleted"
 msgstr "supprimé"
+
+msgid "archived"
+msgstr "archivé"
 
 msgid "editor"
 msgstr "Editeur"

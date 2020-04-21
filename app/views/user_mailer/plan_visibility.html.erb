@@ -9,7 +9,7 @@
     <%= _('Hello %{username}') %{ :username => username } %>
   </p>
   <p>
-    <%= _('The plan %{plan_title} had its visibility changed to %{plan_visibility}.') %{ :plan_title => plan_title, :plan_visibility => plan_visibility } %>
+    <%= _('The plan %{plan_title} had its visibility changed to %{plan_visibility}.') % { :plan_title => plan_title, :plan_visibility => plan_visibility } %>
   </p>
   <p>
     <%= _('Visibility definitions:') %>
@@ -21,7 +21,7 @@
     </ul>
   </p>
   <p>
-    <%= _('If you have questions pertaining to this action, please visit the My Dashboard page in %{tool_name}' %{ :tool_name => tool_name }) %>
+    <%= _('If you have questions pertaining to this action, please visit the My Dashboard page in %{tool_name}') % { :tool_name => tool_name } %>
   </p>
   <%= render partial: 'email_signature' %>
 <% end %>

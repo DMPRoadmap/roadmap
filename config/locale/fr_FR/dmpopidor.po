@@ -30,7 +30,7 @@ msgid "You have not signed in since %{last_sign_in_date} and our system will dea
 msgstr "Vous ne vous êtes pas connecté depuis le %{last_sign_in_date}, notre système désactivera votre compte le  %{end_date}"
 
 msgid "All accounts inactive for 5 years are automaticaly deactivated. If you want your account to remain active, please just sign in before %{end_date}"
-msgstr "Tous les comptes inactifs pendant 5 ans sont automatiquement désactivés. Si vous souhaitez que votre compte reste actif, connectez vous avant le  %{end_date}"
+msgstr "Tous les comptes inactifs pendant 5 ans sont automatiquement désactivés. Si vous souhaitez que votre compte reste actif, connectez-vous avant le  %{end_date}"
 
 msgid "Mailing list"
 msgstr "Liste de diffusion"
@@ -50,9 +50,6 @@ msgstr "Vous bénéficiez d’un droit d’accès, de rectification, de portabil
 
 msgid "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
 msgstr "%{user_name} a partagé un plan de gestion de données avec vous sur %{tool_name}"
-
-msgid "%{sender_name} has invited you to contribute to their Data Management Plan in %{tool_name}"
-msgstr "%{sender_name} vous a invité à contribuer à son plan de gestion de données sur %{tool_name}"
 
 msgid "Tutorials"
 msgstr "Tutoriels"
@@ -242,6 +239,9 @@ msgstr "J'accepte"
 
 msgid "Your organisation has been deactivated. Please choose a new organisation from your <a href=\"/users/edit\">user profile</a>."
 msgstr "Votre organisme a été désactivé. Veuillez choisir un nouvel organisme à partir de votre <a href=\"/users/edit\">profil utilisateur</a>."
+
+msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" title=\"%{open_in_new_window_text}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
+msgstr "%{application_name} est mis à disposition par %{organisation_name}.<br /> Vous pouvez trouver plus d'informations sur notre <a href=\"%{organisation_url}\" title=\"%{open_in_new_window_text}\" target=\"_blank\">site internet</a>. Si vous souhaitez nous contacter à propos de %{application_name}, remplissez le formulaire ci dessous."
 
 # STATIC PAGES
 

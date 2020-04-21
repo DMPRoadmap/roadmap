@@ -2,6 +2,7 @@
 
 class FeedbackRequestsController < ApplicationController
 
+  prepend Dmpopidor::Controllers::FeedbackRequests
   include FeedbacksHelper
 
   after_action :verify_authorized
@@ -9,6 +10,7 @@ class FeedbackRequestsController < ApplicationController
   ALERT = _("Unable to submit your request for feedback at this time.")
   ERROR = _("An error occurred when requesting feedback for this plan.")
 
+  # SEE MODULE
   def create
     @plan = Plan.find(params[:plan_id])
     authorize @plan, :request_feedback?
