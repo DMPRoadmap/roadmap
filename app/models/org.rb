@@ -141,7 +141,7 @@ class Org < ApplicationRecord
   # The default Org is the one whose guidance is auto-attached to
   # plans when a plan is created
   def self.default_orgs
-    where(abbreviation: Branding.fetch(:organisation, :abbreviation))
+    where(abbreviation: Rails.configuration.x.organisation.abbreviation)
   end
 
   # The managed flag is set by a Super Admin. A managed org typically has

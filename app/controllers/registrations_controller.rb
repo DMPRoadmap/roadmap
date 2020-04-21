@@ -14,7 +14,7 @@ class RegistrationsController < Devise::RegistrationsController
     @default_org = current_user.org
 
     if !@prefs
-      flash[:alert] = "No default preferences found (should be in branding.yml)."
+      flash[:alert] = "No default preferences found (should be in dmproadmap.rb initializer)."
     end
   end
 
@@ -35,7 +35,7 @@ class RegistrationsController < Devise::RegistrationsController
         # Connect the new user with the identifier sent back by the OAuth provider
         # rubocop:disable Metrics/LineLength
         flash[:notice] = _("Please make a choice below. After linking your details to a %{application_name} account, you will be able to sign in directly with your institutional credentials.") % {
-          application_name: Rails.configuration.branding[:application][:name]
+          application_name: ApplicationService.application_name
         }
         # rubocop:enable Metrics/LineLength
         scheme = IdentifierScheme.by_name(oauth["provider"].downcase).first

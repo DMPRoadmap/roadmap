@@ -1395,7 +1395,7 @@ describe Plan do
     context "when requisite number of questions answered" do
 
       before do
-        Rails.application.config.default_plan_percentage_answered = 75
+        Rails.configuration.x.plans.default_percentage_answered = 75
       end
 
       it { is_expected.to eql(true) }
@@ -1405,7 +1405,7 @@ describe Plan do
     context "when requisite number of questions not answered" do
 
       before do
-        Rails.application.config.default_plan_percentage_answered = 76
+        Rails.configuration.x.plans.default_percentage_answered = 76
       end
 
       it { is_expected.to eql(false) }

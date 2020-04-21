@@ -4,9 +4,9 @@
     <h1><%= _("Contact Us") %></h1>
     <p>
       <%= sanitize _('%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href="%{organisation_url}" class="has-new-window-popup-info" target="_blank">website <em class="sr-only">(new window)</em><span class="new-window-popup-info">%{open_in_new_window_text}</span></a>. If you would like to contact us about %{application_name}, please fill out the form below.') % {
-        organisation_name: Rails.configuration.branding[:organisation][:name],
-        organisation_url: Rails.configuration.branding[:organisation][:url],
-        application_name: Rails.configuration.branding[:application][:name],
+        organisation_name: Rails.configuration.x.organisation.name,
+        organisation_url: Rails.configuration.x.organisation.url,
+        application_name: ApplicationService.application_name,
         open_in_new_window_text: _('Opens in new window') },
         tags: %w( a br span em ) %>
     </p>

@@ -425,29 +425,22 @@ namespace :upgrade do
     Rake::Task['upgrade:remove_duplicated_customised_template_versions'].execute
   end
 
-  desc "Org.contact_email is now required, sets any nil values to the helpdesk email defined in branding.yml"
+  desc "Org.contact_email is now required, sets any nil values to the helpdesk email defined in dmproadmap.rb initializer"
   task check_org_contact_emails: :environment do
-    branding = YAML.load(File.open('./config/branding.yml'))
-    if branding.is_a?(Hash) &&
-        branding['defaults'].present? &&
-        branding['defaults']['organisation'].present? &&
-        branding['defaults']['organisation']['name'].present?
-        branding['defaults']['organisation']['helpdesk_email'].present?
-      email = branding['defaults']['organisation']['helpdesk_email']
-      name = "#{branding['defaults']['organisation']['name']} helpdesk"
+    email = Rails.configuration.x.organisation.helpdesk_email
+    name = Rails.configuration.x.organisation.name
 
+    if email.present? && name.present?
       puts "Searching for Orgs with an undefined contact_email ..."
       Org.where("contact_email IS NULL OR contact_email = ''").each do |org|
         puts "  Setting contact_email to #{email} for #{org.name}"
         org.update_attributes(contact_email: email, contact_name: name)
       end
     else
-      puts "No helpdesk_email and/or name found in your config/branding.yml. Please add them under the defaults -> organisation section"
+      puts "No helpdesk_email and/or name found in your config/initializers/dmproadmap.rb. Please add them!"
       puts "For example:"
-      puts "  defaults: &defaults"
-      puts "    organisation:"
-      puts "      name: 'Curation Center'"
-      puts "      helpdesk_email: 'helpdesk@example.org'"
+      puts "config.x.organisation.name = \"Curation Centre\""
+      puts "config.x.organisation.helpdesk_email = \"help@example.org\""
     end
     puts "Search complete"
     puts ""
@@ -486,15 +479,11 @@ namespace :upgrade do
   task add_other_org: :environment do
     puts "Checking for existence of an 'Other' org. Unaffiliated users should be affiliated with this org"
 
-    # Get the helpdesk email from the branding YAML
-    branding = YAML.load(File.open('./config/branding.yml'))
-    if branding.present? && branding['defaults'].present? && branding['defaults']['organisation'].present? && branding['defaults']['organisation']['helpdesk_email'].present?
-      email = branding['defaults']['organisation']['helpdesk_email']
-      name = branding['defaults']['organisation']['name'].present? ? "#{branding['defaults']['organisation']['name']} helpdesk" : 'Helpdesk'
-    else
-      email = 'other.organisation@example.org'
-      name = 'Helpdesk'
-    end
+    # Get the helpdesk email from the dmproadmap.rb initializer
+    email = Rails.configuration.x.organisation.helpdesk_email
+    name = Rails.configuration.x.organisation.name
+    email = 'other.organisation@example.org' unless email.present?
+    name = 'Helpdesk' unless name.present?
 
     other_org = Org.find_by(is_other: true)
     if other_org.present?

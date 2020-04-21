@@ -1,5 +1,12 @@
 # frozen_string_literal: true
 
+begin
+  # If Rollbar has been included in the Bundle, load it here.
+  require "rollbar"
+rescue LoadError => e
+  # noop
+end
+
 if defined?(Rollbar)
   Rollbar.configure do |config|
     # Without configuration, Rollbar is enabled in all environments.

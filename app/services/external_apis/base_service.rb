@@ -81,20 +81,15 @@ module ExternalApis
 
       private
 
-      # Shortcut to the branding.yml
-      def config
-        Rails.configuration.branding
-      end
-
-      # Retrieves the application name from branding.yml or uses the App name
+      # Retrieves the application name from dmproadmap.rb initializer or uses the App name
       def app_name
         ApplicationService.application_name
       end
 
-      # Retrieves the helpdesk email from branding.yml or uses the contact page url
+      # Retrieves the helpdesk email from dmproadmap.rb initializer or uses the contact page url
       def app_email
         dflt = Rails.application.routes.url_helpers.contact_us_url
-        config.fetch(:organisation, {}).fetch(:helpdesk_email, dflt)
+        Rails.configuration.x.organisation.fetch(:helpdesk_email, dflt)
       end
 
       # Makes a GET request to the specified uri with the additional headers.

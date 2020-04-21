@@ -9,6 +9,10 @@ ruby ">= 2.4.0"
 # Full-stack web application framework. (http://rubyonrails.org)
 gem "rails", "~> 5.2"
 
+# Bootsnap is a library that plugs into Ruby, with optional support for
+# ActiveSupport and YAML, to optimize and cache expensive computations.
+gem 'bootsnap', require: false
+
 # TODO: See if pegging gems is still necessary after migrating to Rails 5
 gem "sprockets" #, "~> 3.2"
 
