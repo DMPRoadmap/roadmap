@@ -12,7 +12,7 @@ module Api
 
           def initialize(headers: {})
             @headers = headers.nil? ? {} : headers
-            @errors = HashWithIndifferentAccess.new
+            @errors = ActiveSupport::HashWithIndifferentAccess.new
           end
 
           def call
