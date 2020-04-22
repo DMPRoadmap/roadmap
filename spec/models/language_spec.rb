@@ -2,6 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Language, type: :model do
 
+  before(:each) do
+    # The default language is created in the locales support file
+    Language.destroy_all
+  end
+
   context "validations" do
 
     subject { build(:language) }

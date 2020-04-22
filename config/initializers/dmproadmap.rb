@@ -130,7 +130,6 @@ module DMPRoadmap
     # Changing this value is not recommended!
     config.x.locales.gettext_join_character = "_"
 
-
     # ---------- #
     # THRESHOLDS #
     # ---------- #
@@ -163,6 +162,15 @@ module DMPRoadmap
     # Whether or not Organisational administrators can read all of the user's plans
     # regardless of the plans visibility and whether or not the plan has been shared
     config.x.plans.super_admins_read_all = true
+
+    # ---------------------------------------------------- #
+    # CACHING - all values are in seconds (86400 == 1 Day) #
+    # ---------------------------------------------------- #
+
+    # Determines how long to cache results for OrgSelection::SearchService
+    config.x.cache.org_selection_expiration = 86400
+    # Determines how long to cache results for the ResearchProjectsController
+    config.x.cache.research_projects_expiration = 86400
 
   end
 

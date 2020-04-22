@@ -14,7 +14,7 @@ module OrgSelectable
     # Converts the incoming params_into an Org by either locating it
     # via its id, identifier and/or name, or initializing a new one
     def org_from_params(params_in:, allow_create: true)
-      params_in = params_in.with_indifferent_access
+      #params_in = params_in.with_indifferent_access
       return nil unless params_in[:org_id].present? &&
                         params_in[:org_id].is_a?(String)
 
@@ -28,7 +28,7 @@ module OrgSelectable
 
     # Converts the incoming params_into an array of Identifiers
     def identifiers_from_params(params_in:)
-      params_in = params_in.with_indifferent_access
+      #params_in = params_in.to_h.with_indifferent_access
       return [] unless params_in[:org_id].present? &&
                        params_in[:org_id].is_a?(String)
 
@@ -50,7 +50,7 @@ module OrgSelectable
 
     # Just does a JSON parse of the org_id hash
     def org_hash_from_params(params_in:)
-      JSON.parse(params_in[:org_id]).with_indifferent_access
+      JSON.parse(params_in[:org_id]) #.with_indifferent_access
     rescue JSON::ParserError => e
       Rails.logger.error "Unable to parse Org Selection JSON: #{e.message}"
       Rails.logger.error params_in.inspect

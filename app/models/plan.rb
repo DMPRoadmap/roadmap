@@ -77,9 +77,7 @@ class Plan < ApplicationRecord
   enum visibility: %i[organisationally_visible publicly_visible
                       is_test privately_visible]
 
-
   alias_attribute :name, :title
-
 
   # ================
   # = Associations =
@@ -89,7 +87,7 @@ class Plan < ApplicationRecord
 
   belongs_to :org
 
-  belongs_to :funder, class_name: "Org"
+  belongs_to :funder, class_name: "Org", optional: true
 
   has_many :phases, through: :template
 
@@ -101,7 +99,7 @@ class Plan < ApplicationRecord
 
   has_many :guidances, through: :themes
 
-  has_many :guidance_group_options, -> { uniq.published.reorder("id") },
+  has_many :guidance_group_options, -> { distinct.published.reorder("id") },
            through: :guidances,
            source: :guidance_group,
            class_name: "GuidanceGroup"
@@ -167,8 +165,7 @@ class Plan < ApplicationRecord
 
   # Retrieves any plan organisationally or publicly visible for a given org id
   scope :organisationally_or_publicly_visible, -> (user) {
-    plan_ids = user.org.plans.where(complete: true).pluck(:id)
-
+    plan_ids = user.org.plans.where(complete: true).pluck(:id).uniq
     includes(:template, roles: :user)
     .where(id: plan_ids, visibility: [
       visibilities[:organisationally_visible],

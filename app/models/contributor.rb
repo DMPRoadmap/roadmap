@@ -36,9 +36,7 @@ class Contributor < ActiveRecord::Base
   # = Associations =
   # ================
 
-  # TODO: uncomment the 'optional' bit after the Rails 5 migration. Rails 5+ will
-  #       NOT allow nil values in a belong_to field!
-  belongs_to :org # , optional: true
+  belongs_to :org, optional: true
 
   belongs_to :plan
 

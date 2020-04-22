@@ -31,7 +31,6 @@ module Api
           def initialize(json: {})
             json = json.nil? ? {} : json.with_indifferent_access
             type = json.fetch(:grant_type, "client_credentials")
-
             parse_client(json: json) if type == "client_credentials"
             parse_code(json: json) if type == "authorization_code"
 

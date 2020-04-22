@@ -21,7 +21,7 @@ class OrgAdmin::TemplateCustomizationsController < ApplicationController
     else
       flash[:notice] = _("That template is not customizable.")
     end
-    redirect_to :back
+    redirect_back(fallback_location: org_admin_templates_path)
   end
 
 end

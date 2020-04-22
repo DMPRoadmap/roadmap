@@ -18,14 +18,14 @@ class SuperAdmin::OrgSwapsController < ApplicationController
     if lookup.present? && !lookup.new_record?
       current_user.org = lookup
       if current_user.save
-        redirect_to :back,
-                    notice: _("Your organisation affiliation has been changed. You may now edit templates for %{org_name}.") % { org_name: current_user.org.name }
+        redirect_back(fallback_location: root_path,
+                      notice: _("Your organisation affiliation has been changed. You may now edit templates for %{org_name}.") % { org_name: current_user.org.name })
       else
-        redirect_to :back,
-                    alert: _("Unable to change your organisation affiliation at this time.")
+        redirect_back(fallback_location: root_path,
+                      alert: _("Unable to change your organisation affiliation at this time."))
       end
     else
-      redirect_to :back, alert: _("Unknown organisation.")
+      redirect_back(fallback_location: root_path, alert: _("Unknown organisation."))
     end
     # rubocop:enable Metrics/LineLength
   end

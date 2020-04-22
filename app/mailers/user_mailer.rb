@@ -14,7 +14,7 @@ class UserMailer < ActionMailer::Base
       mail(to: @user.email,
            subject: _('Welcome to %{tool_name}') %{ tool_name: ApplicationService.application_name })
     end
-  ends
+  end
 
   def sharing_notification(role, user, inviter:)
     @role    = role
@@ -149,4 +149,5 @@ class UserMailer < ActionMailer::Base
       end
     end
   end
+
 end
