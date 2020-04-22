@@ -99,10 +99,8 @@ RSpec.describe User, type: :model do
     context "when org has changed and can change org" do
 
       let!(:user) do
-        create(:user, other_organisation: "Foo bar", api_token: "barfoo")
+        create(:user, org: create(:org), api_token: "barfoo")
       end
-
-      subject { user.save }
 
       before do
         user.perms << create(:perm, :change_org_affiliation)
@@ -111,45 +109,52 @@ RSpec.describe User, type: :model do
         user.perms << create(:perm, :modify_templates)
         user.perms << create(:perm, :change_org_affiliation)
         user.perms << create(:perm, :add_organisations)
-        user.org = create(:org)
+        @new_org = create(:org)
+        user.update(org: @new_org)
+        user.reload
       end
 
-      it "sets other_organisation to nil" do
-        expect { subject }.to change { user.other_organisation }.to(nil)
+      it "updates the org" do
+        expect(user.org).to eql(@new_org)
       end
 
       it "doesn't destroy user roles" do
-        expect { user.save }.not_to change { user.perms.count }
+        expect(user.perms.count).to eql(6)
       end
 
       it "doesn't reset api_token" do
-        expect { subject }.not_to change { user.api_token }
+        expect(user.api_token).to eql("barfoo")
       end
     end
 
     context "when org has changed and can not change org" do
 
       let!(:user) do
-        create(:user, other_organisation: "Foo bar", api_token: "barfoo")
+        @org = create(:org, managed: true)
+        create(:user, org: @org, api_token: "barfoo",
+                      perms: [
+                        create(:perm, :use_api),
+                        create(:perm, :modify_guidance),
+                        create(:perm, :modify_templates)
+                      ])
       end
 
       before do
-        user.perms << create(:perm, :use_api)
-        user.perms << create(:perm, :modify_guidance)
-        user.perms << create(:perm, :modify_templates)
-        user.org = create(:org)
+        @new_org = create(:org)
+        user.update(org: @new_org)
+        user.reload
       end
 
-      it "sets other_organisation to nil" do
-        expect { user.save }.to change { user.other_organisation }.to(nil)
+      it "does not change the org" do
+        expect(user.org).to eql(@new_org)
       end
 
-      it "destroy's user perms" do
-        expect { user.save }.to change { user.perms.count }.to(0)
+      it "does not destroy user perms" do
+        expect(user.perms.count).to eql(3)
       end
 
-      it "resets api_token to blank string" do
-        expect { user.save }.to change { user.api_token }.to(nil)
+      it "does not reset api_token to blank string" do
+        expect(user.api_token).to eql("barfoo")
       end
     end
 

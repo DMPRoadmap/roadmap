@@ -36,7 +36,7 @@ class Annotation < ApplicationRecord
   # = Associations =
   # ================
 
-  belongs_to :org
+  belongs_to :org, optional: true
   belongs_to :question
   has_one :section, through: :question
   has_one :phase, through: :question

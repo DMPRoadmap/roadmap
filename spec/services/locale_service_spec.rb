@@ -5,7 +5,9 @@ require "rails_helper"
 RSpec.describe LocaleService do
 
   before(:each) do
-    Rails.configuration.x.locales.default = "en"
+    Language.destroy_all
+    @default = create(:language, default_language: true)
+    Rails.configuration.x.locales.default = @default.abbreviation
     Rails.configuration.x.locales.gettext_join_character = "_"
     Rails.configuration.x.locales.i18n_join_character = "-"
   end
@@ -18,25 +20,25 @@ RSpec.describe LocaleService do
     end
     it "returns the default language defined in dmproadmap.rb initializer" do
       Language.destroy_all
-      expect(described_class.default_locale).to eql("en")
+      expect(described_class.default_locale).to eql(@default.abbreviation)
     end
   end
 
   describe "#available_locales" do
     it "returns the abbreviations of all Languages in the database" do
       create(:language)
-      expected = Language.all.pluck(:abbreviation)
+      expected = Language.all.order(:abbreviation).pluck(:abbreviation)
       expect(described_class.available_locales).to eql(expected)
     end
     it "returns the default language if no Languages are in the database" do
       Language.destroy_all
-      expect(described_class.available_locales).to eql(["en"])
+      expect(described_class.available_locales).to eql([@default.abbreviation])
     end
   end
 
   describe "#to_i18n(locale:)" do
     it "uses the default_locale if no locale is specified" do
-      expect(described_class.to_i18n(locale: nil)).to eql("en")
+      expect(described_class.to_i18n(locale: nil)).to eql(@default.abbreviation)
     end
     it "converts the locale to i18n format" do
       expect(described_class.to_i18n(locale: "en-GB")).to eql("en-GB")
@@ -47,7 +49,7 @@ RSpec.describe LocaleService do
 
   describe "#to_gettext(locale:)" do
     it "uses the default_locale if no locale is specified" do
-      expect(described_class.to_gettext(locale: nil)).to eql("en")
+      expect(described_class.to_gettext(locale: nil)).to eql(@default.abbreviation)
     end
     it "converts the locale to Gettext format" do
       expect(described_class.to_gettext(locale: "en_GB")).to eql("en_GB")

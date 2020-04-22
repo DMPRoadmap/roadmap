@@ -35,7 +35,7 @@
 class Template < ApplicationRecord
 
   include GlobalHelpers
-  
+
   validates_with TemplateLinksValidator
 
   # A standard template should be organisationally visible. Funder templates
@@ -293,7 +293,7 @@ class Template < ApplicationRecord
   #
   # Returns Boolean
   def latest?
-    id == Template.latest_version(family_id).pluck(:id).first
+    id == Template.latest_version(family_id).pluck("templates.id").first
   end
 
   # Determines whether or not a new version should be generated

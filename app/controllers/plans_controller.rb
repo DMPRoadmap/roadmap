@@ -19,7 +19,6 @@ class PlansController < ApplicationController
       @organisationally_or_publicly_visible =
         Plan.organisationally_or_publicly_visible(current_user).page(1)
     end
-
     if params[:plan].present?
       @template = Template.find(params[:plan][:template_id])
     end

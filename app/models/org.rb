@@ -57,7 +57,7 @@ class Org < ApplicationRecord
   # = Associations =
   # ================
 
-  belongs_to :language
+  belongs_to :language, optional: true
 
   belongs_to :region
 
@@ -169,6 +169,7 @@ class Org < ApplicationRecord
 
   before_validation :set_default_feedback_email_subject
   before_validation :check_for_missing_logo_file
+  before_validation :ensure_language
   after_create :create_guidance_group
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
@@ -313,6 +314,11 @@ class Org < ApplicationRecord
       optional_subset: false,
       published: false,
     )
+  end
+
+  # Callback that ensures that a language is specified
+  def ensure_language
+    self.language = Language.default unless language.present?
   end
 
 end

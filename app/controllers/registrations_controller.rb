@@ -85,6 +85,9 @@ class RegistrationsController < Devise::RegistrationsController
       attrs = sign_up_params
       attrs = handle_org(attrs: attrs)
 
+      # handle the language
+      attrs[:language_id] = Language.default&.id unless attrs[:language_id].present?
+
       build_resource(attrs)
 
       if resource.save
@@ -269,7 +272,7 @@ class RegistrationsController < Devise::RegistrationsController
     params.require(:user).permit(:email, :password, :password_confirmation,
                                  :firstname, :surname, :recovery_email,
                                  :accept_terms, :org_id, :org_name,
-                                 :org_crosswalk)
+                                 :org_crosswalk, :language_id)
   end
 
   def update_params

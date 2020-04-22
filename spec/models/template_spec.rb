@@ -995,7 +995,7 @@ RSpec.describe Template, type: :model do
 
     context "when param not Org" do
 
-      let!(:org) { stub(:banana) }
+      let!(:org) { build(:plan) }
 
       let!(:template) { create(:template, org: create(:org, :funder)) }
 
@@ -1144,7 +1144,7 @@ RSpec.describe Template, type: :model do
 
     context "when org is not an Org" do
 
-      let!(:org) { stub(:banana) }
+      let!(:org) { build(:plan) }
 
       it "raises a StandardError" do
         expect { subject }.to raise_error(StandardError)

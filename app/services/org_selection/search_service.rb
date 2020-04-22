@@ -63,10 +63,15 @@ module OrgSelection
 
       private
 
+      def expiry
+        expiration = Rails.configuration.x.cache.org_selection_expiration
+        expiration.present? ? expiration : 1.day
+      end
+
       def local_search(search_term:)
         return [] unless search_term.present?
 
-        Rails.cache.fetch(["org_selection-local", search_term], expires_in: 1.day) do
+        Rails.cache.fetch(["org_selection-local", search_term], expires_in: expiry) do
           Org.includes(identifiers: :identifier_scheme)
              .search(name_without_alias(name: search_term)).to_a
         end
@@ -75,7 +80,7 @@ module OrgSelection
       def externals_search(search_term:)
         return [] unless ExternalApis::RorService.active && search_term.present?
 
-        Rails.cache.fetch(["org_selection-ror", search_term], expires_in: 1.day) do
+        Rails.cache.fetch(["org_selection-ror", search_term], expires_in: expiry) do
           ExternalApis::RorService.search(term: search_term)
         end
       end

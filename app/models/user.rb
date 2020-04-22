@@ -159,7 +159,7 @@ class User < ApplicationRecord
   # = Callbacks =
   # =============
 
-  before_update :clear_other_organisation, if: :org_id_changed?
+  before_validation :ensure_language
 
   before_update :clear_department_id, if: :org_id_changed?
 
@@ -448,12 +448,13 @@ class User < ApplicationRecord
     perms.destroy_all
   end
 
-  def clear_other_organisation
-    self.other_organisation = nil
-  end
-
   def clear_department_id
     self.department_id = nil
+  end
+
+  # Callback that ensures that a language is specified
+  def ensure_language
+    self.language = Language.default unless language.present?
   end
 
 end
