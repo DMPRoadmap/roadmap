@@ -156,7 +156,7 @@ module OrgAdmin
     def transfer_associations(question)
       attrs = question_params
       if attrs[:annotations_attributes].present?
-        attrs[:annotations_attributes].each_key do |key|
+        attrs[:annotations_attributes].keys.each do |key|
           old_annotation = question.annotations.select do |a|
             a.org_id.to_s == attrs[:annotations_attributes][key][:org_id] &&
               a.type.to_s == attrs[:annotations_attributes][key][:type]
@@ -170,7 +170,7 @@ module OrgAdmin
       # of the data elements because the user may have changed them so we rely on its
       # position within the array/query since they should be equivalent.
       if attrs[:question_options_attributes].present?
-        attrs[:question_options_attributes].each_key do |key|
+        attrs[:question_options_attributes].keys.each do |key|
           next unless question.question_options[key.to_i].present?
           hash      = attrs.dig(:question_options_attributes, key)
           hash[:id] = question.question_options[key.to_i].id.to_s

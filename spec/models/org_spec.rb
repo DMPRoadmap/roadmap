@@ -18,8 +18,6 @@ RSpec.describe Org, type: :model do
 
     it { is_expected.not_to allow_value(nil).for(:is_other) }
 
-    it { is_expected.to validate_presence_of(:language) }
-
     it { is_expected.to allow_values(0, 1).for(:managed) }
 
     it "validates presence of contact_email if feedback_enabled" do
@@ -83,7 +81,7 @@ RSpec.describe Org, type: :model do
       context "when Org has same abbr as dmproadmap.rb initializer setting" do
 
         let!(:org) do
-          abbrev = Rails.configuration.x.organisation.abbreviation)
+          abbrev = Rails.configuration.x.organisation.abbreviation
           create(:org, abbreviation: abbrev)
 
         end
@@ -369,7 +367,7 @@ RSpec.describe Org, type: :model do
   describe "#plans" do
 
     let!(:org) { create(:org) }
-    let!(:plan) { create(:plan) }
+    let!(:plan) { create(:plan, org: org) }
     let!(:user) { create(:user, org: org) }
 
     subject { org.plans }

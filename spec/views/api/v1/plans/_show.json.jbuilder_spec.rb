@@ -28,7 +28,7 @@ describe "api/v1/plans/_show.json.jbuilder" do
     end
     it "includes the :language" do
       expected = Api::V1::LanguagePresenter.three_char_code(
-        lang: ApplicationService.default_language
+        lang: LocaleService.default_locale
       )
       expect(@json[:language]).to eql(expected)
     end

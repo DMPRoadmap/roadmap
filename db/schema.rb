@@ -336,14 +336,6 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
     t.index ["question_id"], name: "index_questions_themes_on_question_id"
   end
 
-  create_table "region_languages", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.integer "region_id"
-    t.integer "language_id"
-    t.boolean "default", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "regions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", limit: 254, default: "", null: false
     t.datetime "created_at", null: false

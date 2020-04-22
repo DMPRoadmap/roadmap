@@ -18,6 +18,11 @@ RSpec.configure do |config|
     default_locale = AVAILABLE_TEST_LOCALES.first
     I18n.default_locale = LocaleService.to_i18n(locale: default_locale)
     FastGettext.default_locale = LocaleService.to_gettext(locale: default_locale)
+
+    unless Language.default.present?
+      Language.create(name: default_locale, abbreviation: default_locale,
+                      default_language: true)
+    end
   end
 
   config.before(:each, type: :feature) do

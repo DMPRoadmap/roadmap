@@ -11,7 +11,7 @@
       <%=_('Getting started:')%>
     </label>
     <ul id="linklist">
-      <% Rails.configuration.x.organisation.welcome_links.each do |wlink| %>
+      <% Rails.configuration.x.application.welcome_links.each do |wlink| %>
       <li><a href="<%= wlink[:url] %>"><%= wlink[:title] %></a></li>
       <% end %>
     </ul>
