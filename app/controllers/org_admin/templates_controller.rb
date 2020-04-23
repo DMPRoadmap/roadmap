@@ -150,8 +150,12 @@ module OrgAdmin
     # POST /org_admin/templates
     def create
       authorize Template
+      args = template_params
+      # Swap in the appropriate visibility enum value for the checkbox value
+      args[:visibility] = args.fetch(:visibility, "0") == "1" ? "organisationally_visible" : "publicly_visible"
+
       # creates a new template with version 0 and new family_id
-      @template = Template.new(template_params)
+      @template = Template.new(args)
       @template.org_id = current_user.org.id
       @template.locale = current_org.language.abbreviation
       @template.links = if params["template-links"].present?
