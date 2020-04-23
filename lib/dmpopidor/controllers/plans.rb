@@ -122,6 +122,7 @@ module Dmpopidor
         # PUT /plans/1.json
         # CHANGES :
         # Added Research Output Support
+        # Added DMP, Meta & Project update
         def update
           @plan = Plan.find(params[:id])
           authorize @plan
@@ -139,9 +140,10 @@ module Dmpopidor
               @plan.save
               if @plan.update_attributes(attrs)
                 @plan.research_outputs.toggle_default
+                @plan.update_plan_fragments(plan_meta_params, plan_project_params)
 
                 format.html do
-                  redirect_to plan_research_outputs_path(@plan),
+                  redirect_to plan_path(@plan),
                               notice: success_message(@plan, _("saved"))
                 end
                 format.json do
@@ -230,8 +232,36 @@ module Dmpopidor
           @phase_options = @plan.phases.order(:number).pluck(:title, :id)
           @export_settings = @plan.settings(:export)
           render "download"
-         end
+        end
 
+        private
+        # CHANGES : Research Outputs support
+        def plan_params
+          params.require(:plan)
+                .permit(:org_id, :org_name, :funder_id, :funder_name, :template_id, 
+                        :title, :visibility, :grant_number, :description, :identifier,
+                        :principal_investigator_phone, :principal_investigator,
+                        :principal_investigator_email, :data_contact,
+                        :principal_investigator_identifier, :data_contact_email,
+                        :data_contact_phone, :guidance_group_ids,
+                        research_outputs_attributes: %i[id abbreviation fullname order pid other_type_label research_output_type_id _destroy])
+        end
+
+        def plan_meta_params
+          params.require(:plan)
+                .permit(:title, :description, :relatedDocUrl, :associatedDMPId, :licenceStartDate,
+                        contact: [:lastName, :firstName, :mbox, :identifier],
+                        licence: [ :licenseName, :licenseUrl],
+                        dmpID: [:value, :idType],
+                        version: [:versionNumber, :versionNotes])
+        end
+
+        def plan_project_params
+          params.require(:plan)
+                .permit(:project_title, :project_acronym, :project_id, :project_description,
+                        :project_start_date, :project_end_date, :experimental_plan_url, 
+                        principalInvestigator: [:lastName, :firstName, :mbox, :identifier] )
+        end
       end
     end
   end

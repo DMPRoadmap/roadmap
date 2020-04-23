@@ -21,7 +21,11 @@
 class Fragment::Meta < StructuredAnswer
 
     def contact
-        Fragment::Person.where(id: data['contact']['dbId']).first
+        contact = nil
+        unless data["contact"].nil?
+            contact = Fragment::Person.where(id: data['contact']['dbId']).first
+        end
+        contact
     end
     
 

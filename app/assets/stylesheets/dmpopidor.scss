@@ -421,6 +421,7 @@ header .main-nav {
             color: $blue;
             border: 1px solid $blue;
             border-bottom-color: transparent;
+            background-color: $white;
         }
     }
     .nav-pills {
@@ -465,7 +466,51 @@ header .main-nav {
     .plan-guidance-tab {
         word-wrap: break-word;
     }
+
+    // Project Details 
+
     .plan-details {
+        display: flex;
+        .form-tabs {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            background-color: $white;
+            color: $rust;
+            border: 1px solid $rust;
+
+            li > span {
+                display: block;
+                padding: 10px 15px;
+                cursor: pointer;
+
+                i {
+                    display: none;
+                }
+            }
+
+            li > span:hover, 
+            li > span:focus, 
+            li.active > span, 
+            li.active > span:focus, 
+            li.active > span:hover {
+                color: $white;
+                border-bottom-color: transparent;
+                background-color: $rust;
+
+                i {
+                    display: inline;
+                }
+            }
+
+        }
+        .tab-content {
+            flex: 4;
+            padding-right: 20px;
+            .project-details {
+                width: 100%;
+            }
+        }
         .guidance-configuration {
             border-left: 2px solid $rust;
             border-bottom: 2px solid $very-very-light-blue;
