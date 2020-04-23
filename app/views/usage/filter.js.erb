@@ -1,5 +1,0 @@
-// Using straight (non-jquery) JS here because the js.erb does not have access to JQuery!
-// TODO: We should fix this and load JS and other assets correctly when we move to Rails 5
-//       it would be much cleaner to just rerender the html.erb
-document.getElementById('filter_ranged').innerHTML = '<%= escape_javascript(render partial: "filtered_value", locals: { label: "New #{@topic}", value: @ranged.to_i }) %>';
-document.getElementById('filter_total').innerHTML = '<%= escape_javascript(render partial: "filtered_value", locals: { label: "Total #{@topic}", value: @total.to_i }) %>';

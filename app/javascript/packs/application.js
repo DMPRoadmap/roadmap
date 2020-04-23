@@ -19,6 +19,7 @@ import '../utils/tinymce.js.erb';
 // Page specific JS
 import '../views/answers/edit';
 import '../views/answers/rda_metadata';
+import '../views/contributors/form';
 import '../views/devise/invitations/edit';
 import '../views/devise/passwords/edit';
 import '../views/devise/registrations/edit';
