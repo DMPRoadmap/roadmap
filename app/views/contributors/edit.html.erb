@@ -1,0 +1,27 @@
+<% title "#{@plan.title} - edit contributor" %>
+
+<div class="row">
+  <div class="col-md-12">
+    <!-- render the project title -->
+    <h1><%= @plan.title %></h1>
+  </div>
+</div>
+
+<% content_for :plan_tab_body do %>
+  <h2>
+    <%= _("Editing contributor") %>
+    <%= link_to _('View all contributors'), plan_contributors_path(@plan),
+                                            class: "btn btn-default pull-right" %>
+  </h2>
+  <div class="row">
+    <div class="col-md-12">
+      <%= form_for @contributor, url: plan_contributor_path(@plan, @contributor),
+                                 html: { method: :put } do |f| %>
+        <%= render partial: "contributors/form",
+                   locals: { form: f, plan: @plan, contributor: @contributor } %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%= render partial: "plans/navigation", locals: { plan: @plan } %>

@@ -26,11 +26,25 @@ $(() => {
 
   initializeCharts();
 
+  const labelToUrl = (label) => {
+    const parts = label.split('-');
+    return `search=${parts[0]} 20${parts[1]}&commit=Search&click_through=true`;
+  };
+
   // Create the Users joined chart
   if (!isUndefined($('#users_joined').val())) {
     const usersData = JSON.parse($('#users_joined').val());
     if (isObject(usersData)) {
-      createChart('#yearly_users', usersData);
+      const chart = createChart('#yearly_users', usersData, '', (event) => {
+        const segment = chart.getElementAtEvent(event)[0];
+        if (!isUndefined(segment)) {
+          const target = $('#users_click_target').val();
+          /* eslint-disable no-underscore-dangle, no-restricted-globals */
+          const label = chart.data.labels[segment._index];
+          $(location).attr('href', `${target}?${labelToUrl(label)}`);
+          /* eslint-enable no-underscore-dangle, no-restricted-globals */
+        }
+      });
     }
   }
 
@@ -38,7 +52,16 @@ $(() => {
   if (!isUndefined($('#plans_created').val())) {
     const plansData = JSON.parse($('#plans_created').val());
     if (isObject(plansData)) {
-      createChart('#yearly_plans', plansData);
+      const chart = createChart('#yearly_plans', plansData, '', (event) => {
+        const segment = chart.getElementAtEvent(event)[0];
+        if (!isUndefined(segment)) {
+          const target = $('#plans_click_target').val();
+          /* eslint-disable no-underscore-dangle, no-restricted-globals */
+          const label = chart.data.labels[segment._index];
+          $(location).attr('href', `${target}?${labelToUrl(label)}`);
+          /* eslint-enable no-underscore-dangle, no-restricted-globals */
+        }
+      });
     }
   }
   // TODO: Most of these event listeners would not be necessary if JQuery and
