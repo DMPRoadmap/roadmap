@@ -148,6 +148,14 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: :json} do
     namespace :v0 do
+      resources :departments, only: [:create, :index] do
+        collection do
+          get :users
+        end
+        member do
+          patch :assign_users
+        end
+      end
       resources :guidances, only: [:index], controller: 'guidance_groups', path: 'guidances'
       resources :plans, only: [:create, :index]
       resources :templates, only: :index
