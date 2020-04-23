@@ -2,6 +2,11 @@ require 'rails_helper'
 
 RSpec.describe GuidanceGroup, type: :model do
 
+  before(:each) do
+    # Ensure that the default managing org abbreviation is available
+    Rails.configuration.branding.fetch(:organisation, {})[:abbreviation] = "CC"
+  end
+
   context "validations" do
 
     it { is_expected.to validate_presence_of(:name) }

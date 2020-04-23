@@ -143,7 +143,7 @@ RSpec.describe OrgSelection::HashToOrgService do
       it "returns the name as an acronym (first letter of each word)" do
         @hash.delete(:abbreviation)
         rslt = described_class.send(:abbreviation_from_hash, hash: @hash)
-        expected = @name.split(' ').map { |i| i[0].upcase }.join
+        expected = @name.split(" ").map { |i| i[0].upcase }.join
         expect(rslt).to eql(expected)
       end
     end
