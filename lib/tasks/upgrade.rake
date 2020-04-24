@@ -889,6 +889,12 @@ namespace :upgrade do
                   .where(is_other: false).order(:name)
 
         Parallel.map(orgs, in_threads: 8) do |org|
+          # Parallel has trouble with ActiveRecord lazy loading
+          require "org" unless Object.const_defined?("Org")
+          require "identifier" unless Object.const_defined?("Identifier")
+          require "identifier_scheme" unless Object.const_defined?("IdentifierScheme")
+          @reconnected ||= Identifier.connection.reconnect! || true
+
           # If the Org already has a ROR identifier skip it
           next if org.identifiers.select { |id| id.identifier_scheme_id == ror.id }.any?
 
@@ -1073,7 +1079,7 @@ namespace :upgrade do
     plans = Plan.includes(template: :org, roles: :user)
                 .joins(template: :org, roles: :user)
 
-    p "Attaching Plans to Orgs"
+    p "Attaching Plans to Orgs ... this can take in excess of 5 minutes depending on how many plans you have."
     Parallel.map(plans, in_threads: 8) do |plan|
       next if plan.org_id.present?
 
