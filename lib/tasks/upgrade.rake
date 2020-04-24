@@ -991,6 +991,13 @@ namespace :upgrade do
 
       if org.present? && org.valid?
         org.save
+        identifiers_from_params(params_in: params_in).each do |identifier|
+          next unless identifier.value.present?
+
+          identifier.identifiable = org
+          identifier.save
+        end
+        org.reload
         # Attach the user to the Org
         p "  User id: #{user.id} - #{user.email} attaching to org_id: #{org.id} - #{org.name}"
         user.update(org_id: org.id)
@@ -1240,6 +1247,17 @@ namespace :upgrade do
                                           identifier_scheme: orcid)
     id.value = orcid_id
     return contributor, id
+  end
+
+  def identifiers_from_params(params_in:)
+    params_in = params_in.with_indifferent_access
+    return [] unless params_in[:org_id].present? &&
+                     params_in[:org_id].is_a?(String)
+
+    hash = org_hash_from_params(params_in: params_in)
+    return [] unless hash.present?
+
+    OrgSelection::HashToOrgService.to_identifiers(hash: hash)
   end
 
   def number_with_delimiter(number)
