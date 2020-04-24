@@ -1,18 +1,25 @@
 require 'set'
 namespace :upgrade do
 
-  desc "Upgrade to v2.2.0"
-  task v2_2_0: :environment do
-    p "Upgrading to v2.2.0 ... A summary report will be generated when complete"
+  desc "Upgrade to v2.2.0 Part 1"
+  task v2_2_0_part1: :environment do
+    p "Upgrading to v2.2.0 (part 1) ... A summary report will be generated when complete"
     p "------------------------------------------------------------------------"
     Rake::Task["upgrade:upgrade_2_2_0_identifier_schemes"].execute
     Rake::Task["upgrade:upgrade_2_2_0_identifiers"].execute
     Rake::Task["upgrade:upgrade_2_2_0_orgs"].execute
+    Rake::Task["upgrade:results_2_2_0_part1"].execute
+  end
+
+  desc "Upgrade to v2.2.0 Part 2"
+  task v2_2_0_part2: :environment do
+    p "Upgrading to v2.2.0 (part 2) ... A summary report will be generated when complete"
+    p "------------------------------------------------------------------------"
     Rake::Task["upgrade:migrate_other_organisation_to_org"].execute
     Rake::Task["upgrade:migrate_contributors"].execute
     Rake::Task["upgrade:migrate_plan_org_and_funder"].execute
     Rake::Task["upgrade:migrate_plan_grants"].execute
-    Rake::Task["upgrade:results_2_2_0"].execute
+    Rake::Task["upgrade:results_2_2_0_part2"].execute
   end
 
   desc "Upgrade to v2.1.3"
@@ -888,13 +895,7 @@ namespace :upgrade do
         orgs = Org.includes(identifiers: :identifier_scheme)
                   .where(is_other: false).order(:name)
 
-        Parallel.map(orgs, in_threads: 8) do |org|
-          # Parallel has trouble with ActiveRecord lazy loading
-          require "org" unless Object.const_defined?("Org")
-          require "identifier" unless Object.const_defined?("Identifier")
-          require "identifier_scheme" unless Object.const_defined?("IdentifierScheme")
-          @reconnected ||= Identifier.connection.reconnect! || true
-
+        orgs.each do |org|
           # If the Org already has a ROR identifier skip it
           next if org.identifiers.select { |id| id.identifier_scheme_id == ror.id }.any?
 
@@ -1146,7 +1147,7 @@ namespace :upgrade do
   end
 
   desc "Generate stats for all of the 2.2.0 upgrade scripts"
-  task results_2_2_0: :environment do
+  task results_2_2_0_part1: :environment do
     ror = IdentifierScheme.find_by(name: "ror")
     fundref = IdentifierScheme.find_by(name: "fundref")
     org_identifiers_migrated = Identifier.where(identifiable_type: 'Org')
@@ -1157,14 +1158,9 @@ namespace :upgrade do
                                           .count
     rors_added = Identifier.where(identifiable_type: 'Org', identifier_scheme: ror).count
     fundrefs_added = Identifier.where(identifiable_type: 'Org', identifier_scheme: fundref).count
-    managed_orgs = Org.where(managed: true).count
-    contributors_converted = Contributor.all.count
-    orgs_converted = Plan.where.not(org_id: nil).count
-    funders_converted = Plan.where.not(funder_id: nil).count
-    grants_converted = Plan.where.not(grant_id: nil).count
 
     p "---------------------------------------------------------------"
-    p "Results of v2.2.0 upgrade:"
+    p "Results of v2.2.0 part 1 upgrade:"
     p "    Added new IdentifierScheme: #{ror.id}, '#{ror.name}', '#{ror.description}'"
     p "    Added new IdentifierScheme: #{fundref.id}, '#{fundref.name}', '#{fundref.description}'"
     p ""
@@ -1172,14 +1168,34 @@ namespace :upgrade do
     p "    Migrated #{number_with_delimiter(user_identifiers_migrated)} from user_identifiers to identifiers table."
     p "      NOTE: org_identifier and user_identifiers tables are being deprecated and will be dropped in a future release."
     p ""
-    p "    Added #{number_with_delimiter(rors_added)} ROR identifiers to identifiers table"
-    p "    Added #{number_with_delimiter(fundrefs_added)} Crossref Funder identifiers to identifiers table"
-    p "      NOTE: the system will begin capturing these identifiers when a new Org is created on:"
-    p "            - the Create Account form for new Users"
-    p "            - the Edit Profile form"
-    p "            - the Create Org form (Super Admins only)"
-    p "      NOTE: A new page allowing Orgs to be merged will be provided in a future release."
-    p ""
+    p "    Assigned #{number_with_delimiter(rors_added)} ROR identifiers to your Orgs"
+    p "    Assigned #{number_with_delimiter(fundrefs_added)} Crossref Funder identifiers to your Orgs"
+    p "      NOTE: Please refer to the tmp/ror_fundref_ids.csv file to see how the assigment worked."
+    p "            You should make any adjustments BEFORE running part 2 of the upgrade scripts!"
+    p "            For example ROR sometimes incorrectly matches Orgs. For example:"
+    p "               'University of Somewhere' may match to 'Univerity of Somewhere - Medical Center'"
+    p "            To correct any issues, please delete/insert/update the corresponding Identifier:"
+    p "               delete from identifiers where identifiable_type = 'Org' and identifiable_id = [orgs.id];"
+    p "               insert into identifiers (identifiable_type, identifier_scheme_id, attrs, identifiable_id, value) values ('Org', [identifier_scheme_id], '{}', [orgs.id], 'https://api.crossref.org/funders/0000000000');"
+    p "               update identifiers set `value` = 'https://ror.org/123456789' where identifiable_id = [orgs.id] and identifier_scheme_id = [identifier_scheme_id] and identifiable_type= 'Org';"
+    p "---------------------------------------------------------------"
+  end
+
+  desc "Generate stats for all of the 2.2.0 upgrade scripts"
+  task results_2_2_0_part2: :environment do
+    ror = IdentifierScheme.find_by(name: "ror")
+    fundref = IdentifierScheme.find_by(name: "fundref")
+    is_other = Org.find_by(is_other: true)
+    unaffiliated = User.where(org_id: is_other.id).count
+    unmanaged_orgs = Org.where(managed: false).count
+    managed_orgs = Org.where(managed: true).count
+    contributors_converted = Contributor.all.count
+    orgs_converted = Plan.where.not(org_id: nil).count
+    funders_converted = Plan.where.not(funder_id: nil).count
+    grants_converted = Plan.where.not(grant_id: nil).count
+
+    p "---------------------------------------------------------------"
+    p "Results of v2.2.0 part 2 upgrade:"
     p "    Set #{number_with_delimiter(managed_orgs)} Orgs to 'managed: true' (all of your existing Orgs)"
     p "      The is_other Org is deprecated. Users will not be added to this old default Org in the future."
     p "      you should try to move any remaining users over to actual Orgs, this may require you to create "
@@ -1187,6 +1203,11 @@ namespace :upgrade do
     p "        `SELECT id, email, other_organisation FROM users WHERE org_id = (SELECT orgs.id FROM orgs WHERE is_other = true);"
     p "      NOTE: all code that checks for `is_other` will instead check `managed` in future releases."
     p ""
+    p "    Added #{number_with_delimiter(unmanaged_orgs)} Orgs"
+    p "      NOTE: These Orgs were created from the Funders listed in plans.funder_name and also by examining"
+    p "            all of the users attached to the is_other Org (first checking the domain of the user's email"
+    p "            address and then the text value stored in other_organisation)."
+    p "            In the case of a User, the user was associated with that new Org"
     p "    Added #{number_with_delimiter(contributors_converted)} Contributor based on the old DataContact, PrincipalInvestigator and Plan Owner"
     p "      NOTE: the old data_contact and principal_investigator fields on the plans table are deprecated and will be removed in a future release."
     p ""
@@ -1194,6 +1215,8 @@ namespace :upgrade do
     p "    Attached #{number_with_delimiter(funders_converted)} Plans to a Funder based on either the Template's Org (if it was a funder) or the name in funder_name field."
     p "    Migrate #{number_with_delimiter(grants_converted)} Plan grant_numbers to Identifiers"
     p "      NOTE: funder_name and grant_number fields on the plans table are deprecated and will be dropped in a future release"
+    p ""
+    p "    #{number_with_delimiter(unaffiliated)} users are still associated with '#{is_other.name}' (is_other Org)."
     p "---------------------------------------------------------------"
   end
 
