@@ -113,11 +113,14 @@ module Dmpopidor
         unless person[:mbox].empty?
           person_fragment = dmp_fragment.persons.where(
             "data->>'mbox' = ?", person[:mbox]
-          ).first_or_create do |fragment|
-            fragment.data = person
-            fragment.dmp_id = dmp_fragment.id
-            fragment.save
-          end 
+          ).first
+          if person_fragment.nil?
+            person_fragment = dmp_fragment.persons.create(
+              data: person
+            )
+          else
+            person_fragment.update_attributes(data: person)
+          end
         end
         person_fragment
       end
