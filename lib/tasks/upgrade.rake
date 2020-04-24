@@ -3,11 +3,15 @@ namespace :upgrade do
 
   desc "Upgrade to v2.2.0"
   task v2_2_0: :environment do
+    p "Upgradiing to v2.2.0 ... A summary report will be generated when complete"
     Rake::Task["upgrade:upgrade_2_2_0_identifier_schemes"].execute
     Rake::Task["upgrade:upgrade_2_2_0_identifiers"].execute
     Rake::Task["upgrade:upgrade_2_2_0_orgs"].execute
     Rake::Task["upgrade:migrate_other_organisation_to_org"].execute
     Rake::Task["upgrade:migrate_contributors"].execute
+    Rake::Task["upgrade:migrate_plan_org_and_funder"].execute
+    Rake::Task["upgrade:migrate_plan_grants"].execute
+    Rake::Task["upgrade:results_2_2_0"].execute
   end
 
   desc "Upgrade to v2.1.3"
@@ -1023,6 +1027,7 @@ namespace :upgrade do
       if contact.present?
         contact.save
         contact.data_curation = true
+        contact.investigation = true if owner.present?
         contact.save
         contact_id.save if contact_id.present?
       end
@@ -1058,6 +1063,128 @@ namespace :upgrade do
         p "Processed Plan #{plan.id} - which now has #{plan.contributors.length} contributor(s)"
       end
     end
+  end
+
+  desc "Attach Plans to their owner's Org and then back fill the Funder"
+  task migrate_plan_org_and_funder: :environment do
+    plans = Plan.includes(template: :org, roles: :user)
+                .joins(template: :org, roles: :user)
+
+    p "Attaching Plans to Orgs"
+    Parallel.map(plans, in_threads: 8) do |plan|
+      next if plan.org_id.present?
+
+      # Parallel has trouble with ActiveRecord lazy loading
+      require "plan" unless Object.const_defined?("Plan")
+      require "role" unless Object.const_defined?("Role")
+      require "perm" unless Object.const_defined?("Perm")
+      require "user" unless Object.const_defined?("User")
+      @reconnected ||= Plan.connection.reconnect! || true
+
+      next unless plan.owner.present? && plan.owner.org.present?
+
+      plan.update(org_id: plan.owner.org.id)
+    end
+
+    p "Attaching Plans to Funders"
+    Parallel.map(plans, in_threads: 8) do |plan|
+      next if plan.funder_id.present?
+
+      # Parallel has trouble with ActiveRecord lazy loading
+      require "plan" unless Object.const_defined?("Plan")
+      require "template" unless Object.const_defined?("Template")
+      require "org" unless Object.const_defined?("Org")
+      @reconnected ||= Plan.connection.reconnect! || true
+
+      next unless plan.funder_name.present? || plan.template.org.funder?
+
+      funder_id = plan.template.org.id if plan.template.org.funder?
+
+      if plan.funder_name.present? && !funder_id.present?
+        matches = OrgSelection::SearchService.search_externally(search_term: plan.funder_name)
+        # Only allow results that INCLUDE the search term in parenthesis
+        matches = matches.select do |result|
+          result[:weight] <= 1 && result[:name].include?("(#{plan.funder_name})")
+        end
+
+        org = OrgSelection::HashToOrgService.to_org(hash: matches.first, allow_create: true) if matches.any?
+        funder_id = org.id if org.present?
+      end
+
+      plan.update(funder_id: funder_id) if funder_id.present?
+    end
+    p "Complete"
+  end
+
+  desc "Migrate the Plans grant_number to an Identifier"
+  task migrate_plan_grants: :environment do
+    plans = Plan.where.not(grant_number: nil).where.not(grant_number: "")
+
+    p "Converting Plan.grant_number into Identifiers"
+    #Parallel.map(plans, in_threads: 8) do |plan|
+    plans.each do |plan|
+      # Parallel has trouble with ActiveRecord lazy loading
+      require "plan" unless Object.const_defined?("Plan")
+      @reconnected ||= Plan.connection.reconnect! || true
+
+      identifier = Identifier.find_or_create_by(
+        identifier_scheme_id: nil, identifiable: plan, value: plan.grant_number
+      )
+      plan.update(grant_id: identifier.id)
+    end
+    p "Complete"
+  end
+
+  desc "Generate stats for all of the 2.2.0 upgrade scripts"
+  task results_2_2_0: :environment do
+    ror = IdentifierScheme.find_by(name: "ror")
+    fundref = IdentifierScheme.find_by(name: "fundref")
+    org_identifiers_migrated = Identifier.where(identifiable_type: 'Org')
+                                         .where.not(identifier_scheme: [ror, fundref])
+                                         .count
+    user_identifiers_migrated = Identifier.where(identifiable_type: 'User')
+                                          .where.not(identifier_scheme: [ror, fundref])
+                                          .count
+    rors_added = Identifier.where(identifiable_type: 'Org', identifier_scheme: ror).count
+    fundrefs_added = Identifier.where(identifiable_type: 'Org', identifier_scheme: fundref).count
+    managed_orgs = Org.where(managed: true).count
+    contributors_converted = Contributor.all.count
+    orgs_converted = Plan.where.not(org_id: nil).count
+    funders_converted = Plan.where.not(funder_id: nil).count
+    grants_converted = Plan.where.not(grant_id: nil).count
+
+    p "---------------------------------------------------------------"
+    p "Results of v2.2.0 upgrade:"
+    p "    Added new IdentifierScheme: #{ror.id}, '#{ror.name}', '#{ror.description}'"
+    p "    Added new IdentifierScheme: #{fundref.id}, '#{fundref.name}', '#{fundref.description}'"
+    p ""
+    p "    Migrated #{number_with_delimiter(org_identifiers_migrated)} from org_identifiers to identifiers table."
+    p "    Migrated #{number_with_delimiter(user_identifiers_migrated)} from user_identifiers to identifiers table."
+    p "      NOTE: org_identifier and user_identifiers tables are being deprecated and will be dropped in a future release."
+    p ""
+    p "    Added #{number_with_delimiter(rors_added)} ROR identifiers to identifiers table"
+    p "    Added #{number_with_delimiter(fundrefs_added)} Crossref Funder identifiers to identifiers table"
+    p "      NOTE: the system will begin capturing these identifiers when a new Org is created on:"
+    p "            - the Create Account form for new Users"
+    p "            - the Edit Profile form"
+    p "            - the Create Org form (Super Admins only)"
+    p "      NOTE: A new page allowing Orgs to be merged will be provided in a future release."
+    p ""
+    p "    Set #{number_with_delimiter(managed_orgs)} Orgs to 'managed: true' (all of your existing Orgs)"
+    p "      The is_other Org is deprecated. Users will not be added to this old default Org in the future."
+    p "      you should try to move any remaining users over to actual Orgs, this may require you to create "
+    p "      a new Org and attach the user to it."
+    p "        `SELECT id, email, other_organisation FROM users WHERE org_id = (SELECT orgs.id FROM orgs WHERE is_other = true);"
+    p "      NOTE: all code that checks for `is_other` will instead check `managed` in future releases."
+    p ""
+    p "    Added #{number_with_delimiter(contributors_converted)} Contributor based on the old DataContact, PrincipalInvestigator and Plan Owner"
+    p "      NOTE: the old data_contact and principal_investigator fields on the plans table are deprecated and will be removed in a future release."
+    p ""
+    p "    Attached #{number_with_delimiter(orgs_converted)} Plans to an Org based on the Owner's Org"
+    p "    Attached #{number_with_delimiter(funders_converted)} Plans to a Funder based on either the Template's Org (if it was a funder) or the name in funder_name field."
+    p "    Migrate #{number_with_delimiter(grants_converted)} Plan grant_numbers to Identifiers"
+    p "      NOTE: funder_name and grant_number fields on the plans table are deprecated and will be dropped in a future release"
+    p "---------------------------------------------------------------"
   end
 
   private
@@ -1113,6 +1240,10 @@ namespace :upgrade do
                                           identifier_scheme: orcid)
     id.value = orcid_id
     return contributor, id
+  end
+
+  def number_with_delimiter(number)
+    number.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
   end
 
 end
