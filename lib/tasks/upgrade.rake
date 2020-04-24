@@ -3,7 +3,8 @@ namespace :upgrade do
 
   desc "Upgrade to v2.2.0"
   task v2_2_0: :environment do
-    p "Upgradiing to v2.2.0 ... A summary report will be generated when complete"
+    p "Upgrading to v2.2.0 ... A summary report will be generated when complete"
+    p "------------------------------------------------------------------------"
     Rake::Task["upgrade:upgrade_2_2_0_identifier_schemes"].execute
     Rake::Task["upgrade:upgrade_2_2_0_identifiers"].execute
     Rake::Task["upgrade:upgrade_2_2_0_orgs"].execute
@@ -968,6 +969,7 @@ namespace :upgrade do
           end
 
           org = OrgSelection::HashToOrgService.to_org(hash: matches.first, allow_create: true) if matches.any?
+          org = create_org(org, matches.first) if org.present?
         end
       end
 
@@ -978,6 +980,7 @@ namespace :upgrade do
         # Only allow results that START WITH the search term
         matches = matches.select { |result| result[:weight] == 0 }
         org = OrgSelection::HashToOrgService.to_org(hash: matches.first, allow_create: true) if matches.any?
+        org = create_org(org, matches.first)  if org.present? && org.valid?
       end
 
       # Otherwise create the Org
@@ -987,17 +990,10 @@ namespace :upgrade do
                                             .split(" ").map(&:first).join.upcase
         org = Org.new(name: name, managed: false, is_other: false,
                          abbreviation: abbrev, language: Language.default)
+        org.save if org.present? && org.valid?
       end
 
       if org.present? && org.valid?
-        org.save
-        identifiers_from_params(params_in: params_in).each do |identifier|
-          next unless identifier.value.present?
-
-          identifier.identifiable = org
-          identifier.save
-        end
-        org.reload
         # Attach the user to the Org
         p "  User id: #{user.id} - #{user.email} attaching to org_id: #{org.id} - #{org.name}"
         user.update(org_id: org.id)
@@ -1115,6 +1111,7 @@ namespace :upgrade do
         end
 
         org = OrgSelection::HashToOrgService.to_org(hash: matches.first, allow_create: true) if matches.any?
+        org = create_org(org, matches.first)  if org.present? && org.valid?
         funder_id = org.id if org.present?
       end
 
@@ -1249,15 +1246,15 @@ namespace :upgrade do
     return contributor, id
   end
 
-  def identifiers_from_params(params_in:)
-    params_in = params_in.with_indifferent_access
-    return [] unless params_in[:org_id].present? &&
-                     params_in[:org_id].is_a?(String)
+  def create_org(org, match)
+    org.save
+    OrgSelection::HashToOrgService.to_identifiers(hash: match).each do |identifier|
+      next unless identifier.value.present?
 
-    hash = org_hash_from_params(params_in: params_in)
-    return [] unless hash.present?
-
-    OrgSelection::HashToOrgService.to_identifiers(hash: hash)
+      identifier.identifiable = org
+      identifier.save
+    end
+    org.reload
   end
 
   def number_with_delimiter(number)
