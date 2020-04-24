@@ -123,12 +123,8 @@ class Identifier < ActiveRecord::Base
     end
   end
 
-  # Verify the uniqueness of :value across :identifier_scheme
+  # Ensure that the identifiable only has one identifier for the scheme
   def value_uniqueness_with_scheme
-    if Identifier.where(identifier_scheme: self.identifier_scheme,
-                        value: self.value).any?
-      errors.add(:value, _("already assigned"))
-    end
     if Identifier.where(identifier_scheme: self.identifier_scheme,
                         identifiable: self.identifiable).any?
       errors.add(:identifier_scheme, _("already assigned a value"))
