@@ -15,4 +15,10 @@
         <%= _('This answer removes ') + n_question_to_remove.to_s + _(' questions from your plan.') %>
       </span>
     <% end %>
+    <% email_list = email_trigger_list(answer) %>
+    <% unless email_list.blank? %>
+      <span class="label label-info status" data-status="saved-at">
+        <%= _('This answer triggers email(s) to ') + email_list %>
+      </span>
+    <% end %>
 <% end %>
