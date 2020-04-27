@@ -91,6 +91,7 @@ export default function updateConditions(id) {
     addLogicButton.attr('data-loaded', 'true');
     addLogicButton.addClass('disabled');
     addLogicButton.blur();
+    addLogicButton.text('Conditions');
     if (isObject(content)) {
       content.html(data.container);
     }
