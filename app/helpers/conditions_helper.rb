@@ -45,6 +45,23 @@ module ConditionsHelper
   def send_webhooks(user, answer)
     answer_remove_list(answer, user)
   end
+  
+  def email_trigger_list(answer)
+    email_list = []
+    return email_list unless answer.question.option_based?
+    answer.question.conditions.each do |cond|
+      opts = cond.option_list.map{ |s| s.to_i }.sort
+      action = cond.action_type
+      chosen = answer.question_option_ids.sort
+      if chosen == opts
+        if action == "add_webhook"
+          email_list << JSON.parse(cond.webhook_data)["email"]
+        end
+      end
+    end
+    # uniq because could get same remove id from diff conds
+    email_list.uniq.join(',')
+  end
 
   # number of answers in a section after answers updated with conditions
   def num_section_answers(plan, section)
