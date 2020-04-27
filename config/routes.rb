@@ -109,6 +109,7 @@ Rails.application.routes.draw do
     resource :export, only: [:show], controller: "plan_exports"
 
     member do
+      get 'new_edit_linked_fragment'
       get 'answer'
       get 'share'
       get 'request_feedback'
@@ -117,6 +118,9 @@ Rails.application.routes.draw do
       post 'visibility', constraints: {format: [:json]}
       post 'set_test', constraints: {format: [:json]}
       get 'overview'
+    end
+    resources :structured_answers, only: [:destroy] do
+      post 'create_or_update', on: :collection
     end
     resources :research_outputs, only: [:index, :destroy], controller: 'research_outputs'
   end

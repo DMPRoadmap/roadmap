@@ -51,3 +51,7 @@ import '../views/users/admin_grant_permissions';
 import '../views/super_admin/notifications/edit';
 import '../views/super_admin/static_pages/edit';
 import '../views/public_templates/show';
+// eslint-disable-next-line
+import $ from 'jquery';
+
+global.$ = jQuery;

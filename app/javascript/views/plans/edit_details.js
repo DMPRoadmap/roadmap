@@ -126,4 +126,19 @@ $(() => {
   /* eslint-disable */
   /*setUpTypeahead();*/
   /* eslint-enable */
+
+
+  $('.linked-fragments .actions .delete').click((e) => {
+    const target = $(e.target);
+    // TODO : replace confirm()
+    const confirmed = confirm(target.data('confirm-message'))
+    if (confirmed) {
+      $.ajax({
+        url: target.data('url'),
+        method: 'delete',
+      }).done((data) => {
+        $(`.project-details.${data.type}-list`).html(data.html);
+      });
+    }
+  });
 });

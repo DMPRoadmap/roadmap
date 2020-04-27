@@ -1,0 +1,27 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 class="modal-title" id="exampleModalLabel"><%= @type.capitalize %> </h2>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <%= form_for @fragment, url: create_or_update_plan_structured_answers_path(plan_id: @plan.id, type: @type, fragment_id: @fragment.id),
+                        html: {method: :post, remote: true, class: 'form-horizontal edit_plan', id: "structured_answer_form" } do |f| %>  
+      <%= f.hidden_field :dmp_id, :value => @parent_fragment.dmp.id , id: nil %>
+      <%= f.hidden_field :parent_id, :value => @parent_fragment.id , id: nil %>
+      <div class="modal-body">
+          <% case @type %>
+          <% when "partner" %>
+              <%= render(partial: 'plans/plan_details/plan_partner_form', locals: { f: f, fragment: @fragment.data } ) %>
+          <% when "funding" %>
+              <%= render(partial: 'plans/plan_details/plan_funding_form', locals: { f: f, fragment: @fragment.data } ) %>
+          <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= _('Close') %> </button>
+        <%= f.button(_('Submit'), class: "btn btn-primary", type: "submit") %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -30,11 +30,11 @@ class Fragment::Project < StructuredAnswer
 
     
     def fundings
-        Fragment::Funding.where("(data->>'project'->>'dbId')::int = ?", id)
+        Fragment::Funding.where(parent_id: id)
     end
 
     def partners
-        Fragment::Partner.where("(data->>'project'->>'dbId')::int = ?", id)
+        Fragment::Partner.where(parent_id: id)
     end
 
 

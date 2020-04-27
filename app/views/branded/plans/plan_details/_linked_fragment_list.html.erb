@@ -1,0 +1,43 @@
+<%# locals: { plan, parent_id, obj_list, type } %>
+<legend class="project-details"><%= type.capitalize.pluralize(2) %></legend>
+<table class="table table-hover linked-fragments">
+<thead>
+  <tr><th scope="col"><%= type.capitalize %></th><th scope="col">Actions</th></tr>
+</thead>
+<tbody>
+  <% obj_list.each do |obj| %>
+    <tr>
+      <td><%= obj.to_s %></td>
+      <td class="actions">
+       <%= link_to new_edit_linked_fragment_plan_url(
+            plan.id, 
+            :parent_id => parent_id, 
+            :fragment_id => obj.id,
+            :type => type
+          ),  {
+            :remote => true, 
+            :class => "btn btn-primary",
+            'data-toggle' =>  "modal", 
+            'data-target' => '#modal-window'
+          }  do %>
+          <i class="fa fa-edit pull-left edit" aria-hidden="true" title="<%= _('Edit') %>" %></i>
+        <% end %>
+        <i class="fa fa-close pull-right delete" 
+          aria-hidden="true" title="<%= _('Delete') %>" 
+          data-confirm-message="<%= d_('dmpopidor', 'Do you want to delete this %{classname}?') % { classname: type } %>"
+          data-url="<%= plan_structured_answer_path(plan.id, obj.id) %>"></i>
+      </td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+<%= link_to 'Create', new_edit_linked_fragment_plan_url(
+        plan.id, 
+        :parent_id => parent_id, 
+        :type => type
+),  {
+  :remote => true, 
+  :class => "btn btn-primary",
+  'data-toggle' =>  "modal", 
+  'data-target' => '#modal-window'
+}  %>

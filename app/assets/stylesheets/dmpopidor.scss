@@ -509,6 +509,19 @@ header .main-nav {
             padding-right: 20px;
             .project-details {
                 width: 100%;
+                //border: 2px solid $blue;
+                border-radius: 5px;
+                legend {
+                    color: $rust;
+                }
+            }
+        }
+        .linked-fragments {
+            .actions {
+                .delete{
+                    cursor: pointer;
+                    color: $rust;
+                }
             }
         }
         .guidance-configuration {

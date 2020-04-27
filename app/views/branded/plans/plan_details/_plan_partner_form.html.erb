@@ -1,0 +1,45 @@
+<%# locals: { fragment } %>
+
+<div class="form-group"><!-- partner name -->
+  <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+              f: f, 
+              field_value: fragment ? fragment["name"] : nil, 
+              multiple: false,
+              field_name: "name", 
+              field_label: _('Name')
+              } ) %>
+</div>
+
+<fieldset class="project-details"> <!-- DMP ID -->
+  <legend class="project-details"><%= _('Org ID') %></legend>
+  <div class="form-group"><!-- org id value -->
+    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+                f: f, 
+                field_value: fragment && fragment["orgId"] ? fragment["orgId"]["value"] : nil, 
+                multiple: false,
+                field_name: "orgId[value]", 
+                field_label: _('Name')
+                } ) %>
+  </div>
+  <div class="form-group"><!-- Identifier Type -->
+    <div class="col-md-12">
+      <%= f.label "structured_answer[orgId[idType]]", _('Identifier Type'), class: 'control-label' %>
+    </div>
+    <div class="col-md-10">
+      <%= select_tag "structured_answer[orgId[idType]]",
+                    options_for_select(["ROR", "ISSNI", "RNSR"],
+                    selected: fragment && fragment["orgId"] ? fragment["orgId"]["idType"] : "ROR" ),
+                    class: "form-control" %>
+    </div>
+  </div>
+</fieldset>
+
+<div class="form-group"><!-- partner name -->
+  <%= render(partial: 'plans/plan_details/fields/url_field', locals: {
+              f: f, 
+              field_value:  fragment ? fragment["dataPolicyUrl"]  : nil, 
+              multiple: false,
+              field_name: "dataPolicyUrl", 
+              field_label: _('Data Policy URL')
+              } ) %>
+</div>

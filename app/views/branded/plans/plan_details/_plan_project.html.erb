@@ -1,6 +1,8 @@
 <% project_abstract_tooltip = _("Briefly summarise your research project to help others understand the purposes for which the data are being collected or created.") %>
 
 <% project = @plan.json_fragment().project.data %>
+<% fundings = @plan.json_fragment().project.fundings %>
+<% partners = @plan.json_fragment().project.partners %>
 <% principalInvestigator = @plan.json_fragment().project.principalInvestigator ?  
                            @plan.json_fragment().project.principalInvestigator.data : nil %>
 
@@ -43,9 +45,13 @@
   </div>
 </div>
 
-<fieldset class="project-details">
-  <legend class="project-details"><%= _("Fundings") %></legend>
-  <button class="btn btn-primary"><%= _('Create') %></button>
+<fieldset class="project-details funding-list">
+  <%= render(partial: 'plans/plan_details/linked_fragment_list', locals: {
+    plan: @plan,
+    parent_id: @plan.json_fragment().project.id,
+    obj_list: fundings,
+    type: "funding"
+  }) %>
 </fieldset>
 
 <div class="form-group"><!-- project_start_date -->
@@ -67,9 +73,13 @@
               } ) %>
 </div>
 
-<fieldset class="project-details">
-  <legend class="project-details"><%= _("Partners") %></legend>
-  <button class="btn btn-primary"><%= _('Create') %></button>
+<fieldset class="project-details partner-list">
+  <%= render(partial: 'plans/plan_details/linked_fragment_list', locals: {
+    plan: @plan,
+    parent_id: @plan.json_fragment().project.id,
+    obj_list: partners,
+    type: "partner"
+  }) %>
 </fieldset>
 
 <div class="form-group"><!-- experimental_plan_url -->

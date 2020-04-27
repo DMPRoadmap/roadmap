@@ -173,6 +173,18 @@ module Dmpopidor
           # rubocop:enable Metrics/BlockLength
         end
 
+        def new_edit_linked_fragment
+          @plan = Plan.find(params[:id])
+          @type = params[:type]
+          @parent_fragment = StructuredAnswer.find(params[:parent_id])
+          @fragment = params[:fragment_id] ? StructuredAnswer.find(params[:fragment_id]) : StructuredAnswer.new
+          authorize @plan
+          respond_to do |format|
+            format.html
+            format.js
+          end
+        end
+
         # POST /plans/:id/visibility
         def visibility
           plan = Plan.find(params[:id])
