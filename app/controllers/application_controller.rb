@@ -39,13 +39,13 @@ class ApplicationController < ActionController::Base
   end
 
   # Sets FastGettext locale for every request made
-  #def set_gettext_locale
-  #  FastGettext.locale = LocaleFormatter.new(current_locale, format: :fast_gettext).to_s
-  #end
+  def set_gettext_locale
+    FastGettext.locale = LocaleService.to_gettext(locale: current_locale)
+  end
 
-  #def current_locale
-  #  session[:locale] || FastGettext.default_locale
-  #end
+  def current_locale
+    session[:locale] || FastGettext.default_locale
+  end
 
   def store_location
     # store last url - this is needed for post-login redirect to whatever the user last
