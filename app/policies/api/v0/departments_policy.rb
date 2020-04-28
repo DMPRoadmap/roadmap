@@ -30,7 +30,15 @@ module Api
       ##
       # an org-admin may assign users (from their org) to a department (from their org)
       def assign_users?
-        @user.can_org_admin? && @department.org == @user.org
+        @user.can_org_admin? &&
+        @department.present? &&
+        @department.org == @user.org
+      end
+
+      ##
+      # an org-admin may unassign users (from their org) from a department
+      def unassign_users?
+        @user.can_org_admin? 
       end
 
     end

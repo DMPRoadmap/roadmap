@@ -31,6 +31,8 @@ class Api::V0::DepartmentsController < Api::V0::BaseController
     @departments = @user.org.departments
   end
 
+  ##
+  # List the users for each department on the organisation
   def users
     unless Api::V0::DepartmentsPolicy.new(@user, nil).users?
       raise Pundit::NotAuthorizedError
@@ -38,6 +40,8 @@ class Api::V0::DepartmentsController < Api::V0::BaseController
     @users = @user.org.users.includes(:department)
   end
 
+  ##
+  # Assign the list of users to the passed department id
   def assign_users
     @department = Department.find(params[:id])
 
@@ -45,27 +49,35 @@ class Api::V0::DepartmentsController < Api::V0::BaseController
       raise Pundit::NotAuthorizedError
     end
 
-    emails = params[:users]
-    #puts emails
-    emails.each do |email|
-      user = User.find_by(email: email)
-      # Currently the validation is that the user's org matches the api users
-      # Not sure if this could/should be captured in Pundit
-      unless @user.present? && @user.org == user&.org
-        raise Pundit::NotAuthorizedError, _("user #{email} was not found on your organisation")
-      end
-
-      user.department = @department
-      user.save!
-      puts user.email
-      puts user.department
-    end
+    assign_users_to(@department.id)
     redirect_to users_api_v0_departments_path
   end
 
+  ##
+  # Remove departments from the list of users
+  def unassign_users
+    unless Api::V0::DepartmentsPolicy.new(@user, @department).assign_users?
+      raise Pudndit::NotAuthorizedError
+    end
+
+    assign_users_to(nil)
+    redirect_to users_api_v0_departments_path
+  end
 
   private
 
+  def assign_users_to(department_id)
+    params[:users].each do |email|
+      reassign = User.find_by(email: email)
+      # Currently the validation is that the user's org matches the API user's
+      # Not sure if this is possible to capture in pundit
+      unless @user.present? && @user.org == reassign&.org
+        raise Pundit::NotAuthorizedError, _("user #{email} was not found on your organisation")
+      end
 
+      reassign.department_id = department_id
+      reasign.save!
+    end
+  end
 
 end

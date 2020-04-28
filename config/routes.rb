@@ -151,6 +151,7 @@ Rails.application.routes.draw do
       resources :departments, only: [:create, :index] do
         collection do
           get :users
+          patch :unassign_users
         end
         member do
           patch :assign_users
