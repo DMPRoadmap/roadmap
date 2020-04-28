@@ -17,7 +17,7 @@ module Dmpopidor
                 partial: "index",
                 scope: scope,
                 query_params: { sort_field: 'users.last_sign_in_at', sort_direction: :desc },
-                view_all: !current_user.can_super_admin?
+                view_all: true
             )
           end
         end
