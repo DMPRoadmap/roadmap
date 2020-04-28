@@ -20,7 +20,7 @@ Click here for the latest [releases].(https://github.com/DMPRoadmap/roadmap/rele
 #### Pre-requisites
 Roadmap is a Ruby on Rails application and you will need to have:
 * Ruby >= 2.4.4
-* Rails >= 4.2
+* Rails >= 5.2
 * MySQL >= 5.0 OR PostgreSQL
 
 Further detail on how to install Ruby on Rails applications are available from the Ruby on Rails site: http://rubyonrails.org
@@ -45,17 +45,17 @@ See the [Troubleshooting Guide](https://github.com/DMPRoadmap/roadmap/wiki/Troub
 Issues should be reported here on [Github Issues](https://github.com/DMPRoadmap/roadmap/issues)
 Please be advised though that we can only provide limited support for your local installations.
 
-#### Become a contributor
+#### Contributing
 If you would like to contribute to the project. Please follow these steps to submit a contribution:
 * Comment on the Github issue (or create one if one does not exist) and let us know that you're working on it.
 * Fork the project (if you have not already) or rebase your fork so that it is up to date with the current repository's '_**development**_' branch
 * Create a new branch in your fork. This will ensure that you are able to work at your own pace and continue to pull in any updates made to this project.
 * Make your changes in the new branch
 * When you have finished your work, make sure that your version of the '_**development**_' branch is still up to date with this project. Then merge your new branch into your '_**development**_' branch.
-* Then create a new Pull Request (PR) to this project's '_**contributions**_' branch in GitHub
+* Then create a new Pull Request (PR) from your branch to this project's '_**development**_' branch in GitHub
 * The project team will then review your PR and communicate with you to convey any additional changes that would ensure that your work adheres to our guidelines.
 
-See the [Contribution Guide](https://github.com/DMPRoadmap/roadmap/wiki/Contributing) on the Wiki for more details
+See the [Contribution Guide](https://github.com/DMPRoadmap/roadmap/blob/development/CONTRIBUTING.md) on the Wiki for more details
 
 #### License
 The DMP Roadmap project uses the <a href="./LICENSE.md">MIT License</a>.
