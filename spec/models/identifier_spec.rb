@@ -23,14 +23,13 @@ RSpec.describe Identifier, type: :model do
         expect(id.valid?).to eql(false)
         expect(id.errors[:value].present?).to eql(true)
       end
-      it "prevents duplicate value for the identifier_scheme" do
+      it "allows a duplicate value for the identifier_scheme" do
         scheme = create(:identifier_scheme)
         create(:identifier, identifiable: @org, identifier_scheme: scheme,
                             value: "foo")
         id = build(:identifier, identifiable: create(:org),
                                 identifier_scheme: scheme, value: "foo")
-        expect(id.valid?).to eql(false)
-        expect(id.errors[:value].present?).to eql(true)
+        expect(id.valid?).to eql(true)
       end
       it "prevents multiple identifiers per identifier_scheme" do
         scheme = create(:identifier_scheme)
