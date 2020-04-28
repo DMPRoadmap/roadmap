@@ -958,7 +958,7 @@ namespace :upgrade do
       # First lookup by email domain
       term = user.email.split("@").last
 
-      unless %w[gmail.com yahoo.com msn.com].include?(term)
+      unless %w[gmail.com yahoo.com msn.com 126.com 163.com].include?(term)
         # Search the local Org table by its URL
         matches = Org.where("orgs.target_url LIKE ?", "%#{term}%")
         org = matches.first if matches.any?
