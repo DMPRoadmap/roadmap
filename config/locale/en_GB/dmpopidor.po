@@ -323,6 +323,9 @@ msgstr "Other Type"
 msgid "Other: "
 msgstr "Other: "
 
+msgid "Other"
+msgstr "Other"
+
 msgid "Persistent Identifier"
 msgstr "Persistent Identifier"
 

@@ -18,7 +18,7 @@
         <tr class="table-data">
           <td><%= plan.title %></td>
           <td><%= plan.template.title %></td>
-          <td><%= (plan.owner.nil? || plan.owner.org.nil? ? _('Not Applicable') : plan.owner.org.name) %></td>
+          <td><%= (plan.owner.org.is_other? ? "#{ d_('dmpopidor', 'Other') } ( #{ plan.owner.other_organisation} )" : plan.owner.org.name) %></td>
           <td><%= (plan.owner.nil? ? _('Unknown') : plan.owner.name(false)) %></td>
           <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
           <td class="text-center">

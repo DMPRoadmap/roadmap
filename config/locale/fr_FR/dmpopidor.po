@@ -324,6 +324,9 @@ msgstr "Autre type"
 msgid "Other: "
 msgstr "Autre : "
 
+msgid "Other"
+msgstr "Autre"
+
 msgid "Persistent Identifier"
 msgstr "Identifiant Pérenne"
 
