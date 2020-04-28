@@ -420,7 +420,7 @@ class Plan < ActiveRecord::Base
     reviewer = User.find(user_id)
     feedback_requested? &&
     reviewer.present? &&
-    reviewer.org_id == owner.org_id &&
+    reviewer.org_id == owner&.org_id &&
     reviewer.can_review_plans?
   end
 
