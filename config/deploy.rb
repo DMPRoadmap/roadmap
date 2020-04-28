@@ -48,9 +48,9 @@ namespace :deploy do
   after :deploy, 'cleanup:copy_tinymce_skins'
   after :deploy, 'cleanup:copy_logo'
   after :deploy, 'cleanup:copy_favicon'
+  after :deploy, 'git:version'
   after :deploy, 'cleanup:remove_example_configs'
   after :deploy, 'cleanup:restart_passenger'
-  after :deploy, 'git:version'
 end
 
 namespace :config do
@@ -68,7 +68,7 @@ namespace :git do
   task :version do
     on roles(:app), wait: 1 do
       execute "touch #{release_path}/.version"
-      execute "echo `#{fetch :version_number}` >> #{release_path}/.version"
+      execute "echo '#{fetch :version_number}' >> #{release_path}/.version"
     end
   end
 end
