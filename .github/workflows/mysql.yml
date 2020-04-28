@@ -1,4 +1,4 @@
-name: Run Tests (mySQL)
+name: Tests - sMySQL
 
 on: [pull_request]
 

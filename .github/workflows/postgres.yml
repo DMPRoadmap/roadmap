@@ -1,4 +1,4 @@
-name: Run Tests (postgreSQL)
+name: Tests - PostgreSQL
 
 on: [pull_request]
 
