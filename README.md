@@ -1,5 +1,7 @@
 ## DMP Roadmap
 
+[![Actions Status](https://github.com/{owner}/{repo}/workflows/postgreSQL/badge.svg)](https://github.com/DMPRoadmap/roadmap/actions)
+
 DMP Roadmap is a Data Management Planning tool. Management and development of DMP Roadmap is jointly provided by the Digital Curation Centre (DCC), http://www.dcc.ac.uk/, and the University of California Curation Center (UC3), http://www.cdlib.org/services/uc3/
 
 The tool has four main functions:
@@ -10,7 +12,6 @@ The tool has four main functions:
 4. To allow collaborative work when creating Data Management Plans.
 
 Click here for the latest [releases].(https://github.com/DMPRoadmap/roadmap/releases/)
-[![Actions Status](https://github.com/{owner}/{repo}/workflows/postgres/badge.svg)](https://github.com/DMPRoadmap/roadmap/actions)
 
 #### Pre-requisites
 Roadmap is a Ruby on Rails application and you will need to have:
