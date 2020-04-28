@@ -10,7 +10,7 @@ The tool has four main functions:
 4. To allow collaborative work when creating Data Management Plans.
 
 Click here for the latest [releases].(https://github.com/DMPRoadmap/roadmap/releases/)
-[![Build Status](https://travis-ci.org/DMPRoadmap/roadmap.svg)](https://travis-ci.org/DMPRoadmap/roadmap)
+[![Actions Status](https://github.com/{owner}/{repo}/workflows/postgres/badge.svg)](https://github.com/DMPRoadmap/roadmap/actions)
 
 #### Pre-requisites
 Roadmap is a Ruby on Rails application and you will need to have:
@@ -54,5 +54,3 @@ See the [Contribution Guide](https://github.com/DMPRoadmap/roadmap/wiki/Contribu
 
 #### License
 The DMP Roadmap project uses the <a href="./LICENSE.md">MIT License</a>.
-
-
