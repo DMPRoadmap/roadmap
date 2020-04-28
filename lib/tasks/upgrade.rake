@@ -1,17 +1,25 @@
 require 'set'
 namespace :upgrade do
 
-  desc "Upgrade to v2.2.0"
-  task v2_2_0: :environment do
-    Rake::Task["upgrade:add_new_identifier_schemes"].execute
-    Rake::Task["upgrade:update_shibboleth_description"].execute
-    Rake::Task["upgrade:contextualize_identifier_schemes"].execute
-    Rake::Task["upgrade:convert_user_identifiers"].execute
-    Rake::Task["upgrade:convert_org_identifiers"].execute
-    Rake::Task["upgrade:default_orgs_to_managed"].execute
+  desc "Upgrade to v2.2.0 Part 1"
+  task v2_2_0_part1: :environment do
+    p "Upgrading to v2.2.0 (part 1) ... A summary report will be generated when complete"
+    p "------------------------------------------------------------------------"
+    Rake::Task["upgrade:upgrade_2_2_0_identifier_schemes"].execute
+    Rake::Task["upgrade:upgrade_2_2_0_identifiers"].execute
+    Rake::Task["upgrade:upgrade_2_2_0_orgs"].execute
+    Rake::Task["upgrade:results_2_2_0_part1"].execute
+  end
+
+  desc "Upgrade to v2.2.0 Part 2"
+  task v2_2_0_part2: :environment do
+    p "Upgrading to v2.2.0 (part 2) ... A summary report will be generated when complete"
+    p "------------------------------------------------------------------------"
     Rake::Task["upgrade:migrate_other_organisation_to_org"].execute
-    Rake::Task["upgrade:retrieve_ror_fundref_ids"].execute
     Rake::Task["upgrade:migrate_contributors"].execute
+    Rake::Task["upgrade:migrate_plan_org_and_funder"].execute
+    Rake::Task["upgrade:migrate_plan_grants"].execute
+    Rake::Task["upgrade:results_2_2_0_part2"].execute
   end
 
   desc "Upgrade to v2.1.3"
@@ -143,11 +151,16 @@ namespace :upgrade do
     Rake::Task['upgrade:add_missing_token_permission_types'].execute
     orgs = Org.where(is_other: false).select(:id)
     orgs.each do |org|
-      org.grant_api!(TokenPermissionType.where(token_type: 'statistics'))
+      unless org.token_permission_types.include?(TokenPermissionType::STATISTICS)
+        org.grant_api!(TokenPermissionType.where(token_type: 'statistics'))
+      end
+      unless org.token_permission_types.include?(TokenPermissionType::PLANS)
+        org.grant_api!(TokenPermissionType.where(token_type: 'plans'))
+      end
     end
     users = User.joins(:perms).where(org_id: orgs).where(api_token: [nil, ''])
     users.each do |user|
-      if user.can_org_admin?
+      if user.can_org_admin? && user.api_token.blank?
         # Generate the tokens directly instead of via the User.keep_or_generate_token! method so that we do not spam users!!
         user.api_token = loop do
           random_token = SecureRandom.urlsafe_base64(nil, false)
@@ -709,6 +722,28 @@ namespace :upgrade do
     Role.reviewer.destroy_all
   end
 
+
+  # -------------------------------------------------
+  # TASKS FOR 2.2.0
+  desc "run all of the identifier_scheme changes"
+  task upgrade_2_2_0_identifier_schemes: :environment do
+    Rake::Task["upgrade:add_new_identifier_schemes"].execute
+    Rake::Task["upgrade:update_shibboleth_description"].execute
+    Rake::Task["upgrade:contextualize_identifier_schemes"].execute
+  end
+  desc "run all of the identifier changes"
+  task upgrade_2_2_0_identifiers: :environment do
+    Rake::Task["upgrade:convert_org_identifiers"].execute
+    p "--------------------------"
+    Rake::Task["upgrade:convert_user_identifiers"].execute
+  end
+  desc "run all of the org changes"
+  task upgrade_2_2_0_orgs: :environment do
+    Rake::Task["upgrade:default_orgs_to_managed"].execute
+    p "--------------------------"
+    Rake::Task["upgrade:retrieve_ror_fundref_ids"].execute
+  end
+
   desc "add the ROR and Fundref identifier schemes"
   task add_new_identifier_schemes: :environment do
     unless IdentifierScheme.where(name: "fundref").any?
@@ -766,15 +801,37 @@ namespace :upgrade do
   desc "migrate the old user_identifiers over to the polymorphic identifiers table"
   task convert_user_identifiers: :environment do
     p "Transferring existing user_identifiers over to the identifiers table"
-    p "this may take in excess of 30 minutes depending on the size of your users table ..."
-    UserIdentifier.joins(:user, :identifier_scheme)
-                  .includes(:user, :identifier_scheme).all.each do |ui|
+    p "this may take in excess of 10 minutes depending on the size of your users table ..."
+    identifiers = UserIdentifier.joins(:user, :identifier_scheme)
+                                .includes(:user, :identifier_scheme)
+                                .where.not(identifier: nil)
+                                .where.not(identifier: '')
 
-      ui.user.identifiers << Identifier.new(
-        identifier_scheme: ui.identifier_scheme,
-        value: ui.identifier,
-        attrs: {}.to_json
-      )
+    Parallel.map(identifiers, in_threads: 8) do |ui|
+      # Parallel has trouble with ActiveRecord lazy loading
+      require "org" unless Object.const_defined?("Org")
+      require "identifier" unless Object.const_defined?("Identifier")
+      require "identifier_scheme" unless Object.const_defined?("IdentifierScheme")
+      @reconnected ||= Identifier.connection.reconnect! || true
+
+      lookup = Identifier.where(identifiable_id: ui.user_id,
+                                identifiable_type: "User",
+                                identifier_scheme: ui.identifier_scheme)
+      next if lookup.present?
+
+      Identifier.create(identifier_scheme: ui.identifier_scheme, attrs: {}.to_json,
+                        identifiable: ui.user, value: ui.identifier)
+    end
+
+    count = Identifier.where(identifiable_type: "User").length
+    p "Transfer complete. Orginal user_identifier count #{identifiers.length}, new identifiers count #{count}"
+    if identifiers.length > count
+      p ""
+      p "#{identifiers.length - count} records could not be transferred."
+      p "This is typically due to the fact that the new identifiers table will automatically"
+      p "prepend the identifier_scheme.identifier_prefix to the value For example: "
+      p "    '0000-0000-0000-0001' would become 'https://orcid.org/0000-0000-0000-0001'"
+      p "and your old user_identifiers table may have an entry for both versions"
     end
   end
 
@@ -782,47 +839,43 @@ namespace :upgrade do
   task convert_org_identifiers: :environment do
     p "Transferring existing org_identifiers over to the identifiers table"
     p "please wait ..."
-    OrgIdentifier.joins(:org, :identifier_scheme)
-                 .includes(:org, :identifier_scheme).all.each do |ui|
+    identifiers = OrgIdentifier.joins(:org, :identifier_scheme)
+                               .includes(:org, :identifier_scheme)
+                               .where.not(identifier: nil)
+                               .where.not(identifier: '')
+                               .order(id: :desc)
 
-      val = ui.identifier
-      val = "https://orcid.org/#{val}" if ui.identifier_scheme.name == "orcid" && !val.starts_with?("http")
+    Parallel.map(identifiers, in_threads: 8) do |oi|
+      # Parallel has trouble with ActiveRecord lazy loading
+      require "org" unless Object.const_defined?("Org")
+      require "identifier" unless Object.const_defined?("Identifier")
+      require "identifier_scheme" unless Object.const_defined?("IdentifierScheme")
+      @reconnected ||= Identifier.connection.reconnect! || true
 
-      ui.org.identifiers << Identifier.new(
-        identifier_scheme: ui.identifier_scheme,
-        value: val,
-        attrs: ui.attrs
-      )
+      lookup = Identifier.where(identifiable_id: oi.org_id,
+                                identifiable_type: "Org",
+                                identifier_scheme: oi.identifier_scheme)
+      next if lookup.present?
+
+      Identifier.create(identifier_scheme: oi.identifier_scheme, attrs: oi.attrs,
+                        identifiable: oi.org, value: oi.identifier)
+    end
+    count = Identifier.where(identifiable_type: "Org").length
+    p "Transfer complete. Orginal org_identifier count #{identifiers.length}, new identifiers count #{count}"
+    if identifiers.length > count
+      p ""
+      p "#{identifiers.length - count} records could not be transferred. Run the following query manually to identify them:"
+      p "  SELECT * FROM org_identifiers WHERE org_id NOT IN ("
+      p "    SELECT identifiers.identifiable_id FROM identifiers "
+		  p "    WHERE identifiers.identifier_scheme_id = org_identifiers.identifier_scheme_id AND identifiable_type = 'Org'"
+	    p "  );"
+      p "Then transfer them manually."
     end
   end
 
   desc "Sets the new managed flag for all existing Orgs to managed = true"
   task default_orgs_to_managed: :environment do
     Org.all.update_all(managed: true)
-  end
-
-  desc "Attempts to migrate other_organisation entries to Orgs"
-  task migrate_other_organisation_to_org: :environment do
-    names = User.all.where.not(other_organisation: nil)
-                 .pluck(:other_organisation).uniq
-    names.each do |name|
-      # Skip any blank names
-      next if name.gsub(/\s/, "").blank?
-
-      matches = OrgSelection::SearchService.search_locally(search_term: name)
-
-      # If any matches were found then we will use that as the Org
-      org = matches.first if matches.any?
-      p "Found matching org: search: '#{name}' => '#{org[:name]}'" if org.present?
-
-      # Otherwise create the Org
-      org = Org.create(name: name, managed: false, is_other: false) if matches.empty?
-      p "Created new org: search: '#{name}'" if org.present?
-      next unless org.present? && org.is_a?(Org)
-
-      # Attach all users with that other_organisation to the Org
-      User.where(other_organisation: name).update_all(org_id: org.id)
-    end
   end
 
   desc "retrieves ROR ids for each of the Orgs defined in the database"
@@ -839,9 +892,10 @@ namespace :upgrade do
         p "The CSV file contains the Org name stored in your DB next to the ROR org name that was matched. Use these 2 values to determine if the match was valid."
         p "You can use the ROR search page to find the correct match for any organizations that need to be corrected: https://ror.org/search"
         p ""
-        Org.includes(identifiers: :identifier_scheme)
-           .where(is_other: false).order(:name).each do |org|
+        orgs = Org.includes(identifiers: :identifier_scheme)
+                  .where(is_other: false).order(:name)
 
+        orgs.each do |org|
           # If the Org already has a ROR identifier skip it
           next if org.identifiers.select { |id| id.identifier_scheme_id == ror.id }.any?
 
@@ -889,18 +943,84 @@ namespace :upgrade do
     end
   end
 
+  desc "Attempts to migrate other_organisation entries to Orgs"
+  task migrate_other_organisation_to_org: :environment do
+    is_other = Org.find_by(is_other: true)
+    p "No is_other Org defined, so no orgs need to be created!" unless is_other.present?
+    return false unless is_other.present?
+
+    users = User.where(org: is_other)
+    p "Processing #{users.length} users attached to '#{is_other.name}' #{is_other.id}"
+    p "this may take more than 15 minutes depending on how many users are in your database"
+    # Unfortunately can't use the Parallel gem here because we can have collisions
+    # when creating Orgs
+    users.each do |user|
+      # First lookup by email domain
+      term = user.email.split("@").last
+
+      unless %w[gmail.com yahoo.com msn.com].include?(term)
+        # Search the local Org table by its URL
+        matches = Org.where("orgs.target_url LIKE ?", "%#{term}%")
+        org = matches.first if matches.any?
+
+        # by RorService if not already in the DB
+        unless org.present?
+          # Just use the host (e.g. 'rutgers' instead of 'rutgers.edu')
+          host = term.split('.').first
+          next unless host.length > 2
+
+          matches = OrgSelection::SearchService.search_externally(search_term: host)
+          # Only allow results that INCLUDE the search term in parenthesis
+          matches = matches.select do |result|
+            result[:weight] <= 1 && result[:name].include?("(#{term})")
+          end
+
+          org = OrgSelection::HashToOrgService.to_org(hash: matches.first, allow_create: true) if matches.any?
+          org = create_org(org, matches.first) if org.present?
+        end
+      end
+
+      # Otherwise lookup by other_organisation name
+      if !org.present? && user.other_organisation.present?
+        term = user.other_organisation
+        matches = OrgSelection::SearchService.search_externally(search_term: term)
+        # Only allow results that START WITH the search term
+        matches = matches.select { |result| result[:weight] == 0 }
+        org = OrgSelection::HashToOrgService.to_org(hash: matches.first, allow_create: true) if matches.any?
+        org = create_org(org, matches.first)  if org.present? && org.valid?
+      end
+
+      # Otherwise create the Org
+      if org.nil? && user.other_organisation.present?
+        name = user.other_organisation
+        abbrev = OrgSelection::SearchService.name_without_alias(name: name)
+                                            .split(" ").map(&:first).join.upcase
+        org = Org.new(name: name, managed: false, is_other: false,
+                         abbreviation: abbrev, language: Language.default)
+        org.save if org.present? && org.valid?
+      end
+
+      if org.present? && org.valid?
+        # Attach the user to the Org
+        p "  User id: #{user.id} - #{user.email} attaching to org_id: #{org.id} - #{org.name}"
+        user.update(org_id: org.id)
+      end
+    end
+
+    final = User.where(org: is_other).length
+    p "Complete: #{users.length - final} users could not be processed. Left them attached to '#{is_other.name}'"
+  end
+
   desc "migrates any data_contact/principal_investigator information from plans table to contributors"
   task migrate_contributors: :environment do
     orcid = IdentifierScheme.find_by(name: "orcid")
 
     # Loop through the plans and convert the Data Contact, owners and PI
     # into Contributors
-    Plan.includes(:contributors, roles: :user).joins(roles: :user).each do |plan|
+    plans = Plan.includes(:contributors, roles: :user).joins(roles: :user)
+
+    Parallel.map(plans, in_threads: 8) do |plan|
       next if plan.contributors.any?
-
-      p "--------------------------------------------------"
-      p "Processing Plan: '#{plan.id} - #{plan.title}'"
-
       owner = plan.owner
 
       # Either use the Data Contact specified on the plan
@@ -917,7 +1037,7 @@ namespace :upgrade do
       if contact.present?
         contact.save
         contact.data_curation = true
-        p "    adding contact: #{contact.name} #{contact.email} (#{contact_id&.value})"
+        contact.investigation = true if owner.present?
         contact.save
         contact_id.save if contact_id.present?
       end
@@ -931,7 +1051,6 @@ namespace :upgrade do
       if pi.present?
         pi.save
         pi.investigation = true
-        p "    adding PI:      #{pi.name} #{pi.email} (#{pi_id&.value})"
         pi.save
         pi_id.save if pi_id.present?
       end
@@ -944,12 +1063,161 @@ namespace :upgrade do
         if user.present?
           user.save
           user.data_curation = true
-          p "    adding author:  #{user.name} #{user.email} (#{id&.value})"
           user.save
           id.save if id.present?
         end
       end
+
+      plan.reload
+      if plan.contributors.length > 0
+        p "Processed Plan #{plan.id} - which now has #{plan.contributors.length} contributor(s)"
+      end
     end
+  end
+
+  desc "Attach Plans to their owner's Org and then back fill the Funder"
+  task migrate_plan_org_and_funder: :environment do
+    plans = Plan.includes(template: :org, roles: :user)
+                .joins(template: :org, roles: :user)
+
+    p "Attaching Plans to Orgs ... this can take in excess of 5 minutes depending on how many plans you have."
+    Parallel.map(plans, in_threads: 8) do |plan|
+      next if plan.org_id.present?
+
+      # Parallel has trouble with ActiveRecord lazy loading
+      require "plan" unless Object.const_defined?("Plan")
+      require "role" unless Object.const_defined?("Role")
+      require "perm" unless Object.const_defined?("Perm")
+      require "user" unless Object.const_defined?("User")
+      @reconnected ||= Plan.connection.reconnect! || true
+
+      next unless plan.owner.present? && plan.owner.org.present?
+
+      plan.update(org_id: plan.owner.org.id)
+    end
+
+    p "Attaching Plans to Funders"
+    Parallel.map(plans, in_threads: 8) do |plan|
+      next if plan.funder_id.present?
+
+      # Parallel has trouble with ActiveRecord lazy loading
+      require "plan" unless Object.const_defined?("Plan")
+      require "template" unless Object.const_defined?("Template")
+      require "org" unless Object.const_defined?("Org")
+      @reconnected ||= Plan.connection.reconnect! || true
+
+      next unless plan.funder_name.present? || plan.template.org.funder?
+
+      funder_id = plan.template.org.id if plan.template.org.funder?
+
+      if plan.funder_name.present? && !funder_id.present?
+        matches = OrgSelection::SearchService.search_externally(search_term: plan.funder_name)
+        # Only allow results that INCLUDE the search term in parenthesis
+        matches = matches.select do |result|
+          result[:weight] <= 1 && result[:name].include?("(#{plan.funder_name})")
+        end
+
+        org = OrgSelection::HashToOrgService.to_org(hash: matches.first, allow_create: true) if matches.any?
+        org = create_org(org, matches.first)  if org.present? && org.valid?
+        funder_id = org.id if org.present?
+      end
+
+      plan.update(funder_id: funder_id) if funder_id.present?
+    end
+    p "Complete"
+  end
+
+  desc "Migrate the Plans grant_number to an Identifier"
+  task migrate_plan_grants: :environment do
+    plans = Plan.where.not(grant_number: nil).where.not(grant_number: "")
+
+    p "Converting Plan.grant_number into Identifiers"
+    #Parallel.map(plans, in_threads: 8) do |plan|
+    plans.each do |plan|
+      # Parallel has trouble with ActiveRecord lazy loading
+      require "plan" unless Object.const_defined?("Plan")
+      @reconnected ||= Plan.connection.reconnect! || true
+
+      identifier = Identifier.find_or_create_by(
+        identifier_scheme_id: nil, identifiable: plan, value: plan.grant_number
+      )
+      plan.update(grant_id: identifier.id)
+    end
+    p "Complete"
+  end
+
+  desc "Generate stats for all of the 2.2.0 upgrade scripts"
+  task results_2_2_0_part1: :environment do
+    ror = IdentifierScheme.find_by(name: "ror")
+    fundref = IdentifierScheme.find_by(name: "fundref")
+    org_identifiers_migrated = Identifier.where(identifiable_type: 'Org')
+                                         .where.not(identifier_scheme: [ror, fundref])
+                                         .count
+    user_identifiers_migrated = Identifier.where(identifiable_type: 'User')
+                                          .where.not(identifier_scheme: [ror, fundref])
+                                          .count
+    rors_added = Identifier.where(identifiable_type: 'Org', identifier_scheme: ror).count
+    fundrefs_added = Identifier.where(identifiable_type: 'Org', identifier_scheme: fundref).count
+
+    p "---------------------------------------------------------------"
+    p "Results of v2.2.0 part 1 upgrade:"
+    p "    Added new IdentifierScheme: #{ror.id}, '#{ror.name}', '#{ror.description}'"
+    p "    Added new IdentifierScheme: #{fundref.id}, '#{fundref.name}', '#{fundref.description}'"
+    p ""
+    p "    Migrated #{number_with_delimiter(org_identifiers_migrated)} from org_identifiers to identifiers table."
+    p "    Migrated #{number_with_delimiter(user_identifiers_migrated)} from user_identifiers to identifiers table."
+    p "      NOTE: org_identifier and user_identifiers tables are being deprecated and will be dropped in a future release."
+    p ""
+    p "    Assigned #{number_with_delimiter(rors_added)} ROR identifiers to your Orgs"
+    p "    Assigned #{number_with_delimiter(fundrefs_added)} Crossref Funder identifiers to your Orgs"
+    p "      NOTE: Please refer to the tmp/ror_fundref_ids.csv file to see how the assigment worked."
+    p "            You should make any adjustments BEFORE running part 2 of the upgrade scripts!"
+    p "            For example ROR sometimes incorrectly matches Orgs. For example:"
+    p "               'University of Somewhere' may match to 'Univerity of Somewhere - Medical Center'"
+    p "            To correct any issues, please delete/insert/update the corresponding Identifier:"
+    p "               delete from identifiers where identifiable_type = 'Org' and identifiable_id = [orgs.id];"
+    p "               insert into identifiers (identifiable_type, identifier_scheme_id, attrs, identifiable_id, value) values ('Org', [identifier_scheme_id], '{}', [orgs.id], 'https://api.crossref.org/funders/0000000000');"
+    p "               update identifiers set `value` = 'https://ror.org/123456789' where identifiable_id = [orgs.id] and identifier_scheme_id = [identifier_scheme_id] and identifiable_type= 'Org';"
+    p "---------------------------------------------------------------"
+  end
+
+  desc "Generate stats for all of the 2.2.0 upgrade scripts"
+  task results_2_2_0_part2: :environment do
+    ror = IdentifierScheme.find_by(name: "ror")
+    fundref = IdentifierScheme.find_by(name: "fundref")
+    is_other = Org.find_by(is_other: true)
+    unaffiliated = User.where(org_id: is_other.id).count
+    unmanaged_orgs = Org.where(managed: false).count
+    managed_orgs = Org.where(managed: true).count
+    contributors_converted = Contributor.all.count
+    orgs_converted = Plan.where.not(org_id: nil).count
+    funders_converted = Plan.where.not(funder_id: nil).count
+    grants_converted = Plan.where.not(grant_id: nil).count
+
+    p "---------------------------------------------------------------"
+    p "Results of v2.2.0 part 2 upgrade:"
+    p "    Set #{number_with_delimiter(managed_orgs)} Orgs to 'managed: true' (all of your existing Orgs)"
+    p "      The is_other Org is deprecated. Users will not be added to this old default Org in the future."
+    p "      you should try to move any remaining users over to actual Orgs, this may require you to create "
+    p "      a new Org and attach the user to it."
+    p "        `SELECT id, email, other_organisation FROM users WHERE org_id = (SELECT orgs.id FROM orgs WHERE is_other = true);"
+    p "      NOTE: all code that checks for `is_other` will instead check `managed` in future releases."
+    p ""
+    p "    Added #{number_with_delimiter(unmanaged_orgs)} Orgs"
+    p "      NOTE: These Orgs were created from the Funders listed in plans.funder_name and also by examining"
+    p "            all of the users attached to the is_other Org (first checking the domain of the user's email"
+    p "            address and then the text value stored in other_organisation)."
+    p "            In the case of a User, the user was associated with that new Org"
+    p "    Added #{number_with_delimiter(contributors_converted)} Contributor based on the old DataContact, PrincipalInvestigator and Plan Owner"
+    p "      NOTE: the old data_contact and principal_investigator fields on the plans table are deprecated and will be removed in a future release."
+    p ""
+    p "    Attached #{number_with_delimiter(orgs_converted)} Plans to an Org based on the Owner's Org"
+    p "    Attached #{number_with_delimiter(funders_converted)} Plans to a Funder based on either the Template's Org (if it was a funder) or the name in funder_name field."
+    p "    Migrate #{number_with_delimiter(grants_converted)} Plan grant_numbers to Identifiers"
+    p "      NOTE: funder_name and grant_number fields on the plans table are deprecated and will be dropped in a future release"
+    p ""
+    p "    #{number_with_delimiter(unaffiliated)} users are still associated with '#{is_other.name}' (is_other Org)."
+    p "---------------------------------------------------------------"
   end
 
   private
@@ -1005,6 +1273,21 @@ namespace :upgrade do
                                           identifier_scheme: orcid)
     id.value = orcid_id
     return contributor, id
+  end
+
+  def create_org(org, match)
+    org.save
+    OrgSelection::HashToOrgService.to_identifiers(hash: match).each do |identifier|
+      next unless identifier.value.present?
+
+      identifier.identifiable = org
+      identifier.save
+    end
+    org.reload
+  end
+
+  def number_with_delimiter(number)
+    number.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
   end
 
 end
