@@ -131,7 +131,8 @@ $(() => {
   $('.linked-fragments .actions .delete').click((e) => {
     const target = $(e.target);
     // TODO : replace confirm()
-    const confirmed = confirm(target.data('confirm-message'))
+    // eslint-disable-next-line
+    const confirmed = confirm(target.data('confirm-message'));
     if (confirmed) {
       $.ajax({
         url: target.data('url'),

@@ -518,9 +518,13 @@ header .main-nav {
         }
         .linked-fragments {
             .actions {
+                width: 20%;
                 .delete{
                     cursor: pointer;
-                    color: $rust;
+                    color: $blue;
+                    &:hover {
+                        text-decoration: underline;
+                    }
                 }
             }
         }
