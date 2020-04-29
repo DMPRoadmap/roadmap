@@ -1,1 +1,77 @@
-<h1>FUNDING</h1>
+<%# locals: { fragment } %>
+<fieldset class="project-details"> <!-- Funder -->
+  <legend class="project-details"><%= _('Funder') %></legend>
+  <div class="form-group"><!-- funder name-->
+    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+                f: f, 
+                field_value: fragment && fragment["funder"] ? fragment["funder"]["name"] : nil, 
+                multiple: false,
+                field_name: "funder[name]", 
+                field_label: _('Name')
+                } ) %>
+  </div>
+  <div class="form-group"><!-- funder id value -->
+    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+                f: f, 
+                field_value: fragment && fragment["funder"] && fragment["funder"]["funderId"] ? fragment["funder"]["funderId"]["value"] : nil, 
+                multiple: false,
+                field_name: "funder[funderId[value]]", 
+                field_label: _('Identifiant')
+                } ) %>
+  </div>
+  <div class="form-group"><!-- funder id type -->
+    <div class="col-md-12">
+      <%= f.label "structured_answer[funder[funderId[idType]]]", _('Identifier Type'), class: 'control-label' %>
+    </div>
+    <div class="col-md-10">
+      <%= select_tag "structured_answer[funder[funderId[idType]]]",
+                    options_for_select(["ROR", "ISSNI", "RNSR", "FundRef"],
+                    selected: fragment && fragment["funder"] && fragment["funder"]["funderId"]  ? fragment["funder"]["funderId"]["idType"] : "ROR" ),
+                    class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group"><!-- funder dataPolicyUrl -->
+    <%= render(partial: 'plans/plan_details/fields/url_field', locals: {
+                f: f, 
+                field_value:  fragment && fragment["funder"] ? fragment["funder"]["dataPolicyUrl"]  : nil, 
+                multiple: false,
+                field_name: "funder[dataPolicyUrl]", 
+                field_label: _('Data Policy URL')
+                } ) %>
+  </div>
+</fieldset>
+
+<fieldset class="project-details"> <!-- Grant ID -->
+  <legend class="project-details"><%= _('Grant ID') %></legend>
+  <div class="form-group"><!-- grand id value -->
+    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+                f: f, 
+                field_value: fragment && fragment["grantId"] ? fragment["grantId"]["value"] : nil, 
+                multiple: false,
+                field_name: "grantId[value]", 
+                field_label: _('Value')
+                } ) %>
+  </div>
+  <div class="form-group"><!-- grand id type -->
+    <div class="col-md-12">
+      <%= f.label "structured_answer[grantId[idType]]", _('Identifier Type'), class: 'control-label' %>
+    </div>
+    <div class="col-md-10">
+      <%= select_tag "structured_answer[grantId[idType]]",
+                    options_for_select(["DOI", "URL"],
+                    selected: fragment && fragment["grantId"] ? fragment["grantId"]["idType"] : "DOI" ),
+                    class: "form-control" %>
+    </div>
+  </div>
+</fieldset>
+<div class="form-group"><!-- funding status -->
+  <div class="col-md-12">
+    <%= f.label "structured_answer[fundingStatus]", _('Funding Status'), class: 'control-label' %>
+  </div>
+  <div class="col-md-10">
+    <%= select_tag "structured_answer[fundingStatus]",
+                options_for_select(["Planned","Applied", "Granted", "Rejected"],
+                selected: fragment ? fragment["fundingStatus"] : "Planned" ),
+                class: "form-control" %>
+  </div>
+</div>

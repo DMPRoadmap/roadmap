@@ -72,7 +72,9 @@ class StructuredAnswersController < ApplicationController
     private
     def funding_params
         params.require(:structured_answer)
-              .permit()
+              .permit(:dmp_id, :parent_id, :fundingStatus,
+                      funder: [:name, :dataPolicyUrl, funderId: [:value, :idType]],
+                      grantId: [:value, :idType])
     end
    
     def partner_params
