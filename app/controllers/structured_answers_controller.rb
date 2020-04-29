@@ -60,7 +60,7 @@ class StructuredAnswersController < ApplicationController
         fragment = StructuredAnswer.find(params[:id])
         type = fragment.classname
         parent_id = fragment.parent_id
-        obj_list = Fragment::Partner.where(dmp_id: fragment.dmp_id)
+        obj_list = StructuredAnswer.where(dmp_id: fragment.dmp_id, classname: type)
         
         if fragment.destroy
             render json: { 
