@@ -10,6 +10,7 @@
                         html: {method: :post, remote: true, class: 'form-horizontal edit_plan', id: "structured_answer_form" } do |f| %>  
       <%= f.hidden_field :dmp_id, :value => @parent_fragment.dmp.id , id: nil %>
       <%= f.hidden_field :parent_id, :value => @parent_fragment.id , id: nil %>
+      <%= f.hidden_field :id, id: nil %>
       <div class="modal-body">
           <% case @type %>
           <% when "partner" %>

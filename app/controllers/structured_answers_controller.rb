@@ -6,47 +6,53 @@ class StructuredAnswersController < ApplicationController
 
     def create_or_update
         @plan = Plan.find(params[:plan_id])
+        p_params = permitted_params()
         type = params[:type]
-        obj_list = []
-        parent_id = nil
+        data = nil
         #authorize @plan
-
-
         case type
         when "partner"
             data = partner_params
-            dmp_id = data.delete(:dmp_id)
-            parent_id = data.delete(:parent_id)
-            fragment = Fragment::Partner.create(
-                dmp_id: dmp_id,
-                parent_id: parent_id,
-                structured_data_schema: StructuredDataSchema.find_by(classname: "partner"),
-                data: data
-            )
-            obj_list = Fragment::Partner.where(dmp_id: dmp_id)
-        when "funding"
+        when "funding"    
             data = funding_params
-            dmp_id = data.delete(:dmp_id)
-            parent_id = data.delete(:parent_id)
-            fragment = Fragment::Funding.create(
-                dmp_id: dmp_id,
-                parent_id: parent_id,
-                structured_data_schema: StructuredDataSchema.find_by(classname: "funding"),
-                data: data
-            )
-            obj_list = Fragment::Funding.where(dmp_id: dmp_id)
-        else
         end
 
-        render json: { 
-            "type" => type,
-            "html" => render_to_string(partial: 'plans/plan_details/linked_fragment_list', locals: {
-                        plan: @plan,
-                        parent_id: parent_id,
-                        obj_list: obj_list,
-                        type: type
-              })
-        }
+        # rubocop:disable BlockLength
+        StructuredAnswer.transaction do
+            begin
+                @fragment = StructuredAnswer.find_by!(
+                    id: p_params[:id],
+                    dmp_id: p_params[:dmp_id]
+                )
+                @fragment.update(
+                    data: data
+                )
+                @fragment.save!
+            rescue  ActiveRecord::RecordNotFound
+                @fragment = StructuredAnswer.create(
+                    dmp_id: p_params[:dmp_id],
+                    parent_id: p_params[:parent_id],
+                    structured_data_schema: StructuredDataSchema.find_by(classname: type),
+                    data: data
+                )
+            end
+        end
+        
+        if @fragment.present?
+            obj_list = StructuredAnswer.where(
+                dmp_id: @fragment.dmp_id,
+                classname: type
+            )
+            render json: { 
+                "type" => type,
+                "html" => render_to_string(partial: 'plans/plan_details/linked_fragment_list', locals: {
+                            plan: @plan,
+                            parent_id: @fragment.parent_id,
+                            obj_list: obj_list,
+                            type: type
+                })
+            }
+        end
     end
 
     def destroy 
@@ -70,16 +76,21 @@ class StructuredAnswersController < ApplicationController
     end
 
     private
+    def permitted_params
+        params.require(:structured_answer)
+              .permit(:id, :dmp_id, :parent_id)
+    end
+
     def funding_params
         params.require(:structured_answer)
-              .permit(:dmp_id, :parent_id, :fundingStatus,
+              .permit(:fundingStatus,
                       funder: [:name, :dataPolicyUrl, funderId: [:value, :idType]],
                       grantId: [:value, :idType])
     end
    
     def partner_params
         params.require(:structured_answer)
-              .permit(:dmp_id, :parent_id, :name, :dataPolicyUrl,
+              .permit(:name, :dataPolicyUrl,
                       orgId: [:value, :idType])
     end
 end
