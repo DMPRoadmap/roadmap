@@ -24,10 +24,10 @@ msgstr ""
 msgid "Account expired in %{tool_name}"
 msgstr ""
 
-msgid "Your account has been deactivated"
+msgid "The personal information of your account have been anonymized. You will no longer be able to access your DMP OPIDoR account, the plans you created and the plans your colleagues shared with you."
 msgstr ""
 
-msgid "All accounts inactive for 5 years are automaticaly deactivated"
+msgid "If you want to use DMP OPIDoR again, please create a new account."
 msgstr ""
 
 msgid "You have not signed in since %{last_sign_in_date} and our system will deactivate your account at %{end_date}"
@@ -453,3 +453,11 @@ msgstr ""
 
 msgid "Add the abbreviated name or code for the structure."
 msgstr ""
+
+msgid "PLEASE CHOOSE AN ORGANISATION IN YOUR PROFILE"
+msgstr ""
+
+msgid "You are about to archive %{user_name}. This will remove their personal information. This user will be unable to use their DMP OPIDoR account and the plans they created or shared by their colleagues. Are you sure?"
+msgstr ""
+
+

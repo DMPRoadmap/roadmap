@@ -61,7 +61,7 @@
         <%= f.button(_('Save'), class: 'btn btn-default', type: "submit", id: "personal_details_registration_form_submit") %>
 
         <%= link_to _('Archive'), archive_super_admin_user_path(id: @user.id),
-            data: { method: :put, confirm: _("You are about to archive %{user_name}.  This will remove their personal information, but retain their plans, answers, and comments.  They will be unable to sign-in. Are you sure?") % {user_name: @user.name } },
+            data: { method: :put, confirm: d_('dmpopidor', "You are about to archive %{user_name}. This will remove their personal information. This user will be unable to use their DMP OPIDoR account and the plans they created or shared by their colleagues. Are you sure?") % {user_name: @user.name } },
             class: 'btn btn-default', role: 'button' %>
       </div>
     <% end %>

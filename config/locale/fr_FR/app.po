@@ -71,8 +71,8 @@ msgstr "%{authors}"
 msgid "%{click_here} to accept the invitation, (or copy %{link} into your browser). If you don't want to accept the invitation, please ignore this email."
 msgstr "%{click_here} pour accepter l'invitation, (ou copier %{link} dans votre navigateur). Si vous ne souhaitez pas accepter cette invitation, ignorez ce courriel."
 
-msgid "%{commenter_name} has commented on your plan %{plan_title}. To view the comments, follow the link to the DMP below, or navigate to the plan via My Dashboard page in %{tool_name}."
-msgstr "%{commenter_name} a laissé un commentaire sur le plan %{plan_title}. Pour voir les commentaires, suivez le lien ci-dessous vers le plan ou accédez au plus via le Tableau de Bord de  %{tool_name}."
+msgid "%{commenter_name} has commented on your plan \"%{plan_title}\". To view the comments, follow the link to the DMP below, or navigate to the plan via My Dashboard page in %{tool_name}."
+msgstr "%{commenter_name} a laissé un commentaire sur le plan \"%{plan_title}\". Pour voir les commentaires, suivez le lien ci-dessous vers le plan ou accédez au Tableau de Bord de %{tool_name}."
 
 msgid "%{commenter} has finished providing feedback on the plan  \"%{link_html}\". Comments can be found in the 'Write plan' tab on the right side of the page (Guidance/Comments)."
 msgstr "%{commenter} a terminé son assistance conseil sur le plan \"%{link_html}\". Vous retrouverez les commentaires dans l'onglet 'Rédiger', sur la droite de la page (Recommandations/Commentaires)."
@@ -120,7 +120,7 @@ msgid "%{template}"
 msgstr "%{template}"
 
 msgid "%{tool_name} will help you to develop your Data Management Plan. If you have any queries or feedback as you use the tool, please contact us at %{helpdesk_email} or visit %{contact_us}"
-msgstr "%{tool_name} vous acompagne pour élaborer votre DMP. Si vous avez des questions ou suggestions, contactez nous à %{helpdesk_email} ou par %{contact_us}"
+msgstr "%{tool_name} vous accompagne pour élaborer votre DMP. Si vous avez des questions ou suggestions, contactez nous à %{helpdesk_email} ou par %{contact_us}"
 
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
 msgstr "%{tool_name}: Un nouveau commentaire a été ajouté au plan %{plan_title}"
