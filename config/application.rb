@@ -122,6 +122,10 @@ module DMPRoadmap
       config.branding = config_for(:branding).deep_symbolize_keys
     end
 
+    if File.exists?(Rails.root.join('config', 'google_analytics.yml'))
+      config.ga = config_for(:google_analytics)
+    end
+
     # The default visibility setting for new plans
     #   organisationally_visible  - Any member of the user's org can view, export and duplicate the plan
     #   publicly_visibile         - (NOT advisable because plans will show up in Public DMPs page by default)
