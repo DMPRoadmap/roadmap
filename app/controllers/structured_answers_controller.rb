@@ -2,77 +2,78 @@
 
 class StructuredAnswersController < ApplicationController
 
-    #after_action :verify_authorized
+  #after_action :verify_authorized
 
-    def create_or_update
-        @plan = Plan.find(params[:plan_id])
-        p_params = permitted_params()
-        type = params[:type]
-        data = nil
-        #authorize @plan
-        case type
-        when "partner"
-            data = partner_params
-        when "funding"    
-            data = funding_params
-        end
+  def create_or_update
+    @plan = Plan.find(params[:plan_id])
+    p_params = permitted_params()
+    type = params[:type]
+    data = nil
+    #authorize @plan
+    case type
+    when "partner"
+      data = partner_params
+    when "funding"    
+      data = funding_params
+    end
 
-        # rubocop:disable BlockLength
-        StructuredAnswer.transaction do
-            begin
-                @fragment = StructuredAnswer.find_by!(
-                    id: p_params[:id],
-                    dmp_id: p_params[:dmp_id]
-                )
-                @fragment.update(
-                    data: data
-                )
-                @fragment.save!
-            rescue  ActiveRecord::RecordNotFound
-                @fragment = StructuredAnswer.create(
-                    dmp_id: p_params[:dmp_id],
-                    parent_id: p_params[:parent_id],
-                    structured_data_schema: StructuredDataSchema.find_by(classname: type),
-                    data: data
-                )
-            end
-        end
+    # rubocop:disable BlockLength
+    StructuredAnswer.transaction do
+      if p_params[:id].empty?
+        @fragment = StructuredAnswer.new(
+              dmp_id: p_params[:dmp_id],
+              parent_id: p_params[:parent_id],
+              structured_data_schema: StructuredDataSchema.find_by(classname: type),
+              data: data
+        )
+        @fragment.classname = type
+        @fragment.save!
+      else
+        @fragment = StructuredAnswer.find_by!({ 
+          id: p_params[:id],
+          dmp_id: p_params[:dmp_id]
+        })
+        @fragment.update(
+          data: data
+        )
+      end
+    end
         
-        if @fragment.present?
-            obj_list = StructuredAnswer.where(
-                dmp_id: @fragment.dmp_id,
-                classname: type
-            )
-            render json: { 
-                "type" => type,
-                "html" => render_to_string(partial: 'plans/plan_details/linked_fragment_list', locals: {
-                            plan: @plan,
-                            parent_id: @fragment.parent_id,
-                            obj_list: obj_list,
-                            type: type
-                })
-            }
-        end
+    if @fragment.present?
+      obj_list = StructuredAnswer.where(
+          dmp_id: @fragment.dmp_id,
+          classname: type
+      )
+      render json: { 
+          "type" => type,
+          "html" => render_to_string(partial: 'plans/plan_details/linked_fragment_list', locals: {
+                      plan: @plan,
+                      parent_id: @fragment.parent_id,
+                      obj_list: obj_list,
+                      type: type
+        })
+      }
+      end
     end
 
     def destroy 
-        @plan = Plan.find(params[:plan_id])
-        fragment = StructuredAnswer.find(params[:id])
-        type = fragment.classname
-        parent_id = fragment.parent_id
-        obj_list = StructuredAnswer.where(dmp_id: fragment.dmp_id, classname: type)
+      @plan = Plan.find(params[:plan_id])
+      fragment = StructuredAnswer.find(params[:id])
+      type = fragment.classname
+      parent_id = fragment.parent_id
+      obj_list = StructuredAnswer.where(dmp_id: fragment.dmp_id, classname: type)
         
-        if fragment.destroy
-            render json: { 
-                "type" => type,
-                "html" => render_to_string(partial: 'plans/plan_details/linked_fragment_list', locals: {
-                            plan: @plan,
-                            parent_id: parent_id,
-                            obj_list: obj_list,
-                            type: type
-                })
-            }
-        end
+      if fragment.destroy
+        render json: { 
+          "type" => type,
+          "html" => render_to_string(partial: 'plans/plan_details/linked_fragment_list', locals: {
+                    plan: @plan,
+                    parent_id: parent_id,
+                    obj_list: obj_list,
+                    type: type
+              })
+          }
+      end
     end
 
     private
