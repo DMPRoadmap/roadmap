@@ -10,7 +10,7 @@
          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
         <% if Rails.configuration.ga['root'].present? %>
-          ga('create', Rails.configuration.ga['root'], 'auto');
+          ga('create', '<%=Rails.configuration.ga['root']%>', 'auto');
           ga('send', 'pageview');
         <% end %>
     <% end %>
