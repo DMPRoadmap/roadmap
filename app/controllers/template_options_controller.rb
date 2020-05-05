@@ -45,8 +45,7 @@ class TemplateOptionsController < ApplicationController
       @templates = @templates.flatten.uniq
     end
 
-    # If no templates were available use the default template
-    if @templates.empty?
+    # Always use the default template
       if Template.default.present?
         customization = Template.published
                           .latest_customized_version(Template.default.family_id,
@@ -54,7 +53,6 @@ class TemplateOptionsController < ApplicationController
 
         @templates << (customization.present? ? customization : Template.default)
       end
-    end
     @templates = @templates.sort_by(&:title)
   end
 
