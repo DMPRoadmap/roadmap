@@ -194,6 +194,9 @@ class Api::V0::StatisticsController < Api::V0::BaseController
       raise Pundit::NotAuthorizedError
     end
     @org_plans = @user.org.plans
+    if params["remove_tests"].present? && params["remove_tests"].downcase == "true"
+      @org_plans = @org_plans.where.not(visibility: Plan.visibilities[:is_test])
+    end
     if params["start_date"].present? || params["end_date"].present?
       @org_plans = @org_plans.where(created_at: dates_to_range(params))
     end

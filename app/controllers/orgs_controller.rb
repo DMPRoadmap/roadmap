@@ -31,25 +31,22 @@ class OrgsController < ApplicationController
     # Only allow super admins to change the org types and shib info
     if current_user.can_super_admin?
       # Handle Shibboleth identifiers if that is enabled
-      if Rails.application.config.shibboleth_use_filtered_discovery_service &&
-            params[:shib_id].present?
+      if Rails.application.config.shibboleth_use_filtered_discovery_service
         shib = IdentifierScheme.find_by(name: "shibboleth")
         shib_settings = @org.org_identifiers.select do |ids|
           ids.identifier_scheme == shib
         end.first
 
-        if !params[:shib_id].blank?
+        if params[:shib_id].blank? && shib_settings.present?
+          # The user cleared the shib values so delete the object
+          shib_settings.destroy
+        else
           unless shib_settings.present?
             shib_settings = OrgIdentifier.new(org: @org, identifier_scheme: shib)
-            shib_settings.identifier = params[:shib_id]
-            shib_settings.attrs = { domain: params[:shib_domain] }
-            shib_settings.save
           end
-        else
-          if shib_settings.present?
-            # The user cleared the shib values so delete the object
-            shib_settings.destroy
-          end
+          shib_settings.identifier = params[:shib_id]
+          shib_settings.attrs = { domain: params[:shib_domain] }
+          shib_settings.save
         end
       end
     end

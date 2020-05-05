@@ -1,7 +1,10 @@
+<% title_tooltip = _('Enter a title for the phase e.g. initial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP') %>
+
 <%= f.hidden_field :template_id, value: template.id%>
 <div class="form-group col-md-10">
   <%= f.label(:title, _('Title') ,class: "control-label") %>
-  <%= f.text_field(:title, class: "form-control", 'aria-required': true, 'data-toggle': 'tooltip', title: _('Enter a title for the phase e.g. intial DMP, full DMP... This is what users will see in the tabs when completing a plan. If you only have one phase, call it something generic e.g. Glasgow DMP')) %> 
+  <em class="sr-only"><%= title_tooltip %></em>
+  <%= f.text_field(:title, class: "form-control", spellcheck: true, 'aria-required': true, 'data-toggle': 'tooltip', title: title_tooltip ) %>
 </div>
 
 <div class="form-group">
@@ -18,6 +21,6 @@
   <%= f.text_area(:description, class: "phase") %>
 </div>
 
-<div class="form-group col-md-4 pull-right">   
+<div class="form-group col-md-4 pull-right">
   <%= f.button(_('Save'), class: 'btn btn-default', type: "submit") %>
 </div>
