@@ -7,6 +7,7 @@ services:
       - ./:/usr/src/app:cached
       - ./config/database.yml.sample:/usr/src/app/config/database.yml:cached
       - ./config/secrets.yml.sample:/usr/src/app/config/secrets.yml:cached
+      - ./config/branding.yml:/usr/src/app/config/branding.yml:cached
       - ./config/initializers/contact_us.rb.example:/usr/src/app/config/initializers/contact_us.rb:cached
       - ./config/initializers/devise.rb.example:/usr/src/app/config/initializers/devise.rb:cached
       - ./config/initializers/recaptcha.rb.example:/usr/src/app/config/initializers/recaptcha.rb:cached
