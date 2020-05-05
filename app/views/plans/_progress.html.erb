@@ -1,6 +1,6 @@
 <%# locals: { plan, current_phase } %>
 <%
-  nanswers = current_phase.num_answered_questions(plan)
+  nanswers = plan.num_answered_questions(current_phase)
   nquestions = current_phase.num_questions()
   value=(nanswers.to_f/nquestions*100).round(2)
 %>

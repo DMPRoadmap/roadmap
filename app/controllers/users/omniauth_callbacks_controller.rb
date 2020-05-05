@@ -55,11 +55,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         if UserIdentifier.create(identifier_scheme: scheme,
                                  identifier: request.env["omniauth.auth"].uid,
                                  user: current_user)
-          # rubocop:disable LineLength
+          # rubocop:disable Metrics/LineLength
           flash[:notice] = _("Your account has been successfully linked to %{scheme}.") % {
             scheme: scheme.description
           }
-          # rubocop:enable LineLength
+          # rubocop:enable Metrics/LineLength
         else
           flash[:alert] = _("Unable to link your account to %{scheme}.") % {
             scheme: scheme.description
@@ -73,9 +73,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           identifier: request.env["omniauth.auth"].uid
         ).first
         if identifier.user.id != current_user.id
-          # rubocop:disable LineLength
+          # rubocop:disable Metrics/LineLength
           flash[:alert] = _("The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}")
-          # rubocop:enable LineLength
+          # rubocop:enable Metrics/LineLength
         end
 
         # Otherwise, the identifier was found and it matches the one already associated
