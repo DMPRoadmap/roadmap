@@ -50,7 +50,6 @@ Rails.application.routes.draw do
   root :to => 'home#index'
   get "about_us" => 'static_pages#about_us'
   get "help" => 'static_pages#help'
-  get "roadmap" => 'static_pages#roadmap'
   get "terms" => 'static_pages#termsuse'
   get "privacy" => 'static_pages#privacy'
   get "public_plans" => 'public_pages#plan_index'
@@ -116,6 +115,7 @@ Rails.application.routes.draw do
     member do
       get 'answer'
       get 'share'
+      get 'request_feedback'
       get 'download'
       post 'duplicate'
       post 'visibility', constraints: {format: [:json]}
@@ -125,10 +125,15 @@ Rails.application.routes.draw do
   end
 
   resources :usage, only: [:index]
+  post 'usage_plans_by_template', controller: 'usage', action: 'plans_by_template'
+  post 'usage_filter', controller: 'usage', action: 'filter'
+  get 'usage_all_plans_by_template', controller: 'usage', action: 'all_plans_by_template'
+  get 'usage_global_statistics', controller: 'usage', action: 'global_statistics'
+  get 'usage_org_statistics', controller: 'usage', action: 'org_statistics'
+  get 'usage_yearly_users', controller: 'usage', action: 'yearly_users'
+  get 'usage_yearly_plans', controller: 'usage', action: 'yearly_plans'
 
   resources :usage_downloads, only: [:index]
-
-  resources :stat_created_plans_by_template, only: [:index]
 
   resources :roles, only: [:create, :update, :destroy] do
     member do
@@ -168,6 +173,7 @@ Rails.application.routes.draw do
       get 'organisationally_or_publicly_visible/:page', action: :organisationally_or_publicly_visible, on: :collection, as: :organisationally_or_publicly_visible
       get 'publicly_visible/:page', action: :publicly_visible, on: :collection, as: :publicly_visible
       get 'org_admin/:page', action: :org_admin, on: :collection, as: :org_admin
+      get 'org_admin_other_user/:page', action: :org_admin_other_user, on: :collection, as: :org_admin_other_user
     end
     # Paginable actions for users
     resources :users, only: [] do
@@ -207,11 +213,17 @@ Rails.application.routes.draw do
 
   # ORG ADMIN specific pages
   namespace :org_admin do
+    resources :users, only: [:edit, :update], controller: "users" do
+      member do
+        get 'user_plans'
+      end
+    end
     resources :plans, only: [:index] do
       member do
         get 'feedback_complete'
       end
     end
+
 
     resources :templates do
 
@@ -226,6 +238,7 @@ Rails.application.routes.draw do
 
       member do
         get 'history'
+        get 'template_export',  action: :template_export
         patch 'publish', action: :publish, constraints: {format: [:json]}
         patch 'unpublish', action: :unpublish, constraints: {format: [:json]}
       end
@@ -259,7 +272,13 @@ Rails.application.routes.draw do
   namespace :super_admin do
     resources :orgs, only: [:index, :new, :create, :destroy]
     resources :themes, only: [:index, :new, :create, :edit, :update, :destroy]
-    resources :users, only: [:edit, :update]
+    resources :users, only: [:edit, :update] do
+      member do
+        put :merge
+        put :archive
+        get :search
+      end
+    end
     resources :notifications, except: [:show]
   end
 

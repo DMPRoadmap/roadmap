@@ -1,4 +1,11 @@
 <% title _('Create a new plan') %>
+<% required_project_title_tooltip = _('This field is required.') %>
+<% project_title_tooltip = _('If applying for funding, state the project title exactly as in the proposal.') %>
+<% required_research_org_tooltip = _('You must select a research organisation from the list or click the checkbox.') %>
+<% research_org_tooltip = _('Please select a valid research organisation from the list.') %>
+<% required_primary_funding_tooltip = _('You must select a funder from the list or click the checkbox.') %>
+<% primary_funding_tooltip = _('Please select a valid funding organisation from the list.') %>
+
 <div class="row">
   <div class="col-md-12">
     <h1><%= _('Create a new plan') %></h1>
@@ -13,13 +20,15 @@
   <div class="col-md-12">
     <%= form_for Plan.new, url: plans_path do |f| %>
       <!-- Plan name section -->
-      <h2 id="project-title"><span class="red" title="<%= _('This field is required.') %>">* </span><%= _('What research project are you planning?') %></h2>
+      <h2 id="project-title"><span class="red" title="<%= required_project_title_tooltip %>">*<em class="sr-only"><%= required_project_title_tooltip %></em> </span><%= _('What research project are you planning?') %></h2>
       <div class="row">
         <div class="form-group col-xs-6">
+          <em class="sr-only"><%= project_title_tooltip %></em>
           <%= f.text_field(:title, class: 'form-control', 'aria-describedby': 'project-title', 'aria-required': 'true', 'aria-label': 'project-title',
                 'data-toggle': 'tooltip',
                 'data-placement': 'bottom',
-                title: _('If applying for funding, state the project title exactly as in the proposal.')) %>
+                spellcheck: true,
+                title: project_title_tooltip ) %>
         </div>
         <div class="col-md-1">&nbsp;</div>
         <div class="form-group col-xs-5">
@@ -34,11 +43,12 @@
 
       <!-- Organisation selection -->
       <h2 id="research-org">
-        <span class="red" title="<%= _('You must select a research organisation from the list or click the checkbox.') %>">* </span>
+        <span class="red" title="<%= required_research_org_tooltip %>">*<em class="sr-only"><%= required_research_org_tooltip %></em> </span>
         <%= _('Select the primary research organisation') %>
       </h2>
       <div class="row">
         <div class="form-group col-md-6">
+           <em class="sr-only"><%= research_org_tooltip %></em>
           <%= render partial: "shared/accessible_combobox",
                      locals: {name: 'plan[org_name]',
                               id: 'plan_org_name',
@@ -47,7 +57,7 @@
                               attribute: 'name',
                               required: true,
                               error: _('You must select a research organisation from the list.'),
-                              tooltip: _('Please select a valid research organisation from the list.'),
+                              tooltip: research_org_tooltip,
                               placement: 'bottom'} %>
         </div>
         <div class="col-md-1 pad-top-10 create-plan-or"><strong>- <%= _('or') %> -</strong></div>
@@ -63,9 +73,10 @@
       </div>
 
       <!-- Funder selection -->
-      <h2 id="funder-org"><span class="red" title="<%= _('You must select a funder from the list or click the checkbox.') %>">* </span><%= _('Select the primary funding organisation') %></h2>
+      <h2 id="funder-org"><span class="red" title="<%= required_primary_funding_tooltip %>">* <em class="sr-only"><%= required_primary_funding_tooltip %></em> </span><%= _('Select the primary funding organisation') %></h2>
       <div class="row">
         <div class="form-group col-xs-6">
+          <em class="sr-only"><%= primary_funding_tooltip %></em>
           <%= render partial: "shared/accessible_combobox",
                      locals: {name: 'plan[funder_name]',
                               id: 'plan_funder_name',
@@ -74,7 +85,7 @@
                               attribute: 'name',
                               required: true,
                               error: _('You must select a funding organisation from the list.'),
-                              tooltip: _('Please select a valid funding organisation from the list.'),
+                              tooltip: primary_funding_tooltip,
                               placement: 'bottom'} %>
         </div>
         <div class="col-md-1 create-plan-or"><strong>- <%= _('or') %> -</strong></div>

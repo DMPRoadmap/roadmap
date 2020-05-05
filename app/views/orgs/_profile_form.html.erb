@@ -1,3 +1,8 @@
+<%
+  shared_links_tooltip = _('Links will be displayed next to your organisation\'s logo')
+  org_config_info_tooltip =  _('This information can only be changed by a system administrator. Contact the Help Desk if you have questions or to request changes.')
+%>
+
 <%= form_for(org, url: url, html: { multipart: true, method: method, id: "edit_org_profile_form" } ) do |f| %>
   <div class="row">
     <div class="form-group col-xs-8">
@@ -36,17 +41,18 @@
 
   <div class="row">
     <div class="col-xs-8">
+      <em class="sr-only"><%= shared_links_tooltip %></em>
       <%= render(partial: '/shared/links',
                  locals: {
                    context: 'org',
                    title: _('Organisation URLs'),
                    links: (org.links.present? ? org.links['org'] : []),
                    max_number_links: MAX_NUMBER_LINKS_FUNDER,
-                   tooltip: _('Links will be displayed next to your organisation\'s logo') }) %>
+                   tooltip: shared_links_tooltip }) %>
       <%= hidden_field_tag('org_links', value: org.links) %>
     </div>
   </div>
-  
+
   <div class="row">
     <div class="form-group col-xs-8">
       <h3><%= _("Administrator contact") %></h3>
@@ -63,8 +69,8 @@
     </div>
   </div>
 
-  <div class="bordered col-xs-8" data-toggle="tooltip" title="<%= _('This information can only be changed by a system administrator. Contact the Help Desk if you have questions or to request changes.') %>">
-    <h3><%= _('Organisational Configuration Information') %></h3>
+  <div class="bordered col-xs-8" data-toggle="tooltip" title="<%= org_config_info_tooltip %>">
+    <h3><%= _('Organisational Configuration Information') %><em class="sr-only"><%= org_config_info_tooltip %></em></h3>
     <% if current_user.can_super_admin? %>
       <% if Rails.application.config.shibboleth_use_filtered_discovery_service %>
         <% shibboleth = org.org_identifiers.select{ |ids| ids.identifier_scheme == IdentifierScheme.find_by(name: 'shibboleth')} %>
@@ -73,7 +79,7 @@
         <div class="row">
           <div class="form-group col-xs-8">
             <%= f.label :shib_id, _('Shibboleth Entity Id'), class: "control-label" %>
-            <%= text_field_tag :shib_id, shib_id, class: "form-control", placeholder: _('Example: urn:mace:incommon:my-org.org') %>
+            <%= text_field_tag :shib_id, shib_id, class: "form-control", placeholder: _('Example: https://idp.my-org.org/... or urn:mace:...') %>
           </div>
         </div>
         <div class="row">

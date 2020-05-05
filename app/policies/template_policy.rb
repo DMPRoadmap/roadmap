@@ -1,12 +1,12 @@
 class TemplatePolicy < ApplicationPolicy
   attr_reader :user, :template
-  
+
   def initialize(user, template = Template.new)
     raise Pundit::NotAuthorizedError, _("must be logged in") unless user.is_a?(User)
     @user = user
     @template = template
   end
-  
+
   def index?
     user.can_super_admin?
   end
@@ -14,11 +14,11 @@ class TemplatePolicy < ApplicationPolicy
   def organisational?
     user.can_modify_templates?
   end
-  
+
   def customisable?
     user.can_modify_templates?
   end
-  
+
   def new?
     user.can_super_admin? || user.can_modify_templates?
   end
@@ -30,7 +30,7 @@ class TemplatePolicy < ApplicationPolicy
   def show?
     user.can_super_admin? || (user.can_modify_templates? && template.org_id == user.org_id)
   end
-  
+
   def edit?
     user.can_super_admin? || (user.can_modify_templates? && template.org_id == user.org_id)
   end
@@ -42,7 +42,7 @@ class TemplatePolicy < ApplicationPolicy
   def destroy?
     user.can_super_admin? || (user.can_modify_templates?  &&  (template.org_id == user.org_id))
   end
-  
+
   def history?
     user.can_super_admin? || (user.can_modify_templates? && template.org_id == user.org_id)
   end
@@ -53,6 +53,10 @@ class TemplatePolicy < ApplicationPolicy
 
   def transfer_customization?
     user.can_super_admin? || user.can_modify_templates?
+  end
+
+  def template_export?
+    user.can_super_admin? || (user.can_modify_templates?  &&  (template.org_id == user.org_id))
   end
 
   # AJAX Calls

@@ -1,3 +1,8 @@
+/* Setting font-family for improving screen legibility */
+body, .tooltip, .popover {
+  font-family: $font-family;
+}
+
 /* Text meant only for screen readers. */
 .screen-reader-text {
   border: 0;
@@ -28,3 +33,36 @@ div.skip a:focus {
   height:auto;
   overflow:visible !important;
 }
+
+/** Focus outline required for accessibility */
+a, input, select, .form-control {
+  &:focus,
+  &:hover,
+  &:active {
+    outline-style: solid !important;
+    outline-color: $color-focus-outline !important;
+    outline-width: 2px !important;
+  }
+}
+  
+  /** button outline-width increased for better visibility of outline */
+  button {
+
+    &:focus,
+    &:hover,
+    &:active {
+      outline-style: solid !important;
+      outline-color: $color-focus-outline !important;
+      outline-width: 3px !important;
+    }
+  }
+  
+  td {
+    &:focus-within,
+    &:focus,
+    &:hover {
+      outline-style: solid !important;
+      outline-color: $color-focus-outline !important;
+      outline-width: 2px !important;
+    }
+  }

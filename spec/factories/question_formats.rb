@@ -13,7 +13,7 @@
 
 FactoryBot.define do
   factory :question_format do
-    title { Faker::Lorem.words(3).join }
+    title { Faker::Lorem.words(number: 3).join }
     description { "http://test.host" }
     formattype { QuestionFormat::FORMAT_TYPES.sample }
 

@@ -73,11 +73,11 @@ RSpec.describe Answer, type: :model do
 
   end
 
-  describe "#is_valid?" do
+  describe "#answered?" do
 
     let!(:answer) { create(:answer) }
 
-    subject { answer.is_valid? }
+    subject { answer.answered? }
 
     context "question present, question format is option and options empty" do
 

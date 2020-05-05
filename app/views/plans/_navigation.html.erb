@@ -18,6 +18,11 @@
       <a href="<%= share_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Share') %></a>
     </li>
   <% end %>
+  <% if (plan.administerable_by?(current_user) || (current_user.can_org_admin? && current_user.org.plans.include?(plan))) && plan.owner_and_coowners.include?(current_user) && plan.owner.org.feedback_enabled? %>
+    <li role="presentation" class="<%= (active_page?(request_feedback_plan_path(plan)) ? 'active' : '') %>">
+      <a href="<%= request_feedback_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Request feedback') %></a>
+    </li>
+  <% end %>
   <% if plan.readable_by?(current_user.id) %>
     <li role="presentation" class="<%= (active_page?(download_plan_path(plan)) ? 'active' : '') %>">
       <a href="<%= download_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Download') %></a>

@@ -24,7 +24,7 @@
                 <!-- TODO: correct this behavior once the notification table is in place -->
                 <tr>
                   <td><%= link_to notice.name, plan_path(notice) %></td>
-                  <td><%= notice.owner.name(false) %></td>
+                  <td><%= notice.owner&.name(false) %></td>
                   <td><%= _('Feedback requested') %></td>
                   <td><%= link_to _('Complete'), feedback_complete_org_admin_plan_path(notice), 'data-toggle': 'tooltip', title: _('Notify the plan owner that I have finished providing feedback') %></td>
                 </tr>
@@ -35,7 +35,12 @@
       </div>
     <% end %>
     <% if @plans.length > 0 %>
-      <%= link_to sanitize(_('Download plans <em class="sr-only">(new window)</span>')), org_admin_download_plans_path(format: :csv), target: '_blank', class: 'btn btn-default pull-right' %>
+      <%= link_to sanitize(_('Download plans <em class="sr-only">(new window)</em><span class="new-window-popup-info">%{open_in_new_window_text}</span>') %
+                           { open_in_new_window_text: _('Opens in new window') },
+                           tags: %w{ span em }),
+                  org_admin_download_plans_path(format: :csv),
+                  target: '_blank',
+                  class: 'btn btn-default pull-right has-new-window-popup-info' %>
       <%= paginable_renderise(
         partial: '/paginable/plans/org_admin',
         controller: 'paginable/plans',

@@ -18,9 +18,10 @@
           <td><%= (plan.owner.nil? ? _('Unknown') : plan.owner.name(false)) %></td>
           <td class="text-center">
             <%= link_to plan_export_path(plan, format: :pdf),
-                class: "dmp_table_link", target: '_blank' do %>
+                class: "dmp_table_link has-new-window-popup-info", target: '_blank' do %>
               <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
               <em class="sr-only"><%= _('(new window)') %></em>
+              <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
             <% end %>
           </td>
         </tr>

@@ -25,9 +25,9 @@
       </div>
       <div class="col-md-3">
         <% if i == 1 %>
-          <%= op.text_field :text, as: :string, class: 'form-control', 'aria-required': true %>
+          <%= op.text_field :text, as: :string, class: 'form-control', spellcheck: true, 'aria-required': true %>
         <% else %>
-          <%= op.text_field :text, as: :string, class: 'form-control' %>
+          <%= op.text_field :text, as: :string, class: 'form-control', spellcheck: true %>
         <% end %>
       </div>
       <div class="col-md-3">

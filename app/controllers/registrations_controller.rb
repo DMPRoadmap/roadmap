@@ -31,11 +31,11 @@ class RegistrationsController < Devise::RegistrationsController
       # The OAuth provider could not be determined or there was no unique UID!
       if !oauth["provider"].nil? && !oauth["uid"].nil?
         # Connect the new user with the identifier sent back by the OAuth provider
-        # rubocop:disable LineLength
+        # rubocop:disable Metrics/LineLength
         flash[:notice] = _("Please make a choice below. After linking your details to a %{application_name} account, you will be able to sign in directly with your institutional credentials.") % {
           application_name: Rails.configuration.branding[:application][:name]
         }
-        # rubocop:enable LineLength
+        # rubocop:enable Metrics/LineLength
         scheme = IdentifierScheme.find_by(name: oauth["provider"].downcase)
         UserIdentifier.create(identifier_scheme: scheme,
                               identifier: oauth["uid"],
@@ -53,14 +53,14 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
 
-    if params[:accept_terms].to_s == "0"
+    if params[:user][:accept_terms].to_s == "0"
       redirect_to after_sign_up_error_path_for(resource),
         alert: _("You must accept the terms and conditions to register.")
     elsif params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
-      # rubocop:disable LineLength
+      # rubocop:disable Metrics/LineLength
       redirect_to after_sign_up_error_path_for(resource),
                 alert: _("Please select an organisation from the list, or enter your organisation's name.")
-      # rubocop:enable LineLength
+      # rubocop:enable Metrics/LineLength
     else
       existing_user = User.where_case_insensitive("email", sign_up_params[:email]).first
       if existing_user.present?
@@ -81,10 +81,10 @@ class RegistrationsController < Devise::RegistrationsController
       if params[:user][:org_id].blank?
         other_org = Org.find_by(is_other: true)
         if other_org.nil?
-          # rubocop:disable LineLength
+          # rubocop:disable Metrics/LineLength
           redirect_to(after_sign_up_error_path_for(resource),
             alert: _("You cannot be assigned to other organisation since that option does not exist in the system. Please contact your system administrators.")) and return
-          # rubocop:enable LineLength
+          # rubocop:enable Metrics/LineLength
         end
         params[:user][:org_id] = other_org.id
       end
@@ -104,9 +104,9 @@ class RegistrationsController < Devise::RegistrationsController
                 UserIdentifier.create(identifier_scheme: prov,
                                       identifier: oauth["uid"],
                                       user: @user)
-                # rubocop:disable LineLength
+                # rubocop:disable Metrics/LineLength
                 flash[:notice] = _("Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them.")
-                # rubocop:enable LineLength
+                # rubocop:enable Metrics/LineLength
               end
             end
           end
@@ -119,10 +119,10 @@ class RegistrationsController < Devise::RegistrationsController
         end
       else
         clean_up_passwords resource
-        # rubocop:disable LineLength
+        # rubocop:disable Metrics/LineLength
         redirect_to after_sign_up_error_path_for(resource),
                     alert: _("Unable to create your account.#{errors_for_display(resource)}")
-        # rubocop:enable LineLength
+        # rubocop:enable Metrics/LineLength
       end
     end
   end
@@ -172,9 +172,9 @@ class RegistrationsController < Devise::RegistrationsController
       mandatory_params &&= false
     end
     if params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
-      # rubocop:disable LineLength
+      # rubocop:disable Metrics/LineLength
       message += _("Please select an organisation from the list, or enter your organisation's name.")
-      # rubocop:enable LineLength
+      # rubocop:enable Metrics/LineLength
       mandatory_params &&= false
     end
     # has the user entered all the details
