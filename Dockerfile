@@ -1,4 +1,4 @@
-FROM ruby:2.3
+FROM ruby:2.4.4
 
 # Dependancies
 RUN apt-get update -qq && \
