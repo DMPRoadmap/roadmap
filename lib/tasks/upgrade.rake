@@ -696,6 +696,13 @@ namespace :upgrade do
     Role.reviewer.destroy_all
   end
 
+  desc "remove invalid `default` templates"
+  task fix_default_template: :environment do
+    # There is one default template.  It should be non-archived, non-customized, and published
+    Template.where(is_default: true, archived: true).update_all(is_default: false)
+    Template.where(is_default: true, archived: false).where.not(customization_of: nil).update_all(is_default: false)
+  end
+
   private
 
   def fuzzy_match?(text_a, text_b, min = 3)
