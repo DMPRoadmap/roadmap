@@ -54,7 +54,6 @@ jobs:
     - name: 'Setup Default Configuration'
       run: |
         # Make copies of all the example config files
-        cp config/branding.yml.sample config/branding.yml
         cp config/database.yml.sample config/database.yml
         cp config/secrets.yml.sample config/secrets.yml
         cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
