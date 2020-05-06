@@ -7,7 +7,9 @@
   <div class="paginable-search">
     <div class="row">
       <div class="col-md-12">
-        <%= render(partial: '/shared/search', locals: { search_term: search_term, view_partial: partial, checkbox_status:  }) if searchable? || total > Kaminari.config.default_per_page %>
+        <%= render(partial: '/shared/search',
+                   locals: { search_term: search_term, view_partial: partial,
+                             checkbox_status: "" }) if searchable? || total > Kaminari.config.default_per_page %>
       </div>
     </div>
   </div>
