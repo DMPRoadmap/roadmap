@@ -1,13 +1,13 @@
 <%
   # Custom layout to be included on any view that needs pagination
-  # locals: { scope, search_term }
+  # locals: { scope, search_term, checkbox_status }
 %>
 <% total = paginable? ? scope.total_count : scope.length %>
 <div class="paginable">
   <div class="paginable-search">
     <div class="row">
       <div class="col-md-12">
-        <%= render(partial: '/shared/search', locals: { search_term: search_term }) if searchable? || total > Kaminari.config.default_per_page %>
+        <%= render(partial: '/shared/search', locals: { search_term: search_term, view_partial: partial, checkbox_status:  }) if searchable? || total > Kaminari.config.default_per_page %>
       </div>
     </div>
   </div>
