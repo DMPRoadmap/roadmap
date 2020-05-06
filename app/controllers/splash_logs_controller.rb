@@ -12,7 +12,7 @@ class SplashLogsController < ApplicationController
     if @splash_log.save
       cookies[:dmp_splash_seen] = {
         value: "splash_dialog_seen",
-        expires: 3.hours.from_now,
+        expires: 3.hours.from_now
       }
       redirect_to params[:destination]
     else
