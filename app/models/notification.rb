@@ -10,7 +10,7 @@
 #  notification_type :integer
 #  starts_at         :date
 #  title             :string
-#  enable            :boolean
+#  enabled            :boolean
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
