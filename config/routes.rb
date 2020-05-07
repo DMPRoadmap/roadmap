@@ -65,6 +65,7 @@ Rails.application.routes.draw do
   get "promote" => 'static_pages#promote'
   get "researchers" => 'static_pages#researchers'
   get "faq" => 'static_pages#faq'
+  get "editorial_board" => "static_pages#editorial_board"
   get "general_guidance" => 'static_pages#general_guidance'
   get "quick_start_guide" => 'static_pages#help'
   get "news_media" => 'static_pages#news_media'
