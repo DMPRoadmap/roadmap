@@ -8,8 +8,7 @@
     <div class="row">
       <div class="col-md-12">
         <%= render(partial: '/shared/search',
-                   locals: { search_term: search_term, view_partial: partial,
-                             checkbox_status: "" }) if searchable? || total > Kaminari.config.default_per_page %>
+                   locals: { search_term: search_term }) if searchable? || total > Kaminari.config.default_per_page %>
       </div>
     </div>
   </div>
