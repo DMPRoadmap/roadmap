@@ -10,7 +10,7 @@ class Paginable::UsersController < ApplicationController
     @clicked_through = params[:click_through].present?
 
     # variable containing the check box value
-    filter = params[:filter_admin] == "1"
+    @filter_admin = params[:filter_admin] == "1"
 
     if current_user.can_super_admin?
       scope = User.includes(:roles)
@@ -18,7 +18,7 @@ class Paginable::UsersController < ApplicationController
       scope = current_user.org.users.includes(:roles)
     end
 
-    if filter
+    if @filter_admin
       scope = scope.joins(:perms)
     end
 
@@ -26,7 +26,7 @@ class Paginable::UsersController < ApplicationController
     paginable_renderise(
       partial: "index",
       scope: scope,
-      query_params: { sort_field: 'users.surname', sort_direction: :asc , filter_admin: filter },
+      query_params: { sort_field: 'users.surname', sort_direction: :asc },
       view_all: !current_user.can_super_admin?
     )
   end
