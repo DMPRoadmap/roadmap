@@ -1,3 +1,5 @@
+<% presenter = PlanPresenter.new(plan) %>
+
 <dl class="dl-horizontal">
   <dt><%= _('Project Title') %></dt>
   <dd><%= plan.title %></dd>
@@ -5,7 +7,7 @@
   <dd><%= sanitize plan.description %></dd>
   <dt><%= _('Start and End Dates') %></dt>
   <dd>
-    <%= l(plan.start_date.to_date, formats: :short) %> to <%= l(plan.end_date.to_date, formats: :short) %>
+    <%= presenter.project_dates_to_readonly_display %>
   </dd>
   <dt><%= _('Funder') %></dt>
   <dd><%= plan.funder&.name %></dd>
