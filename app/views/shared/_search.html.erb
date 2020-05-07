@@ -1,7 +1,4 @@
-<% # locals: { search_term, view_partial, checkbox_status } %>
-
-<% user_view = (view_partial == '/paginable/users/index') %>
-
+<%# locals: { search_term } %>
 
 <%= form_tag(paginable_base_url(1), method: :get, remote: true, class: 'form-inline paginable-action') do %>
   <div class="form-group">
@@ -11,12 +8,13 @@
       </span>
       <%= text_field_tag(:search, search_term, class: 'form-control', 'aria-labelledby': 'search',
                         spellcheck: true, 'aria-describedby': 'search-addon', 'aria-required': true) %>
-      <%- # checkbox to select all users with permissions -%>
-      <%if user_view  %>
-        <%= _('Display admin only')%>
-        <%= check_box_tag( filter_admin , value = "1", checked = checkbox_status)%>
-      <% end %>
+
     </div>
+    <%# @filter_admin is only defined on the users_index page %>
+    <% unless @filter_admin.nil?  %>
+      <%= label_tag(:filter_admin, _('Only Show Admins'), class: 'form-check-inline') %>
+      <%= check_box_tag( :filter_admin , "1", @filter_admin)%>
+    <% end %>
   </div>
   <%= submit_tag(_('Search'), class: 'btn btn-default', style: 'margin-top: 8px;') %>
 <% end %>
