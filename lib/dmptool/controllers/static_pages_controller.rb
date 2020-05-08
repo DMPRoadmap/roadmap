@@ -15,6 +15,9 @@ module Dmptool
       def general_guidance
       end
 
+      def editorial_board
+      end
+
     end
 
   end
