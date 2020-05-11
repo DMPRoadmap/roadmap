@@ -128,7 +128,7 @@ $(() => {
   /* eslint-enable */
 
 
-  $('.linked-fragments .actions .delete').click((e) => {
+  $(document).on('click', '.linked-fragments .actions .delete', (e) => {
     const target = $(e.target);
     // TODO : replace confirm()
     // eslint-disable-next-line
