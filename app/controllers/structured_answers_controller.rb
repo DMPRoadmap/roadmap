@@ -9,7 +9,6 @@ class StructuredAnswersController < ApplicationController
     p_params = permitted_params()
     type = params[:type]
     data = nil
-    #authorize @plan
     case type
     when "partner"
       data = partner_params
@@ -27,12 +26,14 @@ class StructuredAnswersController < ApplicationController
               data: data
         )
         @fragment.classname = type
+        authorize @fragment
         @fragment.save!
       else
         @fragment = StructuredAnswer.find_by!({ 
           id: p_params[:id],
           dmp_id: p_params[:dmp_id]
         })
+        authorize @fragment
         @fragment.update(
           data: data
         )
@@ -58,12 +59,13 @@ class StructuredAnswersController < ApplicationController
 
     def destroy 
       @plan = Plan.find(params[:plan_id])
-      fragment = StructuredAnswer.find(params[:id])
-      type = fragment.classname
-      parent_id = fragment.parent_id
-      obj_list = StructuredAnswer.where(dmp_id: fragment.dmp_id, classname: type)
+      @fragment = StructuredAnswer.find(params[:id])
+      type = @fragment.classname
+      parent_id = @fragment.parent_id
+      obj_list = StructuredAnswer.where(dmp_id: @fragment.dmp_id, classname: type)
         
-      if fragment.destroy
+      authorize @fragment
+      if @fragment.destroy
         render json: { 
           "type" => type,
           "html" => render_to_string(partial: 'plans/plan_details/linked_fragment_list', locals: {

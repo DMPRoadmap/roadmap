@@ -78,6 +78,15 @@ class StructuredAnswer < ActiveRecord::Base
   # = Class methods =
   # =================
 
+  def plan
+    plan = nil
+    if self.answer.nil?
+      self.dmp.plan
+    else
+      plan = self.answer.plan
+    end
+  end
+
   # Returns the schema associated to the JSON fragment
   def json_schema
     self.structured_data_schema.schema
