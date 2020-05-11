@@ -116,8 +116,10 @@ class StructuredAnswer < ActiveRecord::Base
         if children.count >= 2
           # if there is more than 1 child, should pluralize the classname
           parent_data[classname.pluralize(children.count)] = children.map { |c| { "dbId" => c.id } }
+          parent_data.delete(classname) if parent_data[classname]
         else 
           parent_data[classname] =  { "dbId" => children.first.id }
+          parent_data.delete(classname.pluralize(2)) if parent_data[classname.pluralize(2)]
         end 
       end
       self.parent.update(data: parent_data)
