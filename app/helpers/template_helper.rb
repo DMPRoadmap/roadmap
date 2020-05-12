@@ -43,7 +43,9 @@ module TemplateHelper
     cls = text.nil? ? 'direct-link' : 'direct-link btn btn-default accessible'
     style = hidden ? 'display: none' : ''
 
-    link_to(plans_url(plan: params), method: :post, title: _('Create plan'), class: cls, id: id, style: style) do
+    link_to(plans_url(plan: params), 
+               method: :post, title: _('Create plan'),
+               class: cls, id: id, style: style, target: "_self" ) do
       if text.nil?
         '<span class="fa fa-plus-square"></span>'.html_safe
       else
