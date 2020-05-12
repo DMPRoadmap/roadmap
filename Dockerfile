@@ -21,7 +21,7 @@ ENV Path="${BUNDLE_BIN}:${PATH}"
 
 WORKDIR $INSTALL_PATH
 RUN gem install bundler
-
+RUN bundle update rake
 # install yarn+node from packages
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash
