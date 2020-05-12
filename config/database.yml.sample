@@ -1,5 +1,5 @@
 defaults: &defaults
-  adapter: <%= ENV['DB_ADAPTER'] || 'postgresql' %>
+  adapter: <%= ENV['DB_ADAPTER'] || 'mysql2' %>
   encoding: <%= ENV['DB_ADAPTER'] == "mysql2" ? "utf8mb4" : "" %>
   username: <%= ENV["DB_ADAPTER"] == "postgresql" ? 'postgres' : '' %>
   database: roadmap_<%= ENV['RAILS_ENV'] %>
@@ -25,7 +25,8 @@ test:
 
 production:
   adapter: mysql2
-  database: roadmap
-  username: root
-  password:
+  database: <%= ENV["MYSQL_DATABASE"] %>
+  username: <%= ENV["MYSQL_USER"] %>
+  password: <%= ENV["MYSQL_PASSWORD"] %>
+  host: <%= ENV["DATABASE_URL"] %>
   encoding: utf8mb4
