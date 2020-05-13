@@ -14,6 +14,7 @@
     <% unless @filter_admin.nil?  %>
       <%= label_tag(:filter_admin, _('Only Show Admins'), class: 'form-check-inline') %>
       <%= check_box_tag( :filter_admin , "1", @filter_admin)%>
+      &nbsp
     <% end %>
   </div>
   <%= submit_tag(_('Search'), class: 'btn btn-default', style: 'margin-top: 8px;') %>
