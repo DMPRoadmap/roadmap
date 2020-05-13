@@ -2,7 +2,7 @@
 
 <fieldset class="project-details">
   <legend class="project-details"><%= legend %></legend>
-  <div class="form-group"><!-- funder id type -->
+  <div class="form-group">
     <div class="col-md-12">
       <%= f.label "#{fragment_name}_person_list", _('Please choose a person from the list or create a new one.'), class: 'control-label' %>
     </div>
@@ -11,7 +11,7 @@
                     options_for_select(
                       person_list.map { |p| [
                         p.to_s, p.id, 
-                        { "data-url" => get_fragment_plan_structured_answers_path(plan.id, p.id) } 
+                        { "data-url" => get_fragment_structured_answers_path(p.id, plan_id: plan.id) } 
                       ] }, 
                       selected: person_id),
                     class: "form-control generic-fragment-picker",

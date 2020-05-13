@@ -24,7 +24,7 @@
         <span class="delete" 
           aria-hidden="true"
           data-confirm-message="<%= d_('dmpopidor', 'Do you want to delete this %{classname}?') % { classname: type } %>"
-          data-url="<%= plan_structured_answer_path(plan.id, obj.id) %>"><%= _('Delete') %></span>
+          data-url="<%= structured_answer_path(obj.id, plan_id: plan.id) %>"><%= _('Delete') %></span>
       </td>
     </tr>
   <% end %>
