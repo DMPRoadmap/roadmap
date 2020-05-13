@@ -149,8 +149,11 @@ class User < ActiveRecord::Base
               "lower(email) LIKE lower(?)",
               search_pattern, search_pattern)
       else
-        where("lower(firstname || ' ' || surname) LIKE lower(?) OR " +
-              "email LIKE lower(?)", search_pattern, search_pattern)
+        joins(:org)
+          .where("lower(firstname || ' ' || surname) LIKE lower(:search_pattern)
+              OR lower(email) LIKE lower(:search_pattern)
+              OR lower(orgs.name) LIKE lower (:search_pattern)
+              OR lower(orgs.abbreviation) LIKE lower (:search_pattern) ", search_pattern: search_pattern)
       end
     end
   }
