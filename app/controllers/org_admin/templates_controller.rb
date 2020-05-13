@@ -41,7 +41,7 @@ module OrgAdmin
                           .where(customization_of: nil, org_id: current_user.org.id)
       published = templates.select { |t| t.published? || t.draft? }.length
 
-      @orgs  = current_user.can_super_admin? ? Org.all : nil
+      @orgs  = current_user.can_change_org? ? Org.all : nil
       @title = if current_user.can_super_admin?
                  _("%{org_name} Templates") % { org_name: current_user.org.name }
                else

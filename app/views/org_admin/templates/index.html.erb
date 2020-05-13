@@ -4,7 +4,7 @@
     <h1><%= _('Templates') %></h1>
   </div>
 
-  <% if current_user.can_super_admin? %>
+  <% if current_user.can_change_org? %>
     <div class="col-md-12">
       <p>
         <%= _('If you would like to modify one of the templates below, you must first change your organisation affiliation.') %>

@@ -26,7 +26,7 @@ class UserPolicy < ApplicationPolicy
 
   # Allows the user to swap their org affiliation on the fly
   def org_swap?
-    signed_in_user.can_super_admin?
+    signed_in_user.can_change_org?
   end
 
   def activate?

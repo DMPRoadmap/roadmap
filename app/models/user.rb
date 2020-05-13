@@ -228,12 +228,12 @@ class User < ActiveRecord::Base
     user_identifiers.where(identifier_scheme: scheme).first
   end
 
-  # Checks if the user is a super admin. If the user has any privelege which requires
+  # Checks if the user is a super admin. If the user has ALL privelege which requires
   # them to see the super admin page then they are a super admin.
   #
   # Returns Boolean
   def can_super_admin?
-    self.can_add_orgs? || self.can_grant_api_to_orgs? || self.can_change_org?
+    can_add_orgs? && can_grant_api_to_orgs? && can_change_org?
   end
 
   # Checks if the user is an organisation admin if the user has any privlege which
