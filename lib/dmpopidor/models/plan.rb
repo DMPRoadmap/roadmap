@@ -116,10 +116,15 @@ module Dmpopidor
           ).first
           if person_fragment.nil?
             person_fragment = dmp_fragment.persons.create(
-              data: person
+              data: person,
+              structured_data_schema_id: StructuredDataSchema.find_by(classname: "person").id
             )
           else
-            person_fragment.update_attributes(data: person)
+            person_fragment.update(
+              data: person,
+              structured_data_schema_id: StructuredDataSchema.find_by(classname: "person").id
+            )
+            person_fragment.save!
           end
         end
         person_fragment

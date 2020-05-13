@@ -78,6 +78,16 @@ class StructuredAnswersController < ApplicationController
       end
     end
 
+    # Gets fragment from a given id
+    def get_fragment
+      @fragment = StructuredAnswer.find(params[:id])
+      authorize @fragment
+
+      if @fragment.present?
+        render json: @fragment.data
+      end
+    end
+
     private
     def permitted_params
         params.require(:structured_answer)

@@ -1,3 +1,5 @@
+
+<% persons = @plan.json_fragment().persons %>
 <div class="row">
   <%= form_for plan, html: {method: :put, class: 'form-horizontal edit_plan' } do |f| %>
     <div class="col-md-12 plan-details">
@@ -6,12 +8,18 @@
         <!-- "Plan Metadata" tab -->
         <div id="plan_metadata" class="tab-pane in active">
           <h2><%= _("Plan Metadata") %></h2>
-          <%= render(partial: 'plans/plan_details/plan_metadata', locals: { f: f } ) %>
+          <%= render(partial: 'plans/plan_details/plan_metadata', locals: {
+                      f: f,
+                      persons: persons
+            } ) %>
         </div>
         <!-- "Project Details" tab -->
         <div id="plan_project" class="tab-pane">
           <h2><%= _("Project Details") %></h2>
-          <%= render(partial: 'plans/plan_details/plan_project', locals: { f: f } ) %>
+          <%= render(partial: 'plans/plan_details/plan_project', locals: { 
+                      f: f,
+                      persons: persons
+            } ) %>
         </div>
         <!-- "Guidance Configuration" tab -->
         <div id="guidance_configuration" class="tab-pane">

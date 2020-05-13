@@ -10,4 +10,7 @@ class StructuredAnswerPolicy < ApplicationPolicy
   def destroy?
     @fragment.plan.editable_by?(@user.id) || @user == @answer.plan.owner
   end
+  def get_fragment?
+    @fragment.plan.editable_by?(@user.id) || @user == @answer.plan.owner
+  end
 end

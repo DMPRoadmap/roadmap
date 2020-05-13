@@ -1,9 +1,9 @@
-
+<% field_class = nil if local_assigns[:field_class].nil? %>
 <div class="col-md-12">
   <%= f.label field_name, field_label, class: 'control-label' %>
 </div>
 <div class="col-md-8">
-  <%= f.text_field field_name, value: field_value, multiple: multiple, class: 'form-control' %>
+  <%= f.text_field field_name, value: field_value, multiple: multiple, class: "form-control #{field_class}" %>
   <% if multiple  %>
     <span class="add-record">Add</span>
     <% if index != 0 %>

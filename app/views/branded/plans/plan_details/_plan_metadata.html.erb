@@ -1,5 +1,6 @@
+<%# locals: { persons } %>
 <% meta = @plan.json_fragment().meta.data %>
-<% contact = @plan.json_fragment().meta.contact ?  @plan.json_fragment().meta.contact.data : nil %>
+<% contact = @plan.json_fragment().meta.contact %>
 <% dmpID = meta["dmpID"] %>
 <% p_version = meta["version"] %>
 <% licence = meta["licence"] %>
@@ -97,45 +98,16 @@
                 field_label: _('Associated DMPs')
                 } ) %>
 </div>
-<fieldset class="project-details">
-  <legend class="project-details"><%= _('Data contact person') %></legend>
-  <div class="form-group data-contact"><!-- data_contact_surname -->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-                f: f, 
-                field_value: contact ? contact["lastName"] : nil, 
-                multiple: false,
-                field_name: "contact[lastName]", 
-                field_label: _('Surname')
-                } ) %>
-   </div>
-  <div class="form-group data-contact"><!-- data_contact_firstname -->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-                f: f, 
-                field_value: contact ? contact["firstName"] : nil, 
-                multiple: false,
-                field_name: "contact[firstName]", 
-                field_label: _('First Name')
-                } ) %>
-  </div>
-  <div class="form-group data-contact"><!-- data_contact_email -->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-                f: f, 
-                field_value: contact ? contact["mbox"] : nil, 
-                multiple: false,
-                field_name: "contact[mbox]", 
-                field_label: _('Email')
-                } ) %>
-  </div>
-  <div class="form-group data-contact"><!-- data_contact_identifier -->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-                f: f, 
-                field_value: contact ? contact["identifier"] : nil, 
-                multiple: false,
-                field_name: "contact[identifier]", 
-                field_label: _('Identifier')
-                } ) %>
-  </div>
-</fieldset>
+
+<%= render(partial: 'shared/fragments/person_fragment_form', locals: {
+            f: f,
+            legend: _('Data contact person'),
+            person: contact ? contact.data : nil,
+            person_id: contact ? contact.id : nil,
+            person_list: persons,
+            plan: @plan,
+            fragment_name: "contact"
+      }) %>
 
 <fieldset class="project-details">
   <legend class="project-details"><%= _("Licence") %></legend>

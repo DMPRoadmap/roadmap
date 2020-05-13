@@ -121,6 +121,7 @@ Rails.application.routes.draw do
     end
     resources :structured_answers, only: [:destroy] do
       post 'create_or_update', on: :collection
+      get 'get_fragment/:id', action: :get_fragment, on: :collection, as: :get_fragment
     end
     resources :research_outputs, only: [:index, :destroy], controller: 'research_outputs'
   end

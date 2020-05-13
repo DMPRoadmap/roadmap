@@ -1,10 +1,10 @@
+<%# locals: { persons } %>
 <% project_abstract_tooltip = _("Briefly summarise your research project to help others understand the purposes for which the data are being collected or created.") %>
 
 <% project = @plan.json_fragment().project.data %>
 <% fundings = @plan.json_fragment().project.fundings %>
 <% partners = @plan.json_fragment().project.partners %>
-<% principalInvestigator = @plan.json_fragment().project.principalInvestigator ?  
-                           @plan.json_fragment().project.principalInvestigator.data : nil %>
+<% principalInvestigator = @plan.json_fragment().project.principalInvestigator %>
 
 <div class="form-group"><!-- project_title -->
   <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
@@ -93,44 +93,14 @@
 </div>
 
 
-<fieldset class="project-details">
-  <legend class="project-details"><%= _("Principal Investigator") %></legend>
-  <div class="form-group"><!-- principalInvestigator[lastName] -->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-                f: f, 
-                field_value: principalInvestigator ? principalInvestigator["lastName"] : nil,
-                multiple: false,
-                field_name: "principalInvestigator[lastName]", 
-                field_label: _('Surname')
-                } ) %>
-  </div>
-  <div class="form-group"><!-- principalInvestigator[firstName] -->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-                f: f, 
-                field_value: principalInvestigator ? principalInvestigator["firstName"] : nil,
-                multiple: false,
-                field_name: "principalInvestigator[firstName]", 
-                field_label: _('First Name')
-                } ) %>
-  </div>
-  <div class="form-group"><!-- principalInvestigator[mbox] -->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-                f: f, 
-                field_value: principalInvestigator ? principalInvestigator["mbox"] : nil,
-                multiple: false,
-                field_name: "principalInvestigator[mbox]", 
-                field_label: _('Email')
-                } ) %>
-  </div>
-  <div class="form-group"><!-- principalInvestigator[identifier] -->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-                f: f, 
-                field_value: principalInvestigator ? principalInvestigator["identifier"] : nil, 
-                multiple: false,
-                field_name: "principalInvestigator[identifier]", 
-                field_label: _('Identifier')
-                } ) %>
-  </div>
-</fieldset>
+<%= render(partial: 'shared/fragments/person_fragment_form', locals: {
+            f: f,
+            legend: _("Principal Investigator"),
+            person: principalInvestigator ? principalInvestigator.data : nil,
+            person_id: principalInvestigator ? principalInvestigator.id : nil,
+            person_list: persons,
+            plan: @plan,
+            fragment_name: "principalInvestigator"
+      }) %>
 
 <%= f.button(_('Submit'), class: "btn btn-default", type: "submit") %>

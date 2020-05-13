@@ -142,4 +142,19 @@ $(() => {
       });
     }
   });
+
+  $('.generic-fragment-picker').on('change', (e) => {
+    const target = $(e.target);
+    const parentFieldset = target.parents('fieldset');
+    const url = target.find('option:selected').data('url');
+    $.ajax({
+      url,
+      method: 'get',
+    }).done((data) => {
+      parentFieldset.find('.person_lastName').val(data.lastName);
+      parentFieldset.find('.person_firstName').val(data.firstName);
+      parentFieldset.find('.person_mbox').val(data.mbox);
+      parentFieldset.find('.person_identifier').val(data.identifier);
+    });
+  });
 });
