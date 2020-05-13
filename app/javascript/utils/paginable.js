@@ -1,4 +1,3 @@
-import { isValidText } from './isValidInputType';
 
 export const paginableSelector = '.paginable';
 
