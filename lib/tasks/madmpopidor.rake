@@ -6,7 +6,6 @@ namespace :madmpopidor do
     Plan.all.each do |plan|
         if plan.json_fragment.nil?
             plan.create_plan_fragments()
-            plan.update_plan_fragments()
         end
 
         plan.research_outputs.each do |research_output|
@@ -14,7 +13,6 @@ namespace :madmpopidor do
                 if research_output.json_fragment.nil?
                     research_output.create_or_update_fragments()
                 end
-                
             end
         end
     end
