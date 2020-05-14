@@ -136,6 +136,21 @@
   </div>
 
   <hr>
+  <div class="row">
+    <div class="form-group col-xs-8">
+      <h3><%= _("Google Analytics Tracker") %></h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-xs-4">
+      <%= f.fields_for :tracker do |t| %>
+        <%= t.label :code, _('Tracker Code'), class: "control-label" %>
+        <%= t.text_field :code, class: "form-control", aria: { required: false } %>
+      <% end %>
+    </div>
+  </div>
+
+  <hr>
 
   <% if !org.new_record? %>
     <%= render partial: "orgs/external_identifiers",
