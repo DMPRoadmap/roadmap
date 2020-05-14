@@ -32,7 +32,7 @@ module Dmpopidor
       # Returns nil
       def answer(qid, create_if_missing = true, roid = nil)
         answer = answers.where(question_id: qid, research_output_id: roid).order("created_at DESC").first
-        question = Question.find(qid)
+        question = ::Question.find(qid)
         if answer.nil? && create_if_missing
           answer             = Answer.new
           answer.plan_id     = id
@@ -54,7 +54,7 @@ module Dmpopidor
       # Returns Boolean
       # CHANGES : Reviewer can be from a different org of the plan owner
       def reviewable_by?(user_id)
-        reviewer = User.find(user_id)
+        reviewer = ::User.find(user_id)
         feedback_requested? &&
         reviewer.present? &&
         reviewer.can_review_plans?
