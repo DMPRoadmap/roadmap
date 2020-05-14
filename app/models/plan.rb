@@ -427,6 +427,7 @@ class Plan < ActiveRecord::Base
   # user_id - The Integer id for the user
   #
   # Returns Boolean
+  # SEE MODULE
   def reviewable_by?(user_id)
     reviewer = User.find(user_id)
     feedback_requested? &&

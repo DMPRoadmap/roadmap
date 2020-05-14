@@ -47,6 +47,18 @@ module Dmpopidor
         answer
       end
 
+      # determines if the plan is reviewable by the specified user
+      #
+      # user_id - The Integer id for the user
+      #
+      # Returns Boolean
+      # CHANGES : Reviewer can be from a different org of the plan owner
+      def reviewable_by?(user_id)
+        reviewer = User.find(user_id)
+        feedback_requested? &&
+        reviewer.present? &&
+        reviewer.can_review_plans?
+      end
 
       # The number of research outputs for a plan.
       #
