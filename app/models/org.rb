@@ -66,6 +66,7 @@ class Org < ActiveRecord::Base
 
   has_one :tracker
   accepts_nested_attributes_for :tracker 
+  validates_associated :tracker
 
   has_many :guidance_groups, dependent: :destroy
 
