@@ -2,7 +2,7 @@
 
 class StructuredAnswersController < ApplicationController
 
-  #after_action :verify_authorized
+  after_action :verify_authorized
 
   def create_or_update
     @plan = Plan.find(params[:plan_id])
