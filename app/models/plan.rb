@@ -102,6 +102,8 @@ class Plan < ActiveRecord::Base
 
   has_many :roles
 
+  belongs_to :feedback_requestor, class_name: "User", :foreign_key => 'feedback_requestor'
+
   # RESEARCH OUTPUTS
   has_many :research_outputs, dependent: :destroy, inverse_of: :plan do
     # Returns the default research output
@@ -321,6 +323,7 @@ class Plan < ActiveRecord::Base
   #  emails confirmation messages to owners
   #  emails org admins and org contact
   #  adds org admins to plan with the 'reviewer' Role
+  # SEE MODULE
   def request_feedback(user)
     Plan.transaction do
       begin
@@ -347,6 +350,7 @@ class Plan < ActiveRecord::Base
   # Finalizes the feedback for the plan: Emails confirmation messages to owners
   # sets flag on plans.feedback_requested to false removes org admins from the
   # 'reviewer' Role for the Plan.
+  # SEE MODULE
   def complete_feedback(org_admin)
     Plan.transaction do
       begin

@@ -457,3 +457,6 @@ msgstr "MERCI DE CHOISIR UN ORGANISME DANS VOTRE PROFIL"
 
 msgid "You are about to archive %{user_name}. This will remove their personal information. This user will be unable to use their DMP OPIDoR account and the plans they created or shared by their colleagues. Are you sure?"
 msgstr "Vous êtes sur le point d’archiver %{user_name}. Les informations personnelles de ce compte seront anonymisées. Par conséquent cet utilisateur ne pourra plus accéder à son compte DMP OPIDoR et aux plans qu’il aura créés, ni à ceux partagés avec lui par ses collègues. Etes-vous sûr ?"
+
+msgid "Request Date"
+msgstr "Date de la demande"

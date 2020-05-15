@@ -460,4 +460,5 @@ msgstr ""
 msgid "You are about to archive %{user_name}. This will remove their personal information. This user will be unable to use their DMP OPIDoR account and the plans they created or shared by their colleagues. Are you sure?"
 msgstr ""
 
-
+msgid "Request Date"
+msgstr ""

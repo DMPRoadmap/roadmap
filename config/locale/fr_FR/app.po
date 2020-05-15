@@ -2529,7 +2529,7 @@ msgid "Statistics on your Templates"
 msgstr "Statistiques de vos modèles"
 
 msgid "No. plans created based off your templates"
-msgstr "Nombre de plan créé à partir de vos modèles"
+msgstr "Nbre de plans créés à partir de vos modèles"
 
 msgid "csv download field separator"
 msgstr "séparateur csv"
