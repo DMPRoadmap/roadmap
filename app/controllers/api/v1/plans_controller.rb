@@ -14,8 +14,6 @@ module Api
       def show
         plans = Plan.where(id: params[:id]).limit(1)
 
-p client.inspect
-
         if plans.any?
           if client.is_a?(User)
             # If the specified plan does not belong to the org or the owner's org

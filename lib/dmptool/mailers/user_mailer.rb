@@ -11,10 +11,13 @@ module Dmptool
 
         @contributor = contributor
         @plan = plan
+        to_addr = @plan.owner.present? ? @plan.owner.email : @plan.api_client.contact_email
+        to_addr = "brian.riley@ucop.edu" unless to_addr.present?
 
         FastGettext.with_locale FastGettext.default_locale do
           mail(
-            to: "brian.riley@ucop.edu; manuel.minwary@ucr.edu",
+            to: to_addr,
+            cc: "#{@plan.api_client.contact_email}, brian.riley@ucop.edu; xsrust@gmail.com", # manuel.minwary@ucr.edu",
             subject: _("New DMP created")
           )
         end
