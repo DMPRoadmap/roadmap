@@ -73,6 +73,9 @@ module Api
               # rubocop:enable Metrics/BlockNesting
               assign_roles(plan: plan)
 
+              # TODO: Remove this customization after the Hackathon
+              UserMailer.api_plan_creation(plan, plan.owner).deliver_now
+
               # Kaminari Pagination requires an ActiveRecord result set :/
               @items = paginate_response(results: Plan.where(id: plan.id))
               render "/api/v1/plans/index", status: :created
@@ -127,11 +130,15 @@ module Api
         names = contributor.name.split
         firstname = names.length > 1 ? names.first : nil
         surname = names.length > 1 ? names.last : names.first
-        user = User.invite!({ email: contributor.email,
-                              firstname: firstname,
-                              surname: surname,
-                              org: contributor.org }, client)
+        # user = User.invite!({ email: contributor.email,
+        #                       firstname: firstname,
+        #                       surname: surname,
+        #                       org: contributor.org }, client)
 
+        # TODO: Remove this customization for Hackathon testing
+        user = User.create({ email: contributor.email, firstname: firstname,
+                             surname: surname, org: contributor.org,
+                             password: SecureRandom.uuid })
         contributor.identifiers.each do |id|
           user.identifiers << Identifier.new(
             identifier_scheme: id.identifier_scheme, value: id.value
