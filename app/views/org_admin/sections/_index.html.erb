@@ -1,3 +1,5 @@
+<%# locals modifiable %>
+
 <!-- Accordion for sections -->
 <div class="row">
   <div class="col-md-12">
@@ -5,14 +7,13 @@
     <div class="draggable-sections" data-url="<%=
       sort_org_admin_template_phase_path(template, phase)
      %>">
-
       <%= render partial: "org_admin/sections/section_group",
                  locals: { sections: Array(prefix_section),
                            phase: phase,
                            template: template,
                            current_section: current_section,
                            panel_id: "section-#{prefix_section.id}",
-                           modifiable: true } if prefix_section %>
+                           modifiable: modifiable } if prefix_section %>
 
       <%# If we are working with a modifiable phase then allow the core sections to be reordered %>
       <% if phase.modifiable? %>
