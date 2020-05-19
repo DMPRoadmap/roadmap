@@ -19,7 +19,7 @@ class Paginable::UsersController < ApplicationController
     end
 
     if @filter_admin
-      scope = scope.joins(:perms)
+      scope = scope.joins(:perms).distinct
     end
 
 

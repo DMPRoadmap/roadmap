@@ -6,19 +6,15 @@ class Org
 
     class << self
 
-      def call
-        total = build_from_joined_user
-        build_from_created_plan(total)
-        build_from_shared_plan(total)
-        build_from_exported_plan(total)
+      def call(current_user)
+        total = build_from_joined_user(current_user)
+        build_from_created_plan(current_user, total)
+        build_from_shared_plan(current_user, total)
+        build_from_exported_plan(current_user, total)
         total.values
       end
 
       private
-
-      def current_user
-        User.find_by_email 'xsrust@gmail.com'
-      end
 
       def build_model(month:, new_plans: 0, new_users: 0, downloads: 0, plans_shared: 0)
         {
@@ -45,28 +41,28 @@ class Org
         acc
       end
 
-      def build_from_joined_user(total = {})
+      def build_from_joined_user(current_user, total = {})
         joined_users = Stat::StatJoinedUser.monthly_range(org: current_user.org).order(:date)
         joined_users.reduce(total) do |acc, rec|
           reducer_body(acc, rec, :new_users)
         end
       end
 
-      def build_from_created_plan(total = {})
+      def build_from_created_plan(current_user, total = {})
         created_plans = Stat::StatCreatedPlan.monthly_range(org: current_user.org).order(:date)
         created_plans.reduce(total) do |acc, rec|
           reducer_body(acc, rec, :new_plans)
         end
       end
 
-      def build_from_shared_plan(total = {})
+      def build_from_shared_plan(current_user, total = {})
         shared_plans = Stat::StatSharedPlan.monthly_range(org: current_user.org).order(:date)
         shared_plans.reduce(total) do |acc, rec|
           reducer_body(acc, rec, :plans_shared)
         end
       end
 
-      def build_from_exported_plan(total = {})
+      def build_from_exported_plan(current_user, total = {})
         exported_plans = Stat::StatExportedPlan.monthly_range(org: current_user.org).order(:date)
         exported_plans.reduce(total) do |acc, rec|
           reducer_body(acc, rec, :downloads)
