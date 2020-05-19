@@ -139,8 +139,7 @@ module OrgAdmin
           template: template,
           phases: phases,
           referrer: get_referrer(template, request.referrer) }
-      end        ^^^^^^^^^^
-app/controllers/org_admin/templates_controller.rb:367:5: C: Metrics/AbcSize: Assig
+      end
     end
 
     # GET /org_admin/templates/new
