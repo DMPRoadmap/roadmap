@@ -4,6 +4,33 @@ class StructuredAnswersController < ApplicationController
 
   after_action :verify_authorized
 
+  # Instanciates a new structured answer/fragment
+  def new
+    @fragment = StructuredAnswer.new
+    @fragment.structured_data_schema = StructuredDataSchema.find(params[:schema_id])
+    authorize @fragment
+  end
+
+  def edit
+    @fragment = StructuredAnswer.find(params[:id])
+    authorize @fragment
+  end
+
+  def create
+    form_data = permitted_params.select { |k, v| schema_params(flat = true).include?(k) }
+    @fragment = StructuredAnswer.create(
+      structured_data_schema: StructuredDataSchema.find(permitted_params[:schema_id]),
+      data: data_reformater(json_schema, form_data)
+    )
+    authorize @fragment
+  end
+  
+  def update
+    @fragment = StructuredAnswer.find(params[:id])
+    form_data = permitted_params.select { |k, v| schema_params(flat = true).include?(k) }
+    @fragment.update(data: data_reformater(json_schema, form_data))
+  end
+
   def create_or_update
     @plan = Plan.find(params[:plan_id])
     p_params = permitted_params()
@@ -89,9 +116,51 @@ class StructuredAnswersController < ApplicationController
     end
 
     private
+
+    def data_reformater(schema, data)
+      schema["properties"].each do |key, value|
+        case value["type"]
+        when "integer"
+          data[key] = data[key].to_i
+        when "boolean"
+          data[key] = data[key] == "1"
+        when "array"
+          data[key] = data[key].kind_of?(Array) ? data[key] : [data[key]]
+        when "object"
+          if value["dictionnary"]
+            data[key] = JSON.parse(DictionnaryValue.where(id: data[key]).select(:id, :uri, :label).take.to_json)
+          end
+        end
+      end
+      data
+    end
+
+    # Generates a permitted params array from a structured answer schema
+    def permitted_params_from_properties(properties, flat = false)
+      parameters = Array.new
+      properties.each do |key, prop|
+        if prop["type"] == "array" && !flat
+          parameters.append({key => []})
+          # parameters.append(key)
+        else
+          parameters.append(key)
+        end
+      end
+      parameters
+    end
+
+    def json_schema
+      StructuredDataSchema.find(params['structured_answer']['schema_id']).schema
+    end
+
+    def schema_params(flat = false)
+      permitted_params_from_properties(json_schema['properties'], flat)
+    end
+
     def permitted_params
-        params.require(:structured_answer)
-              .permit(:id, :dmp_id, :parent_id)
+      permit_arr = [:id, :dmp_id, :parent_id, :schema_id]
+      permit_arr.append(schema_params)
+      params.require(:structured_answer).permit(permit_arr)
     end
 
     def funding_params

@@ -1,9 +1,8 @@
 <%# locals: { f, question, answer, research_output } %>
 
-<%= f.label(:text, sanitize(question.text), class: 'control-label') unless question.nil? %>
 <div class="form-group">
-    <% schema['properties'].each do |key, prop| %>
-        <% value = answer.structured_answer.data[key] unless answer.structured_answer.nil? %>
+    <% schema.schema['properties'].each do |key, prop| %>
+        <% value = structured_answer.data[key] unless structured_answer.data.nil? %>
         <% case prop['type'] %>
             <% when 'string' %>
                 <%= create_text_field(f, value, key, prop['label']) %>
@@ -18,4 +17,6 @@
               field_name: key }) %>
         <% end %>
     <% end %>
+    <%= f.hidden_field :schema_id, value: schema.id %>
+    <%= f.button(_('Save'), class: 'btn btn-default', type: 'submit') %>
 </div>
