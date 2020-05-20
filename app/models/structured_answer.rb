@@ -17,6 +17,7 @@
 #  index_structured_answers_on_answer_id                  (answer_id)
 #  index_structured_answers_on_structured_data_schema_id  (structured_data_schema_id)
 #
+require 'jsonpath'
 
 class StructuredAnswer < ActiveRecord::Base
   
@@ -48,7 +49,7 @@ class StructuredAnswer < ActiveRecord::Base
   scope :distributions, -> { where(classname: 'distribution') } 
   scope :dmps, -> { where(classname: 'dmp') } 
   scope :documentations, -> { where(classname: 'documentation') } 
-  scope :ethical_issues, -> { where(classname: 'ethicalIssue') } 
+  scope :ethical_issues, -> { where(classname: 'ethical_issue') } 
   scope :funders, -> { where(classname: 'funder') } 
   scope :fundings, -> { where(classname: 'funding') } 
   scope :metas, -> { where(classname: 'meta') } 
@@ -77,6 +78,37 @@ class StructuredAnswer < ActiveRecord::Base
   # = Class methods =
   # =================
 
+  def plan
+    plan = nil
+    if self.answer.nil?
+      self.dmp.plan
+    else
+      plan = self.answer.plan
+    end
+  end
+
+  # Returns the schema associated to the JSON fragment
+  def json_schema
+    self.structured_data_schema.schema
+  end
+
+  # Returns a human readable version of the structured answer
+  def to_s 
+    displayable = ""
+    if json_schema["to_string"]
+      json_schema["to_string"].each do |pattern|
+        # if it's a JsonPath pattern
+        if pattern.first == "$"
+          displayable += JsonPath.on(self.data, pattern).first
+        else 
+          displayable += pattern
+        end
+      end
+    else 
+      displayable = self.data.to_s
+    end
+    displayable
+  end
 
   # This method generates references to the child fragments in the parent fragment
   # it updates the json "data" field in the database
@@ -93,8 +125,10 @@ class StructuredAnswer < ActiveRecord::Base
         if children.count >= 2
           # if there is more than 1 child, should pluralize the classname
           parent_data[classname.pluralize(children.count)] = children.map { |c| { "dbId" => c.id } }
+          parent_data.delete(classname) if parent_data[classname]
         else 
           parent_data[classname] =  { "dbId" => children.first.id }
+          parent_data.delete(classname.pluralize(2)) if parent_data[classname.pluralize(2)]
         end 
       end
       self.parent.update(data: parent_data)

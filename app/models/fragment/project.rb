@@ -21,16 +21,20 @@
 class Fragment::Project < StructuredAnswer
 
     def principalInvestigator
-        Fragment::Person.where(id: data['principalInvestigator']['dbId']).first
+        principalInvestigator = nil
+        unless data["principalInvestigator"].nil?
+            principalInvestigator = Fragment::Person.where(id: data['principalInvestigator']['dbId']).first
+        end
+        principalInvestigator
     end
 
     
     def fundings
-        Fragment::Funding.where("(data->>'project'->>'dbId')::int = ?", id)
+        Fragment::Funding.where(parent_id: id)
     end
 
     def partners
-        Fragment::Partner.where("(data->>'project'->>'dbId')::int = ?", id)
+        Fragment::Partner.where(parent_id: id)
     end
 
 

@@ -1,0 +1,61 @@
+<%# locals: { legend, person, person_id, fragment_name, person_list } %>
+
+<fieldset class="project-details">
+  <legend class="project-details"><%= legend %></legend>
+  <div class="form-group">
+    <div class="col-md-12">
+      <%= f.label "#{fragment_name}_person_list", _('Please choose a person from the list or create a new one.'), class: 'control-label' %>
+    </div>
+    <div class="col-md-10">
+      <%= select_tag "#{fragment_name}_person_list",
+                    options_for_select(
+                      person_list.map { |p| [
+                        p.to_s, p.id, 
+                        { "data-url" => get_fragment_structured_answers_path(p.id, plan_id: plan.id) } 
+                      ] }, 
+                      selected: person_id),
+                    class: "form-control generic-fragment-picker",
+                    :disabled => person_list.empty?  %>
+    </div>
+  </div>
+  <div class="form-group"><!-- person_surname -->
+    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+              f: f, 
+              field_value: person ? person["lastName"] : nil, 
+              multiple: false,
+              field_name: "#{fragment_name}[lastName]", 
+              field_label: _('Surname'),
+              field_class: "person_lastName"
+              } ) %>
+  </div>
+  <div class="form-group"><!-- person_firstname -->
+    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+              f: f, 
+              field_value: person ? person["firstName"] : nil, 
+              multiple: false,
+              field_name: "#{fragment_name}[firstName]", 
+              field_label: _('First Name'),
+              field_class: "person_firstName"
+              } ) %>
+  </div>
+  <div class="form-group"><!-- person_email -->
+    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+              f: f, 
+              field_value: person ? person["mbox"] : nil, 
+              multiple: false,
+              field_name: "#{fragment_name}[mbox]", 
+              field_label: _('Email'),
+              field_class: "person_mbox"
+              } ) %>
+  </div>
+  <div class="form-group"><!-- person_identifier -->
+    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+              f: f, 
+              field_value: person ? person["identifier"] : nil, 
+              multiple: false,
+              field_name: "#{fragment_name}[identifier]", 
+              field_label: _('Identifier'),
+              field_class: "person_identifier"
+              } ) %>
+  </div>
+</fieldset>

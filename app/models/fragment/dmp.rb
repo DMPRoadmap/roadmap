@@ -37,6 +37,10 @@ class Fragment::Dmp < StructuredAnswer
     end
 
 
+    def plan 
+        Plan.find(data["plan_id"])
+    end
+
     def self.sti_name
         "dmp"
     end

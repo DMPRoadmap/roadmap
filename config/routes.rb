@@ -109,6 +109,7 @@ Rails.application.routes.draw do
     resource :export, only: [:show], controller: "plan_exports"
 
     member do
+      get 'new_edit_linked_fragment'
       get 'answer'
       get 'share'
       get 'request_feedback'
@@ -121,6 +122,11 @@ Rails.application.routes.draw do
     resources :research_outputs, only: [:index, :destroy], controller: 'research_outputs'
   end
 
+  resources :structured_answers, only: [:destroy] do
+    post 'create_or_update', on: :collection
+    get 'get_fragment/:id', action: :get_fragment, on: :collection, as: :get_fragment
+  end
+  
   resources :usage, only: [:index]
 
   resources :usage_downloads, only: [:index]

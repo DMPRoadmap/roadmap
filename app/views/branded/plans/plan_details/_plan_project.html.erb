@@ -1,0 +1,106 @@
+<%# locals: { persons } %>
+<% project_abstract_tooltip = _("Briefly summarise your research project to help others understand the purposes for which the data are being collected or created.") %>
+
+<% project = @plan.json_fragment().project.data %>
+<% fundings = @plan.json_fragment().project.fundings %>
+<% partners = @plan.json_fragment().project.partners %>
+<% principalInvestigator = @plan.json_fragment().project.principalInvestigator %>
+
+<div class="form-group"><!-- project_title -->
+  <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+              f: f, 
+              field_value: project["title"], 
+              multiple: false,
+              field_name: "project_title", 
+              field_label: _('Project title')
+              } ) %>
+</div>
+<div class="form-group"><!-- project_acronym -->
+  <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+              f: f, 
+              field_value: project["acronym"],  
+              multiple: false,
+              field_name: "project_acronym", 
+              field_label: _('Acronym')
+              } ) %>
+</div>
+<div class="form-group"><!-- project_id -->
+  <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+              f: f, 
+              field_value: project["projectId"], 
+              multiple: false,
+              field_name: "project_id", 
+              field_label: _('Project ID')
+              } ) %>
+</div>
+<div class="form-group"><!-- project_description -->
+  <div class="col-md-12">
+    <%= f.label "plan[project_description]", _('Project abstract'), class: 'control-label' %>
+  </div>
+  <div class="col-md-10" data-toggle="tooltip" title="<%= project_abstract_tooltip %>">
+    <em class="sr-only"><%= project_abstract_tooltip %></em>
+    <%= text_area_tag "plan[project_description]", project["description"],
+                        { rows: 6, class: "form-control tinymce", "aria-required": true,
+                        'data-toggle': 'tooltip', spellcheck: true } %>
+  </div>
+</div>
+
+<fieldset class="project-details funding-list">
+  <%= render(partial: 'plans/plan_details/linked_fragment_list', locals: {
+    plan: @plan,
+    parent_id: @plan.json_fragment().project.id,
+    obj_list: fundings,
+    type: "funding"
+  }) %>
+</fieldset>
+
+<div class="form-group"><!-- project_start_date -->
+  <%= render(partial: 'plans/plan_details/fields/date_field', locals: {
+              f: f, 
+              field_value: project["startDate"], 
+              multiple: false,
+              field_name: "project_start_date", 
+              field_label: _('Start Date')
+              } ) %>
+</div>
+<div class="form-group"><!-- project_end_date -->
+  <%= render(partial: 'plans/plan_details/fields/date_field', locals: {
+              f: f, 
+              field_value: project["endDate"], 
+              multiple: false,
+              field_name: "project_end_date", 
+              field_label: _('End Date')
+              } ) %>
+</div>
+
+<fieldset class="project-details partner-list">
+  <%= render(partial: 'plans/plan_details/linked_fragment_list', locals: {
+    plan: @plan,
+    parent_id: @plan.json_fragment().project.id,
+    obj_list: partners,
+    type: "partner"
+  }) %>
+</fieldset>
+
+<div class="form-group"><!-- experimental_plan_url -->
+  <%= render(partial: 'plans/plan_details/fields/url_field', locals: {
+              f: f, 
+              field_value: project["experimentalPlanUrl"], 
+              multiple: false,
+              field_name: "experimental_plan_url", 
+              field_label: _('Experimental Plan URL')
+              } ) %>
+</div>
+
+
+<%= render(partial: 'shared/fragments/person_fragment_form', locals: {
+            f: f,
+            legend: _("Principal Investigator"),
+            person: principalInvestigator ? principalInvestigator.data : nil,
+            person_id: principalInvestigator ? principalInvestigator.id : nil,
+            person_list: persons,
+            plan: @plan,
+            fragment_name: "principalInvestigator"
+      }) %>
+
+<%= f.button(_('Submit'), class: "btn btn-default", type: "submit") %>

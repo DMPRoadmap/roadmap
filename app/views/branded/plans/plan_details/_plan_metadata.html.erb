@@ -1,0 +1,143 @@
+<%# locals: { persons } %>
+<% meta = @plan.json_fragment().meta.data %>
+<% contact = @plan.json_fragment().meta.contact %>
+<% dmpID = meta["dmpID"] %>
+<% p_version = meta["version"] %>
+<% licence = meta["licence"] %>
+
+<div class="form-group"><!-- title -->
+  <div class="col-md-12">
+    <%= f.label(:title, _('Plan title'), class: 'control-label') %>
+  </div>
+  <div class="col-md-10">
+    <%= f.text_field(:title, class: "form-control", "aria-required": true,
+         'data-toggle': 'tooltip', spellcheck: true) %>
+    <div class="checkbox">
+      <%= f.hidden_field :visibility %>
+      <%= f.label(:is_test, class: 'control-label') do %>
+        <%= check_box_tag(:is_test, 1, @plan.is_test?, "aria-label": "is_test") %>
+        <%= _('mock plan for testing, practice, or educational purposes') %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="form-group"><!-- plan description -->
+  <div class="col-md-12">
+    <%= f.label(:description, _('Plan abstract'), class: 'control-label') %>
+  </div>
+  <div class="col-md-10" data-toggle="tooltip">
+    <%= f.text_area(
+          :description, rows: 6,
+          class: 'form-control tinymce',
+          "aria-required": false) %>
+  </div>
+</div>
+<fieldset class="project-details"> <!-- DMP ID -->
+  <legend class="project-details"><%= _('DMP ID') %></legend>
+  <div class="form-group"><!-- Identifier Type -->
+    <div class="col-md-12">
+      <%= f.label "plan[dmpID[idType]]", _('Identifier Type'), class: 'control-label' %>
+    </div>
+    <div class="col-md-10">
+      <%= select_tag "plan[dmpID[idType]]",
+                    options_for_select(["DOI", "HANDLE", "ARK", "URL"],
+                    selected: dmpID ? dmpID["idType"] : "DOI" ),
+                    class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group"><!-- identifier -->
+    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+                f: f, 
+                field_value: dmpID ? dmpID["value"] : nil, 
+                multiple: false,
+                field_name: "dmpID[value]", 
+                field_label: _('ID')
+                } ) %>
+    
+  </div>
+</fieldset>
+
+<fieldset class="project-details"> <!-- Version -->
+  <legend class="project-details"><%= _('Version') %></legend>
+  <div class="form-group"><!-- versionNumber -->
+    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+                f: f, 
+                field_value: p_version ? p_version["versionNumber"] : nil, 
+                multiple: false,
+                field_name: "version[versionNumber]", 
+                field_label: _('Number')
+                } ) %>
+  </div>
+  <div class="form-group"><!-- versionNotes -->
+    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+                f: f, 
+                field_value: p_version ? p_version["versionNotes"] : nil,  
+                multiple: false,
+                field_name: "version[versionNotes]", 
+                field_label: _('Notes')
+                } ) %>
+  </div>
+</fieldset>
+<!-- TODO : IMPLEMENT MULTIPLE -->
+<div class="form-group"><!-- relatedDocUrl -->
+    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+                f: f, 
+                field_value: meta["relatedDocUrl"], 
+                multiple: false,
+                field_name: "relatedDocUrl", 
+                field_label: _('Related Documentation URL')
+                } ) %>
+</div>
+<!-- TODO : IMPLEMENT MULTIPLE -->
+<div class="form-group"><!-- associatedDMPId -->
+    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+                f: f, 
+                field_value: meta["associatedDMPId"], 
+                multiple: false,
+                field_name: "associatedDMPId", 
+                field_label: _('Associated DMPs')
+                } ) %>
+</div>
+
+<%= render(partial: 'shared/fragments/person_fragment_form', locals: {
+            f: f,
+            legend: _('Data contact person'),
+            person: contact ? contact.data : nil,
+            person_id: contact ? contact.id : nil,
+            person_list: persons,
+            plan: @plan,
+            fragment_name: "contact"
+      }) %>
+
+<fieldset class="project-details">
+  <legend class="project-details"><%= _("Licence") %></legend>
+  <div class="form-group"><!-- licenseName -->
+    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+                f: f, 
+                field_value: licence ? licence["licenseName"] : nil,
+                multiple: false,
+                field_name: "licence[licenseName]", 
+                field_label: _('Name')
+                } ) %>
+  </div>
+  <div class="form-group"><!-- licenseUrl -->
+    <%= render(partial: 'plans/plan_details/fields/url_field', locals: {
+                f: f, 
+                field_value: licence ? licence["licenseUrl"] : nil, 
+                multiple: false,
+                field_name: "licence[licenseUrl]", 
+                field_label: _('URL')
+                } ) %>
+  </div>
+  <div class="form-group"><!-- licenceStartDate -->
+    <%= render(partial: 'plans/plan_details/fields/date_field', locals: {
+                f: f, 
+                field_value: meta["licenceStartDate"], 
+                multiple: false,
+                field_name: "licenceStartDate", 
+                field_label: _('Start Date')
+                } ) %>
+  </div>
+</fieldset>
+
+<%= f.button(_('Submit'), class: "btn btn-default", type: "submit") %>

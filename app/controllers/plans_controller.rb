@@ -414,7 +414,7 @@ class PlansController < ApplicationController
   end
 
   private
-
+  
   def plan_params
     params.require(:plan)
           .permit(:org_id, :org_name, :funder_id, :funder_name, :template_id,
@@ -422,8 +422,7 @@ class PlansController < ApplicationController
                   :principal_investigator_phone, :principal_investigator,
                   :principal_investigator_email, :data_contact,
                   :principal_investigator_identifier, :data_contact_email,
-                  :data_contact_phone, :guidance_group_ids, 
-                  research_outputs_attributes: %i[id abbreviation fullname order pid other_type_label research_output_type_id _destroy])
+                  :data_contact_phone, :guidance_group_ids)
   end
 
   # different versions of the same template have the same family_id
