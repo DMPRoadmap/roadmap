@@ -1,5 +1,6 @@
 
-<% persons = @plan.json_fragment().persons %>
+<%# TMP fix here + other lines (see commit) %>
+<%# persons = @plan.json_fragment().persons %>
 <div class="row">
   <%= form_for plan, html: {method: :put, class: 'form-horizontal edit_plan' } do |f| %>
     <div class="col-md-12 plan-details">
@@ -10,7 +11,7 @@
           <h2><%= _("Plan Metadata") %></h2>
           <%= render(partial: 'plans/plan_details/plan_metadata', locals: {
                       f: f,
-                      persons: persons
+                      # persons: persons
             } ) %>
         </div>
         <!-- "Project Details" tab -->
@@ -18,7 +19,7 @@
           <h2><%= _("Project Details") %></h2>
           <%= render(partial: 'plans/plan_details/plan_project', locals: { 
                       f: f,
-                      persons: persons
+                      # persons: persons
             } ) %>
         </div>
         <!-- "Guidance Configuration" tab -->

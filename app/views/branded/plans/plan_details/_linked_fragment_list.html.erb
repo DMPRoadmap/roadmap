@@ -5,6 +5,8 @@
   <tr><th scope="col"><%= type.capitalize %></th><th scope="col">Actions</th></tr>
 </thead>
 <tbody>
+  <%# TMP fix (see commit) %>
+  <% obj_list = [] %>
   <% obj_list.each do |obj| %>
     <tr>
       <td><%= obj.to_s %></td>
