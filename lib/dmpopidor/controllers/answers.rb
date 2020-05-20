@@ -40,7 +40,8 @@ module Dmpopidor
             })
             authorize @answer
             pa = p_params.merge(user_id: current_user.id)
-            pa = pa.select { |k, v| !schema_params.include?(k) } if q.question_format.structured
+            # Exclude structured answer parameters (since they are not stored directly in the Answer object)
+            pa = pa.select { |k, v| !schema_params(flat = true).include?(k) } if q.question_format.structured  
             @answer.update(pa)
             if p_params[:question_option_ids].present?
               # Saves the record with the updated_at set to the current time.
@@ -48,13 +49,7 @@ module Dmpopidor
               @answer.touch()
             end
             if q.question_format.structured
-              form_data = p_params.select { |k, v| schema_params.include?(k) }
-                s_answer = StructuredAnswer.find_or_initialize_by(answer_id: @answer.id) do |sa|
-                  sa.answer = @answer
-                  sa.structured_data_schema = q.structured_data_schema
-                end
-                s_answer.assign_attributes(data: data_reformater(json_schema, form_data))
-                s_answer.save
+              save_structured_answer()
             end
             if q.question_format.rda_metadata?
               @answer.update_answer_hash(
@@ -62,20 +57,15 @@ module Dmpopidor
               )
               @answer.save!
             end
-            rescue ActiveRecord::RecordNotFound
-              pa = p_params.merge(user_id: current_user.id)
-              pa = pa.select { |k, v| !schema_params.include?(k) } if q.question_format.structured  
+          rescue ActiveRecord::RecordNotFound
+            pa = p_params.merge(user_id: current_user.id)
+            # Exclude structured answer parameters (since they are not stored directly in the Answer object)
+            pa = pa.select { |k, v| !schema_params(flat = true).include?(k) } if q.question_format.structured  
               @answer = Answer.new(pa)
               @answer.lock_version = 1
               authorize @answer
               if q.question_format.structured
-                form_data = p_params.select { |k, v| schema_params.include?(k) }
-                  s_answer = StructuredAnswer.find_or_initialize_by(answer_id: @answer.id) do |sa|
-                    sa.answer = @answer
-                    sa.structured_data_schema = q.structured_data_schema
-                  end
-                  s_answer.assign_attributes(data: data_reformater(json_schema, form_data))
-                  s_answer.save
+                save_structured_answer()
               end
               if q.question_format.rda_metadata?
                 @answer.update_answer_hash(
@@ -156,6 +146,20 @@ module Dmpopidor
 
         private
 
+        # Saves (and creates, if needed) the structured answer ("fragment")
+        def save_structured_answer
+          # Extract the form data corresponding to the schema of the structured question
+          form_data = permitted_params.select { |k, v| schema_params(flat = true).include?(k) }
+          s_answer = StructuredAnswer.find_or_initialize_by(answer_id: @answer.id) do |sa|
+            sa.answer = @answer
+            sa.structured_data_schema = q.structured_data_schema
+            end
+          s_answer.assign_attributes(data: data_reformater(json_schema, form_data))
+          s_answer.save
+        end
+
+        # Formats the data extract from the structured answer form to valid JSON data
+        # This is useful because Rails converts all form data to strings and JSON needs the actual types
         def data_reformater(schema, data)
           schema["properties"].each do |key, value|
             case value["type"]
@@ -174,11 +178,13 @@ module Dmpopidor
           data
         end
 
-        def permitted_params_from_properties(properties)
+        # Generates a permitted params array from a structured answer schema
+        def permitted_params_from_properties(properties, flat = false)
             parameters = Array.new
             properties.each do |key, prop|
-                if prop["type"] == "array"
+                if prop["type"] == "array" && !flat
                     parameters.append({key => []})
+                    # parameters.append(key)
                 else
                     parameters.append(key)
                 end
@@ -186,14 +192,20 @@ module Dmpopidor
             parameters
         end
 
+        # Get the schema from the question, if any (works for strucutred questions/answers only)
+        # TODO: move to global var with before_action trigger + rename accordingly (set_json_schema ?)
         def json_schema
           question = Question.find(params['question_id'])
 
           question.structured_data_schema.schema
         end
 
-        def schema_params
-          permitted_params_from_properties(json_schema['properties'])
+        # Get the parameters conresponding to the schema
+        # TODO: Useless, merge the first use case (flat = false) with permitted_params_form_properties (using global json_schema var)
+        # + split the second use case (flat = true) to a more obvious function
+        # Point: split between the two use cases : 'get the parameters from the schema' and 'get the actual data corresponding to the schema'
+        def schema_params(flat = false)
+          permitted_params_from_properties(json_schema['properties'], flat)
         end
 
         def permitted_params
@@ -201,8 +213,9 @@ module Dmpopidor
             :question_id, :lock_version,
             :research_output_id, :is_common,
             question_option_ids: []]
+          # Append parameters from schema if the question/answer is structured
           permit_arr.append(schema_params) if Question.find(params[:question_id]).question_format.structured
-          permitted = params.require(:answer).permit(permit_arr)
+          permitted = params.require(:answer).permit(permit_arr.flatten)
           # If question_option_ids has been filtered out because it was a
           # scalar value (e.g. radiobutton answer)
           if !params[:answer][:question_option_ids].nil? &&

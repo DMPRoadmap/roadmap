@@ -1,0 +1,21 @@
+<% if field_values && field_values.kind_of?(Array)  %>
+    <% field_values.each_with_index do |value, idx| %>
+            <% case field_properties["items"]["type"] 
+                when "string" %>
+                <%=  create_text_field(f, value, field_name, field_properties["label"], true, idx)%>
+            <% when "integer" %>
+                <%=  create_number_field(f, value, field_name, field_properties["label"], true, idx)%>
+            <% when "boolean" %>
+                <%=  create_checkbox_field(f, value, field_name, field_properties["label"])%>
+            <% end %>
+    <% end %>
+<% else%>
+        <% case field_properties["items"]["type"] 
+            when "string" %>
+            <%=  create_text_field(f, field_values, field_name, field_properties["label"], true, 0)%>
+        <% when "integer" %>
+            <%=  create_number_field(f, field_values, field_name, field_properties["label"], true, 0)%>
+        <% when "boolean" %>
+            <%=  create_checkbox_field(f, field_values, field_name, field_properties["label"])%>
+        <% end %>
+<% end %>

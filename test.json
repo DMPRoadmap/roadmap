@@ -23,6 +23,13 @@
     "active": {
       "type": "boolean",
       "label": "Active?"
+    },
+    "contacts": {
+      "type": "array",
+      "label": "Infos de contact",
+      "items": {
+        "type": "string"
+      }
     }
   }
 }

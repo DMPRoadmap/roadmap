@@ -260,4 +260,19 @@ $(() => {
       Tinymce.destroyEditorById(`${$(editor).attr('id')}`);
     });
   });
+
+  $('body').on('click', '.add-record', (e) => {
+    const currentField = $(e.target.closest('.field'));
+    const clonedField = currentField.clone(true, true);
+
+    clonedField.find('input').val(null);
+    clonedField.find('.remove-record').show();
+
+    currentField.after(clonedField);
+});
+
+  $('body').on('click', '.remove-record', (e) => {
+      const currentField = $(e.target.closest('.field'));
+      currentField.remove();
+  });
 });

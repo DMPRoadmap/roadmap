@@ -11,6 +11,8 @@
                 <%= create_number_field(f, value, key, prop['label']) %>
             <% when 'boolean' %>
                 <%= create_checkbox_field(f, value, key, prop['label']) %>
+            <% when 'array' %>
+              <%= render(partial: 'questions/fields/multiple_field', locals: { f: f, field_values: value, field_properties: prop, field_name: key }) %>
         <% end %>
     <% end %>
 </div>
