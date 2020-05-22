@@ -42,6 +42,7 @@ defaults: &defaults
     api_documentation_url: 'https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation'
     api_max_page_size: 100
     archived_accounts_email_suffix: '@removed_accounts-example.org'
+    use_recaptcha: false
 
   preferences:
     email:
