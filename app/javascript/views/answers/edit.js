@@ -269,10 +269,10 @@ $(() => {
     clonedField.find('.remove-record').show();
 
     currentField.after(clonedField);
-});
+  });
 
   $('body').on('click', '.remove-record', (e) => {
-      const currentField = $(e.target.closest('.field'));
-      currentField.remove();
+    const currentField = $(e.target.closest('.field'));
+    currentField.remove();
   });
 });
