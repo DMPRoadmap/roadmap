@@ -7,6 +7,8 @@
                 <%=  create_number_field(f, value, field_name, field_properties["label"], true, idx)%>
             <% when "boolean" %>
                 <%=  create_checkbox_field(f, value, field_name, field_properties["label"])%>
+            <% when "schema" %>
+              <%= create_schema_field(f, value, field_name, field_properties["label"]) %>
             <% end %>
     <% end %>
 <% else%>
@@ -17,5 +19,7 @@
             <%=  create_number_field(f, field_values, field_name, field_properties["label"], true, 0)%>
         <% when "boolean" %>
             <%=  create_checkbox_field(f, field_values, field_name, field_properties["label"])%>
+        <% when "schema" %>
+            <%= create_schema_field(f, field_values, field_name, field_properties["label"]) %>
         <% end %>
 <% end %>

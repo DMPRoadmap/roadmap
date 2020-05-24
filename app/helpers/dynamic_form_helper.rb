@@ -68,4 +68,16 @@ def create_select_field(form, value, name, properties)
 }
 end 
 
+def create_schema_field(form, value, name, label, is_multiple=false, index=0)
+  render partial: 'questions/fields/text_field', 
+  locals: {
+  f: form, 
+  multiple: is_multiple,
+  index: index,
+  field_value: value, 
+  field_name: name, 
+  field_label: label
+}
+end
+
 end
