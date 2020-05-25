@@ -79,6 +79,12 @@ question_formats = [
     title: "Date",
     option_based: false,
     formattype: 6
+  },
+  {
+    title: "Structured",
+    option_base: false,
+    formattype: 7,
+    structured: true
   }
 ]
 question_formats.map{ |qf| create(:question_format, qf) }
@@ -828,3 +834,11 @@ research_output_types = [
 ]
 
 research_output_types.map{ |s| ResearchOutputType.create!(s) if ResearchOutputType.find_by(label: s[:label]).nil? }
+
+schemas_dir = File.join(Rails.root, 'config', 'schemas')
+Dir.glob("#{schemas_dir}/*.json") do |path|
+  f = File.open(path)
+  d = JSON.load(f)
+  n = File.basename(path, '.json')
+  StructuredDataSchema.create(label: n, name: n, version: 1, schema: d.to_json, org_id: nil, classname: nil)
+end
