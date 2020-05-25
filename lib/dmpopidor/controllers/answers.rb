@@ -49,7 +49,7 @@ module Dmpopidor
               @answer.touch()
             end
             if q.question_format.structured
-              save_structured_answer()
+              save_structured_answer(q)
             end
             if q.question_format.rda_metadata?
               @answer.update_answer_hash(
@@ -65,7 +65,7 @@ module Dmpopidor
             @answer.lock_version = 1
             authorize @answer
             if q.question_format.structured
-              save_structured_answer()
+              save_structured_answer(q)
             end
             if q.question_format.rda_metadata?
               @answer.update_answer_hash(
@@ -147,7 +147,7 @@ module Dmpopidor
         private
 
         # Saves (and creates, if needed) the structured answer ("fragment")
-        def save_structured_answer
+        def save_structured_answer(q)
           # Extract the form data corresponding to the schema of the structured question
           form_data = permitted_params.select { |k, v| schema_params(flat = true).include?(k) }
           s_answer = StructuredAnswer.find_or_initialize_by(answer_id: @answer.id) do |sa|
