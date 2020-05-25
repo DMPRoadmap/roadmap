@@ -18,7 +18,7 @@ module Dmpopidor
             })
             # rubocop:enable LineLength
             return
-        end
+          end
         rescue ActiveRecord::RecordNotFound
           # rubocop:disable LineLength
           render(status: :not_found, json: {
@@ -60,18 +60,18 @@ module Dmpopidor
           rescue ActiveRecord::RecordNotFound
             pa = p_params.merge(user_id: current_user.id)
             # Exclude structured answer parameters (since they are not stored directly in the Answer object)
-            pa = pa.select { |k, v| !schema_params(flat = true).include?(k) } if q.question_format.structured  
-              @answer = Answer.new(pa)
-              @answer.lock_version = 1
-              authorize @answer
-              if q.question_format.structured
-                save_structured_answer()
-              end
-              if q.question_format.rda_metadata?
-                @answer.update_answer_hash(
-                  JSON.parse(params[:standards]), p_params[:text]
-                )
-              end
+            pa = pa.select { |k, v| !schema_params(flat = true).include?(k) } if q.question_format.structured
+            @answer = Answer.new(pa)
+            @answer.lock_version = 1
+            authorize @answer
+            if q.question_format.structured
+              save_structured_answer()
+            end
+            if q.question_format.rda_metadata?
+              @answer.update_answer_hash(
+                JSON.parse(params[:standards]), p_params[:text]
+              )
+            end
               @answer.save!
               rescue ActiveRecord::StaleObjectError
                 @stale_answer = @answer
