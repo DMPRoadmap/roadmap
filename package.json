@@ -26,6 +26,8 @@
   "dependencies": {
     "@rails/webpacker": "5.1.1",
     "bootstrap": "^4.5.0",
+    "bootstrap-sass": "^3.4.1",
+    "bootstrap-select": "^1.13.17",
     "chart.js": "^2.9.3",
     "jquery": "^3.5.1",
     "jquery-ui": "^1.12.1",
