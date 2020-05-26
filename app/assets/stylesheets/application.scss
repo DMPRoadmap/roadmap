@@ -1,7 +1,9 @@
 // Import locally defined variables. Load this before 'bootstrap'
 
 @import "variables/*";
+@import "bootstrap-sprockets";
 @import "bootstrap";
+@import "bootstrap-select/sass/bootstrap-select.scss";
 @import "blocks/*";
 @import "utils/*";
 
