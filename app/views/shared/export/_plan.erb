@@ -24,13 +24,16 @@
         <h1><%= download_plan_page_title(@plan, phase, @hash) %></h1>
         <hr />
         <% phase[:sections].each do |section| %>
-          <% if display_section?(@hash[:customization], section, @show_custom_sections) %>
+          <% if display_section?(@hash[:customization], section, @show_custom_sections) && num_section_questions(@plan, section, phase) > 0 %>
             <% if @show_sections_questions %>
               <br>
               <h3><%= section[:title] %></h3>
               <br>
             <% end %>
             <% section[:questions].each do |question| %>
+              <% if remove_list(@plan).include?(question[:id]) %> 
+                <% next %>
+              <% end %>
               <div class="question">
                 <% if !@public_plan && @show_sections_questions%>
                   <%# Hack: for DOCX export - otherwise, bold highlighting of question inconsistent. %>

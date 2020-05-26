@@ -26,11 +26,14 @@
 <% if phase[:title] == @selected_phase.title %>
 <%= (@hash[:phases].many? ? "#{phase[:title]}" : "") %>
   <% phase[:sections].each do |section| %>
-    <% if display_section?(@hash[:customization], section, @show_custom_sections) %>
+    <% if display_section?(@hash[:customization], section, @show_custom_sections) && num_section_questions(@plan, section, phase) > 0 %>
       <% if @show_sections_questions %>
         <%= "#{section[:title]}\n" %>
       <% end %>
       <% section[:questions].each do |question| %>
+        <% if remove_list(@plan).include?(question[:id]) %> 
+          <% next %>
+        <% end %>
         <%# text in this case is an array to accomodate for option_based %>
         <% if @show_sections_questions %>
           <% if question[:text].respond_to?(:each) %>

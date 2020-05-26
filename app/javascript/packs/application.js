@@ -27,6 +27,7 @@ import 'src/utils/requiredField';
 import 'src/utils/tabHelper';
 
 // View specific JS
+import 'src/answers/conditions';
 import 'src/answers/edit';
 import 'src/answers/rdaMetadata';
 import 'src/contributors/form';
@@ -53,6 +54,7 @@ import 'src/users/adminGrantPermissions';
 import 'src/users/notificationPreferences';
 
 // OrgAdmin view specific JS
+import 'src/orgAdmin/conditions/updateConditions';
 import 'src/orgAdmin/phases/newEdit';
 import 'src/orgAdmin/phases/preview';
 import 'src/orgAdmin/phases/show';

@@ -16,6 +16,17 @@ class UserMailer < ActionMailer::Base
     end
   end
 
+  def question_answered(data, user, answer, options_string)
+    @user = user
+    @answer = answer
+    @data = data
+    @options_string
+    FastGettext.with_locale FastGettext.default_locale do 
+      mail(to: data['email'], 
+           subject: data['subject'])
+    end
+  end
+
   def sharing_notification(role, user, inviter:)
     @role    = role
     @user    = user

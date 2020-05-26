@@ -12,16 +12,17 @@
   </div>
 </div>
 <% if q.question_options.count == 0 %>
-  <% 2.times {q.question_options.build } %>
+  <% 2.times { q.question_options.build } %>
+  <% q.question_options.each {|qopt| qopt.id=0} %>
 <% end %>
 <% i = 0 %>
-  <% q.question_options.to_a.sort_by{|op| op['number']}.each do |options_q| %>
-    <%= f.fields_for :question_options, options_q do |op|%>
+<% q.question_options.to_a.sort_by{|op| op['number']}.each do |options_q| %>
+  <%= f.fields_for :question_options, options_q do |op| %>
     <% i = i + 1 %>
     <% options_q.number = i %>
     <div class="row" data-attribute="question_option">
       <div class="col-md-3">
-        <%= op.number_field :number, min: 1, class: 'form-control' %>
+        <%= op.number_field :number, min: 1, class: 'form-control', readonly: true %>
       </div>
       <div class="col-md-3">
         <% if i == 1 %>
@@ -33,13 +34,15 @@
       <div class="col-md-3">
         <%= op.check_box :is_default %>
       </div>
-      <div class="col-md-3">
-        <%= op.hidden_field :_destroy, class: 'destroy-question-option' %>
-        <a href="#" class="delete_question_option"><%= _('Remove') %></a>
-      </div>
+      <% if i > 1 %>
+        <div class="col-md-3">
+          <%= op.hidden_field :_destroy, class: 'destroy-question-option' %>
+          <%= link_to _('Remove'), org_admin_question_option_path(options_q), method: :delete %>
+        </div>
+      <% end %>
     </div>
-    <% end %>
   <% end %>
+<% end %>
 <div class="row">
   <div class="col-md-12">
     <a href="#" class="new_question_option"><%= _('Add option') %></a>
