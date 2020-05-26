@@ -17,13 +17,21 @@ module OrgAdmin
         flash[:notice] = _("You are viewing a historical version of this template. You will not be able to make changes.")
         # rubocop:enable Metrics/LineLength
       end
+      if phase.template.customization_of? && phase.template.latest?
+        # The user is working with the latest version so only use the modifiable sections
+        sections = phase.template_sections.order(:number)
+      else
+        # This is not the latest version sso just get all the sections. Everything
+        # will be readonly
+        sections = phase.sections.order(:number)
+      end
       render("container",
         locals: {
           partial_path: "show",
           template: phase.template,
           phase: phase,
           prefix_section: phase.prefix_section,
-          sections: phase.template_sections.order(:number),
+          sections: sections,
           suffix_sections: phase.suffix_sections.order(:number),
           current_section: Section.find_by(id: params[:section], phase_id: phase.id)
         })
