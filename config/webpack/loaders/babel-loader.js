@@ -2,5 +2,5 @@
 module.exports = {
   test: /\.(js|jsx)$/i,
   exclude: /node_modules\/(?!number-to-text)/,
-  loader: 'babel-loader'
-}
+  loader: 'babel-loader',
+};
