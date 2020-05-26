@@ -1,6 +1,6 @@
-import { renderNotice, renderAlert } from '../../utils/notificationHelper';
-import { isString, isObject } from '../../utils/isType';
-import { scrollTo } from '../../utils/scrollTo';
+import { renderNotice, renderAlert } from '../utils/notificationHelper';
+import { isString, isObject } from '../utils/isType';
+import { scrollTo } from '../utils/scrollTo';
 
 $(() => {
   $('form.edit_role select').on('change', (e) => {

@@ -2,12 +2,12 @@ import {
   isObject,
   isNumber,
   isString,
-} from '../../utils/isType';
-import { Tinymce } from '../../utils/tinymce.js.erb';
-import debounce from '../../utils/debounce';
-import { updateSectionProgress, getQuestionDiv } from '../../utils/sectionUpdate';
-import datePicker from '../../utils/datePicker';
-import TimeagoFactory from '../../utils/timeagoFactory';
+} from '../utils/isType';
+import { Tinymce } from '../utils/tinymce.js.erb';
+import debounce from '../utils/debounce';
+import { updateSectionProgress, getQuestionDiv } from '../utils/sectionUpdate';
+import datePicker from '../utils/datePicker';
+import TimeagoFactory from '../utils/timeagoFactory';
 
 $(() => {
   const editorClass = 'tinymce_answer';

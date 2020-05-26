@@ -1,5 +1,5 @@
-import { Tinymce } from '../../../utils/tinymce.js.erb';
-import { eachLinks } from '../../../utils/links';
+import { Tinymce } from '../utils/tinymce.js.erb';
+import { eachLinks } from '../utils/links';
 
 $(() => {
   Tinymce.init({

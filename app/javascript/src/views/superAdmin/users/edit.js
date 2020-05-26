@@ -1,4 +1,4 @@
-import { initAutocomplete } from '../../../utils/autoComplete';
+import { initAutocomplete } from '../../utils/autoComplete';
 
 $(() => {
   const updateMergeConfirmation = (userSelect) => {

@@ -1,6 +1,6 @@
-import { Tinymce } from '../../utils/tinymce.js.erb';
-import { isObject, isString } from '../../utils/isType';
-import TimeagoFactory from '../../utils/timeagoFactory';
+import { Tinymce } from '../utils/tinymce.js.erb';
+import { isObject, isString } from '../utils/isType';
+import TimeagoFactory from '../utils/timeagoFactory';
 
 $(() => {
   const defaultViewSelector = questionId => `#note_new${questionId}`;

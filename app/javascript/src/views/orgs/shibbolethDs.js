@@ -1,4 +1,4 @@
-import getConstant from '../../constants';
+import getConstant from '../utils/constants';
 
 $(() => {
   $('#show_list').click((e) => {

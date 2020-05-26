@@ -752,8 +752,8 @@ namespace :upgrade do
           end
         end
       end
-
     end
+  end
 
   # -------------------------------------------------
   # TASKS FOR 2.2.0
