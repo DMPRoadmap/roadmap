@@ -150,10 +150,14 @@ module Api
           # Deserialize each Contributor and then add to Plan
           def deserialize_contributors(plan:, json: {})
             contributors = json.fetch(:contributor, []).map do |hash|
-              Api::V1::Deserialization::Contributor.deserialize!(
+              contrib = Api::V1::Deserialization::Contributor.deserialize!(
                 plan_id: plan.id, json: hash
               )
+              contrib
             end
+
+p contributors.compact.uniq
+
             plan.contributors << contributors.compact.uniq if contributors.any?
             plan
           end
