@@ -1,3 +1,23 @@
+// Native HTML5 nav support
+
+/* Hide sub-menus by default */
+nav ul ul {
+  display: none;
+}
+/* Display sub-menu when user hovers over item */
+nav ul li:hover > ul {
+  display: block;
+}
+nav ul:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+nav ul {
+  list-style: none;
+}
+
+
 // Overrides Bootstrap 3.0's nav-tabs
 
 /* nav-tabs and nav-pills styling */
