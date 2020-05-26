@@ -34,6 +34,28 @@ RSpec.describe Section, type: :model do
 
   end
 
+  describe "#deep_copy" do
+
+    let!(:options) { Hash.new }
+
+    let!(:section) { create(:section) }
+
+    subject { section.deep_copy(options) }
+
+    context "when no options provided" do 
+
+      before do
+        create_list(:question, 3, section: section)
+      end
+
+      it "checks number of questions" do
+        expect(section.questions.size).to eql(section.questions.size)
+      end
+
+    end
+
+  end
+
   describe "#num_answered_questions" do
 
     let!(:phase) { create(:phase, template: template) }
