@@ -1,4 +1,4 @@
-import { isUndefined, isObject } from '../../utils/isType';
+import { isUndefined, isObject } from '../utils/isType';
 
 $(() => {
   // url for the api we will be querying

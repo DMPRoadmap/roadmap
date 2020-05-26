@@ -16,4 +16,10 @@ environment.loaders.prepend('ESLint', eslint)
 environment.loaders.append('Babel-Loader', babelLoader)
 
 environment.loaders.append('erb', erb)
+
+environment.config.set('resolve.alias', {
+  'jquery-ui': 'jquery-ui/ui/widgets/',
+  'bootstrap-sass': 'bootstrap-sass/assets/javascripts/bootstrap/',
+});
+
 module.exports = environment

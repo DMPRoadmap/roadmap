@@ -1,8 +1,8 @@
-import debounce from '../../utils/debounce';
-import { initAutocomplete } from '../../utils/autoComplete';
-import getConstant from '../../constants';
-import { isObject, isArray, isString } from '../../utils/isType';
-import { renderAlert, hideNotifications } from '../../utils/notificationHelper';
+import debounce from '../utils/debounce';
+import { initAutocomplete } from '../utils/autoComplete';
+import getConstant from '../utils/constants';
+import { isObject, isArray, isString } from '../utils/isType';
+import { renderAlert, hideNotifications } from '../utils/notificationHelper';
 
 $(() => {
   const toggleSubmit = () => {

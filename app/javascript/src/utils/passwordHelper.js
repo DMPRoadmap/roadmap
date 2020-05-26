@@ -1,4 +1,4 @@
-import getConstant from '../constants';
+import getConstant from './constants';
 import { isObject, isString, isArray } from './isType';
 
 const getHelpBlock = (id) => {

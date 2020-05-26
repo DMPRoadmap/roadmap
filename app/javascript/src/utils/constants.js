@@ -1,4 +1,4 @@
-import { isObject, isString } from './utils/isType';
+import { isObject, isString } from './isType';
 
 let constants = {};
 export default key => constants[key];

@@ -1,5 +1,5 @@
-import { initAutocomplete } from '../../utils/autoComplete';
-import { togglisePasswords } from '../../utils/passwordHelper';
+import { initAutocomplete } from '../utils/autoComplete';
+import { togglisePasswords } from '../utils/passwordHelper';
 
 $(() => {
   const options = { selector: '#create-account-form' };

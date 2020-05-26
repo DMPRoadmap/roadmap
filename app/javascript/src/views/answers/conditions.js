@@ -1,4 +1,4 @@
-import { updateSectionProgress, getQuestionDiv } from '../../utils/sectionUpdate';
+import { updateSectionProgress, getQuestionDiv } from '../utils/sectionUpdate';
 
 $(() => {
   if ($('.answering-phase').length > 0) { // check phase has (standard) questions

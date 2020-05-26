@@ -1,5 +1,5 @@
-import * as notifier from '../../utils/notificationHelper';
-import { isObject, isString } from '../../utils/isType';
+import * as notifier from '../utils/notificationHelper';
+import { isObject, isString } from '../utils/isType';
 
 $(() => {
   $('#set_visibility [name="plan[visibility]"]').click((e) => {

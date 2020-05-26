@@ -1,4 +1,4 @@
-import 'bootstrap-sass/assets/javascripts/bootstrap.min';
+// import 'bootstrap-sass/bootstrap.min';
 
 /*
  * This method expects an expand/collapse all link to be contained within a div with

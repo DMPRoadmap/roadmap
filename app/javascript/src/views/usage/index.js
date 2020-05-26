@@ -1,5 +1,5 @@
-import { isObject, isUndefined } from '../../utils/isType';
-import { initializeCharts, createChart, drawHorizontalBar } from '../../utils/charts';
+import { isObject, isUndefined } from '../utils/isType';
+import { initializeCharts, createChart, drawHorizontalBar } from '../utils/charts';
 
 $(() => {
   // fns to handle the separator character menu

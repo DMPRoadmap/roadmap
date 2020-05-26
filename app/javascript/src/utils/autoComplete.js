@@ -1,4 +1,4 @@
-import 'jquery-ui/ui/widgets/autocomplete';
+import 'jquery-ui/autocomplete';
 
 import getConstant from '../constants';
 import { isObject, isString, isArray } from './isType';

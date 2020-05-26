@@ -1,5 +1,5 @@
 import { isObject, isString, isNumber } from './isType';
-import getConstant from '../constants';
+import getConstant from './constants';
 /*
   Validates whether or not the value passed matches to a valid email
   @param value String to search for a match

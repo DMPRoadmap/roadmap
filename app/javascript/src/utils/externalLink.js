@@ -1,4 +1,4 @@
-import getConstant from '../constants';
+import getConstant from './constants';
 
 // Globally ensure that any URLs that are directing the user offsite open in a new tab/window
 $(() => {

@@ -1,8 +1,8 @@
-import { Tinymce } from '../../../utils/tinymce.js.erb';
-import { eachLinks } from '../../../utils/links';
-import { isObject, isString } from '../../../utils/isType';
-import { renderNotice, renderAlert } from '../../../utils/notificationHelper';
-import { scrollTo } from '../../../utils/scrollTo';
+import { Tinymce } from '../../utils/tinymce.js.erb';
+import { eachLinks } from '../../utils/links';
+import { isObject, isString } from '../../utils/isType';
+import { renderNotice, renderAlert } from '../../utils/notificationHelper';
+import { scrollTo } from '../../utils/scrollTo';
 
 $(() => {
   Tinymce.init({

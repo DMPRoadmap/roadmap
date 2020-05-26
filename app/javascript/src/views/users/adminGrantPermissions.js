@@ -1,6 +1,6 @@
-import { isObject, isString } from '../../utils/isType';
-import { renderNotice, renderAlert, hideNotifications } from '../../utils/notificationHelper';
-import { scrollTo } from '../../utils/scrollTo';
+import { isObject, isString } from '../utils/isType';
+import { renderNotice, renderAlert, hideNotifications } from '../utils/notificationHelper';
+import { scrollTo } from '../utils/scrollTo';
 
 
 $(() => {
