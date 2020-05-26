@@ -34,7 +34,7 @@
     <![endif]-->
 
     <%= stylesheet_link_tag(stylesheet_manifest_file) %>
-    <%= javascript_pack_tag(javascript_manifest_file) %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= csrf_meta_tags %>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
