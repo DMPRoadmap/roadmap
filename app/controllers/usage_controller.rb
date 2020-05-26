@@ -48,36 +48,12 @@ class UsageController < ApplicationController
   def org_statistics
     authorize :usage
 
-    data = Org::MonthlyUsageService.call
+    data = Org::MonthlyUsageService.call(current_user)
     sep = sep_param
     data_csvified = Csvable.from_array_of_hashes(data, true, sep)
 
     send_data(data_csvified, filename: "totals.csv")
   end
-
-  # POST /usage_filter
-  # rubocop:disable Metrics/MethodLength
-  def filter
-    # This action is triggered when a user specifies a date range
-    authorize :usage
-
-    args = args_from_params
-    plan_data(args: args)
-    user_data(args: args)
-    total_plans(args: min_max_dates(args: args))
-    total_users(args: min_max_dates(args: args))
-
-    @topic = usage_params[:topic]
-    case @topic
-    when "plans"
-      @total = @total_org_plans
-      @ranged = @plans_per_month.sum(:count)
-    else
-      @total = @total_org_users
-      @ranged = @users_per_month.sum(:count)
-    end
-  end
-  # rubocop:enable Metrics/MethodLength
 
   # GET /usage_yearly_users
   def yearly_users
