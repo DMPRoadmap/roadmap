@@ -1,4 +1,27 @@
 {
+  "name": "DMPRoadmap",
+  "version": "2.2.0",
+  "description": "DMPRoadmap javascript dependencies",
+  "main": "null",
+  "scripts": {
+    "lint": "yarn run eslint --ext .js app/javascript/**/*.js",
+    "test": "karma start spec/karma/unit.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DMPRoadmap/roadmap.git"
+  },
+  "keywords": [
+    "DMPRoadmap",
+    "DMP",
+    "Data Management Plan"
+  ],
+  "author": "California Digital Library (CDL), Digital Curation Centre (DCC)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DMPRoadmap/roadmap/issues"
+  },
+  "homepage": "https://github.com/DMPRoadmap/roadmap#readme",
   "dependencies": {
     "@rails/webpacker": "5.1.1",
     "bootstrap": "^4.5.0",

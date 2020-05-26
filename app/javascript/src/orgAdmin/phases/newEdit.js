@@ -5,7 +5,8 @@ import getConstant from '../../utils/constants';
 import { addAsterisks } from '../../utils/requiredField';
 
 import onChangeQuestionFormat from '../questions/sharedEventHandlers';
-import initQuestionOption from '../questionOptions/index';
+import initQuestionOption from '../question_options/index';
+import updateConditions from '../conditions/updateConditions';
 
 $(() => {
   Tinymce.init({ selector: '.phase' });
@@ -130,6 +131,7 @@ $(() => {
       // Display the section's html
       panelBody.html(data);
       initQuestion(id);
+      updateConditions(id);
       if (panelBody.is('.new-question')) {
         target.hide();
       }
