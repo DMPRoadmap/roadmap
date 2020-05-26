@@ -1,4 +1,4 @@
-import { initAutocomplete } from '../../../utils/autoComplete';
+import { initAutocomplete } from '../../utils/autoComplete';
 
 $(() => {
   // Update the contents of the table when user clicks on a scope link

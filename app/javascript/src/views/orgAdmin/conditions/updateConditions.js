@@ -1,4 +1,4 @@
-import { isObject } from '../../../utils/isType';
+import { isObject } from '../../utils/isType';
 
 // Attach handlers for changing the conditions of a question
 export default function updateConditions(id) {

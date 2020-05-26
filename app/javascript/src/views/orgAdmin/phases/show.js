@@ -1,5 +1,5 @@
-import 'jquery-ui/ui/widgets/sortable';
-import { renderAlert } from '../../../utils/notificationHelper';
+import 'jquery-ui/sortable';
+import { renderAlert } from '../../utils/notificationHelper';
 
 $(() => {
   // Is there already one prefix section on this Phase?

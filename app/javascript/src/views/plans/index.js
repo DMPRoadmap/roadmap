@@ -1,6 +1,6 @@
-import * as notifier from '../../utils/notificationHelper';
-import getConstant from '../../constants';
-import { paginableSelector } from '../../utils/paginable';
+import * as notifier from '../utils/notificationHelper';
+import getConstant from '../constants';
+import { paginableSelector } from '../utils/paginable';
 
 $(() => {
   $(paginableSelector).on('click, change', '.set_test_plan input[type="checkbox"]', (e) => {

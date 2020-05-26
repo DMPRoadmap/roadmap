@@ -1,7 +1,7 @@
-import { initAutocomplete } from '../../../utils/autoComplete';
-import { isString } from '../../../utils/isType';
-import { isValidPassword } from '../../../utils/isValidInputType';
-import { addMatchingPasswordValidator, togglisePasswords } from '../../../utils/passwordHelper';
+import { initAutocomplete } from '../../utils/autoComplete';
+import { isString } from '../../utils/isType';
+import { isValidPassword } from '../../utils/isValidInputType';
+import { addMatchingPasswordValidator, togglisePasswords } from '../../utils/passwordHelper';
 
 $(() => {
   addMatchingPasswordValidator({ selector: '#password_details_registration_form' });

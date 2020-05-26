@@ -1,5 +1,5 @@
 import * as Cookies from 'js-cookie';
-import { isValidText } from '../../utils/isValidInputType';
+import { isValidText } from '../utils/isValidInputType';
 
 $(() => {
   // Constants and methods

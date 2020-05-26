@@ -1,4 +1,4 @@
-import 'bootstrap-sass/assets/javascripts/bootstrap/tooltip';
+import 'bootstrap-sass/tooltip';
 
 $(() => {
   // When using a tooltip on a tinymce textarea, add the HTML attributes for the tooltips to
