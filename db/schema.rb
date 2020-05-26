@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
     t.index ["answer_id"], name: "index_answers_question_options_on_answer_id"
   end
 
+  add_index "answers_question_options", ["answer_id"], name: "index_answers_question_options_on_answer_id", using: :btree
+
   create_table "api_clients", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
@@ -68,6 +70,42 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
     t.integer "roles", null: false
     t.integer "org_id"
     t.integer "plan_id", null: false
+
+  create_table "conditions", force: :cascade do |t|
+    t.integer  "question_id"
+    t.text     "option_list"
+    t.integer  "action_type"
+    t.integer  "number"
+    t.text     "remove_data"
+    t.text     "webhook_data"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "conditions", ["question_id"], name: "index_conditions_on_question_id", using: :btree
+
+  create_table "api_clients", force: :cascade do |t|
+    t.string   "name",                      null: false
+    t.string   "description"
+    t.string   "homepage"
+    t.string   "contact_name"
+    t.string   "contact_email",             null: false
+    t.string   "client_id",                 null: false
+    t.string   "client_secret",             null: false
+    t.date     "last_access"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "api_clients", ["name"], name: "index_api_clients_on_name", using: :btree
+
+  create_table "contributors", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "phone"
+    t.integer  "roles",                     null: false
+    t.integer  "org_id"
+    t.integer  "plan_id",                   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["email"], name: "index_contributors_on_email"
@@ -293,6 +331,7 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
     t.integer "number"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "versionable_id", limit: 36
   end
 
   create_table "question_formats", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
@@ -313,6 +352,9 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
     t.datetime "updated_at"
     t.index ["question_id"], name: "index_question_options_on_question_id"
   end
+
+  add_index "question_options", ["question_id"], name: "index_question_options_on_question_id", using: :btree
+  add_index "question_options", ["versionable_id"], name: "index_question_options_on_versionable_id", using: :btree
 
   create_table "questions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.text "text"
@@ -503,6 +545,12 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
+
+  add_foreign_key "answers_question_options", "answers"
+  add_foreign_key "answers_question_options", "question_options"
+  add_foreign_key "conditions", "questions"
+  add_foreign_key "contributors", "plans"
+  add_foreign_key "contributors", "orgs"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "notes", "answers"

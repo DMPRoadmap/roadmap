@@ -68,6 +68,10 @@ class Template < ApplicationRecord
 
   has_many :annotations, through: :questions
 
+  has_many :question_options, through: :questions
+
+  has_many :conditions, through: :questions
+
   # ===============
   # = Validations =
   # ===============
@@ -276,6 +280,23 @@ class Template < ApplicationRecord
     copy.save! if options.fetch(:save, false)
     options[:template_id] = copy.id
     phases.each { |phase| copy.phases << phase.deep_copy(options) }
+    # transfer the conditions to the new template
+    #  done here as the new questions are not accessible when the conditions deep copy
+    copy.conditions.each do |cond|
+      if cond.option_list.any?
+        versionable_ids = QuestionOption.where(id: cond.option_list).pluck(:versionable_id)
+        cond.option_list = copy.question_options.where(versionable_id: versionable_ids).pluck(:id).map(&:to_s)
+        # TODO: these seem to be stored as strings, not sure if that's required by other code
+      end # TODO: would it be safe to remove conditions without an option list?
+
+      if cond.remove_data.any?
+        versionable_ids = Question.where(id: cond.remove_data).pluck(:versionable_id)
+        cond.remove_data = copy.questions.where(versionable_id: versionable_ids).pluck(:id).map(&:to_s)
+      end
+
+      cond.save if cond.changed?
+    end
+
     copy
   end
 
@@ -428,6 +449,10 @@ class Template < ApplicationRecord
       error += _("You can not publish a template without questions in a section.  ")
       publishable = false
     end
+    if invalid_condition_order
+      error += _("Conditions in the template refer backwards")
+      publishable = false
+    end
     return publishable, error
   end
 
@@ -475,4 +500,26 @@ class Template < ApplicationRecord
             .update_all(published: false)
   end
 
+  def invalid_condition_order
+    self.questions.each do |question|
+      if question.option_based?
+        question.conditions.each do |condition|
+          if condition.action_type == "remove"
+            condition.remove_data.each do |rem_id|
+              rem_question = Question.find(rem_id.to_s)
+              if before(rem_question,question)
+                return true
+              end
+            end
+          end
+        end
+      end
+    end
+    false
+  end
+
+  def before(q1,q2)
+    q1.section.number < q2.section.number ||
+      (q1.section.number == q2.section.number && q1.number < q2.number)
+  end
 end

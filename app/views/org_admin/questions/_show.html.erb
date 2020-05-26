@@ -21,7 +21,7 @@
           <!-- question.option_based? -->
           <% if question.option_based? %>
             <dt><%= _('Question options') %></dt>
-            <dd><%= question.question_options.collect(&:text).join(', ') %></dd>
+            <dd><%= question.question_options.order(:number).collect(&:text).join(', ') %></dd>
           <% end %>
           <!-- Default value -->
           <% if q_format.textfield? || q_format.textarea? %>
@@ -48,6 +48,13 @@
               <%= _('No additional comment area will be displayed.')%>
             <% end %>
           </dd>
+
+          <!-- question conditions -->
+          <% if conditions.count > 0 %>
+            <dt><%= _('Question conditions') %></dt>
+             <%= raw condition_to_text(conditions) %>
+          <% end %>
+
           <!-- Suggested answer or Example-->
           <% if !question.section.phase.template.org.funder? %>
             <% example_answer = question.example_answers(template.base_org.id).first %>
@@ -62,7 +69,7 @@
                        <%= sanitize example_answer.text %>
                     <% end %>
                   </dd>
-                  
+
               <% end %>
           <% end %>
           <!-- Guidance linked to this question -->
@@ -83,7 +90,7 @@
           <% end %>
         </dl>
       </div>
-      
+
       <div class="col-md-4">
         <% has_org_themed_guidance = false %>
         <% themes_q = question.themes %>
@@ -91,7 +98,7 @@
           <div class="panel-group" id="<%= question.id %>-guidance">
             <% ggs = GuidanceGroup.where(org_id: current_user.org.id) %>
             <h4><%= _("Themed Guidance") %></h4>
-            
+
             <% if ggs.length > 0 %>
               <%# To determine if any themes associated with question exist. %>
               <% ggs.each do |guidance_group| %>
@@ -107,7 +114,7 @@
                   <% end %>
                 <% end %>
               <% end %>
-              
+
               <% if has_org_themed_guidance %>
                 <% ggs.each do |guidance_group| %>
                   <% themes_q.each do |theme| %>
@@ -123,7 +130,7 @@
                                href="#collapseGuidance-<%= guidance.id%>-<%= question.id %>"
                                aria-expanded="false"
                                aria-controls="#collapseGuidance-<%= guidance.id%>-<%= question.id %>">
-                               
+
                             <div class="panel-heading"
                                         role="tab"
                                         id="#headingGuidance-<%= guidance.id%>-<%= question.id %>">
@@ -165,7 +172,7 @@
         <% end %>
       </div>
     </div>
-    
+
     <div class="row">
       <div class="col-md-12">
         <% if template.latest? %>
