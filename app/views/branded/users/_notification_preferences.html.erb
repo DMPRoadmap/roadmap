@@ -26,11 +26,6 @@
     <% if @user.org.present? && @user.org.feedback_enabled %>
       <div class="checkbox">
         <label>
-          <%= check_box_tag 'prefs[users][feedback_requested]', true, @prefs[:users][:feedback_requested] %><%= _('Feedback has been requested for my DMP') %>
-        </label>
-      </div>
-      <div class="checkbox">
-        <label>
           <%= check_box_tag 'prefs[users][feedback_provided]', true, @prefs[:users][:feedback_provided] %><%= _('Feedback has been provided for my DMP')  %>
         </label>
       </div>
