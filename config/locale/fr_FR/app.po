@@ -57,7 +57,7 @@ msgstr "%{application_name} est mis à disposition par %{organisation_name}.<br 
 #msgstr "%{application_name} est mis à disposition par %{organisation_name}.<br /> Vous pouvez trouver plus d'informations sur notre <a href=\"%{organisation_url}\" target=\"_blank\">site internet</a>. Si vous souhaitez nous contacter à propos de %{application_name}, remplissez le formulaire ci dessous."
 
 msgid "%{application_name}: %{user_name} requested feedback on a plan"
-msgstr "%{application_name} : %{user_name} a demandé de une assistance conseil pour un plan."
+msgstr "%{application_name} : %{user_name} a demandé une assistance conseil pour un plan."
 
 msgid "%{application_name}: Expert feedback has been provided for %{plan_title}"
 msgstr "%{application_name} : Une assistance conseil a été fournie pour %{plan_title}"
@@ -111,7 +111,7 @@ msgid "%{plan_owner} has been notified that you have finished providing feedback
 msgstr "%{plan_owner} a été informé que vous avez finalisé l'assistance conseil"
 
 msgid "%{requestor} has requested feedback on a plan %{link_html}. To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan."
-msgstr "%{requestor} a demandé de une assistance conseil pour le plan %{link_html}. Pour ajouter des commentaires, consultez la page 'Plans' dans le menu Administration de %{application_name} et ouvrez le plan."
+msgstr "%{requestor} a demandé une assistance conseil pour le plan %{link_html}. Pour ajouter des commentaires, consultez la page 'Plans' dans le menu Administration de %{application_name} et ouvrez le plan."
 
 msgid "Alternatively, you can click the link below:"
 msgstr "Vous pouvez également cliquer sur le lien ci-dessous :"
