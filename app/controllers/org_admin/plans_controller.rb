@@ -23,6 +23,7 @@ class OrgAdmin::PlansController < ApplicationController
   # GET org_admin/plans/:id/feedback_complete
   def feedback_complete
     plan = Plan.find(params[:id])
+    requestor = User.find(plan.feedback_requestor)
     # Test auth directly and throw Pundit error sincePundit is
     # unaware of namespacing
     unless current_user.present? && current_user.can_org_admin?
@@ -36,7 +37,7 @@ class OrgAdmin::PlansController < ApplicationController
       # rubocop:disable Metrics/LineLength
       redirect_to(org_admin_plans_path,
         notice: _("%{plan_owner} has been notified that you have finished providing feedback") % {
-          plan_owner: plan.owner.name(false)
+          plan_owner: requestor.name(false)
         }
       )
       # rubocop:enable Metrics/LineLength
