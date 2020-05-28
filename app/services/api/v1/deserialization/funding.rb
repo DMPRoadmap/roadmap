@@ -50,6 +50,8 @@ module Api
             grant = Api::V1::Deserialization::Identifier.deserialize!(
               identifiable: plan, json: json[:grant_id]
             )
+            return plan unless grant.present?
+
             plan.update(grant_id: grant.id)
             plan
           end

@@ -12,7 +12,7 @@ module Api
 
           # Convert the incoming JSON into a Contributor
           #   {
-          #     "roles": [
+          #     "role": [
           #       "https://dictionary.casrai.org/Contributor_Roles/Project_administration"
           #     ],
           #     "name": "Jane Doe",
@@ -54,7 +54,7 @@ module Api
             return false unless json.present?
             return false unless json[:name].present? || json[:mbox].present?
 
-            is_contact ? true : json[:roles].present?
+            is_contact ? true : json[:role].present?
           end
 
           # Find or initialize the Contributor
@@ -127,7 +127,7 @@ module Api
             return nil unless contributor.present?
             return contributor unless json.present? && json[:roles].present?
 
-            json.fetch(:roles, []).each do |url|
+            json.fetch(:role, []).each do |url|
               role = translate_role(role: url)
               contributor.send(:"#{role}=", true) if role.present?
             end
