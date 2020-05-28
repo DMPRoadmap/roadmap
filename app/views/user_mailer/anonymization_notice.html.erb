@@ -1,11 +1,6 @@
-<% FastGettext.with_locale FastGettext.default_locale do %>
-  <p><%= _('Hello ') %><%= @user.name %></p>
+<p><%= _('Hello ') %><%= @user.name %></p>
 
-  <p>
-    <%= d_('dmpopidor', 'The personal information of your account have been anonymized. You will no longer be able to access your DMP OPIDoR account, the plans you created and the plans your colleagues shared with you.') %>.
-    <%= d_('dmpopidor', 'If you want to use DMP OPIDoR again, please create a new account.') %>
-  </p>
-
-  <%= render partial: 'email_signature' %>
-<% end %>
-  
+<p>
+  <%= d_('dmpopidor', 'The personal information of your account have been anonymized. You will no longer be able to access your DMP OPIDoR account, the plans you created and the plans your colleagues shared with you.') %>
+  <%= d_('dmpopidor', 'If you want to use DMP OPIDoR again, please create a new account.') %>
+</p>
