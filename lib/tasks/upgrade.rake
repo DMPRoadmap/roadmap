@@ -763,6 +763,8 @@ namespace :upgrade do
 
     end
 
+  end
+
   # -------------------------------------------------
   # TASKS FOR 2.2.0
   desc "run all of the identifier_scheme changes"
