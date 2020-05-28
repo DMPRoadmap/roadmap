@@ -2843,8 +2843,8 @@ msgstr "Votre affiliation à un organisme a changé. Vous pouvez à présent mod
 msgid "Your organisation does not seem to be properly configured."
 msgstr "Votre organisme ne semble pas être correctement configurée."
 
-msgid "Your permissions relating to %{plan_title} have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}"
-msgstr "Les autorisations concernant %{plan_title} ont changé. Vous avez à présent l'accès %{type}. Cela signifie que vous pouvez %{placeholder1} %{placeholder2}"
+msgid "Your permissions relating to \"%{plan_title}\" have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}"
+msgstr "Les autorisations concernant \"%{plan_title}\" ont changé. Vous avez à présent l'accès %{type}. Cela signifie que vous pouvez %{placeholder1} %{placeholder2}"
 
 msgid "Your project is no longer a test."
 msgstr "Votre projet n'est plus un test."

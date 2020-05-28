@@ -2869,7 +2869,7 @@ msgstr ""
 msgid "Your organisation does not seem to be properly configured."
 msgstr ""
 
-msgid "Your permissions relating to %{plan_title} have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}"
+msgid "Your permissions relating to \"%{plan_title}\" have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}"
 msgstr ""
 
 msgid "Your project is no longer a test."
