@@ -87,6 +87,22 @@ module Api
       # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
       # rubocop:enable Metrics/PerceivedComplexity, Metrics/MethodLength
 
+      # GET /api/v1/plans
+      def index
+        # ALL can view: public
+        # ApiClient can view: anything from the API client
+        # User (non-admin) can view: any personal or organisationally_visible
+        # User (admin) can view: all from users of their organisation
+        plans = Api::V1::PlansPolicy::Scope.new(client, Plan).resolve
+        if plans.present? && plans.any?
+          @items = paginate_response(results: plans)
+          @minimal = true
+          render "api/v1/plans/index", status: :ok
+        else
+          render_error(errors: [_("No Plans found")], status: :not_found)
+        end
+      end
+
       private
 
       def dmp_params
