@@ -176,7 +176,7 @@ Rails.application.routes.draw do
       get :heartbeat, controller: "base_api"
       post :authenticate, controller: "authentication"
 
-      resources :plans, only: [:create, :show]
+      resources :plans, only: [:create, :show, :index]
       resources :templates, only: [:index]
     end
   end
