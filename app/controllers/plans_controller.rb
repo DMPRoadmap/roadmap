@@ -33,7 +33,7 @@ class PlansController < ApplicationController
                   .joins(:templates)
                   .where(templates: { published: true }).distinct.sort_by(&:name)
     @orgs = (Org.organisation + Org.institution + Org.managing_orgs).flatten
-                                                                    .distinct.sort_by(&:name)
+                                                                    .uniq.sort_by(&:name)
 
     # Get the current user's org
     @default_org = current_user.org if @orgs.include?(current_user.org)
