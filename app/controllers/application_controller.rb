@@ -116,7 +116,7 @@ class ApplicationController < ActionController::Base
 
   def errors_for_display(obj)
     if obj.present? && obj.errors.any?
-      msgs = obj.errors.full_messages.uniq.collect { |msg| "<li>#{msg}</li>" }
+      msgs = obj.errors.full_messages.distinct.collect { |msg| "<li>#{msg}</li>" }
       "<ul>#{msgs.join('')}</li></ul>"
     end
   end
