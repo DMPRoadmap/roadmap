@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200514102523) do
+ActiveRecord::Schema.define(version: 20200601121822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,21 @@ ActiveRecord::Schema.define(version: 20200514102523) do
   end
 
   add_index "answers_question_options", ["answer_id"], name: "index_answers_question_options_on_answer_id", using: :btree
+
+  create_table "api_clients", force: :cascade do |t|
+    t.string   "name",          null: false
+    t.string   "description"
+    t.string   "homepage"
+    t.string   "contact_name"
+    t.string   "contact_email", null: false
+    t.string   "client_id",     null: false
+    t.string   "client_secret", null: false
+    t.date     "last_access"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "api_clients", ["name"], name: "index_api_clients_on_name", using: :btree
 
   create_table "conditions", force: :cascade do |t|
     t.integer  "question_id"
@@ -413,12 +428,13 @@ ActiveRecord::Schema.define(version: 20200514102523) do
 
   create_table "stats", force: :cascade do |t|
     t.integer  "count",      limit: 8, default: 0
-    t.date     "date",                             null: false
-    t.string   "type",                             null: false
+    t.date     "date",                                 null: false
+    t.string   "type",                                 null: false
     t.integer  "org_id"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.text     "details"
+    t.boolean  "filtered",             default: false
   end
 
   create_table "templates", force: :cascade do |t|
@@ -538,8 +554,6 @@ ActiveRecord::Schema.define(version: 20200514102523) do
   add_foreign_key "answers_question_options", "answers"
   add_foreign_key "answers_question_options", "question_options"
   add_foreign_key "conditions", "questions"
-  add_foreign_key "contributors", "plans"
-  add_foreign_key "contributors", "orgs"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "notes", "answers"
