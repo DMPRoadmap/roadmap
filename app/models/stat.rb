@@ -8,6 +8,7 @@
 #  count      :bigint(8)        default(0)
 #  date       :date             not null
 #  details    :text
+#  filtered   :boolean          default(FALSE)
 #  type       :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
