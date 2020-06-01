@@ -4,20 +4,21 @@
 #
 # Table name: api_clients
 #
-#  id             :integer          not null, primary key
-#  name           :string,          not null
-#  homepage       :string
-#  contact_name   :string
-#  contact_email  :string,          not null
-#  client_id      :string,          not null
-#  client_secret  :string,          not null
-#  last_access    :datetime
-#  created_at     :datetime
-#  updated_at     :datetime
+#  id            :integer          not null, primary key
+#  client_secret :string           not null
+#  contact_email :string           not null
+#  contact_name  :string
+#  description   :string
+#  homepage      :string
+#  last_access   :date
+#  name          :string           not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  client_id     :string           not null
 #
 # Indexes
 #
-#  index_api_clients_on_name     (name)
+#  index_api_clients_on_name  (name)
 #
 
 class ApiClient < ActiveRecord::Base

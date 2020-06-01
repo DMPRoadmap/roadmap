@@ -10,11 +10,6 @@
 #  identifier_scheme_id :integer
 #  org_id               :integer
 #
-# Indexes
-#
-#  fk_rails_189ad2e573  (identifier_scheme_id)
-#  fk_rails_36323c0674  (org_id)
-#
 # Foreign Keys
 #
 #  fk_rails_...  (identifier_scheme_id => identifier_schemes.id)

@@ -13,6 +13,7 @@
 #  data_contact_email                :string
 #  data_contact_phone                :string
 #  description                       :text
+#  end_date                          :datetime
 #  feedback_requested                :boolean          default(FALSE)
 #  funder_name                       :string
 #  grant_number                      :string
@@ -21,27 +22,25 @@
 #  principal_investigator_email      :string
 #  principal_investigator_identifier :string
 #  principal_investigator_phone      :string
+#  start_date                        :datetime
 #  title                             :string
 #  visibility                        :integer          default(3), not null
 #  created_at                        :datetime
 #  updated_at                        :datetime
-#  template_id                       :integer
-#  org_id                            :integer
+#  api_client_id                     :integer
 #  funder_id                         :integer
 #  grant_id                          :integer
-#  api_client_id                     :integer
+#  org_id                            :integer
+#  template_id                       :integer
 #
 # Indexes
 #
-#  index_plans_on_template_id   (template_id)
-#  index_plans_on_funder_id     (funder_id)
-#  index_plans_on_grant_id      (grant_id)
-#  index_plans_on_api_client_id (api_client_id)
+#  index_plans_on_template_id  (template_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (template_id => templates.id)
 #  fk_rails_...  (org_id => orgs.id)
+#  fk_rails_...  (template_id => templates.id)
 #
 
 # TODO: Drop the funder_name and grant_number columns once the funder_id has
