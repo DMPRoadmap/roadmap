@@ -34,32 +34,34 @@ if presenter.data_contact.present?
   end
 end
 
-if presenter.contributors.any?
-  json.contributor presenter.contributors do |contributor|
-    json.partial! "api/v1/contributors/show", contributor: contributor,
-                                              is_contact: false
+unless @minimal
+  if presenter.contributors.any?
+    json.contributor presenter.contributors do |contributor|
+      json.partial! "api/v1/contributors/show", contributor: contributor,
+                                                is_contact: false
+    end
   end
-end
 
-if presenter.costs.any?
-  json.cost presenter.costs do |cost|
-    json.partial! "api/v1/plans/cost", cost: cost
+  if presenter.costs.any?
+    json.cost presenter.costs do |cost|
+      json.partial! "api/v1/plans/cost", cost: cost
+    end
   end
-end
 
-json.project [plan] do |pln|
-  json.partial! "api/v1/plans/project", plan: pln
-end
+  json.project [plan] do |pln|
+    json.partial! "api/v1/plans/project", plan: pln
+  end
 
-json.dataset [plan] do |dataset|
-  json.partial! "api/v1/datasets/show", plan: plan, dataset: dataset
-end
+  json.dataset [plan] do |dataset|
+    json.partial! "api/v1/datasets/show", plan: plan, dataset: dataset
+  end
 
-json.extension [plan.template] do |template|
-  json.set! ApplicationService.application_name.split("-").first.to_sym do
-    json.template do
-      json.id template.id
-      json.title template.title
+  json.extension [plan.template] do |template|
+    json.set! ApplicationService.application_name.split("-").first.to_sym do
+      json.template do
+        json.id template.id
+        json.title template.title
+      end
     end
   end
 end
