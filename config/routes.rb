@@ -176,7 +176,7 @@ Rails.application.routes.draw do
       get :heartbeat, controller: "base_api"
       post :authenticate, controller: "authentication"
 
-      resources :plans, only: [:create, :show]
+      resources :plans, only: [:create, :show, :index]
       resources :templates, only: [:index]
     end
   end
@@ -245,6 +245,15 @@ Rails.application.routes.draw do
         get 'user_plans'
       end
     end
+
+    resources :question_options, only: [:destroy], controller: "question_options"
+
+    resources :questions, only: [] do
+      get 'open_conditions'
+      resources :conditions, only: [:new, :show] do
+      end
+    end
+
     resources :plans, only: [:index] do
       member do
         get 'feedback_complete'

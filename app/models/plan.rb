@@ -124,6 +124,8 @@ class Plan < ActiveRecord::Base
 
   has_one :grant, as: :identifiable, dependent: :destroy, class_name: "Identifier"
 
+  belongs_to :api_client#, optional: true # UNCOMMENT After Rails 5
+
   # =====================
   # = Nested Attributes =
   # =====================
