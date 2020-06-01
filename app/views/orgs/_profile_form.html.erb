@@ -42,6 +42,10 @@
     </div>
   <% end %>
 
+  <% unless org.tracker.present?
+       org.build_tracker
+     end %>
+
   <div class="row">
     <div class="form-group col-xs-8">
       <%= f.label :logo, _('Organization logo'), class: "control-label"  %>
