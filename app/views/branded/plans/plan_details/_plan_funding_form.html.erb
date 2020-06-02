@@ -2,22 +2,22 @@
 <fieldset class="project-details"> <!-- Funder -->
   <legend class="project-details"><%= _('Funder') %></legend>
   <div class="form-group"><!-- funder name-->
-    <%= render(partial: 'shared/dynamic_form/fields/text_field', locals: {
-                f: f, 
-                field_value: fragment && fragment["funder"] ? fragment["funder"]["name"] : nil, 
-                multiple: false,
-                field_name: "funder[name]", 
-                field_label: _('Name')
-                } ) %>
+    <%= create_text_field(
+          f, 
+          fragment && fragment["funder"] ? fragment["funder"]["name"] : nil, 
+          "funder[name]", 
+          _('Name')
+        ) 
+    %>
   </div>
   <div class="form-group"><!-- funder id value -->
-    <%= render(partial: 'shared/dynamic_form/fields/text_field', locals: {
-                f: f, 
-                field_value: fragment && fragment["funder"] && fragment["funder"]["funderId"] ? fragment["funder"]["funderId"]["value"] : nil, 
-                multiple: false,
-                field_name: "funder[funderId[value]]", 
-                field_label: _('Identifiant')
-                } ) %>
+    <%= create_text_field(
+          f, 
+          fragment && fragment["funder"] && fragment["funder"]["funderId"] ? fragment["funder"]["funderId"]["value"] : nil, 
+          "funder[funderId[value]]",
+          _('Identifiant')
+        ) 
+    %>
   </div>
   <div class="form-group"><!-- funder id type -->
     <div class="col-md-12">
@@ -31,27 +31,26 @@
     </div>
   </div>
   <div class="form-group"><!-- funder dataPolicyUrl -->
-    <%= render(partial: 'shared/dynamic_form/fields/text_field', locals: {
-                f: f, 
-                field_value:  fragment && fragment["funder"] ? fragment["funder"]["dataPolicyUrl"]  : nil, 
-                multiple: false,
-                field_name: "funder[dataPolicyUrl]", 
-                field_label: _('Data Policy URL'),
-                input_type: 'url'
-                } ) %>
+    <%= create_url_field(
+          f, 
+          fragment && fragment["funder"] ? fragment["funder"]["dataPolicyUrl"]  : nil, 
+          "funder[dataPolicyUrl]",
+          _('Data Policy URL')
+        ) 
+    %>
   </div>
 </fieldset>
 
 <fieldset class="project-details"> <!-- Grant ID -->
   <legend class="project-details"><%= _('Grant ID') %></legend>
   <div class="form-group"><!-- grand id value -->
-    <%= render(partial: 'shared/dynamic_form/fields/text_field', locals: {
-                f: f, 
-                field_value: fragment && fragment["grantId"] ? fragment["grantId"]["value"] : nil, 
-                multiple: false,
-                field_name: "grantId[value]", 
-                field_label: _('Value')
-                } ) %>
+    <%= create_text_field(
+          f, 
+          fragment && fragment["grantId"] ? fragment["grantId"]["value"] : nil, 
+          "grantId[value]", 
+          _('Value')
+        ) 
+    %>
   </div>
   <div class="form-group"><!-- grand id type -->
     <div class="col-md-12">

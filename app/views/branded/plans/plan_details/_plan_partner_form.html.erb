@@ -1,25 +1,25 @@
 <%# locals: { fragment } %>
 
 <div class="form-group"><!-- partner name -->
-  <%= render(partial: 'shared/dynamic_form/fields/text_field', locals: {
-              f: f, 
-              field_value: fragment ? fragment["name"] : nil, 
-              multiple: false,
-              field_name: "name", 
-              field_label: _('Name')
-              } ) %>
+  <%= create_text_field(
+        f, 
+        fragment ? fragment["name"] : nil, 
+        "name", 
+        _('Name')
+      ) 
+  %>
 </div>
 
 <fieldset class="project-details"> <!-- DMP ID -->
   <legend class="project-details"><%= _('Org ID') %></legend>
   <div class="form-group"><!-- org id value -->
-    <%= render(partial: 'shared/dynamic_form/fields/text_field', locals: {
-                f: f, 
-                field_value: fragment && fragment["orgId"] ? fragment["orgId"]["value"] : nil, 
-                multiple: false,
-                field_name: "orgId[value]", 
-                field_label: _('Name')
-                } ) %>
+    <%= create_text_field(
+          f, 
+          fragment && fragment["orgId"] ? fragment["orgId"]["value"] : nil, 
+          "orgId[value]", 
+          _('ID')
+        ) 
+    %>
   </div>
   <div class="form-group"><!-- Identifier Type -->
     <div class="col-md-12">
@@ -35,12 +35,11 @@
 </fieldset>
 
 <div class="form-group"><!-- partner name -->
-  <%= render(partial: 'shared/dynamic_form/fields/text_field', locals: {
-              f: f, 
-              field_value:  fragment ? fragment["dataPolicyUrl"]  : nil, 
-              multiple: false,
-              field_name: "dataPolicyUrl", 
-              field_label: _('Data Policy URL'),
-                input_type: 'url'
-              } ) %>
+  <%= create_url_field(
+        f, 
+        fragment ? fragment["dataPolicyUrl"]  : nil, 
+        "dataPolicyUrl", 
+        _('Data Policy URL')
+      ) 
+  %>
 </div>
