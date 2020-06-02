@@ -133,7 +133,7 @@ module Api
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def contributor_to_user(contributor:)
         identifiers = contributor.identifiers.map do |id|
-          { name: id.identifier_scheme.name, value: id.value }
+          { name: id.identifier_scheme&.name, value: id.value }
         end
         user = User.from_identifiers(array: identifiers) if identifiers.any?
         user = User.find_by(email: contributor.email) unless user.present?

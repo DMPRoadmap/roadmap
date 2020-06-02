@@ -12,8 +12,8 @@ json.description plan.description
 json.language Api::V1::LanguagePresenter.three_char_code(
   lang: ApplicationService.default_language
 )
-json.created plan.created_at.utc.to_s
-json.modified plan.updated_at.utc.to_s
+json.created plan.created_at.to_formatted_s(:iso8601)
+json.modified plan.updated_at.to_formatted_s(:iso8601)
 
 # TODO: Update this to pull from the appropriate question once the work is complete
 json.ethical_issues_exist "unknown"
