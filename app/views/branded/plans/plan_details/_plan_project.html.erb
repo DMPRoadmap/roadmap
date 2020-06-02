@@ -7,31 +7,31 @@
 <% principalInvestigator = @plan.json_fragment().project.principalInvestigator %>
 
 <div class="form-group"><!-- project_title -->
-  <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-              f: f, 
-              field_value: project["title"], 
-              multiple: false,
-              field_name: "project_title", 
-              field_label: _('Project title')
-              } ) %>
+  <%= create_text_field(
+        f, 
+        project["title"], 
+        "project_title", 
+        _('Project title')
+      ) 
+  %>
 </div>
 <div class="form-group"><!-- project_acronym -->
-  <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-              f: f, 
-              field_value: project["acronym"],  
-              multiple: false,
-              field_name: "project_acronym", 
-              field_label: _('Acronym')
-              } ) %>
+  <%= create_text_field(
+        f, 
+        project["acronym"], 
+        "project_acronym", 
+        _('Acronym')
+      ) 
+  %>
 </div>
 <div class="form-group"><!-- project_id -->
-  <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-              f: f, 
-              field_value: project["projectId"], 
-              multiple: false,
-              field_name: "project_id", 
-              field_label: _('Project ID')
-              } ) %>
+  <%= create_text_field(
+        f, 
+        project["projectId"], 
+        "project_id", 
+        _('Project ID')
+      ) 
+  %>
 </div>
 <div class="form-group"><!-- project_description -->
   <div class="col-md-12">
@@ -55,22 +55,22 @@
 </fieldset>
 
 <div class="form-group"><!-- project_start_date -->
-  <%= render(partial: 'plans/plan_details/fields/date_field', locals: {
-              f: f, 
-              field_value: project["startDate"], 
-              multiple: false,
-              field_name: "project_start_date", 
-              field_label: _('Start Date')
-              } ) %>
+  <%= create_date_field(
+        f, 
+        project["startDate"], 
+        "project_start_date", 
+        _('Start Date')
+      ) 
+  %>
 </div>
 <div class="form-group"><!-- project_end_date -->
-  <%= render(partial: 'plans/plan_details/fields/date_field', locals: {
-              f: f, 
-              field_value: project["endDate"], 
-              multiple: false,
-              field_name: "project_end_date", 
-              field_label: _('End Date')
-              } ) %>
+  <%= create_date_field(
+        f, 
+        project["endDate"], 
+        "project_end_date", 
+        _('End Date')
+      ) 
+  %>
 </div>
 
 <fieldset class="project-details partner-list">
@@ -83,13 +83,13 @@
 </fieldset>
 
 <div class="form-group"><!-- experimental_plan_url -->
-  <%= render(partial: 'plans/plan_details/fields/url_field', locals: {
-              f: f, 
-              field_value: project["experimentalPlanUrl"], 
-              multiple: false,
-              field_name: "experimental_plan_url", 
-              field_label: _('Experimental Plan URL')
-              } ) %>
+  <%= create_url_field(
+        f, 
+        project["experimentalPlanUrl"], 
+        "experimental_plan_url", 
+        _('Experimental Plan URL')
+      ) 
+  %>
 </div>
 
 

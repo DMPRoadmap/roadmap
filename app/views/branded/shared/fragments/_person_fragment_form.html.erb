@@ -19,43 +19,43 @@
     </div>
   </div>
   <div class="form-group"><!-- person_surname -->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-              f: f, 
-              field_value: person ? person["lastName"] : nil, 
-              multiple: false,
-              field_name: "#{fragment_name}[lastName]", 
-              field_label: _('Surname'),
-              field_class: "person_lastName"
-              } ) %>
+    <%= create_text_field(
+          f, 
+          person ? person["lastName"] : nil, 
+          "#{fragment_name}[lastName]", 
+          _('Surname'),
+          html_class: "person_lastName"
+        ) 
+    %>
   </div>
   <div class="form-group"><!-- person_firstname -->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-              f: f, 
-              field_value: person ? person["firstName"] : nil, 
-              multiple: false,
-              field_name: "#{fragment_name}[firstName]", 
-              field_label: _('First Name'),
-              field_class: "person_firstName"
-              } ) %>
+    <%= create_text_field(
+          f, 
+          person ? person["firstName"] : nil, 
+          "#{fragment_name}[firstName]", 
+          _('Firstname'),
+          html_class: "person_firstName"
+        ) 
+    %>
   </div>
   <div class="form-group"><!-- person_email -->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-              f: f, 
-              field_value: person ? person["mbox"] : nil, 
-              multiple: false,
-              field_name: "#{fragment_name}[mbox]", 
-              field_label: _('Email'),
-              field_class: "person_mbox"
-              } ) %>
+    <%= create_email_field(
+          f, 
+          person ? person["mbox"] : nil, 
+          "#{fragment_name}[mbox]", 
+          _('Email'),
+          html_class: "person_mbox"
+        ) 
+    %>
   </div>
   <div class="form-group"><!-- person_identifier -->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-              f: f, 
-              field_value: person ? person["identifier"] : nil, 
-              multiple: false,
-              field_name: "#{fragment_name}[identifier]", 
-              field_label: _('Identifier'),
-              field_class: "person_identifier"
-              } ) %>
+    <%= create_text_field(
+          f, 
+          person ? person["identifier"] : nil, 
+          "#{fragment_name}[identifier]", 
+          _('Identifier'),
+          html_class: "person_identifier"
+        ) 
+    %>
   </div>
 </fieldset>

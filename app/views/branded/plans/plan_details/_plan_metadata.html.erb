@@ -46,57 +46,56 @@
     </div>
   </div>
   <div class="form-group"><!-- identifier -->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-                f: f, 
-                field_value: dmpID ? dmpID["value"] : nil, 
-                multiple: false,
-                field_name: "dmpID[value]", 
-                field_label: _('ID')
-                } ) %>
-    
+    <%= create_text_field(
+          f, 
+          dmpID ? dmpID["value"] : nil,  
+          "dmpID[value]", 
+          _('ID')
+        ) 
+    %>
   </div>
 </fieldset>
 
 <fieldset class="project-details"> <!-- Version -->
   <legend class="project-details"><%= _('Version') %></legend>
   <div class="form-group"><!-- versionNumber -->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-                f: f, 
-                field_value: p_version ? p_version["versionNumber"] : nil, 
-                multiple: false,
-                field_name: "version[versionNumber]", 
-                field_label: _('Number')
-                } ) %>
+    <%= create_text_field(
+          f, 
+          p_version ? p_version["versionNumber"] : nil, 
+          "version[versionNumber]", 
+          _('Number')
+        ) 
+    %>
   </div>
   <div class="form-group"><!-- versionNotes -->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-                f: f, 
-                field_value: p_version ? p_version["versionNotes"] : nil,  
-                multiple: false,
-                field_name: "version[versionNotes]", 
-                field_label: _('Notes')
-                } ) %>
+    <%= create_text_field(
+          f, 
+          p_version ? p_version["versionNotes"] : nil, 
+          "version[versionNotes]", 
+          _('Notes')
+        ) 
+    %>
   </div>
 </fieldset>
 <!-- TODO : IMPLEMENT MULTIPLE -->
 <div class="form-group"><!-- relatedDocUrl -->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-                f: f, 
-                field_value: meta["relatedDocUrl"], 
-                multiple: false,
-                field_name: "relatedDocUrl", 
-                field_label: _('Related Documentation URL')
-                } ) %>
+    <%= create_text_field(
+          f, 
+          meta["relatedDocUrl"], 
+          "relatedDocUrl", 
+          _('Related Documentation URL')
+        ) 
+    %>
 </div>
 <!-- TODO : IMPLEMENT MULTIPLE -->
 <div class="form-group"><!-- associatedDMPId -->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-                f: f, 
-                field_value: meta["associatedDMPId"], 
-                multiple: false,
-                field_name: "associatedDMPId", 
-                field_label: _('Associated DMPs')
-                } ) %>
+    <%= create_text_field(
+          f, 
+          meta["associatedDMPId"], 
+          "associatedDMPId", 
+          _('Associated DMPs')
+        ) 
+    %>
 </div>
 
 <%= render(partial: 'shared/fragments/person_fragment_form', locals: {
@@ -112,31 +111,31 @@
 <fieldset class="project-details">
   <legend class="project-details"><%= _("Licence") %></legend>
   <div class="form-group"><!-- licenseName -->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
-                f: f, 
-                field_value: licence ? licence["licenseName"] : nil,
-                multiple: false,
-                field_name: "licence[licenseName]", 
-                field_label: _('Name')
-                } ) %>
+    <%= create_text_field(
+          f, 
+          licence ? licence["licenseName"] : nil,
+          "licence[licenseName]", 
+          _('Name')
+        ) 
+    %>
   </div>
   <div class="form-group"><!-- licenseUrl -->
-    <%= render(partial: 'plans/plan_details/fields/url_field', locals: {
-                f: f, 
-                field_value: licence ? licence["licenseUrl"] : nil, 
-                multiple: false,
-                field_name: "licence[licenseUrl]", 
-                field_label: _('URL')
-                } ) %>
+    <%= create_url_field(
+          f, 
+          licence ? licence["licenseUrl"] : nil,
+          "licence[licenseUrl]", 
+          _('URL')
+        ) 
+    %>
   </div>
   <div class="form-group"><!-- licenceStartDate -->
-    <%= render(partial: 'plans/plan_details/fields/date_field', locals: {
-                f: f, 
-                field_value: meta["licenceStartDate"], 
-                multiple: false,
-                field_name: "licenceStartDate", 
-                field_label: _('Start Date')
-                } ) %>
+    <%= create_date_field(
+          f, 
+          licence ? licence["licenceStartDate"] : nil,
+          "licence[licenceStartDate]", 
+          _('Start Date')
+        ) 
+    %>
   </div>
 </fieldset>
 

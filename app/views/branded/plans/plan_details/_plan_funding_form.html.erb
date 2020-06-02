@@ -2,7 +2,7 @@
 <fieldset class="project-details"> <!-- Funder -->
   <legend class="project-details"><%= _('Funder') %></legend>
   <div class="form-group"><!-- funder name-->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+    <%= render(partial: 'shared/dynamic_form/fields/text_field', locals: {
                 f: f, 
                 field_value: fragment && fragment["funder"] ? fragment["funder"]["name"] : nil, 
                 multiple: false,
@@ -11,7 +11,7 @@
                 } ) %>
   </div>
   <div class="form-group"><!-- funder id value -->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+    <%= render(partial: 'shared/dynamic_form/fields/text_field', locals: {
                 f: f, 
                 field_value: fragment && fragment["funder"] && fragment["funder"]["funderId"] ? fragment["funder"]["funderId"]["value"] : nil, 
                 multiple: false,
@@ -31,12 +31,13 @@
     </div>
   </div>
   <div class="form-group"><!-- funder dataPolicyUrl -->
-    <%= render(partial: 'plans/plan_details/fields/url_field', locals: {
+    <%= render(partial: 'shared/dynamic_form/fields/text_field', locals: {
                 f: f, 
                 field_value:  fragment && fragment["funder"] ? fragment["funder"]["dataPolicyUrl"]  : nil, 
                 multiple: false,
                 field_name: "funder[dataPolicyUrl]", 
-                field_label: _('Data Policy URL')
+                field_label: _('Data Policy URL'),
+                input_type: 'url'
                 } ) %>
   </div>
 </fieldset>
@@ -44,7 +45,7 @@
 <fieldset class="project-details"> <!-- Grant ID -->
   <legend class="project-details"><%= _('Grant ID') %></legend>
   <div class="form-group"><!-- grand id value -->
-    <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
+    <%= render(partial: 'shared/dynamic_form/fields/text_field', locals: {
                 f: f, 
                 field_value: fragment && fragment["grantId"] ? fragment["grantId"]["value"] : nil, 
                 multiple: false,

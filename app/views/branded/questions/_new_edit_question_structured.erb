@@ -6,7 +6,13 @@
         <% value = answer.structured_answer.data[key] unless answer.structured_answer.nil? %>
         <% case prop['type'] %>
             <% when 'string' %>
-                <%= create_text_field(f, value, key, prop['label']) %>
+                <% if prop['format'].nil?%>
+                    <%= create_text_field(f, value, key, prop['label']) %>
+                <% elsif prop['format'] == 'date' %>
+                    <%= create_date_field(f, value, key, prop['label']) %>
+                <% elsif prop['format'] == 'url' %>
+                    <%= create_url_field(f, value, key, prop['label']) %>
+                <%end%>
             <% when 'integer' %>
                 <%= create_number_field(f, value, key, prop['label']) %>
             <% when 'boolean' %>
