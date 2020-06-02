@@ -3,19 +3,15 @@
 # Table name: guidances
 #
 #  id                :integer          not null, primary key
-#  published         :boolean
 #  text              :text
+#  guidance_group_id :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  guidance_group_id :integer
+#  published         :boolean
 #
 # Indexes
 #
 #  guidances_guidance_group_id_idx  (guidance_group_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (guidance_group_id => guidance_groups.id)
 #
 
 FactoryBot.define do

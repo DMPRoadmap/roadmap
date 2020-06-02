@@ -1,3 +1,4 @@
+<% is_super_admin = current_user.can_super_admin? %>
 <div class="table-responsive">
   <table class="table table-hover" id="guidance-groups">
     <thead>
@@ -7,6 +8,7 @@
         <th scope="col"><%= _('Organisation Type(s)') %>&nbsp;<%= paginable_sort_link('orgs.org_type') %></th>
         <th scope="col"><%= _('Templates') %></th>
         <th scope="col"><%= _('Users') %></th>
+        <th scope="col" class="text-center"><%= _('Active') %></th>
         <th scope="col" class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
       </tr>
     </thead>
@@ -18,6 +20,9 @@
           <td><%= org.org_type_to_s %></td>
           <td><%= org.template_count %></td>
           <td><%= org.users.uniq.length %></td>
+          <td class="text-center org-status">
+              <%= org.active? ? _('Yes') : _('No') %>
+          </td>
           <td>
             <div class="dropdown">
               <button

@@ -22,14 +22,20 @@
       <ul>
         <li class="checkbox">
           <%= label_tag 'export[research_output_mode]' do %>
+            <%= radio_button_tag("export[research_output_mode]", "by_research_output", false) %>
+            <%= d_("dmpopidor", 'Export by research output') %>
+          <% end %>
+        </li>
+        <li class="checkbox">
+          <%= label_tag 'export[research_output_mode]' do %>
             <%= radio_button_tag("export[research_output_mode]", "by_section", true) %>
-            <%= d_("dmpopidor", 'Research outputs by section') %>
+            <%= d_("dmpopidor", 'Export by section') %>
           <% end %>
         </li>
         <li class="checkbox">
           <%= label_tag 'export[research_output_mode]' do %>
             <%= radio_button_tag("export[research_output_mode]", "by_question", false) %>
-            <%= d_("dmpopidor", 'Research outputs by question') %>
+            <%= d_("dmpopidor", 'Export by question') %>
           <% end %>
         </li>
       </ul>
@@ -57,7 +63,7 @@
     <%= hidden_field_tag(:phase_id, @phase_options[0][1]) %>
   <% end %>
   <fieldset>
-    <legend><%= _("Optional plan components") %></legend>
+    <legend><%= d_('dmpopidor', "Plan components") %></legend>
     <div class="checkbox">
       <%= label_tag 'export[project_details]' do %>
         <%= check_box_tag 'export[project_details]', true, true %>
@@ -160,5 +166,8 @@
     </div>
   </div>
 
-  <%= button_tag(sanitize(_('Download Plan <em class="sr-only">(new window)</em>')), class: "btn btn-primary", type: "submit") %>
+  <%= button_tag(sanitize(_("Download Plan") % { open_in_new_window_text: _('Opens in new window') },
+        tags: %w{ span em }),
+      class: "btn btn-primary",
+      type: "submit") %>
 <% end %>

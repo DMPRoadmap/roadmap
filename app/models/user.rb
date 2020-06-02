@@ -1,41 +1,41 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
 #
 #  id                     :integer          not null, primary key
-#  accept_terms           :boolean
-#  active                 :boolean          default(TRUE)
-#  api_token              :string
-#  confirmation_sent_at   :datetime
-#  confirmation_token     :string
-#  confirmed_at           :datetime
-#  current_sign_in_at     :datetime
-#  current_sign_in_ip     :string
-#  dmponline3             :boolean
-#  email                  :string(80)       default(""), not null
-#  encrypted_password     :string           default("")
 #  firstname              :string
-#  invitation_accepted_at :datetime
-#  invitation_created_at  :datetime
-#  invitation_sent_at     :datetime
-#  invitation_token       :string
-#  invited_by_type        :string
-#  last_sign_in_at        :datetime
-#  last_sign_in_ip        :string
-#  other_organisation     :string
-#  recovery_email         :string
-#  remember_created_at    :datetime
-#  reset_password_sent_at :datetime
-#  reset_password_token   :string
-#  sign_in_count          :integer          default(0)
 #  surname                :string
+#  email                  :string(80)       default(""), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  invited_by_id          :integer
-#  language_id            :integer
+#  encrypted_password     :string           default("")
+#  reset_password_token   :string
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  sign_in_count          :integer          default("0")
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :string
+#  last_sign_in_ip        :string
+#  confirmation_token     :string
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  invitation_token       :string
+#  invitation_created_at  :datetime
+#  invitation_sent_at     :datetime
+#  invitation_accepted_at :datetime
+#  other_organisation     :string
+#  dmponline3             :boolean
+#  accept_terms           :boolean
 #  org_id                 :integer
+#  api_token              :string
+#  invited_by_id          :integer
+#  invited_by_type        :string
+#  language_id            :integer
+#  recovery_email         :string
+#  active                 :boolean          default("true")
+#  department_id          :integer
 #
 # Indexes
 #
@@ -43,17 +43,14 @@
 #  users_language_id_idx  (language_id)
 #  users_org_id_idx       (org_id)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (language_id => languages.id)
-#  fk_rails_...  (org_id => orgs.id)
-#
 
 class User < ActiveRecord::Base
 
   include ConditionalUserMailer
   include ValidationMessages
   include ValidationValues
+  extend UniqueRandom
+  prepend Dmpopidor::Models::User
 
   ##
   # Devise
@@ -79,6 +76,8 @@ class User < ActiveRecord::Base
   belongs_to :language
 
   belongs_to :org
+
+  belongs_to :department, required: false
 
   has_one  :pref
 
@@ -150,7 +149,9 @@ class User < ActiveRecord::Base
   # = Callbacks =
   # =============
 
-  before_update :clear_other_organisation, if: :org_id_changed?
+  before_update :clear_other_organisation, :if => proc { org_id_changed? &&  org_id != Org.find_by(is_other: true).id }
+
+  before_update :clear_department_id, if: :org_id_changed?
 
   after_update :delete_perms!, if: :org_id_changed?, unless: :can_change_org?
 
@@ -192,11 +193,11 @@ class User < ActiveRecord::Base
   # Returns nil
   def get_locale
     if !self.language.nil?
-      return self.language.abbreviation
+      self.language.abbreviation
     elsif !self.org.nil?
-      return self.org.get_locale
+      self.org.get_locale
     else
-      return nil
+      nil
     end
   end
 
@@ -207,10 +208,10 @@ class User < ActiveRecord::Base
   # Returns String
   def name(use_email = true)
     if (firstname.blank? && surname.blank?) || use_email then
-      return email
+      email
     else
       name = "#{firstname} #{surname}"
-      return name.strip
+      name.strip
     end
   end
 
@@ -228,7 +229,7 @@ class User < ActiveRecord::Base
   #
   # Returns Boolean
   def can_super_admin?
-    return self.can_add_orgs? || self.can_grant_api_to_orgs? || self.can_change_org?
+    self.can_add_orgs? || self.can_grant_api_to_orgs? || self.can_change_org?
   end
 
   # Checks if the user is an organisation admin if the user has any privlege which
@@ -236,8 +237,9 @@ class User < ActiveRecord::Base
   #
   # Returns Boolean
   def can_org_admin?
-    return self.can_grant_permissions? || self.can_modify_guidance? ||
-           self.can_modify_templates? || self.can_modify_org_details?
+    self.can_grant_permissions? || self.can_modify_guidance? ||
+      self.can_modify_templates? || self.can_modify_org_details? ||
+      self.can_review_plans?
   end
 
   # Can the User add new organisations?
@@ -297,6 +299,15 @@ class User < ActiveRecord::Base
     perms.include? Perm.grant_api
   end
 
+
+  ##
+  # Can the user review their organisation's plans?
+  #
+  # Returns Boolean
+  def can_review_plans?
+    perms.include? Perm.review_plans
+  end
+
   # Removes the api_token from the user
   #
   # Returns nil
@@ -312,11 +323,8 @@ class User < ActiveRecord::Base
   # Returns Boolean
   def keep_or_generate_token!
     if api_token.nil? || api_token.empty?
-      self.api_token = loop do
-        random_token = SecureRandom.urlsafe_base64(nil, false)
-        break random_token unless User.exists?(api_token: random_token)
-      end
-      update_column(:api_token, api_token)  unless new_record?
+      new_token = User.unique_random(field_name: 'api_token')
+      update_column(:api_token, new_token)  unless new_record?
     end
   end
 
@@ -377,17 +385,43 @@ class User < ActiveRecord::Base
     notifications << notification if notification.dismissable?
   end
 
-  # Anonymize a user (by removing its personnal data and deactivating its account)
-  def anonymize
-    copy = dup
+  
+  # remove personal data from the user account and save
+  # leave account in-place, with org for statistics (until we refactor those)
+  #
+  # Returns boolean
+  # SEE MODULE
+  def archive
+    self.firstname = 'Deleted'
+    self.surname = 'User'
+    self.email = User.unique_random(field_name: 'email',
+      prefix: 'user_',
+      suffix: Rails.configuration.branding[:application].fetch(:archived_accounts_email_suffix, '@example.org'),
+      length: 5)
+    self.recovery_email = nil
+    self.api_token = nil
+    self.encrypted_password = nil
+    self.last_sign_in_ip = nil
+    self.current_sign_in_ip =  nil
+    self.active = false
+    return self.save
+  end
 
-    update(firstname: 'anonymous', surname: 'user', email: "anonymous#{id}@opidor.fr", last_sign_in_at: nil, encrypted_password: nil, active: false)
-
-    if save
-      Rails.logger.info "User #{id} anonymized"
-      p "User #{id} anonymized"
-      UserMailer.anonymization_notice(copy).deliver_now
-    end
+  def merge(to_be_merged)
+    # merge logic
+    # => answers -> map id
+    to_be_merged.answers.update_all(user_id: self.id)
+    # => notes -> map id
+    to_be_merged.notes.update_all(user_id: self.id)
+    # => plans -> map on id roles
+    to_be_merged.roles.update_all(user_id: self.id)
+    # => prefs -> Keep's from self
+    # => auths -> map onto keep id only if keep does not have the identifier
+    to_be_merged.user_identifiers.
+          where.not(identifier_scheme_id: self.identifier_scheme_ids)
+          .update_all(user_id: self.id)
+    # => ignore any perms the deleted user has
+    to_be_merged.destroy
   end
 
   private
@@ -402,6 +436,10 @@ class User < ActiveRecord::Base
 
   def clear_other_organisation
     self.other_organisation = nil
+  end
+
+  def clear_department_id
+    self.department_id = nil
   end
 
 end

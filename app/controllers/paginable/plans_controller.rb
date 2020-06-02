@@ -2,7 +2,7 @@
 
 class Paginable::PlansController < ApplicationController
 
-  include Dmpopidor::Controllers::Paginable::Plans
+  prepend Dmpopidor::Controllers::Paginable::Plans
   include Paginable
 
   # /paginable/plans/privately_visible/:page
@@ -38,28 +38,28 @@ class Paginable::PlansController < ApplicationController
   end
 
   # GET /paginable/plans/org_admin/:page
-  # def org_admin
-  #   unless current_user.present? && current_user.can_org_admin?
-  #     raise Pundit::NotAuthorizedError
-  #   end
-  #   paginable_renderise(
-  #     partial: "org_admin",
-  #     scope: current_user.org.plans,
-  #     query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }
-  #   )
-  # end
-
-  # CHANGES: New Visibility
-  # /paginable/plans/privately_private_visible/:page
-  # Paginable for Privately Private Visibility
-  # Plans that are only visible by the owner of a plan and its collaborators
-  def privately_private_visible
-    unless Paginable::PlanPolicy.new(current_user).privately_private_visible?
+  # SEE MODULE
+  def org_admin
+    unless current_user.present? && current_user.can_org_admin?
       raise Pundit::NotAuthorizedError
     end
     paginable_renderise(
-      partial: "privately_private_visible",
-      scope: Plan.active(current_user),
+      partial: "org_admin",
+      scope: current_user.org.plans,
+      query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }
+    )
+  end
+
+  # GET /paginable/plans/org_admin/:page
+  def org_admin_other_user
+    @user = User.find(params[:id])
+    authorize @user
+    unless current_user.present? && current_user.can_org_admin? && @user.present?
+      raise Pundit::NotAuthorizedError
+    end
+    paginable_renderise(
+      partial: "org_admin_other_user",
+      scope: Plan.active(@user),
       query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }
     )
   end

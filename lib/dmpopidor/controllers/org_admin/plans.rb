@@ -5,14 +5,17 @@ module Dmpopidor
 
         # GET org_admin/plans
         # In the Org Admin page, Private and Test plans won't be displayed
+        # CHANGES : Feedbacks plans are plans where the requestor belongs to the current_user's org
         def index
           unless current_user.present? && current_user.can_org_admin?
             raise Pundit::NotAuthorizedError
           end
-
-          feedback_ids = Role.where(user_id: current_user.id).reviewer.pluck(:plan_id).uniq
-          @feedback_plans = Plan.where(id: feedback_ids)
-          @plans = current_user.org.plans.where.not(visibility: [Plan.visibilities[:privately_private_visible], Plan.visibilities[:is_test]]).page(1)
+          
+          feedback_ids = Role.joins(:user,:plan)
+            .where('plans.feedback_requestor IN (?) AND plans.feedback_requested is TRUE AND roles.active is TRUE',
+              current_user.org.users.pluck(:id).uniq).pluck(:plan_id)
+          @feedback_plans = Plan.where(id: feedback_ids).reject{|p| p.nil?}
+          @plans = current_user.org.plans.where.not(visibility: [Plan.visibilities[:privately_visible], Plan.visibilities[:is_test]]).page(1)
         end
 
         # CHANGES
@@ -41,7 +44,7 @@ module Dmpopidor
           plans = CSV.generate do |csv|
             csv << header_cols
             org.plans
-                .where.not(visibility: Plan.visibilities[:privately_private_visible])
+                .where.not(visibility: Plan.visibilities[:privately_visible])
                 .includes(template: :org).order(updated_at: :desc).each do |plan|
               owner = plan.owner
               csv << [

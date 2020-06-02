@@ -65,7 +65,8 @@ module Dmpopidor
                 @stale_answer = @answer
                 @answer = Answer.find_by(
                   plan_id: p_params[:plan_id],
-                  question_id: p_params[:question_id]
+                  question_id: p_params[:question_id], 
+                  research_output_id: p_params[:research_output_id] 
                 )
               end
             end
@@ -86,6 +87,9 @@ module Dmpopidor
               @research_output = @answer.research_output
               # rubocop:disable LineLength
               render json: {
+              "answer" => {
+                "id" => @answer.id
+              },
               "question" => {
                 "id" => @question.id,
                 "answer_lock_version" => @answer.lock_version,
@@ -130,6 +134,18 @@ module Dmpopidor
             }.to_json
             # rubocop:enable LineLength
           end
+        end
+
+        def set_answers_as_common
+          answerIds = params[:answer_ids]
+          common_value = params[:is_common]
+
+          Answer.where(id: answerIds).update_all(is_common: common_value)
+          
+          render json: {
+            "updated_answers": answerIds
+          }.to_json
+
         end
       end
     end

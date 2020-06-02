@@ -4,30 +4,26 @@
 # Table name: templates
 #
 #  id               :integer          not null, primary key
-#  archived         :boolean
-#  customization_of :integer
-#  description      :text
-#  is_default       :boolean
-#  links            :text
-#  locale           :string
-#  published        :boolean
 #  title            :string
-#  version          :integer
-#  visibility       :integer
+#  description      :text
+#  published        :boolean
+#  org_id           :integer
+#  locale           :string
+#  is_default       :boolean
 #  created_at       :datetime
 #  updated_at       :datetime
+#  version          :integer
+#  visibility       :integer
+#  customization_of :integer
 #  family_id        :integer
-#  org_id           :integer
+#  archived         :boolean
+#  links            :text
 #
 # Indexes
 #
 #  templates_customization_of_version_org_id_key  (customization_of,version,org_id) UNIQUE
 #  templates_family_id_version_key                (family_id,version) UNIQUE
 #  templates_org_id_idx                           (org_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (org_id => orgs.id)
 #
 
 class Template < ActiveRecord::Base
@@ -399,6 +395,36 @@ class Template < ActiveRecord::Base
 
   def publish!
     update!(published: true)
+  end
+
+  def publishability
+    error = ""
+    publishable = true
+    # template must be the most recent draft
+    if published
+      error += _("You can not publish a published template.  ")
+      publishable = false
+    end
+    if not latest?
+      error += _("You can not publish a historical version of this template.  ")
+      publishable = false
+    # all templates have atleast one phase
+    end
+    if not phases.count > 0
+      error += _("You can not publish a template without phases.  ")
+      publishable = false
+    # all phases must have atleast 1 section
+    end
+    unless phases.map{|p| p.sections.count > 0}.reduce(true) { |fin, val| fin and val }
+      error += _("You can not publish a template without sections in a phase.  ")
+      publishable = false
+    # all sections must have atleast one question
+    end
+    unless sections.map{|s| s.questions.count > 0}.reduce(true) { |fin, val| fin and val }
+      error += _("You can not publish a template without questions in a section.  ")
+      publishable = false
+    end
+    return publishable, error
   end
 
   private

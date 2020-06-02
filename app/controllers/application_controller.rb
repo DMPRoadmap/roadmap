@@ -2,7 +2,7 @@
 
 class ApplicationController < ActionController::Base
 
-  include Dmpopidor::Controllers::Application
+  prepend Dmpopidor::Controllers::Application
   # Set Static Pages to use in navigation
   before_filter :set_nav_static_pages
 
@@ -111,12 +111,13 @@ class ApplicationController < ActionController::Base
     }
   end
 
-  # def success_message(obj, action = "saved")
-  #   _("Successfully %{action} the %{object}.") % {
-  #     object: obj_name_for_display(obj),
-  #     action: action || "save",
-  #   }
-  # end
+  # SEE MODULE
+  def success_message(obj, action = "saved")
+    _("Successfully %{action} the %{object}.") % {
+      object: obj_name_for_display(obj),
+      action: action || "save",
+    }
+  end
 
   def errors_for_display(obj)
     if obj.present? && obj.errors.any?
@@ -125,21 +126,22 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # def obj_name_for_display(obj)
-  #   display_name = {
-  #     ExportedPlan: _("plan"),
-  #     GuidanceGroup: _("guidance group"),
-  #     Note: _("comment"),
-  #     Org: _("organisation"),
-  #     Perm: _("permission"),
-  #     Pref: _("preferences"),
-  #     User: obj == current_user ? _("profile") : _("user")
-  #   }
-  #   if obj.respond_to?(:customization_of) && obj.send(:customization_of).present?
-  #     display_name[:Template] = "customization"
-  #   end
-  #   display_name[obj.class.name.to_sym] || obj.class.name.downcase || "record"
-  # end
+  # SEE MODULE
+  def obj_name_for_display(obj)
+    display_name = {
+      ExportedPlan: _("plan"),
+      GuidanceGroup: _("guidance group"),
+      Note: _("comment"),
+      Org: _("organisation"),
+      Perm: _("permission"),
+      Pref: _("preferences"),
+      User: obj == current_user ? _("profile") : _("user")
+    }
+    if obj.respond_to?(:customization_of) && obj.send(:customization_of).present?
+      display_name[:Template] = "customization"
+    end
+    display_name[obj.class.name.to_sym] || obj.class.name.downcase || "record"
+  end
 
   # Override rails default render action to look for a branded version of a
   # template instead of using the default one. If no override exists, the

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190620144049) do
+ActiveRecord::Schema.define(version: 20200515113700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,16 @@ ActiveRecord::Schema.define(version: 20190620144049) do
 
   add_index "answers_question_options", ["answer_id"], name: "answers_question_options_answer_id_idx", using: :btree
   add_index "answers_question_options", ["question_option_id"], name: "answers_question_options_question_option_id_idx", using: :btree
+
+  create_table "departments", force: :cascade do |t|
+    t.string   "name"
+    t.string   "code"
+    t.integer  "org_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "departments", ["org_id"], name: "index_departments_on_org_id", using: :btree
 
   create_table "exported_plans", force: :cascade do |t|
     t.integer  "plan_id"
@@ -186,6 +196,7 @@ ActiveRecord::Schema.define(version: 20190620144049) do
     t.boolean  "feedback_enabled",       default: false
     t.string   "feedback_email_subject"
     t.text     "feedback_email_msg"
+    t.boolean  "active",                 default: true
   end
 
   add_index "orgs", ["language_id"], name: "orgs_language_id_idx", using: :btree
@@ -230,6 +241,8 @@ ActiveRecord::Schema.define(version: 20190620144049) do
     t.string   "principal_investigator_phone"
     t.boolean  "feedback_requested",                default: false
     t.boolean  "complete",                          default: false
+    t.integer  "feedback_requestor"
+    t.datetime "feedback_request_date"
   end
 
   add_index "plans", ["template_id"], name: "plans_template_id_idx", using: :btree
@@ -488,6 +501,7 @@ ActiveRecord::Schema.define(version: 20190620144049) do
     t.integer  "language_id"
     t.string   "recovery_email"
     t.boolean  "active",                            default: true
+    t.integer  "department_id"
   end
 
   add_index "users", ["email"], name: "users_email_key", unique: true, using: :btree
@@ -543,6 +557,7 @@ ActiveRecord::Schema.define(version: 20190620144049) do
   add_foreign_key "themes_in_guidance", "themes"
   add_foreign_key "user_identifiers", "identifier_schemes"
   add_foreign_key "user_identifiers", "users"
+  add_foreign_key "users", "departments"
   add_foreign_key "users", "languages"
   add_foreign_key "users", "orgs"
   add_foreign_key "users_perms", "perms"

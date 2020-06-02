@@ -18,7 +18,7 @@ RSpec.describe Language, type: :model do
       expect(@language).to have(1).errors_on(:abbreviation)
     end
 
-    it { is_expected.to allow_values('en', 'en-GB').for(:abbreviation) }
+    it { is_expected.to allow_values('en', 'en_GB').for(:abbreviation) }
 
   end
 

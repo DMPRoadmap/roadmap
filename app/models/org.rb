@@ -1,39 +1,34 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: orgs
 #
 #  id                     :integer          not null, primary key
-#  abbreviation           :string
-#  banner_text            :text
-#  contact_email          :string
-#  contact_name           :string
-#  feedback_email_msg     :text
-#  feedback_email_subject :string
-#  feedback_enabled       :boolean          default(FALSE)
-#  is_other               :boolean          default(FALSE), not null
-#  links                  :text
-#  logo_name              :string
-#  logo_uid               :string
 #  name                   :string
-#  org_type               :integer          default(0), not null
-#  sort_name              :string
+#  abbreviation           :string
 #  target_url             :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  language_id            :integer
+#  is_other               :boolean          default("false"), not null
+#  sort_name              :string
+#  banner_text            :text
 #  region_id              :integer
+#  language_id            :integer
+#  logo_uid               :string
+#  logo_name              :string
+#  contact_email          :string
+#  org_type               :integer          default("0"), not null
+#  links                  :text
+#  contact_name           :string
+#  feedback_enabled       :boolean          default("false")
+#  feedback_email_subject :string
+#  feedback_email_msg     :text
+#  active                 :boolean          default("true")
 #
 # Indexes
 #
 #  orgs_language_id_idx  (language_id)
 #  orgs_region_id_idx    (region_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (language_id => languages.id)
-#  fk_rails_...  (region_id => regions.id)
 #
 
 class Org < ActiveRecord::Base
@@ -47,6 +42,10 @@ class Org < ActiveRecord::Base
   validates_with OrgLinksValidator
 
   LOGO_FORMATS = %w[jpeg png gif jpg bmp].freeze
+
+  HUMANIZED_ATTRIBUTES = {
+    feedback_email_msg: _('Feedback email message')
+  }
 
   # Stores links as an JSON object:
   #  { org: [{"link":"www.example.com","text":"foo"}, ...] }
@@ -79,6 +78,7 @@ class Org < ActiveRecord::Base
 
   has_many :identifier_schemes, through: :org_identifiers
 
+  has_many :departments
 
   # ===============
   # = Validations =
@@ -166,15 +166,20 @@ class Org < ActiveRecord::Base
   #
   # What do they do? do they do it efficiently, and do we need them?
 
+  # Update humanized attributes with HUMANIZED_ATTRIBUTES
+  def self.human_attribute_name(attr, options = {})
+    HUMANIZED_ATTRIBUTES[attr.to_sym] || super
+  end
+
   # Determines the locale set for the organisation
   #
   # Returns String
   # Returns nil
   def get_locale
     if !self.language.nil?
-      return self.language.abbreviation
+      self.language.abbreviation
     else
-      return nil
+      nil
     end
   end
 
@@ -194,7 +199,7 @@ class Org < ActiveRecord::Base
     ret << "Research Institute" if self.research_institute?
     ret << "Project" if self.project?
     ret << "School" if self.school?
-    return (ret.length > 0 ? ret.join(", ") : "None")
+    (ret.length > 0 ? ret.join(", ") : "None")
   end
 
   def funder_only?
@@ -215,9 +220,9 @@ class Org < ActiveRecord::Base
   # Returns String
   def short_name
     if abbreviation.nil? then
-      return name
+      name
     else
-      return abbreviation
+      abbreviation
     end
   end
 
@@ -226,7 +231,7 @@ class Org < ActiveRecord::Base
   #
   # Returns ActiveRecord::Relation
   def published_templates
-    return templates.where("published = ?", true)
+    templates.where("published = ?", true)
   end
 
   def org_admins

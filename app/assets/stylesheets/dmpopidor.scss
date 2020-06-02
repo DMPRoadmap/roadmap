@@ -2,17 +2,30 @@
  DMPOPIDoR Stylesheet
 */
 
-$dark-blue: #4891bd;
-$blue: #51a2d2;
-$light-blue: #92c5de;
+$blue: #2c7dad;
+$dark-blue: #1c5170;
 $very-light-blue: #dcecf6;
 $very-very-light-blue: #edf5fa;
 $white: #fff;
 $black: #000;
-$rust: #d6604d;
+$rust: #c6503d;
 $light-rust: #faefed;
 $yellow: #FFCC00;
 $light-yellow: #fff9e5;
+
+body {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+}
+
+.modal-backdrop {
+    z-index: 4;
+}
+
+#header-signin {
+    z-index: 7;
+}
 
 /*
     MENU & FOOTER
@@ -21,13 +34,27 @@ $light-yellow: #fff9e5;
 /*
     MENU
 */
+
+header .main-nav {
+    display: flex;
+    justify-content: center;
+}
 #app-navbar {
+    position: fixed;
+    top: 0;
+    z-index: 5;
+    width: 100%;
     
     &.navbar-dmpopidor {
         background-color: $white;
         color: $blue;
     }
-    border-bottom: 3px solid $rust;
+    border-bottom: 2px solid $rust;
+
+    .navbar-content {
+        max-width: 1264px;
+    }
+
     .navbar-nav {
         li {
             a, a:active,a:focus,a:visited {
@@ -50,67 +77,155 @@ $light-yellow: #fff9e5;
  .navbar-toggle .icon-bar {
      background-color: $blue;
  }
+
+
+/*
+    ORG BRANDING
+*/
+.org-branding {
+    padding-top: 75px;
+
+    .container-fluid {
+        max-width: 1264px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .org-banner-text {
+        max-width: 1264px;
+        color: #1a1a1a;
+        text-align: center;
+        border-top: 1px solid #e7e7e7;
+        margin: auto;
+        padding-top: 5px;
+    }
+
+}
+
+#org-navbar {
+    .navbar-nav 
+    {
+        li {
+            a {
+                color: #727272;
+            }
+        }
+    }
+}
+
+
+/*
+    MAIN CONTENT
+*/
+
  /*
     FOOTER
  */
 .navbar-fixed-bottom {
     z-index: 50;
 }
-#footer-navbar {
-    margin-bottom: -20px;
-    position: static;
+
+#dmpopidor-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     bottom: 0;
-    width: 100%;
-    border-radius:0px;
-    border-top: 3px solid $yellow;
-    &.navbar-dmpopidor {
-        background-color: $blue;
+    font-size: 15px;
+    
+    .footer-content {
+        width: 100%;
+        padding: 0px 100px;
         color: $white;
-    }
-    .navbar-nav {
-        li {
-            a, a:active,a:focus,a:visited {
-                color: $white;
+        background-color: $blue;
+        border-top: 3px solid $yellow;
+        
+        .footer-links-logos {
+            display: flex;
+
+            .footer-links {
+                flex: 9;
             }
-            a:hover, a:focus {
-                color: $white;
-                background-color: $blue;
+            .footer-logos {
+                flex: 1;
+                padding: 5px;
+                display: flex;
+                align-items: center;
+
+                img {
+                    max-height: 50px;
+                }
             }
         }
-    }
-    .navbar-left {
-        padding-top: 10px;
-        li {
-            font-size: 16px;
-        }
-    }
-    .navbar-right {
-        margin-right: 50px;
-        .roadmap-logo {
-            height: 85px;
+        .footer-infos-sn {
+            display: flex;
+            border-top: 1px solid $white;
+            
+            .footer-infos {
+                flex: 9;
+            }
+            .footer-sn {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+            }
+
         }
 
+        span {
+            line-height: 50px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+
+        a {
+            &:focus,
+            &:active {
+            outline-style: dotted !important;
+            outline-color: white !important;
+            outline-width: 1px !important;
+            }
+            &:hover {
+            outline-style: none !important;
+            }
+        }
+    }
+
+    
+    a, a:active,a:focus,a:visited {
+        color: $white;
     }
  }
- @media (max-width: 1023px) {
-    #footer-navbar {
+
+@media (max-width: 1023px) {
+    .footer-links-logos {
+        flex-direction: column;  
+        align-items: center;
         .break-point {
             display: none;
         }
-
-        .navbar-right {
-            margin-right: 0;
-        }
-        li {
-            text-align: center;
-            img {
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-            }
+        .footer-links {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
         }
     }
-  }
+    .footer-infos-sn {
+        flex-direction: column;  
+        align-items: center;
+    }
+    .org-branding {
+        padding-top: 175px;
+    }
+     
+}
+@media (max-width: 767px) {
+    .org-branding {
+        padding-top: 75px;
+    }
+     
+}
 
  
 
@@ -118,19 +233,18 @@ $light-yellow: #fff9e5;
 /*
     DROPDOWNS
 */
-#change-language, #signin-signout, #app-navbar-menu {
+#change-language, #signin-signout, #app-navbar-menu, #admin-dropdown, .plan-actions {
 
     .dmpopidor-dropdown {
         background-color: $white;
         li {
             a, a:active,a:focus,a:visited {
                 color: $blue;
-                font-weight: bold;
     
             }
             a:hover {
                 color: $white;
-                background-color: $light-blue;
+                background-color: $blue;
             }
         }
         li.active {
@@ -163,19 +277,67 @@ $light-yellow: #fff9e5;
 */
 
 .dmpopidor-branding {
+    .alert-warning {
+        color: #5D4A27;
+        a {
+            color: #5D4A27;
+            text-decoration: underline;
+        }
+    }
+    .label-info {
+        background-color: $blue;
+    }
+
+    .org-deactivated {
+        max-width: 1264px;
+        color: $rust;
+        text-align: center;
+        margin: auto;
+        padding-top: 5px;
+        font-weight: 600;
+
+        a {
+            color: black;
+        }
+    }
+
+    /** Focus outline required for accessibility */
+    input, select, .form-control {
+        &:focus,
+        &:hover,
+        &:active {
+        outline-style: solid !important;
+        outline-color: $blue !important;
+        outline-width: 2px !important;
+        }
+    }
+
+    a {
+        &:focus,
+        &:active {
+        outline-style: dotted !important;
+        outline-color: $blue !important;
+        outline-width: 1px !important;
+        }
+        
+        &:hover:not(.accessible) {
+        outline-style: none !important;
+        }
+    }
+    
     /*
         PUBLIC AREA
     */
     h1{
-        color: $dark-blue;
+        color: $blue;
     }
     
-    h2 {
+    h2, .fontsize-h2 {
         color: $rust;
         font-size: 20px;
     }
 
-    h3 {
+    h3, .fontsize-h3 {
         color: $blue;
         font-size: 17px;
     }
@@ -254,14 +416,14 @@ $light-yellow: #fff9e5;
         color: $blue;
     }
     .btn-link {
-        color: $dark-blue;
+        color: $blue;
     }
     /* 
         PLAN EDIT
     */
     // Progress bar 
     .progress-bar {
-        background-color: $dark-blue;
+        background-color: $blue;
     }
     // Tabs
     .nav-tabs {
@@ -278,6 +440,21 @@ $light-yellow: #fff9e5;
         li.active > a:hover {
             color: $blue;
             border: 1px solid $blue;
+            border-bottom-color: transparent;
+        }
+        
+        li.phase-tab > a {
+            background-color: $dark-blue;
+        }
+
+        li.phase-tab > a:hover, 
+        li.phase-tab > a:focus, 
+        li.active.phase-tab > a, 
+        li.active.phase-tab > a:focus, 
+        li.active.phase-tab > a:hover {
+            color: $dark-blue;
+            background-color: white;
+            border: 1px solid $dark-blue;
             border-bottom-color: transparent;
         }
     }
@@ -336,8 +513,6 @@ $light-yellow: #fff9e5;
     .question-divider {
         border-bottom: 2px solid $very-very-light-blue;
     }
-
-
 
     /*
         ADMIN AREA
@@ -577,6 +752,20 @@ $light-yellow: #fff9e5;
 }
 
 
+/* 
+    COOKIE BANNER
+*/
+
+.cookiebanner-close {
+    &:focus,
+    &:hover,
+    &:active {
+    outline-style: solid !important;
+    outline-color: $blue !important;
+    outline-width: 2px !important;
+    }
+}
+
 /*
     FRONT PAGE
 */
@@ -597,10 +786,10 @@ $light-yellow: #fff9e5;
     }
 
     .front-page-list-item {
-        font-size: 1.2em;
+        font-size: 1.1em;
     }
     .front-page-text {
-        font-size: 1.2em;
+        font-size: 1.1em;
     }
     .icon {
         padding: 20px 0;
@@ -611,12 +800,6 @@ $light-yellow: #fff9e5;
     }
 }
 
-.org-banner-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
 
 /*
     PLAN CREATION
@@ -752,4 +935,25 @@ $light-yellow: #fff9e5;
             }
         }
     }
+}
+
+/*
+ * ACCESSIBILITY
+ */
+
+ a.has-new-window-popup-info,
+button.has-new-window-popup-info {
+  z-index:4;
+  &:hover,
+  &:focus,
+  &:active {
+    & > span.new-window-popup-info {
+      width:15em;
+      border:1px solid $blue;
+      background-color: white;
+      color:$blue;
+    }
+    
+  }
+  
 }

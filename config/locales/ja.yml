@@ -43,6 +43,7 @@ ja:
       long: "%Y年%m月%d日(%a)"
       short: "%m/%d"
       csv: "%d/%m/%Y"
+      readable: "%d %B %Y"
 
     month_names:
     -

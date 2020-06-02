@@ -1,5 +1,5 @@
 <nav id="app-navbar" class="navbar navbar-dmpopidor">
-  <div class="container-fluid" >
+  <div class="container-fluid navbar-content" >
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-menu" aria-expanded="false">
@@ -8,6 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+
       <%= link_to(image_tag("logo.png",
                             alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
                             class: "app-logo",
@@ -32,9 +33,6 @@
             <%= link_to _('DMP Templates'), public_templates_path %>
           </li> 
         <% else %>
-          <li <%= 'class=active' if active_page?(root_path, true) || active_page?(plans_path, true) %>>
-            <%= link_to _('Home'), root_path %>
-          </li>
           <li <%= 'class=active' if active_page?(public_plans_path) %>>
             <%= link_to _('Public DMPs'), public_plans_path %>
           </li>

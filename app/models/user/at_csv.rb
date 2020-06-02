@@ -1,7 +1,7 @@
 class User
   class AtCsv
 
-    HEADERS = ['Name', 'E-Mail', 'Created Date', 'Last Activity', 'Plans', 'Current Privileges',  'Active']
+    HEADERS = ['Name', 'E-Mail', 'Created Date', 'Last Activity', 'Plans', 'Current Privileges', 'Department', 'Active']
 
     def initialize(users)
       @users = users
@@ -16,6 +16,7 @@ class User
           created = I18n.l user.created_at.to_date, format: :csv
           last_activity = I18n.l user.updated_at.to_date, format: :csv
           plans = user.plans.size
+          department = user.department ? user.department.name : ''
           active = user.active ? 'Yes' : 'No'
 
           if user.can_super_admin?
@@ -26,7 +27,7 @@ class User
             current_privileges = ''
           end
 
-          csv << [ name, email, created, last_activity, plans, current_privileges,  active ]
+          csv << [ name, email, created, last_activity, plans, current_privileges, department, active ]
         end
       end
     end

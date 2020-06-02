@@ -13,7 +13,11 @@ Rails.application.configure do
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
+  if File.exist?(Rails.root.join('tmp', 'caching-dev.txt'))
+    config.action_controller.perform_caching = true
+  else
+    config.action_controller.perform_caching = false
+  end
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false

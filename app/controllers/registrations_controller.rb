@@ -2,21 +2,21 @@
 
 class RegistrationsController < Devise::RegistrationsController
 
-  include Dmpopidor::Controllers::Registrations
+  prepend Dmpopidor::Controllers::Registrations
 
-  # def edit
-  #   @user = current_user
-  #   @prefs = @user.get_preferences(:email)
-  #   @languages = Language.sorted_by_abbreviation
-  #   @orgs = Org.order("name")
-  #   @other_organisations = Org.where(is_other: true).pluck(:id)
-  #   @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
-  #   @default_org = current_user.org
+  def edit
+    @user = current_user
+    @prefs = @user.get_preferences(:email)
+    @languages = Language.sorted_by_abbreviation
+    @orgs = Org.order("name")
+    @other_organisations = Org.where(is_other: true).pluck(:id)
+    @identifier_schemes = IdentifierScheme.where(active: true).order(:name)
+    @default_org = current_user.org
 
-  #   if !@prefs
-  #     flash[:alert] = "No default preferences found (should be in branding.yml)."
-  #   end
-  # end
+    if !@prefs
+      flash[:alert] = "No default preferences found (should be in branding.yml)."
+    end
+  end
 
   # GET /resource
   def new
@@ -33,11 +33,11 @@ class RegistrationsController < Devise::RegistrationsController
       # The OAuth provider could not be determined or there was no unique UID!
       if !oauth["provider"].nil? && !oauth["uid"].nil?
         # Connect the new user with the identifier sent back by the OAuth provider
-        # rubocop:disable LineLength
+        # rubocop:disable Metrics/LineLength
         flash[:notice] = _("Please make a choice below. After linking your details to a %{application_name} account, you will be able to sign in directly with your institutional credentials.") % {
           application_name: Rails.configuration.branding[:application][:name]
         }
-        # rubocop:enable LineLength
+        # rubocop:enable Metrics/LineLength
         scheme = IdentifierScheme.find_by(name: oauth["provider"].downcase)
         UserIdentifier.create(identifier_scheme: scheme,
                               identifier: oauth["uid"],
@@ -55,14 +55,14 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
 
-    if params[:accept_terms].to_s == "0"
+    if params[:user][:accept_terms].to_s == "0"
       redirect_to after_sign_up_error_path_for(resource),
         alert: _("You must accept the terms and conditions to register.")
     elsif params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
-      # rubocop:disable LineLength
+      # rubocop:disable Metrics/LineLength
       redirect_to after_sign_up_error_path_for(resource),
                 alert: _("Please select an organisation from the list, or enter your organisation's name.")
-      # rubocop:enable LineLength
+      # rubocop:enable Metrics/LineLength
     else
       existing_user = User.where_case_insensitive("email", sign_up_params[:email]).first
       if existing_user.present?
@@ -83,10 +83,10 @@ class RegistrationsController < Devise::RegistrationsController
       if params[:user][:org_id].blank?
         other_org = Org.find_by(is_other: true)
         if other_org.nil?
-          # rubocop:disable LineLength
+          # rubocop:disable Metrics/LineLength
           redirect_to(after_sign_up_error_path_for(resource),
             alert: _("You cannot be assigned to other organisation since that option does not exist in the system. Please contact your system administrators.")) and return
-          # rubocop:enable LineLength
+          # rubocop:enable Metrics/LineLength
         end
         params[:user][:org_id] = other_org.id
       end
@@ -106,9 +106,9 @@ class RegistrationsController < Devise::RegistrationsController
                 UserIdentifier.create(identifier_scheme: prov,
                                       identifier: oauth["uid"],
                                       user: @user)
-                # rubocop:disable LineLength
+                # rubocop:disable Metrics/LineLength
                 flash[:notice] = _("Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them.")
-                # rubocop:enable LineLength
+                # rubocop:enable Metrics/LineLength
               end
             end
           end
@@ -121,10 +121,10 @@ class RegistrationsController < Devise::RegistrationsController
         end
       else
         clean_up_passwords resource
-        # rubocop:disable LineLength
+        # rubocop:disable Metrics/LineLength
         redirect_to after_sign_up_error_path_for(resource),
                     alert: _("Unable to create your account.#{errors_for_display(resource)}")
-        # rubocop:enable LineLength
+        # rubocop:enable Metrics/LineLength
       end
     end
   end
@@ -174,9 +174,9 @@ class RegistrationsController < Devise::RegistrationsController
       mandatory_params &&= false
     end
     if params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
-      # rubocop:disable LineLength
+      # rubocop:disable Metrics/LineLength
       message += _("Please select an organisation from the list, or enter your organisation's name.")
-      # rubocop:enable LineLength
+      # rubocop:enable Metrics/LineLength
       mandatory_params &&= false
     end
     # has the user entered all the details
@@ -192,7 +192,9 @@ class RegistrationsController < Devise::RegistrationsController
           else
             successfully_updated = current_user.update_with_password(password_update)
             if !successfully_updated
-              message = _("Save unsuccessful. That email address is already registered. You must enter a unique email address.")
+              message = _("Save unsuccessful. \
+                That email address is already registered. \
+                You must enter a unique email address.")
             end
           end
         else
@@ -226,7 +228,7 @@ class RegistrationsController < Devise::RegistrationsController
       set_gettext_locale
       set_flash_message :notice, success_message(current_user, _("saved"))
       # Sign in the user bypassing validation in case his password changed
-      sign_in current_user, bypass: true
+      bypass_sign_in current_user
       redirect_to "#{edit_user_registration_path}\#personal-details",
         notice: success_message(current_user, _("saved"))
 
@@ -252,7 +254,7 @@ class RegistrationsController < Devise::RegistrationsController
       # Method defined at controllers/application_controller.rbset_gettext_locale
       set_flash_message :notice, success_message(current_user, _("saved"))
       # TODO this method is deprecated
-      sign_in current_user, bypass: true
+      bypass_sign_in current_user
       redirect_to "#{edit_user_registration_path}\#password-details",
         notice: success_message(current_user, _("saved"))
 
@@ -270,14 +272,14 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update_params
     params.require(:user).permit(:firstname, :org_id, :other_organisation,
-                                :language_id, :surname)
+                                :language_id, :surname, :department_id)
   end
 
   def password_update
     params.require(:user).permit(:email, :firstname, :current_password,
                                 :org_id, :language_id, :password,
                                 :password_confirmation, :surname,
-                                :other_organisation)
+                                :other_organisation, :department_id)
   end
 
 end

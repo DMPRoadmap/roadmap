@@ -3,22 +3,17 @@
 # Table name: static_page_contents
 #
 #  id             :integer          not null, primary key
-#  content        :text
 #  title          :string
+#  content        :text
+#  static_page_id :integer          not null
+#  language_id    :integer          not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
-#  language_id    :integer          not null
-#  static_page_id :integer          not null
 #
 # Indexes
 #
 #  index_static_page_contents_on_language_id     (language_id)
 #  index_static_page_contents_on_static_page_id  (static_page_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (language_id => languages.id)
-#  fk_rails_...  (static_page_id => static_pages.id)
 #
 
 class StaticPageContent < ActiveRecord::Base

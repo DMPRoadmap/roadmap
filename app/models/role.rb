@@ -3,22 +3,17 @@
 # Table name: roles
 #
 #  id         :integer          not null, primary key
-#  access     :integer          default(0), not null
-#  active     :boolean          default(FALSE)
+#  user_id    :integer
+#  plan_id    :integer
 #  created_at :datetime
 #  updated_at :datetime
-#  plan_id    :integer
-#  user_id    :integer
+#  access     :integer          default("0"), not null
+#  active     :boolean          default("false")
 #
 # Indexes
 #
 #  roles_plan_id_idx  (plan_id)
 #  roles_user_id_idx  (user_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (plan_id => plans.id)
-#  fk_rails_...  (user_id => users.id)
 #
 
 class Role < ActiveRecord::Base
@@ -81,6 +76,23 @@ class Role < ActiveRecord::Base
                          .uniq
     where(access: access_values)
   }
+
+
+  # =================
+  # = Class Methods =
+  # =================
+
+  ##
+  # Get the integer values that correspond to a given access flag
+  # Convert into a condition, take the numerical half, remove formatting
+  # split on commas, and then convert each to an integer
+  #
+  # access - The symbol corresponding to the user's access, i.e. :editor
+  #
+  # Returns [Integer]
+  def self.bit_values(access)
+    Role.send(:chained_flags_values, 'access', access)
+  end
 
   # ===========================
   # = Public instance methods =

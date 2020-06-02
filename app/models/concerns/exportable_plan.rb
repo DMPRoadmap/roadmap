@@ -2,6 +2,8 @@
 
 module ExportablePlan
 
+  prepend Dmpopidor::Concerns::ExportablePlan
+
   def as_pdf(coversheet = false)
     prepare(coversheet)
   end
@@ -86,6 +88,7 @@ module ExportablePlan
     hash
   end
 
+  # SEE MODULE
   def prepare_coversheet
     hash = {}
     # name of owner and any co-owners
@@ -99,9 +102,7 @@ module ExportablePlan
     hash[:affiliation] = self.owner.present? ? self.owner.org.name : ""
 
     # set the funder name
-    hash[:funder] = self.funder_name.present? ?
-                    self.funder_name : (self.template.org.present? ?
-                    self.template.org.name : "")
+    hash[:funder] = self.funder_name.present? ? self.funder_name :  ""
 
     # set the template name and customizer name if applicable
     hash[:template] = self.template.title
@@ -148,13 +149,16 @@ module ExportablePlan
   def show_section_for_csv(csv, phase, section, headings, unanswered, hash)
     section[:questions].each do |question|
       answer = self.answer(question[:id], false)
-      if answer.present? || (answer.blank? && unanswered)
-        answer_text = answer.present? ? answer.text :
-                      (unanswered ? _("Not Answered") : "")
-        if answer.present? && answer.is_valid? && answer.question_options.any?
-          answer_text = answer.question_options.pluck(:text).join(", ") +
-                          " " + answer_text
+      answer_text = ""
+      if answer.present?
+        if answer.question_options.any?
+          answer_text += answer.question_options.pluck(:text).join(", ")
         end
+        if !answer.is_blank?
+          answer_text += answer.text
+        end
+      elsif unanswered
+        answer_text += _("Not Answered")
       end
       single_line_answer_for_csv = sanitize_text(answer_text).gsub(/\r|\n/, " ")
       flds = (hash[:phases].many? ? [phase[:title]] : [])

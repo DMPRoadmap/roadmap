@@ -3,9 +3,9 @@
 # Table name: research_output_types
 #
 #  id         :integer          not null, primary key
-#  is_other   :boolean          default(FALSE), not null
 #  label      :string           not null
 #  slug       :string           not null
+#  is_other   :boolean          default("false"), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

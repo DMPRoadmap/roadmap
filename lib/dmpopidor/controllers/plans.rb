@@ -3,25 +3,35 @@ module Dmpopidor
       module Plans
 
         # CHANGES:
-        # Added plan creation from link
-        def index
-          authorize Plan
-          @plans = Plan.active(current_user).page(1)
-          if current_user.org.is_other?
-            @organisationally_or_publicly_visible = []
-          else
-            @organisationally_or_publicly_visible =
-              Plan.organisationally_or_publicly_visible(current_user).page(1)
-          end
+        # Added Active Flag on Org
+        def new
+          @plan = Plan.new
+          authorize @plan
 
-          if params[:plan].present?
-            @template = Template.find(params[:plan][:template_id])
+          # Get all of the available funders and non-funder orgs
+          @funders = Org.funder
+                        .joins(:templates)
+                        .where(templates: { published: true }).uniq.sort_by(&:name)
+          @orgs = (Org.organisation + Org.institution + Org.managing_orgs + Org.where(is_other: true)).flatten
+                                                                          .select { |org| org.active == true }
+                                                                          .uniq.sort_by(&:name)
+
+          # Get the current user's org
+          @default_org = current_user.org if @orgs.include?(current_user.org) || @funders.include?(current_user.org) 
+
+          # Get the default template
+          @default_template = Template.default
+
+          if params.key?(:test)
+            flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>"
           end
-          
+          @is_test = params[:test] ||= false
+          respond_to :html
         end
 
+
+
         # CHANGES:
-        # Added Privately private visibility
         # Added Research Output Support
         def create
           @plan = Plan.new
@@ -84,7 +94,7 @@ module Dmpopidor
 
             if @plan.save
               # pre-select org's guidance and the default org's guidance
-              ids = (Org.managing_orgs << org_id).flatten.uniq
+              ids = (Org.managing_orgs << current_user.org_id << org_id).flatten.uniq
               ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
               if !ggs.blank? then @plan.guidance_groups << ggs end
@@ -217,11 +227,11 @@ module Dmpopidor
           end
         end
 
-        # Removing test flag now put the plan in privately_private visibility
+        # Removing test flag now put the plan in privately visibility
         def set_test
           plan = Plan.find(params[:id])
           authorize plan
-          plan.visibility = (params[:is_test] === "1" ? :is_test : :privately_private_visible)
+          plan.visibility = (params[:is_test] === "1" ? :is_test : :privately_visible)
           # rubocop:disable Metrics/LineLength
           if plan.save
             render json: {

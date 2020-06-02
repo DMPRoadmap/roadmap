@@ -8,6 +8,9 @@ ruby '>= 2.4.0'
 # Full-stack web application framework. (http://rubyonrails.org)
 gem 'rails', '~> 4.2.11.1'
 
+# TODO: See if pegging gems is still necessary after migrating to Rails 5
+gem 'sprockets', '~> 3.2'
+
 # Rake is a Make-like program implemented in Ruby (https://github.com/ruby/rake)
 gem "rake"
 
@@ -53,7 +56,9 @@ group :puma do
 end
 
 # Bit fields for ActiveRecord (https://github.com/pboling/flag_shih_tzu)
-gem 'flag_shih_tzu'  # Allows for bitfields in activereccord
+gem 'flag_shih_tzu', '~> 0.3.23' # Allows for bitfields in activereccord
+# Pinned here because we're using a private method in Role.rb
+# if this gets updated, check this method still exists
 
 # ------------------------------------------------
 #    JSON DSL - USED BY API
@@ -64,7 +69,7 @@ gem 'jbuilder', '~> 2.6.0'
 #    USERS
 # devise for user authentication
 # Flexible authentication solution for Rails with Warden (https://github.com/plataformatec/devise)
-gem 'devise'
+gem 'devise', ">= 4.7.1"
 
 # An invitation strategy for Devise (https://github.com/scambra/devise_invitable)
 gem 'devise_invitable'
@@ -77,6 +82,12 @@ gem 'omniauth-shibboleth'
 
 # ORCID OAuth 2.0 Strategy for OmniAuth 1.0 (https://github.com/datacite/omniauth-orcid)
 gem 'omniauth-orcid'
+
+# This gem provides a mitigation against CVE-2015-9284 (Cross-Site Request Forgery on the request phase
+# when using OmniAuth gem with a Ruby on Rails application) by implementing a CSRF token verifier that
+# directly uses ActionController::RequestForgeryProtection code from Rails.
+#   https://nvd.nist.gov/vuln/detail/CVE-2015-9284
+gem "omniauth-rails_csrf_protection"
 
 # Pure Ruby implementation of Array#dig and Hash#dig for Ruby < 2.3. (https://github.com/Invoca/ruby_dig)
 gem 'ruby_dig'  # for omniauth-orcid
@@ -143,10 +154,16 @@ gem 'wkhtmltopdf-binary'
 gem 'wicked_pdf', '~> 1.1.0'
 
 # This simple gem allows you to create MS Word docx documents from simple html documents. This makes it easy to create dynamic reports and forms that can be downloaded by your users as simple MS Word docx files. (http://github.com/karnov/htmltoword)
-gem 'htmltoword'
+gem 'htmltoword', '1.1.0'
 
 # A feed fetching and parsing library (http://feedjira.com)
 gem 'feedjira'
+
+# Http requests library (https://github.com/jnunemaker/httparty) 
+gem 'httparty'
+
+# Filename sanitization for Ruby. This is useful when you generate filenames for downloads from user input
+gem 'zaru'
 
 # ------------------------------------------------
 # INTERNATIONALIZATION
@@ -164,6 +181,8 @@ gem 'gettext', require: false, group: :development
 # A pagination engine plugin for Rails 4+ and other modern frameworks (https://github.com/kaminari/kaminari)
 gem 'kaminari'
 
+gem 'api-pagination'
+
 # Following best practices from http://12factor.net run a maintainable, clean, and scalable app on Rails (https://github.com/heroku/rails_12factor)
 gem "rails_12factor", group: [:production]
 
@@ -172,6 +191,9 @@ gem "dotenv-rails"
 
 gem 'activerecord-session_store'
 
+# -------------------------------------------------
+# UTILITIES
+gem 'parallel'
 
 # ------------------------------------------------
 # ENVIRONMENT SPECIFIC DEPENDENCIES
@@ -228,14 +250,12 @@ group :test do
   # Automatically create snapshots when Cucumber steps fail with Capybara and Rails (http://github.com/mattheworiordan/capybara-screenshot)
   gem "capybara-screenshot"
 
-  # The next generation developer focused tool for automated testing of webapps (https://github.com/SeleniumHQ/selenium)
-  gem "selenium-webdriver", "~> 3.14"
-
-  # Easy installation and use of chromedriver. (https://github.com/flavorjones/chromedriver-helper)
-  gem "chromedriver-helper", ">= 1.2.0"
+  gem 'webdrivers', '~> 3.0'
 
   gem "rspec-collection_matchers"
 
+  # A set of RSpec matchers for testing Pundit authorisation policies.
+  gem 'pundit-matchers'
 end
 
 group :ci, :development do

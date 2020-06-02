@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-md-12">
+    <p class="bold fontsize-h4"><%=_('No. plans created based off your templates')%></p>
+  </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12" style="position: relative; width: 100%; height: 100%">
+       <div id="plans_using_template_chart">
+        <%= render partial: 'usage/plans_by_template_chart',
+                   locals: { data: @plans_per_month, subset: "using_template"} %>
+      </div>
+    </div>
+</div>

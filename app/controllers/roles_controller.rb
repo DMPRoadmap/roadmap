@@ -3,7 +3,7 @@
 class RolesController < ApplicationController
 
   include ConditionalUserMailer
-  include Dmpopidor::Controllers::Roles
+  prepend Dmpopidor::Controllers::Roles
   respond_to :html
   after_action :verify_authorized
 
@@ -17,11 +17,11 @@ class RolesController < ApplicationController
     message = ""
     if params[:user].present? && plan.present?
       if @role.plan.owner.present? && @role.plan.owner.email == params[:user]
-        # rubocop:disable LineLength
+        # rubocop:disable Metrics/LineLength
         flash[:notice] = _("Cannot share plan with %{email} since that email matches with the owner of the plan.") % {
           email: params[:user]
         }
-        # rubocop:enable LineLength
+        # rubocop:enable Metrics/LineLength
       else
         user = User.where_case_insensitive("email", params[:user]).first
         if Role.find_by(plan: @role.plan, user: user) # role already exists
@@ -39,7 +39,7 @@ class RolesController < ApplicationController
             message = _("Invitation to %{email} issued successfully.") % {
               email: params[:user]
             }
-            user = User.find_by(email: params[:user])
+            user = User.where_case_insensitive("email", params[:user]).first
           end
           message += _("Plan shared with %{email}.") % {
             email: user.email
@@ -54,9 +54,9 @@ class RolesController < ApplicationController
             end
             flash[:notice] = message
           else
-            # rubocop:disable LineLength
+            # rubocop:disable Metrics/LineLength
             flash[:alert] = _("You must provide a valid email address and select a permission level.")
-            # rubocop:enable LineLength
+            # rubocop:enable Metrics/LineLength
           end
         end
       end
@@ -67,24 +67,24 @@ class RolesController < ApplicationController
   end
 
 
-  # def update
-  #   @role = Role.find(params[:id])
-  #   authorize @role
+  def update
+    @role = Role.find(params[:id])
+    authorize @role
 
-  #   if @role.update_attributes(access: role_params[:access])
-  #     deliver_if(recipients: @role.user, key: "users.added_as_coowner") do |r|
-  #       UserMailer.permissions_change_notification(@role, current_user).deliver_now
-  #     end
-  #     # rubocop:disable LineLength
-  #     render json: {
-  #       code: 1,
-  #       msg: _("Successfully changed the permissions for #{@role.user.email}. They have been notified via email.")
-  #     }
-  #     # rubocop:enable LineLength
-  #   else
-  #     render json: { code: 0, msg: flash[:alert] }
-  #   end
-  # end
+    if @role.update_attributes(access: role_params[:access])
+      deliver_if(recipients: @role.user, key: "users.added_as_coowner") do |r|
+        UserMailer.permissions_change_notification(@role, current_user).deliver_now
+      end
+      # rubocop:disable Metrics/LineLength
+      render json: {
+        code: 1,
+        msg: _("Successfully changed the permissions for %{email}. They have been notified via email.") % { email: @role.user.email }
+      }
+      # rubocop:enable Metrics/LineLength
+    else
+      render json: { code: 0, msg: flash[:alert] }
+    end
+  end
 
   def destroy
     @role = Role.find(params[:id])

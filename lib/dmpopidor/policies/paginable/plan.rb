@@ -2,7 +2,7 @@ module Dmpopidor
   module Policies
     module Paginable
       module Plan
-        def privately_private_visible?
+        def administrator_visible?
           @user.is_a?(User)
         end
       end 

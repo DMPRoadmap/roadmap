@@ -1,17 +1,16 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: stats
 #
 #  id         :integer          not null, primary key
-#  count      :integer          default(0)
+#  count      :integer          default("0")
 #  date       :date             not null
-#  details    :text
 #  type       :string           not null
+#  org_id     :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  org_id     :integer
+#  details    :text
 #
 
 class Stat < ActiveRecord::Base
@@ -24,13 +23,17 @@ class Stat < ActiveRecord::Base
 
   class << self
 
-    def to_csv(stats)
+    def to_csv(stats, sep=",")
       data = stats.map do |stat|
         { date: stat.date, count: stat.count }
       end
-      Csvable.from_array_of_hashes(data)
+      Csvable.from_array_of_hashes(data, sep)
     end
 
+  end
+
+  def to_json(methods: nil)
+    super(only: %i[count date], methods: methods)
   end
 
 end

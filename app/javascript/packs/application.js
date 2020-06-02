@@ -4,10 +4,12 @@ import 'jquery-accessible-autocomplete-list-aria/jquery-accessible-autocomplete-
 
 // Generic JS that is applicable across multiple pages
 import '../utils/array';
+import '../utils/charts';
 import '../utils/externalLink';
 import '../utils/paginable';
 import '../utils/panelHeading';
 import '../utils/links';
+import '../utils/outOfFocus';
 import '../utils/tabHelper';
 import '../utils/tooltipHelper';
 import '../utils/popoverHelper';
@@ -38,7 +40,6 @@ import '../views/plans/index';
 import '../views/plans/new';
 import '../views/plans/research_outputs';
 import '../views/plans/share';
-import '../views/public_templates/show';
 import '../views/roles/edit';
 import '../views/shared/create_account_form';
 import '../views/shared/my_org';
@@ -50,3 +51,4 @@ import '../views/users/notification_preferences';
 import '../views/users/admin_grant_permissions';
 import '../views/super_admin/notifications/edit';
 import '../views/super_admin/static_pages/edit';
+import '../views/public_templates/show';

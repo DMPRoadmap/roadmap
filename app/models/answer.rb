@@ -4,15 +4,15 @@
 # Table name: answers
 #
 #  id                 :integer          not null, primary key
-#  is_common          :boolean          default(FALSE)
-#  lock_version       :integer          default(0)
 #  text               :text
+#  plan_id            :integer
+#  user_id            :integer
+#  question_id        :integer
 #  created_at         :datetime
 #  updated_at         :datetime
-#  plan_id            :integer
-#  question_id        :integer
+#  lock_version       :integer          default("0")
+#  is_common          :boolean          default("false")
 #  research_output_id :integer
-#  user_id            :integer
 #
 # Indexes
 #
@@ -20,13 +20,6 @@
 #  answers_question_id_idx              (question_id)
 #  answers_user_id_idx                  (user_id)
 #  index_answers_on_research_output_id  (research_output_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (plan_id => plans.id)
-#  fk_rails_...  (question_id => questions.id)
-#  fk_rails_...  (research_output_id => research_outputs.id)
-#  fk_rails_...  (user_id => users.id)
 #
 
 class Answer < ActiveRecord::Base
@@ -61,9 +54,10 @@ class Answer < ActiveRecord::Base
 
   validates :user, presence: { message: PRESENCE_MESSAGE }
 
-  validates :question, presence: { message: PRESENCE_MESSAGE }#,
-  #                    uniqueness: { message: UNIQUENESS_MESSAGE,
-  #                                  scope: :plan_id }
+  validates :question, presence: { message: PRESENCE_MESSAGE }
+
+  validates :research_output, presence: { message: PRESENCE_MESSAGE }
+  
 
   # =============
   # = Callbacks =
@@ -99,12 +93,12 @@ class Answer < ActiveRecord::Base
   # presence of text
   #
   # Returns Boolean
-  def is_valid?
+  def answered?
     if question.present?
       if question.question_format.option_based?
         return question_options.any?
       else  # (e.g. textarea or textfield question formats)
-        return text.present?
+        return not(is_blank?)
       end
     end
     false

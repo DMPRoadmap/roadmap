@@ -15,6 +15,7 @@ module Dmpopidor
             Org: _("organisation"),
             Perm: _("permission"),
             Pref: _("preferences"),
+            Department: _("department"),
             User: obj == current_user ? _("profile") : _("user")
           }
           if obj.respond_to?(:customization_of) && obj.send(:customization_of).present?

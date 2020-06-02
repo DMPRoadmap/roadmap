@@ -170,7 +170,9 @@ class Template
         target_question = target_template.questions.find_by(
           versionable_id: custom_annotation.question.versionable_id
         )
-        target_question.annotations << custom_annotation
+        if target_question.present?
+          target_question.annotations << custom_annotation
+        end
       end
     end
 

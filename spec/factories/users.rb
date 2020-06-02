@@ -1,50 +1,47 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: users
 #
 #  id                     :integer          not null, primary key
-#  accept_terms           :boolean
-#  active                 :boolean          default(TRUE)
-#  api_token              :string
-#  confirmation_sent_at   :datetime
-#  confirmation_token     :string
-#  confirmed_at           :datetime
-#  current_sign_in_at     :datetime
-#  current_sign_in_ip     :string
-#  dmponline3             :boolean
-#  email                  :string(80)       default(""), not null
-#  encrypted_password     :string           default("")
 #  firstname              :string
-#  invitation_accepted_at :datetime
-#  invitation_created_at  :datetime
-#  invitation_sent_at     :datetime
-#  invitation_token       :string
-#  invited_by_type        :string
-#  last_sign_in_at        :datetime
-#  last_sign_in_ip        :string
-#  other_organisation     :string
-#  recovery_email         :string
-#  remember_created_at    :datetime
-#  reset_password_sent_at :datetime
-#  reset_password_token   :string
-#  sign_in_count          :integer          default(0)
 #  surname                :string
+#  email                  :string(80)       default(""), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  invited_by_id          :integer
-#  language_id            :integer
+#  encrypted_password     :string           default("")
+#  reset_password_token   :string
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  sign_in_count          :integer          default("0")
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :string
+#  last_sign_in_ip        :string
+#  confirmation_token     :string
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  invitation_token       :string
+#  invitation_created_at  :datetime
+#  invitation_sent_at     :datetime
+#  invitation_accepted_at :datetime
+#  other_organisation     :string
+#  dmponline3             :boolean
+#  accept_terms           :boolean
 #  org_id                 :integer
+#  api_token              :string
+#  invited_by_id          :integer
+#  invited_by_type        :string
+#  language_id            :integer
+#  recovery_email         :string
+#  active                 :boolean          default("true")
+#  department_id          :integer
 #
 # Indexes
 #
 #  users_email_key        (email) UNIQUE
 #  users_language_id_idx  (language_id)
 #  users_org_id_idx       (org_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (language_id => languages.id)
-#  fk_rails_...  (org_id => orgs.id)
 #
 
 FactoryBot.define do
@@ -58,7 +55,9 @@ FactoryBot.define do
 
     trait :org_admin do
       after(:create) do |user, evaluator|
-        %w[modify_templates modify_guidance change_org_details grant_permissions].each do |perm_name|
+        %w[modify_templates modify_guidance
+           change_org_details
+           grant_permissions].each do |perm_name|
           user.perms << Perm.find_or_create_by(name: perm_name)
         end
       end

@@ -377,7 +377,7 @@ $(() => {
   // define url and make a call to url+subject-index
   function urlCallback(data) {
     // init url
-    ({ toString: url } = data.url);
+    ({ url } = data);
     // get api_tree structure from api
     $.ajax({
       url: `${url}subject-index`,

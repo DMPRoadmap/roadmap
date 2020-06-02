@@ -16,7 +16,7 @@
 class Theme < ActiveRecord::Base
 
   include ValidationMessages
-  include Dmpopidor::Models::Theme
+  prepend Dmpopidor::Models::Theme
 
 
   ##

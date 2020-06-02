@@ -2,6 +2,7 @@
 
 class FeedbackRequestsController < ApplicationController
 
+  prepend Dmpopidor::Controllers::FeedbackRequests
   include FeedbacksHelper
 
   after_action :verify_authorized
@@ -9,17 +10,18 @@ class FeedbackRequestsController < ApplicationController
   ALERT = _("Unable to submit your request for feedback at this time.")
   ERROR = _("An error occurred when requesting feedback for this plan.")
 
+  # SEE MODULE
   def create
     @plan = Plan.find(params[:plan_id])
     authorize @plan, :request_feedback?
     begin
       if @plan.request_feedback(current_user)
-        redirect_to share_plan_path(@plan), notice: _(request_feedback_flash_notice)
+        redirect_to request_feedback_plan_path(@plan), notice: _(request_feedback_flash_notice)
       else
-        redirect_to share_plan_path(@plan), alert: ALERT
+        redirect_to request_feedback_plan_path(@plan), alert: ALERT
       end
     rescue Exception
-      redirect_to share_plan_path(@plan), alert: ERROR
+      redirect_to request_feedback_plan_path(@plan), alert: ERROR
     end
   end
 

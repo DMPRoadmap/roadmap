@@ -3,23 +3,19 @@
 # Table name: phases
 #
 #  id             :integer          not null, primary key
-#  description    :text
-#  modifiable     :boolean
-#  number         :integer
 #  title          :string
+#  description    :text
+#  number         :integer
+#  template_id    :integer
 #  created_at     :datetime
 #  updated_at     :datetime
-#  template_id    :integer
+#  modifiable     :boolean
 #  versionable_id :string(36)
 #
 # Indexes
 #
 #  index_phases_on_versionable_id  (versionable_id)
 #  phases_template_id_idx          (template_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (template_id => templates.id)
 #
 
 # [+Project:+] DMPRoadmap
@@ -32,7 +28,7 @@ class Phase < ActiveRecord::Base
   include ValidationValues
   include ActsAsSortable
   include VersionableModel
-  include Dmpopidor::Models::Phase
+  prepend Dmpopidor::Models::Phase
 
 
   ##
@@ -52,6 +48,12 @@ class Phase < ActiveRecord::Base
   }, class_name: "Section"
 
   has_many :sections, dependent: :destroy
+
+  has_many :questions, through: :sections
+
+  has_many :answers, through: :questions
+
+  has_many :annotations, through: :questions
 
   has_many :template_sections, -> {
     not_modifiable
@@ -116,9 +118,10 @@ class Phase < ActiveRecord::Base
     n
   end
 
-  # def visibility_allowed?(plan)
-  #   value = Rational(num_answered_questions(plan), plan.num_questions) * 100
-  #   value >= Rails.application.config.default_plan_percentage_answered.to_f
-  # end
+  # SEE MODULE
+  def visibility_allowed?(plan)
+    value = Rational(num_answered_questions(plan), plan.num_questions) * 100
+    value >= Rails.application.config.default_plan_percentage_answered.to_f
+  end
 
 end

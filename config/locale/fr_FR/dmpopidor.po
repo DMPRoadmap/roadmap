@@ -20,17 +20,17 @@ msgstr "Expiration de votre compte %{tool_name}"
 msgid "Account expired in %{tool_name}"
 msgstr "Compte %{tool_name} expiré"
 
-msgid "You have not signed in since %{last_sign_in_date} and your account has been deactivated"
-msgstr "Vous ne vous êtes pas connecté depuis le %{last_sign_in_date}, votre compte a été désactivé"
+msgid "The personal information of your account have been anonymized. You will no longer be able to access your DMP OPIDoR account, the plans you created and the plans your colleagues shared with you."
+msgstr "Les informations personnelles nécessaires à la gestion de votre compte ont été anonymisées. Par conséquent, vous ne pourrez plus accéder à votre compte DMP OPIDoR, aux plans que vous avez créés  et aux plans qui ont été partagés avec vous par vos collègues."
 
-msgid "All accounts inactive for 5 years are automaticaly deactivated"
-msgstr "Tous les comptes inactifs pendant 5 ans sont automatiquement désactivés"
+msgid "If you want to use DMP OPIDoR again, please create a new account."
+msgstr "Si vous souhaitez de nouveau utiliser DMP OPIDoR, nous vous invitons à vous créer un nouveau compte."
 
 msgid "You have not signed in since %{last_sign_in_date} and our system will deactivate your account at %{end_date}"
 msgstr "Vous ne vous êtes pas connecté depuis le %{last_sign_in_date}, notre système désactivera votre compte le  %{end_date}"
 
 msgid "All accounts inactive for 5 years are automaticaly deactivated. If you want your account to remain active, please just sign in before %{end_date}"
-msgstr "Tous les comptes inactifs pendant 5 ans sont automatiquement désactivés. Si vous souhaitez que votre compte reste actif, connectez vous avant le  %{end_date}"
+msgstr "Tous les comptes inactifs pendant 5 ans sont automatiquement désactivés. Si vous souhaitez que votre compte reste actif, connectez-vous avant le %{end_date}"
 
 msgid "Mailing list"
 msgstr "Liste de diffusion"
@@ -50,9 +50,6 @@ msgstr "Vous bénéficiez d’un droit d’accès, de rectification, de portabil
 
 msgid "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
 msgstr "%{user_name} a partagé un plan de gestion de données avec vous sur %{tool_name}"
-
-msgid "%{sender_name} has invited you to contribute to their Data Management Plan in %{tool_name}"
-msgstr "%{sender_name} vous a invité à contribuer à son plan de gestion de données sur %{tool_name}"
 
 msgid "Tutorials"
 msgstr "Tutoriels"
@@ -198,8 +195,8 @@ msgstr "Personnalisé par "
 msgid "Copy link"
 msgstr "Copier le lien"
 
-msgid "Public, Administrator or organisational visibility is intended for finished plans. Note: test plans are set to private visibility by default."
-msgstr "La visibilité par les administrateurs, par l’organisme ou par tous (public) concerne les plans partiellement remplis. Note : les plans de test sont privés par défaut."
+msgid "Public, Administrator or organisational visibility is intended for finished plans. Note: test plans are set to private visibility."
+msgstr "La visibilité par les administrateurs, par l’organisme ou par tous (public) concerne les plans partiellement remplis. Note : les plans de test sont privés."
 
 msgid "Would you like to create a plan based on the \"%{name}\" template?"
 msgstr "Souhaitez-vous créer un plan basé sur le modèle \"%{name}\" ?"
@@ -219,9 +216,6 @@ msgstr "Ce plan est basé sur le modèle %{template_name} (%{org_name})"
 msgid "You can either choose a template provided by your organisation, another organisation or a funder template. The default template is "
 msgstr "Vous pouvez choisir soit un modèle fourni par votre organisme soit par un autre organisme, ou un modèle financeur. Le modèle par défaut est "
 
-msgid "Successfully changed the permissions for %{user_email}. They have been notified via email."
-msgstr "Autorisations de %{user_email} modifiées avec succès. L'utilisateur a été informé par mail."
-
 msgid "Banner text"
 msgstr "Texte de la bannière"
 
@@ -238,10 +232,16 @@ msgid "All"
 msgstr "Tous"
 
 msgid "DMP templates provided by a funder or research organisations, available on DMP OPIDoR. You can download these templates and related guidances, create a plan from these templates."
-msgstr "Modèles de DMP proposés par les financeurs ou par les organisations de recherche, disponibles dans DMP OPIDoR. Vous pouvez télécharger ces modèles et les recommandations associées, créer un plan à partir de ces modèles."
+msgstr "Modèles de DMP proposés par les financeurs ou par les organismes de recherche, disponibles dans DMP OPIDoR. Vous pouvez télécharger ces modèles et les recommandations associées, créer un plan à partir de ces modèles."
 
 msgid "Accept"
 msgstr "J'accepte"
+
+msgid "Your organisation has been deactivated. Please choose a new organisation from your <a href=\"/users/edit\">user profile</a>."
+msgstr "Votre organisme a été désactivé. Veuillez choisir un nouvel organisme à partir de votre <a href=\"/users/edit\">profil utilisateur</a>."
+
+msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" title=\"%{open_in_new_window_text}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
+msgstr "%{application_name} est mis à disposition par %{organisation_name}.<br /> Vous pouvez trouver plus d'informations sur notre <a href=\"%{organisation_url}\" title=\"%{open_in_new_window_text}\" target=\"_blank\">site internet</a>. Si vous souhaitez nous contacter à propos de %{application_name}, remplissez le formulaire ci dessous."
 
 # STATIC PAGES
 
@@ -324,6 +324,9 @@ msgstr "Autre type"
 msgid "Other: "
 msgstr "Autre : "
 
+msgid "Other"
+msgstr "Autre"
+
 msgid "Persistent Identifier"
 msgstr "Identifiant Pérenne"
 
@@ -336,11 +339,14 @@ msgstr "Produits de recherche"
 msgid "Research output export mode"
 msgstr "Mode d'export des produits de recherche"
 
-msgid "Research outputs by section"
-msgstr "Produits de recherche par section"
+msgid "Export by research output"
+msgstr "Export par produit de recherche"
 
-msgid "Research outputs by question"
-msgstr "Produits de recherche par question"
+msgid "Export by section"
+msgstr "Export par section"
+
+msgid "Export by question"
+msgstr "Export par question"
 
 msgid "Move research output"
 msgstr "Déplacer le produit de recherche"
@@ -362,6 +368,9 @@ msgstr "Nom du produit de recherche : %{research_output_name}"
 
 msgid "This section's answers are common to all research outputs"
 msgstr "Les réponses de cette section sont communes à tous les produits de recherche"
+
+msgid "Please click to indicate that this section's answers are common to all research outputs"
+msgstr "Cliquez ici pour indiquer que les réponses de cette section sont communes à tous les produits de recherche"
 
 msgid "All Users"
 msgstr "Tous les utilisateurs"
@@ -395,3 +404,59 @@ msgstr "Renseigner l’identifiant pérenne du produit de recherche s’il exist
 
 msgid "Please fill in separately for research outputs requireing a management specific to their nature or discipline."
 msgstr "A renseigner séparément pour des produits de recherche nécessitant une gestion spécifique à leur nature ou discipline."
+
+msgid "Templates used by %{org_name} users."
+msgstr "Modèles utilisés par les utilisateurs %{org_name}."
+
+msgid "No. plans created using %{org_name} templates."
+msgstr "Nombre de plans créés avec les modèles %{org_name}."
+
+msgid "Plan components"
+msgstr "Eléments du plan"
+
+msgid "If you need more informations about how to use DMP OPIDoR, you can consult our <a href=\"https://opidor.fr/category/dmp-faq/\" target=\"_blank\">FAQ</a>."
+msgstr "Si vous souhaitez plus d'informations sur l'utilisation de DMP OPIDoR, vous pouvez consulter notre <a href=\"https://opidor.fr/category/dmp-faq/\" target=\"_blank\">Foire aux Questions</a>."
+
+msgid "CNRS website"
+msgstr "Site CNRS"
+
+msgid "INIST website"
+msgstr "Site INIST"
+
+msgid "Selected Template"
+msgstr "Modèle choisi"
+
+msgid "Changes saved."
+msgstr "Changements enregistrés."
+
+
+
+msgid "Structures"
+msgstr "Structures"
+
+msgid "Create structure"
+msgstr "Créer une structure"
+
+msgid "Structure"
+msgstr "Structure"
+
+msgid "Create a Structure"
+msgstr "Créer une structure"
+
+msgid "Edit the Structure"
+msgstr "Modifier la structure"
+
+msgid "View all structures"
+msgstr "Voir toutes les structures"
+
+msgid "Add the abbreviated name or code for the structure."
+msgstr "Ajoutez le nom abbrégé ou le code de la structure"
+
+msgid "PLEASE CHOOSE AN ORGANISATION IN YOUR PROFILE"
+msgstr "MERCI DE CHOISIR UN ORGANISME DANS VOTRE PROFIL"
+
+msgid "You are about to archive %{user_name}. This will remove their personal information. This user will be unable to use their DMP OPIDoR account and the plans they created or shared by their colleagues. Are you sure?"
+msgstr "Vous êtes sur le point d’archiver %{user_name}. Les informations personnelles de ce compte seront anonymisées. Par conséquent cet utilisateur ne pourra plus accéder à son compte DMP OPIDoR et aux plans qu’il aura créés, ni à ceux partagés avec lui par ses collègues. Etes-vous sûr ?"
+
+msgid "Request Date"
+msgstr "Date de la demande"

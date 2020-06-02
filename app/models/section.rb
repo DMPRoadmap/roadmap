@@ -4,23 +4,19 @@
 # Table name: sections
 #
 #  id             :integer          not null, primary key
-#  description    :text
-#  modifiable     :boolean
-#  number         :integer
 #  title          :string
+#  description    :text
+#  number         :integer
 #  created_at     :datetime
 #  updated_at     :datetime
 #  phase_id       :integer
+#  modifiable     :boolean
 #  versionable_id :string(36)
 #
 # Indexes
 #
 #  index_sections_on_versionable_id  (versionable_id)
 #  sections_phase_id_idx             (phase_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (phase_id => phases.id)
 #
 
 class Section < ActiveRecord::Base
@@ -102,10 +98,11 @@ class Section < ActiveRecord::Base
   # Returns the number of answered questions for a given plan
   def num_answered_questions(plan)
     return 0 if plan.nil?
-    plan.answers.includes({ question: :question_format }, :question_options)
-                .where(question_id: question_ids)
-                .to_a
-                .count(&:is_valid?)
+
+    answered = plan.answers.select do |answer|
+      answer.answered? && questions.include?(answer.question)
+    end
+    answered.length
   end
 
   def deep_copy(**options)

@@ -1,6 +1,6 @@
 module RolesHelper
 
-  def build_plan(administrator = false, editor = false, commenter = false, reviewer = false)
+  def build_plan(administrator = false, editor = false, commenter = false)
     org = create(:org)
     creator = create(:user, org: org)
     plan = create(:plan, answers: 2, guidance_groups: 2)
@@ -14,9 +14,6 @@ module RolesHelper
     end
     if commenter
       create(:role, :commenter, :active, plan: plan, user: create(:user, org: org))
-    end
-    if reviewer
-      create(:role, :reviewer, :active, plan: plan, user: create(:user, org: org))
     end
     plan
   end

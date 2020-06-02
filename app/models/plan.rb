@@ -8,32 +8,28 @@
 # Table name: plans
 #
 #  id                                :integer          not null, primary key
-#  complete                          :boolean          default(FALSE)
-#  data_contact                      :string
-#  data_contact_email                :string
-#  data_contact_phone                :string
-#  description                       :text
-#  feedback_requested                :boolean          default(FALSE)
-#  funder_name                       :string
-#  grant_number                      :string
-#  identifier                        :string
-#  principal_investigator            :string
-#  principal_investigator_email      :string
-#  principal_investigator_identifier :string
-#  principal_investigator_phone      :string
 #  title                             :string
-#  visibility                        :integer          default(3), not null
+#  template_id                       :integer
 #  created_at                        :datetime
 #  updated_at                        :datetime
-#  template_id                       :integer
+#  grant_number                      :string
+#  identifier                        :string
+#  description                       :text
+#  principal_investigator            :string
+#  principal_investigator_identifier :string
+#  data_contact                      :string
+#  funder_name                       :string
+#  visibility                        :integer          default("3"), not null
+#  data_contact_email                :string
+#  data_contact_phone                :string
+#  principal_investigator_email      :string
+#  principal_investigator_phone      :string
+#  feedback_requested                :boolean          default("false")
+#  complete                          :boolean          default("false")
 #
 # Indexes
 #
 #  plans_template_id_idx  (template_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (template_id => templates.id)
 #
 
 class Plan < ActiveRecord::Base
@@ -42,7 +38,7 @@ class Plan < ActiveRecord::Base
   include ExportablePlan
   include ValidationMessages
   include ValidationValues
-  include Dmpopidor::Models::Plan
+  prepend Dmpopidor::Models::Plan
 
   # =============
   # = Constants =
@@ -55,8 +51,8 @@ class Plan < ActiveRecord::Base
     organisationally_visible: _("organisational"),
     publicly_visible: _("public"),
     is_test: _("test"),
-    privately_visible: _('Administrator'),
-    privately_private_visible: _('private')
+    administrator_visible: _('Administrator'),
+    privately_visible: _('private')
   }
 
   # ==============
@@ -65,7 +61,7 @@ class Plan < ActiveRecord::Base
 
   # public is a Ruby keyword so using publicly
   enum visibility: %i[organisationally_visible publicly_visible
-                      is_test privately_visible privately_private_visible]
+                      is_test administrator_visible privately_visible]
 
 
   alias_attribute :name, :title
@@ -105,6 +101,8 @@ class Plan < ActiveRecord::Base
   has_many :exported_plans
 
   has_many :roles
+
+  belongs_to :feedback_requestor, class_name: "User", :foreign_key => 'feedback_requestor'
 
   # RESEARCH OUTPUTS
   has_many :research_outputs, dependent: :destroy, inverse_of: :plan do
@@ -168,8 +166,7 @@ class Plan < ActiveRecord::Base
   # Retrieves any plan in which the user has an active role and
   # is not a reviewer
   scope :active, lambda { |user|
-    plan_ids = Role.where(active: true, user_id: user.id)
-                   .not_reviewer.pluck(:plan_id)
+    plan_ids = Role.where(active: true, user_id: user.id).pluck(:plan_id)
 
     includes(:template, :roles)
     .where(id: plan_ids)
@@ -190,11 +187,25 @@ class Plan < ActiveRecord::Base
     )
   }
 
+  scope :org_admin_visible, -> (user) {
+    plan_ids = Role.where(active: true, user_id: user.id).pluck(:plan_id)
+
+    includes(:template, roles: :user)
+    .where(id: plan_ids, visibility: [
+      visibilities[:administrator_visible],
+      visibilities[:organisationally_visible],
+      visibilities[:publicly_visible]
+    ])
+  }
+
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     joins(:template)
-    .where("lower(plans.title) LIKE lower(?) OR lower(templates.title) LIKE lower(?)",
-            search_pattern, search_pattern)
+    .where("lower(plans.title) LIKE lower(:search_pattern)
+            OR lower(templates.title) LIKE lower(:search_pattern)
+            OR lower(plans.principal_investigator) LIKE lower(:search_pattern)
+            OR lower(plans.principal_investigator_identifier) LIKE lower(:search_pattern)",
+            search_pattern: search_pattern)
   }
 
   # Retrieves plan, template, org, phases, sections and questions
@@ -236,6 +247,7 @@ class Plan < ActiveRecord::Base
   def self.deep_copy(plan)
     plan_copy = plan.dup
     plan_copy.title = "Copy of " + plan.title
+    plan_copy.feedback_requested = false
     plan_copy.save!
     plan.research_outputs.each do |research_output|
       research_output_copy = ResearchOutput.deep_copy(research_output)
@@ -274,31 +286,32 @@ class Plan < ActiveRecord::Base
     template&.settings(key)
   end
 
-  # # The most recent answer to the given question id optionally can create an answer if
-  # # none exists.
-  # #
-  # # qid               - The id for the question to find the answer for
-  # # create_if_missing - If true, will genereate a default answer
-  # #                     to the question (defaults: true).
-  # #
-  # # Returns Answer
-  # # Returns nil
-  # def answer(qid, create_if_missing = true)
-  #   answer = answers.where(question_id: qid).order("created_at DESC").first
-  #   question = Question.find(qid)
-  #   if answer.nil? && create_if_missing
-  #     answer             = Answer.new
-  #     answer.plan_id     = id
-  #     answer.question_id = qid
-  #     answer.text        = question.default_value
-  #     default_options    = []
-  #     question.question_options.each do |option|
-  #       default_options << option if option.is_default
-  #     end
-  #     answer.question_options = default_options
-  #   end
-  #   answer
-  # end
+  # The most recent answer to the given question id optionally can create an answer if
+  # none exists.
+  #
+  # qid               - The id for the question to find the answer for
+  # create_if_missing - If true, will genereate a default answer
+  #                     to the question (defaults: true).
+  #
+  # Returns Answer
+  # Returns nil
+  # SEE MODULE
+  def answer(qid, create_if_missing = true)
+    answer = answers.where(question_id: qid).order("created_at DESC").first
+    question = Question.find(qid)
+    if answer.nil? && create_if_missing
+      answer             = Answer.new
+      answer.plan_id     = id
+      answer.question_id = qid
+      answer.text        = question.default_value
+      default_options    = []
+      question.question_options.each do |option|
+        default_options << option if option.is_default
+      end
+      answer.question_options = default_options
+    end
+    answer
+  end
 
   alias get_guidance_group_options guidance_group_options
 
@@ -310,17 +323,11 @@ class Plan < ActiveRecord::Base
   #  emails confirmation messages to owners
   #  emails org admins and org contact
   #  adds org admins to plan with the 'reviewer' Role
+  # SEE MODULE
   def request_feedback(user)
     Plan.transaction do
       begin
         self.feedback_requested = true
-        # Share the plan with each org admin as the reviewer role
-        admins = user.org.org_admins
-        admins.each do |admin|
-          unless admin == user
-            add_user!(admin.id, :reviewer)
-          end
-        end
         if save!
           # Send an email to the org-admin contact
           if user.org.contact_email.present?
@@ -343,14 +350,11 @@ class Plan < ActiveRecord::Base
   # Finalizes the feedback for the plan: Emails confirmation messages to owners
   # sets flag on plans.feedback_requested to false removes org admins from the
   # 'reviewer' Role for the Plan.
+  # SEE MODULE
   def complete_feedback(org_admin)
     Plan.transaction do
       begin
         self.feedback_requested = false
-
-        # Remove the org admins reviewer role from the plan
-        roles.delete(Role.where(plan: self).reviewer)
-
         if save!
           # Send an email confirmation to the owners and co-owners
           deliver_if(recipients: owner_and_coowners,
@@ -388,19 +392,17 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def readable_by?(user_id)
+    return true if commentable_by?(user_id)
     current_user = User.find(user_id)
-    if current_user.present?
-      # If the user is a super admin and the config allows for supers to view plans
-      if current_user.can_super_admin? &&
-          Branding.fetch(:service_configuration, :plans, :super_admins_read_all)
-        true
-      # If the user is an org admin and the config allows for org admins to view plans
-      elsif current_user.can_org_admin? &&
-          Branding.fetch(:service_configuration, :plans, :org_admins_read_all)
-        true
-      else
-        commentable_by?(user_id)
-      end
+    return false unless current_user.present?
+    # If the user is a super admin and the config allows for supers to view plans
+    if current_user.can_super_admin? &&
+        Branding.fetch(:service_configuration, :plans, :super_admins_read_all)
+      true
+    # If the user is an org admin and the config allows for org admins to view plans
+    elsif current_user.can_org_admin? &&
+        Branding.fetch(:service_configuration, :plans, :org_admins_read_all)
+      owner_and_coowners.map(&:org_id).include?(current_user.org_id)
     else
       false
     end
@@ -412,7 +414,7 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def commentable_by?(user_id)
-    Role.commenter.where(plan_id: id, user_id: user_id, active: true).any?
+    Role.commenter.where(plan_id: id, user_id: user_id, active: true).any? || reviewable_by?(user_id)
   end
 
   # determines if the plan is administerable by the specified user
@@ -429,8 +431,13 @@ class Plan < ActiveRecord::Base
   # user_id - The Integer id for the user
   #
   # Returns Boolean
+  # SEE MODULE
   def reviewable_by?(user_id)
-    Role.reviewer.where(plan_id: id, user_id: user_id, active: true).any?
+    reviewer = User.find(user_id)
+    feedback_requested? &&
+    reviewer.present? &&
+    reviewer.org_id == owner.org_id &&
+    reviewer.can_review_plans?
   end
 
   # the datetime for the latest update of this plan
@@ -443,14 +450,15 @@ class Plan < ActiveRecord::Base
   # The owner (aka :creator) of the project
   #
   # Returns User
-  # # Returns nil
-  # def owner
-  #   usr_ids = Role.where(plan_id: id, active: true)
-  #                 .administrator
-  #                 .order(:created_at)
-  #                 .pluck(:user_id).uniq
-  #   User.where(id: usr_ids).first
-  # end
+  # Returns nil
+  # SEE MODULE
+  def owner
+    usr_id = Role.where(plan_id: id, active: true)
+                  .administrator
+                  .order(:created_at)
+                  .pluck(:user_id).first
+    User.find(usr_id)
+  end
 
   # Creates a role for the specified user (will update the user's
   # existing role if it already exists)
@@ -476,14 +484,20 @@ class Plan < ActiveRecord::Base
         role.editor = true
       when :editor
         role.editor = true
-      when :reviewer
-        role.reviewer = true
       end
       role.commenter = true
       role.save
     else
       false
     end
+  end
+
+  ## Update plan identifier.
+  #
+  # Returns Boolean
+  def add_identifier!(identifier)
+    self.update(identifier: identifier)
+    save!
   end
 
   ##
@@ -525,11 +539,13 @@ class Plan < ActiveRecord::Base
   # The number of answered questions from the entire plan
   #
   # Returns Integer
-  def num_answered_questions
-    Answer.where(id: answers.map(&:id))
-          .includes(:question_options, question: :question_format)
-          .to_a
-          .sum { |answer| answer.is_valid? ? 1 : 0 }
+  def num_answered_questions(phase = nil)
+    return answers.select { |answer| answer.answered? }.length unless phase.present?
+
+    answered = answers.select do |answer|
+      answer.answered? && phase.questions.include?(answer.question)
+    end
+    answered.length
   end
 
   # The number of questions for a plan.
@@ -565,7 +581,7 @@ class Plan < ActiveRecord::Base
                                           question: :question_format)
                                 .where(id: answer_ids)
     num_answers = pre_fetched_answers.reduce(0) do |m, a|
-      m += 1 if a.is_valid?
+      m += 1 if a.answered?
       m
     end
     num_questions == num_answers
@@ -574,18 +590,19 @@ class Plan < ActiveRecord::Base
   # Deactivates the plan (sets all roles to inactive and visibility to :private)
   #
   # Returns Boolean
-  # def deactivate!
-  #   # If no other :creator, :administrator or :editor is attached
-  #   # to the plan, then also deactivate all other active roles
-  #   # and set the plan's visibility to :private
-  #   if authors.size == 0
-  #     roles.where(active: true).update_all(active: false)
-  #     self.visibility = Plan.visibilities[:privately_visible]
-  #     save!
-  #   else
-  #     false
-  #   end
-  # end
+  # SEE MODULE
+  def deactivate!
+    # If no other :creator, :administrator or :editor is attached
+    # to the plan, then also deactivate all other active roles
+    # and set the plan's visibility to :private
+    if authors.size == 0
+      roles.where(active: true).update_all(active: false)
+      self.visibility = Plan.visibilities[:privately_visible]
+      save!
+    else
+      false
+    end
+  end
 
 
 

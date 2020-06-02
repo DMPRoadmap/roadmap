@@ -15,13 +15,7 @@ module MailerHelper
 
   # Returns the messaging for the specified role
   def role_text(role)
-    if role.reviewer?
-      {
-        type: _('reviewer'),
-        placeholder1: _('read the plan and provide feedback.'),
-        placeholder2: nil
-      }
-    elsif role.administrator?
+    if role.administrator?
       {
         type: _('co-owner'),
         placeholder1: _('write and edit the plan in a collaborative manner.'),

@@ -43,6 +43,7 @@ fr-CA:
       long: "%d %B %Y"
       short: "%y-%m-%d"
       csv: "%d/%m/%Y"
+      readable: "%d %B %Y"
 
     month_names:
     -

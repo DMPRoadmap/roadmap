@@ -31,6 +31,12 @@
     "semi": [
       "error",
       "always"
-    ]
+    ],
+    "prefer-destructuring": ["error", {
+      "array": false,
+      "object": false
+    }, {
+      "enforceForRenamedProperties": false
+    }]
   }
 }

@@ -34,23 +34,10 @@ module Dmpopidor
           # If the no funder was specified OR the funder matches the org
           if funder_id.blank? || funder_id == org_id
             # Retrieve the Org's templates
-            @templates << Template.published
-                                  .organisationally_visible
-                                  .where(org_id: org_id).to_a
+            @templates << Template.published.where(org_id: org_id).to_a
           end
 
           @templates = @templates.flatten.uniq
-        end
-    
-        # If no templates were available use the default template
-        if @templates.empty?
-          if Template.default.present?
-            customization = Template.published
-                              .latest_customized_version(Template.default.family_id,
-                                                         org_id).first
-    
-            @templates << (customization.present? ? customization : Template.default)
-          end
         end
 
         @templates.each do |template|

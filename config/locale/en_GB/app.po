@@ -52,8 +52,8 @@ msgstr ""
 msgid "%{application_name}"
 msgstr ""
 
-msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website <em class=\"sr-only\">(new window)</em></a>. If you would like to contact us about %{application_name}, please fill out the form below."
-msgstr ""
+msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" class=\"has-new-window-popup-info\" target=\"_blank\">website <em class=\"sr-only\">(new window)</em><span class=\"new-window-popup-info\">%{open_in_new_window_text}</span></a>. If you would like to contact us about %{application_name}, please fill out the form below."
+msgstr "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" class=\"has-new-window-popup-info\" target=\"_blank\">website <em class=\"sr-only\">(new window)</em><span class=\"new-window-popup-info\">%{open_in_new_window_text}</span></a>. If you would like to contact us about %{application_name}, please fill out the form below."
 
 #msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
 #msgstr ""
@@ -79,8 +79,8 @@ msgstr ""
 msgid "%{commenter_name} has commented on your plan %{plan_title}. To view the comments, follow the link to the DMP below, or navigate to the plan via My Dashboard page in %{tool_name}."
 msgstr ""
 
-#msgid "%{commenter} has finished providing feedback on the plan \"%{plan_title}\". To view the comments, please visit the My Dashboard page in %{tool_name} and open your plan."
-#msgstr ""
+msgid "%{commenter} has finished providing feedback on the plan  \"%{link_html}\". Comments can be found in the 'Write plan' tab on the right side of the page (Guidance/Comments)."
+msgstr ""
 
 msgid "%{date}"
 msgstr ""
@@ -115,8 +115,11 @@ msgstr ""
 msgid "%{plan_owner} has been notified that you have finished providing feedback"
 msgstr ""
 
-#msgid "%{requestor} has requested feedback on a plan \"%{plan_name}.\" To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan."
-#msgstr ""
+msgid "%{requestor} has requested feedback on a plan %{link_html}. To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan."
+msgstr "%{requestor} has requested feedback on a plan %{link_html}. To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan."
+
+msgid "Alternatively, you can click the link below:"
+msgstr "Alternatively, you can click the link below:"
 
 msgid "%{template}"
 msgstr ""
@@ -211,9 +214,11 @@ msgstr ""
 #msgid "A Data Management Plan in %{application_name} has been shared with you"
 #msgstr ""
 
-#msgid "A Data Management Plan in %{tool_name} has been shared \"\
+#, fuzzy
+msgid "A Data Management Plan in %{tool_name} has been shared \"\
 "
-#msgstr ""
+"                   \"with you"
+msgstr ""
 
 #msgid "A Data Management Plan in %{tool_name} has been shared with you"
 #msgstr ""
@@ -468,10 +473,10 @@ msgid "Below is a list of users registered for your organisation. You can"
 "        sort the data by each field."
 msgstr ""
 
-#msgid "Below is a list of users registered for your organisation. You can sort the data by each field."
-#msgstr ""
+msgid "Below is a list of users registered for your organisation. You can sort the data by each field."
+msgstr ""
 
-msgid "Below is a summary of the sections and questions which have comments."
+msgid "Below the question, research output and section where the comment is located."
 msgstr ""
 
 msgid "Beta"
@@ -528,7 +533,7 @@ msgstr ""
 msgid "Clear search results"
 msgstr ""
 
-msgid "Click below to give data management staff at your organisation access to read and comment on your plan."
+msgid "Click below to give data management staff at %{org_name}, the Plan Owner's org, access to read and comment on your plan."
 msgstr ""
 
 msgid "Click here"
@@ -554,6 +559,9 @@ msgid "Co-owner"
 msgstr ""
 
 msgid "Co-owner: can edit project details, change visibility, and add collaborators"
+msgstr ""
+
+msgid "Co-owner: Has admin-rights to the plan (can invite other users, view the plan, answer questions, or comment). Editor: Has edit-rights to the plan (can view the plan, answer questions, or comment). Read Only: Has read-rights to the plan (can view the plan or comment)"
 msgstr ""
 
 msgid "Comment"
@@ -769,10 +777,13 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#msgid "Download Plan"
-#msgstr ""
+msgid "Download Plan"
+msgstr ""
 
 msgid "Download Plan <em class=\"sr-only\">(new window)</em>"
+msgstr ""
+
+msgid "Download Plan <em class=\"sr-only\">(new window)</em><span class=\"new-window-popup-info\">%{open_in_new_window_text}</span>"
 msgstr ""
 
 msgid "Download all"
@@ -1207,8 +1218,8 @@ msgstr ""
 msgid "Look up your organisation here"
 msgstr ""
 
-msgid "Make a copy"
-msgstr ""
+msgid "Copy"
+msgstr "Copy"
 
 msgid "Manage collaborators"
 msgstr ""
@@ -1246,7 +1257,7 @@ msgstr ""
 msgid "Month"
 msgstr ""
 
-msgid "More information about administering the %{tool_name} for users at your organisation is available at the %{help_url}."
+msgid "More information about administering the %{tool_name} are available on %{help_url}."
 msgstr ""
 
 msgid "Move the mouse pointer over the bars of a chart to see numbers."
@@ -2066,7 +2077,7 @@ msgstr ""
 #msgid "Successfully %{action} your %{object}."
 #msgstr ""
 
-msgid "Successfully changed the permissions for #{@role.user.email}. They have been notified via email."
+msgid "Successfully changed the permissions for %{email}. They have been notified via email."
 msgstr ""
 
 #msgid "Successfully deleted your theme"
@@ -2518,10 +2529,34 @@ msgstr ""
 msgid "Usage statistics"
 msgstr ""
 
+msgid "There is no data available for plans created yet."
+msgstr ""
+
+msgid "Statistics on your Templates"
+msgstr ""
+
+msgid "No. plans created based off your templates"
+msgstr ""
+
+msgid "csv download field separator"
+msgstr ""
+
+msgid "Download Monthly Usage"
+msgstr ""
+
+msgid "Statistics on your Users"
+msgstr ""
+
+msgid "The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph."
+msgstr ""
+
+msgid "Move the mouse pointer over the bars of a chart to see numbers."
+msgstr ""
+
 msgid "Use API"
 msgstr ""
 
-msgid "Use the filters to generate organisational usage statistics for a custom date range. The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph."
+msgid "Use the filters to run organisational usage statistics for a custom date range."
 msgstr ""
 
 msgid "User accounts"
@@ -2791,23 +2826,8 @@ msgstr ""
 msgid "Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them."
 msgstr ""
 
-#msgid "Your colleague %{inviter_name} has invited you to contribute to
-"
-#msgstr ""
-
-msgid "Your colleague %{inviter_name} has invited you to contribute to
-"
-"            their Data Management Plan in %{tool_name}"
-msgstr ""
-
-msgid "Your colleague %{inviter_name} has invited you to contribute to \"\
-"
-"            \" their Data Management Plan in %{tool_name}"
-msgstr ""
-
-#msgid "Your colleague %{inviter_name} has invited you to contribute to \"\
-"
-#msgstr ""
+msgid "Your colleague %{inviter_name} has invited you to contribute to their Data Management Plan in %{tool_name}"
+msgstr "Your colleague %{inviter_name} has invited you to contribute to their Data Management Plan in %{tool_name}"
 
 msgid "Your email address is also your login id and therefore an important part of your account information. For your safety we require you to confirm your password to make this change."
 msgstr ""
@@ -2830,7 +2850,7 @@ msgstr ""
 msgid "Your organisation does not seem to be properly configured."
 msgstr ""
 
-msgid "Your permissions relating to %{plan_title} have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}"
+msgid "Your permissions relating to \"%{plan_title}\" have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}"
 msgstr ""
 
 msgid "Your project is no longer a test."
@@ -2942,6 +2962,9 @@ msgid "delete"
 msgstr ""
 
 msgid "deleted"
+msgstr ""
+
+msgid "archived"
 msgstr ""
 
 msgid "editor"
@@ -3198,4 +3221,95 @@ msgid "help for administrators page"
 msgstr ""
 
 msgid "If you have questions pertaining to this action, please visit the My Dashboard page in %{tool_name}"
+msgstr "If you have questions pertaining to this action, please visit the My Dashboard page in %{tool_name}"
+
+msgid "Schools/Departments"
 msgstr ""
+
+msgid "Create school/department"
+msgstr ""
+
+msgid "School or Department"
+msgstr ""
+
+msgid "Abbreviated Name or Code"
+msgstr ""
+
+msgid "Create a School/Department"
+msgstr ""
+
+msgid "Edit the School/Department"
+msgstr ""
+
+msgid "View all departments"
+msgstr ""
+
+msgid "Add the name of a school/department."
+msgstr ""
+
+msgid "Add the abbreviated name or code for the school/department."
+msgstr ""
+
+msgid "department"
+msgstr ""
+
+msgid "Feedback email message"
+msgstr "Feedback email message"
+
+msgid "You can not publish a published template.  "
+msgstr "You can not publish a published template.  "
+
+msgid "You can not publish a historical version of this template.  "
+msgstr "You can not publish a historical version of this template.  "
+
+msgid "You can not publish a template without phases.  "
+msgstr "You can not publish a template without phases.  "
+
+msgid "You can not publish a template without sections in a phase.  "
+msgstr "You can not publish a template without sections in a phase.  "
+
+msgid "You can not publish a template without questions in a section.  "
+msgstr "You can not publish a template without questions in a section.  "
+
+msgid "Template version %{template_version}, published on %{published_date}"
+msgstr "Template version %{template_version}, published on %{published_date}"
+
+
+msgid "Enter the email address of your collaborator: If they are already using %{tool_name}, they will see this plan on their dashboard, and recieve an email. If they are not currently using %{tool_name}, they will recieve an email inviting them to the tool so they can collaborate on your plan."
+msgstr "Enter the email address of your collaborator: If they are already using %{tool_name}, they will see this plan on their dashboard, and recieve an email. If they are not currently using %{tool_name}, they will recieve an email inviting them to the tool so they can collaborate on your plan."
+
+msgid "Review plans"
+msgstr "Review plans"
+
+msgid "Opens in new window"
+msgstr "Opens in new window"
+
+msgid "merged"
+msgstr ""
+
+msgid "Archive"
+msgstr ""
+
+msgid "You are about to archive %{user_name}.  This will remove their personal information, but retain their plans, answers, and comments.  They will be unable to sign-in. Are you sure?"
+msgstr ""
+
+msgid "Merge Accounts"
+msgstr ""
+
+msgid "First, search for a user by email, then select them from the list."
+msgstr ""
+
+msgid "<br>The selected user's content will be merged into the account for %{user_email}. <br> The selected account will then be removed"
+msgstr ""
+
+msgid "Merge"
+msgstr ""
+
+msgid "Type here to search in the table"
+msgstr "Type here to search in the table"
+
+msgid "Is it a test plan ?"
+msgstr "Is it a test plan ?"
+
+msgid "Sign in or Create account"
+msgstr "Sign in or Create account"

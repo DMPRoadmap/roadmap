@@ -150,8 +150,12 @@ module OrgAdmin
     # POST /org_admin/templates
     def create
       authorize Template
+      args = template_params
+      # Swap in the appropriate visibility enum value for the checkbox value
+      args[:visibility] = args.fetch(:visibility, "0") == "1" ? "organisationally_visible" : "publicly_visible"
+
       # creates a new template with version 0 and new family_id
-      @template = Template.new(template_params)
+      @template = Template.new(args)
       @template.org_id = current_user.org.id
       @template.locale = current_org.language.abbreviation
       @template.links = if params["template-links"].present?
@@ -174,7 +178,11 @@ module OrgAdmin
       template = Template.find(params[:id])
       authorize template
       begin
-        template.assign_attributes(template_params)
+        args = template_params
+        # Swap in the appropriate visibility enum value for the checkbox value
+        args[:visibility] = args.fetch(:visibility, '0') == '1' ? 'organisationally_visible' : 'publicly_visible'
+
+        template.assign_attributes(args)
         if params["template-links"].present?
           template.links = ActiveSupport::JSON.decode(params["template-links"])
         end
@@ -252,15 +260,15 @@ module OrgAdmin
       template = Template.find(params[:id])
       authorize template
       # rubocop:disable Metrics/LineLength
-      if template.latest?
-        # Now make the current version published
+      publishable, errors = template.publishability
+      if publishable
         if template.publish!
           flash[:notice] = _("Your #{template_type(template)} has been published and is now available to users.")
         else
           flash[:alert] = _("Unable to publish your #{template_type(template)}.")
         end
       else
-        flash[:alert] = _("You can not publish a historical version of this #{template_type(template)}.")
+        flash[:alert] = errors
       end
       # rubocop:enable Metrics/LineLength
       redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
@@ -280,6 +288,60 @@ module OrgAdmin
         flash[:notice] = _("Successfully unpublished your #{template_type(template)}")
       end
       redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
+    end
+
+    # GET template_export/:id
+    # -----------------------------------------------------
+    def template_export
+      @template = Template.find(params[:id])
+
+      authorize @template
+      # now with prefetching (if guidance is added, prefetch annottaions/guidance)
+      @template = Template.includes(
+        :org,
+        phases: {
+          sections: {
+            questions: [
+              :question_options,
+              :question_format,
+              :annotations
+            ]
+          }
+        }
+      ).find(@template.id)
+
+      @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
+
+      begin
+        file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, "").gsub(/ /, "_") + '_v' + @template.version.to_s
+        respond_to do |format|
+          format.docx do
+            render docx: "template_exports/template_export", filename: "#{file_name}.docx"
+          end
+
+          format.pdf do
+            # rubocop:disable Metrics/LineLength
+            render pdf: file_name,
+              template: "template_exports/template_export",
+              margin: @formatting[:margin],
+              footer: {
+                center:    _("Template created using the %{application_name} service. Last modified %{date}") % {
+                application_name: Rails.configuration.branding[:application][:name],
+                date: l(@template.updated_at.to_date, formats: :short)
+              },
+              font_size: 8,
+              spacing: (@formatting[:margin][:bottom] / 2) - 4,
+              right: "[page] of [topage]",
+              encoding: "utf8"
+            }
+            # rubocop:enable Metrics/LineLength
+          end
+        end
+      rescue ActiveRecord::RecordInvalid => e
+        # What scenario is this triggered in? it's common to our export pages
+        redirect_to public_templates_path,
+                    alert: _("Unable to download the DMP Template at this time.")
+      end
     end
 
     private

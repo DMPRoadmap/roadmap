@@ -1,7 +1,7 @@
 <%# locals: { plan, template, question, answer, research_output, guidance_presenter } %>
 <% guidances_active = guidance_presenter.any?(question: question) %>
 <% active_nav = nil %>
-<div id="plan-guidance-tab">
+<div class="plan-guidance-tab">
   <!-- Nav tabs -->
   <ul class="nav nav-pills nav-justified mb-10" role="tablist">
       <% if guidances_active %>
@@ -36,6 +36,7 @@
                 aria-controls="<%= "#guidance_per_question_#{question.id}_research_output_#{research_output.id}_#{i}" %>"
                 role="tab"
                 data-toggle="tab"
+                tabindex="0"
                 class="view-plan-guidance">
                 <%= tab[:name] %>
               </a>

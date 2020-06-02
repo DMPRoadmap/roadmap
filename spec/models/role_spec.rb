@@ -29,7 +29,7 @@ RSpec.describe Role, type: :model do
 
   describe ".deactivate!" do
     before do
-      @plan = build_plan(true, true, true, true)
+      @plan = build_plan(true, true, true)
     end
 
     subject { @plan }
@@ -60,25 +60,19 @@ RSpec.describe Role, type: :model do
         expect(@role.active).to eql(false)
       end
 
-      it "reviewer is no longer active" do
-        @role = subject.roles.reviewer.first
-        @role.deactivate!
-        expect(@role.active).to eql(false)
-      end
-
     end
 
     context "Deactivation calls Plan.deactivate! if Plan.authors is empty" do
 
       it "plan has no other authors" do
-        plan = build_plan(false, false, false, false)
+        plan = build_plan(false, false, false)
         role = plan.roles.creator.first
         role.plan.expects(:deactivate!).times(1)
         role.deactivate!
       end
 
       it "plan has another author" do
-        plan = build_plan(true, false, false, false)
+        plan = build_plan(true, false, false)
         role = plan.roles.creator.first
         role.plan.expects(:deactivate!).times(0)
         role.deactivate!

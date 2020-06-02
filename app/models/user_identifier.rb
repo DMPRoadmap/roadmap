@@ -6,18 +6,13 @@
 #  identifier           :string
 #  created_at           :datetime
 #  updated_at           :datetime
-#  identifier_scheme_id :integer
 #  user_id              :integer
+#  identifier_scheme_id :integer
 #
 # Indexes
 #
 #  user_identifiers_identifier_scheme_id_idx  (identifier_scheme_id)
 #  user_identifiers_user_id_idx               (user_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (identifier_scheme_id => identifier_schemes.id)
-#  fk_rails_...  (user_id => users.id)
 #
 
 class UserIdentifier < ActiveRecord::Base

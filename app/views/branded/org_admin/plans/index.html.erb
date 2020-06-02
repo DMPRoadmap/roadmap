@@ -11,12 +11,12 @@
       <h2><%= _('Notifications') %></h2>
       <div class="panel panel-default">
         <div class="panel-body notifications">
-          <table class="table">
+          <table class="table table-hover">
             <thead>
               <th scope="col"><%= _('Plan') %></th>
               <th scope="col"><%= d_('dmpopidor', 'Template') %></th>
               <th scope="col"><%= _('Requestor') %></th>
-              <th scope="col"><%= _('Type') %></th>
+              <th scope="col"><%= d_('dmpopidor', 'Request Date') %></th>
               <th scope="col"><%= _('Actions') %></th>
             </thead>
             <tbody>
@@ -26,8 +26,8 @@
                 <tr>
                   <td><%= link_to notice.name, plan_path(notice) %></td>
                   <td><%= notice.template.title %></td>
-                  <td><%= notice.owner ? notice.owner.name(false) : "" %></td>
-                  <td><%= _('Feedback requested') %></td>
+                  <td><%= notice.feedback_requestor&.name(false) %></td>
+                  <td><%= l(notice.feedback_request_date.to_date, formats: :short) if notice.feedback_request_date %></td>
                   <td><%= link_to _('Complete'), feedback_complete_org_admin_plan_path(notice), 'data-toggle': 'tooltip', title: _('Notify the plan owner that I have finished providing feedback') %></td>
                 </tr>
               <% end %>

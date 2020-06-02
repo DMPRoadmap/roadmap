@@ -59,7 +59,7 @@ module Dmpopidor
                   footer: {
                     center: d_("dmpopidor", "%{plan_title} - Last modified %{date}") % {
                       plan_title: @plan.title,
-                      date: l(@plan.updated_at.to_date, formats: :short)
+                      date: l(@plan.updated_at.to_date, format: :readable)
                       },
                     font_size: 8,
                     spacing:   (Integer(@formatting[:margin][:bottom]) / 2) - 4,

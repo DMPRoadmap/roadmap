@@ -44,6 +44,7 @@ de:
       long: "%e. %B %Y"
       short: "%e. %b"
       csv: "%d/%m/%Y"
+      readable: "%d %B %Y"
 
     month_names:
     -
