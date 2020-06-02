@@ -61,10 +61,6 @@ module Api
         render_error(errors: auth_svc.errors, status: :unauthorized)
       end
 
-      def authorized_content(clazz:)
-        Api::V1::PlansPolicy::Scope.new(@client, clazz).resolve
-      end
-
       # Set the generic application and caller variables used in all responses
       def base_response_content
         @application = ApplicationService.application_name
@@ -173,7 +169,6 @@ module Api
            grant_ids: identifier_permitted_params]
       end
 
-      # rubocop:disable Layout/LineLength
       def dataset_permitted_params
         %i[title description type issued language personal_data sensitive_data
            keywords data_quality_assurance preservation_statement] +
@@ -183,7 +178,6 @@ module Api
            technical_resources: technical_resource_permitted_params,
            distributions: distribution_permitted_params]
       end
-      # rubocop:enable Layout/LineLength
 
       def metadatum_permitted_params
         %i[description language] + [identifier: identifier_permitted_params]

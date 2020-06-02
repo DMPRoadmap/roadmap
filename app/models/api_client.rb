@@ -14,15 +14,11 @@
 #  last_access    :datetime
 #  created_at     :datetime
 #  updated_at     :datetime
-#  org_id         :integer          not null
 #
 # Indexes
 #
 #  index_api_clients_on_name     (name)
 #
-# Foreign Keys
-#
-#  fk_rails_...  (org_id => orgs.id)
 
 class ApiClient < ActiveRecord::Base
 
