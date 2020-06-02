@@ -42,10 +42,10 @@ describe "api/v1/templates/index.json.jbuilder" do
       expect(@template[:version]).to eql(@template1.version)
     end
     it "includes the :created" do
-      expect(@template[:created]).to eql(@template1.created_at.utc.to_s)
+      expect(@template[:created]).to eql(@template1.created_at.to_formatted_s(:iso8601))
     end
     it "includes the :modified" do
-      expect(@template[:modified]).to eql(@template1.updated_at.utc.to_s)
+      expect(@template[:modified]).to eql(@template1.updated_at.to_formatted_s(:iso8601))
     end
     it "includes the :affiliation" do
       expect(@template[:affiliation][:name]).to eql(@template1.org.name)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200323213847) do
+ActiveRecord::Schema.define(version: 20200514102523) do
 
   create_table "annotations", force: :cascade do |t|
     t.integer  "question_id",    limit: 4
@@ -51,28 +51,54 @@ ActiveRecord::Schema.define(version: 20200323213847) do
 
   add_index "answers_question_options", ["answer_id"], name: "index_answers_question_options_on_answer_id", using: :btree
 
+  create_table "conditions", force: :cascade do |t|
+    t.integer  "question_id"
+    t.text     "option_list"
+    t.integer  "action_type"
+    t.integer  "number"
+    t.text     "remove_data"
+    t.text     "webhook_data"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "conditions", ["question_id"], name: "index_conditions_on_question_id", using: :btree
+
   create_table "api_clients", force: :cascade do |t|
-    t.string   "name",          limit: 255, null: false
-    t.string   "description",   limit: 255
-    t.string   "homepage",      limit: 255
-    t.string   "contact_name",  limit: 255
-    t.string   "contact_email", limit: 255, null: false
-    t.string   "client_id",     limit: 255, null: false
-    t.string   "client_secret", limit: 255, null: false
+    t.string   "name",          null: false
+    t.string   "description"
+    t.string   "homepage"
+    t.string   "contact_name"
+    t.string   "contact_email", null: false
+    t.string   "client_id",     null: false
+    t.string   "client_secret", null: false
     t.date     "last_access"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "api_clients", ["name"], name: "index_api_clients_on_name", using: :btree
 
+  create_table "conditions", force: :cascade do |t|
+    t.integer  "question_id"
+    t.text     "option_list"
+    t.integer  "action_type"
+    t.integer  "number"
+    t.text     "remove_data"
+    t.text     "webhook_data"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "conditions", ["question_id"], name: "index_conditions_on_question_id", using: :btree
+
   create_table "contributors", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "email",      limit: 255
-    t.string   "phone",      limit: 255
-    t.integer  "roles",      limit: 4,   null: false
-    t.integer  "org_id",     limit: 4
-    t.integer  "plan_id",    limit: 4,   null: false
+    t.string   "name"
+    t.string   "email"
+    t.string   "phone"
+    t.integer  "roles",      null: false
+    t.integer  "org_id"
+    t.integer  "plan_id",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -128,9 +154,9 @@ ActiveRecord::Schema.define(version: 20200323213847) do
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "logo_url",          limit: 255
-    t.string   "identifier_prefix", limit: 255
-    t.integer  "context",           limit: 4
+    t.text     "logo_url"
+    t.text     "identifier_prefix"
+    t.integer  "context"
   end
 
   create_table "identifiers", force: :cascade do |t|
@@ -213,29 +239,26 @@ ActiveRecord::Schema.define(version: 20200323213847) do
   add_index "org_token_permissions", ["token_permission_type_id"], name: "fk_rails_2aa265f538", using: :btree
 
   create_table "orgs", force: :cascade do |t|
-    t.string   "name",                   limit: 255
-    t.string   "abbreviation",           limit: 255
-    t.string   "target_url",             limit: 255
-    t.datetime "created_at",                                           null: false
-    t.datetime "updated_at",                                           null: false
-    t.boolean  "is_other",                             default: false, null: false
-    t.string   "sort_name",              limit: 255
-    t.integer  "region_id",              limit: 4
-    t.integer  "language_id",            limit: 4
-    t.string   "logo_uid",               limit: 255
-    t.string   "logo_name",              limit: 255
-    t.string   "contact_email",          limit: 255
-    t.integer  "org_type",               limit: 4,     default: 0,     null: false
-    t.text     "links",                  limit: 65535
-    t.boolean  "feedback_enabled",                     default: false
-    t.string   "feedback_email_subject", limit: 255
-    t.text     "feedback_email_msg",     limit: 65535
-    t.string   "contact_name",           limit: 255
-    t.boolean  "managed",                              default: false, null: false
+    t.string   "name"
+    t.string   "abbreviation"
+    t.string   "target_url"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "is_other",               default: false, null: false
+    t.string   "sort_name"
+    t.integer  "region_id"
+    t.integer  "language_id"
+    t.string   "logo_uid"
+    t.string   "logo_name"
+    t.string   "contact_email"
+    t.integer  "org_type",               default: 0,     null: false
+    t.text     "links"
+    t.string   "contact_name"
+    t.boolean  "feedback_enabled",       default: false
+    t.string   "feedback_email_subject"
+    t.text     "feedback_email_msg"
+    t.boolean  "managed",                default: false, null: false
   end
-
-  add_index "orgs", ["language_id"], name: "fk_rails_5640112cab", using: :btree
-  add_index "orgs", ["region_id"], name: "fk_rails_5a6adf6bab", using: :btree
 
   create_table "perms", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -262,25 +285,26 @@ ActiveRecord::Schema.define(version: 20200323213847) do
     t.integer  "template_id",                       limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "grant_number",                      limit: 255
-    t.string   "identifier",                        limit: 255
-    t.text     "description",                       limit: 65535
-    t.string   "principal_investigator",            limit: 255
-    t.string   "principal_investigator_identifier", limit: 255
-    t.string   "data_contact",                      limit: 255
-    t.string   "funder_name",                       limit: 255
-    t.integer  "visibility",                        limit: 4,     default: 3,     null: false
-    t.string   "data_contact_email",                limit: 255
-    t.string   "data_contact_phone",                limit: 255
-    t.string   "principal_investigator_email",      limit: 255
-    t.string   "principal_investigator_phone",      limit: 255
-    t.boolean  "feedback_requested",                              default: false
-    t.boolean  "complete",                                        default: false
-    t.integer  "org_id",                            limit: 4
-    t.integer  "funder_id",                         limit: 4
-    t.integer  "grant_id",                          limit: 4
+    t.string   "grant_number"
+    t.string   "identifier"
+    t.text     "description"
+    t.string   "principal_investigator"
+    t.string   "principal_investigator_identifier"
+    t.string   "data_contact"
+    t.string   "funder_name"
+    t.integer  "visibility",                        default: 3,     null: false
+    t.string   "data_contact_email"
+    t.string   "data_contact_phone"
+    t.string   "principal_investigator_email"
+    t.string   "principal_investigator_phone"
+    t.boolean  "feedback_requested",                default: false
+    t.boolean  "complete",                          default: false
+    t.integer  "org_id"
+    t.integer  "funder_id"
+    t.integer  "grant_id"
     t.datetime "start_date"
     t.datetime "end_date"
+    t.integer  "api_client_id"
   end
 
   add_index "plans", ["org_id"], name: "fk_rails_eda8ce4bca", using: :btree
@@ -325,9 +349,11 @@ ActiveRecord::Schema.define(version: 20200323213847) do
     t.boolean  "is_default"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "versionable_id", limit: 36
   end
 
   add_index "question_options", ["question_id"], name: "index_question_options_on_question_id", using: :btree
+  add_index "question_options", ["versionable_id"], name: "index_question_options_on_versionable_id", using: :btree
 
   create_table "questions", force: :cascade do |t|
     t.text     "text",                   limit: 65535
@@ -460,6 +486,15 @@ ActiveRecord::Schema.define(version: 20200323213847) do
     t.datetime "updated_at"
   end
 
+  create_table "trackers", force: :cascade do |t|
+    t.integer  "org_id"
+    t.string   "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "trackers", ["org_id"], name: "index_trackers_on_org_id", using: :btree
+
   create_table "user_identifiers", force: :cascade do |t|
     t.string   "identifier",           limit: 255
     t.datetime "created_at"
@@ -526,6 +561,11 @@ ActiveRecord::Schema.define(version: 20200323213847) do
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
+  add_foreign_key "answers_question_options", "answers"
+  add_foreign_key "answers_question_options", "question_options"
+  add_foreign_key "conditions", "questions"
+  add_foreign_key "contributors", "plans"
+  add_foreign_key "contributors", "orgs"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "notes", "answers"
@@ -552,6 +592,7 @@ ActiveRecord::Schema.define(version: 20200323213847) do
   add_foreign_key "templates", "orgs"
   add_foreign_key "themes_in_guidance", "guidances"
   add_foreign_key "themes_in_guidance", "themes"
+  add_foreign_key "trackers", "orgs"
   add_foreign_key "user_identifiers", "identifier_schemes"
   add_foreign_key "user_identifiers", "users"
   add_foreign_key "users", "departments"

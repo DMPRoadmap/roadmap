@@ -2,7 +2,9 @@
 
 @import "variables/*";
 @debug "1 #{$navbar-branding-bg}";
+@import "bootstrap-sprockets";
 @import "bootstrap";
+@import "bootstrap-select/sass/bootstrap-select.scss";
 @debug "2 #{$navbar-branding-bg}";
 @import "blocks/*";
 @debug "3 #{$navbar-branding-bg}";

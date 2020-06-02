@@ -22,6 +22,11 @@ namespace :upgrade do
     Rake::Task["upgrade:results_2_2_0_part2"].execute
   end
 
+  desc "Upgrade to v2.1.6"
+  task v2_1_6: :environment do
+    Rake::Task['upgrade:add_versionable_id_to_question_options'].execute
+  end
+
   desc "Upgrade to v2.1.3"
   task v2_1_3: :environment do
     Rake::Task['upgrade:fill_blank_plan_identifiers'].execute
@@ -722,6 +727,43 @@ namespace :upgrade do
     Role.reviewer.destroy_all
   end
 
+  desc "generate versionable_ids for "
+  task add_versionable_id_to_question_options: :environment do
+
+    QuestionOption.attr_readonly.delete('versionable_id')
+
+    Template.latest_version.where(customization_of: nil)
+            .includes(phases: { sections: { questions: :question_options }})
+            .each do |uncustomized|
+
+      # update the versionable_id for the canonical and all customized templates
+      uncustomized.question_options.each do |qo|
+        vers_id = loop do
+          rand = SecureRandom.uuid
+          break rand unless QuestionOption.exists?(versionable_id: rand)
+        end
+        qo.update! versionable_id: vers_id
+        text_a = "#{qo.number} - #{qo.text}"
+
+        Question.joins(:question_options)
+                .where(questions: {versionable_id: qo.question.versionable_id})
+                .where.not(questions: {id: qo.question_id}) # ensure we exclude the current question
+                .includes(:question_options)
+                .each do |q_cust|
+          q_cust.question_options.each do |qo_cust|
+            text_b = "#{qo_cust.number} - #{qo_cust.text}"
+
+            if fuzzy_match?(text_a, text_b)
+              qo_cust.update! versionable_id: qo.versionable_id
+              break
+            end
+          end
+        end
+      end
+
+    end
+
+  end
 
   # -------------------------------------------------
   # TASKS FOR 2.2.0

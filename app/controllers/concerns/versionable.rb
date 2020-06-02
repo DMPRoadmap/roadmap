@@ -111,7 +111,11 @@ module Versionable
       relation = :questions
     when Question
       number = obj.question.number
-      relation = :annotations
+      if obj.is_a?(QuestionOption)
+        relation = :question_options
+      else
+        relation = :annotations
+      end
     else
       return nil
     end

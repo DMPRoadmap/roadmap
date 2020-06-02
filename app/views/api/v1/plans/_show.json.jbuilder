@@ -12,8 +12,8 @@ json.description plan.description
 json.language Api::V1::LanguagePresenter.three_char_code(
   lang: ApplicationService.default_language
 )
-json.created plan.created_at.utc.to_s
-json.modified plan.updated_at.utc.to_s
+json.created plan.created_at.to_formatted_s(:iso8601)
+json.modified plan.updated_at.to_formatted_s(:iso8601)
 
 # TODO: Update this to pull from the appropriate question once the work is complete
 json.ethical_issues_exist "unknown"
@@ -34,32 +34,34 @@ if presenter.data_contact.present?
   end
 end
 
-if presenter.contributors.any?
-  json.contributor presenter.contributors do |contributor|
-    json.partial! "api/v1/contributors/show", contributor: contributor,
-                                              is_contact: false
+unless @minimal
+  if presenter.contributors.any?
+    json.contributor presenter.contributors do |contributor|
+      json.partial! "api/v1/contributors/show", contributor: contributor,
+                                                is_contact: false
+    end
   end
-end
 
-if presenter.costs.any?
-  json.cost presenter.costs do |cost|
-    json.partial! "api/v1/plans/cost", cost: cost
+  if presenter.costs.any?
+    json.cost presenter.costs do |cost|
+      json.partial! "api/v1/plans/cost", cost: cost
+    end
   end
-end
 
-json.project [plan] do |pln|
-  json.partial! "api/v1/plans/project", plan: pln
-end
+  json.project [plan] do |pln|
+    json.partial! "api/v1/plans/project", plan: pln
+  end
 
-json.dataset [plan] do |dataset|
-  json.partial! "api/v1/datasets/show", plan: plan, dataset: dataset
-end
+  json.dataset [plan] do |dataset|
+    json.partial! "api/v1/datasets/show", plan: plan, dataset: dataset
+  end
 
-json.extension [plan.template] do |template|
-  json.set! ApplicationService.application_name.split("-").first.to_sym do
-    json.template do
-      json.id template.id
-      json.title template.title
+  json.extension [plan.template] do |template|
+    json.set! ApplicationService.application_name.split("-").first.to_sym do
+      json.template do
+        json.id template.id
+        json.title template.title
+      end
     end
   end
 end
