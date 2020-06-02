@@ -14,7 +14,7 @@ module Api
           # Convert the incoming JSON into a Plan
           #   {
           #     "dmp": {
-          #       "created": "2020-03-26 11:52:00 UTC",
+          #       "created": "2020-03-26T11:52:00Z",
           #       "title": "Brain impairment caused by COVID-19",
           #       "description": "DMP for COVID-19 Brain analysis",
           #       "language": "eng",
@@ -30,8 +30,8 @@ module Api
           #       "project": [{
           #         "title": "Brain impairment caused by COVID-19",
           #         "description": "Brain stem comparisons of COVID-19 patients",
-          #         "start": "2020-03-01 12:33:44 UTC",
-          #         "end": "2023-03-31 12:33:44 UTC",
+          #         "start": "2020-03-01T12:33:44Z",
+          #         "end": "2023-03-31T12:33:44Z",
           #         "funding": [{
           #           "$ref": "SEE Funding.deserialize! for details"
           #         }]
@@ -115,14 +115,15 @@ module Api
 
           # Deserialize the project information and attach to Plan
           # rubocop:disable Metrics/AbcSize
+          # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           def deserialize_project(plan:, json: {})
             return plan unless json.present? &&
                                json[:project].present? &&
                                json[:project].is_a?(Array)
 
             project = json.fetch(:project, [{}]).first
-            plan.start_date = project[:start]
-            plan.end_date = project[:end]
+            plan.start_date = Time.new(project[:start]).utc if project[:start].present?
+            plan.end_date = Time.new(project[:end]).utc if project[:end].present?
             return plan unless project[:funding].present?
 
             funding = project.fetch(:funding, []).first
@@ -130,6 +131,7 @@ module Api
 
             Api::V1::Deserialization::Funding.deserialize!(plan: plan, json: funding)
           end
+          # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           # rubocop:enable Metrics/AbcSize
 
           # Deserialize the contact as a Contributor

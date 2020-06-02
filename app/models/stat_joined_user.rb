@@ -5,7 +5,7 @@
 # Table name: stats
 #
 #  id         :integer          not null, primary key
-#  count      :integer          default(0)
+#  count      :bigint(8)        default(0)
 #  date       :date             not null
 #  details    :text
 #  type       :string           not null

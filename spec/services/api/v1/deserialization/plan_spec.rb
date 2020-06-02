@@ -31,19 +31,19 @@ RSpec.describe Api::V1::Deserialization::Plan do
       contributor: [
         {
           name: Faker::TvShows::Simpsons.unique.character,
-          roles: ["#{Contributor::ONTOLOGY_BASE_URL}/#{contrib.all_roles.first}"]
+          role: ["#{Contributor::ONTOLOGY_BASE_URL}/#{contrib.all_roles.first}"]
         },
         {
           name: Faker::TvShows::Simpsons.unique.character,
-          roles: [contrib.all_roles.last.to_s]
+          role: [contrib.all_roles.last.to_s]
         }
       ],
       project: [
         {
           title: Faker::Lorem.sentence,
           description: Faker::Lorem.paragraph,
-          start: Time.now.utc.to_s,
-          end: (Time.now + 2.years).utc.to_s,
+          start: Time.now.to_formatted_s(:iso8601),
+          end: (Time.now + 2.years).to_formatted_s(:iso8601),
           funding: [
             { name: Faker::Movies::StarWars.planet }
           ]
@@ -177,18 +177,23 @@ RSpec.describe Api::V1::Deserialization::Plan do
         expect(result.start_date).to eql(nil)
       end
       it "returns the Plan as-is if the json :project is not an array" do
-        json = { title: Faker::Lorem.sentence, project: { start: Time.now.utc.to_s } }
+        json = {
+          title: Faker::Lorem.sentence,
+          project: { start: Time.now.to_formatted_s(:iso8601) }
+        }
         result = described_class.send(:deserialize_project, plan: @plan, json: json)
         expect(result).to eql(@plan)
         expect(result.start_date).to eql(nil)
       end
       it "assigns the start_date of the Plan" do
         result = described_class.send(:deserialize_project, plan: @plan, json: @json)
-        expect(result.start_date.utc.to_s).to eql(@json[:project].first[:start])
+        expected = Time.new(@json[:project].first[:start]).utc.to_formatted_s(:iso8601)
+        expect(result.start_date.to_formatted_s(:iso8601)).to eql(expected)
       end
       it "assigns the end_date of the Plan" do
         result = described_class.send(:deserialize_project, plan: @plan, json: @json)
-        expect(result.end_date.utc.to_s).to eql(@json[:project].first[:end])
+        expected = Time.new(@json[:project].first[:end]).utc.to_formatted_s(:iso8601)
+        expect(result.end_date.to_formatted_s(:iso8601)).to eql(expected)
       end
       it "does not call the deserializer for Funding if :funding is not present" do
         @json[:project].first[:funding] = nil
