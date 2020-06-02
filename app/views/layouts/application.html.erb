@@ -2,8 +2,8 @@
 <html lang="en">
   <head>
     <!-- Version: <%= version %> -->
-    <% if Rails.configuration.tracker_root.present? %>
-      <% root_abbr = Rails.configuration.tracker_root %>
+    <% if Rails.configuration.x.tracker_root.present? %>
+      <% root_abbr = Rails.configuration.x.tracker_root %>
       <% root_org = Org.where(abbreviation: root_abbr).first %>
       <% if root_org.tracker.present? %>
         <% root_code = root_org.tracker.code %>
