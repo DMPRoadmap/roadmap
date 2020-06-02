@@ -177,6 +177,7 @@ module Dmpopidor
           @plan = Plan.find(params[:id])
           @type = params[:type]
           @parent_fragment = StructuredAnswer.find(params[:parent_id])
+          @schema = StructuredDataSchema.find_by(classname: @type)
           @fragment = params[:fragment_id] ? StructuredAnswer.find(params[:fragment_id]) : StructuredAnswer.new
           authorize @plan
           respond_to do |format|
