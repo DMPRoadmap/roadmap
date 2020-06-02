@@ -1,10 +1,9 @@
 <%# locals: { persons } %>
-<%# TMP fix here + other lines (see commit) %>
-<%# meta = @plan.json_fragment().meta.data %>
-<%# contact = @plan.json_fragment().meta.contact %>
-<%# dmpID = meta["dmpID"] %>
-<%# p_version = meta["version"] %>
-<%# licence = meta["licence"] %>
+<% meta = @plan.json_fragment().meta.data %>
+<% contact = @plan.json_fragment().meta.contact %>
+<% dmpID = meta["dmpID"] %>
+<% p_version = meta["version"] %>
+<% licence = meta["licence"] %>
 
 <div class="form-group"><!-- title -->
   <div class="col-md-12">
@@ -42,16 +41,14 @@
     <div class="col-md-10">
       <%= select_tag "plan[dmpID[idType]]",
                     options_for_select(["DOI", "HANDLE", "ARK", "URL"],
-                    #selected: dmpID ? dmpID["idType"] : "DOI" 
-                    ),
+                    selected: dmpID ? dmpID["idType"] : "DOI" ),
                     class: "form-control" %>
     </div>
   </div>
   <div class="form-group"><!-- identifier -->
     <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
                 f: f, 
-                #field_value: dmpID ? dmpID["value"] : nil, 
-                field_value: nil,
+                field_value: dmpID ? dmpID["value"] : nil, 
                 multiple: false,
                 field_name: "dmpID[value]", 
                 field_label: _('ID')
@@ -65,8 +62,7 @@
   <div class="form-group"><!-- versionNumber -->
     <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
                 f: f, 
-                #field_value: p_version ? p_version["versionNumber"] : nil, 
-                field_value: nil,
+                field_value: p_version ? p_version["versionNumber"] : nil, 
                 multiple: false,
                 field_name: "version[versionNumber]", 
                 field_label: _('Number')
@@ -75,8 +71,7 @@
   <div class="form-group"><!-- versionNotes -->
     <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
                 f: f, 
-                #field_value: p_version ? p_version["versionNotes"] : nil,  
-                field_value: nil,
+                field_value: p_version ? p_version["versionNotes"] : nil,  
                 multiple: false,
                 field_name: "version[versionNotes]", 
                 field_label: _('Notes')
@@ -87,8 +82,7 @@
 <div class="form-group"><!-- relatedDocUrl -->
     <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
                 f: f, 
-                #field_value: meta["relatedDocUrl"], 
-                field_value: nil,
+                field_value: meta["relatedDocUrl"], 
                 multiple: false,
                 field_name: "relatedDocUrl", 
                 field_label: _('Related Documentation URL')
@@ -98,8 +92,7 @@
 <div class="form-group"><!-- associatedDMPId -->
     <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
                 f: f, 
-                #field_value: meta["associatedDMPId"], 
-                field_value: nil,
+                field_value: meta["associatedDMPId"], 
                 multiple: false,
                 field_name: "associatedDMPId", 
                 field_label: _('Associated DMPs')
@@ -109,12 +102,9 @@
 <%= render(partial: 'shared/fragments/person_fragment_form', locals: {
             f: f,
             legend: _('Data contact person'),
-            #person: contact ? contact.data : nil,
-            person: nil,
-            #person_id: contact ? contact.id : nil,
-            person_id: nil,
-            #person_list: persons,
-            person_list: nil,
+            person: contact ? contact.data : nil,
+            person_id: contact ? contact.id : nil,
+            person_list: persons,
             plan: @plan,
             fragment_name: "contact"
       }) %>
@@ -124,8 +114,7 @@
   <div class="form-group"><!-- licenseName -->
     <%= render(partial: 'plans/plan_details/fields/text_field', locals: {
                 f: f, 
-                #field_value: licence ? licence["licenseName"] : nil,
-                field_value: nil,
+                field_value: licence ? licence["licenseName"] : nil,
                 multiple: false,
                 field_name: "licence[licenseName]", 
                 field_label: _('Name')
@@ -134,8 +123,7 @@
   <div class="form-group"><!-- licenseUrl -->
     <%= render(partial: 'plans/plan_details/fields/url_field', locals: {
                 f: f, 
-                #field_value: licence ? licence["licenseUrl"] : nil, 
-                field_value: nil,
+                field_value: licence ? licence["licenseUrl"] : nil, 
                 multiple: false,
                 field_name: "licence[licenseUrl]", 
                 field_label: _('URL')
@@ -144,8 +132,7 @@
   <div class="form-group"><!-- licenceStartDate -->
     <%= render(partial: 'plans/plan_details/fields/date_field', locals: {
                 f: f, 
-                #field_value: meta["licenceStartDate"], 
-                field_value: nil,
+                field_value: meta["licenceStartDate"], 
                 multiple: false,
                 field_name: "licenceStartDate", 
                 field_label: _('Start Date')

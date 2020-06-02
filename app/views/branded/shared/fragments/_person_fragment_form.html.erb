@@ -7,8 +7,6 @@
       <%= f.label "#{fragment_name}_person_list", _('Please choose a person from the list or create a new one.'), class: 'control-label' %>
     </div>
     <div class="col-md-10">
-      <%# TMP fix (see commit) %>
-      <% person_list = [] %>
       <%= select_tag "#{fragment_name}_person_list",
                     options_for_select(
                       person_list.map { |p| [
