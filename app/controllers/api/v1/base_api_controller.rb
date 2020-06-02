@@ -30,6 +30,12 @@ module Api
         render "/api/v1/heartbeat", status: :ok
       end
 
+      # Pundit makes use of current_user when authorizing so make sure we
+      # return the API client (ApiClient or User) instead
+      def current_user
+        client
+      end
+
       protected
 
       def render_error(errors:, status:)
@@ -53,6 +59,10 @@ module Api
         return true if @client.present?
 
         render_error(errors: auth_svc.errors, status: :unauthorized)
+      end
+
+      def authorized_content(clazz:)
+        Api::V1::PlansPolicy::Scope.new(@client, clazz).resolve
       end
 
       # Set the generic application and caller variables used in all responses
@@ -88,6 +98,14 @@ module Api
 
       # ==========================
 
+      # Override the ApplicationController handling of Pundit Auth failures
+      # we want to return an appropriate JSON response not redirect the caller
+      def user_not_authorized
+        render_error(errors: _("You are not authorized to perform this action."),
+                     status: :not_authorized)
+      end
+
+      # Record the User or ApiClient's access
       def log_access
         obj = client
         return false unless obj.present?

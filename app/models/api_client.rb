@@ -14,11 +14,15 @@
 #  last_access    :datetime
 #  created_at     :datetime
 #  updated_at     :datetime
+#  org_id         :integer          not null
 #
 # Indexes
 #
 #  index_api_clients_on_name     (name)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (org_id => orgs.id)
 
 class ApiClient < ActiveRecord::Base
 
@@ -30,6 +34,10 @@ class ApiClient < ActiveRecord::Base
   # ================
 
   has_many :plans
+
+  # =============
+  # = Callbacks =
+  # =============
 
   # If the Client_id or client_secret are nil generate them
   before_validation :generate_credentials,

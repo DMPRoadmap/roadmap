@@ -3,9 +3,17 @@
 require "rails_helper"
 
 RSpec.describe Api::V1::BaseApiController, type: :request do
+  include ApiHelper
 
   before(:each) do
     @client = create(:api_client)
+  end
+
+  it "calls :client when :current_user is invoked" do
+    @controller = described_class.new
+    @client = build(:api_client)
+    @controller.stubs(:client).returns(@client)
+    expect(@controller.current_user).to eql(@client)
   end
 
   context "actions" do

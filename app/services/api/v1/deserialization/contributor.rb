@@ -125,7 +125,7 @@ module Api
           # Assign the specified roles
           def assign_roles(contributor:, json: {})
             return nil unless contributor.present?
-            return contributor unless json.present? && json[:roles].present?
+            return contributor unless json.present? && json[:role].present?
 
             json.fetch(:role, []).each do |url|
               role = translate_role(role: url)

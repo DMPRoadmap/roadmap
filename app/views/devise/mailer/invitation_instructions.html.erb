@@ -5,7 +5,7 @@
   contact_us = (Rails.configuration.branding[:organisation][:contact_us_url] || contact_us_url)
   email_subject = _('Query or feedback related to %{tool_name}') %{ :tool_name => tool_name }
   user_name = User.find_by(email: @resource.email).nil? ?  @resource.email : User.find_by(email: @resource.email).name(false)
-  inviter_name = @resource.is_a?(User) ? @resource.invited_by.name(false) : @resource.invited_by.name
+  inviter_name = @resource.invited_by.name
 %>
 <% FastGettext.with_locale FastGettext.default_locale do %>
   <p>

@@ -18,7 +18,15 @@ module Api
           #      "dataset_id": {
           #        "type": "doi",
           #        "identifier": "https://doix.org/10.1234.123abc/y3"
-          #      }
+          #      },
+          #      "distribution": [
+          #        {
+          #          "title": "PDF - Testing our maDMP JSON export",
+          #          "data_access": "open",
+          #          "download_url": "http://dmproadmap.org/plans/44247/export.pdf",
+          #          "format": ["application/pdf"]
+          #        }
+          #      ]
           #    }
           def deserialize!(json: {})
             return nil unless json.present? && json[:title].present?

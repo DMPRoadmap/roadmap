@@ -38,6 +38,19 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Monkey-patch Pundit's policy method to accomodate for policy namespacing
+  # For example a controller in app/controllers/api/v1/plans_controller.rb
+  # will attach to the app/policies/api/v1/plans_policy.rb
+  def policy(record)
+    namespaced = "#{controller_path.classify}Policy".constantize.new(pundit_user, record)
+    policies[record] ||= namespaced
+  end
+
+  def policy_scope(record)
+    namespaced = "#{controller_path.classify}Policy::Scope"
+    namespaced.constantize.new(current_user, record).resolve
+  end
+
   # Sets FastGettext locale for every request made
   def set_gettext_locale
     FastGettext.locale = LocaleFormatter.new(current_locale, format: :fast_gettext).to_s

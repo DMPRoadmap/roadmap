@@ -24,7 +24,7 @@ RSpec.describe ContributorsController, type: :controller do
         identifiers_attributes: { "0": {
           identifier_scheme_id: @scheme.id,
           value: SecureRandom.uuid
-        }}
+        } }
       }
     }
     @roles = Contributor.new.all_roles
@@ -164,7 +164,7 @@ RSpec.describe ContributorsController, type: :controller do
           expect(assigns(:plan)).to eql(@plan)
         end
         it "redirects to :root if no plan found" do
-          get :index, plan_id: 99999
+          get :index, plan_id: 99_999
           expect(response).to have_http_status(:redirect)
           expect(response).to redirect_to(root_url)
         end
@@ -188,7 +188,7 @@ RSpec.describe ContributorsController, type: :controller do
           expect(assigns(:contributor)).to eql(@contributor)
         end
         it "redirects to :index if no contributor found" do
-          get :edit, plan_id: @plan.id, id: 99999
+          get :edit, plan_id: @plan.id, id: 99_999
           expect(response).to have_http_status(:redirect)
           expect(response).to redirect_to(plan_contributors_url(@plan))
         end

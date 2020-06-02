@@ -70,7 +70,7 @@ Lint/AmbiguousBlockAssociation:
 Metrics/LineLength:
   # I've found that 90 is a suitable limit. Many developers balk at the 80 character
   # default.
-  Max: 90
+  Max: 100
   Exclude:
     # Excludes the spec helper, since this boilerplate file has comments that are much
     # longer.

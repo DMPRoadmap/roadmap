@@ -16,5 +16,7 @@ json.distribution [plan] do |distribution|
   json.title "PDF - #{distribution.title}"
   json.data_access "open"
   json.download_url plan_export_url(distribution, format: :pdf)
-  json.format "application/pdf"
+  json.format do
+    json.array! ["application/pdf"]
+  end
 end
