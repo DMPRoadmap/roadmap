@@ -123,7 +123,7 @@ module DMPRoadmap
     end
 
     # org abbreviation for the root google analytics tracker that gets planted on every page
-    # config.tracker_root = "DMPRoadmap"
+    # config.x.tracker_root = "DMPRoadmap"
 
     # The default visibility setting for new plans
     #   organisationally_visible  - Any member of the user's org can view, export and duplicate the plan
