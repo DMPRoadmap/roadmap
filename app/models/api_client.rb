@@ -25,6 +25,12 @@ class ApiClient < ActiveRecord::Base
   include DeviseInvitable::Inviter
   include ValidationMessages
 
+  # ================
+  # = Associations =
+  # ================
+
+  has_many :plans
+
   # If the Client_id or client_secret are nil generate them
   before_validation :generate_credentials,
                     if: Proc.new { |c| c.client_id.blank? || c.client_secret.blank? }

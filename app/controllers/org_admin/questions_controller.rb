@@ -6,6 +6,7 @@ module OrgAdmin
 
     include AllowedQuestionFormats
     include Versionable
+    include ConditionsHelper
 
     respond_to :html
     after_action :verify_authorized
@@ -19,8 +20,21 @@ module OrgAdmin
       render partial: "show", locals: {
         template: question.section.phase.template,
         section: question.section,
-        question: question
+        question: question,
+        conditions: question.conditions
       }
+    end
+
+    def open_conditions
+      question = Question.find(params[:question_id])
+      authorize question
+     # render partial: "org_admin/conditions/container", locals: { question: question, conditions: question.conditions }
+      render json: { container: render_to_string(partial: "org_admin/conditions/container",
+                                                 formats: :html,
+                                                 layout: false,
+                                                 locals: { question: question,
+                                                           conditions: question.conditions.order(:number) }),
+                    webhooks: webhook_hash(question.conditions) }
     end
 
     def edit
@@ -33,7 +47,8 @@ module OrgAdmin
         template: question.section.phase.template,
         section: question.section,
         question: question,
-        question_formats: allowed_question_formats
+        question_formats: allowed_question_formats,
+        conditions: question.conditions
       }
     end
 
@@ -83,25 +98,62 @@ module OrgAdmin
     def update
       question = Question.find(params[:id])
       authorize question
-      begin
-        question = get_modifiable(question)
-        # Need to reattach the incoming annotation's and question_options to the
-        # modifiable (versioned) question
-        attrs = question_params
-        attrs = transfer_associations(question) if question.id != params[:id]
-        # If the user unchecked all of the themes set the association to an empty array
-        # add check for number present to ensure this is not just an annotation
-        if attrs[:theme_ids].blank? && attrs[:number].present?
-          attrs[:theme_ids] = []
+
+      new_version = question.template.generate_version?
+
+      old_question_ids = {}
+      if new_version
+        # get a map from option number to id
+        old_number_to_id = {}
+        question.question_options.each do |opt|
+          old_number_to_id[opt.number] = opt.id
         end
-        if question.update(attrs)
+      
+        # get a map from question versionable id to old id
+        question.template.questions.each do |q|
+          old_question_ids[q.versionable_id] = q.id
+        end
+      end
+
+      question = get_modifiable(question)
+
+      question_id_map = {}
+      if new_version
+        # params now out of sync (after versioning) with the question_options
+        # so when we do the question.update it'll mess up
+        # need to remap params to keep them consistent
+        old_to_new_opts = {}
+        question.question_options.each do |opt|
+          old_id = old_number_to_id[opt.number]
+          old_to_new_opts[old_id.to_s] = opt.id.to_s
+        end
+
+        question.template.questions.each do |q|
+          question_id_map[old_question_ids[q.versionable_id].to_s] = q.id.to_s
+        end
+      end
+      
+      # rewrite the question_option ids so they match the new
+      # version of the question
+      # and also rewrite the remove_data question ids
+      attrs = question_params
+      attrs = update_option_ids(attrs, old_to_new_opts) if new_version
+
+      # Need to reattach the incoming annotation's and question_options to the
+      # modifiable (versioned) question
+      attrs = transfer_associations(attrs, question) if new_version
+
+      # If the user unchecked all of the themes set the association to an empty array
+      # add check for number present to ensure this is not just an annotation
+      if attrs[:theme_ids].blank? && attrs[:number].present?
+        attrs[:theme_ids] = []
+      end
+      if question.update(attrs)
+        if question.update_conditions(sanitize_hash(params["conditions"]), old_to_new_opts, question_id_map)
           flash[:notice] = success_message(question, _("updated"))
-        else
-          flash[:alert] = flash[:alert] = failure_message(question, _("update"))
         end
-      rescue StandardError => e
-        puts e.message
-        flash[:alert] = _("Unable to create a new version of this template.")
+      else
+        flash[:alert] = flash[:alert] = failure_message(question, _("update"))
       end
       if question.section.phase.template.customization_of.present?
         redirect_to org_admin_template_phase_path(
@@ -141,6 +193,34 @@ module OrgAdmin
 
     private
 
+    # param_condiions looks like:
+    #   [
+    #     {
+    #       "conditions_N" => {
+    #         name: ...
+    #         subject ...
+    #         ...
+    #       }
+    #       ...
+    #     }
+    #   ]
+    def sanitize_hash(param_conditions)
+      return {} if param_conditions.nil?
+      return {} unless param_conditions.length > 0
+
+      res = {}
+      hash_of_hashes = param_conditions[0]
+      hash_of_hashes.each do |cond_name, cond_hash|
+        sanitized_hash = {}
+        cond_hash.each do |k,v|
+          v = ActionController::Base.helpers.sanitize(v) if k.start_with?("webhook")
+          sanitized_hash[k] = v
+        end
+        res[cond_name] = sanitized_hash
+      end
+      res
+    end
+
     def question_params
       params.require(:question)
             .permit(:number, :text, :question_format_id, :option_comment_display,
@@ -150,11 +230,24 @@ module OrgAdmin
                     theme_ids: [])
     end
 
+    # when a templkate gets versioned while saving the question
+    # options are now out of sync with the params.
+    # This sorts that out.
+    def update_option_ids(qp, opt_map)
+      qopts = qp["question_options_attributes"]
+      qopts.keys.each do |k|
+        attr_hash = qopts[k]
+        old_id = attr_hash["id"]
+        new_id = opt_map[old_id]
+        attr_hash["id"] = new_id
+      end
+      qp
+    end
+
     # When a template gets versioned by changes to one of its questions we need to loop
     # through the incoming params and ensure that the annotations and question_options
     # get attached to the new question
-    def transfer_associations(question)
-      attrs = question_params
+    def transfer_associations(attrs, question)
       if attrs[:annotations_attributes].present?
         attrs[:annotations_attributes].each_key do |key|
           old_annotation = question.annotations.select do |a|
@@ -166,19 +259,10 @@ module OrgAdmin
           end
         end
       end
-      # TODO: This question_options id swap feel fragile. We cannot really match on any
-      # of the data elements because the user may have changed them so we rely on its
-      # position within the array/query since they should be equivalent.
-      if attrs[:question_options_attributes].present?
-        attrs[:question_options_attributes].each_key do |key|
-          next unless question.question_options[key.to_i].present?
-          hash      = attrs.dig(:question_options_attributes, key)
-          hash[:id] = question.question_options[key.to_i].id.to_s
-        end
-      end
       attrs
     end
 
   end
+
 
 end
