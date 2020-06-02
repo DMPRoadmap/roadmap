@@ -63,10 +63,6 @@ class PlanPolicy < ApplicationPolicy
     @plan.readable_by?(@user.id)
   end
 
-  def request_feedback?
-    @plan.administerable_by?(@user.id)
-  end
-
   def overview?
     @plan.readable_by?(@user.id)
   end
