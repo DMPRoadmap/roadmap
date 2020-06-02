@@ -122,6 +122,9 @@ module DMPRoadmap
       config.branding = config_for(:branding).deep_symbolize_keys
     end
 
+    # org abbreviation for the root google analytics tracker that gets planted on every page
+    # config.x.tracker_root = "DMPRoadmap"
+
     # The default visibility setting for new plans
     #   organisationally_visible  - Any member of the user's org can view, export and duplicate the plan
     #   publicly_visibile         - (NOT advisable because plans will show up in Public DMPs page by default)

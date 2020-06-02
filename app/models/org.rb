@@ -64,6 +64,10 @@ class Org < ActiveRecord::Base
 
   belongs_to :region
 
+  has_one :tracker, dependent: :destroy
+  accepts_nested_attributes_for :tracker 
+  validates_associated :tracker
+
   has_many :guidance_groups, dependent: :destroy
 
   has_many :plans
