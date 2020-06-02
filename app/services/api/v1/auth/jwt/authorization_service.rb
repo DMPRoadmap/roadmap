@@ -35,7 +35,9 @@ module Api
             return @api_client unless token.present? && token[:client_id].present?
 
             @api_client = ApiClient.where(client_id: token[:client_id]).first
-            @api_client
+            return @api_client if @api_client.present?
+
+            @api_client = User.where(email: token[:client_id]).first
           end
           # rubocop:enable Metrics/CyclomaticComplexity, Metrics/AbcSize
 

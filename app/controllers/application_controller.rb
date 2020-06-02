@@ -130,7 +130,8 @@ class ApplicationController < ActionController::Base
       Org: _("organisation"),
       Perm: _("permission"),
       Pref: _("preferences"),
-      User: obj == current_user ? _("profile") : _("user")
+      User: obj == current_user ? _("profile") : _("user"),
+      QuestionOption: _("question option")
     }
     if obj.respond_to?(:customization_of) && obj.send(:customization_of).present?
       display_name[:Template] = "customization"
