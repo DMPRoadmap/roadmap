@@ -124,6 +124,8 @@ class Plan < ActiveRecord::Base
 
   has_one :grant, as: :identifiable, dependent: :destroy, class_name: "Identifier"
 
+  belongs_to :api_client#, optional: true # UNCOMMENT After Rails 5
+
   # =====================
   # = Nested Attributes =
   # =====================
@@ -420,7 +422,7 @@ class Plan < ActiveRecord::Base
     reviewer = User.find(user_id)
     feedback_requested? &&
     reviewer.present? &&
-    reviewer.org_id == owner.org_id &&
+    reviewer.org_id == owner&.org_id &&
     reviewer.can_review_plans?
   end
 

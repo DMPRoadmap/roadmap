@@ -1,5 +1,7 @@
 // Rails setup
 import 'jquery-ujs';
+import 'jquery-accessible-autocomplete-list-aria/jquery-accessible-autocomplete-list-aria';
+import 'bootstrap-select/js/bootstrap-select';
 
 // Generic JS that is applicable across multiple pages
 import '../utils/array';
@@ -14,9 +16,11 @@ import '../utils/tabHelper';
 import '../utils/tooltipHelper';
 import '../utils/popoverHelper';
 import '../utils/requiredField';
+import '../utils/sectionUpdate';
 
 // Page specific JS
 import '../views/answers/edit';
+import '../views/answers/conditions';
 import '../views/answers/rda_metadata';
 import '../views/contributors/form';
 import '../views/devise/invitations/edit';

@@ -23,7 +23,7 @@ class Api::V0::PlansController < Api::V0::BaseController
     # ensure user's organisation is the same as api user's
     unless plan_user.org == @user.org
       raise Pundit::NotAuthorizedError, _("user must be in your organisation")
-    ends
+    end
 
     # initialize the plan
     @plan = Plan.new
