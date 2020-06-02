@@ -1,5 +1,5 @@
 <% schema = @fragment.structured_data_schema %>
-<%= form_for @fragment do |f| %>
+<%= form_for @fragment, html: { remote: true } do |f| %>
   <div class="form-group">
       <% schema.schema['properties'].each do |key, prop| %>
           <% value = @fragment.data[key] unless @fragment.data.nil? %>
@@ -18,6 +18,21 @@
           <% end %>
       <% end %>
       <%= f.hidden_field :schema_id, value: schema.id %>
-      <%= f.button(_('Save'), class: 'btn btn-default', type: 'submit') %>
+      <%= f.hidden_field :parent_form_id, value: nil, id: 'parent_form_id' %>
+      <%= f.hidden_field :parent_form_index, value: nil, id: 'parent_form_index' %>
+      <%= f.button(_('Save'), class: 'btn btn-default sub-fragment-submit', type: 'submit') %>
   </div>
+  <script>
+    $(document).ready(() => {
+        $('#new_structured_answer').bind('ajax:success', (e, res) => {
+            $('#sub-fragment-modal').modal({ show: false });
+            const parentFormId = $('#parent_form_id').val();
+            const parentFormIndex = $('#parent_form_index').val();
+            const field = $(document).find(`div[class=field][for=${parentFormId}][index=${parentFormIndex}]`);
+            const input = field.find('#children_id');
+            // const field = $(document).find(`field[for=${parentFormId}][index=${parentFormIndex}]`);
+            input.val(res['id']);
+        });
+    });
+  </script>
 <% end %>

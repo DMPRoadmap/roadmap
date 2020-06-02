@@ -15,7 +15,7 @@
               <%= render(partial: 'questions/fields/multiple_field', locals:
               { f: f, field_values: value,
               field_properties: prop,
-              field_name: key }) %>
+              field_name: key, answer_id: answer.id }) %>
         <% end %>
     <% end %>
 </div>

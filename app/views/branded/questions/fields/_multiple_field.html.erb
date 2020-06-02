@@ -8,7 +8,8 @@
             <% when "boolean" %>
                 <%=  create_checkbox_field(f, value, field_name, field_properties["label"])%>
             <% when "schema" %>
-              <%= create_schema_field(f, value, field_name, field_properties["label"]) %>
+              <% schema_id = field_properties["items"]["schema_id"] %>
+              <%= create_schema_field(f, value, field_name, field_properties["label"], true, idx, schema_id, answer_id) %>
             <% end %>
     <% end %>
 <% else%>
@@ -20,6 +21,7 @@
         <% when "boolean" %>
             <%=  create_checkbox_field(f, field_values, field_name, field_properties["label"])%>
         <% when "schema" %>
-            <%= create_schema_field(f, field_values, field_name, field_properties["label"]) %>
+            <% schema_id = field_properties["items"]["schema_id"] %>
+            <%= create_schema_field(f, field_values, field_name, field_properties["label"], true, 0, schema_id, answer_id) %>
         <% end %>
 <% end %>

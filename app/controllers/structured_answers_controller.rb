@@ -9,11 +9,13 @@ class StructuredAnswersController < ApplicationController
     @fragment = StructuredAnswer.new
     @fragment.structured_data_schema = StructuredDataSchema.find(params[:schema_id])
     authorize @fragment
+    render layout: false
   end
-
+  
   def edit
     @fragment = StructuredAnswer.find(params[:id])
     authorize @fragment
+    render layout: false
   end
 
   def create
@@ -23,12 +25,15 @@ class StructuredAnswersController < ApplicationController
       data: data_reformater(json_schema, form_data)
     )
     authorize @fragment
+    render json: { id: @fragment.id }
   end
   
   def update
     @fragment = StructuredAnswer.find(params[:id])
     form_data = permitted_params.select { |k, v| schema_params(flat = true).include?(k) }
     @fragment.update(data: data_reformater(json_schema, form_data))
+    authorize @fragment
+    render json: { id: @fragment.id }
   end
 
   def create_or_update
@@ -141,7 +146,6 @@ class StructuredAnswersController < ApplicationController
       properties.each do |key, prop|
         if prop["type"] == "array" && !flat
           parameters.append({key => []})
-          # parameters.append(key)
         else
           parameters.append(key)
         end

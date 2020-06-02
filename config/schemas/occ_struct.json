@@ -10,7 +10,8 @@
   "properties": {
     "name": {
       "type": "string",
-      "label": "Name"
+      "label": "Name",
+      "desc": "Ceci est le nom de la personne"
     },
     "surname": {
       "type": "string",
@@ -29,7 +30,7 @@
       "label": "Réponse occurente structurée",
       "items": {
         "type": "schema",
-        "schema_id": 1
+        "schema_id": 6
       }
     }
   }
