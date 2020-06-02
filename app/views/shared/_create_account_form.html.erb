@@ -40,5 +40,11 @@
       <% end %>
     </div>
   </div>
+  <% if Rails.configuration.branding[:application][:use_recaptcha] %>
+    <div class="form-group">
+      <%= label_tag(nil, _('Security check')) %>
+      <%= recaptcha_tags %>
+    </div>
+  <% end %>
   <%= f.button(_('Create account'), class: "btn btn-default", type: "submit") %>
 <% end %>
