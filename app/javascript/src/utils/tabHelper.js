@@ -1,16 +1,14 @@
 /* eslint-env browser */ // This allows us to reference 'window' below
-import 'jquery-ui/tabs';
 
 $(() => {
-  $('[role="tablist"]').each((idx, el) => {
-    const tabList = $(el).parent();
-    tabList.tabs();
-
-    // Retrieve the selected tab if it is specified in the URL
-    const selectedTab = tabList.find(window.location.hash);
-    // If the specified tab is one of this tablist's tabs then show it
-    if (selectedTab) {
-      tabList.tabs("option", "active", selectedTab);
-    }
+  // If the URL contains a tab reference then show that tab
+  const loc = window.location.hash;
+  if (loc) {
+    $(`ul.nav a[href="${loc}"]`).tab('show');
+  }
+  $('ul.nav a[data-toggle="tab"]').click((e) => {
+    const target = $(e.target);
+    $(target).tab('show');
+    window.location.hash = $(target).attr('href');
   });
 });
