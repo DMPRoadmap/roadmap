@@ -6,6 +6,7 @@ module Dmptool
 
     module UserMailer
 
+      # rubocop:disable Metrics/MethodLength
       def api_plan_creation(plan, contributor)
         return false unless contributor.present? && plan.present?
 
@@ -20,6 +21,9 @@ module Dmptool
             cc: "brian.riley@ucop.edu; xsrust@gmail.com", # manuel.minwary@ucr.edu",
             subject: _("New DMP created")
           )
+        end
+      end
+      # rubocop:enable Metrics/MethodLength
 
       # AWS SES does not allow the sender to be be from a different domain so
       # we remove the `from:` that was being used to pretendd it is coming from
