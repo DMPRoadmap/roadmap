@@ -27,13 +27,35 @@ module Settings
 
     VALID_FORMATS = ['csv', 'html', 'pdf', 'text', 'docx']
 
+    # =================================
+    # Start DMPTool Customization
+    # Update margins to 25mm default
+    # =================================
+    # DEFAULT_SETTINGS = {
+    #   formatting: {
+    #     margin: {
+    #       top:    25,
+    #       bottom: 20,
+    #       left:   12,
+    #       right:  12
+    #     },
+    #     font_face: 'Arial, Helvetica, Sans-Serif',
+    #     font_size: 10 # pt
+    #   },
+    #   max_pages: 3,
+    #   fields: {
+    #     admin: VALID_ADMIN_FIELDS,
+    #     questions: :all
+    #   },
+    #   title: ""
+    # }
     DEFAULT_SETTINGS = {
       formatting: {
         margin: {
           top:    25,
-          bottom: 20,
-          left:   12,
-          right:  12
+          bottom: 25,
+          left:   25,
+          right:  25
         },
         font_face: 'Arial, Helvetica, Sans-Serif',
         font_size: 10 # pt
@@ -45,6 +67,9 @@ module Settings
       },
       title: ""
     }
+    # =================================
+    # End DMPTool Customization
+    # =================================
 
     validate do
       formatting = value['formatting']
