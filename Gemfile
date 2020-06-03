@@ -162,7 +162,7 @@ gem "api-pagination"
 # bootstrap-sass is a Sass-powered version of Bootstrap 3, ready to drop
 # right into your Sass powered applications.
 # (https://github.com/twbs/bootstrap-sass)
-gem "bootstrap-sass"
+# gem "bootstrap-sass"
 
 # This is required for Font-Awesome, but not used as the main sass compiler
 

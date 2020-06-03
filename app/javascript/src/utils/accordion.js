@@ -1,13 +1,3 @@
-<<<<<<< HEAD:app/javascript/src/utils/accordion.js
-import 'jquery-ui/accordion';
-
-$(() => {
-  $('.accordion').accordion();
-});
-=======
-// import 'bootstrap-sass/bootstrap.min';
->>>>>>> rails5:app/javascript/src/utils/expandCollapseAll.js
-
 /*
  * This method expects an expand/collapse all link to be contained within a div with
  * the '.accordion-controls' class. The div container should have a 'data-parent' that
@@ -40,7 +30,6 @@ $(() => {
  *      </div>
  *    </div>
  */
-/*
 export default () => {
   $('.accordion-controls').on('click', (e) => {
     e.preventDefault();
@@ -68,4 +57,3 @@ export default () => {
     }
   });
 };
-*/

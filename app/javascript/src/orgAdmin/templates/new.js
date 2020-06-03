@@ -1,10 +1,5 @@
-<<<<<<< HEAD:app/javascript/src/orgAdmin/templates/new.js
 import { Tinymce } from '../../utils/tinymce.js.erb';
 import { eachLinks } from '../../utils/links';
-=======
-import { Tinymce } from '../utils/tinymce.js.erb';
-import { eachLinks } from '../utils/links';
->>>>>>> rails5:app/javascript/src/views/orgAdmin/templates/new.js
 
 $(() => {
   Tinymce.init({
