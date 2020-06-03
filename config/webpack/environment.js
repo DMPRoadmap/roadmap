@@ -12,6 +12,7 @@ environment.plugins.append('Provide', new webpack.ProvidePlugin({
 environment.config.set('resolve.alias', {
   'jquery-ui': 'jquery-ui/ui/widgets/',
   'bootstrap-sass': 'bootstrap-sass/assets/javascripts/bootstrap/',
+  'timeago': 'timeago.js',
 });
 
 module.exports = environment;

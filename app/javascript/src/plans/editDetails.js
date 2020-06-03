@@ -1,10 +1,6 @@
 import { initAutocomplete } from '../utils/autoComplete';
 import { Tinymce } from '../utils/tinymce.js.erb';
 import getConstant from '../utils/constants';
-<<<<<<< HEAD:app/javascript/src/plans/editDetails.js
-=======
-import 'bootstrap-3-typeahead';
->>>>>>> rails5:app/javascript/src/views/plans/editDetails.js
 
 $(() => {
   const grantIdField = $('.grant-id-typeahead');

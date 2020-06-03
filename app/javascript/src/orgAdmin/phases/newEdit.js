@@ -1,19 +1,12 @@
-<<<<<<< HEAD:app/javascript/src/orgAdmin/phases/newEdit.js
-import 'bootstrap-sass/assets/javascripts/bootstrap/collapse';
+// import 'bootstrap-sass/assets/javascripts/bootstrap/collapse';
 import { Tinymce } from '../../utils/tinymce.js.erb';
 import { isObject, isString } from '../../utils/isType';
 import getConstant from '../../utils/constants';
-=======
-import 'bootstrap-sass/collapse';
-import { Tinymce } from '../../utils/tinymce.js.erb';
-import { isObject, isString } from '../../utils/isType';
-import getConstant from '../../../constants';
 import expandCollapseAll from '../../utils/expandCollapseAll';
->>>>>>> rails5:app/javascript/src/views/orgAdmin/phases/newEdit.js
 import { addAsterisks } from '../../utils/requiredField';
 
 import onChangeQuestionFormat from '../questions/sharedEventHandlers';
-import initQuestionOption from '../question_options/index';
+import initQuestionOption from '../questionOptions/index';
 import updateConditions from '../conditions/updateConditions';
 
 $(() => {
