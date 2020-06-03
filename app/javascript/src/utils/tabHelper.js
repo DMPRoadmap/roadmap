@@ -9,6 +9,7 @@ $(() => {
   $('ul.nav a[data-toggle="tab"]').click((e) => {
     const target = $(e.target);
     $(target).tab('show');
-    window.location.hash = $(target).attr('href');
+    // Commented out because was causing screen to jump
+    // window.location.hash = $(target).attr('href');
   });
 });
