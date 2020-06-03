@@ -32,8 +32,8 @@ class UserMailer < ActionMailer::Base
     @answer = answer
     @data = data
     @options_string
-    FastGettext.with_locale FastGettext.default_locale do 
-      mail(to: data['email'], 
+    FastGettext.with_locale FastGettext.default_locale do
+      mail(to: data['email'],
            subject: data['subject'])
     end
   end
@@ -89,19 +89,28 @@ class UserMailer < ActionMailer::Base
     end
   end
 
-  def feedback_complete(recipient, plan, requestor)
-    @requestor = requestor
-    @user      = recipient
-    @plan      = plan
-    @phase     = plan.phases.first
-    if recipient.active?
-      FastGettext.with_locale FastGettext.default_locale do
-        mail(to: recipient.email,
-             from: requestor.org.contact_email,
-             subject: _("%{application_name}: Expert feedback has been provided for %{plan_title}") % {application_name: Rails.configuration.branding[:application][:name], plan_title: @plan.title})
-      end
-    end
-  end
+  # =====================================
+  # Start DMPTool Customization
+  # See lib/dmptool/mailer/user_mailer for override of this method that changes
+  # the sender address to be the 'do-not-reply' one defined in Branding.yml. AWS
+  # SES does not allow the sender to be be from a different domain!
+  # =====================================
+  # def feedback_complete(recipient, plan, requestor)
+  #   @requestor = requestor
+  #   @user      = recipient
+  #   @plan      = plan
+  #   @phase     = plan.phases.first
+  #   if recipient.active?
+  #     FastGettext.with_locale FastGettext.default_locale do
+  #       mail(to: recipient.email,
+  #            from: requestor.org.contact_email,
+  #            subject: _("%{application_name}: Expert feedback has been provided for %{plan_title}") % {application_name: Rails.configuration.branding[:application][:name], plan_title: @plan.title})
+  #     end
+  #   end
+  # end
+  # =============================
+  # End DMPTool Customization
+  # =============================
 
   def feedback_confirmation(recipient, plan, requestor)
     user = requestor
