@@ -23,6 +23,9 @@
   },
   "homepage": "https://github.com/DMPRoadmap/roadmap#readme",
   "dependencies": {
+    "@rails/actioncable": "^6.0.3-1",
+    "@rails/activestorage": "^6.0.3-1",
+    "@rails/ujs": "^6.0.3-1",
     "@rails/webpacker": "5.1.1",
     "bootstrap": "^4.5.0",
     "bootstrap-sass": "^3.4.1",
@@ -35,10 +38,17 @@
     "popper.js": "^1.16.1",
     "rails-erb-loader": "^5.5.2",
     "timeago.js": "^4.0.2",
-    "tinymce": "^5.3.0"
+    "tinymce": "^5.3.0",
+    "turbolinks": "^5.2.0"
   },
   "devDependencies": {
     "eslint": "^7.1.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-utils": "^2.0.0",
+    "jasmine": "^3.5.0",
+    "karma": "^5.0.9",
     "webpack-dev-server": "^3.11.0"
   }
 }
