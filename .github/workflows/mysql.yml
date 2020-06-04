@@ -80,6 +80,14 @@ jobs:
     - name: 'Yarn Install'
       run: |
         yarn install
+        
+    - name: 'Verify MySQL connection'
+      env:
+        PORT: ${{ job.services.mysql.ports[3306] }}
+      run: |
+        while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
+          sleep 1
+        done
 
     - name: 'Setup Test DB'
       run: bin/rails db:setup RAILS_ENV=test
