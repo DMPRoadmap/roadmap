@@ -41,7 +41,7 @@ jobs:
             ${{ runner.os }}-gem-
       
       - name: 'Determine Bundler Version (from Gemfile.lock)'
-        run: echo ::set-env name=BUNDLER_VERSION::$(echo `cat ./Gemfile.lock | grep -A 1 'BUNDLED WITH' | grep 'ruby' | grep -oE '[0-9]\.[0-9]'`)
+        run: echo ::set-env name=BUNDLER_VERSION::$(echo `cat ./Gemfile.lock | grep -A 1 'BUNDLED WITH' | grep -oE '[0-9]\.[0-9]'`)
 
       - name: 'Bundle Install'
         run: |
@@ -93,15 +93,13 @@ jobs:
         name: dmproadmap artifacts
         path: public
     
-    - name: 'Shutdown default Ubuntu MySQL (SUDO)'
-      run: sudo service mysql stop
-
-    - name: 'Setup latest MySSQL'
-      uses: mirromutth/mysql-action@v1.1
-      with:
-        character set server: 'utf8mb4'
-        collation server: 'utf8mb4_general_ci'
-        mysql database: 'roadmap_test'
+    - name: 'Install Mysql Packages'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y mysql-client libmysqlclient-dev
+        
+    - name: 'Start MySQL'
+      run: sudo systemctl start mysql
 
     - name: 'Bundle Install mysql2 gem'
       run: bundle install --jobs 4 --retry 3 --without pgsql rollbar aws
