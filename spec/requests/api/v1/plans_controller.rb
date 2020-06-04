@@ -43,8 +43,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
       before(:each) do
         stub_ror_service
         mock_identifier_schemes
-
-        create(:template, is_default: true, published: true)
+        create(:template, :publicly_visible, is_default: true, published: true)
       end
 
       context "minimal JSON" do
@@ -238,7 +237,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
               expect(@subject.email).to eql(@original[:mbox])
             end
             it "set the Contributor roles" do
-              expected = @original[:roles].map do |role|
+              expected = @original[:role].map do |role|
                 role.gsub("#{Contributor::ONTOLOGY_BASE_URL}/", "")
               end
               expect(@subject.send(:"#{expected.first.downcase}?")).to eql(true)
@@ -323,7 +322,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
 
     describe "GET /api/v1/plan/:id - show" do
       it "returns the plan" do
-        plan = create(:plan, org: Org.last)
+        plan = create(:plan, :creator, :organisationally_visible, org: Org.last)
         get api_v1_plan_path(plan)
         expect(response.code).to eql("200")
         expect(response).to render_template("api/v1/plans/index")
@@ -336,7 +335,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
       end
       it "returns a 404 if the user does not have access" do
         org2 = create(:org)
-        plan = create(:plan, org: org2)
+        plan = create(:plan, :creator, :organisationally_visible, org: org2)
         get api_v1_plan_path(plan)
         expect(response.code).to eql("404")
         expect(response).to render_template("api/v1/error")

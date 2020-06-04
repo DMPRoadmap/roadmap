@@ -33,10 +33,10 @@ describe "api/v1/plans/_show.json.jbuilder" do
       expect(@json[:language]).to eql(expected)
     end
     it "includes the :created" do
-      expect(@json[:created]).to eql(@plan.created_at.utc.to_s)
+      expect(@json[:created]).to eql(@plan.created_at.to_formatted_s(:iso8601))
     end
     it "includes the :modified" do
-      expect(@json[:modified]).to eql(@plan.updated_at.utc.to_s)
+      expect(@json[:modified]).to eql(@plan.updated_at.to_formatted_s(:iso8601))
     end
 
     it "returns the URL of the plan as the :dmp_id if no DOI is defined" do
