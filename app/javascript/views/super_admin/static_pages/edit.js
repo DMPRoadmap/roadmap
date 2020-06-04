@@ -1,4 +1,4 @@
-import { Tinymce } from '../../../utils/tinymce';
+import { Tinymce } from '../../../utils/tinymce.js.erb';
 import 'tinymce/plugins/code';
 import 'tinymce/plugins/textcolor';
 import 'tinymce/plugins/colorpicker';

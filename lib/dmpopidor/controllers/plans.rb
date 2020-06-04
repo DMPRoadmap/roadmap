@@ -3,7 +3,35 @@ module Dmpopidor
       module Plans
 
         # CHANGES:
-        # Added Privately private visibility
+        # Added Active Flag on Org
+        def new
+          @plan = Plan.new
+          authorize @plan
+
+          # Get all of the available funders and non-funder orgs
+          @funders = Org.funder
+                        .joins(:templates)
+                        .where(templates: { published: true }).uniq.sort_by(&:name)
+          @orgs = (Org.organisation + Org.institution + Org.managing_orgs + Org.where(is_other: true)).flatten
+                                                                          .select { |org| org.active == true }
+                                                                          .uniq.sort_by(&:name)
+
+          # Get the current user's org
+          @default_org = current_user.org if @orgs.include?(current_user.org) || @funders.include?(current_user.org) 
+
+          # Get the default template
+          @default_template = Template.default
+
+          if params.key?(:test)
+            flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>"
+          end
+          @is_test = params[:test] ||= false
+          respond_to :html
+        end
+
+
+
+        # CHANGES:
         # Added Research Output Support
         def create
           @plan = Plan.new
@@ -66,7 +94,7 @@ module Dmpopidor
 
             if @plan.save
               # pre-select org's guidance and the default org's guidance
-              ids = (Org.managing_orgs << org_id).flatten.uniq
+              ids = (Org.managing_orgs << current_user.org_id << org_id).flatten.uniq
               ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
               if !ggs.blank? then @plan.guidance_groups << ggs end
@@ -97,10 +125,6 @@ module Dmpopidor
               end
 
               @plan.add_user!(current_user.id, :creator)
-
-              # Set new identifier to plan id by default on create.
-              # (This may be changed by user.)
-              @plan.add_identifier!(@plan.id.to_s)
 
               respond_to do |format|
                 flash[:notice] = msg

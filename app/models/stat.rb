@@ -23,13 +23,17 @@ class Stat < ActiveRecord::Base
 
   class << self
 
-    def to_csv(stats)
+    def to_csv(stats, sep=",")
       data = stats.map do |stat|
         { date: stat.date, count: stat.count }
       end
-      Csvable.from_array_of_hashes(data)
+      Csvable.from_array_of_hashes(data, sep)
     end
 
+  end
+
+  def to_json(methods: nil)
+    super(only: %i[count date], methods: methods)
   end
 
 end

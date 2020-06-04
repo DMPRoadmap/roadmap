@@ -8,6 +8,9 @@ ruby '>= 2.4.0'
 # Full-stack web application framework. (http://rubyonrails.org)
 gem 'rails', '~> 4.2.11.1'
 
+# TODO: See if pegging gems is still necessary after migrating to Rails 5
+gem 'sprockets', '~> 3.2'
+
 # Rake is a Make-like program implemented in Ruby (https://github.com/ruby/rake)
 gem "rake"
 
@@ -156,6 +159,9 @@ gem 'htmltoword', '1.1.0'
 # A feed fetching and parsing library (http://feedjira.com)
 gem 'feedjira'
 
+# Http requests library (https://github.com/jnunemaker/httparty) 
+gem 'httparty'
+
 # Filename sanitization for Ruby. This is useful when you generate filenames for downloads from user input
 gem 'zaru'
 
@@ -191,6 +197,9 @@ gem 'json_schemer'
 # JsonPath is a way of addressing elements within a JSON object. Similar to xpath of yore, JsonPath lets you traverse a json object and manipulate or access it.
 gem "jsonpath"
 
+# -------------------------------------------------
+# UTILITIES
+gem 'parallel'
 
 # ------------------------------------------------
 # ENVIRONMENT SPECIFIC DEPENDENCIES
@@ -251,6 +260,8 @@ group :test do
 
   gem "rspec-collection_matchers"
 
+  # A set of RSpec matchers for testing Pundit authorisation policies.
+  gem 'pundit-matchers'
 end
 
 group :ci, :development do

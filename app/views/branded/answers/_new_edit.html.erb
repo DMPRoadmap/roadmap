@@ -52,7 +52,7 @@
     <%= f.hidden_field :question_id, id: nil %>
     <%= f.hidden_field :lock_version, id: nil %>
     <%= f.hidden_field :research_output_id, :value => research_output.id, id: nil%>
-    <%= f.check_box :is_common, style: 'display: none', 'aria-hidden'=> true, id: nil, class: 'ans_is_common' if answer.research_output.main? %>
+    <%= f.hidden_field :is_common, class: 'ans_is_common' if answer.research_output.main? %>
     <%= f.hidden_field :id, id: nil, class: 'answer_id' %>
     <% if q_format.rda_metadata? %>
       <%= hidden_field_tag :standards, answer_hash['standards'].to_json %>

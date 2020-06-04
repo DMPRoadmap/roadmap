@@ -39,7 +39,7 @@
   <!-- the selected id is found after the combobox loses focus by finding the selected item in the crosswalk json -->
   <input type="hidden" id="<%= id.gsub("_#{attribute}", "_id") %>" name="<%= name.gsub("_#{attribute}]", "_id]") %>"
          value="<%= default_selection.id unless default_selection.nil? %>" aria-required="<%= required %>"
-         class="org-id" data-validation="js-combobox" data-validation-error="<%= error %>" />
+         class="org-id selected-org" data-validation="js-combobox" data-validation-error="<%= error %>" />
 
 <% else %>
   <span id="<%= id %>_no_items"><%= _('No items available.') %></span>

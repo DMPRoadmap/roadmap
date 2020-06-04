@@ -3,7 +3,7 @@ import {
   isNumber,
   isString,
 } from '../../utils/isType';
-import { Tinymce } from '../../utils/tinymce';
+import { Tinymce } from '../../utils/tinymce.js.erb';
 import debounce from '../../utils/debounce';
 import datePicker from '../../utils/datePicker';
 import TimeagoFactory from '../../utils/timeagoFactory';
@@ -54,6 +54,7 @@ $(() => {
             $(`#answer-locking-${data.question.id}-research-output-${data.research_output.id}`).html(data.question.locking);
           } else { // When answer is NOT stale...
             $(`#answer-locking-${data.question.id}-research-output-${data.research_output.id}`).html('');
+            $(`#answer-form-${data.question.id}-research-output-${data.research_output.id} .answer_id`).val(data.answer.id);
             if (isNumber(data.question.answer_lock_version)) {
               form.find('#answer_lock_version').val(data.question.answer_lock_version);
             }
@@ -198,19 +199,33 @@ $(() => {
     const targetState = target.prop('checked');
     const parentTab = target.parents('.main_research_output');
     const sectionContent = target.parents('.section-content');
+    const url = target.data('target-url');
+    const answerIds = [];
 
     // Set answers 'is_common' hidden checkbox to the same state
     // as the master checkbox
     // Used to indicate that answers from the first research output are common to all
     parentTab.find('.ans_is_common').each((i, el) => {
-      $(el).prop('checked', targetState);
+      $(el).val(targetState);
     });
 
-    // Submit the answer after checking the hidden box
+    // Get the id of the answers if exist
     parentTab.find('.answer_id').each((i, el) => {
       if ($(el).val()) {
-        $(el).parent().trigger('submit');
+        answerIds.push($(el).val());
       }
+    });
+    $.ajax({
+      method: 'post',
+      url,
+      data: {
+        answer_ids: answerIds,
+        is_common: targetState,
+      },
+    }).done(() => {
+      parentTab.find('.common_changed').show().fadeOut(5000);
+    }).fail((error) => {
+      failCallback(error, target);
     });
 
     // Enable or disable research outputs tabs depending on 'is_common' state
@@ -258,6 +273,16 @@ $(() => {
     });
     $(`#${sectionId} .note`).each((i, editor) => {
       Tinymce.destroyEditorById(`${$(editor).attr('id')}`);
+    });
+  });
+
+  $('.research_outputs_tabs a[data-toggle="tab"]').on('shown.bs.tab', (e) => {
+    const researchOutputId = $(e.target).data('research-output');
+    const tabsList = $(`.research_outputs_tabs a[data-research-output="${researchOutputId}"]`);
+    tabsList.each((idx, tab) => {
+      if (!$(tab).parent().hasClass('disabled')) {
+        $(tab).tab('show');
+      }
     });
   });
 

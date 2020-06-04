@@ -1,9 +1,9 @@
-import { Tinymce } from '../../utils/tinymce';
+import { Tinymce } from '../../utils/tinymce.js.erb';
 import { isObject, isString } from '../../utils/isType';
 import TimeagoFactory from '../../utils/timeagoFactory';
 
 $(() => {
-  const defaultViewSelector = questionId => `#note_new${questionId}`;
+  const defaultViewSelector = (questionId, researchOutputId) => `#note_new${questionId}research-output${researchOutputId}`;
   const currentViewSelector = {};
   /*
     currentViewSelector represents a map where each key is the question id and
@@ -21,7 +21,8 @@ $(() => {
   const initialiseCurrentViewSelector = () => {
     $('.note_new').each((i, e) => {
       const questionId = $(e).attr('data-question-id');
-      putCurrentViewSelector(questionId, defaultViewSelector(questionId));
+      const researchOutputId = $(e).attr('data-research-output-id');
+      putCurrentViewSelector(questionId, defaultViewSelector(questionId, researchOutputId));
     });
   };
   const success = (data) => {
@@ -162,7 +163,7 @@ $(() => {
   };
   const initOrReload = (researchOutputId = null) => {
     if (researchOutputId) {
-      Tinymce.init({ selector: `${researchOutputId} .note` });
+      Tinymce.init({ selector: '.note' });
     }
     eventHandlers({ attachment: 'on' });
     TimeagoFactory.render($('time.timeago'));

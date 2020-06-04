@@ -57,9 +57,10 @@ class Answer < ActiveRecord::Base
 
   validates :user, presence: { message: PRESENCE_MESSAGE }
 
-  validates :question, presence: { message: PRESENCE_MESSAGE }#,
-  #                    uniqueness: { message: UNIQUENESS_MESSAGE,
-  #                                  scope: :plan_id }
+  validates :question, presence: { message: PRESENCE_MESSAGE }
+
+  validates :research_output, presence: { message: PRESENCE_MESSAGE }
+  
 
   # =============
   # = Callbacks =

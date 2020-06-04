@@ -27,5 +27,6 @@ FactoryBot.define do
     plan
     user
     question
+    research_output { FactoryBot.create(:research_output, plan: plan) }
   end
 end

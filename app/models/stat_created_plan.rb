@@ -4,7 +4,7 @@
 # Table name: stats
 #
 #  id         :integer          not null, primary key
-#  count      :integer          default("0")
+#  count      :integer          default(0)
 #  date       :date             not null
 #  type       :string           not null
 #  org_id     :integer
@@ -19,41 +19,41 @@ class StatCreatedPlan < Stat
 
   serialize :details, JSON
 
-  def any_template
-    if self.details.present?
-      any_template = self.details["any_template"]
-    end
-    return [] unless any_template.present?
-    any_template
+  def by_template
+    parse_details.fetch("by_template", [])
   end
 
-  def org_template
-    if self.details.present?
-      org_template = self.details["org_template"]
-    end
-    return [] unless org_template.present?
-    org_template
+  def using_template
+    parse_details.fetch("using_template", [])
+  end
+
+  def to_json(options = nil)
+    super(methods: [:by_template, :using_template])
+  end
+
+  def parse_details
+    return JSON.parse({}) unless details.present?
+
+    json = details.is_a?(String) ? JSON.parse(details) : details
   end
 
   class << self
 
-    def to_csv(created_plans, details: { any_template: false, org_template: false,})
-      if details[:any_template]
-        to_csv_by_template(created_plans, "any_template")
-      elsif details[:org_template]
-        to_csv_by_template(created_plans, "org_template")
-      else 
-        super(created_plans)
+    def to_csv(created_plans, details: { by_template: false, sep: "," })
+      if details[:by_template]
+        to_csv_by_template(created_plans, details[:sep])
+      else
+        super(created_plans, details[:sep])
       end
     end
 
     private
 
-    def to_csv_by_template(created_plans, template_filter)
+    def to_csv_by_template(created_plans, sep = ",")
       template_names = lambda do |created_plans|
         unique = Set.new
         created_plans.each do |created_plan|
-          created_plan.details&.fetch(template_filter, [])&.each do |name_count|
+          created_plan.by_template&.each do |name_count|
             unique.add(name_count.fetch("name"))
           end
         end
@@ -66,13 +66,13 @@ class StatCreatedPlan < Stat
           acc[name] = 0
           acc
         end
-        created_plan.details&.fetch(template_filter, [])&.each do |name_count|
+        created_plan.by_template&.each do |name_count|
           tuple[name_count.fetch("name")] = name_count.fetch("count")
         end
         tuple[:Count] = created_plan.count
         tuple
       end
-      Csvable.from_array_of_hashes(data, false)
+      Csvable.from_array_of_hashes(data, false, sep)
     end
 
   end

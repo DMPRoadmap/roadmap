@@ -32,7 +32,22 @@ module Dmpopidor
               query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }
             )
           end
-        end
+
+          # CHANGES : Org Admin should access plan with administrator, organisation & public plan when editing a user
+          # GET /paginable/plans/org_admin/:page
+          def org_admin_other_user
+            @user = User.find(params[:id])
+            authorize @user
+            unless current_user.present? && current_user.can_org_admin? && @user.present?
+              raise Pundit::NotAuthorizedError
+            end
+            paginable_renderise(
+              partial: "org_admin_other_user",
+              scope: Plan.org_admin_visible(@user),
+              query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }
+            )
+          end
       end
     end
   end
+end

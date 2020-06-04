@@ -28,7 +28,7 @@
         <% question_displayed = true %>
 
         <% if !section_has_common_answers %>
-          <h4><%= research_output.fullname %></h4>
+          <h4><%= research_output.abbreviation %> : <%= research_output.fullname %></h4>
         <% end %>
         
         <%# case where question has not been answered sufficiently to display%>

@@ -42,7 +42,7 @@
       <span>
         <%= link_to("#{Rails.configuration.branding[:organisation][:url]}", 
                     title: d_("dmpopidor", "INIST website") + " - " + _("Opens in new window"), target: '_blank' ) do %>
-          <%= "&copy; 2016 - #{Time.now.year} #{Rails.configuration.branding[:organisation][:abbreviation]}".sanitize %>
+          <%= sanitize("&copy; 2016 - #{Time.now.year} #{Rails.configuration.branding[:organisation][:abbreviation]}") %>
           <% end %>
       </span>
       <span class="break-point">•</span>

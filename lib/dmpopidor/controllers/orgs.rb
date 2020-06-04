@@ -2,7 +2,7 @@ module Dmpopidor
   module Controllers
     module Orgs
 
-      # CHANGE: ADDED BANNER TEXT
+      # CHANGE: ADDED BANNER TEXT and ACTIVE
       def admin_update
         attrs = org_params
         @org = Org.find(params[:id])
@@ -36,15 +36,31 @@ module Dmpopidor
               shib_settings.save
             end
           end
+
         end
     
         if @org.update_attributes(attrs)
+          
+          # if active is false, unpublish all published tempaltes, guidances
+          if !@org.active 
+            @org.published_templates.update_all(published: false)
+            @org.guidance_groups.update_all(published: false)
+            @org.update(feedback_enabled: false)
+          end
+
           redirect_to "#{admin_edit_org_path(@org)}\##{tab}",
                       notice: success_message(@org, _("saved"))
         else
           failure = failure_message(@org, _("save")) if failure.blank?
           redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: failure
         end
+      end
+
+
+      def org_params
+        params.require(:org).permit(:name, :abbreviation, :logo, :contact_email,
+                                    :contact_name, :remove_logo, :org_type,
+                                    :feedback_enabled, :feedback_email_msg, :banner_text, :active)
       end
     end
   end

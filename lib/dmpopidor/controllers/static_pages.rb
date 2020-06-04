@@ -3,10 +3,11 @@ module Dmpopidor
     module StaticPages
       # Changed News feed
       def news_feed
-        dcc_news_feed_url = "https://opidor.fr/category/dmp-news/feed/"
-        @dcc_news_feed = Feedjira::Feed.fetch_and_parse dcc_news_feed_url
+        news_feed_url = "https://opidor.fr/category/dmp-news/feed/"
+        xml = HTTParty.get(news_feed_url).body
+        @news_feed = Feedjira.parse(xml)
         respond_to do |format|
-          format.rss { redirect_to dcc_news_feed_url }
+          format.rss { redirect_to news_feed_url }
           format.html
         end
       end

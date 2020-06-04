@@ -15,7 +15,7 @@
   <div class="form-group">
     <%= render partial: "shared/my_org",
                locals: {f: f, default_org: @default_org,
-                        orgs: Org.where(is_other: false).where.not('org_type = 2').order("sort_name ASC, name ASC"),
+                        orgs: Org.where(is_other: false, active: true).where.not('org_type = 2').order("sort_name ASC, name ASC"),
                         allow_other_orgs: true, required: true} %>
   </div>
 
@@ -33,7 +33,7 @@
   <div class="form-group">
     <div class="checkbox">
       <%= f.label(:accept_terms,
-          raw("#{ f.check_box(:accept_terms, "aria-required": true, "data-validation-error": _('You must agree to the term and conditions.')) } #{_('I accept the')} <a href=\"#{terms_path}\">#{_('terms and conditions')}</a>")) %>
+          raw("#{ f.check_box(:accept_terms, "aria-required": true, "data-validation-error": _('You must agree to the term and conditions.')) } #{_('I accept the')} <a href=\"#{terms_path}\" target=\"_blank\">#{_('terms and conditions')}</a>")) %>
     </div>
   </div>
 

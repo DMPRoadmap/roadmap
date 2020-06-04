@@ -8,7 +8,9 @@
         <th scope="col" class="sorter-false"><%= d_('dmpopidor', 'Description') %></th>
         <th scope="col"><%= _('Last Updated') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
         <th scope="col" class="sorter-false text-center"><%= _('Download') %></th>
-        <th scope="col" class="sorter-false"><%= _('Actions') %></th>
+        <% if !current_user.nil? && current_user.org.active? %>
+          <th scope="col" class="sorter-false"><%= _('Actions') %></th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -29,10 +31,12 @@
                <em class="sr-only"><%= _('(new window)') %></em>
             <% end %>
           </td>
-          <td class="text-center">
-            <%= direct_link(template) %>
-            <a href="" class="copy-link" data-toggle="modal" data-target="#link-modal"><span class="fa fa-clipboard"></span></a>
-          </td>
+          <% if !current_user.nil? && current_user.org.active? %>
+            <td class="text-center">
+              <%= direct_link(template) %>
+              <a href="" class="copy-link" data-toggle="modal" data-target="#link-modal"><span class="fa fa-clipboard"></span></a>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

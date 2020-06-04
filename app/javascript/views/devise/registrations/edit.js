@@ -19,7 +19,7 @@ $(() => {
     const originalEmail = $('#original_email').val();
     const originalOrg = $('#original_org').val();
     const email = $('#personal_details_registration_form [name="user[email]"]').val();
-    const org = $('#personal_details_registration_form #user_org_id').val();
+    const org = $('#personal_details_registration_form .selected-org').val();
     const pwd = $('#password-confirmation input[name="user[current_password]"]').val();
     const orgConfirm = $('#confirm_org_change').is(':checked');
     let display = false;
@@ -34,6 +34,7 @@ $(() => {
       }
     }
     // If the orginalOrg is present and the selected Org has changed, show the confirmation box
+    console.log(originalOrg, org);
     if (isString(originalOrg) && isString(org)) {
       if (originalOrg !== org && !orgConfirm) {
         $('#org-change').removeClass('hide');

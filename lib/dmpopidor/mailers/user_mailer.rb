@@ -13,7 +13,7 @@ module Dmpopidor
               @plan = plan
               @answer = answer
               @collaborator = collaborator
-              FastGettext.with_locale FastGettext.default_locale do
+              FastGettext.with_locale current_locale(collaborator) do
                 mail(to: collaborator.email, subject:
                   _('%{tool_name}: A new comment was added to %{plan_title}') %{ :tool_name => Rails.configuration.branding[:application][:name], :plan_title => plan.title })
               end

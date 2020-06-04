@@ -22,11 +22,11 @@ msgstr "Account expiration in %{tool_name}"
 msgid "Account expired in %{tool_name}"
 msgstr "Account expired in %{tool_name}"
 
-msgid "You have not signed in since %{last_sign_in_date} and your account has been deactivated"
-msgstr "You have not signed in since %{last_sign_in_date} and your account has been deactivated"
+msgid "The personal information of your account have been anonymized. You will no longer be able to access your DMP OPIDoR account, the plans you created and the plans your colleagues shared with you."
+msgstr "The personal information of your account have been anonymized. You will no longer be able to access your DMP OPIDoR account, the plans you created and the plans your colleagues shared with you."
 
-msgid "All accounts inactive for 5 years are automaticaly deactivated"
-msgstr "All accounts inactive for 5 years are automaticaly deactivated"
+msgid "If you want to use DMP OPIDoR again, please create a new account."
+msgstr "If you want to use DMP OPIDoR again, please create a new account."
 
 msgid "You have not signed in since %{last_sign_in_date} and our system will deactivate your account at %{end_date}"
 msgstr "You have not signed in since %{last_sign_in_date} and our system will deactivate your account at %{end_date}"
@@ -51,9 +51,6 @@ msgstr "You have the right of access, of correction, of portability, or of remov
 
 msgid "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
 msgstr "%{user_name} has shared a Data Management Plan with you in %{tool_name}"
-
-msgid "%{sender_name} has invited you to contribute to their Data Management Plan in %{tool_name}"
-msgstr "%{sender_name} has invited you to contribute to their Data Management Plan in %{tool_name}"
 
 msgid "Tutorials"
 msgstr "Tutorials"
@@ -274,6 +271,12 @@ msgstr "DMP Template: "
 msgid "Last modified: "
 msgstr "Last modified: "
 
+msgid "Your organisation has been deactivated. Please choose a new organisation from your <a href=\"/users/edit\">user profile</a>."
+msgstr "Your organisation has been deactivated. Please choose a new organisation from your <a href=\"/users/edit\">user profile</a>."
+
+msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" title=\"%{open_in_new_window_text}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
+msgstr "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" title=\"%{open_in_new_window_text}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
+
 # STATIC PAGES
 
 msgid "More"
@@ -320,6 +323,9 @@ msgstr "Other Type"
 msgid "Other: "
 msgstr "Other: "
 
+msgid "Other"
+msgstr "Other"
+
 msgid "Persistent Identifier"
 msgstr "Persistent Identifier"
 
@@ -332,11 +338,14 @@ msgstr "Research outputs"
 msgid "Research output export mode"
 msgstr "Research output export mode"
 
-msgid "Research outputs by section"
-msgstr "Research outputs by section"
+msgid "Export by research output"
+msgstr "Export by research output"
 
-msgid "Research outputs by question"
-msgstr "Research outputs by question"
+msgid "Export by section"
+msgstr "Export by section"
+
+msgid "Export by question"
+msgstr "Export by question"
 
 msgid "Move research output"
 msgstr "Move research output"
@@ -412,3 +421,40 @@ msgstr "CNRS website"
 
 msgid "INIST website"
 msgstr "INIST website"
+
+msgid "Selected Template"
+msgstr "Selected Template"
+
+msgid "Changes saved."
+msgstr "Changes saved."
+
+
+msgid "Structures"
+msgstr "Structures"
+
+msgid "Create structure"
+msgstr "Create structure"
+
+msgid "Structure"
+msgstr "Structure"
+
+msgid "Create a Structure"
+msgstr "Create a Structure"
+
+msgid "Edit the Structure"
+msgstr "Edit the Structure"
+
+msgid "View all structures"
+msgstr "View all structures"
+
+msgid "Add the abbreviated name or code for the structure."
+msgstr "Add the abbreviated name or code for the structure."
+
+msgid "PLEASE CHOOSE AN ORGANISATION IN YOUR PROFILE"
+msgstr "PLEASE CHOOSE AN ORGANISATION IN YOUR PROFILE"
+
+msgid "You are about to archive %{user_name}. This will remove their personal information. This user will be unable to use their DMP OPIDoR account and the plans they created or shared by their colleagues. Are you sure?"
+msgstr "You are about to archive %{user_name}. This will remove their personal information. This user will be unable to use their DMP OPIDoR account and the plans they created or shared by their colleagues. Are you sure?"
+
+msgid "Request Date"
+msgstr "Request Date"

@@ -3,7 +3,7 @@
 */
 
 $blue: #2c7dad;
-$light-blue: #92c5de;
+$dark-blue: #1c5170;
 $very-light-blue: #dcecf6;
 $very-very-light-blue: #edf5fa;
 $white: #fff;
@@ -19,6 +19,13 @@ body {
     padding-bottom: 0;
 }
 
+.modal-backdrop {
+    z-index: 4;
+}
+
+#header-signin {
+    z-index: 7;
+}
 
 /*
     MENU & FOOTER
@@ -226,7 +233,7 @@ header .main-nav {
 /*
     DROPDOWNS
 */
-#change-language, #signin-signout, #app-navbar-menu {
+#change-language, #signin-signout, #app-navbar-menu, #admin-dropdown, .plan-actions {
 
     .dmpopidor-dropdown {
         background-color: $white;
@@ -281,6 +288,19 @@ header .main-nav {
         background-color: $blue;
     }
 
+    .org-deactivated {
+        max-width: 1264px;
+        color: $rust;
+        text-align: center;
+        margin: auto;
+        padding-top: 5px;
+        font-weight: 600;
+
+        a {
+            color: black;
+        }
+    }
+
     /** Focus outline required for accessibility */
     input, select, .form-control {
         &:focus,
@@ -300,7 +320,7 @@ header .main-nav {
         outline-width: 1px !important;
         }
         
-        &:hover {
+        &:hover:not(.accessible) {
         outline-style: none !important;
         }
     }
@@ -312,12 +332,12 @@ header .main-nav {
         color: $blue;
     }
     
-    h2 {
+    h2, .fontsize-h2 {
         color: $rust;
         font-size: 20px;
     }
 
-    h3 {
+    h3, .fontsize-h3 {
         color: $blue;
         font-size: 17px;
     }
@@ -422,6 +442,21 @@ header .main-nav {
             border: 1px solid $blue;
             border-bottom-color: transparent;
             background-color: $white;
+        }
+        
+        li.phase-tab > a {
+            background-color: $dark-blue;
+        }
+
+        li.phase-tab > a:hover, 
+        li.phase-tab > a:focus, 
+        li.active.phase-tab > a, 
+        li.active.phase-tab > a:focus, 
+        li.active.phase-tab > a:hover {
+            color: $dark-blue;
+            background-color: white;
+            border: 1px solid $dark-blue;
+            border-bottom-color: transparent;
         }
     }
     .nav-pills {
@@ -540,8 +575,6 @@ header .main-nav {
     .question-divider {
         border-bottom: 2px solid $very-very-light-blue;
     }
-
-
 
     /*
         ADMIN AREA
@@ -780,6 +813,20 @@ header .main-nav {
 
 }
 
+
+/* 
+    COOKIE BANNER
+*/
+
+.cookiebanner-close {
+    &:focus,
+    &:hover,
+    &:active {
+    outline-style: solid !important;
+    outline-color: $blue !important;
+    outline-width: 2px !important;
+    }
+}
 
 /*
     FRONT PAGE

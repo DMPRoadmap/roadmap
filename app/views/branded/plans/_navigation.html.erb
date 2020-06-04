@@ -7,10 +7,10 @@
     <%= link_to(d_('dmpopidor', 'Research outputs'), plan_research_outputs_path(plan), role: 'tab', 'aria-controls': 'content') %>
   </li>
   <li role="presentation" class="<%= (active_page?(overview_plan_path(plan)) ? 'active' : '') %>">
-    <%= link_to(_('Plan overview'), overview_plan_path(plan), role: 'tab', 'aria-controls': 'content') %>
+    <%= link_to(d_('dmpopidor', 'Selected Template'), overview_plan_path(plan), role: 'tab', 'aria-controls': 'content') %>
   </li>
   <% phases.each do |phase| %>
-    <li role="presentation" class="<%= (active_page?(edit_plan_path(plan.id, phase_id: phase.id)) ? 'active' : '') %>">
+    <li role="presentation" class="phase-tab <%= (active_page?(edit_plan_path(plan.id, phase_id: phase.id)) ? 'active' : '') %>">
       <a href="<%= edit_plan_path(plan.id, phase_id: phase.id) %>" role="tab" aria-controls="content">
         <%= (phases.size > 1 ? phase.title : _('Write Plan')) %>
       </a>

@@ -110,10 +110,11 @@ class OrgsController < ApplicationController
   end
 
   private
+  # SEE MODULE
   def org_params
     params.require(:org).permit(:name, :abbreviation, :logo, :contact_email,
                                 :contact_name, :remove_logo, :org_type,
-                                :feedback_enabled, :feedback_email_msg, :banner_text)
+                                :feedback_enabled, :feedback_email_msg)
   end
 
 end

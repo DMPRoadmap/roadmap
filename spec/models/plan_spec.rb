@@ -44,6 +44,8 @@ describe Plan do
 
     it { is_expected.to have_many :setting_objects }
 
+    it { is_expected.to have_many :research_outputs }
+
   end
 
   describe ".publicly_visible" do
@@ -421,12 +423,17 @@ describe Plan do
 
   describe ".deep_copy" do
 
-    let!(:plan) { create(:plan, :creator, answers: 2, guidance_groups: 2) }
+    let!(:plan) { create(:plan, :creator, research_outputs: 1,  answers: 2,
+                         guidance_groups: 2, feedback_requested: true) }
 
     subject { Plan.deep_copy(plan) }
 
     it "prepends the title with 'Copy'" do
       expect(subject.title).to include("Copy")
+    end
+
+    it "sets feedback_requested to false" do
+      expect(subject.feedback_requested).to eql(false)
     end
 
     it "copies the title from source" do
@@ -481,17 +488,19 @@ describe Plan do
   describe "#answer" do
 
     let!(:plan) { create(:plan, :creator, answers: 1) }
+    
+    let!(:research_output) { create(:research_output, plan: plan) }
 
     let!(:question) { create(:question) }
 
-    subject { plan.answer(question.id, create_if_missing) }
+    subject { plan.answer(question.id, create_if_missing, research_output.id) }
 
 
     context "when create_if_missing is true and answer exists on the DB" do
 
       let!(:create_if_missing) { true }
 
-      let!(:answer) { create(:answer, plan: plan, question: question) }
+      let!(:answer) { create(:answer, plan: plan, question: question, research_output: research_output) }
 
       it "returns the existing Answer" do
         expect(subject).to eql(answer)
@@ -517,7 +526,7 @@ describe Plan do
 
       let!(:create_if_missing) { false }
 
-      let!(:answer) { create(:answer, plan: plan, question: question) }
+      let!(:answer) { create(:answer, plan: plan, question: question, research_output: research_output) }
 
       it "returns the existing Answer" do
         expect(subject).to eql(answer)
@@ -723,6 +732,7 @@ describe Plan do
 
     let!(:user) { create(:user, org: create(:org)) }
     let!(:plan) { build_plan(true, true, true) }
+    let!(:org)  { create(:org, is_other: true) }
 
     subject { plan }
 
@@ -851,6 +861,36 @@ describe Plan do
       end
     end
 
+    context "explicit sharing does not conflict with admin-viewing" do
+
+      it "super admins" do
+        Branding.expects(:fetch)
+                .with(:service_configuration, :plans, :super_admins_read_all)
+                .at_most_once
+                .returns(false)
+
+        user.perms << create(:perm, name: "add_organisations")
+        role = subject.roles.commenter.first
+        role.user_id = user.id
+        role.save!
+
+        expect(subject.readable_by?(user.id)).to eql(true)
+      end
+
+      it "org admins" do
+        Branding.expects(:fetch)
+                .with(:service_configuration, :plans, :org_admins_read_all)
+                .at_most_once
+                .returns(false)
+
+        user.perms << create(:perm, name: "modify_guidance")
+        role = subject.roles.commenter.first
+        role.user_id = user.id
+        role.save!
+
+        expect(subject.readable_by?(user.id)).to eql(true)
+      end
+    end
   end
 
   describe "#commentable_by?" do
@@ -895,6 +935,8 @@ describe Plan do
     end
 
     let(:user) { create(:user) }
+
+    let!(:org)  { create(:org, is_other: true) }
 
     context "when user is a reviewer" do
 
@@ -989,6 +1031,7 @@ describe Plan do
 
     let!(:plan) { build_plan(true, true, true) }
     let!(:user) { create(:user) }
+    let!(:org)  { create(:org, is_other: true) }
 
     before do
       plan.feedback_requested = true
@@ -1285,6 +1328,8 @@ describe Plan do
 
     let!(:plan) { create(:plan, :creator, template: template) }
 
+    let!(:research_output) { create(:research_output, plan: plan) }
+
     subject { plan.visibility_allowed? }
 
     before do
@@ -1292,7 +1337,7 @@ describe Plan do
       @section   = create(:section, phase: @phase)
       @questions = create_list(:question, 4, :textarea, section: @section)
       @questions.take(3).each do |question|
-        create(:answer, question: question, plan: plan)
+        create(:answer, question: question, plan: plan, research_output: research_output)
       end
     end
 

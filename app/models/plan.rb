@@ -104,6 +104,8 @@ class Plan < ActiveRecord::Base
 
   has_many :roles
 
+  belongs_to :feedback_requestor, class_name: "User", :foreign_key => 'feedback_requestor'
+
   # RESEARCH OUTPUTS
   has_many :research_outputs, dependent: :destroy, inverse_of: :plan do
     # Returns the default research output
@@ -187,6 +189,17 @@ class Plan < ActiveRecord::Base
     )
   }
 
+  scope :org_admin_visible, -> (user) {
+    plan_ids = Role.where(active: true, user_id: user.id).pluck(:plan_id)
+
+    includes(:template, roles: :user)
+    .where(id: plan_ids, visibility: [
+      visibilities[:administrator_visible],
+      visibilities[:organisationally_visible],
+      visibilities[:publicly_visible]
+    ])
+  }
+
   scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     joins(:template)
@@ -236,6 +249,7 @@ class Plan < ActiveRecord::Base
   def self.deep_copy(plan)
     plan_copy = plan.dup
     plan_copy.title = "Copy of " + plan.title
+    plan_copy.feedback_requested = false
     plan_copy.save!
     plan.research_outputs.each do |research_output|
       research_output_copy = ResearchOutput.deep_copy(research_output)
@@ -311,6 +325,7 @@ class Plan < ActiveRecord::Base
   #  emails confirmation messages to owners
   #  emails org admins and org contact
   #  adds org admins to plan with the 'reviewer' Role
+  # SEE MODULE
   def request_feedback(user)
     Plan.transaction do
       begin
@@ -337,6 +352,7 @@ class Plan < ActiveRecord::Base
   # Finalizes the feedback for the plan: Emails confirmation messages to owners
   # sets flag on plans.feedback_requested to false removes org admins from the
   # 'reviewer' Role for the Plan.
+  # SEE MODULE
   def complete_feedback(org_admin)
     Plan.transaction do
       begin
@@ -378,19 +394,17 @@ class Plan < ActiveRecord::Base
   #
   # Returns Boolean
   def readable_by?(user_id)
+    return true if commentable_by?(user_id)
     current_user = User.find(user_id)
-    if current_user.present?
-      # If the user is a super admin and the config allows for supers to view plans
-      if current_user.can_super_admin? &&
-          Branding.fetch(:service_configuration, :plans, :super_admins_read_all)
-        true
-      # If the user is an org admin and the config allows for org admins to view plans
-      elsif current_user.can_org_admin? &&
-          Branding.fetch(:service_configuration, :plans, :org_admins_read_all)
-        owner_and_coowners.map(&:org_id).include?(current_user.org_id)
-      else
-        commentable_by?(user_id)
-      end
+    return false unless current_user.present?
+    # If the user is a super admin and the config allows for supers to view plans
+    if current_user.can_super_admin? &&
+        Branding.fetch(:service_configuration, :plans, :super_admins_read_all)
+      true
+    # If the user is an org admin and the config allows for org admins to view plans
+    elsif current_user.can_org_admin? &&
+        Branding.fetch(:service_configuration, :plans, :org_admins_read_all)
+      owner_and_coowners.map(&:org_id).include?(current_user.org_id)
     else
       false
     end
@@ -419,9 +433,11 @@ class Plan < ActiveRecord::Base
   # user_id - The Integer id for the user
   #
   # Returns Boolean
+  # SEE MODULE
   def reviewable_by?(user_id)
     reviewer = User.find(user_id)
     feedback_requested? &&
+    reviewer.present? &&
     reviewer.org_id == owner.org_id &&
     reviewer.can_review_plans?
   end

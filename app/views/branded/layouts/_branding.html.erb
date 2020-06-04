@@ -15,7 +15,7 @@
                                 class: "org-logo",
                                 title: current_user.org.name) %>
         <% else %>
-          <h4 id="banner-org-name"><%= current_user.org.name %></h4>
+          <p id="banner-org-name" class="fontsize-h4"><%= current_user.org.name %></p>
         <% end %>
       <% end %>
     </div>
@@ -54,7 +54,7 @@
         <!-- if org admin -->
         <% if current_user.can_org_admin? %>
           <li class="dropdown navbar-default" id="admin-dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="admin-menu" href="#">
+            <a class="dropdown-toggle accessible" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" id="admin-menu" href="#">
               <i class="fa fa-lock" aria-hidden="true">&nbsp;</i>
               <%= _('Admin') %>
               <span class="caret"></span>
@@ -123,10 +123,15 @@
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
-
-  <%  if !current_user.org.banner_text.nil?  %>
-    <div class="org-banner-text">
-        <%= current_user.org.banner_text.html_safe %>
-    </div>
-  <% end %>
+    <% if current_user.org.active? %>
+      <%  unless current_user.org.banner_text.nil? || current_user.org.banner_text.empty?  %>
+          <div class="org-banner-text">
+              <%= current_user.org.banner_text.html_safe %>
+          </div>
+      <% end %>
+    <% else %>
+      <div class="org-deactivated">
+          <%= d_('dmpopidor', 'Your organisation has been deactivated. Please choose a new organisation from your <a href="/users/edit">user profile</a>.').html_safe %>
+      </div>
+    <% end %>
 </nav>

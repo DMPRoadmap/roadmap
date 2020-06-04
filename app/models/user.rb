@@ -50,6 +50,7 @@ class User < ActiveRecord::Base
   include ValidationMessages
   include ValidationValues
   extend UniqueRandom
+  prepend Dmpopidor::Models::User
 
   ##
   # Devise
@@ -148,7 +149,7 @@ class User < ActiveRecord::Base
   # = Callbacks =
   # =============
 
-  before_update :clear_other_organisation, if: :org_id_changed?
+  before_update :clear_other_organisation, :if => proc { org_id_changed? &&  org_id != Org.find_by(is_other: true).id }
 
   before_update :clear_department_id, if: :org_id_changed?
 
@@ -384,22 +385,12 @@ class User < ActiveRecord::Base
     notifications << notification if notification.dismissable?
   end
 
-  # Anonymize a user (by removing its personnal data and deactivating its account)
-  def anonymize
-    copy = dup
-
-    update(firstname: 'anonymous', surname: 'user', email: "anonymous#{id}@opidor.fr", last_sign_in_at: nil, encrypted_password: nil, active: false)
-
-    if save
-      Rails.logger.info "User #{id} anonymized"
-      p "User #{id} anonymized"
-      UserMailer.anonymization_notice(copy).deliver_now
-    end
-  end
+  
   # remove personal data from the user account and save
   # leave account in-place, with org for statistics (until we refactor those)
   #
   # Returns boolean
+  # SEE MODULE
   def archive
     self.firstname = 'Deleted'
     self.surname = 'User'

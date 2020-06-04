@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200327145531) do
+ActiveRecord::Schema.define(version: 20200515113700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -196,6 +196,7 @@ ActiveRecord::Schema.define(version: 20200327145531) do
     t.boolean  "feedback_enabled",       default: false
     t.string   "feedback_email_subject"
     t.text     "feedback_email_msg"
+    t.boolean  "active",                 default: true
   end
 
   add_index "orgs", ["language_id"], name: "orgs_language_id_idx", using: :btree
@@ -240,6 +241,8 @@ ActiveRecord::Schema.define(version: 20200327145531) do
     t.string   "principal_investigator_phone"
     t.boolean  "feedback_requested",                default: false
     t.boolean  "complete",                          default: false
+    t.integer  "feedback_requestor"
+    t.datetime "feedback_request_date"
   end
 
   add_index "plans", ["template_id"], name: "plans_template_id_idx", using: :btree

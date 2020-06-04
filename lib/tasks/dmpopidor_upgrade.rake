@@ -15,13 +15,11 @@ namespace :dmpopidor_upgrade do
     Rake::Task['dmpopidor_upgrade:research_outputs_enable'].execute
   end
 
-  desc "Add Structured question format in table"
-  task add_structure_question_format: :environment do
-    if QuestionFormat.find_by(title: "Structured").nil?
-      QuestionFormat.create!({ title: "Structured", description: "Structured question format", 
-                                option_based: false, formattype: 9, structured: true })
-    end
+  desc "Upgrade to 2.3.0"
+  task v2_3_0: :environment do
+    Rake::Task['dmpopidor_upgrade:close_existing_feedback_plans'].execute
   end
+
 
   desc "Add the themes token permission type"
   task add_themes_token_permission_types: :environment do
@@ -111,6 +109,20 @@ namespace :dmpopidor_upgrade do
     ]
 
     research_output_types.map{ |s| ResearchOutputType.create!(s) if ResearchOutputType.find_by(label: s[:label]).nil? }
+  end
+
+
+  desc "Set feedback_requested on existing plans to false"
+  task close_existing_feedback_plans: :environment do
+    Plan.where(feedback_requested: true).update_all(feedback_requested: false)
+  end
+
+  desc "Add Structured question format in table"
+  task add_structure_question_format: :environment do
+    if QuestionFormat.find_by(title: "Structured").nil?
+      QuestionFormat.create!({ title: "Structured", description: "Structured question format", 
+                                option_based: false, formattype: 9, structured: true })
+    end
   end
 
 end

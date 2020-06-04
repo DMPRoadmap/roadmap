@@ -3,5 +3,6 @@ FactoryBot.define do
     date { Date.today }
     org { create(:org) }
     count { Faker::Number.number(digits: 10) }
+    details { "{\"by_template\":[]}" }
   end
 end

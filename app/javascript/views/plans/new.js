@@ -39,34 +39,33 @@ $(() => {
           $('#plan_template_id option').attr('selected', 'true');
           $('#multiple-templates').hide();
           if ($('#plan_org_id').val() !== '-1') {
-            if (data.templates[0].default) {
-              $('#default-template').show();
-              $('#single-template').hide();
-              $('#create-btn').hide();
-            } else {
-              if ($('#single-template .single-template-name').length) {
-                $('#single-template .single-template-name').html($('#single-template .single-template-name').html().replace('__template_title__', templateTitle));
-              }
-              $('#create-btn').show();
-              $('#single-template').show();
-              $('#default-template').hide();
+            if ($('#single-template .single-template-name').length) {
+              $('#single-template .single-template-name').html($('#single-template .single-template-name').html().replace('__template_title__', templateTitle));
             }
+            $('#create-btn').show();
+            $('#single-template').show();
+            $('#no-template').hide();
+            $('#default-template').hide();
           } else if ($('#plan_funder_id').val() !== '-1') {
             if ($('#single-template .single-template-name').length) {
               $('#single-template .single-template-name').html($('#single-template .single-template-name').html().replace('__template_title__', templateTitle));
             }
             $('#create-btn').show();
             $('#single-template').show();
+            $('#no-template').hide();
           }
         } else {
           $('#multiple-templates').show();
+          $('#no-template').hide();
           $('#available-templates').fadeIn();
           $('#single-template, #default-template').hide();
           $('#create-btn').show();
         }
         toggleSubmit();
       } else {
-        error();
+        $('#no-template').show();
+        $('#single-template').hide();
+        $('#default-template').hide();
       }
     }
   };
@@ -174,7 +173,7 @@ $(() => {
   const emptyTab = () => {
     // $('#plan_org_id').val('-1');
     $('#plan_org_name').val('');
-    $('#single-template, #default-template').hide();
+    $('#single-template, #default-template, #no-template').hide();
   };
 
   // Empty combobox on second & third tab activation

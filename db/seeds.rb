@@ -237,9 +237,13 @@ orgs = [
    org_type: 2, links: {"org":[]},
    language: Language.find_by(abbreviation: 'en-GB')},
   {name: 'University of Exampleland',
-   abbreviation: 'UOS',
-   org_type: 1, links: {"org":[]},
-   language: Language.find_by(abbreviation: 'en-GB')}
+    abbreviation: 'UOS',
+    org_type: 1, links: {"org":[]},
+    language: Language.find_by(abbreviation: 'en-GB')},
+  {name: 'Other Organisation',
+    abbreviation: 'other',
+    org_type: 1, is_other: true, links: {"org":[]},
+    language: Language.find_by(abbreviation: 'en-GB')}
 ]
 orgs.map{ |o| create(:org, o) }
 

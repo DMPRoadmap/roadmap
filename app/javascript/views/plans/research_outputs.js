@@ -11,6 +11,7 @@ $(() => {
 
 
   $('#research-outputs').sortable({
+    items: '.research-output-element:not(.inactive)',
     handle: '.research-output-actions .handle',
     stop: () => {
       $('#research-outputs .research-output-element').each(function callback(index) {

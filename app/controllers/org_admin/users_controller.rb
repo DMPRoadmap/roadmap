@@ -4,13 +4,16 @@ module OrgAdmin
 
   class UsersController < ApplicationController
 
+    prepend Dmpopidor::Controllers::OrgAdmin::Users
+
     after_action :verify_authorized
 
+    # SEE MODULE
     def edit
       @user = User.find(params[:id])
       authorize @user
       @departments = @user.org.departments.order(:name)
-      @plans = Plan.active(@user).page(1)
+      @plans = Plan.org_admin_visible(@user).page(1)
       render "org_admin/users/edit",
              locals: { user: @user,
                        departments: @departments,
@@ -21,6 +24,7 @@ module OrgAdmin
                        default_org: @user.org }
     end
 
+    # SEE MODULE
     def update
       @user = User.find(params[:id])
       authorize @user
@@ -37,6 +41,7 @@ module OrgAdmin
       render :edit
     end
 
+    # SEE MODULE
     def user_plans
       @user = User.find(params[:id])
       authorize @user

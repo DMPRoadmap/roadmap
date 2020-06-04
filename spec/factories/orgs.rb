@@ -22,6 +22,7 @@
 #  feedback_enabled       :boolean          default("false")
 #  feedback_email_subject :string
 #  feedback_email_msg     :text
+#  active                 :boolean          default("true")
 #
 # Indexes
 #
@@ -60,6 +61,9 @@ FactoryBot.define do
     end
     trait :school do
       school { true }
+    end
+    trait :is_other do
+      is_other { true }
     end
 
     transient do

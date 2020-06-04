@@ -53,7 +53,7 @@ msgstr ""
 msgid "%{application_name}"
 msgstr ""
 
-msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website <em class=\"sr-only\">(new window)</em></a>. If you would like to contact us about %{application_name}, please fill out the form below."
+msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" class=\"has-new-window-popup-info\" target=\"_blank\">website <em class=\"sr-only\">(new window)</em><span class=\"new-window-popup-info\">%{open_in_new_window_text}</span></a>. If you would like to contact us about %{application_name}, please fill out the form below."
 msgstr ""
 
 #msgid "%{application_name} is provided by the %{organisation_name}.<br /> You can find out more about us on our <a href=\"%{organisation_url}\" target=\"_blank\">website</a>. If you would like to contact us about %{application_name}, please fill out the form below."
@@ -80,7 +80,7 @@ msgstr ""
 msgid "%{commenter_name} has commented on your plan %{plan_title}. To view the comments, follow the link to the DMP below, or navigate to the plan via My Dashboard page in %{tool_name}."
 msgstr ""
 
-msgid "%{commenter} has finished providing feedback on the plan \"%{plan_title}\". To view the comments, please visit the My Dashboard page in %{tool_name} and open your plan."
+msgid "%{commenter} has finished providing feedback on the plan  \"%{link_html}\". Comments can be found in the 'Write plan' tab on the right side of the page (Guidance/Comments)."
 msgstr ""
 
 msgid "%{date}"
@@ -116,8 +116,11 @@ msgstr ""
 msgid "%{plan_owner} has been notified that you have finished providing feedback"
 msgstr ""
 
-#msgid "%{requestor} has requested feedback on a plan \"%{plan_name}.\" To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan."
-#msgstr ""
+msgid "%{requestor} has requested feedback on a plan %{link_html}. To add comments, please visit the 'Plans' page under the Admin menu in %{application_name} and open the plan."
+msgstr ""
+
+msgid "Alternatively, you can click the link below:"
+msgstr ""
 
 msgid "%{template}"
 msgstr ""
@@ -486,7 +489,7 @@ msgstr ""
 #msgid "Below is a list of users registered for your organisation. You can sort the data by each field."
 #msgstr ""
 
-msgid "Below is a summary of the sections and questions which have comments."
+msgid "Below the question, research output and section where the comment is located.
 msgstr ""
 
 msgid "Beta"
@@ -569,6 +572,9 @@ msgid "Co-owner"
 msgstr ""
 
 msgid "Co-owner: can edit project details, change visibility, and add collaborators"
+msgstr ""
+
+msgid "Co-owner: Has admin-rights to the plan (can invite other users, view the plan, answer questions, or comment). Editor: Has edit-rights to the plan (can view the plan, answer questions, or comment). Read Only: Has read-rights to the plan (can view the plan or comment)"
 msgstr ""
 
 msgid "Comment"
@@ -784,8 +790,8 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#msgid "Download Plan"
-#msgstr ""
+msgid "Download Plan"
+msgstr ""
 
 msgid "Download Plan <em class=\"sr-only\">(new window)</em>"
 msgstr ""
@@ -1225,7 +1231,7 @@ msgstr ""
 msgid "Look up your organisation here"
 msgstr ""
 
-msgid "Make a copy"
+msgid "Copy"
 msgstr ""
 
 msgid "Manage collaborators"
@@ -1264,7 +1270,7 @@ msgstr ""
 msgid "Month"
 msgstr ""
 
-msgid "More information about administering the %{tool_name} for users at your organisation is available at the %{help_url}."
+msgid "More information about administering the %{tool_name} are available on %{help_url}."
 msgstr ""
 
 msgid "Move the mouse pointer over the bars of a chart to see numbers."
@@ -2536,10 +2542,34 @@ msgstr ""
 msgid "Usage statistics"
 msgstr ""
 
+msgid "There is no data available for plans created yet."
+msgstr ""
+
+msgid "Statistics on your Templates"
+msgstr ""
+
+msgid "No. plans created based off your templates"
+msgstr ""
+
+msgid "csv download field separator"
+msgstr ""
+
+msgid "Download Monthly Usage"
+msgstr ""
+
+msgid "Statistics on your Users"
+msgstr ""
+
+msgid "The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph."
+msgstr ""
+
+msgid "Move the mouse pointer over the bars of a chart to see numbers."
+msgstr ""
+
 msgid "Use API"
 msgstr ""
 
-msgid "Use the filters to generate organisational usage statistics for a custom date range. The graphs display new users and plans for your organisation over the past year. You can download a CSV report for each graph."
+msgid "Use the filters to run organisational usage statistics for a custom date range."
 msgstr ""
 
 msgid "User accounts"
@@ -2839,7 +2869,7 @@ msgstr ""
 msgid "Your organisation does not seem to be properly configured."
 msgstr ""
 
-msgid "Your permissions relating to %{plan_title} have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}"
+msgid "Your permissions relating to \"%{plan_title}\" have changed. You now have %{type} access. This means you can %{placeholder1} %{placeholder2}"
 msgstr ""
 
 msgid "Your project is no longer a test."
@@ -2951,6 +2981,9 @@ msgid "delete"
 msgstr ""
 
 msgid "deleted"
+msgstr ""
+
+msgid "archived"
 msgstr ""
 
 msgid "editor"
@@ -3295,3 +3328,7 @@ msgstr ""
 
 msgid "Is it a test plan ?"
 msgstr ""
+
+msgid "Sign in or Create account"
+msgstr ""
+

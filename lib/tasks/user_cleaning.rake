@@ -14,16 +14,16 @@ namespace :usercleaning do
     task anonymize_users_after_5_years: :environment do
       Rails.logger.info 'Anonymizing users who have not connected for the last 5 years'
   
-      User.where('last_sign_in_at < ?', 5.years.ago + 1.month).each do |user|
+      User.where('last_sign_in_at < ?', 5.years.ago - 1.month).each do |user|
         case user.last_sign_in_at.to_date
-        when (5.years.ago + 1.month).to_date
+        when (5.years.ago - 1.month).to_date
           UserMailer.anonymization_warning(user).deliver_now
-        when (5.years.ago + 1.week).to_date
+        when (5.years.ago - 1.week).to_date
           UserMailer.anonymization_warning(user).deliver_now
-        when (5.years.ago + 1.day).to_date
+        when (5.years.ago - 1.day).to_date
           UserMailer.anonymization_warning(user).deliver_now
         when 5.years.ago.to_date
-          user.anonymize
+          user.archive
         end
       end
     end
