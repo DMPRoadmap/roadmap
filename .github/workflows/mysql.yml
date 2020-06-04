@@ -8,7 +8,6 @@ jobs:
 
     env:
       DB_ADAPTER: mysql2
-      MYSQL_PWD: root
       RAILS_ENV: test
 
     services:
@@ -89,6 +88,11 @@ jobs:
           sleep 1
         done
 
+    - name: 'Setup DB credentials'
+      run: |
+        echo ::set-env name=MYSQL_USER::root
+        echo ::set-env name=MYSQL_PORT::${{ job.services.mysql.ports[3306] }}
+        
     - name: 'Setup Test DB'
       run: bin/rails db:setup RAILS_ENV=test
 
