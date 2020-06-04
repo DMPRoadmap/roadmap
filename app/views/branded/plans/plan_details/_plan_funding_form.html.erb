@@ -20,15 +20,14 @@
     %>
   </div>
   <div class="form-group"><!-- funder id type -->
-    <div class="col-md-12">
-      <%= f.label "structured_answer[funder[funderId[idType]]]", _('Identifier Type'), class: 'control-label' %>
-    </div>
-    <div class="col-md-10">
-      <%= select_tag "structured_answer[funder[funderId[idType]]]",
-                    options_for_select(["ROR", "ISSNI", "RNSR", "FundRef"],
-                    selected: fragment && fragment["funder"] && fragment["funder"]["funderId"]  ? fragment["funder"]["funderId"]["idType"] : "ROR" ),
-                    class: "form-control" %>
-    </div>
+    <%= create_select_field(
+          f, 
+          fragment && fragment["funder"] && fragment["funder"]["funderId"]  ? fragment["funder"]["funderId"]["idType"] : "ROR",
+          "structured_answer[funder[funderId[idType]]]", 
+          _('Identifier Type'),
+          ["ROR", "ISSNI", "RNSR", "FundRef"]
+        ) 
+    %>
   </div>
   <div class="form-group"><!-- funder dataPolicyUrl -->
     <%= create_url_field(
@@ -53,25 +52,23 @@
     %>
   </div>
   <div class="form-group"><!-- grand id type -->
-    <div class="col-md-12">
-      <%= f.label "structured_answer[grantId[idType]]", _('Identifier Type'), class: 'control-label' %>
-    </div>
-    <div class="col-md-10">
-      <%= select_tag "structured_answer[grantId[idType]]",
-                    options_for_select(["DOI", "URL"],
-                    selected: fragment && fragment["grantId"] ? fragment["grantId"]["idType"] : "DOI" ),
-                    class: "form-control" %>
-    </div>
+    <%= create_select_field(
+          f, 
+          fragment && fragment["grantId"] ? fragment["grantId"]["idType"] : "DOI",
+          "structured_answer[grantId[idType]]", 
+          _('Identifier Type'),
+          ["DOI", "URL"]
+        ) 
+    %>
   </div>
 </fieldset>
 <div class="form-group"><!-- funding status -->
-  <div class="col-md-12">
-    <%= f.label "structured_answer[fundingStatus]", _('Funding Status'), class: 'control-label' %>
-  </div>
-  <div class="col-md-10">
-    <%= select_tag "structured_answer[fundingStatus]",
-                options_for_select(["Planned","Applied", "Granted", "Rejected"],
-                selected: fragment ? fragment["fundingStatus"] : "Planned" ),
-                class: "form-control" %>
-  </div>
+  <%= create_select_field(
+        f, 
+        fragment ? fragment["fundingStatus"] : "Planned",
+        "structured_answer[fundingStatus]", 
+        _('Funding Status'),
+        ["Planned","Applied", "Granted", "Rejected"]
+      ) 
+  %>
 </div>

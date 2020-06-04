@@ -35,15 +35,14 @@
 <fieldset class="project-details"> <!-- DMP ID -->
   <legend class="project-details"><%= _('DMP ID') %></legend>
   <div class="form-group"><!-- Identifier Type -->
-    <div class="col-md-12">
-      <%= f.label "plan[dmpID[idType]]", _('Identifier Type'), class: 'control-label' %>
-    </div>
-    <div class="col-md-10">
-      <%= select_tag "plan[dmpID[idType]]",
-                    options_for_select(["DOI", "HANDLE", "ARK", "URL"],
-                    selected: dmpID ? dmpID["idType"] : "DOI" ),
-                    class: "form-control" %>
-    </div>
+    <%= create_select_field(
+          f, 
+          dmpID ? dmpID["idType"] : "DOI",
+          "plan[dmpID[idType]]", 
+          _('Identifier Type'),
+          ["DOI", "HANDLE", "ARK", "URL"]
+        ) 
+    %>
   </div>
   <div class="form-group"><!-- identifier -->
     <%= create_text_field(

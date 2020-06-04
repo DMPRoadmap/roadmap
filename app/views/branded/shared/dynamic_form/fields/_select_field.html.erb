@@ -1,0 +1,9 @@
+<div class="col-md-12">
+    <%= f.label field_name, field_label, class: 'control-label' %>
+</div>
+<div class="col-md-10">
+    <%= select_tag field_name,
+                options_for_select(select_values,
+                selected: selected_value),
+                class: "form-control #{field_class}" %>
+</div>
