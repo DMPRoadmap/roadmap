@@ -12,7 +12,7 @@ module Dmpopidor
     
         # Org name of plan owner's org
         hash[:affiliation] = self.owner.present? ? self.owner.org.name : ""
-        hash[:affiliation] += self.owner.present? && self.owner.department ? " - #{self.owner.department.name}" : ""
+        hash[:affiliation] += self.owner.present? && self.owner.department ? ", #{self.owner.department.name}" : ""
     
         # set the funder name
         hash[:funder] = self.funder_name.present? ? self.funder_name :  ""

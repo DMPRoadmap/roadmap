@@ -8,7 +8,7 @@
           <tr>
               <th scope="col"><%= _('Name') %>&nbsp;<%= paginable_sort_link('users.firstname') %></th>
               <th scope="col"><%= _('Email') %>&nbsp;<%= paginable_sort_link('users.email') %></th>
-              <th scope="col"><%= _('School or Department') %>&nbsp;<%= paginable_sort_link('departments.name') %></th>
+              <th scope="col"><%= d_('dmpopidor', 'Structure') %>&nbsp;<%= paginable_sort_link('departments.name') %></th>
               <th scope="col"><%= _('Organisation') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
               <th scope="col" class="text-center date-column"><%= _('Created date') %>&nbsp;<%= paginable_sort_link('users.created_at') %></th>
               <th scope="col" class="text-center date-column"><%= _('Last activity') %>&nbsp;<%= paginable_sort_link('users.last_sign_in_at') %></th>
