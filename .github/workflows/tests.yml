@@ -72,7 +72,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: dmproadmap artifacts
-          path: public/
+          path: current
 
   # Job to install and setup a MySQL database
   # ----------------------------------------------------------------------
@@ -92,7 +92,7 @@ jobs:
     - uses: actions/download-artifact@master
       with: 
         name: dmproadmap artifacts
-        path: public
+        path: current
     
     - name: 'Install Mysql Packages'
       run: |
@@ -102,10 +102,15 @@ jobs:
     - name: 'Start MySQL'
       run: sudo systemctl start mysql
 
+    - name: 'Change dir to release folder'
+      run: cd current/
+
     - name: 'See where we are'
       run: |
         value=`pwd`
+        contents=`ls`
         echo We are in: $value
+        echo $contents
 
     - name: 'Bundle Install mysql2 gem'
       run: |
@@ -122,7 +127,7 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: mysql artifacts
-        path: public/
+        path: mysql
 
   # Job to install and setup a Postgres database
   # ----------------------------------------------------------------------
@@ -157,13 +162,16 @@ jobs:
       - uses: actions/download-artifact@master
         with: 
           name: dmproadmap artifacts
-          path: public
+          path: current
 
       # Install the necessary Postgres dev packages
       - name: 'Install Postgresql Packages'
         run: |
           sudo apt-get update
           sudo apt-get install libpq-dev
+
+      - name: 'Change dir to release folder'
+        run: cd current/
 
       - name: 'Bundle Install Postgres Gem'
         run: |
@@ -180,7 +188,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: postgres artifacts
-          path: public/
+          path: postgres
 
   # Job to Run the functional and unit tests against both mysql and postgres
   # ----------------------------------------------------------------------
@@ -198,7 +206,7 @@ jobs:
       - uses: actions/download-artifact@master
         with: 
           name: ${{ matrix.db }} artifacts
-          path: public
+          path: ${{ matrix.db }}
           
       - name: 'Run Karma Tests'
         run: |
