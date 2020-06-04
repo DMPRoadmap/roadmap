@@ -102,13 +102,13 @@ jobs:
       run: sudo systemctl start mysql
 
     - name: 'Bundle Install mysql2 gem'
-      run: bundle install --jobs 4 --retry 3 --without pgsql rollbar aws
+      run: bin/bundle install --jobs 4 --retry 3 --without pgsql rollbar aws
           
     - name: 'Setup DB'
-      run: rails db:setup RAILS_ENV=test
+      run: bin/rails db:setup RAILS_ENV=test
 
     - name: 'Migrate DB changes'
-      run: rails db:migrate RAILS_ENV=test
+      run: bin/rails db:migrate RAILS_ENV=test
         
     - name: 'Upload artifact'
       uses: actions/upload-artifact@master
@@ -158,13 +158,13 @@ jobs:
           sudo apt-get install libpq-dev
 
       - name: 'Bundle Install Postgres Gem'
-        run: bundle install --jobs 4 --retry 3 --without mysql rollbar aws
+        run: bin/bundle install --jobs 4 --retry 3 --without mysql rollbar aws
 
       - name: 'Setup the DB'
-        run: rails db:setup RAILS_ENV=test
+        run: bin/rails db:setup RAILS_ENV=test
         
       - name: 'Migrate DB changes'
-        run: rails db:migrate RAILS_ENV=test
+        run: bin/rails db:migrate RAILS_ENV=test
       
       - name: 'Upload artifact'
         uses: actions/upload-artifact@master
@@ -192,35 +192,17 @@ jobs:
           
       - name: 'Run Karma Tests'
         run: |
-          yarn add karma
-          yarn run test
+          bin/yarn add karma
+          bin/yarn run test
 
-      - name: 'Run Rspec Model Tests'
-        run: bundle exec rspec spec/models/
+      - name: 'Run Rspec Model, Policy, Service and Helper Tests'
+        run: bin/rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
 
-      - name: 'Run Rspec Policy Tests'
-        run: bundle exec rspec spec/policies/
-
-      - name: 'Run Rspec Service Tests'
-        run: bundle exec rspec spec/services/
-
-      - name: 'Run Rspec Controller Tests'
-        run: bundle exec rspec spec/controllers/
-
-      - name: 'Run Rspec Helper Tests'
-        run: bundle exec rspec spec/helpers/
-
-      - name: 'Run Rspec Presenter Tests'
-        run: bundle exec rspec spec/presenters/
-
-      - name: 'Run Rspec Request Tests'
-        run: bundle exec rspec spec/requests/
-
-      - name: 'Run Rspec View Tests'
-        run: bundle exec rspec spec/views/
+      - name: 'Run Rspec Controller, Presenter, Request and View Tests'
+        run: bin/rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
 
       - name: 'Run Rspec Mixin Tests'
-        run: bundle exec rspec spec/mixins/
+        run: bin/rspec spec/mixins/
 
   # Job to Run the integration tests against both mysql and postgres
   # ----------------------------------------------------------------------
@@ -243,4 +225,4 @@ jobs:
           path: public
 
       - name: 'Run Rspec Model Tests'
-        run: rspec spec/features/
+        run: bin/rspec spec/features/
