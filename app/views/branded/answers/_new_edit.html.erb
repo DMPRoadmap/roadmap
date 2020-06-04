@@ -62,7 +62,11 @@
     <% if question.option_based? || question.question_format.rda_metadata? %>
         <%= render(partial: 'questions/new_edit_question_option_based', locals: { f: f, question: question, answer: answer, research_output: research_output, readonly: readonly }) %>
     <% elsif question.question_format.structured %>
-      <%= render(partial: 'questions/new_edit_question_structured', locals: { f: f, question: question, answer: answer, research_output: research_output, readonly: readonly, schema: question.structured_data_schema.schema }) %>
+      <%= f.label(:text, sanitize(question.text), class: 'control-label') unless question.nil? %>
+      <div class="form-group structured-answer">   
+        <% data = answer.structured_answer.data unless answer.structured_answer.nil? %>
+        <%= render(partial: 'questions/new_edit_question_structured', locals: { f: f, data: data, readonly: readonly, schema: question.structured_data_schema.schema }) %>
+      </div>
     <% elsif question.question_format.textfield?%>
         <%= render(partial: 'questions/new_edit_question_textfield', locals: { f: f, question: question, answer: answer, research_output: research_output }) %>
     <% elsif question.question_format.textarea? %>

@@ -1,24 +1,4 @@
 module DynamicFormHelper
-  def create_dynamic_form(schema, form, data)
-    schema["properties"].each do |key, prop|
-      case prop["type"]
-      when "string"
-        create_text_field(form, data[key], key, prop["label"])
-      when "integer"
-        create_number_field(form, data[key], key, prop["label"])
-      when "boolean"
-        create_checkbox_field(form, data[key], key, prop["label"])
-      when "array"
-        render partial: 'questions/fields/multiple_field', 
-        locals: {
-          f: form, 
-          field_values: @structured_datum.data[key], 
-          field_properties: prop, 
-          field_name: key
-        }
-      end
-    end 
-  end
 
   def create_text_field(form, value, name, label, html_class: nil, is_multiple: false, index: 0)
     render partial: 'shared/dynamic_form/fields/text_field', 

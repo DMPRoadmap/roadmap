@@ -952,6 +952,22 @@ header .main-nav {
     }
 }
 
+/* 
+ * STRUCTURED ANSWERS
+ */
+ .structured-answer {
+    fieldset.answer-fieldset {
+        width: 100%;
+        border-radius: 5px;
+        margin: 15px 0;
+        padding-bottom: 15px;
+        legend {
+            color: $rust;
+        }
+    }
+
+ }
+
 /*
  * ACCESSIBILITY
  */
