@@ -11,6 +11,8 @@
         <%= create_url_field(f, value, key, prop['label']) %>
       <% elsif prop['format'] == 'email' %>
         <%= create_email_field(f, value, key, prop['label']) %>
+      <% elsif prop['format'] == 'select' && prop['values'] %>
+        <%= create_select_field(f, value, "answer[#{key}]", prop['label'], prop['values']) %>
       <%end%>
     <% when 'integer' %>
       <%= create_number_field(f, value, key, prop['label']) %>

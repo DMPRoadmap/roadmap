@@ -184,16 +184,16 @@ module Dmpopidor
 
         # Generates a permitted params array from a structured answer schema
         def permitted_params_from_properties(properties, flat = false)
-            parameters = Array.new
-            properties.each do |key, prop|
-                if prop["type"] == "array" && !flat
-                    parameters.append({key => []})
-                    # parameters.append(key)
-                else
-                    parameters.append(key)
-                end
-            end
-            parameters
+          parameters = Array.new
+          properties.each do |key, prop|
+              if prop["type"] == "array" && !flat
+                  parameters.append({key => []})
+                  # parameters.append(key)
+              else
+                  parameters.append(key)
+              end
+          end
+          parameters
         end
 
         # Get the schema from the question, if any (works for strucutred questions/answers only)
@@ -248,3 +248,4 @@ module Dmpopidor
       end
     end
   end
+end
