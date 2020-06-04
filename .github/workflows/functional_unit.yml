@@ -41,7 +41,7 @@ jobs:
             ${{ runner.os }}-gem-
       
       - name: 'Determine Bundler Version (from Gemfile.lock)'
-        run: echo ::set-env name=BUNDLER_VERSION::$(echo `cat ./Gemfile.lock | grep -A 1 'BUNDLED WITH' | grep 'ruby' | grep -oE '[0-9]\.[0-9]'`)
+        run: echo ::set-env name=BUNDLER_VERSION::$(echo `cat ./Gemfile.lock | grep -A 1 'BUNDLED WITH' | grep -oE '[0-9]\.[0-9]'`)
 
       - name: 'Bundle Install'
         run: |
