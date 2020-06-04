@@ -109,7 +109,7 @@ jobs:
 
     - name: 'Bundle Install mysql2 gem'
       run: |
-        bundle config set without 'pgsql rollbar aws'
+        bin/bundle config set without 'pgsql rollbar aws'
         bin/bundle install --jobs 4 --retry 3
           
     - name: 'Setup DB'
