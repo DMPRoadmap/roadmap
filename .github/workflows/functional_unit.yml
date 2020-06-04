@@ -1,0 +1,225 @@
+name: MySQL - Unit and Functional Tests
+
+on: [push, pull_request]
+
+jobs:
+  # Job builds the base DMPRoadmap environment: Install Ruby, setup config files, 
+  # Gem and Yarn dependencies
+  # ----------------------------------------------------------------------
+  build_dmproadmap:
+    runs-on: ubuntu-latest
+     
+    - uses: actions/upload-artifact@master
+      with:
+        name: dmproadmap artifacts
+        path: public/
+   
+    steps:
+      # Checkout the repo
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: 'Determine Ruby Version (from Gemfile.lock)'
+        run: echo ::set-env name=RUBY_VERSION::$(echo `cat ./Gemfile.lock | grep -A 1 'RUBY VERSION' | grep 'ruby' | grep -oE '[0-9]\.[0-9]'`)
+
+      - name: 'Install Ruby'
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+
+      - name: 'Setup default configuration'
+        run: |
+          # Make copies of all the example config files
+          cp config/database.yml.sample config/database.yml
+          cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
+          cp config/initializers/devise.rb.example config/initializers/devise.rb
+          cp config/initializers/recaptcha.rb.example config/initializers/recaptcha.rb
+          cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
+          
+      - name: 'Retrieve Gems from the cache'
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+            
+      - name: 'Bundle Install'
+        run: |
+          gem install bundler -v 1.17.2
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3 --without pgsql rollbar aws
+          
+      - name: 'Retrieve Yarn packages from the cache'
+        uses: actions/cache@v1
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-
+            
+      - name: 'Determine wkhtmltopdf location'
+        run: echo ::set-env name=WICKED_PDF_PATH::$(echo `bundle exec which wkhtmltopdf`)
+
+      - name: 'Yarn Install'
+        run: |
+          yarn install
+          
+      - uses: actions/upload-artifact@master
+          with:
+            name: dmproadmap artifacts
+            path: public/
+
+  # Job to install and setup a MySQL database
+  # ----------------------------------------------------------------------
+  mysql:
+    # This job must wait for the dmproadmap build to finish
+    needs: build_dmproadmap
+    
+    runs-on: ubuntu-latest
+    
+    - uses: actions/upload-artifact@master
+      with:
+        name: mysql artifacts
+        path: public/
+
+    env:
+      DB_ADAPTER: mysql2
+      MYSQL_PWD: root
+      RAILS_ENV: test
+    
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/download-artifact@master
+      with: 
+        name: dmproadmap artifacts
+        path: public
+    
+    - name: 'Shutdown default Ubuntu MySQL (SUDO)'
+      run: sudo service mysql stop
+
+    - name: 'Setup latest MySSQL'
+      uses: mirromutth/mysql-action@v1.1
+      with:
+        character set server: 'utf8mb4'
+        collation server: 'utf8mb4_general_ci'
+        mysql database: 'roadmap_test'
+
+    - name: 'Setup DB'
+      run: bundle exec rake db:setup RAILS_ENV=test
+
+    - uses: actions/upload-artifact@master
+          with:
+            name: mysql artifacts
+            path: public/
+
+  # Job to install and setup a Postgres database
+  # ----------------------------------------------------------------------
+  postgres:
+    # This job must wait for the dmproadmap build to finish
+    needs: build_dmproadmap
+    
+    runs-on: ubuntu-latest
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: postgres artifacts
+        path: public/
+        
+    services:
+      # Postgres installation
+      db:
+        image: postgres
+        env:
+          # Latest version of Postgres has increased security. We can use the default
+          # user/password in this testing scenario though so use the following env
+          # variable to bypass this changes:
+          # https://github.com/docker-library/postgres/issues/681
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5f
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:@localhost:5432/roadmap_test
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/download-artifact@master
+        with: 
+          name: dmproadmap artifacts
+          path: public
+
+      # Install the necessary Postgres dev packages
+      - name: 'Install Postgresql Packages'
+        run: |
+          sudo apt-get update
+          sudo apt-get install libpq-dev
+
+      - name: 'Migrate DB changes'
+        run: bundle exec rake db:migrate RAILS_ENV=test
+      
+      - name: 'Setup the DB'
+        run: bundle exec rake db:setup RAILS_ENV=test
+      
+      - uses: actions/upload-artifact@master
+          with:
+            name: postgres artifacts
+            path: public/
+
+  # Job to Run the functional and unit tests against both mysql and postgres
+  # ----------------------------------------------------------------------
+  tests:
+    runs-on: ubuntu-latest
+    # This job must wait for the mysql and postgres jobs to finish
+    needs: [mysql, postgres]
+    
+    strategy:
+      matrix: 
+        db: [mysql, postgres]
+    
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/download-artifact@master
+        with: 
+          name: ${{ matrix.db }} artifacts
+          path: public
+          
+      - name: 'Run Karma Tests'
+        run: |
+          yarn add karma
+          yarn run test
+
+      - name: 'Run Rspec Model Tests'
+        run: bundle exec rspec spec/models/
+
+      - name: 'Run Rspec Policy Tests'
+        run: bundle exec rspec spec/policies/
+
+      - name: 'Run Rspec Service Tests'
+        run: bundle exec rspec spec/services/
+
+      - name: 'Run Rspec Controller Tests'
+        run: bundle exec rspec spec/controllers/
+
+      - name: 'Run Rspec Helper Tests'
+        run: bundle exec rspec spec/helpers/
+
+      - name: 'Run Rspec Presenter Tests'
+        run: bundle exec rspec spec/presenters/
+
+      - name: 'Run Rspec Request Tests'
+        run: bundle exec rspec spec/requests/
+
+      - name: 'Run Rspec View Tests'
+        run: bundle exec rspec spec/views/
+
+      - name: 'Run Rspec Mixin Tests'
+        run: bundle exec rspec spec/mixins/
