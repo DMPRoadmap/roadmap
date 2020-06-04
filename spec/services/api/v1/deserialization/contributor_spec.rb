@@ -22,7 +22,7 @@ RSpec.describe Api::V1::Deserialization::Contributor do
                                       identifier_scheme: @scheme,
                                       value: SecureRandom.uuid)
     @contributor.reload
-    @json = { name: @name, mbox: @email, roles: [@role] }
+    @json = { name: @name, mbox: @email, role: [@role] }
   end
 
   describe "#deserialize!(json: {})" do
@@ -60,28 +60,28 @@ RSpec.describe Api::V1::Deserialization::Contributor do
         expect(result).to eql(false)
       end
       it "returns false if :name and :mbox are not present" do
-        json = { roles: [@role] }
+        json = { role: [@role] }
         result = described_class.send(:valid?, is_contact: true, json: json)
         expect(result).to eql(false)
       end
       context "Contact" do
-        it "returns true without :roles" do
+        it "returns true without :role" do
           json = { name: @name, mbox: @email }
           result = described_class.send(:valid?, is_contact: true, json: json)
           expect(result).to eql(true)
         end
-        it "returns true with :roles" do
+        it "returns true with :role" do
           result = described_class.send(:valid?, is_contact: true, json: @json)
           expect(result).to eql(true)
         end
       end
       context "Contributor" do
-        it "returns false without :roles" do
+        it "returns false without :role" do
           json = { name: @name, mbox: @email }
           result = described_class.send(:valid?, is_contact: false, json: json)
           expect(result).to eql(false)
         end
-        it "returns true with :roles" do
+        it "returns true with :role" do
           result = described_class.send(:valid?, is_contact: false, json: @json)
           expect(result).to eql(true)
         end
@@ -116,7 +116,7 @@ RSpec.describe Api::V1::Deserialization::Contributor do
       end
       it "assigns the contributor role" do
         role = @contributor.all_roles[1].to_s
-        json = { name: Faker::TvShows::Simpsons.character, roles: [role] }
+        json = { name: Faker::TvShows::Simpsons.character, role: [role] }
         result = described_class.send(:marshal_contributor, plan_id: @plan.id,
                                                             is_contact: false,
                                                             json: json)
@@ -217,14 +217,14 @@ RSpec.describe Api::V1::Deserialization::Contributor do
                                                      json: nil)
         expect(result).to eql(@contributor)
       end
-      it "returns the Contributor as-is if json :roles is not present" do
+      it "returns the Contributor as-is if json :role is not present" do
         json = { name: @name }
         result = described_class.send(:assign_roles, contributor: @contributor,
                                                      json: json)
         expect(result).to eql(@contributor)
       end
       it "ignores unknown/undefined roles" do
-        @json[:roles] << Faker::Lorem.word
+        @json[:role] << Faker::Lorem.word
         result = described_class.send(:assign_roles, contributor: @contributor,
                                                      json: @json)
         expect(result.selected_roles).to eql(@contributor.selected_roles)
