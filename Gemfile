@@ -40,17 +40,6 @@ gem "jbuilder"
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
-# TODO: See if pegging gems is still necessary after migrating to Rails 5
-#gem "sprockets" #, "~> 3.2"
-
-# Rake is a Make-like program implemented in Ruby
-# (https://github.com/ruby/rake)
-#gem "rake"
-
-# Tools for creating, working with, and running Rails applications.
-# (http://www.rubyonrails.org)
-#gem "railties"
-
 # GEMS ADDED TO HELP HANDLE RAILS MIGRATION FROM 3.x to 4.2
 # THESE GEMS HELP SUPPORT DEPRACATED FUNCTIONALITY AND WILL LOSE SUPPORT IN
 # FUTURE VERSIONS WE SHOULD CONSIDER BRINGING THE CODE UP TO DATE INSTEAD
@@ -158,17 +147,6 @@ gem "api-pagination"
 # =========== #
 # STYLESHEETS #
 # =========== #
-
-# bootstrap-sass is a Sass-powered version of Bootstrap 3, ready to drop
-# right into your Sass powered applications.
-# (https://github.com/twbs/bootstrap-sass)
-gem "bootstrap-sass"
-
-# This is required for Font-Awesome, but not used as the main sass compiler
-
-# Sass adapter for the Rails asset pipeline.
-# (https://github.com/rails/sass-rails)
-#gem "sass-rails", require: false
 
 # Integrate SassC-Ruby into Rails. (https://github.com/sass/sassc-rails)
 gem "sassc-rails"
