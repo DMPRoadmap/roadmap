@@ -1,6 +1,6 @@
 name: Tests - MySQL
 
-on: [pull_request]
+on: [push, pull_request]
 
 jobs:
   mysql:
@@ -17,17 +17,15 @@ jobs:
       with:
         fetch-depth: 1
 
-    # Install the necessary MySQL dev packages
     - name: 'Install Mysql Packages'
       run: |
         sudo apt-get update
         sudo apt-get install -y mysql-client libmysqlclient-dev
 
-    # Extract the Ruby version from the Gemfile.lock
-    - name: 'Determine Ruby Version'
-      run: echo ::set-env name=RUBY_VERSION::$(echo `cat ./Gemfile.lock | grep -A 1 'RUBY VERSION' | grep 'ruby' | grep -oE '[0-9]\.[0-9]'`)
-
-    # Install Ruby - using the version found in the Gemfile.lock
+    - name: 'Determine Ruby and Bundler Versions from Gemfile.lock'
+      run: |
+        echo ::set-env name=RUBY_VERSION::$(echo `cat ./Gemfile.lock | grep -A 1 'RUBY VERSION' | grep 'ruby' | grep -oE '[0-9]\.[0-9]'`)
+        echo ::set-env name=BUNDLER_VERSION::$(echo `cat ./Gemfile.lock | grep -A 1 'BUNDLE WITH' | grep -oE '[0-9]\.[0-9]'`)
     - name: 'Install Ruby'
       uses: actions/setup-ruby@v1
       with:
@@ -52,10 +50,9 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gem-
 
-    # Install bundler and run bundle install
     - name: 'Bundle Install'
       run: |
-        gem install bundler -v 1.17.2
+        gem install bundler -v ${{ env.RUBY_VERSION }}
         bundle config path vendor/bundle
         bundle install --jobs 4 --retry 3 --without pgsql rollbar aws
 
@@ -71,41 +68,39 @@ jobs:
           ${{ runner.os }}-yarn-
           ${{ runner.os }}-
 
-    # Figure out where wkhtmltopdf is installed
     - name: 'Determine wkhtmltopdf location'
-      run: echo ::set-env name=WICKED_PDF_PATH::$(echo `bundle exec which wkhtmltopdf`)
+      run: echo ::set-env name=WICKED_PDF_PATH::$(echo `bin/bundle exec which wkhtmltopdf`)
 
-    # Startup MySQL
     - name: 'Start MySQL'
       run: sudo systemctl start mysql
 
-
-
-    # Install the JS dependencies
     - name: 'Yarn Install'
       run: |
         yarn install
 
-    # Figure out where wkhtmltopdf is installed
-    - name: 'Determine wkhtmltopdf location'
-      run: echo ::set-env name=WICKED_PDF_PATH::$(echo `bundle exec which wkhtmltopdf`)
-
-    # Setup the database
     - name: 'Setup Test DB'
-      run: bundle exec rake db:setup RAILS_ENV=test
+      run: bin/rails db:setup RAILS_ENV=test
 
-    # Compile the assets
+    - name: 'Migrate DB'
+      run: bin/rails db:migrate RAILS_ENV=test
+      
     - name: 'Compile Assets'
       run: |
-        bundle exec rake webpacker:compile RAILS_ENV=test
-        bundle exec rake assets:precompile RAILS_ENV=test
+        bin/rails webpacker:compile RAILS_ENV=test
+        bin/rails assets:precompile RAILS_ENV=test
 
-    # Run the JS tests
     - name: 'Run Karma Tests'
       run: |
         yarn add karma
         yarn run test
 
-    # Run the Rspec tests
-    - name: 'Run Rspec Tests'
-      run: bundle exec rspec spec/
+    - name: 'Run Rspec Unit and Functional Tests'
+      run: |
+        bin/rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
+        bin/rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
+        bin/rspec spec/mixins/
+
+    # Only run Integration tests if the PR or Push is to master or development branches
+    - name: 'Run Rspec Integration Tests'
+      if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development'
+      run: bin/rspec spec/features/
