@@ -12,6 +12,8 @@
                     <%= create_date_field(f, value, key, prop['label']) %>
                 <% elsif prop['format'] == 'uri' %>
                     <%= create_url_field(f, value, key, prop['label']) %>
+                <% elsif prop['format'] == 'email' %>
+                    <%= create_email_field(f, value, key, prop['label']) %>
                 <%end%>
             <% when 'integer' %>
                 <%= create_number_field(f, value, key, prop['label']) %>
