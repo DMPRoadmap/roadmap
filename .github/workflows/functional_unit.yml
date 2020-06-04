@@ -9,6 +9,11 @@ jobs:
   build_dmproadmap:
     runs-on: ubuntu-latest
    
+    uses: actions/upload-artifact@master
+    with:
+      name: dmproadmap artifacts
+      path: public/
+      
     steps:
       # Checkout the repo
       - uses: actions/checkout@v1
@@ -64,10 +69,11 @@ jobs:
         run: |
           yarn install
           
-      - uses: actions/upload-artifact@master
-          with:
-            name: dmproadmap artifacts
-            path: public/
+      - name: 'Upload artifact'
+        uses: actions/upload-artifact@master
+        with:
+          name: dmproadmap artifacts
+          path: public/
 
   # Job to install and setup a MySQL database
   # ----------------------------------------------------------------------
@@ -77,10 +83,10 @@ jobs:
     
     runs-on: ubuntu-latest
     
-    - uses: actions/upload-artifact@master
-      with:
-        name: mysql artifacts
-        path: public/
+    uses: actions/upload-artifact@master
+    with:
+      name: mysql artifacts
+      path: public/
 
     env:
       DB_ADAPTER: mysql2
@@ -107,10 +113,11 @@ jobs:
     - name: 'Setup DB'
       run: bundle exec rake db:setup RAILS_ENV=test
 
-    - uses: actions/upload-artifact@master
-          with:
-            name: mysql artifacts
-            path: public/
+    - name: 'Upload artifact'
+      uses: actions/upload-artifact@master
+      with:
+        name: mysql artifacts
+        path: public/
 
   # Job to install and setup a Postgres database
   # ----------------------------------------------------------------------
@@ -120,10 +127,10 @@ jobs:
     
     runs-on: ubuntu-latest
 
-    - uses: actions/upload-artifact@master
-      with:
-        name: postgres artifacts
-        path: public/
+    uses: actions/upload-artifact@master
+    with:
+      name: postgres artifacts
+      path: public/
         
     services:
       # Postgres installation
@@ -164,10 +171,11 @@ jobs:
       - name: 'Setup the DB'
         run: bundle exec rake db:setup RAILS_ENV=test
       
-      - uses: actions/upload-artifact@master
-          with:
-            name: postgres artifacts
-            path: public/
+      - name: 'Upload artifact'
+        uses: actions/upload-artifact@master
+        with:
+          name: postgres artifacts
+          path: public/
 
   # Job to Run the functional and unit tests against both mysql and postgres
   # ----------------------------------------------------------------------
