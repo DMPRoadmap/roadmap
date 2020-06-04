@@ -55,13 +55,30 @@ jobs:
         bin/bundle config set without 'mysql pgsql rollbar aws'
         bin/bundle install --jobs 4 --retry 3
   
-  unit_and_functional_tests:
+  yarn:
     runs-on: ubuntu-latest
-    needs: [setup_config, bundler]
+
+    steps:
+    - uses: actions/checkout@v1
     
-    strategy:
-      matrix: 
-        db: [mysql, postgres]
+    - name: 'Retrieve Yarn packages from the cache'
+      uses: actions/cache@v1
+      with:
+        path: node_modules/
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-yarn-
+          ${{ runner.os }}-
+
+    - name: 'Yarn Install'
+      run: |
+        yarn install
+  
+  tests:
+    runs-on: ubuntu-latest
+    needs: [setup_config, bundler, yarn]
 
     services:
       # Postgres installation
@@ -90,94 +107,14 @@ jobs:
         name: config artifacts
         path: config
 
-    - name: 'Retrieve Gems from the cache'
-      uses: actions/cache@v1
+    - name: 'Determine Ruby Version'
+      run: echo ::set-env name=RUBY_VERSION::$(echo `cat ./Gemfile.lock | grep -A 1 'RUBY VERSION' | grep 'ruby' | grep -oE '[0-9]\.[0-9]'`)
+
+    # Install Ruby - using the version found in the Gemfile.lock
+    - name: 'Install Ruby'
+      uses: actions/setup-ruby@v1
       with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gem-
-          
-    - name: 'Install Postgresql'
-      if: ${{ matrix.db }} == 'postgres'
-      run: |
-        sudo apt-get update
-        sudo apt-get install libpq-dev
-        bin/bundle config set without 'mysql rollbar aws'
-        bin/bundle install --jobs 4 --retry 3
-        echo ::set-env name=DATABASE_URL::postgres://postgres:@localhost:5432/roadmap_test
-
-    - name: 'Install Mysql'
-      if: ${{ matrix.db }} == 'mysql'
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y mysql-client libmysqlclient-dev
-        bin/bundle config set without 'pgsql rollbar aws'
-        bin/bundle install --jobs 4 --retry 3
-        sudo systemctl start mysql
-        echo ::set-env name=DB_ADAPTER::mysql2
-        echo ::set-env name=MYSQL_PWD::root
-
-    - name: 'Setup DB'
-      run: bin/rails db:setup RAILS_ENV=test
-
-    - name: 'Migrate DB changes'
-      run: bin/rails db:migrate RAILS_ENV=test
-
-    - name: 'Run Karma Tests'
-      run: |
-        bin/yarn add karma
-        bin/yarn run test
-
-    - name: 'Run Rspec Model, Policy, Service and Helper Tests'
-      run: bin/rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
-
-    - name: 'Run Rspec Controller, Presenter, Request and View Tests'
-      run: bin/rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
-
-    - name: 'Run Rspec Mixin Tests'
-      run: bin/rspec spec/mixins/
-
-  integration_tests:
-    runs-on: ubuntu-latest
-
-    # Only run these when they are going into the master of development branches
-    # skip them when push/pr to a feature branch
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development'
-    
-    # This job must wait for the mysql and postgres jobs to finish
-    needs: [unit_and_functional_tests]
-
-    strategy:
-      matrix: 
-        db: [mysql, postgres]
-
-    services:
-      # Postgres installation
-      db:
-        image: postgres
-        env:
-          # Latest version of Postgres has increased security. We can use the default
-          # user/password in this testing scenario though so use the following env
-          # variable to bypass this changes:
-          # https://github.com/docker-library/postgres/issues/681
-          POSTGRES_HOST_AUTH_METHOD: trust
-        ports: ['5432:5432']
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
-    env:
-      RAILS_ENV: test
-
-    steps:
-    - uses: actions/checkout@v1
-    - uses: actions/download-artifact@master
-      with: 
-        name: config artifacts
-        path: config
+        ruby-version: ${{ env.RUBY_VERSION }}
 
     - name: 'Retrieve Gems from the cache'
       uses: actions/cache@v1
@@ -186,32 +123,6 @@ jobs:
         key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-gem-
-          
-    - name: 'Install Postgresql'
-      if: ${{ matrix.db }} == 'postgres'
-      run: |
-        sudo apt-get update
-        sudo apt-get install libpq-dev
-        bin/bundle config set without 'mysql rollbar aws'
-        bin/bundle install --jobs 4 --retry 3
-        echo ::set-env name=DATABASE_URL::postgres://postgres:@localhost:5432/roadmap_test
-
-    - name: 'Install Mysql'
-      if: ${{ matrix.db }} == 'mysql'
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y mysql-client libmysqlclient-dev
-        bin/bundle config set without 'pgsql rollbar aws'
-        bin/bundle install --jobs 4 --retry 3
-        sudo systemctl start mysql
-        echo ::set-env name=DB_ADAPTER::mysql2
-        echo ::set-env name=MYSQL_PWD::root
-
-    - name: 'Setup DB'
-      run: bin/rails db:setup RAILS_ENV=test
-
-    - name: 'Migrate DB changes'
-      run: bin/rails db:migrate RAILS_ENV=test
 
     - name: 'Retrieve Yarn packages from the cache'
       uses: actions/cache@v1
@@ -223,13 +134,36 @@ jobs:
           ${{ runner.os }}-build-
           ${{ runner.os }}-yarn-
           ${{ runner.os }}-
-          
+
+    - name: 'Install Postgresql'
+      run: |
+        sudo apt-get update
+        sudo apt-get install libpq-dev
+        bin/bundle config path vendor/bundle
+        bin/bundle config set without 'mysql rollbar aws'
+        bin/bundle install --jobs 4 --retry 3
+        echo ::set-env name=DATABASE_URL::postgres://postgres:@localhost:5432/roadmap_test
+
+    - name: 'Setup DB'
+      run: bin/rails db:setup RAILS_ENV=test
+
+    - name: 'Migrate DB changes'
+      run: bin/rails db:migrate RAILS_ENV=test
+
     - name: 'Determine wkhtmltopdf location'
       run: echo ::set-env name=WICKED_PDF_PATH::$(echo `bundle exec which wkhtmltopdf`)
-
-    - name: 'Yarn Install'
+      
+    - name: 'Run Karma Tests'
       run: |
-        yarn install
-        
-    - name: 'Run Rspec Model Tests'
+        bin/yarn add karma
+        bin/yarn run test
+
+    - name: 'Run Unit and Functional Tests'
+      run: |
+        bin/rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
+        bin/rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
+        bin/rspec spec/mixins/
+      
+    - name: 'Run Rspec Integration Tests'
       run: bin/rspec spec/features/
+      
