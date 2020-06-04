@@ -72,7 +72,6 @@ jobs:
     services:
       # Postgres installation
       db:
-        if: ${{ matrix.db }} == 'postgres'
         image: postgres
         env:
           # Latest version of Postgres has increased security. We can use the default
@@ -158,7 +157,6 @@ jobs:
     services:
       # Postgres installation
       db:
-        if: ${{ matrix.db }} == 'postgres'
         image: postgres
         env:
           # Latest version of Postgres has increased security. We can use the default
