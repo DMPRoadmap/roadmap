@@ -8,11 +8,6 @@ jobs:
   # ----------------------------------------------------------------------
   build_dmproadmap:
     runs-on: ubuntu-latest
-     
-    - uses: actions/upload-artifact@master
-      with:
-        name: dmproadmap artifacts
-        path: public/
    
     steps:
       # Checkout the repo
