@@ -12,15 +12,13 @@ jobs:
       RAILS_ENV: test
 
     services:
-      mariadb:
-        image: mariadb:latest
+      mysql:
+        image: mysql:5.7
         ports:
           - 3306
         env:
-          MYSQL_USER: user
-          MYSQL_PASSWORD: password
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: roadmap_test
-          MYSQL_ROOT_PASSWORD: password
         options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
 
     steps:
@@ -29,18 +27,11 @@ jobs:
       with:
         fetch-depth: 1
 
-    - name: Verify MariaDB connection
-      env:
-        PORT: ${{ job.services.mariadb.ports[3306] }}
-      run: |
-        while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
-          sleep 1
-        done
-
     - name: 'Determine Ruby and Bundler Versions from Gemfile.lock'
       run: |
         echo ::set-env name=RUBY_VERSION::$(echo `cat ./Gemfile.lock | grep -A 1 'RUBY VERSION' | grep 'ruby' | grep -oE '[0-9]\.[0-9]'`)
         echo ::set-env name=BUNDLER_VERSION::$(echo `cat ./Gemfile.lock | grep -A 1 'BUNDLED WITH' | grep -oE '[0-9]\.[0-9]'`)
+
     - name: 'Install Ruby'
       uses: actions/setup-ruby@v1
       with:
