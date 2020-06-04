@@ -1,0 +1,66 @@
+name: MySQL - Unit and Functional Tests
+
+on: [push, pull_request]
+
+jobs:
+  mysql:
+    needs: build
+    
+    runs-on: ubuntu-latest
+
+    env:
+      DB_ADAPTER: mysql2
+      MYSQL_PWD: root
+      RAILS_ENV: test
+    
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/download-artifact@master
+      with: 
+        name: dmproadmap artifacts
+        path: public
+    
+    - name: 'Shutdown default Ubuntu MySQL (SUDO)'
+      run: sudo service mysql stop
+
+    - name: 'Setup latest MySSQL'
+      uses: mirromutth/mysql-action@v1.1
+      with:
+        character set server: 'utf8mb4'
+        collation server: 'utf8mb4_general_ci'
+        mysql database: 'roadmap_test'
+
+    - name: 'Setup DB'
+      run: bundle exec rake db:setup RAILS_ENV=test
+      
+    - name: 'Run Karma Tests'
+      run: |
+        yarn add karma
+        yarn run test
+
+    - name: 'Run Rspec Model Tests'
+      run: bundle exec rspec spec/models/
+
+    - name: 'Run Rspec Policy Tests'
+      run: bundle exec rspec spec/policies/
+    
+    - name: 'Run Rspec Service Tests'
+      run: bundle exec rspec spec/services/
+      
+    - name: 'Run Rspec Controller Tests'
+      run: bundle exec rspec spec/controllers/
+      
+    - name: 'Run Rspec Helper Tests'
+      run: bundle exec rspec spec/helpers/
+      
+    - name: 'Run Rspec Presenter Tests'
+      run: bundle exec rspec spec/presenters/
+      
+    - name: 'Run Rspec Request Tests'
+      run: bundle exec rspec spec/requests/
+      
+    - name: 'Run Rspec View Tests'
+      run: bundle exec rspec spec/views/
+
+    - name: 'Run Rspec Mixin Tests'
+      run: bundle exec rspec spec/mixins/
