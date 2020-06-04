@@ -10,7 +10,7 @@
                     <%= create_text_field(f, value, key, prop['label']) %>
                 <% elsif prop['format'] == 'date' %>
                     <%= create_date_field(f, value, key, prop['label']) %>
-                <% elsif prop['format'] == 'url' %>
+                <% elsif prop['format'] == 'uri' %>
                     <%= create_url_field(f, value, key, prop['label']) %>
                 <%end%>
             <% when 'integer' %>
