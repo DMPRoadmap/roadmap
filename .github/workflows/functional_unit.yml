@@ -39,12 +39,15 @@ jobs:
           key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-gem-
-            
+      
+      - name: 'Determine Bundler Version (from Gemfile.lock)'
+        run: echo ::set-env name=BUNDLER_VERSION::$(echo `cat ./Gemfile.lock | grep -A 1 'BUNDLED WITH' | grep 'ruby' | grep -oE '[0-9]\.[0-9]'`)
+
       - name: 'Bundle Install'
         run: |
-          gem install bundler -v 1.17.2
+          gem install bundler -v ${{ env.BUNDLER_VERSION }}
           bundle config path vendor/bundle
-          bundle install --jobs 4 --retry 3 --without pgsql rollbar aws
+          bundle install --jobs 4 --retry 3 --without mysql pgsql rollbar aws
           
       - name: 'Retrieve Yarn packages from the cache'
         uses: actions/cache@v1
@@ -100,9 +103,15 @@ jobs:
         collation server: 'utf8mb4_general_ci'
         mysql database: 'roadmap_test'
 
+    - name: 'Bundle Install mysql2 gem'
+      run: bundle install --jobs 4 --retry 3 --without pgsql rollbar aws
+          
     - name: 'Setup DB'
-      run: bundle exec rake db:setup RAILS_ENV=test
+      run: rails db:setup RAILS_ENV=test
 
+    - name: 'Migrate DB changes'
+      run: rails db:migrate RAILS_ENV=test
+        
     - name: 'Upload artifact'
       uses: actions/upload-artifact@master
       with:
@@ -150,11 +159,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install libpq-dev
 
-      - name: 'Migrate DB changes'
-        run: bundle exec rake db:migrate RAILS_ENV=test
-      
+      - name: 'Bundle Install Postgres Gem'
+        run: bundle install --jobs 4 --retry 3 --without mysql rollbar aws
+
       - name: 'Setup the DB'
-        run: bundle exec rake db:setup RAILS_ENV=test
+        run: rails db:setup RAILS_ENV=test
+        
+      - name: 'Migrate DB changes'
+        run: rails db:migrate RAILS_ENV=test
       
       - name: 'Upload artifact'
         uses: actions/upload-artifact@master
@@ -164,7 +176,7 @@ jobs:
 
   # Job to Run the functional and unit tests against both mysql and postgres
   # ----------------------------------------------------------------------
-  tests:
+  unit_and_functional_tests:
     runs-on: ubuntu-latest
     # This job must wait for the mysql and postgres jobs to finish
     needs: [mysql, postgres]
@@ -211,3 +223,26 @@ jobs:
 
       - name: 'Run Rspec Mixin Tests'
         run: bundle exec rspec spec/mixins/
+
+  # Job to Run the integration tests against both mysql and postgres
+  # ----------------------------------------------------------------------
+  integration_tests:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development'
+    
+    # This job must wait for the mysql and postgres jobs to finish
+    needs: [unit_and_functional_tests]
+    
+    strategy:
+      matrix: 
+        db: [mysql, postgres]
+    
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/download-artifact@master
+        with: 
+          name: ${{ matrix.db }} artifacts
+          path: public
+
+      - name: 'Run Rspec Model Tests'
+        run: rspec spec/features/
