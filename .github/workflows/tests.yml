@@ -72,7 +72,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: dmproadmap artifacts
-          path: current
+          path: ./
 
   # Job to install and setup a MySQL database
   # ----------------------------------------------------------------------
@@ -92,7 +92,7 @@ jobs:
     - uses: actions/download-artifact@master
       with: 
         name: dmproadmap artifacts
-        path: current
+        path: ./
     
     - name: 'Install Mysql Packages'
       run: |
@@ -101,9 +101,6 @@ jobs:
         
     - name: 'Start MySQL'
       run: sudo systemctl start mysql
-
-    - name: 'Change dir to release folder'
-      run: cd current/
 
     - name: 'See where we are'
       run: |
@@ -127,7 +124,7 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: mysql artifacts
-        path: mysql
+        path: ./
 
   # Job to install and setup a Postgres database
   # ----------------------------------------------------------------------
@@ -162,16 +159,13 @@ jobs:
       - uses: actions/download-artifact@master
         with: 
           name: dmproadmap artifacts
-          path: current
+          path: ./
 
       # Install the necessary Postgres dev packages
       - name: 'Install Postgresql Packages'
         run: |
           sudo apt-get update
           sudo apt-get install libpq-dev
-
-      - name: 'Change dir to release folder'
-        run: cd current/
 
       - name: 'Bundle Install Postgres Gem'
         run: |
@@ -188,7 +182,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: postgres artifacts
-          path: postgres
+          path: ./
 
   # Job to Run the functional and unit tests against both mysql and postgres
   # ----------------------------------------------------------------------
@@ -240,7 +234,7 @@ jobs:
       - uses: actions/download-artifact@master
         with: 
           name: ${{ matrix.db }} artifacts
-          path: public
+          path: ./
 
       - name: 'Run Rspec Model Tests'
         run: bin/rspec spec/features/
