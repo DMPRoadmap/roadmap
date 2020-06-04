@@ -79,7 +79,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: dmproadmap artifacts
-          path: public
+          path: roadmap
 
   # Job to install and setup a MySQL database
   # ----------------------------------------------------------------------
@@ -99,7 +99,7 @@ jobs:
     - uses: actions/download-artifact@master
       with: 
         name: dmproadmap artifacts
-        path: public
+        path: roadmap
     
     - name: 'Install Mysql Packages'
       run: |
@@ -131,7 +131,7 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: mysql artifacts
-        path: mysql
+        path: roadmap/mysql
 
   # Job to install and setup a Postgres database
   # ----------------------------------------------------------------------
@@ -166,7 +166,7 @@ jobs:
       - uses: actions/download-artifact@master
         with: 
           name: dmproadmap artifacts
-          path: public
+          path: roadmap
 
       # Install the necessary Postgres dev packages
       - name: 'Install Postgresql Packages'
@@ -189,7 +189,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: postgres artifacts
-          path: postgres
+          path: roadmap/postgres
 
   # Job to Run the functional and unit tests against both mysql and postgres
   # ----------------------------------------------------------------------
@@ -207,7 +207,7 @@ jobs:
       - uses: actions/download-artifact@master
         with: 
           name: ${{ matrix.db }} artifacts
-          path: ${{ matrix.db }}
+          path: roadmap/${{ matrix.db }}
           
       - name: 'Run Karma Tests'
         run: |
