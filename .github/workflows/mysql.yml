@@ -8,6 +8,7 @@ jobs:
 
     env:
       DB_ADAPTER: mysql2
+      MYSQL_HOST: '127.0.0.1'
       RAILS_ENV: test
 
     services:
