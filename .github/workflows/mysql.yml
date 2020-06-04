@@ -11,16 +11,31 @@ jobs:
       MYSQL_PWD: root
       RAILS_ENV: test
 
+    services:
+      mariadb:
+        image: mariadb:latest
+        ports:
+          - 3306
+        env:
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+          MYSQL_DATABASE: roadmap_test
+          MYSQL_ROOT_PASSWORD: password
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+
     steps:
     # Checkout the repo
     - uses: actions/checkout@v2
       with:
         fetch-depth: 1
 
-    - name: 'Install Mysql Packages'
+    - name: Verify MariaDB connection
+      env:
+        PORT: ${{ job.services.mariadb.ports[3306] }}
       run: |
-        sudo apt-get update
-        sudo apt-get install -y mysql-client libmysqlclient-dev
+        while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
+          sleep 1
+        done
 
     - name: 'Determine Ruby and Bundler Versions from Gemfile.lock'
       run: |
