@@ -8,12 +8,7 @@ jobs:
   # ----------------------------------------------------------------------
   build_dmproadmap:
     runs-on: ubuntu-latest
-   
-    uses: actions/upload-artifact@master
-    with:
-      name: dmproadmap artifacts
-      path: public/
-      
+
     steps:
       # Checkout the repo
       - uses: actions/checkout@v1
@@ -82,11 +77,6 @@ jobs:
     needs: build_dmproadmap
     
     runs-on: ubuntu-latest
-    
-    uses: actions/upload-artifact@master
-    with:
-      name: mysql artifacts
-      path: public/
 
     env:
       DB_ADAPTER: mysql2
@@ -127,11 +117,6 @@ jobs:
     
     runs-on: ubuntu-latest
 
-    uses: actions/upload-artifact@master
-    with:
-      name: postgres artifacts
-      path: public/
-        
     services:
       # Postgres installation
       db:
