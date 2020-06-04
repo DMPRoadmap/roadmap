@@ -24,7 +24,8 @@ module Api
               plans = Plan.where(id: nil).limit(1)
             end
 
-          elsif client.is_a?(ApiClient) && plans.first.api_client_id != client.id
+          elsif client.is_a?(ApiClient) && plans.first.api_client_id != client.id &&
+                !plans.first.publicly_visible?
             # Kaminari pagination requires an ActiveRecord resultset :/
             plans = Plan.where(id: nil).limit(1)
           end
@@ -133,7 +134,7 @@ module Api
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def contributor_to_user(contributor:)
         identifiers = contributor.identifiers.map do |id|
-          { name: id.identifier_scheme.name, value: id.value }
+          { name: id.identifier_scheme&.name, value: id.value }
         end
         user = User.from_identifiers(array: identifiers) if identifiers.any?
         user = User.find_by(email: contributor.email) unless user.present?

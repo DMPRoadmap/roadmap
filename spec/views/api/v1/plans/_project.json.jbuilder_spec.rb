@@ -18,10 +18,10 @@ describe "api/v1/plans/_project.json.jbuilder" do
       expect(@json[:description]).to eql(@plan.description)
     end
     it "includes :start" do
-      expect(@json[:start]).to eql(@plan.start_date.utc.to_s)
+      expect(@json[:start]).to eql(@plan.start_date.to_formatted_s(:iso8601))
     end
     it "includes :end" do
-      expect(@json[:end]).to eql(@plan.end_date.utc.to_s)
+      expect(@json[:end]).to eql(@plan.end_date.to_formatted_s(:iso8601))
     end
 
     it "includes the :funder" do
