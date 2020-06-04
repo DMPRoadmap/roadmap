@@ -52,7 +52,7 @@ jobs:
 
     - name: 'Bundle Install'
       run: |
-        gem install bundler -v ${{ env.RUBY_VERSION }}
+        gem install bundler -v ${{ env.BUNDLER_VERSION }}
         bundle config path vendor/bundle
         bundle install --jobs 4 --retry 3 --without pgsql rollbar aws
 
