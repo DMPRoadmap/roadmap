@@ -8,17 +8,20 @@
 <div class="row">
   <div class="col-md-12">
       <ul class="nav nav-tabs" role="tablist">
-        <li role="personal-details" class="active">
-          <a href="#personal-details" role="tab" aria-controls="personal-details" data-toggle="tab"><%= _('Personal Details') %></a>
+        <li role="personal-details" class="nav-item">
+          <a href="#personal-details" role="tab" class="nav-link active"
+             aria-controls="personal-details" data-toggle="tab"><%= _('Personal Details') %></a>
         </li>
-        <li role="password-details">
-          <a href="#password-details" role="tab" aria-controls="password-details" data-toggle="tab"><%= _('Password') %></a>
+        <li role="password-details" class="nav-item">
+          <a href="#password-details" role="tab" class="nav-link"
+             aria-controls="password-details" data-toggle="tab"><%= _('Password') %></a>
         </li>
-        <li role="notification-preferences">
-          <a href="#notification-preferences" role="tab" aria-controls="notification-preferences" data-toggle="tab"><%= _('Notification Preferences') %></a>
+        <li role="notification-preferences" class="nav-item">
+          <a href="#notification-preferences" role="tab" class="nav-link"
+             aria-controls="notification-preferences" data-toggle="tab"><%= _('Notification Preferences') %></a>
         </li>
       </ul>
-    
+
       <div class="tab-content">
         <div id="personal-details" role="tabpanel" class="tab-pane active">
           <div class="panel panel-default">
