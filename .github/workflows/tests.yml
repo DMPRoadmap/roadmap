@@ -68,11 +68,18 @@ jobs:
         run: |
           yarn install
           
+      - name: 'See where we are'
+        run: |
+          value=`pwd`
+          contents=`ls`
+          echo We are in: $value
+          echo $contents
+          
       - name: 'Upload artifact'
         uses: actions/upload-artifact@master
         with:
           name: dmproadmap artifacts
-          path: ./
+          path: public
 
   # Job to install and setup a MySQL database
   # ----------------------------------------------------------------------
@@ -92,7 +99,7 @@ jobs:
     - uses: actions/download-artifact@master
       with: 
         name: dmproadmap artifacts
-        path: ./
+        path: public
     
     - name: 'Install Mysql Packages'
       run: |
@@ -124,7 +131,7 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: mysql artifacts
-        path: ./
+        path: mysql
 
   # Job to install and setup a Postgres database
   # ----------------------------------------------------------------------
@@ -159,7 +166,7 @@ jobs:
       - uses: actions/download-artifact@master
         with: 
           name: dmproadmap artifacts
-          path: ./
+          path: public
 
       # Install the necessary Postgres dev packages
       - name: 'Install Postgresql Packages'
@@ -182,7 +189,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: postgres artifacts
-          path: ./
+          path: postgres
 
   # Job to Run the functional and unit tests against both mysql and postgres
   # ----------------------------------------------------------------------
