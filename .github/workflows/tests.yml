@@ -50,31 +50,6 @@ jobs:
           bundle config set without 'mysql pgsql rollbar aws'
           bundle install --jobs 4 --retry 3
           
-      - name: 'Retrieve Yarn packages from the cache'
-        uses: actions/cache@v1
-        with:
-          path: node_modules/
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-yarn-
-            ${{ runner.os }}-
-            
-      - name: 'Determine wkhtmltopdf location'
-        run: echo ::set-env name=WICKED_PDF_PATH::$(echo `bundle exec which wkhtmltopdf`)
-
-      - name: 'Yarn Install'
-        run: |
-          yarn install
-          
-      - name: 'See where we are'
-        run: |
-          value=`pwd`
-          contents=`ls`
-          echo We are in: $value
-          echo $contents
-          
       - name: 'Upload artifact'
         uses: actions/upload-artifact@master
         with:
@@ -243,5 +218,23 @@ jobs:
           name: ${{ matrix.db }} artifacts
           path: ./
 
+      - name: 'Retrieve Yarn packages from the cache'
+        uses: actions/cache@v1
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-
+            
+      - name: 'Determine wkhtmltopdf location'
+        run: echo ::set-env name=WICKED_PDF_PATH::$(echo `bundle exec which wkhtmltopdf`)
+
+      - name: 'Yarn Install'
+        run: |
+          yarn install
+          
       - name: 'Run Rspec Model Tests'
         run: bin/rspec spec/features/
