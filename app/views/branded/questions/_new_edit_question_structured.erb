@@ -1,36 +1,5 @@
-<%# locals: { f, data, schema } %>
-<% schema['properties'].each do |key, prop| %>
-  <% value = data[key] unless data.nil? %>
-  <% case prop['type'] %>
-    <% when 'string' %>
-      <% if prop['format'].nil?%>
-        <%= create_text_field(f, value, key, prop['label']) %>
-      <% elsif prop['format'] == 'date' %>
-        <%= create_date_field(f, value, key, prop['label']) %>
-      <% elsif prop['format'] == 'uri' %>
-        <%= create_url_field(f, value, key, prop['label']) %>
-      <% elsif prop['format'] == 'email' %>
-        <%= create_email_field(f, value, key, prop['label']) %>
-      <% elsif prop['format'] == 'select' && prop['values'] %>
-        <%= create_select_field(f, value, "answer[#{key}]", prop['label'], prop['values']) %>
-      <%end%>
-    <% when 'integer' %>
-      <%= create_number_field(f, value, key, prop['label']) %>
-    <% when 'boolean' %>
-      <%= create_checkbox_field(f, value, key, prop['label']) %>
-    <% when 'array' %>
-      <%= render(partial: 'questions/fields/multiple_field', locals:
-      { f: f, field_values: value,
-      field_properties: prop,
-      field_name: key, answer_id: nil }) %>
-    <% when 'object' %>
-      <div class="col-md-12">
-        <fieldset class="answer-fieldset"> <!-- Version -->
-          <legend class="answer-fieldset"><%= key %></legend>
-          <% sub_value = value[key] unless value.nil? %>
-          <% sub_schema = StructuredDataSchema.find_by(classname: prop["classname"]).schema %>
-          <%= render(partial: 'questions/new_edit_question_structured', locals: { f: f, data: sub_value, readonly: readonly, schema: sub_schema }) %>
-        </fieldset>
-      </div>
-  <% end %>
-<% end %>
+<%= f.label(:text, sanitize(question.text), class: 'control-label') unless question.nil? %>
+<div class="form-group structured-answer">   
+  <% data = answer.structured_answer.data unless answer.structured_answer.nil? %>
+  <%= render(partial: 'shared/dynamic_form/form', locals: { f: f, data: data, readonly: readonly, schema: question.structured_data_schema.schema }) %>
+</div>

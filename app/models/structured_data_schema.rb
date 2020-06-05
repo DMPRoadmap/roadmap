@@ -39,9 +39,27 @@ class StructuredDataSchema < ActiveRecord::Base
 
   #validates :schema, presence:  { message: PRESENCE_MESSAGE },
   #                    json: true
-                      
+       
+  
+  # =================
+  # = Class Methods =
+  # =================
+
   def detailed_name 
     label + " ( " + name + "_V" + version.to_s + " )"
+  end
+
+  def generate_strong_params(flat = false)
+    parameters = Array.new
+    self.schema['properties'].each do |key, prop|
+        if prop["type"] == "array" && !flat
+            parameters.append({key => []})
+            # parameters.append(key)
+        else
+            parameters.append(key)
+        end
+    end
+    parameters
   end
   
 end

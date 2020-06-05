@@ -42,6 +42,7 @@ import '../views/plans/research_outputs';
 import '../views/plans/share';
 import '../views/roles/edit';
 import '../views/shared/create_account_form';
+import '../views/shared/dynamic_form';
 import '../views/shared/my_org';
 import '../views/shared/sign_in_form';
 import '../views/super_admin/themes/new_edit';

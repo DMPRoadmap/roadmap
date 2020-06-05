@@ -1,14 +1,16 @@
 <div class="col-md-12">
   <%= f.label field_name, field_label, class: 'control-label' %>
 </div>
-<div class="col-md-12">
+<div class="col-md-12 dynamic-field">
   <%= f.text_field field_name, value: field_value, multiple: multiple, class: "form-control #{field_class}", type: input_type  %>
-  <% if multiple  %>
-    <span class="add-record">Add</span>
-    <% if index != 0 %>
-      <span class="remove-record">Remove</span>
-    <% else %>
-      <span class="remove-record" style="display:none">Remove</span>
-    <% end %>
+  <% if multiple %>
+    <div class="actions">
+      <span class="fa fa-plus-square add-record"></span>
+      <% if index != 0 %>
+        <span class="fa fa-minus-square remove-record"></span>
+      <% else %>
+        <span class="fa fa-minus-square remove-record" style="display:none"></span>
+      <% end %>
+    </div>
   <% end %>
 </div>

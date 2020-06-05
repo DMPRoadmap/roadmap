@@ -1,0 +1,43 @@
+<% if field_values && field_values.kind_of?(Array)  %>
+    <% field_values.each_with_index do |value, idx| %>
+        <% case field_properties["type"] %>
+        <% when "string" %>
+            <% if field_properties['format'].nil?%>
+                <%= create_text_field(f, value, field_name, field_label, is_multiple: true, index: idx) %>
+            <% elsif field_properties['format'] == 'date' %>
+                <%= create_date_field(f, value, field_name, field_label, is_multiple: true, index: idx) %>
+            <% elsif field_properties['format'] == 'uri' %>
+                <%= create_url_field(f, value, field_name, field_label, is_multiple: true, index: idx) %>
+            <% elsif field_properties['format'] == 'email' %>
+                <%= create_email_field(f, value, field_name, field_label, is_multiple: true, index: idx) %>
+            <%end%>
+        <% when "integer" %>
+            <%=  create_number_field(f, value, field_name, field_label,  is_multiple: true, index: idx)%>
+        <% when "boolean" %>
+            <%=  create_checkbox_field(f, value, field_name, field_label)%>
+        <% when "schema" %>
+            <%# schema_id = field_properties["items"]["schema_id"] %>
+            <%#= create_schema_field(f, value, field_name, field_label, true, idx, schema_id, answer_id) %>
+        <% end %>
+    <% end %>
+<% else%>
+    <% case field_properties["type"] %>
+    <% when "string" %>
+        <% if field_properties['format'].nil?%>
+            <%= create_text_field(f, nil, field_name, field_label, is_multiple: true, index: 0) %>
+        <% elsif field_properties['format'] == 'date' %>
+            <%= create_date_field(f, nil, field_name, field_label, is_multiple: true, index: 0) %>
+        <% elsif field_properties['format'] == 'uri' %>
+            <%= create_url_field(f, nil, field_name, field_label, is_multiple: true, index: 0) %>
+        <% elsif field_properties['format'] == 'email' %>
+            <%= create_email_field(f, nil, field_name, field_label, is_multiple: true, index: 0) %>
+        <%end%>
+    <% when "integer" %>
+        <%=  create_number_field(f, nil, field_name, field_label,  is_multiple: true, index: 0)%>
+    <% when "boolean" %>
+        <%=  create_checkbox_field(f, nil, field_name, field_label)%>
+    <% when "schema" %>
+        <%# schema_id = field_properties["items"]["schema_id"] %>
+        <%#= create_schema_field(f, field_values, field_name, field_label, true, 0, schema_id, answer_id) %>
+    <% end %>
+<% end %>

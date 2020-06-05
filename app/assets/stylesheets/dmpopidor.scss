@@ -1003,6 +1003,23 @@ header .main-nav {
  * STRUCTURED ANSWERS
  */
  .structured-answer {
+    .dynamic-field {
+        display: flex;
+        align-items: center;
+        padding-top: 5px;
+
+        input {
+            flex: 9;
+        }
+        .actions {
+            flex: 1;
+            text-align: right;
+            color: $blue;
+            span {
+                cursor: pointer;
+            }
+        }
+    }
     fieldset.answer-fieldset {
         width: 100%;
         border-radius: 5px;
