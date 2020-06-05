@@ -35,13 +35,13 @@ module Dmpopidor
         Answer.transaction do
           begin
             @answer = Answer.find_by!({
-                plan_id: p_params[:plan_id], question_id: p_params[:question_id],
+                plan_id: p_params[:plan_id],
+                question_id: p_params[:question_id],
                 research_output_id: p_params[:research_output_id]
             })
             authorize @answer
             pa = p_params.merge(user_id: current_user.id)
-            # Exclude structured answer parameters (since they are not stored directly in the Answer object)
-            pa = pa.select { |k, v| !schema_params(q.structured_data_schema, flat = true).include?(k) } if q.question_format.structured  
+            
             @answer.update(pa)
             if p_params[:question_option_ids].present?
               # Saves the record with the updated_at set to the current time.
@@ -49,7 +49,8 @@ module Dmpopidor
               @answer.touch()
             end
             if q.question_format.structured
-              save_structured_answer(q)
+              s_params = schema_params(json_schema)
+              save_structured_answer(s_params, json_schema.schema)
             end
             if q.question_format.rda_metadata?
               @answer.update_answer_hash(
@@ -59,187 +60,175 @@ module Dmpopidor
             end
           rescue ActiveRecord::RecordNotFound
             pa = p_params.merge(user_id: current_user.id)
-            # Exclude structured answer parameters (since they are not stored directly in the Answer object)
-            pa = pa.select { |k, v| !schema_params(q.structured_data_schema, flat = true).include?(k) } if q.question_format.structured
             @answer = Answer.new(pa)
             @answer.lock_version = 1
             authorize @answer
             if q.question_format.structured
-              save_structured_answer(q)
+              s_params = schema_params(json_schema)
+              save_structured_answer(s_params, json_schema.schema)
             end
             if q.question_format.rda_metadata?
               @answer.update_answer_hash(
                 JSON.parse(params[:standards]), p_params[:text]
               )
             end
-              @answer.save!
-              rescue ActiveRecord::StaleObjectError
-                @stale_answer = @answer
-                @answer = Answer.find_by(
-                  plan_id: p_params[:plan_id],
-                  question_id: p_params[:question_id], 
-                  research_output_id: p_params[:research_output_id] 
-                )
-              end
+            @answer.save!
+            rescue ActiveRecord::StaleObjectError
+              @stale_answer = @answer
+              @answer = Answer.find_by(
+                plan_id: p_params[:plan_id],
+                question_id: p_params[:question_id], 
+                research_output_id: p_params[:research_output_id] 
+              )
             end
-            # rubocop:enable BlockLength
+          end
+          # rubocop:enable BlockLength
 
-            if @answer.present?
-              @plan = Plan.includes(
-                sections: {
-                  questions: [
-                    :answers,
-                    :question_format
-                  ]
-                }
-              ).find(p_params[:plan_id])
-              @question = @answer.question
-              @section = @plan.sections.find_by(id: @question.section_id)
-              template = @section.phase.template
-              @research_output = @answer.research_output
-              # rubocop:disable LineLength
-              render json: {
-              "answer" => {
-                "id" => @answer.id
-              },
-              "question" => {
-                "id" => @question.id,
-                "answer_lock_version" => @answer.lock_version,
-                "locking" => @stale_answer ?
-                  render_to_string(partial: "answers/locking", locals: {
-                    question: @question,
-                    answer: @stale_answer,
-                    research_output: @research_output,
-                    user: @answer.user
-                  }, formats: [:html]) :
-                  nil,
-                "form" => render_to_string(partial: "answers/new_edit", locals: {
-                  template: template,
-                  question: @question,
-                  answer: @answer,
-                  research_output: @research_output,
-                  readonly: false,
-                  locking: false,
-                  base_template_org: template.base_org
-                }, formats: [:html]),
-                "answer_status" => render_to_string(partial: "answers/status", locals: {
-                  answer: @answer
-                }, formats: [:html])
-              },
-              "section" => {
-                "id" => @section.id,
-                "progress" => render_to_string(partial: "/org_admin/sections/progress", locals: {
-                  section: @section,
-                  plan: @plan
-                }, formats: [:html])
-              },
-              "plan" => {
-                "id" => @plan.id,
-                "progress" => render_to_string(partial: "plans/progress", locals: {
-                  plan: @plan,
-                  current_phase: @section.phase
-                }, formats: [:html])
-              },
-              "research_output" => {
-                "id" => @research_output.id
+          if @answer.present?
+            @plan = Plan.includes(
+              sections: {
+                questions: [
+                  :answers,
+                  :question_format
+                ]
               }
-            }.to_json
-            # rubocop:enable LineLength
-          end
-        end
-
-        private
-
-        # Saves (and creates, if needed) the structured answer ("fragment")
-        def save_structured_answer(q)
-          schema = q.structured_data_schema
-          # Extract the form data corresponding to the schema of the structured question
-          form_data = permitted_params.select { |k, v| schema_params(schema, flat = true).include?(k) }
-          s_answer = StructuredAnswer.find_or_initialize_by(answer_id: @answer.id) do |sa|
-            sa.answer = @answer
-            sa.structured_data_schema = q.structured_data_schema
-            sa.classname = q.structured_data_schema.classname
-            sa.classname = q.structured_data_schema.classname
-            sa.dmp_id = @answer.plan.json_fragment().id
-            sa.parent_id = @answer.research_output.json_fragment().id
-            end
-          s_answer.assign_attributes(data: data_reformater(json_schema, form_data))
-          s_answer.save
-        end
-
-        # Formats the data extract from the structured answer form to valid JSON data
-        # This is useful because Rails converts all form data to strings and JSON needs the actual types
-        def data_reformater(schema, data)
-          schema["properties"].each do |key, value|
-            case value["type"]
-            when "integer"
-              data[key] = data[key].to_i
-            when "boolean"
-              data[key] = data[key] == "1"
-            when "array"
-              data[key] = data[key].kind_of?(Array) ? data[key] : [data[key]]
-            when "object"
-              if value["dictionnary"]
-                data[key] = JSON.parse(DictionnaryValue.where(id: data[key]).select(:id, :uri, :label).take.to_json)
-              end
-            end
-          end
-          data
-        end
-
-
-        # Get the schema from the question, if any (works for strucutred questions/answers only)
-        # TODO: move to global var with before_action trigger + rename accordingly (set_json_schema ?)
-        def json_schema
-          question = Question.find(params['question_id'])
-
-          question.structured_data_schema.schema
-        end
-
-        # Get the parameters conresponding to the schema
-        # TODO: Useless, merge the first use case (flat = false) with permitted_params_form_properties (using global json_schema var)
-        # + split the second use case (flat = true) to a more obvious function
-        # Point: split between the two use cases : 'get the parameters from the schema' and 'get the actual data corresponding to the schema'
-        def schema_params(schema, flat = false)
-          schema.generate_strong_params(flat)
-        end
-
-        def permitted_params
-          permit_arr = [:id, :text, :plan_id, :user_id,
-            :question_id, :lock_version,
-            :research_output_id, :is_common,
-            question_option_ids: []]
-          # Append parameters from schema if the question/answer is structured
-          if Question.find(params[:question_id]).question_format.structured
-            schema = Question.find(params[:question_id]).structured_data_schema
-            permit_arr.append(schema_params(schema))
-          end
-          permitted = params.require(:answer).permit(permit_arr.flatten)
-          # If question_option_ids has been filtered out because it was a
-          # scalar value (e.g. radiobutton answer)
-          if !params[:answer][:question_option_ids].nil? &&
-             !permitted[:question_option_ids].present?
-            permitted[:question_option_ids] = [params[:answer][:question_option_ids]]
-          end
-          if !permitted[:id].present?
-            permitted.delete(:id)
-          end
-          # If no question options has been chosen.
-          if params[:answer][:question_option_ids].nil?
-              permitted[:question_option_ids] = []
-          end
-          permitted
-        end
-        
-        def set_answers_as_common
-          answerIds = params[:answer_ids]
-          common_value = params[:is_common]
-
-          Answer.where(id: answerIds).update_all(is_common: common_value)
-          
-          render json: {
-            "updated_answers": answerIds
+            ).find(p_params[:plan_id])
+            @question = @answer.question
+            @section = @plan.sections.find_by(id: @question.section_id)
+            template = @section.phase.template
+            @research_output = @answer.research_output
+            # rubocop:disable LineLength
+            render json: {
+            "answer" => {
+              "id" => @answer.id
+            },
+            "question" => {
+              "id" => @question.id,
+              "answer_lock_version" => @answer.lock_version,
+              "locking" => @stale_answer ?
+                render_to_string(partial: "answers/locking", locals: {
+                  question: @question,
+                  answer: @stale_answer,
+                  research_output: @research_output,
+                  user: @answer.user
+                }, formats: [:html]) :
+                nil,
+              "form" => render_to_string(partial: "answers/new_edit", locals: {
+                template: template,
+                question: @question,
+                answer: @answer,
+                research_output: @research_output,
+                readonly: false,
+                locking: false,
+                base_template_org: template.base_org
+              }, formats: [:html]),
+              "answer_status" => render_to_string(partial: "answers/status", locals: {
+                answer: @answer
+              }, formats: [:html])
+            },
+            "section" => {
+              "id" => @section.id,
+              "progress" => render_to_string(partial: "/org_admin/sections/progress", locals: {
+                section: @section,
+                plan: @plan
+              }, formats: [:html])
+            },
+            "plan" => {
+              "id" => @plan.id,
+              "progress" => render_to_string(partial: "plans/progress", locals: {
+                plan: @plan,
+                current_phase: @section.phase
+              }, formats: [:html])
+            },
+            "research_output" => {
+              "id" => @research_output.id
+            }
           }.to_json
+          # rubocop:enable LineLength
+        end
+      end
+
+      private
+
+      # Saves (and creates, if needed) the structured answer ("fragment")
+      def save_structured_answer(data, schema)
+        # Extract the form data corresponding to the schema of the structured question
+        s_answer = StructuredAnswer.find_or_initialize_by(answer_id: @answer.id) do |sa|
+          sa.answer = @answer
+          sa.structured_data_schema = q.structured_data_schema
+          sa.classname = q.structured_data_schema.classname
+          sa.classname = q.structured_data_schema.classname
+          sa.dmp_id = @answer.plan.json_fragment().id
+          sa.parent_id = @answer.research_output.json_fragment().id
+        end
+        s_answer.assign_attributes(data: data_reformater(schema, data))
+        s_answer.save
+      end
+
+      # Formats the data extract from the structured answer form to valid JSON data
+      # This is useful because Rails converts all form data to strings and JSON needs the actual types
+      def data_reformater(schema, data)
+        schema["properties"].each do |key, value|
+          case value["type"]
+          when "integer"
+            data[key] = data[key].to_i
+          when "boolean"
+            data[key] = data[key] == "1"
+          when "array"
+            data[key] = data[key].kind_of?(Array) ? data[key] : [data[key]]
+          when "object"
+            if value["dictionnary"]
+              data[key] = JSON.parse(DictionnaryValue.where(id: data[key]).select(:id, :uri, :label).take.to_json)
+            end
+          end
+        end
+        data
+      end
+
+
+      # Get the schema from the question, if any (works for strucutred questions/answers only)
+      # TODO: move to global var with before_action trigger + rename accordingly (set_json_schema ?)
+      def json_schema
+        question = Question.find(params['question_id'])
+        question.structured_data_schema
+      end
+
+      # Get the parameters conresponding to the schema
+      def schema_params(schema, flat = false)
+        s_params = schema.generate_strong_params(flat)
+        params.require(:answer).permit(s_params)
+      end
+
+      def permitted_params
+        permit_arr = [:id, :text, :plan_id, :user_id,
+          :question_id, :lock_version,
+          :research_output_id, :is_common,
+          question_option_ids: []]
+        permitted = params.require(:answer).permit(permit_arr.flatten)
+        # If question_option_ids has been filtered out because it was a
+        # scalar value (e.g. radiobutton answer)
+        if !params[:answer][:question_option_ids].nil? &&
+           !permitted[:question_option_ids].present?
+          permitted[:question_option_ids] = [params[:answer][:question_option_ids]]
+        end
+        if !permitted[:id].present?
+          permitted.delete(:id)
+        end
+        # If no question options has been chosen.
+        if params[:answer][:question_option_ids].nil?
+            permitted[:question_option_ids] = []
+        end
+        permitted
+      end
+        
+      def set_answers_as_common
+        answerIds = params[:answer_ids]
+        common_value = params[:is_common]
+        Answer.where(id: answerIds).update_all(is_common: common_value)
+       
+        render json: {
+          "updated_answers": answerIds
+        }.to_json
       end
     end
   end
