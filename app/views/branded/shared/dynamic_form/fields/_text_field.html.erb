@@ -1,6 +1,8 @@
-<div class="col-md-12">
-  <%= f.label field_name, field_label, class: 'control-label' %>
-</div>
+<% unless multiple %>
+  <div class="col-md-12">
+    <%= f.label field_name, field_label, class: 'control-label' %>
+  </div>
+<% end %>
 <div class="col-md-12 dynamic-field">
   <%= f.text_field field_name, value: field_value, multiple: multiple, class: "form-control #{field_class}", type: input_type  %>
   <% if multiple %>
