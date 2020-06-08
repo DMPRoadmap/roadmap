@@ -8,24 +8,19 @@ jobs:
 
     env:
       DB_ADAPTER: mysql2
-      MYSQL_HOST: '127.0.0.1'
+      MYSQL_PWD: root
       RAILS_ENV: test
-
-    services:
-      mysql:
-        image: mysql:5.7
-        ports:
-          - 3306
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: roadmap_test
-        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
 
     steps:
     # Checkout the repo
     - uses: actions/checkout@v2
       with:
         fetch-depth: 1
+
+    - name: 'Install MySQL Packages'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y mysql-client libmysqlclient-dev
 
     - name: 'Determine Ruby and Bundler Versions from Gemfile.lock'
       run: |
@@ -81,25 +76,9 @@ jobs:
       run: |
         yarn install
         
-    - name: 'Verify MySQL connection'
-      env:
-        PORT: ${{ job.services.mysql.ports[3306] }}
-      run: |
-        while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
-          sleep 1
-        done
+    - name: 'Start MySQL'
+      run: sudo systemctl start mysql
 
-    - name: 'Add symlink to mysqld for the mysql2 adapter'
-      run: |
-        sudo mkdir /var/run/mysqld
-        sudo ln -s /var/lib/mysql/mysql.sock /var/run/mysqld/mysqld.sock
-        sudo echo ls /var/run/mysqld
-
-    - name: 'Setup DB credentials'
-      run: |
-        echo ::set-env name=MYSQL_USER::root
-        echo ::set-env name=MYSQL_PORT::${{ job.services.mysql.ports[3306] }}
-        
     - name: 'Setup Test DB'
       run: bin/rails db:setup RAILS_ENV=test
 
