@@ -32,11 +32,10 @@
       <div class="col-md-12">
         <fieldset class="answer-fieldset"> <!-- Version -->
           <legend class="answer-fieldset"><%= field_name %></legend>
-          <% sub_value = value[field_name] unless value.nil? %>
           <% sub_schema = StructuredDataSchema.find_by(classname: prop["classname"]).schema %>
           <%= render(partial: 'shared/dynamic_form/form', locals: { 
                 f: f, 
-                data: sub_value, 
+                data: value, 
                 readonly: readonly, 
                 schema: sub_schema,
                 form_prefix: prop["classname"]
