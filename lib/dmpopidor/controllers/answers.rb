@@ -49,8 +49,7 @@ module Dmpopidor
               @answer.touch()
             end
             if q.question_format.structured
-              s_params = schema_params(json_schema)
-              save_structured_answer(s_params, json_schema.schema)
+              save_structured_answer(params, json_schema)
             end
             if q.question_format.rda_metadata?
               @answer.update_answer_hash(
@@ -64,8 +63,7 @@ module Dmpopidor
             @answer.lock_version = 1
             authorize @answer
             if q.question_format.structured
-              s_params = schema_params(json_schema)
-              save_structured_answer(s_params, json_schema.schema)
+              save_structured_answer(params, json_schema)
             end
             if q.question_format.rda_metadata?
               @answer.update_answer_hash(
@@ -152,38 +150,21 @@ module Dmpopidor
 
       # Saves (and creates, if needed) the structured answer ("fragment")
       def save_structured_answer(data, schema)
+        data = schema_params(data, schema)
+
         # Extract the form data corresponding to the schema of the structured question
         s_answer = StructuredAnswer.find_or_initialize_by(answer_id: @answer.id) do |sa|
           sa.answer = @answer
-          sa.structured_data_schema = q.structured_data_schema
-          sa.classname = q.structured_data_schema.classname
-          sa.classname = q.structured_data_schema.classname
+          sa.structured_data_schema = schema
+          sa.classname = schema.classname
+          sa.classname = schema.classname
           sa.dmp_id = @answer.plan.json_fragment().id
           sa.parent_id = @answer.research_output.json_fragment().id
         end
-        s_answer.assign_attributes(data: data_reformater(schema, data))
+        s_answer.assign_attributes(data: data_reformater(schema.schema, data))
         s_answer.save
       end
 
-      # Formats the data extract from the structured answer form to valid JSON data
-      # This is useful because Rails converts all form data to strings and JSON needs the actual types
-      def data_reformater(schema, data)
-        schema["properties"].each do |key, value|
-          case value["type"]
-          when "integer"
-            data[key] = data[key].to_i
-          when "boolean"
-            data[key] = data[key] == "1"
-          when "array"
-            data[key] = data[key].kind_of?(Array) ? data[key] : [data[key]]
-          when "object"
-            if value["dictionnary"]
-              data[key] = JSON.parse(DictionnaryValue.where(id: data[key]).select(:id, :uri, :label).take.to_json)
-            end
-          end
-        end
-        data
-      end
 
 
       # Get the schema from the question, if any (works for strucutred questions/answers only)
@@ -193,10 +174,10 @@ module Dmpopidor
         question.structured_data_schema
       end
 
-      # Get the parameters conresponding to the schema
-      def schema_params(schema, flat = false)
+      # Get the parameters corresponding to the schema
+      def schema_params(data, schema, flat = false)
         s_params = schema.generate_strong_params(flat)
-        params.require(:answer).permit(s_params)
+        data.require(:answer).permit(s_params)
       end
 
       def permitted_params

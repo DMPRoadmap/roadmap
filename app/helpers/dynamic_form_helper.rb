@@ -115,4 +115,25 @@ module DynamicFormHelper
     }
   end
 
+
+  # Formats the data extract from the structured answer form to valid JSON data
+  # This is useful because Rails converts all form data to strings and JSON needs the actual types
+  def data_reformater(schema, data)
+    schema["properties"].each do |key, value|
+      case value["type"]
+      when "integer"
+        data[key] = data[key].to_i
+      when "boolean"
+        data[key] = data[key] == "1"
+      when "array"
+        data[key] = data[key].kind_of?(Array) ? data[key] : [data[key]]
+      when "object"
+        if value["dictionnary"]
+          data[key] = JSON.parse(DictionnaryValue.where(id: data[key]).select(:id, :uri, :label).take.to_json)
+        end
+      end
+    end
+    data
+  end
+  
 end

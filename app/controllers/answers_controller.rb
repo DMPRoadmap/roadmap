@@ -4,6 +4,7 @@
 class AnswersController < ApplicationController
 
   prepend Dmpopidor::Controllers::Answers
+  include DynamicFormHelper
   respond_to :html
 
   # POST /answers/create_or_update

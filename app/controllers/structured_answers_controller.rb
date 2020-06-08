@@ -122,43 +122,14 @@ class StructuredAnswersController < ApplicationController
 
     private
 
-    def data_reformater(schema, data)
-      schema["properties"].each do |key, value|
-        case value["type"]
-        when "integer"
-          data[key] = data[key].to_i
-        when "boolean"
-          data[key] = data[key] == "1"
-        when "array"
-          data[key] = data[key].kind_of?(Array) ? data[key] : [data[key]]
-        when "object"
-          if value["dictionnary"]
-            data[key] = JSON.parse(DictionnaryValue.where(id: data[key]).select(:id, :uri, :label).take.to_json)
-          end
-        end
-      end
-      data
-    end
-
-    # Generates a permitted params array from a structured answer schema
-    def permitted_params_from_properties(properties, flat = false)
-      parameters = Array.new
-      properties.each do |key, prop|
-        if prop["type"] == "array" && !flat
-          parameters.append({key => []})
-        else
-          parameters.append(key)
-        end
-      end
-      parameters
-    end
-
     def json_schema
       StructuredDataSchema.find(params['structured_answer']['schema_id']).schema
     end
 
-    def schema_params(flat = false)
-      permitted_params_from_properties(json_schema['properties'], flat)
+    # Get the parameters conresponding to the schema
+    def schema_params(schema, flat = false)
+      s_params = schema.generate_strong_params(flat)
+      params.require(:answer).permit(s_params)
     end
 
     def permitted_params
