@@ -90,6 +90,11 @@ jobs:
           sleep 1
         done
 
+    - name: 'Add symlink to mysqld for the mysql2 adapter'
+      run: |
+        mkdir /var/run/mysqld
+        ln -s /var/lib/mysql/mysql.sock /var/run/mysqld/mysqld.sock
+
     - name: 'Setup DB credentials'
       run: |
         echo ::set-env name=MYSQL_USER::root
