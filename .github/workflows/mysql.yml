@@ -92,8 +92,8 @@ jobs:
 
     - name: 'Add symlink to mysqld for the mysql2 adapter'
       run: |
-        mkdir /var/run/mysqld
-        ln -s /var/lib/mysql/mysql.sock /var/run/mysqld/mysqld.sock
+        sudo mkdir /var/run/mysqld
+        sudo ln -s /var/lib/mysql/mysql.sock /var/run/mysqld/mysqld.sock
 
     - name: 'Setup DB credentials'
       run: |
