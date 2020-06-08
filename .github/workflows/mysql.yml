@@ -8,6 +8,7 @@ jobs:
 
     env:
       DB_ADAPTER: mysql2
+      MYSQL_USER: root
       MYSQL_PWD: root
       RAILS_ENV: test
 
