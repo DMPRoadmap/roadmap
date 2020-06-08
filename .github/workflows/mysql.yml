@@ -81,7 +81,9 @@ jobs:
       run: sudo systemctl start mysql
 
     - name: 'Setup Test DB'
-      run: bin/rails db:setup
+      run: |
+        bin/rails db:environment:set RAILS_ENV=$RAILS_ENV
+        bin/rails db:setup
 
     - name: 'Migrate DB'
       run: bin/rails db:migrate
