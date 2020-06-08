@@ -128,9 +128,9 @@ module DynamicFormHelper
       when "array"
         data[key] = data[key].kind_of?(Array) ? data[key] : [data[key]]
       when "object"
-        if value["dictionnary"]
-          data[key] = JSON.parse(DictionnaryValue.where(id: data[key]).select(:id, :uri, :label).take.to_json)
-        end
+        # if value["dictionnary"]
+        #   data[key] = JSON.parse(DictionnaryValue.where(id: data[key]).select(:id, :uri, :label).take.to_json)
+        # end
       end
     end
     data

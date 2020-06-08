@@ -22,6 +22,7 @@ require 'jsonpath'
 class StructuredAnswer < ActiveRecord::Base
   
   include ValidationMessages
+  include DynamicFormHelper
 
   # ================
   # = Associations =
@@ -133,6 +134,20 @@ class StructuredAnswer < ActiveRecord::Base
       end
       self.parent.update(data: parent_data)
     end
+  end
+
+  # Saves (and creates, if needed) the structured answer ("fragment")
+  def self.save_structured_answer(answer, data, schema, parent_id = nil)
+    # Extract the form data corresponding to the schema of the structured question
+    s_answer = StructuredAnswer.find_or_initialize_by(answer_id: answer.id) do |sa|
+      sa.answer = answer
+      sa.structured_data_schema = schema
+      sa.classname = schema.classname
+      sa.dmp_id = answer.plan.json_fragment().id
+      sa.parent_id = parent_id
+    end
+    s_answer.assign_attributes(data: data)
+    s_answer.save
   end
 
   def self.find_sti_class(type_name)

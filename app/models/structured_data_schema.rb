@@ -52,12 +52,15 @@ class StructuredDataSchema < ActiveRecord::Base
   def generate_strong_params(flat = false)
     parameters = Array.new
     self.schema['properties'].each do |key, prop|
-        if prop["type"] == "array" && !flat
-            parameters.append({key => []})
-            # parameters.append(key)
-        else
-            parameters.append(key)
-        end
+      if prop['type'] == "object"
+        sub_schema = StructuredDataSchema.find_by(classname: prop['classname'])
+        parameters.append(key => sub_schema.generate_strong_params(false))
+      elsif prop['type'] == "array" && !flat
+          parameters.append({key => []})
+          # parameters.append(key)
+      else
+          parameters.append(key)
+      end
     end
     parameters
   end

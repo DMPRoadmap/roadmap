@@ -49,7 +49,10 @@ module Dmpopidor
               @answer.touch()
             end
             if q.question_format.structured
-              save_structured_answer(params, json_schema)
+              s_params = schema_params(params, json_schema)
+              data = data_reformater(json_schema.schema, s_params)
+              parent_id = ResearchOutput.find(p_params[:research_output_id]).json_fragment().id
+              StructuredAnswer.save_structured_answer(@answer, data, json_schema, parent_id)
             end
             if q.question_format.rda_metadata?
               @answer.update_answer_hash(
@@ -63,7 +66,10 @@ module Dmpopidor
             @answer.lock_version = 1
             authorize @answer
             if q.question_format.structured
-              save_structured_answer(params, json_schema)
+              s_params = schema_params(params, json_schema)
+              data = data_reformater(json_schema.schema, s_params)
+              parent_id = ResearchOutput.find(p_params[:research_output_id]).json_fragment().id
+              StructuredAnswer.save_structured_answer(@answer, data, json_schema, parent_id)
             end
             if q.question_format.rda_metadata?
               @answer.update_answer_hash(
@@ -147,24 +153,6 @@ module Dmpopidor
       end
 
       private
-
-      # Saves (and creates, if needed) the structured answer ("fragment")
-      def save_structured_answer(data, schema)
-        data = schema_params(data, schema)
-
-        # Extract the form data corresponding to the schema of the structured question
-        s_answer = StructuredAnswer.find_or_initialize_by(answer_id: @answer.id) do |sa|
-          sa.answer = @answer
-          sa.structured_data_schema = schema
-          sa.classname = schema.classname
-          sa.classname = schema.classname
-          sa.dmp_id = @answer.plan.json_fragment().id
-          sa.parent_id = @answer.research_output.json_fragment().id
-        end
-        s_answer.assign_attributes(data: data_reformater(schema.schema, data))
-        s_answer.save
-      end
-
 
 
       # Get the schema from the question, if any (works for strucutred questions/answers only)
