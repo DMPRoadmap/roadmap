@@ -87,8 +87,8 @@ jobs:
       
     - name: 'Compile Assets'
       run: |
-        bin/rails webpacker:compile RAILS_ENV=test
-        bin/rails assets:precompile RAILS_ENV=test
+        bin/rails webpacker:compile
+        bin/rails assets:precompile
 
     - name: 'Run Karma Tests'
       run: |
