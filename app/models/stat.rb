@@ -21,7 +21,7 @@ class Stat < ActiveRecord::Base
 
   belongs_to :org
 
-  validates_uniqueness_of :type, scope: [:date, :org_id]
+  validates_uniqueness_of :type, scope: [:date, :org_id, :filtered]
 
   class << self
 
