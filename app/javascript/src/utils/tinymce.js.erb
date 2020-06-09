@@ -2,6 +2,11 @@
 import tinymce from 'tinymce/tinymce';
 // Import TinyMCE theme
 import 'tinymce/themes/silver/theme';
+// Import TinyMCE icons
+import 'tinymce/icons/default/icons';
+// Import the TinyMCE skin
+import 'tinymce/skins/ui/oxide/content.min.css';
+import 'tinymce/skins/ui/oxide/skin.min.css';
 // Plugins
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/lists';
@@ -9,8 +14,10 @@ import 'tinymce/plugins/autoresize';
 import 'tinymce/plugins/link';
 import 'tinymce/plugins/paste';
 import 'tinymce/plugins/advlist';
+
 // Other dependencies
 import { isObject, isString } from './isType';
+
 // Pull in the rails helper functions
 <% helpers = ActionController::Base.helpers %>
 
@@ -27,7 +34,7 @@ export const defaultOptions = {
   target_list: false,
   elementpath: false,
   resize: true,
-  autoresize_min_height: 130,
+  min_height: 230,
   autoresize_bottom_margin: 10,
   branding: false,
   extended_valid_elements: 'iframe[tooltip] , a[href|target=_blank]',

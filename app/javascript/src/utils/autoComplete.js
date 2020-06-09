@@ -1,5 +1,4 @@
 import 'jquery-ui/autocomplete';
-
 import getConstant from './constants';
 import { isObject, isString, isArray } from './isType';
 
@@ -26,7 +25,7 @@ const processAjaxResults = (autocomplete, crosswalk, results) => {
   if (isObject(autocomplete) && isObject(crosswalk) && isArray(results)) {
     crosswalk.attr('value', JSON.stringify(results));
     updateAriaHelper(autocomplete, results.length);
-    out = results.map(item => item.name);
+    out = results.map((item) => item.name);
   } else {
     crosswalk.attr('value', JSON.stringify([]));
     updateAriaHelper(autocomplete, 0);
@@ -81,7 +80,7 @@ const findInCrosswalk = (selection, crosswalk) => {
   // find it in the crosswalk.
   if (selection.length > 0 && crosswalk.length > 0) {
     const json = JSON.parse(crosswalk.val());
-    const found = json.find(item => item != null && item.name === selection);
+    const found = json.find((item) => item != null && item.name === selection);
     // If the crosswalk was empty then out becomes undefined
     out = (found === undefined ? out : JSON.stringify(found));
   }
