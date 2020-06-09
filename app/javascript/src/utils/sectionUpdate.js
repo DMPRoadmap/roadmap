@@ -19,4 +19,4 @@ export const updateSectionProgress = (id, numSecAnswers, numSecQuestions) => {
 
 // given a question id find the containing div
 // used inconditional questions
-export const getQuestionDiv = id => $(`#answer-form-${id}`).closest('.row');
+export const getQuestionDiv = (id) => $(`#answer-form-${id}`).closest('.row');
