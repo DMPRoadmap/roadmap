@@ -2,7 +2,6 @@
 import { Tinymce } from '../../utils/tinymce.js.erb';
 import { isObject, isString } from '../../utils/isType';
 import getConstant from '../../utils/constants';
-import expandCollapseAll from '../../utils/expandCollapseAll';
 import { addAsterisks } from '../../utils/requiredField';
 
 import onChangeQuestionFormat from '../questions/sharedEventHandlers';

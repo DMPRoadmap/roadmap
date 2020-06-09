@@ -59,3 +59,6 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end
+
+# Used by Rails' routes url_helpers (typically when including a link in an email)
+Rails.application.routes.default_url_options[:host] = "localhost:3000"
