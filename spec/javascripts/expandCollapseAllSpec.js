@@ -16,9 +16,6 @@ describe('expandCollapseAll test suite', () => {
     // Collapse all of the sections
     //    - click on 'collapse all' should have no effect
     //    - click on 'expand all' should expand all sections
-
-console.log($('#accordion div.panel-collapse'));
-
     $('#accordion div.panel-collapse').collapse('hide');
     expect($('.in').length === 0);
     $('a[data-toggle-direction="hide"]').click();
