@@ -24,4 +24,10 @@ Rails.configuration.after_initialize do
   end
   I18n.default_locale = LocaleService.to_i18n(locale: default).to_s
 
+# When running `db:setup` or `db:create` this error is thrown because the DB is
+# not available yet, so write a warning to the log and get on with life!
+rescue ActiveRecord::NoDatabaseError => e
+  p "here #{e.message}"
+  Rails.logger.warn "No database available, skipping FastGettext locale initialization"
+  true
 end
