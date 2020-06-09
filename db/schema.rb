@@ -77,34 +77,6 @@ ActiveRecord::Schema.define(version: 20200601121822) do
 
   add_index "conditions", ["question_id"], name: "index_conditions_on_question_id", using: :btree
 
-  create_table "api_clients", force: :cascade do |t|
-    t.string   "name",          null: false
-    t.string   "description"
-    t.string   "homepage"
-    t.string   "contact_name"
-    t.string   "contact_email", null: false
-    t.string   "client_id",     null: false
-    t.string   "client_secret", null: false
-    t.date     "last_access"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  add_index "api_clients", ["name"], name: "index_api_clients_on_name", using: :btree
-
-  create_table "conditions", force: :cascade do |t|
-    t.integer  "question_id"
-    t.text     "option_list"
-    t.integer  "action_type"
-    t.integer  "number"
-    t.text     "remove_data"
-    t.text     "webhook_data"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "conditions", ["question_id"], name: "index_conditions_on_question_id", using: :btree
-
   create_table "contributors", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
