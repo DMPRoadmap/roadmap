@@ -29,6 +29,12 @@ class Org
               end_date: last[:end_date],
               org: org
             )
+            StatCreatedPlan::CreateOrUpdate.do(
+              start_date: last[:start_date],
+              end_date: last[:end_date],
+              org: org,
+              filtered: true
+            )
           end
         end
       end
