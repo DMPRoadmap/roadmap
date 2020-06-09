@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_23_213847) do
+ActiveRecord::Schema.define(version: 2020_05_14_102523) do
 
   create_table "annotations", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "question_id"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "lock_version", default: 0
+    t.string "label_id"
     t.index ["plan_id"], name: "fk_rails_84a6005a3e"
     t.index ["plan_id"], name: "index_answers_on_plan_id"
     t.index ["question_id"], name: "fk_rails_3d5ed4418f"
@@ -46,8 +47,6 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
     t.index ["answer_id"], name: "index_answers_question_options_on_answer_id"
   end
 
-  add_index "answers_question_options", ["answer_id"], name: "index_answers_question_options_on_answer_id", using: :btree
-
   create_table "api_clients", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
@@ -56,62 +55,40 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
     t.string "contact_email", null: false
     t.string "client_id", null: false
     t.string "client_secret", null: false
-    t.datetime "last_access"
-    t.string "user_landing_url"
+    t.date "last_access"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_api_clients_on_name"
   end
 
+  create_table "conditions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "question_id"
+    t.text "option_list"
+    t.integer "action_type"
+    t.integer "number"
+    t.text "remove_data"
+    t.text "webhook_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_conditions_on_question_id"
+  end
+
   create_table "contributors", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
-    t.string "email", default: ""
+    t.string "email"
     t.string "phone"
     t.integer "roles", null: false
     t.integer "org_id"
     t.integer "plan_id", null: false
-
-  create_table "conditions", force: :cascade do |t|
-    t.integer  "question_id"
-    t.text     "option_list"
-    t.integer  "action_type"
-    t.integer  "number"
-    t.text     "remove_data"
-    t.text     "webhook_data"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "conditions", ["question_id"], name: "index_conditions_on_question_id", using: :btree
-
-  create_table "api_clients", force: :cascade do |t|
-    t.string   "name",                      null: false
-    t.string   "description"
-    t.string   "homepage"
-    t.string   "contact_name"
-    t.string   "contact_email",             null: false
-    t.string   "client_id",                 null: false
-    t.string   "client_secret",             null: false
-    t.date     "last_access"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-  end
-
-  add_index "api_clients", ["name"], name: "index_api_clients_on_name", using: :btree
-
-  create_table "contributors", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "phone"
-    t.integer  "roles",                     null: false
-    t.integer  "org_id"
-    t.integer  "plan_id",                   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["email"], name: "index_contributors_on_email"
+    t.index ["org_id"], name: "index_contributors_on_org_id"
+    t.index ["plan_id"], name: "index_contributors_on_plan_id"
+    t.index ["roles"], name: "index_contributors_on_roles"
   end
 
-  create_table "departments", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "departments", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "code"
     t.integer "org_id"
@@ -168,6 +145,8 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["identifiable_type", "identifiable_id"], name: "index_identifiers_on_identifiable_type_and_identifiable_id"
+    t.index ["identifier_scheme_id", "identifiable_id", "identifiable_type"], name: "index_identifiers_on_scheme_and_type_and_id"
+    t.index ["identifier_scheme_id", "value"], name: "index_identifiers_on_identifier_scheme_id_and_value"
   end
 
   create_table "languages", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
@@ -222,15 +201,6 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
     t.index ["org_id"], name: "fk_rails_36323c0674"
   end
 
-  create_table "org_regions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.integer "org_id"
-    t.integer "region_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["org_id"], name: "index_org_regions_on_org_id"
-    t.index ["region_id"], name: "index_org_regions_on_region_id"
-  end
-
   create_table "org_token_permissions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "org_id"
     t.integer "token_permission_type_id"
@@ -248,6 +218,7 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
     t.datetime "updated_at", null: false
     t.boolean "is_other", default: false, null: false
     t.string "sort_name"
+    t.integer "region_id"
     t.integer "language_id"
     t.string "logo_uid"
     t.string "logo_name"
@@ -259,8 +230,8 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
     t.text "feedback_email_msg"
     t.string "contact_name"
     t.boolean "managed", default: false, null: false
-    t.integer "region_id"
     t.index ["language_id"], name: "fk_rails_5640112cab"
+    t.index ["region_id"], name: "fk_rails_5a6adf6bab"
   end
 
   create_table "perms", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
@@ -331,7 +302,6 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
     t.integer "number"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "versionable_id", limit: 36
   end
 
   create_table "question_formats", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
@@ -350,11 +320,10 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
     t.boolean "is_default"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string "versionable_id", limit: 36
     t.index ["question_id"], name: "index_question_options_on_question_id"
+    t.index ["versionable_id"], name: "index_question_options_on_versionable_id"
   end
-
-  add_index "question_options", ["question_id"], name: "index_question_options_on_question_id", using: :btree
-  add_index "question_options", ["versionable_id"], name: "index_question_options_on_versionable_id", using: :btree
 
   create_table "questions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.text "text"
@@ -378,12 +347,10 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
     t.index ["question_id"], name: "index_questions_themes_on_question_id"
   end
 
-  create_table "regions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "name", limit: 254, default: "", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "abbreviation", limit: 254
-    t.string "description", limit: 254
+  create_table "regions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.string "abbreviation"
+    t.string "description"
+    t.string "name"
     t.integer "super_region_id"
   end
 
@@ -411,7 +378,7 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
     t.index ["versionable_id"], name: "index_sections_on_versionable_id"
   end
 
-  create_table "sessions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "sessions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "session_id", limit: 64, null: false
     t.text "data"
     t.datetime "created_at"
@@ -429,7 +396,7 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "stats", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "stats", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "count", default: 0
     t.date "date", null: false
     t.string "type", null: false
@@ -480,6 +447,14 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
     t.text "text_description"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "trackers", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "org_id"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["org_id"], name: "index_trackers_on_org_id"
   end
 
   create_table "user_identifiers", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
@@ -540,17 +515,10 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
     t.index ["user_id"], name: "index_users_perms_on_user_id"
   end
 
-  add_foreign_key "annotations", "orgs"
-  add_foreign_key "annotations", "questions"
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
-
-  add_foreign_key "answers_question_options", "answers"
-  add_foreign_key "answers_question_options", "question_options"
   add_foreign_key "conditions", "questions"
-  add_foreign_key "contributors", "plans"
-  add_foreign_key "contributors", "orgs"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "notes", "answers"
@@ -559,11 +527,10 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
   add_foreign_key "notification_acknowledgements", "users"
   add_foreign_key "org_identifiers", "identifier_schemes"
   add_foreign_key "org_identifiers", "orgs"
-  add_foreign_key "org_regions", "orgs"
-  add_foreign_key "org_regions", "regions"
   add_foreign_key "org_token_permissions", "orgs"
   add_foreign_key "org_token_permissions", "token_permission_types"
   add_foreign_key "orgs", "languages"
+  add_foreign_key "orgs", "regions"
   add_foreign_key "phases", "templates"
   add_foreign_key "plans", "orgs"
   add_foreign_key "plans", "templates"
@@ -578,6 +545,7 @@ ActiveRecord::Schema.define(version: 2020_03_23_213847) do
   add_foreign_key "templates", "orgs"
   add_foreign_key "themes_in_guidance", "guidances"
   add_foreign_key "themes_in_guidance", "themes"
+  add_foreign_key "trackers", "orgs"
   add_foreign_key "user_identifiers", "identifier_schemes"
   add_foreign_key "user_identifiers", "users"
   add_foreign_key "users", "departments"
