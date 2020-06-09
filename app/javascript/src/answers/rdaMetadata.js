@@ -15,13 +15,13 @@ $(() => {
   // prune the min_tree where there are no standards
   // opporates on the principal that no two subjects have the same name
   function removeUnused(name) {
-    const num = Object.keys(minTree).find(x => minTree[x].name === name);
+    const num = Object.keys(minTree).find((x) => minTree[x].name === name);
     // if not top level standard
     if (isUndefined(num)) {
       // for each top level standard
       Object.keys(minTree).forEach((knum) => {
         const child = Object.keys(minTree[knum].children)
-          .find(x => minTree[knum].children[x].name === name);
+          .find((x) => minTree[knum].children[x].name === name);
         if (isObject(child)) {
           delete minTree[knum].children[child];
           $(`.rda_metadata .sub-subject select option[value="${name}"]`).remove();
@@ -156,14 +156,14 @@ $(() => {
 
   // given a subject name, returns the portion of the min_tree applicable
   function getSubject(subjectText) {
-    const num = Object.keys(minTree).find(x => minTree[x].name === subjectText);
+    const num = Object.keys(minTree).find((x) => minTree[x].name === subjectText);
     return minTree[num];
   }
 
   // given a subsubject name and an array of children, data, return the
   // applicable child
   function getSubSubject(subsubjectText, data) {
-    const child = Object.keys(data).find(x => data[x].name === subsubjectText);
+    const child = Object.keys(data).find((x) => data[x].name === subsubjectText);
     return data[child];
   }
 
