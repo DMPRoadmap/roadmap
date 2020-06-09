@@ -47,7 +47,7 @@ export default () => {
           if (!panelCollapse.hasClass('in')) {
             panelCollapse.prev().trigger('click');
           }
-        } else {
+        } else {          
           panelCollapse.collapse(direction);
         }
         // Sets icon at panel-title accordingly
