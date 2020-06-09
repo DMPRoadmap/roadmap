@@ -4548,7 +4548,7 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-jasmine-core@~3.5.0:
+jasmine-core@^3.5.0, jasmine-core@~3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-3.5.0.tgz#132c23e645af96d85c8bca13c8758b18429fc1e4"
   integrity sha512-nCeAiw37MIMA9w9IXso7bRaLl+c/ef3wnxsoSAlYrzS+Ot0zTG6nU8G/cIfGkqpkjX2wNaIW9RFG0TwIFnG6bA==
@@ -4682,6 +4682,57 @@ jsprim@^1.2.2:
     extsprintf "1.3.0"
     json-schema "0.2.3"
     verror "1.10.0"
+
+karma-babel-preprocessor@^8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/karma-babel-preprocessor/-/karma-babel-preprocessor-8.0.1.tgz#63b33cc7b5b3b5c7815ec453f7df58fb88345af1"
+  integrity sha512-5upyawNi3c7Gg6tPH1FWRVTmUijGf3v1GV4ScLM/2jKdDP18SlaKlUpu8eJrRI3STO8qK1bkqFcdgAA364nLYQ==
+
+karma-chrome-launcher@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/karma-chrome-launcher/-/karma-chrome-launcher-3.1.0.tgz#805a586799a4d05f4e54f72a204979f3f3066738"
+  integrity sha512-3dPs/n7vgz1rxxtynpzZTvb9y/GIaW8xjAwcIGttLbycqoFtI7yo1NGnQi6oFTherRE+GIhCAHZC4vEqWGhNvg==
+  dependencies:
+    which "^1.2.1"
+
+karma-fixture@^0.2.6:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/karma-fixture/-/karma-fixture-0.2.6.tgz#971cea8c216d73f07043964cb73f10e0830018ef"
+  integrity sha1-lxzqjCFtc/BwQ5ZMtz8Q4IMAGO8=
+
+karma-html2js-preprocessor@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/karma-html2js-preprocessor/-/karma-html2js-preprocessor-1.1.0.tgz#fc09edf04bbe2bb6eee9ba1968f826b7388020bd"
+  integrity sha1-/Ant8Eu+K7bu6boZaPgmtziAIL0=
+
+karma-jasmine@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/karma-jasmine/-/karma-jasmine-3.3.1.tgz#c01b1a2ec973e1531c1f6535e1d7d66b8e4275c2"
+  integrity sha512-Nxh7eX9mOQMyK0VSsMxdod+bcqrR/ikrmEiWj5M6fwuQ7oI+YEF1FckaDsWfs6TIpULm9f0fTKMjF7XcrvWyqQ==
+  dependencies:
+    jasmine-core "^3.5.0"
+
+karma-jquery@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/karma-jquery/-/karma-jquery-0.2.4.tgz#1512b608257aba3b8cf426cbc438d9759706efb6"
+  integrity sha512-NkEzqc+ulVlOASeQRZh07wB4mv1yUUQPp5natoqcTxl+oXwIB0Hu4/g3uCIJLzvEydAxD7IxWLhZuqIigsdBOQ==
+
+karma-json-fixtures-preprocessor@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/karma-json-fixtures-preprocessor/-/karma-json-fixtures-preprocessor-0.0.6.tgz#4f78a2ebcd34387f8e55ababff634655164c4c76"
+  integrity sha1-T3ii6800OH+OVaur/2NGVRZMTHY=
+
+karma-webpack@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/karma-webpack/-/karma-webpack-4.0.2.tgz#23219bd95bdda853e3073d3874d34447c77bced0"
+  integrity sha512-970/okAsdUOmiMOCY8sb17A2I8neS25Ad9uhyK3GHgmRSIFJbDcNEFE8dqqUhNe9OHiCC9k3DMrSmtd/0ymP1A==
+  dependencies:
+    clone-deep "^4.0.1"
+    loader-utils "^1.1.0"
+    neo-async "^2.6.1"
+    schema-utils "^1.0.0"
+    source-map "^0.7.3"
+    webpack-dev-middleware "^3.7.0"
 
 karma@^5.0.9:
   version "5.0.9"
@@ -7611,6 +7662,11 @@ source-map@^0.6.0, source-map@^0.6.1, source-map@~0.6.1:
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
   integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
 
+source-map@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.7.3.tgz#5302f8169031735226544092e64981f751750383"
+  integrity sha512-CkCj6giN3S+n9qrYiBTX5gystlENnRW5jZeNLHpe6aue+SrHcG5VYwujhW9s4dY31mEGsxBDrHR6oI69fTXsaQ==
+
 spark-md5@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/spark-md5/-/spark-md5-3.0.1.tgz#83a0e255734f2ab4e5c466e5a2cfc9ba2aa2124d"
@@ -8510,7 +8566,7 @@ webpack-cli@^3.3.11:
     v8-compile-cache "2.0.3"
     yargs "13.2.4"
 
-webpack-dev-middleware@^3.7.2:
+webpack-dev-middleware@^3.7.0, webpack-dev-middleware@^3.7.2:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/webpack-dev-middleware/-/webpack-dev-middleware-3.7.2.tgz#0019c3db716e3fa5cecbf64f2ab88a74bab331f3"
   integrity sha512-1xC42LxbYoqLNAhV6YzTYacicgMZQTqRd27Sim9wn5hJrX3I5nxYy1SxSd4+gjUFsz1dQFj+yEe6zEVmSkeJjw==
@@ -8632,7 +8688,7 @@ which-module@^2.0.0:
   resolved "https://registry.yarnpkg.com/which-module/-/which-module-2.0.0.tgz#d9ef07dce77b9902b8a3a8fa4b31c3e3f7e6e87a"
   integrity sha1-2e8H3Od7mQK4o6j6SzHD4/fm6Ho=
 
-which@1, which@^1.2.14, which@^1.2.9, which@^1.3.1:
+which@1, which@^1.2.1, which@^1.2.14, which@^1.2.9, which@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/which/-/which-1.3.1.tgz#a45043d54f5805316da8d62f9f50918d3da70b0a"
   integrity sha512-HxJdYWq1MTIQbJ3nw0cqssHoTNU267KlrDuGZ1WYlxDStUtKUhOaJmh112/TZmHxxUfuJqPXSOm7tDyas0OSIQ==
