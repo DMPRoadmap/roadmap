@@ -66,7 +66,7 @@ export const createChart = (selector, data, appendTolabel = '', onClickHandler =
     data: {
       labels: Object.keys(data),
       datasets: [{
-        data: Object.keys(data).map(k => data[k]),
+        data: Object.keys(data).map((k) => data[k]),
         backgroundColor: '#4F5253',
         // TODO parameterised according to roadmap main colour instance
       }],
@@ -77,7 +77,7 @@ export const createChart = (selector, data, appendTolabel = '', onClickHandler =
       },
       tooltips: {
         callbacks: {
-          label: tooltipItem => `${tooltipItem.yLabel} ${appendTolabel}`,
+          label: (tooltipItem) => `${tooltipItem.yLabel} ${appendTolabel}`,
         },
       },
       scales: {

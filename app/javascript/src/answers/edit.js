@@ -11,11 +11,11 @@ import TimeagoFactory from '../utils/timeagoFactory';
 
 $(() => {
   const editorClass = 'tinymce_answer';
-  const showSavingMessage = jQuery => jQuery.closest('.question-form').find('[data-status="saving"]').show();
-  const hideSavingMessage = jQuery => jQuery.closest('.question-form').find('[data-status="saving"]').hide();
-  const closestErrorSavingMessage = jQuery => jQuery.closest('.question-form').find('[data-status="error-saving"]');
-  const questionId = jQuery => jQuery.closest('.form-answer').attr('data-autosave');
-  const isStale = jQuery => jQuery.closest('.question-form').find('.answer-locking').text().trim().length !== 0;
+  const showSavingMessage = (jQuery) => jQuery.closest('.question-form').find('[data-status="saving"]').show();
+  const hideSavingMessage = (jQuery) => jQuery.closest('.question-form').find('[data-status="saving"]').hide();
+  const closestErrorSavingMessage = (jQuery) => jQuery.closest('.question-form').find('[data-status="error-saving"]');
+  const questionId = (jQuery) => jQuery.closest('.form-answer').attr('data-autosave');
+  const isStale = (jQuery) => jQuery.closest('.question-form').find('.answer-locking').text().trim().length !== 0;
   const isReadOnly = () => $('.form-answer fieldset:disabled').length > 0;
   const showOrHideQuestions = (data) => {
     data.section_data.forEach((section) => {
