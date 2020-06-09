@@ -3,7 +3,7 @@ import { isObject, isString } from '../utils/isType';
 import TimeagoFactory from '../utils/timeagoFactory';
 
 $(() => {
-  const defaultViewSelector = questionId => `#note_new${questionId}`;
+  const defaultViewSelector = (questionId) => `#note_new${questionId}`;
   const currentViewSelector = {};
   /*
     currentViewSelector represents a map where each key is the question id and
@@ -14,7 +14,7 @@ $(() => {
       - #note_edit${note.id}
       - #note_archive${note.id}
   */
-  const getCurrentViewSelector = questionId => currentViewSelector[questionId];
+  const getCurrentViewSelector = (questionId) => currentViewSelector[questionId];
   const putCurrentViewSelector = (questionId, value) => {
     currentViewSelector[questionId] = value;
   };
@@ -41,8 +41,8 @@ $(() => {
   const error = () => {
     // TODO adequate error handling for network error
   };
-  const getAction = jQueryForm => jQueryForm.attr('action');
-  const getMethod = jQueryForm => jQueryForm.attr('method');
+  const getAction = (jQueryForm) => jQueryForm.attr('action');
+  const getMethod = (jQueryForm) => jQueryForm.attr('method');
   const destroyCurrentViewEditor = (el) => {
     const id = $(el).find('textarea').attr('id');
     if (id) {
@@ -108,7 +108,7 @@ $(() => {
     const source = e.target;
     const jQueryForm = $(e.target).closest('form');
     const formElements = jQueryForm.serializeArray();
-    const noteText = formElements.find(el => el.name === 'note[text]');
+    const noteText = formElements.find((el) => el.name === 'note[text]');
     const id = $(source).closest('form').find('[name="note[text]"]').attr('id');
     const questionId = $(source).closest('.note_new').attr('data-question-id')
       || $(source).closest('.note_edit').attr('data-question-id');
