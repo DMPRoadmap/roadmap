@@ -105,16 +105,14 @@ jobs:
         bin/rails assets:precompile
 
     - name: 'Run Karma Tests'
-      run: |
-        yarn add karma
-        yarn run test
+      run: yarn test
 
     - name: 'Run Rspec Unit and Functional Tests'
       run: |
         bin/rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
         bin/rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
         bin/rspec spec/mixins/
-    
+
     # Integration Tests are only run if PR or Push is to master or development branches
     - name: 'Run Integration Tests'
       if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development'
