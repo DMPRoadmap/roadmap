@@ -27,9 +27,11 @@
     "@rails/activestorage": "^6.0.3-1",
     "@rails/ujs": "^6.0.3-1",
     "@rails/webpacker": "5.1.1",
-    "bootstrap": "^4.5.0",
-    "bootstrap-sass": "^3.4.1",
+    "bootstrap": "^3.4.1",
+    "bootstrap-3-typeahead": "^4.0.2",
+    "bootstrap-sass": "^3.3.7",
     "chart.js": "^2.9.3",
+    "core-js": "^3.6.5",
     "jquery": "^3.5.1",
     "jquery-ui": "^1.12.1",
     "jquery-ui-sass": "^0.0.1",
@@ -37,6 +39,7 @@
     "number-to-text": "^0.3.8",
     "popper.js": "^1.16.1",
     "rails-erb-loader": "^5.5.2",
+    "regenerator-runtime": "^0.13.5",
     "timeago.js": "^4.0.2",
     "tinymce": "^5.3.0",
     "turbolinks": "^5.2.0"
@@ -45,10 +48,21 @@
     "eslint": "^7.1.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-loader": "^4.0.2",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-utils": "^2.0.0",
+    "eslint-plugin-import": "^2.21.1",
     "jasmine": "^3.5.0",
+    "jasmine-core": "^3.5.0",
     "karma": "^5.0.9",
+    "karma-babel-preprocessor": "^8.0.1",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-fixture": "^0.2.6",
+    "karma-html2js-preprocessor": "^1.1.0",
+    "karma-jasmine": "^3.3.1",
+    "karma-jquery": "^0.2.4",
+    "karma-json-fixtures-preprocessor": "^0.0.6",
+    "karma-webpack": "^4.0.2",
     "webpack-dev-server": "^3.11.0"
+  },
+  "resolutions": {
+    "webpack": "4.34.0"
   }
 }
