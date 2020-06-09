@@ -75,7 +75,7 @@ jobs:
     - name: 'Yarn Install'
       run: |
         yarn install
-        
+
     - name: 'Start MySQL'
       run: sudo systemctl start mysql
 
@@ -84,16 +84,14 @@ jobs:
 
     - name: 'Migrate DB'
       run: bin/rails db:migrate RAILS_ENV=test
-      
+
     - name: 'Compile Assets'
       run: |
         bin/rails webpacker:compile
         bin/rails assets:precompile
 
     - name: 'Run Karma Tests'
-      run: |
-        yarn add karma
-        yarn run test
+      run: yarn test
 
     - name: 'Run Rspec Unit and Functional Tests'
       run: |
