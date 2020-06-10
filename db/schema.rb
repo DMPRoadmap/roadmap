@@ -526,6 +526,8 @@ ActiveRecord::Schema.define(version: 20200601121822) do
   add_foreign_key "answers_question_options", "answers"
   add_foreign_key "answers_question_options", "question_options"
   add_foreign_key "conditions", "questions"
+  add_foreign_key "contributors", "plans"
+  add_foreign_key "contributors", "orgs"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "notes", "answers"
