@@ -2,6 +2,11 @@
 import tinymce from 'tinymce/tinymce';
 // Import TinyMCE theme
 import 'tinymce/themes/silver/theme';
+// Import TinyMCE icons
+import 'tinymce/icons/default/icons';
+// Import the TinyMCE skin
+import 'tinymce/skins/ui/oxide/content.min.css';
+import 'tinymce/skins/ui/oxide/skin.min.css';
 // Plugins
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/lists';
@@ -9,8 +14,17 @@ import 'tinymce/plugins/autoresize';
 import 'tinymce/plugins/link';
 import 'tinymce/plugins/paste';
 import 'tinymce/plugins/advlist';
+
 // Other dependencies
 import { isObject, isString } from './isType';
+
+// Gets Webpacker to copy over the skin JS and CSS assets to the public/packs dir
+require.context(
+  'file-loader?name=[path][name].[ext]&context=node_modules/tinymce!tinymce/skins',
+  true,
+  /.*/
+);
+
 // Pull in the rails helper functions
 <% helpers = ActionController::Base.helpers %>
 
@@ -43,7 +57,7 @@ export const defaultOptions = {
   },
   // editorManager.baseURL is not resolved properly for IE since document.currentScript
   // is not supported, see issue https://github.com/tinymce/tinymce/issues/358
-  skin_url: '/tinymce/skins/lightgray',
+  skin: false,
   content_css: ['<%= helpers.asset_path "/assets/blocks/_tinymce_content.css"  %>'],
 };
 /*
