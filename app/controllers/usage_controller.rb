@@ -19,7 +19,6 @@ class UsageController < ApplicationController
     @separators = [",", "|", "#"]
     @funder = current_user.org.funder?
     @filtered = args[:filtered]
-    puts "#{@filtered} #{params[:filtered].present?}"
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -30,7 +29,6 @@ class UsageController < ApplicationController
     authorize :usage
 
     args = default_query_args
-    puts args[:filtered]
     if usage_params["template_plans_range"].present?
       args[:start_date] = usage_params["template_plans_range"]
     end
