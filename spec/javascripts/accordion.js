@@ -1,11 +1,11 @@
-import expandCollapseAll from '../../app/javascript/src/utils/expandCollapseAll';
+import accordion from '../../app/javascript/src/utils/accordion';
 
-describe('expandCollapseAll test suite', () => {
+describe('accordion test suite', () => {
   beforeAll(() => fixture.setBase('spec/javascripts/fixtures'));
 
   beforeEach(() => {
     $('body').html(fixture.load('accordion.html'));
-    expandCollapseAll({ selector: '#accordion' });
+    accordion({ selector: '#accordion' });
   });
 
   afterEach(() => {
