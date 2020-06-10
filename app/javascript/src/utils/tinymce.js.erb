@@ -18,13 +18,6 @@ import 'tinymce/plugins/advlist';
 // Other dependencies
 import { isObject, isString } from './isType';
 
-// Gets Webpacker to copy over the skin JS and CSS assets to the public/packs dir
-require.context(
-  'file-loader?name=[path][name].[ext]&context=node_modules/tinymce!tinymce/skins',
-  true,
-  /.*/
-);
-
 // Pull in the rails helper functions
 <% helpers = ActionController::Base.helpers %>
 
@@ -41,7 +34,7 @@ export const defaultOptions = {
   target_list: false,
   elementpath: false,
   resize: true,
-  autoresize_min_height: 130,
+  min_height: 230,
   autoresize_bottom_margin: 10,
   branding: false,
   extended_valid_elements: 'iframe[tooltip] , a[href|target=_blank]',
@@ -57,7 +50,7 @@ export const defaultOptions = {
   },
   // editorManager.baseURL is not resolved properly for IE since document.currentScript
   // is not supported, see issue https://github.com/tinymce/tinymce/issues/358
-  skin: false,
+  skin_url: '/tinymce/skins/lightgray',
   content_css: ['<%= helpers.asset_path "/assets/blocks/_tinymce_content.css"  %>'],
 };
 /*
