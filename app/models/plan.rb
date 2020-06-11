@@ -207,6 +207,11 @@ class Plan < ActiveRecord::Base
     end
   }
 
+  ##
+  # Defines the filter_logic used in the statistics objects.
+  # For now, we filter out any test plans
+  scope :stats_filter, -> { where.not(visibility: visibilities[:is_test])}
+
   # Retrieves plan, template, org, phases, sections and questions
   scope :overview, lambda { |id|
     includes(:phases, :sections, :questions, template: [:org]).find(id)

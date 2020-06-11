@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class UsageController < ApplicationController
 
   after_action :verify_authorized
 
+  # rubocop:disable Metrics/AbcSize
   # GET /usage
   def index
     authorize :usage
@@ -13,10 +15,12 @@ class UsageController < ApplicationController
     plan_data(args: args, as_json: true)
     total_plans(args: min_max_dates(args: args))
     total_users(args: min_max_dates(args: args))
-    #TODO: pull this in from branding.yml
+    # TODO: pull this in from branding.yml
     @separators = [",", "|", "#"]
     @funder = current_user.org.funder?
+    @filtered = args[:filtered]
   end
+  # rubocop:enable Metrics/AbcSize
 
   # POST /usage_plans_by_template
   def plans_by_template
@@ -37,7 +41,7 @@ class UsageController < ApplicationController
     # for global usage
     authorize :usage
 
-    data = Org::TotalCountStatService.call
+    data = Org::TotalCountStatService.call(filtered: parse_filtered) # TODO: Update
     sep = sep_param
     data_csvified = Csvable.from_array_of_hashes(data, true, sep)
 
@@ -48,13 +52,15 @@ class UsageController < ApplicationController
   def org_statistics
     authorize :usage
 
-    data = Org::MonthlyUsageService.call(current_user)
+    data = Org::MonthlyUsageService.call(current_user, filtered: parse_filtered)
     sep = sep_param
     data_csvified = Csvable.from_array_of_hashes(data, true, sep)
 
     send_data(data_csvified, filename: "totals.csv")
   end
 
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
   # GET /usage_yearly_users
   def yearly_users
     # This action is triggered when a user clicks on the 'download csv' button
@@ -63,7 +69,7 @@ class UsageController < ApplicationController
 
     user_data(args: default_query_args)
     sep = sep_param
-    send_data(CSV.generate({:col_sep => sep}) do |csv|
+    send_data(CSV.generate(col_sep: sep) do |csv|
       csv << [_("Month"), _("No. Users joined")]
       total = 0
       @users_per_month.each do |data|
@@ -73,7 +79,11 @@ class UsageController < ApplicationController
       csv << [_("Total"), total]
     end, filename: "users_joined.csv")
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
   # GET /usage_yearly_plans
   def yearly_plans
     # This action is triggered when a user clicks on the 'download csv' button
@@ -82,7 +92,7 @@ class UsageController < ApplicationController
 
     plan_data(args: default_query_args)
     sep = sep_param
-    send_data(CSV.generate({:col_sep => sep}) do |csv|
+    send_data(CSV.generate(col_sep: sep) do |csv|
       csv << [_("Month"), _("No. Completed Plans")]
       total = 0
       @plans_per_month.each do |data|
@@ -92,6 +102,8 @@ class UsageController < ApplicationController
       csv << [_("Total"), total]
     end, filename: "completed_plans.csv")
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 
   # GET /usage_all_plans_by_template
   def all_plans_by_template
@@ -102,10 +114,11 @@ class UsageController < ApplicationController
     args = default_query_args
     args[:start_date] = first_plan_date
     sep = sep_param
-    {:col_sep => sep}
 
     plan_data(args: args, sort: :desc)
+    # rubocop:disable Metrics/LineLength
     data_csvified = StatCreatedPlan.to_csv(@plans_per_month, details: { by_template: true, sep: sep })
+    # rubocop:enable Metrics/LineLength
     send_data(data_csvified, filename: "created_plan_by_template.csv")
   end
 
@@ -113,7 +126,7 @@ class UsageController < ApplicationController
 
   def usage_params
     params.require(:usage).permit(:template_plans_range, :org_id, :start_date,
-                                  :end_date, :topic)
+                                  :end_date, :topic, :filtered)
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
@@ -144,13 +157,18 @@ class UsageController < ApplicationController
     {
       org: current_user.org,
       start_date: Date.today.months_ago(12).end_of_month.strftime("%Y-%m-%d"),
-      end_date: Date.today.last_month.end_of_month.strftime("%Y-%m-%d")
+      end_date: Date.today.last_month.end_of_month.strftime("%Y-%m-%d"),
+      filtered: parse_filtered
     }
+  end
+
+  def parse_filtered
+    params[:filtered].present? && params[:filtered] == "true"
   end
 
   # set the csv separator or default to comma
   def sep_param
-    params["sep"] || ','
+    params["sep"] || ","
   end
 
   def min_max_dates(args:)
@@ -160,16 +178,16 @@ class UsageController < ApplicationController
   end
 
   def user_data(args:, as_json: false, sort: :asc)
-    @users_per_month = StatJoinedUser.monthly_range(args)
+    @users_per_month = StatJoinedUser.monthly_range(args.except(:filtered))
                                      .order(date: sort)
-    @users_per_month = @users_per_month.map { |rec| rec.to_json } if as_json
+    @users_per_month = @users_per_month.map(&:to_json) if as_json
   end
 
   def plan_data(args:, as_json: false, sort: :asc)
     @plans_per_month = StatCreatedPlan.monthly_range(args)
                                       .where.not(details: "{\"by_template\":[]}")
                                       .order(date: sort)
-    @plans_per_month = @plans_per_month.map { |rec| rec.to_json } if as_json
+    @plans_per_month = @plans_per_month.map(&:to_json) if as_json
   end
 
   def total_plans(args:)
@@ -177,7 +195,7 @@ class UsageController < ApplicationController
   end
 
   def total_users(args:)
-    @total_org_users = StatJoinedUser.monthly_range(args).sum(:count)
+    @total_org_users = StatJoinedUser.monthly_range(args.except(:filtered)).sum(:count)
   end
 
   def first_plan_date
@@ -186,3 +204,4 @@ class UsageController < ApplicationController
   end
 
 end
+# rubocop:enable Metrics/ClassLength

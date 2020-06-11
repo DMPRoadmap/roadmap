@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200514102523) do
+ActiveRecord::Schema.define(version: 20200601121822) do
 
   create_table "annotations", force: :cascade do |t|
     t.integer  "question_id",    limit: 4
@@ -50,19 +50,6 @@ ActiveRecord::Schema.define(version: 20200514102523) do
   end
 
   add_index "answers_question_options", ["answer_id"], name: "index_answers_question_options_on_answer_id", using: :btree
-
-  create_table "conditions", force: :cascade do |t|
-    t.integer  "question_id"
-    t.text     "option_list"
-    t.integer  "action_type"
-    t.integer  "number"
-    t.text     "remove_data"
-    t.text     "webhook_data"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "conditions", ["question_id"], name: "index_conditions_on_question_id", using: :btree
 
   create_table "api_clients", force: :cascade do |t|
     t.string   "name",          null: false
@@ -432,13 +419,14 @@ ActiveRecord::Schema.define(version: 20200514102523) do
   end
 
   create_table "stats", force: :cascade do |t|
-    t.integer  "count",      limit: 8,     default: 0
+    t.integer  "count",      limit: 8, default: 0
     t.date     "date",                                 null: false
-    t.string   "type",       limit: 255,               null: false
-    t.integer  "org_id",     limit: 4
+    t.string   "type",                                 null: false
+    t.integer  "org_id"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
-    t.text     "details",    limit: 65535
+    t.text     "details"
+    t.boolean  "filtered",             default: false
   end
 
   create_table "templates", force: :cascade do |t|
