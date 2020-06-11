@@ -13,7 +13,7 @@ json.ignore_nil!
 
 json.application @application
 json.source "#{request.method} #{request.path}"
-json.time Time.now.utc.to_s
+json.time Time.now.to_formatted_s(:iso8601)
 json.caller @caller
 json.code response.status
 json.message Rack::Utils::HTTP_STATUS_CODES[response.status]

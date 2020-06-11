@@ -542,6 +542,28 @@ describe Plan do
 
   end
 
+  describe ".stats_filter" do
+
+    subject { Plan.all.stats_filter }
+
+    context "when plan visibility is test" do
+      let!(:plan) { create(:plan, :creator, :is_test) }
+
+      it { is_expected.not_to include(plan) }
+    end
+
+    context "when plan visibility is not test" do
+      let!(:p1)  { create(:plan, :creator, :publicly_visible) }
+      let!(:p2)  { create(:plan, :creator, :privately_visible) }
+      let!(:p3)  { create(:plan, :creator, :organisationally_visible) }
+
+      it { is_expected.to include(p1) }
+      it { is_expected.to include(p2) }
+      it { is_expected.to include(p3) }
+    end
+
+  end
+
   describe "#answer" do
 
     let!(:plan) { create(:plan, :creator, answers: 1) }
