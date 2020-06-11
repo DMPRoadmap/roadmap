@@ -4,14 +4,6 @@ class UserMailer < ActionMailer::Base
 
   include MailerHelper
 
-  # =====================================
-  # Start DMPTool Customization
-  # =====================================
-  include Dmptool::Mailers::UserMailer
-  # =====================================
-  # End DMPTool Customization
-  # =====================================
-
   helper MailerHelper
   helper FeedbacksHelper
 
@@ -87,28 +79,20 @@ class UserMailer < ActionMailer::Base
     end
   end
 
-  # =====================================
-  # Start DMPTool Customization
-  # See lib/dmptool/mailer/user_mailer for override of this method that changes
-  # the sender address to be the 'do-not-reply' one defined in Branding.yml. AWS
-  # SES does not allow the sender to be be from a different domain!
-  # =====================================
-  # def feedback_complete(recipient, plan, requestor)
-  #   @requestor = requestor
-  #   @user      = recipient
-  #   @plan      = plan
-  #   @phase     = plan.phases.first
-  #   if recipient.active?
-  #     FastGettext.with_locale FastGettext.default_locale do
-  #       mail(to: recipient.email,
-  #            from: requestor.org.contact_email,
-  #            subject: _("%{application_name}: Expert feedback has been provided for %{plan_title}") % {application_name: Rails.configuration.branding[:application][:name], plan_title: @plan.title})
-  #     end
-  #   end
-  # end
-  # =============================
-  # End DMPTool Customization
-  # =============================
+  def feedback_complete(recipient, plan, requestor)
+    @requestor = requestor
+    @user      = recipient
+    @plan      = plan
+    @phase     = plan.phases.first
+    if recipient.active?
+      FastGettext.with_locale FastGettext.default_locale do
+        sender = Rails.configuration.branding[:organisation][:do_not_reply_email] || Rails.configuration.branding[:organisation][:email]
+        mail(to: recipient.email,
+             from: sender,
+             subject: _("%{application_name}: Expert feedback has been provided for %{plan_title}") % {application_name: Rails.configuration.branding[:application][:name], plan_title: @plan.title})
+      end
+    end
+  end
 
   def feedback_confirmation(recipient, plan, requestor)
     user = requestor

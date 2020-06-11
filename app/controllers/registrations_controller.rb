@@ -52,12 +52,6 @@ class RegistrationsController < Devise::RegistrationsController
         # ---------------------------------------
         # End DMPTool Customization
         # ---------------------------------------
-
-        scheme = IdentifierScheme.by_name(oauth["provider"].downcase).first
-        Identifier.create(identifier_scheme: scheme,
-                          value: oauth["uid"],
-                          attrs: oauth,
-                          identifiable: @user)
       end
     end
   end
