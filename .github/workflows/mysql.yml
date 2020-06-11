@@ -95,11 +95,11 @@ jobs:
 
     - name: 'Run Rspec Unit and Functional Tests'
       run: |
-        bin/rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
-        bin/rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
-        bin/rspec spec/mixins/
+        bin/bundle rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
+        bin/bundle rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
+        bin/bundle rspec spec/mixins/
 
     # Only run Integration tests if the PR or Push is to master or development branches
     - name: 'Run Rspec Integration Tests'
       if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development'
-      run: bin/rspec spec/features/
+      run: bin/bundle rspec spec/features/
