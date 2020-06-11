@@ -6,9 +6,9 @@ class Org
 
     class << self
 
-      def call
+      def call(filtered: false)
         total = build_from_joined_user
-        build_from_created_plan(total)
+        build_from_created_plan(filtered, total)
         total.values
       end
 
@@ -38,14 +38,15 @@ class Org
       end
 
       def build_from_joined_user(total = {})
+        # Users have no concept of filtering (at the moment)
         joined_user_count = Org::TotalCountJoinedUserService.call
         joined_user_count.reduce(total) do |acc, count|
           reducer_body(acc, count, :total_users)
         end
       end
 
-      def build_from_created_plan(total = {})
-        created_plan_count = Org::TotalCountCreatedPlanService.call
+      def build_from_created_plan(filtered, total = {})
+        created_plan_count = Org::TotalCountCreatedPlanService.call(filtered: filtered)
         created_plan_count.reduce(total) do |acc, count|
           reducer_body(acc, count, :total_plans)
         end

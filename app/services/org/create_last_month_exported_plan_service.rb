@@ -5,6 +5,7 @@ import OrgDateRangeable
 import StatExportedPlan
 import StatExportedPlan::CreateOrUpdate
 import Role
+import Plan
 import User
 import ExportedPlan
 
@@ -25,6 +26,12 @@ class Org
               start_date: last[:start_date],
               end_date: last[:end_date],
               org: org
+            )
+            StatExportedPlan::CreateOrUpdate.do(
+              start_date: last[:start_date],
+              end_date: last[:end_date],
+              org: org,
+              filtered: true
             )
           end
         end
