@@ -208,6 +208,7 @@ class User < ActiveRecord::Base
   # Returns String
   def name(use_email = true)
     if (surname.downcase == "surname" ) || 
+      (surname.downcase == "nom de famille" ) || 
        (firstname.blank? && surname.blank?) || 
        use_email then
       email
