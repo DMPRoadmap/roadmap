@@ -6,15 +6,16 @@ class Org
 
     class << self
 
-      def call(org = nil)
-        return for_orgs unless org.present?
-        for_org(org)
+      def call(org = nil, filtered: false)
+        return for_orgs(filtered) unless org.present?
+        for_org(org, filtered)
       end
 
       private
 
-      def for_orgs
+      def for_orgs(filtered)
         result = ::StatCreatedPlan
+          .where(filtered: filtered)
           .includes(:org)
           .select(:"orgs.name", :count)
           .group(:"orgs.name")
@@ -24,8 +25,8 @@ class Org
         end
       end
 
-      def for_org(org)
-        result = ::StatCreatedPlan.where(org: org).sum(:count)
+      def for_org(org, filtered)
+        result = ::StatCreatedPlan.where(org: org, filtered: filtered).sum(:count)
         build_model(org_name: org.name, count: result)
       end
 

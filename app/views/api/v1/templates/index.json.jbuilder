@@ -9,8 +9,8 @@ json.items @items do |template|
     json.title presenter.title
     json.description template.description
     json.version template.version
-    json.created template.created_at.utc.to_s
-    json.modified template.updated_at.utc.to_s
+    json.created template.created_at.to_formatted_s(:iso8601)
+    json.modified template.updated_at.to_formatted_s(:iso8601)
 
     json.affiliation do
       json.partial! "api/v1/orgs/show", org: template.org

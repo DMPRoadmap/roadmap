@@ -24,7 +24,8 @@ module Api
               plans = Plan.where(id: nil).limit(1)
             end
 
-          elsif client.is_a?(ApiClient) && plans.first.api_client_id != client.id
+          elsif client.is_a?(ApiClient) && plans.first.api_client_id != client.id &&
+                !plans.first.publicly_visible?
             # Kaminari pagination requires an ActiveRecord resultset :/
             plans = Plan.where(id: nil).limit(1)
           end
@@ -87,6 +88,22 @@ module Api
       # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
       # rubocop:enable Metrics/PerceivedComplexity, Metrics/MethodLength
 
+      # GET /api/v1/plans
+      def index
+        # ALL can view: public
+        # ApiClient can view: anything from the API client
+        # User (non-admin) can view: any personal or organisationally_visible
+        # User (admin) can view: all from users of their organisation
+        plans = Api::V1::PlansPolicy::Scope.new(client, Plan).resolve
+        if plans.present? && plans.any?
+          @items = paginate_response(results: plans)
+          @minimal = true
+          render "api/v1/plans/index", status: :ok
+        else
+          render_error(errors: [_("No Plans found")], status: :not_found)
+        end
+      end
+
       private
 
       def dmp_params
@@ -117,7 +134,7 @@ module Api
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def contributor_to_user(contributor:)
         identifiers = contributor.identifiers.map do |id|
-          { name: id.identifier_scheme.name, value: id.value }
+          { name: id.identifier_scheme&.name, value: id.value }
         end
         user = User.from_identifiers(array: identifiers) if identifiers.any?
         user = User.find_by(email: contributor.email) unless user.present?

@@ -21,20 +21,20 @@ RSpec.describe Api::V1::TemplatesController, type: :request do
       end
 
       it "returns a public published template" do
-        create(:template, :publicly_visible, :published)
+        create(:template, :publicly_visible, published: true, customization_of: nil)
         get api_v1_templates_path
         expect(assigns(:items).length).to eql(1)
       end
 
       it "does not return an unpublished template" do
-        create(:template, :publicly_visible, published: false)
+        create(:template, :publicly_visible, published: false, customization_of: nil)
         get api_v1_templates_path
         expect(assigns(:items).length).to eql(0)
       end
 
       it "does not return an organizational template" do
         get api_v1_templates_path
-        create(:template, :organisationally_visible, :published)
+        create(:template, :organisationally_visible, :published, customization_of: nil)
         get api_v1_templates_path
         expect(assigns(:items).length).to eql(0)
       end
@@ -57,20 +57,21 @@ RSpec.describe Api::V1::TemplatesController, type: :request do
       end
 
       it "returns a public published template" do
-        create(:template, :publicly_visible, :published)
+        create(:template, :publicly_visible, :published, customization_of: nil)
         get api_v1_templates_path
         expect(assigns(:items).length).to eql(1)
       end
 
       it "returns a organizational published template (for user's org)" do
-        create(:template, :organisationally_visible, :published, org: Org.last)
+        create(:template, :organisationally_visible, :published, org: Org.last,
+                                                                 customization_of: nil)
         get api_v1_templates_path
         expect(assigns(:items).length).to eql(1)
       end
 
       it "does not return an unpublished template" do
         create(:template, :organisationally_visible, published: false,
-                                                     org: Org.last)
+                                                     org: Org.last, customization_of: nil)
         get api_v1_templates_path
         expect(assigns(:items).length).to eql(0)
       end
@@ -78,7 +79,8 @@ RSpec.describe Api::V1::TemplatesController, type: :request do
       it "does not return another Org's organizational template" do
         org2 = create(:org)
         get api_v1_templates_path
-        create(:template, :organisationally_visible, :published, org: org2)
+        create(:template, :organisationally_visible, published: true, org: org2,
+                                                     customization_of: nil)
         get api_v1_templates_path
         expect(assigns(:items).length).to eql(0)
       end
