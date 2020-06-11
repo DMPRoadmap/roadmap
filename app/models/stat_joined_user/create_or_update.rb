@@ -6,13 +6,14 @@ class StatJoinedUser
 
     class << self
 
-      def do(start_date:, end_date:, org:)
+      def do(start_date:, end_date:, org:, filtered: false)
         count = count_users(start_date: start_date, end_date: end_date, org_id: org.id)
-        attrs = { date: end_date.to_date, count: count, org_id: org.id }
+        attrs = { date: end_date.to_date, count: count, org_id: org.id, filtered: filtered }
 
         stat_joined_user = StatJoinedUser.find_by(
           date: attrs[:date],
-          org_id: attrs[:org_id]
+          org_id: attrs[:org_id],
+          filtered: attrs[:filtered]
         )
 
         if stat_joined_user.present?
