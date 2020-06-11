@@ -753,6 +753,28 @@ namespace :upgrade do
         end
       end
     end
+
+  end
+
+  # -------------------------------------------------
+  # TASKS FOR 2.2.0
+  desc "run all of the identifier_scheme changes"
+  task upgrade_2_2_0_identifier_schemes: :environment do
+    Rake::Task["upgrade:add_new_identifier_schemes"].execute
+    Rake::Task["upgrade:update_shibboleth_description"].execute
+    Rake::Task["upgrade:contextualize_identifier_schemes"].execute
+  end
+  desc "run all of the identifier changes"
+  task upgrade_2_2_0_identifiers: :environment do
+    Rake::Task["upgrade:convert_org_identifiers"].execute
+    p "--------------------------"
+    Rake::Task["upgrade:convert_user_identifiers"].execute
+  end
+  desc "run all of the org changes"
+  task upgrade_2_2_0_orgs: :environment do
+    Rake::Task["upgrade:default_orgs_to_managed"].execute
+    p "--------------------------"
+    Rake::Task["upgrade:retrieve_ror_fundref_ids"].execute
   end
 
     # -------------------------------------------------

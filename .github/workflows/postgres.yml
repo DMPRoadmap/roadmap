@@ -114,8 +114,8 @@ jobs:
         bin/rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
         bin/rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
         bin/rspec spec/mixins/
-    
-    # Integration Tests are only run if PR or Push is to master or development branches
-    - name: 'Run Integration Tests'
+
+    # Only run Integration tests if the PR or Push is to master or development branches
+    - name: 'Run Rspec Integration Tests'
       if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development'
-      run: bin/rspec spec/features
+      run: bin/rspec spec/features/
