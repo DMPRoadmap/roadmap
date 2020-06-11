@@ -95,8 +95,8 @@ jobs:
 
     - name: 'Test Rspec'
       run: |
-        echo which rspec
-        rspec spec/models
+        ls bin/
+        bin/rspec spec/models
 
     - name: 'Run Rspec Unit and Functional Tests'
       run: |
