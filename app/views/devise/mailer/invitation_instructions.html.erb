@@ -8,22 +8,28 @@
   user_name = User.find_by(email: @resource.email).nil? ?  @resource.email : User.find_by(email: @resource.email).name(false)
   inviter_name = @resource.invited_by.name(false) + ' ( ' + @resource.invited_by.name(true) + " )" 
 %>
-<% FastGettext.with_locale FastGettext.default_locale do %>
-  <p>
-    <%= _('Hello') % { :user_name => user_name } %>
-  </p>
-  <p>
-    <%= _("Your colleague %{inviter_name} has invited you to contribute to their Data Management Plan in %{tool_name}") % {
-      tool_name: tool_name,
-      inviter_name: inviter_name
-    } %>
-  </p>
-  <p>
-    <%= sanitize(_('%{click_here} to accept the invitation, (or copy %{link} into your browser). If you don\'t want to accept the invitation, please ignore this email.') % {
-      click_here: link_to(_('Click here'), link), link: link
-    }) %>
-  </p>
-  
-  <%= render partial: 'user_mailer/email_signature' %>
+<% Language.all.order('default_language DESC').each do |lang| %>
+  <% FastGettext.with_locale lang.abbreviation do %>
+    <h2><%= lang.name %></h2>
 
+    <p>
+      <%= _('Hello') % { :user_name => user_name } %>
+    </p>
+    <p>
+      <%= _("Your colleague %{inviter_name} has invited you to contribute to their Data Management Plan in %{tool_name}") % {
+        tool_name: tool_name,
+        inviter_name: inviter_name
+      } %>
+    </p>
+    <p>
+      <%= sanitize(_('%{click_here} to accept the invitation, (or copy %{link} into your browser). If you don\'t want to accept the invitation, please ignore this email.') % {
+        click_here: link_to(_('Click here'), link), link: link
+      }) %>
+    </p>
+    
+    <%= render partial: 'user_mailer/email_signature' %>
+
+    <hr/>
+    
+  <% end %>
 <% end %>
