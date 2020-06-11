@@ -93,6 +93,11 @@ jobs:
     - name: 'Run Karma Tests'
       run: yarn test
 
+    - name: 'Test Rspec'
+      run: |
+        echo which rspec
+        rspec spec/models
+
     - name: 'Run Rspec Unit and Functional Tests'
       run: |
         bin/bundle exec rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
