@@ -8,6 +8,7 @@
 #  count      :bigint(8)        default(0)
 #  date       :date             not null
 #  details    :text
+#  filtered   :boolean          default(FALSE)
 #  type       :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -20,7 +21,7 @@ class Stat < ApplicationRecord
 
   belongs_to :org, optional: true
 
-  validates_uniqueness_of :type, scope: [:date, :org_id]
+  validates_uniqueness_of :type, scope: [:date, :org_id, :filtered]
 
   class << self
 

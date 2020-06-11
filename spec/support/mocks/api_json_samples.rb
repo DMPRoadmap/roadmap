@@ -79,7 +79,7 @@ module Mocks
         "items": [
           {
             "dmp": {
-              "created": (Time.now - 3.months).utc.to_s,
+              "created": (Time.now - 3.months).to_formatted_s(:iso8601),
               "title": Faker::Lorem.sentence,
               "description": Faker::Lorem.paragraph,
               "language": Api::V1::LanguagePresenter.three_char_code(lang: lang),
@@ -104,7 +104,7 @@ module Mocks
                 }
               },
               "contributor": [{
-                "roles": [
+                "role": [
                   "https://dictionary.casrai.org/Contributor_Roles/Project_administration",
                   "https://dictionary.casrai.org/Contributor_Roles/Investigation"
                 ],
@@ -123,7 +123,7 @@ module Mocks
                   "identifier": SecureRandom.uuid
                 }
               }, {
-                "roles": [
+                "role": [
                   "https://dictionary.casrai.org/Contributor_Roles/Investigation"
                 ],
                 "name": contact[:name],
@@ -144,8 +144,8 @@ module Mocks
               "project": [{
                 "title": Faker::Lorem.sentence,
                 "description": Faker::Lorem.paragraph,
-                "start": (Time.now + 3.months).utc.to_s,
-                "end": (Time.now + 2.years).utc.to_s,
+                "start": (Time.now + 3.months).to_formatted_s(:iso8601),
+                "end": (Time.now + 2.years).to_formatted_s(:iso8601),
                 "funding": [{
                   "name": Faker::Movies::StarWars.droid,
                   "funder_id": {

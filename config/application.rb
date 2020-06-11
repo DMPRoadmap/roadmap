@@ -44,5 +44,46 @@ module DMPRoadmap
     # Set the default host for mailer URLs
     config.action_mailer.default_url_options = { :host => "#{Socket.gethostname}" }
 
+<<<<<<< HEAD
+=======
+    # Enable shibboleth as an alternative authentication method
+    # Requires server configuration and omniauth shibboleth provider configuration
+    # See config/initializers/devise.rb
+    config.shibboleth_enabled = true
+
+    # Relative path to Shibboleth SSO Logout
+    config.shibboleth_login = '/Shibboleth.sso/Login'
+    config.shibboleth_logout_url = '/Shibboleth.sso/Logout?return='
+
+    # If this value is set to true your users will be presented with a list of orgs that have a
+    # shibboleth identifier in the orgs_identifiers table. If it is set to false (default), the user
+    # will be driven out to your federation's discovery service
+    #
+    # A super admin will also be able to associate orgs with their shibboleth entityIds if this is set to true
+    config.shibboleth_use_filtered_discovery_service = false
+
+    # Active Record will no longer suppress errors raised in after_rollback or after_commit
+    # in the next version. Devise appears to be using those callbacks.
+    # To accept the new behaviour use 'true' otherwise use 'false'
+    config.active_record.raise_in_transactional_callbacks = true
+
+    # Load Branded terminology (e.g. organization name, application name, etc.)
+    if File.exists?(Rails.root.join('config', 'branding.yml'))
+      config.branding = config_for(:branding).deep_symbolize_keys
+    end
+
+    # org abbreviation for the root google analytics tracker that gets planted on every page
+    # config.x.tracker_root = "DMPRoadmap"
+
+    # The default visibility setting for new plans
+    #   organisationally_visible  - Any member of the user's org can view, export and duplicate the plan
+    #   publicly_visibile         - (NOT advisable because plans will show up in Public DMPs page by default)
+    #   is_test                   - (NOT advisable because test plans are excluded from statistics)
+    #   privately_visible         - Only the owner and people they invite can access the plan
+    config.default_plan_visibility = 'privately_visible'
+
+    # The percentage of answered questions needed to enable the plan visibility section of the Share plan page
+    config.default_plan_percentage_answered = 50
+>>>>>>> development
   end
 end

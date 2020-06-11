@@ -120,6 +120,8 @@ class Plan < ApplicationRecord
 
   has_one :grant, as: :identifiable, dependent: :destroy, class_name: "Identifier"
 
+  belongs_to :api_client#, optional: true # UNCOMMENT After Rails 5
+
   # =====================
   # = Nested Attributes =
   # =====================
@@ -199,6 +201,11 @@ class Plan < ApplicationRecord
                search_pattern: search_pattern)
     end
   }
+
+  ##
+  # Defines the filter_logic used in the statistics objects.
+  # For now, we filter out any test plans
+  scope :stats_filter, -> { where.not(visibility: visibilities[:is_test])}
 
   # Retrieves plan, template, org, phases, sections and questions
   scope :overview, lambda { |id|

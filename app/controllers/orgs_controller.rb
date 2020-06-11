@@ -171,7 +171,8 @@ class OrgsController < ApplicationController
           .permit(:name, :abbreviation, :logo, :contact_email, :contact_name,
                   :remove_logo, :org_type, :managed, :feedback_enabled,
                   :feedback_email_msg, :org_id, :org_name, :org_crosswalk,
-                  identifiers_attributes: [:identifier_scheme_id, :value])
+                  identifiers_attributes: [:identifier_scheme_id, :value],
+                  tracker_attributes: [:code])
   end
 
   def search_params

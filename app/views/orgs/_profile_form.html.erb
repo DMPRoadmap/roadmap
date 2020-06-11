@@ -42,6 +42,10 @@
     </div>
   <% end %>
 
+  <% unless org.tracker.present?
+       org.build_tracker
+     end %>
+
   <div class="row">
     <div class="form-group col-xs-8">
       <%= f.label :logo, _('Organization logo'), class: "control-label"  %>
@@ -132,6 +136,21 @@
     <div class="form-group col-xs-4">
       <%= f.label :contact_name, _('Link text'), class: "control-label" %>
       <%= f.text_field :contact_name, class: "form-control", aria: { required: true } %>
+    </div>
+  </div>
+
+  <hr>
+  <div class="row">
+    <div class="form-group col-xs-8">
+      <h3><%= _("Google Analytics Tracker") %></h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-xs-4">
+      <%= f.fields_for :tracker do |t| %>
+        <%= t.label :code, _('Tracker Code'), class: "control-label" %>
+        <%= t.text_field :code, class: "form-control", aria: { required: false } %>
+      <% end %>
     </div>
   </div>
 
