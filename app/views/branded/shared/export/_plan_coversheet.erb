@@ -52,7 +52,7 @@
         <%= research_output.abbreviation %> : <%= research_output.fullname %> ( <%= 
           research_output.type && research_output.type.is_other  ? 
           d_('dmpopidor', 'Other: ') + research_output.other_type_label :
-          research_output.type.label
+          d_('dmpopidor', research_output.type.label)
         %> )</li>
       <% end %>
     </ol>

@@ -22,7 +22,7 @@
             <i class="fa fa-info-circle"></i>
           </a>
         </strong>
-        <span><%= research_output.type ? research_output.type.label : _('None')  %></span>
+        <span><%= research_output.type ? d_('dmpopidor', research_output.type.label) : _('None')  %></span>
       </div>
       <div class='research-output-value' style='<%= other_type_displayed %>'>
         <strong><%=  d_('dmpopidor', 'Other Type') %></strong>

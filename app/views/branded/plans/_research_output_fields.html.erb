@@ -24,14 +24,14 @@
       </a>
       <%= f.select(:research_output_type_id, 
                     options_for_select(
-                      research_output_types.map{ |r| [r.label, r.id, { 'data-other' => r.is_other }] }, 
+                      research_output_types.map{ |r| [d_('dmpopidor', r.label), r.id, { 'data-other' => r.is_other }] }, 
                       selected: research_output.research_output_type_id, disabled: ""
                     ),
                     { prompt: d_('dmpopidor', 'Please select the type of your research output.') },
                     { multiple: false, class: 'form-control research-output-type-select input', "aria-required": true, style: edit_mode,
                    'data-toggle': 'tooltip', title: d_('dmpopidor', 'Please select a resource type from the list.') }) 
       %>
-      <span class="readonly-value"  style="<%= display_mode %>"><%= research_output.type ? research_output.type.label : _('None')  %></span>
+      <span class="readonly-value"  style="<%= display_mode %>"><%= research_output.type ? d_('dmpopidor', research_output.type.label) : _('None')  %></span>
     </div>
     <div class='research-output-field form-group research-output-other-type-label' style='<%= other_type_displayed %>'>
       <%= f.label :other_type_label, d_('dmpopidor', 'Other Type'), class: 'control-label' %>

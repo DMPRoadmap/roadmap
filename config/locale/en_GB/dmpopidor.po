@@ -458,3 +458,39 @@ msgstr "You are about to archive %{user_name}. This will remove their personal i
 
 msgid "Request Date"
 msgstr "Request Date"
+
+msgid "Audiovisual"
+msgstr "Audiovisual"
+
+msgid "Collection"
+msgstr "Collection"
+
+msgid "Dataset"
+msgstr "Dataset"
+
+msgid "Image"
+msgstr "Image"
+
+msgid "Interactive Resource"
+msgstr "Interactive Resource"
+
+msgid "Model"
+msgstr "Model"
+
+msgid "Physical Object"
+msgstr "Physical Object"
+
+msgid "Service"
+msgstr "Service"
+
+msgid "Software"
+msgstr "Software"
+
+msgid "Sound"
+msgstr "Sound"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Workflow"
+msgstr "Workflow"

@@ -460,3 +460,39 @@ msgstr "Vous êtes sur le point d’archiver %{user_name}. Les informations pers
 
 msgid "Request Date"
 msgstr "Date de la demande"
+
+msgid "Audiovisual"
+msgstr "Audiovisuel"
+
+msgid "Collection"
+msgstr "Collection"
+
+msgid "Dataset"
+msgstr "Jeu de données"
+
+msgid "Image"
+msgstr "Image"
+
+msgid "Interactive Resource"
+msgstr "Ressource interactive"
+
+msgid "Model"
+msgstr "Modèle"
+
+msgid "Physical Object"
+msgstr "Objet Physique"
+
+msgid "Service"
+msgstr "Service"
+
+msgid "Software"
+msgstr "Logiciel"
+
+msgid "Sound"
+msgstr "Son"
+
+msgid "Text"
+msgstr "Texte"
+
+msgid "Workflow"
+msgstr "Workflow"

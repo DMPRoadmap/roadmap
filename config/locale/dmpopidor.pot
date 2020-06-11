@@ -462,3 +462,39 @@ msgstr ""
 
 msgid "Request Date"
 msgstr ""
+
+msgid "Audiovisual"
+msgstr ""
+
+msgid "Collection"
+msgstr ""
+
+msgid "Dataset"
+msgstr ""
+
+msgid "Image"
+msgstr ""
+
+msgid "Interactive Resource"
+msgstr ""
+
+msgid "Model"
+msgstr ""
+
+msgid "Physical Object"
+msgstr ""
+
+msgid "Service"
+msgstr ""
+
+msgid "Software"
+msgstr ""
+
+msgid "Sound"
+msgstr ""
+
+msgid "Text"
+msgstr ""
+
+msgid "Workflow"
+msgstr ""
