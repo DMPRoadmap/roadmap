@@ -17,4 +17,5 @@ environment.config.set('resolve.alias', {
   'bootstrap-sass': 'bootstrap-sass/assets/javascripts/bootstrap/',
 });
 
+environment.loaders.prepend('erb', erb)
 module.exports = environment;
