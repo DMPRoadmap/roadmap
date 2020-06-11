@@ -207,10 +207,10 @@ class User < ActiveRecord::Base
   #
   # Returns String
   def name(use_email = true)
-    if (surname.downcase == "surname" ) || 
-      (surname.downcase == "nom de famille" ) || 
+    if use_email || 
        (firstname.blank? && surname.blank?) || 
-       use_email then
+       (surname.downcase == "surname" ) || 
+       (surname.downcase == "nom de famille" ) then
       email
     else
       name = "#{firstname} #{surname}"

@@ -1,5 +1,5 @@
 <%
-  recipient_name = @recipient.name(false)
+  recipient_name = @recipient.name(true)
   requestor_name = @user.name(false)
   plan_name = @plan.title
   tool_name = Rails.configuration.branding[:application][:name]
