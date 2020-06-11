@@ -26,6 +26,13 @@ class Org
               end_date: end_date,
               org: org
             )
+            # 2nd call to pull stats on just 'real' plans
+            StatCreatedPlan::CreateOrUpdate.do(
+              start_date: start_date,
+              end_date: end_date,
+              org: org,
+              filtered: true
+            )
           end
         end
       end
