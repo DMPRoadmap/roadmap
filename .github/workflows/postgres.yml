@@ -113,12 +113,7 @@ jobs:
         bin/rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
         bin/rspec spec/mixins/
 
-<<<<<<< HEAD
-    # Only run Integration tests if the PR or Push is to master or development branches
-    - name: 'Run Rspec Integration Tests'
-=======
     # Integration Tests are only run if PR or Push is to master or development branches
     - name: 'Run Integration Tests'
->>>>>>> bb0681f6... updated github workflows to use yarn correctly
       if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development'
       run: bin/rspec spec/features/

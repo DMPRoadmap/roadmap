@@ -11,7 +11,6 @@ $(() => {
   // keeps track of how many waiting api-requests still need to run
   let noWaiting = 0;
 
-
   // prune the min_tree where there are no standards
   // opporates on the principal that no two subjects have the same name
   function removeUnused(name) {
@@ -34,7 +33,6 @@ $(() => {
     }
   }
 
-
   function getDescription(id) {
     $.ajax({
       url: url + id.slice(4),
@@ -48,7 +46,6 @@ $(() => {
       noWaiting -= 1;
     });
   }
-
 
   // init descriptions lookup table based on passed ids
   function initDescriptions(ids) {
@@ -105,7 +102,6 @@ $(() => {
       getStandards(minTree[num].name, num, undefined);
     });
   }
-
 
   // create object for typeahead
   function initTypeahead() {
@@ -349,7 +345,6 @@ $(() => {
     updateSaveStatus(group);
   });
 
-
   function initMetadataQuestions() {
     // find all elements with rda_metadata div
     $('.rda_metadata').each((idx, el) => {
@@ -362,7 +357,6 @@ $(() => {
     });
     waitAndUpdate();// $(".rda_metadata .subject select").change();
   }
-
 
   // callback from url+subject-index
   // define api_tree and call to initMetadataQuestions
