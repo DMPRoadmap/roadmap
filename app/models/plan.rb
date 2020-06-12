@@ -328,11 +328,13 @@ class Plan < ActiveRecord::Base
     Plan.transaction do
       begin
         self.feedback_requested = true
+        self.feedback_requestor = user
+        self.feedback_request_date = DateTime.current()
         if save!
           # Send an email to the org-admin contact
           if user.org.contact_email.present?
             contact = User.new(email: user.org.contact_email,
-                               firstname: user.org.contact_name)
+                              firstname: user.org.contact_name)
             UserMailer.feedback_notification(contact, self, user).deliver_now
           end
           return true
@@ -353,27 +355,29 @@ class Plan < ActiveRecord::Base
   # SEE MODULE
   def complete_feedback(org_admin)
     Plan.transaction do
-      begin
-        self.feedback_requested = false
-        if save!
-          # Send an email confirmation to the owners and co-owners
-          deliver_if(recipients: owner_and_coowners,
+       begin
+         self.feedback_requested = false
+         self.feedback_requestor = nil
+         self.feedback_request_date = nil
+         if save!
+           # Send an email confirmation to the owners and co-owners
+           deliver_if(recipients: owner_and_coowners,
                      key: "users.feedback_provided") do |r|
                          UserMailer.feedback_complete(
                            r,
                            self,
                            org_admin).deliver_now
                        end
-          true
-        else
-          false
-        end
-      rescue ArgumentError => e
-        Rails.logger.error e
-        false
-      end
-    end
-  end
+           true
+         else
+           false
+         end
+       rescue ArgumentError => e
+         Rails.logger.error e
+         false
+       end
+     end
+   end
 
   ##
   # determines if the plan is editable by the specified user
