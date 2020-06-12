@@ -2,9 +2,6 @@
 //       file for the user's selected locale
 import enGB from '../locale/en_GB/timeago';
 
-import * as timeago from 'timeago.js';
-
-/* global timeago */
 const TimeagoFactory = (() => {
   timeago.register('en_GB', enGB);
   /*
@@ -13,7 +10,7 @@ const TimeagoFactory = (() => {
   */
   return {
     render: (el) => {
-      //timeago().render(el, 'en_GB');
+      // timeago().render(el, 'en_GB');
       timeago.format($(el).text(), 'en_GB');
     },
   };

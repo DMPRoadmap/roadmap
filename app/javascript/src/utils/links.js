@@ -2,7 +2,7 @@ import 'number-to-text/converters/en-us';
 import { convertToText } from 'number-to-text/index';
 import { isFunction } from './isType';
 
-const getLinks = elem => $(elem).find('.link').map((i, el) => {
+const getLinks = (elem) => $(elem).find('.link').map((i, el) => {
   const link = $(el);
   // toggleValidations(link);
   const linkVal = link.find('input[name="link_link"]').val();
@@ -49,8 +49,8 @@ $(() => {
       $(el).val('');
     });
   };
-  const linksLength = jqueryElem => jqueryElem.closest('.links').find('.link').length;
-  const maxNumberLinks = jqueryElem => jqueryElem.closest('.links').attr('data-max-number-links') * 1;
+  const linksLength = (jqueryElem) => jqueryElem.closest('.links').find('.link').length;
+  const maxNumberLinks = (jqueryElem) => jqueryElem.closest('.links').attr('data-max-number-links') * 1;
 
   $('.links').on('click', '.new', (e) => {
     e.preventDefault();
