@@ -44,12 +44,12 @@ $(() => {
     toggleCheckboxes(selections);
   };
 
-  const grantNumberInfo = grantId => `Grant number: ${grantId}`;
+  const grantNumberInfo = (grantId) => `Grant number: ${grantId}`;
 
   const setInitialGrantProjectName = () => {
     const grantId = grantIdHidden.val();
     const researchProjects = window.researchProjects;
-    const researchProject = researchProjects.find(datum => datum.grant_id === grantId);
+    const researchProject = researchProjects.find((datum) => datum.grant_id === grantId);
     if (researchProject) {
       grantIdField.val(researchProject.description);
     }
@@ -65,7 +65,7 @@ $(() => {
 
       $.get('/research_projects.json', (data) => {
         window.researchProjects = data;
-        const descriptionData = $.map(data, datum => datum.description);
+        const descriptionData = $.map((dataIn, datum) => datum.description);
         grantIdField.typeahead({ source: descriptionData });
       }).then(() => { setInitialGrantProjectName(); });
       grantIdField.on('change', () => {
@@ -73,7 +73,7 @@ $(() => {
         if (current) {
           // match or partial match found
           const currentResearchProject = window.researchProjects.find((datum) => {
-            const fixString = string => String(string).toLowerCase();
+            const fixString = (string) => String(string).toLowerCase();
             return fixString(datum.description) === fixString(current);
           });
           if (currentResearchProject) {
