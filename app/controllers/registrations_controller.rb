@@ -294,6 +294,7 @@ class RegistrationsController < Devise::RegistrationsController
 
     # Remove the extraneous Org Selector hidden fields
     attrs = remove_org_selection_params(params_in: attrs)
+    return attrs unless org.present?
 
     # reattach the org_id but with the Org id instead of the hash
     attrs[:org_id] = org.id
