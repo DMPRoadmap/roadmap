@@ -2,7 +2,6 @@ import { isObject, isString } from '../utils/isType';
 import { renderNotice, renderAlert, hideNotifications } from '../utils/notificationHelper';
 import { scrollTo } from '../utils/scrollTo';
 
-
 $(() => {
   // Activate/Deactivate user account
   $('body').on('click, change', '.activate-user input[type="checkbox"]', (e) => {
