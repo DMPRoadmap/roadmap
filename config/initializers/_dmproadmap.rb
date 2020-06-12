@@ -2,7 +2,18 @@
 
 require "csv"
 
-# DMPRoadmap constants #
+# DMPRoadmap constants
+#
+# This file is a consolidation of the old custom configuration previously spread
+# across the application.rb, branding.yml and the contact_us, devise, recaptcha,
+# constants and wicked_pdf initializers
+#
+# It works in conjunction with the new Rails 5 config/credentials.yml.enc file
+# for information on how to use the credentials file see:
+#    https://medium.com/cedarcode/rails-5-2-credentials-9b3324851336
+#
+# This file's name begins with an underscore so that it is processed first and its
+# values are available to all other initializers within this directory!
 module DMPRoadmap
 
   class Application < Rails::Application
@@ -171,6 +182,16 @@ module DMPRoadmap
     config.x.cache.org_selection_expiration = 86400
     # Determines how long to cache results for the ResearchProjectsController
     config.x.cache.research_projects_expiration = 86400
+
+    # ---------------- #
+    # Google Analytics #
+    # ---------------- #
+    config.x.tracker_root = '[need to pull this from the credentials.yml]'
+
+    # ------------------------------------------------------------------------ #
+    # reCAPTCHA - recaptcha appears on the create account and contact us forms #
+    # ------------------------------------------------------------------------ #
+    config.x.recaptcha.enabled = false
 
   end
 
