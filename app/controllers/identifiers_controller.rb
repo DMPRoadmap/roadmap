@@ -8,19 +8,19 @@ class IdentifiersController < ApplicationController
   # DELETE /users/identifiers
   # ---------------------------------------------------------------------
   def destroy
-    authorize UserIdentifier
+    authorize Identifier
     user = User.find(current_user.id)
-    identifier = UserIdentifier.find(params[:id])
+    identifier = Identifier.find(params[:id])
 
     # If the requested identifier belongs to the current user remove it
-    if user.user_identifiers.include?(identifier)
+    if user.identifiers.include?(identifier)
       identifier.destroy!
       flash[:notice] = _("Successfully unlinked your account from %{is}.") % {
-        is: identifier.identifier_scheme.description
+        is: identifier.identifier_scheme&.description
       }
     else
       flash[:alert] = _("Unable to unlink your account from %{is}.") % {
-        is: identifier.identifier_scheme.description
+        is: identifier.identifier_scheme&.description
       }
     end
 

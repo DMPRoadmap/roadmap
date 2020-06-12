@@ -16,7 +16,7 @@
     <%= render partial: "shared/org_selectors/combined",
                locals: {
                  form: f,
-                 default_org: nil,
+                 default_org: resource&.org,
                  required: true
                } %>
   </div>
