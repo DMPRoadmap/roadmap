@@ -73,8 +73,9 @@ class UserMailer < ActionMailer::Base
     @phase     = plan.phases.first
     if recipient.active?
       FastGettext.with_locale current_locale(recipient) do
+        sender = Rails.configuration.branding[:organisation][:do_not_reply_email] || Rails.configuration.branding[:organisation][:email]
         mail(to: recipient.email,
-             from: requestor.org.contact_email,
+             from: sender,
              subject: _("%{application_name}: Expert feedback has been provided for %{plan_title}") % {application_name: Rails.configuration.branding[:application][:name], plan_title: @plan.title})
       end
     end

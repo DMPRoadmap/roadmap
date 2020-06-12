@@ -37,11 +37,6 @@ class RegistrationsController < Devise::RegistrationsController
         flash[:notice] = _("Please make a choice below. After linking your details to a %{application_name} account, you will be able to sign in directly with your institutional credentials.") % {
           application_name: Rails.configuration.branding[:application][:name]
         }
-        # rubocop:enable Metrics/LineLength
-        scheme = IdentifierScheme.find_by(name: oauth["provider"].downcase)
-        UserIdentifier.create(identifier_scheme: scheme,
-                              identifier: oauth["uid"],
-                              user: @user)
       end
     end
   end
