@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  
+
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
     t.integer "org_id"
@@ -64,24 +64,7 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.index ["name"], name: "index_api_clients_on_name"
   end
 
-  add_index "answers_question_options", ["answer_id"], name: "index_answers_question_options_on_answer_id", using: :btree
-
-  create_table "api_clients", force: :cascade do |t|
-    t.string   "name",          null: false
-    t.string   "description"
-    t.string   "homepage"
-    t.string   "contact_name"
-    t.string   "contact_email", null: false
-    t.string   "client_id",     null: false
-    t.string   "client_secret", null: false
-    t.date     "last_access"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  add_index "api_clients", ["name"], name: "index_api_clients_on_name", using: :btree
-
-  create_table "conditions", force: :cascade do |t|
+  create_table "conditions", id: :integer, force: :cascade do |t|
     t.integer  "question_id"
     t.text     "option_list"
     t.integer  "action_type"
@@ -90,11 +73,10 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.text     "webhook_data"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.index ["question_id"], name: "index_conditions_on_question_id"
   end
 
-  add_index "conditions", ["question_id"], name: "index_conditions_on_question_id", using: :btree
-
-  create_table "contributors", force: :cascade do |t|
+  create_table "contributors", id: :integer, force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.string   "phone"
@@ -109,12 +91,7 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.index ["roles"], name: "index_contributors_on_roles"
   end
 
-  add_index "contributors", ["email"], name: "index_contributors_on_email", using: :btree
-  add_index "contributors", ["org_id"], name: "index_contributors_on_org_id", using: :btree
-  add_index "contributors", ["plan_id"], name: "index_contributors_on_plan_id", using: :btree
-  add_index "contributors", ["roles"], name: "index_contributors_on_roles", using: :btree
-
-  create_table "departments", force: :cascade do |t|
+  create_table "departments", id: :integer, force: :cascade do |t|
     t.string   "name"
     t.string   "code"
     t.integer  "org_id"
@@ -162,7 +139,7 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.integer  "context"
   end
 
-  create_table "identifiers", force: :cascade do |t|
+  create_table "identifiers", id: :integer, force: :cascade do |t|
     t.string   "value",                null: false
     t.text     "attrs"
     t.integer  "identifier_scheme_id"
@@ -175,11 +152,7 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.index ["identifier_scheme_id", "value"], name: "index_identifiers_on_identifier_scheme_id_and_value"
   end
 
-  add_index "identifiers", ["identifiable_type", "identifiable_id"], name: "index_identifiers_on_identifiable_type_and_identifiable_id", using: :btree
-  add_index "identifiers", ["identifier_scheme_id", "identifiable_id", "identifiable_type"], name: "index_identifiers_on_scheme_and_type_and_id", using: :btree
-  add_index "identifiers", ["identifier_scheme_id", "value"], name: "index_identifiers_on_identifier_scheme_id_and_value", using: :btree
-
-  create_table "languages", force: :cascade do |t|
+  create_table "languages", id: :integer, force: :cascade do |t|
     t.string  "abbreviation"
     t.string  "description"
     t.string  "name"
@@ -240,9 +213,7 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.index ["token_permission_type_id"], name: "fk_rails_2aa265f538"
   end
 
-  add_index "org_token_permissions", ["org_id"], name: "index_org_token_permissions_on_org_id", using: :btree
-
-  create_table "orgs", force: :cascade do |t|
+  create_table "orgs", id: :integer, force: :cascade do |t|
     t.string   "name"
     t.string   "abbreviation"
     t.string   "target_url"
@@ -264,7 +235,7 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.boolean  "managed",                default: false, null: false
   end
 
-  create_table "perms", force: :cascade do |t|
+  create_table "perms", id: :integer, force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -308,11 +279,10 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer  "api_client_id"
+    t.index ["template_id"], name: "index_plans_on_template_id"
   end
 
-  add_index "plans", ["template_id"], name: "index_plans_on_template_id", using: :btree
-
-  create_table "plans_guidance_groups", force: :cascade do |t|
+  create_table "plans_guidance_groups", id: :integer, force: :cascade do |t|
     t.integer "guidance_group_id"
     t.integer "plan_id"
     t.index ["guidance_group_id", "plan_id"], name: "index_plans_guidance_groups_on_guidance_group_id_and_plan_id"
@@ -426,7 +396,7 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "stats", force: :cascade do |t|
+  create_table "stats", id: :integer, force: :cascade do |t|
     t.integer  "count",      limit: 8, default: 0
     t.date     "date",                                 null: false
     t.string   "type",                                 null: false
@@ -480,16 +450,15 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.datetime "updated_at"
   end
 
-  create_table "trackers", force: :cascade do |t|
+  create_table "trackers", id: :integer, force: :cascade do |t|
     t.integer  "org_id"
     t.string   "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["org_id"], name: "index_trackers_on_org_id"
   end
 
-  add_index "trackers", ["org_id"], name: "index_trackers_on_org_id", using: :btree
-
-  create_table "user_identifiers", force: :cascade do |t|
+  create_table "user_identifiers", id: :integer, force: :cascade do |t|
     t.string   "identifier"
     t.datetime "created_at"
     t.datetime "updated_at"

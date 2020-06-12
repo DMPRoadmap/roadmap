@@ -75,7 +75,7 @@ jobs:
     - name: 'Yarn Install'
       run: |
         yarn install
-        
+
     - name: 'Start MySQL'
       run: sudo systemctl start mysql
 
@@ -84,24 +84,22 @@ jobs:
 
     - name: 'Migrate DB'
       run: bin/rails db:migrate RAILS_ENV=test
-      
+
     - name: 'Compile Assets'
       run: |
         bin/rails webpacker:compile
         bin/rails assets:precompile
 
     - name: 'Run Karma Tests'
-      run: |
-        yarn add karma
-        yarn run test
+      run: yarn test
 
     - name: 'Run Rspec Unit and Functional Tests'
       run: |
-        bin/rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
-        bin/rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
-        bin/rspec spec/mixins/
+        bin/bundle exec rspec spec/models/ spec/policies/ spec/services/ spec/helpers/
+        bin/bundle exec rspec spec/controllers/ spec/presenters/ spec/requests/ spec/views
+        bin/bundle exec rspec spec/mixins/
 
     # Only run Integration tests if the PR or Push is to master or development branches
     - name: 'Run Rspec Integration Tests'
       if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development'
-      run: bin/rspec spec/features/
+      run: bin/bundle exec rspec spec/features/

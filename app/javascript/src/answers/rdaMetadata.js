@@ -11,17 +11,16 @@ $(() => {
   // keeps track of how many waiting api-requests still need to run
   let noWaiting = 0;
 
-
   // prune the min_tree where there are no standards
   // opporates on the principal that no two subjects have the same name
   function removeUnused(name) {
-    const num = Object.keys(minTree).find(x => minTree[x].name === name);
+    const num = Object.keys(minTree).find((x) => minTree[x].name === name);
     // if not top level standard
     if (isUndefined(num)) {
       // for each top level standard
       Object.keys(minTree).forEach((knum) => {
         const child = Object.keys(minTree[knum].children)
-          .find(x => minTree[knum].children[x].name === name);
+          .find((x) => minTree[knum].children[x].name === name);
         if (isObject(child)) {
           delete minTree[knum].children[child];
           $(`.rda_metadata .sub-subject select option[value="${name}"]`).remove();
@@ -33,7 +32,6 @@ $(() => {
       $(`.rda_metadata .subject select option[value="${name}"]`).remove();
     }
   }
-
 
   function getDescription(id) {
     $.ajax({
@@ -48,7 +46,6 @@ $(() => {
       noWaiting -= 1;
     });
   }
-
 
   // init descriptions lookup table based on passed ids
   function initDescriptions(ids) {
@@ -106,7 +103,6 @@ $(() => {
     });
   }
 
-
   // create object for typeahead
   function initTypeahead() {
     const data = [];
@@ -156,14 +152,14 @@ $(() => {
 
   // given a subject name, returns the portion of the min_tree applicable
   function getSubject(subjectText) {
-    const num = Object.keys(minTree).find(x => minTree[x].name === subjectText);
+    const num = Object.keys(minTree).find((x) => minTree[x].name === subjectText);
     return minTree[num];
   }
 
   // given a subsubject name and an array of children, data, return the
   // applicable child
   function getSubSubject(subsubjectText, data) {
-    const child = Object.keys(data).find(x => data[x].name === subsubjectText);
+    const child = Object.keys(data).find((x) => data[x].name === subsubjectText);
     return data[child];
   }
 
@@ -349,7 +345,6 @@ $(() => {
     updateSaveStatus(group);
   });
 
-
   function initMetadataQuestions() {
     // find all elements with rda_metadata div
     $('.rda_metadata').each((idx, el) => {
@@ -362,7 +357,6 @@ $(() => {
     });
     waitAndUpdate();// $(".rda_metadata .subject select").change();
   }
-
 
   // callback from url+subject-index
   // define api_tree and call to initMetadataQuestions
