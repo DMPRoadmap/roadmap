@@ -128,21 +128,6 @@ $(() => {
   /* eslint-enable */
 
 
-  $(document).on('click', '.linked-fragments .actions .delete', (e) => {
-    const target = $(e.target);
-    // TODO : replace confirm()
-    // eslint-disable-next-line
-    const confirmed = confirm(target.data('confirm-message'));
-    if (confirmed) {
-      $.ajax({
-        url: target.data('url'),
-        method: 'delete',
-      }).done((data) => {
-        $(`.project-details.${data.type}-list`).html(data.html);
-      });
-    }
-  });
-
   $('.generic-fragment-picker').on('change', (e) => {
     const target = $(e.target);
     const parentFieldset = target.parents('fieldset');

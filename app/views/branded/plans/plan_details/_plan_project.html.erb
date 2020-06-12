@@ -1,10 +1,10 @@
 <%# locals: { persons } %>
 <% project_abstract_tooltip = _("Briefly summarise your research project to help others understand the purposes for which the data are being collected or created.") %>
 
-<% project = @plan.json_fragment().project.data %>
-<% fundings = @plan.json_fragment().project.fundings %>
-<% partners = @plan.json_fragment().project.partners %>
-<% principalInvestigator = @plan.json_fragment().project.principalInvestigator %>
+<% project = project_fragment.data %>
+<% fundings = project_fragment.fundings %>
+<% partners = project_fragment.partners %>
+<% principalInvestigator = project_fragment.principalInvestigator %>
 
 <div class="form-group"><!-- project_title -->
   <%= create_text_field(
@@ -45,14 +45,13 @@
   </div>
 </div>
 
-<fieldset class="project-details funding-list">
-  <%= render(partial: 'plans/plan_details/linked_fragment_list', locals: {
-    plan: @plan,
-    parent_id: @plan.json_fragment().project.id,
-    obj_list: fundings,
-    type: "funding"
-  }) %>
-</fieldset>
+<%= render(partial: 'shared/dynamic_form/fields/complex_multiple_field', locals: { 
+  field_values: fundings, 
+  parent_id: project_fragment.id,
+  classname: "funding",
+  field_name: "funding", answer_id: nil 
+  }
+) %>
 
 <div class="form-group"><!-- project_start_date -->
   <%= create_date_field(
@@ -73,14 +72,13 @@
   %>
 </div>
 
-<fieldset class="project-details partner-list">
-  <%= render(partial: 'plans/plan_details/linked_fragment_list', locals: {
-    plan: @plan,
-    parent_id: @plan.json_fragment().project.id,
-    obj_list: partners,
-    type: "partner"
-  }) %>
-</fieldset>
+<%= render(partial: 'shared/dynamic_form/fields/complex_multiple_field', locals: { 
+  field_values: partners, 
+  parent_id: project_fragment.id,
+  classname: "partner",
+  field_name: "partner", answer_id: nil 
+  }
+) %>
 
 <div class="form-group"><!-- experimental_plan_url -->
   <%= create_url_field(

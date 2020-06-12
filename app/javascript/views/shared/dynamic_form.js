@@ -31,3 +31,18 @@ $('#sub-fragment-modal').on('show.bs.modal', (e) => {
     },
   });
 });
+
+$(document).on('click', '.linked-fragments-list .actions .delete', (e) => {
+  const target = $(e.target);
+  // TODO : replace confirm()
+  // eslint-disable-next-line
+  const confirmed = confirm(target.data('confirm-message'));
+  if (confirmed) {
+    $.ajax({
+      url: target.data('url'),
+      method: 'delete',
+    }).done((data) => {
+      $(`.fragment-${data.fragment_id} .linked-fragments-list tbody`).html(data.html);
+    });
+  }
+});

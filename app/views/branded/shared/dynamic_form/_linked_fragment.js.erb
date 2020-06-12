@@ -1,0 +1,12 @@
+$(() => {
+  $('#modal-window').html('<%= escape_javascript(render "shared/dynamic_form/modal") %>');
+  $('#modal-window').modal();
+
+
+  $('#structured_answer_form').bind('ajax:success', (event, response) => {
+    $(`.fragment-${response.fragment_id} .linked-fragments-list tbody`).html(response.html);
+    $('#modal-window').modal('hide');
+  }).bind('ajax:error', () => {
+    console.log('ajax:error');
+  });
+});

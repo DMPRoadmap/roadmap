@@ -18,9 +18,6 @@
             <%=  create_number_field(f, value, field_name, field_label,  is_multiple: true, index: idx)%>
         <% when "boolean" %>
             <%=  create_checkbox_field(f, value, field_name, field_label)%>
-        <% when "schema" %>
-            <%# schema_id = field_properties["items"]["schema_id"] %>
-            <%#= create_schema_field(f, value, field_name, field_label, true, idx, schema_id, answer_id) %>
         <% end %>
     <% end %>
 <% else%>
@@ -39,8 +36,5 @@
         <%=  create_number_field(f, nil, field_name, field_label,  is_multiple: true, index: 0)%>
     <% when "boolean" %>
         <%=  create_checkbox_field(f, nil, field_name, field_label)%>
-    <% when "schema" %>
-        <%# schema_id = field_properties["items"]["schema_id"] %>
-        <%#= create_schema_field(f, field_values, field_name, field_label, true, 0, schema_id, answer_id) %>
     <% end %>
 <% end %>

@@ -1,6 +1,6 @@
 <%# locals: { persons } %>
-<% meta = @plan.json_fragment().meta.data %>
-<% contact = @plan.json_fragment().meta.contact %>
+<% meta = meta_fragment.data %>
+<% contact = meta_fragment.contact %>
 <% dmpID = meta["dmpID"] %>
 <% p_version = meta["version"] %>
 <% licence = meta["licence"] %>

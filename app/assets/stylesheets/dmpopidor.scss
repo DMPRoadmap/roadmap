@@ -1011,14 +1011,6 @@ header .main-nav {
         input {
             flex: 9;
         }
-        .actions {
-            flex: 1;
-            text-align: right;
-            color: $blue;
-            span {
-                cursor: pointer;
-            }
-        }
     }
     fieldset.answer-fieldset {
         width: 100%;
@@ -1027,6 +1019,21 @@ header .main-nav {
         padding-bottom: 15px;
         legend {
             color: $rust;
+        }
+    }
+
+
+    .actions {
+        flex: 1;
+        text-align: right;
+        color: $blue;
+        width: 20%;
+        .delete{
+            cursor: pointer;
+            color: $blue;
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
 

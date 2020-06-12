@@ -1,24 +1,28 @@
 
 <% persons = @plan.json_fragment().persons %>
+<% meta_fragment = @plan.json_fragment().meta%>
+<% project_fragment = @plan.json_fragment().project%>
 <div class="row">
   <%= form_for plan, html: {method: :put, class: 'form-horizontal edit_plan' } do |f| %>
     <div class="col-md-12 plan-details">
       <!-- Tabs content -->
       <div class="tab-content">
         <!-- "Plan Metadata" tab -->
-        <div id="plan_metadata" class="tab-pane in active">
+        <div id="plan_metadata" class="tab-pane in active structured-answer fragment-<%= meta_fragment.id %>">
           <h2><%= _("Plan Metadata") %></h2>
           <%= render(partial: 'plans/plan_details/plan_metadata', locals: {
                       f: f,
-                      persons: persons
+                      persons: persons,
+                      meta_fragment: meta_fragment
             } ) %>
         </div>
         <!-- "Project Details" tab -->
-        <div id="plan_project" class="tab-pane">
+        <div id="plan_project" class="tab-pane structured-answer fragment-<%= project_fragment.id %>">
           <h2><%= _("Project Details") %></h2>
           <%= render(partial: 'plans/plan_details/plan_project', locals: { 
                       f: f,
-                      persons: persons
+                      persons: persons,
+                      project_fragment: project_fragment
             } ) %>
         </div>
         <!-- "Guidance Configuration" tab -->

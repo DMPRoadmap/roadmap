@@ -101,20 +101,6 @@ module DynamicFormHelper
     }
   end 
 
-  def create_schema_field(form, value, name, label, is_multiple=false, index=0, schema_id, answer_id)
-    render partial: 'questions/fields/schema_field', 
-    locals: {
-      f: form, 
-      multiple: is_multiple,
-      index: index,
-      field_value: value, 
-      field_name: name, 
-      field_label: label,
-      schema_id: schema_id,
-      answer_id: answer_id,
-    }
-  end
-
 
   # Formats the data extract from the structured answer form to valid JSON data
   # This is useful because Rails converts all form data to strings and JSON needs the actual types

@@ -1,25 +1,34 @@
-<%# locals: { f, data, schema } %>
+<%# locals: { f, data, research_output, schema, parent_id } %>
 <% schema['properties'].each do |key, prop| %>
   <% value = data[key] unless data.nil? %>
   <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{key}]" : key %>
   <% case prop['type'] %>
-    <% when 'string' %>
-      <% if prop['format'].nil?%>
-        <%= create_text_field(f, value, field_name, prop['label']) %>
-      <% elsif prop['format'] == 'date' %>
-        <%= create_date_field(f, value, field_name, prop['label']) %>
-      <% elsif prop['format'] == 'uri' %>
-        <%= create_url_field(f, value, field_name, prop['label']) %>
-      <% elsif prop['format'] == 'email' %>
-        <%= create_email_field(f, value, field_name, prop['label']) %>
-      <% elsif prop['format'] == 'select' && prop['values'] %>
-        <%= create_select_field(f, value, "answer[#{field_name}]", prop['label'], prop['values']) %>
-      <%end%>
-    <% when 'integer' %>
-      <%= create_number_field(f, value, field_name, prop['label']) %>
-    <% when 'boolean' %>
-      <%= create_checkbox_field(f, value, field_name, prop['label']) %>
-    <% when 'array' %>
+  <% when 'string' %>
+    <% if prop['format'].nil?%>
+      <%= create_text_field(f, value, field_name, prop['label']) %>
+    <% elsif prop['format'] == 'date' %>
+      <%= create_date_field(f, value, field_name, prop['label']) %>
+    <% elsif prop['format'] == 'uri' %>
+      <%= create_url_field(f, value, field_name, prop['label']) %>
+    <% elsif prop['format'] == 'email' %>
+      <%= create_email_field(f, value, field_name, prop['label']) %>
+    <% elsif prop['format'] == 'select' && prop['values'] %>
+      <%= create_select_field(f, value, "answer[#{field_name}]", prop['label'], prop['values']) %>
+    <%end%>
+  <% when 'integer' %>
+    <%= create_number_field(f, value, field_name, prop['label']) %>
+  <% when 'boolean' %>
+    <%= create_checkbox_field(f, value, field_name, prop['label']) %>
+  <% when 'array' %>
+    <% if prop['items']['type'] == 'object' %>
+      <%= render(partial: 'shared/dynamic_form/fields/complex_multiple_field', locals: { 
+        field_values: StructuredAnswer.where(parent_id: parent_id, classname: prop['items']['classname']), 
+        parent_id: parent_id,
+        classname: prop['items']['classname'],
+        field_name: field_name, answer_id: nil 
+        }
+      ) %>
+    <% else %>
       <%= render(partial: 'shared/dynamic_form/fields/simple_multiple_field', locals: { 
         f: f, 
         field_values: value,
@@ -28,19 +37,25 @@
         field_name: field_name, answer_id: nil 
         }
       ) %>
-    <% when 'object' %>
-      <div class="col-md-12">
-        <fieldset class="answer-fieldset"> <!-- Version -->
-          <legend class="answer-fieldset"><%= field_name %></legend>
-          <% sub_schema = StructuredDataSchema.find_by(classname: prop["classname"]).schema %>
-          <%= render(partial: 'shared/dynamic_form/form', locals: { 
-                f: f, 
-                data: value, 
-                readonly: readonly, 
-                schema: sub_schema,
-                form_prefix: prop["classname"]
-              }) %>
-        </fieldset>
-      </div>
+    <% end %>
+  <% when 'object' %>
+    <div class="col-md-12">
+      <fieldset class="answer-fieldset">
+        <legend class="answer-fieldset"><%= field_name %></legend>
+        <%
+          sub_schema = prop["classname"] ? 
+                       StructuredDataSchema.find_by(classname: prop["classname"]).schema : 
+                       prop
+        %>
+        <%= render(partial: 'shared/dynamic_form/form', locals: { 
+              f: f, 
+              data: value, 
+              readonly: readonly, 
+              schema: sub_schema,
+              parent_id: parent_id,
+              form_prefix: prop["classname"]
+            }) %>
+      </fieldset>
+    </div>
   <% end %>
 <% end %>

@@ -125,6 +125,7 @@ Rails.application.routes.draw do
 
   resources :structured_answers, only: [:new, :edit, :create, :update, :destroy] do
     post 'create_or_update', on: :collection
+    get 'new_edit_linked_fragment', on: :collection
     get 'get_fragment/:id', action: :get_fragment, on: :collection, as: :get_fragment
   end
   
