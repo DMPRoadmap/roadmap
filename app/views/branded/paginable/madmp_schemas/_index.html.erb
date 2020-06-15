@@ -2,8 +2,8 @@
   <table class="table table-hover" id="guidance-groups">
     <thead>
       <tr>
-        <th scope="col"><%= _('Label') %>&nbsp;<%= paginable_sort_link('structured_data_schemas.label') %></th>
-        <th scope="col"><%= _('Name') %>&nbsp;<%= paginable_sort_link('structured_data_schemas.name') %></th>
+        <th scope="col"><%= _('Label') %>&nbsp;<%= paginable_sort_link('madmp_schemas.label') %></th>
+        <th scope="col"><%= _('Name') %>&nbsp;<%= paginable_sort_link('madmp_schemas.name') %></th>
         <th scope="col"><%= _('Classname') %></th>
         <th scope="col"><%= _('Version') %></th>
         <th scope="col" class="sorter-false"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
@@ -28,7 +28,7 @@
                 <%= _('Actions') %><span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="org-<%= schema.id %>-actions">
-                <li><%= link_to _('Edit'), edit_super_admin_structured_data_schema_path(schema) %></li>
+                <li><%= link_to _('Edit'), edit_super_admin_madmp_schema_path(schema) %></li>
               </ul>
             </div>
           </td>

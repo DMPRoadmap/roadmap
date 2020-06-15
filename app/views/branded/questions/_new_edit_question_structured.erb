@@ -1,13 +1,13 @@
 <%= f.label(:text, sanitize(question.text), class: 'control-label') unless question.nil? %>
-<% data = answer.structured_answer.data unless answer.structured_answer.nil? %>
-<% parent_id = answer.structured_answer.id unless answer.structured_answer.nil? %>
-<div class="form-group structured-answer fragment-<%= parent_id %>">   
+<% data = answer.madmp_fragment.data unless answer.madmp_fragment.nil? %>
+<% parent_id = answer.madmp_fragment.id unless answer.madmp_fragment.nil? %>
+<div class="form-group madmp-fragment fragment-<%= parent_id %>">   
   <%= render(partial: 'shared/dynamic_form/form', locals: { 
         f: f,
         data: data, 
         readonly: readonly,
         research_output: research_output,
-        schema: question.structured_data_schema.schema,
+        schema: question.madmp_schema.schema,
         parent_id: parent_id
       }) %>
 </div>

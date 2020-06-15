@@ -11,14 +11,14 @@ module Dmpopidor
                                       :question_options,
                                       section: { phase: :template })
                             .find(params[:id])
-          structured_data_schemas = StructuredDataSchema.all
+          madmp_schemas = MadmpSchema.all
           authorize question
           render partial: "edit", locals: {
             template: question.section.phase.template,
             section: question.section,
             question: question,
             question_formats: allowed_question_formats,
-            structured_data_schemas: structured_data_schemas
+            madmp_schemas: madmp_schemas
           }
         end
 
@@ -33,7 +33,7 @@ module Dmpopidor
                                   question_format: question_format,
                                   number: nbr.present? ? nbr + 1 : 1)
           question_formats = allowed_question_formats
-          structured_data_schemas = StructuredDataSchema.all
+          madmp_schemas = MadmpSchema.all
           authorize question
           render partial: "form", locals: {
             template: section.phase.template,
@@ -45,7 +45,7 @@ module Dmpopidor
               phase_id: section.phase.id,
               id: section.id),
             question_formats: question_formats,
-            structured_data_schemas: structured_data_schemas
+            madmp_schemas: madmp_schemas
           }
         end
 
@@ -55,7 +55,7 @@ module Dmpopidor
         def question_params
           params.require(:question)
                 .permit(:number, :text, :question_format_id, :option_comment_display,
-                        :default_value, :structured_data_schema_id,
+                        :default_value, :madmp_schema_id,
                         question_options_attributes: %i[id number text is_default _destroy],
                         annotations_attributes: %i[id text org_id org type _destroy],
                         theme_ids: [])

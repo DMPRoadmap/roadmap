@@ -1,4 +1,4 @@
-class StructuredAnswerPolicy < ApplicationPolicy
+class MadmpFragmentPolicy < ApplicationPolicy
   def initialize(user, fragment)
     raise Pundit::NotAuthorizedError, _("must be logged in") unless user
     @user = user

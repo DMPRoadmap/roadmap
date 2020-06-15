@@ -43,12 +43,12 @@
         data-attribute="question_schema" 
         style="<%= 'display:none' if !question.question_format.structured?%>"
     >
-      <%= f.label(:structured_data_schema_id, _('Data Schema'), class: "control-label") %>
-        <%= f.select :structured_data_schema_id,
-          options_from_collection_for_select(structured_data_schemas,
+      <%= f.label(:madmp_schema_id, _('Data Schema'), class: "control-label") %>
+        <%= f.select :madmp_schema_id,
+          options_from_collection_for_select(madmp_schemas,
           :id,
           :detailed_name,
-          question.structured_data_schema_id),
+          question.madmp_schema_id),
           {},
           class: "form-control"
        %>

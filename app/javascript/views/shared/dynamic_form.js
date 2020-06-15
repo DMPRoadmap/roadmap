@@ -1,4 +1,4 @@
-$(document).on('click', '.structured-answer .actions .add-record', (e) => {
+$(document).on('click', '.madmp-fragment .actions .add-record', (e) => {
   const currentField = $(e.target.closest('.dynamic-field'));
   const clonedField = currentField.clone(true, true);
 
@@ -8,7 +8,7 @@ $(document).on('click', '.structured-answer .actions .add-record', (e) => {
   currentField.after(clonedField);
 });
 
-$(document).on('click', '.structured-answer .actions .remove-record', (e) => {
+$(document).on('click', '.madmp-fragment .actions .remove-record', (e) => {
   const currentField = $(e.target.closest('.dynamic-field'));
   currentField.remove();
 });

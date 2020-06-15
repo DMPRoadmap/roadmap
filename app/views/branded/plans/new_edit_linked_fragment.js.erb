@@ -3,7 +3,7 @@ $(() => {
   $('#modal-window').modal();
 
 
-  $('#structured_answer_form').bind('ajax:success', (event, response) => {
+  $('#madmp_fragment_form').bind('ajax:success', (event, response) => {
     $(`.project-details.${response.type}-list`).html(response.html);
     $('#modal-window').modal('hide');
   }).bind('ajax:error', () => {

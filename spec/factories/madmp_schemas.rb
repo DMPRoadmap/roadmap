@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: structured_data_schemas
+# Table name: madmp_schemas
 #
 #  id         :integer          not null, primary key
 #  label      :string
@@ -14,11 +14,11 @@
 #
 # Indexes
 #
-#  index_structured_data_schemas_on_org_id  (org_id)
+#  index_madmp_schemas_on_org_id  (org_id)
 #
 
 FactoryBot.define do
-  factory :structured_data_schema do
+  factory :madmp_schema do
     label { "MyString" }
     name { "MyString" }
     version { 1 }

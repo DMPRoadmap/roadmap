@@ -6,8 +6,8 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <%= form_for @fragment, url: create_or_update_structured_answers_path(@fragment.id, classname: @classname),
-                        html: {method: :post, remote: true, class: 'form-horizontal', id: "structured_answer_form" } do |f| %>  
+    <%= form_for @fragment, url: create_or_update_madmp_fragments_path(@fragment.id, classname: @classname),
+                        html: {method: :post, remote: true, class: 'form-horizontal', id: "madmp_fragment_form" } do |f| %>  
       <%= f.hidden_field :dmp_id, id: nil %>
       <%= f.hidden_field :parent_id, id: nil %>
       <%= f.hidden_field :id, id: nil %>

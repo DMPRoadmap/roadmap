@@ -1,11 +1,11 @@
 # == Schema Information
 #
-# Table name: structured_answers
+# Table name: madmp_fragments
 #
 #  id                        :integer          not null, primary key
 #  data                      :json
 #  answer_id                 :integer
-#  structured_data_schema_id :integer
+#  madmp_schema_id :integer
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  classname                 :string
@@ -14,12 +14,12 @@
 #
 # Indexes
 #
-#  index_structured_answers_on_answer_id                  (answer_id)
-#  index_structured_answers_on_structured_data_schema_id  (structured_data_schema_id)
+#  index_madmp_fragments_on_answer_id                  (answer_id)
+#  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 #
 require 'jsonpath'
 
-class StructuredAnswer < ActiveRecord::Base
+class MadmpFragment < ActiveRecord::Base
   
   include ValidationMessages
   include DynamicFormHelper
@@ -29,16 +29,16 @@ class StructuredAnswer < ActiveRecord::Base
   # ================
 
   belongs_to :answer
-  belongs_to :structured_data_schema
+  belongs_to :madmp_schema, class_name: "MadmpSchema"
   belongs_to :dmp, class_name: "Fragment::Dmp", foreign_key: "dmp_id"
-  has_many :children, class_name: "StructuredAnswer", foreign_key: "parent_id"
-  belongs_to :parent, class_name: "StructuredAnswer", foreign_key: "parent_id" 
+  has_many :children, class_name: "MadmpFragment", foreign_key: "parent_id"
+  belongs_to :parent, class_name: "MadmpFragment", foreign_key: "parent_id" 
 
   # ===============
   # = Validations =
   # ===============
 
-  #validates :structured_data_schema, presence: { message: PRESENCE_MESSAGE }
+  #validates :madmp_schema, presence: { message: PRESENCE_MESSAGE }
 
   # ================
   # = Single Table Inheritence =
@@ -90,7 +90,7 @@ class StructuredAnswer < ActiveRecord::Base
 
   # Returns the schema associated to the JSON fragment
   def json_schema
-    self.structured_data_schema.schema
+    self.madmp_schema.schema
   end
 
   # Returns a human readable version of the structured answer
@@ -137,11 +137,11 @@ class StructuredAnswer < ActiveRecord::Base
   end
 
   # Saves (and creates, if needed) the structured answer ("fragment")
-  def self.save_structured_answer(answer, data, schema, parent_id = nil)
+  def self.save_madmp_fragment(answer, data, schema, parent_id = nil)
     # Extract the form data corresponding to the schema of the structured question
-    s_answer = StructuredAnswer.find_or_initialize_by(answer_id: answer.id) do |sa|
+    s_answer = MadmpFragment.find_or_initialize_by(answer_id: answer.id) do |sa|
       sa.answer = answer
-      sa.structured_data_schema = schema
+      sa.madmp_schema = schema
       sa.classname = schema.classname
       sa.dmp_id = answer.plan.json_fragment().id
       sa.parent_id = parent_id

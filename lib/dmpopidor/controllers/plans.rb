@@ -200,9 +200,9 @@ module Dmpopidor
         def new_edit_linked_fragment
           @plan = Plan.find(params[:id])
           @type = params[:type]
-          @parent_fragment = StructuredAnswer.find(params[:parent_id])
-          @schema = StructuredDataSchema.find_by(classname: @type)
-          @fragment = params[:fragment_id] ? StructuredAnswer.find(params[:fragment_id]) : StructuredAnswer.new
+          @parent_fragment = MadmpFragment.find(params[:parent_id])
+          @schema = MadmpSchema.find_by(classname: @type)
+          @fragment = params[:fragment_id] ? MadmpFragment.find(params[:fragment_id]) : MadmpFragment.new
           authorize @plan
           respond_to do |format|
             format.html
