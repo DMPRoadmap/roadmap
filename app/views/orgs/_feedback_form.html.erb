@@ -1,6 +1,5 @@
 <%# locals: org %>
 
-<% title _('Request Feedback') %>
 <%= form_for(org, url: admin_update_org_path(org),
                    html: { multipart: true, method: :put,
                            id: "edit_org_feedback_form" } ) do |f| %>
