@@ -20,7 +20,7 @@ class SessionsController < Devise::SessionsController
           identifiable: existing_user,
           attrs: session["devise.shibboleth_data"]
         }
-        @ui = UserIdentifier.new(args)
+        @ui = Identifier.new(args)
       end
       unless existing_user.get_locale.nil?
         session[:locale] = existing_user.get_locale
