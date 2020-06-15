@@ -82,94 +82,94 @@ class StructuredAnswersController < ApplicationController
                       classname: classname
         })
       }
-      end
     end
+  end
 
 
 
-    def new_edit_linked_fragment
-      @classname = params[:classname]
-      @parent_fragment = StructuredAnswer.find(params[:parent_id])
-      @schema = StructuredDataSchema.find_by(classname: @classname)
-      @fragment = nil 
-      if params[:fragment_id] 
-        @fragment = StructuredAnswer.find(params[:fragment_id]) 
-      else
-        @fragment = StructuredAnswer.new(
-           dmp_id: @parent_fragment.dmp_id,
-           parent_id: @parent_fragment.id
-          )
-      end
-      authorize @fragment
-      respond_to do |format|
-        format.html
-        format.js { render :partial => "shared/dynamic_form/linked_fragment" }
-      end
-    end
-
-    def destroy 
-      @fragment = StructuredAnswer.find(params[:id])
-      classname = @fragment.classname
-      parent_id = @fragment.parent_id
-      dmp_id = @fragment.dmp_id
-
-      authorize @fragment
-      if @fragment.destroy
-        obj_list = StructuredAnswer.where(
-          dmp_id: dmp_id,
-          parent_id: parent_id,
-          classname: classname
+  def new_edit_linked_fragment
+    @classname = params[:classname]
+    @parent_fragment = StructuredAnswer.find(params[:parent_id])
+    @schema = StructuredDataSchema.find_by(classname: @classname)
+    @fragment = nil 
+    if params[:fragment_id] 
+      @fragment = StructuredAnswer.find(params[:fragment_id]) 
+    else
+      @fragment = StructuredAnswer.new(
+          dmp_id: @parent_fragment.dmp_id,
+          parent_id: @parent_fragment.id
         )
-        
-        render json: {
-          "fragment_id" =>  parent_id,
-          "classname" => classname,
-          "html" => render_to_string(partial: 'shared/dynamic_form/linked_fragment/list', locals: {
-                                        parent_id: @fragment.parent_id,
-                                        obj_list: obj_list,
-                                        classname: classname
-              })
-          }
-      end
     end
-
-    # Gets fragment from a given id
-    def get_fragment
-      @fragment = StructuredAnswer.find(params[:id])
-      authorize @fragment
-
-      if @fragment.present?
-        render json: @fragment.data
-      end
+    authorize @fragment
+    respond_to do |format|
+      format.html
+      format.js { render :partial => "shared/dynamic_form/linked_fragment" }
     end
+  end
 
-    private
+  def destroy 
+    @fragment = StructuredAnswer.find(params[:id])
+    classname = @fragment.classname
+    parent_id = @fragment.parent_id
+    dmp_id = @fragment.dmp_id
 
-    def json_schema
-      StructuredDataSchema.find(params['structured_answer']['schema_id']).schema
+    authorize @fragment
+    if @fragment.destroy
+      obj_list = StructuredAnswer.where(
+        dmp_id: dmp_id,
+        parent_id: parent_id,
+        classname: classname
+      )
+      
+      render json: {
+        "fragment_id" =>  parent_id,
+        "classname" => classname,
+        "html" => render_to_string(partial: 'shared/dynamic_form/linked_fragment/list', locals: {
+                                      parent_id: @fragment.parent_id,
+                                      obj_list: obj_list,
+                                      classname: classname
+            })
+        }
     end
+  end
 
-    # Get the parameters conresponding to the schema
-    def schema_params(schema, flat = false)
-      s_params = schema.generate_strong_params(flat)
-      params.require(:structured_answer).permit(s_params)
-    end
+  # Gets fragment from a given id
+  def get_fragment
+    @fragment = StructuredAnswer.find(params[:id])
+    authorize @fragment
 
-    def permitted_params
-      permit_arr = [:id, :dmp_id, :parent_id, :schema_id]
-      params.require(:structured_answer).permit(permit_arr)
+    if @fragment.present?
+      render json: @fragment.data
     end
+  end
 
-    def funding_params
-        params.require(:structured_answer)
-              .permit(:fundingStatus,
-                      funder: [:name, :dataPolicyUrl, funderId: [:value, :idType]],
-                      grantId: [:value, :idType])
-    end
-   
-    def partner_params
-        params.require(:structured_answer)
-              .permit(:name, :dataPolicyUrl,
-                      orgId: [:value, :idType])
-    end
+  private
+
+  def json_schema
+    StructuredDataSchema.find(params['structured_answer']['schema_id']).schema
+  end
+
+  # Get the parameters conresponding to the schema
+  def schema_params(schema, flat = false)
+    s_params = schema.generate_strong_params(flat)
+    params.require(:structured_answer).permit(s_params)
+  end
+
+  def permitted_params
+    permit_arr = [:id, :dmp_id, :parent_id, :schema_id]
+    params.require(:structured_answer).permit(permit_arr)
+  end
+
+  def funding_params
+      params.require(:structured_answer)
+            .permit(:fundingStatus,
+                    funder: [:name, :dataPolicyUrl, funderId: [:value, :idType]],
+                    grantId: [:value, :idType])
+  end
+  
+  def partner_params
+      params.require(:structured_answer)
+            .permit(:name, :dataPolicyUrl,
+                    orgId: [:value, :idType])
+  end
 end

@@ -49,6 +49,7 @@ module Dmpopidor
               @answer.touch()
             end
             if q.question_format.structured
+              @answer.touch()
               s_params = schema_params(params, json_schema)
               data = data_reformater(json_schema.schema, s_params)
               parent_id = ResearchOutput.find(p_params[:research_output_id]).json_fragment().id
@@ -65,18 +66,19 @@ module Dmpopidor
             @answer = Answer.new(pa)
             @answer.lock_version = 1
             authorize @answer
-            if q.question_format.structured
-              s_params = schema_params(params, json_schema)
-              data = data_reformater(json_schema.schema, s_params)
-              parent_id = ResearchOutput.find(p_params[:research_output_id]).json_fragment().id
-              StructuredAnswer.save_structured_answer(@answer, data, json_schema, parent_id)
-            end
             if q.question_format.rda_metadata?
               @answer.update_answer_hash(
                 JSON.parse(params[:standards]), p_params[:text]
               )
             end
             @answer.save!
+            
+            if q.question_format.structured
+              s_params = schema_params(params, json_schema)
+              data = data_reformater(json_schema.schema, s_params)
+              parent_id = ResearchOutput.find(p_params[:research_output_id]).json_fragment().id
+              StructuredAnswer.save_structured_answer(@answer, data, json_schema, parent_id)
+            end
             rescue ActiveRecord::StaleObjectError
               @stale_answer = @answer
               @answer = Answer.find_by(
