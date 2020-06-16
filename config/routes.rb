@@ -110,7 +110,6 @@ Rails.application.routes.draw do
     resource :export, only: [:show], controller: "plan_exports"
 
     member do
-      get 'new_edit_linked_fragment'
       get 'answer'
       get 'share'
       get 'request_feedback'
@@ -125,7 +124,7 @@ Rails.application.routes.draw do
 
   resources :madmp_fragments, only: [:new, :edit, :create, :update, :destroy] do
     post 'create_or_update', on: :collection
-    get 'new_edit_linked_fragment', on: :collection
+    get 'new_edit_linked', on: :collection
     get 'get_fragment/:id', action: :get_fragment, on: :collection, as: :get_fragment
   end
   

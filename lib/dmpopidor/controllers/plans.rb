@@ -197,19 +197,6 @@ module Dmpopidor
           # rubocop:enable Metrics/BlockLength
         end
 
-        def new_edit_linked_fragment
-          @plan = Plan.find(params[:id])
-          @type = params[:type]
-          @parent_fragment = MadmpFragment.find(params[:parent_id])
-          @schema = MadmpSchema.find_by(classname: @type)
-          @fragment = params[:fragment_id] ? MadmpFragment.find(params[:fragment_id]) : MadmpFragment.new
-          authorize @plan
-          respond_to do |format|
-            format.html
-            format.js
-          end
-        end
-
         # POST /plans/:id/visibility
         def visibility
           plan = Plan.find(params[:id])

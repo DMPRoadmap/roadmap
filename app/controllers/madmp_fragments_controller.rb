@@ -87,7 +87,7 @@ class MadmpFragmentsController < ApplicationController
 
 
 
-  def new_edit_linked_fragment
+  def new_edit_linked
     @classname = params[:classname]
     @parent_fragment = MadmpFragment.find(params[:parent_id])
     @schema = MadmpSchema.find_by(classname: @classname)
