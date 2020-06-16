@@ -3,9 +3,9 @@
     <%#= f.text_field field_name, value: field_value, multiple: multiple, class: 'form-control' %>
     <%= f.text_field field_name, value: field_value, multiple: multiple, class: 'form-control sub-fragment-id', id: 'children_id' %>
     <% if field_value&.empty? || field_value.nil? %>
-        <%= f.button _('Edit'), class: 'btn btn-default', data: { toggle: 'modal', target: '#sub-fragment-modal', open: "/structured_answers/new?schema_id=#{schema_id}" }, id: '#sub-fragment-modal-btn' %>
+        <%= f.button _('Edit'), class: 'btn btn-default', data: { toggle: 'modal', target: '#sub-fragment-modal', open: "/madmp_fragments/new?schema_id=#{schema_id}" }, id: '#sub-fragment-modal-btn' %>
     <% else %>
-        <%= f.button _('Edit'), class: 'btn btn-default', data: { toggle: 'modal', target: '#sub-fragment-modal', open: "/structured_answers/#{field_value}/edit" }, id: '#sub-fragment-modal-btn' %>
+        <%= f.button _('Edit'), class: 'btn btn-default', data: { toggle: 'modal', target: '#sub-fragment-modal', open: "/madmp_fragments/#{field_value}/edit" }, id: '#sub-fragment-modal-btn' %>
     <% end %>
     <% if multiple  %>
         <span class="add-record">Add</span>

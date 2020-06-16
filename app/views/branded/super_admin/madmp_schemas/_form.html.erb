@@ -1,4 +1,4 @@
-<% url = @schema.new_record? ? super_admin_structured_data_schemas_path : super_admin_structured_data_schema_path(@schema) %>
+<% url = @schema.new_record? ? super_admin_madmp_schemas_path : super_admin_madmp_schema_path(@schema) %>
 
  <%= form_for @schema, url: url, html: { class: 'schema' } do |f| %>
    <div class="form-group">
@@ -24,10 +24,10 @@
    <div class="pull-right">
      <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
      <% unless @schema.new_record? %>
-       <%= link_to(_('Delete'), super_admin_structured_data_schema_path(@schema), class: 'btn btn-default',
+       <%= link_to(_('Delete'), super_admin_madmp_schema_path(@schema), class: 'btn btn-default',
          rel: 'nofollow', 'data-method': 'delete',
          'data-confirm': _("Are you sure you want to delete the schema \"%{title}\"?") % { title: @schema.name }) %>
      <% end %>
-     <%= link_to(_('Cancel'), super_admin_structured_data_schemas_path, class: 'btn btn-default', role: 'button') %>
+     <%= link_to(_('Cancel'), super_admin_madmp_schemas_path, class: 'btn btn-default', role: 'button') %>
    </div>
  <% end %>

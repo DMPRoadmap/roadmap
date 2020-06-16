@@ -25,7 +25,7 @@
     <%= create_select_field(
           f, 
           fragment && fragment["orgId"] ? fragment["orgId"]["idType"] : "ROR",
-          "structured_answer[orgId[idType]]", 
+          "madmp_fragment[orgId[idType]]", 
           _('Identifier Type'),
           ["ROR", "ISSNI", "RNSR"]
         ) 

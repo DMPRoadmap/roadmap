@@ -8,7 +8,7 @@
       <!-- Tabs content -->
       <div class="tab-content">
         <!-- "Plan Metadata" tab -->
-        <div id="plan_metadata" class="tab-pane in active structured-answer fragment-<%= meta_fragment.id %>">
+        <div id="plan_metadata" class="tab-pane in active madmp-fragment fragment-<%= meta_fragment.id %>">
           <h2><%= _("Plan Metadata") %></h2>
           <%= render(partial: 'plans/plan_details/plan_metadata', locals: {
                       f: f,
@@ -17,7 +17,7 @@
             } ) %>
         </div>
         <!-- "Project Details" tab -->
-        <div id="plan_project" class="tab-pane structured-answer fragment-<%= project_fragment.id %>">
+        <div id="plan_project" class="tab-pane madmp-fragment fragment-<%= project_fragment.id %>">
           <h2><%= _("Project Details") %></h2>
           <%= render(partial: 'plans/plan_details/plan_project', locals: { 
                       f: f,

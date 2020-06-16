@@ -85,7 +85,7 @@ FactoryBot.define do
     end
 
     # after(:create) do |plan, evaluator|
-    #   create(:structured_answer, classname: "dmp", data: { "plan_id" => plan.id })
+    #   create(:madmp_fragment, classname: "dmp", data: { "plan_id" => plan.id })
     # end
 
   end

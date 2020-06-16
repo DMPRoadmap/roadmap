@@ -844,5 +844,5 @@ Dir.glob("#{schemas_dir}/*.json") do |path|
   f = File.open(path)
   d = JSON.load(f)
   n = File.basename(path, '.json')
-  StructuredDataSchema.create(label: n, name: n, version: 1, schema: d.to_json, org_id: nil, classname: nil)
+  MadmpSchema.create(label: n, name: n, version: 1, schema: d.to_json, org_id: nil, classname: nil)
 end

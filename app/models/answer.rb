@@ -46,7 +46,7 @@ class Answer < ActiveRecord::Base
 
   has_many :notes
 
-  has_one :structured_answer
+  has_one :madmp_fragment, class_name: "MadmpFragment"
 
 
   # ===============

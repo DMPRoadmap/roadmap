@@ -23,7 +23,7 @@
     <%= create_select_field(
           f, 
           fragment && fragment["funder"] && fragment["funder"]["funderId"]  ? fragment["funder"]["funderId"]["idType"] : "ROR",
-          "structured_answer[funder[funderId[idType]]]", 
+          "madmp_fragment[funder[funderId[idType]]]", 
           _('Identifier Type'),
           ["ROR", "ISSNI", "RNSR", "FundRef"]
         ) 
@@ -55,7 +55,7 @@
     <%= create_select_field(
           f, 
           fragment && fragment["grantId"] ? fragment["grantId"]["idType"] : "DOI",
-          "structured_answer[grantId[idType]]", 
+          "madmp_fragment[grantId[idType]]", 
           _('Identifier Type'),
           ["DOI", "URL"]
         ) 
@@ -66,7 +66,7 @@
   <%= create_select_field(
         f, 
         fragment ? fragment["fundingStatus"] : "Planned",
-        "structured_answer[fundingStatus]", 
+        "madmp_fragment[fundingStatus]", 
         _('Funding Status'),
         ["Planned","Applied", "Granted", "Rejected"]
       ) 

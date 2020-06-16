@@ -14,11 +14,11 @@
 #  option_comment_display    :boolean          default("true")
 #  modifiable                :boolean
 #  versionable_id            :string(36)
-#  structured_data_schema_id :integer
+#  madmp_schema_id :integer
 #
 # Indexes
 #
-#  index_questions_on_structured_data_schema_id  (structured_data_schema_id)
+#  index_questions_on_madmp_schema_id  (madmp_schema_id)
 #  index_questions_on_versionable_id             (versionable_id)
 #  questions_question_format_id_idx              (question_format_id)
 #  questions_section_id_idx                      (section_id)
@@ -62,7 +62,7 @@ class Question < ActiveRecord::Base
 
   has_one :template, through: :section
 
-  belongs_to :structured_data_schema
+  belongs_to :madmp_schema, class_name: "MadmpSchema"
 
   # ===============
   # = Validations =

@@ -12,7 +12,7 @@ module Dmpopidor
           if question.question_format.option_based?
             return question_options.any?
           elsif question.question_format.structured
-            return !structured_answer.nil?
+            return !madmp_fragment.nil?
           else  # (e.g. textarea or textfield question formats)
             return not(is_blank?)
           end
@@ -25,7 +25,7 @@ module Dmpopidor
       def age
         if question.present?
           if question.question_format.structured
-            return structured_answer.updated_at.iso8601
+            return madmp_fragment.updated_at.iso8601
           else
             updated_at.iso8601
           end

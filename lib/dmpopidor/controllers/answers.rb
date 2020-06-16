@@ -53,7 +53,7 @@ module Dmpopidor
               s_params = schema_params(params, json_schema)
               data = data_reformater(json_schema.schema, s_params)
               parent_id = ResearchOutput.find(p_params[:research_output_id]).json_fragment().id
-              StructuredAnswer.save_structured_answer(@answer, data, json_schema, parent_id)
+              MadmpFragment.save_madmp_fragment(@answer, data, json_schema, parent_id)
             end
             if q.question_format.rda_metadata?
               @answer.update_answer_hash(
@@ -77,7 +77,7 @@ module Dmpopidor
               s_params = schema_params(params, json_schema)
               data = data_reformater(json_schema.schema, s_params)
               parent_id = ResearchOutput.find(p_params[:research_output_id]).json_fragment().id
-              StructuredAnswer.save_structured_answer(@answer, data, json_schema, parent_id)
+              MadmpFragment.save_madmp_fragment(@answer, data, json_schema, parent_id)
             end
             rescue ActiveRecord::StaleObjectError
               @stale_answer = @answer
@@ -161,7 +161,7 @@ module Dmpopidor
       # TODO: move to global var with before_action trigger + rename accordingly (set_json_schema ?)
       def json_schema
         question = Question.find(params['question_id'])
-        question.structured_data_schema
+        question.madmp_schema
       end
 
       # Get the parameters corresponding to the schema

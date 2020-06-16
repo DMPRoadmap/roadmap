@@ -4,7 +4,7 @@
   <div class="col-md-12">
     <h1>
       <%= _('Schemas') %>
-      <a href="<%= new_super_admin_structured_data_schema_path %>" 
+      <a href="<%= new_super_admin_madmp_schema_path %>" 
          class="btn btn-primary pull-right"><%= _('Create Schema') %></a>
     </h1>
   </div>
@@ -13,11 +13,11 @@
   <div class="col-md-12">
     <!-- List of guidance groups -->
     <%= paginable_renderise(
-      partial: '/paginable/structured_data_schemas/index',
-      controller: 'paginable/structured_data_schemas',
+      partial: '/paginable/madmp_schemas/index',
+      controller: 'paginable/madmp_schemas',
       action: 'index',
-      scope: structured_data_schemas,
-      query_params: { sort_field: 'structured_data_schemas.name', sort_direction: :asc }) %>
+      scope: madmp_schemas,
+      query_params: { sort_field: 'madmp_schemas.name', sort_direction: :asc }) %>
     <div>
   </div>
 </div>

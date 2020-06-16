@@ -1,4 +1,4 @@
-class StructuredDataSchemaPolicy < ApplicationPolicy
+class MadmpSchemaPolicy < ApplicationPolicy
   def initialize(user, *args)
     raise Pundit::NotAuthorizedError, _("must be logged in") unless user
     @user = user

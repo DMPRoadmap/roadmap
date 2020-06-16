@@ -11,7 +11,7 @@
                     options_for_select(
                       person_list.map { |p| [
                         p.to_s, p.id, 
-                        { "data-url" => get_fragment_structured_answers_path(p.id, plan_id: plan.id) } 
+                        { "data-url" => get_fragment_madmp_fragments_path(p.id, plan_id: plan.id) } 
                       ] }, 
                       selected: person_id),
                     class: "form-control generic-fragment-picker",

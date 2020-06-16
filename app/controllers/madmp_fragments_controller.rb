@@ -1,27 +1,27 @@
 # frozen_string_literal: true
 
-class StructuredAnswersController < ApplicationController
+class MadmpFragmentsController < ApplicationController
 
   after_action :verify_authorized
 
   # Instanciates a new structured answer/fragment
   # def new
-  #   @fragment = StructuredAnswer.new
-  #   @fragment.structured_data_schema = StructuredDataSchema.find(params[:schema_id])
+  #   @fragment = MadmpFragment.new
+  #   @fragment.madmp_schema = MadmpSchema.find(params[:schema_id])
   #   authorize @fragment
   #   render layout: false
   # end
   
   # def edit
-  #   @fragment = StructuredAnswer.find(params[:id])
+  #   @fragment = MadmpFragment.find(params[:id])
   #   authorize @fragment
   #   render layout: false
   # end
 
   # def create
   #   form_data = permitted_params.select { |k, v| schema_params(flat = true).include?(k) }
-  #   @fragment = StructuredAnswer.create(
-  #     structured_data_schema: StructuredDataSchema.find(permitted_params[:schema_id]),
+  #   @fragment = MadmpFragment.create(
+  #     madmp_schema: MadmpSchema.find(permitted_params[:schema_id]),
   #     data: data_reformater(json_schema, form_data)
   #   )
   #   authorize @fragment
@@ -29,7 +29,7 @@ class StructuredAnswersController < ApplicationController
   # end
   
   def update
-    @fragment = StructuredAnswer.find(params[:id])
+    @fragment = MadmpFragment.find(params[:id])
     form_data = permitted_params.select { |k, v| schema_params(flat = true).include?(k) }
     @fragment.update(data: data_reformater(json_schema, form_data))
     authorize @fragment
@@ -39,24 +39,24 @@ class StructuredAnswersController < ApplicationController
   def create_or_update
     p_params = permitted_params()
     classname = params[:classname]
-    schema = StructuredDataSchema.find_by(classname: classname)
+    schema = MadmpSchema.find_by(classname: classname)
     data = schema_params(schema)
     
 
     # rubocop:disable BlockLength
-    StructuredAnswer.transaction do
+    MadmpFragment.transaction do
       if p_params[:id].empty?
-        @fragment = StructuredAnswer.new(
+        @fragment = MadmpFragment.new(
               dmp_id: p_params[:dmp_id],
               parent_id: p_params[:parent_id],
-              structured_data_schema: schema,
+              madmp_schema: schema,
               data: data
         )
         @fragment.classname = classname
         authorize @fragment
         @fragment.save!
       else
-        @fragment = StructuredAnswer.find_by!({ 
+        @fragment = MadmpFragment.find_by!({ 
           id: p_params[:id],
           dmp_id: p_params[:dmp_id]
         })
@@ -68,7 +68,7 @@ class StructuredAnswersController < ApplicationController
     end
         
     if @fragment.present?
-      obj_list = StructuredAnswer.where(
+      obj_list = MadmpFragment.where(
           dmp_id: @fragment.dmp_id,
           parent_id: @fragment.parent_id,
           classname: classname
@@ -89,13 +89,13 @@ class StructuredAnswersController < ApplicationController
 
   def new_edit_linked_fragment
     @classname = params[:classname]
-    @parent_fragment = StructuredAnswer.find(params[:parent_id])
-    @schema = StructuredDataSchema.find_by(classname: @classname)
+    @parent_fragment = MadmpFragment.find(params[:parent_id])
+    @schema = MadmpSchema.find_by(classname: @classname)
     @fragment = nil 
     if params[:fragment_id] 
-      @fragment = StructuredAnswer.find(params[:fragment_id]) 
+      @fragment = MadmpFragment.find(params[:fragment_id]) 
     else
-      @fragment = StructuredAnswer.new(
+      @fragment = MadmpFragment.new(
           dmp_id: @parent_fragment.dmp_id,
           parent_id: @parent_fragment.id
         )
@@ -108,14 +108,14 @@ class StructuredAnswersController < ApplicationController
   end
 
   def destroy 
-    @fragment = StructuredAnswer.find(params[:id])
+    @fragment = MadmpFragment.find(params[:id])
     classname = @fragment.classname
     parent_id = @fragment.parent_id
     dmp_id = @fragment.dmp_id
 
     authorize @fragment
     if @fragment.destroy
-      obj_list = StructuredAnswer.where(
+      obj_list = MadmpFragment.where(
         dmp_id: dmp_id,
         parent_id: parent_id,
         classname: classname
@@ -135,7 +135,7 @@ class StructuredAnswersController < ApplicationController
 
   # Gets fragment from a given id
   def get_fragment
-    @fragment = StructuredAnswer.find(params[:id])
+    @fragment = MadmpFragment.find(params[:id])
     authorize @fragment
 
     if @fragment.present?
@@ -146,29 +146,29 @@ class StructuredAnswersController < ApplicationController
   private
 
   def json_schema
-    StructuredDataSchema.find(params['structured_answer']['schema_id']).schema
+    MadmpSchema.find(params['madmp_fragment']['schema_id']).schema
   end
 
   # Get the parameters conresponding to the schema
   def schema_params(schema, flat = false)
     s_params = schema.generate_strong_params(flat)
-    params.require(:structured_answer).permit(s_params)
+    params.require(:madmp_fragment).permit(s_params)
   end
 
   def permitted_params
     permit_arr = [:id, :dmp_id, :parent_id, :schema_id]
-    params.require(:structured_answer).permit(permit_arr)
+    params.require(:madmp_fragment).permit(permit_arr)
   end
 
   def funding_params
-      params.require(:structured_answer)
+      params.require(:madmp_fragment)
             .permit(:fundingStatus,
                     funder: [:name, :dataPolicyUrl, funderId: [:value, :idType]],
                     grantId: [:value, :idType])
   end
   
   def partner_params
-      params.require(:structured_answer)
+      params.require(:madmp_fragment)
             .permit(:name, :dataPolicyUrl,
                     orgId: [:value, :idType])
   end

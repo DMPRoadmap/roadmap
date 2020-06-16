@@ -108,8 +108,8 @@
                 </li>
               <% end %>           
               <% if current_user.can_super_admin? %>
-                <li <%= 'class=active' if active_page?(super_admin_structured_data_schemas_path) %>>
-                  <%= link_to d_('dmpopidor', 'Schemas'), super_admin_structured_data_schemas_path %>
+                <li <%= 'class=active' if active_page?(super_admin_madmp_schemas_path) %>>
+                  <%= link_to d_('dmpopidor', 'Schemas'), super_admin_madmp_schemas_path %>
                 </li>
               <% end %>
               <% if current_user.can_super_admin? %>

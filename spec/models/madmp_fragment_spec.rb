@@ -1,16 +1,16 @@
 require 'rails_helper'
 
-RSpec.describe StructuredAnswer, type: :model do
+RSpec.describe MadmpFragment, type: :model do
 
   context "validations" do
     
-    it { is_expected.to validate_presence_of(:structured_data_schema) }
+    it { is_expected.to validate_presence_of(:madmp_schema) }
     
   end
 
   context "associations" do
 
-    it { is_expected.to belong_to :structured_data_schema }
+    it { is_expected.to belong_to :madmp_schema }
 
     it { is_expected.to belong_to :answer }
 
@@ -20,7 +20,7 @@ RSpec.describe StructuredAnswer, type: :model do
 
   #   it "should be called after a structured answer is created" do
 
-  #     parent_answer = FactoryBot.create(:structured_answer, classname: "dmp")
+  #     parent_answer = FactoryBot.create(:madmp_fragment, classname: "dmp")
 
   #     subject = Fragment::ResearchOutput.new
 

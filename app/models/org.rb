@@ -80,7 +80,7 @@ class Org < ActiveRecord::Base
 
   has_many :departments
 
-  has_many :structured_data_schemas
+  has_many :madmp_schemas
 
   # ===============
   # = Validations =

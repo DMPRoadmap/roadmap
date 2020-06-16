@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: structured_data_schemas
+# Table name: madmp_schemas
 #
 #  id         :integer          not null, primary key
 #  label      :string
@@ -14,14 +14,15 @@
 #
 # Indexes
 #
-#  index_structured_data_schemas_on_org_id  (org_id)
+#  index_madmp_schemas_on_org_id  (org_id)
 #
 
-class StructuredDataSchema < ActiveRecord::Base
+class MadmpSchema < ActiveRecord::Base
   include ValidationMessages
 
+
   belongs_to :org
-  has_many :structured_answers
+  has_many :madmp_fragments
   has_many :questions
 
   delegate :costs, 
@@ -31,7 +32,7 @@ class StructuredDataSchema < ActiveRecord::Base
            :partners,
            :persons,
            :projects,
-           :research_outputs, to: :structured_answers
+           :research_outputs, to: :madmp_fragments
 
 
   validates :name, presence: { message: PRESENCE_MESSAGE },
@@ -53,7 +54,7 @@ class StructuredDataSchema < ActiveRecord::Base
     parameters = Array.new
     self.schema['properties'].each do |key, prop|
       if prop['type'] == "object"
-        sub_schema = StructuredDataSchema.find_by(classname: prop['classname'])
+        sub_schema = MadmpSchema.find_by(classname: prop['classname'])
         parameters.append(key => sub_schema.generate_strong_params(false))
       elsif prop['type'] == "array" && !flat
           parameters.append({key => []})
