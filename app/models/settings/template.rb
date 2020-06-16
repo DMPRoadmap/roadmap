@@ -3,9 +3,9 @@
 # Table name: settings
 #
 #  id          :integer          not null, primary key
-#  target_type :string
+#  target_type :string           not null
 #  value       :text
-#  var         :string
+#  var         :string           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  target_id   :integer          not null

@@ -1,11 +1,11 @@
-# config valid only for current version of Capistrano
-lock "3.13.0"
-
 # Default branch is :master
 ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp unless ENV['BRANCH']
 set :branch, ENV['BRANCH'] if ENV['BRANCH']
 
 set :default_env, { path: "/dmp/local/bin:$PATH" }
+
+# Gets the current Git tag and revision
+set :version_number, `git describe --tags`
 
 # Include optional Gem groups
 # TODO: For some reason this does not work
@@ -23,9 +23,11 @@ append :linked_files, 'config/branding.yml',
                       'config/secrets.yml',
                       'config/initializers/contact_us.rb',
                       'config/initializers/devise.rb',
+                      'config/initializers/dmptool_version.rb',
                       'config/initializers/dragonfly.rb',
                       'config/initializers/recaptcha.rb',
-                      'config/initializers/wicked_pdf.rb'
+                      'config/initializers/wicked_pdf.rb',
+                      'config/initializers/external_apis/open_aire.rb'
 
 # Default value for linked_dirs is []
 append :linked_dirs, 'log',
@@ -43,9 +45,9 @@ namespace :deploy do
   after :deploy, 'cleanup:copy_tinymce_skins'
   after :deploy, 'cleanup:copy_logo'
   after :deploy, 'cleanup:copy_favicon'
+  after :deploy, 'git:version'
   after :deploy, 'cleanup:remove_example_configs'
   after :deploy, 'cleanup:restart_passenger'
-  after :deploy, 'git:symlink_git'
 end
 
 namespace :config do
@@ -59,10 +61,11 @@ namespace :config do
 end
 
 namespace :git do
-  desc "Symlink the git executable into the bin/ dir"
-  task :symlink_git do
+  desc 'Add the version file so that we can display the git version in the footer'
+  task :version do
     on roles(:app), wait: 1 do
-      execute "ln -s /bin/git #{release_path}/bin/"
+      execute "touch #{release_path}/.version"
+      execute "echo '#{fetch :version_number}' >> #{release_path}/.version"
     end
   end
 end

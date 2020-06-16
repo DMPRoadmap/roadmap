@@ -8,6 +8,7 @@ defaults: &defaults
     url: 'https://github.com/DMPRoadmap/roadmap/wiki'
     copywrite_name: 'Curation Centre (CC)'
     email: 'tester@cc_curation_centre.org'
+    do_not_reply_email: 'do-not-reply@cc_curation_centre.org'
     helpdesk_email: 'someone@somewhere.com'
     welcome_links:
       - link1:
@@ -42,6 +43,7 @@ defaults: &defaults
     api_documentation_url: 'https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation'
     api_max_page_size: 100
     archived_accounts_email_suffix: '@removed_accounts-example.org'
+    use_recaptcha: false
 
   preferences:
     email:

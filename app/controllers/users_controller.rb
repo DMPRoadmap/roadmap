@@ -6,8 +6,6 @@ class UsersController < ApplicationController
   helper PermsHelper
   include ConditionalUserMailer
 
-  include Dmptool::Controller::Users
-
   after_action :verify_authorized
   respond_to :html
 
@@ -19,6 +17,9 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html do
+        @clicked_through = params[:click_through].present?
+        @filter_admin = false
+
         if current_user.can_super_admin?
           @users = User.includes(:roles).page(1)
         else

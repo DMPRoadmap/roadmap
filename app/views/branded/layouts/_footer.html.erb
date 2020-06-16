@@ -49,6 +49,11 @@
       <%= _('Copyright 2010-%{current_year} The Regents of the University of California') % {
         current_year: Date.today.year
       } %>
+      <% version = Rails.configuration.x.dmptool.version %>
+      <% if version.present? %>
+        <br><br>
+        <%= _("Version: %{number}") % { number: version } %>
+      <% end %>
     </p>
   </div>
   <div class="footer-logo pull-right">

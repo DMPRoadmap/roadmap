@@ -64,16 +64,24 @@ class ApplicationController < ActionController::Base
     referer_path = URI(request.referer).path unless request.referer.nil? or nil
     # ---------------------------------------------------------
     # Start DMPTool Customization
-    # Added `users_ldap_username_path` and `get_started_path` to if statement below
+    # Added get_started_path` to if statement below
     # ---------------------------------------------------------
     if from_external_domain? || referer_path.eql?(new_user_session_path) ||
          referer_path.eql?(new_user_registration_path) ||
-         referer_path.eql?(users_ldap_username_path) ||
          referer_path.eql?(get_started_path) ||
          referer_path.nil?
       # End DMPTool Customization
       # ---------------------------------------------------------
       root_path
+    # ---------------------------------------------------------
+    # Start DMPTool Customization
+    # Catch user's coming in from the Org branded sign in /create page
+    # ---------------------------------------------------------
+    elsif referer_path =~ /#{shibboleth_ds_path}\/[0-9]+/
+      root_path
+    # ---------------------------------------------------------
+    # End DMPTool Customization
+    # ---------------------------------------------------------
     else
       request.referer
     end
@@ -81,10 +89,28 @@ class ApplicationController < ActionController::Base
 
   def after_sign_up_path_for(resource)
     referer_path = URI(request.referer).path unless request.referer.nil?
+    # ---------------------------------------------------------
+     # Start DMPTool Customization
+     # Added `new_user_registration_path` to if statement below
+     # ---------------------------------------------------------
     if from_external_domain? ||
          referer_path.eql?(new_user_session_path) ||
+         referer_path.eql?(new_user_registration_path) ||
          referer_path.nil?
+
+      # End DMPTool Customization
+      # ---------------------------------------------------------
       root_path
+      
+     # ---------------------------------------------------------
+     # Start DMPTool Customization
+     # Catch user's coming in from the Org branded sign in /create page
+     # ---------------------------------------------------------
+     elsif referer_path =~ /#{shibboleth_ds_path}\/[0-9]+/
+       root_path
+     # ---------------------------------------------------------
+     # End DMPTool Customization
+     # ---------------------------------------------------------
     else
       request.referer
     end
@@ -131,13 +157,15 @@ class ApplicationController < ActionController::Base
 
   def obj_name_for_display(obj)
     display_name = {
+      ApiClient: _("API client"),
       ExportedPlan: _("plan"),
       GuidanceGroup: _("guidance group"),
       Note: _("comment"),
       Org: _("organisation"),
       Perm: _("permission"),
       Pref: _("preferences"),
-      User: obj == current_user ? _("profile") : _("user")
+      User: obj == current_user ? _("profile") : _("user"),
+      QuestionOption: _("question option")
     }
     if obj.respond_to?(:customization_of) && obj.send(:customization_of).present?
       display_name[:Template] = "customization"

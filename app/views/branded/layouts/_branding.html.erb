@@ -1,6 +1,6 @@
 <% if user_signed_in? && !current_user.org.is_other? %>
   <div class="branding-name">
-    <%= current_user.org.name %>
+    <%= current_user.org.name.split("(").first %>
   </div>
 <% end %>
 
