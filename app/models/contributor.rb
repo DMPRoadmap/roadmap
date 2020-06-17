@@ -54,6 +54,9 @@ class Contributor < ActiveRecord::Base
 
   validates :roles, presence: { message: PRESENCE_MESSAGE }
 
+  validates :roles, numericality: { greater_than: 0,
+                                    message: _("You must specify at least one role.") }
+
   validate :name_or_email_presence
 
   ONTOLOGY_NAME = "CRediT - Contributor Roles Taxonomy"
