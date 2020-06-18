@@ -973,6 +973,9 @@ header .main-nav {
             }
         }
     }
+    fieldset {
+        width: 100%;
+    }
 }
 
 
@@ -1037,6 +1040,12 @@ header .main-nav {
         }
     }
 
+ }
+
+ #modal-window {
+     .modal-dialog {
+         width: 50%;
+     }
  }
 
 /*
