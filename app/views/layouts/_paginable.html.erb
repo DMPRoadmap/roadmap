@@ -52,7 +52,7 @@
         </div>
         <div class="pull-right">
           <% if paginable? %>
-              <%= paginate(scope, params: @paginable_params, remote: true) %>
+              <%= paginate(scope, params: paginable_params, remote: true) %>
           <% end %>
         </div>
         <div class="clearfix"></div>
