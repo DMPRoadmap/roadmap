@@ -12,13 +12,13 @@
 #   #   )
 #   # end
 # else
-  def default_locale
-    Rails.application.config.i18n.available_locales.first || "en-GB"
-  end
+def default_locale
+  Rails.application.config.i18n.available_locales.first || "en-CA"
+end
 
-  def available_locales
-    Rails.application.config.i18n.available_locales = LocaleSet.new(["en-GB", "en"])
-  end
+def available_locales
+  Rails.application.config.i18n.available_locales = LocaleSet.new(["en-CA", "fr-CA", "en-UK"])
+end
 # end
 
 FastGettext.add_text_domain("app",
