@@ -37,6 +37,7 @@ RUN wget --quiet https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.
 
 COPY Gemfile* $INSTALL_PATH
 
+RUN bundle config --local build.sassc --disable-march-tune-native
 RUN RAILS_ENV=production bundle install --without development test --jobs=3 --retry=3
 
 COPY . $INSTALL_PATH
