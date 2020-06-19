@@ -76,7 +76,7 @@ class Api::V0::DepartmentsController < Api::V0::BaseController
       end
 
       reassign.department_id = department_id
-      reasign.save!
+      reassign.save!
     end
   end
 
