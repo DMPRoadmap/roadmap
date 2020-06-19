@@ -179,11 +179,13 @@ class Template < ApplicationRecord
   }
 
   # Retrieves unarchived templates with public visibility
+  # Overwrites the default method from the enum
   scope :publicly_visible, lambda {
     unarchived.where(visibility: visibilities[:publicly_visible])
   }
 
   # Retrieves unarchived templates with organisational visibility
+  # Overwrites the default method from the enum
   scope :organisationally_visible, lambda {
     unarchived.where(visibility: visibilities[:organisationally_visible])
   }
@@ -248,8 +250,6 @@ class Template < ApplicationRecord
     chained_scope.group(:family_id)
   end
 
-  private_class_method :latest_version_per_family
-
   def self.latest_customized_version_per_customised_of(customization_of = nil,
                                                        org_id = nil)
     chained_scope = select("MAX(version) AS version", :customization_of)
@@ -257,8 +257,6 @@ class Template < ApplicationRecord
     chained_scope = chained_scope.where(org_id: org_id) if org_id.present?
     chained_scope.group(:customization_of)
   end
-
-  private_class_method :latest_customized_version_per_customised_of
 
 
   # ===========================
