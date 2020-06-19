@@ -29,6 +29,13 @@
   </div>
 
   <div class="row">
+    <div class="form-group col-xs-12">
+      <%= f.check_box :enabled, style: 'width: auto' %>
+      <%= f.label :enabled, _('Active'), class: 'control-label' %>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="form-group col-xs-6">
       <%= f.label :starts_at, _('Start'), class: 'control-label' %>
       <%= f.date_field :starts_at,

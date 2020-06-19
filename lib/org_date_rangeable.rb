@@ -2,9 +2,11 @@
 
 module OrgDateRangeable
 
-  def monthly_range(org:, start_date: nil, end_date: Date.today.end_of_month)
-    query_string = "org_id = :org_id"
-    query_hash = { org_id: org.id }
+  # rubocop:disable Metrics/MethodLength, Metrics/LineLength
+  def monthly_range(org:, start_date: nil, end_date: Date.today.end_of_month, filtered: false)
+    # rubocop:enable Metrics/LineLength
+    query_string = "org_id = :org_id and filtered = :filtered"
+    query_hash = { org_id: org.id, filtered: filtered }
 
     unless start_date.nil?
       query_string += " and date >= :start_date"
@@ -17,9 +19,11 @@ module OrgDateRangeable
     end
     where(query_string, query_hash)
   end
+  # rubocop:enable Metrics/MethodLength
 
   class << self
 
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def split_months_from_creation(org, &block)
       starts_at = org.created_at
       ends_at = starts_at.end_of_month
@@ -37,6 +41,7 @@ module OrgDateRangeable
 
       enumerable
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   end
 

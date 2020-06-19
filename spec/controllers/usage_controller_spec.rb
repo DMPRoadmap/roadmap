@@ -73,46 +73,6 @@ RSpec.describe UsageController, type: :controller do
     end
   end
 
-  describe "POST /usage_filter" do
-    before(:each) do
-      @date2 = Date.today.months_ago(3).end_of_month.strftime("%Y-%m-%d")
-      @user_stat2 = create(:stat_joined_user, date: @date2, org: @org)
-      @plan_stat2 = create(:stat_created_plan, date: @date2, org: @org, details: @details)
-    end
-
-    context "date range specified" do
-      before(:each) do
-        @args =  {
-          start_date: Date.today.months_ago(3).strftime("%Y-%m-%d"),
-          end_date: @date2
-        }
-      end
-      it "returns the correct values for users" do
-        post :filter, usage: @args.merge({ topic: "users" }), format: :js
-        expect(assigns(:ranged)).to eql(@user_stat2.count)
-        expect(assigns(:total)).to eql(@user_stat2.count + @user_stat.count)
-      end
-      it "returns the correct values for plans" do
-        post :filter, usage: @args.merge({ topic: "plans" }), format: :js
-        expect(assigns(:ranged)).to eql(@plan_stat2.count)
-        expect(assigns(:total)).to eql(@plan_stat2.count + @plan_stat.count)
-      end
-    end
-
-    context "no date range specified" do
-      it "returns the correct values for users" do
-        post :filter, usage: { topic: "users" }, format: :js
-        expect(assigns(:ranged)).to eql(@user_stat2.count + @user_stat.count)
-        expect(assigns(:total)).to eql(@user_stat2.count + @user_stat.count)
-      end
-      it "returns the correct values for plans" do
-        post :filter, usage: { topic: "plans" }, format: :js
-        expect(assigns(:ranged)).to eql(@plan_stat2.count + @plan_stat.count)
-        expect(assigns(:total)).to eql(@plan_stat2.count + @plan_stat.count)
-      end
-    end
-  end
-
   describe "GET /usage_yearly_users" do
     before(:each) do
       get :yearly_users

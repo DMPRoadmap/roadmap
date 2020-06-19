@@ -15,12 +15,12 @@ json.plans @org_plans.each do |plan|
     json.name         (plan.template.org.funder? ? plan.template.org.name : '')
   end
 
-  json.principal_investigator do
-    json.name         plan.principal_investigator
+  json.principal_investigator
+    json.name         plan.contributors.investigation.first&.name
   end
 
   json.data_contact do
-    json.info         plan.data_contact
+    json.info         plan.contributors.data_curation.first&.name
   end
 
   json.description    plan.description
