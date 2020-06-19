@@ -25,6 +25,8 @@ class ApiClient < ActiveRecord::Base
   include DeviseInvitable::Inviter
   include ValidationMessages
 
+  extend UniqueRandom
+
   # ================
   # = Associations =
   # ================
@@ -32,8 +34,9 @@ class ApiClient < ActiveRecord::Base
   has_many :plans
 
   # If the Client_id or client_secret are nil generate them
-  before_validation :generate_credentials,
-                    if: Proc.new { |c| c.client_id.blank? || c.client_secret.blank? }
+  attribute :client_id, :string, default: -> { unique_random(field_name: "client_id") }
+  attribute :client_secret, :string,
+            default: -> { unique_random(field_name: "client_secret") }
 
   # Force the name to downcase
   before_save :name_to_downcase
@@ -68,14 +71,14 @@ class ApiClient < ActiveRecord::Base
 
   # Generate UUIDs for the client_id and client_secret
   def generate_credentials
-    self.client_id = SecureRandom.uuid
-    self.client_secret = SecureRandom.uuid
+    self.client_id = ApiClient.unique_random(field_name: "client_id")
+    self.client_secret = ApiClient.unique_random(field_name: "client_secret")
   end
 
   private
 
   def name_to_downcase
-    self.name = self.name.downcase
+    self.name = name.downcase
   end
 
 end
