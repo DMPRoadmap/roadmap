@@ -2,6 +2,8 @@
 
 module ExportablePlan
 
+  include ConditionsHelper
+
   def as_pdf(coversheet = false)
     prepare(coversheet)
   end
@@ -12,7 +14,6 @@ module ExportablePlan
              show_custom_sections = true,
              show_coversheet = false)
     hash = prepare(show_coversheet)
-
     CSV.generate do |csv|
       if show_coversheet
         prepare_coversheet_for_csv(csv, headings, hash)
@@ -35,7 +36,7 @@ module ExportablePlan
             show_section ||= customization && !section[:modifiable]
             show_section ||= customization && section[:modifiable] && show_custom_sections
 
-            if show_section
+            if show_section && num_section_questions(self, section, phase) > 0
               show_section_for_csv(csv, phase, section, headings, unanswered, hash)
             end
           end
@@ -97,7 +98,9 @@ module ExportablePlan
     hash[:affiliation] = self.owner.present? ? self.owner.org.name : ""
 
     # set the funder name
-    hash[:funder] = self.funder_name.present? ? self.funder_name :  ""
+    hash[:funder] = self.funder.name if self.funder.present?
+    template_org = self.template.org
+    hash[:funder] = template_org.name if !hash[:funder].present? && template_org.funder?
 
     # set the template name and customizer name if applicable
     hash[:template] = self.template.title
@@ -142,7 +145,10 @@ module ExportablePlan
   end
 
   def show_section_for_csv(csv, phase, section, headings, unanswered, hash)
-    section[:questions].each do |question|
+    section[:questions].each do |question|     
+      if remove_list(hash).include?(question[:id]) 
+        next
+      end
       answer = self.answer(question[:id], false)
       answer_text = ""
       if answer.present?

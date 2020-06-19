@@ -78,7 +78,7 @@ class Language < ActiveRecord::Base
   def self.default
     where(default_language: true).first
   end
-  
+
   private
 
   def format_abbreviation
