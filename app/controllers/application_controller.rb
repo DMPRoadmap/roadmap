@@ -123,13 +123,15 @@ class ApplicationController < ActionController::Base
 
   def obj_name_for_display(obj)
     display_name = {
+      ApiClient: _("API client"),
       ExportedPlan: _("plan"),
       GuidanceGroup: _("guidance group"),
       Note: _("comment"),
       Org: _("organisation"),
       Perm: _("permission"),
       Pref: _("preferences"),
-      User: obj == current_user ? _("profile") : _("user")
+      User: obj == current_user ? _("profile") : _("user"),
+      QuestionOption: _("question option")
     }
     if obj.respond_to?(:customization_of) && obj.send(:customization_of).present?
       display_name[:Template] = "customization"

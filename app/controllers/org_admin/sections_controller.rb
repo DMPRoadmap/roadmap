@@ -100,7 +100,7 @@ module OrgAdmin
           flash[:alert] = failure_message(section, _("save"))
         end
       rescue StandardError => e
-        flash[:alert] = _("Unable to create a new version of this template.")
+        flash[:alert] = _("Unable to create a new version of this template.") + "<br/>" + e.message
       end
 
       if flash[:alert].present?
@@ -129,7 +129,7 @@ module OrgAdmin
           flash[:alert] = failure_message(section, _("delete"))
         end
       rescue StandardError => e
-        flash[:alert] = _("Unable to create a new version of this template.")
+        flash[:alert] = _("Unable to create a new version of this template.") + "<br/>" + e.message
       end
 
       if flash[:alert].present?

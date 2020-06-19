@@ -24,9 +24,9 @@ module Settings
 
     VALID_ADMIN_FIELDS = ['project_name', 'project_identifier', 'grant_title', 'principal_investigator',
                           'project_data_contact', 'project_description', 'funder', 'institution', 'orcid']
-    
+
     VALID_FORMATS = ['csv', 'html', 'pdf', 'text', 'docx']
-    
+
     DEFAULT_SETTINGS = {
       formatting: {
         margin: {

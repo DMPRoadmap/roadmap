@@ -17,12 +17,38 @@ describe Plan do
     it { is_expected.to allow_values(true, false).for(:complete) }
 
     it { is_expected.not_to allow_value(nil).for(:complete) }
+
+    describe "dates" do
+      before(:each) do
+        @plan = build(:plan)
+      end
+
+      it "allows start_date to be nil" do
+        @plan.start_date = nil
+        @plan.end_date = Time.now + 3.days
+        expect(@plan.valid?).to eql(true)
+      end
+      it "allows end_date to be nil" do
+        @plan.start_date = Time.now + 3.days
+        @plan.end_date = nil
+        expect(@plan.valid?).to eql(true)
+      end
+      it "does not allow end_date to come before start_date" do
+        @plan.start_date = Time.now + 3.days
+        @plan.end_date = Time.now
+        expect(@plan.valid?).to eql(false)
+      end
+    end
+
   end
 
   context "associations" do
 
     it { is_expected.to belong_to :template }
 
+    it { is_expected.to belong_to :org }
+
+    it { is_expected.to belong_to :funder }
 
     it { is_expected.to have_many :phases }
 
@@ -43,6 +69,10 @@ describe Plan do
     it { is_expected.to have_many :exported_plans }
 
     it { is_expected.to have_many :setting_objects }
+
+    it { is_expected.to have_many(:identifiers) }
+
+    it { is_expected.to have_many(:contributors) }
 
   end
 
@@ -457,7 +487,7 @@ describe Plan do
 
     context "when Plan title matches term" do
 
-      let!(:plan)  { create(:plan, title: "foolike title") }
+      let!(:plan)  { create(:plan, :creator, title: "foolike title") }
 
       it { is_expected.to include(plan) }
 
@@ -467,18 +497,69 @@ describe Plan do
 
       let!(:template) { create(:template, title: "foolike title") }
 
-      let!(:plan)  { create(:plan, template: template) }
+      let!(:plan)  { create(:plan, :creator, template: template) }
 
       it { is_expected.to include(plan) }
 
     end
 
+    context "when Organisation name matches term" do
+
+      let!(:plan)  { create(:plan, :creator, description: "foolike desc") }
+
+      let!(:org) { create(:org, name: 'foolike name') }
+
+      before do
+        user = plan.owner
+        user.org = org
+        user.save
+      end
+
+      it "returns organisation name" do
+        expect(subject).to include(plan)
+      end
+
+    end
+
+    # TODO: Add this one in once we are able to easily do LEFT JOINs in Rails 5
+    context "when Contributor name matches term" do
+      let!(:plan) { create(:plan, :creator, description: "foolike desc") }
+      let!(:contributor) { create(:contributor, plan: plan, name: "Dr. Foo Bar") }
+
+      xit "returns contributor name" do
+        expect(subject).to include(plan)
+      end
+    end
+
     context "when neither title matches term" do
 
-      let!(:plan)  { create(:plan, description: "foolike desc") }
+      let!(:plan)  { create(:plan, :creator, description: "foolike desc") }
 
       it { is_expected.not_to include(plan) }
 
+    end
+
+
+  end
+
+  describe ".stats_filter" do
+
+    subject { Plan.all.stats_filter }
+
+    context "when plan visibility is test" do
+      let!(:plan) { create(:plan, :creator, :is_test) }
+
+      it { is_expected.not_to include(plan) }
+    end
+
+    context "when plan visibility is not test" do
+      let!(:p1)  { create(:plan, :creator, :publicly_visible) }
+      let!(:p2)  { create(:plan, :creator, :privately_visible) }
+      let!(:p3)  { create(:plan, :creator, :organisationally_visible) }
+
+      it { is_expected.to include(p1) }
+      it { is_expected.to include(p2) }
+      it { is_expected.to include(p3) }
     end
 
   end
@@ -755,6 +836,12 @@ describe Plan do
 
     context "config does not allow admin viewing" do
 
+      before(:each) do
+        Branding.expects(:fetch)
+                .with(:service_configuration, :plans, :org_admins_read_all)
+                .returns(false)
+      end
+
       it "super admins" do
         Branding.expects(:fetch)
                 .with(:service_configuration, :plans, :super_admins_read_all)
@@ -765,10 +852,6 @@ describe Plan do
       end
 
       it "org admins" do
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :org_admins_read_all)
-                .returns(false)
-
         user.perms << create(:perm, name: "modify_guidance")
         expect(subject.readable_by?(user.id)).to eql(false)
       end
@@ -1414,6 +1497,64 @@ describe Plan do
 
       it { is_expected.to eql(false) }
 
+    end
+  end
+
+  describe "#landing_page" do
+    let!(:plan) { create(:plan, :creator) }
+
+    it "returns nil if no DOI or ARK is available" do
+      expect(plan.landing_page).to eql(nil)
+    end
+    it "returns the DOI if available" do
+      id = create(:identifier, identifiable: plan, value: "10.9999/123erge/45f")
+      plan.reload
+      expect(plan.landing_page).to eql(id)
+    end
+    it "returns the ARK if available" do
+      id = create(:identifier, identifiable: plan, value: "ark:10.9999/123")
+      plan.reload
+      expect(plan.landing_page).to eql(id)
+    end
+  end
+
+  describe "#grant association sanity checks" do
+    let!(:plan) { create(:plan, :creator) }
+
+    it "allows a grant identifier to be associated" do
+      plan.grant = build(:identifier, identifier_scheme: nil)
+      plan.save
+      expect(plan.grant.new_record?).to eql(false)
+    end
+    it "allows a grant identifier to be deleted" do
+      plan.grant = build(:identifier, identifier_scheme: nil)
+      plan.save
+      plan.grant = nil
+      plan.save
+      expect(plan.grant).to eql(nil)
+      expect(Identifier.last).to eql(nil)
+    end
+    it "does not allow multiple grants on a single plan" do
+      plan.grant = build(:identifier, identifier_scheme: nil)
+      plan.save
+      val = SecureRandom.uuid
+      plan.grant = build(:identifier, identifier_scheme: nil, value: val)
+      plan.save
+      expect(plan.grant.new_record?).to eql(false)
+      expect(plan.grant.value).to eql(val)
+      expect(Identifier.all.length).to eql(1)
+    end
+    it "allows the same grant to be associated with different plans" do
+      val = SecureRandom.uuid
+      id = build(:identifier, identifier_scheme: nil, value: val)
+      plan.grant = id
+      plan.save
+      plan2 = create(:plan, grant: id)
+      expect(plan2.grant).to eql(plan.grant)
+      expect(plan2.grant.value).to eql(plan.grant.value)
+      # Make sure that deleting the plan does not delete the shared grant!
+      plan.destroy
+      expect(plan2.grant).not_to eql(nil)
     end
   end
 
