@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "versionable_id", limit: 36
-    t.index ["org_id"], name: "fk_rails_aca7521f72"
     t.index ["question_id"], name: "index_annotations_on_question_id"
     t.index ["versionable_id"], name: "index_annotations_on_versionable_id"
   end
@@ -36,12 +35,8 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "lock_version", default: 0
-    t.string "label_id"
-    t.index ["plan_id"], name: "fk_rails_84a6005a3e"
     t.index ["plan_id"], name: "index_answers_on_plan_id"
-    t.index ["question_id"], name: "fk_rails_3d5ed4418f"
     t.index ["question_id"], name: "index_answers_on_question_id"
-    t.index ["user_id"], name: "fk_rails_584be190c2"
   end
 
   create_table "answers_question_options", id: false, force: :cascade do |t|
@@ -134,8 +129,8 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.boolean "active"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "logo_url"
-    t.string "identifier_prefix"
+    t.text "logo_url"
+    t.text "identifier_prefix"
     t.integer "context"
   end
 
@@ -168,7 +163,6 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["answer_id"], name: "index_notes_on_answer_id"
-    t.index ["user_id"], name: "fk_rails_7f2323ad43"
   end
 
   create_table "notification_acknowledgements", id: :serial, force: :cascade do |t|
@@ -195,13 +189,11 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
 
   create_table "org_identifiers", id: :serial, force: :cascade do |t|
     t.string "identifier"
-    t.integer "identifier_scheme_id"
     t.string "attrs"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "org_id"
-    t.index ["identifier_scheme_id"], name: "fk_rails_189ad2e573"
-    t.index ["org_id"], name: "fk_rails_36323c0674"
+    t.integer "identifier_scheme_id"
   end
 
   create_table "org_token_permissions", id: :serial, force: :cascade do |t|
@@ -210,7 +202,6 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["org_id"], name: "index_org_token_permissions_on_org_id"
-    t.index ["token_permission_type_id"], name: "fk_rails_2aa265f538"
   end
 
   create_table "orgs", id: :serial, force: :cascade do |t|
@@ -228,13 +219,11 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.string "contact_email"
     t.integer "org_type", default: 0, null: false
     t.text "links"
+    t.string "contact_name"
     t.boolean "feedback_enabled", default: false
     t.string "feedback_email_subject"
     t.text "feedback_email_msg"
-    t.string "contact_name"
     t.boolean "managed", default: false, null: false
-    t.index ["language_id"], name: "fk_rails_5640112cab"
-    t.index ["region_id"], name: "fk_rails_5a6adf6bab"
   end
 
   create_table "perms", id: :serial, force: :cascade do |t|
@@ -281,7 +270,6 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer "api_client_id"
-    t.index ["org_id"], name: "fk_rails_eda8ce4bca"
     t.index ["template_id"], name: "index_plans_on_template_id"
   end
 
@@ -289,22 +277,11 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.integer "guidance_group_id"
     t.integer "plan_id"
     t.index ["guidance_group_id", "plan_id"], name: "index_plans_guidance_groups_on_guidance_group_id_and_plan_id"
-    t.index ["guidance_group_id"], name: "fk_rails_ec1c5524d7"
-    t.index ["plan_id"], name: "fk_rails_13d0671430"
   end
 
   create_table "prefs", id: :serial, force: :cascade do |t|
     t.text "settings"
     t.integer "user_id"
-  end
-
-  create_table "question_format_labels", id: false, force: :cascade do |t|
-    t.integer "id"
-    t.string "description"
-    t.integer "question_id"
-    t.integer "number"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "question_formats", id: :serial, force: :cascade do |t|
@@ -339,7 +316,6 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.boolean "option_comment_display", default: true
     t.boolean "modifiable"
     t.string "versionable_id", limit: 36
-    t.index ["question_format_id"], name: "fk_rails_4fbc38c8c7"
     t.index ["section_id"], name: "index_questions_on_section_id"
     t.index ["versionable_id"], name: "index_questions_on_versionable_id"
   end
@@ -391,10 +367,10 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
   end
 
   create_table "settings", id: :serial, force: :cascade do |t|
-    t.string "var"
+    t.string "var", null: false
     t.text "value"
     t.integer "target_id", null: false
-    t.string "target_type"
+    t.string "target_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -467,7 +443,6 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.datetime "updated_at"
     t.integer "user_id"
     t.integer "identifier_scheme_id"
-    t.index ["identifier_scheme_id"], name: "fk_rails_fe95df7db0"
     t.index ["user_id"], name: "index_user_identifiers_on_user_id"
   end
 
@@ -477,7 +452,7 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.string "email", limit: 80, default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "encrypted_password"
+    t.string "encrypted_password", default: ""
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -501,27 +476,26 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.string "invited_by_type"
     t.integer "language_id"
     t.string "recovery_email"
-    t.string "ldap_password"
-    t.string "ldap_username"
     t.boolean "active", default: true
     t.integer "department_id"
     t.datetime "last_api_access"
-    t.index ["department_id"], name: "fk_rails_f29bf9cdf2"
-    t.index ["email"], name: "index_users_on_email"
-    t.index ["language_id"], name: "fk_rails_45f4f12508"
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["org_id"], name: "index_users_on_org_id"
   end
 
   create_table "users_perms", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "perm_id"
-    t.index ["perm_id"], name: "fk_rails_457217c31c"
     t.index ["user_id"], name: "index_users_perms_on_user_id"
   end
 
+  add_foreign_key "annotations", "orgs"
+  add_foreign_key "annotations", "questions"
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
+  add_foreign_key "answers_question_options", "answers"
+  add_foreign_key "answers_question_options", "question_options"
   add_foreign_key "conditions", "questions"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
@@ -543,6 +517,8 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
   add_foreign_key "question_options", "questions"
   add_foreign_key "questions", "question_formats"
   add_foreign_key "questions", "sections"
+  add_foreign_key "questions_themes", "questions"
+  add_foreign_key "questions_themes", "themes"
   add_foreign_key "roles", "plans"
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"
@@ -555,4 +531,6 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
   add_foreign_key "users", "departments"
   add_foreign_key "users", "languages"
   add_foreign_key "users", "orgs"
+  add_foreign_key "users_perms", "perms"
+  add_foreign_key "users_perms", "users"
 end
