@@ -20,11 +20,7 @@ class SessionsController < Devise::SessionsController
           identifiable: existing_user,
           attrs: session["devise.shibboleth_data"]
         }
-        if Identifier.create(args)
-          # rubocop:disable Metrics/LineLength
-          success = _("Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them.")
-          # rubocop:enable Metrics/LineLength
-        end
+        @ui = Identifier.new(args)
       end
       unless existing_user.get_locale.nil?
         session[:locale] = existing_user.get_locale
@@ -32,9 +28,13 @@ class SessionsController < Devise::SessionsController
       # Method defined at controllers/application_controller.rb
       set_gettext_locale
     end
-    super
-    if success
-      flash[:notice] = success
+
+    super do
+      if !@ui.nil? && @ui.save
+        # rubocop:disable Metrics/LineLength
+        flash[:notice] = _("Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them.")
+        # rubocop:enable Metrics/LineLength
+      end
     end
   end
 
