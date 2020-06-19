@@ -68,43 +68,6 @@
     </div>
   </div>
 
-  <div class="row">
-    <% if current_user.can_super_admin? %>
-      <fieldset class="col-xs-8">
-        <legend><%= _('Organisation Types') %></legend>
-          <div class="checkbox">
-            <%= f.label :funder do %>
-              <%= check_box_tag :funder, 2, org.funder?, class: 'org_types' %>
-              <%= _('Funder') %>
-            <% end %>
-          </div>
-          <div class="checkbox">
-            <%= f.label :institution do %>
-              <%= check_box_tag :institution, 1, org.institution?, class: 'org_types' %>
-              <%= _('Institution') %>
-            <% end %>
-          </div>
-          <div class="checkbox">
-            <%= f.label :organisation do %>
-              <%= check_box_tag :organisation, 4, org.organisation?, class: 'org_types' %>
-              <%= _('Organisation') %>
-            <% end %>
-          </div>
-          <%= f.hidden_field :org_type, data: {
-                validation: 'text',
-                validation_error: _('You must select at least one organisation type') }
-          %>
-      </fieldset>
-    <% else %>
-      <div class="col-xs-8">
-        <dl>
-          <dt><%= _('Organisation type(s)') %></dt>
-          <dd><%= org.org_type_to_s %></dd>
-        </dl>
-      </div>
-    <% end %>
-  </div>
-
   <hr>
 
   <div class="row">
@@ -152,6 +115,45 @@
         <%= t.text_field :code, class: "form-control", aria: { required: false } %>
       <% end %>
     </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <% if current_user.can_super_admin? %>
+      <fieldset class="col-xs-8">
+        <legend><%= _('Organisation Types') %></legend>
+          <div class="checkbox">
+            <%= f.label :funder do %>
+              <%= check_box_tag :funder, 2, org.funder?, class: 'org_types' %>
+              <%= _('Funder') %>
+            <% end %>
+          </div>
+          <div class="checkbox">
+            <%= f.label :institution do %>
+              <%= check_box_tag :institution, 1, org.institution?, class: 'org_types' %>
+              <%= _('Institution') %>
+            <% end %>
+          </div>
+          <div class="checkbox">
+            <%= f.label :organisation do %>
+              <%= check_box_tag :organisation, 4, org.organisation?, class: 'org_types' %>
+              <%= _('Organisation') %>
+            <% end %>
+          </div>
+          <%= f.hidden_field :org_type, data: {
+                validation: 'text',
+                validation_error: _('You must select at least one organisation type') }
+          %>
+      </fieldset>
+    <% else %>
+      <div class="col-xs-8">
+        <dl>
+          <dt><%= _('Organisation type(s)') %></dt>
+          <dd><%= org.org_type_to_s %></dd>
+        </dl>
+      </div>
+    <% end %>
   </div>
 
   <hr>
