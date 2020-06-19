@@ -3,6 +3,8 @@
 class PlansController < ApplicationController
 
   include ConditionalUserMailer
+  include OrgSelectable
+
   helper PaginableHelper
   helper SettingsTemplateHelper
 
@@ -30,13 +32,15 @@ class PlansController < ApplicationController
 
     # Get all of the available funders and non-funder orgs
     @funders = Org.funder
+                  .includes(identifiers: :identifier_scheme)
                   .joins(:templates)
                   .where(templates: { published: true }).uniq.sort_by(&:name)
-    @orgs = (Org.organisation + Org.institution + Org.managing_orgs).flatten
-                                                                    .uniq.sort_by(&:name)
+    @orgs = (Org.includes(identifiers: :identifier_scheme).organisation +
+             Org.includes(identifiers: :identifier_scheme).institution +
+             Org.includes(identifiers: :identifier_scheme).default_orgs)
+    @orgs = @orgs.flatten.uniq.sort_by(&:name)
 
-    # Get the current user's org
-    @default_org = current_user.org if @orgs.include?(current_user.org)
+    @plan.org_id = current_user.org&.id
 
     if params.key?(:test)
       flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>"
@@ -64,20 +68,6 @@ class PlansController < ApplicationController
         format.html { redirect_to new_plan_path }
       end
     else
-      # Otherwise create the plan
-      if current_user.surname.blank?
-        @plan.principal_investigator = nil
-      else
-        @plan.principal_investigator = current_user.name(false)
-      end
-
-      @plan.principal_investigator_email = current_user.email
-
-      orcid = current_user.identifier_for(IdentifierScheme.find_by(name: "orcid"))
-      @plan.principal_investigator_identifier = orcid.identifier unless orcid.nil?
-
-      @plan.funder_name = plan_params[:funder_name]
-
       @plan.visibility = if plan_params["visibility"].blank?
                            Rails.application.config.default_plan_visibility
                          else
@@ -96,9 +86,25 @@ class PlansController < ApplicationController
         @plan.title = plan_params[:title]
       end
 
+      # bit of hackery here. There are 2 org selectors on the page
+      # and each is within its own specific context, plan.org or
+      # plan.funder which forces the hidden id hash to be :id
+      # so we need to convert it to :org_id so it works with the
+      # OrgSelectable and OrgSelection services
+      if params[:org][:id].present?
+        attrs = params[:org]
+        attrs[:org_id] = attrs[:id]
+        @plan.org = org_from_params(params_in: attrs, allow_create: false)
+      end
+      if params[:funder][:id].present?
+        attrs = params[:funder]
+        attrs[:org_id] = attrs[:id]
+        @plan.funder = org_from_params(params_in: attrs, allow_create: false)
+      end
+
       if @plan.save
         # pre-select org's guidance and the default org's guidance
-        ids = (Org.managing_orgs << org_id).flatten.uniq
+        ids = (Org.default_orgs.pluck(:id) << org_id).flatten.uniq
         ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
         if !ggs.blank? then @plan.guidance_groups << ggs end
@@ -115,7 +121,7 @@ class PlansController < ApplicationController
           # rubocop:disable Metrics/LineLength
           # We used a customized version of the the funder template
           # rubocop:disable Metrics/LineLength
-          msg += " #{_('This plan is based on the')} #{plan_params[:funder_name]}: '#{@plan.template.title}' #{_('template with customisations by the')} #{plan_params[:org_name]}"
+          msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{plan_params[:org_name]}"
           # rubocop:enable Metrics/LineLength
         else
           # rubocop:disable Metrics/LineLength
@@ -129,7 +135,7 @@ class PlansController < ApplicationController
 
         # Set new identifier to plan id by default on create.
         # (This may be changed by user.)
-        @plan.add_identifier!(@plan.id.to_s)
+        @plan.identifier = @plan.id.to_s
 
         respond_to do |format|
           flash[:notice] = msg
@@ -225,10 +231,17 @@ class PlansController < ApplicationController
                                params[:guidance_group_ids].map(&:to_i).uniq
                              end
         @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
-        @plan.save
-        if @plan.update_attributes(attrs)
+
+        # TODO: For some reason the `fields_for` isn't adding the
+        #       appropriate namespace, so org_id represents our funder
+        funder = org_from_params(params_in: attrs, allow_create: true)
+        @plan.funder_id = funder.id if funder.present?
+        process_grant(hash: params[:grant])
+        attrs = remove_org_selection_params(params_in: attrs)
+
+        if @plan.update(attrs) #_attributes(attrs)
           format.html do
-            redirect_to overview_plan_path(@plan),
+            redirect_to plan_contributors_path(@plan),
                         notice: success_message(@plan, _("saved"))
           end
           format.json do
@@ -245,10 +258,11 @@ class PlansController < ApplicationController
           end
         end
 
-      rescue Exception
+      rescue Exception => e
         flash[:alert] = failure_message(@plan, _("save"))
         format.html do
-          render_phases_edit(@plan, @plan.phases.first, @plan.guidance_groups)
+          Rails.logger.error "Unable to save plan #{@plan&.id} - #{e.message}"
+          redirect_to "#{plan_path(@plan)}", alert: failure_message(@plan, _("save"))
         end
         format.json do
           render json: { code: 0, msg: flash[:alert] }
@@ -406,12 +420,12 @@ class PlansController < ApplicationController
 
   def plan_params
     params.require(:plan)
-          .permit(:org_id, :org_name, :funder_id, :funder_name, :template_id,
-                  :title, :visibility, :grant_number, :description, :identifier,
-                  :principal_investigator_phone, :principal_investigator,
-                  :principal_investigator_email, :data_contact,
-                  :principal_investigator_identifier, :data_contact_email,
-                  :data_contact_phone, :guidance_group_ids)
+          .permit(:template_id, :title, :visibility, :grant_number,
+                  :description, :identifier, :guidance_group_ids,
+                  :start_date, :end_date,
+                  :org_id, :org_name, :org_crosswalk, :identifier,
+                  org: [:org_id, :org_name, :org_sources, :org_crosswalk],
+                  funder: [:org_id, :org_name, :org_sources, :org_crosswalk])
   end
 
   # different versions of the same template have the same family_id
@@ -458,8 +472,6 @@ class PlansController < ApplicationController
     plan.delete(src_plan_key)
   end
 
-  private
-
   # ============================
   # = Private instance methods =
   # ============================
@@ -479,5 +491,27 @@ class PlansController < ApplicationController
       guidance_presenter: GuidancePresenter.new(plan)
     })
   end
+
+  # Update, destroy or add the grant
+  def process_grant(hash:)
+    if hash.present?
+      if hash[:id].present?
+        grant = @plan.grant
+        # delete it if it has been blanked out
+        if hash[:value].blank?
+          grant.destroy
+          @plan.grant_id = nil
+        elsif hash[:value] != grant.value
+          # update it iif iit has changed
+          grant.update(value: hash[:value])
+        end
+      else
+        identifier = Identifier.create(identifier_scheme: nil,
+                                       identifiable: @plan, value: hash[:value])
+        @plan.grant_id = identifier.id
+      end
+    end
+  end
+
 
 end

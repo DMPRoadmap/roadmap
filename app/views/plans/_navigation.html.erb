@@ -3,6 +3,10 @@
   <li role="presentation" class="<%= (active_page?(plan_path(plan), true) ? 'active' : '') %>">
     <a href="<%= plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Project Details') %></a>
   </li>
+  <li role="contributors" class="<%= (active_page?(plan_contributors_path(plan)) ? "active" : "") %>">
+    <%= link_to _("Contributors"), plan_contributors_path(plan), role: "tab",
+                aria: { controls: "content" } %>
+  </li>
   <li role="presentation" class="<%= (active_page?(overview_plan_path(plan)) ? 'active' : '') %>">
     <%= link_to(_('Plan overview'), overview_plan_path(plan), role: 'tab', 'aria-controls': 'content') %>
   </li>
@@ -33,7 +37,7 @@
   <div id="content" role="tabpanel" class="tab-pane active">
     <div class="panel panel-default">
       <div class="panel-body">
-        <%= yield %>
+        <%= yield :plan_tab_body %>
       </div>
     </div>
   </div>
