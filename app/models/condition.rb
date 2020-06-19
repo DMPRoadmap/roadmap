@@ -35,6 +35,7 @@ class Condition < ApplicationRecord
   def deep_copy(**options)
   	copy = self.dup
   	copy.question_id = options.fetch(:question_id, nil)
+    # TODO: why call validate false here
   	copy.save!(validate: false) if options.fetch(:save, false)
   	copy
   end
