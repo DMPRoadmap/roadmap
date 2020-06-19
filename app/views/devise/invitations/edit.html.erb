@@ -27,8 +27,13 @@
         <%= f.label(:surname, _('Last name'), class: 'control-label') %>
         <%= f.text_field(:surname, class: "form-control", "aria-required": true, value: @user.surname) %>
       </div>
-      <div class="form-group" id="org-controls">
-        <%= render partial: "shared/my_org", locals: {f: f, default_org: @user.org, orgs: Org.all, allow_other_orgs: true, required: true} %>
+      <div class="form-group" id="invite-org-controls">
+        <%= render partial: "shared/org_selectors/combined",
+                   locals: {
+                     form: f,
+                     default_org: nil,
+                     required: true
+                   } %>
       </div>
       <%= f.button(_('Create account'), class: "btn btn-default", type: "submit") %>
     <% end %>

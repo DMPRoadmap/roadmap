@@ -1,4 +1,7 @@
 class UserMailer < ActionMailer::Base
+
+  prepend_view_path "app/views/branded/"
+
   include MailerHelper
   helper MailerHelper
   helper FeedbacksHelper
@@ -10,6 +13,17 @@ class UserMailer < ActionMailer::Base
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @user.email,
            subject: _('Welcome to %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
+    end
+  end
+
+  def question_answered(data, user, answer, options_string)
+    @user = user
+    @answer = answer
+    @data = data
+    @options_string
+    FastGettext.with_locale FastGettext.default_locale do 
+      mail(to: data['email'], 
+           subject: data['subject'])
     end
   end
 
@@ -134,6 +148,16 @@ class UserMailer < ActionMailer::Base
       FastGettext.with_locale FastGettext.default_locale do
         mail(to: user.email, subject:
           _('Administrator privileges granted in %{tool_name}') %{ :tool_name => Rails.configuration.branding[:application][:name] })
+      end
+    end
+  end
+
+  def api_credentials(api_client)
+    @api_client = api_client
+    if @api_client.contact_email.present?
+      FastGettext.with_locale FastGettext.default_locale do
+        mail(to: @api_client.contact_email,
+             subject: _("%{tool_name} API changes") % { tool_name: Rails.configuration.branding[:application][:name] })
       end
     end
   end
