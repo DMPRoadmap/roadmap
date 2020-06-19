@@ -1,4 +1,4 @@
-FROM ruby:2.4.4
+FROM ruby:2.5.8
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash
@@ -11,7 +11,7 @@ RUN apt-get update -qq && \
   git \
   libgmp3-dev \
   libpq-dev \
-  mysql-client \
+  default-mysql-client \
   gettext \
   nodejs \
   yarn
