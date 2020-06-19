@@ -21,8 +21,8 @@ class UserMailer < ActionMailer::Base
     @answer = answer
     @data = data
     @options_string
-    FastGettext.with_locale FastGettext.default_locale do 
-      mail(to: data['email'], 
+    FastGettext.with_locale FastGettext.default_locale do
+      mail(to: data['email'],
            subject: data['subject'])
     end
   end
@@ -85,9 +85,10 @@ class UserMailer < ActionMailer::Base
     @phase     = plan.phases.first
     if recipient.active?
       FastGettext.with_locale FastGettext.default_locale do
+        sender = Rails.configuration.branding[:organisation][:do_not_reply_email] || Rails.configuration.branding[:organisation][:email]
         mail(to: recipient.email,
-             from: requestor.org.contact_email,
-             subject: _("%{application_name}: Expert feedback has been provided for %{plan_title}") % {application_name: ApplicationService.application_name, plan_title: @plan.title})
+             from: sender,
+             subject: _("%{application_name}: Expert feedback has been provided for %{plan_title}") % {application_name: Rails.configuration.branding[:application][:name], plan_title: @plan.title})
       end
     end
   end
