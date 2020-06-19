@@ -20,9 +20,9 @@
 #
 #  fk_rails_...  (question_id => question.id)
 #
-# 
+#
 
-class Condition < ActiveRecord::Base
+class Condition < ApplicationRecord
   belongs_to :question
   enum action_type: [:remove, :add_webhook]
   serialize :option_list, Array
