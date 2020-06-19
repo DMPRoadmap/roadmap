@@ -20,7 +20,7 @@
 #  index_api_clients_on_name     (name)
 #
 
-class ApiClient < ActiveRecord::Base
+class ApiClient < ApplicationRecord
 
   include DeviseInvitable::Inviter
   include ValidationMessages
