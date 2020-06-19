@@ -25,7 +25,6 @@ class Identifier < ApplicationRecord
 
   belongs_to :identifiable, polymorphic: true
 
-  # TODO: uncomment 'optional: true' once we are on Rails 5
   belongs_to :identifier_scheme, optional: true
 
   # ===============
