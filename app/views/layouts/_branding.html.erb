@@ -93,11 +93,16 @@
                     <%= link_to _('Users'), admin_index_users_path, class: 'main_nav_last_li' %>
                   </li>
               <% end %>
+              <!-- THEMES -->
+              
+              <!--
               <% if current_user.can_super_admin? %>
                 <li <%= 'class=active' if active_page?(super_admin_themes_path) %>>
                   <%= link_to(_('Themes'), super_admin_themes_path) %>
                 </li>
               <% end %>
+              -->
+              
               <% if current_user.can_org_admin? || current_user.can_super_admin? %>
                 <li <%= 'class=active' if active_page?(usage_index_path) %>>
                   <%= link_to(_('Usage'), usage_index_path) %>
