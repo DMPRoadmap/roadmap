@@ -7,7 +7,8 @@
 <div class="row">
   <div class="col-md-12">
     <div class="row">
-      <div class="col-md-8">
+    <%# Changed class from col-md-8 to col-md-12 after removing themed guidance %>
+      <div class="col-md-12">
         <% q_format = question.question_format %>
         <dl class="dl-horizontal">
           <dt><%= _('Question number')%></dt>
@@ -75,15 +76,19 @@
               </div>
             </dd>
           <% end %>
-          <!-- Themes -->
+          <!-- THEMES -->
+          <!--
           <% themes_q = question.themes %>
           <% if !themes_q.nil? %>
               <dt><%= _('Themes')%></dt>
               <dd><%= themes_q.length <= 0 ? _('No themes selected') : themes_q.join(', ') %></dd>
           <% end %>
+          -->
         </dl>
       </div>
       
+      <!-- THEMES -->
+      <!--
       <div class="col-md-4">
         <% has_org_themed_guidance = false %>
         <% themes_q = question.themes %>
@@ -164,6 +169,7 @@
             <p><%= _("There is no organisational guidance related to the themes associated with this question.") %><p>
         <% end %>
       </div>
+      -->
     </div>
     
     <div class="row">
