@@ -3,12 +3,13 @@
   <% section_has_common_answers = research_output.get_main().has_common_answers?(section[:id]) %>
   <% show_research_output_content = @show_unanswered || (!@show_unanswered && !research_output.get_answers_for_section(section[:id]).empty?) %>
   <% research_output_default_and_alone = research_output.is_default && research_outputs.length == 1 %>
+  <% research_output_fragment = research_output.json_fragment %>
 
   <% if !research_output_default_and_alone && 
         !section_has_common_answers && 
         show_research_output_content %>
   <div class="research-output">
-    <h3><%= research_output[:abbreviation] %> : <%= research_output[:fullname] %></h3>
+    <h3><%= research_output_fragment.data['title'] %> : <%= research_output_fragment.data['description'] %></h3>
   <% end %>
   <% questions.each do |question| %>
     <% answer = section_has_common_answers ? 
