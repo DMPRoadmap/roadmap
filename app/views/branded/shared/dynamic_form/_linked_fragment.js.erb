@@ -9,7 +9,7 @@ $(() => {
       $('#research-outputs-list').html(response.html);
       break;
     default:
-      $(`.fragment-${response.fragment_id} .linked-fragments-list tbody`).html(response.html);
+      $(`.fragment-${response.fragment_id} .linked-fragments-list.${response.classname}-list tbody`).html(response.html);
     }
     $('#modal-window').modal('hide');
   }).bind('ajax:error', () => {
