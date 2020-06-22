@@ -37,19 +37,10 @@ class MadmpFragmentsController < ApplicationController
     end
         
     if @fragment.present?
-      obj_list = MadmpFragment.where(
-          dmp_id: @fragment.dmp_id,
-          parent_id: @fragment.parent_id,
-          classname: classname
-      )
       render json: { 
           "fragment_id" =>  @fragment.parent_id,
           "classname" => classname,
-          "html" => render_to_string(partial: 'shared/dynamic_form/linked_fragment/list', locals: {
-                      parent_id: @fragment.parent_id,
-                      obj_list: obj_list,
-                      classname: classname
-        })
+          "html" => render_fragment_list(@fragment.dmp_id, @fragment.parent_id, classname)
       }
     end
   end
@@ -94,12 +85,8 @@ class MadmpFragmentsController < ApplicationController
       render json: {
         "fragment_id" =>  parent_id,
         "classname" => classname,
-        "html" => render_to_string(partial: 'shared/dynamic_form/linked_fragment/list', locals: {
-                                      parent_id: @fragment.parent_id,
-                                      obj_list: obj_list,
-                                      classname: classname
-            })
-        }
+        "html" => render_fragment_list(dmp_id, parent_id, classname)
+      }
     end
   end
 
@@ -115,8 +102,27 @@ class MadmpFragmentsController < ApplicationController
 
   private
 
-  def json_schema
-    MadmpSchema.find(params['madmp_fragment']['schema_id']).schema
+  def render_fragment_list(dmp_id, parent_id, classname) 
+    case classname
+    when "research_output"
+      @plan = Fragment::Dmp.where(id: dmp_id).first.plan
+      return render_to_string(partial: 'research_outputs/list', locals: {
+        plan: @plan,
+        research_outputs: @plan.research_outputs
+      })
+
+    else 
+      obj_list = MadmpFragment.where(
+        dmp_id: dmp_id,
+        parent_id: parent_id,
+        classname: classname
+      )
+      return render_to_string(partial: 'shared/dynamic_form/linked_fragment/list', locals: {
+                  parent_id: parent_id,
+                  obj_list: obj_list,
+                  classname: classname
+      })
+    end
   end
 
   # Get the parameters conresponding to the schema

@@ -4,7 +4,13 @@ $(() => {
 
 
   $('#madmp_fragment_form').bind('ajax:success', (event, response) => {
-    $(`.fragment-${response.fragment_id} .linked-fragments-list tbody`).html(response.html);
+    switch (response.classname) {
+    case 'research_output':
+      $('#research-outputs-list').html(response.html);
+      break;
+    default:
+      $(`.fragment-${response.fragment_id} .linked-fragments-list tbody`).html(response.html);
+    }
     $('#modal-window').modal('hide');
   }).bind('ajax:error', () => {
     console.log('ajax:error');
