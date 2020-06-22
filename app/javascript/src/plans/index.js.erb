@@ -5,10 +5,12 @@ import { paginableSelector } from '../utils/paginable';
 $(() => {
   $(paginableSelector).on('click, change', '.set_test_plan input[type="checkbox"]', (e) => {
     const form = $(e.target).closest('form');
-    form.submit();
+    Rails.fire(form[0], 'submit');
   });
-  $(paginableSelector).on('ajax:success', '.set_test_plan', (e, data) => {
+
+  $(paginableSelector).on('ajax:success', 'form.set_test_plan', (e) => {
     const form = $(e.target);
+    const data = e.detail[0];
     if (data.code === 1 && data.msg && data.msg !== '') {
       notifier.renderNotice(data.msg);
     } else {
