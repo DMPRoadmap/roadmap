@@ -36,12 +36,6 @@ class ResearchOutputsController < ApplicationController
   end
 
   def create_remote 
-    # instancier un nouveau RO avec un nom généré "Produit + ordre"
-    # pour avoir le fragment ainsi que le produit créé
-
-    # regénérer research_outputs/list et remplacer la liste avec JS
-
-    # TODO : clean le controlleur des plans des infos des RO
     @plan = Plan.find(params[:plan_id])
     max_order = @plan.research_outputs.maximum('order') + 1
     @plan.research_outputs.create(
