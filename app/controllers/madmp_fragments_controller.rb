@@ -3,30 +3,6 @@
 class MadmpFragmentsController < ApplicationController
 
   after_action :verify_authorized
-
-  # Instanciates a new structured answer/fragment
-  # def new
-  #   @fragment = MadmpFragment.new
-  #   @fragment.madmp_schema = MadmpSchema.find(params[:schema_id])
-  #   authorize @fragment
-  #   render layout: false
-  # end
-  
-  # def edit
-  #   @fragment = MadmpFragment.find(params[:id])
-  #   authorize @fragment
-  #   render layout: false
-  # end
-
-  # def create
-  #   form_data = permitted_params.select { |k, v| schema_params(flat = true).include?(k) }
-  #   @fragment = MadmpFragment.create(
-  #     madmp_schema: MadmpSchema.find(permitted_params[:schema_id]),
-  #     data: data_reformater(json_schema, form_data)
-  #   )
-  #   authorize @fragment
-  #   render json: { id: @fragment.id }
-  # end
   
   def update
     @fragment = MadmpFragment.find(params[:id])
@@ -91,12 +67,13 @@ class MadmpFragmentsController < ApplicationController
     @classname = params[:classname]
     @parent_fragment = MadmpFragment.find(params[:parent_id])
     @schema = MadmpSchema.find_by(classname: @classname)
-    @fragment = nil 
+    @fragment = nil
+    dmp_id = @parent_fragment.classname == "dmp" ? @parent_fragment.id : @parent_fragment.dmp_id
     if params[:fragment_id] 
       @fragment = MadmpFragment.find(params[:fragment_id]) 
     else
       @fragment = MadmpFragment.new(
-          dmp_id: @parent_fragment.dmp_id,
+          dmp_id: dmp_id,
           parent_id: @parent_fragment.id
         )
     end
@@ -158,18 +135,5 @@ class MadmpFragmentsController < ApplicationController
   def permitted_params
     permit_arr = [:id, :dmp_id, :parent_id, :schema_id]
     params.require(:madmp_fragment).permit(permit_arr)
-  end
-
-  def funding_params
-      params.require(:madmp_fragment)
-            .permit(:fundingStatus,
-                    funder: [:name, :dataPolicyUrl, funderId: [:value, :idType]],
-                    grantId: [:value, :idType])
-  end
-  
-  def partner_params
-      params.require(:madmp_fragment)
-            .permit(:name, :dataPolicyUrl,
-                    orgId: [:value, :idType])
   end
 end

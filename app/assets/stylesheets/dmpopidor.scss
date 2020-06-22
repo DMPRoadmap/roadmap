@@ -936,7 +936,7 @@ header .main-nav {
     }
 }
 
-#research-outputs {
+#research-outputs-list {
     width: 100%;
     padding: 0 5px;
     margin-top: 5px;
@@ -956,6 +956,9 @@ header .main-nav {
             padding: 5px;
             .research-output-pid, .research-output-type {
                 width: 30%;
+            }
+            .research-output-field {
+                padding-top: 7px;
             }
         }
         .research-output-actions {

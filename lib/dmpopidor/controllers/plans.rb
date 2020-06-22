@@ -163,7 +163,6 @@ module Dmpopidor
               @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
               @plan.save
               if @plan.update_attributes(attrs)
-                @plan.research_outputs.toggle_default
                 @plan.update_plan_fragments(plan_meta_params, plan_project_params)
 
                 format.html do
@@ -268,7 +267,7 @@ module Dmpopidor
                         :principal_investigator_email, :data_contact,
                         :principal_investigator_identifier, :data_contact_email,
                         :data_contact_phone, :guidance_group_ids,
-                        research_outputs_attributes: %i[id abbreviation fullname order pid other_type_label research_output_type_id _destroy])
+                        research_outputs_attributes: %i[_destroy])
         end
 
         def plan_meta_params

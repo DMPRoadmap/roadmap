@@ -80,4 +80,8 @@ class PlanPolicy < ApplicationPolicy
     @plan.editable_by?(@user.id)
   end
 
+  def create_remote?
+    @plan.editable_by?(@user.id)
+  end
+
 end

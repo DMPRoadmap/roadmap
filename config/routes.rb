@@ -122,6 +122,10 @@ Rails.application.routes.draw do
     resources :research_outputs, only: [:index, :destroy], controller: 'research_outputs'
   end
 
+  resources :research_outputs, only: [] do 
+    get 'create_remote', on: :collection
+  end
+
   resources :madmp_fragments, only: [:new, :edit, :create, :update, :destroy] do
     post 'create_or_update', on: :collection
     get 'new_edit_linked', on: :collection

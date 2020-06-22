@@ -1,4 +1,4 @@
-<div class="modal-dialog" role="document">
+<div class="modal-dialog madmp-fragment" role="document">
   <div class="modal-content">
     <div class="modal-header">
       <h2 class="modal-title" id="exampleModalLabel"><%= @classname.capitalize %> </h2>
@@ -19,6 +19,7 @@
           research_output: nil,
           parent_id: @parent_fragment.id,
           schema: @schema.schema,
+          classname: @classname,
           readonly: false
         })%>
       </div>

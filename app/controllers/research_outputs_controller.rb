@@ -35,6 +35,34 @@ class ResearchOutputsController < ApplicationController
     end
   end
 
+  def create_remote 
+    # instancier un nouveau RO avec un nom généré "Produit + ordre"
+    # pour avoir le fragment ainsi que le produit créé
+
+    # regénérer research_outputs/list et remplacer la liste avec JS
+
+    # TODO : clean le controlleur des plans des infos des RO
+    @plan = Plan.find(params[:plan_id])
+    max_order = @plan.research_outputs.maximum('order') + 1
+    @plan.research_outputs.create(
+      abbreviation: "Research Output #{max_order}", 
+      fullname: "New research output #{max_order}",
+      is_default: false, 
+      type: ResearchOutputType.find_by(label: "Dataset"),
+      order: max_order
+    )
+    @plan.research_outputs.toggle_default
+
+    authorize @plan
+
+    render json: { 
+      "html" => render_to_string(partial: 'research_outputs/list', locals: {
+        plan: @plan,
+        research_outputs: @plan.research_outputs
+      })
+    }
+  end
+
   
 
 end
