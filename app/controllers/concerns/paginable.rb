@@ -149,7 +149,7 @@ module Paginable
   def sort_link_name(sort_field)
     @args = @args.with_indifferent_access
     class_name = "fa-sort"
-    if @args[:sort_field] == 'desc'
+    if @args[:sort_field] == sort_field
       class_name = "fa-sort-#{sort_direction.downcase}"
     end
     <<~HTML.html_safe

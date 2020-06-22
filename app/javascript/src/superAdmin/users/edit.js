@@ -12,7 +12,8 @@ $(() => {
       The account for ${chosenUserEmail} will then be destroyed.`);
   };
 
-  $('#merge_form').on('ajax:success', (e, data) => {
+  $('#merge_form').on('ajax:success', (e) => {
+    const data = e.detail[0];
     // replace the search form with the merge form
     $('#merge_form_container').html(data.form);
     const userSelect = $('#merge_id');

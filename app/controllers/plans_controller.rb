@@ -389,13 +389,13 @@ class PlansController < ApplicationController
     # rubocop:disable Metrics/LineLength
     if plan.save
       render json: {
-               code: 1,
-               msg: (plan.is_test? ? _("Your project is now a test.") : _("Your project is no longer a test."))
-             }
+        code: 1,
+        msg: (plan.is_test? ? _("Your project is now a test.") : _("Your project is no longer a test."))
+      }
     else
       render status: :bad_request, json: {
-               code: 0, msg: _("Unable to change the plan's test status")
-             }
+        code: 0, msg: _("Unable to change the plan's test status")
+      }
     end
     # rubocop:enable Metrics/LineLength
   end
