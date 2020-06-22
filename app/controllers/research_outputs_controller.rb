@@ -52,7 +52,8 @@ class ResearchOutputsController < ApplicationController
     render json: { 
       "html" => render_to_string(partial: 'research_outputs/list', locals: {
         plan: @plan,
-        research_outputs: @plan.research_outputs
+        research_outputs: @plan.research_outputs,
+        readonly: false
       })
     }
   end

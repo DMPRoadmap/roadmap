@@ -17,32 +17,34 @@
         <span><%= research_output_data['type'] %></span>
       </div>
     </div>
-    <div class='research-output-actions'>
-      <%= link_to new_edit_linked_madmp_fragments_url(
-              nil, 
-              :fragment_id => research_output_fragment.id, 
-              :parent_id => research_output_fragment.dmp_id, 
-              :classname => "research_output"
-          ),  {
-              :remote => true, 
-              'data-toggle' =>  "modal", 
-              'data-target' => '#modal-window'
-          }  do %>
-        <i class="fa fa-edit pull-left edit" aria-hidden="true"
-                title="<%= d_('dmpopidor', 'Edit research output') %>"></i>
-      <% end %> 
-      <% if plan.research_outputs.length > 1 && index != 0 %>
-        <i class="fa fa-arrows handle" aria-hidden="true" 
-                title="<%= d_('dmpopidor', 'Move research output') %>"></i>
-                
-        <%= link_to plan_research_output_url(plan, research_output), 
-                    data: {:confirm => d_('dmpopidor', 'Deleting this research output will remove the associated answers. Do you confirm ?')}, 
-                    :method => :delete  do %>
-          <i class="fa fa-close pull-right delete" aria-hidden="true"
-                title="<%= d_('dmpopidor', 'Delete research output') %>" %></i>
+    <% unless readonly %>
+      <div class='research-output-actions'>
+        <%= link_to new_edit_linked_madmp_fragments_url(
+                nil, 
+                :fragment_id => research_output_fragment.id, 
+                :parent_id => research_output_fragment.dmp_id, 
+                :classname => "research_output"
+            ),  {
+                :remote => true, 
+                'data-toggle' =>  "modal", 
+                'data-target' => '#modal-window'
+            }  do %>
+          <i class="fa fa-edit pull-left edit" aria-hidden="true"
+                  title="<%= d_('dmpopidor', 'Edit research output') %>"></i>
+        <% end %> 
+        <% if plan.research_outputs.length > 1 && index != 0 %>
+          <i class="fa fa-arrows handle" aria-hidden="true" 
+                  title="<%= d_('dmpopidor', 'Move research output') %>"></i>
+                  
+          <%= link_to plan_research_output_url(plan, research_output), 
+                      data: {:confirm => d_('dmpopidor', 'Deleting this research output will remove the associated answers. Do you confirm ?')}, 
+                      :method => :delete  do %>
+            <i class="fa fa-close pull-right delete" aria-hidden="true"
+                  title="<%= d_('dmpopidor', 'Delete research output') %>" %></i>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
     <hr/>
 </div>
 <% end %>
