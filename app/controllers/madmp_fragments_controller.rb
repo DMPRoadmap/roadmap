@@ -3,14 +3,6 @@
 class MadmpFragmentsController < ApplicationController
 
   after_action :verify_authorized
-  
-  def update
-    @fragment = MadmpFragment.find(params[:id])
-    form_data = permitted_params.select { |k, v| schema_params(flat = true).include?(k) }
-    @fragment.update(data: data_reformater(json_schema, form_data))
-    authorize @fragment
-    render json: { id: @fragment.id }
-  end
 
   def create_or_update
     p_params = permitted_params()
@@ -36,9 +28,10 @@ class MadmpFragmentsController < ApplicationController
           id: p_params[:id],
           dmp_id: p_params[:dmp_id]
         })
+        new_data = @fragment.data.merge(data)
         authorize @fragment
         @fragment.update(
-          data: data
+          data: new_data
         )
       end
     end
