@@ -1,8 +1,9 @@
 export const paginableSelector = '.paginable';
 
 $(() => {
-  const onAjaxSuccessHandler = (e, data) => {
-    $(e.target).closest(paginableSelector).replaceWith($(data));
+  const onAjaxSuccessHandler = (e) => {
+    const data = e.detail[0];
+    $(e.target).closest(paginableSelector).replaceWith(data.html);
   };
   // Event listener for Ajax success event captured in response to a paginable link clicked or
   // search form submitted. Note the presence of a selector for on (e.g. a[data-remote="true"])
