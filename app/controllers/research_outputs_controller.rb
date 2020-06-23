@@ -25,12 +25,14 @@ class ResearchOutputsController < ApplicationController
   def destroy
     @plan = Plan.find(params[:plan_id])
     @research_output = ResearchOutput.find(params[:id])
+    research_output_fragment = @research_output.json_fragment 
     authorize @plan
     if @research_output.destroy
-        flash[:notice] = success_message(@plan, _("deleted"))
-        redirect_to(:action => 'index')
+      research_output_fragment.destroy!
+      flash[:notice] = success_message(@research_output, _("deleted"))
+      redirect_to(:action => 'index')
     else
-      flash[:alert] = failure_message(@plan, _("delete"))
+      flash[:alert] = failure_message(@research_output, _("delete"))
       redirect_to(:action => 'index')
     end
   end
