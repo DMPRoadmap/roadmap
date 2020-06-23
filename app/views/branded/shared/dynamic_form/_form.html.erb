@@ -21,10 +21,10 @@
     <%= create_checkbox_field(f, value, field_name, prop['label']) %>
   <% when 'array' %>
     <% if prop['items']['type'] == 'object' %>
-      <% unless classname == "research_output" %>%
+      <% unless classname == "research_output" %>
         <%= render(partial: 'shared/dynamic_form/fields/complex_multiple_field', locals: { 
-          field_values: MadmpFragment.where(parent_id: parent_id, classname: prop['items']['classname']), 
-          parent_id: parent_id,
+          field_values: MadmpFragment.where(parent_id: fragment_id, classname: prop['items']['classname']), 
+          parent_id: fragment_id,
           classname: prop['items']['classname'],
           field_name: field_name, answer_id: nil 
           }
@@ -56,7 +56,7 @@
                 readonly: readonly, 
                 schema: sub_schema,
                 classname: prop["classname"],
-                parent_id: parent_id,
+                fragment_id: fragment_id,
                 form_prefix: prop["classname"]
               }) %>
         </fieldset>

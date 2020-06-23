@@ -173,7 +173,7 @@ module Dmpopidor
       def permitted_params
         permit_arr = [:id, :text, :plan_id, :user_id,
           :question_id, :lock_version,
-          :research_output_id, :is_common,
+          :research_output_id, :is_common, :parent_id,
           question_option_ids: []]
         permitted = params.require(:answer).permit(permit_arr.flatten)
         # If question_option_ids has been filtered out because it was a
