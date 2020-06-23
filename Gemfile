@@ -71,9 +71,6 @@ gem "pg", group: :pgsql, require: false
 # Bit fields for ActiveRecord (https://github.com/pboling/flag_shih_tzu)
 gem "flag_shih_tzu" #, "~> 0.3.23"
 
-# Required for the `import` statements at the top of the Stat generators
-gem "activerecord-import"
-
 # ======== #
 # SECURITY #
 # ======== #
