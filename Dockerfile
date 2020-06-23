@@ -11,7 +11,7 @@ ENV HOME=/root \
     RUBY_VERSION=2.4.9
 
 
-# Fetching Yarn
+# Addin Yarn repo
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
   && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
@@ -38,6 +38,10 @@ RUN apt-get -qqy update \
     yarn \
     ca-certificates -qqy \
     && rm -rf /var/lib/apt/lists/*
+
+# Installing Node 10.x
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
+RUN apt install -y nodejs
 
 # Fetching WKHTMLTOPDF
 RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb \
