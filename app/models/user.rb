@@ -77,6 +77,9 @@ class User < ApplicationRecord
   # User Notification Preferences
   serialize :prefs, Hash
 
+  # default user language to the default language
+  attribute :language_id, :integer, default: Language.default.id
+
   # ================
   # = Associations =
   # ================
@@ -162,8 +165,8 @@ class User < ApplicationRecord
   # = Callbacks =
   # =============
 
-  before_validation :ensure_language
-
+  # TODO: should the following-three actions be replaced by overriding the
+  # org= method?
   before_update :clear_department_id, if: :org_id_changed?
 
   after_update :delete_perms!, if: :org_id_changed?, unless: :can_change_org?
@@ -453,11 +456,6 @@ class User < ApplicationRecord
 
   def clear_department_id
     self.department_id = nil
-  end
-
-  # Callback that ensures that a language is specified
-  def ensure_language
-    self.language = Language.default unless language.present?
   end
 
 end

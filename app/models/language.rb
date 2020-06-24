@@ -46,11 +46,17 @@ class Language < ApplicationRecord
 
   validates :default_language, inclusion: { in: BOOLEAN_VALUES }
 
-  # =============
-  # = Callbacks =
-  # =============
+  # =========================
+  # = Custom Accessor Logic =
+  # =========================
 
-  before_validation :format_abbreviation, if: :abbreviation_changed?
+  # ensure abbreviation is downcase and conforms to I18n locales
+  # TODO: evaluate the need for the LocaleService after move to Translation.io
+  def abbreviation=(value)
+    value.downcase!
+    super(value) if value.blank? || value =~ /\A[a-z]{2}\Z/i
+    super(LocaleService.to_i18n(locale: value).to_s)
+  end
 
   # ==========
   # = Scopes =
@@ -73,15 +79,6 @@ class Language < ApplicationRecord
 
   def self.default
     where(default_language: true).first
-  end
-
-  private
-
-  def format_abbreviation
-    abbreviation.downcase!
-    return if abbreviation.blank? || abbreviation =~ /\A[a-z]{2}\Z/i
-
-    self.abbreviation = LocaleService.to_i18n(locale: abbreviation).to_s
   end
 
 end

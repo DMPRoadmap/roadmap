@@ -38,9 +38,6 @@ class ApiClient < ApplicationRecord
   attribute :client_secret, :string,
             default: -> { unique_random(field_name: "client_secret") }
 
-  # Force the name to downcase
-  before_save :name_to_downcase
-
   # ===============
   # = Validations =
   # ===============
@@ -54,6 +51,16 @@ class ApiClient < ApplicationRecord
 
   validates :client_id, presence: { message: PRESENCE_MESSAGE }
   validates :client_secret, presence: { message: PRESENCE_MESSAGE }
+
+  # =========================
+  # = Custom Accessor Logic =
+  # =========================
+
+  # Ensure the name is always saved as lowercase
+  # TODO: do we want to add this as a validation as well?
+  def name=(value)
+    super(value&.downcase)
+  end
 
   # ===========================
   # = Public instance methods =
@@ -73,12 +80,6 @@ class ApiClient < ApplicationRecord
   def generate_credentials
     self.client_id = ApiClient.unique_random(field_name: "client_id")
     self.client_secret = ApiClient.unique_random(field_name: "client_secret")
-  end
-
-  private
-
-  def name_to_downcase
-    self.name = name.downcase
   end
 
 end

@@ -83,9 +83,14 @@ class Question < ApplicationRecord
                      uniqueness: { scope: :section_id,
                                    message: UNIQUENESS_MESSAGE }
 
+  # =============
+  # = Callbacks =
+  # =============
 
+  # TODO: condition.remove_list needs to be serialized (from Array) before we can check
+  # for related conditions, so this can't be replaced by :destroy on the association
   before_destroy :check_remove_conditions
-  
+
   # =====================
   # = Nested Attributes =
   # =====================
@@ -254,7 +259,7 @@ class Question < ApplicationRecord
       errors.add :base, OPTION_PRESENCE_MESSAGE
     end
   end
-  
+
   # before destroying a question we need to remove it from
   # and condition's remove_data and also if that remove_data is empty
   # destroy the condition.
