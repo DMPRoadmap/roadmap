@@ -101,13 +101,13 @@ $(() => {
     return panelBody.attr('data-loaded') === 'false';
   });
 
-  $(parentSelector).on('ajax:success', 'a.ajaxified-section[data-remote="true"]', (e, data) => {
+  $(parentSelector).on('ajax:success', 'a.ajaxified-section[data-remote="true"]', (e) => {
     const panelBody = $(e.target).parent().find('.panel-body');
     const panel = panelBody.parent();
     if (isObject(panelBody)) {
       // Display the section's html
       panelBody.attr('data-loaded', 'true');
-      panelBody.html(data);
+      panelBody.html(e.detail[0].html);
       // Wire up the section
       initSection(`#${panel.attr('id')}`);
     }
@@ -123,13 +123,13 @@ $(() => {
       });
     }
   });
-  $(parentSelector).on('ajax:success', 'a.ajaxified-question[data-remote="true"]', (e, data) => {
+  $(parentSelector).on('ajax:success', 'a.ajaxified-question[data-remote="true"]', (e) => {
     const target = $(e.target);
     const panelBody = getQuestionPanel(target);
     if (isObject(panelBody)) {
       const id = panelBody.attr('id');
       // Display the section's html
-      panelBody.html(data);
+      panelBody.html(e.detail[0].html);
       initQuestion(id);
       updateConditions(id);
       if (panelBody.is('.new-question')) {
