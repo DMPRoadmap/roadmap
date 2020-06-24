@@ -86,27 +86,27 @@ export default function updateConditions(id) {
     }
   };
 
-  // display conditions (editing) upon click of 'Add Logic'
-  parent.on('ajax:success', 'a.add-logic[data-remote="true"]', (e, data) => {
+  // display conditions (editing) upon click of 'Add Conditions'
+  parent.on('ajax:success', 'a.add-logic[data-remote="true"]', (e) => {
     addLogicButton.attr('data-loaded', 'true');
     addLogicButton.addClass('disabled');
     addLogicButton.blur();
     addLogicButton.text('Conditions');
     if (isObject(content)) {
-      content.html(data.container);
+      content.html(e.detail[0].container);
     }
     setSelectPicker();
-    webhookForm(data.webhooks, undefined);
+    webhookForm(e.detail[0].webhooks, undefined);
   });
 
   // add condition
-  parent.on('ajax:success', 'a.add-condition[data-remote="true"]', (e, data) => {
+  parent.on('ajax:success', 'a.add-condition[data-remote="true"]', (e) => {
     const conditionList = $(e.target).closest('#condition-container').find('.condition-list');
     const addDiv = $(e.target).closest('#condition-container').find('.add-condition-div');
     if (isObject(conditionList)) {
       conditionList.attr('data-loaded', 'true');
-      conditionList.append(data.attachment_partial);
-      addDiv.html(data.add_link);
+      conditionList.append(e.detail[0].attachment_partial);
+      addDiv.html(e.detail[0].add_link);
       conditionList.attr('data-loaded', 'false');
       setSelectPicker();
       const selectObject = conditionList.find('.selectpicker.action-type').last();
