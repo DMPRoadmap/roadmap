@@ -49,6 +49,12 @@ class QuestionOption < ApplicationRecord
   validates :is_default, inclusion: { in: BOOLEAN_VALUES,
                                       message: INCLUSION_MESSAGE }
 
+  # =============
+  # = Callbacks =
+  # =============
+
+  # TODO: condition.option_list needs to be serialized (from Array) before we can check
+  # for related conditions, so this can't be replaced by :destroy on the association
   before_destroy :check_condition_options
 
   # ==========
