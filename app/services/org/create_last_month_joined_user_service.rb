@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-#import statements fix Circular dependancy errors due to threading
-import OrgDateRangeable
-import StatJoinedUser
-import StatJoinedUser::CreateOrUpdate
-import User
+# statements fix Circular dependancy errors due to threading
+# see: https://github.com/grosser/parallel#nameerror-uninitialized-constant
+OrgDateRangeable.class
+StatJoinedUser.class
+StatJoinedUser::CreateOrUpdate.class
+User.class
 
 class Org
 
