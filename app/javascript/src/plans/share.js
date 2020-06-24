@@ -3,7 +3,8 @@ import { isObject, isString } from '../utils/isType';
 
 $(() => {
   $('#set_visibility [name="plan[visibility]"]').click((e) => {
-    $(e.target).closest('form').submit();
+    const form = $(e.target).closest('form');
+    Rails.fire(form[0], 'submit');
   });
   $('#set_visibility').on('ajax:success', (e) => {
     const data = e.detail[0];
