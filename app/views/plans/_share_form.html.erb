@@ -58,7 +58,7 @@
                 <span><%= display_role(role) %></span>
             <% else %>
                 <% if administerable && role.user != current_user %>
-                      <%= form_for role, url: { controller: :roles, action: :update, id: role.id }, remote: true, html: { method: :put } do |f| %>
+                      <%= form_for role, url: { controller: :roles, action: :update, id: role.id }, remote: true, authenticity_token: true, html: { method: :put } do |f| %>
                       <div class="form-group col-xs-8">
                         <%= f.hidden_field :id %>
                         <%= f.select :access, {
