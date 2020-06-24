@@ -132,15 +132,4 @@ class Section < ApplicationRecord
     !modifiable?
   end
 
-  private
-
-  # ============================
-  # = Private instance methods =
-  # ============================
-
-  def set_number
-    return if phase.nil?
-    self.number = phase.sections.where.not(id: id).maximum(:number).to_i + 1
-  end
-
 end
