@@ -96,7 +96,7 @@ export default function updateConditions(id) {
       content.html(e.detail[0].container);
     }
     setSelectPicker();
-    webhookForm(data.webhooks, undefined);
+    webhookForm(e.detail[0].webhooks, undefined);
   });
 
   // add condition
