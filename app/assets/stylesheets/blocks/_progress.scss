@@ -1,3 +1,14 @@
 .progress {
   border-radius: 0px;
 }
+
+.progress-bar {
+    position: relative;
+}
+
+.progress-bar div {
+    float: left;
+    z-index: 99;
+    color: #000;
+    padding-left: 4px;
+}
