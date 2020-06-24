@@ -46,6 +46,13 @@ class Org < ApplicationRecord
     feedback_email_msg: _('Feedback email message')
   }
 
+  # TODO: we don't allow this to be edited on the frontend, can we remove from DB?
+  # if not, we'll need to add a rake:task to ensure that each of these is set for each
+  # org
+  attribute :feedback_email_subject, :string, default: -> { feedback_confirmation_default_subject }
+  attribute :feedback_email_msg, :text, default: -> { feedback_confirmation_default_message }
+  attribute :language_id, :integer, default: -> { Language.default.id }
+
   # Stores links as an JSON object:
   #  { org: [{"link":"www.example.com","text":"foo"}, ...] }
   # The links are validated against custom validator allocated at
@@ -62,7 +69,7 @@ class Org < ApplicationRecord
   belongs_to :region
 
   has_one :tracker, dependent: :destroy
-  accepts_nested_attributes_for :tracker 
+  accepts_nested_attributes_for :tracker
   validates_associated :tracker
 
   has_many :guidance_groups, dependent: :destroy
@@ -171,9 +178,15 @@ class Org < ApplicationRecord
               count(users.id) as user_count")
   }
 
-  before_validation :set_default_feedback_email_subject
+  # =============
+  # = Callbacks =
+  # =============
+
+  # this is basically checking the file-store for the dragonfly image each time
+  # before we validate in-case the db/system have moved and the link to the logo files
+  # is therefore different
+  # TODO: evaluate the need for this
   before_validation :check_for_missing_logo_file
-  before_validation :ensure_language
   after_create :create_guidance_group
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
@@ -184,6 +197,10 @@ class Org < ApplicationRecord
   def self.human_attribute_name(attr, options = {})
     HUMANIZED_ATTRIBUTES[attr.to_sym] || super
   end
+
+  # ===========================
+  # = Public instance methods =
+  # ===========================
 
   def links
     super() || { "org": [] }
@@ -304,12 +321,6 @@ class Org < ApplicationRecord
     end
   end
 
-  def set_default_feedback_email_subject
-    if self.feedback_enabled? && !self.feedback_email_subject.present?
-      self.feedback_email_subject = feedback_confirmation_default_subject
-    end
-  end
-
   # creates a dfefault Guidance Group on create on the Org
   def create_guidance_group
     GuidanceGroup.create!(
@@ -318,11 +329,6 @@ class Org < ApplicationRecord
       optional_subset: false,
       published: false,
     )
-  end
-
-  # Callback that ensures that a language is specified
-  def ensure_language
-    self.language = Language.default unless language.present?
   end
 
 end
