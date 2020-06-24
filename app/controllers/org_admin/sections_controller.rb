@@ -52,12 +52,12 @@ module OrgAdmin
                      else
                        "show"
                      end
-      render partial: partial_name,
+      render json: { html: render_to_string(partial: partial_name,
         locals: {
           template: section.phase.template,
           phase: section.phase,
           section: section
-        }
+        })}
     end
 
     # POST /org_admin/templates/[:template_id]/phases/[:phase_id]/sections
