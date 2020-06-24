@@ -17,12 +17,12 @@ module OrgAdmin
                                    section: { phase: :template })
                          .find(params[:id])
       authorize question
-      render partial: "show", locals: {
+      render json: { html: render_to_string(partial: "show", locals: {
         template: question.section.phase.template,
         section: question.section,
         question: question,
         conditions: question.conditions
-      }
+      })}
     end
 
     def open_conditions
@@ -37,19 +37,21 @@ module OrgAdmin
                     webhooks: webhook_hash(question.conditions) }
     end
 
+    
+    # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/questions/[:question_id]/edit
     def edit
       question = Question.includes(:annotations,
                                    :question_options,
                                    section: { phase: :template })
                          .find(params[:id])
       authorize question
-      render partial: "edit", locals: {
+      render json: { html: render_to_string(partial: "edit", locals: {
         template: question.section.phase.template,
         section: question.section,
         question: question,
         question_formats: allowed_question_formats,
         conditions: question.conditions
-      }
+      })}
     end
 
     def new
@@ -61,7 +63,7 @@ module OrgAdmin
                               number: nbr.present? ? nbr + 1 : 1)
       question_formats = allowed_question_formats
       authorize question
-      render partial: "form", locals: {
+      render json: { html: render_to_string(partial: "form", locals: {
         template: section.phase.template,
         section: section,
         question: question,
@@ -71,7 +73,7 @@ module OrgAdmin
           phase_id: section.phase.id,
           id: section.id),
         question_formats: question_formats
-      }
+      }) }
     end
 
     def create
