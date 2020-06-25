@@ -66,12 +66,6 @@ ActiveRecord::Schema.define(version: 20200601121822) do
 
   add_index "api_clients", ["name"], name: "index_api_clients_on_name", using: :btree
 
-  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
-    t.string   "value",      limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
   create_table "conditions", force: :cascade do |t|
     t.integer  "question_id",  limit: 4
     t.text     "option_list",  limit: 65535
@@ -300,7 +294,6 @@ ActiveRecord::Schema.define(version: 20200601121822) do
     t.integer  "grant_id",                          limit: 4
     t.datetime "start_date"
     t.datetime "end_date"
-    t.integer  "api_client_id",                     limit: 4
   end
 
   add_index "plans", ["org_id"], name: "fk_rails_eda8ce4bca", using: :btree
@@ -553,6 +546,8 @@ ActiveRecord::Schema.define(version: 20200601121822) do
   add_index "users_perms", ["perm_id"], name: "fk_rails_457217c31c", using: :btree
   add_index "users_perms", ["user_id"], name: "index_users_perms_on_user_id", using: :btree
 
+  add_foreign_key "annotations", "orgs"
+  add_foreign_key "annotations", "questions"
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
