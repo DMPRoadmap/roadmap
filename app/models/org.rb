@@ -50,7 +50,7 @@ class Org < ApplicationRecord
   # if not, we'll need to add a rake:task to ensure that each of these is set for each
   # org
   attribute :feedback_email_subject, :string, default: feedback_confirmation_default_subject
-  attribute :feedback_email_msg, :text, default: feedback_confirmation_default_message 
+  attribute :feedback_email_msg, :text, default: feedback_confirmation_default_message
   attribute :language_id, :integer, default: -> { Language.default.id }
 
   # Stores links as an JSON object:
@@ -178,12 +178,6 @@ class Org < ApplicationRecord
               count(users.id) as user_count")
   }
 
-  # =============
-  # = Callbacks =
-  # =============
-
-  after_create :create_guidance_group
-
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?
@@ -293,16 +287,6 @@ class Org < ApplicationRecord
         self.logo = logo.thumb("x100")  # resize height and maintain aspect ratio
       end
     end
-  end
-
-  # creates a dfefault Guidance Group on create on the Org
-  def create_guidance_group
-    GuidanceGroup.create!(
-      name: abbreviation? ? self.abbreviation : self.name,
-      org: self,
-      optional_subset: false,
-      published: false,
-    )
   end
 
 end

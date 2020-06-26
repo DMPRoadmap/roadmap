@@ -11,6 +11,7 @@ class GuidancesController < ApplicationController
     authorize Guidance
     @guidances = Guidance.by_org(current_user.org)
                          .includes(:guidance_group, :themes).page(1)
+    ensure_default_group(current_user.org)
     @guidance_groups = GuidanceGroup.by_org(current_user.org).page(1)
   end
 
@@ -138,4 +139,10 @@ class GuidancesController < ApplicationController
     params.require(:guidance).permit(:guidance_group_id, :published, theme_ids: [])
   end
 
+
+  def ensure_default_group(org)
+    return unless org.managed?
+    return if org.guidance_groups.where(optional_subset: false).present?
+    GuidanceGroup.create_org_default(org)
+  end
 end
