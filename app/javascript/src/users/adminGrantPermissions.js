@@ -4,11 +4,6 @@ import { scrollTo } from '../utils/scrollTo';
 
 $(() => {
   // Activate/Deactivate user account
-  $('body').on('click, change', '.activate-user input[type="checkbox"]', (e) => {
-    const form = $(e.target).closest('form');
-    hideNotifications();
-    form.submit();
-  });
   $('body').on('ajax:success', '.activate-user', (e) => {
     const data = e.detail[0];
     if (data.code === 1 && data.msg && data.msg !== '') {
@@ -65,7 +60,7 @@ $(() => {
   });
   // Event delegation handler after an error response is obtained
   $('body').on('ajax:error', '.admin_update_permissions', (e) => {
-    const xhr = e.detail[0];
+    const xhr = e.detail[2];
     if (isObject(xhr)) {
       const error = xhr.responseJSON;
       if (isObject(xhr) && isString(error.msg)) {
