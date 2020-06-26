@@ -59,10 +59,10 @@ class Org < ApplicationRecord
 
   belongs_to :language, optional: true
 
-  belongs_to :region
+  belongs_to :region, optional: true
 
   has_one :tracker, dependent: :destroy
-  accepts_nested_attributes_for :tracker 
+  accepts_nested_attributes_for :tracker
   validates_associated :tracker
 
   has_many :guidance_groups, dependent: :destroy
