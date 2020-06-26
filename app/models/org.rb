@@ -33,7 +33,7 @@
 
 class Org < ApplicationRecord
 
-  include FeedbacksHelper
+  extend FeedbacksHelper
   include FlagShihTzu
   include Identifiable
 
@@ -49,8 +49,8 @@ class Org < ApplicationRecord
   # TODO: we don't allow this to be edited on the frontend, can we remove from DB?
   # if not, we'll need to add a rake:task to ensure that each of these is set for each
   # org
-  attribute :feedback_email_subject, :string, default: -> { feedback_confirmation_default_subject }
-  attribute :feedback_email_msg, :text, default: -> { feedback_confirmation_default_message }
+  attribute :feedback_email_subject, :string, default: feedback_confirmation_default_subject
+  attribute :feedback_email_msg, :text, default: feedback_confirmation_default_message 
   attribute :language_id, :integer, default: -> { Language.default.id }
 
   # Stores links as an JSON object:
@@ -66,7 +66,7 @@ class Org < ApplicationRecord
 
   belongs_to :language, optional: true
 
-  belongs_to :region
+  belongs_to :region, optional: true
 
   has_one :tracker, dependent: :destroy
   accepts_nested_attributes_for :tracker
