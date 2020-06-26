@@ -37,6 +37,15 @@ class ResearchOutputsController < ApplicationController
     end
   end
 
+  def sort
+    @plan = Plan.find(params[:plan_id])
+    authorize @plan
+    params[:updated_order].each_with_index do |id, index|
+      ResearchOutput.find(id).update(order: index)
+    end
+    head :ok
+  end
+
   def create_remote 
     @plan = Plan.find(params[:plan_id])
     max_order = @plan.research_outputs.maximum('order') + 1

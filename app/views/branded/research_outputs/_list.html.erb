@@ -1,4 +1,5 @@
 <%# locals: { plan, research_output, research_output_types } %>
+<%= hidden_field_tag "plan_id", plan.id, class: 'plan-id' %>
 <% research_outputs.each_with_index do |research_output, index|%>
   <% research_output_fragment = research_output.json_fragment %>
   <% research_output_data = research_output_fragment.data if research_output_fragment.present?%>
@@ -16,6 +17,7 @@
         <strong><%= d_('dmpopidor', 'Type') %></strong> 
         <span><%= research_output_data['type'] %></span>
       </div>
+      <%= hidden_field_tag "id", research_output.id, class: 'research-output-id' %>
     </div>
     <% unless readonly %>
       <div class='research-output-actions'>

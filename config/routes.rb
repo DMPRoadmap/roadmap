@@ -124,6 +124,7 @@ Rails.application.routes.draw do
 
   resources :research_outputs, only: [] do 
     get 'create_remote', on: :collection
+    post 'sort', on: :collection
   end
 
   resources :madmp_fragments, only: [:new, :edit, :create, :update, :destroy] do

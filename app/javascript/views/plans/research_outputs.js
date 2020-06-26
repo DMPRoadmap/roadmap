@@ -3,25 +3,22 @@ $(() => {
   $('#research-outputs').sortable({
     items: '.research-output-element:not(.inactive)',
     handle: '.research-output-actions .handle',
-    stop: () => {
-      $('#research-outputs .research-output-element').each(function callback(index) {
-        $(this).find('.research-output-order').val(index + 1);
+    update: () => {
+      const updatedOrder = [];
+      const planId = $('#research-outputs .plan-id').val()
+      $('#research-outputs .research-output-element').each(function callback() {
+        updatedOrder.push($(this).find('.research-output-id').val());
+      });
+      $.ajax({
+        url: '/research_outputs/sort',
+        method: 'post',
+        data: {
+          plan_id: planId,
+          updated_order: updatedOrder,
+        },
       });
     },
   });
-
-  // $('#add-research-output').click(() => {
-  //   $.ajax({
-  //     url: '/research_outputs/create_remote',
-  //     method: 'get',
-  //     success: (data) => {
-  //       $('#research-outputs').html(data.html);
-  //     },
-  //     error: (err) => {
-  //       console.log(err);
-  //     },
-  //   });
-  // });
   $('#research-outputs').on('ajax:success', (e, data) => {
     $('#research-outputs-list').html(data.html);
   });

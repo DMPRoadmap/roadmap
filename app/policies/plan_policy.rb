@@ -84,4 +84,8 @@ class PlanPolicy < ApplicationPolicy
     @plan.editable_by?(@user.id)
   end
 
+  def sort?
+    @plan.editable_by?(@user.id)
+  end
+
 end
