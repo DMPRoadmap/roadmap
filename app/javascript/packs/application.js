@@ -75,15 +75,11 @@ import '../src/superAdmin/users/edit';
 // Since we're using Webpacker to manage JS we need to startup Rails' Unobtrusive JS
 // and Turbolinks. ActiveStorage and ActionCable would also need to be in here
 // if we decide to implement either before Rails 6
-import Rails from '@rails/ujs';
-
-// Make Rails UJS functions available in our custom JS and js.erb files
-Rails.start();
-window.Rails = Rails;
+require('@rails/ujs').start();
 
 // TODO: Disabled turbolinks for the time being because our custom JS is not
 //       properly setup to work with it. We should review the docs:
 //       https://github.com/turbolinks/turbolinks
-// require('turbolinks').start();
+require('turbolinks').start();
 // require("@rails/activestorage").start()
 // require("@rails/actioncable").start()

@@ -4,6 +4,7 @@ class RolesController < ApplicationController
 
   include ConditionalUserMailer
   respond_to :html
+
   after_action :verify_authorized
 
   def create
@@ -70,7 +71,7 @@ class RolesController < ApplicationController
     @role = Role.find(params[:id])
     authorize @role
 
-    if @role.update_attributes(access: role_params[:access])
+    if @role.update_attributes(access: params[:access])
       deliver_if(recipients: @role.user, key: "users.added_as_coowner") do |r|
         UserMailer.permissions_change_notification(@role, current_user).deliver_now
       end

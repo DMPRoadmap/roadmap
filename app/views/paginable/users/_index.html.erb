@@ -81,10 +81,11 @@
                   </td>
                   <td class="text-center user-status">
                     <% if is_super_admin %>
-                      <%= form_for user, url: activate_user_path(user), html: { method: :put, remote: true, class: 'activate-user' } do |f| %>
-                        <%= check_box_tag(:active, "1", user.active, "aria-label": "active" ) %>
-                        <%= f.submit(_('Update'), style: 'display: none;') %>
-                      <% end %>
+                      <%= check_box_tag :is_test, "1", user.active,
+                                                  class: "activate-user",
+                                                  authenticity_token: true,
+                                                  data: { remote: true, method: :put,
+                                                          url: activate_user_path(user) } %>
                     <% else %>
                       <%= user.active? ? _('Yes') : _('No') %>
                     <% end %>

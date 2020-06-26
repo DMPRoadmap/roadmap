@@ -58,16 +58,22 @@
                 <span><%= display_role(role) %></span>
             <% else %>
                 <% if administerable && role.user != current_user %>
-                      <%= form_for role, url: { controller: :roles, action: :update, id: role.id }, remote: true, authenticity_token: true, html: { method: :put } do |f| %>
-                      <div class="form-group col-xs-8">
-                        <%= f.hidden_field :id %>
-                        <%= f.select :access, {
-                              "#{display_role(administrator)}": administrator.access,
-                              "#{display_role(editor)}": editor.access,
-                              "#{display_role(commenter)}": commenter.access
-                            }, {}, { id: "#{role.id}-can-edit", class: "toggle-existing-user-access" } %>
-                      </div>
-                    <% end %>
+                  <div class="form-group col-xs-8">
+                    <% options = [
+                      ["#{display_role(administrator)}", administrator.access],
+                      ["#{display_role(editor)}", editor.access],
+                      ["#{display_role(commenter)}", commenter.access]
+                    ] %>
+                    <%= select_tag :access, options_for_select(options),
+                                            class: "toggle-existing-user-access",
+                                            authenticity_token: true,
+                                            data: {
+                                              remote: true,
+                                              method: :patch,
+                                              url: role_path(role),
+                                              params: { role: {} }
+                                            } %>
+                  </div>
                 <% else %>
                     <span><%= display_role(role) %></span>
                 <% end %>
