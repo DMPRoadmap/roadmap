@@ -1,5 +1,5 @@
 import { isObject, isString } from '../utils/isType';
-import { renderNotice, renderAlert, hideNotifications } from '../utils/notificationHelper';
+import { renderNotice, renderAlert } from '../utils/notificationHelper';
 import { scrollTo } from '../utils/scrollTo';
 
 $(() => {
