@@ -6,11 +6,10 @@ class MadmpFragmentsController < ApplicationController
 
   def create_or_update
     p_params = permitted_params()
-    classname = params[:classname]
-    schema = MadmpSchema.find_by(classname: classname)
+    schema = MadmpSchema.find(p_params[:schema_id])
+    classname = schema.classname
     data = schema_params(schema)
     
-
     # rubocop:disable BlockLength
     MadmpFragment.transaction do
       if p_params[:id].empty?
@@ -40,7 +39,7 @@ class MadmpFragmentsController < ApplicationController
       render json: { 
           "fragment_id" =>  @fragment.parent_id,
           "classname" => classname,
-          "html" => render_fragment_list(@fragment.dmp_id, @fragment.parent_id, classname)
+          "html" => render_fragment_list(@fragment.dmp_id, @fragment.parent_id, schema.id)
       }
     end
   end
@@ -48,9 +47,10 @@ class MadmpFragmentsController < ApplicationController
 
 
   def new_edit_linked
-    @classname = params[:classname]
+    @schema = MadmpSchema.find(params[:schema_id])
     @parent_fragment = MadmpFragment.find(params[:parent_id])
-    @schema = MadmpSchema.find_by(classname: @classname)
+    @classname = @schema.classname
+
     @fragment = nil
     dmp_id = @parent_fragment.classname == "dmp" ? @parent_fragment.id : @parent_fragment.dmp_id
     if params[:fragment_id] 
@@ -79,13 +79,13 @@ class MadmpFragmentsController < ApplicationController
       obj_list = MadmpFragment.where(
         dmp_id: dmp_id,
         parent_id: parent_id,
-        classname: classname
+        madmp_schema_id: @fragment.madmp_schema_id
       )
       
       render json: {
         "fragment_id" =>  parent_id,
         "classname" => classname,
-        "html" => render_fragment_list(dmp_id, parent_id, classname)
+        "html" => render_fragment_list(dmp_id, parent_id, @fragment.madmp_schema_id)
       }
     end
   end
@@ -102,8 +102,9 @@ class MadmpFragmentsController < ApplicationController
 
   private
 
-  def render_fragment_list(dmp_id, parent_id, classname) 
-    case classname
+  def render_fragment_list(dmp_id, parent_id, schema_id)
+    schema = MadmpSchema.find(schema_id)
+    case schema.classname
     when "research_output"
       @plan = Fragment::Dmp.where(id: dmp_id).first.plan
       return render_to_string(partial: 'research_outputs/list', locals: {
@@ -116,12 +117,12 @@ class MadmpFragmentsController < ApplicationController
       obj_list = MadmpFragment.where(
         dmp_id: dmp_id,
         parent_id: parent_id,
-        classname: classname
+        madmp_schema_id: schema.id
       )
       return render_to_string(partial: 'shared/dynamic_form/linked_fragment/list', locals: {
                   parent_id: parent_id,
                   obj_list: obj_list,
-                  classname: classname
+                  schema: schema
       })
     end
   end

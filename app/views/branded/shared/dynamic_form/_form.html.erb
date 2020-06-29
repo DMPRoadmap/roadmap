@@ -20,12 +20,13 @@
   <% when 'boolean' %>
     <%= create_checkbox_field(f, value, field_name, prop['label']) %>
   <% when 'array' %>
-    <% if prop['items']['type'] == 'object' %>
+    <% if prop['items']['type'] == 'object' &&  prop['items']['schema_id'].present? %>
       <% unless classname == "research_output" %>
+        <% sub_schema = MadmpSchema.find(prop['items']['schema_id']) %>
         <%= render(partial: 'shared/dynamic_form/fields/complex_multiple_field', locals: { 
-          field_values: MadmpFragment.where(parent_id: fragment_id, classname: prop['items']['classname']), 
+          field_values: MadmpFragment.where(parent_id: fragment_id, madmp_schema_id: sub_schema.id ), 
           parent_id: fragment_id,
-          classname: prop['items']['classname'],
+          schema: sub_schema,
           field_name: field_name, answer_id: nil 
           }
         ) %>
@@ -41,13 +42,13 @@
       ) %>
     <% end %>
   <% when 'object' %>
-    <% if !prop["classname"].nil?  || classname != "research_output" %>
+    <% if prop["schema_id"].present?  || classname != "research_output" %>
       <div class="col-md-12">
         <fieldset class="answer-fieldset">
           <legend class="answer-fieldset"><%= field_name %></legend>
           <%
-            sub_schema = prop["classname"] ? 
-                        MadmpSchema.find_by(classname: prop["classname"]).schema : 
+            sub_schema = prop["schema_id"] ? 
+                        MadmpSchema.find(prop["schema_id"]).schema : 
                         prop
           %>
           <%= render(partial: 'shared/dynamic_form/form', locals: { 

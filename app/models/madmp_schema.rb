@@ -53,8 +53,8 @@ class MadmpSchema < ActiveRecord::Base
   def generate_strong_params(flat = false)
     parameters = Array.new
     self.schema['properties'].each do |key, prop|
-      if prop['type'] == "object" && prop['classname'].present?
-        sub_schema = MadmpSchema.find_by(classname: prop['classname'])
+      if prop['type'] == "object" && prop['schema_id'].present?
+        sub_schema = MadmpSchema.find(prop['schema_id'])
         parameters.append(key => sub_schema.generate_strong_params(false))
       elsif prop['type'] == "array" && !flat
           parameters.append({key => []})
