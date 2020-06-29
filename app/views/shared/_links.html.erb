@@ -1,5 +1,7 @@
 <%# locals: { context, title, links, max_number_links, tooltip } %>
-<div class="links" data-context="<%= context.present? ? context: 'default' %>" data-max-number-links="<%= max_number_links %>">
+<div class="links" data-context="<%= context.present? ? context: 'default' %>"
+                   data-max-number-links="<%= max_number_links %>"
+                   data-turbolinks="false">
   <div class="row">
     <div class="col-xs-12">
       <h3><%= title.present? ? title : _('Links') %>&nbsp;
@@ -8,7 +10,8 @@
             <%= max_number_links %>
           </span>)
         </small>&nbsp;
-        <a href="#" aria-label="<%= _('Text') %>" data-toggle="tooltip" data-placement="right" title="<%= tooltip %>">
+        <a href="#" aria-label="<%= _('Text') %>" data-toggle="tooltip"
+           data-placement="right" title="<%= tooltip %>">
           <i class="fa fa-question-circle fa-reverse" aria-hidden="true"></i>
           <em class="sr-only"><%= tooltip %></em>
         </a>
