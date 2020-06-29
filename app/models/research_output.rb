@@ -101,6 +101,7 @@ class ResearchOutput < ActiveRecord::Base
           "description" => self.fullname,
           "type" => self.type.label
         },
+        madmp_schema_id: MadmpSchema.find_by(classname: "research_output"),
         dmp_id: dmp_fragment.id,
         parent_id: dmp_fragment.id
       )

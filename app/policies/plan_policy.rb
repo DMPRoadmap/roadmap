@@ -80,7 +80,11 @@ class PlanPolicy < ApplicationPolicy
     @plan.editable_by?(@user.id)
   end
 
-  def new_edit_linked_fragment?
+  def create_remote?
+    @plan.editable_by?(@user.id)
+  end
+
+  def sort?
     @plan.editable_by?(@user.id)
   end
 

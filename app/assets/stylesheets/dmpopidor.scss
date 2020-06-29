@@ -936,7 +936,7 @@ header .main-nav {
     }
 }
 
-#research-outputs {
+#research-outputs-list {
     width: 100%;
     padding: 0 5px;
     margin-top: 5px;
@@ -957,6 +957,9 @@ header .main-nav {
             .research-output-pid, .research-output-type {
                 width: 30%;
             }
+            .research-output-field {
+                padding-top: 7px;
+            }
         }
         .research-output-actions {
             flex: 1;
@@ -972,6 +975,9 @@ header .main-nav {
                 color: $blue;
             }
         }
+    }
+    fieldset {
+        width: 100%;
     }
 }
 
@@ -1037,6 +1043,12 @@ header .main-nav {
         }
     }
 
+ }
+
+ #modal-window {
+     .modal-dialog {
+         width: 50%;
+     }
  }
 
 /*

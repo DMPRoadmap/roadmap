@@ -10,7 +10,7 @@ class MadmpFragmentPolicy < ApplicationPolicy
   def destroy?
     @fragment.plan.editable_by?(@user.id) || @user == @answer.plan.owner
   end
-  def new_edit_linked_fragment?
+  def new_edit_linked?
     @fragment.plan.editable_by?(@user.id) || @user == @answer.plan.owner
   end
   def get_fragment?

@@ -4,6 +4,7 @@
     <% question_displayed = false %>
 
     <% research_outputs.each do |research_output| %>
+      <% research_output_fragment = research_output.json_fragment %>
       <% section_has_common_answers = research_output.get_main().has_common_answers?(section[:id]) %>
       <% answer = section_has_common_answers ? 
             @plan.answer(question[:id], false, research_output.get_main().id) : 
@@ -28,7 +29,8 @@
         <% question_displayed = true %>
 
         <% if !section_has_common_answers %>
-          <h4><%= research_output.abbreviation %> : <%= research_output.fullname %></h4>
+          <h4><%= research_output_fragment.data['title'] %> : <%= research_output_fragment.data['description'] %></h4>
+
         <% end %>
         
         <%# case where question has not been answered sufficiently to display%>

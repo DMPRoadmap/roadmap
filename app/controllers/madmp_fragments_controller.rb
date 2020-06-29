@@ -4,38 +4,6 @@ class MadmpFragmentsController < ApplicationController
 
   after_action :verify_authorized
 
-  # Instanciates a new structured answer/fragment
-  # def new
-  #   @fragment = MadmpFragment.new
-  #   @fragment.madmp_schema = MadmpSchema.find(params[:schema_id])
-  #   authorize @fragment
-  #   render layout: false
-  # end
-  
-  # def edit
-  #   @fragment = MadmpFragment.find(params[:id])
-  #   authorize @fragment
-  #   render layout: false
-  # end
-
-  # def create
-  #   form_data = permitted_params.select { |k, v| schema_params(flat = true).include?(k) }
-  #   @fragment = MadmpFragment.create(
-  #     madmp_schema: MadmpSchema.find(permitted_params[:schema_id]),
-  #     data: data_reformater(json_schema, form_data)
-  #   )
-  #   authorize @fragment
-  #   render json: { id: @fragment.id }
-  # end
-  
-  def update
-    @fragment = MadmpFragment.find(params[:id])
-    form_data = permitted_params.select { |k, v| schema_params(flat = true).include?(k) }
-    @fragment.update(data: data_reformater(json_schema, form_data))
-    authorize @fragment
-    render json: { id: @fragment.id }
-  end
-
   def create_or_update
     p_params = permitted_params()
     classname = params[:classname]
@@ -60,43 +28,36 @@ class MadmpFragmentsController < ApplicationController
           id: p_params[:id],
           dmp_id: p_params[:dmp_id]
         })
+        new_data = @fragment.data.merge(data)
         authorize @fragment
         @fragment.update(
-          data: data
+          data: new_data
         )
       end
     end
         
     if @fragment.present?
-      obj_list = MadmpFragment.where(
-          dmp_id: @fragment.dmp_id,
-          parent_id: @fragment.parent_id,
-          classname: classname
-      )
       render json: { 
           "fragment_id" =>  @fragment.parent_id,
           "classname" => classname,
-          "html" => render_to_string(partial: 'shared/dynamic_form/linked_fragment/list', locals: {
-                      parent_id: @fragment.parent_id,
-                      obj_list: obj_list,
-                      classname: classname
-        })
+          "html" => render_fragment_list(@fragment.dmp_id, @fragment.parent_id, classname)
       }
     end
   end
 
 
 
-  def new_edit_linked_fragment
+  def new_edit_linked
     @classname = params[:classname]
     @parent_fragment = MadmpFragment.find(params[:parent_id])
     @schema = MadmpSchema.find_by(classname: @classname)
-    @fragment = nil 
+    @fragment = nil
+    dmp_id = @parent_fragment.classname == "dmp" ? @parent_fragment.id : @parent_fragment.dmp_id
     if params[:fragment_id] 
       @fragment = MadmpFragment.find(params[:fragment_id]) 
     else
       @fragment = MadmpFragment.new(
-          dmp_id: @parent_fragment.dmp_id,
+          dmp_id: dmp_id,
           parent_id: @parent_fragment.id
         )
     end
@@ -124,12 +85,8 @@ class MadmpFragmentsController < ApplicationController
       render json: {
         "fragment_id" =>  parent_id,
         "classname" => classname,
-        "html" => render_to_string(partial: 'shared/dynamic_form/linked_fragment/list', locals: {
-                                      parent_id: @fragment.parent_id,
-                                      obj_list: obj_list,
-                                      classname: classname
-            })
-        }
+        "html" => render_fragment_list(dmp_id, parent_id, classname)
+      }
     end
   end
 
@@ -145,8 +102,28 @@ class MadmpFragmentsController < ApplicationController
 
   private
 
-  def json_schema
-    MadmpSchema.find(params['madmp_fragment']['schema_id']).schema
+  def render_fragment_list(dmp_id, parent_id, classname) 
+    case classname
+    when "research_output"
+      @plan = Fragment::Dmp.where(id: dmp_id).first.plan
+      return render_to_string(partial: 'research_outputs/list', locals: {
+        plan: @plan,
+        research_outputs: @plan.research_outputs,
+        readonly: false
+      })
+
+    else 
+      obj_list = MadmpFragment.where(
+        dmp_id: dmp_id,
+        parent_id: parent_id,
+        classname: classname
+      )
+      return render_to_string(partial: 'shared/dynamic_form/linked_fragment/list', locals: {
+                  parent_id: parent_id,
+                  obj_list: obj_list,
+                  classname: classname
+      })
+    end
   end
 
   # Get the parameters conresponding to the schema
@@ -158,18 +135,5 @@ class MadmpFragmentsController < ApplicationController
   def permitted_params
     permit_arr = [:id, :dmp_id, :parent_id, :schema_id]
     params.require(:madmp_fragment).permit(permit_arr)
-  end
-
-  def funding_params
-      params.require(:madmp_fragment)
-            .permit(:fundingStatus,
-                    funder: [:name, :dataPolicyUrl, funderId: [:value, :idType]],
-                    grantId: [:value, :idType])
-  end
-  
-  def partner_params
-      params.require(:madmp_fragment)
-            .permit(:name, :dataPolicyUrl,
-                    orgId: [:value, :idType])
   end
 end

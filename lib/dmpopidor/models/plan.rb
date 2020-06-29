@@ -213,19 +213,22 @@ module Dmpopidor
         dmp_fragment = Fragment::Dmp.create(
           data: {
             "plan_id" => self.id
-          }
+          },
+          madmp_schema_id: MadmpSchema.find_by(classname: 'dmp')
         )
         
         Fragment::Project.create(
           data: create_project_json(),
           dmp_id: dmp_fragment.id,
-          parent_id: dmp_fragment.id
+          parent_id: dmp_fragment.id,
+          madmp_schema_id: MadmpSchema.find_by(classname: 'project')
         )
 
         Fragment::Meta.create(
           data: create_meta_json(),
           dmp_id: dmp_fragment.id,
-          parent_id: dmp_fragment.id
+          parent_id: dmp_fragment.id,
+          madmp_schema_id: MadmpSchema.find_by(classname: 'meta')
         )  
       end
 

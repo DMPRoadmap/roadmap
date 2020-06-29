@@ -13,7 +13,7 @@
     <% elsif prop['format'] == 'email' %>
       <%= create_email_field(f, value, field_name, prop['label']) %>
     <% elsif prop['format'] == 'select' && prop['values'] %>
-      <%= create_select_field(f, value, "answer[#{field_name}]", prop['label'], prop['values']) %>
+      <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", prop['label'], prop['values']) %>
     <%end%>
   <% when 'integer' %>
     <%= create_number_field(f, value, field_name, prop['label']) %>
@@ -21,13 +21,15 @@
     <%= create_checkbox_field(f, value, field_name, prop['label']) %>
   <% when 'array' %>
     <% if prop['items']['type'] == 'object' %>
-      <%= render(partial: 'shared/dynamic_form/fields/complex_multiple_field', locals: { 
-        field_values: MadmpFragment.where(parent_id: parent_id, classname: prop['items']['classname']), 
-        parent_id: parent_id,
-        classname: prop['items']['classname'],
-        field_name: field_name, answer_id: nil 
-        }
-      ) %>
+      <% unless classname == "research_output" %>
+        <%= render(partial: 'shared/dynamic_form/fields/complex_multiple_field', locals: { 
+          field_values: MadmpFragment.where(parent_id: fragment_id, classname: prop['items']['classname']), 
+          parent_id: fragment_id,
+          classname: prop['items']['classname'],
+          field_name: field_name, answer_id: nil 
+          }
+        ) %>
+      <% end %>
     <% else %>
       <%= render(partial: 'shared/dynamic_form/fields/simple_multiple_field', locals: { 
         f: f, 
@@ -39,23 +41,26 @@
       ) %>
     <% end %>
   <% when 'object' %>
-    <div class="col-md-12">
-      <fieldset class="answer-fieldset">
-        <legend class="answer-fieldset"><%= field_name %></legend>
-        <%
-          sub_schema = prop["classname"] ? 
-                       MadmpSchema.find_by(classname: prop["classname"]).schema : 
-                       prop
-        %>
-        <%= render(partial: 'shared/dynamic_form/form', locals: { 
-              f: f, 
-              data: value, 
-              readonly: readonly, 
-              schema: sub_schema,
-              parent_id: parent_id,
-              form_prefix: prop["classname"]
-            }) %>
-      </fieldset>
-    </div>
+    <% if !prop["classname"].nil?  || classname != "research_output" %>
+      <div class="col-md-12">
+        <fieldset class="answer-fieldset">
+          <legend class="answer-fieldset"><%= field_name %></legend>
+          <%
+            sub_schema = prop["classname"] ? 
+                        MadmpSchema.find_by(classname: prop["classname"]).schema : 
+                        prop
+          %>
+          <%= render(partial: 'shared/dynamic_form/form', locals: { 
+                f: f, 
+                data: value, 
+                readonly: readonly, 
+                schema: sub_schema,
+                classname: prop["classname"],
+                fragment_id: fragment_id,
+                form_prefix: prop["classname"]
+              }) %>
+        </fieldset>
+      </div>
+    <% end %>
   <% end %>
 <% end %>

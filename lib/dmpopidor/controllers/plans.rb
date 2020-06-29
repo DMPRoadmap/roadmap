@@ -163,7 +163,6 @@ module Dmpopidor
               @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
               @plan.save
               if @plan.update_attributes(attrs)
-                @plan.research_outputs.toggle_default
                 @plan.update_plan_fragments(plan_meta_params, plan_project_params)
 
                 format.html do
@@ -195,19 +194,6 @@ module Dmpopidor
             end
           end
           # rubocop:enable Metrics/BlockLength
-        end
-
-        def new_edit_linked_fragment
-          @plan = Plan.find(params[:id])
-          @type = params[:type]
-          @parent_fragment = MadmpFragment.find(params[:parent_id])
-          @schema = MadmpSchema.find_by(classname: @type)
-          @fragment = params[:fragment_id] ? MadmpFragment.find(params[:fragment_id]) : MadmpFragment.new
-          authorize @plan
-          respond_to do |format|
-            format.html
-            format.js
-          end
         end
 
         # POST /plans/:id/visibility
@@ -281,7 +267,7 @@ module Dmpopidor
                         :principal_investigator_email, :data_contact,
                         :principal_investigator_identifier, :data_contact_email,
                         :data_contact_phone, :guidance_group_ids,
-                        research_outputs_attributes: %i[id abbreviation fullname order pid other_type_label research_output_type_id _destroy])
+                        research_outputs_attributes: %i[_destroy])
         end
 
         def plan_meta_params
