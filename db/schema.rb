@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200601121822) do
+ActiveRecord::Schema.define(version: 20200625092600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -288,6 +288,9 @@ ActiveRecord::Schema.define(version: 20200601121822) do
   end
 
   add_index "plans", ["template_id"], name: "index_plans_on_template_id", using: :btree
+  add_index "plans", ["org_id"], name: "index_plans_on_org_id", using: :btree
+  add_index "plans", ["funder_id"], name: "index_plans_on_funder_id", using: :btree
+  add_index "plans", ["grant_id"], name: "index_plans_on_grant_id", using: :btree
 
   create_table "plans_guidance_groups", force: :cascade do |t|
     t.integer "guidance_group_id"
