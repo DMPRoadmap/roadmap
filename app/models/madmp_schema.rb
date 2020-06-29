@@ -50,6 +50,12 @@ class MadmpSchema < ActiveRecord::Base
     label + " ( " + name + "_V" + version.to_s + " )"
   end
 
+  def get_sub_schemas
+    path = JsonPath.new('$..schema_id')
+    ids = path.on(self.schema)
+    MadmpSchema.where(id: ids).map { |s| [s.id, s] }.to_h
+  end
+
   def generate_strong_params(flat = false)
     parameters = Array.new
     self.schema['properties'].each do |key, prop|

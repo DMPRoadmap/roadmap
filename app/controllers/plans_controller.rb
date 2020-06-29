@@ -209,6 +209,7 @@ class PlansController < ApplicationController
   end
 
   # GET /plans/:plan_id/phases/:id/edit
+  # SEE MODULE
   def edit
     plan = Plan.find(params[:id])
     authorize plan
@@ -476,6 +477,7 @@ class PlansController < ApplicationController
   # = Private instance methods =
   # ============================
 
+  # SEE MODULE
   def render_phases_edit(plan, phase, guidance_groups)
     readonly = !plan.editable_by?(current_user.id)
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
