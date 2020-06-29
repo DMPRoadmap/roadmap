@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_01_121822) do
+ActiveRecord::Schema.define(version: 2020_06_25_092600) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -277,9 +277,11 @@ ActiveRecord::Schema.define(version: 2020_06_01_121822) do
     t.datetime "end_date"
     t.index ["org_id"], name: "index_plans_on_org_id"
     t.index ["template_id"], name: "index_plans_on_template_id"
+    t.index ["funder_id"], name: "index_plans_on_funder_id"
+    t.index ["grant_id"], name: "index_plans_on_grant_id"
   end
 
-  create_table "plans_guidance_groups", id: :integer, force: :cascade do |t|
+  create_table "plans_guidance_groups", force: :cascade do |t|
     t.integer "guidance_group_id"
     t.integer "plan_id"
     t.index ["guidance_group_id", "plan_id"], name: "index_plans_guidance_groups_on_guidance_group_id_and_plan_id"
