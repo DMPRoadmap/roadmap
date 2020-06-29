@@ -141,6 +141,16 @@ module Dmpopidor
           end
         end
         
+        # GET /plans/:plan_id/phases/:id/edit
+        # CHANGES :
+        # Added Research Output Support
+        def edit
+          plan = Plan.includes(:research_outputs).find(params[:id])
+          authorize plan
+          plan, phase = Plan.load_for_phase(params[:id], params[:phase_id])
+          guidance_groups = GuidanceGroup.where(published: true, id: plan.guidance_group_ids)
+          render_phases_edit(plan, phase, guidance_groups)
+        end
 
         # PUT /plans/1
         # PUT /plans/1.json
@@ -284,6 +294,23 @@ module Dmpopidor
                 .permit(:project_title, :project_acronym, :project_id, :project_description,
                         :project_start_date, :project_end_date, :experimental_plan_url, 
                         principalInvestigator: [:lastName, :firstName, :mbox, :identifier] )
+        end
+
+        # CHANGES : maDMP Fragments SUPPORT
+        def render_phases_edit(plan, phase, guidance_groups)
+          readonly = !plan.editable_by?(current_user.id)
+          # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
+          # we create a hash whose keys are question id and value is the answer associated
+          answers = plan.answers.includes(:madmp_fragment).reduce({}) { |m, a| m["#{a.question_id}_#{a.research_output_id}"] = a; m }
+          render("/phases/edit", locals: {
+            base_template_org: phase.template.base_org,
+            plan: plan,
+            phase: phase,
+            readonly: readonly,
+            guidance_groups: guidance_groups,
+            answers: answers,
+            guidance_presenter: GuidancePresenter.new(plan)
+          })
         end
       end
     end
