@@ -5,7 +5,7 @@ $(() => {
     handle: '.research-output-actions .handle',
     update: () => {
       const updatedOrder = [];
-      const planId = $('#research-outputs .plan-id').val()
+      const planId = $('#research-outputs .plan-id').val();
       $('#research-outputs .research-output-element').each(function callback() {
         updatedOrder.push($(this).find('.research-output-id').val());
       });
