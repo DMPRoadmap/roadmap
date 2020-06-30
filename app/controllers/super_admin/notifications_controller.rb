@@ -60,7 +60,7 @@ module SuperAdmin
     def enable
       notification = Notification.find(params[:id])
       authorize(Notification)
-      notification.enabled = (params[:enabled] === "1")
+      notification.enabled = (notification_params[:enabled] === "1")
 
       # rubocop:disable Metrics/LineLength
       if notification.save

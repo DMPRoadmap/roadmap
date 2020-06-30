@@ -7,44 +7,46 @@ class RolesController < ApplicationController
 
   after_action :verify_authorized
 
+  # POST /roles
   def create
     registered = true
-    @role = Role.new(role_params)
-    authorize @role
 
     plan = Plan.find(role_params[:plan_id])
+    @role = Role.new(plan: plan, access: role_params[:access])
+    authorize @role
 
     message = ""
-    if params[:user].present? && plan.present?
-      if @role.plan.owner.present? && @role.plan.owner.email == params[:user]
+    if role_params[:user].present? && plan.present?
+      if @role.plan.owner.present? && @role.plan.owner.email == role_params[:user][:email]
         # rubocop:disable Metrics/LineLength
         flash[:notice] = _("Cannot share plan with %{email} since that email matches with the owner of the plan.") % {
-          email: params[:user]
+          email: role_params[:user][:email]
         }
         # rubocop:enable Metrics/LineLength
       else
-        user = User.where_case_insensitive("email", params[:user]).first
+        user = User.where_case_insensitive("email", role_params[:user][:email]).first
         if Role.find_by(plan: @role.plan, user: user) # role already exists
           flash[:notice] = _("Plan is already shared with %{email}.") % {
-            email: params[:user]
+            email: role_params[:user][:email]
           }
         else
           if user.nil?
             registered = false
-            User.invite!({email:     params[:user],
+            User.invite!({email:     role_params[:user][:email],
                         firstname:  _("First Name"),
                         surname:    _("Surname"),
                         org:        current_user.org },
                         current_user )
             message = _("Invitation to %{email} issued successfully.") % {
-              email: params[:user]
+              email: role_params[:user][:email]
             }
-            user = User.where_case_insensitive("email", params[:user]).first
+            user = User.where_case_insensitive("email", role_params[:user][:email]).first
           end
           message += _("Plan shared with %{email}.") % {
             email: user.email
           }
           @role.user = user
+
           if @role.save
             if registered
               deliver_if(recipients: user, key: "users.added_as_coowner") do |r|
@@ -66,12 +68,12 @@ class RolesController < ApplicationController
     redirect_to controller: "plans", action: "share", id: @role.plan.id
   end
 
-
+  # PUT /roles/:id
   def update
     @role = Role.find(params[:id])
     authorize @role
 
-    if @role.update_attributes(access: params[:access])
+    if @role.update_attributes(access: role_params[:access])
       deliver_if(recipients: @role.user, key: "users.added_as_coowner") do |r|
         UserMailer.permissions_change_notification(@role, current_user).deliver_now
       end
@@ -86,6 +88,7 @@ class RolesController < ApplicationController
     end
   end
 
+  # DELETE /roles/:id
   def destroy
     @role = Role.find(params[:id])
     authorize @role
@@ -101,6 +104,7 @@ class RolesController < ApplicationController
 
   # This function makes user's role on a plan inactive
   # i.e. "removes" this from their plans
+  # PUT /roles/:id/deactivate
   def deactivate
     role = Role.find(params[:id])
     authorize role
@@ -115,7 +119,7 @@ class RolesController < ApplicationController
   private
 
   def role_params
-    params.require(:role).permit(:plan_id, :access)
+    params.require(:role).permit(:plan_id, :access, user: %i[email])
   end
 
 end

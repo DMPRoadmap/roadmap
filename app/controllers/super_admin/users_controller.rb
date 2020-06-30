@@ -8,6 +8,7 @@ module SuperAdmin
 
     after_action :verify_authorized
 
+    # GET /super_admin/users/:id/edit
     def edit
       @user = User.find(params[:id])
       authorize @user
@@ -23,6 +24,7 @@ module SuperAdmin
                        default_org: @user.org }
     end
 
+    # PUT /super_admin/users/:id
     def update
       @user = User.find(params[:id])
       authorize @user
@@ -60,6 +62,7 @@ module SuperAdmin
       render :edit
     end
 
+    # PUT /super_admin/users/:id/merge
     def merge
       @user = User.find(params[:id])
       authorize @user
@@ -78,6 +81,7 @@ module SuperAdmin
       render :edit
     end
 
+    # GET /super_admin/users/:id/search
     def search
       @user = User.find(params[:id])
       @users = User.where('email LIKE ?', "%#{params[:email]}%")
@@ -95,6 +99,7 @@ module SuperAdmin
       end
     end
 
+    # PUT /super_admin/users/:id/archive
     def archive
       @user  = User.find(params[:id])
       authorize @user

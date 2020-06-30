@@ -348,6 +348,20 @@ module OrgAdmin
     private
 
     def template_params
+      # TODO: For some reason the sample plans and funder links are sent outside
+      #       the context of the form as :template-links like this:
+      #         { "template-links"=>"{
+      #           \"funder\":[{
+      #             \"link\":\"https://sloan.org/grants/apply#tab-grant-proposal-guidelines\",
+      #             \"text\":\"Sloan Grant Proposal Guidelines\"
+      #           }],
+      #           \"sample_plan\":[{
+      #             \"link\":\"https://dmptool.org\",
+      #             \"text\":\"DMPTool\"
+      #           }]
+      #         }
+      # While this is working as-is we should consider folding these into
+      # the template: :links context.
       params.require(:template).permit(:title, :description, :visibility, :links)
     end
 
