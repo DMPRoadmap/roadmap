@@ -76,7 +76,7 @@ class User < ApplicationRecord
   serialize :prefs, Hash
 
   # default user language to the default language
-  attribute :language_id, :integer, default: Language.default.id
+  attribute :language_id, :integer, default: -> { Language.default&.id }
 
   # ================
   # = Associations =
