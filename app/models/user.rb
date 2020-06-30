@@ -56,8 +56,6 @@
 class User < ApplicationRecord
 
   include ConditionalUserMailer
-  include ValidationMessages
-  include ValidationValues
   include DateRangeable
   include Identifiable
 
@@ -165,8 +163,6 @@ class User < ApplicationRecord
   # = Callbacks =
   # =============
 
-  # TODO: should the following-three actions be replaced by overriding the
-  # org= method?
   before_update :clear_department_id, if: :org_id_changed?
 
   after_update :delete_perms!, if: :org_id_changed?, unless: :can_change_org?
@@ -334,7 +330,7 @@ class User < ApplicationRecord
   # Returns nil
   # Returns Boolean
   def remove_token!
-    return if new_record?
+    return if new_record? || api_token.nil?
     update_column(:api_token, nil)
   end
 
