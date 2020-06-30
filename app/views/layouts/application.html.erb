@@ -132,7 +132,9 @@
       OPENS_IN_A_NEW_WINDOW_TEXT: _('Opens in a new window'),
 
       AUTOCOMPLETE_ARIA_HELPER: _("%{n} results are available, use up and down arrows to navigate suggestions. Use the Enter key to select a suggestion or the Escape key to close the suggestions."),
-      AUTOCOMPLETE_ARIA_HELPER_EMPTY: _("No results are available for your entry.")
+      AUTOCOMPLETE_ARIA_HELPER_EMPTY: _("No results are available for your entry."),
+
+      CURRENT_LOCALE: LocaleService.to_gettext(locale: @current_locale.to_s)
     }.to_json
     %>
 
