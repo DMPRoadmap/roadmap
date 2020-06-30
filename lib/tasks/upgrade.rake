@@ -2,7 +2,7 @@ require 'set'
 namespace :upgrade do
 
   desc "upgrade to Rails 5, rename task after naming release"
-  task rails_5: :environment do
+  task v2_3_0: :environment do
     Rake::Task["upgrade:column_defaults"].execute
   end
 
@@ -1262,6 +1262,8 @@ namespace :upgrade do
     desc "explicitly set some column-defaults in the database"
     task column_defaults: :environment do
       Org.where(links:  nil).update_all(links: { "org": [] })
+      Org.where(feedback_email_subject: nil).update_all(Org.feedback_confirmation_default_subject)
+      Org.where(feedback_email_message: nil).update_all(Org.feedback_confirmation_default_message)
     end
 
     private

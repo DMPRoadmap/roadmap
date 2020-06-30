@@ -23,7 +23,6 @@
 class ApiClient < ApplicationRecord
 
   include DeviseInvitable::Inviter
-  include ValidationMessages
 
   extend UniqueRandom
 

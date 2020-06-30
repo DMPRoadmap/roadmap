@@ -263,6 +263,7 @@ class Question < ApplicationRecord
   # before destroying a question we need to remove it from
   # and condition's remove_data and also if that remove_data is empty
   # destroy the condition.
+  # abort callback chain if we can't update the condition
   def check_remove_conditions
     id = self.id.to_s
     self.template.questions.each do |q|
@@ -271,7 +272,7 @@ class Question < ApplicationRecord
         if cond.remove_data.empty?
           cond.destroy if cond.remove_data.empty?
         else
-          cond.save
+          cond.save || throw(:abort)
         end
       end
     end
