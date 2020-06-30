@@ -51,8 +51,6 @@ class Plan < ApplicationRecord
 
   include ConditionalUserMailer
   include ExportablePlan
-  include ValidationMessages
-  include ValidationValues
   include DateRangeable
   include Identifiable
 
