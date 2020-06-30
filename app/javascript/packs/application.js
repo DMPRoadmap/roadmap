@@ -80,6 +80,6 @@ require('@rails/ujs').start();
 // TODO: Disabled turbolinks for the time being because our custom JS is not
 //       properly setup to work with it. We should review the docs:
 //       https://github.com/turbolinks/turbolinks
-require('turbolinks').start();
+// require('turbolinks').start();
 // require("@rails/activestorage").start()
 // require("@rails/actioncable").start()
