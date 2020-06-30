@@ -11,7 +11,8 @@ RSpec.describe Guidance, type: :model do
     context "if published" do
 
       before { subject.expects(:published?).returns(true) }
-      it { is_expected.to validate_presence_of(:themes) }
+      # THEMES
+      # it { is_expected.to validate_presence_of(:themes) }
 
     end
 
