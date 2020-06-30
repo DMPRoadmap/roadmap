@@ -66,7 +66,10 @@ class UsersController < ApplicationController
   def admin_update_permissions
     @user = User.find(params[:id])
     authorize @user
-    perms_ids = params[:perm_ids].blank? ? [] : params[:perm_ids].map(&:to_i)
+
+p permission_params[:perm_ids]
+
+    perms_ids = permission_params[:perm_ids].blank? ? [] : permission_params[:perm_ids].map(&:to_i)
     perms = Perm.where(id: perms_ids)
     privileges_changed = false
     current_user.perms.each do |perm|
@@ -106,8 +109,9 @@ class UsersController < ApplicationController
     end
   end
 
+  # PUT /users/:id/update_email_preferences
   def update_email_preferences
-    prefs = params[:prefs]
+    prefs = preference_params
     authorize User
     pref = current_user.pref
     # does user not have prefs?
@@ -156,21 +160,39 @@ class UsersController < ApplicationController
   # POST /users/acknowledge_notification
   def acknowledge_notification
     authorize current_user
-    @notification = Notification.find(params[:notification_id])
+    @notification = Notification.find(notification_params[:notification_id])
     current_user.acknowledge(@notification)
-    render nothing: true
+    render body: nil
   end
 
   private
+
+  def permission_params
+    params.permit(:super_admin_privileges, :org_admin_privileges, perm_ids: [])
+  end
+
+  def notification_params
+    params.permit(:notification_id)
+  end
+
+  def preference_params
+    params.require(:user).permit(
+      prefs: [
+        users: %i[new_comment added_as_coowner admin_privileges],
+        owners_and_coowners: %i[visibility_changed]
+      ]
+    )
+  end
 
   ##
   # html forms return our boolean values as strings, this converts them to true/false
   def booleanize_hash(node)
     # leaf: convert to boolean and return
     # hash: iterate over leaves
-    unless node.is_a?(Hash)
+    unless node.is_a?(ActionController::Parameters)
       return node == "true"
     end
+
     node.each do |key, value|
       node[key] = booleanize_hash(value)
     end

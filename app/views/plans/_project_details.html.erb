@@ -122,33 +122,24 @@
 </div>
 
 <div class="form-group"><!-- grant_number -->
-  <%# If the OpenAire grant typeahead if enabled use it %>
-  <% if Rails.configuration.x.open_aire.active %>
-    <!-- Using the research_project.json source for typeahead -->
+  <%= form.fields_for :grant, @plan.grant do |grant_fields| %>
     <div class="col-md-12">
-      <%= label_tag(:plan_grant_number_name, _('Grant number'),
-                                             class: 'control-label') %>
+      <%= grant_fields.label(:value, _("Grant number/url"), class: "control-label") %>
     </div>
 
     <div class="col-md-8">
-      <%= text_field_tag(:plan_grant_number_name, '',
-                         class: "grant-id-typeahead form-control",
-                         autocomplete: "off",
-                         aria: { required: false }) %>
-      <%= form.hidden_field(:grant_number) %>
-      <span class="text-muted" id="grant_number_info">Grant number: <%= @plan.grant_number %></span>
-    </div>
-  <% else %>
-    <%= fields_for :grant, @plan.grant do |grant_fields| %>
-      <div class="col-md-12">
-        <%= grant_fields.label(:value, _("Grant number/url"), class: "control-label") %>
-      </div>
-      <div class="col-md-8">
+      <%# If the OpenAire grant typeahead if enabled use it %>
+      <% if Rails.configuration.x.open_aire.active %>
+        <!-- Using the research_project.json source for typeahead -->
+        <%= grant_fields.text_field :name, value: @plan.grant&.value, class: "form-control grant-id-typeahead",
+                                           autocomplete: "off", aria: { required: false } %>
+        <%= grant_fields.hidden_field :value %>
+        <span class="text-muted" id="grant_number_info">Grant number: <%= @plan.grant_number %></span>
+      <% else %>
         <%= grant_fields.text_field(:value, class: "form-control",
-                                            data: { toggle: "tooltip" },
-                                            title: _("Provide a URL to the award's landing page if possible, if not please provide the award/grant number.")) %>
-        <%= grant_fields.hidden_field :id %>
-      </div>
-    <% end %>
+                                           data: { toggle: "tooltip" },
+                                           title: _("Provide a URL to the award's landing page if possible, if not please provide the award/grant number.")) %>
+      <% end %>
+    </div>
   <% end %>
 </div>

@@ -23,7 +23,7 @@ end
       <div class="form-group" data-toggle="tooltip" title="<%= guidance_text_tooltip %>">
         <em class="sr-only"><%= guidance_text_tooltip %></em>
         <%= f.label :text, class: 'control-label' %>
-        <%= text_area_tag("guidance-text", @guidance.text, class: "form-control", 'aria-required': true, rows: 10) %>
+        <%= f.text_area :text, rows: 10, class: "form-control", aria: { required: true } %>
       </div>
       <%= render partial: 'org_admin/shared/theme_selector',
                  locals: { f: f, all_themes: Theme.all.order("title"), as_radio: false, required: true,

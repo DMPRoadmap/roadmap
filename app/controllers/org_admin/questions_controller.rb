@@ -11,6 +11,7 @@ module OrgAdmin
     respond_to :html
     after_action :verify_authorized
 
+    # GET /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/:id
     def show
       question = Question.includes(:annotations,
                                    :question_options,
@@ -25,6 +26,8 @@ module OrgAdmin
       })}
     end
 
+    # TODO: Shouldn't this live on the conditions controller as :index?
+    # GET /org_admin/questions/:question_id/open_conditions
     def open_conditions
       question = Question.find(params[:question_id])
       authorize question
@@ -37,7 +40,7 @@ module OrgAdmin
                     webhooks: webhook_hash(question.conditions) }
     end
 
-    
+
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/questions/[:question_id]/edit
     def edit
       question = Question.includes(:annotations,
@@ -54,6 +57,7 @@ module OrgAdmin
       })}
     end
 
+    # GET /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/new
     def new
       section = Section.includes(:questions, phase: :template).find(params[:section_id])
       nbr = section.questions.maximum(:number)
@@ -76,6 +80,7 @@ module OrgAdmin
       }) }
     end
 
+    # POST /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions
     def create
       question = Question.new(question_params.merge(section_id: params[:section_id]))
       authorize question
@@ -97,6 +102,7 @@ module OrgAdmin
                   )
     end
 
+    # PUT /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/:id
     def update
       question = Question.find(params[:id])
       authorize question
@@ -172,6 +178,7 @@ module OrgAdmin
       end
     end
 
+    # DELETE /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/:id
     def destroy
       question = Question.find(params[:id])
       authorize question
@@ -195,7 +202,7 @@ module OrgAdmin
 
     private
 
-    # param_condiions looks like:
+    # param_conditions looks like:
     #   [
     #     {
     #       "conditions_N" => {
@@ -223,6 +230,10 @@ module OrgAdmin
       res
     end
 
+    # TODO: Technically the :conditions, :option_comment_display, :default_value,
+    #       :annotations_attributes and :theme_ids should all be passed within
+    #       the context of :question. The forms are fragile right now though so
+    #       recommend holding off until we rework this page in the future.
     def question_params
       params.require(:question)
             .permit(:number, :text, :question_format_id, :option_comment_display,

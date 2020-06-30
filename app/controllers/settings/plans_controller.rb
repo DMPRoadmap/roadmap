@@ -18,6 +18,7 @@ module Settings
 
     def update
       authorize @plan
+      # If this is actually used we should consider switching these to strong params
       export_params = params[:export].try(:deep_symbolize_keys)
 
       settings = @plan.super_settings(:export).tap do |s|
