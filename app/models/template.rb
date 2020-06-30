@@ -62,6 +62,7 @@ class Template < ApplicationRecord
   attribute :links, :text, default:  { funder: [], sample_plan: [] }
   # TODO: re-add visibility setting? (this is handled in org_admin/create and
   # relies on the org_id in the current callback-form)
+  attribute :visibility, :integer, default: 0
 
   # ================
   # = Associations =

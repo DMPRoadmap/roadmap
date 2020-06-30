@@ -48,7 +48,7 @@ describe Plan do
 
     it { is_expected.to belong_to :org }
 
-    it { is_expected.to belong_to :funder }
+    it { is_expected.to belong_to(:funder).optional }
 
     it { is_expected.to have_many :phases }
 
@@ -73,6 +73,8 @@ describe Plan do
     it { is_expected.to have_many(:identifiers) }
 
     it { is_expected.to have_many(:contributors) }
+
+    it { is_expected.to belong_to(:api_client).optional }
 
   end
 

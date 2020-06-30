@@ -15,7 +15,7 @@ RSpec.describe Region, type: :model do
 
   context "associations" do
 
-    it { is_expected.to belong_to :super_region }
+    it { is_expected.to belong_to(:super_region).optional }
 
     it { is_expected.to have_many :sub_regions }
 
