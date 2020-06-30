@@ -54,8 +54,11 @@ class Language < ApplicationRecord
   # TODO: evaluate the need for the LocaleService after move to Translation.io
   def abbreviation=(value)
     value = value.downcase
-    super(value) if value.blank? || value =~ /\A[a-z]{2}\Z/i
-    super(LocaleService.to_i18n(locale: value).to_s)
+    if value.blank? || value =~ /\A[a-z]{2}\Z/i
+      super(value)
+    else
+      super(LocaleService.to_i18n(locale: value).to_s)
+    end
   end
 
   # ==========
