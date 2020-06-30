@@ -51,7 +51,7 @@ class Org < ApplicationRecord
   # org
   attribute :feedback_email_subject, :string, default: feedback_confirmation_default_subject
   attribute :feedback_email_msg, :text, default: feedback_confirmation_default_message
-  attribute :language_id, :integer, default: -> { Language.default.id }
+  attribute :language_id, :integer, default: -> { Language.default&.id }
   attribute :links, :text, default: { "org": [] }
 
   # Stores links as an JSON object:

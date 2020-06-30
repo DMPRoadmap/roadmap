@@ -77,6 +77,8 @@ class Plan < ApplicationRecord
 
   alias_attribute :name, :title
 
+  attribute :visibility, :integer, default: 3
+
   # ================
   # = Associations =
   # ================
