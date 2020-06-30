@@ -93,6 +93,10 @@ class MadmpFragment < ActiveRecord::Base
     self.madmp_schema.schema
   end
 
+  def get_sub_fragments
+    self.children.group_by(&:madmp_schema_id)
+  end
+
   # Returns a human readable version of the structured answer
   def to_s 
     displayable = ""

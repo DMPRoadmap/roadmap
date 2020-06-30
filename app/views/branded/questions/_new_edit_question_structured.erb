@@ -1,11 +1,10 @@
 <%= f.label(:text, sanitize(question.text), class: 'control-label') unless question.nil? %>
-<% data = answer.madmp_fragment.data unless answer.madmp_fragment.nil? %>
 <% fragment_id = answer.madmp_fragment.nil? ? nil : answer.madmp_fragment.id %>
 <% classname = answer.madmp_fragment.classname unless answer.madmp_fragment.nil? %>
 <div class="form-group madmp-fragment fragment-<%= fragment_id %>">   
   <%= render(partial: 'shared/dynamic_form/form', locals: { 
         f: f,
-        data: data, 
+        fragment: answer.madmp_fragment, 
         readonly: readonly,
         research_output: research_output,
         schema: question.madmp_schema,

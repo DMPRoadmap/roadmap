@@ -1,6 +1,9 @@
-<%# locals: { f, data, research_output, schema, parent_id } %>
+<%# locals: { f, fragment, research_output, schema, parent_id } %>
 <% sub_schemas = schema.get_sub_schemas %>
+<% data = fragment.data unless fragment.nil? %>
+<% sub_fragments = fragment.present? ? fragment.get_sub_fragments() : [] %>
 <% schema_properties = schema.schema["properties"]%>
+
 <% schema_properties.each do |key, prop| %>
   <% value = data[key] unless data.nil? %>
   <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{key}]" : key %>
@@ -22,11 +25,12 @@
   <% when 'boolean' %>
     <%= create_checkbox_field(f, value, field_name, prop['label']) %>
   <% when 'array' %>
-    <% if prop['items']['type'] == 'object' &&  prop['items']['schema_id'].present? %>
+    <% if prop['items']['type'] == 'object' && prop['items']['schema_id'].present? %>
       <% unless classname == "research_output" %>
         <% sub_schema = sub_schemas[prop['items']['schema_id']] %>
+        <% values = sub_fragments[prop['items']['schema_id']] unless sub_fragments.empty? %>
         <%= render(partial: 'shared/dynamic_form/fields/complex_multiple_field', locals: { 
-          field_values: MadmpFragment.where(parent_id: fragment_id, madmp_schema_id: sub_schema.id ), 
+          field_values: values, 
           parent_id: fragment_id,
           schema: sub_schema,
           field_name: field_name, answer_id: nil 
@@ -54,7 +58,7 @@
             %>
             <%= render(partial: 'shared/dynamic_form/form', locals: { 
                   f: f, 
-                  data: value, 
+                  fragment: value, 
                   readonly: readonly, 
                   schema: sub_schema,
                   classname: sub_schema.classname,

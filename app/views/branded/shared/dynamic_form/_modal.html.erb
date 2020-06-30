@@ -15,7 +15,7 @@
       <div class="modal-body">
         <%= render(partial: "shared/dynamic_form/form", locals: {
           f: f,
-          data: @fragment.data, 
+          fragment: @fragment, 
           research_output: nil,
           fragment_id: @parent_fragment.id,
           schema: @schema,
