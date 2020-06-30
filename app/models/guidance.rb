@@ -59,7 +59,8 @@ class Guidance < ActiveRecord::Base
   validates :published, inclusion: { message: INCLUSION_MESSAGE,
                                      in: BOOLEAN_VALUES }
 
-  validates :themes, presence: { message: PRESENCE_MESSAGE }, if: :published?
+  # THEMES                                     
+  # validates :themes, presence: { message: PRESENCE_MESSAGE }, if: :published?
 
   # Retrieves every guidance associated to an org
   scope :by_org, -> (org) {
