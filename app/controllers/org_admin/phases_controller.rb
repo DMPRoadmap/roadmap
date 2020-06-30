@@ -8,7 +8,7 @@ module OrgAdmin
 
     after_action :verify_authorized
 
-    # GET /org_admin/templates/:template_id/phases/[:id]
+    # GET /org_admin/templates/:template_id/phases/:id
     def show
       phase = Phase.includes(:template, :sections).order(:number).find(params[:id])
       authorize phase
@@ -37,7 +37,7 @@ module OrgAdmin
         })
     end
 
-    # GET /org_admin/templates/:template_id/phases/[:id]/edit
+    # GET /org_admin/templates/:template_id/phases/:id/edit
     def edit
       phase = Phase.includes(:template).find(params[:id])
       authorize phase
@@ -64,7 +64,7 @@ module OrgAdmin
     end
 
     # preview a phase
-    # GET /org_admin/phases/[:id]/preview
+    # GET /org_admin/templates/:template_id/phases/:id/preview
     def preview
       @phase = Phase.includes(:template).find(params[:id])
       authorize @phase
@@ -73,7 +73,7 @@ module OrgAdmin
     end
 
     # add a new phase to a passed template
-    # GET /org_admin/phases/new
+    # GET /org_admin/templates/:template_id/phases/new
     def new
       template = Template.includes(:phases).find(params[:template_id])
       if template.latest?
@@ -103,7 +103,7 @@ module OrgAdmin
     end
 
     # create a phase
-    # POST /org_admin/phases
+    # POST /org_admin/templates/:template_id/phases
     def create
       phase = Phase.new(phase_params)
       phase.template = Template.find(params[:template_id])
@@ -128,7 +128,7 @@ module OrgAdmin
     end
 
     # update a phase of a template
-    # PUT /org_admin/phases/[:id]
+    # PUT /org_admin/templates/:template_id/phases/:id
     def update
       phase = Phase.find(params[:id])
       authorize phase
@@ -146,15 +146,17 @@ module OrgAdmin
                                                      id: phase.id)
     end
 
+    # POST /org_admin/templates/:template_id/phases/:id/sort
     def sort
       @phase = Phase.find(params[:id])
       authorize @phase
-      Section.update_numbers!(*params.fetch(:sort_order, []), parent: @phase)
+      ordering = phase_params[:sort_order] || []
+      Section.update_numbers!(ordering, parent: @phase)
       head :ok
     end
 
     # delete a phase
-    # DELETE org_admin/phases/[:id]
+    # DELETE /org_admin/templates/:template_id/phases/:id
     def destroy
       phase = Phase.includes(:template).find(params[:id])
       authorize phase
@@ -180,7 +182,7 @@ module OrgAdmin
     private
 
     def phase_params
-      params.require(:phase).permit(:title, :description, :number)
+      params.require(:phase).permit(:title, :description, :number, sort_order: [])
     end
 
   end

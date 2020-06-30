@@ -4,7 +4,7 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-md-12">
-        <%= render partial: "/notes/list", locals: { question_id: question.id, notes: notes, plan: plan }, formats: [:html] %>  
+        <%= render partial: "/notes/list", locals: { question_id: question.id, notes: notes, plan: plan }, formats: [:html] %>
       </div>
     </div>
     <% if plan.commentable_by?(current_user) %>
