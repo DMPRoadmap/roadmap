@@ -69,11 +69,6 @@ module OrgSelectable
         identifier.identifiable = org
         identifier.save
       end
-
-p "SAVED????"
-p org.valid?
-p org.errors.collect{|e,m| "#{e}-#{m}"}.join(", ")
-
       org.reload
     end
 
