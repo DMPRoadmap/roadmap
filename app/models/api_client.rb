@@ -20,10 +20,11 @@
 #  index_api_clients_on_name     (name)
 #
 
-class ApiClient < ActiveRecord::Base
+class ApiClient < ApplicationRecord
 
   include DeviseInvitable::Inviter
-  include ValidationMessages
+
+  extend UniqueRandom
 
   # ================
   # = Associations =
@@ -32,11 +33,9 @@ class ApiClient < ActiveRecord::Base
   has_many :plans
 
   # If the Client_id or client_secret are nil generate them
-  before_validation :generate_credentials,
-                    if: Proc.new { |c| c.client_id.blank? || c.client_secret.blank? }
-
-  # Force the name to downcase
-  before_save :name_to_downcase
+  attribute :client_id, :string, default: -> { unique_random(field_name: "client_id") }
+  attribute :client_secret, :string,
+            default: -> { unique_random(field_name: "client_secret") }
 
   # ===============
   # = Validations =
@@ -51,6 +50,16 @@ class ApiClient < ActiveRecord::Base
 
   validates :client_id, presence: { message: PRESENCE_MESSAGE }
   validates :client_secret, presence: { message: PRESENCE_MESSAGE }
+
+  # =========================
+  # = Custom Accessor Logic =
+  # =========================
+
+  # Ensure the name is always saved as lowercase
+  # TODO: do we want to add this as a validation as well?
+  def name=(value)
+    super(value&.downcase)
+  end
 
   # ===========================
   # = Public instance methods =
@@ -68,14 +77,8 @@ class ApiClient < ActiveRecord::Base
 
   # Generate UUIDs for the client_id and client_secret
   def generate_credentials
-    self.client_id = SecureRandom.uuid
-    self.client_secret = SecureRandom.uuid
-  end
-
-  private
-
-  def name_to_downcase
-    self.name = self.name.downcase
+    self.client_id = ApiClient.unique_random(field_name: "client_id")
+    self.client_secret = ApiClient.unique_random(field_name: "client_secret")
   end
 
 end

@@ -28,6 +28,7 @@ class Perm < ApplicationRecord
   # = Class methods =
   # =================
 
+  # TODO: see the constants setup in token_permission_type.rb and refactor
   def self.add_orgs
     Perm.find_by(name: 'add_organisations')
   end

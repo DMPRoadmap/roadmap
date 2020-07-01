@@ -49,6 +49,12 @@ class QuestionOption < ApplicationRecord
   validates :is_default, inclusion: { in: BOOLEAN_VALUES,
                                       message: INCLUSION_MESSAGE }
 
+  # =============
+  # = Callbacks =
+  # =============
+
+  # TODO: condition.option_list needs to be serialized (from Array) before we can check
+  # for related conditions, so this can't be replaced by :destroy on the association
   before_destroy :check_condition_options
 
   # ==========
@@ -79,6 +85,8 @@ class QuestionOption < ApplicationRecord
   # if we destroy a question_option
   # we need to remove any conditions which depend on it
   # even if they depend on something else as well
+  # doesn't look like there's a way for destroy to fail though, so no need to
+  # add callback halting with abort
   def check_condition_options
     id = self.id.to_s
     self.question.conditions.each do |cond|
