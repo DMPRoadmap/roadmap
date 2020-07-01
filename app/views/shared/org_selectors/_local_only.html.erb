@@ -22,6 +22,7 @@ placeholder = _("Begin typing to see a list of suggestions.")
                               autocomplete: "list",
                               required: required
                             },
+                            authenticity_token: true,
                             data: { source: "" } %>
 <span class="autocomplete-help sr-only" role="status"></span>
 <div id="<%= SecureRandom.hex(6) %>_ui-front" class="ui-front"></div>
