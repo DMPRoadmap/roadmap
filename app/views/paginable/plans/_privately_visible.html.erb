@@ -26,10 +26,10 @@
           <td><%= display_role(plan.roles.find_by(user: current_user)) %></td>
           <td class="text-center">
             <% if plan.administerable_by?(current_user.id) then %>
-              <%= form_for plan, url: set_test_plan_path(plan), html: { method: :post, class: 'set_test_plan', remote: true } do |f| %>
-                <%= check_box_tag(:is_test, "1", (plan.visibility === 'is_test')) %>
-                <%= f.submit(_('Update'), style: 'display:none') %>
-              <% end %>
+              <%= check_box_tag :is_test, "1", (plan.visibility === "is_test"),
+                                          class: "set_test_plan",
+                                          data: { remote: true, method: :post,
+                                                  url: set_test_plan_path(plan) } %>
             <% else %>
               <%= plan.visibility === 'is_test' ? _('Yes') : _('No') %>
             <% end %>

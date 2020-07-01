@@ -1,15 +1,11 @@
 import { isObject, isString } from '../utils/isType';
-import { renderNotice, renderAlert, hideNotifications } from '../utils/notificationHelper';
+import { renderNotice, renderAlert } from '../utils/notificationHelper';
 import { scrollTo } from '../utils/scrollTo';
 
 $(() => {
   // Activate/Deactivate user account
-  $('body').on('click, change', '.activate-user input[type="checkbox"]', (e) => {
-    const form = $(e.target).closest('form');
-    hideNotifications();
-    form.submit();
-  });
-  $('body').on('ajax:success', '.activate-user', (e, data) => {
+  $('body').on('ajax:success', '.activate-user', (e) => {
+    const data = e.detail[0];
     if (data.code === 1 && data.msg && data.msg !== '') {
       renderNotice(data.msg);
     } else {
@@ -49,7 +45,8 @@ $(() => {
     });
   });
   // Event delegation handler after a successful response is obtained
-  $('body').on('ajax:success', '.admin_update_permissions', (e, data) => {
+  $('body').on('ajax:success', '.admin_update_permissions', (e) => {
+    const data = e.detail[0];
     if (isObject(data)) {
       if (isString(data.msg)) {
         renderNotice(data.msg);
@@ -62,11 +59,14 @@ $(() => {
     $('#modal-permissions').modal('hide');
   });
   // Event delegation handler after an error response is obtained
-  $('body').on('ajax:error', '.admin_update_permissions', (e, xhr) => {
-    const error = xhr.responseJSON;
-    if (isObject(error) && isString(error.msg)) {
-      renderAlert(error.msg);
-      scrollTo('#notification-area');
+  $('body').on('ajax:error', '.admin_update_permissions', (e) => {
+    const xhr = e.detail[2];
+    if (isObject(xhr)) {
+      const error = xhr.responseJSON;
+      if (isObject(xhr) && isString(error.msg)) {
+        renderAlert(error.msg);
+        scrollTo('#notification-area');
+      }
     }
     $('#modal-permissions').modal('hide');
   });

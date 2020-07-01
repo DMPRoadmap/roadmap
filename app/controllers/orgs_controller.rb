@@ -4,6 +4,8 @@ class OrgsController < ApplicationController
 
   include OrgSelectable
 
+  skip_before_action :verify_authenticity_token, only: %w[search]
+
   after_action :verify_authorized, except: %w[
     shibboleth_ds shibboleth_ds_passthru search
   ]
