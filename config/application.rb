@@ -44,9 +44,5 @@ module DMPRoadmap
     # Set the default host for mailer URLs
     config.action_mailer.default_url_options = { :host => "#{Socket.gethostname}" }
 
-    # Halt callback chains on `throw(:abort)`
-    # https://guides.rubyonrails.org/upgrading_ruby_on_rails.html#halting-callback-chains-via-throw-abort
-    ActiveSupport.halt_callback_chains_on_return_false = false
-
   end
 end
