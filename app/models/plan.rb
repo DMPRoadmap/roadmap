@@ -51,8 +51,6 @@ class Plan < ApplicationRecord
 
   include ConditionalUserMailer
   include ExportablePlan
-  include ValidationMessages
-  include ValidationValues
   include DateRangeable
   include Identifiable
 
@@ -78,6 +76,8 @@ class Plan < ApplicationRecord
                       is_test privately_visible]
 
   alias_attribute :name, :title
+
+  attribute :visibility, :integer, default: 3
 
   # ================
   # = Associations =
@@ -145,12 +145,6 @@ class Plan < ApplicationRecord
   validates :complete, inclusion: { in: BOOLEAN_VALUES }
 
   validate :end_date_after_start_date
-
-  # =============
-  # = Callbacks =
-  # =============
-
-  before_validation :set_creation_defaults
 
   # ==========
   # = Scopes =
@@ -238,7 +232,7 @@ class Plan < ApplicationRecord
   end
 
   # deep copy the given plan and all of it's associations
-  #
+  #create
   # plan - Plan to be deep copied
   #
   # Returns Plan
@@ -584,18 +578,6 @@ class Plan < ApplicationRecord
   end
 
   private
-
-  # Initialize the title for new templates
-  #
-  # Returns nil
-  # Returns String
-  def set_creation_defaults
-    # Only run this before_validation because rails fires this before
-    # save/create
-    return if id?
-
-    self.title = "My plan (#{template.title})" if title.nil? && !template.nil?
-  end
 
   # Validation to prevent end date from coming before the start date
   def end_date_after_start_date

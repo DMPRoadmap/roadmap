@@ -26,6 +26,9 @@
 
 class GuidanceGroup < ApplicationRecord
 
+  attribute :optional_subset, :boolean, default: true
+  attribute :published, :boolean, default: false
+
   # ================
   # = Associations =
   # ================
@@ -123,6 +126,14 @@ class GuidanceGroup < ApplicationRecord
                           organisation_groups
     all_viewable_groups = all_viewable_groups.flatten.uniq
     all_viewable_groups
+  end
+
+  def self.create_org_default(org)
+    GuidanceGroup.create!(
+      name: org.abbreviation? ? org.abbreviation : org.name,
+      org: org,
+      optional_subset: false
+    )
   end
 
 end

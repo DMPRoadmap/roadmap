@@ -33,7 +33,7 @@
 
 class Org < ApplicationRecord
 
-  include FeedbacksHelper
+  extend FeedbacksHelper
   include FlagShihTzu
   include Identifiable
 
@@ -46,6 +46,14 @@ class Org < ApplicationRecord
     feedback_email_msg: _('Feedback email message')
   }
 
+  # TODO: we don't allow this to be edited on the frontend, can we remove from DB?
+  # if not, we'll need to add a rake:task to ensure that each of these is set for each
+  # org
+  attribute :feedback_email_subject, :string, default: feedback_confirmation_default_subject
+  attribute :feedback_email_msg, :text, default: feedback_confirmation_default_message
+  attribute :language_id, :integer, default: -> { Language.default&.id }
+  attribute :links, :text, default: { "org": [] }
+
   # Stores links as an JSON object:
   #  { org: [{"link":"www.example.com","text":"foo"}, ...] }
   # The links are validated against custom validator allocated at
@@ -57,12 +65,12 @@ class Org < ApplicationRecord
   # = Associations =
   # ================
 
-  belongs_to :language, optional: true
+  belongs_to :language
 
-  belongs_to :region
+  belongs_to :region, optional: true
 
   has_one :tracker, dependent: :destroy
-  accepts_nested_attributes_for :tracker 
+  accepts_nested_attributes_for :tracker
   validates_associated :tracker
 
   has_many :guidance_groups, dependent: :destroy
@@ -171,11 +179,6 @@ class Org < ApplicationRecord
               count(users.id) as user_count")
   }
 
-  before_validation :set_default_feedback_email_subject
-  before_validation :check_for_missing_logo_file
-  before_validation :ensure_language
-  after_create :create_guidance_group
-
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
   # What do they do? do they do it efficiently, and do we need them?
@@ -185,20 +188,16 @@ class Org < ApplicationRecord
     HUMANIZED_ATTRIBUTES[attr.to_sym] || super
   end
 
-  def links
-    super() || { "org": [] }
-  end
+  # ===========================
+  # = Public instance methods =
+  # ===========================
 
   # Determines the locale set for the organisation
   #
   # Returns String
   # Returns nil
   def get_locale
-    if !self.language.nil?
-      self.language.abbreviation
-    else
-      nil
-    end
+    language.abbreviation
   end
 
   # TODO: Should these be hardcoded? Also, an Org can currently be multiple org_types at
@@ -281,48 +280,6 @@ class Org < ApplicationRecord
         self.logo = logo.thumb("x100")  # resize height and maintain aspect ratio
       end
     end
-  end
-
-  # If the physical logo file is no longer on disk we do not want it to prevent the
-  # model from saving. This typically happens when you copy the database to another
-  # environment. The orgs.logo_uid stores the path to the physical logo file that is
-  # stored in the Dragonfly data store (default is: public/system/dragonfly/[env]/)
-  def check_for_missing_logo_file
-    if self.logo_uid.present?
-      data_store_path = Dragonfly.app.datastore.root_path
-
-      if !File.exist?("#{data_store_path}#{self.logo_uid}")
-        # Attempt to locate the file by name. If it exists update the uid
-        logo = Dir.glob("#{data_store_path}/**/*#{self.logo_name}")
-        if !logo.empty?
-          self.logo_uid = logo.first.gsub(data_store_path, "")
-        else
-          # Otherwise the logo is missing so clear it to prevent save failures
-          self.logo = nil
-        end
-      end
-    end
-  end
-
-  def set_default_feedback_email_subject
-    if self.feedback_enabled? && !self.feedback_email_subject.present?
-      self.feedback_email_subject = feedback_confirmation_default_subject
-    end
-  end
-
-  # creates a dfefault Guidance Group on create on the Org
-  def create_guidance_group
-    GuidanceGroup.create!(
-      name: abbreviation? ? self.abbreviation : self.name,
-      org: self,
-      optional_subset: false,
-      published: false,
-    )
-  end
-
-  # Callback that ensures that a language is specified
-  def ensure_language
-    self.language = Language.default unless language.present?
   end
 
 end

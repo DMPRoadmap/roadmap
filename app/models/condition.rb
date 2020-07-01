@@ -20,9 +20,9 @@
 #
 #  fk_rails_...  (question_id => question.id)
 #
-# 
+#
 
-class Condition < ActiveRecord::Base
+class Condition < ApplicationRecord
   belongs_to :question
   enum action_type: [:remove, :add_webhook]
   serialize :option_list, Array
@@ -35,6 +35,7 @@ class Condition < ActiveRecord::Base
   def deep_copy(**options)
   	copy = self.dup
   	copy.question_id = options.fetch(:question_id, nil)
+    # TODO: why call validate false here
   	copy.save!(validate: false) if options.fetch(:save, false)
   	copy
   end

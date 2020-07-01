@@ -44,11 +44,13 @@ class OrgIdentifier < ApplicationRecord
 
   validates :identifier_scheme, presence: { message: PRESENCE_MESSAGE }
 
-  # ===========================
-  # = Public instance methods =
-  # ===========================
+  # =========================
+  # = Custom Accessor Logic =
+  # =========================
 
+  # ensure attrs is a hash before saving
+  # TODO: evaluate this approach vs Serialize from condition.rb
   def attrs=(hash)
-    write_attribute(:attrs, (hash.is_a?(Hash) ? hash.to_json.to_s : '{}'))
+    super(hash.is_a?(Hash) ? hash.to_json.to_s : '{}')
   end
 end
