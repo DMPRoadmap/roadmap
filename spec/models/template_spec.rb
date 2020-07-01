@@ -208,18 +208,19 @@ RSpec.describe Template, type: :model do
   describe ".published" do
 
 
-    subject { Template.published(family_id) }
+    subject { Template.published(family_id_search) }
 
     before do
-      @a = create(:template, :published, family_id: family_id, version: 1)
+      @a = create(:template, :published, family_id: family_id_set, version: 1)
       @b = create(:template, :published, version: 3)
-      @c = create(:template, :unpublished, family_id: family_id, version: 2)
+      @c = create(:template, :unpublished, family_id: family_id_set, version: 2)
       @d = create(:template, :unpublished, version: 5)
     end
 
     context "when family_id is present" do
 
-      let!(:family_id) { "1234" }
+      let!(:family_id_search) { "1234" }
+      let!(:family_id_set) { "1234" }
 
       it "includes records with family id" do
         expect(subject).to include(@a)
@@ -238,7 +239,8 @@ RSpec.describe Template, type: :model do
 
     context "when family_id is absent" do
 
-      let!(:family_id) { nil }
+      let!(:family_id_search) { nil }
+      let!(:family_id_set) { "1234" }
 
       it "includes all published records" do
         expect(subject).to include(@a)

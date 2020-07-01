@@ -126,17 +126,6 @@ RSpec.describe Org, type: :model do
       it { is_expected.to be_present }
 
     end
-
-    context "language absent" do
-
-      before do
-        org.language.abbreviation = nil
-      end
-
-      it { is_expected.to be_nil }
-
-    end
-
   end
 
   describe "#org_type_to_s" do

@@ -35,6 +35,7 @@
 class Template < ApplicationRecord
 
   include GlobalHelpers
+  extend UniqueRandom
 
   validates_with TemplateLinksValidator
 
@@ -51,6 +52,17 @@ class Template < ApplicationRecord
   # The links is validated against custom validator allocated at
   # validators/template_links_validator.rb
   serialize :links, JSON
+
+  attribute :published, :boolean, default: false
+  attribute :archived, :boolean, default: false
+  attribute :is_default, :boolean, default: false
+  attribute :version, :integer, default: 0
+  attribute :customization_of, :integer, default: nil
+  attribute :family_id, :integer, default: -> { unique_random(field_name: "family_id") }
+  attribute :links, :text, default:  { funder: [], sample_plan: [] }
+  # TODO: re-add visibility setting? (this is handled in org_admin/create and
+  # relies on the org_id in the current callback-form)
+  attribute :visibility, :integer, default: 0
 
   # ================
   # = Associations =
@@ -90,13 +102,14 @@ class Template < ApplicationRecord
 
   validates :family_id, presence: { message: PRESENCE_MESSAGE }
 
-
   # =============
   # = Callbacks =
   # =============
 
-  before_validation :set_defaults
-
+  # TODO: leaving this in for now, as this is better placed as an after_update than
+  # overwriting the accessors.  We want to ensure this template is published
+  # before we remove the published_version
+  # That being said, there's a potential race_condition where we have multiple-published-versions
   after_update :reconcile_published, if: -> (template) { template.published? }
 
   # ==========
@@ -460,6 +473,7 @@ class Template < ApplicationRecord
   # = Private instance methods =
   # ============================
 
+  # TODO: refactor to use UniqueRandom
   # Generate a new random family identifier
   def new_family_id
     family_id = loop do
@@ -467,25 +481,6 @@ class Template < ApplicationRecord
       break random unless Template.exists?(family_id: random)
     end
     family_id
-  end
-
-  # Default values to set before running any validation
-  def set_defaults
-    self.published ||= false
-    self.archived ||= false
-    self.is_default ||= false
-    self.version ||= 0
-    unless id?
-      self.visibility = if (org.present? && org.funder_only?) || is_default?
-                          Template.visibilities[:publicly_visible]
-                        else
-                          Template.visibilities[:organisationally_visible]
-                        end
-    end
-    self.customization_of ||= nil
-    self.family_id ||= new_family_id
-    self.archived ||= false
-    self.links ||= { funder: [], sample_plan: [] }
   end
 
   # Only one version of a template should be published at a time, so if this
