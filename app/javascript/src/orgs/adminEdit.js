@@ -48,4 +48,9 @@ $(() => {
       $('#org_links').val(JSON.stringify(links));
     });
   });
+
+  $('.links [data-toggle="tooltip"]').on('click', (e) => {
+    e.preventDefault();
+    $(e.target).parent('a').tooltip('toggle');
+  });
 });

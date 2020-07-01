@@ -35,6 +35,7 @@ RSpec.describe "Questions::Dropdown questions" do
     within("#answer-form-#{@question.id}") do
       select @question.question_options.first.text
       click_button "Save"
+      sleep(0.2)
     end
 
     # Expectations

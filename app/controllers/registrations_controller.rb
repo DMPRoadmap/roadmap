@@ -85,7 +85,7 @@ class RegistrationsController < Devise::RegistrationsController
       build_resource(attrs)
 
       # Determine if reCAPTCHA is enabled and if so verify it
-      use_recaptcha = Rails.configuration.branding[:application][:use_recaptcha] || false
+      use_recaptcha = Rails.configuration.x.application.use_recaptcha || false
       if (!use_recaptcha || verify_recaptcha(model: resource)) && resource.save
         if resource.active_for_authentication?
           set_flash_message :notice, :signed_up if is_navigational_format?

@@ -13,7 +13,8 @@ class  Paginable::DepartmentsController < ApplicationController
     paginable_renderise(
       partial: "index",
       scope: departments,
-      query_params: { sort_field: "departments.name", sort_direction: :asc }
+      query_params: { sort_field: "departments.name", sort_direction: :asc },
+      format: :json
     )
   end
 

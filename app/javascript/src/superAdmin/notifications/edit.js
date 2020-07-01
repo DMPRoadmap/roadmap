@@ -12,8 +12,8 @@ $(() => {
     form.submit();
   });
 
-  $(paginableSelector).on('ajax:success', '.enable_notification', (e, data) => {
-    // const form = $(e.target);
+  $(paginableSelector).on('ajax:success', '.enable_notification', (e) => {
+    const data = e.detail[0];
     if (data.code === 1 && data.msg && data.msg !== '') {
       notifier.renderNotice(data.msg);
     } else {
