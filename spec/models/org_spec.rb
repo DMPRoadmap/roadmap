@@ -48,7 +48,7 @@ RSpec.describe Org, type: :model do
 
   context "associations" do
 
-    it { should belong_to(:language).optional }
+    it { should belong_to(:language) }
 
     it { should belong_to(:region).optional }
 
