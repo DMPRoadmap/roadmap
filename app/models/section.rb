@@ -32,6 +32,8 @@ class Section < ApplicationRecord
   # Sort order: Number ASC
   default_scope { order(number: :asc) }
 
+  attribute :modifiable, :boolean, default: true
+
   # ================
   # = Associations =
   # ================
@@ -58,14 +60,16 @@ class Section < ApplicationRecord
   validates :modifiable, inclusion: { in: BOOLEAN_VALUES,
                                       message: INCLUSION_MESSAGE }
 
-  # =============
-  # = Callbacks =
-  # =============
+  # =========================
+  # = Custom Accessor Logic =
+  # =========================
 
-  # TODO: Move this down to DB constraints
-  before_validation :set_modifiable
-
-  before_validation :set_number, if: :phase_id_changed?
+  # ensure the number gets set to a valid-value
+  def phase_id=(value)
+    phase = Phase.where(id: value).first
+    self.number = (phase.sections.where.not(id: id).maximum(:number).to_i + 1) if phase.present?
+    super(value)
+  end
 
   # =====================
   # = Nested Attributes =
@@ -126,21 +130,6 @@ class Section < ApplicationRecord
   # Can't be modified as it was duplicatd over from another Phase.
   def unmodifiable?
     !modifiable?
-  end
-
-  private
-
-  # ============================
-  # = Private instance methods =
-  # ============================
-
-  def set_modifiable
-    self.modifiable = true if modifiable.nil?
-  end
-
-  def set_number
-    return if phase.nil?
-    self.number = phase.sections.where.not(id: id).maximum(:number).to_i + 1
   end
 
 end

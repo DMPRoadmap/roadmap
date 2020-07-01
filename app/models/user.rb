@@ -56,8 +56,6 @@
 class User < ApplicationRecord
 
   include ConditionalUserMailer
-  include ValidationMessages
-  include ValidationValues
   include DateRangeable
   include Identifiable
 
@@ -76,6 +74,9 @@ class User < ApplicationRecord
   ##
   # User Notification Preferences
   serialize :prefs, Hash
+
+  # default user language to the default language
+  attribute :language_id, :integer, default: -> { Language.default&.id }
 
   # ================
   # = Associations =
@@ -161,8 +162,6 @@ class User < ApplicationRecord
   # =============
   # = Callbacks =
   # =============
-
-  before_validation :ensure_language
 
   before_update :clear_department_id, if: :org_id_changed?
 
@@ -331,7 +330,7 @@ class User < ApplicationRecord
   # Returns nil
   # Returns Boolean
   def remove_token!
-    return if new_record?
+    return if new_record? || api_token.nil?
     update_column(:api_token, nil)
   end
 
@@ -453,11 +452,6 @@ class User < ApplicationRecord
 
   def clear_department_id
     self.department_id = nil
-  end
-
-  # Callback that ensures that a language is specified
-  def ensure_language
-    self.language = Language.default unless language.present?
   end
 
 end
