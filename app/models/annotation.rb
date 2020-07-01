@@ -60,17 +60,6 @@ class Annotation < ApplicationRecord
   # = Class Methods =
   # =================
 
-  # Deep copy the given annotation and all it's associations
-  #
-  # annotation - To be deep copied
-  #
-  # Returns Annotation
-  def self.deep_copy(annotation)
-    annotation_copy = annotation.dup
-    annotation_copy.save!
-    return annotation_copy
-  end
-
   # ===========================
   # = Public instance methods =
   # ===========================

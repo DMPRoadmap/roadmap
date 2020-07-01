@@ -66,7 +66,6 @@ class Answer < ApplicationRecord
 
   after_save :set_plan_complete
 
-
   ##
   # deep copy the given answer
   #
@@ -154,6 +153,7 @@ class Answer < ApplicationRecord
   end
 
   def set_plan_complete
+    # Remove guard? this is an after-save so unreachable if there is no plan
     return unless plan_id?
     complete = plan.no_questions_matches_no_answers?
     if plan.complete != complete

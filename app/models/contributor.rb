@@ -26,7 +26,7 @@
 #  fk_rails_...  (org_id => orgs.id)
 #  fk_rails_...  (plan_id => plans.id)
 
-class Contributor < ActiveRecord::Base
+class Contributor < ApplicationRecord
 
   include FlagShihTzu
   include ValidationMessages
