@@ -65,7 +65,7 @@ class Org < ApplicationRecord
   # = Associations =
   # ================
 
-  belongs_to :language, optional: true
+  belongs_to :language
 
   belongs_to :region, optional: true
 
@@ -197,11 +197,7 @@ class Org < ApplicationRecord
   # Returns String
   # Returns nil
   def get_locale
-    if !self.language.nil?
-      self.language.abbreviation
-    else
-      nil
-    end
+    language.abbreviation
   end
 
   # TODO: Should these be hardcoded? Also, an Org can currently be multiple org_types at

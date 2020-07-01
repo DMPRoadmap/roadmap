@@ -74,8 +74,6 @@ describe Plan do
 
     it { is_expected.to have_many(:contributors) }
 
-    it { is_expected.to belong_to(:api_client).optional }
-
   end
 
   describe ".publicly_visible" do
