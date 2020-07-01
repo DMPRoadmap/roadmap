@@ -44,8 +44,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_locale
-    session[:locale] || FastGettext.default_locale
-    @current_locale = session[:locale]
+    @current_locale = session[:locale] || FastGettext.default_locale
   end
 
   def store_location

@@ -22,6 +22,7 @@ placeholder = _("Begin typing to see a list of suggestions.")
                               autocomplete: "list",
                               required: required
                             },
+                            authenticity_token: true,
                             data: {
                               url: orgs_search_path(type: "external"),
                               method: "POST",
