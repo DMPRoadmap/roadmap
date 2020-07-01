@@ -53,6 +53,7 @@ class Language < ApplicationRecord
   # ensure abbreviation is downcase and conforms to I18n locales
   # TODO: evaluate the need for the LocaleService after move to Translation.io
   def abbreviation=(value)
+    value = "" if value.nil?
     value = value.downcase
     if value.blank? || value =~ /\A[a-z]{2}\Z/i
       super(value)

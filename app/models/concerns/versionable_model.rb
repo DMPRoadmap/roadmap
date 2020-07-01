@@ -12,7 +12,7 @@ module VersionableModel
     attribute :versionable_id,
               :string,
               default: lambda {
-                         unique_random(field_name: "versionable_id")
+                         unique_uuid(field_name: "versionable_id")
                        }
   end
 
