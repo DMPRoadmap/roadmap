@@ -8,4 +8,11 @@ module UniqueRandom
       end
     end
 
+    def unique_uuid(field_name:)
+      return loop do
+        uuid = SecureRandom.uuid
+        break uuid unless self.exists?(field_name.to_sym => uuid)
+      end
+    end
+
 end

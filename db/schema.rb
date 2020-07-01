@@ -275,10 +275,11 @@ ActiveRecord::Schema.define(version: 2020_06_25_092600) do
     t.integer "grant_id"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.index ["org_id"], name: "index_plans_on_org_id"
-    t.index ["template_id"], name: "index_plans_on_template_id"
+    t.integer "api_client_id"
     t.index ["funder_id"], name: "index_plans_on_funder_id"
     t.index ["grant_id"], name: "index_plans_on_grant_id"
+    t.index ["org_id"], name: "index_plans_on_org_id"
+    t.index ["template_id"], name: "index_plans_on_template_id"
   end
 
   create_table "plans_guidance_groups", force: :cascade do |t|
