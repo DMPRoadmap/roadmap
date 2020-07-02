@@ -1,17 +1,23 @@
 # DMPTool
 
+[![Actions Status](https://github.com/CDLUC3/dmptool/workflows/Brakeman/badge.svg)](https://github.com/CDLUC3/dmptool/actions)
+[![Actions Status](https://github.com/CDLUC3/dmptool/workflows/Rubocop/badge.svg)](https://github.com/CDLUC3/dmptool/actions)
+[![Actions Status](https://github.com/CDLUC3/dmptool/workflows/ESLint/badge.svg)](https://github.com/CDLUC3/dmptool/actions)
+[![Actions Status](https://github.com/CDLUC3/dmptool/workflows/Tests%20-%20PostgreSQL/badge.svg)](https://github.com/CDLUC3/dmptool/actions)
+[![Actions Status](https://github.com/CDLUC3/dmptool/workflows/Tests%20-%20MySQL/badge.svg)](https://github.com/CDLUC3/dmptool/actions)
+
 The DMPTool is a free, open-source, online application that helps researchers create data management plans. These plans, or DMPs, are now required by many funding agencies as part of the grant proposal submission process. The DMPTool provides a click-through wizard for creating a DMP that complies with funder requirements. It also has direct links to funder websites, help text for answering questions, and resources for best practices surrounding data management.
 
 The DMPTool is based on the [DMPRoadmap](https://github.com/DMPRoadmap/roadmap) open source project. DMPRoadmap is being collaboratively developed by members of the University of California Curation Center (UC3), the Digital Curation Centre (DCC) and contributions from the community.
 
 Click here for the latest [releases].(https://github.com/CDLUC3/dmptool/releases/)
 
-[![Build Status](https://travis-ci.org/CDLUC3/dmptool.svg)](https://travis-ci.org/CDLUC3/dmptool)
-
 ## Support
 
 Issues should be reported here on [Github Issues](https://github.com/CDLUC3/dmptool/issues)
-Please be advised though that we can only provide limited support for your local installations. Issues will be triaged by our team and if applicable will be moved/opened in the DMPRoadmap repository.
+Please be advised though that we can only provide support for the [DMPTool](https://dmptool.org). This code is offered as open source and we can only provide limited support for your local installation. 
+
+Issues will be triaged by our team and if applicable will be moved/opened in the DMPRoadmap repository.
 
 ## Translations
 
@@ -47,10 +53,6 @@ The following is a list of customizations that we have made to the base DMPRoadm
 - **Sigin in/Create account:** The sign in and create account workflows has been overhauled to place more emphasis on logging in via institutional credentials (Shibboleth). All of the DMPTool code for these items have been separated into its own `app/views/branded/shared/` subdirectory. The corresponding JS file can be found at `app/javascript/dmptool/`.
 - **Public participating institutions page:** A new Participating Institutions page has been added and is accessible to the public.
 - **Styling:** We have added `app/assets/stylesheets/dmptool/**/*.scss` files that gets loaded after the base DMPRoadmap stylesheets
-- **Create buttons:** All of the create buttons (e.g. Create Plan, Create Template) have been moved so that they appear on the upper right of their associated tables.
-- **Accordion plus/minus (+/-) icons:** The plus/minus icons on the accordions have been moved so that they appear on the left.
-- **Project details page:** The id field and contact phone numbers have been removed.
-- **Max number of organization links:** Added a new constant for the max number of organization links that can appear in the header
 - **Text/Labels:** Various text and labels have been updated.
 
 ## Troubleshooting
