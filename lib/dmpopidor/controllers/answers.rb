@@ -35,7 +35,8 @@ module Dmpopidor
         Answer.transaction do
           begin
             @answer = Answer.find_by!({ 
-                plan_id: p_params[:plan_id], question_id: p_params[:question_id], 
+                plan_id: p_params[:plan_id], 
+                question_id: p_params[:question_id], 
                 research_output_id: p_params[:research_output_id] 
             })
             authorize @answer
