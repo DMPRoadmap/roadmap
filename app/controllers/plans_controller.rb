@@ -91,15 +91,15 @@ class PlansController < ApplicationController
       # plan.funder which forces the hidden id hash to be :id
       # so we need to convert it to :org_id so it works with the
       # OrgSelectable and OrgSelection services
-      if params[:org][:id].present?
-        attrs = params[:org]
-        attrs[:org_id] = attrs[:id]
-        @plan.org = org_from_params(params_in: attrs, allow_create: false)
+      org_hash = plan_params[:org] || params[:org]
+      if org_hash[:id].present?
+        org_hash[:org_id] = org_hash[:id]
+        @plan.org = org_from_params(params_in: org_hash, allow_create: false)
       end
-      if params[:funder][:id].present?
-        attrs = params[:funder]
-        attrs[:org_id] = attrs[:id]
-        @plan.funder = org_from_params(params_in: attrs, allow_create: false)
+      funder_hash = plan_params[:funder] || params[:funder]
+      if funder_hash[:id].present?
+        funder_hash[:org_id] = funder_hash[:id]
+        @plan.funder = org_from_params(params_in: funder_hash, allow_create: false)
       end
 
       if @plan.save
