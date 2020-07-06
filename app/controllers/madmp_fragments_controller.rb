@@ -135,7 +135,8 @@ class MadmpFragmentsController < ApplicationController
       return render_to_string(partial: 'shared/dynamic_form/linked_fragment/list', locals: {
                   parent_id: parent_id,
                   obj_list: obj_list,
-                  schema: schema
+                  schema: schema,
+                  readonly: false
       })
     end
   end
