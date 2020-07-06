@@ -49,6 +49,7 @@
   field_values: fundings, 
   parent_id: project_fragment.id,
   schema: MadmpSchema.find_by(classname: "funding"),
+  readonly: false,
   field_name: "funding", answer_id: nil 
   }
 ) %>
@@ -76,6 +77,7 @@
   field_values: partners, 
   parent_id: project_fragment.id,
   schema: MadmpSchema.find_by(classname: "partner"),
+  readonly: false,
   field_name: "partner", answer_id: nil 
   }
 ) %>

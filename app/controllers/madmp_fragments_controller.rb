@@ -44,12 +44,11 @@ class MadmpFragmentsController < ApplicationController
     end
   end
 
-
-
   def new_edit_linked
     @schema = MadmpSchema.find(params[:schema_id])
     @parent_fragment = MadmpFragment.find(params[:parent_id])
     @classname = @schema.classname
+    @readonly = false
 
     @fragment = nil
     dmp_id = @parent_fragment.classname == "dmp" ? @parent_fragment.id : @parent_fragment.dmp_id
@@ -61,6 +60,20 @@ class MadmpFragmentsController < ApplicationController
           parent_id: @parent_fragment.id
         )
     end
+    authorize @fragment
+    respond_to do |format|
+      format.html
+      format.js { render :partial => "shared/dynamic_form/linked_fragment" }
+    end
+  end
+
+  def show_linked
+    @fragment = MadmpFragment.find(params[:fragment_id])
+    @schema = @fragment.madmp_schema
+    @classname = @fragment.classname
+    @parent_fragment = @fragment.parent 
+    @readonly = true
+    
     authorize @fragment
     respond_to do |format|
       format.html

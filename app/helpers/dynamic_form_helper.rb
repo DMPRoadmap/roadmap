@@ -1,6 +1,6 @@
 module DynamicFormHelper
 
-  def create_text_field(form, value, name, label, html_class: nil, is_multiple: false, index: 0)
+  def create_text_field(form, value, name, label, html_class: nil, is_multiple: false, readonly: false, index: 0)
     render partial: 'shared/dynamic_form/fields/text_field', 
     locals: {
       f: form, 
@@ -10,13 +10,14 @@ module DynamicFormHelper
       field_name: name, 
       field_label: label,
       field_class: html_class,
-      input_type: nil
+      input_type: nil,
+      readonly: readonly
     }
   end
 
 
 
-  def create_url_field(form, value, name, label, html_class: nil, is_multiple: false, index: 0)
+  def create_url_field(form, value, name, label, html_class: nil, is_multiple: false, readonly: false, index: 0)
     render partial: 'shared/dynamic_form/fields/text_field', 
     locals: {
       f: form, 
@@ -26,13 +27,14 @@ module DynamicFormHelper
       field_name: name, 
       field_label: label,
       field_class: html_class,
-      input_type: 'url'
+      input_type: 'url',
+      readonly: readonly
     }
   end
 
 
 
-  def create_email_field(form, value, name, label, html_class: nil, is_multiple: false, index: 0)
+  def create_email_field(form, value, name, label, html_class: nil, is_multiple: false, readonly: false, index: 0)
     render partial: 'shared/dynamic_form/fields/text_field', 
     locals: {
       f: form, 
@@ -42,13 +44,14 @@ module DynamicFormHelper
       field_name: name, 
       field_label: label,
       field_class: html_class,
-      input_type: 'email'
+      input_type: 'email',
+      readonly: readonly
     }
   end
 
 
 
-  def create_date_field(form, value, name, label, html_class: nil, is_multiple: false, index: 0)
+  def create_date_field(form, value, name, label, html_class: nil, is_multiple: false, readonly: false, index: 0)
     render partial: 'shared/dynamic_form/fields/text_field', 
     locals: {
       f: form, 
@@ -58,13 +61,14 @@ module DynamicFormHelper
       field_name: name, 
       field_label: label,
       field_class: html_class,
-      input_type: 'date'
+      input_type: 'date',
+      readonly: readonly
     }
   end
 
 
 
-  def create_number_field(form, value, name, label, html_class: nil, is_multiple: false, index: 0)
+  def create_number_field(form, value, name, label, html_class: nil, is_multiple: false, readonly: false, index: 0)
     render partial: 'shared/dynamic_form/fields/number_field', 
     locals: {
       f: form, 
@@ -73,7 +77,8 @@ module DynamicFormHelper
       field_value: value, 
       field_name: name, 
       field_label: label,
-      field_class: html_class
+      field_class: html_class,
+      readonly: readonly
     }
   end
 

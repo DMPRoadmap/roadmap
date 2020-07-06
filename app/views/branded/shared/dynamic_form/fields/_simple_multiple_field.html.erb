@@ -1,4 +1,4 @@
-<%# locals: { f, field_label, field_name, select_values, selected_value, field_class } %>
+<%# locals: { f, field_values, readonly, field_label, field_properties, field_name } %>
 <div class="col-md-12">
     <%= f.label field_name, field_label, class: 'control-label' %>
 </div>
@@ -7,16 +7,16 @@
         <% case field_properties["type"] %>
         <% when "string" %>
             <% if field_properties['format'].nil?%>
-                <%= create_text_field(f, value, field_name, field_label, is_multiple: true, index: idx) %>
+                <%= create_text_field(f, value, field_name, field_label, is_multiple: true, readonly: readonly, index: idx) %>
             <% elsif field_properties['format'] == 'date' %>
-                <%= create_date_field(f, value, field_name, field_label, is_multiple: true, index: idx) %>
+                <%= create_date_field(f, value, field_name, field_label, is_multiple: true, readonly: readonly, index: idx) %>
             <% elsif field_properties['format'] == 'uri' %>
-                <%= create_url_field(f, value, field_name, field_label, is_multiple: true, index: idx) %>
+                <%= create_url_field(f, value, field_name, field_label, is_multiple: true, readonly: readonly, index: idx) %>
             <% elsif field_properties['format'] == 'email' %>
-                <%= create_email_field(f, value, field_name, field_label, is_multiple: true, index: idx) %>
+                <%= create_email_field(f, value, field_name, field_label, is_multiple: true, readonly: readonly, index: idx) %>
             <%end%>
         <% when "integer" %>
-            <%=  create_number_field(f, value, field_name, field_label,  is_multiple: true, index: idx)%>
+            <%=  create_number_field(f, value, field_name, field_label,  is_multiple: true, readonly: readonly, index: idx)%>
         <% when "boolean" %>
             <%=  create_checkbox_field(f, value, field_name, field_label)%>
         <% end %>
@@ -25,16 +25,16 @@
     <% case field_properties["type"] %>
     <% when "string" %>
         <% if field_properties['format'].nil?%>
-            <%= create_text_field(f, nil, field_name, field_label, is_multiple: true, index: 0) %>
+            <%= create_text_field(f, nil, field_name, field_label, is_multiple: true, readonly: readonly, index: 0) %>
         <% elsif field_properties['format'] == 'date' %>
-            <%= create_date_field(f, nil, field_name, field_label, is_multiple: true, index: 0) %>
+            <%= create_date_field(f, nil, field_name, field_label, is_multiple: true, readonly: readonly, index: 0) %>
         <% elsif field_properties['format'] == 'uri' %>
-            <%= create_url_field(f, nil, field_name, field_label, is_multiple: true, index: 0) %>
+            <%= create_url_field(f, nil, field_name, field_label, is_multiple: true, readonly: readonly, index: 0) %>
         <% elsif field_properties['format'] == 'email' %>
-            <%= create_email_field(f, nil, field_name, field_label, is_multiple: true, index: 0) %>
+            <%= create_email_field(f, nil, field_name, field_label, is_multiple: true, readonly: readonly, index: 0) %>
         <%end%>
     <% when "integer" %>
-        <%=  create_number_field(f, nil, field_name, field_label,  is_multiple: true, index: 0)%>
+        <%=  create_number_field(f, nil, field_name, field_label,  is_multiple: true, readonly: readonly, index: 0)%>
     <% when "boolean" %>
         <%=  create_checkbox_field(f, nil, field_name, field_label)%>
     <% end %>

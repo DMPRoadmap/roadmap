@@ -11,7 +11,8 @@
         <%= render(partial: 'shared/dynamic_form/linked_fragment/list', locals: {
               obj_list: field_values, 
               parent_id: parent_id,
-              schema: schema
+              schema: schema,
+              readonly: readonly
               }
             ) %>
       </tbody>

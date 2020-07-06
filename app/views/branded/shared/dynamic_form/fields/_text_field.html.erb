@@ -6,7 +6,7 @@
 <% end %>
 <div class="col-md-12 dynamic-field">
   <%= f.text_field field_name, value: field_value, multiple: multiple, class: "form-control #{field_class}", type: input_type  %>
-  <% if multiple %>
+  <% if multiple && readonly == false%>
     <div class="actions">
       <span class="fa fa-plus-square add-record"></span>
       <% if index != 0 %>

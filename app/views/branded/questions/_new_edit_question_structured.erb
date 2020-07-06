@@ -5,9 +5,8 @@
   <%= render(partial: 'shared/dynamic_form/form', locals: { 
         f: f,
         fragment: answer.madmp_fragment, 
-        readonly: readonly,
-        research_output: research_output,
         schema: question.madmp_schema,
+        readonly: readonly,
         classname: classname,
         fragment_id: fragment_id
       }) %>
