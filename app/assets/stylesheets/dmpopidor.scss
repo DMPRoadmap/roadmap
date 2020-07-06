@@ -1006,7 +1006,7 @@ header .main-nav {
 }
 
 /* 
- * STRUCTURED ANSWERS
+ * maDMP FRAGMENTS
  */
  .madmp-fragment {
     .dynamic-field {
@@ -1043,6 +1043,14 @@ header .main-nav {
         }
     }
 
+ }
+
+ .fragment-display {
+    margin-top: 20px;
+    .sub-fragment {
+        border: 0.5px #ddd groove;
+        border-radius: 5px;
+    }
  }
 
  #modal-window {
