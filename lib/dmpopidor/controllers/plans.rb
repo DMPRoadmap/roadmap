@@ -282,11 +282,11 @@ module Dmpopidor
 
         def plan_meta_params
           params.require(:plan)
-                .permit(:title, :description, :relatedDocUrl, :associatedDMPId,
+                .permit(:title, :descriptione, :associatedDMPId, :versionNumber, :versionNotes,
+                        relatedDocUrl: [],
                         contact: [:lastName, :firstName, :mbox, :identifier],
                         licence: [ :licenseName, :licenseUrl, :licenceStartDate],
-                        dmpID: [:value, :idType],
-                        version: [:versionNumber, :versionNotes])
+                        dmpID: [:value, :idType])
         end
 
         def plan_project_params
