@@ -27,6 +27,7 @@ class Paginable::UsersController < ApplicationController
       partial: "index",
       scope: scope,
       query_params: { sort_field: 'users.surname', sort_direction: :asc },
+      format: :json,
       view_all: !current_user.can_super_admin?
     )
   end

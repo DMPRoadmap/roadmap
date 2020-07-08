@@ -27,9 +27,7 @@
 #
 # [+Created:+] 03/09/2014
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
-class Phase < ActiveRecord::Base
-  include ValidationMessages
-  include ValidationValues
+class Phase < ApplicationRecord
   include ActsAsSortable
   include VersionableModel
   include ConditionsHelper
@@ -43,7 +41,7 @@ class Phase < ActiveRecord::Base
   # ================
   belongs_to :template, touch: true
 
-  belongs_to :plan
+  belongs_to :plan, optional: true
 
   has_one :prefix_section, -> (phase) {
     modifiable.where("number < ?",
@@ -139,7 +137,7 @@ class Phase < ActiveRecord::Base
 
   def visibility_allowed?(plan)
     value = Rational(num_answered_questions(plan), plan.num_questions) * 100
-    value >= Rails.application.config.default_plan_percentage_answered.to_f
+    value >= Rails.configuration.x.plans.default_percentage_answered.to_f
   end
 
 end

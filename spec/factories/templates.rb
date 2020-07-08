@@ -40,7 +40,7 @@ FactoryBot.define do
     published { false }
     archived { false }
     sequence(:version)
-    family_id { rand(10_000) }
+    family_id { Template.unique_random(field_name: "family_id") }
 
     trait :publicly_visible do
       after(:create) do |template|

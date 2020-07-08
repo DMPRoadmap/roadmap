@@ -14,7 +14,7 @@ class RegistrationsController < Devise::RegistrationsController
     @default_org = current_user.org
 
     if !@prefs
-      flash[:alert] = "No default preferences found (should be in branding.yml)."
+      flash[:alert] = "No default preferences found (should be in dmproadmap.rb initializer)."
     end
   end
 
@@ -35,7 +35,7 @@ class RegistrationsController < Devise::RegistrationsController
         # Connect the new user with the identifier sent back by the OAuth provider
         # rubocop:disable Metrics/LineLength
         flash[:notice] = _("Please make a choice below. After linking your details to a %{application_name} account, you will be able to sign in directly with your institutional credentials.") % {
-          application_name: Rails.configuration.branding[:application][:name]
+          application_name: ApplicationService.application_name
         }
       end
     end
@@ -79,10 +79,13 @@ class RegistrationsController < Devise::RegistrationsController
       attrs = sign_up_params
       attrs = handle_org(attrs: attrs)
 
+      # handle the language
+      attrs[:language_id] = Language.default&.id unless attrs[:language_id].present?
+
       build_resource(attrs)
 
       # Determine if reCAPTCHA is enabled and if so verify it
-      use_recaptcha = Rails.configuration.branding[:application][:use_recaptcha] || false
+      use_recaptcha = Rails.configuration.x.application.use_recaptcha || false
       if (!use_recaptcha || verify_recaptcha(model: resource)) && resource.save
         if resource.active_for_authentication?
           set_flash_message :notice, :signed_up if is_navigational_format?
@@ -265,7 +268,7 @@ class RegistrationsController < Devise::RegistrationsController
     params.require(:user).permit(:email, :password, :password_confirmation,
                                  :firstname, :surname, :recovery_email,
                                  :accept_terms, :org_id, :org_name,
-                                 :org_crosswalk)
+                                 :org_crosswalk, :language_id)
   end
 
   def update_params

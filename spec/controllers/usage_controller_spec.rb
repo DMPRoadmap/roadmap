@@ -46,7 +46,8 @@ RSpec.describe UsageController, type: :controller do
         context "last #{months} months" do
           before(:each) do
             @date = Date.today.months_ago(months).end_of_month.strftime("%Y-%m-%d")
-            post :plans_by_template, usage: { template_plans_range: @date }, format: :js
+            post :plans_by_template, params: { usage: { template_plans_range: @date } },
+                                     format: :js
           end
           it "returns the expected data" do
             # Controller returns results in date ascending order so resort the

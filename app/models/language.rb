@@ -11,11 +11,7 @@
 #  name             :string
 #
 
-class Language < ActiveRecord::Base
-
-  # frozen_string_literal: true
-
-  include ValidationValues
+class Language < ApplicationRecord
 
   # =============
   # = Constants =
@@ -50,11 +46,21 @@ class Language < ActiveRecord::Base
 
   validates :default_language, inclusion: { in: BOOLEAN_VALUES }
 
-  # =============
-  # = Callbacks =
-  # =============
+  # =========================
+  # = Custom Accessor Logic =
+  # =========================
 
-  before_validation :format_abbreviation, if: :abbreviation_changed?
+  # ensure abbreviation is downcase and conforms to I18n locales
+  # TODO: evaluate the need for the LocaleService after move to Translation.io
+  def abbreviation=(value)
+    value = "" if value.nil?
+    value = value.downcase
+    if value.blank? || value =~ /\A[a-z]{2}\Z/i
+      super(value)
+    else
+      super(LocaleService.to_i18n(locale: value).to_s)
+    end
+  end
 
   # ==========
   # = Scopes =
@@ -77,14 +83,6 @@ class Language < ActiveRecord::Base
 
   def self.default
     where(default_language: true).first
-  end
-
-  private
-
-  def format_abbreviation
-    abbreviation.downcase!
-    return if abbreviation.blank? || abbreviation =~ /\A[a-z]{2}\Z/i
-    self.abbreviation = LocaleFormatter.new(abbreviation, format: :i18n).to_s
   end
 
 end

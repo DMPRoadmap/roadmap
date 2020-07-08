@@ -53,11 +53,9 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
 
   include ConditionalUserMailer
-  include ValidationMessages
-  include ValidationValues
   include DateRangeable
   include Identifiable
 
@@ -76,6 +74,9 @@ class User < ActiveRecord::Base
   ##
   # User Notification Preferences
   serialize :prefs, Hash
+
+  # default user language to the default language
+  attribute :language_id, :integer, default: -> { Language.default&.id }
 
   # ================
   # = Associations =
@@ -161,8 +162,6 @@ class User < ActiveRecord::Base
   # =============
   # = Callbacks =
   # =============
-
-  before_update :clear_other_organisation, if: :org_id_changed?
 
   before_update :clear_department_id, if: :org_id_changed?
 
@@ -331,7 +330,7 @@ class User < ActiveRecord::Base
   # Returns nil
   # Returns Boolean
   def remove_token!
-    return if new_record?
+    return if new_record? || api_token.nil?
     update_column(:api_token, nil)
   end
 
@@ -374,7 +373,7 @@ class User < ActiveRecord::Base
   def deliver_invitation(options = {})
     super(options.merge(subject: _("A Data Management Plan in " +
       "%{application_name} has been shared with you") %
-      { application_name: Rails.configuration.branding[:application][:name] })
+      { application_name: ApplicationService.application_name })
     )
   end
 
@@ -412,7 +411,7 @@ class User < ActiveRecord::Base
     self.surname = 'User'
     self.email = User.unique_random(field_name: 'email',
       prefix: 'user_',
-      suffix: Rails.configuration.branding[:application].fetch(:archived_accounts_email_suffix, '@example.org'),
+      suffix: Rails.configuration.x.application.fetch(:archived_accounts_email_suffix, '@example.org'),
       length: 5)
     self.recovery_email = nil
     self.api_token = nil
@@ -449,10 +448,6 @@ class User < ActiveRecord::Base
 
   def delete_perms!
     perms.destroy_all
-  end
-
-  def clear_other_organisation
-    self.other_organisation = nil
   end
 
   def clear_department_id

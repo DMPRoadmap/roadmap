@@ -30,9 +30,16 @@ class ResearchProjectsController < ApplicationController
   end
 
   def fetch_projects
-    Rails.cache.fetch(["research_projects", funder_type], expires_in: 1.day) do
-      Thread.new { ExternalApis::OpenAireService.search(funder: funder_type) }.value
+    Rails.cache.fetch(["research_projects", funder_type], expires_in: expiry) do
+      #Thread.new { ExternalApis::OpenAireService.search(funder: funder_type) }.value
+      ExternalApis::OpenAireService.search(funder: funder_type)
     end
+  end
+
+  # Retrieve the Cache expiration seconds
+  def expiry
+    expiration = Rails.configuration.x.cache.research_projects_expiration
+    expiration.present? ? expiration : 1.day
   end
 
 end

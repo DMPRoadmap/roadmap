@@ -47,8 +47,7 @@ RSpec.describe GuidanceGroup, type: :model do
 
       let!(:org) do
         create(:org,
-          abbreviation: Rails.configuration
-                             .branding.dig(:organisation, :abbreviation))
+          abbreviation: Rails.configuration.x.organisation.abbreviation)
       end
 
       let!(:guidance_group) { create(:guidance_group, org: org) }
@@ -128,8 +127,7 @@ RSpec.describe GuidanceGroup, type: :model do
 
       let!(:org) do
         create(:org,
-          abbreviation: Rails.configuration
-                             .branding.dig(:organisation, :abbreviation))
+          abbreviation: Rails.configuration.x.organisation.abbreviation)
       end
 
       let!(:guidance_group) { create(:guidance_group, org: org) }

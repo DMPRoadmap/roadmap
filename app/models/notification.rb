@@ -15,10 +15,8 @@
 #  updated_at        :datetime         not null
 #
 
-class Notification < ActiveRecord::Base
-  include ValidationMessages
-  include ValidationValues
-
+class Notification < ApplicationRecord
+  
   enum level: %i[info warning danger]
   enum notification_type: %i[global]
 

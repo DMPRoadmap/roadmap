@@ -1,4 +1,4 @@
-class CreateDmptemplates < ActiveRecord::Migration
+class CreateDmptemplates < ActiveRecord::Migration[4.2]
   def change
     create_table :dmptemplates do |t|
       t.string :template_title

@@ -17,7 +17,7 @@ class OrgAdmin::TemplateCopiesController < ApplicationController
     rescue StandardError => e
       flash[:alert] = failure_message(_("copy"), template_type(@template))
       if request.referrer.present?
-        redirect_to :back
+        redirect_back(fallback_location: org_admin_templates_path)
       else
         redirect_to org_admin_templates_path
       end

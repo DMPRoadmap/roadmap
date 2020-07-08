@@ -2,6 +2,11 @@ require 'rails_helper'
 
 RSpec.feature "Locales", type: :feature, js: true do
 
+  before(:each) do
+    # Clear out the default defined in the locales support file
+    Language.destroy_all
+  end
+
   let!(:languages) {
     [
       Language.where(
@@ -28,19 +33,24 @@ RSpec.feature "Locales", type: :feature, js: true do
   let!(:user) { create(:user, language: languages.first) }
 
   before do
-    locale_set = LocaleSet.new(%w[en-GB de pt-BR])
-    I18n.available_locales        = locale_set.for(:i18n)
-    FastGettext.default_available_locales = locale_set.for(:fast_gettext)
-    I18n.locale                   = locale_set.for(:i18n).first
-    FastGettext.locale            = locale_set.for(:fast_gettext).first
+    locales = %w[en-GB de pt-BR]
+    I18n.available_locales = locales.map { |l| LocaleService.to_i18n(locale: l) }
+    FastGettext.default_available_locales = locales.map do |l|
+      LocaleService.to_gettext(locale: l)
+    end
+    I18n.locale                   = LocaleService.to_i18n(locale: locales.first)
+    FastGettext.locale            = LocaleService.to_gettext(locale: locales.first)
     sign_in(user)
   end
 
   after do
-    I18n.available_locales        = AVAILABLE_TEST_LOCALES.for(:i18n)
-    FastGettext.default_available_locales = AVAILABLE_TEST_LOCALES.for(:fast_gettext)
-    I18n.default_locale           = AVAILABLE_TEST_LOCALES.for(:i18n).first
-    FastGettext.default_locale    = AVAILABLE_TEST_LOCALES.for(:fast_gettext).first
+    locales = AVAILABLE_TEST_LOCALES
+    I18n.available_locales = locales.map { |l| LocaleService.to_i18n(locale: l) }
+    FastGettext.default_available_locales = locales.map do |l|
+      LocaleService.to_gettext(locale: l)
+    end
+    I18n.default_locale           = LocaleService.to_i18n(locale: locales.first)
+    FastGettext.default_locale    = LocaleService.to_gettext(locale: locales.first)
   end
 
   context "when new locale has no region" do

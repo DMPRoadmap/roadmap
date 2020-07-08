@@ -11,10 +11,8 @@
 #  updated_at   :datetime         not null
 #
 
-class QuestionFormat < ActiveRecord::Base
-  include ValidationMessages
-  include ValidationValues
-
+class QuestionFormat < ApplicationRecord
+  
   ##
   #
   FORMAT_TYPES = %i[textarea textfield radiobuttons checkbox dropdown

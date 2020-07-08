@@ -7,11 +7,11 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   # Look for template overrides before rendering
-  before_filter :prepend_view_paths
+  before_action :prepend_view_paths
 
-  before_filter :set_gettext_locale
+  before_action :set_gettext_locale
 
-  after_filter :store_location
+  after_action :store_location
 
   include GlobalHelpers
   include Pundit
@@ -40,11 +40,11 @@ class ApplicationController < ActionController::Base
 
   # Sets FastGettext locale for every request made
   def set_gettext_locale
-    FastGettext.locale = LocaleFormatter.new(current_locale, format: :fast_gettext).to_s
+    FastGettext.locale = LocaleService.to_gettext(locale: current_locale)
   end
 
   def current_locale
-    session[:locale] || FastGettext.default_locale
+    @current_locale = session[:locale] || FastGettext.default_locale
   end
 
   def store_location
@@ -154,8 +154,8 @@ class ApplicationController < ActionController::Base
   # Sign out of Shibboleth SP local session too.
   # -------------------------------------------------------------
   def after_sign_out_path_for(resource_or_scope)
-    if Rails.application.config.shibboleth_enabled
-      return Rails.application.config.shibboleth_logout_url + root_url
+    if Rails.configuration.x.shibboleth.enabled
+      return Rails.configuration.x.shibboleth.logout_url + root_url
       super
     else
       super

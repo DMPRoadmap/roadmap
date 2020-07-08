@@ -7,7 +7,7 @@ module ConditionalUserMailer
   #
   # recipients - User or Enumerable object or any object that includes Enumerable class
   # key        - A key (dot notation) whose value is true/false and belongs to
-  #              prefences.email (see config/branding.yml)
+  #              prefences.email (see dmproadmap.rb initializer)
   #
   # Returns Boolean
   def deliver_if(recipients: [], key:, &block)

@@ -4,17 +4,19 @@ class SessionLocalesController < ApplicationController
 
   def update
     session[:locale] = params[:locale] if available_locales.include?(param_locale)
-    redirect_to(:back)
+    redirect_back(fallback_location: root_path)
   end
 
   private
 
   def available_locales
-    LocaleSet.new(FastGettext.default_available_locales).for(:fast_gettext)
+    FastGettext.default_available_locales.map do |locale|
+      LocaleService.to_gettext(locale: locale).to_s
+    end
   end
 
   def param_locale
-    LocaleFormatter.new(params[:locale], format: :fast_gettext).to_s
+    LocaleService.to_gettext(locale: params[:locale]).to_s
   end
 
 end

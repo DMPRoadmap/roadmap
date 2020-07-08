@@ -17,9 +17,7 @@
 #
 #  index_identifiers_on_identifiable_type_and_identifiable_id  (identifiable_type,identifiable_id)
 #
-class Identifier < ActiveRecord::Base
-
-  include ValidationMessages
+class Identifier < ApplicationRecord
 
   # ================
   # = Associations =
@@ -27,8 +25,7 @@ class Identifier < ActiveRecord::Base
 
   belongs_to :identifiable, polymorphic: true
 
-  # TODO: uncomment 'optional: true' once we are on Rails 5
-  belongs_to :identifier_scheme #, optional: true
+  belongs_to :identifier_scheme, optional: true
 
   # ===============
   # = Validations =
@@ -51,13 +48,37 @@ class Identifier < ActiveRecord::Base
           identifiable_type: identifiable_type)
   end
 
+  # =========================
+  # = Custom Accessor Logic =
+  # =========================
+
+  # Ensure that the value of attrs is a hash
+  # TODO: evaluate this vs the Serialize approach in condition.rb
+  def attrs=(hash)
+    super(hash.is_a?(Hash) ? hash.to_json.to_s : "{}")
+  end
+
+  # Appends the identifier scheme's prefix to the identifier if necessary
+  # For example:
+  #   value   '0000-0000-0000-0001'
+  #   becomes 'https://orcid.org/0000-0000-0000-0001'
+  def value=(val)
+    if identifier_scheme.present? &&
+       identifier_scheme.identifier_prefix.present? &&
+       !val.to_s.strip.blank? &&
+       !val.to_s.starts_with?(identifier_scheme.identifier_prefix)
+
+      base = identifier_scheme.identifier_prefix
+      base += "/" unless base.ends_with?("/")
+      super("#{base}#{val}")
+    else
+      super(val)
+    end
+  end
+
   # ===========================
   # = Public instance methods =
   # ===========================
-
-  def attrs=(hash)
-    write_attribute(:attrs, (hash.is_a?(Hash) ? hash.to_json.to_s : "{}"))
-  end
 
   # Determines the format of the identifier based on the scheme or value
   def identifier_format
@@ -84,24 +105,6 @@ class Identifier < ActiveRecord::Base
 
     base = identifier_scheme.identifier_prefix
     value.gsub(base, "").sub(%r{^\/}, "")
-  end
-
-  # Appends the identifier scheme's prefix to the identifier if necessary
-  # For example:
-  #   value   '0000-0000-0000-0001'
-  #   becomes 'https://orcid.org/0000-0000-0000-0001'
-  def value=(val)
-    if identifier_scheme.present? &&
-       identifier_scheme.identifier_prefix.present? &&
-       !val.to_s.strip.blank? &&
-       !val.to_s.starts_with?(identifier_scheme.identifier_prefix)
-
-      base = identifier_scheme.identifier_prefix
-      base += "/" unless base.ends_with?("/")
-      super("#{base}#{val}")
-    else
-      super(val)
-    end
   end
 
   private

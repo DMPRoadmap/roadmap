@@ -8,8 +8,7 @@
 #  updated_at :datetime         not null
 #
 
-class Perm < ActiveRecord::Base
-  include ValidationMessages
+class Perm < ApplicationRecord
 
   # ================
   # = Associations =
@@ -29,6 +28,7 @@ class Perm < ActiveRecord::Base
   # = Class methods =
   # =================
 
+  # TODO: see the constants setup in token_permission_type.rb and refactor
   def self.add_orgs
     Perm.find_by(name: 'add_organisations')
   end

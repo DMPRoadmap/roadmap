@@ -16,9 +16,7 @@
 #  index_departments_on_org_id  (org_id)
 #
 
-class Department < ActiveRecord::Base
-
-  include ValidationMessages
+class Department < ApplicationRecord
 
   belongs_to :org
 

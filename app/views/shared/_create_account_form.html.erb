@@ -40,7 +40,7 @@
       <% end %>
     </div>
   </div>
-  <% if Rails.configuration.branding[:application][:use_recaptcha] %>
+  <% if Rails.configuration.x.recaptcha.enabled %>
     <div class="form-group">
       <%= label_tag(nil, _('Security check')) %>
       <%= recaptcha_tags %>
