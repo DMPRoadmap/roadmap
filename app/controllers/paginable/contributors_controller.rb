@@ -17,7 +17,8 @@ module Paginable
       paginable_renderise(
         partial: "index",
         scope: Contributor.where(plan_id: @plan.id),
-        query_params: { sort_field: "contributors.name", sort_direction: :asc }
+        query_params: { sort_field: "contributors.name", sort_direction: :asc },
+        format: :json
       )
     end
 

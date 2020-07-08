@@ -23,8 +23,7 @@
 #  fk_rails_...  (question_id => questions.id)
 #
 
-class Annotation < ActiveRecord::Base
-  include ValidationMessages
+class Annotation < ApplicationRecord
   include VersionableModel
 
   ##
@@ -37,7 +36,7 @@ class Annotation < ActiveRecord::Base
   # = Associations =
   # ================
 
-  belongs_to :org
+  belongs_to :org, optional: true
   belongs_to :question
   has_one :section, through: :question
   has_one :phase, through: :question
@@ -60,17 +59,6 @@ class Annotation < ActiveRecord::Base
   # =================
   # = Class Methods =
   # =================
-
-  # Deep copy the given annotation and all it's associations
-  #
-  # annotation - To be deep copied
-  #
-  # Returns Annotation
-  def self.deep_copy(annotation)
-    annotation_copy = annotation.dup
-    annotation_copy.save!
-    return annotation_copy
-  end
 
   # ===========================
   # = Public instance methods =

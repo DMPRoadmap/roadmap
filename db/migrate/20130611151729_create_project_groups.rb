@@ -1,4 +1,4 @@
-class CreateProjectGroups < ActiveRecord::Migration
+class CreateProjectGroups < ActiveRecord::Migration[4.2]
   def change
     create_table :project_groups do |t|
       t.boolean :project_creator

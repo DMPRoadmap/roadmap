@@ -38,7 +38,7 @@ class OrgsController < ApplicationController
       attrs[:managed] = attrs[:managed] == "1"
 
       # Handle Shibboleth identifier if that is enabled
-      if Rails.application.config.shibboleth_use_filtered_discovery_service
+      if Rails.configuration.x.shibboleth.use_filtered_discovery_service
         shib = IdentifierScheme.by_name("shibboleth").first
 
         if shib.present? && attrs.fetch(:identifiers_attributes, {}).any?

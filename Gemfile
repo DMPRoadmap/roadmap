@@ -2,23 +2,43 @@
 
 source "https://rubygems.org"
 
-ruby ">= 2.4.0"
+ruby ">= 2.6.3"
 
-# ------------------------------------------------
-# RAILS
+# ===========#
+# CORE RAILS #
+# ===========#
+
 # Full-stack web application framework. (http://rubyonrails.org)
-gem "rails", "~> 4.2.11.1"
+gem "rails", "~> 5.2"
 
-# TODO: See if pegging gems is still necessary after migrating to Rails 5
-gem "sprockets", "~> 3.2"
+# Use sqlite3 as the database for Active Record
+# gem 'sqlite3', '~> 1.4'
 
-# Rake is a Make-like program implemented in Ruby
-# (https://github.com/ruby/rake)
-gem "rake"
+# Use Puma as the app server
+gem "puma", group: :puma, require: false
 
-# Tools for creating, working with, and running Rails applications.
-# (http://www.rubyonrails.org)
-gem "railties"
+# Use SCSS for stylesheets
+gem "sass-rails"
+
+# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
+gem "webpacker"
+
+# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+gem "turbolinks"
+
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem "jbuilder"
+
+# Use Redis adapter to run Action Cable in production
+# gem "redis", "~> 4.0"
+# Use Active Model has_secure_password
+# gem "bcrypt", "~> 3.1.7"
+
+# Use Active Storage variant
+# gem "image_processing", "~> 1.2"
+
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', require: false
 
 # GEMS ADDED TO HELP HANDLE RAILS MIGRATION FROM 3.x to 4.2
 # THESE GEMS HELP SUPPORT DEPRACATED FUNCTIONALITY AND WILL LOSE SUPPORT IN
@@ -26,62 +46,40 @@ gem "railties"
 
 # A set of Rails responders to dry up your application
 # (http://github.com/plataformatec/responders)
-gem "responders", "~> 2.0"
+#gem "responders"
 
-group :rollbar, optional: true do
-  # Rollbar-gem is the SDK for Ruby apps and includes support for apps using
-  # Rails, Sinatra, Rack, plain Ruby, and other frameworks.
-  gem "rollbar"
-end
+# ============== #
+# ERROR HANDLING #
+# ============== #
 
-# ------------------------------------------------
-#    DATABASE/SERVER
+# Rollbar-gem is the SDK for Ruby apps and includes support for apps using
+# Rails, Sinatra, Rack, plain Ruby, and other frameworks.
+gem "rollbar", group: :rollbar, require: false
 
-group :mysql do
-  # A simple, fast Mysql library for Ruby, binding to libmysql
-  # (http://github.com/brianmario/mysql2)
-  gem "mysql2", "~> 0.4.10"
-end
+# ======== #
+# DATABASE #
+# ======== #
 
-group :pgsql do
-  # Pg is the Ruby interface to the {PostgreSQL
-  # RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
-  # Pg is the Ruby interface to the {PostgreSQL RDBMS}
-  # [http://www.postgresql.org/] (https://bitbucket.org/ged/ruby-pg)
-  gem "pg", "~> 0.19.0"
-end
+# A simple, fast Mysql library for Ruby, binding to libmysql
+# (http://github.com/brianmario/mysql2)
+gem "mysql2", group: :mysql, require: false
 
-group :thin do
-  # A thin and fast web server (http://code.macournoyer.com/thin/)
-  gem "thin"
-end
-
-group :puma do
-  # Puma is a simple, fast, threaded, and highly concurrent HTTP 1.1 server
-  # for Ruby/Rack applications (http://puma.io)
-  gem "puma", group: :puma
-end
+# Pg is the Ruby interface to the {PostgreSQL
+# RDBMS}[http://www.postgresql.org/](https://bitbucket.org/ged/ruby-pg)
+gem "pg", group: :pgsql, require: false
 
 # Bit fields for ActiveRecord (https://github.com/pboling/flag_shih_tzu)
-gem "flag_shih_tzu", "~> 0.3.23" # Allows for bitfields in activereccord
-# Pinned here because we're using a private method in Role.rb
-# if this gets updated, check this method still exists
+gem "flag_shih_tzu" #, "~> 0.3.23"
 
-# ------------------------------------------------
-#    JSON DSL - USED BY API
-# Create JSON structures via a Builder-style DSL
-# (https://github.com/rails/jbuilder)
-gem "jbuilder", "~> 2.6.0"
+# ======== #
+# SECURITY #
+# ======== #
 
-# ------------------------------------------------
-#    USERS
-# devise for user authentication
 # Flexible authentication solution for Rails with Warden
 # (https://github.com/plataformatec/devise)
-gem "devise", ">= 4.7.1"
+gem "devise"
 
-# An invitation strategy for Devise
-# (https://github.com/scambra/devise_invitable)
+# An invitation strategy for Devise (https://github.com/scambra/devise_invitable)
 gem "devise_invitable"
 
 # A generalized Rack framework for multiple-provider authentication.
@@ -105,25 +103,18 @@ gem "omniauth-rails_csrf_protection"
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
 gem 'jwt'
 
-# Pure Ruby implementation of Array#dig and Hash#dig for Ruby < 2.3.
-# (https://github.com/Invoca/ruby_dig)
-gem "ruby_dig" # for omniauth-orcid
-
 # Gems for repository integration
 # OO authorization for Rails (https://github.com/elabs/pundit)
-# OO authorization for Rails (https://github.com/varvet/pundit)
 gem "pundit"
 
-# ------------------------------------------------
-# SETTINGS FOR TEMPLATES AND PLANS (FONTS, COLUMN LAYOUTS, ETC)
+# ========== #
+# UI / VIEWS #
+# ========== #
 
 # Ruby gem to handle settings for ActiveRecord instances by storing them as
 # serialized Hash in a separate database table. Namespaces and defaults
 # included. (https://github.com/ledermann/rails-settings)
 gem "ledermann-rails-settings"
-
-# ------------------------------------------------
-# VIEWS
 
 # Gem providing simple Contact Us functionality with a Rails 3+ Engine.
 # (https://github.com/jdutil/contact_us)
@@ -136,59 +127,68 @@ gem "recaptcha"
 # (http://github.com/markevans/dragonfly)
 gem "dragonfly"
 
-group :aws, optional: true do
+group :aws do
   # Amazon AWS S3 data store for use with the Dragonfly gem.
   gem "dragonfly-s3_data_store"
 end
 
-# bootstrap-sass is a Sass-powered version of Bootstrap 3, ready to drop
-# right into your Sass powered applications.
-# (https://github.com/twbs/bootstrap-sass)
-gem "bootstrap-sass", "~> 3.4.1"
+# ========== #
+# PAGINATION #
+# ========== #
 
-# This is required for Font-Awesome, but not used as the main sass compiler
+# A pagination engine plugin for Rails 4+ and other modern frameworks
+# (https://github.com/kaminari/kaminari)
+gem "kaminari"
 
-# Sass adapter for the Rails asset pipeline.
-# (https://github.com/rails/sass-rails)
-gem "sass-rails", require: false
+# Paginate in your headers, not in your response body. This follows the
+# proposed RFC-8288 standard for Web linking.
+gem "api-pagination"
+
+# =========== #
+# STYLESHEETS #
+# =========== #
 
 # Integrate SassC-Ruby into Rails. (https://github.com/sass/sassc-rails)
 gem "sassc-rails"
 
 # Font-Awesome SASS (https://github.com/FortAwesome/font-awesome-sass)
-gem "font-awesome-sass", "~> 4.2.0"
+gem 'font-awesome-sass', '~> 5.13.0'
 
 # Use webpack to manage app-like JavaScript modules in Rails
 # (https://github.com/rails/webpacker)
-gem "webpacker", "~> 3.5"
+#gem "webpacker"
 
 # Parse CSS and add vendor prefixes to CSS rules using values from the Can
 # I Use website. (https://github.com/ai/autoprefixer-rails)
 gem "autoprefixer-rails"
 
 # Minimal embedded v8 for Ruby (https://github.com/discourse/mini_racer)
-gem "mini_racer"
+#gem "mini_racer"
 
-# ------------------------------------------------
-# EXPORTING
+# ========= #
+# EXPORTING #
+# ========= #
+
 # Provides binaries for WKHTMLTOPDF project in an easily accessible package.
 gem "wkhtmltopdf-binary"
 
 # PDF generator (from HTML) gem for Ruby on Rails
 # (https://github.com/mileszs/wicked_pdf)
-gem "wicked_pdf", "~> 1.1.0"
+gem "wicked_pdf"
 
 # This simple gem allows you to create MS Word docx documents from simple
 # html documents. This makes it easy to create dynamic reports and forms
 # that can be downloaded by your users as simple MS Word docx files.
 # (http://github.com/karnov/htmltoword)
-gem "htmltoword", "1.1.0"
+gem "htmltoword"
 
 # Filename sanitization for Ruby. This is useful when you generate filenames for downloads from user input
 gem 'zaru'
 
-# ------------------------------------------------
-# INTERNATIONALIZATION
+# ==================== #
+# INTERNATIONALIZATION #
+# ==================== #
+
 # Simple FastGettext Rails integration.
 # (http://github.com/grosser/gettext_i18n_rails)
 gem "gettext_i18n_rails"
@@ -201,38 +201,31 @@ gem "gettext_i18n_rails_js"
 # (http://ruby-gettext.github.com/)
 gem "gettext", require: false, group: :development
 
-# ------------------------------------------------
-# PAGINATION
-# A pagination engine plugin for Rails 4+ and other modern frameworks
-# (https://github.com/kaminari/kaminari)
-gem "kaminari"
+# ========= #
+# UTILITIES #
+# ========= #
 
-# Paginate in your headers, not in your response body. This follows the
-# proposed RFC-8288 standard for Web linking.
-gem "api-pagination"
+# Run any code in parallel Processes(> use all CPUs) or Threads(> speedup
+# blocking operations). Best suited for map-reduce or e.g. parallel downloads/uploads.
+# TODO: Replace use of this with ActiveJob where possible
+gem 'parallel'
 
-# Following best practices from http://12factor.net run a maintainable,
-# clean, and scalable app on Rails (https://github.com/heroku/rails_12factor)
-gem "rails_12factor", group: [:production]
+# Makes http fun again! Wrapper to simplify the native Net::HTTP libraries
+gem 'httparty'
 
 # Autoload dotenv in Rails. (https://github.com/bkeepers/dotenv)
 gem "dotenv-rails"
 
-gem 'activerecord-session_store'
+# ================================= #
+# ENVIRONMENT SPECIFIC DEPENDENCIES #
+# ================================= #
 
-# -------------------------------------------------
-# UTILITIES
-gem 'parallel'
-
-gem 'httparty'
-
-# ------------------------------------------------
-# ENVIRONMENT SPECIFIC DEPENDENCIES
 group :development, :test do
-  # Ruby fast debugger - base + CLI
-  # (http://github.com/deivid-rodriguez/byebug)
-  gem "byebug"
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+end
 
+group :test do
   # RSpec for Rails (https://github.com/rspec/rspec-rails)
   gem "rspec-rails"
 
@@ -252,9 +245,7 @@ group :development, :test do
 
   # Guard gem for RSpec (https://github.com/guard/guard-rspec)
   gem "guard-rspec"
-end
 
-group :test do
   # Library for stubbing HTTP requests in Ruby.
   # (http://github.com/bblimke/webmock)
   gem "webmock"
@@ -275,17 +266,11 @@ group :test do
   # Mocking and stubbing library (http://gofreerange.com/mocha/docs)
   gem "mocha", require: false
 
-  # Rails application preloader (https://github.com/rails/spring)
-  gem "spring"
-
-  # rspec command for spring
-  # (https://github.com/jonleighton/spring-commands-rspec)
-  gem "spring-commands-rspec"
-
-  # Capybara aims to simplify the process of integration testing Rack
-  # applications, such as Rails, Sinatra or Merb
-  # (https://github.com/teamcapybara/capybara)
+  # Adds support for Capybara system testing and selenium driver
   gem "capybara"
+  gem "selenium-webdriver"
+  # Easy installation and use of web drivers to run system tests with browsers
+  gem "webdrivers"
 
   # Automatically create snapshots when Cucumber steps fail with Capybara
   # and Rails (http://github.com/mattheworiordan/capybara-screenshot)
@@ -295,16 +280,16 @@ group :test do
   # in our tests, but once a browser is involved, we lose control.
   gem "capybara-webmock"
 
-  # Run Selenium tests more easily with automatic installation and updates
-  # for all supported webdrivers.
-  gem "webdrivers", "~> 3.0"
-
   # RSpec::CollectionMatchers lets you express expected outcomes on
   # collections of an object in an example.
   gem "rspec-collection_matchers"
 
   # A set of RSpec matchers for testing Pundit authorisation policies.
   gem 'pundit-matchers'
+
+  # This gem brings back assigns to your controller tests as well as assert_template
+  # to both controller and integration tests.
+  gem 'rails-controller-testing'
 end
 
 group :ci, :development do
@@ -316,7 +301,7 @@ group :ci, :development do
   # (https://github.com/rubocop-hq/rubocop)
   # Rubocop style checks for DMP Roadmap projects.
   # (https://github.com/DMPRoadmap/rubocop-DMP_Roadmap)
-  gem "rubocop-dmp_roadmap", ">= 1.1.0"
+  gem "rubocop-dmp_roadmap"
 
   # Helper gem to require bundler-audit
   # (http://github.com/stewartmckee/bundle-audit)
@@ -324,6 +309,13 @@ group :ci, :development do
 end
 
 group :development do
+  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
+  gem "web-console"
+  gem "listen"
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem "spring"
+  gem "spring-watcher-listen"
+
   # Simple Progress Bar for output to a terminal
   # (http://github.com/paul/progress_bar)
   gem "progress_bar", require: false
@@ -339,9 +331,9 @@ group :development do
   # even further up the stack. (http://github.com/banister/binding_of_caller)
   gem "binding_of_caller"
 
-  # A debugging tool for your Ruby on Rails applications.
-  # (https://github.com/rails/web-console)
-  gem "web-console"
+  # rspec command for spring
+  # (https://github.com/jonleighton/spring-commands-rspec)
+  gem "spring-commands-rspec"
 
   # Profiles loading speed for rack applications. (http://miniprofiler.com)
   gem "rack-mini-profiler"

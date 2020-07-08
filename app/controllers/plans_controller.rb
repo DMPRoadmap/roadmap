@@ -19,7 +19,6 @@ class PlansController < ApplicationController
       @organisationally_or_publicly_visible =
         Plan.organisationally_or_publicly_visible(current_user).page(1)
     end
-
     if params[:plan].present?
       @template = Template.find(params[:plan][:template_id])
     end
@@ -69,7 +68,7 @@ class PlansController < ApplicationController
       end
     else
       @plan.visibility = if plan_params["visibility"].blank?
-                           Rails.application.config.default_plan_visibility
+                           Rails.configuration.x.plans.default_visibility
                          else
                            plan_params[:visibility]
                          end
@@ -163,7 +162,7 @@ class PlansController < ApplicationController
     @visibility = if @plan.visibility.present?
                     @plan.visibility.to_s
                   else
-                    Rails.application.config.default_plan_visibility
+                    Rails.configuration.x.plans.default_visibility
                   end
 
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
@@ -370,7 +369,7 @@ class PlansController < ApplicationController
         # rubocop:disable Metrics/LineLength
         render status: :forbidden, json: {
           msg: _("Unable to change the plan's status since it is needed at least %{percentage} percentage responded") % {
-              percentage: Rails.application.config.default_plan_percentage_answered
+              percentage: Rails.configuration.x.plans.default_percentage_answered
           }
         }
         # rubocop:enable Metrics/LineLength
@@ -390,13 +389,13 @@ class PlansController < ApplicationController
     # rubocop:disable Metrics/LineLength
     if plan.save
       render json: {
-               code: 1,
-               msg: (plan.is_test? ? _("Your project is now a test.") : _("Your project is no longer a test."))
-             }
+        code: 1,
+        msg: (plan.is_test? ? _("Your project is now a test.") : _("Your project is no longer a test."))
+      }
     else
       render status: :bad_request, json: {
-               code: 0, msg: _("Unable to change the plan's test status")
-             }
+        code: 0, msg: _("Unable to change the plan's test status")
+      }
     end
     # rubocop:enable Metrics/LineLength
   end

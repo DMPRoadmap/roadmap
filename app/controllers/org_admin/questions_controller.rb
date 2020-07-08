@@ -17,12 +17,12 @@ module OrgAdmin
                                    section: { phase: :template })
                          .find(params[:id])
       authorize question
-      render partial: "show", locals: {
+      render json: { html: render_to_string(partial: "show", locals: {
         template: question.section.phase.template,
         section: question.section,
         question: question,
         conditions: question.conditions
-      }
+      })}
     end
 
     def open_conditions
@@ -37,19 +37,21 @@ module OrgAdmin
                     webhooks: webhook_hash(question.conditions) }
     end
 
+    
+    # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/questions/[:question_id]/edit
     def edit
       question = Question.includes(:annotations,
                                    :question_options,
                                    section: { phase: :template })
                          .find(params[:id])
       authorize question
-      render partial: "edit", locals: {
+      render json: { html: render_to_string(partial: "edit", locals: {
         template: question.section.phase.template,
         section: question.section,
         question: question,
         question_formats: allowed_question_formats,
         conditions: question.conditions
-      }
+      })}
     end
 
     def new
@@ -61,7 +63,7 @@ module OrgAdmin
                               number: nbr.present? ? nbr + 1 : 1)
       question_formats = allowed_question_formats
       authorize question
-      render partial: "form", locals: {
+      render json: { html: render_to_string(partial: "form", locals: {
         template: section.phase.template,
         section: section,
         question: question,
@@ -71,7 +73,7 @@ module OrgAdmin
           phase_id: section.phase.id,
           id: section.id),
         question_formats: question_formats
-      }
+      }) }
     end
 
     def create
@@ -108,7 +110,7 @@ module OrgAdmin
         question.question_options.each do |opt|
           old_number_to_id[opt.number] = opt.id
         end
-      
+
         # get a map from question versionable id to old id
         question.template.questions.each do |q|
           old_question_ids[q.versionable_id] = q.id
@@ -132,7 +134,7 @@ module OrgAdmin
           question_id_map[old_question_ids[q.versionable_id].to_s] = q.id.to_s
         end
       end
-      
+
       # rewrite the question_option ids so they match the new
       # version of the question
       # and also rewrite the remove_data question ids
@@ -249,7 +251,7 @@ module OrgAdmin
     # get attached to the new question
     def transfer_associations(attrs, question)
       if attrs[:annotations_attributes].present?
-        attrs[:annotations_attributes].each_key do |key|
+        attrs[:annotations_attributes].keys.each do |key|
           old_annotation = question.annotations.select do |a|
             a.org_id.to_s == attrs[:annotations_attributes][key][:org_id] &&
               a.type.to_s == attrs[:annotations_attributes][key][:type]

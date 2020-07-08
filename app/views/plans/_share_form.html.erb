@@ -2,11 +2,11 @@
 <% editor = Role.new(editor: true, commenter: true) %>
 <% commenter = Role.new(commenter: true) %>
 <% administerable = @plan.administerable_by?(current_user) %>
-<% email_tooltip = _("Enter the email address of your collaborator: If they are already using #{Rails.configuration.branding[:application][:name]}, they will see this plan on their dashboard, and recieve an email. If they are not currently using #{Rails.configuration.branding[:application][:name]}, they will recieve an email inviting them to the tool so they can collaborate on your plan.") %>
+<% email_tooltip = _("Enter the email address of your collaborator: If they are already using #{ApplicationService.application_name}, they will see this plan on their dashboard, and recieve an email. If they are not currently using #{ApplicationService.application_name}, they will recieve an email inviting them to the tool so they can collaborate on your plan.") %>
 <% permissions_tooltip = _('Co-owner: Has admin-rights to the plan (can invite other users, view the plan, answer questions, or comment). Editor: Has edit-rights to the plan (can view the plan, answer questions, or comment). Read Only: Has read-rights to the plan (can view the plan or comment)') %>
 
 <h2><%= _('Set plan visibility') %></h2>
-<p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default.') % { :percentage => Rails.application.config.default_plan_percentage_answered } %></p>
+<p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default.') % { :percentage => Rails.configuration.x.plans.default_percentage_answered } %></p>
 <% allow_visibility = @plan.visibility_allowed? %>
 <%= form_for(@plan, url: visibility_plan_path, method: :post, html: { id: 'set_visibility', remote: true }) do |f| %>
   <fieldset<%= (allow_visibility ? '' : ' disabled') %>>
@@ -58,16 +58,22 @@
                 <span><%= display_role(role) %></span>
             <% else %>
                 <% if administerable && role.user != current_user %>
-                      <%= form_for role, url: { controller: :roles, action: :update, id: role.id }, remote: true, html: { method: :put } do |f| %>
-                      <div class="form-group col-xs-8">
-                        <%= f.hidden_field :id %>
-                        <%= f.select :access, {
-                              "#{display_role(administrator)}": administrator.access,
-                              "#{display_role(editor)}": editor.access,
-                              "#{display_role(commenter)}": commenter.access
-                            }, {}, { id: "#{role.id}-can-edit", class: "toggle-existing-user-access" } %>
-                      </div>
-                    <% end %>
+                  <div class="form-group col-xs-8">
+                    <% options = [
+                      ["#{display_role(administrator)}", administrator.access],
+                      ["#{display_role(editor)}", editor.access],
+                      ["#{display_role(commenter)}", commenter.access]
+                    ] %>
+                    <%= select_tag :access, options_for_select(options),
+                                            class: "toggle-existing-user-access",
+                                            authenticity_token: true,
+                                            data: {
+                                              remote: true,
+                                              method: :patch,
+                                              url: role_path(role),
+                                              params: { role: {} }
+                                            } %>
+                  </div>
                 <% else %>
                     <span><%= display_role(role) %></span>
                 <% end %>

@@ -10,8 +10,7 @@
 #  updated_at   :datetime         not null
 #
 
-class Region < ActiveRecord::Base
-  include ValidationMessages
+class Region < ApplicationRecord
 
   # ================
   # = Associations =
@@ -19,7 +18,7 @@ class Region < ActiveRecord::Base
 
   has_many :sub_regions, class_name: 'Region', foreign_key: 'super_region_id'
 
-  belongs_to :super_region, class_name: 'Region'
+  belongs_to :super_region, class_name: 'Region', optional: true
 
   # ===============
   # = Validations =

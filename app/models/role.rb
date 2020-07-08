@@ -21,11 +21,11 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
-class Role < ActiveRecord::Base
+class Role < ApplicationRecord
 
   include FlagShihTzu
-  include ValidationMessages
-  include ValidationValues
+
+  attribute :active, :boolean, default: true
 
   # ================
   # = Associations =
@@ -59,13 +59,6 @@ class Role < ActiveRecord::Base
   validates :access, presence: { message: PRESENCE_MESSAGE },
                      numericality: { greater_than: 0, only_integer: true,
                                      message: _("can't be less than zero") }
-
-  # =============
-  # = Callbacks =
-  # =============
-
-  # TODO: Push this down to the DB constraints
-  after_initialize :set_defaults
 
   ##
   # Roles with given FlagShihTzu access flags
@@ -102,10 +95,6 @@ class Role < ActiveRecord::Base
   # ===========================
   # = Public instance methods =
   # ===========================
-
-  def set_defaults
-    self.active = true if self.new_record?
-  end
 
   # Set the roles.active flag to false and deactivates the plan
   # if there are no other authors

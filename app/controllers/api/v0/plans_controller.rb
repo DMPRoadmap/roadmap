@@ -60,8 +60,8 @@ class Api::V0::PlansController < Api::V0::BaseController
     unless Api::V0::PlansPolicy.new(@user, nil).index?
       raise Pundit::NotAuthorizedError
     end
-    if params[:per_page].present? && params[:per_page].to_i > Rails.configuration.branding[:application][:api_max_page_size]
-      params[:per_page] = Rails.configuration.branding[:application][:api_max_page_size]
+    if params[:per_page].present? && params[:per_page].to_i > Rails.configuration.x.application.api_max_page_size
+      params[:per_page] = Rails.configuration.x.application.api_max_page_size
     end
     @plans = @user.org.plans.includes( [ {roles: :user}, {answers: :question_options} ,
       template: [ { phases: { sections: { questions: [:question_format, :themes ] } } }, :org]

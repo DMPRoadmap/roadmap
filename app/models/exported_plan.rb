@@ -11,9 +11,7 @@
 #  user_id    :integer
 #
 
-class ExportedPlan < ActiveRecord::Base
-  include ValidationMessages
-  include GlobalHelpers
+class ExportedPlan < ApplicationRecord
   include SettingsTemplateHelper
 
 

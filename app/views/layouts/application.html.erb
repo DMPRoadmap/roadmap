@@ -2,8 +2,8 @@
 <html lang="en">
   <head>
     <!-- Version: <%= version %> -->
-    <% if Rails.configuration.x.tracker_root.present? %>
-      <% root_abbr = Rails.configuration.x.tracker_root %>
+    <% if Rails.configuration.x.google_analytics.tracker_root.present? %>
+      <% root_abbr = Rails.configuration.x.google_analytics.tracker_root %>
       <% root_org = Org.where(abbreviation: root_abbr).first %>
       <% if root_org.tracker.present? %>
         <% root_code = root_org.tracker.code %>
@@ -30,7 +30,7 @@
       <% end %>
     <% end %>
     <!-- End Google Analytics -->
-    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %>
+    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => ApplicationService.application_name } %>
     </title>
     <%= favicon_link_tag "favicon.ico" %>
     <!--[ if lte IE 9]>
@@ -62,7 +62,7 @@
     <![endif]-->
 
     <%= stylesheet_link_tag(stylesheet_manifest_file) %>
-    <%= javascript_pack_tag(javascript_manifest_file) %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= csrf_meta_tags %>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -132,7 +132,9 @@
       OPENS_IN_A_NEW_WINDOW_TEXT: _('Opens in a new window'),
 
       AUTOCOMPLETE_ARIA_HELPER: _("%{n} results are available, use up and down arrows to navigate suggestions. Use the Enter key to select a suggestion or the Escape key to close the suggestions."),
-      AUTOCOMPLETE_ARIA_HELPER_EMPTY: _("No results are available for your entry.")
+      AUTOCOMPLETE_ARIA_HELPER_EMPTY: _("No results are available for your entry."),
+
+      CURRENT_LOCALE: LocaleService.to_gettext(locale: @current_locale.to_s)
     }.to_json
     %>
 

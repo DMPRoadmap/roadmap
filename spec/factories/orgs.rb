@@ -39,8 +39,7 @@ FactoryBot.define do
     feedback_enabled { false }
     region { Region.first || create(:region) }
     language do
-      Language.first_or_create(name: "English", abbreviation: "en-GB") ||
-        create(:language, name: "English", abbreviation: "en-GB")
+      Language.first_or_create(name: "English", abbreviation: "en-GB")
     end
     is_other { false }
     contact_email { Faker::Internet.safe_email }
@@ -76,5 +75,3 @@ FactoryBot.define do
     end
   end
 end
-
-

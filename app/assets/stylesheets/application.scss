@@ -1,19 +1,16 @@
 // Import locally defined variables. Load this before 'bootstrap'
 
 @import "variables/*";
-@debug "1 #{$navbar-branding-bg}";
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import "bootstrap-select/sass/bootstrap-select.scss";
-@debug "2 #{$navbar-branding-bg}";
+
+// Pull in the webpacker managed copy of Bootstrap Stylesheets
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+
 @import "blocks/*";
-@debug "3 #{$navbar-branding-bg}";
 @import "utils/*";
 
-// JQuery-UI CSS for Datepicker
-@import "vendor/jquery-ui/datepicker/jquery-ui.min.css";
-@import "vendor/jquery-ui/datepicker/jquery-ui.structure.min.css";
-@import "vendor/jquery-ui/datepicker/jquery-ui.theme.min.css";
+// Pull in the webapcker managed copy of JQuery-UI Stylesheets
+// we are using the Datepicker and Sortable at the very least
+@import "../../../node_modules/jquery-ui-sass/assets/sass/jquery-ui.scss";
 
 @import "font-awesome-sprockets";
 @import "font-awesome";

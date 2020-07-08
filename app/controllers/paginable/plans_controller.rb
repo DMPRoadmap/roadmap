@@ -9,10 +9,12 @@ class Paginable::PlansController < ApplicationController
     unless Paginable::PlanPolicy.new(current_user).privately_visible?
       raise Pundit::NotAuthorizedError
     end
+
     paginable_renderise(
       partial: "privately_visible",
       scope: Plan.active(current_user),
-      query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }
+      query_params: { sort_field: 'plans.updated_at', sort_direction: :desc },
+      format: :json
     )
   end
 
@@ -24,7 +26,8 @@ class Paginable::PlansController < ApplicationController
     paginable_renderise(
       partial: "organisationally_or_publicly_visible",
       scope: Plan.organisationally_or_publicly_visible(current_user),
-      query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }
+      query_params: { sort_field: 'plans.updated_at', sort_direction: :desc },
+      format: :json
     )
   end
 
@@ -33,7 +36,8 @@ class Paginable::PlansController < ApplicationController
     paginable_renderise(
       partial: "publicly_visible",
       scope: Plan.publicly_visible.includes(:template),
-      query_params: { sort_field: 'plans.updated_at', sort_direction: :desc }
+      query_params: { sort_field: 'plans.updated_at', sort_direction: :desc },
+      format: :json
     )
   end
 

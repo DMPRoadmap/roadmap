@@ -12,9 +12,7 @@
 #  updated_at  :datetime         not null
 #
 
-class Theme < ActiveRecord::Base
-
-  include ValidationMessages
+class Theme < ApplicationRecord
 
   # ================
   # = Associations =

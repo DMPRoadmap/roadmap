@@ -1,4 +1,4 @@
-class DropUnusedUserTables < ActiveRecord::Migration
+class DropUnusedUserTables < ActiveRecord::Migration[4.2]
   def change
     drop_table :user_statuses
     remove_column :users, :user_status_id

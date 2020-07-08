@@ -78,7 +78,7 @@
                    context: 'org',
                    title: _('Organisation URLs'),
                    links: org.links.fetch("org", []),
-                   max_number_links: MAX_NUMBER_LINKS_FUNDER,
+                   max_number_links: Rails.configuration.x.max_number_links_funder,
                    tooltip: shared_links_tooltip }) %>
       <%= hidden_field_tag('org_links', value: org.links) %>
     </div>

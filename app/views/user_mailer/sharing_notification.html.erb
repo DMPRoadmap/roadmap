@@ -1,5 +1,5 @@
 <%
-  tool_name = Rails.configuration.branding[:application][:name]
+  tool_name = ApplicationService.application_name
   user_email = @user.email
   link = url_for(action: 'show', controller: 'plans', id: @role.plan.id)
   user_name = User.find_by(email: user_email).nil? ?  user_email : User.find_by(email: user_email).name(false)
@@ -20,4 +20,3 @@
   </p>
   <%= render partial: 'email_signature' %>
 <% end %>
-

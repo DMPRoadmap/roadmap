@@ -9,8 +9,7 @@
 #  updated_at       :datetime
 #
 
-class TokenPermissionType < ActiveRecord::Base
-  include ValidationMessages
+class TokenPermissionType < ApplicationRecord
 
   # =============
   # = Constants =
