@@ -2,7 +2,7 @@ FROM ruby:2.5.8
 
 # Dependancies
 RUN apt-get update -qq && \
-  apt-get install -y \
+  apt-get install --no-install-recommends -y \
   build-essential \
   git \
   libgmp3-dev \
