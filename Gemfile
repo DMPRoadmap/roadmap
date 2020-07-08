@@ -152,7 +152,7 @@ gem "api-pagination"
 gem "sassc-rails"
 
 # Font-Awesome SASS (https://github.com/FortAwesome/font-awesome-sass)
-gem "font-awesome-sass"
+gem 'font-awesome-sass', '~> 5.13.0'
 
 # Use webpack to manage app-like JavaScript modules in Rails
 # (https://github.com/rails/webpacker)
