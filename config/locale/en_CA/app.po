@@ -964,7 +964,7 @@ msgid "If you have any questions, please contact the %{application_name} team at
 msgstr ""
 
 msgid "If you wish to add an organisational template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students. Your template will be presented to users within your organisation when no funder templates apply. If you want to add questions to funder templates use the 'customise template' options below."
-msgstr "If you wish to add an organizational template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students. Your template will be presented to users within your organization when no funder templates apply. If you want to add questions to funder templates use the 'customize template' options below."
+msgstr "If you wish to add an organizational template for a Data Management Plan, use the 'create template' button. You can create more than one template if desired e.g. one for researchers and one for PhD students. Your template will be presented to users within your organization. If you want to add questions to Portage Data Curation Template use the 'customize template' options below."
 
 msgid "If you would like to change your password please complete the following fields."
 msgstr ""

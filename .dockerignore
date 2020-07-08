@@ -1,0 +1,9 @@
+# For some reason ignoring tmp creates a problem when compiling assets
+# tmp
+# !tmp/pids/.keep
+log
+coverage/
+
+.dockerignore
+docker-compose-development.yml
+docker-compose.yml
