@@ -1,0 +1,147 @@
+[
+  {
+    "path": "BackupPolicy-schema.json",
+    "classname": "backup_policy",
+    "question_id": null
+  },
+  {
+    "path": "ControlledKeyword-schema.json",
+    "classname": "controlled_keyword",
+    "question_id": null
+  },
+  {
+    "path": "Cost-schema.json",
+    "classname": "cost",
+    "question_id": null
+  },
+  {
+    "path": "CostValue-schema.json",
+    "classname": "cost_value",
+    "question_id": null
+  },
+  {
+    "path": "DataCollection-schema.json",
+    "classname": "data_collection",
+    "question_id": 23980
+  },
+  {
+    "path": "DataOrganization-schema.json",
+    "classname": "data_organization",
+    "question_id": 23981
+  },
+  {
+    "path": "DataProcessing-schema.json",
+    "classname": "data_processing",
+    "question_id": null
+  },
+  {
+    "path": "DataStorage-schema_Genci.json",
+    "classname": "data_storage",
+    "question_id": 23984
+  },
+  {
+    "path": "Distribution-schema.json",
+    "classname": "distribution",
+    "question_id": null
+  },
+  {
+    "path": "DocumentationQuality-schema.json",
+    "classname": "documentation_quality",
+    "question_id": 23982
+  },
+  {
+    "path": "EthicalIssues-schema.json",
+    "classname": "ethical_issues",
+    "question_id": 23988
+  },
+  {
+    "path": "Funder-schema.json",
+    "classname": "funder",
+    "question_id": null
+  },
+  {
+    "path": "Funding-schema.json",
+    "classname": "funding",
+    "question_id": null
+  },
+  {
+    "path": "Identifier-schema.json",
+    "classname": "identifier",
+    "question_id": null
+  },
+  {
+    "path": "LegalIssues-schema.json",
+    "classname": "legal_issues",
+    "question_id": 23987
+  },
+  {
+    "path": "LegalItem-schema.json",
+    "classname": "legal_item",
+    "question_id": null
+  },
+  {
+    "path": "License-schema.json",
+    "classname": "license",
+    "question_id": null
+  },
+  {
+    "path": "MetadataStandard-schema.json",
+    "classname": "metadata_standard",
+    "question_id": null
+  },
+  {
+    "path": "Partner-schema.json",
+    "classname": "partner",
+    "question_id": null
+  },
+  {
+    "path": "Person-schema.json",
+    "classname": "person",
+    "question_id": null
+  },
+  {
+    "path": "PersonalDataIssues-schema.json",
+    "classname": "personal_data_issues",
+    "question_id": null
+  },
+  {
+    "path": "PreservationIssues-schema.json",
+    "classname": "preservation_issues",
+    "question_id": null
+  },
+  {
+    "path": "Project-schema.json",
+    "classname": "project",
+    "question_id": null
+  },
+  {
+    "path": "QualityAssuranceMethod-schema.json",
+    "classname": "quality_assurance_method",
+    "question_id": null
+  },
+  {
+    "path": "ReusedData-schema.json",
+    "classname": "reused_data",
+    "question_id": null
+  },
+  {
+    "path": "Sharing-schema.json",
+    "classname": "sharing",
+    "question_id": null
+  },
+  {
+    "path": "StaffMember-schema.json",
+    "classname": "staff_member",
+    "question_id": null
+  },
+  {
+    "path": "TechnicalResource-schema.json",
+    "classname": "technical_resource",
+    "question_id": null
+  },
+  {
+    "path": "TechnicalResourceUsage-schema_GENCI.json",
+    "classname": "technical_resource_usage",
+    "question_id": null
+  }
+]

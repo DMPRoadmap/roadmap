@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/JSON/",
+    "title": "Data organization",
+    "description": "Schema to describe data organization issues",
+    "type": "object",
+    "properties": {
+        "title": {
+            "label": "Title",
+            "type": "string",
+            "pattern": "(.)*((@en)|(@fr))"
+        },
+        "description": {
+            "label": "Description",
+            "type": "string",
+            "pattern": "(.)*((@en)|(@fr))"
+        },
+        "documentUrl": {
+            "label": "Document URL",
+            "type": "string",
+            "format": "uri"
+        }
+    },
+    "required": [
+        "title",
+        "description"
+    ]
+}

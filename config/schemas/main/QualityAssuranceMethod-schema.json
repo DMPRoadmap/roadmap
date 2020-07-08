@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/JSON/",
+    "title": "Data quality assurance method",
+    "description": "Schema to describe data quality assurance methods",
+    "type": "object",
+    "properties": {
+        "title": {
+            "label": "Title",
+            "type": "string",
+            "pattern": "(.)*((@en)|(@fr))"
+        },
+        "description": {
+            "label": "Description",
+            "type": "string",
+            "pattern": "(.)*((@en)|(@fr))"
+        },
+        "qualityMethodUrl": {
+            "label": "Quality method",
+            "type": "string",
+            "format": "uri"
+        }
+    },
+    "requested": [
+        "title",
+        "description"
+    ]
+}

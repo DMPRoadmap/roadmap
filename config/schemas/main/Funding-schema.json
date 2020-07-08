@@ -1,0 +1,36 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "id": "../Documentation/Implementation/Data_model/Json/",
+    "title": "Funding",
+    "description": "The documentation of funding schema",
+    "type": "object",
+    "properties": {
+        "funder": {
+            "label": "Funder",
+            "type": "object",
+            "classname": "funder",
+            "properties": {
+                "dbid": {
+                    "type": "number",
+                    "description": "internal pointer to a Funder Json document"
+                }
+            },
+            "requested": ["dbid"]
+        },
+        "grantId": {
+            "label": "Grant ID",
+            "type": "string"
+        },
+        "fundingStatus": {
+            "label": "Funding status",
+            "type": "string",
+            "format": "select",
+            "values": ["Planned", "Applied", "Granted", "Rejected"]
+        }
+    },
+    "required": [
+        "funder",
+        "fundingStatus",
+        "name"
+    ]
+}

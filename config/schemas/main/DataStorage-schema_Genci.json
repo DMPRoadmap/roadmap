@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "../Documentation/Implementation/data_model/JSON/",
+  
+  "title": "Data storage",
+  "description": "Schema describing data storage",
+  "type":"object",
+  "properties":{
+    "title":{
+      "type":"string",
+      "pattern":"(.)*((@en)|(@fr))",
+      "title":"Data storage title schema",
+      "description":"Title for the storage use)"
+    },
+    "description":{
+      "type":"string",
+      "pattern":"(.)*((@en)|(@fr))",
+      "title": "Description of data storage",
+      "description":"informations regarding the technical resources and its use"
+    },
+    "storage":{
+      "type":"array",
+      "description":"internal identifier pointing to a technicalResourceUsage JSON document",
+      "items": {
+        "type": "object",
+        "classname": "technical_resource_usage",
+        "properties": {
+          "dbid": {
+            "type": "number"
+          }
+        },
+        "requested": ["dbid"]
+      }
+    },
+    "securityMeasures":{
+      "type":"string",
+      "pattern":"(.)*((@en)|(@fr))"
+    },
+    "backupPolicy":{
+      "type": "object",
+      "classname": "backup_policy",
+      "properties": {
+        "dbid": {
+          "type": "number"
+        }
+      },
+      "required": ["dbid"]
+    }
+  },
+  "required":["title", "description", "storage"]
+}

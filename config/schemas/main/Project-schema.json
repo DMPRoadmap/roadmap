@@ -1,0 +1,93 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/JSON/",
+    "title": "Project",
+    "description": "Project or research activity schema",
+    "type": "object",
+    "properties": {
+        "title": {
+            "label": "Title",
+            "type": "string",
+            "pattern": "(.)*((@en)|(@fr))"
+        },
+        "acronym": {
+            "label": "Acronym",
+            "type": "string"
+        },
+        "description": {
+            "label": "Description",
+            "type": "string",
+            "pattern": "(.)*((@en)|(@fr))"
+        },
+        "projectId": {
+            "label": "Project ID",
+            "type": "string"
+        },
+        "funding": {
+            "label": "Funding",
+            "type": "array",
+            "description": "Funding information",
+            "items": {
+                "type": "object",
+                "classname": "funding",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "required": ["dbid"]
+            }
+        },
+        "startDate": {
+            "label": "Start date",
+            "type": "string",
+            "format": "date"
+        },
+        "endDate": {
+            "label": "End date",
+            "type": "string",
+            "format": "date"
+        },
+        "partner": {
+            "label": "Partner",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "classname": "partner",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "requested": ["dbid"]
+            }
+        },
+        "experimentalPlanUrl": {
+            "label": "Experimental plan URL",
+            "type": "string",
+            "format": "uri"
+        },
+        "principalInvestigator": {
+            "label": "Principal investigator",
+            "type": "object",
+            "classname": "person",
+            "properties": {
+                "dbId": {
+                    "type": "number",
+                    "description": "internal pointer to a Person Json document"
+                }
+            },
+            "required": ["dbid"]
+        }
+    },
+    "requested": [
+        "title",
+        "description",
+        "acronym",
+        "startDate",
+        "endDate",
+        "funding",
+        "partner",
+        "principalInvestigator"
+    ]
+}

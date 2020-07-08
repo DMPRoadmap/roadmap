@@ -1,0 +1,271 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "id": "../Documentation/Implementation/Data_model/Json/",
+    "title": "Research output",
+    "description": "The documentation for the research output schema",
+    "type": "object",
+    "properties": {
+        "title": {
+            "label": "Title",
+            "type": "string",
+            "pattern": "(.)*((@en)|(@fr))"
+        },
+        "description": {
+            "label": "Description",
+            "type": "string",
+            "pattern": "(.)*((@en)|(@fr))"
+        },
+        "type": {
+            "label": "Type",
+            "type": "string",
+            "format": "select",
+            "values": ["Dataset","Software","Model","Physical object", "Protocol","Workflow","Other"]
+        },
+        "workpackage": {
+            "label": "Work package",
+            "type": "string"
+        },
+        "controlledKeyword": {
+            "label": "Controller keyword",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "classname": "controlled_keyword",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "requested": ["dbid"]
+            },
+            "minItems": 1
+        },
+        "uncontrolledKeyword": {
+            "label": "Uncontrolled keyword",
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "(.)*((@en)|(@fr))"
+            }
+        },
+        "language": {
+            "label": "Language",
+            "type": "string",
+            "description": "data language",
+            "format": "select",
+            "values": ["aar", "abk", "afr", "aka", "amh", "ara", "arg", "asm", "ava", "ave", "aym", "aze", "bak", "bam", "bel", "ben", "bih", "bis", "bod", "bos",
+                "bre", "bul", "cat", "ces", "cha", "che", "chu", "chv", "cor", "cos", "cre", "cym", "dan", "deu", "div", "dzo", "ell", "eng", "epo", "est",
+                "eus", "ewe", "fao", "fas", "fij", "fin", "fra", "fry", "ful", "gla", "gle", "glg", "glv", "grn", "guj", "hat", "hau", "hbs", "heb", "her",
+                "hin", "hmo", "hrv", "hun", "hye", "ibo", "ido", "iii", "iku", "ile", "ina", "ind", "ipk", "isl", "ita", "jav", "jpn", "kal", "kan", "kas",
+                "kat", "kau", "kaz", "khm", "kik", "kin", "kir", "kom", "kon", "kor", "kua", "kur", "lao", "lat", "lav", "lim", "lin", "lit", "ltz", "lub",
+                "lug", "mah", "mal", "mar", "mkd", "mlg", "mlt", "mon", "mri", "msa", "mya", "nau", "nav", "nbl", "nde", "ndo", "nep", "nld", "nno", "nob",
+                "nor", "nya", "oci", "oji", "ori", "orm", "oss", "pan", "pli", "pol", "por", "pus", "que", "roh", "ron", "run", "rus", "sag", "san", "sin",
+                "slk", "slv", "sme", "smo", "sna", "snd", "som", "sot", "spa", "sqi", "srd", "srp", "ssw", "sun", "swa", "swe", "tah", "tam", "tat", "tel",
+                "tgk", "tgl", "tha", "tir", "ton", "tsn", "tso", "tuk", "tur", "twi", "uig", "ukr", "urd", "uzb", "ven", "vie", "vol", "wln", "wol", "xho",
+                "yid", "yor", "zha", "zho", "zul"],
+        },
+        "contact": {
+            "label": "Contact",
+            "type": "object",
+            "classname": "person",
+            "description": "Person responsible for these data",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+        },
+        "estimatedVolume": {
+            "label": "Estimated volume",
+            "type": "number",
+            "description": "Volume expressed in Megaoctets"
+        },
+        "datasetId": {
+            "label": "Dataset ID",
+            "type": "object",
+            "classname": "identifier",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+        },
+        "reusedData": {
+            "label": "Reused data",
+            "type": "array",
+            "description": "collection of internal identifiers pointing to reused data JSON documents",
+            "items": {
+                "type": "object",
+                "classname": "identifier",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "required": ["dbid"]
+            }
+        },
+        "containsPersonalData": {
+            "label": "Contains personal data?",
+            "type": "string",
+            "format": "select",
+            "values": ["Yes", "No", "Unknown"]
+        },
+        "personalDataIssues": {
+            "label": "Personal data issues",
+            "type": "object",
+            "classname": "personal_data_issues",
+            "description": "Internal identifier pointing to a personalDataIssues JSON document",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+        },
+        "containsSensitiveData": {
+            "label": "Contains sensible data?",
+            "type": "string",
+            "format": "select",
+            "values": ["Yes", "No", "Unknown"]
+        },
+        "legalIssues": {
+            "label": "Legal issues",
+            "type": "object",
+            "classname": "legal_issues",
+            "description": "Internal identifier pointing to a legalIssues JSON document",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+        },
+        "hasEthicalIssues": {
+            "label": "Has ethical issues?",
+            "type": "string",
+            "format": "select",
+            "values": ["Yes", "No", "Unknown"]
+        },
+        "ethicalIssues": {
+            "label": "Ethical issues",
+            "type": "object",
+            "classname": "ethical_issues",
+            "description": "Internal identifier pointing to an ethicalIssues JSON document",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+        },
+        "dataCollection": {
+            "label": "Data collection",
+            "type": "object",
+            "classname": "data_collection",
+            "description": "Internal identifier pointing to a legalIssues JSON document",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+        },
+        "dataProcessing": {
+            "label": "Data processing",
+            "type": "object",
+            "classname": "data_processing",
+            "description": "Internal identifier pointing to a legalIssues JSON document",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+        },
+        "dataStorage": {
+            "label": "DataStorage",
+            "type": "object",
+            "classname": "data_storage",
+            "description": "Internal identifier pointing to a legalIssues JSON document",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+        },
+        "documentationQuality": {
+            "label": "Documentation quality",
+            "type": "object",
+            "classname": "documentation_quality",
+            "description": "Internal identifier pointing to a documentation JSON document",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+        },
+        "sharing": {
+            "label": "Sharing",
+            "type": "object",
+            "classname": "sharing",
+            "description": "Internal identifier pointing to a sharing JSON document",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+        },
+        "preservationIssues": {
+            "label": "Preservation issues",
+            "type": "object",
+            "classname": "preservation_issues",
+            "description": "Internal identifier pointing to a preservationIssues JSON document",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+        },
+        "budget": {
+            "label": "Budget",
+            "type": "array",
+            "description": "collection of internal identifiers pointing to cost JSON documents",
+            "items": {
+                "type": "object",
+                "classname": "cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "required": ["dbid"]
+            }
+        }
+    },
+    "requested": [
+        "title",
+        "description",
+        "type",
+        "controlledKeyword",
+        "reusedData",
+        "containsPersonalData",
+        "containsSensitiveData",
+        "controlledKeyword",
+        "dataCollection",
+        "dataStorage",
+        "documentationQuality",
+        "estimatedVolume",
+        "hasEthicalIssues",
+        "language",
+        "sharing",
+        "preservationIssues",
+        "budget"
+    ]
+}

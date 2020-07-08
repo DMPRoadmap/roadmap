@@ -1,0 +1,93 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "Sharing",
+    "description": "Schema describing sharing issues",
+    "type": "object",
+    "properties": {
+        "description": {
+            "label": "Description",
+            "type": "string",
+            "pattern": "(.)*((@en)|(@fr))",
+            "description": "sharing conditions and/or arguments explaining why data cannot be openly shared"
+        },
+        "reusability": {
+            "label": "Reusability",
+            "type": "string",
+            "pattern": "(.)*((@en)|(@fr))",
+            "explanation": "potential and/or limits of data resusability "
+        },
+        "hosting": {
+            "label": "Hosting",
+            "type": "object",
+            "classname": "technical_resource_usage",
+            "description": "Internal identifier pointing to a technicalResourceUsage JSON document",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+        },
+        "distribution": {
+            "label": "Distribution",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "object",
+                "classname": "technical_resource_usage",
+                "description": "Internal identifier pointing to a technicalResourceUsage JSON document",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "required": ["dbid"]
+            }
+        },
+        "indexedIn": {
+            "label": "Indexed in",
+            "type": "object",
+            "classname": "technical_resource",
+            "description": "identifier pointing to a TechnicalResource Json document describing the catalog in which data are indexed",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "requested": ["dbid"]
+        },
+        "staffMember": {
+            "label": "Staff members",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "classname": "staff_member",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "required": ["dbid"]
+            }
+        },
+        "cost": {
+            "label": "Cost",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "classname": "cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "required": ["dbid"]
+            }
+        }
+    },
+    "requested": [
+        "description",
+        "distribution"
+    ]
+}

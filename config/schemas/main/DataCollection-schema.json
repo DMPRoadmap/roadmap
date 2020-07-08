@@ -1,0 +1,78 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "Data collection",
+    "description": "Data collection schema",
+    "type": "object",
+    "properties": {
+        "title": {
+            "label": "Title",
+            "type": "string",
+            "pattern": "(.)*((@en)|(@fr))",
+            "description": "Title for a data collection (step)"
+        },
+        "description": {
+            "label": "Description",
+            "type": "string",
+            "pattern": "(.)*((@en)|(@fr))",
+            "description": "description of the data collection methodology"
+        },
+        "dataNature": {
+            "label": "Data Nature",
+            "type": "string",
+            "format": "select",
+            "values": ["Observation", "Experimental data", "Simulation", "Model", "other"]
+        },
+        "acquisition": {
+            "label": "Acquisition",
+            "type": "object",
+            "description": "Internal identifier pointing to a technicalResourceUsage JSON document",
+            "classname": "technical_resource_usage",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+        },
+        "methodsUrl": {
+            "label": "Methods URL",
+            "type": "string",
+            "format": "uri",
+            "description": "Urls of methods"
+        },
+        "staffMember": {
+            "label": "Staff Member",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "classname": "staff_member",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "required": ["dbid"]
+            }
+        },
+        "cost": {
+            "label": "Cost",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "classname": "cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "required": ["dbid"]
+            }
+        }
+        
+    },
+    "required": [
+            "description",
+            "dataNature"
+        ]
+}

@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "A date aimed at receiving answers which Response format is a date",
+    "type": "object",
+    "properties": {
+        "content": {
+            "label": "Libellé de la question du template",
+            "description": "The content of a date field is plain text formatted as a date",
+            "type": "string",
+            "format": "date"
+        }
+    },
+    "required": ["content"]
+}

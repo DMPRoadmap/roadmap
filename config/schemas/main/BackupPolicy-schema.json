@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/JSON/", 
+    "title": "Backup policy schema",
+    "description": "Schema of backup policy documentation",
+    "type":"object",
+    "properties":{
+        "description":{
+            "label": "Description",
+            "type":"string",
+            "pattern":"(.)*((@en)|(@fr))"
+         },
+        "backupFrequency":{
+            "label": "Backup frequency",
+            "type":"string",
+            "pattern":"(.)*((@en)|(@fr))"
+        },      
+       
+        "backupType":{
+            "label": "Backup type",
+            "type":"string",
+            "pattern":"(.)*((@en)|(@fr))"
+        }       
+    },
+    "required": ["description"]
+  }

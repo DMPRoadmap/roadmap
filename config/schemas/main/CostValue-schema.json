@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+  
+    "title": "Cost value",
+    "description": "Cost value schema",
+    "type":"object",
+    "properties":{
+        "amount":{
+            "label": "Amount",
+            "type":"number"
+        },
+        "currency":{
+            "label": "Currency",
+            "type": "string",
+            "format": "select",
+            "values": ["EUR", "USD", "GBP"]
+        }    
+    },
+    "required":["amount","currency"]
+ }

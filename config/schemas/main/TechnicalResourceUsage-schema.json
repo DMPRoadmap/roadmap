@@ -1,0 +1,83 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "id": "../Documentation/Implementation/Data_model/JSON/technicalResourceUsage.json",
+    "title": "Technical resource usage schema",
+    "description": "Schema describing the usage of technical resources",
+    "type":"object",
+    "properties":{
+        "facility": {
+            "label": "Facility",
+            "type":"object",
+            "classname": "technical_resource",
+            "properties": {
+                "dbid": {
+                    "type": "number",
+                    "description": "Internal identifier pointing to a technicalResource Json document"
+                }
+            },
+            "required": ["dbid"]    
+        },
+        "startDate":{
+            "label": "Start date",
+            "type":"string",
+            "format":"date"
+        },
+        "endDate":{
+            "label": "End date",
+            "type":"string",
+            "format":"date"
+        },
+        "dataSize":{
+            "label": "Data size",
+            "type": "number",
+            "description": "Volume expressed in octets"
+        },
+        "storageType":{
+            "label": "Storage type",
+            "type": "string",
+            "format": "select",
+            "values": ["Hard disk drive", "Solid state drive","USB key", "NAS sever", "cloud", "CD", "DVD", "Magnetic tape"]
+        },
+        "backupPolicy":{
+            "label": "Backup policy",
+            "type": "object",
+            "classname": "backup_policy",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+        },
+        "staffMember":{
+            "label": "Staff member",
+            "type":"array",
+            "items": {
+                "type": "object",
+                "classname": "staff_member",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "required": ["dbid"]
+            }
+        },
+         "cost": {
+            "label": "Cost",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "classname": "cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "required": ["dbid"]
+            }
+        }
+        
+    },
+    "requested":["facility", "dataSize", "startDate", "endDate"]   
+ }

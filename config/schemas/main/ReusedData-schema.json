@@ -1,0 +1,50 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/JSON/",
+    "title": "Reused data",
+    "description": "The documentation of reused data schema",
+    "type":"object",
+    "properties": {
+        "title":{
+            "label": "Title",
+            "type":"string",
+            "pattern":"(.)*((@en)|(@fr))",
+            "description":"Name of the reused data"
+        }, 
+       "description":{
+           "label": "Description",
+           "type":"string",
+            "pattern":"(.)*((@en)|(@fr))",
+           "description":"describe the provenance of the reused product" 
+        },
+        "datasetId":{
+            "label": "Dataset ID",
+            "type": "object",
+            "classname": "identifier",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+        },
+        "versionNumber":{
+            "label": "Version number",
+           "type":"string"
+        },
+       "license":{
+           "label": "License",
+           "type": "object",
+           "classname": "license",
+           "properties": {
+               "dbid": {
+                   "type": "number"
+               }
+           },
+           "required": ["dbid"]
+        }
+    },
+         
+  "requested":["datasetId", "description", "title", "license"]
+  
+  }

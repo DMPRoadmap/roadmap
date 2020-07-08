@@ -1,0 +1,96 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/JSON/",
+    "title": "Distribution schema",
+    "description": "Schema describing distributions as defines in Dcat vocabulary: a dataset might be available in multiple serializations ",
+    "type":"object",
+    "properties":{
+        "fileName":{
+            "label": "Filename",
+            "type":"string"
+          },
+        "description":{
+            "label": "Description",
+            "type":"string",
+            "pattern":"(.)*((@en)|(@fr))"
+        },
+        "releaseDate":{
+            "label": "Release date",
+            "type":"string",
+            "format":"date"
+        },    
+        "dataAccess":{
+            "label": "DataAccess",
+            "type": "string",
+            "format": "select",
+            "values": ["Open", "Restricted", "Closed"]
+        },
+        "fileFormat":{
+            "label": "File format",
+            "type": "string",
+            "format": "select",
+            "values": ["text/csv", "text/markdown", "vido/JEPG", "application/json", "other"]
+        },
+       "application":{
+           "label": "Application",
+            "type":"string",
+            "pattern":"(.)*((@en)|(@fr))",
+            "description": "Application to read the data"
+       },
+       "filevolume":{
+           "label": "File volume",
+           "type":"number",
+           "description": "Number oof octets, can be expressed with exponential notation",
+           "example":"2.99e8"
+       },  
+       "hosting":{
+           "label": "Hosting",
+           "type":"object",
+           "classname": "technical_resource_usage",
+           "description":"internal identifier pointing to a technicalResourceUsage JSON document",
+           "properties":{
+               "dbid":{
+                   "type":"number"
+               }
+           },
+           "required":["dbid"]
+       },
+        "availableUntil":{
+            "label": "Available until",
+            "type":"string",
+            "format":"date",
+            "description": "date until data is available"
+       },
+       "accessUrl":{
+           "label": "Access URL",
+           "type":"string",
+           "format":"uri",
+           "description":"url of the of a location that can provide access to this distribution"
+       },
+       "downloadUrl":{
+           "label": "Download URL",
+           "type":"string",
+           "format":"uri",
+           "description": "url of the downloadable file in a given format"
+       },
+        "license":{
+            "type": "object",
+            "classname": "license",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+       },
+        "licenceStartDate":{
+            "label": "License start date",
+            "type":"string",
+            "format":"date"
+       }
+    },
+       
+     "required":["fileVolume", "availableUntil", "dataAccess", "releaseDate", "accessUrl", "fileName", "fileFormat", "hosting", "license", "licenseStartDate"]
+
+}
+  

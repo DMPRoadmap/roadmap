@@ -1,0 +1,27 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/JSON/",
+    "title": "Identifier",
+    "description": "Schema describing an identifier",
+    "type": "object",
+    "properties": {
+        "value": {
+            "label": "Value",
+            "type": "string"
+        },
+        "idType": {
+            "oneOf": [
+                {
+                    "$ref": "Enumerations/AgentId.json"
+                },
+                {
+                    "$ref": "Enumerations/ResourceId.json"
+                }
+            ]
+        }
+    },
+    "required": [
+        "value",
+        "idType"
+    ]
+}

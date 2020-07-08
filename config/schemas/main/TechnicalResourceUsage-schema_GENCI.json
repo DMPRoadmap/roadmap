@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "../Documentation/Implementation/Data_model/JSON/technicalResourceUsage.json",
+  "title": "Technical resource usage schema",
+  "description": "Schema describing the usage of technical resources",
+  "type":"object",
+  "properties": {
+    "facility":{
+      "type":"object",
+      "classname": "technical_resource",
+      "properties": {
+        "dbid":{
+          "type":"number",
+          "description":"Internal identifier pointing to a technicalResource Json document"
+        }
+      },
+      "required": ["dbid"]    
+    },
+    "serviceType":{
+      "type":"string",
+      "format": "select",
+      "values": ["Workdir", "Store", "securedStore"]
+    },
+    
+    "initialRequest": {
+      "type":"object",
+      "label": "Démarrage du projet",
+      "properties":{
+        "dataSize":{
+          "type": "number",
+          "toolTip:fr_FR": "Taille totale dans cet espace en To"
+        },
+        "fileDirNumber":{
+          "type":"number",
+          "toolTip:fr_FR": "Nombre de fichiers et de répertoires"
+        },
+        "oneYearStatus":{
+          "type":"object",
+          "label": "Après un an de production de résultats:",
+          "properties":{
+            "dataSize":{
+              "type": "number",
+              "toolTip:fr_FR": "Taille totale dans cet espace en To"
+            },
+            "fileDirNumber":{
+              "type":"number",
+              "toolTip:fr_FR": "Nombre de fichiers et de répertoires"
+            }
+          }
+        },
+        "storageTime":{
+          "type":"number",
+          "toolTip:fr_FR": "Durée de stockage après la fin de vie du projet, en mois (pas dans le cas de workdir"
+        },
+        "justification":{
+          "type":"string",
+          "pattern":"(.)*((@en)|(@fr))",
+          "toolTip:fr_FR": "La partie justification est obligatoire. Elle doit préciser les besoins en taille de stockage de cet espace, la méthode d’organisation utilisée pour réduire le nombre de fichiers. Le sort final des données à l’issue de la période de stockage doit aussi être précisé : restitution, destruction, diffusion. "
+        }
+      }
+    },
+    "extensionRequest": {
+      "type":"object",
+      "label": "Démarrage du projet",
+      "properties":{
+        "dataSize":{
+          "type": "number",
+          "toolTip:fr_FR": "Taille totale dans cet espace en To"
+        },
+        "fileDirNumber":{
+          "type":"number",
+          "toolTip:fr_FR": "Nombre de fichiers et de répertoires"
+        },
+        "oneYearStatus":{
+          "type":"object",
+          "label": "Après un an de production de résultats:",
+          "properties":{
+            "dataSize":{
+              "type": "number",
+              "toolTip:fr_FR": "Taille totale dans cet espace en To"
+            },
+            "fileDirNumber":{
+              "type":"number",
+              "toolTip:fr_FR": "Nombre de fichiers et de répertoires"
+            }
+            
+          },
+          "storageTime":{
+            "type":"number",
+            "toolTip:fr_FR": "Durée de stockage après la fin de vie du projet, en mois (pas dans le cas de workdir"
+          },
+          "justification":{
+            "type":"string",
+            "pattern":"(.)*((@en)|(@fr))",
+            "toolTip:fr_FR": "La partie justification est obligatoire. Elle doit préciser les besoins en taille de stockage de cet espace, la méthode d’organisation utilisée pour réduire le nombre de fichiers. Le sort final des données à l’issue de la période de stockage doit aussi être précisé : restitution, destruction, diffusion. "
+          }
+        },
+        "costValue":{
+          "type": "object",
+          "classname": "cost_value",
+          "properties": {
+            "dbid": {
+              "type": "number"
+            }
+          },
+          "required": ["dbid"]
+        }
+      }
+    }
+  },
+  "required": ["facility", "dataSize", "startDate", "endDate"]   
+}

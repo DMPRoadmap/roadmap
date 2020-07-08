@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/JSON/",
+    "title": "Staff members",
+    "description": "Schema describing staff members",
+    "type": "object",
+    "properties": {
+        "person": {
+            "type": "object",
+            "classname": "person",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+        },
+        "role": {
+            "type": "string",
+            "format": "select",
+            "values": ["Data producer", "Data manager", "Data steward", "Legal expert", "Data protection officer", "other"]
+        }
+    },
+    "required": [
+        "person",
+        "role"
+    ]
+}

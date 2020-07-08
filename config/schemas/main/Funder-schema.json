@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/JSON/",
+    "title": "Funder",
+    "description": "Schema describing information about a funder",
+    "type":"object",
+    "properties":{
+        "name":{
+            "label": "Name",
+            "type":"string"
+        },
+        "funderId":{
+            "label": "Funder ID",
+            "type": "object",
+            "classname": "identifier",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+        },
+        "dataPolicyUrl":{
+            "label": "Data policy URL",
+            "type":"string",
+            "format":"uri"
+        }
+    },
+    "required":["name", "funderId","dataPolicy"]
+  }

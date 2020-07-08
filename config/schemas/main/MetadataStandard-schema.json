@@ -1,0 +1,41 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/JSON/",
+    "title": "Metadata standards",
+    "description": "Metadata standard to describe the data",
+    "type": "object",
+    "properties": {
+        "title": {
+            "label": "Title",
+            "type": "string",
+            "pattern": "(.)*((@en)|(@fr))"
+        },
+        "description": {
+            "label": "Description",
+            "type": "string",
+            "pattern": "(.)*((@en)|(@fr))"
+        },
+        "metadataLanguage": {
+            "label": "Metadata language",
+            "type": "string",
+            "format": "select",
+            "values": []
+        },
+        "metadataStandardId": {
+            "label": "Metadata standard ID",
+            "type": "object",
+            "classname": "identifier",
+            "properties": {
+                "dbid": {
+                    "type": "string"
+                }
+            },
+            "required": ["dbid"]
+        }
+    },
+    "required": [
+        "title",
+        "metadataLanguage",
+        "metadataStandardId"
+    ]
+}

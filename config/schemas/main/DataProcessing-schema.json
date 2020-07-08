@@ -1,0 +1,72 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/JSON/",
+    "title": "Data processing",
+    "description": "Schema describing data processing",
+    "type":"object",
+    "properties":{
+        "title":{
+            "label": "Title",
+            "type":"string",
+            "pattern":"(.)*((@en)|(@fr))",
+            "description":"Title for a data processing step"
+        },
+        "description":{
+            "label": "Description",
+            "type":"string",
+            "pattern":"(.)*((@en)|(@fr))",
+            "title": "Description of data processing"    
+        },
+        "methodsUrl":{
+            "label": "Methods URL",
+            "type":"string",
+            "format":"uri",
+            "description":"Urls of methods"
+        },
+        "processing":{
+            "label": "Processing",
+            "type":"object",
+            "classname": "technical_resource_usage",
+            "description":"internal identifier pointing to a technicalResourceUsage JSON document",
+            "properties": {
+                "dbid": {
+                    "type":"number"
+                }
+            },
+            "required":["dbid"]
+        },
+        "staffMember":{
+            "label": "StaffMember",
+            "type":"array",
+            "items":{
+                "type": "object",
+                "classname": "staff_member",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "required": ["dbid"]
+            }
+        },
+           
+        "cost":{
+            "label": "Cost",
+            "type":"array",
+            "items":{
+                "type": "object",
+                "classname": "cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "required": ["dbid"]
+            }
+          
+        }
+       
+    },
+     "required": ["title", "description"]
+}
+     

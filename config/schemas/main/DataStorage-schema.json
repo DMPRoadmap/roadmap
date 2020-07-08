@@ -1,0 +1,83 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/JSON/",
+  
+    "title": "Data storage",
+    "description": "Schema describing data storage",
+    "type":"object",
+    "properties":{
+        "title":{
+            "label": "Title",
+            "type":"string",
+            "pattern":"(.)*((@en)|(@fr))",
+            "title":"Data collection title schema",
+            "description":"Title for the storage use)"
+            },
+        "description":{
+            "label": "Description",
+            "type":"string",
+            "pattern":"(.)*((@en)|(@fr))",
+            "title": "Description of data storage",
+            "description":"informations regarding the technical resources and its use"
+            },
+        "storage":{
+            "label": "Storage",
+            "type":"object",
+            "classname": "technical_resource_usage",
+            "description":"internal identifier pointing to a technicalResourceUsage JSON document",
+            "properties":{
+                "dbid":{
+                    "type":"number"
+                    }
+             },
+             "required":["dbid"]
+        },
+        "securityMeasures":{
+            "label": "Security measures",
+            "type":"string",
+            "pattern":"(.)*((@en)|(@fr))"
+        },
+        "backupPolicy":{
+            "label": "Backup policy",
+            "type": "object",
+            "classname": "backup_policy",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+        },
+        "staffMember":{
+            "label": "Staff member",
+            "type":"array",
+            "items":{
+                "type": "object",
+                "classname": "staff_member",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "required": ["dbid"]
+                }
+        },        
+        "cost":{
+            "label": "Cost",
+            "type":"array",
+                "items":{
+                    "type": "object",
+                    "classname": "cost",
+                    "properties": {
+                        "dbid": {
+                            "type": "number"
+                        }
+                    },
+                    "required": ["dbid"]
+                 }
+        }           
+    },
+    "required":["title", "description"]
+}
+      
+

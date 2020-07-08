@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "Controlled keyword",
+    "description": "Controlled keyword schema",
+    "type":"object",
+    "properties": {
+        "keyword":{
+            "label": "Keyword",
+            "type":"string",
+            "example":"Mathematical model"
+        },
+        "keywordSchema":{
+            "label": "Keyword Schema",
+            "type":"string",
+            "example":"EDAM"
+        },
+        "keywordUrl":{
+            "label": "Keyword URL",
+             "type":"string",
+             "format":"uri",
+             "example":"http://edamontology.org/data_0950"
+        }
+    
+    },
+       "required":["keyword", "keywordUrl"]
+        
+}     
+        
+    

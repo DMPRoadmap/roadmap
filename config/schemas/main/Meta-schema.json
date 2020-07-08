@@ -1,0 +1,67 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/JSON/",
+    "title": "DMP metadata",
+    "description": "The documentation of DMP metadata schema",
+    "type": "object",
+    "properties": {
+        "title": {
+            "type": "string",
+            "pattern": "(.)*((@en)|(@fr))"
+        },
+        "description": {
+            "type": "string",
+            "pattern": "(.)*((@en)|(@fr))"
+        },
+        "contact": {
+            "type": "object",
+            "properties": {
+                "dbid": {
+                    "type": "number",
+                    "description": "internal identifier pointing to a Person JSON document"
+                }
+            },
+            "required": [
+                "dbid"
+            ]
+        },
+        "creationDate": {
+            "type": "string",
+            "format": "date"
+        },
+        "lastModifiedDate": {
+            "type": "string",
+            "format": "date"
+        },
+        "versionNumber": {
+            "type": "string"
+        },
+        "versionNotes": {
+            "type": "string",
+            "pattern": "(.)*((@en)|(@fr))"
+        },
+        "dmpID": {
+            "$ref": "Identifier-schema.json"
+        },
+        "license": {
+            "ref": "License-schema.json"
+        },
+        "relatedDocUrl": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "format": "uri"
+            }
+        },
+        "associatedDMPId": {
+            "$ref": "Identifier-schema.json"
+        }
+    },
+    "required": [
+        "title",
+        "contact",
+        "creationDate",
+        "lastModifiedDate",
+        "versionNumber"
+    ]
+}

@@ -1,0 +1,51 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/JSON/",
+    "title": "DMP",
+    "description": "Schema describing a DMP",
+    "type": "object",
+    "properties": {
+        "identifier": {
+            "type": "number",
+            "description": "internal identifier"
+        },
+        "meta": {
+            "type": "object",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "dbid"
+            ]
+        },
+        "project": {
+            "type": "object",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "dbid"
+            ]
+        },
+        "researchOutput": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+        "meta",
+        "researchOutput",
+        "project"
+    ]
+}

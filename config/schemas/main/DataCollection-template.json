@@ -1,0 +1,98 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/template_model/Json/",
+    "title": "Data collection",
+    "description@en_UK": "Describe the methods and resources used to collect data",
+    "description@fr_FR": "Décrire les méthodes et ressources utilisées pour la collecte des données",
+    "type": "object",
+    "properties": {
+        "title": {
+            "type": "string",
+            "pattern": "(.)*((@en)|(@fr))",
+            "label@en_UK": "Title of this data collection step",
+            "label@fr_FR": "Intitulé de cette étape de collecte"
+        },
+        "description": {
+            "type": "string",
+            "pattern": "(.)*((@en)|(@fr))",
+            "toolTip:fr_FR": "Description of the data collection methodology",
+            "toolTip:en_UK": "Description de la méthodologie de collecte des données",
+            "inputType": "text_area",
+            "label@en_UK": "Description",
+            "labe@fr_FR": "Description"
+        },
+        "dataNature": {
+            "type":"string",
+            "enum": {"$ref": "Enumerations/DataNature.json"},
+            "inputType": "dropdown",
+            "label@en_UK": "Data nature",
+            "label@fr_FR": "Nature des données",
+            "toolTip:en_UK": "Select or add a term precising the nature of data",
+            "toolTip:fr_FR": "Sélectionnez ou saisissez un terme précisant la nature des données",
+            "example@en_UK": "Modelization",
+            "example@fr_FR": "Modélisation",
+            "default@fr_FR": "Données expérimentales",
+            "default@en_UK":"Experimental data"
+            },
+        "acquisition":{
+            "description@fr_FR": "Si une ressource extérieure est utilisée, choisissez le formulaire correspondant afin de préciser vos besoins",
+            "description@en_UK":" If one external facility has ben used, choose if available the relevant form and describe your needs ",
+            "type": "object",
+            "properties":{
+            "$ref":"TechnicalResourceUsage-schema.json"
+            }
+         },
+        "methodsUrl": {
+            "type": "array",
+            "items":{
+                 "type": "string",
+                 "format": "uri",
+                 "label@en_Uk":"Method url",
+                 "label@fr_FR":"Url de la méthode",
+                 "toolTip@fr_FR": "Url de la méthode ou protocole utilisé",
+                 "toolTip@en_UK": "Url of the method or protocol that has been used"
+                 }
+        },
+        "staffMember": {
+            "description@fr_FR": "Citez les personnes ayant contribué à la collecte des données et indiquer leur rôle",
+            "description@en_UK" : "Cite persons who have contributed to the collect of data", 
+            "type": "array",
+            "items": {
+                "type":"object",
+                "properties":{
+                     "person": {
+                        "type": "object",
+                        "properties": {
+                            "dbid": {
+                                "type": "number"
+                            }
+                         },
+                         "required": [
+                                   "dbid"
+                         ]   
+                    },
+                     "role":{
+                         "type":"string",
+                         "enum":{
+                             "$ref":"Enumerations/Role"
+                         },
+                         "inputType":"dropdown",
+                         "default@en_UK": "Research engineer",
+                         "default@fr_FR": "Ingénieur de recherche"
+                     }
+                 }
+            }
+      },
+        "cost": {
+            "description@fr_FR":"Decrivez les coûts liés la collecte des données",
+            "description@en_UK":"Describe expenses related to the collect of data",
+            "type": "array",
+            "items": {"$ref": "Cost-schema.json"}
+        }
+        
+    },
+    "required": [
+            "description",
+            "dataNature"
+        ]
+}
