@@ -19,7 +19,9 @@ class GuidanceGroupsController < ApplicationController
 
   # POST /org/admin/guidancegroup/:id/admin_create
   def admin_create
-    @guidance_group = GuidanceGroup.new(guidance_group_params)
+    # Ensure that the user can only create GuidanceGroups for their Org
+    args = guidance_group_params.to_h.merge({ org_id: current_user.org.id })
+    @guidance_group = GuidanceGroup.new(args)
     authorize @guidance_group
 
     if @guidance_group.save

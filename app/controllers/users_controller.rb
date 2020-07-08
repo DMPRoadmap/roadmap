@@ -67,8 +67,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     authorize @user
 
-p permission_params[:perm_ids]
-
     perms_ids = permission_params[:perm_ids].blank? ? [] : permission_params[:perm_ids].map(&:to_i)
     perms = Perm.where(id: perms_ids)
     privileges_changed = false
