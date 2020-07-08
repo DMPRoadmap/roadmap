@@ -3,7 +3,7 @@
 module Settings
   class PlansController < SettingsController
 
-    before_filter :get_settings
+    before_action :get_settings
 
     after_action :verify_authorized
 

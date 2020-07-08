@@ -15,8 +15,7 @@ class UsageController < ApplicationController
     plan_data(args: args, as_json: true)
     total_plans(args: min_max_dates(args: args))
     total_users(args: min_max_dates(args: args))
-    # TODO: pull this in from branding.yml
-    @separators = [",", "|", "#"]
+    @separators = Rails.configuration.x.application.csv_separators
     @funder = current_user.org.funder?
     @filtered = args[:filtered]
   end

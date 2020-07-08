@@ -47,12 +47,10 @@
 # TODO: Drop the funder_name and grant_number columns once the funder_id has
 #       been back filled and we're removing the is_other org stuff
 
-class Plan < ActiveRecord::Base
+class Plan < ApplicationRecord
 
   include ConditionalUserMailer
   include ExportablePlan
-  include ValidationMessages
-  include ValidationValues
   include DateRangeable
   include Identifiable
 
@@ -77,9 +75,9 @@ class Plan < ActiveRecord::Base
   enum visibility: %i[organisationally_visible publicly_visible
                       is_test privately_visible]
 
-
   alias_attribute :name, :title
 
+  attribute :visibility, :integer, default: 3
 
   # ================
   # = Associations =
@@ -89,7 +87,7 @@ class Plan < ActiveRecord::Base
 
   belongs_to :org
 
-  belongs_to :funder, class_name: "Org"
+  belongs_to :funder, class_name: "Org", optional: true
 
   has_many :phases, through: :template
 
@@ -101,7 +99,7 @@ class Plan < ActiveRecord::Base
 
   has_many :guidances, through: :themes
 
-  has_many :guidance_group_options, -> { uniq.published.reorder("id") },
+  has_many :guidance_group_options, -> { distinct.published.reorder("id") },
            through: :guidances,
            source: :guidance_group,
            class_name: "GuidanceGroup"
@@ -118,13 +116,11 @@ class Plan < ActiveRecord::Base
 
   has_many :exported_plans
 
-  has_many :roles
-
   has_many :contributors, dependent: :destroy
 
   has_one :grant, as: :identifiable, dependent: :destroy, class_name: "Identifier"
 
-  belongs_to :api_client#, optional: true # UNCOMMENT After Rails 5
+  belongs_to :api_client, optional: true
 
   # =====================
   # = Nested Attributes =
@@ -150,12 +146,6 @@ class Plan < ActiveRecord::Base
 
   validate :end_date_after_start_date
 
-  # =============
-  # = Callbacks =
-  # =============
-
-  before_validation :set_creation_defaults
-
   # ==========
   # = Scopes =
   # ==========
@@ -171,8 +161,7 @@ class Plan < ActiveRecord::Base
 
   # Retrieves any plan organisationally or publicly visible for a given org id
   scope :organisationally_or_publicly_visible, -> (user) {
-    plan_ids = user.org.plans.where(complete: true).pluck(:id)
-
+    plan_ids = user.org.plans.where(complete: true).pluck(:id).uniq
     includes(:template, roles: :user)
     .where(id: plan_ids, visibility: [
       visibilities[:organisationally_visible],
@@ -243,7 +232,7 @@ class Plan < ActiveRecord::Base
   end
 
   # deep copy the given plan and all of it's associations
-  #
+  #create
   # plan - Plan to be deep copied
   #
   # Returns Plan
@@ -388,12 +377,10 @@ class Plan < ActiveRecord::Base
     current_user = User.find(user_id)
     return false unless current_user.present?
     # If the user is a super admin and the config allows for supers to view plans
-    if current_user.can_super_admin? &&
-        Branding.fetch(:service_configuration, :plans, :super_admins_read_all)
+    if current_user.can_super_admin? && Rails.configuration.x.plans.super_admins_read_all
       true
     # If the user is an org admin and the config allows for org admins to view plans
-    elsif current_user.can_org_admin? &&
-        Branding.fetch(:service_configuration, :plans, :org_admins_read_all)
+  elsif current_user.can_org_admin? && Rails.configuration.x.plans.org_admins_read_all
       owner_and_coowners.map(&:org_id).include?(current_user.org_id)
     else
       false
@@ -591,18 +578,6 @@ class Plan < ActiveRecord::Base
   end
 
   private
-
-  # Initialize the title for new templates
-  #
-  # Returns nil
-  # Returns String
-  def set_creation_defaults
-    # Only run this before_validation because rails fires this before
-    # save/create
-    return if id?
-
-    self.title = "My plan (#{template.title})" if title.nil? && !template.nil?
-  end
 
   # Validation to prevent end date from coming before the start date
   def end_date_after_start_date

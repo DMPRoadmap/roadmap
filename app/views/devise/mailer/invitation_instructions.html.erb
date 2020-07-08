@@ -1,8 +1,8 @@
 <%
-  tool_name = Rails.configuration.branding[:application][:name]
+  tool_name = ApplicationService.application_name
   link = accept_invitation_url(@resource, :invitation_token => @token)
-  helpdesk_email = Rails.configuration.branding[:organisation][:helpdesk_email]
-  contact_us = (Rails.configuration.branding[:organisation][:contact_us_url] || contact_us_url)
+  helpdesk_email = Rails.configuration.x.organisation.helpdesk_email
+  contact_us = (Rails.configuration.x.organisation.contact_us_url || contact_us_url)
   email_subject = _('Query or feedback related to %{tool_name}') %{ :tool_name => tool_name }
   user_name = User.find_by(email: @resource.email).nil? ?  @resource.email : User.find_by(email: @resource.email).name(false)
   inviter_name = @resource.invited_by.name

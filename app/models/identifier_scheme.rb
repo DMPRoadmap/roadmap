@@ -13,11 +13,9 @@
 #  updated_at       :datetime
 #
 
-class IdentifierScheme < ActiveRecord::Base
+class IdentifierScheme < ApplicationRecord
 
   include FlagShihTzu
-  include ValidationMessages
-  include ValidationValues
 
   ##
   # The maximum length for a name
@@ -53,9 +51,9 @@ class IdentifierScheme < ActiveRecord::Base
             5 =>  :for_contributors,
             column: "context"
 
-  # ===========================
-  # = Instance Methods =
-  # ===========================
+  # =========================
+  # = Custom Accessor Logic =
+  # =========================
 
   # The name is used by the OrgSelection Services as a Hash key. For example:
   #    { "ror": "12345" }
@@ -63,5 +61,9 @@ class IdentifierScheme < ActiveRecord::Base
   def name=(value)
     super(value&.downcase&.gsub(/[^a-z]/, ""))
   end
+
+  # ===========================
+  # = Instance Methods =
+  # ===========================
 
 end

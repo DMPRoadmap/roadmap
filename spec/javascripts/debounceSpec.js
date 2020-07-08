@@ -1,4 +1,4 @@
-import debounce from '../../app/javascript/utils/debounce';
+import debounce from '../../app/javascript/src/utils/debounce';
 
 describe('debounce test suite', () => {
   let functionToDebounce;

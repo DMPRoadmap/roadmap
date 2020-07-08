@@ -9,9 +9,9 @@
         <span class="icon-bar"></span>
       </button>
       <%= link_to(image_tag("logo.png",
-                            alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
+                            alt: "#{ApplicationService.application_name} #{_('logo')}",
                             class: "app-logo",
-                            title: Rails.configuration.branding[:application][:name]),
+                            title: ApplicationService.application_name),
                   root_path) %>
     </div>
 

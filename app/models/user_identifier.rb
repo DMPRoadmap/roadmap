@@ -20,8 +20,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
-class UserIdentifier < ActiveRecord::Base
-  include ValidationMessages
+class UserIdentifier < ApplicationRecord
 
   # ================
   # = Associations =

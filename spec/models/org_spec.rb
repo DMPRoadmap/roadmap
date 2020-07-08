@@ -18,8 +18,6 @@ RSpec.describe Org, type: :model do
 
     it { is_expected.not_to allow_value(nil).for(:is_other) }
 
-    it { is_expected.to validate_presence_of(:language) }
-
     it { is_expected.to allow_values(0, 1).for(:managed) }
 
     it "validates presence of contact_email if feedback_enabled" do
@@ -52,7 +50,7 @@ RSpec.describe Org, type: :model do
 
     it { should belong_to(:language) }
 
-    it { should belong_to(:region) }
+    it { should belong_to(:region).optional }
 
     it { should have_many(:guidance_groups).dependent(:destroy) }
 
@@ -80,11 +78,10 @@ RSpec.describe Org, type: :model do
     describe ".default_orgs" do
       subject { Org.default_orgs }
 
-      context "when Org has same abbr as branding" do
+      context "when Org has same abbr as dmproadmap.rb initializer setting" do
 
         let!(:org) do
-          abbrev = Rails.configuration.branding.dig(:organisation,
-                                                    :abbreviation)
+          abbrev = Rails.configuration.x.organisation.abbreviation
           create(:org, abbreviation: abbrev)
 
         end
@@ -93,7 +90,7 @@ RSpec.describe Org, type: :model do
 
       end
 
-      context "when Org doesn't have same abbr as branding" do
+      context "when Org doesn't have same abbr as dmproadmap.rb initializer setting" do
 
         let!(:org) { create(:org, abbreviation: "foo-bar") }
 
@@ -129,17 +126,6 @@ RSpec.describe Org, type: :model do
       it { is_expected.to be_present }
 
     end
-
-    context "language absent" do
-
-      before do
-        org.language.abbreviation = nil
-      end
-
-      it { is_expected.to be_nil }
-
-    end
-
   end
 
   describe "#org_type_to_s" do
@@ -370,7 +356,7 @@ RSpec.describe Org, type: :model do
   describe "#plans" do
 
     let!(:org) { create(:org) }
-    let!(:plan) { create(:plan) }
+    let!(:plan) { create(:plan, org: org) }
     let!(:user) { create(:user, org: org) }
 
     subject { org.plans }

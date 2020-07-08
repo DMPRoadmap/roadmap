@@ -5,9 +5,9 @@ LOCALE = 'en'
 
 RSpec.configure do |config|
   config.before(:each) do
-    I18n.locale = LocaleFormatter.new(LOCALE, format: :i18n).to_s
-    Faker::Config.locale = LocaleFormatter.new(LOCALE, format: :i18n).to_s
-    FastGettext.default_locale = LocaleFormatter.new(LOCALE, format: :fast_gettext).to_s
+    I18n.locale = LOCALE
+    Faker::Config.locale = LOCALE
+    FastGettext.default_locale = LOCALE
   end
 
   config.after(:each) do

@@ -3,9 +3,9 @@ require "rails_helper"
 RSpec.describe "PlansExports", type: :feature, js: true do
 
   let!(:template) { create(:template, phases: 2) }
-  let!(:user) { create(:user) }
+  let!(:org) { create(:org, managed: true, is_other: false) }
+  let!(:user) { create(:user, org: org) }
   let!(:plan) { create(:plan, template: template) }
-  let!(:org) { user.org }
 
   before do
     template.phases.each { |p| create_list(:section, 2, phase: p) }
@@ -15,7 +15,7 @@ RSpec.describe "PlansExports", type: :feature, js: true do
     sign_in(user)
   end
 
-  scenario "User downloads plan from dashboard" do
+  scenario "User downloads plan from organisational plans portion of the dashboard" do
     new_plan  = create(:plan, :publicly_visible, template: template)
     new_phase = create(:phase, template: template, sections: 2)
     new_phase.sections do |sect|
@@ -24,12 +24,13 @@ RSpec.describe "PlansExports", type: :feature, js: true do
     new_plan.questions.each do |question|
       create(:answer, question: question, plan: new_plan)
     end
+    new_plan.update(complete: true)
     new_user  = create(:user, org: org)
     create(:role, :creator, :commenter, :administrator, :editor,
            plan: new_plan,
            user: new_user)
     sign_in(user)
-    find(:css, 'a i.fa.fa-file-pdf-o').click
+    find(:css, "a[href*=\"/#{new_plan.id}/export.pdf\"]", visible: false).click
   end
 
   scenario "User downloads public plan belonging to other User" do

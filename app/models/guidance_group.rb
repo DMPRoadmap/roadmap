@@ -24,11 +24,10 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 
-class GuidanceGroup < ActiveRecord::Base
+class GuidanceGroup < ApplicationRecord
 
-  include GlobalHelpers
-  include ValidationValues
-  include ValidationMessages
+  attribute :optional_subset, :boolean, default: true
+  attribute :published, :boolean, default: false
 
   # ================
   # = Associations =
@@ -127,6 +126,14 @@ class GuidanceGroup < ActiveRecord::Base
                           organisation_groups
     all_viewable_groups = all_viewable_groups.flatten.uniq
     all_viewable_groups
+  end
+
+  def self.create_org_default(org)
+    GuidanceGroup.create!(
+      name: org.abbreviation? ? org.abbreviation : org.name,
+      org: org,
+      optional_subset: false
+    )
   end
 
 end

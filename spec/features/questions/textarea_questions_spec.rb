@@ -33,6 +33,7 @@ RSpec.describe "Questions::Text area questions" do
     within("#answer-form-#{@question.id}") do
       tinymce_fill_in "answer-text-#{@question.id}", with: "My test answer"
       click_button "Save"
+      sleep(0.2)
     end
 
     # Expectations

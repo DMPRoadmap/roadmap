@@ -1,4 +1,4 @@
-class RemoveSettingsIndices < ActiveRecord::Migration
+class RemoveSettingsIndices < ActiveRecord::Migration[4.2]
   def up
     remove_index "settings", ["target_type", "target_id"]
   end

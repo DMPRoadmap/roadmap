@@ -21,8 +21,7 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 
-class OrgIdentifier < ActiveRecord::Base
-  include ValidationMessages
+class OrgIdentifier < ApplicationRecord
 
   # ================
   # = Associations =
@@ -45,11 +44,13 @@ class OrgIdentifier < ActiveRecord::Base
 
   validates :identifier_scheme, presence: { message: PRESENCE_MESSAGE }
 
-  # ===========================
-  # = Public instance methods =
-  # ===========================
+  # =========================
+  # = Custom Accessor Logic =
+  # =========================
 
+  # ensure attrs is a hash before saving
+  # TODO: evaluate this approach vs Serialize from condition.rb
   def attrs=(hash)
-    write_attribute(:attrs, (hash.is_a?(Hash) ? hash.to_json.to_s : '{}'))
+    super(hash.is_a?(Hash) ? hash.to_json.to_s : '{}')
   end
 end

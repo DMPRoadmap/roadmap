@@ -1,5 +1,5 @@
 <%
-  tool_name = Rails.configuration.branding[:application][:name]
+  tool_name = ApplicationService.application_name
   commenter_name = @commenter.name
   plan_title = @plan.title
   user_name = @plan.owner.name

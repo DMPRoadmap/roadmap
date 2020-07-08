@@ -48,7 +48,7 @@ describe Plan do
 
     it { is_expected.to belong_to :org }
 
-    it { is_expected.to belong_to :funder }
+    it { is_expected.to belong_to(:funder).optional }
 
     it { is_expected.to have_many :phases }
 
@@ -815,18 +815,13 @@ describe Plan do
     context "config allows for admin viewing" do
 
       it "super admins" do
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :super_admins_read_all)
-                .returns(true)
-
+        Rails.configuration.x.plans.super_admins_read_all = true
         user.perms << create(:perm, name: "add_organisations")
         expect(subject.readable_by?(user.id)).to eql(true)
       end
 
       it "org admins" do
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :org_admins_read_all)
-                .returns(true)
+        Rails.configuration.x.plans.org_admins_read_all = true
         user.org_id = plan.owner.org_id
         user.save
         user.perms << create(:perm, name: "modify_guidance")
@@ -837,16 +832,11 @@ describe Plan do
     context "config does not allow admin viewing" do
 
       before(:each) do
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :org_admins_read_all)
-                .returns(false)
+        Rails.configuration.x.plans.org_admins_read_all = false
       end
 
       it "super admins" do
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :super_admins_read_all)
-                .returns(false)
-
+        Rails.configuration.x.plans.super_admins_read_all = false
         user.perms << create(:perm, name: "add_organisations")
         expect(subject.readable_by?(user.id)).to eql(false)
       end
@@ -909,10 +899,7 @@ describe Plan do
         end
 
         it "when user is a reviewer and feedback not requested" do
-          Branding.expects(:fetch)
-                  .with(:service_configuration, :plans, :org_admins_read_all)
-                  .returns(false)
-
+          Rails.configuration.x.plans.org_admins_read_all = false
           plan.feedback_requested = false
           plan.save
           expect(subject.readable_by?(user.id)).to eql(false)
@@ -942,11 +929,7 @@ describe Plan do
     context "explicit sharing does not conflict with admin-viewing" do
 
       it "super admins" do
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :super_admins_read_all)
-                .at_most_once
-                .returns(false)
-
+        Rails.configuration.x.plans.super_admins_read_all = false
         user.perms << create(:perm, name: "add_organisations")
         role = subject.roles.commenter.first
         role.user_id = user.id
@@ -956,11 +939,7 @@ describe Plan do
       end
 
       it "org admins" do
-        Branding.expects(:fetch)
-                .with(:service_configuration, :plans, :org_admins_read_all)
-                .at_most_once
-                .returns(false)
-
+        Rails.configuration.x.plans.org_admins_read_all = false
         user.perms << create(:perm, name: "modify_guidance")
         role = subject.roles.commenter.first
         role.user_id = user.id
@@ -1104,7 +1083,6 @@ describe Plan do
   end
 
   describe "#reviewable_by?" do
-
     let!(:plan) { build_plan(true, true, true) }
     let!(:user) { create(:user) }
 
@@ -1417,7 +1395,7 @@ describe Plan do
     context "when requisite number of questions answered" do
 
       before do
-        Rails.application.config.default_plan_percentage_answered = 75
+        Rails.configuration.x.plans.default_percentage_answered = 75
       end
 
       it { is_expected.to eql(true) }
@@ -1427,7 +1405,7 @@ describe Plan do
     context "when requisite number of questions not answered" do
 
       before do
-        Rails.application.config.default_plan_percentage_answered = 76
+        Rails.configuration.x.plans.default_percentage_answered = 76
       end
 
       it { is_expected.to eql(false) }

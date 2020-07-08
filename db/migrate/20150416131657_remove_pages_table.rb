@@ -1,4 +1,4 @@
-class RemovePagesTable < ActiveRecord::Migration
+class RemovePagesTable < ActiveRecord::Migration[4.2]
   def up
     drop_table :pages
   end

@@ -15,7 +15,7 @@ module FeedbacksHelper
   end
 
   def feedback_constant_to_text(text, user, plan, org)
-    _("#{text}") % { application_name: Rails.configuration.branding[:application][:name],
+    _("#{text}") % { application_name: ApplicationService.application_name,
                     user_name: user.name(false),
                     plan_name: plan.title,
                     organisation_email: org.contact_email }

@@ -1,7 +1,7 @@
 <%
-  tool_name = Rails.configuration.branding[:application][:name]
+  tool_name = Rails.configuration.x.organisation.name
   user_name = @user.name
-  help_url = Rails.configuration.branding[:organisation][:url]
+  help_url = Rails.configuration.x.organisation.url
   ul_list = sanitize(privileges_list(@user))
 %>
 <p>
