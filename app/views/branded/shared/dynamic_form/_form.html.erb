@@ -57,16 +57,22 @@
             <legend class="answer-fieldset"><%= field_name %></legend>
             <%
               sub_schema = sub_schemas[prop["schema_id"]]
-              sub_fragment = sub_fragments[sub_schema.id].find { |f| f.id == value["dbId"] } unless value.nil?
+              sub_fragment = MadmpFragment.new(
+                    data: value,
+                    dmp_id: fragment.dmp_id,
+                    parent_id: fragment_id
+                  ) unless fragment.nil?
+              # TODO : SINGLE SUB FRAGMENT SAVING
+              #sub_fragment = sub_fragments[sub_schema.id].find { |f| f.id == value["dbId"] } unless value.nil?
             %>
             <%= render(partial: 'shared/dynamic_form/form', locals: { 
                   f: f, 
-                  fragment: sub_fragment, 
+                  fragment: sub_fragment,
                   schema: sub_schema,
                   readonly: readonly,
                   classname: sub_schema.classname,
                   fragment_id: fragment_id,
-                  form_prefix: sub_schema.classname
+                  form_prefix: field_name
                 }) %>
           </fieldset>
         </div>

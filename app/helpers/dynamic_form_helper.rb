@@ -123,7 +123,7 @@ module DynamicFormHelper
       when "object"
         if prop['schema_id'].present?
           sub_schema = MadmpSchema.find(prop['schema_id'])
-          data[key] = data_reformater(sub_schema.schema, data[sub_schema.classname])
+          data[key] = data_reformater(sub_schema.schema, data[key])
         end 
         # if value["dictionnary"]
         #   data[key] = JSON.parse(DictionnaryValue.where(id: data[key]).select(:id, :uri, :label).take.to_json)
