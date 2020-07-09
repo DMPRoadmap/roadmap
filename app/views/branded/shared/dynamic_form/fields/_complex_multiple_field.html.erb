@@ -17,7 +17,7 @@
             ) %>
       </tbody>
     </table>
-    <% unless parent_id.nil?%>
+    <% unless parent_id.nil? || readonly %>
       <%= link_to 'Create', new_edit_linked_madmp_fragments_url(
               nil, 
               :parent_id => parent_id, 

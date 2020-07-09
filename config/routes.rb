@@ -129,8 +129,8 @@ Rails.application.routes.draw do
 
   resources :madmp_fragments, only: [:destroy] do
     post 'create_or_update', on: :collection
-    get 'new_edit_linked', on: :collection, constraints: {format: [:json]}
-    get 'show_linked', on: :collection, constraints: {format: [:json]}
+    get 'new_edit_linked', on: :collection, constraints: {format: [:js]}
+    get 'show_linked', on: :collection, constraints: {format: [:js]}
     get 'get_fragment/:id', action: :get_fragment, on: :collection, as: :get_fragment
   end
   

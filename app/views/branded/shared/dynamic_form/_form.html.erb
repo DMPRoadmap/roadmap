@@ -10,20 +10,20 @@
   <% case prop['type'] %>
   <% when 'string' %>
     <% if prop['format'].nil?%>
-      <%= create_text_field(f, value, field_name, prop['label']) %>
+      <%= create_text_field(f, value, field_name, prop['label'], readonly: readonly) %>
     <% elsif prop['format'] == 'date' %>
-      <%= create_date_field(f, value, field_name, prop['label']) %>
+      <%= create_date_field(f, value, field_name, prop['label'], readonly: readonly) %>
     <% elsif prop['format'] == 'uri' %>
-      <%= create_url_field(f, value, field_name, prop['label']) %>
+      <%= create_url_field(f, value, field_name, prop['label'], readonly: readonly) %>
     <% elsif prop['format'] == 'email' %>
-      <%= create_email_field(f, value, field_name, prop['label']) %>
+      <%= create_email_field(f, value, field_name, prop['label'], readonly: readonly) %>
     <% elsif prop['format'] == 'select' && prop['values'] %>
-      <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", prop['label'], prop['values']) %>
+      <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", prop['label'], prop['values'], readonly: readonly) %>
     <%end%>
   <% when 'integer' %>
-    <%= create_number_field(f, value, field_name, prop['label']) %>
+    <%= create_number_field(f, value, field_name, prop['label'], readonly: readonly) %>
   <% when 'boolean' %>
-    <%= create_checkbox_field(f, value, field_name, prop['label']) %>
+    <%= create_checkbox_field(f, value, field_name, prop['label'], readonly: readonly) %>
   <% when 'array' %>
     <% if prop['items']['type'] == 'object' && prop['items']['schema_id'].present? %>
       <% unless classname == "research_output" %>
