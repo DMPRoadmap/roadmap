@@ -20,14 +20,16 @@
           <table class="table table-hover">
             <thead><tr><th><%= field_name.capitalize.pluralize(2) %></th></tr></thead>
             <tbody>
-              <% sub_fragments[sub_schema.id].each do |val| %>
-                <tr><td>
-                  <%= render(partial: 'shared/fragments/display', locals: {
-                          fragment: val,
-                          schema: sub_schema,
-                          classname: sub_schema.classname
-                  } ) %>
-                </td></tr>
+              <% unless sub_fragments[sub_schema.id].nil? %>
+                <% sub_fragments[sub_schema.id].each do |val| %>
+                  <tr><td>
+                    <%= render(partial: 'shared/fragments/display', locals: {
+                            fragment: val,
+                            schema: sub_schema,
+                            classname: sub_schema.classname
+                    } ) %>
+                  </td></tr>
+                <% end %>
               <% end %>
             </tbody>
           </table>
@@ -45,12 +47,13 @@
         <% unless classname == "research_output" || value.nil? %>
           <%
             sub_schema = sub_schemas[prop["schema_id"]]
+            sub_fragment = sub_fragments[sub_schema.id].find { |f| f.id == value["dbId"] }
           %>
           <hr/>
           <p class= "fontsize-h3"><%= field_name.capitalize %></p>
           <dl class="dl-horizontal sub-fragment">
             <%= render(partial: 'shared/fragments/display', locals: {
-                            fragment: sub_fragments[sub_schema.id], #TODO : Implement Person fragments display
+                            fragment: sub_fragment, #TODO : Implement Person fragments display
                             schema: sub_schema,
                             classname: sub_schema.classname
                   } ) %>

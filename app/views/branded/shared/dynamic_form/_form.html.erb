@@ -50,17 +50,18 @@
       ) %>
     <% end %>
   <% when 'object' %>
-    <% if prop["schema_id"].present?  %>
-      <% unless classname == "research_output" %>
+    <% if prop["schema_id"].present? %>
+      <% unless classname == "research_output"  %>
         <div class="col-md-12">
           <fieldset class="answer-fieldset">
             <legend class="answer-fieldset"><%= field_name %></legend>
             <%
               sub_schema = sub_schemas[prop["schema_id"]]
+              sub_fragment = sub_fragments[sub_schema.id].find { |f| f.id == value["dbId"] } unless value.nil?
             %>
             <%= render(partial: 'shared/dynamic_form/form', locals: { 
                   f: f, 
-                  fragment: value, 
+                  fragment: sub_fragment, 
                   schema: sub_schema,
                   readonly: readonly,
                   classname: sub_schema.classname,
