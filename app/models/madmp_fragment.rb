@@ -94,7 +94,12 @@ class MadmpFragment < ActiveRecord::Base
   end
 
   def get_sub_fragments
-    self.children.group_by(&:madmp_schema_id)
+    sub_fragments = self.dmp.persons.group_by(&:madmp_schema_id)
+    unless self.children.empty?
+      sub_fragments.merge(self.children.group_by(&:madmp_schema_id))
+    end
+
+    sub_fragments
   end
 
   # Returns a human readable version of the structured answer
