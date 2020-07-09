@@ -1,0 +1,67 @@
+<% sub_schemas = schema.get_sub_schemas %>
+<% data = fragment.data unless fragment.nil? %>
+<% sub_fragments = fragment.present? ? fragment.get_sub_fragments() : [] %>
+<% schema_properties = schema.schema["properties"]%>
+<table class="fragment-display"><tbody>
+  <% schema_properties.each do |key, prop| %>
+    <tr class="fragment-attribute">
+      <% value = data[key] unless data.nil? %>
+      <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{key}]" : key %>
+      <% case prop['type'] %>
+      <% when 'boolean' %>
+        <td class="attribute-name"><%= field_name %></td>
+        <td><%= value ? _('Yes') : _('No') %></td>
+      <% when 'array' %>
+        <% if prop['items']['type'] == 'object' && prop['items']['schema_id'].present? %>
+          <%
+            sub_schema = sub_schemas[prop['items']['schema_id']]
+          %>
+          <% unless sub_fragments[sub_schema.id].nil? %>
+            <td colspan=2>
+              <table class="sub-fragment-list">
+                <thead><tr><th><%= field_name.capitalize.pluralize(2) %></th></tr></thead>
+                <tbody>
+                    <% sub_fragments[sub_schema.id].each do |val| %>
+                      <tr><td>
+                        <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
+                                fragment: val,
+                                schema: sub_schema,
+                                classname: sub_schema.classname
+                        } ) %>
+                      </td></tr>
+                    <% end %>
+                </tbody>
+              </table>
+            </td>
+          <% end %>
+        <% else %>
+            <td class="attribute-name"><%= field_name %></td>
+            <td>
+            <% value.each do |val| %>
+              <%= val %>
+            <% end %>
+            <td>
+        <% end %>
+      <% when 'object' %>
+        <% if prop["schema_id"].present?  %>
+          <% unless value.nil? %>
+            <%
+              sub_schema = sub_schemas[prop["schema_id"]]
+            %>
+            <p class= "fontsize-h3"><%= field_name.capitalize %></p>
+            <div class="sub-fragment">
+              <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
+                              fragment: sub_fragments[sub_schema.id], #TODO : Implement Person fragments display
+                              schema: sub_schema,
+                              classname: sub_schema.classname
+                    } ) %>
+            </div>
+          <% end %>
+        <% end %>
+      <% else%>
+        <td class="attribute-name"><%= field_name %></td>
+        <td><%= value %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</tbody></table>

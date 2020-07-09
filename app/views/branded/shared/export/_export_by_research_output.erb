@@ -22,9 +22,10 @@
               @plan.answer(question[:id], false, research_output[:id]) %>
         <% blank = answer.present? ? answer.is_blank? : true %>
         <% options = answer.present? ? answer.question_options : [] %>
-          <%  unless @show_unanswered == false && blank  %>
-            <div class="question">
-              <% if !@public_plan && @show_sections_questions%>
+        <% fragment = answer.present? ? answer.madmp_fragment : nil %>
+        <%  unless @show_unanswered == false && blank  %>
+          <div class="question">
+            <% if !@public_plan && @show_sections_questions%>
               <p>
                 <%# Hack: for DOCX export - otherwise, bold highlighting of question inconsistent. %>
                 <% if local_assigns[:export_format] && export_format == 'docx' %>
@@ -35,15 +36,9 @@
                 <br>
               </p>
               <br>
-              <% end %>
-              <%# case where question has not been answered sufficiently to display%>
-              <% if @show_unanswered && (answer.blank? || (options.blank? && blank))%>
-              <br>
-              <p><%= _('Question not answered.') -%></p>
-              <br><br>
-              <br />
-              <% else %>
-
+            <% end %>
+            <%# case where question has not been answered sufficiently to display%>
+            <% if @show_unanswered %>
               <%# case where Question has options %>
               <% if options.any? %>
                 <ul>
@@ -52,7 +47,6 @@
                 <% end %>
                 </ul>
               <% end %>
-              <%# case for RDA answer display %>
               <% if question[:format].rda_metadata? && !blank %>
                 <% ah = answer.answer_hash %>
                 <% if ah['standards'].present? %>
@@ -64,16 +58,28 @@
                 <% end %>
                 <p><%= sanitize ah['text'] %></p>
                 <br>
+              <% elsif question[:format].structured? && fragment.present? %>
+                <%= render partial: 'shared/export/display_madmp_fragment', 
+                            locals: {
+                                fragment: fragment,
+                                schema: fragment.madmp_schema,
+                                classname: fragment.classname
+                            } %>
               <%# case for displaying comments OR text %>
               <% elsif !blank %>
                 <%= sanitize answer.text %>
                 <br>
+              <% else %>
+                <br>
+                <p><%= _('Question not answered.') -%></p>
+                <br><br>
+                <br />
               <% end %>
               <br />
-              <% end %>
-            </div>
-          <% end %>
-        <% end %> <!-- questions.each -->
+            <% end %>
+          </div>
+        <% end %>
+      <% end %> <!-- questions.each -->
 
     <% end %>
 
