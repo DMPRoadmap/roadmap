@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class RegistrationsController < Devise::RegistrationsController
 
   include OrgSelectable
@@ -43,7 +44,8 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   # POST /resource
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockNesting
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def create
     oauth = { provider: nil, uid: nil }
     IdentifierScheme.for_users.each do |scheme|
@@ -119,7 +121,8 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockNesting
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def update
     if user_signed_in?
@@ -149,6 +152,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def do_update(require_password = true, confirm = false)
     mandatory_params = true
     # added to by below, overwritten otherwise
@@ -185,6 +189,7 @@ class RegistrationsController < Devise::RegistrationsController
         # if user is changing email
         if current_user.email != attrs[:email]
           # password needs to be present
+          # rubocop:disable Metrics/BlockNesting
           if attrs[:password].blank?
             message = _("Please enter your password to change email address.")
             successfully_updated = false
@@ -198,6 +203,7 @@ class RegistrationsController < Devise::RegistrationsController
           else
             message = _("Invalid password")
           end
+          # rubocop:enable Metrics/BlockNesting
         else
           # remove the current_password because its not actuallyt part of the User record
           attrs.delete(:current_password)
@@ -227,7 +233,7 @@ class RegistrationsController < Devise::RegistrationsController
         current_user.skip_confirmation!
         current_user.save!
       end
-      session[:locale] = current_user.get_locale unless current_user.get_locale.nil?
+      session[:locale] = current_user.locale unless current_user.locale.nil?
       # Method defined at controllers/application_controller.rb
       set_gettext_locale
       set_flash_message :notice, success_message(current_user, _("saved"))
@@ -242,7 +248,9 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+  # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
   def do_update_password(current_user, args)
     if args[:current_password].blank?
       message = _("Please enter your current password")
@@ -255,7 +263,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
     # render the correct page
     if successfully_updated
-      session[:locale] = current_user.get_locale unless current_user.get_locale.nil?
+      session[:locale] = current_user.locale unless current_user.locale.nil?
       # Method defined at controllers/application_controller.rbset_gettext_locale
       set_flash_message :notice, success_message(current_user, _("saved"))
       # TODO: this method is deprecated
@@ -268,6 +276,7 @@ class RegistrationsController < Devise::RegistrationsController
       redirect_to "#{edit_user_registration_path}\#password-details"
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
 
   def sign_up_params
     params.require(:user).permit(:email, :password, :password_confirmation,
@@ -299,3 +308,4 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
 end
+# rubocop:enable Metrics/ClassLength

@@ -158,11 +158,11 @@ RSpec.describe User, type: :model do
 
   end
 
-  describe "#get_locale" do
+  describe "#locale" do
 
     let!(:user) { build(:user) }
 
-    subject { user.get_locale }
+    subject { user.locale }
 
     context "when user language present" do
 
@@ -191,7 +191,7 @@ RSpec.describe User, type: :model do
 
       before do
         user.language = nil
-        @locale = user.org.get_locale
+        @locale = user.org.locale
       end
 
       it { is_expected.to eql(@locale) }

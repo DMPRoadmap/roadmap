@@ -47,6 +47,7 @@
 # TODO: Drop the funder_name and grant_number columns once the funder_id has
 #       been back filled and we're removing the is_other org stuff
 
+# rubocop:disable Metrics/ClassLength
 class Plan < ApplicationRecord
 
   include ConditionalUserMailer
@@ -308,23 +309,19 @@ class Plan < ApplicationRecord
   #  adds org admins to plan with the 'reviewer' Role
   def request_feedback(user)
     Plan.transaction do
-      begin
-        self.feedback_requested = true
-        if save!
-          # Send an email to the org-admin contact
-          if user.org.contact_email.present?
-            contact = User.new(email: user.org.contact_email,
-                               firstname: user.org.contact_name)
-            UserMailer.feedback_notification(contact, self, user).deliver_now
-          end
-          return true
-        else
-          return false
-        end
-      rescue Exception => e
-        Rails.logger.error e
-        return false
+      self.feedback_requested = true
+      return false unless save!
+
+      # Send an email to the org-admin contact
+      if user.org.contact_email.present?
+        contact = User.new(email: user.org.contact_email,
+                           firstname: user.org.contact_name)
+        UserMailer.feedback_notification(contact, self, user).deliver_now
       end
+      true
+    rescue StandardError => e
+      Rails.logger.error e
+      false
     end
   end
 
@@ -334,26 +331,22 @@ class Plan < ApplicationRecord
   # 'reviewer' Role for the Plan.
   def complete_feedback(org_admin)
     Plan.transaction do
-      begin
-        self.feedback_requested = false
-        if save!
-          # Send an email confirmation to the owners and co-owners
-          deliver_if(recipients: owner_and_coowners,
-                     key: "users.feedback_provided") do |r|
-            UserMailer.feedback_complete(
-              r,
-              self,
-              org_admin
-            ).deliver_now
-          end
-          true
-        else
-          false
-        end
-      rescue ArgumentError => e
-        Rails.logger.error e
-        false
+      self.feedback_requested = false
+      return false unless save!
+
+      # Send an email confirmation to the owners and co-owners
+      deliver_if(recipients: owner_and_coowners,
+                 key: "users.feedback_provided") do |r|
+        UserMailer.feedback_complete(
+          r,
+          self,
+          org_admin
+        ).deliver_now
       end
+      true
+    rescue StandardError => e
+      Rails.logger.error e
+      false
     end
   end
 
@@ -373,6 +366,7 @@ class Plan < ApplicationRecord
   # user_id - The Integer id for a user
   #
   # Returns Boolean
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def readable_by?(user_id)
     return true if commentable_by?(user_id)
 
@@ -389,6 +383,7 @@ class Plan < ApplicationRecord
       false
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # determines if the plan is readable by the specified user.
   #
@@ -396,7 +391,8 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def commentable_by?(user_id)
-    Role.commenter.where(plan_id: id, user_id: user_id, active: true).any? || reviewable_by?(user_id)
+    Role.commenter.where(plan_id: id, user_id: user_id, active: true).any? ||
+      reviewable_by?(user_id)
   end
 
   # determines if the plan is administerable by the specified user
@@ -591,3 +587,4 @@ class Plan < ApplicationRecord
   end
 
 end
+# rubocop:enable Metrics/ClassLength

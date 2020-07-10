@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class AnswersController < ApplicationController
 
   respond_to :html
@@ -11,7 +12,8 @@ class AnswersController < ApplicationController
   #       logic and we should stop using custom JSON here and instead use
   #       `remote: true` in the <form> tag and just send back the ERB.
   #       Consider using ActionCable for the progress bar(s)
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def create_or_update
     p_params = permitted_params
 
@@ -163,7 +165,8 @@ class AnswersController < ApplicationController
     end
     # rubocop:enable Style/GuardClause
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   private
 
@@ -191,3 +194,4 @@ class AnswersController < ApplicationController
   end
 
 end
+# rubocop:enable Metrics/ClassLength

@@ -7,7 +7,8 @@ class Api::V0::TemplatesController < Api::V0::BaseController
   # GET
   #
   # Renders a list of templates ordered by organisation
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def index
     # check if the user has permissions to use the templates API
     unless Api::V0::TemplatePolicy.new(@user, :guidance_group).index?
@@ -52,6 +53,7 @@ class Api::V0::TemplatesController < Api::V0::BaseController
     end
     respond_with @org_templates
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
 end

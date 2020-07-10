@@ -36,7 +36,7 @@ class StatCreatedPlan < Stat
   def parse_details
     return JSON.parse({}) unless details.present?
 
-    json = details.is_a?(String) ? JSON.parse(details) : details
+    details.is_a?(String) ? JSON.parse(details) : details
   end
 
   class << self
@@ -51,10 +51,11 @@ class StatCreatedPlan < Stat
 
     private
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     def to_csv_by_template(created_plans, sep = ",")
-      template_names = lambda do |created_plans|
+      template_names = lambda do |plns|
         unique = Set.new
-        created_plans.each do |created_plan|
+        plns.each do |created_plan|
           created_plan.by_template&.each do |name_count|
             unique.add(name_count.fetch("name"))
           end
@@ -75,6 +76,7 @@ class StatCreatedPlan < Stat
       end
       Csvable.from_array_of_hashes(data, false, sep)
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
   end
 

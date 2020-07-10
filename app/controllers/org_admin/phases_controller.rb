@@ -2,6 +2,7 @@
 
 module OrgAdmin
 
+  # rubocop:disable Metrics/ClassLength
   class PhasesController < ApplicationController
 
     include Versionable
@@ -9,6 +10,7 @@ module OrgAdmin
     after_action :verify_authorized
 
     # GET /org_admin/templates/:template_id/phases/:id
+    # rubocop:disable Metrics/AbcSize
     def show
       phase = Phase.includes(:template, :sections).order(:number).find(params[:id])
       authorize phase
@@ -36,8 +38,10 @@ module OrgAdmin
                current_section: Section.find_by(id: params[:section], phase_id: phase.id)
              })
     end
+    # rubocop:enable Metrics/AbcSize
 
     # GET /org_admin/templates/:template_id/phases/:id/edit
+    # rubocop:disable Metrics/AbcSize
     def edit
       phase = Phase.includes(:template).find(params[:id])
       authorize phase
@@ -62,6 +66,7 @@ module OrgAdmin
                })
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     # preview a phase
     # GET /org_admin/templates/:template_id/phases/:id/preview
@@ -104,6 +109,7 @@ module OrgAdmin
 
     # create a phase
     # POST /org_admin/templates/:template_id/phases
+    # rubocop:disable Metrics/AbcSize
     def create
       phase = Phase.new(phase_params)
       phase.template = Template.find(params[:template_id])
@@ -126,6 +132,7 @@ module OrgAdmin
                                                        id: phase.id)
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     # update a phase of a template
     # PUT /org_admin/templates/:template_id/phases/:id
@@ -157,6 +164,7 @@ module OrgAdmin
 
     # delete a phase
     # DELETE /org_admin/templates/:template_id/phases/:id
+    # rubocop:disable Metrics/AbcSize
     def destroy
       phase = Phase.includes(:template).find(params[:id])
       authorize phase
@@ -178,6 +186,7 @@ module OrgAdmin
         redirect_to edit_org_admin_template_path(template)
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     private
 
@@ -188,3 +197,4 @@ module OrgAdmin
   end
 
 end
+# rubocop:enable Metrics/ClassLength

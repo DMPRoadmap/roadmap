@@ -32,6 +32,7 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 
+# rubocop:disable Metrics/ClassLength
 class Template < ApplicationRecord
 
   include GlobalHelpers
@@ -275,6 +276,7 @@ class Template < ApplicationRecord
   # Creates a copy of the current template
   # raises ActiveRecord::RecordInvalid when save option is true and validations
   # fails.
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def deep_copy(attributes: {}, **options)
     copy = dup
     if attributes.respond_to?(:each_pair)
@@ -290,13 +292,16 @@ class Template < ApplicationRecord
     copy.conditions.each do |cond|
       if cond.option_list.any?
         versionable_ids = QuestionOption.where(id: cond.option_list).pluck(:versionable_id)
-        cond.option_list = copy.question_options.where(versionable_id: versionable_ids).pluck(:id).map(&:to_s)
+        cond.option_list = copy.question_options.where(versionable_id: versionable_ids)
+                               .pluck(:id).map(&:to_s)
         # TODO: these seem to be stored as strings, not sure if that's required by other code
-      end # TODO: would it be safe to remove conditions without an option list?
+        # TODO: would it be safe to remove conditions without an option list?
+      end
 
       if cond.remove_data.any?
         versionable_ids = Question.where(id: cond.remove_data).pluck(:versionable_id)
-        cond.remove_data = copy.questions.where(versionable_id: versionable_ids).pluck(:id).map(&:to_s)
+        cond.remove_data = copy.questions.where(versionable_id: versionable_ids)
+                               .pluck(:id).map(&:to_s)
       end
 
       cond.save if cond.changed?
@@ -304,6 +309,7 @@ class Template < ApplicationRecord
 
     copy
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   # Retrieves the template's org or the org of the template this one is derived
   # from of it is a customization
@@ -431,6 +437,8 @@ class Template < ApplicationRecord
     update!(published: true)
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def publishability
     error = ""
     publishable = true
@@ -449,12 +457,12 @@ class Template < ApplicationRecord
       publishable = false
       # all phases must have atleast 1 section
     end
-    unless phases.map { |p| p.sections.count > 0 }.reduce(true) { |fin, val| fin and val }
+    unless phases.map { |p| p.sections.count.positive? }.reduce(true) { |fin, val| fin and val }
       error += _("You can not publish a template without sections in a phase.  ")
       publishable = false
       # all sections must have atleast one question
     end
-    unless sections.map { |s| s.questions.count > 0 }.reduce(true) { |fin, val| fin and val }
+    unless sections.map { |s| s.questions.count.positive? }.reduce(true) { |fin, val| fin and val }
       error += _("You can not publish a template without questions in a section.  ")
       publishable = false
     end
@@ -464,6 +472,8 @@ class Template < ApplicationRecord
     end
     [publishable, error]
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   private
 
@@ -507,9 +517,10 @@ class Template < ApplicationRecord
     false
   end
 
-  def before(q1, q2)
-    q1.section.number < q2.section.number ||
-      (q1.section.number == q2.section.number && q1.number < q2.number)
+  def before(question1, question2)
+    question1.section.number < question2.section.number ||
+      (question1.section.number == question2.section.number && question1.number < question2.number)
   end
 
 end
+# rubocop:enable Metrics/ClassLength

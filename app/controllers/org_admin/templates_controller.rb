@@ -36,6 +36,7 @@ module OrgAdmin
     # A version of index that displays only templates that belong to the user's org
     # GET /org_admin/templates/organisational
     # -----------------------------------------------------
+    # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
     def organisational
       authorize Template
       templates = Template.latest_version_per_org(current_user.org.id)
@@ -59,10 +60,12 @@ module OrgAdmin
                            end
       render :index
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
 
     # A version of index that displays only templates that are customizable
     # GET /org_admin/templates/customisable
     # -----------------------------------------------------
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
     def customisable
       authorize Template
       customizations = Template.latest_customized_version_per_org(current_user.org.id)
@@ -93,6 +96,7 @@ module OrgAdmin
 
       render :index
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
     # GET /org_admin/templates/[:id]
     def show
@@ -152,6 +156,7 @@ module OrgAdmin
     end
 
     # POST /org_admin/templates
+    # rubocop:disable Metrics/AbcSize
     def create
       authorize Template
       args = template_params
@@ -175,9 +180,11 @@ module OrgAdmin
         render :new
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     # PUT /org_admin/templates/:id (AJAXable)
     # -----------------------------------------------------
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def update
       template = Template.find(params[:id])
       authorize template
@@ -215,8 +222,10 @@ module OrgAdmin
                }) and return
       end
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # DELETE /org_admin/templates/:id
+    # rubocop:disable Metrics/AbcSize
     def destroy
       template = Template.find(params[:id])
       authorize template
@@ -240,6 +249,7 @@ module OrgAdmin
         redirect_to org_admin_templates_path
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     # GET /org_admin/templates/:id/history
     def history
@@ -296,6 +306,7 @@ module OrgAdmin
 
     # GET template_export/:id
     # -----------------------------------------------------
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def template_export
       @template = Template.find(params[:id])
 
@@ -349,6 +360,7 @@ module OrgAdmin
                     alert: _("Unable to download the DMP Template at this time.")
       end
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     private
 
@@ -383,6 +395,7 @@ module OrgAdmin
       end
     end
 
+    # rubocop:disable Metrics/PerceivedComplexity
     def get_referrer(template, referrer)
       return org_admin_templates_path unless referrer.present?
 
@@ -399,6 +412,7 @@ module OrgAdmin
         request.referrer
       end
     end
+    # rubocop:enable Metrics/PerceivedComplexity
 
   end
   # rubocop:enable Metrics/ClassLength

@@ -10,6 +10,7 @@ class Paginable::TemplatesController < ApplicationController
 
   # GET /paginable/templates/:page  (AJAX)
   # -----------------------------------------------------
+  # rubocop:disable Metrics/CyclomaticComplexity
   def index
     authorize Template
     templates = Template.latest_version.where(customization_of: nil)
@@ -29,9 +30,11 @@ class Paginable::TemplatesController < ApplicationController
       format: :json
     )
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   # GET /paginable/templates/organisational/:page  (AJAX)
   # -----------------------------------------------------
+  # rubocop:disable Metrics/CyclomaticComplexity
   def organisational
     authorize Template
     templates = Template.latest_version_per_org(current_user.org.id)
@@ -52,9 +55,11 @@ class Paginable::TemplatesController < ApplicationController
       format: :json
     )
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   # GET /paginable/templates/customisable/:page  (AJAX)
   # -----------------------------------------------------
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def customisable
     authorize Template
     customizations = Template.latest_customized_version_per_org(current_user.org.id)
@@ -77,6 +82,7 @@ class Paginable::TemplatesController < ApplicationController
       format: :json
     )
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   # rubocop:enable Layout/LineLength
 

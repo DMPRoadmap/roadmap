@@ -35,9 +35,9 @@ class Identifier < ApplicationRecord
 
   validates :identifiable, presence: { message: PRESENCE_MESSAGE }
 
-  validate :value_uniqueness_with_scheme, if: :has_scheme?
+  validate :value_uniqueness_with_scheme, if: :schemed?
 
-  validate :value_uniqueness_without_scheme, unless: :has_scheme?
+  validate :value_uniqueness_without_scheme, unless: :schemed?
 
   # ===============
   # = Scopes =
@@ -114,16 +114,16 @@ class Identifier < ApplicationRecord
   # ==============
 
   # Simple check used by :validate methods above
-  def has_scheme?
+  def schemed?
     identifier_scheme.present?
   end
 
   # Verify the uniqueness of :value across :identifiable
   def value_uniqueness_without_scheme
     # if scheme is nil, then just unique for identifiable
-    if Identifier.where(identifiable: identifiable, value: value).any?
-      errors.add(:value, _("must be unique"))
-    end
+    return unless Identifier.where(identifiable: identifiable, value: value).any?
+
+    errors.add(:value, _("must be unique"))
   end
 
   # Ensure that the identifiable only has one identifier for the scheme
