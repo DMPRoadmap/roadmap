@@ -8,7 +8,7 @@ class ContributorPresenter
     def display_name(name:)
       return "" unless name.present?
 
-      name.split.map { |part| part.capitalize }.join(" ")
+      name.split.map(&:capitalize).join(" ")
     end
 
     # Returns the string name for each role
