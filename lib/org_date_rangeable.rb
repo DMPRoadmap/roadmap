@@ -30,7 +30,7 @@ module OrgDateRangeable
                    proc {}
                  else
                    ->(start_date, end_date) { block.call(start_date, end_date) }
-end
+                 end
       enumerable = []
 
       until starts_at.future? || ends_at.future?
