@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AutoCompleteHelper
 
   def select_an_org(autocomplete_id, org)
@@ -12,8 +14,8 @@ module AutoCompleteHelper
 
     if hidden_id.present?
       page.execute_script(
-        "document.getElementById('#{hidden_id}').value = '#{hash.to_s}'"
-      );
+        "document.getElementById('#{hidden_id}').value = '#{hash}'"
+      )
     end
   end
 
@@ -25,6 +27,7 @@ module AutoCompleteHelper
     unless matching_element.present?
       raise ArgumentError, "No such suggestion with text '#{suggestion_text}'"
     end
+
     matching_element.click
     # Wait for the JS to run
     sleep(0.3)

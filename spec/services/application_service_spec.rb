@@ -11,7 +11,7 @@ RSpec.describe ApplicationService do
     end
     it "returns the Rails application name if no dmproadmap.rb initializer entry" do
       Rails.configuration.x.application.delete(:name)
-      expected = Rails.application.class.name.split('::').first.downcase
+      expected = Rails.application.class.name.split("::").first.downcase
       expect(described_class.application_name).to eql(expected)
     end
   end

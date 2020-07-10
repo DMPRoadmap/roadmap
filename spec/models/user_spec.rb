@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe User, type: :model do
 
@@ -34,8 +34,6 @@ RSpec.describe User, type: :model do
 
     it { is_expected.to validate_presence_of(:org) }
   end
-
-
 
   context "associations" do
 
@@ -647,7 +645,6 @@ RSpec.describe User, type: :model do
       it { is_expected.to include(@user) }
 
     end
-
 
     context "when search value is lowercase" do
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe ApiClient, type: :model do
 
@@ -43,7 +43,7 @@ RSpec.describe ApiClient, type: :model do
       end
 
       it "should return the name through interpolation" do
-        expect("#{@client}").to eql(@client.name)
+        expect(@client.to_s).to eql(@client.name)
       end
     end
 

@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Answer, type: :model do
 
@@ -11,9 +13,11 @@ RSpec.describe Answer, type: :model do
 
     it { is_expected.to validate_presence_of(:question) }
 
-    it { is_expected.to validate_uniqueness_of(:question)
-                          .scoped_to(:plan_id)
-                          .with_message("must be unique") }
+    it {
+      is_expected.to validate_uniqueness_of(:question)
+        .scoped_to(:plan_id)
+        .with_message("must be unique")
+    }
   end
 
   describe ".deep_copy" do
@@ -220,7 +224,7 @@ RSpec.describe Answer, type: :model do
 
     let!(:answer) { build(:answer) }
 
-    let(:default_json) { {'standards' => {}, 'text' => ''} }
+    let(:default_json) { { "standards" => {}, "text" => "" } }
 
     subject { answer.answer_hash }
 
@@ -237,7 +241,7 @@ RSpec.describe Answer, type: :model do
     context "when text is blank" do
 
       before do
-        answer.text = ''
+        answer.text = ""
       end
 
       it { is_expected.to eql(default_json) }
@@ -257,7 +261,7 @@ RSpec.describe Answer, type: :model do
     context "when text is HTML" do
 
       before do
-        answer.text = '<p>foo bar</p>'
+        answer.text = "<p>foo bar</p>"
       end
 
       it { is_expected.to eql(default_json) }
@@ -275,33 +279,34 @@ RSpec.describe Answer, type: :model do
     context "when standards parameter is present" do
 
       before do
-        answer.update_answer_hash({foo: 'bar'})
+        answer.update_answer_hash({ foo: "bar" })
       end
 
-      it { is_expected.to eql({"standards" => {"foo" => "bar"}, "text" => ""}) }
+      it { is_expected.to eql({ "standards" => { "foo" => "bar" }, "text" => "" }) }
 
     end
 
     context "when both params are absent" do
 
       before do
-        answer.update_answer_hash()
+        answer.update_answer_hash
       end
 
-      it { is_expected.to eql({"standards" => {}, "text" => ""}) }
+      it { is_expected.to eql({ "standards" => {}, "text" => "" }) }
 
     end
 
     context "when both params are present" do
 
       before do
-        answer.update_answer_hash({foo: 'bar'}, "baz")
+        answer.update_answer_hash({ foo: "bar" }, "baz")
       end
 
-      it { is_expected.to eql({
-        "standards" => {"foo" => "bar"},
-        "text" => "baz"
-        })
+      it {
+        is_expected.to eql({
+                             "standards" => { "foo" => "bar" },
+                             "text" => "baz"
+                           })
       }
 
     end

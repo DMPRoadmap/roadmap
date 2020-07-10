@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'shoulda/matchers'
+require "shoulda/matchers"
 
 AVAILABLE_TEST_LOCALES = %w[en-GB en fr de].freeze
 

@@ -143,7 +143,7 @@ RSpec.describe OrgSelection::HashToOrgService do
       it "returns the name as an acronym (first letter of each word)" do
         @hash.delete(:abbreviation)
         rslt = described_class.send(:abbreviation_from_hash, hash: @hash)
-        expected = @name.split(' ').map { |i| i[0].upcase }.join
+        expected = @name.split(" ").map { |i| i[0].upcase }.join
         expect(rslt).to eql(expected)
       end
     end
@@ -178,7 +178,7 @@ RSpec.describe OrgSelection::HashToOrgService do
       end
 
       it "returns the identifier key" do
-        expect(@rslt.include?("#{@scheme.name}")).to eql(true)
+        expect(@rslt.include?(@scheme.name.to_s)).to eql(true)
       end
       it "does not return the other keys" do
         expect(@rslt.include?("name")).to eql(false)
@@ -187,7 +187,7 @@ RSpec.describe OrgSelection::HashToOrgService do
         expect(@rslt.include?("score")).to eql(false)
         expect(@rslt.include?("language")).to eql(false)
         expect(@rslt.include?("url")).to eql(false)
-        expect(@rslt.include?("#{@attr_key}")).to eql(false)
+        expect(@rslt.include?(@attr_key.to_s)).to eql(false)
       end
     end
 
@@ -205,13 +205,13 @@ RSpec.describe OrgSelection::HashToOrgService do
         expect(@rslt.include?("score")).to eql(false)
       end
       it "does not include identifier keys" do
-        expect(@rslt.include?("#{@scheme.name}")).to eql(false)
+        expect(@rslt.include?(@scheme.name.to_s)).to eql(false)
       end
       it "returns the other attributes" do
         expect(@rslt.include?("name")).to eql(true)
         expect(@rslt.include?("language")).to eql(true)
         expect(@rslt.include?("url")).to eql(true)
-        expect(@rslt.include?("#{@attr_key}")).to eql(true)
+        expect(@rslt.include?(@attr_key.to_s)).to eql(true)
       end
     end
 
