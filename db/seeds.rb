@@ -8,7 +8,6 @@
 # (or created alongside the db with db:setup).
 
 default_locale = LocaleService.to_i18n(locale: LocaleService.default_locale).to_s
-default_language = Language.find_by(abbreviation: default_locale)
 
 # When this is executed by `db:setup`, the FastGettext initializer did not run
 # so we need to establish the I18n locales manually
@@ -115,6 +114,7 @@ languages = [
    default_language: false}
 ]
 languages.each { |l| Language.create!(l) }
+default_language = Language.find_by(abbreviation: default_locale)
 
 # Scan through the locale files and add an entry if a file is present but
 # not defined in this seed file
