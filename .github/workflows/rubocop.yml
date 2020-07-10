@@ -1,5 +1,3 @@
-# Commented out until we have time to do a full cleanup of the codebase
-
 name: Rubocop
 
 on: [push, pull_request]
