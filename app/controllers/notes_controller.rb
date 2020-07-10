@@ -15,6 +15,7 @@ class NotesController < ApplicationController
     unless Plan.find_by(id: note_params[:plan_id]).readable_by?(@note.user_id)
       raise Pundit::NotAuthorizedError
     end
+
     Answer.transaction do
       @answer = Answer.find_by(
         plan_id: note_params[:plan_id],
@@ -43,24 +44,24 @@ class NotesController < ApplicationController
       answer = @note.answer
       plan = answer.plan
       owner = plan.owner
-      deliver_if(recipients: owner, key: "users.new_comment") do |r|
-        UserMailer.new_comment(current_user, plan, answer).deliver_now()
+      deliver_if(recipients: owner, key: "users.new_comment") do |_r|
+        UserMailer.new_comment(current_user, plan, answer).deliver_now
       end
       @notice = success_message(@note, _("created"))
       render(json: {
         "notes" => {
           "id" => note_params[:question_id],
           "html" => render_to_string(partial: "layout", locals: {
-            plan: @plan,
-            question: @question,
-            answer: @answer
-          }, formats: [:html])
+                                       plan: @plan,
+                                       question: @question,
+                                       answer: @answer
+                                     }, formats: [:html])
         },
         "title" => {
           "id" => note_params[:question_id],
           "html" => render_to_string(partial: "title", locals: {
-            answer: @answer
-          }, formats: [:html])
+                                       answer: @answer
+                                     }, formats: [:html])
         }
       }.to_json, status: :created)
     else
@@ -90,16 +91,16 @@ class NotesController < ApplicationController
         "notes" => {
           "id" => question_id,
           "html" => render_to_string(partial: "layout", locals: {
-            plan: @plan,
-            question: @question,
-            answer: @answer
-          }, formats: [:html])
+                                       plan: @plan,
+                                       question: @question,
+                                       answer: @answer
+                                     }, formats: [:html])
         },
         "title" => {
           "id" => question_id,
           "html" => render_to_string(partial: "title", locals: {
-            answer: @answer
-          }, formats: [:html])
+                                       answer: @answer
+                                     }, formats: [:html])
         }
       }.to_json, status: :ok)
     else
@@ -130,16 +131,16 @@ class NotesController < ApplicationController
         "notes" => {
           "id" => question_id,
           "html" => render_to_string(partial: "layout", locals: {
-            plan: @plan,
-            question: @question,
-            answer: @answer
-          }, formats: [:html])
+                                       plan: @plan,
+                                       question: @question,
+                                       answer: @answer
+                                     }, formats: [:html])
         },
         "title" => {
           "id" => question_id,
           "html" => render_to_string(partial: "title", locals: {
-            answer: @answer
-          }, formats: [:html])
+                                       answer: @answer
+                                     }, formats: [:html])
         }
       }.to_json, status: :ok)
     else

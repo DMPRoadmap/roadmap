@@ -9,6 +9,7 @@ class Users::InvitationsController < Devise::InvitationsController
   prepend_after_action :handle_org, only: [:update]
 
   protected
+
   # Override require_no_authentication method defined at DeviseController
   # (parent of Devise::InvitationsController) The following filter gets
   # executed any time GET /users/invitation/accept?invitation_token=valid_token
@@ -30,7 +31,7 @@ class Users::InvitationsController < Devise::InvitationsController
     attrs = update_resource_params
 
     if attrs[:org_id].present?
-       # See if the user selected a new Org via the Org Lookup and
+      # See if the user selected a new Org via the Org Lookup and
       # convert it into an Org
       lookup = org_from_params(params_in: attrs)
       return nil unless lookup.present?
@@ -48,7 +49,7 @@ class Users::InvitationsController < Devise::InvitationsController
         lookup.reload
       end
 
-      self.resource.update(org_id: lookup.id)
+      resource.update(org_id: lookup.id)
     end
   end
 

@@ -10,10 +10,10 @@ class SessionsController < Devise::SessionsController
   # ---------------------------------------------------------------------
   def create
     existing_user = User.find_by(email: params[:user][:email])
-    if !existing_user.nil?
+    unless existing_user.nil?
 
       # Until ORCID login is supported
-      if !session["devise.shibboleth_data"].nil?
+      unless session["devise.shibboleth_data"].nil?
         args = {
           identifier_scheme: IdentifierScheme.find_by(name: "shibboleth"),
           value: session["devise.shibboleth_data"]["uid"],
@@ -22,9 +22,7 @@ class SessionsController < Devise::SessionsController
         }
         @ui = Identifier.new(args)
       end
-      unless existing_user.get_locale.nil?
-        session[:locale] = existing_user.get_locale
-      end
+      session[:locale] = existing_user.get_locale unless existing_user.get_locale.nil?
       # Method defined at controllers/application_controller.rb
       set_gettext_locale
     end

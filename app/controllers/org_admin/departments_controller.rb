@@ -70,7 +70,6 @@ class OrgAdmin::DepartmentsController < ApplicationController
     end
   end
 
-
   private
 
   def department_params

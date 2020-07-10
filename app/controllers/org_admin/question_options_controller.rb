@@ -8,7 +8,6 @@ module OrgAdmin
 
     after_action :verify_authorized
 
-
     def destroy
       question_option = QuestionOption.find(params[:id])
       option_id_to_remove = question_option.id.to_s
@@ -20,9 +19,7 @@ module OrgAdmin
         if question_option.destroy!
           # need to remove any conditions which refer to this question option
           question.conditions.each do |cond|
-            if cond.option_list.include?(option_id_to_remove)
-              cond.destroy
-            end
+            cond.destroy if cond.option_list.include?(option_id_to_remove)
           end
           flash[:notice] = success_message(question_option, _("deleted"))
         else
@@ -39,6 +36,5 @@ module OrgAdmin
     end
 
   end
-
 
 end

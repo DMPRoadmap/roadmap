@@ -3,7 +3,7 @@
 class Api::V0::BaseController < ApplicationController
 
   protect_from_forgery with: :null_session
-  before_action :set_resource, only: [:destroy, :show, :update]
+  before_action :set_resource, only: %i[destroy show update]
   respond_to :json
 
   # POST /api/{plural_resource_name}
@@ -27,8 +27,8 @@ class Api::V0::BaseController < ApplicationController
   def index
     plural_resource_name = "@#{resource_name.pluralize}"
     resources = resource_class.where(query_params)
-                    .page(page_params[:page])
-                    .per(page_params[:page_size])
+                              .page(page_params[:page])
+                              .per(page_params[:page_size])
 
     instance_variable_set(plural_resource_name, resources)
     respond_with instance_variable_get(plural_resource_name)
@@ -83,7 +83,7 @@ class Api::V0::BaseController < ApplicationController
   #
   # Returns String
   def resource_name
-    @resource_name ||= self.controller_name.singularize
+    @resource_name ||= controller_name.singularize
   end
 
   # Only allow a trusted parameter "white list" through.
@@ -92,7 +92,7 @@ class Api::V0::BaseController < ApplicationController
   # the method "#{resource_name}_params" to limit permitted
   # parameters for the individual model.
   def resource_params
-    @resource_params ||= self.send("#{resource_name}_params")
+    @resource_params ||= send("#{resource_name}_params")
   end
 
   # Use callbacks to share common setup or constraints between actions.
@@ -106,7 +106,7 @@ class Api::V0::BaseController < ApplicationController
   end
 
   def authenticate_token
-    authenticate_with_http_token do |token, options|
+    authenticate_with_http_token do |token, _options|
       # reject the empty string as it is our base empty token
       if token != ""
         @token = token
@@ -119,9 +119,8 @@ class Api::V0::BaseController < ApplicationController
     end
   end
 
-
   def render_bad_credentials
-    self.headers["WWW-Authenticate"] = "Token realm=\"\""
+    headers["WWW-Authenticate"] = "Token realm=\"\""
     render json: _("Bad Credentials"), status: 401
   end
 

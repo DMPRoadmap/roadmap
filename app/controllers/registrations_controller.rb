@@ -13,7 +13,7 @@ class RegistrationsController < Devise::RegistrationsController
     @identifier_schemes = IdentifierScheme.for_users.order(:name)
     @default_org = current_user.org
 
-    if !@prefs
+    unless @prefs
       flash[:alert] = "No default preferences found (should be in dmproadmap.rb initializer)."
     end
   end
@@ -99,7 +99,6 @@ class RegistrationsController < Devise::RegistrationsController
                                   value: oauth["uid"],
                                   attrs: oauth,
                                   identifiable: resource)
-                # rubocop:disable Layout/LineLength
                 flash[:notice] = _("Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them.")
                 # rubocop:enable Layout/LineLength
               end
@@ -114,16 +113,15 @@ class RegistrationsController < Devise::RegistrationsController
         end
       else
         clean_up_passwords resource
-        # rubocop:disable Layout/LineLength
         redirect_to after_sign_up_error_path_for(resource),
                     alert: _("Unable to create your account.#{errors_for_display(resource)}")
-        # rubocop:enable Layout/LineLength
+
       end
     end
   end
 
   def update
-    if user_signed_in? then
+    if user_signed_in?
       @prefs = @user.get_preferences(:email)[:prefs]
       @orgs = Org.order("name")
       @default_org = current_user.org
@@ -190,7 +188,7 @@ class RegistrationsController < Devise::RegistrationsController
             successfully_updated = false
           elsif current_user.valid_password?(attrs[:current_password])
             successfully_updated = current_user.update_with_password(attrs)
-            if !successfully_updated
+            unless successfully_updated
               message = _("Save unsuccessful. \
                 That email address is already registered. \
                 You must enter a unique email address.")
@@ -218,9 +216,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
 
     # unlink shibboleth from user's details
-    if params[:unlink_flag] == "true" then
-      current_user.update_attributes(shibboleth_id: "")
-    end
+    current_user.update_attributes(shibboleth_id: "") if params[:unlink_flag] == "true"
 
     # render the correct page
     if successfully_updated
@@ -236,7 +232,7 @@ class RegistrationsController < Devise::RegistrationsController
       # Sign in the user bypassing validation in case his password changed
       sign_in current_user, bypass: true
       redirect_to "#{edit_user_registration_path}\#personal-details",
-        notice: success_message(current_user, _("saved"))
+                  notice: success_message(current_user, _("saved"))
 
     else
       flash[:alert] = message.blank? ? failure_message(current_user, _("save")) : message
@@ -259,10 +255,10 @@ class RegistrationsController < Devise::RegistrationsController
       session[:locale] = current_user.get_locale unless current_user.get_locale.nil?
       # Method defined at controllers/application_controller.rbset_gettext_locale
       set_flash_message :notice, success_message(current_user, _("saved"))
-      # TODO this method is deprecated
+      # TODO: this method is deprecated
       sign_in current_user, bypass: true
       redirect_to "#{edit_user_registration_path}\#password-details",
-        notice: success_message(current_user, _("saved"))
+                  notice: success_message(current_user, _("saved"))
 
     else
       flash[:alert] = message.blank? ? failure_message(current_user, _("save")) : message

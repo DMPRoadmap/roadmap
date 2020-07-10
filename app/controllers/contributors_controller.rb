@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 class ContributorsController < ApplicationController
 
   include OrgSelectable
@@ -29,7 +28,6 @@ class ContributorsController < ApplicationController
   end
 
   # POST /plans/:plan_id/contributors
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def create
     authorize @plan
     args = translate_roles(hash: contributor_params)
@@ -51,10 +49,9 @@ class ContributorsController < ApplicationController
       render :new
     end
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable
 
   # PUT /plans/:plan_id/contributors/:id
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def update
     authorize @plan
     args = translate_roles(hash: contributor_params)
@@ -69,7 +66,7 @@ class ContributorsController < ApplicationController
       render :edit
     end
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable
 
   # DELETE /plans/:plan_id/contributors/:id
   def destroy
@@ -187,4 +184,3 @@ class ContributorsController < ApplicationController
   end
 
 end
-# rubocop:enable Metrics/ClassLength

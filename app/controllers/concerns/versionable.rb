@@ -18,18 +18,18 @@ module Versionable
       template = obj
     else
       raise ArgumentError,
-        _("obj should be a Template, Phase, Section, Question, or Annotation")
+            _("obj should be a Template, Phase, Section, Question, or Annotation")
     end
 
     # raises RuntimeError if template is not latest
     new_template = Template.find_or_generate_version!(template)
 
     if new_template != template
-      if obj.is_a?(Template)
-        obj = new_template
-      else
-        obj = find_in_space(obj, new_template.phases)
-      end
+      obj = if obj.is_a?(Template)
+              new_template
+            else
+              find_in_space(obj, new_template.phases)
+            end
     end
     obj
   end
@@ -42,7 +42,7 @@ module Versionable
   def get_new(obj)
     unless obj.respond_to?(:template)
       raise ArgumentError,
-        _("obj should be a Phase, Section, Question, or Annotation")
+            _("obj should be a Phase, Section, Question, or Annotation")
     end
 
     template = obj.template
@@ -61,7 +61,7 @@ module Versionable
         belongs = :question
       else
         raise ArgumentError,
-          _("obj should be a Phase, Section, Question, or Annotation")
+              _("obj should be a Phase, Section, Question, or Annotation")
       end
 
       if belongs == :template
@@ -84,9 +84,10 @@ module Versionable
     unless search_space.respond_to?(:each)
       raise ArgumentError, _("The search_space does not respond to each")
     end
-    unless search_space.length > 0
+
+    if search_space.empty?
       raise ArgumentError,
-        _("The search space does not have elements associated")
+            _("The search space does not have elements associated")
     end
 
     if obj.is_a?(search_space.first.class)
@@ -99,6 +100,7 @@ module Versionable
           annotation.org_id == obj.org_id && annotation.text == obj.text
         end
       end
+
       return nil
     end
 
@@ -111,20 +113,19 @@ module Versionable
       relation = :questions
     when Question
       number = obj.question.number
-      if obj.is_a?(QuestionOption)
-        relation = :question_options
-      else
-        relation = :annotations
-      end
+      relation = if obj.is_a?(QuestionOption)
+                   :question_options
+                 else
+                   :annotations
+                 end
     else
       return nil
     end
 
     search_space = search_space.find { |search| search.number == number }
 
-    if search_space.present?
-      return find_in_space(obj, search_space.send(relation))
-    end
+    return find_in_space(obj, search_space.send(relation)) if search_space.present?
+
     nil
   end
 

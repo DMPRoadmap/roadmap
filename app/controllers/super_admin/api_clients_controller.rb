@@ -32,7 +32,7 @@ module SuperAdmin
       @api_client = ApiClient.new(api_client_params)
 
       if @api_client.save
-        UserMailer.api_credentials(@api_client).deliver_now()
+        UserMailer.api_credentials(@api_client).deliver_now
         msg = success_message(@api_client, _("created"))
         msg += _(". The API credentials have been emailed to %{email}") % { email: @api_client.contact_email }
         flash.now[:notice] = msg
@@ -80,7 +80,7 @@ module SuperAdmin
     # GET /api_clients/:id/email_credentials/
     def email_credentials
       @api_client = ApiClient.find(params[:id])
-      UserMailer.api_credentials(@api_client).deliver_now() if @api_client.present?
+      UserMailer.api_credentials(@api_client).deliver_now if @api_client.present?
     end
 
     private
