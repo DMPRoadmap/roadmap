@@ -30,8 +30,6 @@
 #
 #  fk_rails_...  (language_id => languages.id)
 #
-
-# rubocop:disable Metrics/ClassLength
 class Org < ApplicationRecord
 
   extend FeedbacksHelper
@@ -208,7 +206,6 @@ class Org < ApplicationRecord
   # Tests are setup currently to work with this issue.
   #
   # Returns String
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def org_type_to_s
     ret = []
     ret << "Institution" if institution?
@@ -219,7 +216,7 @@ class Org < ApplicationRecord
     ret << "School" if school?
     (!ret.empty? ? ret.join(", ") : "None")
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
   def funder_only?
     org_type == Org.org_type_values_for(:funder).min
@@ -283,4 +280,3 @@ class Org < ApplicationRecord
   end
 
 end
-# rubocop:enable Metrics/ClassLength

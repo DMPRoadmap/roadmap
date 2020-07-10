@@ -76,8 +76,20 @@ Layout/LineLength:
     # longer.
     - 'spec/spec_helper.rb'
 
+# Bumping the default ClassLength so we don't need to refactor everything
+Metrics/ClassLength:
+  Max: 300
+
 # Bumping the default AbcSize so we don't need to refactor everything
 Metrics/AbcSize:
+  Max: 25
+  
+# Bumping the default CyclomaticComplexity so we don't need to refactor everything
+Metrics/CyclomaticComplexity:
+  Max: 25
+
+# Bumping the default PerceivedComplexity so we don't need to refactor everything
+Metrics/PerceivedComplexity:
   Max: 25
 
 # Restrict the number of lines of code that may be within a block of code. This should

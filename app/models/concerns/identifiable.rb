@@ -25,7 +25,6 @@ module Identifiable
     # Expects an array of `identifier_scheme.name` and `identifier.value`
     #   [{ name: "fundref", value: "12345" }, { name: "ror", value: "abc"} ]
     # Returns an instance of the model
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def self.from_identifiers(array:)
       return nil unless array.present? && array.any?
 
@@ -45,7 +44,7 @@ module Identifiable
 
       id.present? ? id.identifiable : nil
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:enable
 
     # ====================
     # = Instance Methods =

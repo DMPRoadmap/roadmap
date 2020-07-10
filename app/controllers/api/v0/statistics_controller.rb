@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 class Api::V0::StatisticsController < Api::V0::BaseController
 
   before_action :authenticate
@@ -14,7 +13,6 @@ class Api::V0::StatisticsController < Api::V0::BaseController
   # against org_id param instead of user's org
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def users_joined
     unless Api::V0::StatisticsPolicy.new(@user, :statistics).users_joined?
       raise Pundit::NotAuthorizedError
@@ -58,13 +56,12 @@ class Api::V0::StatisticsController < Api::V0::BaseController
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
   # GET
   # Returns the number of completed plans within the user's org for the data
   # start_date and end_date specified
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def completed_plans
     unless Api::V0::StatisticsPolicy.new(@user, :statistics).completed_plans?
       raise Pundit::NotAuthorizedError
@@ -107,13 +104,12 @@ class Api::V0::StatisticsController < Api::V0::BaseController
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
   # /api/v0/statistics/created_plans
   # Returns the number of created plans within the user's org for the data
   # start_date and end_date specified
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def created_plans
     raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans?
 
@@ -154,7 +150,7 @@ class Api::V0::StatisticsController < Api::V0::BaseController
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
   ##
   # Displays the number of DMPs using templates owned/create by the caller's Org
@@ -246,4 +242,3 @@ class Api::V0::StatisticsController < Api::V0::BaseController
   end
 
 end
-# rubocop:enable Metrics/ClassLength

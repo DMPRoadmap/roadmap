@@ -10,7 +10,6 @@ module ExportablePlan
   end
 
   # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def as_csv(headings = true,
              unanswered = true,
              selected_phase = nil,
@@ -46,7 +45,7 @@ module ExportablePlan
     end
   end
   # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
   private
 
@@ -91,7 +90,6 @@ module ExportablePlan
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def prepare_coversheet
     hash = {}
     # name of owner and any co-owners
@@ -122,7 +120,7 @@ module ExportablePlan
     hash
   end
   # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def prepare_coversheet_for_csv(csv, _headings, hash)
@@ -158,7 +156,6 @@ module ExportablePlan
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/BlockLength, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   # rubocop:disable Metrics/ParameterLists
   def show_section_for_csv(csv, phase, section, headings, unanswered, hash)
     section[:questions].each do |question|
@@ -195,7 +192,7 @@ module ExportablePlan
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/BlockLength, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
   # rubocop:enable Metrics/ParameterLists
 
   def record_plan_export(format)

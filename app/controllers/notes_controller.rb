@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 class NotesController < ApplicationController
 
   include ConditionalUserMailer
@@ -167,4 +166,3 @@ class NotesController < ApplicationController
   end
 
 end
-# rubocop:enable Metrics/ClassLength

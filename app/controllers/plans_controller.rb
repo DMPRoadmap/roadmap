@@ -56,7 +56,6 @@ class PlansController < ApplicationController
 
   # POST /plans
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def create
     @plan = Plan.new
     authorize @plan
@@ -152,11 +151,10 @@ class PlansController < ApplicationController
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
   # GET /plans/show
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def show
     @plan = Plan.includes(
       template: { phases: { sections: { questions: :answers } } },
@@ -209,7 +207,7 @@ class PlansController < ApplicationController
     respond_to :html
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
   # TODO: This feels like it belongs on a phases controller, perhaps introducing
   #       a non-namespaces phases_controller woulld make sense here. Consider
@@ -511,7 +509,6 @@ class PlansController < ApplicationController
   end
 
   # Update, destroy or add the grant
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def process_grant(grant_params:)
     return false unless grant_params.present?
 
@@ -530,7 +527,7 @@ class PlansController < ApplicationController
       end
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
 end
 # rubocop:enable Metrics/ClassLength

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 class UserMailer < ActionMailer::Base
 
   prepend_view_path "app/views/branded/"
@@ -182,4 +181,3 @@ class UserMailer < ActionMailer::Base
   end
 
 end
-# rubocop:enable Metrics/ClassLength

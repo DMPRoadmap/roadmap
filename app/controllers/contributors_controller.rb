@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 class ContributorsController < ApplicationController
 
   include OrgSelectable
@@ -185,4 +184,3 @@ class ContributorsController < ApplicationController
   end
 
 end
-# rubocop:enable Metrics/ClassLength
