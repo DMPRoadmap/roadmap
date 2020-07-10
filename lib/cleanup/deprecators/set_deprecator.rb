@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Cleanup
+
   module Deprecators
 
     # Used to deprecate methods with non-idiomatic setter names.
@@ -19,13 +20,14 @@ module Cleanup
 
       # Message printed to STDOUT when a deprecated method is called.
       def deprecation_warning(deprecated_method, _message, _backtrace = nil)
-        new_method = deprecated_method.to_s.gsub(/^set\_/, '').gsub(/\Z/, '=')
-        message = format(MESSAGE,
-                         deprecated_method: deprecated_method,
-                         new_method: new_method)
+        new_method = deprecated_method.to_s.gsub(/^set\_/, "").gsub(/\Z/, "=")
+        message = MESSAGE % { deprecated_method: deprecated_method,
+                              new_method: new_method }
         Kernel.warn(message)
       end
 
     end
+
   end
+
 end
