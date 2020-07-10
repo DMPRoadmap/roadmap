@@ -10,6 +10,7 @@ module ActiveRecord
 
     # Method definition taken from the 5.2-stable branch of ActiveRecord:
     #  https://github.com/rails/rails/blob/5-2-stable/activerecord/lib/active_record/schema_dumper.rb
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def table(table, stream)
       columns = @connection.columns(table)
       begin
@@ -25,9 +26,7 @@ module ActiveRecord
           tbl.print ", primary_key: #{pk.inspect}" unless pk == "id"
           pkcol = columns.detect { |c| c.name == pk }
           pkcolspec = column_spec_for_primary_key(pkcol)
-          if pkcolspec.present?
-            tbl.print ", #{format_colspec(pkcolspec)}"
-          end
+          tbl.print ", #{format_colspec(pkcolspec)}" if pkcolspec.present?
         when Array
           tbl.print ", primary_key: #{pk.inspect}"
         else
@@ -44,8 +43,11 @@ module ActiveRecord
 
         # then dump all non-primary key columns
         columns.each do |column|
-          raise StandardError, "Unknown type '#{column.sql_type}' for column '#{column.name}'" unless @connection.valid_type?(column.type)
+          unless @connection.valid_type?(column.type)
+            raise StandardError, "Unknown type '#{column.sql_type}' for column '#{column.name}'"
+          end
           next if column.name == pk
+
           type, colspec = column_spec(column)
           tbl.print "    t.#{type} #{column.name.inspect}"
           tbl.print ", #{format_colspec(colspec)}" if colspec.present?
@@ -59,12 +61,13 @@ module ActiveRecord
 
         tbl.rewind
         stream.print tbl.read
-      rescue => e
+      rescue StandardError => e
         stream.puts "# Could not dump table #{table.inspect} because of following #{e.class}"
         stream.puts "#   #{e.message}"
         stream.puts
       end
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   end
 

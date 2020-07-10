@@ -1,15 +1,19 @@
-require_relative 'boot'
+# frozen_string_literal: true
 
-require 'rails/all'
+require_relative "boot"
 
-require 'csv'
+require "rails/all"
+
+require "csv"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
 module DMPRoadmap
+
   class Application < Rails::Application
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
@@ -22,7 +26,7 @@ module DMPRoadmap
     # OVERRIDES TO DEFAULT RAILS CONFIG #
     # --------------------------------- #
 
-    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += %W[#{config.root}/lib]
 
     # HTML tags that are allowed to pass through `sanitize`.
     config.action_view.sanitized_allowed_tags = %w[
@@ -42,7 +46,8 @@ module DMPRoadmap
     config.action_controller.include_all_helpers = true
 
     # Set the default host for mailer URLs
-    config.action_mailer.default_url_options = { :host => "#{Socket.gethostname}" }
+    config.action_mailer.default_url_options = { host: Socket.gethostname.to_s }
 
   end
+
 end
