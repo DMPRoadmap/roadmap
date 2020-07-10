@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Org, type: :model do
 
@@ -9,7 +11,7 @@ RSpec.describe Org, type: :model do
     it {
       subject.name = "DMP Company"
       is_expected.to validate_uniqueness_of(:name)
-                          .with_message("must be unique")
+        .with_message("must be unique")
     }
 
     it { is_expected.to validate_presence_of(:abbreviation) }
@@ -194,7 +196,7 @@ RSpec.describe Org, type: :model do
 
         let!(:org) { build(:org, :funder, :school) }
 
-        it { is_expected.to include("Funder","School") }
+        it { is_expected.to include("Funder", "School") }
 
       end
 
@@ -210,7 +212,7 @@ RSpec.describe Org, type: :model do
     context "when organistation type is only Funder" do
 
       before do
-        org.funder = true;
+        org.funder = true
       end
 
       it { is_expected.to be true }
@@ -220,8 +222,8 @@ RSpec.describe Org, type: :model do
     context "when multiple organistation types present" do
 
       before do
-        org.institution = true;
-        org.funder = true;
+        org.institution = true
+        org.funder = true
       end
 
       it { is_expected.to be false }
@@ -294,7 +296,6 @@ RSpec.describe Org, type: :model do
 
     subject { org.org_admins }
 
-
     context "when user belongs to Org with perms absent" do
 
       before do
@@ -351,7 +352,6 @@ RSpec.describe Org, type: :model do
 
     end
   end
-
 
   describe "#plans" do
 
@@ -421,7 +421,7 @@ RSpec.describe Org, type: :model do
     let!(:org) { create(:org) }
     let(:token_permission_type) { create(:token_permission_type) }
 
-      subject { org.grant_api!(token_permission_type) }
+    subject { org.grant_api!(token_permission_type) }
 
     context "when :token_permission_type does not belong to token_permission_types" do
 

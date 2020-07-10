@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Theme, type: :model do
 
@@ -10,11 +12,15 @@ RSpec.describe Theme, type: :model do
 
   context "associations" do
 
-    it { is_expected.to have_and_belong_to_many(:questions)
-                          .join_table("questions_themes") }
+    it {
+      is_expected.to have_and_belong_to_many(:questions)
+        .join_table("questions_themes")
+    }
 
-    it { is_expected.to have_and_belong_to_many(:guidances)
-                          .join_table("themes_in_guidance") }
+    it {
+      is_expected.to have_and_belong_to_many(:guidances)
+        .join_table("themes_in_guidance")
+    }
 
   end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: guidances
@@ -23,7 +25,7 @@ FactoryBot.define do
     text { Faker::Lorem.sentence }
     guidance_group
     published { false }
-    before(:create) do |guidance, evaluator|
+    before(:create) do |guidance, _evaluator|
       guidance.themes << create_list(:theme, 2)
     end
   end

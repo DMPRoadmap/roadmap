@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe StatJoinedUser, type: :model do
   before(:example) do
@@ -16,19 +18,19 @@ RSpec.describe StatJoinedUser, type: :model do
       expect(json["created_at"]).to eql(nil)
     end
   end
-  describe '.to_csv' do
-    context 'when no instances' do
-      it 'returns empty' do
+  describe ".to_csv" do
+    context "when no instances" do
+      it "returns empty" do
         csv = described_class.to_csv([])
 
         expect(csv).to be_empty
       end
     end
-    context 'when instances' do
+    context "when instances" do
       let(:org) { FactoryBot.create(:org) }
-      it 'returns instances in a comma-separated row' do
-        may = FactoryBot.create(:stat_joined_user, date: Date.new(2018, 05, 31), org: org, count: 20)
-        june = FactoryBot.create(:stat_joined_user, date: Date.new(2018, 06, 30), org: org, count: 10)
+      it "returns instances in a comma-separated row" do
+        may = FactoryBot.create(:stat_joined_user, date: Date.new(2018, 0o5, 31), org: org, count: 20)
+        june = FactoryBot.create(:stat_joined_user, date: Date.new(2018, 0o6, 30), org: org, count: 10)
         data = [may, june]
 
         csv = described_class.to_csv(data)

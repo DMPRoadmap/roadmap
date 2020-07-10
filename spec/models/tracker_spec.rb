@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-#
-require 'rails_helper'
+
+require "rails_helper"
 
 RSpec.describe Tracker, type: :model do
   describe "creation" do
@@ -12,7 +12,7 @@ RSpec.describe Tracker, type: :model do
 
     it "can be created with an empty code" do
       org = build(:org)
-      tracker = org.build_tracker(code:  "")
+      tracker = org.build_tracker(code: "")
       expect(tracker).to be_valid
     end
 

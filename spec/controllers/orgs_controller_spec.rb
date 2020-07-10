@@ -67,7 +67,7 @@ RSpec.describe OrgsController, type: :controller do
       Rails.configuration.x.shibboleth.use_filtered_discovery_service = true
       scheme = create(:identifier_scheme, name: "shibboleth")
       @args[:identifiers_attributes] = [{ identifier_scheme_id: scheme.id,
-                                         value: SecureRandom.uuid }]
+                                          value: SecureRandom.uuid }]
       put :admin_update, params: { id: @org.id, org: @args }
       expect(response).to redirect_to("#{admin_edit_org_path(@org)}#profile")
       expect(flash[:notice].present?).to eql(true)
