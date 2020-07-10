@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class GuidancePresenter
 
   attr_accessor :plan
@@ -10,29 +11,28 @@ class GuidancePresenter
     @guidance_groups = plan.guidance_groups.where(published: true)
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def any?(org: nil, question: nil)
     if org.nil?
-      if question.present?
-        # check each annotation/guidance group for a response to this question
-        # Would be nice not to have to crawl the entire list each time we want to know
-        # this
-        anno = orgs.reduce(false) do |found, o|
-          found || guidance_annotations?(org: o, question: question)
-        end
-        if !anno
-          return orgs.reduce(anno) do |found, o|
-            found || guidance_groups_by_theme?(org: o, question: question)
-          end
-        else
-          return anno
-        end
-      else # question.nil?
-        return hashified_annotations? || hashified_guidance_groups?
+      return hashified_annotations? || hashified_guidance_groups? unless question.present?
+
+      # check each annotation/guidance group for a response to this question
+      # Would be nice not to have to crawl the entire list each time we want to know
+      # this
+      anno = orgs.reduce(false) do |found, o|
+        found || guidance_annotations?(org: o, question: question)
+      end
+      return anno if anno
+
+      return orgs.reduce(anno) do |found, o|
+        found || guidance_groups_by_theme?(org: o, question: question)
       end
     end
+
     guidance_annotations?(org: org, question: question) ||
       guidance_groups_by_theme?(org: org, question: question)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # filters through the orgs with annotations and guidance groups to create a
   # set of tabs with display names and any guidance/annotations to show
@@ -40,6 +40,7 @@ class GuidancePresenter
   # question  - The question to which guidance pretains
   #
   # Returns an array of tab hashes.  These
+  # rubocop:disable Metrics/CyclomaticComplexity
   def tablist(question)
     # start with orgs
     # filter into hash with annotation_presence, main_group presence, and
@@ -62,6 +63,7 @@ class GuidancePresenter
     end
     display_tabs
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   private
 
@@ -121,8 +123,10 @@ class GuidancePresenter
     return {} unless hashified_guidance_groups.key?(org)
 
     hashified_guidance_groups[org].each_key.each_with_object({}) do |gg, acc|
-      filtered_gg = hashified_guidance_groups[org][gg].each_key.each_with_object({}) do |theme, acc|
-        acc[theme] = hashified_guidance_groups[org][gg][theme] if question.themes.include?(theme)
+      filtered_gg = hashified_guidance_groups[org][gg].each_key.each_with_object({}) do |theme, ac|
+        next unless question.themes.include?(theme)
+
+        ac[theme] = hashified_guidance_groups[org][gg][theme]
       end
       acc[gg] = filtered_gg if filtered_gg.present?
     end
@@ -197,8 +201,8 @@ class GuidancePresenter
       org_guidance_groups = hashified_guidances.each_key.select do |gg|
         gg.org_id == org.id
       end
-      acc[org] = org_guidance_groups.each_with_object({}) do |gg, acc|
-        acc[gg] = hashified_guidances[gg]
+      acc[org] = org_guidance_groups.each_with_object({}) do |gg, acc_inner|
+        acc_inner[gg] = hashified_guidances[gg]
       end
     end
   end
@@ -211,8 +215,8 @@ class GuidancePresenter
       themes = Theme.includes(:guidances)
                     .joins(:guidances)
                     .merge(Guidance.where(guidance_group_id: gg.id, published: true))
-      acc[gg] = themes.each_with_object({}) do |theme, acc|
-        acc[theme] = theme.guidances
+      acc[gg] = themes.each_with_object({}) do |theme, acc_inner|
+        acc_inner[theme] = theme.guidances
       end
     end
   end
@@ -226,3 +230,4 @@ class GuidancePresenter
   end
 
 end
+# rubocop:enable Metrics/ClassLength

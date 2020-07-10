@@ -21,11 +21,13 @@ class UserPolicy < ApplicationPolicy
   end
 
   def admin_grant_permissions?
-    (signed_in_user.can_grant_permissions? && user.org_id == signed_in_user.org_id) || signed_in_user.can_super_admin?
+    (signed_in_user.can_grant_permissions? && user.org_id == signed_in_user.org_id) ||
+      signed_in_user.can_super_admin?
   end
 
   def admin_update_permissions?
-    (signed_in_user.can_grant_permissions? && user.org_id == signed_in_user.org_id) || signed_in_user.can_super_admin?
+    (signed_in_user.can_grant_permissions? && user.org_id == signed_in_user.org_id) ||
+      signed_in_user.can_super_admin?
   end
 
   # Allows the user to swap their org affiliation on the fly

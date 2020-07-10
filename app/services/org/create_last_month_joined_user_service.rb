@@ -16,15 +16,15 @@ class Org
       def call(org = nil, threads: 0)
         orgs = org.nil? ? ::Org.all : [org]
 
-        Parallel.each(orgs, in_threads: threads) do |org|
-          months = OrgDateRangeable.split_months_from_creation(org)
+        Parallel.each(orgs, in_threads: threads) do |org_obj|
+          months = OrgDateRangeable.split_months_from_creation(org_obj)
           last = months.last
           next unless last.present?
 
           StatJoinedUser::CreateOrUpdate.do(
             start_date: last[:start_date],
             end_date: last[:end_date],
-            org: org
+            org: org_obj
           )
         end
       end

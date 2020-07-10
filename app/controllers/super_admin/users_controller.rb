@@ -30,10 +30,6 @@ module SuperAdmin
       authorize @user
       @departments = @user.org.departments.order(:name)
       @plans = Plan.active(@user).page(1)
-      # Replace the 'your' word from the canned responses so that it does
-      # not read 'Successfully updated your profile for John Doe'
-      topic = _("profile for %{username}") % { username: @user.name(false) }
-
       # See if the user selected a new Org via the Org Lookup and
       # convert it into an Org
       attrs = user_params
@@ -68,9 +64,6 @@ module SuperAdmin
       authorize @user
       remove = User.find(params[:merge_id])
 
-      topic = _("profile for %{remove} into %{keep}" % {
-        remove: remove.name(false), keep: @user.name(false)
-      })
       if @user.merge(remove)
         flash.now[:notice] = success_message(@user, _("merged"))
       else

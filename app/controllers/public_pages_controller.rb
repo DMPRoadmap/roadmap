@@ -21,7 +21,8 @@ class PublicPagesController < ApplicationController
     # covers authorization for this action.
     # Pundit dosent support passing objects into scoped policies
     unless PublicPagePolicy.new(@template).template_export?
-      redirect_to public_templates_path, notice: "You are not authorized to export that template" and return
+      msg = "You are not authorized to export that template"
+      redirect_to public_templates_path, notice: msg and return
       # raise Pundit::NotAuthorizedError
     end
 
@@ -41,7 +42,8 @@ class PublicPagesController < ApplicationController
     @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
 
     begin
-      file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, "").gsub(/ /, "_") + "_v" + @template.version.to_s
+      file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, "").gsub(/ /, "_")
+      file_name = "#{file_name}_v#{@template.version}"
       respond_to do |format|
         format.docx do
           render docx: "template_exports/template_export", filename: "#{file_name}.docx"
@@ -65,7 +67,7 @@ class PublicPagesController < ApplicationController
           # rubocop:enable Layout/LineLength
         end
       end
-    rescue ActiveRecord::RecordInvalid => e
+    rescue ActiveRecord::RecordInvalid
       # What scenario is this triggered in? it's common to our export pages
       redirect_to public_templates_path,
                   alert: _("Unable to download the DMP Template at this time.")

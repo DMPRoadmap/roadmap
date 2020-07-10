@@ -26,6 +26,7 @@ class OrgsController < ApplicationController
   end
 
   # PUT /org/admin/:id/admin_update
+  # rubocop:disable Metrics/AbcSize
   def admin_update
     attrs = org_params
     @org = Org.find(params[:id])
@@ -86,6 +87,7 @@ class OrgsController < ApplicationController
       redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: failure
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # This action is used by installations that have the following config enabled:
   #   Rails.configuration.x.shibboleth.use_filtered_discovery_service
@@ -97,10 +99,14 @@ class OrgsController < ApplicationController
     @orgs = Identifier.by_scheme_name("shibboleth", "Org")
                       .sort { |a, b| a.identifiable.name <=> b.identifiable.name }
 
+    # Disabling the rubocop check here because it would not be clear what happens
+    # if the ``@orgs` array has items ... it renders the shibboleth_ds view
+    # rubocop:disable Style/GuardClause
     if @orgs.empty?
       flash.now[:alert] = _("No organisations are currently registered.")
       redirect_to user_shibboleth_omniauth_authorize_path
     end
+    # rubocop:enable Style/GuardClause
   end
 
   # This action is used to redirect a user to the Shibboleth IdP

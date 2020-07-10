@@ -25,7 +25,7 @@ module OrgAdmin
         else
           flash[:alert] = flash[:alert] = failure_message(question_option, _("delete"))
         end
-      rescue StandardError => e
+      rescue StandardError
         flash[:alert] = _("Unable to create a new version of this template.")
       end
       redirect_to edit_org_admin_template_phase_path(

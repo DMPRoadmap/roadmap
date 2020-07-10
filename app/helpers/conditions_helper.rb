@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
 module ConditionsHelper
 
   # return a list of question ids to open/hide
@@ -21,6 +22,7 @@ module ConditionsHelper
 
   # returns an array of ids to remove based on the conditions associated with an answer
   # or trigger the email (TODO: combining these is a bit icky!)
+  # rubocop:disable Metrics/CyclomaticComplexity
   def answer_remove_list(answer, user = nil)
     id_list = []
     return id_list unless answer.question.option_based?
@@ -34,13 +36,15 @@ module ConditionsHelper
           rems = cond.remove_data.map(&:to_i)
           id_list += rems
         elsif !user.nil?
-          UserMailer.question_answered(JSON.parse(cond.webhook_data), user, answer, chosen.join(" and ")).deliver_now
+          UserMailer.question_answered(JSON.parse(cond.webhook_data), user, answer,
+                                       chosen.join(" and ")).deliver_now
         end
       end
     end
     # uniq because could get same remove id from diff conds
     id_list.uniq
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def send_webhooks(user, answer)
     answer_remove_list(answer, user)
@@ -97,7 +101,8 @@ module ConditionsHelper
     count
   end
 
-  # returns an array of hashes of section_id, number of section questions, and number of section answers
+  # returns an array of hashes of section_id, number of section questions, and
+  # number of section answers
   def sections_info(plan)
     return [] if plan.nil?
 
@@ -126,6 +131,8 @@ module ConditionsHelper
   #    ...
   #  ]
   # }
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def later_question_list(question)
     collection = {}
     question.section.phase.template.phases.each do |phase|
@@ -155,6 +162,8 @@ module ConditionsHelper
     end
     collection
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def question_title(question)
     raw "Qn. " + question.number.to_s + ": " +
@@ -174,6 +183,7 @@ module ConditionsHelper
 
   # used when displaying a question while editing the template
   # converts condition into text
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
   def condition_to_text(conditions)
     return_string = ""
     conditions.each do |cond|
@@ -188,17 +198,14 @@ module ConditionsHelper
         remove_data = cond.remove_data
         rems = remove_data.map { |rem| '"' + Question.find(rem).text + '"' }
 
-        if rems.length == 1
-          return_string += _(" will <b>remove</b> question ")
-          return_string += rems.join(" and ")
-        else
-          return_string += _(" will <b>remove</b> questions ")
-          return_string += rems.join(" and ")
-        end
+        return_string += _(" will <b>remove</b> question ") if rems.length == 1
+        return_string += _(" will <b>remove</b> questions ") if rems.length > 1
+        return_string += rems.join(" and ")
       end
     end
     return_string + "</dd>"
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
   def text_formatted(object)
     length = 50
@@ -211,8 +218,9 @@ module ConditionsHelper
       pp "type error"
     end
     cleaned_text = text
-    text = ActionController::Base.helpers.truncate(cleaned_text, length: length, separator: " ", escape: false)
-    text = _('"') + text + _('"')
+    text = ActionController::Base.helpers.truncate(cleaned_text, length: length,
+                                                                 separator: " ", escape: false)
+    _('"') + text + _('"')
   end
 
   # convert a set of conditions into multi-select form
@@ -252,3 +260,4 @@ module ConditionsHelper
   end
 
 end
+# rubocop:enable Metrics/ModuleLength

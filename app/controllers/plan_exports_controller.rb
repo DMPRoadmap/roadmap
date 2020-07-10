@@ -6,6 +6,7 @@ class PlanExportsController < ApplicationController
 
   include ConditionsHelper
 
+  # rubocop:disable Metrics/AbcSize
   def show
     @plan = Plan.includes(:answers).find(params[:plan_id])
 
@@ -46,6 +47,7 @@ class PlanExportsController < ApplicationController
       format.pdf  { show_pdf }
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
 module Paginable
 
   extend ActiveSupport::Concern
@@ -30,6 +31,10 @@ module Paginable
   #
   # Returns String of valid HTML
   # Raises ArgumentError
+  #
+  # Disabling this rubocop check here because it would require too much refactoring
+  # one approach to just include everything in the double splat `**options` param
+  # rubocop:disable Metrics/ParameterLists
   def paginable_renderise(partial: nil, controller: nil, action: nil,
                           path_params: {}, query_params: {}, scope: nil,
                           locals: {}, **options)
@@ -76,6 +81,7 @@ module Paginable
       end
     end
   end
+  # rubocop:enable Metrics/ParameterLists
 
   # Returns the base url of the paginable route for a given page passed
   def paginable_base_url(page = 1)
@@ -178,7 +184,7 @@ module Paginable
     @args.except(*PAGINATION_QUERY_PARAMS).to_param
   end
 
-  def stringify_query_params(page: 1, search: @args[:search],
+  def stringify_query_params(_page: 1, search: @args[:search],
                              sort_field: @args[:sort_field],
                              sort_direction: nil)
 
@@ -196,3 +202,4 @@ module Paginable
   end
 
 end
+# rubocop:enable Metrics/ModuleLength

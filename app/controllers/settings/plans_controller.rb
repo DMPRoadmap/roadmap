@@ -4,7 +4,7 @@ module Settings
 
   class PlansController < SettingsController
 
-    before_action :get_settings
+    before_action :retrieve_settings
 
     after_action :verify_authorized
 
@@ -49,7 +49,7 @@ module Settings
 
     private
 
-    def get_settings
+    def retrieve_settings
       @plan = Plan.find(params[:id])
 
       @export_settings = plan.settings(:export)

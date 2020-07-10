@@ -4,6 +4,7 @@
 
 json.prettify!
 
+# rubocop:disable Metrics/BlockLength
 json.array! @plans.each do |plan|
   json.id             plan.id
   json.title          plan.title
@@ -69,3 +70,4 @@ json.array! @plans.each do |plan|
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

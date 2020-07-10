@@ -8,9 +8,9 @@ class OrgAdmin::PlansController < ApplicationController
     # is unaware of namespacing
     raise Pundit::NotAuthorizedError unless current_user.present? && current_user.can_org_admin?
 
+    sql = "users.org_id = ? AND plans.feedback_requested is TRUE AND roles.active is TRUE"
     feedback_ids = Role.creator.joins(:user, :plan)
-                       .where("users.org_id = ? AND plans.feedback_requested is TRUE AND roles.active is TRUE",
-                              current_user.org_id).pluck(:plan_id)
+                       .where(sql, current_user.org_id).pluck(:plan_id)
     @feedback_plans = Plan.where(id: feedback_ids).reject(&:nil?)
 
     @super_admin = current_user.can_super_admin?
@@ -40,6 +40,7 @@ class OrgAdmin::PlansController < ApplicationController
   end
 
   # GET /org_admin/download_plans
+  # rubocop:disable Metrics/AbcSize
   def download_plans
     # Test auth directly and throw Pundit error sincePundit
     # is unaware of namespacing
@@ -61,7 +62,6 @@ class OrgAdmin::PlansController < ApplicationController
     plans = CSV.generate do |csv|
       csv << header_cols
       org.plans.includes(template: :org).order(updated_at: :desc).each do |plan|
-        owner = plan.owner
         csv << [
           plan.title.to_s,
           plan.template.title.to_s,
@@ -78,5 +78,6 @@ class OrgAdmin::PlansController < ApplicationController
       format.csv  { send_data plans, filename: "#{file_name}.csv" }
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
 end

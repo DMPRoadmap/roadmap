@@ -48,6 +48,7 @@ class ContributorPresenter
       end
     end
 
+    # rubocop:disable Style/LineLength
     def role_tooltip(symbol:)
       case symbol
       when :data_curation
@@ -60,6 +61,7 @@ class ContributorPresenter
         ""
       end
     end
+    # rubocop:enable Style/LineLength
 
   end
 

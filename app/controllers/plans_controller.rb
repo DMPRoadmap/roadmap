@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class PlansController < ApplicationController
 
   include ConditionalUserMailer
@@ -52,14 +53,10 @@ class PlansController < ApplicationController
   end
 
   # POST /plans
+  # rubocop:disable Metrics/AbcSize
   def create
     @plan = Plan.new
     authorize @plan
-
-    # We set these ids to -1 on the page to trick ariatiseForm into allowing the
-    # autocomplete to be blank if the no org/funder checkboxes are checked off
-    org_id = (plan_params[:org_id] == "-1" ? "" : plan_params[:org_id])
-    funder_id = (plan_params[:funder_id] == "-1" ? "" : plan_params[:funder_id])
 
     # If the template_id is blank then we need to look up the available templates and
     # return JSON
@@ -83,7 +80,7 @@ class PlansController < ApplicationController
                         _("My Plan") + "(" + @plan.template.title + ")"
                       else
                         current_user.firstname + "'s" + _(" Plan")
-                                    end
+                      end
                     else
                       plan_params[:title]
                     end
@@ -106,7 +103,7 @@ class PlansController < ApplicationController
 
       if @plan.save
         # pre-select org's guidance and the default org's guidance
-        ids = (Org.default_orgs.pluck(:id) << org_id).flatten.uniq
+        ids = (Org.default_orgs.pluck(:id) << attrs[:org_id]).flatten.uniq
         ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
         @plan.guidance_groups << ggs unless ggs.blank?
@@ -151,8 +148,10 @@ class PlansController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # GET /plans/show
+  # rubocop:disable Metrics/AbcSize
   def show
     @plan = Plan.includes(
       template: { phases: { sections: { questions: :answers } } },
@@ -204,6 +203,7 @@ class PlansController < ApplicationController
                 end
     respond_to :html
   end
+  # rubocop:enable Metrics/AbcSize
 
   # TODO: This feels like it belongs on a phases controller, perhaps introducing
   #       a non-namespaces phases_controller woulld make sense here. Consider
@@ -218,62 +218,62 @@ class PlansController < ApplicationController
   end
 
   # PUT /plans/1
+  # rubocop:disable Metrics/AbcSize
   def update
     @plan = Plan.find(params[:id])
     authorize @plan
     attrs = plan_params
     # rubocop:disable Metrics/BlockLength
     respond_to do |format|
-      begin
-        # TODO: See notes below on the pan_params definition. We should refactor
-        #       this once the UI pages have been reworked
-        # Save the guidance group selections
-        guidance_group_ids = if params[:guidance_group_ids].blank?
-                               []
-                             else
-                               params[:guidance_group_ids].map(&:to_i).uniq
-                             end
-        @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
+      # TODO: See notes below on the pan_params definition. We should refactor
+      #       this once the UI pages have been reworked
+      # Save the guidance group selections
+      guidance_group_ids = if params[:guidance_group_ids].blank?
+                             []
+                           else
+                             params[:guidance_group_ids].map(&:to_i).uniq
+                           end
+      @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
 
-        # TODO: For some reason the `fields_for` isn't adding the
-        #       appropriate namespace, so org_id represents our funder
-        funder = org_from_params(params_in: attrs, allow_create: true)
-        @plan.funder_id = funder.id if funder.present?
-        process_grant(grant_params: plan_params[:grant])
-        attrs.delete(:grant)
-        attrs = remove_org_selection_params(params_in: attrs)
+      # TODO: For some reason the `fields_for` isn't adding the
+      #       appropriate namespace, so org_id represents our funder
+      funder = org_from_params(params_in: attrs, allow_create: true)
+      @plan.funder_id = funder.id if funder.present?
+      process_grant(grant_params: plan_params[:grant])
+      attrs.delete(:grant)
+      attrs = remove_org_selection_params(params_in: attrs)
 
-        if @plan.update(attrs) # _attributes(attrs)
-          format.html do
-            redirect_to plan_contributors_path(@plan),
-                        notice: success_message(@plan, _("saved"))
-          end
-          format.json do
-            render json: { code: 1, msg: success_message(@plan, _("saved")) }
-          end
-        else
-          format.html do
-            # TODO: Should do a `render :show` here instead but show defines too many
-            #       instance variables in the controller
-            redirect_to plan_path(@plan).to_s, alert: failure_message(@plan, _("save"))
-          end
-          format.json do
-            render json: { code: 0, msg: failure_message(@plan, _("save")) }
-          end
-        end
-      rescue Exception => e
-        flash[:alert] = failure_message(@plan, _("save"))
+      if @plan.update(attrs) # _attributes(attrs)
         format.html do
-          Rails.logger.error "Unable to save plan #{@plan&.id} - #{e.message}"
+          redirect_to plan_contributors_path(@plan),
+                      notice: success_message(@plan, _("saved"))
+        end
+        format.json do
+          render json: { code: 1, msg: success_message(@plan, _("saved")) }
+        end
+      else
+        format.html do
+          # TODO: Should do a `render :show` here instead but show defines too many
+          #       instance variables in the controller
           redirect_to plan_path(@plan).to_s, alert: failure_message(@plan, _("save"))
         end
         format.json do
-          render json: { code: 0, msg: flash[:alert] }
+          render json: { code: 0, msg: failure_message(@plan, _("save")) }
         end
+      end
+    rescue StandardError => e
+      flash[:alert] = failure_message(@plan, _("save"))
+      format.html do
+        Rails.logger.error "Unable to save plan #{@plan&.id} - #{e.message}"
+        redirect_to plan_path(@plan).to_s, alert: failure_message(@plan, _("save"))
+      end
+      format.json do
+        render json: { code: 0, msg: flash[:alert] }
       end
     end
     # rubocop:enable Metrics/BlockLength
   end
+  # rubocop:enable Metrics/AbcSize
 
   # GET /plans/:id/share
   def share
@@ -401,7 +401,7 @@ class PlansController < ApplicationController
   def set_test
     plan = Plan.find(params[:id])
     authorize plan
-    plan.visibility = (params[:is_test] === "1" ? :is_test : :privately_visible)
+    plan.visibility = (params[:is_test] == "1" ? :is_test : :privately_visible)
     # rubocop:disable Layout/LineLength
     if plan.save
       render json: {
@@ -523,3 +523,4 @@ class PlansController < ApplicationController
   end
 
 end
+# rubocop:enable Metrics/ClassLength
