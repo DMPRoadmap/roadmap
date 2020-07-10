@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 xml.instruct!
+# rubocop:disable Metrics/BlockLength
 xml.plan("id" => @plan.id) do
   xml.project(@plan.project.title, "id" => @plan.project.id)
   xml.phase(@plan.version.phase.title, "id" => @plan.version.phase.id)
@@ -21,7 +22,8 @@ xml.plan("id" => @plan.id) do
         xml.answers do
           questions = @exported_plan.questions_for_section(section.id)
           questions.each do |question|
-            xml.question("id" => question.id, "number" => question.number, "question_format" => question.question_format) do
+            xml.question("id" => question.id, "number" => question.number,
+                         "question_format" => question.question_format) do
               q_format = question.question_format
               xml.question_text question.text
               answer = @plan.answer(question.id, false)
@@ -47,3 +49,4 @@ xml.plan("id" => @plan.id) do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

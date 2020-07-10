@@ -6,6 +6,7 @@ class Api::V0::PlansController < Api::V0::BaseController
 
   ##
   # Creates a new plan based on the information passed in JSON to the API
+  # rubocop:disable Metrics/AbcSize
   def create
     @template = Template.live(params[:template_id])
     raise Pundit::NotAuthorizedError unless Api::V0::PlansPolicy.new(@user, @template).create?
@@ -57,11 +58,15 @@ class Api::V0::PlansController < Api::V0::BaseController
   def index
     raise Pundit::NotAuthorizedError unless Api::V0::PlansPolicy.new(@user, nil).index?
 
-    if params[:per_page].present? && params[:per_page].to_i > Rails.configuration.x.application.api_max_page_size
-      params[:per_page] = Rails.configuration.x.application.api_max_page_size
+    if params[:per_page].present?
+      max_pages = Rails.configuration.x.application.api_max_page_size
+      params[:per_page] = max_pages if params[:per_page].to_i > max_pages
     end
+
     @plans = @user.org.plans.includes([{ roles: :user }, { answers: :question_options },
-                                       template: [{ phases: { sections: { questions: %i[question_format themes] } } }, :org]])
+                                       template: [{ phases: {
+                                         sections: { questions: %i[question_format themes] }
+                                       } }, :org]])
 
     # Filter on list of users
     user_ids = extract_param_list(params, "user")
@@ -88,6 +93,7 @@ class Api::V0::PlansController < Api::V0::BaseController
     @plans = paginate @plans
     respond_with @plans
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 

@@ -13,9 +13,8 @@ class RegistrationsController < Devise::RegistrationsController
     @identifier_schemes = IdentifierScheme.for_users.order(:name)
     @default_org = current_user.org
 
-    unless @prefs
-      flash[:alert] = "No default preferences found (should be in dmproadmap.rb initializer)."
-    end
+    msg = "No default preferences found (should be in dmproadmap.rb initializer)."
+    flash[:alert] = msg unless @prefs
   end
 
   # GET /resource
@@ -29,6 +28,7 @@ class RegistrationsController < Devise::RegistrationsController
 
     @user = User.new
 
+    # rubocop:disable Style/GuardClause
     unless oauth.nil?
       # The OAuth provider could not be determined or there was no unique UID!
       if !oauth["provider"].nil? && !oauth["uid"].nil?
@@ -39,9 +39,11 @@ class RegistrationsController < Devise::RegistrationsController
         }
       end
     end
+    # rubocop:enable Style/GuardClause
   end
 
   # POST /resource
+  # rubocop:disable Metrics/AbcSize
   def create
     oauth = { provider: nil, uid: nil }
     IdentifierScheme.for_users.each do |scheme|
@@ -105,11 +107,9 @@ class RegistrationsController < Devise::RegistrationsController
             end
           end
           respond_with resource, location: after_sign_up_path_for(resource)
-        else
-          if is_navigational_format?
-            set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}"
-            respond_with resource, location: after_inactive_sign_up_path_for(resource)
-          end
+        elsif is_navigational_format?
+          set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}"
+          respond_with resource, location: after_inactive_sign_up_path_for(resource)
         end
       else
         clean_up_passwords resource
@@ -119,6 +119,7 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def update
     if user_signed_in?
@@ -131,7 +132,7 @@ class RegistrationsController < Devise::RegistrationsController
       if params[:skip_personal_details] == "true"
         do_update_password(current_user, update_params)
       else
-        do_update(require_password = needs_password?(current_user))
+        do_update(needs_password?(current_user))
       end
     else
       render(file: File.join(Rails.root, "public/403.html"), status: 403, layout: false)
@@ -147,6 +148,7 @@ class RegistrationsController < Devise::RegistrationsController
     user.email != update_params[:email] || update_params[:password].present?
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def do_update(require_password = true, confirm = false)
     mandatory_params = true
     # added to by below, overwritten otherwise
@@ -239,6 +241,7 @@ class RegistrationsController < Devise::RegistrationsController
       render "edit"
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def do_update_password(current_user, args)
     if args[:current_password].blank?

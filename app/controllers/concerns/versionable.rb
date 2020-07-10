@@ -92,15 +92,14 @@ module Versionable
 
     if obj.is_a?(search_space.first.class)
       # object is an instance of Phase, Section or Question
-      if obj.respond_to?(:number)
-        return search_space.find { |search| search.number == obj.number }
+      return search_space.find { |search| search.number == obj.number } if obj.respond_to?(:number)
+
       # object is an instance of Annotation
-      elsif obj.respond_to?(:org_id) && obj.respond_to?(:text)
+      if obj.respond_to?(:org_id) && obj.respond_to?(:text)
         return search_space.find do |annotation|
           annotation.org_id == obj.org_id && annotation.text == obj.text
         end
       end
-
       return nil
     end
 

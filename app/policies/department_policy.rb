@@ -21,17 +21,17 @@ class DepartmentPolicy < ApplicationPolicy
   end
 
   def edit?
-    (@user.can_org_admin? && @user.org.id === @department.org_id) ||
+    (@user.can_org_admin? && @user.org.id == @department.org_id) ||
       @user.can_super_admin?
   end
 
   def update?
-    (@user.can_org_admin? && @user.org.id === @department.org_id) ||
+    (@user.can_org_admin? && @user.org.id == @department.org_id) ||
       @user.can_super_admin?
   end
 
   def destroy?
-    (@user.can_org_admin? && @user.org.id === @department.org_id) ||
+    (@user.can_org_admin? && @user.org.id == @department.org_id) ||
       @user.can_super_admin?
   end
 

@@ -27,7 +27,8 @@ class PublicPagePolicy < ApplicationPolicy
     plan = @object
     user = @object2
     if plan.is_a?(Plan) && user.is_a?(User)
-      return plan.publicly_visible? || (plan.organisationally_visible? && plan.owner.present? && plan.owner.org_id == user.org_id)
+      return plan.publicly_visible? || (plan.organisationally_visible? && plan.owner.present? &&
+        plan.owner.org_id == user.org_id)
     end
 
     false

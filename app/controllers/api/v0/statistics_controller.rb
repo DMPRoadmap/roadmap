@@ -11,6 +11,7 @@ class Api::V0::StatisticsController < Api::V0::BaseController
   # If end_date is passed, only counts those with created_at is <= than end_date are
   # If org_id is passed and user has super_admin privileges that counter is performed
   # against org_id param instead of user's org
+  # rubocop:disable Metrics/AbcSize
   def users_joined
     unless Api::V0::StatisticsPolicy.new(@user, :statistics).users_joined?
       raise Pundit::NotAuthorizedError
@@ -37,7 +38,10 @@ class Api::V0::StatisticsController < Api::V0::BaseController
           send_data(CSV.generate do |csv|
             csv << [_("Month"), _("No. Users joined")]
             total = 0
-            r.each_pair { |k, v| csv << [k, v]; total += v }
+            r.each_pair do |k, v|
+              csv << [k, v]
+              total += v
+            end
             csv << [_("Total"), total]
           end, filename: "#{_('users_joined')}.csv")
         end
@@ -80,7 +84,10 @@ class Api::V0::StatisticsController < Api::V0::BaseController
           send_data(CSV.generate do |csv|
             csv << [_("Month"), _("No. Completed Plans")]
             total = 0
-            r.each_pair { |k, v| csv << [k, v]; total += v }
+            r.each_pair do |k, v|
+              csv << [k, v]
+              total += v
+            end
             csv << [_("Total"), total]
           end, filename: "#{_('completed_plans')}.csv")
         end
@@ -120,7 +127,10 @@ class Api::V0::StatisticsController < Api::V0::BaseController
           send_data(CSV.generate do |csv|
             csv << [_("Month"), _("No. Plans")]
             total = 0
-            r.each_pair { |k, v| csv << [k, v]; total += v }
+            r.each_pair do |k, v|
+              csv << [k, v]
+              total += v
+            end
             csv << [_("Total"), total]
           end, filename: "#{_('plans')}.csv")
         end
@@ -132,6 +142,7 @@ class Api::V0::StatisticsController < Api::V0::BaseController
       render(json: { completed_plans: scoped.count })
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   ##
   # Displays the number of DMPs using templates owned/create by the caller's Org

@@ -15,7 +15,9 @@ module ConditionalUserMailer
 
     Array(recipients).each do |recipient|
       email_hash = recipient.get_preferences("email").with_indifferent_access
-      preference_value = !!email_hash.dig(*key.to_s.split("."))
+      # Violation of rubocop's DoubleNegation check
+      # preference_value = !!email_hash.dig(*key.to_s.split("."))
+      preference_value = email_hash.dig(*key.to_s.split("."))
       block.call(recipient) if preference_value
     end
 

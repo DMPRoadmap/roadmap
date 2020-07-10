@@ -8,6 +8,7 @@ class TemplateOptionsController < ApplicationController
 
   # GET /template_options  (AJAX)
   # Collect all of the templates available for the org+funder combination
+  # rubocop:disable Metrics/AbcSize
   def index
     org_hash = plan_params.fetch(:research_org_id, {})
     funder_hash = plan_params.fetch(:funder_id, {})
@@ -65,6 +66,7 @@ class TemplateOptionsController < ApplicationController
 
     @templates = @templates.sort_by(&:title)
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 

@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(_resource)
-    referer_path = URI(request.referer).path unless request.referer.nil? or nil
+    referer_path = URI(request.referer).path unless request.referer.nil?
     if from_external_domain? || referer_path.eql?(new_user_session_path) ||
        referer_path.eql?(new_user_registration_path) ||
        referer_path.nil?
@@ -112,10 +112,10 @@ class ApplicationController < ActionController::Base
   end
 
   def errors_for_display(obj)
-    if obj.present? && obj.errors.any?
-      msgs = obj.errors.full_messages.uniq.collect { |msg| "<li>#{msg}</li>" }
-      "<ul>#{msgs.join('')}</li></ul>"
-    end
+    return "" unless obj.present? && obj.errors.any?
+
+    msgs = obj.errors.full_messages.uniq.collect { |msg| "<li>#{msg}</li>" }
+    "<ul>#{msgs.join('')}</li></ul>"
   end
 
   def obj_name_for_display(obj)
@@ -151,12 +151,10 @@ class ApplicationController < ActionController::Base
   # Sign out of Shibboleth SP local session too.
   # -------------------------------------------------------------
   def after_sign_out_path_for(resource_or_scope)
-    if Rails.configuration.x.shibboleth.enabled
-      return Rails.configuration.x.shibboleth.logout_url + root_url
-      super
-    else
-      super
-    end
+    url = "#{Rails.configuration.x.shibboleth&.logout_url}#{root_url}"
+    return url if Rails.configuration.x.shibboleth&.enabled
+
+    super
   end
   # -------------------------------------------------------------
 

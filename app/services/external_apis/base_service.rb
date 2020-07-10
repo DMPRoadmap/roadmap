@@ -93,7 +93,6 @@ module ExternalApis
 
       # Makes a GET request to the specified uri with the additional headers.
       # Additional headers are combined with the base headers defined above.
-      # rubocop:disable Metrics/MethodLength
       def http_get(uri:, additional_headers: {}, debug: false)
         return nil unless uri.present?
 
@@ -108,7 +107,6 @@ module ExternalApis
                             http_response: resp)
         resp
       end
-      # rubocop:enable Metrics/MethodLength
 
       # Options for the HTTParty call
       def options(additional_headers: {}, debug: false)

@@ -25,7 +25,7 @@ class Paginable::DepartmentsController < ApplicationController
       Department.by_org(Org.find(params[:id]))
     else
       Department.by_org(Org.find(current_user.org_id))
-end
+    end
   end
 
 end

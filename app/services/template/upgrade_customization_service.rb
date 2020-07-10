@@ -78,7 +78,7 @@ class Template
           # customization_phase
           #
           # a) If the Org's template ({#customized_template}) has the Phase...
-          if customized_phase = find_matching_record_in_collection(
+          if customized_phase == find_matching_record_in_collection(
             record: funder_phase,
             collection: customized_template.phases
           )
@@ -155,7 +155,6 @@ class Template
     #
     # Returns Array of Sections
     def copy_modifiable_sections_for_phase(source_phase, target_phase)
-      target_section_ids = target_phase.sections.pluck(:versionable_id)
       source_phase.sections.select(&:modifiable?).each do |section|
         if section.number.in?(target_phase.sections.pluck(:number))
           section.number = target_phase.sections.maximum(:number) + 1

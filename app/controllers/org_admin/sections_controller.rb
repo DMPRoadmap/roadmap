@@ -103,17 +103,10 @@ module OrgAdmin
         flash[:alert] = _("Unable to create a new version of this template.") + "<br/>" + e.message
       end
 
-      if flash[:alert].present?
-        redirect_to edit_org_admin_template_phase_path(
-          template_id: section.phase.template.id,
-          id: section.phase.id, section: section.id
-        )
-      else
-        redirect_to edit_org_admin_template_phase_path(
-          template_id: section.phase.template.id,
-          id: section.phase.id, section: section.id
-        )
-      end
+      redirect_to edit_org_admin_template_phase_path(
+        template_id: section.phase.template.id,
+        id: section.phase.id, section: section.id
+      )
     end
 
     # DELETE /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]
@@ -132,17 +125,10 @@ module OrgAdmin
         flash[:alert] = _("Unable to create a new version of this template.") + "<br/>" + e.message
       end
 
-      if flash[:alert].present?
-        redirect_to(edit_org_admin_template_phase_path(
-                      template_id: phase.template.id,
-                      id: phase.id
-                    ))
-      else
-        redirect_to(edit_org_admin_template_phase_path(
-                      template_id: phase.template.id,
-                      id: phase.id
-                    ))
-      end
+      redirect_to(edit_org_admin_template_phase_path(
+                    template_id: phase.template.id,
+                    id: phase.id
+                  ))
     end
 
     private

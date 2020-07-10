@@ -63,7 +63,6 @@ module Api
           end
 
           # Search for an Org locally and then externally if not found
-          # rubocop:disable Metrics/AbcSize
           def find_by_name(json: {})
             return nil unless json.present? && json[:name].present?
 
@@ -86,7 +85,6 @@ module Api
             result ||= { name: name }
             OrgSelection::HashToOrgService.to_org(hash: result)
           end
-          # rubocop:enable Metrics/AbcSize
 
           # Marshal the Identifier and saves it (unless it exists)
           def attach_identifier!(org:, json: {})

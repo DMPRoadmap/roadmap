@@ -15,9 +15,11 @@ class OrgAdmin::ConditionsController < ApplicationController
                    attachment_partial: render_to_string(partial: "form",
                                                         formats: :html,
                                                         layout: false,
-                                                        locals: { question: question,
-                                                                  cond: Condition.new(question: question),
-                                                                  condition_no: condition_no }) }
+                                                        locals: {
+                                                          question: question,
+                                                          cond: Condition.new(question: question),
+                                                          condition_no: condition_no
+                                                        }) }
   end
 
   private

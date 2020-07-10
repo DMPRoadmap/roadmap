@@ -317,7 +317,9 @@ module OrgAdmin
       @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
 
       begin
+        # rubocop:disable Style/LineLength
         file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, "").gsub(/ /, "_") + "_v" + @template.version.to_s
+        # rubocop:enable Style/LineLength
         respond_to do |format|
           format.docx do
             render docx: "template_exports/template_export", filename: "#{file_name}.docx"
@@ -341,7 +343,7 @@ module OrgAdmin
             # rubocop:enable Layout/LineLength
           end
         end
-      rescue ActiveRecord::RecordInvalid => e
+      rescue ActiveRecord::RecordInvalid
         # What scenario is this triggered in? it's common to our export pages
         redirect_to public_templates_path,
                     alert: _("Unable to download the DMP Template at this time.")

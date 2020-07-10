@@ -76,12 +76,20 @@ Layout/LineLength:
     # longer.
     - 'spec/spec_helper.rb'
 
+# Bumping the default AbcSize so we don't need to refactor everything
+Metrics/AbcSize:
+  Max: 25
+
 # Restrict the number of lines of code that may be within a block of code. This should
 # force developers to break their code into smaller discrete methods or objects.
 Metrics/BlockLength:
   # Exclude specs, since those are defined as large blocks of code
   Exclude:
     - 'spec/**/*'
+
+# Bumping the default MethodLength so we don't need to refactor everything
+Metrics/MethodLength:
+  Max: 25
 
 # Leave the string formatting style as `"some text %{value}" % { value: "text" }`
 # since we're uncertain what effect `format` and `sprintf` may have on the Fastgetext

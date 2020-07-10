@@ -3,23 +3,23 @@
 class Api::V0::BaseController < ApplicationController
 
   protect_from_forgery with: :null_session
-  before_action :set_resource, only: %i[destroy show update]
+  before_action :define_resource, only: %i[destroy show update]
   respond_to :json
 
   # POST /api/{plural_resource_name}
   def create
-    set_resource(resource_class.new(resource_params))
+    define_resource(resource_class.new(resource_params))
 
-    if get_resource.save
+    if retrieve_resource.save
       render :show, status: :created
     else
-      render json: get_resource.errors, status: :unprocessable_entity
+      render json: retrieve_resource.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /api/{plural_resource_name}/1
   def destroy
-    get_resource.destroy
+    retrieve_resource.destroy
     head :no_content
   end
 
@@ -36,15 +36,15 @@ class Api::V0::BaseController < ApplicationController
 
   # GET /api/{plural_resource_name}/1
   def show
-    respond_with get_resource
+    respond_with retrieve_resource
   end
 
   # PATCH/PUT /api/{plural_resource_name}/1
   def update
-    if get_resource.update(resource_params)
+    if retrieve_resource.update(resource_params)
       render :show
     else
-      render json: get_resource.errors, status: :unprocessable_entity
+      render json: retrieve_resource.errors, status: :unprocessable_entity
     end
   end
 
@@ -53,7 +53,7 @@ class Api::V0::BaseController < ApplicationController
   # The resource from the created instance variable
   #
   # Returns Object
-  def get_resource
+  def retrieve_resource
     instance_variable_get("@#{resource_name}")
   end
 
@@ -96,7 +96,7 @@ class Api::V0::BaseController < ApplicationController
   end
 
   # Use callbacks to share common setup or constraints between actions.
-  def set_resource(resource = nil)
+  def define_resource(resource = nil)
     resource ||= resource_class.find(params[:id])
     instance_variable_set("@#{resource_name}", resource)
   end

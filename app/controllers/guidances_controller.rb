@@ -86,11 +86,10 @@ class GuidancesController < ApplicationController
         guidance_group.save
       end
       flash[:notice] = success_message(@guidance, _("deleted"))
-      redirect_to(action: :admin_index)
     else
       flash[:alert] = failure_message(@guidance, _("delete"))
-      redirect_to(action: :admin_index)
     end
+    redirect_to(action: :admin_index)
   end
 
   # PUT /org/admin/guidance/:id/admin_publish

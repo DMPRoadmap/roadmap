@@ -20,7 +20,8 @@ class QuestionOptionPolicy < ApplicationPolicy
   ##
 
   def destroy?
-    user.can_modify_templates? && (question_option.question.section.phase.template.org_id == user.org_id)
+    user.can_modify_templates? &&
+      (question_option.question.section.phase.template.org_id == user.org_id)
   end
 
 end
