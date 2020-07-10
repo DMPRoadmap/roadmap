@@ -94,8 +94,8 @@ module Dmpopidor
             @plan = Plan.includes(
               sections: {
                 questions: [
-                  :answers,
-                  :question_format
+                  :question_format,
+                  answers: :madmp_fragment
                 ]
               }
             ).find(p_params[:plan_id])

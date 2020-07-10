@@ -41,7 +41,7 @@ class ResearchOutputsController < ApplicationController
     @plan = Plan.find(params[:plan_id])
     authorize @plan
     params[:updated_order].each_with_index do |id, index|
-      ResearchOutput.find(id).update(order: index)
+      ResearchOutput.find(id).update(order: index + 1)
     end
     head :ok
   end

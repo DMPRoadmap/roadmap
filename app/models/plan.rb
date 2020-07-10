@@ -228,10 +228,11 @@ class Plan < ActiveRecord::Base
 
   # Pre-fetched a plan phase together with its sections and questions
   # associated. It also pre-fetches the answers and notes associated to the plan
+  # CHANGES: Added PRELOAD for madmp_schema & research_output
   def self.load_for_phase(plan_id, phase_id)
     # Preserves the default order defined in the model relationships
-    plan = Plan.joins(template: { phases: { sections: :questions } })
-               .preload(template: { phases: { sections: :questions } })
+    plan = Plan.joins(:research_outputs, template: { phases: { sections: { questions: :madmp_schema } } })
+               .preload(:research_outputs, template: { phases: { sections: { questions: :madmp_schema } } })
                .where(id: plan_id, phases: { id: phase_id })
                .merge(Plan.includes(answers: :notes)).first
     phase = plan.template.phases.find { |p| p.id == phase_id.to_i }

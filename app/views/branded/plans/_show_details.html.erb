@@ -1,0 +1,30 @@
+<% meta_fragment = @plan.json_fragment().meta%>
+<% project_fragment = @plan.json_fragment().project%>
+<div class="col-md-12 plan-details">
+  <!-- Tabs content -->
+  <div class="tab-content">
+    <div id="plan_metadata" class="tab-pane in active">
+      <%= render(partial: 'shared/fragments/display', locals: {
+                      fragment: meta_fragment,
+                      schema: meta_fragment.madmp_schema,
+                      classname: "meta"
+            } ) %>
+    </div>
+
+    <div id="plan_project" class="tab-pane in">
+      <%= render(partial: 'shared/fragments/display', locals: {
+                      fragment: project_fragment,
+                      schema: project_fragment.madmp_schema,
+                      classname: "project"
+            } ) %>
+    </div>
+  </div>
+  <ul class="nav nav-tabs form-tabs">
+    <li class="active">
+      <span data-toggle="tab" data-target="#plan_metadata"><i class="fa fa-arrow-left"></i> <%= _("Plan Metadata") %></span>
+    </li>
+    <li>
+      <span data-toggle="tab" data-target="#plan_project"><i class="fa fa-arrow-left"></i> <%= _("Project Details") %></span>
+    </li>
+  </ul>
+</div>

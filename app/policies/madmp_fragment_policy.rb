@@ -13,6 +13,9 @@ class MadmpFragmentPolicy < ApplicationPolicy
   def new_edit_linked?
     @fragment.plan.editable_by?(@user.id) || @user == @answer.plan.owner
   end
+  def show_linked?
+    @fragment.plan.readable_by?(@user.id) || @user == @answer.plan.owner
+  end
   def get_fragment?
     @fragment.plan.editable_by?(@user.id) || @user == @answer.plan.owner
   end

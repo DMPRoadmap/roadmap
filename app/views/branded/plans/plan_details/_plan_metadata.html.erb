@@ -2,7 +2,6 @@
 <% meta = meta_fragment.data %>
 <% contact = meta_fragment.contact %>
 <% dmpID = meta["dmpID"] %>
-<% p_version = meta["version"] %>
 <% licence = meta["licence"] %>
 
 <div class="form-group"><!-- title -->
@@ -60,17 +59,17 @@
   <div class="form-group"><!-- versionNumber -->
     <%= create_text_field(
           f, 
-          p_version ? p_version["versionNumber"] : nil, 
-          "version[versionNumber]", 
+          meta["versionNumber"],
+          "versionNumber", 
           _('Number')
         ) 
     %>
   </div>
   <div class="form-group"><!-- versionNotes -->
     <%= create_text_field(
-          f, 
-          p_version ? p_version["versionNotes"] : nil, 
-          "version[versionNotes]", 
+          f,
+          meta["versionNotes"],
+          "versionNotes", 
           _('Notes')
         ) 
     %>
@@ -78,12 +77,17 @@
 </fieldset>
 <!-- TODO : IMPLEMENT MULTIPLE -->
 <div class="form-group"><!-- relatedDocUrl -->
-    <%= create_text_field(
-          f, 
-          meta["relatedDocUrl"], 
-          "relatedDocUrl", 
-          _('Related Documentation URL')
-        ) 
+    <%= render(partial: 'shared/dynamic_form/fields/simple_multiple_field', locals: { 
+      f: f, 
+      field_values: meta["relatedDocUrl"],
+      readonly: false,
+      field_label: _('Related Documentation URL'),
+      field_properties: {
+        "type" => "string",
+        "format" => "uri"
+      },
+      field_name: "relatedDocUrl", answer_id: nil 
+      }) 
     %>
 </div>
 <!-- TODO : IMPLEMENT MULTIPLE -->

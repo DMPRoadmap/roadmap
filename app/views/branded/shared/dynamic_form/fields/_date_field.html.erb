@@ -6,7 +6,11 @@
   </div>
 <% end %>
 <div class="col-md-12 dynamic-field">
-  <%= f.text_field field_name, value: field_value, multiple: multiple, class: "form-control #{field_class}", type: "date" %>
+  <%= f.text_field field_name, 
+            value: field_value, 
+            multiple: multiple, 
+            disabled: readonly,
+            class: "form-control #{field_class}", type: "date" %>
   <% if multiple %>
     <div class="actions">
       <span class="fa fa-plus-square add-record"></span>

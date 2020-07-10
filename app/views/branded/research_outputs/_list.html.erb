@@ -25,6 +25,7 @@
                 nil, 
                 :fragment_id => research_output_fragment.id, 
                 :parent_id => research_output_fragment.dmp_id, 
+                :schema_id => MadmpSchema.find_by(classname: "research_output").id,
                 :classname => "research_output"
             ),  {
                 :remote => true, 
