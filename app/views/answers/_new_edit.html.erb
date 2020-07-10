@@ -52,7 +52,7 @@
     <%= f.hidden_field :question_id %>
     <%= f.hidden_field :lock_version %>
     <% if q_format.rda_metadata? %>
-      <%= hidden_field_tag :standards, answer_hash['standards'].to_json %>
+      <%= f.hidden_field :standards, answer_hash['standards'].to_json %>
     <% end %>
   <% end %>
   <fieldset <%= 'disabled' if readonly %>>

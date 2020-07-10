@@ -6,7 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def edit
     @user = current_user
-    @prefs = @user.get_preferences(:email)
+    @prefs = @user.get_preferences(:email)[:prefs]
     @languages = Language.sorted_by_abbreviation
     @orgs = Org.order("name")
     @other_organisations = Org.where(is_other: true).pluck(:id)
@@ -50,14 +50,12 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
 
-    if params[:user][:accept_terms].to_s == "0"
+    if sign_up_params[:accept_terms].to_s == "0"
       redirect_to after_sign_up_error_path_for(resource),
-        alert: _("You must accept the terms and conditions to register.")
-    elsif params[:user][:org_id].blank?
-      # rubocop:disable Metrics/LineLength
+                  alert: _("You must accept the terms and conditions to register.")
+    elsif sign_up_params[:org_id].blank?
       redirect_to after_sign_up_error_path_for(resource),
-                alert: _("Please select an organisation from the list, or enter your organisation's name.")
-      # rubocop:enable Metrics/LineLength
+                  alert: _("Please select an organisation from the list, or enter your organisation's name.")
     else
       existing_user = User.where_case_insensitive("email", sign_up_params[:email]).first
       if existing_user.present?
@@ -70,7 +68,7 @@ class RegistrationsController < Devise::RegistrationsController
 
         else
           redirect_to after_sign_up_error_path_for(resource),
-            alert: _("That email address is already registered.")
+                      alert: _("That email address is already registered.")
           return
         end
       end
@@ -126,16 +124,16 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update
     if user_signed_in? then
-      @prefs = @user.get_preferences(:email)
+      @prefs = @user.get_preferences(:email)[:prefs]
       @orgs = Org.order("name")
       @default_org = current_user.org
       @other_organisations = Org.where(is_other: true).pluck(:id)
       @identifier_schemes = IdentifierScheme.for_users.order(:name)
       @languages = Language.sorted_by_abbreviation
       if params[:skip_personal_details] == "true"
-        do_update_password(current_user, params)
+        do_update_password(current_user, update_params)
       else
-        do_update(require_password = needs_password?(current_user, params))
+        do_update(require_password = needs_password?(current_user))
       end
     else
       render(file: File.join(Rails.root, "public/403.html"), status: 403, layout: false)
@@ -147,8 +145,8 @@ class RegistrationsController < Devise::RegistrationsController
   # check if we need password to update user data
   # ie if password or email was changed
   # extend this as needed
-  def needs_password?(user, params)
-    user.email != params[:user][:email] || params[:user][:password].present?
+  def needs_password?(user)
+    user.email != update_params[:email] || update_params[:password].present?
   end
 
   def do_update(require_password = true, confirm = false)
@@ -156,19 +154,20 @@ class RegistrationsController < Devise::RegistrationsController
     # added to by below, overwritten otherwise
     message = _("Save Unsuccessful. ")
     # ensure that the required fields are present
-    if params[:user][:email].blank?
+
+    if update_params[:email].blank?
       message += _("Please enter an email address. ")
       mandatory_params &&= false
     end
-    if params[:user][:firstname].blank?
+    if update_params[:firstname].blank?
       message += _("Please enter a First name. ")
       mandatory_params &&= false
     end
-    if params[:user][:surname].blank?
+    if update_params[:surname].blank?
       message += _("Please enter a Last name. ")
       mandatory_params &&= false
     end
-    if params[:user][:org_id].blank? && params[:user][:other_organisation].blank?
+    if update_params[:org_id].blank?
       # rubocop:disable Metrics/LineLength
       message += _("Please select an organisation from the list, or enter your organisation's name.")
       # rubocop:enable Metrics/LineLength
@@ -184,20 +183,25 @@ class RegistrationsController < Devise::RegistrationsController
       # user is changing email or password
       if require_password
         # if user is changing email
-        if current_user.email != params[:user][:email]
+        if current_user.email != attrs[:email]
           # password needs to be present
-          if params[:user][:password].blank?
+          if attrs[:password].blank?
             message = _("Please enter your password to change email address.")
             successfully_updated = false
-          else
-            successfully_updated = current_user.update_with_password(password_update)
+          elsif current_user.valid_password?(attrs[:current_password])
+            successfully_updated = current_user.update_with_password(attrs)
             if !successfully_updated
               message = _("Save unsuccessful. \
                 That email address is already registered. \
                 You must enter a unique email address.")
             end
+          else
+            message = _("Invalid password")
           end
         else
+          # remove the current_password because its not actuallyt part of the User record
+          attrs.delete(:current_password)
+
           # This case is never reached since this method when called with
           # require_password = true is because the email changed.
           # The case for password changed goes to do_update_password instead
@@ -205,6 +209,8 @@ class RegistrationsController < Devise::RegistrationsController
         end
       else
         # password not required
+        # remove the current_password because its not actuallyt part of the User record
+        attrs.delete(:current_password)
         successfully_updated = current_user.update_without_password(attrs)
       end
     else
@@ -238,15 +244,15 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def do_update_password(current_user, params)
-    if params[:user][:current_password].blank?
+  def do_update_password(current_user, args)
+    if args[:current_password].blank?
       message = _("Please enter your current password")
-    elsif params[:user][:password_confirmation].blank?
+    elsif args[:password_confirmation].blank?
       message = _("Please enter a password confirmation")
-    elsif params[:user][:password] != params[:user][:password_confirmation]
+    elsif args[:password] != args[:password_confirmation]
       message = _("Password and comfirmation must match")
     else
-      successfully_updated = current_user.update_with_password(password_update)
+      successfully_updated = current_user.update_with_password(args)
     end
     # render the correct page
     if successfully_updated
@@ -272,17 +278,10 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def update_params
-    params.require(:user).permit(:firstname, :org_id, :language_id,
+    params.require(:user).permit(:email, :firstname, :org_id, :language_id,
+                                 :current_password, :password, :password_confirmation,
                                  :surname, :department_id, :org_id,
                                  :org_name, :org_crosswalk)
-  end
-
-  def password_update
-    params.require(:user).permit(:email, :firstname, :current_password,
-                                 :language_id, :password,
-                                 :password_confirmation, :surname,
-                                 :department_id, :org_id, :org_name,
-                                 :org_crosswalk)
   end
 
   # Finds or creates the selected org and then returns it's id

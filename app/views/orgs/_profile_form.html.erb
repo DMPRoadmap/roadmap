@@ -124,27 +124,30 @@
       <fieldset class="col-xs-8">
         <legend><%= _('Organisation Types') %></legend>
           <div class="checkbox">
+
+<%= Org.org_types.inspect %>
+
+            <%= collection_check_boxes(:org, :org_types, Org.org_types, :id, :name) %>
+          </div>
+
+          <div class="checkbox">
             <%= f.label :funder do %>
-              <%= check_box_tag :funder, 2, org.funder?, class: 'org_types' %>
+              <%= f.check_box :funder, {}, org.funder?.to_s, class: 'org_types' %>
               <%= _('Funder') %>
             <% end %>
           </div>
           <div class="checkbox">
             <%= f.label :institution do %>
-              <%= check_box_tag :institution, 1, org.institution?, class: 'org_types' %>
+              <%= f.check_box :institution, {}, org.institution?.to_s, class: 'org_types' %>
               <%= _('Institution') %>
             <% end %>
           </div>
           <div class="checkbox">
             <%= f.label :organisation do %>
-              <%= check_box_tag :organisation, 4, org.organisation?, class: 'org_types' %>
+              <%= f.check_box :organisation, {}, org.organisation?.to_s, class: 'org_types' %>
               <%= _('Organisation') %>
             <% end %>
           </div>
-          <%= f.hidden_field :org_type, data: {
-                validation: 'text',
-                validation_error: _('You must select at least one organisation type') }
-          %>
       </fieldset>
     <% else %>
       <div class="col-xs-8">

@@ -10,6 +10,7 @@ class PlansController < ApplicationController
 
   after_action :verify_authorized, except: [:overview]
 
+  # GET /plans
   def index
     authorize Plan
     @plans = Plan.active(current_user).page(1)
@@ -19,9 +20,10 @@ class PlansController < ApplicationController
       @organisationally_or_publicly_visible =
         Plan.organisationally_or_publicly_visible(current_user).page(1)
     end
-    if params[:plan].present?
-      @template = Template.find(params[:plan][:template_id])
-    end
+    # TODO: Is this still used? We cannot switch this to use the :plan_params
+    #       strong params because any calls that do not include `plan` in the
+    #       query string will fail
+    @template = Template.find(params[:plan][:template_id]) if params[:plan].present?
   end
 
   # GET /plans/new
@@ -41,6 +43,9 @@ class PlansController < ApplicationController
 
     @plan.org_id = current_user.org&.id
 
+    # TODO: is this still used? We cannot switch this to use the :plan_params
+    #       strong params because any calls that do not include `plan` in the
+    #       query string will fail
     if params.key?(:test)
       flash[:notice] = "#{_('This is a')} <strong>#{_('test plan')}</strong>"
     end
@@ -90,15 +95,15 @@ class PlansController < ApplicationController
       # plan.funder which forces the hidden id hash to be :id
       # so we need to convert it to :org_id so it works with the
       # OrgSelectable and OrgSelection services
-      org_hash = plan_params[:org] || params[:org]
-      if org_hash[:id].present?
-        org_hash[:org_id] = org_hash[:id]
-        @plan.org = org_from_params(params_in: org_hash, allow_create: false)
+      if plan_params[:org][:id].present?
+        attrs = plan_params[:org]
+        attrs[:org_id] = attrs[:id]
+        @plan.org = org_from_params(params_in: attrs, allow_create: false)
       end
-      funder_hash = plan_params[:funder] || params[:funder]
-      if funder_hash[:id].present?
-        funder_hash[:org_id] = funder_hash[:id]
-        @plan.funder = org_from_params(params_in: funder_hash, allow_create: false)
+      if plan_params[:funder][:id].present?
+        attrs = plan_params[:funder]
+        attrs[:org_id] = attrs[:id]
+        @plan.funder = org_from_params(params_in: attrs, allow_create: false)
       end
 
       if @plan.save
@@ -117,13 +122,11 @@ class PlansController < ApplicationController
           msg += " #{_('This plan is based on the default template.')}"
 
         elsif !@plan.template.customization_of.nil?
-          # rubocop:disable Metrics/LineLength
           # We used a customized version of the the funder template
           # rubocop:disable Metrics/LineLength
           msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{plan_params[:org_name]}"
           # rubocop:enable Metrics/LineLength
         else
-          # rubocop:disable Metrics/LineLength
           # We used the specified org's or funder's template
           # rubocop:disable Metrics/LineLength
           msg += " #{_('This plan is based on the')} #{@plan.template.org.name}: '#{@plan.template.title}' template."
@@ -165,6 +168,7 @@ class PlansController < ApplicationController
                     Rails.configuration.x.plans.default_visibility
                   end
 
+    # TODO: Seems strange to do this. Why are we just not using an `edit` route?
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
 
     # Get all Guidance Groups applicable for the plan and group them by org
@@ -205,6 +209,9 @@ class PlansController < ApplicationController
     respond_to :html
   end
 
+  # TODO: This feels like it belongs on a phases controller, perhaps introducing
+  #       a non-namespaces phases_controller woulld make sense here. Consider
+  #       doing this when we refactor the Plan editing UI
   # GET /plans/:plan_id/phases/:id/edit
   def edit
     plan = Plan.find(params[:id])
@@ -215,7 +222,6 @@ class PlansController < ApplicationController
   end
 
   # PUT /plans/1
-  # PUT /plans/1.json
   def update
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -223,6 +229,8 @@ class PlansController < ApplicationController
     # rubocop:disable Metrics/BlockLength
     respond_to do |format|
       begin
+        # TODO: See notes below on the pan_params definition. We should refactor
+        #       this once the UI pages have been reworked
         # Save the guidance group selections
         guidance_group_ids = if params[:guidance_group_ids].blank?
                                []
@@ -235,7 +243,8 @@ class PlansController < ApplicationController
         #       appropriate namespace, so org_id represents our funder
         funder = org_from_params(params_in: attrs, allow_create: true)
         @plan.funder_id = funder.id if funder.present?
-        process_grant(hash: params[:grant])
+        process_grant(grant_params: plan_params[:grant])
+        attrs.delete(:grant)
         attrs = remove_org_selection_params(params_in: attrs)
 
         if @plan.update(attrs) #_attributes(attrs)
@@ -271,6 +280,7 @@ class PlansController < ApplicationController
     # rubocop:enable Metrics/BlockLength
   end
 
+  # GET /plans/:id/share
   def share
     @plan = Plan.find(params[:id])
     if @plan.present?
@@ -281,6 +291,9 @@ class PlansController < ApplicationController
     end
   end
 
+  # TODO: Does this belong on the Roles or FeedbackRequest controllers
+  #       as a PUT verb?
+  # GET /plans/:id/request_feedback
   def request_feedback
     @plan = Plan.find(params[:id])
     if @plan.present?
@@ -291,6 +304,7 @@ class PlansController < ApplicationController
     end
   end
 
+  # DELETE /plans/:id
   def destroy
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -309,6 +323,8 @@ class PlansController < ApplicationController
     end
   end
 
+  # TODO: Is this used? It seems like it belongs on the answers controller
+  # GET /plans/:id/answer
   def answer
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -325,6 +341,7 @@ class PlansController < ApplicationController
     end
   end
 
+  # GET /plans/:id/download
   def download
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -333,6 +350,7 @@ class PlansController < ApplicationController
     render "download"
   end
 
+  # POST /plans/:id/duplicate
   def duplicate
     plan = Plan.find(params[:id])
     authorize plan
@@ -347,6 +365,7 @@ class PlansController < ApplicationController
     end
   end
 
+  # TODO: This should probablly just be merged with the update route
   # POST /plans/:id/visibility
   def visibility
     plan = Plan.find(params[:id])
@@ -382,6 +401,8 @@ class PlansController < ApplicationController
     end
   end
 
+  # TODO: This should probablly just be merged with the update route
+  # POST /plans/:id/set_test
   def set_test
     plan = Plan.find(params[:id])
     authorize plan
@@ -400,6 +421,7 @@ class PlansController < ApplicationController
     # rubocop:enable Metrics/LineLength
   end
 
+  # GET /plans/:id/overview
   def overview
     begin
       plan = Plan.includes(:phases, :sections, :questions, template: [ :org ])
@@ -415,16 +437,22 @@ class PlansController < ApplicationController
     end
   end
 
+  # ============================
+  # = Private instance methods =
+  # ============================
+
   private
 
   def plan_params
+    # TODO: The guidance_group_ids setup on the form is a bit convoluted. Refactor
+    #       it once we've started updating the UI for these pages. There should
+    #       probably be a separate controller and set the checkboxes to use `remote: true`
     params.require(:plan)
-          .permit(:template_id, :title, :visibility, :grant_number,
-                  :description, :identifier, :guidance_group_ids,
-                  :start_date, :end_date,
-                  :org_id, :org_name, :org_crosswalk, :identifier,
-                  org: [:org_id, :org_name, :org_sources, :org_crosswalk],
-                  funder: [:org_id, :org_name, :org_sources, :org_crosswalk])
+          .permit(:template_id, :title, :visibility, :description, :identifier,
+                  :start_date, :end_date, :org_id, :org_name, :org_crosswalk,
+                  grant: %i[name value],
+                  org: %i[org_id org_name org_sources org_crosswalk],
+                  funder: %i[org_id org_name org_sources org_crosswalk])
   end
 
   # different versions of the same template have the same family_id
@@ -471,10 +499,6 @@ class PlansController < ApplicationController
     plan.delete(src_plan_key)
   end
 
-  # ============================
-  # = Private instance methods =
-  # ============================
-
   def render_phases_edit(plan, phase, guidance_groups)
     readonly = !plan.editable_by?(current_user.id)
     # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
@@ -492,25 +516,23 @@ class PlansController < ApplicationController
   end
 
   # Update, destroy or add the grant
-  def process_grant(hash:)
-    if hash.present?
-      if hash[:id].present?
-        grant = @plan.grant
-        # delete it if it has been blanked out
-        if hash[:value].blank?
-          grant.destroy
-          @plan.grant_id = nil
-        elsif hash[:value] != grant.value
-          # update it iif iit has changed
-          grant.update(value: hash[:value])
-        end
-      else
-        identifier = Identifier.create(identifier_scheme: nil,
-                                       identifiable: @plan, value: hash[:value])
-        @plan.grant_id = identifier.id
+  def process_grant(grant_params:)
+    return false unless grant_params.present?
+
+    grant = @plan.grant
+
+    # delete it if it has been blanked out
+    if grant_params[:value].blank? && grant.present?
+      grant.destroy
+      @plan.grant = nil
+    elsif grant_params[:value] != grant&.value
+      if grant.present?
+        grant.update(value: grant_params[:value])
+      elsif grant_params[:value].present?
+        @plan.grant = Identifier.new(identifier_scheme: nil, identifiable: @plan,
+                                     value: grant_params[:value])
       end
     end
   end
-
 
 end

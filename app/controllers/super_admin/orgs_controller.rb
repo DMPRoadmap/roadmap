@@ -8,6 +8,7 @@ module SuperAdmin
 
     after_action :verify_authorized
 
+    # GET /super_admin/orgs
     def index
       authorize Org
       render "index", locals: {
@@ -15,12 +16,14 @@ module SuperAdmin
       }
     end
 
+    # GET /super_admin/orgs/new
     def new
       @org = Org.new(managed: true)
       authorize @org
       @org.links = { "org": [] }
     end
 
+    # POST /super_admin/orgs
     def create
       authorize Org
       attrs = org_params
@@ -47,6 +50,10 @@ module SuperAdmin
       end
 
       begin
+        # TODO: The org_types here are working but would be better served as
+        #       strong params. Consider converting over to follow the pattern
+        #       for handling Roles in the ContributorsController. This will allow
+        #       the use of all org_types instead of just these 3 hard-coded ones
         org.funder = params[:funder].present?
         org.institution = params[:institution].present?
         org.organisation = params[:organisation].present?
@@ -72,6 +79,7 @@ module SuperAdmin
       end
     end
 
+    # DELETE /super_admin/orgs/:id
     def destroy
       org = Org.includes(:users, :templates, :guidance_groups).find(params[:id])
       authorize org
