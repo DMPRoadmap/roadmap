@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GlobalHelpers
 
   private
@@ -22,4 +24,5 @@ module GlobalHelpers
   def self.constant(str)
     I18n.t("magic_strings.#{str}", locale: I18n.default_locale)
   end
+
 end
