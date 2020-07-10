@@ -2,6 +2,7 @@
 
 class ContactUs::ContactsController < ApplicationController
 
+  # rubocop:disable Metrics/PerceivedComplexity
   def create
     @contact = ContactUs::Contact.new(params[:contact_us_contact])
 
@@ -19,6 +20,7 @@ class ContactUs::ContactsController < ApplicationController
       render_new_page
     end
   end
+  # rubocop:enable Metrics/PerceivedComplexity
 
   def new
     @contact = ContactUs::Contact.new

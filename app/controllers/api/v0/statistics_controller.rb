@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class Api::V0::StatisticsController < Api::V0::BaseController
 
   before_action :authenticate
@@ -11,7 +12,9 @@ class Api::V0::StatisticsController < Api::V0::BaseController
   # If end_date is passed, only counts those with created_at is <= than end_date are
   # If org_id is passed and user has super_admin privileges that counter is performed
   # against org_id param instead of user's org
-  # rubocop:disable Metrics/AbcSize
+
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def users_joined
     unless Api::V0::StatisticsPolicy.new(@user, :statistics).users_joined?
       raise Pundit::NotAuthorizedError
@@ -54,10 +57,14 @@ class Api::V0::StatisticsController < Api::V0::BaseController
       respond_with @users_count
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # GET
   # Returns the number of completed plans within the user's org for the data
   # start_date and end_date specified
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def completed_plans
     unless Api::V0::StatisticsPolicy.new(@user, :statistics).completed_plans?
       raise Pundit::NotAuthorizedError
@@ -99,10 +106,14 @@ class Api::V0::StatisticsController < Api::V0::BaseController
       render(json: { completed_plans: scoped.count })
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # /api/v0/statistics/created_plans
   # Returns the number of created plans within the user's org for the data
   # start_date and end_date specified
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def created_plans
     raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans?
 
@@ -142,11 +153,13 @@ class Api::V0::StatisticsController < Api::V0::BaseController
       render(json: { completed_plans: scoped.count })
     end
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   ##
   # Displays the number of DMPs using templates owned/create by the caller's Org
   # between the optional specified dates
+  # rubocop:disable Metrics/AbcSize
   def using_template
     org_templates = @user.org.templates.where(customization_of: nil)
     unless Api::V0::StatisticsPolicy.new(@user, org_templates.first).using_template?
@@ -169,12 +182,14 @@ class Api::V0::StatisticsController < Api::V0::BaseController
     end
     respond_with @templates
   end
+  # rubocop:enable Metrics/AbcSize
 
   ##
   # GET
   # Renders a list of templates with their titles, ids, and uses between the optional
   # specified dates the uses are restricted to DMPs created by users of the same
   # organisation as the user who ititiated the call.
+  # rubocop:disable Metrics/AbcSize
   def plans_by_template
     unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans_by_template?
       raise Pundit::NotAuthorizedError
@@ -198,12 +213,14 @@ class Api::V0::StatisticsController < Api::V0::BaseController
     end
     respond_with @templates
   end
+  # rubocop:enable Metrics/AbcSize
 
   # GET
   #
   # Renders a list of DMPs metadata, provided the DMPs were created between the
   # optional specified dates DMPs must be owned by a user who's organisation is the
   # same as the user who generates the call.
+  # rubocop:disable Metrics/AbcSize
   def plans
     raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans?
 
@@ -216,6 +233,7 @@ class Api::V0::StatisticsController < Api::V0::BaseController
     end
     respond_with @org_plans
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -228,3 +246,4 @@ class Api::V0::StatisticsController < Api::V0::BaseController
   end
 
 end
+# rubocop:enable Metrics/ClassLength

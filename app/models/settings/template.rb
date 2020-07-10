@@ -25,8 +25,9 @@ module Settings
     VALID_FONT_SIZE_RANGE = (8..14).freeze
     VALID_MARGIN_RANGE = (5..25).freeze
 
-    VALID_ADMIN_FIELDS = %w[project_name project_identifier grant_title principal_investigator
-                            project_data_contact project_description funder institution orcid].freeze
+    VALID_ADMIN_FIELDS = %w[project_name project_identifier grant_title
+                            principal_investigator project_data_contact
+                            project_description funder institution orcid].freeze
 
     VALID_FORMATS = %w[csv html pdf text docx].freeze
 
@@ -49,10 +50,10 @@ module Settings
       title: ""
     }.freeze
 
+    # rubocop:disable Metrics/BlockLength, Metrics/BlockNesting
     validate do
       formatting = value["formatting"]
       max_pages  = value["max_pages"]
-      fields     = value["fields"]
 
       if formatting.present?
         errs = []
@@ -60,7 +61,7 @@ module Settings
 
         if (default_formatting.keys - formatting.keys).empty?
           if formatting[:margin].is_a?(Hash)
-            errs << :negative_margin if formatting[:margin].any? { |_k, v| v.to_i < 0 }
+            errs << :negative_margin if formatting[:margin].any? { |_k, v| v.to_i.negative? }
             unless (formatting[:margin].keys - default_formatting[:margin].keys).empty?
               errs << :unknown_margin
             end
@@ -86,7 +87,9 @@ module Settings
           elsif key == :negative_margin
             errors.add(:formatting, _("Margin cannot be negative"))
           elsif key == :unknown_margin
+            # rubocop:disable Style/LineLength
             errors.add(:formatting, _("Unknown margin. Can only be 'top', 'bottom', 'left' or 'right'"))
+            # rubocop:enable Style/LineLength
           elsif key == :invalid_font_size
             errors.add(:formatting, _("Invalid font size"))
           elsif key == :invalid_font_face
@@ -102,6 +105,7 @@ module Settings
         errors.add(:max_pages, _("Invalid maximum pages"))
       end
     end
+    # rubocop:enable Metrics/BlockLength, Metrics/BlockNesting
 
     before_validation do
       formatting[:font_size] = formatting[:font_size].to_i if formatting[:font_size].present?

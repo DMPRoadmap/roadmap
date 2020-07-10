@@ -25,6 +25,7 @@ module SuperAdmin
     end
 
     # PUT /super_admin/users/:id
+    # rubocop:disable Metrics/AbcSize
     def update
       @user = User.find(params[:id])
       authorize @user
@@ -57,6 +58,7 @@ module SuperAdmin
       end
       render :edit
     end
+    # rubocop:enable Metrics/AbcSize
 
     # PUT /super_admin/users/:id/merge
     def merge

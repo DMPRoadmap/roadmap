@@ -4,12 +4,14 @@ class User
 
   class AtCsv
 
-    HEADERS = ["Name", "E-Mail", "Created Date", "Last Activity", "Plans", "Current Privileges", "Active", "Department"].freeze
+    HEADERS = ["Name", "E-Mail", "Created Date", "Last Activity", "Plans",
+               "Current Privileges", "Active", "Department"].freeze
 
     def initialize(users)
       @users = users
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
     def to_csv
       CSV.generate(headers: true) do |csv|
         csv << HEADERS
@@ -31,10 +33,12 @@ class User
 
           department = user&.department&.name || ""
 
-          csv << [name, email, created, last_activity, plans, current_privileges, active, department]
+          csv << [name, email, created, last_activity, plans, current_privileges,
+                  active, department]
         end
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
 
   end
 

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class NotesController < ApplicationController
 
   include ConditionalUserMailer
@@ -8,7 +9,7 @@ class NotesController < ApplicationController
   respond_to :html
 
   # POST /notes
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def create
     @note = Note.new
     @note.user_id = note_params[:user_id]
@@ -73,9 +74,10 @@ class NotesController < ApplicationController
       }.to_json, status: :bad_request
     end
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # PUT /notes/:id
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def update
     @note = Note.find(params[:id])
     authorize @note
@@ -112,9 +114,11 @@ class NotesController < ApplicationController
       }.to_json, status: :bad_request
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # TODO: Consider just using the :destroy route
   # PATCH /notes/:id/archive
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def archive
     @note = Note.find(params[:id])
     authorize @note
@@ -152,6 +156,7 @@ class NotesController < ApplicationController
       }.to_json, status: :bad_request
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 
@@ -162,3 +167,4 @@ class NotesController < ApplicationController
   end
 
 end
+# rubocop:enable Metrics/ClassLength

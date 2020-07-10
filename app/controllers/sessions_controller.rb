@@ -8,6 +8,7 @@ class SessionsController < Devise::SessionsController
 
   # Capture the user's shibboleth id if they're coming in from an IDP
   # ---------------------------------------------------------------------
+  # rubocop:disable Metrics/AbcSize
   def create
     existing_user = User.find_by(email: params[:user][:email])
     unless existing_user.nil?
@@ -22,7 +23,7 @@ class SessionsController < Devise::SessionsController
         }
         @ui = Identifier.new(args)
       end
-      session[:locale] = existing_user.get_locale unless existing_user.get_locale.nil?
+      session[:locale] = existing_user.locale unless existing_user.locale.nil?
       # Method defined at controllers/application_controller.rb
       set_gettext_locale
     end
@@ -35,6 +36,7 @@ class SessionsController < Devise::SessionsController
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def destroy
     super

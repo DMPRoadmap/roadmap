@@ -7,7 +7,8 @@ class StatSharedPlan
     class << self
 
       def do(start_date:, end_date:, org:, filtered: false)
-        count = shared_plans(start_date: start_date, end_date: end_date, org_id: org.id, filtered: filtered)
+        count = shared_plans(start_date: start_date, end_date: end_date,
+                             org_id: org.id, filtered: filtered)
         attrs = { date: end_date.to_date, count: count, org_id: org.id, filtered: filtered }
 
         stat_shared_plan = StatSharedPlan.find_by(

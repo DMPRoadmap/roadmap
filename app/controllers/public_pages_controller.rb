@@ -15,6 +15,7 @@ class PublicPagesController < ApplicationController
 
   # GET template_export/:id
   # -----------------------------------------------------
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def template_export
     # only export live templates, id passed is family_id
     @template = Template.live(params[:id])
@@ -73,6 +74,7 @@ class PublicPagesController < ApplicationController
                   alert: _("Unable to download the DMP Template at this time.")
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # GET /plans_index
   # ------------------------------------------------------------------------------------

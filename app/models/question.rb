@@ -28,6 +28,7 @@
 #  fk_rails_...  (section_id => sections.id)
 #
 
+# rubocop:disable Metrics/ClassLength
 class Question < ApplicationRecord
 
   include ActsAsSortable
@@ -102,8 +103,10 @@ class Question < ApplicationRecord
   accepts_nested_attributes_for :question_options, allow_destroy: true,
                                                    reject_if: ->(a) { a[:text].blank? }
 
+  # rubocop:disable Layout/LineLength
   accepts_nested_attributes_for :annotations, allow_destroy: true,
                                               reject_if: proc { |a| a[:text].blank? && a[:id].blank? }
+  # rubocop:enable Layout/LineLength
 
   # =====================
   # = Delegated methods =
@@ -114,14 +117,14 @@ class Question < ApplicationRecord
   # ===========================
   # = Public instance methods =
   # ===========================
-
+  # rubocop:disable Metrics/AbcSize
   def deep_copy(**options)
     copy = dup
     copy.modifiable = options.fetch(:modifiable, modifiable)
     copy.section_id = options.fetch(:section_id, nil)
     copy.save!(validate: false)  if options.fetch(:save, false)
     options[:question_id] = copy.id
-    question_options.each { |question_option| copy.question_options << question_option.deep_copy(options) }
+    question_options.each { |qo| copy.question_options << qo.deep_copy(options) }
     annotations.each do |annotation|
       copy.annotations << annotation.deep_copy(options)
     end
@@ -130,6 +133,7 @@ class Question < ApplicationRecord
     copy.conditions = copy.conditions.sort_by(&:number)
     copy
   end
+  # rubocop:enable Metrics/AbcSize
 
   # TODO: consider moving this to a view helper instead and use the built in
   # scopes for guidance. May need to add a new one for 'thematic_guidance'.
@@ -205,17 +209,16 @@ class Question < ApplicationRecord
   # the old_to_new_opts map allows us to rewrite the question_option ids which may be out of sync
   # after versioning
   def update_conditions(param_conditions, old_to_new_opts, question_id_map)
-    res = true
     conditions.destroy_all
+    return unless param_conditions.present?
 
-    if param_conditions.present?
-      param_conditions.each do |_key, value|
-        saveCondition(value, old_to_new_opts, question_id_map)
-      end
+    param_conditions.each do |_key, value|
+      save_condition(value, old_to_new_opts, question_id_map)
     end
   end
 
-  def saveCondition(value, opt_map, question_id_map)
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  def save_condition(value, opt_map, question_id_map)
     c = conditions.build
     c.action_type = value["action_type"]
     c.number = value["number"]
@@ -248,6 +251,7 @@ class Question < ApplicationRecord
     end
     c.save
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   private
 
@@ -274,3 +278,4 @@ class Question < ApplicationRecord
   end
 
 end
+# rubocop:enable Metrics/ClassLength

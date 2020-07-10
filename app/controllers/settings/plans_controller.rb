@@ -17,6 +17,7 @@ module Settings
       end
     end
 
+    # rubocop:disable Metrics/AbcSize
     def update
       authorize @plan
       # If this is actually used we should consider switching these to strong params
@@ -46,6 +47,7 @@ module Settings
         # format.json { render json: settings_json }
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     private
 

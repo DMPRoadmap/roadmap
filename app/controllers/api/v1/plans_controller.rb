@@ -4,11 +4,14 @@ module Api
 
   module V1
 
+    # rubocop:disable Metrics/ClassLength
     class PlansController < BaseApiController
 
       respond_to :json
 
       # GET /api/v1/plans/:id
+      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def show
         plans = Plan.where(id: params[:id]).limit(1)
 
@@ -38,8 +41,12 @@ module Api
           render_error(errors: [_("Plan not found")], status: :not_found)
         end
       end
+      # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       # POST /api/v1/plans
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockNesting
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def create
         dmp = @json.with_indifferent_access.fetch(:items, []).first.fetch(:dmp, {})
 
@@ -82,8 +89,8 @@ module Api
       rescue JSON::ParserError
         render_error(errors: [_("Invalid JSON")], status: :bad_request)
       end
-
-      # rubocop:enable
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockNesting
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       # GET /api/v1/plans
       def index
@@ -126,6 +133,7 @@ module Api
         end
       end
 
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
       def contributor_to_user(contributor:)
         identifiers = contributor.identifiers.map do |id|
           { name: id.identifier_scheme&.name, value: id.value }
@@ -150,8 +158,10 @@ module Api
         end
         user
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
     end
+    # rubocop:enable Metrics/ClassLength
 
   end
 

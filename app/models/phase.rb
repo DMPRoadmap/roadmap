@@ -25,7 +25,8 @@
 #
 
 # [+Project:+] DMPRoadmap
-# [+Description:+] This model describes informmation about the phase of a plan, it's title, order of display and which template it belongs to.
+# [+Description:+] This model describes informmation about the phase of a plan,
+#                  it's title, order of display and which template it belongs to.
 #
 # [+Created:+] 03/09/2014
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center

@@ -13,6 +13,7 @@
 #  user_id    :integer
 #
 
+# rubocop:disable Metrics/ClassLength
 class ExportedPlan < ApplicationRecord
 
   include SettingsTemplateHelper
@@ -107,13 +108,19 @@ class ExportedPlan < ApplicationRecord
 
   # Export formats
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def as_csv(sections, unanswered_questions, question_headings)
     CSV.generate do |csv|
+      # rubocop:disable Style/ConditionalAssignment
       if question_headings
-        csv << [_("Section"), _("Question"), _("Answer"), _("Selected option(s)"), _("Answered by"), _("Answered at")]
+        csv << [_("Section"), _("Question"), _("Answer"), _("Selected option(s)"),
+                _("Answered by"), _("Answered at")]
       else
-        csv << [_("Section"), _("Answer"), _("Selected option(s)"), _("Answered by"), _("Answered at")]
+        csv << [_("Section"), _("Answer"), _("Selected option(s)"), _("Answered by"),
+                _("Answered at")]
       end
+      # rubocop:enable Style/ConditionalAssignment
       sections.each do |section|
         section.questions.each do |question|
           answer = Answer.where(plan_id: plan_id, question_id: question.id).first
@@ -149,7 +156,11 @@ class ExportedPlan < ApplicationRecord
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def as_txt(sections, unanswered_questions, question_headings, details)
     output = "#{plan.title}\n\n#{plan.template.title}\n"
     output += "\n" + _("Details") + "\n\n"
@@ -190,6 +201,8 @@ class ExportedPlan < ApplicationRecord
     end
     output
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   private
 
@@ -206,7 +219,7 @@ class ExportedPlan < ApplicationRecord
                      end
                    else
                      []
-    end
+                   end
   end
 
   def sanitize_text(text)
@@ -214,3 +227,4 @@ class ExportedPlan < ApplicationRecord
   end
 
 end
+# rubocop:enable Metrics/ClassLength

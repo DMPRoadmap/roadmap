@@ -34,7 +34,9 @@ module Paginable
   #
   # Disabling this rubocop check here because it would require too much refactoring
   # one approach to just include everything in the double splat `**options` param
-  # rubocop:disable Metrics/ParameterLists
+
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/ParameterLists
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def paginable_renderise(partial: nil, controller: nil, action: nil,
                           path_params: {}, query_params: {}, scope: nil,
                           locals: {}, **options)
@@ -81,7 +83,8 @@ module Paginable
       end
     end
   end
-  # rubocop:enable Metrics/ParameterLists
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/ParameterLists
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # Returns the base url of the paginable route for a given page passed
   def paginable_base_url(page = 1)

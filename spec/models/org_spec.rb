@@ -119,11 +119,11 @@ RSpec.describe Org, type: :model do
     end
   end
 
-  describe "#get_locale" do
+  describe "#locale" do
 
     let!(:org) { build(:org) }
 
-    subject { org.get_locale }
+    subject { org.locale }
 
     context "language present" do
 

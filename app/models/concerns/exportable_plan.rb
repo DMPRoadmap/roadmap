@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
 module ExportablePlan
 
   include ConditionsHelper
@@ -8,6 +9,8 @@ module ExportablePlan
     prepare(coversheet)
   end
 
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def as_csv(headings = true,
              unanswered = true,
              selected_phase = nil,
@@ -35,16 +38,19 @@ module ExportablePlan
           show_section ||= customization && !section[:modifiable]
           show_section ||= customization && section[:modifiable] && show_custom_sections
 
-          if show_section && num_section_questions(self, section, phase) > 0
+          if show_section && num_section_questions(self, section, phase).positive?
             show_section_for_csv(csv, phase, section, headings, unanswered, hash)
           end
         end
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   private
 
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def prepare(coversheet = false)
     hash = coversheet ? prepare_coversheet : {}
     template = Template.includes(phases: { sections: { questions: :question_format } })
@@ -82,7 +88,10 @@ module ExportablePlan
 
     hash
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def prepare_coversheet
     hash = {}
     # name of owner and any co-owners
@@ -112,13 +121,16 @@ module ExportablePlan
     hash[:customizer] = customizer
     hash
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def prepare_coversheet_for_csv(csv, _headings, hash)
     csv << [if hash[:attribution].many?
               _("Creators: ")
             else
               _("Creator:")
-end, _("%{authors}") % { authors: hash[:attribution].join(", ") }]
+            end, _("%{authors}") % { authors: hash[:attribution].join(", ") }]
     csv << ["Affiliation: ", _("%{affiliation}") % { affiliation: hash[:affiliation] }]
     csv << if hash[:funder].present?
              [_("Template: "), _("%{funder}") % { funder: hash[:funder] }]
@@ -143,7 +155,11 @@ end, _("%{authors}") % { authors: hash[:attribution].join(", ") }]
     csv << []
     csv << []
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize, Metrics/BlockLength, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/ParameterLists
   def show_section_for_csv(csv, phase, section, headings, unanswered, hash)
     section[:questions].each do |question|
       next if remove_list(hash).include?(question[:id])
@@ -154,7 +170,7 @@ end, _("%{authors}") % { authors: hash[:attribution].join(", ") }]
         if answer.question_options.any?
           answer_text += answer.question_options.pluck(:text).join(", ")
         end
-        answer_text += answer.text unless answer.is_blank?
+        answer_text += answer.text if answer.answered?
       elsif unanswered
         answer_text += _("Not Answered")
       end
@@ -168,7 +184,7 @@ end, _("%{authors}") % { authors: hash[:attribution].join(", ") }]
                              question[:text].join(", ")
                            else
                              question[:text][0]
-                end)
+                           end)
                         end
         flds << [section[:title], sanitize_text(question_text),
                  single_line_answer_for_csv]
@@ -178,6 +194,9 @@ end, _("%{authors}") % { authors: hash[:attribution].join(", ") }]
       csv << flds.flatten
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/BlockLength, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/ParameterLists
 
   def record_plan_export(format)
     exported_plan = ExportedPlan.new.tap do |ep|
@@ -198,3 +217,4 @@ end, _("%{authors}") % { authors: hash[:attribution].join(", ") }]
   end
 
 end
+# rubocop:enable Metrics/ModuleLength

@@ -3,7 +3,8 @@
 module ValidationMessages
 
   # workaround for errors thrown by puma when eager loading application
-  FastGettext.add_text_domain "app", path: "config/locale", type: :po, ignore_fuzzy: true, report_warning: true
+  FastGettext.add_text_domain "app", path: "config/locale", type: :po,
+                                     ignore_fuzzy: true, report_warning: true
   FastGettext.text_domain = "app"
 
   PRESENCE_MESSAGE = _("can't be blank")

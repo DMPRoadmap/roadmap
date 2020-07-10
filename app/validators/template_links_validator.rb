@@ -3,7 +3,6 @@
 class TemplateLinksValidator < ActiveModel::Validator
 
   include JSONLinkValidator
-  # rubocop:disable Metrics/MethodLength
   def validate(record)
     links = record.links
     expected_keys = %w[funder sample_plan]
@@ -22,6 +21,5 @@ class TemplateLinksValidator < ActiveModel::Validator
       record.errors[:links] << _("A hash is expected for links")
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
 end
