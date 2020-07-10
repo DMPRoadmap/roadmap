@@ -1,8 +1,12 @@
+# frozen_string_literal: true
+
 class QuestionOptionPolicy < ApplicationPolicy
+
   attr_reader :user, :question_option
 
   def initialize(user, question_option)
     raise Pundit::NotAuthorizedError, "must be logged in" unless user
+
     @user = user
     @question_option = question_option
   end
@@ -16,7 +20,7 @@ class QuestionOptionPolicy < ApplicationPolicy
   ##
 
   def destroy?
-    user.can_modify_templates?  &&  (question_option.question.section.phase.template.org_id == user.org_id)
+    user.can_modify_templates? && (question_option.question.section.phase.template.org_id == user.org_id)
   end
 
 end
