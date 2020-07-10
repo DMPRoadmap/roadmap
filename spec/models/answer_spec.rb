@@ -51,13 +51,13 @@ RSpec.describe Answer, type: :model do
     end
   end
 
-  describe "#has_question_option" do
+  describe "#options_selected?" do
 
     let!(:answer) { create(:answer) }
 
     let!(:question_option) { create(:question_option) }
 
-    subject { answer.has_question_option(question_option.id) }
+    subject { answer.options_selected?(question_option.id) }
 
     context "when answer has QuestionOption" do
 
@@ -78,69 +78,122 @@ RSpec.describe Answer, type: :model do
   end
 
   describe "#answered?" do
+    context "text based answer" do
+      context "when text is nil" do
 
-    let!(:answer) { create(:answer) }
+        let!(:answer) { build(:answer, text: nil) }
 
-    subject { answer.answered? }
+        subject { answer }
 
-    context "question present, question format is option and options empty" do
+        it { is_expected.to eql(false) }
 
-      before do
-        answer.question.update(question_format:
-                                 create(:question_format, option_based: true))
       end
 
-      it { is_expected.to eql(false) }
+      context "when text is ''" do
 
+        let!(:answer) { build(:answer, text: "") }
+
+        subject { answer }
+
+        it { is_expected.to eql(false) }
+
+      end
+
+      context "when text is plain text" do
+
+        let!(:answer) { build(:answer, text: "Foo bar") }
+
+        subject { answer }
+
+        it { is_expected.not_to eql(true) }
+
+      end
+
+      context "when text is empty html" do
+
+        let!(:answer) { build(:answer, text: "<p><br/></p>") }
+
+        subject { answer }
+
+        it { is_expected.not_to eql(true) }
+
+      end
+
+      context "when text is html text" do
+
+        let!(:answer) { build(:answer, text: "<p>Foo bar</p>") }
+
+        subject { answer }
+
+        it { is_expected.not_to eql(true) }
+
+      end
     end
 
-    context "question present, question format is option and options present" do
+    context "option based question" do
+      let!(:answer) { create(:answer) }
 
-      before do
-        answer.question.update(question_format:
-                                 create(:question_format, option_based: true))
+      subject { answer.answered?
 
-        answer.question_options << create_list(:question_option, 2)
+      context "question present, question format is option and options empty" do
+
+        before do
+          answer.question.update(question_format:
+                                   create(:question_format, option_based: true))
+        end
+
+        it { is_expected.to eql(false) }
+
       end
 
-      it { is_expected.to eql(true) }
+      context "question present, question format is option and options present" do
 
-    end
+        before do
+          answer.question.update(question_format:
+                                   create(:question_format, option_based: true))
 
-    context "question present, question format not option and text empty" do
+          answer.question_options << create_list(:question_option, 2)
+        end
 
-      before do
-        answer.question.update(question_format:
-                                 create(:question_format, option_based: false))
+        it { is_expected.to eql(true) }
 
-        answer.text = ""
       end
 
-      it { is_expected.to eql(false) }
+      context "question present, question format not option and text empty" do
 
-    end
+        before do
+          answer.question.update(question_format:
+                                   create(:question_format, option_based: false))
 
-    context "question present, question format not option and text present" do
+          answer.text = ""
+        end
 
-      before do
-        answer.question.update(question_format:
-                                 create(:question_format, option_based: false))
+        it { is_expected.to eql(false) }
 
-        answer.text = "This is an answer"
       end
 
-      it { is_expected.to eql(true) }
+      context "question present, question format not option and text present" do
 
-    end
+        before do
+          answer.question.update(question_format:
+                                   create(:question_format, option_based: false))
 
-    context "question absent" do
+          answer.text = "This is an answer"
+        end
 
-      before do
-        answer.update(question: nil)
+        it { is_expected.to eql(true) }
+
       end
 
-      it { is_expected.to eql(false) }
+      context "question absent" do
 
+        before do
+          answer.update(question: nil)
+        end
+
+        it { is_expected.to eql(false) }
+
+      end
     end
 
   end
@@ -172,50 +225,6 @@ RSpec.describe Answer, type: :model do
       @other_notes.each do |note|
         expect(subject).not_to include(note)
       end
-    end
-
-  end
-
-  describe "#is_blank?" do
-
-    context "when text is nil" do
-
-      let!(:answer) { build(:answer, text: nil) }
-
-      subject { answer }
-
-      it { is_expected.to be_is_blank }
-
-    end
-
-    context "when text is ''" do
-
-      let!(:answer) { build(:answer, text: "") }
-
-      subject { answer }
-
-      it { is_expected.to be_is_blank }
-
-    end
-
-    context "when text is plain text" do
-
-      let!(:answer) { build(:answer, text: "Foo bar") }
-
-      subject { answer }
-
-      it { is_expected.not_to be_is_blank }
-
-    end
-
-    context "when text is html text" do
-
-      let!(:answer) { build(:answer, text: "<p>Foo bar</p>") }
-
-      subject { answer }
-
-      it { is_expected.not_to be_is_blank }
-
     end
 
   end

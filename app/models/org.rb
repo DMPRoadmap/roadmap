@@ -31,6 +31,7 @@
 #  fk_rails_...  (language_id => languages.id)
 #
 
+# rubocop:disable Metrics/ClassLength
 class Org < ApplicationRecord
 
   extend FeedbacksHelper
@@ -195,8 +196,8 @@ class Org < ApplicationRecord
   #
   # Returns String
   # Returns nil
-  def get_locale
-    language.abbreviation
+  def locale
+    language&.abbreviation
   end
 
   # TODO: Should these be hardcoded? Also, an Org can currently be multiple org_types at
@@ -207,6 +208,7 @@ class Org < ApplicationRecord
   # Tests are setup currently to work with this issue.
   #
   # Returns String
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def org_type_to_s
     ret = []
     ret << "Institution" if institution?
@@ -217,6 +219,7 @@ class Org < ApplicationRecord
     ret << "School" if school?
     (!ret.empty? ? ret.join(", ") : "None")
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def funder_only?
     org_type == Org.org_type_values_for(:funder).min
@@ -251,8 +254,8 @@ class Org < ApplicationRecord
   end
 
   def org_admins
-    User.joins(:perms).where("users.org_id = ? AND perms.name IN (?)", id,
-                             %w[grant_permissions modify_templates modify_guidance change_org_details])
+    admin_perms = %w[grant_permissions modify_templates modify_guidance change_org_details]
+    User.joins(:perms).where("users.org_id = ? AND perms.name IN (?)", id, admin_perms)
   end
 
   def plans
@@ -274,11 +277,10 @@ class Org < ApplicationRecord
   # checks size of logo and resizes if necessary
   #
   def resize_image
-    unless logo.nil?
-      if logo.height != 100
-        self.logo = logo.thumb("x100") # resize height and maintain aspect ratio
-      end
-    end
+    return if logo.nil? || logo.height == 100
+
+    self.logo = logo.thumb("x100") # resize height and maintain aspect ratio
   end
 
 end
+# rubocop:enable Metrics/ClassLength

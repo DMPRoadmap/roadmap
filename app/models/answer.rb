@@ -83,7 +83,7 @@ class Answer < ApplicationRecord
   # form views should be checked or not
   #
   # Returns Boolean
-  def has_question_option(option_id)
+  def options_selected?(option_id)
     question_option_ids.include?(option_id)
   end
 
@@ -93,13 +93,12 @@ class Answer < ApplicationRecord
   #
   # Returns Boolean
   def answered?
-    if question.present?
-      if question.question_format.option_based?
-        return question_options.any?
-      else # (e.g. textarea or textfield question formats)
-        return !is_blank?
-      end
-    end
+    return false unless question.present?
+    # If the question is option based then see if any options were selected
+    return question_options.any? if question.question_format.option_based?
+    # Strip out any white space and see if the text is empty
+    return text.gsub(%r{</?p>}, "").gsub(%r{<br\s?/?>}, "").chomp.blank? if text.present?
+
     false
   end
 
@@ -110,17 +109,6 @@ class Answer < ApplicationRecord
     notes.select { |n| n.archived.blank? }.sort! { |x, y| x.created_at <=> y.created_at }
   end
 
-  # Returns True if answer text is blank, false otherwise specificly we want to remove
-  # empty hml tags and check.
-  #
-  # Returns Boolean
-  def is_blank?
-    return text.gsub(%r{</?p>}, "").gsub(%r{<br\s?/?>}, "").chomp.blank? if text.present?
-
-    # no text so blank
-    true
-  end
-
   # The parsed JSON hash for the current answer object. Generates a new hash if none
   # exists for rda_questions.
   #
@@ -129,7 +117,7 @@ class Answer < ApplicationRecord
     default = { "standards" => {}, "text" => "" }
     begin
       h = text.nil? ? default : JSON.parse(text)
-    rescue JSON::ParserError => e
+    rescue JSON::ParserError
       h = default
     end
     h

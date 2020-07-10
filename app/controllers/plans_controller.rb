@@ -28,6 +28,7 @@ class PlansController < ApplicationController
   end
 
   # GET /plans/new
+  # rubocop:disable Metrics/AbcSize
   def new
     @plan = Plan.new
     authorize @plan
@@ -51,9 +52,11 @@ class PlansController < ApplicationController
     @is_test = params[:test] ||= false
     respond_to :html
   end
+  # rubocop:enable Metrics/AbcSize
 
   # POST /plans
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def create
     @plan = Plan.new
     authorize @plan
@@ -148,10 +151,12 @@ class PlansController < ApplicationController
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # GET /plans/show
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def show
     @plan = Plan.includes(
       template: { phases: { sections: { questions: :answers } } },
@@ -203,7 +208,8 @@ class PlansController < ApplicationController
                 end
     respond_to :html
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # TODO: This feels like it belongs on a phases controller, perhaps introducing
   #       a non-namespaces phases_controller woulld make sense here. Consider
@@ -218,7 +224,7 @@ class PlansController < ApplicationController
   end
 
   # PUT /plans/1
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def update
     @plan = Plan.find(params[:id])
     authorize @plan
@@ -273,7 +279,7 @@ class PlansController < ApplicationController
     end
     # rubocop:enable Metrics/BlockLength
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # GET /plans/:id/share
   def share
@@ -362,6 +368,7 @@ class PlansController < ApplicationController
 
   # TODO: This should probablly just be merged with the update route
   # POST /plans/:id/visibility
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def visibility
     plan = Plan.find(params[:id])
     if plan.present?
@@ -395,6 +402,7 @@ class PlansController < ApplicationController
              } }
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # TODO: This should probablly just be merged with the update route
   # POST /plans/:id/set_test
@@ -503,6 +511,7 @@ class PlansController < ApplicationController
   end
 
   # Update, destroy or add the grant
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def process_grant(grant_params:)
     return false unless grant_params.present?
 
@@ -521,6 +530,7 @@ class PlansController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
 end
 # rubocop:enable Metrics/ClassLength

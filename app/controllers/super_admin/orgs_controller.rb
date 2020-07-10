@@ -24,7 +24,7 @@ module SuperAdmin
     end
 
     # POST /super_admin/orgs
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
     def create
       authorize Org
       attrs = org_params
@@ -78,7 +78,7 @@ module SuperAdmin
         }
       end
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
 
     # DELETE /super_admin/orgs/:id
     def destroy

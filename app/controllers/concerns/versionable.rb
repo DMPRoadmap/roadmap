@@ -39,6 +39,7 @@ module Versionable
   # generated and returns a modifiable version of that object
   # NOTE: the obj passed is still not saved however it should belongs to a
   # parent already
+  # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
   def get_new(obj)
     unless obj.respond_to?(:template)
       raise ArgumentError,
@@ -75,11 +76,14 @@ module Versionable
     end
     obj
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
 
   # Locates an object (e.g. phase, section, question, annotation) in a
   # search_space
   # (e.g. phases/sections/questions/annotations) by comparing either the number
   # method or the org_id and text for annotations
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def find_in_space(obj, search_space)
     unless search_space.respond_to?(:each)
       raise ArgumentError, _("The search_space does not respond to each")
@@ -127,5 +131,7 @@ module Versionable
 
     nil
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
 end

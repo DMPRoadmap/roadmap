@@ -53,6 +53,7 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 
+# rubocop:disable Metrics/ClassLength
 class User < ApplicationRecord
 
   include ConditionalUserMailer
@@ -149,9 +150,10 @@ class User < ApplicationRecord
       else
         joins(:org)
           .where("lower(firstname || ' ' || surname) LIKE lower(:search_pattern)
-              OR lower(email) LIKE lower(:search_pattern)
-              OR lower(orgs.name) LIKE lower (:search_pattern)
-              OR lower(orgs.abbreviation) LIKE lower (:search_pattern) ", search_pattern: search_pattern)
+                    OR lower(email) LIKE lower(:search_pattern)
+                    OR lower(orgs.name) LIKE lower (:search_pattern)
+                    OR lower(orgs.abbreviation) LIKE lower (:search_pattern) ",
+                 search_pattern: search_pattern)
       end
     end
   }
@@ -200,11 +202,11 @@ class User < ApplicationRecord
   #
   # Returns String
   # Returns nil
-  def get_locale
+  def locale
     if !language.nil?
       language.abbreviation
     elsif !org.nil?
-      org.get_locale
+      org.locale
     end
   end
 
@@ -243,6 +245,7 @@ class User < ApplicationRecord
   # requires them to see the org-admin pages then they are an org admin.
   #
   # Returns Boolean
+  # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   def can_org_admin?
     return true if can_super_admin?
 
@@ -253,6 +256,7 @@ class User < ApplicationRecord
       can_modify_templates? || can_modify_org_details? ||
       can_review_plans?
   end
+  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 
   # Can the User add new organisations?
   #
@@ -334,15 +338,16 @@ class User < ApplicationRecord
   # Returns nil
   # Returns Boolean
   def keep_or_generate_token!
-    if api_token.nil? || api_token.empty?
-      new_token = User.unique_random(field_name: "api_token")
-      update_column(:api_token, new_token) unless new_record?
-    end
+    return unless api_token.nil? || api_token.empty?
+
+    new_token = User.unique_random(field_name: "api_token")
+    update_column(:api_token, new_token) unless new_record?
   end
 
   # The User's preferences for a given base key
   #
   # Returns Hash
+  # rubocop:disable Metrics/AbcSize
   def get_preferences(key)
     defaults = Pref.default_settings[key.to_sym] || Pref.default_settings[key.to_s]
 
@@ -363,6 +368,7 @@ class User < ApplicationRecord
       defaults
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # Override devise_invitable email title
   def deliver_invitation(options = {})
@@ -403,11 +409,14 @@ class User < ApplicationRecord
   #
   # Returns boolean
   def archive
+    # rubocop:disable Layout/LineLength
+    suffix = Rails.configuration.x.application.fetch(:archived_accounts_email_suffix, "@example.org")
+    # rubocop:enable Layout/LineLength
     self.firstname = "Deleted"
     self.surname = "User"
     self.email = User.unique_random(field_name: "email",
                                     prefix: "user_",
-                                    suffix: Rails.configuration.x.application.fetch(:archived_accounts_email_suffix, "@example.org"),
+                                    suffix: suffix,
                                     length: 5)
     self.recovery_email = nil
     self.api_token = nil
@@ -451,3 +460,4 @@ class User < ApplicationRecord
   end
 
 end
+# rubocop:enable Metrics/ClassLength

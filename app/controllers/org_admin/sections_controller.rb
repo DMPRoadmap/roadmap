@@ -2,6 +2,7 @@
 
 module OrgAdmin
 
+  # rubocop:disable Metrics/ClassLength
   class SectionsController < ApplicationController
 
     include Versionable
@@ -61,6 +62,7 @@ module OrgAdmin
     end
 
     # POST /org_admin/templates/[:template_id]/phases/[:phase_id]/sections
+    # rubocop:disable Metrics/AbcSize
     def create
       @phase = Phase.find_by(id: params[:phase_id])
       if @phase.nil?
@@ -87,8 +89,10 @@ module OrgAdmin
         )
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     # PUT /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]
+    # rubocop:disable Metrics/AbcSize
     def update
       section = Section.includes(phase: :template).find(params[:id])
       authorize section
@@ -108,8 +112,10 @@ module OrgAdmin
         id: section.phase.id, section: section.id
       )
     end
+    # rubocop:enable Metrics/AbcSize
 
     # DELETE /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]
+    # rubocop:disable Metrics/AbcSize
     def destroy
       section = Section.includes(phase: :template).find(params[:id])
       authorize section
@@ -130,6 +136,7 @@ module OrgAdmin
                     id: phase.id
                   ))
     end
+    # rubocop:enable Metrics/AbcSize
 
     private
 
@@ -138,5 +145,6 @@ module OrgAdmin
     end
 
   end
+  # rubocop:enable Metrics/ClassLength
 
 end

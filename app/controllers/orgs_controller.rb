@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class OrgsController < ApplicationController
 
   include OrgSelectable
@@ -26,7 +27,8 @@ class OrgsController < ApplicationController
   end
 
   # PUT /org/admin/:id/admin_update
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def admin_update
     attrs = org_params
     @org = Org.find(params[:id])
@@ -87,7 +89,8 @@ class OrgsController < ApplicationController
       redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: failure
     end
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # This action is used by installations that have the following config enabled:
   #   Rails.configuration.x.shibboleth.use_filtered_discovery_service
@@ -111,6 +114,7 @@ class OrgsController < ApplicationController
 
   # This action is used to redirect a user to the Shibboleth IdP
   # POST /orgs/shibboleth_ds
+  # rubocop:disable Metrics/AbcSize
   def shibboleth_ds_passthru
     if !shib_params["shib-ds"][:org_name].blank?
       session["org_id"] = shib_params["shib-ds"][:org_name]
@@ -132,8 +136,11 @@ class OrgsController < ApplicationController
       redirect_to shibboleth_ds_path, notice: _("Please choose an organisation")
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # POST /orgs  (via AJAX from OrgSelectiors)
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def search
     args = search_params
     # If the search term is greater than 2 characters
@@ -170,6 +177,8 @@ class OrgsController < ApplicationController
       render json: []
     end
   end
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   private
 
@@ -202,6 +211,7 @@ class OrgsController < ApplicationController
   # Destroy the identifier if it exists and was blanked out, replace the
   # identifier if it was updated, create the identifier if its new, or
   # ignore it
+  # rubocop:disable Metrics/PerceivedComplexity
   def process_identifier_change(org:, identifier:)
     return org unless identifier.is_a?(Identifier)
 
@@ -219,5 +229,7 @@ class OrgsController < ApplicationController
 
     org
   end
+  # rubocop:enable Metrics/PerceivedComplexity
 
 end
+# rubocop:enable Metrics/ClassLength

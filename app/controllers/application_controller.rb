@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
@@ -173,3 +174,4 @@ class ApplicationController < ActionController::Base
   end
 
 end
+# rubocop:enable Metrics/ClassLength

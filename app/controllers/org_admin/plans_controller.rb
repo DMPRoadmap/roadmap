@@ -40,7 +40,7 @@ class OrgAdmin::PlansController < ApplicationController
   end
 
   # GET /org_admin/download_plans
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def download_plans
     # Test auth directly and throw Pundit error sincePundit
     # is unaware of namespacing
@@ -78,6 +78,6 @@ class OrgAdmin::PlansController < ApplicationController
       format.csv  { send_data plans, filename: "#{file_name}.csv" }
     end
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
 end

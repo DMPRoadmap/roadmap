@@ -7,9 +7,12 @@ class StatCreatedPlan
     class << self
 
       def do(start_date:, end_date:, org:, filtered: false)
-        count = count_plans(start_date: start_date, end_date: end_date, org: org, filtered: filtered)
-        by_template = plan_statistics(start_date: start_date, end_date: end_date, org: org, filtered: filtered)
-        using_template = plan_statistics(start_date: start_date, end_date: end_date, org: org, own_templates: true, filtered: filtered)
+        count = count_plans(start_date: start_date, end_date: end_date, org: org,
+                            filtered: filtered)
+        by_template = plan_statistics(start_date: start_date, end_date: end_date,
+                                      org: org, filtered: filtered)
+        using_template = plan_statistics(start_date: start_date, end_date: end_date,
+                                         org: org, own_templates: true, filtered: filtered)
         attrs = {
           date: end_date.to_date,
           org_id: org.id,
@@ -56,10 +59,12 @@ class StatCreatedPlan
             .count
       end
 
+      # rubocop:disable Metrics/AbcSize
       def plan_statistics(start_date:, end_date:, org:, filtered:, own_templates: false)
         roleable_plans = Role.joins(%i[plan user])
                              .administrator
-                             .merge(plans(start_date: start_date, end_date: end_date, filtered: filtered))
+                             .merge(plans(start_date: start_date, end_date: end_date,
+                                          filtered: filtered))
         roleable_plans = if own_templates
                            roleable_plans.merge(own_template_plans(org))
                          else
@@ -78,6 +83,7 @@ class StatCreatedPlan
           { name: t[1], count: template_counts[t[0]] }
         end
       end
+      # rubocop:enable Metrics/AbcSize
 
     end
 
