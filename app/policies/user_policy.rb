@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 class UserPolicy < ApplicationPolicy
+
   attr_reader :signed_in_user
   attr_reader :user
 
   def initialize(signed_in_user, user)
     raise Pundit::NotAuthorizedError, "must be logged in" unless signed_in_user
+
     @signed_in_user = signed_in_user
     @user = user
   end
@@ -70,8 +74,11 @@ class UserPolicy < ApplicationPolicy
   end
 
   class Scope < Scope
+
     def resolve
       scope.where(org_id: user.org_id)
     end
+
   end
+
 end
