@@ -49,7 +49,7 @@ module ExternalApis
 
       # Implement the authentication for the DOI API
       def auth
-        return true
+        true
 
         # You should implement any necessary authentication step required by the
         # DOI API
@@ -57,7 +57,7 @@ module ExternalApis
 
       # Implement the call to retrieve/mint a new DOI
       def mint(plan:)
-        return SecureRandom.uuid
+        SecureRandom.uuid
 
         # Minted DOIs should be stored as an Identifier. For example:
         #    doi_url = "#{landing_page_url}#{doi}"

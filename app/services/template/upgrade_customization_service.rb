@@ -31,7 +31,6 @@ class Template
     class NoFunderTemplateError < StandardError
     end
 
-
     ##
     # The Template we're upgrading
     #
@@ -64,12 +63,12 @@ class Template
       Template.transaction do
         if init_template.customization_of.blank?
           raise NotACustomizationError,
-            _("upgrade_customization! requires a customised template")
+                _("upgrade_customization! requires a customised template")
         end
         if funder_template.nil?
           # rubocop:disable Layout/LineLength
           raise NoFunderTemplateError,
-            _("upgrade cannot be carried out since there is no published template of its current funder")
+                _("upgrade cannot be carried out since there is no published template of its current funder")
           # rubocop:enable Layout/LineLength
         end
 
@@ -81,7 +80,8 @@ class Template
           # a) If the Org's template ({#customized_template}) has the Phase...
           if customized_phase = find_matching_record_in_collection(
             record: funder_phase,
-            collection: customized_template.phases)
+            collection: customized_template.phases
+          )
 
           # b) If the Org's template ({#customized_template}) doesn't have this Phase.
           #    This is not a problem, since {#customization_template} should have this
@@ -113,9 +113,9 @@ class Template
     # Returns {Template}
     def customized_template
       @customized_template ||= init_template.deep_copy(attributes: {
-                                 version: init_template.version + 1,
-                                 published: false
-                               })
+                                                         version: init_template.version + 1,
+                                                         published: false
+                                                       })
     end
 
     # Creates a new customisation for the published template whose family_id {#template}
@@ -170,9 +170,7 @@ class Template
         target_question = target_template.questions.find_by(
           versionable_id: custom_annotation.question.versionable_id
         )
-        if target_question.present?
-          target_question.annotations << custom_annotation
-        end
+        target_question.annotations << custom_annotation if target_question.present?
       end
     end
 

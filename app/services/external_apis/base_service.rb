@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'httparty'
+require "httparty"
 
 module ExternalApis
 
@@ -51,7 +51,6 @@ module ExternalApis
           "User-Agent": "#{app_name} (#{app_email})"
         }
         hash.merge({ "Host": URI(api_base_url).hostname.to_s })
-
       rescue URI::InvalidURIError => e
         handle_uri_failure(method: "BaseService.headers #{e.message}",
                            uri: api_base_url)
@@ -100,7 +99,6 @@ module ExternalApis
 
         HTTParty.get(uri, options(additional_headers: additional_headers,
                                   debug: debug))
-
       rescue URI::InvalidURIError => e
         handle_uri_failure(method: "BaseService.http_get #{e.message}",
                            uri: uri)
