@@ -2,9 +2,9 @@
 
 module OrgDateRangeable
 
-  # rubocop:disable Metrics/MethodLength, Metrics/LineLength
+  # rubocop:disable Metrics/MethodLength, Layout/LineLength
   def monthly_range(org:, start_date: nil, end_date: Date.today.end_of_month, filtered: false)
-    # rubocop:enable Metrics/LineLength
+    # rubocop:enable Layout/LineLength
     query_string = "org_id = :org_id and filtered = :filtered"
     query_hash = { org_id: org.id, filtered: filtered }
 

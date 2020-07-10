@@ -58,9 +58,9 @@ class GuidanceGroupsController < ApplicationController
     authorize @guidance_group
 
     if @guidance_group.update(published: true)
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       flash[:notice] = _("Your guidance group has been published and is now available to users.")
-      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Layout/LineLength
     else
       flash[:alert] = failure_message(@guidance_group, _("publish"))
     end
@@ -73,9 +73,9 @@ class GuidanceGroupsController < ApplicationController
     authorize @guidance_group
 
     if @guidance_group.update(published: false)
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       flash[:notice] = _("Your guidance group is no longer published and will not be available to users.")
-      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Layout/LineLength
     else
       flash[:alert] = failure_message(@guidance_group, _("unpublish"))
     end

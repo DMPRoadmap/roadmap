@@ -18,24 +18,24 @@ class AnswersController < ApplicationController
     begin
       p = Plan.find(p_params[:plan_id])
       if !p.question_exists?(p_params[:question_id])
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         render(status: :not_found, json: {
           msg: _("There is no question with id %{question_id} associated to plan id %{plan_id} for which to create or update an answer") % {
             question_id: p_params[:question_id],
             plan_id: p_params[:plan_id]
           }
         })
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
         return
       end
     rescue ActiveRecord::RecordNotFound
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       render(status: :not_found, json: {
         msg: _("There is no plan with id %{id} for which to create or update an answer") % {
           id: p_params[:plan_id]
         }
       })
-      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Layout/LineLength
       return
     end
     q = Question.find(p_params[:question_id])
@@ -124,7 +124,7 @@ class AnswersController < ApplicationController
       end
 
       send_webhooks(current_user, @answer)
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       render json: {
         "qn_data": qn_data,
         "section_data": section_data,
@@ -158,7 +158,7 @@ class AnswersController < ApplicationController
           }, formats: [:html])
         }
       }.to_json
-      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Layout/LineLength
     end
   end
 

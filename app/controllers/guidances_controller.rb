@@ -102,9 +102,9 @@ class GuidancesController < ApplicationController
       if !guidance_group.published? || guidance_group.published.nil?
         guidance_group.update(published: true)
       end
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       flash[:notice] = _("Your guidance has been published and is now available to users.")
-      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Layout/LineLength
     else
       flash[:alert] = failure_message(@guidance, _("publish"))
     end
@@ -120,9 +120,9 @@ class GuidancesController < ApplicationController
       unless guidance_group.guidances.where(published: true).exists?
         guidance_group.update(published: false)
       end
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       flash[:notice] = _("Your guidance is no longer published and will not be available to users.")
-      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Layout/LineLength
     else
       flash[:alert] = failure_message(@guidance, _("unpublish"))
     end

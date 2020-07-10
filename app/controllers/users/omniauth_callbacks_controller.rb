@@ -56,11 +56,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
                              value: request.env["omniauth.auth"].uid,
                              attrs: request.env["omniauth.auth"],
                              identifiable: current_user)
-          # rubocop:disable Metrics/LineLength
+          # rubocop:disable Layout/LineLength
           flash[:notice] = _("Your account has been successfully linked to %{scheme}.") % {
             scheme: scheme.description
           }
-          # rubocop:enable Metrics/LineLength
+          # rubocop:enable Layout/LineLength
         else
           flash[:alert] = _("Unable to link your account to %{scheme}.") % {
             scheme: scheme.description
@@ -70,9 +70,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       elsif user.id != current_user.id
         # If a user was found but does NOT match the current user then the identifier has
         # already been attached to another account (likely the user has 2 accounts)
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         flash[:alert] = _("The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}")
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
       end
 
       # Redirect to the User Profile page
