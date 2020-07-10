@@ -43,7 +43,7 @@ class DataCleanupRuleGenerator < Rails::Generators::NamedBase
   #
   # Returns String
   def default_description
-    "%<rule_name>s on %<model_name>s" % { rule_name: rule_class_name.underscore
+    "%{rule_name}s on %{model_name}s" % { rule_name: rule_class_name.underscore
                                                                     .split("_")
                                                                     .join(" ")
                                                                     .capitalize,

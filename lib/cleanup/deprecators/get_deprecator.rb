@@ -14,8 +14,8 @@ module Cleanup
 
       ##
       # Default message to display to developer when deprecated method called.
-      MESSAGE = "%<deprecated_method>s is deprecated. "\
-                  "Instead, you should use: %<new_method>s. "\
+      MESSAGE = "%{deprecated_method}s is deprecated. "\
+                  "Instead, you should use: %{new_method}s. "\
                   "Read #{__FILE__} for more information."
 
       # Message printed to STDOUT when a deprecated method is called.

@@ -4,7 +4,7 @@ class CustomFailure < Devise::FailureApp
 
   def redirect_url
     root_path
-    end
+  end
 
   def respond
     if http_auth?
@@ -12,6 +12,6 @@ class CustomFailure < Devise::FailureApp
     else
       redirect
     end
-end
+  end
 
 end
