@@ -12,7 +12,7 @@ AllCops:
     - 'lib/tasks/**/*'
     - 'Gemfile'
     - 'db/**/*'
-    - 'config/**/*'
+    # - 'config/**/*'
     - 'script/**/*'
     - '**/Rakefile'
     - '**/config.ru'
@@ -83,7 +83,7 @@ Metrics/ClassLength:
 # Bumping the default AbcSize so we don't need to refactor everything
 Metrics/AbcSize:
   Max: 25
-  
+
 # Bumping the default CyclomaticComplexity so we don't need to refactor everything
 Metrics/CyclomaticComplexity:
   Max: 25
