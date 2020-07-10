@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PublicPagePolicy < ApplicationPolicy
 
   def initialize(object, object2 = nil)
@@ -14,7 +16,7 @@ class PublicPagePolicy < ApplicationPolicy
   end
 
   def template_export?
-    @object.present? && ( @object.is_default? || @object.org.funder? ) && @object.published?
+    @object.present? && (@object.is_default? || @object.org.funder?) && @object.published?
   end
 
   def plan_export?
@@ -27,6 +29,8 @@ class PublicPagePolicy < ApplicationPolicy
     if plan.is_a?(Plan) && user.is_a?(User)
       return plan.publicly_visible? || (plan.organisationally_visible? && plan.owner.present? && plan.owner.org_id == user.org_id)
     end
-    return false;
+
+    false
   end
+
 end

@@ -7,6 +7,7 @@ class DepartmentPolicy < ApplicationPolicy
 
   def initialize(user, department)
     raise Pundit::NotAuthorizedError, "must be logged in" unless user
+
     @user = user
     @department = department
   end
@@ -21,7 +22,7 @@ class DepartmentPolicy < ApplicationPolicy
 
   def edit?
     (@user.can_org_admin? && @user.org.id === @department.org_id) ||
-       @user.can_super_admin?
+      @user.can_super_admin?
   end
 
   def update?

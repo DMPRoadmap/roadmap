@@ -1,8 +1,12 @@
+# frozen_string_literal: true
+
 class SectionPolicy < ApplicationPolicy
+
   attr_reader :user, :section
 
   def initialize(user, section)
     raise Pundit::NotAuthorizedError, "must be logged in" unless user
+
     @user = user
     @section = section
   end
@@ -16,7 +20,7 @@ class SectionPolicy < ApplicationPolicy
   def index?
     user.present?
   end
-  
+
   def show?
     user.present?
   end
@@ -24,7 +28,7 @@ class SectionPolicy < ApplicationPolicy
   def edit?
     user.can_modify_templates?  &&  (section.phase.template.org_id == user.org_id)
   end
-    
+
   def new?
     user.can_modify_templates?  &&  (section.phase.template.org_id == user.org_id)
   end
