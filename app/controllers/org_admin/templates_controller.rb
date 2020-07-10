@@ -105,9 +105,9 @@ module OrgAdmin
                        .select("phases.title", "phases.description", "sections.title",
                                "questions.text", "question_options.text")
       if !template.latest?
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         flash[:notice] = _("You are viewing a historical version of this template. You will not be able to make changes.")
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
       end
       render "container", locals: {
         partial_path: "show",
@@ -227,9 +227,9 @@ module OrgAdmin
           end
         end
       else
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         flash[:alert] = _("You cannot delete a #{template_type(template)} that has been used to create plans.")
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
       end
       if request.referrer.present?
         redirect_to request.referrer
@@ -260,7 +260,7 @@ module OrgAdmin
     def publish
       template = Template.find(params[:id])
       authorize template
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       publishable, errors = template.publishability
       if publishable
         if template.publish!
@@ -271,7 +271,7 @@ module OrgAdmin
       else
         flash[:alert] = errors
       end
-      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Layout/LineLength
       redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
     end
 
@@ -321,7 +321,7 @@ module OrgAdmin
           end
 
           format.pdf do
-            # rubocop:disable Metrics/LineLength
+            # rubocop:disable Layout/LineLength
             render pdf: file_name,
               template: "template_exports/template_export",
               margin: @formatting[:margin],
@@ -335,7 +335,7 @@ module OrgAdmin
               right: "[page] of [topage]",
               encoding: "utf8"
             }
-            # rubocop:enable Metrics/LineLength
+            # rubocop:enable Layout/LineLength
           end
         end
       rescue ActiveRecord::RecordInvalid => e

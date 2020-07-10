@@ -123,14 +123,14 @@ class PlansController < ApplicationController
 
         elsif !@plan.template.customization_of.nil?
           # We used a customized version of the the funder template
-          # rubocop:disable Metrics/LineLength
+          # rubocop:disable Layout/LineLength
           msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{plan_params[:org_name]}"
-          # rubocop:enable Metrics/LineLength
+          # rubocop:enable Layout/LineLength
         else
           # We used the specified org's or funder's template
-          # rubocop:disable Metrics/LineLength
+          # rubocop:disable Layout/LineLength
           msg += " #{_('This plan is based on the')} #{@plan.template.org.name}: '#{@plan.template.title}' template."
-          # rubocop:enable Metrics/LineLength
+          # rubocop:enable Layout/LineLength
         end
 
         @plan.add_user!(current_user.id, :creator)
@@ -385,13 +385,13 @@ class PlansController < ApplicationController
                  json: { msg: failure_message(plan, _("update")) }
         end
       else
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         render status: :forbidden, json: {
           msg: _("Unable to change the plan's status since it is needed at least %{percentage} percentage responded") % {
               percentage: Rails.configuration.x.plans.default_percentage_answered
           }
         }
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
       end
     else
       render status: :not_found,
@@ -407,7 +407,7 @@ class PlansController < ApplicationController
     plan = Plan.find(params[:id])
     authorize plan
     plan.visibility = (params[:is_test] === "1" ? :is_test : :privately_visible)
-    # rubocop:disable Metrics/LineLength
+    # rubocop:disable Layout/LineLength
     if plan.save
       render json: {
         code: 1,
@@ -418,7 +418,7 @@ class PlansController < ApplicationController
         code: 0, msg: _("Unable to change the plan's test status")
       }
     end
-    # rubocop:enable Metrics/LineLength
+    # rubocop:enable Layout/LineLength
   end
 
   # GET /plans/:id/overview

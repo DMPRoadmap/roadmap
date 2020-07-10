@@ -67,10 +67,10 @@ class Template
             _("upgrade_customization! requires a customised template")
         end
         if funder_template.nil?
-          # rubocop:disable Metrics/LineLength
+          # rubocop:disable Layout/LineLength
           raise NoFunderTemplateError,
             _("upgrade cannot be carried out since there is no published template of its current funder")
-          # rubocop:enable Metrics/LineLength
+          # rubocop:enable Layout/LineLength
         end
 
         # Merges modifiable sections or questions from source into target_template object

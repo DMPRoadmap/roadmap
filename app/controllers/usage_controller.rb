@@ -115,9 +115,9 @@ class UsageController < ApplicationController
     sep = sep_param
 
     plan_data(args: args, sort: :desc)
-    # rubocop:disable Metrics/LineLength
+    # rubocop:disable Layout/LineLength
     data_csvified = StatCreatedPlan.to_csv(@plans_per_month, details: { by_template: true, sep: sep })
-    # rubocop:enable Metrics/LineLength
+    # rubocop:enable Layout/LineLength
     send_data(data_csvified, filename: "created_plan_by_template.csv")
   end
 
