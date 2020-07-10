@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: regions
@@ -16,9 +18,9 @@ class Region < ApplicationRecord
   # = Associations =
   # ================
 
-  has_many :sub_regions, class_name: 'Region', foreign_key: 'super_region_id'
+  has_many :sub_regions, class_name: "Region", foreign_key: "super_region_id"
 
-  belongs_to :super_region, class_name: 'Region', optional: true
+  belongs_to :super_region, class_name: "Region", optional: true
 
   # ===============
   # = Validations =

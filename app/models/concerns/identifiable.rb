@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 module Identifiable
 
   extend ActiveSupport::Concern
 
   included do
-
     # ================
     # = Associations =
     # ================
@@ -70,7 +71,6 @@ module Identifiable
       end
       true
     end
-
   end
 
 end

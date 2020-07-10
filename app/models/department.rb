@@ -29,8 +29,8 @@ class Department < ApplicationRecord
   validates :org, presence: { message: PRESENCE_MESSAGE }
 
   validates :name, presence: { message: PRESENCE_MESSAGE },
-                      uniqueness: { message: UNIQUENESS_MESSAGE,
-                                    scope: :org_id }
+                   uniqueness: { message: UNIQUENESS_MESSAGE,
+                                 scope: :org_id }
 
   validates :name, uniqueness: { message: UNIQUENESS_MESSAGE,
                                  scope: :org_id }
