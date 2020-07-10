@@ -56,6 +56,7 @@ module ExternalApis
       end
 
       # Implement the call to retrieve/mint a new DOI
+      # rubocop:disable Lint/UnusedMethodArgument
       def mint(plan:)
         SecureRandom.uuid
 
@@ -67,6 +68,7 @@ module ExternalApis
         # the link to the DOI will appear on the Project Details page, in plan
         # exports and will become the `dmp_id` in this system's API responses
       end
+      # rubocop:enable Lint/UnusedMethodArgument
 
     end
 

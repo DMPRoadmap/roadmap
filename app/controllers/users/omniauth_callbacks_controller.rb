@@ -20,6 +20,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   #
   # scheme - The IdentifierScheme for the provider
   #
+  # rubocop:disable Metrics/AbcSize
   def handle_omniauth(scheme)
     user = if request.env["omniauth.auth"].nil?
              User.from_omniauth(request.env)
@@ -35,15 +36,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         redirect_to new_user_registration_url
 
       # Otherwise sign them in
-      else
+      elsif scheme.name == "shibboleth"
         # Until ORCID becomes supported as a login method
-        if scheme.name == "shibboleth"
-          set_flash_message(:notice, :success, kind: scheme.description) if is_navigational_format?
-          sign_in_and_redirect user, event: :authentication
-        else
-          flash[:notice] = _("Successfully signed in")
-          redirect_to new_user_registration_url
-        end
+        set_flash_message(:notice, :success, kind: scheme.description) if is_navigational_format?
+        sign_in_and_redirect user, event: :authentication
+      else
+        flash[:notice] = _("Successfully signed in")
+        redirect_to new_user_registration_url
       end
 
     # The user is already logged in and just registering the uid with us
@@ -76,6 +75,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       redirect_to edit_user_registration_path
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def failure
     redirect_to root_path

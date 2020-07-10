@@ -110,7 +110,6 @@ module ExternalApis
       end
 
       # Recursive method that can handle multiple ROR result pages if necessary
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       # rubocop:disable Metrics/CyclomaticComplexity
       def process_pages(term:, json:, filters: [])
         return [] if json.blank?
@@ -135,11 +134,10 @@ module ExternalApis
         log_error(method: "ROR search", error: e)
         results || []
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
       # rubocop:enable Metrics/CyclomaticComplexity
 
       # Convert the JSON items into a hash
-      # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
       def parse_results(json:)
         results = []
         return results unless json.present? && json.fetch("items", []).any?
@@ -159,7 +157,6 @@ module ExternalApis
         end
         results
       end
-      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
       # Org names are not unique, so include the Org URL if available or
       # the country. For example:

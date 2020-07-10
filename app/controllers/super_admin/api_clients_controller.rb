@@ -34,7 +34,9 @@ module SuperAdmin
       if @api_client.save
         UserMailer.api_credentials(@api_client).deliver_now
         msg = success_message(@api_client, _("created"))
-        msg += _(". The API credentials have been emailed to %{email}") % { email: @api_client.contact_email }
+        msg += _(". The API credentials have been emailed to %{email}") % {
+          email: @api_client.contact_email
+        }
         flash.now[:notice] = msg
         render :edit
       else
@@ -71,10 +73,10 @@ module SuperAdmin
     # GET /api_clients/:id/refresh_credentials/
     def refresh_credentials
       @api_client = ApiClient.find(params[:id])
-      if @api_client.present?
-        @api_client.generate_credentials
-        @api_client.save
-      end
+      return unless @api_client.present?
+
+      @api_client.generate_credentials
+      @api_client.save
     end
 
     # GET /api_clients/:id/email_credentials/

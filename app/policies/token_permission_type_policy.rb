@@ -12,7 +12,7 @@ class TokenPermissionTypePolicy < ApplicationPolicy
   end
 
   def index?
-    user.can_use_api? && (user.org.token_permission_types.count > 0)
+    user.can_use_api? && user.org.token_permission_types.count.positive?
   end
 
 end

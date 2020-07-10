@@ -8,6 +8,7 @@ class RolesController < ApplicationController
   after_action :verify_authorized
 
   # POST /roles
+  # rubocop:disable Metrics/AbcSize
   def create
     registered = true
 
@@ -67,6 +68,7 @@ class RolesController < ApplicationController
     end
     redirect_to controller: "plans", action: "share", id: @role.plan.id
   end
+  # rubocop:enable Metrics/AbcSize
 
   # PUT /roles/:id
   def update

@@ -77,13 +77,11 @@ class UsersController < ApplicationController
           @user.remove_token! if perm.id == Perm.use_api.id
           privileges_changed = true
         end
-      else
-        if perms.include? perm
-          @user.perms << perm
-          if perm.id == Perm.use_api.id
-            @user.keep_or_generate_token!
-            privileges_changed = true
-          end
+      elsif perms.include? perm
+        @user.perms << perm
+        if perm.id == Perm.use_api.id
+          @user.keep_or_generate_token!
+          privileges_changed = true
         end
       end
     end
@@ -130,26 +128,26 @@ class UsersController < ApplicationController
     authorize current_user
 
     user = User.find(params[:id])
-    if user.present?
-      begin
-        user.active = !user.active
-        user.save!
-        render json: {
-          code: 1,
-          msg: _("Successfully %{action} %{username}'s account.") % {
-            action: user.active ? _("activated") : _("deactivated"),
-            username: user.name(false)
-          }
+    return unless user.present?
+
+    begin
+      user.active = !user.active
+      user.save!
+      render json: {
+        code: 1,
+        msg: _("Successfully %{action} %{username}'s account.") % {
+          action: user.active ? _("activated") : _("deactivated"),
+          username: user.name(false)
         }
-      rescue Exception
-        render json: {
-          code: 0,
-          msg: _("Unable to %{action} %{username}") % {
-            action: user.active ? _("activate") : _("deactivate"),
-            username: user.name(false)
-          }
+      }
+    rescue StandardError
+      render json: {
+        code: 0,
+        msg: _("Unable to %{action} %{username}") % {
+          action: user.active ? _("activate") : _("deactivate"),
+          username: user.name(false)
         }
-      end
+      }
     end
   end
 

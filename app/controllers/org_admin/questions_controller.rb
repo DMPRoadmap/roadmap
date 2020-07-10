@@ -31,16 +31,19 @@ module OrgAdmin
     def open_conditions
       question = Question.find(params[:question_id])
       authorize question
-      # render partial: "org_admin/conditions/container", locals: { question: question, conditions: question.conditions }
       render json: { container: render_to_string(partial: "org_admin/conditions/container",
                                                  formats: :html,
                                                  layout: false,
-                                                 locals: { question: question,
-                                                           conditions: question.conditions.order(:number) }),
+                                                 locals: {
+                                                   question: question,
+                                                   conditions: question.conditions.order(:number)
+                                                 }),
                      webhooks: webhook_hash(question.conditions) }
     end
 
+    # rubocop:disable Layout/LineLength
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/questions/[:question_id]/edit
+    # rubocop:enable Layout/LineLength
     def edit
       question = Question.includes(:annotations,
                                    :question_options,
@@ -92,7 +95,7 @@ module OrgAdmin
         else
           flash[:alert] = failure_message(question, _("create"))
         end
-      rescue StandardError => e
+      rescue StandardError
         flash[:alert] = _("Unable to create a new version of this template.")
       end
       redirect_to edit_org_admin_template_phase_path(
@@ -103,6 +106,7 @@ module OrgAdmin
     end
 
     # PUT /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/:id
+    # rubocop:disable Metrics/AbcSize
     def update
       question = Question.find(params[:id])
       authorize question
@@ -155,7 +159,8 @@ module OrgAdmin
       # add check for number present to ensure this is not just an annotation
       attrs[:theme_ids] = [] if attrs[:theme_ids].blank? && attrs[:number].present?
       if question.update(attrs)
-        if question.update_conditions(sanitize_hash(params["conditions"]), old_to_new_opts, question_id_map)
+        if question.update_conditions(sanitize_hash(params["conditions"]),
+                                      old_to_new_opts, question_id_map)
           flash[:notice] = success_message(question, _("updated"))
         end
       else
@@ -175,6 +180,7 @@ module OrgAdmin
         )
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     # DELETE /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/:id
     def destroy
@@ -188,7 +194,7 @@ module OrgAdmin
         else
           flash[:alert] = flash[:alert] = failure_message(question, _("delete"))
         end
-      rescue StandardError => e
+      rescue StandardError
         flash[:alert] = _("Unable to create a new version of this template.")
       end
       redirect_to edit_org_admin_template_phase_path(
@@ -241,18 +247,18 @@ module OrgAdmin
                     theme_ids: [])
     end
 
-    # when a templkate gets versioned while saving the question
+    # when a template gets versioned while saving the question
     # options are now out of sync with the params.
     # This sorts that out.
-    def update_option_ids(qp, opt_map)
-      qopts = qp["question_options_attributes"]
+    def update_option_ids(attrs_in, opt_map)
+      qopts = attrs_in["question_options_attributes"]
       qopts.keys.each do |k|
         attr_hash = qopts[k]
         old_id = attr_hash["id"]
         new_id = opt_map[old_id]
         attr_hash["id"] = new_id
       end
-      qp
+      attrs_in
     end
 
     # When a template gets versioned by changes to one of its questions we need to loop

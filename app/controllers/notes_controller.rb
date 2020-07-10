@@ -8,6 +8,7 @@ class NotesController < ApplicationController
   respond_to :html
 
   # POST /notes
+  # rubocop:disable Metrics/AbcSize
   def create
     @note = Note.new
     @note.user_id = note_params[:user_id]
@@ -72,6 +73,7 @@ class NotesController < ApplicationController
       }.to_json, status: :bad_request
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # PUT /notes/:id
   def update

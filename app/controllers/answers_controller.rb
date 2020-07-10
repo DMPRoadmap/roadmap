@@ -11,6 +11,7 @@ class AnswersController < ApplicationController
   #       logic and we should stop using custom JSON here and instead use
   #       `remote: true` in the <form> tag and just send back the ERB.
   #       Consider using ActionCable for the progress bar(s)
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def create_or_update
     p_params = permitted_params
 
@@ -41,53 +42,52 @@ class AnswersController < ApplicationController
 
     # rubocop:disable Metrics/BlockLength
     Answer.transaction do
-      begin
-        args = p_params
-        # Answer model does not understand :standards so remove it from the params
-        standards = args[:standards]
-        args.delete(:standards)
+      args = p_params
+      # Answer model does not understand :standards so remove it from the params
+      standards = args[:standards]
+      args.delete(:standards)
 
-        @answer = Answer.find_by!(
-          plan_id: args[:plan_id],
-          question_id: args[:question_id]
+      @answer = Answer.find_by!(
+        plan_id: args[:plan_id],
+        question_id: args[:question_id]
+      )
+      authorize @answer
+
+      @answer.update(args.merge(user_id: current_user.id))
+      if args[:question_option_ids].present?
+        # Saves the record with the updated_at set to the current time.
+        # Needed if only answer.question_options is updated
+        @answer.touch
+      end
+      if q.question_format.rda_metadata?
+        @answer.update_answer_hash(
+          JSON.parse(standards.to_json), args[:text]
         )
-        authorize @answer
-
-        @answer.update(args.merge(user_id: current_user.id))
-        if args[:question_option_ids].present?
-          # Saves the record with the updated_at set to the current time.
-          # Needed if only answer.question_options is updated
-          @answer.touch
-        end
-        if q.question_format.rda_metadata?
-          @answer.update_answer_hash(
-            JSON.parse(standards.to_json), args[:text]
-          )
-          @answer.save!
-        end
-      rescue ActiveRecord::RecordNotFound
-        @answer = Answer.new(args.merge(user_id: current_user.id))
-        @answer.lock_version = 1
-        authorize @answer
-        if q.question_format.rda_metadata?
-          @answer.update_answer_hash(
-            JSON.parse(standards.to_json), args[:text]
-          )
-        end
         @answer.save!
-      rescue ActiveRecord::StaleObjectError
-        @stale_answer = @answer
-        @answer = Answer.find_by(
-          plan_id: args[:plan_id],
-          question_id: args[:question_id]
+      end
+    rescue ActiveRecord::RecordNotFound
+      @answer = Answer.new(args.merge(user_id: current_user.id))
+      @answer.lock_version = 1
+      authorize @answer
+      if q.question_format.rda_metadata?
+        @answer.update_answer_hash(
+          JSON.parse(standards.to_json), args[:text]
         )
       end
+      @answer.save!
+    rescue ActiveRecord::StaleObjectError
+      @stale_answer = @answer
+      @answer = Answer.find_by(
+        plan_id: args[:plan_id],
+        question_id: args[:question_id]
+      )
     end
     # rubocop:enable Metrics/BlockLength
 
     # TODO: Seems really strange to do this check. If its false it returns an
     #      200 with an empty body. We should update to send back some JSON. The
     #      check should probably happen on create/update
+    # rubocop:disable Style/GuardClause
     if @answer.present?
       @plan = Plan.includes(
         sections: {
@@ -104,7 +104,8 @@ class AnswersController < ApplicationController
       remove_list_after = remove_list(@plan)
 
       all_question_ids = @plan.questions.pluck(:id)
-      all_answers = @plan.answers
+      # rubocop pointed out that these variable is not used
+      # all_answers = @plan.answers
       qn_data = {
         to_show: all_question_ids - remove_list_after,
         to_hide: remove_list_after
@@ -114,7 +115,8 @@ class AnswersController < ApplicationController
       @plan.sections.each do |section|
         next if section.number < @section.number
 
-        n_qs, n_ans = check_answered(section, qn_data[:to_show], all_answers)
+        # rubocop pointed out that these variables are not used
+        # n_qs, n_ans = check_answered(section, qn_data[:to_show], all_answers)
         this_section_info = {
           sec_id: section.id,
           no_qns: num_section_questions(@plan, section),
@@ -159,7 +161,9 @@ class AnswersController < ApplicationController
       }.to_json
 
     end
+    # rubocop:enable Style/GuardClause
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   private
 
