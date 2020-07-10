@@ -33,7 +33,7 @@ class OrgsController < ApplicationController
     @org.logo = attrs[:logo] if attrs[:logo]
     tab = (attrs[:feedback_enabled].present? ? "feedback" : "profile")
     if attrs[:org_links].present?
-      @org.links = JSON.parse(attrs[:org_links])
+      @org.links = ActiveSupport::JSON.decode(attrs[:org_links])
       attrs.delete(:org_links)
     end
 
