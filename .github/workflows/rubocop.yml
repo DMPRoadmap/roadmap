@@ -11,7 +11,7 @@ jobs:
     - uses: actions/checkout@v2
 
     # Extract the Ruby version from the Gemfile.lock
-    - name: 'Determine Ruby Version'
+    - name: 'Determine Ruby Version from Gemfile.lock'
       run: echo ::set-env name=RUBY_VERSION::$(echo `cat ./Gemfile.lock | grep -A 1 'RUBY VERSION' | grep 'ruby' | grep -oE '[0-9]\.[0-9]'`)
 
     # Install Ruby using the version found in the Gemfile.lock
