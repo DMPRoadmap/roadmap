@@ -9,8 +9,13 @@ class OrgsController < ApplicationController
   ]
   respond_to :html
 
-  ##
-  # GET /organisations/1/edit
+  # TODO: Refactor this one along with super_admin/orgs_controller. Consider moving
+  #       to a new `admin` namespace, leaving public facing actions in here and
+  #       moving all of the `admin_` ones to the `admin` namespaced controller
+
+   # TODO: Just use instance variables instead of passing locals. Separating the
+  #       create/update will make that easier.
+  # GET /org/admin/:id/admin_edit
   def admin_edit
     org = Org.find(params[:id])
     authorize org
@@ -20,16 +25,16 @@ class OrgsController < ApplicationController
                                    url: admin_update_org_path(org) }
   end
 
-  ##
-  # PUT /organisations/1
+  # PUT /org/admin/:id/admin_update
   def admin_update
     attrs = org_params
     @org = Org.find(params[:id])
     authorize @org
     @org.logo = attrs[:logo] if attrs[:logo]
     tab = (attrs[:feedback_enabled].present? ? "feedback" : "profile")
-    if params[:org_links].present?
-      @org.links = ActiveSupport::JSON.decode(params[:org_links])
+    if attrs[:org_links].present?
+      @org.links = ActiveSupport::JSON.decode(attrs[:org_links])
+      attrs.delete(:org_links)
     end
 
     # Only allow super admins to change the org types and shib info
@@ -41,8 +46,8 @@ class OrgsController < ApplicationController
       if Rails.configuration.x.shibboleth.use_filtered_discovery_service
         shib = IdentifierScheme.by_name("shibboleth").first
 
-        if shib.present? && attrs.fetch(:identifiers_attributes, {}).any?
-          entity_id = attrs[:identifiers_attributes].first[1][:value]
+        if shib.present? && attrs.fetch(:identifiers_attributes, []).any?
+          entity_id = attrs[:identifiers_attributes].first[:value]
           identifier = Identifier.find_or_initialize_by(
             identifiable: @org, identifier_scheme: shib, value: entity_id
           )
@@ -58,10 +63,10 @@ class OrgsController < ApplicationController
       lookup = org_from_params(params_in: attrs)
       ids = identifiers_from_params(params_in: attrs)
       identifiers += ids.select { |id| id.value.present? }
-
-      # Remove the extraneous Org Selector hidden fields
-      attrs = remove_org_selection_params(params_in: attrs)
     end
+
+    # Remove the extraneous Org Selector hidden fields
+    attrs = remove_org_selection_params(params_in: attrs)
 
     if @org.update(attrs)
       # Save any identifiers that were found
@@ -82,14 +87,15 @@ class OrgsController < ApplicationController
     end
   end
 
-  # GET /orgs/shibboleth_ds
-  # ----------------------------------------------------------------
+  # This action is used by installations that have the following config enabled:
+  #   Rails.configuration.x.shibboleth.use_filtered_discovery_service
   def shibboleth_ds
     redirect_to root_path unless current_user.nil?
 
     @user = User.new
     # Display the custom Shibboleth discovery service page.
-    @orgs = Identifier.by_scheme_name("shibboleth", "Org").order(:name)
+    @orgs = Identifier.by_scheme_name("shibboleth", "Org")
+                      .sort { |a, b| a.identifiable.name <=> b.identifiable.name }
 
     if @orgs.empty?
       flash.now[:alert] = _("No organisations are currently registered.")
@@ -97,24 +103,20 @@ class OrgsController < ApplicationController
     end
   end
 
+  # This action is used to redirect a user to the Shibboleth IdP
   # POST /orgs/shibboleth_ds
-  # ----------------------------------------------------------------
   def shibboleth_ds_passthru
-    if !params["shib-ds"][:org_name].blank?
-      session["org_id"] = params["shib-ds"][:org_name]
+    if !shib_params["shib-ds"][:org_name].blank?
+      session["org_id"] = shib_params["shib-ds"][:org_name]
 
-      org = Org.where(id: params["shib-ds"][:org_id])
+      org = Org.where(id: shib_params["shib-ds"][:org_id])
       shib_entity = Identifier.by_scheme_name("shibboleth", "Org")
                               .where(identifiable: org)
 
       if !shib_entity.empty?
-        # Force SSL
-        shib_login = Rails.application.config.shibboleth_login
-        url = "#{request.base_url.gsub("http:", "https:")}#{shib_login}"
-        target = "#{user_shibboleth_omniauth_callback_url.gsub('http:', 'https:')}"
-
         # initiate shibboleth login sequence
-        redirect_to "#{url}?target=#{target}&entityID=#{shib_entity.first.value}"
+        entity_param = "entityID=#{shib_entity.first.value}"
+        redirect_to "#{shib_login_url}?#{shib_callback_url}&#{entity_param}"
       else
         failure = _("Your organisation does not seem to be properly configured.")
         redirect_to shibboleth_ds_path, alert: failure
@@ -125,13 +127,12 @@ class OrgsController < ApplicationController
     end
   end
 
-  # POST /orgs/search  (via AJAX)
-  # ----------------------------------------------------------------
+  # POST /orgs  (via AJAX from OrgSelectiors)
   def search
     args = search_params
     # If the search term is greater than 2 characters
     if args.present? && args.fetch(:name, "").length > 2
-      type = params.fetch(:type, "local")
+      type = args.fetch(:type, "local")
 
       # If we are including external API results
       case type
@@ -151,7 +152,7 @@ class OrgsController < ApplicationController
 
       # If we need to restrict the results to funding orgs then
       # only return the ones with a valid fundref
-      if orgs.present? && params.fetch(:funder_only, "false") == true
+      if orgs.present? && args.fetch(:funder_only, "false") == true
         orgs = orgs.select do |org|
           org[:fundref].present? && !org[:fundref].blank?
         end
@@ -169,14 +170,27 @@ class OrgsController < ApplicationController
   def org_params
     params.require(:org)
           .permit(:name, :abbreviation, :logo, :contact_email, :contact_name,
-                  :remove_logo, :org_type, :managed, :feedback_enabled,
+                  :remove_logo, :org_type, :managed, :feedback_enabled, :org_links,
                   :feedback_email_msg, :org_id, :org_name, :org_crosswalk,
-                  identifiers_attributes: [:identifier_scheme_id, :value],
-                  tracker_attributes: [:code])
+                  identifiers_attributes: %i[identifier_scheme_id value],
+                  tracker_attributes: %i[code])
+  end
+
+  def shib_params
+    params.permit("shib-ds": %i[org_id org_name])
   end
 
   def search_params
     params.require(:org).permit(:name, :type)
+  end
+
+  def shib_login_url
+    shib_login = Rails.configuration.x.shibboleth.login_url
+    "#{request.base_url.gsub('http:', 'https:')}#{shib_login}"
+  end
+
+  def shib_callback_url
+    "target=#{user_shibboleth_omniauth_callback_url.gsub('http:', 'https:')}"
   end
 
   # Destroy the identifier if it exists and was blanked out, replace the

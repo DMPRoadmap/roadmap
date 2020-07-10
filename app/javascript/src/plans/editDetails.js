@@ -4,7 +4,7 @@ import getConstant from '../utils/constants';
 
 $(() => {
   const grantIdField = $('.grant-id-typeahead');
-  const grantIdHidden = $('input#plan_grant_number');
+  const grantIdHidden = $('input#plan_grant_value');
 
   Tinymce.init();
   $('#is_test').click((e) => {
@@ -68,7 +68,8 @@ $(() => {
         const descriptionData = $.map((dataIn, datum) => datum.description);
         grantIdField.typeahead({ source: descriptionData });
       }).then(() => { setInitialGrantProjectName(); });
-      grantIdField.on('change', () => {
+
+      grantIdField.on('change', (e) => {
         const current = grantIdField.typeahead('getActive');
         if (current) {
           // match or partial match found
@@ -79,11 +80,15 @@ $(() => {
           if (currentResearchProject) {
             const grantId = currentResearchProject.grant_id;
             $('#grant_number_info').html(grantNumberInfo(grantId));
-            grantIdHidden.val(grantId);
+            if (grantId.length > 0) {
+              grantIdHidden.val(grantId);
+            } else {
+              grantIdHidden.val(grantIdField.val());
+            }
           }
         } else {
           $('#grant_number_info').html(grantNumberInfo(''));
-          grantIdHidden.val('');
+          grantIdHidden.val(grantIdField.val());
         }
       });
     }
