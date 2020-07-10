@@ -1,9 +1,12 @@
 # frozen_string_literal: true
+
 require "spec_helper"
 
-RSpec.describe SectionSorter, type: :model doStubSection = Struct.new(:number, :modifiable, :id) do
+RSpec.describe SectionSorter, type: :model do
 
-    alias modifiable? modifiable
+  StubSection = Struct.new(:number, :modifiable, :id) do
+
+    alias_method :modifiable?, :modifiable
 
     def unmodifiable?
       !modifiable?

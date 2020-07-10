@@ -10,6 +10,7 @@ module TinyMceHelper
   # val - String with the value to input to the text field
   #
   # Returns String
+  # rubocop:disable Metrics/MethodLength
   def tinymce_fill_in(id, with: "")
     # wait until the TinyMCE editor instance is ready.
     # This is required for cases where the editor is loaded via XHR.
@@ -28,5 +29,6 @@ module TinyMceHelper
       raise "No such tinyMCE element '##{id}'"
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
 end

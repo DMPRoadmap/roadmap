@@ -15,7 +15,7 @@ RSpec.describe Identifier, type: :model do
       end
 
       it "prevents duplicate value when identifier_scheme is nil" do
-        scheme = create(:identifier_scheme)
+        create(:identifier_scheme)
         create(:identifier, identifiable: @org, identifier_scheme: nil,
                             value: "foo")
         id = build(:identifier, identifiable: @org, identifier_scheme: nil,

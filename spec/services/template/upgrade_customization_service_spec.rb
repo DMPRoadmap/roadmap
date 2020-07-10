@@ -193,7 +193,8 @@ RSpec.describe "Template::UpgradeCustomizationService", type: :service do
       it "updates the customized template's new section with the next free number" do
         # Original 4 sections, plus new funder section, plus new customized section
         expect(subject.sections).to have_exactly(6).items
-        expect(subject.sections.maximum(:number)).to eql(funder_template.sections.maximum(:number) + 1)
+        expected = funder_template.sections.maximum(:number) + 1
+        expect(subject.sections.maximum(:number)).to eql(expected)
       end
 
     end
