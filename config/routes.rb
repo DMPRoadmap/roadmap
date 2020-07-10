@@ -68,6 +68,11 @@ Rails.application.routes.draw do
     resources :departments, controller: 'org_admin/departments'
   end
 
+  # This should be made more restful and placed within the `org_admin` or a new
+  # `admin` namespace. For example:
+  #     namespace :admin
+  #       resources :guidances, except: %i[show]
+  #     end
   resources :guidances, :path => 'org/admin/guidance', only: [] do
     member do
       get 'admin_index'
@@ -81,6 +86,11 @@ Rails.application.routes.draw do
     end
   end
 
+  # This should be made more restful and placed within the `org_admin` or a new
+  # `admin` namespace. For example:
+  #     namespace :admin
+  #       resources :guidance_groups, except: %i[show]
+  #     end
   resources :guidance_groups, :path => 'org/admin/guidancegroup', only: [] do
     member do
       get 'admin_show'

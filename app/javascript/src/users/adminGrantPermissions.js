@@ -20,7 +20,7 @@ $(() => {
   $('body').on('click', 'a[href$="admin_grant_permissions"]', (e) => {
     e.preventDefault();
     const target = $(e.target);
-    currentPrivileges = target.closest('td').siblings('td[data-descriptor="current_privileges"]');
+    currentPrivileges = target.closest('td').find('.privilege-description');
     $.ajax({
       method: 'GET',
       url: target.attr('href'),
@@ -52,7 +52,7 @@ $(() => {
         renderNotice(data.msg);
         scrollTo('#notification-area');
       }
-      if (isString(data.current_privileges) && currentPrivileges) {
+      if (isString(data.current_privileges) && currentPrivileges.length > 0) {
         currentPrivileges.html(data.current_privileges);
       }
     }

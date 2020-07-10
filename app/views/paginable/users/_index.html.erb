@@ -72,7 +72,9 @@
                   </td>
                   <%# The content of this column get updated through AJAX whenever the permission for an user are updated %>
                   <td class="text-center" data-descriptor="current_privileges">
-                    <%= render partial: 'users/current_privileges', locals: { user: user } %>
+                    <span class="privilege-description">
+                      <%= render partial: 'users/current_privileges', locals: { user: user } %>
+                    </span>
                     <br>
                     <%# Do not allow a user to change their own permissions or a super admin's permissions if they are not a super admin %>
                     <% unless current_user == user || !is_super_admin && user.can_super_admin? %>

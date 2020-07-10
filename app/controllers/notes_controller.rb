@@ -7,6 +7,7 @@ class NotesController < ApplicationController
   after_action :verify_authorized
   respond_to :html
 
+  # POST /notes
   def create
     @note = Note.new
     @note.user_id = note_params[:user_id]
@@ -71,6 +72,7 @@ class NotesController < ApplicationController
     end
   end
 
+  # PUT /notes/:id
   def update
     @note = Note.find(params[:id])
     authorize @note
@@ -108,6 +110,8 @@ class NotesController < ApplicationController
     end
   end
 
+  # TODO: Consider just using the :destroy route
+  # PATCH /notes/:id/archive
   def archive
     @note = Note.find(params[:id])
     authorize @note
