@@ -16,7 +16,7 @@ module UsageHelper
   # for the X axis
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def prep_data_for_template_plans_chart(data:, subset: "by_template")
-    last_month = Date.today.last_month.end_of_month.strftime('%b-%y')
+    last_month = Date.today.last_month.end_of_month.strftime("%b-%y")
     return { labels: [last_month], datasets: [] }.to_json if data.blank? || data.empty?
 
     datasets = {}
