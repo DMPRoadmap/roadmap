@@ -33,7 +33,7 @@ class RegistrationsController < Devise::RegistrationsController
       # The OAuth provider could not be determined or there was no unique UID!
       if !oauth["provider"].nil? && !oauth["uid"].nil?
         # Connect the new user with the identifier sent back by the OAuth provider
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         flash[:notice] = _("Please make a choice below. After linking your details to a %{application_name} account, you will be able to sign in directly with your institutional credentials.") % {
           application_name: ApplicationService.application_name
         }
@@ -99,9 +99,9 @@ class RegistrationsController < Devise::RegistrationsController
                                   value: oauth["uid"],
                                   attrs: oauth,
                                   identifiable: resource)
-                # rubocop:disable Metrics/LineLength
+                # rubocop:disable Layout/LineLength
                 flash[:notice] = _("Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them.")
-                # rubocop:enable Metrics/LineLength
+                # rubocop:enable Layout/LineLength
               end
             end
           end
@@ -114,10 +114,10 @@ class RegistrationsController < Devise::RegistrationsController
         end
       else
         clean_up_passwords resource
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         redirect_to after_sign_up_error_path_for(resource),
                     alert: _("Unable to create your account.#{errors_for_display(resource)}")
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
       end
     end
   end
@@ -168,9 +168,9 @@ class RegistrationsController < Devise::RegistrationsController
       mandatory_params &&= false
     end
     if update_params[:org_id].blank?
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       message += _("Please select an organisation from the list, or enter your organisation's name.")
-      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Layout/LineLength
       mandatory_params &&= false
     end
     # has the user entered all the details

@@ -14,7 +14,7 @@ class SuperAdmin::OrgSwapsController < ApplicationController
     # convert it into an Org
     lookup = org_from_params(params_in: org_swap_params)
 
-    # rubocop:disable Metrics/LineLength
+    # rubocop:disable Layout/LineLength
     if lookup.present? && !lookup.new_record?
       current_user.org = lookup
       if current_user.save
@@ -27,7 +27,7 @@ class SuperAdmin::OrgSwapsController < ApplicationController
     else
       redirect_back(fallback_location: root_path, alert: _("Unknown organisation."))
     end
-    # rubocop:enable Metrics/LineLength
+    # rubocop:enable Layout/LineLength
   end
 
   private

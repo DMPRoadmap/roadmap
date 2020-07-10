@@ -13,9 +13,9 @@ module OrgAdmin
       phase = Phase.includes(:template, :sections).order(:number).find(params[:id])
       authorize phase
       if !phase.template.latest?
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         flash[:notice] = _("You are viewing a historical version of this template. You will not be able to make changes.")
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
       end
       if phase.template.customization_of? && phase.template.latest?
         # The user is working with the latest version so only use the modifiable sections

@@ -67,10 +67,10 @@ Lint/AmbiguousBlockAssociation:
 # Restrict the length of each line of code to 90 characters. Enforcing this is important
 # as many developers are working on smaller screens, or split screens. Having to scroll
 # to read a full line of code makes code harder to read and more frustrating to work with.
-Metrics/LineLength:
+Layout/LineLength:
   # I've found that 90 is a suitable limit. Many developers balk at the 80 character
   # default.
-  Max: 90
+  Max: 100
   Exclude:
     # Excludes the spec helper, since this boilerplate file has comments that are much
     # longer.
@@ -82,6 +82,17 @@ Metrics/BlockLength:
   # Exclude specs, since those are defined as large blocks of code
   Exclude:
     - 'spec/**/*'
+
+# Leave the string formatting style as `"some text %{value}" % { value: "text" }`
+# since we're uncertain what effect `format` and `sprintf` may have on the Fastgetext
+# markup `_("text")`
+Style/FormatString:
+  EnforcedStyle: percent
+
+# Prefer the use of `"some %{token} text"` instead of `some %<token> text` or
+# `some %token text` since it would invalidate many of our translation strings
+Style/FormatStringToken:
+  EnforcedStyle: template
 
 # This cop enforces the use of boolean and/or "&&" and "||" over "and" "or".
 # Sometimes using "and"/"or" is preferrable, when these are used as control flow.

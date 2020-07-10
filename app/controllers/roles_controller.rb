@@ -18,11 +18,11 @@ class RolesController < ApplicationController
     message = ""
     if role_params[:user].present? && plan.present?
       if @role.plan.owner.present? && @role.plan.owner.email == role_params[:user][:email]
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         flash[:notice] = _("Cannot share plan with %{email} since that email matches with the owner of the plan.") % {
           email: role_params[:user][:email]
         }
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
       else
         user = User.where_case_insensitive("email", role_params[:user][:email]).first
         if Role.find_by(plan: @role.plan, user: user) # role already exists
@@ -56,9 +56,9 @@ class RolesController < ApplicationController
             end
             flash[:notice] = message
           else
-            # rubocop:disable Metrics/LineLength
+            # rubocop:disable Layout/LineLength
             flash[:alert] = _("You must provide a valid email address and select a permission level.")
-            # rubocop:enable Metrics/LineLength
+            # rubocop:enable Layout/LineLength
           end
         end
       end
@@ -77,12 +77,12 @@ class RolesController < ApplicationController
       deliver_if(recipients: @role.user, key: "users.added_as_coowner") do |r|
         UserMailer.permissions_change_notification(@role, current_user).deliver_now
       end
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       render json: {
         code: 1,
         msg: _("Successfully changed the permissions for %{email}. They have been notified via email.") % { email: @role.user.email }
       }
-      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Layout/LineLength
     else
       render json: { code: 0, msg: flash[:alert] }
     end

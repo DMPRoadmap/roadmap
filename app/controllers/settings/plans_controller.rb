@@ -36,9 +36,9 @@ module Settings
       if settings.save
         flash[:notice] = _("Export settings updated successfully.")
       else
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         flash[:alert] = _("An error has occurred while saving/resetting your export settings.")
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
       end
       respond_to do |format|
         @phase_options = @plan.phases.order(:number).pluck(:title, :id)

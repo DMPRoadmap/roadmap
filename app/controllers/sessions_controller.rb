@@ -31,9 +31,9 @@ class SessionsController < Devise::SessionsController
 
     super do
       if !@ui.nil? && @ui.save
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         flash[:notice] = _("Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them.")
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
       end
     end
   end

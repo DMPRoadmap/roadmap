@@ -16,7 +16,7 @@ Rails.configuration.after_initialize do
     LocaleService.to_gettext(locale: locale)
   end
   FastGettext.default_locale = LocaleService.to_gettext(locale: default).to_s
-  # rubocop:enable Metrics/LineLength
+  # rubocop:enable Layout/LineLength
 
   # I18n config
   I18n.available_locales += available.map do |locale|

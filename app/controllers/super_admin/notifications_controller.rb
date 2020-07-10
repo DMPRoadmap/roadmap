@@ -62,7 +62,7 @@ module SuperAdmin
       authorize(Notification)
       notification.enabled = (notification_params[:enabled] === "1")
 
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       if notification.save
         render json: {
                  code: 1,
@@ -73,7 +73,7 @@ module SuperAdmin
                  code: 0, msg: _("Unable to change the notification's active status")
                }
       end
-      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Layout/LineLength
     end
 
 
