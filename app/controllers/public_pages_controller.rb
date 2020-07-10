@@ -22,17 +22,18 @@ class PublicPagesController < ApplicationController
     # Pundit dosent support passing objects into scoped policies
     unless PublicPagePolicy.new(@template).template_export?
       redirect_to public_templates_path, notice: "You are not authorized to export that template" and return
-      #raise Pundit::NotAuthorizedError
+      # raise Pundit::NotAuthorizedError
     end
+
     # now with prefetching (if guidance is added, prefetch annottaions/guidance)
     @template = Template.includes(
       :org,
       phases: {
         sections: {
-          questions: [
-            :question_options,
-            :question_format,
-            :annotations
+          questions: %i[
+            question_options
+            question_format
+            annotations
           ]
         }
       }
@@ -40,7 +41,7 @@ class PublicPagesController < ApplicationController
     @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
 
     begin
-      file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, "").gsub(/ /, "_") + '_v' + @template.version.to_s
+      file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, "").gsub(/ /, "_") + "_v" + @template.version.to_s
       respond_to do |format|
         format.docx do
           render docx: "template_exports/template_export", filename: "#{file_name}.docx"
@@ -49,18 +50,18 @@ class PublicPagesController < ApplicationController
         format.pdf do
           # rubocop:disable Layout/LineLength
           render pdf: file_name,
-            template: "template_exports/template_export",
-            margin: @formatting[:margin],
-            footer: {
-              center:    _("Template created using the %{application_name} service. Last modified %{date}") % {
-              application_name: ApplicationService.application_name,
-              date: l(@template.updated_at.to_date, formats: :short)
-            },
-            font_size: 8,
-            spacing: (@formatting[:margin][:bottom] / 2) - 4,
-            right: "[page] of [topage]",
-            encoding: "utf8"
-          }
+                 template: "template_exports/template_export",
+                 margin: @formatting[:margin],
+                 footer: {
+                   center: _("Template created using the %{application_name} service. Last modified %{date}") % {
+                     application_name: ApplicationService.application_name,
+                     date: l(@template.updated_at.to_date, formats: :short)
+                   },
+                   font_size: 8,
+                   spacing: (@formatting[:margin][:bottom] / 2) - 4,
+                   right: "[page] of [topage]",
+                   encoding: "utf8"
+                 }
           # rubocop:enable Layout/LineLength
         end
       end

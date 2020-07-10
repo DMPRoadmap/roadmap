@@ -12,29 +12,29 @@ module OrgAdmin
     def show
       phase = Phase.includes(:template, :sections).order(:number).find(params[:id])
       authorize phase
-      if !phase.template.latest?
+      unless phase.template.latest?
         # rubocop:disable Layout/LineLength
         flash[:notice] = _("You are viewing a historical version of this template. You will not be able to make changes.")
         # rubocop:enable Layout/LineLength
       end
-      if phase.template.customization_of? && phase.template.latest?
-        # The user is working with the latest version so only use the modifiable sections
-        sections = phase.template_sections.order(:number)
-      else
-        # This is not the latest version sso just get all the sections. Everything
-        # will be readonly
-        sections = phase.sections.order(:number)
-      end
+      sections = if phase.template.customization_of? && phase.template.latest?
+                   # The user is working with the latest version so only use the modifiable sections
+                   phase.template_sections.order(:number)
+                 else
+                   # This is not the latest version sso just get all the sections. Everything
+                   # will be readonly
+                   phase.sections.order(:number)
+                 end
       render("container",
-        locals: {
-          partial_path: "show",
-          template: phase.template,
-          phase: phase,
-          prefix_section: phase.prefix_section,
-          sections: sections,
-          suffix_sections: phase.suffix_sections.order(:number),
-          current_section: Section.find_by(id: params[:section], phase_id: phase.id)
-        })
+             locals: {
+               partial_path: "show",
+               template: phase.template,
+               phase: phase,
+               prefix_section: phase.prefix_section,
+               sections: sections,
+               suffix_sections: phase.suffix_sections.order(:number),
+               current_section: Section.find_by(id: params[:section], phase_id: phase.id)
+             })
     end
 
     # GET /org_admin/templates/:template_id/phases/:id/edit
@@ -50,16 +50,16 @@ module OrgAdmin
         )
       else
         render("container",
-          locals: {
-            partial_path: "edit",
-            template: phase.template,
-            phase: phase,
-            prefix_section: phase.prefix_section,
-            sections: phase.sections.order(:number)
-                                    .select(:id, :title, :modifiable, :phase_id),
-            suffix_sections: phase.suffix_sections.order(:number),
-            current_section: Section.find_by(id: params[:section], phase_id: phase.id)
-          })
+               locals: {
+                 partial_path: "edit",
+                 template: phase.template,
+                 phase: phase,
+                 prefix_section: phase.prefix_section,
+                 sections: phase.sections.order(:number)
+                                         .select(:id, :title, :modifiable, :phase_id),
+                 suffix_sections: phase.suffix_sections.order(:number),
+                 current_section: Section.find_by(id: params[:section], phase_id: phase.id)
+               })
       end
     end
 
@@ -90,12 +90,12 @@ module OrgAdmin
                            org_admin_templates_path
                          end
         render("/org_admin/templates/container",
-          locals: {
-            partial_path: "new",
-            template: template,
-            phase: phase,
-            referrer: local_referrer
-          })
+               locals: {
+                 partial_path: "new",
+                 template: template,
+                 phase: phase,
+                 referrer: local_referrer
+               })
       else
         render org_admin_templates_path,
                alert: _("You cannot add a phase to a historical version of a template.")

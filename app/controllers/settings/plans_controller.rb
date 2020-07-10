@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Settings
+
   class PlansController < SettingsController
 
     before_action :get_settings
@@ -36,9 +37,8 @@ module Settings
       if settings.save
         flash[:notice] = _("Export settings updated successfully.")
       else
-        # rubocop:disable Layout/LineLength
         flash[:alert] = _("An error has occurred while saving/resetting your export settings.")
-        # rubocop:enable Layout/LineLength
+
       end
       respond_to do |format|
         @phase_options = @plan.phases.order(:number).pluck(:title, :id)

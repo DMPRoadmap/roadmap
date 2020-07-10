@@ -12,12 +12,12 @@ class OrgAdmin::ConditionsController < ApplicationController
                                               layout: false,
                                               locals: { question: question,
                                                         condition_no: next_condition_no }),
-                 attachment_partial: render_to_string(partial: "form",
-                                                      formats: :html,
-                                                      layout: false,
-                                                      locals: { question: question,
-                                                                cond:  Condition.new(question: question),
-                                                                condition_no: condition_no }) }
+                   attachment_partial: render_to_string(partial: "form",
+                                                        formats: :html,
+                                                        layout: false,
+                                                        locals: { question: question,
+                                                                  cond: Condition.new(question: question),
+                                                                  condition_no: condition_no }) }
   end
 
   private
@@ -26,7 +26,7 @@ class OrgAdmin::ConditionsController < ApplicationController
     params.permit(:condition_no)
   end
 
-	def condition_params
+  def condition_params
     params.require(:question_option_id, :action_type).permit(:remove_question_id, :condition_no)
   end
 

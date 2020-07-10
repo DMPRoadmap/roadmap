@@ -32,11 +32,11 @@ class RolesController < ApplicationController
         else
           if user.nil?
             registered = false
-            User.invite!({email:     role_params[:user][:email],
-                        firstname:  _("First Name"),
-                        surname:    _("Surname"),
-                        org:        current_user.org },
-                        current_user )
+            User.invite!({ email: role_params[:user][:email],
+                           firstname: _("First Name"),
+                           surname: _("Surname"),
+                           org: current_user.org },
+                         current_user)
             message = _("Invitation to %{email} issued successfully.") % {
               email: role_params[:user][:email]
             }
@@ -74,7 +74,7 @@ class RolesController < ApplicationController
     authorize @role
 
     if @role.update_attributes(access: role_params[:access])
-      deliver_if(recipients: @role.user, key: "users.added_as_coowner") do |r|
+      deliver_if(recipients: @role.user, key: "users.added_as_coowner") do |_r|
         UserMailer.permissions_change_notification(@role, current_user).deliver_now
       end
       # rubocop:disable Layout/LineLength
@@ -96,7 +96,7 @@ class RolesController < ApplicationController
     plan = @role.plan
     @role.destroy
     flash[:notice] = _("Access removed")
-    deliver_if(recipients: user, key: "users.added_as_coowner") do |r|
+    deliver_if(recipients: user, key: "users.added_as_coowner") do |_r|
       UserMailer.plan_access_removed(user, plan, current_user).deliver_now
     end
     redirect_to controller: "plans", action: "share", id: @role.plan.id

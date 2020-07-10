@@ -8,9 +8,7 @@ class Api::V0::PlansController < Api::V0::BaseController
   # Creates a new plan based on the information passed in JSON to the API
   def create
     @template = Template.live(params[:template_id])
-    unless Api::V0::PlansPolicy.new(@user, @template).create?
-      raise Pundit::NotAuthorizedError
-    end
+    raise Pundit::NotAuthorizedError unless Api::V0::PlansPolicy.new(@user, @template).create?
 
     plan_user = User.find_by(email: params[:plan][:email])
     # ensure user exists
@@ -37,13 +35,13 @@ class Api::V0::PlansController < Api::V0::BaseController
     )
 
     # set funder name to template's org, or original template's org
-    if @template.customization_of.nil?
-      @plan.funder_id = @template.org.id
-    else
-      @plan.funder_id = Template.where(
-        family_id: @template.customization_of
-      ).first.org.id
-    end
+    @plan.funder_id = if @template.customization_of.nil?
+                        @template.org.id
+                      else
+                        Template.where(
+                          family_id: @template.customization_of
+                        ).first.org.id
+                      end
     @plan.template = @template
     @plan.title = params[:plan][:title]
     if @plan.save
@@ -51,41 +49,41 @@ class Api::V0::PlansController < Api::V0::BaseController
       respond_with @plan
     else
       # the plan did not save
-      self.headers["WWW-Authenticate"] = "Token realm=\"\""
+      headers["WWW-Authenticate"] = "Token realm=\"\""
       render json: _("Bad Parameters"), status: 400
     end
   end
 
   def index
-    unless Api::V0::PlansPolicy.new(@user, nil).index?
-      raise Pundit::NotAuthorizedError
-    end
+    raise Pundit::NotAuthorizedError unless Api::V0::PlansPolicy.new(@user, nil).index?
+
     if params[:per_page].present? && params[:per_page].to_i > Rails.configuration.x.application.api_max_page_size
       params[:per_page] = Rails.configuration.x.application.api_max_page_size
     end
-    @plans = @user.org.plans.includes( [ {roles: :user}, {answers: :question_options} ,
-      template: [ { phases: { sections: { questions: [:question_format, :themes ] } } }, :org]
-      ])
+    @plans = @user.org.plans.includes([{ roles: :user }, { answers: :question_options },
+                                       template: [{ phases: { sections: { questions: %i[question_format themes] } } }, :org]])
 
     # Filter on list of users
     user_ids = extract_param_list(params, "user")
-    @plans = @plans.where(roles: {user_id: user_ids, access: Role.bit_values(:editor)}) if user_ids.present?
+    if user_ids.present?
+      @plans = @plans.where(roles: { user_id: user_ids, access: Role.bit_values(:editor) })
+    end
     # filter on dates
     if params["created_after"].present? || params["created_before"].present?
-      @plans = @plans.where(created_at: dates_to_range(params,"created_after","created_before"))
+      @plans = @plans.where(created_at: dates_to_range(params, "created_after", "created_before"))
     end
     if params["updated_after"].present? || params["updated_before"].present?
-      @plans = @plans.where(updated_at: dates_to_range(params,"updated_after","updated_before"))
+      @plans = @plans.where(updated_at: dates_to_range(params, "updated_after", "updated_before"))
     end
     if params["remove_tests"].present? && params["remove_tests"].downcase == "true"
       @plans = @plans.where.not(visibility: Plan.visibilities[:is_test])
     end
     # filter on funder (dmptemplate_id)
     template_ids = extract_param_list(params, "template")
-    @plans = @plans.where(templates: {family_id: template_ids}) if template_ids.present?
+    @plans = @plans.where(templates: { family_id: template_ids }) if template_ids.present?
     # filter on id(s)
     plan_ids = extract_param_list(params, "plan")
-    @plans = @plans.where(id: plan_ids ) if plan_ids.present?
+    @plans = @plans.where(id: plan_ids) if plan_ids.present?
     # apply pagination after filtering
     @plans = paginate @plans
     respond_with @plans
@@ -94,14 +92,14 @@ class Api::V0::PlansController < Api::V0::BaseController
   private
 
   def extract_param_list(params, attribute)
-    list = params.fetch(attribute+"[]", [])
+    list = params.fetch(attribute + "[]", [])
     val = params.fetch(attribute, [])
     list << val if val.present?
     list
   end
 
   # takes in the params hash and converts to a date-range
-  def dates_to_range(hash,start,stop)
+  def dates_to_range(hash, start, stop)
     today = Date.today
     start_date = Date.parse(hash.fetch(start, today.prev_month.to_date.to_s))
     end_date = Date.parse(hash.fetch(stop, today.to_date.to_s)) + 1.day

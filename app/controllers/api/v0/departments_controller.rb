@@ -7,9 +7,8 @@ class Api::V0::DepartmentsController < Api::V0::BaseController
   ##
   # Create a new department based on the information passed in JSON to the API
   def create
-    unless Api::V0::DepartmentsPolicy.new(@user, nil).index?
-      raise Pundit::NotAuthorizedError
-    end
+    raise Pundit::NotAuthorizedError unless Api::V0::DepartmentsPolicy.new(@user, nil).index?
+
     @department = Department.new(org: @user.org,
                                  code: params[:code],
                                  name: params[:name])
@@ -17,7 +16,7 @@ class Api::V0::DepartmentsController < Api::V0::BaseController
       redirect_to api_v0_departments_path
     else
       # the department did not save
-      self.headers["WWW-Authenticate"] = "Token realm=\"\""
+      headers["WWW-Authenticate"] = "Token realm=\"\""
       render json: _("Departments code and name must be unique"), status: 400
     end
   end
@@ -25,18 +24,16 @@ class Api::V0::DepartmentsController < Api::V0::BaseController
   ##
   # Lists the departments for the API user's organisation
   def index
-    unless Api::V0::DepartmentsPolicy.new(@user, nil).index?
-      raise Pundit::NotAuthorizedError
-    end
+    raise Pundit::NotAuthorizedError unless Api::V0::DepartmentsPolicy.new(@user, nil).index?
+
     @departments = @user.org.departments
   end
 
   ##
   # List the users for each department on the organisation
   def users
-    unless Api::V0::DepartmentsPolicy.new(@user, nil).users?
-      raise Pundit::NotAuthorizedError
-    end
+    raise Pundit::NotAuthorizedError unless Api::V0::DepartmentsPolicy.new(@user, nil).users?
+
     @users = @user.org.users.includes(:department)
   end
 
