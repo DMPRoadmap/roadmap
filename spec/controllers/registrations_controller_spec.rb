@@ -19,12 +19,12 @@ RSpec.describe RegistrationsController, type: :controller do
 
       before(:each) do
         @params = ActionController::Parameters.new({
-          org_id: {
-            id: @org.id.to_s,
-            name: Faker::Lorem.word,
-            ror: Faker::Lorem.word
-          }
-        })
+                                                     org_id: {
+                                                       id: @org.id.to_s,
+                                                       name: Faker::Lorem.word,
+                                                       ror: Faker::Lorem.word
+                                                     }
+                                                   })
         @user = build(:user)
 
         @controller.stubs(:org_from_params).returns(build(:org))

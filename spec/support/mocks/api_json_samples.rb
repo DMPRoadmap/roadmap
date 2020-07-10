@@ -7,7 +7,6 @@ module Mocks
 
     ROLES = %w[Investigation Project_administration Data_curation].freeze
 
-
     def mock_identifier_schemes
       create(:identifier_scheme, name: "ror")
       create(:identifier_scheme, name: "fundref")
@@ -181,6 +180,7 @@ module Mocks
         ]
       }.to_json
     end
+
   end
 
 end

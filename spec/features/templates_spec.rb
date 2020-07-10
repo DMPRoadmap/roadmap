@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe "Templates", type: :feature do
@@ -7,7 +9,7 @@ RSpec.describe "Templates", type: :feature do
     @template = create(:template, org: @org, phases: 2)
     @phase    = @template.phases.first
     @template.phases.each { |phase| create_list(:section, 2, phase: phase) }
-    @user     = create(:user, org: @org)
+    @user = create(:user, org: @org)
     @user.perms << create(:perm, :modify_templates)
     sign_in(@user)
   end

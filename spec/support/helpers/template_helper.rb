@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TemplateHelper
 
   def build_template(nbr_phases = 0, nbr_sections = 0, nbr_questions = 0)

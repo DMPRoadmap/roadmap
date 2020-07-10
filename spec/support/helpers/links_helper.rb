@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LinksHelper
 
   def addLink
@@ -5,6 +7,7 @@ module LinksHelper
   end
 
   def removeLink
-    all('.link a > .fa-times-circle').last.click
+    all(".link a > .fa-times-circle").last.click
   end
+
 end

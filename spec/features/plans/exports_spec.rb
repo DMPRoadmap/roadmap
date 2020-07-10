@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe "PlansExports", type: :feature, js: true do
@@ -25,7 +27,7 @@ RSpec.describe "PlansExports", type: :feature, js: true do
       create(:answer, question: question, plan: new_plan)
     end
     new_plan.update(complete: true)
-    new_user  = create(:user, org: org)
+    new_user = create(:user, org: org)
     create(:role, :creator, :commenter, :administrator, :editor,
            plan: new_plan,
            user: new_user)
