@@ -31,7 +31,6 @@ class ResearchProjectsController < ApplicationController
 
   def fetch_projects
     Rails.cache.fetch(["research_projects", funder_type], expires_in: expiry) do
-      #Thread.new { ExternalApis::OpenAireService.search(funder: funder_type) }.value
       ExternalApis::OpenAireService.search(funder: funder_type)
     end
   end
