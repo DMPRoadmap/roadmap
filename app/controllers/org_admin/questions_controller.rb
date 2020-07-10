@@ -19,11 +19,11 @@ module OrgAdmin
                          .find(params[:id])
       authorize question
       render json: { html: render_to_string(partial: "show", locals: {
-        template: question.section.phase.template,
-        section: question.section,
-        question: question,
-        conditions: question.conditions
-      })}
+                                              template: question.section.phase.template,
+                                              section: question.section,
+                                              question: question,
+                                              conditions: question.conditions
+                                            }) }
     end
 
     # TODO: Shouldn't this live on the conditions controller as :index?
@@ -31,15 +31,14 @@ module OrgAdmin
     def open_conditions
       question = Question.find(params[:question_id])
       authorize question
-     # render partial: "org_admin/conditions/container", locals: { question: question, conditions: question.conditions }
+      # render partial: "org_admin/conditions/container", locals: { question: question, conditions: question.conditions }
       render json: { container: render_to_string(partial: "org_admin/conditions/container",
                                                  formats: :html,
                                                  layout: false,
                                                  locals: { question: question,
                                                            conditions: question.conditions.order(:number) }),
-                    webhooks: webhook_hash(question.conditions) }
+                     webhooks: webhook_hash(question.conditions) }
     end
-
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/questions/[:question_id]/edit
     def edit
@@ -49,12 +48,12 @@ module OrgAdmin
                          .find(params[:id])
       authorize question
       render json: { html: render_to_string(partial: "edit", locals: {
-        template: question.section.phase.template,
-        section: question.section,
-        question: question,
-        question_formats: allowed_question_formats,
-        conditions: question.conditions
-      })}
+                                              template: question.section.phase.template,
+                                              section: question.section,
+                                              question: question,
+                                              question_formats: allowed_question_formats,
+                                              conditions: question.conditions
+                                            }) }
     end
 
     # GET /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/new
@@ -68,16 +67,17 @@ module OrgAdmin
       question_formats = allowed_question_formats
       authorize question
       render json: { html: render_to_string(partial: "form", locals: {
-        template: section.phase.template,
-        section: section,
-        question: question,
-        method: "post",
-        url: org_admin_template_phase_section_questions_path(
-          template_id: section.phase.template.id,
-          phase_id: section.phase.id,
-          id: section.id),
-        question_formats: question_formats
-      }) }
+                                              template: section.phase.template,
+                                              section: section,
+                                              question: question,
+                                              method: "post",
+                                              url: org_admin_template_phase_section_questions_path(
+                                                template_id: section.phase.template.id,
+                                                phase_id: section.phase.id,
+                                                id: section.id
+                                              ),
+                                              question_formats: question_formats
+                                            }) }
     end
 
     # POST /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions
@@ -99,7 +99,7 @@ module OrgAdmin
         template_id: section.phase.template.id,
         id: section.phase.id,
         section: section.id
-                  )
+      )
     end
 
     # PUT /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/:id
@@ -153,9 +153,7 @@ module OrgAdmin
 
       # If the user unchecked all of the themes set the association to an empty array
       # add check for number present to ensure this is not just an annotation
-      if attrs[:theme_ids].blank? && attrs[:number].present?
-        attrs[:theme_ids] = []
-      end
+      attrs[:theme_ids] = [] if attrs[:theme_ids].blank? && attrs[:number].present?
       if question.update(attrs)
         if question.update_conditions(sanitize_hash(params["conditions"]), old_to_new_opts, question_id_map)
           flash[:notice] = success_message(question, _("updated"))
@@ -215,13 +213,13 @@ module OrgAdmin
     #   ]
     def sanitize_hash(param_conditions)
       return {} if param_conditions.nil?
-      return {} unless param_conditions.length > 0
+      return {} if param_conditions.empty?
 
       res = {}
       hash_of_hashes = param_conditions[0]
       hash_of_hashes.each do |cond_name, cond_hash|
         sanitized_hash = {}
-        cond_hash.each do |k,v|
+        cond_hash.each do |k, v|
           v = ActionController::Base.helpers.sanitize(v) if k.start_with?("webhook")
           sanitized_hash[k] = v
         end
@@ -276,6 +274,5 @@ module OrgAdmin
     end
 
   end
-
 
 end

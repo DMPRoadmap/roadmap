@@ -16,11 +16,11 @@ class Api::V0::StatisticsController < Api::V0::BaseController
       raise Pundit::NotAuthorizedError
     end
 
-    if @user.can_super_admin? && params[:org_id].present?
-      scoped = User.unscoped.where(org_id: params[:org_id])
-    else
-      scoped = User.unscoped.where(org_id: @user.org_id)
-    end
+    scoped = if @user.can_super_admin? && params[:org_id].present?
+               User.unscoped.where(org_id: params[:org_id])
+             else
+               User.unscoped.where(org_id: @user.org_id)
+             end
 
     if params[:range_dates].present?
       r = {}
@@ -33,13 +33,14 @@ class Api::V0::StatisticsController < Api::V0::BaseController
 
       respond_to do |format|
         format.json { render(json: r.to_json) }
-        format.csv {
+        format.csv do
           send_data(CSV.generate do |csv|
             csv << [_("Month"), _("No. Users joined")]
             total = 0
             r.each_pair { |k, v| csv << [k, v]; total += v }
             csv << [_("Total"), total]
-          end, filename: "#{_('users_joined')}.csv") }
+          end, filename: "#{_('users_joined')}.csv")
+        end
       end
     else
       if params["start_date"].present? || params["end_date"].present?
@@ -49,6 +50,7 @@ class Api::V0::StatisticsController < Api::V0::BaseController
       respond_with @users_count
     end
   end
+
   # GET
   # Returns the number of completed plans within the user's org for the data
   # start_date and end_date specified
@@ -57,11 +59,11 @@ class Api::V0::StatisticsController < Api::V0::BaseController
       raise Pundit::NotAuthorizedError
     end
 
-    if @user.can_super_admin? && params[:org_id].present?
-      scoped = Org.find(params[:org_id]).plans.where(complete: true)
-    else
-      scoped = @user.org.plans.where(complete: true)
-    end
+    scoped = if @user.can_super_admin? && params[:org_id].present?
+               Org.find(params[:org_id]).plans.where(complete: true)
+             else
+               @user.org.plans.where(complete: true)
+             end
 
     if params[:range_dates].present?
       r = {}
@@ -74,13 +76,14 @@ class Api::V0::StatisticsController < Api::V0::BaseController
 
       respond_to do |format|
         format.json { render(json: r.to_json) }
-        format.csv {
+        format.csv do
           send_data(CSV.generate do |csv|
             csv << [_("Month"), _("No. Completed Plans")]
             total = 0
             r.each_pair { |k, v| csv << [k, v]; total += v }
             csv << [_("Total"), total]
-          end, filename: "#{_('completed_plans')}.csv") }
+          end, filename: "#{_('completed_plans')}.csv")
+        end
       end
     else
       if params["start_date"].present? || params["end_date"].present?
@@ -94,15 +97,13 @@ class Api::V0::StatisticsController < Api::V0::BaseController
   # Returns the number of created plans within the user's org for the data
   # start_date and end_date specified
   def created_plans
-    unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans?
-      raise Pundit::NotAuthorizedError
-    end
+    raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans?
 
-    if @user.can_super_admin? && params[:org_id].present?
-      scoped = Org.find(params[:org_id]).plans
-    else
-      scoped = @user.org.plans
-    end
+    scoped = if @user.can_super_admin? && params[:org_id].present?
+               Org.find(params[:org_id]).plans
+             else
+               @user.org.plans
+             end
 
     if params[:range_dates].present?
       r = {}
@@ -115,13 +116,14 @@ class Api::V0::StatisticsController < Api::V0::BaseController
 
       respond_to do |format|
         format.json { render(json: r.to_json) }
-        format.csv {
+        format.csv do
           send_data(CSV.generate do |csv|
             csv << [_("Month"), _("No. Plans")]
             total = 0
             r.each_pair { |k, v| csv << [k, v]; total += v }
             csv << [_("Total"), total]
-          end, filename: "#{_('plans')}.csv") }
+          end, filename: "#{_('plans')}.csv")
+        end
       end
     else
       if params["start_date"].present? || params["end_date"].present?
@@ -139,6 +141,7 @@ class Api::V0::StatisticsController < Api::V0::BaseController
     unless Api::V0::StatisticsPolicy.new(@user, org_templates.first).using_template?
       raise Pundit::NotAuthorizedError
     end
+
     @templates = {}
     org_templates.each do |template|
       if @templates[template.title].blank?
@@ -165,6 +168,7 @@ class Api::V0::StatisticsController < Api::V0::BaseController
     unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans_by_template?
       raise Pundit::NotAuthorizedError
     end
+
     @templates = {}
     scoped = @user.org.plans
     if params["start_date"].present? || params["end_date"].present?
@@ -190,9 +194,8 @@ class Api::V0::StatisticsController < Api::V0::BaseController
   # optional specified dates DMPs must be owned by a user who's organisation is the
   # same as the user who generates the call.
   def plans
-    unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans?
-      raise Pundit::NotAuthorizedError
-    end
+    raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans?
+
     @org_plans = @user.org.plans
     if params["remove_tests"].present? && params["remove_tests"].downcase == "true"
       @org_plans = @org_plans.where.not(visibility: Plan.visibilities[:is_test])
@@ -202,7 +205,6 @@ class Api::V0::StatisticsController < Api::V0::BaseController
     end
     respond_with @org_plans
   end
-
 
   private
 

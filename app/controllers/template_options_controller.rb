@@ -13,17 +13,13 @@ class TemplateOptionsController < ApplicationController
     funder_hash = plan_params.fetch(:funder_id, {})
     authorize Template.new, :template_options?
 
-    if org_hash.present?
-      org = org_from_params(params_in: { org_id: org_hash.to_json })
-    end
-    if funder_hash.present?
-      funder = org_from_params(params_in: { org_id: funder_hash.to_json })
-    end
+    org = org_from_params(params_in: { org_id: org_hash.to_json }) if org_hash.present?
+    funder = org_from_params(params_in: { org_id: funder_hash.to_json }) if funder_hash.present?
 
     @templates = []
 
     if (org.present? && !org.new_record?) ||
-        (funder.present? && !funder.new_record?)
+       (funder.present? && !funder.new_record?)
       if funder.present? && !funder.new_record?
         # Load the funder's template(s) minus the default template (that gets swapped
         # in below if NO other templates are available)
@@ -60,8 +56,8 @@ class TemplateOptionsController < ApplicationController
     if @templates.empty?
       if Template.default.present?
         customization = Template.published
-                          .latest_customized_version(Template.default.family_id,
-                                                     org&.id).first
+                                .latest_customized_version(Template.default.family_id,
+                                                           org&.id).first
 
         @templates << (customization.present? ? customization : Template.default)
       end

@@ -24,7 +24,7 @@ class Paginable::TemplatesController < ApplicationController
     paginable_renderise(
       partial: "index",
       scope: templates.includes(:org),
-      query_params: { sort_field: 'templates.title', sort_direction: :asc },
+      query_params: { sort_field: "templates.title", sort_direction: :asc },
       locals: { action: "index" },
       format: :json
     )
@@ -47,7 +47,7 @@ class Paginable::TemplatesController < ApplicationController
     paginable_renderise(
       partial: "organisational",
       scope: templates,
-      query_params: { sort_field: 'templates.title', sort_direction: :asc },
+      query_params: { sort_field: "templates.title", sort_direction: :asc },
       locals: { action: "organisational" },
       format: :json
     )
@@ -72,7 +72,7 @@ class Paginable::TemplatesController < ApplicationController
     paginable_renderise(
       partial: "customisable",
       scope: templates.joins(:org).includes(:org),
-      query_params: { sort_field: 'templates.title', sort_direction: :asc },
+      query_params: { sort_field: "templates.title", sort_direction: :asc },
       locals: { action: "customisable", customizations: customizations },
       format: :json
     )
@@ -85,14 +85,14 @@ class Paginable::TemplatesController < ApplicationController
   def publicly_visible
     templates = Template.live(Template.families(Org.funder.pluck(:id)).pluck(:family_id))
                         .publicly_visible.pluck(:id) <<
-      Template.where(is_default: true).unarchived.published.pluck(:id)
+                Template.where(is_default: true).unarchived.published.pluck(:id)
     paginable_renderise(
       partial: "publicly_visible",
       scope: Template.joins(:org)
                      .includes(:org)
                      .where(id: templates.uniq.flatten)
                      .published,
-      query_params: { sort_field: 'templates.title', sort_direction: :asc },
+      query_params: { sort_field: "templates.title", sort_direction: :asc },
       format: :json
     )
   end
@@ -107,7 +107,7 @@ class Paginable::TemplatesController < ApplicationController
     paginable_renderise(
       partial: "history",
       scope: @templates,
-      query_params: { sort_field: 'templates.title', sort_direction: :asc },
+      query_params: { sort_field: "templates.title", sort_direction: :asc },
       locals: { current: @templates.maximum(:version) }
     )
   end

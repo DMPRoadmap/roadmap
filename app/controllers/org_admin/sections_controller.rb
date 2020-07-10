@@ -17,23 +17,23 @@ module OrgAdmin
              (current_user.can_modify_templates? &&
              (phase.template.org_id == current_user.org_id))
       render partial: "index",
-        locals: {
-          template: phase.template,
-          phase: phase,
-          prefix_section: phase.prefix_section,
-          sections: phase.sections.order(:number),
-          suffix_sections: phase.suffix_sections,
-          current_section: phase.sections.first,
-          modifiable: edit,
-          edit: edit
-        }
+             locals: {
+               template: phase.template,
+               phase: phase,
+               prefix_section: phase.prefix_section,
+               sections: phase.sections.order(:number),
+               suffix_sections: phase.suffix_sections,
+               current_section: phase.sections.first,
+               modifiable: edit,
+               edit: edit
+             }
     end
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]
     def show
       @section = Section.find(params[:id])
       authorize @section
-      @section = Section.includes(questions: [:annotations, :question_options])
+      @section = Section.includes(questions: %i[annotations question_options])
                         .find(params[:id])
       @template = Template.find(params[:template_id])
       render partial: "show", locals: { template: @template, section: @section }
@@ -53,11 +53,11 @@ module OrgAdmin
                        "show"
                      end
       render json: { html: render_to_string(partial: partial_name,
-        locals: {
-          template: section.phase.template,
-          phase: section.phase,
-          section: section
-        })}
+                                            locals: {
+                                              template: section.phase.template,
+                                              phase: section.phase,
+                                              section: section
+                                            }) }
     end
 
     # POST /org_admin/templates/[:template_id]/phases/[:phase_id]/sections
@@ -107,12 +107,12 @@ module OrgAdmin
         redirect_to edit_org_admin_template_phase_path(
           template_id: section.phase.template.id,
           id: section.phase.id, section: section.id
-                    )
+        )
       else
         redirect_to edit_org_admin_template_phase_path(
           template_id: section.phase.template.id,
           id: section.phase.id, section: section.id
-                    )
+        )
       end
     end
 

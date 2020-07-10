@@ -6,10 +6,10 @@ module Paginable
 
   ##
   # Regex to validate sort_field param is safe
-  SORT_COLUMN_FORMAT = /[\w\_]+\.[\w\_]/
+  SORT_COLUMN_FORMAT = /[\w\_]+\.[\w\_]/.freeze
 
-  PAGINATION_QUERY_PARAMS = [:page, :sort_field, :sort_direction,
-                             :search, :controller, :action]
+  PAGINATION_QUERY_PARAMS = %i[page sort_field sort_direction
+                               search controller action].freeze
 
   private
 
@@ -36,15 +36,9 @@ module Paginable
     unless scope.is_a?(ActiveRecord::Relation)
       raise ArgumentError, _("scope should be an ActiveRecord::Relation object")
     end
-    unless path_params.is_a?(Hash)
-      raise ArgumentError, _("path_params should be a Hash object")
-    end
-    unless query_params.is_a?(Hash)
-      raise ArgumentError, _("query_params should be a Hash object")
-    end
-    unless locals.is_a?(Hash)
-      raise ArgumentError, _("locals should be a Hash object")
-    end
+    raise ArgumentError, _("path_params should be a Hash object") unless path_params.is_a?(Hash)
+    raise ArgumentError, _("query_params should be a Hash object") unless query_params.is_a?(Hash)
+    raise ArgumentError, _("locals should be a Hash object") unless locals.is_a?(Hash)
 
     # Default options
     @paginable_options = {}.merge(options)
@@ -120,14 +114,13 @@ module Paginable
   # sort_field or page) are present
   def refine_query(scope)
     @args = @args.with_indifferent_access
-    if @args[:search].present?
-      scope = scope.search(@args[:search])
-    end
+    scope = scope.search(@args[:search]) if @args[:search].present?
     # Can raise NoMethodError if the scope does not define a search method
     if @args[:sort_field].present?
       unless @args[:sort_field][SORT_COLUMN_FORMAT]
         raise ArgumentError, "sort_field param looks unsafe"
       end
+
       # Can raise ActiveRecord::StatementInvalid (e.g. column does not
       # exist, ambiguity on column, etc)
       scope = scope.order("#{@args[:sort_field]} #{sort_direction}")
@@ -149,16 +142,14 @@ module Paginable
   def sort_link_name(sort_field)
     @args = @args.with_indifferent_access
     class_name = "fa-sort"
-    if @args[:sort_field] == sort_field
-      class_name = "fa-sort-#{sort_direction.downcase}"
-    end
+    class_name = "fa-sort-#{sort_direction.downcase}" if @args[:sort_field] == sort_field
     <<~HTML.html_safe
       <i class="fa #{class_name}"
          aria-hidden="true"
          style="float: right; font-size: 1.2em;">
 
         <span class="screen-reader-text">
-          #{_("Sort by %{sort_field}") % { sort_field: sort_field.split(".").first }}
+          #{_('Sort by %{sort_field}') % { sort_field: sort_field.split('.').first }}
         </span>
       </i>
     HTML
@@ -170,11 +161,11 @@ module Paginable
     query_params = {}
     query_params[:page] = @args[:page] == "ALL" ? "ALL" : 1
     query_params[:sort_field] = sort_field
-    if @args[:sort_field] == sort_field
-      query_params[:sort_direction] = sort_direction.opposite
-    else
-      query_params[:sort_direction] = sort_direction
-    end
+    query_params[:sort_direction] = if @args[:sort_field] == sort_field
+                                      sort_direction.opposite
+                                    else
+                                      sort_direction
+                                    end
     base_url = paginable_base_url(query_params[:page])
     sort_url = URI(base_url)
     sort_url.query = stringify_query_params(query_params)
@@ -188,8 +179,8 @@ module Paginable
   end
 
   def stringify_query_params(page: 1, search: @args[:search],
-    sort_field: @args[:sort_field],
-    sort_direction: nil)
+                             sort_field: @args[:sort_field],
+                             sort_direction: nil)
 
     query_string = {}
     query_string["search"] = search if search.present?

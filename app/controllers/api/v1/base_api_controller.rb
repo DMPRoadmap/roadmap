@@ -5,7 +5,6 @@ module Api
   module V1
 
     # Base API Controller
-    # rubocop:disable Metrics/ClassLength
     class BaseApiController < ApplicationController
 
       # Skipping the standard Rails authenticity tokens passed in UI
@@ -70,7 +69,6 @@ module Api
       end
 
       # Parse the body of the incoming request
-      # rubocop:disable Metrics/AbcSize
       def parse_request
         return false unless request.present? && request.body.present?
 
@@ -84,7 +82,6 @@ module Api
           false
         end
       end
-      # rubocop:enable Metrics/AbcSize
 
       # ==========================
 
@@ -155,7 +152,6 @@ module Api
            grant_ids: identifier_permitted_params]
       end
 
-      # rubocop:disable Layout/LineLength
       def dataset_permitted_params
         %i[title description type issued language personal_data sensitive_data
            keywords data_quality_assurance preservation_statement] +
@@ -165,7 +161,6 @@ module Api
            technical_resources: technical_resource_permitted_params,
            distributions: distribution_permitted_params]
       end
-      # rubocop:enable Layout/LineLength
 
       def metadatum_permitted_params
         %i[description language] + [identifier: identifier_permitted_params]
@@ -196,7 +191,6 @@ module Api
       end
 
     end
-    # rubocop:enable Metrics/ClassLength
 
   end
 
