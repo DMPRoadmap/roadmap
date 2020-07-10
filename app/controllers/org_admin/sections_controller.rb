@@ -2,7 +2,6 @@
 
 module OrgAdmin
 
-  # rubocop:disable Metrics/ClassLength
   class SectionsController < ApplicationController
 
     include Versionable
@@ -145,6 +144,5 @@ module OrgAdmin
     end
 
   end
-  # rubocop:enable Metrics/ClassLength
 
 end

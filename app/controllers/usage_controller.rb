@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 class UsageController < ApplicationController
 
   after_action :verify_authorized
@@ -190,4 +189,3 @@ class UsageController < ApplicationController
   end
 
 end
-# rubocop:enable Metrics/ClassLength

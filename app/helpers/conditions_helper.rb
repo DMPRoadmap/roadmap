@@ -22,7 +22,6 @@ module ConditionsHelper
 
   # returns an array of ids to remove based on the conditions associated with an answer
   # or trigger the email (TODO: combining these is a bit icky!)
-  # rubocop:disable Metrics/CyclomaticComplexity
   def answer_remove_list(answer, user = nil)
     id_list = []
     return id_list unless answer.question.option_based?
@@ -44,7 +43,6 @@ module ConditionsHelper
     # uniq because could get same remove id from diff conds
     id_list.uniq
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   def send_webhooks(user, answer)
     answer_remove_list(answer, user)
@@ -132,7 +130,6 @@ module ConditionsHelper
   #  ]
   # }
   # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def later_question_list(question)
     collection = {}
     question.section.phase.template.phases.each do |phase|
@@ -163,7 +160,7 @@ module ConditionsHelper
     collection
   end
   # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
   def question_title(question)
     raw "Qn. " + question.number.to_s + ": " +
@@ -183,7 +180,7 @@ module ConditionsHelper
 
   # used when displaying a question while editing the template
   # converts condition into text
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/AbcSize
   def condition_to_text(conditions)
     return_string = ""
     conditions.each do |cond|
@@ -205,7 +202,7 @@ module ConditionsHelper
     end
     return_string + "</dd>"
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/AbcSize
 
   def text_formatted(object)
     length = 50

@@ -4,7 +4,6 @@ module CustomizableTemplateLinkHelper
 
   # Link to the appropriate customizable template.
   # Default link name set if name not set which can be overwritten.
-  # rubocop:disable Metrics/PerceivedComplexity
   def link_to_customizable_template(name, customization, template)
     name = nil unless name.present?
 
@@ -25,6 +24,5 @@ module CustomizableTemplateLinkHelper
               "data-method": "post"
     end
   end
-  # rubocop:enable Metrics/PerceivedComplexity
 
 end

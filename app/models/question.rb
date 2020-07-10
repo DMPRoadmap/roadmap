@@ -27,8 +27,6 @@
 #  fk_rails_...  (question_format_id => question_formats.id)
 #  fk_rails_...  (section_id => sections.id)
 #
-
-# rubocop:disable Metrics/ClassLength
 class Question < ApplicationRecord
 
   include ActsAsSortable
@@ -278,4 +276,3 @@ class Question < ApplicationRecord
   end
 
 end
-# rubocop:enable Metrics/ClassLength

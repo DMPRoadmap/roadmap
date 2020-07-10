@@ -7,7 +7,6 @@ module DataCleanup
   # Check whether a given database record is valid or not
   class InstanceCheck
 
-    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def call(instance)
       DataCleanup.logger.info("Checking #{instance.class}##{instance.id}...")
       Reporting.total_record_count += 1
@@ -28,7 +27,7 @@ module DataCleanup
         DataCleanup.display(".", inline: true)
       end
     end
-    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+    # rubocop:enable
 
   end
 

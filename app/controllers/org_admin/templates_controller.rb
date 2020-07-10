@@ -36,7 +36,7 @@ module OrgAdmin
     # A version of index that displays only templates that belong to the user's org
     # GET /org_admin/templates/organisational
     # -----------------------------------------------------
-    # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/AbcSize
     def organisational
       authorize Template
       templates = Template.latest_version_per_org(current_user.org.id)
@@ -60,12 +60,12 @@ module OrgAdmin
                            end
       render :index
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/AbcSize
 
     # A version of index that displays only templates that are customizable
     # GET /org_admin/templates/customisable
     # -----------------------------------------------------
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/AbcSize
     def customisable
       authorize Template
       customizations = Template.latest_customized_version_per_org(current_user.org.id)
@@ -96,7 +96,7 @@ module OrgAdmin
 
       render :index
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/AbcSize
 
     # GET /org_admin/templates/[:id]
     def show
@@ -328,9 +328,9 @@ module OrgAdmin
       @formatting = Settings::Template::DEFAULT_SETTINGS[:formatting]
 
       begin
-        # rubocop:disable Style/LineLength
+        # rubocop:disable Layout/LineLength
         file_name = @template.title.gsub(/[^a-zA-Z\d\s]/, "").gsub(/ /, "_") + "_v" + @template.version.to_s
-        # rubocop:enable Style/LineLength
+        # rubocop:enable Layout/LineLength
         respond_to do |format|
           format.docx do
             render docx: "template_exports/template_export", filename: "#{file_name}.docx"
@@ -395,7 +395,6 @@ module OrgAdmin
       end
     end
 
-    # rubocop:disable Metrics/PerceivedComplexity
     def get_referrer(template, referrer)
       return org_admin_templates_path unless referrer.present?
 
@@ -412,7 +411,6 @@ module OrgAdmin
         request.referrer
       end
     end
-    # rubocop:enable Metrics/PerceivedComplexity
 
   end
   # rubocop:enable Metrics/ClassLength

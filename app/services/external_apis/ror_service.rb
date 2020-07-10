@@ -5,8 +5,6 @@ module ExternalApis
   # This service provides an interface to the Research Organization Registry (ROR)
   # API.
   # For more information: https://github.com/ror-community/ror-api
-
-  # rubocop:disable Metrics/ClassLength
   class RorService < BaseService
 
     class << self
@@ -110,7 +108,6 @@ module ExternalApis
       end
 
       # Recursive method that can handle multiple ROR result pages if necessary
-      # rubocop:disable Metrics/CyclomaticComplexity
       def process_pages(term:, json:, filters: [])
         return [] if json.blank?
 
@@ -134,8 +131,6 @@ module ExternalApis
         log_error(method: "ROR search", error: e)
         results || []
       end
-
-      # rubocop:enable Metrics/CyclomaticComplexity
 
       # Convert the JSON items into a hash
       def parse_results(json:)
@@ -210,6 +205,5 @@ module ExternalApis
     end
 
   end
-  # rubocop:enable Metrics/ClassLength
 
 end

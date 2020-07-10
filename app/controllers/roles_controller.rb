@@ -9,7 +9,6 @@ class RolesController < ApplicationController
 
   # POST /roles
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockNesting
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def create
     registered = true
 
@@ -70,7 +69,7 @@ class RolesController < ApplicationController
     redirect_to controller: "plans", action: "share", id: @role.plan.id
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockNesting
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
   # PUT /roles/:id
   def update

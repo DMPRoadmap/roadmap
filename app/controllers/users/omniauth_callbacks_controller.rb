@@ -21,7 +21,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # scheme - The IdentifierScheme for the provider
   #
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def handle_omniauth(scheme)
     user = if request.env["omniauth.auth"].nil?
              User.from_omniauth(request.env)
@@ -77,7 +76,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
   def failure
     redirect_to root_path

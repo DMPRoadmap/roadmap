@@ -46,8 +46,6 @@
 
 # TODO: Drop the funder_name and grant_number columns once the funder_id has
 #       been back filled and we're removing the is_other org stuff
-
-# rubocop:disable Metrics/ClassLength
 class Plan < ApplicationRecord
 
   include ConditionalUserMailer
@@ -366,7 +364,6 @@ class Plan < ApplicationRecord
   # user_id - The Integer id for a user
   #
   # Returns Boolean
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def readable_by?(user_id)
     return true if commentable_by?(user_id)
 
@@ -383,7 +380,7 @@ class Plan < ApplicationRecord
       false
     end
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
   # determines if the plan is readable by the specified user.
   #
@@ -587,4 +584,3 @@ class Plan < ApplicationRecord
   end
 
 end
-# rubocop:enable Metrics/ClassLength

@@ -15,7 +15,6 @@ module UsageHelper
   # appropriately by passing along the labels for the Y axis and the datasets
   # for the X axis
   # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/CyclomaticComplexity
   def prep_data_for_template_plans_chart(data:, subset: "by_template")
     last_month = Date.today.last_month.end_of_month.strftime("%b-%y")
     return { labels: [last_month], datasets: [] }.to_json if data.blank? || data.empty?
@@ -57,7 +56,6 @@ module UsageHelper
     }.to_json
   end
   # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   def plans_per_template_ranges
     [

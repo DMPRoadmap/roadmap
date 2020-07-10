@@ -52,8 +52,6 @@
 #  fk_rails_...  (language_id => languages.id)
 #  fk_rails_...  (org_id => orgs.id)
 #
-
-# rubocop:disable Metrics/ClassLength
 class User < ApplicationRecord
 
   include ConditionalUserMailer
@@ -245,7 +243,6 @@ class User < ApplicationRecord
   # requires them to see the org-admin pages then they are an org admin.
   #
   # Returns Boolean
-  # rubocop:disable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
   def can_org_admin?
     return true if can_super_admin?
 
@@ -256,7 +253,7 @@ class User < ApplicationRecord
       can_modify_templates? || can_modify_org_details? ||
       can_review_plans?
   end
-  # rubocop:enable Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+  # rubocop:enable
 
   # Can the User add new organisations?
   #
@@ -460,4 +457,3 @@ class User < ApplicationRecord
   end
 
 end
-# rubocop:enable Metrics/ClassLength

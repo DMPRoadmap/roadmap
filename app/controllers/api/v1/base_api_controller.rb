@@ -5,7 +5,6 @@ module Api
   module V1
 
     # Base API Controller
-    # rubocop:disable Metrics/ClassLength
     class BaseApiController < ApplicationController
 
       # Skipping the standard Rails authenticity tokens passed in UI
@@ -192,7 +191,6 @@ module Api
       end
 
     end
-    # rubocop:enable Metrics/ClassLength
 
   end
 

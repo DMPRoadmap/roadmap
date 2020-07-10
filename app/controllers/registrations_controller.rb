@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 class RegistrationsController < Devise::RegistrationsController
 
   include OrgSelectable
@@ -45,7 +44,6 @@ class RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockNesting
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def create
     oauth = { provider: nil, uid: nil }
     IdentifierScheme.for_users.each do |scheme|
@@ -122,7 +120,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockNesting
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
   def update
     if user_signed_in?
@@ -152,7 +150,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def do_update(require_password = true, confirm = false)
     mandatory_params = true
     # added to by below, overwritten otherwise
@@ -248,9 +245,9 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
-  # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/AbcSize
   def do_update_password(current_user, args)
     if args[:current_password].blank?
       message = _("Please enter your current password")
@@ -276,7 +273,7 @@ class RegistrationsController < Devise::RegistrationsController
       redirect_to "#{edit_user_registration_path}\#password-details"
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize
 
   def sign_up_params
     params.require(:user).permit(:email, :password, :password_confirmation,
@@ -308,4 +305,3 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
 end
-# rubocop:enable Metrics/ClassLength
