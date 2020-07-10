@@ -47,7 +47,6 @@ class Answer < ApplicationRecord
 
   has_many :notes
 
-
   # ===============
   # = Validations =
   # ===============
@@ -57,8 +56,8 @@ class Answer < ApplicationRecord
   validates :user, presence: { message: PRESENCE_MESSAGE }
 
   validates :question, presence: { message: PRESENCE_MESSAGE },
-                      uniqueness: { message: UNIQUENESS_MESSAGE,
-                                    scope: :plan_id }
+                       uniqueness: { message: UNIQUENESS_MESSAGE,
+                                     scope: :plan_id }
 
   # =============
   # = Callbacks =
@@ -97,8 +96,8 @@ class Answer < ApplicationRecord
     if question.present?
       if question.question_format.option_based?
         return question_options.any?
-      else  # (e.g. textarea or textfield question formats)
-        return not(is_blank?)
+      else # (e.g. textarea or textfield question formats)
+        return !is_blank?
       end
     end
     false
@@ -116,9 +115,8 @@ class Answer < ApplicationRecord
   #
   # Returns Boolean
   def is_blank?
-    if text.present?
-      return text.gsub(/<\/?p>/, "").gsub(/<br\s?\/?>/, "").chomp.blank?
-    end
+    return text.gsub(%r{</?p>}, "").gsub(%r{<br\s?/?>}, "").chomp.blank? if text.present?
+
     # no text so blank
     true
   end
@@ -155,6 +153,7 @@ class Answer < ApplicationRecord
   def set_plan_complete
     # Remove guard? this is an after-save so unreachable if there is no plan
     return unless plan_id?
+
     complete = plan.no_questions_matches_no_answers?
     if plan.complete != complete
       plan.update!(complete: complete)

@@ -73,7 +73,7 @@ class Question < ApplicationRecord
 
   validate :ensure_has_question_options, if: :option_based?
 
-  validates :text, presence: { message:   QUESTION_TEXT_PRESENCE_MESSAGE }
+  validates :text, presence: { message: QUESTION_TEXT_PRESENCE_MESSAGE }
 
   validates :section, presence: { message: PRESENCE_MESSAGE, on: :update }
 
@@ -96,37 +96,37 @@ class Question < ApplicationRecord
   # =====================
 
   # TODO: evaluate if we need this
-  accepts_nested_attributes_for :answers, reject_if: -> (a) { a[:text].blank? },
-                                  allow_destroy: true
+  accepts_nested_attributes_for :answers, reject_if: ->(a) { a[:text].blank? },
+                                          allow_destroy: true
 
   accepts_nested_attributes_for :question_options, allow_destroy: true,
-                                  reject_if: -> (a) { a[:text].blank? }
+                                                   reject_if: ->(a) { a[:text].blank? }
 
   accepts_nested_attributes_for :annotations, allow_destroy: true,
-                                  reject_if: proc { |a| a[:text].blank? && a[:id].blank? }
+                                              reject_if: proc { |a| a[:text].blank? && a[:id].blank? }
 
   # =====================
   # = Delegated methods =
   # =====================
 
-  delegate :option_based?, to: :question_format, :allow_nil => true
+  delegate :option_based?, to: :question_format, allow_nil: true
 
   # ===========================
   # = Public instance methods =
   # ===========================
 
   def deep_copy(**options)
-    copy = self.dup
-    copy.modifiable = options.fetch(:modifiable, self.modifiable)
+    copy = dup
+    copy.modifiable = options.fetch(:modifiable, modifiable)
     copy.section_id = options.fetch(:section_id, nil)
     copy.save!(validate: false)  if options.fetch(:save, false)
     options[:question_id] = copy.id
-    self.question_options.each { |question_option| copy.question_options << question_option.deep_copy(options) }
-    self.annotations.each do |annotation|
+    question_options.each { |question_option| copy.question_options << question_option.deep_copy(options) }
+    annotations.each do |annotation|
       copy.annotations << annotation.deep_copy(options)
     end
-    self.themes.each { |theme| copy.themes << theme }
-    self.conditions.each { |condition| copy.conditions << condition.deep_copy(options) }
+    themes.each { |theme| copy.themes << theme }
+    conditions.each { |condition| copy.conditions << condition.deep_copy(options) }
     copy.conditions = copy.conditions.sort_by(&:number)
     copy
   end
@@ -172,7 +172,7 @@ class Question < ApplicationRecord
   alias get_example_answers example_answers
 
   deprecate :get_example_answers,
-              deprecator: Cleanup::Deprecators::GetDeprecator.new
+            deprecator: Cleanup::Deprecators::GetDeprecator.new
 
   # get guidance belonging to the current user's org for this question(need org
   # to distinguish customizations)
@@ -187,7 +187,7 @@ class Question < ApplicationRecord
   alias get_guidance_annotation guidance_annotation
 
   deprecate :get_guidance_annotation,
-              deprecator: Cleanup::Deprecators::GetDeprecator.new
+            deprecator: Cleanup::Deprecators::GetDeprecator.new
 
   def annotations_per_org(org_id)
     example_answer = annotations.find_by(org_id: org_id,
@@ -197,9 +197,7 @@ class Question < ApplicationRecord
     unless example_answer.present?
       example_answer = annotations.build(type: :example_answer, text: "", org_id: org_id)
     end
-    unless guidance.present?
-      guidance = annotations.build(type: :guidance, text: "", org_id: org_id)
-    end
+    guidance = annotations.build(type: :guidance, text: "", org_id: org_id) unless guidance.present?
     [example_answer, guidance]
   end
 
@@ -208,7 +206,7 @@ class Question < ApplicationRecord
   # after versioning
   def update_conditions(param_conditions, old_to_new_opts, question_id_map)
     res = true
-    self.conditions.destroy_all
+    conditions.destroy_all
 
     if param_conditions.present?
       param_conditions.each do |_key, value|
@@ -217,11 +215,10 @@ class Question < ApplicationRecord
     end
   end
 
-
   def saveCondition(value, opt_map, question_id_map)
-    c = self.conditions.build
+    c = conditions.build
     c.action_type = value["action_type"]
-    c.number = value['number']
+    c.number = value["number"]
     # question options may have changed so rewrite them
     c.option_list = value["question_option"]
     unless opt_map.blank?
@@ -243,10 +240,10 @@ class Question < ApplicationRecord
       end
     else
       c.webhook_data = {
-        name: value['webhook-name'],
-        email: value['webhook-email'],
-        subject: value['webhook-subject'],
-        message: value['webhook-message']
+        name: value["webhook-name"],
+        email: value["webhook-email"],
+        subject: value["webhook-subject"],
+        message: value["webhook-message"]
       }.to_json
     end
     c.save
@@ -255,9 +252,7 @@ class Question < ApplicationRecord
   private
 
   def ensure_has_question_options
-    if question_options.empty?
-      errors.add :base, OPTION_PRESENCE_MESSAGE
-    end
+    errors.add :base, OPTION_PRESENCE_MESSAGE if question_options.empty?
   end
 
   # before destroying a question we need to remove it from
@@ -266,7 +261,7 @@ class Question < ApplicationRecord
   # abort callback chain if we can't update the condition
   def check_remove_conditions
     id = self.id.to_s
-    self.template.questions.each do |q|
+    template.questions.each do |q|
       q.conditions.each do |cond|
         cond.remove_data.delete(id)
         if cond.remove_data.empty?

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: question_options
@@ -20,6 +22,7 @@
 #
 
 class QuestionOption < ApplicationRecord
+
   include VersionableModel
 
   # ================
@@ -63,7 +66,6 @@ class QuestionOption < ApplicationRecord
 
   scope :by_number, -> { order(:number) }
 
-
   # ===========================
   # = Public instance methods =
   # ===========================
@@ -73,7 +75,7 @@ class QuestionOption < ApplicationRecord
   # ===========================
 
   def deep_copy(**options)
-    copy = self.dup
+    copy = dup
     copy.question_id = options.fetch(:question_id, nil)
     copy.save!(validate: false)  if options.fetch(:save, false)
     options[:question_option_id] = copy.id
@@ -89,10 +91,8 @@ class QuestionOption < ApplicationRecord
   # add callback halting with abort
   def check_condition_options
     id = self.id.to_s
-    self.question.conditions.each do |cond|
-      if cond.option_list.include?(id)
-        cond.destroy
-      end
+    question.conditions.each do |cond|
+      cond.destroy if cond.option_list.include?(id)
     end
   end
 

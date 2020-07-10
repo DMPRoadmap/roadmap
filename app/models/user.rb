@@ -68,8 +68,7 @@ class User < ApplicationRecord
   #   :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable, :omniauthable,
-         omniauth_providers: [:shibboleth, :orcid]
-
+         omniauth_providers: %i[shibboleth orcid]
 
   ##
   # User Notification Preferences
@@ -81,7 +80,6 @@ class User < ApplicationRecord
   # ================
   # = Associations =
   # ================
-
 
   has_and_belongs_to_many :perms, join_table: :users_perms
 
@@ -104,8 +102,7 @@ class User < ApplicationRecord
   has_many :plans, through: :roles
 
   has_and_belongs_to_many :notifications, dependent: :destroy,
-                          join_table: "notification_acknowledgements"
-
+                                          join_table: "notification_acknowledgements"
 
   # ===============
   # = Validations =
@@ -126,18 +123,18 @@ class User < ApplicationRecord
   default_scope { includes(:org, :perms) }
 
   # Retrieves all of the org_admins for the specified org
-  scope :org_admins, -> (org_id) {
-    joins(:perms).where("users.org_id = ? AND perms.name IN (?) AND " +
+  scope :org_admins, lambda { |org_id|
+    joins(:perms).where("users.org_id = ? AND perms.name IN (?) AND " \
                         "users.active = ?",
                         org_id,
-                        ["grant_permissions",
-                         "modify_templates",
-                         "modify_guidance",
-                         "change_org_details"],
-                         true)
+                        %w[grant_permissions
+                           modify_templates
+                           modify_guidance
+                           change_org_details],
+                        true)
   }
 
-  scope :search, -> (term) {
+  scope :search, lambda { |term|
     if date_range?(term: term)
       by_date_range(:created_at, term)
     else
@@ -146,7 +143,7 @@ class User < ApplicationRecord
       # or concat functions do not exist for sqlite, we have to come up with this
       # conditional
       if ActiveRecord::Base.connection.adapter_name == "Mysql2"
-        where("lower(concat_ws(' ', firstname, surname)) LIKE lower(?) OR " +
+        where("lower(concat_ws(' ', firstname, surname)) LIKE lower(?) OR " \
               "lower(email) LIKE lower(?)",
               search_pattern, search_pattern)
       else
@@ -204,12 +201,10 @@ class User < ApplicationRecord
   # Returns String
   # Returns nil
   def get_locale
-    if !self.language.nil?
-      self.language.abbreviation
-    elsif !self.org.nil?
-      self.org.get_locale
-    else
-      nil
+    if !language.nil?
+      language.abbreviation
+    elsif !org.nil?
+      org.get_locale
     end
   end
 
@@ -219,7 +214,7 @@ class User < ApplicationRecord
   #
   # Returns String
   def name(use_email = true)
-    if (firstname.blank? && surname.blank?) || use_email then
+    if (firstname.blank? && surname.blank?) || use_email
       email
     else
       name = "#{firstname} #{surname}"
@@ -241,7 +236,7 @@ class User < ApplicationRecord
   #
   # Returns Boolean
   def can_super_admin?
-    self.can_add_orgs? || self.can_grant_api_to_orgs? || self.can_change_org?
+    can_add_orgs? || can_grant_api_to_orgs? || can_change_org?
   end
 
   # Checks if the user is an organisation admin if the user has any privlege which
@@ -284,7 +279,7 @@ class User < ApplicationRecord
   #
   # Returns Boolean
   def can_modify_templates?
-    self.perms.include? Perm.modify_templates
+    perms.include? Perm.modify_templates
   end
 
   # Can the User modify organisation guidance?
@@ -316,7 +311,6 @@ class User < ApplicationRecord
     perms.include? Perm.grant_api
   end
 
-
   ##
   # Can the user review their organisation's plans?
   #
@@ -331,6 +325,7 @@ class User < ApplicationRecord
   # Returns Boolean
   def remove_token!
     return if new_record? || api_token.nil?
+
     update_column(:api_token, nil)
   end
 
@@ -340,8 +335,8 @@ class User < ApplicationRecord
   # Returns Boolean
   def keep_or_generate_token!
     if api_token.nil? || api_token.empty?
-      new_token = User.unique_random(field_name: 'api_token')
-      update_column(:api_token, new_token)  unless new_record?
+      new_token = User.unique_random(field_name: "api_token")
+      update_column(:api_token, new_token) unless new_record?
     end
   end
 
@@ -356,7 +351,7 @@ class User < ApplicationRecord
 
       # Check for new preferences
       defaults.keys.each do |grp|
-        defaults[grp].keys.each do |pref, v|
+        defaults[grp].keys.each do |pref, _v|
           # If the group isn't present in the saved values add all of it's preferences
           existing[grp] = defaults[grp] if existing[grp].nil?
           # If the preference isn't present in the saved values add the default
@@ -371,7 +366,7 @@ class User < ApplicationRecord
 
   # Override devise_invitable email title
   def deliver_invitation(options = {})
-    super(options.merge(subject: _("A Data Management Plan in " +
+    super(options.merge(subject: _("A Data Management Plan in " \
       "%{application_name} has been shared with you") %
       { application_name: ApplicationService.application_name })
     )
@@ -389,6 +384,7 @@ class User < ApplicationRecord
     unless columns.map(&:name).include?(field.to_s)
       raise ArgumentError, "Field #{field} is not present on users table"
     end
+
     User.where("LOWER(#{field}) = :value", value: val.to_s.downcase)
   end
 
@@ -407,19 +403,19 @@ class User < ApplicationRecord
   #
   # Returns boolean
   def archive
-    self.firstname = 'Deleted'
-    self.surname = 'User'
-    self.email = User.unique_random(field_name: 'email',
-      prefix: 'user_',
-      suffix: Rails.configuration.x.application.fetch(:archived_accounts_email_suffix, '@example.org'),
-      length: 5)
+    self.firstname = "Deleted"
+    self.surname = "User"
+    self.email = User.unique_random(field_name: "email",
+                                    prefix: "user_",
+                                    suffix: Rails.configuration.x.application.fetch(:archived_accounts_email_suffix, "@example.org"),
+                                    length: 5)
     self.recovery_email = nil
     self.api_token = nil
     self.encrypted_password = nil
     self.last_sign_in_ip = nil
-    self.current_sign_in_ip =  nil
+    self.current_sign_in_ip = nil
     self.active = false
-    return self.save
+    save
   end
 
   def merge(to_be_merged)

@@ -65,7 +65,7 @@ class Plan < ApplicationRecord
     publicly_visible: _("public"),
     is_test: _("test"),
     privately_visible: _("private")
-  }
+  }.freeze
 
   # ==============
   # = Attributes =
@@ -156,21 +156,21 @@ class Plan < ApplicationRecord
     plan_ids = Role.where(active: true, user_id: user.id).pluck(:plan_id)
 
     includes(:template, :roles)
-    .where(id: plan_ids)
+      .where(id: plan_ids)
   }
 
   # Retrieves any plan organisationally or publicly visible for a given org id
-  scope :organisationally_or_publicly_visible, -> (user) {
+  scope :organisationally_or_publicly_visible, lambda { |user|
     plan_ids = user.org.plans.where(complete: true).pluck(:id).uniq
     includes(:template, roles: :user)
-    .where(id: plan_ids, visibility: [
-      visibilities[:organisationally_visible],
-      visibilities[:publicly_visible]
-    ])
-    .where(
-      "NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)",
-      user.id
-    )
+      .where(id: plan_ids, visibility: [
+               visibilities[:organisationally_visible],
+               visibilities[:publicly_visible]
+             ])
+      .where(
+        "NOT EXISTS (SELECT 1 FROM roles WHERE plan_id = plans.id AND user_id = ?)",
+        user.id
+      )
   }
 
   # TODO: Add in a left join here so we can search contributors as well when
@@ -199,7 +199,7 @@ class Plan < ApplicationRecord
   ##
   # Defines the filter_logic used in the statistics objects.
   # For now, we filter out any test plans
-  scope :stats_filter, -> { where.not(visibility: visibilities[:is_test])}
+  scope :stats_filter, -> { where.not(visibility: visibilities[:is_test]) }
 
   # Retrieves plan, template, org, phases, sections and questions
   scope :overview, lambda { |id|
@@ -212,7 +212,6 @@ class Plan < ApplicationRecord
     s.key :export, defaults: Settings::Template::DEFAULT_SETTINGS
   end
   alias super_settings settings
-
 
   # =================
   # = Class methods =
@@ -232,7 +231,7 @@ class Plan < ApplicationRecord
   end
 
   # deep copy the given plan and all of it's associations
-  #create
+  # create
   # plan - Plan to be deep copied
   #
   # Returns Plan
@@ -267,6 +266,7 @@ class Plan < ApplicationRecord
   def settings(key)
     self_settings = super_settings(key)
     return self_settings if self_settings.value?
+
     template&.settings(key)
   end
 
@@ -340,11 +340,12 @@ class Plan < ApplicationRecord
           # Send an email confirmation to the owners and co-owners
           deliver_if(recipients: owner_and_coowners,
                      key: "users.feedback_provided") do |r|
-                         UserMailer.feedback_complete(
-                           r,
-                           self,
-                           org_admin).deliver_now
-                       end
+            UserMailer.feedback_complete(
+              r,
+              self,
+              org_admin
+            ).deliver_now
+          end
           true
         else
           false
@@ -374,13 +375,15 @@ class Plan < ApplicationRecord
   # Returns Boolean
   def readable_by?(user_id)
     return true if commentable_by?(user_id)
+
     current_user = User.find(user_id)
     return false unless current_user.present?
+
     # If the user is a super admin and the config allows for supers to view plans
     if current_user.can_super_admin? && Rails.configuration.x.plans.super_admins_read_all
       true
     # If the user is an org admin and the config allows for org admins to view plans
-  elsif current_user.can_org_admin? && Rails.configuration.x.plans.org_admins_read_all
+    elsif current_user.can_org_admin? && Rails.configuration.x.plans.org_admins_read_all
       owner_and_coowners.map(&:org_id).include?(current_user.org_id)
     else
       false
@@ -413,9 +416,9 @@ class Plan < ApplicationRecord
   def reviewable_by?(user_id)
     reviewer = User.find(user_id)
     feedback_requested? &&
-    reviewer.present? &&
-    reviewer.org_id == owner&.org_id &&
-    reviewer.can_review_plans?
+      reviewer.present? &&
+      reviewer.org_id == owner&.org_id &&
+      reviewer.can_review_plans?
   end
 
   # the datetime for the latest update of this plan
@@ -431,9 +434,9 @@ class Plan < ApplicationRecord
   # Returns nil
   def owner
     usr_id = Role.where(plan_id: id, active: true)
-                  .administrator
-                  .order(:created_at)
-                  .pluck(:user_id).first
+                 .administrator
+                 .order(:created_at)
+                 .pluck(:user_id).first
     usr_id.present? ? User.find(usr_id) : nil
   end
 
@@ -447,7 +450,7 @@ class Plan < ApplicationRecord
   def add_user!(user_id, access_type = :commenter)
     user = User.where(id: user_id).first
     if user.present?
-      role = Role.find_or_initialize_by(user_id: user_id, plan_id: self.id)
+      role = Role.find_or_initialize_by(user_id: user_id, plan_id: id)
 
       # Access is cumulative, so set the appropriate flags
       # (e.g. an administrator can also edit and comment)
@@ -509,7 +512,7 @@ class Plan < ApplicationRecord
   #
   # Returns Integer
   def num_answered_questions(phase = nil)
-    return answers.select { |answer| answer.answered? }.length unless phase.present?
+    return answers.select(&:answered?).length unless phase.present?
 
     answered = answers.select do |answer|
       answer.answered? && phase.questions.include?(answer.question)
@@ -563,7 +566,7 @@ class Plan < ApplicationRecord
     # If no other :creator, :administrator or :editor is attached
     # to the plan, then also deactivate all other active roles
     # and set the plan's visibility to :private
-    if authors.size == 0
+    if authors.empty?
       roles.where(active: true).update_all(active: false)
       self.visibility = Plan.visibilities[:privately_visible]
       save!

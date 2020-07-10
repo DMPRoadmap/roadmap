@@ -48,13 +48,13 @@ class SectionSorter
 
         # Collect the unmodifiable Section ids in the order the should be displayed
         unmodifiable = sections
-                        .select { |section| section.unmodifiable? }
-                        .sort_by { |section| [section.number, section.id] }
+                       .select(&:unmodifiable?)
+                       .sort_by { |section| [section.number, section.id] }
 
         # Then any additional Sections that come after the main block...
         modifiable = sections
-                        .select { |section| section.modifiable? && section.number > 1 }
-                        .sort_by { |section| [section.number, section.id] }
+                     .select { |section| section.modifiable? && section.number > 1 }
+                     .sort_by { |section| [section.number, section.id] }
 
         # Create one Array with all of the ids in the correct order.
         self.sections = [prefix] + unmodifiable + erratic + modifiable
@@ -87,7 +87,7 @@ class SectionSorter
   end
 
   def duplicate_number_values
-    @duplicate_number_values ||= number_values_with_count.select do |number, count|
+    @duplicate_number_values ||= number_values_with_count.select do |_number, count|
       count > 1
     end.keys
   end
