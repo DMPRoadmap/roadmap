@@ -29,7 +29,7 @@ class OrgsController < ApplicationController
     @org.logo = attrs[:logo] if attrs[:logo]
     tab = (attrs[:feedback_enabled].present? ? "feedback" : "profile")
     if params[:org_links].present?
-      @org.links = JSON.parse(params[:org_links])
+      @org.links = ActiveSupport::JSON.decode(params[:org_links])
     end
 
     # Only allow super admins to change the org types and shib info
