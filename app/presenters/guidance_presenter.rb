@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 class GuidancePresenter
 
   attr_accessor :plan
@@ -11,7 +10,6 @@ class GuidancePresenter
     @guidance_groups = plan.guidance_groups.where(published: true)
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def any?(org: nil, question: nil)
     if org.nil?
       return hashified_annotations? || hashified_guidance_groups? unless question.present?
@@ -32,7 +30,7 @@ class GuidancePresenter
     guidance_annotations?(org: org, question: question) ||
       guidance_groups_by_theme?(org: org, question: question)
   end
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
   # filters through the orgs with annotations and guidance groups to create a
   # set of tabs with display names and any guidance/annotations to show
@@ -40,7 +38,6 @@ class GuidancePresenter
   # question  - The question to which guidance pretains
   #
   # Returns an array of tab hashes.  These
-  # rubocop:disable Metrics/CyclomaticComplexity
   def tablist(question)
     # start with orgs
     # filter into hash with annotation_presence, main_group presence, and
@@ -63,7 +60,6 @@ class GuidancePresenter
     end
     display_tabs
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 
   private
 
@@ -230,4 +226,3 @@ class GuidancePresenter
   end
 
 end
-# rubocop:enable Metrics/ClassLength

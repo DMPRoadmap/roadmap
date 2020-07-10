@@ -6,7 +6,7 @@ class Api::V0::PlansController < Api::V0::BaseController
 
   ##
   # Creates a new plan based on the information passed in JSON to the API
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def create
     @template = Template.live(params[:template_id])
     raise Pundit::NotAuthorizedError unless Api::V0::PlansPolicy.new(@user, @template).create?
@@ -54,10 +54,9 @@ class Api::V0::PlansController < Api::V0::BaseController
       render json: _("Bad Parameters"), status: 400
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def index
     raise Pundit::NotAuthorizedError unless Api::V0::PlansPolicy.new(@user, nil).index?
 
@@ -97,7 +96,7 @@ class Api::V0::PlansController < Api::V0::BaseController
     respond_with @plans
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
   private
 

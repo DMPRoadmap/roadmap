@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 class UsersController < ApplicationController
 
   helper PaginableHelper
@@ -65,7 +64,6 @@ class UsersController < ApplicationController
   # redirects to the admin_index action
   # should add validation that the perms given are current perms of the current_user
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def admin_update_permissions
     @user = User.find(params[:id])
     authorize @user
@@ -106,7 +104,7 @@ class UsersController < ApplicationController
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
   # PUT /users/:id/update_email_preferences
   def update_email_preferences
@@ -196,4 +194,3 @@ class UsersController < ApplicationController
   end
 
 end
-# rubocop:enable Metrics/ClassLength

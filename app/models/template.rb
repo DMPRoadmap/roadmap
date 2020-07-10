@@ -276,7 +276,7 @@ class Template < ApplicationRecord
   # Creates a copy of the current template
   # raises ActiveRecord::RecordInvalid when save option is true and validations
   # fails.
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/AbcSize
   def deep_copy(attributes: {}, **options)
     copy = dup
     if attributes.respond_to?(:each_pair)
@@ -309,7 +309,7 @@ class Template < ApplicationRecord
 
     copy
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/AbcSize
 
   # Retrieves the template's org or the org of the template this one is derived
   # from of it is a customization
@@ -438,7 +438,6 @@ class Template < ApplicationRecord
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def publishability
     error = ""
     publishable = true
@@ -473,7 +472,7 @@ class Template < ApplicationRecord
     [publishable, error]
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
   private
 

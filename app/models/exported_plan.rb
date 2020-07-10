@@ -12,8 +12,6 @@
 #  plan_id    :integer
 #  user_id    :integer
 #
-
-# rubocop:disable Metrics/ClassLength
 class ExportedPlan < ApplicationRecord
 
   include SettingsTemplateHelper
@@ -109,7 +107,6 @@ class ExportedPlan < ApplicationRecord
   # Export formats
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def as_csv(sections, unanswered_questions, question_headings)
     CSV.generate do |csv|
       # rubocop:disable Style/ConditionalAssignment
@@ -157,10 +154,9 @@ class ExportedPlan < ApplicationRecord
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def as_txt(sections, unanswered_questions, question_headings, details)
     output = "#{plan.title}\n\n#{plan.template.title}\n"
     output += "\n" + _("Details") + "\n\n"
@@ -202,7 +198,7 @@ class ExportedPlan < ApplicationRecord
     output
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
   private
 
@@ -227,4 +223,3 @@ class ExportedPlan < ApplicationRecord
   end
 
 end
-# rubocop:enable Metrics/ClassLength

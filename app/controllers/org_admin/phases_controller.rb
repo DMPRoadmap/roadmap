@@ -2,7 +2,6 @@
 
 module OrgAdmin
 
-  # rubocop:disable Metrics/ClassLength
   class PhasesController < ApplicationController
 
     include Versionable
@@ -197,4 +196,3 @@ module OrgAdmin
   end
 
 end
-# rubocop:enable Metrics/ClassLength

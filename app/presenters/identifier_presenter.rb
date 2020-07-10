@@ -35,8 +35,6 @@ class IdentifierPresenter
 
   private
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  # rubocop:disable Metrics/PerceivedComplexity
   def load_schemes
     # Load the schemes for the current context
     schemes = IdentifierScheme.for_orgs if @identifiable.is_a?(Org)
@@ -54,7 +52,5 @@ class IdentifierPresenter
     end
     schemes
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
-  # rubocop:enable Metrics/PerceivedComplexity
 
 end

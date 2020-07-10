@@ -6,7 +6,6 @@ module Api
 
     module Deserialization
 
-      # rubocop:disable Metrics/ClassLength
       class Plan
 
         class << self
@@ -112,7 +111,6 @@ module Api
           end
 
           # Deserialize the project information and attach to Plan
-          # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           def deserialize_project(plan:, json: {})
             return plan unless json.present? &&
                                json[:project].present? &&
@@ -128,7 +126,7 @@ module Api
 
             Api::V1::Deserialization::Funding.deserialize!(plan: plan, json: funding)
           end
-          # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+          # rubocop:enable
 
           # Deserialize the contact as a Contributor
           def deserialize_contact(plan:, json: {})
@@ -214,7 +212,6 @@ module Api
         end
 
       end
-      # rubocop:enable Metrics/ClassLength
 
     end
 

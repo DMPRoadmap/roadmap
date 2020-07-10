@@ -29,7 +29,6 @@ class SectionSorter
   #
   # Returns Array of Sections
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def sort!
     if all_sections_unmodifiable?
       sort_as_homogenous_group
@@ -74,7 +73,7 @@ class SectionSorter
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 
   private
 

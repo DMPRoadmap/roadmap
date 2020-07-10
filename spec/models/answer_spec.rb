@@ -78,7 +78,9 @@ RSpec.describe Answer, type: :model do
   end
 
   describe "#answered?" do
-    context "text based answer" do
+
+    describe "text based answer" do
+
       context "when text is nil" do
 
         let!(:answer) { build(:answer, text: nil) }
@@ -128,12 +130,14 @@ RSpec.describe Answer, type: :model do
         it { is_expected.not_to eql(true) }
 
       end
+
     end
 
-    context "option based question" do
+    describe "option based question" do
+
       let!(:answer) { create(:answer) }
 
-      subject { answer.answered?
+      subject { answer.answered? }
 
       context "question present, question format is option and options empty" do
 
@@ -194,6 +198,7 @@ RSpec.describe Answer, type: :model do
         it { is_expected.to eql(false) }
 
       end
+
     end
 
   end

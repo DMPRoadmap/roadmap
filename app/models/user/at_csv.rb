@@ -11,7 +11,6 @@ class User
       @users = users
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity
     def to_csv
       CSV.generate(headers: true) do |csv|
         csv << HEADERS
@@ -38,7 +37,6 @@ class User
         end
       end
     end
-    # rubocop:enable Metrics/CyclomaticComplexity
 
   end
 

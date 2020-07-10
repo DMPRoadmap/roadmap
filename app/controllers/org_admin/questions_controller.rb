@@ -2,7 +2,6 @@
 
 module OrgAdmin
 
-  # rubocop:disable Metrics/ClassLength
   class QuestionsController < ApplicationController
 
     include AllowedQuestionFormats
@@ -110,7 +109,6 @@ module OrgAdmin
 
     # PUT /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/:id
     # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def update
       question = Question.find(params[:id])
       authorize question
@@ -185,7 +183,7 @@ module OrgAdmin
       end
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:enable
 
     # DELETE /org_admin/templates/:template_id/phases/:phase_id/sections/:section_id/questions/:id
     # rubocop:disable Metrics/AbcSize
@@ -287,6 +285,5 @@ module OrgAdmin
     end
 
   end
-  # rubocop:enable Metrics/ClassLength
 
 end
