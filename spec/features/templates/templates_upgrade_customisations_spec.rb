@@ -88,7 +88,8 @@ RSpec.feature "Templates::UpgradeCustomisations", type: :feature do
     visit organisational_org_admin_templates_path
 
     click_button "Actions"
-    expect { click_link "Publish changes" }.to change { Template.last.published? }.from(false).to(true)
+    target = Template.last.published?
+    expect { click_link "Publish changes" }.to change { target }.from(false).to(true)
 
     # Go back to the original Org...
 

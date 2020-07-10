@@ -52,7 +52,7 @@ RSpec.describe "PlansExports", type: :feature, js: true do
 
   scenario "User downloads org plan belonging to User in same org" do
     new_plan = create(:plan, :organisationally_visible, template: template)
-    role = create(:role, :creator, plan: new_plan, user: create(:user, org: org))
+    create(:role, :creator, plan: new_plan, user: create(:user, org: org))
     sign_in(user)
     within("#plan_#{plan.id}") do
       click_button("Actions")
@@ -67,14 +67,14 @@ RSpec.describe "PlansExports", type: :feature, js: true do
 
   scenario "User downloads org plan belonging to User in other org" do
     new_plan = create(:plan, :organisationally_visible, template: template)
-    role = create(:role, :creator, plan: new_plan)
+    create(:role, :creator, plan: new_plan)
     sign_in(create(:user))
     expect(page).not_to have_text(new_plan.title)
   end
 
   scenario "User attempts to download private plan belonging to User in same" do
     new_plan = create(:plan, :privately_visible, template: template)
-    role = create(:role, :creator, plan: new_plan)
+    create(:role, :creator, plan: new_plan)
     sign_in(create(:user))
     expect(page).not_to have_text(new_plan.title)
   end

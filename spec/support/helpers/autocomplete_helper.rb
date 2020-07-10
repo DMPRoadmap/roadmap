@@ -12,11 +12,8 @@ module AutoCompleteHelper
     hidden_id = autocomplete_id.gsub("_name", "_id").gsub("#", "")
     hash = { id: org.id, name: org.name }.to_json
 
-    if hidden_id.present?
-      page.execute_script(
-        "document.getElementById('#{hidden_id}').value = '#{hash}'"
-      )
-    end
+    js = "document.getElementById('#{hidden_id}').value = '#{hash}'"
+    page.execute_script(js) if hidden_id.present?
   end
 
   def choose_suggestion(suggestion_text)

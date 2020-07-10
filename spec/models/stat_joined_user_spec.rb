@@ -29,8 +29,10 @@ RSpec.describe StatJoinedUser, type: :model do
     context "when instances" do
       let(:org) { FactoryBot.create(:org) }
       it "returns instances in a comma-separated row" do
-        may = FactoryBot.create(:stat_joined_user, date: Date.new(2018, 0o5, 31), org: org, count: 20)
-        june = FactoryBot.create(:stat_joined_user, date: Date.new(2018, 0o6, 30), org: org, count: 10)
+        may = FactoryBot.create(:stat_joined_user, date: Date.new(2018, 0o5, 31),
+                                                   org: org, count: 20)
+        june = FactoryBot.create(:stat_joined_user, date: Date.new(2018, 0o6, 30),
+                                                    org: org, count: 10)
         data = [may, june]
 
         csv = described_class.to_csv(data)

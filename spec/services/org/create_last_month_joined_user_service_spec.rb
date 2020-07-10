@@ -10,13 +10,14 @@ RSpec.describe Org::CreateLastMonthJoinedUserService do
     5.times do
       FactoryBot.create(:user, org: org, created_at: Date.today.last_month)
     end
+    @last_day_of_month = Date.today.last_month.end_of_month
   end
   describe ".call" do
     context "when an org is passed" do
       it "generates counts from today's last month" do
         described_class.call(org)
 
-        last_month = StatJoinedUser.find_by(date: Date.today.last_month.end_of_month, org_id: org.id).count
+        last_month = StatJoinedUser.find_by(date: @last_day_of_month, org_id: org.id).count
         expect(last_month).to eq(5)
       end
 
@@ -27,7 +28,7 @@ RSpec.describe Org::CreateLastMonthJoinedUserService do
 
         described_class.call(org)
 
-        last_month_updated = StatJoinedUser.where(date: Date.today.last_month.end_of_month, org: org.id)
+        last_month_updated = StatJoinedUser.where(date: @last_day_of_month, org: org.id)
         expect(last_month_updated).to have(1).items
         expect(last_month_updated.first.count).to eq(6)
       end
@@ -39,7 +40,7 @@ RSpec.describe Org::CreateLastMonthJoinedUserService do
 
         described_class.call
 
-        last_month = StatJoinedUser.find_by(date: Date.today.last_month.end_of_month, org_id: org.id).count
+        last_month = StatJoinedUser.find_by(date: @last_day_of_month, org_id: org.id).count
         expect(last_month).to eq(5)
       end
 
@@ -52,7 +53,7 @@ RSpec.describe Org::CreateLastMonthJoinedUserService do
 
         described_class.call(org)
 
-        last_month_updated = StatJoinedUser.where(date: Date.today.last_month.end_of_month, org: org.id)
+        last_month_updated = StatJoinedUser.where(date: @last_day_of_month, org: org.id)
         expect(last_month_updated).to have(1).items
         expect(last_month_updated.first.count).to eq(6)
       end

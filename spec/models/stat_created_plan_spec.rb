@@ -98,11 +98,11 @@ RSpec.describe StatCreatedPlan, type: :model do
     end
 
     it "retrieves JSON details as a hash object" do
-      september = FactoryBot.create(:stat_created_plan,
-                                    date: "2018-09-30",
-                                    org: org,
-                                    count: 20,
-                                    details: details)
+      FactoryBot.create(:stat_created_plan,
+                        date: "2018-09-30",
+                        org: org,
+                        count: 20,
+                        details: details)
 
       json_details = described_class.find_by_date("2018-09-30").details
 

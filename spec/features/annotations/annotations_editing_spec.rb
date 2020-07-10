@@ -47,9 +47,10 @@ RSpec.feature "Annotations::Editing", type: :feature do
     click_link section.title
 
     within("fieldset#fields_annotation_#{template.annotation_ids.last}") do
-      tinymce_fill_in("question_annotations_attributes_annotation_#{template.annotation_ids.last}_text", with: "Noo bar")
+      id = "question_annotations_attributes_annotation_#{template.annotation_ids.last}_text"
+      tinymce_fill_in(id, with: "Noo bar")
     end
-    question = Question.last
+
     # NOTE: This is question 2, since Annotation was copied upon clicking "Customise"
     within("#edit_question_#{template.question_ids.last}") do
       # Expect it to destroy the newly cleared Annotation
@@ -73,8 +74,8 @@ RSpec.feature "Annotations::Editing", type: :feature do
     click_link section.title
     # NOTE: This is annotation 2, since Annotation was copied upon clicking "Customise"
     within("fieldset#fields_annotation_#{template.annotation_ids.last}") do
-      tinymce_fill_in(:"question_annotations_attributes_annotation_#{template.annotation_ids.last}_text",
-                      with: " ")
+      id = "question_annotations_attributes_annotation_#{template.annotation_ids.last}_text"
+      tinymce_fill_in(:"#{id}", with: " ")
     end
     # NOTE: This is question 2, since Annotation was copied upon clicking "Customise"
     within("#edit_question_#{template.question_ids.last}") do

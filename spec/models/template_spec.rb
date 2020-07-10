@@ -1380,7 +1380,10 @@ RSpec.describe Template, type: :model do
     # case when template is correctly generated
     context "When the Template has all components, is latest, and unpublished" do
 
-      let(:template) { create(:template, :default, published: false, org: org, phases: 1, sections: 1, questions: 1) }
+      let(:template) do
+        create(:template, :default, published: false, org: org, phases: 1,
+                                    sections: 1, questions: 1)
+      end
 
       it "returns true" do
         expect(subject[0]).to eql(true)
@@ -1394,7 +1397,10 @@ RSpec.describe Template, type: :model do
 
     # case when the template is historical
     context "When the template is an historical version" do
-      let(:template) { create(:template, :default, published: true, org: org, phases: 3, version: 1, sections: 1, questions: 1) }
+      let(:template) do
+        create(:template, :default, published: true, org: org, phases: 3,
+                                    version: 1, sections: 1, questions: 1)
+      end
 
       before do
         template.generate_version!
@@ -1406,7 +1412,8 @@ RSpec.describe Template, type: :model do
       end
 
       it "has error_message" do
-        expect(subject[1]).to include("You can not publish a historical version of this template.  ")
+        expected = "You can not publish a historical version of this template.  "
+        expect(subject[1]).to include(expected)
       end
 
     end
@@ -1414,7 +1421,10 @@ RSpec.describe Template, type: :model do
     # case when the template is published
     context "When the Template has all components, is latest, and already published" do
 
-      let(:template) { create(:template, :default, published: true, org: org, phases: 1, sections: 1, questions: 1) }
+      let(:template) do
+        create(:template, :default, published: true, org: org, phases: 1,
+                                    sections: 1, questions: 1)
+      end
 
       it "is not publishable" do
         expect(subject[0]).to eql(false)
@@ -1442,7 +1452,9 @@ RSpec.describe Template, type: :model do
     # case when a template has no sections
     context "When the Template has no sections" do
 
-      let(:template) { create(:template, :default, published: true, org: org, phases: 1, sections: 0) }
+      let(:template) do
+        create(:template, :default, published: true, org: org, phases: 1, sections: 0)
+      end
 
       it "is not publishable" do
         expect(subject[0]).to eql(false)
@@ -1456,14 +1468,18 @@ RSpec.describe Template, type: :model do
     # case when a section has no questions
     context "When the Template has no questions" do
 
-      let(:template) { create(:template, :default, published: true, org: org, phases: 1, sections: 1, questions: 0) }
+      let(:template) do
+        create(:template, :default, published: true, org: org, phases: 1,
+                                    sections: 1, questions: 0)
+      end
 
       it "is not publishable" do
         expect(subject[0]).to eql(false)
       end
 
       it "has error_message" do
-        expect(subject[1]).to include("You can not publish a template without questions in a section")
+        expected = "You can not publish a template without questions in a section"
+        expect(subject[1]).to include(expected)
       end
 
     end

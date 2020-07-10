@@ -88,12 +88,14 @@ RSpec.describe Question, type: :model do
 
       let!(:question_format) { create(:question_format, option_based: true) }
 
+      # rubocop:disable Metrics/LineLength
       it {
         expect do
           create(:question, question_format: question_format, options: 0)
         end.to raise_error(ActiveRecord::RecordInvalid,
                            "Validation failed: You must have at least one option with accompanying text.")
       }
+      # rubocop:enable Metrics/LineLength
 
       it { is_expected.to eql(true) }
 

@@ -3,6 +3,12 @@
 # Mock JSON submissions
 module Mocks
 
+  # Disabling rubocop checks here since its basically just large hashes and
+  # would be difficult to read if broken up into multiple smaller functions.
+  # One option might be to store them as .json files and then just load them here
+  # but we would lose the use of Faker
+
+  # rubocop:disable Metrics/ModuleLength, Metrics/MethodLength
   module ApiJsonSamples
 
     ROLES = %w[Investigation Project_administration Data_curation].freeze
@@ -66,6 +72,7 @@ module Mocks
       }.to_json
     end
 
+    # rubocop:disable Metrics/AbcSize
     def complete_create_json
       lang = Language.all.pluck(:abbreviation).sample || "en-UK"
       contact = {
@@ -180,7 +187,9 @@ module Mocks
         ]
       }.to_json
     end
+    # rubocop:enable Metrics/AbcSize
 
   end
+  # rubocop:enable Metrics/ModuleLength, Metrics/MethodLength
 
 end
