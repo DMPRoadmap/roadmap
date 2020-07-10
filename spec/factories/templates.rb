@@ -79,7 +79,9 @@ FactoryBot.define do
     end
 
     after(:create) do |template, evaluator|
-      create_list(:phase, evaluator.phases, template: template, sections: evaluator.sections, questions: evaluator.questions)
+      create_list(:phase, evaluator.phases, template: template,
+                                            sections: evaluator.sections,
+                                            questions: evaluator.questions)
     end
 
   end

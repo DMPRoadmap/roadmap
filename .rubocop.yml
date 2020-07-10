@@ -4,8 +4,8 @@ AllCops:
   # Show the name of the cops being voilated in the feedback
   DisplayCopNames: true
   DisplayStyleGuide: true
-  # We're using Ruby 2.4 right now. So force that version or higher.
-  TargetRubyVersion: 2.4
+  # We're using Ruby 2.6 right now. So force that version or higher.
+  TargetRubyVersion: 2.6
   # Don't check these files. So many of them are boilerplate code with violations.
   Exclude:
     - 'bin/*'

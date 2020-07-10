@@ -17,9 +17,10 @@ RSpec.describe OrgSelectable do
     OrgSelection::HashToOrgService.stubs(:to_identifiers)
                                   .returns([build(:identifier)])
 
+    org_id = { id: Faker::Number.number, name: Faker::Company.name }.to_json
     @params = ActionController::Parameters.new({
                                                  other_param: Faker::Company.name,
-                                                 org_id: { id: Faker::Number.number, name: Faker::Company.name }.to_json,
+                                                 org_id: org_id,
                                                  org_name: Faker::Company.name,
                                                  org_sources: [Faker::Company.name],
                                                  org_crosswalk: [{ id: Faker::Number.number }]

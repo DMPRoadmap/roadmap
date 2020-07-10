@@ -62,7 +62,9 @@ RSpec.describe Org, type: :model do
 
     it { should have_many(:annotations) }
 
+    # rubocop:disable Layout/LineLength
     it { should have_and_belong_to_many(:token_permission_types).join_table("org_token_permissions") }
+    # rubocop:enable Layout/LineLength
 
     it { should have_many(:identifiers) }
 
@@ -384,7 +386,7 @@ RSpec.describe Org, type: :model do
 
     end
 
-    context "when user belongs to Org and plan user with role :editor, but not :creator and :administrator" do
+    context "user belongs to Org and plan user with role :editor, but not :creator and :admin" do
 
       before do
         plan.add_user!(user.id, :editor)
@@ -394,7 +396,7 @@ RSpec.describe Org, type: :model do
 
     end
 
-    context "when user belongs to Org and plan user with role :commenter, but not :creator and :administrator" do
+    context "user belongs to Org and plan user with role :commenter, but not :creator and :admin" do
 
       before do
         plan.add_user!(user.id, :commenter)
@@ -404,7 +406,7 @@ RSpec.describe Org, type: :model do
 
     end
 
-    context "when user belongs to Org and plan user with role :reviewer, but not :creator and :administrator" do
+    context "user belongs to Org and plan user with role :reviewer, but not :creator and :admin" do
 
       before do
         plan.add_user!(user.id, :reviewer)

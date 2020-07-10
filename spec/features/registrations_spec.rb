@@ -9,8 +9,6 @@ RSpec.describe "Registrations", type: :feature do
   let(:user_attributes) { attributes_for(:user) }
 
   scenario "User creates a new acccount", :js do
-    user_count = User.count
-
     # Setup
     visit root_path
 
@@ -34,8 +32,6 @@ RSpec.describe "Registrations", type: :feature do
   end
 
   scenario "User attempts to create a new acccount with invalid atts", :js do
-    user_count = User.count
-
     # Setup
     visit root_path
 
