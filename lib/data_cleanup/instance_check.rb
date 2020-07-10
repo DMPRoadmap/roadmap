@@ -1,8 +1,12 @@
+# frozen_string_literal: true
+
 require_relative "reporting"
 
 module DataCleanup
+
   # Check whether a given database record is valid or not
   class InstanceCheck
+
     # frozen_string_literal: true
 
     def call(instance)
@@ -25,5 +29,7 @@ module DataCleanup
         DataCleanup.display(".", inline: true)
       end
     end
+
   end
+
 end
