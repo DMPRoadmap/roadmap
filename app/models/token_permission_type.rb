@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: token_permission_types
@@ -17,27 +19,25 @@ class TokenPermissionType < ApplicationRecord
 
   ##
   #
-  GUIDANCES   = TokenPermissionType.where(token_type: 'guidances').first.freeze
+  GUIDANCES   = TokenPermissionType.where(token_type: "guidances").first.freeze
 
   ##
   #
-  PLANS       = TokenPermissionType.where(token_type: 'plans').first.freeze
+  PLANS       = TokenPermissionType.where(token_type: "plans").first.freeze
 
   ##
   #
-  TEMPLATES   = TokenPermissionType.where(token_type: 'templates').first.freeze
+  TEMPLATES   = TokenPermissionType.where(token_type: "templates").first.freeze
 
   ##
   #
-  STATISTICS  = TokenPermissionType.where(token_type: 'statistics').first.freeze
-
+  STATISTICS  = TokenPermissionType.where(token_type: "statistics").first.freeze
 
   # ================
   # = Associations =
   # ================
 
-  has_and_belongs_to_many :orgs, join_table: 'org_token_permissions', unique: true
-
+  has_and_belongs_to_many :orgs, join_table: "org_token_permissions", unique: true
 
   # ==============
   # = Validators =
@@ -46,12 +46,11 @@ class TokenPermissionType < ApplicationRecord
   validates :token_type, presence: { message: PRESENCE_MESSAGE },
                          uniqueness: { message: UNIQUENESS_MESSAGE }
 
-
   # The token_type of the token_permission_type
   #
   # Returns String
   def to_s
-    self.token_type
+    token_type
   end
 
 end

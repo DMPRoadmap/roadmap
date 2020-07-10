@@ -43,8 +43,8 @@ class Org < ApplicationRecord
   LOGO_FORMATS = %w[jpeg png gif jpg bmp].freeze
 
   HUMANIZED_ATTRIBUTES = {
-    feedback_email_msg: _('Feedback email message')
-  }
+    feedback_email_msg: _("Feedback email message")
+  }.freeze
 
   # TODO: we don't allow this to be edited on the frontend, can we remove from DB?
   # if not, we'll need to add a rake:task to ensure that each of these is set for each
@@ -59,7 +59,6 @@ class Org < ApplicationRecord
   # The links are validated against custom validator allocated at
   # validators/template_links_validator.rb
   serialize :links, JSON
-
 
   # ================
   # = Associations =
@@ -127,7 +126,7 @@ class Org < ApplicationRecord
                                    message: INCLUSION_MESSAGE }
 
   validates_property :format, of: :logo, in: LOGO_FORMATS,
-                     message: _("must be one of the following formats: " +
+                              message: _("must be one of the following formats: " \
                                 "jpeg, jpg, png, gif, bmp")
 
   validates_size_of :logo,
@@ -162,15 +161,15 @@ class Org < ApplicationRecord
   # An un-managed Org is one created on the fly by the system
   scope :unmanaged, -> { where(managed: false) }
 
-  scope :search, -> (term) {
+  scope :search, lambda { |term|
     search_pattern = "%#{term}%"
-    where("lower(orgs.name) LIKE lower(?) OR " +
+    where("lower(orgs.name) LIKE lower(?) OR " \
           "lower(orgs.contact_email) LIKE lower(?)",
           search_pattern, search_pattern)
   }
 
   # Scope used in several controllers
-  scope :with_template_and_user_counts, -> {
+  scope :with_template_and_user_counts, lambda {
     joins("LEFT OUTER JOIN templates ON orgs.id = templates.org_id")
       .joins("LEFT OUTER JOIN users ON orgs.id = users.org_id")
       .group("orgs.id")
@@ -210,17 +209,17 @@ class Org < ApplicationRecord
   # Returns String
   def org_type_to_s
     ret = []
-    ret << "Institution" if self.institution?
-    ret << "Funder" if self.funder?
-    ret << "Organisation" if self.organisation?
-    ret << "Research Institute" if self.research_institute?
-    ret << "Project" if self.project?
-    ret << "School" if self.school?
-    (ret.length > 0 ? ret.join(", ") : "None")
+    ret << "Institution" if institution?
+    ret << "Funder" if funder?
+    ret << "Organisation" if organisation?
+    ret << "Research Institute" if research_institute?
+    ret << "Project" if project?
+    ret << "School" if school?
+    (!ret.empty? ? ret.join(", ") : "None")
   end
 
   def funder_only?
-    self.org_type == Org.org_type_values_for(:funder).min
+    org_type == Org.org_type_values_for(:funder).min
   end
 
   ##
@@ -236,7 +235,7 @@ class Org < ApplicationRecord
   #
   # Returns String
   def short_name
-    if abbreviation.nil? then
+    if abbreviation.nil?
       name
     else
       abbreviation
@@ -252,21 +251,21 @@ class Org < ApplicationRecord
   end
 
   def org_admins
-    User.joins(:perms).where("users.org_id = ? AND perms.name IN (?)", self.id,
-      ["grant_permissions", "modify_templates", "modify_guidance", "change_org_details"])
+    User.joins(:perms).where("users.org_id = ? AND perms.name IN (?)", id,
+                             %w[grant_permissions modify_templates modify_guidance change_org_details])
   end
 
   def plans
     plan_ids = Role.administrator
-                   .where(user_id: self.users.pluck(:id), active: true)
+                   .where(user_id: users.pluck(:id), active: true)
                    .pluck(:plan_id).uniq
     Plan.includes(:template, :phases, :roles, :users)
         .where(id: plan_ids)
   end
 
   def grant_api!(token_permission_type)
-    self.token_permission_types << token_permission_type unless
-      self.token_permission_types.include? token_permission_type
+    token_permission_types << token_permission_type unless
+      token_permission_types.include? token_permission_type
   end
 
   private
@@ -277,7 +276,7 @@ class Org < ApplicationRecord
   def resize_image
     unless logo.nil?
       if logo.height != 100
-        self.logo = logo.thumb("x100")  # resize height and maintain aspect ratio
+        self.logo = logo.thumb("x100") # resize height and maintain aspect ratio
       end
     end
   end

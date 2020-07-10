@@ -8,7 +8,7 @@ class StatExportedPlan
 
       def do(start_date:, end_date:, org:, filtered: false)
         count = exported_plans(start_date: start_date, end_date: end_date, org_id: org.id, filtered: filtered)
-        attrs = { date: end_date.to_date, count: count, org_id: org.id, filtered: filtered}
+        attrs = { date: end_date.to_date, count: count, org_id: org.id, filtered: filtered }
 
         stat_exported_plan = StatExportedPlan.find_by(
           date: attrs[:date],
@@ -26,7 +26,7 @@ class StatExportedPlan
       private
 
       def users(org_id)
-        User.where(users: {org_id: org_id })
+        User.where(users: { org_id: org_id })
       end
 
       def org_plan_ids(org_id:, filtered:)
@@ -42,8 +42,8 @@ class StatExportedPlan
 
       def exported_plans(start_date:, end_date:, org_id:, filtered:)
         ExportedPlan.where(plan_id: org_plan_ids(org_id: org_id, filtered: filtered))
-            .where(created_at: start_date..end_date)
-            .count
+                    .where(created_at: start_date..end_date)
+                    .count
       end
 
     end

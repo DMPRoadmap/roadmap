@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: annotations
@@ -24,13 +26,14 @@
 #
 
 class Annotation < ApplicationRecord
+
   include VersionableModel
 
   ##
   # I liked type as the name for the enum so overriding inheritance column
   self.inheritance_column = nil
 
-  enum type: [ :example_answer, :guidance]
+  enum type: %i[example_answer guidance]
 
   # ================
   # = Associations =
@@ -54,7 +57,7 @@ class Annotation < ApplicationRecord
 
   validates :type, presence: { message: PRESENCE_MESSAGE },
                    uniqueness: { message: UNIQUENESS_MESSAGE,
-                                 scope: [:question_id, :org_id] }
+                                 scope: %i[question_id org_id] }
 
   # =================
   # = Class Methods =
@@ -68,12 +71,13 @@ class Annotation < ApplicationRecord
   #
   # Returns String
   def to_s
-    "#{text}"
+    text.to_s
   end
 
   def deep_copy(**options)
-    copy = self.dup
+    copy = dup
     copy.question_id = options.fetch(:question_id, nil)
-    return copy
+    copy
   end
+
 end

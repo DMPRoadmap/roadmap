@@ -87,7 +87,7 @@ class Identifier < ApplicationRecord
 
     return "ark" if value.include?("ark:")
 
-    doi_regex = /(doi:)?[0-9]{2}\.[0-9]+\/./
+    doi_regex = %r{(doi:)?[0-9]{2}\.[0-9]+/.}
     return "doi" if value =~ doi_regex
 
     return "url" if value.starts_with?("http")
@@ -115,21 +115,21 @@ class Identifier < ApplicationRecord
 
   # Simple check used by :validate methods above
   def has_scheme?
-    self.identifier_scheme.present?
+    identifier_scheme.present?
   end
 
   # Verify the uniqueness of :value across :identifiable
   def value_uniqueness_without_scheme
     # if scheme is nil, then just unique for identifiable
-    if Identifier.where(identifiable: self.identifiable, value: self.value).any?
+    if Identifier.where(identifiable: identifiable, value: value).any?
       errors.add(:value, _("must be unique"))
     end
   end
 
   # Ensure that the identifiable only has one identifier for the scheme
   def value_uniqueness_with_scheme
-    if Identifier.where(identifier_scheme: self.identifier_scheme,
-                        identifiable: self.identifiable).any?
+    if Identifier.where(identifier_scheme: identifier_scheme,
+                        identifiable: identifiable).any?
       errors.add(:identifier_scheme, _("already assigned a value"))
     end
   end
