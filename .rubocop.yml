@@ -4,6 +4,13 @@ AllCops:
   # Show the name of the cops being voilated in the feedback
   DisplayCopNames: true
   DisplayStyleGuide: true
+  Exclude:
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+    - 'test/**/*'
+    - 'lib/tasks/*'
 
 # Force no empty lines at the start or end of a block's body. Ignore specs, since this
 # improves readability within the RSpec blocks.

@@ -87,9 +87,9 @@ module Settings
           elsif key == :negative_margin
             errors.add(:formatting, _("Margin cannot be negative"))
           elsif key == :unknown_margin
-            # rubocop:disable Style/LineLength
+            # rubocop:disable Layout/LineLength
             errors.add(:formatting, _("Unknown margin. Can only be 'top', 'bottom', 'left' or 'right'"))
-            # rubocop:enable Style/LineLength
+            # rubocop:enable Layout/LineLength
           elsif key == :invalid_font_size
             errors.add(:formatting, _("Invalid font size"))
           elsif key == :invalid_font_face
