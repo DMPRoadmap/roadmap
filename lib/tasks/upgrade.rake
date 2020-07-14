@@ -988,12 +988,15 @@ namespace :upgrade do
   desc "Attempts to migrate other_organisation entries to Orgs"
   task migrate_other_organisation_to_org: :environment do
     is_other = Org.find_by(is_other: true)
-    p "No is_other Org defined, so no orgs need to be created!" unless is_other.present?
-    return false unless is_other.present?
+    users = is_other.present? ? User.where(org: is_other) : []
 
-    users = User.where(org: is_other)
-    p "Processing #{users.length} users attached to '#{is_other.name}' #{is_other.id}"
-    p "this may take more than 15 minutes depending on how many users are in your database"
+    if is_other.present?
+      p "Processing #{users.length} users attached to '#{is_other.name}' #{is_other.id}"
+      p "this may take more than 15 minutes depending on how many users are in your database"
+    else
+      p "No is_other Org defined, so no orgs need to be created!"
+    end
+
     # Unfortunately can't use the Parallel gem here because we can have collisions
     # when creating Orgs
     users.each do |user|
