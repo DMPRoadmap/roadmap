@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200601121822) do
+ActiveRecord::Schema.define(version: 20200625092600) do
 
   create_table "annotations", force: :cascade do |t|
     t.integer  "question_id",    limit: 4
@@ -198,9 +198,9 @@ ActiveRecord::Schema.define(version: 20200601121822) do
     t.boolean  "dismissable"
     t.date     "starts_at"
     t.date     "expires_at"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.boolean  "enabled",                         default: true
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.boolean  "enabled",           default: true
   end
 
   create_table "org_identifiers", force: :cascade do |t|
@@ -247,9 +247,6 @@ ActiveRecord::Schema.define(version: 20200601121822) do
     t.boolean  "managed",                              default: false, null: false
   end
 
-  add_index "orgs", ["language_id"], name: "fk_rails_5640112cab", using: :btree
-  add_index "orgs", ["region_id"], name: "fk_rails_5a6adf6bab", using: :btree
-
   create_table "perms", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
@@ -294,10 +291,14 @@ ActiveRecord::Schema.define(version: 20200601121822) do
     t.integer  "grant_id",                          limit: 4
     t.datetime "start_date"
     t.datetime "end_date"
+    t.integer  "api_client_id"
   end
 
   add_index "plans", ["org_id"], name: "fk_rails_eda8ce4bca", using: :btree
   add_index "plans", ["template_id"], name: "index_plans_on_template_id", using: :btree
+  add_index "plans", ["org_id"], name: "index_plans_on_org_id", using: :btree
+  add_index "plans", ["funder_id"], name: "index_plans_on_funder_id", using: :btree
+  add_index "plans", ["grant_id"], name: "index_plans_on_grant_id", using: :btree
 
   create_table "plans_guidance_groups", force: :cascade do |t|
     t.integer "guidance_group_id", limit: 4
@@ -533,9 +534,7 @@ ActiveRecord::Schema.define(version: 20200601121822) do
     t.datetime "last_api_access"
   end
 
-  add_index "users", ["department_id"], name: "fk_rails_f29bf9cdf2", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
-  add_index "users", ["language_id"], name: "fk_rails_45f4f12508", using: :btree
   add_index "users", ["org_id"], name: "index_users_on_org_id", using: :btree
 
   create_table "users_perms", id: false, force: :cascade do |t|
@@ -551,7 +550,11 @@ ActiveRecord::Schema.define(version: 20200601121822) do
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
+  add_foreign_key "answers_question_options", "answers"
+  add_foreign_key "answers_question_options", "question_options"
   add_foreign_key "conditions", "questions"
+  add_foreign_key "contributors", "plans"
+  add_foreign_key "contributors", "orgs"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
   add_foreign_key "notes", "answers"

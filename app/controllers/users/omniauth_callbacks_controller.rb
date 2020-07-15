@@ -48,7 +48,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     #   if user.nil?
     #     session["devise.#{scheme.name.downcase}_data"] = request.env["omniauth.auth"]
     #     redirect_to new_user_registration_url
-    #
+
     #   # Otherwise sign them in
     #   else
     #     # Until ORCID becomes supported as a login method
@@ -62,7 +62,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     #       redirect_to new_user_registration_url
     #     end
     #   end
-    #
+
     # # The user is already logged in and just registering the uid with us
     # else
     #   # If the user could not be found by that uid then attach it to their record
@@ -93,7 +93,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     #   # Redirect to the User Profile page
     #   redirect_to edit_user_registration_path
     # end
-
     # --------------------------------------------------------
     # End DMPTool customization
     # --------------------------------------------------------
