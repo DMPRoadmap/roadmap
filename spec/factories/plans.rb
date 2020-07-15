@@ -21,29 +21,45 @@
 #  created_at                        :datetime
 #  updated_at                        :datetime
 #  template_id                       :integer
+#  org_id                            :integer
+#  funder_id                         :integer
+#  grant_id                          :integer
+#  api_client_id                     :integer
 #
 # Indexes
 #
-#  index_plans_on_template_id  (template_id)
+#  index_plans_on_template_id   (template_id)
+#  index_plans_on_funder_id     (funder_id)
+#  index_plans_on_grant_id      (grant_id)
+#  index_plans_on_api_client_id (api_client_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (template_id => templates.id)
+#  fk_rails_...  (org_id => orgs.id)
 #
 
 FactoryBot.define do
   factory :plan do
     title { Faker::Company.bs }
     template
+    org
+    # TODO: Drop this column once the funder_id has been back filled
+    #       and we're removing the is_other org stuff
     grant_number { SecureRandom.rand(1_000) }
     identifier { SecureRandom.hex }
     description { Faker::Lorem.paragraph }
     principal_investigator { Faker::Name.name }
+    # TODO: Drop this column once the funder_id has been back filled
+    #       and we're removing the is_other org stuff
     funder_name { Faker::Company.name }
     data_contact_email { Faker::Internet.safe_email }
     principal_investigator_email { Faker::Internet.safe_email }
     feedback_requested { false }
     complete { false }
+    start_date { Time.now }
+    end_date { start_date + 2.years }
+
     transient do
       phases { 0 }
       answers { 0 }

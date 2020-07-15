@@ -32,7 +32,7 @@ class Phase < ActiveRecord::Base
   include ValidationValues
   include ActsAsSortable
   include VersionableModel
-
+  include ConditionsHelper
 
   ##
   # Sort order: Number ASC
@@ -119,6 +119,22 @@ class Phase < ActiveRecord::Base
       n+= s.questions.size()
     end
     n
+  end
+
+  def num_questions_not_removed(plan)
+    count = 0
+    self.sections.each do |section|
+      count += num_section_questions(plan, section)
+    end
+    count
+  end
+
+  def num_answers_not_removed(plan)
+    count = 0
+    self.sections.each do |section|
+      count += num_section_answers(plan, section)
+    end
+    count
   end
 
   def visibility_allowed?(plan)
