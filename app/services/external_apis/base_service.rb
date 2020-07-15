@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'httparty'
+require "httparty"
 
 module ExternalApis
 
@@ -51,7 +51,6 @@ module ExternalApis
           "User-Agent": "#{app_name} (#{app_email})"
         }
         hash.merge({ "Host": URI(api_base_url).hostname.to_s })
-
       rescue URI::InvalidURIError => e
         handle_uri_failure(method: "BaseService.headers #{e.message}",
                            uri: api_base_url)
@@ -94,13 +93,11 @@ module ExternalApis
 
       # Makes a GET request to the specified uri with the additional headers.
       # Additional headers are combined with the base headers defined above.
-      # rubocop:disable Metrics/MethodLength
       def http_get(uri:, additional_headers: {}, debug: false)
         return nil unless uri.present?
 
         HTTParty.get(uri, options(additional_headers: additional_headers,
                                   debug: debug))
-
       rescue URI::InvalidURIError => e
         handle_uri_failure(method: "BaseService.http_get #{e.message}",
                            uri: uri)
@@ -110,7 +107,6 @@ module ExternalApis
                             http_response: resp)
         resp
       end
-      # rubocop:enable Metrics/MethodLength
 
       # Options for the HTTParty call
       def options(additional_headers: {}, debug: false)

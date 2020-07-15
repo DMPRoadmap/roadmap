@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe "Template::UpgradeCustomizationService", type: :service do
 
@@ -177,27 +179,27 @@ RSpec.describe "Template::UpgradeCustomizationService", type: :service do
       before do
         # Gave them different numbers >:]
         s = create(:section, phase: template.phases.first,
-                         modifiable: true,
-                         number: 6,
-                         title: "Customized's test section")
+                             modifiable: true,
+                             number: 6,
+                             title: "Customized's test section")
         s.questions << create(:question)
         s = create(:section, phase: funder_template.phases.first,
-                         modifiable: true,
-                         number: 5,
-                         title: "Funder's new section")
+                             modifiable: true,
+                             number: 5,
+                             title: "Funder's new section")
         s.questions << create(:question)
       end
 
       it "updates the customized template's new section with the next free number" do
         # Original 4 sections, plus new funder section, plus new customized section
         expect(subject.sections).to have_exactly(6).items
-        expect(subject.sections.maximum(:number)).to eql(funder_template.sections.maximum(:number) + 1)
+        expected = funder_template.sections.maximum(:number) + 1
+        expect(subject.sections.maximum(:number)).to eql(expected)
       end
 
     end
 
     context "when a new annotation is present in customized template" do
-
 
       let!(:org) { create(:org) }
 
@@ -222,9 +224,9 @@ RSpec.describe "Template::UpgradeCustomizationService", type: :service do
       let!(:template) { create(:template) }
 
       it "raises an exception" do
-        expect {
+        expect do
           subject
-        }.to raise_error(Template::UpgradeCustomizationService::NotACustomizationError)
+        end.to raise_error(Template::UpgradeCustomizationService::NotACustomizationError)
       end
 
     end
@@ -234,9 +236,9 @@ RSpec.describe "Template::UpgradeCustomizationService", type: :service do
       let!(:funder_template) { create(:template, :archived, org: create(:org, :funder)) }
 
       it "raises an exception" do
-        expect {
+        expect do
           subject
-        }.to raise_error(Template::UpgradeCustomizationService::NoFunderTemplateError)
+        end.to raise_error(Template::UpgradeCustomizationService::NoFunderTemplateError)
       end
 
     end

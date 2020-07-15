@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.prettify!
 
 json.array! @users.group_by(&:department).each do |department, users|

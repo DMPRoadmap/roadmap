@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: org_identifiers
@@ -51,6 +53,7 @@ class OrgIdentifier < ApplicationRecord
   # ensure attrs is a hash before saving
   # TODO: evaluate this approach vs Serialize from condition.rb
   def attrs=(hash)
-    super(hash.is_a?(Hash) ? hash.to_json.to_s : '{}')
+    super(hash.is_a?(Hash) ? hash.to_json.to_s : "{}")
   end
+
 end

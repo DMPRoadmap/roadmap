@@ -37,7 +37,7 @@ RSpec.describe AnswersController, type: :controller do
         expect(answer.plan).to eql(@plan)
         expect(answer.user).to eql(@user)
 
-         json = JSON.parse(response.body).with_indifferent_access
+        json = JSON.parse(response.body).with_indifferent_access
         expect(json[:plan].present?).to eql(true)
         expect(json[:plan][:progress]).to eql("")
         expect(json[:plan][:id]).to eql(@plan.id)

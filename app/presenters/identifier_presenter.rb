@@ -29,14 +29,12 @@ class IdentifierPresenter
     without = id.value_without_scheme_prefix
     return id.value unless without != id.value && !without.starts_with?("http")
 
-    "<a href=\"#{id.value}\" class=\"has-new-window-popup-info\"> " +
-      "#{with_scheme_name ? id.identifier_scheme.description : ""}: #{without}</a>"
+    "<a href=\"#{id.value}\" class=\"has-new-window-popup-info\"> " \
+      "#{with_scheme_name ? id.identifier_scheme.description : ''}: #{without}</a>"
   end
 
   private
 
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
-  # rubocop:disable Metrics/PerceivedComplexity
   def load_schemes
     # Load the schemes for the current context
     schemes = IdentifierScheme.for_orgs if @identifiable.is_a?(Org)
@@ -54,7 +52,5 @@ class IdentifierPresenter
     end
     schemes
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
-  # rubocop:enable Metrics/PerceivedComplexity
 
 end

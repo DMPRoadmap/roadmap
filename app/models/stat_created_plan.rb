@@ -29,14 +29,14 @@ class StatCreatedPlan < Stat
     parse_details.fetch("using_template", [])
   end
 
-  def to_json(options = nil)
-    super(methods: [:by_template, :using_template])
+  def to_json(_options = nil)
+    super(methods: %i[by_template using_template])
   end
 
   def parse_details
     return JSON.parse({}) unless details.present?
 
-    json = details.is_a?(String) ? JSON.parse(details) : details
+    details.is_a?(String) ? JSON.parse(details) : details
   end
 
   class << self
@@ -52,9 +52,9 @@ class StatCreatedPlan < Stat
     private
 
     def to_csv_by_template(created_plans, sep = ",")
-      template_names = lambda do |created_plans|
+      template_names = lambda do |plns|
         unique = Set.new
-        created_plans.each do |created_plan|
+        plns.each do |created_plan|
           created_plan.by_template&.each do |name_count|
             unique.add(name_count.fetch("name"))
           end
@@ -63,10 +63,9 @@ class StatCreatedPlan < Stat
       end.call(created_plans)
 
       data = created_plans.map do |created_plan|
-        tuple = { Date: created_plan.date.strftime("%b %Y")  }
-        template_names.reduce(tuple) do |acc, name|
+        tuple = { Date: created_plan.date.strftime("%b %Y") }
+        template_names.each_with_object(tuple) do |name, acc|
           acc[name] = 0
-          acc
         end
         created_plan.by_template&.each do |name_count|
           tuple[name_count.fetch("name")] = name_count.fetch("count")

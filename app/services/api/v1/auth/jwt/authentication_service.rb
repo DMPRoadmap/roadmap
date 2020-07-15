@@ -26,8 +26,6 @@ module Api
 
           attr_reader :errors
           attr_reader :expiration
-
-          # rubocop:disable Metrics/CyclomaticComplexity
           def initialize(json: {})
             json = json.nil? ? {} : json.with_indifferent_access
             type = json.fetch(:grant_type, "client_credentials")
@@ -41,10 +39,8 @@ module Api
               @errors[:client_authentication] = _("Invalid grant type")
             end
           end
-          # rubocop:enable Metrics/CyclomaticComplexity
 
           # Returns the JWT if the authentication succeeds
-          # rubocop:disable Metrics/CyclomaticComplexity
           def call
             return nil unless @client_id.present? && @client_secret.present?
 
@@ -63,7 +59,6 @@ module Api
             @expiration = payload[:exp]
             token
           end
-          # rubocop:enable Metrics/CyclomaticComplexity
 
           private
 

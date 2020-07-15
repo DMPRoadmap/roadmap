@@ -6,6 +6,7 @@ class PlanExportsController < ApplicationController
 
   include ConditionsHelper
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def show
     @plan = Plan.includes(:answers).find(params[:plan_id])
 
@@ -31,12 +32,12 @@ class PlanExportsController < ApplicationController
 
     @hash           = @plan.as_pdf(@show_coversheet)
     @formatting     = export_params[:formatting] || @plan.settings(:export).formatting
-    if params.key?(:phase_id)
-      @selected_phase = @plan.phases.find(params[:phase_id])
-    else
-      @selected_phase = @plan.phases.order("phases.updated_at DESC")
-                                    .detect { |p| p.visibility_allowed?(@plan) }
-    end
+    @selected_phase = if params.key?(:phase_id)
+                        @plan.phases.find(params[:phase_id])
+                      else
+                        @plan.phases.order("phases.updated_at DESC")
+                             .detect { |p| p.visibility_allowed?(@plan) }
+                      end
 
     respond_to do |format|
       format.html { show_html }
@@ -46,6 +47,7 @@ class PlanExportsController < ApplicationController
       format.pdf  { show_pdf }
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 
@@ -71,7 +73,7 @@ class PlanExportsController < ApplicationController
     # Using and optional locals_assign export_format
     render docx: "#{file_name}.docx",
            content: render_to_string(partial: "shared/export/plan",
-             locals: { export_format: "docx" })
+                                     locals: { export_format: "docx" })
   end
 
   def show_pdf
@@ -81,10 +83,10 @@ class PlanExportsController < ApplicationController
              center: _("Created using %{application_name}. Last modified %{date}") % {
                application_name: ApplicationService.application_name,
                date: l(@plan.updated_at.to_date, format: :readable)
-              },
+             },
              font_size: 8,
-             spacing:   (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-             right:     "[page] of [topage]",
+             spacing: (Integer(@formatting[:margin][:bottom]) / 2) - 4,
+             right: "[page] of [topage]",
              encoding: "utf8"
            }
   end

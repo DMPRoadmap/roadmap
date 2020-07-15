@@ -1,12 +1,15 @@
+# frozen_string_literal: true
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
+# rubocop:disable Metrics/BlockLength
 Devise.setup do |config|
-
-  config.secret_key = ENV['DEVISE_SECRET_KEY']
+  config.secret_key = ENV["DEVISE_SECRET_KEY"]
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
-  # note that it will be overwritten if you use your own mailer class with default "from" parameter.
+  # note that it will be overwritten if you use your own mailer class with
+  # default "from" parameter.
   config.mailer_sender = "example@email.address"
 
   # Configure the class responsible to send e-mails.
@@ -16,7 +19,7 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require 'devise/orm/active_record'
+  require "devise/orm/active_record"
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -38,12 +41,12 @@ Devise.setup do |config|
   # Configure which authentication keys should be case-insensitive.
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
-  config.case_insensitive_keys = [ :email ]
+  config.case_insensitive_keys = [:email]
 
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
   # modifying a user and when used to authenticate or find a user. Default is :email.
-  config.strip_whitespace_keys = [ :email ]
+  config.strip_whitespace_keys = [:email]
 
   # Tell if authentication through request.params is enabled. True by default.
   # It can be set to an array that will enable params authentication only for the
@@ -58,7 +61,7 @@ Devise.setup do |config|
   # :database      = Support basic authentication with authentication key + password
   # :token         = Support basic authentication with token authentication key
   # :token_options = Support token authentication with options as defined in
-  #                  http://api.rubyonrails.org/classes/ActionController/HttpAuthentication/Token.html
+  #       http://api.rubyonrails.org/classes/ActionController/HttpAuthentication/Token.html
   # config.http_authenticatable = false
 
   # If http headers should be returned for AJAX requests. True by default.
@@ -86,7 +89,7 @@ Devise.setup do |config|
   # Limiting the stretches to just one in testing will increase the performance of
   # your test suite dramatically. However, it is STRONGLY RECOMMENDED to not use
   # a value less than 10 in other environments.
-  	config.stretches = Rails.env.test? ? 1 : 10
+  config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
   config.pepper = "EXAMPLE OF PEPPER TO GENERATE THE ENCRYPTED PASSWORD"
@@ -251,26 +254,26 @@ Devise.setup do |config|
 
   # Any entries here MUST match a corresponding entry in the identifier_schemes table as
   # well as an identifier_schemes.schemes section in each locale file!
-  OmniAuth.config.full_host = 'https://my_service.hostname'
+  OmniAuth.config.full_host = "https://my_service.hostname"
 
   config.omniauth :orcid,
-  'client_id', 'client_secret',
-  {
-    #member: false,
-  }
+                  "client_id", "client_secret",
+                  {
+                    # member: false,
+                  }
 
   config.omniauth :shibboleth,
-  {
-    #debug: true,
-    #uid_field:                 "HTTP_REMOTE_USER",
-    #shib_application_id_field: "HTTP_SHIB_APPLICATION_ID",
-    #shib_session_id_field:     "HTTP_SHIB_SESSION_ID",
-    fields: [],
-    info_fields: {
-      #affiliation: "HTTP_AFFILIATION",
-    },
-    extra_fields: [],
-  }
+                  {
+                    # debug: true,
+                    # uid_field:                 "HTTP_REMOTE_USER",
+                    # shib_application_id_field: "HTTP_SHIB_APPLICATION_ID",
+                    # shib_session_id_field:     "HTTP_SHIB_SESSION_ID",
+                    fields: [],
+                    info_fields: {
+                      # affiliation: "HTTP_AFFILIATION",
+                    },
+                    extra_fields: []
+                  }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
@@ -298,5 +301,5 @@ Devise.setup do |config|
   config.warden do |manager|
     manager.failure_app = CustomFailure
   end
-
 end
+# rubocop:enable Metrics/BlockLength

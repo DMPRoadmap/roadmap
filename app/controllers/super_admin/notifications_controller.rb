@@ -55,28 +55,25 @@ module SuperAdmin
       render :edit
     end
 
-
     # edit active field displayed in the table
     def enable
       notification = Notification.find(params[:id])
       authorize(Notification)
-      notification.enabled = (notification_params[:enabled] === "1")
+      notification.enabled = (notification_params[:enabled] == "1")
 
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       if notification.save
         render json: {
-                 code: 1,
-                 msg: (notification.enabled ? _("Your notification is now active.") : _("Your notification is no longer active."))
-               }
+          code: 1,
+          msg: (notification.enabled ? _("Your notification is now active.") : _("Your notification is no longer active."))
+        }
       else
         render status: :bad_request, json: {
-                 code: 0, msg: _("Unable to change the notification's active status")
-               }
+          code: 0, msg: _("Unable to change the notification's active status")
+        }
       end
-      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Layout/LineLength
     end
-
-
 
     # DELETE /notifications/1
     # DELETE /notifications/1.json
@@ -104,7 +101,7 @@ module SuperAdmin
       @notification = Notification.find(params[:id] || params[:notification_id])
     rescue ActiveRecord::RecordNotFound
       flash[:alert] = _("There is no notification associated with id  %{id}") %
-          { id: params[:id] }
+                      { id: params[:id] }
       redirect_to action: :index
     end
 
