@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe QuestionFormat, type: :model do
 
@@ -6,8 +8,10 @@ RSpec.describe QuestionFormat, type: :model do
 
     it { is_expected.to validate_presence_of(:title) }
 
-    it { is_expected.to validate_uniqueness_of(:title)
-                          .with_message("must be unique") }
+    it {
+      is_expected.to validate_uniqueness_of(:title)
+        .with_message("must be unique")
+    }
 
     it { is_expected.to validate_presence_of(:description) }
 
@@ -15,10 +19,12 @@ RSpec.describe QuestionFormat, type: :model do
 
     it { is_expected.not_to allow_value(nil).for(:option_based) }
 
-    it { is_expected.to allow_values(:textarea, :textfield, :radiobuttons,
-                                     :checkbox, :dropdown, :multiselectbox,
-                                     :date, :rda_metadata)
-                          .for(:formattype) }
+    it {
+      is_expected.to allow_values(:textarea, :textfield, :radiobuttons,
+                                  :checkbox, :dropdown, :multiselectbox,
+                                  :date, :rda_metadata)
+        .for(:formattype)
+    }
 
   end
 
@@ -30,7 +36,7 @@ RSpec.describe QuestionFormat, type: :model do
 
   describe ".id_for" do
 
-    let!(:format_type) { 'textarea' }
+    let!(:format_type) { "textarea" }
 
     subject { QuestionFormat.id_for(format_type) }
 
@@ -78,7 +84,6 @@ RSpec.describe QuestionFormat, type: :model do
       it { is_expected.to eql(true) }
 
     end
-
 
     context "when question_format option_based is true" do
 

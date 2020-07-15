@@ -9,35 +9,38 @@ module OrgAdmin
     after_action :verify_authorized
 
     # GET /org_admin/templates/:template_id/phases/:id
+    # rubocop:disable Metrics/AbcSize
     def show
       phase = Phase.includes(:template, :sections).order(:number).find(params[:id])
       authorize phase
-      if !phase.template.latest?
-        # rubocop:disable Metrics/LineLength
+      unless phase.template.latest?
+        # rubocop:disable Layout/LineLength
         flash[:notice] = _("You are viewing a historical version of this template. You will not be able to make changes.")
-        # rubocop:enable Metrics/LineLength
+        # rubocop:enable Layout/LineLength
       end
-      if phase.template.customization_of? && phase.template.latest?
-        # The user is working with the latest version so only use the modifiable sections
-        sections = phase.template_sections.order(:number)
-      else
-        # This is not the latest version sso just get all the sections. Everything
-        # will be readonly
-        sections = phase.sections.order(:number)
-      end
+      sections = if phase.template.customization_of? && phase.template.latest?
+                   # The user is working with the latest version so only use the modifiable sections
+                   phase.template_sections.order(:number)
+                 else
+                   # This is not the latest version sso just get all the sections. Everything
+                   # will be readonly
+                   phase.sections.order(:number)
+                 end
       render("container",
-        locals: {
-          partial_path: "show",
-          template: phase.template,
-          phase: phase,
-          prefix_section: phase.prefix_section,
-          sections: sections,
-          suffix_sections: phase.suffix_sections.order(:number),
-          current_section: Section.find_by(id: params[:section], phase_id: phase.id)
-        })
+             locals: {
+               partial_path: "show",
+               template: phase.template,
+               phase: phase,
+               prefix_section: phase.prefix_section,
+               sections: sections,
+               suffix_sections: phase.suffix_sections.order(:number),
+               current_section: Section.find_by(id: params[:section], phase_id: phase.id)
+             })
     end
+    # rubocop:enable Metrics/AbcSize
 
     # GET /org_admin/templates/:template_id/phases/:id/edit
+    # rubocop:disable Metrics/AbcSize
     def edit
       phase = Phase.includes(:template).find(params[:id])
       authorize phase
@@ -50,18 +53,19 @@ module OrgAdmin
         )
       else
         render("container",
-          locals: {
-            partial_path: "edit",
-            template: phase.template,
-            phase: phase,
-            prefix_section: phase.prefix_section,
-            sections: phase.sections.order(:number)
-                                    .select(:id, :title, :modifiable, :phase_id),
-            suffix_sections: phase.suffix_sections.order(:number),
-            current_section: Section.find_by(id: params[:section], phase_id: phase.id)
-          })
+               locals: {
+                 partial_path: "edit",
+                 template: phase.template,
+                 phase: phase,
+                 prefix_section: phase.prefix_section,
+                 sections: phase.sections.order(:number)
+                                         .select(:id, :title, :modifiable, :phase_id),
+                 suffix_sections: phase.suffix_sections.order(:number),
+                 current_section: Section.find_by(id: params[:section], phase_id: phase.id)
+               })
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     # preview a phase
     # GET /org_admin/templates/:template_id/phases/:id/preview
@@ -90,12 +94,12 @@ module OrgAdmin
                            org_admin_templates_path
                          end
         render("/org_admin/templates/container",
-          locals: {
-            partial_path: "new",
-            template: template,
-            phase: phase,
-            referrer: local_referrer
-          })
+               locals: {
+                 partial_path: "new",
+                 template: template,
+                 phase: phase,
+                 referrer: local_referrer
+               })
       else
         render org_admin_templates_path,
                alert: _("You cannot add a phase to a historical version of a template.")
@@ -104,6 +108,7 @@ module OrgAdmin
 
     # create a phase
     # POST /org_admin/templates/:template_id/phases
+    # rubocop:disable Metrics/AbcSize
     def create
       phase = Phase.new(phase_params)
       phase.template = Template.find(params[:template_id])
@@ -126,6 +131,7 @@ module OrgAdmin
                                                        id: phase.id)
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     # update a phase of a template
     # PUT /org_admin/templates/:template_id/phases/:id
@@ -157,6 +163,7 @@ module OrgAdmin
 
     # delete a phase
     # DELETE /org_admin/templates/:template_id/phases/:id
+    # rubocop:disable Metrics/AbcSize
     def destroy
       phase = Phase.includes(:template).find(params[:id])
       authorize phase
@@ -178,6 +185,7 @@ module OrgAdmin
         redirect_to edit_org_admin_template_path(template)
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     private
 

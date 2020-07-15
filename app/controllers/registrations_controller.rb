@@ -13,9 +13,8 @@ class RegistrationsController < Devise::RegistrationsController
     @identifier_schemes = IdentifierScheme.for_users.order(:name)
     @default_org = current_user.org
 
-    if !@prefs
-      flash[:alert] = "No default preferences found (should be in dmproadmap.rb initializer)."
-    end
+    msg = "No default preferences found (should be in dmproadmap.rb initializer)."
+    flash[:alert] = msg unless @prefs
   end
 
   # GET /resource
@@ -29,19 +28,22 @@ class RegistrationsController < Devise::RegistrationsController
 
     @user = User.new
 
+    # rubocop:disable Style/GuardClause
     unless oauth.nil?
       # The OAuth provider could not be determined or there was no unique UID!
       if !oauth["provider"].nil? && !oauth["uid"].nil?
         # Connect the new user with the identifier sent back by the OAuth provider
-        # rubocop:disable Metrics/LineLength
+        # rubocop:disable Layout/LineLength
         flash[:notice] = _("Please make a choice below. After linking your details to a %{application_name} account, you will be able to sign in directly with your institutional credentials.") % {
           application_name: ApplicationService.application_name
         }
       end
     end
+    # rubocop:enable Style/GuardClause
   end
 
   # POST /resource
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockNesting
   def create
     oauth = { provider: nil, uid: nil }
     IdentifierScheme.for_users.each do |scheme|
@@ -99,31 +101,29 @@ class RegistrationsController < Devise::RegistrationsController
                                   value: oauth["uid"],
                                   attrs: oauth,
                                   identifiable: resource)
-                # rubocop:disable Metrics/LineLength
                 flash[:notice] = _("Welcome! You have signed up successfully with your institutional credentials. You will now be able to access your account with them.")
-                # rubocop:enable Metrics/LineLength
+                # rubocop:enable Layout/LineLength
               end
             end
           end
           respond_with resource, location: after_sign_up_path_for(resource)
-        else
-          if is_navigational_format?
-            set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}"
-            respond_with resource, location: after_inactive_sign_up_path_for(resource)
-          end
+        elsif is_navigational_format?
+          set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}"
+          respond_with resource, location: after_inactive_sign_up_path_for(resource)
         end
       else
         clean_up_passwords resource
-        # rubocop:disable Metrics/LineLength
         redirect_to after_sign_up_error_path_for(resource),
                     alert: _("Unable to create your account.#{errors_for_display(resource)}")
-        # rubocop:enable Metrics/LineLength
+
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockNesting
+  # rubocop:enable
 
   def update
-    if user_signed_in? then
+    if user_signed_in?
       @prefs = @user.get_preferences(:email)[:prefs]
       @orgs = Org.order("name")
       @default_org = current_user.org
@@ -133,7 +133,7 @@ class RegistrationsController < Devise::RegistrationsController
       if params[:skip_personal_details] == "true"
         do_update_password(current_user, update_params)
       else
-        do_update(require_password = needs_password?(current_user))
+        do_update(needs_password?(current_user))
       end
     else
       render(file: File.join(Rails.root, "public/403.html"), status: 403, layout: false)
@@ -149,6 +149,7 @@ class RegistrationsController < Devise::RegistrationsController
     user.email != update_params[:email] || update_params[:password].present?
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def do_update(require_password = true, confirm = false)
     mandatory_params = true
     # added to by below, overwritten otherwise
@@ -168,9 +169,9 @@ class RegistrationsController < Devise::RegistrationsController
       mandatory_params &&= false
     end
     if update_params[:org_id].blank?
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       message += _("Please select an organisation from the list, or enter your organisation's name.")
-      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Layout/LineLength
       mandatory_params &&= false
     end
     # has the user entered all the details
@@ -185,12 +186,13 @@ class RegistrationsController < Devise::RegistrationsController
         # if user is changing email
         if current_user.email != attrs[:email]
           # password needs to be present
+          # rubocop:disable Metrics/BlockNesting
           if attrs[:password].blank?
             message = _("Please enter your password to change email address.")
             successfully_updated = false
           elsif current_user.valid_password?(attrs[:current_password])
             successfully_updated = current_user.update_with_password(attrs)
-            if !successfully_updated
+            unless successfully_updated
               message = _("Save unsuccessful. \
                 That email address is already registered. \
                 You must enter a unique email address.")
@@ -198,6 +200,7 @@ class RegistrationsController < Devise::RegistrationsController
           else
             message = _("Invalid password")
           end
+          # rubocop:enable Metrics/BlockNesting
         else
           # remove the current_password because its not actuallyt part of the User record
           attrs.delete(:current_password)
@@ -218,9 +221,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
 
     # unlink shibboleth from user's details
-    if params[:unlink_flag] == "true" then
-      current_user.update_attributes(shibboleth_id: "")
-    end
+    current_user.update_attributes(shibboleth_id: "") if params[:unlink_flag] == "true"
 
     # render the correct page
     if successfully_updated
@@ -229,21 +230,24 @@ class RegistrationsController < Devise::RegistrationsController
         current_user.skip_confirmation!
         current_user.save!
       end
-      session[:locale] = current_user.get_locale unless current_user.get_locale.nil?
+      session[:locale] = current_user.locale unless current_user.locale.nil?
       # Method defined at controllers/application_controller.rb
       set_gettext_locale
       set_flash_message :notice, success_message(current_user, _("saved"))
       # Sign in the user bypassing validation in case his password changed
       sign_in current_user, bypass: true
       redirect_to "#{edit_user_registration_path}\#personal-details",
-        notice: success_message(current_user, _("saved"))
+                  notice: success_message(current_user, _("saved"))
 
     else
       flash[:alert] = message.blank? ? failure_message(current_user, _("save")) : message
       render "edit"
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable
 
+  # rubocop:disable Metrics/AbcSize
   def do_update_password(current_user, args)
     if args[:current_password].blank?
       message = _("Please enter your current password")
@@ -256,19 +260,20 @@ class RegistrationsController < Devise::RegistrationsController
     end
     # render the correct page
     if successfully_updated
-      session[:locale] = current_user.get_locale unless current_user.get_locale.nil?
+      session[:locale] = current_user.locale unless current_user.locale.nil?
       # Method defined at controllers/application_controller.rbset_gettext_locale
       set_flash_message :notice, success_message(current_user, _("saved"))
-      # TODO this method is deprecated
+      # TODO: this method is deprecated
       sign_in current_user, bypass: true
       redirect_to "#{edit_user_registration_path}\#password-details",
-        notice: success_message(current_user, _("saved"))
+                  notice: success_message(current_user, _("saved"))
 
     else
       flash[:alert] = message.blank? ? failure_message(current_user, _("save")) : message
       redirect_to "#{edit_user_registration_path}\#password-details"
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def sign_up_params
     params.require(:user).permit(:email, :password, :password_confirmation,

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module Identifiable
 
   extend ActiveSupport::Concern
 
+  # rubocop:disable Metrics/BlockLength
   included do
-
     # ================
     # = Associations =
     # ================
@@ -42,6 +44,7 @@ module Identifiable
 
       id.present? ? id.identifiable : nil
     end
+    # rubocop:enable
 
     # ====================
     # = Instance Methods =
@@ -70,7 +73,7 @@ module Identifiable
       end
       true
     end
-
   end
+  # rubocop:enable Metrics/BlockLength
 
 end

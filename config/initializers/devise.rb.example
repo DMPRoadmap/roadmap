@@ -2,12 +2,14 @@
 
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
+# rubocop:disable Metrics/BlockLength
 Devise.setup do |config|
 
   config.secret_key = '{secret_key}'
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
-  # note that it will be overwritten if you use your own mailer class with default "from" parameter.
+  # note that it will be overwritten if you use your own mailer class with
+  # default "from" parameter.
   config.mailer_sender = "example@email.address"
 
   # Configure the class responsible to send e-mails.
@@ -59,7 +61,7 @@ Devise.setup do |config|
   # :database      = Support basic authentication with authentication key + password
   # :token         = Support basic authentication with token authentication key
   # :token_options = Support token authentication with options as defined in
-  #                  http://api.rubyonrails.org/classes/ActionController/HttpAuthentication/Token.html
+  #           ://api.rubyonrails.org/classes/ActionController/HttpAuthentication/Token.html
   # config.http_authenticatable = false
 
   # If http headers should be returned for AJAX requests. True by default.
@@ -302,3 +304,4 @@ Devise.setup do |config|
   end
 
 end
+# rubocop:enable Metrics/BlockLength

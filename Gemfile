@@ -38,7 +38,7 @@ gem "jbuilder"
 # gem "image_processing", "~> 1.2"
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', require: false
+gem "bootsnap", require: false
 
 # GEMS ADDED TO HELP HANDLE RAILS MIGRATION FROM 3.x to 4.2
 # THESE GEMS HELP SUPPORT DEPRACATED FUNCTIONALITY AND WILL LOSE SUPPORT IN
@@ -46,7 +46,7 @@ gem 'bootsnap', require: false
 
 # A set of Rails responders to dry up your application
 # (http://github.com/plataformatec/responders)
-#gem "responders"
+# gem "responders"
 
 # ============== #
 # ERROR HANDLING #
@@ -69,7 +69,7 @@ gem "mysql2", group: :mysql, require: false
 gem "pg", group: :pgsql, require: false
 
 # Bit fields for ActiveRecord (https://github.com/pboling/flag_shih_tzu)
-gem "flag_shih_tzu" #, "~> 0.3.23"
+gem "flag_shih_tzu" # , "~> 0.3.23"
 
 # ======== #
 # SECURITY #
@@ -101,7 +101,7 @@ gem "omniauth-orcid"
 gem "omniauth-rails_csrf_protection"
 
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
-gem 'jwt'
+gem "jwt"
 
 # Gems for repository integration
 # OO authorization for Rails (https://github.com/elabs/pundit)
@@ -152,18 +152,18 @@ gem "api-pagination"
 gem "sassc-rails"
 
 # Font-Awesome SASS (https://github.com/FortAwesome/font-awesome-sass)
-gem 'font-awesome-sass', '~> 5.13.0'
+gem "font-awesome-sass", "~> 5.13.0"
 
 # Use webpack to manage app-like JavaScript modules in Rails
 # (https://github.com/rails/webpacker)
-#gem "webpacker"
+# gem "webpacker"
 
 # Parse CSS and add vendor prefixes to CSS rules using values from the Can
 # I Use website. (https://github.com/ai/autoprefixer-rails)
 gem "autoprefixer-rails"
 
 # Minimal embedded v8 for Ruby (https://github.com/discourse/mini_racer)
-#gem "mini_racer"
+# gem "mini_racer"
 
 # ========= #
 # EXPORTING #
@@ -182,8 +182,9 @@ gem "wicked_pdf"
 # (http://github.com/karnov/htmltoword)
 gem "htmltoword"
 
-# Filename sanitization for Ruby. This is useful when you generate filenames for downloads from user input
-gem 'zaru'
+# Filename sanitization for Ruby. This is useful when you generate filenames for
+# downloads from user input
+gem "zaru"
 
 # ==================== #
 # INTERNATIONALIZATION #
@@ -208,10 +209,10 @@ gem "gettext", require: false, group: :development
 # Run any code in parallel Processes(> use all CPUs) or Threads(> speedup
 # blocking operations). Best suited for map-reduce or e.g. parallel downloads/uploads.
 # TODO: Replace use of this with ActiveJob where possible
-gem 'parallel'
+gem "parallel"
 
 # Makes http fun again! Wrapper to simplify the native Net::HTTP libraries
-gem 'httparty'
+gem "httparty"
 
 # Autoload dotenv in Rails. (https://github.com/bkeepers/dotenv)
 gem "dotenv-rails"
@@ -222,7 +223,7 @@ gem "dotenv-rails"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem "byebug", platforms: %i[mri mingw x64_mingw]
 end
 
 group :test do
@@ -285,11 +286,11 @@ group :test do
   gem "rspec-collection_matchers"
 
   # A set of RSpec matchers for testing Pundit authorisation policies.
-  gem 'pundit-matchers'
+  gem "pundit-matchers"
 
   # This gem brings back assigns to your controller tests as well as assert_template
   # to both controller and integration tests.
-  gem 'rails-controller-testing'
+  gem "rails-controller-testing"
 end
 
 group :ci, :development do
@@ -310,9 +311,10 @@ end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem "web-console"
   gem "listen"
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem "web-console"
+  # Spring speeds up development by keeping your application running in the background.
+  # Read more: https://github.com/rails/spring
   gem "spring"
   gem "spring-watcher-listen"
 

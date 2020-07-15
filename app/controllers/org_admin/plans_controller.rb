@@ -6,14 +6,12 @@ class OrgAdmin::PlansController < ApplicationController
   def index
     # Test auth directly and throw Pundit error sincePundit
     # is unaware of namespacing
-    unless current_user.present? && current_user.can_org_admin?
-      raise Pundit::NotAuthorizedError
-    end
+    raise Pundit::NotAuthorizedError unless current_user.present? && current_user.can_org_admin?
 
-    feedback_ids = Role.creator.joins(:user,:plan)
-      .where('users.org_id = ? AND plans.feedback_requested is TRUE AND roles.active is TRUE',
-              current_user.org_id).pluck(:plan_id)
-    @feedback_plans = Plan.where(id: feedback_ids).reject{|p| p.nil?}
+    sql = "users.org_id = ? AND plans.feedback_requested is TRUE AND roles.active is TRUE"
+    feedback_ids = Role.creator.joins(:user, :plan)
+                       .where(sql, current_user.org_id).pluck(:plan_id)
+    @feedback_plans = Plan.where(id: feedback_ids).reject(&:nil?)
 
     @super_admin = current_user.can_super_admin?
     @clicked_through = params[:click_through].present?
@@ -25,67 +23,61 @@ class OrgAdmin::PlansController < ApplicationController
     plan = Plan.find(params[:id])
     # Test auth directly and throw Pundit error sincePundit is
     # unaware of namespacing
-    unless current_user.present? && current_user.can_org_admin?
-      raise Pundit::NotAuthorizedError
-    end
-    unless plan.reviewable_by?(current_user.id)
-      raise Pundit::NotAuthorizedError
-    end
+    raise Pundit::NotAuthorizedError unless current_user.present? && current_user.can_org_admin?
+    raise Pundit::NotAuthorizedError unless plan.reviewable_by?(current_user.id)
 
     if plan.complete_feedback(current_user)
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       redirect_to(org_admin_plans_path,
-        notice: _("%{plan_owner} has been notified that you have finished providing feedback") % {
-          plan_owner: plan.owner.name(false)
-        }
-      )
-      # rubocop:enable Metrics/LineLength
+                  notice: _("%{plan_owner} has been notified that you have finished providing feedback") % {
+                    plan_owner: plan.owner.name(false)
+                  })
+      # rubocop:enable Layout/LineLength
     else
       redirect_to org_admin_plans_path,
-        alert: _("Unable to notify user that you have finished providing feedback.")
+                  alert: _("Unable to notify user that you have finished providing feedback.")
     end
   end
 
   # GET /org_admin/download_plans
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def download_plans
     # Test auth directly and throw Pundit error sincePundit
     # is unaware of namespacing
-    unless current_user.present? && current_user.can_org_admin?
-      raise Pundit::NotAuthorizedError
-    end
+    raise Pundit::NotAuthorizedError unless current_user.present? && current_user.can_org_admin?
 
     org = current_user.org
     file_name = org.name.gsub(/ /, "_")
-                        .gsub(/[\.;,]/, "")
+                   .gsub(/[\.;,]/, "")
     header_cols = [
-      "#{_('Project title')}",
-      "#{_('Template')}",
-      "#{_('Organisation')}",
-      "#{_('Owner name')}",
-      "#{_('Owner email')}",
-      "#{_('Updated')}",
-      "#{_('Visibility')}"
+      _("Project title").to_s,
+      _("Template").to_s,
+      _("Organisation").to_s,
+      _("Owner name").to_s,
+      _("Owner email").to_s,
+      _("Updated").to_s,
+      _("Visibility").to_s
     ]
 
     plans = CSV.generate do |csv|
       csv << header_cols
       org.plans.includes(template: :org).order(updated_at: :desc).each do |plan|
-        owner = plan.owner
         csv << [
-          "#{plan.title}",
-          "#{plan.template.title}",
-          "#{plan.owner.org.present? ? plan.owner.org.name : ''}",
-          "#{plan.owner.name(false)}",
-          "#{plan.owner.email}",
-          "#{l(plan.latest_update.to_date, format: :csv)}",
-          "#{Plan::VISIBILITY_MESSAGE[plan.visibility.to_sym].capitalize}"
+          plan.title.to_s,
+          plan.template.title.to_s,
+          (plan.owner.org.present? ? plan.owner.org.name : "").to_s,
+          plan.owner.name(false).to_s,
+          plan.owner.email.to_s,
+          l(plan.latest_update.to_date, format: :csv).to_s,
+          Plan::VISIBILITY_MESSAGE[plan.visibility.to_sym].capitalize.to_s
         ]
       end
     end
 
     respond_to do |format|
-      format.csv  { send_data plans,  filename: "#{file_name}.csv" }
+      format.csv  { send_data plans, filename: "#{file_name}.csv" }
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
 end

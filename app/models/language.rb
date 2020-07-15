@@ -19,7 +19,7 @@ class Language < ApplicationRecord
 
   ABBREVIATION_MAXIMUM_LENGTH = 5
 
-  ABBREVIATION_FORMAT = /\A[a-z]{2}(\-[A-Z]{2})?\Z/
+  ABBREVIATION_FORMAT = /\A[a-z]{2}(\-[A-Z]{2})?\Z/.freeze
 
   NAME_MAXIMUM_LENGTH = 20
 
@@ -30,7 +30,6 @@ class Language < ApplicationRecord
   has_many :users
 
   has_many :orgs
-
 
   # ===============
   # = Validations =
@@ -69,7 +68,7 @@ class Language < ApplicationRecord
   scope :sorted_by_abbreviation, -> { all.order(:abbreviation) }
 
   # Retrieves the id for a given abbreviation of a language
-  scope :id_for, -> (abbreviation) {
+  scope :id_for, lambda { |abbreviation|
     where(abbreviation: abbreviation).pluck(:id).first
   }
 

@@ -31,7 +31,7 @@
               <br>
             <% end %>
             <% section[:questions].each do |question| %>
-              <% if remove_list(@plan).include?(question[:id]) %> 
+              <% if remove_list(@plan).include?(question[:id]) %>
                 <% next %>
               <% end %>
               <div class="question">
@@ -45,10 +45,9 @@
                   <br>
                 <% end %>
                 <% answer = @plan.answer(question[:id], false) %>
-                <% blank = answer.present? ? answer.is_blank? : true %>
                 <% options = answer.present? ? answer.question_options : [] %>
                 <%# case where question has not been answered sufficiently to display%>
-                <% if @show_unanswered && (answer.blank? || (options.blank? && blank))%>
+                <% if @show_unanswered && !answer.answered? %>
                   <br>
                   <p><%= _('Question not answered.') -%></p>
                   <br><br>

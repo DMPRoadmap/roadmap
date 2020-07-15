@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 require "rails_helper"
@@ -11,8 +13,8 @@ RSpec.describe "Questions::Check box questions" do
     @section           = create(:section, phase: @phase)
 
     @question = create(:question, :checkbox, section: @section, options: 2)
-    @user              = create(:user)
-    @plan              = create(:plan, template: @default_template)
+    @user = create(:user)
+    @plan = create(:plan, template: @default_template)
     create(:role, :creator, :editor, :commenter, user: @user, plan: @plan)
     sign_in(@user)
   end

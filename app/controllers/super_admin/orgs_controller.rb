@@ -24,6 +24,7 @@ module SuperAdmin
     end
 
     # POST /super_admin/orgs
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def create
       authorize Org
       attrs = org_params
@@ -31,7 +32,6 @@ module SuperAdmin
       # See if the user selected a new Org via the Org Lookup and
       # convert it into an Org
       org = org_from_params(params_in: attrs)
-      identifiers = identifiers_from_params(params_in: attrs)
 
       # Remove the extraneous Org Selector hidden fields
       attrs = remove_org_selection_params(params_in: attrs)
@@ -41,13 +41,13 @@ module SuperAdmin
       org = Org.new unless org.present?
 
       org.language = Language.default
-      org.managed = org_params[:managed] == "1" ? true : false
+      org.managed = org_params[:managed] == "1"
       org.logo = params[:logo] if params[:logo]
-      if params[:org_links].present?
-        org.links = JSON.parse(params[:org_links])
-      else
-        org.links = { org: [] }
-      end
+      org.links = if params[:org_links].present?
+                    JSON.parse(params[:org_links])
+                  else
+                    { org: [] }
+                  end
 
       begin
         # TODO: The org_types here are working but would be better served as
@@ -67,7 +67,7 @@ module SuperAdmin
           @org.links = { "org": [] } unless org.links.present?
           render "super_admin/orgs/new"
         end
-      rescue Dragonfly::Job::Fetch::NotFound => dflye
+      rescue Dragonfly::Job::Fetch::NotFound
         failure = _("There seems to be a problem with your logo. Please upload it again.")
         redirect_to admin_edit_org_path(org), alert: failure
         render "orgs/admin_edit", locals: {
@@ -78,6 +78,7 @@ module SuperAdmin
         }
       end
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     # DELETE /super_admin/orgs/:id
     def destroy
@@ -85,16 +86,16 @@ module SuperAdmin
       authorize org
 
       # Only allow the delete if the org has no dependencies
-      unless org.users.length > 0 || org.templates.length > 0
-        org.guidance_groups.delete_all
+      return if !org.users.empty? || !org.templates.empty?
 
-        if org.destroy!
-          msg = success_message(org, _("removed"))
-          redirect_to super_admin_orgs_path, notice: msg
-        else
-          failure = failure_message(org, _("remove"))
-          redirect_to super_admin_orgs_path, alert: failure
-        end
+      org.guidance_groups.delete_all
+
+      if org.destroy!
+        msg = success_message(org, _("removed"))
+        redirect_to super_admin_orgs_path, notice: msg
+      else
+        failure = failure_message(org, _("remove"))
+        redirect_to super_admin_orgs_path, alert: failure
       end
     end
 

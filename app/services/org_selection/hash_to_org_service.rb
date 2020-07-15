@@ -20,10 +20,6 @@ module OrgSelection
 
     class << self
 
-      # Disabling some Rubocop here as I feel that this would be more
-      # confusing if broken apart further
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-      # rubocop:disable Metrics/CyclomaticComplexity
       def to_org(hash:, allow_create: true)
         return nil unless hash.present?
 
@@ -31,27 +27,21 @@ module OrgSelection
         hash = hash.with_indifferent_access
 
         # 1st: if id is present - find the Org and then verify names match
-        org = Org.where(id: hash[:id]).first if hash[:id].present?
-        return org if exact_match?(rec: org, name2: hash[:name])
+        org = lookup_org_by_id(hash: hash)
+        return org if org.present?
 
         # 2nd: Search by the external identifiers (e.g. "ror", "fundref", etc.)
         # and then verify a name match
-        identifiers = hash.select { |k, _v| identifier_keys.include?(k) }
-        ids = identifiers.map { |k, v| { name: k, value: v } }
-        org = Org.from_identifiers(array: ids) if ids.any?
-        return org if exact_match?(rec: org, name2: hash[:name])
+        org = lookup_org_by_identifiers(hash: hash)
+        return org if org.present?
 
         # 3rd: Search by name and then verify exact_match
-        clean_name = OrgSelection::SearchService.name_without_alias(
-          name: hash[:name]
-        )
-        org = Org.search(clean_name).first
-        return org if exact_match?(rec: org, name2: hash[:name])
+        org = lookup_org_by_name(hash: hash)
+        return org if org.present?
 
         # Otherwise: Create an Org if allowed
         allow_create ? initialize_org(hash: hash) : nil
       end
-      # rubocop:enable Metrics/CyclomaticComplexity
 
       def to_identifiers(hash:)
         return [] unless hash.present?
@@ -71,12 +61,31 @@ module OrgSelection
         end
         out
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       private
 
+      # Lookup the Org by it's :id and return if the name matches the search
+      def lookup_org_by_id(hash:)
+        org = Org.where(id: hash[:id]).first if hash[:id].present?
+        exact_match?(rec: org, name2: hash[:name]) ? org : nil
+      end
+
+      # Lookup the Org by its :identifiers and return if the name matches the search
+      def lookup_org_by_identifiers(hash:)
+        identifiers = hash.select { |k, _v| identifier_keys.include?(k) }
+        ids = identifiers.map { |k, v| { name: k, value: v } }
+        org = Org.from_identifiers(array: ids) if ids.any?
+        exact_match?(rec: org, name2: hash[:name]) ? org : nil
+      end
+
+      # Lookup the Org by its :name
+      def lookup_org_by_name(hash:)
+        clean_name = OrgSelection::SearchService.name_without_alias(name: hash[:name])
+        org = Org.search(clean_name).first
+        exact_match?(rec: org, name2: hash[:name]) ? org : nil
+      end
+
       # Initialize a new Org from the hash
-      # rubocop:disable Metrics/MethodLength
       def initialize_org(hash:)
         return nil unless hash.present? && hash[:name].present?
 
@@ -91,7 +100,6 @@ module OrgSelection
         )
         org
       end
-      # rubocop:enable Metrics/MethodLength
 
       # Convert the name and website into Org.links
       def links_from_hash(name:, website:)

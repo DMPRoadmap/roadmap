@@ -8,22 +8,19 @@ class TemplateOptionsController < ApplicationController
 
   # GET /template_options  (AJAX)
   # Collect all of the templates available for the org+funder combination
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def index
     org_hash = plan_params.fetch(:research_org_id, {})
     funder_hash = plan_params.fetch(:funder_id, {})
     authorize Template.new, :template_options?
 
-    if org_hash.present?
-      org = org_from_params(params_in: { org_id: org_hash.to_json })
-    end
-    if funder_hash.present?
-      funder = org_from_params(params_in: { org_id: funder_hash.to_json })
-    end
+    org = org_from_params(params_in: { org_id: org_hash.to_json }) if org_hash.present?
+    funder = org_from_params(params_in: { org_id: funder_hash.to_json }) if funder_hash.present?
 
     @templates = []
 
     if (org.present? && !org.new_record?) ||
-        (funder.present? && !funder.new_record?)
+       (funder.present? && !funder.new_record?)
       if funder.present? && !funder.new_record?
         # Load the funder's template(s) minus the default template (that gets swapped
         # in below if NO other templates are available)
@@ -37,11 +34,13 @@ class TemplateOptionsController < ApplicationController
                                                                org.id).first
             # Only provide the customized version if its still up to date with the
             # funder template!
+            # rubocop:disable Metrics/BlockNesting
             if customization.present? && !customization.upgrade_customization?
               customization
             else
               tmplt
             end
+            # rubocop:enable Metrics/BlockNesting
           end
         end
       end
@@ -60,8 +59,8 @@ class TemplateOptionsController < ApplicationController
     if @templates.empty?
       if Template.default.present?
         customization = Template.published
-                          .latest_customized_version(Template.default.family_id,
-                                                     org&.id).first
+                                .latest_customized_version(Template.default.family_id,
+                                                           org&.id).first
 
         @templates << (customization.present? ? customization : Template.default)
       end
@@ -69,6 +68,8 @@ class TemplateOptionsController < ApplicationController
 
     @templates = @templates.sort_by(&:title)
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable
 
   private
 

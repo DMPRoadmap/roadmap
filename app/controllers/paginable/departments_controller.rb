@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class  Paginable::DepartmentsController < ApplicationController
+class Paginable::DepartmentsController < ApplicationController
 
   after_action :verify_authorized
   respond_to :html
@@ -21,8 +21,11 @@ class  Paginable::DepartmentsController < ApplicationController
   private
 
   def departments
-    current_user.can_super_admin? ? Department.by_org(Org.find(params[:id])) :
+    if current_user.can_super_admin?
+      Department.by_org(Org.find(params[:id]))
+    else
       Department.by_org(Org.find(current_user.org_id))
+    end
   end
 
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: identifier_schemes
@@ -44,11 +46,11 @@ class IdentifierScheme < ApplicationRecord
   ##
   # Define Bit Field values for the scheme's context
   # These are used to determine when and where an identifier scheme is applicable
-  has_flags 1 =>  :for_authentication,
-            2 =>  :for_orgs,
-            3 =>  :for_plans,
-            4 =>  :for_users,
-            5 =>  :for_contributors,
+  has_flags 1 => :for_authentication,
+            2 => :for_orgs,
+            3 => :for_plans,
+            4 => :for_users,
+            5 => :for_contributors,
             column: "context"
 
   # =========================

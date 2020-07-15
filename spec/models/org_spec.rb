@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Org, type: :model do
 
@@ -9,7 +11,7 @@ RSpec.describe Org, type: :model do
     it {
       subject.name = "DMP Company"
       is_expected.to validate_uniqueness_of(:name)
-                          .with_message("must be unique")
+        .with_message("must be unique")
     }
 
     it { is_expected.to validate_presence_of(:abbreviation) }
@@ -60,7 +62,9 @@ RSpec.describe Org, type: :model do
 
     it { should have_many(:annotations) }
 
+    # rubocop:disable Layout/LineLength
     it { should have_and_belong_to_many(:token_permission_types).join_table("org_token_permissions") }
+    # rubocop:enable Layout/LineLength
 
     it { should have_many(:identifiers) }
 
@@ -115,11 +119,11 @@ RSpec.describe Org, type: :model do
     end
   end
 
-  describe "#get_locale" do
+  describe "#locale" do
 
     let!(:org) { build(:org) }
 
-    subject { org.get_locale }
+    subject { org.locale }
 
     context "language present" do
 
@@ -194,7 +198,7 @@ RSpec.describe Org, type: :model do
 
         let!(:org) { build(:org, :funder, :school) }
 
-        it { is_expected.to include("Funder","School") }
+        it { is_expected.to include("Funder", "School") }
 
       end
 
@@ -210,7 +214,7 @@ RSpec.describe Org, type: :model do
     context "when organistation type is only Funder" do
 
       before do
-        org.funder = true;
+        org.funder = true
       end
 
       it { is_expected.to be true }
@@ -220,8 +224,8 @@ RSpec.describe Org, type: :model do
     context "when multiple organistation types present" do
 
       before do
-        org.institution = true;
-        org.funder = true;
+        org.institution = true
+        org.funder = true
       end
 
       it { is_expected.to be false }
@@ -294,7 +298,6 @@ RSpec.describe Org, type: :model do
 
     subject { org.org_admins }
 
-
     context "when user belongs to Org with perms absent" do
 
       before do
@@ -352,7 +355,6 @@ RSpec.describe Org, type: :model do
     end
   end
 
-
   describe "#plans" do
 
     let!(:org) { create(:org) }
@@ -384,7 +386,7 @@ RSpec.describe Org, type: :model do
 
     end
 
-    context "when user belongs to Org and plan user with role :editor, but not :creator and :administrator" do
+    context "user belongs to Org and plan user with role :editor, but not :creator and :admin" do
 
       before do
         plan.add_user!(user.id, :editor)
@@ -394,7 +396,7 @@ RSpec.describe Org, type: :model do
 
     end
 
-    context "when user belongs to Org and plan user with role :commenter, but not :creator and :administrator" do
+    context "user belongs to Org and plan user with role :commenter, but not :creator and :admin" do
 
       before do
         plan.add_user!(user.id, :commenter)
@@ -404,7 +406,7 @@ RSpec.describe Org, type: :model do
 
     end
 
-    context "when user belongs to Org and plan user with role :reviewer, but not :creator and :administrator" do
+    context "user belongs to Org and plan user with role :reviewer, but not :creator and :admin" do
 
       before do
         plan.add_user!(user.id, :reviewer)
@@ -421,7 +423,7 @@ RSpec.describe Org, type: :model do
     let!(:org) { create(:org) }
     let(:token_permission_type) { create(:token_permission_type) }
 
-      subject { org.grant_api!(token_permission_type) }
+    subject { org.grant_api!(token_permission_type) }
 
     context "when :token_permission_type does not belong to token_permission_types" do
 

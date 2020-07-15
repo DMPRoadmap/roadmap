@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 class UsageController < ApplicationController
 
   after_action :verify_authorized
-
-  # rubocop:disable Metrics/AbcSize
   # GET /usage
   def index
     authorize :usage
@@ -19,7 +16,6 @@ class UsageController < ApplicationController
     @funder = current_user.org.funder?
     @filtered = args[:filtered]
   end
-  # rubocop:enable Metrics/AbcSize
 
   # POST /usage_plans_by_template
   def plans_by_template
@@ -58,8 +54,6 @@ class UsageController < ApplicationController
     send_data(data_csvified, filename: "totals.csv")
   end
 
-  # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/MethodLength
   # GET /usage_yearly_users
   def yearly_users
     # This action is triggered when a user clicks on the 'download csv' button
@@ -78,11 +72,7 @@ class UsageController < ApplicationController
       csv << [_("Total"), total]
     end, filename: "users_joined.csv")
   end
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/MethodLength
 
-  # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/MethodLength
   # GET /usage_yearly_plans
   def yearly_plans
     # This action is triggered when a user clicks on the 'download csv' button
@@ -101,8 +91,6 @@ class UsageController < ApplicationController
       csv << [_("Total"), total]
     end, filename: "completed_plans.csv")
   end
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/MethodLength
 
   # GET /usage_all_plans_by_template
   def all_plans_by_template
@@ -115,9 +103,9 @@ class UsageController < ApplicationController
     sep = sep_param
 
     plan_data(args: args, sort: :desc)
-    # rubocop:disable Metrics/LineLength
+    # rubocop:disable Layout/LineLength
     data_csvified = StatCreatedPlan.to_csv(@plans_per_month, details: { by_template: true, sep: sep })
-    # rubocop:enable Metrics/LineLength
+    # rubocop:enable Layout/LineLength
     send_data(data_csvified, filename: "created_plan_by_template.csv")
   end
 
@@ -128,8 +116,7 @@ class UsageController < ApplicationController
                                   :end_date, :topic, :filtered)
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def args_from_params
     org = current_user.org
     if current_user.can_super_admin? && usage_params[:org_id].present?
@@ -145,8 +132,7 @@ class UsageController < ApplicationController
       end_date: end_date.present? ? end_date : Date.today.strftime("%Y-%m-%d")
     }
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
 
   def default_query_args
     # Stats are generated at the beginning of each month, so our reference
@@ -203,4 +189,3 @@ class UsageController < ApplicationController
   end
 
 end
-# rubocop:enable Metrics/ClassLength

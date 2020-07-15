@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: question_formats
@@ -12,12 +14,11 @@
 #
 
 class QuestionFormat < ApplicationRecord
-  
+
   ##
   #
   FORMAT_TYPES = %i[textarea textfield radiobuttons checkbox dropdown
-                    multiselectbox date rda_metadata]
-
+                    multiselectbox date rda_metadata].freeze
 
   # ==============
   # = Attributes =
@@ -35,7 +36,6 @@ class QuestionFormat < ApplicationRecord
 
   has_many :questions
 
-
   # ===============
   # = Validations =
   # ===============
@@ -47,7 +47,6 @@ class QuestionFormat < ApplicationRecord
 
   validates :option_based, inclusion: { in: BOOLEAN_VALUES }
 
-
   # =================
   # = Class methods =
   # =================
@@ -56,4 +55,5 @@ class QuestionFormat < ApplicationRecord
   def self.id_for(formattype)
     where(formattype: formattype).pluck(:id).first
   end
+
 end

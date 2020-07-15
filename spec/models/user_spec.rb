@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe User, type: :model do
 
@@ -34,8 +34,6 @@ RSpec.describe User, type: :model do
 
     it { is_expected.to validate_presence_of(:org) }
   end
-
-
 
   context "associations" do
 
@@ -160,11 +158,11 @@ RSpec.describe User, type: :model do
 
   end
 
-  describe "#get_locale" do
+  describe "#locale" do
 
     let!(:user) { build(:user) }
 
-    subject { user.get_locale }
+    subject { user.locale }
 
     context "when user language present" do
 
@@ -193,7 +191,7 @@ RSpec.describe User, type: :model do
 
       before do
         user.language = nil
-        @locale = user.org.get_locale
+        @locale = user.org.locale
       end
 
       it { is_expected.to eql(@locale) }
@@ -647,7 +645,6 @@ RSpec.describe User, type: :model do
       it { is_expected.to include(@user) }
 
     end
-
 
     context "when search value is lowercase" do
 

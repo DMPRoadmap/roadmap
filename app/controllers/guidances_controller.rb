@@ -11,7 +11,7 @@ class GuidancesController < ApplicationController
   #       Publish and Unpublish actions should be consolidated with :update
   #       after conversion to RESTful actions
 
-   # GET /org/admin/guidance/:id/admin_index
+  # GET /org/admin/guidance/:id/admin_index
   def admin_index
     authorize Guidance
     @guidances = Guidance.by_org(current_user.org)
@@ -86,11 +86,10 @@ class GuidancesController < ApplicationController
         guidance_group.save
       end
       flash[:notice] = success_message(@guidance, _("deleted"))
-      redirect_to(action: :admin_index)
     else
       flash[:alert] = failure_message(@guidance, _("delete"))
-      redirect_to(action: :admin_index)
     end
+    redirect_to(action: :admin_index)
   end
 
   # PUT /org/admin/guidance/:id/admin_publish
@@ -102,9 +101,8 @@ class GuidancesController < ApplicationController
       if !guidance_group.published? || guidance_group.published.nil?
         guidance_group.update(published: true)
       end
-      # rubocop:disable Metrics/LineLength
       flash[:notice] = _("Your guidance has been published and is now available to users.")
-      # rubocop:enable Metrics/LineLength
+
     else
       flash[:alert] = failure_message(@guidance, _("publish"))
     end
@@ -120,9 +118,8 @@ class GuidancesController < ApplicationController
       unless guidance_group.guidances.where(published: true).exists?
         guidance_group.update(published: false)
       end
-      # rubocop:disable Metrics/LineLength
       flash[:notice] = _("Your guidance is no longer published and will not be available to users.")
-      # rubocop:enable Metrics/LineLength
+
     else
       flash[:alert] = failure_message(@guidance, _("unpublish"))
     end
@@ -135,10 +132,11 @@ class GuidancesController < ApplicationController
     params.require(:guidance).permit(:guidance_group_id, :text, :published, theme_ids: [])
   end
 
-
   def ensure_default_group(org)
     return unless org.managed?
     return if org.guidance_groups.where(optional_subset: false).present?
+
     GuidanceGroup.create_org_default(org)
   end
+
 end
