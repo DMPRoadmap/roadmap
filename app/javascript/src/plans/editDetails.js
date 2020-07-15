@@ -69,7 +69,7 @@ $(() => {
         grantIdField.typeahead({ source: descriptionData });
       }).then(() => { setInitialGrantProjectName(); });
 
-      grantIdField.on('change', (e) => {
+      grantIdField.on('change', () => {
         const current = grantIdField.typeahead('getActive');
         if (current) {
           // match or partial match found
