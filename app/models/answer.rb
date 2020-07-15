@@ -47,7 +47,6 @@ class Answer < ApplicationRecord
 
   has_many :notes
 
-
   # ===============
   # = Validations =
   # ===============
@@ -57,8 +56,8 @@ class Answer < ApplicationRecord
   validates :user, presence: { message: PRESENCE_MESSAGE }
 
   validates :question, presence: { message: PRESENCE_MESSAGE },
-                      uniqueness: { message: UNIQUENESS_MESSAGE,
-                                    scope: :plan_id }
+                       uniqueness: { message: UNIQUENESS_MESSAGE,
+                                     scope: :plan_id }
 
   # =============
   # = Callbacks =
@@ -84,7 +83,7 @@ class Answer < ApplicationRecord
   # form views should be checked or not
   #
   # Returns Boolean
-  def has_question_option(option_id)
+  def options_selected?(option_id)
     question_option_ids.include?(option_id)
   end
 
@@ -94,13 +93,12 @@ class Answer < ApplicationRecord
   #
   # Returns Boolean
   def answered?
-    if question.present?
-      if question.question_format.option_based?
-        return question_options.any?
-      else  # (e.g. textarea or textfield question formats)
-        return not(is_blank?)
-      end
-    end
+    return false unless question.present?
+    # If the question is option based then see if any options were selected
+    return question_options.any? if question.question_format.option_based?
+    # Strip out any white space and see if the text is empty
+    return text.gsub(%r{</?p>}, "").gsub(%r{<br\s?/?>}, "").chomp.blank? if text.present?
+
     false
   end
 
@@ -111,18 +109,6 @@ class Answer < ApplicationRecord
     notes.select { |n| n.archived.blank? }.sort! { |x, y| x.created_at <=> y.created_at }
   end
 
-  # Returns True if answer text is blank, false otherwise specificly we want to remove
-  # empty hml tags and check.
-  #
-  # Returns Boolean
-  def is_blank?
-    if text.present?
-      return text.gsub(/<\/?p>/, "").gsub(/<br\s?\/?>/, "").chomp.blank?
-    end
-    # no text so blank
-    true
-  end
-
   # The parsed JSON hash for the current answer object. Generates a new hash if none
   # exists for rda_questions.
   #
@@ -131,7 +117,7 @@ class Answer < ApplicationRecord
     default = { "standards" => {}, "text" => "" }
     begin
       h = text.nil? ? default : JSON.parse(text)
-    rescue JSON::ParserError => e
+    rescue JSON::ParserError
       h = default
     end
     h
@@ -155,6 +141,7 @@ class Answer < ApplicationRecord
   def set_plan_complete
     # Remove guard? this is an after-save so unreachable if there is no plan
     return unless plan_id?
+
     complete = plan.no_questions_matches_no_answers?
     if plan.complete != complete
       plan.update!(complete: complete)

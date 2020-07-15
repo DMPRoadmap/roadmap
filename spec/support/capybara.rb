@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'webdrivers/chromedriver'
+require "webdrivers/chromedriver"
 require_relative "helpers/capybara_helper"
 require_relative "helpers/sessions_helper"
 require_relative "helpers/tiny_mce_helper"

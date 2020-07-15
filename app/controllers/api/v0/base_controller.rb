@@ -3,23 +3,23 @@
 class Api::V0::BaseController < ApplicationController
 
   protect_from_forgery with: :null_session
-  before_action :set_resource, only: [:destroy, :show, :update]
+  before_action :define_resource, only: %i[destroy show update]
   respond_to :json
 
   # POST /api/{plural_resource_name}
   def create
-    set_resource(resource_class.new(resource_params))
+    define_resource(resource_class.new(resource_params))
 
-    if get_resource.save
+    if retrieve_resource.save
       render :show, status: :created
     else
-      render json: get_resource.errors, status: :unprocessable_entity
+      render json: retrieve_resource.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /api/{plural_resource_name}/1
   def destroy
-    get_resource.destroy
+    retrieve_resource.destroy
     head :no_content
   end
 
@@ -27,8 +27,8 @@ class Api::V0::BaseController < ApplicationController
   def index
     plural_resource_name = "@#{resource_name.pluralize}"
     resources = resource_class.where(query_params)
-                    .page(page_params[:page])
-                    .per(page_params[:page_size])
+                              .page(page_params[:page])
+                              .per(page_params[:page_size])
 
     instance_variable_set(plural_resource_name, resources)
     respond_with instance_variable_get(plural_resource_name)
@@ -36,15 +36,15 @@ class Api::V0::BaseController < ApplicationController
 
   # GET /api/{plural_resource_name}/1
   def show
-    respond_with get_resource
+    respond_with retrieve_resource
   end
 
   # PATCH/PUT /api/{plural_resource_name}/1
   def update
-    if get_resource.update(resource_params)
+    if retrieve_resource.update(resource_params)
       render :show
     else
-      render json: get_resource.errors, status: :unprocessable_entity
+      render json: retrieve_resource.errors, status: :unprocessable_entity
     end
   end
 
@@ -53,7 +53,7 @@ class Api::V0::BaseController < ApplicationController
   # The resource from the created instance variable
   #
   # Returns Object
-  def get_resource
+  def retrieve_resource
     instance_variable_get("@#{resource_name}")
   end
 
@@ -83,7 +83,7 @@ class Api::V0::BaseController < ApplicationController
   #
   # Returns String
   def resource_name
-    @resource_name ||= self.controller_name.singularize
+    @resource_name ||= controller_name.singularize
   end
 
   # Only allow a trusted parameter "white list" through.
@@ -92,11 +92,11 @@ class Api::V0::BaseController < ApplicationController
   # the method "#{resource_name}_params" to limit permitted
   # parameters for the individual model.
   def resource_params
-    @resource_params ||= self.send("#{resource_name}_params")
+    @resource_params ||= send("#{resource_name}_params")
   end
 
   # Use callbacks to share common setup or constraints between actions.
-  def set_resource(resource = nil)
+  def define_resource(resource = nil)
     resource ||= resource_class.find(params[:id])
     instance_variable_set("@#{resource_name}", resource)
   end
@@ -106,7 +106,7 @@ class Api::V0::BaseController < ApplicationController
   end
 
   def authenticate_token
-    authenticate_with_http_token do |token, options|
+    authenticate_with_http_token do |token, _options|
       # reject the empty string as it is our base empty token
       if token != ""
         @token = token
@@ -119,9 +119,8 @@ class Api::V0::BaseController < ApplicationController
     end
   end
 
-
   def render_bad_credentials
-    self.headers["WWW-Authenticate"] = "Token realm=\"\""
+    headers["WWW-Authenticate"] = "Token realm=\"\""
     render json: _("Bad Credentials"), status: 401
   end
 

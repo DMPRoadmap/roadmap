@@ -14,9 +14,9 @@ class LocaleService
 
     # Returns the available locales/languages
     def available_locales
-      # rubocop:disable Metrics/LineLength
+      # rubocop:disable Layout/LineLength
       locales = Language.sorted_by_abbreviation.pluck(:abbreviation).presence if Language.table_exists?
-      # rubocop:enable Metrics/LineLength
+      # rubocop:enable Layout/LineLength
       locales.present? ? locales : [default_locale]
     end
 

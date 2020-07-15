@@ -13,7 +13,7 @@ class OrgsController < ApplicationController
   #       to a new `admin` namespace, leaving public facing actions in here and
   #       moving all of the `admin_` ones to the `admin` namespaced controller
 
-   # TODO: Just use instance variables instead of passing locals. Separating the
+  # TODO: Just use instance variables instead of passing locals. Separating the
   #       create/update will make that easier.
   # GET /org/admin/:id/admin_edit
   def admin_edit
@@ -26,6 +26,7 @@ class OrgsController < ApplicationController
   end
 
   # PUT /org/admin/:id/admin_update
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def admin_update
     attrs = org_params
     @org = Org.find(params[:id])
@@ -86,6 +87,8 @@ class OrgsController < ApplicationController
       redirect_to "#{admin_edit_org_path(@org)}\##{tab}", alert: failure
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable
 
   # This action is used by installations that have the following config enabled:
   #   Rails.configuration.x.shibboleth.use_filtered_discovery_service
@@ -97,14 +100,19 @@ class OrgsController < ApplicationController
     @orgs = Identifier.by_scheme_name("shibboleth", "Org")
                       .sort { |a, b| a.identifiable.name <=> b.identifiable.name }
 
+    # Disabling the rubocop check here because it would not be clear what happens
+    # if the ``@orgs` array has items ... it renders the shibboleth_ds view
+    # rubocop:disable Style/GuardClause
     if @orgs.empty?
       flash.now[:alert] = _("No organisations are currently registered.")
       redirect_to user_shibboleth_omniauth_authorize_path
     end
+    # rubocop:enable Style/GuardClause
   end
 
   # This action is used to redirect a user to the Shibboleth IdP
   # POST /orgs/shibboleth_ds
+  # rubocop:disable Metrics/AbcSize
   def shibboleth_ds_passthru
     if !shib_params["shib-ds"][:org_name].blank?
       session["org_id"] = shib_params["shib-ds"][:org_name]
@@ -126,8 +134,10 @@ class OrgsController < ApplicationController
       redirect_to shibboleth_ds_path, notice: _("Please choose an organisation")
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # POST /orgs  (via AJAX from OrgSelectiors)
+  # rubocop:disable Metrics/MethodLength
   def search
     args = search_params
     # If the search term is greater than 2 characters
@@ -135,20 +145,20 @@ class OrgsController < ApplicationController
       type = args.fetch(:type, "local")
 
       # If we are including external API results
-      case type
-      when "combined"
-        orgs = OrgSelection::SearchService.search_combined(
-          search_term: args[:name]
-        )
-      when "external"
-        orgs = OrgSelection::SearchService.search_externally(
-          search_term: args[:name]
-        )
-      else
-        orgs = OrgSelection::SearchService.search_locally(
-          search_term: args[:name]
-        )
-      end
+      orgs = case type
+             when "combined"
+               OrgSelection::SearchService.search_combined(
+                 search_term: args[:name]
+               )
+             when "external"
+               OrgSelection::SearchService.search_externally(
+                 search_term: args[:name]
+               )
+             else
+               OrgSelection::SearchService.search_locally(
+                 search_term: args[:name]
+               )
+             end
 
       # If we need to restrict the results to funding orgs then
       # only return the ones with a valid fundref
@@ -164,6 +174,8 @@ class OrgsController < ApplicationController
       render json: []
     end
   end
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable
 
   private
 

@@ -19,16 +19,16 @@ class UsersController < ApplicationController
         @clicked_through = params[:click_through].present?
         @filter_admin = false
 
-        if current_user.can_super_admin?
-          @users = User.includes(:roles).page(1)
-        else
-          @users = current_user.org.users.includes(:roles).page(1)
-        end
+        @users = if current_user.can_super_admin?
+                   User.includes(:roles).page(1)
+                 else
+                   current_user.org.users.includes(:roles).page(1)
+                 end
       end
 
       format.csv do
         send_data User.to_csv(current_user.org.users.order(:surname)),
-        filename: "users-accounts-#{Date.today}.csv"
+                  filename: "users-accounts-#{Date.today}.csv"
       end
     end
   end
@@ -43,11 +43,11 @@ class UsersController < ApplicationController
 
     # Super admin can grant any Perm, org admins can only grant Perms they
     # themselves have access to
-    if current_user.can_super_admin?
-      perms = Perm.all
-    else
-      perms = current_user.perms
-    end
+    perms = if current_user.can_super_admin?
+              Perm.all
+            else
+              current_user.perms
+            end
 
     render json: {
       "user" => {
@@ -63,6 +63,7 @@ class UsersController < ApplicationController
   # POST - updates the permissions for a user
   # redirects to the admin_index action
   # should add validation that the perms given are current perms of the current_user
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def admin_update_permissions
     @user = User.find(params[:id])
     authorize @user
@@ -72,20 +73,16 @@ class UsersController < ApplicationController
     privileges_changed = false
     current_user.perms.each do |perm|
       if @user.perms.include? perm
-        if ! perms.include? perm
+        unless perms.include? perm
           @user.perms.delete(perm)
-          if perm.id == Perm.use_api.id
-            @user.remove_token!
-          end
+          @user.remove_token! if perm.id == Perm.use_api.id
           privileges_changed = true
         end
-      else
-        if perms.include? perm
-          @user.perms << perm
-          if perm.id == Perm.use_api.id
-            @user.keep_or_generate_token!
-            privileges_changed = true
-          end
+      elsif perms.include? perm
+        @user.perms << perm
+        if perm.id == Perm.use_api.id
+          @user.keep_or_generate_token!
+          privileges_changed = true
         end
       end
     end
@@ -97,15 +94,17 @@ class UsersController < ApplicationController
         end
       end
       render(json: {
-        code: 1,
-        msg: success_message(perms.first_or_initialize, _("saved")),
-        current_privileges: render_to_string(partial: "users/current_privileges",
-                                             locals: { user: @user }, formats: [:html])
-        })
+               code: 1,
+               msg: success_message(perms.first_or_initialize, _("saved")),
+               current_privileges: render_to_string(partial: "users/current_privileges",
+                                                    locals: { user: @user }, formats: [:html])
+             })
     else
       render(json: { code: 0, msg: failure_message(@user, _("updated")) })
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable
 
   # PUT /users/:id/update_email_preferences
   def update_email_preferences
@@ -132,26 +131,26 @@ class UsersController < ApplicationController
     authorize current_user
 
     user = User.find(params[:id])
-    if user.present?
-      begin
-        user.active = !user.active
-        user.save!
-        render json: {
-          code: 1,
-          msg: _("Successfully %{action} %{username}'s account.") % {
-            action: user.active ? _("activated") : _("deactivated"),
-            username: user.name(false)
-          }
+    return unless user.present?
+
+    begin
+      user.active = !user.active
+      user.save!
+      render json: {
+        code: 1,
+        msg: _("Successfully %{action} %{username}'s account.") % {
+          action: user.active ? _("activated") : _("deactivated"),
+          username: user.name(false)
         }
-      rescue Exception
-        render json: {
-          code: 0,
-          msg: _("Unable to %{action} %{username}") % {
-            action: user.active ? _("activate") : _("deactivate"),
-            username: user.name(false)
-          }
+      }
+    rescue StandardError
+      render json: {
+        code: 0,
+        msg: _("Unable to %{action} %{username}") % {
+          action: user.active ? _("activate") : _("deactivate"),
+          username: user.name(false)
         }
-      end
+      }
     end
   end
 
@@ -187,9 +186,7 @@ class UsersController < ApplicationController
   def booleanize_hash(node)
     # leaf: convert to boolean and return
     # hash: iterate over leaves
-    unless node.is_a?(ActionController::Parameters)
-      return node == "true"
-    end
+    return node == "true" unless node.is_a?(ActionController::Parameters)
 
     node.each do |key, value|
       node[key] = booleanize_hash(value)

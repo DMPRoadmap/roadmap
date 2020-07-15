@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 module Settings
+
   class PlansController < SettingsController
 
-    before_action :get_settings
+    before_action :retrieve_settings
 
     after_action :verify_authorized
 
@@ -16,6 +17,7 @@ module Settings
       end
     end
 
+    # rubocop:disable Metrics/AbcSize
     def update
       authorize @plan
       # If this is actually used we should consider switching these to strong params
@@ -36,9 +38,8 @@ module Settings
       if settings.save
         flash[:notice] = _("Export settings updated successfully.")
       else
-        # rubocop:disable Metrics/LineLength
         flash[:alert] = _("An error has occurred while saving/resetting your export settings.")
-        # rubocop:enable Metrics/LineLength
+
       end
       respond_to do |format|
         @phase_options = @plan.phases.order(:number).pluck(:title, :id)
@@ -46,10 +47,11 @@ module Settings
         # format.json { render json: settings_json }
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     private
 
-    def get_settings
+    def retrieve_settings
       @plan = Plan.find(params[:id])
 
       @export_settings = plan.settings(:export)

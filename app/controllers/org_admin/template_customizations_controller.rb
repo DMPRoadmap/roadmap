@@ -15,7 +15,7 @@ class OrgAdmin::TemplateCustomizationsController < ApplicationController
         @customisation = @template.customize!(current_user.org)
         redirect_to org_admin_template_path(@customisation)
         return
-      rescue ArgumentError => e
+      rescue ArgumentError
         flash[:alert] = _("Unable to customize that template.")
       end
     else

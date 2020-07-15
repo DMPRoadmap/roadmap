@@ -16,8 +16,8 @@ RSpec.describe Department, type: :model do
       org = create(:org)
       subject = create(:department, org_id: org.id)
       expect(subject).to validate_uniqueness_of(:name)
-                           .scoped_to(:org_id)
-                           .with_message("must be unique")
+        .scoped_to(:org_id)
+        .with_message("must be unique")
     end
 
   end

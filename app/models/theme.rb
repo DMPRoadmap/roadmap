@@ -31,7 +31,7 @@ class Theme < ApplicationRecord
   # = Scopes =
   # ==========
 
-  scope :search, -> (term) {
+  scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     where("lower(title) LIKE lower(?) OR description LIKE lower(?)",
           search_pattern, search_pattern)

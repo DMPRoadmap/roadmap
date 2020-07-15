@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.feature "Templates::Editing", type: :feature do
 
@@ -36,9 +38,9 @@ RSpec.feature "Templates::Editing", type: :feature do
     end
     click_link template.sections.first.title
     within("#edit_question_#{template.question_ids.first}") do
-      textarea_id = page.body.match(/question\_annotations\_attributes\_annotation\_(\d+)\_text/)
-      tinymce_fill_in(:"question_annotations_attributes_annotation_#{$1}_text", with: "Foo bar")
-      click_button 'Save'
+      id = "question_annotations_attributes_annotation_#{Regexp.last_match(1)}_text"
+      tinymce_fill_in(:"#{id}", with: "Foo bar")
+      click_button "Save"
     end
     # Make sure annotation has been updated
     expect(Question.find(template.question_ids.first).annotations.first.text).to eql("Foo bar")

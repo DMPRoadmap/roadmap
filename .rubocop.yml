@@ -4,24 +4,13 @@ AllCops:
   # Show the name of the cops being voilated in the feedback
   DisplayCopNames: true
   DisplayStyleGuide: true
-  # We're using Ruby 2.4 right now. So force that version or higher.
-  TargetRubyVersion: 2.4
-  # Don't check these files. So many of them are boilerplate code with violations.
   Exclude:
-    - 'bin/*'
-    - 'lib/tasks/**/*'
-    - 'Gemfile'
+    - 'bin/**/*'
     - 'db/**/*'
-    - 'config/**/*'
-    - 'script/**/*'
-    - '**/Rakefile'
-    - '**/config.ru'
-
-# Ignore this cop. The Rubocop default is sensible, but the rubocop-rails gem modifies
-# this to position end keywords awkwardly.
-Layout/EndAlignment:
-  Enabled: true
-  EnforcedStyleAlignWith: keyword
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+    - 'test/**/*'
+    - 'lib/tasks/*'
 
 # Force no empty lines at the start or end of a block's body. Ignore specs, since this
 # improves readability within the RSpec blocks.
@@ -41,10 +30,11 @@ Layout/EmptyLinesAroundModuleBody:
   Enabled: true
   EnforcedStyle: empty_lines
 
-Layout/IndentationWidth:
-  Description: 'Use 2 spaces for indentation.'
-  StyleGuide: '#spaces-indentation'
+# Ignore this cop. The Rubocop default is sensible, but the rubocop-rails gem modifies
+# this to position end keywords awkwardly.
+Layout/EndAlignment:
   Enabled: true
+  EnforcedStyleAlignWith: keyword
 
 # The difference between `rails` and `normal` is that the `rails` style
 # prescribes that in classes and modules the `protected` and `private`
@@ -58,23 +48,28 @@ Layout/IndentationConsistency:
   Enabled: true
   EnforcedStyle: normal
 
+Layout/IndentationWidth:
+  Description: 'Use 2 spaces for indentation.'
+  StyleGuide: '#spaces-indentation'
+  Enabled: true
+
+# Restrict the length of each line of code to 90 characters. Enforcing this is important
+# as many developers are working on smaller screens, or split screens. Having to scroll
+# to read a full line of code makes code harder to read and more frustrating to work with.
+Layout/LineLength:
+  # I've found that 90 is a suitable limit. Many developers balk at the 80 character
+  # default.
+  Max: 100
+
 # Enforce this in the main code but ignore it in specs since the Rspec core methods
 # are defined as potentially ambiguous blocks
 Lint/AmbiguousBlockAssociation:
   Exclude:
     - 'spec/**/*'
 
-# Restrict the length of each line of code to 90 characters. Enforcing this is important
-# as many developers are working on smaller screens, or split screens. Having to scroll
-# to read a full line of code makes code harder to read and more frustrating to work with.
-Metrics/LineLength:
-  # I've found that 90 is a suitable limit. Many developers balk at the 80 character
-  # default.
-  Max: 90
-  Exclude:
-    # Excludes the spec helper, since this boilerplate file has comments that are much
-    # longer.
-    - 'spec/spec_helper.rb'
+# Bumping the default AbcSize so we don't need to refactor everything
+Metrics/AbcSize:
+  Max: 25
 
 # Restrict the number of lines of code that may be within a block of code. This should
 # force developers to break their code into smaller discrete methods or objects.
@@ -82,6 +77,22 @@ Metrics/BlockLength:
   # Exclude specs, since those are defined as large blocks of code
   Exclude:
     - 'spec/**/*'
+
+# Bumping the default ClassLength so we don't need to refactor everything
+Metrics/ClassLength:
+  Max: 300
+
+# Bumping the default CyclomaticComplexity so we don't need to refactor everything
+Metrics/CyclomaticComplexity:
+  Max: 25
+
+# Bumping the default MethodLength so we don't need to refactor everything
+Metrics/MethodLength:
+  Max: 25
+
+# Bumping the default PerceivedComplexity so we don't need to refactor everything
+Metrics/PerceivedComplexity:
+  Max: 25
 
 # This cop enforces the use of boolean and/or "&&" and "||" over "and" "or".
 # Sometimes using "and"/"or" is preferrable, when these are used as control flow.
@@ -105,14 +116,25 @@ Style/ClassAndModuleChildren:
 Style/Documentation:
   Enabled: false
 
-# Enforce double quotes. Don't allow single quotes. This is preferred since double
-# quotes are more useful (they support escaping characters, and interpolation).
-Style/StringLiterals:
-  Enabled: true
-  EnforcedStyle: double_quotes
-
 # Enforce empty methods to be written across two lines, like any normal method would be.
 # This allows for easy modification of the method in future.
 Style/EmptyMethod:
   Enabled: true
   EnforcedStyle: expanded
+
+# Leave the string formatting style as `"some text %{value}" % { value: "text" }`
+# since we're uncertain what effect `format` and `sprintf` may have on the Fastgetext
+# markup `_("text")`
+Style/FormatString:
+  EnforcedStyle: percent
+
+# Prefer the use of `"some %{token} text"` instead of `some %<token> text` or
+# `some %token text` since it would invalidate many of our translation strings
+Style/FormatStringToken:
+  EnforcedStyle: template
+
+# Enforce double quotes. Don't allow single quotes. This is preferred since double
+# quotes are more useful (they support escaping characters, and interpolation).
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes

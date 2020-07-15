@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.feature "Locales", type: :feature, js: true do
 
@@ -7,7 +9,7 @@ RSpec.feature "Locales", type: :feature, js: true do
     Language.destroy_all
   end
 
-  let!(:languages) {
+  let!(:languages) do
     [
       Language.where(
         default_language: true,
@@ -28,7 +30,7 @@ RSpec.feature "Locales", type: :feature, js: true do
       ).first_or_create
 
     ]
-  }
+  end
 
   let!(:user) { create(:user, language: languages.first) }
 

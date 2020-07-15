@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: phases
@@ -23,11 +25,13 @@
 #
 
 # [+Project:+] DMPRoadmap
-# [+Description:+] This model describes informmation about the phase of a plan, it's title, order of display and which template it belongs to.
+# [+Description:+] This model describes informmation about the phase of a plan,
+#                  it's title, order of display and which template it belongs to.
 #
 # [+Created:+] 03/09/2014
 # [+Copyright:+] Digital Curation Centre and University of California Curation Center
 class Phase < ApplicationRecord
+
   include ActsAsSortable
   include VersionableModel
   include ConditionsHelper
@@ -43,9 +47,9 @@ class Phase < ApplicationRecord
 
   belongs_to :plan, optional: true
 
-  has_one :prefix_section, -> (phase) {
+  has_one :prefix_section, lambda { |phase|
     modifiable.where("number < ?",
-                      phase.sections.not_modifiable.minimum(:number))
+                     phase.sections.not_modifiable.minimum(:number))
   }, class_name: "Section"
 
   has_many :sections, dependent: :destroy
@@ -56,19 +60,17 @@ class Phase < ApplicationRecord
 
   has_many :annotations, through: :questions
 
-  has_many :template_sections, -> {
+  has_many :template_sections, lambda {
     not_modifiable
   }, class_name: "Section"
 
-
-  has_many :suffix_sections, -> (phase) {
+  has_many :suffix_sections, lambda { |phase|
     modifiable.where(<<~SQL, phase_id: phase.id, modifiable: false)
       sections.number > (SELECT MAX(number) FROM sections
                            WHERE sections.modifiable = :modifiable
                            AND sections.phase_id = :phase_id)
     SQL
   }, class_name: "Section"
-
 
   # ===============
   # = Validations =
@@ -89,18 +91,18 @@ class Phase < ApplicationRecord
   # = Scopes =
   # ==========
 
-  scope :titles, -> (template_id) {
+  scope :titles, lambda { |template_id|
     Phase.where(template_id: template_id).select(:id, :title)
   }
 
   def deep_copy(**options)
-    copy = self.dup
-    copy.modifiable = options.fetch(:modifiable, self.modifiable)
+    copy = dup
+    copy.modifiable = options.fetch(:modifiable, modifiable)
     copy.template_id = options.fetch(:template_id, nil)
-    copy.save!(validate:false)  if options.fetch(:save, false)
+    copy.save!(validate: false) if options.fetch(:save, false)
     options[:phase_id] = copy.id
-    self.sections.each{ |section| copy.sections << section.deep_copy(options) }
-    return copy
+    sections.each { |section| copy.sections << section.deep_copy(options) }
+    copy
   end
 
   # TODO: Move this to Plan model as `num_answered_questions(phase=nil)`
@@ -113,15 +115,15 @@ class Phase < ApplicationRecord
   # for when sections and their questions are eager loaded so that avoids SQL queries.
   def num_questions
     n = 0
-    self.sections.each do |s|
-      n+= s.questions.size()
+    sections.each do |s|
+      n += s.questions.size
     end
     n
   end
 
   def num_questions_not_removed(plan)
     count = 0
-    self.sections.each do |section|
+    sections.each do |section|
       count += num_section_questions(plan, section)
     end
     count
@@ -129,7 +131,7 @@ class Phase < ApplicationRecord
 
   def num_answers_not_removed(plan)
     count = 0
-    self.sections.each do |section|
+    sections.each do |section|
       count += num_section_answers(plan, section)
     end
     count

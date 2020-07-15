@@ -6,11 +6,7 @@ module TemplateHelper
     if template_modifiable?(template)
       edit_org_admin_template_path(template)
     else
-      if template.persisted?
-        org_admin_template_path(template)
-      else
-        org_admin_templates_path
-      end
+      template.persisted? ? org_admin_template_path(template) : org_admin_templates_path
     end
   end
 
@@ -56,4 +52,5 @@ module TemplateHelper
       end
     end
   end
+
 end

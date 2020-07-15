@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Guidance, type: :model do
 
@@ -27,10 +29,9 @@ RSpec.describe Guidance, type: :model do
 
     it do
       is_expected.to have_and_belong_to_many(:themes)
-                       .join_table("themes_in_guidance")
+        .join_table("themes_in_guidance")
     end
   end
-
 
   describe ".can_view?" do
 
@@ -62,7 +63,7 @@ RSpec.describe Guidance, type: :model do
 
       before do
         @org = create(:org,
-                abbreviation: Rails.configuration.x.organisation.abbreviation)
+                      abbreviation: Rails.configuration.x.organisation.abbreviation)
         @guidance_group = create(:guidance_group, org: @org)
         @guidance       = create(:guidance, guidance_group: @guidance_group)
       end
@@ -167,7 +168,7 @@ RSpec.describe Guidance, type: :model do
 
       before do
         @org = create(:org,
-                abbreviation: Rails.configuration.x.organisation.abbreviation)
+                      abbreviation: Rails.configuration.x.organisation.abbreviation)
         @guidance_group = create(:guidance_group, org: @org)
         @guidance       = create(:guidance, guidance_group: @guidance_group)
       end

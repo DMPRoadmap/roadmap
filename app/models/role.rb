@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: roles
@@ -43,7 +45,7 @@ class Role < ApplicationRecord
             3 => :editor,             # 4
             4 => :commenter,          # 8
             5 => :reviewer,           # 16
-            column: 'access'
+            column: "access"
 
   # ===============
   # = Validations =
@@ -66,15 +68,15 @@ class Role < ApplicationRecord
   # flags - One or more symbols that represent access flags
   #
   # Return ActiveRecord::Relation
-  scope :with_access_flags, -> (*flags) {
-    bad_flag = flags.detect { |flag| !flag.in?(flag_mapping['access'].keys) }
+  scope :with_access_flags, lambda { |*flags|
+    bad_flag = flags.detect { |flag| !flag.in?(flag_mapping["access"].keys) }
     raise ArgumentError, "Unkown access flag '#{bad_flag}'" if bad_flag
-    access_values = flags.map { |flag| sql_in_for_flag(flag.to_sym, 'access') }
+
+    access_values = flags.map { |flag| sql_in_for_flag(flag.to_sym, "access") }
                          .flatten
                          .uniq
     where(access: access_values)
   }
-
 
   # =================
   # = Class Methods =
@@ -89,7 +91,7 @@ class Role < ApplicationRecord
   #
   # Returns [Integer]
   def self.bit_values(access)
-    Role.send(:chained_flags_values, 'access', access)
+    Role.send(:chained_flags_values, "access", access)
   end
 
   # ===========================
@@ -100,10 +102,8 @@ class Role < ApplicationRecord
   # if there are no other authors
   def deactivate!
     self.active = false
-    if self.save!
-      if self.plan.authors.size == 0
-        self.plan.deactivate!
-      end
+    if save!
+      plan.deactivate! if plan.authors.empty?
       true
     else
       false

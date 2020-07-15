@@ -76,8 +76,8 @@ class Section < ApplicationRecord
   # =====================
 
   accepts_nested_attributes_for :questions,
-    reject_if: -> (a) { a[:text].blank? },
-    allow_destroy: true
+                                reject_if: ->(a) { a[:text].blank? },
+                                allow_destroy: true
 
   # ==========
   # = Scopes =
@@ -101,29 +101,30 @@ class Section < ApplicationRecord
   #
   # Returns String
   def to_s
-    "#{title}"
+    title.to_s
   end
 
   # Returns the number of answered questions for a given plan
   def num_answered_questions(plan)
-    self.answered_questions(plan).count(&:answered?)
+    answered_questions(plan).count(&:answered?)
   end
 
   # Returns an array of answered questions for a given plan
   def answered_questions(plan)
     return [] if plan.nil?
+
     plan.answers.includes({ question: :question_format }, :question_options)
-                .where(question_id: question_ids)
-                .to_a
+        .where(question_id: question_ids)
+        .to_a
   end
 
   def deep_copy(**options)
-    copy = self.dup
-    copy.modifiable = options.fetch(:modifiable, self.modifiable)
+    copy = dup
+    copy.modifiable = options.fetch(:modifiable, modifiable)
     copy.phase_id = options.fetch(:phase_id, nil)
-    copy.save!(validate: false)  if options.fetch(:save, false)
+    copy.save!(validate: false) if options.fetch(:save, false)
     options[:section_id] = copy.id
-    self.questions.map { |question| copy.questions << question.deep_copy(options) }
+    questions.map { |question| copy.questions << question.deep_copy(options) }
     copy
   end
 

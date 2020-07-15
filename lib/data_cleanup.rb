@@ -7,7 +7,7 @@ require_relative "data_cleanup/rules"
 
 module DataCleanup
 
-  COLOR_CODES = { red: 31, green: 32 }
+  COLOR_CODES = { red: 31, green: 32 }.freeze
 
   module_function
 
@@ -20,4 +20,5 @@ module DataCleanup
     message = "\e[#{COLOR_CODES[color]}m#{message}\e[0m" if color
     print message
   end
+
 end
