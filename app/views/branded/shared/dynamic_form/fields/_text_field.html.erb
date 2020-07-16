@@ -1,4 +1,4 @@
-<%# locals: { f, field_label, field_name, multiple, classname, field_name, readonly } %>
+<%# locals: { f, field_label, field_name, multiple, classname, field_name, readonly, validation } %>
 <% unless multiple %>
   <div class="col-md-12">
     <%= f.label field_name, field_label, class: 'control-label' %>
@@ -21,4 +21,8 @@
       <% end %>
     </div>
   <% end %>
+  <%= render partial: "shared/dynamic_form/validation_indicator", locals: {
+                validation: validation
+      }
+  %>
 </div>

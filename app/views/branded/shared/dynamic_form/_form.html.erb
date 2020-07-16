@@ -1,29 +1,32 @@
-<%# locals: { f, fragment, schema, readonly, classname, Fragment_id } %>
+<%# locals: { f, fragment, schema, readonly, classname, fragment_id } %>
 <% sub_schemas = schema.get_sub_schemas %>
 <% data = fragment.data unless fragment.nil? %>
+<% validations = data.present? && data['validations'].present? ? data["validations"] : {} %>
+
 <% sub_fragments = fragment.present? ? fragment.get_sub_fragments() : [] %>
 <% schema_properties = schema.schema["properties"]%>
 
 <% schema_properties.each do |key, prop| %>
   <% value = data[key] unless data.nil? %>
   <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{key}]" : key %>
+  <% validation = validations[key] %>
   <% case prop['type'] %>
   <% when 'string' %>
     <% if prop['format'].nil?%>
-      <%= create_text_field(f, value, field_name, prop['label'], readonly: readonly) %>
+      <%= create_text_field(f, value, field_name, prop['label'], readonly: readonly, validation: validation) %>
     <% elsif prop['format'] == 'date' %>
-      <%= create_date_field(f, value, field_name, prop['label'], readonly: readonly) %>
+      <%= create_date_field(f, value, field_name, prop['label'], readonly: readonly, validation: validation) %>
     <% elsif prop['format'] == 'uri' %>
-      <%= create_url_field(f, value, field_name, prop['label'], readonly: readonly) %>
+      <%= create_url_field(f, value, field_name, prop['label'], readonly: readonly, validation: validation) %>
     <% elsif prop['format'] == 'email' %>
-      <%= create_email_field(f, value, field_name, prop['label'], readonly: readonly) %>
+      <%= create_email_field(f, value, field_name, prop['label'], readonly: readonly, validation: validation) %>
     <% elsif prop['format'] == 'select' && prop['values'] %>
-      <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", prop['label'], prop['values'], readonly: readonly) %>
+      <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", prop['label'], prop['values'], readonly: readonly, validation: validation) %>
     <%end%>
   <% when 'integer' %>
-    <%= create_number_field(f, value, field_name, prop['label'], readonly: readonly) %>
+    <%= create_number_field(f, value, field_name, prop['label'], readonly: readonly, validation: validation) %>
   <% when 'boolean' %>
-    <%= create_checkbox_field(f, value, field_name, prop['label'], readonly: readonly) %>
+    <%= create_checkbox_field(f, value, field_name, prop['label'], readonly: readonly, validation: validation) %>
   <% when 'array' %>
     <% if prop['items']['type'] == 'object' && prop['items']['schema_id'].present? %>
       <% unless classname == "research_output" %>

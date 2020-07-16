@@ -462,3 +462,14 @@ msgstr ""
 
 msgid "Request Date"
 msgstr ""
+
+# maDMP Fragments
+
+msgid "This property is required."
+msgstr ""
+
+msgid "This property has an invalid format."
+msgstr ""
+
+msgid "This property has an unknown problem : %{validation}"
+msgstr ""

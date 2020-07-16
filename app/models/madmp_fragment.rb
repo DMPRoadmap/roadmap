@@ -155,9 +155,35 @@ class MadmpFragment < ActiveRecord::Base
       sa.dmp_id = answer.plan.json_fragment().id
       sa.parent_id = parent_id
     end
+    data = data.merge({ 
+      "validations" => self.validate_data(data, schema.schema)
+    })
     s_answer.assign_attributes(data: data)
     s_answer.save
   end
+
+
+  # Validate the fragment data with the linked schema 
+  # and saves the result with the fragment data
+  def self.validate_data(data, schema)
+    schemer = JSONSchemer.schema(schema)
+    unformated = schemer.validate(data).to_a
+    validations = {}
+    unformated.each do |valid| 
+      unless valid['type'] == "object"
+        key = valid['data_pointer'][1..-1]
+        if valid['type'] == "required"
+          required = JsonPath.on(valid, '$..missing_keys').flatten
+          required.each do |req| 
+            validations[req] ? validations[req].push("required") : validations[req] = ["required"]
+          end
+        else 
+          validations[key] ? validations[key].push(valid['type']) : validations[key] = [valid['type']]
+        end 
+      end
+    end
+    validations
+  end 
 
   def self.find_sti_class(type_name)
     self
