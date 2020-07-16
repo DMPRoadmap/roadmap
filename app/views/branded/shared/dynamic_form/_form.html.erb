@@ -1,7 +1,7 @@
 <%# locals: { f, fragment, schema, readonly, classname, fragment_id } %>
 <% sub_schemas = schema.get_sub_schemas %>
 <% data = fragment.data unless fragment.nil? %>
-<% validations = data.present? && data['validations'].present? ? data["validations"] : {} %>
+<% validations = data.present? && data['validations'].present? ? data["validations"] : nil %>
 
 <% sub_fragments = fragment.present? ? fragment.get_sub_fragments() : [] %>
 <% schema_properties = schema.schema["properties"]%>
@@ -9,7 +9,7 @@
 <% schema_properties.each do |key, prop| %>
   <% value = data[key] unless data.nil? %>
   <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{key}]" : key %>
-  <% validation = validations[key] %>
+  <% validation = validations.nil? ? "none" : validations[key] %>
   <% case prop['type'] %>
   <% when 'string' %>
     <% if prop['format'].nil?%>

@@ -9,9 +9,9 @@
             multiple: multiple, 
             disabled: readonly,
             class: "form-control #{field_class}" %>
-  
+
   <%= render partial: "shared/dynamic_form/validation_indicator", locals: {
                 validation: validation
-      }
+      } unless validation == "none"
   %>
 </div>

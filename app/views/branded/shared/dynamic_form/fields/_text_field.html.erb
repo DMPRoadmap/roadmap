@@ -21,8 +21,9 @@
       <% end %>
     </div>
   <% end %>
+  
   <%= render partial: "shared/dynamic_form/validation_indicator", locals: {
                 validation: validation
-      }
+      } unless validation == "none"
   %>
 </div>
