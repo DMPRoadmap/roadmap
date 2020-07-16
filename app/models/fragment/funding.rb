@@ -21,7 +21,7 @@
 class Fragment::Funding < MadmpFragment
 
     def project
-        Fragment::Project.where(id: data['project']['dbId']).first
+        self.parent
     end
 
     def funder

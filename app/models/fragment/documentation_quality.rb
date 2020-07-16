@@ -18,18 +18,14 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 #
 
-class Fragment::Documentation < MadmpFragment
+class Fragment::DocumentationQuality < MadmpFragment
 
     def research_output
         self.parent
     end
 
-    def documentation_administrator
-        Fragment::Person.where(id: data['documentation_administrator']['dbId'])
-    end
-
     def metadata_format
-        Fragment::MetadataFormat.where(id: data['metadata_format']['dbId'])
+        Fragment::MetadataFormat.where(id: data['metadata_format']['dbId']).first
     end
 
     

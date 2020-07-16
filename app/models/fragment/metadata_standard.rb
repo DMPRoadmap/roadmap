@@ -18,7 +18,7 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 #
 
-class Fragment::MetadataFormat < MadmpFragment
+class Fragment::MetadataStandard < MadmpFragment
 
     def documentation
         Fragment::Documentation.where("(data->>'metadata_format'->>'dbId')::int = ?", id)

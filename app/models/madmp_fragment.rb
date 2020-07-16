@@ -44,17 +44,19 @@ class MadmpFragment < ActiveRecord::Base
   # = Single Table Inheritence =
   # ================
   self.inheritance_column = :classname 
+  scope :budgets, -> { where(classname: 'budgets') } 
   scope :costs, -> { where(classname: 'cost') } 
   scope :data_collections, -> { where(classname: 'data_collection') } 
-  scope :data_qualities, -> { where(classname: 'data_quality') } 
+  scope :data_processings, -> { where(classname: 'data_processing') } 
+  scope :data_storages, -> { where(classname: 'data_storage') } 
   scope :distributions, -> { where(classname: 'distribution') } 
   scope :dmps, -> { where(classname: 'dmp') } 
-  scope :documentations, -> { where(classname: 'documentation') } 
+  scope :documentation_qualities, -> { where(classname: 'documentation_quality') } 
   scope :ethical_issues, -> { where(classname: 'ethical_issue') } 
   scope :funders, -> { where(classname: 'funder') } 
   scope :fundings, -> { where(classname: 'funding') } 
   scope :metas, -> { where(classname: 'meta') } 
-  scope :metadata_formats, -> { where(classname: 'metadata_format') } 
+  scope :metadata_standards, -> { where(classname: 'metadata_standard') } 
   scope :partners, -> { where(classname: 'partner') } 
   scope :persons, -> { where(classname: 'person') }
   scope :personal_data_issues, -> { where(classname: 'personal_data_issue') }
@@ -63,7 +65,6 @@ class MadmpFragment < ActiveRecord::Base
   scope :research_outputs, -> { where(classname: 'research_output') } 
   scope :reuse_datas, -> { where(classname: 'reuse_data') } 
   scope :sharings, -> { where(classname: 'sharing') } 
-  scope :staff_members, -> { where(classname: 'staff_member') } 
   scope :technical_resource_usages, -> { where(classname: 'technical_resource_usage') } 
   scope :technical_resources, -> { where(classname: 'technical_resource') } 
 

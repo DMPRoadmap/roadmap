@@ -24,6 +24,16 @@ class Fragment::Sharing < MadmpFragment
         self.parent
     end
 
+    def technical_resource_usage
+        Fragment::TechnicalResourceUsage.where(parent_id: id).first
+    end
+
+
+    def distribution
+        Fragment::Distribution.where(parent_id: id).first
+    end
+
+
     
     def self.sti_name
         "sharing"
