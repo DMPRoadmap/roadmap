@@ -1,8 +1,8 @@
 // Override FontAwesome icons
 
 /* FONTAWESOME STYLING */
-.fa:not(.small) {
-  font-size: 2rem;
+.fas:not(.small) {
+  font-size: 1.7rem;
 }
 .fa-reverse {
   color: $color-seccondary-text;
@@ -25,15 +25,15 @@
    fa-file-pdf-o and fa-file-word-o */
 a {
    i {
-     &.fa {
+     &.fas {
 
-       &.fa-file-pdf-o,
-       &.fa-file-word-o {
+       &.fa-file-pdf,
+       &.fa-file-word {
          color: $color-fa;
          margin: 5px;
 
          &:not(.small) {
-           font-size: 2.3em;
+           font-size: 1.9em;
          }
        }
      }
