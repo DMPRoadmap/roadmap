@@ -47,9 +47,9 @@ RSpec.describe AnswersController, type: :controller do
         expect(json[:question][:form]).to eql("")
         expect(json[:question][:id]).to eql(@question.id)
         expect(json[:question][:locking]).to eql(nil)
-        expect(json[:section].present?).to eql(true)
-        expect(json[:section][:id]).to eql(@section.id)
-        expect(json[:section][:progress]).to eql("")
+        expect(json[:section_data].present?).to eql(true)
+        expect(json[:qn_data].present?).to eql(true)
+        # TODO: add validations on content of qn_data and section_data
       end
       it "succeeds in updating" do
         answer = create(:answer, plan: @plan, question: @question)
@@ -69,9 +69,8 @@ RSpec.describe AnswersController, type: :controller do
         expect(json[:question][:form]).to eql("")
         expect(json[:question][:id]).to eql(@question.id)
         expect(json[:question][:locking]).to eql(nil)
-        expect(json[:section].present?).to eql(true)
-        expect(json[:section][:id]).to eql(@section.id)
-        expect(json[:section][:progress]).to eql("")
+        expect(json[:section_data].present?).to eql(true)
+        expect(json[:qn_data].present?).to eql(true)
       end
       it "fails" do
         Answer.any_instance.stubs(:present?).returns(false)
@@ -105,9 +104,8 @@ RSpec.describe AnswersController, type: :controller do
         expect(json[:question][:form]).to eql("")
         expect(json[:question][:id]).to eql(@question.id)
         expect(json[:question][:locking]).to eql(nil)
-        expect(json[:section].present?).to eql(true)
-        expect(json[:section][:id]).to eql(@section.id)
-        expect(json[:section][:progress]).to eql("")
+        expect(json[:section_data].present?).to eql(true)
+        expect(json[:qn_data].present?).to eql(true)
       end
       it "succeeds in updating" do
         answer = create(:answer, plan: @plan, question: @question)
@@ -129,9 +127,8 @@ RSpec.describe AnswersController, type: :controller do
         expect(json[:question][:form]).to eql("")
         expect(json[:question][:id]).to eql(@question.id)
         expect(json[:question][:locking]).to eql(nil)
-        expect(json[:section].present?).to eql(true)
-        expect(json[:section][:id]).to eql(@section.id)
-        expect(json[:section][:progress]).to eql("")
+        expect(json[:section_data].present?).to eql(true)
+        expect(json[:qn_data].present?).to eql(true)
       end
       it "fails" do
         Answer.any_instance.stubs(:present?).returns(false)
@@ -166,9 +163,8 @@ RSpec.describe AnswersController, type: :controller do
         expect(json[:question][:form]).to eql("")
         expect(json[:question][:id]).to eql(@question.id)
         expect(json[:question][:locking]).to eql(nil)
-        expect(json[:section].present?).to eql(true)
-        expect(json[:section][:id]).to eql(@section.id)
-        expect(json[:section][:progress]).to eql("")
+        expect(json[:section_data].present?).to eql(true)
+        expect(json[:qn_data].present?).to eql(true)
       end
       it "succeeds in updating" do
         answer = create(:answer, plan: @plan, question: @question)
@@ -190,9 +186,8 @@ RSpec.describe AnswersController, type: :controller do
         expect(json[:question][:form]).to eql("")
         expect(json[:question][:id]).to eql(@question.id)
         expect(json[:question][:locking]).to eql(nil)
-        expect(json[:section].present?).to eql(true)
-        expect(json[:section][:id]).to eql(@section.id)
-        expect(json[:section][:progress]).to eql("")
+        expect(json[:section_data].present?).to eql(true)
+        expect(json[:qn_data].present?).to eql(true)
       end
       it "fails" do
         Answer.any_instance.stubs(:present?).returns(false)

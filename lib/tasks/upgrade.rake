@@ -980,7 +980,6 @@ namespace :upgrade do
         file.close
       end
     end
-  end
 
   desc "Attempts to migrate other_organisation entries to Orgs"
   task migrate_other_organisation_to_org: :environment do
