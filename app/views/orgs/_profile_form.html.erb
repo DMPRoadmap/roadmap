@@ -123,31 +123,24 @@
     <% if current_user.can_super_admin? %>
       <fieldset class="col-xs-8">
         <legend><%= _('Organisation Types') %></legend>
-          <div class="checkbox">
-
-<%= Org.org_types.inspect %>
-
-            <%= collection_check_boxes(:org, :org_types, Org.org_types, :id, :name) %>
-          </div>
-
-          <div class="checkbox">
-            <%= f.label :funder do %>
-              <%= f.check_box :funder, {}, org.funder?.to_s, class: 'org_types' %>
-              <%= _('Funder') %>
-            <% end %>
-          </div>
-          <div class="checkbox">
-            <%= f.label :institution do %>
-              <%= f.check_box :institution, {}, org.institution?.to_s, class: 'org_types' %>
-              <%= _('Institution') %>
-            <% end %>
-          </div>
-          <div class="checkbox">
-            <%= f.label :organisation do %>
-              <%= f.check_box :organisation, {}, org.organisation?.to_s, class: 'org_types' %>
-              <%= _('Organisation') %>
-            <% end %>
-          </div>
+        <div class="checkbox">
+          <%= f.label :funder do %>
+            <%= f.check_box :funder, {}, org.funder?.to_s, class: 'org_types' %>
+            <%= _('Funder') %>
+          <% end %>
+        </div>
+        <div class="checkbox">
+          <%= f.label :institution do %>
+            <%= f.check_box :institution, {}, org.institution?.to_s, class: 'org_types' %>
+            <%= _('Institution') %>
+          <% end %>
+        </div>
+        <div class="checkbox">
+          <%= f.label :organisation do %>
+            <%= f.check_box :organisation, {}, org.organisation?.to_s, class: 'org_types' %>
+            <%= _('Organisation') %>
+          <% end %>
+        </div>
       </fieldset>
     <% else %>
       <div class="col-xs-8">
