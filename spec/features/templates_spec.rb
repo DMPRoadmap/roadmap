@@ -50,7 +50,7 @@ RSpec.describe "Templates", type: :feature do
     end
 
     # Expectations
-    last_section = Section.last
+    last_section = @template.phases.first.sections.order(:created_at).last
     expect(@template.sections.count).to eql(5)
     expect(last_section.title).to eql("My new section")
     expect(last_section.description).to match("This is the description of my new section")

@@ -127,6 +127,9 @@ RSpec.configure do |config|
         allow: %w[chromedriver.storage.googleapis.com]
       )
     end
+
+    # Ensure that there is always a default Language
+    create(:language, default_language: true) unless Language.default.present?
   end
 
   config.after(:suite) do

@@ -31,7 +31,7 @@
                 <td><%= plan.owner.present? ? plan.owner.name : _('Unknown') %></td>
                 <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
                 <td class="text-center">
-                  <%= link_to plan_export_path(plan, format: :pdf),
+                  <%= link_to plan_export_path(plan, format: :pdf, export: { question_headings: true }),
                       class: 'has-new-window-popup-info',
                       target: '_blank' do %>
                     <i class="fas fa-file-pdf" aria-hidden="true"></i>

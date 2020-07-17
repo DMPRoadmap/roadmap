@@ -49,6 +49,7 @@ RSpec.feature "Templates::UpgradeCustomisations", type: :feature do
     # Publish our customisation
     click_button "Actions"
     click_link "Publish"
+    expect(customized_template.reload.published?).to eql(true)
 
     # Move to the other funder Org's Templates
     fill_in(:superadmin_user_org_name, with: funder.name)
@@ -88,8 +89,8 @@ RSpec.feature "Templates::UpgradeCustomisations", type: :feature do
     visit organisational_org_admin_templates_path
 
     click_button "Actions"
-    target = Template.last.published?
-    expect { click_link "Publish changes" }.to change { target }.from(false).to(true)
+    click_link "Publish changes"
+    expect(new_funder_template.reload.published?).to eql(true)
 
     # Go back to the original Org...
 
@@ -98,6 +99,7 @@ RSpec.feature "Templates::UpgradeCustomisations", type: :feature do
     click_button("Change affiliation")
 
     click_link "Customisable Templates"
+
     expect(page).to have_text("Original funder template has changed")
 
     click_button "Actions"
