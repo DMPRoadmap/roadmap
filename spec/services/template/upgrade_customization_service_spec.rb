@@ -101,8 +101,9 @@ RSpec.describe "Template::UpgradeCustomizationService", type: :service do
       end
 
       it "preserves the versionable_id" do
-        template.sections.each do |section|
+        subject.sections.each do |section|
           matching_section = funder_template.sections.detect do |s|
+            # Note, there's no uniqueness criterion on the description
             s.description == section.description
           end
           expect(section.versionable_id).to eql(matching_section.versionable_id)
@@ -111,10 +112,11 @@ RSpec.describe "Template::UpgradeCustomizationService", type: :service do
 
       # Doesn't need to. Number should be flexible if sections are modifiable
       it "preserves the number" do
-        # byebug
-        template.sections.each do |section|
+        subject.sections.each do |section|
           matching_section = funder_template.sections.detect do |s|
-            s.description == section.description
+            # Changing matching criteria as we validated versionable_id is preserved
+            # above
+            s.versionable_id == section.versionable_id
           end
           expect(section.number).to eql(matching_section.number)
         end
