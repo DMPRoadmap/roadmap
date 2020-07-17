@@ -79,13 +79,13 @@ RSpec.describe Answer, type: :model do
 
   describe "#answered?" do
 
+    subject { answer.answered? }
+
     describe "text based answer" do
 
       context "when text is nil" do
 
         let!(:answer) { build(:answer, text: nil) }
-
-        subject { answer }
 
         it { is_expected.to eql(false) }
 
@@ -95,8 +95,6 @@ RSpec.describe Answer, type: :model do
 
         let!(:answer) { build(:answer, text: "") }
 
-        subject { answer }
-
         it { is_expected.to eql(false) }
 
       end
@@ -105,9 +103,7 @@ RSpec.describe Answer, type: :model do
 
         let!(:answer) { build(:answer, text: "Foo bar") }
 
-        subject { answer }
-
-        it { is_expected.not_to eql(true) }
+        it { is_expected.to eql(true) }
 
       end
 
@@ -115,9 +111,7 @@ RSpec.describe Answer, type: :model do
 
         let!(:answer) { build(:answer, text: "<p><br/></p>") }
 
-        subject { answer }
-
-        it { is_expected.not_to eql(true) }
+        it { is_expected.to eql(false) }
 
       end
 
@@ -125,9 +119,7 @@ RSpec.describe Answer, type: :model do
 
         let!(:answer) { build(:answer, text: "<p>Foo bar</p>") }
 
-        subject { answer }
-
-        it { is_expected.not_to eql(true) }
+        it { is_expected.to eql(true) }
 
       end
 
@@ -136,8 +128,6 @@ RSpec.describe Answer, type: :model do
     describe "option based question" do
 
       let!(:answer) { create(:answer) }
-
-      subject { answer.answered? }
 
       context "question present, question format is option and options empty" do
 
