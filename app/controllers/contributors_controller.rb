@@ -30,6 +30,7 @@ class ContributorsController < ApplicationController
   # POST /plans/:plan_id/contributors
   def create
     authorize @plan
+
     args = translate_roles(hash: contributor_params)
     args = process_org(hash: args)
     args = process_orcid_for_create(hash: args)

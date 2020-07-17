@@ -5,7 +5,7 @@ import { paginableSelector } from '../utils/paginable';
 $(() => {
   $(paginableSelector).on('ajax:success', 'input.set_test_plan', (e) => {
     const checkbox = $(e.target);
-    const data = e.detail[0];
+    const data = e.detail[0]; 
     if (data.code === 1 && data.msg && data.msg !== '') {
       notifier.renderNotice(data.msg);
     } else {

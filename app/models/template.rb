@@ -59,7 +59,7 @@ class Template < ApplicationRecord
   attribute :is_default, :boolean, default: false
   attribute :version, :integer, default: 0
   attribute :customization_of, :integer, default: nil
-  attribute :family_id, :integer, default: -> { unique_random(field_name: "family_id") }
+  attribute :family_id, :integer, default: -> { Template.new_family_id }
   attribute :links, :text, default: { funder: [], sample_plan: [] }
   # TODO: re-add visibility setting? (this is handled in org_admin/create and
   # relies on the org_id in the current callback-form)
@@ -474,20 +474,24 @@ class Template < ApplicationRecord
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable
 
+  # TODO: refactor to use UniqueRandom
+  # Generate a new random family identifier
+  def self.new_family_id
+    family_id = loop do
+      random = rand 2_147_483_647
+      break random unless Template.exists?(family_id: random)
+    end
+    family_id
+  end
+
   private
 
   # ============================
   # = Private instance methods =
   # ============================
 
-  # TODO: refactor to use UniqueRandom
-  # Generate a new random family identifier
   def new_family_id
-    family_id = loop do
-      random = rand 2_147_483_647
-      break random unless Template.exists?(family_id: random)
-    end
-    family_id
+    Template.new_family_id
   end
 
   # Only one version of a template should be published at a time, so if this

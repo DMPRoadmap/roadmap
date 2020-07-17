@@ -40,9 +40,7 @@ FactoryBot.define do
     abbreviation { SecureRandom.hex(4) }
     feedback_enabled { false }
     region { Region.first || create(:region) }
-    language do
-      Language.first_or_create(name: "English", abbreviation: "en-GB")
-    end
+    language { Language.default }
     is_other { false }
     contact_email { Faker::Internet.safe_email }
     contact_name { Faker::Name.name }
