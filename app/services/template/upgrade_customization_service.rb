@@ -76,19 +76,15 @@ class Template
         target_template.phases.map do |funder_phase|
           # Search for the phase in the source template whose versionable_id matches the
           # customization_phase
-          #
-          # a) If the Org's template ({#customized_template}) has the Phase...
-          if customized_phase == find_matching_record_in_collection(
+          customized_phase = find_matching_record_in_collection(
             record: funder_phase,
             collection: customized_template.phases
           )
-
+          # a) If the Org's template ({#customized_template}) has the Phase...
+          next unless customized_phase.present?
           # b) If the Org's template ({#customized_template}) doesn't have this Phase.
           #    This is not a problem, since {#customization_template} should have this
           #    Phase copied over from {#template_phase}.
-          else
-            next
-          end
           copy_modifiable_sections_for_phase(customized_phase, funder_phase)
           sort_sections_within_phase(funder_phase)
         end
@@ -179,6 +175,10 @@ class Template
 
     def template_org
       init_template.org
+    end
+
+    def customized_phase
+
     end
 
   end
