@@ -8,8 +8,7 @@ RSpec.describe GuidancesController, type: :controller do
     @org = create(:org, managed: true)
     @user = create(:user, :org_admin, org: @org)
     @theme = create(:theme)
-    # The Org factory auto-creates a guidance_group
-    @guidance_group = @org.guidance_groups.first
+    @guidance_group = GuidanceGroup.create_org_default(@org)
     @guidance = create(:guidance, guidance_group_id: @guidance_group.id)
 
     @controller = described_class.new
