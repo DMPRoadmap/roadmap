@@ -12,7 +12,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
       mock_authorization_for_api_client
 
       # Org model requires a language so make sure the default is set
-      create(:language, default_language: true)
+      create(:language, default_language: true) unless Language.default.present?
     end
 
     describe "GET /api/v1/plan/:id - show" do

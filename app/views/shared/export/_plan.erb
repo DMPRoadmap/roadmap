@@ -45,9 +45,10 @@
                   <br>
                 <% end %>
                 <% answer = @plan.answer(question[:id], false) %>
+                <% blank = answer.present? ? answer.blank? : true %>
                 <% options = answer.present? ? answer.question_options : [] %>
                 <%# case where question has not been answered sufficiently to display%>
-                <% if @show_unanswered && !answer.answered? %>
+                <% if @show_unanswered && !blank %>
                   <br>
                   <p><%= _('Question not answered.') -%></p>
                   <br><br>

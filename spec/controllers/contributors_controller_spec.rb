@@ -28,7 +28,7 @@ RSpec.describe ContributorsController, type: :controller do
       }
     }
     @roles = Contributor.new.all_roles
-    @params_hash[:contributor][@roles.sample.to_sym] = true
+    @params_hash[:contributor][@roles.sample.to_sym] = "1"
     @controller = described_class.new
   end
 

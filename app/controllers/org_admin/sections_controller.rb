@@ -36,7 +36,8 @@ module OrgAdmin
       @section = Section.includes(questions: %i[annotations question_options])
                         .find(params[:id])
       @template = Template.find(params[:template_id])
-      render partial: "show", locals: { template: @template, section: @section }
+      render json: { html: render_to_string(partial: "show",
+                                            locals: { template: @template, section: @section }) }
     end
 
     # GET /org_admin/templates/[:template_id]/phases/[:phase_id]/sections/[:id]/edit
