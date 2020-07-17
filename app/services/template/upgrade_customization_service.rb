@@ -82,6 +82,7 @@ class Template
           )
           # a) If the Org's template ({#customized_template}) has the Phase...
           next unless customized_phase.present?
+          
           # b) If the Org's template ({#customized_template}) doesn't have this Phase.
           #    This is not a problem, since {#customization_template} should have this
           #    Phase copied over from {#template_phase}.
