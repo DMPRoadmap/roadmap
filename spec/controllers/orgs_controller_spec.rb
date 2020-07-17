@@ -29,7 +29,8 @@ RSpec.describe OrgsController, type: :controller do
                 logo: @logo, contact_email: Faker::Internet.email,
                 contact_name: Faker::Movies::StarWars.character,
                 remove_logo: false, org_type: %i[1 2 4].sample,
-                managed: Faker::Boolean.boolean, feedback_enabled: Faker::Boolean.boolean,
+                managed: Faker::Number.within(range: 0..1).to_s,
+                feedback_enabled: Faker::Boolean.boolean,
                 org_links: org_links_field,
                 feedback_email_msg: Faker::Lorem.paragraph,
                 org_id: org_selector_id_field(org: other_org), org_name: other_org.name,
@@ -49,7 +50,7 @@ RSpec.describe OrgsController, type: :controller do
       expect(@org.contact_email).to eql(@args[:contact_email])
       expect(@org.contact_name).to eql(@args[:contact_name])
       expect(@org.org_type.to_s).to eql(@args[:org_type].to_s)
-      expect(@org.managed).to eql(@args[:managed])
+      expect(@org.managed).to eql(@args[:managed] == "1")
       expect(@org.links.to_json).to eql(@args[:org_links])
       expect(@org.logo_name).to eql("logo_file.png")
       expect(@org.logo_uid.present?).to eql(true)

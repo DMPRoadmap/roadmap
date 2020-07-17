@@ -71,10 +71,9 @@ class UserMailer < ActionMailer::Base
   end
 
   def feedback_notification(recipient, plan, requestor)
-    return unless @user.org.present? && recipient.active?
+    return unless recipient.active?
 
     @user = requestor
-    @org = @user.org
     @plan = plan
     @recipient = recipient
 
