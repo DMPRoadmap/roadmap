@@ -7,8 +7,6 @@ module CustomizableTemplateLinkHelper
   def link_to_customizable_template(name, customization, template)
     name = nil unless name.present?
 
-p "NAME: #{name}, CUST: #{customization}, TMPLT: #{template}"
-
     if customization.present?
       if customization.created_at < template.created_at
         name = name.blank? ? _("Transfer customisation") : name
