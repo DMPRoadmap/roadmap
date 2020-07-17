@@ -152,7 +152,7 @@ module Paginable
     class_name = "fa-sort"
     class_name = "fa-sort-#{sort_direction.downcase}" if @args[:sort_field] == sort_field
     <<~HTML.html_safe
-      <i class="fa #{class_name}"
+      <i class="fas #{class_name}"
          aria-hidden="true"
          style="float: right; font-size: 1.2em;">
 
