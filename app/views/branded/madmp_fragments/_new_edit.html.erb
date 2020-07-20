@@ -1,0 +1,38 @@
+<%# locals: { template, question, fragment, research_output, readonly, locking } %>
+<!--
+  This partial creates a form for each type of question. The local variables are: plan, answer, question, research_output, readonly
+-->
+<!-- Question text -->
+<% q_format = question.question_format %>
+<% fragment_id = fragment.id unless fragment.nil? %>
+<%= form_for :madmp_fragment, url: create_or_update_madmp_fragments_path(id: fragment_id), html: {method: :post, 'data-autosave': question.id, class: 'form-answer', id: nil } do |f| %>
+  <% if !readonly %>
+    <%= f.fields_for(:answer, answer) do |af| %>
+      <%= af.hidden_field :plan_id, id: nil %>
+      <%= af.hidden_field :question_id, id: nil %>
+      <%= af.hidden_field :lock_version, id: nil %>
+      <%= af.hidden_field :research_output_id, :value => research_output.id, id: nil%>
+      <%= af.hidden_field :is_common, class: 'ans_is_common' if research_output.main? %>
+      <%= af.hidden_field :id, id: nil, class: 'answer_id' %>
+    <% end %>
+  <% end %>
+  <%= f.hidden_field :schema_id, :value => question.madmp_schema.id, id: nil %>
+  <%= f.hidden_field :dmp_id, :value => dmp_id, id: nil %>
+  <%= f.hidden_field :parent_id, :value => parent_id, id: nil %>
+  <fieldset aria-labelledby="answer-fieldset">
+    <% classname = fragment.classname unless fragment.nil? %>
+    <%= f.label(:text, sanitize(question.text), class: 'control-label') unless question.nil? %>
+    <div class="form-group madmp-fragment fragment-<%= fragment_id %>">   
+      <%= render(partial: 'shared/dynamic_form/form', locals: { 
+            f: f,
+            fragment: fragment, 
+            schema: question.madmp_schema,
+            readonly: readonly,
+            classname: classname,
+            fragment_id: fragment_id
+          }) %>
+    </div>
+    <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+  </fieldset>
+  <!--Example Answer area -->
+<% end %>

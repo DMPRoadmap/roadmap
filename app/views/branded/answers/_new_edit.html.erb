@@ -58,27 +58,20 @@
       <%= hidden_field_tag :standards, answer_hash['standards'].to_json %>
     <% end %>
   <% end %>
-  <% if question.question_format.structured %>
-    <fieldset aria-labelledby="answer-fieldset">
-      <%= render(partial: 'questions/new_edit_question_structured', locals: { f: f, question: question, answer: answer, research_output: research_output, readonly: readonly  }) %>
-      <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
-    </fieldset>
-  <% else %>
-    <fieldset aria-labelledby="answer-fieldset" <%= 'disabled' if readonly && !question.question_format.structured %> >
-      <% if question.option_based? || question.question_format.rda_metadata? %>
-          <%= render(partial: 'questions/new_edit_question_option_based', locals: { f: f, question: question, answer: answer, research_output: research_output, readonly: readonly }) %>
-      <% elsif question.question_format.textfield?%>
-          <%= render(partial: 'questions/new_edit_question_textfield', locals: { f: f, question: question, answer: answer, research_output: research_output }) %>
-      <% elsif question.question_format.textarea? %>
-          <%= render(partial: 'questions/new_edit_question_textarea', locals: { f: f, question: question, answer: answer, research_output: research_output, locking: locking, readonly: readonly}) %>
-      <% elsif question.question_format.date? %>
-          <%= render(partial: 'questions/new_edit_question_datefield', locals: { f: f, question: question, answer: answer, research_output: research_output, readonly: readonly }) %>
-      <% elsif question.question_format.number? %>
-          <%= render(partial: 'questions/new_edit_question_numberfield', locals: { f: f, question: question, answer: answer, research_output: research_output, readonly: readonly }) %>
-      <% end %>
-      <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
-    </fieldset>
-  <% end %>
+  <fieldset aria-labelledby="answer-fieldset" <%= 'disabled' if readonly && !question.question_format.structured %> >
+    <% if question.option_based? || question.question_format.rda_metadata? %>
+        <%= render(partial: 'questions/new_edit_question_option_based', locals: { f: f, question: question, answer: answer, research_output: research_output, readonly: readonly }) %>
+    <% elsif question.question_format.textfield?%>
+        <%= render(partial: 'questions/new_edit_question_textfield', locals: { f: f, question: question, answer: answer, research_output: research_output }) %>
+    <% elsif question.question_format.textarea? %>
+        <%= render(partial: 'questions/new_edit_question_textarea', locals: { f: f, question: question, answer: answer, research_output: research_output, locking: locking, readonly: readonly}) %>
+    <% elsif question.question_format.date? %>
+        <%= render(partial: 'questions/new_edit_question_datefield', locals: { f: f, question: question, answer: answer, research_output: research_output, readonly: readonly }) %>
+    <% elsif question.question_format.number? %>
+        <%= render(partial: 'questions/new_edit_question_numberfield', locals: { f: f, question: question, answer: answer, research_output: research_output, readonly: readonly }) %>
+    <% end %>
+    <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+  </fieldset>
   <!--Example Answer area -->
   <% if template.present? && template.org.present? %>
     <% question.example_answers([base_template_org.id, template.org.id]).each do |annotation| %>

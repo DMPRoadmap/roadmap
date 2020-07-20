@@ -76,6 +76,11 @@ class MadmpFragment < ActiveRecord::Base
   after_create  :update_parent_references
   after_destroy :update_parent_references
 
+  # =====================
+  # = Nested Attributes =
+  # =====================
+  accepts_nested_attributes_for :answer, allow_destroy: true
+
   # =================
   # = Class methods =
   # =================
@@ -97,9 +102,8 @@ class MadmpFragment < ActiveRecord::Base
   def get_sub_fragments
     sub_fragments = self.dmp.persons.group_by(&:madmp_schema_id)
     unless self.children.empty?
-      sub_fragments.merge(self.children.group_by(&:madmp_schema_id))
+      sub_fragments = sub_fragments.merge(self.children.group_by(&:madmp_schema_id))
     end
-
     sub_fragments
   end
 

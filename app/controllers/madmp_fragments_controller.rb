@@ -9,38 +9,62 @@ class MadmpFragmentsController < ApplicationController
     schema = MadmpSchema.find(p_params[:schema_id])
     classname = schema.classname
     data = schema_params(schema)
+    answer = nil 
+    @fragment = nil 
+    unless p_params[:answer].nil?
+      answer = Answer.find_or_initialize_by(id: p_params[:answer][:id]) do |ans|
+        ans.research_output_id = p_params[:answer][:research_output_id]
+        ans.plan_id = p_params[:answer][:plan_id]
+        ans.plan_id = p_params[:answer][:plan_id]
+        ans.question_id =  p_params[:answer][:question_id]
+      end
+      answer.lock_version = p_params[:answer][:lock_version]
+      answer.is_common = p_params[:answer][:is_common]
+      answer.user_id = current_user.id
+      answer.save!
+    end
+    p "########################"
+    p p_params
+    p "########################"
     
     # rubocop:disable BlockLength
     MadmpFragment.transaction do
-      if p_params[:id].empty?
+      if params[:id].nil?
         @fragment = MadmpFragment.new(
               dmp_id: p_params[:dmp_id],
               parent_id: p_params[:parent_id],
               madmp_schema: schema,
+              answer_id: answer.id,
               data: data
         )
         @fragment.classname = classname
-        authorize @fragment
-        @fragment.save!
+        @fragment.answer = answer
       else
-        @fragment = MadmpFragment.find_by!({ 
-          id: p_params[:id],
+        @fragment = MadmpFragment.find_by!({
+          id: params[:id],
           dmp_id: p_params[:dmp_id]
         })
-        new_data = @fragment.data.merge(data)
-        authorize @fragment
-        @fragment.update(
-          data: new_data
-        )
+        data = @fragment.data.merge(data)
+        @fragment.answer = answer
       end
     end
+    data = data.merge({ 
+      "validations" => MadmpFragment.validate_data(data, schema.schema)
+    })
+    @fragment.assign_attributes(data: data)
+    authorize @fragment
+    @fragment.save!
         
     if @fragment.present?
-      render json: { 
-          "fragment_id" =>  @fragment.parent_id,
-          "classname" => classname,
-          "html" => render_fragment_list(@fragment.dmp_id, @fragment.parent_id, schema.id)
-      }
+      if answer.present?
+        render json: render_fragment_form(@fragment)
+      else 
+        render json: { 
+            "fragment_id" =>  @fragment.parent_id,
+            "classname" => classname,
+            "html" => render_fragment_list(@fragment.dmp_id, @fragment.parent_id, schema.id)
+        }.to_json
+      end
     end
   end
 
@@ -141,6 +165,61 @@ class MadmpFragmentsController < ApplicationController
     end
   end
 
+  def render_fragment_form(fragment, stale_fragment = nil)
+    answer = fragment.answer
+    question = answer.question
+    research_output = answer.research_output
+    section = question.section
+    plan = answer.plan
+
+    return {
+            "answer" => {
+              "id" => answer.id
+            },
+            "question" => {
+              "id" => question.id,
+              "answer_lock_version" => answer.lock_version,
+              "locking" => stale_fragment ?
+                render_to_string(partial: "answers/locking", locals: {
+                  question: question,
+                  answer: stale_fragment,
+                  research_output: research_output,
+                  user: answer.user
+                }, formats: [:html]) :
+                nil,
+              "form" => render_to_string(partial: "madmp_fragments/new_edit", locals: {
+                question: question,
+                answer: answer,
+                fragment: fragment ,
+                research_output: research_output,
+                dmp_id: fragment.dmp_id,
+                parent_id: fragment.parent_id,
+                readonly: false
+              }, formats: [:html]),
+              "answer_status" => render_to_string(partial: "answers/status", locals: {
+                answer: answer
+              }, formats: [:html])
+            },
+            "section" => {
+              "id" => section.id,
+              "progress" => render_to_string(partial: "/org_admin/sections/progress", locals: {
+                section: section,
+                plan: plan
+              }, formats: [:html])
+            },
+            "plan" => {
+              "id" => plan.id,
+              "progress" => render_to_string(partial: "plans/progress", locals: {
+                plan: plan,
+                current_phase: section.phase
+              }, formats: [:html])
+            },
+            "research_output" => {
+              "id" => research_output.id
+            }
+    }.to_json
+  end
+
   # Get the parameters conresponding to the schema
   def schema_params(schema, flat = false)
     s_params = schema.generate_strong_params(flat)
@@ -148,7 +227,10 @@ class MadmpFragmentsController < ApplicationController
   end
 
   def permitted_params
-    permit_arr = [:id, :dmp_id, :parent_id, :schema_id]
+    permit_arr = [:id, :dmp_id, :parent_id, :schema_id, 
+                  answer: [:id, :plan_id, :research_output_id,
+                  :question_id, :lock_version, :is_common]
+                ]
     params.require(:madmp_fragment).permit(permit_arr)
   end
 end

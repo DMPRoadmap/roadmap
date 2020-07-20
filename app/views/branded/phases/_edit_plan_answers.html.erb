@@ -93,7 +93,21 @@
                       <div id="<%= "answer-locking-#{question.id}-research-output-#{research_output.id}" %>" 
                            class="answer-locking"></div>
                       <div id="<%= "answer-form-#{question.id}-research-output-#{research_output.id}" %>" class="answer-form"> 
-                        <%= render(partial: '/answers/new_edit',
+                        <% if question.question_format.structured? %>
+                          <% fragment = answer.madmp_fragment unless answer.nil? %>
+                          <% dmp_id = plan.json_fragment.id %>
+                          <% parent_id = research_output.json_fragment.id %>
+                          <%= render(partial: '/madmp_fragments/new_edit',
+                                   locals: { question: question,
+                                             answer: answer,
+                                             fragment: fragment ,
+                                             research_output: research_output,
+                                             dmp_id: dmp_id,
+                                             parent_id: parent_id,
+                                             readonly: readonly,
+                                             locking: false }) %>
+                        <% else %>
+                          <%= render(partial: '/answers/new_edit',
                                    locals: { template: phase.template,
                                              question: question,
                                              answer: answer,
@@ -101,6 +115,7 @@
                                              readonly: readonly,
                                              locking: false,
                                              base_template_org: base_template_org }) %>
+                        <% end %>
                       </div>
                       <div id="<%= "answer-status-#{question.id}-research-output-#{research_output.id}" %>" class="mt-10">
                         <%= render(partial: '/answers/status',
