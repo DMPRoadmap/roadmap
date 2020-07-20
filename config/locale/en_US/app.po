@@ -2565,6 +2565,9 @@ msgstr ""
 msgid "example answer"
 msgstr ""
 
+msgid "Example answer"
+msgstr "Example answer"
+
 msgid "expand all"
 msgstr ""
 
