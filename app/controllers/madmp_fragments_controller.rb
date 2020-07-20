@@ -23,9 +23,6 @@ class MadmpFragmentsController < ApplicationController
       answer.user_id = current_user.id
       answer.save!
     end
-    p "########################"
-    p p_params
-    p "########################"
     
     # rubocop:disable BlockLength
     MadmpFragment.transaction do
@@ -34,7 +31,6 @@ class MadmpFragmentsController < ApplicationController
               dmp_id: p_params[:dmp_id],
               parent_id: p_params[:parent_id],
               madmp_schema: schema,
-              answer_id: answer.id,
               data: data
         )
         @fragment.classname = classname
