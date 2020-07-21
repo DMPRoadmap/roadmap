@@ -9,51 +9,65 @@ class MadmpFragmentsController < ApplicationController
     schema = MadmpSchema.find(p_params[:schema_id])
     classname = schema.classname
     data = schema_params(schema)
-    answer = nil 
     @fragment = nil 
-    unless p_params[:answer].nil?
-      answer = Answer.find_or_initialize_by(id: p_params[:answer][:id]) do |ans|
-        ans.research_output_id = p_params[:answer][:research_output_id]
-        ans.plan_id = p_params[:answer][:plan_id]
-        ans.plan_id = p_params[:answer][:plan_id]
-        ans.question_id =  p_params[:answer][:question_id]
-      end
-      answer.lock_version = p_params[:answer][:lock_version]
-      answer.is_common = p_params[:answer][:is_common]
-      answer.user_id = current_user.id
-      answer.save!
-    end
     
-    # rubocop:disable BlockLength
-    MadmpFragment.transaction do
-      if params[:id].nil?
-        @fragment = MadmpFragment.new(
-              dmp_id: p_params[:dmp_id],
-              parent_id: p_params[:parent_id],
-              madmp_schema: schema,
-              data: data
-        )
-        @fragment.classname = classname
-        @fragment.answer = answer
-      else
-        @fragment = MadmpFragment.find_by!({
-          id: params[:id],
-          dmp_id: p_params[:dmp_id]
-        })
-        data = @fragment.data.merge(data)
-        @fragment.answer = answer
+    if params[:id].present?
+      # rubocop:disable BlockLength
+      MadmpFragment.transaction do
+        begin
+          @fragment = MadmpFragment.find_by!(
+            id: params[:id],
+            dmp_id: p_params[:dmp_id]
+          )
+          data = @fragment.data.merge(data)
+          data = data.merge({ 
+            "validations" => MadmpFragment.validate_data(data, schema.schema)
+          })
+          @fragment.assign_attributes(data: data)
+  
+          authorize @fragment
+          @fragment.save!
+          @fragment.answer.update({
+            lock_version: p_params[:answer][:lock_version],
+            is_common: p_params[:answer][:is_common]
+          })
+        rescue ActiveRecord::StaleObjectError
+          @stale_fragment = @fragment
+          @fragment = MadmpFragment.find_by({
+            id: params[:id],
+            dmp_id: p_params[:dmp_id]
+          })
+        end
       end
+    else
+      @fragment = MadmpFragment.new(
+        dmp_id: p_params[:dmp_id],
+        parent_id: p_params[:parent_id],
+        madmp_schema: schema
+      )
+      @fragment.classname = classname
+      data = data.merge({ 
+        "validations" => MadmpFragment.validate_data(data, schema.schema)
+      })
+      @fragment.assign_attributes(data: data)
+
+      @fragment.answer = Answer.create!({
+        research_output_id: p_params[:answer][:research_output_id],
+        plan_id: p_params[:answer][:plan_id],
+        plan_id: p_params[:answer][:plan_id],
+        question_id: p_params[:answer][:question_id],
+        lock_version: p_params[:answer][:lock_version],
+        is_common: p_params[:answer][:is_common],
+        user_id: current_user.id
+      })
+      authorize @fragment
+      @fragment.save!
+
     end
-    data = data.merge({ 
-      "validations" => MadmpFragment.validate_data(data, schema.schema)
-    })
-    @fragment.assign_attributes(data: data)
-    authorize @fragment
-    @fragment.save!
-        
+
     if @fragment.present?
-      if answer.present?
-        render json: render_fragment_form(@fragment)
+      if @fragment.answer.present?
+        render json: render_fragment_form(@fragment, @stale_fragment)
       else 
         render json: { 
             "fragment_id" =>  @fragment.parent_id,
@@ -176,9 +190,10 @@ class MadmpFragmentsController < ApplicationController
               "id" => question.id,
               "answer_lock_version" => answer.lock_version,
               "locking" => stale_fragment ?
-                render_to_string(partial: "answers/locking", locals: {
+                render_to_string(partial: "madmp_fragments/locking", locals: {
                   question: question,
-                  answer: stale_fragment,
+                  answer: answer,
+                  fragment: stale_fragment,
                   research_output: research_output,
                   user: answer.user
                 }, formats: [:html]) :
