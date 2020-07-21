@@ -13,7 +13,7 @@ class MadmpFragmentsController < ApplicationController
     
     if params[:id].present?
       # rubocop:disable BlockLength
-      MadmpFragment.transaction do
+      Answer.transaction do
         begin
           @fragment = MadmpFragment.find_by!(
             id: params[:id],
@@ -26,11 +26,12 @@ class MadmpFragmentsController < ApplicationController
           @fragment.assign_attributes(data: data)
   
           authorize @fragment
-          @fragment.save!
-          @fragment.answer.update({
+          @fragment.answer.update!({
             lock_version: p_params[:answer][:lock_version],
-            is_common: p_params[:answer][:is_common]
+            is_common: p_params[:answer][:is_common],
+            user_id: current_user.id
           })
+          @fragment.save!
         rescue ActiveRecord::StaleObjectError
           @stale_fragment = @fragment
           @fragment = MadmpFragment.find_by({

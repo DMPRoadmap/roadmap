@@ -167,8 +167,11 @@ $(() => {
   const detachEventHandlers = (jQueryForm) => {
     formHandlers({ jQuery: jQueryForm, attachment: 'off' });
     const tinymceId = jQueryForm.find(`.${editorClass}`).attr('id');
-    detachEditorHandlers(Tinymce.findEditorById(tinymceId));
-    Tinymce.destroyEditorById(tinymceId);
+    if (tinymceId) {
+      detachEditorHandlers(Tinymce.findEditorById(tinymceId));
+      Tinymce.destroyEditorById(tinymceId);
+
+    }
   };
   /*
     Attaches events for a specific form including its tinymce editor
@@ -177,8 +180,10 @@ $(() => {
   const attachEventHandlers = (jQueryForm) => {
     formHandlers({ jQuery: jQueryForm, attachment: 'on' });
     const tinymceId = jQueryForm.find(`.${editorClass}`).attr('id');
-    Tinymce.init({ selector: `#${tinymceId}` });
-    editorHandlers(Tinymce.findEditorById(tinymceId));
+    if (tinymceId) {
+      Tinymce.init({ selector: `#${tinymceId}` });
+      editorHandlers(Tinymce.findEditorById(tinymceId));
+    }
   };
 
   datePicker();
