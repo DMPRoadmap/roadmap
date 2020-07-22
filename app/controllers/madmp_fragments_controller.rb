@@ -3,12 +3,13 @@
 class MadmpFragmentsController < ApplicationController
 
   after_action :verify_authorized
+  include DynamicFormHelper
 
   def create_or_update
     p_params = permitted_params()
     schema = MadmpSchema.find(p_params[:schema_id])
     classname = schema.classname
-    data = schema_params(schema)
+    data = data_reformater(schema.schema, schema_params(schema))
     @fragment = nil 
     
     if params[:id].present?
