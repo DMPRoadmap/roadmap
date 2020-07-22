@@ -82,7 +82,7 @@ question_formats = [
   },
   {
     title: "Structured",
-    option_base: false,
+    option_based: false,
     formattype: 7,
     structured: true
   }

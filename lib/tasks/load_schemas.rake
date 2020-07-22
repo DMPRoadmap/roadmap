@@ -27,12 +27,13 @@ def load_schemas
     ss = MadmpSchema.find_by(classname: s['classname'])
     
     if ss.nil?
-      ss = MadmpSchema.create!(label: t, name: t, version: 1, schema: d.to_json, org_id: 276, classname: s['classname'])
+      ss = MadmpSchema.create!(label: t, name: t, version: 1, schema: d.to_json, org_id: Org.first.id, classname: s['classname'])
     else
       ss.update(schema: d.to_json, classname: s['classname'])
     end
 
-    add_schema_to_question(Question.find(s['question_id']), ss) unless s['question_id'].nil?
+    q = Question.find_by(id: s['question_id'])
+    add_schema_to_question(Question.find(s['question_id']), ss) unless q.nil?
   end
 end
 
