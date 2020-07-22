@@ -15,7 +15,7 @@
     <% elsif prop['format'] == 'select' && prop['values'] %>
       <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", prop['label'], prop['values']) %>
     <%end%>
-  <% when 'integer' %>
+  <% when 'number' %>
     <%= create_number_field(f, value, field_name, prop['label']) %>
   <% when 'boolean' %>
     <%= create_checkbox_field(f, value, field_name, prop['label']) %>

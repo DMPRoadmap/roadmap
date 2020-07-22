@@ -107,16 +107,15 @@ module DynamicFormHelper
   def data_reformater(schema, data)
     schema["properties"].each do |key, value|
       case value["type"]
-      when "integer"
+      when "number"
         data[key] = data[key].to_i
       when "boolean"
         data[key] = data[key] == "1"
       when "array"
         data[key] = data[key].kind_of?(Array) ? data[key] : [data[key]]
       when "object"
-        # if value["dictionnary"]
-        #   data[key] = JSON.parse(DictionnaryValue.where(id: data[key]).select(:id, :uri, :label).take.to_json)
-        # end
+        sub_schema = MadmpSchema.find_by(classname: value['classname'])
+        data[key] = data_reformater(sub_schema.schema, data[key])
       end
     end
     data
