@@ -1,31 +1,39 @@
-<%# locals: { f, data, research_output, schema, parent_id } %>
-<% schema['properties'].each do |key, prop| %>
+<%# locals: { f, fragment, schema, readonly, classname, Fragment_id } %>
+<% sub_schemas = schema.get_sub_schemas %>
+<% data = fragment.data unless fragment.nil? %>
+<% sub_fragments = fragment.present? ? fragment.get_sub_fragments() : [] %>
+<% schema_properties = schema.schema["properties"]%>
+
+<% schema_properties.each do |key, prop| %>
   <% value = data[key] unless data.nil? %>
   <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{key}]" : key %>
   <% case prop['type'] %>
   <% when 'string' %>
     <% if prop['format'].nil?%>
-      <%= create_text_field(f, value, field_name, prop['label']) %>
+      <%= create_text_field(f, value, field_name, prop['label'], readonly: readonly) %>
     <% elsif prop['format'] == 'date' %>
-      <%= create_date_field(f, value, field_name, prop['label']) %>
+      <%= create_date_field(f, value, field_name, prop['label'], readonly: readonly) %>
     <% elsif prop['format'] == 'uri' %>
-      <%= create_url_field(f, value, field_name, prop['label']) %>
+      <%= create_url_field(f, value, field_name, prop['label'], readonly: readonly) %>
     <% elsif prop['format'] == 'email' %>
-      <%= create_email_field(f, value, field_name, prop['label']) %>
+      <%= create_email_field(f, value, field_name, prop['label'], readonly: readonly) %>
     <% elsif prop['format'] == 'select' && prop['values'] %>
-      <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", prop['label'], prop['values']) %>
+      <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", prop['label'], prop['values'], readonly: readonly) %>
     <%end%>
-  <% when 'number' %>
-    <%= create_number_field(f, value, field_name, prop['label']) %>
+  <% when 'integer', 'number' %>
+    <%= create_number_field(f, value, field_name, prop['label'], readonly: readonly) %>
   <% when 'boolean' %>
-    <%= create_checkbox_field(f, value, field_name, prop['label']) %>
+    <%= create_checkbox_field(f, value, field_name, prop['label'], readonly: readonly) %>
   <% when 'array' %>
-    <% if prop['items']['type'] == 'object' %>
+    <% if prop['items']['type'] == 'object' && prop['items']['schema_id'].present? %>
       <% unless classname == "research_output" %>
+        <% sub_schema = sub_schemas[prop['items']['schema_id']] %>
+        <% values = sub_fragments[prop['items']['schema_id']] unless sub_fragments.empty? %>
         <%= render(partial: 'shared/dynamic_form/fields/complex_multiple_field', locals: { 
-          field_values: MadmpFragment.where(parent_id: fragment_id, classname: prop['items']['classname']), 
+          field_values: values, 
+          readonly: readonly,
           parent_id: fragment_id,
-          classname: prop['items']['classname'],
+          schema: sub_schema,
           field_name: field_name, answer_id: nil 
           }
         ) %>
@@ -34,6 +42,7 @@
       <%= render(partial: 'shared/dynamic_form/fields/simple_multiple_field', locals: { 
         f: f, 
         field_values: value,
+        readonly: readonly,
         field_label: prop['label'],
         field_properties: prop['items'],
         field_name: field_name, answer_id: nil 
@@ -41,26 +50,33 @@
       ) %>
     <% end %>
   <% when 'object' %>
-    <% if !prop["classname"].nil?  || classname != "research_output" %>
-      <div class="col-md-12">
-        <fieldset class="answer-fieldset">
-          <legend class="answer-fieldset"><%= field_name %></legend>
-          <%
-            sub_schema = prop["classname"] ? 
-                        MadmpSchema.find_by(classname: prop["classname"]).schema : 
-                        prop
-          %>
-          <%= render(partial: 'shared/dynamic_form/form', locals: { 
-                f: f, 
-                data: value, 
-                readonly: readonly, 
-                schema: sub_schema,
-                classname: prop["classname"],
-                fragment_id: fragment_id,
-                form_prefix: prop["classname"]
-              }) %>
-        </fieldset>
-      </div>
+    <% if prop["schema_id"].present? %>
+      <% unless classname == "research_output"  %>
+        <div class="col-md-12">
+          <fieldset class="answer-fieldset">
+            <legend class="answer-fieldset"><%= field_name %></legend>
+            <%
+              sub_schema = sub_schemas[prop["schema_id"]]
+              sub_fragment = MadmpFragment.new(
+                    data: value,
+                    dmp_id: fragment.dmp_id,
+                    parent_id: fragment_id
+                  ) unless fragment.nil?
+              # TODO : SINGLE SUB FRAGMENT SAVING
+              #sub_fragment = sub_fragments[sub_schema.id].find { |f| f.id == value["dbId"] } unless value.nil?
+            %>
+            <%= render(partial: 'shared/dynamic_form/form', locals: { 
+                  f: f, 
+                  fragment: sub_fragment,
+                  schema: sub_schema,
+                  readonly: readonly,
+                  classname: sub_schema.classname,
+                  fragment_id: fragment_id,
+                  form_prefix: field_name
+                }) %>
+          </fieldset>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

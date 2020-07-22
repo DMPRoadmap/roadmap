@@ -48,7 +48,8 @@
 <%= render(partial: 'shared/dynamic_form/fields/complex_multiple_field', locals: { 
   field_values: fundings, 
   parent_id: project_fragment.id,
-  classname: "funding",
+  schema: MadmpSchema.find_by(classname: "funding"),
+  readonly: false,
   field_name: "funding", answer_id: nil 
   }
 ) %>
@@ -75,7 +76,8 @@
 <%= render(partial: 'shared/dynamic_form/fields/complex_multiple_field', locals: { 
   field_values: partners, 
   parent_id: project_fragment.id,
-  classname: "partner",
+  schema: MadmpSchema.find_by(classname: "partner"),
+  readonly: false,
   field_name: "partner", answer_id: nil 
   }
 ) %>

@@ -127,9 +127,10 @@ Rails.application.routes.draw do
     post 'sort', on: :collection
   end
 
-  resources :madmp_fragments, only: [:new, :edit, :create, :update, :destroy] do
+  resources :madmp_fragments, only: [:destroy] do
     post 'create_or_update', on: :collection
-    get 'new_edit_linked', on: :collection
+    get 'new_edit_linked', on: :collection, constraints: {format: [:js]}
+    get 'show_linked', on: :collection, constraints: {format: [:js]}
     get 'get_fragment/:id', action: :get_fragment, on: :collection, as: :get_fragment
   end
   

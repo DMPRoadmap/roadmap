@@ -1,0 +1,68 @@
+<% sub_schemas = schema.get_sub_schemas %>
+<% data = fragment.data unless fragment.nil? %>
+<% sub_fragments = fragment.present? ? fragment.get_sub_fragments() : [] %>
+<% schema_properties = schema.schema["properties"]%>
+<dl class="dl-horizontal fragment-display">
+  <% schema_properties.each do |key, prop| %>
+    <% value = data[key] unless data.nil? %>
+    <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{key}]" : key %>
+    <% case prop['type'] %>
+    <% when 'boolean' %>
+      <dt><%= field_name %></dt>
+      <dd><%= value ? _('Yes') : _('No') %></dd>
+    <% when 'array' %>
+      <% if prop['items']['type'] == 'object' && prop['items']['schema_id'].present? %>
+        <% unless classname == "research_output"%>
+          <%
+            sub_schema = sub_schemas[prop['items']['schema_id']]
+          %>
+          <hr/>
+          <table class="table table-hover">
+            <thead><tr><th><%= field_name.capitalize.pluralize(2) %></th></tr></thead>
+            <tbody>
+              <% unless sub_fragments[sub_schema.id].nil? %>
+                <% sub_fragments[sub_schema.id].each do |val| %>
+                  <tr><td>
+                    <%= render(partial: 'shared/fragments/display', locals: {
+                            fragment: val,
+                            schema: sub_schema,
+                            classname: sub_schema.classname
+                    } ) %>
+                  </td></tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      <% else %>
+        <dl class="dl-horizontal">
+          <dt><%= field_name %></dt>
+          <% value.each do |val| %>
+            <dd><%= val %></dd>
+          <% end %>
+        </dl>
+      <% end %>
+    <% when 'object' %>
+      <% if prop["schema_id"].present?  %>
+        <% unless classname == "research_output" || value.nil? %>
+          <%
+            sub_schema = sub_schemas[prop["schema_id"]]
+            sub_fragment = sub_fragments[sub_schema.id].find { |f| f.id == value["dbId"] }
+          %>
+          <hr/>
+          <p class= "fontsize-h3"><%= field_name.capitalize %></p>
+          <dl class="dl-horizontal sub-fragment">
+            <%= render(partial: 'shared/fragments/display', locals: {
+                            fragment: sub_fragment, #TODO : Implement Person fragments display
+                            schema: sub_schema,
+                            classname: sub_schema.classname
+                  } ) %>
+          </dl>
+        <% end %>
+      <% end %>
+    <% else%>
+      <dt><%= field_name %></dt>
+      <dd><%= value %></dd>
+    <% end %>
+  <% end %>
+</dl>
