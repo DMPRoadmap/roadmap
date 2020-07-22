@@ -143,5 +143,10 @@
     "path": "TechnicalResourceUsage-schema_GENCI.json",
     "classname": "technical_resource_usage",
     "question_id": null
+  },
+  {
+    "path": "OneYearStatus.json",
+    "classname": "one_year_status",
+    "question_id": null
   }
 ]

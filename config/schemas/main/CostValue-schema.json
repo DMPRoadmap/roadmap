@@ -8,7 +8,7 @@
     "properties":{
         "amount":{
             "label": "Amount",
-            "type":"number"
+            "type": "number"
         },
         "currency":{
             "label": "Currency",

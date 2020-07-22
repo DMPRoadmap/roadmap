@@ -13,7 +13,7 @@
     "orgId": {
       "label": "Org ID",
       "type": "object",
-      "classname": "Identifier",
+      "classname": "identifier",
       "properties": {
         "dbid": {
           "type": "number"

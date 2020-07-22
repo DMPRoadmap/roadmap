@@ -36,17 +36,14 @@
         },
         "oneYearStatus":{
           "type":"object",
+          "classname": "one_year_status",
           "label": "Après un an de production de résultats:",
           "properties":{
-            "dataSize":{
-              "type": "number",
-              "toolTip:fr_FR": "Taille totale dans cet espace en To"
-            },
-            "fileDirNumber":{
-              "type":"number",
-              "toolTip:fr_FR": "Nombre de fichiers et de répertoires"
+            "dbid": {
+              "type": "number"
             }
-          }
+          },
+          "required": ["dbid"]
         },
         "storageTime":{
           "type":"number",
@@ -73,18 +70,14 @@
         },
         "oneYearStatus":{
           "type":"object",
+          "classname": "one_year_status",
           "label": "Après un an de production de résultats:",
           "properties":{
-            "dataSize":{
-              "type": "number",
-              "toolTip:fr_FR": "Taille totale dans cet espace en To"
-            },
-            "fileDirNumber":{
-              "type":"number",
-              "toolTip:fr_FR": "Nombre de fichiers et de répertoires"
+            "dbid": {
+              "type": "number"
             }
-            
           },
+          "required": ["dbid"],
           "storageTime":{
             "type":"number",
             "toolTip:fr_FR": "Durée de stockage après la fin de vie du projet, en mois (pas dans le cas de workdir"
