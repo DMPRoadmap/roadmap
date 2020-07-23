@@ -25,7 +25,7 @@ function renderMessage(options = {}) {
 
     notificationArea.find('i, span').remove();
     notificationArea.append(`
-      <i class="fa fa-${options.icon}" aria-hidden="true"></i>
+      <i class="fas fa-${options.icon}" aria-hidden="true"></i>
       <span>${options.message}</span>
     `);
 

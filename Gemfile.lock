@@ -508,7 +508,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   flag_shih_tzu
-  font-awesome-sass
+  font-awesome-sass (~> 5.13.0)
   fuubar
   gettext
   gettext_i18n_rails
