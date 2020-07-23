@@ -92,12 +92,12 @@ class PlansController < ApplicationController
       # plan.funder which forces the hidden id hash to be :id
       # so we need to convert it to :org_id so it works with the
       # OrgSelectable and OrgSelection services
-      if plan_params[:org][:id].present?
+      if plan_params[:org].present? && plan_params[:org][:id].present?
         attrs = plan_params[:org]
         attrs[:org_id] = attrs[:id]
         @plan.org = org_from_params(params_in: attrs, allow_create: false)
       end
-      if plan_params[:funder][:id].present?
+      if plan_params[:funder].present? && plan_params[:funder][:id].present?
         attrs = plan_params[:funder]
         attrs[:org_id] = attrs[:id]
         @plan.funder = org_from_params(params_in: attrs, allow_create: false)
@@ -450,8 +450,8 @@ class PlansController < ApplicationController
           .permit(:template_id, :title, :visibility, :description, :identifier,
                   :start_date, :end_date, :org_id, :org_name, :org_crosswalk,
                   grant: %i[name value],
-                  org: %i[org_id org_name org_sources org_crosswalk],
-                  funder: %i[org_id org_name org_sources org_crosswalk])
+                  org: %i[id org_id org_name org_sources org_crosswalk],
+                  funder: %i[id org_id org_name org_sources org_crosswalk])
   end
 
   # different versions of the same template have the same family_id
