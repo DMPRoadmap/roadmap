@@ -152,7 +152,7 @@ module Paginable
     class_name = "fa-sort"
     class_name = "fa-sort-#{sort_direction.downcase}" if @args[:sort_field] == sort_field
     <<~HTML.html_safe
-      <i class="fa #{class_name}"
+      <i class="fas #{class_name}"
          aria-hidden="true"
          style="float: right; font-size: 1.2em;">
 
@@ -186,7 +186,9 @@ module Paginable
     @args.except(*PAGINATION_QUERY_PARAMS).to_param
   end
 
-  def stringify_query_params(_page: 1, search: @args[:search],
+  # TODO: We would be better served here passing these arguments as a Ruby double splat
+  # rubocop:disable Lint/UnusedMethodArgument
+  def stringify_query_params(page: 1, search: @args[:search],
                              sort_field: @args[:sort_field],
                              sort_direction: nil)
 
@@ -198,6 +200,7 @@ module Paginable
     end
     query_string.to_param
   end
+  # rubocop:enable Lint/UnusedMethodArgument
 
   def paginable_params
     params.permit(PAGINATION_QUERY_PARAMS)
