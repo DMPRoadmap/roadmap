@@ -191,7 +191,7 @@ class OrgsController < ApplicationController
   end
 
   def search_params
-    params.require(:org).permit(:name, :type)
+    params.require(:plan).permit(org_attributes: [ :name, :type ])
   end
 
   def shib_login_url

@@ -101,10 +101,10 @@ $(() => {
 
       // For some reason Rails freaks out it everything is empty so send
       // the word "none" instead and handle on the controller side
-      if (orgId.length <= 0) {
+      if (orgId == undefined || orgId.length <= 0) {
         orgId = '"none"';
       }
-      if (funderId.length <= 0) {
+      if (funderId == undefined || funderId.length <= 0) {
         funderId = '"none"';
       }
       const data = `{"plan": {"research_org_id":${orgId},"funder_id":${funderId}}}`;

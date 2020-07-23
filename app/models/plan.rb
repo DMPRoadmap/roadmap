@@ -127,6 +127,8 @@ class Plan < ApplicationRecord
 
   accepts_nested_attributes_for :template
 
+  accepts_nested_attributes_for :org
+
   accepts_nested_attributes_for :roles
 
   accepts_nested_attributes_for :contributors

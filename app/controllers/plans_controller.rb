@@ -92,14 +92,12 @@ class PlansController < ApplicationController
       # plan.funder which forces the hidden id hash to be :id
       # so we need to convert it to :org_id so it works with the
       # OrgSelectable and OrgSelection services
-      if plan_params[:org][:id].present?
-        attrs = plan_params[:org]
-        attrs[:org_id] = attrs[:id]
+      if plan_params[:org_attributes].present? && plan_params[:org_attributes][:org_id].present?
+        attrs = plan_params[:org_attributes]
         @plan.org = org_from_params(params_in: attrs, allow_create: false)
       end
-      if plan_params[:funder][:id].present?
-        attrs = plan_params[:funder]
-        attrs[:org_id] = attrs[:id]
+      if plan_params[:funder_attributes].present? && plan_params[:funder_attributes][:org_id].present?
+        attrs = plan_params[:funder_attributes]
         @plan.funder = org_from_params(params_in: attrs, allow_create: false)
       end
 
@@ -450,7 +448,7 @@ class PlansController < ApplicationController
           .permit(:template_id, :title, :visibility, :description, :identifier,
                   :start_date, :end_date, :org_id, :org_name, :org_crosswalk,
                   grant: %i[name value],
-                  org: %i[org_id org_name org_sources org_crosswalk],
+                  org_attributes: %i[org_id org_name org_sources org_crosswalk],
                   funder: %i[org_id org_name org_sources org_crosswalk])
   end
 
