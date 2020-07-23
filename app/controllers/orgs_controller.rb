@@ -134,7 +134,7 @@ class OrgsController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize
 
-  # POST /orgs  (via AJAX from OrgSelectiors)
+  # POST /orgs  (via AJAX from Org Typeaheads ... see below for specific pages)
   # rubocop:disable Metrics/MethodLength
   def search
     args = search_params
@@ -145,18 +145,42 @@ class OrgsController < ApplicationController
       # If we are including external API results
       orgs = case type
              when "combined"
+               # This type will search both ROR and the local DB giving the local
+               # DB results preference. It is triggered from the following pages:
+               #   Create Account
+               #   Edit Profile
+               #   Admin Edit User
+               #   Contributor Edit/New
+               #   Project Details (Funder selection)
+               #
+               # Those pages use the app/views/shared/org_selectors/_combined.html.erb
                OrgSelection::SearchService.search_combined(
                  search_term: args[:name]
                )
              when "external"
+               # This type will ONLY check ROR for the specified search term. It
+               # is triggered from the following page:
+               #  SuperAdmin - New Org
+               #
+               # That page uses the app/views/shared/org_selectors/_external_only.html.erb
                OrgSelection::SearchService.search_externally(
                  search_term: args[:name]
                )
              else
+               # This default will ONLY check the local DB's Org table. It is
+               # currently not triggered by any pages.
                OrgSelection::SearchService.search_locally(
                  search_term: args[:name]
                )
              end
+
+      # Scenarios where we only allow the user to select from the Orgs in the
+      # local DB use the app/views/shared/org_selectors/_local_only.html.erb
+      # which is not AJAX. The page has the entire list of Orgs and so does not
+      # call this #search action!
+      # The following pages currently have this behavior:
+      #  Create Plan page (both Research Org and Funder typeaheads)
+      #  Templates page (SuperAdmin Org Affiliation change)
 
       # If we need to restrict the results to funding orgs then
       # only return the ones with a valid fundref
