@@ -5,6 +5,7 @@ require "rails_helper"
 RSpec.describe "Registrations", type: :feature do
 
   let!(:org) { create(:org) }
+  let!(:language) { Language.default || create(:language, default_language: true) }
 
   let(:user_attributes) { attributes_for(:user) }
 

@@ -129,9 +129,9 @@ $(() => {
       Object.keys(standardsArray).forEach((key) => {
         // add the standard to list
         if (key === standardsArray[key]) {
-          selectedStandards.append(`<li class="${key}">${key}<button class="remove-standard"><i class="fa fa-times-circle"></i></button></li`);
+          selectedStandards.append(`<li class="${key}">${key}<button class="remove-standard"><i class="fas fa-times-circle"></i></button></li`);
         } else {
-          selectedStandards.append(`<li class="${key}">${descriptions[key].title}<button class="remove-standard"><i class="fa fa-times-circle"></i></button></li>`);
+          selectedStandards.append(`<li class="${key}">${descriptions[key].title}<button class="remove-standard"><i class="fas fa-times-circle"></i></button></li>`);
         }
       });
     });
@@ -240,7 +240,7 @@ $(() => {
         standard = standardId;
       }
     });
-    selectedStandards.append(`<li class="${standard}">${descriptions[standard].title}<button class="remove-standard"><i class="fa fa-times-circle"></i></button></li>`);
+    selectedStandards.append(`<li class="${standard}">${descriptions[standard].title}<button class="remove-standard"><i class="fas fa-times-circle"></i></button></li>`);
     const formStandards = group.next('form').find('#standards');
     // get the data for selected standards from the data attribute 'standard'
     // of the hidden field #standards within the answer form
@@ -271,7 +271,7 @@ $(() => {
     // the identifier for the standard which was selected
     const standard = target.data('standard');
     // append the standard to the displayed list of selected standards
-    selectedStandards.append(`<li class="${standard}">${descriptions[standard].title}<button class="remove-standard"><i class="fa fa-times-circle"></i></button></li>`);
+    selectedStandards.append(`<li class="${standard}">${descriptions[standard].title}<button class="remove-standard"><i class="fas fa-times-circle"></i></button></li>`);
     const formStandards = group.next('form').find('#standards');
     // get the data for selected standards from the data attribute 'standard'
     // of the hidden field #standards within the answer form
@@ -327,7 +327,7 @@ $(() => {
     const group = target.closest('.rda_metadata');
     const selectedStandards = group.find('.selected_standards .list');
     const standardName = group.find('.custom-standard-name').val();
-    selectedStandards.append(`<li class="${standardName}">${standardName}<button class="remove-standard"><i class="fa fa-times-circle"></i></button></li>`);
+    selectedStandards.append(`<li class="${standardName}">${standardName}<button class="remove-standard"><i class="fas fa-times-circle"></i></button></li>`);
     const formStandards = group.next('form').find('#standards');
     // get the data for selected standards from the data attribute 'standard'
     // of the hidden field #standards within the answer form

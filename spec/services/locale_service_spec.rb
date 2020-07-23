@@ -6,7 +6,7 @@ RSpec.describe LocaleService do
 
   before(:each) do
     Language.destroy_all
-    @default = create(:language, default_language: true)
+    @default = Language.default || create(:language, default_language: true)
     Rails.configuration.x.locales.default = @default.abbreviation
     Rails.configuration.x.locales.gettext_join_character = "_"
     Rails.configuration.x.locales.i18n_join_character = "-"

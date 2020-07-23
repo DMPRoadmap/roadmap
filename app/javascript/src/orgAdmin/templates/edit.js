@@ -27,7 +27,8 @@ $(() => {
       $('#template-links').val(JSON.stringify(links));
     });
   });
-  $('.edit_template').on('ajax:success', (e, data) => {
+  $('.edit_template').on('ajax:success', (e) => {
+    const data = e.detail[0];
     if (isObject(data) && isString(data.msg)) {
       if (data.status === 200) {
         renderNotice(data.msg);
@@ -37,7 +38,8 @@ $(() => {
       scrollTo('#notification-area');
     }
   });
-  $('.edit_template').on('ajax:error', (e, xhr) => {
+  $('.edit_template').on('ajax:error', (e) => {
+    const xhr = e.detail[2];
     const error = xhr.responseJSON;
     if (isObject(error) && isString(error)) {
       renderAlert(error.msg);

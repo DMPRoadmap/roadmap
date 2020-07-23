@@ -46,7 +46,7 @@ module TemplateHelper
     link_to(plans_url(plan: params), method: :post, title: _("Create plan"),
                                      class: cls, id: id, style: style) do
       if text.nil?
-        "<span class=\"fa fa-plus-square\"></span>".html_safe
+        "<span class=\"fas fa-plus-square\"></span>".html_safe
       else
         text.html_safe
       end
