@@ -192,7 +192,7 @@ gem "dotenv-rails"
 gem 'activerecord-session_store'
 
 # JSON Schema validation
-gem 'json_schemer'
+gem 'json_schemer', '0.2.11'
 
 # JsonPath is a way of addressing elements within a JSON object. Similar to xpath of yore, JsonPath lets you traverse a json object and manipulate or access it.
 gem "jsonpath"

@@ -18,14 +18,18 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 #
 
-class Fragment::DataQuality < MadmpFragment
+class Fragment::DataStorage < MadmpFragment
 
     def research_output
         self.parent
     end
+
+    def technical_resource_usage
+        Fragment::TechnicalResourceUsage.where(parent_id: id).first
+    end
     
     def self.sti_name
-        "data_quality"
+        "data_storage"
     end
 
 end

@@ -23,6 +23,10 @@ class Fragment::DataCollection < MadmpFragment
     def research_output
         self.parent
     end
+
+    def technical_resource_usage
+        Fragment::TechnicalResourceUsage.where(parent_id: id).first
+    end
     
     def self.sti_name
         "data_collection"

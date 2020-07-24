@@ -1,11 +1,15 @@
-<%# locals: { f, field_label, field_name, select_values, selected_value, field_class } %>
+<%# locals: { f, field_label, field_name, select_values, selected_value, field_class, readonly, validation } %>
 <div class="col-md-12">
     <%= f.label field_name, field_label, class: 'control-label' %>
 </div>
-<div class="col-md-12">
+<div class="col-md-12 dynamic-field">
     <%= select_tag field_name,
                 options_for_select(select_values,
                 selected: selected_value),
                 disabled: readonly,
                 class: "form-control #{field_class}" %>
+    <%= render partial: "shared/dynamic_form/validation_indicator", locals: {
+                    validation: validation
+        } unless validation == "none"
+    %>
 </div>

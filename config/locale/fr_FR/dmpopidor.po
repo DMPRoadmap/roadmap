@@ -460,3 +460,14 @@ msgstr "Vous êtes sur le point d’archiver %{user_name}. Les informations pers
 
 msgid "Request Date"
 msgstr "Date de la demande"
+
+# maDMP Fragments
+
+msgid "This property is required."
+msgstr "Cette propriété est obligatoire."
+
+msgid "This property has an invalid format."
+msgstr "Le format de cette propriété est invalide."
+
+msgid "This property has an unknown problem : %{validation}"
+msgstr "Cette propriété a un problème inconnu : %{validation}"

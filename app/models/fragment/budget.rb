@@ -18,19 +18,15 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 #
 
-class Fragment::PreservationIssue < MadmpFragment
-
+class Fragment::Budget < MadmpFragment
+    
     def research_output
         self.parent
     end
 
-    def technical_resource_usage
-        Fragment::TechnicalResourceUsage.where(parent_id: id).first
-    end
 
-    
     def self.sti_name
-        "preservation_issue"
+        "cost"
     end
-
+    
 end
