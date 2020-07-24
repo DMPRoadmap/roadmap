@@ -170,7 +170,6 @@ $(() => {
     if (tinymceId) {
       detachEditorHandlers(Tinymce.findEditorById(tinymceId));
       Tinymce.destroyEditorById(tinymceId);
-
     }
   };
   /*
