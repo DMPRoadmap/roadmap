@@ -27,11 +27,13 @@ class MadmpFragmentsController < ApplicationController
           @fragment.assign_attributes(data: data)
   
           authorize @fragment
-          @fragment.answer.update!({
-            lock_version: p_params[:answer][:lock_version],
-            is_common: p_params[:answer][:is_common],
-            user_id: current_user.id
-          })
+          unless p_params[:source] == "modal"
+            @fragment.answer.update!({
+              lock_version: p_params[:answer][:lock_version],
+              is_common: p_params[:answer][:is_common],
+              user_id: current_user.id
+            })
+          end
           @fragment.save!
         rescue ActiveRecord::StaleObjectError
           @stale_fragment = @fragment
@@ -53,15 +55,16 @@ class MadmpFragmentsController < ApplicationController
       })
       @fragment.assign_attributes(data: data)
 
-      @fragment.answer = Answer.create!({
-        research_output_id: p_params[:answer][:research_output_id],
-        plan_id: p_params[:answer][:plan_id],
-        plan_id: p_params[:answer][:plan_id],
-        question_id: p_params[:answer][:question_id],
-        lock_version: p_params[:answer][:lock_version],
-        is_common: p_params[:answer][:is_common],
-        user_id: current_user.id
-      })
+      unless p_params[:source] == "modal"
+        @fragment.answer = Answer.create!({
+          research_output_id: p_params[:answer][:research_output_id],
+          plan_id: p_params[:answer][:plan_id],
+          question_id: p_params[:answer][:question_id],
+          lock_version: p_params[:answer][:lock_version],
+          is_common: p_params[:answer][:is_common],
+          user_id: current_user.id
+        })
+      end
       authorize @fragment
       @fragment.save!
 
@@ -240,7 +243,7 @@ class MadmpFragmentsController < ApplicationController
   end
 
   def permitted_params
-    permit_arr = [:id, :dmp_id, :parent_id, :schema_id, 
+    permit_arr = [:id, :dmp_id, :parent_id, :schema_id, :source,
                   answer: [:id, :plan_id, :research_output_id,
                   :question_id, :lock_version, :is_common]
                 ]
