@@ -458,3 +458,14 @@ msgstr "You are about to archive %{user_name}. This will remove their personal i
 
 msgid "Request Date"
 msgstr "Request Date"
+
+# maDMP Fragments
+
+msgid "This property is required."
+msgstr "This property is required."
+
+msgid "This property has an invalid format."
+msgstr "This property has an invalid format."
+
+msgid "This property has an unknown problem : %{validation}"
+msgstr "This property has an unknown problem : %{validation}"

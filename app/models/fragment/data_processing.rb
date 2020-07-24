@@ -18,19 +18,18 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 #
 
-class Fragment::StaffMember < MadmpFragment
-
-    def agent 
-        Fragment::Person.where(id: data['agent']['dbId'])
-    end
+class Fragment::DataProcessing < MadmpFragment
 
     def research_output
         self.parent
     end
 
+    def technical_resource_usage
+        Fragment::TechnicalResourceUsage.where(parent_id: id).first
+    end
     
     def self.sti_name
-        "staff_member"
+        "data_processing"
     end
 
 end

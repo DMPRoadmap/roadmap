@@ -48,13 +48,6 @@ module Dmpopidor
               # Needed if only answer.question_options is updated
               @answer.touch()
             end
-            if q.question_format.structured
-              @answer.touch()
-              s_params = schema_params(params, json_schema)
-              data = data_reformater(json_schema.schema, s_params)
-              parent_id = ResearchOutput.find(p_params[:research_output_id]).json_fragment().id
-              MadmpFragment.save_madmp_fragment(@answer, data, json_schema, parent_id)
-            end
             if q.question_format.rda_metadata?
               @answer.update_answer_hash(
                 JSON.parse(params[:standards]), p_params[:text]
@@ -73,12 +66,6 @@ module Dmpopidor
             end
             @answer.save!
             
-            if q.question_format.structured
-              s_params = schema_params(params, json_schema)
-              data = data_reformater(json_schema.schema, s_params)
-              parent_id = ResearchOutput.find(p_params[:research_output_id]).json_fragment().id
-              MadmpFragment.save_madmp_fragment(@answer, data, json_schema, parent_id)
-            end
             rescue ActiveRecord::StaleObjectError
               @stale_answer = @answer
               @answer = Answer.find_by(
