@@ -186,13 +186,11 @@ module Paginable
     @args.except(*PAGINATION_QUERY_PARAMS).to_param
   end
 
-  # TODO: We would be better served here passing these arguments as a Ruby double splat
-  # rubocop:disable Lint/UnusedMethodArgument
   def stringify_query_params(page: 1, search: @args[:search],
                              sort_field: @args[:sort_field],
                              sort_direction: nil)
 
-    query_string = {}
+    query_string = { page: page }
     query_string["search"] = search if search.present?
     if sort_field.present?
       query_string["sort_field"] = sort_field
@@ -200,7 +198,6 @@ module Paginable
     end
     query_string.to_param
   end
-  # rubocop:enable Lint/UnusedMethodArgument
 
   def paginable_params
     params.permit(PAGINATION_QUERY_PARAMS)
