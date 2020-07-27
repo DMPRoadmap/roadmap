@@ -2824,6 +2824,9 @@ msgstr ""
 msgid "Example answer"
 msgstr "Example answer"
 
+msgid "Example"
+msgstr "Example"
+
 msgid "expand all"
 msgstr ""
 
