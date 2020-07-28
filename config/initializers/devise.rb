@@ -4,7 +4,7 @@
 # Many of these configuration options can be set straight in your model.
 # rubocop:disable Metrics/BlockLength
 Devise.setup do |config|
-  config.secret_key = ENV["DEVISE_SECRET_KEY"]
+  config.secret_key = Rails.application.credentials.secret_key
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -92,7 +92,12 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  config.pepper = "EXAMPLE OF PEPPER TO GENERATE THE ENCRYPTED PASSWORD"
+  # the pepper is now set in credentials.yml.enc which can be edited by setting up
+  # the key in your environment with
+  # export RAILS_MASTER_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  # and then editing the credentials file with
+  # EDITOR=your_fave_editor rails credentials:edit
+  config.pepper = Rail.application.credentials.devise_pepper
 
   # ==> Configuration for :invitable
   # The period the generated invitation token is valid, after
@@ -254,7 +259,8 @@ Devise.setup do |config|
 
   # Any entries here MUST match a corresponding entry in the identifier_schemes table as
   # well as an identifier_schemes.schemes section in each locale file!
-  OmniAuth.config.full_host = "https://my_service.hostname"
+  OmniAuth.config.full_host = 'https://my_service.hostname'
+  OmniAuth.config.allowed_request_methods = [:post]
 
   config.omniauth :orcid,
                   "client_id", "client_secret",
