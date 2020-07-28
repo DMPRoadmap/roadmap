@@ -62,7 +62,7 @@
                 "nor", "nya", "oci", "oji", "ori", "orm", "oss", "pan", "pli", "pol", "por", "pus", "que", "roh", "ron", "run", "rus", "sag", "san", "sin",
                 "slk", "slv", "sme", "smo", "sna", "snd", "som", "sot", "spa", "sqi", "srd", "srp", "ssw", "sun", "swa", "swe", "tah", "tam", "tat", "tel",
                 "tgk", "tgl", "tha", "tir", "ton", "tsn", "tso", "tuk", "tur", "twi", "uig", "ukr", "urd", "uzb", "ven", "vie", "vol", "wln", "wol", "xho",
-                "yid", "yor", "zha", "zho", "zul"],
+                "yid", "yor", "zha", "zho", "zul"]
         },
         "contact": {
             "label": "Contact",
