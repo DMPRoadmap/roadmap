@@ -1,29 +1,26 @@
 #!/bin/bash
+set -u
 
-bundle exec rake db:drop
-bundle exec rake db:create
-bundle exec rake db:schema:load
-bundle exec rake db:migrate
-bundle exec rake db:seed
+#Timezone
+export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true
+export PASSENGER_DOWNLOAD_NATIVE_SUPPORT_BINARY=0
+ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
+dpkg-reconfigure --frontend noninteractive tzdata
+mkdir -p /dmponline/db/.dbinit
+# Vérification de l'initialisation de la base
+if [ ! -f /dmponline/db/.dbinit/.temoin ] ; then
+  # if bundle exec rake db:setup --trace RAILS_ENV=$RAILS_ENV ; then
+  if bundle exec rake db:create && rake db:schema:load && rake db:migrate ; then
+    touch /dmponline/db/.dbinit/.temoin
+  fi
+fi
+
+# Additionnal DB actions
+# bundle exec rake db:seed
 bundle exec rake load_schemas
+
+# Start the app
 bundle exec rails s -e development -p 3000 -b 0.0.0.0
-
-# #!/bin/bash
-# set -u
-
-
-# #Timezone
-# export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true
-# export PASSENGER_DOWNLOAD_NATIVE_SUPPORT_BINARY=0
-# ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
-# dpkg-reconfigure --frontend noninteractive tzdata
-# # Vérification de l'initialisation de la base
-# if [ ! -f /dmponline/db/.dbinit/.temoin ] ; then
-#   # if bundle exec rake db:setup --trace RAILS_ENV=$RAILS_ENV ; then
-#   if bundle exec rake db:create && rake db:schema:load && rake db:migrate ; then
-#     touch /dmponline/db/.dbinit/.temoin
-#   fi
-# fi
 
 # # Création des certifs SSL si le serveur est de prod
 # if [ $RAILS_ENV == "production" ] ; then
