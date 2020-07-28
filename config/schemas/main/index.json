@@ -148,5 +148,10 @@
     "path": "OneYearStatus.json",
     "classname": "one_year_status",
     "question_id": null
+  },
+  {
+    "path": "ResearchOutput-schema.json",
+    "classname": "research_output",
+    "question_id": null
   }
 ]
