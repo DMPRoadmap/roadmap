@@ -97,7 +97,7 @@ Devise.setup do |config|
   # export RAILS_MASTER_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   # and then editing the credentials file with
   # EDITOR=your_fave_editor rails credentials:edit
-  config.pepper = Rail.application.credentials.devise_pepper
+  config.pepper = Rails.application.credentials.devise_pepper
 
   # ==> Configuration for :invitable
   # The period the generated invitation token is valid, after
