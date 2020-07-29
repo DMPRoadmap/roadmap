@@ -257,7 +257,7 @@ module OrgAdmin
     # This sorts that out.
     def update_option_ids(attrs_in, opt_map)
       qopts = attrs_in["question_options_attributes"]
-      qopts.keys.each do |k|
+      qopts.each_key do |k|
         attr_hash = qopts[k]
         old_id = attr_hash["id"]
         new_id = opt_map[old_id]

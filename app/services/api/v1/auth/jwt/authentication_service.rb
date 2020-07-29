@@ -26,6 +26,7 @@ module Api
 
           attr_reader :errors
           attr_reader :expiration
+
           def initialize(json: {})
             json = json.nil? ? {} : json.with_indifferent_access
             type = json.fetch(:grant_type, "client_credentials")
