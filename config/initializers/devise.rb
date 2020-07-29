@@ -259,7 +259,7 @@ Devise.setup do |config|
 
   # Any entries here MUST match a corresponding entry in the identifier_schemes table as
   # well as an identifier_schemes.schemes section in each locale file!
-  OmniAuth.config.full_host = 'https://my_service.hostname'
+  OmniAuth.config.full_host = "https://my_service.hostname"
   OmniAuth.config.allowed_request_methods = [:post]
 
   config.omniauth :orcid,
