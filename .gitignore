@@ -52,8 +52,6 @@ config/secrets.yml
 config/branding.yml
 
 # Ignore some of the initializers
-config/initializers/recaptcha.rb
-config/initializers/devise.rb
 config/initializers/wicked_pdf.rb
 config/initializers/fingerprint.rb
 

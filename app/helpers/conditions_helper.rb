@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+DISPLAY_LENGTH = 50
+
 # rubocop:disable Metrics/ModuleLength
 module ConditionsHelper
 
@@ -165,7 +167,7 @@ module ConditionsHelper
   def question_title(question)
     raw "Qn. " + question.number.to_s + ": " +
         truncate(strip_tags(question.text),
-                 length: 50,
+                 length: DISPLAY_LENGTH,
                  separator: " ",
                  escape: false)
   end
@@ -173,7 +175,7 @@ module ConditionsHelper
   def section_title(section)
     raw "Sec. " + section.number.to_s + ": " +
         truncate(strip_tags(section.title),
-                 length: 50,
+                 length: DISPLAY_LENGTH,
                  separator: " ",
                  escape: false)
   end
@@ -205,17 +207,15 @@ module ConditionsHelper
   # rubocop:enable Metrics/AbcSize
 
   def text_formatted(object)
-    length = 50
     if object.is_a?(Integer) # when remove question id
       text = Question.find(object).text
     elsif object.is_a?(String) # when email subject
       text = object
-      length = 30
     else
       pp "type error"
     end
     cleaned_text = text
-    text = ActionController::Base.helpers.truncate(cleaned_text, length: length,
+    text = ActionController::Base.helpers.truncate(cleaned_text, length: DISPLAY_LENGTH,
                                                                  separator: " ", escape: false)
     _('"') + text + _('"')
   end
