@@ -155,6 +155,8 @@ module DMPRoadmap
     # Determines the maximum number of themes to display per column when an org admin
     # updates a template question or guidance
     config.x.max_number_themes_per_column = 5
+    # default results per page
+    config.x.results_per_page = 10
 
     # ------------- #
     # PLAN DEFAULTS #
@@ -189,7 +191,8 @@ module DMPRoadmap
     # ---------------- #
     # Google Analytics #
     # ---------------- #
-    config.x.tracker_root = "[need to pull this from the credentials.yml]"
+    # this is the abbreviation for the installation's root org as set in the org table
+    config.x.tracker_root = ""
 
     # ------------------------------------------------------------------------ #
     # reCAPTCHA - recaptcha appears on the create account and contact us forms #
