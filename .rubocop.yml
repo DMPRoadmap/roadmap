@@ -67,6 +67,18 @@ Lint/AmbiguousBlockAssociation:
   Exclude:
     - 'spec/**/*'
 
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
 # Bumping the default AbcSize so we don't need to refactor everything
 Metrics/AbcSize:
   Max: 25
@@ -138,3 +150,24 @@ Style/FormatStringToken:
 Style/StringLiterals:
   Enabled: true
   EnforcedStyle: double_quotes
+
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+
+Style/RedundantRegexpEscape:
+  Enabled: true
+
+Style/SlicingWithRange:
+  Enabled: true
