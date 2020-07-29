@@ -48,7 +48,7 @@ class OrgAdmin::PlansController < ApplicationController
 
     org = current_user.org
     file_name = org.name.gsub(/ /, "_")
-                   .gsub(/[\.;,]/, "")
+                   .gsub(/[.;,]/, "")
     header_cols = [
       _("Project title").to_s,
       _("Template").to_s,

@@ -39,7 +39,7 @@ RSpec.feature "Templates::Editing", type: :feature do
     click_link template.sections.first.title
     within("#edit_question_#{template.question_ids.first}") do
       # rubocop:disable Lint/UselessAssignment, Style/PerlBackrefs
-      textarea_id = page.body.match(/question\_annotations\_attributes\_annotation\_(\d+)\_text/)
+      textarea_id = page.body.match(/question_annotations_attributes_annotation_(\d+)_text/)
       tinymce_fill_in(:"question_annotations_attributes_annotation_#{$1}_text", with: "Foo bar")
       # rubocop:enable Lint/UselessAssignment, Style/PerlBackrefs
       click_button "Save"

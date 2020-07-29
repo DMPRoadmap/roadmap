@@ -7,7 +7,7 @@ module Paginable
 
   ##
   # Regex to validate sort_field param is safe
-  SORT_COLUMN_FORMAT = /[\w\_]+\.[\w\_]/.freeze
+  SORT_COLUMN_FORMAT = /[\w_]+\.[\w_]/.freeze
 
   PAGINATION_QUERY_PARAMS = %i[page sort_field sort_direction
                                search controller action].freeze

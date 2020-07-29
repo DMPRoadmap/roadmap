@@ -271,7 +271,7 @@ module OrgAdmin
     # get attached to the new question
     def transfer_associations(attrs, question)
       if attrs[:annotations_attributes].present?
-        attrs[:annotations_attributes].keys.each do |key|
+        attrs[:annotations_attributes].each_key do |key|
           old_annotation = question.annotations.select do |a|
             a.org_id.to_s == attrs[:annotations_attributes][key][:org_id] &&
               a.type.to_s == attrs[:annotations_attributes][key][:type]

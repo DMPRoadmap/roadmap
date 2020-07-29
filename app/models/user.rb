@@ -352,8 +352,8 @@ class User < ApplicationRecord
       existing = pref.settings[key.to_s].deep_symbolize_keys
 
       # Check for new preferences
-      defaults.keys.each do |grp|
-        defaults[grp].keys.each do |pref, _v|
+      defaults.each_key do |grp|
+        defaults[grp].each_key do |pref|
           # If the group isn't present in the saved values add all of it's preferences
           existing[grp] = defaults[grp] if existing[grp].nil?
           # If the preference isn't present in the saved values add the default
