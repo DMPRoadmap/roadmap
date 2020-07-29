@@ -20,7 +20,7 @@ module Cleanup
 
       # Message printed to STDOUT when a deprecated method is called.
       def deprecation_warning(deprecated_method, _message, _backtrace = nil)
-        new_method = deprecated_method.to_s.gsub(/^get\_/, "")
+        new_method = deprecated_method.to_s.gsub(/^get_/, "")
         message = MESSAGE % { deprecated_method: deprecated_method,
                               new_method: new_method }
         Kernel.warn(message)

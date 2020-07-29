@@ -61,6 +61,12 @@ Layout/LineLength:
   # default.
   Max: 100
 
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
 # Enforce this in the main code but ignore it in specs since the Rspec core methods
 # are defined as potentially ambiguous blocks
 Lint/AmbiguousBlockAssociation:
