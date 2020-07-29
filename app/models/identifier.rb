@@ -104,7 +104,7 @@ class Identifier < ApplicationRecord
                         identifier_scheme.identifier_prefix.present?
 
     base = identifier_scheme.identifier_prefix
-    value.gsub(base, "").sub(%r{^\/}, "")
+    value.gsub(base, "").sub(%r{^/}, "")
   end
 
   private
