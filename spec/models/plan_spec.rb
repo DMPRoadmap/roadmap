@@ -1518,6 +1518,28 @@ describe Plan do
     end
   end
 
+  describe "#doi" do
+    before(:each) do
+      @plan = create(:plan, :creator)
+      IdentifierScheme.for_identification.destroy_all
+    end
+
+    it "returns nil if there are no IdentifierScheme :for_identification" do
+      expect(@plan.doi).to eql(nil)
+    end
+    it "returns nil if the Plan has no DOI" do
+      IdentifierScheme.create(for_identification: true, name: "foo", active: true)
+      expect(@plan.doi).to eql(nil)
+    end
+    it "returns the correct identifier" do
+      scheme = IdentifierScheme.create(for_identification: true, name: "foo",
+                                       active: true)
+      id = create(:identifier, identifier_scheme: scheme, identifiable: @plan)
+      @plan.reload
+      expect(@plan.doi).to eql(id)
+    end
+  end
+
   describe "#grant association sanity checks" do
     let!(:plan) { create(:plan, :creator) }
 
