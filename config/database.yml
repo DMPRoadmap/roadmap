@@ -17,6 +17,10 @@ test:
   <<: *defaults
   database: 'test_db'
 
+# staging:
+#   <<: *defaults
+#   encoding: utf8mb4
+
 production:
   <<: *defaults
   encoding: utf8mb4
