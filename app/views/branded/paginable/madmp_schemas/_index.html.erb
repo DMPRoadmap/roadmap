@@ -2,7 +2,7 @@
   <table class="table table-hover" id="guidance-groups">
     <thead>
       <tr>
-        <th scope="col"><%= _('Label') %>&nbsp;<%= paginable_sort_link('madmp_schemas.label') %></th>
+        <th scope="col"><%= _('ID') %></th>
         <th scope="col"><%= _('Name') %>&nbsp;<%= paginable_sort_link('madmp_schemas.name') %></th>
         <th scope="col"><%= _('Classname') %></th>
         <th scope="col"><%= _('Version') %></th>
@@ -12,7 +12,7 @@
     <tbody>
       <% scope.each do |schema| %>
         <tr>
-          <td><%= schema.label %></td>
+          <td><%= schema.id %></td>
           <td><%= schema.name %></td>
           <td><%= schema.classname %></td>
           <td><%= schema.version %></td>
