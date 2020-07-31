@@ -69,6 +69,7 @@ import '../src/orgAdmin/templates/index';
 import '../src/orgAdmin/templates/new';
 
 // SuperAdmin view specific JS
+import '../src/superAdmin/apiClients/form';
 import '../src/superAdmin/notifications/edit';
 import '../src/superAdmin/themes/newEdit';
 import '../src/superAdmin/users/edit';

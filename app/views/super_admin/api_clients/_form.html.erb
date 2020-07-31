@@ -1,6 +1,7 @@
 <%
 url = @api_client.new_record? ? super_admin_api_clients_path : super_admin_api_client_path(@api_client)
 meth = @api_client.new_record? ? :post : :put
+orgs = Org.where(is_other: false)
 %>
 
 <%= form_for @api_client, url: url, method: meth,
@@ -29,6 +30,12 @@ meth = @api_client.new_record? ? :post : :put
     <div class="form-group col-xs-4">
       <%= f.label :contact_email, _('Contact Email'), class: 'control-label' %>
       <%= f.email_field :contact_email, class: 'form-control', aria: { required: true } %>
+    </div>
+  </div>
+  <div class="row">
+    <div id="api-client-org-controls" class="form-group col-xs-8">
+      <%= render partial: "shared/org_selectors/local_only",
+                 locals: { form: f, default_org: @api_client.org, orgs: orgs, required: false } %>
     </div>
   </div>
 
