@@ -35,8 +35,8 @@
             "minItems": 1,
             "items": {
                 "type": "object",
-                "classname": "technical_resource_usage",
-                "description": "Internal identifier pointing to a technicalResourceUsage JSON document",
+                "classname": "distribution",
+                "description": "Distributions as defined in Dcat vocabulary: a dataset might be available in multiple serializations",
                 "properties": {
                     "dbid": {
                         "type": "number"
