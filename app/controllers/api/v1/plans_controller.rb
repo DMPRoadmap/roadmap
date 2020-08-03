@@ -141,7 +141,7 @@ module Api
         return user if user.present?
 
         # If the user was not found, invite them and attach any know identifiers
-        names = contributor.name.split
+        names = contributor.name&.split || [""]
         firstname = names.length > 1 ? names.first : nil
         surname = names.length > 1 ? names.last : names.first
         user = User.invite!({ email: contributor.email,
