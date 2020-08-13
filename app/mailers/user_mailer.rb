@@ -13,14 +13,16 @@ class UserMailer < ActionMailer::Base
   def welcome_notification(user)
     @user           = user
     @username       = @user.name
-    @email_subject  = _('Query or feedback related to %{tool_name}') %{ tool_name: tool_name }
-    # Override the default Rails route helper for the contact_us page IF an alternate contact_us url was defined in the dmproadmap.rb initializer file
+    @email_subject  = _("Query or feedback related to %{tool_name}") % { tool_name: tool_name }
+    #Override the default Rails route helper for the contact_us page IF an alternate contact_us
+    #url was defined in the dmproadmap.rb initializer file
     @contact_us     = Rails.application.config.x.organisation.contact_us_url || contact_us_url
 
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @user.email,
            subject: _("Welcome to %{tool_name}") % {
-             tool_name: tool_name})
+             tool_name: tool_name }
+           )
     end
   end
 
@@ -55,7 +57,7 @@ class UserMailer < ActionMailer::Base
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @role.user.email,
         subject: _("A Data Management Plan in %{tool_name} has been shared "\
-                     "with you") % {tool_name: tool_name})
+                     "with you") % {tool_name: tool_name })
     end
   end
 
@@ -72,7 +74,7 @@ class UserMailer < ActionMailer::Base
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @role.user.email,
            subject: _("Changed permissions on a Data Management Plan in %{tool_name}") % {
-             tool_name: tool_name})
+             tool_name: tool_name })
     end
   end
 
