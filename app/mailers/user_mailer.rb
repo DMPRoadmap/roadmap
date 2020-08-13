@@ -73,7 +73,7 @@ class UserMailer < ActionMailer::Base
       mail(to: @role.user.email,
            subject: _("Changed permissions on a Data Management Plan in %{tool_name}") % {
              tool_name: tool_name
-             })
+            })
     end
   end
 
@@ -88,7 +88,7 @@ class UserMailer < ActionMailer::Base
       mail(to: @user.email,
            subject: _("Permissions removed on a DMP in %{tool_name}") % {
              tool_name: tool_name
-             })
+            })
     end
   end
 
@@ -106,7 +106,7 @@ class UserMailer < ActionMailer::Base
       mail(to: @recipient.email,
            subject: _("%{tool_name}: %{user_name} requested feedback on a plan") % {
              tool_name: tool_name, user_name: @user.name(false)
-             })
+            })
     end
   end
 
@@ -128,7 +128,7 @@ class UserMailer < ActionMailer::Base
         from: sender,
         subject: _("%{tool_name}: Expert feedback has been provided for %{plan_title}") % {
           tool_name: tool_name, plan_title: @plan.title
-          })
+        })
     end
   end
 
@@ -163,7 +163,7 @@ class UserMailer < ActionMailer::Base
       mail(to: @user.email,
            subject: _("DMP Visibility Changed: %{plan_title}") % {
              plan_title: @plan.title
-             })
+            })
     end
   end
 
@@ -207,7 +207,7 @@ class UserMailer < ActionMailer::Base
       mail(to: user.email,
         subject: _("Administrator privileges granted in %{tool_name}") % {
           tool_name: tool_name
-          })
+        })
     end
   end
 
@@ -223,7 +223,7 @@ class UserMailer < ActionMailer::Base
       mail(to: @api_client.contact_email,
            subject: _("%{tool_name} API changes") % {
              tool_name: tool_name
-             })
+            })
     end
   end
 
