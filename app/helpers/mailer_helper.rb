@@ -15,6 +15,7 @@ module MailerHelper
   # Returns an unordered HTML list with the permissions associated to the user passed
   def privileges_list(user)
     return "" unless user.respond_to?(:perms) && user.perms.respond_to?(:each)
+
     names = name_and_text
     r = "<ul>"
     user.perms.each do |p|
