@@ -20,7 +20,8 @@ class UserMailer < ActionMailer::Base
 
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @user.email,
-           subject: _("Welcome to %{tool_name}") % {
+           subject: _("Welcome to %{tool_name}") %
+           {
              tool_name: tool_name
            })
     end
@@ -54,9 +55,10 @@ class UserMailer < ActionMailer::Base
 
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @role.user.email,
-           subject: _("A Data Management Plan in %{tool_name} has been shared with you") % {
+           subject: _("A Data Management Plan in %{tool_name} has been shared with you") %
+           {
              tool_name: tool_name
-             })
+           })
     end
   end
 
@@ -71,10 +73,10 @@ class UserMailer < ActionMailer::Base
 
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @role.user.email,
-           subject: _("Changed permissions on a Data Management Plan in %{tool_name}") % {
+           subject: _("Changed permissions on a Data Management Plan in %{tool_name}") %
+           {
              tool_name: tool_name
-             }
-           )
+           })
     end
   end
 
@@ -87,10 +89,10 @@ class UserMailer < ActionMailer::Base
 
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @user.email,
-           subject: _("Permissions removed on a DMP in %{tool_name}") % {
+           subject: _("Permissions removed on a DMP in %{tool_name}") %
+           {
              tool_name: tool_name
-             }
-           )
+           })
     end
   end
 
@@ -106,10 +108,10 @@ class UserMailer < ActionMailer::Base
 
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @recipient.email,
-           subject: _("%{tool_name}: %{user_name} requested feedback on a plan") % {
+           subject: _("%{tool_name}: %{user_name} requested feedback on a plan") %
+           {
              tool_name: tool_name, user_name: @user.name(false)
-             }
-           )
+           })
     end
   end
 
@@ -129,10 +131,10 @@ class UserMailer < ActionMailer::Base
 
       mail(to: recipient.email,
            from: sender,
-           subject: _("%{tool_name}: Expert feedback has been provided for %{plan_title}") % {
+           subject: _("%{tool_name}: Expert feedback has been provided for %{plan_title}") %
+           {
              tool_name: tool_name, plan_title: @plan.title
-             }
-           )
+           })
     end
   end
 
@@ -164,10 +166,10 @@ class UserMailer < ActionMailer::Base
 
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @user.email,
-           subject: _("DMP Visibility Changed: %{plan_title}") % {
+           subject: _("DMP Visibility Changed: %{plan_title}") %
+           {
              plan_title: @plan.title
-             }
-           )
+           })
     end
   end
 
@@ -193,11 +195,11 @@ class UserMailer < ActionMailer::Base
 
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @plan.owner.email,
-           subject: _("%{tool_name}: A new comment was added to %{plan_title}") % {
+           subject: _("%{tool_name}: A new comment was added to %{plan_title}") %
+           {
              tool_name: tool_name,
              plan_title: @plan.title
-             }
-           )
+           })
     end
   end
 
@@ -210,10 +212,10 @@ class UserMailer < ActionMailer::Base
 
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: user.email,
-           subject: _("Administrator privileges granted in %{tool_name}") % {
+           subject: _("Administrator privileges granted in %{tool_name}") %
+           {
              tool_name: tool_name
-             }
-           )
+           })
     end
   end
 
@@ -227,10 +229,10 @@ class UserMailer < ActionMailer::Base
 
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @api_client.contact_email,
-           subject: _("%{tool_name} API changes") % {
+           subject: _("%{tool_name} API changes") %
+           {
              tool_name: tool_name
-             }
-           )
+           })
     end
   end
 
