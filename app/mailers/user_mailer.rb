@@ -26,7 +26,6 @@ class UserMailer < ActionMailer::Base
     end
   end
 
-
   def question_answered(data, user, answer, _options_string)
     @user           = user
     @username       = @user.name
@@ -45,7 +44,6 @@ class UserMailer < ActionMailer::Base
     end
   end
 
-
   def sharing_notification(role, user, inviter:)
     @role       = role
     @user       = user
@@ -56,13 +54,11 @@ class UserMailer < ActionMailer::Base
 
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @role.user.email,
-        subject: _("A Data Management Plan in %{tool_name} has been shared "\
-                     "with you") % {
-                       tool_name: tool_name
-                       })
+        subject: _("A Data Management Plan in %{tool_name} has been shared with you") % {
+          tool_name: tool_name
+          })
     end
   end
-
 
   def permissions_change_notification(role, user)
     return unless user.active?
@@ -81,7 +77,6 @@ class UserMailer < ActionMailer::Base
     end
   end
 
-
   def plan_access_removed(user, plan, current_user)
     return unless user.active?
 
@@ -96,7 +91,6 @@ class UserMailer < ActionMailer::Base
              })
     end
   end
-
 
   def feedback_notification(recipient, plan, requestor)
     return unless recipient.active?
@@ -116,7 +110,6 @@ class UserMailer < ActionMailer::Base
     end
   end
 
-
   def feedback_complete(recipient, plan, requestor)
     return unless recipient.active?
 
@@ -135,10 +128,9 @@ class UserMailer < ActionMailer::Base
         from: sender,
         subject: _("%{tool_name}: Expert feedback has been provided for %{plan_title}") % {
           tool_name: tool_name, plan_title: @plan.title
-        })
+          })
     end
   end
-
 
   def feedback_confirmation(recipient, plan, requestor)
     return unless user.org.present? && recipient.active?
@@ -157,8 +149,6 @@ class UserMailer < ActionMailer::Base
            subject: feedback_constant_to_text(subject, user, plan, org))
     end
   end
-
-
 
   def plan_visibility(user, plan)
     return unless user.active?
@@ -206,7 +196,6 @@ class UserMailer < ActionMailer::Base
     end
   end
 
-
   def admin_privileges(user)
     return unless user.active?
 
@@ -221,7 +210,6 @@ class UserMailer < ActionMailer::Base
           })
     end
   end
-
 
   def api_credentials(api_client)
     return unless @api_client.contact_email.present?
