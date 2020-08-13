@@ -56,7 +56,7 @@ class UserMailer < ActionMailer::Base
       mail(to: @role.user.email,
         subject: _("A Data Management Plan in %{tool_name} has been shared with you") % {
           tool_name: tool_name
-          })
+        })
     end
   end
 
@@ -73,7 +73,7 @@ class UserMailer < ActionMailer::Base
       mail(to: @role.user.email,
            subject: _("Changed permissions on a Data Management Plan in %{tool_name}") % {
              tool_name: tool_name
-            })
+          })
     end
   end
 
@@ -88,7 +88,7 @@ class UserMailer < ActionMailer::Base
       mail(to: @user.email,
            subject: _("Permissions removed on a DMP in %{tool_name}") % {
              tool_name: tool_name
-            })
+          })
     end
   end
 
@@ -106,7 +106,7 @@ class UserMailer < ActionMailer::Base
       mail(to: @recipient.email,
            subject: _("%{tool_name}: %{user_name} requested feedback on a plan") % {
              tool_name: tool_name, user_name: @user.name(false)
-            })
+          })
     end
   end
 
@@ -125,10 +125,10 @@ class UserMailer < ActionMailer::Base
                Rails.configuration.x.organisation.email
 
       mail(to: recipient.email,
-        from: sender,
-        subject: _("%{tool_name}: Expert feedback has been provided for %{plan_title}") % {
-          tool_name: tool_name, plan_title: @plan.title
-        })
+           from: sender,
+           subject: _("%{tool_name}: Expert feedback has been provided for %{plan_title}") % {
+             tool_name: tool_name, plan_title: @plan.title
+          })
     end
   end
 
@@ -141,7 +141,6 @@ class UserMailer < ActionMailer::Base
     # Use the generic feedback confirmation message unless the Org has specified one
     subject = org.feedback_email_subject || feedback_confirmation_default_subject
     message = org.feedback_email_msg || feedback_confirmation_default_message
-
     @body   = feedback_constant_to_text(message, user, plan, org)
 
     FastGettext.with_locale FastGettext.default_locale do
@@ -163,7 +162,7 @@ class UserMailer < ActionMailer::Base
       mail(to: @user.email,
            subject: _("DMP Visibility Changed: %{plan_title}") % {
              plan_title: @plan.title
-            })
+          })
     end
   end
 
@@ -186,7 +185,7 @@ class UserMailer < ActionMailer::Base
     @question_number = @question.number
     @section_title   = @question.section.title
     @phase_id        = @question.section.phase.id
-    @phase_link      = url_for(action: 'edit', controller: 'plans', id: @plan.id, phase_id: @phase_id)
+    @phase_link = url_for(action: "edit", controller: "plans", id: @plan.id, phase_id: @phase_id)
 
     FastGettext.with_locale FastGettext.default_locale do
       mail(to: @plan.owner.email,
@@ -223,7 +222,7 @@ class UserMailer < ActionMailer::Base
       mail(to: @api_client.contact_email,
            subject: _("%{tool_name} API changes") % {
              tool_name: tool_name
-            })
+          })
     end
   end
 
