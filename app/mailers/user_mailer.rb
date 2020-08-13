@@ -173,8 +173,10 @@ class UserMailer < ActionMailer::Base
     end
   end
 
-  # commenter - User who wrote the comment. plan - Plan for which the comment is associated to
+  # commenter - User who wrote the comment.
+  # plan - Plan for which the comment is associated to
   # answer - Answer commented on
+  # rubocop:disable Metrics/AbcSize
   def new_comment(commenter, plan, answer)
     return unless commenter.is_a?(User) && plan.is_a?(Plan)
 
@@ -202,6 +204,7 @@ class UserMailer < ActionMailer::Base
            })
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def admin_privileges(user)
     return unless user.active?
