@@ -4,6 +4,7 @@
 module Paginable
 
   extend ActiveSupport::Concern
+  require "sort_direction"
 
   ##
   # Regex to validate sort_field param is safe
