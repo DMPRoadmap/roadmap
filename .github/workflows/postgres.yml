@@ -57,7 +57,7 @@ jobs:
         cp config/database.yml.sample config/database.yml
         cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
         cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
-        cp config/initializers/credentials.yml.enc.workflow config/initializers/credentials.yml.enc
+        cp  config/credentials.yml.enc.workflow config/credentials.yml.enc
 
     # Try to retrieve the gems from the cache
     - name: 'Cache Gems'
