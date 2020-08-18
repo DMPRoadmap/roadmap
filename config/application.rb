@@ -118,7 +118,7 @@ module DMPRoadmap
     config.active_record.raise_in_transactional_callbacks = true
 
     # Load Branded terminology (e.g. organization name, application name, etc.)
-    if File.exists?(Rails.root.join('config', 'branding.yml'))
+    if File.exists?(Rails.root.join('config/branding.yml'))
       config.branding = config_for(:branding).deep_symbolize_keys
     end
 
