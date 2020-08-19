@@ -10,6 +10,7 @@ jobs:
       DB_ADAPTER: mysql2
       MYSQL_PWD: root
       RAILS_ENV: test
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
 
     steps:
     # Checkout the repo
@@ -38,9 +39,8 @@ jobs:
         # Make copies of all the example config files
         cp config/database.yml.sample config/database.yml
         cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
-        cp config/initializers/devise.rb.example config/initializers/devise.rb
-        cp config/initializers/recaptcha.rb.example config/initializers/recaptcha.rb
         cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
+        cp config/credentials.yml.enc.workflow config/credentials.yml.enc
 
     # Try to retrieve the gems from the cache
     - name: 'Cache Gems'
