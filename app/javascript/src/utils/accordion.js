@@ -30,30 +30,30 @@
  *      </div>
  *    </div>
  */
-export default () => {
-  $('.accordion-controls').on('click', (e) => {
+$(() => {
+  $('body').on('click', '.accordion-controls', (e) => {
     e.preventDefault();
     const currentTarget = $(e.currentTarget);
     const target = $(e.target);
     const direction = target.attr('data-toggle-direction');
     if (direction) {
-      // Selects all .panel elements where the parent is currentTarget.attr('data-parent') and
-      // after gets the immediately children whose class selector is panel-collapse
-      $(`#${currentTarget.attr('data-parent')} > .panel`).children('.panel-collapse').each((i, el) => {
-        const panelCollapse = $(el);
-        // Expands or collapses the panel according to the
-        // direction passed (e.g. show --> expands, hide --> collapses)
-        if (direction === 'show') {
-          if (!panelCollapse.hasClass('in')) {
-            panelCollapse.prev().trigger('click');
-          }
-        } else {
-          panelCollapse.collapse(direction);
-        }
-        // Sets icon at panel-title accordingly
-        panelCollapse.prev().find('i.fa')
-          .removeClass('fa-plus fa-minus').addClass(direction === 'show' ? 'fa-minus' : 'fa-plus');
-      });
+        // Selects all .panel elements where the parent is currentTarget.attr('data-parent') and
+        // after gets the immediately children whose class selector is panel-collapse
+        $(`#${currentTarget.attr('data-parent')} > .panel`).children('.panel-collapse').each((i, el) => {
+            const panelCollapse = $(el);
+            // Expands or collapses the panel according to the
+            // direction passed (e.g. show --> expands, hide --> collapses)
+            if (direction === 'show') {
+                if (!panelCollapse.hasClass('in')) {
+                    panelCollapse.prev().trigger('click');
+                }
+            } else {
+                panelCollapse.collapse(direction);
+            }
+            // Sets icon at panel-title accordingly
+            panelCollapse.prev().find('i.fa')
+                .removeClass('fa-plus fa-minus').addClass(direction === 'show' ? 'fa-minus' : 'fa-plus');
+        });
     }
-  });
-};
+    });
+});
