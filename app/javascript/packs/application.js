@@ -27,6 +27,7 @@ import '../src/utils/autoComplete';
 import '../src/utils/externalLink';
 import '../src/utils/outOfFocus';
 import '../src/utils/paginable';
+import '../src/utils/panelHeading';
 import '../src/utils/requiredField';
 import '../src/utils/tabHelper';
 
