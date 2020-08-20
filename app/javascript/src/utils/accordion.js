@@ -30,8 +30,8 @@
  *      </div>
  *    </div>
  */
-export default () => {
-  $('.accordion-controls').on('click', (e) => {
+$(() => {
+  $('body').on('click', '.accordion-controls', (e) => {
     e.preventDefault();
     const currentTarget = $(e.currentTarget);
     const target = $(e.target);
@@ -56,4 +56,4 @@ export default () => {
       });
     }
   });
-};
+});
