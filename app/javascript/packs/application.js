@@ -47,6 +47,7 @@ import '../views/plans/share';
 import '../views/roles/edit';
 import '../views/shared/create_account_form';
 import '../views/shared/sign_in_form';
+import '../views/super_admin/apiClients/form';
 import '../views/super_admin/themes/new_edit';
 import '../views/super_admin/users/edit';
 import '../views/usage/index';

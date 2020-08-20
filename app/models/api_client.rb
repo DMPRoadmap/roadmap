@@ -14,11 +14,15 @@
 #  last_access    :datetime
 #  created_at     :datetime
 #  updated_at     :datetime
+#  org_id         :integer
 #
 # Indexes
 #
 #  index_api_clients_on_name     (name)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (org_id => orgs.id)
 
 class ApiClient < ActiveRecord::Base
 
@@ -30,6 +34,9 @@ class ApiClient < ActiveRecord::Base
   # ================
 
   has_many :plans
+
+  # TODO: Enable `optional: true` when merged into Rails 5 codebase
+  belongs_to :org # , optional: true
 
   # If the Client_id or client_secret are nil generate them
   before_validation :generate_credentials,

@@ -32,6 +32,11 @@ RSpec.describe ApiClient, type: :model do
 
   end
 
+  context "Associations" do
+    it { is_expected.to belong_to :org }
+    it { is_expected.to have_many :plans }
+  end
+
   context "Instance Methods" do
     before(:each) do
       @client = build(:api_client)
