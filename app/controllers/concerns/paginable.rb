@@ -150,8 +150,10 @@ module Paginable
   # html prevented of being escaped
   def sort_link_name(sort_field)
     @args = @args.with_indifferent_access
-    class_name = "fa-sort"
-    class_name = "fa-sort-#{sort_direction.downcase}" if @args[:sort_field] == sort_field
+    class_name = "fas fa-sort"
+    dir = "up"
+    dir = "down" if sort_direction.to_s == "DESC"
+    class_name = "fas fa-sort-#{dir}" if @args[:sort_field] == sort_field
     <<~HTML.html_safe
       <i class="fas #{class_name}"
          aria-hidden="true"
