@@ -56,7 +56,8 @@ class Paginable::PlansController < ApplicationController
       partial: "org_admin",
       scope: plans,
       view_all: !current_user.can_super_admin?,
-      query_params: { sort_field: "plans.updated_at", sort_direction: :desc }
+      query_params: { sort_field: "plans.updated_at", sort_direction: :desc },
+      format: :json
     )
   end
 
