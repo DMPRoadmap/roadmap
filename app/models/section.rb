@@ -31,6 +31,8 @@ class Section < ActiveRecord::Base
   include ActsAsSortable
   include VersionableModel
 
+  # Sort order: Number ASC
+  default_scope { order(number: :asc) }
 
   # ================
   # = Associations =
@@ -102,12 +104,15 @@ class Section < ActiveRecord::Base
 
   # Returns the number of answered questions for a given plan
   def num_answered_questions(plan)
-    return 0 if plan.nil?
+    self.answered_questions(plan).count(&:answered?)
+  end
 
-    answered = plan.answers.select do |answer|
-      answer.answered? && questions.include?(answer.question)
-    end
-    answered.length
+  # Returns an array of answered questions for a given plan
+  def answered_questions(plan)
+    return [] if plan.nil?
+    plan.answers.includes({ question: :question_format }, :question_options)
+                .where(question_id: question_ids)
+                .to_a
   end
 
   def deep_copy(**options)

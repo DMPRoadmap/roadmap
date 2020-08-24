@@ -15,6 +15,7 @@
 #  links                  :text
 #  logo_name              :string
 #  logo_uid               :string
+#  managed                :boolean          default(FALSE), not null
 #  name                   :string
 #  org_type               :integer          default(0), not null
 #  sort_name              :string
@@ -23,11 +24,11 @@
 #  updated_at             :datetime         not null
 #  language_id            :integer
 #  region_id              :integer
+#  managed                :boolean          default(false), not null
 #
 # Foreign Keys
 #
 #  fk_rails_...  (language_id => languages.id)
-#  fk_rails_...  (region_id => regions.id)
 #
 
 class Org < ActiveRecord::Base
@@ -37,6 +38,8 @@ class Org < ActiveRecord::Base
   include FeedbacksHelper
   include GlobalHelpers
   include FlagShihTzu
+  include Identifiable
+
   extend Dragonfly::Model::Validations
   validates_with OrgLinksValidator
 
@@ -61,7 +64,15 @@ class Org < ActiveRecord::Base
 
   belongs_to :region
 
+  has_one :tracker, dependent: :destroy
+  accepts_nested_attributes_for :tracker 
+  validates_associated :tracker
+
   has_many :guidance_groups, dependent: :destroy
+
+  has_many :plans
+
+  has_many :funded_plans, class_name: "Plan", foreign_key: "funder_id"
 
   has_many :templates
 
@@ -72,10 +83,6 @@ class Org < ActiveRecord::Base
   has_and_belongs_to_many :token_permission_types,
                           join_table: "org_token_permissions",
                           unique: true
-
-  has_many :org_identifiers
-
-  has_many :identifier_schemes, through: :org_identifiers
 
   has_many :departments
 
@@ -111,6 +118,9 @@ class Org < ActiveRecord::Base
   validates :feedback_email_msg, presence: { message: PRESENCE_MESSAGE,
                                              if: :feedback_enabled }
 
+  validates :managed, inclusion: { in: BOOLEAN_VALUES,
+                                   message: INCLUSION_MESSAGE }
+
   validates_property :format, of: :logo, in: LOGO_FORMATS,
                      message: _("must be one of the following formats: " +
                                 "jpeg, jpg, png, gif, bmp")
@@ -135,10 +145,17 @@ class Org < ActiveRecord::Base
             6 => :school,
             column: "org_type"
 
-  # Predefined queries for retrieving the managain organisation and funders
-  scope :managing_orgs, -> do
+  # The default Org is the one whose guidance is auto-attached to
+  # plans when a plan is created
+  def self.default_orgs
     where(abbreviation: Branding.fetch(:organisation, :abbreviation))
   end
+
+  # The managed flag is set by a Super Admin. A managed org typically has
+  # at least one Org Admini and can have associated Guidance and Templates
+  scope :managed, -> { where(managed: true) }
+  # An un-managed Org is one created on the fly by the system
+  scope :unmanaged, -> { where(managed: false) }
 
   scope :search, -> (term) {
     search_pattern = "%#{term}%"
@@ -168,6 +185,10 @@ class Org < ActiveRecord::Base
   # Update humanized attributes with HUMANIZED_ATTRIBUTES
   def self.human_attribute_name(attr, options = {})
     HUMANIZED_ATTRIBUTES[attr.to_sym] || super
+  end
+
+  def links
+    super() || { "org": [] }
   end
 
   # Determines the locale set for the organisation

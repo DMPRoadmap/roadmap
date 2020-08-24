@@ -19,7 +19,7 @@ module OrgAdmin
       templates = Template.latest_version.where(customization_of: nil)
       published = templates.select { |t| t.published? || t.draft? }.length
 
-      @orgs              = Org.all
+      @orgs              = Org.managed
       @title             = _("All Templates")
       @templates         = templates.includes(:org).page(1)
       @query_params      = { sort_field: "templates.title", sort_direction: "asc" }

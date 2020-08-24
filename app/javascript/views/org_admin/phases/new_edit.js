@@ -7,6 +7,7 @@ import { addAsterisks } from '../../../utils/requiredField';
 
 import onChangeQuestionFormat from '../questions/sharedEventHandlers';
 import initQuestionOption from '../question_options/index';
+import updateConditions from '../conditions/updateConditions';
 
 $(() => {
   // Attach handlers for the expand/collapse all accordions
@@ -134,6 +135,7 @@ $(() => {
       // Display the section's html
       panelBody.html(data);
       initQuestion(id);
+      updateConditions(id);
       if (panelBody.is('.new-question')) {
         target.hide();
       }
