@@ -78,7 +78,7 @@ Rails.application.configure do
   # config.log_tags = [ Rails.root.to_s.split('/').last ]
 
   # Use syslog for logging
-  config.logger = Logger::Syslog.new('dmp_assistant')
+  config.logger = ActiveSupport::TaggedLogging.new(ActiveSupport::Logger.new('dmp_assistant'))
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
