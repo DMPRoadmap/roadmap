@@ -6,7 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def edit
     @user = current_user
-    @prefs = @user.get_preferences(:email)[:prefs]
+    @prefs = @user.get_preferences(:email)
     @languages = Language.sorted_by_abbreviation
     @orgs = Org.order("name")
     @other_organisations = Org.where(is_other: true).pluck(:id)
