@@ -51,7 +51,6 @@ coverage
 
 # Ignore some of the initializers
 config/initializers/recaptcha.rb
-config/initializers/wicked_pdf.rb
 config/initializers/fingerprint.rb
 
 # Ignore enviroments settings
