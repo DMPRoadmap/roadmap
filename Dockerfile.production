@@ -14,7 +14,8 @@ RUN apt-get update -qq && \
   default-mysql-client \
   gettext \
   nodejs \
-  yarn
+  yarn \
+  wkhtmltopdf
 
 ARG INSTALL_PATH=/usr/src/app/
 ENV INSTALL_PATH $INSTALL_PATH
@@ -30,10 +31,10 @@ RUN gem install bundler
 
 # install yarn+node from packages
 
-RUN wget --quiet https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
-    tar vxf wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
-    cp wkhtmltox/bin/wk* /usr/local/bin/ && \
-    rm -rf wkhtmltox
+# RUN wget --quiet https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
+#     tar vxf wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
+#     cp wkhtmltox/bin/wk* /usr/local/bin/ && \
+#     rm -rf wkhtmltox
 
 COPY Gemfile* $INSTALL_PATH
 
