@@ -7,10 +7,6 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
 # Dependancies
 RUN apt-get update -qq && \
   apt-get install --no-install-recommends -y \
-#   build-essential \
-#   git \
-#   libgmp3-dev \
-#   libpq-dev \
   default-mysql-client \
   gettext \
   nodejs \
