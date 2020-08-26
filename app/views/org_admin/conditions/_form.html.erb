@@ -12,7 +12,7 @@
   %>
   <div class="col-md-3">
     <%= select_tag(:question_option, options_from_collection_for_select(question.question_options.sort_by(&:number), "id", "text",
-        condition_exists ? condition[:question_option_id] : question.question_options.sort_by(&:number)[0]), {class: 'selectpicker regular', 'data-style': 'bg-white px-4 py-3', multiple: multiple ? true : false, name: name_start + "[question_option][]"}) %>
+        condition_exists ? condition[:question_option_id] : question.question_options.sort_by(&:number)[0]), {class: 'selectpicker regular', 'data-style': 'bg-white px-4 py-3', multiple: multiple, name: name_start + "[question_option][]"}) %>
   </div>
   <div class="col-md-3">
     <%= select_tag(:action_type, options_for_select(action_type_arr, type_default), {name: name_start + "[action_type]", class: 'action-type selectpicker narrow', 'data-style': 'bg-white px-4 py-3'}) %>
