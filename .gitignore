@@ -50,7 +50,6 @@ coverage
 # config/branding.yml
 
 # Ignore some of the initializers
-config/initializers/recaptcha.rb
 config/initializers/fingerprint.rb
 
 # Ignore enviroments settings
