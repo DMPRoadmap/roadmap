@@ -124,7 +124,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def update
     if user_signed_in?
-      @prefs = @user.get_preferences(:email)[:prefs]
+      @prefs = @user.get_preferences(:email)
       @orgs = Org.order("name")
       @default_org = current_user.org
       @other_organisations = Org.where(is_other: true).pluck(:id)
