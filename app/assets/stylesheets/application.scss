@@ -4,6 +4,7 @@
 
 // Pull in the webpacker managed copy of Bootstrap Stylesheets
 @import "../../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import "../../../node_modules/bootstrap-select/sass/bootstrap-select.scss";
 
 @import "blocks/*";
 @import "utils/*";
