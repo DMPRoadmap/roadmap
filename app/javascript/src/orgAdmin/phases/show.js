@@ -29,7 +29,7 @@ $(() => {
   // Initialize the draggable-sections element as a jQuery sortable.
   // Read the docs here for more info: http://api.jqueryui.com/sortable/
   $('.draggable-sections').sortable({
-    handle: 'i.fa-arrows',
+    handle: 'i.fa-arrows-alt',
     axis: 'y',
     cursor: 'move',
     // Remove the placeholder object from the DOM once the item has been placed
