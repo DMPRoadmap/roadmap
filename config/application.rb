@@ -94,7 +94,7 @@ module DMPRoadmap
     config.action_controller.include_all_helpers = true
 
     # Set the default host for mailer URLs
-    config.action_mailer.default_url_options = { :host => "#{Socket.gethostname}" }
+    config.action_mailer.default_url_options = { :host => Rails.application.secrets.mailer_default_host }
 
     # Enable shibboleth as an alternative authentication method
     # Requires server configuration and omniauth shibboleth provider configuration

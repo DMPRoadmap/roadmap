@@ -251,14 +251,14 @@ Devise.setup do |config|
 
   # Any entries here MUST match a corresponding entry in the identifier_schemes table as
   # well as an identifier_schemes.schemes section in each locale file!
-  OmniAuth.config.full_host = 'https://my_service.hostname'
+  OmniAuth.config.full_host = Rails.application.secrets.omniauth_full_host
 
-  config.omniauth :orcid,
-  'client_id', 'client_secret',
-  {
-    #member: false,
-  }
-
+  config.omniauth :orcid, Rails.application.secrets.orcid_client_id, 
+                          Rails.application.secrets.orcid_client_secret,
+                          {
+                            member: Rails.application.secrets.orcid_member
+                          }
+  
   config.omniauth :shibboleth,
   {
     #debug: true,
