@@ -34,7 +34,6 @@ import '../views/org_admin/templates/new';
 import '../views/orgs/admin_edit';
 import '../views/orgs/shibboleth_ds';
 import '../views/plans/download';
-import '../views/plans/edit_details';
 import '../views/plans/index';
 import '../views/plans/new';
 import '../views/plans/share';
