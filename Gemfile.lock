@@ -420,6 +420,8 @@ GEM
       docile (~> 1.1)
       simplecov-html (~> 0.11)
     simplecov-html (0.12.2)
+    simpleidn (0.1.1)
+      unf (~> 0.1.4)
     spring (2.1.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -440,8 +442,13 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.10)
     tomparse (0.4.2)
+    truemail (1.8.0)
+      simpleidn (~> 0.1.1)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.7)
     unicode-display_width (1.7.0)
     uniform_notifier (1.13.0)
     warden (1.2.7)
@@ -546,6 +553,7 @@ DEPENDENCIES
   syslog-logger
   text
   thin
+  truemail
   web-console
   webdrivers (~> 3.0)
   webmock
