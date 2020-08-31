@@ -234,7 +234,6 @@ class User < ActiveRecord::Base
   #
   # Returns UserIdentifier
   def identifier_for(scheme)
-    scheme = scheme.instance_of?(IdentifierScheme) ? scheme.name : scheme
     identifiers.by_scheme_name(scheme, "User").first
   end
 
