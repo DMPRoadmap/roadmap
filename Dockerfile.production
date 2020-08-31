@@ -18,10 +18,15 @@ RUN apt-get update -qq && \
   gettext \
   nodejs \
   yarn \
-  wkhtmltopdf \
   postfix
 
-RUN update-rc.d postfix defaults
+RUN wget --quiet https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
+    tar vxf wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
+    cp wkhtmltox/bin/wk* /usr/local/bin/ && \
+    rm -rf wkhtmltox
+
+# RUN update-rc.d postfix defaults
+# RUN /etc/init.d/postfix start
 
 ARG INSTALL_PATH=/usr/src/app/
 ENV INSTALL_PATH $INSTALL_PATH

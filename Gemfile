@@ -189,6 +189,9 @@ gem 'activerecord-session_store'
 # UTILITIES
 gem 'parallel'
 
+# Gem use for validating emails
+gem 'truemail'
+
 # ------------------------------------------------
 # ENVIRONMENT SPECIFIC DEPENDENCIES
 group :development, :test do
@@ -303,5 +306,5 @@ group :development do
   group :production, :staging do
     gem 'syslog-logger'
   end
-
+  
 end
