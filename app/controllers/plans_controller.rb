@@ -139,7 +139,7 @@ class PlansController < ApplicationController
         # (This may be changed by user.)
         @plan.identifier = @plan.id.to_s
         @plan.save
-        
+
         respond_to do |format|
           flash[:notice] = msg
           format.html { redirect_to plan_path(@plan) }
