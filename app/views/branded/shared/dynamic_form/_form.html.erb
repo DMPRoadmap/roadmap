@@ -1,7 +1,8 @@
 <%# locals: { f, fragment, schema, readonly, classname, fragment_id } %>
 <% sub_schemas = schema.get_sub_schemas %>
 <% data = fragment.data unless fragment.nil? %>
-<% validations = data.present? && data['validations'].present? ? data["validations"] : nil %>
+<% additional_info = fragment.additional_info unless fragment.nil? %>
+<% validations = additional_info.present? && additional_info['validations'].present? ? additional_info["validations"] : nil %>
 
 <% sub_fragments = fragment.present? ? fragment.get_sub_fragments() : [] %>
 <% schema_properties = schema.schema["properties"]%>

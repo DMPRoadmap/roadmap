@@ -160,10 +160,10 @@ class MadmpFragment < ActiveRecord::Base
       sa.dmp_id = answer.plan.json_fragment().id
       sa.parent_id = parent_id
     end
-    data = data.merge({ 
+    additional_info = { 
       "validations" => self.validate_data(data, schema.schema)
-    })
-    s_answer.assign_attributes(data: data)
+    }
+    s_answer.assign_attributes(data: data, additional_info: additional_info)
     s_answer.save
   end
 
