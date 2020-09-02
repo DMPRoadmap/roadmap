@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200615122747) do
+ActiveRecord::Schema.define(version: 20200902060740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 20200615122747) do
     t.integer  "dmp_id"
     t.integer  "parent_id"
     t.integer  "madmp_schema_id"
+    t.json     "additional_info"
   end
 
   add_index "madmp_fragments", ["answer_id"], name: "index_madmp_fragments_on_answer_id", using: :btree
