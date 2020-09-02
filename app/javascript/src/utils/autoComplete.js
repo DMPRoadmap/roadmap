@@ -113,7 +113,7 @@ const handleSelection = (autocomplete, hidden, crosswalk, selection) => {
 const scrubCrosswalkAndSource = (context) => {
   if (isObject(context) && context.length > 0) {
     const id = context.attr('id');
-    const crosswalk = context.siblings(`#${id.replace('_name', '_crosswalk')}`)
+    const crosswalk = context.siblings(`#${id.replace('_name', '_crosswalk')}`);
     if (isObject(crosswalk) && crosswalk.length > 0) {
       crosswalk.val('[]');
     }
@@ -130,7 +130,7 @@ export const scrubOrgSelectionParamsOnSubmit = (formSelector) => {
   const form = $(formSelector);
 
   if (isObject(form) && form.length > 0) {
-    form.on('submit', (e) => {
+    form.on('submit', () => {
       form.find('.autocomplete').each((_idx, el) => {
         scrubCrosswalkAndSource($(el));
       });
