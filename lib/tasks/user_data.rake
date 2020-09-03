@@ -14,14 +14,37 @@ namespace :db do
     puts message
   end
 
-  desc "Delte potential spam accounts"
-  task delete_potantial_spam_accounts: :environment do
+  desc "Delete potential spam accounts"
+  task delete_potential_spam_accounts: :environment do
     puts "Starting deleting users with potential spam accounts"
+    Rake::Task['db:delete_year_old_accounts_with_no_activity'].execute
     Rake::Task['db:delete_users_with_http_in_name'].execute
     Rake::Task['db:delete_users_100_characters'].execute
     Rake::Task['db:delete_users_no_email_mx'].execute
     puts "Done!"
   end
+
+  desc "Delete year old accounts with no activity" 
+  task delete_year_old_accounts_with_no_activity: :environment do
+    # Users that have not signed in
+    users = User.where(last_sign_in_at: nil).entries
+
+    puts "Starting deleting year old accounts with no activity"
+    log_deleted_user(0, users.count)
+    users.each_with_index do |user, index|
+      # And users created more than a year ago
+      if (Time.now - user.created_at) / (24 * 60 * 60 * 365) > 1
+        begin
+          user.destroy
+          log_deleted_user(index + 1, users.count, user[:email])
+        rescue
+          puts "Problem deleting user #{user[:email]}"
+        end  
+      end
+    end
+    puts 'Done!'
+  end
+
 
   desc "Delete user accounts with http in its name"
   task delete_users_with_http_in_name: :environment do
