@@ -96,6 +96,9 @@ class PlansController < ApplicationController
         attrs = plan_params[:org]
         attrs[:org_id] = attrs[:id]
         @plan.org = org_from_params(params_in: attrs, allow_create: false)
+      else
+        # The user did not specify a research Org, so default to their Org
+        @plan.org = current_user.org
       end
       if plan_params[:funder].present? && plan_params[:funder][:id].present?
         attrs = plan_params[:funder]
@@ -105,10 +108,10 @@ class PlansController < ApplicationController
 
       if @plan.save
         # pre-select org's guidance and the default org's guidance
-        ids = (Org.default_orgs.pluck(:id) << attrs[:org_id]).flatten.uniq
+        ids = (Org.default_orgs.pluck(:id) << @plan.org_id).flatten.uniq
         ggs = GuidanceGroup.where(org_id: ids, optional_subset: false, published: true)
 
-        @plan.guidance_groups << ggs unless ggs.blank?
+        @plan.guidance_groups << ggs unless ggs.empty?
 
         default = Template.default
 
@@ -135,6 +138,7 @@ class PlansController < ApplicationController
         # Set new identifier to plan id by default on create.
         # (This may be changed by user.)
         @plan.identifier = @plan.id.to_s
+        @plan.save
 
         respond_to do |format|
           flash[:notice] = msg
