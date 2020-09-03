@@ -36,8 +36,8 @@ module TemplateHelper
   # @param id [String] id for the link element
   def direct_link(template, hidden = false, text = nil, id = nil)
     params = {
-      org: { id: current_user&.org&.id },
-      funder: { id: template.org&.id },
+      org: { id: "{ \"id\": #{current_user&.org&.id}, \"name\": \"#{current_user&.org&.name}\" }" },
+      funder: { id: "{ \"id\": #{template.org&.id}, \"name\": \"#{template.org&.name}\" }" },
       template_id: template.id
     }
     cls = text.nil? ? "direct-link" : "direct-link btn btn-default"
