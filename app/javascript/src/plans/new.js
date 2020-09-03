@@ -1,5 +1,5 @@
 import debounce from '../utils/debounce';
-import { initAutocomplete } from '../utils/autoComplete';
+import { initAutocomplete, scrubOrgSelectionParamsOnSubmit } from '../utils/autoComplete';
 import getConstant from '../utils/constants';
 import { isObject, isArray, isString } from '../utils/isType';
 import { renderAlert, hideNotifications } from '../utils/notificationHelper';
@@ -171,5 +171,8 @@ $(() => {
   // Initialize the form
   $('#new_plan #available-templates').hide();
   handleComboboxChange();
+  // Scrub out the large arrays of data used for the Org Selector JS so that they
+  // are not a part of the form submissiomn
+  scrubOrgSelectionParamsOnSubmit('#new_plan');
   toggleSubmit();
 });
