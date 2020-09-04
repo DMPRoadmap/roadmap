@@ -46,8 +46,9 @@ class Identifier < ActiveRecord::Base
   # = Scopes =
   # ===============
 
-  def self.by_scheme_name(value, identifiable_type)
-    where(identifier_scheme: IdentifierScheme.by_name(value),
+  def self.by_scheme_name(scheme, identifiable_type)
+    scheme_id = scheme.instance_of?(IdentifierScheme) ? scheme.id : IdentifierScheme.by_name(scheme).first&.id
+    where(identifier_scheme_id: scheme_id,
           identifiable_type: identifiable_type)
   end
 
