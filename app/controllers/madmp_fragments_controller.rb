@@ -9,7 +9,7 @@ class MadmpFragmentsController < ApplicationController
     p_params = permitted_params()
     schema = MadmpSchema.find(p_params[:schema_id])
     classname = schema.classname
-    data = data_reformater(schema.schema, schema_params(schema))
+    data = data_reformater(schema.schema, schema_params(schema), schema.classname)
     @fragment = nil 
     
     if params[:id].present?
