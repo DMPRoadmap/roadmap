@@ -59,7 +59,7 @@
                         "type": "number"
                     }
                 },
-                "requested": ["dbid"]
+                "required": ["dbid"]
             }
         },
         "experimentalPlanUrl": {
@@ -80,7 +80,7 @@
             "required": ["dbid"]
         }
     },
-    "requested": [
+    "required": [
         "title",
         "description",
         "acronym",

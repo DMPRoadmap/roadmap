@@ -45,6 +45,6 @@
         }
     },
          
-  "requested":["datasetId", "description", "title", "license"]
+  "required":["datasetId", "description", "title", "license"]
   
   }

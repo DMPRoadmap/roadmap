@@ -55,7 +55,7 @@
                     "type": "number"
                 }
             },
-            "requested": ["dbid"]
+            "required": ["dbid"]
         },
         "staffMember": {
             "label": "Staff members",
@@ -86,7 +86,7 @@
             }
         }
     },
-    "requested": [
+    "required": [
         "description",
         "distribution"
     ]

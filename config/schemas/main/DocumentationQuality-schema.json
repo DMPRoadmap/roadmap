@@ -33,7 +33,7 @@
                         "type":"number"
                     }
                 },
-                "requested":["dbid"]
+                "required":["dbid"]
                 
             }
         },
@@ -84,5 +84,5 @@
             }
         }
     },
-    "requested":["dataOrganization","metadataStandard","qualityAssuranceMethod", "staffMember"]
+    "required":["dataOrganization","metadataStandard","qualityAssuranceMethod", "staffMember"]
 }

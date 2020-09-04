@@ -79,5 +79,5 @@
         }
         
     },
-    "requested":["facility", "dataSize", "startDate", "endDate"]   
+    "required":["facility", "dataSize", "startDate", "endDate"]   
  }

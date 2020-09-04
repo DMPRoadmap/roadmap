@@ -31,7 +31,9 @@
                         "type": "number"
                     }
                 },
-                "required": ["dbid"]
+                "required": [
+                    "dbid"
+                ]
             }
         }
     },

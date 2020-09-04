@@ -15,7 +15,7 @@
                     "description": "internal pointer to a Funder Json document"
                 }
             },
-            "requested": ["dbid"]
+            "required": ["dbid"]
         },
         "grantId": {
             "label": "Grant ID",
