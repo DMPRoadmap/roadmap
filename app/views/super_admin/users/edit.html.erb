@@ -49,7 +49,7 @@
 
       <% if Language.many? %>
         <div class="form-group col-xs-12">
-          <% lang_id = @user.language.nil? ? Language.id_for(FastGettext.default_locale) : @user.language.id %>
+          <% lang_id = @user.language.nil? ? Language.id_for(I18n.default_locale) : @user.language.id %>
           <%= f.label(:language_id, _('Language'), class: 'control-label') %>
           <%= select_tag(:super_admin_user_language_id,
               options_from_collection_for_select(Language.sorted_by_abbreviation, "id", "name", lang_id),
