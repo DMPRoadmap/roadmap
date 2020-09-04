@@ -49,7 +49,6 @@ def ignore_paths
      "app/views/branded/static_pages/"]
 end
 
-
 # Setup languages
 if Language.table_exists?
   def default_locale

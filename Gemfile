@@ -192,7 +192,7 @@ gem "zaru"
 
 # Localize your app with YAML or GetText. Synchronize with your translators on
 # Translation.io. (https://translation.io) (https://github.com/translation/rails)
-gem 'translation'
+gem "translation"
 
 # ========= #
 # UTILITIES #
