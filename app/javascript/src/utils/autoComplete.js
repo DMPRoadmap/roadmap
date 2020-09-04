@@ -109,6 +109,35 @@ const handleSelection = (autocomplete, hidden, crosswalk, selection) => {
   return true;
 };
 
+// Clear out the Sources and Crosswalk hidden fields for the given autocomplete
+const scrubCrosswalkAndSource = (context) => {
+  if (isObject(context) && context.length > 0) {
+    const id = context.attr('id');
+    const crosswalk = context.siblings(`#${id.replace('_name', '_crosswalk')}`);
+    if (isObject(crosswalk) && crosswalk.length > 0) {
+      crosswalk.val('[]');
+    }
+
+    const sources = context.siblings(`#${id.replace('_name', '_sources')}`);
+    if (isObject(sources) && sources.length > 0) {
+      sources.val('[]');
+    }
+  }
+};
+
+// Removes all of the Sources and Crosswalk content before form submission
+export const scrubOrgSelectionParamsOnSubmit = (formSelector) => {
+  const form = $(formSelector);
+
+  if (isObject(form) && form.length > 0) {
+    form.on('submit', () => {
+      form.find('.autocomplete').each((_idx, el) => {
+        scrubCrosswalkAndSource($(el));
+      });
+    });
+  }
+};
+
 export const initAutocomplete = (selector) => {
   if (isString(selector)) {
     const context = $(selector);
@@ -167,5 +196,3 @@ export const initAutocomplete = (selector) => {
     }
   }
 };
-
-export { initAutocomplete as default };
