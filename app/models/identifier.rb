@@ -44,7 +44,11 @@ class Identifier < ApplicationRecord
   # ===============
 
   def self.by_scheme_name(scheme, identifiable_type)
-    scheme_id = scheme.instance_of?(IdentifierScheme) ? scheme.id : IdentifierScheme.by_name(scheme).first&.id
+    scheme_id = if scheme.instance_of?(IdentifierScheme)
+                  scheme.id
+                else
+                  IdentifierScheme.by_name(scheme).first&.id
+                end
     where(identifier_scheme_id: scheme_id,
           identifiable_type: identifiable_type)
   end
