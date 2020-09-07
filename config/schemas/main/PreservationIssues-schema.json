@@ -73,7 +73,7 @@
             }
         }
     },
-    "requested": [
+    "required": [
         "description",
         "startDate",
         "endDate",

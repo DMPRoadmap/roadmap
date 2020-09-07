@@ -1,7 +1,8 @@
 <%# locals: { f, fragment, schema, readonly, classname, fragment_id } %>
 <% sub_schemas = schema.get_sub_schemas %>
 <% data = fragment.data unless fragment.nil? %>
-<% validations = data.present? && data['validations'].present? ? data["validations"] : nil %>
+<% additional_info = fragment.additional_info unless fragment.nil? %>
+<% validations = additional_info.present? && additional_info['validations'].present? ? additional_info["validations"] : nil %>
 <% user_language = current_user.language.abbreviation %>
 
 <% sub_fragments = fragment.present? ? fragment.get_sub_fragments() : [] %>
@@ -41,7 +42,7 @@
           readonly: readonly,
           parent_id: fragment_id,
           schema: sub_schema,
-          field_name: field_name, answer_id: nil 
+          field_name: prop['label'], answer_id: nil 
           }
         ) %>
       <% end %>
@@ -62,7 +63,7 @@
       <% unless classname == "research_output"  %>
         <div class="col-md-12">
           <fieldset class="answer-fieldset">
-            <legend class="answer-fieldset"><%= field_name %></legend>
+            <legend class="answer-fieldset"><%= prop['label'] %></legend>
             <%
               sub_schema = sub_schemas[prop["schema_id"]]
               sub_fragment = MadmpFragment.new(

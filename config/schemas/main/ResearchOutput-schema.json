@@ -36,7 +36,7 @@
                         "type": "number"
                     }
                 },
-                "requested": ["dbid"]
+                "required": ["dbid"]
             },
             "minItems": 1
         },
@@ -249,7 +249,7 @@
             }
         }
     },
-    "requested": [
+    "required": [
         "title",
         "description",
         "type",
@@ -257,7 +257,6 @@
         "reusedData",
         "containsPersonalData",
         "containsSensitiveData",
-        "controlledKeyword",
         "dataCollection",
         "dataStorage",
         "documentationQuality",

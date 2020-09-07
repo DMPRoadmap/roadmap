@@ -9,7 +9,7 @@ class MadmpFragmentsController < ApplicationController
     p_params = permitted_params()
     schema = MadmpSchema.find(p_params[:schema_id])
     classname = schema.classname
-    data = data_reformater(schema.schema, schema_params(schema))
+    data = data_reformater(schema.schema, schema_params(schema), schema.classname)
     @fragment = nil 
     
     if params[:id].present?
@@ -21,10 +21,10 @@ class MadmpFragmentsController < ApplicationController
             dmp_id: p_params[:dmp_id]
           )
           data = @fragment.data.merge(data)
-          data = data.merge({ 
+          additional_info = { 
             "validations" => MadmpFragment.validate_data(data, schema.schema)
-          })
-          @fragment.assign_attributes(data: data)
+          }
+          @fragment.assign_attributes(data: data, additional_info: additional_info)
   
           authorize @fragment
           unless p_params[:source] == "modal"
@@ -50,10 +50,10 @@ class MadmpFragmentsController < ApplicationController
         madmp_schema: schema
       )
       @fragment.classname = classname
-      data = data.merge({ 
+      additional_info = { 
         "validations" => MadmpFragment.validate_data(data, schema.schema)
-      })
-      @fragment.assign_attributes(data: data)
+      }
+      @fragment.assign_attributes(data: data, additional_info: additional_info)
 
       unless p_params[:source] == "modal"
         @fragment.answer = Answer.create!({

@@ -27,7 +27,7 @@
       "format": "uri"
     }
   },
-  "requested": [
+  "required": [
     "name",
     "orgId"
   ]
