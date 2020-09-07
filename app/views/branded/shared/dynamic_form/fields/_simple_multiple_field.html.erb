@@ -1,4 +1,5 @@
-<%# locals: { f, field_values, readonly, field_label, field_properties, field_name } %>
+<%# locals: { f, field_values, readonly, field_label, field_properties, field_name, ttip } %>
+<% ttip = nil %>
 <div class="col-md-12">
     <%= f.label field_name, field_label, class: 'control-label' %>
 </div>
@@ -7,13 +8,13 @@
         <% case field_properties["type"] %>
         <% when "string" %>
             <% if field_properties['format'].nil?%>
-                <%= create_text_field(f, value, field_name, field_label, is_multiple: true, readonly: readonly, index: idx) %>
+                <%= create_text_field(f, value, field_name, field_label, is_multiple: true, readonly: readonly, index: idx, ttip: ttip) %>
             <% elsif field_properties['format'] == 'date' %>
-                <%= create_date_field(f, value, field_name, field_label, is_multiple: true, readonly: readonly, index: idx) %>
+                <%= create_date_field(f, value, field_name, field_label, is_multiple: true, readonly: readonly, index: idx, ttip: ttip) %>
             <% elsif field_properties['format'] == 'uri' %>
-                <%= create_url_field(f, value, field_name, field_label, is_multiple: true, readonly: readonly, index: idx) %>
+                <%= create_url_field(f, value, field_name, field_label, is_multiple: true, readonly: readonly, index: idx, ttip: ttip) %>
             <% elsif field_properties['format'] == 'email' %>
-                <%= create_email_field(f, value, field_name, field_label, is_multiple: true, readonly: readonly, index: idx) %>
+                <%= create_email_field(f, value, field_name, field_label, is_multiple: true, readonly: readonly, index: idx, ttip: ttip) %>
             <%end%>
         <% when "integer" %>
             <%=  create_number_field(f, value, field_name, field_label,  is_multiple: true, readonly: readonly, index: idx)%>
@@ -25,13 +26,13 @@
     <% case field_properties["type"] %>
     <% when "string" %>
         <% if field_properties['format'].nil?%>
-            <%= create_text_field(f, nil, field_name, field_label, is_multiple: true, readonly: readonly, index: 0) %>
+            <%= create_text_field(f, nil, field_name, field_label, is_multiple: true, readonly: readonly, index: 0, ttip: ttip) %>
         <% elsif field_properties['format'] == 'date' %>
-            <%= create_date_field(f, nil, field_name, field_label, is_multiple: true, readonly: readonly, index: 0) %>
+            <%= create_date_field(f, nil, field_name, field_label, is_multiple: true, readonly: readonly, index: 0, ttip: ttip) %>
         <% elsif field_properties['format'] == 'uri' %>
-            <%= create_url_field(f, nil, field_name, field_label, is_multiple: true, readonly: readonly, index: 0) %>
+            <%= create_url_field(f, nil, field_name, field_label, is_multiple: true, readonly: readonly, index: 0, ttip: ttip) %>
         <% elsif field_properties['format'] == 'email' %>
-            <%= create_email_field(f, nil, field_name, field_label, is_multiple: true, readonly: readonly, index: 0) %>
+            <%= create_email_field(f, nil, field_name, field_label, is_multiple: true, readonly: readonly, index: 0, ttip: ttip) %>
         <%end%>
     <% when "integer" %>
         <%=  create_number_field(f, nil, field_name, field_label,  is_multiple: true, readonly: readonly, index: 0)%>

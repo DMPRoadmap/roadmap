@@ -8,7 +8,9 @@
     "properties":{
         "amount":{
             "label": "Amount",
-            "type": "number"
+            "type": "number",
+            "toolTip@fr_FR": "Saisir le montant",
+            "toolTip@en_GB": "Enter the amount"
         },
         "currency":{
             "label": "Currency",
