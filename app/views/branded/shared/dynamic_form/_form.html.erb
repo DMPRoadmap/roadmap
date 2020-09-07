@@ -19,11 +19,11 @@
     <% if prop['format'].nil?%>
       <%= create_text_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip, example: example) %>
     <% elsif prop['format'] == 'date' %>
-      <%= create_date_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip) %>
+      <%= create_date_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip, example: example) %>
     <% elsif prop['format'] == 'uri' %>
-      <%= create_url_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip) %>
+      <%= create_url_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip, example: example) %>
     <% elsif prop['format'] == 'email' %>
-      <%= create_email_field(f, value, field_name, label, readonly: readonly, validation: validation) %>
+      <%= create_email_field(f, value, field_name, label, readonly: readonly, validation: validation, example: example) %>
     <% elsif prop['format'] == 'select' && prop['values'] %>
       <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, prop['values'], readonly: readonly, validation: validation) %>
     <%end%>

@@ -13,7 +13,8 @@
             "description": "Title for a data collection (step)",
             "toolTip@fr_FR": "Saisissez le titre de la collection",
             "toolTip@en_GB": "Enter collection title",
-            "example": "Foobar"
+            "example": "Foobar",
+            "default": "Titre de la collection"
         },
         "description": {
             "label": "Description",
