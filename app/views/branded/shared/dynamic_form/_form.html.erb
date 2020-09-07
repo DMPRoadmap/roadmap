@@ -13,10 +13,11 @@
   <% validation = validations.nil? ? "none" : validations[key] %>
   <% label = prop["label@#{user_language}"] %>
   <% ttip = prop["toolTip@#{user_language}"] %>
+  <% example = prop['example'] %>
   <% case prop['type'] %>
   <% when 'string' %>
     <% if prop['format'].nil?%>
-      <%= create_text_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip) %>
+      <%= create_text_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip, example: example) %>
     <% elsif prop['format'] == 'date' %>
       <%= create_date_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip) %>
     <% elsif prop['format'] == 'uri' %>
