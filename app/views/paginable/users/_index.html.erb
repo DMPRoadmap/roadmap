@@ -95,7 +95,7 @@
                   <td class="text-center">
                     <% presenter = IdentifierPresenter.new(identifiable: user) %>
                     <% presenter.identifiers.each do |identifier| %>
-                      <p><%= presenter.id_for_display(id: identifier, with_scheme_name: true).html_safe %></p>
+                      <p><%= identifier.identifier_scheme.name %></p>
                     <% end %>
                   </td>
                 </tr>
