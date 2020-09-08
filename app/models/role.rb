@@ -103,6 +103,10 @@ class Role < ApplicationRecord
   def deactivate!
     self.active = false
     if save!
+      # Set the org_id on the Plan before calling deactivate. The org_id should
+      # not be blank. This catches the scenario where the `upgrade:v2_2_0_part1`
+      # upgrade task has not been run or it missed a record for some reason
+      plan.org_id = user.org_id unless plan.org_id.present?
       plan.deactivate! if plan.authors.empty?
       true
     else
