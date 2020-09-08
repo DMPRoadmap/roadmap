@@ -1,11 +1,12 @@
-<%# locals: { field_values, parent_id, schema, field_name } %>
+<%# locals: { field_values, parent_id, schema, field_label} %>
 <% field_values = [] if field_values.nil? %>
+<% field_label = field_label || 'No label defined' %>
 <div class="col-md-12">
   <fieldset class="answer-fieldset">
-    <legend class="answer-fieldset"><%= field_name.capitalize.pluralize(2) %></legend>
+    <legend class="answer-fieldset"><%= field_label.capitalize.pluralize(2) %></legend>
     <table class="table table-hover linked-fragments-list <%= schema.classname %>-list">
       <thead>
-        <tr><th scope="col"><%= field_name.capitalize %></th><th scope="col">Actions</th></tr>
+        <tr><th scope="col"><%= field_label.capitalize %></th><th scope="col">Actions</th></tr>
       </thead>
       <tbody>
         <%= render(partial: 'shared/dynamic_form/linked_fragment/list', locals: {

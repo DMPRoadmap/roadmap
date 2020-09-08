@@ -1,5 +1,6 @@
 <%# locals: { f, field_label, field_name, multiple, classname, field_name, readonly, validation } %>
 <% field_class = nil if local_assigns[:field_class].nil? %>
+<% field_label = field_label || 'No label defined' %>
 <div class="col-md-12">
   <%= f.label check_box, field_label, class: 'control-label' %>
 </div>
