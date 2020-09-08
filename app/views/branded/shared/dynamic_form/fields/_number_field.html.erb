@@ -1,4 +1,4 @@
-<%# locals: { f, field_label, field_name, multiple, classname, field_name, readonly, validation } %>
+<%# locals: { f, field_label, field_name, multiple, classname, field_name, readonly, validation, ttip } %>
 <% field_class = nil if local_assigns[:field_class].nil? %>
 <% field_label = field_label || 'No label defined' %>
 <% unless multiple %>
@@ -11,7 +11,9 @@
             value: field_value, 
             multiple: multiple, 
             disabled: readonly,
-            class: "form-control #{field_class}" %>
+            class: "form-control #{field_class}",
+            data: { toggle: 'tooltip' },
+            title: ttip %>
   <% if multiple %>
     <div class="actions">
       <span class="fa fa-plus-square add-record"></span>

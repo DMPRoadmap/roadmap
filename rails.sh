@@ -17,6 +17,7 @@ fi
 
 # Additionnal DB actions
 # bundle exec rake db:seed
+bundle exec rake db:migrate
 bundle exec rake load_schemas
 
 # Start the app

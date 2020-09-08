@@ -27,7 +27,7 @@
   {
     "path": "DataOrganization-schema.json",
     "classname": "data_organization",
-    "question_id": 23981
+    "question_id": null
   },
   {
     "path": "DataProcessing-schema.json",
@@ -37,7 +37,7 @@
   {
     "path": "DataStorage-schema_Genci.json",
     "classname": "data_storage",
-    "question_id": 23984
+    "question_id": null
   },
   {
     "path": "Distribution-schema.json",
@@ -47,12 +47,12 @@
   {
     "path": "DocumentationQuality-schema.json",
     "classname": "documentation_quality",
-    "question_id": 23982
+    "question_id": null
   },
   {
     "path": "EthicalIssues-schema.json",
     "classname": "ethical_issues",
-    "question_id": 23988
+    "question_id": null
   },
   {
     "path": "Funder-schema.json",
@@ -72,7 +72,7 @@
   {
     "path": "LegalIssues-schema.json",
     "classname": "legal_issues",
-    "question_id": 23987
+    "question_id": null
   },
   {
     "path": "LegalItem-schema.json",

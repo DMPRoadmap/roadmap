@@ -6,16 +6,23 @@
     "type": "object",
     "properties": {
         "title": {
-            "label": "Title",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title",
             "type": "string",
             "pattern": "(.)*((@en)|(@fr))",
-            "description": "Title for a data collection (step)"
+            "description": "Title for a data collection (step)",
+            "toolTip@fr_FR": "Saisissez le titre de la collection",
+            "toolTip@en_GB": "Enter collection title",
+            "example": "Foobar",
+            "default": "Titre de la collection"
         },
         "description": {
             "label": "Description",
             "type": "string",
             "pattern": "(.)*((@en)|(@fr))",
-            "description": "description of the data collection methodology"
+            "description": "description of the data collection methodology",
+            "toolTip@fr_FR": "Saisissez la description de la collection",
+            "toolTip@en_GB": "Enter the collection description"
         },
         "dataNature": {
             "label": "Data Nature",
@@ -39,7 +46,9 @@
             "label": "Methods URL",
             "type": "string",
             "format": "uri",
-            "description": "Urls of methods"
+            "description": "Urls of methods",
+            "toolTip@fr_FR": "Saisissez une URL de méthode",
+            "toolTip@en_GB": "Enter a method URL"
         },
         "staffMember": {
             "label": "Staff Member",
