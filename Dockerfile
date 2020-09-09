@@ -53,17 +53,6 @@ RUN locale-gen --no-purge fr_FR.UTF-8 \
     && update-locale LANG=fr_FR.UTF-8 \
     && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales
 
-# Git config
-# ENV DMPOPIDOR_VERSION=V2.3.0_alpha14
-# RUN mkdir /dmponline
-# RUN git config --system http.proxy $http_proxy \ 
-#     && git config --global user.email "benjamin.faure@inist.fr" \
-#     && git config --global user.name "Benjamin FAURE" \
-#     && git config --global url."https://".insteadOf git://
-# WORKDIR /dmponline
-# RUN git clone https://github.com/OPIDoR/DMPOPIDoR . \
-#     && git checkout tags/$DMPOPIDOR_VERSION  
-
 # Copying project files
 COPY . /dmponline
 
