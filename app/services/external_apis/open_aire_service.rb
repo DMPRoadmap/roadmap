@@ -14,7 +14,7 @@ module ExternalApis
         Rails.configuration.x.open_aire&.api_base_url || super
       end
 
-      def active
+      def active?
         Rails.configuration.x.open_aire&.active || super
       end
 

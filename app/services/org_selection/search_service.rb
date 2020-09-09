@@ -73,7 +73,7 @@ module OrgSelection
       end
 
       def externals_search(search_term:)
-        return [] unless ExternalApis::RorService.active && search_term.present?
+        return [] unless ExternalApis::RorService.active? && search_term.present?
 
         Rails.cache.fetch(["org_selection-ror", search_term], expires_in: 1.day) do
           ExternalApis::RorService.search(term: search_term)

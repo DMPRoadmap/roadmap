@@ -1,3 +1,10 @@
+<% if current_user.can_super_admin? %>
+  <h2>Register your plan</h2>
+  <div class="doi-minter">
+    <%= render partial: 'plans/doi_minter', locals: { plan: @plan } %>
+  </div>
+<% end %>
+
 <%= form_tag(plan_export_path(@plan), method: :get, target: '_blank', id: 'download_form') do |f| %>
   <h2><%= _("Download settings") %></h2>
   <%= hidden_field_tag 'export[form]', true %>

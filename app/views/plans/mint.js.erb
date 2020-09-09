@@ -1,0 +1,5 @@
+let target = document.getElementsByClassName('doi-minter');
+
+if (target != undefined) {
+  target[0].innerHTML = '<%= escape_javascript(render partial: "plans/doi_minter", locals: { plan: @plan }) %>';
+}

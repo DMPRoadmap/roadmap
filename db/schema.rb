@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200625092600) do
+ActiveRecord::Schema.define(version: 20200803155824) do
 
   create_table "annotations", force: :cascade do |t|
     t.integer  "question_id",    limit: 4
@@ -60,8 +60,9 @@ ActiveRecord::Schema.define(version: 20200625092600) do
     t.string   "client_id",     limit: 255, null: false
     t.string   "client_secret", limit: 255, null: false
     t.date     "last_access"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer "org_id"
   end
 
   add_index "api_clients", ["name"], name: "index_api_clients_on_name", using: :btree
@@ -552,6 +553,7 @@ ActiveRecord::Schema.define(version: 20200625092600) do
   add_foreign_key "answers", "users"
   add_foreign_key "answers_question_options", "answers"
   add_foreign_key "answers_question_options", "question_options"
+  add_foreign_key "api_clients", "orgs"
   add_foreign_key "conditions", "questions"
   add_foreign_key "contributors", "plans"
   add_foreign_key "contributors", "orgs"
