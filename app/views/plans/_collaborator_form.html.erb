@@ -1,44 +1,13 @@
-<% administrator = Role.new(administrator: true, editor: true, commenter: true) %>
-<% editor = Role.new(editor: true, commenter: true) %>
-<% commenter = Role.new(commenter: true) %>
-<% administerable = @plan.administerable_by?(current_user) %>
-<% email_tooltip = _("Enter the email address of your collaborator: If they are already using #{Rails.configuration.branding[:application][:name]}, they will see this plan on their dashboard, and recieve an email. If they are not currently using #{Rails.configuration.branding[:application][:name]}, they will recieve an email inviting them to the tool so they can collaborate on your plan.") %>
-<% permissions_tooltip = _('Co-owner: Has admin-rights to the plan (can invite other users, view the plan, answer questions, or comment). Editor: Has edit-rights to the plan (can view the plan, answer questions, or comment). Read Only: Has read-rights to the plan (can view the plan or comment)') %>
+<%
+administrator = Role.new(administrator: true, editor: true, commenter: true)
+editor = Role.new(editor: true, commenter: true)
+commenter = Role.new(commenter: true)
+administerable = plan.administerable_by?(current_user)
+email_tooltip = _("Enter the email address of your collaborator: If they are already using #{Rails.configuration.branding[:application][:name]}, they will see this plan on their dashboard, and recieve an email. If they are not currently using #{Rails.configuration.branding[:application][:name]}, they will recieve an email inviting them to the tool so they can collaborate on your plan.")
+permissions_tooltip = _('Co-owner: Has admin-rights to the plan (can invite other users, view the plan, answer questions, or comment). Editor: Has edit-rights to the plan (can view the plan, answer questions, or comment). Read Only: Has read-rights to the plan (can view the plan or comment)')
+%>
 
-<h2><%= _('Set plan visibility') %></h2>
-<p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default.') % { :percentage => Rails.application.config.default_plan_percentage_answered } %></p>
-<% allow_visibility = @plan.visibility_allowed? %>
-<%= form_for(@plan, url: visibility_plan_path, method: :post, html: { id: 'set_visibility', remote: true }) do |f| %>
-  <fieldset<%= (allow_visibility ? '' : ' disabled') %>>
-    <div class="form-group col-xs-8">
-      <div class="radio">
-        <%= f.label :visibility_privately_visible do %>
-          <%= f.radio_button :visibility, :privately_visible %>
-          <%= _('Private: visible to me, specified collaborators and administrators at my organisation') %>
-        <% end %>
-      </div>
-      <div class="radio">
-        <%= f.label :visibility_organisationally_visible do %>
-          <%= f.radio_button :visibility, :organisationally_visible %>
-          <%= _('Organisation: anyone at my organisation can view') %>
-        <% end %>
-      </div>
-      <div class="radio">
-        <%= f.label :visibility_publicly_visible do %>
-          <%= f.radio_button :visibility, :publicly_visible %>
-          <%= _('Public: anyone can view') %>
-        <% end %>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <%= f.submit(_('Update'), style: 'display:none') %>
-    </div>
-  </fieldset>
-<% end %>
-
-<h2><%= _('Manage collaborators')%></h2>
-<p><%= _('Invite specific people to read, edit, or administer your plan. Invitees will receive an email notification that they have access to this plan.') %></p>
-<% if @plan.roles.any? then %>
+<% if plan_roles.any? then %>
   <table class="table table-hover table-bordered" id="collaborator-table">
     <thead>
       <tr>
@@ -50,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @plan_roles.each do |role| %>
+      <% plan_roles.each do |role| %>
         <tr>
           <td><%= role.user.name %></td>
           <td>
@@ -88,7 +57,7 @@
 <% if administerable  %>
   <h2><%= _('Invite collaborators') %></h2>
   <% new_role = Role.new %>
-  <% new_role.plan = @plan %>
+  <% new_role.plan = plan %>
   <%= form_for new_role, url: {controller: :roles, action: :create }, html: {method: :post} do |f| %>
     <div class="form-group col-xs-6">
       <%= f.hidden_field :plan_id %>
@@ -136,6 +105,4 @@
     <%= f.button(_('Submit'), class: "btn btn-primary", type: "submit") %>
     </div>
   <% end %>
-
-
 <% end %>

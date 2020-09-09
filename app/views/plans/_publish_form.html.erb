@@ -1,0 +1,30 @@
+<h2><%= _('Set plan visibility') %></h2>
+<p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default.') % { :percentage => Rails.application.config.default_plan_percentage_answered } %></p>
+<% allow_visibility = @plan.visibility_allowed? %>
+<%= form_for(@plan, url: visibility_plan_path, method: :post, html: { id: 'set_visibility', remote: true }) do |f| %>
+  <fieldset<%= (allow_visibility ? '' : ' disabled') %>>
+    <div class="form-group col-xs-8">
+      <div class="radio">
+        <%= f.label :visibility_privately_visible do %>
+          <%= f.radio_button :visibility, :privately_visible %>
+          <%= _('Private: visible to me, specified collaborators and administrators at my organisation') %>
+        <% end %>
+      </div>
+      <div class="radio">
+        <%= f.label :visibility_organisationally_visible do %>
+          <%= f.radio_button :visibility, :organisationally_visible %>
+          <%= _('Organisation: anyone at my organisation can view') %>
+        <% end %>
+      </div>
+      <div class="radio">
+        <%= f.label :visibility_publicly_visible do %>
+          <%= f.radio_button :visibility, :publicly_visible %>
+          <%= _('Public: anyone can view') %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-xs-8">
+      <%= f.submit(_('Update'), style: 'display:none') %>
+    </div>
+  </fieldset>
+<% end %>

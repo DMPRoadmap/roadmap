@@ -8,7 +8,7 @@ class PlansController < ApplicationController
   helper PaginableHelper
   helper SettingsTemplateHelper
 
-  after_action :verify_authorized, except: [:overview]
+  after_action :verify_authorized
 
   def index
     authorize Plan
@@ -272,7 +272,7 @@ class PlansController < ApplicationController
     # rubocop:enable Metrics/BlockLength
   end
 
-  def share
+  def publish
     @plan = Plan.find(params[:id])
     if @plan.present?
       authorize @plan
@@ -399,21 +399,6 @@ class PlansController < ApplicationController
              }
     end
     # rubocop:enable Metrics/LineLength
-  end
-
-  def overview
-    begin
-      plan = Plan.includes(:phases, :sections, :questions, template: [ :org ])
-                 .find(params[:id])
-
-      authorize plan
-      render(:overview, locals: { plan: plan })
-    rescue ActiveRecord::RecordNotFound
-      flash[:alert] = _("There is no plan associated with id %{id}") % {
-        id: params[:id]
-      }
-      redirect_to(action: :index)
-    end
   end
 
   # GET /plans/:id/mint
