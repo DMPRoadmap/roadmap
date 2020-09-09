@@ -158,8 +158,6 @@ module Api
               contrib
             end
 
-p contributors.compact.uniq
-
             plan.contributors << contributors.compact.uniq if contributors.any?
             plan
           end

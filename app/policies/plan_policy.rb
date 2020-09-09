@@ -17,7 +17,7 @@ class PlanPolicy < ApplicationPolicy
     @plan.readable_by?(@user.id)
   end
 
-  def share?
+  def publish?
     @plan.editable_by?(@user.id) ||
     (@user.can_org_admin? &&
      @user.org.plans.include?(@plan))
