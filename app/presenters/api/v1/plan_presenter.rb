@@ -23,6 +23,7 @@ module Api
           @contributors << contributor
         end
 
+        @data_contact = @plan.owner unless @data_contact.present?
         @costs = plan_costs(plan: @plan)
       end
 

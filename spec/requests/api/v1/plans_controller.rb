@@ -98,6 +98,9 @@ RSpec.describe Api::V1::PlansController, type: :request do
             expected = @plan.contributors.first.email
             expect(expected).to eql(@original[:contact][:mbox])
           end
+          it "attached the plan to the API Client's Org" do
+            expect(@plan.org).to eql(ApiClient.first.org)
+          end
           it "set the Contact roles" do
             expected = @plan.contributors.first
             expect(expected.data_curation?).to eql(true)

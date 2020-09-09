@@ -32,7 +32,7 @@ module ExternalApis
         Rails.configuration.x.ror&.max_redirects || super
       end
 
-      def active
+      def active?
         Rails.configuration.x.ror&.active || super
       end
 
@@ -48,7 +48,7 @@ module ExternalApis
       #
       # @return true/false
       def ping
-        return true unless active && heartbeat_path.present?
+        return true unless active? && heartbeat_path.present?
 
         resp = http_get(uri: "#{api_base_url}#{heartbeat_path}")
         resp.present? && resp.code == 200
@@ -66,7 +66,7 @@ module ExternalApis
       # }
       # The ROR limit appears to be 40 results (even with paging :/)
       def search(term:, filters: [])
-        return [] unless active && term.present? && ping
+        return [] unless active? && term.present? && ping
 
         process_pages(
           term: term,

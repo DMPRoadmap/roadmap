@@ -1,0 +1,28 @@
+<%# locals: plan %>
+
+<% doi = plan.doi %>
+
+<% if doi.present? %>
+  <p>
+    <% if doi.value.downcase.start_with?("http") %>
+      <% val = link_to doi.value, doi.value %>
+    <% else %>
+      <% val = doi.value %>
+    <% end %>
+    <%= (_('Your plan has been registered. Your DOI is: %{doi}') % { doi: val }).html_safe %>
+  </p>
+<% else %>
+  <p>
+    Generate a DOI for your data management plan. Here's a great explanation of
+    why this is so valuable for you long term.
+    <%= button_to "Register", {
+                                controller: 'plans',
+                                action: 'mint',
+                                data: { disable_with: "registering ..." }
+                              },
+                              {
+                                remote: true,
+                                method: :get
+                              } %>
+  </p>
+<% end %>

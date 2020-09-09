@@ -416,6 +416,16 @@ class PlansController < ApplicationController
     end
   end
 
+  # GET /plans/:id/mint
+  def mint
+    plan = Plan.find(params[:id])
+    authorize plan
+
+    DoiService.mint_doi(plan: plan)&.save
+    @plan = plan.reload
+    render js: render_to_string(template: "plans/mint.js.erb")
+  end
+
   private
 
   def plan_params
