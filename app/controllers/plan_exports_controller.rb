@@ -44,6 +44,7 @@ class PlanExportsController < ApplicationController
       format.text { show_text }
       format.docx { show_docx }
       format.pdf  { show_pdf }
+      format.json { show_json }
     end
   end
 
@@ -87,6 +88,11 @@ class PlanExportsController < ApplicationController
              right:     "[page] of [topage]",
              encoding: "utf8"
            }
+  end
+
+  def show_json
+    json = render_to_string(partial: "/api/v1/plans/show", locals: { plan: @plan })
+    render json: "{\"dmp\":#{json}}"
   end
 
   def file_name
