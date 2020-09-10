@@ -1,3 +1,5 @@
+<% has_dois = scope.select { |plan| plan.doi.present? }.any? %>
+
 <div class="table-responsive">
   <table class="table table-hover" id="my-plans">
     <thead>
@@ -8,6 +10,9 @@
         <th scope="col"><%= _('Owner') %></th>
         <th scope="col" class="date-column"><%= _('Updated') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
         <th scope="col"><%= _('Visibility') %></th>
+        <% if has_dois %>
+          <th scope="col"><%= _('DOI') %></th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -27,6 +32,14 @@
           <td class="plan-visibility">
             <%= plan.visibility === 'is_test' ? _('Test') : sanitize(display_visibility(plan.visibility)) %>
           </td>
+          <% if has_dois %>
+            <td>
+              <% doi = plan.doi %>
+              <% if doi.present? %>
+                <a href="<%= doi.value %>" target="_blank" class="has-new-window-popup-info"><%= doi.value %></a>
+              <% end %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

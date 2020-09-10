@@ -593,9 +593,13 @@ class Plan < ActiveRecord::Base
   # Retrieves the Plan's most recent DOI
   def doi
     schemes = IdentifierScheme.for_identification
-    return nil unless schemes.any?
 
-    identifiers.select { |id| schemes.include?(id.identifier_scheme) }.last
+    if schemes.any?
+      identifiers.select { |id| schemes.include?(id.identifier_scheme) }.last
+    else
+      # If there is curently no identifier schemes defined as identification
+      identifiers.select { |id| %w[ark doi].include?(id.identifier_format) }.last
+    end
   end
 
   private
