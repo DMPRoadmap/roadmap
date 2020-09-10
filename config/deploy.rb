@@ -27,7 +27,7 @@ append :linked_files, 'config/branding.yml',
                       'config/initializers/dragonfly.rb',
                       'config/initializers/recaptcha.rb',
                       'config/initializers/wicked_pdf.rb',
-                      'config/initializers/external_apis/open_aire.rb'
+                      'config/initializers/external_apis/open_aire.rb',
                       'config/initializers/external_apis/dmphub.rb'
 
 # Default value for linked_dirs is []
