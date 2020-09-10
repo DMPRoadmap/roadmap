@@ -28,3 +28,11 @@
     </div>
   </fieldset>
 <% end %>
+
+<% if IdentifierScheme.for_identification.any? %>
+  <h2>Register your plan</h2>
+  <fieldset<%= (allow_visibility ? '' : ' disabled') %>>
+  <div class="doi-minter">
+    <%= render partial: 'plans/doi_minter', locals: { plan: @plan } %>
+  </div>
+<% end %>
