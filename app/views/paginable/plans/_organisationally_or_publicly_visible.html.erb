@@ -1,4 +1,5 @@
 <% if current_user.org_id? %>
+  <% has_dois = scope.select { |plan| plan.doi.present? }.any? %>
   <div class="row">
     <div class="col-md-12">
       <div class="table-responsive">
@@ -18,6 +19,9 @@
                 <%= _('Updated') %>&nbsp;
                 <%= paginable_sort_link('plans.updated_at') %>
               </th>
+              <% if has_dois %>
+                <th scope="col"><%= _('DOI') %></th>
+              <% end %>
               <th scope="col" class="sorter-false download-column"><%= _('Download') %></th>
             </tr>
           </thead>
@@ -30,6 +34,14 @@
                 <td><%= plan.template.title %></td>
                 <td><%= plan.owner.present? ? plan.owner.name : _('Unknown') %></td>
                 <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
+                <% if has_dois %>
+                  <td>
+                    <% doi = plan.doi %>
+                    <% if doi.present? %>
+                      <a href="<%= doi.value %>" target="_blank" class="has-new-window-popup-info"><%= doi.value %></a>
+                    <% end %>
+                  </td>
+                <% end %>
                 <td class="text-center">
                   <%= link_to plan_export_path(plan, format: :pdf),
                       class: 'has-new-window-popup-info',

@@ -1,4 +1,4 @@
-
+<% has_dois = scope.select { |plan| plan.doi.present? }.any? %>
 <% if @clicked_through %>
   <p><%= _(<<-TEXT
     The data on the usage dashboard is historical in nature. This means that the number of records below may not
@@ -22,6 +22,9 @@
         <th scope="col" class="date-column"><%= _('Created') %>&nbsp;<%= paginable_sort_link('plans.created_at') %></th>
         <th scope="col" class="date-column"><%= _('Updated') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
         <th scope="col"><%= _('Visibility') %></th>
+        <% if has_dois %>
+          <th scope="col"><%= _('DOI') %></th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -42,6 +45,14 @@
           <td class="plan-visibility">
             <%= plan.visibility === 'is_test' ? _('Test') : sanitize(display_visibility(plan.visibility)) %>
           </td>
+          <% if has_dois %>
+            <td>
+              <% doi = plan.doi %>
+              <% if doi.present? %>
+                <a href="<%= doi.value %>" target="_blank" class="has-new-window-popup-info"><%= doi.value %></a>
+              <% end %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

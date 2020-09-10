@@ -4,6 +4,16 @@
 <% project_abstract_tooltip = _("Briefly summarise your research project to help others understand the purposes for which the data are being collected or created.") %>
 <% id_tooltip = _('A pertinent ID as determined by the funder and/or organisation.') %>
 
+<% doi = plan.doi %>
+<% if doi.present? %>
+  <div class="form-group"><!-- doi -->
+    <div class="col-md-12">
+      <label>DOI</label>&nbsp;
+      <a href="<%= doi.value %>" target="_blank" class="has-new-window-popup-info"><%= doi.value %></a>
+    </div>
+  </div>
+<% end %>
+
 <div class="form-group"><!-- title -->
   <div class="col-md-12">
     <%= form.label(:title, _('Project title'), class: 'control-label') %>

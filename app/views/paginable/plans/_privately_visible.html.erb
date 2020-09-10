@@ -1,3 +1,5 @@
+<% has_dois = scope.select { |plan| plan.doi.present? }.any? %>
+
       <div class="table-responsive">
         <table class="table table-hover" id="my-plans">
           <thead>
@@ -9,6 +11,9 @@
               <th scope="col" class="text-center sorter-false"><%= _('Test') %></th>
               <th scope="col" ><%= _('Visibility') %></th>
               <th scope="col" ><%= _('Shared') %></th>
+              <% if has_dois %>
+                <th scope="col"><%= _('DOI') %></th>
+              <% end %>
               <th scope="col" class="sorter-false">
                 <span aria-hidden="false" class="sr-only"><%= _('Actions') %></span>
               </th>
@@ -44,6 +49,14 @@
                     <%= _('No') %>
                   <% end  %>
                 </td>
+                <% if has_dois %>
+                  <td>
+                    <% doi = plan.doi %>
+                    <% if doi.present? %>
+                      <a href="<%= doi.value %>" target="_blank" class="has-new-window-popup-info"><%= doi.value %></a>
+                    <% end %>
+                  </td>
+                <% end %>
                 <td>
                   <div class="dropdown">
                     <button class="btn btn-link dropdown-toggle" type="button"
