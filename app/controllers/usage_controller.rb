@@ -15,6 +15,7 @@ class UsageController < ApplicationController
     plan_data(args: args, as_json: true)
     total_plans(args: min_max_dates(args: args))
     total_users(args: min_max_dates(args: args))
+    total_dois
     # TODO: pull this in from branding.yml
     @separators = [",", "|", "#"]
     @funder = current_user.org.funder?
@@ -196,6 +197,10 @@ class UsageController < ApplicationController
 
   def total_users(args:)
     @total_org_users = StatJoinedUser.monthly_range(args.except(:filtered)).sum(:count)
+  end
+
+  def total_dois
+    @total_org_dois = current_user.org.plans.select { |plan| plan.doi.present? }.length
   end
 
   def first_plan_date

@@ -80,9 +80,7 @@ class PlanPolicy < ApplicationPolicy
   end
 
   def mint?
-    # Temporarily restricting this to Super Admins only until rest of workflow is finished
-    # @plan.administerable_by(@user.id) || @user.can_org_admin?
-    @user.can_super_admin?
+    @plan.administerable_by?(@user.id) || @user.can_super_admin?
   end
 
 end
