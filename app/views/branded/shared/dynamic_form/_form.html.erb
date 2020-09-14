@@ -14,12 +14,13 @@
   <% validation = validations.nil? ? "none" : validations[key] %>
   <% label = prop["label@#{user_language}"] %>
   <% ttip = prop["toolTip@#{user_language}"] %>
+  <% dropdownValues = prop["values@#{user_language}"]%>
   <% example = prop['example'] %>
   <% case prop['type'] %>
   <% when 'string' %>
     <% if prop['inputType'].present? %>
-      <% if prop['inputType'] == 'dropdown' && prop['values'] %>
-        <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, prop['values'], readonly: readonly, validation: validation) %>
+      <% if prop['inputType'] == 'dropdown' && dropdownValues %>
+        <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, dropdownValues, readonly: readonly, validation: validation) %>
       <% end %>
     <% elsif prop['format'].nil?%>
       <%= create_text_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip, example: example) %>
