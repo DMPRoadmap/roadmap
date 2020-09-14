@@ -6,45 +6,57 @@
     "type":"object",
     "properties":{
         "fileName":{
-            "label": "Filename",
-            "type":"string"
-          },
-        "description":{
-            "label": "Description",
+            "label@fr_FR": "Nom du fichier",
+            "label@en_GB": "Filename",
             "type":"string",
-            "pattern":"(.)*((@en)|(@fr))"
+            "toolTip@fr_FR": "Nom du fichier",
+            "toolTip@en_GB":"Name of the file"
+          },
+          "description": {
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "type": "string",
+            "toolTip@fr_FR": "Description du contenu de la distribution",
+            "toolTip@en_GB": "Description of the distribution content"
         },
         "releaseDate":{
-            "label": "Release date",
+            "label@fr_FR": "Date de diffusion",
+            "label@en_GB": "Release date",
             "type":"string",
             "format":"date"
         },    
         "dataAccess":{
-            "label": "DataAccess",
+            "label@fr_FR": "Mode d'accès",
+            "label@en_GB": "DataAccess",
             "type": "string",
             "format": "select",
-            "values": ["Open", "Restricted", "Closed"]
+            "values@fr_FR": ["Ouvert", "Restreint", "Fermé"],
+            "values@en_GB": ["Open", "Restricted", "Closed"]
         },
         "fileFormat":{
-            "label": "File format",
+            "label@fr_FR": "Format du fichier",
+            "label@en_GB": "File format",
             "type": "string",
-            "format": "select",
-            "values": ["text/csv", "text/markdown", "vido/JEPG", "application/json", "other"]
+            "example": "text/csv, text/markdown, video/JPEG, application/json,... "
         },
        "application":{
-           "label": "Application",
+            "label@fr_FR": "Application",
+            "label@en_GB": "Application",
             "type":"string",
-            "pattern":"(.)*((@en)|(@fr))",
-            "description": "Application to read the data"
+            "toolTip@fr_FR": "Application permettant de lire le fichier",
+            "toolTip@en_GB": "Application to read the data"
        },
        "filevolume":{
-           "label": "File volume",
+        "label@fr_FR": "Volume du fichier",
+        "label@en_GB": "File volume",
            "type":"number",
-           "description": "Number oof octets, can be expressed with exponential notation",
+           "toolTip@fr_FR": "Nombre d'octets, peut être exprimé avec une notation exponentielle",
+            "toolTip@en_GB": "Number oof octets, can be expressed with exponential notation",
            "example":"2.99e8"
        },  
        "hosting":{
-           "label": "Hosting",
+        "label@fr_FR": "Hébergement",
+        "label@en_GB": "Hosting",
            "type":"object",
            "classname": "technical_resource_usage",
            "description":"internal identifier pointing to a technicalResourceUsage JSON document",

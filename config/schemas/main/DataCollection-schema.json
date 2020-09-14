@@ -9,79 +9,94 @@
             "label@fr_FR": "Titre",
             "label@en_GB": "Title",
             "type": "string",
-            "pattern": "(.)*((@en)|(@fr))",
-            "description": "Title for a data collection (step)",
-            "toolTip@fr_FR": "Saisissez le titre de la collection",
-            "toolTip@en_GB": "Enter collection title",
-            "example": "Foobar",
-            "default": "Titre de la collection"
+            "toolTip@fr_FR": "titre d'une méthode (ou étape) de collecte",
+            "toolTip@en_GB": "Title of a data collection method (or step)",
+            "example": "Foobar"
         },
         "description": {
-            "label": "Description",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
             "type": "string",
-            "pattern": "(.)*((@en)|(@fr))",
-            "description": "description of the data collection methodology",
-            "toolTip@fr_FR": "Saisissez la description de la collection",
-            "toolTip@en_GB": "Enter the collection description"
+            "toolTip@fr_FR": "Description de la méthodologie de collecte",
+            "toolTip@en_GB": "Description of the data collection methodology"
         },
         "dataNature": {
-            "label": "Data Nature",
+            "label@fr_FR": "Nature des données",
+            "label@en_GB": "Data Nature",
             "type": "string",
             "format": "select",
-            "values": ["Observation", "Experimental data", "Simulation", "Model", "other"]
+            "values@fr_FR": [
+                "Observation",
+                "Données expérimentales",
+                "Simulation",
+                "Modèle",
+                "Autre"
+            ],
+            "values@en_GB": [
+                "Observation",
+                "Experimental data",
+                "Simulation",
+                "Model",
+                "other"
+            ]
         },
         "acquisition": {
-            "label": "Acquisition",
+            "label@fr_FR": "Acquisition",
+            "label@en_GB": "Acquisition",
             "type": "object",
-            "description": "Internal identifier pointing to a technicalResourceUsage JSON document",
-            "classname": "technical_resource_usage",
+            "schema_id": 29,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "required": ["dbid"]
+            "required": [
+                "dbid"
+            ]
         },
         "methodsUrl": {
-            "label": "Methods URL",
+            "label@fr_FR": "Methods URL",
+            "label@en_GB": "Url de la méthode",
             "type": "string",
-            "format": "uri",
-            "description": "Urls of methods",
-            "toolTip@fr_FR": "Saisissez une URL de méthode",
-            "toolTip@en_GB": "Enter a method URL"
+            "format": "uri"
         },
         "staffMember": {
-            "label": "Staff Member",
+            "label@fr_FR": "Contributeur(s)",
+            "label@en_GB": "Contributor(s)",
             "type": "array",
             "items": {
                 "type": "object",
-                "classname": "staff_member",
+                "schema_id": 27,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "required": ["dbid"]
+                "required": [
+                    "dbid"
+                ]
             }
         },
         "cost": {
-            "label": "Cost",
+            "label@fr_FR": "Coût d'acquisition",
+            "label@en_GB": "Acquisition cost",
             "type": "array",
             "items": {
                 "type": "object",
-                "classname": "cost",
+                "schema_id": 3,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "required": ["dbid"]
+                "required": [
+                    "dbid"
+                ]
             }
         }
-        
     },
     "required": [
-            "description",
-            "dataNature"
-        ]
+        "description",
+        "dataNature"
+    ]
 }

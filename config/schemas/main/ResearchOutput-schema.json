@@ -6,27 +6,35 @@
     "type": "object",
     "properties": {
         "title": {
-            "label": "Title",
+            "label@fr_FR": "Titre abrégé",
+            "label@en_GB": "Short title",
             "type": "string",
-            "pattern": "(.)*((@en)|(@fr))"
+            "toolTip@fr_FR": "20 caractères max.",
+            "toolTip@en_GB": "less than 20 characters "
         },
         "description": {
-            "label": "Description",
-            "type": "string",
-            "pattern": "(.)*((@en)|(@fr))"
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "type": "string"           
         },
         "type": {
-            "label": "Type",
+            "label@fr_FR": "Type de produit",
+            "label@en_GB": "Product type",
             "type": "string",
             "format": "select",
-            "values": ["Dataset","Software","Model","Physical object", "Protocol","Workflow","Other"]
+            "values@fr_FR": ["Jeu de données", "Logiciel", "Modèle", "Objet physique", "Protocole", "Workflow", "Autre"],
+            "values@en_GB": ["Dataset","Software","Model","Physical object", "Protocol","Workflow","Other"],
         },
         "workpackage": {
-            "label": "Work package",
-            "type": "string"
+            "label@fr_FR":"Workpackage",
+            "label@en_GB": "Workpackage",
+            "type": "string",
+            "toolTip@fr_FR":"Nom ou numéro du workpackage",
+            "toolTip@en_GB":"Name or number of the workpackage"
         },
         "controlledKeyword": {
-            "label": "Controller keyword",
+            "label@fr_FR":"Mot(s) clés contrôlés",
+            "label@en_GB": "Controlled keyword (s)",
             "type": "array",
             "items": {
                 "type": "object",
@@ -41,17 +49,20 @@
             "minItems": 1
         },
         "uncontrolledKeyword": {
-            "label": "Uncontrolled keyword",
+            "label@fr_FR":"Mot(s) clés non contrôlés",
+            "label@en_GB": "Uncontrolled keyword(s)",
             "type": "array",
             "items": {
                 "type": "string",
-                "pattern": "(.)*((@en)|(@fr))"
+        
             }
         },
         "language": {
-            "label": "Language",
+            "label@fr_FR":"Code langue",
+            "label@en_GB": "Language code",
             "type": "string",
-            "description": "data language",
+            "toolTip@fr_FR":"Code de la langue des données",
+            "toolTip@en_GB": "Data language code",
             "format": "select",
             "values": ["aar", "abk", "afr", "aka", "amh", "ara", "arg", "asm", "ava", "ave", "aym", "aze", "bak", "bam", "bel", "ben", "bih", "bis", "bod", "bos",
                 "bre", "bul", "cat", "ces", "cha", "che", "chu", "chv", "cor", "cos", "cre", "cym", "dan", "deu", "div", "dzo", "ell", "eng", "epo", "est",
@@ -65,10 +76,12 @@
                 "yid", "yor", "zha", "zho", "zul"]
         },
         "contact": {
-            "label": "Contact",
+            "label@fr_FR":"Personne contact",
+            "label@en_GB": "Contact",
             "type": "object",
+            "toolTip@fr_FR":"Personne contact pour ce produit de recherche",
+            "toolTip@en_GB":"Person to contact about this research product",
             "classname": "person",
-            "description": "Person responsible for these data",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -77,12 +90,15 @@
             "required": ["dbid"]
         },
         "estimatedVolume": {
-            "label": "Estimated volume",
+            "label@fr_FR":"Volume estimé",
+            "label@en_GB": "Estimated volume",
             "type": "number",
-            "description": "Volume expressed in Megaoctets"
+            "toolTip@fr_FR":"Volume exprimé en Mégaoctets",
+            "toolTip@en_GB":"Volume expressed in Megaoctets"
         },
         "datasetId": {
-            "label": "Dataset ID",
+            "label@fr_FR":"Identifiant pérenne du produit de recherche",
+            "label@en_GB": " Reseach product persistent identifier",
             "type": "object",
             "classname": "identifier",
             "properties": {
@@ -93,9 +109,11 @@
             "required": ["dbid"]
         },
         "reusedData": {
-            "label": "Reused data",
+            "label@fr_FR":"Données réutilisées",
+            "label@en_GB": "Reused data",
             "type": "array",
-            "description": "collection of internal identifiers pointing to reused data JSON documents",
+            "toolTip@fr_FR":"Citer les jeux de données ou autres produits pré-existants à ce projet et réutilisés",
+            "toolTip@en_GB": "Cite all pre-existing datasets or research products that have been reused in this project",
             "items": {
                 "type": "object",
                 "classname": "identifier",
@@ -108,16 +126,17 @@
             }
         },
         "containsPersonalData": {
-            "label": "Contains personal data?",
+            "label@fr_FR":"Contient des données personnelles?",
+            "label@en_GB": "Contains personal data?",
             "type": "string",
             "format": "select",
             "values": ["Yes", "No", "Unknown"]
         },
         "personalDataIssues": {
-            "label": "Personal data issues",
+            "label@fr_FR":"Procédures/mesures liées aux données personnelles",
+            "label@en_GB": "Personal data issues",
             "type": "object",
             "classname": "personal_data_issues",
-            "description": "Internal identifier pointing to a personalDataIssues JSON document",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -126,16 +145,17 @@
             "required": ["dbid"]
         },
         "containsSensitiveData": {
-            "label": "Contains sensible data?",
+            "label@fr_FR":"Contient des données sensibles ?",
+            "label@en_GB": "Contains sensible data?",
             "type": "string",
             "format": "select",
             "values": ["Yes", "No", "Unknown"]
         },
         "legalIssues": {
-            "label": "Legal issues",
+            "label@fr_FR":"Aspects juridiques",
+            "label@en_GB": "Legal issues",
             "type": "object",
             "classname": "legal_issues",
-            "description": "Internal identifier pointing to a legalIssues JSON document",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -144,13 +164,15 @@
             "required": ["dbid"]
         },
         "hasEthicalIssues": {
-            "label": "Has ethical issues?",
+            "label@fr_FR":"Enjeux éthiques ?",
+            "label@en_GB": "Ethical issues?",
             "type": "string",
             "format": "select",
             "values": ["Yes", "No", "Unknown"]
         },
         "ethicalIssues": {
-            "label": "Ethical issues",
+            "label@fr_FR":"Enjeux éthiques",
+            "label@en_GB": "Ethical issues",
             "type": "object",
             "classname": "ethical_issues",
             "description": "Internal identifier pointing to an ethicalIssues JSON document",
@@ -162,7 +184,8 @@
             "required": ["dbid"]
         },
         "dataCollection": {
-            "label": "Data collection",
+            "label@fr_FR":"Collecte des données",
+            "label@en_GB": "Data collection",
             "type": "object",
             "classname": "data_collection",
             "description": "Internal identifier pointing to a legalIssues JSON document",

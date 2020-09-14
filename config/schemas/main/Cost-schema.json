@@ -6,23 +6,28 @@
     "type":"object",
     "properties": {
         "title":{
-            "label": "Title",
-            "type":"string",
-            "pattern":"(.)*((@en)|(@fr))"
+            "label@fr_FR": "titre",
+            "label@en_GB": "Title",
+            "type":"string"
+            
         },
         "description":{
-            "label": "Description",
-            "type":"string",
-            "pattern":"(.)*((@en)|(@fr))"
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "type":"string"
+            
         },
         "costType": {
-            "label": "Cost type",
+            "label@fr_FR": "type de coût",
+            "label@en_GB": "Cost type",
             "type": "string",
             "format": "select",
-            "values": ["Human resource", "Training", "Software","Hardware", "other"]
+            "values@fr_FR" :["Ressources humaines", "Formation", "Logiciel", "Matériel informatique", "Autre" ],
+            "values@en_GB": ["Human resource", "Training", "Software","Hardware", "other"]
         },
         "costValue":{
-            "label": "Cost value",
+            "label@fr_FR": "Valeur du coût",
+            "label@en_GB": "Cost value",
             "type": "object",
             "classname": "cost_value",
             "properties": {
