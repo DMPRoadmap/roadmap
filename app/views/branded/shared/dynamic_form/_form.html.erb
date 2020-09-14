@@ -20,7 +20,7 @@
   <% when 'string' %>
     <% if prop['inputType'].present? %>
       <% if prop['inputType'] == 'dropdown' && dropdownValues %>
-        <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, dropdownValues, readonly: readonly, validation: validation) %>
+        <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, dropdownValues, readonly: readonly, validation: validation, ttip: ttip) %>
       <% end %>
     <% elsif prop['format'].nil?%>
       <%= create_text_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip, example: example) %>
@@ -36,6 +36,7 @@
   <% when 'boolean' %>
     <%= create_checkbox_field(f, value, field_name, label, readonly: readonly, validation: validation) %>
   <% when 'array' %>
+    <%# List of linked fragments displayed as table. Linked fragments are edited through a modal %>
     <% if prop['items']['type'] == 'object' && prop['items']['schema_id'].present? %>
       <% unless classname == "research_output" %>
         <% sub_schema = sub_schemas[prop['items']['schema_id']] %>
@@ -50,16 +51,22 @@
         ) %>
       <% end %>
     <% else %>
-      <%= render(partial: 'shared/dynamic_form/fields/simple_multiple_field', locals: { 
-        f: f, 
-        field_values: value,
-        readonly: readonly,
-        field_label: label,
-        field_properties: prop['items'],
-        field_name: field_name, answer_id: nil,
-        ttip: ttip
-        }
-      ) %>
+      <%# Select 'multiple' where the user can choose multiple options %>
+      <% if prop['inputType'] == 'dropdown' && dropdownValues %>
+        <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, dropdownValues, readonly: readonly, multiple: true, validation: validation, ttip: ttip) %>
+      <% else %>
+        <%# Input field associated with 'Add' and 'Delete' icons %>
+        <%= render(partial: 'shared/dynamic_form/fields/simple_multiple_field', locals: { 
+          f: f, 
+          field_values: value,
+          readonly: readonly,
+          field_label: label,
+          field_properties: prop['items'],
+          field_name: field_name, answer_id: nil,
+          ttip: ttip
+          }
+        ) %>
+      <% end %>
     <% end %>
   <% when 'object' %>
     <% if prop["schema_id"].present? %>
