@@ -110,7 +110,7 @@ module DynamicFormHelper
     }
   end
 
-  def create_select_field(form, value, name, label, select_values, validation: nil, html_class: nil, readonly: false)
+  def create_select_field(form, value, name, label, select_values, validation: nil, html_class: nil, readonly: false, multiple: false, ttip: nil)
     render partial: 'shared/dynamic_form/fields/select_field', 
     locals: {
       f: form, 
@@ -119,8 +119,10 @@ module DynamicFormHelper
       field_label: label,
       select_values: select_values,
       field_class: html_class,
+      multiple: multiple,
       readonly: readonly, 
-      validation: validation
+      validation: validation,
+      ttip: ttip
     }
   end
 
