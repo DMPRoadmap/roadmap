@@ -6,8 +6,11 @@
     "type": "object",
     "properties": {
         "person": {
+            "label@fr_FR": "Personne",
+            "label@en_GB": "Person",
             "type": "object",
             "classname": "person",
+            "schema_id":20,
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -16,9 +19,12 @@
             "required": ["dbid"]
         },
         "role": {
+            "label@fr_FR": "Rôle",
+            "label@en_GB":"Role",
             "type": "string",
-            "format": "select",
-            "values": ["Data producer", "Data manager", "Data steward", "Legal expert", "Data protection officer", "other"]
+            "inputType": "dropdown",
+            "values@fr_FR":["Producteur de données", "Gestionnaire de données", "Data steward", "Expert juridique", "Responsable de la protection des données", "Autre"],
+            "values@en_GB": ["Data producer", "Data manager", "Data steward", "Legal expert", "Data protection officer", "Other"]
         }
     },
     "required": [

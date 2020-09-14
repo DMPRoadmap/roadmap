@@ -6,9 +6,10 @@
     "type": "object",
     "properties": {
         "funder": {
-            "label": "Funder",
+            "label@fr_FR": "Financeur",
+            "label@en_GB": "Funder",
             "type": "object",
-            "classname": "funder",
+            "schema_id": 12,
             "properties": {
                 "dbid": {
                     "type": "number",
@@ -18,13 +19,15 @@
             "required": ["dbid"]
         },
         "grantId": {
-            "label": "Grant ID",
+            "label@fr_FR": "Identifiant du financement",
+            "label@en_GB": "Grant ID",
             "type": "string"
         },
         "fundingStatus": {
-            "label": "Funding status",
+            "label@fr_FR": "Statut du financement",
+            "label@en_GB": "Funding status",
             "type": "string",
-            "format": "select",
+            "inputType": "dropdown",
             "values": ["Planned", "Applied", "Granted", "Rejected"]
         }
     },

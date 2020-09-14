@@ -6,12 +6,12 @@
     "type": "object",
     "properties": {
         "title": {
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title",
             "type": "string",
-            "pattern": "(.)*((@en)|(@fr))"
         },
         "description": {
-            "type": "string",
-            "pattern": "(.)*((@en)|(@fr))"
+            "type": "string"
         },
         "contact": {
             "type": "object",

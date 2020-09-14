@@ -17,7 +17,7 @@
             "label@fr_FR": "Devise",
             "label@en_GB": "Currency",
             "type": "string",
-            "format": "select",
+            "inputType": "dropdown",
             "values": ["EUR", "USD", "GBP"]
         }    
     },

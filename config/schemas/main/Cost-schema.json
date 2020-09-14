@@ -21,7 +21,7 @@
             "label@fr_FR": "type de coût",
             "label@en_GB": "Cost type",
             "type": "string",
-            "format": "select",
+            "inputType": "dropdown",
             "values@fr_FR" :["Ressources humaines", "Formation", "Logiciel", "Matériel informatique", "Autre" ],
             "values@en_GB": ["Human resource", "Training", "Software","Hardware", "other"]
         },

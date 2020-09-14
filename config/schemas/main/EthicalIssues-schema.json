@@ -5,27 +5,29 @@
     "description": "The documentation the schema for ethical issues",
     "type": "object",
     "properties": {
-        "description": {
-            "label": "Description",
+        "description":{
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
             "type": "string",
-            "pattern": "(.)*((@en)|(@fr))",
-            "description": "description of ethical issues to take into account and security measures to comply with"
-        },
+            "toolTip@fr_FR": "Description du stockage des données",
+            "toolTip@en_GB": "Description of data storage"
+            },
         "reportUrl": {
-            "label": "Report URL",
+            "label@fr_FR": "Url de rapport",
+            "label@en_GB": "Report URL",
             "type": "array",
             "items": {
                 "type": "string",
-                "format": "uri",
-                "description": "url of the code of ethics for example "
+                "format": "uri"
             }
         },
-        "staffMember": {
-            "label": "Staff members",
-            "type": "array",
+        "staffMember":{
+            "label@fr_FR": "Personne en charge des aspects éthiques",
+            "label@en_GB": "Person in charge of ethical issues",
+            "type":"array",
             "items": {
                 "type": "object",
-                "classname": "staff_member",
+                "schema_id": 27,
                 "properties": {
                     "dbid": {
                         "type": "number"
@@ -35,7 +37,7 @@
                     "dbid"
                 ]
             }
-        }
+        }  
     },
     "required": [
         "description"

@@ -7,45 +7,80 @@
   "type":"object",
   "properties":{
     "title":{
-      "type":"string",
-      "pattern":"(.)*((@en)|(@fr))",
-      "title":"Data storage title schema",
-      "description":"Title for the storage use)"
-    },
+      "label@fr_FR": "Titre",
+      "label@en_GB": "Title",
+      "type":"string"
+      },
     "description":{
-      "type":"string",
-      "pattern":"(.)*((@en)|(@fr))",
-      "title": "Description of data storage",
-      "description":"informations regarding the technical resources and its use"
-    },
-    "storage":{
-      "type":"array",
-      "description":"internal identifier pointing to a technicalResourceUsage JSON document",
-      "items": {
-        "type": "object",
-        "classname": "technical_resource_usage",
-        "properties": {
-          "dbid": {
-            "type": "number"
-          }
-        },
-        "requested": ["dbid"]
-      }
+      "label@fr_FR": "Description",
+      "label@en_GB": "Description",
+      "type": "string",
+      "toolTip@fr_FR": "Description du stockage des données",
+      "toolTip@en_GB": "Description of data storage"
+      },
+      "storage":{
+        "label@fr_FR": "Stockage par une ressource extérieure",
+        "label@en_GB": "Storage by an external resource",
+        "type":"object",
+        "schema_id":29,
+        "properties":{
+            "dbid":{
+                "type":"number"
+                }
+         },
+         "required":["dbid"]
     },
     "securityMeasures":{
-      "type":"string",
-      "pattern":"(.)*((@en)|(@fr))"
+        "label@fr_FR": "Mesures de sécurité",
+        "label@en_GB": "Security measures",
+        "type":"string"
     },
     "backupPolicy":{
-      "type": "object",
-      "classname": "backup_policy",
-      "properties": {
-        "dbid": {
-          "type": "number"
+        "label@fr_FR": "Politique de sauvegarde",
+        "label@en_GB": "Backup policy",
+        "type": "object",
+        "schema_id":1,
+        "properties": {
+            "dbid": {
+                "type": "number"
+            }
+        },
+        "required": ["dbid"]
+    },
+    "staffMember":{
+        "label@fr_FR": "Personne en charge du stockage",
+        "label@en_GB": "Person in charge of storage",
+        "type":"array",
+        "items": {
+            "type": "object",
+            "schema_id": 27,
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "dbid"
+            ]
         }
-      },
-      "required": ["dbid"]
-    }
-  },
-  "required":["title", "description", "storage"]
+    },        
+    "cost": {
+        "label@fr_FR": "Coût de stockage",
+        "label@en_GB": "Coût de stockage",
+        "type": "array",
+        "items": {
+            "type": "object",
+            "schema_id": 3,
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "dbid"
+            ]
+        }
+    }        
+},
+"required":["title", "description"]
 }
