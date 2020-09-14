@@ -63,7 +63,7 @@
       <% unless classname == "research_output"  %>
         <div class="col-md-12">
           <fieldset class="answer-fieldset">
-            <legend class="answer-fieldset"><%= prop['label'] %></legend>
+            <legend class="answer-fieldset"><%= label %></legend>
             <%
               sub_schema = sub_schemas[prop["schema_id"]]
               sub_fragment = MadmpFragment.new(
