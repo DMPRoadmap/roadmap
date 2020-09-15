@@ -13,7 +13,7 @@ if !ENV["DOMAIN"] || ENV["DOMAIN"] == "app"
   TranslationIO.configure do |config|
     config.api_key              = ENV["TRANSLATION_API_ROADMAP"]
     config.source_locale        = "en"
-    config.target_locales       = %w[de en-GB en-US es fr-FR fi sv-FI pt-BR]
+    config.target_locales       = %w[de en-GB en-US es fr-FR fi sv-FI pt-BR en-CA fr-CA]
     config.text_domain          = "app"
     config.bound_text_domains   = %w[app client]
     config.ignored_source_paths = ["app/views/branded/"]
@@ -50,7 +50,8 @@ def ignore_paths
 end
 
 # Setup languages
-if Language.table_exists?
+table = ActiveRecord::Base.connection.table_exists?('languages') rescue false
+if table
   def default_locale
     Language.default.try(:abbreviation) || "en-GB"
   end
@@ -59,6 +60,9 @@ if Language.table_exists?
     Language.sorted_by_abbreviation.pluck(:abbreviation).presence || [default_locale]
   end
 
+  I18n.available_locales = Language.all.pluck(:abbreviation)
+
+  I18n.default_locale = Language.default.try(:abbreviation) || "en-GB"
 else
   def default_locale
     Rails.application.config.i18n.available_locales.first || "en-GB"
@@ -67,8 +71,8 @@ else
   def available_locales
     Rails.application.config.i18n.available_locales = %w[en-GB en-US]
   end
+
+  I18n.available_locales = ['en-GB']
+
+  I18n.default_locale = "en-GB"
 end
-
-I18n.available_locales = Language.all.pluck(:abbreviation)
-
-I18n.default_locale = Language.default.try(:abbreviation) || "en-GB"
