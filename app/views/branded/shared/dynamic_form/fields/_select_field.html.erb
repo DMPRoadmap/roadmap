@@ -1,4 +1,4 @@
-<%# locals: { f, field_label, field_name, select_values, selected_value, field_class, readonly, validation } %>
+<%# locals: { f, field_label, field_name, select_values, selected_value, field_class, readonly, multiple, validation, ttip } %>
 <% field_label = field_label || 'No label defined' %>
 <div class="col-md-12">
     <%= f.label field_name, field_label, class: 'control-label' %>
@@ -8,6 +8,9 @@
                 options_for_select(select_values,
                 selected: selected_value),
                 disabled: readonly,
+                multiple: multiple,
+                "data-toggle": "tooltip",
+                title: ttip,
                 class: "form-control #{field_class}" %>
     <%= render partial: "shared/dynamic_form/validation_indicator", locals: {
                     validation: validation
