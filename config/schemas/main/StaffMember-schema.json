@@ -10,7 +10,6 @@
             "label@en_GB": "Person",
             "type": "object",
             "classname": "person",
-            "schema_id":20,
             "properties": {
                 "dbid": {
                     "type": "number"

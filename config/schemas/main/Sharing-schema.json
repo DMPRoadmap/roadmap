@@ -24,7 +24,6 @@
             "label@en_GB": "Hosting",
             "type": "object",
             "classname": "technical_resource_usage",
-            "schema_id": 33,
             "description": "Internal identifier pointing to a technicalResourceUsage JSON document",
             "properties": {
                 "dbid": {
@@ -45,7 +44,6 @@
             "items": {
                 "type": "object",
                 "classname": "distribution",
-                "schema_id": 9,
                 "properties": {
                     "dbid": {
                         "type": "number"
@@ -61,7 +59,6 @@
             "label@en_GB": "Indexed in",
             "type": "object",
             "classname": "technical_resource",
-            "schema_id": 28,
             "description": "identifier pointing to a TechnicalResource Json document describing the catalog in which data are indexed",
             "properties": {
                 "dbid": {
@@ -78,7 +75,7 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "schema_id": 27,
+                "classname":"staff_member",
                 "properties": {
                     "dbid": {
                         "type": "number"
@@ -95,7 +92,7 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "schema_id": 3,
+                "classname": "cost",
                 "properties": {
                     "dbid": {
                         "type": "number"

@@ -12,7 +12,7 @@
             "minItems": 1,
             "items": {
                 "type": "object",
-                "schema_id": 16,
+                "classname": "legal_item",
                 "properties": {
                     "dbid": {
                         "type": "number"
@@ -29,7 +29,7 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "schema_id": 27,
+                "classname": "staff_member",
                 "properties": {
                     "dbid": {
                         "type": "number"

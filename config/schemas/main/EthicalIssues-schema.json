@@ -27,7 +27,7 @@
             "type":"array",
             "items": {
                 "type": "object",
-                "schema_id": 27,
+                "classname": "staff_member",
                 "properties": {
                     "dbid": {
                         "type": "number"

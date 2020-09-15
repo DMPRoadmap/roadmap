@@ -44,7 +44,7 @@
             "label@fr_FR": "Acquisition",
             "label@en_GB": "Acquisition",
             "type": "object",
-            "schema_id": 29,
+            "classname": "technical_resource_usage",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -66,7 +66,7 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "schema_id": 27,
+                "classname": "staff_member",
                 "properties": {
                     "dbid": {
                         "type": "number"
@@ -83,7 +83,7 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "schema_id": 3,
+                "classname": "cost",
                 "properties": {
                     "dbid": {
                         "type": "number"

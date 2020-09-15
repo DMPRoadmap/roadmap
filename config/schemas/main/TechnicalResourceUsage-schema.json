@@ -10,8 +10,7 @@
             "label@en_GB": "Facility",
             "type":"object",
             "classname": "technical_resource",
-            "schema_id": 28,
-            "properties": {
+           "properties": {
                 "dbid": {
                     "type": "number",
                     "description": "Internal identifier pointing to a technicalResource Json document"
@@ -53,7 +52,6 @@
             "label@en_GB": "Backup policy",
             "type": "object",
             "classname": "backup_policy",
-            "schema_id":1,
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -67,7 +65,7 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "schema_id": 27,
+                "classname": "staff_member",
                 "properties": {
                     "dbid": {
                         "type": "number"
@@ -86,7 +84,7 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "schema_id": 3,
+                "classname": "cost",
                 "properties": {
                     "dbid": {
                         "type": "number"

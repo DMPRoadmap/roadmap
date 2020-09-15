@@ -5,278 +5,163 @@
     "description": "The documentation for the research output schema",
     "type": "object",
     "properties": {
-        "title": {
-            "label@fr_FR": "Titre abrégé",
-            "label@en_GB": "Short title",
-            "type": "string",
-            "toolTip@fr_FR": "20 caractères max.",
-            "toolTip@en_GB": "less than 20 characters "
-        },
-        "description": {
-            "label@fr_FR": "Description",
-            "label@en_GB": "Description",
-            "type": "string"           
-        },
-        "type": {
-            "label@fr_FR": "Type de produit",
-            "label@en_GB": "Product type",
-            "type": "string",
-            "inputType": "dropdown",
-            "values@fr_FR": ["Jeu de données", "Logiciel", "Modèle", "Objet physique", "Protocole", "Workflow", "Autre"],
-            "values@en_GB": ["Dataset","Software","Model","Physical object", "Protocol","Workflow","Other"]
-        },
-        "workpackage": {
-            "label@fr_FR":"Workpackage",
-            "label@en_GB": "Workpackage",
-            "type": "string",
-            "toolTip@fr_FR":"Nom ou numéro du workpackage",
-            "toolTip@en_GB":"Name or number of the workpackage"
-        },
-        "controlledKeyword": {
-            "label@fr_FR":"Mot(s) clés contrôlés",
-            "label@en_GB": "Controlled keyword (s)",
-            "type": "array",
-            "items": {
-                "type": "object",
-                "classname": "controlled_keyword",
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "required": ["dbid"]
-            },
-            "minItems": 1
-        },
-        "uncontrolledKeyword": {
-            "label@fr_FR":"Mot(s) clés non contrôlés",
-            "label@en_GB": "Uncontrolled keyword(s)",
-            "type": "array",
-            "items": {
-                "type": "string",
-        
-            }
-        },
-        "language": {
-            "label@fr_FR":"Code langue",
-            "label@en_GB": "Language code",
-            "type": "string",
-            "toolTip@fr_FR":"Code de la langue des données",
-            "toolTip@en_GB": "Data language code",
-            "inputType": "dropdown",
-            "values@fr-FR": ["aar", "abk", "afr", "aka", "amh", "ara", "arg", "asm", "ava", "ave", "aym", "aze", "bak", "bam", "bel", "ben", "bih", "bis", "bod", "bos",
-                "bre", "bul", "cat", "ces", "cha", "che", "chu", "chv", "cor", "cos", "cre", "cym", "dan", "deu", "div", "dzo", "ell", "eng", "epo", "est",
-                "eus", "ewe", "fao", "fas", "fij", "fin", "fra", "fry", "ful", "gla", "gle", "glg", "glv", "grn", "guj", "hat", "hau", "hbs", "heb", "her",
-                "hin", "hmo", "hrv", "hun", "hye", "ibo", "ido", "iii", "iku", "ile", "ina", "ind", "ipk", "isl", "ita", "jav", "jpn", "kal", "kan", "kas",
-                "kat", "kau", "kaz", "khm", "kik", "kin", "kir", "kom", "kon", "kor", "kua", "kur", "lao", "lat", "lav", "lim", "lin", "lit", "ltz", "lub",
-                "lug", "mah", "mal", "mar", "mkd", "mlg", "mlt", "mon", "mri", "msa", "mya", "nau", "nav", "nbl", "nde", "ndo", "nep", "nld", "nno", "nob",
-                "nor", "nya", "oci", "oji", "ori", "orm", "oss", "pan", "pli", "pol", "por", "pus", "que", "roh", "ron", "run", "rus", "sag", "san", "sin",
-                "slk", "slv", "sme", "smo", "sna", "snd", "som", "sot", "spa", "sqi", "srd", "srp", "ssw", "sun", "swa", "swe", "tah", "tam", "tat", "tel",
-                "tgk", "tgl", "tha", "tir", "ton", "tsn", "tso", "tuk", "tur", "twi", "uig", "ukr", "urd", "uzb", "ven", "vie", "vol", "wln", "wol", "xho",
-                "yid", "yor", "zha", "zho", "zul"],
-            "values@en-GB": ["aar", "abk", "afr", "aka", "amh", "ara", "arg", "asm", "ava", "ave", "aym", "aze", "bak", "bam", "bel", "ben", "bih", "bis", "bod", "bos",
-                "bre", "bul", "cat", "ces", "cha", "che", "chu", "chv", "cor", "cos", "cre", "cym", "dan", "deu", "div", "dzo", "ell", "eng", "epo", "est",
-                "eus", "ewe", "fao", "fas", "fij", "fin", "fra", "fry", "ful", "gla", "gle", "glg", "glv", "grn", "guj", "hat", "hau", "hbs", "heb", "her",
-                "hin", "hmo", "hrv", "hun", "hye", "ibo", "ido", "iii", "iku", "ile", "ina", "ind", "ipk", "isl", "ita", "jav", "jpn", "kal", "kan", "kas",
-                "kat", "kau", "kaz", "khm", "kik", "kin", "kir", "kom", "kon", "kor", "kua", "kur", "lao", "lat", "lav", "lim", "lin", "lit", "ltz", "lub",
-                "lug", "mah", "mal", "mar", "mkd", "mlg", "mlt", "mon", "mri", "msa", "mya", "nau", "nav", "nbl", "nde", "ndo", "nep", "nld", "nno", "nob",
-                "nor", "nya", "oci", "oji", "ori", "orm", "oss", "pan", "pli", "pol", "por", "pus", "que", "roh", "ron", "run", "rus", "sag", "san", "sin",
-                "slk", "slv", "sme", "smo", "sna", "snd", "som", "sot", "spa", "sqi", "srd", "srp", "ssw", "sun", "swa", "swe", "tah", "tam", "tat", "tel",
-                "tgk", "tgl", "tha", "tir", "ton", "tsn", "tso", "tuk", "tur", "twi", "uig", "ukr", "urd", "uzb", "ven", "vie", "vol", "wln", "wol", "xho",
-                "yid", "yor", "zha", "zho", "zul"]
-        },
-        "contact": {
-            "label@fr_FR":"Personne contact",
-            "label@en_GB": "Contact",
+        "researchOutputDescription": {
+            "label@fr_FR": "Description des produits de recherche",
+            "label@en_GB": "Research output description",
             "type": "object",
-            "toolTip@fr_FR":"Personne contact pour ce produit de recherche",
-            "toolTip@en_GB":"Person to contact about this research product",
-            "classname": "person",
-            "schema_id": 20,
+            "classname": "research_output_description",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "required": ["dbid"]
+            "required": [
+                "dbid"
+            ]
         },
-        "estimatedVolume": {
-            "label@fr_FR":"Volume estimé",
-            "label@en_GB": "Estimated volume",
-            "type": "number",
-            "toolTip@fr_FR":"Volume exprimé en Mégaoctets",
-            "toolTip@en_GB":"Volume expressed in Megaoctets"
-        },
-        "datasetId": {
-            "label@fr_FR":"Identifiant pérenne du produit de recherche",
-            "label@en_GB": " Reseach product persistent identifier",
-            "type": "object",
-            "classname": "identifier",
-            "schema_id": 34,
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
-            },
-            "required": ["dbid"]
-        },
-        "reusedData": {
-            "label@fr_FR":"Données réutilisées",
+        "reuse": {
+            "label@fr_FR": "Données réutilisées",
             "label@en_GB": "Reused data",
-            "type": "array",
-            "toolTip@fr_FR":"Citer les jeux de données ou autres produits pré-existants à ce projet et réutilisés",
+            "type": "object",
+            "toolTip@fr_FR": "Citer les jeux de données ou autres produits pré-existants à ce projet et réutilisés",
             "toolTip@en_GB": "Cite all pre-existing datasets or research products that have been reused in this project",
-            "items": {
-                "type": "object",
-                "classname": "reused_data",
-                "schema_id":25,
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "required": ["dbid"]
-            }
-        },
-        "containsPersonalData": {
-            "label@fr_FR":"Contient des données personnelles?",
-            "label@en_GB": "Contains personal data?",
-            "type": "string",
-            "inputType": "dropdown",
-            "values": ["Yes", "No", "Unknown"]
+            "classname": "reuse",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "dbid"
+            ]
         },
         "personalDataIssues": {
-            "label@fr_FR":"Procédures/mesures liées aux données personnelles",
+            "label@fr_FR": "Procédures/mesures liées aux données personnelles",
             "label@en_GB": "Personal data issues",
             "type": "object",
             "classname": "personal_data_issues",
-            "schema_id":21,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "required": ["dbid"]
-        },
-        "containsSensitiveData": {
-            "label@fr_FR":"Contient des données sensibles ?",
-            "label@en_GB": "Contains sensible data?",
-            "type": "string",
-            "inputType": "dropdown",
-            "values": ["Yes", "No", "Unknown"]
+            "required": [
+                "dbid"
+            ]
         },
         "legalIssues": {
-            "label@fr_FR":"Aspects juridiques",
+            "label@fr_FR": "Aspects juridiques",
             "label@en_GB": "Legal issues",
             "type": "object",
             "classname": "legal_issues",
-            "schema_id": 15,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "required": ["dbid"]
-        },
-        "hasEthicalIssues": {
-            "label@fr_FR":"Enjeux éthiques ?",
-            "label@en_GB": "Ethical issues?",
-            "type": "string",
-            "inputType": "dropdown",
-            "values": ["Yes", "No", "Unknown"]
+            "required": [
+                "dbid"
+            ]
         },
         "ethicalIssues": {
-            "label@fr_FR":"Enjeux éthiques",
+            "label@fr_FR": "Enjeux éthiques",
             "label@en_GB": "Ethical issues",
             "type": "object",
             "classname": "ethical_issues",
-            "schema_id":11,
             "description": "Internal identifier pointing to an ethicalIssues JSON document",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "required": ["dbid"]
+            "required": [
+                "dbid"
+            ]
         },
         "dataCollection": {
-            "label@fr_FR":"Collecte des données",
+            "label@fr_FR": "Collecte des données",
             "label@en_GB": "Data collection",
             "type": "object",
             "classname": "data_collection",
-            "schema_id":5,
             "description": "Internal identifier pointing to a legalIssues JSON document",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "required": ["dbid"]
+            "required": [
+                "dbid"
+            ]
         },
         "dataProcessing": {
             "label": "Data processing",
             "type": "object",
             "classname": "data_processing",
-            "schema_id":7,
             "description": "Internal identifier pointing to a legalIssues JSON document",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "required": ["dbid"]
+            "required": [
+                "dbid"
+            ]
         },
         "dataStorage": {
             "label": "DataStorage",
             "type": "object",
             "classname": "data_storage",
-            "schema_id": 8,
             "description": "Internal identifier pointing to a legalIssues JSON document",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "required": ["dbid"]
+            "required": [
+                "dbid"
+            ]
         },
         "documentationQuality": {
             "label": "Documentation quality",
             "type": "object",
             "classname": "documentation_quality",
-            "schema_id": 10,
             "description": "Internal identifier pointing to a documentation JSON document",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "required": ["dbid"]
+            "required": [
+                "dbid"
+            ]
         },
         "sharing": {
             "label": "Sharing",
             "type": "object",
             "classname": "sharing",
-            "schema_id": 26,
             "description": "Internal identifier pointing to a sharing JSON document",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "required": ["dbid"]
+            "required": [
+                "dbid"
+            ]
         },
         "preservationIssues": {
             "label": "Preservation issues",
             "type": "object",
             "classname": "preservation_issues",
-            "schema_id": 22,
             "description": "Internal identifier pointing to a preservationIssues JSON document",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "required": ["dbid"]
+            "required": [
+                "dbid"
+            ]
         },
         "budget": {
             "label": "Budget",
@@ -285,30 +170,23 @@
             "items": {
                 "type": "object",
                 "classname": "cost",
-                "schema_id": 3,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "required": ["dbid"]
+                "required": [
+                    "dbid"
+                ]
             }
         }
     },
     "required": [
-        "title",
-        "description",
-        "type",
-        "controlledKeyword",
+        "researchOutputDescription",
         "reusedData",
-        "containsPersonalData",
-        "containsSensitiveData",
         "dataCollection",
         "dataStorage",
         "documentationQuality",
-        "estimatedVolume",
-        "hasEthicalIssues",
-        "language",
         "sharing",
         "preservationIssues",
         "budget"

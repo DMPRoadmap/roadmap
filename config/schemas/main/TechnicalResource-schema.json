@@ -22,7 +22,6 @@
             "label@en_GB": "Technical resource ID",
              "type": "object",
              "classname": "identifier",
-             "schema_id":34,
              "properties": {
                  "dbid": {
                      "type": "number"

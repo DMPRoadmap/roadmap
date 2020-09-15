@@ -398,7 +398,9 @@
                 "zha",
                 "zho",
                 "zul"
-            ]
+            ],
+            "default@fr_FR":"eng",
+            "deafult@en_GB":"eng"
         },
         "metadataStandardId": {
             "label@fr_FR": "Identifiant du standard utilisé",
@@ -409,7 +411,6 @@
             "example@en_EN":"Identifier in FAIRSharing or RDA Metadata Standard Catalog (https://rdamsc.bath.ac.uk/)",
             "type": "object",
             "classname": "identifier",
-            "schema_id": "A créer",
             "properties": {
                 "dbid": {
                     "type": "string"

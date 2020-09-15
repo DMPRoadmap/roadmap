@@ -22,7 +22,7 @@
             "label@fr_FR": "Stockage par une ressource extérieure",
             "label@en_GB": "Storage by an external resource",
             "type":"object",
-            "schema_id":29,
+            "classname": "technical_resource_usage",
             "properties":{
                 "dbid":{
                     "type":"number"
@@ -39,7 +39,7 @@
             "label@fr_FR": "Politique de sauvegarde",
             "label@en_GB": "Backup policy",
             "type": "object",
-            "schema_id":1,
+            "classname":"backup_policy",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -53,7 +53,7 @@
             "type":"array",
             "items": {
                 "type": "object",
-                "schema_id": 27,
+                "classname": "staff_member",
                 "properties": {
                     "dbid": {
                         "type": "number"
@@ -70,7 +70,7 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "schema_id": 3,
+                "classname": "cost",
                 "properties": {
                     "dbid": {
                         "type": "number"

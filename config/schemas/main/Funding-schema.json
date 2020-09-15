@@ -9,7 +9,7 @@
             "label@fr_FR": "Financeur",
             "label@en_GB": "Funder",
             "type": "object",
-            "schema_id": 12,
+            "classname": "funder",
             "properties": {
                 "dbid": {
                     "type": "number",

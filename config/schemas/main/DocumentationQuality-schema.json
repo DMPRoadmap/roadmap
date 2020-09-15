@@ -12,7 +12,7 @@
             "minItems": 1,
             "items":{
                 "type": "object",
-                "schema_id":6,
+                "classname":"data_organization",
                 "properties": {
                     "dbid": {
                         "type": "number"
@@ -28,7 +28,7 @@
             "minItems": 1,
             "items":{
                 "type":"object",
-                "schema_id":18,
+                "classname":"metadata_standard",
                 "properties":{
                     "dbid":{
                         "type":"number"
@@ -53,7 +53,7 @@
             "minItems" : 1,
             "items":{
                 "type": "object",
-                "schema_id": 24,
+                "classname": "quality_assurance_method",
                 "properties": {
                     "dbid": {
                         "type": "number"
@@ -69,7 +69,7 @@
             "type":"array",
             "items": {
                 "type": "object",
-                "schema_id": 27,
+                "classname": "staff_member",
                 "properties": {
                     "dbid": {
                         "type": "number"
@@ -86,7 +86,7 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "schema_id": 3,
+                "classname": "cost",
                 "properties": {
                     "dbid": {
                         "type": "number"

@@ -22,7 +22,6 @@
             "label@en_GB": "Product ID",
             "type": "object",
             "classname": "identifier",
-            "schema_id": 34,
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -40,7 +39,6 @@
         "label@en_GB": "License",
            "type": "object",
            "classname": "license",
-           "schema_id": 17,
            "properties": {
                "dbid": {
                    "type": "number"

@@ -8,7 +8,7 @@
         "title": {
             "label@fr_FR": "Titre complet",
             "label@en_GB": "Full title",
-            "type": "string",
+            "type": "string"
         },
         "description": {
             "label@fr_FR": "Description",
@@ -51,7 +51,7 @@
             "label@en_GB": "Uncontrolled keyword(s)",
             "type": "array",
             "items": {
-                "type": "string",
+                "type": "string"
         
             }
         },
@@ -90,7 +90,6 @@
             "toolTip@fr_FR":"Personne contact pour ce produit de recherche",
             "toolTip@en_GB":"Person to contact about this research product",
             "classname": "person",
-            "schema_id": 20,
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -103,14 +102,13 @@
             "label@en_GB": "Estimated volume",
             "type": "number",
             "toolTip@fr_FR":"Volume exprimé en Mégaoctets",
-            "toolTip@en_GB":"Volume expressed in Megaoctets"
+            "toolTip@en_GB":"Volume expressed in Megabytes"
         },
         "datasetId": {
             "label@fr_FR":"Identifiant pérenne du produit de recherche",
             "label@en_GB": " Reseach product persistent identifier",
             "type": "object",
             "classname": "identifier",
-            "schema_id": 34,
             "properties": {
                 "dbid": {
                     "type": "number"

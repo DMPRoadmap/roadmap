@@ -10,7 +10,6 @@
       "label@en_GB": "Facility",
       "type": "object",
       "classname": "technical_resource",
-      "schema_id": 28,
       "properties": {
         "dbid": {
           "type": "number",
@@ -59,7 +58,6 @@
           "label@en_GB": "One year status",
           "type": "object",
           "classname": "one_year_status",
-          "schema_id": 30,
           "properties": {
             "dbid": {
               "type": "number"
@@ -107,7 +105,6 @@
           "label@en_GB": "One year status",
           "type": "object",
           "classname": "one_year_status",
-          "schema_id": 30,
           "properties": {
             "dbid": {
               "type": "number"
@@ -136,7 +133,6 @@
     "costValue": {
       "type": "object",
       "classname": "cost_value",
-      "schema_id":4,
       "properties": {
         "dbid": {
           "type": "number"

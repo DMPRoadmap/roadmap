@@ -14,7 +14,7 @@
             "label@fr_FR": "ID financeur",
             "label@en_GB": "Funder ID",
             "type": "object",
-            "schema_id": 14,
+            "classname": "identifier",
             "properties": {
                 "dbid": {
                     "type": "number"

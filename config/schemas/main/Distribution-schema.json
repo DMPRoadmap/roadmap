@@ -39,13 +39,17 @@
                 "Open",
                 "Restricted",
                 "Closed"
-            ]
+            ],
+            "default@fr_FR":"Ouvert",
+            "default@en_GB": "Open"
         },
         "fileFormat": {
             "label@fr_FR": "Format du fichier",
             "label@en_GB": "File format",
             "type": "string",
-            "example": "text/csv, text/markdown, video/JPEG, application/json,... "
+            "example": "text/csv, text/markdown, video/JPEG, application/json,... ",
+            "toolTip@fr_FR": "Format sous forme MIME type",
+            "toolTip@en_GB": "Format expressed as MIME type"
         },
         "application": {
             "label@fr_FR": "Application",
@@ -59,14 +63,14 @@
             "label@en_GB": "File volume",
             "type": "number",
             "toolTip@fr_FR": "Nombre d'octets, peut être exprimé avec une notation exponentielle",
-            "toolTip@en_GB": "Number oof octets, can be expressed with exponential notation",
+            "toolTip@en_GB": "Number of bytes, can be expressed with exponential notation",
             "example": "2.99e8"
         },
         "hosting": {
             "label@fr_FR": "Hébergement",
             "label@en_GB": "Hosting",
             "type": "object",
-            "schema_id": 33,
+            "classname":"technical_resource_usage",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -102,7 +106,7 @@
             "label@fr_FR": "Licence",
             "label@en_GB": "License",
             "type": "object",
-            "schema_id": 17,
+            "classname": "license",
             "properties": {
                 "dbid": {
                     "type": "number"
