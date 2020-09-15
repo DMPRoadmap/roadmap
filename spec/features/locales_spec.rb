@@ -37,22 +37,22 @@ RSpec.feature "Locales", type: :feature, js: true do
   before do
     locales = %w[en-GB de pt-BR]
     I18n.available_locales = locales.map { |l| LocaleService.to_i18n(locale: l) }
-    FastGettext.default_available_locales = locales.map do |l|
+    I18n.default_available_locales = locales.map do |l|
       LocaleService.to_gettext(locale: l)
     end
     I18n.locale                   = LocaleService.to_i18n(locale: locales.first)
-    FastGettext.locale            = LocaleService.to_gettext(locale: locales.first)
+    I18n.locale            = LocaleService.to_gettext(locale: locales.first)
     sign_in(user)
   end
 
   after do
     locales = AVAILABLE_TEST_LOCALES
     I18n.available_locales = locales.map { |l| LocaleService.to_i18n(locale: l) }
-    FastGettext.default_available_locales = locales.map do |l|
+    I18n.default_available_locales = locales.map do |l|
       LocaleService.to_gettext(locale: l)
     end
     I18n.default_locale           = LocaleService.to_i18n(locale: locales.first)
-    FastGettext.default_locale    = LocaleService.to_gettext(locale: locales.first)
+    I18n.default_locale    = LocaleService.to_gettext(locale: locales.first)
   end
 
   context "when new locale has no region" do
