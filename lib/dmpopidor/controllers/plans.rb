@@ -37,15 +37,6 @@ module Dmpopidor
           @plan = Plan.new
           authorize @plan
 
-          # Add default research output if possible
-          @plan.research_outputs.new(
-            abbreviation: 'Default', 
-            fullname: 'Default research output',
-            is_default: true, 
-            type: ResearchOutputType.find_by(label: "Dataset"),
-            order: 1
-          )
-
           # We set these ids to -1 on the page to trick ariatiseForm into allowing the
           # autocomplete to be blank if the no org/funder checkboxes are checked off
           org_id = (plan_params[:org_id] == "-1" ? "" : plan_params[:org_id])
@@ -125,6 +116,15 @@ module Dmpopidor
               end
 
               @plan.add_user!(current_user.id, :creator)
+
+              # Add default research output if possible
+              @plan.research_outputs.create(
+                abbreviation: 'Default', 
+                fullname: 'Default research output',
+                is_default: true, 
+                type: ResearchOutputType.find_by(label: "Dataset"),
+                order: 1
+              )
 
               respond_to do |format|
                 flash[:notice] = msg

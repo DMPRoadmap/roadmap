@@ -25,7 +25,7 @@ class Fragment::ResearchOutput < MadmpFragment
     end
     
 
-    def research_output_description
+    def description
         Fragment::ResearchOutputDescription.where(parent_id: id).first
     end
 

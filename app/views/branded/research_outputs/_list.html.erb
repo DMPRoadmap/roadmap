@@ -2,7 +2,7 @@
 <%= hidden_field_tag "plan_id", plan.id, class: 'plan-id' %>
 <% research_outputs.each_with_index do |research_output, index|%>
   <% research_output_fragment = research_output.json_fragment %>
-  <% research_output_data = research_output_fragment.data if research_output_fragment.present?%>
+  <% research_output_data = research_output_fragment.description.data if research_output_fragment.present?%>
   <div class='research-output-element <%= index != 0 ? '' : 'inactive' %>'>
     <div class='research-output-fields'>
       <div class='research-output-field form-group research-output-abbreviation'>
@@ -13,28 +13,12 @@
         <strong><%= _('Description') %></strong>  
         <span><%= research_output_data['description'] %></span>
       </div>
-      <div class='research-output-field form-group research-output-type'>
-        <strong><%= d_('dmpopidor', 'Type') %></strong> 
-        <span><%= research_output_data['type'] %></span>
-      </div>
       <%= hidden_field_tag "id", research_output.id, class: 'research-output-id' %>
     </div>
     <% unless readonly %>
       <div class='research-output-actions'>
-        <%= link_to new_edit_linked_madmp_fragments_url(
-                nil, 
-                :fragment_id => research_output_fragment.id, 
-                :parent_id => research_output_fragment.dmp_id, 
-                :schema_id => MadmpSchema.find_by(classname: "research_output").id,
-                :classname => "research_output"
-            ),  {
-                :remote => true, 
-                'data-toggle' =>  "modal", 
-                'data-target' => '#modal-window'
-            }  do %>
           <i class="fa fa-edit pull-left edit" aria-hidden="true"
                   title="<%= d_('dmpopidor', 'Edit research output') %>"></i>
-        <% end %> 
         <% if plan.research_outputs.length > 1 && index != 0 %>
           <i class="fa fa-arrows handle" aria-hidden="true" 
                   title="<%= d_('dmpopidor', 'Move research output') %>"></i>
