@@ -12,12 +12,12 @@ RSpec.configure do |config|
     I18n.available_locales = AVAILABLE_TEST_LOCALES.map do |locale|
       LocaleService.to_i18n(locale: locale)
     end
-    FastGettext.default_available_locales = AVAILABLE_TEST_LOCALES.map do |locale|
+    I18n.default_available_locales = AVAILABLE_TEST_LOCALES.map do |locale|
       LocaleService.to_gettext(locale: locale)
     end
     default_locale = AVAILABLE_TEST_LOCALES.first
     I18n.default_locale = LocaleService.to_i18n(locale: default_locale)
-    FastGettext.default_locale = LocaleService.to_gettext(locale: default_locale)
+    I18n.default_locale = LocaleService.to_gettext(locale: default_locale)
 
     unless Language.default.present?
       Language.create(name: default_locale, abbreviation: default_locale,
@@ -29,7 +29,7 @@ RSpec.configure do |config|
     I18n.config.enforce_available_locales = true
     default_locale = AVAILABLE_TEST_LOCALES.first
     I18n.config.locale = LocaleService.to_i18n(locale: default_locale)
-    FastGettext.locale = LocaleService.to_gettext(locale: default_locale)
+    I18n.locale = LocaleService.to_gettext(locale: default_locale)
   end
 
 end
