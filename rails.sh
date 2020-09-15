@@ -18,7 +18,7 @@ fi
 # Additionnal DB actions
 # bundle exec rake db:seed
 bundle exec rake db:migrate
-bundle exec rake load_schemas
+# bundle exec rake load_schemas
 
 # Start the app
 bundle exec rails s -e development -p 3000 -b 0.0.0.0
