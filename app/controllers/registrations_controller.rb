@@ -232,7 +232,7 @@ class RegistrationsController < Devise::RegistrationsController
       end
       session[:locale] = current_user.locale unless current_user.locale.nil?
       # Method defined at controllers/application_controller.rb
-      set_gettext_locale
+      set_locale
       set_flash_message :notice, success_message(current_user, _("saved"))
       # Sign in the user bypassing validation in case his password changed
       sign_in current_user, bypass: true
@@ -261,7 +261,7 @@ class RegistrationsController < Devise::RegistrationsController
     # render the correct page
     if successfully_updated
       session[:locale] = current_user.locale unless current_user.locale.nil?
-      # Method defined at controllers/application_controller.rbset_gettext_locale
+      # Method defined at controllers/application_controller.rb#set_locale
       set_flash_message :notice, success_message(current_user, _("saved"))
       # TODO: this method is deprecated
       sign_in current_user, bypass: true
