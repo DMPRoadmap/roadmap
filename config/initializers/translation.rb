@@ -50,7 +50,9 @@ def ignore_paths
 end
 
 # Setup languages
-table = ActiveRecord::Base.connection.table_exists?('languages') rescue false
+# rubocop:disable Style/RescueModifier
+table = ActiveRecord::Base.connection.table_exists?("languages") rescue false
+# rubocop:enable Style/RescueModifier
 if table
   def default_locale
     Language.default.try(:abbreviation) || "en-GB"
@@ -72,7 +74,7 @@ else
     Rails.application.config.i18n.available_locales = %w[en-GB en-US]
   end
 
-  I18n.available_locales = ['en-GB']
+  I18n.available_locales = ["en-GB"]
 
   I18n.default_locale = "en-GB"
 end
