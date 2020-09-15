@@ -9,7 +9,7 @@
 
 default_locale = LocaleService.to_i18n(locale: LocaleService.default_locale).to_s
 
-# When this is executed by `db:setup`, the FastGettext initializer did not run
+# When this is executed by `db:setup`, the translation initializer did not run
 # so we need to establish the I18n locales manually
 I18n.available_locales = LocaleService.available_locales.map do |locale|
   LocaleService.to_i18n(locale: locale)
