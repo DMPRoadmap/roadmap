@@ -51,8 +51,6 @@ class OrgsController < ApplicationController
         attrs.delete(:identifiers_attributes)
       end
 
-      attrs[:managed] = attrs[:managed] == "1"
-
       # See if the user selected a new Org via the Org Lookup and
       # convert it into an Org
       lookup = org_from_params(params_in: attrs)
