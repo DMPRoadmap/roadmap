@@ -20,7 +20,6 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :feature) do
-    I18n.config.enforce_available_locales = true
     default_locale = AVAILABLE_TEST_LOCALES.first
     I18n.config.locale = default_locale
   end
