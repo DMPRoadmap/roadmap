@@ -129,7 +129,7 @@ RSpec.configure do |config|
     end
 
     # Ensure that there is always a default Language
-    create(:language, default_language: true) unless Language.default.present?
+    create(:language, abbreviation: 'en', default_language: true) unless Language.default.present?
   end
 
   config.after(:suite) do
