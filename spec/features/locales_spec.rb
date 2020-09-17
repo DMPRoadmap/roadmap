@@ -67,7 +67,7 @@ RSpec.feature "Locales", type: :feature, js: true do
   context "when new locale has region" do
 
     scenario "user changes their locale" do
-      create_plan_text =  I18n.with_locale("pt-BR") do
+      create_plan_text = I18n.with_locale("pt-BR") do
         _("Create plan")
       end
       click_link "Language"
