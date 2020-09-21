@@ -117,7 +117,7 @@ class UsersController < ApplicationController
       pref.settings = {}
       pref.user = current_user
     end
-    pref.settings[:email] = booleanize_hash(prefs)
+    pref.settings["email"] = booleanize_hash(prefs["prefs"])
     pref.save
 
     # Include active tab in redirect path
@@ -175,7 +175,11 @@ class UsersController < ApplicationController
   def preference_params
     params.require(:user).permit(
       prefs: [
-        users: %i[new_comment added_as_coowner admin_privileges],
+        users: %i[new_comment
+                  added_as_coowner
+                  admin_privileges
+                  feedback_requested
+                  feedback_provided],
         owners_and_coowners: %i[visibility_changed]
       ]
     )
@@ -188,9 +192,11 @@ class UsersController < ApplicationController
     # hash: iterate over leaves
     return node == "true" unless node.is_a?(ActionController::Parameters)
 
+    newnode = {}
     node.each do |key, value|
-      node[key] = booleanize_hash(value)
+      newnode[key] = booleanize_hash(value)
     end
+    newnode
   end
 
 end
