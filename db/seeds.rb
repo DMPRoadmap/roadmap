@@ -9,7 +9,7 @@
 
 default_locale = LocaleService.to_i18n(locale: LocaleService.default_locale).to_s
 
-# When this is executed by `db:setup`, the FastGettext initializer did not run
+# When this is executed by `db:setup`, the translation initializer did not run
 # so we need to establish the I18n locales manually
 I18n.available_locales = LocaleService.available_locales.map do |locale|
   LocaleService.to_i18n(locale: locale)
@@ -116,22 +116,22 @@ languages = [
 languages.each { |l| Language.create!(l) }
 default_language = Language.find_by(abbreviation: default_locale)
 
-# Scan through the locale files and add an entry if a file is present but
-# not defined in this seed file
-Dir.entries("#{Rails.root.join("config", "locales").to_s}").each do |f|
-  if f[-4..-1] == '.yml'
-    lang = f.gsub('.yml', '')
-
-    if Language.where(abbreviation: lang).empty?
-      Language.create!({
-        abbreviation: lang,
-        description: lang,
-        name: lang,
-        default_language: false
-      })
-    end
-  end
-end
+# # Scan through the locale files and add an entry if a file is present but
+# # not defined in this seed file
+# Dir.entries("#{Rails.root.join("config", "locales").to_s}").each do |f|
+#   if f[-4..-1] == '.yml'
+#     lang = f.gsub('.yml', '')
+#
+#     if Language.where(abbreviation: lang).empty?
+#       Language.create!({
+#         abbreviation: lang,
+#         description: lang,
+#         name: lang,
+#         default_language: false
+#       })
+#     end
+#   end
+# end
 
 # Regions (create the super regions first and then create the rest)
 # -------------------------------------------------------
