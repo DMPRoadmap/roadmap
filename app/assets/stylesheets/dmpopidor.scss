@@ -13,6 +13,7 @@ $light-rust: #faefed;
 $yellow: #FFCC00;
 $light-yellow: #fff9e5;
 $green: #2CAD5D;
+$light-grey: #e5e4e7;
 
 body {
     display: flex;
@@ -410,6 +411,20 @@ header .main-nav {
         border-color: $rust;
         background-color: $rust;
         color: $white;
+    }
+    .btn-secondary, 
+    .btn-secondary:hover, 
+    .btn-secondary:focus, 
+    .btn-secondary:active, 
+    .btn-secondary:visited, 
+    .btn-secondary:active:hover, 
+    .btn-secondary.active:hover {
+        border-color: $light-grey;
+        background-color: $light-grey;
+        color: $black;
+        outline: none;
+        margin-top: 5px;
+        margin-bottom: 10px;
     }
     .combobox-clear-button, 
     .combobox-clear-button:hover, 
@@ -955,18 +970,21 @@ header .main-nav {
             border: 0.5px groove $color-border-light;
             box-shadow:  0px 0px 0px 0px $color-shadow-dark;
             padding: 5px;
-            .research-output-pid, .research-output-type {
-                width: 30%;
-            }
             .research-output-field {
                 padding-top: 7px;
+                strong {
+                    padding-right: 5px;
+                }
+            }
+            .edit, button {
+                display: none;
             }
         }
         .research-output-actions {
             flex: 1;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-around;
             color: $blue;
 
             .handle, .edit, .cancel {
