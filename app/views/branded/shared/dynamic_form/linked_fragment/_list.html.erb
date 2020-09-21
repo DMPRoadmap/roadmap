@@ -1,4 +1,4 @@
-<%# locals: { obj_list, parent_id, schema, readonly } %>
+<%# locals: { obj_list, parent_id, schema, readonly, template_locale } %>
 <% obj_list.each do |obj| %>
   <tr>
     <td><%= obj.to_s %></td>
@@ -17,7 +17,8 @@
         <%= link_to new_edit_linked_madmp_fragments_url(
               :fragment_id => obj.id, 
               :parent_id => parent_id, 
-              :schema_id => schema.id
+              :schema_id => schema.id,
+              :template_locale => template_locale
           ), {
               :remote => true, 
               'data-toggle' => 'modal', 
