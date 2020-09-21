@@ -23,16 +23,16 @@ $(() => {
     $('#research-outputs-list').html(data.html);
   });
 
-  $('.research-output-type-select').change((e) => {
-    const selectElement = $(e.target);
-    const parentElement = selectElement.closest('.research-output-element');
-    const otherTypeElement = parentElement.find('.research-output-other-type-label');
-    if (selectElement.find('option:selected').data('other')) {
-      otherTypeElement.find('input').prop('required', true);
-      otherTypeElement.show();
-    } else {
-      otherTypeElement.find('input').prop('required', false);
-      otherTypeElement.hide();
-    }
+  $('#research-outputs').on('click', '.research-output-actions .edit', (e) => {
+    const form = $(e.target).parents('form');
+    form.find('.research-output-fields .edit').show();
+    form.find('.research-output-fields .cancel').show();
+    form.find('.research-output-fields  .readonly').hide();
+  });
+  $('#research-outputs').on('click', '.research-output-fields .cancel', (e) => {
+    const form = $(e.target).parents('form');
+    form.find('.research-output-fields .readonly').show();
+    form.find('.research-output-fields  .edit').hide();
+    form.find('.research-output-fields  .cancel').hide();
   });
 });

@@ -22,6 +22,27 @@ class ResearchOutputsController < ApplicationController
     end
   end
 
+  def update
+    @plan = Plan.find(params[:plan_id])
+    @research_output = ResearchOutput.find(params[:id])
+    attrs = research_output_params
+
+    authorize @plan
+
+    if @research_output.update(attrs)
+      render json: { 
+        "html" => render_to_string(partial: 'research_outputs/list', locals: {
+          plan: @plan,
+          research_outputs: @plan.research_outputs,
+          readonly: false
+        })
+      }
+    else
+      flash[:alert] = failure_message(@research_output, _("update"))
+      redirect_to(:action => 'index')
+    end
+  end
+
   def destroy
     @plan = Plan.find(params[:plan_id])
     @research_output = ResearchOutput.find(params[:id])
@@ -70,5 +91,10 @@ class ResearchOutputsController < ApplicationController
   end
 
   
-
+  private
+  
+  def research_output_params
+    params.require(:research_output)
+          .permit(:id, :plan_id, :abbreviation, :fullname)
+  end
 end

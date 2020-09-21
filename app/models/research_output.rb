@@ -93,27 +93,48 @@ class ResearchOutput < ActiveRecord::Base
   def create_or_update_fragments
     fragment = self.json_fragment()
     dmp_fragment = self.plan.json_fragment()
+
     if fragment.nil?
+      # Fetch the first question linked with a ResearchOutputDescription schema
+      description_question = self.plan.questions.joins(:madmp_schema)
+                                  .find_by(:madmp_schemas => { :classname => 'research_output_description' } )
+      
+      # Creates the main ResearchOutput fragment
       fragment = Fragment::ResearchOutput.create(
         data: {
-          "research_output_id" => self.id,
-          "title" => self.abbreviation,
-          "description" => self.fullname,
-          "type" => self.type.label
+          "research_output_id" => self.id
         },
-        madmp_schema_id: MadmpSchema.find_by(classname: "research_output"),
+        madmp_schema_id: MadmpSchema.find_by(classname: "research_output").id,
         dmp_id: dmp_fragment.id,
         parent_id: dmp_fragment.id
       )
-    else
-      fragment.update(
+      fragment_description = Fragment::ResearchOutputDescription.create(
         data: {
-          "research_output_id" => self.id,
           "title" => self.abbreviation,
-          "description" => self.fullname,
-          "type" => self.type.label
-        }
+          "description" => self.fullname
+        },
+        madmp_schema_id: MadmpSchema.find_by(classname: "research_output_description").id,
+        dmp_id: dmp_fragment.id,
+        parent_id: fragment.id
       )
+
+      unless description_question.nil?
+        # Create a new answer for the ResearchOutputDescription Question
+        # This answer will be displayed in the Write Plan tab, pre filled with the ResearchOutputDescription info
+        fragment_description.answer = Answer.create(
+          question_id: description_question.id,
+          research_output_id: self.id,
+          plan_id: self.plan.id,
+          user_id: self.plan.users.first.id
+        )
+        fragment_description.save!
+      end
+    else
+      data = fragment.description.data.merge({
+        "title" => self.abbreviation,
+        "description" => self.fullname
+      })
+      fragment.description.update(data: data)
     end
   end
 

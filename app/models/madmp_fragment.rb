@@ -63,6 +63,7 @@ class MadmpFragment < ActiveRecord::Base
   scope :preservation_issues, -> { where(classname: 'preservation_issue') }
   scope :projects, -> { where(classname: 'project') } 
   scope :research_outputs, -> { where(classname: 'research_output') } 
+  scope :research_output_descriptions, -> { where(classname: 'research_output_description') } 
   scope :reuse_datas, -> { where(classname: 'reuse_data') } 
   scope :sharings, -> { where(classname: 'sharing') } 
   scope :technical_resource_usages, -> { where(classname: 'technical_resource_usage') } 
