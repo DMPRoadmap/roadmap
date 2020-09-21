@@ -13,7 +13,6 @@ class Pref < ApplicationRecord
 
   ##
   # Serialize prefs to JSON
-  # The settings object only stores deviations from the default
   serialize :settings, JSON
 
   # ================
