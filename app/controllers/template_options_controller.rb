@@ -25,7 +25,7 @@ class TemplateOptionsController < ApplicationController
         # Load the funder's template(s) minus the default template (that gets swapped
         # in below if NO other templates are available)
         @templates = Template.latest_customizable
-                             .where(org_id: funder.id, is_default: false)
+                             .where(org_id: funder.id, is_default: false).to_a
         if org.present? && !org.new_record?
           # Swap out any organisational cusotmizations of a funder template
           @templates = @templates.map do |tmplt|
