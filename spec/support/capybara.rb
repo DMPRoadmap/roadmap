@@ -15,7 +15,14 @@ Webdrivers.cache_time = 3600
 #
 # This adds the --no-sandbox flag to fix TravisCI as described here:
 # https://docs.travis-ci.com/user/chrome#sandboxing
-Capybara.javascript_driver = :capybara_webmock_chrome_headless
+Capybara.register_driver :selenium_chrome_headless do |app|
+  Capybara::Selenium::Driver.load_selenium
+  browser_options = ::Selenium::WebDriver::Chrome::Options.new
+  browser_options.args << "--headless"
+  browser_options.args << "--no-sandbox"
+  browser_options.args << "--disable-gpu" if Gem.win_platform?
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
+end
 
 RSpec.configure do |config|
 
@@ -24,7 +31,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :feature, js: true) do
-    Capybara.current_driver = :capybara_webmock_chrome_headless
+    Capybara.current_driver = :selenium_chrome_headless
   end
 
 end
