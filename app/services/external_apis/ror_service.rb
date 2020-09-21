@@ -171,11 +171,11 @@ module ExternalApis
 
       # Extracts the org's ISO639 if available
       def org_language(item:)
-        dflt = FastGettext.default_locale || "en"
+        dflt = I18n.default_locale || "en"
         return dflt unless item.present?
 
         labels = item.fetch("labels", [{ "iso639": dflt }])
-        labels.first&.fetch("iso639", FastGettext.default_locale) || dflt
+        labels.first&.fetch("iso639", I18n.default_locale) || dflt
       end
 
       # Extracts the website domain from the item

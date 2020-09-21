@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   # Look for template overrides before rendering
   before_action :prepend_view_paths
 
-  before_action :set_gettext_locale
+  before_action :set_locale
 
   after_action :store_location
 
@@ -36,13 +36,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Sets FastGettext locale for every request made
-  def set_gettext_locale
-    FastGettext.locale = LocaleService.to_gettext(locale: current_locale)
+  # Sets I18n locale for every request made
+  def set_locale
+    I18n.locale = current_locale
   end
 
   def current_locale
-    @current_locale = session[:locale] || FastGettext.default_locale
+    @current_locale ||= session[:locale].present? ? session[:locale] : I18n.default_locale
   end
 
   def store_location
