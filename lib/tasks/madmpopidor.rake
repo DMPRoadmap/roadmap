@@ -18,4 +18,14 @@ namespace :madmpopidor do
     end
   end
 
+  desc "Initialize the template locale to the default language of the application"
+  task initialize_template_locale: :environment do
+    languages = Language.all
+    Template.all.each do |template|
+        if languages.find_by(abbreviation: template.locale).nil?
+            template.update(locale: Language.default.abbreviation)
+        end
+    end
+  end
+
 end
