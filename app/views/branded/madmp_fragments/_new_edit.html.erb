@@ -32,7 +32,8 @@
             schema: question.madmp_schema,
             readonly: readonly,
             classname: classname,
-            fragment_id: fragment_id
+            fragment_id: fragment_id,
+            template_locale: question.template.locale
           }) %>
     </div>
     <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>

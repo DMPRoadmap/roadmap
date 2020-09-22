@@ -25,6 +25,10 @@ class Fragment::ResearchOutput < MadmpFragment
     end
     
 
+    def description
+        Fragment::ResearchOutputDescription.where(parent_id: id).first
+    end
+
     def reuse_data
         Fragment::ReuseData.where(parent_id: id).first
     end
