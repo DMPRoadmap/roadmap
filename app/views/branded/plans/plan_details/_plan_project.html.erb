@@ -50,6 +50,7 @@
   parent_id: project_fragment.id,
   schema: MadmpSchema.find_by(classname: "funding"),
   readonly: false,
+  template_locale: @plan.template.locale,
   field_name: "funding", answer_id: nil 
   }
 ) %>
@@ -78,6 +79,7 @@
   parent_id: project_fragment.id,
   schema: MadmpSchema.find_by(classname: "partner"),
   readonly: false,
+  template_locale: @plan.template.locale,
   field_name: "partner", answer_id: nil 
   }
 ) %>
