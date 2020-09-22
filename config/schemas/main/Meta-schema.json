@@ -8,7 +8,7 @@
         "title": {
             "label@fr_FR": "Titre",
             "label@en_GB": "Title",
-            "type": "string",
+            "type": "string"
         },
         "description": {
             "type": "string"

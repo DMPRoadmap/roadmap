@@ -144,11 +144,3 @@
     }
   }
 }
-},
-"required": [
-"facility",
-"dataSize",
-"startDate",
-"endDate"
-]
-}

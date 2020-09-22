@@ -153,5 +153,15 @@
     "path": "ResearchOutput-schema.json",
     "classname": "research_output",
     "question_id": null
+  },
+  {
+    "path": "ResearchOutputDescription-schema.json",
+    "classname": "research_output_description",
+    "question_id": null
+  },
+  {
+    "path": "Reuse-schema.json",
+    "classname": "reuse",
+    "question_id": null
   }
 ]

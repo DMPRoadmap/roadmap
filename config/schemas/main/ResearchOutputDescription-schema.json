@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "id": "../Documentation/Implementation/Data_model/Json/",
-    "title": "Research output",
+    "title": "Research output description",
     "description": "The documentation for the research output schema",
     "type": "object",
     "properties": {

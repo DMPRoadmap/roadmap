@@ -15,7 +15,7 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "classname": "reused-data",
+                "classname": "reused_data",
                 "properties": {
                     "dbid": {
                         "type": "number"

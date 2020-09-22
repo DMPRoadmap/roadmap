@@ -56,7 +56,7 @@
       "type": "array",
       "items": {
         "type": "object",
-        "classname": "satff_member",
+        "classname": "staff_member",
         "properties": {
           "dbid": {
             "type": "number"
