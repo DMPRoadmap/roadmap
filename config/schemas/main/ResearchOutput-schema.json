@@ -20,11 +20,9 @@
             ]
         },
         "reuse": {
-            "label@fr_FR": "Données réutilisées",
-            "label@en_GB": "Reused data",
-            "type": "object",
-            "toolTip@fr_FR": "Citer les jeux de données ou autres produits pré-existants à ce projet et réutilisés",
-            "toolTip@en_GB": "Cite all pre-existing datasets or research products that have been reused in this project",
+            "label@fr_FR": "Réutilisation de données",
+            "label@en_GB": "Reuse of data",
+            "type": "object", 
             "classname": "reuse",
             "properties": {
                 "dbid": {
@@ -183,7 +181,7 @@
     },
     "required": [
         "researchOutputDescription",
-        "reusedData",
+        "reuse",
         "dataCollection",
         "dataStorage",
         "documentationQuality",
