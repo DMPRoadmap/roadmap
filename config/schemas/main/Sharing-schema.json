@@ -6,19 +6,22 @@
     "type": "object",
     "properties": {
         "description": {
-            "label": "Description",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
             "type": "string",
-            "pattern": "(.)*((@en)|(@fr))",
-            "description": "sharing conditions and/or arguments explaining why data cannot be openly shared"
+            "toolTip@fr_FR": "Conditions de partage et/arguments soutenant le fait que les données ne peuvent être ouvertes",
+            "toolTip@en_GB": "sharing conditions and/or arguments explaining why data cannot be openly shared"
         },
         "reusability": {
-            "label": "Reusability",
+            "label@fr_FR": "Potentiel de réutilisation",
+            "label@en_GB": "Reusability",
             "type": "string",
-            "pattern": "(.)*((@en)|(@fr))",
-            "explanation": "potential and/or limits of data resusability "
+            "toolTip@fr_FR": "Potentiel et/ou limite de réutilisation",
+            "toolTip@en_GB": "Potential and/or limits of data resusability "
         },
         "hosting": {
-            "label": "Hosting",
+            "label@fr_FR": "Hébergement",
+            "label@en_GB": "Hosting",
             "type": "object",
             "classname": "technical_resource_usage",
             "description": "Internal identifier pointing to a technicalResourceUsage JSON document",
@@ -27,26 +30,33 @@
                     "type": "number"
                 }
             },
-            "required": ["dbid"]
+            "required": [
+                "dbid"
+            ]
         },
         "distribution": {
-            "label": "Distribution",
+            "label@fr_FR": "Distribution",
+            "label@en_GB": "Distribution",
+            "toolTip@fr_FR": "Un ensemble de données peut être disponible sous plusieurs formats",
+            "toolTip@en_GB": "A data set can be available in multiple format",
             "type": "array",
             "minItems": 1,
             "items": {
                 "type": "object",
                 "classname": "distribution",
-                "description": "Distributions as defined in Dcat vocabulary: a dataset might be available in multiple serializations",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "required": ["dbid"]
+                "required": [
+                    "dbid"
+                ]
             }
         },
         "indexedIn": {
-            "label": "Indexed in",
+            "label@fr_FR": "Indexé dans",
+            "label@en_GB": "Indexed in",
             "type": "object",
             "classname": "technical_resource",
             "description": "identifier pointing to a TechnicalResource Json document describing the catalog in which data are indexed",
@@ -55,24 +65,30 @@
                     "type": "number"
                 }
             },
-            "required": ["dbid"]
+            "required": [
+                "dbid"
+            ]
         },
         "staffMember": {
-            "label": "Staff members",
+            "label@fr_FR": "Personne en charge du depôt et diffusion des données",
+            "label@en_GB": "Person in charge du dépôt et diffusion des données",
             "type": "array",
             "items": {
                 "type": "object",
-                "classname": "staff_member",
+                "classname":"staff_member",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "required": ["dbid"]
+                "required": [
+                    "dbid"
+                ]
             }
         },
         "cost": {
-            "label": "Cost",
+            "label@fr_FR": "Coût lié au dépôt, diffusion",
+            "label@en_GB": "Deposit and diffusion cost",
             "type": "array",
             "items": {
                 "type": "object",
@@ -82,7 +98,9 @@
                         "type": "number"
                     }
                 },
-                "required": ["dbid"]
+                "required": [
+                    "dbid"
+                ]
             }
         }
     },

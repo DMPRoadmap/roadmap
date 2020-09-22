@@ -6,22 +6,20 @@
     "type":"object",
     "properties":{
         "title":{
-            "label": "Title",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title",
             "type":"string",
-            "pattern":"(.)*((@en)|(@fr))",
-            "title":"Technical resource title",
              "example":"GENCI"
         },
         "description":{
-            "label": "Description",
-            "type":"string",
-            "pattern":"(.)*((@en)|(@fr))",
-            "title": "Description of the technical resource",
-             "description":"information regarding the technical resources"
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "type":"string"
         },
      
          "technicalResourceId":{
-             "label": "Technical resource ID",
+            "label@fr_FR": "Identifiant de la ressource technique",
+            "label@en_GB": "Technical resource ID",
              "type": "object",
              "classname": "identifier",
              "properties": {
@@ -32,10 +30,11 @@
              "required": ["dbid"]
         },
         "geoLocation":{
-            "label": "Geo location",
+            "label@fr_FR": "Localisation géographique",
+            "label@en_GB": "Geo location",
             "type": "string",
-            "format": "select",
-            "values": [
+            "inputType": "dropdown",
+            "values@fr_FR": [
                 "AD", "AE", "AF", "AG", "AI", "AL", "AM", "AO", "AQ", "AR", "AS", "AT", "AU", "AW", "AX", "AZ", "BA",
                "BB", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BL", "BM", "BN", "BO", "BQ", "BR", "BS", "BT", "BV",
                "BW", "BY", "BZ", "CA", "CC", "CD", "CF", "CG", "CH", "CI", "CK", "CL", "CM", "CN", "CO", "CR", "CU",
@@ -51,25 +50,48 @@
                "SN", "SO", "SR", "SS", "ST", "SV", "SX", "SY", "SZ", "TC", "TD", "TF", "TG", "TH", "TJ", "TK", "TL",
                "TM", "TN", "TO", "TR", "TT", "TV", "TW", "TZ", "UA", "UG", "UM", "US", "UY", "UZ", "VA", "VC", "VE",
                "VG", "VI", "VN", "VU", "WF", "WS", "YE", "YT", "ZA", "ZM", "ZW"
-           ]
+           ],
+
+           "values@en_GB": [
+            "AD", "AE", "AF", "AG", "AI", "AL", "AM", "AO", "AQ", "AR", "AS", "AT", "AU", "AW", "AX", "AZ", "BA",
+           "BB", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BL", "BM", "BN", "BO", "BQ", "BR", "BS", "BT", "BV",
+           "BW", "BY", "BZ", "CA", "CC", "CD", "CF", "CG", "CH", "CI", "CK", "CL", "CM", "CN", "CO", "CR", "CU",
+           "CV", "CW", "CX", "CY", "CZ", "DE", "DJ", "DK", "DM", "DO", "DZ", "EC", "EE", "EG", "EH", "ER", "ES",
+           "ET", "FI", "FJ", "FK", "FM", "FO", "FR", "GA", "GB", "GD", "GE", "GF", "GG", "GH", "GI", "GL", "GM",
+           "GN", "GP", "GQ", "GR", "GS", "GT", "GU", "GW", "GY", "HK", "HM", "HN", "HR", "HT", "HU", "ID", "IE",
+           "IL", "IM", "IN", "IO", "IQ", "IR", "IS", "IT", "JE", "JM", "JO", "JP", "KE", "KG", "KH", "KI", "KM",
+           "KN", "KP", "KR", "KW", "KY", "KZ", "LA", "LB", "LC", "LI", "LK", "LR", "LS", "LT", "LU", "LV", "LY",
+           "MA", "MC", "MD", "ME", "MF", "MG", "MH", "MK", "ML", "MM", "MN", "MO", "MP", "MQ", "MR", "MS", "MT",
+           "MU", "MV", "MW", "MX", "MY", "MZ", "NA", "NC", "NE", "NF", "NG", "NI", "NL", "NO", "NP", "NR", "NU",
+           "NZ", "OM", "PA", "PE", "PF", "PG", "PH", "PK", "PL", "PM", "PN", "PR", "PS", "PT", "PW", "PY", "QA",
+           "RE", "RO", "RS", "RU", "RW", "SA", "SB", "SC", "SD", "SE", "SG", "SH", "SI", "SJ", "SK", "SL", "SM",
+           "SN", "SO", "SR", "SS", "ST", "SV", "SX", "SY", "SZ", "TC", "TD", "TF", "TG", "TH", "TJ", "TK", "TL",
+           "TM", "TN", "TO", "TR", "TT", "TV", "TW", "TZ", "UA", "UG", "UM", "US", "UY", "UZ", "VA", "VC", "VE",
+           "VG", "VI", "VN", "VU", "WF", "WS", "YE", "YT", "ZA", "ZM", "ZW"
+       ]
         },
         "certification":{
-            "label": "Certification",
+            "label@fr_FR": "Certification",
+            "label@en_GB": "Certification",
             "type": "string",
-            "format": "select",
-            "values": ["CoreTrustSeal", "DSA", "WDS","ISO-9001", "ISO-27000", "other"]
+            "inputType": "dropdown",
+            "values@fr_FR": ["CoreTrustSeal", "DSA", "WDS","ISO-9001", "ISO-27000", "Autre"],
+            "values@en_GB": ["CoreTrustSeal", "DSA", "WDS","ISO-9001", "ISO-27000", "Other"]
         },
         "pidSystem":{    
-            "label": "PID system",
+            "label@fr_FR": "Système d'identifiants",
+            "label@en_GB": "PID system",
             "type": "string",
-            "format": "select",
-            "values": ["DOI","ARK","HANDLE", "other"]
+            "inputType": "dropdown",
+            "values@fr_FR": ["DOI","ARK","HANDLE", "Autre"],
+            "values@en_EN": ["DOI","ARK","HANDLE", "Other"]
           
         },
         "versioningPolicy":{
-            "label": "Versioning policy",
+            "label@fr_FR": "Politique de gestion des versions",
+            "label@en_GB": "Versioning policy",
             "type": "string",
-            "format": "select",
+            "inputType": "dropdown",
             "values": ["Yes", "No", "Unknown"]
         }
     },

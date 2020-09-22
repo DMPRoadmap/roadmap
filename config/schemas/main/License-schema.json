@@ -6,13 +6,19 @@
     "type": "object",
     "properties": {
         "licenseName": {
-            "label": "License name",
-            "type": "string"
+            "label@fr_FR": "Nom de la licence",
+            "label@en_GB": "License name",
+            "type": "string",
+            "example@fr_FR":"Licence ouverte version 2.0",
+            "example@en_GB": "Licence ouverte version 2.0"
         },
         "licenseUrl": {
-            "label": "License URL",
+            "label@fr_FR": "Url de la licence",
+            "label@en_GB": "License URL",
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "example@fr_FR": "https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf",
+            "example@en_GB": "https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf"
         }
     },
     "required": [

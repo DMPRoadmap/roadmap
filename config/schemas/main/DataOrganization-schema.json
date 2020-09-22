@@ -6,17 +6,20 @@
     "type": "object",
     "properties": {
         "title": {
-            "label": "Title",
-            "type": "string",
-            "pattern": "(.)*((@en)|(@fr))"
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title",
+            "type": "string"
+            
         },
         "description": {
-            "label": "Description",
-            "type": "string",
-            "pattern": "(.)*((@en)|(@fr))"
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "type": "string"
+            
         },
         "documentUrl": {
-            "label": "Document URL",
+            "label@fr_FR": "Url du document",
+            "label@en_GB": "Document URL",
             "type": "string",
             "format": "uri"
         }

@@ -6,18 +6,21 @@
     "type": "object",
     "properties": {
         "title": {
-            "label": "Title",
-            "type": "string",
-            "pattern": "(.)*((@en)|(@fr))"
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title",
+            "type": "string"
         },
         "description": {
-            "label": "Description",
-            "type": "string",
-            "pattern": "(.)*((@en)|(@fr))"
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "type": "string"
         },
         "qualityMethodUrl": {
-            "label": "Quality method",
+            "label@fr_FR": "Url de la méthode",
+            "label@en_GB": "Method url",
             "type": "string",
+            "toolTip@fr_FR": "Identifiant pérenne ou Url de la méthode",
+            "toolTip@en_GB": "Identifier or Url of the method",
             "format": "uri"
         }
     },
