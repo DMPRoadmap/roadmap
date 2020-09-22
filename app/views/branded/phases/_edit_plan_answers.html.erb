@@ -61,7 +61,7 @@
                                     data-research-output="<%= research_output.id %>" 
                                     data-target="#research_output_<%= research_output.id %>_section_<%= section.id %>"
                   >
-                    <%= research_output_fragment.data['title'] %>
+                    <%= research_output.abbreviation %>
                   </a>
                 </li>
               <% end if plan.research_outputs.count > 1 %>

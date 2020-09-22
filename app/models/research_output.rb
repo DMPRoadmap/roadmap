@@ -110,8 +110,7 @@ class ResearchOutput < ActiveRecord::Base
       )
       fragment_description = Fragment::ResearchOutputDescription.create(
         data: {
-          "title" => self.abbreviation,
-          "description" => self.fullname
+          "title" => self.fullname
         },
         madmp_schema_id: MadmpSchema.find_by(classname: "research_output_description").id,
         dmp_id: dmp_fragment.id,
@@ -131,8 +130,7 @@ class ResearchOutput < ActiveRecord::Base
       end
     else
       data = fragment.description.data.merge({
-        "title" => self.abbreviation,
-        "description" => self.fullname
+        "title" => self.fullname
       })
       fragment.description.update(data: data)
     end

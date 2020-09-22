@@ -1,4 +1,4 @@
-<%# locals: { field_values, parent_id, schema, field_name } %>
+<%# locals: { field_values, parent_id, schema, field_name, template_locale } %>
 <% ttip = nil %>
 <% field_values = [] if field_values.nil? %>
 <% field_label = field_label || 'No label defined' %>
@@ -14,7 +14,8 @@
               obj_list: field_values, 
               parent_id: parent_id,
               schema: schema,
-              readonly: readonly
+              readonly: readonly,
+              template_locale: template_locale
               }
             ) %>
       </tbody>
@@ -23,7 +24,8 @@
       <%= link_to 'Create', new_edit_linked_madmp_fragments_url(
               nil, 
               :parent_id => parent_id, 
-              :schema_id => schema.id
+              :schema_id => schema.id, 
+              :template_locale => template_locale
       ),  {
         :remote => true, 
         :class => "btn btn-primary",

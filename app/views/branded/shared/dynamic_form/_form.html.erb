@@ -1,9 +1,8 @@
-<%# locals: { f, fragment, schema, readonly, classname, fragment_id } %>
+<%# locals: { f, fragment, schema, readonly, classname, fragment_id, template_locale } %>
 <% sub_schemas = schema.get_sub_schemas %>
 <% data = fragment.data unless fragment.nil? %>
 <% additional_info = fragment.additional_info unless fragment.nil? %>
 <% validations = additional_info.present? && additional_info['validations'].present? ? additional_info["validations"] : nil %>
-<% user_language = current_user.language.abbreviation %>
 
 <% sub_fragments = fragment.present? ? fragment.get_sub_fragments() : [] %>
 <% schema_properties = schema.schema["properties"]%>
@@ -12,9 +11,9 @@
   <% value = data[key] unless data.nil? %>
   <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{key}]" : key %>
   <% validation = validations.nil? ? "none" : validations[key] %>
-  <% label = prop["label@#{user_language}"] %>
-  <% ttip = prop["toolTip@#{user_language}"] %>
-  <% dropdownValues = prop["values@#{user_language}"]%>
+  <% label = prop["label@#{template_locale}"] %>
+  <% ttip = prop["toolTip@#{template_locale}"] %>
+  <% dropdownValues = prop["values@#{template_locale}"]%>
   <% example = prop['example'] %>
   <% case prop['type'] %>
   <% when 'string' %>
@@ -46,6 +45,7 @@
           readonly: readonly,
           parent_id: fragment_id,
           schema: sub_schema,
+          template_locale: template_locale,
           field_label: prop['label'], answer_id: nil 
           }
         ) %>
@@ -91,7 +91,8 @@
                   readonly: readonly,
                   classname: sub_schema.classname,
                   fragment_id: fragment_id,
-                  form_prefix: field_name
+                  form_prefix: field_name,
+                  template_locale: template_locale
                 }) %>
           </fieldset>
         </div>
