@@ -23,9 +23,26 @@
                 },
                 "required": ["dbid"]
             }
+        },
+        "cost": {
+            "label@fr_FR": "Coût d'acquisition",
+            "label@en_GB": "Acquisition cost",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "classname": "cost",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "dbid"
+                ]
+            }
         }
     },
          
-    "required":["jsutification"]
+    "required":["justification"]
     
     }
