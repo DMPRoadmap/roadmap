@@ -6,6 +6,7 @@
 
 <% sub_fragments = fragment.present? ? fragment.get_sub_fragments() : [] %>
 <% schema_properties = schema.schema["properties"]%>
+<a href="#" class="load-defaults"><%= _('Load default values') %></a>
 
 <% schema_properties.each do |key, prop| %>
   <% value = data[key] unless data.nil? %>
@@ -15,20 +16,21 @@
   <% ttip = prop["toolTip@#{template_locale}"] %>
   <% dropdownValues = prop["values@#{template_locale}"]%>
   <% example = prop['example'] %>
+  <% default_value = prop['default'] %>
   <% case prop['type'] %>
   <% when 'string' %>
     <% if prop['inputType'].present? %>
       <% if prop['inputType'] == 'dropdown' && dropdownValues %>
-        <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, dropdownValues, readonly: readonly, validation: validation, ttip: ttip) %>
+        <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, dropdownValues, readonly: readonly, validation: validation, ttip: ttip, default_value: default_value) %>
       <% end %>
     <% elsif prop['format'].nil?%>
-      <%= create_text_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip, example: example) %>
+      <%= create_text_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip, example: example, default_value: default_value) %>
     <% elsif prop['format'] == 'date' %>
-      <%= create_date_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip, example: example) %>
+      <%= create_date_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip, example: example, default_value: default_value) %>
     <% elsif prop['format'] == 'uri' %>
-      <%= create_url_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip, example: example) %>
+      <%= create_url_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip, example: example, default_value: default_value) %>
     <% elsif prop['format'] == 'email' %>
-      <%= create_email_field(f, value, field_name, label, readonly: readonly, validation: validation, example: example) %>
+      <%= create_email_field(f, value, field_name, label, readonly: readonly, validation: validation, example: example, default_value: default_value) %>
     <%end%>
   <% when 'integer', 'number' %>
     <%= create_number_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip) %>

@@ -6,11 +6,13 @@
     "type":"object",
     "properties":{
         "name":{
-            "label": "Name",
+            "label@fr_FR": "Nom",
+            "label@en_GB": "Name",
             "type":"string"
         },
         "funderId":{
-            "label": "Funder ID",
+            "label@fr_FR": "ID financeur",
+            "label@en_GB": "Funder ID",
             "type": "object",
             "classname": "identifier",
             "properties": {
@@ -21,7 +23,8 @@
             "required": ["dbid"]
         },
         "dataPolicyUrl":{
-            "label": "Data policy URL",
+            "label@fr_FR": "Url de la politique de données",
+            "label@en_GB": "Data policy URL",
             "type":"string",
             "format":"uri"
         }

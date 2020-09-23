@@ -28,7 +28,7 @@
     "idType": {
       "label": "Identifier type",
       "type": "string",
-      "format": "select",
+      "inputType": "dropdown",
       "values": ["ORCID ID", "ROR ID", "FundRef", "ISSNI", "IdRef", "other"]
     }
   },

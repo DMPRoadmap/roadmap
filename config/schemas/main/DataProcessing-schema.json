@@ -6,28 +6,32 @@
     "type":"object",
     "properties":{
         "title":{
-            "label": "Title",
-            "type":"string",
-            "pattern":"(.)*((@en)|(@fr))",
-            "description":"Title for a data processing step"
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title",
+            "type":"string"
+            
         },
         "description":{
-            "label": "Description",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
             "type":"string",
-            "pattern":"(.)*((@en)|(@fr))",
-            "title": "Description of data processing"    
+            "toolTip@fr_FR":"Décrire le traitement des données",
+            "toolTip@en_GB": "Describe data treatment"
+            
+              
         },
         "methodsUrl":{
-            "label": "Methods URL",
+            "label@fr_FR": "Url of methods",
+            "label@en_GB": "Methods URL",
             "type":"string",
             "format":"uri",
             "description":"Urls of methods"
         },
         "processing":{
-            "label": "Processing",
+            "label@fr_FR": "Traitement par une ressource extérieure",
+            "label@en_GB": "Treatment by an external resource",
             "type":"object",
             "classname": "technical_resource_usage",
-            "description":"internal identifier pointing to a technicalResourceUsage JSON document",
             "properties": {
                 "dbid": {
                     "type":"number"
@@ -36,7 +40,8 @@
             "required":["dbid"]
         },
         "staffMember":{
-            "label": "StaffMember",
+            "label@fr_FR": "Contributeur(s)",
+            "label@en_GB": "Contributor(s)",
             "type":"array",
             "items":{
                 "type": "object",
@@ -51,7 +56,8 @@
         },
            
         "cost":{
-            "label": "Cost",
+            "label@fr_FR": "Coût du traitement",
+            "label@en_GB": "Treatment cost",
             "type":"array",
             "items":{
                 "type": "object",

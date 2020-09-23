@@ -7,15 +7,17 @@
     "type":"object",
     "properties":{
         "amount":{
-            "label": "Amount",
+            "label@fr_FR": "Montant",
+            "label@en_GB": "Amount",
             "type": "number",
             "toolTip@fr_FR": "Saisir le montant",
             "toolTip@en_GB": "Enter the amount"
         },
         "currency":{
-            "label": "Currency",
+            "label@fr_FR": "Devise",
+            "label@en_GB": "Currency",
             "type": "string",
-            "format": "select",
+            "inputType": "dropdown",
             "values": ["EUR", "USD", "GBP"]
         }    
     },

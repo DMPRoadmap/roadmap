@@ -1,6 +1,6 @@
 module DynamicFormHelper
 
-  def create_text_field(form, value, name, label, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil)
+  def create_text_field(form, value, name, label, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
     render partial: 'shared/dynamic_form/fields/text_field', 
     locals: {
       f: form, 
@@ -14,13 +14,14 @@ module DynamicFormHelper
       readonly: readonly, 
       validation: validation,
       ttip: ttip,
-      example: example
+      example: example,
+      default_value: default_value
     }
   end
 
 
 
-  def create_url_field(form, value, name, label, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil)
+  def create_url_field(form, value, name, label, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
     render partial: 'shared/dynamic_form/fields/text_field', 
     locals: {
       f: form, 
@@ -34,13 +35,14 @@ module DynamicFormHelper
       readonly: readonly, 
       validation: validation,
       ttip: ttip,
-      example: example
+      example: example,
+      default_value: default_value
     }
   end
   
   
   
-  def create_email_field(form, value, name, label, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil)
+  def create_email_field(form, value, name, label, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
     render partial: 'shared/dynamic_form/fields/text_field', 
     locals: {
       f: form, 
@@ -54,13 +56,14 @@ module DynamicFormHelper
       readonly: readonly, 
       validation: validation,
       ttip: ttip,
-      example: example
+      example: example,
+      default_value: default_value
     }
   end
 
 
 
-  def create_date_field(form, value, name, label, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil)
+  def create_date_field(form, value, name, label, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
     render partial: 'shared/dynamic_form/fields/text_field', 
     locals: {
       f: form, 
@@ -74,7 +77,8 @@ module DynamicFormHelper
       readonly: readonly, 
       validation: validation,
       ttip: ttip,
-      example: example
+      example: example,
+      default_value: default_value
     }
   end
 
@@ -110,7 +114,7 @@ module DynamicFormHelper
     }
   end
 
-  def create_select_field(form, value, name, label, select_values, validation: nil, html_class: nil, readonly: false, multiple: false, ttip: nil)
+  def create_select_field(form, value, name, label, select_values, validation: nil, html_class: nil, readonly: false, multiple: false, ttip: nil, default_value: nil)
     render partial: 'shared/dynamic_form/fields/select_field', 
     locals: {
       f: form, 
@@ -122,7 +126,8 @@ module DynamicFormHelper
       multiple: multiple,
       readonly: readonly, 
       validation: validation,
-      ttip: ttip
+      ttip: ttip,
+      default_value: default_value
     }
   end
 

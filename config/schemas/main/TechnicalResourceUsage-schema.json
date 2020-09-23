@@ -6,10 +6,11 @@
     "type":"object",
     "properties":{
         "facility": {
-            "label": "Facility",
+            "label@fr_FR": "Service",
+            "label@en_GB": "Facility",
             "type":"object",
             "classname": "technical_resource",
-            "properties": {
+           "properties": {
                 "dbid": {
                     "type": "number",
                     "description": "Internal identifier pointing to a technicalResource Json document"
@@ -18,28 +19,37 @@
             "required": ["dbid"]    
         },
         "startDate":{
-            "label": "Start date",
+            "label@fr_FR": "Date de début",
+            "label@en_GB": "Start date",
             "type":"string",
             "format":"date"
         },
         "endDate":{
-            "label": "End date",
+            "label@fr_FR": "Date de fin",
+            "label@en_GB": "End date",
             "type":"string",
             "format":"date"
         },
         "dataSize":{
-            "label": "Data size",
+            "label@fr_FR": "Taille des données",
+            "label@en_GB": "Data size",
             "type": "number",
             "description": "Volume expressed in octets"
         },
         "storageType":{
-            "label": "Storage type",
-            "type": "string",
-            "format": "select",
-            "values": ["Hard disk drive", "Solid state drive","USB key", "NAS sever", "cloud", "CD", "DVD", "Magnetic tape"]
+            "label@fr_FR": "Support de stockage",
+            "label@en_GB": "Storage type",
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "inputType": "dropdown",
+            "values@fr_FR": ["Disque dur", "Disque statique à semi-conducteurs","Clé USB", "Serveur NAS", "cloud", "CD", "DVD", "Bande magnétique", "Autre"],
+            "values@en_GB": ["Hard disk drive", "Solid state drive","USB key", "NAS server", "cloud", "CD", "DVD", "Magnetic tape", "Other"]
         },
         "backupPolicy":{
-            "label": "Backup policy",
+            "label@fr_FR": "Politique de sauvegarde",
+            "label@en_GB": "Backup policy",
             "type": "object",
             "classname": "backup_policy",
             "properties": {
@@ -49,9 +59,10 @@
             },
             "required": ["dbid"]
         },
-        "staffMember":{
-            "label": "Staff member",
-            "type":"array",
+        "staffMember": {
+            "label@fr_FR": "Personne contact",
+            "label@en_GB": "Contact personne",
+            "type": "array",
             "items": {
                 "type": "object",
                 "classname": "staff_member",
@@ -60,11 +71,16 @@
                         "type": "number"
                     }
                 },
-                "required": ["dbid"]
+                "required": [
+                    "dbid"
+                ]
             }
         },
-         "cost": {
-            "label": "Cost",
+        "cost": {
+            "label@fr_FR": "Coût",
+            "label@en_GB": "Cost",
+            "toolTip@fr_FR": "Coût lié à l'usage d'une resource extérieure",
+            "toolTip@en_GB": "Cost linked to the resource usage extérieure",
             "type": "array",
             "items": {
                 "type": "object",
@@ -74,7 +90,9 @@
                         "type": "number"
                     }
                 },
-                "required": ["dbid"]
+                "required": [
+                    "dbid"
+                ]
             }
         }
         

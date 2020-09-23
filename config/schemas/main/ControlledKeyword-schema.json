@@ -6,17 +6,20 @@
     "type":"object",
     "properties": {
         "keyword":{
-            "label": "Keyword",
+            "label@fr_FR": "Mot-clé",
+            "label@en_GB": "Keyword",
             "type":"string",
             "example":"Mathematical model"
         },
         "keywordSchema":{
-            "label": "Keyword Schema",
+            "label@fr_FR": "Nom du vocabulaire",
+            "label@en_GB": "Vocabulary name",
             "type":"string",
             "example":"EDAM"
         },
         "keywordUrl":{
-            "label": "Keyword URL",
+            "label@fr_FR": "Url du terme",
+            "label@en_GB": "Keyword URL",
              "type":"string",
              "format":"uri",
              "example":"http://edamontology.org/data_0950"

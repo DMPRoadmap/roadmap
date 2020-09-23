@@ -5,20 +5,21 @@
     "description": "The documentation of reused data schema",
     "type":"object",
     "properties": {
-        "title":{
-            "label": "Title",
+        "title": {
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title",
+            "type": "string"
+          },
+          "description": {
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
             "type":"string",
-            "pattern":"(.)*((@en)|(@fr))",
-            "description":"Name of the reused data"
-        }, 
-       "description":{
-           "label": "Description",
-           "type":"string",
-            "pattern":"(.)*((@en)|(@fr))",
-           "description":"describe the provenance of the reused product" 
+            "toolTip@fr_FR": "Décrire la provenance des produits réutilisés",
+            "toolTip@en_GB":"describe the provenance of the reused product" 
         },
         "datasetId":{
-            "label": "Dataset ID",
+            "label@fr_FR": "Identifiant du produit",
+            "label@en_GB": "Product ID",
             "type": "object",
             "classname": "identifier",
             "properties": {
@@ -29,11 +30,13 @@
             "required": ["dbid"]
         },
         "versionNumber":{
-            "label": "Version number",
+            "label@fr_FR": "Numéro de version",
+            "label@en_GB": "Version number",
            "type":"string"
         },
        "license":{
-           "label": "License",
+        "label@fr_FR": "Licence",
+        "label@en_GB": "License",
            "type": "object",
            "classname": "license",
            "properties": {
@@ -45,6 +48,6 @@
         }
     },
          
-  "required":["datasetId", "description", "title", "license"]
+  "required":["datasetId",  "title"]
   
   }

@@ -1,0 +1,159 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "id": "../Documentation/Implementation/Data_model/Json/",
+    "title": "Research output description",
+    "description": "The documentation for the research output schema",
+    "type": "object",
+    "properties": {
+        "title": {
+            "label@fr_FR": "Titre complet",
+            "label@en_GB": "Full title",
+            "type": "string"
+        },
+        "description": {
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "type": "string"           
+        },
+        "type": {
+            "label@fr_FR": "Type de produit",
+            "label@en_GB": "Product type",
+            "type": "string",
+            "inputType": "dropdown",
+            "values@fr_FR": ["Jeu de données", "Logiciel", "Modèle", "Objet physique", "Protocole", "Workflow", "Autre"],
+            "values@en_GB": ["Dataset","Software","Model","Physical object", "Protocol","Workflow","Other"]
+        },
+        "workpackage": {
+            "label@fr_FR":"Workpackage",
+            "label@en_GB": "Workpackage",
+            "type": "string",
+            "toolTip@fr_FR":"Nom ou numéro du workpackage",
+            "toolTip@en_GB":"Name or number of the workpackage"
+        },
+        "controlledKeyword": {
+            "label@fr_FR":"Mot(s) clés contrôlés",
+            "label@en_GB": "Controlled keyword (s)",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "classname": "controlled_keyword",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "required": ["dbid"]
+            },
+            "minItems": 1
+        },
+        "uncontrolledKeyword": {
+            "label@fr_FR":"Mot(s) clés non contrôlés",
+            "label@en_GB": "Uncontrolled keyword(s)",
+            "type": "array",
+            "items": {
+                "type": "string"
+        
+            }
+        },
+        "language": {
+            "label@fr_FR":"Code langue",
+            "label@en_GB": "Language code",
+            "type": "string",
+            "toolTip@fr_FR":"Code de la langue des données",
+            "toolTip@en_GB": "Data language code",
+            "inputType": "dropdown",
+            "values@fr-FR": ["aar", "abk", "afr", "aka", "amh", "ara", "arg", "asm", "ava", "ave", "aym", "aze", "bak", "bam", "bel", "ben", "bih", "bis", "bod", "bos",
+                "bre", "bul", "cat", "ces", "cha", "che", "chu", "chv", "cor", "cos", "cre", "cym", "dan", "deu", "div", "dzo", "ell", "eng", "epo", "est",
+                "eus", "ewe", "fao", "fas", "fij", "fin", "fra", "fry", "ful", "gla", "gle", "glg", "glv", "grn", "guj", "hat", "hau", "hbs", "heb", "her",
+                "hin", "hmo", "hrv", "hun", "hye", "ibo", "ido", "iii", "iku", "ile", "ina", "ind", "ipk", "isl", "ita", "jav", "jpn", "kal", "kan", "kas",
+                "kat", "kau", "kaz", "khm", "kik", "kin", "kir", "kom", "kon", "kor", "kua", "kur", "lao", "lat", "lav", "lim", "lin", "lit", "ltz", "lub",
+                "lug", "mah", "mal", "mar", "mkd", "mlg", "mlt", "mon", "mri", "msa", "mya", "nau", "nav", "nbl", "nde", "ndo", "nep", "nld", "nno", "nob",
+                "nor", "nya", "oci", "oji", "ori", "orm", "oss", "pan", "pli", "pol", "por", "pus", "que", "roh", "ron", "run", "rus", "sag", "san", "sin",
+                "slk", "slv", "sme", "smo", "sna", "snd", "som", "sot", "spa", "sqi", "srd", "srp", "ssw", "sun", "swa", "swe", "tah", "tam", "tat", "tel",
+                "tgk", "tgl", "tha", "tir", "ton", "tsn", "tso", "tuk", "tur", "twi", "uig", "ukr", "urd", "uzb", "ven", "vie", "vol", "wln", "wol", "xho",
+                "yid", "yor", "zha", "zho", "zul"],
+            "values@en-GB": ["aar", "abk", "afr", "aka", "amh", "ara", "arg", "asm", "ava", "ave", "aym", "aze", "bak", "bam", "bel", "ben", "bih", "bis", "bod", "bos",
+                "bre", "bul", "cat", "ces", "cha", "che", "chu", "chv", "cor", "cos", "cre", "cym", "dan", "deu", "div", "dzo", "ell", "eng", "epo", "est",
+                "eus", "ewe", "fao", "fas", "fij", "fin", "fra", "fry", "ful", "gla", "gle", "glg", "glv", "grn", "guj", "hat", "hau", "hbs", "heb", "her",
+                "hin", "hmo", "hrv", "hun", "hye", "ibo", "ido", "iii", "iku", "ile", "ina", "ind", "ipk", "isl", "ita", "jav", "jpn", "kal", "kan", "kas",
+                "kat", "kau", "kaz", "khm", "kik", "kin", "kir", "kom", "kon", "kor", "kua", "kur", "lao", "lat", "lav", "lim", "lin", "lit", "ltz", "lub",
+                "lug", "mah", "mal", "mar", "mkd", "mlg", "mlt", "mon", "mri", "msa", "mya", "nau", "nav", "nbl", "nde", "ndo", "nep", "nld", "nno", "nob",
+                "nor", "nya", "oci", "oji", "ori", "orm", "oss", "pan", "pli", "pol", "por", "pus", "que", "roh", "ron", "run", "rus", "sag", "san", "sin",
+                "slk", "slv", "sme", "smo", "sna", "snd", "som", "sot", "spa", "sqi", "srd", "srp", "ssw", "sun", "swa", "swe", "tah", "tam", "tat", "tel",
+                "tgk", "tgl", "tha", "tir", "ton", "tsn", "tso", "tuk", "tur", "twi", "uig", "ukr", "urd", "uzb", "ven", "vie", "vol", "wln", "wol", "xho",
+                "yid", "yor", "zha", "zho", "zul"]
+        },
+        "contact": {
+            "label@fr_FR":"Personne contact",
+            "label@en_GB": "Contact",
+            "type": "object",
+            "toolTip@fr_FR":"Personne contact pour ce produit de recherche",
+            "toolTip@en_GB":"Person to contact about this research product",
+            "classname": "person",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+        },
+        "estimatedVolume": {
+            "label@fr_FR":"Volume estimé",
+            "label@en_GB": "Estimated volume",
+            "type": "number",
+            "toolTip@fr_FR":"Volume exprimé en Mégaoctets",
+            "toolTip@en_GB":"Volume expressed in Megabytes"
+        },
+        "datasetId": {
+            "label@fr_FR":"Identifiant pérenne du produit de recherche",
+            "label@en_GB": " Reseach product persistent identifier",
+            "type": "object",
+            "classname": "identifier",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "required": ["dbid"]
+        },
+       
+        "containsPersonalData": {
+            "label@fr_FR":"Contient des données personnelles?",
+            "label@en_GB": "Contains personal data?",
+            "type": "string",
+            "inputType": "dropdown",
+            "values": ["Yes", "No", "Unknown"]
+        },
+       
+        "containsSensitiveData": {
+            "label@fr_FR":"Contient des données sensibles ?",
+            "label@en_GB": "Contains sensible data?",
+            "type": "string",
+            "inputType": "dropdown",
+            "values": ["Yes", "No", "Unknown"]
+        },
+       
+        "hasEthicalIssues": {
+            "label@fr_FR":"Enjeux éthiques ?",
+            "label@en_GB": "Ethical issues?",
+            "type": "string",
+            "inputType": "dropdown",
+            "values": ["Yes", "No", "Unknown"]
+        }
+        
+       
+       
+    },
+    "required": [
+        "title",
+        "description",
+        "type",
+        "controlledKeyword",
+        "containsPersonalData",
+        "containsSensitiveData",
+        "estimatedVolume",
+        "hasEthicalIssues",
+        "language"
+        
+    ]
+}
