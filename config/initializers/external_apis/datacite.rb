@@ -12,6 +12,13 @@ Rails.configuration.x.datacite.api_base_url = "https://api.test.datacite.org/"
 Rails.configuration.x.datacite.mint_path = "dois"
 Rails.configuration.x.datacite.delete_path = "dois/"
 
+# Define your organization as the hosting institution for the DataCite record.
+# Datacite defines this as:
+#    "Typically, the organisation allowing the resource to be available on the
+#     internet through the provision of its hardware/software/operating support."
+Rails.configuration.x.datacite.hosting_institution = "My Curation Centre (MCC)"
+Rails.configuration.x.datacite.hosting_institution_identifier = "https://ror.org/12345"
+
 # TODO: Move the :repository_id, :password and :shoulder to the credentials.yml.enc in Rails5
 Rails.configuration.x.datacite.repository_id = "[your repository_id/client_id]"
 Rails.configuration.x.datacite.password = "[your password/client_secret]"

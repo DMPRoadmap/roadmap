@@ -15,72 +15,31 @@ json.data do
       json.resourceTypeGeneral "Text"
     end
 
-    creators = data_management_plan.owner_and_coowners
     ror_scheme = IdentifierScheme.where(name: "ror").first
+    fundref_scheme = IdentifierScheme.where(name: "fundref").first
     orcid_scheme = IdentifierScheme.where(name: "orcid").first
+
+    creators = data_management_plan.owner_and_coowners
 
     if creators.present? && creators.any?
       json.creators creators do |creator|
-        json.name [creator.surname, creator.firstname].join(", ")
-        json.nameType "Personal"
-
-        if creator.org.present?
-          json.affiliation do
-            json.name creator.org.name
-
-            ror = creator.org.identifier_for_scheme(scheme: ror_scheme)
-            if ror_scheme.present? && ror.present?
-              json.affiliationIdentifier ror.value
-              json.affiliationIdentifierScheme "ROR"
-            end
-          end
-        end
-
-        orcid = creator.identifier_for_scheme(scheme: orcid_scheme)
-        if orcid_scheme.present? && orcid.present?
-          json.nameIdentifiers [orcid] do |ident|
-            json.schemeUri "https://orcid.org"
-            json.nameIdentifier "https://orcid.org/#{ident.value}"
-            json.nameIdentifierScheme "ORCID"
-          end
-        end
+        json.partial! "datacite/contributor", contributor: creator,
+                                              orcid_scheme: orcid_scheme,
+                                              ror_scheme: ror_scheme
       end
     end
 
-    contributors = data_management_plan.contributors
-    if contributors.present? && contributors.any?
-      json.contributors contributors do |contributor|
-        next unless contributor.roles.positive?
+    contributors = data_management_plan.contributors.to_a
+    contributors << data_management_plan.org
+    contributors << {
+      name: Rails.configuration.x.datacite.hosting_institution,
+      ror: Rails.configuration.x.datacite.hosting_institution_identifier
+    }
 
-        datacite_role = "ProjectManager" if contributor.project_administration?
-        datacite_role = "ProjectLeader" if datacite_role.nil? && contributor.investigation?
-        datacite_role = "DataCurator" unless datacite_role.present?
-
-        json.name contributor.name
-        json.nameType "Personal"
-        json.contributorType datacite_role
-
-        if contributor.org.present?
-          json.affiliation do
-            json.name contributor.org.name
-
-            ror = contributor.org.identifier_for_scheme(scheme: ror_scheme)
-            if ror_scheme.present? && ror.present?
-              json.affiliationIdentifier ror.value
-              json.affiliationIdentifierScheme "ROR"
-            end
-          end
-        end
-
-        orcid = contributor.identifier_for_scheme(scheme: orcid_scheme)
-        if orcid_scheme.present? && orcid.present?
-          json.nameIdentifiers [orcid] do |ident|
-            json.schemeUri "https://orcid.org"
-            json.nameIdentifier "https://orcid.org/#{ident.value}"
-            json.nameIdentifierScheme "ORCID"
-          end
-        end
-      end
+    json.contributors contributors do |contributor|
+      json.partial! "datacite/contributor", contributor: contributor,
+                                            orcid_scheme: orcid_scheme,
+                                            ror_scheme: ror_scheme
     end
 
     json.titles do
@@ -117,10 +76,10 @@ json.data do
       json.fundingReferences [data_management_plan.funder] do |funder|
         json.funderName funder.name
 
-        ror = creator.org.identifier_for_scheme(scheme: ror_scheme)
-        if ror_scheme.present? && ror.present?
-          json.funderIdentifier ror.value
-          json.funderIdentifierType "ROR"
+        fundref = creator.org.identifier_for_scheme(scheme: fundref_scheme)
+        if fundref_scheme.present? && fundref.present?
+          json.funderIdentifier fundref.value
+          json.funderIdentifierType "Crossref Funder"
         end
 
         if data_management_plan.grant.present?
