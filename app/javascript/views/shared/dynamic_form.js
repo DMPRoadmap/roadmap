@@ -61,7 +61,6 @@ $(document).on('click', 'a.load-defaults', (e) => {
   e.preventDefault();
   // eslint-disable-next-line no-console
   const link = $(e.target);
-  console.log(link);
   const schemaFields = link.parent().find('input[id^=madmp_fragment]');
   for (let i = 0; i < schemaFields.length; i += 1) {
     const f = $(schemaFields[i]);

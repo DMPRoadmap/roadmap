@@ -34,7 +34,6 @@ $(() => {
       }
     }
     // If the orginalOrg is present and the selected Org has changed, show the confirmation box
-    console.log(originalOrg, org);
     if (isString(originalOrg) && isString(org)) {
       if (originalOrg !== org && !orgConfirm) {
         $('#org-change').removeClass('hide');
