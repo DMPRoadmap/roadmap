@@ -165,8 +165,8 @@ $(() => {
     jQuery[attachment]('change', changeHandler);
     jQuery[attachment]('submit', submitHandler);
 
-    jQuery[attachment]('focusin', dynamicFormFocusInHandler);
-    jQuery[attachment]('focusout', dynamicFormFocusOutHandler);
+    jQuery[attachment]('focusin', 'input', dynamicFormFocusInHandler);
+    jQuery[attachment]('focusout', 'input', dynamicFormFocusOutHandler);
   };
   const editorHandlers = (editor) => {
     // Listeners to blur and focus events for a tinymce instance
