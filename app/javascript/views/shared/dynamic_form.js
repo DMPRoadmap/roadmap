@@ -47,6 +47,13 @@ $(document).on('click', '.linked-fragments-list .actions .delete', (e) => {
   }
 });
 
+$(document).on('change', '.schema_picker input[type=radio]', (e) => {
+  const target = $(e.target);
+  const form = target.parents('.question').find('.form-answer');
+  form.find('.schema_id').val(target.val());
+  form.trigger('submit');
+});
+
 // $(document).on('click', 'a.load-defaults', (e) => {
 //   const link = $(e.target);
 //   const schemaFields = link.find('input[id^=madmp_fragment]');

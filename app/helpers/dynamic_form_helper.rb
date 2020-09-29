@@ -152,6 +152,8 @@ module DynamicFormHelper
   # This is useful because Rails converts all form data to strings and JSON needs the actual types
   def data_reformater(schema, data, classname)
     schema["properties"].each do |key, prop|
+      next if data[key].nil?
+      
       if data[key] == ""
         data.delete(key)
       else 
@@ -170,7 +172,10 @@ module DynamicFormHelper
           # if value["dictionnary"]
           #   data[key] = JSON.parse(DictionnaryValue.where(id: data[key]).select(:id, :uri, :label).take.to_json)
           # end
+        else 
+          data[key] = data[key]
         end
+
       end 
     end
     data

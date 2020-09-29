@@ -299,6 +299,7 @@ module Dmpopidor
         # CHANGES : maDMP Fragments SUPPORT
         def render_phases_edit(plan, phase, guidance_groups)
           readonly = !plan.editable_by?(current_user.id)
+          @schemas = MadmpSchema.all
           # Since the answers have been pre-fetched through plan (see Plan.load_for_phase)
           # we create a hash whose keys are question id and value is the answer associated
           answers = plan.answers.includes(:madmp_fragment).reduce({}) { |m, a| m["#{a.question_id}_#{a.research_output_id}"] = a; m }

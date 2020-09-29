@@ -24,7 +24,11 @@ class MadmpFragmentsController < ApplicationController
           additional_info = { 
             "validations" => MadmpFragment.validate_data(data, schema.schema)
           }
-          @fragment.assign_attributes(data: data, additional_info: additional_info)
+          @fragment.assign_attributes(
+            data: data, 
+            additional_info: additional_info, 
+            madmp_schema_id: schema.id
+          )
   
           authorize @fragment
           unless p_params[:source] == "modal"
@@ -209,6 +213,7 @@ class MadmpFragmentsController < ApplicationController
                 question: question,
                 answer: answer,
                 fragment: fragment ,
+                madmp_schema: fragment.madmp_schema,
                 research_output: research_output,
                 dmp_id: fragment.dmp_id,
                 parent_id: fragment.parent_id,
