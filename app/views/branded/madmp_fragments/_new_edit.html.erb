@@ -35,6 +35,11 @@
             fragment_id: fragment_id,
             template_locale: question.template.locale
           }) %>
+      <div class="overlay" style="display:none;">
+        <div class="spinner"></div>
+        <br/>
+        <%= _('Saving...') %>
+      </div>
     </div>
     <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
   </fieldset>

@@ -12,6 +12,8 @@ $(() => {
   const editorClass = 'tinymce_answer';
   const showSavingMessage = jQuery => jQuery.closest('.question-form').find('[data-status="saving"]').show();
   const hideSavingMessage = jQuery => jQuery.closest('.question-form').find('[data-status="saving"]').hide();
+  const showLoadingOverlay = jQuery => jQuery.closest('.question-form').find('.overlay').show();
+  const hideLoadingOverlay = jQuery => jQuery.closest('.question-form').find('.overlay').hide();
   const closestErrorSavingMessage = jQuery => jQuery.closest('.question-form').find('[data-status="error-saving"]');
   const questionId = jQuery => jQuery.closest('.form-answer').attr('data-autosave');
   const isStale = jQuery => jQuery.closest('.question-form').find('.answer-locking').text().trim().length !== 0;
@@ -128,9 +130,11 @@ $(() => {
       data: form.serializeArray(),
       beforeSend: () => {
         showSavingMessage(target);
+        showLoadingOverlay(target);
       },
       complete: () => {
         hideSavingMessage(target);
+        hideLoadingOverlay(target);
       },
     }).done((data) => {
       doneCallback(data, target);
@@ -217,7 +221,7 @@ $(() => {
   $('.example-answer').on('shown.bs.collapse', toggleIcon);
 
   // TODO: Finir implé du answer_id ect...
-  $('.is_common_cb').click((e) => {
+  $('.is_common_cb').on('click', (e) => {
     const target = $(e.currentTarget);
     const targetState = target.prop('checked');
     const parentTab = target.parents('.main_research_output');
