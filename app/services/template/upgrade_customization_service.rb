@@ -31,7 +31,6 @@ class Template
     class NoFunderTemplateError < StandardError
     end
 
-
     ##
     # The Template we're upgrading
     #
@@ -64,31 +63,29 @@ class Template
       Template.transaction do
         if init_template.customization_of.blank?
           raise NotACustomizationError,
-            _("upgrade_customization! requires a customised template")
+                _("upgrade_customization! requires a customised template")
         end
         if funder_template.nil?
-          # rubocop:disable Metrics/LineLength
+          # rubocop:disable Layout/LineLength
           raise NoFunderTemplateError,
-            _("upgrade cannot be carried out since there is no published template of its current funder")
-          # rubocop:enable Metrics/LineLength
+                _("upgrade cannot be carried out since there is no published template of its current funder")
+          # rubocop:enable Layout/LineLength
         end
 
         # Merges modifiable sections or questions from source into target_template object
         target_template.phases.map do |funder_phase|
           # Search for the phase in the source template whose versionable_id matches the
           # customization_phase
-          #
-          # a) If the Org's template ({#customized_template}) has the Phase...
-          if customized_phase = find_matching_record_in_collection(
+          customized_phase = find_matching_record_in_collection(
             record: funder_phase,
-            collection: customized_template.phases)
+            collection: customized_template.phases
+          )
+          # a) If the Org's template ({#customized_template}) has the Phase...
+          next unless customized_phase.present?
 
           # b) If the Org's template ({#customized_template}) doesn't have this Phase.
           #    This is not a problem, since {#customization_template} should have this
           #    Phase copied over from {#template_phase}.
-          else
-            next
-          end
           copy_modifiable_sections_for_phase(customized_phase, funder_phase)
           sort_sections_within_phase(funder_phase)
         end
@@ -113,9 +110,9 @@ class Template
     # Returns {Template}
     def customized_template
       @customized_template ||= init_template.deep_copy(attributes: {
-                                 version: init_template.version + 1,
-                                 published: false
-                               })
+                                                         version: init_template.version + 1,
+                                                         published: false
+                                                       })
     end
 
     # Creates a new customisation for the published template whose family_id {#template}
@@ -155,7 +152,6 @@ class Template
     #
     # Returns Array of Sections
     def copy_modifiable_sections_for_phase(source_phase, target_phase)
-      target_section_ids = target_phase.sections.pluck(:versionable_id)
       source_phase.sections.select(&:modifiable?).each do |section|
         if section.number.in?(target_phase.sections.pluck(:number))
           section.number = target_phase.sections.maximum(:number) + 1
@@ -170,9 +166,7 @@ class Template
         target_question = target_template.questions.find_by(
           versionable_id: custom_annotation.question.versionable_id
         )
-        if target_question.present?
-          target_question.annotations << custom_annotation
-        end
+        target_question.annotations << custom_annotation if target_question.present?
       end
     end
 

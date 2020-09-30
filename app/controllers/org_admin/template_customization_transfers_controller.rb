@@ -15,7 +15,7 @@ class OrgAdmin::TemplateCustomizationTransfersController < ApplicationController
       redirect_to org_admin_template_path(@new_customization)
     else
       flash[:alert] = _("That template is no longer customizable.")
-      redirect_to :back
+      redirect_back(fallback_location: org_admin_templates_path)
     end
   end
 

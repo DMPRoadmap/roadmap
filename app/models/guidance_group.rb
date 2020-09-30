@@ -24,11 +24,10 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 
-class GuidanceGroup < ActiveRecord::Base
+class GuidanceGroup < ApplicationRecord
 
-  include GlobalHelpers
-  include ValidationValues
-  include ValidationMessages
+  attribute :optional_subset, :boolean, default: true
+  attribute :published, :boolean, default: false
 
   # ================
   # = Associations =
@@ -44,7 +43,7 @@ class GuidanceGroup < ActiveRecord::Base
   # = Validations =
   # ===============
 
-  validates :name, presence: { message:  PRESENCE_MESSAGE },
+  validates :name, presence: { message: PRESENCE_MESSAGE },
                    uniqueness: { message: UNIQUENESS_MESSAGE, scope: :org_id }
 
   validates :org, presence: { message: PRESENCE_MESSAGE }
@@ -54,7 +53,6 @@ class GuidanceGroup < ActiveRecord::Base
 
   validates :published, inclusion: { in: BOOLEAN_VALUES,
                                      message: INCLUSION_MESSAGE }
-
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
@@ -98,7 +96,6 @@ class GuidanceGroup < ActiveRecord::Base
     viewable
   end
 
-
   # A list of all guidance groups which a specified user can view
   # we define guidance groups viewable to a user by those owned by:
   #   the Default Orgs
@@ -111,7 +108,7 @@ class GuidanceGroup < ActiveRecord::Base
   def self.all_viewable(user)
     # first find all groups owned by the Default Orgs
     default_org_groups = Org.includes(guidance_groups: [guidances: :themes])
-                             .default_orgs.collect(&:guidance_groups)
+                            .default_orgs.collect(&:guidance_groups)
 
     # find all groups owned by  a Funder organisation
     funder_groups = Org.includes(:guidance_groups)
@@ -127,6 +124,14 @@ class GuidanceGroup < ActiveRecord::Base
                           organisation_groups
     all_viewable_groups = all_viewable_groups.flatten.uniq
     all_viewable_groups
+  end
+
+  def self.create_org_default(org)
+    GuidanceGroup.create!(
+      name: org.abbreviation? ? org.abbreviation : org.name,
+      org: org,
+      optional_subset: false
+    )
   end
 
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe "Questions::Text area questions" do
@@ -9,8 +11,8 @@ RSpec.describe "Questions::Text area questions" do
     @section           = create(:section, phase: @phase)
 
     @question = create(:question, :textarea, section: @section)
-    @user              = create(:user)
-    @plan              = create(:plan, template: @default_template)
+    @user = create(:user)
+    @plan = create(:plan, template: @default_template)
     create(:role, :creator, :editor, :commenter, user: @user, plan: @plan)
     sign_in(@user)
   end
@@ -33,6 +35,7 @@ RSpec.describe "Questions::Text area questions" do
     within("#answer-form-#{@question.id}") do
       tinymce_fill_in "answer-text-#{@question.id}", with: "My test answer"
       click_button "Save"
+      sleep(0.2)
     end
 
     # Expectations

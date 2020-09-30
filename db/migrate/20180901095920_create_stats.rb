@@ -1,4 +1,4 @@
-class CreateStats < ActiveRecord::Migration
+class CreateStats < ActiveRecord::Migration[4.2]
   def change
     create_table :stats do |t|
       t.bigint :count, default: 0

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: question_options
@@ -19,9 +21,8 @@
 #  fk_rails_...  (question_id => questions.id)
 #
 
-class QuestionOption < ActiveRecord::Base
-  include ValidationMessages
-  include ValidationValues
+class QuestionOption < ApplicationRecord
+
   include VersionableModel
 
   # ================
@@ -51,6 +52,12 @@ class QuestionOption < ActiveRecord::Base
   validates :is_default, inclusion: { in: BOOLEAN_VALUES,
                                       message: INCLUSION_MESSAGE }
 
+  # =============
+  # = Callbacks =
+  # =============
+
+  # TODO: condition.option_list needs to be serialized (from Array) before we can check
+  # for related conditions, so this can't be replaced by :destroy on the association
   before_destroy :check_condition_options
 
   # ==========
@@ -58,7 +65,6 @@ class QuestionOption < ActiveRecord::Base
   # ==========
 
   scope :by_number, -> { order(:number) }
-
 
   # ===========================
   # = Public instance methods =
@@ -69,24 +75,24 @@ class QuestionOption < ActiveRecord::Base
   # ===========================
 
   def deep_copy(**options)
-    copy = self.dup
+    copy = dup
     copy.question_id = options.fetch(:question_id, nil)
     copy.save!(validate: false)  if options.fetch(:save, false)
     options[:question_option_id] = copy.id
     copy
   end
 
-  private 
+  private
 
   # if we destroy a question_option
   # we need to remove any conditions which depend on it
   # even if they depend on something else as well
+  # doesn't look like there's a way for destroy to fail though, so no need to
+  # add callback halting with abort
   def check_condition_options
     id = self.id.to_s
-    self.question.conditions.each do |cond|
-      if cond.option_list.include?(id)
-        cond.destroy
-      end
+    question.conditions.each do |cond|
+      cond.destroy if cond.option_list.include?(id)
     end
   end
 

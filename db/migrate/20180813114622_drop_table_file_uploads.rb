@@ -1,4 +1,4 @@
-class DropTableFileUploads < ActiveRecord::Migration
+class DropTableFileUploads < ActiveRecord::Migration[4.2]
   def up
     drop_table(:file_uploads) if table_exists?(:file_uploads)
   end

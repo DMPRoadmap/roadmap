@@ -1,4 +1,4 @@
-class LinkGuidanceToGuidanceGroups < ActiveRecord::Migration
+class LinkGuidanceToGuidanceGroups < ActiveRecord::Migration[4.2]
   def self.up
       create_table :guidance_in_group, :id => false do |t|
 	  t.references :guidance, :null => false
