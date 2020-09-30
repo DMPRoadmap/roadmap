@@ -18,23 +18,24 @@ set :bundle_without, %w{ puma pgsql thin rollbar test }.join(' ')
 set :config_repo, 'git@github.com:cdlib/dmptool_config.git'
 
 # Default value for :linked_files is []
-append :linked_files, 'config/branding.yml',
+append :linked_files, 'config/credentials.yml.enc',
                       'config/database.yml',
-                      'config/secrets.yml',
+                      'config/master.key',
+                      'config/initializers/_dmproadmap.rb',
                       'config/initializers/contact_us.rb',
                       'config/initializers/devise.rb',
                       'config/initializers/dmptool_version.rb',
                       'config/initializers/dragonfly.rb',
                       'config/initializers/recaptcha.rb',
                       'config/initializers/wicked_pdf.rb',
-                      'config/initializers/external_apis/open_aire.rb'
+                      'config/initializers/external_apis/open_aire.rb',
+                      'config/initializers/external_apis/dmphub.rb'
 
 # Default value for linked_dirs is []
 append :linked_dirs, 'log',
                      'tmp/pids',
                      'tmp/cache',
                      'tmp/sockets',
-                     'config/environments',
                      'public'
 
 # Default value for keep_releases is 5
@@ -47,7 +48,7 @@ namespace :deploy do
   after :deploy, 'cleanup:copy_favicon'
   after :deploy, 'git:version'
   after :deploy, 'cleanup:remove_example_configs'
-  after :deploy, 'cleanup:restart_passenger'
+  # after :deploy, 'cleanup:restart_passenger'
 end
 
 namespace :config do

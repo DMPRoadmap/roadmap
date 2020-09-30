@@ -8,6 +8,6 @@ set :deploy_to, '/dmp/apps/dmp'
 set :share_to, 'dmp/apps/dmp/shared'
 
 # Define the location of the private configuration repo
-set :config_branch, 'uc3-dmpx2-stg-rails4'
+set :config_branch, 'uc3-dmpx2-stg'
 
 set :rails_env, 'stage'
