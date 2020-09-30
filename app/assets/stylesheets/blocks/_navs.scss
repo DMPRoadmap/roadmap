@@ -1,3 +1,23 @@
+// Native HTML5 nav support
+
+/* Hide sub-menus by default */
+nav ul ul {
+  display: none;
+}
+/* Display sub-menu when user hovers over item */
+nav ul li:hover > ul {
+  display: block;
+}
+nav ul:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+nav ul {
+  list-style: none;
+}
+
+
 // Overrides Bootstrap 3.0's nav-tabs
 
 /* nav-tabs and nav-pills styling */
@@ -11,9 +31,9 @@
 }
 .nav-tabs > li > a:hover,
 .nav-tabs > li > a:focus,
-.nav-tabs > li.active > a,
-.nav-tabs > li.active > a:focus,
-.nav-tabs > li.active > a:hover {
+.nav-tabs > li > a.active,
+.nav-tabs > li > a.active:focus,
+.nav-tabs > li > a.active:hover {
   background-color: $color-seccondary-background;
   color: $color-seccondary-text;
   border: 1px solid $color-border-default;
@@ -21,18 +41,18 @@
 }
 .nav-pills > li > a:hover,
 .nav-pills > li > a:focus,
-.nav-pills > li.active > a,
-.nav-pills > li.active > a:focus,
-.nav-pills > li.active > a:hover {
+.nav-pills > li > a.active,
+.nav-pills > li > a:focus.active,
+.nav-pills > li > a:hover.active {
   background-color: $color-seccondary-background;
   color: $color-seccondary-text;
   border: 1px solid $color-border-default;
 }
 .nav-pills > li:last-child > a:hover,
 .nav-pills > li:last-child > a:focus,
-.nav-pills > li.active:last-child > a,
-.nav-pills > li.active:last-child > a:focus,
-.nav-pills > li.active:last-child > a:hover {
+.nav-pills > li:last-child > a.active,
+.nav-pills > li:last-child > a.active:focus,
+.nav-pills > li:last-child > a.active:hover {
   border-right: 0px;
 }
 .nav-tabs > li > a,

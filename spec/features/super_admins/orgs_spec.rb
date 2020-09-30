@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe "SuperAdmins Orgs", type: :feature, js: true do
@@ -28,7 +30,6 @@ RSpec.describe "SuperAdmins Orgs", type: :feature, js: true do
     expect(current_path).to eql(super_admin_orgs_path)
     expect(page).to have_text("Error: Unable to create the organisation.")
   end
-
 
   scenario "Super admin adds links" do
     # -------------------------------------------------------------
@@ -78,4 +79,3 @@ RSpec.describe "SuperAdmins Orgs", type: :feature, js: true do
   end
 
 end
-

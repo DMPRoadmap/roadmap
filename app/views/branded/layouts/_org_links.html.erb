@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
   <% if current_user.org.links.present? && current_user.org.links['org'].present? %>
     <% current_user.org.links['org'].each_with_index do |link, i| %>
-      <% if !link.blank? && i <= MAX_NUMBER_LINKS_ORG %>
+      <% if !link.blank? && i <= Rails.configuration.x.max_number_links_org %>
         <li>
           <%= link_to sanitize("#{link['text'].truncate(40)} <em class=\"sr-only\">(new window)</em>"), link['link'], target: '_blank', class: 'org-a' %>
         </li>

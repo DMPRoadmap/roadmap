@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.prettify!
 
 json.array! @departments.each do |department|

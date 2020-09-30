@@ -12,9 +12,7 @@
 #  updated_at  :datetime         not null
 #
 
-class Theme < ActiveRecord::Base
-
-  include ValidationMessages
+class Theme < ApplicationRecord
 
   # ================
   # = Associations =
@@ -33,7 +31,7 @@ class Theme < ActiveRecord::Base
   # = Scopes =
   # ==========
 
-  scope :search, -> (term) {
+  scope :search, lambda { |term|
     search_pattern = "%#{term}%"
     where("lower(title) LIKE lower(?) OR description LIKE lower(?)",
           search_pattern, search_pattern)

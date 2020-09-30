@@ -1,4 +1,4 @@
-class AddFamilyIdIndexToTemplates < ActiveRecord::Migration
+class AddFamilyIdIndexToTemplates < ActiveRecord::Migration[4.2]
   def up
     add_index :templates, :family_id
   end

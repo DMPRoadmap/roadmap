@@ -28,6 +28,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   #
   # scheme - The IdentifierScheme for the provider
   #
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def handle_omniauth(scheme)
     # --------------------------------------------------------
     # Start DMPTool customization
@@ -36,11 +37,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     # DMPTool -- commented out the entire block below
 
-    # if request.env["omniauth.auth"].nil?
-    #   user = User.from_omniauth(request.env)
-    # else
-    #   user = User.from_omniauth(request.env["omniauth.auth"])
-    # end
+    # user = if request.env["omniauth.auth"].nil?
+    #    User.from_omniauth(request.env)
+    #  else
+    #    User.from_omniauth(request.env["omniauth.auth"])
+    #  end
 
     # # If the user isn't logged in
     # if current_user.nil?
@@ -48,19 +49,40 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     #   if user.nil?
     #     session["devise.#{scheme.name.downcase}_data"] = request.env["omniauth.auth"]
     #     redirect_to new_user_registration_url
-
     #   # Otherwise sign them in
-    #   else
+    #   elsif scheme.name == "shibboleth"
     #     # Until ORCID becomes supported as a login method
-    #     if scheme.name == "shibboleth"
-    #       if is_navigational_format?
-    #         set_flash_message(:notice, :success, kind: scheme.description)
-    #       end
-    #       sign_in_and_redirect user, event: :authentication
+    #     set_flash_message(:notice, :success, kind: scheme.description) if is_navigational_format?
+    #     sign_in_and_redirect user, event: :authentication
+    #   else
+    #     flash[:notice] = _("Successfully signed in")
+    #     redirect_to new_user_registration_url
+    #   end
+
+    # # The user is already logged in and just registering the uid with us
+    # else
+    #   # If the user could not be found by that uid then attach it to their record
+    #   if user.nil?
+    #     if Identifier.create(identifier_scheme: scheme,
+    #                          value: request.env["omniauth.auth"].uid,
+    #                          attrs: request.env["omniauth.auth"],
+    #                          identifiable: current_user)
+    #       flash[:notice] = _("Your account has been successfully linked to %{scheme}.") % {
+    #         scheme: scheme.description
+    #       }
+    #
     #     else
-    #       flash[:notice] = _("Successfully signed in")
-    #       redirect_to new_user_registration_url
+    #       flash[:alert] = _("Unable to link your account to %{scheme}.") % {
+    #         scheme: scheme.description
+    #       }
     #     end
+    #
+    #   elsif user.id != current_user.id
+    #     # If a user was found but does NOT match the current user then the identifier has
+    #     # already been attached to another account (likely the user has 2 accounts)
+    #     # rubocop:disable Layout/LineLength
+    #     flash[:alert] = _("The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}")
+    #     # rubocop:enable Layout/LineLength
     #   end
 
     # # The user is already logged in and just registering the uid with us
@@ -97,6 +119,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     # End DMPTool customization
     # --------------------------------------------------------
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable
 
   def failure
     redirect_to root_path

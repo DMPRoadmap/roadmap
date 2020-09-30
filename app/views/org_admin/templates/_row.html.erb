@@ -11,7 +11,7 @@
     <% elsif template.draft? %>
       <% tooltip = _('This template is published changes but has unpublished changes!') %>
       <%= _('Published') %> <em class="sr-only"><%= tooltip %></em>
-    &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="<%= tooltip %>"></i>
+    &nbsp;&nbsp;<i class="fas fa-pencil-square" aria-hidden="true" data-toggle="tooltip" title="<%= tooltip %>"></i>
     <% else %>
       <%= _('Unpublished') %>
     <% end %>

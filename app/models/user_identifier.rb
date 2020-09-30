@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: user_identifiers
@@ -20,8 +22,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
-class UserIdentifier < ActiveRecord::Base
-  include ValidationMessages
+class UserIdentifier < ApplicationRecord
 
   # ================
   # = Associations =

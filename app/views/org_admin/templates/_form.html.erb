@@ -63,7 +63,7 @@
       context: 'funder',
       title: _('Funder Links'),
       links: Hash(f.object.links).fetch('funder', []),
-      max_number_links: MAX_NUMBER_LINKS_FUNDER,
+      max_number_links: Rails.configuration.x.max_number_links_funder.to_i,
       tooltip: _('Add links to funder websites that provide additional information about the requirements for this template') }) %>
   </div>
   <div class="col-xs-8">
@@ -72,7 +72,7 @@
       context: 'sample_plan',
       title: _('Sample Plan Links'),
       links: Hash(f.object.links).fetch('sample_plan', []),
-      max_number_links: MAX_NUMBER_LINKS_SAMPLE_PLAN,
+      max_number_links: Rails.configuration.x.max_number_links_sample_plan.to_i,
       tooltip: _('Add links to sample plans if provided by the funder.') }) %>
   </div>
   <%= hidden_field_tag('template-links', ActiveSupport::JSON.encode(f.object.links)) %>

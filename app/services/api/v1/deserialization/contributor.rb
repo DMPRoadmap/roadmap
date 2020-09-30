@@ -58,7 +58,6 @@ module Api
           end
 
           # Find or initialize the Contributor
-          # rubocop:disable Metrics/CyclomaticComplexity
           def marshal_contributor(plan_id:, is_contact:, json: {})
             return nil unless plan_id.present? && json.present?
 
@@ -79,7 +78,6 @@ module Api
 
             contributor
           end
-          # rubocop:enable Metrics/CyclomaticComplexity
 
           # Locate the Contributor by its identifier
           def find_by_identifier(json: {})

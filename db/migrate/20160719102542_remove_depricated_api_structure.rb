@@ -1,4 +1,4 @@
-class RemoveDepricatedApiStructure < ActiveRecord::Migration
+class RemoveDepricatedApiStructure < ActiveRecord::Migration[4.2]
   def up
     drop_table :token_permissions
   end
