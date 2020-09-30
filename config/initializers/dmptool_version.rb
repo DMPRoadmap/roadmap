@@ -1,1 +1,0 @@
-/Users/briley/Documents/workspace/dmptool_config/config/initializers/dmptool_version.rb
