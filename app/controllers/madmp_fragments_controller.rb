@@ -24,7 +24,11 @@ class MadmpFragmentsController < ApplicationController
           additional_info = { 
             "validations" => MadmpFragment.validate_data(data, schema.schema)
           }
-          @fragment.assign_attributes(data: data, additional_info: additional_info)
+          @fragment.assign_attributes(
+            data: data, 
+            additional_info: additional_info, 
+            madmp_schema_id: schema.id
+          )
   
           authorize @fragment
           unless p_params[:source] == "modal"
@@ -77,7 +81,7 @@ class MadmpFragmentsController < ApplicationController
         render json: { 
             "fragment_id" =>  @fragment.parent_id,
             "classname" => classname,
-            "html" => render_fragment_list(@fragment.dmp_id, @fragment.parent_id, schema.id)
+            "html" => render_fragment_list(@fragment.dmp_id, @fragment.parent_id, schema.id, p_params[:template_locale])
         }.to_json
       end
     end
@@ -139,7 +143,7 @@ class MadmpFragmentsController < ApplicationController
       render json: {
         "fragment_id" =>  parent_id,
         "classname" => classname,
-        "html" => render_fragment_list(dmp_id, parent_id, @fragment.madmp_schema_id)
+        "html" => render_fragment_list(dmp_id, parent_id, @fragment.madmp_schema_id, nil)
       }
     end
   end
@@ -156,7 +160,7 @@ class MadmpFragmentsController < ApplicationController
 
   private
 
-  def render_fragment_list(dmp_id, parent_id, schema_id)
+  def render_fragment_list(dmp_id, parent_id, schema_id, template_locale)
     schema = MadmpSchema.find(schema_id)
     case schema.classname
     when "research_output"
@@ -177,7 +181,8 @@ class MadmpFragmentsController < ApplicationController
                   parent_id: parent_id,
                   obj_list: obj_list,
                   schema: schema,
-                  readonly: false
+                  readonly: false,
+                  template_locale: template_locale
       })
     end
   end
@@ -209,6 +214,7 @@ class MadmpFragmentsController < ApplicationController
                 question: question,
                 answer: answer,
                 fragment: fragment ,
+                madmp_schema: fragment.madmp_schema,
                 research_output: research_output,
                 dmp_id: fragment.dmp_id,
                 parent_id: fragment.parent_id,
@@ -245,7 +251,7 @@ class MadmpFragmentsController < ApplicationController
   end
 
   def permitted_params
-    permit_arr = [:id, :dmp_id, :parent_id, :schema_id, :source,
+    permit_arr = [:id, :dmp_id, :parent_id, :schema_id, :source, :template_locale,
                   answer: [:id, :plan_id, :research_output_id,
                   :question_id, :lock_version, :is_common]
                 ]

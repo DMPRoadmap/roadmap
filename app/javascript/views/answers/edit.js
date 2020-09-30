@@ -12,6 +12,8 @@ $(() => {
   const editorClass = 'tinymce_answer';
   const showSavingMessage = jQuery => jQuery.closest('.question-form').find('[data-status="saving"]').show();
   const hideSavingMessage = jQuery => jQuery.closest('.question-form').find('[data-status="saving"]').hide();
+  const showLoadingOverlay = jQuery => jQuery.closest('.question-form').find('.overlay').show();
+  const hideLoadingOverlay = jQuery => jQuery.closest('.question-form').find('.overlay').hide();
   const closestErrorSavingMessage = jQuery => jQuery.closest('.question-form').find('[data-status="error-saving"]');
   const questionId = jQuery => jQuery.closest('.form-answer').attr('data-autosave');
   const isStale = jQuery => jQuery.closest('.question-form').find('.answer-locking').text().trim().length !== 0;
@@ -96,6 +98,22 @@ $(() => {
     }
     debounceMap[id](target);
   };
+  // Dynamic Form : Save timer should be cancelled when the user changes
+  // the field he's editing in the dynamic form.
+  const dynamicFormFocusInHandler = (e) => {
+    const target = $(e.target);
+    const id = questionId(target);
+    if (debounceMap[id]) {
+      // Cancels the delated execution of autoSaving
+      // (e.g. user clicks the button before the delay is met)
+      debounceMap[id].cancel();
+    }
+  };
+  // Dynamic Form : Timer is launched again if the user goes out of the field
+  // he's editing
+  const dynamicFormFocusOutHandler = (e) => {
+    changeHandler(e);
+  };
   const submitHandler = (e) => {
     e.preventDefault();
     const target = $(e.target);
@@ -112,9 +130,11 @@ $(() => {
       data: form.serializeArray(),
       beforeSend: () => {
         showSavingMessage(target);
+        showLoadingOverlay(target);
       },
       complete: () => {
         hideSavingMessage(target);
+        hideLoadingOverlay(target);
       },
     }).done((data) => {
       doneCallback(data, target);
@@ -148,6 +168,9 @@ $(() => {
     // Listeners to change and submit for a form
     jQuery[attachment]('change', changeHandler);
     jQuery[attachment]('submit', submitHandler);
+
+    jQuery[attachment]('focusin', 'input', dynamicFormFocusInHandler);
+    jQuery[attachment]('focusout', 'input', dynamicFormFocusOutHandler);
   };
   const editorHandlers = (editor) => {
     // Listeners to blur and focus events for a tinymce instance
@@ -198,7 +221,7 @@ $(() => {
   $('.example-answer').on('shown.bs.collapse', toggleIcon);
 
   // TODO: Finir implé du answer_id ect...
-  $('.is_common_cb').click((e) => {
+  $('.is_common_cb').on('click', (e) => {
     const target = $(e.currentTarget);
     const targetState = target.prop('checked');
     const parentTab = target.parents('.main_research_output');

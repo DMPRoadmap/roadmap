@@ -86,7 +86,7 @@
                     answer = Answer.new({ plan: plan, question: question, research_output: research_output })
                   end
                 %>
-                <div class="row">
+                <div class="row question">
                   <div class="col-md-8">
                     <!-- Answer Section -->
                     <div class="question-form">
@@ -95,12 +95,14 @@
                       <div id="<%= "answer-form-#{question.id}-research-output-#{research_output.id}" %>" class="answer-form"> 
                         <% if question.question_format.structured? %>
                           <% fragment = answer.madmp_fragment unless answer.nil? %>
+                          <% madmp_schema = fragment ? fragment.madmp_schema : question.madmp_schema %>
                           <% dmp_id = plan.json_fragment.id %>
                           <% parent_id = research_output.json_fragment.id %>
                           <%= render(partial: '/madmp_fragments/new_edit',
                                    locals: { question: question,
                                              answer: answer,
                                              fragment: fragment ,
+                                             madmp_schema: madmp_schema,
                                              research_output: research_output,
                                              dmp_id: dmp_id,
                                              parent_id: parent_id,
@@ -125,13 +127,26 @@
                   </div>
                   <div class="col-md-4">
                     <!-- Guidances and notes partial view -->
-                    <%= render partial: '/phases/guidances_notes', locals: {
-                      plan: plan,
-                      template: phase.template,
-                      question: question,
-                      answer: answer,
-                      research_output: research_output,
-                      guidance_presenter: guidance_presenter } %>
+                    <% if question.question_format.structured? %>
+                      <% madmp_schema = fragment ? fragment.madmp_schema : question.madmp_schema %>
+                      <%= render partial: '/phases/schemas_guidances_notes', locals: {
+                        plan: plan,
+                        template: phase.template,
+                        question: question,
+                        answer: answer,
+                        madmp_schema: madmp_schema,
+                        pickable_schemas: @schemas.where(classname: madmp_schema.classname),
+                        research_output: research_output,
+                        guidance_presenter: guidance_presenter } %>
+                    <% else %>
+                      <%= render partial: '/phases/guidances_notes', locals: {
+                        plan: plan,
+                        template: phase.template,
+                        question: question,
+                        answer: answer,
+                        research_output: research_output,
+                        guidance_presenter: guidance_presenter } %>
+                    <% end %>
                   </div>
                 </div>
                 <% if i != section.questions.length - 1 %>

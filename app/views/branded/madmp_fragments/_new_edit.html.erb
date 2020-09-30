@@ -1,4 +1,4 @@
-<%# locals: { template, question, fragment, research_output, readonly, locking } %>
+<%# locals: { template, question, fragment, madmp_schema, research_output, readonly, locking } %>
 <!--
   This partial creates a form for each type of question. The local variables are: plan, answer, question, research_output, readonly
 -->
@@ -17,7 +17,7 @@
       <%= af.hidden_field :id, id: nil, class: 'answer_id' %>
     <% end %>
   <% end %>
-  <%= f.hidden_field :schema_id, :value => question.madmp_schema.id, id: nil %>
+  <%= f.hidden_field :schema_id, :value => madmp_schema.id, id: nil, class: "schema_id" %>
   <%= f.hidden_field :dmp_id, :value => dmp_id, id: nil %>
   <%= f.hidden_field :parent_id, :value => parent_id, id: nil %>
   <%= f.hidden_field "source", :value => "form" %>
@@ -29,12 +29,17 @@
       <%= render(partial: 'shared/dynamic_form/form', locals: { 
             f: f,
             fragment: fragment, 
-            schema: question.madmp_schema,
+            schema: madmp_schema,
             readonly: readonly,
             classname: classname,
             fragment_id: fragment_id,
             template_locale: question.template.locale
           }) %>
+      <div class="overlay" style="display:none;">
+        <div class="spinner"></div>
+        <br/>
+        <%= _('Saving...') %>
+      </div>
     </div>
     <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
   </fieldset>
