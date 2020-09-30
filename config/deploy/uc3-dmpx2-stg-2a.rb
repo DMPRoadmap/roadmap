@@ -11,14 +11,3 @@ set :share_to, 'dmp/apps/dmp/shared'
 set :config_branch, 'uc3-dmpx2-stg'
 
 set :rails_env, 'stage'
-
-namespace :deploy do
-  before :compile_assets, :yarn_install
-
-  desc 'Run Yarn Install'
-  task :yarn_install do
-    on roles(:app), wait: 1 do
-      execute "cd #{release_path} && yarn install"
-    end
-  end
-end
