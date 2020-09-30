@@ -1,8 +1,8 @@
 /* eslint-env browser */ // This allows us to reference 'window' below
 import * as Cookies from 'js-cookie';
-import { initAutocomplete } from '../../../utils/autoComplete';
-import { isObject, isString } from '../../../utils/isType';
-import getConstant from '../../../constants';
+import { initAutocomplete } from '../../utils/autoComplete';
+import { isObject, isString } from '../../utils/isType';
+import getConstant from '../../utils/constants';
 
 $(() => {
   initAutocomplete('#create-account-org-controls .autocomplete');
@@ -117,7 +117,7 @@ $(() => {
         button.prop('disable', true);
       }
     }
-  }).on('ajax:success', (e, data) => {
+  }).on('ajax:success', (data) => {
     logoSuccess(data);
   }).on('ajax:error', () => {
     logoError();

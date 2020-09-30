@@ -1,6 +1,6 @@
 /* eslint-env browser */ // This allows us to reference 'window' below
 
-import getConstant from '../../../constants';
+import getConstant from '../../utils/constants';
 
 $(() => {
   // Rotate through the news items every 8 seconds

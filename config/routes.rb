@@ -35,9 +35,7 @@ Rails.application.routes.draw do
   # Start DMPTool customizations
   # ------------------------------------------
   # Handle logouts when on the localhost dev environment
-  unless %w[stage production].include?(Rails.env)
-    get "/Shibboleth.sso/Logout", to: redirect("/")
-  end
+  get "/Shibboleth.sso/Logout", to: redirect("/") unless %w[stage production].include?(Rails.env)
   # ------------------------------------------
   # End DMPTool Customization
   # ------------------------------------------
@@ -86,15 +84,15 @@ Rails.application.routes.draw do
   # Start DMPTool customizations
   # ------------------------------------------
   # DMPTool specific documentation pages
-  get "get_started" => 'public_pages#get_started', as: 'get_started'
-  get "promote" => 'static_pages#promote'
-  get "researchers" => 'static_pages#researchers'
-  get "faq" => 'static_pages#faq'
+  get "get_started" => "public_pages#get_started", as: "get_started"
+  get "promote" => "static_pages#promote"
+  get "researchers" => "static_pages#researchers"
+  get "faq" => "static_pages#faq"
   get "editorial_board" => "static_pages#editorial_board"
-  get "general_guidance" => 'static_pages#general_guidance'
-  get "quick_start_guide" => 'static_pages#help'
-  get "news_media" => 'static_pages#news_media'
-  get "public_orgs" => 'public_pages#orgs'
+  get "general_guidance" => "static_pages#general_guidance"
+  get "quick_start_guide" => "static_pages#help"
+  get "news_media" => "static_pages#news_media"
+  get "public_orgs" => "public_pages#orgs"
 
   get "org_logos/:id" => "orgs#logos", as: :org_logo
   # ------------------------------------------
@@ -234,13 +232,13 @@ Rails.application.routes.draw do
 
   namespace :paginable do
     resources :orgs, only: [] do
-      get 'index/:page', action: :index, on: :collection, as: :index
+      get "index/:page", action: :index, on: :collection, as: :index
 
       # ------------------------------------------
       # Start DMPTool customizations
       # ------------------------------------------
       # DMPTool Partner Institutions page
-      get 'public/:page', action: :public, on: :collection, as: :public
+      get "public/:page", action: :public, on: :collection, as: :public
       # ------------------------------------------
       # End DMPTool customizations
       # ------------------------------------------

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class OrgsController < ApplicationController
-  after_action :verify_authorized, except: ['shibboleth_ds', 'shibboleth_ds_passthru']
 
   # =====================================
   # Start DMPTool Customization
@@ -95,7 +94,6 @@ class OrgsController < ApplicationController
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable
 
   # --------------------------------------------------------
   # Start DMPTool customization
@@ -213,7 +211,6 @@ class OrgsController < ApplicationController
     end
   end
   # rubocop:enable Metrics/MethodLength
-  # rubocop:enable
 
   private
 

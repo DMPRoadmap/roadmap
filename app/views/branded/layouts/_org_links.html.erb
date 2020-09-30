@@ -10,7 +10,7 @@
   <% end %>
   <% if !current_user.org.contact_email.blank? %>
     <li>
-      <i class="fa fa-envelope" aria-hidden="true">&nbsp;</i>
+      <i class="fas fa-envelope" aria-hidden="true">&nbsp;</i>
       <%= mail_to current_user.org.contact_email, current_user.org.contact_name, class: 'org-a' %>
     </li>
   <% end %>

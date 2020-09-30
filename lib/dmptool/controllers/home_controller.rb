@@ -59,12 +59,11 @@ module Dmptool
       # rubocop:enable Metrics/MethodLength
 
       # Get the last 5 blog posts
-      # rubocop:disable Metrics/AbcSize
       def feed
         cached = Rails.cache.read("rss")
         return cached unless cached.nil?
 
-        resp = HTTParty.get(Rails.application.config.rss)
+        resp = HTTParty.get(Rails.configuration.x.application.blog_rss)
         return [] unless resp.code == 200
 
         rss = RSS::Parser.parse(resp.body, false).items.first(5)
@@ -75,7 +74,6 @@ module Dmptool
         logger.error("Caught exception RSS parse: #{e}.")
         []
       end
-      # rubocop:enable Metrics/AbcSize
 
       # Store information in the cache
       def cache_content(type, data)
