@@ -107,7 +107,8 @@ namespace :cleanup do
   desc 'Restart Phusion Passenger'
   task :restart_passenger do
     on roles(:app), wait: 5 do
-      execute "cd /apps/dmp/init.d && ./passenger restart"
+      execute "cd /apps/dmp/init.d && ./passenger stop"
+      execute "cd /apps/dmp/init.d && ./passenger start"
     end
   end
 
