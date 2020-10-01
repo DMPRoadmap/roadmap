@@ -42,9 +42,9 @@ set :keep_releases, 5
 
 namespace :deploy do
   before :deploy, 'config:install_shared_dir'
-  after :deploy, 'cleanup:copy_tinymce_skins'
-  after :deploy, 'cleanup:copy_logo'
-  after :deploy, 'cleanup:copy_favicon'
+  # after :deploy, 'cleanup:copy_tinymce_skins'
+  # after :deploy, 'cleanup:copy_logo'
+  # after :deploy, 'cleanup:copy_favicon'
   after :deploy, 'git:version'
   after :deploy, 'cleanup:remove_example_configs'
   # after :deploy, 'cleanup:restart_passenger'
