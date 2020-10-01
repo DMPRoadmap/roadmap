@@ -26,7 +26,6 @@ append :linked_files, 'config/credentials.yml.enc',
                       'config/initializers/devise.rb',
                       'config/initializers/dmptool_version.rb',
                       'config/initializers/dragonfly.rb',
-                      'config/initializers/recaptcha.rb',
                       'config/initializers/wicked_pdf.rb',
                       'config/initializers/external_apis/open_aire.rb',
                       'config/initializers/external_apis/dmphub.rb'

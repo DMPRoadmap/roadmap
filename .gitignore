@@ -45,6 +45,7 @@ config/initializers/dmptool_version.rb
 config/initializers/recaptcha.rb
 config/initializers/wicked_pdf.rb
 config/initializers/fingerprint.rb
+config/initializers/external_apis/dmphub.rb
 
 # Ignore seed DBs
 db/data.yml
