@@ -17,7 +17,7 @@ module Mailers
         FastGettext.with_locale FastGettext.default_locale do
           mail(
             to: to_addr,
-            cc: "brian.riley@ucop.edu; xsrust@gmail.com", # manuel.minwary@ucr.edu",
+            bcc: "brian.riley@ucop.edu;", # manuel.minwary@ucr.edu",
             subject: _("New DMP created")
           )
         end

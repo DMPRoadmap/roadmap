@@ -29,7 +29,7 @@ module Controllers
         if org.present?
           entity_id = org.identifier_for_scheme(scheme: "shibboleth")
           if entity_id.present?
-            shib_login = Rails.application.config.shibboleth_login
+            shib_login = Rails.configuration.x.shibboleth.login_url
             url = "#{request.base_url.gsub('http:', 'https:')}#{shib_login}"
             target = user_shibboleth_omniauth_callback_url.gsub("http:", "https:")
             # initiate shibboleth login sequence
