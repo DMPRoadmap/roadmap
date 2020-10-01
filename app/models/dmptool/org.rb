@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module Dmptool
+module Models
 
-  module Models
+  module Dmptool
 
     module Org
 

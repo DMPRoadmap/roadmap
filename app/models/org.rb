@@ -39,7 +39,7 @@ class Org < ApplicationRecord
   # ----------------------------------------
   # Start DMPTool Customization
   # ----------------------------------------
-  include Dmptool::Models::Org
+  include Models::Dmptool::Org
   # ----------------------------------------
   # End DMPTool Customization
   # ----------------------------------------

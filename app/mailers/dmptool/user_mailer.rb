@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
-module Dmptool
+module Mailers
 
-  module Mailers
+  module Dmptool
 
     module UserMailer
 
-      # rubocop:disable Metrics/MethodLength
       def api_plan_creation(plan, contributor)
         return false unless contributor.present? && plan.present?
 
@@ -23,7 +22,6 @@ module Dmptool
           )
         end
       end
-      # rubocop:enable Metrics/MethodLength
 
     end
 

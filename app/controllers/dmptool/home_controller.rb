@@ -3,9 +3,9 @@
 require "httparty"
 require "rss"
 
-module Dmptool
+module Controllers
 
-  module Controllers
+  module Dmptool
 
     module HomeController
 
@@ -39,7 +39,6 @@ module Dmptool
       end
 
       # Collect  the list of the top 5 most used templates for the past 90 days
-      # rubocop:disable Metrics/MethodLength
       def top_templates
         cached = Rails.cache.read("top_five")
         return cached unless cached.nil?
@@ -56,7 +55,6 @@ module Dmptool
         cache_content("top_five", top_five)
         top_five
       end
-      # rubocop:enable Metrics/MethodLength
 
       # Get the last 5 blog posts
       def feed

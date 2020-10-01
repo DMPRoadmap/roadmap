@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module Dmptool
+module Controllers
 
-  module Controllers
+  module Dmptool
 
     module OrgsController
 
@@ -22,7 +22,6 @@ module Dmptool
 
       # GET /orgs/shibboleth_ds/:id
       # POST /orgs/shibboleth_ds/:id
-      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def shibboleth_ds_passthru
         skip_authorization
         org = Org.find_by(id: params[:id])
@@ -45,7 +44,6 @@ module Dmptool
                       notice: _("Please choose an organisation from the list.")
         end
       end
-      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
       private
 

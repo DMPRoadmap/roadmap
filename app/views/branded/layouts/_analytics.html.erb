@@ -1,10 +1,10 @@
 <!-- UserSnap -->
-<% if Rails.env.stage? && Rails.application.credentials.usersnap.key.present? %>
+<% if Rails.env.stage? && Rails.application.credentials.usersnap[:key].present? %>
   <script type="text/javascript">
     (function() {
       var s = document.createElement("script");
       s.type = "text/javascript"; s.async = true;
-      s.src = '//api.usersnap.com/load/<%= Rails.configuration.x.usersnap.key %>.js';
+      s.src = '//api.usersnap.com/load/<%= Rails.configuration.x.usersnap[:key] %>.js';
       var x = document.getElementsByTagName('script')[0];
       x.parentNode.insertBefore(s, x);
     })();

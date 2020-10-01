@@ -4,6 +4,14 @@ class UserMailer < ActionMailer::Base
 
   prepend_view_path "app/views/branded/"
 
+  # --------------------------------
+  # Start DMPTool Customization
+  # --------------------------------
+  include Mailers::Dmptool::UserMailer
+  # --------------------------------
+  # End DMPTool Customization
+  # --------------------------------
+
   include MailerHelper
   helper MailerHelper
   helper FeedbacksHelper

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module Dmptool
+module Presenters
 
-  module Presenters
+  module Dmptool
 
     class OrgPresenter
 

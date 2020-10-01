@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module Dmptool
+module Controllers
 
-  module Controllers
+  module Dmptool
 
     module PublicPagesController
 

@@ -1,16 +1,14 @@
 # frozen_string_literal: true
 
-module Dmptool
+module Controllers
 
-  module Controllers
+  module Dmptool
 
     module Users
 
       module OmniauthCallbacksController
 
-        # rubocop:disable Layout/FormatStringToken
-        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-        # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:disable Style/FormatString, Metrics/AbcSize, Metrics/MethodLength
         def process_omniauth_callback(scheme:)
           # There is occassionally a disconnect between the id of the Scheme
           # when the base controller's dynamic methods were defined and the
@@ -74,9 +72,7 @@ module Dmptool
             end
           end
         end
-        # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-        # rubocop:enable Layout/FormatStringToken
+        # rubocop:enable Style/FormatString, Metrics/AbcSize, Metrics/MethodLength
 
         private
 
@@ -105,7 +101,6 @@ module Dmptool
         # rubocop:enable Layout/LineLength
 
         # Attach the omniauth uid to the User
-        # rubocop:disable Metrics/CyclomaticComplexity
         def attach_omniauth_credentials(user:, scheme:, omniauth:)
           return false unless user.present? && scheme.present? && omniauth.present?
 
@@ -117,7 +112,6 @@ module Dmptool
           Identifier.create(identifier_scheme: scheme, identifiable: user,
                             value: omniauth[:uid])
         end
-        # rubocop:enable Metrics/CyclomaticComplexity
 
         # Convert the incoming omniauth info into a User
         def omniauth_hash_to_new_user(scheme:, omniauth:)
@@ -139,7 +133,6 @@ module Dmptool
         end
 
         # Find the User names from the omniauth info
-        # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         def extract_omniauth_names(hash:)
           return {} unless hash.present?
 
@@ -155,7 +148,6 @@ module Dmptool
             surname: names.length > 1 ? names[names.length - 1] : nil
           }
         end
-        # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
         # Find the Org associated with the omniauth provider
         def extract_omniauth_org(scheme:, hash:)
