@@ -51,7 +51,7 @@ export const defaultOptions = {
   // editorManager.baseURL is not resolved properly for IE since document.currentScript
   // is not supported, see issue https://github.com/tinymce/tinymce/issues/358
   skin_url: '/tinymce/skins/lightgray',
-  content_css: ['<%= helpers.asset_path "assets/application.css" %>'],
+  content_css: ['<%= helpers.asset_path stylesheet_manifest_file %>'],
 };
 /*
   This function is invoked anytime a new editor is initialised (e.g. Tinymce.init())
