@@ -28,15 +28,15 @@ append :linked_files, 'config/credentials.yml.enc',
                       'config/initializers/dragonfly.rb',
                       'config/initializers/wicked_pdf.rb',
                       'config/initializers/external_apis/open_aire.rb',
-                      'config/initializers/external_apis/dmphub.rb'
+                      'config/initializers/external_apis/dmphub.rb',
+                      'public/tinymce/tinymce.css'
 
 # Default value for linked_dirs is []
 append :linked_dirs, 'log',
                      'tmp/pids',
                      'tmp/cache',
                      'tmp/sockets',
-                     'public',
-                     'public/tinymce'
+                     'public'
 
 # Default value for keep_releases is 5
 set :keep_releases, 5
