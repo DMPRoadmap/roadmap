@@ -1,5 +1,5 @@
 <!-- UserSnap -->
-<% if Rails.env.stage? && Rails.credentials.usersnap.key.present? %>
+<% if Rails.env.stage? && Rails.application.credentials.usersnap.key.present? %>
   <script type="text/javascript">
     (function() {
       var s = document.createElement("script");

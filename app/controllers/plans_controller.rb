@@ -15,12 +15,6 @@ class PlansController < ApplicationController
   def index
     authorize Plan
     @plans = Plan.active(current_user).page(1)
-
-p current_user.inspect
-p Plan.active(current_user).length
-p @plans
-p @plans.inspect
-
     if current_user.org.is_other?
       @organisationally_or_publicly_visible = []
     else
