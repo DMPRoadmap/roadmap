@@ -96,10 +96,10 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Assets pipeline
-  config.assets.enabled = true
-  config.assets.debug = true
-  config.assets.compile = false
-  config.assets.quiet = true
+  #config.assets.enabled = true
+  #config.assets.debug = true
+  #config.assets.compile = false
+  #config.assets.quiet = true
 end
 
 # Used by Rails' routes url_helpers (typically when including a link in an email)
