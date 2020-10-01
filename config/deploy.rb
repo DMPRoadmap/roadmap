@@ -35,7 +35,8 @@ append :linked_dirs, 'log',
                      'tmp/pids',
                      'tmp/cache',
                      'tmp/sockets',
-                     'public'
+                     'public',
+                     'public/tinymce'
 
 # Default value for keep_releases is 5
 set :keep_releases, 5
