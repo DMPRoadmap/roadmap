@@ -5,12 +5,12 @@
       <br>
       <div class="form-group">
         <% step_counter = 1 %>
-        <% if Rails.application.config.shibboleth_enabled %>
+        <% if Rails.configuration.x.shibboleth_enabled %>
           <!-- Shibboleth DS enabled -->
           <% if request.fullpath != "/users/sign_up?nosplash=true" && session[:shibboleth_data].nil? then%>
             <h3><%= _('Option %{number}: If your institution is affiliated with DMPTool.') % { number: step_counter } %></h3>
             <% step_counter += 1 %>
-            <% if Rails.application.config.shibboleth_use_filtered_discovery_service %>
+            <% if Rails.configuration.x.shibboleth_use_filtered_discovery_service %>
               <%= link_to _('Your institution'), '#', class: 'btn btn-default btn-block',
                           'data-toggle': 'modal', 'data-target': '#shib-ds-form' %>
             <% else %>

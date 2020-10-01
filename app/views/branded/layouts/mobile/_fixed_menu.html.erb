@@ -63,12 +63,12 @@
                 <i class="fas fa-sort-desc" aria-hidden="true">&nbsp;</i>
               </a>
               <ul class="dropdown-menu" aria-labelledby="signin-menu-button">
-                <% if Rails.application.config.shibboleth_enabled %>
+                <% if  Rails.configuration.x.shibboleth_enabled %>
                   <!-- Shibboleth DS enabled -->
                   <li>
                     <% if request.fullpath != "/users/sign_up?nosplash=true" &&
                           session[:shibboleth_data].nil? %>
-                      <% if Rails.application.config.shibboleth_use_filtered_discovery_service %>
+                      <% if  Rails.configuration.x.shibboleth_use_filtered_discovery_service %>
                         <%= link_to _('Sign in through an affiliated institution'), '#',
                             'data-toggle': 'modal',
                             'data-target': '#shib-ds-form' %>
