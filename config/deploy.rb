@@ -7,10 +7,6 @@ set :default_env, { path: "/dmp/local/bin:$PATH" }
 # Gets the current Git tag and revision
 set :version_number, `git describe --tags`
 
-# Include optional Gem groups
-# TODO: For some reason this does not work
-#set :bundle_with, %w{ aws mysql }.join(' ')
-
 # Default environments to skip
 set :bundle_without, %w{ puma pgsql thin rollbar test }.join(' ')
 
@@ -43,12 +39,9 @@ set :keep_releases, 5
 
 namespace :deploy do
   before :deploy, 'config:install_shared_dir'
-  # after :deploy, 'cleanup:copy_tinymce_skins'
-  # after :deploy, 'cleanup:copy_logo'
-  # after :deploy, 'cleanup:copy_favicon'
   after :deploy, 'git:version'
   after :deploy, 'cleanup:remove_example_configs'
-  # after :deploy, 'cleanup:restart_passenger'
+  after :deploy, 'cleanup:restart_passenger'
 end
 
 namespace :config do
@@ -77,30 +70,6 @@ namespace :cleanup do
     on roles(:app), wait: 1 do
       execute "rm -f #{release_path}/config/*.yml.sample"
       execute "rm -f #{release_path}/config/initializers/*.rb.example"
-    end
-  end
-
-  desc "Move Tinymce skins into public dir"
-  task :copy_tinymce_skins do
-    on roles(:app), wait: 1 do
-      execute "if [ ! -d '#{release_path}/public/tinymce/' ]; then cd #{release_path}/ && mkdir public/tinymce && cp -r node_modules/tinymce/skins public/tinymce; fi"
-    end
-  end
-
-  desc "Move DMPTool logo into public dir for Shib"
-  task :copy_logo do
-    on roles(:app), wait: 1 do
-      execute "if [ ! -d '#{release_path}/public/images/' ]; then cd #{release_path}/ && mkdir public/images; fi"
-      execute "cd #{release_path}/ && cp app/assets/images/DMPTool_logo_blue_shades_v1b3b.svg public/images"
-    end
-  end
-
-  desc "Move favicon-32x32 into public dir"
-  task :copy_favicon do
-    on roles(:app), wait: 1 do
-      execute "if [ ! -d '#{release_path}/public/images/' ]; then cd #{release_path}/ && mkdir public/images; fi"
-      execute "cd #{release_path}/ && cp app/assets/images/favicon-32x32.png public/assets"
-      execute "cd #{release_path}/ && cp app/assets/images/apple-touch-icon.png public/assets"
     end
   end
 
