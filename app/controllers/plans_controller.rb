@@ -253,8 +253,7 @@ class PlansController < ApplicationController
 
       if @plan.update(attrs) # _attributes(attrs)
         format.html do
-          redirect_to plan_contributors_path(@plan),
-                      notice: success_message(@plan, _("saved"))
+          redirect_to plan_path(@plan), notice: success_message(@plan, _("saved"))
         end
         format.json do
           render json: { code: 1, msg: success_message(@plan, _("saved")) }
@@ -521,8 +520,7 @@ class PlansController < ApplicationController
       if grant.present?
         grant.update(value: grant_params[:value])
       elsif grant_params[:value].present?
-        @plan.grant = Identifier.new(identifier_scheme: nil, identifiable: @plan,
-                                     value: grant_params[:value])
+        @plan.grant = grant_params[:value]
       end
     end
   end

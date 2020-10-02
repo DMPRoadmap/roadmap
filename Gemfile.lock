@@ -497,7 +497,7 @@ DEPENDENCIES
   annotate_gem
   api-pagination
   autoprefixer-rails
-  better_errors
+  better_errors (= 2.8.1)
   binding_of_caller
   bootsnap
   brakeman

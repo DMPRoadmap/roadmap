@@ -1,4 +1,4 @@
-import { initAutocomplete } from '../../../utils/autoComplete';
+import { initAutocomplete } from '../../utils/autoComplete';
 
 $(() => {
   if ($('#api-client-org-controls').length > 0) {

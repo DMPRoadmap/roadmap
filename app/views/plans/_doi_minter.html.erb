@@ -1,6 +1,11 @@
 <%# locals: plan %>
 
-<% doi = plan.doi %>
+<%
+doi = plan.doi
+general_message = "Generate a DMP ID for your data management plan. DMP IDs help track connections between your project
+and associated outputs such as datasets. More about this feature here (
+<a href=\"https://github.com/CDLUC3/dmptool/wiki/Machine-actionable-DMPs#dois-for-dmps\">Machine-actionable-DMPs</a>)."
+%>
 
 <% if doi.present? %>
   <p>
@@ -9,13 +14,22 @@
     <% else %>
       <% val = doi.value %>
     <% end %>
-    <%= (_('Your plan has been registered. Your DOI is: %{doi}') % { doi: val }).html_safe %>
+    <%= (_('Your plan has been registered. Your DMP ID is: %{doi}') % { doi: val }).html_safe %>
+  </p>
+<% elsif !plan.minting_allowed? %>
+  <p>
+    <%= general_message.html_safe %>
+  </p>
+  <p>
+    You cannot register your plan until you have answered the majority of the questions, identified your funder, and defined at
+    least one contributor that has an ORCID and an affiliation.
+  </p>
+  <p>
+    Once your plan satisfies this criteria a button will appear here that will register your plan.
   </p>
 <% else %>
   <p>
-    Generate a DOI for your data management plan. DOIs help track connections between your project
-    and associated outputs such as datasets. More about this feature here (
-    <a href="https://github.com/CDLUC3/dmptool/wiki/Machine-actionable-DMPs#dois-for-dmps">Machine-actionable-DMPs</a>). 
+    <%= general_message.html_safe %>
     <%= button_to "Register", {
                                 controller: 'plans',
                                 action: 'mint',

@@ -8,13 +8,15 @@
         <th scope="col"><%= _('Organisation') %></th>
         <th scope="col"><%= _('Owner') %></th>
         <% if has_dois %>
-          <th scope="col"><%= _('DOI') %></th>
+          <th scope="col"><%= _('DMP ID') %></th>
         <% end %>
         <th scope="col" class="sorter-false text-center download-column"><%= _('Download') %></th>
       </tr>
     </thead>
     <tbody>
       <% scope.each do |plan| %>
+        <% id_presenter = IdentifierPresenter.new(identifiable: plan) %>
+
         <tr class="table-data">
           <td><%= plan.title %></td>
           <td><%= plan.template.title %></td>
@@ -24,7 +26,7 @@
             <td>
               <% doi = plan.doi %>
               <% if doi.present? %>
-                <a href="<%= doi.value %>" target="_blank" class="has-new-window-popup-info"><%= doi.value %></a>
+                <a href="<%= doi.value %>" target="_blank" class="has-new-window-popup-info"><%= id_presenter.id_for_display(id: doi, with_scheme_name: false).html_safe %></a>
               <% end %>
             </td>
           <% end %>

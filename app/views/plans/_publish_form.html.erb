@@ -1,5 +1,5 @@
 <h2><%= _('Set plan visibility') %></h2>
-<p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default.') % { :percentage => Rails.application.config.default_plan_percentage_answered } %></p>
+<p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default.') % { :percentage => Rails.configuration.x.plans.default_percentage_answered } %></p>
 <% allow_visibility = @plan.visibility_allowed? %>
 <%= form_for(@plan, url: visibility_plan_path, method: :post, html: { id: 'set_visibility', remote: true }) do |f| %>
   <fieldset<%= (allow_visibility ? '' : ' disabled') %>>
@@ -29,9 +29,8 @@
   </fieldset>
 <% end %>
 
-<% if IdentifierScheme.for_identification.any? %>
+<% if Rails.configuration.x.allow_doi_minting && IdentifierScheme.for_identification.any? %>
   <h2>Register your plan</h2>
-  <fieldset<%= (allow_visibility ? '' : ' disabled') %>>
   <div class="doi-minter">
     <%= render partial: 'plans/doi_minter', locals: { plan: @plan } %>
   </div>

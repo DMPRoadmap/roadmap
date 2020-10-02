@@ -6,10 +6,9 @@ class DoiService
   class << self
 
     # Retrieves a DOI for the specified plan. Note that the new Identifier is
-    # rubocop:disable Metrics/AbcSize
     def mint_doi(plan:)
-      # plan must exists and not already have a DOI
-      return nil unless plan.present? && plan.is_a?(Plan)
+      # plan must exist and not already have a DOI
+      return nil unless minting_service_defined? && plan.present? && plan.is_a?(Plan)
       return plan.doi if plan.doi.present?
 
       svc = minter
@@ -22,11 +21,10 @@ class DoiService
       Identifier.new(identifier_scheme: scheme(svc: svc),
                      identifiable: plan, value: doi)
     end
-    # rubocop:enable Metrics/AbcSize
 
     # Returns whether or not there is an active DOI minting service
     def minting_service_defined?
-      minter.present?
+      Rails.configuration.x.allow_doi_minting && minter.present?
     end
 
     # Retrieves the identifier_scheme name for the active DOI minting service

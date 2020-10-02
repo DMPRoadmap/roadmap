@@ -117,8 +117,6 @@ class Plan < ApplicationRecord
 
   has_many :contributors, dependent: :destroy
 
-  has_one :grant, as: :identifiable, dependent: :destroy, class_name: "Identifier"
-
   belongs_to :api_client, optional: true
 
   # =====================
@@ -573,8 +571,23 @@ class Plan < ApplicationRecord
     identifiers.select { |i| %w[doi ark].include?(i.identifier_format) }.first
   end
 
+  # Retrieves the Plan's grant
+  def grant
+    grant_id.present? ? Identifier.find_by(id: grant_id) : nil
+  end
+
+  # Sets the Plan's grant
+  def grant=(value)
+    identifier = Identifier.find_or_initialize_by(identifiable: self, value: value,
+                                                  identifier_scheme: nil)
+    identifier.save if identifier.new_record?
+    self.grant_id = identifier.id
+  end
+
   # Retrieves the Plan's most recent DOI
   def doi
+    return nil unless Rails.configuration.x.allow_doi_minting
+
     schemes = IdentifierScheme.for_identification
 
     if schemes.any?
@@ -583,6 +596,14 @@ class Plan < ApplicationRecord
       # If there is curently no identifier schemes defined as identification
       identifiers.select { |id| %w[ark doi].include?(id.identifier_format) }.last
     end
+  end
+
+  # Returns whether or not minting is allowed for the current plan
+  def minting_allowed?
+    orcids = contributors.select { |c| c.orcids.any? }
+    rors = contributors.select { |c| c.affiliation.rors.any? }
+
+    visibility_allowed? && orcids.any? && rors.any? && funder.present?
   end
 
   private

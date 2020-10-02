@@ -12,7 +12,7 @@
               <th scope="col" ><%= _('Visibility') %></th>
               <th scope="col" ><%= _('Shared') %></th>
               <% if has_dois %>
-                <th scope="col"><%= _('DOI') %></th>
+                <th scope="col"><%= _('DMP ID') %></th>
               <% end %>
               <th scope="col" class="sorter-false">
                 <span aria-hidden="false" class="sr-only"><%= _('Actions') %></span>
@@ -21,6 +21,8 @@
           </thead>
           <tbody>
             <% scope.each do |plan| %>
+              <% id_presenter = IdentifierPresenter.new(identifiable: plan) %>
+
               <tr id="<%= dom_id(plan) %>">
                 <td>
                   <%= link_to "#{plan.title.length > 60 ? "#{plan.title[0..59]} ..." : plan.title}",
@@ -53,7 +55,7 @@
                   <td>
                     <% doi = plan.doi %>
                     <% if doi.present? %>
-                      <a href="<%= doi.value %>" target="_blank" class="has-new-window-popup-info"><%= doi.value %></a>
+                      <a href="<%= doi.value %>" target="_blank" class="has-new-window-popup-info"><%= id_presenter.id_for_display(id: doi, with_scheme_name: false).html_safe %></a>
                     <% end %>
                   </td>
                 <% end %>
