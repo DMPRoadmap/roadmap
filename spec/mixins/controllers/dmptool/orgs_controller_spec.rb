@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe OrgsController, type: :request do
+RSpec.describe Dmptool::OrgsController, type: :request do
 
   before(:each) do
     @controller = ::OrgsController.new

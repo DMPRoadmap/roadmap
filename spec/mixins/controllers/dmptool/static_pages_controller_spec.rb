@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Controllers::Dmptool::StaticPagesController, type: :request do
+RSpec.describe Dmptool::StaticPagesController, type: :request do
 
   before(:each) do
     @controller = ::StaticPagesController.new

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Controllers::Dmptool::Users::OmniauthCallbacksController,
+RSpec.describe Dmptool::Users::OmniauthCallbacksController,
                type: :controller do
 
   include Devise::Test::ControllerHelpers

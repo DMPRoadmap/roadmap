@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Controllers::Dmptool::HomeController, type: :request do
+RSpec.describe Dmptool::HomeController, type: :request do
 
   before(:each) do
     @controller = ::HomeController.new

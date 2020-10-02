@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Controllers::Dmptool::PublicPagesController, type: :request do
+RSpec.describe Dmptool::PublicPagesController, type: :request do
 
   before(:each) do
     @controller = ::PublicPagesController.new

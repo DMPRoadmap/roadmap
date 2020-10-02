@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Models::Dmptool::Org, type: :model do
+RSpec.describe Dmptool::Org, type: :model do
 
   describe "DMPTool customizations to Org model" do
 

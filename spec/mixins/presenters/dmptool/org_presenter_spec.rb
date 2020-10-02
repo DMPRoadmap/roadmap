@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Presenters::Dmptool::OrgPresenter do
+RSpec.describe Dmptool::OrgPresenter do
 
   describe "DMPTool OrgPresenter" do
     before do
