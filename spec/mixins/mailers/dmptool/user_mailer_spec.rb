@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Dmptool::Mailers::UserMailer, type: :mailer do
+RSpec.describe Mailers::Dmptool::UserMailer, type: :mailer do
 
   describe "DMPTool mixin for the UserMailer" do
 

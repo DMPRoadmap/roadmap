@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Dmptool::Controllers::Paginable::OrgsController, type: :request do
+RSpec.describe Controllers::Dmptool::Paginable::OrgsController, type: :request do
 
   it "OrgsController includes our customizations" do
     expect(Paginable::OrgsController.new.respond_to?(:public)).to eql(true)

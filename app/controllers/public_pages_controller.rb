@@ -5,7 +5,7 @@ class PublicPagesController < ApplicationController
   # --------------------------------
   # Start DMPTool Customization
   # --------------------------------
-  include Controllers::Dmptool::PublicPagesController
+  include Dmptool::PublicPagesController
   # --------------------------------
   # End DMPTool Customization
   # --------------------------------

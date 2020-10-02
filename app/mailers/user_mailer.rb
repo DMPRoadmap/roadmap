@@ -7,7 +7,7 @@ class UserMailer < ActionMailer::Base
   # --------------------------------
   # Start DMPTool Customization
   # --------------------------------
-  include Mailers::Dmptool::UserMailer
+  include Dmptool::UserMailer
   # --------------------------------
   # End DMPTool Customization
   # --------------------------------

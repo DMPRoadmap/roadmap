@@ -5,7 +5,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # --------------------------------
   # Start DMPTool Customization
   # --------------------------------
-  include Controllers::Dmptool::Users::OmniauthCallbacksController
+  include Dmptool::Users::OmniauthCallbacksController
   # --------------------------------
   # End DMPTool Customization
   # --------------------------------

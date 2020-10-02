@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Dmptool::Controllers::OrgsController, type: :request do
+RSpec.describe OrgsController, type: :request do
 
   before(:each) do
     @controller = ::OrgsController.new
@@ -59,8 +59,9 @@ RSpec.describe Dmptool::Controllers::OrgsController, type: :request do
 
       location = response.headers["Location"]
       expect(location.include?(Rails.application.config.shibboleth_login)).to eql(true)
-      expect(location.include?(request.base_url.gsub('http:', 'https:'))).to eql(true)
-      expect(location.include?(user_shibboleth_omniauth_callback_url.gsub("http:", "https:"))).to eql(true)
+      expect(location.include?(request.base_url.gsub("http:", "https:"))).to eql(true)
+      passed = location.include?(user_shibboleth_omniauth_callback_url.gsub("http:", "https:"))
+      expect(passed).to eql(true)
       expect(location.include?("&entityID=#{id.value}")).to eql(true)
     end
   end

@@ -87,9 +87,9 @@ class ApplicationController < ActionController::Base
   def after_sign_up_path_for(_resource)
     referer_path = URI(request.referer).path unless request.referer.nil?
     # ---------------------------------------------------------
-     # Start DMPTool Customization
-     # Added `new_user_registration_path` to if statement below
-     # ---------------------------------------------------------
+    # Start DMPTool Customization
+    # Added `new_user_registration_path` to if statement below
+    # ---------------------------------------------------------
     if from_external_domain? ||
          referer_path.eql?(new_user_session_path) ||
          referer_path.eql?(new_user_registration_path) ||

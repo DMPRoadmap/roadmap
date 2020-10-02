@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Dmptool::Controllers::Users::OmniauthCallbacksController,
+RSpec.describe Controllers::Dmptool::Users::OmniauthCallbacksController,
                type: :controller do
 
   include Devise::Test::ControllerHelpers
@@ -40,9 +40,7 @@ RSpec.describe Dmptool::Controllers::Users::OmniauthCallbacksController,
       describe "linking account to shibboleth" do
         before do
           request.env["omniauth.auth"] = @omniauth_hash["omniauth.auth"]
-          # rubocop:disable Metrics/LineLength
           @msg = "Your account has been successfully linked to your institutional credentials."
-          # rubocop:enable Metrics/LineLength
           @uid = @omniauth_hash["omniauth.auth"]["uid"]
         end
 
