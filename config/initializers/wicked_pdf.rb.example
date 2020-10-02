@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DMPRoadmap
   class Application < Rails::Application
     WickedPdf.config = {

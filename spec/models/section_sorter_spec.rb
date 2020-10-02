@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 RSpec.describe SectionSorter, type: :model do
 
-  class StubSection < Struct.new(:number, :modifiable, :id)
-    alias modifiable? modifiable
+  StubSection = Struct.new(:number, :modifiable, :id) do
+
+    alias_method :modifiable?, :modifiable
 
     def unmodifiable?
       !modifiable?
@@ -28,7 +31,7 @@ RSpec.describe SectionSorter, type: :model do
         StubSection.new(3, false, 111),
         StubSection.new(4, true, 19),
         StubSection.new(5, false, 1009),
-        StubSection.new(6, true, 999),
+        StubSection.new(6, true, 999)
       ].shuffle
     end
 
@@ -43,11 +46,11 @@ RSpec.describe SectionSorter, type: :model do
     end
 
     it "groups unmodifiable sections together" do
-      expect(subject[1..3].map(&:number)).to eql([2,3,5])
+      expect(subject[1..3].map(&:number)).to eql([2, 3, 5])
     end
 
     it "groups modifiable sections together, last" do
-      expect(subject[4..5].map(&:number)).to eql([4,6])
+      expect(subject[4..5].map(&:number)).to eql([4, 6])
     end
 
     context "when duplicate prefix exists" do
@@ -60,7 +63,7 @@ RSpec.describe SectionSorter, type: :model do
           StubSection.new(3, false, 199),
           StubSection.new(4, true, 84),
           StubSection.new(5, false, 129),
-          StubSection.new(6, true, 555),
+          StubSection.new(6, true, 555)
         ].shuffle
       end
 
@@ -84,7 +87,7 @@ RSpec.describe SectionSorter, type: :model do
           StubSection.new(2, false, 54),
           StubSection.new(3, true, 199),
           StubSection.new(3, true, 205),
-          StubSection.new(3, true, 84),
+          StubSection.new(3, true, 84)
         ].shuffle
       end
 
@@ -105,12 +108,12 @@ RSpec.describe SectionSorter, type: :model do
           StubSection.new(3, true, 111),
           StubSection.new(4, true, 19),
           StubSection.new(5, true, 1009),
-          StubSection.new(5, true, 999),
+          StubSection.new(5, true, 999)
         ].shuffle
       end
 
       it "sorts all sections by number" do
-        expect(subject.map(&:number)).to eql([1,2,3,4,5,5])
+        expect(subject.map(&:number)).to eql([1, 2, 3, 4, 5, 5])
       end
 
       it "sorts duplicates by id" do
@@ -128,12 +131,12 @@ RSpec.describe SectionSorter, type: :model do
           StubSection.new(3, false, 111),
           StubSection.new(4, false, 109),
           StubSection.new(4, false, 10),
-          StubSection.new(5, false, 999),
+          StubSection.new(5, false, 999)
         ].shuffle
       end
 
       it "sorts all sections by number" do
-        expect(subject.map(&:number)).to eql([1,2,3,4,4,5])
+        expect(subject.map(&:number)).to eql([1, 2, 3, 4, 4, 5])
       end
 
       it "sorts duplicates by id" do

@@ -4,7 +4,8 @@
     <!-- Google Analytics and UserSnap -->
     <%= render partial: 'layouts/analytics' %>
 
-    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %>
+    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % {
+      application_name: ApplicationService.application_name } %>
     </title>
     <%= favicon_link_tag 'apple-touch-icon.png', rel: 'apple-touch-icon', type: 'image/png' %>
     <%= favicon_link_tag 'favicon-32x32.png', rel: 'icon', sizes: "32x32", type: 'image/png' %>
@@ -47,7 +48,7 @@
     <![endif]-->
 
     <%= stylesheet_link_tag(stylesheet_manifest_file) %>
-    <%= javascript_pack_tag(javascript_manifest_file) %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= csrf_meta_tags %>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -90,7 +91,7 @@
               active_page?(user_orcid_omniauth_callback_path) %>
       <!-- Modal windows for sign in/out -->
       <% unless user_signed_in? %>
-        <% if Rails.application.config.shibboleth_use_filtered_discovery_service %>
+        <% if  Rails.configuration.x.shibboleth_use_filtered_discovery_service %>
           <div id="shib-ds-form" class="modal fade" tabindex="-1" role="dialog">
             <%= render partial: 'shared/shib_ds_form' %>
           </div>

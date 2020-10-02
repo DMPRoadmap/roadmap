@@ -6,7 +6,7 @@ class ContactUs::ContactsController < ApplicationController
     @contact = ContactUs::Contact.new(params[:contact_us_contact])
     flash[:alert] = nil
 
-    if !user_signed_in?
+    unless user_signed_in?
       unless verify_recaptcha(model: @contact) && @contact.save
         flash[:alert] = _("Captcha verification failed, please retry.")
         render_new_page and return
@@ -14,7 +14,7 @@ class ContactUs::ContactsController < ApplicationController
     end
     if @contact.save
       redirect_to(ContactUs.success_redirect || "/",
-        notice: _("Contact email was successfully sent."))
+                  notice: _("Contact email was successfully sent."))
     else
       flash[:alert] = _("Unable to submit your request")
       render_new_page

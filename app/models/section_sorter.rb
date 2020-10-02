@@ -28,6 +28,7 @@ class SectionSorter
   # Re-order {#sections} into the correct order.
   #
   # Returns Array of Sections
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def sort!
     if all_sections_unmodifiable?
       sort_as_homogenous_group
@@ -37,24 +38,24 @@ class SectionSorter
       # If there are duplicates in the #1 position
       if duplicate_number_values.include?(1)
 
-        mod_1 = sections.select { |section| section.modifiable? && section.number == 1 }
+        mod1 = sections.select { |section| section.modifiable? && section.number == 1 }
 
         # There should only be, if any, one prefixed modifiable Section
-        prefix = mod_1.shift
+        prefix = mod1.shift
 
         # In the off-chance that there is more than one prefix Section, stick them
         # after the  unmodifiable block
-        erratic = mod_1
+        erratic = mod1
 
         # Collect the unmodifiable Section ids in the order the should be displayed
         unmodifiable = sections
-                        .select { |section| section.unmodifiable? }
-                        .sort_by { |section| [section.number, section.id] }
+                       .select(&:unmodifiable?)
+                       .sort_by { |section| [section.number, section.id] }
 
         # Then any additional Sections that come after the main block...
         modifiable = sections
-                        .select { |section| section.modifiable? && section.number > 1 }
-                        .sort_by { |section| [section.number, section.id] }
+                     .select { |section| section.modifiable? && section.number > 1 }
+                     .sort_by { |section| [section.number, section.id] }
 
         # Create one Array with all of the ids in the correct order.
         self.sections = [prefix] + unmodifiable + erratic + modifiable
@@ -71,6 +72,8 @@ class SectionSorter
       sections.uniq.compact
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable
 
   private
 
@@ -80,14 +83,14 @@ class SectionSorter
 
   def number_values_with_count
     @number_values_with_count ||= begin
-      hash = Hash.new { |hash, key| hash[key] = 0 }
+      hash = Hash.new { |h, key| h[key] = 0 }
       sections.map(&:number).each { |number| hash[number] += 1 }
       hash
     end
   end
 
   def duplicate_number_values
-    @duplicate_number_values ||= number_values_with_count.select do |number, count|
+    @duplicate_number_values ||= number_values_with_count.select do |_number, count|
       count > 1
     end.keys
   end

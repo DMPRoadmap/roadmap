@@ -27,20 +27,28 @@ permissions_tooltip = _('Co-owner: Has admin-rights to the plan (can invite othe
                 <span><%= display_role(role) %></span>
             <% else %>
                 <% if administerable && role.user != current_user %>
-                      <%= form_for role, url: { controller: :roles, action: :update, id: role.id }, remote: true, html: { method: :put } do |f| %>
-                      <div class="form-group col-xs-8">
-                        <%= f.hidden_field :id %>
-                        <%= f.select :access, {
-                              "#{display_role(administrator)}": administrator.access,
-                              "#{display_role(editor)}": editor.access,
-                              "#{display_role(commenter)}": commenter.access
-                            }, {}, { id: "#{role.id}-can-edit", class: "toggle-existing-user-access" } %>
-                      </div>
+                  <div class="form-group col-xs-8">
+                    <%= fields_for role do |f| %>
+                      <% options = [
+                        ["#{display_role(administrator)}", administrator.access],
+                        ["#{display_role(editor)}", editor.access],
+                        ["#{display_role(commenter)}", commenter.access]
+                      ] %>
+                      <%= f.select :access, options_for_select(options, role.access), {}, {
+                                            authenticity_token: true,
+                                            class: "toggle-existing-user-access",
+                                            data: {
+                                              remote: true,
+                                              method: :patch,
+                                              url: role_path(role)
+                                            } } %>
                     <% end %>
+                  </div>
                 <% else %>
                     <span><%= display_role(role) %></span>
                 <% end %>
             <% end %>
+          </td>
           <% if administerable %>
             <td>
               <% unless role.creator? || role.user == current_user then %>
@@ -61,14 +69,12 @@ permissions_tooltip = _('Co-owner: Has admin-rights to the plan (can invite othe
   <%= form_for new_role, url: {controller: :roles, action: :create }, html: {method: :post} do |f| %>
     <div class="form-group col-xs-6">
       <%= f.hidden_field :plan_id %>
-      <%= f.fields_for :user do |user| %>
+      <%= f.fields_for :user, new_role.user do |user| %>
         <%= user.label :email, _('Email'), class: 'control-label'%>
          <em class="sr-only"><%= email_tooltip %></em>
-        <%= user.email_field :email, for: :user, name: "user", class: "form-control",
-                            "aria-required": true,
-                            'data-toggle': 'tooltip',
-                            'data-html': true,
-                            title: email_tooltip %>
+        <%= user.email_field :email, class: "form-control", title: email_tooltip,
+                                     aria: { required: true },
+                                     date: { toggle: "tooltip", html: true } %>
       <% end %>
     </div>
     <div class="clearfix"></div>

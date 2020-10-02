@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: annotations
@@ -28,6 +30,6 @@ FactoryBot.define do
     question
     org
     text { Faker::Lorem.paragraph }
-    type { [0,1].sample }
+    type { [0, 1].sample }
   end
 end

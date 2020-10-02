@@ -6,8 +6,8 @@
                         root_path) %>
 <% elsif !user_signed_in? || (user_signed_in? && current_user.org.is_other?) %>
   <%= link_to(image_tag("DMPTool_logo_blue_shades_v1b3b.svg",
-                        alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
+                        alt: "#{ApplicationService.application_name} #{_('logo')}",
                         class: "app-logo",
-                        title: Rails.configuration.branding[:application][:name]),
+                        title: ApplicationService.application_name),
               root_path) %>
 <% end %>

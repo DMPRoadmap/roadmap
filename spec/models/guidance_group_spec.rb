@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe GuidanceGroup, type: :model do
 
@@ -13,11 +15,11 @@ RSpec.describe GuidanceGroup, type: :model do
 
     it { is_expected.to validate_presence_of(:org) }
 
-    it { is_expected.to allow_value(true).for(:optional_subset)  }
+    it { is_expected.to allow_value(true).for(:optional_subset) }
 
     it { is_expected.to allow_value(true).for(:published) }
 
-    it { is_expected.to allow_value(false).for(:optional_subset)  }
+    it { is_expected.to allow_value(false).for(:optional_subset) }
 
     it { is_expected.to allow_value(false).for(:published) }
 
@@ -39,7 +41,6 @@ RSpec.describe GuidanceGroup, type: :model do
 
     subject { GuidanceGroup.can_view?(user, guidance_group) }
 
-
     context "when owned by an Org which the user is a member" do
 
       let!(:guidance_group) { create(:guidance_group, org: user.org) }
@@ -52,8 +53,7 @@ RSpec.describe GuidanceGroup, type: :model do
 
       let!(:org) do
         create(:org,
-          abbreviation: Rails.configuration
-                             .branding.dig(:organisation, :abbreviation))
+               abbreviation: Rails.configuration.x.organisation.abbreviation)
       end
 
       let!(:guidance_group) { create(:guidance_group, org: org) }
@@ -133,8 +133,7 @@ RSpec.describe GuidanceGroup, type: :model do
 
       let!(:org) do
         create(:org,
-          abbreviation: Rails.configuration
-                             .branding.dig(:organisation, :abbreviation))
+               abbreviation: Rails.configuration.x.organisation.abbreviation)
       end
 
       let!(:guidance_group) { create(:guidance_group, org: org) }

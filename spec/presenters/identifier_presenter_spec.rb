@@ -82,9 +82,10 @@ RSpec.describe IdentifierPresenter do
     it "returns the value when the scheme has no identifier_prefix" do
       val = Faker::Lorem.word
       @user_scheme.identifier_prefix = nil
+      @user_scheme.save
       @identifier.value = val
       rslt = @presenter.id_for_display(id: @identifier)
-      expect(rslt).to eql(val)
+      expect(rslt).to eql(@user_scheme.description + ": " + val)
     end
     it "returns the value as a link when the scheme has a identifier_prefix" do
       rslt = @presenter.id_for_display(id: @identifier)

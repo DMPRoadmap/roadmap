@@ -1,4 +1,4 @@
-class RemoveSuggestedAnswerFromQuestions < ActiveRecord::Migration
+class RemoveSuggestedAnswerFromQuestions < ActiveRecord::Migration[4.2]
   def up
     remove_column :questions, :suggested_answer
   end

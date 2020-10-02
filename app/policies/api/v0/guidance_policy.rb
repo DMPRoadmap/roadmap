@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 module Api
+
   module V0
+
     class GuidancePolicy < ApplicationPolicy
+
       attr_reader :user
       attr_reader :guidance
 
@@ -9,6 +14,7 @@ module Api
         unless user.org.token_permission_types.include? TokenPermissionType::GUIDANCES
           raise Pundit::NotAuthorizedError, _("must have access to guidances api")
         end
+
         @user = user
         @guidance = guidance
       end
@@ -24,6 +30,9 @@ module Api
       def index?
         true
       end
+
     end
+
   end
+
 end

@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe "Registrations", type: :feature do
 
@@ -26,6 +28,8 @@ RSpec.describe "Registrations", type: :feature do
     email: "john.doe@testing-dmproadmap.org"
   } }
 
+  let!(:language) { Language.default || create(:language, default_language: true) }
+
   before(:each) do
     mock_blog
   end
@@ -34,8 +38,6 @@ RSpec.describe "Registrations", type: :feature do
   # -------------------------------------------------------------
 
   scenario "User creates a new acccount", :js do
-    user_count = User.count
-
     # Setup
     visit root_path
 
@@ -73,8 +75,6 @@ RSpec.describe "Registrations", type: :feature do
   end
 
   scenario "User attempts to create a new acccount with invalid atts", :js do
-    user_count = User.count
-
     # Setup
     visit root_path
 

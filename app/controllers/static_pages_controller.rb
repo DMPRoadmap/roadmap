@@ -5,7 +5,7 @@ class StaticPagesController < ApplicationController
   # --------------------------------
   # Start DMPTool Customization
   # --------------------------------
-  include Dmptool::Controllers::StaticPagesController
+  include Dmptool::StaticPagesController
   # --------------------------------
   # End DMPTool Customization
   # --------------------------------

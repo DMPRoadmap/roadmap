@@ -3,7 +3,7 @@ thead th {
   background-color: $color-primary-background;
   color: $color-primary-text;
 
-  .fa, .fa:not(.small) {
+  .fas, .fas:not(.small) {
     color: $color-primary-text;
   }
 }
@@ -17,4 +17,9 @@ tbody tr:nth-child(even){
 .table-hover tbody tr:hover td,
 .table-hover tbody tr:hover th {
   background-color: $color-light-blue;
+}
+
+/* Makes the magnifying glass icon white */
+#search-addon .fa-search {
+  color: $color-white;
 }

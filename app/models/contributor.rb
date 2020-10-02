@@ -26,7 +26,7 @@
 #  fk_rails_...  (org_id => orgs.id)
 #  fk_rails_...  (plan_id => plans.id)
 
-class Contributor < ActiveRecord::Base
+class Contributor < ApplicationRecord
 
   include FlagShihTzu
   include ValidationMessages
@@ -36,9 +36,7 @@ class Contributor < ActiveRecord::Base
   # = Associations =
   # ================
 
-  # TODO: uncomment the 'optional' bit after the Rails 5 migration. Rails 5+ will
-  #       NOT allow nil values in a belong_to field!
-  belongs_to :org # , optional: true
+  belongs_to :org, optional: true
 
   belongs_to :plan
 

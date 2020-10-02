@@ -9,7 +9,7 @@
           <%= _("Create or connect your ORCID iD") %>
         <% end %>
     <% elsif scheme.name.downcase == 'shibboleth' %>
-        <i class="fa fa-user" title="<%= _('Institutional credentials') %>" aria-hidden="true"></i>
+        <i class="fas fa-user" title="<%= _('Institutional credentials') %>" aria-hidden="true"></i>
         &nbsp;
         <%= link_to _('Link your institutional credentials'),
                     Rails.application.routes.url_helpers.send("user_shibboleth_omniauth_authorize_path"),
@@ -37,7 +37,7 @@
         <% unlinktext = _("Unlink your account from your organisation. You can link again at any time.") %>
         <% unlinkconf = _("Are you sure you want to unlink your institutional credentials?") %>
         <% if scheme.identifier_prefix.nil? %>
-            <i class="fa fa-user" title="<%= _('Institutional credentials') %>" aria-hidden="true"></i>
+            <i class="fas fa-user" title="<%= _('Institutional credentials') %>" aria-hidden="true"></i>
             &nbsp;
             <%= titletext %>
         <% else %>
@@ -47,7 +47,7 @@
                         title: titletext,
                         'aria-label': titletext,
                         'data-toggle': "tooltip" do %>
-                <i class="fa fa-user" title="<%= scheme.description %>" aria-hidden="true"></i>
+                <i class="fas fa-user" title="<%= scheme.description %>" aria-hidden="true"></i>
                 &nbsp;
                 <%= titletext %>
             <% end %>
@@ -56,7 +56,7 @@
         <% titletext = _("Your account has been linked to #{scheme.description}.") %>
         <% if scheme.identifier_prefix.nil? %>
             <% if scheme.logo_url.nil? %>
-                <i class="fa fa-user" title="<%= scheme.description %>" aria-hidden="true"></i>
+                <i class="fas fa-user" title="<%= scheme.description %>" aria-hidden="true"></i>
             <% else %>
                 <%= image_tag "#{scheme.logo_url}", id: 'orcid-id-logo', alt: scheme.description %>
             <% end %>
@@ -70,7 +70,7 @@
                         'aria-label': titletext,
                         'data-toggle': "tooltip" do %>
                 <% if scheme.logo_url.nil? %>
-                    <i class="fa fa-user" title="<%= scheme.description %>" aria-hidden="true"></i>
+                    <i class="fas fa-user" title="<%= scheme.description %>" aria-hidden="true"></i>
                 <% else %>
                     <%= image_tag "#{scheme.logo_url}", id: 'orcid-id-logo', alt: scheme.description %>
                 <% end %>
@@ -81,7 +81,7 @@
         <% unlinktext = _("Unlink your account from #{scheme.description}. You can link again at any time.") %>
         <% unlinkconf = _("Are you sure you want to unlink #{scheme.description} ID?") %>
     <% end %>
-    <%= link_to '<i class="fa fa-fw fa-times-circle" aria-hidden="true"></i>'.html_safe,
+    <%= link_to '<i class="fas fa-fw fa-times-circle" aria-hidden="true"></i>'.html_safe,
                 destroy_user_identifier_path(id),
                 method: :delete,
                 title: unlinktext,

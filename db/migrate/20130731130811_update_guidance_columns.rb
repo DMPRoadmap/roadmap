@@ -1,4 +1,4 @@
-class UpdateGuidanceColumns < ActiveRecord::Migration
+class UpdateGuidanceColumns < ActiveRecord::Migration[4.2]
   def up
 		rename_column :guidances, :organisation_id, :guidance_group_id
 	end

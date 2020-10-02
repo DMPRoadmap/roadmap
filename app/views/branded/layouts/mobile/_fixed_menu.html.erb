@@ -15,9 +15,9 @@
         <p><strong><%= current_user.org.name %></strong></p>
       <% else %>
         <%= link_to(image_tag("DMPTool_logo_blue_shades_v1b3b.svg",
-                              alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
+                              alt: "#{ApplicationService.application_name} #{_('logo')}",
                               class: "app-logo",
-                              title: "#{Rails.configuration.branding[:application][:name]} logo"),
+                              title: "#{ApplicationService.application_name} logo"),
                     root_path) %>
       <% end %>
     </div>
@@ -37,7 +37,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                id="org-menu-button" aria-haspopup="true" aria-expanded="false">
               <%= current_user.org.abbreviation %>
-              <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
+              <i class="fas fa-sort-desc" aria-hidden="true">&nbsp;</i>
             </a>
             <ul class="dropdown-menu" aria-labelledby="org-menu-button">
               <%= render partial: 'layouts/org_links' %>
@@ -60,15 +60,15 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                  id="signin-menu-button" aria-haspopup="true" aria-expanded="false">
                 <%= _('Sign in') %>
-                <i class="fa fa-sort-desc" aria-hidden="true">&nbsp;</i>
+                <i class="fas fa-sort-desc" aria-hidden="true">&nbsp;</i>
               </a>
               <ul class="dropdown-menu" aria-labelledby="signin-menu-button">
-                <% if Rails.application.config.shibboleth_enabled %>
+                <% if  Rails.configuration.x.shibboleth_enabled %>
                   <!-- Shibboleth DS enabled -->
                   <li>
                     <% if request.fullpath != "/users/sign_up?nosplash=true" &&
                           session[:shibboleth_data].nil? %>
-                      <% if Rails.application.config.shibboleth_use_filtered_discovery_service %>
+                      <% if  Rails.configuration.x.shibboleth_use_filtered_discovery_service %>
                         <%= link_to _('Sign in through an affiliated institution'), '#',
                             'data-toggle': 'modal',
                             'data-target': '#shib-ds-form' %>
