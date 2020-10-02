@@ -10,6 +10,9 @@ const getHelpBlock = (id) => {
 };
 
 const togglePassword = (password) => {
+
+console.log(password);
+
   $(password).attr('type', ($(password).attr('type') === 'password' ? 'text' : 'password'));
 };
 
@@ -59,12 +62,21 @@ export const addMatchingPasswordValidator = (options) => {
  *     <input type="checkbox" class="passwords_toggle" />
  */
 export const togglisePasswords = (options) => {
+
+console.log(options);
+
   if (isObject(options) && isString(options.selector)) {
     const toggle = $(`${options.selector} .passwords_toggle`);
     const pwds = $(`${options.selector} input[type="password"]`);
 
+console.log(toggle);
+console.log(pwds);
+
     if (pwds && toggle) {
       toggle.on('change', () => {
+
+console.log('click');
+
         if (isArray(pwds)) {
           pwds.forEach((pwd) => {
             togglePassword(pwd);
