@@ -33,8 +33,11 @@
     color: $navbar-org-link-color;
     &:hover,
     &:focus {
-      color: darken($navbar-org-link-hover-color,10%)
+      color: darken($navbar-org-link-hover-color,10%);
     }
+  }
+  #org-navbar .navbar-nav ul .active a {
+    color: $navbar-org-link-active-color;
   }
   #org-navbar .org-links {
     padding-top: $grid-gutter-width / 2;

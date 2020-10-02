@@ -25,27 +25,27 @@ $color-portage-orange-darker: darken($color-portage-orange, 10%);
 */
 // Backgrounds
 $color-primary-background: $color-portage-blue;
-$color-seccondary-background: $color-portage-orange;
+$color-seccondary-background: $color-white;
 $color-muted-background: $color-muted;
 $color-navbar-background: $color-portage-blue;
-$color-navbar-background-active: $color-portage-orange ;
+$color-navbar-background-active: $color-white ;
 $color-footer-background: $color-grey-darkest;
 $color-tooltip-background: $color-primary-background;
-$color-icon-bar-background: $color-portage-orange;
+$color-icon-bar-background: $color-white;
 
 // Text
-$color-primary-text: $color-portage-orange;
+$color-primary-text: $color-white;
 $color-seccondary-text: $color-portage-blue;
-$color-heading-text: $color-portage-orange;
-$color-navbar-text: $color-portage-orange;
+$color-heading-text: $color-portage-blue;
+$color-navbar-text: $color-white;
 $color-navbar-text-hover: $color-portage-blue;
 $color-navbar-text-disabled: $color-grey-darker;
-$color-link-text: $color-portage-orange;
-$color-navbar-link-text: $color-portage-orange;
-$color-org-navbar-links: $color-portage-orange;
-$color-org-navbar-links-hover: $color-portage-orange-darker;
+$color-link-text: $color-portage-blue;
+$color-navbar-link-text: $color-white;
+$color-org-navbar-links: $color-portage-blue;
+$color-org-navbar-links-hover: $color-portage-blue-darker;
 $color-dropdown-inverse-text: $color-portage-blue;
-$color-dropdown-inverse-text-hover: $color-portage-orange;
+$color-dropdown-inverse-text-hover: $color-white;
 // $color-footer-links:;
 // $color-footer-links-hover:;
 // $color-tooltip-text:;
@@ -56,7 +56,7 @@ $color-text-black: $color-black;
 // Borders colors
 $color-border-default: $color-portage-blue;
 $color-border-light: #ddd;
-$color-dropdown-inverse-border: $color-portage-orange;
+$color-dropdown-inverse-border: $color-portage-blue;
 $color-navbar-border: darken($color-navbar-background, 10%);
 
 // Shadow colors
