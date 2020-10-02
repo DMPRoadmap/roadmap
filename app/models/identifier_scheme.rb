@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: identifier_schemes
@@ -13,11 +15,9 @@
 #  updated_at       :datetime
 #
 
-class IdentifierScheme < ActiveRecord::Base
+class IdentifierScheme < ApplicationRecord
 
   include FlagShihTzu
-  include ValidationMessages
-  include ValidationValues
 
   ##
   # The maximum length for a name
@@ -46,16 +46,16 @@ class IdentifierScheme < ActiveRecord::Base
   ##
   # Define Bit Field values for the scheme's context
   # These are used to determine when and where an identifier scheme is applicable
-  has_flags 1 =>  :for_authentication,
-            2 =>  :for_orgs,
-            3 =>  :for_plans,
-            4 =>  :for_users,
-            5 =>  :for_contributors,
+  has_flags 1 => :for_authentication,
+            2 => :for_orgs,
+            3 => :for_plans,
+            4 => :for_users,
+            5 => :for_contributors,
             column: "context"
 
-  # ===========================
-  # = Instance Methods =
-  # ===========================
+  # =========================
+  # = Custom Accessor Logic =
+  # =========================
 
   # The name is used by the OrgSelection Services as a Hash key. For example:
   #    { "ror": "12345" }
@@ -63,5 +63,9 @@ class IdentifierScheme < ActiveRecord::Base
   def name=(value)
     super(value&.downcase&.gsub(/[^a-z]/, ""))
   end
+
+  # ===========================
+  # = Instance Methods =
+  # ===========================
 
 end

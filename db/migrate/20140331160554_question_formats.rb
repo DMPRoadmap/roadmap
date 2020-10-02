@@ -1,4 +1,4 @@
-class QuestionFormats < ActiveRecord::Migration
+class QuestionFormats < ActiveRecord::Migration[4.2]
   def change 
  		create_table :question_formats do |t|
       t.string :title

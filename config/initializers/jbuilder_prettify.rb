@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 # config/initializers/jbuilder_prettify.rb
 require "jbuilder"
 
 class Jbuilder
+
   ##
   # Allows you to set @prettify manually in your .jbuilder files.
   # Example:
@@ -10,7 +13,7 @@ class Jbuilder
   #
   attr_accessor :prettify
 
-  alias_method :_original_target, :target!
+  alias _original_target target!
 
   ##
   # A shortcut to enabling prettify.
@@ -24,4 +27,5 @@ class Jbuilder
   def target!
     @prettify ? ::JSON.pretty_generate(@attributes) : _original_target
   end
+
 end

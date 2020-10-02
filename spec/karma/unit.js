@@ -28,8 +28,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'node_modules/babel-polyfill/dist/polyfill.js',
-      // 'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
+      // 'node_modules/babel-polyfill/dist/polyfill.js',
+      'node_modules/bootstrap/dist/js/bootstrap.min.js',
       'spec/javascripts/**/*Spec.js',
       'spec/javascripts/fixtures/*',
     ],
@@ -48,7 +48,6 @@ module.exports = function(config) {
     },
 
     webpack: require('../../config/webpack/test.js'),
-    
 
     // Preprocessor configuration
     jsonFixturesPreprocessor: {

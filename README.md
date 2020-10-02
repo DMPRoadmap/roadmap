@@ -15,7 +15,7 @@ Click here for the latest [releases].(https://github.com/CDLUC3/dmptool/releases
 ## Support
 
 Issues should be reported here on [Github Issues](https://github.com/CDLUC3/dmptool/issues)
-Please be advised though that we can only provide support for the [DMPTool](https://dmptool.org). This code is offered as open source and we can only provide limited support for your local installation. 
+Please be advised though that we can only provide support for the [DMPTool](https://dmptool.org). This code is offered as open source and we can only provide limited support for your local installation.
 
 Issues will be triaged by our team and if applicable will be moved/opened in the DMPRoadmap repository.
 

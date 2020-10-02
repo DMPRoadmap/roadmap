@@ -7,10 +7,6 @@ set :default_env, { path: "/dmp/local/bin:$PATH" }
 # Gets the current Git tag and revision
 set :version_number, `git describe --tags`
 
-# Include optional Gem groups
-# TODO: For some reason this does not work
-#set :bundle_with, %w{ aws mysql }.join(' ')
-
 # Default environments to skip
 set :bundle_without, %w{ puma pgsql thin rollbar test }.join(' ')
 
@@ -18,23 +14,24 @@ set :bundle_without, %w{ puma pgsql thin rollbar test }.join(' ')
 set :config_repo, 'git@github.com:cdlib/dmptool_config.git'
 
 # Default value for :linked_files is []
-append :linked_files, 'config/branding.yml',
+append :linked_files, 'config/credentials.yml.enc',
                       'config/database.yml',
-                      'config/secrets.yml',
+                      'config/master.key',
+                      'config/initializers/_dmproadmap.rb',
                       'config/initializers/contact_us.rb',
                       'config/initializers/devise.rb',
                       'config/initializers/dmptool_version.rb',
                       'config/initializers/dragonfly.rb',
-                      'config/initializers/recaptcha.rb',
                       'config/initializers/wicked_pdf.rb',
-                      'config/initializers/external_apis/open_aire.rb'
+                      'config/initializers/external_apis/open_aire.rb',
+                      'config/initializers/external_apis/dmphub.rb',
+                      'public/tinymce/tinymce.css'
 
 # Default value for linked_dirs is []
 append :linked_dirs, 'log',
                      'tmp/pids',
                      'tmp/cache',
                      'tmp/sockets',
-                     'config/environments',
                      'public'
 
 # Default value for keep_releases is 5
@@ -42,9 +39,6 @@ set :keep_releases, 5
 
 namespace :deploy do
   before :deploy, 'config:install_shared_dir'
-  after :deploy, 'cleanup:copy_tinymce_skins'
-  after :deploy, 'cleanup:copy_logo'
-  after :deploy, 'cleanup:copy_favicon'
   after :deploy, 'git:version'
   after :deploy, 'cleanup:remove_example_configs'
   after :deploy, 'cleanup:restart_passenger'
@@ -79,34 +73,11 @@ namespace :cleanup do
     end
   end
 
-  desc "Move Tinymce skins into public dir"
-  task :copy_tinymce_skins do
-    on roles(:app), wait: 1 do
-      execute "if [ ! -d '#{release_path}/public/tinymce/' ]; then cd #{release_path}/ && mkdir public/tinymce && cp -r node_modules/tinymce/skins public/tinymce; fi"
-    end
-  end
-
-  desc "Move DMPTool logo into public dir for Shib"
-  task :copy_logo do
-    on roles(:app), wait: 1 do
-      execute "if [ ! -d '#{release_path}/public/images/' ]; then cd #{release_path}/ && mkdir public/images; fi"
-      execute "cd #{release_path}/ && cp app/assets/images/DMPTool_logo_blue_shades_v1b3b.svg public/images"
-    end
-  end
-
-  desc "Move favicon-32x32 into public dir"
-  task :copy_favicon do
-    on roles(:app), wait: 1 do
-      execute "if [ ! -d '#{release_path}/public/images/' ]; then cd #{release_path}/ && mkdir public/images; fi"
-      execute "cd #{release_path}/ && cp app/assets/images/favicon-32x32.png public/assets"
-      execute "cd #{release_path}/ && cp app/assets/images/apple-touch-icon.png public/assets"
-    end
-  end
-
   desc 'Restart Phusion Passenger'
   task :restart_passenger do
     on roles(:app), wait: 5 do
-      execute "cd /apps/dmp/init.d && ./passenger restart"
+      execute "cd /apps/dmp/init.d && ./passenger stop"
+      execute "cd /apps/dmp/init.d && ./passenger start"
     end
   end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: annotations
@@ -23,21 +25,21 @@
 #  fk_rails_...  (question_id => questions.id)
 #
 
-class Annotation < ActiveRecord::Base
-  include ValidationMessages
+class Annotation < ApplicationRecord
+
   include VersionableModel
 
   ##
   # I liked type as the name for the enum so overriding inheritance column
   self.inheritance_column = nil
 
-  enum type: [ :example_answer, :guidance]
+  enum type: %i[example_answer guidance]
 
   # ================
   # = Associations =
   # ================
 
-  belongs_to :org
+  belongs_to :org, optional: true
   belongs_to :question
   has_one :section, through: :question
   has_one :phase, through: :question
@@ -55,22 +57,11 @@ class Annotation < ActiveRecord::Base
 
   validates :type, presence: { message: PRESENCE_MESSAGE },
                    uniqueness: { message: UNIQUENESS_MESSAGE,
-                                 scope: [:question_id, :org_id] }
+                                 scope: %i[question_id org_id] }
 
   # =================
   # = Class Methods =
   # =================
-
-  # Deep copy the given annotation and all it's associations
-  #
-  # annotation - To be deep copied
-  #
-  # Returns Annotation
-  def self.deep_copy(annotation)
-    annotation_copy = annotation.dup
-    annotation_copy.save!
-    return annotation_copy
-  end
 
   # ===========================
   # = Public instance methods =
@@ -80,12 +71,13 @@ class Annotation < ActiveRecord::Base
   #
   # Returns String
   def to_s
-    "#{text}"
+    text.to_s
   end
 
   def deep_copy(**options)
-    copy = self.dup
+    copy = dup
     copy.question_id = options.fetch(:question_id, nil)
-    return copy
+    copy
   end
+
 end

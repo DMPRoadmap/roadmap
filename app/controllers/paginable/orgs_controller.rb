@@ -5,7 +5,7 @@ class Paginable::OrgsController < ApplicationController
   # --------------------------------
   # Start DMPTool Customization
   # --------------------------------
-  include Dmptool::Controllers::Paginable::OrgsController
+  include Dmptool::Paginable::OrgsController
   # --------------------------------
   # End DMPTool Customization
   # --------------------------------
@@ -18,7 +18,9 @@ class Paginable::OrgsController < ApplicationController
     paginable_renderise(
       partial: "index",
       scope: Org.with_template_and_user_counts,
-      query_params: { sort_field: "orgs.name", sort_direction: :asc })
+      query_params: { sort_field: "orgs.name", sort_direction: :asc },
+      format: :json
+    )
   end
 
 end

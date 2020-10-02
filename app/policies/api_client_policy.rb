@@ -3,7 +3,8 @@
 class ApiClientPolicy < ApplicationPolicy
 
   def initialize(user, *_args)
-    raise Pundit::NotAuthorizedError, _('must be logged in') unless user
+    raise Pundit::NotAuthorizedError, _("must be logged in") unless user
+
     @user = user
   end
 

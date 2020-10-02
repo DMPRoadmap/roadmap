@@ -78,7 +78,7 @@
                    context: 'org',
                    title: _('Organisation URLs'),
                    links: org.links.fetch("org", []),
-                   max_number_links: MAX_NUMBER_LINKS_FUNDER,
+                   max_number_links: Rails.configuration.x.max_number_links_funder,
                    tooltip: shared_links_tooltip }) %>
       <%= hidden_field_tag('org_links', value: org.links) %>
     </div>
@@ -123,28 +123,24 @@
     <% if current_user.can_super_admin? %>
       <fieldset class="col-xs-8">
         <legend><%= _('Organisation Types') %></legend>
-          <div class="checkbox">
-            <%= f.label :funder do %>
-              <%= check_box_tag :funder, 2, org.funder?, class: 'org_types' %>
-              <%= _('Funder') %>
-            <% end %>
-          </div>
-          <div class="checkbox">
-            <%= f.label :institution do %>
-              <%= check_box_tag :institution, 1, org.institution?, class: 'org_types' %>
-              <%= _('Institution') %>
-            <% end %>
-          </div>
-          <div class="checkbox">
-            <%= f.label :organisation do %>
-              <%= check_box_tag :organisation, 4, org.organisation?, class: 'org_types' %>
-              <%= _('Organisation') %>
-            <% end %>
-          </div>
-          <%= f.hidden_field :org_type, data: {
-                validation: 'text',
-                validation_error: _('You must select at least one organisation type') }
-          %>
+        <div class="checkbox">
+          <%= f.label :funder do %>
+            <%= f.check_box :funder, {}, org.funder?.to_s, class: 'org_types' %>
+            <%= _('Funder') %>
+          <% end %>
+        </div>
+        <div class="checkbox">
+          <%= f.label :institution do %>
+            <%= f.check_box :institution, {}, org.institution?.to_s, class: 'org_types' %>
+            <%= _('Institution') %>
+          <% end %>
+        </div>
+        <div class="checkbox">
+          <%= f.label :organisation do %>
+            <%= f.check_box :organisation, {}, org.organisation?.to_s, class: 'org_types' %>
+            <%= _('Organisation') %>
+          <% end %>
+        </div>
       </fieldset>
     <% else %>
       <div class="col-xs-8">

@@ -26,6 +26,11 @@ module SessionsHelper
     # Use the Devise helper to mock a successful user login
     login_as(user, :scope => :user)
     visit root_path
+    within "#sign-in-form" do
+      fill_in "Email", with: user.email
+      fill_in "Password", with: user.password.presence || "password"
+      click_button "Sign in"
+    end
   end
   # -------------------------------------------------------------
   # end DMPTool customization

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: conditions
@@ -20,7 +22,7 @@
 #
 #  fk_rails_...  (question_id => question.id)
 #
-# 
+#
 
 FactoryBot.define do
   factory :condition do

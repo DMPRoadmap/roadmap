@@ -45,31 +45,25 @@ RSpec.describe ExternalApis::BaseService do
   end
 
   context "private methods" do
-    context "#config" do
-      it "returns the branding.yml config" do
-        expected = Rails.application.config.branding
-        expect(described_class.send(:config)).to eql(expected)
-      end
-    end
     context "#app_name" do
       it "defaults to the Rails.application.class.name" do
-        Rails.configuration.branding[:application].delete(:name)
+        Rails.configuration.x.application.delete(:name)
         expected = ApplicationService.application_name
         expect(described_class.send(:app_name)).to eql(expected)
       end
-      it "returns the application name defined in branding.yml" do
-        Rails.configuration.branding[:application][:name] = "Foo"
+      it "returns the application name defined in dmproadmap.rb initializer" do
+        Rails.configuration.x.application.name = "Foo"
         expect(described_class.send(:app_name)).to eql("foo")
       end
     end
     context "#app_email" do
       it "defaults to the contact_us url" do
-        Rails.configuration.branding[:organisation].delete(:helpdesk_email)
+        Rails.configuration.x.organisation.delete(:helpdesk_email)
         expected = Rails.application.routes.url_helpers.contact_us_url
         expect(described_class.send(:app_email)).to eql(expected)
       end
-      it "returns the help_desk email defined in branding.yml" do
-        Rails.configuration.branding[:organisation][:helpdesk_email] = "Foo"
+      it "returns the help_desk email defined in dmproadmap.rb initializer" do
+        Rails.configuration.x.organisation.helpdesk_email = "Foo"
         expect(described_class.send(:app_email)).to eql("Foo")
       end
     end
