@@ -437,7 +437,7 @@ class User < ApplicationRecord
     # => auths -> map onto keep id only if keep does not have the identifier
     to_be_merged.identifiers
                 .where.not(identifier_scheme_id: scheme_ids)
-                .update_all(user_id: id)
+                .update_all(identifiable_id: id)
     # => ignore any perms the deleted user has
     to_be_merged.destroy
   end
