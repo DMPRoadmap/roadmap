@@ -177,7 +177,8 @@ class MadmpFragmentsController < ApplicationController
                   parent_id: parent_id,
                   obj_list: obj_list,
                   schema: schema,
-                  readonly: false
+                  readonly: false,
+                  template_locale: @templateLocale
       })
     end
   end
