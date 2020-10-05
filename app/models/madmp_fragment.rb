@@ -132,6 +132,7 @@ class MadmpFragment < ActiveRecord::Base
   # to create the json structure needed to update the "data" field
   # this method should be called when creating or deleting a child fragment
   def update_parent_references
+    return if classname.nil?
     unless self.parent.nil?
       # Get each fragment grouped by its classname
       classified_children = parent.children.group_by(&:classname)
@@ -189,7 +190,36 @@ class MadmpFragment < ActiveRecord::Base
       end
     end
     validations
-  end 
+  end
+
+  def save_as_multifrag(previous_data)
+    # save!
+    schema_properties = json_schema['properties']
+    data.each do |prop, content|
+      schema_prop = schema_properties[prop]
+      if !schema_prop.nil? && schema_prop['type'].eql?('object')
+        sub_schema = MadmpSchema.find(schema_prop['schema_id'])
+        sub_fragment_id = previous_data[prop]['dbId'] if previous_data
+        if sub_fragment_id.nil?
+          sub_fragment = MadmpFragment.new
+        else
+          sub_fragment = MadmpFragment.find(sub_fragment_id)
+        end
+        # sub_fragment = MadmpFragment.new(
+        sub_fragment.assign_attributes(
+          data: content,
+          # classname: sub_schema.classname,
+          classname: nil,
+          dmp_id: dmp_id,
+          parent_id: id,
+          madmp_schema_id: sub_schema.id
+        )
+        sub_fragment.save_as_multifrag(nil) #TODO: pass the real value
+        data[prop] = { "dbId": sub_fragment.id }
+      end
+    end
+    save
+  end
 
   def self.find_sti_class(type_name)
     self

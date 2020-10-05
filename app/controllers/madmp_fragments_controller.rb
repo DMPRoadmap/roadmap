@@ -20,6 +20,7 @@ class MadmpFragmentsController < ApplicationController
             id: params[:id],
             dmp_id: p_params[:dmp_id]
           )
+          @previous_data = @fragment.data
           data = @fragment.data.merge(data)
           additional_info = { 
             "validations" => MadmpFragment.validate_data(data, schema.schema)
@@ -34,7 +35,7 @@ class MadmpFragmentsController < ApplicationController
               user_id: current_user.id
             })
           end
-          @fragment.save!
+          # @fragment.save!
         rescue ActiveRecord::StaleObjectError
           @stale_fragment = @fragment
           @fragment = MadmpFragment.find_by({
@@ -49,6 +50,7 @@ class MadmpFragmentsController < ApplicationController
         parent_id: p_params[:parent_id],
         madmp_schema: schema
       )
+      @previous_data = nil
       @fragment.classname = classname
       additional_info = { 
         "validations" => MadmpFragment.validate_data(data, schema.schema)
@@ -66,9 +68,11 @@ class MadmpFragmentsController < ApplicationController
         })
       end
       authorize @fragment
-      @fragment.save!
+      # @fragment.save!
 
     end
+
+    @fragment.save_as_multifrag(@previous_data)
 
     if @fragment.present?
       if @fragment.answer.present?
