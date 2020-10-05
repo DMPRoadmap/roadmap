@@ -1,6 +1,6 @@
 <% sub_schemas = schema.get_sub_schemas %>
 <% data = fragment.data unless fragment.nil? %>
-<% sub_fragments = fragment.present? ? fragment.get_sub_fragments() : [] %>
+<% dmp_fragments = fragment.present? ? fragment.get_dmp_fragments() : [] %>
 <% schema_properties = schema.schema["properties"]%>
 <table class="fragment-display"><tbody>
   <% schema_properties.each do |key, prop| %>
@@ -16,12 +16,12 @@
           <%
             sub_schema = sub_schemas[prop['items']['schema_id']]
           %>
-          <% unless sub_fragments[sub_schema.id].nil? %>
+          <% unless dmp_fragments[sub_schema.id].nil? %>
             <td colspan=2>
               <table class="sub-fragment-list">
                 <thead><tr><th><%= field_name.capitalize.pluralize(2) %></th></tr></thead>
                 <tbody>
-                    <% sub_fragments[sub_schema.id].each do |val| %>
+                    <% dmp_fragments[sub_schema.id].each do |val| %>
                       <tr><td>
                         <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
                                 fragment: val,
@@ -53,7 +53,7 @@
             <p class= "fontsize-h3"><%= field_name.capitalize %></p>
             <div class="sub-fragment">
               <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
-                              fragment: sub_fragments[sub_schema.id], #TODO : Implement Person fragments display
+                              fragment: dmp_fragments[sub_schema.id], #TODO : Implement Person fragments display
                               schema: sub_schema,
                               classname: sub_schema.classname
                     } ) %>

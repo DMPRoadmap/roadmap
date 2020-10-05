@@ -100,12 +100,8 @@ class MadmpFragment < ActiveRecord::Base
     self.madmp_schema.schema
   end
 
-  def get_sub_fragments
-    sub_fragments = self.dmp.persons.group_by(&:madmp_schema_id)
-    unless self.children.empty?
-      sub_fragments = sub_fragments.merge(self.children.group_by(&:madmp_schema_id))
-    end
-    sub_fragments
+  def get_dmp_fragments
+    MadmpFragment.where(dmp_id: dmp_id).group_by(&:madmp_schema_id)
   end
 
   # Returns a human readable version of the structured answer
@@ -208,12 +204,11 @@ class MadmpFragment < ActiveRecord::Base
         # sub_fragment = MadmpFragment.new(
         sub_fragment.assign_attributes(
           data: content,
-          # classname: sub_schema.classname,
-          classname: nil,
           dmp_id: dmp_id,
           parent_id: id,
           madmp_schema_id: sub_schema.id
         )
+        sub_fragment.classname = sub_schema.classname
         sub_fragment.save_as_multifrag(nil) #TODO: pass the real value
         data[prop] = { "dbId": sub_fragment.id }
       end

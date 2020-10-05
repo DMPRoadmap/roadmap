@@ -1,6 +1,6 @@
 <% sub_schemas = schema.get_sub_schemas %>
 <% data = fragment.data unless fragment.nil? %>
-<% sub_fragments = fragment.present? ? fragment.get_sub_fragments() : [] %>
+<% dmp_fragments = fragment.present? ? fragment.get_dmp_fragments() : [] %>
 <% schema_properties = schema.schema["properties"]%>
 <dl class="dl-horizontal fragment-display">
   <% schema_properties.each do |key, prop| %>
@@ -20,8 +20,8 @@
           <table class="table table-hover">
             <thead><tr><th><%= field_name.capitalize.pluralize(2) %></th></tr></thead>
             <tbody>
-              <% unless sub_fragments[sub_schema.id].nil? %>
-                <% sub_fragments[sub_schema.id].each do |val| %>
+              <% unless dmp_fragments[sub_schema.id].nil? %>
+                <% dmp_fragments[sub_schema.id].each do |val| %>
                   <tr><td>
                     <%= render(partial: 'shared/fragments/display', locals: {
                             fragment: val,
@@ -47,7 +47,7 @@
         <% unless classname == "research_output" || value.nil? %>
           <%
             sub_schema = sub_schemas[prop["schema_id"]]
-            sub_fragment = sub_fragments[sub_schema.id].find { |f| f.id == value["dbId"] }
+            sub_fragment = dmp_fragments[sub_schema.id].find { |f| f.id == value["dbId"] }
           %>
           <hr/>
           <p class= "fontsize-h3"><%= field_name.capitalize %></p>

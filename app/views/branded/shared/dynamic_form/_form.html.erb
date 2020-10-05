@@ -4,7 +4,7 @@
 <% additional_info = fragment.additional_info unless fragment.nil? %>
 <% validations = additional_info.present? && additional_info['validations'].present? ? additional_info["validations"] : nil %>
 
-<% sub_fragments = fragment.present? ? fragment.get_sub_fragments() : [] %>
+<% dmp_fragments = fragment.present? ? fragment.get_dmp_fragments() : [] %>
 <% schema_properties = schema.schema["properties"]%>
 <a href="#" class="load-defaults"><%= _('Load default values') %></a>
 
@@ -41,7 +41,7 @@
     <% if prop['items']['type'] == 'object' && prop['items']['schema_id'].present? %>
       <% unless classname == "research_output" %>
         <% sub_schema = @schemas.find_by(id: prop['items']['schema_id']) %>
-        <% values = sub_fragments[prop['items']['schema_id']] unless sub_fragments.empty? %>
+        <% values = dmp_fragments[sub_schema.id] unless dmp_fragments.empty? %>
         <%= render(partial: 'shared/dynamic_form/fields/complex_multiple_field', locals: { 
           field_values: values, 
           readonly: readonly,
@@ -78,13 +78,9 @@
             <legend class="answer-fieldset"><%= label %></legend>
             <%
               sub_schema = @schemas.find_by(id: prop["schema_id"])
-              sub_fragment = MadmpFragment.new(
-                    data: value,
-                    dmp_id: fragment.dmp_id,
-                    parent_id: fragment_id
-                  ) unless fragment.nil?
+              sub_fragment = dmp_fragments[sub_schema.id].first unless dmp_fragments.empty?
               # TODO : SINGLE SUB FRAGMENT SAVING
-              #sub_fragment = sub_fragments[sub_schema.id].find { |f| f.id == value["dbId"] } unless value.nil?
+              #sub_fragment = dmp_fragments[sub_schema.id].find { |f| f.id == value["dbId"] } unless value.nil?
             %>
             <%= render(partial: 'shared/dynamic_form/form', locals: { 
                   f: f, 
