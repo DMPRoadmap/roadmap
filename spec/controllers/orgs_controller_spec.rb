@@ -75,7 +75,7 @@ RSpec.describe OrgsController, type: :controller do
       identifier = @org.reload.identifiers.last
       expect(identifier.present?).to eql(true)
       expect(identifier.identifier_scheme).to eql(scheme)
-      expected = @args[:identifiers_attributes].first[:value]
+      expected = @args[:identifiers_attributes][:"0"][:value]
       expect(identifier.value.end_with?(expected)).to eql(true)
     end
     it "fails" do
