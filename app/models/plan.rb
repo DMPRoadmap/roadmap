@@ -600,9 +600,12 @@ class Plan < ApplicationRecord
 
   # Returns whether or not minting is allowed for the current plan
   def minting_allowed?
-    orcids = contributors.select { |c| c.orcids.any? }
-    rors = contributors.select { |c| c.affiliation.rors.any? }
+    orcid_scheme = IdentifierScheme.where(name: "orcid").first
+    ror_scheme = IdentifierScheme.where(name: "ror").first
+    return false unless orcid_scheme.present? && ror_scheme.present?
 
+    orcids = contributors.select { |c| c.identifier_for_scheme(scheme: orcid_scheme).present? }
+    rors = contributors.select { |c| c.org.identifier_for_scheme(scheme: ror_scheme).present? }
     visibility_allowed? && orcids.any? && rors.any? && funder.present?
   end
 

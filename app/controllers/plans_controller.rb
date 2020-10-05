@@ -426,11 +426,16 @@ class PlansController < ApplicationController
 
   # GET /plans/:id/mint
   def mint
-    plan = Plan.find(params[:id])
-    authorize plan
+    @plan = Plan.find(params[:id])
+    authorize @plan
 
-    DoiService.mint_doi(plan: plan)&.save
-    @plan = plan.reload
+    DoiService.mint_doi(plan: @plan)&.save
+    @plan = @plan.reload
+    render js: render_to_string(template: "plans/mint.js.erb")
+  rescue StandardError => e
+    Rails.logger.error "Unable to mint DOI for plan #{params[:id]} - #{e.message}"
+    Rails.logger.error e.backtrace
+
     render js: render_to_string(template: "plans/mint.js.erb")
   end
 
