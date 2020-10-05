@@ -37,8 +37,10 @@
         <% else %>
             <td class="attribute-name"><%= field_name %></td>
             <td>
-            <% value.each do |val| %>
-              <%= val %>
+            <% unless value.nil?%>
+              <% value.each do |val| %>
+                <%= val %>
+              <% end %>
             <% end %>
             <td>
         <% end %>

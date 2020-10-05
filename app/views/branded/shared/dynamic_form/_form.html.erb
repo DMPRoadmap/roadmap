@@ -1,5 +1,5 @@
 <%# locals: { f, fragment, schema, readonly, classname, fragment_id, template_locale } %>
-<% sub_schemas = schema.get_sub_schemas %>
+<% sub_schemas_ids = schema.get_sub_schemas_ids %>
 <% data = fragment.data unless fragment.nil? %>
 <% additional_info = fragment.additional_info unless fragment.nil? %>
 <% validations = additional_info.present? && additional_info['validations'].present? ? additional_info["validations"] : nil %>
@@ -40,7 +40,7 @@
     <%# List of linked fragments displayed as table. Linked fragments are edited through a modal %>
     <% if prop['items']['type'] == 'object' && prop['items']['schema_id'].present? %>
       <% unless classname == "research_output" %>
-        <% sub_schema = sub_schemas[prop['items']['schema_id'].to_i] #TODO: [to_i quickfix] templates should be changed instead %>
+        <% sub_schema = @schemas.find_by(id: prop['items']['schema_id']) %>
         <% values = sub_fragments[prop['items']['schema_id']] unless sub_fragments.empty? %>
         <%= render(partial: 'shared/dynamic_form/fields/complex_multiple_field', locals: { 
           field_values: values, 
@@ -77,7 +77,7 @@
           <fieldset class="answer-fieldset">
             <legend class="answer-fieldset"><%= label %></legend>
             <%
-              sub_schema = sub_schemas[prop["schema_id"].to_i] #TODO: [to_i quickfix] templates should be changed instead
+              sub_schema = @schemas.find_by(id: prop["schema_id"])
               sub_fragment = MadmpFragment.new(
                     data: value,
                     dmp_id: fragment.dmp_id,

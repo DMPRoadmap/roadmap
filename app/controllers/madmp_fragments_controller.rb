@@ -7,7 +7,9 @@ class MadmpFragmentsController < ApplicationController
 
   def create_or_update
     p_params = permitted_params()
-    schema = MadmpSchema.find(p_params[:schema_id])
+    @schemas = MadmpSchema.all
+    schema = @schemas.find(p_params[:schema_id])
+    
     classname = schema.classname
     data = data_reformater(schema.schema, schema_params(schema), schema.classname)
     @fragment = nil 
@@ -92,7 +94,9 @@ class MadmpFragmentsController < ApplicationController
   end
 
   def new_edit_linked
-    @schema = MadmpSchema.find(params[:schema_id])
+    @schemas = MadmpSchema.all
+    @schema = @schemas.find(params[:schema_id])
+    
     @parent_fragment = MadmpFragment.find(params[:parent_id])
     @classname = @schema.classname
     @readonly = false
