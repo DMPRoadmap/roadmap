@@ -1,0 +1,65 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "EthicalIssues",
+    "description": "EthicalIssues template",
+    "type": "object",
+    "extensible": 1,
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description des mesures prises pour prendre en compte les enjeux éthiques.",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        },
+        "documentIdentifier": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "identifier",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "1",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Identifiant d'un document en lien avec les aspects éthiques à prendre en compte",
+            "label@fr_FR": "Identifiant du rapport",
+            "label@en_GB": "Report Identifier",
+            "values": [
+                "DOI",
+                "ARK",
+                "HANDLE",
+                "IGSN",
+                "Other"
+            ]
+        },
+        "contributor": {
+            "type": "object",
+            "class": "contributor",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "schema_id": "8",
+            "required": [
+                "dbid"
+            ],
+            "description": "Personne contact pour traiter/prendre en charge les aspects éthiques d'un projet",
+            "label@fr_FR": "Personne en charge des aspects éthiques",
+            "label@en_GB": "Person in charge of ethical issues"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": [
+        "EthicalIssues: to_string not defined"
+    ]
+}

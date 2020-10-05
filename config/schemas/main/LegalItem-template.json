@@ -1,0 +1,35 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "LegalItem",
+    "description": "LegalItem template",
+    "type": "object",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Intitulé de l'aspect traité",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description de l'aspect traité",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        },
+        "legalDocUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Url du document contenant des informations concernant l'aspect traité",
+            "label@fr_FR": "Url du document juridique",
+            "label@en_GB": "Legal document URL"
+        }
+    },
+    "required": [
+        "title"
+    ],
+    "to_string": [
+        "LegalItem: to_string not defined"
+    ]
+}

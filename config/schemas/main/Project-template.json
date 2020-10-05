@@ -1,0 +1,141 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "Project",
+    "description": "Project template",
+    "type": "object",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Titre du projet",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title"
+        },
+        "acronym": {
+            "type": "string",
+            "description": "Acronyme du projet",
+            "label@fr_FR": "Acronyme",
+            "label@en_GB": "Acronym"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description du projet",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        },
+        "projectId": {
+            "type": "string",
+            "description": "identifiant du projet",
+            "label@fr_FR": "ID du projet",
+            "label@en_GB": "Project ID"
+        },
+        "funding": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "funding",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "24",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Source(s) de financement d'un projet ou d'une activité de recherche",
+            "label@fr_FR": "Financement",
+            "label@en_GB": "Funding"
+        },
+        "startDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Début de projet",
+            "label@fr_FR": "Date de début",
+            "label@en_GB": "Start date"
+        },
+        "endDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Fin de projet",
+            "label@fr_FR": "Date de fin",
+            "label@en_GB": "End date"
+        },
+        "partner": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "partner",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "26",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Partenaires d'un projet ou d'une activité de recherche",
+            "label@fr_FR": "Partenaire",
+            "label@en_GB": "Partner"
+        },
+        "experimentalPlanIdentifier": {
+            "type": "object",
+            "class": "identifier",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "schema_id": "1",
+            "required": [
+                "dbid"
+            ],
+            "description": "Url pointant vers une représentation du plan expérimental d'obtention des données",
+            "label@fr_FR": "ID du plan expérimental",
+            "label@en_GB": "Experimental plan ID",
+            "values": [
+                "DOI",
+                "ARK",
+                "HANDLE",
+                "IGSN",
+                "Other"
+            ]
+        },
+        "principalInvestigator": {
+            "type": "object",
+            "class": "person",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "schema_id": "3",
+            "required": [
+                "dbid"
+            ],
+            "description": "Coordinateur principal du projet",
+            "label@fr_FR": "Coordinateur principal",
+            "label@en_GB": "Princiapl Investigator"
+        }
+    },
+    "required": [
+        "title",
+        "acronym",
+        "description",
+        "projectId",
+        "funding",
+        "startDate",
+        "endDate",
+        "partner",
+        "principalInvestigator"
+    ],
+    "to_string": [
+        "Project: to_string not defined"
+    ]
+}

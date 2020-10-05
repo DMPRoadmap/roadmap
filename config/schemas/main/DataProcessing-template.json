@@ -1,0 +1,93 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataProcessing",
+    "description": "DataProcessing template",
+    "type": "object",
+    "extensible": 1,
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Intitulé du traitement des données",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description des méthodes/protocoles de traitement des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        },
+        "methodsUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Url de référence d'une méthode ou un protocole",
+            "label@fr_FR": "URL des méthodes",
+            "label@en_GB": "Methods URL"
+        },
+        "processing": {
+            "type": "object",
+            "class": "technical_resource_usage",
+            "extensible": "1",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "schema_id": "17",
+            "required": [
+                "dbid"
+            ],
+            "description": "Usage d'une ressource technique pour traiter les données",
+            "label@fr_FR": "Traitement par une ressource extérieure",
+            "label@en_GB": "Treatment by an external resource"
+        },
+        "contributor": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "8",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personnes impliquées dans le traitement des données",
+            "label@fr_FR": "Contributeur(s)",
+            "label@en_GB": "Contributor(s)"
+        },
+        "cost": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "cost",
+                "extensible": "1",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "5",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coûts éventuels liés aux traitements des données",
+            "label@fr_FR": "Coût du traitement",
+            "label@en_GB": "Treatment cost"
+        }
+    },
+    "required": [
+        "title",
+        "description"
+    ],
+    "to_string": [
+        "DataProcessing: to_string not defined"
+    ]
+}

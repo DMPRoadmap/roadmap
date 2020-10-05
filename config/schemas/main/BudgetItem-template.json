@@ -1,0 +1,60 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "BudgetItem",
+    "description": "BudgetItem template",
+    "type": "object",
+    "extensible": 1,
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Informations additionnelles concernant le budget et répartition des responsabilités",
+            "inputType": "textarea"
+        },
+        "cost": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "cost",
+                "extensible": "1",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "5",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Ressources et budget alloués à la gestion des données"
+        },
+        "contributors": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "8",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Personnes ayant contribué à la gestion des données  et leurs rôle"
+        }
+    },
+    "required": [
+        "description",
+        "cost",
+        "contributors"
+    ],
+    "to_string": [
+        "BudgetItem: to_string not defined"
+    ]
+}

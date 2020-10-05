@@ -1,0 +1,56 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "Funding",
+    "description": "Funding template",
+    "type": "object",
+    "properties": {
+        "funder": {
+            "type": "object",
+            "class": "funder",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "schema_id": "12",
+            "required": [
+                "dbid"
+            ],
+            "description": "Source (agence) de financement",
+            "label@fr_FR": "Financeur",
+            "label@en_GB": "Funder"
+        },
+        "grantId": {
+            "type": "string",
+            "description": "Identifiant du financement (convention de financement)",
+            "label@fr_FR": "Identifiant du financement",
+            "label@en_GB": "Grant ID"
+        },
+        "fundingStatus": {
+            "type": "string",
+            "description": "Statut du financement: planifié, demandé, accepté, rejeté",
+            "label@fr_FR": "Statut du financement",
+            "label@en_GB": "Funding status",
+            "values@en_GB": [
+                "Planned",
+                "Applied",
+                "Granted",
+                "Rejected"
+            ],
+            "values@fr_FR": [
+                "Planifié",
+                "Soumis",
+                "Approuvé",
+                "Rejeté"
+            ]
+        }
+    },
+    "required": [
+        "funder",
+        "fundingStatus"
+    ],
+    "to_string": [
+        "Funding: to_string not defined"
+    ]
+}

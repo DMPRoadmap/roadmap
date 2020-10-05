@@ -1,0 +1,132 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataSharing",
+    "description": "DataSharing template",
+    "type": "object",
+    "extensible": 1,
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Aspects relatifs au partage des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        },
+        "reusability": {
+            "type": "string",
+            "description": "Potentiel de réutilisation des données et/ou limites de réutilisation",
+            "label@fr_FR": "Potentiel de réutilisation",
+            "label@en_GB": "Reusability",
+            "tooltip@fr_FR": "Potentiel et/ou limite de réutilisation",
+            "tooltip@en_GB": "Potential and/or limits of data resusability"
+        },
+        "distribution": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "distribution",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "11",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Distribution physique des données",
+            "label@fr_FR": "Distribution",
+            "label@en_GB": "Distribution",
+            "tooltip@fr_FR": "Un ensemble de données peut être disponible sous plusieurs formats",
+            "tooltip@en_GB": "A data set can be available in multiple format"
+        },
+        "indexedIn": {
+            "type": "object",
+            "class": "technical_resource",
+            "extensible": "1",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "schema_id": "9",
+            "required": [
+                "dbid"
+            ],
+            "description": "Catalogue dans lequel les données sont indexées",
+            "label@fr_FR": "Indexé dans",
+            "label@en_GB": "Indexed in"
+        },
+        "hosting": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "technical_resource_usage",
+                "extensible": "1",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "17",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Hébergement des données par une resource technique (entrepôt, centre de données…)",
+            "label@fr_FR": "Hébergement",
+            "label@en_GB": "Hosting"
+        },
+        "contributor": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "8",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) impliquée(s) dans la mise à disposition des données",
+            "label@fr_FR": "Personne en charge du depôt et diffusion des données",
+            "label@en_GB": "Person in charge du dépôt et diffusion des données"
+        },
+        "cost": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "cost",
+                "extensible": "1",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "5",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coûts éventuels liés au dépôt des données dans un entrepôt",
+            "label@fr_FR": "Coût lié au dépôt, diffusion",
+            "label@en_GB": "Deposit and diffusion cost"
+        }
+    },
+    "required": [
+        "description",
+        "distribution",
+        "hosting"
+    ],
+    "to_string": [
+        "DataSharing: to_string not defined"
+    ]
+}

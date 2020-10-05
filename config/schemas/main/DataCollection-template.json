@@ -1,0 +1,142 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataCollection",
+    "description": "DataCollection template",
+    "type": "object",
+    "extensible": 1,
+    "label@fr_FR": "Veuillez décrire la façon dont sont collectées les données, en particulier du point de vue de notre organisme",
+    "label@en_GB": "Bla bla",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Titre de la collecte",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title",
+            "tooltip@fr_FR": "Titre d'une méthode (ou étape) de collecte",
+            "tooltip@en_GB": "Title of a data collection method (or step)",
+            "example": "Foobar"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description de la collecte des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "tooltip@fr_FR": "Description de la méthodologie de collecte",
+            "tooltip@en_GB": "Description of the data collection methodology"
+        },
+        "dataNature": {
+            "type": "string",
+            "description": "Nature des données (observation, expérimentale, …)",
+            "inputType": "dropdown",
+            "label@fr_FR": "Nature des données",
+            "label@en_GB": "Data Nature",
+            "values@fr_FR": [
+                "Observation",
+                "Données expérimentales",
+                "Simulation",
+                "Modèle",
+                "Autre"
+            ],
+            "values@en_GB": [
+                "Observation",
+                "Experimental Data",
+                "Simulation",
+                "Model",
+                "Other"
+            ]
+        },
+        "acquisition": {
+            "type": "object",
+            "class": "technical_resource_usage",
+            "extensible": "1",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "schema_id": "17",
+            "required": [
+                "dbid"
+            ],
+            "description": "Usage d'une ressource technique pour acquérir les données",
+            "label@fr_FR": "Acquisition",
+            "label@en_GB": "Acquisition"
+        },
+        "methodsIdentifier": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "identifier",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "1",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Identifiant du protocole /méthode utilisée",
+            "label@en_GB": "Method Identifier",
+            "label@fr_FR": "Identifiant de la méthode",
+            "values": [
+                "DOI",
+                "ARK",
+                "HANDLE",
+                "IGSN",
+                "Other"
+            ],
+            "overridable": true,
+            "substitutable": true
+        },
+        "contributor": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "8",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) impliquée(s) dans la collecte/acquisition des données",
+            "label@fr_FR": "Contributeur(s)",
+            "label@en_GB": "Contributor(s)"
+        },
+        "cost": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "cost",
+                "extensible": "1",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "5",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coûts éventuels liés à la collecte des données",
+            "label@fr_FR": "Coût d'acquisition",
+            "label@en_GB": "Acquisition cost"
+        }
+    },
+    "required": [
+        "description",
+        "dataNature"
+    ],
+    "to_string": [
+        "DataCollection: to_string not defined"
+    ]
+}

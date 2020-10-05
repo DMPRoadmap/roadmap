@@ -1,0 +1,77 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "ReusedData",
+    "description": "ReusedData template",
+    "type": "object",
+    "extensible": 1,
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Titre du produit de recherche réutilisé",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description de la provenance des données (ou absence de données réutilisables)",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "tooltip@fr_FR": "Décrire la provenance des produits réutilisés",
+            "tooltip@en_GB": "describe the provenance of the reused product"
+        },
+        "datasetId": {
+            "type": "object",
+            "class": "identifier",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "schema_id": "1",
+            "required": [
+                "dbid"
+            ],
+            "description": "Identifiant du produit réutilisé",
+            "label@fr_FR": "Identifiant du produit",
+            "label@en_GB": "Product ID",
+            "values": [
+                "DOI",
+                "ARK",
+                "HANDLE",
+                "IGSN",
+                "Other"
+            ]
+        },
+        "versionNumber": {
+            "type": "string",
+            "description": "Numéro de version des données réutilisées",
+            "label@fr_FR": "Numéro de version",
+            "label@en_GB": "Version number"
+        },
+        "license": {
+            "type": "object",
+            "class": "license",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "schema_id": "6",
+            "required": [
+                "dbid"
+            ],
+            "description": "Licence ou contrat déterminant les conditions de réutilisation",
+            "label@fr_FR": "Licence",
+            "label@en_GB": "License"
+        }
+    },
+    "required": [
+        "title",
+        "datasetId"
+    ],
+    "to_string": [
+        "ReusedData: to_string not defined"
+    ]
+}

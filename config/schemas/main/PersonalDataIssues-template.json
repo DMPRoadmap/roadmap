@@ -1,0 +1,64 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "PersonalDataIssues",
+    "description": "PersonalDataIssues template",
+    "type": "object",
+    "extensible": 1,
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description des mesures à suivre pour protéger la vie privée: consentement éclairé, anonymisation",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Personal Data Issues"
+        },
+        "documentIdentifier": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "identifier",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "1",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Identifiant d'un document produit par un service de la protection des données",
+            "values": [
+                "DOI",
+                "ARK",
+                "HANDLE",
+                "IGSN",
+                "Other"
+            ]
+        },
+        "contributor": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "8",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) en charge d'assurer la protection des données personnelles"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": [
+        "PersonalDataIssues: to_string not defined"
+    ]
+}

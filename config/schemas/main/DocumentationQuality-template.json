@@ -1,0 +1,139 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DocumentationQuality",
+    "description": "DocumentationQuality template",
+    "type": "object",
+    "extensible": 1,
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description générale concernant la documentation et les méthodes qualité appliquées aux données",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "tooltip@fr_FR": "Description générale concernant la documentation et les méthodes qualité appliquées aux données"
+        },
+        "dataOrganization": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "data_organization",
+                "extensible": "1",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "10",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Description de l'organisation des documents et données générés au cours du projet",
+            "label@fr_FR": "Organisation des données",
+            "label@en_GB": "Data Organization"
+        },
+        "metadataStandard": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "metadata_standard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "14",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Standard(s) de métadonnées ou données utilisé(s) en application des principes FAIR",
+            "label@fr_FR": "Standards de métadonnées",
+            "label@en_GB": "Metadata Standards"
+        },
+        "documentationSoftware": {
+            "type": "string",
+            "description": "Outil choisi pour saisir les métadonnées et documentation",
+            "label@fr_FR": "Logiciel de documentation",
+            "label@en_GB": "Documentation software",
+            "tooltip@fr_FR": "Logiciel utilisé pour enregistrer les métadonnées ou la description des études",
+            "tooltip@en_GB": "Tool used to capture metadata or record research studies",
+            "example@fr_FR": "Morpho, Metacat, OMERO, SEEKS, DdiEditor, ...",
+            "example@en_GB": "Morpho, Metacat, OMERO, SEEKS, DdiEditor, ..."
+        },
+        "qualityAssuranceMethod": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "quality_assurance_method",
+                "extensible": "1",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "15",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Méthodes d'assurance qualité mises en œuvre",
+            "label@fr_FR": "Méthode assurance qualité",
+            "label@en_GB": "Quality assurance method"
+        },
+        "contributor": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "8",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Personne(s) impliquée(s) dans la documentation des données, production des métadonnées et/ou assurance qualité des données",
+            "label@fr_FR": "Personne en charge de la documentation des données",
+            "label@en_GB": "Person in charge of data documentation"
+        },
+        "cost": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "cost",
+                "extensible": "1",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "5",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Côuts éventuels en terme de ressources humaines ou acquisition de logiciels pour la documentation des données",
+            "label@fr_FR": "Coût lié à la documentation",
+            "label@en_GB": "Documentation related cost"
+        }
+    },
+    "required": [
+        "description",
+        "dataOrganization",
+        "metadataStandard",
+        "qualityAssuranceMethod",
+        "contributor"
+    ],
+    "to_string": [
+        "DocumentationQuality: to_string not defined"
+    ]
+}

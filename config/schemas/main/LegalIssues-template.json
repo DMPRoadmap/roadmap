@@ -1,0 +1,65 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "LegalIssues",
+    "description": "LegalIssues template",
+    "type": "object",
+    "extensible": 1,
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description générale des aspects juridiques",
+            "inputType": "textarea",
+            "label@fr_FR": "Décrivez les aspects juridiques généraux de votre projet",
+            "label@en_GB": "Describe the general legal issues of your project",
+            "tooltip@fr_FR": "Facultatif si vous détaillez des aspects particuliers",
+            "tooltip@en_GB": "Optional if specific issues are detailed"
+        },
+        "legalItem": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "legal_item",
+                "extensible": "1",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "13",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Eléments juridiques à prendre en compte concernant la protection, confidentialité, communication, réutilisation des données (propriété intellectuelle, secret professionnel,..) et informations concernant la titularité des données",
+            "label@fr_FR": "Aspect juridique",
+            "label@en_GB": "Legal item"
+        },
+        "contributor": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": "8",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) en charge des aspects juridiques",
+            "label@fr_FR": "Expert juridique",
+            "label@en_GB": "Legal expert"
+        }
+    },
+    "required": [
+        "legalItem"
+    ],
+    "to_string": [
+        "LegalIssues: to_string not defined"
+    ]
+}

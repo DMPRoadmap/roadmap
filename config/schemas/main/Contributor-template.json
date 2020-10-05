@@ -1,0 +1,58 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "Contributor",
+    "description": "Contributor template",
+    "type": "object",
+    "properties": {
+        "person": {
+            "type": "object",
+            "class": "person",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "schema_id": "3",
+            "required": [
+                "dbid"
+            ],
+            "description": "Personnes impliquées dans la production et gestion des données"
+        },
+        "role": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1,
+            "description": "Rôle d'une personne dans la gestion et production des données",
+            "values@en_GB": [
+                "Data producer",
+                "Data manager",
+                "Data steward",
+                "Legal Expert",
+                "Data Protection Officer",
+                "Other"
+            ],
+            "values@fr_FR": [
+                "Poducteur de données",
+                "Gestionnaire de données",
+                "Expert juridique",
+                "Responsable de la protection des données",
+                "Autre"
+            ],
+            "overridable": true
+        }
+    },
+    "required": [
+        "person",
+        "role"
+    ],
+    "to_string": [
+        "(",
+        "$.person.to_string",
+        " - ",
+        "$.role",
+        ")"
+    ]
+}
