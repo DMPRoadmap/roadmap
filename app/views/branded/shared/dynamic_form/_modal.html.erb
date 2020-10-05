@@ -12,6 +12,7 @@
       <%= f.hidden_field :parent_id, id: nil %>
       <%= f.hidden_field :id, id: nil %>
       <%= f.hidden_field :schema_id, :value => @schema.id, id: nil%>
+      <%= f.hidden_field :template_locale, :value => @templateLocale, id: nil%>
       <%= f.hidden_field "source", :value => "modal" %>
       <div class="modal-body">
         <fieldset aria-labelledby="answer-fieldset" <%= 'disabled' if @readonly %> >
