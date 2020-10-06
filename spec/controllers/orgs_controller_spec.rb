@@ -67,15 +67,15 @@ RSpec.describe OrgsController, type: :controller do
       @args.delete(:feedback_enabled)
       Rails.configuration.x.shibboleth.use_filtered_discovery_service = true
       scheme = create(:identifier_scheme, name: "shibboleth")
-      @args[:identifiers_attributes] = [{ identifier_scheme_id: scheme.id,
-                                          value: SecureRandom.uuid }]
+      @args[:identifiers_attributes] = { "0": { identifier_scheme_id: scheme.id,
+                                                value: SecureRandom.uuid } }
       put :admin_update, params: { id: @org.id, org: @args }
       expect(response).to redirect_to("#{admin_edit_org_path(@org)}#profile")
       expect(flash[:notice].present?).to eql(true)
       identifier = @org.reload.identifiers.last
       expect(identifier.present?).to eql(true)
       expect(identifier.identifier_scheme).to eql(scheme)
-      expected = @args[:identifiers_attributes].first[:value]
+      expected = @args[:identifiers_attributes][:"0"][:value]
       expect(identifier.value.end_with?(expected)).to eql(true)
     end
     it "fails" do
