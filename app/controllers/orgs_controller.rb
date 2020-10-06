@@ -47,8 +47,9 @@ class OrgsController < ApplicationController
       if Rails.configuration.x.shibboleth.use_filtered_discovery_service
         shib = IdentifierScheme.by_name("shibboleth").first
 
-        if shib.present? && attrs.fetch(:identifiers_attributes, []).any?
-          entity_id = attrs[:identifiers_attributes].first[:value]
+        if shib.present? && attrs[:identifiers_attributes].present?
+          key = attrs[:identifiers_attributes].keys.first
+          entity_id = attrs[:identifiers_attributes][:"#{key}"][:value]
           identifier = Identifier.find_or_initialize_by(
             identifiable: @org, identifier_scheme: shib, value: entity_id
           )
