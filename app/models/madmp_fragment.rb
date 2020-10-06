@@ -148,6 +148,46 @@ class MadmpFragment < ActiveRecord::Base
     end
   end
 
+  # This method return the fragment full record
+  # It integrates its children into the JSON 
+  def get_full_fragment
+    children = self.children
+    editable_data = self.data
+    editable_data.each do |prop, value|
+      case value
+      when Hash
+        if value["dbId"].present?
+          child_data = children.exists?(value["dbId"]) ? children.find(value["dbId"]) : MadmpFragment.find(value["dbId"])
+          editable_data = editable_data.merge(
+            { 
+              prop => child_data.get_full_fragment()
+            }
+          )
+        end
+      when Array
+        unless value.length == 0
+          fragment_tab = Array.new
+          value.each do |v|
+            next v.nil?
+            
+            if v.instance_of?(Hash) && v["dbId"].present?
+              child_data = children.exists?(v["dbId"]) ? children.find(v["dbId"]) : MadmpFragment.find(v["dbId"])
+              fragment_tab.push(child_data.get_full_fragment())
+            else
+              fragment_tab.push(v) 
+            end
+          end
+          editable_data = editable_data.merge(
+            { 
+              prop => fragment_tab
+            }
+          )
+        end
+      end
+    end
+    editable_data
+  end
+
   # Saves (and creates, if needed) the structured answer ("fragment")
   def self.save_madmp_fragment(answer, data, schema, parent_id = nil)
     # Extract the form data corresponding to the schema of the structured question
@@ -210,7 +250,7 @@ class MadmpFragment < ActiveRecord::Base
         )
         sub_fragment.classname = sub_schema.classname
         sub_fragment.save_as_multifrag(nil) #TODO: pass the real value
-        data[prop] = { "dbId": sub_fragment.id }
+        data[prop] = { "dbId": sub_fragment_id }
       end
     end
     save
