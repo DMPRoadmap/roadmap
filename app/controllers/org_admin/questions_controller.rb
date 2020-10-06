@@ -257,7 +257,7 @@ module OrgAdmin
     # This sorts that out.
     def update_option_ids(attrs_in, opt_map)
       qopts = attrs_in["question_options_attributes"]
-      qopts.each_pair do |k, attr_hash|
+      qopts.each_pair do |_, attr_hash|
         old_id = attr_hash["id"]
         new_id = opt_map[old_id]
         attr_hash["id"] = new_id
@@ -270,14 +270,12 @@ module OrgAdmin
     # get attached to the new question
     def transfer_associations(attrs, question)
       if attrs[:annotations_attributes].present?
-        attrs[:annotations_attributes].each_pair do |key, value|
+        attrs[:annotations_attributes].each_pair do |_, value|
           old_annotation = question.annotations.select do |a|
             a.org_id.to_s == value[:org_id] &&
               a.type.to_s == value[:type]
           end
-          unless old_annotation.empty?
-            value[:id] = old_annotation.first.id
-          end
+          value[:id] = old_annotation.first.id unless old_annotation.empty?
         end
       end
       attrs
