@@ -168,8 +168,8 @@ class MadmpFragment < ActiveRecord::Base
         unless value.length == 0
           fragment_tab = Array.new
           value.each do |v|
-            next v.nil?
-            
+            next if v.nil?
+
             if v.instance_of?(Hash) && v["dbId"].present?
               child_data = children.exists?(v["dbId"]) ? children.find(v["dbId"]) : MadmpFragment.find(v["dbId"])
               fragment_tab.push(child_data.get_full_fragment())
