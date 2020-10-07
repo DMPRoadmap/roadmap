@@ -16,13 +16,13 @@
             "items": {
                 "type": "object",
                 "class": "cost",
-                "extensible": "1",
+                "extensible": 1,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": "5",
+                "schema_id": 5,
                 "required": [
                     "dbid"
                 ]
@@ -40,7 +40,7 @@
                         "type": "number"
                     }
                 },
-                "schema_id": "8",
+                "schema_id": 8,
                 "required": [
                     "dbid"
                 ]

@@ -13,7 +13,7 @@
                     "type": "number"
                 }
             },
-            "schema_id": "12",
+            "schema_id": 12,
             "required": [
                 "dbid"
             ],

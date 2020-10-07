@@ -20,13 +20,13 @@
             "items": {
                 "type": "object",
                 "class": "legal_item",
-                "extensible": "1",
+                "extensible": 1,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": "13",
+                "schema_id": 13,
                 "required": [
                     "dbid"
                 ]
@@ -36,7 +36,7 @@
             "label@fr_FR": "Aspect juridique",
             "label@en_GB": "Legal item"
         },
-        "contributor": {
+        "contributors": {
             "type": "array",
             "items": {
                 "type": "object",
@@ -46,7 +46,7 @@
                         "type": "number"
                     }
                 },
-                "schema_id": "8",
+                "schema_id": 8,
                 "required": [
                     "dbid"
                 ]

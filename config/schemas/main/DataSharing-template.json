@@ -31,7 +31,7 @@
                         "type": "number"
                     }
                 },
-                "schema_id": "11",
+                "schema_id": 11,
                 "required": [
                     "dbid"
                 ]
@@ -46,13 +46,13 @@
         "indexedIn": {
             "type": "object",
             "class": "technical_resource",
-            "extensible": "1",
+            "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": "9",
+            "schema_id": 9,
             "required": [
                 "dbid"
             ],
@@ -65,13 +65,13 @@
             "items": {
                 "type": "object",
                 "class": "technical_resource_usage",
-                "extensible": "1",
+                "extensible": 1,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": "17",
+                "schema_id": 17,
                 "required": [
                     "dbid"
                 ]
@@ -81,7 +81,7 @@
             "label@fr_FR": "Hébergement",
             "label@en_GB": "Hosting"
         },
-        "contributor": {
+        "contributors": {
             "type": "array",
             "items": {
                 "type": "object",
@@ -91,7 +91,7 @@
                         "type": "number"
                     }
                 },
-                "schema_id": "8",
+                "schema_id": 8,
                 "required": [
                     "dbid"
                 ]
@@ -105,13 +105,13 @@
             "items": {
                 "type": "object",
                 "class": "cost",
-                "extensible": "1",
+                "extensible": 1,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": "5",
+                "schema_id": 5,
                 "required": [
                     "dbid"
                 ]

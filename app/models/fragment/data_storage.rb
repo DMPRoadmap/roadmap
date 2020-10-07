@@ -1,7 +1,7 @@
 # == Schema Information
 #
 # Table name: madmp_fragments
-#
+
 #  id                        :integer          not null, primary key
 #  data                      :json
 #  answer_id                 :integer
@@ -11,25 +11,47 @@
 #  classname                 :string
 #  dmp_id                    :integer
 #  parent_id                 :integer
-#
+
 # Indexes
-#
+
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
-#
+
 
 class Fragment::DataStorage < MadmpFragment
 
-    def research_output
-        self.parent
-    end
+	def plan
+		Plan.find(data["plan_id"])
+	end
 
-    def technical_resource_usage
-        Fragment::TechnicalResourceUsage.where(parent_id: id).first
-    end
-    
-    def self.sti_name
-        "data_storage"
-    end
+	def storage
+		Fragment::TechnicalResourceUsage.where(parent_id: id)
+	end
+
+	def backup_policy
+		Fragment::BackupPolicy.where(parent_id: id).first
+	end
+
+	def contributors
+		Fragment::Contributor.where(parent_id: id)
+	end
+
+	def cost
+		Fragment::Cost.where(parent_id: id)
+	end
+
+	def properties
+		"plan, storage, backup_policy, contributors, cost"
+	end
+
+	# Cited as dataStorage
+
+	def used_in
+		"research_output"
+	end
+
+	def self.sti.name
+		"data_storage"
+	end
 
 end

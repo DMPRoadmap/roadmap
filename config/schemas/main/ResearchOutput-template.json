@@ -9,13 +9,13 @@
         "researchOutputDescription": {
             "type": "object",
             "class": "research_output_description",
-            "extensible": "1",
+            "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": "16",
+            "schema_id": 16,
             "required": [
                 "dbid"
             ],
@@ -26,13 +26,13 @@
         "reuse": {
             "type": "object",
             "class": "data_reuse",
-            "extensible": "1",
+            "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": "30",
+            "schema_id": 30,
             "required": [
                 "dbid"
             ],
@@ -43,13 +43,13 @@
         "personalDataIssues": {
             "type": "object",
             "class": "personal_data_issues",
-            "extensible": "1",
+            "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": "27",
+            "schema_id": 27,
             "required": [
                 "dbid"
             ],
@@ -60,13 +60,13 @@
         "legalIssues": {
             "type": "object",
             "class": "legal_issues",
-            "extensible": "1",
+            "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": "25",
+            "schema_id": 25,
             "required": [
                 "dbid"
             ],
@@ -77,13 +77,13 @@
         "ethicalIssues": {
             "type": "object",
             "class": "ethical_issues",
-            "extensible": "1",
+            "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": "23",
+            "schema_id": 23,
             "required": [
                 "dbid"
             ],
@@ -94,13 +94,13 @@
         "dataCollection": {
             "type": "object",
             "class": "data_collection",
-            "extensible": "1",
+            "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": "19",
+            "schema_id": 19,
             "required": [
                 "dbid"
             ],
@@ -111,13 +111,13 @@
         "dataProcessing": {
             "type": "object",
             "class": "data_processing",
-            "extensible": "1",
+            "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": "20",
+            "schema_id": 20,
             "required": [
                 "dbid"
             ],
@@ -128,13 +128,13 @@
         "dataStorage": {
             "type": "object",
             "class": "data_storage",
-            "extensible": "1",
+            "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": "21",
+            "schema_id": 21,
             "required": [
                 "dbid"
             ],
@@ -145,13 +145,13 @@
         "documentationQuality": {
             "type": "object",
             "class": "documentation_quality",
-            "extensible": "1",
+            "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": "22",
+            "schema_id": 22,
             "required": [
                 "dbid"
             ],
@@ -161,13 +161,13 @@
         "sharing": {
             "type": "object",
             "class": "data_sharing",
-            "extensible": "1",
+            "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": "31",
+            "schema_id": 31,
             "required": [
                 "dbid"
             ],
@@ -178,13 +178,13 @@
         "preservationIssues": {
             "type": "object",
             "class": "data_preservation",
-            "extensible": "1",
+            "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": "28",
+            "schema_id": 28,
             "required": [
                 "dbid"
             ],
@@ -194,13 +194,13 @@
         "budget": {
             "type": "object",
             "class": "budget",
-            "extensible": "1",
+            "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": "33",
+            "schema_id": 33,
             "required": [
                 "dbid"
             ],

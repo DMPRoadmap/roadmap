@@ -1,7 +1,7 @@
 # == Schema Information
 #
 # Table name: madmp_fragments
-#
+
 #  id                        :integer          not null, primary key
 #  data                      :json
 #  answer_id                 :integer
@@ -11,26 +11,35 @@
 #  classname                 :string
 #  dmp_id                    :integer
 #  parent_id                 :integer
-#
+
 # Indexes
-#
+
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
-#
+
 
 class Fragment::Funding < MadmpFragment
 
-    def project
-        self.parent
-    end
+	def plan
+		Plan.find(data["plan_id"])
+	end
 
-    def funder
-        Fragment::Funder.where(id: data['funder']['dbId']).first
-    end
+	def funder
+		Fragment::Funder.where(parent_id: id).first
+	end
 
-    
-    def self.sti_name
-        "funding"
-    end
+	def properties
+		"plan, funder"
+	end
+
+	# Cited as funding
+
+	def used_in
+		"project"
+	end
+
+	def self.sti.name
+		"funding"
+	end
 
 end

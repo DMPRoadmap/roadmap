@@ -61,7 +61,7 @@
                         "type": "number"
                     }
                 },
-                "schema_id": "18",
+                "schema_id": 18,
                 "required": [
                     "dbid"
                 ]
@@ -280,7 +280,7 @@
                     "type": "number"
                 }
             },
-            "schema_id": "3",
+            "schema_id": 3,
             "required": [
                 "dbid"
             ],
@@ -306,7 +306,7 @@
                     "type": "number"
                 }
             },
-            "schema_id": "1",
+            "schema_id": 1,
             "required": [
                 "dbid"
             ],
@@ -372,13 +372,13 @@
         "specificData": {
             "type": "object",
             "class": "specific_data",
-            "extensible": "1",
+            "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": "7",
+            "schema_id": 7,
             "required": [
                 "dbid"
             ],

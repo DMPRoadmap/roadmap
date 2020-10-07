@@ -17,13 +17,13 @@
             "items": {
                 "type": "object",
                 "class": "reused_data",
-                "extensible": "1",
+                "extensible": 1,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": "29",
+                "schema_id": 29,
                 "required": [
                     "dbid"
                 ]
@@ -37,13 +37,13 @@
             "items": {
                 "type": "object",
                 "class": "cost",
-                "extensible": "1",
+                "extensible": 1,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": "5",
+                "schema_id": 5,
                 "required": [
                     "dbid"
                 ]

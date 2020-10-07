@@ -18,13 +18,13 @@
             "items": {
                 "type": "object",
                 "class": "data_organization",
-                "extensible": "1",
+                "extensible": 1,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": "10",
+                "schema_id": 10,
                 "required": [
                     "dbid"
                 ]
@@ -44,7 +44,7 @@
                         "type": "number"
                     }
                 },
-                "schema_id": "14",
+                "schema_id": 14,
                 "required": [
                     "dbid"
                 ]
@@ -69,13 +69,13 @@
             "items": {
                 "type": "object",
                 "class": "quality_assurance_method",
-                "extensible": "1",
+                "extensible": 1,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": "15",
+                "schema_id": 15,
                 "required": [
                     "dbid"
                 ]
@@ -85,7 +85,7 @@
             "label@fr_FR": "Méthode assurance qualité",
             "label@en_GB": "Quality assurance method"
         },
-        "contributor": {
+        "contributors": {
             "type": "array",
             "items": {
                 "type": "object",
@@ -95,7 +95,7 @@
                         "type": "number"
                     }
                 },
-                "schema_id": "8",
+                "schema_id": 8,
                 "required": [
                     "dbid"
                 ]
@@ -110,13 +110,13 @@
             "items": {
                 "type": "object",
                 "class": "cost",
-                "extensible": "1",
+                "extensible": 1,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": "5",
+                "schema_id": 5,
                 "required": [
                     "dbid"
                 ]
@@ -131,7 +131,7 @@
         "dataOrganization",
         "metadataStandard",
         "qualityAssuranceMethod",
-        "contributor"
+        "contributors"
     ],
     "to_string": [
         "DocumentationQuality: to_string not defined"

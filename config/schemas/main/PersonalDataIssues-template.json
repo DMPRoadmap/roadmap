@@ -23,7 +23,7 @@
                         "type": "number"
                     }
                 },
-                "schema_id": "1",
+                "schema_id": 1,
                 "required": [
                     "dbid"
                 ]
@@ -37,7 +37,7 @@
                 "Other"
             ]
         },
-        "contributor": {
+        "contributors": {
             "type": "array",
             "items": {
                 "type": "object",
@@ -47,7 +47,7 @@
                         "type": "number"
                     }
                 },
-                "schema_id": "8",
+                "schema_id": 8,
                 "required": [
                     "dbid"
                 ]

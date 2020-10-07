@@ -23,7 +23,7 @@
                         "type": "number"
                     }
                 },
-                "schema_id": "1",
+                "schema_id": 1,
                 "required": [
                     "dbid"
                 ]
@@ -39,7 +39,7 @@
                 "Other"
             ]
         },
-        "contributor": {
+        "contact": {
             "type": "object",
             "class": "contributor",
             "properties": {
@@ -47,7 +47,7 @@
                     "type": "number"
                 }
             },
-            "schema_id": "8",
+            "schema_id": 8,
             "required": [
                 "dbid"
             ],
