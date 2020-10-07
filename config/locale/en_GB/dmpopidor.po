@@ -314,8 +314,8 @@ msgstr "Abbreviated Name (20 chars max.)"
 msgid "Abbreviated Name"
 msgstr "Abbreviated Name"
 
-msgid "Fullname"
-msgstr "Fullname"
+msgid "Full Title"
+msgstr "Full Title"
 
 msgid "Other Type"
 msgstr "Other Type"

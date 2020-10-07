@@ -6,13 +6,13 @@
     <div class='research-output-element <%= index != 0 ? '' : 'inactive' %>'>
       <div class='research-output-fields'>
         <div class='research-output-field form-group research-output-abbreviation'>
-          <%= f.label :abbreviation, _('Title'),  class: 'control-label' %>
+          <%= f.label :abbreviation, d_('dmpopidor', 'Abbreviated Name (20 chars max.)'),  class: 'control-label' %>
           <%= f.text_field :abbreviation, maxlength: 20, class: 'form-control input edit', "aria-required": true,
                       'data-toggle': 'tooltip', title: d_('dmpopidor', 'Research output name (20 chars max.)') %>
           <span class="readonly"><%= research_output_data['title'] %></span>
         </div>
         <div class='research-output-field form-group research-output-fullname'>
-          <%= f.label :fullname, _('Description'),  class: 'control-label' %>
+          <%= f.label :fullname, d_('dmpopidor', 'Full Title'),  class: 'control-label' %>
           <%= f.text_field :fullname, class: 'form-control input edit', "aria-required": true,
                       'data-toggle': 'tooltip', title: d_('dmpopidor', 'Research output fullname')   %>
           <span class="readonly"><%= research_output_data['description'] %></span>

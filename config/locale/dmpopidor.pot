@@ -318,7 +318,7 @@ msgstr ""
 msgid "Abbreviated Name"
 msgstr ""
 
-msgid "Fullname"
+msgid "Full Title"
 msgstr ""
 
 msgid "Other Type"

@@ -315,8 +315,8 @@ msgstr "Nom abrégé (20 caractères max.)"
 msgid "Abbreviated Name"
 msgstr "Nom abrégé"
 
-msgid "Fullname"
-msgstr "Nom complet"
+msgid "Full Title"
+msgstr "Titre complet"
 
 msgid "Other Type"
 msgstr "Autre type"
