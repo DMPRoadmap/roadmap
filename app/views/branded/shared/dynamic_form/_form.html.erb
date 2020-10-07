@@ -78,7 +78,7 @@
             <legend class="answer-fieldset"><%= label %></legend>
             <%
               sub_schema = @schemas.find_by(id: prop["schema_id"])
-              sub_fragment = dmp_fragments[sub_schema.id].first unless dmp_fragments.empty?
+              sub_fragment = dmp_fragments[sub_schema.id].first unless dmp_fragments[sub_schema.id].nil?
               # TODO : SINGLE SUB FRAGMENT SAVING
               #sub_fragment = dmp_fragments[sub_schema.id].find { |f| f.id == value["dbId"] } unless value.nil?
             %>
