@@ -18,32 +18,32 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 
-class Fragment::EthicalIssues < MadmpFragment
+class Fragment::BudgetItem < MadmpFragment
 
 	def plan
 		Plan.find(data["plan_id"])
 	end
 
-	def document_identifier
-		Fragment::Identifier.where(parent_id: id)
+	def cost
+		Fragment::Cost.where(parent_id: id)
 	end
 
-	def contact
-		Fragment::Contributor.where(parent_id: id).first
+	def contributors
+		Fragment::Contributor.where(parent_id: id)
 	end
 
 	def properties
-		"plan, document_identifier, contact"
+		"plan, cost, contributors"
 	end
 
-	# Cited as ethicalIssues
+	# Cited as budgetItem
 
 	def used_in
-		"research_output"
+		"budget"
 	end
 
 	def self.sti.name
-		"ethical_issues"
+		"budget_item"
 	end
 
 end

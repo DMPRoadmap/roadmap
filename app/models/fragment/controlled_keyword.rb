@@ -18,32 +18,24 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 
-class Fragment::EthicalIssues < MadmpFragment
+class Fragment::ControlledKeyword < MadmpFragment
 
 	def plan
 		Plan.find(data["plan_id"])
 	end
 
-	def document_identifier
-		Fragment::Identifier.where(parent_id: id)
-	end
-
-	def contact
-		Fragment::Contributor.where(parent_id: id).first
-	end
-
 	def properties
-		"plan, document_identifier, contact"
+		"plan"
 	end
 
-	# Cited as ethicalIssues
+	# Cited as controlledKeyword
 
 	def used_in
-		"research_output"
+		"research_output_description"
 	end
 
 	def self.sti.name
-		"ethical_issues"
+		"controlled_keyword"
 	end
 
 end

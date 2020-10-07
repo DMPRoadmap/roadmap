@@ -18,32 +18,44 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 
-class Fragment::EthicalIssues < MadmpFragment
+class Fragment::DataSharing < MadmpFragment
 
 	def plan
 		Plan.find(data["plan_id"])
 	end
 
-	def document_identifier
-		Fragment::Identifier.where(parent_id: id)
+	def distribution
+		Fragment::Distribution.where(parent_id: id)
 	end
 
-	def contact
-		Fragment::Contributor.where(parent_id: id).first
+	def indexed_in
+		Fragment::TechnicalResource.where(parent_id: id).first
+	end
+
+	def hosting
+		Fragment::TechnicalResourceUsage.where(parent_id: id)
+	end
+
+	def contributors
+		Fragment::Contributor.where(parent_id: id)
+	end
+
+	def cost
+		Fragment::Cost.where(parent_id: id)
 	end
 
 	def properties
-		"plan, document_identifier, contact"
+		"plan, distribution, indexed_in, hosting, contributors, cost"
 	end
 
-	# Cited as ethicalIssues
+	# Cited as sharing
 
 	def used_in
 		"research_output"
 	end
 
 	def self.sti.name
-		"ethical_issues"
+		"data_sharing"
 	end
 
 end

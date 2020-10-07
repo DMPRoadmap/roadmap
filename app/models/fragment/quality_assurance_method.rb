@@ -18,32 +18,24 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 
-class Fragment::EthicalIssues < MadmpFragment
+class Fragment::QualityAssuranceMethod < MadmpFragment
 
 	def plan
 		Plan.find(data["plan_id"])
 	end
 
-	def document_identifier
-		Fragment::Identifier.where(parent_id: id)
-	end
-
-	def contact
-		Fragment::Contributor.where(parent_id: id).first
-	end
-
 	def properties
-		"plan, document_identifier, contact"
+		"plan"
 	end
 
-	# Cited as ethicalIssues
+	# Cited as qualityAssuranceMethod
 
 	def used_in
-		"research_output"
+		"documentation_quality"
 	end
 
 	def self.sti.name
-		"ethical_issues"
+		"quality_assurance_method"
 	end
 
 end
