@@ -231,9 +231,9 @@ class UserMailer < ActionMailer::Base
   end
 
   def api_credentials(api_client)
+    @api_client = api_client
     return unless @api_client.contact_email.present?
 
-    @api_client = api_client
     @api_docs = Rails.configuration.x.application.api_documentation_url
 
     @name = @api_client.contact_name.present? ? @api_client.contact_name : @api_client.contact_email
