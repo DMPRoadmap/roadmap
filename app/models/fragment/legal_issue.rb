@@ -21,7 +21,7 @@
 class Fragment::LegalIssue < MadmpFragment
 
     def legal_advisor
-        Fragment::Person.where(id: data['legal_advisor']['dbId']).first
+        Fragment::Person.where(id: data['legal_advisor']['dbid']).first
     end
 
     def research_output

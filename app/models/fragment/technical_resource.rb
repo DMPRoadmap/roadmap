@@ -21,7 +21,7 @@
 class Fragment::TechnicalResource < MadmpFragment
 
     def technical_resource_usages
-        Fragment::TechnicalResourceUsage.where("(data->>'technical_resource'->>'dbId')::int = ?", id)
+        Fragment::TechnicalResourceUsage.where("(data->>'technical_resource'->>'dbid')::int = ?", id)
     end
 
     

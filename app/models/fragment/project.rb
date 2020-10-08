@@ -23,7 +23,7 @@ class Fragment::Project < MadmpFragment
     def principalInvestigator
         principalInvestigator = nil
         unless data["principalInvestigator"].nil?
-            principalInvestigator = Fragment::Person.where(id: data['principalInvestigator']['dbId']).first
+            principalInvestigator = Fragment::Person.where(id: data['principalInvestigator']['dbid']).first
         end
         principalInvestigator
     end

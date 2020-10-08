@@ -47,7 +47,7 @@
         <% unless classname == "research_output" || value.nil? %>
           <%
             sub_schema = sub_schemas[prop["schema_id"]]
-            sub_fragment = dmp_fragments[sub_schema.id].find { |f| f.id == value["dbId"] }
+            sub_fragment = dmp_fragments[sub_schema.id].find { |f| f.id == value["dbid"] }
           %>
           <hr/>
           <p class= "fontsize-h3"><%= field_name.capitalize %></p>

@@ -80,7 +80,7 @@
               sub_schema = @schemas.find_by(id: prop["schema_id"])
               sub_fragment = dmp_fragments[sub_schema.id].first unless dmp_fragments.empty?
               # TODO : SINGLE SUB FRAGMENT SAVING
-              #sub_fragment = dmp_fragments[sub_schema.id].find { |f| f.id == value["dbId"] } unless value.nil?
+              #sub_fragment = dmp_fragments[sub_schema.id].find { |f| f.id == value["dbid"] } unless value.nil?
             %>
             <%= render(partial: 'shared/dynamic_form/form', locals: { 
                   f: f, 

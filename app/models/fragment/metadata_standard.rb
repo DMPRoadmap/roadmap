@@ -21,7 +21,7 @@
 class Fragment::MetadataStandard < MadmpFragment
 
     def documentation
-        Fragment::Documentation.where("(data->>'metadata_format'->>'dbId')::int = ?", id)
+        Fragment::Documentation.where("(data->>'metadata_format'->>'dbid')::int = ?", id)
     end
 
     

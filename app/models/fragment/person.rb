@@ -22,27 +22,27 @@ class Fragment::Person < MadmpFragment
 
 
     def documentations
-        Fragment::Documentation.where("(data->>'documentation_administrator'->>'dbId')::int = ?", id)
+        Fragment::Documentation.where("(data->>'documentation_administrator'->>'dbid')::int = ?", id)
     end
 
     def legal_issues
-        Fragment::LegalIssue.where("(data->>'legal_advisor'->>'dbId')::int = ?", id)
+        Fragment::LegalIssue.where("(data->>'legal_advisor'->>'dbid')::int = ?", id)
     end
 
     def metas
-        Fragment::Meta.where("(data->>'contact'->>'dbId')::int = ?", id)
+        Fragment::Meta.where("(data->>'contact'->>'dbid')::int = ?", id)
     end
 
     def projects
-        Fragment::Project.where("(data->>'principal_investigator'->>'dbId')::int = ?", id)
+        Fragment::Project.where("(data->>'principal_investigator'->>'dbid')::int = ?", id)
     end
 
     def research_outputs
-        Fragment::ResearchOutput.where("(data->>'contact'->>'dbId')::int = ?", id)
+        Fragment::ResearchOutput.where("(data->>'contact'->>'dbid')::int = ?", id)
     end
 
     def staff_members
-        Fragment::StaffMember.where("(data->>'agent'->>'dbId')::int = ?", id)
+        Fragment::StaffMember.where("(data->>'agent'->>'dbid')::int = ?", id)
     end
 
     

@@ -21,7 +21,7 @@
 class Fragment::Funder < MadmpFragment
 
     def fundings
-        Fragment::Funding.where("(data->>'funder'->>'dbId')::int = ?", id)
+        Fragment::Funding.where("(data->>'funder'->>'dbid')::int = ?", id)
     end
     
     def self.sti_name

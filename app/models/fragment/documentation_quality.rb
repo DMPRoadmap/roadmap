@@ -25,7 +25,7 @@ class Fragment::DocumentationQuality < MadmpFragment
     end
 
     def metadata_format
-        Fragment::MetadataFormat.where(id: data['metadata_format']['dbId']).first
+        Fragment::MetadataFormat.where(id: data['metadata_format']['dbid']).first
     end
 
     

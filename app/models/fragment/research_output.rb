@@ -21,7 +21,7 @@
 class Fragment::ResearchOutput < MadmpFragment
     
     def contact
-        Fragment::Person.where(id: data['contact']['dbId']).first
+        Fragment::Person.where(id: data['contact']['dbid']).first
     end
     
 

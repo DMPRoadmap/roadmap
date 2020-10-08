@@ -25,7 +25,7 @@ class Fragment::Funding < MadmpFragment
     end
 
     def funder
-        Fragment::Funder.where(id: data['funder']['dbId']).first
+        Fragment::Funder.where(id: data['funder']['dbid']).first
     end
 
     

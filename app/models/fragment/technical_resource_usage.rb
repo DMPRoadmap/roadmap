@@ -25,7 +25,7 @@ class Fragment::TechnicalResourceUsage < MadmpFragment
     end
 
     def technical_resource
-        Fragment::RechnicalResource.where(id: data['technical_resource']['dbId']).first
+        Fragment::RechnicalResource.where(id: data['technical_resource']['dbid']).first
     end
 
     

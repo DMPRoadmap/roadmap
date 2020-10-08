@@ -23,7 +23,7 @@ class Fragment::Meta < MadmpFragment
     def contact
         contact = nil
         unless data["contact"].nil?
-            contact = Fragment::Person.where(id: data['contact']['dbId']).first
+            contact = Fragment::Person.where(id: data['contact']['dbid']).first
         end
         contact
     end
