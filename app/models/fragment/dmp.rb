@@ -18,7 +18,7 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 
-class Fragment::DMP < MadmpFragment
+class Fragment::Dmp < MadmpFragment
 
 	def plan
 		Plan.find(data["plan_id"])
