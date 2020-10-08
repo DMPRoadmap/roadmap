@@ -61,7 +61,7 @@
                         "type": "number"
                     }
                 },
-                "schema_id": 18,
+                "schema_id": 2,
                 "required": [
                     "dbid"
                 ]
@@ -280,7 +280,7 @@
                     "type": "number"
                 }
             },
-            "schema_id": 3,
+            "schema_id": 20,
             "required": [
                 "dbid"
             ],
@@ -306,7 +306,7 @@
                     "type": "number"
                 }
             },
-            "schema_id": 1,
+            "schema_id": 34,
             "required": [
                 "dbid"
             ],
@@ -378,7 +378,7 @@
                     "type": "number"
                 }
             },
-            "schema_id": 7,
+            "schema_id": 38,
             "required": [
                 "dbid"
             ],

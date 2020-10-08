@@ -40,7 +40,7 @@
                         "type": "number"
                     }
                 },
-                "schema_id": 24,
+                "schema_id": 13,
                 "required": [
                     "dbid"
                 ]
@@ -74,7 +74,7 @@
                         "type": "number"
                     }
                 },
-                "schema_id": 26,
+                "schema_id": 19,
                 "required": [
                     "dbid"
                 ]
@@ -92,7 +92,7 @@
                     "type": "number"
                 }
             },
-            "schema_id": 1,
+            "schema_id": 34,
             "required": [
                 "dbid"
             ],
@@ -115,7 +115,7 @@
                     "type": "number"
                 }
             },
-            "schema_id": 3,
+            "schema_id": 20,
             "required": [
                 "dbid"
             ],

@@ -221,7 +221,7 @@
                     "type": "number"
                 }
             },
-            "schema_id": 3,
+            "schema_id": 20,
             "required": [
                 "dbid"
             ],
@@ -255,7 +255,7 @@
                     "type": "number"
                 }
             },
-            "schema_id": 1,
+            "schema_id": 34,
             "required": [
                 "dbid"
             ],
@@ -276,7 +276,7 @@
                     "type": "number"
                 }
             },
-            "schema_id": 6,
+            "schema_id": 17,
             "required": [
                 "dbid"
             ],
@@ -299,7 +299,7 @@
                         "type": "number"
                     }
                 },
-                "schema_id": 1,
+                "schema_id": 34,
                 "required": [
                     "dbid"
                 ]
@@ -323,7 +323,7 @@
                         "type": "number"
                     }
                 },
-                "schema_id": 1,
+                "schema_id": 34,
                 "required": [
                     "dbid"
                 ]
