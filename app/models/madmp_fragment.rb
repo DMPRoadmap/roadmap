@@ -136,11 +136,15 @@ class MadmpFragment < ActiveRecord::Base
       classified_children.each do |classname, children|
         if children.count >= 2
           # if there is more than 1 child, should pluralize the classname
-          parent_data[classname.pluralize(children.count)] = children.map { |c| { "dbId" => c.id } }
-          parent_data.delete(classname) if parent_data[classname]
+          parent_data = parent_data.merge( { 
+            classname.pluralize(2) => children.map { |c| { "dbid" => c.id } }
+          } )
+          parent_data.delete(classname) if parent_data[classname] && classname != "meta"
         else 
-          parent_data[classname] =  { "dbId" => children.first.id }
-          parent_data.delete(classname.pluralize(2)) if parent_data[classname.pluralize(2)]
+          parent_data = parent_data.merge( { 
+            classname => { "dbid" => children.first.id }
+          } )
+          parent_data.delete(classname.pluralize(2)) if parent_data[classname.pluralize(2)] && classname != "meta"
         end 
       end
       self.parent.update(data: parent_data)
@@ -155,8 +159,8 @@ class MadmpFragment < ActiveRecord::Base
     editable_data.each do |prop, value|
       case value
       when Hash
-        if value["dbId"].present?
-          child_data = children.exists?(value["dbId"]) ? children.find(value["dbId"]) : MadmpFragment.find(value["dbId"])
+        if value["dbid"].present?
+          child_data = children.exists?(value["dbid"]) ? children.find(value["dbid"]) : MadmpFragment.find(value["dbid"])
           editable_data = editable_data.merge(
             { 
               prop => child_data.get_full_fragment()
@@ -169,8 +173,8 @@ class MadmpFragment < ActiveRecord::Base
           value.each do |v|
             next if v.nil?
 
-            if v.instance_of?(Hash) && v["dbId"].present?
-              child_data = children.exists?(v["dbId"]) ? children.find(v["dbId"]) : MadmpFragment.find(v["dbId"])
+            if v.instance_of?(Hash) && v["dbid"].present?
+              child_data = children.exists?(v["dbid"]) ? children.find(v["dbid"]) : MadmpFragment.find(v["dbid"])
               fragment_tab.push(child_data.get_full_fragment())
             else
               fragment_tab.push(v) 
@@ -234,7 +238,7 @@ class MadmpFragment < ActiveRecord::Base
       schema_prop = schema_properties[prop]
       if !schema_prop.nil? && schema_prop['type'].eql?('object')
         sub_schema = MadmpSchema.find(schema_prop['schema_id'])
-        sub_fragment_id = previous_data[prop]['dbId'] if previous_data
+        sub_fragment_id = previous_data[prop]['dbid'] if previous_data
         if sub_fragment_id.nil?
           sub_fragment = MadmpFragment.new
         else
@@ -249,7 +253,7 @@ class MadmpFragment < ActiveRecord::Base
         )
         sub_fragment.classname = sub_schema.classname
         sub_fragment.save_as_multifrag(nil) #TODO: pass the real value
-        data[prop] = { "dbId": sub_fragment_id }
+        data[prop] = { "dbid": sub_fragment_id }
       end
     end
     save
