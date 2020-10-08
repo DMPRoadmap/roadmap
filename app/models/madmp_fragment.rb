@@ -87,11 +87,10 @@ class MadmpFragment < ActiveRecord::Base
   # =================
 
   def plan
-    plan = nil
-    if self.answer.nil?
-      self.dmp.plan
+    if self.dmp.nil?
+      Plan.find(data["plan_id"])
     else
-      plan = self.answer.plan
+      self.dmp.plan
     end
   end
 

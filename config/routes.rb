@@ -175,6 +175,9 @@ Rails.application.routes.draw do
           get 'extract', to: 'themes#extract'
         end
       end
+      namespace :dmpopidor do 
+        resources :madmp_fragments, only: [:show], controller: 'madmp_fragments', path: 'fragments'
+      end
     end
   end
 
