@@ -38,7 +38,7 @@ class Fragment::Funder < MadmpFragment
 		"funding"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"funder"
 	end
 

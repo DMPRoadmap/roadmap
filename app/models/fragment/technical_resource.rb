@@ -38,7 +38,7 @@ class Fragment::TechnicalResource < MadmpFragment
 		"data_sharing, technical_resource_usage"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"technical_resource"
 	end
 

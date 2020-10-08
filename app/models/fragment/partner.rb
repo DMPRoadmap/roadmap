@@ -42,7 +42,7 @@ class Fragment::Partner < MadmpFragment
 		"project"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"partner"
 	end
 

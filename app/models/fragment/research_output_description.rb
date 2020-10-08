@@ -50,7 +50,7 @@ class Fragment::ResearchOutputDescription < MadmpFragment
 		"research_output"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"research_output_description"
 	end
 

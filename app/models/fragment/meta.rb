@@ -54,7 +54,7 @@ class Fragment::Meta < MadmpFragment
 		"dmp"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"meta"
 	end
 

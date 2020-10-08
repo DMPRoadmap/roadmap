@@ -38,7 +38,7 @@ class Fragment::MetadataStandard < MadmpFragment
 		"documentation_quality"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"metadata_standard"
 	end
 

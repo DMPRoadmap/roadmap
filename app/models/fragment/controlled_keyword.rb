@@ -34,7 +34,7 @@ class Fragment::ControlledKeyword < MadmpFragment
 		"research_output_description"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"controlled_keyword"
 	end
 

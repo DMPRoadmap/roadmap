@@ -42,7 +42,7 @@ class Fragment::EthicalIssues < MadmpFragment
 		"research_output"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"ethical_issues"
 	end
 

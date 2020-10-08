@@ -34,7 +34,7 @@ class Fragment::QualityAssuranceMethod < MadmpFragment
 		"documentation_quality"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"quality_assurance_method"
 	end
 

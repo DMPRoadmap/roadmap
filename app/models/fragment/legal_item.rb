@@ -34,7 +34,7 @@ class Fragment::LegalItem < MadmpFragment
 		"legal_issues"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"legal_item"
 	end
 

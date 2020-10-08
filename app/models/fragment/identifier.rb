@@ -34,7 +34,7 @@ class Fragment::Identifier < MadmpFragment
 		"data_collection, ethical_issues, funder, meta, meta, meta, metadata_standard, partner, partner, person, personal_data_issues, project, research_output_description, reused_data, technical_resource"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"identifier"
 	end
 

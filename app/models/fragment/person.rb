@@ -38,7 +38,7 @@ class Fragment::Person < MadmpFragment
 		"contributor, meta, project, research_output_description"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"person"
 	end
 

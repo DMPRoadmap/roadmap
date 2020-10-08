@@ -34,7 +34,7 @@ class Fragment::BackupPolicy < MadmpFragment
 		"data_storage, technical_resource_usage"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"backup_policy"
 	end
 

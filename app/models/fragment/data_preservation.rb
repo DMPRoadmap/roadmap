@@ -46,7 +46,7 @@ class Fragment::DataPreservation < MadmpFragment
 		"research_output"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"data_preservation"
 	end
 

@@ -40,7 +40,7 @@ class Fragment::DMP < MadmpFragment
 		"plan, meta, project, research_output"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"dmp"
 	end
 

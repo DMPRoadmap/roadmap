@@ -34,7 +34,7 @@ class Fragment::SpecificData < MadmpFragment
 		"research_output_description, technical_resource_usage"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"specific_data"
 	end
 

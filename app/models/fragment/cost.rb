@@ -38,7 +38,7 @@ class Fragment::Cost < MadmpFragment
 		"budget_item, data_collection, data_preservation, data_processing, data_reuse, data_sharing, data_storage, documentation_quality, technical_resource_usage"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"cost"
 	end
 

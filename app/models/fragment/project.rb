@@ -50,7 +50,7 @@ class Fragment::Project < MadmpFragment
 		"dmp"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"project"
 	end
 

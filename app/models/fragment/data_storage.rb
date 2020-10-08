@@ -50,7 +50,7 @@ class Fragment::DataStorage < MadmpFragment
 		"research_output"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"data_storage"
 	end
 

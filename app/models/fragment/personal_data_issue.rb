@@ -42,7 +42,7 @@ class Fragment::PersonalDataIssues < MadmpFragment
 		"research_output"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"personal_data_issues"
 	end
 

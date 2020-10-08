@@ -38,7 +38,7 @@ class Fragment::Distribution < MadmpFragment
 		"data_sharing"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"distribution"
 	end
 

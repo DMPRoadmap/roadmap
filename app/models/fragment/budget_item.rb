@@ -42,7 +42,7 @@ class Fragment::BudgetItem < MadmpFragment
 		"budget"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"budget_item"
 	end
 

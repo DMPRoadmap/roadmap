@@ -42,7 +42,7 @@ class Fragment::LegalIssues < MadmpFragment
 		"research_output"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"legal_issues"
 	end
 

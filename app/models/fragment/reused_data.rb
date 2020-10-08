@@ -42,7 +42,7 @@ class Fragment::ReusedData < MadmpFragment
 		"data_reuse"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"reused_data"
 	end
 

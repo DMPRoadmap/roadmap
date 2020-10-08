@@ -34,7 +34,7 @@ class Fragment::CostValue < MadmpFragment
 		"cost"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"cost_value"
 	end
 

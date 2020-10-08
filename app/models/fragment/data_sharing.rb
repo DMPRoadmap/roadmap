@@ -54,7 +54,7 @@ class Fragment::DataSharing < MadmpFragment
 		"research_output"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"data_sharing"
 	end
 

@@ -34,7 +34,7 @@ class Fragment::DataOrganization < MadmpFragment
 		"documentation_quality"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"data_organization"
 	end
 

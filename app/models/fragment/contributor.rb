@@ -38,7 +38,7 @@ class Fragment::Contributor < MadmpFragment
 		"budget_item, data_collection, data_preservation, data_processing, data_sharing, data_storage, documentation_quality, ethical_issues, legal_issues, personal_data_issues, technical_resource_usage"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"contributor"
 	end
 

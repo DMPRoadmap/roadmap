@@ -34,7 +34,7 @@ class Fragment::License < MadmpFragment
 		"distribution, meta, reused_data"
 	end
 
-	def self.sti.name
+	def self.sti_name
 		"license"
 	end
 
