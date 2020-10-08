@@ -177,6 +177,7 @@ Rails.application.routes.draw do
       end
       namespace :dmpopidor do 
         resources :madmp_fragments, only: [:show], controller: 'madmp_fragments', path: 'fragments'
+        resources :plans, only: [:show]
       end
     end
   end

@@ -9,8 +9,17 @@ class Api::V0::Dmpopidor::MadmpFragmentsController < Api::V0::BaseController
         unless Api::V0::Dmpopidor::MadmpFragmentPolicy.new(@user, @fragment).show?
           raise Pundit::NotAuthorizedError
         end
-
-        respond_with @fragment.get_full_fragment
+        if query_params[:mode] == "slim" 
+          respond_with @fragment.data
+        else
+          respond_with @fragment.get_full_fragment
+        end
     end
 
+
+    private 
+    
+    def query_params
+      params.permit(:mode)
+    end
 end
