@@ -29,11 +29,15 @@ class Fragment::Dmp < MadmpFragment
 	end
 
 	def project
-		Fragment::Project.where(parent_id: id)
+		Fragment::Project.where(parent_id: id).first
 	end
 
 	def research_output
 		Fragment::ResearchOutput.where(parent_id: id)
+	end
+
+	def persons
+		Fragment::Person.where(dmp_id: id)
 	end
 
 	def properties
