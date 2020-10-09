@@ -24,11 +24,11 @@ class Fragment::Project < MadmpFragment
 		Plan.find(data["plan_id"])
 	end
 
-	def funding
+	def fundings
 		Fragment::Funding.where(parent_id: id)
 	end
 
-	def partner
+	def partners
 		Fragment::Partner.where(parent_id: id)
 	end
 
@@ -36,7 +36,7 @@ class Fragment::Project < MadmpFragment
 		Fragment::Identifier.where(parent_id: id).first
 	end
 
-	def principal_investigator
+	def principalInvestigator
 		Fragment::Person.where(parent_id: id).first
 	end
 
