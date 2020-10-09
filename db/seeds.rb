@@ -79,12 +79,6 @@ question_formats = [
     title: "Date",
     option_based: false,
     formattype: 6
-  },
-  {
-    title: "Structured",
-    option_based: false,
-    formattype: 7,
-    structured: true
   }
 ]
 question_formats.map{ |qf| create(:question_format, qf) }
@@ -92,25 +86,13 @@ question_formats.map{ |qf| create(:question_format, qf) }
 # Languages (check config/locales for any ones not defined here)
 # -------------------------------------------------------
 languages = [
-  {abbreviation: 'en-GB',
+  {abbreviation: 'en_GB',
    description: '',
    name: 'English (GB)',
    default_language: true},
-  {abbreviation: 'en-US',
-   description: '',
-   name: 'English (US)',
-   default_language: false},
-  {abbreviation: 'fr',
+  {abbreviation: 'fr_FR',
    description: '',
    name: 'Français',
-   default_language: false},
-  {abbreviation: 'de',
-   description: '',
-   name: 'Deutsch',
-   default_language: false},
-  {abbreviation: 'es',
-   description: '',
-   name: 'Español',
    default_language: false}
 ]
 languages.map { |l| create(:language, l) }
@@ -546,7 +528,9 @@ sections = [
     number: 5,
     modifiable: false,
     phase: funder_template_phase_2
-  }
+  },
+
+ 
 ]
 sections.map{ |s| create(:section, s) }
 
@@ -702,7 +686,8 @@ questions = [
    section: Section.find_by(title: "Preservation and Reuse Policies"),
    question_format: text_area,
    modifiable: false,
-   themes: [Theme.find_by(title: "Preservation"), Theme.find_by(title: "Data Sharing")]}
+   themes: [Theme.find_by(title: "Preservation"), Theme.find_by(title: "Data Sharing")]},
+
 ]
 questions.map{ |q| create(:question, q) }
 
@@ -838,11 +823,3 @@ research_output_types = [
 ]
 
 research_output_types.map{ |s| ResearchOutputType.create!(s) if ResearchOutputType.find_by(label: s[:label]).nil? }
-
-schemas_dir = File.join(Rails.root, 'config', 'schemas')
-Dir.glob("#{schemas_dir}/*.json") do |path|
-  f = File.open(path)
-  d = JSON.load(f)
-  n = File.basename(path, '.json')
-  MadmpSchema.create(label: n, name: n, version: 1, schema: d.to_json, org_id: nil, classname: nil)
-end
