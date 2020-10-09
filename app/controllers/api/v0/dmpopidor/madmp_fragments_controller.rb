@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'jsonpath'
 
 class Api::V0::Dmpopidor::MadmpFragmentsController < Api::V0::BaseController
     before_action :authenticate
@@ -9,17 +10,30 @@ class Api::V0::Dmpopidor::MadmpFragmentsController < Api::V0::BaseController
         unless Api::V0::Dmpopidor::MadmpFragmentPolicy.new(@user, @fragment).show?
           raise Pundit::NotAuthorizedError
         end
+
+        fragment_data = nil
         if query_params[:mode] == "slim" 
-          respond_with @fragment.data
+          fragment_data = @fragment.data
         else
-          respond_with @fragment.get_full_fragment
+          fragment_data = @fragment.get_full_fragment
         end
+
+        fragment_data = select_property(fragment_data, query_params[:property])
+
+        respond_with fragment_data
     end
 
 
     private 
     
+    def select_property(fragment_data, property_name)
+      if property_name.present? 
+        fragment_data = JsonPath.on(fragment_data, "$..#{property_name}")
+      end
+      fragment_data
+    end
+
     def query_params
-      params.permit(:mode)
+      params.permit(:mode, :property)
     end
 end
