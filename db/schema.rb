@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_25_092600) do
+ActiveRecord::Schema.define(version: 2020_10_09_101541) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -457,16 +457,6 @@ ActiveRecord::Schema.define(version: 2020_06_25_092600) do
     t.index ["org_id"], name: "index_trackers_on_org_id"
   end
 
-  create_table "user_identifiers", id: :integer, force: :cascade do |t|
-    t.string "identifier"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer "user_id"
-    t.integer "identifier_scheme_id"
-    t.index ["identifier_scheme_id"], name: "index_user_identifiers_on_identifier_scheme_id"
-    t.index ["user_id"], name: "index_user_identifiers_on_user_id"
-  end
-
   create_table "users", id: :integer, force: :cascade do |t|
     t.string "firstname"
     t.string "surname"
@@ -548,8 +538,6 @@ ActiveRecord::Schema.define(version: 2020_06_25_092600) do
   add_foreign_key "themes_in_guidance", "guidances"
   add_foreign_key "themes_in_guidance", "themes"
   add_foreign_key "trackers", "orgs"
-  add_foreign_key "user_identifiers", "identifier_schemes"
-  add_foreign_key "user_identifiers", "users"
   add_foreign_key "users", "departments"
   add_foreign_key "users", "languages"
   add_foreign_key "users", "orgs"
