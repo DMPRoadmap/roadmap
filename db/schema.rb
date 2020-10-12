@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200902060740) do
+ActiveRecord::Schema.define(version: 20201012085101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -343,6 +343,27 @@ ActiveRecord::Schema.define(version: 20200902060740) do
     t.integer "super_region_id"
   end
 
+  create_table "registries", force: :cascade do |t|
+    t.string   "name",        null: false
+    t.string   "description"
+    t.string   "uri"
+    t.integer  "version"
+    t.integer  "org_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "registries", ["org_id"], name: "index_registries_on_org_id", using: :btree
+
+  create_table "registry_values", force: :cascade do |t|
+    t.json     "data"
+    t.integer  "registry_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "registry_values", ["registry_id"], name: "index_registry_values_on_registry_id", using: :btree
+
   create_table "research_output_types", force: :cascade do |t|
     t.string   "label",                      null: false
     t.string   "slug",                       null: false
@@ -580,6 +601,8 @@ ActiveRecord::Schema.define(version: 20200902060740) do
   add_foreign_key "questions", "sections"
   add_foreign_key "questions_themes", "questions"
   add_foreign_key "questions_themes", "themes"
+  add_foreign_key "registries", "orgs"
+  add_foreign_key "registry_values", "registries"
   add_foreign_key "research_outputs", "plans"
   add_foreign_key "research_outputs", "research_output_types"
   add_foreign_key "roles", "plans"
