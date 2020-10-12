@@ -1,4 +1,4 @@
-FROM phusion/passenger-ruby24:1.0.9
+FROM phusion/passenger-ruby24:1.0.11
 
 MAINTAINER Benjamin FAURE <benjamin.faure@inist.fr>
 
