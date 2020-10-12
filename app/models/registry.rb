@@ -13,6 +13,7 @@
 #
 
 class Registry < ActiveRecord::Base
+  include ValidationMessages
 
   # ================
   # = Associations =
