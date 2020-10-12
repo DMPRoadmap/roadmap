@@ -36,7 +36,7 @@ $dropdown-inverse-text: $color-dropdown-inverse-text !default;
 $dropdown-inverse-text-hoover: $color-dropdown-inverse-text-hover !default;
 $dropdown-inverse-bg-hoover: $color-portage-blue !default;
 $dropdown-link-hover-bg: $color-white;
-$dropdown-link-active-bg: lighten($color-portage-blue, 10%);
+$dropdown-link-active-bg: $color-portage-blue;
 
 // Navbar branding colours
 $navbar-branding-color: $color-navbar-text !default;
