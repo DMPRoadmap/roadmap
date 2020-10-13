@@ -302,6 +302,7 @@ Rails.application.routes.draw do
     resources :themes, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :madmp_schemas, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :registries
+    resources :registry_values, only: [:new, :create, :edit, :update, :destroy]
     resources :users, only: [:edit, :update] do
       member do
         put :merge

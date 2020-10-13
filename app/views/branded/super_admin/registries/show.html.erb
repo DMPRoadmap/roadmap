@@ -7,28 +7,29 @@
     </h2>
   </div>
 </div>
-<dl class="dl-horizontal">
-    <dt><%= _('Name') %></dt>
-    <dd><%= @registry.name %></dd>
-    <dt><%= _('Description') %></dt>
-    <dd><%= sanitize @registry.description %></dd>
-    <dt><%= _('URI') %></dt>
-    <dd><%= @registry.uri %></dd>
-    <dt><%= _('Version') %></dt>
-    <dd><%= @registry.version %></dd>
-    <h3><%= _('Values') %></h3>
-    <table class="table table-hover registry-values">
-        <thead>
-            <th scope="col"><%= _('Value') %></th>
-        </thead>
-        <tbody>
-            <% @registry.registry_values.each do |reg_val| %>
-            <!-- Using the plan owner as the requestor even though it could have been issued by a co-owner -->
-            <!-- TODO: correct this behavior once the notification table is in place -->
-            <tr>
-                <td><%= reg_val.to_s %></td>
-            </tr>
-            <% end %>
-        </tbody>
-    </table>
-</dl>
+<div class="row super-admin">
+  <div class="col-xs-12">
+    <dl class="dl-horizontal">
+        <dt><%= _('Name') %></dt>
+        <dd><%= @registry.name %></dd>
+        <dt><%= _('Description') %></dt>
+        <dd><%= sanitize @registry.description %></dd>
+        <dt><%= _('URI') %></dt>
+        <dd><%= @registry.uri %></dd>
+        <dt><%= _('Version') %></dt>
+        <dd><%= @registry.version %></dd>
+        <h3><%= _('Values') %></h3>
+        <table class="table table-hover registry-values">
+            <thead>
+                <th scope="col"><%= _('Value') %></th>
+                <th scope="col"><%= _('Actions') %></th>
+            </thead>
+            <tbody>
+                <%= render partial: 'values_list', locals: { values: @registry.registry_values } %>
+            </tbody>
+        </table>
+        <a href="<%= new_super_admin_registry_value_path(registry_id: @registry.id) %>" 
+            class="btn btn-primary pull-right"><%= _('Create Value') %></a>
+    </dl>   
+  </div>
+</div>

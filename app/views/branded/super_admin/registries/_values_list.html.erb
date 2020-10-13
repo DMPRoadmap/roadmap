@@ -1,0 +1,26 @@
+<%# locals: { values } %>
+<% values.each do |reg_val| %>
+    <tr>
+        <td><%= reg_val.to_s %></td>
+        <td>
+            <div class="dropdown">
+            <button
+                class="btn btn-link dropdown-toggle"
+                type="button"
+                id="org-<%= reg_val.id %>-actions"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="true">
+                <%= _('Actions') %><span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="org-<%= reg_val.id %>-actions">
+                <li><%= link_to _('Edit'), edit_super_admin_registry_value_path(reg_val) %></li>
+                <li>
+                    <%= link_to(_('Delete'), super_admin_registry_value_path(reg_val), 'data-method': 'delete',
+                        'data-confirm': _("Are you sure you want to delete this registry value")) %>
+                </li>
+            </ul>
+            </div>
+        </td>
+    </tr>
+<% end %>

@@ -18,7 +18,8 @@ module Dmpopidor
             Department: _("department"),
             User: obj == current_user ? _("profile") : _("user"),
             MadmpSchema: _("schema"),
-            Registry: _("registry")
+            Registry: _("registry"),
+            RegistryValue: _("registry value")
           }
           if obj.respond_to?(:customization_of) && obj.send(:customization_of).present?
             display_name[:Template] = "customization"
