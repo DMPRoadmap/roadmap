@@ -1,7 +1,7 @@
 <%# locals: { plan, research_output, research_output_types } %>
 <% research_outputs.each_with_index do |research_output, index|%>
   <% research_output_fragment = research_output.json_fragment %>
-  <% research_output_data = research_output_fragment.description.data if research_output_fragment.present?%>
+  <% research_output_data = research_output_fragment.research_output_description.data if research_output_fragment.present?%>
   <%= form_for research_output, url: plan_research_output_path(:id => research_output.id, :plan_id => plan.id), html: {method: :put, remote: true, id: nil } do |f| %>
     <div class='research-output-element <%= index != 0 ? '' : 'inactive' %>'>
       <div class='research-output-fields'>
