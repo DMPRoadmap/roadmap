@@ -9,6 +9,11 @@ module SuperAdmin
       render(:index, locals: { registries: Registry.all.page(1) })
     end
 
+    def show
+      authorize(Registry)
+      @registry = Registry.includes(:registry_values).find(params[:id])
+    end
+
     def new
       authorize(Registry)
       @registry = Registry.new

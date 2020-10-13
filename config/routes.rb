@@ -301,7 +301,7 @@ Rails.application.routes.draw do
     resources :orgs, only: [:index, :new, :create, :destroy]
     resources :themes, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :madmp_schemas, only: [:index, :new, :create, :edit, :update, :destroy]
-    resources :registries, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :registries
     resources :users, only: [:edit, :update] do
       member do
         put :merge

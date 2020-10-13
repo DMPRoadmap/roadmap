@@ -17,4 +17,8 @@ class RegistryValue < ActiveRecord::Base
   
   belongs_to :registry
 
+
+  def to_s
+    data.to_s
+  end
 end

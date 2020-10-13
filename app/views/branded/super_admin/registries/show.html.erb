@@ -1,0 +1,34 @@
+<div class="row super-admin">
+  <div class="col-xs-12">
+    <h2>
+        <%= @registry.name %>
+        <%= link_to(_('View all registries'), super_admin_registries_path,
+            class: 'btn btn-default pull-right', role: 'button') %>
+    </h2>
+  </div>
+</div>
+<dl class="dl-horizontal">
+    <dt><%= _('Name') %></dt>
+    <dd><%= @registry.name %></dd>
+    <dt><%= _('Description') %></dt>
+    <dd><%= sanitize @registry.description %></dd>
+    <dt><%= _('URI') %></dt>
+    <dd><%= @registry.uri %></dd>
+    <dt><%= _('Version') %></dt>
+    <dd><%= @registry.version %></dd>
+    <h3><%= _('Values') %></h3>
+    <table class="table table-hover registry-values">
+        <thead>
+            <th scope="col"><%= _('Value') %></th>
+        </thead>
+        <tbody>
+            <% @registry.registry_values.each do |reg_val| %>
+            <!-- Using the plan owner as the requestor even though it could have been issued by a co-owner -->
+            <!-- TODO: correct this behavior once the notification table is in place -->
+            <tr>
+                <td><%= reg_val.to_s %></td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</dl>

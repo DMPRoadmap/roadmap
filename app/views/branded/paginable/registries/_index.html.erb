@@ -12,7 +12,7 @@
     <tbody>
       <% scope.each do |registry| %>
         <tr>
-          <td><%= registry.name %></td>
+          <td><%= link_to registry.name, super_admin_registry_path(registry) %></td>
           <td><%= registry.description %></td>
           <td><%= registry.uri %></td>
           <td><%= registry.version %></td>
@@ -28,6 +28,7 @@
                 <%= _('Actions') %><span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="org-<%= registry.id %>-actions">
+                <li><%= link_to _('View'), super_admin_registry_path(registry) %></li>
                 <li><%= link_to _('Edit'), edit_super_admin_registry_path(registry) %></li>
               </ul>
             </div>

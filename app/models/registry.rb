@@ -19,7 +19,7 @@ class Registry < ActiveRecord::Base
   # = Associations =
   # ================
 
-  has_many :registry_values
+  has_many :registry_values, dependent: :destroy
 
   belongs_to :org
 
