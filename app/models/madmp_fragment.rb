@@ -106,20 +106,21 @@ class MadmpFragment < ActiveRecord::Base
 
   # Returns a human readable version of the structured answer
   def to_s 
-    displayable = ""
-    if json_schema["to_string"]
-      json_schema["to_string"].each do |pattern|
-        # if it's a JsonPath pattern
-        if pattern.first == "$"
-          displayable += JsonPath.on(self.data, pattern).first
-        else 
-          displayable += pattern
-        end
-      end
-    else 
-      displayable = self.data.to_s
-    end
-    displayable
+  # displayable = ""
+  # if json_schema["to_string"]
+  #   json_schema["to_string"].each do |pattern|
+  #     # if it's a JsonPath pattern
+  #     if pattern.first == "$"
+  #       displayable += JsonPath.on(self.data, pattern).first
+  #     else 
+  #       displayable += pattern
+  #     end
+  #   end
+  # else 
+  #   displayable = self.data.to_s
+  # end
+  # displayable
+    self.data.to_s
   end
 
   # This method generates references to the child fragments in the parent fragment
