@@ -18,16 +18,13 @@ test:
   database: 'test_db'
 
 uat:
-  adapter: mysql2
   encoding: utf8mb4
   url: <%= Rails.application.secrets.database_url %>
 
 staging:
-  adapter: mysql2
   encoding: utf8mb4
   url: <%= Rails.application.secrets.database_url %>
 
 production:
-  adapter: mysql2
   encoding: utf8mb4
   url: <%= Rails.application.secrets.database_url %>
