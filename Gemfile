@@ -44,6 +44,11 @@ group :pgsql do
   gem 'pg', '~> 0.19.0'
 end
 
+group :nulldb do
+  # A null db adapter so we can perform tast rake assets:precompile with production environment without a live database.
+  gem "activerecord-nulldb-adapter"
+end
+
 group :thin do
   # A thin and fast web server (http://code.macournoyer.com/thin/)
   gem 'thin'

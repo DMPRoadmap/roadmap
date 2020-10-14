@@ -30,6 +30,8 @@ GEM
       activemodel (= 4.2.11.3)
       activesupport (= 4.2.11.3)
       arel (~> 6.0)
+    activerecord-nulldb-adapter (0.4.0)
+      activerecord (>= 2.0.0)
     activerecord-session_store (1.1.3)
       actionpack (>= 4.0)
       activerecord (>= 4.0)
@@ -483,6 +485,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-nulldb-adapter
   activerecord-session_store
   annotate
   annotate_gem
