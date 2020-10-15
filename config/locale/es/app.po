@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: app 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2020-09-15 15:51+0000\n"
-"PO-Revision-Date: 2020-09-15 17:51+0200\n"
+"POT-Creation-Date: 2020-10-12 13:09+0000\n"
+"PO-Revision-Date: 2020-10-12 15:09+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Spanish\n"
 "Language: es\n"
@@ -247,7 +247,7 @@ msgstr "Añadir"
 #: ../../app/controllers/org_admin/departments_controller.rb:48
 #: ../../app/controllers/org_admin/sections_controller.rb:102
 #: ../../app/controllers/org_admin/templates_controller.rb:203
-#: ../../app/controllers/orgs_controller.rb:82
+#: ../../app/controllers/orgs_controller.rb:83
 #: ../../app/controllers/plans_controller.rb:257
 #: ../../app/controllers/plans_controller.rb:260
 #: ../../app/controllers/registrations_controller.rb:236
@@ -266,7 +266,7 @@ msgstr "Guardado"
 #: ../../app/controllers/org_admin/departments_controller.rb:50
 #: ../../app/controllers/org_admin/sections_controller.rb:104
 #: ../../app/controllers/org_admin/templates_controller.rb:208
-#: ../../app/controllers/orgs_controller.rb:84
+#: ../../app/controllers/orgs_controller.rb:85
 #: ../../app/controllers/plans_controller.rb:266
 #: ../../app/controllers/plans_controller.rb:269
 #: ../../app/controllers/plans_controller.rb:273
@@ -572,15 +572,15 @@ msgstr ""
 msgid "Unable to download the DMP Template at this time."
 msgstr "No se puede descargar la plantilla DMP en este momento."
 
-#: ../../app/controllers/orgs_controller.rb:105
+#: ../../app/controllers/orgs_controller.rb:106
 msgid "No organisations are currently registered."
 msgstr "No hay organizaciones actualmente registradas."
 
-#: ../../app/controllers/orgs_controller.rb:127
+#: ../../app/controllers/orgs_controller.rb:128
 msgid "Your organisation does not seem to be properly configured."
 msgstr "Su organización no parece estar correctamente configurada."
 
-#: ../../app/controllers/orgs_controller.rb:132
+#: ../../app/controllers/orgs_controller.rb:133
 msgid "Please choose an organisation"
 msgstr "Por favor elige una organización"
 
@@ -1156,6 +1156,8 @@ msgstr "Su ORCID"
 #: ../../app/views/plans/index.html.erb:29
 #: ../../app/views/plans/new.html.erb:123
 #: ../../app/views/shared/_create_plan_modal.html.erb:5
+#: ../../spec/features/locales_spec.rb:54
+#: ../../spec/features/locales_spec.rb:71
 msgid "Create plan"
 msgstr "Crear un plan"
 
@@ -1917,10 +1919,10 @@ msgstr "Ver todos los contribuyentes"
 
 #: ../../app/views/contributors/index.html.erb:14
 msgid ""
-"Please list the project’s Principle Investigator(s) and those responsible for "
+"Please list the project’s Principal Investigator(s) and those responsible for "
 "data management."
 msgstr ""
-"Enumere los Investigadores principales del proyecto y los responsables de la g"
+"Indique los investigadores principales del proyecto y los responsables de la g"
 "estión de datos."
 
 #: ../../app/views/contributors/index.html.erb:28
