@@ -129,10 +129,10 @@ class ResearchOutput < ActiveRecord::Base
         fragment_description.save!
       end
     else
-      data = fragment.description.data.merge({
+      data = fragment.research_output_description.data.merge({
         "title" => self.fullname
       })
-      fragment.description.update(data: data)
+      fragment.research_output_description.update(data: data)
     end
   end
 
