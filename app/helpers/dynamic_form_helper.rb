@@ -1,79 +1,73 @@
 module DynamicFormHelper
 
   def create_text_field(form, value, name, label, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
-    render partial: 'shared/dynamic_form/fields/text_field', 
+    render partial: "shared/dynamic_form/fields/text_field",
     locals: {
       f: form, 
       multiple: is_multiple,
       index: index,
-      field_value: value, 
-      field_name: name, 
+      field_value: value,
+      field_name: name,
       field_label: label,
       field_class: html_class,
       input_type: nil,
-      readonly: readonly, 
+      readonly: readonly,
       validation: validation,
       ttip: ttip,
       example: example,
       default_value: default_value
     }
   end
-
-
 
   def create_url_field(form, value, name, label, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
-    render partial: 'shared/dynamic_form/fields/text_field', 
+    render partial: "shared/dynamic_form/fields/text_field",
     locals: {
-      f: form, 
+      f: form,
       multiple: is_multiple,
       index: index,
-      field_value: value, 
-      field_name: name, 
+      field_value: value,
+      field_name: name,
       field_label: label,
       field_class: html_class,
-      input_type: 'url',
-      readonly: readonly, 
+      input_type: "url",
+      readonly: readonly,
       validation: validation,
       ttip: ttip,
       example: example,
       default_value: default_value
     }
   end
-  
-  
-  
+
   def create_email_field(form, value, name, label, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
-    render partial: 'shared/dynamic_form/fields/text_field', 
+    render partial: "shared/dynamic_form/fields/text_field",
     locals: {
-      f: form, 
+      f: form,
       multiple: is_multiple,
       index: index,
-      field_value: value, 
-      field_name: name, 
+      field_value: value,
+      field_name: name,
       field_label: label,
       field_class: html_class,
-      input_type: 'email',
-      readonly: readonly, 
+      input_type: "email",
+      readonly: readonly,
       validation: validation,
       ttip: ttip,
       example: example,
       default_value: default_value
     }
   end
-
-
 
   def create_date_field(form, value, name, label, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
-    render partial: 'shared/dynamic_form/fields/text_field', 
+    render partial: "shared/dynamic_form/fields/text_field",
     locals: {
-      f: form, 
+      f: form,
       multiple: is_multiple,
       index: index,
-      field_value: value, 
-      field_name: name, 
+      field_value: value,
+      field_name: name,
       field_label: label,
       field_class: html_class,
-      input_type: 'date',
+      input_type: "date",
       readonly: readonly, 
       validation: validation,
       ttip: ttip,
@@ -85,13 +79,13 @@ module DynamicFormHelper
 
 
   def create_number_field(form, value, name, label, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil)
-    render partial: 'shared/dynamic_form/fields/number_field', 
+    render partial: "shared/dynamic_form/fields/number_field",
     locals: {
       f: form, 
       multiple: is_multiple,
       index: index,
-      field_value: value, 
-      field_name: name, 
+      field_value: value,
+      field_name: name,
       field_label: label,
       field_class: html_class,
       readonly: readonly, 
@@ -100,28 +94,27 @@ module DynamicFormHelper
     }
   end
 
-
-
-  def create_checkbox_field(form, value, name, label, validation: nil, html_class: nil, readonly: false)
-    render partial: 'shared/dynamic_form/fields/checkbox_field', 
+  def create_checkbox_field(form, value, name, label, validation: nil, readonly: false)
+    render partial: "shared/dynamic_form/fields/checkbox_field",
     locals: {
-      f: form, 
-      field_value: value, 
-      field_name: name, 
-      field_label: label, 
-      readonly: readonly, 
+      f: form,
+      field_value: value,
+      field_name: name,
+      field_label: label,
+      readonly: readonly,
       validation: validation
     }
   end
 
-  def create_select_field(form, value, name, label, select_values, validation: nil, html_class: nil, readonly: false, multiple: false, ttip: nil, default_value: nil)
-    render partial: 'shared/dynamic_form/fields/select_field', 
+  def create_select_field(form, value, name, label, select_values, locale, validation: nil, html_class: nil, readonly: false, multiple: false, ttip: nil, default_value: nil)
+    render partial: "shared/dynamic_form/fields/select_field",
     locals: {
-      f: form, 
-      selected_value: value, 
+      f: form,
+      selected_value: value,
       field_name: name,
       field_label: label,
       select_values: select_values,
+      locale: locale,
       field_class: html_class,
       multiple: multiple,
       readonly: readonly, 
@@ -136,11 +129,11 @@ module DynamicFormHelper
     validations.each do |validation|
       case validation
       when "required"
-        message += d_('dmpopidor', 'This property is required.')
+        message += d_("dmpopidor", "This property is required.")
       when "pattern"
-        message += d_('dmpopidor', 'This property has an invalid format.')
-      else 
-        message += d_('dmpopidor', 'This property has an unknown problem : %{validation}') % {
+        message += d_("dmpopidor", "This property has an invalid format.")
+      else
+        message += d_("dmpopidor", "This property has an unknown problem : %{validation}") % {
           validation: validation
         }
       end
@@ -150,35 +143,38 @@ module DynamicFormHelper
 
   # Formats the data extract from the structured answer form to valid JSON data
   # This is useful because Rails converts all form data to strings and JSON needs the actual types
-  def data_reformater(schema, data, classname)
+  def data_reformater(schema, data, classname, locale)
     schema["properties"].each do |key, prop|
       next if data[key].nil?
-      
-      if data[key] == ""
-        data.delete(key)
-      else 
-        case prop["type"]
-        when "integer", "number"
-          data[key] = data[key].to_i
-        when "boolean"
-          data[key] = data[key] == "1"
-        when "array"
-          data[key] = data[key].kind_of?(Array) ? data[key] : [data[key]]
-        when "object"
-          if prop['schema_id'].present? && classname != "research_output"
-            sub_schema = MadmpSchema.find(prop['schema_id'])
-            data[key] = data_reformater(sub_schema.schema, data[key], sub_schema.classname)
-          end 
-          # if value["dictionnary"]
-          #   data[key] = JSON.parse(DictionnaryValue.where(id: data[key]).select(:id, :uri, :label).take.to_json)
-          # end
-        else 
+
+      case prop["type"]
+      when "integer", "number"
+        data[key] = data[key].to_i
+      when "boolean"
+        data[key] = data[key] == "1"
+      when "array"
+        data[key] = data[key].is_a?(Array) ? data[key] : [data[key]]
+      when "object"
+        if prop["schema_id"].present? && classname != "research_output"
+          sub_schema = MadmpSchema.find(prop["schema_id"])
+          data[key] = data_reformater(
+            sub_schema.schema,
+            data[key],
+            sub_schema.classname,
+            locale
+          )
+        elsif prop["registry_id"]
+          data[key] = RegistryValue.find(data[key].to_i).data
+        end
+      else
+        if prop["registry_id"]
+          data[key] = RegistryValue.find(data[key].to_i).to_s(locale)
+        else
           data[key] = data[key]
         end
-
-      end 
+      end
     end
     data
   end
-  
+
 end

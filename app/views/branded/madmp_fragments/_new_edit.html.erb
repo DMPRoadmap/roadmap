@@ -21,6 +21,7 @@
   <%= f.hidden_field :dmp_id, :value => dmp_id, id: nil %>
   <%= f.hidden_field :parent_id, :value => parent_id, id: nil %>
   <%= f.hidden_field "source", :value => "form" %>
+  <%= f.hidden_field "template_locale", :value => question.template.locale %>
   
   <fieldset aria-labelledby="answer-fieldset">
     <% classname = fragment.classname unless fragment.nil? %>

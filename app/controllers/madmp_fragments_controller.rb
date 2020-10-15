@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class MadmpFragmentsController < ApplicationController
-
   after_action :verify_authorized
   include DynamicFormHelper
 
@@ -9,11 +8,17 @@ class MadmpFragmentsController < ApplicationController
     p_params = permitted_params()
     @schemas = MadmpSchema.all
     schema = @schemas.find(p_params[:schema_id])
-    
+    template_locale = p_params[:template_locale]
+
     classname = schema.classname
-    data = data_reformater(schema.schema, schema_params(schema), schema.classname)
-    @fragment = nil 
-    
+    data = data_reformater(
+      schema.schema,
+      schema_params(schema),
+      schema.classname,
+      template_locale
+    )
+    @fragment = nil
+
     if params[:id].present?
       # rubocop:disable BlockLength
       Answer.transaction do
@@ -29,27 +34,32 @@ class MadmpFragmentsController < ApplicationController
           }
           @fragment.assign_attributes(
             data: data, 
-            additional_info: additional_info, 
+            additional_info: additional_info,
             madmp_schema_id: schema.id
           )
-  
+
           authorize @fragment
           unless p_params[:source] == "modal"
-            @fragment.answer.update!({
-              lock_version: p_params[:answer][:lock_version],
-              is_common: p_params[:answer][:is_common],
-              user_id: current_user.id
-            })
+            @fragment.answer.update!(
+              {
+                lock_version: p_params[:answer][:lock_version],
+                is_common: p_params[:answer][:is_common],
+                user_id: current_user.id
+              }
+            )
           end
           # @fragment.save!
         rescue ActiveRecord::StaleObjectError
           @stale_fragment = @fragment
-          @fragment = MadmpFragment.find_by({
-            id: params[:id],
-            dmp_id: p_params[:dmp_id]
-          })
+          @fragment = MadmpFragment.find_by(
+            {
+              id: params[:id],
+              dmp_id: p_params[:dmp_id]
+            }
+          )
         end
       end
+      # rubocop:enable BlockLength
     else
       @fragment = MadmpFragment.new(
         dmp_id: p_params[:dmp_id],
@@ -64,14 +74,16 @@ class MadmpFragmentsController < ApplicationController
       @fragment.assign_attributes(data: data, additional_info: additional_info)
 
       unless p_params[:source] == "modal"
-        @fragment.answer = Answer.create!({
-          research_output_id: p_params[:answer][:research_output_id],
-          plan_id: p_params[:answer][:plan_id],
-          question_id: p_params[:answer][:question_id],
-          lock_version: p_params[:answer][:lock_version],
-          is_common: p_params[:answer][:is_common],
-          user_id: current_user.id
-        })
+        @fragment.answer = Answer.create!(
+          {
+            research_output_id: p_params[:answer][:research_output_id],
+            plan_id: p_params[:answer][:plan_id],
+            question_id: p_params[:answer][:question_id],
+            lock_version: p_params[:answer][:lock_version],
+            is_common: p_params[:answer][:is_common],
+            user_id: current_user.id
+          }
+        )
       end
       authorize @fragment
       # @fragment.save!
@@ -84,10 +96,15 @@ class MadmpFragmentsController < ApplicationController
       if @fragment.answer.present?
         render json: render_fragment_form(@fragment, @stale_fragment)
       else 
-        render json: { 
-            "fragment_id" =>  @fragment.parent_id,
-            "classname" => classname,
-            "html" => render_fragment_list(@fragment.dmp_id, @fragment.parent_id, schema.id, p_params[:template_locale])
+        render json: {
+          "fragment_id" =>  @fragment.parent_id,
+          "classname" => classname,
+          "html" => render_fragment_list(
+            @fragment.dmp_id,
+            @fragment.parent_id,
+            schema.id,
+            template_locale
+          )
         }.to_json
       end
     end
@@ -96,7 +113,7 @@ class MadmpFragmentsController < ApplicationController
   def new_edit_linked
     @schemas = MadmpSchema.all
     @schema = @schemas.find(params[:schema_id])
-    
+
     @parent_fragment = MadmpFragment.find(params[:parent_id])
     @classname = @schema.classname
     @readonly = false
@@ -126,7 +143,7 @@ class MadmpFragmentsController < ApplicationController
     @parent_fragment = @fragment.parent 
     @readonly = true
     @templateLocale = params[:template_locale]
-    
+
     authorize @fragment
     respond_to do |format|
       format.html
@@ -134,7 +151,7 @@ class MadmpFragmentsController < ApplicationController
     end
   end
 
-  def destroy 
+  def destroy
     @fragment = MadmpFragment.find(params[:id])
     classname = @fragment.classname
     parent_id = @fragment.parent_id
@@ -142,12 +159,6 @@ class MadmpFragmentsController < ApplicationController
 
     authorize @fragment
     if @fragment.destroy
-      obj_list = MadmpFragment.where(
-        dmp_id: dmp_id,
-        parent_id: parent_id,
-        madmp_schema_id: @fragment.madmp_schema_id
-      )
-      
       render json: {
         "fragment_id" =>  parent_id,
         "classname" => classname,
