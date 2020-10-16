@@ -7,16 +7,10 @@ module Dmpopidor
       # CHANGE : Fix to creator display
       def owner
         usr_id = ::Role.where(plan_id: id, active: true)
-                      .creator
+                      .administrator
                       .order(:created_at)
                       .pluck(:user_id).first
-        if usr_id.nil?
-          usr_id = ::Role.where(plan_id: id, active: true)
-                        .administrator
-                        .order(:created_at)
-                        .pluck(:user_id).first
-        end
-        ::User.find(usr_id)
+        usr_id.present? ? ::User.find(usr_id) : nil
       end
 
       # CHANGES : ADDED RESEARCH OUTPUT SUPPORT
@@ -239,10 +233,10 @@ module Dmpopidor
         principal_investigator_fragment = create_or_update_person_fragment(project.delete(:principalInvestigator))
 
         meta[:contact] = {
-          "dbId" => contact_fragment ? contact_fragment.id : nil
+          "dbid" => contact_fragment ? contact_fragment.id : nil
         }
         project[:principalInvestigator] = {
-          "dbId" => principal_investigator_fragment ? principal_investigator_fragment.id : nil
+          "dbid" => principal_investigator_fragment ? principal_investigator_fragment.id : nil
         }
         
         dmp_fragment.meta.update(
