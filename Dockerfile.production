@@ -37,11 +37,11 @@ RUN gem install bundler
 COPY Gemfile* $INSTALL_PATH
 
 RUN bundle config --local build.sassc --disable-march-tune-native
-RUN RAILS_ENV=production bundle install --without development test --jobs=3 --retry=3
+RUN RAILS_ENV=production bundle install --without development test pgsql puma thin aws ci --jobs=3 --retry=3
 
 COPY . $INSTALL_PATH
 RUN NODE_ENV=production yarn install --prod --check-files
-RUN DB_ADAPTER=mysql2 RAILS_ENV=production MYSQL_DATABASE=null DEVISE_SECRET_KEY=pickasecuretoken bundle exec rake assets:precompile
+RUN DATABASE_URL=nulldb://user:test@127.0.0.1/roadmap RAILS_ENV=production DEVISE_SECRET_KEY=pickasecuretoken bundle exec rake assets:precompile
 
 EXPOSE 3000
 CMD bundle exec puma -C config/puma.rb
