@@ -56,6 +56,7 @@
       <%# Select 'multiple' where the user can choose multiple options %>
       <% if prop['inputType'] == 'dropdown' && prop['registry_id'] %>
         <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
+        <% value = value["id"] if value.present? %>
         <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, registryValues, template_locale, readonly: readonly, multiple: true, validation: validation, ttip: ttip, default_value: default_value) %>
       <% else %>
         <%# Input field associated with 'Add' and 'Delete' icons %>
