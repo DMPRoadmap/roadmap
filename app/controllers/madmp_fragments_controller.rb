@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class MadmpFragmentsController < ApplicationController
+
   after_action :verify_authorized
   include DynamicFormHelper
 
   def create_or_update
-    p_params = permitted_params()
+    p_params = permitted_params
     @schemas = MadmpSchema.all
     schema = @schemas.find(p_params[:schema_id])
     template_locale = p_params[:template_locale]
@@ -68,7 +69,7 @@ class MadmpFragmentsController < ApplicationController
       )
       @previous_data = nil
       @fragment.classname = classname
-      additional_info = { 
+      additional_info = {
         "validations" => MadmpFragment.validate_data(data, schema.schema)
       }
       @fragment.assign_attributes(data: data, additional_info: additional_info)
@@ -121,13 +122,13 @@ class MadmpFragmentsController < ApplicationController
 
     @fragment = nil
     dmp_id = @parent_fragment.classname == "dmp" ? @parent_fragment.id : @parent_fragment.dmp_id
-    if params[:fragment_id] 
+    if params[:fragment_id]
       @fragment = MadmpFragment.find(params[:fragment_id]) 
     else
       @fragment = MadmpFragment.new(
-          dmp_id: dmp_id,
-          parent_id: @parent_fragment.id
-        )
+        dmp_id: dmp_id,
+        parent_id: @parent_fragment.id
+      )
     end
     authorize @fragment
     respond_to do |format|
@@ -190,7 +191,7 @@ class MadmpFragmentsController < ApplicationController
         readonly: false
       })
 
-    else 
+    else
       obj_list = MadmpFragment.where(
         dmp_id: dmp_id,
         parent_id: parent_id,
@@ -271,8 +272,8 @@ class MadmpFragmentsController < ApplicationController
 
   def permitted_params
     permit_arr = [:id, :dmp_id, :parent_id, :schema_id, :source, :template_locale,
-                  answer: [:id, :plan_id, :research_output_id,
-                  :question_id, :lock_version, :is_common]
+                  answer: %i[id plan_id research_output_id
+                             question_id lock_version is_common]
                 ]
     params.require(:madmp_fragment).permit(permit_arr)
   end

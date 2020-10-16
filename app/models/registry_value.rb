@@ -17,11 +17,14 @@ class RegistryValue < ActiveRecord::Base
 
   belongs_to :registry
 
+  # Prints a representation of the registry_value according to the locale
+  # If there's a label, then the registry value is a complex object, return the label
+  # else returns the registry value is a simple string, returns the string
   def to_s(locale)
-    if data["value"].present?
-      data["value"][locale] || data["value"]
-    elsif data["label"].present?
+    if data["label"].present?
       data["label"][locale]
+    elsif data["value"].present?
+      data["value"][locale] || data["value"]
     end
   end
 

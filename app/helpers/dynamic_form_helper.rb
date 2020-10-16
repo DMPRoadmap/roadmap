@@ -141,6 +141,17 @@ module DynamicFormHelper
     message
   end
 
+  # Generate a select option "value" depending on the type of registry value
+  # if it as a "complex" value, returns the id of the registry value
+  # else returns the value (simple enum are save as String most of the time)
+  def select_value(registry_value, locale)
+    if registry_value.data["label"].present?
+      registry_value.id
+    else
+      registry_value.to_s(locale)
+    end
+  end
+
   # Formats the data extract from the structured answer form to valid JSON data
   # This is useful because Rails converts all form data to strings and JSON needs the actual types
   def data_reformater(schema, data, classname, locale)
@@ -164,13 +175,9 @@ module DynamicFormHelper
             locale
           )
         elsif prop["registry_id"]
-          data[key] = RegistryValue.find(data[key].to_i).data
-        end
-      else
-        if prop["registry_id"]
-          data[key] = RegistryValue.find(data[key].to_i).to_s(locale)
-        else
-          data[key] = data[key]
+          data[key] = RegistryValue.find(data[key].to_i).data.merge(
+            { "id": data[key].to_i }
+          )
         end
       end
     end

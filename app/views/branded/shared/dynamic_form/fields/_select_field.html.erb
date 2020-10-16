@@ -1,12 +1,17 @@
 <%# locals: { f, field_label, field_name, select_values, locale, selected_value, field_class, readonly, multiple, validation, ttip } %>
 <% field_label = field_label || 'No label defined' %>
+<% selected_value = selected_value.is_a?(String) ? select_value : select_value["id"] %>
 <div class="col-md-12">
     <%= f.label field_name, field_label, class: 'control-label' %>
 </div>
 <div class="col-md-12 dynamic-field">
     <%= select_tag field_name,
                 options_for_select(
-                    select_values.map {|v| [ v.to_s(locale), v.id ] },
+                    select_values.map {|v| [ 
+                            v.to_s(locale), 
+                            select_value(v, locale) 
+                        ] 
+                    },
                     selected: selected_value
                 ),
                 disabled: readonly,
