@@ -67,6 +67,7 @@ config/initializers/fingerprint.rb
 
 # ignore IDE files
 .idea/*
+.vscode
 
 # Ignore MAC files
 .DS_Store
