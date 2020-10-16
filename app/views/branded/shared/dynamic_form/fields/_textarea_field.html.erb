@@ -1,0 +1,34 @@
+<%# locals: { f, field_label, field_name, multiple, classname, field_name, readonly, validation, ttip, example } %>
+<% field_label = field_label || 'No label defined' %>
+<% unless multiple %>
+  <div class="col-md-12">
+    <%= f.label field_name, field_label, class: 'control-label' %>
+  </div>
+<% end %>
+<div class="col-md-12 dynamic-field">
+  <%= f.text_area field_name, 
+            value: field_value, 
+            multiple: multiple, 
+            disabled: readonly,
+            class: "form-control #{field_class} tinymce",
+            type: input_type,
+            "data-toggle": "tooltip",
+            title: ttip,
+            placeholder: example,
+            default_value: default_value  %>
+  <% if multiple && readonly == false%>
+    <div class="actions">
+      <span class="fa fa-plus-square add-record"></span>
+      <% if index != 0 %>
+        <span class="fa fa-minus-square remove-record"></span>
+      <% else %>
+        <span class="fa fa-minus-square remove-record" style="display:none"></span>
+      <% end %>
+    </div>
+  <% end %>
+  
+  <%= render partial: "shared/dynamic_form/validation_indicator", locals: {
+                validation: validation
+      } unless validation == "none"
+  %>
+</div>

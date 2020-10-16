@@ -31,6 +31,8 @@
       <%= create_url_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip, example: example, default_value: default_value) %>
     <% elsif prop['format'] == 'email' %>
       <%= create_email_field(f, value, field_name, label, readonly: readonly, validation: validation, example: example, default_value: default_value) %>
+    <% elsif prop['format'] == 'textarea' %>
+      <%= create_textarea_field(f, value, field_name, label, readonly: readonly, validation: validation, example: example, default_value: default_value) %>
     <%end%>
   <% when 'integer', 'number' %>
     <%= create_number_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip) %>
