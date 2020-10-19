@@ -15,7 +15,7 @@ The tool has four main functions:
 3. To export attractive and useful plans in a variety of formats;
 4. To allow collaborative work when creating Data Management Plans.
 
-Click here for the latest [releases].(https://github.com/DMPRoadmap/roadmap/releases/)
+Click here for the latest [releases](https://github.com/DMPRoadmap/roadmap/releases/).
 
 #### Pre-requisites
 Roadmap is a Ruby on Rails application and you will need to have:
