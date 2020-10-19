@@ -4,7 +4,7 @@
 <% additional_info = fragment.additional_info unless fragment.nil? %>
 <% validations = additional_info.present? && additional_info['validations'].present? ? additional_info["validations"] : nil %>
 
-<% dmp_fragments = fragment.present? ? fragment.get_dmp_fragments() : [] %>
+<% dmp_fragments = fragment.present? ? fragment.dmp_fragments() : [] %>
 <% schema_properties = schema.schema["properties"]%>
 <a href="#" class="load-defaults"><%= _('Load default values') %></a>
 

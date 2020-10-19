@@ -17,10 +17,10 @@
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 #
-require 'jsonpath'
+require "jsonpath"
 
 class MadmpFragment < ActiveRecord::Base
-  
+
   include ValidationMessages
   include DynamicFormHelper
 
@@ -32,7 +32,7 @@ class MadmpFragment < ActiveRecord::Base
   belongs_to :madmp_schema, class_name: "MadmpSchema"
   belongs_to :dmp, class_name: "Fragment::Dmp", foreign_key: "dmp_id"
   has_many :children, class_name: "MadmpFragment", foreign_key: "parent_id"
-  belongs_to :parent, class_name: "MadmpFragment", foreign_key: "parent_id" 
+  belongs_to :parent, class_name: "MadmpFragment", foreign_key: "parent_id"
 
   # ===============
   # = Validations =
@@ -43,31 +43,31 @@ class MadmpFragment < ActiveRecord::Base
   # ================
   # = Single Table Inheritence =
   # ================
-  self.inheritance_column = :classname 
-  scope :budgets, -> { where(classname: 'budgets') } 
-  scope :costs, -> { where(classname: 'cost') } 
-  scope :data_collections, -> { where(classname: 'data_collection') } 
-  scope :data_processings, -> { where(classname: 'data_processing') } 
-  scope :data_storages, -> { where(classname: 'data_storage') } 
-  scope :distributions, -> { where(classname: 'distribution') } 
-  scope :dmps, -> { where(classname: 'dmp') } 
-  scope :documentation_qualities, -> { where(classname: 'documentation_quality') } 
-  scope :ethical_issues, -> { where(classname: 'ethical_issue') } 
-  scope :funders, -> { where(classname: 'funder') } 
-  scope :fundings, -> { where(classname: 'funding') } 
-  scope :metas, -> { where(classname: 'meta') } 
-  scope :metadata_standards, -> { where(classname: 'metadata_standard') } 
-  scope :partners, -> { where(classname: 'partner') } 
-  scope :persons, -> { where(classname: 'person') }
-  scope :personal_data_issues, -> { where(classname: 'personal_data_issue') }
-  scope :preservation_issues, -> { where(classname: 'preservation_issue') }
-  scope :projects, -> { where(classname: 'project') } 
-  scope :research_outputs, -> { where(classname: 'research_output') } 
-  scope :research_output_descriptions, -> { where(classname: 'research_output_description') } 
-  scope :reuse_datas, -> { where(classname: 'reuse_data') } 
-  scope :sharings, -> { where(classname: 'sharing') } 
-  scope :technical_resource_usages, -> { where(classname: 'technical_resource_usage') } 
-  scope :technical_resources, -> { where(classname: 'technical_resource') } 
+  self.inheritance_column = :classname
+  scope :budgets, -> { where(classname: "budgets") }
+  scope :costs, -> { where(classname: "cost") }
+  scope :data_collections, -> { where(classname: "data_collection") }
+  scope :data_processings, -> { where(classname: "data_processing") }
+  scope :data_storages, -> { where(classname: "data_storage") }
+  scope :distributions, -> { where(classname: "distribution") }
+  scope :dmps, -> { where(classname: "dmp") }
+  scope :documentation_qualities, -> { where(classname: "documentation_quality") }
+  scope :ethical_issues, -> { where(classname: "ethical_issue") }
+  scope :funders, -> { where(classname: "funder") }
+  scope :fundings, -> { where(classname: "funding") }
+  scope :metas, -> { where(classname: "meta") }
+  scope :metadata_standards, -> { where(classname: "metadata_standard") }
+  scope :partners, -> { where(classname: "partner") }
+  scope :persons, -> { where(classname: "person") }
+  scope :personal_data_issues, -> { where(classname: "personal_data_issue") }
+  scope :preservation_issues, -> { where(classname: "preservation_issue") }
+  scope :projects, -> { where(classname: "project") }
+  scope :research_outputs, -> { where(classname: "research_output") }
+  scope :research_output_descriptions, -> { where(classname: "research_output_description") }
+  scope :reuse_datas, -> { where(classname: "reuse_data") }
+  scope :sharings, -> { where(classname: "sharing") }
+  scope :technical_resource_usages, -> { where(classname: "technical_resource_usage") }
+  scope :technical_resources, -> { where(classname: "technical_resource") }
 
 
   # =============
@@ -87,40 +87,40 @@ class MadmpFragment < ActiveRecord::Base
   # =================
 
   def plan
-    plan = nil
-    if self.answer.nil?
-      self.dmp.plan
+    if answer.nil?
+      dmp.plan
     else
-      plan = self.answer.plan
+      answer.plan
     end
   end
 
   # Returns the schema associated to the JSON fragment
   def json_schema
-    self.madmp_schema.schema
+    madmp_schema.schema
   end
 
-  def get_dmp_fragments
+  def dmp_fragments
     MadmpFragment.where(dmp_id: dmp_id).group_by(&:madmp_schema_id)
   end
 
   # Returns a human readable version of the structured answer
-  def to_s 
+  def to_s
   # displayable = ""
   # if json_schema["to_string"]
   #   json_schema["to_string"].each do |pattern|
   #     # if it's a JsonPath pattern
   #     if pattern.first == "$"
   #       displayable += JsonPath.on(self.data, pattern).first
-  #     else 
+  #     else
   #       displayable += pattern
   #     end
   #   end
-  # else 
+  # else
   #   displayable = self.data.to_s
   # end
   # displayable
-    self.data.to_s
+
+    data.to_s
   end
 
   # This method generates references to the child fragments in the parent fragment
@@ -130,22 +130,23 @@ class MadmpFragment < ActiveRecord::Base
   # this method should be called when creating or deleting a child fragment
   def update_parent_references
     return if classname.nil?
-    unless self.parent.nil?
+
+    unless parent.nil?
       # Get each fragment grouped by its classname
       classified_children = parent.children.group_by(&:classname)
-      parent_data = self.parent.data
+      parent_data = parent.data
 
       classified_children.each do |classname, children|
         if children.count >= 2
           # if there is more than 1 child, should pluralize the classname
           parent_data[classname.pluralize(children.count)] = children.map { |c| { "dbId" => c.id } }
           parent_data.delete(classname) if parent_data[classname]
-        else 
-          parent_data[classname] =  { "dbId" => children.first.id }
+        else
+          parent_data[classname] = { "dbId" => children.first.id }
           parent_data.delete(classname.pluralize(2)) if parent_data[classname.pluralize(2)]
-        end 
+        end
       end
-      self.parent.update(data: parent_data)
+      parent.update(data: parent_data)
     end
   end
 
@@ -159,13 +160,12 @@ class MadmpFragment < ActiveRecord::Base
       sa.dmp_id = answer.plan.json_fragment().id
       sa.parent_id = parent_id
     end
-    additional_info = { 
-      "validations" => self.validate_data(data, schema.schema)
+    additional_info = {
+      "validations" => validate_data(data, schema.schema)
     }
     s_answer.assign_attributes(data: data, additional_info: additional_info)
     s_answer.save
   end
-
 
   # Validate the fragment data with the linked schema 
   # and saves the result with the fragment data
@@ -173,17 +173,17 @@ class MadmpFragment < ActiveRecord::Base
     schemer = JSONSchemer.schema(schema)
     unformated = schemer.validate(data).to_a
     validations = {}
-    unformated.each do |valid| 
-      unless valid['type'] == "object"
-        key = valid['data_pointer'][1..-1]
-        if valid['type'] == "required"
-          required = JsonPath.on(valid, '$..missing_keys').flatten
-          required.each do |req| 
-            validations[req] ? validations[req].push("required") : validations[req] = ["required"]
-          end
-        else 
-          validations[key] ? validations[key].push(valid['type']) : validations[key] = [valid['type']]
-        end 
+    unformated.each do |valid|
+      next if valid["type"] == "object"
+
+      key = valid["data_pointer"][1..-1]
+      if valid["type"] == "required"
+        required = JsonPath.on(valid, "$..missing_keys").flatten
+        required.each do |req|
+          validations[req] ? validations[req].push("required") : validations[req] = ["required"]
+        end
+      else
+        validations[key] ? validations[key].push(valid["type"]) : validations[key] = [valid["type"]]
       end
     end
     validations
@@ -210,7 +210,7 @@ class MadmpFragment < ActiveRecord::Base
           madmp_schema_id: sub_schema.id
         )
         sub_fragment.classname = sub_schema.classname
-        sub_fragment.save_as_multifrag(nil) #TODO: pass the real value
+        sub_fragment.save_as_multifrag(nil) # TODO: pass the real value
         data[prop] = { "dbId": sub_fragment.id }
       end
     end
