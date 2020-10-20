@@ -153,6 +153,7 @@ class PlansController < ApplicationController
   end
 
   # GET /plans/show
+  # SEE MODULE
   def show
     @plan = Plan.includes(
       template: { phases: { sections: { questions: :answers } } },

@@ -10,20 +10,28 @@
         <!-- "Plan Metadata" tab -->
         <div id="plan_metadata" class="tab-pane in active madmp-fragment fragment-<%= meta_fragment.id %>">
           <h2><%= _("Plan Metadata") %></h2>
-          <%= render(partial: 'plans/plan_details/plan_metadata', locals: {
-                      f: f,
-                      persons: persons,
-                      meta_fragment: meta_fragment
-            } ) %>
+          <%= render(partial: 'shared/dynamic_form/form', locals: { 
+                f: f,
+                fragment: meta_fragment, 
+                schema: MadmpSchema.find_by(classname: "meta"),
+                readonly: false,
+                classname: "meta",
+                fragment_id: meta_fragment.id,
+                template_locale: @plan.template.locale
+              }) %>
         </div>
         <!-- "Project Details" tab -->
         <div id="plan_project" class="tab-pane madmp-fragment fragment-<%= project_fragment.id %>">
           <h2><%= _("Project Details") %></h2>
-          <%= render(partial: 'plans/plan_details/plan_project', locals: { 
-                      f: f,
-                      persons: persons,
-                      project_fragment: project_fragment
-            } ) %>
+          <%= render(partial: 'shared/dynamic_form/form', locals: { 
+                f: f,
+                fragment: project_fragment, 
+                schema: MadmpSchema.find_by(classname: "project"),
+                readonly: false,
+                classname: "project",
+                fragment_id: project_fragment.id,
+                template_locale: @plan.template.locale
+              }) %>
         </div>
         <!-- "Guidance Configuration" tab -->
         <div id="guidance_configuration" class="tab-pane">
