@@ -1,187 +1,239 @@
 [
-  {
-      "path": "BackupPolicy-template.json",
-      "classname": "backup_policy",
-      "question_id": null
-  },
-  {
-      "path": "ControlledKeyword-template.json",
-      "classname": "controlled_keyword",
-      "question_id": null
-  },
-  {
-      "path": "Cost-template.json",
-      "classname": "cost",
-      "question_id": null
-  },
-  {
-      "path": "CostValue-template.json",
-      "classname": "cost_value",
-      "question_id": null
-  },
-  {
-      "path": "DataOrganization-template.json",
-      "classname": "data_organization",
-      "question_id": null
-  },
-  {
-      "path": "DataProcessing-template.json",
-      "classname": "data_processing",
-      "question_id": null
-  },
-  {
-      "path": "DataStorage-template.json",
-      "classname": "data_storage",
-      "question_id": null
-  },
-  {
-      "path": "Distribution-template.json",
-      "classname": "distribution",
-      "question_id": null
-  },
-  {
-      "path": "DocumentationQuality-template.json",
-      "classname": "documentation_quality",
-      "question_id": null
-  },
-  {
-      "path": "EthicalIssues-template.json",
-      "classname": "ethical_issues",
-      "question_id": null
-  },
-  {
-      "path": "Funder-template.json",
-      "classname": "funder",
-      "question_id": null
-  },
-  {
-      "path": "Funding-template.json",
-      "classname": "funding",
-      "question_id": null
-  },
-  {
-      "path": "LegalIssues-template.json",
-      "classname": "legal_issues",
-      "question_id": null
-  },
-  {
-      "path": "LegalItem-template.json",
-      "classname": "legal_item",
-      "question_id": null
-  },
-  {
-      "path": "License-template.json",
-      "classname": "license",
-      "question_id": null
-  },
-  {
-      "path": "MetadataStandard-template.json",
-      "classname": "metadata_standard",
-      "question_id": null
-  },
-  {
-      "path": "Partner-template.json",
-      "classname": "partner",
-      "question_id": null
-  },
-  {
-      "path": "Person-template.json",
-      "classname": "person",
-      "question_id": null
-  },
-  {
-      "path": "PersonalDataIssues-template.json",
-      "classname": "personal_data_issues",
-      "question_id": null
-  },
-  {
-      "path": "Project-template.json",
-      "classname": "project",
-      "question_id": null
-  },
-  {
-      "path": "QualityAssuranceMethod-template.json",
-      "classname": "quality_assurance_method",
-      "question_id": null
-  },
-  {
-      "path": "ReusedData-template.json",
-      "classname": "reused_data",
-      "question_id": null
-  },
-  {
-      "path": "TechnicalResource-template.json",
-      "classname": "technical_resource",
-      "question_id": null
-  },
-  {
-      "path": "TechnicalResourceUsage-template.json",
-      "classname": "technical_resource_usage",
-      "question_id": null
-  },
-  {
-      "path": "ResearchOutput-template.json",
-      "classname": "research_output",
-      "question_id": null
-  },
-  {
-      "path": "DataCollection-template.json",
-      "classname": "data_collection",
-      "question_id": null
-  },
-  {
-      "path": "Identifier-template.json",
-      "classname": "identifier",
-      "question_id": null
-  },
-  {
-      "path": "ResearchOutputDescription-template.json",
-      "classname": "research_output_description",
-      "question_id": null
-  },
-  {
-      "path": "Budget-template.json",
-      "classname": "budget",
-      "question_id": null
-  },
-  {
-      "path": "SpecificData-template.json",
-      "classname": "specific_data",
-      "question_id": null
-  },
-  {
-      "path": "Contributor-template.json",
-      "classname": "contributor",
-      "question_id": null
-  },
-  {
-      "path": "DataPreservation-template.json",
-      "classname": "data_preservation",
-      "question_id": null
-  },
-  {
-      "path": "DataReuse-template.json",
-      "classname": "data_reuse",
-      "question_id": null
-  },
-  {
-      "path": "DataSharing-template.json",
-      "classname": "data_sharing",
-      "question_id": null
-  },
-  {
-      "path": "BudgetItem-template.json",
-      "classname": "budget_item",
-      "question_id": null
-  },
-  {
-      "path": "Meta-template.json",
-      "classname": "meta",
-      "question_id": null
-  },
-  {
-      "path": "DMP-template.json",
-      "classname": "dmp",
-      "question_id": null
-  }
-]
+    {
+        "schema-id": 1,
+        "path": "BackupPolicy-template.json",
+        "classname": "backup_policy",
+        "question_id": null
+    },
+    {
+        "schema-id": 2,
+        "path": "ControlledKeyword-template.json",
+        "classname": "controlled_keyword",
+        "question_id": null
+    },
+    {
+        "schema-id": 3,
+        "path": "Cost-template.json",
+        "classname": "cost",
+        "question_id": null
+    },
+    {
+        "schema-id": 4,
+        "path": "CostValue-template.json",
+        "classname": "cost_value",
+        "question_id": null
+    },
+    {
+        "path": null
+    },
+    {
+        "schema-id": 6,
+        "path": "DataOrganization-template.json",
+        "classname": "data_organization",
+        "question_id": null
+    },
+    {
+        "schema-id": 7,
+        "path": "DataProcessing-template.json",
+        "classname": "data_processing",
+        "question_id": null
+    },
+    {
+        "schema-id": 8,
+        "path": "DataStorage-template.json",
+        "classname": "data_storage",
+        "question_id": null
+    },
+    {
+        "schema-id": 9,
+        "path": "Distribution-template.json",
+        "classname": "distribution",
+        "question_id": null
+    },
+    {
+        "schema-id": 10,
+        "path": "DocumentationQuality-template.json",
+        "classname": "documentation_quality",
+        "question_id": null
+    },
+    {
+        "schema-id": 11,
+        "path": "EthicalIssues-template.json",
+        "classname": "ethical_issues",
+        "question_id": null
+    },
+    {
+        "schema-id": 12,
+        "path": "Funder-template.json",
+        "classname": "funder",
+        "question_id": null
+    },
+    {
+        "schema-id": 13,
+        "path": "Funding-template.json",
+        "classname": "funding",
+        "question_id": null
+    },
+    {
+        "schema-id": 14,
+        "path": "AgentIdentifier-template.json",
+        "classname": "identifier",
+        "question_id": null
+    },
+    {
+        "schema-id": 15,
+        "path": "LegalIssues-template.json",
+        "classname": "legal_issues",
+        "question_id": null
+    },
+    {
+        "schema-id": 16,
+        "path": "LegalItem-template.json",
+        "classname": "legal_item",
+        "question_id": null
+    },
+    {
+        "schema-id": 17,
+        "path": "License-template.json",
+        "classname": "license",
+        "question_id": null
+    },
+    {
+        "schema-id": 18,
+        "path": "MetadataStandard-template.json",
+        "classname": "metadata_standard",
+        "question_id": null
+    },
+    {
+        "schema-id": 19,
+        "path": "Partner-template.json",
+        "classname": "partner",
+        "question_id": null
+    },
+    {
+        "schema-id": 20,
+        "path": "Person-template.json",
+        "classname": "person",
+        "question_id": null
+    },
+    {
+        "schema-id": 21,
+        "path": "PersonalDataIssues-template.json",
+        "classname": "personal_data_issues",
+        "question_id": null
+    },
+    {
+        "path": null
+    },
+    {
+        "schema-id": 23,
+        "path": "Project-template.json",
+        "classname": "project",
+        "question_id": null
+    },
+    {
+        "schema-id": 24,
+        "path": "QualityAssuranceMethod-template.json",
+        "classname": "quality_assurance_method",
+        "question_id": null
+    },
+    {
+        "schema-id": 25,
+        "path": "ReusedData-template.json",
+        "classname": "reused_data",
+        "question_id": null
+    },
+    {
+        "path": null
+    },
+    {
+        "path": null
+    },
+    {
+        "schema-id": 28,
+        "path": "TechnicalResource-template.json",
+        "classname": "technical_resource",
+        "question_id": null
+    },
+    {
+        "schema-id": 29,
+        "path": "TechnicalResourceUsage-template.json",
+        "classname": "technical_resource_usage",
+        "question_id": null
+    },
+    {
+        "path": null
+    },
+    {
+        "schema-id": 31,
+        "path": "ResearchOutput-template.json",
+        "classname": "research_output",
+        "question_id": null
+    },
+    {
+        "schema-id": 32,
+        "path": "DataCollection-template.json",
+        "classname": "data_collection",
+        "question_id": 23980
+    },
+    {
+        "path": null
+    },
+    {
+        "schema-id": 34,
+        "path": "ResourceIdentifier-template.json",
+        "classname": "identifier",
+        "question_id": null
+    },
+    {
+        "schema-id": 35,
+        "path": "ResearchOutputDescription-template.json",
+        "classname": "research_output_description",
+        "question_id": null
+    },
+    {
+        "path": null
+    },
+    {
+        "schema-id": 37,
+        "path": "Budget-template.json",
+        "classname": "budget",
+        "question_id": null
+    },
+    {
+        "schema-id": 38,
+        "path": "SpecificData-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
+        "schema-id": 39,
+        "path": "Contributor-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
+        "schema-id": 40,
+        "path": "DataPreservation-template.json",
+        "classname": "data_preservation",
+        "question_id": null
+    },
+    {
+        "schema-id": 41,
+        "path": "DataReuse-template.json",
+        "classname": "data_reuse",
+        "question_id": null
+    },
+    {
+        "schema-id": 42,
+        "path": "DataSharing-template.json",
+        "classname": "data_sharing",
+        "question_id": null
+    },
+    {
+        "schema-id": 43,
+        "path": "BudgetItem-template.json",
+        "classname": "budget_item",
+        "question_id": null
+    }
+    ]
