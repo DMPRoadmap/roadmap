@@ -20,8 +20,8 @@
           <table class="table table-hover">
             <thead><tr><th><%= field_name.capitalize.pluralize(2) %></th></tr></thead>
             <tbody>
-              <% unless dmp_fragments[sub_schema.id].nil? %>
-                <% dmp_fragments[sub_schema.id].each do |val| %>
+              <% unless dmp_fragments.empty? %>
+                <% dmp_fragments.where(madmp_schema_id: sub_schema.id, parent_id: fragment.id).each do |val| %>
                   <tr><td>
                     <%= render(partial: 'shared/fragments/display', locals: {
                             fragment: val,
@@ -47,7 +47,7 @@
         <% unless classname == "research_output" || value.nil? %>
           <%
             sub_schema = sub_schemas[prop["schema_id"]]
-            sub_fragment = dmp_fragments[sub_schema.id].find { |f| f.id == value["dbid"] }
+            sub_fragment = dmp_fragments.find_by(madmp_schema_id: sub_schema.id, parent_id: fragment.id) unless dmp_fragments.empty?
           %>
           <hr/>
           <p class= "fontsize-h3"><%= field_name.capitalize %></p>

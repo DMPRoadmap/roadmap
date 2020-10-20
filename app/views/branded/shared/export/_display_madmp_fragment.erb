@@ -16,12 +16,12 @@
           <%
             sub_schema = sub_schemas[prop['items']['schema_id']]
           %>
-          <% unless dmp_fragments[sub_schema.id].nil? %>
+          <% unless dmp_fragments.empty? %>
             <td colspan=2>
               <table class="sub-fragment-list">
                 <thead><tr><th><%= field_name.capitalize.pluralize(2) %></th></tr></thead>
                 <tbody>
-                    <% dmp_fragments[sub_schema.id].each do |val| %>
+                    <% dmp_fragments.where(madmp_schema_id: sub_schema.id, parent_id: fragment.id).each do |val| %>
                       <tr><td>
                         <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
                                 fragment: val,
@@ -53,7 +53,7 @@
             <p class= "fontsize-h3"><%= field_name.capitalize %></p>
             <div class="sub-fragment">
               <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
-                              fragment: dmp_fragments[sub_schema.id], #TODO : Implement Person fragments display
+                              fragment: dmp_fragments.find_by(madmp_schema_id: sub_schema.id, parent_id: fragment.id) unless dmp_fragments.empty?, #TODO : Implement Person fragments display
                               schema: sub_schema,
                               classname: sub_schema.classname
                     } ) %>

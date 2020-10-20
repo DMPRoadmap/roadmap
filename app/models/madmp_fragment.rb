@@ -100,7 +100,7 @@ class MadmpFragment < ActiveRecord::Base
   end
 
   def get_dmp_fragments
-    MadmpFragment.where(dmp_id: dmp_id).group_by(&:madmp_schema_id)
+    MadmpFragment.where(dmp_id: dmp_id)
   end
 
   # Returns a human readable version of the structured answer

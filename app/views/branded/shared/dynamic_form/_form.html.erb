@@ -43,7 +43,7 @@
     <% if prop['items']['type'] == 'object' && prop['items']['schema_id'].present? %>
       <% unless classname == "research_output" %>
         <% sub_schema = @schemas.find_by(id: prop['items']['schema_id']) %>
-        <% values = dmp_fragments[sub_schema.id] unless dmp_fragments.empty? %>
+        <% values = dmp_fragments.where(madmp_schema_id: sub_schema.id, parent_id: fragment.id) unless dmp_fragments.empty? %>
         <%= render(partial: 'shared/dynamic_form/fields/complex_multiple_field', locals: { 
           field_values: values, 
           readonly: readonly,
@@ -80,7 +80,7 @@
             <legend class="answer-fieldset"><%= label %></legend>
             <%
               sub_schema = @schemas.find_by(id: prop["schema_id"])
-              sub_fragment = dmp_fragments[sub_schema.id].first unless dmp_fragments[sub_schema.id].nil?
+              sub_fragment = dmp_fragments.find_by(madmp_schema_id: sub_schema.id, parent_id: fragment.id) unless dmp_fragments.empty?
               # TODO : SINGLE SUB FRAGMENT SAVING
               #sub_fragment = dmp_fragments[sub_schema.id].find { |f| f.id == value["dbid"] } unless value.nil?
             %>
