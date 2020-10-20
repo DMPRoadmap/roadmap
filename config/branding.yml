@@ -7,8 +7,8 @@ defaults: &defaults
     abbreviation: 'CC'  # This value is used to identify the default guidance that get auto-selected when a new plan is created
     url: 'https://github.com/DMPRoadmap/roadmap/wiki'
     copywrite_name: 'Curation Centre (CC)'
-    email: 'tester@cc_curation_centre.org'
-    helpdesk_email: 'someone@somewhere.com'
+    email: 'support@portagenetwork.ca'
+    helpdesk_email: 'support@portagenetwork.ca'
     welcome_links:
       - link1:
         title: 'Digital Curation Centre'
@@ -30,7 +30,7 @@ defaults: &defaults
     #          replace the link in all email communications as well as the contact link in the page footer!
     #
     #          Comment this line out if you want to use DMPRoadmap's built-in contact form.
-    contact_us_url: 'https://somewhere.com/contact-us'
+    contact_us_url: 'https://portagenetwork.ca/contact-us/'
 
   application: &application_defaults
     name: 'DMPRoadmap'
