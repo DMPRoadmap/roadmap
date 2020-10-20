@@ -22,6 +22,8 @@
     <% if prop['inputType'].present? %>
       <% if prop['inputType'] == 'dropdown' && dropdownValues %>
         <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, dropdownValues, readonly: readonly, validation: validation, ttip: ttip, default_value: default_value) %>
+      <% elsif prop['inputType'] == 'textarea' %>
+        <%= create_textarea_field(f, value, field_name, label, readonly: readonly, validation: validation, example: example, default_value: default_value) %>
       <% end %>
     <% elsif prop['format'].nil?%>
       <%= create_text_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip, example: example, default_value: default_value) %>
@@ -31,8 +33,6 @@
       <%= create_url_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip, example: example, default_value: default_value) %>
     <% elsif prop['format'] == 'email' %>
       <%= create_email_field(f, value, field_name, label, readonly: readonly, validation: validation, example: example, default_value: default_value) %>
-    <% elsif prop['format'] == 'textarea' %>
-      <%= create_textarea_field(f, value, field_name, label, readonly: readonly, validation: validation, example: example, default_value: default_value) %>
     <%end%>
   <% when 'integer', 'number' %>
     <%= create_number_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip) %>
