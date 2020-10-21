@@ -4,6 +4,7 @@
   <% research_output_data = research_output_fragment.research_output_description.data if research_output_fragment.present?%>
   <%= form_for research_output, url: plan_research_output_path(:id => research_output.id, :plan_id => plan.id), html: {method: :put, remote: true, id: nil } do |f| %>
     <div class='research-output-element <%= index != 0 ? '' : 'inactive' %>'>
+      <%= hidden_field_tag 'research-output-id', research_output.id, class: 'research-output-id' %>
       <div class='research-output-fields'>
         <div class='research-output-field form-group research-output-abbreviation'>
           <%= f.label :abbreviation, d_('dmpopidor', 'Abbreviated Name (20 chars max.)'),  class: 'control-label' %>
