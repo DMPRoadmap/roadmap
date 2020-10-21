@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "CostValueStandard",
+    "description": "CostValueStandard template",
+    "type": "object",
+    "extensible": 1,
+    "properties": {
+        "amount": {
+            "type": "number",
+            "description": "Valeur numérique du montant",
+            "label@fr_FR": "Montant",
+            "label@en_GB": "Amount",
+            "tooltip@fr_FR": "Saisir le montant",
+            "tooltip@en_GB": "Enter the amount"
+        },
+        "currency": {
+            "type": "string",
+            "description": "Monnaie dans laquelle ce coût est exprimé (Référentiel des monnaies. (Voir ISO 4217))",
+            "inputType": "dropdown",
+            "label@fr_FR": "Devise",
+            "label@en_GB": "Currency",
+            "values@fr_FR": [
+                "EUR",
+                "GBP",
+                "USD"
+            ],
+            "values@en_GB": [
+                "EUR",
+                "GBP",
+                "USD"
+            ]
+        }
+    },
+    "required": [
+        "amount",
+        "currency"
+    ],
+    "to_string": [
+        "CostValueStandard: to_string not defined"
+    ]
+}

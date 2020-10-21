@@ -1,0 +1,112 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataStorageStandard",
+    "description": "DataStorageStandard template",
+    "type": "object",
+    "extensible": 1,
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Titre du besoin en stockage",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description des besoins de stockage",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        },
+        "storage": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "technical_resource_usage",
+                "extensible": 1,
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": 29,
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Usage d'une ressource technique pour le stockage et sauvegarde des données",
+            "label@fr_FR": "Stockage par une ressource extérieure",
+            "label@en_GB": "Storage by an external resource"
+        },
+        "securityMeasures": {
+            "type": "string",
+            "description": "Description des mesures prises pour assurer la sécurité des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Mesures de sécurité",
+            "label@en_GB": "Security measures"
+        },
+        "backupPolicy": {
+            "type": "object",
+            "class": "backup_policy",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "schema_id": 1,
+            "required": [
+                "dbid"
+            ],
+            "description": "Informations relatives à la politique de sauvegarde",
+            "label@fr_FR": "Politique de sauvegarde",
+            "label@en_GB": "Backup policy"
+        },
+        "contributors": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": 39,
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) responsable(s) du suivi du stockage des données",
+            "label@fr_FR": "Personne en charge du stockage",
+            "label@en_GB": "Person in charge of storage"
+        },
+        "cost": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "cost",
+                "extensible": 1,
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": 3,
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coûts éventuels liés au stockage des données",
+            "label@fr_FR": "Coût de stockage",
+            "label@en_GB": "Coût de stockage"
+        }
+    },
+    "required": [
+        "title",
+        "description"
+    ],
+    "to_string": [
+        "DataStorageStandard: to_string not defined"
+    ]
+}

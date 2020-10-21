@@ -1,0 +1,56 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "PartnerStandard",
+    "description": "PartnerStandard template",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Nom de l'organisation ou structure partenaire",
+            "label@fr_FR": "Nom",
+            "label@en_GB": "Name"
+        },
+        "orgId": {
+            "type": "object",
+            "class": "identifier",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "schema_id": 14,
+            "required": [
+                "dbid"
+            ],
+            "description": "Identifiant de l'organisation ou structure partenaire",
+            "label@fr_FR": "Org ID",
+            "label@en_GB": "Org ID"
+        },
+        "dataPolicyIdentifier": {
+            "type": "object",
+            "class": "identifier",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "schema_id": 34,
+            "required": [
+                "dbid"
+            ],
+            "description": "Url de la politique des données du partenaire",
+            "label@fr_FR": "Identifiant de la politique de données",
+            "label@en_GB": "Data policy ID",
+            "tooltip@fr_FR": "Saisir une URL ou un identifiant de la politique de gestion des données du partenaire ou de sa tutelle",
+            "tooltip@en_GB": "Enter a URL or an ID of the data policy of the partner or its regulatory authority",
+            "example": "https://anr.fr/fr/lanr-et-la-recherche/engagements-et-valeurs/la-science-ouverte/\nhttps://hal.inrae.fr/hal-02801732"
+        }
+    },
+    "required": [
+        "name"
+    ],
+    "to_string": [
+        "PartnerStandard: to_string not defined"
+    ]
+}

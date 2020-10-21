@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "../Documentation/Implementation/data_model/Json/",
-    "title": "Resource Identifier",
-    "description": "Identifier template",
+    "title": "ResourceIdentifier",
+    "description": "ResourceIdentifier template",
     "type": "object",
     "properties": {
         "value": {
@@ -16,14 +16,30 @@
             "description": "Type d'identifiant (énumérations en fonction de l'objet ou agent)",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
-            "label@en_GB": "Identifier type"
+            "label@en_GB": "Identifier type",
+            "values@fr_FR": [
+                "DOI",
+                "ARK",
+                "Handle",
+                "IGSN",
+                "Autres"
+            ],
+            "values@en_GB": [
+                "DOI",
+                "ARK",
+                "Handle",
+                "IGSN",
+                "Other"
+            ]
         }
     },
     "required": [
         "value",
+        "IdType",
+        "value",
         "IdType"
     ],
     "to_string": [
-        "Identifier: to_string not defined"
+        "ResourceIdentifier: to_string not defined"
     ]
 }

@@ -1,0 +1,40 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "BudgetStandard",
+    "description": "BudgetStandard template",
+    "type": "object",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description générale des coûts et des ressources (rôles, responsabilités, …) utilisés pour la gestion des données de la recherche",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        },
+        "budgetItem": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "budget_item",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": 43,
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Elément de description des coûts",
+            "label@fr_FR": "Liste détaillée des coûts",
+            "label@en_GB": "Details of cost description"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": [
+        "BudgetStandard: to_string not defined"
+    ]
+}

@@ -1,0 +1,51 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "PersonStandard",
+    "description": "PersonStandard template",
+    "type": "object",
+    "properties": {
+        "lastName": {
+            "type": "string",
+            "description": "Nom de famille",
+            "label@fr_FR": "Nom",
+            "label@en_GB": "Last name"
+        },
+        "firstName": {
+            "type": "string",
+            "description": "Prénom",
+            "label@fr_FR": "Prénom",
+            "label@en_GB": "First name"
+        },
+        "mbox": {
+            "type": "string",
+            "format": "mail",
+            "description": "Adresse mail de la personne",
+            "label@fr_FR": "Email",
+            "label@en_GB": "Email"
+        },
+        "personId": {
+            "type": "object",
+            "class": "identifier",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "schema_id": 14,
+            "required": [
+                "dbid"
+            ],
+            "description": "Identifiant pérenne de la personne (Identifiant dans un référentiel spécifié)",
+            "label@fr_FR": "ID",
+            "label@en_GB": "ID"
+        }
+    },
+    "required": [
+        "lastName",
+        "firstName"
+    ],
+    "to_string": [
+        "PersonStandard: to_string not defined"
+    ]
+}

@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "../Documentation/Implementation/data_model/Json/",
-    "title": "AgentIdentifier",
-    "description": "AgentIdentifier template",
+    "title": "IdentifierStandard",
+    "description": "IdentifierStandard template",
     "type": "object",
     "properties": {
         "value": {
@@ -16,32 +16,14 @@
             "description": "Type d'identifiant (énumérations en fonction de l'objet ou agent)",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
-            "label@en_GB": "Identifier type",
-            "values@fr_FR": [
-                "ORCID",
-                "ROR ID",
-                "FundRef",
-                "ISSNI",
-                "IdRef",
-                "Autres"
-            ],
-            "values@en_GB": [
-                "ORCID",
-                "ROR ID",
-                "FundRef",
-                "ISSNI",
-                "IdRef",
-                "Other"
-            ]
+            "label@en_GB": "Identifier type"
         }
     },
     "required": [
         "value",
-        "IdType",
-        "value",
         "IdType"
     ],
     "to_string": [
-        "AgentIdentifier: to_string not defined"
+        "IdentifierStandard: to_string not defined"
     ]
 }

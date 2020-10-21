@@ -1,0 +1,72 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DMPStandard",
+    "description": "DMPStandard template",
+    "type": "object",
+    "properties": {
+        "identifier": {
+            "type": "number",
+            "description": "Identifiant interne à l'application DMP OPIDoR"
+        },
+        "meta": {
+            "type": "object",
+            "class": "meta",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "schema_id": 44,
+            "required": [
+                "dbid"
+            ],
+            "description": "Ensemble des métadonnées concernant le plan de gestion de données",
+            "label@fr_FR": "Métadonnées du plan",
+            "label@en_GB": "Plan Metadata"
+        },
+        "project": {
+            "type": "object",
+            "class": "project",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "schema_id": 23,
+            "required": [
+                "dbid"
+            ],
+            "description": "Aspects relatifs au projet de recherche ou activité de recherche",
+            "label@fr_FR": "Renseignements sur le projet",
+            "label@en_GB": "Project Details"
+        },
+        "researchOutput": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "research_output",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": 31,
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Ensemble des informations concernant les produits de recherche générés dans le cadre du projet ou activité de recherche"
+        }
+    },
+    "required": [
+        "identifier",
+        "meta",
+        "project",
+        "researchOutput"
+    ],
+    "to_string": [
+        "DMPStandard: to_string not defined"
+    ]
+}

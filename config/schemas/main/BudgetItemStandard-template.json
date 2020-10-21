@@ -1,0 +1,66 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "BudgetItemStandard",
+    "description": "BudgetItemStandard template",
+    "type": "object",
+    "extensible": 1,
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Informations additionnelles concernant le budget et répartition des responsabilités",
+            "inputType": "textarea",
+            "label@fr_FR": "Description ",
+            "label@en_GB": "Description"
+        },
+        "cost": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "cost",
+                "extensible": 1,
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": 3,
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Ressources et budget alloués à la gestion des données",
+            "label@fr_FR": "Coûts ",
+            "label@en_GB": "Costs"
+        },
+        "contributors": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "class": "contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "schema_id": 39,
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Personnes ayant contribué à la gestion des données et leurs rôles",
+            "label@fr_FR": "Personne(s) ayant contribué à la gestion des données et leurs rôles ",
+            "label@en_GB": "Person in charge of data management and their roles"
+        }
+    },
+    "required": [
+        "description",
+        "cost",
+        "contributors"
+    ],
+    "to_string": [
+        "BudgetItemStandard: to_string not defined"
+    ]
+}

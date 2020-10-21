@@ -29,12 +29,13 @@ def load_schemas
     # and skip the iteration
     # This is used to offset schemas to match existing schemas on the development server
     if s['path'].nil?
+      name = "(empty schema #{empty_schema_index})"
       MadmpSchema.create!(
         label: "(empty schema #{empty_schema_index})",
-        name: "(empty schema #{empty_schema_index})",
+        name: name,
         schema: '{}', org_id: Org.first.id,
         classname: 'empty_schema'
-      )
+      ) unless MadmpSchema.find_by(name: name).present?
       p "Empty schemas created (total: #{empty_schema_index})"
       empty_schema_index += 1
       next
@@ -46,9 +47,10 @@ def load_schemas
     d = JSON.load(f)
     t = d['title']
     c = s['classname']
+    i = s['schema-id']
 
     # Search for an existing schema by name/title
-    ss = MadmpSchema.find_by(name: t)
+    ss = MadmpSchema.find_by(id: i)
 
     # If the schema doesn't exist, create it
     if ss.nil?

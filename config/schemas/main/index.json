@@ -1,76 +1,78 @@
 [
     {
         "schema-id": 1,
-        "path": "BackupPolicy-template.json",
+        "path": "BackupPolicyStandard-template.json",
         "classname": "backup_policy",
         "question_id": null
     },
     {
         "schema-id": 2,
-        "path": "ControlledKeyword-template.json",
+        "path": "ControlledKeywordStandard-template.json",
         "classname": "controlled_keyword",
         "question_id": null
     },
     {
         "schema-id": 3,
-        "path": "Cost-template.json",
+        "path": "CostStandard-template.json",
         "classname": "cost",
         "question_id": null
     },
     {
         "schema-id": 4,
-        "path": "CostValue-template.json",
+        "path": "CostValueStandard-template.json",
         "classname": "cost_value",
         "question_id": null
     },
     {
-        "path": null
+        "path": null,
+        "classname": "specific_data",
+        "question_id": null
     },
     {
         "schema-id": 6,
-        "path": "DataOrganization-template.json",
+        "path": "DataOrganizationStandard-template.json",
         "classname": "data_organization",
         "question_id": null
     },
     {
         "schema-id": 7,
-        "path": "DataProcessing-template.json",
+        "path": "DataProcessingStandard-template.json",
         "classname": "data_processing",
         "question_id": null
     },
     {
         "schema-id": 8,
-        "path": "DataStorage-template.json",
+        "path": "DataStorageStandard-template.json",
         "classname": "data_storage",
         "question_id": null
     },
     {
         "schema-id": 9,
-        "path": "Distribution-template.json",
+        "path": "DistributionStandard-template.json",
         "classname": "distribution",
         "question_id": null
     },
     {
         "schema-id": 10,
-        "path": "DocumentationQuality-template.json",
+        "path": "DocumentationQualityStandard-template.json",
         "classname": "documentation_quality",
         "question_id": null
     },
     {
         "schema-id": 11,
-        "path": "EthicalIssues-template.json",
+        "path": "EthicalIssuesStandard-template.json",
         "classname": "ethical_issues",
         "question_id": null
     },
     {
         "schema-id": 12,
-        "path": "Funder-template.json",
+        "path": "FunderStandard-template.json",
         "classname": "funder",
         "question_id": null
     },
     {
         "schema-id": 13,
-        "path": "Funding-template.json",
+        "path": "FundingStandard-template.json",
         "classname": "funding",
         "question_id": null
     },
@@ -82,102 +84,112 @@
     },
     {
         "schema-id": 15,
-        "path": "LegalIssues-template.json",
+        "path": "LegalIssuesStandard-template.json",
         "classname": "legal_issues",
         "question_id": null
     },
     {
         "schema-id": 16,
-        "path": "LegalItem-template.json",
+        "path": "LegalItemStandard-template.json",
         "classname": "legal_item",
         "question_id": null
     },
     {
         "schema-id": 17,
-        "path": "License-template.json",
+        "path": "LicenseStandard-template.json",
         "classname": "license",
         "question_id": null
     },
     {
         "schema-id": 18,
-        "path": "MetadataStandard-template.json",
+        "path": "MetadataStandardStandard-template.json",
         "classname": "metadata_standard",
         "question_id": null
     },
     {
         "schema-id": 19,
-        "path": "Partner-template.json",
+        "path": "PartnerStandard-template.json",
         "classname": "partner",
         "question_id": null
     },
     {
         "schema-id": 20,
-        "path": "Person-template.json",
+        "path": "PersonStandard-template.json",
         "classname": "person",
         "question_id": null
     },
     {
         "schema-id": 21,
-        "path": "PersonalDataIssues-template.json",
+        "path": "PersonalDataIssuesStandard-template.json",
         "classname": "personal_data_issues",
         "question_id": null
     },
     {
-        "path": null
+        "path": null,
+        "classname": "specific_data",
+        "question_id": null
     },
     {
         "schema-id": 23,
-        "path": "Project-template.json",
+        "path": "ProjectStandard-template.json",
         "classname": "project",
         "question_id": null
     },
     {
         "schema-id": 24,
-        "path": "QualityAssuranceMethod-template.json",
+        "path": "QualityAssuranceMethodStandard-template.json",
         "classname": "quality_assurance_method",
         "question_id": null
     },
     {
         "schema-id": 25,
-        "path": "ReusedData-template.json",
+        "path": "ReusedDataStandard-template.json",
         "classname": "reused_data",
         "question_id": null
     },
     {
-        "path": null
+        "path": null,
+        "classname": "specific_data",
+        "question_id": null
     },
     {
-        "path": null
+        "path": null,
+        "classname": "specific_data",
+        "question_id": null
     },
     {
         "schema-id": 28,
-        "path": "TechnicalResource-template.json",
+        "path": "TechnicalResourceStandard-template.json",
         "classname": "technical_resource",
         "question_id": null
     },
     {
         "schema-id": 29,
-        "path": "TechnicalResourceUsage-template.json",
+        "path": "TechnicalResourceUsageStandard-template.json",
         "classname": "technical_resource_usage",
         "question_id": null
     },
     {
-        "path": null
+        "path": null,
+        "classname": "specific_data",
+        "question_id": null
     },
     {
         "schema-id": 31,
-        "path": "ResearchOutput-template.json",
+        "path": "ResearchOutputStandard-template.json",
         "classname": "research_output",
         "question_id": null
     },
     {
         "schema-id": 32,
-        "path": "DataCollection-template.json",
+        "path": "DataCollectionStandard-template.json",
         "classname": "data_collection",
         "question_id": 23980
     },
     {
-        "path": null
+        "path": null,
+        "classname": "specific_data",
+        "question_id": null
     },
     {
         "schema-id": 34,
@@ -187,53 +199,61 @@
     },
     {
         "schema-id": 35,
-        "path": "ResearchOutputDescription-template.json",
+        "path": "ResearchOutputDescriptionStandard-template.json",
         "classname": "research_output_description",
         "question_id": null
     },
     {
-        "path": null
+        "path": null,
+        "classname": "specific_data",
+        "question_id": null
     },
     {
         "schema-id": 37,
-        "path": "Budget-template.json",
+        "path": "BudgetStandard-template.json",
         "classname": "budget",
         "question_id": null
     },
     {
         "schema-id": 38,
-        "path": "SpecificData-template.json",
+        "path": "SpecificDataStandard-template.json",
         "classname": "specific_data",
         "question_id": null
     },
     {
         "schema-id": 39,
-        "path": "Contributor-template.json",
+        "path": "ContributorStandard-template.json",
         "classname": "contributor",
         "question_id": null
     },
     {
         "schema-id": 40,
-        "path": "DataPreservation-template.json",
+        "path": "DataPreservationStandard-template.json",
         "classname": "data_preservation",
         "question_id": null
     },
     {
         "schema-id": 41,
-        "path": "DataReuse-template.json",
+        "path": "DataReuseStandard-template.json",
         "classname": "data_reuse",
         "question_id": null
     },
     {
         "schema-id": 42,
-        "path": "DataSharing-template.json",
+        "path": "DataSharingStandard-template.json",
         "classname": "data_sharing",
         "question_id": null
     },
     {
         "schema-id": 43,
-        "path": "BudgetItem-template.json",
+        "path": "BudgetItemStandard-template.json",
         "classname": "budget_item",
         "question_id": null
+    },
+    {
+        "schema-id": 44,
+        "path": "MetaStandard-template.json",
+        "classname": "meta",
+        "question_id": null
     }
-    ]
+]
