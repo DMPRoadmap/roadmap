@@ -56,7 +56,7 @@ $(() => {
             $(`#answer-locking-${data.question.id}-research-output-${data.research_output.id}`).html(data.question.locking);
           } else { // When answer is NOT stale...
             $(`#answer-locking-${data.question.id}-research-output-${data.research_output.id}`).html('');
-            form.html(data.question.form);
+            $(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`).html(data.question.form);
             if (isNumber(data.question.answer_lock_version)) {
               form.find('#answer_lock_version').val(data.question.answer_lock_version);
             }

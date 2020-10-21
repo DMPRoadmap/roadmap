@@ -129,7 +129,7 @@ class MadmpFragment < ActiveRecord::Base
   # this method should be called when creating or deleting a child fragment
   def update_parent_references
     return if classname.nil?
-    unless self.parent.nil?
+    if self.parent.present? && self.parent.classname.eql?('research_output')
       # Get each fragment grouped by its classname
       classified_children = parent.children.group_by(&:classname)
       parent_data = self.parent.data
@@ -232,32 +232,38 @@ class MadmpFragment < ActiveRecord::Base
     validations
   end
 
-  def save_as_multifrag(previous_data)
-    # save!
-    schema_properties = json_schema['properties']
+  # rubocop:todo Style/RedundantSelf
+  def save_as_multifrag(data, schema)
+    save!
+    fragmented_data = {}
     data.each do |prop, content|
-      schema_prop = schema_properties[prop]
-      if !schema_prop.nil? && schema_prop['type'].eql?('object')
+      schema_prop = schema.schema['properties'][prop]
+
+      if schema_prop['type'].eql?('object')
+        sub_data = content # TMP: for readability
         sub_schema = MadmpSchema.find(schema_prop['schema_id'])
-        sub_fragment_id = previous_data[prop]['dbid'] if previous_data
-        if sub_fragment_id.nil?
-          sub_fragment = MadmpFragment.new
-        else
-          sub_fragment = MadmpFragment.find(sub_fragment_id)
+        sub_fragment = MadmpFragment.find(self.data[prop]['dbid']) unless self.data.nil?
+
+        if sub_fragment.nil?
+          sub_fragment = MadmpFragment.new(
+            data: nil,
+            answer_id: nil,
+            # classname: sub_schema.classname,
+            dmp_id: self.dmp_id,
+            parent_id: self.id,
+            madmp_schema: sub_schema,
+            additional_info: nil
+          )
+          sub_fragment.assign_attributes(classname: sub_schema.classname)
         end
-        # sub_fragment = MadmpFragment.new(
-        sub_fragment.assign_attributes(
-          data: content,
-          dmp_id: dmp_id,
-          parent_id: id,
-          madmp_schema_id: sub_schema.id
-        )
-        sub_fragment.classname = sub_schema.classname
-        sub_fragment.save_as_multifrag(nil) #TODO: pass the real value
-        data[prop] = { "dbid": sub_fragment_id }
+
+        sub_fragment.save_as_multifrag(sub_data, sub_schema)
+        fragmented_data[prop] = { dbid: sub_fragment.id }
+      else
+        fragmented_data[prop] = content
       end
     end
-    save
+    update!(data: fragmented_data)
   end
 
   def self.find_sti_class(type_name)

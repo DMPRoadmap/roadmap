@@ -9,30 +9,29 @@ class MadmpFragmentsController < ApplicationController
     p_params = permitted_params()
     @schemas = MadmpSchema.all
     schema = @schemas.find(p_params[:schema_id])
-    
+
     classname = schema.classname
     data = data_reformater(schema.schema, schema_params(schema), schema.classname)
     @fragment = nil 
-    
+
     if params[:id].present?
       # rubocop:disable BlockLength
       Answer.transaction do
         begin
-          @fragment = MadmpFragment.find_by!(
+          @fragment = MadmpFragment.find_by(
             id: params[:id],
-            dmp_id: p_params[:dmp_id]
+            dmp_id: p_params[:dmp_id],
           )
-          @previous_data = @fragment.data
-          data = @fragment.data.merge(data)
-          additional_info = { 
+          # data = @fragment.data.merge(data)
+          additional_info = {
             "validations" => MadmpFragment.validate_data(data, schema.schema)
           }
           @fragment.assign_attributes(
-            data: data, 
+            # data: data, 
             additional_info: additional_info, 
             madmp_schema_id: schema.id
           )
-  
+
           authorize @fragment
           unless p_params[:source] == "modal"
             @fragment.answer.update!({
@@ -42,6 +41,7 @@ class MadmpFragmentsController < ApplicationController
             })
           end
           # @fragment.save!
+          @fragment.save_as_multifrag(data, schema)
         rescue ActiveRecord::StaleObjectError
           @stale_fragment = @fragment
           @fragment = MadmpFragment.find_by({
@@ -56,12 +56,14 @@ class MadmpFragmentsController < ApplicationController
         parent_id: p_params[:parent_id],
         madmp_schema: schema
       )
-      @previous_data = nil
       @fragment.classname = classname
       additional_info = { 
         "validations" => MadmpFragment.validate_data(data, schema.schema)
       }
-      @fragment.assign_attributes(data: data, additional_info: additional_info)
+      @fragment.assign_attributes(
+        # data: data,
+        additional_info: additional_info
+      )
 
       unless p_params[:source] == "modal"
         @fragment.answer = Answer.create!({
@@ -75,10 +77,8 @@ class MadmpFragmentsController < ApplicationController
       end
       authorize @fragment
       # @fragment.save!
-
+      @fragment.save_as_multifrag(data, schema)
     end
-
-    @fragment.save_as_multifrag(@previous_data)
 
     if @fragment.present?
       if @fragment.answer.present?
@@ -96,7 +96,7 @@ class MadmpFragmentsController < ApplicationController
   def new_edit_linked
     @schemas = MadmpSchema.all
     @schema = @schemas.find(params[:schema_id])
-    
+
     @parent_fragment = MadmpFragment.find(params[:parent_id])
     @classname = @schema.classname
     @readonly = false
