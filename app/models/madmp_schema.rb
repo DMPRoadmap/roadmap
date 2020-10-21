@@ -51,30 +51,30 @@ class MadmpSchema < ActiveRecord::Base
   end
 
   def get_sub_schemas
-    path = JsonPath.new('$..schema_id')
-    ids = path.on(self.schema)
+    path = JsonPath.new("$..schema_id")
+    ids = path.on(schema)
     MadmpSchema.where(id: ids).map { |s| [s.id, s] }.to_h
   end
 
   def get_sub_schemas_ids
-    path = JsonPath.new('$..schema_id')
-    ids = path.on(self.schema)
+    path = JsonPath.new("$..schema_id")
+    ids = path.on(schema)
     ids
   end
 
   def generate_strong_params(flat = false)
     parameters = Array.new
-    self.schema['properties'].each do |key, prop|
-      if prop['type'] == "object" && prop['schema_id'].present?
-        sub_schema = MadmpSchema.find(prop['schema_id'])
+    schema["properties"].each do |key, prop|
+      if prop["type"] == "object" && prop["schema_id"].present?
+        sub_schema = MadmpSchema.find(prop["schema_id"])
         parameters.append(key => sub_schema.generate_strong_params(false))
-      elsif prop['type'] == "array" && !flat
-          parameters.append({key => []})
+      elsif prop["type"] == "array" && !flat
+        parameters.append({ key => [] })
       else
-          parameters.append(key)
+        parameters.append(key)
       end
     end
     parameters
   end
-  
+
 end

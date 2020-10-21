@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 module Dmpopidor
+
   module Models
+
     module Plan
-
-
 
       # CHANGE : Fix to creator display
       def owner
         usr_id = ::Role.where(plan_id: id, active: true)
-                      .administrator
-                      .order(:created_at)
-                      .pluck(:user_id).first
+                       .administrator
+                       .order(:created_at)
+                       .pluck(:user_id).first
         usr_id.present? ? ::User.find(usr_id) : nil
       end
 
@@ -90,7 +92,7 @@ module Dmpopidor
       # 'reviewer' Role for the Plan.
       # CHANGES : Added feedback_requestor & request_date columns
       def complete_feedback(org_admin)
-       ::Plan.transaction do
+        ::Plan.transaction do
           begin
             self.feedback_requested = false
             self.feedback_requestor = nil
@@ -122,7 +124,6 @@ module Dmpopidor
         research_outputs.count
       end
 
-
       # Return the JSON Fragment linked to the Plan
       #
       # Returns JSON
@@ -134,15 +135,13 @@ module Dmpopidor
       #
       # Returns JSON
       def create_project_json(project = nil)
-        fragment = nil
         if project.nil?
-          fragment = {
-            "title" => self.title,
-            "description" => self.description
+          {
+            "title" => title,
+            "description" => description
           }
-
-        else 
-          fragment = {
+        else
+          {
             "title" => project["project_title"],
             "acronym" => project["project_acronym"],
             "description" => project["project_description"],
@@ -152,35 +151,34 @@ module Dmpopidor
             "experimentalPlanUrl" => project["experimental_plan_url"],
             "principalInvestigator" => project["principalInvestigator"]
           }
-
         end
-        fragment
       end
 
       # Create the Meta JSON Fragment
       #
       # Returns JSON
       def create_meta_json(meta = nil)
-        fragment = nil
         if meta.nil?
-          fragment = {
-            "creationDate" => self.created_at,
-            "lastModifiedDate" => self.updated_at
+          {
+            "creationDate" => created_at,
+            "lastModifiedDate" => updated_at,
+            "dmpLanguage" => template.locale
           }
         else
-          fragment = meta.merge({
-            "creationDate" => self.created_at,
-            "lastModifiedDate" => self.updated_at
-          })
+          meta.merge(
+            {
+              "creationDate" => created_at,
+              "lastModifiedDate" => updated_at
+            }
+          )
         end
-        fragment
       end
 
       # Create a Person JSON Fragment if it doesn't exist
-      # 
+      #
       # Returns JSON
       def create_or_update_person_fragment(person)
-        dmp_fragment = self.json_fragment()
+        dmp_fragment = json_fragment
         person_fragment = nil
         ## TODO : Permettre la mise à jour d'une personne
         unless person[:mbox].empty?
@@ -202,51 +200,76 @@ module Dmpopidor
         end
         person_fragment
       end
- 
+
       def create_plan_fragments
         dmp_fragment = Fragment::Dmp.create(
           data: {
-            "plan_id" => self.id
+            "plan_id" => id
           },
-          madmp_schema_id: MadmpSchema.find_by(classname: 'dmp')
-        )
-        
-        Fragment::Project.create(
-          data: create_project_json(),
-          dmp_id: dmp_fragment.id,
-          parent_id: dmp_fragment.id,
-          madmp_schema_id: MadmpSchema.find_by(classname: 'project')
+          madmp_schema_id: MadmpSchema.find_by(classname: "dmp")
         )
 
-        Fragment::Meta.create(
-          data: create_meta_json(),
+        # Create a Person fragment from the plan owner
+        person = Fragment::Person.create(
+          data: {
+            "lastName": owner.surname,
+            "firstName": owner.firstname,
+            "mbox": owner.email
+          },
+          dmp_id: dmp_fragment.id,
+          madmp_schema_id: MadmpSchema.find_by(classname: "person")
+        )
+
+        Fragment::Project.create(
+          data: {
+            "projectTitle" => title,
+            "description" => description
+          },
           dmp_id: dmp_fragment.id,
           parent_id: dmp_fragment.id,
-          madmp_schema_id: MadmpSchema.find_by(classname: 'meta')
-        )  
+          madmp_schema_id: MadmpSchema.find_by(classname: "project")
+        )
+
+        meta = Fragment::Meta.create(
+          data: {
+            "title" => title,
+            "creationDate" => created_at.strftime("%F"),
+            "lastModifiedDate" => updated_at.strftime("%F"),
+            "dmpLanguage" => template.locale
+          },
+          dmp_id: dmp_fragment.id,
+          parent_id: dmp_fragment.id,
+          madmp_schema_id: MadmpSchema.find_by(classname: "meta")
+        )
+
+        # Create a "DMP contact" Contributor and associates the Person
+        Fragment::Contributor.create(
+          data: {
+            "person": { "dbid": person.id },
+            "role": "DMP Contact"
+          },
+          dmp_id: dmp_fragment.id,
+          parent_id: meta.id,
+          madmp_schema_id: MadmpSchema.find_by(classname: "contributor")
+        )
       end
 
       def update_plan_fragments(meta, project)
-        dmp_fragment = self.json_fragment()
+        dmp_fragment = json_fragment
 
-        contact_fragment = create_or_update_person_fragment(meta.delete(:contact))
-        principal_investigator_fragment = create_or_update_person_fragment(project.delete(:principalInvestigator))
-
-        meta[:contact] = {
-          "dbid" => contact_fragment ? contact_fragment.id : nil
-        }
-        project[:principalInvestigator] = {
-          "dbid" => principal_investigator_fragment ? principal_investigator_fragment.id : nil
-        }
-        
+        # TODO : Use multifrag method
         dmp_fragment.meta.update(
-          data: create_meta_json(meta)
+          data: dmp_fragment.meta.data.merge(meta)
         )
-        
+
+        # TODO : Use multifrag method
         dmp_fragment.project.update(
-          data: create_project_json(project)
+          data: dmp_fragment.project.data.merge(project)
         )
       end
-    end 
+
+    end
+
   end
+
 end
