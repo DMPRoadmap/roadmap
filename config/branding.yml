@@ -72,5 +72,8 @@ stage:
 staging:
   <<: *defaults
 
+uat:
+  <<: *defaults
+
 production:
   <<: *defaults
