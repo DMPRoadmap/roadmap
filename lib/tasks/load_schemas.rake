@@ -2,6 +2,13 @@
 
 desc 'Loads schemas for structured questions in the database'
 
+DEBUG = false
+
+# Lazy method
+def log(message, show = DEBUG)
+  p message if show.eql?(true)
+end
+
 # Makes a question structured and links a schema to it
 def add_schema_to_question(question, schema)
   question.update(
@@ -21,23 +28,24 @@ def load_schemas
   index_p = Rails.root.join('config/schemas/main/index.json')
   index_f = File.open(index_p)
   schemas = JSON.load(index_f)
-  empty_schema_index = 1
+  # empty_schema_index = 1
 
   # Iterate over the schemas of the index.json file
+  # TODO: remove this
   schemas.each do |s|
     # If path is null in the index file, create an empty MadmpSchema
     # and skip the iteration
     # This is used to offset schemas to match existing schemas on the development server
     if s['path'].nil?
-      name = "(empty schema #{empty_schema_index})"
-      MadmpSchema.create!(
-        label: "(empty schema #{empty_schema_index})",
-        name: name,
-        schema: '{}', org_id: Org.first.id,
-        classname: 'empty_schema'
-      ) unless MadmpSchema.find_by(name: name).present?
-      p "Empty schemas created (total: #{empty_schema_index})"
-      empty_schema_index += 1
+      # name = "(empty schema #{empty_schema_index})"
+      # MadmpSchema.create!(
+      #   label: "(empty schema #{empty_schema_index})",
+      #   name: name,
+      #   schema: '{}', org_id: Org.first.id,
+      #   classname: 'empty_schema'
+      # ) unless MadmpSchema.find_by(name: name).present?
+      # p "Empty schemas created (total: #{empty_schema_index})"
+      # empty_schema_index += 1
       next
     end
 
@@ -47,10 +55,10 @@ def load_schemas
     d = JSON.load(f)
     t = d['title']
     c = s['classname']
-    i = s['schema-id']
+    # i = s['schema-id']
 
     # Search for an existing schema by name/title
-    ss = MadmpSchema.find_by(id: i)
+    ss = MadmpSchema.find_by(name: t)
 
     # If the schema doesn't exist, create it
     if ss.nil?
@@ -63,22 +71,24 @@ def load_schemas
           org_id: Org.first.id,
           classname: c
         )
-        p "Created new template: #{t} (classname: #{c}, id: #{ss.id})"
+        log "CREATED: template #{t} with classname #{c} and id #{ss.id}"
       rescue ActiveRecord::RecordInvalid => e
-        p "Error while creating #{c} template: #{e.message}"
+        log("ERROR: template #{c} is invalid (model validations): #{e.message}", true)
       end
-    # Else, update the existing schema
+      # Else, update the existing schema
     else
       ss.update(schema: d.to_json)
-      p "UPDATED template (classname: #{c})"
+      log "UPDATED: template #{t} with classname #{c} and id #{ss.id}"
     end
 
+    # TODO: remove this (from index.json too)
     q = Question.find_by(id: s['question_id'])
     add_schema_to_question(Question.find(s['question_id']), ss) unless q.nil?
   end
 end
 
 # Deletes all schemas from the database
+# TODO: remove this (unused)
 def purge_schemas
   qf_id = QuestionFormat.find_by(structured: true)&.id
   return false if qf_id.nil?
@@ -90,18 +100,27 @@ def purge_schemas
   MadmpSchema.destroy_all
 end
 
-# Replace classname keys/values with the corresponding schema_id keys/values
+# Replace template_name keys/values with the corresponding schema_id keys/values
 def fix_schemas
   MadmpSchema.all.each do |s|
     j = s.schema # Get the actual JSON schema from the MadmpSchema object
 
     # Find and replace classname values with the corresponding schema_id
-    j = JsonPath.for(j).gsub('$..classname') do |v|
-      MadmpSchema.find_by(classname: v).id
+    j = JsonPath.for(j).gsub('$..template_name') do |v|
+      begin
+        id = MadmpSchema.find_by(name: v).id
+        log "Template name substitution: [#{v} => #{id}] in #{s.name}"
+
+        id
+      # In case the above find_by returns nil
+      rescue NoMethodError
+        log("ERROR: template name substitution failed in #{s.name}: no template named #{v} was found.", true)
+        next
+      end
     end.to_json
 
     # Replace the "classname" keys with "schema_id" keys
-    j = j.gsub('classname', 'schema_id')
+    j = j.gsub('template_name', 'schema_id')
     s.update(schema: j)
   end
 end
