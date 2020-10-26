@@ -17,13 +17,13 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "identifier",
+                "class": "Identifier",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": 34,
+                "template_name": "ResourceIdentifier",
                 "required": [
                     "dbid"
                 ]
@@ -36,13 +36,13 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "contributor",
+                "class": "Contributor",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": 39,
+                "template_name": "ContributorStandard",
                 "required": [
                     "dbid"
                 ]

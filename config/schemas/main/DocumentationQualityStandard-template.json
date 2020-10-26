@@ -18,14 +18,14 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "data_organization",
+                "class": "DataOrganization",
                 "extensible": 1,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": 6,
+                "template_name": "DataOrganizationStandard",
                 "required": [
                     "dbid"
                 ]
@@ -39,13 +39,13 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "metadata_standard",
+                "class": "MetadataStandard",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": 18,
+                "template_name": "MetadataStandardStandard",
                 "required": [
                     "dbid"
                 ]
@@ -69,14 +69,14 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "quality_assurance_method",
+                "class": "QualityAssuranceMethod",
                 "extensible": 1,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": 24,
+                "template_name": "QualityAssuranceMethodStandard",
                 "required": [
                     "dbid"
                 ]
@@ -90,13 +90,13 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "contributor",
+                "class": "Contributor",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": 39,
+                "template_name": "ContributorStandard",
                 "required": [
                     "dbid"
                 ]
@@ -110,14 +110,14 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "cost",
+                "class": "Cost",
                 "extensible": 1,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": 3,
+                "template_name": "CostStandard",
                 "required": [
                     "dbid"
                 ]

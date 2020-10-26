@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "../Documentation/Implementation/data_model/Json/",
-    "title": "DataStorageStandard",
-    "description": "DataStorageStandard template",
+    "title": "DataStorageGenci",
+    "description": "DataStorageGenci template",
     "type": "object",
     "extensible": 1,
     "properties": {
@@ -23,14 +23,14 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "TechnicalResourceUsage",
+                "class": "TechnicalResourceUsageStandard",
                 "extensible": 1,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "template_name": "TechnicalResourceUsageStandard",
+                "template_name": "TechnicalResourceUsageGenci",
                 "required": [
                     "dbid"
                 ]
@@ -107,6 +107,6 @@
         "description"
     ],
     "to_string": [
-        "DataStorageStandard: to_string not defined"
+        "DataStorageGenci: to_string not defined"
     ]
 }

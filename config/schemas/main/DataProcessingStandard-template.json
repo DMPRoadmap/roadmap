@@ -28,14 +28,14 @@
         },
         "processing": {
             "type": "object",
-            "class": "technical_resource_usage",
+            "class": "TechnicalResourceUsage",
             "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 29,
+            "template_name": "TechnicalResourceUsageStandard",
             "required": [
                 "dbid"
             ],
@@ -47,13 +47,13 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "contributor",
+                "class": "Contributor",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": 39,
+                "template_name": "ContributorStandard",
                 "required": [
                     "dbid"
                 ]
@@ -66,14 +66,14 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "cost",
+                "class": "Cost",
                 "extensible": 1,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": 3,
+                "template_name": "CostStandard",
                 "required": [
                     "dbid"
                 ]

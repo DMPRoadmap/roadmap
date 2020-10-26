@@ -11,13 +11,13 @@
         },
         "meta": {
             "type": "object",
-            "class": "meta",
+            "class": "Meta",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 44,
+            "template_name": "MetaStandard",
             "required": [
                 "dbid"
             ],
@@ -27,13 +27,13 @@
         },
         "project": {
             "type": "object",
-            "class": "project",
+            "class": "Project",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 23,
+            "template_name": "ProjectStandard",
             "required": [
                 "dbid"
             ],
@@ -45,13 +45,13 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "research_output",
+                "class": "ResearchOutput",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": 31,
+                "template_name": "ResearchOutputStandard",
                 "required": [
                     "dbid"
                 ]

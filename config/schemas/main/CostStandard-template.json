@@ -43,13 +43,13 @@
         },
         "costValue": {
             "type": "object",
-            "class": "cost_value",
+            "class": "CostValue",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 4,
+            "template_name": "CostValueStandard",
             "required": [
                 "dbid"
             ],

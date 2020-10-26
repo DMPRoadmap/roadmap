@@ -68,13 +68,13 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "controlled_keyword",
+                "class": "ControlledKeyword",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": 2,
+                "template_name": "ControlledKeywordStandard",
                 "required": [
                     "dbid"
                 ]
@@ -479,13 +479,13 @@
         },
         "contact": {
             "type": "object",
-            "class": "person",
+            "class": "Person",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 20,
+            "template_name": "PersonStandard",
             "required": [
                 "dbid"
             ],
@@ -505,13 +505,13 @@
         },
         "datasetId": {
             "type": "object",
-            "class": "identifier",
+            "class": "Identifier",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 34,
+            "template_name": "ResourceIdentifier",
             "required": [
                 "dbid"
             ],
@@ -572,14 +572,14 @@
         },
         "specificData": {
             "type": "object",
-            "class": "specific_data",
+            "class": "SpecificData",
             "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 38,
+            "template_name": "SpecificDataStandard",
             "required": [
                 "dbid"
             ],

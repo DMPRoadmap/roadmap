@@ -402,13 +402,13 @@
         },
         "contact": {
             "type": "object",
-            "class": "person",
+            "class": "Person",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 20,
+            "template_name": "PersonStandard",
             "required": [
                 "dbid"
             ],
@@ -436,13 +436,13 @@
         },
         "dmpId": {
             "type": "object",
-            "class": "identifier",
+            "class": "Identifier",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 34,
+            "template_name": "ResourceIdentifier",
             "required": [
                 "dbid"
             ],
@@ -450,13 +450,13 @@
         },
         "license": {
             "type": "object",
-            "class": "license",
+            "class": "License",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 17,
+            "template_name": "LicenseStandard",
             "required": [
                 "dbid"
             ],
@@ -473,13 +473,13 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "identifier",
+                "class": "Identifier",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": 34,
+                "template_name": "ResourceIdentifier",
                 "required": [
                     "dbid"
                 ]
@@ -490,13 +490,13 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "identifier",
+                "class": "Identifier",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": 34,
+                "template_name": "ResourceIdentifier",
                 "required": [
                     "dbid"
                 ]

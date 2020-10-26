@@ -1,0 +1,29 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "GenciStatus",
+    "description": "GenciStatus template",
+    "type": "object",
+    "label@fr_FR": "Etat du stockage par rapport à une demande",
+    "properties": {
+        "dataSize": {
+            "type": "number",
+            "description": "Volume des données concernées en octets",
+            "label@fr_FR": "Taille des données",
+            "label@en_GB": "Data size",
+            "example@fr_FR": "Taille totale dans cet espace en To"
+        },
+        "numberOfFiles": {
+            "type": "number",
+            "description": "Nombre de fichiers et de répertoire",
+            "label@fr_FR": "Nombre de fichiers et de répertoires"
+        }
+    },
+    "required": [
+        "dataSize",
+        "numberOfFiles"
+    ],
+    "to_string": [
+        "GenciStatus: to_string not defined"
+    ]
+}

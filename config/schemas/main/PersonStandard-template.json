@@ -19,20 +19,20 @@
         },
         "mbox": {
             "type": "string",
-            "format": "mail",
+            "format": "email",
             "description": "Adresse mail de la personne",
             "label@fr_FR": "Email",
             "label@en_GB": "Email"
         },
         "personId": {
             "type": "object",
-            "class": "identifier",
+            "class": "Identifier",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 14,
+            "template_name": "AgentIdentifier",
             "required": [
                 "dbid"
             ],

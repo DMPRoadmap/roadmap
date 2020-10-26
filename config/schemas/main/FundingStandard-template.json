@@ -7,13 +7,13 @@
     "properties": {
         "funder": {
             "type": "object",
-            "class": "funder",
+            "class": "Funder",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 12,
+            "template_name": "FunderStandard",
             "required": [
                 "dbid"
             ],

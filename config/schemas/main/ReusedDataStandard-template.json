@@ -23,13 +23,13 @@
         },
         "datasetId": {
             "type": "object",
-            "class": "identifier",
+            "class": "Identifier",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 34,
+            "template_name": "ResourceIdentifier",
             "required": [
                 "dbid"
             ],
@@ -45,13 +45,13 @@
         },
         "license": {
             "type": "object",
-            "class": "license",
+            "class": "License",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 17,
+            "template_name": "LicenseStandard",
             "required": [
                 "dbid"
             ],

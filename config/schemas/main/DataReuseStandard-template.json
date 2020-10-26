@@ -16,14 +16,14 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "reused_data",
+                "class": "ReusedData",
                 "extensible": 1,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": 25,
+                "template_name": "ReusedDataStandard",
                 "required": [
                     "dbid"
                 ]
@@ -36,14 +36,14 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "cost",
+                "class": "Cost",
                 "extensible": 1,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": 3,
+                "template_name": "CostStandard",
                 "required": [
                     "dbid"
                 ]

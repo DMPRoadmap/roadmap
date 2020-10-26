@@ -15,13 +15,13 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "budget_item",
+                "class": "BudgetItem",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": 43,
+                "template_name": "BudgetItemStandard",
                 "required": [
                     "dbid"
                 ]

@@ -34,13 +34,13 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "funding",
+                "class": "Funding",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": 13,
+                "template_name": "FundingStandard",
                 "required": [
                     "dbid"
                 ]
@@ -72,13 +72,13 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "partner",
+                "class": "Partner",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": 19,
+                "template_name": "PartnerStandard",
                 "required": [
                     "dbid"
                 ]
@@ -90,13 +90,13 @@
         },
         "experimentalPlanIdentifier": {
             "type": "object",
-            "class": "identifier",
+            "class": "Identifier",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 34,
+            "template_name": "ResourceIdentifier",
             "required": [
                 "dbid"
             ],
@@ -106,13 +106,13 @@
         },
         "principalInvestigator": {
             "type": "object",
-            "class": "person",
+            "class": "Person",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 20,
+            "template_name": "PersonStandard",
             "required": [
                 "dbid"
             ],

@@ -116,13 +116,13 @@
         },
         "license": {
             "type": "object",
-            "class": "license",
+            "class": "License",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 17,
+            "template_name": "LicenseStandard",
             "required": [
                 "dbid"
             ],

@@ -13,13 +13,13 @@
         },
         "orgId": {
             "type": "object",
-            "class": "identifier",
+            "class": "Identifier",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 14,
+            "template_name": "AgentIdentifier",
             "required": [
                 "dbid"
             ],
@@ -29,13 +29,13 @@
         },
         "dataPolicyIdentifier": {
             "type": "object",
-            "class": "identifier",
+            "class": "Identifier",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 34,
+            "template_name": "ResourceIdentifier",
             "required": [
                 "dbid"
             ],

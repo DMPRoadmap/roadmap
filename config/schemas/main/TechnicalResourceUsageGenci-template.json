@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "../Documentation/Implementation/data_model/Json/",
-    "title": "TechnicalResourceUsageStandard",
-    "description": "TechnicalResourceUsageStandard template",
+    "title": "TechnicalResourceUsageGenci",
+    "description": "TechnicalResourceUsageGenci template",
     "type": "object",
     "extensible": 1,
     "properties": {
@@ -19,7 +19,7 @@
                 "dbid"
             ],
             "description": "Identifiant interne de la ressource technique utilisée",
-            "label@fr_FR": "Service",
+            "label@fr_FR": "Service géographique assurant le stockage",
             "label@en_GB": "Facility"
         },
         "startDate": {
@@ -32,7 +32,7 @@
         "endDate": {
             "type": "string",
             "format": "date",
-            "description": "string:format=date de fin d'utilisation de la ressource technique",
+            "description": "Date de fin d'utilisation de la ressource technique",
             "label@fr_FR": "Date de fin",
             "label@en_GB": "End date"
         },
@@ -79,7 +79,6 @@
             "items": {
                 "type": "object",
                 "class": "Cost",
-                "extensible": 1,
                 "properties": {
                     "dbid": {
                         "type": "number"
@@ -93,8 +92,8 @@
             "description": "Coût en lien avec l'utilisation de la ressource technique",
             "label@fr_FR": "Coût",
             "label@en_GB": "Cost",
-            "tooltip@fr_FR": "Coût lié à l'usage d'une resource extérieure",
-            "tooltip@en_GB": "Cost linked to the resource usage extérieure"
+            "example@fr_FR": "Coût lié à l'usage d'une resource extérieure",
+            "example@en_GB": "Cost linked to the resource usage extérieure"
         },
         "storageType": {
             "type": "array",
@@ -102,7 +101,6 @@
                 "type": "string"
             },
             "description": "Support de stockage des données",
-            "inputType": "dropdown",
             "label@fr_FR": "Support de stockage",
             "label@en_GB": "Storage type",
             "values@en_GB": [
@@ -128,14 +126,13 @@
         },
         "specificData": {
             "type": "object",
-            "class": "SpecificData",
-            "extensible": 1,
+            "class": "SpecificDataStandard",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "template_name": "SpecificDataStandard",
+            "template_name": "DataStorageGenciSpecificData",
             "required": [
                 "dbid"
             ],
@@ -151,6 +148,6 @@
         "dataSize"
     ],
     "to_string": [
-        "TechnicalResourceUsageStandard: to_string not defined"
+        "TechnicalResourceUsageGenci: to_string not defined"
     ]
 }

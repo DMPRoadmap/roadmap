@@ -7,13 +7,13 @@
     "properties": {
         "person": {
             "type": "object",
-            "class": "person",
+            "class": "Person",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 20,
+            "template_name": "PersonStandard",
             "required": [
                 "dbid"
             ],

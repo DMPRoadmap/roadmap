@@ -19,14 +19,14 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "legal_item",
+                "class": "LegalItem",
                 "extensible": 1,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": 16,
+                "template_name": "LegalItemStandard",
                 "required": [
                     "dbid"
                 ]
@@ -40,13 +40,13 @@
             "type": "array",
             "items": {
                 "type": "object",
-                "class": "contributor",
+                "class": "Contributor",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "schema_id": 39,
+                "template_name": "ContributorStandard",
                 "required": [
                     "dbid"
                 ]

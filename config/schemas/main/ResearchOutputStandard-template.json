@@ -8,14 +8,14 @@
     "properties": {
         "researchOutputDescription": {
             "type": "object",
-            "class": "research_output_description",
+            "class": "ResearchOutputDescription",
             "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 35,
+            "template_name": "ResearchOutputDescriptionStandard",
             "required": [
                 "dbid"
             ],
@@ -25,14 +25,14 @@
         },
         "reuse": {
             "type": "object",
-            "class": "data_reuse",
+            "class": "DataReuse",
             "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 41,
+            "template_name": "DataReuseStandard",
             "required": [
                 "dbid"
             ],
@@ -42,14 +42,14 @@
         },
         "personalDataIssues": {
             "type": "object",
-            "class": "personal_data_issues",
+            "class": "PersonalDataIssues",
             "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 21,
+            "template_name": "PersonalDataIssuesStandard",
             "required": [
                 "dbid"
             ],
@@ -59,14 +59,14 @@
         },
         "legalIssues": {
             "type": "object",
-            "class": "legal_issues",
+            "class": "LegalIssues",
             "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 15,
+            "template_name": "LegalIssuesStandard",
             "required": [
                 "dbid"
             ],
@@ -76,14 +76,14 @@
         },
         "ethicalIssues": {
             "type": "object",
-            "class": "ethical_issues",
+            "class": "EthicalIssues",
             "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 11,
+            "template_name": "EthicalIssuesStandard",
             "required": [
                 "dbid"
             ],
@@ -93,14 +93,14 @@
         },
         "dataCollection": {
             "type": "object",
-            "class": "data_collection",
+            "class": "DataCollection",
             "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 32,
+            "template_name": "DataCollectionStandard",
             "required": [
                 "dbid"
             ],
@@ -110,14 +110,14 @@
         },
         "dataProcessing": {
             "type": "object",
-            "class": "data_processing",
+            "class": "DataProcessing",
             "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 7,
+            "template_name": "DataProcessingStandard",
             "required": [
                 "dbid"
             ],
@@ -127,14 +127,14 @@
         },
         "dataStorage": {
             "type": "object",
-            "class": "data_storage",
+            "class": "DataStorage",
             "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 8,
+            "template_name": "DataStorageStandard",
             "required": [
                 "dbid"
             ],
@@ -144,14 +144,14 @@
         },
         "documentationQuality": {
             "type": "object",
-            "class": "documentation_quality",
+            "class": "DocumentationQuality",
             "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 10,
+            "template_name": "DocumentationQualityStandard",
             "required": [
                 "dbid"
             ],
@@ -160,14 +160,14 @@
         },
         "sharing": {
             "type": "object",
-            "class": "data_sharing",
+            "class": "DataSharing",
             "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 42,
+            "template_name": "DataSharingStandard",
             "required": [
                 "dbid"
             ],
@@ -177,14 +177,14 @@
         },
         "preservationIssues": {
             "type": "object",
-            "class": "data_preservation",
+            "class": "DataPreservation",
             "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 40,
+            "template_name": "DataPreservationStandard",
             "required": [
                 "dbid"
             ],
@@ -193,14 +193,14 @@
         },
         "budget": {
             "type": "object",
-            "class": "budget",
+            "class": "Budget",
             "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "schema_id": 37,
+            "template_name": "BudgetStandard",
             "required": [
                 "dbid"
             ],
