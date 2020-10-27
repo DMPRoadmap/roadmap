@@ -16,7 +16,10 @@ if defined?(Rollbar)
     # to fetch the logged-in user object, and then call that object's `id`
     # method to fetch this property. To customize:
     config.person_method = "current_user"
-    config.person_id_method = "id"
+    config.person_id_method = 'id_as_hash'
+    config.person_username_method = 'id_as_hash'
+    config.person_email_method = 'id_as_hash'
+
 
     # Read GDPR guidelines here: https://docs.rollbar.com/docs/ruby#section-gdpr-hipaa
     config.collect_user_ip = true
@@ -27,7 +30,7 @@ if defined?(Rollbar)
     # config.person_email_method = "email"
 
     # Additionally, you may specify the following:
-    config.person_username_method = "name"
+    # config.person_username_method = "name"
     # config.person_email_method = "email"
 
     # If you want to attach custom data to all exception and message reports,
