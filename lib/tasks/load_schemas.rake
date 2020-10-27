@@ -100,28 +100,14 @@ def purge_schemas
   MadmpSchema.destroy_all
 end
 
-# Replace template_name keys/values with the corresponding schema_id keys/values
 def fix_schemas
-  MadmpSchema.all.each do |s|
-    j = s.schema # Get the actual JSON schema from the MadmpSchema object
-
-    # Find and replace classname values with the corresponding schema_id
-    j = JsonPath.for(j).gsub('$..template_name') do |v|
-      begin
-        id = MadmpSchema.find_by(name: v).id
-        log "Template name substitution: [#{v} => #{id}] in #{s.name}"
-
-        id
-      # In case the above find_by returns nil
-      rescue NoMethodError
-        log("ERROR: template name substitution failed in #{s.name}: no template named #{v} was found.", true)
-        next
-      end
-    end.to_json
-
-    # Replace the "classname" keys with "schema_id" keys
-    j = j.gsub('template_name', 'schema_id')
-    s.update(schema: j)
+  MadmpSchema.all.each do |schema|
+    begin
+      schema.update(schema: MadmpSchema.substitute_names(schema.schema))
+    rescue ActiveRecord::RecordNotFound
+      log("ERROR: template name substitution failed in #{s.name}: no template named #{v} was found.", true)
+      next
+    end
   end
 end
 

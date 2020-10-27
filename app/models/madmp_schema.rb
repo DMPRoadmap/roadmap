@@ -76,5 +76,11 @@ class MadmpSchema < ActiveRecord::Base
     end
     parameters
   end
-  
+
+  # Substitute 'template_name' key/values for their 'schema_id' equivalent in the JSON
+  def self.substitute_names(json_schema)
+    JsonPath.for(json_schema).gsub('$..template_name') do |name|
+      MadmpSchema.find_by!(name: name).id
+    end.to_json.gsub('template_name', 'schema_id')
+  end
 end
