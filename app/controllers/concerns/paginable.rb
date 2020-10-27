@@ -126,9 +126,9 @@ module Paginable
     scope = scope.search(@args[:search]) if @args[:search].present?
     # Can raise NoMethodError if the scope does not define a search method
     if @args[:sort_field].present?
-      unless @args[:sort_field][SORT_COLUMN_FORMAT]
-        raise ArgumentError, "sort_field param looks unsafe"
-      end
+      frmt = @args[:sort_field][SORT_COLUMN_FORMAT]
+      raise ArgumentError, "sort_field param looks unsafe" unless frmt
+
       # Can raise ActiveRecord::StatementInvalid (e.g. column does not
       # exist, ambiguity on column, etc)
       scope = scope.order(@args[:sort_field].to_sym => sort_direction.to_s)
