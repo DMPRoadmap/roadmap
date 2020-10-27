@@ -129,10 +129,9 @@ module Paginable
       unless @args[:sort_field][SORT_COLUMN_FORMAT]
         raise ArgumentError, "sort_field param looks unsafe"
       end
-
       # Can raise ActiveRecord::StatementInvalid (e.g. column does not
       # exist, ambiguity on column, etc)
-      scope = scope.order(@args[:sort_field].to_sym => sort_direction)
+      scope = scope.order(@args[:sort_field].to_sym => sort_direction.to_s)
     end
     if @args[:page] != "ALL"
       # Can raise error if page is not a number
@@ -142,7 +141,6 @@ module Paginable
   end
 
   def sort_direction
-    @args = @args.with_indifferent_access
     @sort_direction ||= SortDirection.new(@args[:sort_direction])
   end
 
