@@ -19,25 +19,24 @@ module SuperAdmin
       authorize(MadmpSchema)
       @schema = MadmpSchema.new(permitted_params)
       if @schema.save
-        flash.now[:notice] = success_message(@schema, _("created"))
+        flash.now[:notice] = success_message(@schema, _('created'))
         render :edit
       else
-        flash.now[:alert] = failure_message(@schema, _("create"))
+        flash.now[:alert] = failure_message(@schema, _('create'))
         render :new
       end
     end
-  
+
     def edit
       authorize(MadmpSchema)
     end
 
-
     def update
       authorize(MadmpSchema)
       if @schema.update_attributes(permitted_params)
-        flash.now[:notice] = success_message(@schema, _("updated"))
+        flash.now[:notice] = success_message(@schema, _('updated'))
       else
-        flash.now[:alert] = failure_message(@schema, _("update"))
+        flash.now[:alert] = failure_message(@schema, _('update'))
       end
       render :edit
     end
@@ -45,14 +44,13 @@ module SuperAdmin
     def destroy
       authorize(MadmpSchema)
       if @schema.destroy
-        msg = success_message(@schema, _("deleted"))
+        msg = success_message(@schema, _('deleted'))
         redirect_to super_admin_madmp_schemas_path, notice: msg
       else
-        flash.now[:alert] = failure_message(@schema, _("delete"))
+        flash.now[:alert] = failure_message(@schema, _('delete'))
         redner :edit
       end
     end
-
 
     # Private instance methods
     private
@@ -62,7 +60,7 @@ module SuperAdmin
       @schema = MadmpSchema.find(params[:id])
     end
 
-    # Substitute "template_name" key/values for their "schema_id" equivalent in the JSON
+    # Substitute 'template_name' key/values for their 'schema_id' equivalent in the JSON
     def substitute_names
       # Get the actual JSON schema from the params
       json_data = permitted_params[:schema]
@@ -82,6 +80,5 @@ module SuperAdmin
     def permitted_params
       params.require(:madmp_schema).permit(:label, :name, :version, :classname, :schema)
     end
-    
   end
 end
