@@ -69,12 +69,14 @@ if defined?(Rollbar)
     # The :host key is mandatory and must include the URL scheme (e.g. 'http://'), all other fields
     # are optional.
     #
-    # config.proxy = {
-    #   host: 'http://some.proxy.server',
-    #   port: 80,
-    #   user: 'username_if_auth_required',
-    #   password: 'password_if_auth_required'
-    # }
+    if Rails.application.secrets.http_proxy.present?
+      config.proxy = {
+        host: Rails.application.secrets.http_proxy,
+        port: Rails.application.secrets.http_proxy_port
+        # user: 'username_if_auth_required',
+        # password: 'password_if_auth_required'
+      }
+    end
 
     # If you run your staging application instance in production environment then
     # you'll want to override the environment reported by `Rails.env` with an
