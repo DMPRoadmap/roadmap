@@ -58,7 +58,7 @@ $(() => {
             const newForm = $(`#answer-form-${data.question.id}-research-output-${data.research_output.id}`).find('form');
             $(`#answer-locking-${data.question.id}-research-output-${data.research_output.id}`).html('');
             newForm.html(data.question.form);
-            attachEventHandlers(newForm); // eslint-disable-line no-use-before-define
+
             if (isNumber(data.question.answer_lock_version)) {
               form.find('#answer_lock_version').val(data.question.answer_lock_version);
             }
