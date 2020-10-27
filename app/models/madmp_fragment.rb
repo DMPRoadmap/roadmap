@@ -242,7 +242,7 @@ class MadmpFragment < ActiveRecord::Base
       if schema_prop['type'].eql?('object')
         sub_data = content # TMP: for readability
         sub_schema = MadmpSchema.find(schema_prop['schema_id'])
-        sub_fragment = MadmpFragment.find(self.data[prop]['dbid']) unless self.data.nil?
+        sub_fragment = MadmpFragment.find(self.data[prop]['dbid']) unless self.data.nil? || self.data.empty?
 
         if sub_fragment.nil?
           sub_fragment = MadmpFragment.new(
