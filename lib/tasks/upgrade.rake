@@ -1076,7 +1076,7 @@ namespace :upgrade do
 
       elsif owner.present?
         contact, contact_id = to_contributor(plan, owner.name(false),
-          owner.email, nil, owner.identifier_for(orcid)&.first&.value, owner.org_id)
+          owner.email, nil, owner.identifier_for(orcid)&.value, owner.org_id)
       end
       # Add the DMP Data Contact
       if contact.present?
