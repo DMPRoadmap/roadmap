@@ -174,4 +174,10 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:accept_invitation, keys: [:firstname, :surname, :org_id])
   end
+
+  # We are currently rendering the default 404 page when a record is not found.
+  # This should be changed to an actual branded 404 page
+  def render_not_found
+    render :file => 'public/404.html', :status => :not_found, :layout => false
+  end
 end
