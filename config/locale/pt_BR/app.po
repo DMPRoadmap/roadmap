@@ -2386,6 +2386,10 @@ msgstr " (e.g. Instituição/ Departamento) "
 msgid "expand all"
 msgstr "expandir todos"
 
+#: ../../app/views/plans/_navigation.html.erb:7
+msgid "Collaborators"
+msgstr "Colaboradores"
+
 #: ../../app/views/guidance_groups/_index_by_theme.html.erb:12
 #: ../../app/views/guidance_groups/_show.html.erb:8
 #: ../../app/views/org_admin/phases/_index.html.erb:8

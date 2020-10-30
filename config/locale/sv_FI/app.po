@@ -3676,6 +3676,10 @@ msgstr "Profilinformation"
 msgid "Request feedback"
 msgstr "Begär återkoppling"
 
+#: ../../app/views/plans/_navigation.html.erb:29
+msgid "Finalise / Publish"
+msgstr "Slutför / Publicera"
+
 #: ../../app/views/orgs/shibboleth_ds.html.erb:1
 #: ../../app/views/orgs/shibboleth_ds.html.erb:4
 msgid "Find your organisation to sign in"

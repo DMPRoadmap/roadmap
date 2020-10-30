@@ -55,7 +55,7 @@ table = ActiveRecord::Base.connection.table_exists?("languages") rescue false
 # rubocop:enable Style/RescueModifier
 if table
   def default_locale
-    Language.default.try(:abbreviation) || "en-GB"
+    Language.default.try(:abbreviation) || "en-US"
   end
 
   def available_locales
@@ -64,17 +64,17 @@ if table
 
   I18n.available_locales = Language.all.pluck(:abbreviation)
 
-  I18n.default_locale = Language.default.try(:abbreviation) || "en-GB"
+  I18n.default_locale = Language.default.try(:abbreviation) || "en-US"
 else
   def default_locale
-    Rails.application.config.i18n.available_locales.first || "en-GB"
+    Rails.application.config.i18n.available_locales.first || "en-US"
   end
 
   def available_locales
-    Rails.application.config.i18n.available_locales = %w[en-GB en-US]
+    Rails.application.config.i18n.available_locales = %w[en-US pt-BR]
   end
 
-  I18n.available_locales = ["en-GB"]
+  I18n.available_locales = ["en-US"]
 
-  I18n.default_locale = "en-GB"
+  I18n.default_locale = "en-US"
 end

@@ -797,6 +797,10 @@ msgstr ""
 msgid "Filter plans"
 msgstr ""
 
+#: ../../app/views/plans/_navigation.html.erb:29
+msgid "Finalise / Publish"
+msgstr ""
+
 msgid "Find guidance from additional organisations below"
 msgstr ""
 
