@@ -6,7 +6,7 @@
 <% q_format = question.question_format %>
 <% fragment_id = fragment.id unless fragment.nil? %>
 <% url = fragment.present? ? create_or_update_madmp_fragments_path(id: fragment.id) : create_or_update_madmp_fragments_path %>
-<%= form_for :madmp_fragment, url: url, html: {method: :post, 'data-autosave': question.id, class: 'form-answer', id: nil } do |f| %>
+<%= form_for :madmp_fragment, url: url, html: {method: :post, 'data-autosave': question.id, class: 'form-answer dynamic-form', id: nil  } do |f| %>
   <% if !readonly %>
     <%= f.fields_for(:answer, answer) do |af| %>
       <%= af.hidden_field :plan_id, id: nil %>

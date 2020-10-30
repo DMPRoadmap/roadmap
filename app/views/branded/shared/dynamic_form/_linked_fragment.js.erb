@@ -3,7 +3,7 @@ $(() => {
   $('#modal-window').modal();
 
 
-  $('#madmp_fragment_form').bind('ajax:success', (event, response) => {
+  $('#modal_fragment_form').bind('ajax:success', (event, response) => {
     switch (response.classname) {
     case 'research_output':
       $('#research-outputs-list').html(response.html);

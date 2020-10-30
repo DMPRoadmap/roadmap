@@ -54,16 +54,6 @@ $(document).on('change', '.schema_picker input[type=radio]', (e) => {
   form.trigger('submit');
 });
 
-// $(document).on('click', 'a.load-defaults', (e) => {
-//   const link = $(e.target);
-//   const schemaFields = link.find('input[id^=madmp_fragment]');
-//   schemaFields.each((field) => {
-//     const f = $(field);
-//     f.val(f.attr('default_value'));
-//   });
-//   e.preventDefault();
-// });
-
 $(document).on('click', 'a.load-defaults', (e) => {
   e.preventDefault();
   // eslint-disable-next-line no-console
