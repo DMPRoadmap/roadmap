@@ -1,4 +1,4 @@
-<%# locals: { f, fragment, schema, readonly, classname, fragment_id, template_locale } %>
+<%# locals: { f, fragment, schema, question_id, readonly, classname, fragment_id, template_locale } %>
 <% sub_schemas_ids = schema.get_sub_schemas_ids %>
 <% data = fragment.data unless fragment.nil? %>
 <% additional_info = fragment.additional_info unless fragment.nil? %>
@@ -11,6 +11,7 @@
 <% schema_properties.each do |key, prop| %>
   <% value = data[key] unless data.nil? %>
   <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{key}]" : key %>
+  <% field_id = fragment.present? ? "#{field_name}_#{fragment.id}" : "#{field_name}_new_#{question_id}"%>
   <% validation = validations.nil? ? "none" : validations[key] %>
   <% label = prop["label@#{template_locale}"] %>
   <% ttip = prop["toolTip@#{template_locale}"] %>
@@ -23,7 +24,7 @@
       <% if prop['inputType'] == 'dropdown' && dropdownValues %>
         <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, dropdownValues, readonly: readonly, validation: validation, ttip: ttip, default_value: default_value) %>
       <% elsif prop['inputType'] == 'textarea' %>
-        <%= create_textarea_field(f, value, field_name, label, readonly: readonly, validation: validation, example: example, default_value: default_value) %>
+        <%= create_textarea_field(f, value, field_name, label, field_id, readonly: readonly, validation: validation, example: example, default_value: default_value) %>
       <% end %>
     <% elsif prop['format'].nil?%>
       <%= create_text_field(f, value, field_name, label, readonly: readonly, validation: validation, ttip: ttip, example: example, default_value: default_value) %>
@@ -93,6 +94,7 @@
                   f: f, 
                   fragment: sub_fragment,
                   schema: sub_schema,
+                  question_id: question_id,
                   readonly: readonly,
                   classname: sub_schema.classname,
                   fragment_id: fragment_id,
