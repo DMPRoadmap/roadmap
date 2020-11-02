@@ -65,7 +65,6 @@ module Dmpopidor
               )
             end
             @answer.save!
-            
             rescue ActiveRecord::StaleObjectError
               @stale_answer = @answer
               @answer = Answer.find_by(
@@ -141,8 +140,17 @@ module Dmpopidor
         end
       end
 
-      private
+      def set_answers_as_common
+        answer_ids = params[:answer_ids]
+        common_value = params[:is_common]
+        Answer.where(id: answer_ids).update_all(is_common: common_value)
 
+        render json: {
+          "updated_answers": answer_ids
+        }.to_json
+      end
+
+      private
 
       # Get the schema from the question, if any (works for strucutred questions/answers only)
       # TODO: move to global var with before_action trigger + rename accordingly (set_json_schema ?)
@@ -174,20 +182,13 @@ module Dmpopidor
         end
         # If no question options has been chosen.
         if params[:answer][:question_option_ids].nil?
-            permitted[:question_option_ids] = []
+          permitted[:question_option_ids] = []
         end
         permitted
       end
-        
-      def set_answers_as_common
-        answerIds = params[:answer_ids]
-        common_value = params[:is_common]
-        Answer.where(id: answerIds).update_all(is_common: common_value)
-       
-        render json: {
-          "updated_answers": answerIds
-        }.to_json
-      end
+
     end
+
   end
+
 end
