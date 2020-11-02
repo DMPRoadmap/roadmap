@@ -17,7 +17,7 @@
         <div class="form-group col-xs-10">
           <% id = presenter.id_for_scheme(scheme: scheme) %>
           <span class="bold"><%= scheme.description %>:</span>
-          <%= presenter.id_for_display(id: id).html_safe %>
+          <%= id_for_display(id: id) %>
         </div>
       </div>
     <% end %>
@@ -62,7 +62,7 @@
       <div class="form-group col-xs-10">
         <% id = presenter.id_for_scheme(scheme: scheme) %>
         <span class="bold"><%= scheme.description %>:</span>
-        <%= presenter.id_for_display(id: id).html_safe %>
+        <%= id_for_display(id: id) %>
       </div>
     </div>
   <% end %>
