@@ -1,4 +1,4 @@
-<%# locals: { f, fragment, schema, question_id, research_output_id, readonly, classname, fragment_id, template_locale } %>
+<%# locals: { f, fragment, schema, question_id, readonly, classname, fragment_id, template_locale } %>
 <% sub_schemas_ids = schema.get_sub_schemas_ids %>
 <% data = fragment.data unless fragment.nil? %>
 <% additional_info = fragment.additional_info unless fragment.nil? %>
@@ -11,7 +11,7 @@
 <% schema_properties.each do |key, prop| %>
   <% value = data[key] unless data.nil? %>
   <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{key}]" : key %>
-  <% field_id = fragment.present? ? "#{field_name}_#{fragment.id}" : "#{field_name}_new_#{question_id}_#{research_output_id}"%>
+  <% field_id = fragment.present? ? "fragment_#{key}_#{fragment.id}" : "new_fragment_#{key}_#{question_id}_#{schema.id}"%>
   <% validation = validations.nil? ? "none" : validations[key] %>
   <% label = prop["label@#{template_locale}"] %>
   <% ttip = prop["toolTip@#{template_locale}"] %>
@@ -44,7 +44,6 @@
     <% if prop['items']['type'] == 'object' && prop['items']['schema_id'].present? %>
       <% unless classname == "research_output" %>
         <% sub_schema = @schemas.find_by(id: prop['items']['schema_id']) %>
-        <% p fragment %>
         <% values = dmp_fragments.joins(:madmp_schema).where(
             parent_id: fragment.id,
             madmp_schemas: { classname: sub_schema.classname }
@@ -85,17 +84,17 @@
             <legend class="answer-fieldset"><%= label %></legend>
             <%
               sub_schema = @schemas.find_by(id: prop["schema_id"])
-              sub_fragment = dmp_fragments.joins(:madmp_schema).find_by(
-                parent_id: fragment.id,
-                madmp_schemas: { classname: sub_schema.classname }
-              ) unless dmp_fragments.empty?
+              sub_fragment = nil
+              if data.present? && data[key].present? 
+                sub_fragment = dmp_fragments.find(data[key]["dbid"])
+              end
             %>
+
             <%= render(partial: 'shared/dynamic_form/form', locals: { 
                   f: f, 
                   fragment: sub_fragment,
                   schema: sub_schema,
                   question_id: question_id,
-                  research_output_id: research_output_id,
                   readonly: readonly,
                   classname: sub_schema.classname,
                   fragment_id: fragment_id,
