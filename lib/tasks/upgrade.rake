@@ -832,7 +832,7 @@ namespace :upgrade do
 
       fundref = IdentifierScheme.find_or_initialize_by(name: "fundref")
       fundref.for_orgs = true
-      fundref.identifier_prefix = "https://api.crossref.org/funders/"
+      fundref.identifier_prefix = "https://doi.org/10.13039/"
       fundref.save
     end
 
@@ -1217,7 +1217,7 @@ namespace :upgrade do
     p "               'University of Somewhere' may match to 'Univerity of Somewhere - Medical Center'"
     p "            To correct any issues, please delete/insert/update the corresponding Identifier:"
     p "               delete from identifiers where identifiable_type = 'Org' and identifiable_id = [orgs.id];"
-    p "               insert into identifiers (identifiable_type, identifier_scheme_id, attrs, identifiable_id, value) values ('Org', [identifier_scheme_id], '{}', [orgs.id], 'https://api.crossref.org/funders/0000000000');"
+    p "               insert into identifiers (identifiable_type, identifier_scheme_id, attrs, identifiable_id, value) values ('Org', [identifier_scheme_id], '{}', [orgs.id], 'https://doi.org/10.13039/0000000000');"
     p "               update identifiers set `value` = 'https://ror.org/123456789' where identifiable_id = [orgs.id] and identifier_scheme_id = [identifier_scheme_id] and identifiable_type= 'Org';"
     p "---------------------------------------------------------------"
   end
