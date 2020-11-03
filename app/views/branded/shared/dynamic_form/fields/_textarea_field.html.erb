@@ -1,5 +1,6 @@
 <%# locals: { f, field_label, field_id, field_name, multiple, classname, field_name, readonly, validation, ttip, example } %>
 <% field_label = field_label || 'No label defined' %>
+<% field_value ||= default_value %>
 <% unless multiple %>
   <div class="col-md-12">
     <%= f.label field_name, field_label, class: 'control-label' %>
@@ -15,8 +16,7 @@
             "data-toggle": "tooltip",
             title: ttip,
             placeholder: example,
-            id: field_id,
-            default_value: default_value  %>
+            id: field_id %>
   <% if multiple && readonly == false%>
     <div class="actions">
       <span class="fa fa-plus-square add-record"></span>

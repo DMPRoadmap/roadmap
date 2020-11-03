@@ -6,7 +6,6 @@
 
 <% dmp_fragments = fragment.present? ? fragment.get_dmp_fragments() : [] %>
 <% schema_properties = schema.schema["properties"]%>
-<a href="#" class="load-defaults"><%= _('Load default values') %></a>
 
 <% schema_properties.each do |key, prop| %>
   <% value = data[key] unless data.nil? %>
@@ -16,8 +15,8 @@
   <% label = prop["label@#{template_locale}"] %>
   <% ttip = prop["toolTip@#{template_locale}"] %>
   <% dropdownValues = prop["values@#{template_locale}"]%>
-  <% example = prop['example'] %>
-  <% default_value = prop['default'] %>
+  <% example = prop["example@#{template_locale}"] ? "ex: #{prop["example@#{template_locale}"]}": nil %>
+  <% default_value = prop["default@#{template_locale}"] %>
   <% case prop['type'] %>
   <% when 'string' %>
     <% if prop['inputType'].present? %>

@@ -53,14 +53,3 @@ $(document).on('change', '.schema_picker input[type=radio]', (e) => {
   form.find('.schema_id').val(target.val());
   form.trigger('submit');
 });
-
-$(document).on('click', 'a.load-defaults', (e) => {
-  e.preventDefault();
-  // eslint-disable-next-line no-console
-  const link = $(e.target);
-  const schemaFields = link.parent().find('input[id^=madmp_fragment]');
-  for (let i = 0; i < schemaFields.length; i += 1) {
-    const f = $(schemaFields[i]);
-    f.val(f.attr('default_value'));
-  }
-});
