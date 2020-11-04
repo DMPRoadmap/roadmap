@@ -73,6 +73,7 @@ class MadmpFragment < ActiveRecord::Base
   # = Callbacks =
   # =============
 
+  before_save   :set_defaults
   after_create  :update_parent_references
   after_destroy :update_parent_references
 
@@ -265,6 +266,13 @@ class MadmpFragment < ActiveRecord::Base
 
   def self.find_sti_class(type_name)
     self
+  end
+
+  private
+
+  # Initialize the data field
+  def set_defaults
+    self.data ||= {}
   end
 
 end
