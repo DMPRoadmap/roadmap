@@ -69,7 +69,6 @@ class MadmpFragment < ActiveRecord::Base
   scope :technical_resource_usages, -> { where(classname: "technical_resource_usage") }
   scope :technical_resources, -> { where(classname: "technical_resource") }
 
-
   # =============
   # = Callbacks =
   # =============
@@ -128,29 +127,25 @@ class MadmpFragment < ActiveRecord::Base
   # to create the json structure needed to update the "data" field
   # this method should be called when creating or deleting a child fragment
   def update_parent_references
-    return if classname.nil?
+    return if classname.nil? || parent.nil?
 
-    if parent.present? && parent.classname.eql?("research_output")
-      # Get each fragment grouped by its classname
-      classified_children = parent.children.group_by(&:classname)
-      parent_data = parent.data
-
-      classified_children.each do |classname, children|
-        if children.count >= 2
-          # if there is more than 1 child, should pluralize the classname
-          parent_data = parent_data.merge({
-            classname.pluralize(2) => children.map { |c| { "dbid" => c.id } }
-          })
-          parent_data.delete(classname) if parent_data[classname] && classname != "meta"
-        else
-          parent_data = parent_data.merge( { 
-            classname => { "dbid" => children.first.id }
-          } )
-          parent_data.delete(classname.pluralize(2)) if parent_data[classname.pluralize(2)] && classname != "meta"
+    parent_schema = parent.madmp_schema
+    parent_data = parent.data
+    classified_children = parent.children.group_by(&:madmp_schema_id)
+    parent_schema.schema["properties"].each do |key, prop|
+      if prop["type"].eql?("array") && prop["items"]["type"].eql?("object")
+        schema = MadmpSchema.find(prop["items"]["schema_id"])
+        unless classified_children[schema.id].nil?
+          parent_data[key] = classified_children[schema.id].map { |c| { "dbid" => c.id } }
+        end
+      elsif prop["type"].eql?("object")
+        schema = MadmpSchema.find(prop["schema_id"])
+        unless classified_children[schema.id].nil?
+          parent_data[key] = { "dbid" => classified_children[schema.id][0].id }
         end
       end
-      parent.update(data: parent_data)
     end
+    parent.update(data: parent_data)
   end
 
   # This method return the fragment full record
@@ -170,20 +165,20 @@ class MadmpFragment < ActiveRecord::Base
           )
         end
       when Array
-        unless value.length == 0
-          fragment_tab = Array.new
+        unless value.length.zero?
+          fragment_tab = []
           value.each do |v|
             next if v.nil?
 
             if v.instance_of?(Hash) && v["dbid"].present?
               child_data = children.exists?(v["dbid"]) ? children.find(v["dbid"]) : MadmpFragment.find(v["dbid"])
-              fragment_tab.push(child_data.get_full_fragment())
+              fragment_tab.push(child_data.get_full_fragment)
             else
-              fragment_tab.push(v) 
+              fragment_tab.push(v)
             end
           end
           editable_data = editable_data.merge(
-            { 
+            {
               prop => fragment_tab
             }
           )
@@ -209,7 +204,6 @@ class MadmpFragment < ActiveRecord::Base
     s_answer.assign_attributes(data: data, additional_info: additional_info)
     s_answer.save
   end
-
 
   # Validate the fragment data with the linked schema
   # and saves the result with the fragment data
@@ -250,7 +244,7 @@ class MadmpFragment < ActiveRecord::Base
 
         if sub_fragment.nil?
           sub_fragment = MadmpFragment.new(
-            data: nil,
+            data: {},
             answer_id: nil,
             dmp_id: dmp_id,
             parent_id: id,
@@ -261,7 +255,7 @@ class MadmpFragment < ActiveRecord::Base
         end
 
         sub_fragment.save_as_multifrag(sub_data, sub_schema)
-        fragmented_data[prop] = { dbid: sub_fragment.id }
+        # fragmented_data[prop] = { dbid: sub_fragment.id }
       else
         fragmented_data[prop] = content
       end
@@ -272,4 +266,5 @@ class MadmpFragment < ActiveRecord::Base
   def self.find_sti_class(type_name)
     self
   end
+
 end
