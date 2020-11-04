@@ -43,10 +43,12 @@
     <% if prop['items']['type'] == 'object' && prop['items']['schema_id'].present? %>
       <% unless classname == "research_output" %>
         <% sub_schema = @schemas.find_by(id: prop['items']['schema_id']) %>
-        <% values = dmp_fragments.joins(:madmp_schema).where(
-            parent_id: fragment.id,
-            madmp_schemas: { classname: sub_schema.classname }
-          ) unless dmp_fragments.empty? %>
+        <% 
+          values = []
+          if data.present? && data[key].present?
+            values = dmp_fragments.where(id: data[key].map { |d| d["dbid"] })
+          end
+        %>
         <%= render(partial: 'shared/dynamic_form/fields/complex_multiple_field', locals: { 
           field_values: values, 
           readonly: readonly,
