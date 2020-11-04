@@ -202,32 +202,32 @@ module Dmpopidor
         end
         person_fragment
       end
- 
+
       def create_plan_fragments
         dmp_fragment = Fragment::Dmp.create(
           data: {
-            "plan_id" => self.id
+            "plan_id" => id
           },
-          madmp_schema_id: MadmpSchema.find_by(classname: 'dmp')
+          madmp_schema: MadmpSchema.find_by(classname: "dmp")
         )
-        
+
         Fragment::Project.create(
-          data: create_project_json(),
+          data: create_project_json,
           dmp_id: dmp_fragment.id,
           parent_id: dmp_fragment.id,
-          madmp_schema_id: MadmpSchema.find_by(classname: 'project')
+          madmp_schema_id: MadmpSchema.find_by(classname: "project")
         )
 
         Fragment::Meta.create(
-          data: create_meta_json(),
+          data: create_meta_json,
           dmp_id: dmp_fragment.id,
           parent_id: dmp_fragment.id,
-          madmp_schema_id: MadmpSchema.find_by(classname: 'meta')
-        )  
+          madmp_schema_id: MadmpSchema.find_by(classname: "meta")
+        )
       end
 
       def update_plan_fragments(meta, project)
-        dmp_fragment = self.json_fragment()
+        dmp_fragment = json_fragment
 
         contact_fragment = create_or_update_person_fragment(meta.delete(:contact))
         principal_investigator_fragment = create_or_update_person_fragment(project.delete(:principalInvestigator))
@@ -238,15 +238,18 @@ module Dmpopidor
         project[:principalInvestigator] = {
           "dbid" => principal_investigator_fragment ? principal_investigator_fragment.id : nil
         }
-        
+
         dmp_fragment.meta.update(
           data: create_meta_json(meta)
         )
-        
+
         dmp_fragment.project.update(
           data: create_project_json(project)
         )
       end
-    end 
+
+    end
+
   end
+
 end
