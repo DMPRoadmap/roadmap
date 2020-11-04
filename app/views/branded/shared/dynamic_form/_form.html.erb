@@ -13,7 +13,7 @@
   <% field_id = fragment.present? ? "fragment_#{key}_#{fragment.id}" : "new_fragment_#{key}_#{question_id}_#{schema.id}"%>
   <% validation = validations.nil? ? "none" : validations[key] %>
   <% label = prop["label@#{template_locale}"] %>
-  <% ttip = prop["toolTip@#{template_locale}"] %>
+  <% ttip = prop["tooltip@#{template_locale}"] %>
   <% dropdownValues = prop["values@#{template_locale}"]%>
   <% example = prop["example@#{template_locale}"] ? "ex: #{prop["example@#{template_locale}"]}": nil %>
   <% default_value = prop["default@#{template_locale}"] %>
