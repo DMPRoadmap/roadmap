@@ -1,23 +1,43 @@
-require 'set'
+# frozen_string_literal: true
+
+require "set"
 namespace :madmpopidor do
-  
+  desc "Upgrade to v3.0.0"
+  task v3_0_0: :environment do
+    Rake::Task["madmpopidor:add_structure_question_format"].execute
+    Rake::Task["madmpopidor:initialize_template_locale"].execute
+    Rake::Task["madmpopidor:load_templates"].execute
+    Rake::Task["madmpopidor:initialize_plan_fragments"].execute
+  end
+
   desc "Initialize Dmp, Project, Meta & ResearchOutputs JSON fragments for the ancient plans"
   task initialize_plan_fragments: :environment do
     Plan.all.each do |plan|
-      if plan.json_fragment.nil?
-        plan.create_plan_fragments()
-      end
-      
+      plan.create_plan_fragments if plan.json_fragment.nil?
+
       plan.research_outputs.each do |research_output|
-        unless research_output.nil?
-          if research_output.json_fragment.nil?
-            research_output.create_or_update_fragments()
-          end
-        end
+        next if research_output.nil? && research_output.json_fragment.present?
+
+        research_output.create_or_update_fragments
       end
     end
   end
-  
+
+  desc "Add Structured question format in table"
+  task add_structure_question_format: :environment do
+    if QuestionFormat.find_by(title: "Structured").nil?
+      QuestionFormat.create!(
+        {
+          title: "Structured",
+          description: "Structured question format",
+          option_based: false,
+          formattype: 9,
+          structured: true
+        }
+      )
+    end
+  end
+
   desc "Initialize the template locale to the default language of the application"
   task initialize_template_locale: :environment do
     languages = Language.all
