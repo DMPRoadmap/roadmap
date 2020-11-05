@@ -207,11 +207,13 @@ $(() => {
   */
   const attachEventHandlers = (jQueryForm) => {
     formHandlers({ jQuery: jQueryForm, attachment: 'on' });
-    const tinymceId = jQueryForm.find(`.${editorClass}`).attr('id');
-    if (tinymceId) {
-      Tinymce.init({ selector: `#${tinymceId}` });
-      editorHandlers(Tinymce.findEditorById(tinymceId));
-    }
+    jQueryForm.find(`.${editorClass}`).each((i, edt) => {
+      const tinymceId = $(edt).attr('id');
+      if (tinymceId) {
+        Tinymce.init({ selector: `#${tinymceId}` });
+        editorHandlers(Tinymce.findEditorById(tinymceId));
+      }
+    });
   };
 
   datePicker();
