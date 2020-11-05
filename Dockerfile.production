@@ -17,16 +17,12 @@ RUN apt-get update -qq && \
   default-mysql-client \
   gettext \
   nodejs \
-  yarn \
-  postfix
+  yarn
 
 RUN wget --quiet https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
     tar vxf wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
     cp wkhtmltox/bin/wk* /usr/local/bin/ && \
     rm -rf wkhtmltox
-
-# RUN update-rc.d postfix defaults
-# RUN /etc/init.d/postfix start
 
 ARG INSTALL_PATH=/usr/src/app/
 ENV INSTALL_PATH $INSTALL_PATH
@@ -44,4 +40,4 @@ RUN NODE_ENV=production yarn install --prod --check-files
 RUN DATABASE_URL=nulldb://user:test@127.0.0.1/roadmap RAILS_ENV=production DEVISE_SECRET_KEY=pickasecuretoken bundle exec rake assets:precompile
 
 EXPOSE 3000
-CMD /etc/init.d/postfix start; bundle exec puma -C config/puma.rb
+CMD bundle exec puma -C config/puma.rb
