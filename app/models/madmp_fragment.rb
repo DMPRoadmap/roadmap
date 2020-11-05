@@ -146,7 +146,7 @@ class MadmpFragment < ActiveRecord::Base
         end
       end
     end
-    parent.update(data: parent_data)
+    parent.update!(data: parent_data)
   end
 
   # This method return the fragment full record
@@ -187,23 +187,6 @@ class MadmpFragment < ActiveRecord::Base
       end
     end
     editable_data
-  end
-
-  # Saves (and creates, if needed) the structured answer ("fragment")
-  def self.save_madmp_fragment(answer, data, schema, parent_id = nil)
-    # Extract the form data corresponding to the schema of the structured question
-    s_answer = MadmpFragment.find_or_initialize_by(answer_id: answer.id) do |sa|
-      sa.answer = answer
-      sa.madmp_schema = schema
-      sa.classname = schema.classname
-      sa.dmp_id = answer.plan.json_fragment.id
-      sa.parent_id = parent_id
-    end
-    additional_info = {
-      "validations" => validate_data(data, schema.schema)
-    }
-    s_answer.assign_attributes(data: data, additional_info: additional_info)
-    s_answer.save
   end
 
   # Validate the fragment data with the linked schema
@@ -256,7 +239,7 @@ class MadmpFragment < ActiveRecord::Base
         end
 
         sub_fragment.save_as_multifrag(sub_data, sub_schema)
-        # fragmented_data[prop] = { dbid: sub_fragment.id }
+        fragmented_data[prop] = { dbid: sub_fragment.id }
       else
         fragmented_data[prop] = content
       end
