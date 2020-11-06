@@ -12,7 +12,7 @@ RSpec.describe Api::V1::PlansController, type: :request do
       mock_authorization_for_api_client
 
       # Org model requires a language so make sure the default is set
-      create(:language, default_language: true)
+      create(:language, default_language: true) unless Language.default.present?
     end
 
     describe "GET /api/v1/plan/:id - show" do
@@ -52,14 +52,14 @@ RSpec.describe Api::V1::PlansController, type: :request do
         end
 
         it "returns a 400 if the incoming JSON is invalid" do
-          post api_v1_plans_path, Faker::Lorem.word
+          post api_v1_plans_path, params: Faker::Lorem.word
           expect(response.code).to eql("400")
           expect(response).to render_template("api/v1/error")
         end
         it "returns a 400 if the incoming DMP is invalid" do
           create(:plan, api_client_id: ApiClient.first.id)
           @json[:items].first[:dmp][:title] = ""
-          post api_v1_plans_path, @json.to_json
+          post api_v1_plans_path, params: @json.to_json
           expect(response.code).to eql("400")
           expect(response).to render_template("api/v1/error")
         end
@@ -70,20 +70,20 @@ RSpec.describe Api::V1::PlansController, type: :request do
             type: "url",
             identifier: Rails.application.routes.url_helpers.api_v1_plan_url(plan)
           }
-          post api_v1_plans_path, @json.to_json
+          post api_v1_plans_path, params: @json.to_json
           expect(response.code).to eql("400")
           expect(response).to render_template("api/v1/error")
           expect(response.body.include?("already exists")).to eql(true)
         end
         it "returns a 201 if the incoming JSON is valid" do
-          post api_v1_plans_path, @json.to_json
+          post api_v1_plans_path, params: @json.to_json
           expect(response.code).to eql("201")
           expect(response).to render_template("api/v1/plans/index")
         end
 
         context "plan inspection" do
           before(:each) do
-            post api_v1_plans_path, @json.to_json
+            post api_v1_plans_path, params: @json.to_json
             @original = @json.with_indifferent_access[:items].first[:dmp]
             @plan = Plan.last
           end
@@ -117,14 +117,14 @@ RSpec.describe Api::V1::PlansController, type: :request do
         end
 
         it "returns a 201 if the incoming JSON is valid" do
-          post api_v1_plans_path, @json.to_json
+          post api_v1_plans_path, params: @json.to_json
           expect(response.code).to eql("201")
           expect(response).to render_template("api/v1/plans/index")
         end
 
         context "plan inspection" do
           before(:each) do
-            post api_v1_plans_path, @json.to_json
+            post api_v1_plans_path, params: @json.to_json
             @original = @json.with_indifferent_access[:items].first[:dmp]
             @plan = Plan.last
           end

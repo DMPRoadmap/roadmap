@@ -27,7 +27,8 @@ module ExternalApis
       end
 
       # Search the OpenAire API for the specified Funder OR the Default Funder
-      # rubocop:disable Metrics/MethodLength
+      # Note this functions result gets cached by the ResearchProjectsController
+      # ToDo: Evaluate for ActiveJob
       def search(funder: default_funder)
         target = "#{api_base_url}#{search_path % funder}"
         hdrs = {
@@ -42,7 +43,6 @@ module ExternalApis
         end
         parse_xml(xml: resp.body)
       end
-      # rubocop:enable Metrics/MethodLength
 
       private
 

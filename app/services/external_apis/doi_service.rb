@@ -49,15 +49,16 @@ module ExternalApis
 
       # Implement the authentication for the DOI API
       def auth
-        return true
+        true
 
         # You should implement any necessary authentication step required by the
         # DOI API
       end
 
       # Implement the call to retrieve/mint a new DOI
+      # rubocop:disable Lint/UnusedMethodArgument
       def mint(plan:)
-        return SecureRandom.uuid
+        SecureRandom.uuid
 
         # Minted DOIs should be stored as an Identifier. For example:
         #    doi_url = "#{landing_page_url}#{doi}"
@@ -67,6 +68,7 @@ module ExternalApis
         # the link to the DOI will appear on the Project Details page, in plan
         # exports and will become the `dmp_id` in this system's API responses
       end
+      # rubocop:enable Lint/UnusedMethodArgument
 
     end
 

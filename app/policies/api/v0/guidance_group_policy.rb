@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 module Api
+
   module V0
+
     class GuidanceGroupPolicy < ApplicationPolicy
+
       attr_reader :user, :guidance_group
 
       def initialize(user, guidance_group)
@@ -8,6 +13,7 @@ module Api
         unless user.org.token_permission_types.include? TokenPermissionType::GUIDANCES
           raise Pundit::NotAuthorizedError, _("must have access to guidances api")
         end
+
         @user = user
         @guidance_group = guidance_group
       end
@@ -25,5 +31,7 @@ module Api
       end
 
     end
+
   end
+
 end

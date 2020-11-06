@@ -11,16 +11,18 @@ class Api::V0::StatisticsController < Api::V0::BaseController
   # If end_date is passed, only counts those with created_at is <= than end_date are
   # If org_id is passed and user has super_admin privileges that counter is performed
   # against org_id param instead of user's org
+
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def users_joined
     unless Api::V0::StatisticsPolicy.new(@user, :statistics).users_joined?
       raise Pundit::NotAuthorizedError
     end
 
-    if @user.can_super_admin? && params[:org_id].present?
-      scoped = User.unscoped.where(org_id: params[:org_id])
-    else
-      scoped = User.unscoped.where(org_id: @user.org_id)
-    end
+    scoped = if @user.can_super_admin? && params[:org_id].present?
+               User.unscoped.where(org_id: params[:org_id])
+             else
+               User.unscoped.where(org_id: @user.org_id)
+             end
 
     if params[:range_dates].present?
       r = {}
@@ -33,13 +35,17 @@ class Api::V0::StatisticsController < Api::V0::BaseController
 
       respond_to do |format|
         format.json { render(json: r.to_json) }
-        format.csv {
+        format.csv do
           send_data(CSV.generate do |csv|
             csv << [_("Month"), _("No. Users joined")]
             total = 0
-            r.each_pair { |k, v| csv << [k, v]; total += v }
+            r.each_pair do |k, v|
+              csv << [k, v]
+              total += v
+            end
             csv << [_("Total"), total]
-          end, filename: "#{_('users_joined')}.csv") }
+          end, filename: "#{_('users_joined')}.csv")
+        end
       end
     else
       if params["start_date"].present? || params["end_date"].present?
@@ -49,19 +55,23 @@ class Api::V0::StatisticsController < Api::V0::BaseController
       respond_with @users_count
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable
+
   # GET
   # Returns the number of completed plans within the user's org for the data
   # start_date and end_date specified
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def completed_plans
     unless Api::V0::StatisticsPolicy.new(@user, :statistics).completed_plans?
       raise Pundit::NotAuthorizedError
     end
 
-    if @user.can_super_admin? && params[:org_id].present?
-      scoped = Org.find(params[:org_id]).plans.where(complete: true)
-    else
-      scoped = @user.org.plans.where(complete: true)
-    end
+    scoped = if @user.can_super_admin? && params[:org_id].present?
+               Org.find(params[:org_id]).plans.where(complete: true)
+             else
+               @user.org.plans.where(complete: true)
+             end
 
     if params[:range_dates].present?
       r = {}
@@ -74,13 +84,17 @@ class Api::V0::StatisticsController < Api::V0::BaseController
 
       respond_to do |format|
         format.json { render(json: r.to_json) }
-        format.csv {
+        format.csv do
           send_data(CSV.generate do |csv|
             csv << [_("Month"), _("No. Completed Plans")]
             total = 0
-            r.each_pair { |k, v| csv << [k, v]; total += v }
+            r.each_pair do |k, v|
+              csv << [k, v]
+              total += v
+            end
             csv << [_("Total"), total]
-          end, filename: "#{_('completed_plans')}.csv") }
+          end, filename: "#{_('completed_plans')}.csv")
+        end
       end
     else
       if params["start_date"].present? || params["end_date"].present?
@@ -89,20 +103,21 @@ class Api::V0::StatisticsController < Api::V0::BaseController
       render(json: { completed_plans: scoped.count })
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable
 
   # /api/v0/statistics/created_plans
   # Returns the number of created plans within the user's org for the data
   # start_date and end_date specified
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def created_plans
-    unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans?
-      raise Pundit::NotAuthorizedError
-    end
+    raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans?
 
-    if @user.can_super_admin? && params[:org_id].present?
-      scoped = Org.find(params[:org_id]).plans
-    else
-      scoped = @user.org.plans
-    end
+    scoped = if @user.can_super_admin? && params[:org_id].present?
+               Org.find(params[:org_id]).plans
+             else
+               @user.org.plans
+             end
 
     if params[:range_dates].present?
       r = {}
@@ -115,13 +130,17 @@ class Api::V0::StatisticsController < Api::V0::BaseController
 
       respond_to do |format|
         format.json { render(json: r.to_json) }
-        format.csv {
+        format.csv do
           send_data(CSV.generate do |csv|
             csv << [_("Month"), _("No. Plans")]
             total = 0
-            r.each_pair { |k, v| csv << [k, v]; total += v }
+            r.each_pair do |k, v|
+              csv << [k, v]
+              total += v
+            end
             csv << [_("Total"), total]
-          end, filename: "#{_('plans')}.csv") }
+          end, filename: "#{_('plans')}.csv")
+        end
       end
     else
       if params["start_date"].present? || params["end_date"].present?
@@ -130,15 +149,19 @@ class Api::V0::StatisticsController < Api::V0::BaseController
       render(json: { completed_plans: scoped.count })
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable
 
   ##
   # Displays the number of DMPs using templates owned/create by the caller's Org
   # between the optional specified dates
+  # rubocop:disable Metrics/AbcSize
   def using_template
     org_templates = @user.org.templates.where(customization_of: nil)
     unless Api::V0::StatisticsPolicy.new(@user, org_templates.first).using_template?
       raise Pundit::NotAuthorizedError
     end
+
     @templates = {}
     org_templates.each do |template|
       if @templates[template.title].blank?
@@ -155,16 +178,19 @@ class Api::V0::StatisticsController < Api::V0::BaseController
     end
     respond_with @templates
   end
+  # rubocop:enable Metrics/AbcSize
 
   ##
   # GET
   # Renders a list of templates with their titles, ids, and uses between the optional
   # specified dates the uses are restricted to DMPs created by users of the same
   # organisation as the user who ititiated the call.
+  # rubocop:disable Metrics/AbcSize
   def plans_by_template
     unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans_by_template?
       raise Pundit::NotAuthorizedError
     end
+
     @templates = {}
     scoped = @user.org.plans
     if params["start_date"].present? || params["end_date"].present?
@@ -183,16 +209,17 @@ class Api::V0::StatisticsController < Api::V0::BaseController
     end
     respond_with @templates
   end
+  # rubocop:enable Metrics/AbcSize
 
   # GET
   #
   # Renders a list of DMPs metadata, provided the DMPs were created between the
   # optional specified dates DMPs must be owned by a user who's organisation is the
   # same as the user who generates the call.
+  # rubocop:disable Metrics/AbcSize
   def plans
-    unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans?
-      raise Pundit::NotAuthorizedError
-    end
+    raise Pundit::NotAuthorizedError unless Api::V0::StatisticsPolicy.new(@user, :statistics).plans?
+
     @org_plans = @user.org.plans
     if params["remove_tests"].present? && params["remove_tests"].downcase == "true"
       @org_plans = @org_plans.where.not(visibility: Plan.visibilities[:is_test])
@@ -202,7 +229,7 @@ class Api::V0::StatisticsController < Api::V0::BaseController
     end
     respond_with @org_plans
   end
-
+  # rubocop:enable Metrics/AbcSize
 
   private
 
