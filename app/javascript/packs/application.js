@@ -88,3 +88,11 @@ require('@rails/ujs').start();
 // require('turbolinks').start();
 // require("@rails/activestorage").start()
 // require("@rails/actioncable").start()
+
+// Setup JS functions/libraries so that they're available within the js.erb templates
+window.$ = jQuery;
+window.jQuery = jQuery;
+
+import { renderAlert, renderNotice } from '../src/utils/notificationHelper';
+window.renderAlert = renderAlert;
+window.renderNotice = renderNotice;
