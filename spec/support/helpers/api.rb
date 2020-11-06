@@ -10,7 +10,6 @@ module ApiHelper
     Api::V1::BaseApiController.any_instance.stubs(:client).returns(api_client)
   end
 
-  # rubocop:disable Metrics/AbcSize
   def mock_authorization_for_user
     create(:org) unless Org.any?
     user = User.org_admins(Org.last).first
@@ -22,6 +21,5 @@ module ApiHelper
     Api::V1::BaseApiController.any_instance.stubs(:authorize_request).returns(true)
     Api::V1::BaseApiController.any_instance.stubs(:client).returns(user)
   end
-  # rubocop:enable Metrics/AbcSize
 
 end

@@ -1,9 +1,10 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.feature "Sessions", type: :feature do
 
   let(:user) { create(:user) }
-
 
   scenario "User signs in successfully with email and password", :js do
     # Setup

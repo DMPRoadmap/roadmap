@@ -16,21 +16,21 @@
           <td>
             <%= template.title%>
             <% if template.draft? && template.latest? %>
-              &nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;&nbsp;<em><%=_('Draft')%></em>
+              &nbsp;&nbsp;<i class="fas fa-pencil-square" aria-hidden="true"></i>&nbsp;&nbsp;<em><%=_('Draft')%></em>
             <% end %>
           </td>
           <td class="text-center">
             <%= link_to template_export_org_admin_template_url(template, format: :docx),
                         target: '_blank',
                         class: 'has-new-window-popup-info' do %>
-               <i class="fa fa-file-word-o" aria-hidden="true"></i>
+               <i class="fas fa-file-word" aria-hidden="true"></i>
                <em class="sr-only"><%= _('(new window)') %></em>
                <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
             <% end %>
             <%= link_to template_export_org_admin_template_url(template, format: :pdf),
                         target: '_blank',
                         class: 'has-new-window-popup-info' do %>
-               <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+               <i class="fas fa-file-pdf" aria-hidden="true"></i>
                <em class="sr-only"><%= _('(new window)') %></em>
                <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
             <% end %>

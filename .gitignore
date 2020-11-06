@@ -52,8 +52,6 @@ config/secrets.yml
 config/branding.yml
 
 # Ignore some of the initializers
-config/initializers/recaptcha.rb
-config/initializers/devise.rb
 config/initializers/wicked_pdf.rb
 config/initializers/fingerprint.rb
 
@@ -101,5 +99,16 @@ spec/examples.txt
 /public/packs
 /public/packs-test
 /node_modules
+yarn-debug.log*
+.yarn-integrity
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
+/config/credentials.yml.enc
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
 yarn-debug.log*
 .yarn-integrity

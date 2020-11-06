@@ -1,6 +1,11 @@
 require 'set'
 namespace :upgrade do
 
+  desc "upgrade to Rails 5, rename task after naming release"
+  task v2_3_0: :environment do
+    Rake::Task["upgrade:column_defaults"].execute
+  end
+
   desc "Upgrade to v2.2.0 Part 1"
   task v2_2_0_part1: :environment do
     p "Upgrading to v2.2.0 (part 1) ... A summary report will be generated when complete"
@@ -246,41 +251,41 @@ namespace :upgrade do
      "Preservation", "Data sharing", "Related policies", "Data format", "Data volume",
      "Ethics & privacy", "Intellectual Property Rights", "Data repository", "Roles & responsibilities",
      "Budget"].each do |t|
-      Theme.create(title: t)
-    end
+       Theme.create(title: t)
+     end
   end
 
   desc "Transform existing themes and their associations into new theme list"
   task theme_transform: :environment do
     ActiveRecord::Base.transaction do
       [
-      {'Budget':'Resourcing'},
-      {'Data collection':'Data Capture Methods'},
-      {'Data collection':'Data Quality'},
-      {'Data description':'Data Description'},
-      {'Data description':'Data Type'},
-      {'Data description':'Existing Data'},
-      {'Data description':'Relationship to Existing Data'},
-      {'Data format':'Data Format'},
-      {'Data repository':'Data Repository'},
-      {'Data sharing':'Expected Reuse'},
-      {'Data sharing':'Managed Access Procedures'},
-      {'Data sharing':'Method For Data Sharing'},
-      {'Data sharing':'Restrictions on Sharing'},
-      {'Data sharing':'Timeframe For Data Sharing'},
-      {'Data volume':'Data Volumes'},
-      {'Ethics & privacy':'Ethical Issues'},
-      {'Intellectual Property Rights':'IPR Ownership and Licencing'},
-      {'Metadata & documentation':'Discovery by Users'},
-      {'Metadata & documentation':'Documentation'},
-      {'Metadata & documentation':'Metadata '},  # there may be a whitespace here!
-      {'Preservation':'Data Selection'},
-      {'Preservation':'Period of Preservation'},
-      {'Preservation':'Preservation Plan'},
-      {'Related policies':'Related Policies'},
-      {'Roles & responsibilities':'Responsibilities'},
-      {'Storage & security':'Data Security'},
-      {'Storage & security':'Storage and Backup'},
+        {'Budget':'Resourcing'},
+        {'Data collection':'Data Capture Methods'},
+        {'Data collection':'Data Quality'},
+        {'Data description':'Data Description'},
+        {'Data description':'Data Type'},
+        {'Data description':'Existing Data'},
+        {'Data description':'Relationship to Existing Data'},
+        {'Data format':'Data Format'},
+        {'Data repository':'Data Repository'},
+        {'Data sharing':'Expected Reuse'},
+        {'Data sharing':'Managed Access Procedures'},
+        {'Data sharing':'Method For Data Sharing'},
+        {'Data sharing':'Restrictions on Sharing'},
+        {'Data sharing':'Timeframe For Data Sharing'},
+        {'Data volume':'Data Volumes'},
+        {'Ethics & privacy':'Ethical Issues'},
+        {'Intellectual Property Rights':'IPR Ownership and Licencing'},
+        {'Metadata & documentation':'Discovery by Users'},
+        {'Metadata & documentation':'Documentation'},
+        {'Metadata & documentation':'Metadata '},  # there may be a whitespace here!
+        {'Preservation':'Data Selection'},
+        {'Preservation':'Period of Preservation'},
+        {'Preservation':'Preservation Plan'},
+        {'Related policies':'Related Policies'},
+        {'Roles & responsibilities':'Responsibilities'},
+        {'Storage & security':'Data Security'},
+        {'Storage & security':'Storage and Backup'},
       ].each do |pair|
         themeto   = Theme.find_by(title: pair.keys[0].to_s)
         themefrom = Theme.find_by(title: pair.values[0])
@@ -300,14 +305,14 @@ namespace :upgrade do
   task theme_remove_migrated: :environment do
     ActiveRecord::Base.transaction do
       ["Data Type", "Existing Data", "Relationship to Existing Data", "Data Quality", "Documentation",
-      "Discovery by Users", "Data Security", "Data Selection", "Period of Preservation",
-      "Expected Reuse", "Timeframe For Data Sharing", "Restrictions on Sharing",
-      "Managed Access Procedures", "Related Policies", "Data Description", "Data Volumes",
-      "Data Format", "Data Capture Methods", "Metadata ", "Ethical Issues",
-      "IPR Ownership and Licencing", "Storage and Backup", "Preservation Plan", "Data Repository",
-      "Method For Data Sharing", "Responsibilities", "Resourcing"].each do |t|
-        if deltheme = Theme.find_by(title: t) then deltheme.destroy end
-      end
+       "Discovery by Users", "Data Security", "Data Selection", "Period of Preservation",
+       "Expected Reuse", "Timeframe For Data Sharing", "Restrictions on Sharing",
+       "Managed Access Procedures", "Related Policies", "Data Description", "Data Volumes",
+       "Data Format", "Data Capture Methods", "Metadata ", "Ethical Issues",
+       "IPR Ownership and Licencing", "Storage and Backup", "Preservation Plan", "Data Repository",
+       "Method For Data Sharing", "Responsibilities", "Resourcing"].each do |t|
+         if deltheme = Theme.find_by(title: t) then deltheme.destroy end
+       end
     end
   end
 
@@ -332,18 +337,18 @@ namespace :upgrade do
     ActiveRecord::Base.transaction do
       allthemes = Theme.all
       GuidanceGroup.all.each do |group|
-          if group.guidances.present?
-              allthemes.each do |theme|
-                  themeguidances = group.guidances.joins(:themes).where('themes.id = ?', theme.id)
-                  if themeguidances.present? && themeguidances.length >= 2
-                      themeguidances.drop(1).each do |guidance|
-                          themeguidances.first.text += '<p>——</p>' + guidance.text
-                          guidance.destroy
-                      end #themeguidances loop
-                      themeguidances.first.save
-                  end
-              end #allthemes loop
-          end
+        if group.guidances.present?
+          allthemes.each do |theme|
+            themeguidances = group.guidances.joins(:themes).where('themes.id = ?', theme.id)
+            if themeguidances.present? && themeguidances.length >= 2
+              themeguidances.drop(1).each do |guidance|
+                themeguidances.first.text += '<p>——</p>' + guidance.text
+                guidance.destroy
+              end #themeguidances loop
+              themeguidances.first.save
+            end
+          end #allthemes loop
+        end
       end #GuidanceGroup loop
     end
   end
@@ -351,9 +356,9 @@ namespace :upgrade do
   desc "Remove duplicated non customised template versions"
   task remove_duplicated_non_customised_template_versions: :environment do
     templates = Template
-      .select(:id, :family_id, :version, :updated_at)
-      .group(:family_id, :version, :id)
-      .order(family_id: :asc, version: :asc, updated_at: :desc)
+    .select(:id, :family_id, :version, :updated_at)
+    .group(:family_id, :version, :id)
+    .order(family_id: :asc, version: :asc, updated_at: :desc)
 
     current_family_id = nil
     unique_versions = Set.new
@@ -396,10 +401,10 @@ namespace :upgrade do
   desc "Remove duplicated customised template versions"
   task remove_duplicated_customised_template_versions: :environment do
     templates = Template
-      .select(:id, :customization_of, :version, :org_id, :updated_at)
-      .where('customization_of IS NOT NULL')
-      .group(:customization_of, :org_id, :version, :id)
-      .order(customization_of: :asc, org_id: :asc, version: :asc, updated_at: :desc)
+    .select(:id, :customization_of, :version, :org_id, :updated_at)
+    .where('customization_of IS NOT NULL')
+    .group(:customization_of, :org_id, :version, :id)
+    .order(customization_of: :asc, org_id: :asc, version: :asc, updated_at: :desc)
     generate_compound_key = lambda{ |customization_of, org_id| return "#{customization_of}_#{org_id}" }
     current = nil
     unique_versions = Set.new
@@ -443,29 +448,22 @@ namespace :upgrade do
     Rake::Task['upgrade:remove_duplicated_customised_template_versions'].execute
   end
 
-  desc "Org.contact_email is now required, sets any nil values to the helpdesk email defined in branding.yml"
+  desc "Org.contact_email is now required, sets any nil values to the helpdesk email defined in dmproadmap.rb initializer"
   task check_org_contact_emails: :environment do
-    branding = YAML.load(File.open('./config/branding.yml'))
-    if branding.is_a?(Hash) &&
-        branding['defaults'].present? &&
-        branding['defaults']['organisation'].present? &&
-        branding['defaults']['organisation']['name'].present?
-        branding['defaults']['organisation']['helpdesk_email'].present?
-      email = branding['defaults']['organisation']['helpdesk_email']
-      name = "#{branding['defaults']['organisation']['name']} helpdesk"
+    email = Rails.configuration.x.organisation.helpdesk_email
+    name = Rails.configuration.x.organisation.name
 
+    if email.present? && name.present?
       puts "Searching for Orgs with an undefined contact_email ..."
       Org.where("contact_email IS NULL OR contact_email = ''").each do |org|
         puts "  Setting contact_email to #{email} for #{org.name}"
         org.update_attributes(contact_email: email, contact_name: name)
       end
     else
-      puts "No helpdesk_email and/or name found in your config/branding.yml. Please add them under the defaults -> organisation section"
+      puts "No helpdesk_email and/or name found in your config/initializers/dmproadmap.rb. Please add them!"
       puts "For example:"
-      puts "  defaults: &defaults"
-      puts "    organisation:"
-      puts "      name: 'Curation Center'"
-      puts "      helpdesk_email: 'helpdesk@example.org'"
+      puts "config.x.organisation.name = \"Curation Centre\""
+      puts "config.x.organisation.helpdesk_email = \"help@example.org\""
     end
     puts "Search complete"
     puts ""
@@ -475,11 +473,11 @@ namespace :upgrade do
   task check_for_guidance_multiple_themes: :environment do
     puts "Searching for guidance with multiple theme selections (you will need to manually reconcile these records) ..."
     ids = Guidance.select('guidances.id, count(themes.id) theme_count').
-            joins(:themes).group('guidances.id').
-            having('count(themes.id) > 1').pluck('guidances.id')
+      joins(:themes).group('guidances.id').
+      having('count(themes.id) > 1').pluck('guidances.id')
 
     GuidanceGroup.joins(:guidances).includes(:org).where('guidances.id IN (?)', ids).
-            distinct.order('orgs.name, guidance_groups.name').each do |grp|
+      distinct.order('orgs.name, guidance_groups.name').each do |grp|
       puts "  #{grp.org.name} - Guidance group, '#{grp.name}', has guidance with multiple themes"
     end
     puts "Search complete"
@@ -504,15 +502,11 @@ namespace :upgrade do
   task add_other_org: :environment do
     puts "Checking for existence of an 'Other' org. Unaffiliated users should be affiliated with this org"
 
-    # Get the helpdesk email from the branding YAML
-    branding = YAML.load(File.open('./config/branding.yml'))
-    if branding.present? && branding['defaults'].present? && branding['defaults']['organisation'].present? && branding['defaults']['organisation']['helpdesk_email'].present?
-      email = branding['defaults']['organisation']['helpdesk_email']
-      name = branding['defaults']['organisation']['name'].present? ? "#{branding['defaults']['organisation']['name']} helpdesk" : 'Helpdesk'
-    else
-      email = 'other.organisation@example.org'
-      name = 'Helpdesk'
-    end
+    # Get the helpdesk email from the dmproadmap.rb initializer
+    email = Rails.configuration.x.organisation.helpdesk_email
+    name = Rails.configuration.x.organisation.name
+    email = 'other.organisation@example.org' unless email.present?
+    name = 'Helpdesk' unless name.present?
 
     other_org = Org.find_by(is_other: true)
     if other_org.present?
@@ -563,8 +557,8 @@ namespace :upgrade do
     safe_require 'progress_bar'
 
     template_count = Template.latest_version.where(customization_of: nil)
-                             .includes(phases: { sections: { questions: :annotations }})
-                             .count
+    .includes(phases: { sections: { questions: :annotations }})
+    .count
     bar = ProgressBar.new(template_count)
 
 
@@ -577,8 +571,8 @@ namespace :upgrade do
 
     # Get each of the funder templates...
     Template.latest_version.where(customization_of: nil)
-            .includes(phases: { sections: { questions: :annotations }})
-            .each do |funder_template|
+    .includes(phases: { sections: { questions: :annotations }})
+    .each do |funder_template|
 
       bar.increment!(1)
 
@@ -589,8 +583,8 @@ namespace :upgrade do
         funder_phase.update! versionable_id: SecureRandom.uuid
 
         Phase.joins(:template)
-             .where(templates: { customization_of: funder_template.family_id })
-             .where(number: funder_phase.number).each do |phase|
+        .where(templates: { customization_of: funder_template.family_id })
+        .where(number: funder_phase.number).each do |phase|
 
           if fuzzy_match?(phase.title, funder_phase.title)
             phase.update! versionable_id: funder_phase.versionable_id
@@ -603,7 +597,7 @@ namespace :upgrade do
 
           Section.joins(:template).where(templates: {
             customization_of: funder_template.family_id
-            }).each do |section|
+          }).each do |section|
 
             # Prefix the match text with the number. This will make it easier to match
             # Sections where the number hasn't changed
@@ -621,7 +615,7 @@ namespace :upgrade do
 
             Question.joins(:template).where(templates: {
               customization_of: funder_template.family_id
-              }).each do |question|
+            }).each do |question|
 
               # Prefix the match text with the number. This will make it easier to match
               # Questions where the number hasn't changed
@@ -654,9 +648,9 @@ namespace :upgrade do
 
     # Add versionable_id to any customized Sections...
     Section.joins(:template)
-           .includes(questions: :annotations)
-           .where(templates: { id: Template.latest_version.ids })
-           .where(versionable_id: nil, modifiable: true).each do |section|
+    .includes(questions: :annotations)
+    .where(templates: { id: Template.latest_version.ids })
+    .where(versionable_id: nil, modifiable: true).each do |section|
 
       section.update! versionable_id: SecureRandom.uuid
 
@@ -672,15 +666,18 @@ namespace :upgrade do
   desc "Update Language abbreviations to use ISO format"
   task :normalize_language_formats => :environment do
     Language.all.each do |language|
-      language.update(abbreviation: LocaleFormatter.new(language.abbreviation))
+      val = LocaleService.to_i18n(string: language.abbreviation).to_s
+      language.update(abbreviation: val)
     end
     Template.all.each do |template|
       next if template.locale.blank?
-      template.update(locale: LocaleFormatter.new(template.locale))
+
+      template.update(locale: LocaleService.to_i18n(string: template.locale).to_s)
     end
     Theme.all.each do |theme|
       next if theme.locale.blank?
-      theme.update(locale: LocaleFormatter.new(theme.locale))
+
+      theme.update(locale: LocaleService.to_i18n(string: theme.locale).to_s)
     end
   end
 
@@ -733,8 +730,8 @@ namespace :upgrade do
     QuestionOption.attr_readonly.delete('versionable_id')
 
     Template.latest_version.where(customization_of: nil)
-            .includes(phases: { sections: { questions: :question_options }})
-            .each do |uncustomized|
+    .includes(phases: { sections: { questions: :question_options }})
+    .each do |uncustomized|
 
       # update the versionable_id for the canonical and all customized templates
       uncustomized.question_options.each do |qo|
@@ -746,10 +743,10 @@ namespace :upgrade do
         text_a = "#{qo.number} - #{qo.text}"
 
         Question.joins(:question_options)
-                .where(questions: {versionable_id: qo.question.versionable_id})
-                .where.not(questions: {id: qo.question_id}) # ensure we exclude the current question
-                .includes(:question_options)
-                .each do |q_cust|
+        .where(questions: {versionable_id: qo.question.versionable_id})
+        .where.not(questions: {id: qo.question_id}) # ensure we exclude the current question
+        .includes(:question_options)
+        .each do |q_cust|
           q_cust.question_options.each do |qo_cust|
             text_b = "#{qo_cust.number} - #{qo_cust.text}"
 
@@ -760,7 +757,6 @@ namespace :upgrade do
           end
         end
       end
-
     end
 
   end
@@ -786,204 +782,204 @@ namespace :upgrade do
     Rake::Task["upgrade:retrieve_ror_fundref_ids"].execute
   end
 
-  desc "add the ROR and Fundref identifier schemes"
-  task add_new_identifier_schemes: :environment do
-    unless IdentifierScheme.where(name: "fundref").any?
-      IdentifierScheme.create(
-        name: "fundref",
-        description: "Crossref Funder Registry (FundRef)",
-        active: true
-      )
-    end
-    unless IdentifierScheme.where(name: "ror").any?
-      IdentifierScheme.create(
-        name: "ror",
-        description: "Research Organization Registry (ROR)",
-        active: true
-      )
-    end
-  end
-
-  desc "update the Shibboleth scheme description"
-  task update_shibboleth_description: :environment do
-    scheme = IdentifierScheme.where(name: "shibboleth")
-    if scheme.any?
-      scheme.first.update(description: "Institutional Sign In (Shibboleth)")
-    end
-  end
-
-  desc "Contextualize the Identifier Schemes (e.g. which ones are for orgs, etc."
-  task contextualize_identifier_schemes: :environment do
-    # Identifier schemes for multiple uses
-    shib = IdentifierScheme.find_or_initialize_by(name: "shibboleth")
-    shib.for_users = true
-    shib.for_orgs = true
-    shib.for_authentication = true
-    shib.save
-
-    orcid = IdentifierScheme.find_or_initialize_by(name: "orcid")
-    orcid.for_users = true
-    orcid.for_contributors = true
-    orcid.for_authentication = true
-    orcid.identifier_prefix = "https://orcid.org/"
-    orcid.save
-
-    # Org identifier schemes
-    ror = IdentifierScheme.find_or_initialize_by(name: "ror")
-    ror.for_orgs = true
-    ror.identifier_prefix = "https://ror.org/"
-    ror.save
-
-    fundref = IdentifierScheme.find_or_initialize_by(name: "fundref")
-    fundref.for_orgs = true
-    fundref.identifier_prefix = "https://api.crossref.org/funders/"
-    fundref.save
-  end
-
-  desc "migrate the old user_identifiers over to the polymorphic identifiers table"
-  task convert_user_identifiers: :environment do
-    p "Transferring existing user_identifiers over to the identifiers table"
-    p "this may take in excess of 10 minutes depending on the size of your users table ..."
-    identifiers = UserIdentifier.joins(:user, :identifier_scheme)
-                                .includes(:user, :identifier_scheme)
-                                .where.not(identifier: nil)
-                                .where.not(identifier: '')
-
-    Parallel.map(identifiers, in_threads: 8) do |ui|
-      # Parallel has trouble with ActiveRecord lazy loading
-      require "org" unless Object.const_defined?("Org")
-      require "identifier" unless Object.const_defined?("Identifier")
-      require "identifier_scheme" unless Object.const_defined?("IdentifierScheme")
-      @reconnected ||= Identifier.connection.reconnect! || true
-
-      lookup = Identifier.where(identifiable_id: ui.user_id,
-                                identifiable_type: "User",
-                                identifier_scheme: ui.identifier_scheme)
-      next if lookup.present?
-
-      Identifier.create(identifier_scheme: ui.identifier_scheme, attrs: {}.to_json,
-                        identifiable: ui.user, value: ui.identifier)
-    end
-
-    count = Identifier.where(identifiable_type: "User").length
-    p "Transfer complete. Orginal user_identifier count #{identifiers.length}, new identifiers count #{count}"
-    if identifiers.length > count
-      p ""
-      p "#{identifiers.length - count} records could not be transferred."
-      p "This is typically due to the fact that the new identifiers table will automatically"
-      p "prepend the identifier_scheme.identifier_prefix to the value For example: "
-      p "    '0000-0000-0000-0001' would become 'https://orcid.org/0000-0000-0000-0001'"
-      p "and your old user_identifiers table may have an entry for both versions"
-    end
-  end
-
-  desc "migrate the old org_identifiers over to the polymorphic identifiers table"
-  task convert_org_identifiers: :environment do
-    p "Transferring existing org_identifiers over to the identifiers table"
-    p "please wait ..."
-    identifiers = OrgIdentifier.joins(:org, :identifier_scheme)
-                               .includes(:org, :identifier_scheme)
-                               .where.not(identifier: nil)
-                               .where.not(identifier: '')
-                               .order(id: :desc)
-
-    Parallel.map(identifiers, in_threads: 8) do |oi|
-      # Parallel has trouble with ActiveRecord lazy loading
-      require "org" unless Object.const_defined?("Org")
-      require "identifier" unless Object.const_defined?("Identifier")
-      require "identifier_scheme" unless Object.const_defined?("IdentifierScheme")
-      @reconnected ||= Identifier.connection.reconnect! || true
-
-      lookup = Identifier.where(identifiable_id: oi.org_id,
-                                identifiable_type: "Org",
-                                identifier_scheme: oi.identifier_scheme)
-      next if lookup.present?
-
-      Identifier.create(identifier_scheme: oi.identifier_scheme, attrs: oi.attrs,
-                        identifiable: oi.org, value: oi.identifier)
-    end
-    count = Identifier.where(identifiable_type: "Org").length
-    p "Transfer complete. Orginal org_identifier count #{identifiers.length}, new identifiers count #{count}"
-    if identifiers.length > count
-      p ""
-      p "#{identifiers.length - count} records could not be transferred. Run the following query manually to identify them:"
-      p "  SELECT * FROM org_identifiers WHERE org_id NOT IN ("
-      p "    SELECT identifiers.identifiable_id FROM identifiers "
-		  p "    WHERE identifiers.identifier_scheme_id = org_identifiers.identifier_scheme_id AND identifiable_type = 'Org'"
-	    p "  );"
-      p "Then transfer them manually."
-    end
-  end
-
-  desc "Sets the new managed flag for all existing Orgs to managed = true"
-  task default_orgs_to_managed: :environment do
-    Org.all.update_all(managed: true)
-  end
-
-  desc "retrieves ROR ids for each of the Orgs defined in the database"
-  task retrieve_ror_fundref_ids: :environment do
-    ror = IdentifierScheme.find_by(name: "ror")
-    fundref = IdentifierScheme.find_by(name: "fundref")
-
-    out = CSV.generate do |csv|
-      csv << %w[org_id org_name ror_name ror_id fundref_id]
-
-      if ExternalApis::RorService.ping
-        p "Scanning ROR for each of your existing Orgs"
-        p "The results will be written to tmp/ror_fundref_ids.csv to facilitate review and any corrections that may need to be made."
-        p "The CSV file contains the Org name stored in your DB next to the ROR org name that was matched. Use these 2 values to determine if the match was valid."
-        p "You can use the ROR search page to find the correct match for any organizations that need to be corrected: https://ror.org/search"
-        p ""
-        orgs = Org.includes(identifiers: :identifier_scheme)
-                  .where(is_other: false).order(:name)
-
-        orgs.each do |org|
-          # If the Org already has a ROR identifier skip it
-          next if org.identifiers.select { |id| id.identifier_scheme_id == ror.id }.any?
-
-          # The abbreviation sometimes causes weird results so strip it off
-          # in this instance
-          org_name = org.name.gsub(" (#{org.abbreviation})", "")
-          rslts = OrgSelection::SearchService.search_externally(search_term: org_name)
-          next unless rslts.any?
-
-          # Just use the first match that contains the search term
-          rslt = rslts.select { |rslt| rslt[:weight] <= 1 }.first
-          next unless rslt.present?
-
-          ror_id = rslt[:ror]
-          fundref_id = rslt[:fundref]
-
-          if ror_id.present?
-            ror_ident = Identifier.find_or_initialize_by(identifiable: org,
-                                                         identifier_scheme: ror)
-            ror_ident.value = "#{ror.identifier_prefix}#{ror_id}"
-            ror_ident.save
-            p "    #{org.name} -> ROR: #{ror_ident.value}, #{rslt[:name]}"
-          end
-          if fundref_id.present?
-            fr_ident = Identifier.find_or_initialize_by(identifiable: org,
-                                                        identifier_scheme: fundref)
-            fr_ident.value = "#{fundref.identifier_prefix}#{fundref_id}"
-            fr_ident.save
-            p "    #{org.name} -> FUNDRF: #{fr_ident.value}, #{rslt[:name]}"
-          end
-
-          if ror_id.present? || fundref_id.present?
-            csv << [org.id, org.name, rslt[:name], ror_ident&.value, fr_ident&.value]
-          end
-        end
-      else
-        p "ROR appears to be offline or your configuration is invalid. Heartbeat check failed. Refer to the log for more information."
+    desc "add the ROR and Fundref identifier schemes"
+    task add_new_identifier_schemes: :environment do
+      unless IdentifierScheme.where(name: "fundref").any?
+        IdentifierScheme.create(
+          name: "fundref",
+          description: "Crossref Funder Registry (FundRef)",
+          active: true
+        )
+      end
+      unless IdentifierScheme.where(name: "ror").any?
+        IdentifierScheme.create(
+          name: "ror",
+          description: "Research Organization Registry (ROR)",
+          active: true
+        )
       end
     end
 
-    if out.present?
-      file = File.open("tmp/ror_fundref_ids.csv", "w")
-      file.puts out
-      file.close
+    desc "update the Shibboleth scheme description"
+    task update_shibboleth_description: :environment do
+      scheme = IdentifierScheme.where(name: "shibboleth")
+      if scheme.any?
+        scheme.first.update(description: "Institutional Sign In (Shibboleth)")
+      end
     end
-  end
+
+    desc "Contextualize the Identifier Schemes (e.g. which ones are for orgs, etc."
+    task contextualize_identifier_schemes: :environment do
+      # Identifier schemes for multiple uses
+      shib = IdentifierScheme.find_or_initialize_by(name: "shibboleth")
+      shib.for_users = true
+      shib.for_orgs = true
+      shib.for_authentication = true
+      shib.save
+
+      orcid = IdentifierScheme.find_or_initialize_by(name: "orcid")
+      orcid.for_users = true
+      orcid.for_contributors = true
+      orcid.for_authentication = true
+      orcid.identifier_prefix = "https://orcid.org/"
+      orcid.save
+
+      # Org identifier schemes
+      ror = IdentifierScheme.find_or_initialize_by(name: "ror")
+      ror.for_orgs = true
+      ror.identifier_prefix = "https://ror.org/"
+      ror.save
+
+      fundref = IdentifierScheme.find_or_initialize_by(name: "fundref")
+      fundref.for_orgs = true
+      fundref.identifier_prefix = "https://doi.org/10.13039/"
+      fundref.save
+    end
+
+    desc "migrate the old user_identifiers over to the polymorphic identifiers table"
+    task convert_user_identifiers: :environment do
+      p "Transferring existing user_identifiers over to the identifiers table"
+      p "this may take in excess of 10 minutes depending on the size of your users table ..."
+      identifiers = UserIdentifier.joins(:user, :identifier_scheme)
+      .includes(:user, :identifier_scheme)
+      .where.not(identifier: nil)
+      .where.not(identifier: '')
+
+      Parallel.map(identifiers, in_threads: 8) do |ui|
+        # Parallel has trouble with ActiveRecord lazy loading
+        require "org" unless Object.const_defined?("Org")
+        require "identifier" unless Object.const_defined?("Identifier")
+        require "identifier_scheme" unless Object.const_defined?("IdentifierScheme")
+        @reconnected ||= Identifier.connection.reconnect! || true
+
+        lookup = Identifier.where(identifiable_id: ui.user_id,
+                                  identifiable_type: "User",
+                                  identifier_scheme: ui.identifier_scheme)
+        next if lookup.present?
+
+        Identifier.create(identifier_scheme: ui.identifier_scheme, attrs: {}.to_json,
+                          identifiable: ui.user, value: ui.identifier)
+      end
+
+      count = Identifier.where(identifiable_type: "User").length
+      p "Transfer complete. Orginal user_identifier count #{identifiers.length}, new identifiers count #{count}"
+      if identifiers.length > count
+        p ""
+        p "#{identifiers.length - count} records could not be transferred."
+        p "This is typically due to the fact that the new identifiers table will automatically"
+        p "prepend the identifier_scheme.identifier_prefix to the value For example: "
+        p "    '0000-0000-0000-0001' would become 'https://orcid.org/0000-0000-0000-0001'"
+        p "and your old user_identifiers table may have an entry for both versions"
+      end
+    end
+
+    desc "migrate the old org_identifiers over to the polymorphic identifiers table"
+    task convert_org_identifiers: :environment do
+      p "Transferring existing org_identifiers over to the identifiers table"
+      p "please wait ..."
+      identifiers = OrgIdentifier.joins(:org, :identifier_scheme)
+      .includes(:org, :identifier_scheme)
+      .where.not(identifier: nil)
+      .where.not(identifier: '')
+      .order(id: :desc)
+
+      Parallel.map(identifiers, in_threads: 8) do |oi|
+        # Parallel has trouble with ActiveRecord lazy loading
+        require "org" unless Object.const_defined?("Org")
+        require "identifier" unless Object.const_defined?("Identifier")
+        require "identifier_scheme" unless Object.const_defined?("IdentifierScheme")
+        @reconnected ||= Identifier.connection.reconnect! || true
+
+        lookup = Identifier.where(identifiable_id: oi.org_id,
+                                  identifiable_type: "Org",
+                                  identifier_scheme: oi.identifier_scheme)
+        next if lookup.present?
+
+        Identifier.create(identifier_scheme: oi.identifier_scheme, attrs: oi.attrs,
+                          identifiable: oi.org, value: oi.identifier)
+      end
+      count = Identifier.where(identifiable_type: "Org").length
+      p "Transfer complete. Orginal org_identifier count #{identifiers.length}, new identifiers count #{count}"
+      if identifiers.length > count
+        p ""
+        p "#{identifiers.length - count} records could not be transferred. Run the following query manually to identify them:"
+        p "  SELECT * FROM org_identifiers WHERE org_id NOT IN ("
+        p "    SELECT identifiers.identifiable_id FROM identifiers "
+        p "    WHERE identifiers.identifier_scheme_id = org_identifiers.identifier_scheme_id AND identifiable_type = 'Org'"
+        p "  );"
+        p "Then transfer them manually."
+      end
+    end
+
+    desc "Sets the new managed flag for all existing Orgs to managed = true"
+    task default_orgs_to_managed: :environment do
+      Org.all.update_all(managed: true)
+    end
+
+    desc "retrieves ROR ids for each of the Orgs defined in the database"
+    task retrieve_ror_fundref_ids: :environment do
+      ror = IdentifierScheme.find_by(name: "ror")
+      fundref = IdentifierScheme.find_by(name: "fundref")
+
+      out = CSV.generate do |csv|
+        csv << %w[org_id org_name ror_name ror_id fundref_id]
+
+        if ExternalApis::RorService.ping
+          p "Scanning ROR for each of your existing Orgs"
+          p "The results will be written to tmp/ror_fundref_ids.csv to facilitate review and any corrections that may need to be made."
+          p "The CSV file contains the Org name stored in your DB next to the ROR org name that was matched. Use these 2 values to determine if the match was valid."
+          p "You can use the ROR search page to find the correct match for any organizations that need to be corrected: https://ror.org/search"
+          p ""
+          orgs = Org.includes(identifiers: :identifier_scheme)
+          .where(is_other: false).order(:name)
+
+          orgs.each do |org|
+            # If the Org already has a ROR identifier skip it
+            next if org.identifiers.select { |id| id.identifier_scheme_id == ror.id }.any?
+
+            # The abbreviation sometimes causes weird results so strip it off
+            # in this instance
+            org_name = org.name.gsub(" (#{org.abbreviation})", "")
+            rslts = OrgSelection::SearchService.search_externally(search_term: org_name)
+            next unless rslts.any?
+
+            # Just use the first match that contains the search term
+            rslt = rslts.select { |rslt| rslt[:weight] <= 1 }.first
+            next unless rslt.present?
+
+            ror_id = rslt[:ror]
+            fundref_id = rslt[:fundref]
+
+            if ror_id.present?
+              ror_ident = Identifier.find_or_initialize_by(identifiable: org,
+                                                           identifier_scheme: ror)
+              ror_ident.value = "#{ror.identifier_prefix}#{ror_id}"
+              ror_ident.save
+              p "    #{org.name} -> ROR: #{ror_ident.value}, #{rslt[:name]}"
+            end
+            if fundref_id.present?
+              fr_ident = Identifier.find_or_initialize_by(identifiable: org,
+                                                          identifier_scheme: fundref)
+              fr_ident.value = "#{fundref.identifier_prefix}#{fundref_id}"
+              fr_ident.save
+              p "    #{org.name} -> FUNDRF: #{fr_ident.value}, #{rslt[:name]}"
+            end
+
+            if ror_id.present? || fundref_id.present?
+              csv << [org.id, org.name, rslt[:name], ror_ident&.value, fr_ident&.value]
+            end
+          end
+        else
+          p "ROR appears to be offline or your configuration is invalid. Heartbeat check failed. Refer to the log for more information."
+        end
+      end
+
+      if out.present?
+        file = File.open("tmp/ror_fundref_ids.csv", "w")
+        file.puts out
+        file.close
+      end
+    end
 
   desc "Attempts to migrate other_organisation entries to Orgs"
   task migrate_other_organisation_to_org: :environment do
@@ -1039,9 +1035,9 @@ namespace :upgrade do
       if org.nil? && user.other_organisation.present?
         name = user.other_organisation
         abbrev = OrgSelection::SearchService.name_without_alias(name: name)
-                                            .split(" ").map(&:first).join.upcase
+        .split(" ").map(&:first).join.upcase
         org = Org.new(name: name, managed: false, is_other: false,
-                         abbreviation: abbrev, language: Language.default)
+                      abbreviation: abbrev, language: Language.default)
         org.save if org.present? && org.valid?
       end
 
@@ -1076,7 +1072,7 @@ namespace :upgrade do
 
       elsif owner.present?
         contact, contact_id = to_contributor(plan, owner.name(false),
-          owner.email, nil, owner.identifier_for(orcid)&.value, owner.org_id)
+                                             owner.email, nil, owner.identifier_for(orcid)&.first&.value, owner.org_id)
       end
       # Add the DMP Data Contact
       if contact.present?
@@ -1103,7 +1099,7 @@ namespace :upgrade do
       # Add the authors
       if owner.present? && owner == contact
         user, id = to_contributor(plan, owner.name(false),
-          owner.email, nil, owner.identifier_for(orcid)&.first&.value, owner.org_id)
+                                  owner.email, nil, owner.identifier_for(orcid)&.first&.value, owner.org_id)
 
         if user.present?
           user.save
@@ -1123,7 +1119,7 @@ namespace :upgrade do
   desc "Attach Plans to their owner's Org and then back fill the Funder"
   task migrate_plan_org_and_funder: :environment do
     plans = Plan.includes(template: :org, roles: :user)
-                .joins(template: :org, roles: :user)
+    .joins(template: :org, roles: :user)
 
     p "Attaching Plans to Orgs ... this can take in excess of 5 minutes depending on how many plans you have."
     Parallel.map(plans, in_threads: 8) do |plan|
@@ -1138,7 +1134,7 @@ namespace :upgrade do
 
       next unless plan.owner.present? && plan.owner.org.present?
 
-      plan.update(org_id: plan.owner.org.id)
+      plan.update(org_id: plan.owner.org.id, touch: false)
     end
 
     p "Attaching Plans to Funders"
@@ -1167,7 +1163,7 @@ namespace :upgrade do
         funder_id = org.id if org.present?
       end
 
-      plan.update(funder_id: funder_id) if funder_id.present?
+      plan.update(funder_id: funder_id, touch: false) if funder_id.present?
     end
     p "Complete"
   end
@@ -1186,7 +1182,7 @@ namespace :upgrade do
       identifier = Identifier.find_or_create_by(
         identifier_scheme_id: nil, identifiable: plan, value: plan.grant_number
       )
-      plan.update(grant_id: identifier.id)
+      plan.update(grant_id: identifier.id, touch: false)
     end
     p "Complete"
   end
@@ -1196,11 +1192,11 @@ namespace :upgrade do
     ror = IdentifierScheme.find_by(name: "ror")
     fundref = IdentifierScheme.find_by(name: "fundref")
     org_identifiers_migrated = Identifier.where(identifiable_type: 'Org')
-                                         .where.not(identifier_scheme: [ror, fundref])
-                                         .count
+    .where.not(identifier_scheme: [ror, fundref])
+    .count
     user_identifiers_migrated = Identifier.where(identifiable_type: 'User')
-                                          .where.not(identifier_scheme: [ror, fundref])
-                                          .count
+    .where.not(identifier_scheme: [ror, fundref])
+    .count
     rors_added = Identifier.where(identifiable_type: 'Org', identifier_scheme: ror).count
     fundrefs_added = Identifier.where(identifiable_type: 'Org', identifier_scheme: fundref).count
 
@@ -1221,7 +1217,7 @@ namespace :upgrade do
     p "               'University of Somewhere' may match to 'Univerity of Somewhere - Medical Center'"
     p "            To correct any issues, please delete/insert/update the corresponding Identifier:"
     p "               delete from identifiers where identifiable_type = 'Org' and identifiable_id = [orgs.id];"
-    p "               insert into identifiers (identifiable_type, identifier_scheme_id, attrs, identifiable_id, value) values ('Org', [identifier_scheme_id], '{}', [orgs.id], 'https://api.crossref.org/funders/0000000000');"
+    p "               insert into identifiers (identifiable_type, identifier_scheme_id, attrs, identifiable_id, value) values ('Org', [identifier_scheme_id], '{}', [orgs.id], 'https://doi.org/10.13039/0000000000');"
     p "               update identifiers set `value` = 'https://ror.org/123456789' where identifiable_id = [orgs.id] and identifier_scheme_id = [identifier_scheme_id] and identifiable_type= 'Org';"
     p "---------------------------------------------------------------"
   end
@@ -1265,6 +1261,15 @@ namespace :upgrade do
     p "---------------------------------------------------------------"
   end
 
+
+  desc "explicitly set some column-defaults in the database"
+  task column_defaults: :environment do
+    Org.where(links:  nil).update_all(links: { "org": [] })
+    Org.where(feedback_email_subject: nil).update_all(feedback_email_subject: Org.feedback_confirmation_default_subject)
+    Org.where(feedback_email_msg: nil).update_all(feedback_email_msg: Org.feedback_confirmation_default_message)
+    Org.where(language_id: nil).update_all(language_id: Language.default&.id)
+  end
+
   private
 
   def fuzzy_match?(text_a, text_b, min = 3)
@@ -1276,7 +1281,7 @@ namespace :upgrade do
       require libname
     rescue LoadError
       puts "Please install the #{libname} gem locally and try again:
-              gem install #{libname}"
+            gem install #{libname}"
       exit 1
     end
   end

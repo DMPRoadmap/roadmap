@@ -30,13 +30,9 @@
 #
 #  fk_rails_...  (language_id => languages.id)
 #
+class Org < ApplicationRecord
 
-class Org < ActiveRecord::Base
-
-  include ValidationMessages
-  include ValidationValues
-  include FeedbacksHelper
-  include GlobalHelpers
+  extend FeedbacksHelper
   include FlagShihTzu
   include Identifiable
 
@@ -46,8 +42,16 @@ class Org < ActiveRecord::Base
   LOGO_FORMATS = %w[jpeg png gif jpg bmp].freeze
 
   HUMANIZED_ATTRIBUTES = {
-    feedback_email_msg: _('Feedback email message')
-  }
+    feedback_email_msg: _("Feedback email message")
+  }.freeze
+
+  # TODO: we don't allow this to be edited on the frontend, can we remove from DB?
+  # if not, we'll need to add a rake:task to ensure that each of these is set for each
+  # org
+  attribute :feedback_email_subject, :string, default: feedback_confirmation_default_subject
+  attribute :feedback_email_msg, :text, default: feedback_confirmation_default_message
+  attribute :language_id, :integer, default: -> { Language.default&.id }
+  attribute :links, :text, default: { "org": [] }
 
   # Stores links as an JSON object:
   #  { org: [{"link":"www.example.com","text":"foo"}, ...] }
@@ -55,17 +59,16 @@ class Org < ActiveRecord::Base
   # validators/template_links_validator.rb
   serialize :links, JSON
 
-
   # ================
   # = Associations =
   # ================
 
   belongs_to :language
 
-  belongs_to :region
+  belongs_to :region, optional: true
 
   has_one :tracker, dependent: :destroy
-  accepts_nested_attributes_for :tracker 
+  accepts_nested_attributes_for :tracker
   validates_associated :tracker
 
   has_many :guidance_groups, dependent: :destroy
@@ -122,7 +125,7 @@ class Org < ActiveRecord::Base
                                    message: INCLUSION_MESSAGE }
 
   validates_property :format, of: :logo, in: LOGO_FORMATS,
-                     message: _("must be one of the following formats: " +
+                              message: _("must be one of the following formats: " \
                                 "jpeg, jpg, png, gif, bmp")
 
   validates_size_of :logo,
@@ -132,6 +135,35 @@ class Org < ActiveRecord::Base
   # allow validations for logo upload
   dragonfly_accessor :logo do
     after_assign :resize_image
+  end
+
+  # =============
+  # = Callbacks =
+  # =============
+  # This checks the filestore for the dragonfly image each time before we validate
+  # and removes the dragonfly info if the logo is not found so validations pass
+  # TODO: re-evaluate this after moving dragonfly to active_storage
+  before_validation :check_for_missing_logo_file
+
+  # If the physical logo file is no longer on disk we do not want it to prevent the
+  # model from saving. This typically happens when you copy the database to another
+  # environment. The orgs.logo_uid stores the path to the physical logo file that is
+  # stored in the Dragonfly data store (default is: public/system/dragonfly/[env]/)
+  def check_for_missing_logo_file
+    return unless logo_uid.present?
+
+    data_store_path = Dragonfly.app.datastore.root_path
+
+    return if File.exist?("#{data_store_path}#{logo_uid}")
+
+    # Attempt to locate the file by name. If it exists update the uid
+    logo = Dir.glob("#{data_store_path}/**/*#{logo_name}")
+    if !logo.empty?
+      self.logo_uid = logo.first.gsub(data_store_path, "")
+    else
+      # Otherwise the logo is missing so clear it to prevent save failures
+      self.logo = nil
+    end
   end
 
   ##
@@ -148,7 +180,7 @@ class Org < ActiveRecord::Base
   # The default Org is the one whose guidance is auto-attached to
   # plans when a plan is created
   def self.default_orgs
-    where(abbreviation: Branding.fetch(:organisation, :abbreviation))
+    where(abbreviation: Rails.configuration.x.organisation.abbreviation)
   end
 
   # The managed flag is set by a Super Admin. A managed org typically has
@@ -157,15 +189,15 @@ class Org < ActiveRecord::Base
   # An un-managed Org is one created on the fly by the system
   scope :unmanaged, -> { where(managed: false) }
 
-  scope :search, -> (term) {
+  scope :search, lambda { |term|
     search_pattern = "%#{term}%"
-    where("lower(orgs.name) LIKE lower(?) OR " +
+    where("lower(orgs.name) LIKE lower(?) OR " \
           "lower(orgs.contact_email) LIKE lower(?)",
           search_pattern, search_pattern)
   }
 
   # Scope used in several controllers
-  scope :with_template_and_user_counts, -> {
+  scope :with_template_and_user_counts, lambda {
     joins("LEFT OUTER JOIN templates ON orgs.id = templates.org_id")
       .joins("LEFT OUTER JOIN users ON orgs.id = users.org_id")
       .group("orgs.id")
@@ -173,10 +205,6 @@ class Org < ActiveRecord::Base
               count(distinct templates.family_id) as template_count,
               count(users.id) as user_count")
   }
-
-  before_validation :set_default_feedback_email_subject
-  before_validation :check_for_missing_logo_file
-  after_create :create_guidance_group
 
   # EVALUATE CLASS AND INSTANCE METHODS BELOW
   #
@@ -187,20 +215,16 @@ class Org < ActiveRecord::Base
     HUMANIZED_ATTRIBUTES[attr.to_sym] || super
   end
 
-  def links
-    super() || { "org": [] }
-  end
+  # ===========================
+  # = Public instance methods =
+  # ===========================
 
   # Determines the locale set for the organisation
   #
   # Returns String
   # Returns nil
-  def get_locale
-    if !self.language.nil?
-      self.language.abbreviation
-    else
-      nil
-    end
+  def locale
+    language&.abbreviation
   end
 
   # TODO: Should these be hardcoded? Also, an Org can currently be multiple org_types at
@@ -213,17 +237,18 @@ class Org < ActiveRecord::Base
   # Returns String
   def org_type_to_s
     ret = []
-    ret << "Institution" if self.institution?
-    ret << "Funder" if self.funder?
-    ret << "Organisation" if self.organisation?
-    ret << "Research Institute" if self.research_institute?
-    ret << "Project" if self.project?
-    ret << "School" if self.school?
-    (ret.length > 0 ? ret.join(", ") : "None")
+    ret << "Institution" if institution?
+    ret << "Funder" if funder?
+    ret << "Organisation" if organisation?
+    ret << "Research Institute" if research_institute?
+    ret << "Project" if project?
+    ret << "School" if school?
+    (!ret.empty? ? ret.join(", ") : "None")
   end
+  # rubocop:enable
 
   def funder_only?
-    self.org_type == Org.org_type_values_for(:funder).min
+    org_type == Org.org_type_values_for(:funder).min
   end
 
   ##
@@ -239,7 +264,7 @@ class Org < ActiveRecord::Base
   #
   # Returns String
   def short_name
-    if abbreviation.nil? then
+    if abbreviation.nil?
       name
     else
       abbreviation
@@ -255,21 +280,21 @@ class Org < ActiveRecord::Base
   end
 
   def org_admins
-    User.joins(:perms).where("users.org_id = ? AND perms.name IN (?)", self.id,
-      ["grant_permissions", "modify_templates", "modify_guidance", "change_org_details"])
+    admin_perms = %w[grant_permissions modify_templates modify_guidance change_org_details]
+    User.joins(:perms).where("users.org_id = ? AND perms.name IN (?)", id, admin_perms)
   end
 
   def plans
     plan_ids = Role.administrator
-                   .where(user_id: self.users.pluck(:id), active: true)
+                   .where(user_id: users.pluck(:id), active: true)
                    .pluck(:plan_id).uniq
     Plan.includes(:template, :phases, :roles, :users)
         .where(id: plan_ids)
   end
 
   def grant_api!(token_permission_type)
-    self.token_permission_types << token_permission_type unless
-      self.token_permission_types.include? token_permission_type
+    token_permission_types << token_permission_type unless
+      token_permission_types.include? token_permission_type
   end
 
   private
@@ -278,48 +303,9 @@ class Org < ActiveRecord::Base
   # checks size of logo and resizes if necessary
   #
   def resize_image
-    unless logo.nil?
-      if logo.height != 100
-        self.logo = logo.thumb("x100")  # resize height and maintain aspect ratio
-      end
-    end
-  end
+    return if logo.nil? || logo.height == 100
 
-  # If the physical logo file is no longer on disk we do not want it to prevent the
-  # model from saving. This typically happens when you copy the database to another
-  # environment. The orgs.logo_uid stores the path to the physical logo file that is
-  # stored in the Dragonfly data store (default is: public/system/dragonfly/[env]/)
-  def check_for_missing_logo_file
-    if self.logo_uid.present?
-      data_store_path = Dragonfly.app.datastore.root_path
-
-      if !File.exist?("#{data_store_path}#{self.logo_uid}")
-        # Attempt to locate the file by name. If it exists update the uid
-        logo = Dir.glob("#{data_store_path}/**/*#{self.logo_name}")
-        if !logo.empty?
-          self.logo_uid = logo.first.gsub(data_store_path, "")
-        else
-          # Otherwise the logo is missing so clear it to prevent save failures
-          self.logo = nil
-        end
-      end
-    end
-  end
-
-  def set_default_feedback_email_subject
-    if self.feedback_enabled? && !self.feedback_email_subject.present?
-      self.feedback_email_subject = feedback_confirmation_default_subject
-    end
-  end
-
-  # creates a dfefault Guidance Group on create on the Org
-  def create_guidance_group
-    GuidanceGroup.create!(
-      name: abbreviation? ? self.abbreviation : self.name,
-      org: self,
-      optional_subset: false,
-      published: false,
-    )
+    self.logo = logo.thumb("x100") # resize height and maintain aspect ratio
   end
 
 end

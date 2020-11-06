@@ -56,6 +56,7 @@
 FactoryBot.define do
   factory :user do
     org
+    language     { Language.default }
     firstname    { Faker::Name.unique.first_name }
     surname      { Faker::Name.unique.last_name }
     email        { Faker::Internet.unique.safe_email }
@@ -63,7 +64,7 @@ FactoryBot.define do
     accept_terms { true }
 
     trait :org_admin do
-      after(:create) do |user, evaluator|
+      after(:create) do |user, _evaluator|
         %w[modify_templates modify_guidance
            change_org_details
            use_api
@@ -74,7 +75,7 @@ FactoryBot.define do
     end
 
     trait :super_admin do
-      after(:create) do |user, evaluator|
+      after(:create) do |user, _evaluator|
         %w[change_org_affiliation add_organisations
            grant_permissions use_api change_org_details grant_api_to_orgs
            modify_templates modify_guidance].each do |perm_name|
