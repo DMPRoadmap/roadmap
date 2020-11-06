@@ -1,4 +1,4 @@
-class AddContextToIdentifierSchemes < ActiveRecord::Migration
+class AddContextToIdentifierSchemes < ActiveRecord::Migration[4.2]
   def change
     remove_column :identifier_schemes, :for_auth
     remove_column :identifier_schemes, :for_orgs

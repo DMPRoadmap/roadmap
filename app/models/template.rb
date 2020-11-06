@@ -32,11 +32,11 @@
 #  fk_rails_...  (org_id => orgs.id)
 #
 
-class Template < ActiveRecord::Base
+# rubocop:disable Metrics/ClassLength
+class Template < ApplicationRecord
 
   include GlobalHelpers
-  include ValidationMessages
-  include ValidationValues
+  extend UniqueRandom
 
   validates_with TemplateLinksValidator
 
@@ -53,6 +53,17 @@ class Template < ActiveRecord::Base
   # The links is validated against custom validator allocated at
   # validators/template_links_validator.rb
   serialize :links, JSON
+
+  attribute :published, :boolean, default: false
+  attribute :archived, :boolean, default: false
+  attribute :is_default, :boolean, default: false
+  attribute :version, :integer, default: 0
+  attribute :customization_of, :integer, default: nil
+  attribute :family_id, :integer, default: -> { Template.new_family_id }
+  attribute :links, :text, default: { funder: [], sample_plan: [] }
+  # TODO: re-add visibility setting? (this is handled in org_admin/create and
+  # relies on the org_id in the current callback-form)
+  attribute :visibility, :integer, default: 0
 
   # ================
   # = Associations =
@@ -92,14 +103,15 @@ class Template < ActiveRecord::Base
 
   validates :family_id, presence: { message: PRESENCE_MESSAGE }
 
-
   # =============
   # = Callbacks =
   # =============
 
-  before_validation :set_defaults
-
-  after_update :reconcile_published, if: -> (template) { template.published? }
+  # TODO: leaving this in for now, as this is better placed as an after_update than
+  # overwriting the accessors.  We want to ensure this template is published
+  # before we remove the published_version
+  # That being said, there's a potential race_condition where we have multiple-published-versions
+  after_update :reconcile_published, if: ->(template) { template.published? }
 
   # ==========
   # = Scopes =
@@ -109,7 +121,7 @@ class Template < ActiveRecord::Base
 
   scope :unarchived, -> { where(archived: false) }
 
-  scope :published, ->(family_id = nil) {
+  scope :published, lambda { |family_id = nil|
     if family_id.present?
       unarchived.where(published: true, family_id: family_id)
     else
@@ -119,7 +131,7 @@ class Template < ActiveRecord::Base
 
   # Retrieves the latest templates, i.e. those with maximum version associated.
   # It can be filtered down if family_id is passed
-  scope :latest_version, ->(family_id = nil) {
+  scope :latest_version, lambda { |family_id = nil|
     unarchived.from(latest_version_per_family(family_id), :current)
               .joins(<<~SQL)
                 INNER JOIN templates ON current.version = templates.version
@@ -130,7 +142,7 @@ class Template < ActiveRecord::Base
 
   # Retrieves the latest customized versions, i.e. those with maximum version
   # associated for a set of family_id and an org
-  scope :latest_customized_version, ->(family_id = nil, org_id = nil) {
+  scope :latest_customized_version, lambda { |family_id = nil, org_id = nil|
     unarchived
       .from(latest_customized_version_per_customised_of(family_id, org_id),
             :current)
@@ -144,7 +156,7 @@ class Template < ActiveRecord::Base
 
   # Retrieves the latest templates, i.e. those with maximum version associated
   # for a set of org_id passed
-  scope :latest_version_per_org, ->(org_id = nil) {
+  scope :latest_version_per_org, lambda { |org_id = nil|
     family_ids = if org_id.respond_to?(:each)
                    families(org_id).pluck(:family_id)
                  else
@@ -181,11 +193,13 @@ class Template < ActiveRecord::Base
   }
 
   # Retrieves unarchived templates with public visibility
+  # Overwrites the default method from the enum
   scope :publicly_visible, lambda {
     unarchived.where(visibility: visibilities[:publicly_visible])
   }
 
   # Retrieves unarchived templates with organisational visibility
+  # Overwrites the default method from the enum
   scope :organisationally_visible, lambda {
     unarchived.where(visibility: visibilities[:organisationally_visible])
   }
@@ -194,11 +208,10 @@ class Template < ActiveRecord::Base
   # passed
   scope :search, lambda { |term|
     unarchived.joins(:org)
-              .where("lower(templates.title) LIKE lower(:term) OR " +
+              .where("lower(templates.title) LIKE lower(:term) OR " \
                      "lower(orgs.name) LIKE lower(:term)",
                      term: "%#{term}%")
   }
-
 
   # defines the export setting for a template object
   has_settings :export, class_name: "Settings::Template" do |s|
@@ -244,13 +257,9 @@ class Template < ActiveRecord::Base
   # template instances.
   def self.latest_version_per_family(family_id = nil)
     chained_scope = unarchived.select("MAX(version) AS version", :family_id)
-    if family_id.present?
-      chained_scope = chained_scope.where(family_id: family_id)
-    end
+    chained_scope = chained_scope.where(family_id: family_id) if family_id.present?
     chained_scope.group(:family_id)
   end
-
-  private_class_method :latest_version_per_family
 
   def self.latest_customized_version_per_customised_of(customization_of = nil,
                                                        org_id = nil)
@@ -260,9 +269,6 @@ class Template < ActiveRecord::Base
     chained_scope.group(:customization_of)
   end
 
-  private_class_method :latest_customized_version_per_customised_of
-
-
   # ===========================
   # = Public instance methods =
   # ===========================
@@ -270,13 +276,12 @@ class Template < ActiveRecord::Base
   # Creates a copy of the current template
   # raises ActiveRecord::RecordInvalid when save option is true and validations
   # fails.
+  # rubocop:disable Metrics/AbcSize
   def deep_copy(attributes: {}, **options)
     copy = dup
     if attributes.respond_to?(:each_pair)
       attributes.each_pair do |attribute, value|
-        if copy.respond_to?("#{attribute}=".to_sym)
-          copy.send("#{attribute}=".to_sym, value)
-        end
+        copy.send("#{attribute}=".to_sym, value) if copy.respond_to?("#{attribute}=".to_sym)
       end
     end
     copy.save! if options.fetch(:save, false)
@@ -287,13 +292,16 @@ class Template < ActiveRecord::Base
     copy.conditions.each do |cond|
       if cond.option_list.any?
         versionable_ids = QuestionOption.where(id: cond.option_list).pluck(:versionable_id)
-        cond.option_list = copy.question_options.where(versionable_id: versionable_ids).pluck(:id).map(&:to_s)
+        cond.option_list = copy.question_options.where(versionable_id: versionable_ids)
+                               .pluck(:id).map(&:to_s)
         # TODO: these seem to be stored as strings, not sure if that's required by other code
-      end # TODO: would it be safe to remove conditions without an option list?
+        # TODO: would it be safe to remove conditions without an option list?
+      end
 
       if cond.remove_data.any?
         versionable_ids = Question.where(id: cond.remove_data).pluck(:versionable_id)
-        cond.remove_data = copy.questions.where(versionable_id: versionable_ids).pluck(:id).map(&:to_s)
+        cond.remove_data = copy.questions.where(versionable_id: versionable_ids)
+                               .pluck(:id).map(&:to_s)
       end
 
       cond.save if cond.changed?
@@ -301,6 +309,7 @@ class Template < ActiveRecord::Base
 
     copy
   end
+  # rubocop:enable Metrics/AbcSize
 
   # Retrieves the template's org or the org of the template this one is derived
   # from of it is a customization
@@ -316,7 +325,7 @@ class Template < ActiveRecord::Base
   #
   # Returns Boolean
   def latest?
-    id == Template.latest_version(family_id).pluck(:id).first
+    id == Template.latest_version(family_id).pluck("templates.id").first
   end
 
   # Determines whether or not a new version should be generated
@@ -337,8 +346,10 @@ class Template < ActiveRecord::Base
   # Determines whether or not a customized template should be upgraded
   def upgrade_customization?
     return false unless customization_of?
+
     funder_template = Template.published(customization_of).select(:created_at).first
     return false unless funder_template.present?
+
     funder_template.created_at > created_at
   end
 
@@ -358,6 +369,7 @@ class Template < ActiveRecord::Base
   def generate_copy!(org)
     # Assume customizing_org is persisted
     raise _("generate_copy! requires an organisation target") unless org.is_a?(Org)
+
     template = deep_copy(
       attributes: {
         version: 0,
@@ -365,7 +377,7 @@ class Template < ActiveRecord::Base
         family_id: new_family_id,
         org: org,
         is_default: false,
-        title: format(_("Copy of %{template}"), template: title)
+        title: _("Copy of %{template}") % { template: title }
       }, modifiable: true, save: true
     )
     template
@@ -374,6 +386,7 @@ class Template < ActiveRecord::Base
   # Generates a new copy of self with an incremented version number
   def generate_version!
     raise _("generate_version! requires a published template") unless published
+
     template = deep_copy(
       attributes: {
         version: version + 1,
@@ -424,6 +437,7 @@ class Template < ActiveRecord::Base
     update!(published: true)
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def publishability
     error = ""
     publishable = true
@@ -432,22 +446,22 @@ class Template < ActiveRecord::Base
       error += _("You can not publish a published template.  ")
       publishable = false
     end
-    if not latest?
+    unless latest?
       error += _("You can not publish a historical version of this template.  ")
       publishable = false
-    # all templates have atleast one phase
+      # all templates have atleast one phase
     end
-    if not phases.count > 0
+    if phases.count <= 0
       error += _("You can not publish a template without phases.  ")
       publishable = false
-    # all phases must have atleast 1 section
+      # all phases must have atleast 1 section
     end
-    unless phases.map{|p| p.sections.count > 0}.reduce(true) { |fin, val| fin and val }
+    unless phases.map { |p| p.sections.count.positive? }.reduce(true) { |fin, val| fin and val }
       error += _("You can not publish a template without sections in a phase.  ")
       publishable = false
-    # all sections must have atleast one question
+      # all sections must have atleast one question
     end
-    unless sections.map{|s| s.questions.count > 0}.reduce(true) { |fin, val| fin and val }
+    unless sections.map { |s| s.questions.count.positive? }.reduce(true) { |fin, val| fin and val }
       error += _("You can not publish a template without questions in a section.  ")
       publishable = false
     end
@@ -455,7 +469,19 @@ class Template < ActiveRecord::Base
       error += _("Conditions in the template refer backwards")
       publishable = false
     end
-    return publishable, error
+    [publishable, error]
+  end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable
+
+  # TODO: refactor to use UniqueRandom
+  # Generate a new random family identifier
+  def self.new_family_id
+    family_id = loop do
+      random = rand 2_147_483_647
+      break random unless Template.exists?(family_id: random)
+    end
+    family_id
   end
 
   private
@@ -464,32 +490,8 @@ class Template < ActiveRecord::Base
   # = Private instance methods =
   # ============================
 
-  # Generate a new random family identifier
   def new_family_id
-    family_id = loop do
-      random = rand 2_147_483_647
-      break random unless Template.exists?(family_id: random)
-    end
-    family_id
-  end
-
-  # Default values to set before running any validation
-  def set_defaults
-    self.published ||= false
-    self.archived ||= false
-    self.is_default ||= false
-    self.version ||= 0
-    unless id?
-      self.visibility = if (org.present? && org.funder_only?) || is_default?
-                          Template.visibilities[:publicly_visible]
-                        else
-                          Template.visibilities[:organisationally_visible]
-                        end
-    end
-    self.customization_of ||= nil
-    self.family_id ||= new_family_id
-    self.archived ||= false
-    self.links ||= { funder: [], sample_plan: [] }
+    Template.new_family_id
   end
 
   # Only one version of a template should be published at a time, so if this
@@ -503,25 +505,25 @@ class Template < ActiveRecord::Base
   end
 
   def invalid_condition_order
-    self.questions.each do |question|
-      if question.option_based?
-        question.conditions.each do |condition|
-          if condition.action_type == "remove"
-            condition.remove_data.each do |rem_id|
-              rem_question = Question.find(rem_id.to_s)
-              if before(rem_question,question)
-                return true
-              end
-            end
-          end
+    questions.each do |question|
+      next unless question.option_based?
+
+      question.conditions.each do |condition|
+        next unless condition.action_type == "remove"
+
+        condition.remove_data.each do |rem_id|
+          rem_question = Question.find(rem_id.to_s)
+          return true if before(rem_question, question)
         end
       end
     end
     false
   end
 
-  def before(q1,q2)
-    q1.section.number < q2.section.number ||
-      (q1.section.number == q2.section.number && q1.number < q2.number)
+  def before(question1, question2)
+    question1.section.number < question2.section.number ||
+      (question1.section.number == question2.section.number && question1.number < question2.number)
   end
+
 end
+# rubocop:enable Metrics/ClassLength

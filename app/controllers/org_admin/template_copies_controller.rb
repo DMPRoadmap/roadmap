@@ -14,10 +14,10 @@ class OrgAdmin::TemplateCopiesController < ApplicationController
       new_copy = @template.generate_copy!(current_user.org)
       flash[:notice] = "#{template_type(@template).capitalize} was successfully copied."
       redirect_to edit_org_admin_template_path(new_copy)
-    rescue StandardError => e
+    rescue StandardError
       flash[:alert] = failure_message(_("copy"), template_type(@template))
       if request.referrer.present?
-        redirect_to :back
+        redirect_back(fallback_location: org_admin_templates_path)
       else
         redirect_to org_admin_templates_path
       end

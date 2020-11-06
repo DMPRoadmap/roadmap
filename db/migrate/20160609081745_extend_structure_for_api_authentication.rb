@@ -1,4 +1,4 @@
-class ExtendStructureForApiAuthentication < ActiveRecord::Migration
+class ExtendStructureForApiAuthentication < ActiveRecord::Migration[4.2]
   def change
 
     add_column :token_permissions, :user_id, :integer

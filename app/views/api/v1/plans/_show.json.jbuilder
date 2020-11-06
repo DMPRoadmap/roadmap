@@ -10,7 +10,7 @@ presenter = Api::V1::PlanPresenter.new(plan: plan)
 json.title plan.title
 json.description plan.description
 json.language Api::V1::LanguagePresenter.three_char_code(
-  lang: ApplicationService.default_language
+  lang: LocaleService.default_locale
 )
 json.created plan.created_at.to_formatted_s(:iso8601)
 json.modified plan.updated_at.to_formatted_s(:iso8601)

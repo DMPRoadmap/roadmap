@@ -6,7 +6,9 @@ RSpec.describe OrgSelectable do
 
   before(:each) do
     class StubController < ApplicationController
+
       include OrgSelectable
+
     end
 
     @controller = StubController.new
@@ -15,13 +17,14 @@ RSpec.describe OrgSelectable do
     OrgSelection::HashToOrgService.stubs(:to_identifiers)
                                   .returns([build(:identifier)])
 
+    org_id = { id: Faker::Number.number, name: Faker::Company.name }.to_json
     @params = ActionController::Parameters.new({
-      other_param: Faker::Company.name,
-      org_id: { id: Faker::Number.number, name: Faker::Company.name }.to_json,
-      org_name: Faker::Company.name,
-      org_sources: [Faker::Company.name],
-      org_crosswalk: [{ id: Faker::Number.number }]
-    })
+                                                 other_param: Faker::Company.name,
+                                                 org_id: org_id,
+                                                 org_name: Faker::Company.name,
+                                                 org_sources: [Faker::Company.name],
+                                                 org_crosswalk: [{ id: Faker::Number.number }]
+                                               })
   end
 
   after(:each) do
@@ -81,7 +84,7 @@ RSpec.describe OrgSelectable do
     describe "#remove_org_selection_params(params:)" do
       before(:each) do
         @rslt = @controller.send(:remove_org_selection_params,
-          params_in: @params)
+                                 params_in: @params)
       end
       it "removes the org_selector params" do
         expect(@rslt[:org_id].present?).to eql(false)

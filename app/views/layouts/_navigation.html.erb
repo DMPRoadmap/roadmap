@@ -9,9 +9,9 @@
         <span class="icon-bar"></span>
       </button>
       <%= link_to(image_tag("logo.png",
-                            alt: "#{Rails.configuration.branding[:application][:name]} #{_('logo')}",
+                            alt: "#{ApplicationService.application_name} #{_('logo')}",
                             class: "app-logo",
-                            title: Rails.configuration.branding[:application][:name]),
+                            title: ApplicationService.application_name),
                   root_path) %>
     </div>
 
@@ -19,15 +19,15 @@
     <div class="collapse navbar-collapse" id="app-navbar-menu">
       <ul class="nav navbar-nav">
         <% if user_signed_in? %>
-          <li class="<%= ' active' if active_page?(root_path) %>">
+          <li <%= 'class=active' if active_page?(plans_path, true)%>>
             <%= link_to _('My Dashboard'), plans_path %>
           </li>
-          <li <%= 'class=active' if active_page?(new_plan_path) %>>
+          <li <%= 'class=active' if active_page?(new_plan_path, true) %>>
             <%= link_to _('Create plans'), new_plan_path %>
           </li>
-            <li class="dropdown" id="reference-dropdown">
+            <li class="dropdown <%= 'active' if active_page?(public_plans_path, true) || active_page?(public_templates_path, true) %>" id="reference-dropdown">
               <a href="#" class="dropdown-toggle" role="button" id="reference-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-book" aria-hidden="true">&nbsp;</i>
+                <i class="fas fa-book" aria-hidden="true">&nbsp;</i>
                 <%= _("Reference") %>
                 <span class="caret"></span>
               </a>
@@ -38,7 +38,6 @@
                 <li <%= 'class=active' if active_page?(public_templates_path) %>>
                   <%= link_to _('DMP Templates'), public_templates_path %>
               </ul>
-            </a>
           </li>
         <% else %>
           <li <%= 'class=active' if active_page?(root_path, true) || active_page?(plans_path, true) %>>

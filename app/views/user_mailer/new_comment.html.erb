@@ -1,38 +1,24 @@
-<%
-  tool_name = Rails.configuration.branding[:application][:name]
-  commenter_name = @commenter.name
-  plan_title = @plan.title
-  user_name = @plan.owner.name
-  question = @answer.question
-  question_number = question.number
-  section_title = question.section.title
-  phase_id = question.section.phase.id
-  phase_link = url_for(action: 'edit', controller: 'plans', id: @plan.id, phase_id: phase_id)
-  comment_number = @answer.notes.size
-%>
-<% FastGettext.with_locale FastGettext.default_locale do %>
-  <p>
-    <%= _('Hello %{user_name}') %{ :user_name => user_name } %>
-  </p>
-  <p>
-    <%= _('%{commenter_name} has commented on your plan %{plan_title}. To view the comments, '\
-    'follow the link to the DMP below, or navigate to the plan via My Dashboard page in %{tool_name}.') \
-    %{ :commenter_name => commenter_name, :plan_title => plan_title, :tool_name => tool_name } %>
-  </p>
-  <p>
-    <%=  _('Below is a summary of the sections and questions which have comments.') %>
-    <%= _('You can see the comments in the right-hand panel, '\
-      'adjacent to the guidance for each question.') %>
-  </p>
-  <p>
-    <%= _('DMP: %{phase_link}') %{ :phase_link => phase_link }  %>
-  </p>
-  <p>
-    <%= _('Section name: %{section_title}') %{ :section_title => section_title } %>
-  </p>
-  <p>
-    <%= _('Question: %{question_number}') %{ :question_number => question_number } %>
-  </p>
+<p>
+  <%= _('Hello %{user_name}') %{ user_name: @user_name } %>
+</p>
+<p>
+  <%= _('%{commenter_name} has commented on your plan %{plan_title}. To view the comments, '\
+  'follow the link to the DMP below, or navigate to the plan via My Dashboard page in %{tool_name}.') \
+  %{ commenter_name: @commenter_name, plan_title: @plan_title, tool_name: tool_name } %>
+</p>
+<p>
+  <%=  _('Below is a summary of the sections and questions which have comments.') %>
+  <%= _('You can see the comments in the right-hand panel, '\
+    'adjacent to the guidance for each question.') %>
+</p>
+<p>
+  <%= _('DMP: %{phase_link}') %{ phase_link: @phase_link }  %>
+</p>
+<p>
+  <%= _('Section name: %{section_title}') %{ section_title: @section_title } %>
+</p>
+<p>
+  <%= _('Question: %{question_number}') %{ question_number: @question_number } %>
+</p>
 
-  <%= render partial: 'email_signature' %>
-<% end %>
+<%= render partial: 'email_signature' %>

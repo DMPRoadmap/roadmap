@@ -1,8 +1,12 @@
+# frozen_string_literal: true
+
 class PhasePolicy < ApplicationPolicy
+
   attr_reader :user, :phase
 
   def initialize(user, phase)
     raise Pundit::NotAuthorizedError, "must be logged in" unless user
+
     @user = user
     @phase = phase
   end
@@ -40,4 +44,5 @@ class PhasePolicy < ApplicationPolicy
   def sort?
     user.can_modify_templates?  &&  (phase.template.org_id == user.org_id)
   end
+
 end

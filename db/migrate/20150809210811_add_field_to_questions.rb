@@ -1,4 +1,4 @@
-class AddFieldToQuestions < ActiveRecord::Migration
+class AddFieldToQuestions < ActiveRecord::Migration[4.2]
   def change
     add_column :questions, :option_comment_display, :boolean, :default => true
 

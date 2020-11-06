@@ -1,8 +1,12 @@
+# frozen_string_literal: true
+
 class AnnotationPolicy < ApplicationPolicy
+
   attr_reader :user, :annotation
 
   def initialize(user, annotation)
     raise Pundit::NotAuthorizedError, "must be logged in" unless user
+
     @user = user
     @annotation = annotation
   end
@@ -12,7 +16,8 @@ class AnnotationPolicy < ApplicationPolicy
     if question.present?
       return @user.can_modify_templates? && question.template.org_id == @user.org_id
     end
-    return false
+
+    false
   end
 
   def update?
@@ -22,4 +27,5 @@ class AnnotationPolicy < ApplicationPolicy
   def destroy?
     update?
   end
+
 end

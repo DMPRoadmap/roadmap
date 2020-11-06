@@ -1,4 +1,4 @@
-class CreateGuidances < ActiveRecord::Migration
+class CreateGuidances < ActiveRecord::Migration[4.2]
   def change
     create_table :guidances do |t|
       t.text :guidance_text

@@ -1,4 +1,4 @@
-class CreateUserIdentifiers < ActiveRecord::Migration
+class CreateUserIdentifiers < ActiveRecord::Migration[4.2]
   def change
     create_table :user_identifiers do |t|
       t.string :identifier

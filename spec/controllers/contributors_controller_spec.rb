@@ -24,12 +24,11 @@ RSpec.describe ContributorsController, type: :controller do
         identifiers_attributes: { "0": {
           identifier_scheme_id: @scheme.id,
           value: SecureRandom.uuid
-        }}
+        } }
       }
     }
     @roles = Contributor.new.all_roles
-    @roles.each { |role| @params_hash[:contributor][role.to_sym] = %w[0 1].sample }
-
+    @params_hash[:contributor][@roles.sample.to_sym] = "1"
     @controller = described_class.new
   end
 
@@ -39,7 +38,7 @@ RSpec.describe ContributorsController, type: :controller do
     end
 
     it "GET plans/:plan_id/contributors (:index)" do
-      get :index, plan_id: @plan.id
+      get :index, params: { plan_id: @plan.id }
       expect(response).to render_template(:index)
       expect(assigns(:plan)).to eql(@plan)
       expect(assigns(:contributors).length).to eql(1)
@@ -47,7 +46,7 @@ RSpec.describe ContributorsController, type: :controller do
     end
 
     it "GET plans/:plan_id/contributors/new (:new)" do
-      get :new, plan_id: @plan.id
+      get :new, params: { plan_id: @plan.id }
       expect(response).to render_template(:new)
       expect(assigns(:plan)).to eql(@plan)
       expect(assigns(:contributor).new_record?).to eql(true)
@@ -55,14 +54,14 @@ RSpec.describe ContributorsController, type: :controller do
     end
 
     it "GET plans/:plan_id/contributors/:id/edit (:edit)" do
-      get :edit, plan_id: @plan.id, id: @contributor.id
+      get :edit, params: { plan_id: @plan.id, id: @contributor.id }
       expect(response).to render_template(:edit)
       expect(assigns(:plan)).to eql(@plan)
       expect(assigns(:contributor)).to eql(@contributor)
     end
 
     it "POST plans/:plan_id/contributors (:create)" do
-      post :create, @params_hash.merge({ plan_id: @plan.id })
+      post :create, params: @params_hash.merge({ plan_id: @plan.id })
       expect(response).to redirect_to(plan_contributors_url(@plan))
       contrib = Contributor.last
       params = @params_hash[:contributor]
@@ -90,7 +89,7 @@ RSpec.describe ContributorsController, type: :controller do
     end
 
     it "PUT plans/:plan_id/contributors/:id (:update)" do
-      put :update, @params_hash.merge({ plan_id: @plan.id, id: @contributor.id })
+      put :update, params: @params_hash.merge({ plan_id: @plan.id, id: @contributor.id })
       @contributor.reload
       params = @params_hash[:contributor]
 
@@ -117,7 +116,7 @@ RSpec.describe ContributorsController, type: :controller do
 
     it "DELETE plans/:plan_id/contributors/:id (:destroy)" do
       id = @contributor.id
-      delete :destroy, @params_hash.merge({ plan_id: @plan.id, id: @contributor.id })
+      delete :destroy, params: @params_hash.merge({ plan_id: @plan.id, id: @contributor.id })
       expect(Contributor.where(id: id).any?).to eql(false)
     end
 
@@ -160,11 +159,11 @@ RSpec.describe ContributorsController, type: :controller do
 
       describe "#fetch_plan" do
         it "assigns the plan instance variable" do
-          get :index, plan_id: @plan.id
+          get :index, params: { plan_id: @plan.id }
           expect(assigns(:plan)).to eql(@plan)
         end
         it "redirects to :root if no plan found" do
-          get :index, plan_id: 99999
+          get :index, params: { plan_id: 99_999 }
           expect(response).to have_http_status(:redirect)
           expect(response).to redirect_to(root_url)
         end
@@ -173,28 +172,28 @@ RSpec.describe ContributorsController, type: :controller do
       describe "#fetch_contributor" do
         it "is not triggered on POST :create" do
           described_class.any_instance.expects(:fetch_contributor).at_most(0)
-          post :create, @params_hash.merge({ plan_id: @plan.id })
+          post :create, params: @params_hash.merge({ plan_id: @plan.id })
         end
         it "is not triggered on GET :index" do
           described_class.any_instance.expects(:fetch_contributor).at_most(0)
-          get :index, plan_id: @plan.id
+          get :index, params: { plan_id: @plan.id }
         end
         it "is not triggered on GET :new" do
           described_class.any_instance.expects(:fetch_contributor).at_most(0)
-          get :new, plan_id: @plan.id
+          get :new, params: { plan_id: @plan.id }
         end
         it "assigns the contributor instance variable" do
-          get :edit, plan_id: @plan.id, id: @contributor.id
+          get :edit, params: { plan_id: @plan.id, id: @contributor.id }
           expect(assigns(:contributor)).to eql(@contributor)
         end
         it "redirects to :index if no contributor found" do
-          get :edit, plan_id: @plan.id, id: 99999
+          get :edit, params: { plan_id: @plan.id, id: 99_999 }
           expect(response).to have_http_status(:redirect)
           expect(response).to redirect_to(plan_contributors_url(@plan))
         end
         it "redirects to :index if contributor does not belong to the plan" do
           contrib = create(:contributor, plan: create(:plan))
-          get :edit, plan_id: @plan.id, id: contrib.id
+          get :edit, params: { plan_id: @plan.id, id: contrib.id }
           expect(response).to have_http_status(:redirect)
           expect(response).to redirect_to(plan_contributors_url(@plan))
         end

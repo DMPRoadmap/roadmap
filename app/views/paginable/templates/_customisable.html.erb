@@ -25,14 +25,14 @@
             <% if customization.upgrade_customization? %>
               <% tooltip = _("Select 'Transfer customisation' in the Actions menu to review your customisation(s) and make any necessary changes. When you are done, you must return to the Actions menu and publish your customisation(s).") %>
               <%= _('Original funder template has changed!') %><em class="sr-only"><%= tooltip %></em>
-              &nbsp;&nbsp;<i class="fa fa-files-o red" aria-hidden="true" data-toggle="tooltip" title="<%= tooltip %>"></i>
+              &nbsp;&nbsp;<i class="fas fa-copy red" aria-hidden="true" data-toggle="tooltip" title="<%= tooltip %>"></i>
             <% else %>
               <% if customization.published? %>
                 <%= _('Published') %>
               <% elsif customization.draft? %>
                 <% tooltip = _('You have unpublished changes! Select "Publish changes" in the Actions menu when you are ready to make them available to users.') %>
                 <%= _('Published') %> <em class="sr-only"><%= tooltip %></em>
-              &nbsp;&nbsp;<i class="fa fa-pencil-square-o red" aria-hidden="true" data-toggle="tooltip" title="<%= tooltip %>"></i>
+              &nbsp;&nbsp;<i class="fas fa-edit red" aria-hidden="true" data-toggle="tooltip" title="<%= tooltip %>"></i>
               <% else %>
                 <%= _('Unpublished') %>
               <% end %>
@@ -51,7 +51,7 @@
               <%= _('Actions') %><span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-              <li><%= link_to_customizable_template customization, template %></li>
+              <li><%= link_to_customizable_template "", customization, template %></li>
               <% if customization.present? && customization.created_at >= template.created_at %>
                 <li><%= link_to _('History'), history_org_admin_template_path(customization.id) %></li>
                 <% if customization.draft? || customization.published? %>

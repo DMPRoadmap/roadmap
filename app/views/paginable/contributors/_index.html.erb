@@ -38,9 +38,8 @@
             <%= contributor.org&.name %>
             <% ror = contributor.org.identifier_for_scheme(scheme: ror_scheme) %>
             <% if ror.present? %>
-              <% id_presenter = IdentifierPresenter.new(identifiable: contributor.org) %>
               <br/>
-              <%= id_presenter.id_for_display(id: ror).html_safe %>
+              <%= id_for_display(id: ror) %>
             <% end %>
           <% end %>
         </td>
