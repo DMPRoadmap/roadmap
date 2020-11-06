@@ -133,6 +133,7 @@ class MadmpFragment < ActiveRecord::Base
     parent_schema = parent.madmp_schema
     parent_data = parent.data
     classified_children = parent.children.group_by(&:madmp_schema_id)
+    p parent
     parent_schema.schema["properties"].each do |key, prop|
       if prop["type"].eql?("array") && prop["items"]["type"].eql?("object")
         schema = MadmpSchema.find(prop["items"]["schema_id"])
