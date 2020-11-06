@@ -1,4 +1,4 @@
-class AddOptionBasedToQuestionFormats < ActiveRecord::Migration
+class AddOptionBasedToQuestionFormats < ActiveRecord::Migration[4.2]
   def change
     add_column :question_formats, :option_based, :boolean, default: false
     

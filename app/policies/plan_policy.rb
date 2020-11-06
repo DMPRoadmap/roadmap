@@ -7,8 +7,11 @@ class PlanPolicy < ApplicationPolicy
 
   def initialize(user, plan)
     raise Pundit::NotAuthorizedError, _("must be logged in") unless user
-    raise Pundit::NotAuthorizedError,
-          _("are not authorized to view that plan") unless plan || plan.publicly_visible?
+
+    unless plan || plan.publicly_visible?
+      raise Pundit::NotAuthorizedError,
+            _("are not authorized to view that plan")
+    end
     @user = user
     @plan = plan
   end
@@ -19,8 +22,8 @@ class PlanPolicy < ApplicationPolicy
 
   def share?
     @plan.editable_by?(@user.id) ||
-    (@user.can_org_admin? &&
-     @user.org.plans.include?(@plan))
+      (@user.can_org_admin? &&
+       @user.org.plans.include?(@plan))
   end
 
   def export?

@@ -1,4 +1,4 @@
-class CreateUserRoleTypes < ActiveRecord::Migration
+class CreateUserRoleTypes < ActiveRecord::Migration[4.2]
   def change
     create_table :user_role_types do |t|
       t.string :user_role_type_name

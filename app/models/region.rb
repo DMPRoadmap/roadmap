@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: regions
@@ -10,16 +12,15 @@
 #  updated_at   :datetime         not null
 #
 
-class Region < ActiveRecord::Base
-  include ValidationMessages
+class Region < ApplicationRecord
 
   # ================
   # = Associations =
   # ================
 
-  has_many :sub_regions, class_name: 'Region', foreign_key: 'super_region_id'
+  has_many :sub_regions, class_name: "Region", foreign_key: "super_region_id"
 
-  belongs_to :super_region, class_name: 'Region'
+  belongs_to :super_region, class_name: "Region", optional: true
 
   # ===============
   # = Validations =

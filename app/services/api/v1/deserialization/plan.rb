@@ -6,7 +6,6 @@ module Api
 
     module Deserialization
 
-      # rubocop:disable Metrics/ClassLength
       class Plan
 
         class << self
@@ -49,7 +48,6 @@ module Api
           #       }]
           #     }
           #   }
-          # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           def deserialize!(json: {})
             return nil unless json.present? && valid?(json: json)
 
@@ -71,7 +69,6 @@ module Api
 
             plan
           end
-          # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
           # ===================
           # = PRIVATE METHODS =
@@ -114,8 +111,6 @@ module Api
           end
 
           # Deserialize the project information and attach to Plan
-          # rubocop:disable Metrics/AbcSize
-          # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           def deserialize_project(plan:, json: {})
             return plan unless json.present? &&
                                json[:project].present? &&
@@ -131,8 +126,7 @@ module Api
 
             Api::V1::Deserialization::Funding.deserialize!(plan: plan, json: funding)
           end
-          # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-          # rubocop:enable Metrics/AbcSize
+          # rubocop:enable
 
           # Deserialize the contact as a Contributor
           def deserialize_contact(plan:, json: {})
@@ -161,7 +155,6 @@ module Api
           end
 
           # Locate the Org by its identifier
-          # rubocop:disable Metrics/AbcSize
           def find_by_identifier(json: {})
             return nil unless json.present? && json[:dmp_id].present? &&
                               json[:dmp_id][:identifier].present?
@@ -177,7 +170,6 @@ module Api
               ::Plan.find_by(id: id.split("/").last)
             end
           end
-          # rubocop:enable Metrics/AbcSize
 
           # Determine whether or not the value is a DOI or ARK
           def doi?(value:)
@@ -209,7 +201,6 @@ module Api
           end
 
           # Retrieve the extensions to the JSON for this application
-          # rubocop:disable Metrics/AbcSize
           def app_extensions(json: {})
             return {} unless json.present? && json[:extension].present?
 
@@ -217,12 +208,10 @@ module Api
             ext = json[:extension].select { |item| item[app.to_sym].present? }
             ext.first.present? ? ext.first[app.to_sym] : {}
           end
-          # rubocop:enable Metrics/AbcSize
 
         end
 
       end
-      # rubocop:enable Metrics/ClassLength
 
     end
 

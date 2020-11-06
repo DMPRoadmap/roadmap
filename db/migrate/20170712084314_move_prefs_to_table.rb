@@ -1,4 +1,4 @@
-class MovePrefsToTable < ActiveRecord::Migration
+class MovePrefsToTable < ActiveRecord::Migration[4.2]
   def change
     remove_column :users, :prefs
 

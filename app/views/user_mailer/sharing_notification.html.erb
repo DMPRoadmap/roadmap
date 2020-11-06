@@ -1,23 +1,15 @@
-<%
-  tool_name = Rails.configuration.branding[:application][:name]
-  user_email = @user.email
-  link = url_for(action: 'show', controller: 'plans', id: @role.plan.id)
-  user_name = User.find_by(email: user_email).nil? ?  user_email : User.find_by(email: user_email).name(false)
-%>
-<% FastGettext.with_locale FastGettext.default_locale do %>
-  <p>
-    <%= _('Hello %{user_name}') %{ :user_name => user_name } %>
-  </p>
-  <p>
-    <%= _("Your colleague %{inviter_name} has invited you to contribute to
-            their Data Management Plan in %{tool_name}") % {
-      tool_name: tool_name,
-      inviter_name: @inviter.name(false)
-    } %>
-  </p>
-  <p>
-    <%= sanitize(_('%{click_here} to accept the invitation, (or copy %{link} into your browser). If you don\'t want to accept the invitation, please ignore this email.') % { click_here: link_to(_('Click here'), link), link: link }) %>
-  </p>
-  <%= render partial: 'email_signature' %>
-<% end %>
-
+<p>
+  <%= _('Hello %{username}') %{ username: @username } %>
+</p>
+<p>
+  <%= _("Your colleague %{inviter_name} has invited you to contribute to
+          their Data Management Plan in %{tool_name}") % {
+            inviter_name: @inviter.name(false), tool_name: tool_name
+            } %>
+</p>
+<p>
+  <%= sanitize(_('%{click_here} to accept the invitation, (or copy %{link} into your browser). If you don\'t want to accept the invitation, please ignore this email.') % { 
+    click_here: link_to(_('Click here'), @link), link: @link })
+    %>
+</p>
+<%= render partial: 'email_signature' %>

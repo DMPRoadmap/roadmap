@@ -1,4 +1,4 @@
-class ChangePlanSectionColumns < ActiveRecord::Migration
+class ChangePlanSectionColumns < ActiveRecord::Migration[4.2]
 	def up
 		rename_column :plan_sections, :edit, :locked
 		rename_column :plan_sections, :user_editing_id, :user_id

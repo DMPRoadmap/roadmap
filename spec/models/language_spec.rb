@@ -1,6 +1,13 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe Language, type: :model do
+
+  before(:each) do
+    # The default language is created in the locales support file
+    Language.destroy_all
+  end
 
   context "validations" do
 
@@ -18,7 +25,7 @@ RSpec.describe Language, type: :model do
       expect(@language).to have(1).errors_on(:abbreviation)
     end
 
-    it { is_expected.to allow_values('en', 'en-GB').for(:abbreviation) }
+    it { is_expected.to allow_values("en", "en-GB").for(:abbreviation) }
 
   end
 
@@ -75,7 +82,7 @@ RSpec.describe Language, type: :model do
 
   describe ".id_for" do
 
-    subject  { Language.id_for("fu") }
+    subject { Language.id_for("fu") }
 
     context "when abbreviation is valid" do
 
@@ -110,15 +117,14 @@ RSpec.describe Language, type: :model do
       it "downcases the language component" do
         @language = Language.new(name: "Esperanto", abbreviation: "HH_XX")
         @language.valid?
-        expect(@language.abbreviation).to start_with('hh')
+        expect(@language.abbreviation).to start_with("hh")
       end
 
       it "upcases the region" do
         @language = Language.new(name: "Esperanto", abbreviation: "hh_xx")
         @language.valid?
-        expect(@language.abbreviation).to end_with('XX')
+        expect(@language.abbreviation).to end_with("XX")
       end
-
 
     end
 
@@ -135,7 +141,6 @@ RSpec.describe Language, type: :model do
         @language.valid?
         expect(@language.abbreviation).to eql("hh")
       end
-
 
     end
 
