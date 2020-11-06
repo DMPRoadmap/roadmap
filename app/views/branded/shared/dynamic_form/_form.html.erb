@@ -53,24 +53,17 @@
         ) %>
       <% end %>
     <% else %>
-      <%# Select 'multiple' where the user can choose multiple options %>
-      <% if prop['inputType'] == 'dropdown' && prop['registry_id'] %>
-        <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
-        <% value = value["id"] if value.present? %>
-        <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, registryValues, template_locale, readonly: readonly, multiple: true, validation: validation, ttip: ttip, default_value: default_value) %>
-      <% else %>
-        <%# Input field associated with 'Add' and 'Delete' icons %>
-        <%= render(partial: 'shared/dynamic_form/fields/simple_multiple_field', locals: { 
-          f: f, 
-          field_values: value,
-          readonly: readonly,
-          field_label: label,
-          field_properties: prop['items'],
-          field_name: field_name, answer_id: nil,
-          ttip: ttip
-          }
-        ) %>
-      <% end %>
+      <%# Input field associated with 'Add' and 'Delete' icons %>
+      <%= render(partial: 'shared/dynamic_form/fields/simple_multiple_field', locals: { 
+        f: f, 
+        field_values: value,
+        readonly: readonly,
+        field_label: label,
+        field_properties: prop['items'],
+        field_name: field_name, answer_id: nil,
+        ttip: ttip
+        }
+      ) %>
     <% end %>
   <% when 'object' %>
     <% if prop["schema_id"].present? %>
@@ -97,6 +90,10 @@
           </fieldset>
         </div>
       <% end %>
+    <% elsif prop['inputType'] == 'dropdown' && prop['registry_id'] %>
+        <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
+        <% value = value["id"] if value.present? %>
+        <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, registryValues, template_locale, readonly: readonly, multiple: false, validation: validation, ttip: ttip, default_value: default_value) %>
     <% end %>
   <% end %>
 <% end %>
