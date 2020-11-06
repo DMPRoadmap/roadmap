@@ -2,7 +2,7 @@ module SuperAdmin
   class MadmpSchemasController < ApplicationController
 
     before_action :set_schema, only: %i[edit update destroy]
-    before_action :substitute_names, only: [:update]
+    before_action :substitute_names, only: %i[create update]
 
     # GET /madmp_schemas
     def index
