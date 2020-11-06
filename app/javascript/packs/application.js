@@ -94,5 +94,6 @@ window.$ = jQuery;
 window.jQuery = jQuery;
 
 import { renderAlert, renderNotice } from '../src/utils/notificationHelper';
+
 window.renderAlert = renderAlert;
 window.renderNotice = renderNotice;
