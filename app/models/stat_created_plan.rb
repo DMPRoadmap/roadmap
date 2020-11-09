@@ -51,6 +51,7 @@ class StatCreatedPlan < Stat
 
     private
 
+    # rubocop:disable Metrics/AbcSize
     def to_csv_by_template(created_plans, sep = ",")
       template_names = lambda do |plns|
         unique = Set.new
@@ -75,6 +76,7 @@ class StatCreatedPlan < Stat
       end
       Csvable.from_array_of_hashes(data, false, sep)
     end
+    # rubocop:enable Metrics/AbcSize
 
   end
 

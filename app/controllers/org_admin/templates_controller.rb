@@ -289,6 +289,7 @@ module OrgAdmin
     end
 
     # PATCH /org_admin/templates/:id/unpublish  (AJAX)
+    # rubocop:disable Metrics/AbcSize
     def unpublish
       template = Template.find(params[:id])
       authorize template
@@ -303,6 +304,7 @@ module OrgAdmin
       end
       redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
     end
+    # rubocop:enable Metrics/AbcSize
 
     # GET template_export/:id
     # -----------------------------------------------------

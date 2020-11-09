@@ -18,6 +18,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   # GET /resource
+  # rubocop:disable Metrics/AbcSize
   def new
     oauth = { provider: nil, uid: nil }
     IdentifierScheme.for_users.each do |scheme|
@@ -41,9 +42,10 @@ class RegistrationsController < Devise::RegistrationsController
     end
     # rubocop:enable Style/GuardClause
   end
+  # rubocop:enable Metrics/AbcSize
 
   # POST /resource
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockNesting
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockNesting, Metrics/PerceivedComplexity
   def create
     oauth = { provider: nil, uid: nil }
     IdentifierScheme.for_users.each do |scheme|
@@ -120,7 +122,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockNesting
-  # rubocop:enable
+  # rubocop:enable Metrics/PerceivedComplexity
 
   def update
     if user_signed_in?

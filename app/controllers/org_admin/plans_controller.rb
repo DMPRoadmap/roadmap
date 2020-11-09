@@ -3,6 +3,7 @@
 class OrgAdmin::PlansController < ApplicationController
 
   # GET org_admin/plans
+  # rubocop:disable Metrics/AbcSize
   def index
     # Test auth directly and throw Pundit error sincePundit
     # is unaware of namespacing
@@ -17,6 +18,7 @@ class OrgAdmin::PlansController < ApplicationController
     @clicked_through = params[:click_through].present?
     @plans = @super_admin ? Plan.all.page(1) : current_user.org.plans.page(1)
   end
+  # rubocop:enable Metrics/AbcSize
 
   # GET org_admin/plans/:id/feedback_complete
   def feedback_complete

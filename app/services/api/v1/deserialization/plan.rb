@@ -111,6 +111,7 @@ module Api
           end
 
           # Deserialize the project information and attach to Plan
+          # rubocop:disable Metrics/AbcSize
           def deserialize_project(plan:, json: {})
             return plan unless json.present? &&
                                json[:project].present? &&
@@ -126,7 +127,7 @@ module Api
 
             Api::V1::Deserialization::Funding.deserialize!(plan: plan, json: funding)
           end
-          # rubocop:enable
+          # rubocop:enable Metrics/AbcSize
 
           # Deserialize the contact as a Contributor
           def deserialize_contact(plan:, json: {})

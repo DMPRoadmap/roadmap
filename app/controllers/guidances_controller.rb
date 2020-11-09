@@ -36,6 +36,7 @@ class GuidancesController < ApplicationController
   end
 
   # POST /org/admin/guidance/:id/admin_create
+  # rubocop:disable Metrics/AbcSize
   def admin_create
     @guidance = Guidance.new(guidance_params)
     authorize @guidance
@@ -54,8 +55,10 @@ class GuidancesController < ApplicationController
     end
     render :new_edit
   end
+  # rubocop:enable Metrics/AbcSize
 
   # PUT /org/admin/guidance/:id/admin_update
+  # rubocop:disable Metrics/AbcSize
   def admin_update
     @guidance = Guidance.find(params[:id])
     authorize @guidance
@@ -74,6 +77,7 @@ class GuidancesController < ApplicationController
     end
     render :new_edit
   end
+  # rubocop:enable Metrics/AbcSize
 
   # DELETE /org/admin/guidance/:id/admin_destroy
   def admin_destroy

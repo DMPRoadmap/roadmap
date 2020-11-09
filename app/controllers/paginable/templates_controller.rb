@@ -32,6 +32,7 @@ class Paginable::TemplatesController < ApplicationController
 
   # GET /paginable/templates/organisational/:page  (AJAX)
   # -----------------------------------------------------
+  # rubocop:disable Metrics/AbcSize
   def organisational
     authorize Template
     templates = Template.latest_version_per_org(current_user.org.id)
@@ -52,6 +53,7 @@ class Paginable::TemplatesController < ApplicationController
       format: :json
     )
   end
+  # rubocop:enable Metrics/AbcSize
 
   # GET /paginable/templates/customisable/:page  (AJAX)
   # -----------------------------------------------------

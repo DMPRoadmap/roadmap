@@ -7,6 +7,7 @@ class OrgAdmin::TemplateCopiesController < ApplicationController
   after_action :verify_authorized
 
   # POST /org_admin/templates/:id/copy (AJAX)
+  # rubocop:disable Metrics/AbcSize
   def create
     @template = Template.find(params[:template_id])
     authorize @template, :copy?
@@ -23,5 +24,6 @@ class OrgAdmin::TemplateCopiesController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
 end

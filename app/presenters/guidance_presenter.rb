@@ -112,6 +112,7 @@ class GuidancePresenter
   # Returns a hash of guidance groups for an org and question passed with the following
   # structure:
   # { guidance_group: { theme: [guidance, ...], ... }, ... }
+  # rubocop:disable Metrics/AbcSize
   def guidance_groups_by_theme(org: nil, question: nil)
     raise ArgumentError unless question.respond_to?(:themes)
 
@@ -127,6 +128,7 @@ class GuidancePresenter
       acc[gg] = filtered_gg if filtered_gg.present?
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # Returns a collection of annotations (type guidance) for an org and question passed
   def guidance_annotations(org: nil, question: nil)

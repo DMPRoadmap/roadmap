@@ -135,6 +135,7 @@ module OrgAdmin
 
     # update a phase of a template
     # PUT /org_admin/templates/:template_id/phases/:id
+    # rubocop:disable Metrics/AbcSize
     def update
       phase = Phase.find(params[:id])
       authorize phase
@@ -151,6 +152,7 @@ module OrgAdmin
       redirect_to edit_org_admin_template_phase_path(template_id: phase.template.id,
                                                      id: phase.id)
     end
+    # rubocop:enable Metrics/AbcSize
 
     # POST /org_admin/templates/:template_id/phases/:id/sort
     def sort
