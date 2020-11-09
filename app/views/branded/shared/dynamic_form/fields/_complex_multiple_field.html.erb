@@ -7,8 +7,9 @@
     <legend class="answer-fieldset"><%= field_label%></legend>
     <table class="table table-hover linked-fragments-list <%= schema.classname %>-list">
       <thead>
-        <tr><th scope="col"><%= field_label %></th><th scope="col">Actions</th></tr>
-      </thead>
+        <% unless field_values.empty? %>
+          <tr><th scope="col"></th><th scope="col">Actions</th></tr>
+        <% end %>      </thead>
       <tbody>
         <%= render(partial: 'shared/dynamic_form/linked_fragment/list', locals: {
               obj_list: field_values, 
