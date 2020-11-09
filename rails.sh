@@ -21,7 +21,7 @@ fi
 # bundle exec rake db:seed
 bundle exec rake db:migrate
 RAILS_ENV=$RAILS_ENV bundle exec rake assets:precompile
-bundle exec rake load_templates
+#bundle exec rake load_templates
 
 # Start the app
 bundle exec rails s -e $RAILS_ENV -p 3000 -b 0.0.0.0
