@@ -145,6 +145,7 @@ module OrgAdmin
     end
 
     # GET /org_admin/templates/new
+    # SEE MODULE
     def new
       authorize Template
       @template = current_org.templates.new
