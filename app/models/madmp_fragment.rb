@@ -140,7 +140,7 @@ class MadmpFragment < ActiveRecord::Base
         unless classified_children[schema.id].nil?
           parent_data[key] = classified_children[schema.id].map { |c| { "dbid" => c.id } }
         end
-      elsif prop["type"].eql?("object")
+      elsif prop["type"].eql?("object") && prop["schema_id"].present?
         schema = MadmpSchema.find(prop["schema_id"])
         unless classified_children[schema.id].nil?
           parent_data[key] = { "dbid" => classified_children[schema.id][0].id }

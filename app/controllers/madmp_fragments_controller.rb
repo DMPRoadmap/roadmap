@@ -6,16 +6,16 @@ class MadmpFragmentsController < ApplicationController
   include DynamicFormHelper
 
   def create_or_update
-    p_params = permitted_params()
+    p_params = permitted_params
     @schemas = MadmpSchema.all
     schema = @schemas.find(p_params[:schema_id])
 
     classname = schema.classname
     data = data_reformater(schema.schema, schema_params(schema), schema.classname)
-    @fragment = nil 
+    @fragment = nil
 
     if params[:id].present?
-      # rubocop:disable BlockLength
+      # rubocop:disable Metrics/BlockLength
       Answer.transaction do
         begin
           @fragment = MadmpFragment.find_by(
@@ -28,28 +28,33 @@ class MadmpFragmentsController < ApplicationController
           }
           @fragment.assign_attributes(
             # data: data, 
-            additional_info: additional_info, 
+            additional_info: additional_info,
             madmp_schema_id: schema.id
           )
 
           authorize @fragment
           unless p_params[:source] == "modal"
-            @fragment.answer.update!({
-              lock_version: p_params[:answer][:lock_version],
-              is_common: p_params[:answer][:is_common],
-              user_id: current_user.id
-            })
+            @fragment.answer.update!(
+              {
+                lock_version: p_params[:answer][:lock_version],
+                is_common: p_params[:answer][:is_common],
+                user_id: current_user.id
+              }
+            )
           end
           # @fragment.save!
           @fragment.save_as_multifrag(data, schema)
         rescue ActiveRecord::StaleObjectError
           @stale_fragment = @fragment
-          @fragment = MadmpFragment.find_by({
-            id: params[:id],
-            dmp_id: p_params[:dmp_id]
-          })
+          @fragment = MadmpFragment.find_by(
+            {
+              id: params[:id],
+              dmp_id: p_params[:dmp_id]
+            }
+          )
         end
       end
+      # rubocop:enable Metrics/BlockLength
     else
       @fragment = MadmpFragment.new(
         dmp_id: p_params[:dmp_id],
@@ -66,30 +71,37 @@ class MadmpFragmentsController < ApplicationController
       )
 
       unless p_params[:source] == "modal"
-        @fragment.answer = Answer.create!({
-          research_output_id: p_params[:answer][:research_output_id],
-          plan_id: p_params[:answer][:plan_id],
-          question_id: p_params[:answer][:question_id],
-          lock_version: p_params[:answer][:lock_version],
-          is_common: p_params[:answer][:is_common],
-          user_id: current_user.id
-        })
+        @fragment.answer = Answer.create!(
+          {
+            research_output_id: p_params[:answer][:research_output_id],
+            plan_id: p_params[:answer][:plan_id],
+            question_id: p_params[:answer][:question_id],
+            lock_version: p_params[:answer][:lock_version],
+            is_common: p_params[:answer][:is_common],
+            user_id: current_user.id
+          }
+        )
       end
       authorize @fragment
       # @fragment.save!
       @fragment.save_as_multifrag(data, schema)
     end
 
-    if @fragment.present?
-      if @fragment.answer.present?
-        render json: render_fragment_form(@fragment, @stale_fragment)
-      else 
-        render json: { 
-            "fragment_id" =>  @fragment.parent_id,
-            "classname" => classname,
-            "html" => render_fragment_list(@fragment.dmp_id, @fragment.parent_id, schema.id, p_params[:template_locale])
-        }.to_json
-      end
+    return unless @fragment.present?
+
+    if @fragment.answer.present?
+      render json: render_fragment_form(@fragment, @stale_fragment)
+    else
+      render json: {
+        "fragment_id" =>  @fragment.parent_id,
+        "classname" => classname,
+        "html" => render_fragment_list(
+          @fragment.dmp_id,
+          @fragment.parent_id,
+          schema.id,
+          p_params[:template_locale]
+        )
+      }.to_json
     end
   end
 
@@ -104,18 +116,18 @@ class MadmpFragmentsController < ApplicationController
 
     @fragment = nil
     dmp_id = @parent_fragment.classname == "dmp" ? @parent_fragment.id : @parent_fragment.dmp_id
-    if params[:fragment_id] 
-      @fragment = MadmpFragment.find(params[:fragment_id]) 
+    if params[:fragment_id]
+      @fragment = MadmpFragment.find(params[:fragment_id])
     else
       @fragment = MadmpFragment.new(
-          dmp_id: dmp_id,
-          parent_id: @parent_fragment.id
-        )
+        dmp_id: dmp_id,
+        parent_id: @parent_fragment.id
+      )
     end
     authorize @fragment
     respond_to do |format|
       format.html
-      format.js { render :partial => "shared/dynamic_form/linked_fragment" }
+      format.js { render partial: "shared/dynamic_form/linked_fragment" }
     end
   end
 
@@ -123,14 +135,14 @@ class MadmpFragmentsController < ApplicationController
     @fragment = MadmpFragment.find(params[:fragment_id])
     @schema = @fragment.madmp_schema
     @classname = @fragment.classname
-    @parent_fragment = @fragment.parent 
+    @parent_fragment = @fragment.parent
     @readonly = true
     @templateLocale = params[:template_locale]
-    
+
     authorize @fragment
     respond_to do |format|
       format.html
-      format.js { render :partial => "shared/dynamic_form/linked_fragment" }
+      format.js { render partial: "shared/dynamic_form/linked_fragment" }
     end
   end
 
@@ -141,19 +153,11 @@ class MadmpFragmentsController < ApplicationController
     dmp_id = @fragment.dmp_id
 
     authorize @fragment
-    if @fragment.destroy
-      obj_list = MadmpFragment.where(
-        dmp_id: dmp_id,
-        parent_id: parent_id,
-        madmp_schema_id: @fragment.madmp_schema_id
-      )
-      
-      render json: {
-        "fragment_id" =>  parent_id,
-        "classname" => classname,
-        "html" => render_fragment_list(dmp_id, parent_id, @fragment.madmp_schema_id, nil)
-      }
-    end
+    render json: {
+      "fragment_id" =>  parent_id,
+      "classname" => classname,
+      "html" => render_fragment_list(dmp_id, parent_id, @fragment.madmp_schema_id, nil)
+    }
   end
 
   # Gets fragment from a given id
@@ -161,9 +165,9 @@ class MadmpFragmentsController < ApplicationController
     @fragment = MadmpFragment.find(params[:id])
     authorize @fragment
 
-    if @fragment.present?
-      render json: @fragment.data
-    end
+    return unless @fragment.present?
+
+    render json: @fragment.data
   end
 
   private
@@ -173,25 +177,31 @@ class MadmpFragmentsController < ApplicationController
     case schema.classname
     when "research_output"
       @plan = Fragment::Dmp.where(id: dmp_id).first.plan
-      return render_to_string(partial: 'research_outputs/list', locals: {
-        plan: @plan,
-        research_outputs: @plan.research_outputs,
-        readonly: false
-      })
+      render_to_string(
+        partial: "research_outputs/list",
+        locals: {
+          plan: @plan,
+          research_outputs: @plan.research_outputs,
+          readonly: false
+        }
+      )
 
-    else 
+    else
       obj_list = MadmpFragment.where(
         dmp_id: dmp_id,
         parent_id: parent_id,
         madmp_schema_id: schema.id
       )
-      return render_to_string(partial: 'shared/dynamic_form/linked_fragment/list', locals: {
-                  parent_id: parent_id,
-                  obj_list: obj_list,
-                  schema: schema,
-                  readonly: false,
-                  template_locale: template_locale
-      })
+      render_to_string(
+        partial: "shared/dynamic_form/linked_fragment/list",
+        locals: {
+          parent_id: parent_id,
+          obj_list: obj_list,
+          schema: schema,
+          readonly: false,
+          template_locale: template_locale
+        }
+      )
     end
   end
 
@@ -260,9 +270,10 @@ class MadmpFragmentsController < ApplicationController
 
   def permitted_params
     permit_arr = [:id, :dmp_id, :parent_id, :schema_id, :source, :template_locale,
-                  answer: [:id, :plan_id, :research_output_id,
-                  :question_id, :lock_version, :is_common]
+                  answer: %i[id plan_id research_output_id
+                             question_id lock_version is_common]
                 ]
     params.require(:madmp_fragment).permit(permit_arr)
   end
+
 end
