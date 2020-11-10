@@ -36,11 +36,6 @@
         <td>
           <% if contributor.org.present? %>
             <%= contributor.org&.name %>
-            <% ror = contributor.org.identifier_for_scheme(scheme: ror_scheme) %>
-            <% if ror.present? %>
-              <br/>
-              <%= id_for_display(id: ror) %>
-            <% end %>
           <% end %>
         </td>
         <td><%= ContributorPresenter.display_roles(roles: contributor.selected_roles) %></td>
