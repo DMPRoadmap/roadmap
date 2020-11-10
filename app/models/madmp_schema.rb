@@ -39,8 +39,8 @@ class MadmpSchema < ActiveRecord::Base
   validates :name, presence: { message: PRESENCE_MESSAGE },
                       uniqueness: { message: UNIQUENESS_MESSAGE }
 
-  validates :schema, presence:  { message: PRESENCE_MESSAGE },
-                      json: true
+  # validates :schema, presence:  { message: PRESENCE_MESSAGE },
+  #                     json: true
 
   # ==========
   # = Scopes =

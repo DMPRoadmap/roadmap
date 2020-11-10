@@ -6,15 +6,13 @@
     <%= f.label field_name, field_label, class: 'control-label' %>
   </div>
 <% end %>
-<div class="col-md-12 dynamic-field">
+<div class="col-md-12 dynamic-field" data-toggle="tooltip" title="<%= ttip %>">
   <%= f.text_area field_name, 
             value: field_value, 
             multiple: multiple, 
             disabled: readonly,
             class: "form-control #{field_class} tinymce_answer",
             type: input_type,
-            "data-toggle": "tooltip",
-            title: ttip,
             placeholder: example,
             id: field_id %>
   <% if multiple && readonly == false%>
