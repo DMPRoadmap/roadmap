@@ -13,7 +13,7 @@ module Api
           # Convert the incoming JSON into a Contributor
           #   {
           #     "role": [
-          #       "https://dictionary.casrai.org/Contributor_Roles/Project_administration"
+          #       "http://credit.niso.org/contributor-roles/project-administration"
           #     ],
           #     "name": "Jane Doe",
           #     "mbox": "jane.doe@university.edu",
