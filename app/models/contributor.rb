@@ -38,7 +38,7 @@ class Contributor < ApplicationRecord
 
   belongs_to :org, optional: true
 
-  belongs_to :plan
+  belongs_to :plan, optional: true
 
   # =====================
   # = Nested attributes =
@@ -95,6 +95,33 @@ class Contributor < ApplicationRecord
     end
 
   end
+
+  # Check for equality by matching on Plan, ORCID, email or name
+  def ==(other)
+    return false unless other.is_a?(Contributor) && plan == other.plan
+
+    current_orcid = identifier_for_scheme(scheme: "orcid")&.value
+    new_orcid = other.identifier_for_scheme(scheme: "orcid")&.value
+
+    email == other.email || name == other.name ||
+      (current_orcid.present? && current_orcid == new_orcid)
+  end
+
+  # Merges the contents of the other Contributor into this one while retaining
+  # any existing information
+  # rubocop:disable Metrics/AbcSize
+  def merge(other)
+    self.org = other.org unless org.present?
+    self.email = other.email unless email.present?
+    self.name = other.name unless name.present?
+    self.phone = other.phone unless phone.present?
+    self.investigation = true if other.investigation? && !investigation?
+    self.data_curation = true if other.data_curation? && !data_curation?
+    self.project_administration = true if other.project_administration? && !project_administration?
+    consolidate_identifiers!(array: other.identifiers.to_a)
+    self
+  end
+  # rubocop:enable Metrics/AbcSize
 
   # ===================
   # = Private Methods =

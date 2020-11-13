@@ -6,9 +6,11 @@ module Api
 
     # Service that takes standard ActiveModel errors and contextualizes them
     # so that they relate to the structure of the JSON format used by the API
-    # to help the caller understand the errors. For example:
+    # to help the caller understand the errors.
+    # For example:
     #   "Plan identifiers value can't be blank" becomes "Dmp identifier value can't be blank"
     #   "Name can't be blank" becomes "Funder name can't be blank"
+    #   "Contributors org name can't ..." becomes "Contact/Contributor affiliation name can't ..."
     class ContextualErrorService
 
       class << self
