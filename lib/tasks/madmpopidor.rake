@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 require "set"
+# rubocop:disable Metrics/BlockLength
 namespace :madmpopidor do
   desc "Upgrade to v3.0.0"
   task v3_0_0: :environment do
     Rake::Task["madmpopidor:add_structure_question_format"].execute
     Rake::Task["madmpopidor:initialize_template_locale"].execute
-    Rake::Task["madmpopidor:load_templates"].execute
+    Rake::Task["madmpopidor:seed"].execute
     Rake::Task["madmpopidor:initialize_plan_fragments"].execute
   end
 
@@ -48,18 +49,24 @@ namespace :madmpopidor do
     end
   end
 
+  desc "Seeds the database with the madmp data"
+  task seed: :environment do
+    Rake::Task["madmpopidor:load_templates"].execute
+    load(Rails.root.join("db", "madmp_seeds.rb"))
+  end
+
   # Load templates form an index file
   desc "Load JSON templates for structured questions in the database"
   task load_templates: :environment do
     # Read and parse index.json file
     index_path = Rails.root.join("config/schemas/main/index.json")
-    schemas_index = JSON.load(File.open(index_path))
+    schemas_index = JSON.parse(File.open(index_path))
 
     # Iterate over the schemas of the index.json file
     schemas_index.each do |schema_desc|
       # Read, parse and extract useful data from the JSON schema
       schema_path = Rails.root.join("config/schemas/main/#{schema_desc['path']}")
-      json_schema = JSON.load(File.open(schema_path))
+      json_schema = JSON.parse(File.open(schema_path))
       title = json_schema["title"]
       classname = schema_desc["classname"]
 
@@ -88,3 +95,4 @@ namespace :madmpopidor do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
