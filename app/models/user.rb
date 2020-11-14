@@ -337,8 +337,13 @@ class User < ApplicationRecord
   def keep_or_generate_token!
     return unless api_token.nil? || api_token.empty?
 
+    generate_token! unless new_record?
+  end
+
+  # Generates a new token
+  def generate_token!
     new_token = User.unique_random(field_name: "api_token")
-    update_column(:api_token, new_token) unless new_record?
+    update_column(:api_token, new_token)
   end
 
   # The User's preferences for a given base key
