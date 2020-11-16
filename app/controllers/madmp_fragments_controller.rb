@@ -112,7 +112,7 @@ class MadmpFragmentsController < ApplicationController
     @parent_fragment = MadmpFragment.find(params[:parent_id])
     @classname = @schema.classname
     @readonly = false
-    @templateLocale = params[:template_locale]
+    @template_locale = params[:template_locale]
 
     @fragment = nil
     dmp_id = @parent_fragment.classname == "dmp" ? @parent_fragment.id : @parent_fragment.dmp_id
@@ -137,7 +137,7 @@ class MadmpFragmentsController < ApplicationController
     @classname = @fragment.classname
     @parent_fragment = @fragment.parent
     @readonly = true
-    @templateLocale = params[:template_locale]
+    @template_locale = params[:template_locale]
 
     authorize @fragment
     respond_to do |format|
