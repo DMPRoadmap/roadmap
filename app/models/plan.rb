@@ -355,7 +355,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def editable_by?(user_id)
-    Role.editor.where(plan_id: id, user_id: user_id, active: true).any?
+    roles.select { |r| r.user_id == user_id && r.active && r.editor }.any?
   end
 
   ##
@@ -388,7 +388,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def commentable_by?(user_id)
-    Role.commenter.where(plan_id: id, user_id: user_id, active: true).any? ||
+    roles.select { |r| r.user_id == user_id && r.active && r.commenter }.any? ||
       reviewable_by?(user_id)
   end
 
@@ -398,7 +398,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def administerable_by?(user_id)
-    Role.administrator.where(plan_id: id, user_id: user_id, active: true).any?
+    roles.select { |r| r.user_id == user_id && r.active && r.administrator }.any?
   end
 
   # determines if the plan is reviewable by the specified user
@@ -470,7 +470,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def shared?
-    roles.where(Role.not_creator_condition).any?
+    roles.select {|r| !r.creator }.any?
   end
 
   alias shared shared?
