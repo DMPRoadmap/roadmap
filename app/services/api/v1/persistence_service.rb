@@ -9,7 +9,6 @@ module Api
 
       class << self
 
-        # rubocop:disable Metrics/AbcSize
         def safe_save(plan:)
           return nil unless plan.is_a?(Plan) && plan.valid?
 
@@ -33,8 +32,7 @@ module Api
             plan.reload
           end
         end
-        # rubocop:enable Metrics/AbcSize
-
+        
         private
 
         def safe_save_identifier(identifier:)
