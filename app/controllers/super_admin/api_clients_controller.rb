@@ -29,7 +29,6 @@ module SuperAdmin
     end
 
     # POST /api_clients
-    # rubocop:disable Metrics/AbcSize
     def create
       authorize(ApiClient)
 
@@ -53,7 +52,6 @@ module SuperAdmin
         render :new
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     # PATCH/PUT /api_clients/:id
     def update
