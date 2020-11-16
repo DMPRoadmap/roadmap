@@ -32,7 +32,7 @@ module Api
             plan.reload
           end
         end
-        
+
         private
 
         def safe_save_identifier(identifier:)
