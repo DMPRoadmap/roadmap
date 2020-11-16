@@ -91,8 +91,10 @@ module SuperAdmin
       @api_client = ApiClient.find(params[:id])
       return unless @api_client.present?
 
+      original = @api_client.client_secret
       @api_client.generate_credentials
       @api_client.save
+      @success = original != @api_client.client_secret
     end
 
     # GET /api_clients/:id/email_credentials/

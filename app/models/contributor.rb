@@ -58,12 +58,12 @@ class Contributor < ApplicationRecord
   validate :name_or_email_presence
 
   ONTOLOGY_NAME = "CRediT - Contributor Roles Taxonomy"
-  ONTOLOGY_LANDING_PAGE = "https://casrai.org/credit/"
-  ONTOLOGY_BASE_URL = "https://dictionary.casrai.org/Contributor_Roles"
+  ONTOLOGY_LANDING_PAGE = "https://credit.niso.org/"
+  ONTOLOGY_BASE_URL = "http://credit.niso.org/contributor-roles/"
 
   ##
   # Define Bit Field values for roles
-  # Derived from the CASRAI CRediT Taxonomy: https://casrai.org/credit/
+  # Derived from the CASRAI CRediT Taxonomy: http://credit.niso.org/contributor-roles/
   has_flags 1 => :data_curation,
             2 => :investigation,
             3 => :project_administration,

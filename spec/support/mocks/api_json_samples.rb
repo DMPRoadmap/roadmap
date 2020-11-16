@@ -113,8 +113,8 @@ module Mocks
               },
               "contributor": [{
                 "role": [
-                  "https://dictionary.casrai.org/Contributor_Roles/Project_administration",
-                  "https://dictionary.casrai.org/Contributor_Roles/Investigation"
+                  "http://credit.niso.org/contributor-roles/project-administration",
+                  "http://credit.niso.org/contributor-roles/investigation"
                 ],
                 "name": Faker::Movies::StarWars.character,
                 "mbox": Faker::Internet.email,
@@ -132,7 +132,7 @@ module Mocks
                 }
               }, {
                 "role": [
-                  "https://dictionary.casrai.org/Contributor_Roles/Investigation"
+                  "http://credit.niso.org/contributor-roles/investigation"
                 ],
                 "name": contact[:name],
                 "mbox": contact[:email],

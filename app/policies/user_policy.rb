@@ -59,6 +59,11 @@ class UserPolicy < ApplicationPolicy
     true
   end
 
+  def refresh_token?
+    signed_in_user.can_super_admin? ||
+      (signed_in_user.can_org_admin? && signed_in_user.can_use_api?)
+  end
+
   def merge?
     signed_in_user.can_super_admin?
   end
