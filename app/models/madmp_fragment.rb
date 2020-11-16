@@ -111,7 +111,8 @@ class MadmpFragment < ActiveRecord::Base
       json_schema["to_string"].each do |pattern|
         # if it's a JsonPath pattern
         if pattern.first == "$"
-          displayable += JsonPath.on(full_data, pattern).first
+          match = JsonPath.on(full_data, pattern)
+          displayable += match.first unless match.empty?
         else
           displayable += pattern
         end
