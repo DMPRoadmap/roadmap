@@ -284,14 +284,6 @@ class Org < ApplicationRecord
     User.joins(:perms).where("users.org_id = ? AND perms.name IN (?)", id, admin_perms)
   end
 
-  def plans
-    plan_ids = Role.administrator
-                   .where(user_id: users.pluck(:id), active: true)
-                   .pluck(:plan_id).uniq
-    Plan.includes(:template, :phases, :roles, :users)
-        .where(id: plan_ids)
-  end
-
   def grant_api!(token_permission_type)
     token_permission_types << token_permission_type unless
       token_permission_types.include? token_permission_type
