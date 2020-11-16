@@ -110,7 +110,7 @@
         identifier = id_presenter.id_for_scheme(scheme: scheme)
         %>
         <div class="col-md-8">
-          <li><%= id_presenter.id_for_display(id: identifier).html_safe %></li>
+          <li><%= id_for_display(id: identifier) %></li>
         </div>
       <% end %>
     </ul>

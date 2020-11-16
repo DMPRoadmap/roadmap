@@ -103,6 +103,8 @@ RSpec.describe Api::V1::Deserialization::Identifier do
         result = described_class.send(:identifier_for_scheme,
                                       scheme: @scheme,
                                       identifiable: @identifiable, json: @json)
+        expected = "#{@scheme.identifier_prefix}#{@json[:identifier]}"
+        validate_identifier(result: result, scheme: @scheme, value: expected)
         expect(result.id).to eql(identifier.id)
         expect(result.value.ends_with?(@json[:identifier])).to eql(true)
       end

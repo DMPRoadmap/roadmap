@@ -34,6 +34,10 @@
     "bootstrap-select": "^1.13.18",
     "chart.js": "^2.9.3",
     "core-js": "^3.6.5",
+    "eslint": "^7.1.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.21.1",
     "jquery": "^3.5.1",
     "jquery-ui": "^1.12.1",
     "jquery-ui-sass": "^0.0.1",
@@ -43,7 +47,7 @@
     "rails-erb-loader": "^5.5.2",
     "regenerator-runtime": "^0.13.5",
     "timeago.js": "^4.0.2",
-    "tinymce": "^4.9.10",
+    "tinymce": "4.9.10",
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
@@ -65,6 +69,6 @@
     "webpack-dev-server": "^3.11.0"
   },
   "resolutions": {
-    "webpack": "^4.34.0"
+    "webpack": "^4.42.1"
   }
 }
