@@ -110,7 +110,7 @@ class ResearchOutput < ActiveRecord::Base
         data: {
           "title" => fullname
         },
-        madmp_schema_id: MadmpSchema.find_by(classname: "research_output_description").id,
+        madmp_schema_id: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard").id,
         dmp_id: dmp_fragment.id,
         parent_id: fragment.id
       )
