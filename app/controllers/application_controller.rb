@@ -19,10 +19,18 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  # When we are in production reroute Record Not Found errors to the branded 404 page
-  if Rails.env.production?
-    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
-  end
+  rescue_from ActiveRecord::RecordNotFound,
+              #XXX Unkown controllers not working ATM
+              ActionController::UnknownController,
+              ActionController::RoutingError, with: :render_404
+
+
+  rescue_from 'forbidden', with: :render_403
+
+  rescue_from ActionController::InvalidAuthenticityToken,
+              ActiveRecord::RecordInvalid,
+              ActiveRecord::RecordNotSaved, with: :render_422
+
 
   private
 
@@ -175,9 +183,16 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:accept_invitation, keys: [:firstname, :surname, :org_id])
   end
 
-  # We are currently rendering the default 404 page when a record is not found.
-  # This should be changed to an actual branded 404 page
-  def render_not_found
-    render :file => 'public/404.html', :status => :not_found, :layout => false
+  def render_404
+    render "errors/404", status: :not_found, layout: 'error'
   end
+
+  def render_403
+    render "errors/403", status: :forbidden, layout: 'error'
+  end
+
+  def render_422
+    render "errors/422", status: :unprocessable_entity, layout: 'error'
+  end
+
 end
