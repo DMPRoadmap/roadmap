@@ -18,16 +18,17 @@ describe "contact_us/contacts/_new_right.html.erb" do
     }
     # rubocop:enable Metrics/LineLength
     Rails.configuration.x.organisation[:name] = org[:name]
-    # rubocop:disable Naming/VariableNumber
     Rails.configuration.x.organisation[:address] = {
-      line_1: org[:address_line1],
-      line_2: org[:address_line2],
-      line_3: org[:address_line3],
-      line_4: org[:address_line4],
+      line1: org[:address_line1],
+      line2: org[:address_line2],
+      line3: org[:address_line3],
+      line4: org[:address_line4],
       country: org[:address_country]
     }
-    # rubocop:enable Naming/VariableNumber
     render
+
+p rendered
+
     expect(rendered.include?("<strong>#{org[:name]}")).to eql(true)
     expect(rendered.include?("#{org[:address_line1]}<br>")).to eql(true)
     expect(rendered.include?("#{org[:address_line2]}<br>")).to eql(true)

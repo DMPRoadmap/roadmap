@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe "paginable/templates/_publicly_visible.html.erb" do
 
-  it "renders our version of the page" do
+  xit "renders our version of the page" do
     org = create(:org, :funder)
     2.times { create(:template, :published, org: org) }
     controller.prepend_view_path "app/views/branded"

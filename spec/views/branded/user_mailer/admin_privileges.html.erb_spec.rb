@@ -8,7 +8,7 @@ describe "user_mailer/admin_privileges.html.erb" do
     controller.prepend_view_path "app/views/branded"
   end
 
-  it "renders the email for a user who received Admin privileges" do
+  xit "renders the email for a user who received Admin privileges" do
     user = create(:user, :org_admin)
     assign :user, user
     render
@@ -17,7 +17,7 @@ describe "user_mailer/admin_privileges.html.erb" do
     expect(rendered.include?(@url)).to eql(true)
   end
 
-  it "renders the email for the user whose Admin privileges have been revoked" do
+  xit "renders the email for the user whose Admin privileges have been revoked" do
     user = create(:user)
     assign :user, user
     render

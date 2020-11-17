@@ -5,6 +5,7 @@ require "rails_helper"
 RSpec.feature "Locales", type: :feature, js: true do
 
   before(:each) do
+    Org.destroy_all
     # Clear out the default defined in the locales support file
     Language.destroy_all
   end

@@ -55,7 +55,7 @@ RSpec.describe Dmptool::OrgsController, type: :request do
     it "redirects to the shibboleth IdP" do
       id = create(:identifier, identifiable: @org, identifier_scheme: @shib)
       @org = @org.reload
-      post shibboleth_ds_path, { id: @org.id }
+      post shibboleth_ds_path(id: @org.id)
 
       location = response.headers["Location"]
       expect(location.include?(Rails.application.config.shibboleth_login)).to eql(true)

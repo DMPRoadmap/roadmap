@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe "paginable/orgs/_public.html.erb" do
 
-  it "renders our version of the page" do
+  xit "renders our version of the page" do
     generate_shibbolized_orgs(2)
     shib = Org.last
     non_shib = create(:org, managed: true, identifiers: [])

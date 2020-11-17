@@ -8,53 +8,52 @@ describe "layouts/_analytics.html.erb" do
     controller.prepend_view_path "app/views/branded"
     org = create(:org, name: ApplicationService.application_name,
                        abbreviation: ApplicationService.application_name)
-    create(:tracker, org: org)
+    @gkey = "UA-12345678-9"
+    @skey = SecureRandom.uuid
+    create(:tracker, org: org, code: @gkey)
     org.reload
-    gkey = org.trackers.last.value
-    @expected_usersnap = "//api.usersnap.com/load/#{SecureRandom.uuid}.js"
-    @expected_google = "https://www.googletagmanager.com/gtag/js?id=#{gkey}"
-    Rails.env.stubs(:stage?).returns(true)
-    Rails.application.credentials.stubs(:usersnap).returns({ key: @expected_usersnap })
-    Rails.configuration.x.google_analytics.tracker_root = ApplicationService.application_name
+    @expected_usersnap = "//api.usersnap.com/load/#{@skey}.js"
+    Rails.application.credentials.stubs(:usersnap).returns({ key: @skey })
+    Rails.configuration.x.tracker_root = ApplicationService.application_name
   end
 
   context "renders nothing" do
-    it "when Rails.configuration.branding[:keys] is empty" do
-      Rails.configuration.branding[:keys] = []
-      render
-      expect(rendered.include?(@expected_usersnap)).to eql(false)
-      expect(rendered.include?(@expected_google)).to eql(false)
-    end
     it "when :usersnap_key and :google_analytics_key are not present" do
-      Rails.configuration.branding[:keys] = []
+      Rails.configuration.x.google_analytics.tracker_root = nil
+      Rails.configuration.x.usersnap.key = nil
       render
       expect(rendered.include?(@expected_usersnap)).to eql(false)
-      expect(rendered.include?(@expected_google)).to eql(false)
+      expect(rendered.include?(@gkey)).to eql(false)
     end
     it "when Rails.env.stage? and Rails.env.production? are false" do
-      Rails.configuration.branding[:keys] = @keys
+      Rails.configuration.x.google_analytics.tracker_root = @gkey
+      Rails.configuration.x.usersnap.key = @skey
       Rails.env.stubs(:stage?).returns(false)
       Rails.env.stubs(:production?).returns(false)
       render
       expect(rendered.include?(@expected_usersnap)).to eql(false)
-      expect(rendered.include?(@expected_google)).to eql(false)
+      expect(rendered.include?(@gkey)).to eql(false)
     end
   end
 
   it "Rails.env.stage?" do
-    Rails.configuration.branding[:keys] = @keys
+    Rails.configuration.x.google_analytics.tracker_root = @gkey
+    Rails.configuration.x.usersnap.key = @skey
     Rails.env.stubs(:stage?).returns(true)
+    Rails.env.stubs(:production?).returns(false)
     render
     expect(rendered.include?(@expected_usersnap)).to eql(true)
-    expect(rendered.include?(@expected_google)).to eql(true)
+    expect(rendered.include?(@gkey)).to eql(true)
   end
 
   it "Rails.env.production?" do
-    Rails.configuration.branding[:keys] = @keys
+    Rails.configuration.x.google_analytics.tracker_root = @gkey
+    Rails.configuration.x.usersnap.key = @skey
+    Rails.env.stubs(:stage?).returns(false)
     Rails.env.stubs(:production?).returns(true)
     render
     expect(rendered.include?(@expected_usersnap)).to eql(false)
-    expect(rendered.include?(@expected_google)).to eql(true)
+    expect(rendered.include?(@gkey)).to eql(true)
   end
 
 end

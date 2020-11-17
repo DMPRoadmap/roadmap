@@ -26,7 +26,7 @@ RSpec.describe Dmptool::Org, type: :model do
 
     context "#shibbolized?" do
       it "returns false when the Org is not :managed" do
-        org = Org.participating.first
+        org = Org.participating.last
         org.update(managed: false)
         expect(org.shibbolized?).to eql(false)
       end
@@ -34,7 +34,7 @@ RSpec.describe Dmptool::Org, type: :model do
         expect(@unmanaged.shibbolized?).to eql(false)
       end
       it "returns true" do
-        org = Org.participating.first
+        org = Org.participating.last
         expect(org.shibbolized?).to eql(true)
       end
     end

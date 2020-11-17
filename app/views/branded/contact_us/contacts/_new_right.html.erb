@@ -8,6 +8,9 @@
  <!-- new_right template -->
  <address>
    <strong><%= Rails.configuration.x.organisation.name %></strong><br>
+
+<%= Rails.configuration.x.organisation.address.inspect %>
+
    <% [Rails.configuration.x.organisation.address.fetch(:line1, ""),
        Rails.configuration.x.organisation.address.fetch(:line2, ""),
        Rails.configuration.x.organisation.address.fetch(:line3, ""),

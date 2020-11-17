@@ -10,9 +10,9 @@ describe "layouts/mobile/_fixed_menu.html.erb" do
 
   context "user not logged in when Shibboleth is enabled" do
     it "renders our version of the page" do
-      Rails.application.config.shibboleth_enabled = true
+      Rails.configuration.x.shibboleth_enabled = true
       render
-      expect(rendered.include?("DMPTool_logo_blue_shades_v1b3b.svg")).to eql(true)
+      expect(rendered.include?("DMPTool_logo_blue_shades_v1b3b")).to eql(true)
       expect(rendered.include?("Sign in")).to eql(true)
       expect(rendered.include?("Sign in through an affiliated institution")).to eql(true)
       expect(rendered.include?("Sign in with your email address")).to eql(true)
@@ -27,9 +27,9 @@ describe "layouts/mobile/_fixed_menu.html.erb" do
 
   context "user not logged in when Shibboleth is NOT enabled" do
     it "renders our version of the page" do
-      Rails.application.config.shibboleth_enabled = false
+      Rails.configuration.x.shibboleth_enabled = false
       render
-      expect(rendered.include?("DMPTool_logo_blue_shades_v1b3b.svg")).to eql(true)
+      expect(rendered.include?("DMPTool_logo_blue_shades_v1b3b")).to eql(true)
       expect(rendered.include?("Sign in")).to eql(true)
       expect(rendered.include?("Sign in through an affiliated institution")).to eql(false)
       expect(rendered.include?("Sign in with your email address")).to eql(true)
