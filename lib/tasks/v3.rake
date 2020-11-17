@@ -4,6 +4,7 @@ namespace :v3 do
   task upgrade_3_0_0: :environment do
     Rake::Task["v3:ensure_default_languages"].execute
     Rake::Task["v3:ensure_feedback_defaults"].execute
+    Rake::Task["v3:fix_funder_ids"].execute
   end
 
   # Set any records with a nil `language_id` to the default language
@@ -33,6 +34,26 @@ namespace :v3 do
 
     Org.where(feedback_email_subject: nil).update_all(feedback_email_subject: feedback_confirmation_default_subject)
     Org.where(feedback_email_msg: nil).update_all(feedback_email_msg: feedback_confirmation_default_message)
+  end
+
+  # E.G. change 'https://api.crossref.org/funders/100000060' to 'https://doi.org/10.13039/100000060'
+  desc "Corrects the Crossref funder ids which were originally set to the URL instead of the DOI"
+  task fix_funder_ids: :environment do
+    scheme = IdentifierScheme.where(name: "fundref").first
+
+    incorrect_prefix = "https://api.crossref.org/funders/"
+    correct_prefix = "https://doi.org/10.13039/"
+
+    if scheme.present?
+      scheme.update(identifier_prefix: correct_prefix) unless scheme.identifier_prefix == correct_prefix
+      Identifier.where(identifier_scheme: scheme).each do |id|
+        next unless id.value.start_with?(incorrect_prefix)
+
+        id.update(value: id.value.gsub(incorrect_prefix, correct_prefix))
+        p "#{id.value} - #{id.valid?}"
+        p id.errors.full_messages
+      end
+    end
   end
 
 end

@@ -64,9 +64,9 @@ class ApplicationController < ActionController::Base
     # Added get_started_path` to if statement below
     # ---------------------------------------------------------
     if from_external_domain? || referer_path.eql?(new_user_session_path) ||
-         referer_path.eql?(new_user_registration_path) ||
-         referer_path.eql?(get_started_path) ||
-         referer_path.nil?
+       referer_path.eql?(new_user_registration_path) ||
+       referer_path.eql?(get_started_path) ||
+       referer_path.nil?
       # End DMPTool Customization
       # ---------------------------------------------------------
       root_path
@@ -74,7 +74,7 @@ class ApplicationController < ActionController::Base
     # Start DMPTool Customization
     # Catch user's coming in from the Org branded sign in /create page
     # ---------------------------------------------------------
-    elsif referer_path =~ /#{shibboleth_ds_path}\/[0-9]+/
+    elsif referer_path =~ %r{#{shibboleth_ds_path}/[0-9]+}
       root_path
     # ---------------------------------------------------------
     # End DMPTool Customization
@@ -91,23 +91,23 @@ class ApplicationController < ActionController::Base
     # Added `new_user_registration_path` to if statement below
     # ---------------------------------------------------------
     if from_external_domain? ||
-         referer_path.eql?(new_user_session_path) ||
-         referer_path.eql?(new_user_registration_path) ||
-         referer_path.nil?
+       referer_path.eql?(new_user_session_path) ||
+       referer_path.eql?(new_user_registration_path) ||
+       referer_path.nil?
 
       # End DMPTool Customization
       # ---------------------------------------------------------
       root_path
 
-     # ---------------------------------------------------------
-     # Start DMPTool Customization
-     # Catch user's coming in from the Org branded sign in /create page
-     # ---------------------------------------------------------
-     elsif referer_path =~ /#{shibboleth_ds_path}\/[0-9]+/
-       root_path
-     # ---------------------------------------------------------
-     # End DMPTool Customization
-     # ---------------------------------------------------------
+      # ---------------------------------------------------------
+      # Start DMPTool Customization
+      # Catch user's coming in from the Org branded sign in /create page
+      # ---------------------------------------------------------
+    elsif referer_path =~ %r{#{shibboleth_ds_path}/[0-9]+}
+      root_path
+      # ---------------------------------------------------------
+      # End DMPTool Customization
+      # ---------------------------------------------------------
     else
       request.referer
     end

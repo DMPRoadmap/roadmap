@@ -133,8 +133,8 @@ class Identifier < ApplicationRecord
 
   # Ensure that the identifiable only has one identifier for the scheme
   def value_uniqueness_with_scheme
-    if Identifier.where(identifier_scheme: identifier_scheme,
-                        identifiable: identifiable).any?
+    if new_record? && Identifier.where(identifier_scheme: identifier_scheme,
+                                       identifiable: identifiable).any?
       errors.add(:identifier_scheme, _("already assigned a value"))
     end
   end

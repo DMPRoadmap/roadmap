@@ -96,13 +96,15 @@ RSpec.describe Api::V1::Deserialization::Identifier do
                                       identifiable: @identifiable, json: json)
         expect(result).to eql(nil)
       end
-      it "updates the existing Identifier for the IdentifierScheme" do
+      it "returns the updated Identifier for the IdentifierScheme" do
         identifier = create(:identifier, identifier_scheme: @scheme,
                                          identifiable: @identifiable,
                                          value: Faker::Number.number)
         result = described_class.send(:identifier_for_scheme,
                                       scheme: @scheme,
                                       identifiable: @identifiable, json: @json)
+        expected = "#{@scheme.identifier_prefix}#{@json[:identifier]}"
+        validate_identifier(result: result, scheme: @scheme, value: expected)
         expect(result.id).to eql(identifier.id)
         expect(result.value.ends_with?(@json[:identifier])).to eql(true)
       end

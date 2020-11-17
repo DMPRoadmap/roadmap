@@ -28,7 +28,7 @@
 #      \"name\":\"Portland State University (PDX)\",
 #      \"sort_name\":\"Portland State University\",
 #      \"ror\":\"https://ror.org/00yn2fy02\",
-#      \"fundref\":\"https://api.crossref.org/funders/100007083\"
+#      \"fundref\":\"https://doi.org/10.13039/100007083\"
 #    }
 #  }
 #

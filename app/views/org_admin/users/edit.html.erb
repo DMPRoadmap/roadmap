@@ -58,9 +58,8 @@
 
     <% if @user.identifiers.present? %>
       <h2>Identifiers</h2>
-      <% presenter = IdentifierPresenter.new(identifiable: @user) %>
       <% presenter.identifiers.each do |identifier| %>
-        <p><%= presenter.id_for_display(id: identifier, with_scheme_name: true).html_safe %></p>
+        <p><%= id_for_display(id: identifier, with_scheme_name: true) %></p>
       <% end %>
     <% end %>
 
