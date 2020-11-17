@@ -6,13 +6,17 @@ describe "layouts/_analytics.html.erb" do
 
   before(:each) do
     controller.prepend_view_path "app/views/branded"
+    create(:org, name: ApplicationService.application_name,
+                 abbreviation: ApplicationService.application_name)
     @keys = {
       usersnap_key: SecureRandom.uuid,
       google_analytics_key: SecureRandom.uuid
     }
     @expected_usersnap = "//api.usersnap.com/load/#{@keys[:usersnap_key]}.js"
-    gkey = @keys[:google_analytics_key]
     @expected_google = "https://www.googletagmanager.com/gtag/js?id=#{gkey}"
+    Rails.env.stubs(:stage?).returns(true)
+    Rails.application.credentials.stubs(:usersnap).returns({ key: @expected_usersnap })
+    Rails.configuration.x.google_analytics.tracker_root = ApplicationService.application_name
   end
 
   context "renders nothing" do
