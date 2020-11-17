@@ -11,7 +11,7 @@ describe "shared/_get_started.html.erb" do
   end
 
   it "renders the correct sign in options when Shibboleth is not enabled" do
-    Rails.application.config.shibboleth_enabled = false
+    Rails.configuration.x.shibboleth.enabled = false
     render
     expect(rendered.include?("Sign in options")).to eql(true)
     expect(rendered.include?(@shib)).to eql(false)
@@ -21,7 +21,7 @@ describe "shared/_get_started.html.erb" do
   end
 
   it "renders the correct sign in options when Shibboleth is enabled" do
-    Rails.application.config.shibboleth_enabled = true
+    Rails.configuration.x.shibboleth.enabled = true
     render
     expect(rendered.include?("Sign in options")).to eql(true)
     expect(rendered.include?(@shib)).to eql(true)
