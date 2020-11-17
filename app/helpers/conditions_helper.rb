@@ -87,8 +87,8 @@ module ConditionsHelper
     if section.is_a?(Hash) &&
        !phase.nil? &&
        plan.is_a?(Plan)
-      phase_id = plan.phases.where(number: phase[:number]).first.id
-      section = plan.sections.where(phase_id: phase_id, title: section[:title]).first
+      phase_id = plan.phases.select { |ph| ph.number == phase[:number] }.first.id
+      section = plan.sections.select { |s| s.phase_id == phase_id && s.title == section[:title] }.first
     end
     count = 0
     plan_remove_list = remove_list(plan)
