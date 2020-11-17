@@ -100,6 +100,7 @@ yarn-error.log
 yarn-debug.log*
 
 .env
+.version
 
 package-lock.json
 node_modules
