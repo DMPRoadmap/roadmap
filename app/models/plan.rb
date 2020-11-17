@@ -367,8 +367,9 @@ class Plan < ApplicationRecord
   def readable_by?(user_id)
     return true if commentable_by?(user_id)
 
-    current_user = User.find(user_id)
-    return false unless current_user.present?
+    r = roles.select {|r| r.user_id == user_id }.first
+    return false if r.nil?
+    current_user = r.user
 
     # If the user is a super admin and the config allows for supers to view plans
     if current_user.can_super_admin? && Rails.configuration.x.plans.super_admins_read_all
@@ -407,7 +408,8 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def reviewable_by?(user_id)
-    reviewer = User.find(user_id)
+    r = roles.select { |r| r.user_id == user_id }.first
+    reviewer = r.nil? ? nil : r.user
     feedback_requested? &&
       reviewer.present? &&
       reviewer.org_id == owner&.org_id &&
@@ -426,11 +428,8 @@ class Plan < ApplicationRecord
   # Returns User
   # Returns nil
   def owner
-    usr_id = Role.where(plan_id: id, active: true)
-                 .administrator
-                 .order(:created_at)
-                 .pluck(:user_id).first
-    usr_id.present? ? User.find(usr_id) : nil
+    r = roles.select { |r| r.active && r.administrator }.sort { |a,b| a.created_at <=> b.created_at }.first
+    r.nil? ? nil : r.user
   end
 
   # Creates a role for the specified user (will update the user's
@@ -483,10 +482,7 @@ class Plan < ApplicationRecord
   def owner_and_coowners
     # We only need to search for :administrator in the bitflag
     # since :creator includes :administrator rights
-    usr_ids = Role.where(plan_id: id, active: true)
-                  .administrator
-                  .pluck(:user_id).uniq
-    User.where(id: usr_ids)
+    roles.select { |r| r.active && r.administrator }.map(&:user).uniq
   end
 
   # The creator, administrator and editors
@@ -495,10 +491,7 @@ class Plan < ApplicationRecord
   def authors
     # We only need to search for :editor in the bitflag
     # since :creator and :administrator include :editor rights
-    usr_ids = Role.where(plan_id: id, active: true)
-                  .editor
-                  .pluck(:user_id).uniq
-    User.where(id: usr_ids)
+    roles.select { |r| r.active && r.editor }.map(&:user).uniq
   end
 
   # The number of answered questions from the entire plan
