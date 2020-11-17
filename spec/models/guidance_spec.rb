@@ -6,7 +6,7 @@ RSpec.describe Guidance, type: :model do
 
   before(:each) do
     # Ensure that the default managing org abbreviation is available
-    Rails.configuration.branding.fetch(:organisation, {})[:abbreviation] = "CC"
+    Rails.configuration.x.organisation.abbreviation = "CC"
   end
 
   context "validations" do

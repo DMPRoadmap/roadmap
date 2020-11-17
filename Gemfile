@@ -127,18 +127,9 @@ gem "recaptcha"
 # (http://github.com/markevans/dragonfly)
 gem "dragonfly"
 
-# ------------------------------------------------
-# Start DMPTool customization
-# For some reason capistrano's `set :bundle_with` is not working
-# so we remove the optional flag to ensure this gem gets installed
-# ------------------------------------------------
-#group :aws, optional: true do
 group :aws do
-# ------------------------------------------------
-# End DMPTool customization
-# ------------------------------------------------
-  gem 'dragonfly-s3_data_store'
-
+  # Amazon AWS S3 data store for use with the Dragonfly gem.
+  gem "dragonfly-s3_data_store"
 end
 
 # ========== #
@@ -183,8 +174,8 @@ gem "autoprefixer-rails"
 # Start DMPTool customization
 # 0.12.5 does not work on our new linux2 instances. Pegging at 0.12.4 for now
 # ------------------------------------------------
-#gem 'wkhtmltopdf-binary'
-gem 'wkhtmltopdf-binary', '0.12.4'
+# gem 'wkhtmltopdf-binary'
+gem "wkhtmltopdf-binary", "0.12.4"
 # ------------------------------------------------
 # End DMPTool customization
 # ------------------------------------------------

@@ -5,7 +5,7 @@ require "rails_helper"
 describe "devise/registrations/new.html.erb" do
 
   before(:each) do
-    @app_name = Rails.configuration.branding[:application][:name]
+    @app_name = ApplicationService.application_name
     controller.prepend_view_path "app/views/branded"
   end
 

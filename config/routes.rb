@@ -99,6 +99,9 @@ Rails.application.routes.draw do
   # End DMPTool customizations
   # ------------------------------------------
 
+  # post 'contact_form' => 'contacts', as: 'localized_contact_creation'
+  # get 'contact_form' => 'contacts#new', as: 'localized_contact_form'
+
   resources :orgs, path: "org/admin", only: [] do
     member do
       get "admin_edit"

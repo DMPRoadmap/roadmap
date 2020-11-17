@@ -17,7 +17,7 @@ describe "layouts/_logo.html.erb" do
     render
     expect(rendered.include?("org-logo")).to eql(false)
     expect(rendered.include?("app-logo")).to eql(true)
-    expect(rendered.include?("DMPTool_logo_blue_shades_v1b3b.svg")).to eql(true)
+    expect(rendered.include?("DMPTool_logo_blue_shades_v1b3b")).to eql(true)
   end
 
   it "renders correctly when user is logged in" do
@@ -26,7 +26,7 @@ describe "layouts/_logo.html.erb" do
     expect(rendered.include?("org-logo")).to eql(true)
     expect(rendered.include?(@org.name)).to eql(true)
     expect(rendered.include?("app-logo")).to eql(false)
-    expect(rendered.include?("DMPTool_logo_blue_shades_v1b3b.svg")).to eql(false)
+    expect(rendered.include?("DMPTool_logo_blue_shades_v1b3b")).to eql(false)
   end
 
 end
