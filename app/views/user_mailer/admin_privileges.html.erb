@@ -1,28 +1,22 @@
-<%
-  tool_name = Rails.configuration.branding[:application][:name]
-  user_name = @user.name
-  help_url = Rails.configuration.branding[:organisation][:url]
-  ul_list = sanitize(privileges_list(@user))
-%>
 <p>
-  <%= _('Hello %{user_name}') %{ :user_name => user_name } %>
+  <%= _('Hello %{username}') %{ username: @username } %>
 </p>
 <% if @user.perms.size > 0 %>
   <p>
-    <%= _('You have been granted administrator privileges in %{tool_name}:') %{ :tool_name => tool_name } %>
+    <%= _('You have been granted administrator privileges in %{tool_name}:') %{ tool_name: tool_name } %>
   </p>
   <p>
-    <%= ul_list %>
+    <%= @ul_list %>
   </p>
 <% else %>
   <p>
-    <%= _('You have been revoked administrator privileges in %{tool_name}.') %{ :tool_name => tool_name } %>
+    <%= _('You have been revoked administrator privileges in %{tool_name}.') %{ tool_name: tool_name } %>
   </p>
 <% end %>
 <p>
   <%= sanitize _('More information about administering the %{tool_name} for users at your organisation is available at the %{help_url}.') % {
     tool_name: tool_name,
-    help_url: link_to('help for administrators page', help_url) }
+    help_url: link_to('help for administrators page', @help_url) }
   %>
 </p>
 <%= render partial: 'email_signature' %>

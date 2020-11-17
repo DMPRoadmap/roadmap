@@ -1,7 +1,7 @@
-<% title _('About %{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %>
+<% title _('About %{application_name}') % { application_name: ApplicationService.application_name } %>
 <div class="row">
   <div class="col-md-12">
-    <h1><%= _('About %{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %></h1>
+    <h1><%= _('About %{application_name}') % { application_name: ApplicationService.application_name } %></h1>
   </div>
 </div>
 
@@ -31,7 +31,7 @@
         <h2 class="fontsize-h3"><%= _('Getting Started') %></h2>
 
         <p><%= _("If you have an account please sign in and start creating or editing your DMP.") %></p>
-        <p><%= _("If you do not have a %{application_name} account, click on")  % {:application_name => Rails.configuration.branding[:application][:name]} %> <a href="<%= root_path %>"><%= _('Sign up') %></a> <%= _("on the homepage.") %></p>
+        <p><%= _("If you do not have a %{application_name} account, click on")  % {application_name: ApplicationService.application_name} %> <a href="<%= root_path %>"><%= _('Sign up') %></a> <%= _("on the homepage.") %></p>
         <p><%= _("Please visit the") %> <a href="<%= help_path %>"><%= _('Help') %></a> <%= _("page for guidance.") %></p>
 
         <h2 class="fontsize-h3"><%= _("Customising for your Organisation") %></h2>

@@ -1,4 +1,4 @@
-class AddLanguageRefToOrganisation < ActiveRecord::Migration
+class AddLanguageRefToOrganisation < ActiveRecord::Migration[4.2]
   def change
     add_reference :organisations, :language
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: notifications
@@ -15,9 +17,7 @@
 #  updated_at        :datetime         not null
 #
 
-class Notification < ActiveRecord::Base
-  include ValidationMessages
-  include ValidationValues
+class Notification < ApplicationRecord
 
   enum level: %i[info warning danger]
   enum notification_type: %i[global]
@@ -27,8 +27,7 @@ class Notification < ActiveRecord::Base
   # ================
 
   has_and_belongs_to_many :users, dependent: :destroy,
-                          join_table: 'notification_acknowledgements'
-
+                                  join_table: "notification_acknowledgements"
 
   # ===============
   # = Validations =
@@ -52,13 +51,12 @@ class Notification < ActiveRecord::Base
   validates :expires_at, presence: { message: PRESENCE_MESSAGE },
                          after: { date: Date.tomorrow, on: :create }
 
-
   # ==========
   # = Scopes =
   # ==========
 
   scope :active, (lambda do
-    where('starts_at <= :now and :now < expires_at', now: Time.now).where(enabled: true)
+    where("starts_at <= :now and :now < expires_at", now: Time.now).where(enabled: true)
   end)
 
   scope :active_per_user, (lambda do |user|
@@ -77,4 +75,5 @@ class Notification < ActiveRecord::Base
   def acknowledged?(user)
     dismissable? && user.present? && users.include?(user)
   end
+
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: roles
@@ -21,11 +23,11 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
-class Role < ActiveRecord::Base
+class Role < ApplicationRecord
 
   include FlagShihTzu
-  include ValidationMessages
-  include ValidationValues
+
+  attribute :active, :boolean, default: true
 
   # ================
   # = Associations =
@@ -43,7 +45,7 @@ class Role < ActiveRecord::Base
             3 => :editor,             # 4
             4 => :commenter,          # 8
             5 => :reviewer,           # 16
-            column: 'access'
+            column: "access"
 
   # ===============
   # = Validations =
@@ -60,28 +62,21 @@ class Role < ActiveRecord::Base
                      numericality: { greater_than: 0, only_integer: true,
                                      message: _("can't be less than zero") }
 
-  # =============
-  # = Callbacks =
-  # =============
-
-  # TODO: Push this down to the DB constraints
-  after_initialize :set_defaults
-
   ##
   # Roles with given FlagShihTzu access flags
   #
   # flags - One or more symbols that represent access flags
   #
   # Return ActiveRecord::Relation
-  scope :with_access_flags, -> (*flags) {
-    bad_flag = flags.detect { |flag| !flag.in?(flag_mapping['access'].keys) }
+  scope :with_access_flags, lambda { |*flags|
+    bad_flag = flags.detect { |flag| !flag.in?(flag_mapping["access"].keys) }
     raise ArgumentError, "Unkown access flag '#{bad_flag}'" if bad_flag
-    access_values = flags.map { |flag| sql_in_for_flag(flag.to_sym, 'access') }
+
+    access_values = flags.map { |flag| sql_in_for_flag(flag.to_sym, "access") }
                          .flatten
                          .uniq
     where(access: access_values)
   }
-
 
   # =================
   # = Class Methods =
@@ -96,25 +91,23 @@ class Role < ActiveRecord::Base
   #
   # Returns [Integer]
   def self.bit_values(access)
-    Role.send(:chained_flags_values, 'access', access)
+    Role.send(:chained_flags_values, "access", access)
   end
 
   # ===========================
   # = Public instance methods =
   # ===========================
 
-  def set_defaults
-    self.active = true if self.new_record?
-  end
-
   # Set the roles.active flag to false and deactivates the plan
   # if there are no other authors
   def deactivate!
     self.active = false
-    if self.save!
-      if self.plan.authors.size == 0
-        self.plan.deactivate!
-      end
+    if save!
+      # Set the org_id on the Plan before calling deactivate. The org_id should
+      # not be blank. This catches the scenario where the `upgrade:v2_2_0_part1`
+      # upgrade task has not been run or it missed a record for some reason
+      plan.org_id = user.org_id unless plan.org_id.present?
+      plan.deactivate! if plan.authors.empty?
       true
     else
       false

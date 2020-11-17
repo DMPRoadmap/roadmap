@@ -1,5 +1,0 @@
-Recaptcha.configure do |config|
-  config.site_key  = 'replace_this_with_your_public_key'
-  config.secret_key = 'replace_this_with_your_private_key'
-  config.proxy = 'http://someproxy.com:port'
-end
