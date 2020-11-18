@@ -85,17 +85,6 @@
     </div>
   <% end %>
 
-  <% unless @user.api_token.blank? %>
-    <div class="form-group col-xs-8">
-      <%= f.label(:api_token, _('API token'), class: 'control-label') %>
-      <%= @user.api_token %>
-    </div>
-    <div class="form-group col-xs-8">
-      <%= label_tag(:api_information, _('API Information'), class: 'control-label') %>
-      <a href="https://github.com/DMPRoadmap/roadmap/wiki/API-V0-Documentation"><%= _('How to use the API') %></a>
-    </div>
-  <% end %>
-
   <div class="form-group col-xs-8">
     <%= f.button(_('Save'), class: 'btn btn-default', type: "submit", id: "personal_details_registration_form_submit") %>
   </div>
