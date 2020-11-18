@@ -1,9 +1,13 @@
-<% title _("Welcome to #{Rails.configuration.branding[:application][:name]}.") %>
+<%
+  application_name = Rails.configuration.branding[:application][:name]
+%>
+
+<% title _("Welcome to %{application_name}.") % {application_name: application_name} %>
 <div>
-  <h1><%= _("Welcome to #{Rails.configuration.branding[:application][:name]}.")%></h1>
+  <h1><%= _("Welcome to %{application_name}.") % {application_name: application_name}%></h1>
   <p>
     <%= sanitize _('<p>%{application_name} has been developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>') % {
-      application_name: Rails.configuration.branding[:application][:name],
+      application_name: application_name,
       organisation_name: Rails.configuration.branding[:organisation][:name]}
       %>
 
