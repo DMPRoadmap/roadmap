@@ -117,6 +117,8 @@ class Plan < ApplicationRecord
 
   has_many :contributors, dependent: :destroy
 
+  has_one :grant, as: :identifiable, dependent: :destroy, class_name: "Identifier"
+
   belongs_to :api_client, optional: true
 
   # =====================
@@ -569,19 +571,6 @@ class Plan < ApplicationRecord
   # Returns the plan's identifier (either a DOI/ARK)
   def landing_page
     identifiers.select { |i| %w[doi ark].include?(i.identifier_format) }.first
-  end
-
-  # Retrieves the Plan's grant
-  def grant
-    grant_id.present? ? Identifier.find_by(id: grant_id) : nil
-  end
-
-  # Sets the Plan's grant
-  def grant=(value)
-    identifier = Identifier.find_or_initialize_by(identifiable: self, value: value,
-                                                  identifier_scheme: nil)
-    identifier.save if identifier.new_record?
-    self.grant_id = identifier.id
   end
 
   # Retrieves the Plan's most recent DOI

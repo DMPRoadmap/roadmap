@@ -1,7 +1,7 @@
 # locals: contributor, orcid_scheme, ror_scheme
 
 if contributor.is_a?(Hash)
-  if contributor.name.present?
+  if contributor[:name].present?
     json.name contributor[:name]
     json.nameType "Organizational"
     json.contributorType "HostingInstitution"
@@ -18,7 +18,7 @@ elsif contributor.is_a?(Org)
 
   json.contributorType "Producer"
 
-  ror = contributor.org.identifier_for_scheme(scheme: ror_scheme)
+  ror = contributor.identifier_for_scheme(scheme: ror_scheme)
   if ror_scheme.present? && ror.present?
     json.nameIdentifier ror.value
     json.nameIdentifierScheme "ROR"
@@ -26,14 +26,14 @@ elsif contributor.is_a?(Org)
 
 else
   if contributor.is_a?(User)
-    json.name [creator.surname, creator.firstname].join(", ")
+    json.name [contributor.surname, contributor.firstname].join(", ")
   elsif contributor.is_a?(Contributor) && contributor.roles.positive?
     json.name contributor.name
 
     datacite_role = "ProjectManager" if contributor.project_administration?
     datacite_role = "ProjectLeader" if datacite_role.nil? && contributor.investigation?
     datacite_role = "DataCurator" unless datacite_role.present?
-    json.contributorType = datacite_role
+    json.contributorType datacite_role
   end
 
   json.nameType "Personal"
@@ -51,10 +51,10 @@ else
   end
 
   orcid = contributor.identifier_for_scheme(scheme: orcid_scheme)
-  next unless orcid_scheme.present? && orcid.present?
-
-  json.nameIdentifiers [orcid] do |ident|
-    json.nameIdentifier "https://orcid.org/#{ident.value}"
-    json.nameIdentifierScheme "ORCID"
+  if orcid_scheme.present? && orcid.present?
+    json.nameIdentifiers [orcid] do
+      json.nameIdentifier "https://orcid.org/#{orcid.value}"
+      json.nameIdentifierScheme "ORCID"
+    end
   end
 end

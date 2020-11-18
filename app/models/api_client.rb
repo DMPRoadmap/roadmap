@@ -34,8 +34,7 @@ class ApiClient < ApplicationRecord
   # = Associations =
   # ================
 
-  # TODO: Enable `optional: true` when merged into Rails 5 codebase
-  belongs_to :org # , optional: true
+  belongs_to :org, optional: true
 
   has_many :plans
 

@@ -6,6 +6,7 @@ RSpec.describe ExternalApis::DataciteService, type: :model do
   include DataciteMocks
 
   before(:each) do
+    Rails.configuration.x.datacite.active = true
     unless Language.where(default_language: true).any?
       # Org model requires a language so make sure the default is set
       create(:language, default_language: true)
@@ -17,8 +18,11 @@ RSpec.describe ExternalApis::DataciteService, type: :model do
   end
 
   describe "#mint_doi" do
-    before(:each) do
-      stub_minting_error!
+    it "returns nil if the service is not active" do
+      Rails.configuration.x.datacite.active = false
+      stub_minting_success!
+      doi = described_class.mint_doi(plan: @plan)
+      expect(doi).to eql(nil)
     end
 
     it "returns the new DOI" do
@@ -28,6 +32,7 @@ RSpec.describe ExternalApis::DataciteService, type: :model do
     end
 
     it "returns nil if Datacite returned an error" do
+      stub_minting_error!
       doi = described_class.mint_doi(plan: @plan)
       expect(doi).to eql(nil)
     end
@@ -94,7 +99,7 @@ RSpec.describe ExternalApis::DataciteService, type: :model do
 
         # Type checks
         type = dmp_json["types"]
-        expect(type["resourceType"]).to eql("Text/DataManagementPlan")
+        expect(type["resourceType"]).to eql("Text/Data Management Plan")
         expect(type["resourceTypeGeneral"]).to eql("Text")
 
         # Creators check
@@ -102,7 +107,6 @@ RSpec.describe ExternalApis::DataciteService, type: :model do
         expected = @plan.owner.reload
         expect(creator["name"]).to eql([expected.surname, expected.firstname].join(", "))
         expect(creator["nameType"]).to eql("Personal")
-        expect(creator["nameIdentifiers"].first["schemeUri"]).to eql("https://orcid.org")
         expect(creator["nameIdentifiers"].first["nameIdentifierScheme"]).to eql("ORCID")
         expect(creator["nameIdentifiers"].first["nameIdentifier"].end_with?(creator_orcid.value)).to eql(true)
         expect(creator["affiliation"].present?).to eql(true)
@@ -116,7 +120,6 @@ RSpec.describe ExternalApis::DataciteService, type: :model do
         expect(contrib["name"]).to eql(expected.name)
         expect(contrib["nameType"]).to eql("Personal")
         expect(contrib["contributorType"]).to eql("ProjectLeader")
-        expect(contrib["nameIdentifiers"].first["schemeUri"]).to eql("https://orcid.org")
         expect(contrib["nameIdentifiers"].first["nameIdentifierScheme"]).to eql("ORCID")
         expect(contrib["nameIdentifiers"].first["nameIdentifier"].end_with?(contrib_orcid.value)).to eql(true)
         expect(contrib["affiliation"].present?).to eql(true)

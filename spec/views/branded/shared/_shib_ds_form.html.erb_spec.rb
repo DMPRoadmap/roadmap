@@ -23,7 +23,7 @@ describe "shared/_shib_ds_form.html.erb" do
   end
 
   it "renders the Selection List if there are more than 10 Orgs" do
-    generate_shibbolized_orgs(10)
+    generate_shibbolized_orgs(11)
     render
     expect(rendered.include?("full list of participating institutions")).to eql(true)
     expect(rendered.include?(Org.participating.first.name)).to eql(true)

@@ -49,7 +49,6 @@ module ExternalApis
       end
 
       # Create a new DOI
-      # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
       def mint_doi(plan:)
         return nil unless active?
 
@@ -70,7 +69,6 @@ module ExternalApis
         json.fetch("data", "attributes": { "doi": nil })
             .fetch("attributes", { "doi": nil })["doi"]
       end
-      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
       # Update the DOI
       def update_doi(plan:)

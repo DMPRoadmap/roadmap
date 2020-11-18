@@ -26,9 +26,6 @@ describe "contact_us/contacts/_new_right.html.erb" do
       country: org[:address_country]
     }
     render
-
-p rendered
-
     expect(rendered.include?("<strong>#{org[:name]}")).to eql(true)
     expect(rendered.include?("#{org[:address_line1]}<br>")).to eql(true)
     expect(rendered.include?("#{org[:address_line2]}<br>")).to eql(true)
