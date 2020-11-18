@@ -58,10 +58,16 @@ class OrgsController < ApplicationController
         if shib.present? && attrs[:identifiers_attributes].present?
           key = attrs[:identifiers_attributes].keys.first
           entity_id = attrs[:identifiers_attributes][:"#{key}"][:value]
-          identifier = Identifier.find_or_initialize_by(
-            identifiable: @org, identifier_scheme: shib, value: entity_id
-          )
-          @org = process_identifier_change(org: @org, identifier: identifier)
+          # rubocop:disable Metrics/BlockNesting
+          if entity_id.present?
+            identifier = Identifier.find_or_initialize_by(
+              identifiable: @org, identifier_scheme: shib, value: entity_id
+            )
+            @org = process_identifier_change(org: @org, identifier: identifier)
+          else
+            # The user blanked out the entityID so delete the record
+            @org.identifier_for_scheme(scheme: shib)&.destroy
+          end
         end
         attrs.delete(:identifiers_attributes)
       end
