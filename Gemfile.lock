@@ -444,6 +444,8 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.10)
     tomparse (0.4.2)
+    translation (1.22)
+      gettext (~> 3.2, >= 3.2.5)
     truemail (1.8.0)
       simpleidn (~> 0.1.1)
     tzinfo (1.2.7)
@@ -556,6 +558,7 @@ DEPENDENCIES
   syslog-logger
   text
   thin
+  translation
   truemail
   web-console
   webdrivers (~> 3.0)

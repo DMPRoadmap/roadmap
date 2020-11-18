@@ -196,6 +196,10 @@ gem 'parallel'
 # Gem use for validating emails
 gem 'truemail'
 
+# Use translation.io services
+gem 'translation'
+
+
 # ------------------------------------------------
 # ENVIRONMENT SPECIFIC DEPENDENCIES
 group :development, :test do
@@ -307,8 +311,8 @@ group :development do
   # TomDoc for YARD (http://rubyworks.github.com/yard-tomdoc)
   gem "yard-tomdoc"
 
-  group :production, :staging do
-    gem 'syslog-logger'
-  end
-  
+end
+
+group :production, :staging do
+  gem 'syslog-logger'
 end

@@ -3,12 +3,13 @@ defaults: &defaults
 
   # Warning: The abbreviation here should match the org.abbreviation value registered in your database!
   organisation: &organization_defaults
-    name: 'Curation Center'
-    abbreviation: 'CC'  # This value is used to identify the default guidance that get auto-selected when a new plan is created
+    name: 'Portage Network'
+    abbreviation: 'Portage'  # This value is used to identify the default guidance that get auto-selected when a new plan is created
     url: 'https://github.com/DMPRoadmap/roadmap/wiki'
-    copywrite_name: 'Curation Centre (CC)'
+    copywrite_name: 'Portage Network'
     email: 'support@portagenetwork.ca'
     helpdesk_email: 'support@portagenetwork.ca'
+    # XXX Need to update the welcome links
     welcome_links:
       - link1:
         title: 'Digital Curation Centre'
@@ -33,15 +34,15 @@ defaults: &defaults
     contact_us_url: 'https://portagenetwork.ca/contact-us/'
 
   application: &application_defaults
-    name: 'DMPRoadmap'
-    url: 'https://github.com/DMPRoadmap/roadmap'
+    name: 'DMP Assistant'
+    url: 'https://github.com/portagenetwork/roadmap'
     version: '0.1.0'
-    release_notes_url: 'https://github.com/DMPRoadmap/roadmap/wiki/Releases'
-    issue_list_url: 'https://github.com/DMPRoadmap/roadmap/issues'
+    release_notes_url: 'https://github.com/portagenetwork/roadmap/wiki/Releases'
+    issue_list_url: 'https://github.com/portagenetwork/roadmap/issues'
     user_group_subscription_url: 'http://listserv.ucop.edu/cgi-bin/wa.exe?SUBED1=ROADMAP-L&A=1'
-    api_documentation_url: 'https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation'
+    api_documentation_url: 'https://github.com/portagenetwork/roadmap/wiki/API-Documentation'
     api_max_page_size: 100
-    archived_accounts_email_suffix: '@removed_accounts-example.org'
+    archived_accounts_email_suffix: '@removed_accounts.org'
 
   preferences:
     email:
