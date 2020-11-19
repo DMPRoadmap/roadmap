@@ -41,8 +41,8 @@ jobs:
 
     - name: 'Determine Ruby and Bundler Versions from Gemfile.lock'
       run: |
-        echo ::set-env name=RUBY_VERSION::$(echo `cat ./Gemfile.lock | grep -A 1 'RUBY VERSION' | grep 'ruby' | grep -oE '[0-9]\.[0-9]'`)
-        echo ::set-env name=BUNDLER_VERSION::$(echo `cat ./Gemfile.lock | grep -A 1 'BUNDLED WITH' | grep -oE '[0-9]\.[0-9]'`)
+        echo "RUBY_VERSION=`cat ./Gemfile.lock | grep -A 1 'RUBY VERSION' | grep 'ruby' | grep -oE '[0-9]\.[0-9]'`" >> $GITHUB_ENV
+        echo "BUNDLER_VERSION=`cat ./Gemfile.lock | grep -A 1 'BUNDLED WITH' | grep -oE '[0-9]\.[0-9]'`" >> $GITHUB_ENV
 
     # Install Ruby - using the version found in the Gemfile.lock
     - name: 'Install Ruby'
@@ -87,7 +87,7 @@ jobs:
           ${{ runner.os }}-
 
     - name: 'Determine wkhtmltopdf location'
-      run: echo ::set-env name=WICKED_PDF_PATH::$(echo `bundle exec which wkhtmltopdf`)
+      run: echo "WICKED_PDF_PATH=`bundle exec which wkhtmltopdf`" >> $GITHUB_ENV
 
     - name: 'Yarn Install'
       run: |
