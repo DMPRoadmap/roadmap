@@ -60,13 +60,13 @@ namespace :madmpopidor do
   task load_templates: :environment do
     # Read and parse index.json file
     index_path = Rails.root.join("config/schemas/main/index.json")
-    schemas_index = JSON.parse(File.open(index_path))
+    schemas_index = JSON.load(File.open(index_path))
 
     # Iterate over the schemas of the index.json file
     schemas_index.each do |schema_desc|
       # Read, parse and extract useful data from the JSON schema
       schema_path = Rails.root.join("config/schemas/main/#{schema_desc['path']}")
-      json_schema = JSON.parse(File.open(schema_path))
+      json_schema = JSON.load(File.open(schema_path))
       title = json_schema["title"]
       classname = schema_desc["classname"]
 
