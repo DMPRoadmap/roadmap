@@ -279,9 +279,9 @@ class Plan < ApplicationRecord
   # Returns Answer
   # Returns nil
   def answer(qid, create_if_missing = true)
-    answer = answers.where(question_id: qid).order("created_at DESC").first
-    question = Question.find(qid)
+    answer = answers.select { |a| q.question_id == q_id }.sort { |a,b| a.created_at <=> b.created_at }.last
     if answer.nil? && create_if_missing
+      question = Question.find(qid)
       answer             = Answer.new
       answer.plan_id     = id
       answer.question_id = qid
