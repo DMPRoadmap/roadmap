@@ -20,14 +20,14 @@ class MadmpFragmentsController < ApplicationController
         begin
           @fragment = MadmpFragment.find_by(
             id: params[:id],
-            dmp_id: p_params[:dmp_id],
+            dmp_id: p_params[:dmp_id]
           )
           # data = @fragment.data.merge(data)
           additional_info = {
             "validations" => MadmpFragment.validate_data(data, schema.schema)
           }
           @fragment.assign_attributes(
-            # data: data, 
+            # data: data,
             additional_info: additional_info,
             madmp_schema_id: schema.id
           )
@@ -62,7 +62,7 @@ class MadmpFragmentsController < ApplicationController
         madmp_schema: schema
       )
       @fragment.classname = classname
-      additional_info = { 
+      additional_info = {
         "validations" => MadmpFragment.validate_data(data, schema.schema)
       }
       @fragment.assign_attributes(
@@ -146,13 +146,15 @@ class MadmpFragmentsController < ApplicationController
     end
   end
 
-  def destroy 
+  def destroy
     @fragment = MadmpFragment.find(params[:id])
     classname = @fragment.classname
     parent_id = @fragment.parent_id
     dmp_id = @fragment.dmp_id
 
     authorize @fragment
+    return unless @fragment.destroy
+
     render json: {
       "fragment_id" =>  parent_id,
       "classname" => classname,
