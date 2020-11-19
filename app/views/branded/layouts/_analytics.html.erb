@@ -12,8 +12,8 @@
 <% end %>
 
 <!-- Google Analytics -->
-<% if (Rails.env.stage? || Rails.env.production?) && Rails.configuration.x.tracker_root.present? %>
-  <% root_abbr = Rails.configuration.x.tracker_root %>
+<% if (Rails.env.stage? || Rails.env.production?) && Rails.configuration.x.google_analytics.tracker_root.present? %>
+  <% root_abbr = Rails.configuration.x.google_analytics.tracker_root %>
   <% root_org = Org.where(abbreviation: root_abbr).first %>
   <% if root_org.tracker.present? %>
     <% root_code = root_org.tracker.code %>
