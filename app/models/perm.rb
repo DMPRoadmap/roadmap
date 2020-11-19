@@ -16,15 +16,8 @@ class Perm < ApplicationRecord
   # = Constants =
   # =============
 
-  ADD_ORGS            = Perm.where( name: "add_organisations" ).first.freeze
-  CHANGE_AFFILIATION  = Perm.where( name: "change_org_affiliation" ).first.freeze
-  GRANT_PERMISSIONS   = Perm.where( name: "grant_permissions" ).first.freeze
-  MODIFY_TEMPLATES    = Perm.where( name: "modify_templates" ).first.freeze
-  MODIFY_GUIDANCE     = Perm.where( name: "modify_guidance" ).first.freeze
-  USE_API             = Perm.where( name: "use_api" ).first.freeze
-  CHANGE_ORG_DETAILS  = Perm.where( name: "change_org_details" ).first.freeze
-  GRANT_API           = Perm.where( name: "grant_api_to_orgs" ).first.freeze
-  REVIEW_PLANS        = Perm.where( name: "review_org_plans" ).first.freeze
+  #load all records as frozen objects and assign constants
+  Perm.all.each { |perm| const_set( perm.name.upcase, perm.freeze ) }
 
   # ================
   # = Associations =
@@ -44,11 +37,11 @@ class Perm < ApplicationRecord
   # =================
 
   def self.add_orgs
-    ADD_ORGS
+    ADD_ORGANISATIONS
   end
 
   def self.change_affiliation
-    CHANGE_AFFILIATION
+    CHANGE_ORG_AFFILIATION
   end
 
   def self.grant_permissions
@@ -72,11 +65,11 @@ class Perm < ApplicationRecord
   end
 
   def self.grant_api
-    GRANT_API
+    GRANT_API_TO_ORGS
   end
 
   def self.review_plans
-    REVIEW_PLANS
+    REVIEW_ORG_PLANS
   end
 
 end
