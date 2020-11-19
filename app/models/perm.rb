@@ -12,6 +12,20 @@
 
 class Perm < ApplicationRecord
 
+  # =============
+  # = Constants =
+  # =============
+
+  ADD_ORGS            = Perm.where( name: "add_organisations" ).first.freeze
+  CHANGE_AFFILIATION  = Perm.where( name: "change_org_affiliation" ).first.freeze
+  GRANT_PERMISSIONS   = Perm.where( name: "grant_permissions" ).first.freeze
+  MODIFY_TEMPLATES    = Perm.where( name: "modify_templates" ).first.freeze
+  MODIFY_GUIDANCE     = Perm.where( name: "modify_guidance" ).first.freeze
+  USE_API             = Perm.where( name: "use_api" ).first.freeze
+  CHANGE_ORG_DETAILS  = Perm.where( name: "change_org_details" ).first.freeze
+  GRANT_API           = Perm.where( name: "grant_api_to_orgs" ).first.freeze
+  REVIEW_PLANS        = Perm.where( name: "review_org_plans" ).first.freeze
+
   # ================
   # = Associations =
   # ================
@@ -29,41 +43,40 @@ class Perm < ApplicationRecord
   # = Class methods =
   # =================
 
-  # TODO: see the constants setup in token_permission_type.rb and refactor
   def self.add_orgs
-    Perm.find_by(name: "add_organisations")
+    ADD_ORGS
   end
 
   def self.change_affiliation
-    Perm.find_by(name: "change_org_affiliation")
+    CHANGE_AFFILIATION
   end
 
   def self.grant_permissions
-    Perm.find_by(name: "grant_permissions")
+    GRANT_PERMISSIONS
   end
 
   def self.modify_templates
-    Perm.find_by(name: "modify_templates")
+    MODIFY_TEMPLATES
   end
 
   def self.modify_guidance
-    Perm.find_by(name: "modify_guidance")
+    MODIFY_GUIDANCE
   end
 
   def self.use_api
-    Perm.find_by(name: "use_api")
+    USE_API
   end
 
   def self.change_org_details
-    Perm.find_by(name: "change_org_details")
+    CHANGE_ORG_DETAILS
   end
 
   def self.grant_api
-    Perm.find_by(name: "grant_api_to_orgs")
+    GRANT_API
   end
 
   def self.review_plans
-    Perm.find_by(name: "review_org_plans")
+    REVIEW_PLANS
   end
 
 end
