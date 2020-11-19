@@ -53,7 +53,7 @@ $(() => {
       $.rails.ajax({
         url: $(this).data('url'),
         type: 'post',
-        $.param({ 'phase[sort_order]': sectionIds }),
+        data: $.param({ 'phase[sort_order]': sectionIds }),
       });
     },
   });
