@@ -1,0 +1,35 @@
+<div class="row condition-partial">
+  <%
+   action_type_arr = [["removes", :remove], ["adds notification", :add_webhook]]
+   name_start = "conditions[]condition_" + condition_no.to_s
+    remove_question_collection = later_question_list(question)
+    condition_exists = local_assigns.has_key? :condition
+    type_default = condition_exists ? (condition[:action_type] == "remove" ? :remove : :add_webhook) : :remove
+    remove_question_group = condition_exists ?
+      grouped_options_for_select(remove_question_collection, condition[:remove_question_id]) :
+      grouped_options_for_select(remove_question_collection)
+    multiple = (question.question_format.multiselectbox? || question.question_format.checkbox?)
+  %>
+  <div class="col-md-3">
+    <%= select_tag(:question_option, options_from_collection_for_select(question.question_options.sort_by(&:number), "id", "text",
+        condition_exists ? condition[:question_option_id] : question.question_options.sort_by(&:number)[0]), {class: 'selectpicker regular', 'data-style': 'bg-white px-4 py-3', multiple: multiple, name: name_start + "[question_option][]"}) %>
+  </div>
+  <div class="col-md-3">
+    <%= select_tag(:action_type, options_for_select(action_type_arr, type_default), {name: name_start + "[action_type]", class: 'action-type selectpicker narrow', 'data-style': 'bg-white px-4 py-3'}) %>
+  </div>
+  <div class="col-md-3">
+    <div class="remove-dropdown">
+      <%= select_tag(:remove_question_id, remove_question_group, {name: name_start + "[remove_question_id][]", class: 'selectpicker regular', multiple: true, 'data-style': 'bg-white px-4 py-3'}) %>
+    </div>
+    <div class="webhook-replacement display-off my-auto text-center">
+      <%= link_to _('Edit email'), '#' %>
+    </div>
+  </div>
+  <%= hidden_field_tag(name_start + "[number]", condition_no) %>
+
+  <div class="col-md-3">
+    <a href="#anotherurl" class="delete-condition"><%= _('Remove') %></a>
+  </div>
+
+  <%= render partial: 'org_admin/conditions/webhook_form', locals: {name_start: name_start, condition_no: condition_no} %>
+</div>

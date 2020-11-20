@@ -1,0 +1,6 @@
+<br>
+<h2><%= _('Template Overview') %></h2>
+<%= render partial: "org_admin/phases/phase",
+           collection: phases,
+           locals: { template: template,
+                     modifiable: modifiable } %>

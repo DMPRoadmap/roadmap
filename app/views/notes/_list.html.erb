@@ -1,0 +1,56 @@
+<%# locals: { question_id, notes, plan } %>
+<% notes.each do |note| %>
+    <% if !note.archived %>
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="pull-left allow-break-words"><!-- note info -->
+                            <%= render partial: "notes/show", locals: {note: note }, formats: [:html] %>
+                        </div>
+                        <% if plan.commentable_by?(current_user.id) %>
+                        <div class="pull-right"><!-- note actions -->
+                            <ul class="list-inline">
+                                  <% if current_user.id == note.user_id %>
+                                      <li><%= link_to(_('Edit'), "#note_edit#{note.id}", class: 'note_edit_link') %></li>
+                                      <li><%= link_to(_('Remove'), "#note_archive#{note.id}", class: 'note_archive_link') %></li>
+                                  <% else  %>
+                                      <% if plan.administerable_by?(current_user.id) %>
+                                          <li><%= link_to(_('Remove'), "#note_archive#{note.id}", class: 'note_archive_link') %></li>
+                                      <% end %>
+                                  <% end %>
+                            </ul>
+                        </div>
+                        <% end %>
+                        <div class="clearfix"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    <% end %>
+<% end %>
+<% notes.each do |note| %>
+    <% if !note.archived %>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="note_show" id="<%= "note_show#{note.id}" %>" data-question-id="<%= question_id %>" style="display:none;">
+                <%= render partial: "/notes/show", locals: { note: note }, formats: [:html] %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="note_edit" id="<%= "note_edit#{note.id}" %>" data-question-id="<%= question_id %>" style="display:none;">
+                <%= render partial: "/notes/edit", locals: { note: note }, formats: [:html] %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="note_archive" id="<%= "note_archive#{note.id}" %>" data-question-id="<%= question_id %>" style="display:none;">
+                <%= render partial: "/notes/archive", locals: { note: note }, formats: [:html] %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+<% end %>

@@ -1,0 +1,65 @@
+<%= "#{@plan.title}" %>
+<%= "----------------------------------------------------------\n" %>
+<% if @show_coversheet %>
+<%= @hash[:attribution].many? ? _("Creators: ") : _('Creator:') %> <%= @hash[:attribution].join(', ') %>
+<%= _("Affiliation: ") + @hash[:affiliation] %>
+  <% if @hash[:funder].present? %>
+<%= _("Template: ") + @hash[:funder] %>
+  <% else %>
+<%= _("Template: ") + @hash[:template] + @hash[:customizer] %>
+  <% end %>
+  <% if @plan.grant_number.present? %>
+<%= _("Grant number: ") + @plan.grant_number %>
+  <% end %>
+  <% if @plan.description.present? %>
+<%= _("Project abstract: ") %>
+<%= "\t" + strip_tags(@plan.description) + "\n" %>
+  <% end %>
+<%= _("Last modified: ") + l(@plan.updated_at.to_date, formats: :short) %>
+<%= _("Copyright information:") %>
+<%= "\t" + _(" The above plan creator(s) have agreed that others may use as much of the text of this plan as they would like in their own plans, and customise it as necessary. You do not need to credit the creator(s) as the source of the language used, but using any of the plan's text does not imply that the creator(s) endorse, or have any relationship to, your project or proposal") %>
+<%= "----------------------------------------------------------\n" %>
+<% end %>
+
+<% @hash[:phases].each do |phase| %>
+<%# Only render selected phase %>
+<% if phase[:title] == @selected_phase.title %>
+<%= (@hash[:phases].many? ? "#{phase[:title]}" : "") %>
+  <% phase[:sections].each do |section| %>
+    <% if display_section?(@hash[:customization], section, @show_custom_sections) && num_section_questions(@plan, section, phase) > 0 %>
+      <% if @show_sections_questions %>
+        <%= "#{section[:title]}\n" %>
+      <% end %>
+      <% section[:questions].each do |question| %>
+        <% if remove_list(@plan).include?(question[:id]) %> 
+          <% next %>
+        <% end %>
+        <%# text in this case is an array to accomodate for option_based %>
+        <% if @show_sections_questions %>
+          <% if question[:text].respond_to?(:each) %>
+            <% question[:text].each do |txt| %>
+              <%= "#{strip_tags(txt.gsub(/<br\/?>/, '\n'))}\n" %>
+            <% end %>
+          <% else %>
+            <%= "#{strip_tags(question[:text].gsub(/<tr>(\s|<td>|<\/td>|&nbsp;)*(<\/tr>|<tr>)/,""))}\n" if question[:text].present? && question[:text][0].present? %>
+          <% end %>
+        <% end %>
+        <% answer = @plan.answer(question[:id], false) %>
+        <% blank = not(answer.present? && answer.answered?) %>
+        <% if blank && @show_unanswered %>
+          <%= "    #{_("Question not answered.")}\n\n" %>
+        <% elsif !blank %>
+          <% if answer.question_options.length > 0 %>
+            <% answer.question_options.each do |opt| %>
+              <%= "    #{opt.text}\n" %>
+            <% end %>
+          <% end %>
+          <%= "    #{strip_tags(answer.text.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '\n').chomp)}\n\n" if answer.text.present? %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+<%= "----------------------------------------------------------" %>
+<%= _("A Data Management Plan created using %{application_name}") % { application_name: ApplicationService.application_name } %>

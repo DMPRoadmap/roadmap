@@ -1,0 +1,25 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+pt-BR:
+  contact_us:
+    contact_mailer:
+      contact_email:
+        sent_by_contact_form: "Enviado pelo formulário de contato. %{email}"
+        sent_by_name: "Enviado por %{name} de %{email}"
+        subject: "Contate-nos: nova mensagem de %{email}"
+    contacts:
+      new: &new
+        contact_us: "Contate-nos"
+        email: "Email"
+        message: "Mensagem"
+        name: "Nome"
+        subject: "Assunto"
+        submit: "Enviar"
+      new_formtastic:
+        <<: *new
+      new_simple_form:
+        <<: *new
+    notices:
+      error: "Você tem de preencher ambos os campos."
+      success: "Email de contato foi enviado com sucesso."

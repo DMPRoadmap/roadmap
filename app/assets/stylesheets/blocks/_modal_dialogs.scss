@@ -1,0 +1,26 @@
+// Overrides Bootstrap 3.0's Modals
+
+.modal-dialog {
+  background-color: $color-seccondary-background;
+}
+
+
+// Footer (for actions)
+.modal-footer {
+  // right align buttons
+  text-align: right;
+  // Properly space out buttons within modal to fix alignment issues
+  .btn + .btn {
+    margin-left: 5px;
+    // account for input[type="submit"] which gets the bottom margin like all other inputs
+    margin-bottom: 10px;
+  }
+  // but override that for button groups
+  .btn-group .btn + .btn {
+    margin-left: -1px;
+  }
+  // and override it for block buttons as well
+  .btn-block + .btn-block {
+    margin-left: 0;
+  }
+}

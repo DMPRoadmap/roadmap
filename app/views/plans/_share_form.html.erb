@@ -1,0 +1,148 @@
+<% administrator = Role.new(administrator: true, editor: true, commenter: true) %>
+<% editor = Role.new(editor: true, commenter: true) %>
+<% commenter = Role.new(commenter: true) %>
+<% administerable = @plan.administerable_by?(current_user) %>
+<% email_tooltip = _("Enter the email address of your collaborator: If they are already using #{ApplicationService.application_name}, they will see this plan on their dashboard, and recieve an email. If they are not currently using #{ApplicationService.application_name}, they will recieve an email inviting them to the tool so they can collaborate on your plan.") %>
+<% permissions_tooltip = _('Co-owner: Has admin-rights to the plan (can invite other users, view the plan, answer questions, or comment). Editor: Has edit-rights to the plan (can view the plan, answer questions, or comment). Read Only: Has read-rights to the plan (can view the plan or comment)') %>
+
+<h2><%= _('Set plan visibility') %></h2>
+<p class="form-control-static"><%= _('Public or organisational visibility is intended for finished plans. You must answer at least %{percentage}%% of the questions to enable these options. Note: test plans are set to private visibility by default.') % { :percentage => Rails.configuration.x.plans.default_percentage_answered } %></p>
+<% allow_visibility = @plan.visibility_allowed? %>
+<%= form_with model: @plan, id: "set_visibility" do |f| %>
+  <fieldset<%= (allow_visibility ? '' : ' disabled') %>>
+    <div class="form-group col-xs-8">
+      <div class="radio">
+        <%= label_tag :visibility_privately_visible do %>
+          <%= f.radio_button :visibility, :privately_visible,
+                             data: { url: visibility_plan_path(@plan),
+                                     remote: true, method: :post } %>
+          <%= _('Private: visible to me, specified collaborators and administrators at my organisation') %>
+        <% end %>
+      </div>
+      <div class="radio">
+        <%= label_tag :visibility_organisationally_visible do %>
+          <%= f.radio_button :visibility, :organisationally_visible,
+                             data: { url: visibility_plan_path(@plan),
+                                     remote: true, method: :post } %>
+          <%= _('Organisation: anyone at my organisation can view') %>
+        <% end %>
+      </div>
+      <div class="radio">
+        <%= label_tag :visibility_publicly_visible do %>
+          <%= f.radio_button :visibility, :publicly_visible,
+                             data: { url: visibility_plan_path(@plan),
+                                     remote: true, method: :post }  %>
+          <%= _('Public: anyone can view') %>
+        <% end %>
+      </div>
+    </div>
+  </fieldset>
+<% end %>
+
+<h2><%= _('Manage collaborators')%></h2>
+<p><%= _('Invite specific people to read, edit, or administer your plan. Invitees will receive an email notification that they have access to this plan.') %></p>
+<% if @plan.roles.any? then %>
+  <table class="table table-hover table-bordered" id="collaborator-table">
+    <thead>
+      <tr>
+        <th scope="col"><%= _('Email address')%></th>
+        <th scope="col"><%= _('Permissions')%></th>
+        <% if administerable %>
+          <th scope="col"><span aria-hidden="false" class="sr-only"><%= _('Actions') %></span></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @plan_roles.each do |role| %>
+        <tr>
+          <td><%= role.user.name %></td>
+          <td>
+            <% if role.creator? %>
+                <span><%= display_role(role) %></span>
+            <% else %>
+                <% if administerable && role.user != current_user %>
+                  <div class="form-group col-xs-8">
+                    <%= fields_for role do |f| %>
+                      <% options = [
+                        ["#{display_role(administrator)}", administrator.access],
+                        ["#{display_role(editor)}", editor.access],
+                        ["#{display_role(commenter)}", commenter.access]
+                      ] %>
+                      <%= f.select :access, options_for_select(options, role.access), {}, {
+                                            authenticity_token: true,
+                                            class: "toggle-existing-user-access",
+                                            data: {
+                                              remote: true,
+                                              method: :patch,
+                                              url: role_path(role)
+                                            } } %>
+                    <% end %>
+                  </div>
+                <% else %>
+                    <span><%= display_role(role) %></span>
+                <% end %>
+            <% end %>
+          </td>
+          <% if administerable %>
+            <td>
+              <% unless role.creator? || role.user == current_user then %>
+                <%= link_to _('Remove'), role, method: :delete, data: { confirm: _('Are you sure?') }, :class => "a-orange" %>
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<% if administerable  %>
+  <h2><%= _('Invite collaborators') %></h2>
+  <% new_role = Role.new %>
+  <% new_role.plan = @plan %>
+  <%= form_for new_role, url: {controller: :roles, action: :create }, html: {method: :post} do |f| %>
+    <div class="form-group col-xs-6">
+      <%= f.hidden_field :plan_id %>
+      <%= f.fields_for :user, new_role.user do |user| %>
+        <%= user.label :email, _('Email'), class: 'control-label'%>
+         <em class="sr-only"><%= email_tooltip %></em>
+        <%= user.email_field :email, class: "form-control", title: email_tooltip,
+                                     aria: { required: true },
+                                     date: { toggle: "tooltip", html: true } %>
+      <% end %>
+    </div>
+    <div class="clearfix"></div>
+    <em class="sr-only"><%= permissions_tooltip %></em>
+    <%= field_set_tag  nil, class: 'col-xs-2',
+                    'data-toggle': 'tooltip',
+                    'data-html': true,
+                    title: permissions_tooltip,
+                    'data-placement':'right' do %>
+      <%= content_tag :legend , _('Permissions') %>
+      <div class="form-group">
+        <div class="radio">
+          <%= f.label :administrator_access do %>
+            <%= f.radio_button :access, administrator.access, id: "role_administrator_access", "aria-required": true %>
+            <%= _('Co-owner') %>
+          <% end %>
+        </div>
+        <div class="radio">
+          <%= f.label :editor_access do %>
+            <%= f.radio_button :access, editor.access , id: "role_editor_access" %>
+            <%= _('Editor') %>
+          <% end %>
+        </div>
+        <div class="radio">
+          <%= f.label :commenter_access do %>
+            <%= f.radio_button :access, commenter.access, id: "role_commenter_access" %>
+            <%= _('Read only') %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <div class="clearfix"></div>
+    <div class="form-group col-xs-2">
+    <%= f.button(_('Submit'), class: "btn btn-primary", type: "submit") %>
+    </div>
+  <% end %>
+<% end %>

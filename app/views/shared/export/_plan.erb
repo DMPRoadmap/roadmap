@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title><%= @plan.title %></title>
+
+    <%= render partial: 'shared/export/plan_styling',
+               locals: {
+                 font_face: font_face,
+                 font_size: "#{font_size}pt",
+                 margin: "#{margin_top}px #{margin_right}px #{margin_bottom}px #{margin_left}px"
+               } %>
+  </head>
+  <body>
+    <% if @show_coversheet %>
+      <%= render partial: 'shared/export/plan_coversheet' %>
+    <% end %>
+
+    <% @hash[:phases].each do |phase| %>
+      <%# Only render selected phase %>
+      <% if phase[:title] == @selected_phase.title %>
+        <%# Page break before each phase %>
+        <div style="page-break-before:always;"></div>
+        <h1><%= download_plan_page_title(@plan, phase, @hash) %></h1>
+        <hr />
+        <% phase[:sections].each do |section| %>
+          <% if display_section?(@hash[:customization], section, @show_custom_sections) && num_section_questions(@plan, section, phase) > 0 %>
+            <% if @show_sections_questions %>
+              <br>
+              <h3><%= section[:title] %></h3>
+              <br>
+            <% end %>
+            <% section[:questions].each do |question| %>
+              <% if remove_list(@plan).include?(question[:id]) %>
+                <% next %>
+              <% end %>
+              <div class="question">
+                <% if !@public_plan && @show_sections_questions%>
+                  <%# Hack: for DOCX export - otherwise, bold highlighting of question inconsistent. %>
+                  <% if local_assigns[:export_format] && export_format == 'docx' %>
+                    <strong><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></strong>
+                  <% else %>
+                    <div class="bold"><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></div>
+                  <% end %>
+                  <br>
+                <% end %>
+                <% answer = @plan.answer(question[:id], false) %>
+                <% blank = answer.present? ? answer.blank? : true %>
+                <% options = answer.present? ? answer.question_options : [] %>
+                <%# case where question has not been answered sufficiently to display%>
+                <% if @show_unanswered && blank %>
+                  <br>
+                  <p><%= _('Question not answered.') -%></p>
+                  <br><br>
+                <% else %>
+
+                  <%# case where Question has options %>
+                  <% if options.any? %>
+                    <ul>
+                      <% options.each do |opt| %>
+                        <li><%= opt.text %></li>
+                      <% end %>
+                    </ul>
+                  <% end %>
+                  <%# case for RDA answer display %>
+                  <% if question[:format].rda_metadata? && !blank %>
+                    <% ah = answer.answer_hash %>
+                    <% if ah['standards'].present? %>
+                      <ul>
+                        <% ah['standards'].each do |id, title| %>
+                          <li><%= title %></li>
+                        <% end %>
+                      </ul>
+                    <% end %>
+                    <p><%= sanitize ah['text'] %></p>
+                    <br>
+                  <%# case for displaying comments OR text %>
+                  <% elsif !blank %>
+                    <%= sanitize answer.text %>
+                    <br><br>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %> <!-- sections.each -->
+      <% end %>
+    <% end %>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+<% presenter = PlanPresenter.new(plan) %>
+
+<dl class="dl-horizontal">
+  <dt><%= _('Project Title') %></dt>
+  <dd><%= plan.title %></dd>
+  <dt><%= _('Project Abstract') %></dt>
+  <dd><%= sanitize plan.description %></dd>
+  <dt><%= _('Start and End Dates') %></dt>
+  <dd>
+    <%= presenter.project_dates_to_readonly_display %>
+  </dd>
+  <dt><%= _('Funder') %></dt>
+  <dd><%= plan.funder&.name %></dd>
+  <dt><%= _('Grant Number') %></dt>
+  <dd><%= plan.grant&.value %></dd>
+  <%# if DOI minting is enabled %>
+  <% landing_page = plan.landing_page %>
+  <% if Rails.configuration.x.doi&.active && landing_page.present? %>
+    <dt><%= _('Landing Page') %></dt>
+    <dd><%= link_to landing_page&.value, landing_page&.value %></dd>
+  <% else %>
+    <dt><%= _('ID') %></dt>
+    <dd><%= plan.identifier %></dd>
+  <% end %>
+</dl>

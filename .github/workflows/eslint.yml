@@ -1,0 +1,18 @@
+name: ESLint
+
+on: [push, pull_request]
+
+jobs:
+  eslint:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    # Will run ES Lint checks on javascript files
+    #   https://github.com/marketplace/actions/run-eslint
+    - name: 'ES Lint checks'
+      uses: stefanoeb/eslint-action@1.0.0
+      with:
+        args: './app/javascript/**/*.js'

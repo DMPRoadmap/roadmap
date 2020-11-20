@@ -1,0 +1,23 @@
+<%# locals: plan %>
+
+<%= form_for plan, html: { method: :put,
+                            class: 'form-horizontal edit_plan' } do |f| %>
+  <div class="row">
+    <div class="col-md-8">
+      <%= render partial: "plans/project_details",
+                 locals: { form: f, plan: plan } %>
+
+      <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+    </div>
+    <div class="col-md-4">
+      <h2><%= _('Select Guidance') %></h2>
+      <%= render partial: "plans/guidance_selection",
+                 locals: {
+                   form: f,
+                   all_guidance_groups: @all_guidance_groups,
+                   important_ggs: @important_ggs,
+                   selected_guidance_groups: @selected_guidance_groups
+                 } %>
+    </div>
+  </div>
+<% end %>

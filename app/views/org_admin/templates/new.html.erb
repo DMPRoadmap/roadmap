@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= @template.id.present? ? template.title : _('New Template') %></h1>
+    <%= link_to _('View all templates'),
+        org_admin_templates_path,
+        class: 'btn btn-default pull-right' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <!-- render navigation tabs for the template-->
+    <%= render partial: "org_admin/templates/navigation",
+               locals: { template: @template } %>
+
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="template_edit">
+              <%= form_for([:org_admin, @template]) do |f| %>
+                <%= render 'form', { f: f }%>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

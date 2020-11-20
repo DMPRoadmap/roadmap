@@ -1,0 +1,13 @@
+<%# locals: data %>
+
+<% if data.present? && data.any? %>
+  <canvas id="yearly_plans"></canvas>
+  <input type="hidden" id="plans_click_target" value="<%= org_admin_plans_path %>" />
+  <input type="hidden"
+         id="plans_created"
+         value="<%= prep_data_for_yearly_plans_chart(data: data).to_json %>" />
+<% else %>
+  <p class="alert alert-info">
+    <%= _('There is no data available for plans created yet.') %>
+  </p>
+<% end %>

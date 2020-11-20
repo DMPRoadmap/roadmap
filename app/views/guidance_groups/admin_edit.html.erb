@@ -1,0 +1,17 @@
+<% title _('Guidance group') %>
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('Guidance group') %></h1>
+    <%= link_to _('View all guidance'), admin_index_guidance_path(current_user.org_id),
+                                        class: 'btn btn-default pull-right' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for(@guidance_group, url: admin_update_guidance_group_path(@guidance_group),
+                                  html: { method: :put, id: "admin_update_guidance_group_form" }) do |f| %>
+      <%= render partial: "guidance_groups/guidance_group_form", locals: { form: f } %>
+    <% end %>
+  </div>
+</div>

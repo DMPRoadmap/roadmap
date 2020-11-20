@@ -1,0 +1,14 @@
+<%# locals: { plan, current_phase } %>
+<%
+  nanswers = current_phase.num_answers_not_removed(plan)
+  nquestions = current_phase.num_questions_not_removed(plan)
+  value=(nanswers.to_f/nquestions*100).round(2)
+%>
+<div class="progress-bar" role="progressbar"
+  aria-valuenow="<%= value %>"
+  aria-valuemin="0" aria-valuemax="100"
+  style="width: <%= "#{value}%" %>;">
+  <div><%= "#{nanswers}/#{nquestions} #{_('answered')}" %></div>
+</div>
+
+

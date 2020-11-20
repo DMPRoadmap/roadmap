@@ -1,0 +1,13 @@
+<%# locals: data %>
+
+<% if data.present? && data.any? %>
+  <canvas id="yearly_users"></canvas>
+  <input type="hidden" id="users_click_target" value="<%= admin_index_users_path %>" />
+  <input type="hidden"
+         id="users_joined"
+         value="<%= prep_data_for_yearly_users_chart(data: data).to_json %>" />
+<% else %>
+  <p class="alert alert-info">
+    <%= _('There is no data available for users joined yet.') %>
+  </p>
+<% end %>

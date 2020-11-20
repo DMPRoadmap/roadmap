@@ -1,0 +1,109 @@
+<% is_super_admin = current_user.can_super_admin? %>
+<% is_org_admin = current_user.can_org_admin? %>
+<% if @clicked_through %>
+  <p><%= _(<<-TEXT
+    The data on the usage dashboard is historical in nature. This means that the number of records below may not
+    match the count shown on the usage dashboard. For example if one of your users joined in October and then
+    moved to a different organization or deactivated their account, they would have been included on the usage
+    dashboard's total for October but would not appear in the list below.
+  TEXT
+  ) %></p>
+<% end %>
+
+<p><%= _("Note: You can filter this table by 'Created date'. Enter the month abbreviation and a 4 digit year into the search box above.<br>For example: 'Oct 2019' or 'Jun 2013'.").html_safe %></p>
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+              <th scope="col"><%= _('Name') %>&nbsp;<%= paginable_sort_link('users.firstname') %></th>
+              <th scope="col"><%= _('Email') %>&nbsp;<%= paginable_sort_link('users.email') %></th>
+              <th scope="col"><%= _('School or Department') %>&nbsp;<%= paginable_sort_link('departments.name') %></th>
+              <th scope="col"><%= _('Organisation') %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
+              <th scope="col" class="text-center date-column"><%= _('Created date') %>&nbsp;<%= paginable_sort_link('users.created_at') %></th>
+              <th scope="col" class="text-center date-column"><%= _('Last activity') %>&nbsp;<%= paginable_sort_link('users.last_sign_in_at') %></th>
+              <th scope="col" class="text-center sorter-false"><%= _('Plans') %></th>
+              <th scope="col" class="text-center sorter-false"><%= _('Current Privileges') %></th>
+              <th scope="col" class="text-center"><%= _('Active') %></th>
+              <th scope="col" class="text-center sorter-false"><%= _('Identifiers') %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% scope.each do |user| %>
+              <% if !user.nil? then%>
+                <tr>
+                  <td>
+                      <% if !user.name.nil? %>
+                         <% if is_super_admin %>
+                          <%=  link_to(user.name(false), edit_super_admin_user_path(user)) %>
+                         <% elsif is_org_admin %>
+                           <%=  link_to(user.name(false), edit_org_admin_user_path(user)) %>
+                         <% else %>
+                          <%= user.name(false) %>
+                         <% end %>
+                      <% else %>
+                          <%= is_super_admin ? link_to(_('Edit Profile'), edit_user_registration_path(user)) : '' %>
+                      <% end %>
+                  </td>
+                  <td><%= user.email %></td>
+                  <td><%= user.department.nil? ? '' : user.department.name %></td>
+                  <td><%= user.org.name if user.org.present? %></td>
+                  <td class="text-center">
+                      <% if !user.created_at.nil? %>
+                      <%= l user.created_at.to_date, :formats => :short %>
+                      <% end %>
+                  </td>
+                  <td class="text-center">
+                      <% if !user.last_sign_in_at.nil? %>
+                      <%= l user.last_sign_in_at.to_date, :formats => :short %>
+                      <% end %>
+                  </td>
+                  <td class="text-center">
+                    <% roles  = user.roles.select(&:active) %>
+                    <% if roles.any? %>
+                      <% roles_length = roles.length %>
+                      <% if is_super_admin || is_org_admin %>
+                        <%=  link_to(roles_length, user_plans_org_admin_user_path(user)) %>
+                      <% else %>
+                        <%= roles_length %>
+                      <% end %>
+                    <% end %>
+                  </td>
+                  <%# The content of this column get updated through AJAX whenever the permission for an user are updated %>
+                  <td class="text-center" data-descriptor="current_privileges">
+                    <span class="privilege-description">
+                      <%= render partial: 'users/current_privileges', locals: { user: user } %>
+                    </span>
+                    <br>
+                    <%# Do not allow a user to change their own permissions or a super admin's permissions if they are not a super admin %>
+                    <% unless current_user == user || !is_super_admin && user.can_super_admin? %>
+                      <%= link_to( _('Edit'), admin_grant_permissions_user_path(user)) %>
+                    <% end %>
+                  </td>
+                  <td class="text-center user-status">
+                    <% if is_super_admin %>
+                      <%= check_box_tag :is_test, "1", user.active,
+                                                  class: "activate-user",
+                                                  authenticity_token: true,
+                                                  data: { remote: true, method: :put,
+                                                          url: activate_user_path(user) } %>
+                    <% else %>
+                      <%= user.active? ? _('Yes') : _('No') %>
+                    <% end %>
+                  </td>
+                  <td class="text-center">
+                    <% presenter = IdentifierPresenter.new(identifiable: user) %>
+                    <% presenter.identifiers.each do |identifier| %>
+                      <p><%= identifier.identifier_scheme.name %></p>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+          <% end %>
+        </tbody>
+      </table>
+      <div id="modal-permissions" class="modal" tabindex="-1" role="dialog"></div>
+    </div>
+  </div>
+</div>

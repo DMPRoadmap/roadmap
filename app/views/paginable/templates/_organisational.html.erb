@@ -1,0 +1,102 @@
+<% # locals: templates %>
+<% export_as_pdf = _('Download') %>
+
+<div class="table-responsive">
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr>
+        <th scope="col"><%= _('Template Name') %>&nbsp;<%= paginable_sort_link('templates.title') %></th>
+        <% if action_name == 'organisational' %>
+          <th scope="col"><%= _('Description') %>&nbsp;<%= paginable_sort_link('templates.description') %></th>
+        <% else %>
+          <th scope="col"><%= (action_name == 'customizable' ? _('Funder') : _('Organisation')) %>&nbsp;<%= paginable_sort_link('orgs.name') %></th>
+        <% end %>
+        <th scope="col"><%= _('Status') %></th>
+        <th scope="col" class="date-column"><%= _('Edited Date') %>&nbsp;<%= paginable_sort_link('templates.updated_at') %></th>
+        <% if action_name != 'index' %>
+          <th scope="col">&nbsp;</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+    <% scope.each do |template| %>
+      <tr id="<%= dom_id(template) %>">
+        <td>
+          <%= link_to "#{template.title}", edit_org_admin_template_path(template.id) %>
+        </td>
+          <td>
+            <%= action_name == 'organisational' ? sanitize(template.description) : template.org.name %>
+          </td>
+          <td>
+            <%# Leaving this line here as a placeholder for determining how to notify user of changes now that dirty flag is removed %>
+            <%# if template.dirty? %>
+              <%# _('Unpublished changes') %>
+
+            <% if template.published? %>
+              <%= _('Published') %>
+            <% elsif template.draft? %>
+              <% tooltip = _('You have unpublished changes! Select "Publish changes" in the Actions menu when you are ready to make them available to users.') %>
+              <%= _('Published') %> <em class="sr-only"><%= tooltip %></em>
+              &nbsp;&nbsp;<i class="far fa-edit red" aria-hidden="true" data-toggle="tooltip" title="<%= tooltip %>"></i>
+            <% else %>
+              <%= _('Unpublished') %>
+            <% end %>
+          </td>
+          <td>
+            <% last_temp_updated = template.updated_at %>
+            <%= l last_temp_updated.to_date, formats: :short %>
+          </td>
+          <% if action_name != 'index' %>
+            <td>
+              <div class="dropdown">
+                <button class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  <%= _('Actions') %><span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><%= link_to _('Edit'), edit_org_admin_template_path(template.id) %></li>
+                  <li><%= link_to _('History'), history_org_admin_template_path(template.id) %></li>
+                  <% if template.draft? || template.published? %>
+                    <li><%= link_to _('Unpublish'), unpublish_org_admin_template_path(template.id), 'data-method': 'patch' %></li>
+                  <% end %>
+                  <% if template.draft? %>
+                    <li><%= link_to _('Publish changes'), publish_org_admin_template_path(template), 'data-method': 'patch' %></li>
+                  <% elsif !template.published? %>
+                    <li><%= link_to _('Publish'), publish_org_admin_template_path(template.id), 'data-method': 'patch' %></li>
+                  <% end %>
+                  <li>
+                    <%= link_to _('Copy'),
+                        org_admin_template_copies_path(template.id),
+                        data: { method: 'post' }
+                    %>
+                  </li>
+                  <% if template.removable? %>
+                    <li>
+                      <%= link_to _('Remove'), org_admin_template_path(id: template.id),
+                                  'data-method': 'delete', rel: 'nofollow',
+                                  'data-confirm': _('Are you sure you want to remove "%{template_title}"? Any published versions will become unavailable to users.') % { template_title: template.title} %>
+                    </li>
+                  <% end %>
+                  <li><%= link_to template_export_org_admin_template_url(template, format: :pdf),
+                                  title: export_as_pdf,
+                                  target: '_blank',
+                                  class: 'has-new-window-popup-info' do %>
+                          <%= export_as_pdf %>
+                          <em class="sr-only"><%= _('(new window)') %></em>
+                          <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
+                      <% end %>
+                  </li>
+                  <li>
+                    <%= direct_link(template, true) %>
+                    <a href="" class="copy-link" data-toggle="modal" data-target="#link-modal"><%= _('Copy link') %></a>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          <% end %>
+       </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= render 'shared/copy_link_modal' %>

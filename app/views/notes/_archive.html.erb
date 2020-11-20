@@ -1,0 +1,14 @@
+<%# locals: { note } %>
+<% if !note.nil? %>
+  <%= form_for(note, url: archive_note_path(note), method: :patch, html: { class: 'archive_note' }) do |f| %>
+    <%= f.hidden_field :archived_by, :value => current_user.id %>
+
+    <%= render partial: "notes/show", locals: { note: note }, formats: [:html] %>
+
+    <p><%= _('Are you sure you want to remove this comment?')%></p>
+    <div class="pull-right">
+      <%= f.button(_('Remove'), class: "btn btn-default", type: "submit") %>
+      <%= f.button(_('Cancel'), class: "btn btn-default", type: "button") %>
+    </div>
+  <% end %>
+<% end %>

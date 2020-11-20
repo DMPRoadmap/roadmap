@@ -1,0 +1,50 @@
+<%= form_for resource, namespace: 'new', url: registration_path("user"), html: {autocomplete: "off", id: "create_account_form"} do |f| %>
+
+  <div class="form-group">
+    <%= f.label(:firstname, _('First Name'), class: "control-label") %>
+    <%= f.text_field(:firstname, class: "form-control", "aria-required": true) %>
+  </div>
+  <div class="form-group">
+    <%= f.label(:surname, _('Last Name'), class: "control-label") %>
+    <%= f.text_field(:surname, class: "form-control", "aria-required": true) %>
+  </div>
+  <div class="form-group">
+    <%= f.label(:email, _('Email'), class: "control-label") %>
+    <%= f.email_field(:email, class: "form-control", "aria-required": true) %>
+  </div>
+  <div class="form-group" id="create-account-org-controls">
+    <%= render partial: "shared/org_selectors/combined",
+               locals: {
+                 form: f,
+                 default_org: resource&.org,
+                 required: true
+               } %>
+  </div>
+  <div class="form-group">
+    <%= f.label(:password, _('Password'), class: "control-label") %>
+    <%= f.password_field(:password, class: "form-control", "aria-required": true) %>
+  </div>
+  <div class="form-group">
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" id="passwords_toggle_sign_up" class="passwords_toggle" /><%= _('Show password') %>
+      </label>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="checkbox">
+      <%= f.label(:accept_terms) do %>
+        <%= f.check_box(:accept_terms, "aria-required": true) %>
+        <%= _('I accept the') %>
+        <%= link_to _('terms and conditions'), terms_path %>
+      <% end %>
+    </div>
+  </div>
+  <% if Rails.configuration.x.recaptcha.enabled %>
+    <div class="form-group">
+      <%= label_tag(nil, _('Security check')) %>
+      <%= recaptcha_tags %>
+    </div>
+  <% end %>
+  <%= f.button(_('Create account'), class: "btn btn-default", type: "submit") %>
+<% end %>

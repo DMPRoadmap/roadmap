@@ -1,0 +1,66 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "7bd7ecdde88008eac29303c8c264366d1d670eb468e316c17a6121d4684b8bca",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/user.rb",
+      "line": 391,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "User.where(\"LOWER(#{field}) = :value\", :value => val.to_s.downcase)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "User",
+        "method": "User.where_case_insensitive"
+      },
+      "user_input": "field",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "c94d0d02516558699b49eb76787d02665041a45b490686266e4f42d5c19088d6",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/plans_controller.rb",
+      "line": 364,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(Plan.deep_copy(Plan.find(params[:id])), :notice => success_message(Plan.deep_copy(Plan.find(params[:id])), _(\"copied\")))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "PlansController",
+        "method": "duplicate"
+      },
+      "user_input": "Plan.deep_copy(Plan.find(params[:id]))",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "f234fa0eaf727b823f3730afaad2a8d559e590cbb39468d6d23f6697214ecb43",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/orgs_controller.rb",
+      "line": 126,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(\"#{shib_login_url}?#{shib_callback_url}&#{\"entityID=#{Identifier.by_scheme_name(\"shibboleth\", \"Org\").where(:identifiable => Org.where(:id => shib_params[\"shib-ds\"][:org_id])).first.value}\"}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "OrgsController",
+        "method": "shibboleth_ds_passthru"
+      },
+      "user_input": "Identifier.by_scheme_name(\"shibboleth\", \"Org\").where(:identifiable => Org.where(:id => shib_params[\"shib-ds\"][:org_id])).first.value",
+      "confidence": "High",
+      "note": ""
+    }
+  ],
+  "updated": "2020-10-16 15:41:55 +0000",
+  "brakeman_version": "4.8.2"
+}

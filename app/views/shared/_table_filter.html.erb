@@ -1,0 +1,21 @@
+<% remove_filter_tooltip = _('Remove the filter') %>
+
+<div class="tablefilter form-group pull-right">
+  <form>
+    <ul class="list-inline">
+      <li><%= label_tag :filter, _('Filter plans'), class: "sr-only" %></li>
+      <li><%= search_field_tag(:filter, nil, placeholder: placeholder, class: "form-control filter") %></li>
+      <li>
+          <a
+            class="clear_filter"
+            href="#"
+            data-toggle="tooltip"
+            title="<%= remove_filter_tooltip %>"
+            aria-label="<%= remove_filter_tooltip %>">
+              <i class="fas fa-times" aria-hidden="true"></i>
+              <em class="sr-only"><%= remove_filter_tooltip %></em>
+          </a>
+      </li>
+    </ul>
+  </form>
+</div>

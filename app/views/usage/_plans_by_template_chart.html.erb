@@ -1,0 +1,6 @@
+<%# locals: data, ?subset%>
+<% subset ||= "by_template" %>
+<canvas id="monthly_plans_<%= subset%>"></canvas>
+<input type="hidden"
+       id="plans_<%= subset %>"
+       value="<%= prep_data_for_template_plans_chart(data: data, subset: subset) %>" />

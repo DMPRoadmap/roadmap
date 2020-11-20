@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="template_edit">
+      <%= form_for(template, url: org_admin_template_path(template.id), html: { 'data-method': :put, remote: true }) do |f| %>
+        <%= render partial: 'form', locals: { template: template, referrer: referrer, f: f }%>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%# passing phases separately here because we're only pulling down the necessary attributes %>
+<%= render partial: 'org_admin/phases/overview', locals: { template: template, phases: phases, modifiable: modifiable } %>
