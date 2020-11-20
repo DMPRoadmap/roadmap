@@ -1,7 +1,3 @@
-# DMPTool exclusions
-config/initializers/dmptool_version.rb
-config/initializers/external_apis/dmphub.rb
-
 # Ignore rbenv files
 .ruby-version
 
