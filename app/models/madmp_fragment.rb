@@ -20,7 +20,7 @@
 require "jsonpath"
 
 class MadmpFragment < ActiveRecord::Base
-  
+
   include ValidationMessages
   include DynamicFormHelper
 
@@ -220,10 +220,10 @@ class MadmpFragment < ActiveRecord::Base
     validations
   end
 
-  def save_as_multifrag(data, schema)
+  def save_as_multifrag(param_data, schema)
     save!
     fragmented_data = {}
-    data.each do |prop, content|
+    param_data.each do |prop, content|
       schema_prop = schema.schema["properties"][prop]
 
       if schema_prop["type"].eql?("object")
@@ -231,8 +231,8 @@ class MadmpFragment < ActiveRecord::Base
         sub_schema = MadmpSchema.find(schema_prop["schema_id"])
         sub_fragment = nil
 
-        if data.present? && data[prop].present? && data[prop]["dbid"]
-          sub_fragment = MadmpFragment.find(data[prop]["dbid"])
+        if param_data.present? && param_data[prop].present? && param_data[prop]["dbid"]
+          sub_fragment = MadmpFragment.find(param_data[prop]["dbid"])
         end
 
         if sub_fragment.nil?
@@ -253,7 +253,7 @@ class MadmpFragment < ActiveRecord::Base
         fragmented_data[prop] = content
       end
     end
-    update!(data: fragmented_data)
+    update!(data: data.merge(fragmented_data))
   end
 
   def self.find_sti_class(type_name)
