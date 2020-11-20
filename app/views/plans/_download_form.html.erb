@@ -1,43 +1,4 @@
 <%= form_tag(plan_export_path(@plan), method: :get, target: '_blank', id: 'download_form') do |f| %>
-  <h2><%= _("Download settings") %></h2>
-  <%= hidden_field_tag 'export[form]', true %>
-  <% if @phase_options.length > 1 %>
-    <div class="form-group">
-      <%= label_tag(:phase_id, _("Select phase to download")) %>
-      <%= select_tag(:phase_id, options_for_select(@phase_options, @phase_options[0])) %>
-    </div>
-  <% else %>
-    <%= hidden_field_tag(:phase_id, @phase_options[0][1]) %>
-  <% end %>
-  <fieldset>
-    <legend><%= _("Optional plan components") %></legend>
-    <div class="checkbox">
-      <%= label_tag 'export[project_details]' do %>
-        <%= check_box_tag 'export[project_details]', true, false %>
-        <%= _('project details coversheet') %>
-      <% end %>
-    </div>
-    <div class="checkbox">
-      <%= label_tag 'export[question_headings]' do %>
-        <%= check_box_tag 'export[question_headings]', true, true %>
-        <%= _('question text and section headings') %>
-      <% end %>
-    </div>
-    <div class="checkbox">
-      <%= label_tag 'export[unanswered_questions]' do %>
-        <%= check_box_tag 'export[unanswered_questions]', true, true %>
-        <%= _('unanswered questions') %>
-      <% end %>
-    </div>
-    <% if @plan.template.customization_of.present? %>
-      <div class="checkbox">
-        <%= label_tag 'export[custom_sections]' do %>
-          <%= check_box_tag 'export[custom_sections]', true, false %>
-          <%= _('supplementary section(s) not requested by funding organisation') %>
-        <% end %>
-      </div>
-    <% end %>
-  </fieldset>
 
   <h2><%= _('Format') %></h2>
   <div class="row">
@@ -45,6 +6,48 @@
       <%= select_tag :format, options_for_select(Settings::Template::VALID_FORMATS, :pdf),
                      class: 'form-control', "aria-labelledby": "format" %>
     </div>
+  </div>
+
+  <div id="download-settings">
+    <h2><%= _("Download settings") %></h2>
+    <%= hidden_field_tag 'export[form]', true %>
+    <% if @phase_options.length > 1 %>
+      <div class="form-group">
+        <%= label_tag(:phase_id, _("Select phase to download")) %>
+        <%= select_tag(:phase_id, options_for_select(@phase_options, @phase_options[0])) %>
+      </div>
+    <% else %>
+      <%= hidden_field_tag(:phase_id, @phase_options[0][1]) %>
+    <% end %>
+    <fieldset>
+      <legend><%= _("Optional plan components") %></legend>
+      <div class="checkbox">
+        <%= label_tag 'export[project_details]' do %>
+          <%= check_box_tag 'export[project_details]', true, false %>
+          <%= _('project details coversheet') %>
+        <% end %>
+      </div>
+      <div class="checkbox">
+        <%= label_tag 'export[question_headings]' do %>
+          <%= check_box_tag 'export[question_headings]', true, true %>
+          <%= _('question text and section headings') %>
+        <% end %>
+      </div>
+      <div class="checkbox">
+        <%= label_tag 'export[unanswered_questions]' do %>
+          <%= check_box_tag 'export[unanswered_questions]', true, true %>
+          <%= _('unanswered questions') %>
+        <% end %>
+      </div>
+      <% if @plan.template.customization_of.present? %>
+        <div class="checkbox">
+          <%= label_tag 'export[custom_sections]' do %>
+            <%= check_box_tag 'export[custom_sections]', true, false %>
+            <%= _('supplementary section(s) not requested by funding organisation') %>
+          <% end %>
+        </div>
+      <% end %>
+    </fieldset>
   </div>
 
   <div id="pdf-formatting">
