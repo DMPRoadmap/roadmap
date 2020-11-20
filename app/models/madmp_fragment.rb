@@ -112,7 +112,15 @@ class MadmpFragment < ActiveRecord::Base
         # if it's a JsonPath pattern
         if pattern.first == "$"
           match = JsonPath.on(full_data, pattern)
-          displayable += match.first unless match.empty?
+          next if match.empty?
+
+          if match.first.is_a?(Array)
+            displayable += match.first.join("/")
+          elsif match.first.is_a?(Integer)
+            displayable += match.first.to_s
+          else
+            displayable += match.first
+          end
         else
           displayable += pattern
         end
@@ -134,7 +142,6 @@ class MadmpFragment < ActiveRecord::Base
     parent_schema = parent.madmp_schema
     parent_data = parent.data
     classified_children = parent.children.group_by(&:madmp_schema_id)
-    p parent
     parent_schema.schema["properties"].each do |key, prop|
       if prop["type"].eql?("array") && prop["items"]["type"].eql?("object")
         schema = MadmpSchema.find(prop["items"]["schema_id"])
