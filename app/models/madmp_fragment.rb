@@ -210,7 +210,7 @@ class MadmpFragment < ActiveRecord::Base
       key = valid["data_pointer"][1..-1]
       if valid["type"] == "required"
         required = JsonPath.on(valid, "$..missing_keys").flatten
-        required.each do |req| 
+        required.each do |req|
           validations[req] ? validations[req].push("required") : validations[req] = ["required"]
         end
       else

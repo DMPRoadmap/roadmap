@@ -37,6 +37,7 @@
           @plan.template.locale, 
           "dmpLanguage", 
           _('Language'),
+          "dmp_language",
           readonly: true
         ) 
     %>
@@ -49,6 +50,7 @@
           dmpID ? dmpID["idType"] : "DOI",
           "plan[dmpID[idType]]", 
           _('Identifier Type'),
+          "dmp_id_type",
           ["DOI", "HANDLE", "ARK", "URL"]
         ) 
     %>
@@ -57,8 +59,9 @@
     <%= create_text_field(
           f, 
           dmpID ? dmpID["value"] : nil,  
-          "dmpID[value]", 
-          _('ID')
+          "dmpID[value]",
+          _('ID'), 
+          "dmp_id_value"
         ) 
     %>
   </div>
@@ -70,8 +73,9 @@
     <%= create_text_field(
           f, 
           meta["versionNumber"],
-          "versionNumber", 
-          _('Number')
+          "versionNumber",
+          _('Number'), 
+          "version_number"
         ) 
     %>
   </div>
@@ -79,8 +83,9 @@
     <%= create_text_field(
           f,
           meta["versionNotes"],
-          "versionNotes", 
-          _('Notes')
+          "versionNotes",
+          _('Notes'), 
+          "version_notes"
         ) 
     %>
   </div>
@@ -105,8 +110,9 @@
     <%= create_text_field(
           f, 
           meta["associatedDMPId"], 
-          "associatedDMPId", 
-          _('Associated DMPs')
+          "associatedDMPId",
+          _('Associated DMPs'), 
+          "associated_dmp_id"
         ) 
     %>
 </div>
@@ -127,8 +133,9 @@
     <%= create_text_field(
           f, 
           licence ? licence["licenseName"] : nil,
-          "licence[licenseName]", 
-          _('Name')
+          "licence[licenseName]",
+          _('Name'), 
+          "licence_name"
         ) 
     %>
   </div>
@@ -136,8 +143,9 @@
     <%= create_url_field(
           f, 
           licence ? licence["licenseUrl"] : nil,
-          "licence[licenseUrl]", 
-          _('URL')
+          "licence[licenseUrl]",
+          _('URL'), 
+          "licence_url"
         ) 
     %>
   </div>
@@ -145,8 +153,9 @@
     <%= create_date_field(
           f, 
           licence ? licence["licenceStartDate"] : nil,
-          "licence[licenceStartDate]", 
-          _('Start Date')
+          "licence[licenceStartDate]",
+          _('Start Date'), 
+          "licence_start_date"
         ) 
     %>
   </div>

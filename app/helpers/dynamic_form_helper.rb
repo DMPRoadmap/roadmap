@@ -1,17 +1,19 @@
 module DynamicFormHelper
 
-  def create_text_field(form, value, name, label, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
-    render partial: 'shared/dynamic_form/fields/text_field', 
+  def create_text_field(form, value, name, label, field_id, required: false, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
+    render partial: "shared/dynamic_form/fields/text_field",
     locals: {
-      f: form, 
+      f: form,
       multiple: is_multiple,
       index: index,
-      field_value: value, 
-      field_name: name, 
+      field_value: value,
+      field_name: name,
       field_label: label,
       field_class: html_class,
+      field_id: field_id,
       input_type: nil,
-      readonly: readonly, 
+      readonly: readonly,
+      required: required,
       validation: validation,
       ttip: ttip,
       example: example,
@@ -19,7 +21,7 @@ module DynamicFormHelper
     }
   end
 
-  def create_textarea_field(form, value, name, label, field_id, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
+  def create_textarea_field(form, value, name, label, field_id, required: false, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
     render partial: "shared/dynamic_form/fields/textarea_field",
     locals: {
       f: form,
@@ -32,6 +34,7 @@ module DynamicFormHelper
       field_id: field_id,
       input_type: nil,
       readonly: readonly,
+      required: required,
       validation: validation,
       ttip: ttip,
       example: example,
@@ -39,39 +42,20 @@ module DynamicFormHelper
     }
   end
 
-  def create_url_field(form, value, name, label, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
-    render partial: 'shared/dynamic_form/fields/text_field', 
+  def create_url_field(form, value, name, label, field_id, required: false, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
+    render partial: "shared/dynamic_form/fields/text_field",
     locals: {
-      f: form, 
+      f: form,
       multiple: is_multiple,
       index: index,
-      field_value: value, 
-      field_name: name, 
+      field_value: value,
+      field_name: name,
       field_label: label,
       field_class: html_class,
-      input_type: 'url',
-      readonly: readonly, 
-      validation: validation,
-      ttip: ttip,
-      example: example,
-      default_value: default_value
-    }
-  end
-  
-  
-  
-  def create_email_field(form, value, name, label, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
-    render partial: 'shared/dynamic_form/fields/text_field', 
-    locals: {
-      f: form, 
-      multiple: is_multiple,
-      index: index,
-      field_value: value, 
-      field_name: name, 
-      field_label: label,
-      field_class: html_class,
-      input_type: 'email',
-      readonly: readonly, 
+      field_id: field_id,
+      input_type: "url",
+      readonly: readonly,
+      required: required,
       validation: validation,
       ttip: ttip,
       example: example,
@@ -79,20 +63,20 @@ module DynamicFormHelper
     }
   end
 
-
-
-  def create_date_field(form, value, name, label, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
-    render partial: 'shared/dynamic_form/fields/text_field', 
+  def create_email_field(form, value, name, label, field_id, required: false, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
+    render partial: "shared/dynamic_form/fields/text_field",
     locals: {
-      f: form, 
+      f: form,
       multiple: is_multiple,
       index: index,
-      field_value: value, 
-      field_name: name, 
+      field_value: value,
+      field_name: name,
       field_label: label,
       field_class: html_class,
-      input_type: 'date',
-      readonly: readonly, 
+      field_id: field_id,
+      input_type: "email",
+      readonly: readonly,
+      required: required,
       validation: validation,
       ttip: ttip,
       example: example,
@@ -100,49 +84,71 @@ module DynamicFormHelper
     }
   end
 
-
-
-  def create_number_field(form, value, name, label, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil)
-    render partial: 'shared/dynamic_form/fields/number_field', 
+  def create_date_field(form, value, name, label, field_id, required: false, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
+    render partial: "shared/dynamic_form/fields/text_field",
     locals: {
-      f: form, 
+      f: form,
       multiple: is_multiple,
       index: index,
-      field_value: value, 
-      field_name: name, 
+      field_value: value,
+      field_name: name,
       field_label: label,
       field_class: html_class,
-      readonly: readonly, 
+      field_id: field_id,
+      input_type: "date",
+      readonly: readonly,
+      required: required,
+      validation: validation,
+      ttip: ttip,
+      example: example,
+      default_value: default_value
+    }
+  end
+
+  def create_number_field(form, value, name, label, field_id, required: false, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil)
+    render partial: "shared/dynamic_form/fields/number_field",
+    locals: {
+      f: form,
+      multiple: is_multiple,
+      index: index,
+      field_value: value,
+      field_name: name,
+      field_label: label,
+      field_class: html_class,
+      field_id: field_id,
+      readonly: readonly,
+      required: required,
       validation: validation,
       ttip: ttip
     }
   end
 
-
-
-  def create_checkbox_field(form, value, name, label, validation: nil, html_class: nil, readonly: false)
-    render partial: 'shared/dynamic_form/fields/checkbox_field', 
+  def create_checkbox_field(form, value, name, label, field_id, validation: nil, readonly: false)
+    render partial: "shared/dynamic_form/fields/checkbox_field",
     locals: {
-      f: form, 
-      field_value: value, 
-      field_name: name, 
-      field_label: label, 
-      readonly: readonly, 
+      f: form,
+      field_value: value,
+      field_name: name,
+      field_label: label,
+      field_id: field_id,
+      readonly: readonly,
       validation: validation
     }
   end
 
-  def create_select_field(form, value, name, label, select_values, validation: nil, html_class: nil, readonly: false, multiple: false, ttip: nil, default_value: nil)
-    render partial: 'shared/dynamic_form/fields/select_field', 
+  def create_select_field(form, value, name, label, field_id, select_values, required: false, validation: nil, html_class: nil, readonly: false, multiple: false, ttip: nil, default_value: nil)
+    render partial: "shared/dynamic_form/fields/select_field",
     locals: {
-      f: form, 
-      selected_value: value, 
+      f: form,
+      selected_value: value,
       field_name: name,
       field_label: label,
       select_values: select_values,
       field_class: html_class,
+      field_id: field_id,
       multiple: multiple,
-      readonly: readonly, 
+      readonly: readonly,
+      required: required,
       validation: validation,
       ttip: ttip,
       default_value: default_value
@@ -154,11 +160,11 @@ module DynamicFormHelper
     validations.each do |validation|
       case validation
       when "required"
-        message += d_('dmpopidor', 'This property is required.')
+        message += d_("dmpopidor", "This property is required.")
       when "pattern"
-        message += d_('dmpopidor', 'This property has an invalid format.')
-      else 
-        message += d_('dmpopidor', 'This property has an unknown problem : %{validation}') % {
+        message += d_("dmpopidor", "This property has an invalid format.")
+      else
+        message += d_("dmpopidor", "This property has an unknown problem : %{validation}") % {
           validation: validation
         }
       end
@@ -171,32 +177,32 @@ module DynamicFormHelper
   def data_reformater(schema, data, classname)
     schema["properties"].each do |key, prop|
       next if data[key].nil?
-      
+
       if data[key] == ""
         data.delete(key)
-      else 
+      else
         case prop["type"]
         when "integer", "number"
           data[key] = data[key].to_i
         when "boolean"
           data[key] = data[key] == "1"
         when "array"
-          data[key] = data[key].kind_of?(Array) ? data[key] : [data[key]]
+          data[key] = data[key].is_a?(Array) ? data[key] : [data[key]]
         when "object"
-          if prop['schema_id'].present? && classname != "research_output"
-            sub_schema = MadmpSchema.find(prop['schema_id'])
+          if prop["schema_id"].present? && classname != "research_output"
+            sub_schema = MadmpSchema.find(prop["schema_id"])
             data[key] = data_reformater(sub_schema.schema, data[key], sub_schema.classname)
-          end 
+          end
           # if value["dictionnary"]
           #   data[key] = JSON.parse(DictionnaryValue.where(id: data[key]).select(:id, :uri, :label).take.to_json)
           # end
-        else 
+        else
           data[key] = data[key]
         end
 
-      end 
+      end
     end
     data
   end
-  
+
 end
