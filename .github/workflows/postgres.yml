@@ -75,7 +75,7 @@ jobs:
     - name: 'Setup Credentials'
       run: |
         # generate a default credential file and key
-        bundle exec EDITOR='echo "$(cat config/credentials.yml.example)" >' rails credentials:edit
+        EDITOR='echo "$(cat config/credentials.yml.example)" >' bundle exec rails credentials:edit
 
     # Try to retrieve the yarn JS dependencies from the cache
     - name: 'Cache Yarn Packages'
