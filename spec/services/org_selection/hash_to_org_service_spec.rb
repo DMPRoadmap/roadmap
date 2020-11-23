@@ -7,7 +7,7 @@ RSpec.describe OrgSelection::HashToOrgService do
   before(:each) do
     @name = Faker::Company.name
     @abbrev = Faker::Lorem.word.upcase
-    @lang = create(:language)
+    @lang = create(:language, abbreviation: Faker::Movies::StarWars.unique.planet.upcase)
     @url = Faker::Internet.url
     @attr_key = Faker::Lorem.word
     @attr_val = Faker::Lorem.word

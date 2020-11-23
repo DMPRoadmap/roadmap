@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_09_101541) do
+ActiveRecord::Schema.define(version: 2020_11_13_174910) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_101541) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "versionable_id", limit: 36
-    t.index ["org_id"], name: "index_annotations_on_org_id"
+    t.index ["org_id"], name: "fk_rails_aca7521f72"
     t.index ["question_id"], name: "index_annotations_on_question_id"
     t.index ["versionable_id"], name: "index_annotations_on_versionable_id"
   end
@@ -34,7 +34,9 @@ ActiveRecord::Schema.define(version: 2020_10_09_101541) do
     t.datetime "updated_at"
     t.integer "lock_version", default: 0
     t.string "label_id"
+    t.index ["plan_id"], name: "fk_rails_84a6005a3e"
     t.index ["plan_id"], name: "index_answers_on_plan_id"
+    t.index ["question_id"], name: "fk_rails_3d5ed4418f"
     t.index ["question_id"], name: "index_answers_on_question_id"
     t.index ["user_id"], name: "fk_rails_584be190c2"
   end
@@ -56,6 +58,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_101541) do
     t.date "last_access"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "org_id"
     t.index ["name"], name: "index_api_clients_on_name"
   end
 
@@ -195,8 +198,8 @@ ActiveRecord::Schema.define(version: 2020_10_09_101541) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "org_id"
-    t.index ["identifier_scheme_id"], name: "index_org_identifiers_on_identifier_scheme_id"
-    t.index ["org_id"], name: "index_org_identifiers_on_org_id"
+    t.index ["identifier_scheme_id"], name: "fk_rails_189ad2e573"
+    t.index ["org_id"], name: "fk_rails_36323c0674"
   end
 
   create_table "org_token_permissions", id: :integer, force: :cascade do |t|
@@ -205,7 +208,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_101541) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["org_id"], name: "index_org_token_permissions_on_org_id"
-    t.index ["token_permission_type_id"], name: "index_org_token_permissions_on_token_permission_type_id"
+    t.index ["token_permission_type_id"], name: "fk_rails_2aa265f538"
   end
 
   create_table "orgs", id: :integer, force: :cascade do |t|
@@ -228,8 +231,8 @@ ActiveRecord::Schema.define(version: 2020_10_09_101541) do
     t.text "feedback_email_msg"
     t.string "contact_name"
     t.boolean "managed", default: false, null: false
-    t.index ["language_id"], name: "index_org_on_language_id"
-    t.index ["region_id"], name: "index_org_on_region_id"
+    t.index ["language_id"], name: "fk_rails_5640112cab"
+    t.index ["region_id"], name: "fk_rails_5a6adf6bab"
   end
 
   create_table "perms", id: :integer, force: :cascade do |t|
@@ -282,11 +285,12 @@ ActiveRecord::Schema.define(version: 2020_10_09_101541) do
     t.index ["template_id"], name: "index_plans_on_template_id"
   end
 
-  create_table "plans_guidance_groups", force: :cascade do |t|
+  create_table "plans_guidance_groups", id: :integer, force: :cascade do |t|
     t.integer "guidance_group_id"
     t.integer "plan_id"
     t.index ["guidance_group_id", "plan_id"], name: "index_plans_guidance_groups_on_guidance_group_id_and_plan_id"
-    t.index ["plan_id"], name: "index_plans_guidance_groups_on_plan_id"
+    t.index ["guidance_group_id"], name: "fk_rails_ec1c5524d7"
+    t.index ["plan_id"], name: "fk_rails_13d0671430"
   end
 
   create_table "prefs", id: :integer, force: :cascade do |t|
@@ -335,7 +339,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_101541) do
     t.boolean "option_comment_display", default: true
     t.boolean "modifiable"
     t.string "versionable_id", limit: 36
-    t.index ["question_format_id"], name: "index_questions_on_question_format_id"
+    t.index ["question_format_id"], name: "fk_rails_4fbc38c8c7"
     t.index ["section_id"], name: "index_questions_on_section_id"
     t.index ["versionable_id"], name: "index_questions_on_versionable_id"
   end
@@ -492,21 +496,19 @@ ActiveRecord::Schema.define(version: 2020_10_09_101541) do
     t.boolean "active", default: true
     t.integer "department_id"
     t.datetime "last_api_access"
-    t.index ["department_id"], name: "index_users_on_department_id"
+    t.index ["department_id"], name: "fk_rails_f29bf9cdf2"
     t.index ["email"], name: "index_users_on_email"
-    t.index ["language_id"], name: "index_users_on_language_id"
+    t.index ["language_id"], name: "fk_rails_45f4f12508"
     t.index ["org_id"], name: "index_users_on_org_id"
   end
 
   create_table "users_perms", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "perm_id"
-    t.index ["perm_id"], name: "index_users_perms_on_perm_id"
+    t.index ["perm_id"], name: "fk_rails_457217c31c"
     t.index ["user_id"], name: "index_users_perms_on_user_id"
   end
 
-  add_foreign_key "annotations", "orgs"
-  add_foreign_key "annotations", "questions"
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
