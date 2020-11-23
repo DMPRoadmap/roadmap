@@ -75,7 +75,10 @@ module DMPRoadmap
     # The largest page size allowed in requests to the API (all versions)
     config.x.application.api_max_page_size = 100
     # The link to the API documentation - used in emails about the API
-    config.x.application.api_documentation_url = "https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation"
+    config.x.application.api_documentation_urls = {
+      v0: "https://github.com/DMPRoadmap/roadmap/wiki/API-V0-Documentation",
+      v1: "https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V1"
+    }
     # The links that appear on the home page. Add any number of links
     config.x.application.welcome_links = [
       {

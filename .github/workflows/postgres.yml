@@ -26,7 +26,6 @@ jobs:
     env:
       RAILS_ENV: test
       DATABASE_URL: postgres://postgres:@localhost:5432/roadmap_test
-      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
 
     steps:
     # Checkout the repo
@@ -57,7 +56,6 @@ jobs:
         cp config/database.yml.sample config/database.yml
         cp config/initializers/contact_us.rb.example config/initializers/contact_us.rb
         cp config/initializers/wicked_pdf.rb.example config/initializers/wicked_pdf.rb
-        cp config/credentials.yml.enc.workflow config/credentials.yml.enc
 
     # Try to retrieve the gems from the cache
     - name: 'Cache Gems'
@@ -73,6 +71,11 @@ jobs:
         gem install bundler -v ${{ env.BUNDLER_VERSION }}
         bundle config path vendor/bundle
         bundle install --jobs 4 --retry 3 --without mysql rollbar aws
+
+    - name: 'Setup Credentials'
+      run: |
+        # generate a default credential file and key
+        EDITOR='echo "$(cat config/credentials.yml.example)" >' bundle exec rails credentials:edit
 
     # Try to retrieve the yarn JS dependencies from the cache
     - name: 'Cache Yarn Packages'
