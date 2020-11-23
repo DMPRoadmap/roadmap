@@ -1,6 +1,7 @@
 <%# locals: { f, field_label, field_name, select_values, selected_value, field_class, readonly, multiple, validation, ttip } %>
 <% field_label = field_label || 'No label defined' %>
 <% selected_value ||= default_value %>
+<% include_blank = !selected_value && !default_value %>
 <div class="col-md-12">
     <%= f.label field_name, field_label, class: 'control-label' %>
 </div>
@@ -10,6 +11,7 @@
                 selected: selected_value),
                 disabled: readonly,
                 multiple: multiple,
+                include_blank: include_blank,
                 "data-toggle": "tooltip",
                 title: ttip,
                 class: "form-control #{field_class}" %>
