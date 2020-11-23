@@ -22,9 +22,9 @@ Send us your identity provider's `entityID` so that we can enable SSO for your u
 ## My institution is a member of [eduGAIN](https://technical.edugain.org/metadata)
 
 Your institution's identity provider may need to be configured to release the attributes mentioned above for the DMPToool. The DMPTool will also need to be added as a trusted service provider. Your Identity and Access Management team can use the following information to make the necessary changes:
-- [Attribute Release Policies](https://github.com/CDLUC3/dmptool/blob/main/doc/sso/dmptool_attribute_release.xml)
-- [DMPTool stage/test service provider](https://github.com/CDLUC3/dmptool/blob/main/doc/sso/dmp-stage_metadata.xml)
-- [DMPTool production service provider](https://github.com/CDLUC3/dmptool/blob/main/doc/sso/dmp_metadata.xml)
+- [Attribute Release Policies](https://github.com/CDLUC3/dmptool/blob/main/docs/sso/dmptool_attribute_release.xml)
+- [DMPTool stage/test service provider](https://github.com/CDLUC3/dmptool/blob/main/docs/sso/dmp-stage_metadata.xml)
+- [DMPTool production service provider](https://github.com/CDLUC3/dmptool/blob/main/docs/sso/dmp_metadata.xml)
 
 Once that's complete you can send us your identity provider's `entityID` so that we can enable SSO for your users.
 
