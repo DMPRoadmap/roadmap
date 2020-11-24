@@ -10,9 +10,9 @@ module ApiHelper
     Api::V1::BaseApiController.any_instance.stubs(:client).returns(api_client)
   end
 
-  def mock_authorization_for_user
+  def mock_authorization_for_user(user: nil)
     create(:org) unless Org.any?
-    user = User.org_admins(Org.last).first
+    user = User.org_admins(Org.last).first unless user.present?
 
     unless user.present?
       user = create(:user, :org_admin, api_token: SecureRandom.uuid, org: Org.last)
