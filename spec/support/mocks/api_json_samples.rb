@@ -29,7 +29,8 @@ module Mocks
               "title": Faker::Lorem.sentence,
               "contact": {
                 "name": Faker::TvShows::Simpsons.character,
-                "mbox": Faker::Internet.email
+                "mbox": Faker::Internet.email,
+                "affiliation": { "name": Faker::Movies::StarWars.planet }
               },
               "dataset": [{
                 "title": Faker::Lorem.sentence
@@ -53,7 +54,8 @@ module Mocks
               "title": Faker::Lorem.sentence,
               "contact": {
                 "name": Faker::TvShows::Simpsons.character,
-                "mbox": Faker::Internet.email
+                "mbox": Faker::Internet.email,
+                "affiliation": { "name": Faker::Movies::StarWars.planet }
               },
               "dataset": [{
                 "title": Faker::Lorem.sentence
