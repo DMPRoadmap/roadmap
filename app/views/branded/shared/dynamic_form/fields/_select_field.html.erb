@@ -1,5 +1,7 @@
 <%# locals: { f, field_label, field_name, select_values, selected_value, field_class, required, readonly, multiple, validation, ttip } %>
 <% field_label = field_label || 'No label defined' %>
+<% field_label = required ? "* #{field_label}" : field_label%>
+
 <% selected_value ||= default_value %>
 <% include_blank = !selected_value && !default_value %>
 <div class="col-md-12">
@@ -10,7 +12,6 @@
                 options_for_select(select_values,
                 selected: selected_value),
                 disabled: readonly,
-                required: required,
                 multiple: multiple,
                 include_blank: include_blank,
                 "data-toggle": "tooltip",

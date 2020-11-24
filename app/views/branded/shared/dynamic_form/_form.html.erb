@@ -14,8 +14,7 @@
   <% field_id = fragment.present? ? "fragment_#{key}_#{fragment.id}" : "new_fragment_#{key}_#{SecureRandom.uuid}"%>
   <% validation = validations.nil? ? "none" : validations[key] %>
   <% required = required_fields.include?(key)%>
-  <% asterisk = required ? "*" : ""%>
-  <% label = "#{asterisk} #{prop["label@#{template_locale}"]}" %>
+  <% label = prop["label@#{template_locale}"]%>
   <% ttip = prop["tooltip@#{template_locale}"] %>
   <% dropdownValues = prop["values@#{template_locale}"]%>
   <% example = prop["example@#{template_locale}"] ? "ex: #{prop["example@#{template_locale}"]}": nil %>
