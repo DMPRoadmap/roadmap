@@ -16,6 +16,6 @@ Rails.configuration.x.dmphub.delete_path = "data_management_plans"
 
 # TODO: Move the :api_base_url, :repository_id, :password and :shoulder to the
 #       credentials.yml.enc in Rails5
-Rails.configuration.x.dmphub.client_id = "1234567890"
-Rails.configuration.x.dmphub.client_secret = "0987654321"
+Rails.configuration.x.dmphub.client_id = Rails.application.credentials.dmphub[:client_id]
+Rails.configuration.x.dmphub.client_secret = Rails.application.credentials.dmphub[:client_secret]
 Rails.configuration.x.dmphub.active = true

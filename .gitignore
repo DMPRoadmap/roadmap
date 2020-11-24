@@ -1,10 +1,3 @@
-# DMPTool specific
-config/**/*.rb-original
-config/initializers/_dmproadmap.rb
-config/initializers/dragonfly.rb
-config/initializers/external_apis/open_aire.rb
-config/initializers/translation.rb
-
 # Ignore rbenv files
 .ruby-version
 
@@ -44,16 +37,6 @@ public/videos/*
 app/assets/images/homepage
 config/locales/static_pages/*.yml
 
-# Ignore initializers that contain sensitive info
-config/initializers/_dmproadmap.rb
-config/initializers/contact_us.rb
-config/initializers/devise.rb
-config/initializers/dmptool_version.rb
-config/initializers/recaptcha.rb
-config/initializers/wicked_pdf.rb
-config/initializers/fingerprint.rb
-config/initializers/external_apis/dmphub.rb
-
 # Ignore seed DBs
 db/data.yml
 
@@ -69,22 +52,6 @@ db/test.sqlite3-journal
 
 # Ignore the SimpleCov output
 coverage
-
-# Ignore yaml files that contain sensitive info
-config/database.yml
-config/secrets.yml
-config/branding.yml
-
-# Ignore some of the initializers
-config/initializers/wicked_pdf.rb
-config/initializers/fingerprint.rb
-
-# Ignore enviroments settings
-#config/environments/development.rb
-#config/environments/production.rb
-#config/environments/test.rb
-
-#config/initializers/contact_us.rb
 
 # ignore IDE files
 .idea/*
@@ -116,17 +83,9 @@ yarn-debug.log*
 .version
 
 package-lock.json
-node_modules
-/public/packs
-/public/packs-test
 
 spec/examples.txt
 .postcssrc.yml
-/public/packs
-/public/packs-test
-/node_modules
-yarn-debug.log*
-.yarn-integrity
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key

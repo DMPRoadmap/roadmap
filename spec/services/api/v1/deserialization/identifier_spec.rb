@@ -37,53 +37,11 @@ RSpec.describe Api::V1::Deserialization::Identifier do
       result = described_class.deserialize(class_name: @class_name, json: @json)
       expect(result).to eql(id)
     end
-<<<<<<< HEAD
-
-    describe "#identifier_for_scheme(scheme:, identifiable:, json:)" do
-      it "returns nil if scheme is nil" do
-        result = described_class.send(:identifier_for_scheme,
-                                      scheme: nil, identifiable: @identifiable,
-                                      json: @json)
-        expect(result).to eql(nil)
-      end
-      it "returns nil if identifiable is nil" do
-        result = described_class.send(:identifier_for_scheme,
-                                      scheme: @scheme, identifiable: nil,
-                                      json: @json)
-        expect(result).to eql(nil)
-      end
-      it "returns nil if json is nil" do
-        result = described_class.send(:identifier_for_scheme,
-                                      scheme: @scheme, identifiable: @identifiable,
-                                      json: nil)
-        expect(result).to eql(nil)
-      end
-      it "returns nil if :type does not match an IdentifierScheme" do
-        json = { type: Faker::Lorem.word, identifier: @value }
-        result = described_class.send(:identifier_for_scheme,
-                                      scheme: @scheme,
-                                      identifiable: @identifiable, json: json)
-        expect(result).to eql(nil)
-      end
-      it "updates the existing Identifier for the IdentifierScheme" do
-        identifier = create(:identifier, identifier_scheme: @scheme,
-                                         identifiable: @identifiable,
-                                         value: Faker::Number.number)
-        result = described_class.send(:identifier_for_scheme,
-                                      scheme: @scheme,
-                                      identifiable: @identifiable, json: @json)
-        expected = "#{@scheme.identifier_prefix}#{@json[:identifier]}"
-        validate_identifier(result: result, scheme: @scheme, value: expected)
-        expect(result.id).to eql(identifier.id)
-        expect(result.value.ends_with?(@json[:identifier])).to eql(true)
-      end
-=======
     it "initializes a new Identifier when :type matches an IdentifierScheme" do
       result = described_class.deserialize(class_name: @class_name, json: @json)
       expect(result.new_record?).to eql(true)
       validate_identifier(result: result, scheme: @scheme,
                           value: "#{@scheme.identifier_prefix}#{@json[:identifier]}")
->>>>>>> 0afeb25ea5cbf07fa9f9aef363584f598732bd5e
     end
   end
 
