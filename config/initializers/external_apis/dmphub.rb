@@ -8,7 +8,7 @@ Rails.configuration.x.dmphub.description = "A DMPHub based DOI minting service: 
 # Credentials for minting DOIs via a DMPHub system: https://github.com/CDLUC3/dmphub
 # To disable this feature, simply set 'active' to false
 Rails.configuration.x.dmphub.landing_page_url = "https://ezid.cdlib.org/id/"
-Rails.configuration.x.dmphub.api_base_url = "http://localhost:3001/api/v0/"
+Rails.configuration.x.dmphub.api_base_url = ENV["DMPHUB_URL"] || "http://localhost:3001/api/v0/"
 Rails.configuration.x.dmphub.auth_path = "authenticate"
 Rails.configuration.x.dmphub.mint_path = "data_management_plans"
 Rails.configuration.x.dmphub.update_path = "data_management_plans"
