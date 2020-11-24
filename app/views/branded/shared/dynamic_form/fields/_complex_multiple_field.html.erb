@@ -22,7 +22,7 @@
       </tbody>
     </table>
     <% unless parent_id.nil? || readonly %>
-      <%= link_to 'Create', new_edit_linked_madmp_fragments_url(
+      <%= link_to d_('dmpopidor', 'Create'), new_edit_linked_madmp_fragments_url(
               nil, 
               :parent_id => parent_id, 
               :schema_id => schema.id, 

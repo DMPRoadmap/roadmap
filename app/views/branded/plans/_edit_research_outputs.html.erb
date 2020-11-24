@@ -12,8 +12,11 @@
     %>
   </div>
   <div class='links'>
-    <%= link_to d_('dmpopidor', 'Add a research output'), create_remote_research_outputs_url(plan_id: plan.id),
-     class: "add-research-output", remote: true 
+    <%= link_to d_('dmpopidor', 'Create'), create_remote_research_outputs_url(plan_id: plan.id),
+      {
+        :remote => true, 
+        :class => "add-research-output btn btn-primary"
+      }
      %>
   </div>
 </div>

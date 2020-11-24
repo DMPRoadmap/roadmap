@@ -471,3 +471,6 @@ msgstr "Le format de cette propriété est invalide."
 
 msgid "This property has an unknown problem : %{validation}"
 msgstr "Cette propriété a un problème inconnu : %{validation}"
+
+msgid "Create"
+msgstr "Créer"
