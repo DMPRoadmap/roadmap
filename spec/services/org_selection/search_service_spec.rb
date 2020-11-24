@@ -29,7 +29,7 @@ RSpec.describe OrgSelection::SearchService do
     ]
 
     # Mock calls to the RorService
-    ExternalApis::RorService.stubs(:active).returns(true)
+    ExternalApis::RorService.stubs(:active?).returns(true)
     ExternalApis::RorService.stubs(:search).returns(@records)
   end
 
@@ -139,7 +139,7 @@ RSpec.describe OrgSelection::SearchService do
 
     describe "#externals_search(search_term:)" do
       before(:each) do
-        ExternalApis::RorService.stubs(:active).returns(true)
+        ExternalApis::RorService.stubs(:active?).returns(true)
       end
 
       it "returns an empty array if the search term is blank" do
@@ -147,7 +147,7 @@ RSpec.describe OrgSelection::SearchService do
         expect(rslts).to eql([])
       end
       it "returns an empty array if no external apis are active" do
-        ExternalApis::RorService.stubs(:active).returns(false)
+        ExternalApis::RorService.stubs(:active?).returns(false)
         rslts = described_class.send(:externals_search, search_term: "Foo")
         expect(rslts).to eql([])
       end
