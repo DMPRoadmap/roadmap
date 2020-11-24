@@ -33,6 +33,6 @@ Once that's complete you can send us your identity provider's `entityID` so that
 
 ## Testing
 
-Once your institution's identity provider has been configured and SSO has been enabled for your institution within the DMPTool, you can use visit our [SSO Test Page](https://dmptool-stg.cdlib.org/cgi-bin/PrintShibInfo.pl) to test the SSO handshake. Select your institution from the dropdown list and click the button. This should bring you to your institution's login page if things were properly configured within the DMPTool. Once you login, you will be redirected back to a test page that should display the attributes mentioned above if things were properly configured within your identity provider.
+Once your institution's identity provider has been configured and SSO has been enabled for your institution within the DMPTool, you can visit our [SSO Test Page](https://dmptool-stg.cdlib.org/cgi-bin/PrintShibInfo.pl) to test the SSO handshake. Select your institution from the dropdown list and click the "Continue" button. This should bring you to your institution's login page if things were properly configured within the DMPTool. Once you login, you will be redirected back to a validation page that will display the attributes mentioned above.  If all has been properly configured within your identity provider, a Success message will be displayed.
 
-If your name does not appear in the dropdown list, then you may not be a member of InCommon or eduGAIN. Contact us for more information.
+If your insitution does not appear in the dropdown list, then you may not be a member of InCommon or eduGAIN. Contact us for more information.
