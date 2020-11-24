@@ -36,7 +36,7 @@ module ExternalApis
         3
       end
 
-      def active
+      def active?
         false
       end
 
@@ -114,7 +114,7 @@ module ExternalApis
           headers: headers.merge(additional_headers),
           follow_redirects: true
         }
-        hash[:debug_output] = STDOUT if debug
+        hash[:debug_output] = $stdout if debug
         hash
       end
 
