@@ -1,3 +1,10 @@
+# DMPTool specific
+config/**/*.rb-original
+config/initializers/_dmproadmap.rb
+config/initializers/dragonfly.rb
+config/initializers/external_apis/open_aire.rb
+config/initializers/translation.rb
+
 # Ignore rbenv files
 .ruby-version
 
