@@ -11,7 +11,7 @@
 <% schema_properties.each do |key, prop| %>
   <% value = data[key] unless data.nil? %>
   <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{key}]" : key %>
-  <% field_id = fragment.present? ? "fragment_#{key}_#{fragment.id}" : "new_fragment_#{key}_#{SecureRandom.uuid}"%>
+  <% field_id = fragment.present? ? "fragment_#{key}_#{SecureRandom.uuid}" : "new_fragment_#{key}_#{SecureRandom.uuid}"%>
   <% validation = validations.nil? ? "none" : validations[key] %>
   <% required = required_fields.include?(key)%>
   <% label = prop["label@#{template_locale}"]%>
