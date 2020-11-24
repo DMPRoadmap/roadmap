@@ -16,16 +16,11 @@ set :bundle_without, %w[puma pgsql thin rollbar test].join(" ")
 set :config_repo, "git@github.com:cdlib/dmptool_config.git"
 
 # Default value for :linked_files is []
-append :linked_files, 'config/credentials.yml.enc',
-                      'config/database.yml',
-                      'config/master.key',
-                      'config/initializers/_dmproadmap.rb',
-                      'config/initializers/dmptool_version.rb',
-                      'config/initializers/dragonfly.rb',
-                      'config/initializers/wicked_pdf.rb',
-                      'config/initializers/external_apis/open_aire.rb',
-                      'config/initializers/external_apis/dmphub.rb',
-                      'public/tinymce/tinymce.css'
+append :linked_files,
+       ".env",
+       "config/credentials.yml.enc",
+       "config/master.key",
+       "public/tinymce/tinymce.css"
 
 # Default value for linked_dirs is []
 append :linked_dirs,
