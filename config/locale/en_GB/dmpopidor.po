@@ -472,3 +472,6 @@ msgstr "This property has an unknown problem : %{validation}"
 
 msgid "Create"
 msgstr "Create"
+
+msgid "General informations"
+msgstr "General informations"

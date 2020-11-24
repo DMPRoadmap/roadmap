@@ -474,3 +474,6 @@ msgstr "Cette propriété a un problème inconnu : %{validation}"
 
 msgid "Create"
 msgstr "Créer"
+
+msgid "General informations"
+msgstr "Informations générales"

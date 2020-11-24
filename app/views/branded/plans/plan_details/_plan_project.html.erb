@@ -11,7 +11,7 @@
         f, 
         project["title"], 
         "project_title", 
-        _('Project title'), 
+        'Project title', 
         "project_title"
       ) 
   %>
@@ -21,24 +21,15 @@
         f, 
         project["acronym"], 
         "project_acronym", 
-        _('Acronym'), 
+        'Project acronym', 
         "project_acronym"
       ) 
   %>
 </div>
-<div class="form-group"><!-- project_id -->
-  <%= create_text_field(
-        f, 
-        project["projectId"], 
-        "project_id", 
-        _('Project ID'), 
-        "project_id"
-      ) 
-  %>
-</div>
+
 <div class="form-group"><!-- project_description -->
   <div class="col-md-12">
-    <%= f.label "plan[project_description]", _('Project abstract'), class: 'control-label' %>
+    <%= f.label "plan[project_description]", 'Project abstract', class: 'control-label' %>
   </div>
   <div class="col-md-10" data-toggle="tooltip" title="<%= project_abstract_tooltip %>">
     <em class="sr-only"><%= project_abstract_tooltip %></em>
@@ -47,6 +38,7 @@
                         'data-toggle': 'tooltip', spellcheck: true } %>
   </div>
 </div>
+
 
 <%= render(partial: 'shared/dynamic_form/fields/complex_multiple_field', locals: { 
   field_values: fundings, 
@@ -63,7 +55,7 @@
         f, 
         project["startDate"], 
         "project_start_date", 
-        _('Start Date'), 
+        'Project start date', 
         "project_start_date"
       ) 
   %>
@@ -73,7 +65,7 @@
         f, 
         project["endDate"], 
         "project_end_date", 
-        _('End Date'), 
+        'Project end date', 
         "project_end_date"
       ) 
   %>
@@ -85,7 +77,7 @@
   schema: MadmpSchema.find_by(name: "PartnerStandard"),
   readonly: false,
   template_locale: @plan.template.locale,
-  field_label: "Funding", answer_id: nil 
+  field_label: "Project partner", answer_id: nil 
   }
 ) %>
 
@@ -94,7 +86,7 @@
         f, 
         project["experimentalPlanUrl"], 
         "experimental_plan_url", 
-        _('Experimental Plan URL'), 
+        'Experimental plan reference', 
         "experimental_plan_url"
       ) 
   %>
@@ -103,12 +95,12 @@
 
 <%= render(partial: 'shared/fragments/person_fragment_form', locals: {
             f: f,
-            legend: _("Principal Investigator"),
+            legend: 'Project coordinator',
             person: principalInvestigator ? principalInvestigator.data : nil,
             person_id: principalInvestigator ? principalInvestigator.id : nil,
             person_list: persons,
             plan: @plan,
-            fragment_name: "principalInvestigator"
+            fragment_name: "principalInvestigator", tooltip: "also called Principal investigator"
       }) %>
 
 <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>

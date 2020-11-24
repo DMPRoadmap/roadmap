@@ -6,10 +6,10 @@
 
 <div class="form-group"><!-- title -->
   <div class="col-md-12">
-    <%= f.label(:title, _('Plan title'), class: 'control-label') %>
+    <%= f.label(:title, 'Plan title', class: 'control-label') %>
   </div>
   <div class="col-md-10">
-    <%= f.text_field(:title, class: "form-control", "aria-required": true,
+    <%= f.text_field(:title, class: "form-control", "aria-required": true, title: "Data management plan deliverable 1.4 ou D6.6",
          'data-toggle': 'tooltip', spellcheck: true) %>
     <div class="checkbox">
       <%= f.hidden_field :visibility %>
@@ -22,9 +22,9 @@
 </div>
 <div class="form-group"><!-- plan description -->
   <div class="col-md-12">
-    <%= f.label(:description, _('Plan abstract'), class: 'control-label') %>
+    <%= f.label(:description, 'Description', class: 'control-label') %>
   </div>
-  <div class="col-md-10" data-toggle="tooltip">
+  <div class="col-md-10" data-toggle="tooltip" title="Define the purpose and scope of the DMP as well as its relation to other deliverables and briefly explains the structure of the document">
     <%= f.text_area(
           :description, rows: 6,
           class: 'form-control tinymce',
@@ -36,105 +36,80 @@
           f, 
           @plan.template.locale, 
           "dmpLanguage", 
-          _('Language'),
+          'DMP language code',
           "dmp_language",
           readonly: true
-        ) 
-    %>
-</div>
-<fieldset class="project-details"> <!-- DMP ID -->
-  <legend class="project-details"><%= _('DMP ID') %></legend>
-  <div class="form-group"><!-- Identifier Type -->
-    <%= create_select_field(
-          f, 
-          dmpID ? dmpID["idType"] : "DOI",
-          "plan[dmpID[idType]]", 
-          _('Identifier Type'),
-          "dmp_id_type",
-          ["DOI", "HANDLE", "ARK", "URL"]
-        ) 
-    %>
-  </div>
-  <div class="form-group"><!-- identifier -->
-    <%= create_text_field(
-          f, 
-          dmpID ? dmpID["value"] : nil,  
-          "dmpID[value]",
-          _('ID'), 
-          "dmp_id_value"
-        ) 
-    %>
-  </div>
-</fieldset>
-
-<fieldset class="project-details"> <!-- Version -->
-  <legend class="project-details"><%= _('Version') %></legend>
-  <div class="form-group"><!-- versionNumber -->
-    <%= create_text_field(
-          f, 
-          meta["versionNumber"],
-          "versionNumber",
-          _('Number'), 
-          "version_number"
-        ) 
-    %>
-  </div>
-  <div class="form-group"><!-- versionNotes -->
-    <%= create_text_field(
-          f,
-          meta["versionNotes"],
-          "versionNotes",
-          _('Notes'), 
-          "version_notes"
-        ) 
-    %>
-  </div>
-</fieldset>
-<!-- TODO : IMPLEMENT MULTIPLE -->
-<div class="form-group"><!-- relatedDocUrl -->
-    <%= render(partial: 'shared/dynamic_form/fields/simple_multiple_field', locals: { 
-      f: f, 
-      field_values: meta["relatedDocUrl"],
-      readonly: false,
-      field_label: _('Related Documentation URL'),
-      field_properties: {
-        "type" => "string",
-        "format" => "uri"
-      },
-      field_name: "relatedDocUrl", answer_id: nil 
-      })
-    %>
-</div>
-<!-- TODO : IMPLEMENT MULTIPLE -->
-<div class="form-group"><!-- associatedDMPId -->
-    <%= create_text_field(
-          f, 
-          meta["associatedDMPId"], 
-          "associatedDMPId",
-          _('Associated DMPs'), 
-          "associated_dmp_id"
         ) 
     %>
 </div>
 
 <%= render(partial: 'shared/fragments/person_fragment_form', locals: {
             f: f,
-            legend: _('Data contact person'),
+            legend: 'DMP coordinator',
             person: contact ? contact.data : nil,
             person_id: contact ? contact.id : nil,
             person_list: persons,
             plan: @plan,
-            fragment_name: "contact"
+            fragment_name: "contact", 
+            tooltip: "Person who coordinates data management planning, also called DMP author or manager. By default, the person who creates the DMP with DMP OPIDoR"
       }) %>
 
+<div class="form-group"><!-- creationDate -->
+    <%= create_text_field(
+          f, 
+          meta["creationDate"], 
+          "creationDate", 
+          'Creation date',
+          "creation_date",
+          readonly: true
+        ) 
+    %>
+</div>
+
+<div class="form-group"><!-- lastModifiedDate -->
+    <%= create_text_field(
+          f, 
+          meta["lastModifiedDate"], 
+          "lastModifiedDate", 
+          'Last modification date',
+          "last_modified_date",
+          readonly: true
+        ) 
+    %>
+</div>
+
+<div class="form-group"><!-- Identifier Type -->
+  <%= create_select_field(
+        f, 
+        dmpID ? dmpID["idType"] : "DOI",
+        "plan[dmpID[idType]]", 
+        'Identifier Type',
+        "dmp_id_type",
+        ["DOI", "HANDLE", "ARK", "URL"]
+      ) 
+  %>
+</div>
+<div class="form-group"><!-- identifier -->
+  <%= create_text_field(
+        f, 
+        dmpID ? dmpID["value"] : nil,  
+        "dmpID[value]",
+        'DMP persistent identifier', 
+        "dmp_id_value",
+        ttip: "Provide the plan ID after possible publishing or deposit in an archive"
+      ) 
+  %>
+</div>
+
+
 <fieldset class="project-details">
-  <legend class="project-details"><%= _("Licence") %></legend>
+  <legend class="project-details"><%= 'DMP Licence' %></legend>
   <div class="form-group"><!-- licenseName -->
     <%= create_text_field(
           f, 
           licence ? licence["licenseName"] : nil,
           "licence[licenseName]",
-          _('Name'), 
+          'Licence name', 
           "licence_name"
         ) 
     %>
@@ -144,7 +119,7 @@
           f, 
           licence ? licence["licenseUrl"] : nil,
           "licence[licenseUrl]",
-          _('URL'), 
+          'Licence URL', 
           "licence_url"
         ) 
     %>
@@ -154,11 +129,40 @@
           f, 
           licence ? licence["licenceStartDate"] : nil,
           "licence[licenceStartDate]",
-          _('Start Date'), 
-          "licence_start_date"
+          'License start date', 
+          "licence_start_date",
+          ttip: "Date from which the DMP is shared publicly and can be reused"
         ) 
     %>
   </div>
 </fieldset>
+
+<div class="form-group"><!-- relatedDocUrl -->
+    <%= render(partial: 'shared/dynamic_form/fields/simple_multiple_field', locals: { 
+      f: f, 
+      field_values: meta["relatedDoc"],
+      readonly: false,
+      field_label: 'Related Documentation',
+      field_properties: {
+        "type" => "string",
+        "format" => "uri"
+      },
+      field_name: "relatedDoc", ttip: "Provide the documents associated with the DMP", answer_id: nil 
+      })
+    %>
+</div>
+<div class="form-group"><!-- associatedDMP -->
+    <%= render(partial: 'shared/dynamic_form/fields/simple_multiple_field', locals: { 
+      f: f, 
+      field_values: meta["associatedDmp"],
+      readonly: false,
+      field_label: 'Associated DMPs reference',
+      field_properties: {
+        "type" => "string"
+      },
+      field_name: "associatedDmp", ttip: "Provide the other DMPs associated with the project", answer_id: nil 
+      })
+    %>
+</div>
 
 <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>

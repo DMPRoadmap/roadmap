@@ -1,7 +1,7 @@
-<%# locals: { legend, person, person_id, fragment_name, person_list } %>
-
+<%# locals: { legend, person, person_id, fragment_name, person_list, tooltip } %>
+<% tooltip ||= ""%>
 <fieldset class="project-details">
-  <legend class="project-details"><%= legend %></legend>
+  <legend class="project-details" title="<%= tooltip %>"><%= legend %></legend>
   <div class="form-group">
     <div class="col-md-12">
       <%= f.label "#{fragment_name}_person_list", _('Please choose a person from the list or create a new one.'), class: 'control-label' %>

@@ -476,3 +476,6 @@ msgstr ""
 
 msgid "Create"
 msgstr ""
+
+msgid "General informations"
+msgstr ""
