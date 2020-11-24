@@ -14,7 +14,6 @@
             disabled: readonly,
             class: "form-control #{field_class} tinymce_answer",
             type: input_type,
-            placeholder: example,
             id: field_id %>
   <% if multiple && readonly == false%>
     <div class="actions">
@@ -32,3 +31,19 @@
       } unless validation == "none"
   %>
 </div>
+
+<% if example.present? %>
+  <div class="col-md-12">
+    <div class="panel panel-default example-answer">
+      <span class="label label-default example-answer-link" 
+            data-toggle="collapse" 
+            data-target="<%= "#example-#{field_id}" %>">
+        <%=_('Example')%>
+        <i class="more-less fa fa-plus small"></i>
+      </span>
+      <div class="panel-body collapse" id="<%= "example-#{field_id}"  %>">
+        <%= sanitize example %>
+      </div>
+    </div>
+  </div>
+<% end %>
