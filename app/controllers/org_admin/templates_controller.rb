@@ -175,8 +175,14 @@ module OrgAdmin
       authorize template
       begin
         args = template_params
-        # Swap in the appropriate visibility enum value for the checkbox value
-        args[:visibility] = args.fetch(:visibility, '0') == '1' ? 'organisationally_visible' : 'publicly_visible'
+
+        # Currently leave default visibility to 'organisationally_visible' in 
+        # args[:visibility] as there is no way of changing the visibility value
+        # when editing a template
+
+        # REMOVED: Swap in the appropriate visibility enum value for the checkbox value
+        # args[:visibility] = args.fetch(:visibility, '0') == '1' ? 'organisationally_visible' : 'publicly_visible'
+
 
         template.assign_attributes(args)
         if params["template-links"].present?
