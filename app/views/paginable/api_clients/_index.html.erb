@@ -6,19 +6,13 @@
           <%=  _('Name') %>&nbsp;<%= paginable_sort_link('api_clients.name') %>
         </th>
         <th scope="col" class="text-center sorter-false">
-          <%= _('Description') %>
+          <%= _('Org') %>
         </th>
         <th scope="col" class="text-center sorter-false">
           <%= _('Homepage') %>
         </th>
         <th scope="col" class="text-center">
           <%=  _('Contact') %>&nbsp;<%= paginable_sort_link('api_clients.contact_email') %>
-        </th>
-        <th scope="col" class="text-center sorter-false">
-          <%= _('Client_id') %>
-        </th>
-        <th scope="col" class="text-center sorter-false">
-          <%= _('Client Secret') %>
         </th>
         <th scope="col" class="text-center">
           <%=  _('Last Accessed') %>&nbsp;<%= paginable_sort_link('api_clients.last_access') %>
@@ -30,11 +24,9 @@
       <% scope.each do |client| %>
         <tr>
           <td><%= client.name %></td>
-          <td><%= client.description %></td>
+          <td><%= client.org&.name %></td>
           <td><%= client.homepage.present? ? link_to(client.homepage) : "" %></td>
           <td><%= client.contact_email.present? ? link_to(client.contact_email, "mailto:#{client.contact_email}") : "" %></td>
-          <td><%= client.client_id %></td>
-          <td><%= client.client_secret %></td>
           <td><%= client.last_access.present? ? l(client.last_access.to_date, formats: :short) : _("Never") %></td>
           <td>
             <div class="dropdown">
