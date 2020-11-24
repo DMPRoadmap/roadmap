@@ -1,6 +1,7 @@
 defaults: &defaults
   adapter: <%= ENV['DB_ADAPTER'] || 'postgresql' %>
   encoding: <%= ENV['DB_ADAPTER'] == "mysql2" ? "utf8mb4" : "" %>
+  host: <%= ENV["DB_HOST"] || 'localhost' %>
   username: <%= ENV["DB_USER"] || 'root' %>
   password: <%= ENV["DB_PASSWORD"] || '' %>
   database: <%= ENV["DB_NAME"] || 'roadmap' %>
