@@ -30,6 +30,8 @@ module ExternalApis
       # Note this functions result gets cached by the ResearchProjectsController
       # ToDo: Evaluate for ActiveJob
       def search(funder: default_funder)
+        return [] unless active?
+
         target = "#{api_base_url}#{search_path % funder}"
         hdrs = {
           "Accept": "application/xml",

@@ -60,13 +60,8 @@ module SuperAdmin
 
       # Translate the Org selection
       org = org_from_params(params_in: api_client_params, allow_create: false)
-
-p org.inspect
-
       @api_client.org = org
       attrs = remove_org_selection_params(params_in: api_client_params)
-
-p attrs.inspect
 
       if @api_client.update(attrs)
         flash.now[:notice] = success_message(@api_client, _("updated"))
@@ -94,8 +89,10 @@ p attrs.inspect
       @api_client = ApiClient.find(params[:id])
       return unless @api_client.present?
 
+      original = @api_client.client_secret
       @api_client.generate_credentials
       @api_client.save
+      @success = original != @api_client.client_secret
     end
 
     # GET /api_clients/:id/email_credentials/

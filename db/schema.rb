@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_09_101541) do
+ActiveRecord::Schema.define(version: 2020_11_13_174910) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -208,7 +208,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_101541) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["org_id"], name: "index_org_token_permissions_on_org_id"
-    t.index ["token_permission_type_id"], name: "index_org_token_permissions_on_token_permission_type_id"
+    t.index ["token_permission_type_id"], name: "fk_rails_2aa265f538"
   end
 
   create_table "orgs", id: :integer, force: :cascade do |t|
@@ -285,7 +285,7 @@ ActiveRecord::Schema.define(version: 2020_10_09_101541) do
     t.index ["template_id"], name: "index_plans_on_template_id"
   end
 
-  create_table "plans_guidance_groups", force: :cascade do |t|
+  create_table "plans_guidance_groups", id: :integer, force: :cascade do |t|
     t.integer "guidance_group_id"
     t.integer "plan_id"
     t.index ["guidance_group_id", "plan_id"], name: "index_plans_guidance_groups_on_guidance_group_id_and_plan_id"
@@ -509,8 +509,6 @@ ActiveRecord::Schema.define(version: 2020_10_09_101541) do
     t.index ["user_id"], name: "index_users_perms_on_user_id"
   end
 
-  add_foreign_key "annotations", "orgs"
-  add_foreign_key "annotations", "questions"
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
