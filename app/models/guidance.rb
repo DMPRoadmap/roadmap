@@ -60,7 +60,7 @@ class Guidance < ActiveRecord::Base
                                      in: BOOLEAN_VALUES }
 
   # THEMES                                     
-  # validates :themes, presence: { message: PRESENCE_MESSAGE }, if: :published?
+  validates :themes, presence: { message: PRESENCE_MESSAGE }, if: :published?
 
   # Retrieves every guidance associated to an org
   scope :by_org, -> (org) {
