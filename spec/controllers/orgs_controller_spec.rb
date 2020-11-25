@@ -174,13 +174,13 @@ RSpec.describe OrgsController, type: :controller do
 
     it "calls search_externally when query string contains type=external" do
       OrgSelection::SearchService.expects(:search_externally).at_least(1)
-      post :search, params: { org: { name: Faker::Lorem.sentence, type: "external" } },
+      post :search, params: { org: { name: Faker::Lorem.sentence }, type: "external" },
                     format: :js
     end
 
     it "calls search_combined when query string contains type=combined" do
       OrgSelection::SearchService.expects(:search_combined).at_least(1)
-      post :search, params: { org: { name: Faker::Lorem.sentence, type: "combined" } },
+      post :search, params: { org: { name: Faker::Lorem.sentence }, type: "combined" },
                     format: :js
     end
   end
