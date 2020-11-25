@@ -143,7 +143,7 @@ class OrgsController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   # POST /orgs  (via AJAX from Org Typeaheads ... see below for specific pages)
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def search
     args = search_params
     # If the search term is greater than 2 characters
@@ -204,8 +204,7 @@ class OrgsController < ApplicationController
       render json: []
     end
   end
-  # rubocop:enable Metrics/MethodLength
-  # rubocop:enable
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   private
 
