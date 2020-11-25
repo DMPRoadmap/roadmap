@@ -12,7 +12,7 @@ RSpec.describe Guidance, type: :model do
 
       before { subject.expects(:published?).returns(true) }
       # THEMES
-      # it { is_expected.to validate_presence_of(:themes) }
+      it { is_expected.to validate_presence_of(:themes) }
 
     end
 
