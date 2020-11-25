@@ -156,12 +156,12 @@ class OrgsController < ApplicationController
   # --------------------------------------------------------
 
   # POST /orgs  (via AJAX from Org Typeaheads ... see below for specific pages)
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def search
     args = search_params
     # If the search term is greater than 2 characters
     if args.present? && args.fetch(:name, "").length > 2
-      type = args.fetch(:type, "local")
+      type = params.fetch(:type, "local")
 
       # If we are including external API results
       orgs = case type
@@ -205,7 +205,7 @@ class OrgsController < ApplicationController
 
       # If we need to restrict the results to funding orgs then
       # only return the ones with a valid fundref
-      if orgs.present? && args.fetch(:funder_only, "false") == true
+      if orgs.present? && params.fetch(:funder_only, "false") == true
         orgs = orgs.select do |org|
           org[:fundref].present? && !org[:fundref].blank?
         end
@@ -217,7 +217,7 @@ class OrgsController < ApplicationController
       render json: []
     end
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   private
 
