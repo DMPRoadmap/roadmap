@@ -148,7 +148,7 @@ class OrgsController < ApplicationController
     args = search_params
     # If the search term is greater than 2 characters
     if args.present? && args.fetch(:name, "").length > 2
-      type = args.fetch(:type, "local")
+      type = params.fetch(:type, "local")
 
       # If we are including external API results
       orgs = case type
@@ -192,7 +192,7 @@ class OrgsController < ApplicationController
 
       # If we need to restrict the results to funding orgs then
       # only return the ones with a valid fundref
-      if orgs.present? && args.fetch(:funder_only, "false") == true
+      if orgs.present? && params.fetch(:funder_only, "false") == true
         orgs = orgs.select do |org|
           org[:fundref].present? && !org[:fundref].blank?
         end
