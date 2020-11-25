@@ -16,8 +16,8 @@ class Perm < ApplicationRecord
   # = Constants =
   # =============
 
-  #load all records as frozen objects and assign constants
-  Perm.all.each { |perm| const_set( perm.name.upcase, perm.freeze ) }
+  # load all records as frozen objects and assign constants
+  Perm.all.each { |perm| const_set(perm.name.upcase, perm.freeze) }
 
   # ================
   # = Associations =
