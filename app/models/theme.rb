@@ -39,6 +39,13 @@ class Theme < ActiveRecord::Base
           search_pattern, search_pattern)
   }
 
+  scope :sorted_by_translated_title, -> {
+    all.each { |theme|
+      theme[:title] = _(theme[:title])
+    }.sort_by { |theme| theme[:title] } 
+  }
+
+
   # ===========================
   # = Public instance methods =
   # ===========================

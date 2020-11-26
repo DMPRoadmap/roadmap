@@ -8,7 +8,7 @@
   <tbody>
     <% scope.each do |theme| %>
       <tr>
-        <td><%= link_to(theme.title, edit_super_admin_theme_path(theme)) %></td>
+        <td><%= link_to(_(theme.title), edit_super_admin_theme_path(theme)) %></td>
         <td><%= sanitize(theme.description) %></td>
       </tr>
     <% end %>
