@@ -17,7 +17,7 @@ def default_locale
 end
 
 def available_locales
-  Rails.application.config.i18n.available_locales = LocaleSet.new(["en-CA", "fr-CA"])
+  Rails.application.config.i18n.available_locales = LocaleSet.new(["en-CA", "fr-CA", "en-GB"])
 end
 # end
 
