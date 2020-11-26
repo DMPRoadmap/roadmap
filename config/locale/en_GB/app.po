@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2020-11-19 13:45-0700\n"
-"PO-Revision-Date: 2020-11-19 21:45+0100\n"
+"POT-Creation-Date: 2020-11-26 12:29-0700\n"
+"PO-Revision-Date: 2020-11-26 20:29+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -234,7 +234,7 @@ msgstr ""
 #: ../../app/controllers/notes_controller.rb:86
 #: ../../app/controllers/org_admin/departments_controller.rb:49
 #: ../../app/controllers/org_admin/sections_controller.rb:98
-#: ../../app/controllers/org_admin/templates_controller.rb:188
+#: ../../app/controllers/org_admin/templates_controller.rb:194
 #: ../../app/controllers/orgs_controller.rb:56
 #: ../../app/controllers/plans_controller.rb:232
 #: ../../app/controllers/plans_controller.rb:235
@@ -252,7 +252,7 @@ msgstr ""
 #: ../../app/controllers/notes_controller.rb:104
 #: ../../app/controllers/org_admin/departments_controller.rb:52
 #: ../../app/controllers/org_admin/sections_controller.rb:100
-#: ../../app/controllers/org_admin/templates_controller.rb:193
+#: ../../app/controllers/org_admin/templates_controller.rb:199
 #: ../../app/controllers/orgs_controller.rb:58
 #: ../../app/controllers/plans_controller.rb:241
 #: ../../app/controllers/plans_controller.rb:244
@@ -313,13 +313,13 @@ msgid "Your guidance is no longer published and will not be available to users."
 msgstr ""
 
 #: ../../app/controllers/notes_controller.rb:124
-#: ../../app/controllers/org_admin/templates_controller.rb:219
+#: ../../app/controllers/org_admin/templates_controller.rb:225
 #: ../../app/controllers/super_admin/orgs_controller.rb:86
 msgid "removed"
 msgstr ""
 
 #: ../../app/controllers/notes_controller.rb:142
-#: ../../app/controllers/org_admin/templates_controller.rb:221
+#: ../../app/controllers/org_admin/templates_controller.rb:227
 #: ../../app/controllers/super_admin/orgs_controller.rb:89
 msgid "remove"
 msgstr ""
@@ -471,16 +471,16 @@ msgstr ""
 msgid "Customizable Templates"
 msgstr ""
 
-#: ../../app/controllers/org_admin/templates_controller.rb:199
+#: ../../app/controllers/org_admin/templates_controller.rb:205
 msgid "Error parsing links for a %{template}"
 msgstr ""
 
-#: ../../app/controllers/org_admin/templates_controller.rb:324
+#: ../../app/controllers/org_admin/templates_controller.rb:330
 #: ../../app/controllers/public_pages_controller.rb:55
 msgid "Template created using the %{application_name} service. Last modified %{date}"
 msgstr ""
 
-#: ../../app/controllers/org_admin/templates_controller.rb:339
+#: ../../app/controllers/org_admin/templates_controller.rb:345
 #: ../../app/controllers/public_pages_controller.rb:70
 msgid "Unable to download the DMP Template at this time."
 msgstr ""
@@ -1448,7 +1448,7 @@ msgstr ""
 #: ../../app/views/org_admin/departments/new.html.erb:23
 #: ../../app/views/org_admin/phases/_form.html.erb:25
 #: ../../app/views/org_admin/questions/_form.html.erb:89
-#: ../../app/views/org_admin/questions/_show.html.erb:207
+#: ../../app/views/org_admin/questions/_show.html.erb:206
 #: ../../app/views/org_admin/sections/_form.html.erb:17
 #: ../../app/views/org_admin/templates/_form.html.erb:82
 #: ../../app/views/org_admin/users/edit.html.erb:54
@@ -2198,7 +2198,7 @@ msgstr ""
 #: ../../app/views/org_admin/templates/_show.html.erb:19
 #: ../../app/views/org_admin/templates/_show.html.erb:22
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:21
-#: ../../app/views/paginable/guidances/_index.html.erb:42
+#: ../../app/views/paginable/guidances/_index.html.erb:41
 #: ../../app/views/paginable/templates/_customisable.html.erb:31
 #: ../../app/views/paginable/templates/_customisable.html.erb:34
 #: ../../app/views/paginable/templates/_history.html.erb:8
@@ -2241,7 +2241,7 @@ msgstr ""
 #: ../../app/views/guidance_groups/admin_new.html.erb:1
 #: ../../app/views/guidance_groups/admin_new.html.erb:4
 #: ../../app/views/guidances/new_edit.html.erb:36
-#: ../../app/views/paginable/guidances/_index.html.erb:13
+#: ../../app/views/paginable/guidances/_index.html.erb:12
 msgid "Guidance group"
 msgstr ""
 
@@ -2276,7 +2276,7 @@ msgstr ""
 #: ../../app/views/guidances/new_edit.html.erb:16
 #: ../../app/views/layouts/_branding.html.erb:79
 #: ../../app/views/org_admin/annotations/_form.html.erb:3
-#: ../../app/views/org_admin/questions/_show.html.erb:72
+#: ../../app/views/org_admin/questions/_show.html.erb:71
 #: ../../app/views/paginable/themes/_index.html.erb:5
 #: ../../app/views/phases/_guidances_notes.html.erb:10
 #: ../../app/views/super_admin/themes/_form.html.erb:9
@@ -2420,7 +2420,7 @@ msgid "Users"
 msgstr ""
 
 #: ../../app/views/layouts/_branding.html.erb:104
-#: ../../app/views/org_admin/questions/_show.html.erb:83
+#: ../../app/views/org_admin/questions/_show.html.erb:82
 #: ../../app/views/org_admin/shared/_theme_selector.html.erb:17
 #: ../../app/views/paginable/guidances/_index.html.erb:10
 #: ../../app/views/super_admin/themes/index.html.erb:3
@@ -2579,7 +2579,7 @@ msgstr ""
 #: ../../app/views/org_admin/question_options/_option_fields.html.erb:38
 #: ../../app/views/paginable/departments/_index.html.erb:28
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:50
-#: ../../app/views/paginable/guidances/_index.html.erb:66
+#: ../../app/views/paginable/guidances/_index.html.erb:65
 #: ../../app/views/paginable/orgs/_index.html.erb:33
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:74
 #: ../../app/views/paginable/templates/_customisable.html.erb:67
@@ -2597,10 +2597,10 @@ msgid "Add Comment"
 msgstr ""
 
 #: ../../app/views/notes/_list.html.erb:15
-#: ../../app/views/org_admin/questions/_show.html.erb:216
+#: ../../app/views/org_admin/questions/_show.html.erb:215
 #: ../../app/views/paginable/departments/_index.html.erb:27
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:44
-#: ../../app/views/paginable/guidances/_index.html.erb:59
+#: ../../app/views/paginable/guidances/_index.html.erb:58
 #: ../../app/views/paginable/orgs/_index.html.erb:31
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:57
 #: ../../app/views/paginable/templates/_history.html.erb:56
@@ -2736,7 +2736,7 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/org_admin/phases/_phase.html.erb:18
-#: ../../app/views/paginable/guidances/_index.html.erb:67
+#: ../../app/views/paginable/guidances/_index.html.erb:66
 msgid "... (continued)"
 msgstr ""
 
@@ -2811,8 +2811,8 @@ msgstr ""
 #: ../../app/views/paginable/departments/_index.html.erb:24
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:10
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:41
-#: ../../app/views/paginable/guidances/_index.html.erb:16
-#: ../../app/views/paginable/guidances/_index.html.erb:56
+#: ../../app/views/paginable/guidances/_index.html.erb:15
+#: ../../app/views/paginable/guidances/_index.html.erb:55
 #: ../../app/views/paginable/orgs/_index.html.erb:9
 #: ../../app/views/paginable/orgs/_index.html.erb:28
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:13
@@ -2879,12 +2879,12 @@ msgid "Question Number"
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:22
-#: ../../app/views/org_admin/questions/_show.html.erb:16
+#: ../../app/views/org_admin/questions/_show.html.erb:15
 msgid "Question text"
 msgstr ""
 
 #: ../../app/views/org_admin/questions/_form.html.erb:28
-#: ../../app/views/org_admin/questions/_show.html.erb:43
+#: ../../app/views/org_admin/questions/_show.html.erb:42
 msgid "Answer format"
 msgstr ""
 
@@ -2933,67 +2933,67 @@ msgstr ""
 msgid "New Question"
 msgstr ""
 
-#: ../../app/views/org_admin/questions/_show.html.erb:14
+#: ../../app/views/org_admin/questions/_show.html.erb:13
 msgid "Question number"
 msgstr ""
 
-#: ../../app/views/org_admin/questions/_show.html.erb:24
+#: ../../app/views/org_admin/questions/_show.html.erb:23
 msgid "Question options"
 msgstr ""
 
-#: ../../app/views/org_admin/questions/_show.html.erb:30
+#: ../../app/views/org_admin/questions/_show.html.erb:29
 msgid "Default value"
 msgstr ""
 
-#: ../../app/views/org_admin/questions/_show.html.erb:47
+#: ../../app/views/org_admin/questions/_show.html.erb:46
 msgid "Additional comment area will be displayed."
 msgstr ""
 
-#: ../../app/views/org_admin/questions/_show.html.erb:49
+#: ../../app/views/org_admin/questions/_show.html.erb:48
 msgid "No additional comment area will be displayed."
 msgstr ""
 
-#: ../../app/views/org_admin/questions/_show.html.erb:56
+#: ../../app/views/org_admin/questions/_show.html.erb:55
 #: ../../app/views/questions/_preview_question.html.erb:69
 #: ../../app/views/questions/_preview_question.html.erb:88
 msgid "example answer"
 msgstr ""
 
-#: ../../app/views/org_admin/questions/_show.html.erb:84
+#: ../../app/views/org_admin/questions/_show.html.erb:83
 msgid "No themes selected"
 msgstr ""
 
-#: ../../app/views/org_admin/questions/_show.html.erb:98
+#: ../../app/views/org_admin/questions/_show.html.erb:97
 msgid "Themed Guidance"
 msgstr ""
 
-#: ../../app/views/org_admin/questions/_show.html.erb:109
+#: ../../app/views/org_admin/questions/_show.html.erb:108
 msgid ""
 "Click the links below to view organisational guidance\n"
 "                        related to the themes associated with this question."
 msgstr ""
 
-#: ../../app/views/org_admin/questions/_show.html.erb:166
+#: ../../app/views/org_admin/questions/_show.html.erb:165
 msgid ""
 "Note: New plans will automatically display this guidance.\n"
 "            Users then have the ability to hide/display the guidance when edit"
 "ing their plan."
 msgstr ""
 
-#: ../../app/views/org_admin/questions/_show.html.erb:169
+#: ../../app/views/org_admin/questions/_show.html.erb:168
 msgid ""
 "There is no organisational guidance related to the themes associated with this"
 " question."
 msgstr ""
 
-#: ../../app/views/org_admin/questions/_show.html.erb:180
-#: ../../app/views/org_admin/questions/_show.html.erb:192
-#: ../../app/views/org_admin/questions/_show.html.erb:222
+#: ../../app/views/org_admin/questions/_show.html.erb:179
+#: ../../app/views/org_admin/questions/_show.html.erb:191
+#: ../../app/views/org_admin/questions/_show.html.erb:221
 msgid "Annotations"
 msgstr ""
 
-#: ../../app/views/org_admin/questions/_show.html.erb:186
-#: ../../app/views/org_admin/questions/_show.html.erb:228
+#: ../../app/views/org_admin/questions/_show.html.erb:185
+#: ../../app/views/org_admin/questions/_show.html.erb:227
 msgid "None provided"
 msgstr ""
 
@@ -3046,7 +3046,7 @@ msgstr ""
 #: ../../app/views/org_admin/templates/_form.html.erb:32
 #: ../../app/views/org_admin/templates/_show.html.erb:13
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:7
-#: ../../app/views/paginable/guidances/_index.html.erb:14
+#: ../../app/views/paginable/guidances/_index.html.erb:13
 #: ../../app/views/paginable/templates/_customisable.html.erb:8
 #: ../../app/views/paginable/templates/_index.html.erb:7
 #: ../../app/views/paginable/templates/_organisational.html.erb:14
@@ -3057,7 +3057,7 @@ msgstr ""
 #: ../../app/views/org_admin/templates/_row.html.erb:16
 #: ../../app/views/org_admin/templates/_show.html.erb:26
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:19
-#: ../../app/views/paginable/guidances/_index.html.erb:40
+#: ../../app/views/paginable/guidances/_index.html.erb:39
 #: ../../app/views/paginable/templates/_customisable.html.erb:37
 #: ../../app/views/paginable/templates/_organisational.html.erb:42
 msgid "Unpublished"
@@ -3076,7 +3076,7 @@ msgstr ""
 #: ../../app/views/org_admin/templates/_form.html.erb:52
 #: ../../app/views/org_admin/templates/_show.html.erb:43
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:9
-#: ../../app/views/paginable/guidances/_index.html.erb:15
+#: ../../app/views/paginable/guidances/_index.html.erb:14
 #: ../../app/views/paginable/templates/_history.html.erb:9
 msgid "Last updated"
 msgstr ""
@@ -3432,14 +3432,14 @@ msgid "Yes"
 msgstr ""
 
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:46
-#: ../../app/views/paginable/guidances/_index.html.erb:62
+#: ../../app/views/paginable/guidances/_index.html.erb:61
 #: ../../app/views/paginable/templates/_customisable.html.erb:58
 #: ../../app/views/paginable/templates/_organisational.html.erb:59
 msgid "Unpublish"
 msgstr ""
 
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:48
-#: ../../app/views/paginable/guidances/_index.html.erb:64
+#: ../../app/views/paginable/guidances/_index.html.erb:63
 #: ../../app/views/paginable/templates/_customisable.html.erb:63
 #: ../../app/views/paginable/templates/_organisational.html.erb:64
 msgid "Publish"
@@ -3451,7 +3451,7 @@ msgid ""
 "re you sure?"
 msgstr ""
 
-#: ../../app/views/paginable/guidances/_index.html.erb:67
+#: ../../app/views/paginable/guidances/_index.html.erb:66
 msgid "You are about to delete '%{guidance_summary}'. Are you sure?"
 msgstr ""
 
@@ -4639,6 +4639,150 @@ msgstr ""
 #: ../../app/views/template_exports/template_export.docx.erb:39
 #: ../../app/views/template_exports/template_export.pdf.erb:81
 msgid "Example Answer"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:2
+msgid "Related Policies"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:3
+msgid "Licensing of Existing Data"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:4
+msgid "Responsibilities"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:5
+msgid "Discovery by Users"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:6
+msgid "Preservation Plan"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:7
+msgid "Resourcing: Hardware and Software"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:8
+msgid "Period of Preservation"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:9
+msgid "Data Security"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:10
+msgid "Method For Data Sharing"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:11
+msgid "Active Data Storage"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:12
+msgid "Data Capture Methods"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:13
+msgid "Existing Data"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:14
+msgid "Restrictions on Sharing"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:15
+msgid "Data Repository"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:16
+msgid "Timeframe For Data Sharing"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:17
+msgid "Expected Reuse"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:18
+msgid "Description of Data Content"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:19
+msgid "Resourcing: Preservation and Data Sharing"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:20
+msgid "Data Quality"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:21
+msgid "Data Selection"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:22
+msgid "Metadata Capture"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:23
+msgid "Relationship to Existing Data"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:24
+msgid "Data Volumes"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:25
+msgid "IPR Ownership and Licencing"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:26
+msgid "Embargo Period"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:27
+msgid "Managed Access Procedures"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:28
+msgid "Ethical Issues"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:29
+msgid "Data Organisation"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:30
+msgid "Metadata Standards"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:31
+msgid "Documentation"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:32
+msgid "Backup Procedures"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:33
+msgid "Resourcing: Skills and Training"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:34
+msgid "Data Type"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:35
+msgid "Audience"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:36
+msgid "Data Format"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:37
+msgid "Data Organization"
 msgstr ""
 
 #: ../../app/views/usage/_filter.html.erb:5
