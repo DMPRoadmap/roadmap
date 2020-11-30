@@ -150,7 +150,7 @@ module Dmpopidor
 
         meta = Fragment::Meta.create(
           data: {
-            "title" => d_("dmpopidor", "%{project_title} project DMP") % { project_title: title },
+            "title" => d_("dmpopidor", "\"%{project_title}\" project DMP") % { project_title: title },
             "creationDate" => created_at.strftime("%F"),
             "lastModifiedDate" => updated_at.strftime("%F"),
             "dmpLanguage" => template.locale
@@ -169,9 +169,6 @@ module Dmpopidor
           dmp_id: dmp_fragment.id,
           madmp_schema: MadmpSchema.find_by(name: "PersonStandard")
         )
-        p "#####"
-        p person
-        p "#####"
 
         Fragment::Contributor.create(
           data: {
