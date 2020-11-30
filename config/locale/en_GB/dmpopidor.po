@@ -475,3 +475,6 @@ msgstr "Create"
 
 msgid "General informations"
 msgstr "General informations"
+
+msgid "\"%{project_title}\" project DMP"
+msgstr "\"%{project_title}\" project DMP"
