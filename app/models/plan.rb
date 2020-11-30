@@ -40,12 +40,9 @@ class Plan < ActiveRecord::Base
   include ValidationValues
   prepend Dmpopidor::Models::Plan
 
-  after_create :create_plan_fragments
-
   # =============
   # = Constants =
   # =============
-
 
   # Returns visibility message given a Symbol type visibility passed, otherwise
   # nil

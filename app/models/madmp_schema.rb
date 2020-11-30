@@ -80,7 +80,7 @@ class MadmpSchema < ActiveRecord::Base
         sub_schema = MadmpSchema.find(prop["schema_id"])
         parameters.append(key => sub_schema.generate_strong_params(false))
       elsif prop["type"] == "array" && !flat
-        parameters.append({key => []})
+        parameters.append({ key => [] })
       else
         parameters.append(key)
       end
