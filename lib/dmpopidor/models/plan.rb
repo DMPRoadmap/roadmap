@@ -173,7 +173,7 @@ module Dmpopidor
         Fragment::Contributor.create(
           data: {
             "person" => { "dbid" => person.id },
-            "role" => "DMP contact"
+            "role" => "DMP coordinator"
           },
           dmp_id: dmp_fragment.id,
           parent_id: meta.id,
@@ -183,24 +183,11 @@ module Dmpopidor
 
       def update_plan_fragments(meta, project)
         dmp_fragment = json_fragment
+        meta_fragment = dmp_fragment.meta
+        project_fragment = dmp_fragment.project
 
-        contact_fragment = create_or_update_person_fragment(meta.delete(:contact))
-        principal_investigator_fragment = create_or_update_person_fragment(project.delete(:principalInvestigator))
-
-        meta[:contact] = {
-          "dbid" => contact_fragment ? contact_fragment.id : nil
-        }
-        project[:principalInvestigator] = {
-          "dbid" => principal_investigator_fragment ? principal_investigator_fragment.id : nil
-        }
-
-        dmp_fragment.meta.update(
-          data: dmp_fragment.meta.data.merge(meta)
-        )
-
-        dmp_fragment.project.update(
-          data: dmp_fragment.project.data.merge(project)
-        )
+        meta_fragment.save_as_multifrag(meta, meta_fragment.madmp_schema)
+        project_fragment.save_as_multifrag(project, project_fragment.madmp_schema)
       end
 
     end

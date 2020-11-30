@@ -239,7 +239,7 @@ class MadmpFragment < ActiveRecord::Base
           sub_fragment = MadmpFragment.new(
             data: {},
             answer_id: nil,
-            dmp_id: dmp_id,
+            dmp_id: dmp.id,
             parent_id: id,
             madmp_schema: sub_schema,
             additional_info: nil

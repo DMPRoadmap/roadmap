@@ -233,8 +233,8 @@ module Dmpopidor
             @plan.save
             if @plan.update_attributes(attrs)
               @plan.update_plan_fragments(
-                schema_params(MadmpSchema.find_by(classname: "meta")),
-                schema_params(MadmpSchema.find_by(classname: "project"))
+                schema_params(MadmpSchema.find_by(name: "MetaStandard"), "meta"),
+                schema_params(MadmpSchema.find_by(name: "ProjectStandard"), "project")
               )
 
               format.html do
@@ -342,9 +342,9 @@ module Dmpopidor
       end
 
       # Get the parameters corresponding to the schema
-      def schema_params(schema, flat = false)
+      def schema_params(schema, form_prefix, flat = false)
         s_params = schema.generate_strong_params(flat)
-        params.require(:plan).permit(s_params)
+        params.require(:plan)[form_prefix].permit(s_params)
       end
 
       # CHANGES : maDMP Fragments SUPPORT

@@ -19,7 +19,8 @@
                   readonly: false,
                   classname: "meta",
                   fragment_id: meta_fragment.id,
-                  template_locale: @plan.template.locale
+                  template_locale: @plan.template.locale,
+                  form_prefix: "meta"
                 }) %>
           </div>
           <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
@@ -36,7 +37,8 @@
                   readonly: false,
                   classname: "project",
                   fragment_id: project_fragment.id,
-                  template_locale: @plan.template.locale
+                  template_locale: @plan.template.locale,
+                  form_prefix: "project"
                 }) %>
           </div>
           <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
