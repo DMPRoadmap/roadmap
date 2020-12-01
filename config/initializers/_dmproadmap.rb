@@ -78,11 +78,11 @@ module DMPRoadmap
     # The link to the API documentation - used in emails about the API
     config.x.application.api_documentation_url = "https://github.com/CDLUC3/dmptool/wiki/api-documentation"
     # The link to our release notes
-    config.x.application.release_notes_url = 'https://github.com/CDLUC3/dmptool/wiki/Releases'
+    config.x.application.release_notes_url = "https://github.com/CDLUC3/dmptool/wiki/Releases"
     # The link to our issues list
-    config.x.application.issue_list_url = 'https://github.com/CDLUC3/dmptool/issues'
+    config.x.application.issue_list_url = "https://github.com/CDLUC3/dmptool/issues"
     # The link to our Listserv
-    config.x.application.user_group_subscription_url = 'http://listserv.ucop.edu/cgi-bin/wa.exe?SUBED1=ROADMAP-L&A=1'
+    config.x.application.user_group_subscription_url = "http://listserv.ucop.edu/cgi-bin/wa.exe?SUBED1=ROADMAP-L&A=1"
     # The link to the DMPTool blog
     config.x.application.blog_rss = "https://blog.dmptool.org/feed"
     # The links that appear on the home page. Add any number of links

@@ -1,0 +1,27 @@
+defaults: &defaults
+  adapter: <%= ENV['DB_ADAPTER'] || 'postgresql' %>
+  encoding: <%= ENV['DB_ADAPTER'] == "mysql2" ? "utf8mb4" : "" %>
+  database: <%= ENV["DB_NAME"] || 'roadmap' %>
+  pool: <%= ENV["DB_POOL_SIZE"] || 16 %>
+  host: <%= Rails.application.credentials.database[:host] || "localhost" %>
+  username: <%= Rails.application.credentials.database[:username] || 'root' %>
+  password: <%= Rails.application.credentials.database[:password] || '' %>
+
+development:
+  <<: *defaults
+  host: localhost
+  username: root
+  password:
+
+test:
+  <<: *defaults
+  host: localhost
+  username: root
+  password:
+  database: roadmap
+
+stage:
+  <<: *defaults
+
+production:
+  <<: *defaults
