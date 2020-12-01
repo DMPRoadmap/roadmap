@@ -2,7 +2,7 @@
 
 <% project_title_tooltip =  _('If applying for funding, state the name exactly as in the grant proposal.') %>
 <% project_abstract_tooltip = _("Briefly summarise your research project to help others understand the purposes for which the data are being collected or created.") %>
-<% id_tooltip = _('A pertinent ID as determined by the funder and/or organisation.') %>
+<% id_tooltip = _('A unique number that a federal agency assigns to a grant announcement.') %>
 
 <div class="form-group"><!-- title -->
   <div class="col-md-12">
@@ -66,20 +66,20 @@
       <% end %>
     </div>
   </div>
-<% else %>
-  <div class="form-group">
-    <div class="col-md-12">
-      <%= form.label :id, _("ID"), class: "control-label" %>
-    </div>
-    <div class="col-md-8">
-      <em class="sr-only"><%= id_tooltip %></em>
-      <%= form.text_field :identifier, class: "form-control",
-                                       aria: { required: false },
-                                       data: { toggle: "tooltip" },
-                                       spellcheck: true, title: id_tooltip %>
-    </div>
-  </div>
 <% end %>
+
+<div class="form-group">
+  <div class="col-md-12">
+    <%= form.label :id, _("Funding Opportunity Number"), class: "control-label" %>
+  </div>
+  <div class="col-md-8">
+    <em class="sr-only"><%= id_tooltip %></em>
+    <%= form.text_field :identifier, class: "form-control",
+                                     aria: { required: false },
+                                     data: { toggle: "tooltip" },
+                                     spellcheck: true, title: id_tooltip %>
+  </div>
+</div>
 
 <div id="funder-org-controls" class="form-group">
   <% if plan.template.org == plan.funder %>
