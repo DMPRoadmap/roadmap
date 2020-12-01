@@ -46,6 +46,7 @@ Rails.application.routes.draw do
 
     member do
       put "update_email_preferences"
+      get "refresh_token"
     end
 
     post "/acknowledge_notification", to: "users#acknowledge_notification"

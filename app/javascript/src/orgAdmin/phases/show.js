@@ -52,8 +52,8 @@ $(() => {
       // Post the section IDs to the server in their new order on the page.
       $.rails.ajax({
         url: $(this).data('url'),
-        method: 'post',
-        data: { sort_order: sectionIds },
+        type: 'post',
+        data: $.param({ 'phase[sort_order]': sectionIds }),
       });
     },
   });
