@@ -478,3 +478,6 @@ msgstr "General informations"
 
 msgid "\"%{project_title}\" project DMP"
 msgstr "\"%{project_title}\" project DMP"
+
+msgid "DMP coordinator"
+msgstr "DMP coordinator"

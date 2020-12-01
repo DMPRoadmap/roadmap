@@ -480,3 +480,6 @@ msgstr "Informations générales"
 
 msgid "\"%{project_title}\" project DMP"
 msgstr "DMP du projet \"%{project_title}\""
+
+msgid "DMP coordinator"
+msgstr "Coordinateur du PGD"

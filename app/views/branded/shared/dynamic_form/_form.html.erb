@@ -19,6 +19,7 @@
   <% dropdownValues = prop["values@#{template_locale}"]%>
   <% example = prop["example@#{template_locale}"] ? "ex: #{prop["example@#{template_locale}"]}": nil %>
   <% default_value = prop["default@#{template_locale}"] %>
+  <% const = prop["const@#{template_locale}"]%>
   <% case prop['type'] %>
   <% when 'string' %>
     <% if prop['inputType'].present? %>
@@ -107,6 +108,11 @@
           </fieldset>
         </div>
       <% end %>
+    <% end %>
+  <% else %>
+    <%# Constant values are displayed as readonly text field %>
+    <% if const.present?%>
+      <%= create_text_field(f, const, field_name, label, field_id, readonly: true, validation: "none", ttip: ttip) %>
     <% end %>
   <% end %>
 <% end %>

@@ -173,11 +173,11 @@ module Dmpopidor
         Fragment::Contributor.create(
           data: {
             "person" => { "dbid" => person.id },
-            "role" => "DMP coordinator"
+            "role" => d_("dmpopidor", "DMP coordinator")
           },
           dmp_id: dmp_fragment.id,
           parent_id: meta.id,
-          madmp_schema: MadmpSchema.find_by(name: "ContributorStandard")
+          madmp_schema: MadmpSchema.find_by(name: "DMPContributor")
         )
       end
 
