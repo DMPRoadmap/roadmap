@@ -14,6 +14,14 @@ if plan.funder.present?
   end
 end
 
+if plan.identifier.present?
+  json.extension [plan.identifier] do |identifier|
+    json.set! ApplicationService.application_name.split("-").first.to_sym do
+      json.funding_opportunity_number identifier
+    end
+  end
+end
+
 if plan.grant_id.present? && plan.grant.present?
   json.grant_id do
     json.partial! "api/v1/identifiers/show", identifier: plan.grant
