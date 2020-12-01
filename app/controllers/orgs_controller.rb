@@ -41,10 +41,7 @@ class OrgsController < ApplicationController
     authorize @org
     @org.logo = attrs[:logo] if attrs[:logo]
     tab = (attrs[:feedback_enabled].present? ? "feedback" : "profile")
-    if attrs[:org_links].present?
-      @org.links = ActiveSupport::JSON.decode(attrs[:org_links])
-      attrs.delete(:org_links)
-    end
+    @org.links = ActiveSupport::JSON.decode(params[:org_links]) if params[:org_links].present?
 
     # Only allow super admins to change the org types and shib info
     if current_user.can_super_admin?
@@ -68,6 +65,7 @@ class OrgsController < ApplicationController
             # The user blanked out the entityID so delete the record
             @org.identifier_for_scheme(scheme: shib)&.destroy
           end
+          # rubocop:enable Metrics/BlockNesting
         end
         attrs.delete(:identifiers_attributes)
       end
