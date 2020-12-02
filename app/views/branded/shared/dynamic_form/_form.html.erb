@@ -51,12 +51,14 @@
           if data.present? && data[key].present?
             values = dmp_fragments.where(id: data[key].map { |d| d["dbid"] })
           end
+          table_header = prop["table_header@#{template_locale}"]
         %>
         <%= render(partial: 'shared/dynamic_form/fields/complex_multiple_field', locals: { 
           field_values: values, 
           readonly: readonly,
           parent_id: fragment_id,
           schema: sub_schema,
+          table_header: table_header,
           template_locale: template_locale,
           field_label: label, answer_id: nil 
           }
