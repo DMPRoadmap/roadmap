@@ -75,10 +75,31 @@ RSpec.describe Api::V1::PlansController, type: :request do
           expect(response).to render_template("api/v1/error")
           expect(response.body.include?("already exists")).to eql(true)
         end
+        it "returns a 400 if the owner could not be determined" do
+          @json[:items].first[:dmp][:contact].delete(:affiliation)
+          post api_v1_plans_path, params: @json.to_json
+          expect(response.code).to eql("400")
+          expect(response.body.include?("Could not determine ownership")).to eql(true)
+        end
         it "returns a 201 if the incoming JSON is valid" do
           post api_v1_plans_path, params: @json.to_json
           expect(response.code).to eql("201")
           expect(response).to render_template("api/v1/plans/index")
+        end
+
+        it "defaults to api_client.org when no Contact affiliation defined" do
+          @client = ApiClient.first
+          @client.update(org: create(:org))
+          @client.reload
+          mock_authorization_for_api_client
+
+          @json[:items].first[:dmp][:contact].delete(:affiliation)
+          post api_v1_plans_path, params: @json.to_json
+
+          expect(response.code).to eql("201")
+          expect(response).to render_template("api/v1/plans/index")
+          @plan = Plan.last
+          expect(@plan.org).to eql(@client.org)
         end
 
         context "plan inspection" do
@@ -97,6 +118,9 @@ RSpec.describe Api::V1::PlansController, type: :request do
           it "set the Contact email" do
             expected = @plan.contributors.first.email
             expect(expected).to eql(@original[:contact][:mbox])
+          end
+          it "attached the plan to the Contact's Org" do
+            expect(@plan.org.name).to eql(@original[:contact][:affiliation][:name])
           end
           it "set the Contact roles" do
             expected = @plan.contributors.first
@@ -315,25 +339,41 @@ RSpec.describe Api::V1::PlansController, type: :request do
   end
 
   context "User" do
-
-    before(:each) do
-      mock_authorization_for_user
-    end
-
     describe "GET /api/v1/plan/:id - show" do
-      it "returns the plan" do
-        plan = create(:plan, :creator, :organisationally_visible, org: Org.last)
+      it "returns the plan if the user owns it" do
+        plan = create(:plan, :creator, :organisationally_visible)
+        mock_authorization_for_user(user: plan.owner)
+        get api_v1_plan_path(plan)
+        expect(response.code).to eql("200")
+        expect(response).to render_template("api/v1/plans/index")
+        expect(assigns(:items).length).to eql(1)
+      end
+      it "returns the plan if its :organisationally_visible" do
+        plan = create(:plan, :creator, :organisationally_visible)
+        other_user = create(:user, org: plan.owner.org)
+        mock_authorization_for_user(user: other_user)
+        get api_v1_plan_path(plan)
+        expect(response.code).to eql("200")
+        expect(response).to render_template("api/v1/plans/index")
+        expect(assigns(:items).length).to eql(1)
+      end
+      it "returns the plan if the user is an Org Admin and it belongs to their Org" do
+        plan = create(:plan, :creator)
+        org_admin = create(:user, :org_admin, org: plan.owner.org)
+        mock_authorization_for_user(user: org_admin)
         get api_v1_plan_path(plan)
         expect(response.code).to eql("200")
         expect(response).to render_template("api/v1/plans/index")
         expect(assigns(:items).length).to eql(1)
       end
       it "returns a 404 if not found" do
+        mock_authorization_for_user
         get api_v1_plan_path(9999)
         expect(response.code).to eql("404")
         expect(response).to render_template("api/v1/error")
       end
       it "returns a 404 if the user does not have access" do
+        mock_authorization_for_user
         org2 = create(:org)
         plan = create(:plan, :creator, :organisationally_visible, org: org2)
         get api_v1_plan_path(plan)
