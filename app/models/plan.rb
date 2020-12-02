@@ -279,10 +279,10 @@ class Plan < ApplicationRecord
   # Returns Answer
   # Returns nil
   def answer(qid, create_if_missing = true)
-    answer = answers.select { |a| q.question_id == q_id }.sort { |a,b| a.created_at <=> b.created_at }.last
+    answer = answers.select { |_a| q.question_id == q_id }.max { |a, b| a.created_at <=> b.created_at }
     if answer.nil? && create_if_missing
       question = Question.find(qid)
-      answer             = Answer.new
+      answer = Answer.new
       answer.plan_id     = id
       answer.question_id = qid
       answer.text        = question.default_value
@@ -367,8 +367,9 @@ class Plan < ApplicationRecord
   def readable_by?(user_id)
     return true if commentable_by?(user_id)
 
-    r = roles.select {|r| r.user_id == user_id }.first
+    r = roles.select { |r| r.user_id == user_id }.first
     return false if r.nil?
+
     current_user = r.user
 
     # If the user is a super admin and the config allows for supers to view plans
@@ -428,7 +429,7 @@ class Plan < ApplicationRecord
   # Returns User
   # Returns nil
   def owner
-    r = roles.select { |r| r.active && r.administrator }.sort { |a,b| a.created_at <=> b.created_at }.first
+    r = roles.select { |r| r.active && r.administrator }.min { |a, b| a.created_at <=> b.created_at }
     r.nil? ? nil : r.user
   end
 
@@ -469,7 +470,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def shared?
-    roles.select {|r| !r.creator }.any?
+    roles.reject(&:creator).any?
   end
 
   alias shared shared?

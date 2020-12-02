@@ -14,7 +14,7 @@ class PlansController < ApplicationController
   # GET /plans
   def index
     authorize Plan
-    @plans = Plan.includes(:roles,:org).active(current_user).page(1)
+    @plans = Plan.includes(:roles, :org).active(current_user).page(1)
     if current_user.org.is_other?
       @organisationally_or_publicly_visible = []
     else
@@ -218,11 +218,12 @@ class PlansController < ApplicationController
   #       doing this when we refactor the Plan editing UI
   # GET /plans/:plan_id/phases/:id/edit
   def edit
-    plan = Plan.includes( { template: { phases: { sections: :questions } } }, { answers: :notes } ).find(params[:id])
+    plan = Plan.includes({ template: { phases: { sections: :questions } } }, { answers: :notes }).find(params[:id])
     authorize plan
     phase_id = params[:phase_id].to_i
     phase = plan.template.phases.select { |p| p.id == phase_id }.first
     raise ActiveRecord::RecordNotFound if phase.nil?
+
     guidance_groups = GuidanceGroup.where(published: true, id: plan.guidance_group_ids)
     render_phases_edit(plan, phase, guidance_groups)
   end
@@ -430,7 +431,7 @@ class PlansController < ApplicationController
 
   # GET /plans/:id/overview
   def overview
-    plan = Plan.includes(template: [ :org, { phases: { sections: :questions } } ] )
+    plan = Plan.includes(template: [:org, { phases: { sections: :questions } }])
                .find(params[:id])
 
     authorize plan
