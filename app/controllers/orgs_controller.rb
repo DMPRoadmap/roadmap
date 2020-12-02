@@ -98,6 +98,7 @@ class OrgsController < ApplicationController
     # Display the custom Shibboleth discovery service page.
     @orgs = Identifier.by_scheme_name("shibboleth", "Org")
                       .sort { |a, b| a.identifiable.name <=> b.identifiable.name }
+                      .map(&:identifiable)
 
     # Disabling the rubocop check here because it would not be clear what happens
     # if the ``@orgs` array has items ... it renders the shibboleth_ds view
@@ -113,8 +114,8 @@ class OrgsController < ApplicationController
   # POST /orgs/shibboleth_ds
   # rubocop:disable Metrics/AbcSize
   def shibboleth_ds_passthru
-    if !shib_params["shib-ds"][:org_name].blank?
-      session["org_id"] = shib_params["shib-ds"][:org_name]
+    if !shib_params["shib-ds"][:org_id].blank?
+      session["org_id"] = shib_params["shib-ds"][:org_id]
 
       org = Org.where(id: shib_params["shib-ds"][:org_id])
       shib_entity = Identifier.by_scheme_name("shibboleth", "Org")
