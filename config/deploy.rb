@@ -45,8 +45,10 @@ namespace :config do
   desc "Setup up the config repo as the shared directory"
   task :install_shared_dir do
     on roles(:app), wait: 1 do
+      # rubocop:disable Layout/LineLength
       execute "if [ ! -d '#{deploy_path}/shared/' ]; then cd #{deploy_path}/ && git clone #{fetch :config_repo} shared; fi"
       execute "cd #{deploy_path}/shared/ && git checkout #{fetch :config_branch} && git pull origin #{fetch :config_branch}"
+      # rubocop:enable Layout/LineLength
     end
   end
 end

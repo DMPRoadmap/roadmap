@@ -41,7 +41,7 @@ RSpec.describe OrgsController, type: :controller do
 
     it "succeeds" do
       @args.delete(:feedback_enabled)
-      put :admin_update, params: { id: @org.id, org: @args }
+      put :admin_update, params: { id: @org.id, org: @args, org_links: @args[:org_links] }
       expect(response).to redirect_to("#{admin_edit_org_path(@org)}#profile")
       expect(flash[:notice].present?).to eql(true)
       @org.reload
@@ -178,13 +178,13 @@ RSpec.describe OrgsController, type: :controller do
 
     it "calls search_externally when query string contains type=external" do
       OrgSelection::SearchService.expects(:search_externally).at_least(1)
-      post :search, params: { org: { name: Faker::Lorem.sentence, type: "external" } },
+      post :search, params: { org: { name: Faker::Lorem.sentence }, type: "external" },
                     format: :js
     end
 
     it "calls search_combined when query string contains type=combined" do
       OrgSelection::SearchService.expects(:search_combined).at_least(1)
-      post :search, params: { org: { name: Faker::Lorem.sentence, type: "combined" } },
+      post :search, params: { org: { name: Faker::Lorem.sentence }, type: "combined" },
                     format: :js
     end
   end

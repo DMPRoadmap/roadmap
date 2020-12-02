@@ -1,3 +1,6 @@
+# rubocop:disable Naming/FileName
+# frozen_string_literal: true
+
 set :application, "DMPTool"
 set :repo_url, "https://github.com/CDLUC3/dmptool.git"
 
@@ -11,3 +14,4 @@ set :share_to, "dmp/apps/dmp/shared"
 set :config_branch, "uc3-dmpx2-stg"
 
 set :rails_env, "stage"
+# rubocop:enable Naming/FileName

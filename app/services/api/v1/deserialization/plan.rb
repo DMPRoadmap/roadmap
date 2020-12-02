@@ -145,7 +145,6 @@ module Api
             contributors = json.fetch(:contributor, []).map do |hash|
               Api::V1::Deserialization::Contributor.deserialize(json: hash)
             end
-
             plan.contributors << contributors.compact.uniq if contributors.any?
             plan
           end

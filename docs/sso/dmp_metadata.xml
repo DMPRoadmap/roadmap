@@ -107,20 +107,20 @@ IdAUy0C4K5PdSbV8IUX1OZkeZyiQCdMs74p3IvKE57weopAz5Kxhiq9FlMh/LTx3
     <OrganizationDisplayName xml:lang="en">University of California - Office of the President</OrganizationDisplayName>
     <OrganizationURL xml:lang="en">http://www.ucop.edu/welcome.html</OrganizationURL>
   </Organization>
-  <ContactPerson contactType="administrative">
-    <GivenName>Perry Willet</GivenName>
-    <EmailAddress>mailto:uc3@ucop.edu</EmailAddress>
-  </ContactPerson>
   <ContactPerson contactType="support">
-    <GivenName>Jim Vanderveen</GivenName>
-    <EmailAddress>mailto:jim.vanderveen@ucop.edu</EmailAddress>
-  </ContactPerson>
-  <ContactPerson contactType="technical">
     <GivenName>Marisa Strong</GivenName>
     <EmailAddress>mailto:marisa.strong@ucop.edu</EmailAddress>
   </ContactPerson>
-  <ContactPerson contactType="other" remd:contactType="http://refeds.org/metadata/contactType/security">
-    <GivenName>Security Operations</GivenName>
-    <EmailAddress>mailto:soc@ucop.edu</EmailAddress>
+  <ContactPerson contactType="technical">
+    <GivenName>Brian Riley</GivenName>
+    <EmailAddress>mailto:brian.rilery@ucop.edu</EmailAddress>
+  </ContactPerson>
+  <ContactPerson contactType="administrative">
+    <GivenName>Maria Praetzellis</GivenName>
+    <EmailAddress>mailto:maria.praetzellis@ucop.edu</EmailAddress>
+  </ContactPerson>
+  <ContactPerson xmlns:remd="http://refeds.org/metadata" contactType="other" remd:contactType="http://refeds.org/metadata/contactType/security">
+    <GivenName>Ashley Gould</GivenName>
+    <EmailAddress>mailto:ashley.gould@ucop.edu</EmailAddress>
   </ContactPerson>
 </EntityDescriptor>

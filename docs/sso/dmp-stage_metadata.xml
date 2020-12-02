@@ -103,11 +103,11 @@ IdAUy0C4K5PdSbV8IUX1OZkeZyiQCdMs74p3IvKE57weopAz5Kxhiq9FlMh/LTx3
     <EmailAddress>mailto:brian.rilery@ucop.edu</EmailAddress>
   </ContactPerson>
   <ContactPerson contactType="administrative">
-    <GivenName>Perry Willett</GivenName>
-    <EmailAddress>mailto:perry.willett@ucop.edu</EmailAddress>
+    <GivenName>Maria Praetzellis</GivenName>
+    <EmailAddress>mailto:maria.praetzellis@ucop.edu</EmailAddress>
   </ContactPerson>
-  <ContactPerson contactType="other" remd:contactType="http://refeds.org/metadata/contactType/security">
-    <GivenName>Jim Vanderveen</GivenName>
-    <EmailAddress>mailto:jim.vanderveen@ucop.edu</EmailAddress>
+  <ContactPerson xmlns:remd="http://refeds.org/metadata" contactType="other" remd:contactType="http://refeds.org/metadata/contactType/security">
+    <GivenName>Ashley Gould</GivenName>
+    <EmailAddress>mailto:ashley.gould@ucop.edu</EmailAddress>
   </ContactPerson>
 </EntityDescriptor>
