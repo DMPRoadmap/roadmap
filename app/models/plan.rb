@@ -279,7 +279,8 @@ class Plan < ApplicationRecord
   # Returns Answer
   # Returns nil
   def answer(qid, create_if_missing = true)
-    answer = answers.select { |_a| q.question_id == q_id }.max { |a, b| a.created_at <=> b.created_at }
+    answer = answers.select { |_a| q.question_id == q_id }
+                    .max { |a, b| a.created_at <=> b.created_at }
     if answer.nil? && create_if_missing
       question = Question.find(qid)
       answer = Answer.new
@@ -367,7 +368,7 @@ class Plan < ApplicationRecord
   def readable_by?(user_id)
     return true if commentable_by?(user_id)
 
-    r = roles.select { |r| r.user_id == user_id }.first
+    r = roles.select { |rr| rr.user_id == user_id }.first
     return false if r.nil?
 
     current_user = r.user
@@ -409,7 +410,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def reviewable_by?(user_id)
-    r = roles.select { |r| r.user_id == user_id }.first
+    r = roles.select { |rr| rr.user_id == user_id }.first
     reviewer = r.nil? ? nil : r.user
     feedback_requested? &&
       reviewer.present? &&
@@ -429,7 +430,8 @@ class Plan < ApplicationRecord
   # Returns User
   # Returns nil
   def owner
-    r = roles.select { |r| r.active && r.administrator }.min { |a, b| a.created_at <=> b.created_at }
+    r = roles.select { |rr| rr.active && rr.administrator }
+             .min { |a, b| a.created_at <=> b.created_at }
     r.nil? ? nil : r.user
   end
 
