@@ -33,7 +33,7 @@ module Api
 
       def render_error(errors:, status:)
         @payload = { errors: [errors] }
-        render "/api/v1/error", status: status and return
+        render "/api/v1/error", status: status
       end
 
       private

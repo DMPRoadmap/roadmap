@@ -14,11 +14,15 @@
 #  last_access    :datetime
 #  created_at     :datetime
 #  updated_at     :datetime
+#  org_id         :integer
 #
 # Indexes
 #
 #  index_api_clients_on_name     (name)
 #
+# Foreign Keys
+#
+#  fk_rails_...  (org_id => orgs.id)
 
 class ApiClient < ApplicationRecord
 
@@ -29,6 +33,8 @@ class ApiClient < ApplicationRecord
   # ================
   # = Associations =
   # ================
+
+  belongs_to :org, optional: true
 
   has_many :plans
 
