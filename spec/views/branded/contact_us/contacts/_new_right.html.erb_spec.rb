@@ -26,15 +26,15 @@ describe "contact_us/contacts/_new_right.html.erb" do
       line_4: org[:address_line4],
       country: org[:address_country]
     }
-    # rubocop:enable Naming/VariableNumber
     render
-    expect(rendered.include?("<strong>#{org[:name]}")).to eql(true)
-    expect(rendered.include?("#{org[:address_line1]}<br>")).to eql(true)
-    expect(rendered.include?("#{org[:address_line2]}<br>")).to eql(true)
-    expect(rendered.include?("#{org[:address_line3]}<br>")).to eql(true)
-    expect(rendered.include?("#{org[:address_line4]}<br>")).to eql(true)
+    expect(rendered.include?("<strong>#{CGI::escapeHTML(org[:name])}")).to eql(true)
+    expect(rendered.include?("#{org[:address_line_1]}<br>")).to eql(true)
+    expect(rendered.include?("#{org[:address_line_2]}<br>")).to eql(true)
+    expect(rendered.include?("#{org[:address_line_3]}<br>")).to eql(true)
+    expect(rendered.include?("#{org[:address_line_4]}<br>")).to eql(true)
     expect(rendered.include?("#{org[:address_country]}<br>")).to eql(true)
     expect(rendered.include?("<iframe")).to eql(true)
+    # rubocop:enable Naming/VariableNumber
   end
 
 end

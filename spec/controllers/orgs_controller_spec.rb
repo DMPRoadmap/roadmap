@@ -41,7 +41,7 @@ RSpec.describe OrgsController, type: :controller do
 
     it "succeeds" do
       @args.delete(:feedback_enabled)
-      put :admin_update, params: { id: @org.id, org: @args }
+      put :admin_update, params: { id: @org.id, org: @args, org_links: @args[:org_links] }
       expect(response).to redirect_to("#{admin_edit_org_path(@org)}#profile")
       expect(flash[:notice].present?).to eql(true)
       @org.reload

@@ -34,7 +34,7 @@ RSpec.describe Dmptool::Org, type: :model do
         expect(@unmanaged.shibbolized?).to eql(false)
       end
       it "returns true" do
-        org = Org.participating.first
+        org = Org.participating.last
         expect(org.shibbolized?).to eql(true)
       end
     end

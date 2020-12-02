@@ -50,7 +50,7 @@ RSpec.describe "SuperAdmins Orgs", type: :feature, js: true do
     # -------------------------------------------------------------
 
     nbr_links = all('.link').length
-    addLink
+    add_link
     expect(all('.link').length).to eql(nbr_links + 1)
   end
 
@@ -72,9 +72,9 @@ RSpec.describe "SuperAdmins Orgs", type: :feature, js: true do
     # end DMPTool customization
     # -------------------------------------------------------------
 
-    addLink
+    add_link
     nbr_links = all('.link').length
-    removeLink
+    remove_link
     expect(all('.link').length).to eql(nbr_links - 1)
   end
 

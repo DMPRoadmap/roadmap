@@ -5,13 +5,13 @@ require "rails_helper"
 describe "layouts/application.html.erb" do
 
   before(:each) do
-    @app_name = Faker::Company.name
+    @app_name = ApplicationService.application_name
     Rails.configuration.x.application.name = @app_name
     controller.prepend_view_path "app/views/branded"
   end
 
   it "displays correctly when user is not logged in and Shib is NOT enabled" do
-    Rails.configuration.shibboleth.use_filtered_discovery_service = false
+    Rails.configuration.x.shibboleth.use_filtered_discovery_service = false
     render
     expect(response).to render_template(partial: "layouts/_analytics")
     expect(rendered.include?("<title>#{@app_name}")).to eql(true)
@@ -30,7 +30,7 @@ describe "layouts/application.html.erb" do
   end
 
   it "displays correctly when user is not logged in and Shib is enabled" do
-    Rails.configuration.shibboleth.use_filtered_discovery_service = true
+    Rails.configuration.x.shibboleth.use_filtered_discovery_service = true
     render
     expect(response).to render_template(partial: "layouts/_analytics")
     expect(rendered.include?("<title>#{@app_name}")).to eql(true)
@@ -49,7 +49,7 @@ describe "layouts/application.html.erb" do
   end
 
   it "displays correctly when user is logged in" do
-    Rails.configuration.shibboleth.use_filtered_discovery_service = true
+    Rails.configuration.x.shibboleth.use_filtered_discovery_service = true
     sign_in create(:user)
     render
     expect(response).to render_template(partial: "layouts/_analytics")

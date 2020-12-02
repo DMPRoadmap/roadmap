@@ -5,7 +5,7 @@
       <br>
       <div class="form-group">
         <% step_counter = 1 %>
-        <% if Rails.configuration.x.shibboleth_enabled %>
+        <% if Rails.configuration.x.shibboleth.enabled %>
           <!-- Shibboleth DS enabled -->
           <% if request.fullpath != "/users/sign_up?nosplash=true" && session[:shibboleth_data].nil? then%>
             <h3><%= _('Option %{number}: If your institution is affiliated with DMPTool.') % { number: step_counter } %></h3>
