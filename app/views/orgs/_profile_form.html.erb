@@ -169,3 +169,29 @@
     </div>
   </div>
 <% end %>
+
+<% if current_user.can_super_admin? %>
+  <hr>
+  <div class="col-xs-8" id="merge-org-controls">
+    <div class="row">
+      <div id='merge_form_container'>
+        <%= fields_for :org, org do |merger_fields| %>
+          <%= render partial: "shared/org_selectors/local_only",
+                     locals: {
+                       orgs: Org.includes(identifiers: :identifier_scheme).all,
+                       default_org: nil,
+                       form: merger_fields,
+                       label: _("Merge '%{org_name}' into:") % { org_name: org.name },
+                       required: true
+                     } %>
+           <br>
+           <p>
+             <%= sanitize _("Warning: This will attach any of '%{org_name}' Users, Plans, Guidance and Templates into the Org you selected above!") % { org_name: org.name} %>
+           </p>
+           <p><strong><%= _("This change cannot be undone!") %></strong></p>
+          <%= submit_tag(_("Merge"), class: 'btn btn-default') %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
