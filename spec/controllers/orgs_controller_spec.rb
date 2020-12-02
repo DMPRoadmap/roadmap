@@ -97,7 +97,7 @@ RSpec.describe OrgsController, type: :controller do
       expect(response).to render_template("orgs/shibboleth_ds")
       expect(assigns(:user).new_record?).to eql(true)
       expect(assigns(:orgs).any?).to eql(true)
-      expect(assigns(:orgs).include?(@identifier)).to eql(true)
+      expect(assigns(:orgs).include?(@org)).to eql(true)
     end
     it "redirects to the dashboard if user is logged in" do
       sign_in(@user)
