@@ -117,24 +117,23 @@ RSpec.describe OrgsController, type: :controller do
       shib = create(:identifier_scheme, name: "shibboleth")
       @identifier = create(:identifier, identifier_scheme: shib,
                                         identifiable: @org, value: SecureRandom.uuid)
-      @args = { org_id: @org.id, org_name: @org.name }
     end
 
     it "succeeds" do
-      post :shibboleth_ds_passthru, params: { "shib-ds": @args }
+      post :shibboleth_ds_passthru, params: { "shib-ds": { org_id: @org.id } }
       url = @controller.send(:shib_login_url)
       target = @controller.send(:shib_callback_url)
       expected = "#{url}?#{target}&entityID=#{@identifier.value}"
       expect(response).to redirect_to(expected)
     end
-    it "receives no ['shib-ds'][:org_name] information" do
-      post :shibboleth_ds_passthru, params: { "shib-ds": { org_id: @org.id } }
+    it "receives no ['shib-ds'][:org_id] information" do
+      post :shibboleth_ds_passthru, params: { "shib-ds": {} }
       expect(response).to redirect_to(shibboleth_ds_path)
       expect(flash[:notice].present?).to eql(true)
     end
     it "is for an Org that does not have a shibboleth entityID defined" do
       @identifier.destroy
-      post :shibboleth_ds_passthru, params: { "shib-ds": @args }
+      post :shibboleth_ds_passthru, params: { "shib-ds": { org_id: @org.id } }
       expect(response).to redirect_to(shibboleth_ds_path)
       expect(flash[:alert].present?).to eql(true)
     end
