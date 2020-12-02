@@ -127,13 +127,12 @@ Rails.application.routes.draw do
     post 'sort', on: :collection
   end
 
-  resources :madmp_fragments, only: [:destroy] do
-    post 'create_or_update', on: :collection
-    get 'new_edit_linked', on: :collection, constraints: {format: [:js]}
-    get 'show_linked', on: :collection, constraints: {format: [:js]}
-    get 'get_fragment/:id', action: :get_fragment, on: :collection, as: :get_fragment
+  resources :madmp_fragments, only: [:create, :update, :destroy] do
+    get "new_edit_linked", on: :collection, constraints: {format: [:js]}
+    get "show_linked", on: :collection, constraints: {format: [:js]}
+    get "get_fragment/:id", action: :get_fragment, on: :collection, as: :get_fragment
   end
-  
+
   resources :usage, only: [:index]
   post 'usage_plans_by_template', controller: 'usage', action: 'plans_by_template'
   post 'usage_filter', controller: 'usage', action: 'filter'
