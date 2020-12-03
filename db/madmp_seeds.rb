@@ -142,43 +142,43 @@ sections = [
   {
     title: "Description des données et collecte des données et/ou réutilisation de données existantes",
     number: 1,
-    modifiable: false,
+    modifiable: true,
     phase: se_standard_phase_fr
   },
   {
     title: "Documentation et métadonnées",
     number: 2,
-    modifiable: false,
+    modifiable: true,
     phase: se_standard_phase_fr
   },
   {
     title: "Exigences légales et éthiques, code de conduite",
     number: 3,
-    modifiable: false,
+    modifiable: true,
     phase: se_standard_phase_fr
   },
   {
     title: "Traitement et analyse des données",
     number: 4,
-    modifiable: false,
+    modifiable: true,
     phase: se_standard_phase_fr
   },
   {
     title: "Stockage et sauvegarde des données pendant le processus de recherche",
     number: 5,
-    modifiable: false,
+    modifiable: true,
     phase: se_standard_phase_fr
   },
   {
     title: "Partage et conservation des données",
     number: 6,
-    modifiable: false,
+    modifiable: true,
     phase: se_standard_phase_fr
   },
   {
     title: "Ressources allouées pour la gestion",
     number: 7,
-    modifiable: false,
+    modifiable: true,
     phase: se_standard_phase_fr
   },
   ####################################################
@@ -187,43 +187,43 @@ sections = [
   {
     title: "Data description and collection or re-use of existing data",
     number: 1,
-    modifiable: false,
+    modifiable: true,
     phase: se_standard_phase_en
   },
   {
     title: "Documentation and metadata",
     number: 2,
-    modifiable: false,
+    modifiable: true,
     phase: se_standard_phase_en
   },
   {
     title: "Legal and ethical requirements, codes of conduct",
     number: 3,
-    modifiable: false,
+    modifiable: true,
     phase: se_standard_phase_en
   },
   {
     title: "Data processing and analysis",
     number: 4,
-    modifiable: false,
+    modifiable: true,
     phase: se_standard_phase_en
   },
   {
     title: "Storage and backup during the research process",
     number: 5,
-    modifiable: false,
+    modifiable: true,
     phase: se_standard_phase_en
   },
   {
     title: "Data sharing and long-term preservation",
     number: 6,
-    modifiable: false,
+    modifiable: true,
     phase: se_standard_phase_en
   },
   {
     title: "Resources for data management",
     number: 7,
-    modifiable: false,
+    modifiable: true,
     phase: se_standard_phase_en
   },
    # Sections for Modèle structuré basique Science Europe Phase
@@ -233,43 +233,43 @@ sections = [
   {
     title: "Description des données et collecte des données et/ou réutilisation de données existantes",
     number: 1,
-    modifiable: false,
+    modifiable: true,
     phase: se_basic_phase_fr
   },
   {
     title: "Documentation et métadonnées",
     number: 2,
-    modifiable: false,
+    modifiable: true,
     phase: se_basic_phase_fr
   },
   {
     title: "Exigences légales et éthiques, code de conduite",
     number: 3,
-    modifiable: false,
+    modifiable: true,
     phase: se_basic_phase_fr
   },
   {
     title: "Traitement et analyse des données",
     number: 4,
-    modifiable: false,
+    modifiable: true,
     phase: se_basic_phase_fr
   },
   {
     title: "Stockage et sauvegarde des données pendant le processus de recherche",
     number: 5,
-    modifiable: false,
+    modifiable: true,
     phase: se_basic_phase_fr
   },
   {
     title: "Partage et conservation des données",
     number: 6,
-    modifiable: false,
+    modifiable: true,
     phase: se_basic_phase_fr
   },
   {
     title: "Ressources allouées pour la gestion",
     number: 7,
-    modifiable: false,
+    modifiable: true,
     phase: se_basic_phase_fr
   },
   ####################################################
@@ -278,43 +278,43 @@ sections = [
   {
     title: "Data description and collection or re-use of existing data",
     number: 1,
-    modifiable: false,
+    modifiable: true,
     phase: se_basic_phase_en
   },
   {
     title: "Documentation and metadata",
     number: 2,
-    modifiable: false,
+    modifiable: true,
     phase: se_basic_phase_en
   },
   {
     title: "Legal and ethical requirements, codes of conduct",
     number: 3,
-    modifiable: false,
+    modifiable: true,
     phase: se_basic_phase_en
   },
   {
     title: "Data processing and analysis",
     number: 4,
-    modifiable: false,
+    modifiable: true,
     phase: se_basic_phase_en
   },
   {
     title: "Storage and backup during the research process",
     number: 5,
-    modifiable: false,
+    modifiable: true,
     phase: se_basic_phase_en
   },
   {
     title: "Data sharing and long-term preservation",
     number: 6,
-    modifiable: false,
+    modifiable: true,
     phase: se_basic_phase_en
   },
   {
     title: "Resources for data management",
     number: 7,
-    modifiable: false,
+    modifiable: true,
     phase: se_basic_phase_en
   }
 ]
@@ -338,7 +338,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Data description")]
   },
   {
@@ -350,7 +350,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataReuseStandard"),
-    modifiable: false
+    modifiable: true
   },
   {
     text: "Comment seront produites/collectées les nouvelles données",
@@ -361,7 +361,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataCollectionStandard"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Data collection")]
   },
   {
@@ -373,7 +373,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DocumentationQualityStandard"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Metadata & documentation")]
   },
   {
@@ -385,7 +385,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "PersonalDataIssuesStandard"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Ethics & privacy")]
   },
   {
@@ -397,7 +397,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "LegalIssuesStandard"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Intellectual Property Rights")]
   },
   {
@@ -409,7 +409,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "EthicalIssuesStandard"),
-    modifiable: false
+    modifiable: true
   },
   {
     text: "Comment et avec quels moyens seront traitées les données ?",
@@ -420,7 +420,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataProcessingStandard"),
-    modifiable: false
+    modifiable: true
   },
   {
     text: "Comment les données seront-elles stockées et sauvegardées tout au long du projet ?",
@@ -431,7 +431,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataStorageStandard"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Storage & security")]
   },
   {
@@ -443,7 +443,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataSharingStandard"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Data sharing"), Theme.find_by(title: "Data repository") ]
   },
   {
@@ -455,7 +455,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataPreservationStandard"),
-    modifiable: false
+    modifiable: true
   },
   {
     text: "Décrire la répartition des rôles et reponsabilités parmi les contributeurs ainsi que les côuts induits pour la gestion des données ?",
@@ -466,7 +466,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "BudgetStandard"),
-    modifiable: false
+    modifiable: true
   },
   ####################################################
   ##################### ENGLISH ######################
@@ -480,7 +480,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Data description")]
   },
   {
@@ -492,7 +492,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataReuseStandard"),
-    modifiable: false
+    modifiable: true
   },
   {
     text: "How will new data be collected or produced?",
@@ -503,7 +503,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataCollectionStandard"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Data collection")]
   },
   {
@@ -515,7 +515,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DocumentationQualityStandard"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Metadata & documentation")]
   },
   {
@@ -527,7 +527,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "PersonalDataIssuesStandard"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Ethics & privacy")]
   },
   {
@@ -539,7 +539,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "LegalIssuesStandard"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Intellectual Property Rights")]
   },
   {
@@ -551,7 +551,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "EthicalIssuesStandard"),
-    modifiable: false
+    modifiable: true
   },
   {
     text: "How and with what resources will the data be processed / analyzed?",
@@ -562,7 +562,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataProcessingStandard"),
-    modifiable: false
+    modifiable: true
   },
   {
     text: "How will data be stored and backed up during the research?",
@@ -573,7 +573,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataStorageStandard"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Storage & security")]
   },
   {
@@ -585,7 +585,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataSharingStandard"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Data sharing"), Theme.find_by(title: "Data repository")]
   },
   {
@@ -597,7 +597,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataPreservationStandard"),
-    modifiable: false
+    modifiable: true
   },
   {
     text: "Outline the roles and responsibilities for data management/stewardship activities and the dedicated costs",
@@ -608,7 +608,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "BudgetStandard"),
-    modifiable: false
+    modifiable: true
   },
   # Questions for "Sections for Modèle structuré basique Science Europe" Phase,
   ####################################################
@@ -623,7 +623,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Data description")]
   },
   {
@@ -635,7 +635,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataReuseBasic"),
-    modifiable: false
+    modifiable: true
   },
   {
     text: "Comment seront produites/collectées les nouvelles données",
@@ -646,7 +646,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataCollectionBasic"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Data collection")]
   },
   {
@@ -658,7 +658,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DocumentationQualityBasic"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Metadata & documentation")]
   },
   {
@@ -670,7 +670,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "PersonalDataIssuesBasic"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Ethics & privacy")]
   },
   {
@@ -682,7 +682,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "LegalIssuesBasic"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Intellectual Property Rights")]
   },
   {
@@ -694,7 +694,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "EthicalIssuesBasic"),
-    modifiable: false
+    modifiable: true
   },
   {
     text: "Comment et avec quels moyens seront traitées les données ?",
@@ -705,7 +705,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataProcessingBasic"),
-    modifiable: false
+    modifiable: true
   },
   {
     text: "Comment les données seront-elles stockées et sauvegardées tout au long du projet ?",
@@ -716,7 +716,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataStorageBasic"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Storage & security")]
   },
   {
@@ -728,7 +728,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataSharingBasic"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Data sharing"), Theme.find_by(title: "Data repository") ]
   },
   {
@@ -740,7 +740,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataPreservationBasic"),
-    modifiable: false
+    modifiable: true
   },
   {
     text: "Décrire la répartition des rôles et reponsabilités parmi les contributeurs ainsi que les côuts induits pour la gestion des données ?",
@@ -751,7 +751,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "BudgetStandard"),
-    modifiable: false
+    modifiable: true
   },
   ####################################################
   ##################### ENGLISH ######################
@@ -765,7 +765,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Data description")]
   },
   {
@@ -777,7 +777,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataReuseBasic"),
-    modifiable: false
+    modifiable: true
   },
   {
     text: "How will new data be collected or produced?",
@@ -788,7 +788,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataCollectionBasic"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Data collection")]
   },
   {
@@ -800,7 +800,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DocumentationQualityBasic"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Metadata & documentation")]
   },
   {
@@ -812,7 +812,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "PersonalDataIssuesBasic"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Ethics & privacy")]
   },
   {
@@ -824,7 +824,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "LegalIssuesBasic"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Intellectual Property Rights")]
   },
   {
@@ -836,7 +836,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "EthicalIssuesBasic"),
-    modifiable: false
+    modifiable: true
   },
   {
     text: "How and with what resources will the data be processed / analyzed?",
@@ -847,7 +847,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataProcessingBasic"),
-    modifiable: false
+    modifiable: true
   },
   {
     text: "How will data be stored and backed up during the research?",
@@ -858,7 +858,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataStorageBasic"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Storage & security")]
   },
   {
@@ -870,7 +870,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataSharingBasic"),
-    modifiable: false,
+    modifiable: true,
     themes: [Theme.find_by(title: "Data sharing"), Theme.find_by(title: "Data repository")]
   },
   {
@@ -882,7 +882,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DataPreservationBasic"),
-    modifiable: false
+    modifiable: true
   },
   {
     text: "Outline the roles and responsibilities for data management/stewardship activities and the dedicated costs",
@@ -893,7 +893,7 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "BudgetStandard"),
-    modifiable: false
+    modifiable: true
   },
 ]
 questions.map { |q| Question.create!(q) }
