@@ -12,7 +12,7 @@
         <%= f.label(:org_name, _('Look up your organisation here'), class: "control-label") %>
 
         <% if @orgs.length <= 10 %>
-          <select id="shib-ds[org_id]" name="shib-ds[org_id]">
+          <select id="org_id" name="org_id">
             <option value=""><%= _('Please select one') %></option>
             <%= options_for_select(@orgs.map { |o| [o.name, o.id] }) %>
           </select>
