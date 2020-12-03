@@ -279,7 +279,7 @@ class Plan < ApplicationRecord
   # Returns Answer
   # Returns nil
   def answer(qid, create_if_missing = true)
-    answer = answers.select { |_a| q.question_id == q_id }
+    answer = answers.select { |a| a.question_id == qid }
                     .max { |a, b| a.created_at <=> b.created_at }
     if answer.nil? && create_if_missing
       question = Question.find(qid)
