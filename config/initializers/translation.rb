@@ -25,6 +25,7 @@ elsif ENV["DOMAIN"] == "client"
   #
   # To sync translations with the Translation IO server run:
   #  > rails translations:sync_and_purge DOMAIN=client
+  # rubocop:disable Metrics/BlockLength
   TranslationIO.configure do |config|
     config.api_key              = Rails.application.credentials.translation_io[:key]
     config.source_locale        = "en"
@@ -61,6 +62,7 @@ elsif ENV["DOMAIN"] == "client"
     config.disable_yaml         = true
     config.locales_path         = Rails.root.join("config", "locale")
   end
+  # rubocop:enable Metrics/BlockLength
 end
 
 # Setup languages
