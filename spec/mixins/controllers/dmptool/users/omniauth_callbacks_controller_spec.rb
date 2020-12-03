@@ -25,8 +25,6 @@ RSpec.describe Dmptool::Users::OmniauthCallbacksController,
     expect(@controller.respond_to?(:process_omniauth_callback)).to eql(true)
   end
 
-  it "Has a path for every "
-
   describe "#process_omniauth_callback" do
     before(:each) do
       request.env["devise.mapping"] = Devise.mappings[:user]
@@ -191,7 +189,7 @@ RSpec.describe Dmptool::Users::OmniauthCallbacksController,
       before(:each) do
         @hash = {
           info: {
-            name: Faker::Movies::StarWars.character,
+            name: Faker::Music::PearlJam.musician,
             email: Faker::Internet.email,
             identity_provider: @entity_id.value
           }
@@ -243,27 +241,27 @@ RSpec.describe Dmptool::Users::OmniauthCallbacksController,
         expect(@controller.send(:extract_omniauth_names, hash: nil)).to eql({})
       end
       it "handles :givenname" do
-        hash = { givenname: Faker::Movies::StarWars.character.split.first }
+        hash = { givenname: Faker::Music::PearlJam.musician.split.first }
         result = @controller.send(:extract_omniauth_names, hash: hash)
         expect(result[:firstname]).to eql(hash[:givenname])
       end
       it "handles :firstname" do
-        hash = { firstname: Faker::Movies::StarWars.character.split.first }
+        hash = { firstname: Faker::Music::PearlJam.musician.split.first }
         result = @controller.send(:extract_omniauth_names, hash: hash)
         expect(result[:firstname]).to eql(hash[:firstname])
       end
       it "handles :lastname" do
-        hash = { lastname: Faker::Movies::StarWars.character.split.first }
+        hash = { lastname: Faker::Music::PearlJam.musician.split.first }
         result = @controller.send(:extract_omniauth_names, hash: hash)
         expect(result[:surname]).to eql(hash[:lastname])
       end
       it "handles :surname" do
-        hash = { surname: Faker::Movies::StarWars.character.split.first }
+        hash = { surname: Faker::Music::PearlJam.musician.split.first }
         result = @controller.send(:extract_omniauth_names, hash: hash)
         expect(result[:surname]).to eql(hash[:surname])
       end
       it "correctly splits :name into first and last" do
-        hash = { name: Faker::Movies::StarWars.character }
+        hash = { name: Faker::Music::PearlJam.musician }
         result = @controller.send(:extract_omniauth_names, hash: hash)
         names = hash[:name].split
         expect(result[:firstname]).to eql(names.length > 1 ? names.first : nil)

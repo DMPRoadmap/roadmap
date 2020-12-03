@@ -20,30 +20,49 @@ if !ENV["DOMAIN"] || ENV["DOMAIN"] == "app"
     config.locales_path         = Rails.root.join("config", "locale")
   end
 elsif ENV["DOMAIN"] == "client"
-  paths = Dir.glob("**/*")
-             .select { |f| File.directory? f }
-             .collect { |name| "#{name}/" } - [
-               "app/",
-               "app/views/",
-               "app/views/branded/",
-               "app/views/branded/public_pages/",
-               "app/views/branded/home/",
-               "app/views/branded/contact_us/",
-               "app/views/branded/contact_us/contacts/",
-               "app/views/branded/shared/",
-               "app/views/branded/layouts/",
-               "app/views/branded/static_pages/"
-             ]
+  # Control ignored source paths
+  # Note, all prefixes of the directory you want to translate must be defined here!
+  #
+  # To sync translations with the Translation IO server run:
+  #  > rails translations:sync_and_purge DOMAIN=client
+  # rubocop:disable Metrics/BlockLength
   TranslationIO.configure do |config|
-    config.api_key              = ENV["TRANSLATION_API_CLIENT"]
+    config.api_key              = Rails.application.credentials.translation_io[:key]
     config.source_locale        = "en"
     config.target_locales       = %w[en-US pt-BR]
     config.text_domain          = "client"
     config.bound_text_domains = ["client"]
-    config.ignored_source_paths = paths
+    config.ignored_source_paths = Dir.glob("**/*").select { |f| File.directory? f }
+                                     .collect { |name| "#{name}/" } - [
+                                       "app/",
+                                       "app/views/",
+                                       "app/views/branded/",
+                                       "app/views/branded/contact_us/",
+                                       "app/views/branded/contact_us/contacts/",
+                                       "app/views/devise/",
+                                       "app/views/devise/registrations/",
+                                       "app/views/branded/home/",
+                                       "app/views/branded/layouts/",
+                                       "app/views/branded/layouts/mobile/",
+                                       "app/views/branded/paginable/",
+                                       "app/views/branded/paginable/orgs/",
+                                       "app/views/branded/paginable/templates/",
+                                       "app/views/branded/public_pages/",
+                                       "app/views/branded/shared/",
+                                       "app/views/branded/static_pages/",
+                                       "app/controllers/",
+                                       "app/controllers/dmptool/",
+                                       "app/controllers/paginable/",
+                                       "app/controllers/users/",
+                                       "app/mailers/",
+                                       "app/mailers/dmptool/",
+                                       "app/presenters/",
+                                       "app/presenters/dmptool/"
+                                     ]
     config.disable_yaml         = true
     config.locales_path         = Rails.root.join("config", "locale")
   end
+  # rubocop:enable Metrics/BlockLength
 end
 
 # Setup languages

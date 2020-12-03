@@ -12,7 +12,7 @@ describe "shared/org_branding.html.erb" do
     @org.logo = nil
     assign :user, build(:user, org: @org)
     render
-    expect(rendered.include?("<h1>#{@org.name}</h1>")).to eql(true)
+    expect(rendered.include?("<h1>#{CGI::escapeHTML(@org.name)}</h1>")).to eql(true)
   end
 
   it "renders the Org logo if available" do

@@ -14,12 +14,12 @@ RSpec.describe Dmptool::OrgPresenter do
 
     describe "#initialize" do
       it "initializes if a shibboleth scheme is available" do
-        expect(@presenter.is_a?(Presenters::Dmptool::OrgPresenter)).to eql(true)
+        expect(@presenter.is_a?(Dmptool::OrgPresenter)).to eql(true)
       end
       it "initializes if a shibboleth scheme is NOT available" do
         @scheme.destroy
         presenter = described_class.new
-        expect(presenter.is_a?(Presenters::Dmptool::OrgPresenter)).to eql(true)
+        expect(presenter.is_a?(Dmptool::OrgPresenter)).to eql(true)
       end
     end
 

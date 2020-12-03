@@ -1005,6 +1005,9 @@ msgstr ""
 msgid "Filter plans"
 msgstr "Filter Pläne"
 
+msgid "Finalise / Publish"
+msgstr ""
+
 #, fuzzy
 msgid "Find guidance from additional organisations below"
 msgstr "Organisation"

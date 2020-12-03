@@ -23,15 +23,14 @@ module Api
           @contributors << contributor
         end
 
+        @data_contact = @plan.owner unless @data_contact.present?
         @costs = plan_costs(plan: @plan)
       end
 
       # Extract the ARK or DOI for the DMP OR use its URL if none exists
       def identifier
-        doi = @plan.identifiers.select do |id|
-          %w[ark doi].include?(id.identifier_format)
-        end
-        return doi.first if doi.first.present?
+        doi = @plan.doi
+        return doi if doi.present?
 
         # if no DOI then use the URL for the API's 'show' method
         Identifier.new(value: Rails.application.routes.url_helpers.api_v1_plan_url(@plan))

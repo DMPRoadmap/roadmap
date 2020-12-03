@@ -27,7 +27,6 @@ module DmptoolHelper
     end
   end
 
-  # rubocop:disable Metrics/MethodLength
   def mock_omniauth_call(scheme, user)
     case scheme
     when "shibboleth"
@@ -56,9 +55,7 @@ module DmptoolHelper
       }
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
-  # rubocop:disable Metrics/MethodLength
   def mock_blog
     xml = <<-XML
     <?xml version="1.0" encoding="UTF-8"?>
@@ -78,6 +75,5 @@ module DmptoolHelper
       status: 200, body: xml.to_s, headers: {}
     )
   end
-  # rubocop:enable Metrics/MethodLength
 
 end

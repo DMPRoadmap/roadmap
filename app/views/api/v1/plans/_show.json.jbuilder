@@ -2,6 +2,8 @@
 
 # locals: plan
 
+json.ignore_nil!
+
 json.schema "https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard/tree/master/examples/JSON/JSON-schema/1.0"
 
 presenter = Api::V1::PlanPresenter.new(plan: plan)

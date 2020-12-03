@@ -40,6 +40,7 @@ namespace :deploy do
   after :deploy, "cleanup:restart_passenger"
 end
 
+# rubocop:disable Layout/LineLength
 namespace :config do
   desc "Setup up the config repo as the shared directory"
   task :install_shared_dir do
@@ -51,6 +52,7 @@ namespace :config do
     end
   end
 end
+# rubocop:enable Layout/LineLength
 
 namespace :git do
   desc "Add the version file so that we can display the git version in the footer"

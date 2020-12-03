@@ -4,22 +4,14 @@
     <a href="<%= plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Project Details') %></a>
   </li>
   <li role="contributors" class="<%= (active_page?(plan_contributors_path(plan)) ? "active" : "") %>">
-    <%= link_to _("Contributors"), plan_contributors_path(plan), role: "tab",
+    <%= link_to _("Collaborators"), plan_contributors_path(plan), role: "tab",
                 aria: { controls: "content" } %>
-  </li>
-  <li role="presentation" class="<%= (active_page?(overview_plan_path(plan)) ? 'active' : '') %>">
-    <%= link_to(_('Plan overview'), overview_plan_path(plan), role: 'tab', 'aria-controls': 'content') %>
   </li>
   <% phases.each do |phase| %>
     <li role="presentation" class="<%= (active_page?(edit_plan_path(plan.id, phase_id: phase.id)) ? 'active' : '') %>">
       <a href="<%= edit_plan_path(plan.id, phase_id: phase.id) %>" role="tab" aria-controls="content">
         <%= (phases.size > 1 ? phase.title : _('Write Plan')) %>
       </a>
-    </li>
-  <% end %>
-  <% if plan.administerable_by?(current_user) || (current_user.can_org_admin? && current_user.org.plans.include?(plan)) %>
-    <li role="presentation" class="<%= (active_page?(share_plan_path(plan)) ? 'active' : '') %>">
-      <a href="<%= share_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Share') %></a>
     </li>
   <% end %>
   <% if (plan.administerable_by?(current_user) || (current_user.can_org_admin? && current_user.org.plans.include?(plan))) && plan.owner_and_coowners.include?(current_user) && plan.owner.org.feedback_enabled? %>
@@ -30,6 +22,11 @@
   <% if plan.readable_by?(current_user.id) %>
     <li role="presentation" class="<%= (active_page?(download_plan_path(plan)) ? 'active' : '') %>">
       <a href="<%= download_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Download') %></a>
+    </li>
+  <% end %>
+  <% if plan.administerable_by?(current_user) || (current_user.can_org_admin? && current_user.org.plans.include?(plan)) %>
+    <li role="presentation" class="<%= (active_page?(publish_plan_path(plan)) ? 'active' : '') %>">
+      <a href="<%= publish_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Finalise / Publish') %></a>
     </li>
   <% end %>
 </ul>
