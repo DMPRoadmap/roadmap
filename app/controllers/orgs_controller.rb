@@ -114,10 +114,10 @@ class OrgsController < ApplicationController
   # POST /orgs/shibboleth_ds
   # rubocop:disable Metrics/AbcSize
   def shibboleth_ds_passthru
-    if !shib_params["shib-ds"][:org_id].blank?
-      session["org_id"] = shib_params["shib-ds"][:org_id]
+    if !shib_params[:org_id].blank?
+      session["org_id"] = shib_params[:org_id]
 
-      org = Org.where(id: shib_params["shib-ds"][:org_id])
+      org = Org.where(id: shib_params[:org_id])
       shib_entity = Identifier.by_scheme_name("shibboleth", "Org")
                               .where(identifiable: org)
 
@@ -213,7 +213,7 @@ class OrgsController < ApplicationController
   end
 
   def shib_params
-    params.permit("shib-ds": %i[org_id org_name])
+    params.permit("org_id")
   end
 
   def search_params
