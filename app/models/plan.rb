@@ -368,10 +368,8 @@ class Plan < ApplicationRecord
   def readable_by?(user_id)
     return true if commentable_by?(user_id)
 
-    r = roles.select { |rr| rr.user_id == user_id }.first
-    return false if r.nil?
-
-    current_user = r.user
+    current_user = User.find(user_id)
+    return false unless current_user.present?
 
     # If the user is a super admin and the config allows for supers to view plans
     if current_user.can_super_admin? && Rails.configuration.x.plans.super_admins_read_all
