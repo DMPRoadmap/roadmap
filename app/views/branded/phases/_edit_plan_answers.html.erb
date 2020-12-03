@@ -99,7 +99,8 @@
                           <% dmp_id = plan.json_fragment.id %>
                           <% parent_id = research_output.json_fragment.id %>
                           <%= render(partial: '/madmp_fragments/new_edit',
-                                   locals: { question: question,
+                                   locals: { template: phase.template,
+                                             question: question,
                                              answer: answer,
                                              fragment: fragment ,
                                              madmp_schema: madmp_schema,
@@ -107,7 +108,8 @@
                                              dmp_id: dmp_id,
                                              parent_id: parent_id,
                                              readonly: readonly,
-                                             locking: false }) %>
+                                             locking: false,
+                                             base_template_org: base_template_org }) %>
                         <% else %>
                           <%= render(partial: '/answers/new_edit',
                                    locals: { template: phase.template,

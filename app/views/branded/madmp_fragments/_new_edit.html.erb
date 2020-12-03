@@ -1,4 +1,4 @@
-<%# locals: { template, question, fragment, madmp_schema, research_output, readonly, locking } %>
+<%# locals: { template, question, fragment, madmp_schema, research_output, readonly, locking, base_template_org } %>
 <!--
   This partial creates a form for each type of question. The local variables are: plan, answer, question, research_output, readonly
 -->
@@ -34,7 +34,7 @@
             readonly: readonly,
             classname: classname,
             fragment_id: fragment_id,
-            template_locale: question.template.locale
+            template_locale: template.locale
           }) %>
       <div class="overlay" style="display:none;">
         <div class="spinner"></div>
@@ -45,4 +45,21 @@
     <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
   </fieldset>
   <!--Example Answer area -->
+  <% if template.present? && template.org.present? %>
+    <% question.example_answers([base_template_org.id, template.org.id]).each do |annotation| %>
+      <% if annotation.present? && annotation.org.present? && annotation.text.present? %>
+        <div class="panel panel-default example-answer">
+          <span class="label label-default example-answer-link" 
+                data-toggle="collapse" 
+                data-target="<%= "#example-#{question.id}-research-output-#{research_output.id}"  %>">
+            <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
+            <i class="more-less fa fa-plus small"></i>
+          </span>
+          <div class="panel-body collapse" id="<%= "example-#{question.id}-research-output-#{research_output.id}"  %>">
+            <%= sanitize annotation.text %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
 <% end %>

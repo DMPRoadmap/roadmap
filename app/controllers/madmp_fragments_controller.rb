@@ -213,6 +213,7 @@ class MadmpFragmentsController < ApplicationController
     research_output = answer.research_output
     section = question.section
     plan = answer.plan
+    template = section.phase.template
 
     return {
             "answer" => {
@@ -231,6 +232,7 @@ class MadmpFragmentsController < ApplicationController
                 }, formats: [:html]) :
                 nil,
               "form" => render_to_string(partial: "madmp_fragments/new_edit", locals: {
+                template: template,
                 question: question,
                 answer: answer,
                 fragment: fragment ,
@@ -238,7 +240,8 @@ class MadmpFragmentsController < ApplicationController
                 research_output: research_output,
                 dmp_id: fragment.dmp_id,
                 parent_id: fragment.parent_id,
-                readonly: false
+                readonly: false,
+                base_template_org: template.base_org
               }, formats: [:html]),
               "answer_status" => render_to_string(partial: "answers/status", locals: {
                 answer: answer
