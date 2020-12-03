@@ -410,8 +410,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def reviewable_by?(user_id)
-    r = roles.select { |rr| rr.user_id == user_id }.first
-    reviewer = r.nil? ? nil : r.user
+    reviewer = User.find(user_id)
     feedback_requested? &&
       reviewer.present? &&
       reviewer.org_id == owner&.org_id &&
