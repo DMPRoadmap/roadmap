@@ -120,20 +120,20 @@ RSpec.describe OrgsController, type: :controller do
     end
 
     it "succeeds" do
-      post :shibboleth_ds_passthru, params: { "shib-ds": { org_id: @org.id } }
+      post :shibboleth_ds_passthru, params: { org_id: @org.id }
       url = @controller.send(:shib_login_url)
       target = @controller.send(:shib_callback_url)
       expected = "#{url}?#{target}&entityID=#{@identifier.value}"
       expect(response).to redirect_to(expected)
     end
-    it "receives no ['shib-ds'][:org_id] information" do
-      post :shibboleth_ds_passthru, params: { "shib-ds": {} }
+    it "receives no [:org_id] information" do
+      post :shibboleth_ds_passthru, params: {}
       expect(response).to redirect_to(shibboleth_ds_path)
       expect(flash[:notice].present?).to eql(true)
     end
     it "is for an Org that does not have a shibboleth entityID defined" do
       @identifier.destroy
-      post :shibboleth_ds_passthru, params: { "shib-ds": { org_id: @org.id } }
+      post :shibboleth_ds_passthru, params: { org_id: @org.id }
       expect(response).to redirect_to(shibboleth_ds_path)
       expect(flash[:alert].present?).to eql(true)
     end
