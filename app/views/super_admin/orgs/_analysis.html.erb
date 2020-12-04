@@ -1,10 +1,10 @@
-<%# locals: from_org, to_org %>
+<%# locals: org, target_org %>
 
 <%
 presenter = SuperAdmin::Orgs::MergePresenter.new(from_org: org, to_org: target_org)
 orcid = IdentifierScheme.find_by(name: 'orcid')
 %>
-<%= form_for org, url: merge_commit_super_admin_org_path(org), method: :post, remote: true do |form| %>
+<%= form_for org, url: merge_commit_super_admin_org_path(org), method: :post, remote: false do |form| %>
   <p><%= _("Merging '%{from_org_name}' into '%{to_org_name}'") % { from_org_name: org.name, to_org_name: target_org.name } %></p>
   <p><%= _("The table below shows what changes will occur during the merge process. Once the merge is complete, '%{from_org_name}' will be deleted. You can then consolidate/correct any merge issues (e.g. remove any departments that were duplicated)") % { from_org_name: org.name } %></p>
   <div class="table-responsive">
@@ -39,10 +39,10 @@ orcid = IdentifierScheme.find_by(name: 'orcid')
     </table>
   </div>
 
-  <%= hidden_field_tag "target_org", target_org.id %>
-  <%= hidden_field_tag "mergeables", presenter.mergeable_entries.to_json %>
+  <%= form.hidden_field :target_org, value: target_org.id %>
+  <%= form.hidden_field :mergeables, value: presenter.mergeable_entries.to_json %>
 
-  <p><%= _("Warning: The changes proposed above will be committed.") %></p>
-  <p><strong><%= _("This change cannot be undone! Do not proceed unless you are certain.") %></strong></p>
-  <%= form.button(_('Merge'), class: "btn btn-primary", type: "submit") %>
+  <p><%= _("Warning: The changes proposed above will be committed to the database. '%{org_name}' will then be deleted.") % { org_name: org.name } %></p>
+  <p><strong><%= _("These changes cannot be undone! Do not proceed unless you are certain.") %></strong></p>
+  <%= form.button(_('Merge records'), class: "btn btn-primary", type: "submit") %>
 <% end %>

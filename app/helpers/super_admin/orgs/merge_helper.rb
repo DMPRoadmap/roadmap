@@ -31,7 +31,6 @@ module SuperAdmin
                    [entry.email, entry.identifier_for_scheme(scheme: orcid)&.value].compact
                                                                                    .join(" - ")
                  else
-p entry.inspect
                    [entry.id, entry.title].join(" - ")
                  end
           html += "<li>#{text}</li>"

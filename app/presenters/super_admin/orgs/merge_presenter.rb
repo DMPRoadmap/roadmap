@@ -31,7 +31,10 @@ module SuperAdmin
           funded_plans: org.funded_plans.sort { |a, b| a.title <=> b.title },
           guidances: org.guidance_groups.collect(&:guidances).flatten,
           identifiers: org.identifiers.sort { |a, b| a.value <=> b.value },
-          plans: org.plans.sort { |a, b| a.title <=> b.title },
+          # TODO: Org.plans is overridden and does not clearly identify Orgs that 'own'
+          #       the plan (i.e. the one the user selected as the 'Research Org')
+          #       Loading them directly here until issue #2724 is resolved
+          plans: Plan.where(org: org).sort { |a, b| a.title <=> b.title },
           templates: org.templates.sort { |a, b| a.title <=> b.title },
           token_permission_types: org.token_permission_types.sort { |a, b| a.to_s <=> b.to_s },
           tracker: [org.tracker],

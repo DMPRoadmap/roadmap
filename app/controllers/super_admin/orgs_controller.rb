@@ -101,7 +101,7 @@ module SuperAdmin
 
     # POST /super_admin/:id/merge_analyze
     def merge_analyze
-      @org = Org.includes(:plans, :templates, :tracker, :annotations,
+      @org = Org.includes(:templates, :tracker, :annotations,
                           :departments, :token_permission_types, :funded_plans,
                           identifiers: [:identifier_scheme],
                           guidance_groups: [guidances: [:themes]],
@@ -112,7 +112,7 @@ module SuperAdmin
       lookup = OrgSelection::HashToOrgService.to_org(
         hash: JSON.parse(merge_params[:id]), allow_create: false
       )
-      @target_org = Org.includes(:plans, :templates, :tracker, :annotations,
+      @target_org = Org.includes(:templates, :tracker, :annotations,
                                  :departments, :token_permission_types, :funded_plans,
                                  identifiers: [:identifier_scheme],
                                  guidance_groups: [guidances: [:themes]],
@@ -121,11 +121,42 @@ module SuperAdmin
     end
 
     # POST /super_admin/:id/merge_commit
+    # rubocop:disable Metrics/AbcSize
     def merge_commit
       @org = Org.find(params[:id])
       authorize @org
 
+      @target_org = Org.find(merge_params[:target_org])
+      mergeables = JSON.parse(merge_params[:mergeables])
+
+      if @target_org.present? && mergeables.present?
+        merge_records(org: @org, target_org: @target_org, mergeables: mergeables)
+
+        # Remove all of the Org's guidance_groups the guidances were moved above
+        @org.guidance_groups.delete_all
+        # Remove all of the remaining identifiers and token_permission_types
+        # that were not merged
+        @org.identifiers.delete_all
+        @org.token_permission_types.delete_all
+
+        if @org.destroy
+          msg = "Successfully merged '#{@org.name}' into '#{@target_org.name}'"
+          redirect_to super_admin_orgs_path, notice: msg
+        else
+          # rubocop:disable Layout/LineLength
+          msg = _("Partial merge complete. Unable to delete '#{@org.name}'. Revisit the 'Merge' tab to see what records did not get merged.")
+          # rubocop:enable Layout/LineLength
+          redirect_to admin_edit_org_path(@org), alert: msg
+        end
+      else
+        msg = _("Unable to merge the two Orgs at this time.")
+        redirect_to admin_edit_org_path(@org), alert: msg
+      end
+    rescue JSON::ParserError
+      msg = _("Unable to determine what records need to be merged.")
+      redirect_to admin_edit_org_path(@org), alert: msg
     end
+    # rubocop:enable Metrics/AbcSize
 
     private
 
@@ -139,8 +170,50 @@ module SuperAdmin
     end
 
     def merge_params
-      params.require(:org).permit(:org_name, :org_sources, :org_crosswalk, :id)
+      params.require(:org).permit(:org_name, :org_sources, :org_crosswalk, :id,
+                                  :target_org, :mergeables)
     end
+
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    def merge_records(org:, target_org:, mergeables:)
+      mergeables.each_key do |category|
+        next unless mergeables[category].any?
+
+        case category
+        when "guidances"
+          # Move the guidance to the target_org's guidance_group.
+          gg = target_org.guidance_groups.first
+          gg = GuidanceGroup.new(org: org, name: org.abbreviation) unless gg.present?
+
+          mergeables[category].each do |guidance|
+            guidance = Guidance.find(guidance["id"])
+            next unless guidance.present?
+
+            guidance.update(guidance_group: gg)
+          end
+        when "identifier"
+          # Update the identifiers' :identifiable_id to the target_org
+          mergeables[category].each do |identifier|
+            id = Identifier.find(identifier["id"])
+            next unless id.present?
+
+            id.update(identifiable_id: target_org.id)
+          end
+        else
+          # Otherwise update the items' :org_id to the target_org
+          clazz = category.singularize.capitalize.constantize
+          next unless clazz.present?
+
+          mergeables[category].each do |item|
+            obj = clazz.find_by(id: item["id"])
+            next unless obj.present?
+
+            obj.update(org_id: target_org.id)
+          end
+        end
+      end
+    end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   end
 
