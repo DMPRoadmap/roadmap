@@ -128,8 +128,9 @@ Rails.application.routes.draw do
   end
 
   resources :madmp_fragments, only: [:create, :update, :destroy] do
-    get "new_edit_linked", on: :collection, constraints: {format: [:js]}
-    get "show_linked", on: :collection, constraints: {format: [:js]}
+    post "load_new_form", action: :create, on: :collection
+    get "new_edit_linked", on: :collection, constraints: { format: [:js] }
+    get "show_linked", on: :collection, constraints: { format: [:js] }
     get "get_fragment/:id", action: :get_fragment, on: :collection, as: :get_fragment
   end
 

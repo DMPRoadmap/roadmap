@@ -19,24 +19,49 @@ class MadmpFragmentsController < ApplicationController
     )
     @fragment.classname = classname
 
-    @fragment.answer = Answer.create!(
-      {
-        research_output_id: p_params[:answer][:research_output_id],
-        plan_id: p_params[:answer][:plan_id],
-        question_id: p_params[:answer][:question_id],
-        lock_version: p_params[:answer][:lock_version],
-        is_common: p_params[:answer][:is_common],
-        user_id: current_user.id
-      }
-    )
-
     authorize @fragment
     # @fragment.save!
     @fragment.save_as_multifrag({}, schema)
 
+    if p_params[:source] == "modal"
+      data = data_reformater(schema.schema, schema_params(schema), schema.classname)
+      additional_info = {
+        "validations" => MadmpFragment.validate_data(data, schema.schema)
+      }
+      @fragment.assign_attributes(
+        additional_info: additional_info
+      )
+      @fragment.save_as_multifrag(data, schema)
+    else
+      @fragment.answer = Answer.create!(
+        {
+          research_output_id: p_params[:answer][:research_output_id],
+          plan_id: p_params[:answer][:plan_id],
+          question_id: p_params[:answer][:question_id],
+          lock_version: p_params[:answer][:lock_version],
+          is_common: p_params[:answer][:is_common],
+          user_id: current_user.id
+        }
+      )
+      @fragment.save_as_multifrag({}, schema)
+    end
+
     return unless @fragment.present?
 
-    render json: render_fragment_form(@fragment, @stale_fragment)
+    if @fragment.answer.present?
+      render json: render_fragment_form(@fragment, @stale_fragment)
+    else
+      render json: {
+        "fragment_id" =>  @fragment.parent_id,
+        "classname" => classname,
+        "html" => render_fragment_list(
+          @fragment.dmp_id,
+          @fragment.parent_id,
+          schema.id,
+          p_params[:template_locale]
+        )
+      }.to_json
+    end
   end
 
   def update
