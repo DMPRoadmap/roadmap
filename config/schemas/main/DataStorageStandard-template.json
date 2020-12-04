@@ -4,14 +4,7 @@
     "title": "DataStorageStandard",
     "description": "DataStorageStandard template",
     "type": "object",
-    "extensible": 1,
     "properties": {
-        "title": {
-            "type": "string",
-            "description": "Titre du besoin en stockage",
-            "label@fr_FR": "Titre",
-            "label@en_GB": "Title"
-        },
         "description": {
             "type": "string",
             "description": "Description des besoins de stockage",
@@ -19,32 +12,54 @@
             "label@fr_FR": "Description",
             "label@en_GB": "Description"
         },
-        "storage": {
+        "estimatedVolume": {
+            "type": "number",
+            "description": "Volume estimé des données",
+            "label@fr_FR": "Volume estimé",
+            "label@en_GB": "Estimated volume"
+        },
+        "volumeUnit": {
+            "type": "string",
+            "description": "Unité de volume",
+            "inputType": "dropdown",
+            "label@fr_FR": "Unité",
+            "label@en_GB": "Unit",
+            "values@fr_FR": [
+                "Octets",
+                "Kilooctets",
+                "Mégaoctets",
+                "Téraoctets",
+                "Pentaoctets"
+            ],
+            "values@en_GB": [
+                "Octets",
+                "Kilooctets",
+                "Megaoctets",
+                "Teraoctets",
+                "Pentaoctets"
+            ],
+            "overridable": true,
+            "substitutable": true
+        },
+        "facility": {
             "type": "array",
+            "table_header": null,
             "items": {
                 "type": "object",
-                "class": "TechnicalResourceUsage",
-                "extensible": 1,
+                "class": "TechnicalResource",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "template_name": "TechnicalResourceUsageStandard",
+                "template_name": "TechnicalResourceStandard",
                 "required": [
                     "dbid"
                 ]
             },
-            "description": "Usage d'une ressource technique pour le stockage et sauvegarde des données",
+            "description": "Ressource/équipement utilisée pour le stockage et sauvegarde des données",
             "label@fr_FR": "Stockage par une ressource extérieure",
             "label@en_GB": "Storage by an external resource"
-        },
-        "securityMeasures": {
-            "type": "string",
-            "description": "Description des mesures prises pour assurer la sécurité des données",
-            "inputType": "textarea",
-            "label@fr_FR": "Mesures de sécurité",
-            "label@en_GB": "Security measures"
         },
         "backupPolicy": {
             "type": "object",
@@ -62,8 +77,16 @@
             "label@fr_FR": "Politique de sauvegarde",
             "label@en_GB": "Backup policy"
         },
+        "securityMeasures": {
+            "type": "string",
+            "description": "Description des mesures prises pour assurer la sécurité des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Mesures de sécurité",
+            "label@en_GB": "Security measures"
+        },
         "contributors": {
             "type": "array",
+            "table_header": "Nom (rôle)",
             "items": {
                 "type": "object",
                 "class": "Contributor",
@@ -83,10 +106,10 @@
         },
         "cost": {
             "type": "array",
+            "table_header": "Type de coût : montant",
             "items": {
                 "type": "object",
-                "class": "Cost",
-                "extensible": 1,
+                "class": "CostBasic",
                 "properties": {
                     "dbid": {
                         "type": "number"
@@ -103,10 +126,7 @@
         }
     },
     "required": [
-        "title",
         "description"
     ],
-    "to_string": [
-        "DataStorageStandard: to_string not defined"
-    ]
+    "to_string": null
 }

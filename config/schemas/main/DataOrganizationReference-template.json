@@ -1,35 +1,28 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "../Documentation/Implementation/data_model/Json/",
-    "title": "TechnicalResourceStandard",
-    "description": "TechnicalResourceStandard template",
+    "title": "DataOrganizationReference",
+    "description": "DataOrganizationReference template",
     "type": "object",
     "properties": {
         "title": {
             "type": "string",
-            "description": "Intitulé de la resource technique",
+            "description": "Intitulé de l'aspect organisationnel",
             "label@fr_FR": "Titre",
             "label@en_GB": "Title"
         },
-        "description": {
+        "documentIdentifier": {
             "type": "string",
-            "description": "Description succinte de la ressource technique",
-            "inputType": "textarea",
-            "label@fr_FR": "Description",
-            "label@en_GB": "Description"
-        },
-        "technicalResourceId": {
-            "type": "string",
-            "description": "Identifiant pérenne ou Url de référence",
-            "label@fr_FR": "Identifiant de la ressource technique",
-            "label@en_GB": "Technical resource ID"
+            "description": "Identification du document associé à cet aspect organisationnel",
+            "label@fr_FR": "Identifiant du document",
+            "label@en_GB": "Document identifier"
         },
         "idType": {
             "type": "string",
-            "description": "Type d'identifiant",
+            "description": "Type d'identifiant ressource",
             "inputType": "dropdown",
-            "label@fr_FR": "Type d'identifiant de la ressource technique",
-            "label@en_GB": "Technical resource identifier type",
+            "label@fr_FR": "Type d'identifiant de la ressource",
+            "label@en_GB": "Identifier type",
             "values@fr_FR": [
                 "DOI",
                 "ARK",
@@ -52,7 +45,7 @@
     },
     "required": [
         "title",
-        "technicalResourceId",
+        "documentIdentifier",
         "idType"
     ],
     "to_string": [

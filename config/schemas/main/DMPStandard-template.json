@@ -11,7 +11,7 @@
         },
         "meta": {
             "type": "object",
-            "class": "Meta",
+            "class": "MetaBasic",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -43,6 +43,7 @@
         },
         "researchOutput": {
             "type": "array",
+            "table_header": null,
             "items": {
                 "type": "object",
                 "class": "ResearchOutput",
@@ -66,7 +67,5 @@
         "project",
         "researchOutput"
     ],
-    "to_string": [
-        "DMPStandard: to_string not defined"
-    ]
+    "to_string": null
 }

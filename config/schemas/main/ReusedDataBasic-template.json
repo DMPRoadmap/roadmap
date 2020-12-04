@@ -1,35 +1,28 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "../Documentation/Implementation/data_model/Json/",
-    "title": "TechnicalResourceStandard",
-    "description": "TechnicalResourceStandard template",
+    "title": "ReusedDataBasic",
+    "description": "ReusedDataBasic template",
     "type": "object",
     "properties": {
         "title": {
             "type": "string",
-            "description": "Intitulé de la resource technique",
+            "description": "Titre du produit de recherche réutilisé",
             "label@fr_FR": "Titre",
             "label@en_GB": "Title"
         },
-        "description": {
+        "datasetId": {
             "type": "string",
-            "description": "Description succinte de la ressource technique",
-            "inputType": "textarea",
-            "label@fr_FR": "Description",
-            "label@en_GB": "Description"
-        },
-        "technicalResourceId": {
-            "type": "string",
-            "description": "Identifiant pérenne ou Url de référence",
-            "label@fr_FR": "Identifiant de la ressource technique",
-            "label@en_GB": "Technical resource ID"
+            "description": "Identifiant du produit réutilisé",
+            "label@fr_FR": "Identifiant du produit",
+            "label@en_GB": "Product ID"
         },
         "idType": {
             "type": "string",
             "description": "Type d'identifiant",
             "inputType": "dropdown",
-            "label@fr_FR": "Type d'identifiant de la ressource technique",
-            "label@en_GB": "Technical resource identifier type",
+            "label@fr_FR": "Type d'identifiant du produit",
+            "label@en_GB": "Product identifier type",
             "values@fr_FR": [
                 "DOI",
                 "ARK",
@@ -48,11 +41,27 @@
             ],
             "overridable": true,
             "substitutable": true
+        },
+        "license": {
+            "type": "object",
+            "class": "License",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "LicenseStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Licence ou contrat déterminant les conditions de réutilisation",
+            "label@fr_FR": "Licence",
+            "label@en_GB": "License"
         }
     },
     "required": [
         "title",
-        "technicalResourceId",
+        "datasetId",
         "idType"
     ],
     "to_string": [

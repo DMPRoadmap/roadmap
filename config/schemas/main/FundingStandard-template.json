@@ -18,14 +18,16 @@
                 "dbid"
             ],
             "description": "Source (agence) de financement",
-            "label@fr_FR": "Financeur(s)",
-            "label@en_GB": "Funder(s)"
+            "label@fr_FR": "Financeur",
+            "label@en_GB": "Funder"
         },
         "grantId": {
             "type": "string",
             "description": "Identifiant du financement (convention de financement)",
             "label@fr_FR": "Identifiant du financement",
-            "label@en_GB": "Grant ID"
+            "label@en_GB": "Grant Identifier",
+            "tooltip@fr_FR": "Aussi appelé Code de décision, Identifiant de la convention de subvention, Numéro de la convention de subvention, Numéro de subvention",
+            "tooltip@en_GB": "also called Decision code, Grant agreement ID, Grant agreement number, Award number"
         },
         "fundingStatus": {
             "type": "string",
@@ -44,7 +46,9 @@
                 "Soumis",
                 "Approuvé",
                 "Rejeté"
-            ]
+            ],
+            "overridable": true,
+            "substitutable": true
         }
     },
     "required": [
@@ -52,6 +56,8 @@
         "fundingStatus"
     ],
     "to_string": [
-        "FundingStandard: to_string not defined"
+        "$.funder.name",
+        " : ",
+        "$.grantId"
     ]
 }

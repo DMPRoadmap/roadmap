@@ -10,21 +10,25 @@
             "description": "Libellé du mot-clé",
             "label@fr_FR": "Mot-clé",
             "label@en_GB": "Keyword",
-            "tooltip": "Ceci est un tooltip pour keyword",
-            "example": "Mathematical model"
+            "example@fr_FR": "Protection de la forêt",
+            "example@en_GB": "Forest protection"
         },
         "keywordSchema": {
             "type": "string",
             "description": "Nom du vocabulaire, liste d'autorité, …",
             "label@fr_FR": "Nom du vocabulaire",
-            "label@en_GB": "Vocabulary name"
+            "label@en_GB": "Vocabulary name",
+            "example@fr_FR": "AGROVOC Multilingual Thesaurus",
+            "example@en_GB": "AGROVOC Multilingual Thesaurus"
         },
         "keywordUrl": {
             "type": "string",
             "format": "uri",
             "description": "Identifiant du concept",
             "label@fr_FR": "Url du terme",
-            "label@en_GB": "Keyword URL"
+            "label@en_GB": "Keyword URL",
+            "example@fr_FR": "http://aims.fao.org/aos/agrovoc/c_28075",
+            "example@en_GB": "http://aims.fao.org/aos/agrovoc/c_28075"
         }
     },
     "required": [
@@ -32,6 +36,6 @@
         "keywordUrl"
     ],
     "to_string": [
-        "ControlledKeywordStandard: to_string not defined"
+        "$.keyword"
     ]
 }

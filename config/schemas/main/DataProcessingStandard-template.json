@@ -4,7 +4,6 @@
     "title": "DataProcessingStandard",
     "description": "DataProcessingStandard template",
     "type": "object",
-    "extensible": 1,
     "properties": {
         "title": {
             "type": "string",
@@ -19,32 +18,49 @@
             "label@fr_FR": "Description",
             "label@en_GB": "Description"
         },
-        "methodsUrl": {
-            "type": "string",
-            "format": "uri",
-            "description": "Url de référence d'une méthode ou un protocole",
-            "label@fr_FR": "URL des méthodes",
-            "label@en_GB": "Methods URL"
-        },
-        "processing": {
-            "type": "object",
-            "class": "TechnicalResourceUsage",
-            "extensible": 1,
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
+        "methodReference": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ResourceReferenceStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "MethodReference",
+                "required": [
+                    "dbid"
+                ]
             },
-            "template_name": "TechnicalResourceUsageStandard",
-            "required": [
-                "dbid"
-            ],
-            "description": "Usage d'une ressource technique pour traiter les données",
-            "label@fr_FR": "Traitement par une ressource extérieure",
-            "label@en_GB": "Treatment by an external resource"
+            "description": "Ressource de référence d'une méthode ou un protocole, d'un workflow d'analyse",
+            "label@fr_FR": "Références des méthodes",
+            "label@en_GB": "Methods references"
+        },
+        "facility": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "TechnicalResource",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "TechnicalResourceStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Ressource technique utilisée pour réaliser les traitements",
+            "label@fr_FR": "Ressource technique",
+            "label@en_GB": "Technical resource"
         },
         "contributors": {
             "type": "array",
+            "table_header": "Nom (rôle)",
             "items": {
                 "type": "object",
                 "class": "Contributor",
@@ -64,10 +80,10 @@
         },
         "cost": {
             "type": "array",
+            "table_header": "Type de coût : montant",
             "items": {
                 "type": "object",
-                "class": "Cost",
-                "extensible": 1,
+                "class": "CostBasic",
                 "properties": {
                     "dbid": {
                         "type": "number"
@@ -87,7 +103,5 @@
         "title",
         "description"
     ],
-    "to_string": [
-        "DataProcessingStandard: to_string not defined"
-    ]
+    "to_string": null
 }

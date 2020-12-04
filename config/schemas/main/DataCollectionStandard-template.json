@@ -4,9 +4,6 @@
     "title": "DataCollectionStandard",
     "description": "DataCollectionStandard template",
     "type": "object",
-    "extensible": 1,
-    "label@fr_FR": "Veuillez décrire la façon dont sont collectées les données, en particulier du point de vue de notre organisme",
-    "label@en_GB": "Bla bla",
     "properties": {
         "title": {
             "type": "string",
@@ -45,46 +42,52 @@
                 "Simulation",
                 "Model",
                 "Other"
-            ]
+            ],
+            "overridable": true,
+            "substitutable": true,
+            "tooltip@fr_FR": "Sélectionner dans la liste déroulante la nature du produit de recherche",
+            "tooltip@en_GB": "Choose in the dropdown the research output data nature"
         },
-        "acquisition": {
+        "facility": {
             "type": "object",
-            "class": "TechnicalResourceUsage",
+            "class": "TechnicalResource",
             "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "template_name": "TechnicalResourceUsageStandard",
+            "template_name": "TechnicalResourceStandard",
             "required": [
                 "dbid"
             ],
             "description": "Usage d'une ressource technique pour acquérir les données",
-            "label@fr_FR": "Acquisition",
-            "label@en_GB": "Acquisition"
+            "label@fr_FR": "Ressource technique",
+            "label@en_GB": "Technical resource"
         },
-        "methodsIdentifier": {
+        "methodReference": {
             "type": "array",
+            "table_header": null,
             "items": {
                 "type": "object",
-                "class": "Identifier",
+                "class": "ResourceReferenceStandard",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "template_name": "ResourceIdentifier",
+                "template_name": "MethodReference",
                 "required": [
                     "dbid"
                 ]
             },
-            "description": "Identifiant du protocole /méthode utilisée",
-            "label@en_GB": "Method Identifier",
-            "label@fr_FR": "Identifiant de la méthode"
+            "description": "Référence(s) de protocoles /méthodes utilisées",
+            "label@en_GB": "Method reference",
+            "label@fr_FR": "Référence de la méthode"
         },
         "contributors": {
             "type": "array",
+            "table_header": "Nom (rôle)",
             "items": {
                 "type": "object",
                 "class": "Contributor",
@@ -104,9 +107,10 @@
         },
         "cost": {
             "type": "array",
+            "table_header": "Type de coût : montant",
             "items": {
                 "type": "object",
-                "class": "Cost",
+                "class": "CostBasic",
                 "extensible": 1,
                 "properties": {
                     "dbid": {
@@ -127,7 +131,5 @@
         "description",
         "dataNature"
     ],
-    "to_string": [
-        "DataCollectionStandard: to_string not defined"
-    ]
+    "to_string": null
 }

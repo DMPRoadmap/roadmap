@@ -4,13 +4,10 @@
     "title": "GenciRequest",
     "description": "GenciRequest template",
     "type": "object",
-    "extensible": 1,
-    "label@fr_FR": "Demande d'espace de stockage",
-    "label@en_GB": "Storage space request",
     "properties": {
         "initialStatus": {
             "type": "object",
-            "class": "SpecificDataStandard",
+            "class": "SpecificData",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -26,7 +23,7 @@
         },
         "oneYearStatus": {
             "type": "object",
-            "class": "SpecificDataStandard",
+            "class": "SpecificData",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -50,6 +47,7 @@
         "justification": {
             "type": "string",
             "description": "Justification du besoin",
+            "inputType": "textarea",
             "label@fr_FR": "Justification",
             "label@en_GB": "justification",
             "example@fr_FR": "La partie justification est obligatoire. Elle doit préciser les besoins en taille de stockage de cet espace, la méthode d’organisation utilisée pour réduire le nombre de fichiers. Le sort final des données à l’issue de la période de stockage doit aussi être précisé : restitution, destruction, diffusion. "
@@ -61,7 +59,5 @@
         "storageTime",
         "justification"
     ],
-    "to_string": [
-        "GenciRequest: to_string not defined"
-    ]
+    "to_string": null
 }

@@ -4,7 +4,6 @@
     "title": "DataPreservationStandard",
     "description": "DataPreservationStandard template",
     "type": "object",
-    "extensible": 1,
     "properties": {
         "description": {
             "type": "string",
@@ -33,22 +32,19 @@
             "label@fr_FR": "Date de fin",
             "label@en_GB": "End date"
         },
-        "preservation": {
+        "host": {
             "type": "object",
-            "class": "TechnicalResourceUsage",
-            "extensible": 1,
+            "class": "TechnicalResourceStandard",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "template_name": "TechnicalResourceUsageStandard",
+            "template_name": "Host",
             "required": [
                 "dbid"
             ],
-            "description": "Usage d'une ressource technique pour conserver les données à number terme",
-            "label@fr_FR": "Préservation",
-            "label@en_GB": "Preservation"
+            "description": "Centre, entrepôt dans lequel les données seront archivées à long terme si nécessaire"
         },
         "finalDisposition": {
             "type": "string",
@@ -58,6 +54,7 @@
         },
         "contributors": {
             "type": "array",
+            "table_header": "Nom (rôle)",
             "items": {
                 "type": "object",
                 "class": "Contributor",
@@ -77,10 +74,10 @@
         },
         "cost": {
             "type": "array",
+            "table_header": "Type de coût : montant",
             "items": {
                 "type": "object",
-                "class": "Cost",
-                "extensible": 1,
+                "class": "CostBasic",
                 "properties": {
                     "dbid": {
                         "type": "number"
@@ -102,7 +99,5 @@
         "endDate",
         "finalDisposition"
     ],
-    "to_string": [
-        "DataPreservationStandard: to_string not defined"
-    ]
+    "to_string": null
 }

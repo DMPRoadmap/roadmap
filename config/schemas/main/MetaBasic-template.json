@@ -1,34 +1,32 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "../Documentation/Implementation/data_model/Json/",
-    "title": "MetadataStandardStandard",
-    "description": "MetadataStandardStandard template",
+    "title": "MetaBasic",
+    "description": "MetaBasic template",
     "type": "object",
     "properties": {
-        "name": {
+        "title": {
             "type": "string",
-            "description": "Nom du standard",
-            "label@fr_FR": "Nom",
-            "label@en_GB": "Name",
-            "tooltip@fr_FR": "Enoncer le standard ou une liste de champs/attributs utilisé pour décrire les données, les représenter ou les annoter (Vocabulaires ",
-            "tooltip@en_GB": "Standard (or list of fields/attributes) used to describe data, to represent or annotate data (FAIR compliant vocabularies): eg. EML, DICOM, EDAM",
-            "example@fr_FR": "DataCite, ISA Tab, DDI, EML, DarwinCore, EDAM, OBI",
-            "example@en_GB": "DataCite, ISA Tab, DDI, EML, DarwinCore, EDAM, OBI"
+            "description": "Titre du plan de gestion de données",
+            "label@fr_FR": "Titre du plan",
+            "label@en_GB": "Plan title",
+            "tooltip@fr_FR": "Plan de gestion de données Livrable 1.4 ",
+            "tooltip@en_GB": "/ Data management plan deliverable 1.4 ou D6.6"
         },
         "description": {
             "type": "string",
-            "description": "Description du modèle ou vocabulaire choisi pour représenter les métadonnées ou données",
+            "description": "Description de la portée du plan de gestion",
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description"
         },
-        "metadataLanguage": {
+        "dmpLanguage": {
             "type": "string",
             "length": "3",
-            "description": "Code langue des métadonnées",
+            "description": "Langue utilisée pour rédiger le DMP",
             "inputType": "dropdown",
-            "label@fr_FR": "Code langue des métadonnées",
-            "label@en_GB": "Metadata language code",
+            "label@fr_FR": "Code langue du pla",
+            "label@en_GB": "Plan language code",
             "values@fr_FR": [
                 "aar",
                 "abk",
@@ -404,23 +402,51 @@
                 "zul"
             ],
             "overridable": true,
-            "substitutable": true,
-            "tooltip@fr_FR": "Code de la langue des métadonnées, annotations",
-            "tooltip@en_GB": "Language code of metadata or annotation"
+            "substitutable": true
         },
-        "metadataStandardId": {
+        "contact": {
+            "type": "object",
+            "class": "Person",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "PersonStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Personne responsable de la réalisation et suivi du plan de gestion de données",
+            "label@fr_FR": "Coordinateur du plan de gestion de données",
+            "label@en_GB": "DMP coordinator",
+            "tooltip@fr_FR": "Personne qui coordonne la planification de la gestion des données, également appelée créateur, auteur ou responsable du DMP. Par défaut, la personne qui crée le DMP",
+            "tooltip@en_GB": "Person who coordinates data management planning, also called DMP creator, author or manager. By default, the person who creates the DMP"
+        },
+        "creationDate": {
             "type": "string",
-            "description": "Identifiant du standard",
-            "label@fr_FR": "Identifiant du standard utilisé",
-            "label@en_GB": "Standard Identifier",
-            "tooltip@fr_FR": "Identifiant d'un standard signalé dans un catalogue",
-            "tooltip@en_GB": "Identifier of a standard from a catalogue",
-            "example@fr_FR": "Identifiant dans FAIRSharing ou le RDA Metadata Standard Catalog (https://rdamsc.bath.ac.uk/)",
-            "example@en_EN": "Identifier in FAIRSharing or RDA Metadata Standard Catalog (https://rdamsc.bath.ac.uk/)"
+            "format": "date",
+            "description": "Date de création du DMP",
+            "label@fr_FR": "Date de création",
+            "label@en_GB": "Creation date"
+        },
+        "lastModifiedDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Date de dernière modification du DMP",
+            "label@fr_FR": "Date de dernière modification",
+            "label@en_GB": "Last modification date"
+        },
+        "dmpId": {
+            "type": "string",
+            "description": "Identifiant pérenne attribué au plan de gestion de données",
+            "label@fr_FR": "Identifiant pérenne du plan",
+            "label@en_GB": "DMP persistent identifier",
+            "tooltip@fr_FR": "Indiquer l’identifiant du plan après son éventuelle publication ou dépôt dans une archive",
+            "tooltip@en_GB": "Provide the plan ID after possible publishing or deposit in an archive"
         },
         "idType": {
             "type": "string",
-            "description": "Type d'identifiant",
+            "description": "Type d'identifiant ressource",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
@@ -442,15 +468,34 @@
             ],
             "overridable": true,
             "substitutable": true
+        },
+        "associatedDmp": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ResourceReference",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ResourceReferenceStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Autres plans de gestion de données en lien avec le projet, rédigés par exemple pour être autorisé à utiliser une resourceTechniques",
+            "label@fr_FR": "Références de plans de gestion de données associés à ce plan",
+            "label@en_GB": "DMP associated DMPs references"
         }
     },
     "required": [
-        "name",
-        "metadataLanguage",
-        "metadataStandardId",
-        "idType"
+        "title",
+        "dmpLanguage",
+        "contact",
+        "creationDate",
+        "lastModifiedDate"
     ],
-    "to_string": [
-        "$.name"
-    ]
+    "to_string": null
 }

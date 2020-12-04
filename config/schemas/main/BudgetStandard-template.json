@@ -8,20 +8,22 @@
         "description": {
             "type": "string",
             "description": "Description générale des coûts et des ressources (rôles, responsabilités, …) utilisés pour la gestion des données de la recherche",
+            "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description"
         },
-        "budgetItem": {
+        "cost": {
             "type": "array",
+            "table_header": "Type de coût : montant",
             "items": {
                 "type": "object",
-                "class": "BudgetItem",
+                "class": "CostBasic",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "template_name": "BudgetItemStandard",
+                "template_name": "CostStandard",
                 "required": [
                     "dbid"
                 ]
@@ -29,12 +31,30 @@
             "description": "Elément de description des coûts",
             "label@fr_FR": "Liste détaillée des coûts",
             "label@en_GB": "Details of cost description"
+        },
+        "contributors": {
+            "type": "array",
+            "table_header": "Nom (rôle)",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ContributorStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Contributeurs ayant un rôle et des responsabilités dans la gestion des données",
+            "label@fr_FR": "Liste des contributeurs ",
+            "label@en_GB": "List of contributors"
         }
     },
     "required": [
         "description"
     ],
-    "to_string": [
-        "BudgetStandard: to_string not defined"
-    ]
+    "to_string": null
 }

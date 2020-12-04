@@ -4,7 +4,6 @@
     "title": "ResearchOutputDescriptionStandard",
     "description": "ResearchOutputDescriptionStandard template",
     "type": "object",
-    "extensible": 1,
     "properties": {
         "title": {
             "type": "string",
@@ -54,7 +53,9 @@
                 "Son",
                 "Texte",
                 "Autre"
-            ]
+            ],
+            "overridable": true,
+            "substitutable": true
         },
         "workPackage": {
             "type": "string",
@@ -62,10 +63,13 @@
             "label@fr_FR": "Workpackage",
             "label@en_GB": "Workpackage",
             "tooltip@fr_FR": "Nom ou numéro du workpackage",
-            "tooltip@en_GB": "Name or number of the workpackage"
+            "tooltip@en_GB": "Name or number of the workpackage",
+            "example@fr_FR": "WP1, WP2",
+            "example@en_GB": "WP1, WP2"
         },
         "controlledKeyword": {
             "type": "array",
+            "table_header": null,
             "items": {
                 "type": "object",
                 "class": "ControlledKeyword",
@@ -474,6 +478,8 @@
                 "zho",
                 "zul"
             ],
+            "overridable": true,
+            "substitutable": true,
             "tooltip@fr_FR": "Sélectionner le code langue du produit de recherche",
             "tooltip@en_GB": "Select the language code of the research output"
         },
@@ -495,29 +501,36 @@
             "tooltip@fr_FR": "Personne contact pour ce produit de recherche",
             "tooltip@en_GB": "Person to contact about this research product"
         },
-        "estimatedVolume": {
-            "type": "number",
-            "description": "Volume des données estimé en megaoctets",
-            "label@fr_FR": "Volume estimé",
-            "label@en_GB": "Estimated volume",
-            "tooltip@fr_FR": "Volume exprimé en Mégaoctets",
-            "tooltip@en_GB": "Volume expressed in Megabytes"
-        },
         "datasetId": {
-            "type": "object",
-            "class": "Identifier",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
-            },
-            "template_name": "ResourceIdentifier",
-            "required": [
-                "dbid"
-            ],
+            "type": "string",
             "description": "Identifiant pérenne attribué au produit de recherche",
             "label@fr_FR": "Identifiant pérenne du produit de recherche",
             "label@en_GB": " Reseach product persistent identifier"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant ressource",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant du produit de recherche",
+            "label@en_GB": " Reseach product identifier",
+            "values@fr_FR": [
+                "DOI",
+                "ARK",
+                "Handle",
+                "IGSN",
+                "URL",
+                "Autre"
+            ],
+            "values@en_GB": [
+                "DOI",
+                "ARK",
+                "Handle",
+                "IGSN",
+                "URL",
+                "Other"
+            ],
+            "overridable": true,
+            "substitutable": true
         },
         "containsPersonalData": {
             "type": "string",
@@ -534,7 +547,9 @@
                 "Yes",
                 "No",
                 "Unknown"
-            ]
+            ],
+            "overridable": true,
+            "substitutable": true
         },
         "containsSensitiveData": {
             "type": "string",
@@ -551,7 +566,9 @@
                 "Yes",
                 "No",
                 "Unknown"
-            ]
+            ],
+            "overridable": true,
+            "substitutable": true
         },
         "hasEthicalIssues": {
             "type": "string",
@@ -568,24 +585,9 @@
                 "Yes",
                 "No",
                 "Unknown"
-            ]
-        },
-        "specificData": {
-            "type": "object",
-            "class": "SpecificData",
-            "extensible": 1,
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
-            },
-            "template_name": "SpecificDataStandard",
-            "required": [
-                "dbid"
             ],
-            "description": "Informations spécifiques à une structure ou une discipline, un type de produit",
-            "label@fr_FR": "Informations spécifiques",
-            "label@en_GB": "Specifc data"
+            "overridable": true,
+            "substitutable": true
         }
     },
     "required": [
@@ -594,12 +596,9 @@
         "type",
         "controlledKeyword",
         "language",
-        "estimatedVolume",
         "containsPersonalData",
         "containsSensitiveData",
         "hasEthicalIssues"
     ],
-    "to_string": [
-        "ResearchOutputDescriptionStandard: to_string not defined"
-    ]
+    "to_string": null
 }

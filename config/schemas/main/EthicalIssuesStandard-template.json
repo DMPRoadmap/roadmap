@@ -4,7 +4,6 @@
     "title": "EthicalIssuesStandard",
     "description": "EthicalIssuesStandard template",
     "type": "object",
-    "extensible": 1,
     "properties": {
         "description": {
             "type": "string",
@@ -13,22 +12,23 @@
             "label@fr_FR": "Description",
             "label@en_GB": "Description"
         },
-        "documentIdentifier": {
+        "resourceReference": {
             "type": "array",
+            "table_header": null,
             "items": {
                 "type": "object",
-                "class": "Identifier",
+                "class": "ResourceReference",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "template_name": "ResourceIdentifier",
+                "template_name": "ResourceReferenceStandard",
                 "required": [
                     "dbid"
                 ]
             },
-            "description": "Identifiant d'un document en lien avec les aspects éthiques à prendre en compte",
+            "description": "Référence(s) de document(s) en lien avec les aspects éthiques à prendre en compte",
             "label@fr_FR": "Identifiant du rapport",
             "label@en_GB": "Report Identifier"
         },
@@ -52,7 +52,5 @@
     "required": [
         "description"
     ],
-    "to_string": [
-        "EthicalIssuesStandard: to_string not defined"
-    ]
+    "to_string": null
 }

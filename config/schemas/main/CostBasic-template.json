@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "../Documentation/Implementation/data_model/Json/",
-    "title": "CostStandard",
-    "description": "CostStandard template",
+    "title": "CostBasic",
+    "description": "CostBasic template",
     "type": "object",
     "properties": {
         "title": {
@@ -10,13 +10,6 @@
             "description": "Libellé du coût",
             "label@fr_FR": "Titre",
             "label@en_GB": "Title"
-        },
-        "description": {
-            "type": "string",
-            "description": "Description/justificatif des coûts",
-            "inputType": "textarea",
-            "label@fr_FR": "Description",
-            "label@en_GB": "Description"
         },
         "costType": {
             "type": "string",

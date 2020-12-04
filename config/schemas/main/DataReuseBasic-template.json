@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "../Documentation/Implementation/data_model/Json/",
-    "title": "DataReuseStandard",
-    "description": "DataReuseStandard template",
+    "title": "DataReuseBasic",
+    "description": "DataReuseBasic template",
     "type": "object",
     "properties": {
         "justification": {
@@ -17,13 +17,13 @@
             "table_header": null,
             "items": {
                 "type": "object",
-                "class": "ReusedDataBasic",
+                "class": "ReusedData",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "template_name": "ReusedDataStandard",
+                "template_name": "ReusedDataBasic",
                 "required": [
                     "dbid"
                 ]
@@ -31,26 +31,6 @@
             "description": "Jeu de données réutilisé",
             "label@fr_FR": "Produit de recherche réutilisé",
             "label@en_GB": "Reused research output"
-        },
-        "cost": {
-            "type": "array",
-            "table_header": "Type de coût : montant",
-            "items": {
-                "type": "object",
-                "class": "CostBasic",
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "template_name": "CostStandard",
-                "required": [
-                    "dbid"
-                ]
-            },
-            "description": "Coûts éventuels liés à l'achat de données",
-            "label@fr_FR": "Coût",
-            "label@en_GB": "cost"
         }
     },
     "required": [

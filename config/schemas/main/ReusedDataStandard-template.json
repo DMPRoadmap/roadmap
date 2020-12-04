@@ -4,7 +4,6 @@
     "title": "ReusedDataStandard",
     "description": "ReusedDataStandard template",
     "type": "object",
-    "extensible": 1,
     "properties": {
         "title": {
             "type": "string",
@@ -22,20 +21,35 @@
             "tooltip@en_GB": "describe the provenance of the reused product"
         },
         "datasetId": {
-            "type": "object",
-            "class": "Identifier",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
-            },
-            "template_name": "ResourceIdentifier",
-            "required": [
-                "dbid"
-            ],
+            "type": "string",
             "description": "Identifiant du produit réutilisé",
             "label@fr_FR": "Identifiant du produit",
             "label@en_GB": "Product ID"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant du produit",
+            "label@en_GB": "Product identifier type",
+            "values@fr_FR": [
+                "DOI",
+                "ARK",
+                "Handle",
+                "IGSN",
+                "URL",
+                "Autre"
+            ],
+            "values@en_GB": [
+                "DOI",
+                "ARK",
+                "Handle",
+                "IGSN",
+                "URL",
+                "Other"
+            ],
+            "overridable": true,
+            "substitutable": true
         },
         "versionNumber": {
             "type": "string",
@@ -62,9 +76,10 @@
     },
     "required": [
         "title",
-        "datasetId"
+        "datasetId",
+        "idType"
     ],
     "to_string": [
-        "ReusedDataStandard: to_string not defined"
+        "$.title"
     ]
 }

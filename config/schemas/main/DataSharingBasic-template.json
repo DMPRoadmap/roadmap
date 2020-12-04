@@ -1,0 +1,36 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataSharingBasic",
+    "description": "DataSharingBasic template",
+    "type": "object",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Aspects relatifs au partage des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        },
+        "host": {
+            "type": "object",
+            "class": "TechnicalResourceStandard",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "Host",
+            "required": [
+                "dbid"
+            ],
+            "description": "Entrepôt ou autre hébergement dans lequel les données seront mises à disposition",
+            "label@fr_FR": "Entrepôts de données ou autres hébergements",
+            "label@en_GB": "Data repository or other hostings "
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": null
+}

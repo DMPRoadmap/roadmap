@@ -8,23 +8,27 @@
         "title": {
             "type": "string",
             "description": "Titre du plan de gestion de données",
-            "label@fr_FR": "Titre",
-            "label@en_GB": "Title"
+            "label@fr_FR": "Titre du plan",
+            "label@en_GB": "Plan title",
+            "tooltip@fr_FR": "Plan de gestion de données Livrable 1.4 ",
+            "tooltip@en_GB": "/ Data management plan deliverable 1.4 ou D6.6"
         },
         "description": {
             "type": "string",
             "description": "Description de la portée du plan de gestion",
             "inputType": "textarea",
-            "label@fr_FR": "Description",
-            "label@en_GB": "Description"
+            "label@fr_FR": "Objet du plan",
+            "label@en_GB": "Plan purpose",
+            "tooltip@fr_FR": "Indiquer l’objet et le périmètre du plan ainsi que ses relations avec les autres livrables. Expliciter brièvement la structure de ce document",
+            "tooltip@en_GB": "Define the purpose and scope of the DMP as well as its relation to other deliverables and briefly explains the structure of the document"
         },
         "dmpLanguage": {
             "type": "string",
             "length": "3",
             "description": "Langue utilisée pour rédiger le DMP",
             "inputType": "dropdown",
-            "label@fr_FR": "Code langue du PGD",
-            "label@en_GB": "DMP language code",
+            "label@fr_FR": "Code langue du pla",
+            "label@en_GB": "Plan language code",
             "values@fr_FR": [
                 "aar",
                 "abk",
@@ -398,7 +402,9 @@
                 "zha",
                 "zho",
                 "zul"
-            ]
+            ],
+            "overridable": true,
+            "substitutable": true
         },
         "contact": {
             "type": "object",
@@ -413,40 +419,57 @@
                 "dbid"
             ],
             "description": "Personne responsable de la réalisation et suivi du plan de gestion de données",
-            "label@fr_FR": "Contact",
-            "label@en_GB": "Contact"
+            "label@fr_FR": "Coordinateur du plan",
+            "label@en_GB": "DMP coordinator",
+            "tooltip@fr_FR": "Personne qui coordonne la planification de la gestion des données, aussi appelée auteur ou responsable du DMP. Par défaut, la personne qui crée le DMP sur DMP OPIDoR",
+            "tooltip@en_GB": "Person who coordinates data management planning, also called DMP author or manager. By default, the person who creates the DMP with DMP OPIDoR"
         },
         "creationDate": {
             "type": "string",
             "format": "date",
-            "description": "Date de création du DMP"
+            "description": "Date de création du DMP",
+            "label@fr_FR": "Date de création",
+            "label@en_GB": "Creation date"
         },
         "lastModifiedDate": {
             "type": "string",
             "format": "date",
-            "description": "Date de dernière modification du DMP"
-        },
-        "versionNumber": {
-            "type": "string",
-            "description": "Numéro de version du plan de gestion de données"
-        },
-        "versionNotes": {
-            "type": "string",
-            "description": "Texte indiquant les modifications par rapport à la précédente version"
+            "description": "Date de dernière modification du DMP",
+            "label@fr_FR": "Date de dernière modification",
+            "label@en_GB": "Last modification date"
         },
         "dmpId": {
-            "type": "object",
-            "class": "Identifier",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
-            },
-            "template_name": "ResourceIdentifier",
-            "required": [
-                "dbid"
+            "type": "string",
+            "description": "Identifiant pérenne attribué au plan de gestion de données",
+            "label@fr_FR": "Identifiant du plan",
+            "label@en_GB": "Plan identifier",
+            "tooltip@fr_FR": "Indiquer l’identifiant du plan après son éventuelle publication ou dépôt dans une archive",
+            "tooltip@en_GB": "Provide the plan ID after possible publishing or deposit in an archive"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant ressource",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": "Identifier type",
+            "values@fr_FR": [
+                "DOI",
+                "ARK",
+                "Handle",
+                "IGSN",
+                "URL",
+                "Autre"
             ],
-            "description": "Identifiant pérenne attribué au plan de gestion de données"
+            "values@en_GB": [
+                "DOI",
+                "ARK",
+                "Handle",
+                "IGSN",
+                "URL",
+                "Other"
+            ],
+            "overridable": true,
+            "substitutable": true
         },
         "license": {
             "type": "object",
@@ -461,47 +484,61 @@
                 "dbid"
             ],
             "description": "Licence apposée au plan de gestion de données pour faciliter la réutilisation de son contenu",
-            "label@fr_FR": "Licence",
-            "label@en_GB": "License"
+            "label@fr_FR": "Licence du plan",
+            "label@en_GB": "Plan license"
         },
         "licenseStartDate": {
             "type": "string",
             "format": "date",
-            "description": "Date à partir de laquelle le DMP est partagé publiquement et peut-être réutilisé"
+            "description": "Date à partir de laquelle le DMP est partagé publiquement et peut-être réutilisé",
+            "label@fr_FR": "Date de début de la licence",
+            "label@en_GB": "License start date",
+            "tooltip@fr_FR": "Date à partir de laquelle le DMP est partagé publiquement et peut-être réutilisé",
+            "tooltip@en_GB": "Date from which the DMP is shared publicly and can be reused"
         },
-        "relatedDocIdentifier": {
+        "relatedDoc": {
             "type": "array",
+            "table_header": null,
             "items": {
                 "type": "object",
-                "class": "Identifier",
+                "class": "ResourceReference",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "template_name": "ResourceIdentifier",
+                "template_name": "ResourceReferenceStandard",
                 "required": [
                     "dbid"
                 ]
             },
-            "description": "Url de documents éventuels à relier au plan de gestion de données"
+            "description": "Références de documents éventuels à relier au plan de gestion de données (ex publications)",
+            "label@fr_FR": "Référence de documents associés à ce plan",
+            "label@en_GB": "DMP associated documents reference",
+            "tooltip@fr_FR": "Indiquer les documents éventuels à relier au plan de gestion de données",
+            "tooltip@en_GB": "Provide the documents associated with the DMP"
         },
-        "associatedDmpId": {
+        "associatedDmp": {
             "type": "array",
+            "table_header": null,
             "items": {
                 "type": "object",
-                "class": "Identifier",
+                "class": "ResourceReference",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "template_name": "ResourceIdentifier",
+                "template_name": "ResourceReferenceStandard",
                 "required": [
                     "dbid"
                 ]
             },
-            "description": "Autres plans de gestion de données en lien avec le projet, rédigés par exemple pour être autorisé à utiliser une resourceTechniques"
+            "description": "Autres plans de gestion de données en lien avec le projet, rédigés par exemple pour être autorisé à utiliser une resourceTechniques",
+            "label@fr_FR": "Référence des plans associés",
+            "label@en_GB": "Associated DMPs reference",
+            "tooltip@fr_FR": "Indiquer les plans de gestion de données en lien avec le projet",
+            "tooltip@en_GB": "Provide the other DMPs associated with the project"
         }
     },
     "required": [
@@ -509,10 +546,7 @@
         "dmpLanguage",
         "contact",
         "creationDate",
-        "lastModifiedDate",
-        "versionNumber"
+        "lastModifiedDate"
     ],
-    "to_string": [
-        "MetaStandard: to_string not defined"
-    ]
+    "to_string": null
 }

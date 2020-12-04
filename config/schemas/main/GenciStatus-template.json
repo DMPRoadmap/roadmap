@@ -4,7 +4,6 @@
     "title": "GenciStatus",
     "description": "GenciStatus template",
     "type": "object",
-    "label@fr_FR": "Etat du stockage par rapport à une demande",
     "properties": {
         "dataSize": {
             "type": "number",
@@ -13,17 +12,47 @@
             "label@en_GB": "Data size",
             "example@fr_FR": "Taille totale dans cet espace en To"
         },
+        "volumeUnit": {
+            "type": "string",
+            "description": "Unité de volume",
+            "inputType": "dropdown",
+            "label@fr_FR": "Unité",
+            "label@en_GB": "Unit",
+            "values@fr_FR": [
+                "Octets",
+                "Kilooctets",
+                "Mégaoctets",
+                "Téraoctets",
+                "Pentaoctets"
+            ],
+            "values@en_GB": [
+                "Octets",
+                "Kilooctets",
+                "Megaoctets",
+                "Teraoctets",
+                "Pentaoctets"
+            ],
+            "overridable": true,
+            "substitutable": true,
+            "default@fr_FR": "Téraoctets",
+            "default@en_GB": "Teraoctets"
+        },
         "numberOfFiles": {
             "type": "number",
-            "description": "Nombre de fichiers et de répertoire",
-            "label@fr_FR": "Nombre de fichiers et de répertoires"
+            "description": "Nombre de fichiers",
+            "label@fr_FR": "Nombre de fichiers",
+            "label@en_GB": "Number of files"
+        },
+        "numberOfDirectory": {
+            "type": "number",
+            "description": "Nombre de répertoires",
+            "label@fr_FR": "Nombre de répertoires",
+            "label@en_GB": "Number of directories"
         }
     },
     "required": [
         "dataSize",
-        "numberOfFiles"
+        "volumeUnit"
     ],
-    "to_string": [
-        "GenciStatus: to_string not defined"
-    ]
+    "to_string": null
 }

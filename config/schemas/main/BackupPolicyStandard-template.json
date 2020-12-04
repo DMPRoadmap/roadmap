@@ -27,12 +27,42 @@
             "label@en_GB": "Backup type",
             "tooltip@fr_FR": "Mode de sauvegarde (incrémentale, différentielle, complète, miroir, …)",
             "tooltip@en_GB": "Bakckup type (ex. incremental, differential, complete, mirror)"
+        },
+        "storageType": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "Support de stockage des données",
+            "inputType": "dropdown",
+            "label@fr_FR": "Support de stockage",
+            "label@en_GB": "Storage type",
+            "values@en_GB": [
+                "Hard disk drive",
+                "Solid state drive",
+                "USB key",
+                "NAS server",
+                "Cloud",
+                "CD",
+                "DVD",
+                "Magnetic tape"
+            ],
+            "values@fr_FR": [
+                "Disque dur",
+                "Disque SSD",
+                "Clé USB",
+                "Serveur NAS",
+                "Cloud",
+                "CD",
+                "DVD",
+                "Bande magnétique"
+            ],
+            "overridable": true,
+            "substitutable": true
         }
     },
     "required": [
         "description"
     ],
-    "to_string": [
-        "BackupPolicyStandard: to_string not defined"
-    ]
+    "to_string": null
 }

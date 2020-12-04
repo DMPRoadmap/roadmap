@@ -4,26 +4,7 @@
     "title": "SpecificDataStandard",
     "description": "SpecificDataStandard template",
     "type": "object",
-    "extensible": 1,
-    "properties": {
-        "title": {
-            "type": "string",
-            "description": "Titre de l'information spécifique",
-            "label@fr_FR": "Titre",
-            "label@en_GB": "Title"
-        },
-        "description": {
-            "type": "string",
-            "description": "Description de l'information spécifique",
-            "inputType": "textarea",
-            "label@fr_FR": "Description",
-            "label@en_GB": "Description"
-        }
-    },
-    "required": [
-        "description"
-    ],
-    "to_string": [
-        "SpecificDataStandard: to_string not defined"
-    ]
+    "properties": {},
+    "required": [],
+    "to_string": null
 }

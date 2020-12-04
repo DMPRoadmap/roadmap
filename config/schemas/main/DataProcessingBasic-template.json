@@ -1,0 +1,20 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataProcessingBasic",
+    "description": "DataProcessingBasic template",
+    "type": "object",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description des méthodes/protocoles de traitement des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": null
+}

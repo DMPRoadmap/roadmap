@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "../Documentation/Implementation/data_model/Json/",
-    "title": "LegalIssuesStandard",
-    "description": "LegalIssuesStandard template",
+    "title": "LegalIssuesBasic",
+    "description": "LegalIssuesBasic template",
     "type": "object",
     "properties": {
         "description": {
@@ -30,34 +30,13 @@
                     "dbid"
                 ]
             },
-            "minItems": 1,
             "description": "Référence(s) de document(s) en lien avec les aspects juridiques",
             "label@fr_FR": "Aspect juridique",
             "label@en_GB": "Legal item"
-        },
-        "contributors": {
-            "type": "array",
-            "table_header": "Nom (rôle)",
-            "items": {
-                "type": "object",
-                "class": "Contributor",
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "template_name": "ContributorStandard",
-                "required": [
-                    "dbid"
-                ]
-            },
-            "description": "Personne(s) en charge des aspects juridiques",
-            "label@fr_FR": "Expert juridique",
-            "label@en_GB": "Legal expert"
         }
     },
     "required": [
-        "legalReference"
+        "description"
     ],
     "to_string": null
 }

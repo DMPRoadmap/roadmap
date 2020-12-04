@@ -4,14 +4,7 @@
     "title": "DataStorageGenci",
     "description": "DataStorageGenci template",
     "type": "object",
-    "extensible": 1,
     "properties": {
-        "title": {
-            "type": "string",
-            "description": "Titre du besoin en stockage",
-            "label@fr_FR": "Titre",
-            "label@en_GB": "Title"
-        },
         "description": {
             "type": "string",
             "description": "Description des besoins de stockage",
@@ -19,25 +12,47 @@
             "label@fr_FR": "Description",
             "label@en_GB": "Description"
         },
-        "storage": {
+        "facility": {
             "type": "array",
+            "table_header": null,
             "items": {
                 "type": "object",
-                "class": "TechnicalResourceUsageStandard",
+                "class": "TechnicalResource",
                 "extensible": 1,
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "template_name": "TechnicalResourceUsageGenci",
+                "template_name": "TechnicalResourceStandard",
                 "required": [
                     "dbid"
                 ]
             },
-            "description": "Usage d'une ressource technique pour le stockage et sauvegarde des données",
+            "description": "Ressource/équipement utilisée pour le stockage et sauvegarde des données",
             "label@fr_FR": "Stockage par une ressource extérieure",
             "label@en_GB": "Storage by an external resource"
+        },
+        "genciServiceRequest": {
+            "type": "array",
+            "table_header": "Type de service GENCI : taille des données",
+            "items": {
+                "type": "object",
+                "class": "SpecificData",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "GenciServiceRequest",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Informations requises pour une demande de ressources de stockage au Genci (une par type de service)",
+            "label@fr_FR": "Demande de ressources de stockage au GENCI",
+            "label@en_GB": "Request for storage resources from GENCI"
         },
         "securityMeasures": {
             "type": "string",
@@ -64,6 +79,7 @@
         },
         "contributors": {
             "type": "array",
+            "table_header": "Nom (rôle)",
             "items": {
                 "type": "object",
                 "class": "Contributor",
@@ -83,10 +99,10 @@
         },
         "cost": {
             "type": "array",
+            "table_header": "Type de coût : montant",
             "items": {
                 "type": "object",
-                "class": "Cost",
-                "extensible": 1,
+                "class": "CostBasic",
                 "properties": {
                     "dbid": {
                         "type": "number"
@@ -97,16 +113,12 @@
                     "dbid"
                 ]
             },
-            "description": "Coûts éventuels liés au stockage des données",
-            "label@fr_FR": "Coût de stockage",
-            "label@en_GB": "Coût de stockage"
+            "description": ""
         }
     },
     "required": [
-        "title",
-        "description"
+        "description",
+        "genciServiceRequest"
     ],
-    "to_string": [
-        "DataStorageGenci: to_string not defined"
-    ]
+    "to_string": null
 }

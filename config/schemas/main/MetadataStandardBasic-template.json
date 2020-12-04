@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "../Documentation/Implementation/data_model/Json/",
-    "title": "MetadataStandardStandard",
-    "description": "MetadataStandardStandard template",
+    "title": "MetadataStandardBasic",
+    "description": "MetadataStandardBasic template",
     "type": "object",
     "properties": {
         "name": {
@@ -14,13 +14,6 @@
             "tooltip@en_GB": "Standard (or list of fields/attributes) used to describe data, to represent or annotate data (FAIR compliant vocabularies): eg. EML, DICOM, EDAM",
             "example@fr_FR": "DataCite, ISA Tab, DDI, EML, DarwinCore, EDAM, OBI",
             "example@en_GB": "DataCite, ISA Tab, DDI, EML, DarwinCore, EDAM, OBI"
-        },
-        "description": {
-            "type": "string",
-            "description": "Description du modèle ou vocabulaire choisi pour représenter les métadonnées ou données",
-            "inputType": "textarea",
-            "label@fr_FR": "Description",
-            "label@en_GB": "Description"
         },
         "metadataLanguage": {
             "type": "string",
@@ -411,6 +404,7 @@
         "metadataStandardId": {
             "type": "string",
             "description": "Identifiant du standard",
+            "inputType": "dropdown",
             "label@fr_FR": "Identifiant du standard utilisé",
             "label@en_GB": "Standard Identifier",
             "tooltip@fr_FR": "Identifiant d'un standard signalé dans un catalogue",
@@ -421,7 +415,6 @@
         "idType": {
             "type": "string",
             "description": "Type d'identifiant",
-            "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
             "values@fr_FR": [

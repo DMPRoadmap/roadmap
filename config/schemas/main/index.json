@@ -1,15 +1,5 @@
 [
     {
-        "path": "AgentIdentifier-template.json",
-        "classname": "identifier",
-        "question_id": null
-    },
-    {
-        "path": "ResourceIdentifier-template.json",
-        "classname": "identifier",
-        "question_id": null
-    },
-    {
         "path": "BackupPolicyStandard-template.json",
         "classname": "backup_policy",
         "question_id": null
@@ -17,11 +7,6 @@
     {
         "path": "BudgetStandard-template.json",
         "classname": "budget",
-        "question_id": null
-    },
-    {
-        "path": "BudgetItemStandard-template.json",
-        "classname": "budget_item",
         "question_id": null
     },
     {
@@ -35,48 +20,83 @@
         "question_id": null
     },
     {
-        "path": "CostStandard-template.json",
+        "path": "CostBasic-template.json",
         "classname": "cost",
         "question_id": null
     },
     {
-        "path": "CostValueStandard-template.json",
-        "classname": "cost_value",
+        "path": "CostStandard-template.json",
+        "classname": "cost_basic",
         "question_id": null
     },
     {
-        "path": "DataCollectionStandard-template.json",
+        "path": "DataCollectionBasic-template.json",
         "classname": "data_collection",
         "question_id": null
     },
     {
-        "path": "DataOrganizationStandard-template.json",
-        "classname": "data_organization",
+        "path": "DataCollectionStandard-template.json",
+        "classname": "data_collection_basic",
         "question_id": null
     },
     {
-        "path": "DataPreservationStandard-template.json",
+        "path": "DataOrganizationReference-template.json",
+        "classname": "resource_reference_standard",
+        "question_id": null
+    },
+    {
+        "path": "DataPreservationBasic-template.json",
         "classname": "data_preservation",
         "question_id": null
     },
     {
-        "path": "DataProcessingStandard-template.json",
+        "path": "DataPreservationStandard-template.json",
+        "classname": "data_preservation_basic",
+        "question_id": null
+    },
+    {
+        "path": "DataProcessingBasic-template.json",
         "classname": "data_processing",
         "question_id": null
     },
     {
-        "path": "DataReuseStandard-template.json",
+        "path": "DataProcessingStandard-template.json",
+        "classname": "data_processing_basic",
+        "question_id": null
+    },
+    {
+        "path": "DataReuseBasic-template.json",
         "classname": "data_reuse",
         "question_id": null
     },
     {
-        "path": "DataSharingStandard-template.json",
+        "path": "DataReuseStandard-template.json",
+        "classname": "data_reuse_basic",
+        "question_id": null
+    },
+    {
+        "path": "DataSharingBasic-template.json",
         "classname": "data_sharing",
         "question_id": null
     },
     {
-        "path": "DataStorageStandard-template.json",
+        "path": "DataSharingStandard-template.json",
+        "classname": "data_sharing_basic",
+        "question_id": null
+    },
+    {
+        "path": "DataStorageBasic-template.json",
         "classname": "data_storage",
+        "question_id": null
+    },
+    {
+        "path": "DataStorageGenci-template.json",
+        "classname": "data_storage_standard",
+        "question_id": null
+    },
+    {
+        "path": "DataStorageStandard-template.json",
+        "classname": "data_storage_basic",
         "question_id": null
     },
     {
@@ -90,13 +110,23 @@
         "question_id": null
     },
     {
-        "path": "DocumentationQualityStandard-template.json",
+        "path": "DocumentationQualityBasic-template.json",
         "classname": "documentation_quality",
         "question_id": null
     },
     {
-        "path": "EthicalIssuesStandard-template.json",
+        "path": "DocumentationQualityStandard-template.json",
+        "classname": "documentation_quality_basic",
+        "question_id": null
+    },
+    {
+        "path": "EthicalIssuesBasic-template.json",
         "classname": "ethical_issues",
+        "question_id": null
+    },
+    {
+        "path": "EthicalIssuesStandard-template.json",
+        "classname": "ethical_issues_basic",
         "question_id": null
     },
     {
@@ -110,18 +140,38 @@
         "question_id": null
     },
     {
-        "path": "IdentifierStandard-template.json",
-        "classname": "identifier",
+        "path": "GenciRequest-template.json",
+        "classname": "specific_data",
         "question_id": null
     },
     {
-        "path": "LegalIssuesStandard-template.json",
+        "path": "GenciServiceRequest-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
+        "path": "GenciStatus-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
+        "path": "Host-template.json",
+        "classname": "technical_resource_standard",
+        "question_id": null
+    },
+    {
+        "path": "LegalIssuesBasic-template.json",
         "classname": "legal_issues",
         "question_id": null
     },
     {
-        "path": "LegalItemStandard-template.json",
-        "classname": "legal_item",
+        "path": "LegalIssuesStandard-template.json",
+        "classname": "legal_issues_basic",
+        "question_id": null
+    },
+    {
+        "path": "LegalReference-template.json",
+        "classname": "resource_reference_standard",
         "question_id": null
     },
     {
@@ -130,8 +180,13 @@
         "question_id": null
     },
     {
-        "path": "MetaStandard-template.json",
+        "path": "MetaBasic-template.json",
         "classname": "meta",
+        "question_id": null
+    },
+    {
+        "path": "MetadataStandardBasic-template.json",
+        "classname": "metadata_standard",
         "question_id": null
     },
     {
@@ -140,8 +195,28 @@
         "question_id": null
     },
     {
+        "path": "MetaStandard-template.json",
+        "classname": "meta_basic",
+        "question_id": null
+    },
+    {
+        "path": "MethodReference-template.json",
+        "classname": "resource_reference_standard",
+        "question_id": null
+    },
+    {
         "path": "PartnerStandard-template.json",
         "classname": "partner",
+        "question_id": null
+    },
+    {
+        "path": "PersonalDataIssuesBasic-template.json",
+        "classname": "personal_data_issues",
+        "question_id": null
+    },
+    {
+        "path": "PersonalDataIssuesStandard-template.json",
+        "classname": "personal_data_issues_basic",
         "question_id": null
     },
     {
@@ -150,23 +225,18 @@
         "question_id": null
     },
     {
-        "path": "PersonalDataIssuesStandard-template.json",
-        "classname": "personal_data_issues",
-        "question_id": null
-    },
-    {
         "path": "ProjectStandard-template.json",
         "classname": "project",
         "question_id": null
     },
     {
-        "path": "QualityAssuranceMethodStandard-template.json",
+        "path": "QualityAssuranceMethodBasic-template.json",
         "classname": "quality_assurance_method",
         "question_id": null
     },
     {
-        "path": "ResearchOutputStandard-template.json",
-        "classname": "research_output",
+        "path": "QualityAssuranceMethodStandard-template.json",
+        "classname": "quality_assurance_method_basic",
         "question_id": null
     },
     {
@@ -175,8 +245,23 @@
         "question_id": null
     },
     {
-        "path": "ReusedDataStandard-template.json",
+        "path": "ResearchOutputStandard-template.json",
+        "classname": "research_output",
+        "question_id": null
+    },
+    {
+        "path": "ResourceReferenceStandard-template.json",
+        "classname": "resource_reference",
+        "question_id": null
+    },
+    {
+        "path": "ReusedDataBasic-template.json",
         "classname": "reused_data",
+        "question_id": null
+    },
+    {
+        "path": "ReusedDataStandard-template.json",
+        "classname": "reused_data_basic",
         "question_id": null
     },
     {
@@ -187,36 +272,6 @@
     {
         "path": "TechnicalResourceStandard-template.json",
         "classname": "technical_resource",
-        "question_id": null
-    },
-    {
-        "path": "TechnicalResourceUsageStandard-template.json",
-        "classname": "technical_resource_usage",
-        "question_id": null
-    },
-    {
-        "path": "DataStorageGenci-template.json",
-        "classname": "data_storage_standard",
-        "question_id": 23980
-    },
-    {
-        "path": "DataStorageGenciSpecificData-template.json",
-        "classname": "specific_data_standard",
-        "question_id": null
-    },
-    {
-        "path": "GenciRequest-template.json",
-        "classname": "specific_data_standard",
-        "question_id": null
-    },
-    {
-        "path": "GenciStatus-template.json",
-        "classname": "specific_data_standard",
-        "question_id": null
-    },
-    {
-        "path": "TechnicalResourceUsageGenci-template.json",
-        "classname": "technical_resource_usage_standard",
         "question_id": null
     }
 ]

@@ -25,27 +25,94 @@
             "label@en_GB": "Email"
         },
         "personId": {
-            "type": "object",
-            "class": "Identifier",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
-            },
-            "template_name": "AgentIdentifier",
-            "required": [
-                "dbid"
+            "type": "string",
+            "description": "Valeur de l'identifiant",
+            "label@fr_FR": "Identifiant de la personne",
+            "label@en_GB": "Person identifier",
+            "example@fr_FR": "https://orcid.org/0000-0002-9148-9926",
+            "example@en_GB": "https://orcid.org/0000-0002-9148-9926"
+        },
+        "IdType": {
+            "type": "string",
+            "description": "Type d'identifiant (ORCID id)",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": "Identifier type",
+            "values@fr_FR": [
+                "ORCID",
+                "ROR ID",
+                "FundRef",
+                "ISSNI",
+                "IdRef",
+                "URL",
+                "Autre"
             ],
-            "description": "Identifiant pérenne de la personne (Identifiant dans un référentiel spécifié)",
-            "label@fr_FR": "ID",
-            "label@en_GB": "ID"
+            "values@en_GB": [
+                "ORCID",
+                "ROR ID",
+                "FundRef",
+                "ISSNI",
+                "IdRef",
+                "URL",
+                "Other"
+            ],
+            "overridable": true,
+            "substitutable": true
+        },
+        "affiliationName": {
+            "type": "string",
+            "description": "Nom de l'affiliation",
+            "label@fr_FR": "Nom de l'affiliation",
+            "label@en_GB": "Affiliation name",
+            "tooltip@fr_FR": "Utiliser de préférence le nom de la structure enregistrée dans le RNSR : https://appliweb.dgri.education.fr/rnsr/ChoixCriteres.jsp?PUBLIC=O)",
+            "tooltip@en_GB": "Preferably use the name of the structure registered in RNSR: https://appliweb.dgri.education.fr/rnsr/ChoixCriteres.jsp?PUBLIC=OK",
+            "example@fr_FR": "INIST Institut de l'information scientifique et technique",
+            "example@en_GB": "INIST Institut de l'information scientifique et technique "
+        },
+        "affiliationId": {
+            "type": "string",
+            "description": "Identifiant de l'affiliation",
+            "label@fr_FR": "Identifiant de l'affiliation",
+            "label@en_GB": "Affiliation identifier",
+            "example@fr_FR": "198822446E",
+            "example@en_GB": "198822446E"
+        },
+        "affiliationIdType": {
+            "type": "string",
+            "description": "Type d'identifiant",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": "Identifier type",
+            "values@fr_FR": [
+                "ORCID",
+                "ROR ID",
+                "FundRef",
+                "ISSNI",
+                "IdRef",
+                "URL",
+                "Autre"
+            ],
+            "values@en_GB": [
+                "ORCID",
+                "ROR ID",
+                "FundRef",
+                "ISSNI",
+                "IdRef",
+                "URL",
+                "Other"
+            ],
+            "overridable": true,
+            "substitutable": true
         }
     },
     "required": [
         "lastName",
-        "firstName"
+        "firstName",
+        "personId",
+        "IdType",
+        "affiliationName",
+        "affiliationId",
+        "affiliationIdType"
     ],
-    "to_string": [
-        "PersonStandard: to_string not defined"
-    ]
+    "to_string": null
 }

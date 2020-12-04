@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "../Documentation/Implementation/data_model/Json/",
-    "title": "PersonalDataIssuesStandard",
-    "description": "PersonalDataIssuesStandard template",
+    "title": "PersonalDataIssuesBasic",
+    "description": "PersonalDataIssuesBasic template",
     "type": "object",
     "properties": {
         "description": {
@@ -31,26 +31,6 @@
             "description": "Identifiant d'un document produit par un service de la protection des données",
             "label@fr_FR": "Référence du document",
             "label@en_GB": "Document identifier"
-        },
-        "contributors": {
-            "type": "array",
-            "table_header": "Nom (rôle)",
-            "items": {
-                "type": "object",
-                "class": "Contributor",
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "template_name": "ContributorStandard",
-                "required": [
-                    "dbid"
-                ]
-            },
-            "description": "Personne(s) en charge d'assurer la protection des données personnelles",
-            "label@fr_FR": "Personne en charge de la protection des données",
-            "label@en_GB": "Person in charge of data protection"
         }
     },
     "required": [

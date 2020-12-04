@@ -1,0 +1,32 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataPreservationBasic",
+    "description": "DataPreservationBasic template",
+    "type": "object",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description des ontraintes réglementaires à prendre en compte pour la conservation des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        },
+        "host": {
+            "type": "object",
+            "class": "TechnicalResourceStandard",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "Host",
+            "required": [
+                "dbid"
+            ],
+            "description": "Centre, entrepôt dans lequel les données seront archivées à long terme si nécessaire"
+        }
+    },
+    "required": [],
+    "to_string": null
+}

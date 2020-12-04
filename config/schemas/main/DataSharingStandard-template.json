@@ -4,7 +4,6 @@
     "title": "DataSharingStandard",
     "description": "DataSharingStandard template",
     "type": "object",
-    "extensible": 1,
     "properties": {
         "description": {
             "type": "string",
@@ -19,10 +18,13 @@
             "label@fr_FR": "Potentiel de réutilisation",
             "label@en_GB": "Reusability",
             "tooltip@fr_FR": "Potentiel et/ou limite de réutilisation",
-            "tooltip@en_GB": "Potential and/or limits of data resusability"
+            "tooltip@en_GB": "Potential and/or limits of data resusability",
+            "example@fr_FR": "Utile pour les statisticiens",
+            "example@en_GB": "Use for statisticians"
         },
         "distribution": {
             "type": "array",
+            "table_header": "Nom du fichier : format",
             "items": {
                 "type": "object",
                 "class": "Distribution",
@@ -45,14 +47,13 @@
         },
         "indexedIn": {
             "type": "object",
-            "class": "TechnicalResource",
-            "extensible": 1,
+            "class": "TechnicalResourceStandard",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "template_name": "TechnicalResourceStandard",
+            "template_name": "Host",
             "required": [
                 "dbid"
             ],
@@ -60,29 +61,25 @@
             "label@fr_FR": "Indexé dans",
             "label@en_GB": "Indexed in"
         },
-        "hosting": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "class": "TechnicalResourceUsage",
-                "extensible": 1,
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "template_name": "TechnicalResourceUsageStandard",
-                "required": [
-                    "dbid"
-                ]
+        "host": {
+            "type": "object",
+            "class": "TechnicalResourceStandard",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
             },
-            "minItems": 1,
-            "description": "Hébergement des données par une resource technique (entrepôt, centre de données…)",
+            "template_name": "Host",
+            "required": [
+                "dbid"
+            ],
+            "description": "Entrepôt ou autre hébergement dans lequel les données seront mises à disposition",
             "label@fr_FR": "Hébergement",
             "label@en_GB": "Hosting"
         },
         "contributors": {
             "type": "array",
+            "table_header": "Nom (rôle)",
             "items": {
                 "type": "object",
                 "class": "Contributor",
@@ -102,10 +99,10 @@
         },
         "cost": {
             "type": "array",
+            "table_header": "Type de coût : montant",
             "items": {
                 "type": "object",
-                "class": "Cost",
-                "extensible": 1,
+                "class": "CostBasic",
                 "properties": {
                     "dbid": {
                         "type": "number"
@@ -123,10 +120,7 @@
     },
     "required": [
         "description",
-        "distribution",
-        "hosting"
+        "distribution"
     ],
-    "to_string": [
-        "DataSharingStandard: to_string not defined"
-    ]
+    "to_string": null
 }

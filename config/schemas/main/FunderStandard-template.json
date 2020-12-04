@@ -12,33 +12,57 @@
             "label@en_GB": "Name"
         },
         "funderId": {
+            "type": "string",
+            "description": "Identifiant de l'agence/source de financement (CrossRef)",
+            "label@fr_FR": "Identifiant du financeur",
+            "label@en_GB": "Funder identifier"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": "Identifier",
+            "values@fr_FR": [
+                "ORCID",
+                "ROR ID",
+                "FundRef",
+                "ISSNI",
+                "IdRef",
+                "URL",
+                "Autre"
+            ],
+            "values@en_GB": [
+                "ORCID",
+                "ROR ID",
+                "FundRef",
+                "ISSNI",
+                "IdRef",
+                "URL",
+                "Other"
+            ],
+            "overridable": true,
+            "substitutable": true
+        },
+        "dataPolicy": {
             "type": "object",
-            "class": "Identifier",
+            "class": "ResourceReference",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "template_name": "AgentIdentifier",
+            "template_name": "ResourceReferenceStandard",
             "required": [
                 "dbid"
             ],
-            "description": "Identifiant de l'agence/source de financement",
-            "label@fr_FR": "ID financeur",
-            "label@en_GB": "Funder ID"
-        },
-        "dataPolicyIdentifier": {
-            "type": "string",
-            "format": "uri",
-            "description": "Url de référence de la politique de données de l'agence de financement",
-            "label@fr_FR": "Identifiant de la politique de données",
-            "label@en_GB": "Data policy ID"
+            "description": "Référence de la politique de données de l'agence de financement",
+            "label@fr_FR": "Référence de la politique de données du financeur",
+            "label@en_GB": "Funder data policy reference"
         }
     },
     "required": [
-        "name"
+        "name",
+        "idType"
     ],
-    "to_string": [
-        "FunderStandard: to_string not defined"
-    ]
+    "to_string": null
 }

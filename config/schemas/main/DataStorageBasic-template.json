@@ -1,0 +1,43 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataStorageBasic",
+    "description": "DataStorageBasic template",
+    "type": "object",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description des besoins de stockage",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        },
+        "backupPolicy": {
+            "type": "object",
+            "class": "BackupPolicy",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "BackupPolicyStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Informations relatives à la politique de sauvegarde",
+            "label@fr_FR": "Politique de sauvegarde",
+            "label@en_GB": "Backup policy"
+        },
+        "securityMeasures": {
+            "type": "string",
+            "description": "Description des mesures prises pour assurer la sécurité des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Mesures de sécurité",
+            "label@en_GB": "Security measures"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": null
+}

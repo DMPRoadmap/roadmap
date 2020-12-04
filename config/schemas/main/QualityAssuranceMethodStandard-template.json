@@ -5,12 +5,6 @@
     "description": "QualityAssuranceMethodStandard template",
     "type": "object",
     "properties": {
-        "title": {
-            "type": "string",
-            "description": "Titre de la méthodologie ou protocole appliqué",
-            "label@fr_FR": "Titre",
-            "label@en_GB": "Title"
-        },
         "description": {
             "type": "string",
             "description": "Description de la méthodologie appliquée pour assurer la qualité scientifique et documentaire des données",
@@ -18,12 +12,25 @@
             "label@fr_FR": "Description",
             "label@en_GB": "Description"
         },
-        "qualityMethodUrl": {
-            "type": "string",
-            "format": "uri",
-            "description": "Url d'un protocole d'assurance qualité",
-            "label@fr_FR": "Url de la méthode",
-            "label@en_GB": "Method url",
+        "methodReference": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ResourceReferenceStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "MethodReference",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Référence(s) de protocole(s) d'assurance qualité",
+            "label@fr_FR": "Référence(s) des protocoles ",
+            "label@en_GB": "Protocol reference(s)",
             "tooltip@fr_FR": "Identifiant pérenne ou Url de la méthode",
             "tooltip@en_GB": "Identifier or Url of the method"
         }
@@ -31,7 +38,5 @@
     "required": [
         "description"
     ],
-    "to_string": [
-        "QualityAssuranceMethodStandard: to_string not defined"
-    ]
+    "to_string": null
 }

@@ -4,12 +4,10 @@
     "title": "ResearchOutputStandard",
     "description": "ResearchOutputStandard template",
     "type": "object",
-    "extensible": 1,
     "properties": {
         "researchOutputDescription": {
             "type": "object",
             "class": "ResearchOutputDescription",
-            "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -25,8 +23,7 @@
         },
         "reuse": {
             "type": "object",
-            "class": "DataReuse",
-            "extensible": 1,
+            "class": "DataReuseBasic",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -42,8 +39,7 @@
         },
         "personalDataIssues": {
             "type": "object",
-            "class": "PersonalDataIssues",
-            "extensible": 1,
+            "class": "PersonalDataIssuesBasic",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -59,8 +55,7 @@
         },
         "legalIssues": {
             "type": "object",
-            "class": "LegalIssues",
-            "extensible": 1,
+            "class": "LegalIssuesBasic",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -76,8 +71,7 @@
         },
         "ethicalIssues": {
             "type": "object",
-            "class": "EthicalIssues",
-            "extensible": 1,
+            "class": "EthicalIssuesBasic",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -93,8 +87,7 @@
         },
         "dataCollection": {
             "type": "object",
-            "class": "DataCollection",
-            "extensible": 1,
+            "class": "DataCollectionBasic",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -110,8 +103,7 @@
         },
         "dataProcessing": {
             "type": "object",
-            "class": "DataProcessing",
-            "extensible": 1,
+            "class": "DataProcessingBasic",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -127,8 +119,7 @@
         },
         "dataStorage": {
             "type": "object",
-            "class": "DataStorage",
-            "extensible": 1,
+            "class": "DataStorageBasic",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -144,8 +135,7 @@
         },
         "documentationQuality": {
             "type": "object",
-            "class": "DocumentationQuality",
-            "extensible": 1,
+            "class": "DocumentationQualityBasic",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -160,8 +150,7 @@
         },
         "sharing": {
             "type": "object",
-            "class": "DataSharing",
-            "extensible": 1,
+            "class": "DataSharingBasic",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -177,8 +166,7 @@
         },
         "preservationIssues": {
             "type": "object",
-            "class": "DataPreservation",
-            "extensible": 1,
+            "class": "DataPreservationBasic",
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -194,7 +182,6 @@
         "budget": {
             "type": "object",
             "class": "Budget",
-            "extensible": 1,
             "properties": {
                 "dbid": {
                     "type": "number"
@@ -218,7 +205,5 @@
         "sharing",
         "preservationIssues"
     ],
-    "to_string": [
-        "ResearchOutputStandard: to_string not defined"
-    ]
+    "to_string": null
 }

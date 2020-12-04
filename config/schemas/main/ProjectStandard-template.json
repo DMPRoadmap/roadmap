@@ -14,14 +14,8 @@
         "acronym": {
             "type": "string",
             "description": "Acronyme du projet",
-            "label@fr_FR": "Acronyme",
-            "label@en_GB": "Acronym"
-        },
-        "projectId": {
-            "type": "string",
-            "description": "identifiant du projet",
-            "label@fr_FR": "Identifiant du projet",
-            "label@en_GB": "Project ID"
+            "label@fr_FR": "Acronyme du projet",
+            "label@en_GB": "Project acronym"
         },
         "description": {
             "type": "string",
@@ -32,6 +26,7 @@
         },
         "funding": {
             "type": "array",
+            "table_header": "Financeur : identifiant du financement",
             "items": {
                 "type": "object",
                 "class": "Funding",
@@ -47,7 +42,7 @@
             },
             "minItems": 1,
             "description": "Source(s) de financement d'un projet ou d'une activité de recherche",
-            "label@fr_FR": "Financement",
+            "label@fr_FR": "Source de financement",
             "label@en_GB": "Funding"
         },
         "startDate": {
@@ -55,21 +50,18 @@
             "format": "date",
             "description": "Début de projet",
             "label@fr_FR": "Date de début du projet",
-            "label@en_GB": "Project start date",
-            "tooltip@fr_FR": "Date de début",
-            "tooltip@en_GB": "Start date"
+            "label@en_GB": "Project start date"
         },
         "endDate": {
             "type": "string",
             "format": "date",
             "description": "Fin de projet",
             "label@fr_FR": "Date de fin du projet",
-            "label@en_GB": "Project end date",
-            "tooltip@fr_FR": "Date de fin",
-            "tooltip@en_GB": "End date"
+            "label@en_GB": "Project end date"
         },
         "partner": {
             "type": "array",
+            "table_header": null,
             "items": {
                 "type": "object",
                 "class": "Partner",
@@ -85,24 +77,24 @@
             },
             "minItems": 1,
             "description": "Partenaires d'un projet ou d'une activité de recherche",
-            "label@fr_FR": "Partenaire(s) du projet",
-            "label@en_GB": "Project partner(s)"
+            "label@fr_FR": "Partenaire du projet",
+            "label@en_GB": "Project partner"
         },
-        "experimentalPlanIdentifier": {
+        "experimentalPlan": {
             "type": "object",
-            "class": "Identifier",
+            "class": "ResourceReference",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "template_name": "ResourceIdentifier",
+            "template_name": "ResourceReferenceStandard",
             "required": [
                 "dbid"
             ],
-            "description": "Url pointant vers une représentation du plan expérimental d'obtention des données",
-            "label@fr_FR": "URL ou identifiant du plan expérimental",
-            "label@en_GB": "Experimental plan ID ou URL"
+            "description": "Référence d'une représentation du plan expérimental d'obtention des données",
+            "label@fr_FR": "Réference du plan expérimental",
+            "label@en_GB": "Experimental plan reference"
         },
         "principalInvestigator": {
             "type": "object",
@@ -118,13 +110,14 @@
             ],
             "description": "Coordinateur principal du projet",
             "label@fr_FR": "Coordinateur du projet",
-            "label@en_GB": "Principal Investigator"
+            "label@en_GB": "Project coordinator",
+            "tooltip@fr_FR": "Aussi appelé Investigateur principal",
+            "tooltip@en_GB": "also called Principal investigator"
         }
     },
     "required": [
         "title",
         "acronym",
-        "projectId",
         "description",
         "funding",
         "startDate",
@@ -132,7 +125,5 @@
         "partner",
         "principalInvestigator"
     ],
-    "to_string": [
-        "ProjectStandard: to_string not defined"
-    ]
+    "to_string": null
 }
