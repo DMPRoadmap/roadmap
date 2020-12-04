@@ -1,0 +1,48 @@
+<%# locals: from_org, to_org %>
+
+<%
+presenter = SuperAdmin::Orgs::MergePresenter.new(from_org: org, to_org: target_org)
+orcid = IdentifierScheme.find_by(name: 'orcid')
+%>
+<%= form_for org, url: merge_commit_super_admin_org_path(org), method: :post, remote: true do |form| %>
+  <p><%= _("Merging '%{from_org_name}' into '%{to_org_name}'") % { from_org_name: org.name, to_org_name: target_org.name } %></p>
+  <p><%= _("The table below shows what changes will occur during the merge process. Once the merge is complete, '%{from_org_name}' will be deleted. You can then consolidate/correct any merge issues (e.g. remove any departments that were duplicated)") % { from_org_name: org.name } %></p>
+  <div class="table-responsive">
+    <table class="table table-hover" id="org-merger">
+      <thead>
+        <tr>
+          <th scope="col" class="text-center"><%= _('Record Type') %></th>
+          <th scope="col" class="text-center"><%= _("%{from_org_name} - Before") % { from_org_name: presenter.from_org_name } %></th>
+          <th scope="col" class="text-center"><%= _("%{to_org_name} - Before") % { to_org_name: presenter.to_org_name } %></th>
+          <th scope="col" class="text-center"><%= _("Action") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% presenter.categories.each do |category| %>
+          <%
+          from_entries = presenter.from_org_entries[category]
+          to_entries = presenter.to_org_entries[category]
+          mergeable_entries = presenter.mergeable_entries[category]
+          %>
+          <tr>
+            <td class="text-center"><%= category.capitalize %></td>
+            <td><%= sanitize(column_content(entries: from_entries, orcid: orcid)) %></td>
+            <td><%= sanitize(column_content(entries: to_entries, orcid: orcid)) %></td>
+            <td>
+              <%= sanitize(merge_column_content(
+                entries: mergeable_entries, orcid: orcid, to_org_name: presenter.to_org_name)
+              ) %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <%= hidden_field_tag "target_org", target_org.id %>
+  <%= hidden_field_tag "mergeables", presenter.mergeable_entries.to_json %>
+
+  <p><%= _("Warning: The changes proposed above will be committed.") %></p>
+  <p><strong><%= _("This change cannot be undone! Do not proceed unless you are certain.") %></strong></p>
+  <%= form.button(_('Merge'), class: "btn btn-primary", type: "submit") %>
+<% end %>

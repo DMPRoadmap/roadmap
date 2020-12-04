@@ -99,6 +99,34 @@ module SuperAdmin
       end
     end
 
+    # POST /super_admin/:id/merge_analyze
+    def merge_analyze
+      @org = Org.includes(:plans, :templates, :tracker, :annotations,
+                          :departments, :token_permission_types, :funded_plans,
+                          identifiers: [:identifier_scheme],
+                          guidance_groups: [guidances: [:themes]],
+                          users: [identifiers: [:identifier_scheme]])
+                .find(params[:id])
+      authorize @org
+
+      lookup = OrgSelection::HashToOrgService.to_org(
+        hash: JSON.parse(merge_params[:id]), allow_create: false
+      )
+      @target_org = Org.includes(:plans, :templates, :tracker, :annotations,
+                                 :departments, :token_permission_types, :funded_plans,
+                                 identifiers: [:identifier_scheme],
+                                 guidance_groups: [guidances: [:themes]],
+                                 users: [identifiers: [:identifier_scheme]])
+                       .find(lookup.id)
+    end
+
+    # POST /super_admin/:id/merge_commit
+    def merge_commit
+      @org = Org.find(params[:id])
+      authorize @org
+
+    end
+
     private
 
     def org_params
@@ -108,6 +136,10 @@ module SuperAdmin
                                   :feedback_email_subject,
                                   :feedback_email_msg,
                                   :org_id, :org_name, :org_crosswalk)
+    end
+
+    def merge_params
+      params.require(:org).permit(:org_name, :org_sources, :org_crosswalk, :id)
     end
 
   end
