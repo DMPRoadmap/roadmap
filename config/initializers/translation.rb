@@ -1,5 +1,5 @@
 TranslationIO.configure do |config|
-  config.api_key        = 'c3a3ba83cc4640409cc0ae52a459b80a'
+  config.api_key        = Rails.application.secrets.translation_io_api_key
   config.source_locale  = 'en'
   config.target_locales = ['en-CA', 'en-GB', 'fr-CA']
   

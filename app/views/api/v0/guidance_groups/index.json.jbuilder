@@ -11,7 +11,7 @@ json.guidance_groups @all_viewable_groups do |guidance_group|
     json.text     guidance.text
     json.updated  guidance.updated_at
     json.themes   guidance.themes.each do |theme|
-      json.title  theme.title
+      json.title  _(theme.title)
     end
   end
 end
