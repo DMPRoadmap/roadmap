@@ -32,7 +32,7 @@
     </li>
   <% end %>
 </ul>
-<% write_plan_class = active_page?(edit_plan_path) ? "write-plan" : ""%>
+<% write_plan_class = active_page?(edit_plan_path(plan.id)) ? "write-plan" : ""%>
 <div class="tab-content">
   <div id="content" role="tabpanel" class="tab-pane active">
     <div class="panel panel-default">
