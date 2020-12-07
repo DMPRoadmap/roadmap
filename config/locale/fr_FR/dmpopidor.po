@@ -483,3 +483,6 @@ msgstr "DMP du projet \"%{project_title}\""
 
 msgid "DMP coordinator"
 msgstr "Coordinateur du PGD"
+
+msgid "Answer"
+msgstr "Répondre"

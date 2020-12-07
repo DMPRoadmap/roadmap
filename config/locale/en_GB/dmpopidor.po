@@ -481,3 +481,6 @@ msgstr "\"%{project_title}\" project DMP"
 
 msgid "DMP coordinator"
 msgstr "DMP coordinator"
+
+msgid "Answer"
+msgstr "Answer"

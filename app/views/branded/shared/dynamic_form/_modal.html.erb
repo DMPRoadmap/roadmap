@@ -1,3 +1,5 @@
+<% url = @fragment.new_record? ?  madmp_fragments_path : madmp_fragment_path(id: @fragment.id) %>
+
 <div class="modal-dialog madmp-fragment" role="document">
   <div class="modal-content">
     <div class="modal-header">
@@ -6,8 +8,13 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <%= form_for @fragment, url: create_or_update_madmp_fragments_path(id: @fragment.id),
-                        html: {method: :post, remote: true, class: 'form-horizontal', id: "modal_fragment_form" } do |f| %>  
+    <%= form_for @fragment, url: url,
+                        html: {
+                          method: @fragment.new_record? ? :post : :put, 
+                          remote: true, 
+                          class: 'form-horizontal', 
+                          id: "modal_fragment_form" 
+                        } do |f| %>  
       <%= f.hidden_field :dmp_id, id: nil %>
       <%= f.hidden_field :parent_id, id: nil %>
       <%= f.hidden_field :id, id: nil %>

@@ -5,86 +5,122 @@ class MadmpFragmentsController < ApplicationController
   after_action :verify_authorized
   include DynamicFormHelper
 
-  def create_or_update
+  def create
+    p_params = permitted_params
+    @schemas = MadmpSchema.all
+    schema = @schemas.find(p_params[:schema_id])
+
+    classname = schema.classname
+
+    @fragment = MadmpFragment.new(
+      dmp_id: p_params[:dmp_id],
+      parent_id: p_params[:parent_id],
+      madmp_schema: schema
+    )
+    @fragment.classname = classname
+
+    authorize @fragment
+    # @fragment.save!
+    @fragment.save_as_multifrag({}, schema)
+
+    if p_params[:source] == "modal"
+      data = data_reformater(schema.schema, schema_params(schema), schema.classname)
+      additional_info = {
+        "validations" => MadmpFragment.validate_data(data, schema.schema)
+      }
+      @fragment.assign_attributes(
+        additional_info: additional_info
+      )
+      @fragment.save_as_multifrag(data, schema)
+    else
+      @fragment.answer = Answer.create!(
+        {
+          research_output_id: p_params[:answer][:research_output_id],
+          plan_id: p_params[:answer][:plan_id],
+          question_id: p_params[:answer][:question_id],
+          lock_version: p_params[:answer][:lock_version],
+          is_common: p_params[:answer][:is_common],
+          user_id: current_user.id
+        }
+      )
+      @fragment.save_as_multifrag({}, schema)
+    end
+
+    return unless @fragment.present?
+
+    if @fragment.answer.present?
+      render json: render_fragment_form(@fragment, @stale_fragment)
+    else
+      render json: {
+        "fragment_id" =>  @fragment.parent_id,
+        "classname" => classname,
+        "html" => render_fragment_list(
+          @fragment.dmp_id,
+          @fragment.parent_id,
+          schema.id,
+          p_params[:template_locale]
+        )
+      }.to_json
+    end
+  end
+
+  def load_form
+    @fragment = MadmpFragment.find_by(id: params[:id])
+    @schemas = MadmpSchema.all
+    authorize @fragment
+
+    return unless @fragment.present?
+
+    render json: render_fragment_form(@fragment, @stale_fragment)
+  end
+
+  def update
     p_params = permitted_params
     @schemas = MadmpSchema.all
     schema = @schemas.find(p_params[:schema_id])
 
     classname = schema.classname
     data = data_reformater(schema.schema, schema_params(schema), schema.classname)
-    @fragment = nil
 
-    if params[:id].present?
-      # rubocop:disable Metrics/BlockLength
-      Answer.transaction do
-        begin
-          @fragment = MadmpFragment.find_by(
-            id: params[:id],
-            dmp_id: p_params[:dmp_id]
-          )
-          # data = @fragment.data.merge(data)
-          additional_info = {
-            "validations" => MadmpFragment.validate_data(data, schema.schema)
-          }
-          @fragment.assign_attributes(
-            # data: data,
-            additional_info: additional_info,
-            madmp_schema_id: schema.id
-          )
+    # rubocop:disable Metrics/BlockLength
+    Answer.transaction do
+      begin
+        @fragment = MadmpFragment.find_by(
+          id: params[:id],
+          dmp_id: p_params[:dmp_id]
+        )
+        # data = @fragment.data.merge(data)
+        additional_info = {
+          "validations" => MadmpFragment.validate_data(data, schema.schema)
+        }
+        @fragment.assign_attributes(
+          # data: data,
+          additional_info: additional_info,
+          madmp_schema_id: schema.id
+        )
 
-          authorize @fragment
-          unless p_params[:source] == "modal"
-            @fragment.answer.update!(
-              {
-                lock_version: p_params[:answer][:lock_version],
-                is_common: p_params[:answer][:is_common],
-                user_id: current_user.id
-              }
-            )
-          end
-          # @fragment.save!
-          @fragment.save_as_multifrag(data, schema)
-        rescue ActiveRecord::StaleObjectError
-          @stale_fragment = @fragment
-          @fragment = MadmpFragment.find_by(
+        authorize @fragment
+        unless p_params[:source] == "modal"
+          @fragment.answer.update!(
             {
-              id: params[:id],
-              dmp_id: p_params[:dmp_id]
+              lock_version: p_params[:answer][:lock_version],
+              is_common: p_params[:answer][:is_common],
+              user_id: current_user.id
             }
           )
         end
-      end
-      # rubocop:enable Metrics/BlockLength
-    else
-      @fragment = MadmpFragment.new(
-        dmp_id: p_params[:dmp_id],
-        parent_id: p_params[:parent_id],
-        madmp_schema: schema
-      )
-      @fragment.classname = classname
-      additional_info = {
-        "validations" => MadmpFragment.validate_data(data, schema.schema)
-      }
-      @fragment.assign_attributes(
-        # data: data,
-        additional_info: additional_info
-      )
-
-      unless p_params[:source] == "modal"
-        @fragment.answer = Answer.create!(
+        # @fragment.save!
+        @fragment.save_as_multifrag(data, schema)
+      rescue ActiveRecord::StaleObjectError
+        @stale_fragment = @fragment
+        @fragment = MadmpFragment.find_by(
           {
-            research_output_id: p_params[:answer][:research_output_id],
-            plan_id: p_params[:answer][:plan_id],
-            question_id: p_params[:answer][:question_id],
-            lock_version: p_params[:answer][:lock_version],
-            is_common: p_params[:answer][:is_common],
-            user_id: current_user.id
+            id: params[:id],
+            dmp_id: p_params[:dmp_id]
           }
         )
       end
-      authorize @fragment
-      # @fragment.save!
-      @fragment.save_as_multifrag(data, schema)
+      # rubocop:enable Metrics/BlockLength
     end
 
     return unless @fragment.present?
@@ -231,7 +267,7 @@ class MadmpFragmentsController < ApplicationController
                   user: answer.user
                 }, formats: [:html]) :
                 nil,
-              "form" => render_to_string(partial: "madmp_fragments/new_edit", locals: {
+              "form" => render_to_string(partial: "madmp_fragments/edit", locals: {
                 template: template,
                 question: question,
                 answer: answer,
