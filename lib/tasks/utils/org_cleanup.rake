@@ -12,6 +12,7 @@ namespace :org_cleanup do
         id: org.id,
         original: org.name,
         cleansed: cleansed,
+        date: org.created_at.strftime("%Y-%m-%d"),
         abbreviation: name_to_abbreviation(name: cleansed),
         matches: []
       }
@@ -46,7 +47,9 @@ namespace :org_cleanup do
     p "No duplicates detected" unless found.any?
 
     found.each do |hash|
-      p "#{hash[:id]} - '#{hash[:original]}' may match Org(s): #{hash[:matches]}"
+      # rubocop:disable Layout/LineLength
+      p "#{hash[:id]} - '#{hash[:original]}' created on #{hash[:date]} may match Org(s): #{hash[:matches]}"
+      # rubocop:enable Layout/LineLength
     end
   end
 
