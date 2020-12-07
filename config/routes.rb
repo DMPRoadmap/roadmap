@@ -125,6 +125,8 @@ Rails.application.routes.draw do
 
     resources :contributors, except: %i[show]
 
+    resources :research_outputs, except: %i[show]
+
     member do
       get "answer"
       get "share"
@@ -215,6 +217,10 @@ Rails.application.routes.draw do
 
       # Paginable actions for contributors
       resources :contributors, only: %i[index] do
+        get "index/:page", action: :index, on: :collection, as: :index
+      end
+      # Paginable actions for research_outputs
+      resources :research_outputs, only: %i[index] do
         get "index/:page", action: :index, on: :collection, as: :index
       end
     end

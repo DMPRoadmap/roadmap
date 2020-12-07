@@ -1,0 +1,50 @@
+<%# locals: @plan, scope %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">
+        <%= _("Title") %>&nbsp;<%= paginable_sort_link("research_outputs.title") %>
+      </th>
+      <th scope="col" class="sorter-false"><%= _("ORCID") %></th>
+      <th scope="col">
+        <%= _("Type") %>&nbsp;<%= paginable_sort_link("research_outputs.output_type") %>
+      </th>
+      <% if @plan.administerable_by?(current_user) %>
+        <th scope="col" class="sorter-false">
+          <span aria-hidden="false" class="sr-only"><%= _("Actions") %></span>
+        </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% scope.each do |output| %>
+      <tr>
+        <td><%= ResearchOutputPresenter.display_name(research_output: output) %></td>
+        <td><%= ResearchOutputPresenter.display_type(research_output: output) %></td>
+        <% if @plan.administerable_by?(current_user) %>
+          <td>
+            <div class="dropdown">
+              <button class="btn btn-link dropdown-toggle"
+                      type="button"
+                      id="research_output-<%= output.id %>-actions"
+                      data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="true">
+                <%= _('Actions') %><span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="research_output-<%= output.id %>-actions">
+                <li><%= link_to _('Edit'),
+                        edit_plan_research_output_path(plan_id: @plan.id, id: output.id) %></li>
+                <li><%= link_to _('Remove'),
+                                plan_research_output_path(@plan.id, output),
+                                data: { confirm: _("You are about to delete '%{research_output_title}'. Are you sure?") % { research_output_title: output.title } },
+                                method: :delete %>
+                </li>
+              </ul>
+            </div>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

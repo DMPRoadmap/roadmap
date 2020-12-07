@@ -121,6 +121,8 @@ class Plan < ApplicationRecord
 
   belongs_to :api_client, optional: true
 
+  has_many :research_outputs, dependent: :destroy
+
   # =====================
   # = Nested Attributes =
   # =====================
@@ -130,6 +132,8 @@ class Plan < ApplicationRecord
   accepts_nested_attributes_for :roles
 
   accepts_nested_attributes_for :contributors
+
+  accepts_nested_attributes_for :research_outputs
 
   # ===============
   # = Validations =
