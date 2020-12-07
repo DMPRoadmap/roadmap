@@ -1345,8 +1345,8 @@ describe Plan do
       @phase     = create(:phase, template: template)
       @section   = create(:section, phase: @phase)
       @questions = create_list(:question, 3, :textarea, section: @section)
-      # 2 valid answers
-      @questions.first(2).each do |question|
+      # 1 valid answers
+      @questions.first(1).each do |question|
         create(:answer, question: question, plan: plan)
       end
       # 1 valid answers
@@ -1356,7 +1356,7 @@ describe Plan do
     end
 
     it "returns the percentage of questions with valid answers" do
-      expect(subject).to eql(2)
+      expect(subject).to eql(50.0)
     end
 
   end
