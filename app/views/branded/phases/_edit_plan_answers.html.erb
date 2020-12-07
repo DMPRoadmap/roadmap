@@ -86,7 +86,10 @@
                         <div class="clearfix"></div>
                       </div>
                     </div>
-                    <div id="collapse-<%= consolidated_id %>" class="panel-collapse collapse question-content" role="tabpanel" aria-labelledby="heading-<%= consolidated_id %>">
+                    <div id="collapse-<%= consolidated_id %>" 
+                          class="panel-collapse collapse question-content" 
+                          role="tabpanel" 
+                          aria-labelledby="heading-<%= consolidated_id %>">
                       <div class="panel-body question-body"><!-- accordion body -->
                         <div class="col-md-8">
                           <!-- Answer Section -->
@@ -99,16 +102,24 @@
                                 <% madmp_schema = fragment ? fragment.madmp_schema : question.madmp_schema %>
                                 <% dmp_id = plan.json_fragment.id %>
                                 <% parent_id = research_output.json_fragment.id %>
-                                <%= render(partial: '/madmp_fragments/new_edit',
-                                        locals: { question: question,
-                                                  answer: answer,
-                                                  fragment: fragment ,
-                                                  madmp_schema: madmp_schema,
-                                                  research_output: research_output,
-                                                  dmp_id: dmp_id,
-                                                  parent_id: parent_id,
-                                                  readonly: readonly,
-                                                  locking: false }) %>
+                                <% if fragment.nil? %>
+                                  <%= render(partial: '/madmp_fragments/new',
+                                          locals: { question: question,
+                                                    answer: answer,
+                                                    madmp_schema: madmp_schema,
+                                                    research_output: research_output,
+                                                    dmp_id: dmp_id,
+                                                    parent_id: parent_id,
+                                                    readonly: readonly,
+                                                    locking: false }) %>
+                                <% else %>
+                                  <%= hidden_field_tag 'fragment-id', fragment.id, class: "fragment-id" %>
+                                  <div class="overlay" style="display:none;">
+                                    <div class="spinner"></div>
+                                    <br/>
+                                    <%= _('Loading...') %>
+                                  </div>
+                                <% end %>
                               <% else %>
                                 <%= render(partial: '/answers/new_edit',
                                         locals: { template: phase.template,

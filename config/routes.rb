@@ -122,13 +122,14 @@ Rails.application.routes.draw do
     resources :research_outputs, only: [:index, :update, :destroy], controller: 'research_outputs'
   end
 
-  resources :research_outputs, only: [] do 
-    get 'create_remote', on: :collection
-    post 'sort', on: :collection
+  resources :research_outputs, only: [] do
+    get "create_remote", on: :collection
+    post "sort", on: :collection
   end
 
   resources :madmp_fragments, only: [:create, :update, :destroy] do
-    post "load_new_form", action: :create, on: :collection
+    get "load_new_form", action: :create, on: :collection
+    get "load_form/:id", action: :load_form, on: :collection
     get "new_edit_linked", on: :collection, constraints: { format: [:js] }
     get "show_linked", on: :collection, constraints: { format: [:js] }
     get "get_fragment/:id", action: :get_fragment, on: :collection, as: :get_fragment

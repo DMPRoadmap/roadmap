@@ -1,12 +1,10 @@
 <%# locals: { template, question, fragment, madmp_schema, research_output, readonly, locking } %>
-<% url = fragment.present? ? madmp_fragment_path(id: fragment.id) : load_new_form_madmp_fragments_path %>
-<% new_form_class = fragment.nil? ? "new-fragment" : ""%>
-
-<%= form_for :madmp_fragment, url: url, 
+<%= hidden_field_tag 'fragment-id', fragment.id, class: "fragment-id" %>
+<%= form_for :madmp_fragment, url: madmp_fragment_path(id: fragment.id), 
               html: {
-                method: :post, 
-                'data-autosave': question.id, 
-                class: "form-answer dynamic-form #{new_form_class}", 
+                method: :put,
+                'data-autosave': question.id,
+                class: "form-answer dynamic-form", 
                 id: nil  
               } do |f| %>
   <% if !readonly %>
@@ -24,16 +22,14 @@
   <%= f.hidden_field :parent_id, :value => parent_id, id: nil %>
   <%= f.hidden_field "source", :value => "form" %>
   <fieldset aria-labelledby="answer-fieldset">
-    <% classname = fragment.classname unless fragment.nil? %>
-    <% if fragment.present? %>
-      <div class="form-group madmp-fragment fragment-<%= fragment.id %>">   
+    <div class="form-group madmp-fragment fragment-<%= fragment.id %>" data-fragment-id="<%= fragment.id %>" >
         <%= render(partial: 'shared/dynamic_form/form', locals: { 
               f: f,
               fragment: fragment, 
               schema: madmp_schema,
               question_id: question.id, 
               readonly: readonly,
-              classname: classname,
+              classname: fragment.classname,
               fragment_id: fragment.id,
               template_locale: question.template.locale
             }) %>
@@ -44,14 +40,5 @@
         </div>
       </div>
       <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
-    <% else %>
-      <div class="form-group madmp-fragment">  
-        <div class="overlay" style="display:none;">
-          <div class="spinner"></div>
-          <br/>
-          <%= _('Loading ...') %>
-        </div>
-      </div>
-    <% end %>
   </fieldset>
 <% end %>

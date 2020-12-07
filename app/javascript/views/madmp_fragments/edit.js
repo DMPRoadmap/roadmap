@@ -16,8 +16,8 @@ $(() => {
 
     if (form.hasClass('new-fragment')) {
       $.ajax({
-        method: form.attr('method'),
-        url: form.attr('action'),
+        method: 'get',
+        url: '/madmp_fragments/load_new_form',
         data: form.serializeArray(),
         beforeSend: () => {
           showSavingMessage(target);
@@ -32,10 +32,27 @@ $(() => {
       }).fail((error) => {
         failCallback(error, target);
       });
+    } else {
+      const fragmentId = target.find('.fragment-id').val();
+      $.ajax({
+        method: 'get',
+        url: `/madmp_fragments/load_form/${fragmentId}`,
+        beforeSend: () => {
+          showLoadingOverlay(target);
+        },
+        complete: () => {
+          hideLoadingOverlay(target);
+        },
+      }).done((data) => {
+        doneCallback(data, target);
+      }).fail((error) => {
+        failCallback(error, target);
+      });
     }
   });
   $('.question-content').on('hide.bs.collapse', (e) => {
     const target = $(e.target);
-    console.log(target.find('form'));
+    const fragmentId = target.find('.fragment-id').val();
+    target.find('.answer-form').html(`<input type="hidden" name="fragment-id" id="fragment-id" value="${fragmentId}" class="fragment-id">`);
   });
 });

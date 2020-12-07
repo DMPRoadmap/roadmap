@@ -64,6 +64,16 @@ class MadmpFragmentsController < ApplicationController
     end
   end
 
+  def load_form
+    @fragment = MadmpFragment.find_by(id: params[:id])
+    @schemas = MadmpSchema.all
+    authorize @fragment
+
+    return unless @fragment.present?
+
+    render json: render_fragment_form(@fragment, @stale_fragment)
+  end
+
   def update
     p_params = permitted_params
     @schemas = MadmpSchema.all
@@ -110,6 +120,7 @@ class MadmpFragmentsController < ApplicationController
           }
         )
       end
+      # rubocop:enable Metrics/BlockLength
     end
 
     return unless @fragment.present?
@@ -255,7 +266,7 @@ class MadmpFragmentsController < ApplicationController
                   user: answer.user
                 }, formats: [:html]) :
                 nil,
-              "form" => render_to_string(partial: "madmp_fragments/new_edit", locals: {
+              "form" => render_to_string(partial: "madmp_fragments/edit", locals: {
                 question: question,
                 answer: answer,
                 fragment: fragment ,
