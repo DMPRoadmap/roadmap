@@ -1,12 +1,12 @@
-<%# locals: { template, question, fragment, madmp_schema, research_output, readonly, locking, base_template_org } %>
-<!--
-  This partial creates a form for each type of question. The local variables are: plan, answer, question, research_output, readonly
--->
-<!-- Question text -->
-<% q_format = question.question_format %>
-<% fragment_id = fragment.id unless fragment.nil? %>
-<% url = fragment.present? ? create_or_update_madmp_fragments_path(id: fragment.id) : create_or_update_madmp_fragments_path %>
-<%= form_for :madmp_fragment, url: url, html: {method: :post, 'data-autosave': question.id, class: 'form-answer dynamic-form', id: nil  } do |f| %>
+<%# locals: { template, question, fragment, madmp_schema, research_output, readonly, locking } %>
+<%= hidden_field_tag 'fragment-id', fragment.id, class: "fragment-id" %>
+<%= form_for :madmp_fragment, url: madmp_fragment_path(id: fragment.id), 
+              html: {
+                method: :put,
+                'data-autosave': question.id,
+                class: "form-answer dynamic-form", 
+                id: nil  
+              } do |f| %>
   <% if !readonly %>
     <%= f.fields_for(:answer, answer) do |af| %>
       <%= af.hidden_field :plan_id, id: nil %>
@@ -21,28 +21,25 @@
   <%= f.hidden_field :dmp_id, :value => dmp_id, id: nil %>
   <%= f.hidden_field :parent_id, :value => parent_id, id: nil %>
   <%= f.hidden_field "source", :value => "form" %>
-  
   <fieldset aria-labelledby="answer-fieldset">
-    <% classname = fragment.classname unless fragment.nil? %>
-    <%= f.label(:text, sanitize(question.text), class: 'control-label') unless question.nil? %>
-    <div class="form-group madmp-fragment fragment-<%= fragment_id %>">   
-      <%= render(partial: 'shared/dynamic_form/form', locals: { 
-            f: f,
-            fragment: fragment, 
-            schema: madmp_schema,
-            question_id: question.id, 
-            readonly: readonly,
-            classname: classname,
-            fragment_id: fragment_id,
-            template_locale: template.locale
-          }) %>
-      <div class="overlay" style="display:none;">
-        <div class="spinner"></div>
-        <br/>
-        <%= _('Saving...') %>
+    <div class="form-group madmp-fragment fragment-<%= fragment.id %>" data-fragment-id="<%= fragment.id %>" >
+        <%= render(partial: 'shared/dynamic_form/form', locals: { 
+              f: f,
+              fragment: fragment, 
+              schema: madmp_schema,
+              question_id: question.id, 
+              readonly: readonly,
+              classname: fragment.classname,
+              fragment_id: fragment.id,
+              template_locale: question.template.locale
+            }) %>
+        <div class="overlay" style="display:none;">
+          <div class="spinner"></div>
+          <br/>
+          <%= _('Saving...') %>
+        </div>
       </div>
-    </div>
-    <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+      <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
   </fieldset>
   <!--Example Answer area -->
   <% if template.present? && template.org.present? %>
