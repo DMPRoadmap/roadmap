@@ -55,4 +55,10 @@ $(() => {
     const fragmentId = target.find('.fragment-id').val();
     target.find('.answer-form').html(`<input type="hidden" name="fragment-id" id="fragment-id" value="${fragmentId}" class="fragment-id">`);
   });
+
+  $('body').on('click', '.question .heading-button', (e) => {
+    $(e.currentTarget)
+      .find('i.fa-chevron-right, i.fa-chevron-down')
+      .toggleClass('fa-chevron-right fa-chevron-down');
+  });
 });

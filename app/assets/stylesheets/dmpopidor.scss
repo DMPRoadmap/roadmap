@@ -437,6 +437,23 @@ header .main-nav {
     /* 
         PLAN EDIT
     */
+    .write-plan {
+        &.panel-body {
+            padding: 15px 5px;
+        }
+        &.panel-body, .section-content {
+            background-color: $very-very-light-blue;
+        }
+        .research-output-content{
+            background-color: $white;
+            border: 1px solid $blue;
+            border-top-color: transparent;
+        }
+        .question {
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+    }
     // Progress bar 
     .progress-bar {
         background-color: $blue;
@@ -511,7 +528,7 @@ header .main-nav {
             border: none;
         }
         .section-title {
-            background-color: $white;
+            background-color: $very-very-light-blue;
             h2 {
                 font-weight: 700;
             }
@@ -524,7 +541,14 @@ header .main-nav {
 
     // Questions
     .question-text {
-        background-color: $blue;
+        background-color: $white;
+        color: $dark-blue;
+        border-bottom: 2px solid $dark-blue;
+        border-right: 2px solid $dark-blue;
+        .panel-title {
+            color: $dark-blue;
+            font-weight: bold;
+        }
     }
     .question-body{
         padding: 15px 0;
