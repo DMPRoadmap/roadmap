@@ -1356,7 +1356,7 @@ describe Plan do
     end
 
     it "returns the percentage of questions with valid answers" do
-      expect(subject).to eql(50.0)
+      expect(subject.to_i).to eql(33)
     end
 
   end
