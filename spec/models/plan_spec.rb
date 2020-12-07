@@ -1452,7 +1452,7 @@ describe Plan do
   describe "#percent_answered" do
 
     let!(:template) { create(:template, phases: 1, sections: 1, questions: 1) }
-    
+
     let!(:plan) { create(:plan, :creator, template: template) }
 
     subject { plan.percent_answered }
