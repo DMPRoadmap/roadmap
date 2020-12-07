@@ -540,7 +540,7 @@ class Plan < ApplicationRecord
   #
   def percent_answered
     num_questions = question_ids.length
-    return false unless num_questions.positive?
+    return 0 unless num_questions.positive?
 
     pre_fetched_answers = Answer.includes(:question_options,
                                           question: :question_format)
