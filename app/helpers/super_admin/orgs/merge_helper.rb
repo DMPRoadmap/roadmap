@@ -6,6 +6,16 @@ module SuperAdmin
 
     module MergeHelper
 
+      def org_column_content(attributes:)
+        return "No mergeable attributes" unless attributes.present? && attributes.keys.any?
+
+        html = "<ul>"
+        attributes.each_key do |key|
+          html += "<li><strong>#{key}</strong>: #{attributes[key]}</li>"
+        end
+        "#{html}</ul>"
+      end
+
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       def column_content(entries:, orcid:)
         return _("None") unless entries.present? && entries.any?

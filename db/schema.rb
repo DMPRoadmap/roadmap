@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_19_210343) do
+ActiveRecord::Schema.define(version: 2020_12_08_192403) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -198,17 +198,6 @@ ActiveRecord::Schema.define(version: 2020_11_19_210343) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "enabled", default: true
-  end
-
-  create_table "org_identifiers", id: :integer, force: :cascade do |t|
-    t.string "identifier"
-    t.integer "identifier_scheme_id"
-    t.string "attrs"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer "org_id"
-    t.index ["identifier_scheme_id"], name: "fk_rails_189ad2e573"
-    t.index ["org_id"], name: "fk_rails_36323c0674"
   end
 
   create_table "org_token_permissions", id: :integer, force: :cascade do |t|
@@ -546,7 +535,6 @@ ActiveRecord::Schema.define(version: 2020_11_19_210343) do
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
-  add_foreign_key "api_clients", "orgs"
   add_foreign_key "conditions", "questions"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
@@ -554,8 +542,6 @@ ActiveRecord::Schema.define(version: 2020_11_19_210343) do
   add_foreign_key "notes", "users"
   add_foreign_key "notification_acknowledgements", "notifications"
   add_foreign_key "notification_acknowledgements", "users"
-  add_foreign_key "org_identifiers", "identifier_schemes"
-  add_foreign_key "org_identifiers", "orgs"
   add_foreign_key "org_token_permissions", "orgs"
   add_foreign_key "org_token_permissions", "token_permission_types"
   add_foreign_key "orgs", "languages"

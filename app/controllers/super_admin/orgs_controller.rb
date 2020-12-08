@@ -121,32 +121,36 @@ module SuperAdmin
     end
 
     # POST /super_admin/:id/merge_commit
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def merge_commit
       @org = Org.find(params[:id])
       authorize @org
 
       @target_org = Org.find(merge_params[:target_org])
-      mergeables = JSON.parse(merge_params[:mergeables])
+      associations = JSON.parse(merge_params[:mergeable_associations])
+      attributes = JSON.parse(merge_params[:mergeable_attributes])
 
-      if @target_org.present? && mergeables.present?
-        merge_records(org: @org, target_org: @target_org, mergeables: mergeables)
+      if @target_org.present? && associations.present?
+        Org.transaction do
+          merge_records(org: @org, target_org: @target_org, attributes: attributes,
+                        associations: associations)
 
-        # Remove all of the Org's guidance_groups the guidances were moved above
-        @org.guidance_groups.delete_all
-        # Remove all of the remaining identifiers and token_permission_types
-        # that were not merged
-        @org.identifiers.delete_all
-        @org.token_permission_types.delete_all
+          # Remove all of the Org's guidance_groups the guidances were moved above
+          @org.guidance_groups.delete_all
+          # Remove all of the remaining identifiers and token_permission_types
+          # that were not merged
+          @org.identifiers.delete_all
+          @org.token_permission_types.delete_all
 
-        if @org.destroy
-          msg = "Successfully merged '#{@org.name}' into '#{@target_org.name}'"
-          redirect_to super_admin_orgs_path, notice: msg
-        else
-          # rubocop:disable Layout/LineLength
-          msg = _("Partial merge complete. Unable to delete '#{@org.name}'. Revisit the 'Merge' tab to see what records did not get merged.")
-          # rubocop:enable Layout/LineLength
-          redirect_to admin_edit_org_path(@org), alert: msg
+          if @org.destroy
+            msg = "Successfully merged '#{@org.name}' into '#{@target_org.name}'"
+            redirect_to super_admin_orgs_path, notice: msg
+          else
+            # rubocop:disable Layout/LineLength
+            msg = _("Partial merge complete. Unable to delete '#{@org.name}'. Revisit the 'Merge' tab to see what records did not get merged.")
+            # rubocop:enable Layout/LineLength
+            redirect_to admin_edit_org_path(@org), alert: msg
+          end
         end
       else
         msg = _("Unable to merge the two Orgs at this time.")
@@ -156,7 +160,7 @@ module SuperAdmin
       msg = _("Unable to determine what records need to be merged.")
       redirect_to admin_edit_org_path(@org), alert: msg
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     private
 
@@ -170,41 +174,59 @@ module SuperAdmin
     end
 
     def merge_params
-      params.require(:org).permit(:org_name, :org_sources, :org_crosswalk, :id,
-                                  :target_org, :mergeables)
+      params.require(:org).permit(:org_name, :org_sources, :org_crosswalk, :id, :target_org,
+                                  :mergeable_associations, :mergeable_attributes)
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-    def merge_records(org:, target_org:, mergeables:)
-      mergeables.each_key do |category|
-        next unless mergeables[category].any?
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockLength
+    def merge_records(org:, target_org:, attributes:, associations:)
+      target_org.update(attributes) if attributes.any?
+
+      # Reassociate any Plan-GuidanceGroup connections
+      # Move the guidance to the target_org's guidance_group.
+      new_gg = target_org.guidance_groups.first
+      new_gg = GuidanceGroup.new(org: org, name: org.abbreviation) unless new_gg.present?
+
+      org.guidance_groups.each do |old_gg|
+        old_gg.plans.each do |plan|
+          plan.guidance_groups << new_gg
+          plan.save
+        end
+        old_gg.plans.delete_all
+      end
+
+      # Process the other associations
+      associations.each_key do |category|
+        next unless associations[category].any?
 
         case category
         when "guidances"
-          # Move the guidance to the target_org's guidance_group.
-          gg = target_org.guidance_groups.first
-          gg = GuidanceGroup.new(org: org, name: org.abbreviation) unless gg.present?
-
-          mergeables[category].each do |guidance|
+          associations[category].each do |guidance|
             guidance = Guidance.find(guidance["id"])
             next unless guidance.present?
 
-            guidance.update(guidance_group: gg)
+            guidance.update(guidance_group: new_gg)
           end
-        when "identifier"
+        when "identifiers"
           # Update the identifiers' :identifiable_id to the target_org
-          mergeables[category].each do |identifier|
+          associations[category].each do |identifier|
             id = Identifier.find(identifier["id"])
             next unless id.present?
 
             id.update(identifiable_id: target_org.id)
           end
+        when "token_permission_types"
+          associations[category].each do |item|
+            target_org.token_permission_types << TokenPermissionType.find_by(id: item["id"])
+          end
+          target_org.save
         else
           # Otherwise update the items' :org_id to the target_org
-          clazz = category.singularize.capitalize.constantize
+          clazz_name = category.singularize.split("_").map(&:capitalize).join("")
+          clazz = clazz_name.constantize
           next unless clazz.present?
 
-          mergeables[category].each do |item|
+          associations[category].each do |item|
             obj = clazz.find_by(id: item["id"])
             next unless obj.present?
 
@@ -213,7 +235,7 @@ module SuperAdmin
         end
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockLength
 
   end
 
