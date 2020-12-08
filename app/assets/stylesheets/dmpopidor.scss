@@ -447,7 +447,9 @@ header .main-nav {
         .research-output-content{
             background-color: $white;
             border: 1px solid $blue;
-            border-top-color: transparent;
+            &.multiple-research-output {
+                border-top-color: transparent;
+            }
         }
         .question {
             margin-left: 0px;

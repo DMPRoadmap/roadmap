@@ -50,7 +50,8 @@
               </li>
             <% end if plan.research_outputs.count > 1 %>
           </ul>
-          <div class="tab-content panel-body research-output-content">
+          <% multiple_ro_class = plan.research_outputs.count > 1 ? "multiple-research-output" : "single-research-output" %>
+          <div class="tab-content panel-body research-output-content <%= multiple_ro_class %>">
             <% plan.research_outputs.each_with_index do |research_output, i| %>
               <div id="research_output_<%= research_output.id %>_section_<%= section.id %>" class="tab-pane fade <%= 'in active' if research_output.main? %> <%= 'main_research_output' if research_output.main? %>">
                 <% if research_output.main? && plan.research_outputs.count > 1 %>
