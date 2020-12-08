@@ -71,6 +71,7 @@
                       answer = Answer.new({ plan: plan, question: question, research_output: research_output })
                     end
                     consolidated_id = "#{question.id}-research-output-#{research_output.id}"
+                    collapse_class = question.question_format.structured? ? "fragment-content" : "question-content"
                   %>
                   <div class="row question">
                     <div class="heading-button" role="button" data-toggle="collapse"
@@ -88,7 +89,7 @@
                       </div>
                     </div>
                     <div id="collapse-<%= consolidated_id %>" 
-                          class="panel-collapse collapse question-content" 
+                          class="panel-collapse collapse <%= collapse_class %>" 
                           role="tabpanel" 
                           aria-labelledby="heading-<%= consolidated_id %>">
                       <div class="panel-body question-body"><!-- accordion body -->

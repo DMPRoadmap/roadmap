@@ -274,7 +274,7 @@ $(() => {
       });
     }
   }); // .click()
-  $('.section-content').on('shown.bs.collapse', (e) => {
+  $('.question-content').on('shown.bs.collapse', (e) => {
     const qId = $(e.target).attr('id');
     // Initial load
     TimeagoFactory.render($('time.timeago'));
@@ -299,7 +299,7 @@ $(() => {
       });
     }
   });
-  $('.section-content').on('hide.bs.collapse', (e) => {
+  $('.question-content').on('hide.bs.collapse', (e) => {
     const qId = $(e.target).attr('id');
     formHandlers({ jQuery: $(`#${qId} .form-answer`), attachment: 'off' });
     $(`#${qId} .${editorClass}`).each((i, editor) => {

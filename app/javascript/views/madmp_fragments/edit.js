@@ -10,7 +10,7 @@ $(() => {
   const showLoadingOverlay = jQuery => jQuery.find('.overlay').show();
   const hideLoadingOverlay = jQuery => jQuery.find('.overlay').hide();
 
-  $('.question-content').on('shown.bs.collapse', (e) => {
+  $('.fragment-content').on('shown.bs.collapse', (e) => {
     const target = $(e.target);
     const form = target.find('form');
 
@@ -50,7 +50,7 @@ $(() => {
       });
     }
   });
-  $('.question-content').on('hide.bs.collapse', (e) => {
+  $('.fragment-content').on('hide.bs.collapse', (e) => {
     const target = $(e.target);
     const fragmentId = target.find('.fragment-id').val();
     target.find('.answer-form').html(`<input type="hidden" name="fragment-id" id="fragment-id" value="${fragmentId}" class="fragment-id">`);

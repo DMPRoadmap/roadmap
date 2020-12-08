@@ -1,7 +1,6 @@
 <%# locals: { f, question, answer, research_output } %>
 <% options = question.question_options.by_number %>
 <% if question.question_format.checkbox? || question.question_format.multiselectbox? %>
-    <%= f.label(:question_option_ids, sanitize(question.text), class: 'control-label') %>
     <% options.each do |op| %>
         <div class="checkbox">
             <label>
@@ -11,7 +10,6 @@
         </div>
     <% end %>
 <% elsif question.question_format.radiobuttons? %>
-    <%= f.label(:question_option_ids, sanitize(question.text), class: 'control-label') %>
     <% options.each do |op| %>
         <div class="radio">
             <label>
@@ -29,7 +27,6 @@
                 "<option value=#{op.id}>#{op.text}</option>"
         end
     %>
-    <%= f.label(:question_option_ids, sanitize(question.text), class: 'control-label') %>
     <%= select_tag('answer[question_option_ids]',
         options_html.html_safe,
         { multiple: question.question_format.multiselectbox?,
