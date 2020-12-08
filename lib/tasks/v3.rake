@@ -7,6 +7,11 @@ namespace :v3 do
     Rake::Task["v3:fix_funder_ids"].execute
   end
 
+  desc "Upgrade from v3.0.0 to v3.1.0"
+  task upgrade_3_1_0: :environment do
+    Rake::Task["mime_types:load"].execute
+  end
+
   # Set any records with a nil `language_id` to the default language
   desc "Change nil language_id entries into the default language"
   task ensure_default_languages: :environment do
