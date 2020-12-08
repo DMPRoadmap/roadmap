@@ -179,7 +179,7 @@ module DynamicFormHelper
       next if data[key].nil?
 
       if data[key] == ""
-        data.delete(key)
+        data[key] = nil
       else
         case prop["type"]
         when "integer", "number"
