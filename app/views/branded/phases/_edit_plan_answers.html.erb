@@ -5,21 +5,6 @@
         <%= sanitize phase.description %>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-8">
-        <div class="row">
-          <div class="col-md-8">
-            <div id="sections-accordion-controls">
-              <div class="accordion-controls" data-parent="sections-accordion">
-                <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
-                <span>|</span>
-                <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     
     <div class="panel-group" id="sections">
       <% phase.sections.order(:number).each do |section| %>
@@ -36,6 +21,19 @@
               <%= sanitize section.description %>
             </div>
           </div>
+
+          <div class="row">
+            <div class="col-md-8">
+              <div id="questions-accordion-controls">
+                <div class="accordion-controls" data-parent="questions-accordion-<%= section.id %>">
+                  <a href="#" data-toggle-direction="show"><%= _('expand all') %></a>
+                  <span>|</span>
+                  <a href="#" data-toggle-direction="hide"><%= _('collapse all') %></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <ul class="nav nav-tabs nav-justified">
             <% section_has_common_answers = plan.research_outputs.first.has_common_answers?(section.id) %>
             <% plan.research_outputs.each_with_index do |research_output, i| %>
@@ -51,7 +49,7 @@
             <% end if plan.research_outputs.count > 1 %>
           </ul>
           <% multiple_ro_class = plan.research_outputs.count > 1 ? "multiple-research-output" : "single-research-output" %>
-          <div class="tab-content panel-body research-output-content <%= multiple_ro_class %>">
+          <div id="questions-accordion-<%= section.id %>" class="tab-content panel-body research-output-content <%= multiple_ro_class %>">
             <% plan.research_outputs.each_with_index do |research_output, i| %>
               <div id="research_output_<%= research_output.id %>_section_<%= section.id %>" class="tab-pane fade <%= 'in active' if research_output.main? %> <%= 'main_research_output' if research_output.main? %>">
                 <% if research_output.main? && plan.research_outputs.count > 1 %>
