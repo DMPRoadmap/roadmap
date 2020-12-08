@@ -285,11 +285,13 @@ class Org < ApplicationRecord
   end
 
   def plans
-    plan_ids = Role.administrator
-                   .where(user_id: users.pluck(:id), active: true)
-                   .pluck(:plan_id).uniq
-    Plan.includes(:template, :phases, :roles, :users)
-        .where(id: plan_ids)
+    Rails.cache.fetch("org[#{id}].plans", expires_in: 2.seconds) do
+      plan_ids = Role.administrator
+                     .where(user_id: users.pluck(:id), active: true)
+                     .pluck(:plan_id).uniq
+      Plan.includes(:template, :phases, :roles, :users)
+          .where(id: plan_ids)
+    end
   end
 
   def grant_api!(token_permission_type)
