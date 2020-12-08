@@ -7,7 +7,7 @@ orcid = IdentifierScheme.find_by(name: 'orcid')
 <%= form_for org, url: merge_commit_super_admin_org_path(org), method: :post, remote: false do |form| %>
 
   <p><strong><%= _("Merging '%{from_org_name}' into '%{to_org_name}'") % { from_org_name: org.name, to_org_name: target_org.name } %></strong></p>
-  
+
   <h3><%= _("Summary:") %></h3>
   <p><%= _("Counts of '%{to_org_name}' records before and after a merge with %{from_org_name}.") % { to_org_name: target_org.name, from_org_name: org.name } %></p>
   <div class="table-responsive">
