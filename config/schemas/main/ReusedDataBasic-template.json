@@ -38,9 +38,7 @@
                 "IGSN",
                 "URL",
                 "Other"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         },
         "license": {
             "type": "object",

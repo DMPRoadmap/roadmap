@@ -43,8 +43,6 @@
                 "Model",
                 "Other"
             ],
-            "overridable": true,
-            "substitutable": true,
             "tooltip@fr_FR": "Sélectionner dans la liste déroulante la nature du produit de recherche",
             "tooltip@en_GB": "Choose in the dropdown the research output data nature"
         },

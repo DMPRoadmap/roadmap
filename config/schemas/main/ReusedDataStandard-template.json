@@ -47,9 +47,7 @@
                 "IGSN",
                 "URL",
                 "Other"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         },
         "versionNumber": {
             "type": "string",

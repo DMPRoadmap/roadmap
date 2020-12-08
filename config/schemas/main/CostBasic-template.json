@@ -18,21 +18,20 @@
             "label@fr_FR": "Type de coût",
             "label@en_GB": "Cost type",
             "values@en_GB": [
-                "Human resource",
+                "Personnel cost",
                 "Training",
                 "Software",
                 "Hardware",
                 "Other"
             ],
             "values@fr_FR": [
-                "Ressources humaines",
+                "Frais de personnel",
                 "Formation",
                 "Logiciel",
                 "Matériel informatique",
                 "Autre"
             ],
-            "overridable": true,
-            "substitutable": true
+            "overridable": true
         },
         "amount": {
             "type": "number",
@@ -57,9 +56,7 @@
                 "EUR",
                 "GBP",
                 "USD"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         }
     },
     "required": [

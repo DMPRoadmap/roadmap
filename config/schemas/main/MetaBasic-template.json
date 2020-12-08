@@ -10,8 +10,8 @@
             "description": "Titre du plan de gestion de données",
             "label@fr_FR": "Titre du plan",
             "label@en_GB": "Plan title",
-            "tooltip@fr_FR": "Plan de gestion de données Livrable 1.4 ",
-            "tooltip@en_GB": "/ Data management plan deliverable 1.4 ou D6.6"
+            "tooltip@fr_FR": "Indiquer si besoin la version du plan et le livrable, comme par exemple, Plan de gestion de données D8.2 ",
+            "tooltip@en_GB": "Provide if necessary the plan version and deliverable as, for example, Data Management Plan D8.2"
         },
         "description": {
             "type": "string",
@@ -400,9 +400,7 @@
                 "zha",
                 "zho",
                 "zul"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         },
         "contact": {
             "type": "object",
@@ -466,8 +464,7 @@
                 "URL",
                 "Other"
             ],
-            "overridable": true,
-            "substitutable": true
+            "overridable": true
         },
         "associatedDmp": {
             "type": "array",

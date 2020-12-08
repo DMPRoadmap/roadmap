@@ -45,8 +45,6 @@
                 "Restreint",
                 "Fermé"
             ],
-            "overridable": true,
-            "substitutable": true,
             "default@fr_FR": "Ouvert",
             "default@en_GB": "Open"
         },
@@ -71,7 +69,6 @@
                 "…"
             ],
             "overridable": true,
-            "substitutable": true,
             "tooltip@fr_FR": "Format sous forme MIME type",
             "tooltip@en_GB": "Format expressed as MIME type",
             "example@fr_FR": "text/csv, text/markdown, video/JPEG, application/json,... ",
@@ -157,7 +154,8 @@
     ],
     "to_string": [
         "$.fileName",
-        " : ",
-        "$.fileFormat"
+        "(",
+        "$.fileFormat",
+        ")"
     ]
 }

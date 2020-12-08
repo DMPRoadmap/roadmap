@@ -10,8 +10,8 @@
             "description": "Titre du plan de gestion de données",
             "label@fr_FR": "Titre du plan",
             "label@en_GB": "Plan title",
-            "tooltip@fr_FR": "Plan de gestion de données Livrable 1.4 ",
-            "tooltip@en_GB": "/ Data management plan deliverable 1.4 ou D6.6"
+            "tooltip@fr_FR": "Indiquer si besoin la version du plan et le livrable, comme par exemple, DMP du projet « Help Science Ouverte » livrable D8.2 ou DMP du projet « Help Science Ouverte » version 1.0",
+            "tooltip@en_GB": " Provide if necessary the plan version and deliverable as, for example, « Help Science Ouverte » project DMP deliverable D8.2 ou « Help Science Ouverte  » project DMP version 1.0 "
         },
         "description": {
             "type": "string",
@@ -402,9 +402,7 @@
                 "zha",
                 "zho",
                 "zul"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         },
         "contact": {
             "type": "object",
@@ -468,8 +466,7 @@
                 "URL",
                 "Other"
             ],
-            "overridable": true,
-            "substitutable": true
+            "overridable": true
         },
         "license": {
             "type": "object",
@@ -491,7 +488,7 @@
             "type": "string",
             "format": "date",
             "description": "Date à partir de laquelle le DMP est partagé publiquement et peut-être réutilisé",
-            "label@fr_FR": "Date de début de la licence",
+            "label@fr_FR": "Date d'application de la licence",
             "label@en_GB": "License start date",
             "tooltip@fr_FR": "Date à partir de laquelle le DMP est partagé publiquement et peut-être réutilisé",
             "tooltip@en_GB": "Date from which the DMP is shared publicly and can be reused"
@@ -513,8 +510,8 @@
                 ]
             },
             "description": "Références de documents éventuels à relier au plan de gestion de données (ex publications)",
-            "label@fr_FR": "Référence de documents associés à ce plan",
-            "label@en_GB": "DMP associated documents reference",
+            "label@fr_FR": "Référence de document associé à ce plan",
+            "label@en_GB": "DMP associated document reference",
             "tooltip@fr_FR": "Indiquer les documents éventuels à relier au plan de gestion de données",
             "tooltip@en_GB": "Provide the documents associated with the DMP"
         },

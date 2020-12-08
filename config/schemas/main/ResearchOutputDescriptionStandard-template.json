@@ -53,9 +53,7 @@
                 "Son",
                 "Texte",
                 "Autre"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         },
         "workPackage": {
             "type": "string",
@@ -478,8 +476,6 @@
                 "zho",
                 "zul"
             ],
-            "overridable": true,
-            "substitutable": true,
             "tooltip@fr_FR": "Sélectionner le code langue du produit de recherche",
             "tooltip@en_GB": "Select the language code of the research output"
         },
@@ -528,9 +524,7 @@
                 "IGSN",
                 "URL",
                 "Other"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         },
         "containsPersonalData": {
             "type": "string",
@@ -547,9 +541,7 @@
                 "Yes",
                 "No",
                 "Unknown"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         },
         "containsSensitiveData": {
             "type": "string",
@@ -566,9 +558,7 @@
                 "Yes",
                 "No",
                 "Unknown"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         },
         "hasEthicalIssues": {
             "type": "string",
@@ -585,9 +575,7 @@
                 "Yes",
                 "No",
                 "Unknown"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         }
     },
     "required": [

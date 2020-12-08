@@ -39,8 +39,7 @@
                 "URL",
                 "Other"
             ],
-            "overridable": true,
-            "substitutable": true
+            "overridable": true
         }
     },
     "required": [

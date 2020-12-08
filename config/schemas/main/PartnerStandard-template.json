@@ -38,6 +38,7 @@
                 "ISSNI",
                 "IdRef",
                 "URL",
+                "RNSR",
                 "Autre"
             ],
             "values@en_GB": [
@@ -47,10 +48,10 @@
                 "ISSNI",
                 "IdRef",
                 "URL",
+                "RNSR",
                 "Other"
             ],
-            "overridable": true,
-            "substitutable": true
+            "overridable": true
         },
         "dataPolicy": {
             "type": "object",

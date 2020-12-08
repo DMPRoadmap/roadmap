@@ -273,5 +273,20 @@
         "path": "TechnicalResourceStandard-template.json",
         "classname": "technical_resource",
         "question_id": null
+    },
+    {
+        "path": "DMPCoordinator-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
+        "path": "ResearchOutputContact-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
+        "path": "PrincipalInvestigator-template.json",
+        "classname": "contributor",
+        "question_id": null
     }
 ]

@@ -56,9 +56,7 @@
                 "CD",
                 "DVD",
                 "Bande magnétique"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         }
     },
     "required": [

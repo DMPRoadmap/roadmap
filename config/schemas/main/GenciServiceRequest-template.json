@@ -20,9 +20,7 @@
                 "Workdir",
                 "Store",
                 "SecuredStore"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         },
         "nationalCenter": {
             "type": "string",
@@ -39,9 +37,7 @@
                 "IDRIS",
                 "TGCC",
                 "Cines"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         },
         "initialRequest": {
             "type": "object",
@@ -97,8 +93,6 @@
                 "GBP",
                 "USD"
             ],
-            "overridable": true,
-            "substitutable": true,
             "default@fr_FR": "EUR",
             "default@en_GB": "EUR"
         }

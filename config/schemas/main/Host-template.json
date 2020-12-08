@@ -45,9 +45,7 @@
                 "IGSN",
                 "URL",
                 "Other"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         },
         "geoLocation": {
             "type": "string",
@@ -66,9 +64,7 @@
                 "GB",
                 "US",
                 "DE"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         },
         "certification": {
             "type": "string",
@@ -91,9 +87,7 @@
                 "ISO-9001",
                 "ISO-27000",
                 "Other"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         },
         "pidSystem": {
             "type": "array",
@@ -119,9 +113,7 @@
                 "IGSN",
                 "URL",
                 "Other"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         },
         "hasVersioningPolicy": {
             "type": "string",
@@ -138,9 +130,7 @@
                 "Yes",
                 "No",
                 "Unknown"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         },
         "availability": {
             "type": "number",

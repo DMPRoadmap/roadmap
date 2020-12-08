@@ -24,7 +24,7 @@
         },
         "distribution": {
             "type": "array",
-            "table_header": "Nom du fichier : format",
+            "table_header": "Nom du fichier (Type MIME)",
             "items": {
                 "type": "object",
                 "class": "Distribution",

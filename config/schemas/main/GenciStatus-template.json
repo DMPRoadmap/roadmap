@@ -32,8 +32,6 @@
                 "Teraoctets",
                 "Pentaoctets"
             ],
-            "overridable": true,
-            "substitutable": true,
             "default@fr_FR": "Téraoctets",
             "default@en_GB": "Teraoctets"
         },

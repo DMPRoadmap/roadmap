@@ -396,8 +396,6 @@
                 "zho",
                 "zul"
             ],
-            "overridable": true,
-            "substitutable": true,
             "tooltip@fr_FR": "Code de la langue des métadonnées, annotations",
             "tooltip@en_GB": "Language code of metadata or annotation"
         },
@@ -433,8 +431,7 @@
                 "URL",
                 "Other"
             ],
-            "overridable": true,
-            "substitutable": true
+            "overridable": true
         }
     },
     "required": [

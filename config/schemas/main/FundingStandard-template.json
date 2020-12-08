@@ -27,7 +27,7 @@
             "label@fr_FR": "Identifiant du financement",
             "label@en_GB": "Grant Identifier",
             "tooltip@fr_FR": "Aussi appelé Code de décision, Identifiant de la convention de subvention, Numéro de la convention de subvention, Numéro de subvention",
-            "tooltip@en_GB": "also called Decision code, Grant agreement ID, Grant agreement number, Award number"
+            "tooltip@en_GB": "Also called Decision code, Grant agreement ID, Grant agreement number, Award number"
         },
         "fundingStatus": {
             "type": "string",
@@ -46,9 +46,7 @@
                 "Soumis",
                 "Approuvé",
                 "Rejeté"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         }
     },
     "required": [

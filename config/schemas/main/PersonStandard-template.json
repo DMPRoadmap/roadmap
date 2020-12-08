@@ -27,8 +27,8 @@
         "personId": {
             "type": "string",
             "description": "Valeur de l'identifiant",
-            "label@fr_FR": "Identifiant de la personne",
-            "label@en_GB": "Person identifier",
+            "label@fr_FR": "Identifiant",
+            "label@en_GB": "Identifier",
             "example@fr_FR": "https://orcid.org/0000-0002-9148-9926",
             "example@en_GB": "https://orcid.org/0000-0002-9148-9926"
         },
@@ -45,6 +45,7 @@
                 "ISSNI",
                 "IdRef",
                 "URL",
+                "RNSR",
                 "Autre"
             ],
             "values@en_GB": [
@@ -54,10 +55,9 @@
                 "ISSNI",
                 "IdRef",
                 "URL",
+                "RNSR",
                 "Other"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         },
         "affiliationName": {
             "type": "string",
@@ -81,8 +81,8 @@
             "type": "string",
             "description": "Type d'identifiant",
             "inputType": "dropdown",
-            "label@fr_FR": "Type d'identifiant",
-            "label@en_GB": "Identifier type",
+            "label@fr_FR": "Type d'identifiant de l'affiliation",
+            "label@en_GB": "Affiliation identifier type",
             "values@fr_FR": [
                 "ORCID",
                 "ROR ID",
@@ -90,6 +90,7 @@
                 "ISSNI",
                 "IdRef",
                 "URL",
+                "RNSR",
                 "Autre"
             ],
             "values@en_GB": [
@@ -99,10 +100,9 @@
                 "ISSNI",
                 "IdRef",
                 "URL",
+                "RNSR",
                 "Other"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         }
     },
     "required": [

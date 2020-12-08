@@ -45,9 +45,7 @@
                 "IGSN",
                 "URL",
                 "Other"
-            ],
-            "overridable": true,
-            "substitutable": true
+            ]
         }
     },
     "required": [

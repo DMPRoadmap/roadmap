@@ -26,6 +26,8 @@
             "label@fr_FR": "Rôle",
             "label@en_GB": "Role",
             "values@en_GB": [
+                "Project coordinator",
+                "DMP coordinator",
                 "Data producer",
                 "Data manager",
                 "Data steward",
@@ -34,6 +36,8 @@
                 "Other"
             ],
             "values@fr_FR": [
+                "Coordinateur du projet",
+                "Coordinateur du plan de gestion de données",
                 "Producteur de données",
                 "Gestionnaire de données",
                 "Expert juridique",
@@ -41,7 +45,6 @@
                 "Autre"
             ],
             "overridable": true,
-            "substitutable": true,
             "tooltip@fr_FR": "Sélectionner dans la liste déroulante le rôle du contributeur",
             "tooltip@en_GB": "Choose in the dropdown the contributor's role"
         }
