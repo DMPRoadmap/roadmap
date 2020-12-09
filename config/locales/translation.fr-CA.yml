@@ -133,8 +133,10 @@ fr-CA:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
         restrict_dependent_destroy:
-          one:
-          many:
+          one: Vous ne pouvez pas supprimer l’enregistrement en raison du (de la)
+            %{record} dépendant(e)
+          many: Vous ne pouvez pas supprimer l'enregistrement parce que les %{record}
+            dépendants existent
           has_one: Vous ne pouvez pas supprimer l'enregistrement car un(e) %{record}
             dépendant(e) existe
           has_many: Vous ne pouvez pas supprimer l'enregistrement parce que les %{record}
