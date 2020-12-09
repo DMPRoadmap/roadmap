@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2020-11-26 12:29-0700\n"
-"PO-Revision-Date: 2020-11-26 12:29-0700\n"
+"POT-Creation-Date: 2020-12-09 10:11-0700\n"
+"PO-Revision-Date: 2020-12-09 10:11-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -1299,43 +1299,43 @@ msgstr ""
 msgid "A historical template cannot be retrieved for being modified"
 msgstr ""
 
-#: ../../app/models/template.rb:339
+#: ../../app/models/template.rb:340
 msgid "generate_copy! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:347
+#: ../../app/models/template.rb:348
 msgid "Copy of %{template}"
 msgstr ""
 
-#: ../../app/models/template.rb:355
+#: ../../app/models/template.rb:356
 msgid "generate_version! requires a published template"
 msgstr ""
 
-#: ../../app/models/template.rb:370
+#: ../../app/models/template.rb:371
 msgid "customize! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:375
+#: ../../app/models/template.rb:376
 msgid "customize! requires a template from a funder"
 msgstr ""
 
-#: ../../app/models/template.rb:411
+#: ../../app/models/template.rb:412
 msgid "You can not publish a published template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:415
+#: ../../app/models/template.rb:416
 msgid "You can not publish a historical version of this template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:420
+#: ../../app/models/template.rb:421
 msgid "You can not publish a template without phases.  "
 msgstr ""
 
-#: ../../app/models/template.rb:425
+#: ../../app/models/template.rb:426
 msgid "You can not publish a template without sections in a phase.  "
 msgstr ""
 
-#: ../../app/models/template.rb:430
+#: ../../app/models/template.rb:431
 msgid "You can not publish a template without questions in a section.  "
 msgstr ""
 

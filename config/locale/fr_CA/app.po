@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2020-11-26 12:29-0700\n"
-"PO-Revision-Date: 2020-11-26 20:29+0100\n"
+"POT-Creation-Date: 2020-12-09 10:11-0700\n"
+"PO-Revision-Date: 2020-12-09 18:12+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_CA\n"
@@ -349,7 +349,7 @@ msgstr ""
 
 #: ../../app/controllers/org_admin/phases_controller.rb:93
 msgid "You canot add a phase to a historical version of a template."
-msgstr ""
+msgstr "Vous ne pouvez pas ajouter une phase à la version historique d’un modèle."
 
 #: ../../app/controllers/org_admin/phases_controller.rb:112
 #: ../../app/controllers/org_admin/phases_controller.rb:135
@@ -510,7 +510,7 @@ msgstr "Il est impossible de télécharger le modèle du PGD pour le moment."
 #: ../../app/controllers/org_admin/users_controller.rb:31
 #: ../../app/controllers/super_admin/users_controller.rb:31
 msgid "profile for %{username}"
-msgstr ""
+msgstr "profil pour %{username}"
 
 #: ../../app/controllers/orgs_controller.rb:76
 msgid "No organisations are currently registered."
@@ -625,6 +625,9 @@ msgid ""
 "You cannot be assigned to other organisation since that option does not exist "
 "in the system. Please contact your system administrators."
 msgstr ""
+"Vous ne pouvez pas être affecté à un autre organisme puisque cette option n’es"
+"t pas offerte dans le système. Veuillez communiquer avec vos administrateurs d"
+"e système."
 
 #: ../../app/controllers/registrations_controller.rb:108
 msgid ""
@@ -759,7 +762,7 @@ msgstr "Aucun avis n’est associé à l’ID %{id}"
 
 #: ../../app/controllers/super_admin/org_swaps_controller.rb:13
 msgid "Please select an organisation from the list"
-msgstr ""
+msgstr "Veuillez sélectionner un organisme dans la liste."
 
 #: ../../app/controllers/super_admin/org_swaps_controller.rb:21
 msgid ""
@@ -783,7 +786,7 @@ msgstr "Votre logo semble présenter un problème. Veuillez le télécharger de 
 
 #: ../../app/controllers/super_admin/users_controller.rb:45
 msgid "profile for %{remove} into %{keep}"
-msgstr ""
+msgstr "profil pour %{remove} dans %{keep}"
 
 #: ../../app/controllers/super_admin/users_controller.rb:48
 msgid "merged"
@@ -1119,11 +1122,13 @@ msgstr "Autorisations relatives à PGD retirées dans %{tool_name}"
 
 #: ../../app/mailers/user_mailer.rb:62
 msgid "%{application_name}: %{user_name} requested feedback on a plan"
-msgstr ""
+msgstr "%{application_name}: %{user_name} a demandé des commentaires sur un plan"
 
 #: ../../app/mailers/user_mailer.rb:76
 msgid "%{application_name}: Expert feedback has been provided for %{plan_title}"
 msgstr ""
+"%{application_name}: des commentaires d’experts ont été fournis pour %{plan_ti"
+"tle}"
 
 #: ../../app/mailers/user_mailer.rb:107
 msgid "DMP Visibility Changed: %{plan_title}"
@@ -1371,45 +1376,45 @@ msgstr "Invalide – Nombre maximal de pages"
 msgid "A historical template cannot be retrieved for being modified"
 msgstr "Un modèle historique ne peut pas être récupéré pour être modifié"
 
-#: ../../app/models/template.rb:339
+#: ../../app/models/template.rb:340
 msgid "generate_copy! requires an organisation target"
 msgstr "un organisme cible est exigé pour generate_copy!"
 
-#: ../../app/models/template.rb:347
+#: ../../app/models/template.rb:348
 msgid "Copy of %{template}"
 msgstr "Copie de %{template}"
 
-#: ../../app/models/template.rb:355
+#: ../../app/models/template.rb:356
 msgid "generate_version! requires a published template"
 msgstr "un modèle publié est exigé pour generate_version!"
 
-#: ../../app/models/template.rb:370
+#: ../../app/models/template.rb:371
 msgid "customize! requires an organisation target"
 msgstr "organisme cible exiger pour personnaliser!"
 
-#: ../../app/models/template.rb:375
+#: ../../app/models/template.rb:376
 msgid "customize! requires a template from a funder"
 msgstr "un modèle d’un bailleur de fonds est exigé pour personnaliser!"
 
-#: ../../app/models/template.rb:411
+#: ../../app/models/template.rb:412
 msgid "You can not publish a published template.  "
 msgstr "Vous ne pouvez pas publier un modèle déjà publié."
 
-#: ../../app/models/template.rb:415
+#: ../../app/models/template.rb:416
 msgid "You can not publish a historical version of this template.  "
 msgstr "Vous ne pouvez pas publier une version historique de ce modèle."
 
-#: ../../app/models/template.rb:420
+#: ../../app/models/template.rb:421
 msgid "You can not publish a template without phases.  "
 msgstr "Vous ne pouvez pas publier un modèle ne contenant pas de phases."
 
-#: ../../app/models/template.rb:425
+#: ../../app/models/template.rb:426
 msgid "You can not publish a template without sections in a phase.  "
 msgstr ""
 "Vous ne pouvez pas publier un modèle dont une phase ne contient pas de section"
 "s."
 
-#: ../../app/models/template.rb:430
+#: ../../app/models/template.rb:431
 msgid "You can not publish a template without questions in a section.  "
 msgstr ""
 "Vous ne pouvez pas publier un modèle dont certaines sections ne contiennent pa"
@@ -1700,7 +1705,7 @@ msgstr "Sélectionner l’organisme de recherche principal"
 #: ../../app/views/branded/plans/new.html.erb:59
 #: ../../app/views/plans/new.html.erb:59
 msgid "You must select a research organisation from the list."
-msgstr ""
+msgstr "Vous devez sélectionner un organisme de recherche dans la liste."
 
 #: ../../app/views/branded/plans/new.html.erb:63
 #: ../../app/views/branded/plans/new.html.erb:92
@@ -1728,7 +1733,7 @@ msgstr "Sélectionner le principal organisme de financement"
 #: ../../app/views/branded/plans/new.html.erb:88
 #: ../../app/views/plans/new.html.erb:87
 msgid "You must select a funding organisation from the list."
-msgstr ""
+msgstr "Vous devez sélectionner un organisme de financement dans la liste."
 
 #: ../../app/views/branded/plans/new.html.erb:95
 #: ../../app/views/plans/new.html.erb:94
@@ -2298,23 +2303,25 @@ msgstr "Interdit"
 
 #: ../../app/views/errors/403.html.erb:8
 msgid "You are not authorized to view this resource."
-msgstr ""
+msgstr "Vous n’êtes pas autorisé à consulter cette ressource."
 
 #: ../../app/views/errors/404.html.erb:5
 msgid "We can't find the page you're looking for."
-msgstr ""
+msgstr "La page que vous avez demandée est introuvable."
 
 #: ../../app/views/errors/404.html.erb:8
 msgid "You may have mistyped the address or the page may have moved."
-msgstr ""
+msgstr "Vous avez mal saisi l’adresse, ou la page a été déplacée."
 
 #: ../../app/views/errors/422.html.erb:5
 msgid "The change you wanted was rejected."
-msgstr ""
+msgstr "Le changement que vous souhaitiez a été refusé."
 
 #: ../../app/views/errors/422.html.erb:8
 msgid "Maybe you tried to change something you didn't have access to."
 msgstr ""
+"Vous avez peut-être essayé de modifier un élément auquel vous n’avez pas accès"
+"."
 
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:4
 msgid ""
@@ -2323,6 +2330,11 @@ msgid ""
 "dentifying the theme e.g. \"[guidance group name]: guidance on data sharing\" so"
 " we suggest you just use the organisation or department name."
 msgstr ""
+"Donnez un nom approprié à votre groupe de directives. Ce nom sera employé pour"
+" indiquer à l’utilisateur final la provenance des directives. Il sera ajouté a"
+"u texte identifiant le thème, p. ex., « [nom du groupe de directives] : direct"
+"ives sur le partage des données ». Nous vous suggérons donc d’utiliser simplem"
+"ent le nom de l’organisme ou du service."
 
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:12
 #: ../../app/views/guidance_groups/admin_edit.html.erb:19
@@ -2367,7 +2379,7 @@ msgstr ""
 
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:24
 msgid "Optional Subset (e.g. School/Department)"
-msgstr ""
+msgstr "Sous-ensemble facultatif (p. ex., école / département)"
 
 #: ../../app/views/guidance_groups/_index_by_theme.html.erb:10
 #: ../../app/views/guidance_groups/_show.html.erb:6
@@ -2415,7 +2427,7 @@ msgstr ""
 #: ../../app/views/guidance_groups/admin_edit.html.erb:25
 #: ../../app/views/guidance_groups/admin_new.html.erb:24
 msgid "Optional Subset"
-msgstr ""
+msgstr "Sous-ensemble facultatif"
 
 #: ../../app/views/guidance_groups/admin_edit.html.erb:25
 #: ../../app/views/guidance_groups/admin_new.html.erb:24
@@ -2744,7 +2756,7 @@ msgstr "Erreur"
 
 #: ../../app/views/layouts/error.html.erb:60
 msgid "Please contact us at %{helpdesk_email} if you think this is a mistake."
-msgstr ""
+msgstr "Écrivez-nous à %{helpdesk_email} si vous jugez qu’il s’agit d’une erreur"
 
 #: ../../app/views/layouts/error.html.erb:69
 msgid "Go back"
@@ -3568,11 +3580,11 @@ msgstr "Courriel du contact"
 
 #: ../../app/views/orgs/_profile_form.html.erb:73
 msgid "Organisational Configuration Information"
-msgstr ""
+msgstr "Renseignements de configuration organisationnelle"
 
 #: ../../app/views/orgs/_profile_form.html.erb:81
 msgid "Shibboleth Entity Id"
-msgstr ""
+msgstr "ID d’entité Shibboleth"
 
 #: ../../app/views/orgs/_profile_form.html.erb:82
 msgid "Example: https://idp.my-org.org/... or urn:mace:..."
@@ -3580,7 +3592,7 @@ msgstr "Exemple: https://idp.mon-org.org/... ou urn:mace:..."
 
 #: ../../app/views/orgs/_profile_form.html.erb:87
 msgid "Shibboleth Domain"
-msgstr ""
+msgstr "Domaine Shibboleth"
 
 #: ../../app/views/orgs/_profile_form.html.erb:88
 msgid "Example: my-org.org"
@@ -3596,7 +3608,7 @@ msgstr "Établissement"
 
 #: ../../app/views/orgs/_profile_form.html.erb:115
 msgid "You must select at least one organisation type"
-msgstr ""
+msgstr "Vous devez sélectionner au moins un type d’organisme."
 
 #: ../../app/views/orgs/_profile_form.html.erb:121
 msgid "Organisation type(s)"
@@ -4082,7 +4094,7 @@ msgstr "ID"
 #: ../../app/views/plans/_edit_details.html.erb:74
 #: ../../app/views/plans/_show_details.html.erb:14
 msgid "Principal Investigator"
-msgstr ""
+msgstr "Chercheur principal"
 
 #: ../../app/views/plans/_edit_details.html.erb:88
 #: ../../app/views/plans/_show_details.html.erb:18
@@ -4097,11 +4109,11 @@ msgstr "Téléphone"
 
 #: ../../app/views/plans/_edit_details.html.erb:121
 msgid "Data contact person"
-msgstr ""
+msgstr "Personne-ressource pour les données"
 
 #: ../../app/views/plans/_edit_details.html.erb:126
 msgid "Same as Principal Investigator"
-msgstr ""
+msgstr "Identique au chercheur principal"
 
 #: ../../app/views/plans/_edit_details.html.erb:166
 #: ../../app/views/plans/_edit_details.html.erb:202
@@ -4183,7 +4195,7 @@ msgstr[1] "Sections"
 #: ../../app/views/plans/_overview_details.html.erb:45
 msgid "question"
 msgid_plural "questions"
-msgstr[0] "question ≺ questions"
+msgstr[0] "question ≺ question"
 msgstr[1] ""
 
 #: ../../app/views/plans/_progress.html.erb:11
@@ -4209,6 +4221,10 @@ msgid ""
 "l. If they are not currently using %{application_name}, they will recieve an e"
 "mail inviting them to the tool so they can collaborate on your plan."
 msgstr ""
+"Entrez l’adresse électronique de votre collaborateur. S’il utilise déjà %{appl"
+"ication_name}, il le verra sur son tableau de bord et recevra un courriel. S’i"
+"l n’utilise pas actuellement %{application_name}, il recevra un courriel l’inv"
+"itant à se prévaloir de l’outil pour collaborer à votre plan."
 
 #: ../../app/views/plans/_share_form.html.erb:9
 msgid ""
@@ -4295,7 +4311,7 @@ msgstr "Résumé du projet"
 
 #: ../../app/views/plans/_show_details.html.erb:24
 msgid "Data Contact Person"
-msgstr ""
+msgstr "Personne-ressource pour les données"
 
 #: ../../app/views/plans/index.html.erb:8
 msgid ""
@@ -4381,15 +4397,15 @@ msgstr "Pas encore répondu"
 
 #: ../../app/views/shared/_accessible_combobox.html.erb:5
 msgid "Please select an item from the list."
-msgstr ""
+msgstr "Veuillez sélectionner un élément dans la liste."
 
 #: ../../app/views/shared/_accessible_combobox.html.erb:14
 msgid "Begin typing to see a filtered list"
-msgstr ""
+msgstr "Commencez à saisir des caractères pour voir une liste filtrée"
 
 #: ../../app/views/shared/_accessible_combobox.html.erb:43
 msgid "No items available."
-msgstr ""
+msgstr "Aucun paramètre n’est disponible"
 
 #: ../../app/views/shared/_create_account_form.html.erb:8
 msgid "Last Name"
@@ -4425,6 +4441,8 @@ msgid ""
 "Please select an organisation from the list, or click the \"My organisation isn"
 "'t listed\" link and enter your organisation's name."
 msgstr ""
+"Veuillez choisir un organisme dans la liste ou cliquez sur le lien « Mon organ"
+"isme n’est pas inscrit sur la liste », puis entrez le nom de votre organisme."
 
 #: ../../app/views/shared/_my_org.html.erb:29
 msgid "My organisation isn't listed."
@@ -4432,7 +4450,7 @@ msgstr "Mon organisme n’est pas répertorié."
 
 #: ../../app/views/shared/_my_org.html.erb:33
 msgid "Please enter the name of your organisation"
-msgstr ""
+msgstr "Veuillez entrer le nom de votre organisme"
 
 #: ../../app/views/shared/_search.html.erb:12
 #: ../../app/views/super_admin/users/edit.html.erb:87
@@ -4461,7 +4479,7 @@ msgstr "Filtrer les plans"
 
 #: ../../app/views/shared/export/_plan_coversheet.erb:3
 msgid "A Data Management Plan created using "
-msgstr ""
+msgstr "Plan de gestion des données créé à l’aide de"
 
 #: ../../app/views/shared/export/_plan_coversheet.erb:10
 #: ../../app/views/shared/export/_plan_txt.erb:5
@@ -5179,135 +5197,135 @@ msgstr "Exemple de réponse"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:2
 msgid "Related Policies"
-msgstr ""
+msgstr "Politiques connexes"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:3
 msgid "Licensing of Existing Data"
-msgstr ""
+msgstr "Octroi de licence relative aux données existantes"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:4
 msgid "Responsibilities"
-msgstr ""
+msgstr "Responsabilités"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:5
 msgid "Discovery by Users"
-msgstr ""
+msgstr "Découverte par les utilisateurs"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:6
 msgid "Preservation Plan"
-msgstr ""
+msgstr "Plan de conservation"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:7
 msgid "Resourcing: Hardware and Software"
-msgstr ""
+msgstr "Allocation de ressources : matériel et logiciels"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:8
 msgid "Period of Preservation"
-msgstr ""
+msgstr "Période de conservation"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:9
 msgid "Data Security"
-msgstr ""
+msgstr "Sécurité des données"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:10
 msgid "Method For Data Sharing"
-msgstr ""
+msgstr "Méthode de partage de données"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:11
 msgid "Active Data Storage"
-msgstr ""
+msgstr "Stockage de données actif"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:12
 msgid "Data Capture Methods"
-msgstr ""
+msgstr "Méthode de saisie de données"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:13
 msgid "Existing Data"
-msgstr ""
+msgstr "Données actuelles"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:14
 msgid "Restrictions on Sharing"
-msgstr ""
+msgstr "Restrictions relatives au partage"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:15
 msgid "Data Repository"
-msgstr ""
+msgstr "Dépôt de données"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:16
 msgid "Timeframe For Data Sharing"
-msgstr ""
+msgstr "Délai relatif au partage de données"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:17
 msgid "Expected Reuse"
-msgstr ""
+msgstr "Réutilisation attendue"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:18
 msgid "Description of Data Content"
-msgstr ""
+msgstr "Description du contenu des données"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:19
 msgid "Resourcing: Preservation and Data Sharing"
-msgstr ""
+msgstr "Allocation de ressources : conservation et partage de données"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:20
 msgid "Data Quality"
-msgstr ""
+msgstr "Qualité des données"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:21
 msgid "Data Selection"
-msgstr ""
+msgstr "Sélection des données"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:22
 msgid "Metadata Capture"
-msgstr ""
+msgstr "Saisie de métadonnées"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:23
 msgid "Relationship to Existing Data"
-msgstr ""
+msgstr "Relation avec les données existantes"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:24
 msgid "Data Volumes"
-msgstr ""
+msgstr "Volumes de données"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:25
 msgid "IPR Ownership and Licencing"
-msgstr ""
+msgstr "Licence et propriété relatives au DPI"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:26
 msgid "Embargo Period"
-msgstr ""
+msgstr "Période d’embargo"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:27
 msgid "Managed Access Procedures"
-msgstr ""
+msgstr "Procédures d’accès géré"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:28
 msgid "Ethical Issues"
-msgstr ""
+msgstr "Problèmes d’ordre éthique"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:29
 msgid "Data Organisation"
-msgstr ""
+msgstr "Organisme relatif aux données"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:30
 msgid "Metadata Standards"
-msgstr ""
+msgstr "Normes de métadonnées"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:31
 msgid "Documentation"
-msgstr ""
+msgstr "Documentation"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:32
 msgid "Backup Procedures"
-msgstr ""
+msgstr "Procédures de sauvegarde"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:33
 msgid "Resourcing: Skills and Training"
-msgstr ""
+msgstr "Allocation de ressources : compétences et formation"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:34
 msgid "Data Type"
-msgstr ""
+msgstr "Type de données"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:35
 msgid "Audience"
@@ -5315,21 +5333,23 @@ msgstr "Public"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:36
 msgid "Data Format"
-msgstr ""
+msgstr "Format des données"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:37
 msgid "Data Organization"
-msgstr ""
+msgstr "Organisme relatif aux données"
 
 #: ../../app/views/usage/_filter.html.erb:5
 msgid ""
 "Use the filters to run organisational usage statistics for a custom date range"
 "."
 msgstr ""
+"Utiliser les filtres pour produire des statistiques sur l’utilisation sur le p"
+"lan organisationnel pour une plage de dates personnalisée"
 
 #: ../../app/views/usage/_filter.html.erb:11
 msgid "Run your own filter"
-msgstr ""
+msgstr "Appliquer votre propre filtre"
 
 #: ../../app/views/usage/_filter.html.erb:16
 msgid "Topic"
@@ -5379,6 +5399,8 @@ msgstr ""
 #: ../../app/views/usage/_user_statistics.html.erb:12
 msgid "Move the mouse pointer over the bars of a chart to see numbers."
 msgstr ""
+"Placez le pointeur de votre souris sur les barres d’un diagramme pour voir les"
+" chiffres."
 
 #: ../../app/views/usage/_user_statistics.html.erb:19
 msgid "No. users joined during last year"
@@ -5444,6 +5466,9 @@ msgid ""
 "You have been granted permission by your organisation to use our API. Your API"
 " token and instructions for using the API endpoints can be found at: %{link}"
 msgstr ""
+"Vous avec été autorisé par votre organisme à utiliser notre interface de progr"
+"ammation d’application (API). Votre clé d’API et les instructions relatives à "
+"l’utilisation des points d’extrémité API se trouvent ici : %{link}"
 
 #: ../../app/views/user_mailer/feedback_complete.html.erb:8
 msgid "Hello %{recipient_name}"
@@ -5469,6 +5494,9 @@ msgid ""
 "lease visit the 'Plans' page under the Admin menu in %{application_name} and o"
 "pen the plan."
 msgstr ""
+"%{requestor} a demandé des commentaires sur un plan %{link_html}. Pour ajouter"
+" des commentaires, veuillez consulter la page « Plans » dans le menu Admin dan"
+"s %{application_name} et ouvrir le plan."
 
 #: ../../app/views/user_mailer/new_comment.html.erb:18
 msgid ""
@@ -5555,6 +5583,8 @@ msgid ""
 "Your colleague %{inviter_name} has invited you to contribute to\n"
 "            their Data Management Plan in %{tool_name}"
 msgstr ""
+"Votre collègue %{inviter_name} vous a invité(e) à collaborer à\n"
+"            son plan de gestion de données dans %{tool_name}"
 
 #: ../../app/views/user_mailer/welcome_notification.html.erb:13
 msgid "Welcome to %{tool_name}, %{username}"
@@ -5665,7 +5695,7 @@ msgstr "Tout déselectionner"
 
 #: ../../app/views/users/_notification_preferences.html.erb:11
 msgid "All Users"
-msgstr ""
+msgstr "Tous les utilisateurs"
 
 #: ../../app/views/users/_notification_preferences.html.erb:15
 msgid "A new comment has been added to my DMP"
@@ -5689,7 +5719,7 @@ msgstr "Des commentaires ont été fournis pour mon PGD"
 
 #: ../../app/views/users/_notification_preferences.html.erb:42
 msgid "DMP owners and co-owners"
-msgstr ""
+msgstr "Propriétaires et copropriétaires du plan de gestion des données"
 
 #: ../../app/views/users/_notification_preferences.html.erb:47
 msgid "My DMP's visibility has changed"
