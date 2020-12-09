@@ -32,7 +32,7 @@ module SuperAdmin
                      themes: entry.themes.collect(&:title).join(", ")
                    }
                  when "Identifier"
-                   [entry.identifier_scheme.name, entry.value].join(" - ")
+                   [entry.identifier_scheme&.name, entry.value].join(" - ")
                  when "TokenPermissionType"
                    entry.token_type.capitalize
                  when "Tracker"
