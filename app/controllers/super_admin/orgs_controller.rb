@@ -126,11 +126,11 @@ module SuperAdmin
       @org = Org.find(params[:id])
       authorize @org
 
-      @target_org = Org.find(merge_params[:target_org])
+      @target_org = Org.find_by(id: merge_params[:target_org])
       associations = JSON.parse(merge_params[:mergeable_associations])
       attributes = JSON.parse(merge_params[:mergeable_attributes])
 
-      if @target_org.present? && associations.present?
+      if @target_org.present? && (associations.present? || attributes.present?)
         Org.transaction do
           merge_records(org: @org, target_org: @target_org, attributes: attributes,
                         associations: associations)
@@ -185,7 +185,9 @@ module SuperAdmin
       # Reassociate any Plan-GuidanceGroup connections
       # Move the guidance to the target_org's guidance_group.
       new_gg = target_org.guidance_groups.first
-      new_gg = GuidanceGroup.new(org: org, name: org.abbreviation) unless new_gg.present?
+      unless new_gg.present?
+        new_gg = GuidanceGroup.create(org: target_org, name: target_org.abbreviation)
+      end
 
       org.guidance_groups.each do |old_gg|
         old_gg.plans.each do |plan|
@@ -196,13 +198,21 @@ module SuperAdmin
       end
 
       # Process the other associations
+      associations = associations.with_indifferent_access
       associations.each_key do |category|
         next unless associations[category].any?
 
         case category
+        when "funded_plans"
+          associations[category].each do |plan|
+            plan = Plan.find_by(id: plan["id"])
+            next unless plan.present?
+
+            plan.update(funder_id: target_org.id)
+          end
         when "guidances"
           associations[category].each do |guidance|
-            guidance = Guidance.find(guidance["id"])
+            guidance = Guidance.find_by(id: guidance["id"])
             next unless guidance.present?
 
             guidance.update(guidance_group: new_gg)
@@ -210,7 +220,7 @@ module SuperAdmin
         when "identifiers"
           # Update the identifiers' :identifiable_id to the target_org
           associations[category].each do |identifier|
-            id = Identifier.find(identifier["id"])
+            id = Identifier.find(identifier["id"].to_i)
             next unless id.present?
 
             id.update(identifiable_id: target_org.id)
@@ -227,7 +237,7 @@ module SuperAdmin
           next unless clazz.present?
 
           associations[category].each do |item|
-            obj = clazz.find_by(id: item["id"])
+            obj = clazz.find_by(id: item["id"].to_i)
             next unless obj.present?
 
             obj.update(org_id: target_org.id)
