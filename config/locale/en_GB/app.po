@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2020-12-09 10:11-0700\n"
-"PO-Revision-Date: 2020-12-09 18:12+0100\n"
+"POT-Creation-Date: 2020-12-10 13:01-0700\n"
+"PO-Revision-Date: 2020-12-10 21:01+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -1299,43 +1299,43 @@ msgstr ""
 msgid "A historical template cannot be retrieved for being modified"
 msgstr ""
 
-#: ../../app/models/template.rb:340
+#: ../../app/models/template.rb:339
 msgid "generate_copy! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:348
+#: ../../app/models/template.rb:347
 msgid "Copy of %{template}"
 msgstr ""
 
-#: ../../app/models/template.rb:356
+#: ../../app/models/template.rb:355
 msgid "generate_version! requires a published template"
 msgstr ""
 
-#: ../../app/models/template.rb:371
+#: ../../app/models/template.rb:370
 msgid "customize! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:376
+#: ../../app/models/template.rb:375
 msgid "customize! requires a template from a funder"
 msgstr ""
 
-#: ../../app/models/template.rb:412
+#: ../../app/models/template.rb:411
 msgid "You can not publish a published template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:416
+#: ../../app/models/template.rb:415
 msgid "You can not publish a historical version of this template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:421
+#: ../../app/models/template.rb:420
 msgid "You can not publish a template without phases.  "
 msgstr ""
 
-#: ../../app/models/template.rb:426
+#: ../../app/models/template.rb:425
 msgid "You can not publish a template without sections in a phase.  "
 msgstr ""
 
-#: ../../app/models/template.rb:431
+#: ../../app/models/template.rb:430
 msgid "You can not publish a template without questions in a section.  "
 msgstr ""
 
@@ -4642,147 +4642,249 @@ msgid "Example Answer"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:2
-msgid "Related Policies"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:3
-msgid "Licensing of Existing Data"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:4
-msgid "Responsibilities"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:5
-msgid "Discovery by Users"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:6
-msgid "Preservation Plan"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:7
-msgid "Resourcing: Hardware and Software"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:8
-msgid "Period of Preservation"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:9
-msgid "Data Security"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:10
-msgid "Method For Data Sharing"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:11
 msgid "Active Data Storage"
 msgstr ""
 
-#: ../../app/views/translation_io_exports/_themes.html.erb:12
-msgid "Data Capture Methods"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:13
-msgid "Existing Data"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:14
-msgid "Restrictions on Sharing"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:15
-msgid "Data Repository"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:16
-msgid "Timeframe For Data Sharing"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:17
-msgid "Expected Reuse"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:18
-msgid "Description of Data Content"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:19
-msgid "Resourcing: Preservation and Data Sharing"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:20
-msgid "Data Quality"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:21
-msgid "Data Selection"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:22
-msgid "Metadata Capture"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:23
-msgid "Relationship to Existing Data"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:24
-msgid "Data Volumes"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:25
-msgid "IPR Ownership and Licencing"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:26
-msgid "Embargo Period"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:27
-msgid "Managed Access Procedures"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:28
-msgid "Ethical Issues"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:29
-msgid "Data Organisation"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:30
-msgid "Metadata Standards"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:31
-msgid "Documentation"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:32
-msgid "Backup Procedures"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:33
-msgid "Resourcing: Skills and Training"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:34
-msgid "Data Type"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_themes.html.erb:35
+#: ../../app/views/translation_io_exports/_themes.html.erb:3
 msgid "Audience"
 msgstr ""
 
-#: ../../app/views/translation_io_exports/_themes.html.erb:36
+#: ../../app/views/translation_io_exports/_themes.html.erb:4
+msgid "Backup Procedures"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:5
+msgid "Data Capture Methods"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:6
 msgid "Data Format"
 msgstr ""
 
-#: ../../app/views/translation_io_exports/_themes.html.erb:37
+#: ../../app/views/translation_io_exports/_themes.html.erb:7
+msgid "Data Organisation"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:8
 msgid "Data Organization"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:9
+msgid "Data Quality"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:10
+msgid "Data Repository"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:11
+msgid "Data Security"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:12
+msgid "Data Selection"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:13
+msgid "Data Type"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:14
+msgid "Data Volumes"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:15
+msgid "Description of Data Content"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:16
+msgid "Discovery by Users"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:17
+msgid "Documentation"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:18
+msgid "Embargo Period"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:19
+msgid "Ethical Issues"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:20
+msgid "Existing Data"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:21
+msgid "Expected Reuse"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:22
+msgid "IPR Ownership and Licencing"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:23
+msgid "Licensing of Existing Data"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:24
+msgid "Managed Access Procedures"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:25
+msgid "Metadata Capture"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:26
+msgid "Metadata Standards"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:27
+msgid "Method For Data Sharing"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:28
+msgid "Period of Preservation"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:29
+msgid "Preservation Plan"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:30
+msgid "Related Policies"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:31
+msgid "Relationship to Existing Data"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:32
+msgid "Resourcing: Hardware and Software"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:33
+msgid "Resourcing: Preservation and Data Sharing"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:34
+msgid "Resourcing: Skills and Training"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:35
+msgid "Responsibilities"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:36
+msgid "Restrictions on Sharing"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:37
+msgid "Timeframe For Data Sharing"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:41
+msgid "Data Collection"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:42
+msgid "Documentation and Metadata"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:43
+msgid "Storage and Backup"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:44
+msgid "Preservation"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:45
+msgid "Sharing and Reuse"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:46
+msgid "Responsibilities and Resources"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:47
+msgid "Ethics and Legal Compliance"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:50
+msgid ""
+"This section addresses data collection issues such as data types, file formats"
+", naming conventions, and data organisation – factors that will improve the us"
+"ability of your data and contribute to the success of your project."
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:51
+msgid ""
+"Because data are rarely self-explanatory, all research data should be accompan"
+"ied by metadata (information that describes the data according to community be"
+"st practices).  Metadata standards vary across disciplines, but generally stat"
+"e who created the data and when, how the data were created, their quality, acc"
+"uracy, and precision, as well as other features necessary to facilitate data d"
+"iscovery, understanding and reuse. Any restrictions on use of the data must be"
+" explained in the metadata, along with information on how to obtain approved a"
+"ccess to the data, where possible."
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:52
+msgid ""
+"Planning how research data will be stored and backed up throughout and beyond "
+"a research project is critical in ensuring data security and integrity. Approp"
+"riate storage and backup not only helps protect research data from catastrophi"
+"c losses (due to hardware and software failures, viruses, hackers, natural dis"
+"asters, human error, etc.), but also facilitates appropriate access by current"
+" and future researchers."
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:53
+msgid ""
+"Data preservation will depend on potential reuse value, whether there are obli"
+"gations to either retain or destroy data, and the resources required to proper"
+"ly curate the data and ensure that it remains usable in the future. In some ci"
+"rcumstances, it may be desirable to preserve all versions of the data (e.g. ra"
+"w, processed, analyzed, final), but in others, it may be preferable to keep on"
+"ly selected or final data (e.g. transcripts instead of audio interviews)."
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:54
+msgid ""
+"Most Canadian research funding agencies now have policies requiring research d"
+"ata to be shared upon publication of the research results or within a reasonab"
+"le period of time. While data sharing contributes to the visibility and impact"
+" of research, it has to be balanced with the legitimate desire of researchers "
+"to maximise their research outputs before releasing their data. Equally import"
+"ant is the need to protect the privacy of respondents and to properly handle s"
+"ensitive data."
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:55
+msgid ""
+"Data management focuses on the 'what' and 'how' of operationally supporting da"
+"ta across the research lifecycle.  Data stewardship focuses on 'who' is respon"
+"sible for ensuring that data management happens. A large project, for example,"
+" will involve multiple data stewards. The Principal Investigator should identi"
+"fy at the beginning of a project all of the people who will have responsibilit"
+"ies for data management tasks during and after the project."
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_themes.html.erb:56
+msgid ""
+"Researchers and their teams need to be aware of the policies and processes, bo"
+"th ethical and legal, to which their research data management must comply. Pro"
+"tection of respondent privacy is of paramount importance and informs many data"
+" management practices.  In their data management plan, researchers must state "
+"how they will prepare, store, share, and archive the data in a way that ensure"
+"s participant information is protected, throughout the research lifecycle, fro"
+"m disclosure, harmful use, or inappropriate linkages with other personal data."
+" It's recognized that there may be cases where certain data and metadata canno"
+"t be made public for various policy or legal reasons, however, the default pos"
+"ition should be that all research data and metadata are public."
 msgstr ""
 
 #: ../../app/views/usage/_filter.html.erb:5
