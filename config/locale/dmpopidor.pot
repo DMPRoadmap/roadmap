@@ -489,5 +489,8 @@ msgstr ""
 msgid "Project coordinator"
 msgstr ""
 
+msgid "Click here to add a new item"
+msgstr ""
+
 msgid "Answer"
 msgstr ""

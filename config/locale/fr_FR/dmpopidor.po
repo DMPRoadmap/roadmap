@@ -487,5 +487,8 @@ msgstr "Coordinateur du plan de gestion de données"
 msgid "Project coordinator"
 msgstr "Coordinateur du projet"
 
+msgid "Click here to add a new item"
+msgstr "Cliquez ici pour ajouter un nouvel élément"
+
 msgid "Answer"
 msgstr "Répondre"
