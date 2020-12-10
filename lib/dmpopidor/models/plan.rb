@@ -139,7 +139,7 @@ module Dmpopidor
           madmp_schema: MadmpSchema.find_by(name: "DMPStandard")
         )
 
-        Fragment::Project.create(
+        project = Fragment::Project.create(
           data: {
             "title" => title
           },
@@ -177,7 +177,17 @@ module Dmpopidor
           },
           dmp_id: dmp_fragment.id,
           parent_id: meta.id,
-          madmp_schema: MadmpSchema.find_by(name: "DMPContributor")
+          madmp_schema: MadmpSchema.find_by(name: "DMPCoordinator")
+        )
+
+        Fragment::Contributor.create(
+          data: {
+            "person" => { "dbid" => person.id },
+            "role" => d_("dmpopidor", "Project coordinator")
+          },
+          dmp_id: dmp_fragment.id,
+          parent_id: project.id,
+          madmp_schema: MadmpSchema.find_by(name: "PrincipalInvestigator")
         )
       end
 
