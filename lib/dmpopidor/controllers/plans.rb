@@ -220,6 +220,9 @@ module Dmpopidor
         @plan = Plan.find(params[:id])
         authorize @plan
         attrs = plan_params
+        meta = schema_params(MadmpSchema.find_by(name: "MetaStandard"), "meta")
+        project = schema_params(MadmpSchema.find_by(name: "ProjectStandard"), "project")
+        attrs[:title] = meta["title"]
         # rubocop:disable Metrics/BlockLength
         respond_to do |format|
           begin
@@ -232,10 +235,7 @@ module Dmpopidor
             @plan.guidance_groups = GuidanceGroup.where(id: guidance_group_ids)
             @plan.save
             if @plan.update_attributes(attrs)
-              @plan.update_plan_fragments(
-                schema_params(MadmpSchema.find_by(name: "MetaStandard"), "meta"),
-                schema_params(MadmpSchema.find_by(name: "ProjectStandard"), "project")
-              )
+              @plan.update_plan_fragments(meta, project)
 
               format.html do
                 redirect_to plan_path(@plan),
