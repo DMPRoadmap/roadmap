@@ -492,3 +492,6 @@ msgstr "Cliquez ici pour ajouter un nouvel élément"
 
 msgid "Answer"
 msgstr "Répondre"
+
+msgid "Plan Details"
+msgstr "Renseignements sur le plan"

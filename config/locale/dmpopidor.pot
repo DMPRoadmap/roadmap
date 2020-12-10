@@ -494,3 +494,6 @@ msgstr ""
 
 msgid "Answer"
 msgstr ""
+
+msgid "Plan Details"
+msgstr ""

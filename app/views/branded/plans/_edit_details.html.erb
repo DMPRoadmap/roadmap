@@ -9,7 +9,7 @@
       <div class="tab-content">
         <!-- "Plan Metadata" tab -->
         <div id="plan_metadata" class="tab-pane in active madmp-fragment fragment-<%= meta_fragment.id %>">
-          <h2><%= _("Plan Metadata") %></h2>
+          <h2><%= d_("dmpopidor", "Plan Details") %></h2>
           <div class="meta-form">
             <%= render(partial: 'shared/dynamic_form/form', locals: { 
                   f: f,
@@ -50,7 +50,7 @@
       </div>
       <ul class="nav nav-tabs form-tabs">
         <li class="active">
-          <span data-toggle="tab" data-target="#plan_metadata"><i class="fa fa-arrow-left"></i> <%= _("Plan Metadata") %></span>
+          <span data-toggle="tab" data-target="#plan_metadata"><i class="fa fa-arrow-left"></i> <%= d_("dmpopidor", "Plan Details") %></span>
         </li>
         <li>
           <span data-toggle="tab" data-target="#plan_project"><i class="fa fa-arrow-left"></i> <%= _("Project Details") %></span>

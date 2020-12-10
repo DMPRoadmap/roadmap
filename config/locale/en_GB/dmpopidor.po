@@ -490,3 +490,6 @@ msgstr "Click here to add a new item"
 
 msgid "Answer"
 msgstr "Answer"
+
+msgid "Plan Details"
+msgstr "Plan Details"
