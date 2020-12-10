@@ -1,10 +1,10 @@
-<%# locals: { field_values, parent_id, schema, field_name, table_header, template_locale } %>
-<% ttip = nil %>
+<%# locals: { field_values, parent_id, schema, field_name, table_header, template_locale, ttip } %>
+<% ttip ||= nil %>
 <% field_values = [] if field_values.nil? %>
 <% field_label = field_label || 'No label defined' %>
 <div class="col-md-12">
   <fieldset class="answer-fieldset">
-    <legend class="answer-fieldset"><%= field_label %></legend>
+    <legend class="answer-fieldset"" title="<%= ttip %>"><%= field_label %></legend>
     <table class="table table-hover linked-fragments-list <%= schema.classname %>-list">
       <thead>
         <% if table_header.present? && !field_values.empty?%>
