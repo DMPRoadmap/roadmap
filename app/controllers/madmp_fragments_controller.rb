@@ -23,16 +23,7 @@ class MadmpFragmentsController < ApplicationController
     # @fragment.save!
     @fragment.save_as_multifrag({}, schema)
 
-    if p_params[:source] == "modal"
-      data = data_reformater(schema.schema, schema_params(schema), schema.classname)
-      additional_info = {
-        "validations" => MadmpFragment.validate_data(data, schema.schema)
-      }
-      @fragment.assign_attributes(
-        additional_info: additional_info
-      )
-      @fragment.save_as_multifrag(data, schema)
-    else
+    if p_params[:source] == "form"
       @fragment.answer = Answer.create!(
         {
           research_output_id: p_params[:answer][:research_output_id],
@@ -44,6 +35,15 @@ class MadmpFragmentsController < ApplicationController
         }
       )
       @fragment.save_as_multifrag({}, schema)
+    else
+      data = data_reformater(schema.schema, schema_params(schema), schema.classname)
+      additional_info = {
+        "validations" => MadmpFragment.validate_data(data, schema.schema)
+      }
+      @fragment.assign_attributes(
+        additional_info: additional_info
+      )
+      @fragment.save_as_multifrag(data, schema)
     end
 
     return unless @fragment.present?
@@ -100,7 +100,7 @@ class MadmpFragmentsController < ApplicationController
         )
 
         authorize @fragment
-        unless p_params[:source] == "modal"
+        if p_params[:source] == "form"
           @fragment.answer.update!(
             {
               lock_version: p_params[:answer][:lock_version],
@@ -177,7 +177,6 @@ class MadmpFragmentsController < ApplicationController
     @parent_fragment = @fragment.parent
     @readonly = true
     @template_locale = params[:template_locale]
-
     authorize @fragment
     respond_to do |format|
       format.html
