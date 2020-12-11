@@ -17,7 +17,7 @@
             type: input_type,
             "data-toggle": "tooltip",
             title: ttip,
-            placeholder: example,
+            placeholder: readonly ? nil : example ,
             id: field_id %>
   <% if multiple && readonly == false%>
     <div class="actions">

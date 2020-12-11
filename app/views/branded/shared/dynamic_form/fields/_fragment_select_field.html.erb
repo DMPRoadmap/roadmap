@@ -1,0 +1,39 @@
+<%# locals: { field_values, parent_id, schema, field_name, template_locale, ttip } %>
+<% field_label = field_label || 'No label defined' %>
+<% field_label = required ? "* #{field_label}" : field_label%>
+
+<% include_blank = !selected_value %>
+<div class="col-md-12">
+  <%= f.label field_id, field_label, class: 'control-label' %>
+</div>
+<div class="col-md-12 dynamic-field linked-fragments-select <%= schema.classname %>-select">
+  <%= render(partial: 'shared/dynamic_form/linked_fragment/select', locals: {
+        field_name: field_name, 
+        select_values: select_values,
+        selected_value: selected_value["dbid"],
+        include_blank: include_blank,
+        readonly: readonly,
+        template_locale: template_locale,
+        ttip: ttip,
+        validation: validation
+      }
+  ) %>
+</div>
+<div class="col-md-12">
+  <% unless parent_id.nil? || readonly %>
+    <%= link_to d_('dmpopidor', 'Create'), new_edit_linked_madmp_fragments_url(
+            nil, 
+            :parent_id => parent_id, 
+            :schema_id => schema.id, 
+            :template_locale => template_locale,
+            :source => "select-modal"
+      ),  {
+        :remote => true, 
+        :target => "_self",
+        :class => "btn btn-primary",
+        'data-toggle' =>  "modal", 
+        'data-target' => '#modal-window',
+        :title => d_("dmpopidor", "Click here to add a new item")
+    }  %>
+  <% end %>
+</div>

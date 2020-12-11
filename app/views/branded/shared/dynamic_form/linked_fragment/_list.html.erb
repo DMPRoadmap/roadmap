@@ -5,7 +5,8 @@
     <td class="actions">
       <% if readonly %>
         <%= link_to show_linked_madmp_fragments_url(
-              :fragment_id => obj.id
+              :fragment_id => obj.id,
+              :template_locale => template_locale
           ), {
               :remote => true, 
               'data-toggle' => 'modal', 

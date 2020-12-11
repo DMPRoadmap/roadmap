@@ -58,7 +58,7 @@
             end
             table_header = prop["table_header@#{template_locale}"] ? prop["table_header@#{template_locale}"] : prop["table_header"]
           %>
-          <%= render(partial: 'shared/dynamic_form/fields/complex_multiple_field', locals: { 
+          <%= render(partial: 'shared/dynamic_form/fields/fragment_list_field', locals: { 
             field_values: values, 
             readonly: readonly,
             parent_id: fragment_id,
@@ -89,29 +89,46 @@
       <% end %>
     <% when 'object' %>
       <% if prop["schema_id"].present? %>
-        <% unless classname == "research_output"  %>
+        <% sub_schema = @schemas.find_by(id: prop["schema_id"]) %>
+        <% if prop["inputType"].eql?("pickOrCreate") %>
+          <% 
+            values = dmp_fragments.where(madmp_schema_id: prop["schema_id"])
+          %>
+          <%= render(partial: 'shared/dynamic_form/fields/fragment_select_field', locals: {
+            f: f,
+            select_values: values,
+            selected_value: value,
+            readonly: readonly,
+            parent_id: fragment_id,
+            schema: sub_schema,
+            required: required,
+            template_locale: template_locale,
+            field_id: field_id, field_name: field_name,
+            validation: validation,
+            field_label: label, ttip: ttip, answer_id: nil 
+            }
+          ) %>
+        <% else %>
           <div class="col-md-12">
             <fieldset class="answer-fieldset">
               <legend class="answer-fieldset" title="<%= ttip %>"><%= label %></legend>
               <%
-                sub_schema = @schemas.find_by(id: prop["schema_id"])
                 sub_fragment = nil
                 if data.present? && data[key].present? 
                   sub_fragment = dmp_fragments.find(data[key]["dbid"])
                 end
               %>
-
               <%= render(partial: 'shared/dynamic_form/form', locals: { 
-                    f: f, 
-                    fragment: sub_fragment,
-                    schema: sub_schema,
-                    question_id: question_id,
-                    readonly: readonly,
-                    classname: sub_schema.classname,
-                    fragment_id: fragment_id,
-                    form_prefix: field_name,
-                    template_locale: template_locale
-                  }) %>
+                  f: f, 
+                  fragment: sub_fragment,
+                  schema: sub_schema,
+                  question_id: question_id,
+                  readonly: readonly,
+                  classname: sub_schema.classname,
+                  fragment_id: fragment_id,
+                  form_prefix: field_name,
+                  template_locale: template_locale
+              }) %>
             </fieldset>
           </div>
         <% end %>

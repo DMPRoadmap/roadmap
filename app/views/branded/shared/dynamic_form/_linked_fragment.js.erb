@@ -4,12 +4,12 @@ $(() => {
 
 
   $('#modal_fragment_form').on('ajax:success', (event, response) => {
-    switch (response.classname) {
-    case 'research_output':
+    if (response.classname === 'research_output') {
       $('#research-outputs-list').html(response.html);
-      break;
-    default:
+    } else if (response.source === 'list-modal') {
       $(`.fragment-${response.fragment_id} .linked-fragments-list.${response.classname}-list tbody`).html(response.html);
+    } else {
+      $(`.fragment-${response.fragment_id} .linked-fragments-select.${response.classname}-select select`).html(response.html);
     }
     $('#modal-window').modal('hide');
   }).on('ajax:error', () => {

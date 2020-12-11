@@ -1,0 +1,26 @@
+<%# locals: { field_name, select_values, selected_value, include_blank, readonly, template_locale, validation, ttip } %>
+<%= select_tag field_name,
+  render(partial: 'shared/dynamic_form/linked_fragment/select_options', locals: {
+        select_values: select_values,
+        selected_value: selected_value
+      }
+  ),
+  disabled: readonly,
+  include_blank: include_blank,
+  "data-toggle": "tooltip",
+  title: ttip,
+  class: "form-control" %>
+<%= link_to show_linked_madmp_fragments_url(
+    :fragment_id => selected_value,
+    :template_locale => template_locale
+  ), {
+    :remote => true, 
+    'data-toggle' => 'modal', 
+    'data-target' => '#modal-window'
+  } do %>
+    <span class="fa fa-eye view-fragment"></span>
+  <% end %>
+<%= render partial: "shared/dynamic_form/validation_indicator", locals: {
+        validation: validation
+} unless validation == "none"
+%>

@@ -9,6 +9,7 @@ class MadmpFragmentsController < ApplicationController
     p_params = permitted_params
     @schemas = MadmpSchema.all
     schema = @schemas.find(p_params[:schema_id])
+    source = p_params[:source]
 
     classname = schema.classname
 
@@ -23,7 +24,7 @@ class MadmpFragmentsController < ApplicationController
     # @fragment.save!
     @fragment.save_as_multifrag({}, schema)
 
-    if p_params[:source] == "form"
+    if source == "form"
       @fragment.answer = Answer.create!(
         {
           research_output_id: p_params[:answer][:research_output_id],
@@ -50,10 +51,11 @@ class MadmpFragmentsController < ApplicationController
 
     if @fragment.answer.present?
       render json: render_fragment_form(@fragment, @stale_fragment)
-    else
+    elsif source.eql?("list-modal")
       render json: {
         "fragment_id" =>  @fragment.parent_id,
         "classname" => classname,
+        "source" => source,
         "html" => render_fragment_list(
           @fragment.dmp_id,
           @fragment.parent_id,
@@ -61,6 +63,14 @@ class MadmpFragmentsController < ApplicationController
           p_params[:template_locale]
         )
       }.to_json
+    else
+      render json: {
+        "fragment_id" =>  @fragment.parent_id,
+        "classname" => classname,
+        "source" => source,
+        "html" => render_fragment_select(@fragment)
+      }.to_json
+
     end
   end
 
@@ -149,6 +159,7 @@ class MadmpFragmentsController < ApplicationController
     @classname = @schema.classname
     @readonly = false
     @template_locale = params[:template_locale]
+    @source = params[:source]
 
     @fragment = nil
     @title = nil
@@ -243,6 +254,20 @@ class MadmpFragmentsController < ApplicationController
         }
       )
     end
+  end
+
+  def render_fragment_select(created_fragment)
+    select_values = MadmpFragment.where(
+      dmp_id: created_fragment.dmp_id,
+      madmp_schema_id: created_fragment.madmp_schema_id
+    )
+    render_to_string(
+      partial: "shared/dynamic_form/linked_fragment/select_options",
+      locals: {
+        selected_value: created_fragment.id,
+        select_values: select_values
+      }
+    )
   end
 
   def render_fragment_form(fragment, stale_fragment = nil)
