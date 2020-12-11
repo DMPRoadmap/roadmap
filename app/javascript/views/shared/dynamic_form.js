@@ -47,6 +47,15 @@ $(document).on('click', '.linked-fragments-list .actions .delete', (e) => {
   }
 });
 
+/*
+ * Changes the url of the "View" link according to the selected value in the fragment select
+*/
+$(document).on('change', '.linked-fragments-select', (e) => {
+  const value = e.target.value;
+  const viewLink = $(e.target).parent().find('a');
+  viewLink.attr('href', viewLink.attr('href').replace(/fragment_id=([^&]+)/, `fragment_id=${value}`));
+});
+
 $(document).on('change', '.schema_picker input[type=radio]', (e) => {
   const target = $(e.target);
   const form = target.parents('.question').find('.form-answer');
