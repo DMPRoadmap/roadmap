@@ -493,3 +493,9 @@ msgstr "Answer"
 
 msgid "Plan Details"
 msgstr "Plan Details"
+
+msgid "Editing %{title_value}"
+msgstr "Editing %{title_value}"
+
+msgid "New %{title_value}"
+msgstr "New %{title_value}"

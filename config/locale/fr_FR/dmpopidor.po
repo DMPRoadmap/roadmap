@@ -495,3 +495,9 @@ msgstr "Répondre"
 
 msgid "Plan Details"
 msgstr "Renseignements sur le plan"
+
+msgid "Editing %{title_value}"
+msgstr "Modification %{title_value}"
+
+msgid "New %{title_value}"
+msgstr "Ajout %{title_value}"
