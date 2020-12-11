@@ -134,4 +134,32 @@ class GuidanceGroup < ApplicationRecord
     )
   end
 
+  # ====================
+  # = Instance methods =
+  # ====================
+
+  def merge!(to_be_merged:)
+    return self unless to_be_merged.is_a?(GuidanceGroup)
+
+    GuidanceGroup.transaction do
+      # Reassociate any Plan-GuidanceGroup connections
+      to_be_merged.plans.each do |plan|
+        plan.guidance_groups << self
+        plan.save
+      end
+      # Reassociate the Guidances
+      to_be_merged.guidances.update_all(guidance_group_id: id)
+      to_be_merged.plans.delete_all
+
+      # Terminate the transaction if the resulting Org is not valid
+      raise ActiveRecord::Rollback unless save
+
+      # Reload and then drop the specified Org. The reload prevents ActiveRecord
+      # from also destroying associations that we've already reassociated above
+      raise ActiveRecord::Rollback unless to_be_merged.reload.destroy.present?
+
+      reload
+    end
+  end
+
 end
