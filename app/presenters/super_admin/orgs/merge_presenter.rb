@@ -74,7 +74,7 @@ module SuperAdmin
 
       # rubocop:disable Metrics/AbcSize
       def diff_from_and_to(category:)
-        return [] unless category.present? && @from_org_entries[category].any?
+        return [] unless category.present? && @from_org_entries.fetch(category, []).any?
 
         case category
         when :departments
@@ -103,6 +103,8 @@ module SuperAdmin
       # rubocop:enable Metrics/AbcSize
 
       def org_attributes(org:)
+        return {} unless org.is_a?(Org)
+
         {
           contact_email: org.contact_email,
           contact_name: org.contact_name,
@@ -124,7 +126,7 @@ module SuperAdmin
         out[:managed] = @from_org.managed if mergeable_column?(column: :managed)
         out[:links] = @from_org.links if mergeable_column?(column: :links)
 
-        if mergeable_column?(column: :logo_uid)
+        if mergeable_column?(column: :logo)
           out[:logo_uid] = @from_org.logo_uid
           out[:logo_name] = @from_org.logo_name
         end
@@ -144,8 +146,8 @@ module SuperAdmin
       def mergeable_column?(column:)
         case column
         when :links
-          (@to_org.links.nil? || @to_org.links == "{\"org\":[]}") &&
-            (@from_org.links.present? || @to_org.from_org != "{\"org\":[]}")
+          (@to_org.links.nil? || @to_org.links.fetch("org", []).empty?) &&
+            (@from_org.links.present? || @from_org.links.fetch("org", [].any?))
         when :managed
           !@to_org.managed? && @from_org.managed?
         when :feedback_enabled
