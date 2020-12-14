@@ -230,7 +230,7 @@ class OrgsController < ApplicationController
   end
 
   def shib_params
-    params.permit("shib-ds": %i[org_id org_name])
+    params.permit("org_id")
   end
 
   def search_params
