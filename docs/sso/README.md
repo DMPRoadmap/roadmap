@@ -3,7 +3,7 @@
 [Participating institutions](https://dmptool.org/about_us) can enable SSO authentication for their users. The setup involves coordination between your institution's Identity and Access Management team and the DMPTool's administrators. Please refer to the sections below for details on your specific configuration.
 
 The DMPTool requires that the following SAML attributes are released:
-- `eduPersonPrincipalName` **required** (aka eppn, the user's unique identifier)
+- `eduPersonPrincipalName` **required** (aka eppn, the user's unique identifier. The value should be universally unique, the most common value is the email)
 - `mail` **required** (the users email address)
 - `displayName` (the user's first and last name)
 
