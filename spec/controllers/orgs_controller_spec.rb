@@ -28,20 +28,21 @@ RSpec.describe OrgsController, type: :controller do
                 abbreviation: Faker::Lorem.unique.word.upcase,
                 logo: @logo, contact_email: Faker::Internet.email,
                 contact_name: Faker::Movies::StarWars.character,
-                remove_logo: false, org_type: %i[1 2 4].sample,
+                remove_logo: false, organisation: [true, false].sample,
+                funder: [true, false].sample, institution: [true, false].sample,
                 managed: Faker::Number.within(range: 0..1).to_s,
                 feedback_enabled: Faker::Boolean.boolean,
-                org_links: org_links_field,
                 feedback_email_msg: Faker::Lorem.paragraph,
                 org_id: org_selector_id_field(org: other_org), org_name: other_org.name,
                 org_crosswalk: org_selector_crosswalk_field(org: other_org) }
+      @link_args = org_links_field
       Rails.configuration.x.shibboleth.use_filtered_discovery_service = false
       sign_in(@user)
     end
 
     it "succeeds" do
       @args.delete(:feedback_enabled)
-      put :admin_update, params: { id: @org.id, org: @args }
+      put :admin_update, params: { id: @org.id, org_links: @link_args, org: @args }
       expect(response).to redirect_to("#{admin_edit_org_path(@org)}#profile")
       expect(flash[:notice].present?).to eql(true)
       @org.reload
