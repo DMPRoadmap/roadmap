@@ -29,7 +29,7 @@ module Api
           #        }
           #      ]
           #    }
-          def deserialize!(json: {})
+          def deserialize(json: {})
             return nil unless json.present? && json[:title].present?
 
             # TODO: Implement once we have determined the Dataset model
