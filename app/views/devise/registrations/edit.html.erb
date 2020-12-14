@@ -16,6 +16,12 @@
           <a href="#password-details" role="tab" class="nav-link"
              aria-controls="password-details" data-toggle="tab"><%= _('Password') %></a>
         </li>
+        <% if @user.can_org_admin? %>
+          <li role="api-details" class="nav-item">
+            <a href="#api-details" role="tab" class="nav-link"
+               aria-controls="api-details" data-toggle="tab"><%= _('API Access') %></a>
+          </li>
+        <% end %>
         <li role="notification-preferences" class="nav-item">
           <a href="#notification-preferences" role="tab" class="nav-link"
              aria-controls="notification-preferences" data-toggle="tab"><%= _('Notification Preferences') %></a>
@@ -37,6 +43,15 @@
             </div>
           </div>
         </div>
+        <% if @user.can_org_admin? %>
+          <div id="api-details" role="tabpanel" class="tab-pane">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <%= render partial: 'devise/registrations/api_token', locals: { user: @user } %>
+              </div>
+            </div>
+          </div>
+        <% end %>
         <div id="notification-preferences" role="tabpanel" class="tab-pane">
           <div class="panel panel-default">
             <div class="panel-body">

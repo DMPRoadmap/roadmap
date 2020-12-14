@@ -12,7 +12,7 @@ RSpec.describe Api::V1::ContributorPresenter do
     it "returns the correct URI" do
       uri = described_class.role_as_uri(role: "data_curation")
       expect(uri.start_with?("http")).to eql(true)
-      expect(uri.end_with?("Data_curation")).to eql(true)
+      expect(uri.end_with?("data-curation")).to eql(true)
     end
   end
 
