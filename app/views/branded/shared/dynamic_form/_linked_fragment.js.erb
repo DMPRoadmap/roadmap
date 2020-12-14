@@ -9,7 +9,8 @@ $(() => {
       $('#research-outputs-list').html(response.html);
       break;
     default:
-      $(`.fragment-${response.fragment_id} .linked-fragments-list.${response.classname}-list tbody`).html(response.html);
+      console.log($(`.fragment-${response.fragment_id} .linked-fragments-list.${response.property_name}-list`))
+      $(`.fragment-${response.fragment_id} .linked-fragments-list.${response.property_name}-list tbody`).html(response.html);
     }
     $('#modal-window').modal('hide');
   }).on('ajax:error', () => {

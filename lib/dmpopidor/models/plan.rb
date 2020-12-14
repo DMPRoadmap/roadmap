@@ -177,7 +177,8 @@ module Dmpopidor
           },
           dmp_id: dmp_fragment.id,
           parent_id: meta.id,
-          madmp_schema: MadmpSchema.find_by(name: "DMPCoordinator")
+          madmp_schema: MadmpSchema.find_by(name: "DMPCoordinator"),
+          additional_info: { property_name: "contact" }
         )
 
         Fragment::Contributor.create(
@@ -187,7 +188,8 @@ module Dmpopidor
           },
           dmp_id: dmp_fragment.id,
           parent_id: project.id,
-          madmp_schema: MadmpSchema.find_by(name: "PrincipalInvestigator")
+          madmp_schema: MadmpSchema.find_by(name: "PrincipalInvestigator"),
+          additional_info: { property_name: "principalInvestigator" }
         )
       end
 
