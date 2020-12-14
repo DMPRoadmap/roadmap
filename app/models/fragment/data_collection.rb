@@ -20,38 +20,28 @@
 
 class Fragment::DataCollection < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
+  def facility
+    Fragment::TechnicalResource.where(parent_id: id).first
+  end
 
-	def acquisition
-		Fragment::TechnicalResourceUsage.where(parent_id: id).first
-	end
+  def method_reference
+    Fragment::ResourceReference.where(parent_id: id)
+  end
 
-	def methods_identifier
-		Fragment::Identifier.where(parent_id: id)
-	end
+  def contributors
+    Fragment::Contributor.where(parent_id: id)
+  end
 
-	def contributors
-		Fragment::Contributor.where(parent_id: id)
-	end
+  def cost
+    Fragment::Cost.where(parent_id: id)
+  end
 
-	def cost
-		Fragment::Cost.where(parent_id: id)
-	end
+  def properties
+    "facility, method_reference, contributors, cost"
+  end
 
-	def properties
-		"plan, acquisition, methods_identifier, contributors, cost"
-	end
-
-	# Cited as dataCollection
-
-	def used_in
-		"research_output"
-	end
-
-	def self.sti_name
-		"data_collection"
-	end
+  def self.sti_name
+    "data_collection"
+  end
 
 end

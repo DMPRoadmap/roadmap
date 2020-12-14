@@ -20,30 +20,16 @@
 
 class Fragment::ReusedData < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
+  def license
+    Fragment::License.where(parent_id: id).first
+  end
 
-	def dataset_id
-		Fragment::Identifier.where(parent_id: id).first
-	end
+  def properties
+    "license"
+  end
 
-	def license
-		Fragment::License.where(parent_id: id).first
-	end
-
-	def properties
-		"plan, dataset_id, license"
-	end
-
-	# Cited as reusedData
-
-	def used_in
-		"data_reuse"
-	end
-
-	def self.sti_name
-		"reused_data"
-	end
+  def self.sti_name
+    "reused_data"
+  end
 
 end

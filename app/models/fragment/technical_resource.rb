@@ -20,26 +20,8 @@
 
 class Fragment::TechnicalResource < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
-
-	def technical_resource_id
-		Fragment::Identifier.where(parent_id: id).first
-	end
-
-	def properties
-		"plan, technical_resource_id"
-	end
-
-	# Cited as indexedIn, facility
-
-	def used_in
-		"data_sharing, technical_resource_usage"
-	end
-
-	def self.sti_name
-		"technical_resource"
-	end
+  def self.sti_name
+    "technical_resource"
+  end
 
 end

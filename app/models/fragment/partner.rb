@@ -20,30 +20,16 @@
 
 class Fragment::Partner < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
+  def data_policy
+    Fragment::ResourceReference.where(parent_id: id).first
+  end
 
-	def org_id
-		Fragment::Identifier.where(parent_id: id).first
-	end
+  def properties
+    "data_policy"
+  end
 
-	def data_policy_identifier
-		Fragment::Identifier.where(parent_id: id).first
-	end
-
-	def properties
-		"plan, org_id, data_policy_identifier"
-	end
-
-	# Cited as partner
-
-	def used_in
-		"project"
-	end
-
-	def self.sti_name
-		"partner"
-	end
+  def self.sti_name
+    "partner"
+  end
 
 end

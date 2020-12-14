@@ -20,22 +20,8 @@
 
 class Fragment::SpecificData < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
-
-	def properties
-		"plan"
-	end
-
-	# Cited as specificData
-
-	def used_in
-		"research_output_description, technical_resource_usage"
-	end
-
-	def self.sti_name
-		"specific_data"
-	end
+  def self.sti_name
+    "specific_data"
+  end
 
 end

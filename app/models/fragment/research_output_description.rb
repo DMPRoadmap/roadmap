@@ -20,38 +20,20 @@
 
 class Fragment::ResearchOutputDescription < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
+  def controlled_keyword
+    Fragment::ControlledKeyword.where(parent_id: id)
+  end
 
-	def controlled_keyword
-		Fragment::ControlledKeyword.where(parent_id: id)
-	end
+  def contact
+    Fragment::Person.where(parent_id: id).first
+  end
 
-	def contact
-		Fragment::Person.where(parent_id: id).first
-	end
+  def properties
+    "controlled_keyword, contact"
+  end
 
-	def dataset_id
-		Fragment::Identifier.where(parent_id: id).first
-	end
-
-	def specific_data
-		Fragment::SpecificData.where(parent_id: id).first
-	end
-
-	def properties
-		"plan, controlled_keyword, contact, dataset_id, specific_data"
-	end
-
-	# Cited as researchOutputDescription
-
-	def used_in
-		"research_output"
-	end
-
-	def self.sti_name
-		"research_output_description"
-	end
+  def self.sti_name
+    "research_output_description"
+  end
 
 end

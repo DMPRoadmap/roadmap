@@ -18,24 +18,22 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 
-class Fragment::DataOrganization < MadmpFragment
+class Fragment::EthicalIssues < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
+  def resource_reference
+    Fragment::ResourceReference.where(parent_id: id)
+  end
 
-	def properties
-		"plan"
-	end
+  def contact
+    Fragment::Contributor.where(parent_id: id).first
+  end
 
-	# Cited as dataOrganization
+  def properties
+    "resource_reference, contact"
+  end
 
-	def used_in
-		"documentation_quality"
-	end
-
-	def self.sti_name
-		"data_organization"
-	end
+  def self.sti_name
+    "ethical_issues"
+  end
 
 end
