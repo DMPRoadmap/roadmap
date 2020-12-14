@@ -50,7 +50,6 @@ RSpec.describe OrgsController, type: :controller do
       expect(@org.abbreviation).to eql(@args[:abbreviation])
       expect(@org.contact_email).to eql(@args[:contact_email])
       expect(@org.contact_name).to eql(@args[:contact_name])
-      expect(@org.org_type.to_s).to eql(@args[:org_type].to_s)
       expect(@org.funder?).to eql(@args[:funder])
       expect(@org.institution?).to eql(@args[:institution])
       expect(@org.organisation?).to eql(@args[:organisation])
