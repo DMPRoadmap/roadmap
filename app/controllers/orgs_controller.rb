@@ -209,10 +209,11 @@ class OrgsController < ApplicationController
   def org_params
     params.require(:org)
           .permit(:name, :abbreviation, :logo, :contact_email, :contact_name,
-                  :remove_logo, :org_type, :managed, :feedback_enabled, :org_links,
+                  :remove_logo, :managed, :feedback_enabled, :org_links,
+                  :funder, :institution, :organisation,
                   :feedback_email_msg, :org_id, :org_name, :org_crosswalk,
                   identifiers_attributes: %i[identifier_scheme_id value],
-                  tracker_attributes: %i[code])
+                  tracker_attributes: %i[code id])
   end
 
   def shib_params
