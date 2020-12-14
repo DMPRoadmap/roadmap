@@ -6,6 +6,8 @@ module SuperAdmin
 
     respond_to :html
 
+    include OrgSelectable
+
     helper PaginableHelper
 
     # GET /api_clients
@@ -29,7 +31,13 @@ module SuperAdmin
     # POST /api_clients
     def create
       authorize(ApiClient)
-      @api_client = ApiClient.new(api_client_params)
+
+      # Translate the Org selection
+      org = org_from_params(params_in: api_client_params, allow_create: false)
+      attrs = remove_org_selection_params(params_in: api_client_params)
+
+      @api_client = ApiClient.new(attrs)
+      @api_client.org = org if org.present?
 
       if @api_client.save
         UserMailer.api_credentials(@api_client).deliver_now
@@ -49,7 +57,13 @@ module SuperAdmin
     def update
       @api_client = ApiClient.find(params[:id])
       authorize(@api_client)
-      if @api_client.update(api_client_params)
+
+      # Translate the Org selection
+      org = org_from_params(params_in: api_client_params, allow_create: false)
+      @api_client.org = org
+      attrs = remove_org_selection_params(params_in: api_client_params)
+
+      if @api_client.update(attrs)
         flash.now[:notice] = success_message(@api_client, _("updated"))
       else
         flash.now[:alert] = failure_message(@api_client, _("update"))
@@ -75,8 +89,10 @@ module SuperAdmin
       @api_client = ApiClient.find(params[:id])
       return unless @api_client.present?
 
+      original = @api_client.client_secret
       @api_client.generate_credentials
       @api_client.save
+      @success = original != @api_client.client_secret
     end
 
     # GET /api_clients/:id/email_credentials/
@@ -91,7 +107,8 @@ module SuperAdmin
     def api_client_params
       params.require(:api_client).permit(:name, :description, :homepage,
                                          :contact_name, :contact_email,
-                                         :client_id, :client_secret)
+                                         :client_id, :client_secret,
+                                         :org_id, :org_name, :org_sources, :org_crosswalk)
     end
 
   end
