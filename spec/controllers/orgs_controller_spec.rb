@@ -54,7 +54,7 @@ RSpec.describe OrgsController, type: :controller do
       expect(@org.institution?).to eql(@args[:institution])
       expect(@org.organisation?).to eql(@args[:organisation])
       expect(@org.managed).to eql(@args[:managed] == "1")
-      expect(@org.links.to_json).to eql(@args[:org_links])
+      expect(@org.links.to_json).to eql(@link_args)
       expect(@org.logo_name).to eql("logo_file.png")
       expect(@org.logo_uid.present?).to eql(true)
     end
