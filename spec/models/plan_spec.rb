@@ -1333,20 +1333,20 @@ describe Plan do
     end
   end
 
-  describe "#num_answered_questions" do
+  describe "#percent_answered" do
 
     let!(:template) { create(:template) }
 
     let!(:plan) { create(:plan, :creator, template: template) }
 
-    subject { plan.num_answered_questions }
+    subject { plan.percent_answered }
 
     before do
       @phase     = create(:phase, template: template)
       @section   = create(:section, phase: @phase)
       @questions = create_list(:question, 3, :textarea, section: @section)
-      # 2 valid answers
-      @questions.first(2).each do |question|
+      # 1 valid answers
+      @questions.first(1).each do |question|
         create(:answer, question: question, plan: plan)
       end
       # 1 valid answers
@@ -1355,8 +1355,8 @@ describe Plan do
       end
     end
 
-    it "returns the number of questions with valid answers" do
-      expect(subject).to eql(2)
+    it "returns the percentage of questions with valid answers" do
+      expect(subject.to_i).to eql(33)
     end
 
   end
@@ -1449,39 +1449,45 @@ describe Plan do
 
   end
 
-  describe "#no_questions_matches_no_answers?" do
+  describe "#percent_answered" do
 
-    let!(:plan) { create(:plan, :creator) }
+    let!(:template) { create(:template, phases: 1, sections: 1, questions: 1) }
 
-    subject { plan.no_questions_matches_no_answers? }
+    let!(:plan) { create(:plan, :creator, template: template) }
+
+    subject { plan.percent_answered }
 
     context "when has no answers" do
 
-      it { is_expected.to eql(true) }
+      it { is_expected.to eql(0) }
 
     end
 
     context "when has answers that are not valid" do
 
-      let!(:question) { create(:question, :textarea) }
+      let!(:question) do
+        create(:question, :textarea, section: template.phases.first.sections.first)
+      end
 
       before do
         create_list(:answer, 1, text: "", plan: plan, question: question)
       end
 
-      it { is_expected.to eql(true) }
+      it { is_expected.to eql(0) }
 
     end
 
     context "when has answers that are valid" do
 
-      let!(:question) { create(:question, :textarea) }
-
-      before do
-        create_list(:answer, 1, plan: plan, question: question)
+      let!(:question) do
+        create(:question, :textarea, section: template.phases.first.sections.first)
       end
 
-      it { is_expected.to eql(false) }
+      before do
+        create_list(:answer, 1, plan: plan, question: question, text: Faker::Lorem.paragraph)
+      end
+
+      it { is_expected.to eql(50.0) }
 
     end
   end
