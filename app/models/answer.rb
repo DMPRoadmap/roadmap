@@ -142,9 +142,11 @@ class Answer < ApplicationRecord
     # Remove guard? this is an after-save so unreachable if there is no plan
     return unless plan_id?
 
-    complete = plan.no_questions_matches_no_answers?
-    if plan.complete != complete
-      plan.update!(complete: complete)
+    # Retrieve the percentage of answered questions that determines if a plan can
+    # be considered complete. If this answer completes the plan then update the Plan
+    target_percentage = Rails.configuration.x.plans.default_percentage_answered || 50.0
+    if plan.percent_answered > target_percentage && !plan.complete
+      plan.update!(complete: true)
     else
       # Force updated_at changes if nothing changed since save only saves if changes
       # were made to the record
