@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :tracker do
     org { nil }
-    code { "MyString" }
+    code { "UA-#{Faker::Number.number(digits: 5)}-#{Faker::Number.number(digits: 2)}" }
   end
 end
