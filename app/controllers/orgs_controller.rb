@@ -33,10 +33,7 @@ class OrgsController < ApplicationController
     authorize @org
     @org.logo = attrs[:logo] if attrs[:logo]
     tab = (attrs[:feedback_enabled].present? ? "feedback" : "profile")
-    if attrs[:org_links].present?
-      @org.links = ActiveSupport::JSON.decode(attrs[:org_links])
-      attrs.delete(:org_links)
-    end
+    @org.links = ActiveSupport::JSON.decode(params[:org_links]) if params[:org_links].present?
 
     # Only allow super admins to change the org types and shib info
     if current_user.can_super_admin?
@@ -50,10 +47,17 @@ class OrgsController < ApplicationController
         if shib.present? && attrs[:identifiers_attributes].present?
           key = attrs[:identifiers_attributes].keys.first
           entity_id = attrs[:identifiers_attributes][:"#{key}"][:value]
-          identifier = Identifier.find_or_initialize_by(
-            identifiable: @org, identifier_scheme: shib, value: entity_id
-          )
-          @org = process_identifier_change(org: @org, identifier: identifier)
+          # rubocop:disable Metrics/BlockNesting
+          if entity_id.present?
+            identifier = Identifier.find_or_initialize_by(
+              identifiable: @org, identifier_scheme: shib, value: entity_id
+            )
+            @org = process_identifier_change(org: @org, identifier: identifier)
+          else
+            # The user blanked out the entityID so delete the record
+            @org.identifier_for_scheme(scheme: shib)&.destroy
+          end
+          # rubocop:enable Metrics/BlockNesting
         end
         attrs.delete(:identifiers_attributes)
       end
@@ -137,12 +141,12 @@ class OrgsController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   # POST /orgs  (via AJAX from Org Typeaheads ... see below for specific pages)
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def search
     args = search_params
     # If the search term is greater than 2 characters
     if args.present? && args.fetch(:name, "").length > 2
-      type = args.fetch(:type, "local")
+      type = params.fetch(:type, "local")
 
       # If we are including external API results
       orgs = case type
@@ -186,7 +190,7 @@ class OrgsController < ApplicationController
 
       # If we need to restrict the results to funding orgs then
       # only return the ones with a valid fundref
-      if orgs.present? && args.fetch(:funder_only, "false") == true
+      if orgs.present? && params.fetch(:funder_only, "false") == true
         orgs = orgs.select do |org|
           org[:fundref].present? && !org[:fundref].blank?
         end
@@ -198,18 +202,18 @@ class OrgsController < ApplicationController
       render json: []
     end
   end
-  # rubocop:enable Metrics/MethodLength
-  # rubocop:enable
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   private
 
   def org_params
     params.require(:org)
           .permit(:name, :abbreviation, :logo, :contact_email, :contact_name,
-                  :remove_logo, :org_type, :managed, :feedback_enabled, :org_links,
+                  :remove_logo, :managed, :feedback_enabled, :org_links,
+                  :funder, :institution, :organisation,
                   :feedback_email_msg, :org_id, :org_name, :org_crosswalk,
                   identifiers_attributes: %i[identifier_scheme_id value],
-                  tracker_attributes: %i[code])
+                  tracker_attributes: %i[code id])
   end
 
   def shib_params
