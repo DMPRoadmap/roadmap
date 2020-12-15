@@ -40,6 +40,14 @@ module ApplicationHelper
     content_for(:title) { page_title }
   end
 
+  def current_locale_logo
+    if session[:locale] == 'fr-CA'
+      'dmp_logo_fr.png'
+    else
+      'dmp_logo_en.png'
+    end
+  end
+
   def unique_dom_id(record, prefix = nil)
     klass     = dom_class(record, prefix)
     record_id = record_key_for_dom_id(record) || record.object_id
