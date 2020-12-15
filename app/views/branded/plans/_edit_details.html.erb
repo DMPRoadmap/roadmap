@@ -1,6 +1,7 @@
 
-<% meta_fragment = @plan.json_fragment().meta%>
-<% project_fragment = @plan.json_fragment().project%>
+<% dmp_fragment = @plan.json_fragment() %>
+<% meta_fragment = dmp_fragment.meta%>
+<% project_fragment = dmp_fragment.project%>
 <div class="row">
   <%= form_for plan, html: {method: :put, class: 'form-horizontal edit_plan' } do |f| %>
     <div class="col-md-12 plan-details">
@@ -12,12 +13,11 @@
           <div class="meta-form">
             <%= render(partial: 'shared/dynamic_form/form', locals: { 
                   f: f,
-                  fragment: meta_fragment, 
+                  current_fragment: meta_fragment, 
                   schema: MadmpSchema.find_by(name: "MetaStandard"),
                   question_id: nil,
                   readonly: false,
                   classname: "meta",
-                  fragment_id: meta_fragment.id,
                   template_locale: @plan.template.locale,
                   form_prefix: "meta"
                 }) %>
@@ -30,12 +30,11 @@
           <div class="project-form">
             <%= render(partial: 'shared/dynamic_form/form', locals: { 
                   f: f,
-                  fragment: project_fragment, 
+                  current_fragment: project_fragment, 
                   schema: MadmpSchema.find_by(name: "ProjectStandard"),
                   question_id: nil,
                   readonly: false,
                   classname: "project",
-                  fragment_id: project_fragment.id,
                   template_locale: @plan.template.locale,
                   form_prefix: "project"
                 }) %>

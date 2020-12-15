@@ -1,17 +1,17 @@
-<%# locals: { f, fragment, schema, question_id, readonly, classname, fragment_id, template_locale } %>
+<%# locals: { f, current_fragment, schema, question_id, readonly, classname, template_locale } %>
 <% sub_schemas_ids = schema.get_sub_schemas_ids %>
-<% data = fragment.data unless fragment.nil? %>
-<% additional_info = fragment.additional_info unless fragment.nil? %>
+<% data = current_fragment.data unless current_fragment.nil? %>
+<% additional_info = current_fragment.additional_info unless current_fragment.nil? %>
 <% validations = additional_info.present? && additional_info['validations'].present? ? additional_info["validations"] : nil %>
 
-<% dmp_fragments = fragment.present? ? fragment.get_dmp_fragments() : [] %>
+<% dmp_fragments = current_fragment.present? ? current_fragment.get_dmp_fragments() : [] %>
 <% schema_properties = schema.schema["properties"]%>
 <% required_fields = schema.schema["required"] %>
 
 <% schema_properties.each do |key, prop| %>
   <% value = data[key] unless data.nil? %>
   <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{key}]" : key %>
-  <% field_id = fragment.present? ? "fragment_#{key}_#{SecureRandom.uuid}" : "new_fragment_#{key}_#{SecureRandom.uuid}"%>
+  <% field_id = current_fragment.present? ? "fragment_#{key}_#{SecureRandom.uuid}" : "new_fragment_#{key}_#{SecureRandom.uuid}"%>
   <% validation = validations.nil? ? "none" : validations[key] %>
   <% required = required_fields.include?(key)%>
   <% label = prop["label@#{template_locale}"]%>
@@ -61,7 +61,7 @@
           <%= render(partial: 'shared/dynamic_form/fields/complex_multiple_field', locals: { 
             field_values: values, 
             readonly: readonly,
-            parent_id: fragment_id,
+            parent_id: current_fragment.id,
             schema: sub_schema,
             table_header: table_header,
             template_locale: template_locale,
@@ -92,24 +92,22 @@
       <% if prop["schema_id"].present? %>
         <% unless classname == "research_output"  %>
           <div class="col-md-12">
-            <fieldset class="answer-fieldset">
+            <%
+              sub_schema = @schemas.find_by(id: prop["schema_id"])
+              sub_fragment = nil
+              if data.present? && data[key].present? 
+                sub_fragment = dmp_fragments.find(data[key]["dbid"])
+              end
+            %>
+            <fieldset class="answer-fieldset fragment-<%= sub_fragment.id unless sub_fragment.nil? %>">
               <legend class="answer-fieldset" title="<%= ttip %>"><%= label %></legend>
-              <%
-                sub_schema = @schemas.find_by(id: prop["schema_id"])
-                sub_fragment = nil
-                if data.present? && data[key].present? 
-                  sub_fragment = dmp_fragments.find(data[key]["dbid"])
-                end
-              %>
-
               <%= render(partial: 'shared/dynamic_form/form', locals: { 
                     f: f, 
-                    fragment: sub_fragment,
+                    current_fragment: sub_fragment,
                     schema: sub_schema,
                     question_id: question_id,
                     readonly: readonly,
                     classname: sub_schema.classname,
-                    fragment_id: fragment_id,
                     form_prefix: field_name,
                     template_locale: template_locale
                   }) %>
