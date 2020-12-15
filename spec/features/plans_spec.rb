@@ -58,7 +58,17 @@ RSpec.describe "Plans", type: :feature do
       fill_in "Grant number", with: "Innodia"
       fill_in "Project abstract", with: "Plan abstract..."
       fill_in "ID", with: "ABCDEF"
-      fill_in "ORCID iD", with: "My ORCID"
+      # --------------------------------------------------------
+      # Start DMPTool Customization
+      # ORCID sent us a complaint about allowing people to manually
+      # enter in an ORCID id. We will have to revise this workflow
+      # so that it complies with their standards. E.g. send out an
+      # email to the PI that asks them to assert the connection
+      # --------------------------------------------------------
+      #fill_in "ORCID iD", with: "My ORCID"
+      # --------------------------------------------------------
+      # End DMPTool Customization
+      # --------------------------------------------------------
       fill_in "Phone", with: "07787 000 0000"
       click_button "Save"
     end
@@ -75,7 +85,17 @@ RSpec.describe "Plans", type: :feature do
     expect(@plan.identifier).to eql("ABCDEF")
     name = [@user.firstname, @user.surname].join(" ")
     expect(@plan.principal_investigator).to eql(name)
-    expect(@plan.principal_investigator_identifier).to eql("My ORCID")
+    # --------------------------------------------------------
+    # Start DMPTool Customization
+    # ORCID sent us a complaint about allowing people to manually
+    # enter in an ORCID id. We will have to revise this workflow
+    # so that it complies with their standards. E.g. send out an
+    # email to the PI that asks them to assert the connection
+    # --------------------------------------------------------
+    #expect(@plan.principal_investigator_identifier).to eql("My ORCID")
+    # --------------------------------------------------------
+    # End DMPTool Customization
+    # --------------------------------------------------------
     expect(@plan.principal_investigator_email).to eql(@user.email)
     expect(@plan.principal_investigator_phone).to eql("07787 000 0000")
   end

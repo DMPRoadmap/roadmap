@@ -546,6 +546,7 @@ ActiveRecord::Schema.define(version: 2020_11_19_210343) do
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
+  add_foreign_key "api_clients", "orgs"
   add_foreign_key "conditions", "questions"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"

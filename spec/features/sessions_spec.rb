@@ -4,11 +4,33 @@ require "rails_helper"
 
 RSpec.feature "Sessions", type: :feature do
 
+  # -------------------------------------------------------------
+  # start DMPTool customization
+  # Initialize the is_other org
+  # -------------------------------------------------------------
+  include DmptoolHelper
+
+  before(:each) do
+    mock_blog
+  end
+  # -------------------------------------------------------------
+  # end DMPTool customization
+  # -------------------------------------------------------------
+
   let(:user) { create(:user) }
 
   scenario "User signs in successfully with email and password", :js do
     # Setup
     visit root_path
+
+    # -------------------------------------------------------------
+    # start DMPTool customization
+    # Access the signin form
+    # -------------------------------------------------------------
+    access_sign_in_modal
+    # -------------------------------------------------------------
+    # end DMPTool customization
+    # -------------------------------------------------------------
 
     # Action
     fill_in :signin_user_email, with: user.email
@@ -24,6 +46,15 @@ RSpec.feature "Sessions", type: :feature do
   scenario "User fails sign in with email and password", :js do
     # Setup
     visit root_path
+
+    # -------------------------------------------------------------
+    # start DMPTool customization
+    # Access the signin form
+    # -------------------------------------------------------------
+    access_sign_in_modal
+    # -------------------------------------------------------------
+    # end DMPTool customization
+    # -------------------------------------------------------------
 
     # Action
     fill_in :signin_user_email, with: user.email

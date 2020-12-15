@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1><%= _('Sign in or Create account') %></h1>
+  </div>
+</div>
+
+<div class="row">
+  <div id="dual_columns" class="container" style="display:table">
+    <% unless session["devise.shibboleth_data"].nil? %>
+        <% cookies[:show_shib_link] = { value: 'show_shib_link',
+                                        expires: 3.hours.from_now } %>
+
+        <div class="col-md-6" style="border-top:1px solid black; border-bottom:1px solid black; border-left:1px solid black; display:table-cell; float:none">
+            <p class="text-center">
+              <%= _("Do you have a %{application_name} account?") % {
+                application_name: ApplicationService.application_name} %>
+            </p>
+            <p class="text-center fontsize-h3 color-heading-text">
+              <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+            </p>
+            <h2 class="text-center">
+                <%= _("Sign in") %>
+            </h2>
+            <p class="text-center">
+              <%= _("This will link your existing account to your credentials.") %>
+            </p>
+            <p><%= render partial: 'shared/sign_in_form', locals: { resource: resource } %><br></p>
+        </div>
+
+        <div class="col-md-6"
+             style="border:1px solid black; display:table-cell; float:none">
+
+          <p class="text-center fontsize-h3 color-heading-text">
+            <%= _("No %{application_name} account?") % {
+              application_name: ApplicationService.application_name} %>
+          </p>
+
+          <p class="text-center">
+            <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+          </p>
+
+          <h2 class="text-center">
+              <%= _("Create account") %>
+          </h2>
+          <p class="text-center">
+            <%= _("This will create an account and link it to your credentials.") %>
+          </p>
+          <div id="create-account-form">
+            <p >
+              <%# --------------------------------------------------- %>
+              <%# Start DMPTool Customization %>
+              <%# This is the only change to this Devise page! %>
+              <%# Add the org info so that JS hides the Org selector %>
+              <%# --------------------------------------------------- %>
+              <%= hidden_field_tag "default_org_id", @user&.org&.id %>
+              <%= hidden_field_tag "default_org_name", @user&.org&.name %>
+              <%# --------------------------------------------------- %>
+              <%# End DMPTool Customization %>
+              <%# --------------------------------------------------- %>
+              <%= render partial: 'shared/create_account_form', locals: { resource: resource } %>
+              <br>
+            </p>
+          </div>
+        </div>
+    <% else %>
+      <div>
+        <h2>
+          <%= _("Create account") %>&nbsp;&nbsp;
+          <i class="fa fa-user-plus" aria-hidden="true">&nbsp;&nbsp;</i>
+        </h2>
+        <div id="create-account-form">
+          <%= render partial: 'shared/create_account_form' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

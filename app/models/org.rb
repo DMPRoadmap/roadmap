@@ -36,6 +36,14 @@ class Org < ApplicationRecord
   include FlagShihTzu
   include Identifiable
 
+  # ----------------------------------------
+  # Start DMPTool Customization
+  # ----------------------------------------
+  include DmptoolOrg
+  # ----------------------------------------
+  # End DMPTool Customization
+  # ----------------------------------------
+
   extend Dragonfly::Model::Validations
   validates_with OrgLinksValidator
 
@@ -133,9 +141,21 @@ class Org < ApplicationRecord
                     message: _("can't be larger than 500KB")
 
   # allow validations for logo upload
-  dragonfly_accessor :logo do
-    after_assign :resize_image
-  end
+
+  # ---------------------------------------
+  # Start DMPTool Customization
+  # ---------------------------------------
+  # Commenting out the logo resizer. We adjust the logo size via CSS
+  #dragonfly_accessor :logo do
+  #  after_assign :resize_image
+  #end
+  dragonfly_accessor :logo
+  # ---------------------------------------
+  # End DMPTool Customization
+  # ---------------------------------------
+
+  validates_property :format, of: :logo, in: ['jpeg', 'png', 'gif', 'jpg', 'bmp'], message: _("must be one of the following formats: jpeg, jpg, png, gif, bmp")
+  validates_size_of :logo, maximum: 500.kilobytes, message: _("can't be larger than 500KB")
 
   # =============
   # = Callbacks =
@@ -285,11 +305,13 @@ class Org < ApplicationRecord
   end
 
   def plans
-    plan_ids = Role.administrator
-                   .where(user_id: users.pluck(:id), active: true)
-                   .pluck(:plan_id).uniq
-    Plan.includes(:template, :phases, :roles, :users)
-        .where(id: plan_ids)
+    Rails.cache.fetch("org[#{id}].plans", expires_in: 2.seconds) do
+      plan_ids = Role.administrator
+                     .where(user_id: users.pluck(:id), active: true)
+                     .pluck(:plan_id).uniq
+      Plan.includes(:template, :phases, :roles, :users)
+          .where(id: plan_ids)
+    end
   end
 
   def grant_api!(token_permission_type)

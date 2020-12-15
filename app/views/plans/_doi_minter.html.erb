@@ -1,0 +1,43 @@
+<%# locals: plan %>
+
+<%
+doi = plan.doi
+general_message = _("Get a %{dmp_id_link} for your data management plan.") % { dmp_id_link: link_to("DMP ID", "https://github.com/CDLUC3/dmptool/wiki/Networked-Data-Management-Plans-(maDMPs)") }
+general_tooltip = _("DMP IDs track connections between your DMP and research outputs such as datasets and articles.")
+%>
+
+<% if doi.present? %>
+  <p>
+    <% if doi.value.downcase.start_with?("http") %>
+      <% val = link_to doi.value, doi.value %>
+    <% else %>
+      <% val = doi.value %>
+    <% end %>
+    <%= (_('Your plan has been registered. Your DMP ID is: %{doi}') % { doi: val }).html_safe %>
+  </p>
+<% elsif !plan.minting_allowed? %>
+  <p>
+    <span title="<%= general_tooltip %>" data-toggle="tooltip"><%= general_message.html_safe %></span>
+  </p>
+  <p><%= _("In order to register your plan you must have completed the following:") %></p>
+  <ul>
+    <li><%= _("answered at least %{percentage}%% of questions") % { percentage: Rails.configuration.x.plans.default_percentage_answered } %></li>
+    <li><%= _("identified your funder") %></li>
+    <li><%= _("defined at least one contributor with an ORCID and an affiliation") %></li>
+  </ul>
+  <p><%= _("Once the steps above are satisfied, a button to register your plan will appear here.") %></p>
+<% else %>
+  <p>
+    <span title="<%= general_tooltip %>" data-toggle="tooltip"><%= general_message.html_safe %></span
+  </p>
+  <%= button_to "Register", {
+                              controller: 'plans',
+                              action: 'mint',
+                              data: { disable_with: "registering ..." }
+                            },
+                            {
+                              remote: true,
+                              method: :get,
+                              class: "btn btn-default"
+                            } %>
+<% end %>

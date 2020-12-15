@@ -146,6 +146,9 @@ module Api
                               surname: surname,
                               org: contributor.org }, client)
 
+        user = User.create({ email: contributor.email, firstname: firstname,
+                             surname: surname, org: contributor.org,
+                             password: SecureRandom.uuid })
         contributor.identifiers.each do |id|
           user.identifiers << Identifier.new(
             identifier_scheme: id.identifier_scheme, value: id.value

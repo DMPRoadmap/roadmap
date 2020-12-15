@@ -1,0 +1,34 @@
+<%#
+  DMPTool customization overview:
+  ------------------------------------------
+  1. Removed org phone/email contacts
+  2. increased height oof google map
+ %>
+ <!-- new_right template -->
+ <!-- new_right template -->
+ <address>
+   <strong><%= Rails.configuration.x.organisation.name %></strong><br>
+   <% [Rails.configuration.x.organisation.address.fetch(:line1, ""),
+       Rails.configuration.x.organisation.address.fetch(:line2, ""),
+       Rails.configuration.x.organisation.address.fetch(:line3, ""),
+       Rails.configuration.x.organisation.address.fetch(:line4, ""),
+       Rails.configuration.x.organisation.address.fetch(:country, "")].compact.each do |addr_line| %>
+ <% if addr_line.present? %>
+     <%= addr_line %><br>
+ <% end %>
+ <% end %>
+ </address>
+
+ <%
+ link=Rails.configuration.x.organisation.google_maps_link
+ if link.present? %>
+   <iframe
+     width="90%"
+     height="350"
+     frameborder="0"
+     scrolling="no"
+     marginheight="0"
+     marginwidth="0"
+     src="<%= link %>">
+   </iframe>
+ <% end %>

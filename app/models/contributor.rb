@@ -51,6 +51,8 @@ class Contributor < ApplicationRecord
   # ===============
 
   validates :roles, presence: { message: PRESENCE_MESSAGE }
+  validates :roles, numericality: { greater_than: 0,
+                                    message: _("You must specify at least one role.") }
 
   validates :roles, numericality: { greater_than: 0,
                                     message: _("You must specify at least one role.") }

@@ -109,8 +109,12 @@ languages = [
    name: 'Español',
    default_language: false},
   {abbreviation: 'pt-BR',
+    description: '',
+    name: 'Português (Brasil)',
+    default_language: false},
+  {abbreviation: 'ja',
    description: '',
-   name: 'Português (Brasil)',
+   name: '日本語',
    default_language: false}
 ]
 languages.each { |l| Language.create!(l) }

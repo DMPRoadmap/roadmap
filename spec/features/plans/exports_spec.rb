@@ -3,7 +3,6 @@
 require "rails_helper"
 
 RSpec.describe "PlansExports", type: :feature, js: true do
-
   let!(:template) { create(:template, phases: 2) }
   let!(:org) { create(:org, managed: true, is_other: false) }
   let!(:user) { create(:user, org: org) }

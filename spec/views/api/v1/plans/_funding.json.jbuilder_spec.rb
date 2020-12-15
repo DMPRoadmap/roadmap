@@ -9,7 +9,7 @@ describe "api/v1/plans/_funding.json.jbuilder" do
     create(:identifier, identifiable: @funder,
                         identifier_scheme: create(:identifier_scheme, name: "fundref"))
     @funder.reload
-    @plan = create(:plan, funder: @funder)
+    @plan = create(:plan, funder: @funder, identifier: SecureRandom.uuid)
     @grant = create(:identifier, identifiable: @plan)
     @plan.update(grant_id: @grant.id)
     @plan.reload
@@ -30,6 +30,13 @@ describe "api/v1/plans/_funding.json.jbuilder" do
       id = @funder.identifiers.first
       expect(@json[:funder_id][:type]).to eql(id.identifier_format)
       expect(@json[:funder_id][:identifier]).to eql(id.value)
+    end
+    it "includes :funding_opportunity_number" do
+      app = ApplicationService.application_name.split("-").first
+      @section = @json[:extension].select { |hash| hash.keys.first == app }.first
+      expect(@section[app.to_sym].present?).to eql(true)
+      identifier = @plan.identifier
+      expect(@section[app.to_sym][:funding_opportunity_number]).to eql(identifier)
     end
     it "includes :grant_ids" do
       expect(@json[:grant_id][:type]).to eql(@grant.identifier_format)

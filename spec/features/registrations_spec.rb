@@ -4,18 +4,56 @@ require "rails_helper"
 
 RSpec.describe "Registrations", type: :feature do
 
+  # -------------------------------------------------------------
+  # start DMPTool customization
+  # Initialize the is_other org
+  # -------------------------------------------------------------
+  include DmptoolHelper
+  # -------------------------------------------------------------
+  # end DMPTool customization
+  # -------------------------------------------------------------
+
   let!(:org) { create(:org) }
+  # -------------------------------------------------------------
+  # start DMPTool customization
+  #   We have been experiencing inconsistent results between the values
+  #   returned by 'attributes_for' and what is actually submitted to the
+  #   form in Chrome
+  # -------------------------------------------------------------
+  #let(:user_attributes) { attributes_for(:user) }
+  let!(:user_attributes) { {
+    firstname: "John",
+    surname: "Doe",
+    password: "testing123",
+    email: "john.doe@testing-dmproadmap.org"
+  } }
+
   let!(:language) { Language.default || create(:language, default_language: true) }
 
-  let(:user_attributes) { attributes_for(:user) }
+  before(:each) do
+    mock_blog
+  end
+  # -------------------------------------------------------------
+  # end DMPTool customization
+  # -------------------------------------------------------------
 
   scenario "User creates a new acccount", :js do
     # Setup
     visit root_path
 
+    # -------------------------------------------------------------
+    # start DMPTool customization
+    # Access the create account form
+    # -------------------------------------------------------------
     # Action
-    click_link "Create account"
-    within("#create-account-form") do
+    #click_link "Create account"
+    #within("#create-account-form") do
+    access_create_account_modal
+    within("#create_account_form") do
+    # -------------------------------------------------------------
+    # end DMPTool customization
+    # -------------------------------------------------------------
+
       fill_in "First Name", with: user_attributes[:firstname]
       fill_in "Last Name", with: user_attributes[:surname]
       fill_in "Email", with: user_attributes[:email]
@@ -25,6 +63,10 @@ RSpec.describe "Registrations", type: :feature do
       check "I accept the terms and conditions"
     end
     click_button "Create account"
+
+# DMPTool issue
+# For some reason this fails. It appears as though the button click is happening
+# before the UI has a chance to fill in the email/password completely
 
     # Expectations
     expect(current_path).to eql(plans_path)
@@ -36,9 +78,19 @@ RSpec.describe "Registrations", type: :feature do
     # Setup
     visit root_path
 
+    # -------------------------------------------------------------
+    # start DMPTool customization
+    # Access the create account form
+    # -------------------------------------------------------------
     # Action
-    click_link "Create account"
-    within("#create-account-form") do
+    #click_link "Create account"
+    #within("#create-account-form") do
+    access_create_account_modal
+    within("#create_account_form") do
+    # -------------------------------------------------------------
+    # end DMPTool customization
+    # -------------------------------------------------------------
+
       fill_in "First Name", with: user_attributes[:firstname]
       fill_in "Last Name", with: user_attributes[:surname]
       fill_in "Email", with: "invalid-email"

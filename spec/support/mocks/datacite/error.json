@@ -1,0 +1,6 @@
+{
+  "errors":[{
+    "source":"types",
+    "title":"Types '[{\"resourcetypegeneral\"=>\"text\"}]' should be an object instead of a string."
+  }]
+}

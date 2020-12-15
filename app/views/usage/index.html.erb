@@ -9,6 +9,7 @@
 <%= render partial: 'usage/total_usage',
            locals: { user_count: @total_org_users,
                      plan_count: @total_org_plans,
+                     doi_count: @total_org_dois,
                      separators: @separators } %>
 
 <% if @funder.present? %>

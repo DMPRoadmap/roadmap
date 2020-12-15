@@ -37,6 +37,21 @@ class RegistrationsController < Devise::RegistrationsController
         flash[:notice] = _("Please make a choice below. After linking your details to a %{application_name} account, you will be able to sign in directly with your institutional credentials.") % {
           application_name: ApplicationService.application_name
         }
+        # rubocop:enable Metrics/LineLength
+
+        # ---------------------------------------
+        # Start DMPTool Customization
+        # Determine which Org Idp we came from and make it available to form
+        # ---------------------------------------
+        entity_id = oauth.fetch("info", {})["identity_provider"]
+        if entity_id.present?
+          identifier = Identifier.where(identifiable_type: "Org",
+                                        value: entity_id).first
+          @user.org = identifier.identifiable if identifier.present?
+        end
+        # ---------------------------------------
+        # End DMPTool Customization
+        # ---------------------------------------
       end
     end
     # rubocop:enable Style/GuardClause
@@ -90,7 +105,16 @@ class RegistrationsController < Devise::RegistrationsController
         if resource.active_for_authentication?
           set_flash_message :notice, :signed_up if is_navigational_format?
           sign_up(resource_name, resource)
-          UserMailer.welcome_notification(current_user).deliver_now
+
+          # ----------------------------------------------------------
+          # Start DMPTool customization
+          # Comment out the welcome email. DMPTool does not send one!
+          # ----------------------------------------------------------
+          # UserMailer.welcome_notification(current_user).deliver_now
+          # ----------------------------------------------------------
+          # End DMPTool customization
+          # ----------------------------------------------------------
+
           unless oauth.nil?
             # The OAuth provider could not be determined or there was no unique UID!
             unless oauth["provider"].nil? || oauth["uid"].nil?

@@ -16,6 +16,7 @@
 #
 
 class StatJoinedUser < Stat
+  extend OrgDateRangeable
 
   class << self
 

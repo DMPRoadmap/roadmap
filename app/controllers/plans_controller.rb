@@ -9,7 +9,7 @@ class PlansController < ApplicationController
   helper PaginableHelper
   helper SettingsTemplateHelper
 
-  after_action :verify_authorized, except: [:overview]
+  after_action :verify_authorized
 
   # GET /plans
   def index
@@ -253,8 +253,7 @@ class PlansController < ApplicationController
 
       if @plan.update(attrs) # _attributes(attrs)
         format.html do
-          redirect_to plan_contributors_path(@plan),
-                      notice: success_message(@plan, _("saved"))
+          redirect_to plan_path(@plan), notice: success_message(@plan, _("saved"))
         end
         format.json do
           render json: { code: 1, msg: success_message(@plan, _("saved")) }
@@ -283,8 +282,7 @@ class PlansController < ApplicationController
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  # GET /plans/:id/share
-  def share
+  def publish
     @plan = Plan.find(params[:id])
     if @plan.present?
       authorize @plan
@@ -426,18 +424,19 @@ class PlansController < ApplicationController
     # rubocop:enable Layout/LineLength
   end
 
-  # GET /plans/:id/overview
-  def overview
-    plan = Plan.includes(:phases, :sections, :questions, template: [:org])
-               .find(params[:id])
+  # GET /plans/:id/mint
+  def mint
+    @plan = Plan.find(params[:id])
+    authorize @plan
 
-    authorize plan
-    render(:overview, locals: { plan: plan })
-  rescue ActiveRecord::RecordNotFound
-    flash[:alert] = _("There is no plan associated with id %{id}") % {
-      id: params[:id]
-    }
-    redirect_to(action: :index)
+    DoiService.mint_doi(plan: @plan)&.save
+    @plan = @plan.reload
+    render js: render_to_string(template: "plans/mint.js.erb")
+  rescue StandardError => e
+    Rails.logger.error "Unable to mint DOI for plan #{params[:id]} - #{e.message}"
+    Rails.logger.error e.backtrace
+
+    render js: render_to_string(template: "plans/mint.js.erb")
   end
 
   # ============================
@@ -526,8 +525,7 @@ class PlansController < ApplicationController
       if grant.present?
         grant.update(value: grant_params[:value])
       elsif grant_params[:value].present?
-        @plan.grant = Identifier.new(identifier_scheme: nil, identifiable: @plan,
-                                     value: grant_params[:value])
+        @plan.grant = grant_params[:value]
       end
     end
   end

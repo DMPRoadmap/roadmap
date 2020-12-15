@@ -3711,6 +3711,10 @@ msgstr "información del perfil"
 msgid "Request feedback"
 msgstr "Solicitar comentarios"
 
+#: ../../app/views/plans/_navigation.html.erb:29
+msgid "Finalise / Publish"
+msgstr "Finalizar / Publicar"
+
 #: ../../app/views/orgs/shibboleth_ds.html.erb:1
 #: ../../app/views/orgs/shibboleth_ds.html.erb:4
 msgid "Find your organisation to sign in"

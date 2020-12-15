@@ -540,12 +540,12 @@ class Plan < ApplicationRecord
     Plan.joins(:questions).exists?(id: id, "questions.id": question_id)
   end
 
-  # Checks whether or not the number of questions matches the number of valid
-  # answers
+  # Determines what percentage of the Plan's questions have been num_answered_questions
   #
-  # Returns Boolean
-  def no_questions_matches_no_answers?
+  def percent_answered
     num_questions = question_ids.length
+    return 0 unless num_questions.positive?
+
     pre_fetched_answers = Answer.includes(:question_options,
                                           question: :question_format)
                                 .where(id: answer_ids)
@@ -553,7 +553,9 @@ class Plan < ApplicationRecord
       m += 1 if a.answered?
       m
     end
-    num_questions == num_answers
+    return 0 unless num_answers.positive?
+
+    (num_answers / num_questions.to_f) * 100
   end
 
   # Deactivates the plan (sets all roles to inactive and visibility to :private)
@@ -575,6 +577,31 @@ class Plan < ApplicationRecord
   # Returns the plan's identifier (either a DOI/ARK)
   def landing_page
     identifiers.select { |i| %w[doi ark].include?(i.identifier_format) }.first
+  end
+
+  # Retrieves the Plan's most recent DOI
+  def doi
+    return nil unless Rails.configuration.x.allow_doi_minting
+
+    schemes = IdentifierScheme.for_identification
+
+    if schemes.any?
+      identifiers.select { |id| schemes.include?(id.identifier_scheme) }.last
+    else
+      # If there is curently no identifier schemes defined as identification
+      identifiers.select { |id| %w[ark doi].include?(id.identifier_format) }.last
+    end
+  end
+
+  # Returns whether or not minting is allowed for the current plan
+  def minting_allowed?
+    orcid_scheme = IdentifierScheme.where(name: "orcid").first
+    ror_scheme = IdentifierScheme.where(name: "ror").first
+    return false unless orcid_scheme.present? && ror_scheme.present?
+
+    orcids = contributors.select { |c| c.identifier_for_scheme(scheme: orcid_scheme).present? }
+    rors = contributors.select { |c| c.org.identifier_for_scheme(scheme: ror_scheme).present? }
+    visibility_allowed? && orcids.any? && rors.any? && funder.present?
   end
 
   private

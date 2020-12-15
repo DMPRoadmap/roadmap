@@ -1,0 +1,14 @@
+<div class="fixed-menu">
+  <%= render partial: "layouts/fixed_menu" %>
+</div>
+<div class="fixed-menu-mobile">
+  <%= render partial: "layouts/mobile/fixed_menu" %>
+</div>
+<div class="branding">
+  <%= render partial: "layouts/branding" %>
+</div>
+<% if user_signed_in? %>
+  <div class="app-menu">
+    <%= render partial: "layouts/app_menu" %>
+  </div>
+<% end %>

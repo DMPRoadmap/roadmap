@@ -4,6 +4,16 @@
 <% project_abstract_tooltip = _("Briefly summarise your research project to help others understand the purposes for which the data are being collected or created.") %>
 <% id_tooltip = _('A pertinent ID as determined by the funder and/or organisation.') %>
 
+<% doi = plan.doi %>
+<% if doi.present? %>
+  <div class="form-group"><!-- doi -->
+    <div class="col-md-12">
+      <label>DMP ID</label>&nbsp;
+      <a href="<%= doi.value %>" target="_blank" class="has-new-window-popup-info"><%= doi.value %></a>
+    </div>
+  </div>
+<% end %>
+
 <div class="form-group"><!-- title -->
   <div class="col-md-12">
     <%= form.label(:title, _('Project title'), class: 'control-label') %>
@@ -67,18 +77,18 @@
     </div>
   </div>
 <% else %>
-  <div class="form-group">
-    <div class="col-md-12">
-      <%= form.label :id, _("ID"), class: "control-label" %>
-    </div>
-    <div class="col-md-8">
-      <em class="sr-only"><%= id_tooltip %></em>
-      <%= form.text_field :identifier, class: "form-control",
+  <!-- <div class="form-group"> -->
+    <!-- <div class="col-md-12"> -->
+      <%#= form.label :id, _("ID"), class: "control-label" %>
+    <!-- </div> -->
+    <!-- <div class="col-md-8"> -->
+      <!-- <em class="sr-only"><%#= id_tooltip %></em> -->
+      <%#= form.text_field :identifier, class: "form-control",
                                        aria: { required: false },
                                        data: { toggle: "tooltip" },
                                        spellcheck: true, title: id_tooltip %>
-    </div>
-  </div>
+    <!-- </div> -->
+  <!-- </div> -->
 <% end %>
 
 <div id="funder-org-controls" class="form-group">
@@ -122,7 +132,7 @@
 </div>
 
 <div class="form-group"><!-- grant_number -->
-  <%= form.fields_for :grant, @plan.grant do |grant_fields| %>
+  <%= form.fields_for :grant, plan.grant do |grant_fields| %>
     <div class="col-md-12">
       <%= grant_fields.label(:value, _("Grant number/url"), class: "control-label") %>
     </div>
@@ -131,10 +141,10 @@
       <%# If the OpenAire grant typeahead if enabled use it %>
       <% if Rails.configuration.x.open_aire.active %>
         <!-- Using the research_project.json source for typeahead -->
-        <%= grant_fields.text_field :name, value: @plan.grant&.value, class: "form-control grant-id-typeahead",
+        <%= grant_fields.text_field :name, value: plan.grant&.value, class: "form-control grant-id-typeahead",
                                            autocomplete: "off", aria: { required: false } %>
         <%= grant_fields.hidden_field :value %>
-        <span class="text-muted" id="grant_number_info">Grant number: <%= @plan.grant_number %></span>
+        <span class="text-muted" id="grant_number_info">Grant number: <%= plan.grant_number %></span>
       <% else %>
         <%= grant_fields.text_field(:value, class: "form-control",
                                            data: { toggle: "tooltip" },

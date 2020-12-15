@@ -1,3 +1,5 @@
+<% has_dois = scope.select { |plan| plan.doi.present? }.any? %>
+
 <div class="table-responsive">
   <table class="table table-hover" id="my-plans">
     <thead>
@@ -8,10 +10,14 @@
         <th scope="col"><%= _('Owner') %></th>
         <th scope="col" class="date-column"><%= _('Updated') %>&nbsp;<%= paginable_sort_link('plans.updated_at') %></th>
         <th scope="col"><%= _('Visibility') %></th>
+        <% if has_dois %>
+          <th scope="col"><%= _('DMP ID') %></th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
       <% scope.each do |plan| %>
+        <% id_presenter = IdentifierPresenter.new(identifiable: plan) %>
         <tr>
           <td>
             <% if plan.readable_by?(current_user.id) %>
@@ -21,12 +27,20 @@
             <% end %>
           </td>
           <td><%= plan.template.title %></td>
-          <td><%= plan.owner.org.name %></td>
-          <td><%= plan.owner.name(false) %></td>
+          <td><%= plan.owner&.org&.name %></td>
+          <td><%= plan.owner&.name(false) %></td>
           <td><%= l(plan.updated_at.to_date, formats: :short) %></td>
           <td class="plan-visibility">
             <%= plan.visibility === 'is_test' ? _('Test') : sanitize(display_visibility(plan.visibility)) %>
           </td>
+          <% if has_dois %>
+            <td>
+              <% doi = plan.doi %>
+              <% if doi.present? %>
+                <a href="<%= doi.value %>" target="_blank" class="has-new-window-popup-info"><%= id_presenter.id_for_display(id: doi, with_scheme_name: false).html_safe %></a>
+              <% end %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

@@ -3522,6 +3522,10 @@ msgstr ""
 msgid "Request feedback"
 msgstr ""
 
+#: ../../app/views/plans/_navigation.html.erb:29
+msgid "Finalise / Publish"
+msgstr "Finalize / Publish"
+
 #: ../../app/views/orgs/shibboleth_ds.html.erb:1
 #: ../../app/views/orgs/shibboleth_ds.html.erb:4
 msgid "Find your organisation to sign in"
@@ -5316,7 +5320,8 @@ msgstr ""
 
 #: ../../app/views/user_mailer/sharing_notification.html.erb:5
 msgid ""
-"Your colleague %{inviter_name} has invited you to contribute to\n"
+"Your colleague %{inviter_name} has invited you to contribute to
+\n"
 "          their Data Management Plan in %{tool_name}"
 msgstr ""
 

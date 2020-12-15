@@ -170,7 +170,15 @@ gem "autoprefixer-rails"
 # ========= #
 
 # Provides binaries for WKHTMLTOPDF project in an easily accessible package.
-gem "wkhtmltopdf-binary"
+# ------------------------------------------------
+# Start DMPTool customization
+# 0.12.5 does not work on our new linux2 instances. Pegging at 0.12.4 for now
+# ------------------------------------------------
+# gem 'wkhtmltopdf-binary'
+gem "wkhtmltopdf-binary", "0.12.4"
+# ------------------------------------------------
+# End DMPTool customization
+# ------------------------------------------------
 
 # PDF generator (from HTML) gem for Ruby on Rails
 # (https://github.com/mileszs/wicked_pdf)
@@ -236,6 +244,10 @@ group :test do
 
   # Guard gem for RSpec (https://github.com/guard/guard-rspec)
   gem "guard-rspec"
+
+  gem "capistrano"
+
+  gem "capistrano-rails"
 
   # Library for stubbing HTTP requests in Ruby.
   # (http://github.com/bblimke/webmock)
@@ -317,7 +329,7 @@ group :development do
 
   # Better error page for Rails and other Rack apps
   # (https://github.com/charliesome/better_errors)
-  gem "better_errors"
+  gem "better_errors", "2.8.1"
 
   # Retrieve the binding of a method's caller. Can also retrieve bindings
   # even further up the stack. (http://github.com/banister/binding_of_caller)

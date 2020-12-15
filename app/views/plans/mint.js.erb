@@ -1,0 +1,9 @@
+var target = document.getElementsByClassName('doi-minter');
+
+if (target != undefined) {
+  <% if @plan.doi.present? %>
+    target[0].innerHTML = `<%= escape_javascript(render partial: "plans/doi_minter", locals: { plan: @plan }) %>`;
+  <% else %>
+    target[0].append(`<%= _("Something went wrong and we were unable to aquire a DMP ID for your plan. Please try again. If the problem persists please contact the help desk at %{helpdesk_email}") % { helpdesk_email: Rails.configuration.x.organisation.helpdesk_email } %>`);
+  <% end %>
+}

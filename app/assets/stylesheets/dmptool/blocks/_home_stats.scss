@@ -1,0 +1,78 @@
+.home-page {
+  display: flex;
+  flex-flow: column;
+
+  .metrics, .communications {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: baseline;
+
+    width: 100%;
+    margin-top: 35px;
+  }
+
+  .metrics > .overview, .metrics > .top-5 {
+    display: flex;
+    flex-flow: column;
+
+    .bottom {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-around;
+
+      border-top: 1px solid $color-black;
+
+      .metric {
+        position: relative;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        margin: 25px 45px;
+
+        .fa {
+          margin-bottom: 10px;
+          font-size: 2.5rem;
+        }
+
+        .numbers {
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+
+  .top-5 {
+    .bottom {
+      position: relative;
+
+      ol {
+        list-style: none;
+        padding-right: 40px;
+        margin-top: 15px;
+      }
+    }
+
+    .more {
+      right: 0;
+    }
+  }
+  .top-5 > .bottom > ol {
+    list-style-position: inside;
+    padding-left: 10px;
+  }
+
+  .more {
+    position: absolute;
+      bottom: -8px;
+      right: -15px;
+
+    a {
+      font-size: 1.2rem;
+    }
+  }
+
+  .communications {
+    border-top: 1px solid $color-black;
+  }
+}

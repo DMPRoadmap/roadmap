@@ -2,6 +2,14 @@
 
 class HomeController < ApplicationController
 
+  # --------------------------------
+  # Start DMPTool Customization
+  # --------------------------------
+  include Dmptool::HomeController
+  # --------------------------------
+  # End DMPTool Customization
+  # --------------------------------
+
   respond_to :html
 
   ##
@@ -21,9 +29,15 @@ class HomeController < ApplicationController
       else
         redirect_to plans_url
       end
-    elsif session["devise.shibboleth_data"].present?
-      # NOTE: Update this to handle ORCiD as well when we enable it as a login method
-      redirect_to new_user_registration_url
+
+    # -------------------------------------------------
+    # Start DMPTool customization
+    # -------------------------------------------------
+    else
+      render_home_page
+    # -------------------------------------------------
+    # End DMPTool customization
+    # -------------------------------------------------
     end
   end
 
