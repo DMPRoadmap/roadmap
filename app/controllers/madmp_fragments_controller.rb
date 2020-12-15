@@ -16,7 +16,9 @@ class MadmpFragmentsController < ApplicationController
       dmp_id: p_params[:dmp_id],
       parent_id: p_params[:parent_id],
       madmp_schema: schema,
-      additional_info: {}
+      additional_info: {
+        "property_name" => p_params[:property_name],
+      }
     )
     @fragment.classname = classname
 
@@ -26,10 +28,11 @@ class MadmpFragmentsController < ApplicationController
 
     if p_params[:source] == "modal"
       data = data_reformater(schema.schema, schema_params(schema), schema.classname)
-      additional_info = {
-        "property_name" => p_params[:property_name],
-        "validations" => MadmpFragment.validate_data(data, schema.schema)
-      }
+      additional_info = @fragment.additional_info.merge(
+        {
+          "validations" => MadmpFragment.validate_data(data, schema.schema)
+        }
+      )
       @fragment.assign_attributes(
         additional_info: additional_info
       )
