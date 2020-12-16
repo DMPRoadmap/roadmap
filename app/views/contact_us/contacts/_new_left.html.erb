@@ -33,8 +33,8 @@
             rows: 10,
             "aria-required": true) %>
     </div>
-<% if !user_signed_in? then %>
-    <div class="form-group"><!-- FIX first https://github.com/DMPRoadmap/roadmap/issues/501 !-->
+<% if !user_signed_in? && Rails.configuration.x.recaptcha.enabled then %>
+    <div class="form-group">
         <%= label_tag(nil, _('Security check')) %>
         <%= recaptcha_tags %>
     </div>
