@@ -12,14 +12,14 @@
         <%= f.label(:org_name, _('Look up your organisation here'), class: "control-label") %>
 
         <% if @orgs.length <= 10 %>
-          <select id="org_name">
+          <select id="org_id" name="org_id">
             <option value=""><%= _('Please select one') %></option>
             <%= options_for_select(@orgs.map { |o| [o.name, o.id] }) %>
           </select>
         <% else %>
           <%= render partial: "shared/accessible_combobox",
-                     locals: { name: "shib-ds[org_name]",
-                               id: 'shib-ds_org_name',
+                     locals: { name: "shib-ds[org_id]",
+                               id: 'shib-ds_org_id',
                                default_selection: nil,
                                models: @orgs,
                                attribute: 'name',

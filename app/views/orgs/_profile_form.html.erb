@@ -125,19 +125,19 @@
         <legend><%= _('Organisation Types') %></legend>
         <div class="checkbox">
           <%= f.label :funder do %>
-            <%= f.check_box :funder, {}, org.funder?.to_s, class: 'org_types' %>
+            <%= f.check_box :funder, { class: 'org_types', value: org.funder? }, "true", "false" %>
             <%= _('Funder') %>
           <% end %>
         </div>
         <div class="checkbox">
           <%= f.label :institution do %>
-            <%= f.check_box :institution, {}, org.institution?.to_s, class: 'org_types' %>
+            <%= f.check_box :institution, { class: 'org_types', value: org.institution? }, "true", "false" %>
             <%= _('Institution') %>
           <% end %>
         </div>
         <div class="checkbox">
           <%= f.label :organisation do %>
-            <%= f.check_box :organisation, {}, org.organisation?.to_s, class: 'org_types' %>
+            <%= f.check_box :organisation, { class: 'org_types', value: org.organisation? }, "true", "false" %>
             <%= _('Organisation') %>
           <% end %>
         </div>
