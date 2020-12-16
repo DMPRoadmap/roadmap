@@ -254,7 +254,11 @@ module Dmpopidor
                 render json: { code: 0, msg: failure_message(@plan, _("save")) }
               end
             end
-          rescue Exception
+          rescue Exception => e
+            p "################"
+            p e.message
+            p e.backtrace.join("\n")
+            p "################"
             flash[:alert] = failure_message(@plan, _("save"))
             format.html do
               render_phases_edit(@plan, @plan.phases.first, @plan.guidance_groups)

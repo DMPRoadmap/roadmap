@@ -6,6 +6,8 @@ module Dmpopidor
 
     module Plan
 
+      include DynamicFormHelper
+
       # CHANGE : Fix to creator display
       def owner
         usr_id = ::Role.where(plan_id: id, active: true)
@@ -196,8 +198,20 @@ module Dmpopidor
         meta_fragment = dmp_fragment.meta
         project_fragment = dmp_fragment.project
 
-        meta_fragment.save_as_multifrag(meta, meta_fragment.madmp_schema)
-        project_fragment.save_as_multifrag(project, project_fragment.madmp_schema)
+        meta_data = data_reformater(
+          meta_fragment.madmp_schema.schema,
+          meta,
+          meta_fragment.classname
+        )
+
+        project_data = data_reformater(
+          project_fragment.madmp_schema.schema,
+          project,
+          project_fragment.classname
+        )
+
+        meta_fragment.save_as_multifrag(meta_data, meta_fragment.madmp_schema)
+        project_fragment.save_as_multifrag(project_data, project_fragment.madmp_schema)
       end
 
     end
