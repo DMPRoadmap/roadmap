@@ -2,25 +2,40 @@
 
 class ResearchOutputPresenter
 
-  class << self
+  attr_accessor :research_output
 
-    # Returns the abbreviation if available or a snippet of the title
-    def display_name(research_output:)
-      return "" unless research_output.is_a?(ResearchOutput)
-      return research_output.abbreviation if research_output.abbreviation.present?
+  def initialize(research_output:)
+    @research_output = research_output
+  end
 
-      "#{research_output.title[0..20]} ..."
-    end
+  # Returns the output_type list for a select_tag
+  def selectable_output_types
+    ResearchOutput.output_types
+                  .map { |k, _v| [k.humanize, k] }
+  end
 
-    # Returns the abbreviation if available or a snippet of the title
-    def display_type(research_output:)
-      return "" unless research_output.is_a?(ResearchOutput)
-      # Return the user entered text for the type if they selected 'other'
-      return output_type_description if research_output.other?
+  # Returns the mime_type list for a select_tag
+  def selectable_mime_types
+    @research_output.available_mime_types
+                    .sort { |a, b| a.description <=> b.description }
+                    .map { |mime| [mime.description, mime.id] }
+  end
 
-      research_output.output_type.gsub("_", " ").capitalize
-    end
+  # Returns the abbreviation if available or a snippet of the title
+  def display_name
+    return "" unless @research_output.is_a?(ResearchOutput)
+    return @research_output.abbreviation if @research_output.abbreviation.present?
 
+    "#{@research_output.title[0..20]} ..."
+  end
+
+  # Returns the abbreviation if available or a snippet of the title
+  def display_type
+    return "" unless @research_output.is_a?(ResearchOutput)
+    # Return the user entered text for the type if they selected 'other'
+    return output_type_description if @research_output.other?
+
+    @research_output.output_type.gsub("_", " ").capitalize
   end
 
 end

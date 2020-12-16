@@ -1,0 +1,93 @@
+<%# locals: form, plan, research_output, mime_types %>
+
+<%
+presenter = ResearchOutputPresenter.new(research_output: research_output)
+
+output_types_for_select = ResearchOutput.output_types.map { |k, v| [k.humanize, k.humanize] }
+mime_types_selections = presenter.selectable_mime_types
+
+other_selected = research_output.output_type == "Other"
+
+abbrev_tooltip = _("Your research output abbreviation can be used as a reference when answering this plan's questions.")
+descr_tooltip = _("TODO: provide some context on what is expected here")
+%>
+
+<%= form_for @research_output, url: remote_path, method: remote_method do |f| %>
+  <div class="form-group row">
+    <div class="col-md-12">
+      <%= label(:output_type, _("Type"), class: "control-label") %>
+    </div>
+    <div class="col-md-6">
+      <%= f.select "research_output_output_type",
+                   options_for_select(presenter.selectable_output_types),
+                   { include_blank: _("- Please select one -"), selected: research_output.output_type },
+                   {
+                     class: "form-control, bootstrap-select",
+                     aria: { required: true },
+                     data: { remote: true, url: output_type_selection_plan_path(plan), method: :get }
+                   } %>
+    </div>
+  </div>
+  <div class="form-group row output-type-description <%= other_selected ? "hidden" : "" %>">
+    <div class="col-md-12">
+      <%= f.label(:output_type_description, _("Please describe the output type"), class: "control-label") %>
+    </div>
+    <div class="col-md-6">
+      <%= f.text_field :output_type_description, class: "form-control", aria: { required: other_selected } %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-md-12">
+      <%= f.label(:title, _("Title"), class: "control-label") %>
+    </div>
+    <div class="col-md-6">
+      <%= f.text_field :title, class: "form-control", aria: { required: true } %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-12">
+      <%= f.label(:abbreviation, _("Abbreviation"), class: "control-label") %>
+    </div>
+    <div class="col-md-1">
+      <%= f.text_field :abbreviation, class: "form-control", title: abbrev_tooltip,
+                                      data: { toggle: "tooltip" } %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-12">
+      <%= f.label(:abbreviation, _("Description"), class: "control-label") %>
+    </div>
+    <div class="col-md-10">
+      <%= f.text_area :description, rows: 4, class: 'form-control tinymce',
+                                    title: descr_tooltip, data: { toggle: "tooltip" } %>
+    </div>
+  </div>
+  <div class="form-group row hidden">
+    <div class="col-md-12">
+      <%= f.label(:mime_type_id, _("Mime type"), class: "control-label") %>
+    </div>
+    <div class="col-md-6">
+      <%= f.select :mime_type_id, options_for_select(presenter.selectable_mime_types),
+                                  { include_blank: _("- Please select -"), selected: f.object.mime_type&.id },
+                                  { class: "form-control, bootstrap-select" } %>
+    </div>
+  </div>
+<% end %>
+
+  <%
+  #  access                  :integer          default(0), not null
+  #  byte_size               :bigint
+  #  coverage_end            :datetime
+  #  coverage_region         :string
+  #  coverage_start          :datetime
+  #  display_order           :integer
+  #  is_default              :boolean         default("false")
+  #  mandatory_attribution   :text
+  #  personal_data           :boolean
+  #  release_date            :datetime
+  #  sensitive_data          :boolean
+  #  created_at              :datetime         not null
+  #  updated_at              :datetime         not null
+  #  mime_type_id            :integer
+  %>

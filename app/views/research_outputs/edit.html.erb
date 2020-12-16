@@ -17,7 +17,7 @@
   <div class="row">
     <div class="col-md-12">
       <%= form_for @contributor, url: plan_research_output_path(@plan, @research_output),
-                                 html: { method: :put } do |f| %>
+                                 html: { method: :put, class: "research_output_form" } do |f| %>
         <%= render partial: "research_outputs/form",
                    locals: { form: f, plan: @plan, research_output: @research_output } %>
       <% end %>

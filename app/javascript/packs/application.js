@@ -63,6 +63,7 @@ import '../src/plans/index.js.erb';
 import '../src/plans/new';
 import '../src/plans/share';
 import '../src/publicTemplates/show';
+import '../src/research_outputs/form';
 import '../src/roles/edit';
 import '../src/shared/createAccountForm';
 import '../src/shared/signInForm';

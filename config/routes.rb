@@ -24,9 +24,9 @@ Rails.application.routes.draw do
   # Start DMPTool customizations
   # ------------------------------------------
   # GET is triggered by user clicking an org in the list
-  get '/orgs/shibboleth/:id', to: 'orgs#shibboleth_ds_passthru'
+  get "/orgs/shibboleth/:id", to: "orgs#shibboleth_ds_passthru"
   # POST is triggered by user selecting an org from autocomplete
-  post '/orgs/shibboleth/:id', to: 'orgs#shibboleth_ds_passthru'
+  post "/orgs/shibboleth/:id", to: "orgs#shibboleth_ds_passthru"
   # ------------------------------------------
   # End DMPTool Customization
   # ------------------------------------------
@@ -178,6 +178,9 @@ Rails.application.routes.draw do
       post "visibility", constraints: { format: [:json] }
       post "set_test", constraints: { format: [:json] }
       get "mint"
+
+      # AJAX Form helpers for research_output form
+      get "output_type_selection", controller: "research_outputs", action: "select_output_type"
     end
   end
 

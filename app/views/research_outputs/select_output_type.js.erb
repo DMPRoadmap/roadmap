@@ -1,0 +1,28 @@
+<% presenter = ResearchOutputPresenter.new(research_output: @research_output) %>
+
+var outputTypeForm = $('.research-output-form');
+
+if (outputTypeForm.length > 0) {
+  <%# Hide or Display the Description text field based on the Output Type selected %>
+  var outputTypeRow = outputTypeForm.find('.output-type-description');
+  var outputTypeDescription = outputTypeForm.find('#research_output_output_type_description');
+
+console.log('<%= @research_output.output_type == "other" %> -- <%= @research_output.other? %>');
+
+  <% if @research_output == "other" %>
+    outputTypeRow.removeClass('hidden');
+    outputTypeDescription.attr('aria-required', 'true');
+  <% else %>
+    outputTypeDescription.attr('aria-required', 'false');
+    outputTypeRow.addClass('hidden');
+  <% end %>
+
+  <%# Hide or Display the Mime Type select box based on the Output Type selected %>
+  var mimeTypeRow = outputTypeForm.find('.mime-type-selection');
+
+  <% if presenter.selectable_mime_types.any? %>
+    mimeTypeRow.removeClass('hidden');
+  <% else %>
+    mimeTypeRow.addClass('hidden');
+  <% end %>
+}

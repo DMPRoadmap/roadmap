@@ -19,9 +19,10 @@
   </thead>
   <tbody>
     <% scope.each do |output| %>
+      <% presenter = ResearchOutputPresenter.new(research_output: output) %>
       <tr>
-        <td><%= ResearchOutputPresenter.display_name(research_output: output) %></td>
-        <td><%= ResearchOutputPresenter.display_type(research_output: output) %></td>
+        <td><%= presenter.display_name %></td>
+        <td><%= presenter.display_type %></td>
         <% if @plan.administerable_by?(current_user) %>
           <td>
             <div class="dropdown">
