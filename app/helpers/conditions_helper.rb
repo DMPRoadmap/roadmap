@@ -82,6 +82,7 @@ module ConditionsHelper
   end
 
   # number of questions in a section after update with conditions
+  # rubocop:disable Metrics/AbcSize
   def num_section_questions(plan, section, phase = nil)
     # when section and phase are a hash in exports
     if section.is_a?(Hash) &&
@@ -102,6 +103,7 @@ module ConditionsHelper
     end
     count
   end
+  # rubocop:enable Metrics/AbcSize
 
   # returns an array of hashes of section_id, number of section questions, and
   # number of section answers
