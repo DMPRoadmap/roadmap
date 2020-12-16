@@ -136,7 +136,8 @@ module Dmpopidor
           data: {
             "plan_id" => id
           },
-          madmp_schema: MadmpSchema.find_by(name: "DMPStandard")
+          madmp_schema: MadmpSchema.find_by(name: "DMPStandard"),
+          additional_info: {}
         )
 
         project = Fragment::Project.create(
@@ -145,7 +146,8 @@ module Dmpopidor
           },
           dmp_id: dmp_fragment.id,
           parent_id: dmp_fragment.id,
-          madmp_schema: MadmpSchema.find_by(name: "ProjectStandard")
+          madmp_schema: MadmpSchema.find_by(name: "ProjectStandard"),
+          additional_info: {}
         )
 
         meta = Fragment::Meta.create(
@@ -157,7 +159,8 @@ module Dmpopidor
           },
           dmp_id: dmp_fragment.id,
           parent_id: dmp_fragment.id,
-          madmp_schema: MadmpSchema.find_by(name: "MetaStandard")
+          madmp_schema: MadmpSchema.find_by(name: "MetaStandard"),
+          additional_info: {}
         )
 
         person = Fragment::Person.create(
@@ -167,7 +170,8 @@ module Dmpopidor
             "mbox" => owner.email
           },
           dmp_id: dmp_fragment.id,
-          madmp_schema: MadmpSchema.find_by(name: "PersonStandard")
+          madmp_schema: MadmpSchema.find_by(name: "PersonStandard"),
+          additional_info: {}
         )
 
         Fragment::Contributor.create(
