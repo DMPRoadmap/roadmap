@@ -17,14 +17,12 @@ class MadmpFragmentsController < ApplicationController
       parent_id: p_params[:parent_id],
       madmp_schema: schema,
       additional_info: {
-        "property_name" => p_params[:property_name],
+        "property_name" => p_params[:property_name]
       }
     )
     @fragment.classname = classname
 
     authorize @fragment
-    # @fragment.save!
-    @fragment.save_as_multifrag({}, schema)
 
     if p_params[:source] == "modal"
       data = data_reformater(schema.schema, schema_params(schema), schema.classname)
@@ -36,6 +34,7 @@ class MadmpFragmentsController < ApplicationController
       @fragment.assign_attributes(
         additional_info: additional_info
       )
+      @fragment.instantiate
       @fragment.save_as_multifrag(data, schema)
     else
       @fragment.answer = Answer.create!(
@@ -48,7 +47,7 @@ class MadmpFragmentsController < ApplicationController
           user_id: current_user.id
         }
       )
-      @fragment.save_as_multifrag({}, schema)
+      @fragment.instantiate
     end
 
     return unless @fragment.present?
