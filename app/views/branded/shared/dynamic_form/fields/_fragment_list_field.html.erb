@@ -1,11 +1,11 @@
-<%# locals: { field_values, parent_id, schema, field_name, table_header, template_locale, ttip } %>
+<%# locals: { field_values, parent_id, schema, field_name, table_header, template_locale, property_name, ttip } %>
 <% ttip ||= nil %>
 <% field_values = [] if field_values.nil? %>
 <% field_label = field_label || 'No label defined' %>
 <div class="col-md-12">
   <fieldset class="answer-fieldset">
     <legend class="answer-fieldset"" title="<%= ttip %>"><%= field_label %></legend>
-    <table class="table table-hover linked-fragments-list <%= schema.classname %>-list">
+    <table class="table table-hover linked-fragments-list <%= property_name %>-list">
       <thead>
         <% if table_header.present? && !field_values.empty?%>
           <tr><th scope="col"><%= table_header %></th><th scope="col">Actions</th></tr>
@@ -17,7 +17,8 @@
               parent_id: parent_id,
               schema: schema,
               readonly: readonly,
-              template_locale: template_locale
+              template_locale: template_locale,
+              property_name: property_name
               }
             ) %>
       </tbody>
@@ -29,6 +30,7 @@
               :schema_id => schema.id, 
               :template_locale => template_locale,
               :source => "list-modal"
+              :property_name => property_name
       ),  {
         :remote => true, 
         :target => "_self",

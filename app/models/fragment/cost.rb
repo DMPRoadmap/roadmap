@@ -20,26 +20,8 @@
 
 class Fragment::Cost < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
-
-	def cost_value
-		Fragment::CostValue.where(parent_id: id).first
-	end
-
-	def properties
-		"plan, cost_value"
-	end
-
-	# Cited as cost
-
-	def used_in
-		"budget_item, data_collection, data_preservation, data_processing, data_reuse, data_sharing, data_storage, documentation_quality, technical_resource_usage"
-	end
-
-	def self.sti_name
-		"cost"
-	end
+  def self.sti_name
+    "cost"
+  end
 
 end

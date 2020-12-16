@@ -20,26 +20,16 @@
 
 class Fragment::Distribution < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
+  def license
+    Fragment::License.where(parent_id: id).first
+  end
 
-	def license
-		Fragment::License.where(parent_id: id).first
-	end
+  def properties
+    "license"
+  end
 
-	def properties
-		"plan, license"
-	end
-
-	# Cited as distribution
-
-	def used_in
-		"data_sharing"
-	end
-
-	def self.sti_name
-		"distribution"
-	end
+  def self.sti_name
+    "distribution"
+  end
 
 end

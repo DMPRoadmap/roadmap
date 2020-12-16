@@ -1,5 +1,7 @@
+
 $(() => {
   $('#modal-window').html('<%= escape_javascript(render "shared/dynamic_form/modal") %>');
+
   $('#modal-window').modal();
 
 
@@ -7,10 +9,10 @@ $(() => {
     if (response.classname === 'research_output') {
       $('#research-outputs-list').html(response.html);
     } else if (response.source === 'list-modal') {
-      $(`.fragment-${response.fragment_id} .linked-fragments-list.${response.classname}-list tbody`).html(response.html);
+      $(`.fragment-${response.fragment_id} .linked-fragments-list.${response.property_name}-list tbody`).html(response.html);
     } else {
-      $(`.fragment-${response.fragment_id} .linked-fragments-select.${response.classname}-select select`).html(response.html);
-      $(`.fragment-${response.fragment_id} .linked-fragments-select.${response.classname}-select select`).trigger('change');
+      $(`.fragment-${response.fragment_id} .linked-fragments-select.${response.property_name}-select select`).html(response.html);
+      $(`.fragment-${response.fragment_id} .linked-fragments-select.${response.property_name}-select select`).trigger('change');
     }
     $('#modal-window').modal('hide');
   }).on('ajax:error', () => {

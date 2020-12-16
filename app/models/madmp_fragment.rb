@@ -44,10 +44,15 @@ class MadmpFragment < ActiveRecord::Base
   # = Single Table Inheritence =
   # ================
   self.inheritance_column = :classname
+  scope :backup_policies, -> { where(classname: "backup_policy") }
   scope :budgets, -> { where(classname: "budgets") }
+  scope :contributors, -> { where(classname: "contributor") }
   scope :costs, -> { where(classname: "cost") }
   scope :data_collections, -> { where(classname: "data_collection") }
+  scope :data_preservations, -> { where(classname: "data_preservation") }
   scope :data_processings, -> { where(classname: "data_processing") }
+  scope :data_reuses, -> { where(classname: "data_reuse") }
+  scope :data_sharings, -> { where(classname: "data_sharing") }
   scope :data_storages, -> { where(classname: "data_storage") }
   scope :distributions, -> { where(classname: "distribution") }
   scope :dmps, -> { where(classname: "dmp") }
@@ -55,18 +60,19 @@ class MadmpFragment < ActiveRecord::Base
   scope :ethical_issues, -> { where(classname: "ethical_issue") }
   scope :funders, -> { where(classname: "funder") }
   scope :fundings, -> { where(classname: "funding") }
+  scope :legal_issues, -> { where(classname: "legal_issue") }
+  scope :licences, -> { where(classname: "licence") }
   scope :metas, -> { where(classname: "meta") }
   scope :metadata_standards, -> { where(classname: "metadata_standard") }
   scope :partners, -> { where(classname: "partner") }
   scope :persons, -> { where(classname: "person") }
   scope :personal_data_issues, -> { where(classname: "personal_data_issue") }
-  scope :preservation_issues, -> { where(classname: "preservation_issue") }
   scope :projects, -> { where(classname: "project") }
   scope :research_outputs, -> { where(classname: "research_output") }
   scope :research_output_descriptions, -> { where(classname: "research_output_description") }
-  scope :reuse_datas, -> { where(classname: "reuse_data") }
-  scope :sharings, -> { where(classname: "sharing") }
-  scope :technical_resource_usages, -> { where(classname: "technical_resource_usage") }
+  scope :resource_references, -> { where(classname: "resource_reference") }
+  scope :reused_datas, -> { where(classname: "reused_data") }
+  scope :specific_datas, -> { where(classname: "specific_data") }
   scope :technical_resources, -> { where(classname: "technical_resource") }
 
   # =============
@@ -112,7 +118,8 @@ class MadmpFragment < ActiveRecord::Base
         # if it's a JsonPath pattern
         if pattern.first == "$"
           match = JsonPath.on(full_data, pattern)
-          next if match.empty?
+
+          next if match.empty? || match.first.nil?
 
           if match.first.is_a?(Array)
             displayable += match.first.join("/")
@@ -141,17 +148,16 @@ class MadmpFragment < ActiveRecord::Base
 
     parent_schema = parent.madmp_schema
     parent_data = parent.data
-    classified_children = parent.children.group_by(&:madmp_schema_id)
+    classified_children = parent.children.group_by {
+      |t| t.additional_info["property_name"] unless t.additional_info.nil?
+    }
+
     parent_schema.schema["properties"].each do |key, prop|
-      if prop["type"].eql?("array") && prop["items"]["type"].eql?("object")
-        schema = MadmpSchema.find(prop["items"]["schema_id"])
-        unless classified_children[schema.id].nil?
-          parent_data[key] = classified_children[schema.id].map { |c| { "dbid" => c.id } }
-        end
-      elsif prop["type"].eql?("object") && prop["schema_id"].present?
-        schema = MadmpSchema.find(prop["schema_id"])
-        unless classified_children[schema.id].nil?
-          parent_data[key] = { "dbid" => classified_children[schema.id][0].id }
+      unless classified_children[key].nil?
+        if prop["type"].eql?("array") && prop["items"]["type"].eql?("object")
+          parent_data[key] = classified_children[key].map { |c| { "dbid" => c.id } }
+        elsif prop["type"].eql?("object") && prop["schema_id"].present?
+          parent_data[key] = { "dbid" => classified_children[key][0].id }
         end
       end
     end
@@ -220,8 +226,32 @@ class MadmpFragment < ActiveRecord::Base
     validations
   end
 
+  # This method is called when a form is opened for the first time
+  # It creates the whole tree of sub_fragments
+  def instantiate
+    save! unless id.present?
+
+    new_data = data
+    madmp_schema.schema["properties"].each do |key, prop|
+      next if prop["type"] != "object" && prop["schema_id"].nil?
+
+      sub_schema = MadmpSchema.find(prop["schema_id"])
+      sub_fragment = MadmpFragment.new(
+        data: {},
+        answer_id: nil,
+        dmp_id: dmp.id,
+        parent_id: id,
+        madmp_schema: sub_schema,
+        additional_info: { property_name: key }
+      )
+      sub_fragment.assign_attributes(classname: sub_schema.classname)
+      sub_fragment.instantiate
+      new_data[key] = { "dbid" => sub_fragment.id }
+    end
+    update!(data: new_data)
+  end
+
   def save_as_multifrag(param_data, schema)
-    save!
     fragmented_data = {}
     param_data.each do |prop, content|
       schema_prop = schema.schema["properties"][prop]
@@ -229,26 +259,11 @@ class MadmpFragment < ActiveRecord::Base
       if schema_prop["type"].eql?("object")
         sub_data = content # TMP: for readability
         sub_schema = MadmpSchema.find(schema_prop["schema_id"])
-        sub_fragment = nil
 
-        if param_data.present? && param_data[prop].present? && param_data[prop]["dbid"]
-          sub_fragment = MadmpFragment.find(param_data[prop]["dbid"])
+        if param_data.present? && param_data[prop].present? && data[prop]["dbid"]
+          sub_fragment = MadmpFragment.find(data[prop]["dbid"])
+          sub_fragment.save_as_multifrag(sub_data, sub_schema)
         end
-
-        if sub_fragment.nil?
-          sub_fragment = MadmpFragment.new(
-            data: {},
-            answer_id: nil,
-            dmp_id: dmp.id,
-            parent_id: id,
-            madmp_schema: sub_schema,
-            additional_info: nil
-          )
-          sub_fragment.assign_attributes(classname: sub_schema.classname)
-        end
-
-        sub_fragment.save_as_multifrag(sub_data, sub_schema)
-        fragmented_data[prop] = { dbid: sub_fragment.id }
       else
         fragmented_data[prop] = content
       end

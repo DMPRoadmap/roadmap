@@ -20,26 +20,16 @@
 
 class Fragment::Funding < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
+  def funder
+    Fragment::Funder.where(parent_id: id).first
+  end
 
-	def funder
-		Fragment::Funder.where(parent_id: id).first
-	end
+  def properties
+    "funder"
+  end
 
-	def properties
-		"plan, funder"
-	end
-
-	# Cited as funding
-
-	def used_in
-		"project"
-	end
-
-	def self.sti_name
-		"funding"
-	end
+  def self.sti_name
+    "funding"
+  end
 
 end

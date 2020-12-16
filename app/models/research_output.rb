@@ -106,14 +106,18 @@ class ResearchOutput < ActiveRecord::Base
         dmp_id: dmp_fragment.id,
         parent_id: dmp_fragment.id
       )
-      fragment_description = Fragment::ResearchOutputDescription.create(
+      fragment_description = Fragment::ResearchOutputDescription.new(
         data: {
           "title" => fullname
         },
-        madmp_schema_id: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard").id,
+        madmp_schema_id: MadmpSchema.find_by(
+          name: "ResearchOutputDescriptionStandard"
+        ).id,
         dmp_id: dmp_fragment.id,
-        parent_id: fragment.id
+        parent_id: fragment.id,
+        additional_info: {}
       )
+      fragment_description.instantiate
 
       unless description_question.nil?
         # Create a new answer for the ResearchOutputDescription Question

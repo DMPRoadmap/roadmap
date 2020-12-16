@@ -20,42 +20,32 @@
 
 class Fragment::DataSharing < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
+  def distribution
+    Fragment::Distribution.where(parent_id: id)
+  end
 
-	def distribution
-		Fragment::Distribution.where(parent_id: id)
-	end
+  def indexed_in
+    Fragment::TechnicalResource.where(parent_id: id).first
+  end
 
-	def indexed_in
-		Fragment::TechnicalResource.where(parent_id: id).first
-	end
+  def host
+    Fragment::TechnicalResource.where(parent_id: id)
+  end
 
-	def hosting
-		Fragment::TechnicalResourceUsage.where(parent_id: id)
-	end
+  def contributors
+    Fragment::Contributor.where(parent_id: id)
+  end
 
-	def contributors
-		Fragment::Contributor.where(parent_id: id)
-	end
+  def cost
+    Fragment::Cost.where(parent_id: id)
+  end
 
-	def cost
-		Fragment::Cost.where(parent_id: id)
-	end
+  def properties
+    "distribution, indexed_in, host, contributors, cost"
+  end
 
-	def properties
-		"plan, distribution, indexed_in, hosting, contributors, cost"
-	end
-
-	# Cited as sharing
-
-	def used_in
-		"research_output"
-	end
-
-	def self.sti_name
-		"data_sharing"
-	end
+  def self.sti_name
+    "data_sharing"
+  end
 
 end

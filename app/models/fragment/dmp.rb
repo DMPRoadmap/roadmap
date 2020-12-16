@@ -18,34 +18,40 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 
+# WARNING !! : si changement de cardinalité de project, maintenance à prévoir dans les scripts appelants
+
 class Fragment::Dmp < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
+  def plan
+    Plan.find(data["plan_id"])
+  end
 
-	def meta
-		Fragment::Meta.where(parent_id: id).first
-	end
+  def meta
+    Fragment::Meta.where(parent_id: id).first
+  end
 
-	def project
-		Fragment::Project.where(parent_id: id).first
-	end
+  def project
+    Fragment::Project.where(parent_id: id).first
+  end
 
-	def research_output
-		Fragment::ResearchOutput.where(parent_id: id)
-	end
+  def research_output
+    Fragment::ResearchOutput.where(parent_id: id)
+  end
 
-	def persons
-		Fragment::Person.where(dmp_id: id)
-	end
+  def properties
+    "plan, meta, project, research_output"
+  end
 
-	def properties
-		"plan, meta, project, research_output"
-	end
+  def contributors
+    Fragment::Person.where(dmp_id: id)
+  end
 
-	def self.sti_name
-		"dmp"
-	end
+  def costs
+    Fragment::Cost.where(dmp_id: id)
+  end
+
+  def self.sti_name
+    "dmp"
+  end
 
 end

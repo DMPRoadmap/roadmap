@@ -20,22 +20,8 @@
 
 class Fragment::License < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
-
-	def properties
-		"plan"
-	end
-
-	# Cited as license
-
-	def used_in
-		"distribution, meta, reused_data"
-	end
-
-	def self.sti_name
-		"license"
-	end
+  def self.sti_name
+    "license"
+  end
 
 end

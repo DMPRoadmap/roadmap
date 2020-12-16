@@ -25,12 +25,11 @@
     <div class="form-group madmp-fragment fragment-<%= fragment.id %>" data-fragment-id="<%= fragment.id %>" >
         <%= render(partial: 'shared/dynamic_form/form', locals: { 
               f: f,
-              fragment: fragment, 
+              current_fragment: fragment, 
               schema: madmp_schema,
               question_id: question.id, 
               readonly: readonly,
               classname: fragment.classname,
-              fragment_id: fragment.id,
               template_locale: question.template.locale
             }) %>
         <div class="overlay" style="display:none;">

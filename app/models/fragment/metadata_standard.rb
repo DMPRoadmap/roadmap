@@ -20,26 +20,8 @@
 
 class Fragment::MetadataStandard < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
-
-	def metadata_standard_id
-		Fragment::Identifier.where(parent_id: id).first
-	end
-
-	def properties
-		"plan, metadata_standard_id"
-	end
-
-	# Cited as metadataStandard
-
-	def used_in
-		"documentation_quality"
-	end
-
-	def self.sti_name
-		"metadata_standard"
-	end
+  def self.sti_name
+    "metadata_standard"
+  end
 
 end

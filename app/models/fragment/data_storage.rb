@@ -20,38 +20,28 @@
 
 class Fragment::DataStorage < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
+  def facility
+    Fragment::TechnicalResource.where(parent_id: id)
+  end
 
-	def storage
-		Fragment::TechnicalResourceUsage.where(parent_id: id)
-	end
+  def backup_policy
+    Fragment::BackupPolicy.where(parent_id: id).first
+  end
 
-	def backup_policy
-		Fragment::BackupPolicy.where(parent_id: id).first
-	end
+  def contributors
+    Fragment::Contributor.where(parent_id: id)
+  end
 
-	def contributors
-		Fragment::Contributor.where(parent_id: id)
-	end
+  def cost
+    Fragment::Cost.where(parent_id: id)
+  end
 
-	def cost
-		Fragment::Cost.where(parent_id: id)
-	end
+  def properties
+    "facility, backup_policy, contributors, cost"
+  end
 
-	def properties
-		"plan, storage, backup_policy, contributors, cost"
-	end
-
-	# Cited as dataStorage
-
-	def used_in
-		"research_output"
-	end
-
-	def self.sti_name
-		"data_storage"
-	end
+  def self.sti_name
+    "data_storage"
+  end
 
 end

@@ -20,42 +20,28 @@
 
 class Fragment::Meta < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
+  def contact
+    Fragment::Person.where(parent_id: id).first
+  end
 
-	def contact
-		Fragment::Person.where(parent_id: id).first
-	end
+  def license
+    Fragment::License.where(parent_id: id).first
+  end
 
-	def dmp_id
-		Fragment::Identifier.where(parent_id: id).first
-	end
+  def related_doc
+    Fragment::ResourceReference.where(parent_id: id)
+  end
 
-	def license
-		Fragment::License.where(parent_id: id).first
-	end
+  def associated_dmp
+    Fragment::ResourceReference.where(parent_id: id)
+  end
 
-	def related_doc_identifier
-		Fragment::Identifier.where(parent_id: id)
-	end
+  def properties
+    "contact, license, related_doc, associated_dmp"
+  end
 
-	def associated_dmp_id
-		Fragment::Identifier.where(parent_id: id)
-	end
-
-	def properties
-		"plan, contact, dmp_id, license, related_doc_identifier, associated_dmp_id"
-	end
-
-	# Cited as meta
-
-	def used_in
-		"dmp"
-	end
-
-	def self.sti_name
-		"meta"
-	end
+  def self.sti_name
+    "meta"
+  end
 
 end

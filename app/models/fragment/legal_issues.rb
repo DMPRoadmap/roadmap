@@ -1,7 +1,7 @@
 # == Schema Information
 #
 # Table name: madmp_fragments
-#
+
 #  id                        :integer          not null, primary key
 #  data                      :json
 #  answer_id                 :integer
@@ -11,26 +11,29 @@
 #  classname                 :string
 #  dmp_id                    :integer
 #  parent_id                 :integer
-#
+
 # Indexes
-#
+
 #  index_madmp_fragments_on_answer_id                  (answer_id)
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
-#
 
-class Fragment::PreservationIssue < MadmpFragment
 
-    def research_output
-        self.parent
-    end
+class Fragment::LegalIssues < MadmpFragment
 
-    def technical_resource_usage
-        Fragment::TechnicalResourceUsage.where(parent_id: id).first
-    end
+  def legal_reference
+    Fragment::ResourceReference.where(parent_id: id)
+  end
 
-    
-    def self.sti_name
-        "preservation_issue"
-    end
+  def contributors
+    Fragment::Contributor.where(parent_id: id)
+  end
+
+  def properties
+    "legal_reference, contributors"
+  end
+
+  def self.sti_name
+    "legal_issues"
+  end
 
 end

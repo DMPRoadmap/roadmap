@@ -18,24 +18,10 @@
 #  index_madmp_fragments_on_madmp_schema_id  (madmp_schema_id)
 
 
-class Fragment::CostValue < MadmpFragment
+class Fragment::ResourceReference < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
-
-	def properties
-		"plan"
-	end
-
-	# Cited as costValue
-
-	def used_in
-		"cost"
-	end
-
-	def self.sti_name
-		"cost_value"
-	end
+  def self.sti_name
+    "resource_reference"
+  end
 
 end
