@@ -4,6 +4,7 @@
     "title": "DataSharingStandard",
     "description": "DataSharingStandard template",
     "type": "object",
+    "class": "DataSharingStandard",
     "properties": {
         "description": {
             "type": "string",
@@ -24,7 +25,8 @@
         },
         "distribution": {
             "type": "array",
-            "table_header": "Nom du fichier (Type MIME)",
+            "table_header@fr_FR": "Nom du fichier (Type MIME)",
+            "table_header@en_GB": "File name (MIME type)",
             "items": {
                 "type": "object",
                 "class": "Distribution",
@@ -74,12 +76,13 @@
                 "dbid"
             ],
             "description": "Entrepôt ou autre hébergement dans lequel les données seront mises à disposition",
-            "label@fr_FR": "Hébergement",
-            "label@en_GB": "Hosting"
+            "label@fr_FR": "Entrepôts de données ou autres hébergements",
+            "label@en_GB": "Data repository or other hostings"
         },
         "contributors": {
             "type": "array",
-            "table_header": "Nom (rôle)",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
             "items": {
                 "type": "object",
                 "class": "Contributor",
@@ -99,7 +102,8 @@
         },
         "cost": {
             "type": "array",
-            "table_header": "Type de coût : montant",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
             "items": {
                 "type": "object",
                 "class": "CostBasic",
@@ -122,5 +126,5 @@
         "description",
         "distribution"
     ],
-    "to_string": null
+    "to_string": []
 }

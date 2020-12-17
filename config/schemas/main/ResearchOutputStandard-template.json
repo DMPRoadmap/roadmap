@@ -4,6 +4,7 @@
     "title": "ResearchOutputStandard",
     "description": "ResearchOutputStandard template",
     "type": "object",
+    "class": "ResearchOutputStandard",
     "properties": {
         "researchOutputDescription": {
             "type": "object",
@@ -205,5 +206,5 @@
         "sharing",
         "preservationIssues"
     ],
-    "to_string": null
+    "to_string": []
 }

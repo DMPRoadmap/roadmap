@@ -4,6 +4,7 @@
     "title": "QualityAssuranceMethodStandard",
     "description": "QualityAssuranceMethodStandard template",
     "type": "object",
+    "class": "QualityAssuranceMethodStandard",
     "properties": {
         "description": {
             "type": "string",
@@ -38,5 +39,5 @@
     "required": [
         "description"
     ],
-    "to_string": null
+    "to_string": []
 }

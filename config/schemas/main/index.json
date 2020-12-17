@@ -26,7 +26,7 @@
     },
     {
         "path": "CostStandard-template.json",
-        "classname": "cost_basic",
+        "classname": "cost",
         "question_id": null
     },
     {
@@ -36,12 +36,12 @@
     },
     {
         "path": "DataCollectionStandard-template.json",
-        "classname": "data_collection_basic",
+        "classname": "data_collection",
         "question_id": null
     },
     {
         "path": "DataOrganizationReference-template.json",
-        "classname": "resource_reference_standard",
+        "classname": "resource_reference",
         "question_id": null
     },
     {
@@ -51,7 +51,7 @@
     },
     {
         "path": "DataPreservationStandard-template.json",
-        "classname": "data_preservation_basic",
+        "classname": "data_preservation",
         "question_id": null
     },
     {
@@ -61,7 +61,7 @@
     },
     {
         "path": "DataProcessingStandard-template.json",
-        "classname": "data_processing_basic",
+        "classname": "data_processing",
         "question_id": null
     },
     {
@@ -71,7 +71,7 @@
     },
     {
         "path": "DataReuseStandard-template.json",
-        "classname": "data_reuse_basic",
+        "classname": "data_reuse",
         "question_id": null
     },
     {
@@ -81,7 +81,7 @@
     },
     {
         "path": "DataSharingStandard-template.json",
-        "classname": "data_sharing_basic",
+        "classname": "data_sharing",
         "question_id": null
     },
     {
@@ -91,12 +91,12 @@
     },
     {
         "path": "DataStorageGenci-template.json",
-        "classname": "data_storage_standard",
+        "classname": "data_storage",
         "question_id": null
     },
     {
         "path": "DataStorageStandard-template.json",
-        "classname": "data_storage_basic",
+        "classname": "data_storage",
         "question_id": null
     },
     {
@@ -116,7 +116,7 @@
     },
     {
         "path": "DocumentationQualityStandard-template.json",
-        "classname": "documentation_quality_basic",
+        "classname": "documentation_quality",
         "question_id": null
     },
     {
@@ -126,7 +126,7 @@
     },
     {
         "path": "EthicalIssuesStandard-template.json",
-        "classname": "ethical_issues_basic",
+        "classname": "ethical_issues",
         "question_id": null
     },
     {
@@ -156,7 +156,7 @@
     },
     {
         "path": "Host-template.json",
-        "classname": "technical_resource_standard",
+        "classname": "technical_resource",
         "question_id": null
     },
     {
@@ -166,12 +166,12 @@
     },
     {
         "path": "LegalIssuesStandard-template.json",
-        "classname": "legal_issues_basic",
+        "classname": "legal_issues",
         "question_id": null
     },
     {
         "path": "LegalReference-template.json",
-        "classname": "resource_reference_standard",
+        "classname": "resource_reference",
         "question_id": null
     },
     {
@@ -196,12 +196,12 @@
     },
     {
         "path": "MetaStandard-template.json",
-        "classname": "meta_basic",
+        "classname": "meta",
         "question_id": null
     },
     {
         "path": "MethodReference-template.json",
-        "classname": "resource_reference_standard",
+        "classname": "resource_reference",
         "question_id": null
     },
     {
@@ -216,7 +216,7 @@
     },
     {
         "path": "PersonalDataIssuesStandard-template.json",
-        "classname": "personal_data_issues_basic",
+        "classname": "personal_data_issues",
         "question_id": null
     },
     {
@@ -236,7 +236,7 @@
     },
     {
         "path": "QualityAssuranceMethodStandard-template.json",
-        "classname": "quality_assurance_method_basic",
+        "classname": "quality_assurance_method",
         "question_id": null
     },
     {
@@ -261,7 +261,7 @@
     },
     {
         "path": "ReusedDataStandard-template.json",
-        "classname": "reused_data_basic",
+        "classname": "reused_data",
         "question_id": null
     },
     {

@@ -4,6 +4,7 @@
     "title": "DataReuseStandard",
     "description": "DataReuseStandard template",
     "type": "object",
+    "class": "DataReuseStandard",
     "properties": {
         "justification": {
             "type": "string",
@@ -34,7 +35,8 @@
         },
         "cost": {
             "type": "array",
-            "table_header": "Type de coût : montant",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
             "items": {
                 "type": "object",
                 "class": "CostBasic",
@@ -56,5 +58,5 @@
     "required": [
         "justification"
     ],
-    "to_string": null
+    "to_string": []
 }

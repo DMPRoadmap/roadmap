@@ -4,6 +4,7 @@
     "title": "DataSharingBasic",
     "description": "DataSharingBasic template",
     "type": "object",
+    "class": "DataSharingBasic",
     "properties": {
         "description": {
             "type": "string",
@@ -32,5 +33,5 @@
     "required": [
         "description"
     ],
-    "to_string": null
+    "to_string": []
 }

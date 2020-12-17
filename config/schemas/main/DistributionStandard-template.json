@@ -4,6 +4,7 @@
     "title": "DistributionStandard",
     "description": "DistributionStandard template",
     "type": "object",
+    "class": "DistributionStandard",
     "properties": {
         "fileName": {
             "type": "string",

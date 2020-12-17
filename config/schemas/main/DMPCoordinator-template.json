@@ -4,6 +4,7 @@
     "title": "DMPCoordinator",
     "description": "DMPCoordinator template",
     "type": "object",
+    "class": "DMPCoordinator",
     "properties": {
         "person": {
             "type": "object",
@@ -24,8 +25,8 @@
             "description": "Rôle d'une personne dans la gestion et production des données",
             "label@fr_FR": "Rôle",
             "label@en_GB": "Role",
-            "const@fr_FR": "Coordinateur du plan de gestion de données",
-            "const@en_GB": "DMP coordinator",
+            "const@fr_FR": "Reponsable du plan de gestion de données",
+            "const@en_GB": "DMP manager",
             "overridable": true
         }
     },

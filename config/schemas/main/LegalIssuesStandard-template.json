@@ -4,6 +4,7 @@
     "title": "LegalIssuesStandard",
     "description": "LegalIssuesStandard template",
     "type": "object",
+    "class": "LegalIssuesStandard",
     "properties": {
         "description": {
             "type": "string",
@@ -37,7 +38,8 @@
         },
         "contributors": {
             "type": "array",
-            "table_header": "Nom (rôle)",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
             "items": {
                 "type": "object",
                 "class": "Contributor",
@@ -59,5 +61,5 @@
     "required": [
         "legalReference"
     ],
-    "to_string": null
+    "to_string": []
 }

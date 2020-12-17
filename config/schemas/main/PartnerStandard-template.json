@@ -4,6 +4,7 @@
     "title": "PartnerStandard",
     "description": "PartnerStandard template",
     "type": "object",
+    "class": "PartnerStandard",
     "properties": {
         "name": {
             "type": "string",
@@ -14,7 +15,7 @@
         "rnsr": {
             "type": "string",
             "description": "Idenfiant RNSR",
-            "label@fr_FR": "Identifiant RNSR",
+            "label@fr_FR": "Identifiant RNSR (Répertoire National des Structures de Recherche)",
             "label@en_GB": "RNSR identifier",
             "tooltip@fr_FR": "Le RNSR est le répertoire national des structures de recherche : https://appliweb.dgri.education.fr/rnsr/",
             "tooltip@en_GB": "The RNSR is the French national directory of research structures: https://appliweb.dgri.education.fr/rnsr/"

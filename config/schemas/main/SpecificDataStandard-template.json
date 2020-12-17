@@ -4,7 +4,8 @@
     "title": "SpecificDataStandard",
     "description": "SpecificDataStandard template",
     "type": "object",
+    "class": "SpecificDataStandard",
     "properties": {},
     "required": [],
-    "to_string": null
+    "to_string": []
 }

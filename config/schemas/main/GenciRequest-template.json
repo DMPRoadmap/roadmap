@@ -4,6 +4,7 @@
     "title": "GenciRequest",
     "description": "GenciRequest template",
     "type": "object",
+    "class": "GenciRequest",
     "properties": {
         "initialStatus": {
             "type": "object",
@@ -59,5 +60,5 @@
         "storageTime",
         "justification"
     ],
-    "to_string": null
+    "to_string": []
 }

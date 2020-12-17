@@ -4,6 +4,7 @@
     "title": "DocumentationQualityBasic",
     "description": "DocumentationQualityBasic template",
     "type": "object",
+    "class": "DocumentationQualityBasic",
     "properties": {
         "description": {
             "type": "string",
@@ -35,7 +36,8 @@
         },
         "metadataStandard": {
             "type": "array",
-            "table_header": "Nom du standard",
+            "table_header@fr_FR": "Nom du standard",
+            "table_header@en_GB": "Standard name",
             "items": {
                 "type": "object",
                 "class": "MetadataStandard",
@@ -81,5 +83,5 @@
         "metadataStandard",
         "qualityAssuranceMethod"
     ],
-    "to_string": null
+    "to_string": []
 }

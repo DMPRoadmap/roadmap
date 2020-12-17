@@ -4,6 +4,7 @@
     "title": "DataReuseBasic",
     "description": "DataReuseBasic template",
     "type": "object",
+    "class": "DataReuseBasic",
     "properties": {
         "justification": {
             "type": "string",
@@ -36,5 +37,5 @@
     "required": [
         "justification"
     ],
-    "to_string": null
+    "to_string": []
 }

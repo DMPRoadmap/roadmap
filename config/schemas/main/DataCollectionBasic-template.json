@@ -4,6 +4,7 @@
     "title": "DataCollectionBasic",
     "description": "DataCollectionBasic template",
     "type": "object",
+    "class": "DataCollectionBasic",
     "properties": {
         "description": {
             "type": "string",
@@ -41,5 +42,5 @@
         "description",
         "dataNature"
     ],
-    "to_string": null
+    "to_string": []
 }

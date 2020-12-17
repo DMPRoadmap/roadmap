@@ -4,6 +4,7 @@
     "title": "DataOrganizationReference",
     "description": "DataOrganizationReference template",
     "type": "object",
+    "class": "DataOrganizationReference",
     "properties": {
         "title": {
             "type": "string",

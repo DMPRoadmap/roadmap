@@ -4,6 +4,7 @@
     "title": "BackupPolicyStandard",
     "description": "BackupPolicyStandard template",
     "type": "object",
+    "class": "BackupPolicyStandard",
     "properties": {
         "description": {
             "type": "string",
@@ -62,5 +63,5 @@
     "required": [
         "description"
     ],
-    "to_string": null
+    "to_string": []
 }

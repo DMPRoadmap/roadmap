@@ -4,6 +4,7 @@
     "title": "LegalReference",
     "description": "LegalReference template",
     "type": "object",
+    "class": "LegalReference",
     "properties": {
         "title": {
             "type": "string",
@@ -47,5 +48,5 @@
         "legalDocIdentifier",
         "idType"
     ],
-    "to_string": null
+    "to_string": []
 }

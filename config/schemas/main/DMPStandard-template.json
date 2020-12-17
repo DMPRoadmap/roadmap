@@ -4,6 +4,7 @@
     "title": "DMPStandard",
     "description": "DMPStandard template",
     "type": "object",
+    "class": "DMPStandard",
     "properties": {
         "identifier": {
             "type": "number",
@@ -67,5 +68,5 @@
         "project",
         "researchOutput"
     ],
-    "to_string": null
+    "to_string": []
 }

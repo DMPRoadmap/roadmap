@@ -4,6 +4,7 @@
     "title": "GenciServiceRequest",
     "description": "GenciServiceRequest template",
     "type": "object",
+    "class": "GenciServiceRequest",
     "properties": {
         "serviceType": {
             "type": "string",
@@ -107,6 +108,6 @@
         ": ",
         "$.initialRequest.initialStatus.dataSize",
         " ",
-        " octets"
+        "$.initialRequest.initialStatus.volumeUnit"
     ]
 }

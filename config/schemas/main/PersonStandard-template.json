@@ -4,6 +4,7 @@
     "title": "PersonStandard",
     "description": "PersonStandard template",
     "type": "object",
+    "class": "PersonStandard",
     "properties": {
         "lastName": {
             "type": "string",
@@ -114,5 +115,5 @@
         "affiliationId",
         "affiliationIdType"
     ],
-    "to_string": null
+    "to_string": []
 }

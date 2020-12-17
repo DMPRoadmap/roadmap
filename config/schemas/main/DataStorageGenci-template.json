@@ -4,6 +4,7 @@
     "title": "DataStorageGenci",
     "description": "DataStorageGenci template",
     "type": "object",
+    "class": "DataStorageGenci",
     "properties": {
         "description": {
             "type": "string",
@@ -18,7 +19,6 @@
             "items": {
                 "type": "object",
                 "class": "TechnicalResource",
-                "extensible": 1,
                 "properties": {
                     "dbid": {
                         "type": "number"
@@ -35,7 +35,8 @@
         },
         "genciServiceRequest": {
             "type": "array",
-            "table_header": "Type de service GENCI : taille des données",
+            "table_header@fr_FR": "Type de service GENCI : taille des données",
+            "table_header@en_GB": "Genci service type : data size",
             "items": {
                 "type": "object",
                 "class": "SpecificData",
@@ -79,7 +80,8 @@
         },
         "contributors": {
             "type": "array",
-            "table_header": "Nom (rôle)",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
             "items": {
                 "type": "object",
                 "class": "Contributor",
@@ -99,7 +101,8 @@
         },
         "cost": {
             "type": "array",
-            "table_header": "Type de coût : montant",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
             "items": {
                 "type": "object",
                 "class": "CostBasic",
@@ -120,5 +123,5 @@
         "description",
         "genciServiceRequest"
     ],
-    "to_string": null
+    "to_string": []
 }

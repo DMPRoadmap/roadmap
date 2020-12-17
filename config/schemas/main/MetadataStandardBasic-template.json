@@ -4,6 +4,7 @@
     "title": "MetadataStandardBasic",
     "description": "MetadataStandardBasic template",
     "type": "object",
+    "class": "MetadataStandardBasic",
     "properties": {
         "name": {
             "type": "string",
@@ -402,7 +403,6 @@
         "metadataStandardId": {
             "type": "string",
             "description": "Identifiant du standard",
-            "inputType": "dropdown",
             "label@fr_FR": "Identifiant du standard utilisé",
             "label@en_GB": "Standard Identifier",
             "tooltip@fr_FR": "Identifiant d'un standard signalé dans un catalogue",

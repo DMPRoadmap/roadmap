@@ -4,6 +4,7 @@
     "title": "ProjectStandard",
     "description": "ProjectStandard template",
     "type": "object",
+    "class": "ProjectStandard",
     "properties": {
         "title": {
             "type": "string",
@@ -26,7 +27,8 @@
         },
         "funding": {
             "type": "array",
-            "table_header": "Financeur : identifiant du financement",
+            "table_header@fr_FR": "Financeur : identifiant du financement",
+            "table_header@en_GB": "Funder: funding identifier",
             "items": {
                 "type": "object",
                 "class": "Funding",
@@ -98,13 +100,13 @@
         },
         "principalInvestigator": {
             "type": "object",
-            "class": "Person",
+            "class": "Contributor",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "template_name": "PersonStandard",
+            "template_name": "PrincipalInvestigator",
             "required": [
                 "dbid"
             ],
@@ -125,5 +127,5 @@
         "partner",
         "principalInvestigator"
     ],
-    "to_string": null
+    "to_string": []
 }

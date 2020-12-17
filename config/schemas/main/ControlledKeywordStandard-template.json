@@ -4,6 +4,7 @@
     "title": "ControlledKeywordStandard",
     "description": "ControlledKeywordStandard template",
     "type": "object",
+    "class": "ControlledKeywordStandard",
     "properties": {
         "keyword": {
             "type": "string",
@@ -16,8 +17,8 @@
         "keywordSchema": {
             "type": "string",
             "description": "Nom du vocabulaire, liste d'autorité, …",
-            "label@fr_FR": "Nom du vocabulaire",
-            "label@en_GB": "Vocabulary name",
+            "label@fr_FR": "Nom du vocabulaire (ou thésaurus, lexique…)",
+            "label@en_GB": "Vocabulary name (or thesaurus, lexique...",
             "example@fr_FR": "AGROVOC Multilingual Thesaurus",
             "example@en_GB": "AGROVOC Multilingual Thesaurus"
         },
@@ -25,7 +26,7 @@
             "type": "string",
             "format": "uri",
             "description": "Identifiant du concept",
-            "label@fr_FR": "Url du terme",
+            "label@fr_FR": "Url du mot clé",
             "label@en_GB": "Keyword URL",
             "example@fr_FR": "http://aims.fao.org/aos/agrovoc/c_28075",
             "example@en_GB": "http://aims.fao.org/aos/agrovoc/c_28075"

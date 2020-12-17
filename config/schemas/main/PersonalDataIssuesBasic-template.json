@@ -4,6 +4,7 @@
     "title": "PersonalDataIssuesBasic",
     "description": "PersonalDataIssuesBasic template",
     "type": "object",
+    "class": "PersonalDataIssuesBasic",
     "properties": {
         "description": {
             "type": "string",
@@ -36,5 +37,5 @@
     "required": [
         "description"
     ],
-    "to_string": null
+    "to_string": []
 }

@@ -4,6 +4,7 @@
     "title": "DataStorageBasic",
     "description": "DataStorageBasic template",
     "type": "object",
+    "class": "DataStorageBasic",
     "properties": {
         "description": {
             "type": "string",
@@ -39,5 +40,5 @@
     "required": [
         "description"
     ],
-    "to_string": null
+    "to_string": []
 }

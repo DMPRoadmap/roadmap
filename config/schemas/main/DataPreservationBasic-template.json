@@ -4,6 +4,7 @@
     "title": "DataPreservationBasic",
     "description": "DataPreservationBasic template",
     "type": "object",
+    "class": "DataPreservationBasic",
     "properties": {
         "description": {
             "type": "string",
@@ -28,5 +29,5 @@
         }
     },
     "required": [],
-    "to_string": null
+    "to_string": []
 }

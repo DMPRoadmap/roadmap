@@ -4,6 +4,7 @@
     "title": "BudgetStandard",
     "description": "BudgetStandard template",
     "type": "object",
+    "class": "BudgetStandard",
     "properties": {
         "description": {
             "type": "string",
@@ -14,7 +15,8 @@
         },
         "cost": {
             "type": "array",
-            "table_header": "Type de coût : montant",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
             "items": {
                 "type": "object",
                 "class": "CostBasic",
@@ -34,7 +36,8 @@
         },
         "contributors": {
             "type": "array",
-            "table_header": "Nom (rôle)",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
             "items": {
                 "type": "object",
                 "class": "Contributor",
@@ -56,5 +59,5 @@
     "required": [
         "description"
     ],
-    "to_string": null
+    "to_string": []
 }

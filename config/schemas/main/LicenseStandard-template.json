@@ -4,6 +4,7 @@
     "title": "LicenseStandard",
     "description": "LicenseStandard template",
     "type": "object",
+    "class": "LicenseStandard",
     "properties": {
         "licenseName": {
             "type": "string",
@@ -26,5 +27,5 @@
     "required": [
         "licenseName"
     ],
-    "to_string": null
+    "to_string": []
 }

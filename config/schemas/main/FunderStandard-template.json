@@ -4,6 +4,7 @@
     "title": "FunderStandard",
     "description": "FunderStandard template",
     "type": "object",
+    "class": "FunderStandard",
     "properties": {
         "name": {
             "type": "string",
@@ -66,5 +67,5 @@
         "name",
         "idType"
     ],
-    "to_string": null
+    "to_string": []
 }

@@ -4,6 +4,7 @@
     "title": "ResearchOutputDescriptionStandard",
     "description": "ResearchOutputDescriptionStandard template",
     "type": "object",
+    "class": "ResearchOutputDescriptionStandard",
     "properties": {
         "title": {
             "type": "string",
@@ -83,8 +84,8 @@
             },
             "minItems": 1,
             "description": "Mot(s)-clé(s) issu(s) de vocabulaire(s) contrôlé(s) ou d'ontologie(s)",
-            "label@fr_FR": "Mot(s) clés contrôlés",
-            "label@en_GB": "Controlled keyword(s)"
+            "label@fr_FR": "Mots clés contrôlés (vocabulaire, thésaurus, lexique...)",
+            "label@en_GB": "Controlled keywords (vocabulary, thesaurus, lexicon...)"
         },
         "uncontrolledKeywords": {
             "type": "array",
@@ -92,8 +93,10 @@
                 "type": "string"
             },
             "description": "Mots clés libres",
-            "label@fr_FR": "Mot(s) clés non contrôlés",
-            "label@en_GB": "Uncontrolled keyword(s)"
+            "label@fr_FR": "Mot(s) clés (texte libre)",
+            "label@en_GB": "Uncontrolled keyword(s) (free-text)",
+            "tooltip@fr_FR": "Un mot clé par ligne. Eviter les acronymes et les mots clés trop génériques",
+            "tooltip@en_GB": "One key word per line. Avoid acronyms and overly generic keywords"
         },
         "language": {
             "type": "string",
@@ -481,13 +484,13 @@
         },
         "contact": {
             "type": "object",
-            "class": "Person",
+            "class": "Contributor",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "template_name": "PersonStandard",
+            "template_name": "ResearchOutputContact",
             "required": [
                 "dbid"
             ],
@@ -588,5 +591,5 @@
         "containsSensitiveData",
         "hasEthicalIssues"
     ],
-    "to_string": null
+    "to_string": []
 }

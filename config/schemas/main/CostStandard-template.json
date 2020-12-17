@@ -4,6 +4,7 @@
     "title": "CostStandard",
     "description": "CostStandard template",
     "type": "object",
+    "class": "CostStandard",
     "properties": {
         "title": {
             "type": "string",

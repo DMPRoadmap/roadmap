@@ -4,6 +4,7 @@
     "title": "TechnicalResourceStandard",
     "description": "TechnicalResourceStandard template",
     "type": "object",
+    "class": "TechnicalResourceStandard",
     "properties": {
         "title": {
             "type": "string",

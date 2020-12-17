@@ -4,6 +4,7 @@
     "title": "LegalIssuesBasic",
     "description": "LegalIssuesBasic template",
     "type": "object",
+    "class": "LegalIssuesBasic",
     "properties": {
         "description": {
             "type": "string",
@@ -38,5 +39,5 @@
     "required": [
         "description"
     ],
-    "to_string": null
+    "to_string": []
 }

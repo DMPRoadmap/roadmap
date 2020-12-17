@@ -4,6 +4,7 @@
     "title": "ReusedDataStandard",
     "description": "ReusedDataStandard template",
     "type": "object",
+    "class": "ReusedDataStandard",
     "properties": {
         "title": {
             "type": "string",

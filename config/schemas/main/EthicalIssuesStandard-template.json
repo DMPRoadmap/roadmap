@@ -4,6 +4,7 @@
     "title": "EthicalIssuesStandard",
     "description": "EthicalIssuesStandard template",
     "type": "object",
+    "class": "EthicalIssuesStandard",
     "properties": {
         "description": {
             "type": "string",
@@ -33,17 +34,22 @@
             "label@en_GB": "Report Identifier"
         },
         "contact": {
-            "type": "object",
-            "class": "Contributor",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ContributorStandard",
+                "required": [
+                    "dbid"
+                ]
             },
-            "template_name": "ContributorStandard",
-            "required": [
-                "dbid"
-            ],
             "description": "Personne contact pour traiter/prendre en charge les aspects éthiques d'un projet",
             "label@fr_FR": "Personne en charge des aspects éthiques",
             "label@en_GB": "Person in charge of ethical issues"
@@ -52,5 +58,5 @@
     "required": [
         "description"
     ],
-    "to_string": null
+    "to_string": []
 }

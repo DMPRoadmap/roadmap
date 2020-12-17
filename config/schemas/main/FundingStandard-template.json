@@ -4,6 +4,7 @@
     "title": "FundingStandard",
     "description": "FundingStandard template",
     "type": "object",
+    "class": "FundingStandard",
     "properties": {
         "funder": {
             "type": "object",

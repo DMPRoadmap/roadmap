@@ -4,6 +4,7 @@
     "title": "ReusedDataBasic",
     "description": "ReusedDataBasic template",
     "type": "object",
+    "class": "ReusedDataBasic",
     "properties": {
         "title": {
             "type": "string",

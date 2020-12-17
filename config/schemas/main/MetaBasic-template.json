@@ -4,6 +4,7 @@
     "title": "MetaBasic",
     "description": "MetaBasic template",
     "type": "object",
+    "class": "MetaBasic",
     "properties": {
         "title": {
             "type": "string",
@@ -404,19 +405,19 @@
         },
         "contact": {
             "type": "object",
-            "class": "Person",
+            "class": "Contributor",
             "properties": {
                 "dbid": {
                     "type": "number"
                 }
             },
-            "template_name": "PersonStandard",
+            "template_name": "DMPCoordinator",
             "required": [
                 "dbid"
             ],
             "description": "Personne responsable de la réalisation et suivi du plan de gestion de données",
-            "label@fr_FR": "Coordinateur du plan de gestion de données",
-            "label@en_GB": "DMP coordinator",
+            "label@fr_FR": "Responsable du plan",
+            "label@en_GB": "DMP manager",
             "tooltip@fr_FR": "Personne qui coordonne la planification de la gestion des données, également appelée créateur, auteur ou responsable du DMP. Par défaut, la personne qui crée le DMP",
             "tooltip@en_GB": "Person who coordinates data management planning, also called DMP creator, author or manager. By default, the person who creates the DMP"
         },
@@ -494,5 +495,5 @@
         "creationDate",
         "lastModifiedDate"
     ],
-    "to_string": null
+    "to_string": []
 }

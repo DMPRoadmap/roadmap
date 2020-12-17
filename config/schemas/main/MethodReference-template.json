@@ -4,6 +4,7 @@
     "title": "MethodReference",
     "description": "MethodReference template",
     "type": "object",
+    "class": "MethodReference",
     "properties": {
         "title": {
             "type": "string",
@@ -47,5 +48,5 @@
         "methodIdentifier",
         "idType"
     ],
-    "to_string": null
+    "to_string": []
 }

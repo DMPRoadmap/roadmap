@@ -4,6 +4,7 @@
     "title": "ContributorStandard",
     "description": "ContributorStandard template",
     "type": "object",
+    "class": "ContributorStandard",
     "properties": {
         "person": {
             "type": "object",
@@ -27,7 +28,7 @@
             "label@en_GB": "Role",
             "values@en_GB": [
                 "Project coordinator",
-                "DMP coordinator",
+                "DMP manager",
                 "Data producer",
                 "Data manager",
                 "Data steward",
@@ -37,7 +38,7 @@
             ],
             "values@fr_FR": [
                 "Coordinateur du projet",
-                "Coordinateur du plan de gestion de données",
+                "Responsable du plan de gestion de données",
                 "Producteur de données",
                 "Gestionnaire de données",
                 "Expert juridique",
@@ -57,7 +58,7 @@
         "$.person.firstName",
         " ",
         "$.person.lastName ",
-        "(",
+        " (",
         "$.role",
         ")"
     ]

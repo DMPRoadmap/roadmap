@@ -4,6 +4,7 @@
     "title": "ResearchOutputContact",
     "description": "ResearchOutputContact template",
     "type": "object",
+    "class": "ResearchOutputContact",
     "properties": {
         "person": {
             "type": "object",

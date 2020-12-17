@@ -4,6 +4,7 @@
     "title": "EthicalIssuesBasic",
     "description": "EthicalIssuesBasic template",
     "type": "object",
+    "class": "EthicalIssuesBasic",
     "properties": {
         "description": {
             "type": "string",
@@ -16,5 +17,5 @@
     "required": [
         "description"
     ],
-    "to_string": null
+    "to_string": []
 }

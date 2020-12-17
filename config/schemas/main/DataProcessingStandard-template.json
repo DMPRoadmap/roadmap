@@ -4,6 +4,7 @@
     "title": "DataProcessingStandard",
     "description": "DataProcessingStandard template",
     "type": "object",
+    "class": "DataProcessingStandard",
     "properties": {
         "title": {
             "type": "string",
@@ -60,7 +61,8 @@
         },
         "contributors": {
             "type": "array",
-            "table_header": "Nom (rôle)",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
             "items": {
                 "type": "object",
                 "class": "Contributor",
@@ -80,7 +82,8 @@
         },
         "cost": {
             "type": "array",
-            "table_header": "Type de coût : montant",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
             "items": {
                 "type": "object",
                 "class": "CostBasic",
@@ -103,5 +106,5 @@
         "title",
         "description"
     ],
-    "to_string": null
+    "to_string": []
 }

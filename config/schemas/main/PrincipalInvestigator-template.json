@@ -4,6 +4,7 @@
     "title": "PrincipalInvestigator",
     "description": "PrincipalInvestigator template",
     "type": "object",
+    "class": "PrincipalInvestigator",
     "properties": {
         "person": {
             "type": "object",

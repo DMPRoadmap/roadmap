@@ -4,6 +4,7 @@
     "title": "GenciStatus",
     "description": "GenciStatus template",
     "type": "object",
+    "class": "GenciStatus",
     "properties": {
         "dataSize": {
             "type": "number",
@@ -52,5 +53,5 @@
         "dataSize",
         "volumeUnit"
     ],
-    "to_string": null
+    "to_string": []
 }

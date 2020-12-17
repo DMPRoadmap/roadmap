@@ -4,6 +4,7 @@
     "title": "Host",
     "description": "Host template",
     "type": "object",
+    "class": "Host",
     "properties": {
         "title": {
             "type": "string",
@@ -157,5 +158,5 @@
         "hasVersioningPolicy",
         "metadataStandard"
     ],
-    "to_string": null
+    "to_string": []
 }

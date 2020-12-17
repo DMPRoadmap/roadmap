@@ -4,6 +4,7 @@
     "title": "MetadataStandardStandard",
     "description": "MetadataStandardStandard template",
     "type": "object",
+    "class": "MetadataStandardStandard",
     "properties": {
         "name": {
             "type": "string",
