@@ -6,20 +6,20 @@ RSpec.feature "Locales", type: :feature, js: true do
     [
       Language.where(
         default_language: true,
-        name: "English",
+        name: "English (CA)",
+        abbreviation: "en-CA"
+      ).first_or_create,
+
+      Language.where(
+        default_language: false,
+        name: "English (GB)",
         abbreviation: "en-GB"
       ).first_or_create,
 
       Language.where(
         default_language: false,
-        name: "German",
-        abbreviation: "de"
-      ).first_or_create,
-
-      Language.where(
-        default_language: false,
-        name: "Portugese",
-        abbreviation: "pt-BR"
+        name: "Français (CA)",
+        abbreviation: "fr-CA"
       ).first_or_create
 
     ]
@@ -28,7 +28,8 @@ RSpec.feature "Locales", type: :feature, js: true do
   let!(:user) { create(:user, language: languages.first) }
 
   before do
-    locale_set = LocaleSet.new(%w[en-GB de pt-BR])
+    #locale_set = LocaleSet.new(%w[en-GB de pt-BR])
+    locale_set = LocaleSet.new(%w[en-GB en-CA fr-CA])
     I18n.available_locales        = locale_set.for(:i18n)
     FastGettext.default_available_locales = locale_set.for(:fast_gettext)
     I18n.locale                   = locale_set.for(:i18n).first
@@ -44,9 +45,10 @@ RSpec.feature "Locales", type: :feature, js: true do
   end
 
   context "when new locale has no region" do
-
+    
     scenario "user changes their locale" do
-      create_plan_text = "Pläne erstellen"
+      skip 'We are now expecting locales to have region'
+      create_plan_text = "Créer des plans"
       click_link "Language"
       expect(current_path).to eql(plans_path)
       expect(page).not_to have_text(create_plan_text)
@@ -61,12 +63,13 @@ RSpec.feature "Locales", type: :feature, js: true do
   context "when new locale has region" do
 
     scenario "user changes their locale" do
-      create_plan_text = "Criar plano"
-      click_link "Language"
+      
+      create_plan_text = "Créer des plans"
+      click_link "Language"      
       expect(current_path).to eql(plans_path)
       expect(page).not_to have_text(create_plan_text)
 
-      click_link "Portugese"
+      click_link "Français (CA)"
       expect(current_path).to eql(plans_path)
       expect(page).to have_text(create_plan_text)
     end
