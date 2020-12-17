@@ -28,20 +28,21 @@ RSpec.describe OrgsController, type: :controller do
                 abbreviation: Faker::Lorem.unique.word.upcase,
                 logo: @logo, contact_email: Faker::Internet.email,
                 contact_name: Faker::Movies::StarWars.character,
-                remove_logo: false, org_type: %i[1 2 4].sample,
+                remove_logo: false, organisation: [true, false].sample,
+                funder: [true, false].sample, institution: [true, false].sample,
                 managed: Faker::Number.within(range: 0..1).to_s,
                 feedback_enabled: Faker::Boolean.boolean,
-                org_links: org_links_field,
                 feedback_email_msg: Faker::Lorem.paragraph,
                 org_id: org_selector_id_field(org: other_org), org_name: other_org.name,
                 org_crosswalk: org_selector_crosswalk_field(org: other_org) }
+      @link_args = org_links_field
       Rails.configuration.x.shibboleth.use_filtered_discovery_service = false
       sign_in(@user)
     end
 
     it "succeeds" do
       @args.delete(:feedback_enabled)
-      put :admin_update, params: { id: @org.id, org: @args }
+      put :admin_update, params: { id: @org.id, org_links: @link_args, org: @args }
       expect(response).to redirect_to("#{admin_edit_org_path(@org)}#profile")
       expect(flash[:notice].present?).to eql(true)
       @org.reload
@@ -49,9 +50,11 @@ RSpec.describe OrgsController, type: :controller do
       expect(@org.abbreviation).to eql(@args[:abbreviation])
       expect(@org.contact_email).to eql(@args[:contact_email])
       expect(@org.contact_name).to eql(@args[:contact_name])
-      expect(@org.org_type.to_s).to eql(@args[:org_type].to_s)
+      expect(@org.funder?).to eql(@args[:funder])
+      expect(@org.institution?).to eql(@args[:institution])
+      expect(@org.organisation?).to eql(@args[:organisation])
       expect(@org.managed).to eql(@args[:managed] == "1")
-      expect(@org.links.to_json).to eql(@args[:org_links])
+      expect(@org.links.to_json).to eql(@link_args)
       expect(@org.logo_name).to eql("logo_file.png")
       expect(@org.logo_uid.present?).to eql(true)
     end
@@ -97,7 +100,7 @@ RSpec.describe OrgsController, type: :controller do
       expect(response).to render_template("orgs/shibboleth_ds")
       expect(assigns(:user).new_record?).to eql(true)
       expect(assigns(:orgs).any?).to eql(true)
-      expect(assigns(:orgs).include?(@identifier)).to eql(true)
+      expect(assigns(:orgs).include?(@org)).to eql(true)
     end
     it "redirects to the dashboard if user is logged in" do
       sign_in(@user)
@@ -117,24 +120,23 @@ RSpec.describe OrgsController, type: :controller do
       shib = create(:identifier_scheme, name: "shibboleth")
       @identifier = create(:identifier, identifier_scheme: shib,
                                         identifiable: @org, value: SecureRandom.uuid)
-      @args = { org_id: @org.id, org_name: @org.name }
     end
 
     it "succeeds" do
-      post :shibboleth_ds_passthru, params: { "shib-ds": @args }
+      post :shibboleth_ds_passthru, params: { org_id: @org.id }
       url = @controller.send(:shib_login_url)
       target = @controller.send(:shib_callback_url)
       expected = "#{url}?#{target}&entityID=#{@identifier.value}"
       expect(response).to redirect_to(expected)
     end
-    it "receives no ['shib-ds'][:org_name] information" do
-      post :shibboleth_ds_passthru, params: { "shib-ds": { org_id: @org.id } }
+    it "receives no [:org_id] information" do
+      post :shibboleth_ds_passthru, params: {}
       expect(response).to redirect_to(shibboleth_ds_path)
       expect(flash[:notice].present?).to eql(true)
     end
     it "is for an Org that does not have a shibboleth entityID defined" do
       @identifier.destroy
-      post :shibboleth_ds_passthru, params: { "shib-ds": @args }
+      post :shibboleth_ds_passthru, params: { org_id: @org.id }
       expect(response).to redirect_to(shibboleth_ds_path)
       expect(flash[:alert].present?).to eql(true)
     end

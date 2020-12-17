@@ -21,7 +21,7 @@ module ExternalApis
         Rails.configuration.x.doi&.api_base_url || super
       end
 
-      def active
+      def active?
         Rails.configuration.x.doi&.active || super
       end
 
@@ -41,7 +41,7 @@ module ExternalApis
       #
       # @return true/false
       def ping
-        return true unless active && heartbeat_path.present?
+        return true unless active? && heartbeat_path.present?
 
         resp = http_get(uri: "#{api_base_url}#{heartbeat_path}")
         resp.is_a?(Net::HTTPSuccess)
