@@ -17,15 +17,43 @@
       <li><a href="https://github.com/portagenetwork/roadmap"><%= _('GitHub') %></a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
+
+      <li>
+        <%= link_to("https://dmponline.dcc.ac.uk/about_us", title: "DMP Online", target: '_blank', class: 'has-new-window-popup-info')  do %>
+          <%= image_tag("dmp-online-logo-white.png",
+                        class: "img-responsive",
+                        alt: "DMP Online #{_('(opens in a new window)')}") %>
+          <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
+        <% end %>
+      </li>
+
+      <li>
+        <%= link_to("http://carl-abrc.ca/", title: _("Canadian Association of Research Libraries"), target: '_blank', class: 'has-new-window-popup-info')  do %>
+          <%= image_tag("carl-abrc-logo-white.png", 
+                        class: "img-responsive",
+                        alt: "#{_('Canadian Association of Research Libraries')} #{_('(opens in a new window)')}" ) %>
+          <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
+        <% end %>
+      </li>
+
+      <li>
+        <%= link_to("https://www.library.ualberta.ca/", title: "University of Alberta Library", target: '_blank', class: 'has-new-window-popup-info')  do %>
+          <%= image_tag("UA-LIBR-1C-SOLID-REVERSE.png",
+                        class: "img-responsive",
+                        alt: "University of Alberta Library #{_('(opens in a new window)')}") %>
+          <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
+        <% end %>
+      </li>
+
       <li>
         <%= link_to("http://www.cdlib.org/services/uc3/", title: "University of California Curation Center", target: '_blank', class: 'has-new-window-popup-info')  do %>
-          <%= image_tag("uc3_logo_white.png", class: "img-responsive", alt: 'University of California Curation Center (opens in a new window)') %>
+          <%= image_tag("uc3_logo_white.png", class: "img-responsive", alt: "University of California Curation Center #{_('(opens in a new window)')}") %>
           <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
         <% end %>
       </li>
       <li>
         <%= link_to("http://www.dcc.ac.uk/", title: "Digital Curation Centre", target: '_blank', class: 'has-new-window-popup-info')  do %>
-          <%= image_tag("dcc_logo_white.png", class: "img-responsive", alt: 'Digital Curation Centre (opens in a new window)') %>
+          <%= image_tag("dcc_logo_white.png", class: "img-responsive", alt: "Digital Curation Centre #{_('(opens in a new window)')}") %>
           <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
         <% end %>
       </li>
