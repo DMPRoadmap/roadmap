@@ -40,12 +40,12 @@ module ApplicationHelper
     content_for(:title) { page_title }
   end
 
+
+  # This method assumes there will be an image file called dmp_logo_xx_XX.png
+  # Where xx_XX is the current locale in ww-WW format. Examples of this are
+  # en_CA, fr_CA
   def current_locale_logo
-    if session[:locale] == 'fr-CA'
-      'dmp_logo_fr.png'
-    else
-      'dmp_logo_en.png'
-    end
+    file_name = "dmp_logo_#{FastGettext.locale}.png"
   end
 
   def unique_dom_id(record, prefix = nil)
