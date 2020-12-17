@@ -162,6 +162,14 @@ class UsersController < ApplicationController
     render body: nil
   end
 
+  # GET /users/:id/refresh_token (accessed via JSON call from profile page)
+  def refresh_token
+    authorize current_user
+    original = current_user.api_token
+    current_user.generate_token!
+    @success = current_user.api_token != original
+  end
+
   private
 
   def permission_params
