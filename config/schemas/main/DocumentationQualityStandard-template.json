@@ -66,23 +66,7 @@
             "example@fr_FR": "Morpho, Metacat, OMERO, SEEKS, DdiEditor, ...",
             "example@en_GB": "Morpho, Metacat, OMERO, SEEKS, DdiEditor, ..."
         },
-        "qualityAssuranceMethod": {
-            "type": "object",
-            "class": "QualityAssuranceMethodBasic",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
-            },
-            "template_name": "QualityAssuranceMethodStandard",
-            "required": [
-                "dbid"
-            ],
-            "description": "Méthodes d'assurance qualité mises en œuvre",
-            "label@fr_FR": "Méthode(s) d'assurance qualité",
-            "label@en_GB": "Quality assurance method"
-        },
-        "contributors": {
+        "contributor": {
             "type": "array",
             "table_header@fr_FR": "Nom (rôle)",
             "table_header@en_GB": "Name (role)",
@@ -129,8 +113,7 @@
     "required": [
         "description",
         "metadataStandard",
-        "qualityAssuranceMethod",
-        "contributors"
+        "contributor"
     ],
     "to_string": []
 }

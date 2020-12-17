@@ -59,7 +59,7 @@
             "label@fr_FR": "Ressource technique",
             "label@en_GB": "Technical resource"
         },
-        "contributors": {
+        "contributor": {
             "type": "array",
             "table_header@fr_FR": "Nom (rôle)",
             "table_header@en_GB": "Name (role)",

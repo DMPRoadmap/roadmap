@@ -83,7 +83,7 @@
             "label@en_GB": "Method reference",
             "label@fr_FR": "Référence de la méthode"
         },
-        "contributors": {
+        "contributor": {
             "type": "array",
             "table_header@fr_FR": "Nom (rôle)",
             "table_header@en_GB": "Name (role)",

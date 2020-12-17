@@ -149,6 +149,22 @@
             "description": "Informations relatives aux outils et méthodes de documentation des données et à la qualité de celles-ci",
             "label@en_EN": "Documentation quality"
         },
+        "qualityAssuranceMethod": {
+            "type": "object",
+            "class": "QualityAssuranceMethodBasic",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "QualityAssuranceMethodStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Méthodes d'assurance qualité mises en œuvre",
+            "label@fr_FR": "Méthode(s) d'assurance qualité",
+            "label@en_GB": "Quality assurance method"
+        },
         "sharing": {
             "type": "object",
             "class": "DataSharingBasic",
@@ -203,6 +219,7 @@
         "dataCollection",
         "dataStorage",
         "documentationQuality",
+        "qualityAssuranceMethod",
         "sharing",
         "preservationIssues"
     ],

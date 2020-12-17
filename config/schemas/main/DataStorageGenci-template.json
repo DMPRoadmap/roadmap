@@ -78,7 +78,7 @@
             "label@fr_FR": "Politique de sauvegarde",
             "label@en_GB": "Backup policy"
         },
-        "contributors": {
+        "contributor": {
             "type": "array",
             "table_header@fr_FR": "Nom (rôle)",
             "table_header@en_GB": "Name (role)",

@@ -34,7 +34,7 @@
             "label@fr_FR": "Liste détaillée des coûts",
             "label@en_GB": "Details of cost description"
         },
-        "contributors": {
+        "contributor": {
             "type": "array",
             "table_header@fr_FR": "Nom (rôle)",
             "table_header@en_GB": "Name (role)",

@@ -55,33 +55,11 @@
             "description": "Standard(s) de métadonnées ou données utilisé(s) en application des principes FAIR",
             "label@fr_FR": "Standards de métadonnées",
             "label@en_GB": "Metadata Standards"
-        },
-        "qualityAssuranceMethod": {
-            "type": "array",
-            "table_header": null,
-            "items": {
-                "type": "object",
-                "class": "QualityAssuranceMethod",
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "template_name": "QualityAssuranceMethodBasic",
-                "required": [
-                    "dbid"
-                ]
-            },
-            "minItems": 1,
-            "description": "Méthodes d'assurance qualité mises en œuvre",
-            "label@fr_FR": "Procédure(s) d'assurance qualité",
-            "label@en_GB": "Quality assurance procedure"
         }
     },
     "required": [
         "description",
-        "metadataStandard",
-        "qualityAssuranceMethod"
+        "metadataStandard"
     ],
     "to_string": []
 }
