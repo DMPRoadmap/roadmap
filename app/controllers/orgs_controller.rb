@@ -50,10 +50,17 @@ class OrgsController < ApplicationController
         if shib.present? && attrs[:identifiers_attributes].present?
           key = attrs[:identifiers_attributes].keys.first
           entity_id = attrs[:identifiers_attributes][:"#{key}"][:value]
-          identifier = Identifier.find_or_initialize_by(
-            identifiable: @org, identifier_scheme: shib, value: entity_id
-          )
-          @org = process_identifier_change(org: @org, identifier: identifier)
+          # rubocop:disable Metrics/BlockNesting
+          if entity_id.present?
+            identifier = Identifier.find_or_initialize_by(
+              identifiable: @org, identifier_scheme: shib, value: entity_id
+            )
+            @org = process_identifier_change(org: @org, identifier: identifier)
+          else
+            # The user blanked out the entityID so delete the record
+            @org.identifier_for_scheme(scheme: shib)&.destroy
+          end
+          # rubocop:enable Metrics/BlockNesting
         end
         attrs.delete(:identifiers_attributes)
       end
@@ -136,12 +143,12 @@ class OrgsController < ApplicationController
   # rubocop:enable Metrics/AbcSize
 
   # POST /orgs  (via AJAX from Org Typeaheads ... see below for specific pages)
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def search
     args = search_params
     # If the search term is greater than 2 characters
     if args.present? && args.fetch(:name, "").length > 2
-      type = args.fetch(:type, "local")
+      type = params.fetch(:type, "local")
 
       # If we are including external API results
       orgs = case type
@@ -185,7 +192,7 @@ class OrgsController < ApplicationController
 
       # If we need to restrict the results to funding orgs then
       # only return the ones with a valid fundref
-      if orgs.present? && args.fetch(:funder_only, "false") == true
+      if orgs.present? && params.fetch(:funder_only, "false") == true
         orgs = orgs.select do |org|
           org[:fundref].present? && !org[:fundref].blank?
         end
@@ -197,8 +204,7 @@ class OrgsController < ApplicationController
       render json: []
     end
   end
-  # rubocop:enable Metrics/MethodLength
-  # rubocop:enable
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   private
 

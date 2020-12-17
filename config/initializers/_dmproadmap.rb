@@ -192,7 +192,7 @@ module DMPRoadmap
     # Google Analytics #
     # ---------------- #
     # this is the abbreviation for the installation's root org as set in the org table
-    config.x.tracker_root = ""
+    config.x.google_analytics.tracker_root = ""
 
     # ------------------------------------------------------------------------ #
     # reCAPTCHA - recaptcha appears on the create account and contact us forms #
