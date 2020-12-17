@@ -33,10 +33,7 @@ class OrgsController < ApplicationController
     authorize @org
     @org.logo = attrs[:logo] if attrs[:logo]
     tab = (attrs[:feedback_enabled].present? ? "feedback" : "profile")
-    if attrs[:org_links].present?
-      @org.links = ActiveSupport::JSON.decode(attrs[:org_links])
-      attrs.delete(:org_links)
-    end
+    @org.links = ActiveSupport::JSON.decode(params[:org_links]) if params[:org_links].present?
 
     # Only allow super admins to change the org types and shib info
     if current_user.can_super_admin?
@@ -105,6 +102,7 @@ class OrgsController < ApplicationController
     # Display the custom Shibboleth discovery service page.
     @orgs = Identifier.by_scheme_name("shibboleth", "Org")
                       .sort { |a, b| a.identifiable.name <=> b.identifiable.name }
+                      .map(&:identifiable)
 
     # Disabling the rubocop check here because it would not be clear what happens
     # if the ``@orgs` array has items ... it renders the shibboleth_ds view
@@ -120,10 +118,10 @@ class OrgsController < ApplicationController
   # POST /orgs/shibboleth_ds
   # rubocop:disable Metrics/AbcSize
   def shibboleth_ds_passthru
-    if !shib_params["shib-ds"][:org_name].blank?
-      session["org_id"] = shib_params["shib-ds"][:org_name]
+    if !shib_params[:org_id].blank?
+      session["org_id"] = shib_params[:org_id]
 
-      org = Org.where(id: shib_params["shib-ds"][:org_id])
+      org = Org.where(id: shib_params[:org_id])
       shib_entity = Identifier.by_scheme_name("shibboleth", "Org")
                               .where(identifiable: org)
 
@@ -211,14 +209,15 @@ class OrgsController < ApplicationController
   def org_params
     params.require(:org)
           .permit(:name, :abbreviation, :logo, :contact_email, :contact_name,
-                  :remove_logo, :org_type, :managed, :feedback_enabled, :org_links,
+                  :remove_logo, :managed, :feedback_enabled, :org_links,
+                  :funder, :institution, :organisation,
                   :feedback_email_msg, :org_id, :org_name, :org_crosswalk,
                   identifiers_attributes: %i[identifier_scheme_id value],
-                  tracker_attributes: %i[code])
+                  tracker_attributes: %i[code id])
   end
 
   def shib_params
-    params.permit("shib-ds": %i[org_id org_name])
+    params.permit("org_id")
   end
 
   def search_params

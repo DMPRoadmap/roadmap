@@ -13,7 +13,7 @@ module Api
           # Convert the incoming JSON into a Contributor
           #   {
           #     "role": [
-          #       "https://dictionary.casrai.org/Contributor_Roles/Project_administration"
+          #       "http://credit.niso.org/contributor-roles/project-administration"
           #     ],
           #     "name": "Jane Doe",
           #     "mbox": "jane.doe@university.edu",
@@ -30,16 +30,29 @@ module Api
           #       "identifier": "0000-0000-0000-0000"
           #     }
           #   }
-          def deserialize!(plan_id:, json: {}, is_contact: false)
-            return nil unless valid?(is_contact: is_contact, json: json)
+          def deserialize(json: {}, is_contact: false)
+            return nil unless Api::V1::JsonValidationService.contributor_valid?(
+              json: json, is_contact: is_contact
+            )
 
             json = json.with_indifferent_access
-            contributor = marshal_contributor(plan_id: plan_id,
-                                              is_contact: is_contact, json: json)
-            contributor.save
-            return nil unless contributor.valid?
 
-            attach_identifier!(contributor: contributor, json: json)
+            # Try to find the Contributor or initialize a new one
+            id_json = json.fetch(:contributor_id, json.fetch(:contact_id, {}))
+            contrib = find_or_initialize(id_json: id_json, json: json)
+            return nil unless contrib.present?
+
+            # Attach the Org unless its already defined
+            contrib.org = Api::V1::Deserialization::Org.deserialize(json: json[:affiliation])
+
+            # Attach the identifier
+            contrib = Api::V1::DeserializationService.attach_identifier(
+              object: contrib, json: id_json
+            )
+
+            # Assign the roles
+            contrib = assign_contact_roles(contributor: contrib) if is_contact
+            assign_roles(contributor: contrib, json: json)
           end
 
           # ===================
@@ -48,73 +61,36 @@ module Api
 
           private
 
-          # The JSON is valid if the Contributor has a name or email
-          # and roles (if this is not the Contact)
-          def valid?(is_contact:, json: {})
-            return false unless json.present?
-            return false unless json[:name].present? || json[:mbox].present?
+          # Each plan's contributors are unique records, so if we found a
+          # match we need to dup it, otherwise initialize a new one
+          def find_or_initialize(id_json:, json: {})
+            return nil unless json.present?
 
-            is_contact ? true : json[:role].present?
-          end
-
-          # Find or initialize the Contributor
-          def marshal_contributor(plan_id:, is_contact:, json: {})
-            return nil unless plan_id.present? && json.present?
-
-            # Try to find the Org by the identifier
-            contributor = find_by_identifier(json: json)
-
-            # Search by email if available and not found above
-            unless contributor.present?
-              contributor = find_or_initialize_by(plan_id: plan_id, json: json)
-            end
-
-            # Attach the Org unless its already defined
-            contributor.org = deserialize_org(json: json) unless contributor.org.present?
-
-            # Assign the roles
-            contributor = assign_contact_roles(contributor: contributor) if is_contact
-            assign_roles(contributor: contributor, json: json) unless is_contact
-
-            contributor
-          end
-
-          # Locate the Contributor by its identifier
-          def find_by_identifier(json: {})
-            return nil unless json.present? &&
-                              (json[:contact_id].present? ||
-                               json[:contributor_id].present?)
-
-            id = json.fetch(:contact_id, json.fetch(:contributor_id, {}))
-            ::Contributor.from_identifiers(
-              array: [{ name: id[:type], value: id[:identifier] }]
+            contrib = Api::V1::DeserializationService.object_from_identifier(
+              class_name: "Contributor", json: id_json
             )
-          end
-
-          # Find the Contributor by its name or email or initialize one
-          def find_or_initialize_by(plan_id:, json: {})
-            return nil unless json.present? && plan_id.present?
+            return duplicate_contributor(contributor: contrib) if contrib.present?
 
             if json[:mbox].present?
-              contributor = ::Contributor.find_by(plan_id: plan_id,
-                                                  email: json[:mbox])
-              return contributor if contributor.present?
+              # Try to find by email
+              contrib = ::Contributor.where("LOWER(email) = ?", json[:mbox]&.downcase).last
+              return duplicate_contributor(contributor: contrib) if contrib.present?
             end
-            ::Contributor.find_or_initialize_by(plan_id: plan_id,
-                                                name: json[:name],
-                                                email: json[:mbox])
+
+            ::Contributor.new(name: json[:name], email: json[:mbox])
           end
 
-          # Call the deserializer method for the Org
-          def deserialize_org(json: {})
-            return nil unless json.present? && json[:affiliation].present?
+          def duplicate_contributor(contributor:)
+            return nil unless contributor.present?
 
-            Api::V1::Deserialization::Org.deserialize!(json: json[:affiliation])
+            contrib = contributor.dup
+            contrib.plan = nil
+            contrib
           end
 
           # Assign the default Contact roles
           def assign_contact_roles(contributor:)
-            return nil unless contributor.present?
+            return contributor unless contributor.present?
 
             contributor.data_curation = true
             contributor
@@ -122,44 +98,13 @@ module Api
 
           # Assign the specified roles
           def assign_roles(contributor:, json: {})
-            return nil unless contributor.present?
-            return contributor unless json.present? && json[:role].present?
+            return contributor unless contributor.present? && json.present? && json[:role].present?
 
             json.fetch(:role, []).each do |url|
-              role = translate_role(role: url)
+              role = Api::V1::DeserializationService.translate_role(role: url)
               contributor.send(:"#{role}=", true) if role.present?
             end
             contributor
-          end
-
-          # Marshal the Identifier and saves it (unless it exists)
-          def attach_identifier!(contributor:, json: {})
-            return contributor unless json.present?
-
-            hash = json.fetch(:contact_id, json.fetch(:contributor_id, {}))
-            return contributor unless hash.present?
-
-            Api::V1::Deserialization::Identifier.deserialize!(
-              identifiable: contributor, json: hash
-            )
-            contributor.reload
-          end
-
-          # Translates the role in the json to a PlansContributor role
-          def translate_role(role:)
-            default = ::Contributor.default_role
-            return default unless role.present?
-
-            role = role.to_s unless role.is_a?(String)
-
-            # Strip off the URL if present
-            url = ::Contributor::ONTOLOGY_BASE_URL
-            role = role.gsub("#{url}/", "").downcase if role.include?(url)
-
-            # Return the role if its a valid one otherwise defualt
-            return role if ::Contributor.new.respond_to?(role.downcase.to_sym)
-
-            default
           end
 
         end

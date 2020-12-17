@@ -1,7 +1,7 @@
 <% if id.nil? || id.value == '' %>
     <% if scheme.name.downcase == 'orcid' %>
         <%= link_to  Rails.application.routes.url_helpers.send("user_orcid_omniauth_authorize_path"),
-                     id: "connect-orcid-button", target: '_blank',
+                     id: "connect-orcid-button",
                      title: _("ORCID provides a persistent digital identifier that distinguishes you from other researchers. Learn more at orcid.org"),
                      'data-toggle': "tooltip", method: :post do %>
           <%= image_tag 'https://orcid.org/sites/default/files/images/orcid_16x16.png', alt: _('ORCID logo') %>

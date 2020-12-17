@@ -7,7 +7,7 @@
       "check_name": "SQL",
       "message": "Possible SQL injection",
       "file": "app/models/user.rb",
-      "line": 391,
+      "line": 396,
       "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
       "code": "User.where(\"LOWER(#{field}) = :value\", :value => val.to_s.downcase)",
       "render_path": null,
@@ -43,24 +43,24 @@
     {
       "warning_type": "Redirect",
       "warning_code": 18,
-      "fingerprint": "f234fa0eaf727b823f3730afaad2a8d559e590cbb39468d6d23f6697214ecb43",
+      "fingerprint": "de6833d84a22d2b01c5357657b8109e96310d7d3be6001c2c752e9b596f6b02d",
       "check_name": "Redirect",
       "message": "Possible unprotected redirect",
       "file": "app/controllers/orgs_controller.rb",
-      "line": 126,
+      "line": 131,
       "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
-      "code": "redirect_to(\"#{shib_login_url}?#{shib_callback_url}&#{\"entityID=#{Identifier.by_scheme_name(\"shibboleth\", \"Org\").where(:identifiable => Org.where(:id => shib_params[\"shib-ds\"][:org_id])).first.value}\"}\")",
+      "code": "redirect_to(\"#{shib_login_url}?#{shib_callback_url}&#{\"entityID=#{Identifier.by_scheme_name(\"shibboleth\", \"Org\").where(:identifiable => Org.where(:id => shib_params[:org_id])).first.value}\"}\")",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "OrgsController",
         "method": "shibboleth_ds_passthru"
       },
-      "user_input": "Identifier.by_scheme_name(\"shibboleth\", \"Org\").where(:identifiable => Org.where(:id => shib_params[\"shib-ds\"][:org_id])).first.value",
+      "user_input": "Identifier.by_scheme_name(\"shibboleth\", \"Org\").where(:identifiable => Org.where(:id => shib_params[:org_id])).first.value",
       "confidence": "High",
       "note": ""
     }
   ],
-  "updated": "2020-10-16 15:41:55 +0000",
-  "brakeman_version": "4.8.2"
+  "updated": "2020-12-17 10:14:39 -0800",
+  "brakeman_version": "4.10.0"
 }
