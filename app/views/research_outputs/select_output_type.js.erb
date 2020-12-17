@@ -17,7 +17,7 @@ if (outputTypeForm.length > 0) {
     selected.removeAttr("selected");
   <% end %>
 
-  <%# Hide or Display the Mime Type select box based on the Output Type selected %>
+  <%# Hide or Display the Mime Type select box and Byte Size based on the Output Type selected %>
   var mimeTypeRow = outputTypeForm.find('.mime-type-selection');
 
   <% if presenter.selectable_mime_types.any? %>

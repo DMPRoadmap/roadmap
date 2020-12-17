@@ -17,8 +17,9 @@ class ResearchOutputPresenter
   # Returns the mime_type list for a select_tag
   def selectable_mime_types
     @research_output.available_mime_types
-                    .sort { |a, b| a.description <=> b.description }
-                    .map { |mime| [mime.description, mime.id] }
+                    .reject { |mime| mime.description.downcase.include?("deprecated") }
+                    .sort { |a, b| a.value.downcase <=> b.value.downcase }
+                    .map { |mime| [mime.value, mime.id] }
   end
 
   # Returns the abbreviation if available or a snippet of the title
