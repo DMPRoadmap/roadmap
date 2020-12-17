@@ -1,6 +1,6 @@
 <!-- header information (bootstrap 3 column layout) -->
 <div class="main-nav">
-  <%= render partial: "layouts/navigation" %>
+  <%= render partial: "layouts/header_navigation" %>
 </div>
 <div class="org-branding">
   <% if user_signed_in? && !current_user.org.nil? && (!current_user.org.is_other || current_user.can_super_admin?) %>
