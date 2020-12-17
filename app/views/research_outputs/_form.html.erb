@@ -11,6 +11,7 @@ descr_tooltip = _("TODO: provide some context on what is expected here")
 sensitive_data_tooltip = _("TODO: provide a better description! -- The research output will contain information that is sensitive.")
 personal_data_tooltip = _("The research output will contain personally identifiable information (PII) data like emails, SSNs, etc.")
 byte_size_tooltip = _("1 MB = 1,000,000 (1 million) bytes -- 1 GB = 1,000,000,000 (1 billion) bytes -- 1 TB = 1,000,000,000,000 (1 trillion) bytes")
+attribution_tooltip = _("Use this field to provide attribution if this output is based on research performed prior to your project.")
 %>
 
 <%= form_with model: @research_output, url: path, method: method do |f| %>
@@ -70,7 +71,7 @@ byte_size_tooltip = _("1 MB = 1,000,000 (1 million) bytes -- 1 GB = 1,000,000,00
       <span class="col-md-12"><%= f.label(:abbreviation, _("Description"), class: "control-label") %></span>
     </div>
     <div class="col-md-12">
-      <span class="col-md-12">
+      <span class="col-md-8">
         <%= f.text_area :description, rows: 4, class: 'form-control tinymce',
                                       title: descr_tooltip, data: { toggle: "tooltip" } %>
       </span>
@@ -116,17 +117,72 @@ byte_size_tooltip = _("1 MB = 1,000,000 (1 million) bytes -- 1 GB = 1,000,000,00
   </div>
 
   <div class="form-group row">
+    <div class="col-md-12">
+      <span class="col-md-12">
+        <label class="control-label"><%= _("Anticipated release") %></label>
+      </span>
+    </div>
+    <div class="col-md-12">
+      <span class="col-md-8">
+        <span class="col-md-4">
+          <%= _("Date") %>
+          <%= f.date_field :release_date, class: "form-control" %>
+        </span>
+        <span class="col-md-4">
+          <%= _("Initial access level") %>
+          <%= f.select :access, options_for_select(presenter.selectable_access_types),
+                                { selected: f.object.access },
+                                { class: "form-control, bootstrap-select" } %>
+        </span>
+      </span>
+    </div>
+  </div>
 
+  <div class="form-group row">
+    <div class="col-md-12">
+      <span class="col-md-12">
+        <label class="control-label"><%= _("Coverage") %></label>
+        <span class="red"><%= "TODO: Should we allow for multiples here? What does coverage mean?" %></span>
+      </span>
+    </div>
+    <div class="col-md-12">
+      <span class="col-md-8">
+        <span class="col-md-4">
+          <%= _("From") %>
+          <%= f.date_field :coverage_start, class: "form-control" %>
+        </span>
+        <span class="col-md-4">
+          <%= _("To") %>
+          <%= f.date_field :coverage_end, class: "form-control" %>
+        </span>
+        <span class="col-md-4">
+          <%= _("Region") %>
+          <%= f.select :coverage_region, options_for_select(presenter.selectable_coverage_regions),
+                                        { include_blank: _("Not applicable"), selected: f.object.coverage_region },
+                                        { class: "form-control, bootstrap-select" } %>
+        </span>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-md-12">
+      <span class="col-md-12">
+        <%= f.label(:mandatory_attribution, _("Mandatory attribution"), class: "control-label") %>
+      </span>
+    </div>
+    <div class="col-md-12">
+      <span class="col-md-8">
+        <%= f.text_area :mandatory_attribution, rows: 4, class: 'form-control tinymce',
+                                      title: attribution_tooltip, data: { toggle: "tooltip" } %>
+      </span>
+    </div>
   </div>
 <% end %>
 
   <%
   #  access                  :integer          default(0), not null
-  #  coverage_end            :datetime
-  #  coverage_region         :string
-  #  coverage_start          :datetime
   #  display_order           :integer
   #  is_default              :boolean         default("false")
-  #  mandatory_attribution   :text
   #  release_date            :datetime
   %>

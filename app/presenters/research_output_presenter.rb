@@ -22,6 +22,17 @@ class ResearchOutputPresenter
                     .map { |mime| [mime.value, mime.id] }
   end
 
+  def selectable_access_types
+    ResearchOutput.accesses
+                  .map { |k, _v| [k.humanize, k] }
+  end
+
+  # TODO: These values should either live as an enum on the Model or in the DB
+  def selectable_coverage_regions
+    %w[africa americas antarctic arctic asia australia europe middle_east
+       polynesia].map { |region| [region.humanize, region] }
+  end
+
   # Returns the abbreviation if available or a snippet of the title
   def display_name
     return "" unless @research_output.is_a?(ResearchOutput)
