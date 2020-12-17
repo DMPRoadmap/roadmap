@@ -365,7 +365,7 @@ questions = [
     themes: [Theme.find_by(title: "Data collection")]
   },
   {
-    text: "Comment seront organisées et documentées les données? Quelles seront les méthodes utilisées pour assurer leur qualité scientifique",
+    text: "Comment seront organisées et documentées les données?" ,
     number: 1,
     section: Section.find_by(
       title: "Documentation et métadonnées",
@@ -373,6 +373,18 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DocumentationQualityStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Metadata & documentation")]
+  },
+  {
+    text: "Quelles seront les méthodes utilisées pour assurer leur qualité scientifique ?",
+    number: 2,
+    section: Section.find_by(
+      title: "Documentation et métadonnées",
+      phase: se_standard_phase_fr
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "QualityAssuranceMethodStandard"),
     modifiable: true,
     themes: [Theme.find_by(title: "Metadata & documentation")]
   },
@@ -519,6 +531,18 @@ questions = [
     themes: [Theme.find_by(title: "Metadata & documentation")]
   },
   {
+    text: "What methods will be used to ensure their scientific quality?",
+    number: 2,
+    section: Section.find_by(
+      title: "Documentation and metadata",
+      phase: se_standard_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "QualityAssuranceMethodStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Metadata & documentation")]
+  },
+  {
     text: "If personal data are processed, how will compliance with legislation on personal data and on security be ensured?",
     number: 1,
     section: Section.find_by(
@@ -650,7 +674,7 @@ questions = [
     themes: [Theme.find_by(title: "Data collection")]
   },
   {
-    text: "Comment seront organisées et documentées les données? Quelles seront les méthodes utilisées pour assurer leur qualité scientifique",
+    text: "Comment seront organisées et documentées les données ?",
     number: 1,
     section: Section.find_by(
       title: "Documentation et métadonnées",
@@ -658,6 +682,18 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DocumentationQualityBasic"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Metadata & documentation")]
+  },
+  {
+    text: "Quelles seront les méthodes utilisées pour assurer leur qualité scientifique ?",
+    number: 2,
+    section: Section.find_by(
+      title: "Documentation et métadonnées",
+      phase: se_basic_phase_fr
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "QualityAssuranceMethodBasic"),
     modifiable: true,
     themes: [Theme.find_by(title: "Metadata & documentation")]
   },
@@ -800,6 +836,18 @@ questions = [
     ),
     question_format: structured,
     madmp_schema: MadmpSchema.find_by(name: "DocumentationQualityBasic"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Metadata & documentation")]
+  },
+  {
+    text: "What methods will be used to ensure their scientific quality?",
+    number: 2,
+    section: Section.find_by(
+      title: "Documentation and metadata",
+      phase: se_basic_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "QualityAssuranceMethodBasic"),
     modifiable: true,
     themes: [Theme.find_by(title: "Metadata & documentation")]
   },
