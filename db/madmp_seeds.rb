@@ -365,7 +365,7 @@ questions = [
     themes: [Theme.find_by(title: "Data collection")]
   },
   {
-    text: "Comment seront organisées et documentées les données?" ,
+    text: ". Quelles métadonnées et quelle documentation (par exemple méthodologie de collecte et mode d'organisation des données) accompagneront les données ?" ,
     number: 1,
     section: Section.find_by(
       title: "Documentation et métadonnées",
@@ -519,7 +519,7 @@ questions = [
     themes: [Theme.find_by(title: "Data collection")]
   },
   {
-    text: "How will data be organised and documented? What methods will be used to ensure their scientific quality?",
+    text: "What metadata and documentation (for example the methodology of data collection and way of organising data) will accompany the data?",
     number: 1,
     section: Section.find_by(
       title: "Documentation and metadata",
@@ -674,7 +674,7 @@ questions = [
     themes: [Theme.find_by(title: "Data collection")]
   },
   {
-    text: "Comment seront organisées et documentées les données ?",
+    text: "Quelles métadonnées et quelle documentation (par exemple méthodologie de collecte et mode d'organisation des données) accompagneront les données ?",
     number: 1,
     section: Section.find_by(
       title: "Documentation et métadonnées",
@@ -828,7 +828,7 @@ questions = [
     themes: [Theme.find_by(title: "Data collection")]
   },
   {
-    text: "How will data be organised and documented? What methods will be used to ensure their scientific quality?",
+    text: "What metadata and documentation (for example the methodology of data collection and way of organising data) will accompany the data?",
     number: 1,
     section: Section.find_by(
       title: "Documentation and metadata",
