@@ -5,7 +5,6 @@ class ResearchOutputsController < ApplicationController
   helper PaginableHelper
 
   before_action :fetch_plan, except: %i[select_output_type]
-  before_action :fetch_mime_types, except: %i[index]
   before_action :fetch_research_output, only: %i[create update destroy]
 
   after_action :verify_authorized
@@ -13,12 +12,12 @@ class ResearchOutputsController < ApplicationController
   # GET /plans/:plan_id/research_outputs
   def index
     @research_outputs = ResearchOutput.where(plan_id: @plan.id)
-    authorize @research_outputs.first
+    authorize @research_outputs.first || ResearchOutput.new(plan_id: @plan.id)
   end
 
   # GET /plans/:plan_id/research_outputs/new
   def new
-    @research_output = ResearchOutput.new(plan_id: @plan.id)
+    @research_output = ResearchOutput.new(plan_id: @plan.id, output_type: "")
     authorize @research_output
   end
 
@@ -51,18 +50,15 @@ class ResearchOutputsController < ApplicationController
   def select_output_type
     @plan = Plan.find_by(id: params[:id])
     @research_output = ResearchOutput.new(
-      plan: @plan, output_type: params[:research_output_output_type]
+      plan: @plan, output_type: output_params[:output_type]
     )
-
-p @research_output.output_type
-
     authorize @research_output
   end
 
   private
 
   def output_params
-    params.require(:research_output).permit(:title)
+    params.require(:research_output).permit(%i[title abbreviation description output_type])
   end
 
   # =============
@@ -74,12 +70,6 @@ p @research_output.output_type
     return true if @plan.present?
 
     redirect_to root_path, alert: _("plan not found")
-  end
-
-  def fetch_mime_types
-    @mime_types = Rails.cache.fetch("mime_types", expires_in: 1.hour) do
-      ResearchOutput.all.order(:description)
-    end
   end
 
   def fetch_research_output

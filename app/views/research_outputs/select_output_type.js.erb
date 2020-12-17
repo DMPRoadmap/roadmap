@@ -7,14 +7,14 @@ if (outputTypeForm.length > 0) {
   var outputTypeRow = outputTypeForm.find('.output-type-description');
   var outputTypeDescription = outputTypeForm.find('#research_output_output_type_description');
 
-console.log('<%= @research_output.output_type == "other" %> -- <%= @research_output.other? %>');
-
-  <% if @research_output == "other" %>
+  <% if @research_output.other? %>
     outputTypeRow.removeClass('hidden');
     outputTypeDescription.attr('aria-required', 'true');
   <% else %>
     outputTypeDescription.attr('aria-required', 'false');
     outputTypeRow.addClass('hidden');
+    var selected = outputTypeRow.find('option:selected');
+    selected.removeAttr("selected");
   <% end %>
 
   <%# Hide or Display the Mime Type select box based on the Output Type selected %>
@@ -22,7 +22,11 @@ console.log('<%= @research_output.output_type == "other" %> -- <%= @research_out
 
   <% if presenter.selectable_mime_types.any? %>
     mimeTypeRow.removeClass('hidden');
+    var selector = mimeTypeRow.find('select');
+    selector.html('<%= escape_javascript(render(partial: "research_outputs/mime_types", locals: { mime_types: presenter.selectable_mime_types })) %>');
   <% else %>
     mimeTypeRow.addClass('hidden');
+    var selected = mimeTypeRow.find('option:selected');
+    selected.removeAttr("selected");
   <% end %>
 }
