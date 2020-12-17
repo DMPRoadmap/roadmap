@@ -22,7 +22,7 @@ defaults: &defaults
         url: 'http://www.dcc.ac.uk/resources/data-management-plans/funders-requirements'
       - link4:
         title: 'US funder requirements for Data Management Plans'
-        url: 'https://dmptool.org/guidance'
+        url: 'https://dmptool.org/general_guidance'
       - link5:
         title: 'DCC Checklist for a Data Management Plan'
         url: 'https://dmponline.dcc.ac.uk/files/DMP_Checklist_2013.pdf'
