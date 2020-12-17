@@ -163,12 +163,13 @@ module Dmpopidor
           additional_info: {}
         )
 
+        person_data = {
+          "lastName" => owner.surname,
+          "firstName" => owner.firstname,
+          "mbox" => owner.email
+        } unless owner.nil?
         person = Fragment::Person.create(
-          data: {
-            "lastName" => owner.surname,
-            "firstName" => owner.firstname,
-            "mbox" => owner.email
-          },
+          data: person_data || {},
           dmp_id: dmp_fragment.id,
           madmp_schema: MadmpSchema.find_by(name: "PersonStandard"),
           additional_info: {}
