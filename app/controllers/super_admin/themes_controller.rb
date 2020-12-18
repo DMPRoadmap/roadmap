@@ -51,7 +51,7 @@ module SuperAdmin
         redirect_to super_admin_themes_path, notice: msg
       else
         flash.now[:alert] = failure_message(@theme, _("delete"))
-        redner :edit
+        render :edit
       end
     end
 
