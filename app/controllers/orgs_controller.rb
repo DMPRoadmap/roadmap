@@ -96,7 +96,7 @@ class OrgsController < ApplicationController
   # This action is used by installations that have the following config enabled:
   #   Rails.configuration.x.shibboleth.use_filtered_discovery_service
   def shibboleth_ds
-    redirect_to root_path unless current_user.nil?
+    return redirect_to root_path unless current_user.nil?
 
     @user = User.new
     # Display the custom Shibboleth discovery service page.
@@ -109,7 +109,7 @@ class OrgsController < ApplicationController
     # rubocop:disable Style/GuardClause
     if @orgs.empty?
       flash.now[:alert] = _("No organisations are currently registered.")
-      redirect_to user_shibboleth_omniauth_authorize_path
+      return redirect_to user_shibboleth_omniauth_authorize_path
     end
     # rubocop:enable Style/GuardClause
   end
