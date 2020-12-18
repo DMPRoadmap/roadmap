@@ -149,6 +149,7 @@ module Dmpopidor
           madmp_schema: MadmpSchema.find_by(name: "ProjectStandard"),
           additional_info: {}
         )
+        project.instantiate
 
         meta = Fragment::Meta.create(
           data: {
@@ -162,6 +163,7 @@ module Dmpopidor
           madmp_schema: MadmpSchema.find_by(name: "MetaStandard"),
           additional_info: {}
         )
+        meta.instantiate
 
         person_data = {
           "lastName" => owner.surname,
