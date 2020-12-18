@@ -27,7 +27,7 @@
     "@rails/actioncable": "^6.0.3-1",
     "@rails/activestorage": "^6.0.3-1",
     "@rails/ujs": "^6.0.3-1",
-    "@rails/webpacker": "5.2.1",
+    "@rails/webpacker": "^5.2.1",
     "bootstrap": "^3.4.1",
     "bootstrap-3-typeahead": "^4.0.2",
     "bootstrap-sass": "^3.3.7",
@@ -47,7 +47,7 @@
     "rails-erb-loader": "^5.5.2",
     "regenerator-runtime": "^0.13.5",
     "timeago.js": "^4.0.2",
-    "tinymce": "4.9.10",
+    "tinymce": "4.9.11",
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
