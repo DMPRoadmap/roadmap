@@ -1,1 +1,5 @@
-/Users/briley/Documents/workspace/dmptool_config/public/tinymce/tinymce.css
+.mce-content-body {
+  a {
+    color: #000;
+  }
+}
