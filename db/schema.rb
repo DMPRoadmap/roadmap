@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_13_174910) do
+ActiveRecord::Schema.define(version: 2020_12_16_140226) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2020_11_13_174910) do
     t.string "contact_email", null: false
     t.string "client_id", null: false
     t.string "client_secret", null: false
-    t.date "last_access"
+    t.datetime "last_access"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "org_id"
@@ -155,6 +155,15 @@ ActiveRecord::Schema.define(version: 2020_11_13_174910) do
     t.string "description"
     t.string "name"
     t.boolean "default_language"
+  end
+
+  create_table "mime_types", force: :cascade do |t|
+    t.string "description", null: false
+    t.string "category", null: false
+    t.string "value", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["value"], name: "index_mime_types_on_value"
   end
 
   create_table "notes", id: :integer, force: :cascade do |t|
@@ -355,6 +364,31 @@ ActiveRecord::Schema.define(version: 2020_11_13_174910) do
     t.string "description"
     t.string "name"
     t.integer "super_region_id"
+  end
+
+  create_table "research_outputs", force: :cascade do |t|
+    t.integer "plan_id"
+    t.integer "output_type", default: 3, null: false
+    t.string "output_type_description"
+    t.string "title", null: false
+    t.string "abbreviation"
+    t.integer "display_order"
+    t.boolean "is_default"
+    t.text "description"
+    t.integer "mime_type_id"
+    t.integer "access", default: 0, null: false
+    t.datetime "release_date"
+    t.boolean "personal_data"
+    t.boolean "sensitive_data"
+    t.bigint "byte_size"
+    t.text "mandatory_attribution"
+    t.datetime "coverage_start"
+    t.datetime "coverage_end"
+    t.string "coverage_region"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["output_type"], name: "index_research_outputs_on_output_type"
+    t.index ["plan_id"], name: "index_research_outputs_on_plan_id"
   end
 
   create_table "roles", id: :integer, force: :cascade do |t|
