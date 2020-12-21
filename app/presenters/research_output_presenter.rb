@@ -22,15 +22,33 @@ class ResearchOutputPresenter
                     .map { |mime| [mime.value, mime.id] }
   end
 
+  # Returns the access options for a select tag
   def selectable_access_types
     ResearchOutput.accesses
                   .map { |k, _v| [k.humanize, k] }
+  end
+
+  # Returns the options for file size units
+  def selectable_size_units
+    [%w[MB mb], %w[GB gb], %w[TB tb], %w[PB pb], ["bytes", ""]]
   end
 
   # TODO: These values should either live as an enum on the Model or in the DB
   def selectable_coverage_regions
     %w[africa americas antarctic arctic asia australia europe middle_east
        polynesia].map { |region| [region.humanize, region] }
+  end
+
+  # Converts the byte_size into a more friendly value (e.g. 15.4 MB)
+  def converted_file_size(size:)
+    return { size: nil, unit: "mb" } unless size.present? && size.is_a?(Numeric)
+
+    return { size: size.petabytes, unit: "pb" } if size >= 1.petabytes
+    return { size: size.terabytes, unit: "tb" } if size >= 1.terabytes
+    return { size: size.gigabytes, unit: "gb" } if size >= 1.gigabytes
+    return { size: size.megabytes, unit: "mb" } if size >= 1.megabytes
+
+    { size: size, unit: "" }
   end
 
   # Returns the abbreviation if available or a snippet of the title

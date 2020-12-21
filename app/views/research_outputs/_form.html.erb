@@ -3,24 +3,23 @@
 <%
 presenter = ResearchOutputPresenter.new(research_output: research_output)
 
-output_types_for_select = ResearchOutput.output_types.map { |k, v| [k.humanize, k.humanize] }
-mime_types_selections = presenter.selectable_mime_types
-
 abbrev_tooltip = _("Your research output abbreviation can be used as a reference when answering this plan's questions.")
 descr_tooltip = _("TODO: provide some context on what is expected here")
 sensitive_data_tooltip = _("TODO: provide a better description! -- The research output will contain information that is sensitive.")
 personal_data_tooltip = _("The research output will contain personally identifiable information (PII) data like emails, SSNs, etc.")
-byte_size_tooltip = _("1 MB = 1,000,000 (1 million) bytes -- 1 GB = 1,000,000,000 (1 billion) bytes -- 1 TB = 1,000,000,000,000 (1 trillion) bytes")
 attribution_tooltip = _("Use this field to provide attribution if this output is based on research performed prior to your project.")
 %>
 
 <%= form_with model: @research_output, url: path, method: method do |f| %>
   <div class="form-group row">
     <div class="col-md-12">
-      <span class="col-md-12"><%= label(:output_type, _("Type"), class: "control-label") %></span>
+      <span class="col-md-2"><%= label(:output_type, _("Type"), class: "control-label") %></span>
+      <span class="col-md-6 output-type-description <%= research_output.other? ? "" : "hidden" %>">
+        <%= f.label(:output_type_description, _("Please describe the output type"), class: "control-label") %>
+      </span>
     </div>
-    <div class="col-md-6">
-      <span class="col-md-12">
+    <div class="col-md-12">
+      <span class="col-md-2">
         <%= f.select :output_type, options_for_select(presenter.selectable_output_types),
                      {
                        include_blank: _("- Please select one -"),
@@ -31,16 +30,7 @@ attribution_tooltip = _("Use this field to provide attribution if this output is
                        data: { remote: true, url: output_type_selection_plan_path(plan), method: :get }
                      } %>
       </span>
-    </div>
-  </div>
-  <div class="form-group row output-type-description <%= research_output.other? ? "" : "hidden" %>">
-    <div class="col-md-12">
-      <span class="col-md-12">
-        <%= f.label(:output_type_description, _("Please describe the output type"), class: "control-label") %>
-      </span>
-    </div>
-    <div class="col-md-6">
-      <span class="col-md-6">
+      <span class="col-md-6 output-type-description <%= research_output.other? ? "" : "hidden" %>">
         <%= f.text_field :output_type_description, class: "form-control",
                                                    aria: { required: research_output.other? } %>
       </span>
@@ -101,17 +91,25 @@ attribution_tooltip = _("Use this field to provide attribution if this output is
 
   <div class="form-group row mime-type-selection <%= presenter.selectable_mime_types.any? ? "" : "hidden" %>">
     <div class="col-md-12">
+      <span class="col-md-3"><%= f.label(:byte_size, _("Anticipated file size"), class: "control-label") %></span>
       <span class="col-md-3"><%= f.label(:mime_type_id, _("Mime type"), class: "control-label") %></span>
-      <span class="col-md-3"><%= f.label(:byte_size, _("Anticipated size (bytes)"), class: "control-label") %></span>
     </div>
     <div class="col-md-12">
       <span class="col-md-3">
-        <%= f.select :mime_type_id, options_for_select(presenter.selectable_mime_types),
-                                    { include_blank: _("- Please select -"), selected: f.object.mime_type&.id },
-                                    { class: "form-control, bootstrap-select" } %>
+        <% file_size = presenter.converted_file_size(size: f.object.byte_size) %>
+        <span class="col-md-8">
+          <%= f.number_field "file_size", min: 1, step: 0.1, value: file_size[:size] %>
+        </span>
+        <span class="col-md-4">
+          <%= f.select "file_size_unit", options_for_select(presenter.selectable_size_units),
+                                         { selected: file_size[:unit] },
+                                         { class: "form-control bootstrap-select" } %>
+        </span>
       </span>
       <span class="col-md-3">
-        <%= f.number_field :byte_size, min: 1, data: { toggle: "tooltip" }, title: byte_size_tooltip %>
+        <%= f.select :mime_type_id, options_for_select(presenter.selectable_mime_types),
+                                    { include_blank: _("- Please select -"), selected: f.object.mime_type&.id },
+                                    { class: "form-control bootstrap-select" } %>
       </span>
     </div>
   </div>
@@ -132,7 +130,7 @@ attribution_tooltip = _("Use this field to provide attribution if this output is
           <%= _("Initial access level") %>
           <%= f.select :access, options_for_select(presenter.selectable_access_types),
                                 { selected: f.object.access },
-                                { class: "form-control, bootstrap-select" } %>
+                                { class: "form-control bootstrap-select" } %>
         </span>
       </span>
     </div>
@@ -159,7 +157,7 @@ attribution_tooltip = _("Use this field to provide attribution if this output is
           <%= _("Region") %>
           <%= f.select :coverage_region, options_for_select(presenter.selectable_coverage_regions),
                                         { include_blank: _("Not applicable"), selected: f.object.coverage_region },
-                                        { class: "form-control, bootstrap-select" } %>
+                                        { class: "form-control bootstrap-select" } %>
         </span>
       </span>
     </div>
@@ -178,11 +176,16 @@ attribution_tooltip = _("Use this field to provide attribution if this output is
       </span>
     </div>
   </div>
-<% end %>
 
-  <%
-  #  access                  :integer          default(0), not null
-  #  display_order           :integer
-  #  is_default              :boolean         default("false")
-  #  release_date            :datetime
-  %>
+  <div class="form-group row">
+    <div class="col-md-6">
+      <%= f.button(_("Save"), class: "btn btn-default", type: "submit") %>
+      <% unless research_output.new_record? %>
+        <%= link_to _("Remove"), plan_research_output_path(plan, research_output),
+                                 method: :delete, class: "btn btn-default" %>
+        <% end %>
+        <%= link_to _("Cancel"), plan_research_outputs_path(plan),
+                                 class: "btn btn-default" %>
+    </div>
+  </div>
+<% end %>
