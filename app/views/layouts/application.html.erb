@@ -40,6 +40,9 @@
           });
         </script>
     <![endif]-->
+    <script>
+      var i18nLocale = "<%= I18n.locale %>"
+    </script>
 
     <%= stylesheet_link_tag(stylesheet_manifest_file) %>
     <%= javascript_pack_tag(javascript_manifest_file) %>
@@ -51,7 +54,7 @@
     <%= render partial: 'layouts/analytics' %>
 
   </head>
-  <body>
+  <body data-locale="<%= I18n.locale %>">
       <div class="skip">
         <a href="#maincontent"> _('Skip to main content') </a>
       </div>
