@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2020-12-10 13:01-0700\n"
-"PO-Revision-Date: 2020-12-10 21:01+0100\n"
+"POT-Creation-Date: 2020-12-22 14:12-0700\n"
+"PO-Revision-Date: 2020-12-22 22:12+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -209,7 +209,7 @@ msgstr ""
 #: ../../app/controllers/org_admin/templates_controller.rb:164
 #: ../../app/controllers/plans_controller.rb:108
 #: ../../app/controllers/super_admin/notifications_controller.rb:38
-#: ../../app/controllers/super_admin/orgs_controller.rb:54
+#: ../../app/controllers/super_admin/orgs_controller.rb:59
 #: ../../app/controllers/super_admin/themes_controller.rb:22
 msgid "created"
 msgstr ""
@@ -224,7 +224,7 @@ msgstr ""
 #: ../../app/controllers/org_admin/templates_controller.rb:166
 #: ../../app/controllers/plans_controller.rb:142
 #: ../../app/controllers/super_admin/notifications_controller.rb:41
-#: ../../app/controllers/super_admin/orgs_controller.rb:57
+#: ../../app/controllers/super_admin/orgs_controller.rb:62
 #: ../../app/controllers/super_admin/themes_controller.rb:25
 msgid "create"
 msgstr ""
@@ -314,13 +314,13 @@ msgstr ""
 
 #: ../../app/controllers/notes_controller.rb:124
 #: ../../app/controllers/org_admin/templates_controller.rb:225
-#: ../../app/controllers/super_admin/orgs_controller.rb:86
+#: ../../app/controllers/super_admin/orgs_controller.rb:91
 msgid "removed"
 msgstr ""
 
 #: ../../app/controllers/notes_controller.rb:142
 #: ../../app/controllers/org_admin/templates_controller.rb:227
-#: ../../app/controllers/super_admin/orgs_controller.rb:89
+#: ../../app/controllers/super_admin/orgs_controller.rb:94
 msgid "remove"
 msgstr ""
 
@@ -731,7 +731,7 @@ msgstr ""
 msgid "Unknown organisation."
 msgstr ""
 
-#: ../../app/controllers/super_admin/orgs_controller.rb:66
+#: ../../app/controllers/super_admin/orgs_controller.rb:71
 msgid "There seems to be a problem with your logo. Please upload it again."
 msgstr ""
 
@@ -950,7 +950,7 @@ msgid "Public"
 msgstr ""
 
 #: ../../app/helpers/plans_helper.rb:24 ../../app/helpers/plans_helper.rb:26
-#: ../../app/views/layouts/application.html.erb:103
+#: ../../app/views/layouts/application.html.erb:106
 msgid "Private"
 msgstr ""
 
@@ -963,7 +963,7 @@ msgid "Public: anyone can view."
 msgstr ""
 
 #: ../../app/helpers/plans_helper.rb:37
-#: ../../app/views/layouts/application.html.erb:104
+#: ../../app/views/layouts/application.html.erb:107
 msgid "Private: restricted to me and people I invite."
 msgstr ""
 
@@ -1482,32 +1482,32 @@ msgid " by %{user_name}"
 msgstr ""
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:12
-#: ../../app/views/layouts/_navigation.html.erb:12
+#: ../../app/views/layouts/_header_navigation.html.erb:13
 #: ../../app/views/orgs/_profile_form.html.erb:26
 msgid "logo"
 msgstr ""
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:23
-#: ../../app/views/layouts/_navigation.html.erb:23
+#: ../../app/views/layouts/_header_navigation.html.erb:24
 #: ../../app/views/plans/index.html.erb:1
 #: ../../app/views/plans/index.html.erb:4
 msgid "My Dashboard"
 msgstr ""
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:26
-#: ../../app/views/layouts/_navigation.html.erb:26
+#: ../../app/views/layouts/_header_navigation.html.erb:27
 msgid "Create plans"
 msgstr ""
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:31
-#: ../../app/views/layouts/_navigation.html.erb:31
+#: ../../app/views/layouts/_header_navigation.html.erb:32
 msgid "Reference"
 msgstr ""
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:36
 #: ../../app/views/branded/layouts/_navigation.html.erb:48
-#: ../../app/views/layouts/_navigation.html.erb:36
-#: ../../app/views/layouts/_navigation.html.erb:48
+#: ../../app/views/layouts/_header_navigation.html.erb:37
+#: ../../app/views/layouts/_header_navigation.html.erb:49
 #: ../../app/views/public_pages/plan_index.html.erb:1
 #: ../../app/views/public_pages/plan_index.html.erb:4
 msgid "Public DMPs"
@@ -1515,21 +1515,21 @@ msgstr ""
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:39
 #: ../../app/views/branded/layouts/_navigation.html.erb:51
-#: ../../app/views/layouts/_navigation.html.erb:39
-#: ../../app/views/layouts/_navigation.html.erb:51
+#: ../../app/views/layouts/_header_navigation.html.erb:40
+#: ../../app/views/layouts/_header_navigation.html.erb:52
 #: ../../app/views/public_pages/template_index.html.erb:1
 #: ../../app/views/public_pages/template_index.html.erb:4
 msgid "DMP Templates"
 msgstr ""
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:45
-#: ../../app/views/layouts/_navigation.html.erb:45
+#: ../../app/views/layouts/_header_navigation.html.erb:46
 #: ../../app/views/layouts/error.html.erb:67
 msgid "Home"
 msgstr ""
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:56
-#: ../../app/views/layouts/_navigation.html.erb:56
+#: ../../app/views/layouts/_header_navigation.html.erb:57
 #: ../../app/views/static_pages/about_us.html.erb:35
 #: ../../app/views/static_pages/help.html.erb:1
 #: ../../app/views/static_pages/help.html.erb:4
@@ -1538,7 +1538,7 @@ msgstr ""
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:64
 #: ../../app/views/devise/registrations/new.html.erb:22
-#: ../../app/views/layouts/_navigation.html.erb:64
+#: ../../app/views/layouts/_header_navigation.html.erb:65
 #: ../../app/views/layouts/_signin_signout.html.erb:41
 #: ../../app/views/shared/_access_controls.html.erb:5
 #: ../../app/views/shared/_sign_in_form.html.erb:19
@@ -1553,7 +1553,7 @@ msgid "Create a new plan"
 msgstr ""
 
 #: ../../app/views/branded/plans/new.html.erb:2
-#: ../../app/views/layouts/application.html.erb:96
+#: ../../app/views/layouts/application.html.erb:99
 #: ../../app/views/plans/new.html.erb:2
 msgid "This field is required."
 msgstr ""
@@ -1749,8 +1749,11 @@ msgstr ""
 
 #: ../../app/views/contact_us/contacts/new.html.erb:10
 #: ../../app/views/layouts/_branding.html.erb:37
-#: ../../app/views/layouts/_footer.html.erb:23
-#: ../../app/views/layouts/_footer.html.erb:29
+#: ../../app/views/layouts/_footer.html.erb:26
+#: ../../app/views/layouts/_footer.html.erb:35
+#: ../../app/views/layouts/_footer.html.erb:44
+#: ../../app/views/layouts/_footer.html.erb:51
+#: ../../app/views/layouts/_footer.html.erb:57
 #: ../../app/views/org_admin/plans/index.html.erb:39
 #: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:39
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:24
@@ -2464,6 +2467,19 @@ msgstr ""
 msgid "GitHub"
 msgstr ""
 
+#: ../../app/views/layouts/_footer.html.erb:25
+#: ../../app/views/layouts/_footer.html.erb:34
+#: ../../app/views/layouts/_footer.html.erb:43
+#: ../../app/views/layouts/_footer.html.erb:50
+#: ../../app/views/layouts/_footer.html.erb:56
+msgid "(opens in a new window)"
+msgstr ""
+
+#: ../../app/views/layouts/_footer.html.erb:31
+#: ../../app/views/layouts/_footer.html.erb:34
+msgid "Canadian Association of Research Libraries"
+msgstr ""
+
 #: ../../app/views/layouts/_paginable.html.erb:21
 msgid "There are no records associated"
 msgstr ""
@@ -2497,63 +2513,63 @@ msgstr ""
 msgid "%{application_name}"
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:75
+#: ../../app/views/layouts/application.html.erb:78
 msgid "Error:"
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:75
+#: ../../app/views/layouts/application.html.erb:78
 msgid "Notice:"
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:98
+#: ../../app/views/layouts/application.html.erb:101
 #: ../../app/views/shared/_create_account_form.html.erb:29
 msgid "Show password"
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:99
+#: ../../app/views/layouts/application.html.erb:102
 msgid "Select an organisation from the list."
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:100
+#: ../../app/views/layouts/application.html.erb:103
 msgid "My organisation isn't listed"
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:102
+#: ../../app/views/layouts/application.html.erb:105
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:38
 msgid "N/A"
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:106
+#: ../../app/views/layouts/application.html.erb:109
 msgid "Hide list."
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:107
+#: ../../app/views/layouts/application.html.erb:110
 msgid "See the full list of partner institutions."
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:109
+#: ../../app/views/layouts/application.html.erb:112
 msgid ""
 "Unable to find a suitable template for the research organisation and funder yo"
 "u selected."
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:110
+#: ../../app/views/layouts/application.html.erb:113
 msgid "Please select a research organisation and funder to continue."
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:112
+#: ../../app/views/layouts/application.html.erb:115
 msgid "Loading ..."
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:113
+#: ../../app/views/layouts/application.html.erb:116
 msgid "Unable to load the section's content at this time."
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:114
+#: ../../app/views/layouts/application.html.erb:117
 msgid "Unable to load the question's content at this time."
 msgstr ""
 
-#: ../../app/views/layouts/application.html.erb:115
+#: ../../app/views/layouts/application.html.erb:118
 msgid "Opens in a new window"
 msgstr ""
 
@@ -4045,10 +4061,12 @@ msgid "Comment"
 msgstr ""
 
 #: ../../app/views/questions/_preview_question.html.erb:103
+#: ../../app/views/translation_io_exports/question_formats.html.erb:7
 msgid "Text field"
 msgstr ""
 
 #: ../../app/views/questions/_preview_question.html.erb:106
+#: ../../app/views/translation_io_exports/question_formats.html.erb:5
 msgid "Text area"
 msgstr ""
 
@@ -4885,6 +4903,76 @@ msgid ""
 " It's recognized that there may be cases where certain data and metadata canno"
 "t be made public for various policy or legal reasons, however, the default pos"
 "ition should be that all research data and metadata are public."
+msgstr ""
+
+#: ../../app/views/translation_io_exports/home_page_links.html.erb:5
+msgid "Digital Curation Centre"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/home_page_links.html.erb:6
+msgid "UC3: University of California Curation Center"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/home_page_links.html.erb:7
+msgid "UK funder requirements for Data Management Plans"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/home_page_links.html.erb:8
+msgid "US funder requirements for Data Management Plans"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/home_page_links.html.erb:9
+msgid "DCC Checklist for a Data Management Plan"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/question_formats.html.erb:6
+msgid "a box that allows input of multiple lines of text"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/question_formats.html.erb:8
+msgid "a box that allows input of a single line of text"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/question_formats.html.erb:9
+msgid "Radio buttons"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/question_formats.html.erb:10
+msgid "a group of buttons that allow selection of a single value out of a set"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/question_formats.html.erb:11
+msgid "Check box"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/question_formats.html.erb:12
+msgid "a group of buttons that allow selection of multiple values out of a set"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/question_formats.html.erb:13
+msgid "Dropdown"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/question_formats.html.erb:14
+msgid "an area that displays a list of available values where one can be selected"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/question_formats.html.erb:15
+msgid "Multi select box"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/question_formats.html.erb:16
+msgid ""
+"an area that displays a list of available values where multiple can be selecte"
+"d"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/question_formats.html.erb:17
+msgid "Date"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/question_formats.html.erb:18
+msgid "a date selection field"
 msgstr ""
 
 #: ../../app/views/usage/_filter.html.erb:5

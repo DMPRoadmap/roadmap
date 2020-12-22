@@ -9,6 +9,9 @@ import 'tinymce/plugins/autoresize';
 import 'tinymce/plugins/link';
 import 'tinymce/plugins/paste';
 import 'tinymce/plugins/advlist';
+import 'tinymce-i18n/langs/en_CA';
+import 'tinymce-i18n/langs/fr_FR';
+
 // Other dependencies
 import { isObject, isString } from './isType';
 // Pull in the rails helper functions
@@ -83,10 +86,20 @@ export const Tinymce = {
     @param options - An object with tinyMCE properties
   */
   init(options = {}) {
-    if (isObject(options)) {
-      tinymce.init($.extend(true, defaultOptions, options)).then(resizeEditors);
+
+    let tinymceLocale = i18nLocale;
+    if (tinymceLocale == 'fr-CA') {
+      tinymceLocale = 'fr_FR'
     } else {
-      tinymce.init(defaultOptions).then(resizeEditors);
+      tinymceLocale = 'en_CA'
+    }
+
+    let myDefaultOptions = $.extend(true, {language: tinymceLocale}, defaultOptions)
+    
+    if (isObject(options)) {
+      tinymce.init($.extend(true, myDefaultOptions, options)).then(resizeEditors);
+    } else {
+      tinymce.init(myDefaultOptions).then(resizeEditors);
     }
 
     // Connect the label to the Tinymce iframe

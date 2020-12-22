@@ -29,7 +29,7 @@
         <%= f.select :question_format_id,
           options_from_collection_for_select(question_formats,
           :id,
-          :title,
+          lambda { |field| _(field.title)} ,
           question.question_format_id),
           {},
           class: "form-control question_format",
