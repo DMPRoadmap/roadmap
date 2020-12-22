@@ -44,6 +44,7 @@
     "rails-erb-loader": "^5.5.2",
     "timeago.js": "4.0.0-beta.1",
     "tinymce": "^4.9.7",
+    "tinymce-i18n": "^20.4.4",
     "webpack": "^3.12.0",
     "webpack-manifest-plugin": "^2.0.4",
     "webpack-merge": "3"

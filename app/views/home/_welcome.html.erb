@@ -16,7 +16,7 @@
     </label>
     <ul id="linklist">
       <% Rails.application.config.branding[:organisation][:welcome_links].each do |wlink| %>
-      <li><a href="<%= wlink[:url] %>"><%= wlink[:title] %></a></li>
+      <li><a href="<%= wlink[:url] %>"><%= _(wlink[:title]) %></a></li>
       <% end %>
     </ul>
   </p>
