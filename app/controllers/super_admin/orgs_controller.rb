@@ -37,6 +37,11 @@ module SuperAdmin
         org.institution = params[:institution].present?
         org.organisation = params[:organisation].present?
 
+        # TODO: Add view for changing granularity for API permissions if needed
+        # For now follow small workaround to give access to full API for org
+        # Admins for new oganizations
+        org.token_permission_types = TokenPermissionType.all
+
         # Handle Shibboleth identifiers if that is enabled
         if Rails.application.config.shibboleth_use_filtered_discovery_service
           shib = IdentifierScheme.find_by(name: "shibboleth")
