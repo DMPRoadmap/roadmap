@@ -12,12 +12,19 @@
 
 class Perm < ApplicationRecord
 
-  # =============
-  # = Constants =
-  # =============
+  class << self
 
-  # load all records as frozen objects and assign constants
-  Perm.all.each { |perm| const_set(perm.name.upcase, perm.freeze) }
+    private
+
+    def lazy_load(name)
+      Rails.cache
+           .fetch("Perm.find_by_name(#{name})", expires_in: 5.seconds, cache_nils: false) do
+             Perm.find_by_name(name)
+           end
+           .freeze
+    end
+
+  end
 
   # ================
   # = Associations =
@@ -37,39 +44,39 @@ class Perm < ApplicationRecord
   # =================
 
   def self.add_orgs
-    ADD_ORGANISATIONS
+    lazy_load("add_organisations")
   end
 
   def self.change_affiliation
-    CHANGE_ORG_AFFILIATION
+    lazy_load("change_org_affiliation")
   end
 
   def self.grant_permissions
-    GRANT_PERMISSIONS
+    lazy_load("grant_permissions")
   end
 
   def self.modify_templates
-    MODIFY_TEMPLATES
+    lazy_load("modify_templates")
   end
 
   def self.modify_guidance
-    MODIFY_GUIDANCE
+    lazy_load("modify_guidance")
   end
 
   def self.use_api
-    USE_API
+    lazy_load("use_api")
   end
 
   def self.change_org_details
-    CHANGE_ORG_DETAILS
+    lazy_load("change_org_details")
   end
 
   def self.grant_api
-    GRANT_API_TO_ORGS
+    lazy_load("grant_api_to_orgs")
   end
 
   def self.review_plans
-    REVIEW_ORG_PLANS
+    lazy_load("review_org_plans")
   end
 
 end
