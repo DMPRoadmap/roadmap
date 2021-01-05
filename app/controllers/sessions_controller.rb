@@ -25,7 +25,7 @@ class SessionsController < Devise::SessionsController
           # rubocop:enable Metrics/LineLength
         end
       end
-      unless existing_user.get_locale.nil?
+      if session[:locale].blank? && existing_user.get_locale.present?
         session[:locale] = existing_user.get_locale
       end
       # Method defined at controllers/application_controller.rb
