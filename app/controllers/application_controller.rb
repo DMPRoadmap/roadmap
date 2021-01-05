@@ -57,7 +57,6 @@ class ApplicationController < ActionController::Base
 
   # Sets FastGettext locale for every request made
   def set_gettext_locale
-    FastGettext.locale.to_s.gsub('_', '-')
     FastGettext.locale = LocaleFormatter.new(current_locale, format: :fast_gettext).to_s
   end
 
