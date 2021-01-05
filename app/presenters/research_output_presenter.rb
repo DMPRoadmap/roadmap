@@ -41,12 +41,11 @@ class ResearchOutputPresenter
 
   # Converts the byte_size into a more friendly value (e.g. 15.4 MB)
   def converted_file_size(size:)
-    return { size: nil, unit: "mb" } unless size.present? && size.is_a?(Numeric)
-
-    return { size: size.petabytes, unit: "pb" } if size >= 1.petabytes
-    return { size: size.terabytes, unit: "tb" } if size >= 1.terabytes
-    return { size: size.gigabytes, unit: "gb" } if size >= 1.gigabytes
-    return { size: size.megabytes, unit: "mb" } if size >= 1.megabytes
+    return { size: nil, unit: "mb" } unless size.present? && size.is_a?(Numeric) && size.positive?
+    return { size: size / 1.petabytes, unit: "pb" } if size >= 1.petabytes
+    return { size: size / 1.terabytes, unit: "tb" } if size >= 1.terabytes
+    return { size: size / 1.gigabytes, unit: "gb" } if size >= 1.gigabytes
+    return { size: size / 1.megabytes, unit: "mb" } if size >= 1.megabytes
 
     { size: size, unit: "" }
   end
@@ -55,8 +54,9 @@ class ResearchOutputPresenter
   def display_name
     return "" unless @research_output.is_a?(ResearchOutput)
     return @research_output.abbreviation if @research_output.abbreviation.present?
+    return "#{@research_output.title[0..50]} ..." if @research_output.title.length > 50
 
-    "#{@research_output.title[0..20]} ..."
+    @research_output.title
   end
 
   # Returns the abbreviation if available or a snippet of the title

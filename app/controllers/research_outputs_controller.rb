@@ -33,20 +33,39 @@ class ResearchOutputsController < ApplicationController
     authorize @research_output
 
     if @research_output.save
-
+      redirect_to plan_research_outputs_path(@plan),
+                  notice: success_message(@research_output, _("added"))
     else
-
+      redirect_to plan_research_outputs_path(@plan),
+                  alert: failure_message(@research_output, _("add"))
     end
   end
 
   # PATCH/PUT /plans/:plan_id/research_outputs/:id
   def update
+    args = process_byte_size.merge({ plan_id: @plan.id })
     authorize @research_output
+
+    if @research_output.update(args)
+      redirect_to edit_plan_research_output_path(@plan, @research_output),
+                  notice: success_message(@research_output, _("saved"))
+    else
+      redirect_to edit_plan_research_output_path(@plan, @research_output),
+                  alert: failure_message(@research_output, _("save"))
+    end
   end
 
   # DELETE /plans/:plan_id/research_outputs/:id
   def destroy
     authorize @research_output
+
+    if @research_output.destroy
+      redirect_to plan_research_outputs_path(@plan),
+                  notice: success_message(@research_output, _("removed"))
+    else
+      redirect_to plan_research_outputs_path(@plan),
+                  alert: failure_message(@research_output, _("remove"))
+    end
   end
 
   # ============================
@@ -72,30 +91,30 @@ class ResearchOutputsController < ApplicationController
                      mandatory_attribution])
   end
 
-  # rubocop:disable Metrics/AbcSize
   def process_byte_size
-    return output_params unless output_params[:file_size].present?
-    return output_params unless output_params[:file_size].to_f.is_a?(Numeric)
-
-    byte_size = 0.bytes + case output_params[:file_size_unit]
-                          when "pb"
-                            output_params[:file_size].to_f.petabytes
-                          when "tb"
-                            output_params[:file_size].to_f.terabytes
-                          when "gb"
-                            output_params[:file_size].to_f.gigabytes
-                          when "mb"
-                            output_params[:file_size].to_f.megabytes
-                          else
-                            output_params[:file_size].to_i
-                          end
-
     args = output_params
+
+    if args[:file_size].present?
+      byte_size = 0.bytes + case args[:file_size_unit]
+                            when "pb"
+                              args[:file_size].to_f.petabytes
+                            when "tb"
+                              args[:file_size].to_f.terabytes
+                            when "gb"
+                              args[:file_size].to_f.gigabytes
+                            when "mb"
+                              args[:file_size].to_f.megabytes
+                            else
+                              args[:file_size].to_i
+                            end
+
+      args[:byte_size] = byte_size
+    end
+
     args.delete(:file_size)
     args.delete(:file_size_unit)
-    args.merge({ byte_size: byte_size })
+    args
   end
-  # rubocop:enable Metrics/AbcSize
 
   # =============
   # = Callbacks =

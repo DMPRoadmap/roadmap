@@ -161,6 +161,7 @@ class ApplicationController < ActionController::Base
       Org: _("organisation"),
       Perm: _("permission"),
       Pref: _("preferences"),
+      ResearchOutput: _("research output"),
       User: obj == current_user ? _("profile") : _("user"),
       QuestionOption: _("question option")
     }

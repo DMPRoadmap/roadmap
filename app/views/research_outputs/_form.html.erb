@@ -10,7 +10,7 @@ personal_data_tooltip = _("The research output will contain personally identifia
 attribution_tooltip = _("Use this field to provide attribution if this output is based on research performed prior to your project.")
 %>
 
-<%= form_with model: @research_output, url: path, method: method do |f| %>
+<%= form_with model: @research_output, url: path, method: method, local: true do |f| %>
   <div class="form-group row">
     <div class="col-md-12">
       <span class="col-md-2"><%= label(:output_type, _("Type"), class: "control-label") %></span>
@@ -20,12 +20,12 @@ attribution_tooltip = _("Use this field to provide attribution if this output is
     </div>
     <div class="col-md-12">
       <span class="col-md-2">
-        <%= f.select :output_type, options_for_select(presenter.selectable_output_types),
+        <%= f.select :output_type, options_for_select(presenter.selectable_output_types, f.object.output_type),
                      {
                        include_blank: _("- Please select one -"),
                        selected: (research_output.output_type.present? ? research_output.output_type : "" )
                      }, {
-                       class: "form-control, bootstrap-select",
+                       class: "form-control bootstrap-select",
                        aria: { required: true },
                        data: { remote: true, url: output_type_selection_plan_path(plan), method: :get }
                      } %>
@@ -101,13 +101,13 @@ attribution_tooltip = _("Use this field to provide attribution if this output is
           <%= f.number_field "file_size", min: 1, step: 0.1, value: file_size[:size] %>
         </span>
         <span class="col-md-4">
-          <%= f.select "file_size_unit", options_for_select(presenter.selectable_size_units),
+          <%= f.select "file_size_unit", options_for_select(presenter.selectable_size_units, file_size[:unit]),
                                          { selected: file_size[:unit] },
                                          { class: "form-control bootstrap-select" } %>
         </span>
       </span>
       <span class="col-md-3">
-        <%= f.select :mime_type_id, options_for_select(presenter.selectable_mime_types),
+        <%= f.select :mime_type_id, options_for_select(presenter.selectable_mime_types, f.object.mime_type_id),
                                     { include_blank: _("- Please select -"), selected: f.object.mime_type&.id },
                                     { class: "form-control bootstrap-select" } %>
       </span>
@@ -128,7 +128,7 @@ attribution_tooltip = _("Use this field to provide attribution if this output is
         </span>
         <span class="col-md-4">
           <%= _("Initial access level") %>
-          <%= f.select :access, options_for_select(presenter.selectable_access_types),
+          <%= f.select :access, options_for_select(presenter.selectable_access_types, f.object.access),
                                 { selected: f.object.access },
                                 { class: "form-control bootstrap-select" } %>
         </span>
@@ -155,7 +155,7 @@ attribution_tooltip = _("Use this field to provide attribution if this output is
         </span>
         <span class="col-md-4">
           <%= _("Region") %>
-          <%= f.select :coverage_region, options_for_select(presenter.selectable_coverage_regions),
+          <%= f.select :coverage_region, options_for_select(presenter.selectable_coverage_regions, f.object.coverage_region),
                                         { include_blank: _("Not applicable"), selected: f.object.coverage_region },
                                         { class: "form-control bootstrap-select" } %>
         </span>

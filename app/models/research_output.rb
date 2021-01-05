@@ -54,7 +54,10 @@ class ResearchOutput < ApplicationRecord
   # ===============
 
   validates_presence_of :output_type, :access, :title, message: PRESENCE_MESSAGE
-  validates_uniqueness_of :title, :abbreviation, scope: :plan_id
+  validates_uniqueness_of :title, { case_sensitive: false, scope: :plan_id,
+                                    message: UNIQUENESS_MESSAGE }
+  validates_uniqueness_of :abbreviation, { case_sensitive: false, scope: :plan_id,
+                                           allow_nil: true, allow_blank: true, message: UNIQUENESS_MESSAGE }
 
   # Ensure presence of the :output_type_description if the user selected 'other'
   validates_presence_of :output_type_description, if: -> { other? }, message: PRESENCE_MESSAGE
