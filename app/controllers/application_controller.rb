@@ -37,11 +37,11 @@ class ApplicationController < ActionController::Base
   private
 
 
-  # def set_locale
-  #   FastGettext.set_locale(params[:locale] || session[:locale] || request.env['HTTP_ACCEPT_LANGUAGE'])
-  #   I18n.locale = FastGettext.locale.to_s.gsub('_', '-')
-  #   session[:locale] = FastGettext.locale
-  # end
+  def set_locale
+    FastGettext.set_locale(params[:locale] || session[:locale] || request.env['HTTP_ACCEPT_LANGUAGE'])
+    I18n.locale = FastGettext.locale.to_s.gsub('_', '-')
+    session[:locale] = FastGettext.locale
+  end
 
   def current_org
     current_user.org
@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
 
   # Sets FastGettext locale for every request made
   def set_gettext_locale
-    # byebug
+    FastGettext.locale.to_s.gsub('_', '-')
     FastGettext.locale = LocaleFormatter.new(current_locale, format: :fast_gettext).to_s
   end
 
@@ -79,7 +79,6 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    byebug
     referer_path = URI(request.referer).path unless request.referer.nil? or nil
     if from_external_domain? || referer_path.eql?(new_user_session_path) ||
          referer_path.eql?(new_user_registration_path) ||
