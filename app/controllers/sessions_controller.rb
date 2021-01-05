@@ -38,8 +38,10 @@ class SessionsController < Devise::SessionsController
   end
 
   def destroy
+    # We want to keep the user selected language even after the user logs out
+    session_locale = session[:locale]
     super
-    session[:locale] = nil
+    session[:locale] = session_locale
     # Method defined at controllers/application_controller.rb
     set_gettext_locale
   end
