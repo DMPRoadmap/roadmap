@@ -41,7 +41,10 @@ RSpec.feature "Templates::Editing", type: :feature do
       click_button 'Save'
     end
     # Make sure annotation has been updated
-    expect(Question.find(template.question_ids.first).annotations.first.text).to eql("Foo bar")
+    # Changed the value we are looking for to include paragraph tag. This is
+    # needed after adding the french translations to tinymce
+    # commit a2b43fed573e9a7f1fc644d884d0981674ebe6f1
+    expect(Question.find(template.question_ids.first).annotations.first.text).to eql("<p>Foo bar</p>")
     # Make sure blank records are not created for empty annotation form
     expect(Question.find(template.question_ids.first).annotations.count).to eql(1)
     expect(page).not_to have_errors

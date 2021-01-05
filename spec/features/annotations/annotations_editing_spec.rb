@@ -54,7 +54,10 @@ RSpec.feature "Annotations::Editing", type: :feature do
       expect { click_button 'Save' }.not_to change { Annotation.count }
     end
     expect(annotation.text).to eql("Foo bar")
-    expect(Annotation.order("created_at").last.text).to eql("Noo bar")
+    # Changed the value we are looking for to include paragraph tag. This is
+    # needed after adding the french translations to tinymce
+    # commit a2b43fed573e9a7f1fc644d884d0981674ebe6f1
+    expect(Annotation.order("created_at").last.text).to eql("<p>Noo bar</p>")
     expect(page).not_to have_errors
   end
 
