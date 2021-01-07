@@ -31,7 +31,7 @@ json.array! @plans.each do |plan|
     data_contact = plan.contributors.data_curation.first
     json.name         data_contact.name
     json.email        data_contact.email
-    json.phone        data_contact.phones
+    json.phone        data_contact.phone
   end
   json.users plan.roles.each do |role|
     json.email role.user.email

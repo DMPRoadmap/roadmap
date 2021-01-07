@@ -84,6 +84,25 @@ namespace :org_cleanup do
     end
   end
 
+  desc "Find Plans with a NULL org_id and populate with the Creator's Org"
+  task fix_plans: :environment do
+    plans = Plan.includes(roles: { user: :org })
+                .joins(roles: { user: :org })
+                .where(plans: { org: nil })
+
+    p "Identified #{plans.length} plans with no :org_id"
+    plans.each do |plan|
+      creator = plan.roles
+                    .select(&:creator?)
+                    .max(&:created_at)
+                    .user
+      next unless creator.present? && creator.org.present?
+
+      # Using :update_columns here to prevent the :updated_at from changing
+      plan.update_columns(org_id: creator.org.id)
+    end
+  end
+
   def name_to_abbreviation(name:)
     return "" unless name.present?
 
