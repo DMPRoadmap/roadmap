@@ -13,14 +13,16 @@ $(() => {
   };
 
   // attach listener to separator select menu
-  // on change look for "stat" elements and chnage their query param
-  document.getElementById('csv-field-sep').addEventListener('click', (e) => {
-    const statElems = document.getElementsByClassName('stat');
-    const newSep = 'sep='.concat(encodeURIComponent(e.target.value));
-    const changeStatFn = changeStatFnGen(newSep);
-    Array.from(statElems).forEach(changeStatFn);
-  });
-
+  // on change look for "stat" elements and change their query param
+  if (document.getElementById('csv-field-sep')) {
+    document.getElementById('csv-field-sep').addEventListener('click', (e) => {
+      const statElems = document.getElementsByClassName('stat');
+      const newSep = 'sep='.concat(encodeURIComponent(e.target.value));
+      const changeStatFn = changeStatFnGen(newSep);
+      Array.from(statElems).forEach(changeStatFn);
+    });
+  }
+  
   initializeCharts();
 
   // Create the Users joined chart
