@@ -18,17 +18,17 @@ if (outputTypeForm.length > 0) {
   <% end %>
 
   <%# Hide or Display the Mime Type select box and Byte Size based on the Output Type selected %>
-  var mimeTypeRow = outputTypeForm.find('.mime-type-selection');
+  var fileMetadataPanel = outputTypeForm.find('#file-metadata-panel');
 
   <% if presenter.selectable_mime_types.any? %>
-    mimeTypeRow.removeClass('hidden');
-    var selector = mimeTypeRow.find('#research_output_mime_type_id');
+    fileMetadataPanel.removeClass('hidden');
+    var selector = fileMetadataPanel.find('#research_output_mime_type_id');
     selector.html('<%= escape_javascript(render(partial: "research_outputs/mime_types", locals: { mime_types: presenter.selectable_mime_types })) %>');
   <% else %>
-    mimeTypeRow.addClass('hidden');
-    var selected = mimeTypeRow.find('option:selected');
+    fileMetadataPanel.addClass('hidden');
+    var selected = fileMetadataPanel.find('option:selected');
     selected.removeAttr("selected");
-    var sizeField = mimeTypeRow.find('#research_output_file_size');
+    var sizeField = fileMetadataPanel.find('#research_output_file_size');
     sizeField.val("");
   <% end %>
 }

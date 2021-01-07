@@ -1,0 +1,40 @@
+<%# locals: form, presenter %>
+
+<%
+attribution_tooltip = _("Use this field to provide attribution if this output is based on research performed prior to your project.")
+%>
+
+<div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <div class="panel-title pull-left"
+           data-toggle="collapse"
+           aria-expanded="false"
+           aria-controls="attribution-section"
+           id="attribution-section-heading"
+           href="#attribution-section">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        <%= _("Attribution") %>
+      </div>
+    </div>
+</div>
+
+<div id = "attribution-section"
+     class = "panel-collapse collapse"
+     role="tabpanel"
+     aria-labelledby="attribution-section-heading">
+  <div class="panel-body">
+    <div class="form-group row">
+      <div class="col-md-12">
+        <span class="col-md-12">
+          <%= form.label(:mandatory_attribution, _("Mandatory attribution"), class: "control-label") %>
+        </span>
+      </div>
+      <div class="col-md-12">
+        <span class="col-md-8">
+          <%= form.text_area :mandatory_attribution, rows: 4, class: 'form-control tinymce',
+                             title: attribution_tooltip, data: { toggle: "tooltip" } %>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

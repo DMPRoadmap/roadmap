@@ -5,9 +5,6 @@ presenter = ResearchOutputPresenter.new(research_output: research_output)
 
 abbrev_tooltip = _("Your research output abbreviation can be used as a reference when answering this plan's questions.")
 descr_tooltip = _("TODO: provide some context on what is expected here")
-sensitive_data_tooltip = _("TODO: provide a better description! -- The research output will contain information that is sensitive.")
-personal_data_tooltip = _("The research output will contain personally identifiable information (PII) data like emails, SSNs, etc.")
-attribution_tooltip = _("Use this field to provide attribution if this output is based on research performed prior to your project.")
 %>
 
 <%= form_with model: @research_output, url: path, method: method, local: true do |f| %>
@@ -58,7 +55,7 @@ attribution_tooltip = _("Use this field to provide attribution if this output is
   </div>
   <div class="form-group row">
     <div class="col-md-12">
-      <span class="col-md-12"><%= f.label(:abbreviation, _("Description"), class: "control-label") %></span>
+      <span class="col-md-12"><%= f.label(:description, _("Description"), class: "control-label") %></span>
     </div>
     <div class="col-md-12">
       <span class="col-md-8">
@@ -67,113 +64,28 @@ attribution_tooltip = _("Use this field to provide attribution if this output is
       </span>
     </div>
   </div>
-  <div class="form-group row">
-    <div class="col-md-12">
-      <span class="col-md-12"><label class: "control-label"><%= _("Security concerns") %></label></span>
-    </div>
-    <div class="col-md-12">
-      <span class="col-md-3">
-        <%= f.label :sensitive_data do %>
-          <%= f.check_box :sensitive_data, data: { toggle: "tooltip" },
-                title: sensitive_data_tooltip %>
-          <%= _('may contain sensitive data?') %>
-        <% end %>
-      </span>
-      <span class="col-md-3">
-        <%= f.label :personal_data do %>
-          <%= f.check_box :personal_data, data: { toggle: "tooltip" },
-                title: personal_data_tooltip %>
-          <%= _('may contain PII?') %>
-        <% end %>
-      </span>
-    </div>
-  </div>
 
-  <div class="form-group row mime-type-selection <%= presenter.selectable_mime_types.any? ? "" : "hidden" %>">
-    <div class="col-md-12">
-      <span class="col-md-3"><%= f.label(:byte_size, _("Anticipated file size"), class: "control-label") %></span>
-      <span class="col-md-3"><%= f.label(:mime_type_id, _("Mime type"), class: "control-label") %></span>
+  <div class="panel-group" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+      <%= render partial: "research_outputs/security", locals: { form: f, presenter: presenter } %>
     </div>
-    <div class="col-md-12">
-      <span class="col-md-3">
-        <% file_size = presenter.converted_file_size(size: f.object.byte_size) %>
-        <span class="col-md-8">
-          <%= f.number_field "file_size", min: 1, step: 0.1, value: file_size[:size] %>
-        </span>
-        <span class="col-md-4">
-          <%= f.select "file_size_unit", options_for_select(presenter.selectable_size_units, file_size[:unit]),
-                                         { selected: file_size[:unit] },
-                                         { class: "form-control bootstrap-select" } %>
-        </span>
-      </span>
-      <span class="col-md-3">
-        <%= f.select :mime_type_id, options_for_select(presenter.selectable_mime_types, f.object.mime_type_id),
-                                    { include_blank: _("- Please select -"), selected: f.object.mime_type&.id },
-                                    { class: "form-control bootstrap-select" } %>
-      </span>
-    </div>
-  </div>
 
-  <div class="form-group row">
-    <div class="col-md-12">
-      <span class="col-md-12">
-        <label class="control-label"><%= _("Anticipated release") %></label>
-      </span>
+    <div class="panel panel-default">
+      <%= render partial: "research_outputs/geographical", locals: { form: f, presenter: presenter } %>
     </div>
-    <div class="col-md-12">
-      <span class="col-md-8">
-        <span class="col-md-4">
-          <%= _("Date") %>
-          <%= f.date_field :release_date, class: "form-control" %>
-        </span>
-        <span class="col-md-4">
-          <%= _("Initial access level") %>
-          <%= f.select :access, options_for_select(presenter.selectable_access_types, f.object.access),
-                                { selected: f.object.access },
-                                { class: "form-control bootstrap-select" } %>
-        </span>
-      </span>
-    </div>
-  </div>
 
-  <div class="form-group row">
-    <div class="col-md-12">
-      <span class="col-md-12">
-        <label class="control-label"><%= _("Coverage") %></label>
-        <span class="red"><%= "TODO: Should we allow for multiples here? What does coverage mean?" %></span>
-      </span>
+    <div class="panel panel-default <%= presenter.selectable_mime_types.any? ? "" : "hidden" %>"
+         id="file-metadata-panel">
+      <%= render partial: "research_outputs/file", locals: { form: f, presenter: presenter } %>
     </div>
-    <div class="col-md-12">
-      <span class="col-md-8">
-        <span class="col-md-4">
-          <%= _("From") %>
-          <%= f.date_field :coverage_start, class: "form-control" %>
-        </span>
-        <span class="col-md-4">
-          <%= _("To") %>
-          <%= f.date_field :coverage_end, class: "form-control" %>
-        </span>
-        <span class="col-md-4">
-          <%= _("Region") %>
-          <%= f.select :coverage_region, options_for_select(presenter.selectable_coverage_regions, f.object.coverage_region),
-                                        { include_blank: _("Not applicable"), selected: f.object.coverage_region },
-                                        { class: "form-control bootstrap-select" } %>
-        </span>
-      </span>
-    </div>
-  </div>
 
-  <div class="form-group row">
-    <div class="col-md-12">
-      <span class="col-md-12">
-        <%= f.label(:mandatory_attribution, _("Mandatory attribution"), class: "control-label") %>
-      </span>
+    <div class="panel panel-default">
+      <%= render partial: "research_outputs/attribution", locals: { form: f, presenter: presenter } %>
     </div>
-    <div class="col-md-12">
-      <span class="col-md-8">
-        <%= f.text_area :mandatory_attribution, rows: 4, class: 'form-control tinymce',
-                                      title: attribution_tooltip, data: { toggle: "tooltip" } %>
-      </span>
+
+    <div class="panel panel-default">
+      <%= render partial: "research_outputs/identifiers",
+                 locals: { form: f, plan: plan, research_output: research_output } %>
     </div>
   </div>
 

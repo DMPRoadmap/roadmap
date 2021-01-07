@@ -1,0 +1,49 @@
+<%# locals: form, presenter %>
+
+<div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <div class="panel-title pull-left"
+           data-toggle="collapse"
+           aria-expanded="false"
+           aria-controls="geo-section"
+           id="geo-section-heading"
+           href="#geo-section">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        <%= _("Temporal and spatial metadata") %>
+      </div>
+    </div>
+</div>
+
+<div id = "geo-section"
+     class = "panel-collapse collapse"
+     role="tabpanel"
+     aria-labelledby="geo-section-heading">
+  <div class="panel-body">
+    <div class="form-group row">
+      <div class="col-md-12">
+        <span class="col-md-12">
+          <label class="control-label"><%= _("Coverage") %></label>
+          <span class="red"><%= "TODO: Should we allow for multiples here? What does coverage mean?" %></span>
+        </span>
+      </div>
+      <div class="col-md-12">
+        <span class="col-md-8">
+          <span class="col-md-4">
+            <%= _("From") %>
+            <%= form.date_field :coverage_start, class: "form-control" %>
+          </span>
+          <span class="col-md-4">
+            <%= _("To") %>
+            <%= form.date_field :coverage_end, class: "form-control" %>
+          </span>
+          <span class="col-md-4">
+            <%= _("Region") %>
+            <%= form.select :coverage_region, options_for_select(presenter.selectable_coverage_regions, form.object.coverage_region),
+                                              { include_blank: _("Not applicable"), selected: form.object.coverage_region },
+                                              { class: "form-control bootstrap-select" } %>
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

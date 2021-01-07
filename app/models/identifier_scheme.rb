@@ -57,6 +57,7 @@ class IdentifierScheme < ApplicationRecord
             4 =>  :for_users,
             5 =>  :for_contributors,
             6 =>  :for_identification,
+            7 =>  :for_research_outputs,
             column: "context"
 
   # =========================
