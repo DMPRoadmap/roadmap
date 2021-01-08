@@ -1,5 +1,5 @@
 <%
-  tool_name = Rails.configuration.branding[:application][:name]
+  tool_name = _(Rails.configuration.branding[:application][:name])
   link = accept_invitation_url(@resource, :invitation_token => @token)
   helpdesk_email = Rails.configuration.branding[:organisation][:helpdesk_email]
   contact_us = (Rails.configuration.branding[:organisation][:contact_us_url] || contact_us_url)
