@@ -328,7 +328,7 @@ module OrgAdmin
               margin: @formatting[:margin],
               footer: {
                 center:    _("Template created using the %{application_name} service. Last modified %{date}") % {
-                application_name: Rails.configuration.branding[:application][:name],
+                application_name: _(Rails.configuration.branding[:application][:name]),
                 date: l(@template.updated_at.to_date, formats: :short)
               },
               font_size: 8,

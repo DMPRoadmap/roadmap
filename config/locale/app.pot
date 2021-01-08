@@ -1,15 +1,15 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2020 roadmap
+# Copyright (C) 2021 roadmap
 # This file is distributed under the same license as the roadmap package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2020-12-22 14:12-0700\n"
-"PO-Revision-Date: 2020-12-22 14:12-0700\n"
+"POT-Creation-Date: 2021-01-08 12:37-0700\n"
+"PO-Revision-Date: 2021-01-08 12:37-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -82,51 +82,51 @@ msgstr ""
 msgid "plans"
 msgstr ""
 
-#: ../../app/controllers/application_controller.rb:45
+#: ../../app/controllers/application_controller.rb:52
 msgid "You are not authorized to perform this action."
 msgstr ""
 
-#: ../../app/controllers/application_controller.rb:47
+#: ../../app/controllers/application_controller.rb:54
 msgid "You need to sign in or sign up before continuing."
 msgstr ""
 
-#: ../../app/controllers/application_controller.rb:113
+#: ../../app/controllers/application_controller.rb:120
 msgid "Unable to %{action} the %{object}.%{errors}"
 msgstr ""
 
-#: ../../app/controllers/application_controller.rb:121
+#: ../../app/controllers/application_controller.rb:128
 msgid "Successfully %{action} the %{object}."
 msgstr ""
 
-#: ../../app/controllers/application_controller.rb:136
+#: ../../app/controllers/application_controller.rb:143
 msgid "plan"
 msgstr ""
 
-#: ../../app/controllers/application_controller.rb:137
+#: ../../app/controllers/application_controller.rb:144
 msgid "guidance group"
 msgstr ""
 
-#: ../../app/controllers/application_controller.rb:138
+#: ../../app/controllers/application_controller.rb:145
 msgid "comment"
 msgstr ""
 
-#: ../../app/controllers/application_controller.rb:139
+#: ../../app/controllers/application_controller.rb:146
 msgid "organisation"
 msgstr ""
 
-#: ../../app/controllers/application_controller.rb:140
+#: ../../app/controllers/application_controller.rb:147
 msgid "permission"
 msgstr ""
 
-#: ../../app/controllers/application_controller.rb:141
+#: ../../app/controllers/application_controller.rb:148
 msgid "preferences"
 msgstr ""
 
-#: ../../app/controllers/application_controller.rb:142
+#: ../../app/controllers/application_controller.rb:149
 msgid "profile"
 msgstr ""
 
-#: ../../app/controllers/application_controller.rb:142
+#: ../../app/controllers/application_controller.rb:149
 msgid "user"
 msgstr ""
 
@@ -504,6 +504,10 @@ msgstr ""
 
 #: ../../app/controllers/plan_exports_controller.rb:79
 msgid "Created using %{application_name}. Last modified %{date}"
+msgstr ""
+
+#: ../../app/controllers/plan_exports_controller.rb:85
+msgid "[page] of [topage]"
 msgstr ""
 
 #: ../../app/controllers/plans_controller.rb:42
@@ -4657,6 +4661,10 @@ msgstr ""
 #: ../../app/views/template_exports/template_export.docx.erb:39
 #: ../../app/views/template_exports/template_export.pdf.erb:81
 msgid "Example Answer"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_globals.html.erb:3
+msgid "DMP Assistant"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:2

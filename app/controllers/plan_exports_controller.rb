@@ -77,13 +77,13 @@ class PlanExportsController < ApplicationController
            margin: @formatting[:margin],
            footer: {
              center: _("Created using %{application_name}. Last modified %{date}") % {
-               application_name: Rails.configuration.branding[:application][:name],
+               application_name: _(Rails.configuration.branding[:application][:name]),
                date: l(@plan.updated_at.to_date, format: :readable)
               },
              font_size: 8,
              spacing:   (Integer(@formatting[:margin][:bottom]) / 2) - 4,
-             right:     "[page] of [topage]",
-             encoding: "utf8"
+             right:     _("[page] of [topage]"),
+             encoding: "UTF-8"
            }
   end
 

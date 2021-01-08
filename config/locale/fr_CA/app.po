@@ -1,14 +1,14 @@
 # French translations for roadmap package.
-# Copyright (C) 2020 roadmap
+# Copyright (C) 2021 roadmap
 # This file is distributed under the same license as the roadmap package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2020-12-22 14:12-0700\n"
-"PO-Revision-Date: 2020-12-22 22:12+0100\n"
+"POT-Creation-Date: 2021-01-08 12:37-0700\n"
+"PO-Revision-Date: 2021-01-08 20:38+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_CA\n"
@@ -86,51 +86,51 @@ msgstr "Nombre de plans"
 msgid "plans"
 msgstr "plans"
 
-#: ../../app/controllers/application_controller.rb:45
+#: ../../app/controllers/application_controller.rb:52
 msgid "You are not authorized to perform this action."
 msgstr "Vous n’êtes pas autorisé à effectuer cette action."
 
-#: ../../app/controllers/application_controller.rb:47
+#: ../../app/controllers/application_controller.rb:54
 msgid "You need to sign in or sign up before continuing."
 msgstr "Vous devez vous connecter ou vous inscrire pour continuer."
 
-#: ../../app/controllers/application_controller.rb:113
+#: ../../app/controllers/application_controller.rb:120
 msgid "Unable to %{action} the %{object}.%{errors}"
 msgstr "Il est impossible de %{action} les %{object}. %{errors}"
 
-#: ../../app/controllers/application_controller.rb:121
+#: ../../app/controllers/application_controller.rb:128
 msgid "Successfully %{action} the %{object}."
 msgstr "La mesure %{action} pour %{object} a été effectuée avec succès."
 
-#: ../../app/controllers/application_controller.rb:136
+#: ../../app/controllers/application_controller.rb:143
 msgid "plan"
 msgstr "plan"
 
-#: ../../app/controllers/application_controller.rb:137
+#: ../../app/controllers/application_controller.rb:144
 msgid "guidance group"
 msgstr "groupe de directives"
 
-#: ../../app/controllers/application_controller.rb:138
+#: ../../app/controllers/application_controller.rb:145
 msgid "comment"
 msgstr "laisser un commentaire"
 
-#: ../../app/controllers/application_controller.rb:139
+#: ../../app/controllers/application_controller.rb:146
 msgid "organisation"
 msgstr "organisme"
 
-#: ../../app/controllers/application_controller.rb:140
+#: ../../app/controllers/application_controller.rb:147
 msgid "permission"
 msgstr "autorisation"
 
-#: ../../app/controllers/application_controller.rb:141
+#: ../../app/controllers/application_controller.rb:148
 msgid "preferences"
 msgstr "préférences"
 
-#: ../../app/controllers/application_controller.rb:142
+#: ../../app/controllers/application_controller.rb:149
 msgid "profile"
 msgstr "profil"
 
-#: ../../app/controllers/application_controller.rb:142
+#: ../../app/controllers/application_controller.rb:149
 msgid "user"
 msgstr "utilisateur(trice)"
 
@@ -527,6 +527,10 @@ msgstr "Veuillez choisir un organisme"
 #: ../../app/controllers/plan_exports_controller.rb:79
 msgid "Created using %{application_name}. Last modified %{date}"
 msgstr "Créé(e) avec %{application_name}. Dernière modification : %{date}"
+
+#: ../../app/controllers/plan_exports_controller.rb:85
+msgid "[page] of [topage]"
+msgstr "[page] sur [topage]"
 
 #: ../../app/controllers/plans_controller.rb:42
 msgid "This is a"
@@ -5212,6 +5216,10 @@ msgstr ""
 #: ../../app/views/template_exports/template_export.pdf.erb:81
 msgid "Example Answer"
 msgstr "Exemple de réponse"
+
+#: ../../app/views/translation_io_exports/_globals.html.erb:3
+msgid "DMP Assistant"
+msgstr "Assistant PGD"
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:2
 msgid "Active Data Storage"

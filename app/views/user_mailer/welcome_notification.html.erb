@@ -1,5 +1,5 @@
 <%
-  tool_name = Rails.configuration.branding[:application][:name]
+  tool_name = _(Rails.configuration.branding[:application][:name])
   username = @user.name
   helpdesk_email = Rails.configuration.branding[:organisation][:helpdesk_email]
   email_subject = _('Query or feedback related to %{tool_name}') %{ :tool_name => tool_name }
