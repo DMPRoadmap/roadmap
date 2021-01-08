@@ -33,7 +33,7 @@ class RegistrationsController < Devise::RegistrationsController
         # Connect the new user with the identifier sent back by the OAuth provider
         # rubocop:disable Metrics/LineLength
         flash[:notice] = _("Please make a choice below. After linking your details to a %{application_name} account, you will be able to sign in directly with your institutional credentials.") % {
-          application_name: Rails.configuration.branding[:application][:name]
+          application_name: _(Rails.configuration.branding[:application][:name])
         }
         # rubocop:enable Metrics/LineLength
         scheme = IdentifierScheme.find_by(name: oauth["provider"].downcase)

@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <!-- Version: <%= version %> -->
-    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => Rails.configuration.branding[:application][:name] } %>
+    <title><%= content_for?(:title) ? yield(:title) : _('%{application_name}') % { :application_name => _(Rails.configuration.branding[:application][:name]) } %>
     </title>
     
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">

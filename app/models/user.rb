@@ -360,7 +360,7 @@ class User < ActiveRecord::Base
   def deliver_invitation(options = {})
     super(options.merge(subject: _("A Data Management Plan in " +
       "%{application_name} has been shared with you") %
-      { application_name: Rails.configuration.branding[:application][:name] })
+      { application_name: _(Rails.configuration.branding[:application][:name]) })
     )
   end
 
