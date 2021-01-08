@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-01-08 12:37-0700\n"
-"PO-Revision-Date: 2021-01-08 12:37-0700\n"
+"POT-Creation-Date: 2021-01-08 15:50-0700\n"
+"PO-Revision-Date: 2021-01-08 15:50-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -1226,7 +1226,7 @@ msgid "-"
 msgstr ""
 
 #: ../../app/models/exported_plan.rb:180
-#: ../../app/views/shared/export/_plan.erb:50
+#: ../../app/views/shared/export/_plan.erb:52
 #: ../../app/views/shared/export/_plan_txt.erb:47
 msgid "Question not answered."
 msgstr ""
@@ -1534,7 +1534,6 @@ msgstr ""
 
 #: ../../app/views/branded/layouts/_navigation.html.erb:56
 #: ../../app/views/layouts/_header_navigation.html.erb:57
-#: ../../app/views/static_pages/about_us.html.erb:35
 #: ../../app/views/static_pages/help.html.erb:1
 #: ../../app/views/static_pages/help.html.erb:4
 msgid "Help"
@@ -1767,9 +1766,6 @@ msgstr ""
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:28
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:35
 #: ../../app/views/plans/_download_form.html.erb:116
-#: ../../app/views/static_pages/about_us.html.erb:22
-#: ../../app/views/static_pages/about_us.html.erb:29
-#: ../../app/views/static_pages/termsuse.html.erb:46
 msgid "Opens in new window"
 msgstr ""
 
@@ -2456,8 +2452,6 @@ msgid "Contact us"
 msgstr ""
 
 #: ../../app/views/layouts/_footer.html.erb:15
-#: ../../app/views/static_pages/termsuse.html.erb:1
-#: ../../app/views/static_pages/termsuse.html.erb:4
 msgid "Terms of use"
 msgstr ""
 
@@ -4194,109 +4188,121 @@ msgstr ""
 msgid "About %{application_name}"
 msgstr ""
 
-#: ../../app/views/static_pages/about_us.html.erb:11
-msgid ""
-"Scholarly researchers today are increasingly required to engage in a range of "
-"data management activities to comply with organisational policies, or as a pre"
-"condition for publication or grant funding. To aid researchers in creating eff"
-"ective Data Management Plans (DMPs), we have worked closely with funders and u"
-"niversities to develop an online application: DMPRoadmap. The tool provides de"
-"tailed guidance and links to general and organisational resources and walks a "
-"researcher through the process of generating a comprehensive plan tailored to "
-"specific DMP requirements."
-msgstr ""
-
 #: ../../app/views/static_pages/about_us.html.erb:13
-msgid "DMP Background"
-msgstr ""
-
-#: ../../app/views/static_pages/about_us.html.erb:15
 msgid ""
-"The Digital Curation Centre and UC3 team at the California Digital Library hav"
-"e developed and delivered tools for data management planning since the advent "
-"of open data policies in 2011. "
+"DMP Assistant is an all-purpose tool for preparing data management plans (DMPs"
+")."
 msgstr ""
 
-#: ../../app/views/static_pages/about_us.html.erb:16
-msgid " (DCC-UK) and "
+#: ../../app/views/static_pages/about_us.html.erb:14
+msgid "Researchers will be guided through best practices in data stewardship."
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:17
 msgid ""
-"(CDL-US) are now established in our national contexts as the resource for rese"
-"archers seeking guidance in creating DMPs. We have worked together from the ou"
-"tset to share experiences, but with the explosion of interest in both of our t"
-"ools across the globe we formalized our partnership to co-develop and maintain"
-" a single open-source platform for DMPs. By working together we can extend our"
-" reach, keep costs down, and move best practices forward, allowing us to parti"
-"cipate in a truly global open science ecosystem."
+"The tool walks researchers step-by-step through a number of key questions abou"
+"t data management."
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:18
+msgid "Guidance and examples are provided."
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:19
 msgid ""
-"The new platform will be separate from the services each of our teams runs on "
-"top of it. Our shared goal: provide a combined DMPRoadmap platform as a core i"
-"nfrastructure for DMPs. Future enhancements will focus on making DMPs machine "
-"actionable so please continue sharing your use cases."
+"Not all questions will apply to all research projects. Researchers are encoura"
+"ged to answer the questions relevant to their work."
 msgstr ""
 
-#: ../../app/views/static_pages/about_us.html.erb:21
-msgid "We invite you to peruse the DMPRoadmap GitHub wiki to learn how to "
-msgstr ""
-
-#: ../../app/views/static_pages/about_us.html.erb:22
+#: ../../app/views/static_pages/about_us.html.erb:20
 msgid ""
-"get involved<em class=\"sr-only\"> (new window)</em><span class=\"new-window-popu"
-"p-info\">%{open_in_new_window_text}</span>"
+"Researchers should revisit the tool throughout their research to review or com"
+"plete their responses."
 msgstr ""
 
-#: ../../app/views/static_pages/about_us.html.erb:28
-msgid " in the project. You can also report bugs and request new features via "
+#: ../../app/views/static_pages/about_us.html.erb:23
+msgid "How the tool works"
 msgstr ""
 
-#: ../../app/views/static_pages/about_us.html.erb:29
-msgid "GitHub Issues"
+#: ../../app/views/static_pages/about_us.html.erb:25
+msgid ""
+"Currently, this tool includes a generic Portage Data Stewardship template for "
+"researchers to use. Guidance is provided to help you interpret and answer the "
+"questions."
 msgstr ""
 
-#: ../../app/views/static_pages/about_us.html.erb:31
-msgid "Getting Started"
+#: ../../app/views/static_pages/about_us.html.erb:30
+msgid "DMP Assistant feedback"
 msgstr ""
 
-#: ../../app/views/static_pages/about_us.html.erb:33
-msgid "If you have an account please sign in and start creating or editing your DMP."
-msgstr ""
-
-#: ../../app/views/static_pages/about_us.html.erb:34
-msgid "If you do not have a %{application_name} account, click on"
-msgstr ""
-
-#: ../../app/views/static_pages/about_us.html.erb:34
-msgid "Sign up"
-msgstr ""
-
-#: ../../app/views/static_pages/about_us.html.erb:34
-msgid "on the homepage."
+#: ../../app/views/static_pages/about_us.html.erb:32
+msgid ""
+"We want your feedback! If you have suggestions on how to improve the existing "
+"template, or you would like to add additional templates based on funding agenc"
+"y requirements or disciplinary needs, please <a href=\"%{contact_your_instituti"
+"on_url}\">contact your local institution</a> or contact us at <a href=\"mailto:%"
+"{email_link}?Subject=%{email_subject}\">%{email_link}</a>."
 msgstr ""
 
 #: ../../app/views/static_pages/about_us.html.erb:35
-msgid "Please visit the"
+msgid "Getting started"
 msgstr ""
 
-#: ../../app/views/static_pages/about_us.html.erb:35
-msgid "page for guidance."
+#: ../../app/views/static_pages/about_us.html.erb:38
+msgid "If you have an account, please sign in and start creating or editing your DMP."
 msgstr ""
 
-#: ../../app/views/static_pages/about_us.html.erb:37
-msgid "Customising for your Organisation"
-msgstr ""
-
-#: ../../app/views/static_pages/about_us.html.erb:39
+#: ../../app/views/static_pages/about_us.html.erb:43
 msgid ""
-"Organisations can customise the tool to highlight local requirements, resource"
-"s, and services. Organisational templates can be added to address local DMP re"
-"quirements, and additional sections and questions can be included in funder te"
-"mplates. Users from participating organisations that configure the tool for si"
-"ngle sign-on can log in with their own organisational accounts."
+"If you do not have a DMP Assistant account, click on <a href=\"%{sign_up_url}\">"
+" 'Sign up' </a> on the homepage."
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:47
+msgid ""
+"Please note that we are currently working on single sign-in authentication wit"
+"h your campus ID. You will have the option to link your existing account to yo"
+"ur campus ID when that feature becomes available."
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:52
+msgid "Please visit the <a href=\"%{help_url}\"> 'Help' </a> page for guidance."
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:55
+msgid "Feedback"
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:58
+msgid ""
+"If you have any questions or comments about the DMP Assistant, <a href=\"%{cont"
+"act_your_institution_url}\"> contact your local institution </a> or email us at"
+"  <a href=\"mailto:%{email_link}?Subject=%{email_subject}\">%{email_link}</a>."
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:61
+msgid "Portage data stewardship template"
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:64
+msgid ""
+"The Portage Data Stewardship template is based on internationally accepted sta"
+"ndards and best practices. It has been prepared and is maintained by a group o"
+"f research data management experts from research libraries across Canada."
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:68
+msgid ""
+"Organizations may provide their own DMP templates. The Portage template is the"
+" default DMP. Select templates from other organizations from the drop-down Org"
+"anization list."
+msgstr ""
+
+#: ../../app/views/static_pages/about_us.html.erb:72
+msgid ""
+"For funding agencies, research institutions, and other organizations, please c"
+"ontact <a href=\"mailto:%{email_link}\">%{email_link}</a> if you would like to a"
+"dd your organization templates to DMP Assistant."
 msgstr ""
 
 #: ../../app/views/static_pages/help.html.erb:11
@@ -4484,86 +4490,6 @@ msgstr ""
 msgid ""
 "This statement was last revised on %{revdate} and may be revised at any time w"
 "ith prior notice."
-msgstr ""
-
-#: ../../app/views/static_pages/termsuse.html.erb:12
-msgid ""
-"(CDL) are consortia supported by the University of Edinburgh and the Universit"
-"y of California, respectively. Our primary constituency is the research commun"
-"ity. We provide services to the UK, US and international higher education sect"
-"or. "
-msgstr ""
-
-#: ../../app/views/static_pages/termsuse.html.erb:14
-msgid "DMPRoadmap"
-msgstr ""
-
-#: ../../app/views/static_pages/termsuse.html.erb:16
-msgid ""
-"DMPRoadmap ('the tool', 'the system') is a tool developed by the DCC and CDL a"
-"s a shared resource for the research community. It is hosted at CDL by the Uni"
-"versity of California Curation Center."
-msgstr ""
-
-#: ../../app/views/static_pages/termsuse.html.erb:18
-msgid ""
-"<h3>Your personal details and consent notice</h3>\n"
-"\n"
-"      <p>In order to help identify and administer your account with DMPRoadmap"
-", we need to store your name and email address. We may also use it to contact "
-"you to obtain feedback on your use of the tool, or to inform you of the latest"
-" developments or releases. The information may be transferred between the DCC "
-"and CDL but only for the following legitimate DCC and CDL purposes: marketing,"
-" improving our services and informing you of relevant content and events. We w"
-"ill not sell, rent, or trade any personal information you provide to us.\n"
-"\n"
-"\n"
-"        By using this system, you consent to the collection, retention, and us"
-"e of your personal information in accordance with the above. You have the righ"
-"t to ask us not to process your personal details for marketing purposes.</p>\n"
-"\n"
-"      <h3>Privacy policy</h3>\n"
-"\n"
-"      <p>The information you enter into this system can be seen by you, people"
-" you have chosen to share access with, and - solely for the purposes of mainta"
-"ining the service - system administrators at DCC and CDL. We compile anonymize"
-"d, automated, and aggregated information from plans, but we will not directly "
-"access, make use of, or share your content with anyone else without your permi"
-"ssion. Authorized officers of your home organisation may access your plans for"
-" specific purposes - for example, to track compliance with funder/organisation"
-"al requirements, to calculate storage requirements, or to assess demand for da"
-"ta management services across disciplines.</p>\n"
-"\n"
-"      <h3>Freedom of Information</h3>\n"
-"\n"
-"      <p>DCC and CDL hold your plans on your behalf, but they are your propert"
-"y and responsibility. Any FOIA applicants will be referred back to your home o"
-"rganisation.</p>\n"
-"\n"
-"      <h3>Passwords</h3>\n"
-"      <p>Your password is stored in encrypted form and cannot be retrieved. If"
-" forgotten it has to be reset.</p>\n"
-"\n"
-"      <h3>Cookies</h3>\n"
-"\n"
-"      <p>Please note that DMPRoadmap uses Cookies. Further information about C"
-"ookies and how we use them is available on the <a target='_blank' href='http:/"
-"/www.dcc.ac.uk/about-us/about-site/website-terms-use/cookies' class=\"has-new-w"
-"indow-popup-info\">main DCC website<em class=\"sr-only\"> (new window)</em><span "
-"class=\"new-window-popup-info\">%{open_in_new_window_text}</span></a>.</p>\n"
-"\n"
-"      <h3>Third party APIs</h3>\n"
-"\n"
-"      <p>Certain features on this website utilize third party services and API"
-"s such as InCommon/Shibboleth or third party hosting of common JavaScript libr"
-"aries or web fonts. Information used by an external service is governed by the"
-" privacy policy of that service.</p>\n"
-"\n"
-"      <h3>Revisions</h3>\n"
-"\n"
-"      <p>This statement was last revised on October 5, 2017 and may be revised"
-" at any time. Use of the tool indicates that you understand and agree to these"
-" terms and conditions.</p>"
 msgstr ""
 
 #: ../../app/views/super_admin/notifications/_form.html.erb:20
