@@ -29,7 +29,7 @@
         <% email_link = Rails.configuration.branding[:organisation][:helpdesk_email] %>
         <% email_subject = _('DMP Assistant feedback').gsub(' ', '%20') %>
         <% contact_your_institution_url = 'https://portagenetwork.ca/tools-and-resources/institutional-rdm-contacts/' %>
-        <%= _(sanitize("We want your feedback! If you have suggestions on how to improve the existing template, or you would like to add additional templates based on funding agency requirements or disciplinary needs, please <a href=\"#{contact_your_institution_url}/\">contact your local institution</a> or contact us at <a href=\"mailto:#{email_link}?Subject=#{email_subject}\">#{email_link}</a>.")) %>        
+        <%= sanitize(_('We want your feedback! If you have suggestions on how to improve the existing template, or you would like to add additional templates based on funding agency requirements or disciplinary needs, please <a href="%{contact_your_institution_url}">contact your local institution</a> or contact us at <a href="mailto:%{email_link}?Subject=%{email_subject}">%{email_link}</a>.') % {contact_your_institution_url: contact_your_institution_url, email_link: email_link, email_subject: email_subject}) %>        
       </p>
 
       <h2 class="fontsize-h3"><%= _('Getting started') %></h2>
@@ -40,7 +40,7 @@
 
       <p>
         <% sign_up_url = request.base_url %>
-        <%= _(sanitize("If you do not have a DMP Assistant account, click on <a href=\"#{sign_up_url}\"> 'Sign up' </a> on the homepage.")) %>
+        <%= sanitize(_('If you do not have a DMP Assistant account, click on <a href="%{sign_up_url}"> \'Sign up\' </a> on the homepage.') % { sign_up_url: sign_up_url} ) %>
       </p>
 
       <p>
@@ -49,13 +49,13 @@
 
       <p>
         <% help_url = "help_url" %>
-        <%= _(sanitize("Please visit the <a href=\"#{help_url}\"> 'Help' </a> page for guidance.")) %>
+        <%= sanitize(_('Please visit the <a href="%{help_url}"> \'Help\' </a> page for guidance.') % {help_url: help_url}) %>
       </p>
 
       <h2 class="fontsize-h3"><%= _('Feedback') %></h2>
 
       <p>
-        <%= _(sanitize("If you have any questions or comments about the DMP Assistant, <a href=\"#{contact_your_institution_url}/\"> contact your local institution </a> or email us at  <a href=\"mailto:#{email_link}?Subject=#{email_subject}\">#{email_link}</a>.")) %>
+        <%= sanitize(_('If you have any questions or comments about the DMP Assistant, <a href="%{contact_your_institution_url}"> contact your local institution </a> or email us at  <a href="mailto:%{email_link}?Subject=%{email_subject}">%{email_link}</a>.') % { contact_your_institution_url: contact_your_institution_url, email_link: email_link, email_subject: email_subject} )  %>
       </p>
 
       <h2 class="fontsize-h3"><%= _('Portage data stewardship template') %></h2>
@@ -69,7 +69,7 @@
       </p>
 
       <p>
-        <%= _(sanitize("For funding agencies, research institutions, and other organizations, please contact <a href=\"mailto:#{email_link}\">#{email_link}</a> if you would like to add your organization templates to DMP Assistant.")) %>
+        <%= sanitize(_('For funding agencies, research institutions, and other organizations, please contact <a href="mailto:%{email_link}">%{email_link}</a> if you would like to add your organization templates to DMP Assistant.') % { email_link: email_link}) %>
       </p>
 
     </div>
