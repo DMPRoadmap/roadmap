@@ -13,7 +13,7 @@ $(() => {
   };
 
   // attach listener to separator select menu
-  // on change look for "stat" elements and change their query param
+  // on change look for "stat" elements and chnage their query param
   if (document.getElementById('csv-field-sep')) {
     document.getElementById('csv-field-sep').addEventListener('click', (e) => {
       const statElems = document.getElementsByClassName('stat');
@@ -22,7 +22,7 @@ $(() => {
       Array.from(statElems).forEach(changeStatFn);
     });
   }
-  
+
   initializeCharts();
 
   // Create the Users joined chart
