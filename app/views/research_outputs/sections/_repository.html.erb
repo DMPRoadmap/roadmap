@@ -1,0 +1,48 @@
+<%# locals: form, presenter, research_output %>
+
+<div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <div class="panel-title pull-left"
+           data-toggle="collapse"
+           aria-expanded="false"
+           aria-controls="repository-section"
+           id="repository-section-heading"
+           href="#repository-section">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        <%= _("Repository") %>
+      </div>
+    </div>
+</div>
+
+<div id = "repository-section"
+     class = "panel-collapse collapse"
+     role="tabpanel"
+     aria-labelledby="repository-section-heading">
+  <div class="panel-body">
+    <div class="form-group row">
+      <div class="col-md-12 repository-selection">
+        <%= render partial: "research_outputs/repository/selection",
+                   locals: { form: form, research_output: research_output } %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-6">
+        <%= form.label :repository_search_term, _("Find a repository") %>
+        <%= form.text_field :repository_search_term, class: "form-control autocomplete",
+                            placeholder: _("Search for repositories by name, url or keywords like 'biology'."),
+                            data: {
+                              remote: true,
+                              url: repository_search_plan_research_output_path(research_output.plan, research_output),
+                              method: :post } %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-md-12 repository-search-results">
+        <%= render partial: "research_outputs/repository/search_results",
+                   locals: { research_output: research_output, search_results: [] } %>
+      </div>
+    </div>
+  </div>
+</div>

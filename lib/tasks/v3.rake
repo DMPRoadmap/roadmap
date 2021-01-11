@@ -9,9 +9,11 @@ namespace :v3 do
 
   desc "Upgrade from v3.0.0 to v3.1.0"
   task upgrade_3_1_0: :environment do
-    Rake::Task["mime_types:load"].execute
-    Rake::Task["init_open_aire"].execute
-    Rake::Task["seed_external_services"].execute
+    Rake::Task["v3:mime_types:load"].execute
+    Rake::Task["v3:init_open_aire"].execute
+    Rake::Task["v3:init_re3data"].execute
+    Rake::Task["v3:seed_external_services"].execute
+    Rake::Task["v3:load_re3data_repos"].execute
   end
 
   # Set any records with a nil `language_id` to the default language
@@ -91,10 +93,16 @@ namespace :v3 do
     openaire = IdentifierScheme.find_or_initialize_by(name: "rethreedata")
     openaire.for_research_outputs = true
     openaire.description = "Registry of Research Data Repositories (re3data)"
-    openaire.identifier_prefix = ""
+    openaire.identifier_prefix = "https://www.re3data.org/api/v1/repository/"
     openaire.external_service = "ExternalApis::Re3dataService"
     openaire.active = true
     openaire.save
+  end
+
+  desc "Load Repositories from re3data"
+  task load_re3data_repos: :environment do
+    Rails::Task["v3:init_re3data"].execute unless IdentifierScheme.find_by(name: "rethreedata").present?
+    ExternalApis::Re3dataService.fetch
   end
 
 end

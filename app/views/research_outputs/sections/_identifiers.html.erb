@@ -2,7 +2,8 @@
 
 <%
   categories = {
-    metadata_standards: { label: _("Metadata standards"), schemes: [] }
+    metadata_standards: { label: _("Metadata standards"), schemes: [] },
+    repository: { label: _("Repository"), schemes: [] }
   }
   IdentifierScheme.for_research_outputs.where.not(external_service: nil).each do |scheme|
     next unless scheme.external_service.present?
@@ -11,6 +12,8 @@
     category = case scheme.name
                when "openaire"
                  :metadata_standards
+               when "rethreedata"
+                 :repository
                end
     # Only select if the ExternalApis service is active and the IdentifierScheme is
     # mapped into a ResearchOutput Identifier association and the ResearchOutput
@@ -24,8 +27,6 @@
     next
   end
 %>
-
-Repositories: <%= ExternalApis::Re3dataService.fetch_list %>
 
 <% categories.each do |category, hash| %>
   <% next unless hash.fetch(:schemes, []).any? %>

@@ -5,7 +5,7 @@ class ResearchOutputsController < ApplicationController
   helper PaginableHelper
 
   before_action :fetch_plan, except: %i[select_output_type]
-  before_action :fetch_research_output, only: %i[edit update destroy]
+  before_action :fetch_research_output, only: %i[edit update destroy repository_search]
 
   after_action :verify_authorized
 
@@ -68,6 +68,19 @@ class ResearchOutputsController < ApplicationController
     end
   end
 
+  # POST /plans/:plan_id/research_outputs/:id/repository_search
+  def repository_search
+    authorize @research_output
+
+    # rubocop:disable Style/ConditionalAssignment
+    if repository_search_params[:facet].present?
+      @search_results = Repository.by_facet(repository_search_params[:facet])
+    else
+      @search_results = Repository.search(repository_search_params[:repository_search_term])
+    end
+    # rubocop:enable Style/ConditionalAssignment
+  end
+
   # ============================
   # = Rails UJS remote methods =
   # ============================
@@ -89,6 +102,10 @@ class ResearchOutputsController < ApplicationController
                      sensitive_data personal_data file_size file_size_unit mime_type_id
                      release_date access coverage_start coverage_end coverage_region
                      mandatory_attribution])
+  end
+
+  def repository_search_params
+    params.require(:research_output).permit(%i[repository_search_term facet])
   end
 
   def process_byte_size

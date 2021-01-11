@@ -48,6 +48,7 @@ class ResearchOutput < ApplicationRecord
 
   belongs_to :plan, optional: true
   belongs_to :mime_type, optional: true
+  belongs_to :repository, optional: true
 
   # ===============
   # = Validations =

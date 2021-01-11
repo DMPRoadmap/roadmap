@@ -167,7 +167,11 @@ Rails.application.routes.draw do
 
     resources :contributors, except: %i[show]
 
-    resources :research_outputs, except: %i[show]
+    resources :research_outputs, except: %i[show] do
+      member do
+        post :repository_search
+      end
+    end
 
     member do
       get "answer"

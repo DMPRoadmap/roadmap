@@ -1,0 +1,10 @@
+<%# locals: research_output, search_results %>
+
+<% if search_results.length >= 50 %>
+  <p><%= _("More than 30 repositories matched your search criteria, try narrowing your search.") %></p>
+<% end %>
+
+<% search_results[0..29].each do |repository| %>
+  <%= render partial: "research_outputs/repository/card",
+             locals: { research_output: research_output, repository: repository } %>
+<% end %>

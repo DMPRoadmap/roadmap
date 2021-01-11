@@ -67,26 +67,33 @@ descr_tooltip = _("TODO: provide some context on what is expected here")
 
   <div class="panel-group" role="tablist" aria-multiselectable="true">
     <div class="panel panel-default">
-      <%= render partial: "research_outputs/security", locals: { form: f, presenter: presenter } %>
+      <%= render partial: "research_outputs/sections/security", locals: { form: f, presenter: presenter } %>
     </div>
 
     <div class="panel panel-default">
-      <%= render partial: "research_outputs/geographical", locals: { form: f, presenter: presenter } %>
+      <%= render partial: "research_outputs/sections/geographical", locals: { form: f, presenter: presenter } %>
     </div>
 
     <div class="panel panel-default <%= presenter.selectable_mime_types.any? ? "" : "hidden" %>"
          id="file-metadata-panel">
-      <%= render partial: "research_outputs/file", locals: { form: f, presenter: presenter } %>
+      <%= render partial: "research_outputs/sections/file", locals: { form: f, presenter: presenter } %>
     </div>
 
     <div class="panel panel-default">
-      <%= render partial: "research_outputs/attribution", locals: { form: f, presenter: presenter } %>
+      <%= render partial: "research_outputs/sections/attribution", locals: { form: f, presenter: presenter } %>
     </div>
 
-    <div class="panel panel-default">
-      <%= render partial: "research_outputs/identifiers",
-                 locals: { form: f, plan: plan, research_output: research_output } %>
-    </div>
+    <% unless research_output.new_record? %>
+      <div class="panel panel-default">
+        <%= render partial: "research_outputs/sections/repository",
+                   locals: { form: f, presenter: presenter, research_output: research_output } %>
+      </div>
+
+      <div class="panel panel-default">
+        <%#= render partial: "research_outputs/sections/identifiers",
+                   locals: { form: f, plan: plan, research_output: research_output } %>
+      </div>
+    <% end %>
   </div>
 
   <div class="form-group row">

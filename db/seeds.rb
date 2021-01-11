@@ -62,6 +62,14 @@ identifier_schemes = [
     identifier_prefix: "",
     for_research_outputs: true,
     external_service: "ExternalApis::OpenAireService"
+  },
+  {
+    name: "rethreedata",
+    description: "Registry of Research Data Repositories (re3data)",
+    active: true,
+    identifier_prefix: "https://www.re3data.org/api/v1/repository/",
+    for_research_outputs: true,
+    external_service: "ExternalApis::Re3dataService"
   }
 ]
 identifier_schemes.each { |is| IdentifierScheme.create!(is) }

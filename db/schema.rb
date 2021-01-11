@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_07_172458) do
+ActiveRecord::Schema.define(version: 2021_01_08_180323) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -354,6 +354,18 @@ ActiveRecord::Schema.define(version: 2021_01_07_172458) do
     t.string "description"
     t.string "name"
     t.integer "super_region_id"
+  end
+
+  create_table "repositories", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", null: false
+    t.string "url"
+    t.string "contact"
+    t.json "info"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_repositories_on_name"
+    t.index ["url"], name: "index_repositories_on_url"
   end
 
   create_table "research_outputs", force: :cascade do |t|
