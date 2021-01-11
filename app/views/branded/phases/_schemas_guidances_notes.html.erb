@@ -5,15 +5,13 @@
 
   <!-- Nav tabs -->
   <ul class="nav nav-pills nav-justified mb-10" role="tablist">
-    <% unless answer.new_record? %>
-      <li role="presentation" class="active">
-          <a href="#forms-<%= question.id %>-research-output-<%= research_output.id %>" aria-controls="" role="tab" data-toggle="pill">
-              <%= _('Forms') %>
-          </a>
-      </li>
-    <% end %>
+    <li role="presentation" class="active">
+        <a href="#forms-<%= question.id %>-research-output-<%= research_output.id %>" aria-controls="" role="tab" data-toggle="pill">
+            <%= _('Forms') %>
+        </a>
+    </li>
     <% if guidances_active %>
-        <li role="presentation"class="<%= 'active' if answer.new_record? && guidances_active %>">
+        <li role="presentation">
             <a href="#guidances-<%= question.id %>-research-output-<%= research_output.id %>" 
                 aria-controls="guidances-<%= question.id %>-research-output-<%= research_output.id %>" role="tab" data-toggle="pill">
                 <%= _('Guidance') %>
@@ -21,7 +19,7 @@
         </li>
     <% end %>
     <% if plan.present? %>
-        <li role="presentation" class="<%= 'active' if answer.new_record? && !guidances_active %>">
+        <li role="presentation">
             <a href="#notes-<%= question.id %>-research-output-<%= research_output.id %>" 
                 aria-controls="notes-<%= question.id %>-research-output-<%= research_output.id %>" role="tab" data-toggle="pill">
                 <span id="notes-title-<%= question.id %>-research-output-<%= research_output.id %>">
@@ -34,22 +32,20 @@
 
 
   <div class="tab-content">
-    <% unless answer.new_record? %>
-      <div id="forms-<%= question.id %>-research-output-<%= research_output.id %>" role="tabpanel" class="tab-pane active">     
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-md-12">
-                <%= render partial: 'shared/dynamic_form/schema_picker', locals: { madmp_schema: madmp_schema, pickable_schemas: pickable_schemas, question: question, research_output: research_output } %>
-              </div>
+    <div id="forms-<%= question.id %>-research-output-<%= research_output.id %>" role="tabpanel" class="tab-pane active">     
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <%= render partial: 'shared/dynamic_form/schema_picker', locals: { madmp_schema: madmp_schema, pickable_schemas: pickable_schemas, question: question, research_output: research_output } %>
             </div>
           </div>
         </div>
       </div>
-    <% end %>
+    </div>
     <% if guidances_active %>
       <% tablist = guidance_presenter.tablist(question) %>
-      <div id="guidances-<%= question.id %>-research-output-<%= research_output.id %>" role="tabpanel" class="tab-pane <%= 'active' if answer.new_record? && guidances_active %>">
+      <div id="guidances-<%= question.id %>-research-output-<%= research_output.id %>" role="tabpanel" class="tab-pane">
         <ul class="nav nav-tabs" role="tablist">
           <% tablist.each_with_index do |tab, i| %>
             <% active_nav ||= tab[:name] %>
@@ -68,7 +64,7 @@
         </ul>
         <div class="tab-content">
           <% tablist.each_with_index do |tab, i| %>
-            <div id="<%= "guidance_per_question_#{question.id}_research_output_#{research_output.id}_#{i}" %>" role="tabpanel" class="tab-pane <%= active_nav == tab[:name] ? 'active' : '' %>">
+            <div id="<%= "guidance_per_question_#{question.id}_research_output_#{research_output.id}_#{i}" %>" role="tabpanel" class="tab-pane">
                 <div class="panel panel-default">
                   <div class="panel-body">
                     <% if tab[:annotations].present? %>
@@ -98,7 +94,7 @@
     <% end %>
 
     <% if plan.present? %>
-      <div id="notes-<%= question.id %>-research-output-<%= research_output.id %>" role="tabpanel" class="tab-pane <%= 'active' if answer.new_record? && !guidances_active %> notes">
+      <div id="notes-<%= question.id %>-research-output-<%= research_output.id %>" role="tabpanel" class="tab-pane notes">
         <%= render partial: '/notes/layout', locals: { plan: plan, question: question, answer: answer, research_output: research_output } %>
       </div>
     <% end %>
