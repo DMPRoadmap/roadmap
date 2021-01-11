@@ -2,6 +2,7 @@ import {
   doneCallback,
   failCallback,
 } from '../answers/edit';
+import { Tinymce } from '../../utils/tinymce.js.erb';
 // import TimeagoFactory from '../../utils/timeagoFactory';
 
 $(() => {
@@ -9,6 +10,7 @@ $(() => {
   const hideSavingMessage = jQuery => jQuery.parents('.question-form').find('[data-status="saving"]').hide();
   const showLoadingOverlay = jQuery => jQuery.find('.overlay').show();
   const hideLoadingOverlay = jQuery => jQuery.find('.overlay').hide();
+  const toolbar = 'bold italic | bullist numlist | link | table';
 
   $('.fragment-content').on('shown.bs.collapse', (e) => {
     const target = $(e.target);
@@ -29,6 +31,10 @@ $(() => {
         },
       }).done((data) => {
         doneCallback(data, target);
+        Tinymce.init({
+          selector: `#research_output_${data.research_output.id}_section_${data.section.id} .note`,
+          toolbar,
+        });
       }).fail((error) => {
         failCallback(error, target);
       });
@@ -45,6 +51,10 @@ $(() => {
         },
       }).done((data) => {
         doneCallback(data, target);
+        Tinymce.init({
+          selector: `#research_output_${data.research_output.id}_section_${data.section.id} .note`,
+          toolbar,
+        });
       }).fail((error) => {
         failCallback(error, target);
       });
