@@ -86,6 +86,7 @@ yarn-error.log
 yarn-debug.log*
 
 .env
+.env-working
 package-lock.json
 node_modules
 /public/packs
