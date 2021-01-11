@@ -1,14 +1,14 @@
-import frCA from '../locale/fr_CA/timeago';
-import enCA from '../locale/en_CA/timeago';
-import enGB from '../locale/en_GB/timeago';
+import frCA from '../locale/fr-CA/timeago';
+import enCA from '../locale/en-CA/timeago';
+import enGB from '../locale/en-GB/timeago';
 
 
 /* global timeago */
 
 const TimeagoFactory = (() => {
-  timeago.register('fr_CA', frCA);
-  timeago.register('en_CA', enCA);
-  timeago.register('en_GB', enGB);
+  timeago.register('fr-CA', frCA);
+  timeago.register('en-CA', enCA);
+  timeago.register('en-GB', enGB);
   /*
     @param el - DOM element
     @returns
@@ -20,7 +20,7 @@ const TimeagoFactory = (() => {
       // This variable is defined on application.html.erb
       // We are using a global variable since fetching from $('body').dataset
       // was not working.
-      /* global i18nLocale */
+      /* global i18nLocale defined in application.html.erb*/
       timeago().render(el, i18nLocale);
     },
   };
