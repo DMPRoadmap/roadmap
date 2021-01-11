@@ -31,7 +31,7 @@ class MadmpFragment < ActiveRecord::Base
   belongs_to :answer
   belongs_to :madmp_schema, class_name: "MadmpSchema"
   belongs_to :dmp, class_name: "Fragment::Dmp", foreign_key: "dmp_id"
-  has_many :children, class_name: "MadmpFragment", foreign_key: "parent_id"
+  has_many :children, class_name: "MadmpFragment", foreign_key: "parent_id", dependent: :destroy
   belongs_to :parent, class_name: "MadmpFragment", foreign_key: "parent_id"
 
   # ===============

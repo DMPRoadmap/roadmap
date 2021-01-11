@@ -118,7 +118,7 @@ module Dmpopidor
             @plan.add_user!(current_user.id, :creator)
 
             @plan.create_plan_fragments
-            
+
             # Add default research output if possible
             @plan.research_outputs.create(
               abbreviation: "Default",
@@ -326,6 +326,27 @@ module Dmpopidor
         @phase_options = @plan.phases.order(:number).pluck(:title, :id)
         @export_settings = @plan.settings(:export)
         render "download"
+      end
+
+      # CHANGES : MADMP_FRAGMENTS SUPPORT
+      def destroy
+        @plan = Plan.find(params[:id])
+        dmp_fragment = @plan.json_fragment
+        authorize @plan
+        if @plan.destroy
+          dmp_fragment.destroy
+          respond_to do |format|
+            format.html do
+              redirect_to plans_url,
+                          notice: success_message(@plan, _("deleted"))
+            end
+          end
+        else
+          respond_to do |format|
+            flash[:alert] = failure_message(@plan, _("delete"))
+            format.html { render action: "edit" }
+          end
+        end
       end
 
       private

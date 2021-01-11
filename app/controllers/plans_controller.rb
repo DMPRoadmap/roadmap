@@ -289,6 +289,7 @@ class PlansController < ApplicationController
     end
   end
 
+  # SEE MODULE
   def destroy
     @plan = Plan.find(params[:id])
     authorize @plan
