@@ -7,3 +7,5 @@ coverage/
 .dockerignore
 docker-compose-development.yml
 docker-compose.yml
+.env
+.env-working
