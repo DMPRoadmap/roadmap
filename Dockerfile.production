@@ -17,7 +17,12 @@ RUN apt-get update -qq && \
   default-mysql-client \
   gettext \
   nodejs \
-  yarn
+  yarn \
+  locales
+
+ENV LANG=fr_CA.UTF-8 \
+    LANGUAGE=fr_CA:fr \ 
+    LC_ALL=fr_CA.UTF-8 
 
 RUN wget --quiet https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
     tar vxf wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
