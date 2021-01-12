@@ -20,7 +20,8 @@ const TimeagoFactory = (() => {
       // This variable is defined on application.html.erb
       // We are using a global variable since fetching from $('body').dataset
       // was not working.
-      // global i18nLocale defined in application.html.erb 
+      /* global i18nLocale */
+      // defined in application.html.erb
       timeago().render(el, i18nLocale);
     },
   };
