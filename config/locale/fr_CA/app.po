@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-01-11 09:54-0700\n"
-"PO-Revision-Date: 2021-01-11 17:54+0100\n"
+"POT-Creation-Date: 2021-01-11 13:03-0700\n"
+"PO-Revision-Date: 2021-01-11 21:03+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_CA\n"
@@ -4660,8 +4660,8 @@ msgid ""
 msgstr ""
 "Si vous avez des questions ou des commentaires au sujet de l'Assistant PGD, <a"
 " href=\"%{contact_your_institution_url}\">communiquez avec votre établissement u"
-"niversitaire</a> ou communiquez avec nous par courriel à <a href=\"mailto:%{ema"
-"il_link}?Subject=%{email_subject}\">support@portagenetwork.ca</a>.\n"
+"niversitaire</a> ou communiquez avec nous par courriel à  <a href=\"mailto:%{em"
+"ail_link}?Subject=%{email_subject}\">%{email_link}</a>.\n"
 
 #: ../../app/views/static_pages/about_us.html.erb:61
 msgid "Portage data stewardship template"
@@ -5413,7 +5413,7 @@ msgstr ""
 
 #: ../../app/views/translation_io_exports/question_formats.html.erb:9
 msgid "Radio buttons"
-msgstr ""
+msgstr "Boutons radio"
 
 #: ../../app/views/translation_io_exports/question_formats.html.erb:10
 msgid "a group of buttons that allow selection of a single value out of a set"
@@ -5429,7 +5429,7 @@ msgstr ""
 
 #: ../../app/views/translation_io_exports/question_formats.html.erb:13
 msgid "Dropdown"
-msgstr ""
+msgstr "Liste déroulante"
 
 #: ../../app/views/translation_io_exports/question_formats.html.erb:14
 msgid "an area that displays a list of available values where one can be selected"
@@ -5437,7 +5437,7 @@ msgstr ""
 
 #: ../../app/views/translation_io_exports/question_formats.html.erb:15
 msgid "Multi select box"
-msgstr ""
+msgstr "Case à options multiples"
 
 #: ../../app/views/translation_io_exports/question_formats.html.erb:16
 msgid ""
