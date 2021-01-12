@@ -2,6 +2,10 @@
   margin-top: 5px;
   padding-bottom: 5px;
 
+  .tags > .tag {
+    display: inline-block;
+    margin: 5px 2px;
+  }
   .tags .facet {
     border: 1px solid $color-blue;
     border-radius: 25px;

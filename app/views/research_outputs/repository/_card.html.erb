@@ -10,18 +10,25 @@
       <% end %>
     </div>
     <div class="tags">
-      <% repository.info.fetch("keywords", []).each do |tag| %>
-        <%= link_to tag, repository_search_plan_research_output_path(research_output.plan, research_output),
-                    class: "facet",
-                    data: {
-                      remote: true,
-                      params: { research_output: { facet: tag } }.to_param,
-                      method: :post
-                    } %>
-      <% end %>
+      <% line_breaker = 0 %>
+        <% repository.info.fetch("keywords", []).each do |tag| %>
+          <% if line_breaker >= 50 %>
+            <% line_breaker = 0 %>
+          <% end %>
+          <% line_breaker += tag.length %>
+          <div class="tag">
+            <%= link_to tag, repository_search_plan_research_output_path(research_output.plan, research_output),
+                        class: "facet", title: _("Click to view repositories related to %{subject}") % { subject: tag },
+                        data: {
+                          remote: true,
+                          params: { research_output: { facet: tag } }.to_param,
+                          method: :post
+                        } %>
+          </div>
+        <% end %>
     </div>
     <div class="more-info more-info-<%= repository.id %>">
-      <%= link_to _("More info"), "#", class: "" %>
+      <%= link_to _("More info"), "#", class: "more-info-link" %>
 
       <div class="info hidden">
         <% info = repository.info.with_indifferent_access %>

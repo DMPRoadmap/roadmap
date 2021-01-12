@@ -3,7 +3,7 @@ import getConstant from './constants';
 //
 //
 $(() => {
-  $('body').on('click', '.card .more-info a', (e) => {
+  $('body').on('click', '.card .more-info a.more-info-link', (e) => {
     e.preventDefault();
     const link = $(e.target);
 
