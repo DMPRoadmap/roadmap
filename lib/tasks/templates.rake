@@ -37,6 +37,109 @@ namespace :templates do
       end
     end
   end
+
+  desc "Export template by Id"
+  task :export_template_by_id, [:template_id] => [:environment] do |task, args|
+    # Template 3118 is our current Portage templatee
+    template = Template.find args[:template_id]
+
+    # has_many :plans
+    # has_many :phases, dependent: :destroy
+    # has_many :sections, through: :phases
+    # has_many :questions, through: :sections
+    # has_many :annotations, through: :questions
+
+    # Phases
+    # Sections
+    # Questions
+    # Annotations
+    output = {
+      templates: [],
+      phases: [],
+      sections: [],
+      questions: [],
+      annotations: []
+    }
+
+    output[:templates] << template
+
+    template.phases.each do |phase|
+      # Create phase
+      # puts "Phase id #{phase.id}"
+      output[:phases] << phase
+      phase.sections.each do |section|
+        # puts "Section id #{section.id}"
+        # Create section
+        output[:sections] << section
+        section.questions.each do |question|
+          # puts "Question id #{question.id}"
+          # Create question
+          output[:questions] << question
+          question.annotations.each do |annotation|
+            # puts "Annotation id #{annotation.id}"
+            # Create annotation
+            output[:annotations] << annotation
+          end
+        end
+      end
+    end
+
+    puts output.to_json
+
+  end
+
+  desc "Import new template"
+  task import_new_template: :environment do
+    file = File.read('/home/orodrigu/Workspace/roadmap/portage_template.json')
+    data = JSON.parse(file)
+
+    templates_ids = {}
+    phases_ids = {}
+    sections_ids = {}
+    questions_ids = {}
+    annotations_ids = {}
+
+    data["templates"].each do |template_json|
+      template = Template.new(template_json.except[:id])
+      template.name = "Portage testing"
+      # SAVE
+      template.save!
+      templates_ids[template_json[:id]] = template
+    end
+
+    data["phases"].each do |phase_json|
+      phase = Phase.new(phase_json.except([:id, :template_id]))
+      phase.template = templates_ids[phase_json[:template_id]]
+      # SAVE
+      phase.save!
+      phases_ids[phase_json[:id]] = phase
+    end
+
+    data["sections"].each do |section_json|
+      section = Section.new(section_json.except([:id, :phase_id]))
+      section.phase = phases_ids[section_json[:phase_id]]
+      # SAVE
+      section.save!
+      sections_ids[section_json[:id]] = section
+    end
+
+    data["questions"].each do |question_json|
+      question = Question.new(question_json.except([:id, :section_id]))
+      question.section = sections_ids[question_json[:section_id]]
+      # SAVE
+      question.save!
+      questions_ids[question_json[:id]] = question
+    end
+
+    data["annotations"].each do |annotation_json|
+      annotation = Annotation.new(annotation_json.except([:id, :question_id]))
+      annotation.question = questions_ids[annotation_json[:question_id]]
+      annotation.save!
+      # SAVE
+    end
+
+  end
+
   
   desc "Cleanup excess versions"
   task clean_up_excess_versions: :environment do
