@@ -25,11 +25,16 @@
 #  updated_at              :datetime         not null
 #  mime_type_id            :integer
 #  plan_id                 :integer
+#  repository_id           :integer
 #
 # Indexes
 #
 #  index_research_outputs_on_output_type  (output_type)
 #  index_research_outputs_on_plan_id      (plan_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (repository_id => repositories.id)
 #
 class ResearchOutput < ApplicationRecord
 

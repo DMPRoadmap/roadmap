@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_08_180323) do
+ActiveRecord::Schema.define(version: 2021_01_13_174230) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -389,8 +389,10 @@ ActiveRecord::Schema.define(version: 2021_01_08_180323) do
     t.string "coverage_region"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "repository_id"
     t.index ["output_type"], name: "index_research_outputs_on_output_type"
     t.index ["plan_id"], name: "index_research_outputs_on_plan_id"
+    t.index ["repository_id"], name: "index_research_outputs_on_repository_id"
   end
 
   create_table "roles", id: :integer, force: :cascade do |t|
@@ -567,6 +569,7 @@ ActiveRecord::Schema.define(version: 2021_01_08_180323) do
   add_foreign_key "question_options", "questions"
   add_foreign_key "questions", "question_formats"
   add_foreign_key "questions", "sections"
+  add_foreign_key "research_outputs", "repositories"
   add_foreign_key "roles", "plans"
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"

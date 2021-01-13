@@ -1,4 +1,4 @@
-<%# locals: context, model %>
+<%# locals: context, model, selected %>
 
 <% if model.present? %>
   <p><%= model.description %></p>
@@ -7,7 +7,7 @@
       <%= link_to "#", keyword, class: "btn btn-default" %>
     <% end %>
   </div>
-  <div class="tags">
+  <div class="tags <%= selected ? 'hidden' : '' %>">
     <% line_breaker = 0 %>
       <% model.info.fetch("keywords", []).each do |tag| %>
         <% if line_breaker >= 50 %>

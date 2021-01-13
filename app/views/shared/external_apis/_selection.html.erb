@@ -5,8 +5,8 @@
     <span class="no-selections"><%= _("No %{topic} has been selected for this research output.") % { topic: topic } %></span>
   <% end %>
   <% if context.present? && context.send(topic).present? %>
-    <%= render partial: "shared/external_api/card",
-               locals: { context: context, model: context.send(topic), partial: partial } %>
+    <%= render partial: "shared/external_apis/card",
+               locals: { context: context, model: context.send(topic), partial: partial, selected: true } %>
   <% end %>
 
 </div>

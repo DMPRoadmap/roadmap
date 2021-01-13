@@ -12,7 +12,7 @@
 
 <% results[0..29].each do |result| %>
   <%= render partial: "shared/external_apis/card",
-             locals: { context: context, model: result, partial: partial } %>
+             locals: { context: context, model: result, partial: partial, selected: false } %>
 
     <hr>
   </div>

@@ -1,8 +1,8 @@
-<%# locals: context, model, partial %>
+<%# locals: context, model, partial, selected %>
 
 <%
-context_name = context.class.name.camelize
-model_name = model.class.name.camelize
+context_name = context.class.name.underscore
+model_name = model.class.name.underscore
 label = model.respond_to?(:title) ? model.title : model[:name] || 'Unknown!'
 %>
 
@@ -14,13 +14,13 @@ label = model.respond_to?(:title) ? model.title : model[:name] || 'Unknown!'
 
     <h4>
       <%= label %>
-      <%= link_to _("Select"), "#", class: "external-api-result-selector",
+      <%= link_to _("Select"), "#", class: "external-api-result-selector #{selected ? 'hidden' : ''}",
                                title: _("Click to select '%{result_label}'") % { result_label: label },
                                data: { dismiss: "modal" } %>
-      <%= link_to _("Remove"), "#", class: "external-api-result-unselector hidden",
+      <%= link_to _("Remove"), "#", class: "external-api-result-unselector #{selected ? '' : 'hidden'}",
                                title: _("Click to unselect '%{result_label}'") % { result_label: label } %>
     </h4>
 
-    <%= render partial: partial, locals: { context: context, model: model } %>
+    <%= render partial: partial, locals: { context: context, model: model, selected: selected } %>
   </div>
 <% end %>
