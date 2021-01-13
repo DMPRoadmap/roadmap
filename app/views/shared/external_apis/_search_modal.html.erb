@@ -1,4 +1,4 @@
-<%# locals: form, context, label, topic, url, partial
+<%# locals: context, label, topic, url, partial
 
   :label   - the user friendly name for the :topic
   :context - refers to the parent object and topic refers to the associated object
@@ -9,19 +9,7 @@
                  :card = "research_outputs/repository/card"
 %>
 
-<div class="external-api-selection col-md-12" external_api="<%= topic %>">
-  <div class="col-md-12">
-    <%= label_tag label %>
-  </div>
-  <div class="col-md-12">
-    <%= render partial: "shared/external_apis/selection",
-               locals: { context: context, topic: topic, partial: partial } %>
-  </div>
-  <div class="col-md-12">
-    <%= button_tag _("%{topic} search") % { topic: label }, type: "button", class: "btn btn-default",
-                   data: { toggle: "modal", target: "#external-api-search" } %>
-  </div>
-</div>
+<% context_name = context.class.name.underscore %>
 
 <div id="external-api-search" class="modal fade external-api-search-modal" tabindex="-1"
      role="dialog" aria-labelledby="external-api-search-label" aria-hidden="true"
@@ -38,14 +26,15 @@
       <div class="modal-body">
         <div class="form-group row">
           <div class="col-md-12">
-            <%= form.label :"#{label.downcase}_search_term", _("Find a %{topic}") % { topic: label.downcase } %>
+            <%= label_tag :"#{label.downcase}_search_term", _("Find a %{topic}") % { topic: label.downcase } %>
           </div>
         </div>
         <div class="form-group row">
           <div class="col-md-7">
-            <%= form.text_field :"#{label.downcase}_search_term",
-                                class: "form-control autocomplete col-md-6",
-                                data: { remote: true, url: url, method: :post } %>
+            <%= text_field_tag "#{context_name}[#{label.downcase}_search_term]", "",
+                               id: "#{context_name}_#{label.downcase}_search_term",
+                               class: "form-control autocomplete col-md-6",
+                               data: { remote: true, url: url, method: :post } %>
           </div>
           <div class="col-md-3">
             <%= link_to _("Search"), "#", class: "btn btn-default external-api-faux-search-button" %>

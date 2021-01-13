@@ -46,6 +46,9 @@ class ResearchOutputsController < ApplicationController
     args = process_byte_size.merge({ plan_id: @plan.id })
     authorize @research_output
 
+    # Allow the repository to be removed
+    @research_output.repository_id = nil unless args[:repository_id].present?
+
     if @research_output.update(args)
       redirect_to edit_plan_research_output_path(@plan, @research_output),
                   notice: success_message(@research_output, _("saved"))
