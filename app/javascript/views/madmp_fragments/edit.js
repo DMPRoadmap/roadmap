@@ -12,8 +12,11 @@ $(() => {
   const hideLoadingOverlay = jQuery => jQuery.find('.overlay').hide();
   const toolbar = 'bold italic | bullist numlist | link | table';
 
-  $('.fragment-content').on('shown.bs.collapse', (e) => {
+  $('.panel-collapse').on('shown.bs.collapse', (e) => {
     const target = $(e.target);
+    if (!target.hasClass('fragment-content')) {
+      return;
+    }
     const form = target.find('form');
 
     if (form.hasClass('new-fragment')) {
@@ -60,8 +63,11 @@ $(() => {
       });
     }
   });
-  $('.fragment-content').on('hide.bs.collapse', (e) => {
+  $('.panel-collapse').on('hide.bs.collapse', (e) => {
     const target = $(e.target);
+    if (!target.hasClass('fragment-content')) {
+      return;
+    }
     const fragmentId = target.find('.fragment-id').val();
     target.find('.answer-form').html(`<input type="hidden" name="fragment-id" id="fragment-id" value="${fragmentId}" class="fragment-id">`);
   });

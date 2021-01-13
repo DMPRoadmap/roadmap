@@ -51,7 +51,9 @@
             <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
             <i class="more-less fa fa-plus small"></i>
           </span>
-          <div class="panel-body collapse" id="<%= "example-#{question.id}-research-output-#{research_output.id}"  %>">
+          <div 
+              class="panel-body collapse example" 
+              id="<%= "example-#{question.id}-research-output-#{research_output.id}"  %>">
             <%= sanitize annotation.text %>
           </div>
         </div>
