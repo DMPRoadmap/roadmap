@@ -1,83 +1,78 @@
-<%# locals: research_output, repository %>
+<%# locals: context, model %>
 
-<% if repository.present? %>
-  <div class="card col-md-10">
-    <h4><%= repository.name %></h4>
-    <p><%= repository.description %></p>
-    <div class="facets">
-      <% repository.info.fetch(:keywords, []).each do |keyword| %>
-        <%= link_to "#", keyword, class: "btn btn-default" %>
-      <% end %>
-    </div>
-    <div class="tags">
-      <% line_breaker = 0 %>
-        <% repository.info.fetch("keywords", []).each do |tag| %>
-          <% if line_breaker >= 50 %>
-            <% line_breaker = 0 %>
-          <% end %>
-          <% line_breaker += tag.length %>
-          <div class="tag">
-            <%= link_to tag, repository_search_plan_research_output_path(research_output.plan, research_output),
-                        class: "facet", title: _("Click to view repositories related to %{subject}") % { subject: tag },
-                        data: {
-                          remote: true,
-                          params: { research_output: { facet: tag } }.to_param,
-                          method: :post
-                        } %>
-          </div>
+<% if model.present? %>
+  <p><%= model.description %></p>
+  <div class="facets">
+    <% model.info.fetch(:keywords, []).each do |keyword| %>
+      <%= link_to "#", keyword, class: "btn btn-default" %>
+    <% end %>
+  </div>
+  <div class="tags">
+    <% line_breaker = 0 %>
+      <% model.info.fetch("keywords", []).each do |tag| %>
+        <% if line_breaker >= 50 %>
+          <% line_breaker = 0 %>
         <% end %>
-    </div>
-    <div class="more-info more-info-<%= repository.id %>">
-      <%= link_to _("More info"), "#", class: "more-info-link" %>
+        <% line_breaker += tag.length %>
+        <div class="tag">
+          <%= link_to tag, repository_search_plan_path(context.plan), class: "facet",
+                      title: _("Click to view repositories related to %{subject}") % { subject: tag },
+                      data: {
+                        remote: true,
+                        params: { research_output: { facet: tag } }.to_param,
+                        method: :post
+                      } %>
+        </div>
+      <% end %>
+  </div>
+  <div class="more-info more-info-<%= model.id %>">
+    <%= link_to _("More info"), "#", class: "more-info-link" %>
 
-      <div class="info hidden">
-        <% info = repository.info.with_indifferent_access %>
-        <dl>
-          <dt><%= _("Repository URL") %></dt>
-          <dd>
-            <%= link_to repository.url, repository.url, target: "_blank", class: "has-new-window-popup-info" %>
-          </dd>
+    <div class="info hidden">
+      <% info = model.info.with_indifferent_access %>
+      <dl>
+        <dt><%= _("Repository URL") %></dt>
+        <dd>
+          <%= link_to model.url, model.url, target: "_blank", class: "has-new-window-popup-info" %>
+        </dd>
 
-          <dt><%= _("Contact") %></dt>
-          <dd>
-            <% if repository.contact.present? %>
-              <%= link_to repository.contact, "mailto:#{repository.contact}" %>
-            <% else %>
-              <%= _("Unknown") %>
+        <dt><%= _("Contact") %></dt>
+        <dd>
+          <% if model.contact.present? %>
+            <%= link_to model.contact, "mailto:#{model.contact}" %>
+          <% else %>
+            <%= _("Unknown") %>
+          <% end %>
+        </dd>
+
+        <dt><%= _("Data access") %></dt>
+        <dd><%= model.info.fetch("access", _("Unknown")).humanize %></dd>
+
+        <dt><%= _("Persistent identifier type") %></dt>
+        <dd><%= model.info.fetch("pid_system", _("Unknown")) %></dd>
+
+        <dt><%= _("Policies") %></dt>
+        <dd>
+          <ul>
+            <% model.info.fetch("policies", [_("Unknown")]).uniq.each do |policy| %>
+              <li><%= link_to policy["name"], policy["url"] %></li>
             <% end %>
-          </dd>
+          </ul>
+        </dd>
 
-          <dt><%= _("Data access") %></dt>
-          <dd><%= repository.info.fetch("access", _("Unknown")).humanize %></dd>
+        <dt><%= _("Data upload") %></dt>
+        <dd>
+          <% model.info.fetch("upload_types", [{ type: _("Unknown") }]).each do |upload_type| %>
+            <%= upload_type.fetch("type", _("Unknown")).humanize %>: <%= upload_type["restriction"].gsub("registration", "").underscore.humanize %>
+          <% end %>
+        </dd>
 
-          <dt><%= _("Persistent identifier type") %></dt>
-          <dd><%= repository.info.fetch("pid_system", _("Unknown")) %></dd>
+        <dt><%= _("Provider type") %></dt>
+        <dd><%= model.info.fetch("provider_types", [_("Unknown")]).map{ |item| item.underscore.humanize }.join(", ") %></dd>
 
-          <dt><%= _("Policies") %></dt>
-          <dd>
-            <ul>
-              <% repository.info.fetch("policies", [_("Unknown")]).uniq.each do |policy| %>
-                <li><%= link_to policy["name"], policy["url"] %></li>
-              <% end %>
-            </ul>
-          </dd>
-
-          <dt><%= _("Data upload") %></dt>
-          <dd>
-            <% repository.info.fetch("upload_types", [{ type: _("Unknown") }]).each do |upload_type| %>
-              <%= upload_type.fetch("type", _("Unknown")).humanize %>: <%= upload_type["restriction"].gsub("registration", "").underscore.humanize %>
-            <% end %>
-          </dd>
-
-          <dt><%= _("Provider type") %></dt>
-          <dd><%= repository.info.fetch("provider_types", [_("Unknown")]).map{ |item| item.underscore.humanize }.join(", ") %></dd>
-
-          <dt><%= _("Repository type") %></dt>
-          <dd><%= repository.info.fetch("types", [_("Unknown")]).map(&:humanize).join(", ") %></dd>
-        </dl>
-      </div>
+        <dt><%= _("Repository type") %></dt>
+        <dd><%= model.info.fetch("types", [_("Unknown")]).map(&:humanize).join(", ") %></dd>
+      </dl>
     </div>
-
-    <hr>
   </div>
 <% end %>

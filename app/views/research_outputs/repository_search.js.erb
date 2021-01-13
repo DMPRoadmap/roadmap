@@ -1,2 +1,2 @@
-var resultsDiv = $('.repository-search-results');
-resultsDiv.html('<%= escape_javascript(render(partial: "research_outputs/repository/search_results", locals: { research_output: @research_output, search_results: @search_results })) %>');
+var resultsDiv = $('.external-api-search-results[external_api="repository"]');
+resultsDiv.html('<%= escape_javascript(render(partial: "shared/external_apis/search_results", locals: { context: @research_output, results: @search_results, partial: "research_outputs/repository/card" })) %>');

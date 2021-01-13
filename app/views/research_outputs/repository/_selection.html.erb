@@ -1,9 +1,0 @@
-<%# locals: form, research_output %>
-
-<h3><%= _("Selected repository") %></h3>
-<% if research_output.repository.present? %>
-  <%= render partial: "research_outputs/repository/card",
-             locals: { repository: repository } %>
-<% else %>
-  <p><%= _("No repository has been selected for this research output.") %></p>
-<% end %>

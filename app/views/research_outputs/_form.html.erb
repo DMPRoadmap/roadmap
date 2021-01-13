@@ -65,6 +65,13 @@ descr_tooltip = _("TODO: provide some context on what is expected here")
     </div>
   </div>
 
+  <div class="form-group row">
+    <%= render partial: "shared/external_apis/search_modal",
+               locals: { form: f, context: research_output, label: _("Repository"), topic: "repository",
+                         url: repository_search_plan_path(research_output.plan),
+                         partial: "research_outputs/repository/card" } %>
+  </div>
+
   <div class="panel-group" role="tablist" aria-multiselectable="true">
     <div class="panel panel-default">
       <%= render partial: "research_outputs/sections/security", locals: { form: f, presenter: presenter } %>
@@ -85,13 +92,8 @@ descr_tooltip = _("TODO: provide some context on what is expected here")
 
     <% unless research_output.new_record? %>
       <div class="panel panel-default">
-        <%= render partial: "research_outputs/sections/repository",
+        <%#= render partial: "research_outputs/sections/repository",
                    locals: { form: f, presenter: presenter, research_output: research_output } %>
-      </div>
-
-      <div class="panel panel-default">
-        <%#= render partial: "research_outputs/sections/identifiers",
-                   locals: { form: f, plan: plan, research_output: research_output } %>
       </div>
     <% end %>
   </div>

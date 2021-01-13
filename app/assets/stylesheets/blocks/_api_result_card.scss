@@ -1,4 +1,16 @@
-.card {
+.external-api-search-modal .modal-dialog {
+  /* Make the dialog 80% of the screen height/width */
+  width: 80%;
+  // height: 80%;
+}
+.external-api-search-modal .modal-body {
+  /* 100% = dialog height, 50px = header (27.5px) + footer (21px) */
+  // max-height: calc(80% - 50px);
+  max-height: 450px;
+  overflow-y: scroll;
+}
+
+.external-api-result-card {
   margin-top: 5px;
   padding-bottom: 5px;
 
@@ -23,4 +35,22 @@
       margin-bottom: 5px;
     }
   }
+}
+
+/* the 'Select' button displayed in the modal dialog */
+.external-api-result-card .external-api-result-selector,
+.external-api-result-card .external-api-result-unselector {
+  display: inline-block;
+  background-color: $color-white;
+  border-radius: 25px;
+  padding: 2px 5px;
+  font-size: 1.3rem;
+}
+.external-api-result-card .external-api-result-selector {
+  border: 1px solid $color-green;
+  color: $color-green;
+}
+.external-api-result-card .external-api-result-unselector {
+  border: 1px solid $color-red;
+  color: $color-red;
 }

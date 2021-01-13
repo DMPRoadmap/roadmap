@@ -167,11 +167,7 @@ Rails.application.routes.draw do
 
     resources :contributors, except: %i[show]
 
-    resources :research_outputs, except: %i[show] do
-      member do
-        post :repository_search
-      end
-    end
+    resources :research_outputs, except: %i[show]
 
     member do
       get "answer"
@@ -185,6 +181,7 @@ Rails.application.routes.draw do
 
       # AJAX Form helpers for research_output form
       get "output_type_selection", controller: "research_outputs", action: "select_output_type"
+      post :repository_search, controller: "research_outputs", action: "repository_search"
     end
   end
 

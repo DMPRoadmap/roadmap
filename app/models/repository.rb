@@ -36,12 +36,15 @@ class Repository < ApplicationRecord
   # ==========
 
   scope :search, lambda { |term|
+    # The keyword search here is slightly different than the :by_facet scope.
+    # It is more permissive, for example if the term is 'COVID' it will match the
+    # 'COVID-19' keyword whereas the :by_facet scope is looking for an exact match
     where("LOWER(name) LIKE ?", "%#{term}%")
-      .or(by_facet(term))
+      .or(where("info->>'$.keywords' LIKE ?", "%#{term}%"))
   }
 
   scope :by_facet, lambda { |facet|
-    where("info->>'$.keywords' LIKE '%\"#{facet}\"%'")
+    where("info->>'$.keywords' LIKE ?", "%\"#{facet}\"%")
   }
 
 end

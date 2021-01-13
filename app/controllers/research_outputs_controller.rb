@@ -4,8 +4,8 @@ class ResearchOutputsController < ApplicationController
 
   helper PaginableHelper
 
-  before_action :fetch_plan, except: %i[select_output_type]
-  before_action :fetch_research_output, only: %i[edit update destroy repository_search]
+  before_action :fetch_plan, except: %i[select_output_type repository_search]
+  before_action :fetch_research_output, only: %i[edit update destroy]
 
   after_action :verify_authorized
 
@@ -68,19 +68,6 @@ class ResearchOutputsController < ApplicationController
     end
   end
 
-  # POST /plans/:plan_id/research_outputs/:id/repository_search
-  def repository_search
-    authorize @research_output
-
-    # rubocop:disable Style/ConditionalAssignment
-    if repository_search_params[:facet].present?
-      @search_results = Repository.by_facet(repository_search_params[:facet])
-    else
-      @search_results = Repository.search(repository_search_params[:repository_search_term])
-    end
-    # rubocop:enable Style/ConditionalAssignment
-  end
-
   # ============================
   # = Rails UJS remote methods =
   # ============================
@@ -92,6 +79,25 @@ class ResearchOutputsController < ApplicationController
       plan: @plan, output_type: output_params[:output_type]
     )
     authorize @research_output
+  end
+
+  # POST /plans/:id/repository_search
+  def repository_search
+    @plan = Plan.find_by(id: params[:id])
+    @research_output = ResearchOutput.new(
+      plan: @plan, output_type: output_params[:output_type]
+    )
+    authorize @research_output
+
+    # rubocop:disable Style/ConditionalAssignment
+    if repository_search_params[:facet].present?
+      @search_results = Repository.by_facet(repository_search_params[:facet])
+                                  .order(:name)
+    else
+      @search_results = Repository.search(repository_search_params[:repository_search_term])
+                                  .order(:name)
+    end
+    # rubocop:enable Style/ConditionalAssignment
   end
 
   private

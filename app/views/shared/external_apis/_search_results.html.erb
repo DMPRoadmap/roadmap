@@ -1,0 +1,19 @@
+<%# locals: context, results, partial %>
+
+<div class="col-md-12">
+  <% if results.length >= 50 %>
+    <%= _("More than 50 results matched your search criteria, try narrowing your search.") %>
+  <% else %>
+    <%= _("%{nbr_of_search_results} results found.") % {
+        nbr_of_search_results: number_with_delimiter(results.length, delimiter: ",") } %>
+  <% end %>
+  <%= _("You may scroll down in this window to view additional results.") %>
+</div>
+
+<% results[0..29].each do |result| %>
+  <%= render partial: "shared/external_apis/card",
+             locals: { context: context, model: result, partial: partial } %>
+
+    <hr>
+  </div>
+<% end %>
