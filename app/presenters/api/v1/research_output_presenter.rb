@@ -1,0 +1,54 @@
+# frozen_string_literal: true
+
+module Api
+
+  module V1
+
+    class ResearchOutputPresenter
+
+      attr_reader :dataset_id, :preservation_statement, :security_and_privacy,
+                  :distributions, :metadata, :technical_resources
+
+      def initialize(output:)
+        @research_output = output
+        return unless output.is_a?(ResearchOutput)
+
+        @plan = output.plan
+        @dataset_id = identifier
+        @preservation_statement = fetch_privacy_statements(themes: %w[Preservation])
+        @security_and_privacy = fetch_q_and_a(themes: ["Ethics & privacy", "Storage & security"])
+      end
+
+      private
+
+      def identifier
+        Identifier.new(identifiable: @research_output, value: @research_output.id)
+      end
+
+      def fetch_privacy_statements(themes:)
+        fetch_q_and_a(themes: themes).collect { |item| item[:description] }.join("<br>")
+      end
+
+      # rubocop:disable Metrics/AbcSize
+      def fetch_q_and_a(themes:)
+        return [] unless themes.is_a?(Array) && themes.any?
+
+        ret = themes.map do |theme|
+          qs = @plan.questions.select { |q| q.themes.collect(&:title).include?(theme) }
+          descr = qs.map do |q|
+            a = @plan.answers.select { |ans| ans.question_id = q.id }.first
+            next unless a.present? && !a.blank?
+
+            "<strong>Question:</strong> #{q.text}<br><strong>Answer:</strong> #{a.text}"
+          end
+          { title: theme, description: descr }
+        end
+        ret.select { |item| item[:description].present? }
+      end
+      # rubocop:enable Metrics/AbcSize
+
+    end
+
+  end
+
+end
