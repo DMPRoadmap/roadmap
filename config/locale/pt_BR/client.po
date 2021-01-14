@@ -1,14 +1,14 @@
 # Portuguese translations for dmptool package.
-# Copyright (C) 2020 dmptool
+# Copyright (C) 2021 dmptool
 # This file is distributed under the same license as the dmptool package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dmptool 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2020-11-24 06:41-0800\n"
-"PO-Revision-Date: 2020-11-24 15:41+0100\n"
+"POT-Creation-Date: 2021-01-14 08:21-0800\n"
+"PO-Revision-Date: 2021-01-14 17:21+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese\n"
 "Language: pt_BR\n"
@@ -110,9 +110,9 @@ msgstr "Adicionar"
 #: ../../app/controllers/guidance_groups_controller.rb:48
 #: ../../app/controllers/guidances_controller.rb:71
 #: ../../app/controllers/notes_controller.rb:92
-#: ../../app/controllers/orgs_controller.rb:97
-#: ../../app/controllers/plans_controller.rb:257
-#: ../../app/controllers/plans_controller.rb:260
+#: ../../app/controllers/orgs_controller.rb:95
+#: ../../app/controllers/plans_controller.rb:256
+#: ../../app/controllers/plans_controller.rb:259
 #: ../../app/controllers/registrations_controller.rb:260
 #: ../../app/controllers/registrations_controller.rb:264
 #: ../../app/controllers/registrations_controller.rb:289
@@ -126,11 +126,11 @@ msgstr "salvo"
 #: ../../app/controllers/guidance_groups_controller.rb:50
 #: ../../app/controllers/guidances_controller.rb:73
 #: ../../app/controllers/notes_controller.rb:110
-#: ../../app/controllers/orgs_controller.rb:99
-#: ../../app/controllers/plans_controller.rb:266
-#: ../../app/controllers/plans_controller.rb:269
-#: ../../app/controllers/plans_controller.rb:273
-#: ../../app/controllers/plans_controller.rb:276
+#: ../../app/controllers/orgs_controller.rb:97
+#: ../../app/controllers/plans_controller.rb:265
+#: ../../app/controllers/plans_controller.rb:268
+#: ../../app/controllers/plans_controller.rb:272
+#: ../../app/controllers/plans_controller.rb:275
 #: ../../app/controllers/registrations_controller.rb:267
 #: ../../app/controllers/registrations_controller.rb:296
 msgid "save"
@@ -204,13 +204,13 @@ msgstr "cancelar publicação"
 
 #: ../../app/controllers/guidance_groups_controller.rb:89
 #: ../../app/controllers/guidances_controller.rb:88
-#: ../../app/controllers/plans_controller.rb:318
+#: ../../app/controllers/plans_controller.rb:316
 msgid "deleted"
 msgstr "apagado"
 
 #: ../../app/controllers/guidance_groups_controller.rb:91
 #: ../../app/controllers/guidances_controller.rb:90
-#: ../../app/controllers/plans_controller.rb:323
+#: ../../app/controllers/plans_controller.rb:321
 msgid "delete"
 msgstr "Excluir"
 
@@ -232,7 +232,7 @@ msgstr "Sua conta em %{is} foi desvinculada com sucesso."
 msgid "Unable to unlink your account from %{is}."
 msgstr "Não conseguimos desvincular sua conta de %{is}."
 
-#: ../../app/controllers/plan_exports_controller.rb:83
+#: ../../app/controllers/plan_exports_controller.rb:84
 msgid "Created using %{application_name}. Last modified %{date}"
 msgstr "Criado usando %{application_name}. Última modificação %{date}"
 
@@ -269,24 +269,24 @@ msgstr "Este plano é baseado no"
 msgid "template with customisations by the"
 msgstr "modelo com personalizações pelo"
 
-#: ../../app/controllers/plans_controller.rb:364
+#: ../../app/controllers/plans_controller.rb:362
 msgid "copied"
 msgstr "copieado"
 
-#: ../../app/controllers/plans_controller.rb:366
+#: ../../app/controllers/plans_controller.rb:364
 msgid "copy"
 msgstr "Cópia"
 
-#: ../../app/controllers/plans_controller.rb:386
+#: ../../app/controllers/plans_controller.rb:384
 #: ../../app/controllers/users_controller.rb:104
 msgid "updated"
 msgstr "Atualizado"
 
-#: ../../app/controllers/plans_controller.rb:389
+#: ../../app/controllers/plans_controller.rb:387
 msgid "update"
 msgstr "Actualização"
 
-#: ../../app/controllers/plans_controller.rb:394
+#: ../../app/controllers/plans_controller.rb:392
 msgid ""
 "Unable to change the plan's status since it is needed at least %{percentage} p"
 "ercentage responded"
@@ -294,25 +294,21 @@ msgstr ""
 "Não conseguimos mudar o status do plano. É preciso pelo menos %{percentage} de"
 " respostas."
 
-#: ../../app/controllers/plans_controller.rb:402
+#: ../../app/controllers/plans_controller.rb:400
 msgid "Unable to find plan id %{plan_id}"
 msgstr "Não conseguimos encontrar o plano com id %{plan_id}"
 
-#: ../../app/controllers/plans_controller.rb:419
+#: ../../app/controllers/plans_controller.rb:417
 msgid "Your project is now a test."
 msgstr "Seu projeto agora é um teste."
 
-#: ../../app/controllers/plans_controller.rb:419
+#: ../../app/controllers/plans_controller.rb:417
 msgid "Your project is no longer a test."
 msgstr "Seu projeto não é mais um teste."
 
-#: ../../app/controllers/plans_controller.rb:423
+#: ../../app/controllers/plans_controller.rb:421
 msgid "Unable to change the plan's test status"
 msgstr "Não conseguimos mudar o status de teste do plano"
-
-#: ../../app/controllers/plans_controller.rb:437
-msgid "There is no plan associated with id %{id}"
-msgstr "Não há nenhum plano associado à id %{id}"
 
 #: ../../app/controllers/public_pages_controller.rb:67
 msgid "Template created using the %{application_name} service. Last modified %{date}"
@@ -469,21 +465,21 @@ msgstr ""
 "Sua conta foi vinculada às suas credenciais institucionais. Agora você poderá "
 "entrar com eles."
 
-#: ../../app/controllers/usage_controller.rb:66
-#: ../../app/controllers/usage_controller.rb:85
+#: ../../app/controllers/usage_controller.rb:67
+#: ../../app/controllers/usage_controller.rb:86
 msgid "Month"
 msgstr "Mês"
 
-#: ../../app/controllers/usage_controller.rb:66
+#: ../../app/controllers/usage_controller.rb:67
 msgid "No. Users joined"
 msgstr "Núm. usuários ingressados"
 
-#: ../../app/controllers/usage_controller.rb:72
-#: ../../app/controllers/usage_controller.rb:91
+#: ../../app/controllers/usage_controller.rb:73
+#: ../../app/controllers/usage_controller.rb:92
 msgid "Total"
 msgstr "Total"
 
-#: ../../app/controllers/usage_controller.rb:85
+#: ../../app/controllers/usage_controller.rb:86
 msgid "No. Completed Plans"
 msgstr "Núm. Planos Concluídos"
 
@@ -519,51 +515,47 @@ msgstr "Ativo"
 msgid "deactivate"
 msgstr "desativar"
 
-#: ../../app/mailers/dmptool/user_mailer.rb:19
-msgid "New DMP created"
-msgstr "Novo DMP criado"
-
-#: ../../app/mailers/user_mailer.rb:24
+#: ../../app/mailers/user_mailer.rb:16
 msgid "Query or feedback related to %{tool_name}"
 msgstr "Pergunta ou feedback relacionado a %{tool_name}"
 
-#: ../../app/mailers/user_mailer.rb:31
+#: ../../app/mailers/user_mailer.rb:23
 msgid "Welcome to %{tool_name}"
 msgstr "Bem-vindo a %{tool_name}"
 
-#: ../../app/mailers/user_mailer.rb:66
+#: ../../app/mailers/user_mailer.rb:58
 msgid "A Data Management Plan in %{tool_name} has been shared with you"
 msgstr "Um plano de gerenciamento de dados em %{tool_name} foi compartilhado com você"
 
-#: ../../app/mailers/user_mailer.rb:84
+#: ../../app/mailers/user_mailer.rb:76
 msgid "Changed permissions on a Data Management Plan in %{tool_name}"
 msgstr "Permissões modificadas em um Plano de Gestão de Dados em %{tool_name}"
 
-#: ../../app/mailers/user_mailer.rb:100
+#: ../../app/mailers/user_mailer.rb:92
 msgid "Permissions removed on a DMP in %{tool_name}"
 msgstr "Permissões removidas em um DMP em %{tool_name}"
 
-#: ../../app/mailers/user_mailer.rb:119
+#: ../../app/mailers/user_mailer.rb:111
 msgid "%{tool_name}: %{user_name} requested feedback on a plan"
 msgstr "%{tool_name}: %{user_name} solicitou feedback sobre um plano"
 
-#: ../../app/mailers/user_mailer.rb:142
+#: ../../app/mailers/user_mailer.rb:134
 msgid "%{tool_name}: Expert feedback has been provided for %{plan_title}"
 msgstr "%{tool_name}: O feedback de especialistas foi fornecido para %{plan_title}"
 
-#: ../../app/mailers/user_mailer.rb:177
+#: ../../app/mailers/user_mailer.rb:169
 msgid "DMP Visibility Changed: %{plan_title}"
 msgstr "Visibilidade do PGD Modificada: %{plan_title}"
 
-#: ../../app/mailers/user_mailer.rb:208
+#: ../../app/mailers/user_mailer.rb:200
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
 msgstr "%{tool_name}: Um novo comentário foi adicionado a %{plan_title}"
 
-#: ../../app/mailers/user_mailer.rb:226
+#: ../../app/mailers/user_mailer.rb:218
 msgid "Administrator privileges granted in %{tool_name}"
 msgstr "Privilégios de administrador atribuídos em %{tool_name}"
 
-#: ../../app/mailers/user_mailer.rb:243
+#: ../../app/mailers/user_mailer.rb:235
 msgid "%{tool_name} API changes"
 msgstr "Alterações na API %{tool_name}"
 
@@ -3304,6 +3296,42 @@ msgid ""
 "d conditions."
 msgstr ""
 
+#: ../../app/views/devise/registrations/_api_token.html.erb:6
+msgid "Access token"
+msgstr "Token de acesso"
+
+#: ../../app/views/devise/registrations/_api_token.html.erb:10
+msgid "Click the button below to generate an API token"
+msgstr "Clique no botão abaixo para gerar um token de API"
+
+#: ../../app/views/devise/registrations/_api_token.html.erb:14
+msgid "Documentation"
+msgstr "Documentação"
+
+#: ../../app/views/devise/registrations/_api_token.html.erb:16
+msgid ""
+"See the <a href=\"%{api_v0_wiki}\">documentation for v0</a> for more details on "
+"the original API which includes access to statistics, the full text of plans a"
+"nd the ability to connect users with departments."
+msgstr ""
+"Consulte a <a href=\"%{api_v0_wiki}\">documentação da v0</a> para obter mais det"
+"alhes sobre a API original, que inclui acesso a estatísticas, o texto completo"
+" dos planos e a capacidade de conectar usuários a departamentos."
+
+#: ../../app/views/devise/registrations/_api_token.html.erb:18
+msgid ""
+"See the <a href=\"%{api_v1_wiki}\">documentation for v1</a> for more details on "
+"the API that supports the <a href=\"%{rda_standard_url}\">RDA Common metadata st"
+"andard for DMPs.</a>"
+msgstr ""
+"Consulte a <a href=\"%{api_v1_wiki}\">documentação da v1</a> para obter mais det"
+"alhes sobre a API que suporta o <a href=\"%{rda_standard_url}\">padrão de metada"
+"dos RDA Common para DMPs.</a>"
+
+#: ../../app/views/devise/registrations/_api_token.html.erb:21
+msgid "Regenerate token"
+msgstr "Regenerar Token"
+
 #: ../../app/views/devise/registrations/_external_identifier.html.erb:5
 #: ../../app/views/devise/registrations/_external_identifier.html.erb:21
 msgid ""
@@ -3410,7 +3438,7 @@ msgid "Show passwords"
 msgstr "Mostrar senhas"
 
 #: ../../app/views/devise/registrations/_password_details.html.erb:31
-#: ../../app/views/devise/registrations/_personal_details.html.erb:100
+#: ../../app/views/devise/registrations/_personal_details.html.erb:89
 msgid "Save"
 msgstr "Salvar"
 
@@ -3459,23 +3487,15 @@ msgstr "Super Administrador"
 msgid "Organisational Admin"
 msgstr "Administrador Organizacional"
 
-#: ../../app/views/devise/registrations/_personal_details.html.erb:90
-msgid "API token"
-msgstr "Token da API"
-
-#: ../../app/views/devise/registrations/_personal_details.html.erb:94
-msgid "API Information"
-msgstr "Informação sobre a API"
-
-#: ../../app/views/devise/registrations/_personal_details.html.erb:95
-msgid "How to use the API"
-msgstr "Como usar a API"
-
 #: ../../app/views/devise/registrations/edit.html.erb:13
 msgid "Personal Details"
 msgstr "Detalhes Pessoais"
 
-#: ../../app/views/devise/registrations/edit.html.erb:21
+#: ../../app/views/devise/registrations/edit.html.erb:22
+msgid "API Access"
+msgstr "Acesso API"
+
+#: ../../app/views/devise/registrations/edit.html.erb:27
 msgid "Notification Preferences"
 msgstr "Preferências de Notificação"
 
