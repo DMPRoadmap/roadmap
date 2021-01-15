@@ -7,6 +7,13 @@
     <div class="col-md-12 plan-details">
       <!-- Tabs content -->
       <div class="tab-content">
+        <div class="checkbox">
+          <%= f.hidden_field :visibility %>
+          <%= f.label(:is_test, class: 'control-label') do %>
+            <%= check_box_tag(:is_test, 1, @plan.is_test?, "aria-label": "is_test") %>
+            <%= _('mock project for testing, practice, or educational purposes') %>
+          <% end %>
+        </div>
         <!-- "Plan Metadata" tab -->
         <div id="plan_metadata" class="tab-pane in active madmp-fragment fragment-<%= meta_fragment.id %>">
           <h2><%= d_("dmpopidor", "Plan Details") %></h2>
