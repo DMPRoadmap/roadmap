@@ -20,6 +20,7 @@
   <%= f.hidden_field :schema_id, :value => madmp_schema.id, id: nil, class: "schema_id" %>
   <%= f.hidden_field :dmp_id, :value => dmp_id, id: nil %>
   <%= f.hidden_field :parent_id, :value => parent_id, id: nil %>
+  <%= f.hidden_field :template_locale, :value => question.template.locale, id: nil %>
   <%= f.hidden_field "source", :value => "form" %>
   <fieldset aria-labelledby="answer-fieldset">
     <div class="form-group madmp-fragment fragment-<%= fragment.id %>" data-fragment-id="<%= fragment.id %>" >
