@@ -99,14 +99,6 @@
                             <div id="<%= "answer-form-#{consolidated_id}" %>" class="answer-form"> 
                               <% if question.question_format.structured? %>
                                 <% fragment = answer.madmp_fragment unless answer.nil? %>
-                                <% 
-                                  p "##################" 
-                                  p fragment
-                                  p answer 
-                                  p question 
-                                  p "##################" 
-                                
-                                %>
                                 <% madmp_schema = fragment ? fragment.madmp_schema : question.madmp_schema %>
                                 <% dmp_id = plan.json_fragment.id %>
                                 <% parent_id = research_output.json_fragment.id %>

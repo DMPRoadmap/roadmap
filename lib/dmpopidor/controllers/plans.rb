@@ -251,6 +251,9 @@ module Dmpopidor
                 redirect_to "#{plan_path(@plan)}", alert: failure_message(@plan, _("save"))
               end
               format.json do
+                p "################"
+                p @plan.errors
+                p "################"
                 render json: { code: 0, msg: failure_message(@plan, _("save")) }
               end
             end

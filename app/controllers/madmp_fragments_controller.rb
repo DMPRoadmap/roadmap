@@ -25,19 +25,7 @@ class MadmpFragmentsController < ApplicationController
 
     authorize @fragment
 
-    if p_params[:source] == "modal"
-      data = data_reformater(schema.schema, schema_params(schema), schema.classname)
-      additional_info = @fragment.additional_info.merge(
-        {
-          "validations" => MadmpFragment.validate_data(data, schema.schema)
-        }
-      )
-      @fragment.assign_attributes(
-        additional_info: additional_info
-      )
-      @fragment.instantiate
-      @fragment.save_as_multifrag(data, schema)
-    else
+    if source == "form"
       @fragment.answer = Answer.create!(
         {
           research_output_id: p_params[:answer][:research_output_id],
@@ -49,6 +37,18 @@ class MadmpFragmentsController < ApplicationController
         }
       )
       @fragment.instantiate
+    else
+      data = data_reformater(schema.schema, schema_params(schema), schema.classname)
+      additional_info = @fragment.additional_info.merge(
+        {
+          "validations" => MadmpFragment.validate_data(data, schema.schema)
+        }
+      )
+      @fragment.assign_attributes(
+        additional_info: additional_info
+      )
+      @fragment.instantiate
+      @fragment.save_as_multifrag(data, schema)
     end
 
     return unless @fragment.present?
