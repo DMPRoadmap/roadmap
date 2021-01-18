@@ -70,9 +70,10 @@ class MadmpFragmentsController < ApplicationController
         )
       }.to_json
     else
+      property_name = @fragment.additional_info["property_name"]
       render json: {
         "fragment_id" =>  @fragment.parent_id,
-        "classname" => classname,
+        "property_name" => property_name,
         "source" => source,
         "html" => render_fragment_select(@fragment)
       }.to_json
