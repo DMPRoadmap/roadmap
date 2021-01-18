@@ -122,18 +122,19 @@ Rails.application.routes.draw do
     resources :research_outputs, only: [:index, :update, :destroy], controller: 'research_outputs'
   end
 
-  resources :research_outputs, only: [] do 
-    get 'create_remote', on: :collection
-    post 'sort', on: :collection
+  resources :research_outputs, only: [] do
+    get "create_remote", on: :collection
+    post "sort", on: :collection
   end
 
-  resources :madmp_fragments, only: [:destroy] do
-    post 'create_or_update', on: :collection
-    get 'new_edit_linked', on: :collection, constraints: {format: [:js]}
-    get 'show_linked', on: :collection, constraints: {format: [:js]}
-    get 'get_fragment/:id', action: :get_fragment, on: :collection, as: :get_fragment
+  resources :madmp_fragments, only: [:create, :update, :destroy] do
+    get "load_new_form", action: :create, on: :collection
+    get "load_form/:id", action: :load_form, on: :collection
+    get "new_edit_linked", on: :collection, constraints: { format: [:js] }
+    get "show_linked", on: :collection, constraints: { format: [:js] }
+    get "get_fragment/:id", action: :get_fragment, on: :collection, as: :get_fragment
   end
-  
+
   resources :usage, only: [:index]
   post 'usage_plans_by_template', controller: 'usage', action: 'plans_by_template'
   post 'usage_filter', controller: 'usage', action: 'filter'
@@ -174,6 +175,10 @@ Rails.application.routes.draw do
         member do
           get 'extract', to: 'themes#extract'
         end
+      end
+      namespace :dmpopidor do 
+        resources :madmp_fragments, only: [:show], controller: 'madmp_fragments', path: 'fragments'
+        resources :plans, only: [:show]
       end
     end
   end

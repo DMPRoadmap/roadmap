@@ -437,6 +437,25 @@ header .main-nav {
     /* 
         PLAN EDIT
     */
+    .write-plan {
+        &.panel-body {
+            padding: 15px 5px;
+        }
+        &.panel-body, .section-content {
+            background-color: $very-very-light-blue;
+        }
+        .research-output-content{
+            background-color: $white;
+            border: 1px solid $blue;
+            &.multiple-research-output {
+                border-top-color: transparent;
+            }
+        }
+        .question {
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+    }
     // Progress bar 
     .progress-bar {
         background-color: $blue;
@@ -479,7 +498,8 @@ header .main-nav {
         background-color: $blue;
 
         li > a {
-            color: $white
+            color: $white;
+
         }
 
         li > a:hover, 
@@ -505,9 +525,35 @@ header .main-nav {
         border-color: $blue;
     }
     // Sections
-    .heading-button > .panel-heading, 
-    .panel-default > .panel-heading {
-        background-color: $blue;
+    #sections {
+        .section-panel {
+            border: none;
+        }
+        .section-title {
+            background-color: $very-very-light-blue;
+            h2 {
+                font-weight: 700;
+            }
+        }
+        .section-content {
+            border-bottom: 2px solid $blue;
+            padding: 5px;
+        }
+    }
+
+    // Questions
+    .question-text {
+        background-color: $white;
+        color: $dark-blue;
+        border-bottom: 2px solid $dark-blue;
+        border-right: 2px solid $dark-blue;
+        .panel-title {
+            color: $dark-blue;
+            font-weight: bold;
+        }
+    }
+    .question-body{
+        padding: 15px 0;
     }
 
     // Guidances 
@@ -1077,6 +1123,7 @@ header .main-nav {
         padding-bottom: 15px;
         legend {
             color: $rust;
+            text-transform: none;
         }
     }
 

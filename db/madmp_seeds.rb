@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
+
 # warn_indent: true
 include FactoryBot::Syntax::Methods
 
@@ -9,12 +10,6 @@ require "faker"
 # This file should contain all the record creation needed to seed the database
 # with its default values. The data can then be loaded with the rake db:seed
 # (or created alongside the db with db:setup).
-
-I18n.available_locales = %w[en en-GB de fr]
-I18n.locale                = LocaleFormatter.new(:en, format: :i18n).to_s
-# Keep this as :en. Faker doesn"t have :en-GB
-Faker::Config.locale       = LocaleFormatter.new(:en, format: :i18n).to_s
-FastGettext.default_locale = LocaleFormatter.new(:en, format: :fast_gettext).to_s
 
 # Question Formats
 # -------------------------------------------------------
@@ -26,47 +21,64 @@ question_formats = [
     structured: true
   }
 ]
-question_formats.map { |qf| create(:question_format, qf) }
+
+question_formats.each { |qf| QuestionFormat.create!(qf) if QuestionFormat.find_by(title: qf[:title]).nil? }
 
 # Create our generic organisation, a funder and a University
 # -------------------------------------------------------
 orgs = [
   {
-    name: "Inist-CNRS",
-    abbreviation: "INIST",
+    name: "Science Europe",
+    abbreviation: "Science Europe",
     org_type: 1, links: { "org": [] },
     language: Language.find_by(abbreviation: "fr_FR")
   }
 ]
-orgs.map { |o| create(:org, o) }
 
-# Create a Super Admin associated with our generic organisation,
-# an Org Admin for our funder and an Org Admin and User for our University
-# -------------------------------------------------------
-users = [
-  {
-    email: "jean-dupont@example.com",
-    firstname: "jean",
-    surname: "Dupont",
-    password: "password123",
-    password_confirmation: "password123",
-    org: Org.find_by(abbreviation: "INIST"),
-    language: Language.find_by(abbreviation: FastGettext.locale),
-    accept_terms: true,
-    confirmed_at: Time.zone.now
-  }
-]
-users.map { |u| create(:user, u) }
+orgs.each { |o| Org.create!(o) if Org.find_by(name: o[:name]).nil? }
 
 # Create a default template for the curation centre and one for the example funder
 # -------------------------------------------------------
 templates = [
   {
-    title: "Science Europe modèle structuré",
-    description: "Modèle basé sur Science Europe, s'appuyant sur les schémas de base",
+    title: "Science Europe :  modèle structuré standard",
+    description: "Modèle basé sur Science Europe, s'appuyant sur les schémas standards",
     published: true,
-    org: Org.find_by(abbreviation: "INIST"),
+    org: Org.find_by(abbreviation: "Science Europe"),
     locale: "fr_FR",
+    is_default: true,
+    version: 0,
+    visibility: Template.visibilities[:organisationally_visible],
+    links: { "funder": [], "sample_plan": [] }
+  },
+  {
+    title: "Science Europe: standard structured template",
+    description: "Science Europe structured template based on standard schemas",
+    published: true,
+    org: Org.find_by(abbreviation: "Science Europe"),
+    locale: "en_GB",
+    is_default: true,
+    version: 0,
+    visibility: Template.visibilities[:organisationally_visible],
+    links: { "funder": [], "sample_plan": [] }
+  },
+  {
+    title: "Science Europe : modèle structuré basique",
+    description: "Modèle basé sur Science Europe, s'appuyant sur des schémas basiques",
+    published: true,
+    org: Org.find_by(abbreviation: "Science Europe"),
+    locale: "fr_FR",
+    is_default: true,
+    version: 0,
+    visibility: Template.visibilities[:organisationally_visible],
+    links: { "funder": [], "sample_plan": [] }
+  },
+  {
+    title: "Science Europe:  basic structured template",
+    description: "Science Europe structured template based on some basic schemas",
+    published: true,
+    org: Org.find_by(abbreviation: "Science Europe"),
+    locale: "en_GB",
     is_default: true,
     version: 0,
     visibility: Template.visibilities[:organisationally_visible],
@@ -75,193 +87,874 @@ templates = [
 ]
 # Template creation calls defaults handler which sets is_default and
 # published to false automatically, so update them after creation
-templates.each { |atts| create(:template, atts) }
+templates.each { |t| Template.create!(t) if Template.find_by(title: t[:title]).nil? }
 
 # Create 1 phase for "Science Europe modèle structuré"
 phases = [
   {
-    title: "DMP détaillé",
+    title: "PGD structuré",
     number: 1,
     modifiable: true,
-    template: Template.find_by(title: "Science Europe modèle structuré")
+    template: Template.find_by(title: "Science Europe :  modèle structuré standard")
+  },
+  {
+    title: "Structured DMP",
+    number: 1,
+    modifiable: true,
+    template: Template.find_by(title: "Science Europe: standard structured template")
+  },
+  {
+    title: "PGD structuré simplifié",
+    number: 1,
+    modifiable: true,
+    template: Template.find_by(title: "Science Europe : modèle structuré basique")
+  },
+  {
+    title: "Basic structured DMP",
+    number: 1,
+    modifiable: true,
+    template: Template.find_by(title: "Science Europe:  basic structured template")
   }
 ]
-phases.map{ |p| create(:phase, p) }
 
-se_detailed_phase_1 = Phase.find_by(title: "DMP détaillé")
+phases.map { |p| Phase.create!(p) }
+
+se_standard_phase_fr = Phase.find_by(
+  title: "PGD structuré",
+  template: Template.find_by(title: "Science Europe :  modèle structuré standard")
+)
+se_standard_phase_en = Phase.find_by(
+  title: "Structured DMP",
+  template: Template.find_by(title: "Science Europe: standard structured template")
+)
+se_basic_phase_fr = Phase.find_by(
+  title: "PGD structuré simplifié",
+  template: Template.find_by(title: "Science Europe : modèle structuré basique")
+)
+se_basic_phase_en = Phase.find_by(
+  title: "Basic structured DMP",
+  template: Template.find_by(title: "Science Europe:  basic structured template")
+)
 
 # Create sections for SE detailed phase
 # -------------------------------------------------------
 sections = [
-  # Sections for Modèle structuré Science Europe Phase
+  # Sections for Modèle structuré standard Science Europe Phase
+  ####################################################
+  ##################### FRENCH #######################
+  ####################################################
   {
     title: "Description des données et collecte des données et/ou réutilisation de données existantes",
     number: 1,
-    modifiable: false,
-    phase: se_detailed_phase_1
+    modifiable: true,
+    phase: se_standard_phase_fr
   },
   {
     title: "Documentation et métadonnées",
     number: 2,
-    modifiable: false,
-    phase: se_detailed_phase_1
+    modifiable: true,
+    phase: se_standard_phase_fr
   },
   {
     title: "Exigences légales et éthiques, code de conduite",
     number: 3,
-    modifiable: false,
-    phase: se_detailed_phase_1
+    modifiable: true,
+    phase: se_standard_phase_fr
   },
   {
     title: "Traitement et analyse des données",
     number: 4,
-    modifiable: false,
-    phase: se_detailed_phase_1
+    modifiable: true,
+    phase: se_standard_phase_fr
   },
   {
     title: "Stockage et sauvegarde des données pendant le processus de recherche",
     number: 5,
-    modifiable: false,
-    phase: se_detailed_phase_1
+    modifiable: true,
+    phase: se_standard_phase_fr
   },
   {
     title: "Partage et conservation des données",
     number: 6,
-    modifiable: false,
-    phase: se_detailed_phase_1
+    modifiable: true,
+    phase: se_standard_phase_fr
   },
   {
     title: "Ressources allouées pour la gestion",
     number: 7,
-    modifiable: false,
-    phase: se_detailed_phase_1
+    modifiable: true,
+    phase: se_standard_phase_fr
+  },
+  ####################################################
+  ##################### ENGLISH ######################
+  ####################################################
+  {
+    title: "Data description and collection or re-use of existing data",
+    number: 1,
+    modifiable: true,
+    phase: se_standard_phase_en
+  },
+  {
+    title: "Documentation and metadata",
+    number: 2,
+    modifiable: true,
+    phase: se_standard_phase_en
+  },
+  {
+    title: "Legal and ethical requirements, codes of conduct",
+    number: 3,
+    modifiable: true,
+    phase: se_standard_phase_en
+  },
+  {
+    title: "Data processing and analysis",
+    number: 4,
+    modifiable: true,
+    phase: se_standard_phase_en
+  },
+  {
+    title: "Storage and backup during the research process",
+    number: 5,
+    modifiable: true,
+    phase: se_standard_phase_en
+  },
+  {
+    title: "Data sharing and long-term preservation",
+    number: 6,
+    modifiable: true,
+    phase: se_standard_phase_en
+  },
+  {
+    title: "Resources for data management",
+    number: 7,
+    modifiable: true,
+    phase: se_standard_phase_en
+  },
+   # Sections for Modèle structuré basique Science Europe Phase
+  ####################################################
+  ##################### FRENCH #######################
+  ####################################################
+  {
+    title: "Description des données et collecte des données et/ou réutilisation de données existantes",
+    number: 1,
+    modifiable: true,
+    phase: se_basic_phase_fr
+  },
+  {
+    title: "Documentation et métadonnées",
+    number: 2,
+    modifiable: true,
+    phase: se_basic_phase_fr
+  },
+  {
+    title: "Exigences légales et éthiques, code de conduite",
+    number: 3,
+    modifiable: true,
+    phase: se_basic_phase_fr
+  },
+  {
+    title: "Traitement et analyse des données",
+    number: 4,
+    modifiable: true,
+    phase: se_basic_phase_fr
+  },
+  {
+    title: "Stockage et sauvegarde des données pendant le processus de recherche",
+    number: 5,
+    modifiable: true,
+    phase: se_basic_phase_fr
+  },
+  {
+    title: "Partage et conservation des données",
+    number: 6,
+    modifiable: true,
+    phase: se_basic_phase_fr
+  },
+  {
+    title: "Ressources allouées pour la gestion",
+    number: 7,
+    modifiable: true,
+    phase: se_basic_phase_fr
+  },
+  ####################################################
+  ##################### ENGLISH ######################
+  ####################################################
+  {
+    title: "Data description and collection or re-use of existing data",
+    number: 1,
+    modifiable: true,
+    phase: se_basic_phase_en
+  },
+  {
+    title: "Documentation and metadata",
+    number: 2,
+    modifiable: true,
+    phase: se_basic_phase_en
+  },
+  {
+    title: "Legal and ethical requirements, codes of conduct",
+    number: 3,
+    modifiable: true,
+    phase: se_basic_phase_en
+  },
+  {
+    title: "Data processing and analysis",
+    number: 4,
+    modifiable: true,
+    phase: se_basic_phase_en
+  },
+  {
+    title: "Storage and backup during the research process",
+    number: 5,
+    modifiable: true,
+    phase: se_basic_phase_en
+  },
+  {
+    title: "Data sharing and long-term preservation",
+    number: 6,
+    modifiable: true,
+    phase: se_basic_phase_en
+  },
+  {
+    title: "Resources for data management",
+    number: 7,
+    modifiable: true,
+    phase: se_basic_phase_en
   }
 ]
-sections.map{ |s| create(:section, s) }
-
+sections.map { |s| Section.create!(s) }
 
 structured = QuestionFormat.find_by(title: "Structured")
 
 # Create questions for the section of SE detailed phase
 # -------------------------------------------------------
 questions = [
-  # Questions for "Sections for Modèle structuré Science Europe" Phase,
+  # Questions for "Sections for Modèle structuré standard Science Europe" Phase,
+  ####################################################
+  ##################### FRENCH #######################
+  ####################################################
   {
     text: "Description générale du produit de recherche",
     number: 1,
-    section: Section.find_by(title: "Description des données et collecte des données et/ou réutilisation de données existantes"),
+    section: Section.find_by(
+      title: "Description des données et collecte des données et/ou réutilisation de données existantes",
+      phase: se_standard_phase_fr
+    ),
     question_format: structured,
-    madmp_schema: MadmpSchema.find_by(classname: "research_output_description"),
-    modifiable: false,
-    themes: [Theme.find_by(title: "Data Description")]
+    madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data description")]
   },
-
   {
     text: "Est-ce que des données existantes seront réutilisées",
     number: 2,
-    section: Section.find_by(title: "Description des données et collecte des données et/ou réutilisation de données existantes"),
+    section: Section.find_by(
+      title: "Description des données et collecte des données et/ou réutilisation de données existantes",
+      phase: se_standard_phase_fr
+    ),
     question_format: structured,
-    madmp_schema: MadmpSchema.find_by(classname: "data_reuse"),
-    modifiable: false
+    madmp_schema: MadmpSchema.find_by(name: "DataReuseStandard"),
+    modifiable: true
   },
-
   {
     text: "Comment seront produites/collectées les nouvelles données",
     number: 3,
-    section: Section.find_by(title: "Description des données et collecte des données et/ou réutilisation de données existantes"),
+    section: Section.find_by(
+      title: "Description des données et collecte des données et/ou réutilisation de données existantes",
+      phase: se_standard_phase_fr
+    ),
     question_format: structured,
-    madmp_schema: MadmpSchema.find_by(classname: "data_collection"),
-    modifiable: false,
-    themes: [Theme.find_by(title: "Data Collection")]
+    madmp_schema: MadmpSchema.find_by(name: "DataCollectionStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data collection")]
   },
-
   {
-    text: "Comment seront organisées et documentées les données? Quelles seront les méthodes utilisées pour assurer leur qualité scientifique",
+    text: ". Quelles métadonnées et quelle documentation (par exemple méthodologie de collecte et mode d'organisation des données) accompagneront les données ?" ,
     number: 1,
-    section: Section.find_by(title: "Documentation et métadonnées"),
+    section: Section.find_by(
+      title: "Documentation et métadonnées",
+      phase: se_standard_phase_fr
+    ),
     question_format: structured,
-    madmp_schema: MadmpSchema.find_by(classname: "documentation_quality"),
-    modifiable: false,
-    themes: [Theme.find_by(title: "Metadata & Documentation")]
+    madmp_schema: MadmpSchema.find_by(name: "DocumentationQualityStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Metadata & documentation")]
   },
-
+  {
+    text: "Quelles seront les méthodes utilisées pour assurer leur qualité scientifique ?",
+    number: 2,
+    section: Section.find_by(
+      title: "Documentation et métadonnées",
+      phase: se_standard_phase_fr
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "QualityAssuranceMethodStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Metadata & documentation")]
+  },
   {
     text: "Quelles seront les mesures appliquées pour assurer la protection des données personnelles ?",
     number: 1,
-    section: Section.find_by(title: "Exigences légales et éthiques, code de conduite"),
+    section: Section.find_by(
+      title: "Exigences légales et éthiques, code de conduite",
+      phase: se_standard_phase_fr
+    ),
     question_format: structured,
-    madmp_schema: MadmpSchema.find_by(classname: "personal_data_issues"),
-    modifiable: false,
-    themes: [Theme.find_by(title: "Ethics & Privacy")]
+    madmp_schema: MadmpSchema.find_by(name: "PersonalDataIssuesStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Ethics & privacy")]
   },
-
   {
     text: "Quelles sont les contraintes juridiques (sensibilité des données autres qu'à caractère personnel, confidentialité, ...) à prendre en compte pour le partage et le stockage des données ?",
     number: 2,
-    section: Section.find_by(title: "Exigences légales et éthiques, code de conduite"),
+    section: Section.find_by(
+      title: "Exigences légales et éthiques, code de conduite",
+      phase: se_standard_phase_fr
+    ),
     question_format: structured,
-    madmp_schema: MadmpSchema.find_by(classname: "legal_issues"),
-    modifiable: false,
-    themes: [Theme.find_by(title: "Intellectual Property Right")]
+    madmp_schema: MadmpSchema.find_by(name: "LegalIssuesStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Intellectual Property Rights")]
   },
-
   {
     text: "Quels sont les aspects éthiques à prendre en compte lors de la collecte des données ?",
     number: 3,
-    section: Section.find_by(title: "Exigences légales et éthiques, code de conduite"),
+    section: Section.find_by(
+      title: "Exigences légales et éthiques, code de conduite",
+      phase: se_standard_phase_fr
+    ),
     question_format: structured,
-    madmp_schema: MadmpSchema.find_by(classname: "ethical_issues"),
-    modifiable: false
+    madmp_schema: MadmpSchema.find_by(name: "EthicalIssuesStandard"),
+    modifiable: true
   },
-
   {
     text: "Comment et avec quels moyens seront traitées les données ?",
     number: 1,
-    section: Section.find_by(title: "Traitement et analyse des données"),
+    section: Section.find_by(
+      title: "Traitement et analyse des données",
+      phase: se_standard_phase_fr
+    ),
     question_format: structured,
-    madmp_schema: MadmpSchema.find_by(classname: "data_processing"),
-    modifiable: false
+    madmp_schema: MadmpSchema.find_by(name: "DataProcessingStandard"),
+    modifiable: true
   },
-
   {
     text: "Comment les données seront-elles stockées et sauvegardées tout au long du projet ?",
     number: 1,
-    section: Section.find_by(title: "Stockage et sauvegarde des données pendant le processus de recherche"),
+    section: Section.find_by(
+      title: "Stockage et sauvegarde des données pendant le processus de recherche",
+      phase: se_standard_phase_fr
+    ),
     question_format: structured,
-    madmp_schema: MadmpSchema.find_by(classname: "data_storage"),
-    modifiable: false,
-    themes: [Theme.find_by(title: "Storage & Security")]
+    madmp_schema: MadmpSchema.find_by(name: "DataStorageStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Storage & security")]
   },
-
   {
     text: "Comment les données seront-elles partagées ?",
     number: 1,
-    section: Section.find_by(title: "Partage et conservation des données"),
+    section: Section.find_by(
+      title: "Partage et conservation des données",
+      phase: se_standard_phase_fr
+    ),
     question_format: structured,
-    madmp_schema: MadmpSchema.find_by(classname: "data_sharing"),
-    modifiable: false,
-    themes: [Theme.find_by(title: "Data Sharing"), Theme.find_by(title: "Data Repository") ]
+    madmp_schema: MadmpSchema.find_by(name: "DataSharingStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data sharing"), Theme.find_by(title: "Data repository") ]
   },
-
   {
     text: "Comment les données seront-elles conservées à long terme ?",
     number: 2,
-    section: Section.find_by(title: "Partage et conservation des données"),
+    section: Section.find_by(
+      title: "Partage et conservation des données",
+      phase: se_standard_phase_fr
+    ),
     question_format: structured,
-    madmp_schema: MadmpSchema.find_by(classname: "data_preservation"),
-    modifiable: false
+    madmp_schema: MadmpSchema.find_by(name: "DataPreservationStandard"),
+    modifiable: true
   },
-
   {
     text: "Décrire la répartition des rôles et reponsabilités parmi les contributeurs ainsi que les côuts induits pour la gestion des données ?",
     number: 1,
-    section: Section.find_by(title: "Ressources allouées pour la gestion"),
+    section: Section.find_by(
+      title: "Ressources allouées pour la gestion",
+      phase: se_standard_phase_fr
+    ),
     question_format: structured,
-    madmp_schema: MadmpSchema.find_by(classname: "budget"),
-    modifiable: false
-  }
+    madmp_schema: MadmpSchema.find_by(name: "BudgetStandard"),
+    modifiable: true
+  },
+  ####################################################
+  ##################### ENGLISH ######################
+  ####################################################
+  {
+    text: "Research output description",
+    number: 1,
+    section: Section.find_by(
+      title: "Data description and collection or re-use of existing data",
+      phase: se_standard_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data description")]
+  },
+  {
+    text: "Will existing data be reused?",
+    number: 2,
+    section: Section.find_by(
+      title: "Data description and collection or re-use of existing data",
+      phase: se_standard_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DataReuseStandard"),
+    modifiable: true
+  },
+  {
+    text: "How will new data be collected or produced?",
+    number: 3,
+    section: Section.find_by(
+      title: "Data description and collection or re-use of existing data",
+      phase: se_standard_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DataCollectionStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data collection")]
+  },
+  {
+    text: "What metadata and documentation (for example the methodology of data collection and way of organising data) will accompany the data?",
+    number: 1,
+    section: Section.find_by(
+      title: "Documentation and metadata",
+      phase: se_standard_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DocumentationQualityStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Metadata & documentation")]
+  },
+  {
+    text: "What methods will be used to ensure their scientific quality?",
+    number: 2,
+    section: Section.find_by(
+      title: "Documentation and metadata",
+      phase: se_standard_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "QualityAssuranceMethodStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Metadata & documentation")]
+  },
+  {
+    text: "If personal data are processed, how will compliance with legislation on personal data and on security be ensured?",
+    number: 1,
+    section: Section.find_by(
+      title: "Legal and ethical requirements, codes of conduct",
+      phase: se_standard_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "PersonalDataIssuesStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Ethics & privacy")]
+  },
+  {
+    text: "How will other legal issues, such as intellectual property rights and ownership, be managed? What legislation is applicable?",
+    number: 2,
+    section: Section.find_by(
+      title: "Legal and ethical requirements, codes of conduct",
+      phase: se_standard_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "LegalIssuesStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Intellectual Property Rights")]
+  },
+  {
+    text: "What ethical issues and codes of conduct are there, and how will they be taken into account?",
+    number: 3,
+    section: Section.find_by(
+      title: "Legal and ethical requirements, codes of conduct",
+      phase: se_standard_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "EthicalIssuesStandard"),
+    modifiable: true
+  },
+  {
+    text: "How and with what resources will the data be processed / analyzed?",
+    number: 1,
+    section: Section.find_by(
+      title: "Data processing and analysis",
+      phase: se_standard_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DataProcessingStandard"),
+    modifiable: true
+  },
+  {
+    text: "How will data be stored and backed up during the research?",
+    number: 1,
+    section: Section.find_by(
+      title: "Storage and backup during the research process",
+      phase: se_standard_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DataStorageStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Storage & security")]
+  },
+  {
+    text: "How will data ba shared?",
+    number: 1,
+    section: Section.find_by(
+      title: "Data sharing and long-term preservation",
+      phase: se_standard_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DataSharingStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data sharing"), Theme.find_by(title: "Data repository")]
+  },
+  {
+    text: "How will data be log-term preservation? Which data?",
+    number: 2,
+    section: Section.find_by(
+      title: "Data sharing and long-term preservation",
+      phase: se_standard_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DataPreservationStandard"),
+    modifiable: true
+  },
+  {
+    text: "Outline the roles and responsibilities for data management/stewardship activities and the dedicated costs",
+    number: 1,
+    section: Section.find_by(
+      title: "Resources for data management",
+      phase: se_standard_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "BudgetStandard"),
+    modifiable: true
+  },
+  # Questions for "Sections for Modèle structuré basique Science Europe" Phase,
+  ####################################################
+  ##################### FRENCH #######################
+  ####################################################
+  {
+    text: "Description générale du produit de recherche",
+    number: 1,
+    section: Section.find_by(
+      title: "Description des données et collecte des données et/ou réutilisation de données existantes",
+      phase: se_basic_phase_fr
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data description")]
+  },
+  {
+    text: "Est-ce que des données existantes seront réutilisées",
+    number: 2,
+    section: Section.find_by(
+      title: "Description des données et collecte des données et/ou réutilisation de données existantes",
+      phase: se_basic_phase_fr
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DataReuseBasic"),
+    modifiable: true
+  },
+  {
+    text: "Comment seront produites/collectées les nouvelles données",
+    number: 3,
+    section: Section.find_by(
+      title: "Description des données et collecte des données et/ou réutilisation de données existantes",
+      phase: se_basic_phase_fr
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DataCollectionBasic"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data collection")]
+  },
+  {
+    text: "Quelles métadonnées et quelle documentation (par exemple méthodologie de collecte et mode d'organisation des données) accompagneront les données ?",
+    number: 1,
+    section: Section.find_by(
+      title: "Documentation et métadonnées",
+      phase: se_basic_phase_fr
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DocumentationQualityBasic"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Metadata & documentation")]
+  },
+  {
+    text: "Quelles seront les méthodes utilisées pour assurer leur qualité scientifique ?",
+    number: 2,
+    section: Section.find_by(
+      title: "Documentation et métadonnées",
+      phase: se_basic_phase_fr
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "QualityAssuranceMethodBasic"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Metadata & documentation")]
+  },
+  {
+    text: "Quelles seront les mesures appliquées pour assurer la protection des données personnelles ?",
+    number: 1,
+    section: Section.find_by(
+      title: "Exigences légales et éthiques, code de conduite",
+      phase: se_basic_phase_fr
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "PersonalDataIssuesBasic"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Ethics & privacy")]
+  },
+  {
+    text: "Quelles sont les contraintes juridiques (sensibilité des données autres qu'à caractère personnel, confidentialité, ...) à prendre en compte pour le partage et le stockage des données ?",
+    number: 2,
+    section: Section.find_by(
+      title: "Exigences légales et éthiques, code de conduite",
+      phase: se_basic_phase_fr
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "LegalIssuesBasic"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Intellectual Property Rights")]
+  },
+  {
+    text: "Quels sont les aspects éthiques à prendre en compte lors de la collecte des données ?",
+    number: 3,
+    section: Section.find_by(
+      title: "Exigences légales et éthiques, code de conduite",
+      phase: se_basic_phase_fr
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "EthicalIssuesBasic"),
+    modifiable: true
+  },
+  {
+    text: "Comment et avec quels moyens seront traitées les données ?",
+    number: 1,
+    section: Section.find_by(
+      title: "Traitement et analyse des données",
+      phase: se_basic_phase_fr
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DataProcessingBasic"),
+    modifiable: true
+  },
+  {
+    text: "Comment les données seront-elles stockées et sauvegardées tout au long du projet ?",
+    number: 1,
+    section: Section.find_by(
+      title: "Stockage et sauvegarde des données pendant le processus de recherche",
+      phase: se_basic_phase_fr
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DataStorageBasic"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Storage & security")]
+  },
+  {
+    text: "Comment les données seront-elles partagées ?",
+    number: 1,
+    section: Section.find_by(
+      title: "Partage et conservation des données",
+      phase: se_basic_phase_fr
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DataSharingBasic"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data sharing"), Theme.find_by(title: "Data repository") ]
+  },
+  {
+    text: "Comment les données seront-elles conservées à long terme ?",
+    number: 2,
+    section: Section.find_by(
+      title: "Partage et conservation des données",
+      phase: se_basic_phase_fr
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DataPreservationBasic"),
+    modifiable: true
+  },
+  {
+    text: "Décrire la répartition des rôles et reponsabilités parmi les contributeurs ainsi que les côuts induits pour la gestion des données ?",
+    number: 1,
+    section: Section.find_by(
+      title: "Ressources allouées pour la gestion",
+      phase: se_basic_phase_fr
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "BudgetStandard"),
+    modifiable: true
+  },
+  ####################################################
+  ##################### ENGLISH ######################
+  ####################################################
+  {
+    text: "Research output description",
+    number: 1,
+    section: Section.find_by(
+      title: "Data description and collection or re-use of existing data",
+      phase: se_basic_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data description")]
+  },
+  {
+    text: "Will existing data be reused?",
+    number: 2,
+    section: Section.find_by(
+      title: "Data description and collection or re-use of existing data",
+      phase: se_basic_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DataReuseBasic"),
+    modifiable: true
+  },
+  {
+    text: "How will new data be collected or produced?",
+    number: 3,
+    section: Section.find_by(
+      title: "Data description and collection or re-use of existing data",
+      phase: se_basic_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DataCollectionBasic"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data collection")]
+  },
+  {
+    text: "What metadata and documentation (for example the methodology of data collection and way of organising data) will accompany the data?",
+    number: 1,
+    section: Section.find_by(
+      title: "Documentation and metadata",
+      phase: se_basic_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DocumentationQualityBasic"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Metadata & documentation")]
+  },
+  {
+    text: "What methods will be used to ensure their scientific quality?",
+    number: 2,
+    section: Section.find_by(
+      title: "Documentation and metadata",
+      phase: se_basic_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "QualityAssuranceMethodBasic"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Metadata & documentation")]
+  },
+  {
+    text: "If personal data are processed, how will compliance with legislation on personal data and on security be ensured?",
+    number: 1,
+    section: Section.find_by(
+      title: "Legal and ethical requirements, codes of conduct",
+      phase: se_basic_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "PersonalDataIssuesBasic"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Ethics & privacy")]
+  },
+  {
+    text: "How will other legal issues, such as intellectual property rights and ownership, be managed? What legislation is applicable?",
+    number: 2,
+    section: Section.find_by(
+      title: "Legal and ethical requirements, codes of conduct",
+      phase: se_basic_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "LegalIssuesBasic"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Intellectual Property Rights")]
+  },
+  {
+    text: "What ethical issues and codes of conduct are there, and how will they be taken into account?",
+    number: 3,
+    section: Section.find_by(
+      title: "Legal and ethical requirements, codes of conduct",
+      phase: se_basic_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "EthicalIssuesBasic"),
+    modifiable: true
+  },
+  {
+    text: "How and with what resources will the data be processed / analyzed?",
+    number: 1,
+    section: Section.find_by(
+      title: "Data processing and analysis",
+      phase: se_basic_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DataProcessingBasic"),
+    modifiable: true
+  },
+  {
+    text: "How will data be stored and backed up during the research?",
+    number: 1,
+    section: Section.find_by(
+      title: "Storage and backup during the research process",
+      phase: se_basic_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DataStorageBasic"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Storage & security")]
+  },
+  {
+    text: "How will data ba shared?",
+    number: 1,
+    section: Section.find_by(
+      title: "Data sharing and long-term preservation",
+      phase: se_basic_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DataSharingBasic"),
+    modifiable: true,
+    themes: [Theme.find_by(title: "Data sharing"), Theme.find_by(title: "Data repository")]
+  },
+  {
+    text: "How will data be log-term preservation? Which data?",
+    number: 2,
+    section: Section.find_by(
+      title: "Data sharing and long-term preservation",
+      phase: se_basic_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "DataPreservationBasic"),
+    modifiable: true
+  },
+  {
+    text: "Outline the roles and responsibilities for data management/stewardship activities and the dedicated costs",
+    number: 1,
+    section: Section.find_by(
+      title: "Resources for data management",
+      phase: se_basic_phase_en
+    ),
+    question_format: structured,
+    madmp_schema: MadmpSchema.find_by(name: "BudgetStandard"),
+    modifiable: true
+  },
 ]
-questions.map { |q| create(:question, q) }
+questions.map { |q| Question.create!(q) }
+# questions.each do |q|
+#   question = Question.create(q)
+#   p question.errors
+
+#   return
+# end
 
 # Create suggested answers for a few questions
 # -------------------------------------------------------
@@ -269,627 +962,14 @@ annotations = [
   {
     text: "Les données seront partagées dans un entrepôt ouvert tel que Zenodo s'il n'existe pas d'entrepôt thématique adéquat.",
     type: Annotation.types[:example_answer],
-    org: Org.find_by(abbreviation: "INIST"),
+    org: Org.find_by(abbreviation: "Science Europe"),
     question: Question.find_by(text: "Comment les données seront-elles partagées ?")
   },
   {
     text: "Aucunes données existantes (au sein du laboratoire ou accessibles via) ne peuvent être réutilisées dans cette étude. ",
     type: Annotation.types[:example_answer],
-    org: Org.find_by(abbreviation: "INIST"),
+    org: Org.find_by(abbreviation: "Science Europe"),
     question: Question.find_by(text: "Est-ce que des données existantes seront réutilisées")
   }
 ]
 annotations.map { |s| Annotation.create!(s) if Annotation.find_by(text: s[:text]).nil? }
-
-# Create registries
-# -------------------------------------------------------
-
-registries = [
-  {
-    name: "Role",
-    description: "Role of a contributor",
-    uri: nil,
-    version: 1
-  },
-  {
-    name: "Cost type",
-    description: "Cost type",
-    uri: nil,
-    version: 1
-  },
-  {
-    name: "Currency",
-    description: "Currency",
-    uri: nil,
-    version: 1
-  },
-  {
-    name: "Data Nature",
-    description: "Data Nature",
-    uri: nil,
-    version: 1
-  },
-  {
-    name: "Resource Identifier",
-    description: "Resource Identifier",
-    uri: nil,
-    version: 1
-  },
-  {
-    name: "Data Access",
-    description: "Data Access",
-    uri: nil,
-    version: 1
-  },
-  {
-    name: "File format",
-    description: "File format",
-    uri: nil,
-    version: 1
-  },
-  {
-    name: "Agent ID",
-    description: "User, Org or Funder Identifier",
-    uri: nil,
-    version: 1
-  },
-  {
-    name: "Language Code",
-    description: "Language Code",
-    uri: nil,
-    version: 1
-  },
-  {
-    name: "Research Output Type",
-    description: "Research Output Type",
-    uri: nil,
-    version: 1
-  },
-  {
-    name: "Yes No Unknown",
-    description: "Yes No Unknown",
-    uri: nil,
-    version: 1
-  },
-  {
-    name: "Country code",
-    description: "Country code",
-    uri: nil,
-    version: 1
-  },
-  {
-    name: "Certification",
-    description: "Certification",
-    uri: nil,
-    version: 1
-  },
-  {
-    name: "Storage Type",
-    description: "Storage Type",
-    uri: nil,
-    version: 1
-  }
-]
-
-registries.map { |r| Registry.create!(r) if Registry.find_by(name: r[:name]).nil? }
-
-# Create registry values
-# -------------------------------------------------------
-registry_values = [
-  # Role registry
-  # -------------------------------------------------------
-  {
-    registry: Registry.find_by(name: "Role"),
-    value: {
-      "value": {
-        "en_GB": "Data producer",
-        "fr_FR": "Producteur de données"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Role"),
-    value: {
-      "value": {
-        "en_GB": "Data manager",
-        "fr_FR": "Gestionnaire de données"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Role"),
-    value: {
-      "value": "Data steward"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Role"),
-    value: {
-      "value": {
-        "en_GB": "Legal Expert",
-        "fr_FR": "Expert juridique"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Role"),
-    value: {
-      "value": {
-        "en_GB": "Data Protection Officer",
-        "fr_FR": "Responsable de la protection des données"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Role"),
-    value: {
-      "value": {
-        "en_GB": "Other",
-        "fr_FR": "Autre"
-      }
-    }
-  },
-  # Cost type registry
-  # -------------------------------------------------------
-  {
-    registry: Registry.find_by(name: "Cost type"),
-    value: {
-      "value": {
-        "en_GB": "Human resource",
-        "fr_FR": "Ressources humaines"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Cost type"),
-    value: {
-      "value": {
-        "en_GB": "Training",
-        "fr_FR": "Formation"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Cost type"),
-    value: {
-      "value": {
-        "en_GB": "Software",
-        "fr_FR": "Logiciel"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Cost type"),
-    value: {
-      "value": {
-        "en_GB": "Hardware",
-        "fr_FR": "Matériel informatique"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Cost type"),
-    value: {
-      "value": {
-        "en_GB": "Other",
-        "fr_FR": "Autre"
-      }
-    }
-  },
-  # Currency
-  # -------------------------------------------------------
-  {
-    registry: Registry.find_by(name: "Currency"),
-    value: {
-      "value": "EUR"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Currency"),
-    value: {
-      "value": "GBP"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Currency"),
-    value: {
-      "value": "USD"
-    }
-  },
-  # Data Nature
-  # -------------------------------------------------------
-  {
-    registry: Registry.find_by(name: "Data Nature"),
-    value: {
-      "value": "Observation"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Data Nature"),
-    value: {
-      "value": {
-        "en_GB": "Experimental Data",
-        "fr_FR": "Données expérimentales"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Data Nature"),
-    value: {
-      "value": "Simulation"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Data Nature"),
-    value: {
-      "value": {
-        "en_GB": "Model",
-        "fr_FR": "Modèle"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Data Nature"),
-    value: {
-      "value": {
-        "en_GB": "Other",
-        "fr_FR": "Autre"
-      }
-    }
-  },
-  # File format
-  # -------------------------------------------------------
-  {
-    registry: Registry.find_by(name: "File format"),
-    value: {
-      "value": "text/csv"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "File format"),
-    value: {
-      "value": "text/markdown"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "File format"),
-    value: {
-      "value": "video/JPEG"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "File format"),
-    value: {
-      "value": "application/json"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "File format"),
-    value: {
-      "value": "..."
-    }
-  },
-  # Resource Identifier
-  # -------------------------------------------------------
-  {
-    registry: Registry.find_by(name: "Resource Identifier"),
-    value: {
-      "value": "DOI"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Resource Identifier"),
-    value: {
-      "value": "ARK"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Resource Identifier"),
-    value: {
-      "value": "HANDLE"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Resource Identifier"),
-    value: {
-      "value": "IGSN"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Resource Identifier"),
-    value: {
-      "value": {
-        "en_GB": "Other",
-        "fr_FR": "Autre"
-      }
-    }
-  },
-  # Agent ID
-  # -------------------------------------------------------
-  {
-    registry: Registry.find_by(name: "Agent ID"),
-    value: {
-      "value": "ORCID"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Agent ID"),
-    value: {
-      "value": "ROR ID"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Agent ID"),
-    value: {
-      "value": "FundRef"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Agent ID"),
-    value: {
-      "value": "ISSNI"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Agent ID"),
-    value: {
-      "value": "IdRef"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Agent ID"),
-    value: {
-      "value": {
-        "en_GB": "Other",
-        "fr_FR": "Autre"
-      }
-    }
-  },
-  # Research Output Type
-  # -------------------------------------------------------
-  {
-    registry: Registry.find_by(name: "Research Output Type"),
-    value: {
-      "value": {
-        "en_GB": "Dataset",
-        "fr_FR": "Jeu de données"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Research Output Type"),
-    value: {
-      "value": {
-        "en_GB": "Software",
-        "fr_FR": "Logiciel"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Research Output Type"),
-    value: {
-      "value": {
-        "en_GB": "Model",
-        "fr_FR": "Modèle"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Research Output Type"),
-    value: {
-      "value": {
-        "en_GB": "Physical object",
-        "fr_FR": "Objet physique"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Research Output Type"),
-    value: {
-      "value": {
-        "en_GB": "Protocol",
-        "fr_FR": "Protocole"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Research Output Type"),
-    value: {
-      "value": "Workflow"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Research Output Type"),
-    value: {
-      "value": {
-        "en_GB": "Other",
-        "fr_FR": "Autre"
-      }
-    }
-  },
-  # Yes No Unknown
-  # -------------------------------------------------------
-  {
-    registry: Registry.find_by(name: "Yes No Unknown"),
-    value: {
-      "value": {
-        "en_GB": "Yes",
-        "fr_FR": "Oui"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Yes No Unknown"),
-    value: {
-      "value": {
-        "en_GB": "No",
-        "fr_FR": "Non"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Yes No Unknown"),
-    value: {
-      "value": {
-        "en_GB": "Unknown",
-        "fr_FR": "Ne sais pas"
-      }
-    }
-  },
-  # Country code
-  # -------------------------------------------------------
-  {
-    registry: Registry.find_by(name: "Country code"),
-    value: {
-      "value": "FR"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Country code"),
-    value: {
-      "value": "GB"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Country code"),
-    value: {
-      "value": "US"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Country code"),
-    value: {
-      "value": "DE"
-    }
-  },
-  # Certification
-  # -------------------------------------------------------
-  {
-    registry: Registry.find_by(name: "Certification"),
-    value: {
-      "value": "CoreTrustSeal"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Certification"),
-    value: {
-      "value": "WDS"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Certification"),
-    value: {
-      "value": "DSA"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Certification"),
-    value: {
-      "value": "ISO-9001"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Certification"),
-    value: {
-      "value": "ISO-27000"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Yes No Unknown"),
-    value: {
-      "value": {
-        "en_GB": "Other",
-        "fr_FR": "Autre"
-      }
-    }
-  },
-  # Storage Type
-  # -------------------------------------------------------
-  {
-    registry: Registry.find_by(name: "Storage Type"),
-    value: {
-      "value": {
-        "en_GB": "Hard disk drive",
-        "fr_FR": "Disque dur"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Storage Type"),
-    value: {
-      "value": {
-        "en_GB": "Solid state drive",
-        "fr_FR": "Disque SSD"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Storage Type"),
-    value: {
-      "value": {
-        "en_GB": "USB key",
-        "fr_FR": "Clé USB"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Storage Type"),
-    value: {
-      "value": {
-        "en_GB": "NAS server",
-        "fr_FR": "Serveur NAS"
-      }
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Storage Type"),
-    value: {
-      "value": "Cloud"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Storage Type"),
-    value: {
-      "value": "CD"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Storage Type"),
-    value: {
-      "value": "DVD"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Storage Type"),
-    value: {
-      "value": {
-        "en_GB": "Other",
-        "fr_FR": "Autre"
-      }
-    }
-  },
-  # Language Code
-  # -------------------------------------------------------
-  {
-    registry: Registry.find_by(name: "Language Code"),
-    value: {
-      "label": {
-        "en_GB": "French",
-        "fr_FR": "Français"
-      },
-      "code": "fra"
-    }
-  },
-  {
-    registry: Registry.find_by(name: "Language Code"),
-    value: {
-      "label": {
-        "en_GB": "English",
-        "fr_FR": "Anglais"
-      },
-      "code": "eng"
-    }
-  }
-]
-
-registry_values.map { |r| RegistryValue.create!(r) }

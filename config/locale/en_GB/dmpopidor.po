@@ -469,3 +469,33 @@ msgstr "This property has an invalid format."
 
 msgid "This property has an unknown problem : %{validation}"
 msgstr "This property has an unknown problem : %{validation}"
+
+msgid "Create"
+msgstr "Create"
+
+msgid "General informations"
+msgstr "General informations"
+
+msgid "\"%{project_title}\" project DMP"
+msgstr "\"%{project_title}\" project DMP"
+
+msgid "DMP coordinator"
+msgstr "DMP coordinator"
+
+msgid "Project coordinator"
+msgstr "Project coordinator"
+
+msgid "Click here to add a new item"
+msgstr "Click here to add a new item"
+
+msgid "Answer"
+msgstr "Answer"
+
+msgid "Plan Details"
+msgstr "Plan Details"
+
+msgid "Editing %{title_value}"
+msgstr "Editing %{title_value}"
+
+msgid "New %{title_value}"
+msgstr "New %{title_value}"

@@ -1,0 +1,60 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "TechnicalResourceStandard",
+    "description": "TechnicalResourceStandard template",
+    "type": "object",
+    "class": "TechnicalResourceStandard",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Intitulé de la resource technique",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description succinte de la ressource technique",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        },
+        "technicalResourceId": {
+            "type": "string",
+            "description": "Identifiant pérenne ou Url de référence",
+            "label@fr_FR": "Identifiant de la ressource technique",
+            "label@en_GB": "Technical resource ID"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant de la ressource technique",
+            "label@en_GB": "Technical resource identifier type",
+            "values@fr_FR": [
+                "DOI",
+                "ARK",
+                "Handle",
+                "IGSN",
+                "URL",
+                "Autre"
+            ],
+            "values@en_GB": [
+                "DOI",
+                "ARK",
+                "Handle",
+                "IGSN",
+                "URL",
+                "Other"
+            ]
+        }
+    },
+    "required": [
+        "title",
+        "technicalResourceId",
+        "idType"
+    ],
+    "to_string": [
+        "$.title"
+    ]
+}

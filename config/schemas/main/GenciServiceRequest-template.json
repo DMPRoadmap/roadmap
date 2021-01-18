@@ -1,0 +1,113 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "GenciServiceRequest",
+    "description": "GenciServiceRequest template",
+    "type": "object",
+    "class": "GenciServiceRequest",
+    "properties": {
+        "serviceType": {
+            "type": "string",
+            "description": "Le type de service",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type de service",
+            "label@en_GB": "Service type",
+            "values@fr_FR": [
+                "Workdir",
+                "Store",
+                "SecuredStore"
+            ],
+            "values@en_GB": [
+                "Workdir",
+                "Store",
+                "SecuredStore"
+            ]
+        },
+        "nationalCenter": {
+            "type": "string",
+            "description": "Centre national dans lequel seront réalisés les calculs et stockage",
+            "inputType": "dropdown",
+            "label@fr_FR": "Centre national",
+            "label@en_GB": "National center",
+            "values@fr_FR": [
+                "IDRIS",
+                "TGCC",
+                "Cines"
+            ],
+            "values@en_GB": [
+                "IDRIS",
+                "TGCC",
+                "Cines"
+            ]
+        },
+        "initialRequest": {
+            "type": "object",
+            "class": "SpecificData",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "GenciRequest",
+            "required": [
+                "dbid"
+            ],
+            "description": "La demande initiale",
+            "label@fr_FR": "Demande initiale",
+            "label@en_GB": "Initial request"
+        },
+        "extensionRequest": {
+            "type": "object",
+            "class": "SpecificData",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "GenciRequest",
+            "required": [
+                "dbid"
+            ],
+            "description": "Demande complémentaire",
+            "label@fr_FR": "Demande complémentaire",
+            "label@en_GB": "Additional request"
+        },
+        "amount": {
+            "type": "number",
+            "description": "Coût du service",
+            "label@fr_FR": "Coût du service",
+            "label@en_GB": "Cost of the service"
+        },
+        "currency": {
+            "type": "string",
+            "description": "Monnaie dans laquelle ce coût est exprimé (Référentiel des monnaies. (Voir ISO 4217))",
+            "inputType": "dropdown",
+            "label@fr_FR": "Devise",
+            "label@en_GB": "Currency",
+            "values@fr_FR": [
+                "EUR",
+                "GBP",
+                "USD"
+            ],
+            "values@en_GB": [
+                "EUR",
+                "GBP",
+                "USD"
+            ],
+            "default@fr_FR": "EUR",
+            "default@en_GB": "EUR"
+        }
+    },
+    "required": [
+        "serviceType",
+        "nationalCenter",
+        "initialRequest"
+    ],
+    "to_string": [
+        "$.serviceType",
+        ": ",
+        "$.initialRequest.initialStatus.dataSize",
+        " ",
+        "$.initialRequest.initialStatus.volumeUnit"
+    ]
+}

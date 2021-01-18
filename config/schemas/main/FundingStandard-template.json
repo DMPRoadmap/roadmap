@@ -1,0 +1,62 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "FundingStandard",
+    "description": "FundingStandard template",
+    "type": "object",
+    "class": "FundingStandard",
+    "properties": {
+        "funder": {
+            "type": "object",
+            "class": "Funder",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "FunderStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Source (agence) de financement",
+            "label@fr_FR": "Financeur",
+            "label@en_GB": "Funder"
+        },
+        "grantId": {
+            "type": "string",
+            "description": "Identifiant du financement (convention de financement)",
+            "label@fr_FR": "Identifiant du financement",
+            "label@en_GB": "Grant Identifier",
+            "tooltip@fr_FR": "Aussi appelé Code de décision, Identifiant de la convention de subvention, Numéro de la convention de subvention, Numéro de subvention",
+            "tooltip@en_GB": "Also called Decision code, Grant agreement ID, Grant agreement number, Award number"
+        },
+        "fundingStatus": {
+            "type": "string",
+            "description": "Statut du financement: planifié, demandé, accepté, rejeté",
+            "inputType": "dropdown",
+            "label@fr_FR": "Statut du financement",
+            "label@en_GB": "Funding status",
+            "values@en_GB": [
+                "Planned",
+                "Applied",
+                "Granted",
+                "Rejected"
+            ],
+            "values@fr_FR": [
+                "Planifié",
+                "Soumis",
+                "Approuvé",
+                "Rejeté"
+            ]
+        }
+    },
+    "required": [
+        "funder",
+        "fundingStatus"
+    ],
+    "to_string": [
+        "$.funder.name",
+        " : ",
+        "$.grantId"
+    ]
+}

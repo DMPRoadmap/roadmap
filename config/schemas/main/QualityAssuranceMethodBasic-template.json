@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "QualityAssuranceMethodBasic",
+    "description": "QualityAssuranceMethodBasic template",
+    "type": "object",
+    "class": "QualityAssuranceMethodBasic",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description de la méthodologie appliquée pour assurer la qualité scientifique et documentaire des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": []
+}

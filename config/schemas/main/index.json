@@ -1,187 +1,292 @@
 [
-  {
-      "path": "BackupPolicy-template.json",
-      "classname": "backup_policy",
-      "question_id": null
-  },
-  {
-      "path": "ControlledKeyword-template.json",
-      "classname": "controlled_keyword",
-      "question_id": null
-  },
-  {
-      "path": "Cost-template.json",
-      "classname": "cost",
-      "question_id": null
-  },
-  {
-      "path": "CostValue-template.json",
-      "classname": "cost_value",
-      "question_id": null
-  },
-  {
-      "path": "DataOrganization-template.json",
-      "classname": "data_organization",
-      "question_id": null
-  },
-  {
-      "path": "DataProcessing-template.json",
-      "classname": "data_processing",
-      "question_id": null
-  },
-  {
-      "path": "DataStorage-template.json",
-      "classname": "data_storage",
-      "question_id": null
-  },
-  {
-      "path": "Distribution-template.json",
-      "classname": "distribution",
-      "question_id": null
-  },
-  {
-      "path": "DocumentationQuality-template.json",
-      "classname": "documentation_quality",
-      "question_id": null
-  },
-  {
-      "path": "EthicalIssues-template.json",
-      "classname": "ethical_issues",
-      "question_id": null
-  },
-  {
-      "path": "Funder-template.json",
-      "classname": "funder",
-      "question_id": null
-  },
-  {
-      "path": "Funding-template.json",
-      "classname": "funding",
-      "question_id": null
-  },
-  {
-      "path": "LegalIssues-template.json",
-      "classname": "legal_issues",
-      "question_id": null
-  },
-  {
-      "path": "LegalItem-template.json",
-      "classname": "legal_item",
-      "question_id": null
-  },
-  {
-      "path": "License-template.json",
-      "classname": "license",
-      "question_id": null
-  },
-  {
-      "path": "MetadataStandard-template.json",
-      "classname": "metadata_standard",
-      "question_id": null
-  },
-  {
-      "path": "Partner-template.json",
-      "classname": "partner",
-      "question_id": null
-  },
-  {
-      "path": "Person-template.json",
-      "classname": "person",
-      "question_id": null
-  },
-  {
-      "path": "PersonalDataIssues-template.json",
-      "classname": "personal_data_issues",
-      "question_id": null
-  },
-  {
-      "path": "Project-template.json",
-      "classname": "project",
-      "question_id": null
-  },
-  {
-      "path": "QualityAssuranceMethod-template.json",
-      "classname": "quality_assurance_method",
-      "question_id": null
-  },
-  {
-      "path": "ReusedData-template.json",
-      "classname": "reused_data",
-      "question_id": null
-  },
-  {
-      "path": "TechnicalResource-template.json",
-      "classname": "technical_resource",
-      "question_id": null
-  },
-  {
-      "path": "TechnicalResourceUsage-template.json",
-      "classname": "technical_resource_usage",
-      "question_id": null
-  },
-  {
-      "path": "ResearchOutput-template.json",
-      "classname": "research_output",
-      "question_id": null
-  },
-  {
-      "path": "DataCollection-template.json",
-      "classname": "data_collection",
-      "question_id": null
-  },
-  {
-      "path": "Identifier-template.json",
-      "classname": "identifier",
-      "question_id": null
-  },
-  {
-      "path": "ResearchOutputDescription-template.json",
-      "classname": "research_output_description",
-      "question_id": null
-  },
-  {
-      "path": "Budget-template.json",
-      "classname": "budget",
-      "question_id": null
-  },
-  {
-      "path": "SpecificData-template.json",
-      "classname": "specific_data",
-      "question_id": null
-  },
-  {
-      "path": "Contributor-template.json",
-      "classname": "contributor",
-      "question_id": null
-  },
-  {
-      "path": "DataPreservation-template.json",
-      "classname": "data_preservation",
-      "question_id": null
-  },
-  {
-      "path": "DataReuse-template.json",
-      "classname": "data_reuse",
-      "question_id": null
-  },
-  {
-      "path": "DataSharing-template.json",
-      "classname": "data_sharing",
-      "question_id": null
-  },
-  {
-      "path": "BudgetItem-template.json",
-      "classname": "budget_item",
-      "question_id": null
-  },
-  {
-      "path": "Meta-template.json",
-      "classname": "meta",
-      "question_id": null
-  },
-  {
-      "path": "DMP-template.json",
-      "classname": "dmp",
-      "question_id": null
-  }
+    {
+        "path": "BackupPolicyStandard-template.json",
+        "classname": "backup_policy",
+        "question_id": null
+    },
+    {
+        "path": "BudgetStandard-template.json",
+        "classname": "budget",
+        "question_id": null
+    },
+    {
+        "path": "ContributorStandard-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
+        "path": "ControlledKeywordStandard-template.json",
+        "classname": "controlled_keyword",
+        "question_id": null
+    },
+    {
+        "path": "CostBasic-template.json",
+        "classname": "cost",
+        "question_id": null
+    },
+    {
+        "path": "CostStandard-template.json",
+        "classname": "cost",
+        "question_id": null
+    },
+    {
+        "path": "DataCollectionBasic-template.json",
+        "classname": "data_collection",
+        "question_id": null
+    },
+    {
+        "path": "DataCollectionStandard-template.json",
+        "classname": "data_collection",
+        "question_id": null
+    },
+    {
+        "path": "DataOrganizationReference-template.json",
+        "classname": "resource_reference",
+        "question_id": null
+    },
+    {
+        "path": "DataPreservationBasic-template.json",
+        "classname": "data_preservation",
+        "question_id": null
+    },
+    {
+        "path": "DataPreservationStandard-template.json",
+        "classname": "data_preservation",
+        "question_id": null
+    },
+    {
+        "path": "DataProcessingBasic-template.json",
+        "classname": "data_processing",
+        "question_id": null
+    },
+    {
+        "path": "DataProcessingStandard-template.json",
+        "classname": "data_processing",
+        "question_id": null
+    },
+    {
+        "path": "DataReuseBasic-template.json",
+        "classname": "data_reuse",
+        "question_id": null
+    },
+    {
+        "path": "DataReuseStandard-template.json",
+        "classname": "data_reuse",
+        "question_id": null
+    },
+    {
+        "path": "DataSharingBasic-template.json",
+        "classname": "data_sharing",
+        "question_id": null
+    },
+    {
+        "path": "DataSharingStandard-template.json",
+        "classname": "data_sharing",
+        "question_id": null
+    },
+    {
+        "path": "DataStorageBasic-template.json",
+        "classname": "data_storage",
+        "question_id": null
+    },
+    {
+        "path": "DataStorageGenci-template.json",
+        "classname": "data_storage",
+        "question_id": null
+    },
+    {
+        "path": "DataStorageStandard-template.json",
+        "classname": "data_storage",
+        "question_id": null
+    },
+    {
+        "path": "DistributionStandard-template.json",
+        "classname": "distribution",
+        "question_id": null
+    },
+    {
+        "path": "DMPStandard-template.json",
+        "classname": "dmp",
+        "question_id": null
+    },
+    {
+        "path": "DocumentationQualityBasic-template.json",
+        "classname": "documentation_quality",
+        "question_id": null
+    },
+    {
+        "path": "DocumentationQualityStandard-template.json",
+        "classname": "documentation_quality",
+        "question_id": null
+    },
+    {
+        "path": "EthicalIssuesBasic-template.json",
+        "classname": "ethical_issues",
+        "question_id": null
+    },
+    {
+        "path": "EthicalIssuesStandard-template.json",
+        "classname": "ethical_issues",
+        "question_id": null
+    },
+    {
+        "path": "FunderStandard-template.json",
+        "classname": "funder",
+        "question_id": null
+    },
+    {
+        "path": "FundingStandard-template.json",
+        "classname": "funding",
+        "question_id": null
+    },
+    {
+        "path": "GenciRequest-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
+        "path": "GenciServiceRequest-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
+        "path": "GenciStatus-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
+        "path": "Host-template.json",
+        "classname": "technical_resource",
+        "question_id": null
+    },
+    {
+        "path": "LegalIssuesBasic-template.json",
+        "classname": "legal_issues",
+        "question_id": null
+    },
+    {
+        "path": "LegalIssuesStandard-template.json",
+        "classname": "legal_issues",
+        "question_id": null
+    },
+    {
+        "path": "LegalReference-template.json",
+        "classname": "resource_reference",
+        "question_id": null
+    },
+    {
+        "path": "LicenseStandard-template.json",
+        "classname": "license",
+        "question_id": null
+    },
+    {
+        "path": "MetaBasic-template.json",
+        "classname": "meta",
+        "question_id": null
+    },
+    {
+        "path": "MetadataStandardBasic-template.json",
+        "classname": "metadata_standard",
+        "question_id": null
+    },
+    {
+        "path": "MetadataStandardStandard-template.json",
+        "classname": "metadata_standard",
+        "question_id": null
+    },
+    {
+        "path": "MetaStandard-template.json",
+        "classname": "meta",
+        "question_id": null
+    },
+    {
+        "path": "MethodReference-template.json",
+        "classname": "resource_reference",
+        "question_id": null
+    },
+    {
+        "path": "PartnerStandard-template.json",
+        "classname": "partner",
+        "question_id": null
+    },
+    {
+        "path": "PersonalDataIssuesBasic-template.json",
+        "classname": "personal_data_issues",
+        "question_id": null
+    },
+    {
+        "path": "PersonalDataIssuesStandard-template.json",
+        "classname": "personal_data_issues",
+        "question_id": null
+    },
+    {
+        "path": "PersonStandard-template.json",
+        "classname": "person",
+        "question_id": null
+    },
+    {
+        "path": "ProjectStandard-template.json",
+        "classname": "project",
+        "question_id": null
+    },
+    {
+        "path": "QualityAssuranceMethodBasic-template.json",
+        "classname": "quality_assurance_method",
+        "question_id": null
+    },
+    {
+        "path": "QualityAssuranceMethodStandard-template.json",
+        "classname": "quality_assurance_method",
+        "question_id": null
+    },
+    {
+        "path": "ResearchOutputDescriptionStandard-template.json",
+        "classname": "research_output_description",
+        "question_id": null
+    },
+    {
+        "path": "ResearchOutputStandard-template.json",
+        "classname": "research_output",
+        "question_id": null
+    },
+    {
+        "path": "ResourceReferenceStandard-template.json",
+        "classname": "resource_reference",
+        "question_id": null
+    },
+    {
+        "path": "ReusedDataBasic-template.json",
+        "classname": "reused_data",
+        "question_id": null
+    },
+    {
+        "path": "ReusedDataStandard-template.json",
+        "classname": "reused_data",
+        "question_id": null
+    },
+    {
+        "path": "SpecificDataStandard-template.json",
+        "classname": "specific_data",
+        "question_id": null
+    },
+    {
+        "path": "TechnicalResourceStandard-template.json",
+        "classname": "technical_resource",
+        "question_id": null
+    },
+    {
+        "path": "DMPCoordinator-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
+        "path": "ResearchOutputContact-template.json",
+        "classname": "contributor",
+        "question_id": null
+    },
+    {
+        "path": "PrincipalInvestigator-template.json",
+        "classname": "contributor",
+        "question_id": null
+    }
 ]

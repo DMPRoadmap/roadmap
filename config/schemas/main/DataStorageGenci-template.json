@@ -1,0 +1,127 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataStorageGenci",
+    "description": "DataStorageGenci template",
+    "type": "object",
+    "class": "DataStorageGenci",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description des besoins de stockage",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        },
+        "facility": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "TechnicalResource",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "TechnicalResourceStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Ressource/équipement utilisée pour le stockage et sauvegarde des données",
+            "label@fr_FR": "Stockage par une ressource extérieure",
+            "label@en_GB": "Storage by an external resource"
+        },
+        "genciServiceRequest": {
+            "type": "array",
+            "table_header@fr_FR": "Type de service GENCI : taille des données",
+            "table_header@en_GB": "Genci service type : data size",
+            "items": {
+                "type": "object",
+                "class": "SpecificData",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "GenciServiceRequest",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Informations requises pour une demande de ressources de stockage au Genci (une par type de service)",
+            "label@fr_FR": "Demande de ressources de stockage au GENCI",
+            "label@en_GB": "Request for storage resources from GENCI"
+        },
+        "securityMeasures": {
+            "type": "string",
+            "description": "Description des mesures prises pour assurer la sécurité des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Mesures de sécurité",
+            "label@en_GB": "Security measures"
+        },
+        "backupPolicy": {
+            "type": "object",
+            "class": "BackupPolicy",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "BackupPolicyStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Informations relatives à la politique de sauvegarde",
+            "label@fr_FR": "Politique de sauvegarde",
+            "label@en_GB": "Backup policy"
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ContributorStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) responsable(s) du suivi du stockage des données",
+            "label@fr_FR": "Personne en charge du stockage",
+            "label@en_GB": "Person in charge of storage"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "CostBasic",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": ""
+        }
+    },
+    "required": [
+        "description",
+        "genciServiceRequest"
+    ],
+    "to_string": []
+}

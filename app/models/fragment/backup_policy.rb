@@ -20,22 +20,8 @@
 
 class Fragment::BackupPolicy < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
-
-	def properties
-		"plan"
-	end
-
-	# Cited as backupPolicy
-
-	def used_in
-		"data_storage, technical_resource_usage"
-	end
-
-	def self.sti_name
-		"backup_policy"
-	end
+  def self.sti_name
+    "backup_policy"
+  end
 
 end

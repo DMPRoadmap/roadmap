@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "LegalReference",
+    "description": "LegalReference template",
+    "type": "object",
+    "class": "LegalReference",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Intitulé de la ressource",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title"
+        },
+        "legalDocIdentifier": {
+            "type": "string",
+            "description": "Identifiant de la ressource",
+            "label@fr_FR": "Identifiant du document juridique",
+            "label@en_GB": "Legal document identifier"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": "Identifier",
+            "values@fr_FR": [
+                "DOI",
+                "ARK",
+                "Handle",
+                "IGSN",
+                "URL",
+                "Autre"
+            ],
+            "values@en_GB": [
+                "DOI",
+                "ARK",
+                "Handle",
+                "IGSN",
+                "URL",
+                "Other"
+            ],
+            "overridable": true
+        }
+    },
+    "required": [
+        "title",
+        "legalDocIdentifier",
+        "idType"
+    ],
+    "to_string": []
+}

@@ -4,6 +4,8 @@ set -u
 #Timezone
 export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true
 export PASSENGER_DOWNLOAD_NATIVE_SUPPORT_BINARY=0
+export RAILS_ENV=production
+
 ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
 dpkg-reconfigure --frontend noninteractive tzdata
 mkdir -p /dmponline/db/.dbinit
@@ -18,10 +20,11 @@ fi
 # Additionnal DB actions
 # bundle exec rake db:seed
 bundle exec rake db:migrate
-bundle exec rake load_schemas
+RAILS_ENV=$RAILS_ENV bundle exec rake assets:precompile
+#bundle exec rake load_templates
 
 # Start the app
-bundle exec rails s -e development -p 3000 -b 0.0.0.0
+bundle exec rails s -e $RAILS_ENV -p 3000 -b 0.0.0.0
 
 # # Création des certifs SSL si le serveur est de prod
 # if [ $RAILS_ENV == "production" ] ; then

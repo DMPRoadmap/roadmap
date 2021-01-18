@@ -4,6 +4,7 @@
   <% research_output_data = research_output_fragment.research_output_description.data if research_output_fragment.present?%>
   <%= form_for research_output, url: plan_research_output_path(:id => research_output.id, :plan_id => plan.id), html: {method: :put, remote: true, id: nil } do |f| %>
     <div class='research-output-element <%= index != 0 ? '' : 'inactive' %>'>
+      <%= hidden_field_tag 'research-output-id', research_output.id, class: 'research-output-id' %>
       <div class='research-output-fields'>
         <div class='research-output-field form-group research-output-abbreviation'>
           <%= f.label :abbreviation, d_('dmpopidor', 'Abbreviated Name (20 chars max.)'),  class: 'control-label' %>
@@ -13,7 +14,7 @@
         </div>
         <div class='research-output-field form-group research-output-fullname'>
           <%= f.label :fullname, d_('dmpopidor', 'Full Title'),  class: 'control-label' %>
-          <%= f.text_field :fullname, class: 'form-control input edit', "aria-required": true,
+          <%= f.text_field :fullname, value: research_output_data['title'], class: 'form-control input edit', "aria-required": true,
                       'data-toggle': 'tooltip', title: d_('dmpopidor', 'Research output fullname')   %>
           <span class="readonly"><%= research_output_data['title'] %></span>
         </div>
@@ -31,6 +32,7 @@
                     title="<%= d_('dmpopidor', 'Move research output') %>"></i>
                     
             <%= link_to plan_research_output_url(plan, research_output), 
+                        target: "_self",
                         data: {:confirm => d_('dmpopidor', 'Deleting this research output will remove the associated answers. Do you confirm ?')}, 
                         :method => :delete  do %>
               <i class="fa fa-close delete" aria-hidden="true"

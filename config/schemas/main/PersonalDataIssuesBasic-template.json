@@ -1,0 +1,41 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "PersonalDataIssuesBasic",
+    "description": "PersonalDataIssuesBasic template",
+    "type": "object",
+    "class": "PersonalDataIssuesBasic",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description des mesures à suivre pour protéger la vie privée: consentement éclairé, anonymisation",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Personal Data Issues"
+        },
+        "documentReference": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ResourceReference",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ResourceReferenceStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Identifiant d'un document produit par un service de la protection des données",
+            "label@fr_FR": "Référence du document",
+            "label@en_GB": "Document identifier"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": []
+}

@@ -1,0 +1,134 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataCollectionStandard",
+    "description": "DataCollectionStandard template",
+    "type": "object",
+    "class": "DataCollectionStandard",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Titre de la collecte",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title",
+            "tooltip@fr_FR": "Titre d'une méthode (ou étape) de collecte",
+            "tooltip@en_GB": "Title of a data collection method (or step)",
+            "example": "Foobar"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description de la collecte des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "tooltip@fr_FR": "Description de la méthodologie de collecte",
+            "tooltip@en_GB": "Description of the data collection methodology"
+        },
+        "dataNature": {
+            "type": "string",
+            "description": "Nature des données (observation, expérimentale, …)",
+            "inputType": "dropdown",
+            "label@fr_FR": "Nature des données",
+            "label@en_GB": "Data Nature",
+            "values@fr_FR": [
+                "Observation",
+                "Données expérimentales",
+                "Simulation",
+                "Modèle",
+                "Autre"
+            ],
+            "values@en_GB": [
+                "Observation",
+                "Experimental Data",
+                "Simulation",
+                "Model",
+                "Other"
+            ],
+            "tooltip@fr_FR": "Sélectionner dans la liste déroulante la nature du produit de recherche",
+            "tooltip@en_GB": "Choose in the dropdown the research output data nature"
+        },
+        "facility": {
+            "type": "object",
+            "class": "TechnicalResource",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "TechnicalResourceStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Usage d'une ressource technique pour acquérir les données",
+            "label@fr_FR": "Ressource technique",
+            "label@en_GB": "Technical resource"
+        },
+        "methodReference": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ResourceReferenceStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "MethodReference",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Référence(s) de protocoles /méthodes utilisées",
+            "label@en_GB": "Method reference",
+            "label@fr_FR": "Référence de la méthode"
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ContributorStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) impliquée(s) dans la collecte/acquisition des données",
+            "label@fr_FR": "Contributeur(s)",
+            "label@en_GB": "Contributor(s)"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "CostBasic",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coûts éventuels liés à la collecte des données",
+            "label@fr_FR": "Coût d'acquisition",
+            "label@en_GB": "Acquisition cost"
+        }
+    },
+    "required": [
+        "description",
+        "dataNature"
+    ],
+    "to_string": []
+}

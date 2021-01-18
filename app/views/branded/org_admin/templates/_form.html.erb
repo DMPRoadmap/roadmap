@@ -31,7 +31,7 @@
 <div class="form-group col-xs-8">
   <%= f.label(:locale, _('Locale'), class: "control-label") %>
   <%= select_tag(:locale,
-      options_from_collection_for_select(@locales, "abbreviation", "name", template.locale),
+      options_from_collection_for_select(@locales, "abbreviation", "name", f.object.locale),
       include_blank: false,
       class: "form-control",
       name: 'template[locale]') %>

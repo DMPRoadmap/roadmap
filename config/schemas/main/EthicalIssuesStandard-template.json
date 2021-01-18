@@ -1,0 +1,62 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "EthicalIssuesStandard",
+    "description": "EthicalIssuesStandard template",
+    "type": "object",
+    "class": "EthicalIssuesStandard",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description des mesures prises pour prendre en compte les enjeux éthiques.",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        },
+        "resourceReference": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ResourceReference",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ResourceReferenceStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Référence(s) de document(s) en lien avec les aspects éthiques à prendre en compte",
+            "label@fr_FR": "Identifiant du rapport",
+            "label@en_GB": "Report Identifier"
+        },
+        "contact": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ContributorStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne contact pour traiter/prendre en charge les aspects éthiques d'un projet",
+            "label@fr_FR": "Personne en charge des aspects éthiques",
+            "label@en_GB": "Person in charge of ethical issues"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": []
+}

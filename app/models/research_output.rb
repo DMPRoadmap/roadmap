@@ -21,11 +21,12 @@
 #
 
 class ResearchOutput < ActiveRecord::Base
+
   include ValidationMessages
 
   after_save :create_or_update_fragments
   after_destroy :destroy_json_fragment
-  
+
   # ================
   # = Associations =
   # ================
@@ -34,7 +35,6 @@ class ResearchOutput < ActiveRecord::Base
   belongs_to :type, class_name: ResearchOutputType, foreign_key: "research_output_type_id"
 
   has_many :answers, dependent: :destroy
-
 
   # ===============
   # = Validations =
@@ -48,13 +48,11 @@ class ResearchOutput < ActiveRecord::Base
 
   validates :plan, presence: { message: PRESENCE_MESSAGE }
 
-
   # ==========
   # = Scopes =
   # ==========
 
   default_scope { order(order: :asc) }
-
 
   # =================
   # = Class methods =
@@ -70,16 +68,16 @@ class ResearchOutput < ActiveRecord::Base
   end
 
   def has_common_answers?(section_id)
-    self.answers.each do |answer|
+    answers.each do |answer|
       if answer.question_id.in?(Section.find(section_id).questions.pluck(:id)) && answer.is_common
         return true
       end
     end
-    return false
+    false
   end
 
   def get_answers_for_section(section_id)
-    self.answers.select { |answer| answer.question_id.in?(Section.find(section_id).questions.pluck(:id)) }
+    answers.select { |answer| answer.question_id.in?(Section.find(section_id).questions.pluck(:id)) }
   end
 
   def json_fragment
@@ -91,47 +89,53 @@ class ResearchOutput < ActiveRecord::Base
   end
 
   def create_or_update_fragments
-    fragment = self.json_fragment()
-    dmp_fragment = self.plan.json_fragment()
+    fragment = json_fragment
+    dmp_fragment = plan.json_fragment
 
     if fragment.nil?
       # Fetch the first question linked with a ResearchOutputDescription schema
-      description_question = self.plan.questions.joins(:madmp_schema)
-                                  .find_by(:madmp_schemas => { :classname => 'research_output_description' } )
-      
+      description_question = plan.questions.joins(:madmp_schema)
+                                 .find_by(madmp_schemas: { classname: "research_output_description" } )
+
       # Creates the main ResearchOutput fragment
       fragment = Fragment::ResearchOutput.create(
         data: {
-          "research_output_id" => self.id
+          "research_output_id" => id
         },
         madmp_schema_id: MadmpSchema.find_by(classname: "research_output").id,
         dmp_id: dmp_fragment.id,
         parent_id: dmp_fragment.id
       )
-      fragment_description = Fragment::ResearchOutputDescription.create(
+      fragment_description = Fragment::ResearchOutputDescription.new(
         data: {
-          "title" => self.fullname
+          "title" => fullname
         },
-        madmp_schema_id: MadmpSchema.find_by(classname: "research_output_description").id,
+        madmp_schema_id: MadmpSchema.find_by(
+          name: "ResearchOutputDescriptionStandard"
+        ).id,
         dmp_id: dmp_fragment.id,
-        parent_id: fragment.id
+        parent_id: fragment.id,
+        additional_info: {}
       )
+      fragment_description.instantiate
 
       unless description_question.nil?
         # Create a new answer for the ResearchOutputDescription Question
         # This answer will be displayed in the Write Plan tab, pre filled with the ResearchOutputDescription info
         fragment_description.answer = Answer.create(
           question_id: description_question.id,
-          research_output_id: self.id,
-          plan_id: self.plan.id,
-          user_id: self.plan.users.first.id
+          research_output_id: id,
+          plan_id: plan.id,
+          user_id: plan.users.first.id
         )
         fragment_description.save!
       end
     else
-      data = fragment.research_output_description.data.merge({
-        "title" => self.fullname
-      })
+      data = fragment.research_output_description.data.merge(
+        {
+          "title" => fullname
+        }
+      )
       fragment.research_output_description.update(data: data)
     end
   end
@@ -143,6 +147,5 @@ class ResearchOutput < ActiveRecord::Base
   def self.deep_copy(research_output)
     research_output.dup
   end
-  
 
 end

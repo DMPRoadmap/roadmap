@@ -20,22 +20,8 @@
 
 class Fragment::ControlledKeyword < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
-
-	def properties
-		"plan"
-	end
-
-	# Cited as controlledKeyword
-
-	def used_in
-		"research_output_description"
-	end
-
-	def self.sti_name
-		"controlled_keyword"
-	end
+  def self.sti_name
+    "controlled_keyword"
+  end
 
 end

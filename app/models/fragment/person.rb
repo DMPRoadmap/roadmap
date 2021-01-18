@@ -20,26 +20,8 @@
 
 class Fragment::Person < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
-
-	def person_id
-		Fragment::Identifier.where(parent_id: id).first
-	end
-
-	def properties
-		"plan, person_id"
-	end
-
-	# Cited as person, contact, principalInvestigator
-
-	def used_in
-		"contributor, meta, project, research_output_description"
-	end
-
-	def self.sti_name
-		"person"
-	end
+  def self.sti_name
+    "person"
+  end
 
 end

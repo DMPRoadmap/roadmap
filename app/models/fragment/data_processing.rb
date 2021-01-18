@@ -20,34 +20,28 @@
 
 class Fragment::DataProcessing < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
+  def method_reference
+    Fragment::ResourceReference.where(parent_id: id)
+  end
 
-	def processing
-		Fragment::TechnicalResourceUsage.where(parent_id: id).first
-	end
+  def facility
+    Fragment::TechnicalResource.where(parent_id: id).first
+  end
 
-	def contributors
-		Fragment::Contributor.where(parent_id: id)
-	end
+  def contributors
+    Fragment::Contributor.where(parent_id: id)
+  end
 
-	def cost
-		Fragment::Cost.where(parent_id: id)
-	end
+  def cost
+    Fragment::Cost.where(parent_id: id)
+  end
 
-	def properties
-		"plan, processing, contributors, cost"
-	end
+  def properties
+    "method_reference, facility, contributors, cost"
+  end
 
-	# Cited as dataProcessing
-
-	def used_in
-		"research_output"
-	end
-
-	def self.sti_name
-		"data_processing"
-	end
+  def self.sti_name
+    "data_processing"
+  end
 
 end

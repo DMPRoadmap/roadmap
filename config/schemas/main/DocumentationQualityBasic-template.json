@@ -1,0 +1,65 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DocumentationQualityBasic",
+    "description": "DocumentationQualityBasic template",
+    "type": "object",
+    "class": "DocumentationQualityBasic",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description générale concernant la documentation et les méthodes qualité appliquées aux données",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "tooltip@fr_FR": "Description générale concernant la documentation et les méthodes qualité appliquées aux données"
+        },
+        "dataOrganizationReference": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ResourceReferenceStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "DataOrganizationReference",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Références des resources produites pour la structuration des données (ex. dictionnaire de données, modèle de données, organisation des répertoire, …)",
+            "label@fr_FR": "Organisation des données",
+            "label@en_GB": "Data Organization"
+        },
+        "metadataStandard": {
+            "type": "array",
+            "table_header@fr_FR": "Nom du standard",
+            "table_header@en_GB": "Standard name",
+            "items": {
+                "type": "object",
+                "class": "MetadataStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "MetadataStandardBasic",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Standard(s) de métadonnées ou données utilisé(s) en application des principes FAIR",
+            "label@fr_FR": "Standards de métadonnées",
+            "label@en_GB": "Metadata Standards"
+        }
+    },
+    "required": [
+        "description",
+        "metadataStandard"
+    ],
+    "to_string": []
+}

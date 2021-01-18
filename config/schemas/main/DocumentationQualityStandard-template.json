@@ -1,0 +1,119 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DocumentationQualityStandard",
+    "description": "DocumentationQualityStandard template",
+    "type": "object",
+    "class": "DocumentationQualityStandard",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description générale concernant la documentation et les méthodes qualité appliquées aux données",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description",
+            "tooltip@fr_FR": "Description générale concernant la documentation et les méthodes qualité appliquées aux données"
+        },
+        "dataOrganizationReference": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ResourceReferenceStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "DataOrganizationReference",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Références des resources produites pour la structuration des données (ex. dictionnaire de données, modèle de données, organisation des répertoire, …)",
+            "label@fr_FR": "Organisation des données",
+            "label@en_GB": "Data Organization"
+        },
+        "metadataStandard": {
+            "type": "array",
+            "table_header@fr_FR": "Nom du standard",
+            "table_header@en_GB": "Standard name",
+            "items": {
+                "type": "object",
+                "class": "MetadataStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "MetadataStandardStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Standard(s) de métadonnées ou données utilisé(s) en application des principes FAIR",
+            "label@fr_FR": "Standards de métadonnées",
+            "label@en_GB": "Metadata Standards"
+        },
+        "documentationSoftware": {
+            "type": "string",
+            "description": "Outil choisi pour saisir les métadonnées et documentation",
+            "label@fr_FR": "Logiciel de documentation",
+            "label@en_GB": "Documentation software",
+            "tooltip@fr_FR": "Logiciel utilisé pour enregistrer les métadonnées ou la description des études",
+            "tooltip@en_GB": "Tool used to capture metadata or record research studies",
+            "example@fr_FR": "Morpho, Metacat, OMERO, SEEKS, DdiEditor, ...",
+            "example@en_GB": "Morpho, Metacat, OMERO, SEEKS, DdiEditor, ..."
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ContributorStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Personne(s) impliquée(s) dans la documentation des données, production des métadonnées et/ou assurance qualité des données",
+            "label@fr_FR": "Personne en charge de la documentation des données",
+            "label@en_GB": "Person in charge of data documentation"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "CostBasic",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Côuts éventuels en terme de ressources humaines ou acquisition de logiciels pour la documentation des données",
+            "label@fr_FR": "Coût lié à la documentation",
+            "label@en_GB": "Documentation related cost"
+        }
+    },
+    "required": [
+        "description",
+        "metadataStandard",
+        "contributor"
+    ],
+    "to_string": []
+}

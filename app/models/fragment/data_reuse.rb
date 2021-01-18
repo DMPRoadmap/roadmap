@@ -20,30 +20,20 @@
 
 class Fragment::DataReuse < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
+  def reused_data
+    Fragment::ReusedData.where(parent_id: id)
+  end
 
-	def reused_data
-		Fragment::ReusedData.where(parent_id: id)
-	end
+  def cost
+    Fragment::Cost.where(parent_id: id)
+  end
 
-	def cost
-		Fragment::Cost.where(parent_id: id)
-	end
+  def properties
+    "reused_data, cost"
+  end
 
-	def properties
-		"plan, reused_data, cost"
-	end
-
-	# Cited as reuse
-
-	def used_in
-		"research_output"
-	end
-
-	def self.sti_name
-		"data_reuse"
-	end
+  def self.sti_name
+    "data_reuse"
+  end
 
 end

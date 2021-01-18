@@ -1,0 +1,64 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "GenciRequest",
+    "description": "GenciRequest template",
+    "type": "object",
+    "class": "GenciRequest",
+    "properties": {
+        "initialStatus": {
+            "type": "object",
+            "class": "SpecificData",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "GenciStatus",
+            "required": [
+                "dbid"
+            ],
+            "description": "Etat initial",
+            "label@fr_FR": "Etat initial",
+            "label@en_GB": "Initial status"
+        },
+        "oneYearStatus": {
+            "type": "object",
+            "class": "SpecificData",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "GenciStatus",
+            "required": [
+                "dbid"
+            ],
+            "description": "Etat à un an",
+            "label@fr_FR": "Après un an de production de résultats",
+            "label@en_GB": "One year status"
+        },
+        "storageTime": {
+            "type": "number",
+            "description": "Durée de stockage après projet",
+            "label@fr_FR": "Durée de stockage",
+            "label@en_GB": "Storage time",
+            "example@fr_FR": "Durée de stockage après la fin de vie du projet, en mois (pas dans le cas d'un service de type workdir"
+        },
+        "justification": {
+            "type": "string",
+            "description": "Justification du besoin",
+            "inputType": "textarea",
+            "label@fr_FR": "Justification",
+            "label@en_GB": "justification",
+            "example@fr_FR": "La partie justification est obligatoire. Elle doit préciser les besoins en taille de stockage de cet espace, la méthode d’organisation utilisée pour réduire le nombre de fichiers. Le sort final des données à l’issue de la période de stockage doit aussi être précisé : restitution, destruction, diffusion. "
+        }
+    },
+    "required": [
+        "initialStatus",
+        "oneYearStatus",
+        "storageTime",
+        "justification"
+    ],
+    "to_string": []
+}

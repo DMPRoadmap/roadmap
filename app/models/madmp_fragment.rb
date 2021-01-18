@@ -31,7 +31,7 @@ class MadmpFragment < ActiveRecord::Base
   belongs_to :answer
   belongs_to :madmp_schema, class_name: "MadmpSchema"
   belongs_to :dmp, class_name: "Fragment::Dmp", foreign_key: "dmp_id"
-  has_many :children, class_name: "MadmpFragment", foreign_key: "parent_id"
+  has_many :children, class_name: "MadmpFragment", foreign_key: "parent_id", dependent: :destroy
   belongs_to :parent, class_name: "MadmpFragment", foreign_key: "parent_id"
 
   # ===============
@@ -44,10 +44,15 @@ class MadmpFragment < ActiveRecord::Base
   # = Single Table Inheritence =
   # ================
   self.inheritance_column = :classname
+  scope :backup_policies, -> { where(classname: "backup_policy") }
   scope :budgets, -> { where(classname: "budgets") }
+  scope :contributors, -> { where(classname: "contributor") }
   scope :costs, -> { where(classname: "cost") }
   scope :data_collections, -> { where(classname: "data_collection") }
+  scope :data_preservations, -> { where(classname: "data_preservation") }
   scope :data_processings, -> { where(classname: "data_processing") }
+  scope :data_reuses, -> { where(classname: "data_reuse") }
+  scope :data_sharings, -> { where(classname: "data_sharing") }
   scope :data_storages, -> { where(classname: "data_storage") }
   scope :distributions, -> { where(classname: "distribution") }
   scope :dmps, -> { where(classname: "dmp") }
@@ -55,25 +60,26 @@ class MadmpFragment < ActiveRecord::Base
   scope :ethical_issues, -> { where(classname: "ethical_issue") }
   scope :funders, -> { where(classname: "funder") }
   scope :fundings, -> { where(classname: "funding") }
+  scope :legal_issues, -> { where(classname: "legal_issue") }
+  scope :licences, -> { where(classname: "licence") }
   scope :metas, -> { where(classname: "meta") }
   scope :metadata_standards, -> { where(classname: "metadata_standard") }
   scope :partners, -> { where(classname: "partner") }
   scope :persons, -> { where(classname: "person") }
   scope :personal_data_issues, -> { where(classname: "personal_data_issue") }
-  scope :preservation_issues, -> { where(classname: "preservation_issue") }
   scope :projects, -> { where(classname: "project") }
   scope :research_outputs, -> { where(classname: "research_output") }
   scope :research_output_descriptions, -> { where(classname: "research_output_description") }
-  scope :reuse_datas, -> { where(classname: "reuse_data") }
-  scope :sharings, -> { where(classname: "sharing") }
-  scope :technical_resource_usages, -> { where(classname: "technical_resource_usage") }
+  scope :resource_references, -> { where(classname: "resource_reference") }
+  scope :reused_datas, -> { where(classname: "reused_data") }
+  scope :specific_datas, -> { where(classname: "specific_data") }
   scope :technical_resources, -> { where(classname: "technical_resource") }
-
 
   # =============
   # = Callbacks =
   # =============
 
+  before_save   :set_defaults
   after_create  :update_parent_references
   after_destroy :update_parent_references
 
@@ -87,10 +93,10 @@ class MadmpFragment < ActiveRecord::Base
   # =================
 
   def plan
-    if answer.nil?
-      dmp.plan
+    if dmp.nil?
+      Plan.find(data["plan_id"])
     else
-      answer.plan
+      dmp.plan
     end
   end
 
@@ -99,28 +105,37 @@ class MadmpFragment < ActiveRecord::Base
     madmp_schema.schema
   end
 
-  def dmp_fragments
-    MadmpFragment.where(dmp_id: dmp_id).group_by(&:madmp_schema_id)
+  def get_dmp_fragments
+    MadmpFragment.where(dmp_id: dmp.id)
   end
 
   # Returns a human readable version of the structured answer
   def to_s
-  # displayable = ""
-  # if json_schema["to_string"]
-  #   json_schema["to_string"].each do |pattern|
-  #     # if it's a JsonPath pattern
-  #     if pattern.first == "$"
-  #       displayable += JsonPath.on(self.data, pattern).first
-  #     else
-  #       displayable += pattern
-  #     end
-  #   end
-  # else
-  #   displayable = self.data.to_s
-  # end
-  # displayable
+    full_data = get_full_fragment
+    displayable = ""
+    if json_schema["to_string"]
+      json_schema["to_string"].each do |pattern|
+        # if it's a JsonPath pattern
+        if pattern.first == "$"
+          match = JsonPath.on(full_data, pattern)
 
-    data.to_s
+          next if match.empty? || match.first.nil?
+
+          if match.first.is_a?(Array)
+            displayable += match.first.join("/")
+          elsif match.first.is_a?(Integer)
+            displayable += match.first.to_s
+          else
+            displayable += match.first
+          end
+        else
+          displayable += pattern
+        end
+      end
+    else
+      displayable = full_data.to_s
+    end
+    displayable
   end
 
   # This method generates references to the child fragments in the parent fragment
@@ -129,45 +144,67 @@ class MadmpFragment < ActiveRecord::Base
   # to create the json structure needed to update the "data" field
   # this method should be called when creating or deleting a child fragment
   def update_parent_references
-    return if classname.nil?
+    return if classname.nil? || parent.nil?
 
-    unless parent.nil?
-      # Get each fragment grouped by its classname
-      classified_children = parent.children.group_by(&:classname)
-      parent_data = parent.data
+    parent_schema = parent.madmp_schema
+    parent_data = parent.data
+    classified_children = parent.children.group_by {
+      |t| t.additional_info["property_name"] unless t.additional_info.nil?
+    }
 
-      classified_children.each do |classname, children|
-        if children.count >= 2
-          # if there is more than 1 child, should pluralize the classname
-          parent_data[classname.pluralize(children.count)] = children.map { |c| { "dbId" => c.id } }
-          parent_data.delete(classname) if parent_data[classname]
-        else
-          parent_data[classname] = { "dbId" => children.first.id }
-          parent_data.delete(classname.pluralize(2)) if parent_data[classname.pluralize(2)]
+    parent_schema.schema["properties"].each do |key, prop|
+      unless classified_children[key].nil?
+        if prop["type"].eql?("array") && prop["items"]["type"].eql?("object")
+          parent_data[key] = classified_children[key].map { |c| { "dbid" => c.id } }
+        elsif prop["type"].eql?("object") && prop["schema_id"].present?
+          parent_data[key] = { "dbid" => classified_children[key][0].id }
         end
       end
-      parent.update(data: parent_data)
     end
+    parent.update!(data: parent_data)
   end
 
-  # Saves (and creates, if needed) the structured answer ("fragment")
-  def self.save_madmp_fragment(answer, data, schema, parent_id = nil)
-    # Extract the form data corresponding to the schema of the structured question
-    s_answer = MadmpFragment.find_or_initialize_by(answer_id: answer.id) do |sa|
-      sa.answer = answer
-      sa.madmp_schema = schema
-      sa.classname = schema.classname
-      sa.dmp_id = answer.plan.json_fragment().id
-      sa.parent_id = parent_id
+  # This method return the fragment full record
+  # It integrates its children into the JSON
+  def get_full_fragment
+    children = self.children
+    editable_data = data
+    editable_data.each do |prop, value|
+      case value
+      when Hash
+        if value["dbid"].present?
+          child_data = children.exists?(value["dbid"]) ? children.find(value["dbid"]) : MadmpFragment.find(value["dbid"])
+          editable_data = editable_data.merge(
+            {
+              prop => child_data.get_full_fragment
+            }
+          )
+        end
+      when Array
+        unless value.length.zero?
+          fragment_tab = []
+          value.each do |v|
+            next if v.nil?
+
+            if v.instance_of?(Hash) && v["dbid"].present?
+              child_data = children.exists?(v["dbid"]) ? children.find(v["dbid"]) : MadmpFragment.find(v["dbid"])
+              fragment_tab.push(child_data.get_full_fragment)
+            else
+              fragment_tab.push(v)
+            end
+          end
+          editable_data = editable_data.merge(
+            {
+              prop => fragment_tab
+            }
+          )
+        end
+      end
     end
-    additional_info = {
-      "validations" => validate_data(data, schema.schema)
-    }
-    s_answer.assign_attributes(data: data, additional_info: additional_info)
-    s_answer.save
+    editable_data
   end
 
-  # Validate the fragment data with the linked schema 
+  # Validate the fragment data with the linked schema
   # and saves the result with the fragment data
   def self.validate_data(data, schema)
     schemer = JSONSchemer.schema(schema)
@@ -189,35 +226,60 @@ class MadmpFragment < ActiveRecord::Base
     validations
   end
 
-  def save_as_multifrag(previous_data)
-    # save!
-    schema_properties = json_schema['properties']
-    data.each do |prop, content|
-      schema_prop = schema_properties[prop]
-      if !schema_prop.nil? && schema_prop['type'].eql?('object')
-        sub_schema = MadmpSchema.find(schema_prop['schema_id'])
-        sub_fragment_id = previous_data[prop]['dbId'] if previous_data
-        if sub_fragment_id.nil?
-          sub_fragment = MadmpFragment.new
-        else
-          sub_fragment = MadmpFragment.find(sub_fragment_id)
+  # This method is called when a form is opened for the first time
+  # It creates the whole tree of sub_fragments
+  def instantiate
+    save! unless id.present?
+
+    new_data = data
+    madmp_schema.schema["properties"].each do |key, prop|
+      next if prop["type"] != "object" && prop["schema_id"].nil?
+
+      sub_schema = MadmpSchema.find(prop["schema_id"])
+      sub_fragment = MadmpFragment.new(
+        data: {},
+        answer_id: nil,
+        dmp_id: dmp.id,
+        parent_id: id,
+        madmp_schema: sub_schema,
+        additional_info: { property_name: key }
+      )
+      sub_fragment.assign_attributes(classname: sub_schema.classname)
+      sub_fragment.instantiate
+      new_data[key] = { "dbid" => sub_fragment.id }
+    end
+    update!(data: new_data)
+  end
+
+  def save_as_multifrag(param_data, schema)
+    fragmented_data = {}
+    param_data.each do |prop, content|
+      schema_prop = schema.schema["properties"][prop]
+
+      if schema_prop["type"].eql?("object")
+        sub_data = content # TMP: for readability
+        sub_schema = MadmpSchema.find(schema_prop["schema_id"])
+
+        if param_data.present? && param_data[prop].present? && data[prop]["dbid"]
+          sub_fragment = MadmpFragment.find(data[prop]["dbid"])
+          sub_fragment.save_as_multifrag(sub_data, sub_schema)
         end
-        # sub_fragment = MadmpFragment.new(
-        sub_fragment.assign_attributes(
-          data: content,
-          dmp_id: dmp_id,
-          parent_id: id,
-          madmp_schema_id: sub_schema.id
-        )
-        sub_fragment.classname = sub_schema.classname
-        sub_fragment.save_as_multifrag(nil) # TODO: pass the real value
-        data[prop] = { "dbId": sub_fragment.id }
+      else
+        fragmented_data[prop] = content
       end
     end
-    save
+    update!(data: data.merge(fragmented_data))
   end
 
   def self.find_sti_class(type_name)
     self
   end
+
+  private
+
+  # Initialize the data field
+  def set_defaults
+    self.data ||= {}
+  end
+
 end

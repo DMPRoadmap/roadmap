@@ -20,26 +20,20 @@
 
 class Fragment::Budget < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
+  def cost
+    Fragment::Cost.where(parent_id: id)
+  end
 
-	def budget_item
-		Fragment::BudgetItem.where(parent_id: id)
-	end
+  def contributors
+    Fragment::Contributor.where(parent_id: id)
+  end
 
-	def properties
-		"plan, budget_item"
-	end
+  def properties
+    "cost, contributors"
+  end
 
-	# Cited as budget
-
-	def used_in
-		"research_output"
-	end
-
-	def self.sti_name
-		"budget"
-	end
+  def self.sti_name
+    "budget"
+  end
 
 end

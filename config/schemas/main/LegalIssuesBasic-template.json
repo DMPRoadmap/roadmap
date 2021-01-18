@@ -1,0 +1,43 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "LegalIssuesBasic",
+    "description": "LegalIssuesBasic template",
+    "type": "object",
+    "class": "LegalIssuesBasic",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description générale des aspects juridiques",
+            "inputType": "textarea",
+            "label@fr_FR": "Décrivez les aspects juridiques généraux de votre projet",
+            "label@en_GB": "Describe the general legal issues of your project",
+            "tooltip@fr_FR": "Facultatif si vous détaillez des aspects particuliers",
+            "tooltip@en_GB": "Optional if specific issues are detailed"
+        },
+        "legalReference": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ResourceReferenceStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "LegalReference",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Référence(s) de document(s) en lien avec les aspects juridiques",
+            "label@fr_FR": "Aspect juridique",
+            "label@en_GB": "Legal item"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": []
+}

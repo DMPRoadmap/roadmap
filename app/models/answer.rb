@@ -27,7 +27,6 @@ class Answer < ActiveRecord::Base
   include ValidationMessages
   prepend Dmpopidor::Models::Answer
 
-
   # ================
   # = Associations =
   # ================
@@ -46,8 +45,7 @@ class Answer < ActiveRecord::Base
 
   has_many :notes
 
-  has_one :madmp_fragment, class_name: "MadmpFragment"
-
+  has_one :madmp_fragment, class_name: "MadmpFragment", dependent: :destroy
 
   # ===============
   # = Validations =

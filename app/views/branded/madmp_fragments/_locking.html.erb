@@ -4,7 +4,7 @@
 <div class="answer_notice">
     <p><%= _('The following answer cannot be saved') %></p>
     <%# We do not need to re-show example answers in this lock conflict section so leave template nil %>
-    <%= render partial: '/madmp_fragments/new_edit', locals: { 
+    <%= render partial: '/madmp_fragments/edit', locals: { 
       template: nil, 
       question: question, 
       answer: answer, 

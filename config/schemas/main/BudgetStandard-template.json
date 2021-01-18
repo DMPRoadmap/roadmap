@@ -1,0 +1,63 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "BudgetStandard",
+    "description": "BudgetStandard template",
+    "type": "object",
+    "class": "BudgetStandard",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description générale des coûts et des ressources (rôles, responsabilités, …) utilisés pour la gestion des données de la recherche",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "CostBasic",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Elément de description des coûts",
+            "label@fr_FR": "Liste détaillée des coûts",
+            "label@en_GB": "Details of cost description"
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ContributorStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Contributeurs ayant un rôle et des responsabilités dans la gestion des données",
+            "label@fr_FR": "Liste des contributeurs ",
+            "label@en_GB": "List of contributors"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": []
+}

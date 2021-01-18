@@ -1,29 +1,37 @@
+<% url = @fragment.new_record? ?  madmp_fragments_path : madmp_fragment_path(id: @fragment.id) %>
+
 <div class="modal-dialog madmp-fragment" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h2 class="modal-title" id="exampleModalLabel"><%= @classname.capitalize %> </h2>
+      <h2 class="modal-title" id="exampleModalLabel"><%= @title %> </h2>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <%= form_for @fragment, url: create_or_update_madmp_fragments_path(id: @fragment.id),
-                        html: {method: :post, remote: true, class: 'form-horizontal', id: "madmp_fragment_form" } do |f| %>  
+    <%= form_for @fragment, url: url,
+                        html: {
+                          method: @fragment.new_record? ? :post : :put, 
+                          remote: true, 
+                          class: 'form-horizontal', 
+                          id: "modal_fragment_form" 
+                        } do |f| %>  
       <%= f.hidden_field :dmp_id, id: nil %>
-      <%= f.hidden_field :parent_id, id: nil %>
+      <%= f.hidden_field :parent_id, :value => @parent_fragment.id, id: nil %>
       <%= f.hidden_field :id, id: nil %>
       <%= f.hidden_field :schema_id, :value => @schema.id, id: nil%>
-      <%= f.hidden_field :template_locale, :value => @templateLocale, id: nil%>
+      <%= f.hidden_field :template_locale, :value => @template_locale, id: nil%>
+      <%= f.hidden_field :property_name, :value => @property_name, id: nil%>
       <%= f.hidden_field "source", :value => "modal" %>
       <div class="modal-body">
         <fieldset aria-labelledby="answer-fieldset" <%= 'disabled' if @readonly %> >
           <%= render(partial: "shared/dynamic_form/form", locals: {
             f: f,
-            fragment: @fragment, 
-            fragment_id: @parent_fragment.id,
+            current_fragment: @fragment, 
             schema: @schema,
+            question_id: nil,
             classname: @classname,
             readonly: false,
-            template_locale: @templateLocale
+            template_locale: @template_locale
           })%>
         </fieldset>
       </div>

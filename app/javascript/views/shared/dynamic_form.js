@@ -42,7 +42,7 @@ $(document).on('click', '.linked-fragments-list .actions .delete', (e) => {
       url: target.data('url'),
       method: 'delete',
     }).done((data) => {
-      $(`.fragment-${data.fragment_id} .linked-fragments-list.${data.classname}-list tbody`).html(data.html);
+      $(`.fragment-${data.fragment_id} .linked-fragments-list.${data.property_name}-list tbody`).html(data.html);
     });
   }
 });
@@ -52,25 +52,4 @@ $(document).on('change', '.schema_picker input[type=radio]', (e) => {
   const form = target.parents('.question').find('.form-answer');
   form.find('.schema_id').val(target.val());
   form.trigger('submit');
-});
-
-// $(document).on('click', 'a.load-defaults', (e) => {
-//   const link = $(e.target);
-//   const schemaFields = link.find('input[id^=madmp_fragment]');
-//   schemaFields.each((field) => {
-//     const f = $(field);
-//     f.val(f.attr('default_value'));
-//   });
-//   e.preventDefault();
-// });
-
-$(document).on('click', 'a.load-defaults', (e) => {
-  e.preventDefault();
-  // eslint-disable-next-line no-console
-  const link = $(e.target);
-  const schemaFields = link.parent().find('input[id^=madmp_fragment]');
-  for (let i = 0; i < schemaFields.length; i += 1) {
-    const f = $(schemaFields[i]);
-    f.val(f.attr('default_value'));
-  }
 });

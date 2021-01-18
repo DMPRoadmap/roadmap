@@ -20,34 +20,24 @@
 
 class Fragment::DataPreservation < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
+  def host
+    Fragment::TechnicalResource.where(parent_id: id).first
+  end
 
-	def preservation
-		Fragment::TechnicalResourceUsage.where(parent_id: id).first
-	end
+  def contributors
+    Fragment::Contributor.where(parent_id: id)
+  end
 
-	def contributors
-		Fragment::Contributor.where(parent_id: id)
-	end
+  def cost
+    Fragment::Cost.where(parent_id: id)
+  end
 
-	def cost
-		Fragment::Cost.where(parent_id: id)
-	end
+  def properties
+    "host, contributors, cost"
+  end
 
-	def properties
-		"plan, preservation, contributors, cost"
-	end
-
-	# Cited as preservationIssues
-
-	def used_in
-		"research_output"
-	end
-
-	def self.sti_name
-		"data_preservation"
-	end
+  def self.sti_name
+    "data_preservation"
+  end
 
 end

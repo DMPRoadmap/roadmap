@@ -1,0 +1,69 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "ReusedDataBasic",
+    "description": "ReusedDataBasic template",
+    "type": "object",
+    "class": "ReusedDataBasic",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Titre du produit de recherche réutilisé",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title"
+        },
+        "datasetId": {
+            "type": "string",
+            "description": "Identifiant du produit réutilisé",
+            "label@fr_FR": "Identifiant du produit",
+            "label@en_GB": "Product ID"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant du produit",
+            "label@en_GB": "Product identifier type",
+            "values@fr_FR": [
+                "DOI",
+                "ARK",
+                "Handle",
+                "IGSN",
+                "URL",
+                "Autre"
+            ],
+            "values@en_GB": [
+                "DOI",
+                "ARK",
+                "Handle",
+                "IGSN",
+                "URL",
+                "Other"
+            ]
+        },
+        "license": {
+            "type": "object",
+            "class": "License",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "LicenseStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Licence ou contrat déterminant les conditions de réutilisation",
+            "label@fr_FR": "Licence",
+            "label@en_GB": "License"
+        }
+    },
+    "required": [
+        "title",
+        "datasetId",
+        "idType"
+    ],
+    "to_string": [
+        "$.title"
+    ]
+}

@@ -1,18 +1,49 @@
+<% helpers = ActionController::Base.helpers %>
+
 $(() => {
   $('#modal-window').html('<%= escape_javascript(render "shared/dynamic_form/modal") %>');
   $('#modal-window').modal();
+  tinymce.init({
+    selector: '.tinymce',
+    statusbar: true,
+    menubar: false,
+    toolbar: 'bold italic | bullist numlist | link | table',
+    plugins: 'table autoresize link paste advlist lists',
+    browser_spellcheck: true,
+    advlist_bullet_styles: 'circle,disc,square', // Only disc bullets display on htmltoword
+    target_list: false,
+    elementpath: false,
+    resize: true,
+    autoresize_min_height: 130,
+    autoresize_bottom_margin: 10,
+    branding: false,
+    extended_valid_elements: 'iframe[tooltip] , a[href|target=_blank]',
+    paste_auto_cleanup_on_paste: true,
+    paste_remove_styles: true,
+    paste_retain_style_properties: 'none',
+    paste_convert_middot_lists: true,
+    paste_remove_styles_if_webkit: true,
+    paste_remove_spans: true,
+    paste_strip_class_attributes: 'all',
+    table_default_attributes: {
+      border: 1,
+    },
+    // editorManager.baseURL is not resolved properly for IE since document.currentScript
+    // is not supported, see issue https://github.com/tinymce/tinymce/issues/358
+    skin_url: '/tinymce/skins/lightgray',
+    content_css: ['<%= helpers.asset_path "/assets/blocks/_tinymce_content.css"  %>'],
+  });
 
-
-  $('#madmp_fragment_form').bind('ajax:success', (event, response) => {
+  $('#modal_fragment_form').on('ajax:success', (event, response) => {
     switch (response.classname) {
     case 'research_output':
       $('#research-outputs-list').html(response.html);
       break;
     default:
-      $(`.fragment-${response.fragment_id} .linked-fragments-list.${response.classname}-list tbody`).html(response.html);
+      $(`.fragment-${response.fragment_id} .linked-fragments-list.${response.property_name}-list tbody`).html(response.html);
     }
     $('#modal-window').modal('hide');
-  }).bind('ajax:error', () => {
+  }).on('ajax:error', () => {
     console.log('ajax:error');
   });
 });

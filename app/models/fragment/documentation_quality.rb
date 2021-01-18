@@ -20,42 +20,32 @@
 
 class Fragment::DocumentationQuality < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
+  def data_organization
+    Fragment::ResourceReference.where(parent_id: id)
+  end
 
-	def data_organization
-		Fragment::DataOrganization.where(parent_id: id)
-	end
+  def metadata_standard
+    Fragment::MetadataStandard.where(parent_id: id)
+  end
 
-	def metadata_standard
-		Fragment::MetadataStandard.where(parent_id: id)
-	end
+  def quality_assurance_method
+    Fragment::QualityAssuranceMethod.where(parent_id: id)
+  end
 
-	def quality_assurance_method
-		Fragment::QualityAssuranceMethod.where(parent_id: id)
-	end
+  def contributors
+    Fragment::Contributor.where(parent_id: id)
+  end
 
-	def contributors
-		Fragment::Contributor.where(parent_id: id)
-	end
+  def cost
+    Fragment::Cost.where(parent_id: id)
+  end
 
-	def cost
-		Fragment::Cost.where(parent_id: id)
-	end
+  def properties
+    "data_organization, metadata_standard, quality_assurance_method, contributors, cost"
+  end
 
-	def properties
-		"plan, data_organization, metadata_standard, quality_assurance_method, contributors, cost"
-	end
-
-	# Cited as documentationQuality
-
-	def used_in
-		"research_output"
-	end
-
-	def self.sti_name
-		"documentation_quality"
-	end
+  def self.sti_name
+    "documentation_quality"
+  end
 
 end

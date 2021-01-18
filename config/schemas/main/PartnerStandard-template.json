@@ -1,0 +1,85 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "PartnerStandard",
+    "description": "PartnerStandard template",
+    "type": "object",
+    "class": "PartnerStandard",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Nom de l'organisation ou structure partenaire",
+            "label@fr_FR": "Nom du partenaire",
+            "label@en_GB": "Partner name"
+        },
+        "rnsr": {
+            "type": "string",
+            "description": "Idenfiant RNSR",
+            "label@fr_FR": "Identifiant RNSR (Répertoire National des Structures de Recherche)",
+            "label@en_GB": "RNSR identifier",
+            "tooltip@fr_FR": "Le RNSR est le répertoire national des structures de recherche : https://appliweb.dgri.education.fr/rnsr/",
+            "tooltip@en_GB": "The RNSR is the French national directory of research structures: https://appliweb.dgri.education.fr/rnsr/"
+        },
+        "orgId": {
+            "type": "string",
+            "description": "Identifiant de l'organisation ou structure partenaire",
+            "label@fr_FR": "Identifiant du partenaire",
+            "label@en_GB": "Partner identifier"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant (ROR)",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": "Identifier type",
+            "values@fr_FR": [
+                "ORCID",
+                "ROR ID",
+                "FundRef",
+                "ISSNI",
+                "IdRef",
+                "URL",
+                "RNSR",
+                "Autre"
+            ],
+            "values@en_GB": [
+                "ORCID",
+                "ROR ID",
+                "FundRef",
+                "ISSNI",
+                "IdRef",
+                "URL",
+                "RNSR",
+                "Other"
+            ],
+            "overridable": true
+        },
+        "dataPolicy": {
+            "type": "object",
+            "class": "ResourceReference",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "ResourceReferenceStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Référence de la politique des données du partenaire",
+            "label@fr_FR": "Référence de la politique de données du partenaire",
+            "label@en_GB": "Partner data policy reference",
+            "tooltip@fr_FR": "Saisir une URL ou un identifiant de la politique de gestion des données du partenaire ou de sa tutelle",
+            "tooltip@en_GB": "Enter a URL or an ID of the data policy of the partner or its regulatory authority"
+        }
+    },
+    "required": [
+        "name"
+    ],
+    "to_string": [
+        "$.name",
+        " (",
+        "$.rnsr",
+        ") "
+    ]
+}

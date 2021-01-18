@@ -1,0 +1,71 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "FunderStandard",
+    "description": "FunderStandard template",
+    "type": "object",
+    "class": "FunderStandard",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Nom de la source de financement",
+            "label@fr_FR": "Nom",
+            "label@en_GB": "Name"
+        },
+        "funderId": {
+            "type": "string",
+            "description": "Identifiant de l'agence/source de financement (CrossRef)",
+            "label@fr_FR": "Identifiant du financeur",
+            "label@en_GB": "Funder identifier"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": "Identifier type",
+            "values@fr_FR": [
+                "ORCID",
+                "ROR ID",
+                "FundRef",
+                "ISSNI",
+                "IdRef",
+                "URL",
+                "RNSR",
+                "Autre"
+            ],
+            "values@en_GB": [
+                "ORCID",
+                "ROR ID",
+                "FundRef",
+                "ISSNI",
+                "IdRef",
+                "URL",
+                "RNSR",
+                "Other"
+            ],
+            "overridable": true
+        },
+        "dataPolicy": {
+            "type": "object",
+            "class": "ResourceReference",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "ResourceReferenceStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Référence de la politique de données de l'agence de financement",
+            "label@fr_FR": "Référence de la politique de données du financeur",
+            "label@en_GB": "Funder data policy reference"
+        }
+    },
+    "required": [
+        "name",
+        "idType"
+    ],
+    "to_string": []
+}

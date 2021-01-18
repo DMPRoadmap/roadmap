@@ -1,0 +1,106 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataPreservationStandard",
+    "description": "DataPreservationStandard template",
+    "type": "object",
+    "class": "DataPreservationStandard",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description des ontraintes réglementaires à prendre en compte pour la conservation des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        },
+        "dataSize": {
+            "type": "number",
+            "description": "Volume des données concernées en octets",
+            "label@fr_FR": "Taille des données",
+            "label@en_GB": "Data size"
+        },
+        "startDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Début de conservation",
+            "label@fr_FR": "Date de début",
+            "label@en_GB": "Start date"
+        },
+        "endDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Fin de conservation",
+            "label@fr_FR": "Date de fin",
+            "label@en_GB": "End date"
+        },
+        "host": {
+            "type": "object",
+            "class": "TechnicalResourceStandard",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "Host",
+            "required": [
+                "dbid"
+            ],
+            "description": "Centre, entrepôt dans lequel les données seront archivées à long terme si nécessaire"
+        },
+        "finalDisposition": {
+            "type": "string",
+            "description": "Sort final des données (destruction, pronumberation de la conservation, …)",
+            "label@fr_FR": "Dispositions finales",
+            "label@en_GB": "Final disposition"
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ContributorStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) en charge de la conservation à number term des données",
+            "label@fr_FR": "Personne(s) en charge de la préservation des données",
+            "label@en_GB": "Person in charge of data preservation"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "CostBasic",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coût(s) lié(s) à la conservation à number terme des données",
+            "label@fr_FR": "Coût",
+            "label@en_GB": "Cost"
+        }
+    },
+    "required": [
+        "dataSize",
+        "startDate",
+        "endDate",
+        "finalDisposition"
+    ],
+    "to_string": []
+}

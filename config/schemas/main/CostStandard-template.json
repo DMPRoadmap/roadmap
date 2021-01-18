@@ -1,0 +1,83 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "CostStandard",
+    "description": "CostStandard template",
+    "type": "object",
+    "class": "CostStandard",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Libellé du coût",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description/justificatif des coûts",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        },
+        "costType": {
+            "type": "string",
+            "description": "Type de coût engagé",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type de coût",
+            "label@en_GB": "Cost type",
+            "values@en_GB": [
+                "Personnel cost",
+                "Training",
+                "Software",
+                "Hardware",
+                "Other"
+            ],
+            "values@fr_FR": [
+                "Frais de personnel",
+                "Formation",
+                "Logiciel",
+                "Matériel informatique",
+                "Autre"
+            ],
+            "overridable": true
+        },
+        "amount": {
+            "type": "number",
+            "description": "Valeur numérique du montant",
+            "label@fr_FR": "Montant",
+            "label@en_GB": "Amount",
+            "tooltip@fr_FR": "Saisir le montant",
+            "tooltip@en_GB": "Enter the amount"
+        },
+        "currency": {
+            "type": "string",
+            "description": "Monnaie dans laquelle ce coût est exprimé (Référentiel des monnaies. (Voir ISO 4217))",
+            "inputType": "dropdown",
+            "label@fr_FR": "Devise",
+            "label@en_GB": "Currency",
+            "values@fr_FR": [
+                "EUR",
+                "GBP",
+                "USD"
+            ],
+            "values@en_GB": [
+                "EUR",
+                "GBP",
+                "USD"
+            ]
+        }
+    },
+    "required": [
+        "title",
+        "costType",
+        "amount",
+        "currency"
+    ],
+    "to_string": [
+        "$.costType",
+        " : ",
+        "$.amount",
+        " ",
+        "$.currency"
+    ]
+}

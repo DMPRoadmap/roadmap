@@ -20,22 +20,16 @@
 
 class Fragment::QualityAssuranceMethod < MadmpFragment
 
-	def plan
-		Plan.find(data["plan_id"])
-	end
+  def method_reference
+    Fragment::ResourceReference.where(parent_id: id).first
+  end
 
-	def properties
-		"plan"
-	end
+  def properties
+    "method_reference"
+  end
 
-	# Cited as qualityAssuranceMethod
-
-	def used_in
-		"documentation_quality"
-	end
-
-	def self.sti_name
-		"quality_assurance_method"
-	end
+  def self.sti_name
+    "quality_assurance_method"
+  end
 
 end

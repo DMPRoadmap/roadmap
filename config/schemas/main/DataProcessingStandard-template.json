@@ -1,0 +1,110 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataProcessingStandard",
+    "description": "DataProcessingStandard template",
+    "type": "object",
+    "class": "DataProcessingStandard",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Intitulé du traitement des données",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description des méthodes/protocoles de traitement des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        },
+        "methodReference": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ResourceReferenceStandard",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "MethodReference",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Ressource de référence d'une méthode ou un protocole, d'un workflow d'analyse",
+            "label@fr_FR": "Références des méthodes",
+            "label@en_GB": "Methods references"
+        },
+        "facility": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "TechnicalResource",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "TechnicalResourceStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Ressource technique utilisée pour réaliser les traitements",
+            "label@fr_FR": "Ressource technique",
+            "label@en_GB": "Technical resource"
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ContributorStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personnes impliquées dans le traitement des données",
+            "label@fr_FR": "Contributeur(s)",
+            "label@en_GB": "Contributor(s)"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "CostBasic",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coûts éventuels liés aux traitements des données",
+            "label@fr_FR": "Coût du traitement",
+            "label@en_GB": "Treatment cost"
+        }
+    },
+    "required": [
+        "title",
+        "description"
+    ],
+    "to_string": []
+}

@@ -1,0 +1,41 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataReuseBasic",
+    "description": "DataReuseBasic template",
+    "type": "object",
+    "class": "DataReuseBasic",
+    "properties": {
+        "justification": {
+            "type": "string",
+            "description": "Justification de la réutilisation ou non réutilisation de données existantes",
+            "inputType": "textarea",
+            "label@fr_FR": "Justification",
+            "label@en_GB": "Justification"
+        },
+        "reusedData": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "ReusedData",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ReusedDataBasic",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Jeu de données réutilisé",
+            "label@fr_FR": "Produit de recherche réutilisé",
+            "label@en_GB": "Reused research output"
+        }
+    },
+    "required": [
+        "justification"
+    ],
+    "to_string": []
+}

@@ -1,0 +1,133 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "DataStorageStandard",
+    "description": "DataStorageStandard template",
+    "type": "object",
+    "class": "DataStorageStandard",
+    "properties": {
+        "description": {
+            "type": "string",
+            "description": "Description des besoins de stockage",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        },
+        "estimatedVolume": {
+            "type": "number",
+            "description": "Volume estimé des données",
+            "label@fr_FR": "Volume estimé",
+            "label@en_GB": "Estimated volume"
+        },
+        "volumeUnit": {
+            "type": "string",
+            "description": "Unité de volume",
+            "inputType": "dropdown",
+            "label@fr_FR": "Unité",
+            "label@en_GB": "Unit",
+            "values@fr_FR": [
+                "Octets",
+                "Kilooctets",
+                "Mégaoctets",
+                "Téraoctets",
+                "Pentaoctets"
+            ],
+            "values@en_GB": [
+                "Octets",
+                "Kilooctets",
+                "Megaoctets",
+                "Teraoctets",
+                "Pentaoctets"
+            ]
+        },
+        "facility": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "TechnicalResource",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "TechnicalResourceStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Ressource/équipement utilisée pour le stockage et sauvegarde des données",
+            "label@fr_FR": "Stockage par une ressource extérieure",
+            "label@en_GB": "Storage by an external resource"
+        },
+        "backupPolicy": {
+            "type": "object",
+            "class": "BackupPolicy",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "BackupPolicyStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Informations relatives à la politique de sauvegarde",
+            "label@fr_FR": "Politique de sauvegarde",
+            "label@en_GB": "Backup policy"
+        },
+        "securityMeasures": {
+            "type": "string",
+            "description": "Description des mesures prises pour assurer la sécurité des données",
+            "inputType": "textarea",
+            "label@fr_FR": "Mesures de sécurité",
+            "label@en_GB": "Security measures"
+        },
+        "contributor": {
+            "type": "array",
+            "table_header@fr_FR": "Nom (rôle)",
+            "table_header@en_GB": "Name (role)",
+            "items": {
+                "type": "object",
+                "class": "Contributor",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "ContributorStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Personne(s) responsable(s) du suivi du stockage des données",
+            "label@fr_FR": "Personne en charge du stockage",
+            "label@en_GB": "Person in charge of storage"
+        },
+        "cost": {
+            "type": "array",
+            "table_header@fr_FR": "Type de coût : montant",
+            "table_header@en_GB": "Cost type: amount",
+            "items": {
+                "type": "object",
+                "class": "CostBasic",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "CostStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "description": "Coûts éventuels liés au stockage des données",
+            "label@fr_FR": "Coût de stockage",
+            "label@en_GB": "Coût de stockage"
+        }
+    },
+    "required": [
+        "description"
+    ],
+    "to_string": []
+}

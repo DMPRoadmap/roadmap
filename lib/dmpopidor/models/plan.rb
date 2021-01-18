@@ -1,22 +1,18 @@
+# frozen_string_literal: true
+
 module Dmpopidor
+
   module Models
+
     module Plan
-
-
 
       # CHANGE : Fix to creator display
       def owner
         usr_id = ::Role.where(plan_id: id, active: true)
-                      .creator
-                      .order(:created_at)
-                      .pluck(:user_id).first
-        if usr_id.nil?
-          usr_id = ::Role.where(plan_id: id, active: true)
-                        .administrator
-                        .order(:created_at)
-                        .pluck(:user_id).first
-        end
-        ::User.find(usr_id)
+                       .administrator
+                       .order(:created_at)
+                       .pluck(:user_id).first
+        usr_id.present? ? ::User.find(usr_id) : nil
       end
 
       # CHANGES : ADDED RESEARCH OUTPUT SUPPORT
@@ -96,7 +92,7 @@ module Dmpopidor
       # 'reviewer' Role for the Plan.
       # CHANGES : Added feedback_requestor & request_date columns
       def complete_feedback(org_admin)
-       ::Plan.transaction do
+        ::Plan.transaction do
           begin
             self.feedback_requested = false
             self.feedback_requestor = nil
@@ -128,7 +124,6 @@ module Dmpopidor
         research_outputs.count
       end
 
-
       # Return the JSON Fragment linked to the Plan
       #
       # Returns JSON
@@ -136,123 +131,86 @@ module Dmpopidor
         Fragment::Dmp.where("(data->>'plan_id')::int = ?", id).first
       end
 
-      # Create the Project JSON Fragment
-      #
-      # Returns JSON
-      def create_project_json(project = nil)
-        fragment = nil
-        if project.nil?
-          fragment = {
-            "title" => self.title,
-            "description" => self.description
-          }
-
-        else 
-          fragment = {
-            "title" => project["project_title"],
-            "acronym" => project["project_acronym"],
-            "description" => project["project_description"],
-            "projectId" => project["project_id"],
-            "startDate" => project["project_start_date"],
-            "endDate" => project["project_end_date"],
-            "experimentalPlanUrl" => project["experimental_plan_url"],
-            "principalInvestigator" => project["principalInvestigator"]
-          }
-
-        end
-        fragment
-      end
-
-      # Create the Meta JSON Fragment
-      #
-      # Returns JSON
-      def create_meta_json(meta = nil)
-        fragment = nil
-        if meta.nil?
-          fragment = {
-            "creationDate" => self.created_at,
-            "lastModifiedDate" => self.updated_at
-          }
-        else
-          fragment = meta.merge({
-            "creationDate" => self.created_at,
-            "lastModifiedDate" => self.updated_at
-          })
-        end
-        fragment
-      end
-
-      # Create a Person JSON Fragment if it doesn't exist
-      # 
-      # Returns JSON
-      def create_or_update_person_fragment(person)
-        dmp_fragment = self.json_fragment()
-        person_fragment = nil
-        ## TODO : Permettre la mise à jour d'une personne
-        unless person[:mbox].empty?
-          person_fragment = dmp_fragment.persons.where(
-            "data->>'mbox' = ?", person[:mbox]
-          ).first
-          if person_fragment.nil?
-            person_fragment = dmp_fragment.persons.create(
-              data: person,
-              madmp_schema_id: MadmpSchema.find_by(classname: "person").id
-            )
-          else
-            person_fragment.update(
-              data: person,
-              madmp_schema_id: MadmpSchema.find_by(classname: "person").id
-            )
-            person_fragment.save!
-          end
-        end
-        person_fragment
-      end
- 
       def create_plan_fragments
         dmp_fragment = Fragment::Dmp.create(
           data: {
-            "plan_id" => self.id
+            "plan_id" => id
           },
-          madmp_schema_id: MadmpSchema.find_by(classname: 'dmp')
-        )
-        
-        Fragment::Project.create(
-          data: create_project_json(),
-          dmp_id: dmp_fragment.id,
-          parent_id: dmp_fragment.id,
-          madmp_schema_id: MadmpSchema.find_by(classname: 'project')
+          madmp_schema: MadmpSchema.find_by(name: "DMPStandard"),
+          additional_info: {}
         )
 
-        Fragment::Meta.create(
-          data: create_meta_json(),
+        project = Fragment::Project.create(
+          data: {
+            "title" => title
+          },
           dmp_id: dmp_fragment.id,
           parent_id: dmp_fragment.id,
-          madmp_schema_id: MadmpSchema.find_by(classname: 'meta')
-        )  
+          madmp_schema: MadmpSchema.find_by(name: "ProjectStandard"),
+          additional_info: {}
+        )
+        project.instantiate
+
+        meta = Fragment::Meta.create(
+          data: {
+            "title" => d_("dmpopidor", "\"%{project_title}\" project DMP") % { project_title: title },
+            "creationDate" => created_at.strftime("%F"),
+            "lastModifiedDate" => updated_at.strftime("%F"),
+            "dmpLanguage" => template.locale
+          },
+          dmp_id: dmp_fragment.id,
+          parent_id: dmp_fragment.id,
+          madmp_schema: MadmpSchema.find_by(name: "MetaStandard"),
+          additional_info: {}
+        )
+        meta.instantiate
+
+        person_data = {
+          "lastName" => owner.surname,
+          "firstName" => owner.firstname,
+          "mbox" => owner.email
+        } unless owner.nil?
+        person = Fragment::Person.create(
+          data: person_data || {},
+          dmp_id: dmp_fragment.id,
+          madmp_schema: MadmpSchema.find_by(name: "PersonStandard"),
+          additional_info: {}
+        )
+
+        Fragment::Contributor.create(
+          data: {
+            "person" => { "dbid" => person.id },
+            "role" => d_("dmpopidor", "DMP coordinator")
+          },
+          dmp_id: dmp_fragment.id,
+          parent_id: meta.id,
+          madmp_schema: MadmpSchema.find_by(name: "DMPCoordinator"),
+          additional_info: { property_name: "contact" }
+        )
+
+        Fragment::Contributor.create(
+          data: {
+            "person" => { "dbid" => person.id },
+            "role" => d_("dmpopidor", "Project coordinator")
+          },
+          dmp_id: dmp_fragment.id,
+          parent_id: project.id,
+          madmp_schema: MadmpSchema.find_by(name: "PrincipalInvestigator"),
+          additional_info: { property_name: "principalInvestigator" }
+        )
       end
 
       def update_plan_fragments(meta, project)
-        dmp_fragment = self.json_fragment()
+        dmp_fragment = json_fragment
+        meta_fragment = dmp_fragment.meta
+        project_fragment = dmp_fragment.project
 
-        contact_fragment = create_or_update_person_fragment(meta.delete(:contact))
-        principal_investigator_fragment = create_or_update_person_fragment(project.delete(:principalInvestigator))
-
-        meta[:contact] = {
-          "dbId" => contact_fragment ? contact_fragment.id : nil
-        }
-        project[:principalInvestigator] = {
-          "dbId" => principal_investigator_fragment ? principal_investigator_fragment.id : nil
-        }
-        
-        dmp_fragment.meta.update(
-          data: create_meta_json(meta)
-        )
-        
-        dmp_fragment.project.update(
-          data: create_project_json(project)
-        )
+        meta_fragment.save_as_multifrag(meta, meta_fragment.madmp_schema)
+        project_fragment.save_as_multifrag(project, project_fragment.madmp_schema)
       end
-    end 
+
+    end
+
   end
+
 end

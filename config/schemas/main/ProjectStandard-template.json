@@ -1,0 +1,131 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "ProjectStandard",
+    "description": "ProjectStandard template",
+    "type": "object",
+    "class": "ProjectStandard",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Titre du projet",
+            "label@fr_FR": "Titre du projet",
+            "label@en_GB": "Project title"
+        },
+        "acronym": {
+            "type": "string",
+            "description": "Acronyme du projet",
+            "label@fr_FR": "Acronyme du projet",
+            "label@en_GB": "Project acronym"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description du projet",
+            "inputType": "textarea",
+            "label@fr_FR": "Résumé du projet",
+            "label@en_GB": "Project abstract"
+        },
+        "funding": {
+            "type": "array",
+            "table_header@fr_FR": "Financeur : identifiant du financement",
+            "table_header@en_GB": "Funder: funding identifier",
+            "items": {
+                "type": "object",
+                "class": "Funding",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "FundingStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Source(s) de financement d'un projet ou d'une activité de recherche",
+            "label@fr_FR": "Source de financement",
+            "label@en_GB": "Funding"
+        },
+        "startDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Début de projet",
+            "label@fr_FR": "Date de début du projet",
+            "label@en_GB": "Project start date"
+        },
+        "endDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Fin de projet",
+            "label@fr_FR": "Date de fin du projet",
+            "label@en_GB": "Project end date"
+        },
+        "partner": {
+            "type": "array",
+            "table_header": null,
+            "items": {
+                "type": "object",
+                "class": "Partner",
+                "properties": {
+                    "dbid": {
+                        "type": "number"
+                    }
+                },
+                "template_name": "PartnerStandard",
+                "required": [
+                    "dbid"
+                ]
+            },
+            "minItems": 1,
+            "description": "Partenaires d'un projet ou d'une activité de recherche",
+            "label@fr_FR": "Partenaire du projet",
+            "label@en_GB": "Project partner"
+        },
+        "experimentalPlan": {
+            "type": "object",
+            "class": "ResourceReference",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "ResourceReferenceStandard",
+            "required": [
+                "dbid"
+            ],
+            "description": "Référence d'une représentation du plan expérimental d'obtention des données",
+            "label@fr_FR": "Réference du plan expérimental",
+            "label@en_GB": "Experimental plan reference"
+        },
+        "principalInvestigator": {
+            "type": "object",
+            "class": "Contributor",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "PrincipalInvestigator",
+            "required": [
+                "dbid"
+            ],
+            "description": "Coordinateur principal du projet",
+            "label@fr_FR": "Coordinateur du projet",
+            "label@en_GB": "Project coordinator",
+            "tooltip@fr_FR": "Aussi appelé Investigateur principal",
+            "tooltip@en_GB": "also called Principal investigator"
+        }
+    },
+    "required": [
+        "title",
+        "acronym",
+        "description",
+        "funding",
+        "startDate",
+        "endDate",
+        "partner",
+        "principalInvestigator"
+    ],
+    "to_string": []
+}

@@ -1,0 +1,63 @@
+<%# locals: { template, question, fragment, madmp_schema, research_output, readonly, locking } %>
+<%= hidden_field_tag 'fragment-id', fragment.id, class: "fragment-id" %>
+<%= form_for :madmp_fragment, url: madmp_fragment_path(id: fragment.id), 
+              html: {
+                method: :put,
+                'data-autosave': question.id,
+                class: "form-answer dynamic-form", 
+                id: nil  
+              } do |f| %>
+  <% if !readonly %>
+    <%= f.fields_for(:answer, answer) do |af| %>
+      <%= af.hidden_field :plan_id, id: nil %>
+      <%= af.hidden_field :question_id, id: nil %>
+      <%= af.hidden_field :lock_version, id: nil %>
+      <%= af.hidden_field :research_output_id, :value => research_output.id, id: nil%>
+      <%= af.hidden_field :is_common, class: 'ans_is_common' if research_output.main? %>
+      <%= af.hidden_field :id, id: nil, class: 'answer_id' %>
+    <% end %>
+  <% end %>
+  <%= f.hidden_field :schema_id, :value => madmp_schema.id, id: nil, class: "schema_id" %>
+  <%= f.hidden_field :dmp_id, :value => dmp_id, id: nil %>
+  <%= f.hidden_field :parent_id, :value => parent_id, id: nil %>
+  <%= f.hidden_field "source", :value => "form" %>
+  <fieldset aria-labelledby="answer-fieldset">
+    <div class="form-group madmp-fragment fragment-<%= fragment.id %>" data-fragment-id="<%= fragment.id %>" >
+        <%= render(partial: 'shared/dynamic_form/form', locals: { 
+              f: f,
+              current_fragment: fragment, 
+              schema: madmp_schema,
+              question_id: question.id, 
+              readonly: readonly,
+              classname: fragment.classname,
+              template_locale: question.template.locale
+            }) %>
+        <div class="overlay" style="display:none;">
+          <div class="spinner"></div>
+          <br/>
+          <%= _('Saving...') %>
+        </div>
+      </div>
+      <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+  </fieldset>
+  <!--Example Answer area -->
+  <% if template.present? && template.org.present? %>
+    <% question.example_answers([base_template_org.id, template.org.id]).each do |annotation| %>
+      <% if annotation.present? && annotation.org.present? && annotation.text.present? %>
+        <div class="panel panel-default example-answer">
+          <span class="label label-default example-answer-link" 
+                data-toggle="collapse" 
+                data-target="<%= "#example-#{question.id}-research-output-#{research_output.id}"  %>">
+            <%="#{annotation.org.abbreviation} "%> <%=_('example answer')%>
+            <i class="more-less fa fa-plus small"></i>
+          </span>
+          <div 
+              class="panel-body collapse example" 
+              id="<%= "example-#{question.id}-research-output-#{research_output.id}"  %>">
+            <%= sanitize annotation.text %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

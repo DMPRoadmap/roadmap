@@ -40,12 +40,9 @@ class Plan < ActiveRecord::Base
   include ValidationValues
   prepend Dmpopidor::Models::Plan
 
-  after_create :create_plan_fragments
-
   # =============
   # = Constants =
   # =============
-
 
   # Returns visibility message given a Symbol type visibility passed, otherwise
   # nil
@@ -53,8 +50,8 @@ class Plan < ActiveRecord::Base
     organisationally_visible: _("organisational"),
     publicly_visible: _("public"),
     is_test: _("test"),
-    administrator_visible: _('Administrator'),
-    privately_visible: _('private')
+    administrator_visible: _("Administrator"),
+    privately_visible: _("private")
   }
 
   # ==============
@@ -65,9 +62,7 @@ class Plan < ActiveRecord::Base
   enum visibility: %i[organisationally_visible publicly_visible
                       is_test administrator_visible privately_visible]
 
-
   alias_attribute :name, :title
-
 
   # ================
   # = Associations =
@@ -104,7 +99,7 @@ class Plan < ActiveRecord::Base
 
   has_many :roles
 
-  belongs_to :feedback_requestor, class_name: "User", :foreign_key => 'feedback_requestor'
+  belongs_to :feedback_requestor, class_name: "User", :foreign_key => "feedback_requestor"
 
   # RESEARCH OUTPUTS
   has_many :research_outputs, dependent: :destroy, inverse_of: :plan do
@@ -120,7 +115,7 @@ class Plan < ActiveRecord::Base
     def toggle_default
       if count > 1
         unless default.nil?
-          default.update(abbreviation: 'Default', fullname: 'Default research output' ) if default.abbreviation.nil?
+          default.update(abbreviation: "Default", fullname: "Default research output" ) if default.abbreviation.nil?
           default.update(is_default: false)
         end
       else
@@ -128,8 +123,6 @@ class Plan < ActiveRecord::Base
       end
     end
   end
-
-
 
   # =====================
   # = Nested Attributes =
@@ -153,13 +146,11 @@ class Plan < ActiveRecord::Base
 
   validates :complete, inclusion: { in: BOOLEAN_VALUES }
 
-
   # =============
   # = Callbacks =
   # =============
 
   before_validation :set_creation_defaults
-
 
   # ==========
   # = Scopes =
@@ -171,7 +162,7 @@ class Plan < ActiveRecord::Base
     plan_ids = Role.where(active: true, user_id: user.id).pluck(:plan_id)
 
     includes(:template, :roles)
-    .where(id: plan_ids)
+      .where(id: plan_ids)
   }
 
   # Retrieves any plan organisationally or publicly visible for a given org id
@@ -231,8 +222,8 @@ class Plan < ActiveRecord::Base
   # CHANGES: Added PRELOAD for madmp_schema & research_output
   def self.load_for_phase(plan_id, phase_id)
     # Preserves the default order defined in the model relationships
-    plan = Plan.joins(:research_outputs, template: { phases: { sections: { questions: :madmp_schema } } })
-               .preload(:research_outputs, template: { phases: { sections: { questions: :madmp_schema } } })
+    plan = Plan.joins(:research_outputs, template: { phases: { sections: :questions } })
+               .preload(:research_outputs, template: { phases: { sections: :questions } })
                .where(id: plan_id, phases: { id: phase_id })
                .merge(Plan.includes(answers: :notes)).first
     phase = plan.template.phases.find { |p| p.id == phase_id.to_i }
@@ -263,7 +254,6 @@ class Plan < ActiveRecord::Base
         answer_copy.research_output_id = research_output_copy.id
         answer_copy.save!
       end
-
     end
     plan.guidance_groups.each do |guidance_group|
       plan_copy.guidance_groups << guidance_group if guidance_group.present?

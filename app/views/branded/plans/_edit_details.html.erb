@@ -1,38 +1,61 @@
 
-<% persons = @plan.json_fragment().persons %>
-<% meta_fragment = @plan.json_fragment().meta%>
-<% project_fragment = @plan.json_fragment().project%>
+<% dmp_fragment = @plan.json_fragment() %>
+<% meta_fragment = dmp_fragment.meta%>
+<% project_fragment = dmp_fragment.project%>
 <div class="row">
   <%= form_for plan, html: {method: :put, class: 'form-horizontal edit_plan' } do |f| %>
     <div class="col-md-12 plan-details">
       <!-- Tabs content -->
       <div class="tab-content">
+        <div class="checkbox">
+          <%= f.hidden_field :visibility %>
+          <%= f.label(:is_test, class: 'control-label') do %>
+            <%= check_box_tag(:is_test, 1, @plan.is_test?, "aria-label": "is_test") %>
+            <%= _('mock project for testing, practice, or educational purposes') %>
+          <% end %>
+        </div>
         <!-- "Plan Metadata" tab -->
         <div id="plan_metadata" class="tab-pane in active madmp-fragment fragment-<%= meta_fragment.id %>">
-          <h2><%= _("Plan Metadata") %></h2>
-          <%= render(partial: 'plans/plan_details/plan_metadata', locals: {
-                      f: f,
-                      persons: persons,
-                      meta_fragment: meta_fragment
-            } ) %>
+          <h2><%= d_("dmpopidor", "Plan Details") %></h2>
+          <div class="meta-form">
+            <%= render(partial: 'shared/dynamic_form/form', locals: { 
+                  f: f,
+                  current_fragment: meta_fragment, 
+                  schema: MadmpSchema.find_by(name: "MetaStandard"),
+                  question_id: nil,
+                  readonly: false,
+                  classname: "meta",
+                  template_locale: @plan.template.locale,
+                  form_prefix: "meta"
+                }) %>
+          </div>
+          <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
         </div>
         <!-- "Project Details" tab -->
         <div id="plan_project" class="tab-pane madmp-fragment fragment-<%= project_fragment.id %>">
           <h2><%= _("Project Details") %></h2>
-          <%= render(partial: 'plans/plan_details/plan_project', locals: { 
-                      f: f,
-                      persons: persons,
-                      project_fragment: project_fragment
-            } ) %>
+          <div class="project-form">
+            <%= render(partial: 'shared/dynamic_form/form', locals: { 
+                  f: f,
+                  current_fragment: project_fragment, 
+                  schema: MadmpSchema.find_by(name: "ProjectStandard"),
+                  question_id: nil,
+                  readonly: false,
+                  classname: "project",
+                  template_locale: @plan.template.locale,
+                  form_prefix: "project"
+                }) %>
+          </div>
+          <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
         </div>
         <!-- "Guidance Configuration" tab -->
         <div id="guidance_configuration" class="tab-pane">
-          <%= render(partial: 'plans/plan_details/guidance_configuration', locals: { f: f } ) %>
+          <%= render(partial: 'plans/guidance_configuration', locals: { f: f } ) %>
         </div>
       </div>
       <ul class="nav nav-tabs form-tabs">
         <li class="active">
-          <span data-toggle="tab" data-target="#plan_metadata"><i class="fa fa-arrow-left"></i> <%= _("Plan Metadata") %></span>
+          <span data-toggle="tab" data-target="#plan_metadata"><i class="fa fa-arrow-left"></i> <%= d_("dmpopidor", "Plan Details") %></span>
         </li>
         <li>
           <span data-toggle="tab" data-target="#plan_project"><i class="fa fa-arrow-left"></i> <%= _("Project Details") %></span>

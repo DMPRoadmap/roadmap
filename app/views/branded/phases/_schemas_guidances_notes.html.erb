@@ -1,33 +1,33 @@
 <%# locals: { plan, template, question, answer, madmp_schema, pickable_schemas, research_output, guidance_presenter } %>
-<% guidances_active = guidance_presenter.any?(question: question) %>
+<% guidances_active = guidance_presenter.any?(question: question)%>
 <% active_nav = nil %>
 <div class="plan-guidance-tab schema-pickerzz">
 
   <!-- Nav tabs -->
   <ul class="nav nav-pills nav-justified mb-10" role="tablist">
-      <li role="presentation" class="active">
-          <a href="#forms-<%= question.id %>-research-output-<%= research_output.id %>" aria-controls="" role="tab" data-toggle="pill">
-              <%= _('Forms') %>
-          </a>
-      </li>
-      <% if guidances_active %>
-          <li role="presentation">
-              <a href="#guidances-<%= question.id %>-research-output-<%= research_output.id %>" 
-                 aria-controls="guidances-<%= question.id %>-research-output-<%= research_output.id %>" role="tab" data-toggle="pill">
-                  <%= _('Guidance') %>
-              </a>
-          </li>
-      <% end %>
-      <% if plan.present? %>
-          <li role="presentation">
-              <a href="#notes-<%= question.id %>-research-output-<%= research_output.id %>" 
-                 aria-controls="notes-<%= question.id %>-research-output-<%= research_output.id %>" role="tab" data-toggle="pill">
-                  <span id="notes-title-<%= question.id %>-research-output-<%= research_output.id %>">
-                      <%= render partial: '/notes/title', locals: { answer: answer } %>
-                  </span>
-              </a>
-          </li>
-      <% end %>
+    <li role="presentation" class="active">
+        <a href="#forms-<%= question.id %>-research-output-<%= research_output.id %>" aria-controls="" role="tab" data-toggle="pill">
+            <%= _('Forms') %>
+        </a>
+    </li>
+    <% if guidances_active %>
+        <li role="presentation">
+            <a href="#guidances-<%= question.id %>-research-output-<%= research_output.id %>" 
+                aria-controls="guidances-<%= question.id %>-research-output-<%= research_output.id %>" role="tab" data-toggle="pill">
+                <%= _('Guidance') %>
+            </a>
+        </li>
+    <% end %>
+    <% if plan.present? %>
+        <li role="presentation">
+            <a href="#notes-<%= question.id %>-research-output-<%= research_output.id %>" 
+                aria-controls="notes-<%= question.id %>-research-output-<%= research_output.id %>" role="tab" data-toggle="pill">
+                <span id="notes-title-<%= question.id %>-research-output-<%= research_output.id %>">
+                    <%= render partial: '/notes/title', locals: { answer: answer } %>
+                </span>
+            </a>
+        </li>
+    <% end %>
   </ul>
 
 
@@ -64,7 +64,8 @@
         </ul>
         <div class="tab-content">
           <% tablist.each_with_index do |tab, i| %>
-            <div id="<%= "guidance_per_question_#{question.id}_research_output_#{research_output.id}_#{i}" %>" role="tabpanel" class="tab-pane <%= active_nav == tab[:name] ? 'active' : '' %>">
+            <div id="<%= "guidance_per_question_#{question.id}_research_output_#{research_output.id}_#{i}" %>" role="tabpanel"
+                  class="tab-pane <%= active_nav == tab[:name] ? 'active' : '' %>">
                 <div class="panel panel-default">
                   <div class="panel-body">
                     <% if tab[:annotations].present? %>

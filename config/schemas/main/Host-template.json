@@ -1,0 +1,162 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "../Documentation/Implementation/data_model/Json/",
+    "title": "Host",
+    "description": "Host template",
+    "type": "object",
+    "class": "Host",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Intitulé de la resource technique",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description succinte de la ressource technique",
+            "inputType": "textarea",
+            "label@fr_FR": "Description",
+            "label@en_GB": "Description"
+        },
+        "technicalResourceId": {
+            "type": "string",
+            "description": "Identifiant pérenne ou Url de référence",
+            "label@fr_FR": "Identifiant de la ressource technique",
+            "label@en_GB": "Technical resource ID"
+        },
+        "idType": {
+            "type": "string",
+            "description": "Type d'identifiant",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type d'identifiant",
+            "label@en_GB": "Identifier type",
+            "values@fr_FR": [
+                "DOI",
+                "ARK",
+                "Handle",
+                "IGSN",
+                "URL",
+                "Autre"
+            ],
+            "values@en_GB": [
+                "DOI",
+                "ARK",
+                "Handle",
+                "IGSN",
+                "URL",
+                "Other"
+            ]
+        },
+        "geoLocation": {
+            "type": "string",
+            "description": "Code du pays de localisation de la ressource technique",
+            "inputType": "dropdown",
+            "label@fr_FR": "Localisation géographique (pays)",
+            "label@en_GB": "Geo location (country",
+            "values@fr_FR": [
+                "FR",
+                "GB",
+                "US",
+                "DE"
+            ],
+            "values@en_GB": [
+                "FR",
+                "GB",
+                "US",
+                "DE"
+            ]
+        },
+        "certification": {
+            "type": "string",
+            "description": "Certificat de qualité obtenu par les ressource techniques (CoreTrustSEal, DSA, WDS, ISO-9001, …)",
+            "inputType": "dropdown",
+            "label@fr_FR": "Certification",
+            "label@en_GB": "Certification",
+            "values@fr_FR": [
+                "CoreTrustSeal",
+                "WDS",
+                "DSA",
+                "ISO-9001",
+                "ISO-27000",
+                "Autres"
+            ],
+            "values@en_GB": [
+                "CoreTrustSeal",
+                "WDS",
+                "DSA",
+                "ISO-9001",
+                "ISO-27000",
+                "Other"
+            ]
+        },
+        "pidSystem": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "Système d'identifiants pérennes utilisé par la ressource technique",
+            "inputType": "dropdown",
+            "label@fr_FR": "Système d'identifiants",
+            "label@en_GB": "PID system",
+            "values@fr_FR": [
+                "DOI",
+                "ARK",
+                "Handle",
+                "IGSN",
+                "URL",
+                "Autre"
+            ],
+            "values@en_GB": [
+                "DOI",
+                "ARK",
+                "Handle",
+                "IGSN",
+                "URL",
+                "Other"
+            ]
+        },
+        "hasVersioningPolicy": {
+            "type": "string",
+            "description": "Contrôle des versions",
+            "inputType": "dropdown",
+            "label@fr_FR": "Politique de gestion des versions",
+            "label@en_GB": "Versioning policy",
+            "values@fr_FR": [
+                "Oui",
+                "Non",
+                "Ne sais pas"
+            ],
+            "values@en_GB": [
+                "Yes",
+                "No",
+                "Unknown"
+            ]
+        },
+        "availability": {
+            "type": "number",
+            "description": "Disponibilité/pérennité de la ressource technique en années (jusqu'à quelle année?)",
+            "label@fr_FR": "Disponibilité (années)",
+            "label@en_GB": "Availability (years)"
+        },
+        "metadataStandard": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "minItems": 1,
+            "description": "Standard de métadonnées requis pour le dépôt des données",
+            "label@fr_FR": "Standard de métadonnées requis pour le dépôt des données",
+            "label@en_GB": "Metadata standard required for data repository"
+        }
+    },
+    "required": [
+        "title",
+        "technicalResourceId",
+        "idType",
+        "geoLocation",
+        "hasVersioningPolicy",
+        "metadataStandard"
+    ],
+    "to_string": []
+}

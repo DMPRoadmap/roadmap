@@ -473,3 +473,33 @@ msgstr ""
 
 msgid "This property has an unknown problem : %{validation}"
 msgstr ""
+
+msgid "Create"
+msgstr ""
+
+msgid "General informations"
+msgstr ""
+
+msgid "\"%{project_title}\" project DMP"
+msgstr ""
+
+msgid "DMP coordinator"
+msgstr ""
+
+msgid "Project coordinator"
+msgstr ""
+
+msgid "Click here to add a new item"
+msgstr ""
+
+msgid "Answer"
+msgstr ""
+
+msgid "Plan Details"
+msgstr ""
+
+msgid "Editing %{title_value}"
+msgstr ""
+
+msgid "New %{title_value}"
+msgstr ""

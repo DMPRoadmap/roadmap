@@ -22,6 +22,7 @@ import '../views/answers/rda_metadata';
 import '../views/devise/passwords/edit';
 import '../views/devise/registrations/edit';
 import '../views/guidances/new_edit';
+import '../views/madmp_fragments/edit';
 import '../views/notes/index';
 import '../views/org_admin/phases/new_edit';
 import '../views/org_admin/phases/preview';

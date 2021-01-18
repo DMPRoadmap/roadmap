@@ -153,6 +153,7 @@ class PlansController < ApplicationController
   end
 
   # GET /plans/show
+  # SEE MODULE
   def show
     @plan = Plan.includes(
       template: { phases: { sections: { questions: :answers } } },
@@ -288,6 +289,7 @@ class PlansController < ApplicationController
     end
   end
 
+  # SEE MODULE
   def destroy
     @plan = Plan.find(params[:id])
     authorize @plan
