@@ -39,6 +39,8 @@ namespace :templates do
   end
 
   desc "Export template by Id"
+  # This task requires to pass the template id from the command line as
+  # rake templates:export_template_by_id[3120] > exported_template.json
   task :export_template_by_id, [:template_id] => [:environment] do |task, args|
     # Template 3118 is our current Portage templatee
     template = Template.find args[:template_id]
@@ -49,10 +51,6 @@ namespace :templates do
     # has_many :questions, through: :sections
     # has_many :annotations, through: :questions
 
-    # Phases
-    # Sections
-    # Questions
-    # Annotations
     output = {
       templates: [],
       phases: [],
@@ -65,18 +63,14 @@ namespace :templates do
 
     template.phases.each do |phase|
       # Create phase
-      # puts "Phase id #{phase.id}"
       output[:phases] << phase
       phase.sections.each do |section|
-        # puts "Section id #{section.id}"
         # Create section
         output[:sections] << section
         section.questions.each do |question|
-          # puts "Question id #{question.id}"
           # Create question
           output[:questions] << question
           question.annotations.each do |annotation|
-            # puts "Annotation id #{annotation.id}"
             # Create annotation
             output[:annotations] << annotation
           end
@@ -89,9 +83,12 @@ namespace :templates do
   end
 
   desc "Import new template"
-  task import_new_template: :environment do
-    file = File.read('/home/orodrigu/Workspace/roadmap/portage_template.json')
-    data = JSON.parse(file)
+  # This task requires to pass the template id from the command line as
+  # rake templates:import_new_template['./exported_template.json']
+  task :import_new_template, [:file_path] => [:environment] do |task, args|
+    file_path =  args[:file_path]
+    file = File.read(file_path)
+    data = JSON.parse(file, symbolize_names: true)
 
     templates_ids = {}
     phases_ids = {}
@@ -99,43 +96,46 @@ namespace :templates do
     questions_ids = {}
     annotations_ids = {}
 
-    data["templates"].each do |template_json|
-      template = Template.new(template_json.except[:id])
-      template.name = "Portage testing"
-      # SAVE
+    data[:templates].each do |template_json|
+      template = Template.new(template_json.except(:id))
+      old_saved_templates = Template.where(family_id: template_json[:family_id],
+                                    version: template_json[:version])
+
+      if old_saved_templates.length
+        t = Template.where(family_id: template_json[:family_id])
+                    .order(:version).last
+        template[:version] = t[:version] + 1
+      end
+      
       template.save!
       templates_ids[template_json[:id]] = template
     end
 
-    data["phases"].each do |phase_json|
-      phase = Phase.new(phase_json.except([:id, :template_id]))
+    data[:phases].each do |phase_json|
+      phase = Phase.new(phase_json.except(:id, :template_id))
       phase.template = templates_ids[phase_json[:template_id]]
-      # SAVE
       phase.save!
       phases_ids[phase_json[:id]] = phase
     end
 
-    data["sections"].each do |section_json|
-      section = Section.new(section_json.except([:id, :phase_id]))
+    data[:sections].each do |section_json|
+      section = Section.new(section_json.except(:id, :phase_id))
       section.phase = phases_ids[section_json[:phase_id]]
-      # SAVE
       section.save!
       sections_ids[section_json[:id]] = section
     end
 
-    data["questions"].each do |question_json|
-      question = Question.new(question_json.except([:id, :section_id]))
+    data[:questions].each do |question_json|
+      question = Question.new(question_json.except(:id, :section_id))
       question.section = sections_ids[question_json[:section_id]]
-      # SAVE
       question.save!
       questions_ids[question_json[:id]] = question
     end
 
-    data["annotations"].each do |annotation_json|
-      annotation = Annotation.new(annotation_json.except([:id, :question_id]))
+    data[:annotations].each do |annotation_json|
+      annotation = Annotation.new(annotation_json.except(:id, :question_id))
       annotation.question = questions_ids[annotation_json[:question_id]]
       annotation.save!
-      # SAVE
     end
 
   end
