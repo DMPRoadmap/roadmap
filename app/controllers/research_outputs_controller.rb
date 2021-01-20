@@ -33,11 +33,11 @@ class ResearchOutputsController < ApplicationController
     authorize @research_output
 
     if @research_output.save
-      redirect_to plan_research_outputs_path(@plan),
+      redirect_to edit_plan_research_output_path(@plan, @research_output),
                   notice: success_message(@research_output, _("added"))
     else
-      redirect_to plan_research_outputs_path(@plan),
-                  alert: failure_message(@research_output, _("add"))
+      flash[:alert] = failure_message(@research_output, _("add"))
+      render "research_outputs/new"
     end
   end
 

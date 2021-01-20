@@ -24,8 +24,6 @@
                                 query_params: {
                                   sort_field: 'research_outputs.title',
                                   sort_direction: :asc } %>
-      <% else %>
-        <p><%= _("No research outputs have been defined.") %></p>
       <% end %>
 
       <%= link_to _("Add a research output"), new_plan_research_output_path(@plan),

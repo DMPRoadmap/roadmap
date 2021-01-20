@@ -53,19 +53,39 @@ class ResearchOutputPresenter
   # Returns the abbreviation if available or a snippet of the title
   def display_name
     return "" unless @research_output.is_a?(ResearchOutput)
-    return @research_output.abbreviation if @research_output.abbreviation.present?
     return "#{@research_output.title[0..50]} ..." if @research_output.title.length > 50
 
     @research_output.title
   end
 
-  # Returns the abbreviation if available or a snippet of the title
+  # Returns the humanized version of the output_type enum variable
   def display_type
     return "" unless @research_output.is_a?(ResearchOutput)
     # Return the user entered text for the type if they selected 'other'
     return output_type_description if @research_output.other?
 
     @research_output.output_type.gsub("_", " ").capitalize
+  end
+
+  # Returns the display name of the primary repository
+  def display_repository
+    return _("Unspecified") unless @research_output.repository_id.present?
+
+    @research_output.repository.name
+  end
+
+  # Returns the humanized version of the access enum variable
+  def display_access
+    return _("Unspecified") unless @research_output.access.present?
+
+    @research_output.access.capitalize
+  end
+
+  # Returns the formatted release date
+  def display_release
+    return _("Unspecified") unless @research_output.release_date.present?
+
+    @research_output.release_date.to_date
   end
 
 end
