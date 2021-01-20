@@ -2,10 +2,8 @@ import frCA from '../locale/fr-CA/timeago';
 import enCA from '../locale/en-CA/timeago';
 import enGB from '../locale/en-GB/timeago';
 
-
-/* global timeago */
-
 const TimeagoFactory = (() => {
+  /* global timeago */
   timeago.register('fr-CA', frCA);
   timeago.register('en-CA', enCA);
   timeago.register('en-GB', enGB);
