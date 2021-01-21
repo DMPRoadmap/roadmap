@@ -131,7 +131,15 @@ module Paginable
 
       # Can raise ActiveRecord::StatementInvalid (e.g. column does not
       # exist, ambiguity on column, etc)
-      scope = scope.order(@args[:sort_field].to_sym => sort_direction.to_s)
+      # how we contruct scope depends on whether sort field is in the
+      # main table or in a related table
+      scope_table =  scope.klass.name.downcase
+      parts = @args[:sort_field].partition('.')
+      if scope_table == parts.first.singularize
+        scope = scope.order(@args[:sort_field].partition('.').last.to_sym => sort_direction.to_s)
+      else
+        scope = scope.includes(parts.first.singularize.to_sym).order(@args[:sort_field] + " " + sort_direction.to_s)
+      end
     end
     if @args[:page] != "ALL"
       # Can raise error if page is not a number
