@@ -5,6 +5,6 @@ $(() => {
   const form = $('.research_output_form');
 
   if (!isUndefined(form) && isObject(form)) {
-    Tinymce.init({ selector: "#research_output_description" });
+    Tinymce.init({ selector: '#research_output_description' });
   }
 });

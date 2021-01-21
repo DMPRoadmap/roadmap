@@ -87,10 +87,21 @@ personal_data_tooltip = _("The research output will contain personally identifia
   </div>
 
   <div class="form-group row">
-    <%= render partial: "shared/external_apis/selection",
-               locals: { context: research_output, label: _("Intended repository"),
-                         topic: "repository", partial: "research_outputs/repository/card" } %>
+    <div class="col-md-12">
+      <span class="col-md-12">
+        <%= label_tag _("Intended repository") %>
+      </span>
+    </div>
   </div>
+
+  <%= render partial: "shared/external_apis/selection",
+               locals: {
+                  context: research_output,
+                  topic: "repository",
+                  url: repository_search_plan_path(research_output.plan),
+                  filter_partial: "research_outputs/repository/filters",
+                  card_partial: "research_outputs/repository/card"
+                } %>
 
   <div class="form-group row">
     <div class="col-md-12">
@@ -134,35 +145,17 @@ personal_data_tooltip = _("The research output will contain personally identifia
     </div>
   </div>
 
-  <div class="panel-group" role="tablist" aria-multiselectable="true">
-    <div class="panel panel-default">
-      <%#= render partial: "research_outputs/sections/geographical", locals: { form: f, presenter: presenter } %>
-    </div>
-
-    <div class="panel panel-default <%= presenter.selectable_mime_types.any? ? "" : "hidden" %>"
-         id="file-metadata-panel">
-      <%= render partial: "research_outputs/sections/file", locals: { form: f, presenter: presenter } %>
-    </div>
-
-    <div class="panel panel-default">
-      <%#= render partial: "research_outputs/sections/attribution", locals: { form: f, presenter: presenter } %>
-    </div>
-  </div>
-
   <div class="form-group row">
-    <div class="col-md-6">
-      <%= f.button(_("Save"), class: "btn btn-default", type: "submit") %>
-      <% unless research_output.new_record? %>
-        <%= link_to _("Remove"), plan_research_output_path(plan, research_output),
-                                 method: :delete, class: "btn btn-default" %>
-        <% end %>
-        <%= link_to _("Cancel"), plan_research_outputs_path(plan),
-                                 class: "btn btn-default" %>
+    <div class="col-md-12">
+      <div class="col-md-6">
+        <%= f.button(_("Save"), class: "btn btn-default", type: "submit") %>
+        <% unless research_output.new_record? %>
+          <%= link_to _("Remove"), plan_research_output_path(plan, research_output),
+                                   method: :delete, class: "btn btn-default" %>
+          <% end %>
+          <%= link_to _("Cancel"), plan_research_outputs_path(plan),
+                                   class: "btn btn-default" %>
+      </div>
     </div>
   </div>
 <% end %>
-
-<%= render partial: "shared/external_apis/search_modal",
-           locals: { context: research_output, label: _("Repository"), topic: "repository",
-                     url: repository_search_plan_path(research_output.plan),
-                     partial: "research_outputs/repository/card" } %>

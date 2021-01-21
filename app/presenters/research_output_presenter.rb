@@ -33,10 +33,15 @@ class ResearchOutputPresenter
     [%w[MB mb], %w[GB gb], %w[TB tb], %w[PB pb], ["bytes", ""]]
   end
 
-  # TODO: These values should either live as an enum on the Model or in the DB
-  def selectable_coverage_regions
-    %w[africa americas antarctic arctic asia australia europe middle_east
-       polynesia].map { |region| [region.humanize, region] }
+  # Returns the options for subjects for the repository filter
+  def self.selectable_subjects
+    %w[4-engineering_sciences
+       1-humanities_and_social_sciences
+       2-life_sciences
+       3-natural_sciences].map do |subject|
+
+      [subject.split("-").last.humanize, subject.gsub("-", " ").humanize]
+    end
   end
 
   # Converts the byte_size into a more friendly value (e.g. 15.4 MB)

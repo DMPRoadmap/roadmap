@@ -1,23 +1,34 @@
-<%# locals: context, topic, partial %>
+<%# locals: context, topic, label, url, filter_partial, card_partial %>
 
-<div class="external-api-selection col-md-12" external_api="<%= topic %>">
-  <div class="col-md-12">
-    <%= label_tag label %>
-  </div>
-  <div class="col-md-12">
-    <div class="external-api-selections">
-      <% unless context.present? && context.send(topic).present? %>
-        <span class="no-selections"><%= _("No %{topic} has been selected for this research output.") % { topic: topic } %></span>
-      <% end %>
-      <% if context.present? && context.send(topic).present? %>
-        <%= render partial: "shared/external_apis/card",
-                   locals: { context: context, model: context.send(topic), partial: partial, selected: true } %>
-      <% end %>
+<div class="external-api-selection-block col-md-12" external_api="<%= topic %>">
+  <div class="external-api-selections">
+    <% unless context.present? && context.send(topic).present? %>
+      <span class="no-selections"><%= _("No %{topic} has been selected for this research output.") % { topic: topic } %></span>
+    <% end %>
+    <% if context.present? && context.send(topic).present? %>
+      <%= render partial: "shared/external_apis/card",
+                 locals: { context: context, model: context.send(topic), partial: card_partial, selected: true } %>
+    <% end %>
 
-    </div>
   </div>
-  <div class="col-md-12">
-    <%= button_tag _("%{topic} search") % { topic: label }, type: "button", class: "btn btn-default",
-                   data: { toggle: "modal", target: "#external-api-search" } %>
+
+  <div>
+    <%= button_tag _("Add a %{topic}") % { topic: topic },
+                   type: "button",
+                   class: "btn btn-default external-api-expand-search" %>
+  </div>
+
+  <div class="external-api-search-block col-md-8 hidden">
+    <%= button_tag "X" % { topic: topic },
+                   type: "button",
+                   aria: { label: _("Close") },
+                   class: "close external-api-collapse-search" %>
+
+    <%= render partial: "shared/external_apis/search_controls",
+               locals: { context: context, topic: topic, url: url, filter_partial: filter_partial,
+                         card_partial: card_partial } %>
+
+    <%= render partial: "shared/external_apis/search_results",
+              locals: { context: context, topic: topic, results: [], card_partial: card_partial } %>
   </div>
 </div>
