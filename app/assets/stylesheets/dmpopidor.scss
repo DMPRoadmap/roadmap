@@ -286,9 +286,6 @@ header .main-nav {
             text-decoration: underline;
         }
     }
-    .label-info {
-        background-color: $blue;
-    }
 
     .org-deactivated {
         max-width: 1264px;
@@ -301,6 +298,23 @@ header .main-nav {
         a {
             color: black;
         }
+    }
+
+    /** tooltips */
+    .tooltip {
+        .tooltip-arrow {
+            color: $blue;
+            border-bottom-color: $blue;
+        }
+        .tooltip-inner {
+            background-color: $blue;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+        }
+    }
+    .label-info {
+        background-color: $blue;
     }
 
     /** Focus outline required for accessibility */
