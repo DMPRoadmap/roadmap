@@ -139,10 +139,10 @@ module Paginable
       table_part = parts.first
       column_part = parts.second
       if scope_table == table_part.singularize
-        order_field = ActiveRecord::Base::sanitize_sql(column_part)
+        order_field = ActiveRecord::Base.sanitize_sql(column_part)
         scope = scope.order(order_field.to_sym => sort_direction.to_s)
       else
-        order_field = ActiveRecord::Base::sanitize_sql(@args[:sort_field])
+        order_field = ActiveRecord::Base.sanitize_sql(@args[:sort_field])
         scope = scope.includes(table_part.singularize.to_sym)
                      .order(order_field + " " + sort_direction.to_s)
       end
