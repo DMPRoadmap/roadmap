@@ -135,14 +135,20 @@ module Paginable
       # how we contruct scope depends on whether sort field is in the
       # main table or in a related table
       scope_table =  scope.klass.name.downcase
+      pp scope_table
       parts = @args[:sort_field].partition(".")
+      pp parts
       table_part = parts.first
-      column_part = parts.second
+      pp table_part
+      column_part = parts.last
+      pp column_part
       if scope_table == table_part.singularize
         order_field = ActiveRecord::Base.sanitize_sql(column_part)
+        pp order_field
         scope = scope.order(order_field.to_sym => sort_direction.to_s)
       else
         order_field = ActiveRecord::Base.sanitize_sql(@args[:sort_field])
+        pp order_field
         scope = scope.includes(table_part.singularize.to_sym)
                      .order(order_field + " " + sort_direction.to_s)
       end
