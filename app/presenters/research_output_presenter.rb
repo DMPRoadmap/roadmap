@@ -35,12 +35,23 @@ class ResearchOutputPresenter
 
   # Returns the options for subjects for the repository filter
   def self.selectable_subjects
-    %w[4-engineering_sciences
-       1-humanities_and_social_sciences
-       2-life_sciences
-       3-natural_sciences].map do |subject|
-
-      [subject.split("-").last.humanize, subject.gsub("-", " ").humanize]
+    [
+      "23-Agriculture, Forestry, Horticulture and Veterinary Medicine",
+      "21-Biology",
+      "31-Chemistry",
+      "44-Computer Science, Electrical and System Engineering",
+      "45-Construction Engineering and Architecture",
+      "34-Geosciences (including Geography)",
+      "11-Humanities",
+      "43-Materials Science and Engineering",
+      "33-Mathematics",
+      "41-Mechanical and industrial Engineering",
+      "22-Medicine",
+      "32-Physics",
+      "12-Social and Behavioural Sciences",
+      "42-Thermal Engineering/Process Engineering"
+    ].map do |subject|
+      [subject.split("-").last, subject.gsub("-", " ")]
     end
   end
 

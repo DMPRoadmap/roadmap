@@ -131,6 +131,7 @@ module ExternalApis
           contact: node.xpath("//r3d:repositoryContact")&.text,
           info: {
             types: node.xpath("//r3d:type").map(&:text),
+            subjects: node.xpath("//r3d:subject").map(&:text),
             provider_types: node.xpath("//r3d:providerType").map(&:text),
             keywords: node.xpath("//r3d:keyword").map(&:text),
             access: node.xpath("//r3d:databaseAccess//r3d:databaseAccessType")&.text,

@@ -89,19 +89,21 @@ personal_data_tooltip = _("The research output will contain personally identifia
   <div class="form-group row">
     <div class="col-md-12">
       <span class="col-md-12">
-        <%= label_tag _("Intended repository") %>
+        <%= label_tag _("Intended repositories") %>
       </span>
     </div>
   </div>
 
-  <%= render partial: "shared/external_apis/selection",
-               locals: {
-                  context: research_output,
-                  topic: "repository",
-                  url: repository_search_plan_path(research_output.plan),
-                  filter_partial: "research_outputs/repository/filters",
-                  card_partial: "research_outputs/repository/card"
-                } %>
+  <div class="form-group row">
+    <div class="col-md-12">
+      <%= render partial: "shared/external_apis/selected_results",
+                   locals: {
+                      context: research_output,
+                      topic: "repository",
+                      result_partial: "research_outputs/repositories/search_result"
+                    } %>
+    </div>
+  </div>
 
   <div class="form-group row">
     <div class="col-md-12">
@@ -159,3 +161,13 @@ personal_data_tooltip = _("The research output will contain personally identifia
     </div>
   </div>
 <% end %>
+
+<%= render partial: "shared/external_apis/search_modal",
+           locals: {
+             context: research_output,
+             topic: "repository",
+             label: "Repository",
+             url: repository_search_plan_path(research_output.plan),
+             filter_partial: "research_outputs/repositories/filters",
+             result_partial: "research_outputs/repositories/search_result",
+           } %>

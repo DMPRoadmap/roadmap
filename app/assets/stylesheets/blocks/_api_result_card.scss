@@ -4,7 +4,6 @@
   padding: 10px 5px;
 }
 
-
 .external-api-search-modal .modal-dialog {
   /* Make the dialog 80% of the screen height/width */
   width: 80%;
@@ -19,6 +18,7 @@
 
 .external-api-result-card {
   margin-top: 5px;
+  margin-left: 10px;
   padding-bottom: 5px;
 
   .tags > .tag {
@@ -42,6 +42,10 @@
       margin-bottom: 5px;
     }
   }
+}
+
+.external-api-search-results .external-api-result-card {
+  border-bottom: 1px solid $color-grey;
 }
 
 /* the 'Select' button displayed in the modal dialog */

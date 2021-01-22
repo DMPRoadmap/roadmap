@@ -35,14 +35,22 @@ class Repository < ApplicationRecord
   # = Scopes =
   # ==========
 
+  scope :by_type, lambda { |type|
+    query_val = type.present? ? "%\"#{type}\"%" : "%"
+    where("info->>'$.types' LIKE ?", query_val)
+  }
+
+  scope :by_subject, lambda { |subject|
+    query_val = subject.present? ? "%\"#{subject}\"%" : "%"
+    where("info->>'$.subjects' LIKE ?", query_val)
+  }
+  
   scope :search, lambda { |term|
-    # The keyword search here is slightly different than the :by_facet scope.
-    # It is more permissive, for example if the term is 'COVID' it will match the
-    # 'COVID-19' keyword whereas the :by_facet scope is looking for an exact match
     where("LOWER(name) LIKE ?", "%#{term}%")
       .or(where("info->>'$.keywords' LIKE ?", "%#{term}%"))
   }
 
+  # A very specific keyword search (e.g. 'gene', 'DNA', etc.)
   scope :by_facet, lambda { |facet|
     where("info->>'$.keywords' LIKE ?", "%\"#{facet}\"%")
   }

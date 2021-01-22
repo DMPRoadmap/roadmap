@@ -1,0 +1,40 @@
+<%# locals: context, object, result_partial, selected
+
+:context        - refers to the parent object (e.g. "research_output"). This
+                  should always be an instance of a Model
+
+:object         - the object we will be rending (e.g. instance of a model, a hash, etc.)
+
+:result_partial - the custom View that will be used to render a result. For example:
+                  "research_outputs/repositories/_search_result.html.erb"
+
+:selected       - whether or not this result is associated with the :model
+%>
+
+<%
+context_name = context.class.name.underscore
+model_name = object.class.name.underscore
+label = (object[:title].present? ? object[:title] : object[:name]) || _("Unknown")
+%>
+
+<% if object.present? %>
+  <div class="external-api-result-card col-md-12" data-type="repository">
+    <%= hidden_field_tag "#{context_name}[#{model_name}_id]",
+                         "#{context_name}_#{model_name}_id",
+                         value: object[:id] %>
+    <h4>
+      <%= label %>
+      <%= link_to _("Select"), "#", class: "external-api-result-selector #{selected ? 'hidden' : ''}",
+                               title: _("Click to select '%{result_label}'") % { result_label: label } %>
+      <%= link_to _("Remove"), "#", class: "external-api-result-unselector #{selected ? '' : 'hidden'}",
+                               title: _("Click to unselect '%{result_label}'") % { result_label: label } %>
+    </h4>
+
+    <%= render partial: result_partial,
+               locals: {
+                 context: context,
+                 object: object,
+                 selected: selected
+               } %>
+  </div>
+<% end %>

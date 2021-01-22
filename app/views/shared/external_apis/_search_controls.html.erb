@@ -1,42 +1,45 @@
-<%# locals: context, label, topic, url, filter_partial, card_partial
+<%# locals: context, topic, url, filter_partial, result_partial
 
-  :label          - the user friendly name for the :topic
-  :context        - refers to the parent object and topic refers to the associated object
-                    the user will be selecting, for example:
-                    :context = a ResearchOutput, :topic = "repository"
-  :topic          - the name of the field in relation to the :context (e.g. "repository")
-  :url            - the path to controller endpoint that will perform the search
-  :filter_partial - the 'filters' that the user can choose from if the related
-                    api supports it.
-  :card_partial   - the 'card' that displays the search results, for example:
-                    :card = "research_outputs/repository/card"
+:context        - refers to the parent object (e.g. "research_output"). This
+                  should always be an instance of a Model
+
+:topic          - refers to the associated object the External API will be
+                  searching for. This should always be a String representing the
+                  :context object's name for the association (e.g. "repositories")
+
+:url            - the path to controller endpoint that will perform the search
+
+:filter_partial - the custom View that will be used to render any filter/facet
+                  options. For example:
+                  "research_outputs/repositories/_filters.html.erb"
+
+:result_partial - the custom View that will be used to render a result. For example:
+                  "research_outputs/repositories/_search_result.html.erb"
 %>
 
 <%
+# Construct the search form control names and ids
 context_name = context.class.name.underscore
-form_id_prefix = "#{context_name}_#{topic.downcase}_%{field_name}"
-form_name_prefix = "#{context_name}[#{topic.downcase}_%{field_name}]"
 %>
 
-<% if filter_partial.present? %>
+<%= form_with model: context, url: url, method: :get do |f| %>
+  <% if filter_partial.present? %>
+    <div class="form-group row">
+      <div class="col-md-10">
+        <%= render partial: filter_partial, locals: { form: f } %>
+      </div>
+    </div>
+  <% end %>
   <div class="form-group row">
     <div class="col-md-10">
-      <%= render partial: filter_partial,
-                 locals: { form_id_prefix: form_id_prefix, form_name_prefix: form_name_prefix } %>
+      <span class="col-md-10">
+        <%= f.text_field :search_term,
+                         class: "form-control autocomplete col-md-6",
+                         placeholder: _("- Enter a search term (e.g. DNA, titanium, FAIR, etc.) -") %>
+      </span>
+      <div class="col-md-3">
+        <%= f.button(_("Apply filters"), class: "btn btn-default", type: "submit") %>
+      </div>
     </div>
   </div>
 <% end %>
-<div class="form-group row">
-  <div class="col-md-10">
-    <span class="col-md-10">
-      <%= text_field_tag form_name_prefix % { field_name: "search_term" }, "",
-                         id: form_id_prefix % { field_name: "search_term" },
-                         class: "form-control autocomplete col-md-6",
-                         placeholder: _("-Enter your search term-"),
-                         data: { remote: true, url: url, method: :post } %>
-    </span>
-    <div class="col-md-3">
-      <%= link_to _("Apply filters"), "#", class: "btn btn-default external-api-faux-search-button" %>
-    </div>
-  </div>
-</div>

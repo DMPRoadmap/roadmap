@@ -84,23 +84,18 @@ class ResearchOutputsController < ApplicationController
     authorize @research_output
   end
 
-  # POST /plans/:id/repository_search
+  # GET /plans/:id/repository_search
   def repository_search
     @plan = Plan.find_by(id: params[:id])
-    @research_output = ResearchOutput.new(
-      plan: @plan, output_type: output_params[:output_type]
-    )
+    @research_output = ResearchOutput.new(plan: @plan)
     authorize @research_output
 
-    # rubocop:disable Style/ConditionalAssignment
-    if repository_search_params[:facet].present?
-      @search_results = Repository.by_facet(repository_search_params[:facet])
-                                  .order(:name)
-    else
-      @search_results = Repository.search(repository_search_params[:repository_search_term])
-                                  .order(:name)
-    end
-    # rubocop:enable Style/ConditionalAssignment
+    type = repo_search_params[:type_filter] == "1" ? "institutional" : nil
+    @search_results = Repository.by_type(type)
+    @search_results = @search_results.by_subject(repo_search_params[:subject_filter])
+    @search_results = @search_results.search(repo_search_params[:search_term])
+
+    @search_results = @search_results.order(:name).page(params[:page])
   end
 
   private
@@ -113,8 +108,8 @@ class ResearchOutputsController < ApplicationController
                      mandatory_attribution repository_id])
   end
 
-  def repository_search_params
-    params.require(:research_output).permit(%i[repository_search_term facet])
+  def repo_search_params
+    params.require(:research_output).permit(%i[search_term subject_filter type_filter])
   end
 
   def process_byte_size

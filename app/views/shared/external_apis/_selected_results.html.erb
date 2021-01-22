@@ -1,0 +1,38 @@
+<%# locals: context, topic, result_partial
+
+  :context        - refers to the parent object (e.g. "research_output"). This
+                    should always be an instance of a Model
+
+  :topic          - refers to the associated object the External API will be
+                    searching for. This should always be a String representing the
+                    :context object's name for the association (e.g. "repositories")
+
+  :result_partial - the custom View that will be used to render a result for example:
+                    "research_outputs/repositories/_search_result.html.erb"
+%>
+
+<% no_recs_msg = _("No %{topic} have been selected.") % { topic: topic } %>
+
+<div class="col-md-12 external_api_selected_results-<%= topic %>">
+  <div class="external-api-selections">
+    <% if context.present? && context.send(topic).present? %>
+      <% [context.send(topic)].each do |result| %>
+        <%= render partial: "shared/external_apis/search_result",
+                   locals: {
+                     context: context,
+                     object: context.send(topic),
+                     result_partial: result_partial,
+                     selected: true
+                   } %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%= button_tag _("Add a %{topic}") % { topic: topic },
+                 type: "button",
+                 class: "btn btn-default external-api-expand-search",
+                 data: {
+                   toggle: "modal",
+                   target: "#external_api_search_modal-#{topic}"
+                 } %>
+</div>

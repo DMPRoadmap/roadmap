@@ -1,0 +1,24 @@
+<%# locals: form, form_id_prefix %>
+
+<%
+by_type_tooltip = _("Selecting this filter will limit your search to insititional repositories.")
+by_subject_tooltip = _("Select a subject area to refine your search.")
+%>
+
+<span class="col-md-5">
+  <%= form.select :subject_filter,
+                  options_for_select(ResearchOutputPresenter.selectable_subjects),
+                  { include_blank: _("- Select a subject area -") },
+                  {
+                    class: "form-control",
+                    data: { toggle: "tooltip" },
+                    title: by_subject_tooltip
+                  } %>
+</span>
+
+<span class="col-md-3">
+  <%= form.check_box :type_filter,
+                     data: { toggle: "tooltip" },
+                     title: by_type_tooltip %>
+  <span><%= _('institutional only?') %></span>
+</span>

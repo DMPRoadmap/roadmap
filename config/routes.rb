@@ -181,7 +181,7 @@ Rails.application.routes.draw do
 
       # AJAX Form helpers for research_output form
       get "output_type_selection", controller: "research_outputs", action: "select_output_type"
-      post :repository_search, controller: "research_outputs", action: "repository_search"
+      get :repository_search, controller: "research_outputs", action: "repository_search"
     end
   end
 
