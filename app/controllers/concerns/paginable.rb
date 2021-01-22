@@ -135,10 +135,14 @@ module Paginable
       # main table or in a related table
       scope_table =  scope.klass.name.downcase
       parts = @args[:sort_field].partition('.')
-      if scope_table == parts.first.singularize
-        scope = scope.order(@args[:sort_field].partition('.').last.to_sym => sort_direction.to_s)
+      table_part = parts.first
+      column_part = parts.second
+      if scope_table == table_part.singularize
+        order_field = sanitize_sql(column_part)
+        scope = scope.order(order_field.to_sym => sort_direction.to_s)
       else
-        scope = scope.includes(parts.first.singularize.to_sym).order(@args[:sort_field] + " " + sort_direction.to_s)
+        order_field = sanitize_sql(args[:sort_field])
+        scope = scope.includes(table_part.singularize.to_sym).order(order_field + " " + sort_direction.to_s)
       end
     end
     if @args[:page] != "ALL"
