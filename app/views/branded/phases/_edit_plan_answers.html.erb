@@ -147,7 +147,7 @@
                               question: question,
                               answer: answer,
                               madmp_schema: madmp_schema,
-                              pickable_schemas: @schemas.where(classname: madmp_schema.classname),
+                              pickable_schemas: @schemas.where(classname: madmp_schema.classname).order(:label),
                               research_output: research_output,
                               guidance_presenter: guidance_presenter } %>
                           <% else %>
