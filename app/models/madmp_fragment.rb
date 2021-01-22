@@ -260,6 +260,8 @@ class MadmpFragment < ActiveRecord::Base
         sub_data = content # TMP: for readability
         sub_schema = MadmpSchema.find(schema_prop["schema_id"])
 
+        instantiate unless data[prop].present?
+
         if param_data.present? && param_data[prop].present? && data[prop]["dbid"]
           sub_fragment = MadmpFragment.find(data[prop]["dbid"])
           sub_fragment.save_as_multifrag(sub_data, sub_schema)
