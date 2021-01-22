@@ -121,6 +121,7 @@ module Paginable
 
   # Refine a scope passed to this concern if any of the params (search,
   # sort_field or page) are present
+  # rubocop:disable Metrics/AbcSize
   def refine_query(scope)
     @args = @args.with_indifferent_access
     scope = scope.search(@args[:search]) if @args[:search].present?
@@ -134,7 +135,7 @@ module Paginable
       # how we contruct scope depends on whether sort field is in the
       # main table or in a related table
       scope_table =  scope.klass.name.downcase
-      parts = @args[:sort_field].partition('.')
+      parts = @args[:sort_field].partition(".")
       table_part = parts.first
       column_part = parts.second
       if scope_table == table_part.singularize
@@ -142,7 +143,8 @@ module Paginable
         scope = scope.order(order_field.to_sym => sort_direction.to_s)
       else
         order_field = sanitize_sql(args[:sort_field])
-        scope = scope.includes(table_part.singularize.to_sym).order(order_field + " " + sort_direction.to_s)
+        scope = scope.includes(table_part.singularize.to_sym)
+                     .order(order_field + " " + sort_direction.to_s)
       end
     end
     if @args[:page] != "ALL"
@@ -151,6 +153,7 @@ module Paginable
     end
     scope
   end
+  # rubocop:enable Metrics/AbcSize
 
   def sort_direction
     @sort_direction ||= SortDirection.new(@args[:sort_direction])
