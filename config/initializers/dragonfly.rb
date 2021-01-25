@@ -7,7 +7,7 @@ require "dragonfly/s3_data_store"
 Dragonfly.app.configure do
   plugin :imagemagick
 
-  secret Rails.application.credentials.dragonfly_secret
+  secret Rails.application.credentials.dragonfly[:secret]
 
   url_format "/media/:job/:name"
 
@@ -20,7 +20,7 @@ Dragonfly.app.configure do
               url_scheme: "s3",
               # url_host: 'uc3-s3dmp-stg',
               root_path: "logos",
-              bucket_name: "uc3-s3dmp-stg",
+              bucket_name: Rails.application.credentials.dragonfly[:bucket],
               use_iam_profile: true
   end
 end
