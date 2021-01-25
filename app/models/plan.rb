@@ -430,6 +430,7 @@ class Plan < ApplicationRecord
                  .administrator
                  .order(:created_at)
                  .pluck(:user_id).first
+
     usr_id.present? ? User.find(usr_id) : nil
   end
 

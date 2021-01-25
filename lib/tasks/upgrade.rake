@@ -149,10 +149,12 @@ namespace :upgrade do
 
   desc "Sets completed for plans whose no. questions matches no. valid answers"
   task set_plan_complete: :environment do
-    Plan.all.each do |p|
-      if p.no_questions_matches_no_answers?
-        p.update_column(:complete, true) # Avoids updating the column updated_at
-      end
+    dflt = Rails.configuration.x.plans.default_percentage_answered
+
+    Plan.includes(:answers).joins(:answers)
+        .where("plans.complete = 0 AND plans.created_at >= '2019-01-01 00:00:01'")
+        .each do |p|
+      p.update_columns(complete: true) if p.percent_answered >= dflt
     end
   end
 
