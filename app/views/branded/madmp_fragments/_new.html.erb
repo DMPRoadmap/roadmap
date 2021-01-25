@@ -3,7 +3,7 @@
               html: {
                 method: :get,
                 'data-autosave': question.id,
-                class: "form-answer dynamic-form new-fragment", 
+                class: "form-answer madmp-fragment new-fragment", 
                 id: nil  
               } do |f| %>
   <% if !readonly %>
@@ -20,8 +20,8 @@
   <%= f.hidden_field :dmp_id, :value => dmp_id, id: nil %>
   <%= f.hidden_field :parent_id, :value => parent_id, id: nil %>
   <%= f.hidden_field "source", :value => "form" %>
-  <fieldset aria-labelledby="answer-fieldset">
-    <div class="form-group madmp-fragment">  
+  <fieldset aria-labelledby="fragment-fieldset">
+    <div class="form-group">  
         <div class="overlay" style="display:none;">
             <div class="spinner"></div>
             <br/>

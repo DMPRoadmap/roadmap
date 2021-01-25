@@ -23,7 +23,7 @@
       <%= f.hidden_field :property_name, :value => @property_name, id: nil%>
       <%= f.hidden_field "source", :value => @source %>
       <div class="modal-body">
-        <fieldset aria-labelledby="answer-fieldset" <%= 'disabled' if @readonly %> >
+        <fieldset aria-labelledby="fragment-fieldset" <%= 'disabled' if @readonly %> >
           <%= render(partial: "shared/dynamic_form/form", locals: {
             f: f,
             current_fragment: @fragment, 

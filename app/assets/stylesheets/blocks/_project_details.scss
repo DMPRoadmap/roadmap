@@ -1,5 +1,5 @@
 fieldset.project-details,
-fieldset.answer-fieldset {
+fieldset.sub-fragment {
   border: 0.5px groove $color-border-light;
   padding: 0 5px;
   margin: 0px;
@@ -8,7 +8,7 @@ fieldset.answer-fieldset {
 }
 
 legend.project-details,
-legend.answer-fieldset {
+legend.sub-fragment {
   font-weight: bold;
   font-size: 100%;
   text-align: left !important;

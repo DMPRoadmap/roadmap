@@ -119,8 +119,8 @@
                 sub_fragment = dmp_fragments.find(data[key]["dbid"])
               end
             %>
-            <fieldset class="answer-fieldset fragment-<%= sub_fragment.id unless sub_fragment.nil? %>">
-              <legend class="answer-fieldset" title="<%= ttip %>"><%= label %></legend>
+            <fieldset class="sub-fragment fragment-<%= sub_fragment.id unless sub_fragment.nil? %>">
+              <legend class="sub-fragment" title="<%= ttip %>"><%= label %></legend>
               <%= render(partial: 'shared/dynamic_form/form', locals: { 
                     f: f, 
                     current_fragment: sub_fragment,

@@ -4,7 +4,7 @@
               html: {
                 method: :put,
                 'data-autosave': question.id,
-                class: "form-answer dynamic-form", 
+                class: "form-answer madmp-fragment", 
                 id: nil  
               } do |f| %>
   <% if !readonly %>
@@ -21,8 +21,8 @@
   <%= f.hidden_field :dmp_id, :value => dmp_id, id: nil %>
   <%= f.hidden_field :parent_id, :value => parent_id, id: nil %>
   <%= f.hidden_field "source", :value => "form" %>
-  <fieldset aria-labelledby="answer-fieldset">
-    <div class="form-group madmp-fragment fragment-<%= fragment.id %>" data-fragment-id="<%= fragment.id %>" >
+  <fieldset aria-labelledby="fragment-fieldset" class="fragment-fieldset">
+    <div class="form-group fragment-<%= fragment.id %>" data-fragment-id="<%= fragment.id %>" >
         <%= render(partial: 'shared/dynamic_form/form', locals: { 
               f: f,
               current_fragment: fragment, 
@@ -38,7 +38,9 @@
           <%= _('Saving...') %>
         </div>
       </div>
-      <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+      <div class="answer-save-button" >
+        <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
+      </div>
   </fieldset>
   <!--Example Answer area -->
   <% if template.present? && template.org.present? %>
