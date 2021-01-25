@@ -253,14 +253,8 @@ class MadmpFragment < ActiveRecord::Base
 
   def save_as_multifrag(param_data, schema)
     fragmented_data = {}
-    p "####"
-    p schema
-    p "####"
     param_data.each do |prop, content|
       schema_prop = schema.schema["properties"][prop]
-      p "####"
-      p prop
-      p "####"
       if schema_prop["type"].present? && schema_prop["type"].eql?("object")
         sub_data = content # TMP: for readability
         sub_schema = MadmpSchema.find(schema_prop["schema_id"])

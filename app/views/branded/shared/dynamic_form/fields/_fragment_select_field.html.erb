@@ -10,7 +10,7 @@
   <%= render(partial: 'shared/dynamic_form/linked_fragment/select', locals: {
         field_name: field_name, 
         select_values: select_values,
-        selected_value: selected_value["dbid"],
+        selected_value: selected_value ? selected_value["dbid"] : nil,
         include_blank: include_blank,
         readonly: readonly,
         template_locale: template_locale,
