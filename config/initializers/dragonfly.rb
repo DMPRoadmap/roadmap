@@ -18,7 +18,7 @@ Dragonfly.app.configure do
   else
     datastore :s3,
               url_scheme: "s3",
-              # url_host: 'uc3-s3dmp-stg',
+              url_host: "uc3-s3dmp-stg",
               root_path: "logos",
               bucket_name: Rails.application.credentials.dragonfly[:bucket],
               use_iam_profile: true
