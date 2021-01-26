@@ -106,6 +106,15 @@ class Question < ActiveRecord::Base
   # = Public instance methods =
   # ===========================
 
+  # text and default_value are translated through the translation gem
+  def text
+    _(read_attribute(:text))
+  end
+
+  def default_value
+    _(read_attribute(:default_value))
+  end
+  
   def deep_copy(**options)
     copy = self.dup
     copy.modifiable = options.fetch(:modifiable, self.modifiable)
