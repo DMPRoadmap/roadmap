@@ -43,7 +43,7 @@ json.array! @plans.each do |plan|
         json.format     question.question_format.title
         json.option_based   question.question_format.option_based
         json.themes  question.themes.each do |theme|
-          json.theme  _(theme.title)
+          json.theme  theme.title
         end
         answer = plan.answers.select { |a| a.question_id == question.id }.first
         if answer.present?
