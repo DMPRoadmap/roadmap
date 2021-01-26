@@ -42,7 +42,7 @@ $(document).on('click', '.linked-fragments-list .actions .delete', (e) => {
       url: target.data('url'),
       method: 'delete',
     }).done((data) => {
-      $(`.fragment-${data.fragment_id} .linked-fragments-list.${data.property_name}-list tbody`).html(data.html);
+      $(`table.list-${data.query_id} tbody`).html(data.html);
     });
   }
 });

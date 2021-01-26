@@ -59,21 +59,19 @@ class MadmpFragmentsController < ApplicationController
       property_name = @fragment.additional_info["property_name"]
       render json: {
         "fragment_id" =>  @fragment.parent_id,
-        "property_name" => property_name,
         "source" => source,
         "html" => render_fragment_list(
           @fragment.dmp_id,
           parent_id,
           schema.id,
           property_name,
-          p_params[:template_locale]
+          p_params[:template_locale],
+          p_params[:query_id]
         )
       }.to_json
     else
-      property_name = @fragment.additional_info["property_name"]
       render json: {
         "fragment_id" =>  parent_id,
-        "property_name" => property_name,
         "source" => source,
         "html" => render_fragment_select(@fragment)
       }.to_json
@@ -149,21 +147,19 @@ class MadmpFragmentsController < ApplicationController
       property_name = @fragment.additional_info["property_name"]
       render json: {
         "fragment_id" =>  @fragment.parent_id,
-        "property_name" => property_name,
         "source" => source,
         "html" => render_fragment_list(
           @fragment.dmp_id,
           @fragment.parent_id,
           schema.id,
           property_name,
-          p_params[:template_locale]
+          p_params[:template_locale],
+          p_params[:query_id]
         )
       }.to_json
     else
-      property_name = @fragment.additional_info["property_name"]
       render json: {
         "fragment_id" =>  @fragment.parent_id,
-        "property_name" => property_name,
         "source" => source,
         "html" => render_fragment_select(@fragment)
       }.to_json
@@ -180,6 +176,7 @@ class MadmpFragmentsController < ApplicationController
     @template_locale = params[:template_locale]
     @source = params[:source]
     @property_name = params[:property_name]
+    @query_id = params[:query_id]
 
     dmp_id = @parent_fragment.classname == "dmp" ? @parent_fragment.id : @parent_fragment.dmp_id
     if params[:fragment_id]
@@ -216,6 +213,7 @@ class MadmpFragmentsController < ApplicationController
 
   def destroy
     @fragment = MadmpFragment.find(params[:id])
+    query_id = params[:query_id]
     parent_id = @fragment.parent_id
     dmp_id = @fragment.dmp_id
     property_name = @fragment.additional_info["property_name"]
@@ -225,9 +223,9 @@ class MadmpFragmentsController < ApplicationController
 
     render json: {
       "fragment_id" =>  parent_id,
-      "property_name" => property_name,
+      "query_id" => query_id,
       "html" => render_fragment_list(
-        dmp_id, parent_id, @fragment.madmp_schema_id, property_name, nil
+        dmp_id, parent_id, @fragment.madmp_schema_id, property_name, nil, query_id
       )
     }
   end
@@ -244,7 +242,7 @@ class MadmpFragmentsController < ApplicationController
 
   private
 
-  def render_fragment_list(dmp_id, parent_id, schema_id, property_name, template_locale)
+  def render_fragment_list(dmp_id, parent_id, schema_id, property_name, template_locale, query_id = nil)
     schema = MadmpSchema.find(schema_id)
     case schema.classname
     when "research_output"
@@ -257,7 +255,6 @@ class MadmpFragmentsController < ApplicationController
           readonly: false
         }
       )
-
     else
       obj_list = MadmpFragment.where(
         dmp_id: dmp_id,
@@ -271,7 +268,8 @@ class MadmpFragmentsController < ApplicationController
           obj_list: obj_list,
           schema: schema,
           readonly: false,
-          template_locale: template_locale
+          template_locale: template_locale,
+          query_id: query_id
         }
       )
     end

@@ -1,4 +1,4 @@
-<%# locals: { field_name, select_values, selected_value, madmp_schema, parent_id, include_blank, readonly, template_locale, validation, ttip } %>
+<%# locals: { field_name, select_values, selected_value, madmp_schema, parent_id, include_blank, readonly, template_locale, validation, ttip, query_id } %>
 <%= select_tag field_name,
   render(partial: 'shared/dynamic_form/linked_fragment/select_options', locals: {
         select_values: select_values,
@@ -15,7 +15,8 @@
     :parent_id => parent_id, 
     :schema_id => madmp_schema.id,
     :source => "select-modal",
-    :template_locale => template_locale
+    :template_locale => template_locale,
+    :query_id => query_id
   ), {
     :remote => true, 
     'data-toggle' => 'modal', 

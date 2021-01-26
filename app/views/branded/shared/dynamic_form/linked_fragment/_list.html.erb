@@ -1,4 +1,4 @@
-<%# locals: { obj_list, parent_id, schema, readonly, template_locale } %>
+<%# locals: { obj_list, parent_id, schema, readonly, template_locale, query_id } %>
 <% obj_list.each do |obj| %>
   <tr>
     <td><%= obj.to_s %></td>
@@ -19,7 +19,9 @@
               :fragment_id => obj.id, 
               :parent_id => parent_id, 
               :schema_id => schema.id,
-              :template_locale => template_locale
+              :template_locale => template_locale,
+              :source => "list-modal",
+              :query_id => query_id
           ), {
               :remote => true, 
               :target => "_self",
@@ -31,7 +33,7 @@
         <span class="delete" 
           aria-hidden="true"
           data-confirm-message="<%= d_('dmpopidor', 'Do you want to delete this %{classname}?') % { classname: schema.classname } %>"
-          data-url="<%= madmp_fragment_path(obj.id) %>"><%= _('Delete') %></span>
+          data-url="<%= madmp_fragment_path(obj.id, query_id: query_id) %>"><%= _('Delete') %></span>
       <% end %>
     </td>
   </tr>

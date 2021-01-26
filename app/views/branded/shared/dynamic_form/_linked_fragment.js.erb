@@ -9,10 +9,12 @@ $(() => {
     if (response.classname === 'research_output') {
       $('#research-outputs-list').html(response.html);
     } else if (response.source === 'list-modal') {
-      $(`.fragment-${response.fragment_id} .linked-fragments-list.${response.property_name}-list tbody`).html(response.html);
+      const queryId = $(event.target).find('.query_id').val();
+      $(`table.list-${queryId} tbody`).html(response.html);
     } else {
-      $(`.fragment-${response.fragment_id} .linked-fragments-select.${response.property_name}-select select`).html(response.html);
-      $(`.fragment-${response.fragment_id} .linked-fragments-select.${response.property_name}-select select`).trigger('change');
+      const queryId = $(event.target).find('.query_id').val();
+      const $select = $(`.select-${queryId} select`);
+      $select.html(response.html).trigger('change');
     }
     $('#modal-window').modal('hide');
   }).on('ajax:error', () => {

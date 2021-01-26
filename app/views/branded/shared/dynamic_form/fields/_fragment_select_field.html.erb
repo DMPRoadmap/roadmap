@@ -1,12 +1,13 @@
 <%# locals: { field_values, parent_id, schema, field_name, template_locale, ttip } %>
 <% field_label = field_label || 'No label defined' %>
 <% field_label = required ? "* #{field_label}" : field_label%>
+<% query_id = SecureRandom.uuid%>
 
 <% include_blank = !selected_value %>
 <div class="col-md-12">
   <%= f.label field_id, field_label, class: 'control-label' %>
 </div>
-<div class="col-md-12 dynamic-field linked-fragments-select <%= schema.classname %>-select">
+<div class="col-md-12 dynamic-field linked-fragments-select <%= schema.classname %>-select select-<%= query_id %>">
   <%= render(partial: 'shared/dynamic_form/linked_fragment/select', locals: {
         field_name: field_name, 
         select_values: select_values,
@@ -17,7 +18,8 @@
         readonly: readonly,
         template_locale: template_locale,
         ttip: ttip,
-        validation: validation
+        validation: validation,
+        query_id: query_id
       }
   ) %>
 </div>
@@ -29,7 +31,8 @@
             :schema_id => schema.id, 
             :template_locale => template_locale,
             :source => "select-modal",
-            :property_name => property_name
+            :property_name => property_name,
+            :query_id => query_id
       ),  {
         :remote => true, 
         :target => "_self",
