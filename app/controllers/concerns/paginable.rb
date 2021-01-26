@@ -125,6 +125,7 @@ module Paginable
   def refine_query(scope)
     @args = @args.with_indifferent_access
     scope = scope.search(@args[:search]) if @args[:search].present?
+
     # Can raise NoMethodError if the scope does not define a search method
     if @args[:sort_field].present?
       frmt = @args[:sort_field][SORT_COLUMN_FORMAT]
@@ -134,10 +135,11 @@ module Paginable
       # exist, ambiguity on column, etc)
       # how we contruct scope depends on whether sort field is in the
       # main table or in a related table
-      scope_table = scope.klass.name.downcase
+      scope_table = scope.klass.name.underscore
       parts = @args[:sort_field].partition(".")
       table_part = parts.first
       column_part = parts.last
+
       if scope_table == table_part.singularize
         order_field = ActiveRecord::Base.sanitize_sql(column_part)
         scope = scope.order(order_field.to_sym => sort_direction.to_s)

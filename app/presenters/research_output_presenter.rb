@@ -55,6 +55,15 @@ class ResearchOutputPresenter
     end
   end
 
+  # Returns the options for the repository type
+  def self.selectable_repository_types
+    [
+      [_("Generalist (multidisciplinary)"), "other"],
+      [_("Discipline specific"), "disciplinary"],
+      [_("Institutional"), "institutional"]
+    ]
+  end
+
   # Converts the byte_size into a more friendly value (e.g. 15.4 MB)
   def converted_file_size(size:)
     return { size: nil, unit: "mb" } unless size.present? && size.is_a?(Numeric) && size.positive?

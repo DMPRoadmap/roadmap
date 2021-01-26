@@ -1,7 +1,7 @@
 <%# locals: form, form_id_prefix %>
 
 <%
-by_type_tooltip = _("Selecting this filter will limit your search to insititional repositories.")
+by_type_tooltip = _("Refine your search to discipline specific, institutional or generalist repositories. When the use of domain-specific repositories is not available, generalist repositories are a good option and accept all types of data regardless of type, format, content, or discipline.")
 by_subject_tooltip = _("Select a subject area to refine your search.")
 %>
 
@@ -11,14 +11,18 @@ by_subject_tooltip = _("Select a subject area to refine your search.")
                   { include_blank: _("- Select a subject area -") },
                   {
                     class: "form-control",
-                    data: { toggle: "tooltip" },
+                    data: { toggle: "tooltip", placement: "bottom" },
                     title: by_subject_tooltip
                   } %>
 </span>
 
-<span class="col-md-3">
-  <%= form.check_box :type_filter,
-                     data: { toggle: "tooltip" },
-                     title: by_type_tooltip %>
-  <span><%= _('institutional only?') %></span>
+<span class="col-md-5">
+  <%= form.select :type_filter,
+                  options_for_select(ResearchOutputPresenter.selectable_repository_types),
+                  { include_blank: _("- Select a repository type -") },
+                  {
+                    class: "form-control",
+                    data: { toggle: "tooltip", placement: "bottom" },
+                    title: by_type_tooltip
+                  } %>
 </span>
