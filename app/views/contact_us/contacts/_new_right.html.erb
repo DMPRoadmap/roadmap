@@ -1,6 +1,6 @@
 <!-- new_right template -->
 <address>
-  <strong><%= Rails.configuration.branding[:organisation][:name] %></strong><br>
+  <strong><%= _(Rails.configuration.branding[:organisation][:name]) %></strong><br>
   <% [Rails.configuration.branding[:organisation][:address_line1],
       Rails.configuration.branding[:organisation][:address_line2],
       Rails.configuration.branding[:organisation][:address_line3],
