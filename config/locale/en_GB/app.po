@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-01-11 13:03-0700\n"
-"PO-Revision-Date: 2021-01-11 21:03+0100\n"
+"POT-Creation-Date: 2021-01-26 12:03-0700\n"
+"PO-Revision-Date: 2021-01-26 20:03+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -17,6 +17,2931 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "\n"
+
+msgid ""
+"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempo"
+"r incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis n"
+"ostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. D"
+"uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu"
+" fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt i"
+"n culpa qui officia deserunt mollit anim id est laborum."
+msgstr ""
+
+msgid ""
+"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempo"
+"r incididunt ut labore et dolore magna aliqua."
+msgstr ""
+
+msgid "Radio buttons"
+msgstr ""
+
+msgid "Check box"
+msgstr ""
+
+msgid "Dropdown"
+msgstr ""
+
+msgid "Multi select box"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+msgid "a box that allows input of multiple lines of text"
+msgstr ""
+
+msgid "a box that allows input of a single line of text"
+msgstr ""
+
+msgid "a group of buttons that allow selection of a single value out of a set"
+msgstr ""
+
+msgid "a group of buttons that allow selection of multiple values out of a set"
+msgstr ""
+
+msgid "an area that displays a list of available values where one can be selected"
+msgstr ""
+
+msgid ""
+"an area that displays a list of available values where multiple can be selecte"
+"d"
+msgstr ""
+
+msgid "a date selection field"
+msgstr ""
+
+msgid "University of Alberta Template"
+msgstr ""
+
+msgid "MICYRN Data Management Plan Template"
+msgstr ""
+
+msgid "CASRAI Data in Publications DMP"
+msgstr ""
+
+msgid "CASRAI Data in Publications DMP - Sample"
+msgstr ""
+
+msgid "University of British Columbia Generic Template"
+msgstr ""
+
+msgid "Portage Template"
+msgstr ""
+
+msgid "University of Saskatchewan"
+msgstr ""
+
+msgid "CEOS Template - Draft"
+msgstr ""
+
+msgid "Ocean Data Management Plan"
+msgstr ""
+
+msgid "University of Manitoba "
+msgstr ""
+
+msgid "NRC Data Management Plan template Draft"
+msgstr ""
+
+msgid "Université de Montréal"
+msgstr ""
+
+msgid "University of Guelph Agri-Food Funding Template (Alliance/Food from Thought) "
+msgstr ""
+
+msgid "UVic DMP Template"
+msgstr ""
+
+msgid "template_test"
+msgstr ""
+
+msgid "York University"
+msgstr ""
+
+msgid "Memorial University of Newfoundland"
+msgstr ""
+
+msgid "OFI Module E (Ecosystem Indicators)"
+msgstr ""
+
+msgid "Dalhousie University Generic Plan"
+msgstr ""
+
+msgid "Test Fanshawe Template"
+msgstr ""
+
+msgid "Test Template 1"
+msgstr ""
+
+msgid "University of Waterloo Template"
+msgstr ""
+
+msgid "University of Manitoba Template B"
+msgstr ""
+
+msgid "Test OMAFRA-UG DMP template"
+msgstr ""
+
+msgid "GWF DMP Test"
+msgstr ""
+
+msgid "Vancouver Island University"
+msgstr ""
+
+msgid "Fanshawe DMP Template"
+msgstr ""
+
+msgid "CIOOS DMP Template"
+msgstr ""
+
+msgid "2020 Template"
+msgstr ""
+
+msgid "DEFAULT TITLE"
+msgstr ""
+
+msgid "This test is for guidence UQAM"
+msgstr ""
+
+msgid "This test is for guidence UQAM version 2"
+msgstr ""
+
+msgid "tercer template"
+msgstr ""
+
+msgid "un template hecho desde cero para ver que pasa cuando lo guardas con update"
+msgstr ""
+
+msgid "este esta por aca sin cambiar visibilidad en upadte AHORA SI DISTE UPDATE"
+msgstr ""
+
+msgid "This is the generic DMP template for University of Alberta."
+msgstr ""
+
+msgid ""
+"The template is to help researchers associated with MICYRN member organization"
+"s to create data management plan that defines the data management approach for"
+" their research. Specifically it contains questions that define data sources, "
+"data handling practice and relevant additional documentation. "
+msgstr ""
+
+msgid ""
+"<p>This is an hypothetical data management plan to support the implementation "
+"of an open access publishing policy that supports reproducible findings in CAS"
+"RAI&nbsp;publications. &nbsp;A complementary&nbsp;data policy stipulates that "
+"data appearing in a CASRAI&nbsp;publication must be accessible through a data "
+"repository.</p>"
+msgstr ""
+
+msgid "This is the generic DMP template for Portage."
+msgstr ""
+
+msgid ""
+"<p>A DMP template created by members of the Community of Practice for Ocean Da"
+"ta Management that is tailored to researchers working with ocean-related data."
+"</p>"
+msgstr ""
+
+msgid ""
+"<p>This&nbsp;template is designed for UM researchers with guidance links, when"
+" applicable and available,&nbsp;to specific resources and supports located or "
+"affiliated with the University of Manitoba.</p>"
+msgstr ""
+
+msgid ""
+"<p>The planning phases of NRC research projects must incorporate the developme"
+"nt of a data management plan (DMP), which outlines the research/science data t"
+"hat will be generated or collected over the course of the project, relevant me"
+"tadata, storage environment, security considerations, and plans for data archi"
+"ving/disposition upon project completion.&nbsp; The&nbsp;DMP Template for the "
+"National Research Council Canada (NRC) is a streamlined, effective online tool"
+" for data planning. Consult the Guidelines to creating a Data Management plan "
+"(DMP, available on MyZone.</p>"
+msgstr ""
+
+msgid "<p><span style="
+msgstr ""
+
+msgid ""
+"<p>This simplified data management plan template is focused on preserving and "
+"sharing data. The goal is to foster access to and reuse of data generated thro"
+"ugh projects supported by the Ontario Agri-Food Innovation Alliance ("
+msgstr ""
+
+msgid ""
+"<p>This template is a modified version of the generic Portage DMP template, an"
+"d includes customized guidance for UVic researchers.</p>"
+msgstr ""
+
+msgid ""
+"<p>Basic, general-use template for all researchers at Memorial University of N"
+"ewfoundland.</p>"
+msgstr ""
+
+msgid ""
+"<p>This is a template for OFI Module E (Ecosystem Indicators for Changing Ocea"
+"ns) projects.&nbsp;</p>"
+msgstr ""
+
+msgid "<p>This is a test template.</p>"
+msgstr ""
+
+msgid "<p>Investigating....</p>"
+msgstr ""
+
+msgid ""
+"<p>This is a generic data management plan template for anyone at Waterloo to u"
+"se.</p>"
+msgstr ""
+
+msgid "<p>This is the 2nd template for the University of Manitoba.&nbsp;</p>"
+msgstr ""
+
+msgid "<p>Test OMAFRA-UG questions for DMP OMAFRA template</p>"
+msgstr ""
+
+msgid "<p>Test for GWF DMP template</p>"
+msgstr ""
+
+msgid "<p>DMP Assistant template for VIU.</p>"
+msgstr ""
+
+msgid "<p>A DMP template for the Canadian Ocean Observing System (CIOOS).</p>"
+msgstr ""
+
+msgid "<p>sss</p>"
+msgstr ""
+
+msgid "University of Alberta Data Management Questions"
+msgstr ""
+
+msgid "MICYRN Data Management Plan Initial Phase"
+msgstr ""
+
+msgid "Reproducible findings through deposited data"
+msgstr ""
+
+msgid "University of British Columbia Data Management Questions"
+msgstr ""
+
+msgid "Portage Data Management Questions"
+msgstr ""
+
+msgid "Pre-Project: Prototype"
+msgstr ""
+
+msgid "CEOS Data Management Plan"
+msgstr ""
+
+msgid "Oceans Data Management Plan"
+msgstr ""
+
+msgid "University of Manitoba Data Management Questions"
+msgstr ""
+
+msgid "DMP Questionnaire"
+msgstr ""
+
+msgid "University of Guelph Agri-Food Funding DMP (Alliance/Food from Thought)  "
+msgstr ""
+
+msgid "Data management questions"
+msgstr ""
+
+msgid "York U Data Management Questions"
+msgstr ""
+
+msgid "MUN Data Management Questions"
+msgstr ""
+
+msgid "OFI Module E DMP"
+msgstr ""
+
+msgid "Dalhousie University"
+msgstr ""
+
+msgid "TITLE"
+msgstr ""
+
+msgid "Test DMP Questions"
+msgstr ""
+
+msgid "Phase 1 (test)"
+msgstr ""
+
+msgid "Initial GWF DMP"
+msgstr ""
+
+msgid "new phase"
+msgstr ""
+
+msgid "phase 1"
+msgstr ""
+
+msgid "title of new phase"
+msgstr ""
+
+msgid "Phase 2"
+msgstr ""
+
+msgid "Export"
+msgstr ""
+
+msgid "OMAFRA-UG DMP Questions"
+msgstr ""
+
+msgid ""
+"<p>This DMP identifies the steps needing attention from researchers who intend"
+" to publish in a CASRAI&nbsp;publication. The DMP allows researchers to explai"
+"n how they will fulfill these requirements prior to publishing.</p>"
+msgstr ""
+
+msgid ""
+"This DMP identifies the steps needing attention from researchers who intend to"
+" publish in a CSPC publication. The DMP allows researchers to explain how they"
+" will fulfill these requirements prior to publishing."
+msgstr ""
+
+msgid "<table class="
+msgstr ""
+
+msgid "<p>Web version of DMP in question and answer format.</p>"
+msgstr ""
+
+msgid ""
+"<p>The DMP questionnaire template follows best practices in data stewardship a"
+"nd walks researchers step-by-step through key questions about data management."
+"&nbsp;</p>"
+msgstr ""
+
+msgid ""
+"<p>This template is based on the generic Portage template. It contains some re"
+"sources specific to Dalhousie University. Please note there are also resources"
+" from external organizations and are for information only.&nbsp;</p>"
+msgstr ""
+
+msgid "<p>Just testing adding a phase</p>"
+msgstr ""
+
+msgid "<p>This is the initial phase DMP</p>"
+msgstr ""
+
+msgid "<p>desc</p>"
+msgstr ""
+
+msgid "<p>another test</p>"
+msgstr ""
+
+msgid "Data Sharing and Reuse"
+msgstr ""
+
+msgid "Study Overview"
+msgstr ""
+
+msgid "Study Monitoring"
+msgstr ""
+
+msgid "Storage and Tracking"
+msgstr ""
+
+msgid "Data Entry"
+msgstr ""
+
+msgid "Data Handling"
+msgstr ""
+
+msgid "Data Quality Control"
+msgstr ""
+
+msgid "Data Coding"
+msgstr ""
+
+msgid "Data Sharing and Delivery"
+msgstr ""
+
+msgid "Data Preservation and Archiving"
+msgstr ""
+
+msgid "Providing Intelligent Access"
+msgstr ""
+
+msgid "2 Sources of Data and Any Special Code or Software"
+msgstr ""
+
+msgid "3 Restrictions Around the Data"
+msgstr ""
+
+msgid "4 Data Repository"
+msgstr ""
+
+msgid "5 - Providing Intelligent Access"
+msgstr ""
+
+msgid "6 Data Citation"
+msgstr ""
+
+msgid "Data Preservation"
+msgstr ""
+
+msgid "Data Collection, Processing and Methodology"
+msgstr ""
+
+msgid "Selection and Preservation"
+msgstr ""
+
+msgid "Data Summary"
+msgstr ""
+
+msgid "Preservation/Access"
+msgstr ""
+
+msgid "Data Access and Reuse"
+msgstr ""
+
+msgid "Project Information"
+msgstr ""
+
+msgid "Plan and acquire"
+msgstr ""
+
+msgid "Describe and manage quality"
+msgstr ""
+
+msgid "Storage, Backup and preservation"
+msgstr ""
+
+msgid "Data sharing and access"
+msgstr ""
+
+msgid "Collecte de données"
+msgstr ""
+
+msgid "Documentation et métadonnées"
+msgstr ""
+
+msgid "Stockage et sauvegarde"
+msgstr ""
+
+msgid "Conservation"
+msgstr ""
+
+msgid "Partage et réutilisation"
+msgstr ""
+
+msgid "Responsabilités et ressources"
+msgstr ""
+
+msgid "Conformité aux lois et à l'éthique"
+msgstr ""
+
+msgid "Restrictions"
+msgstr ""
+
+msgid "Sensitive Data and Legal Compliance"
+msgstr ""
+
+msgid "Cueillette de données"
+msgstr ""
+
+msgid "Responsabilité et ressources"
+msgstr ""
+
+msgid "Conformités aux lois et à l’éthique"
+msgstr ""
+
+msgid "Administration Details"
+msgstr ""
+
+msgid "Data Documentation and Metadata"
+msgstr ""
+
+msgid "Preservation and FAIR Data Sharing"
+msgstr ""
+
+msgid "Section 2 testing"
+msgstr ""
+
+msgid "Security"
+msgstr ""
+
+msgid "new section"
+msgstr ""
+
+msgid "sec 1"
+msgstr ""
+
+msgid "seccion nueva"
+msgstr ""
+
+msgid "sec"
+msgstr ""
+
+msgid ""
+"The section is to provide overview of study taken from Protocol, ethics applic"
+"ation or other document as appropriate. "
+msgstr ""
+
+msgid ""
+"This section is an overview of the data collection tasks performed by data man"
+"agement. "
+msgstr ""
+
+msgid "<p>Identify how intelligent access will be provided for the data.&nbsp;</p>"
+msgstr ""
+
+msgid "<p>Obtain a description of the data sources to be used.</p>"
+msgstr ""
+
+msgid ""
+"Identify any restrictions on the data that will limit how others might have ac"
+"cess to the data."
+msgstr ""
+
+msgid ""
+"Determine if the data will be deposited in an existing data repository and the"
+" type of arrangements associated with this."
+msgstr ""
+
+msgid "Identify how intelligent access will be provided for the data. "
+msgstr ""
+
+msgid "Determine a proper citation for the data used in this project."
+msgstr ""
+
+msgid ""
+"Because data are rarely self-explanatory, all research data should be accompan"
+"ied by metadata (information that describes the data according to community be"
+"st practices).  Metadata standards vary across disciplines, but generally stat"
+"e who created the data and when, how the data were created, their quality, acc"
+"uracy, and precision, as well as other features necessary to facilitate data d"
+"iscovery, understanding and reuse. </br>Any restrictions on use of the data mu"
+"st be explained in the metadata, along with information on how to obtain appro"
+"ved access to the data, where possible."
+msgstr ""
+
+msgid ""
+"Data management focuses on the 'what' and 'how' of operationally supporting da"
+"ta across the research lifecycle.  Data stewardship focuses on 'who' is respon"
+"sible for ensuring that data management happens. A large project, for example,"
+" will involve multiple data stewards. The Principal Investigator should identi"
+"fy at the beginning of a project all of the people who will have responsibilit"
+"ies for data management tasks during and after the project."
+msgstr ""
+
+msgid ""
+"Researchers and their teams need to be aware of the policies and processes, bo"
+"th ethical and legal, to which their research data management must comply. Pro"
+"tection of respondent privacy is of paramount importance and informs many data"
+" management practices.  In their data management plan, researchers must state "
+"how they will prepare, store, share, and archive the data in a way that ensure"
+"s participant information is protected, throughout the research lifecycle, fro"
+"m disclosure, harmful use, or inappropriate linkages with other personal data."
+"</br>It's recognized that there may be cases where certain data and metadata c"
+"annot be made public for various policy or legal reasons, however, the default"
+" position should be that all research data and metadata are public."
+msgstr ""
+
+msgid ""
+"<p>This section addresses data collection issues such as data types, file form"
+"ats, naming conventions, and data organisation &ndash; factors that will impro"
+"ve the usability of your data and contribute to the success of your project.</"
+"p>"
+msgstr ""
+
+msgid ""
+"<p>Data are rarely self-explanatory, so information about how to interpret res"
+"earch data and the context in which they were collected is key. This &lsquo;da"
+"ta about data&rsquo;, or metadata, ensures data can be understood, analysed, s"
+"hared, reused, and preserved. Many disciplines have metadata standards that en"
+"sure data can be interpreted and compared across projects and fields. The Soci"
+"al Sciences, for instance, use the internationally-accepted Data Documentation"
+" Initiative (DDI) standard.<br />Where there are restrictions on the use of th"
+"e data, the reasons for these restrictions must be explained in the metadata. "
+"Information must describe how to gain controlled access to the data if possibl"
+"e (e.g., contact information, access terms, access agreement templates, data r"
+"equest forms, etc.).</p>"
+msgstr ""
+
+msgid ""
+"<p>Planning how research data will be stored and backed up throughout and beyo"
+"nd a research project is critical in ensuring data security and integrity. App"
+"ropriate storage and backup not only helps protect research data from catastro"
+"phic losses (due to hardware and software failures, viruses, hackers, natural "
+"disasters, human error, etc.), but also facilitates appropriate access by curr"
+"ent and future researchers.</p>"
+msgstr ""
+
+msgid ""
+"<p>Data preservation will depend on potential reuse value, whether there are o"
+"bligations to either retain or destroy data, and the resources required to pro"
+"perly curate the data and ensure that it remains usable in the future. In some"
+" circumstances, it may be desirable to preserve all versions of the data (e.g."
+" raw, processed, analyzed, final), but in others, it may be preferable to keep"
+" only selected or final data (e.g. transcripts instead of audio interviews).</"
+"p>"
+msgstr ""
+
+msgid ""
+"<p>Most Canadian research funding agencies now have policies requiring researc"
+"h data to be shared upon publication of the research results or within a reaso"
+"nable period of time. While data sharing contributes to the visibility and imp"
+"act of research, it has to be balanced with the legitimate desire of researche"
+"rs to maximise their research outputs before releasing their data. Equally imp"
+"ortant is the need to protect the privacy of respondents and to properly handl"
+"e sensitive data.</p>"
+msgstr ""
+
+msgid ""
+"<p>Data management focuses on the &lsquo;what&rsquo; and &lsquo;how&rsquo; of "
+"operationally supporting data across the research lifecycle. Data stewardship "
+"focuses on &lsquo;who&rsquo; is responsible for ensuring that data management "
+"happens. A large project, for example, will involve multiple data stewards. Th"
+"e Principal Investigator should identify at the beginning of a project all of "
+"the people who will have responsibilities for data management tasks during and"
+" after the project.</p>"
+msgstr ""
+
+msgid ""
+"<p>Researchers and their teams need to be aware of the policies and processes,"
+" both ethical and legal, to which their research data management must comply. "
+"Protection of respondent privacy is of paramount importance and informs many d"
+"ata management practices. In their data management plan, researchers must stat"
+"e how they will prepare, store, share, and archive the data in a way that ensu"
+"res participant information is protected throughout the research lifecycle fro"
+"m disclosure, harmful use, or inappropriate linkages with other personal data."
+" <br />It&rsquo;s recognized that there may be cases where certain data and me"
+"tadata cannot be made public for various policy or legal reasons, however, the"
+" default position should be that all research data and metadata are public.</p"
+">"
+msgstr ""
+
+msgid ""
+"<p>Describe any Copyright or Intellectual Property (IP) in the material that w"
+"ill be generated and/or collected. Example:</p>\n"
+"<ul>\n"
+"<li>MSc., Ph.D. Student &lt;insert name&gt;</li>\n"
+"<li>University of Manitoba (IP has been assigned to the University)</li>\n"
+"<li>Joint ownership, External party</li>\n"
+"</ul>"
+msgstr ""
+
+msgid ""
+"<p>What data must be retained/destroyed for contractual, legal, or regulatory "
+"purposes? How long will you retain it for? How much backup space is needed? Re"
+"ference Sections 3.1, 4 and 5 to include in your plan.</p>"
+msgstr ""
+
+msgid ""
+"<p>This section addresses issues including data types, file formats, naming co"
+"nventions, and data organization. Describing each of these factors will improv"
+"e the usability of your data.</p>"
+msgstr ""
+
+msgid ""
+"<p>Descriptive information added to each individual data item is key to its di"
+"scovery and access. This description includes how to interpret the data and th"
+"e context in which it is collected. The description, 'data about data' or meta"
+"data, ensures data can be understood, analysed, shared, reused, and preserved."
+" Many disciplines have metadata standards that ensure data can be interpreted "
+"and compared across projects and fields. For example, the Data Documentation I"
+"nitiative (DDI) standard is an internationally-accepted metadata standard in t"
+"he social sciences.</p>\n"
+"<p>Where there are restrictions on the use or access to the data, the reasons "
+"for these restriction must be explained in the metadata. Information must desc"
+"ribe how to obtain access to the data if possible (e.g. contact information, a"
+"ccess terms, access agreement templates, data request forms etc.)</p>"
+msgstr ""
+
+msgid ""
+"<p>Planning how research data will be stored and backed up during and after a "
+"project is an essential piece of data security and integrity. Appropriate stor"
+"age and backup protects against loss (from hardware/software fails, viruses, h"
+"ackers, natural diasters, human error etc.), and facilitates appropriate acces"
+"s, as per regulatory and/or grant stipulations, by current and future research"
+"ers.</p>"
+msgstr ""
+
+msgid ""
+"<p>Considerations of data preservation include: potential reuse value; regulat"
+"ory and/or grant obligations to retain or destroy data;&nbsp;and resources req"
+"uired to both properly curate the data as well as ensure it is reusable into t"
+"he future. Depending on the circumstances, all versions of the data may be pre"
+"served (e.g. raw, processed, analyzed, final); in others, only the selected or"
+" final data may be need to be preserved (e.g. transcripts instead of audio int"
+"erviews).</p>"
+msgstr ""
+
+msgid ""
+"<p>The majority of major funders, Canadian and iinternationally, now require r"
+"esearch data to be shared and/or publically accessible either immediately upon"
+" publication or within a certain period of time.&nbsp;Weighing the benefits of"
+" data sharing, such as increased visibility and research impact, together with"
+" legitimate need to protect competitive potential and privacy/confidentiality "
+"of the data,&nbsp;are all considerations in this section.</p>"
+msgstr ""
+
+msgid ""
+"<p>This section is about data stewardship: the 'who' that is responsible for e"
+"nsuring that data management happens. For example, a large project will involv"
+"e multiple data stewards. The Principle Investigator should identify at the be"
+"ginning of a project all of the people who will have responsibilities for data"
+" management tasks throughout the research cycle and beyond.</p>"
+msgstr ""
+
+msgid ""
+"<p>All those involved in research have an obligation to be knowledgeable of th"
+"e policies and processes, both ethical and legal, to which their research data"
+" management must comply. Assurance of confidentiality and privacy of human sub"
+"ject data is imparative and informs many data management practices. As part of"
+" a data management plan, researchers must state how they will prepare, store, "
+"share, and archive their data that ensures human subject data is secure throug"
+"hout the research lifecycle from disclosure, harmful use, or inappropriate lin"
+"kages with other personal data. To that end, while it is acknowledged that the"
+"re are circumstances where some data and metadata cannot be made publically ac"
+"cessible for policy and legal reasons, the default position is that access to "
+"all research data and metadata are public.</p>\n"
+"<p>&nbsp;</p>"
+msgstr ""
+
+msgid ""
+"<p>The section is to provide an overview of the research project taken from pr"
+"oject planning documents, ethics application or other document as appropriate."
+" It includes questions regarding security, privacy and ethics and legal compli"
+"ance.</p>"
+msgstr ""
+
+msgid ""
+"<p>The section is to provide an overview of the data that is to be collected, "
+"acquired and/or generated and addresses questions pertaining to security, priv"
+"acy and ethics and legal compliance. The data management plan should consider "
+"the origins of the data and ensure that proper procedures to manage the data a"
+"re in place.</p>"
+msgstr ""
+
+msgid ""
+"<p>The section addresses issues such as standards, naming conventions, and dat"
+"a organisation &ndash; factors that will improve the usability of your data an"
+"d contribute to the success of your project.</p>"
+msgstr ""
+
+msgid ""
+"<p>The section describes&nbsp;how research data will be stored and backed up t"
+"hroughout and beyond a research project. Appropriate storage and backup not on"
+"ly helps protect research data, but also facilitates appropriate access by cur"
+"rent and future project team members and researchers. Data preservation will d"
+"epend on potential reuse value, whether there are obligations to either retain"
+" or destroy data, and the resources required to properly curate the data and e"
+"nsure that it remains usable in the future. In some circumstances, it may be d"
+"esirable to preserve all versions of the data (e.g. raw, processed, analyzed, "
+"final), but in others, it may be preferable to keep only selected or final dat"
+"a (e.g. transcripts instead of audio interviews).</p>"
+msgstr ""
+
+msgid ""
+"<p>The section describes how data will be shared, internally and externally, a"
+"nd rendered accessible. &ldquo;Open&rdquo; principles are to be applied where "
+"appropriate and to the greatest extent possible.</p>"
+msgstr ""
+
+msgid ""
+"<p>This section addresses data collection issues such as data types, file form"
+"ats, naming conventions, and data organizaion - factors that will improve the "
+"usability of your data and contribute to the success of your project.</p>"
+msgstr ""
+
+msgid ""
+"<p>Data preservation will depend on potential reuse value, whether there are o"
+"bligations to either retain or destroy data, and the resources required to pro"
+"perly curate the data and ensure that it remains usable in the future. In some"
+" circumstances, it may be desirable to preserve all versions of the data (e.g."
+" raw, processed, analyzed, final), but in others, it may be preferable to keep"
+" only selected or final data (e.g. transcripts instead of audio interviews).</"
+"p>\n"
+"<p>The Alliance and FfT initiative are committed to supporting the sharing and"
+" reuse of data to facilitate new agri-food and rural research. Note: Food from"
+" Thought researchers must ensure that any data related to publications be subm"
+"itted to the Agri-Environmental Research Data Repository in addition to any ot"
+"her long-term storage method they are utilizing. Researchers are encouraged to"
+" deposit all digital research data, metadata and code that directly support th"
+"e research conclusions in journal publications, pre-prints, and other research"
+" outputs in a recognized data repository. Researchers are encouraged to provid"
+"e public access to the data deposited where ethical, legal, and commercial req"
+"uirements allow.</p>"
+msgstr ""
+
+msgid ""
+"<p>Researchers and their teams need to be aware of the policies and processes,"
+" both ethical and legal, to which their research data management must comply.<"
+"/p>"
+msgstr ""
+
+msgid ""
+"<p>The Alliance is committed to supporting the sharing and reuse of data to fa"
+"cilitate new agri-food and rural research. Researchers are encouraged to provi"
+"de public access to the data deposited where ethical, legal, and commercial re"
+"quirements allow.&nbsp;</p>"
+msgstr ""
+
+msgid ""
+"<p>Because data are rarely self-explanatory, all research data should be accom"
+"panied by metadata (information that describes&nbsp;the data according to comm"
+"unity best practices). &nbsp;Metadata standards vary across disciplines, but g"
+"enerally state who created the data and when, how the data were created, their"
+" quality, accuracy, and precision, as well as other features necessary to faci"
+"litate data discovery, understanding and reuse. <br />Any restrictions on use "
+"of the data must be explained in the metadata, along with information on how t"
+"o obtain approved access to the data, where possible.</p>"
+msgstr ""
+
+msgid ""
+"<p>Many Canadian research funding agencies now have policies requiring researc"
+"h data to be shared upon publication of the research results or within a reaso"
+"nable period of time. While data sharing contributes to the visibility and imp"
+"act of research, it has to be balanced with the legitimate desire of researche"
+"rs to maximise their research outputs before releasing their data. Equally imp"
+"ortant is the need to protect the privacy of respondents and to properly handl"
+"e sensitive data.</p>"
+msgstr ""
+
+msgid ""
+"<p>Data management focuses on the 'what' and 'how' of operationally supporting"
+" data across the research lifecycle. &nbsp;Data stewardship focuses on 'who' i"
+"s responsible for ensuring that data management happens. A large project, for "
+"example, will involve multiple data stewards. The Principal Investigator shoul"
+"d identify at the beginning of a project all of the people who will have respo"
+"nsibilities for data management tasks during and after the project.</p>"
+msgstr ""
+
+msgid ""
+"<p>Researchers and their teams need to be aware of the policies and processes,"
+" both ethical and legal, to which their research data management must comply. "
+"Protection of respondent privacy is of paramount importance and informs many d"
+"ata management practices. &nbsp;In their data management plan, researchers mus"
+"t state how they will prepare, store, share, and archive the data in a way tha"
+"t ensures participant information is protected, throughout the research lifecy"
+"cle, from disclosure, harmful use, or inappropriate linkages with other person"
+"al data.<br />It's recognized that there may be cases where certain data and m"
+"etadata cannot be made public for various policy or legal reasons, however, th"
+"e default position should be that all research data and metadata are public.</"
+"p>"
+msgstr ""
+
+msgid ""
+"<p>Because data are rarely self-explanatory, all research data should be accom"
+"panied by metadata (information that describes&nbsp;the data according to comm"
+"unity best practices). &nbsp;Metadata standards vary across disciplines, but g"
+"enerally state who created the data and when, how the data were created, their"
+" quality, accuracy, and precision, as well as other features necessary to faci"
+"litate data discovery, understanding and reuse.<br />Any restrictions on use o"
+"f the data must be explained in the metadata, along with information on how to"
+" obtain approved access to the data, where possible.</p>"
+msgstr ""
+
+msgid "<p>Will this save?</p>"
+msgstr ""
+
+msgid "<p>Project Information</p>"
+msgstr ""
+
+msgid "<p>sec desc</p>"
+msgstr ""
+
+msgid "What types of data will you collect, create, acquire and/or record?"
+msgstr ""
+
+msgid ""
+"What documentation will be needed for the data to be read and interpreted corr"
+"ectly in the future?  This includes study-level documentation, data-level desc"
+"ription, and any other contextual information required to make the data usable"
+" by other researchers."
+msgstr ""
+
+msgid "How will your data be stored and backed up during your research project?"
+msgstr ""
+
+msgid ""
+"Which data are selected for preservation and access will depend on potential r"
+"euse value, whether there are obligations to either retain or destroy data, an"
+"d the resources required to properly curate the data and ensure that it remain"
+"s usable in the future.  In some circumstances, it may be feasible to preserve"
+" all versions of the data (e.g. raw, processed, analyzed, final), but in other"
+"s, it may be preferable to only keep only selected data (e.g. transcripts inst"
+"ead of audio interviews)."
+msgstr ""
+
+msgid ""
+"What data will you be sharing and in what form? (e.g. raw, processed, analyzed"
+", final). Consider which data may need to be shared in order to meet instituti"
+"onal or funding requirements, and which data may be restricted because of conf"
+"identiality/privacy issues. \n"
+"\n"
+msgstr ""
+
+msgid ""
+"Who will be responsible for data management during the project? (i.e. during c"
+"ollection, processing, analysis, documentation).  Identify staff and organizat"
+"ional roles and their responsibilities for carrying out the data management pl"
+"an (DMP), including time allocations and training requirements."
+msgstr ""
+
+msgid "Q. 1.1 Please enter the study title. "
+msgstr ""
+
+msgid ""
+"Q. 2. 1. What data sources do you anticipate collecting data from? Please incl"
+"ude both paper and electronic. "
+msgstr ""
+
+msgid ""
+"Q. 3. 1. Who will be responsible to monitor paper CRFs? Identify staff and org"
+"anizational roles and their responsibilities for carrying out the monitoring t"
+"ask, including time allocations and training requirements. "
+msgstr ""
+
+msgid ""
+"Q. 4.1. Who should the documents received directly from investigational staff "
+"be delivered to? These include CRFs and other documents required for data entr"
+"y, and should always accompany with a CRF Transmittal Form? \n"
+msgstr ""
+
+msgid "Q. 5. 1. How will you do data entry for paper CRFs?"
+msgstr ""
+
+msgid ""
+"Q. 6. 1. What documentation will be needed for the data handling? How will you"
+" ensure the documentation is created and updated consistently throughout your "
+"study?"
+msgstr ""
+
+msgid ""
+"Q. 7. 1. How will you validate the data recorded? What is your query process d"
+"uring the study?"
+msgstr ""
+
+msgid ""
+"Q. 8. 1. Is data coding required, for example adverse event coding? If so, ple"
+"ase list what data requires coding, and which dictionaries will be used (for e"
+"xample: MedDRA and WHODDE)? "
+msgstr ""
+
+msgid ""
+"Q. 9. 1. What data will you be sharing and in what form? (e.g. raw, processed,"
+" analyzed, final). "
+msgstr ""
+
+msgid "Q. 10. 1. How will your data be stored and archived after your study?"
+msgstr ""
+
+msgid ""
+"Q. 11. 1. Please list who is responsible for the following data management tas"
+"ks during the study:\n"
+"1. CRF design\n"
+"2. Database configuration\n"
+"3. Database documentation\n"
+"4. Database acceptance testing\n"
+"5. Monitoring\n"
+"6. Document flow and tracking\n"
+"7. Data entry\n"
+"8. Data validation\n"
+"9. Discrepancy resolution\n"
+"10. Data extract\n"
+"11. Analysis database creation\n"
+"12. Study materials archiving\n"
+"13. Data archiving"
+msgstr ""
+
+msgid ""
+"What access control features exist in the data repository to be used that will"
+" provide an appropriate level access to the data?"
+msgstr ""
+
+msgid "Indicate the sources of the data that you will be using in this project."
+msgstr ""
+
+msgid "Are there any restrictions associated with the data?"
+msgstr ""
+
+msgid ""
+"If you will deposit your data with an existing data repository, please identif"
+"y the repository by its URL."
+msgstr ""
+
+msgid "How will the citation practice for the data be determined?"
+msgstr ""
+
+msgid ""
+"Which data are selected for preservation and access will depend on potential r"
+"euse value, whether there are obligations to either retain or destroy data, an"
+"d the resources required to properly curate the data and ensure that it remain"
+"s usable in the future.  In some circumstances, it may be feasible to preserve"
+" all versions of the data (e.g. raw, processed, analyzed, final), but in other"
+"s, it may be preferable to only keep only selected data (e.g. transcripts inst"
+"ead of audio interviews).\n"
+msgstr ""
+
+msgid ""
+"What data will you be sharing and in what form? (e.g. raw, processed, analyzed"
+", final). Consider which data may need to be shared in order to meet instituti"
+"onal or funding requirements, and which data may be restricted because of conf"
+"identiality/privacy issues. \n"
+msgstr ""
+
+msgid "What types of data will you collect, create, link to, acquire and/or record?"
+msgstr ""
+
+msgid ""
+"What documentation will be needed for the data to be read and interpreted corr"
+"ectly in the future?"
+msgstr ""
+
+msgid ""
+"What are the anticipated storage requirements for your project, in terms of st"
+"orage space (in megabytes, gigabytes, terabytes, etc.) and the length of time "
+"you will be storing it?"
+msgstr ""
+
+msgid ""
+"Where will you deposit your data for long-term preservation and access at the "
+"end of your research project?"
+msgstr ""
+
+msgid ""
+"What data will you be sharing and in what form? (e.g. raw, processed, analyzed"
+", final)."
+msgstr ""
+
+msgid ""
+"Identify who will be responsible for managing this project's data during and a"
+"fter the project and the major data management tasks for which they will be re"
+"sponsible."
+msgstr ""
+
+msgid ""
+"If your research project includes sensitive data, how will you ensure that it "
+"is securely managed and accessible only to approved members of the project?"
+msgstr ""
+
+msgid ""
+"Where will you deposit your data for long-term preservation and access at the "
+"end of your research project?\n"
+msgstr ""
+
+msgid ""
+"Identify who will be responsible for managing this project’s data during and a"
+"fter the project and the major data management tasks for which they will be re"
+"sponsible.\t"
+msgstr ""
+
+msgid "What form of the data will you be sharing?"
+msgstr ""
+
+msgid "What types of data will you collect, create, link to, acquire, and/or record?"
+msgstr ""
+
+msgid ""
+"Where will you deposit your data for long-term preservation and access (if app"
+"ropriate) at the end of your research project?"
+msgstr ""
+
+msgid "Who will be responsible for managing the data during and after the project?"
+msgstr ""
+
+msgid ""
+"Describe what types of data you anticipate the project will generate and/or co"
+"llection. "
+msgstr ""
+
+msgid ""
+"What documentation and metadata will accompany the data? (ex. Protocols, metad"
+"ata file, controlled vocabulary)"
+msgstr ""
+
+msgid "Intellectual Property, Copyright and Ownership"
+msgstr ""
+
+msgid "What are the storage plans for the digital data?"
+msgstr ""
+
+msgid "Which data should be retained, shared, and/or archived?"
+msgstr ""
+
+msgid ""
+"What resources will you require to delivery your plan?\n"
+"\n"
+msgstr ""
+
+msgid "How will data quality be assured and controlled? "
+msgstr ""
+
+msgid ""
+"What elements in the metadata and other supporting documentation are needed to"
+" ensure that data is read and interpreted correctly in the future? "
+msgstr ""
+
+msgid "What data will you be publicly sharing and in what form?"
+msgstr ""
+
+msgid ""
+"Will approval from your University’s research ethics board be required? If you"
+" are unsure, please review <a href="
+msgstr ""
+
+msgid ""
+"Identify who will be responsible for managing the project’s data and the major"
+" data management tasks for which they will be responsible."
+msgstr ""
+
+msgid ""
+"What data will you be sharing/providing access to and in what form? (e.g. raw,"
+" processed, analyzed, final)"
+msgstr ""
+
+msgid ""
+"Identify who will be responsible for managing the research data during and aft"
+"er the project and the major data management tasks for which they will be resp"
+"onsible."
+msgstr ""
+
+msgid ""
+"If your research project includes sensitive data, how will you ensure that is "
+"securely managed and accessible only to approved members of the project?"
+msgstr ""
+
+msgid "Name of project or sub-project and project number (if applicable)."
+msgstr ""
+
+msgid ""
+"How and where will your data be stored and backed up during your research proj"
+"ect (e.g. laboratory server, HPC site, Cloud services, Specialized Research Eq"
+"uipment (SRE))?"
+msgstr ""
+
+msgid ""
+"Quels types de données allez-vous recueillir, créer, lier, acquérir ou enregis"
+"trer?"
+msgstr ""
+
+msgid ""
+"Quels documents seront nécessaires pour que les données soient lues et interpr"
+"étées correctement dans le futur?"
+msgstr ""
+
+msgid ""
+"Quels sont les besoins de stockage anticipés pour votre projet en matière d'es"
+"pace (en mégaoctets, gigaoctets, téraoctets, etc.) et de durée de stockage?"
+msgstr ""
+
+msgid ""
+"Où déposerez-vous vos données en vue de l'accès et de la préservation à long t"
+"erme à la fin de votre projet de recherche?"
+msgstr ""
+
+msgid ""
+" Quelles données partagerez-vous et sous quelle forme? (p. ex. données brutes,"
+" traitées, analysées, définitives)"
+msgstr ""
+
+msgid ""
+"Identifiez qui sera responsable de la gestion des données de ce projet pendant"
+" et après le projet ainsi que les principales tâches associées à ces responsab"
+"ilités."
+msgstr ""
+
+msgid ""
+"Si votre projet comprend des données sensibles, comment vous assurerez-vous qu"
+"'il est géré de manière sécuritaire et que les données sont accessibles unique"
+"ment aux membres approuvés du projet?"
+msgstr ""
+
+msgid ""
+"What types of data will you collect, create, link to, acquire and/or record as"
+" part of this project?"
+msgstr ""
+
+msgid ""
+"Are you aware of any current or future restrictions on the data used in and/or"
+" generated during this project?"
+msgstr ""
+
+msgid "Will you make data from this project available for sharing?"
+msgstr ""
+
+msgid ""
+"Where will you deposit your data for long-term storage at the end of your rese"
+"arch project?"
+msgstr ""
+
+msgid ""
+"Quelles données partagerez-vous et sous quelle forme? (p. ex. données brutes, "
+"traitées, analysées, définitives)"
+msgstr ""
+
+msgid ""
+"1.1 Name of project or sub-project and project number (if applicable).\n"
+msgstr ""
+
+msgid ""
+"2.1 What types of data will you collect, create, link to, acquire and/or recor"
+"d?"
+msgstr ""
+
+msgid ""
+"3.1 What documentation will be needed for the data to be read and interpreted "
+"correctly in the future? This includes study-level documentation, data-level d"
+"escription, and any other contextual information required to make the data usa"
+"ble by other researchers."
+msgstr ""
+
+msgid ""
+"4.1 What are the anticipated storage requirements for your project, in terms o"
+"f storage space (in megabytes, gigabytes, terabytes, etc.) and the length of t"
+"ime you will be storing it? \n"
+"\n"
+"If applicable, where are hardcopy notebooks and physical samples going to be p"
+"hysically stored?"
+msgstr ""
+
+msgid "5.1 Which data are selected for preservation and access? "
+msgstr ""
+
+msgid ""
+"6.1 What data will you be sharing and in what form? (e.g. raw, processed, anal"
+"yzed, final). "
+msgstr ""
+
+msgid ""
+"7.1 Identify who will be responsible for managing this project's data during a"
+"nd after the project and the major data management tasks for which they will b"
+"e responsible."
+msgstr ""
+
+msgid ""
+"8.1 If your research project includes sensitive data, how will you ensure that"
+" it is securely managed and accessible only to approved members of the project"
+"?"
+msgstr ""
+
+msgid ""
+"What types of research data will you collect, create, or acquire and modify fr"
+"om external sources for project?"
+msgstr ""
+
+msgid "Project Name"
+msgstr ""
+
+msgid ""
+"Identify who will be responsible for managing this project's data during and a"
+"fter the project.  Which major data management tasks will this person or perso"
+"ns be responsible for?"
+msgstr ""
+
+msgid ""
+"What are the anticipated storage requirements need for your project’s active l"
+"ife cycle, in terms of 1) storage space [# megabytes, gigabytes, terabytes, et"
+"c.] and 2) length of time?"
+msgstr ""
+
+msgid ""
+"Are there agreements in place for Intellectual Property (IP) management for th"
+"is project?  "
+msgstr ""
+
+msgid "Which datasets from this project will be shared publicly?"
+msgstr ""
+
+msgid ""
+"Identify who will be responsible for managing this project's data during and a"
+"fter the project. Which major data management tasks will this person or person"
+"s be responsible for?"
+msgstr ""
+
+msgid "Question 1"
+msgstr ""
+
+msgid "File Format"
+msgstr ""
+
+msgid ""
+"Outline any restrictions on data sharing due to the need to protect proprietar"
+"y or patentable data or sensitive data."
+msgstr ""
+
+msgid ""
+"Outline measures you will undertake to ensure data is handled and maintained s"
+"afely and securely throughout the research project."
+msgstr ""
+
+msgid "PLACEHOLDER"
+msgstr ""
+
+msgid "this is my questoin"
+msgstr ""
+
+msgid "esta es mi pregunta de A"
+msgstr ""
+
+msgid "111"
+msgstr ""
+
+msgid ""
+"What file formats will your data be collected in?  Will these formats allow fo"
+"r data re-use, sharing and long-term access to the data?"
+msgstr ""
+
+msgid ""
+"Please list the metadata standard and tools you will use to document and descr"
+"ibe your data.  If there is not an appropriate standard, please explain how yo"
+"u will ensure consistency in your documentation."
+msgstr ""
+
+msgid ""
+"How will you ensure that sensitive data is stored securely and only accessible"
+" to the research team during the research project?"
+msgstr ""
+
+msgid ""
+"At the end of your research project, where will you deposit your data for long"
+"-term preservation and access? "
+msgstr ""
+
+msgid ""
+"How will you be sharing your data? (e.g. institutional repository, a specializ"
+"ed data archive, project website, informal/on-request sharing).  Include a bri"
+"ef description of any resources needed to share your data (equipment, systems,"
+" expertise, etc.). \n"
+msgstr ""
+
+msgid ""
+"What will happen when personnel changes occur or if the principal investigator"
+" leaves the institution before the project has concluded?"
+msgstr ""
+
+msgid "Q. 1. 2. Please provide an outline description to your research. "
+msgstr ""
+
+msgid ""
+"Q. 2. 2. How will the data be collected/captured? For a combination of data co"
+"llection modes, please specify which sites/regions will be using Electronic Da"
+"ta Capture (EDC), and which ones are not.  "
+msgstr ""
+
+msgid ""
+"Q. 3. 2.  What procedure should be followed when monitoring paper CRFs to ensu"
+"re accuracy, adherence to the protocol and GCP conformance?"
+msgstr ""
+
+msgid "Q. 4. 2. How will the CRFs and other documents be stored during the study? "
+msgstr ""
+
+msgid "Q. 5. 2. How will you do data entry from photocopies?"
+msgstr ""
+
+msgid "Q. 7. 2. How will you validate data with EDC forms? "
+msgstr ""
+
+msgid "Q. 9. 2. How will you extract the data?"
+msgstr ""
+
+msgid ""
+"Q. 10.2.  At the end of your study, which data will you select for long-term p"
+"reservation and access? And where will you deposit the selected data? "
+msgstr ""
+
+msgid ""
+"Q. 11. 2. What will happen when personnel changes occur or if the principal in"
+"vestigator leaves the institution before the study has concluded?"
+msgstr ""
+
+msgid ""
+"How will access control be provided if the data repository does not support th"
+"is feature?"
+msgstr ""
+
+msgid "To reproduce your findings, will any special software or code be needed?"
+msgstr ""
+
+msgid "How will access be provided to sensitive or confidential data?"
+msgstr ""
+
+msgid ""
+"How will the data be accessible if they have not been deposited in an existing"
+" data repository?"
+msgstr ""
+
+msgid ""
+"What file formats will your data be collected in? Will these formats allow for"
+" data re-use, sharing and long-term access to the data?"
+msgstr ""
+
+msgid ""
+"How and where will your data be stored and backed up during your research proj"
+"ect?"
+msgstr ""
+
+msgid ""
+"Indicate how you will ensure your data is preservation ready. Consider preserv"
+"ation-friendly file formats, ensuring file integrity, anonymization and de-ide"
+"ntification, inclusion of supporting documentation."
+msgstr ""
+
+msgid "Have you considered what type of end-user license to include with your data?"
+msgstr ""
+
+msgid ""
+"How will responsibilities for managing data activities be handled if substanti"
+"ve changes happen in the personnel overseeing the project's data, including a "
+"change of Principal Investigator?"
+msgstr ""
+
+msgid ""
+"If applicable, what strategies will you undertake to address secondary uses of"
+" sensitive data?"
+msgstr ""
+
+msgid ""
+"How will you make sure that documentation is created or captured consistently "
+"throughout your project?\n"
+msgstr ""
+
+msgid ""
+"Indicate how you will ensure your data is preservation ready. Consider preserv"
+"ation-friendly file formats, ensuring file integrity, anonymization and de-ide"
+"ntification, and inclusion of supporting documentation.\t\n"
+msgstr ""
+
+msgid ""
+"If the way you store and share data during your research project differs from "
+"how you will preserve your data long-term, include a brief description of any "
+"resources needed to share your data (equipment, systems, expertise, etc.).\n"
+msgstr ""
+
+msgid ""
+"If applicable, what strategies will you undertake to address secondary uses of"
+" sensitive data?\n"
+msgstr ""
+
+msgid "What type of end-user license will you include with your data?"
+msgstr ""
+
+msgid ""
+"What file formats will you use for your data? Keep in mind the need to allow f"
+"or data re-use, sharing, and long-term access. "
+msgstr ""
+
+msgid "How will you ensure your data are preservation ready? "
+msgstr ""
+
+msgid ""
+"How will responsibilities for managing data activities be handled if substanti"
+"ve changes happen in the personnel overseeing the data management?"
+msgstr ""
+
+msgid "How will the data be collected or created?"
+msgstr ""
+
+msgid "Time periods during which the data will be collected?"
+msgstr ""
+
+msgid "Ethics, Privacy, and Confidentiality Requirements"
+msgstr ""
+
+msgid ""
+"What file formats will your data be collected in? Do these formats allow for d"
+"ata re-use, sharing and long-term access? E.g., are file formats proprietary o"
+"r open source?"
+msgstr ""
+
+msgid ""
+"What provisions are in place for data security including data recovery, backup"
+", secure storage, transfer of data, and version control? "
+msgstr ""
+
+msgid "What specific standard(s) are being used for metadata? "
+msgstr ""
+
+msgid ""
+"When will the data be made available for re-use? If an embargo period is reque"
+"sted specify why and how long this will apply, bearing in mind that data shoul"
+"d be made available as soon as possible."
+msgstr ""
+
+msgid ""
+"Are there any legal, ethical or intellectual property issues with sharing data"
+"? Please describe"
+msgstr ""
+
+msgid ""
+"What resources will you require to implement your data management plan? (E.g.,"
+" training, storage space, and large data transfer capabilities). If applicable"
+", try to estimate the costs associated with data management and build these in"
+"to your project’s budget."
+msgstr ""
+
+msgid ""
+"What are the anticipated storage requirements for your project, in terms of st"
+"orage space (in megabytes, gigabytes, terabytes etc.) and the length of time y"
+"ou will be storing it?"
+msgstr ""
+
+msgid ""
+"How will you ensure your data is preservation ready? Factors in this considera"
+"tion include open file formats, file integrity, anonymization and de-identific"
+"ation, and inclusion of supporting documentation."
+msgstr ""
+
+msgid ""
+"If the way you store and access data during your research project (i.e. active"
+" storage) differs from how you will preserve your data long-term, describe any"
+" resources needed to share/provide access your data (equipment, systems, exper"
+"tise etc.)"
+msgstr ""
+
+msgid ""
+"How will responsibilities for managing data activities be handled if substanti"
+"ve changes happen in the personnel overseeing the research data, including a c"
+"hange in Principle Investigator?"
+msgstr ""
+
+msgid ""
+"Please provide an outline description of the research project and the intended"
+" products of the research."
+msgstr ""
+
+msgid "Will this project use existing data? "
+msgstr ""
+
+msgid ""
+"How will the data (derived, raw and unpublished data files) be documented for "
+"future usefulness?"
+msgstr ""
+
+msgid ""
+"If applicable, where are hardcopy notebooks and physical samples going to be p"
+"hysically stored?"
+msgstr ""
+
+msgid ""
+"Dans quels formats de fichier vos données seront-elles recueillies? Ces format"
+"s permettront-ils la réutilisation des données, le partage et l'accès à long t"
+"erme aux données?"
+msgstr ""
+
+msgid ""
+"Comment vous assurerez-vous de documenter le projet de façon systématique tout"
+" au long du processus?"
+msgstr ""
+
+msgid ""
+"Comment vos données seront-elles stockées et sauvegardées pendant votre projet"
+" de recherche et à quel endroit le seront-elles?"
+msgstr ""
+
+msgid ""
+"Indiquez comment vous assurerez que vos données sont prêtes pour la conservati"
+"on. À prendre en considération: formats de fichier appropriés pour la conserva"
+"tion mais qui préservent l'intégrité des données; anonymisation et dépersonnal"
+"isation des fichiers, y compris les fichiers de documentation. "
+msgstr ""
+
+msgid "Avez-vous examiné quel type de licence d'utilisation inclure avec vos données?"
+msgstr ""
+
+msgid ""
+"De quelle façon les responsabilités relatives à la gestion des données seront-"
+"elles gérées si des changements importants surviennent au sein du personnel qu"
+"i supervise les données du projet, y compris un changement de chercheur princi"
+"pal?"
+msgstr ""
+
+msgid ""
+" Le cas échéant, quelles stratégies adopterez-vous pour traiter les utilisatio"
+"ns secondaires des données sensibles?"
+msgstr ""
+
+msgid ""
+"If so, what data will you be sharing and in what form? (e.g. raw, processed, a"
+"nalyzed, final)"
+msgstr ""
+
+msgid ""
+"What file formats will your data be collected in? \n"
+"\n"
+"Consider whether these formats will allow for data re-use, sharing and long-te"
+"rm access to the data. If they do not, will it be possible to convert your dat"
+"a to a more accessible format after collecting the data?\n"
+msgstr ""
+
+msgid ""
+"Indicate how you will ensure your data is preservation friendly. Consider non-"
+"proprietary file formats, ensuring file integrity, and inclusion of supporting"
+" documentation."
+msgstr ""
+
+msgid ""
+"Le cas échéant, quelles stratégies adopterez-vous pour traiter les utilisation"
+"s secondaires des données sensibles?"
+msgstr ""
+
+msgid ""
+"1.2  Please provide an outline description of the research project and the int"
+"ended products of the research."
+msgstr ""
+
+msgid ""
+"2.2 What file formats will your data be collected in? Will these formats allow"
+" for data re-use, sharing and long-term access to the data?"
+msgstr ""
+
+msgid ""
+"3.2 How will you make sure that documentation is created or captured consisten"
+"tly throughout your project?"
+msgstr ""
+
+msgid ""
+"4.2 How and where will your data be stored and backed up during your research "
+"project?"
+msgstr ""
+
+msgid ""
+"5.2 Where will you deposit your data for long-term preservation and access at "
+"the end of your research project? Is there specific software needed in order t"
+"o use or interpret your research data collection?"
+msgstr ""
+
+msgid ""
+"6.2 If the way you store and share data during your research project differs f"
+"rom how you will preserve your data long-term, include a brief description of "
+"any resources needed to share your data (equipment, systems, expertise, etc.)."
+msgstr ""
+
+msgid ""
+"7.2 How will responsibilities for managing data activities be handled if subst"
+"antive changes happen in the personnel overseeing the project's data, includin"
+"g a change of Principal Investigator?"
+msgstr ""
+
+msgid ""
+"8.2 If applicable, what strategies will you undertake to address secondary use"
+"s of sensitive data?"
+msgstr ""
+
+msgid ""
+"In which file formats will your data be collected? Will these formats allow fo"
+"r data re-use, sharing and long-term access to the data?"
+msgstr ""
+
+msgid ""
+"\n"
+" \n"
+"How will responsibilities for managing data activities be handled if substanti"
+"ve changes happen in the personnel overseeing the project's data, including a "
+"change of Principal Investigator?"
+msgstr ""
+
+msgid ""
+"Pertaining to your data inventory (above), what data formats and file types wi"
+"ll you use?  You are encouraged to avoid proprietary file types whenever possi"
+"ble."
+msgstr ""
+
+msgid "Principle Investigator/Researcher: (Last name, First names)"
+msgstr ""
+
+msgid ""
+"What resources will you require to implement your data management plan? What d"
+"o you estimate the overall cost for data management to be?  Is this built into"
+" your current project budget?"
+msgstr ""
+
+msgid "What metadata standard will be employed to describe your data?"
+msgstr ""
+
+msgid ""
+"How and where will your data be stored and backed up during the active project"
+" life cycle?  Specifically, comment on practices, hardware and software."
+msgstr ""
+
+msgid "Does your study include human information or other sensitive data?  "
+msgstr ""
+
+msgid "When will data from this project be shared?"
+msgstr ""
+
+msgid ""
+"Pertaining to your data inventory (above), what data formats and file types wi"
+"ll you use? You are encouraged to avoid proprietary file types whenever possib"
+"le."
+msgstr ""
+
+msgid ""
+"What resources will you require to implement your data management plan? What d"
+"o you estimate the overall cost for data management to be? Is this built into "
+"your current project budget?"
+msgstr ""
+
+msgid ""
+"How and where will your data be stored and backed up during the active project"
+" life cycle? Specifically, comment on practices, hardware and software."
+msgstr ""
+
+msgid ""
+"Outline any legal or ethical constraints on data release (obligations from fun"
+"ders, etc.)"
+msgstr ""
+
+msgid "List of Expected Data to be collected:"
+msgstr ""
+
+msgid "aqui vas a poner lo de active data storage"
+msgstr ""
+
+msgid "otro theme <strong>active data storage</strong>"
+msgstr ""
+
+msgid ""
+"If data are collected using laptops or mobile devices, please explain how will"
+" you will securely store and transfer the data."
+msgstr ""
+
+msgid ""
+"How will you make sure that documentation is created or captured consistently "
+"throughout your project?"
+msgstr ""
+
+msgid ""
+"Please describe how you will prepare the data for preservation and access, inc"
+"luding any necessary procedures for data cleaning, normalization or de-identif"
+"ication.  Explain how you will prevent data from being lost while processing a"
+"nd converting files. "
+msgstr ""
+
+msgid ""
+"Please describe whether there will be any restrictions placed on your data whe"
+"n they are made available and who may access them.  If data are not openly ava"
+"ilable, describe the process for gaining access."
+msgstr ""
+
+msgid ""
+"Who will be responsible for data sharing and preservation after the project ha"
+"s concluded? Indicate the party who will have primary responsibility for how t"
+"he data will persist over time when the original personnel have moved on. "
+msgstr ""
+
+msgid "Q. 1.3 Please provide details of the primary efficacy variables. "
+msgstr ""
+
+msgid ""
+"Q. 2. 3. Who is designing the Case Report Forms (CRFs)? Is CRIC (Clinical Rese"
+"arch Informatics Core) input required?"
+msgstr ""
+
+msgid ""
+"Q. 3. 3. Electronic CRFs (OpenClinica, REDCap, etc) will be monitored electron"
+"ically for accuracy (source document verification), adherence to the protocol "
+"and GCP conformance. Who will be responsible to monitor electronic CRFs? Ident"
+"ify staff and organizational roles and their responsibilities to complete the "
+"monitoring tasks. Please include the time allocations, and training requiremen"
+"ts. "
+msgstr ""
+
+msgid ""
+"Q. 4. 3. How will you ensure that sensitive data is stored securely and only a"
+"ccessible to the research team during the study?"
+msgstr ""
+
+msgid "Q. 5. 3. How will you do data entry for CRFs that are not photocopied?"
+msgstr ""
+
+msgid ""
+"Q. 6. 3. What documentation will be needed for the data to be read and interpr"
+"eted correctly in the future? This includes study-level documentation, data-le"
+"vel description, and any other contextual information required to make the dat"
+"a usable by other researchers."
+msgstr ""
+
+msgid "Q. 7. 3. How will you validate data with paper CRFs?"
+msgstr ""
+
+msgid ""
+"Q. 9. 3. How will you be sharing your data? (e.g. institutional repository, a "
+"specialized data archive, project website, informal/on-request sharing etc. )."
+" Please include a brief description of any resources needed to share your data"
+" (equipment, systems, expertise, etc. )"
+msgstr ""
+
+msgid ""
+"Q. 10. 3. How will you archive the study materials after study completion? Ple"
+"ase include both paper and electronic records. "
+msgstr ""
+
+msgid ""
+"Q. 11. 3. Who will be responsible for data sharing and preservation after the "
+"study has concluded? Indicate the party who will have primary responsibility f"
+"or how the data will persist over time when the original personnel have moved "
+"on. "
+msgstr ""
+
+msgid "How will access to any special software or code be provided?"
+msgstr ""
+
+msgid ""
+"If you are using data from another producer or provider, describe how other re"
+"searchers can obtain access to these data."
+msgstr ""
+
+msgid "How will persistent identifiers for the data be provided?"
+msgstr ""
+
+msgid ""
+"What conventions and procedures will you use to structure, name and version-co"
+"ntrol your files to help you and others better understand how your data are or"
+"ganized?"
+msgstr ""
+
+msgid ""
+"If you are using a metadata standard and/or tools to document and describe you"
+"r data, please list here."
+msgstr ""
+
+msgid ""
+"How will the research team and other collaborators access, modify, and contrib"
+"ute data throughout the project?"
+msgstr ""
+
+msgid ""
+"What steps will be taken to help the research community know that your data ex"
+"ists?"
+msgstr ""
+
+msgid ""
+"What resources will you require to implement your data management plan? What d"
+"o you estimate the overall cost for data management to be?"
+msgstr ""
+
+msgid "How will you manage legal, ethical, and intellectual property issues?"
+msgstr ""
+
+msgid ""
+"If you are using a metadata standard and/or tools to document and describe you"
+"r data, please list here.\n"
+msgstr ""
+
+msgid ""
+"How will the research team and other collaborators access, modify, and contrib"
+"ute data throughout the project?\n"
+msgstr ""
+
+msgid ""
+"Have you considered what type of end-user license to include with your data?\n"
+msgstr ""
+
+msgid "How will you make it possible for the research community to find your data?"
+msgstr ""
+
+msgid ""
+"What conventions and procedures will you use to structure, name, and version-c"
+"ontrol your files to help you and others better understand how your data are o"
+"rganized?"
+msgstr ""
+
+msgid ""
+"What resources will you require to implement your data management plan? What i"
+"s your estimate for the overall cost for data management?"
+msgstr ""
+
+msgid ""
+"Data Access, Sharing and Re-use: Who is the data author/data contact that is r"
+"esponsible for the data and documentation during the project?"
+msgstr ""
+
+msgid "Planned update frequency of dataset:"
+msgstr ""
+
+msgid ""
+"Is there any privacy restriction in place? What safeguards are in place to pre"
+"vent disclosure?"
+msgstr ""
+
+msgid "What are the anticipated storage requirements of your project?"
+msgstr ""
+
+msgid ""
+"What standards or applications (e.g., notebooks) are you using to help to stru"
+"cture, name and version control your files? "
+msgstr ""
+
+msgid "What type of end-user license to include with your data? E.g., CC-BY "
+msgstr ""
+
+msgid ""
+"If applicable, how will sensitive data be securely managed and accessible only"
+" to project members? Does ethics alone address this, or are non-disclosure agr"
+"eements required?"
+msgstr ""
+
+msgid ""
+"How will the research team and other collaborators access, modify, and contrib"
+"ute data  throughout the project?"
+msgstr ""
+
+msgid "Please provide details of the project timelines."
+msgstr ""
+
+msgid ""
+"What systems are to be used to collect the data? What file formats will your e"
+"lectronic data be collected in? Will these formats allow for data re-use, shar"
+"ing and long-term access to the data?"
+msgstr ""
+
+msgid "If your data is not on a network server, how often will backups be performed?"
+msgstr ""
+
+msgid ""
+"How will you be sharing your data? (e.g. a specialized data archive, project w"
+"ebsite, informal/on-request sharing etc). "
+msgstr ""
+
+msgid ""
+"Quelles conventions et procédures utiliserez-vous pour structurer et nommer vo"
+"s fichiers et en contrôler les versions afin de vous aider, ainsi que les util"
+"isateurs potentiels, à mieux comprendre la façon dont vos données sont organis"
+"ées?\n"
+msgstr ""
+
+msgid ""
+"Si vous utilisez une norme de métadonnées ou des outils pour documenter et déc"
+"rire vos données, veuillez les indiquer ici.\n"
+msgstr ""
+
+msgid ""
+" Comment l'équipe de recherche et d'autres collaborateurs pourront-ils accéder"
+" aux données, modifier celles-ci ou en ajouter de nouvelles tout au long du pr"
+"ojet?"
+msgstr ""
+
+msgid ""
+"Quelles mesures seront prises pour faire connaître l'existence de vos données "
+"au milieu de la recherche?"
+msgstr ""
+
+msgid ""
+"De quelles ressources aurez-vous besoin pour mettre en œuvre votre plan de ges"
+"tion des données? À combien évaluez-vous le coût total de la gestion des donné"
+"es?"
+msgstr ""
+
+msgid ""
+"Comment traiterez-vous les questions d'ordre juridique, éthique et de propriét"
+"é intellectuelle?"
+msgstr ""
+
+msgid ""
+"Do you plan to use a metadata standard and/or tools to document and describe y"
+"our data? If so, please list here."
+msgstr ""
+
+msgid ""
+"Quelles conventions et procédures utiliserez-vous pour structurer et nommer vo"
+"s fichiers et en contrôler les versions afin de vous aider, ainsi que les util"
+"isateurs potentiels, à mieux comprendre la façon dont vos données sont organis"
+"ées?"
+msgstr ""
+
+msgid ""
+"Si vous utilisez une norme de métadonnées ou des outils pour documenter et déc"
+"rire vos données, veuillez les indiquer ici."
+msgstr ""
+
+msgid "1.3  Please provide details of the project timelines."
+msgstr ""
+
+msgid ""
+"2.3 How much data do you anticipate collecting? Include an estimate of how muc"
+"h storage space you will require (in megabytes, gigabytes, terabytes). This es"
+"timate should also take into account storage space required for file versionin"
+"g, backups, and the growth rate over time."
+msgstr ""
+
+msgid ""
+"3.3 If you are using a metadata standard and/or tools to document and describe"
+" your data, please list here."
+msgstr ""
+
+msgid ""
+"4.3 How will the research team and other collaborators access, modify, and con"
+"tribute data throughout the project?\n"
+"\n"
+"If applicable, how will you ensure that sensitive data is stored securely and "
+"only accessible to the research team and other collaborators throughout the pr"
+"oject?"
+msgstr ""
+
+msgid ""
+"5.3 Indicate how you will ensure your data is preservation ready. Consider pre"
+"servation-friendly file formats, ensuring file integrity, anonymization and de"
+"-identification, inclusion of supporting documentation."
+msgstr ""
+
+msgid ""
+"6.3 How will you be sharing your data? (e.g. institutional repository, a speci"
+"alized data archive, informal/on-request \n"
+"sharing). Include a brief description of any resources needed to share your da"
+"ta (equipment, systems, expertise, etc.)."
+msgstr ""
+
+msgid ""
+"7.3 What resources will you require to implement your data management plan? Wh"
+"at do you estimate the overall cost for data management to be?\n"
+"\n"
+"What additional resources will you require to implement your data management p"
+"lan?"
+msgstr ""
+
+msgid "8.3 How will you manage legal, ethical, and intellectual property issues?"
+msgstr ""
+
+msgid "Principal Investigator Profile (ORCID)s: "
+msgstr ""
+
+msgid ""
+"Who “owns” or will be responsible for the data generated during the project? W"
+"ho are the primary authors of research products generating during this project"
+".   If there are changes in personnel overseeing the project’s data (including"
+" a change in PI) during the project’s life cycle, what will happen to the data"
+"?  "
+msgstr ""
+
+msgid ""
+"What information and metadata elements will be needed for the data to be read "
+"and interpreted correctly in the future?  "
+msgstr ""
+
+msgid ""
+"How will the research team and other collaborators access, modify, and contrib"
+"ute data throughout the project life cycle?"
+msgstr ""
+
+msgid ""
+"How will sensitive data be managed securely during the active research project"
+" life cycle?  Will non-disclosure agreements be required for researchers or pa"
+"rticipants?"
+msgstr ""
+
+msgid "What copyright or license should be applied to these datasets?"
+msgstr ""
+
+msgid ""
+"Who “owns” or will be responsible for the data generated during the project? W"
+"ho are the primary authors of research products generating during this project"
+". If there are changes in personnel overseeing the project’s data (including a"
+" change in PI) during the project’s life cycle, what will happen to the data?"
+msgstr ""
+
+msgid ""
+"How will sensitive data be managed securely during the active research project"
+" life cycle? Will non-disclosure agreements be required for researchers or par"
+"ticipants?"
+msgstr ""
+
+msgid ""
+"What copyright or license should be applied to these datasets?\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"Note"
+msgstr ""
+
+msgid "audience theme"
+msgstr ""
+
+msgid ""
+"How much data do you anticipate collecting?  Include an estimate of how much s"
+"torage space you will require (in megabytes, gigabytes, terabytes).  This esti"
+"mate should also take into account storage space required for file versioning,"
+" backups, and the growth rate over time."
+msgstr ""
+
+msgid ""
+"What type of end-user license will you include with your data? Please include "
+"a copy of this license with your Data Management Plan. "
+msgstr ""
+
+msgid ""
+"What resources will you require to implement your plan? Will extra people, tim"
+"e or hardware, storage be required? How much will this cost (estimation)?"
+msgstr ""
+
+msgid "Q 1. 4. Please provide details of the secondary efficacy variables. "
+msgstr ""
+
+msgid ""
+"Q. 2. 4. What systems are to be used to collect the data? What file formats wi"
+"ll your electronic data be collected in? Will these formats allow for data re-"
+"use, sharing and long-term access to the data?"
+msgstr ""
+
+msgid ""
+"Q. 3. 4. Please describe additional data validation procedures to the electron"
+"ic CRFs, if any. Who will be responsible for these data validation tasks? Iden"
+"tify staff and their responsibilities for carrying out these data validation s"
+"teps. \n"
+"\n"
+"\n"
+msgstr ""
+
+msgid ""
+"Q. 4.4. How will you track the documents that are collected and removed from t"
+"he storage for data entry?"
+msgstr ""
+
+msgid "Q. 5. 4. How will you handle data entry for EDCs?"
+msgstr ""
+
+msgid "Q. 7.4. How will you verify the source documents?"
+msgstr ""
+
+msgid ""
+"Q. 9. 4. Please describe whether there will be any restrictions placed on your"
+" data when they are made available and who may access them. If data are not op"
+"enly available, describe the process for gaining access. "
+msgstr ""
+
+msgid "Who will register DOIs for the data with DataCite?"
+msgstr ""
+
+msgid ""
+"What steps will be taken to help the research community know that your data ex"
+"ists?\n"
+msgstr ""
+
+msgid ""
+"What would you and/or other researchers need to interpret the data? How will y"
+"ou create, manage, and update the documentation?"
+msgstr ""
+
+msgid ""
+"Data Access, Sharing and Re-use: Who is the data maintainer that is responsibl"
+"e for the data and documentation at completion of project. "
+msgstr ""
+
+msgid "Study site description:"
+msgstr ""
+
+msgid ""
+"Where will you deposit data for long term preservation and access? E.g., Dryad"
+", Zenodo, Figshare, University-specific repository, etc."
+msgstr ""
+
+msgid ""
+"If applicable, what steps need to be taken before publicly releasing data? E.g"
+"., anonymization/de-personalization of data."
+msgstr ""
+
+msgid ""
+"What steps will you take to disseminate and/or assist the discovery of your re"
+"search?"
+msgstr ""
+
+msgid "Principal Investigator(s)"
+msgstr ""
+
+msgid ""
+"Will the project need to buy any new software, licenses, or IT equipment to co"
+"llect or process the data?"
+msgstr ""
+
+msgid ""
+"Please describe whether there will be any restrictions placed on your data whe"
+"n they are made available and who may access them. If data are not openly avai"
+"lable, describe the process for gaining access, if applicable"
+msgstr ""
+
+msgid "1.4 Principal Investigator(s)"
+msgstr ""
+
+msgid ""
+"2.4 Are there are any existing data that you can re-use? If so, please explain"
+" how you will obtain that data and integrate it into your research project."
+msgstr ""
+
+msgid ""
+"6.4 Please describe whether there will be any restrictions placed on your data"
+" when they are made available and who may access them. If data are not openly "
+"available, describe the process for gaining access."
+msgstr ""
+
+msgid "Project DMP Contact"
+msgstr ""
+
+msgid ""
+"Will you require archiving beyond the length of time stated above?  What will "
+"that archive require in terms of storage type, space, and maintenance?"
+msgstr ""
+
+msgid ""
+"If any data are to be released publicly, what steps will be taken to ensure an"
+"onymization and/or data cleaning?"
+msgstr ""
+
+msgid "To which public data repository/-ies do you intend to submit data?"
+msgstr ""
+
+msgid ""
+"Will you require archiving beyond the length of time stated above? What will t"
+"hat archive require in terms of storage type, space, and maintenance?"
+msgstr ""
+
+msgid ""
+"Are there are any existing data that you can re-use?  If so, please explain ho"
+"w you will obtain that data and integrate it into your research project."
+msgstr ""
+
+msgid ""
+"Q. 1. 5. Please details what data constitutes the safety data (if any) for the"
+" study. "
+msgstr ""
+
+msgid ""
+"Q. 2. 5. How the study will be randomized/blinded? Please provide details on a"
+"ny applicable code break procedures.  "
+msgstr ""
+
+msgid "Q. 7. 5. What is your procedure for data quality audit?"
+msgstr ""
+
+msgid ""
+"Q. 9. 5. What type of end-user license will you include with your data? Please"
+" include a copy of this license with your Data Management Plan. "
+msgstr ""
+
+msgid ""
+"Which metadata standard and/or tools, if any, will you use to document and des"
+"cribe your data?"
+msgstr ""
+
+msgid "Data Access, Sharing and Re-use: What is the data access policy?"
+msgstr ""
+
+msgid ""
+"What steps will be taken to help the research community know that your data ex"
+"ists? E.g., what metadata catalog will you use to increase discoverability?"
+msgstr ""
+
+msgid "Identify collaborating Agencies/Organizations."
+msgstr ""
+
+msgid "How is the data in the research project categorized?"
+msgstr ""
+
+msgid ""
+"If applicable, how will you ensure that sensitive data is stored securely and "
+"only accessible to the research team and other collaborators throughout the pr"
+"oject?"
+msgstr ""
+
+msgid ""
+"What type of end-user license will you include with your data, if applicable? "
+"Please include a copy of this license with your Data Management Plan. "
+msgstr ""
+
+msgid "1.5 Identify collaborating Agencies/Organizations."
+msgstr ""
+
+msgid ""
+"2.5 What conventions and procedures will you use to structure, name and versio"
+"n-control your files to help you and others better understand how your data ar"
+"e organized?"
+msgstr ""
+
+msgid ""
+"6.5 Have you considered what type of end-user license to include with your dat"
+"a?"
+msgstr ""
+
+msgid "Description of project"
+msgstr ""
+
+msgid ""
+"Please list any datasets that will be submitted to CIOOS, and to which regiona"
+"l node (Atlantic, Pacific, St. Lawrence) you intended to submit. "
+msgstr ""
+
+msgid ""
+"What conventions and procedures will you use to structure, name and version co"
+"ntrol your files to ensure that your data is well-organized?\n"
+msgstr ""
+
+msgid "Q. 1. 6. Please provide the definition of analysis populations. "
+msgstr ""
+
+msgid ""
+"Q. 6. 2. [Interventional Studies only] How will you handle serious adverse eve"
+"nts? Please provide an overview of SAE handling procedure, including relations"
+"hip between site/sponsor/monitor and CRIC regarding SAE handling. \n"
+"\n"
+msgstr ""
+
+msgid ""
+"Are there user restrictions to data? Will data sharing be postponed / restrict"
+"ed e.g. embargo period. Dataset has privacy restrictions (has consent to discl"
+"ose data has been obtained)?"
+msgstr ""
+
+msgid ""
+"Identify who will be responsible for managing this project’s data during and a"
+"fter the project.\t"
+msgstr ""
+
+msgid ""
+"Has a statement of sensivity (SOS) been conducted? Is the research project res"
+"ponsible for controlled Goods data and/or ITAR Data?"
+msgstr ""
+
+msgid ""
+"Indicate how you will ensure your data is preservation ready. Consider preserv"
+"ation-friendly file formats, ensuring file integrity, anonymization and de-ide"
+"ntification, and inclusion of supporting documentation.\t"
+msgstr ""
+
+msgid ""
+"6.6 What steps will be taken to help the research community know that your dat"
+"a exists?"
+msgstr ""
+
+msgid "What metadata catalog(s) will host your metadata (if different than above)?  "
+msgstr ""
+
+msgid ""
+"Q. 1. 7. Please provide details of the number of patients required in each gro"
+"up treatment/placebo/enrolled/randomized/completed as appropriate. "
+msgstr ""
+
+msgid ""
+"If applicable, identify the data sharing agreement, Memorandum of Understandin"
+"g, or Memorandum of Agreement that defines roles and responsibilities for data"
+" collection and/or sharing."
+msgstr ""
+
+msgid "Are you collecting personal information?"
+msgstr ""
+
+msgid "Q. 1. 8 Please provide details of the study timelines. "
+msgstr ""
+
+msgid "What resources will you require to implement your data management plan? "
+msgstr ""
+
+msgid "Is ethics approval required and has it been obtained?"
+msgstr ""
+
+msgid "Date of issue: (version)"
+msgstr ""
+
+msgid "Q. 1. 9. Is the study interventional or observational?"
+msgstr ""
+
+msgid "Q. 1. 10. Is this study a drug/device trial?"
+msgstr ""
+
+msgid "Q. 1. 11. Is the use of the drug/device within its approval?"
+msgstr ""
+
+msgid ""
+"Q. 1. 12. Is ethics approval required and has it been obtained?\n"
+msgstr ""
+
+msgid ""
+"[Please modify as needed]\n"
+"\n"
+"Paper CRFs should be subject to single/double data entry according to current "
+"SOPs. "
+msgstr ""
+
+msgid ""
+"[please modify as needed]\n"
+"Data handling practices for this study are documented in the study's data hand"
+"ling manual. This document will be updated throughout the study as practices a"
+"re refined and as new situations arise. Specifically this document covers issu"
+"es such as data handling conventions, self evident corrections, data query pra"
+"ctice and will also serve to log data handling exceptions. "
+msgstr ""
+
+msgid ""
+"[please assign tasks to the responsible staff and/or organizational roles ]\n"
+"1. CRF design\n"
+"2. Database configuration\n"
+"3. Database documentation\n"
+"4. Database acceptance testing\n"
+"5. Monitoring\n"
+"6. Document flow and tracking\n"
+"7. Data entry\n"
+"8. Data validation\n"
+"9. Discrepancy resolution\n"
+"10. Data extract\n"
+"11. Analysis database creation\n"
+"12. Study materials archiving\n"
+"13. Data archiving"
+msgstr ""
+
+msgid "<table style="
+msgstr ""
+
+msgid "<p>test</p>"
+msgstr ""
+
+msgid "<p>No files created</p>"
+msgstr ""
+
+msgid ""
+"[Please modify the following procedure where is needed]\n"
+"\n"
+"Data entry from the photocopied forms will proceed in a timely manner in the a"
+"pproximate order in which the forms are received. As data entry proceeds the w"
+"orking copies will be dated and initialed by the individual performing the ent"
+"ry. Any self evident corrections or data interpretations made by data entry st"
+"aff will be indicated on the working copy. \n"
+"If any questions arise that cannnot be resolved at the time of entry then a di"
+"screpancy will be recorded for resolution at a later date. "
+msgstr ""
+
+msgid ""
+"[please modify as needed]\n"
+"\n"
+"Electronic data collection forms will be programmed with online validation che"
+"cks (also known as edit\n"
+"checks). Based on an understanding of the data collection forms these checks w"
+"ill:\n"
+"· Alert data entry users to missing data\n"
+"· Check that numeric variables and dates are within reasonable ranges\n"
+"· Check for consistency within the data\n"
+"Entered data will be subject to visual and electronic validation by data manag"
+"ement staff according to an\n"
+"approved data validation plan. Issues that arise will be notified to the sites"
+" as queries, for resolution.\n"
+"\n"
+"Data issues will be entered into the data capture system in the form of querie"
+"s/discrepancies. Sites will\n"
+"respond to the queries, directly in the data collection system. Query response"
+"s will be reviewed by data\n"
+"management staff and closed once the issue has been resolved.\n"
+"\n"
+"With REDCap system: \n"
+"Authorized staff will review data quality using REDCap’s Data Quality module. "
+"Any identified issues will\n"
+"either be corrected or documented in the study data handling manual."
+msgstr ""
+
+msgid ""
+"[Please modify as needed]\n"
+"\n"
+"In REDCap system, data can be exported by authorized users using REDCap's data"
+" export module. "
+msgstr ""
+
+msgid ""
+"<p>Add more rows to the two forms below as needed:</p>\n"
+"<table style="
+msgstr ""
+
+msgid ""
+"<p><strong>Start Date/Month/Year (dd/mmm/yyyy):</strong></p>\n"
+"<p><strong>End Date/Month/Year (dd/mmm/yyyy):</strong></p>\n"
+"<p><strong>Interval (Interval units: sec., min, hour, day, week, month, year):"
+"&nbsp;</strong></p>\n"
+"<p>&nbsp;</p>"
+msgstr ""
+
+msgid ""
+"<p><strong>Is ethics approval required?(Yes/No)</strong></p>\n"
+"<p><strong>Ethics approval number (if any):</strong></p>\n"
+"<p><strong>Consent required? (Yes/No):</strong></p>\n"
+"<p><strong>Location of consent forms:&nbsp;</strong></p>"
+msgstr ""
+
+msgid "<p style="
+msgstr ""
+
+msgid ""
+"<p>&nbsp;</p>\n"
+"<table style="
+msgstr ""
+
+msgid ""
+"[Please modify as needed]\n"
+"\n"
+"Data Entry will proceed from the original forms in a timely manner in the appr"
+"oximate order in which the forms are received. As data entry proceeds the form"
+"s will be discretely dated and initialed by the individual performing the entr"
+"y taking care not to obscure any text on the forms. Any self evident correctio"
+"ns or data interpretations made by data entry staff will be noted in the data "
+"handling log. \n"
+"\n"
+"If any questions arise that cannot be resolved at the time of entry then a dis"
+"crepancy will be recorded in the database for resolution at a later date. "
+msgstr ""
+
+msgid ""
+"[Please modify as needed]\n"
+"Entered data will be subject to visual and electronic validation by data manag"
+"ement staff according to an\n"
+"approved data validation plan. Issues that arise will be notified to the sites"
+" as queries, for resolution.\n"
+"Notification may be by any practical means including fax, email or 3-part quer"
+"y forms. Notification\n"
+"may be direct to the site or via the monitor."
+msgstr ""
+
+msgid ""
+"<p>Special software that is required and has been developed as open source wil"
+"l be available through a published link on the Github code repository.</p>\n"
+"<p>Code that is in the form of a script language used by&nbsp;an analysis syst"
+"em will be provided in text files through&nbsp;the same repository as the data"
+".</p>"
+msgstr ""
+
+msgid ""
+"[Please modify as needed]\n"
+"The sites will complete electronic CRFs contained within the data collection s"
+"ystem based on the contents of the patient records and other data sources. \n"
+msgstr ""
+
+msgid "<p><a href="
+msgstr ""
+
+msgid ""
+"[please modify as needed]\n"
+"\n"
+"At intervals throughout the study a subset of entered data will be compared wi"
+"th the original data\n"
+"collection forms. The number of compared forms and error counts will be record"
+"ed in order to measure\n"
+"the percentage data entry error rate.\n"
+"These audits will be conducted using random samples as follows:\n"
+"· 10 of the first 100 subjects\n"
+"· 100 of the first 1,000 subjects\n"
+"· Every subsequent 1,000 subjects as follows:\n"
+"The error rate for study data will be maintained below 0.1% (one in 1,000). If"
+" the error rate from the\n"
+"preceding sample was above these limits then the sample will be 200 subjects. "
+"If the preceding error rate\n"
+"was within these limits then the sample size will be 50 subjects.\n"
+"If error rates remain high for three consecutive samples the team will need to"
+" consider alternative\n"
+"remedies in order to bring the error rate within acceptable limits."
+msgstr ""
+
+msgid ""
+"[please modify as needed]\n"
+"\n"
+"Serious adverse events (SAEs) are to be reported to the sponsor (or PI for inv"
+"estigator initiated studies)\n"
+"and ethics board, by the sites, as defined in the study protocol. Periodically"
+" the sponsor (or PI) will\n"
+"forward copies of SAE reports to the data management team for reconciliation w"
+"ith the CRF data."
+msgstr ""
+
+msgid "<p>English</p>"
+msgstr ""
+
+msgid ""
+"Examples: Images, audio, video, text, tabular data, modeling data, spatial dat"
+"a, instrumentation data"
+msgstr ""
+
+msgid ""
+"<p>There may be existing data that you can license or purchase for re-use.  <a"
+" href="
+msgstr ""
+
+msgid ""
+"<p>Proprietary file formats which require specialized software or hardware to "
+"use are not recommended, but may be necessary for certain data collection or a"
+"nalysis methods.  Using open file formats or industry-standard formats (e.g. t"
+"hose which are widely used by a given community) is preferred whenever possibl"
+"e.  </p>\n"
+"<p>Read more about file formats on the <a href="
+msgstr ""
+
+msgid ""
+"<p>The University of Alberta’s Encryption Procedure requires that sensitive in"
+"formation stored on mobile computing devices be encrypted.  <a href="
+msgstr ""
+
+msgid ""
+"<p>The type of data you collect will impact your storage requirements.  Textua"
+"l and tabular data files are usually very small (a few megabytes) unless you h"
+"ave a lot of data.  Video files are usually very large (hundreds of megabytes "
+"up to several gigabytes).  If you have a large amount of data (gigabytes or te"
+"rabytes), it will be more challenging to share and transfer it.  You may need "
+"to consider networked storage options or more sophisticated backup methods.</p"
+">\n"
+"<p>If your data will be changing frequently, please estimate how much extra st"
+"orage will be required to store multiple versions.  If you are collecting data"
+" over a long period of time (e.g. several months or years), please describe yo"
+"ur plan for adding additional storage to accommodate the growth of your data.<"
+"/p>"
+msgstr ""
+
+msgid ""
+"<p>Ensuring that you and your research team are using the ‘master’ version of "
+"your data is extremely important.  Establishing conventions for naming and ver"
+"sioning your files is essential, especially when data may be available in diff"
+"erent file formats or stored on different computers.</p>\n"
+"<p>More information on file naming and version control is available from <a hr"
+"ef="
+msgstr ""
+
+msgid ""
+"<p>Your documentation may include study-level information about:</p>\n"
+"<ul>\n"
+"<li>who created/collected the data</li>\n"
+"<li>when it was created</li>\n"
+"<li>any relevant study documents</li>\n"
+"<li>conditions of use</li>\n"
+"<li>contextual details about data collection methods and procedural documentat"
+"ion about how data files are stored, structured, and modified.  </li>\n"
+"</ul>\n"
+"<p>A complete description of the data files may include:</p>\n"
+"<ul>\n"
+"<li>naming and labelling conventions</li>\n"
+"<li>explanations of codes and variables</li>\n"
+"<li>any information or files require to reproduce derived data.  </li>\n"
+"</ul>\n"
+"<p>More information about data documentation is available at the <a href="
+msgstr ""
+
+msgid ""
+"<p>Metadata is a description of the contents and context of data files. Using "
+"a metadata standard (a set of required fields to fill out) helps ensure that y"
+"our documentation is consistent, structured, and machine-readable, which is es"
+"sential for depositing data in repositories and making it easily discoverable "
+"by search engines.</p>\n"
+"<p>There are general and discipline-specific <a href="
+msgstr ""
+
+msgid ""
+"It is best to begin the documentation process at the start of a research proje"
+"ct.  Details or procedures may be forgotten if documentation is created at the"
+" end of a project.  "
+msgstr ""
+
+msgid ""
+"<p>Storing data on flash drives, laptops, computers, or external hard drives w"
+"ithout a regular backup procedure is not recommended, because they are subject"
+" to hardware failure, viruses, file corruption, theft, loss, and human error. "
+"Likewise, multiple copies of data stored in the same physical location does li"
+"ttle to mitigate risk. </p>\n"
+"<p>Using software which automatically backs up your data and keeps it synchron"
+"ized with a master copy is recommended. Copies of data should ideally be store"
+"d in separate physical locations to mitigate physical risks, e.g. fire.  More "
+"about data storage from <a href="
+msgstr ""
+
+msgid ""
+"<p>The security measures you choose to implement will depend on the sensitivit"
+"y of the data being stored.  Data can be protected by limiting physical access"
+" to hard drives and file servers on which it is stored, by storing data on com"
+"puters that do not have external network access (i.e. access to the Internet),"
+" through password protection, and by encrypting data files.</p>\n"
+"<p>Sharing sensitive data via email and cloud storage services such as Dropbox"
+" is not recommended, since the security of these services cannot be trusted.  "
+"More about security from the <a href="
+msgstr ""
+
+msgid ""
+"<p>Please describe how you will identify a data repository or data center for "
+"your data.  <a href="
+msgstr ""
+
+msgid ""
+"<p>It is likely that you will have multiple versions of your data (raw, proces"
+"sed, analyzed, final), and your data may be stored in different file formats d"
+"epending on how they were collected and analyzed.</p>\n"
+"<p>Digital information may be lost while converting files from one format to a"
+"nother (e.g. converting an image from a non-compressed ‘lossless’ TIFF file to"
+" a compressed ‘lossy’ JPG file), so changes to file formats should be clearly "
+"documented.</p>\n"
+"<p>Identify what steps are needed after your project is completed in order to "
+"ensure the data you are choosing to preserve or share is anonymous, error-free"
+", and converted to recommended formats with a minimal risk of data loss.</p>\n"
+"<p>Read more about <a href="
+msgstr ""
+
+msgid ""
+"<p>Where you share your data depends on the complexity and size of your data. "
+" Smaller, low-risk datasets can be shared via institutional or disciplinary re"
+"positories and project websites. Larger datasets or datasets with more stringe"
+"nt security requirements cannot be easily transferred over the Internet.  Read"
+" more about sharing data at the <a href="
+msgstr ""
+
+msgid ""
+"<p>It may be necessary or desirable to restrict access to your data for a limi"
+"ted time or to a limited number of people, for:</p>\n"
+"<ul>\n"
+"<li>ethical reasons (privacy and confidentiality) </li>\n"
+"<li>economic reasons (patents and commercialization)</li>\n"
+"<li>intellectual property reasons (e.g. ownership of the original dataset on w"
+"hich yours is based) </li>\n"
+"<li>or to comply with a journal publishing policy.  </li>\n"
+"</ul>\n"
+"<p>Strategies to mitigate these issues may include: </p>\n"
+"<ul>\n"
+"<li>anonymising or aggregating data</li>\n"
+"<li>gaining participant consent for data sharing</li>\n"
+"<li>gaining permissions to share adapted or modified data</li>\n"
+"<li>and agreeing to a limited embargo period.</li>\n"
+"</ul>"
+msgstr ""
+
+msgid ""
+"<p>Assigning an end-user license allows you to define the terms of use for you"
+"r data.  We recommend a <a href="
+msgstr ""
+
+msgid ""
+"<p>More information about estimating cost for data management is available thr"
+"ough the <a href="
+msgstr ""
+
+msgid ""
+"This is required so that appropriate data management focus can be applied to t"
+"his critical data. "
+msgstr ""
+
+msgid ""
+"The safety data normally refers to the adverse events and lab data. However so"
+"me studies may include additional safety data. "
+msgstr ""
+
+msgid ""
+"Under some circumstances these definitions may be required to focus data manag"
+"ement activity, for instance an interim analysis involving certain subsets of "
+"the study population. "
+msgstr ""
+
+msgid ""
+"Details of the timelines linclude first patient first visit, last patient last"
+" visit, scheduled visit intervals, interim analysis, database lock, final deli"
+"very, etc. "
+msgstr ""
+
+msgid ""
+"Trials of a medication or device that are outside the scope of its approval re"
+"quire CTA submission to Health Canada. "
+msgstr ""
+
+msgid ""
+"Typically ethics approval is required for the collection of subject related da"
+"ta. Note that where the subjects of the study are practicing medical personnel"
+" ethics approval may still be required. "
+msgstr ""
+
+msgid ""
+"Electronic data capture (EDC), paper or a combination of data collection modes"
+".  "
+msgstr ""
+
+msgid ""
+"Clinical Research Informatics Core (CRIC) provides technology and technology b"
+"ased services to help MICYRN researchers creating CRFs (Case Report Forms), wh"
+"ich is a data collection tool used in clinical trials to support investigators"
+" and coordinators in capturing all protocol-required information."
+msgstr ""
+
+msgid ""
+"The CRF Transmittal form will detail the documents in the delivery. The person"
+"nel received the documents will reconcile the transmittal form against the del"
+"ivered documents. Any discrepancies will be noted on the form, which will be r"
+"eturned to the PI by way of receipt. \n"
+msgstr ""
+
+msgid ""
+"Please summarize relationship between data management/monitors/site/sponsor fo"
+"r query processing. "
+msgstr ""
+
+msgid ""
+"The above procedures only partially address the issue of transcription errors "
+"arising during form\n"
+"completion, some of which will be caught by online data validation. It is stro"
+"ngly recommended that\n"
+"procedures are implemented within the research clinic in order to identify and"
+" correct transcription errors.\n"
+"An example of such a procedure is an ongoing, systematic review of source docu"
+"ments (patient chart) for\n"
+"a randomly selected sample of subjects."
+msgstr ""
+
+msgid ""
+"Consider which data may need to be shared in order to meet institutional or fu"
+"nding requirements, and which data may be restricted because of confidentialit"
+"y/privacy issue. "
+msgstr ""
+
+msgid ""
+"<p>Intelligent access describes providing access to data that is appropriate t"
+"o the level of restrictions associated with the content.</p>"
+msgstr ""
+
+msgid ""
+"<p>If your project will be creating new data from one or more existing data so"
+"urces or if data being collected in your project is being integrated with exis"
+"ting data, please check both boxes.</p>"
+msgstr ""
+
+msgid ""
+"<p>You should document any derived variables added to the data during analysis"
+". &nbsp;This metadata may be in a descriptive statement or expressed in code.<"
+"/p>"
+msgstr ""
+
+msgid ""
+"<p>Data from human participants in research require privacy safeguards and ass"
+"urances around the purposes for which the data will be used. This is typically"
+" addressed in an ethics application.</p>\n"
+"\n"
+"<p>Data acquired from other sources may have conditions stipulated in a licenc"
+"e about its redissemination. Often researchers are granted the right to analyz"
+"e the data but not to share it directly with others outside their project.</p>"
+msgstr ""
+
+msgid ""
+"<p>If the data are from human participants, consider preparing a consent form "
+"that seeks the participants' approval to share the data with other researchers"
+". This form will require ethics approval.</p>\n"
+"\n"
+"<p>Another approach is to de-identify the data to minimize the risk of disclos"
+"ing the identity of participants. Several methods exist for de-identifying dat"
+"a.</p>\n"
+"\n"
+"<p>Instead of employing methods to make the data safer, another approach is to"
+" place the data in a safe environment and then control who has access to the d"
+"ata. Commonly known as data enclaves or research data centres, this option is "
+"the most restrictive in making the data available to other researchers. </p>"
+msgstr ""
+
+msgid ""
+"<p>Consider requesting from the data owner a special data licence that allows "
+"you to share just the data that you used in producing your findings.</p>"
+msgstr ""
+
+msgid ""
+"<p>Having chosen a&nbsp;data repository, it is recommended that you meet with "
+"one of the data curators with&nbsp;this repository to discuss how best to prep"
+"are your data for sharing and to explore your options in preparing the&nbsp;me"
+"tadata to accompany your data.&nbsp;</p>"
+msgstr ""
+
+msgid ""
+"<p>Placing data on a website for downloading may seem like a straightforward s"
+"olution, however data repositories typically provide a variety of services&nbs"
+"p;that better support&nbsp;secondary uses of data, including metadata, version"
+"ing, and access control features.</p>"
+msgstr ""
+
+msgid ""
+"<p>A persistent identifier is a unique code that is associated with your data "
+"and serves in the digital realm a function similar to what the ISBN does in th"
+"e print world.&nbsp;</p>\n"
+"<p>Digital Object Identifiers (DOIs) are one type of persistent identifier and"
+" is the method of choice of for DataCite.</p>\n"
+"<p>Researchers are being requested to identify a persistent identifier early i"
+"n their projects to facilitate linkages between subsequent publications and da"
+"ta on the Internet. An article or report can include&nbsp;the persistent ident"
+"ifier for the data, which will allow jumping easily from the article to the da"
+"ta.</p>"
+msgstr ""
+
+msgid ""
+"<p>DataCite is an international registry for data and in Canada, the National "
+"Research Council provides DataCite registration services. DataCite uses DOIs a"
+"s persistent identifiers.</p>"
+msgstr ""
+
+msgid ""
+"<p>Citation practices for data are varied. The UK Digital Curation Centre prov"
+"ides an <a href="
+msgstr ""
+
+msgid ""
+"<p>Proprietary file formats which require specialized software or hardware to "
+"use are not recommended, but may be necessary for certain data collection or a"
+"nalysis methods. Using open file formats or industry-standard formats (e.g. th"
+"ose which are widely used by a given community) is preferred whenever possible"
+".</p>\n"
+"<p>Read more about file formats on UBC Library <a href="
+msgstr ""
+
+msgid ""
+"<p>Ensure that laptops or mobile devices are encrypted to prevent unauthorized"
+" access to information. UBC Information Technology provides<a href="
+msgstr ""
 
 #: ../../app/controllers/answers_controller.rb:17
 msgid ""
@@ -4059,12 +6984,10 @@ msgid "Comment"
 msgstr ""
 
 #: ../../app/views/questions/_preview_question.html.erb:103
-#: ../../app/views/translation_io_exports/question_formats.html.erb:7
 msgid "Text field"
 msgstr ""
 
 #: ../../app/views/questions/_preview_question.html.erb:106
-#: ../../app/views/translation_io_exports/question_formats.html.erb:5
 msgid "Text area"
 msgstr ""
 
@@ -4593,6 +7516,30 @@ msgstr ""
 msgid "DMP Assistant"
 msgstr ""
 
+#: ../../app/views/translation_io_exports/_globals.html.erb:4
+msgid "Portage Network"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_home_page_links.html.erb:5
+msgid "Digital Curation Centre"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_home_page_links.html.erb:6
+msgid "UC3: University of California Curation Center"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_home_page_links.html.erb:7
+msgid "UK funder requirements for Data Management Plans"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_home_page_links.html.erb:8
+msgid "US funder requirements for Data Management Plans"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_home_page_links.html.erb:9
+msgid "DCC Checklist for a Data Management Plan"
+msgstr ""
+
 #: ../../app/views/translation_io_exports/_themes.html.erb:2
 msgid "Active Data Storage"
 msgstr ""
@@ -4837,76 +7784,6 @@ msgid ""
 " It's recognized that there may be cases where certain data and metadata canno"
 "t be made public for various policy or legal reasons, however, the default pos"
 "ition should be that all research data and metadata are public."
-msgstr ""
-
-#: ../../app/views/translation_io_exports/home_page_links.html.erb:5
-msgid "Digital Curation Centre"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/home_page_links.html.erb:6
-msgid "UC3: University of California Curation Center"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/home_page_links.html.erb:7
-msgid "UK funder requirements for Data Management Plans"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/home_page_links.html.erb:8
-msgid "US funder requirements for Data Management Plans"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/home_page_links.html.erb:9
-msgid "DCC Checklist for a Data Management Plan"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/question_formats.html.erb:6
-msgid "a box that allows input of multiple lines of text"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/question_formats.html.erb:8
-msgid "a box that allows input of a single line of text"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/question_formats.html.erb:9
-msgid "Radio buttons"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/question_formats.html.erb:10
-msgid "a group of buttons that allow selection of a single value out of a set"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/question_formats.html.erb:11
-msgid "Check box"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/question_formats.html.erb:12
-msgid "a group of buttons that allow selection of multiple values out of a set"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/question_formats.html.erb:13
-msgid "Dropdown"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/question_formats.html.erb:14
-msgid "an area that displays a list of available values where one can be selected"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/question_formats.html.erb:15
-msgid "Multi select box"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/question_formats.html.erb:16
-msgid ""
-"an area that displays a list of available values where multiple can be selecte"
-"d"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/question_formats.html.erb:17
-msgid "Date"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/question_formats.html.erb:18
-msgid "a date selection field"
 msgstr ""
 
 #: ../../app/views/usage/_filter.html.erb:5
@@ -5261,6 +8138,11 @@ msgstr ""
 
 #: ../../app/views/users/admin_index.html.erb:22
 msgid "Download users"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:93
+msgid ""
+"\n"
 msgstr ""
 
 #: i18n_placeholders.rb:2
