@@ -75,6 +75,11 @@ class Annotation < ActiveRecord::Base
   # = Public instance methods =
   # ===========================
 
+  # text is translated through the translation gem
+  def text
+    _(read_attribute(:text))
+  end
+
   # The text from the annotation
   #
   # Returns String
