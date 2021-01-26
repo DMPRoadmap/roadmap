@@ -8,6 +8,15 @@ TranslationIO.configure do |config|
 
   # Uncomment this if you already use gettext or fast_gettext
   config.locales_path = File.join('config', 'locale')
+  config.db_fields = {
+    'Theme' => ['title', 'description'],
+    'QuestionFormat' => ['title', 'description'],
+    'Template' => ['title', 'description'],
+    'Phase' => ['title', 'description'],
+    'Section' => ['title', 'description'],
+    'Question' => ['text', 'default_value'],
+    'Annotation' => ['text']
+  }
 
   # Find other useful usage information here:
   # https://github.com/translation/rails#readme
