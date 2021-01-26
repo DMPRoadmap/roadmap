@@ -48,7 +48,19 @@ class QuestionFormat < ActiveRecord::Base
   validates :description, presence: { message: PRESENCE_MESSAGE }
 
   validates :option_based, inclusion: { in: BOOLEAN_VALUES }
+ 
+  # ===========================
+  # = Public instance methods =
+  # ===========================
 
+  # title and description are translated through the translation gem
+  def title
+    _(read_attribute(:title))
+  end
+
+  def description
+    _(read_attribute(:description))
+  end
 
   # =================
   # = Class methods =

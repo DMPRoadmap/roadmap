@@ -126,4 +126,17 @@ class Phase < ActiveRecord::Base
     value >= Rails.application.config.default_plan_percentage_answered.to_f
   end
 
+  # ===========================
+  # = Public instance methods =
+  # ===========================
+
+  # title and description are translated through the translation gem
+  def title
+    _(read_attribute(:title))
+  end
+
+  def description
+    _(read_attribute(:description))
+  end
+
 end
