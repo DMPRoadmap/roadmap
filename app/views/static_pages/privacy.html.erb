@@ -9,11 +9,11 @@
     <div>
       <h2 class="fontsize-h3"><%= _("Information about you: how we use it and with whom we share it") %></h2>
       <p><%= _("The information you provide will be used by the %{org_name} to offer you access to and personalisation of the %{application_name} service.") %
-             { :application_name => _(Rails.configuration.branding[:application][:name]), :org_name => Rails.configuration.branding[:organisation][:name] } %></p>
+             { :application_name => _(Rails.configuration.branding[:application][:name]), :org_name => _(Rails.configuration.branding[:organisation][:name]) } %></p>
       <p><%= _("The %{org_name} processes the personal data of %{application_name} users in order to deliver and improve the %{application_name} service in a customised manner and to ensure each user receives relevant information.") %
-             { :application_name => _(Rails.configuration.branding[:application][:name]), :org_name => Rails.configuration.branding[:organisation][:name]  } %></p>
+             { :application_name => _(Rails.configuration.branding[:application][:name]), :org_name => _(Rails.configuration.branding[:organisation][:name])  } %></p>
       <p><%= _("The processing of your personal data by the %{org_name} is necessary for pursuing the following legitimate interests:") %
-             { :application_name => _(Rails.configuration.branding[:application][:name]), :org_name => Rails.configuration.branding[:organisation][:name]  } %></p>
+             { :application_name => _(Rails.configuration.branding[:application][:name]), :org_name => _(Rails.configuration.branding[:organisation][:name])  } %></p>
       <ul>
         <li><%= _("To provide access to the %{application_name} service and personalisation of your user experience e.g. provision of relevant templates and guidance for your organisation.") %
                 { :application_name => _(Rails.configuration.branding[:application][:name]) } %></li>

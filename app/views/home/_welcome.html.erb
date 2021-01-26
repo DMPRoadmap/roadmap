@@ -8,7 +8,7 @@
   <p>
     <%= sanitize _('<p>%{application_name} has been developed by the <strong>%{organisation_name}</strong> to help you write data management plans.</p>') % {
       application_name: application_name,
-      organisation_name: Rails.configuration.branding[:organisation][:name]}
+      organisation_name: _(Rails.configuration.branding[:organisation][:name])}
       %>
 
     <label for="linklist">
