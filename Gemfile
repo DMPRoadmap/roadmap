@@ -197,7 +197,7 @@ gem 'parallel'
 gem 'truemail'
 
 # Use translation.io services
-gem 'translation'
+gem 'translation', git: 'https://github.com/raycarrick-ed/rails'
 
 
 # ------------------------------------------------
