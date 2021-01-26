@@ -173,7 +173,7 @@ module Dmpopidor
           },
           dmp_id: dmp_fragment.id,
           madmp_schema: MadmpSchema.find_by(name: "PersonStandard"),
-          additional_info: {}
+          additional_info: { property_name: "person" }
         )
 
         Fragment::Contributor.create(

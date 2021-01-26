@@ -258,11 +258,6 @@ class MadmpFragment < ActiveRecord::Base
       if schema_prop["type"].present? && schema_prop["type"].eql?("object")
         sub_data = content # TMP: for readability
         sub_schema = MadmpSchema.find(schema_prop["schema_id"])
-        p "#####"
-        p param_data
-        p prop
-        p data
-        p "#####"
         if param_data.present? && param_data[prop].present?
           if schema_prop.key?("inputType") && schema_prop["inputType"].eql?("pickOrCreate")
             fragmented_data[prop] = content
