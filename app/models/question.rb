@@ -139,7 +139,7 @@ class Question < ActiveRecord::Base
         group.guidances.each do |g|
           g.themes.each do |theme|
             if theme_ids.include? theme.id
-              guidances["#{group.name} " + _("guidance on") + " #{_(theme.title)}"] = g
+              guidances["#{group.name} " + _("guidance on") + " #{theme.title}"] = g
             end
           end
         end
