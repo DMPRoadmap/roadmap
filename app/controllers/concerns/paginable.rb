@@ -134,7 +134,7 @@ module Paginable
       # exist, ambiguity on column, etc)
       # how we contruct scope depends on whether sort field is in the
       # main table or in a related table
-      scope_table = scope.klass.name.downcase
+      scope_table = scope.klass.name.underscore
       parts = @args[:sort_field].partition(".")
       table_part = parts.first
       column_part = parts.last
