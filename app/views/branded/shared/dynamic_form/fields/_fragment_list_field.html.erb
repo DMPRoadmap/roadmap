@@ -2,10 +2,12 @@
 <% ttip ||= nil %>
 <% field_values = [] if field_values.nil? %>
 <% field_label = field_label || 'No label defined' %>
+<% query_id = SecureRandom.uuid%>
+
 <div class="col-md-12">
-  <fieldset class="answer-fieldset">
-    <legend class="answer-fieldset"" title="<%= ttip %>"><%= field_label %></legend>
-    <table class="table table-hover linked-fragments-list <%= property_name %>-list">
+  <fieldset class="sub-fragment">
+    <legend class="sub-fragment" title="<%= ttip %>"><%= field_label %></legend>
+    <table class="table table-hover linked-fragments-list <%= property_name %>-list list-<%= query_id %>">
       <thead>
         <% if table_header.present? && !field_values.empty?%>
           <tr><th scope="col"><%= table_header %></th><th scope="col">Actions</th></tr>
@@ -13,12 +15,13 @@
       </thead>
       <tbody>
         <%= render(partial: 'shared/dynamic_form/linked_fragment/list', locals: {
-              obj_list: field_values, 
-              parent_id: parent_id,
-              schema: schema,
-              readonly: readonly,
-              template_locale: template_locale,
-              property_name: property_name
+                obj_list: field_values, 
+                parent_id: parent_id,
+                schema: schema,
+                readonly: readonly,
+                template_locale: template_locale,
+                property_name: property_name,
+                query_id: query_id
               }
             ) %>
       </tbody>
@@ -29,7 +32,9 @@
               :parent_id => parent_id, 
               :schema_id => schema.id, 
               :template_locale => template_locale,
-              :property_name => property_name
+              :source => "list-modal",
+              :property_name => property_name,
+              :query_id => query_id
       ),  {
         :remote => true, 
         :target => "_self",

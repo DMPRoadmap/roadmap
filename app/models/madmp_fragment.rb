@@ -236,6 +236,9 @@ class MadmpFragment < ActiveRecord::Base
       next if prop["type"] != "object" && prop["schema_id"].nil?
 
       sub_schema = MadmpSchema.find(prop["schema_id"])
+
+      next if sub_schema.classname.eql?("person")
+
       sub_fragment = MadmpFragment.new(
         data: {},
         answer_id: nil,
@@ -255,16 +258,18 @@ class MadmpFragment < ActiveRecord::Base
     fragmented_data = {}
     param_data.each do |prop, content|
       schema_prop = schema.schema["properties"][prop]
-
-      if schema_prop["type"].eql?("object")
+      if schema_prop["type"].present? && schema_prop["type"].eql?("object")
         sub_data = content # TMP: for readability
         sub_schema = MadmpSchema.find(schema_prop["schema_id"])
-
         instantiate unless data[prop].present?
 
-        if param_data.present? && param_data[prop].present? && data[prop]["dbid"]
-          sub_fragment = MadmpFragment.find(data[prop]["dbid"])
-          sub_fragment.save_as_multifrag(sub_data, sub_schema)
+        if param_data.present? && param_data[prop].present?
+          if schema_prop.key?("inputType") && schema_prop["inputType"].eql?("pickOrCreate")
+            fragmented_data[prop] = content
+          elsif data[prop]["dbid"]
+            sub_fragment = MadmpFragment.find(data[prop]["dbid"])
+            sub_fragment.save_as_multifrag(sub_data, sub_schema)
+          end
         end
       else
         fragmented_data[prop] = content

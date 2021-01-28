@@ -189,9 +189,13 @@ module DynamicFormHelper
         when "array"
           data[key] = data[key].is_a?(Array) ? data[key] : [data[key]]
         when "object"
-          if prop["schema_id"].present? && classname != "research_output"
-            sub_schema = MadmpSchema.find(prop["schema_id"])
-            data[key] = data_reformater(sub_schema.schema, data[key], sub_schema.classname)
+          if prop["schema_id"].present?
+            if prop["inputType"].present? && prop["inputType"].eql?("pickOrCreate")
+              data[key] = { "dbid" => data[key].to_i }
+            else
+              sub_schema = MadmpSchema.find(prop["schema_id"])
+              data[key] = data_reformater(sub_schema.schema, data[key], sub_schema.classname)
+            end
           end
           # if value["dictionnary"]
           #   data[key] = JSON.parse(DictionnaryValue.where(id: data[key]).select(:id, :uri, :label).take.to_json)

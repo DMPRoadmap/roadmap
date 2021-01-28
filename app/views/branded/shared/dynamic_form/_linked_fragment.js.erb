@@ -35,12 +35,15 @@ $(() => {
   });
 
   $('#modal_fragment_form').on('ajax:success', (event, response) => {
-    switch (response.classname) {
-    case 'research_output':
+    if (response.classname === 'research_output') {
       $('#research-outputs-list').html(response.html);
-      break;
-    default:
-      $(`.fragment-${response.fragment_id} .linked-fragments-list.${response.property_name}-list tbody`).html(response.html);
+    } else if (response.source === 'list-modal') {
+      const queryId = $(event.target).find('.query_id').val();
+      $(`table.list-${queryId} tbody`).html(response.html);
+    } else {
+      const queryId = $(event.target).find('.query_id').val();
+      const $select = $(`.select-${queryId} select`);
+      $select.html(response.html).trigger('change');
     }
     $('#modal-window').modal('hide');
   }).on('ajax:error', () => {
