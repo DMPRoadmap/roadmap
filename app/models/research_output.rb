@@ -24,7 +24,7 @@ class ResearchOutput < ActiveRecord::Base
 
   include ValidationMessages
 
-  after_save :create_or_update_fragments
+  after_create :create_json_fragments
   after_destroy :destroy_json_fragment
 
   # ================
@@ -88,7 +88,7 @@ class ResearchOutput < ActiveRecord::Base
     Fragment::ResearchOutput.where("(data->>'research_output_id')::int = ?", id).destroy_all
   end
 
-  def create_or_update_fragments
+  def create_json_fragments
     fragment = json_fragment
     dmp_fragment = plan.json_fragment
 
@@ -115,6 +115,7 @@ class ResearchOutput < ActiveRecord::Base
         parent_id: fragment.id,
         additional_info: {}
       )
+      fragment_description.instantiate
 
       unless description_question.nil?
         # Create a new answer for the ResearchOutputDescription Question

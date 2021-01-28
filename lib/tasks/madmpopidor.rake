@@ -19,7 +19,7 @@ namespace :madmpopidor do
       plan.research_outputs.each do |research_output|
         next if research_output.nil? && research_output.json_fragment.present?
 
-        research_output.create_or_update_fragments
+        research_output.create_json_fragments
       end
     end
   end
