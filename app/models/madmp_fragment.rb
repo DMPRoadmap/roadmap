@@ -236,6 +236,9 @@ class MadmpFragment < ActiveRecord::Base
       next if prop["type"] != "object" && prop["schema_id"].nil?
 
       sub_schema = MadmpSchema.find(prop["schema_id"])
+
+      next if sub_schema.classname.eql?("person")
+
       sub_fragment = MadmpFragment.new(
         data: {},
         answer_id: nil,

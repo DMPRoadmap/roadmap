@@ -3,7 +3,6 @@
 <% field_label = required ? "* #{field_label}" : field_label%>
 <% query_id = SecureRandom.uuid%>
 
-<% include_blank = !selected_value %>
 <div class="col-md-12">
   <%= f.label field_id, field_label, class: 'control-label' %>
 </div>
@@ -14,7 +13,7 @@
         selected_value: selected_value ? selected_value["dbid"] : nil,
         madmp_schema: schema,
         parent_id: parent_id,
-        include_blank: include_blank,
+        include_blank: false,
         readonly: readonly,
         template_locale: template_locale,
         ttip: ttip,

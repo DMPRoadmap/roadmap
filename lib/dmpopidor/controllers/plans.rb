@@ -260,7 +260,7 @@ module Dmpopidor
           rescue Exception => e
             p "################"
             p e.message
-            p e.backtrace.join("\n")
+            p e.backtrace[0]
             p "################"
             flash[:alert] = failure_message(@plan, _("save"))
             format.html do
