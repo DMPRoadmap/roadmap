@@ -39,6 +39,7 @@
         </div>
       </div>
       <div class="answer-save-button" >
+        <%#= render partial: 'shared/dynamic_form/schema_picker', locals: { madmp_schema: madmp_schema, pickable_schemas: @schemas.where(classname: madmp_schema.classname), question: question, research_output: research_output } %>
         <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
       </div>
   </fieldset>
