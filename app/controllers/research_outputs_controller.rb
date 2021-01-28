@@ -104,7 +104,7 @@ class ResearchOutputsController < ApplicationController
           .permit(%i[title abbreviation description output_type output_type_description
                      sensitive_data personal_data file_size file_size_unit mime_type_id
                      release_date access coverage_start coverage_end coverage_region
-                     mandatory_attribution repository_id])
+                     mandatory_attribution] + { repositories: %i[id] })
   end
 
   def repo_search_params

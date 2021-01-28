@@ -78,7 +78,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
           <%= _('May contain sensitive data?') %>
         <% end %>
       </span>
-      <span class="col-md-3">
+      <span class="col-md-4">
         <%= f.label :personal_data do %>
           <%= f.check_box :personal_data, data: { toggle: "tooltip" },
                           title: personal_data_tooltip %>
@@ -101,7 +101,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
       <%= render partial: "shared/external_apis/selected_results",
                    locals: {
                       context: research_output,
-                      topic: "repository",
+                      topic: "repositories",
                       button_tooltip: repository_tooltip,
                       result_partial: "research_outputs/repositories/search_result"
                     } %>
@@ -172,7 +172,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
 <%= render partial: "shared/external_apis/search_modal",
            locals: {
              context: research_output,
-             topic: "repository",
+             topic: "repositories",
              label: "Repository",
              url: repository_search_plan_path(research_output.plan),
              filter_partial: "research_outputs/repositories/filters",

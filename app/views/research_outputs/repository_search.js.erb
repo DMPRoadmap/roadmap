@@ -1,2 +1,2 @@
-var resultsDiv = $('.external_api_search_results-repository');
-resultsDiv.html('<%= escape_javascript(render(partial: "shared/external_apis/search_results", locals: { context: @research_output, topic: "repository", results: @search_results, result_partial: "research_outputs/repositories/search_result" })) %>');
+var resultsDiv = $('.external_api_search_results-repositories');
+resultsDiv.html('<%= escape_javascript(render(partial: "shared/external_apis/search_results", locals: { context: @research_output, topic: "repositories", results: @search_results, result_partial: "research_outputs/repositories/search_result" })) %>');

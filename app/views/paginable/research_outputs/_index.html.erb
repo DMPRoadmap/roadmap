@@ -34,7 +34,7 @@
       <tr>
         <td><%= presenter.display_name %></td>
         <td><%= presenter.display_type %></td>
-        <td><%= presenter.display_repository %></td>
+        <td><%= presenter.display_repository.join("<br>") %></td>
         <td><%= rdate.is_a?(Date) ? l(rdate, formats: :short) : rdate %></td>
         <td><%= presenter.display_access %></td>
         <% if @plan.administerable_by?(current_user) %>

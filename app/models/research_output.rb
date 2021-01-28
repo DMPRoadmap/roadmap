@@ -25,7 +25,6 @@
 #  updated_at              :datetime         not null
 #  mime_type_id            :integer
 #  plan_id                 :integer
-#  repository_id           :integer
 #
 # Indexes
 #
@@ -53,7 +52,8 @@ class ResearchOutput < ApplicationRecord
 
   belongs_to :plan, optional: true
   belongs_to :mime_type, optional: true
-  belongs_to :repository, optional: true
+
+  has_many :repositories, as: :identifiable, dependent: :destroy, class_name: "Identifier"
 
   # ===============
   # = Validations =
@@ -63,7 +63,8 @@ class ResearchOutput < ApplicationRecord
   validates_uniqueness_of :title, { case_sensitive: false, scope: :plan_id,
                                     message: UNIQUENESS_MESSAGE }
   validates_uniqueness_of :abbreviation, { case_sensitive: false, scope: :plan_id,
-                                           allow_nil: true, allow_blank: true, message: UNIQUENESS_MESSAGE }
+                                           allow_nil: true, allow_blank: true,
+                                           message: UNIQUENESS_MESSAGE }
 
   # Ensure presence of the :output_type_description if the user selected 'other'
   validates_presence_of :output_type_description, if: -> { other? }, message: PRESENCE_MESSAGE

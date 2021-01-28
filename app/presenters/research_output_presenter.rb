@@ -94,9 +94,9 @@ class ResearchOutputPresenter
 
   # Returns the display name of the primary repository
   def display_repository
-    return _("Unspecified") unless @research_output.repository_id.present?
+    return [_("None specified")] unless @research_output.repositories.any?
 
-    @research_output.repository.name
+    @research_output.repositories.map(&:name)
   end
 
   # Returns the humanized version of the access enum variable

@@ -13,15 +13,19 @@
                     "research_outputs/repositories/_search_result.html.erb"
 %>
 
-<% 
+<%
 button_tooltip = "" unless button_tooltip.present?
 no_recs_msg = _("No %{topic} have been selected.") % { topic: topic }
 %>
 
-<div class="col-md-12 external_api_selected_results-<%= topic %>">
+<div class="col-md-8 external_api_selected_results-<%= topic %>">
   <div class="external-api-selections">
     <% if context.present? && context.send(topic).present? %>
-      <% [context.send(topic)].each do |result| %>
+      <%
+      # It's possible for the :topic to be either a single entity or a collection
+      scope = topic == topic.singularize ? [context.send(topic)] : context.send(topic)
+      %>
+      <% scope.each do |result| %>
         <%= render partial: "shared/external_apis/search_result",
                    locals: {
                      context: context,
@@ -34,7 +38,7 @@ no_recs_msg = _("No %{topic} have been selected.") % { topic: topic }
   </div>
 
   <span data-toggle="tooltip" title="<%= button_tooltip %>">
-    <%= button_tag _("Add a %{topic}") % { topic: topic },
+    <%= button_tag _("Add %{topic}") % { topic: (topic) },
                    type: "button",
                    class: "btn btn-default external-api-expand-search",
                    data: {

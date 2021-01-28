@@ -9,6 +9,10 @@
 %>
 
 <% if object.present? %>
+  <%= hidden_field_tag "research_output[repositories][id]",
+                       "research_output_repositories_id",
+                       value: object.identifier_for_scheme(scheme: "rethreedata")&.id %>
+
   <p><%= object.description %></p>
   <div class="facets">
     <% object.info.fetch(:keywords, []).each do |keyword| %>
