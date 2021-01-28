@@ -251,10 +251,17 @@ module Dmpopidor
                 redirect_to "#{plan_path(@plan)}", alert: failure_message(@plan, _("save"))
               end
               format.json do
+                p "################"
+                p @plan.errors
+                p "################"
                 render json: { code: 0, msg: failure_message(@plan, _("save")) }
               end
             end
-          rescue Exception
+          rescue Exception => e
+            p "################"
+            p e.message
+            p e.backtrace[0]
+            p "################"
             flash[:alert] = failure_message(@plan, _("save"))
             format.html do
               render_phases_edit(@plan, @plan.phases.first, @plan.guidance_groups)

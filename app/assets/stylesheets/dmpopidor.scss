@@ -1130,14 +1130,35 @@ header .main-nav {
             }
         }
     }
-    fieldset.answer-fieldset {
-        width: 100%;
-        border-radius: 5px;
-        margin: 15px 0;
-        padding-bottom: 15px;
-        legend {
-            color: $rust;
-            text-transform: none;
+    fieldset {
+        &.sub-fragment {
+            width: 100%;
+            border-radius: 5px;
+            margin: 15px 0;
+            padding-bottom: 15px;
+            legend {
+                color: $rust;
+                text-transform: none;
+            }
+        }
+        &.fragment-fieldset {
+            display: flex;
+            flex-direction: column;
+            
+            .answer-save-button {
+                position: sticky;
+                bottom: 0;
+                background-color: #fff;
+                padding: 5px;
+                z-index: 2;
+                text-align: right;
+                border: 1px solid $very-light-blue;
+                button {
+                    font-size: 20px;
+                    font-weight: 700;
+                    width: 25%;
+                }
+            }
         }
     }
 

@@ -102,7 +102,7 @@ class ResearchOutput < ActiveRecord::Base
         data: {
           "research_output_id" => id
         },
-        madmp_schema_id: MadmpSchema.find_by(classname: "research_output").id,
+        madmp_schema: MadmpSchema.find_by(classname: "research_output"),
         dmp_id: dmp_fragment.id,
         parent_id: dmp_fragment.id
       )
@@ -110,14 +110,11 @@ class ResearchOutput < ActiveRecord::Base
         data: {
           "title" => fullname
         },
-        madmp_schema_id: MadmpSchema.find_by(
-          name: "ResearchOutputDescriptionStandard"
-        ).id,
+        madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),
         dmp_id: dmp_fragment.id,
         parent_id: fragment.id,
         additional_info: {}
       )
-      fragment_description.instantiate
 
       unless description_question.nil?
         # Create a new answer for the ResearchOutputDescription Question

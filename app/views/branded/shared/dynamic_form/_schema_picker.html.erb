@@ -1,14 +1,13 @@
 <%# locals: { madmp_schema, pickable_schemas, question, research_output } %>
 <strong><%= d_("dmpopidor", "Change your question form") %></strong>
-<ul class="schema_picker">
-    <% pickable_schemas.each do |ps| %>
-        <li class="checkbox">
-            <%= label_tag "picked_schema_#{question.id}_#{research_output.id}" do %>
-            <%= radio_button_tag("picked_schema_#{question.id}_#{research_output.id}",
-                                    ps.id,
-                                    !!(ps.id == madmp_schema.id) ) %>
-            <%= ps.label %>
-            <% end %>
-        </li>
-    <% end %>
-</ul>
+
+<%= select_tag "schema_picker",
+      options_for_select(
+        pickable_schemas.map {|v| [
+          v.label, 
+          v.id
+        ] 
+      },
+      selected: madmp_schema.id),
+      "data-toggle": "tooltip",
+      class: "form-control schema_picker"%>
