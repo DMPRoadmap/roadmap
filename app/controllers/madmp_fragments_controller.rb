@@ -181,14 +181,12 @@ class MadmpFragmentsController < ApplicationController
     dmp_id = @parent_fragment.classname == "dmp" ? @parent_fragment.id : @parent_fragment.dmp_id
     if params[:fragment_id]
       @fragment = MadmpFragment.find(params[:fragment_id])
-      @title = d_("dmpopidor", "Editing %{title_value}") % { title_value: @fragment.to_s }
     else
       parent_id = @parent_fragment.id unless @classname.eql?("person")
       @fragment = MadmpFragment.new(
         dmp_id: dmp_id,
         parent_id: parent_id
       )
-      @title = d_("dmpopidor", "New %{title_value}") % { title_value: @schema.label }
     end
     authorize @fragment
     respond_to do |format|
