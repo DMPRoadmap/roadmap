@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-01-26 12:03-0700\n"
-"PO-Revision-Date: 2021-01-26 12:03-0700\n"
+"POT-Creation-Date: 2021-01-26 15:11-0700\n"
+"PO-Revision-Date: 2021-01-26 15:11-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -1259,7 +1259,7 @@ msgstr ""
 msgid "private"
 msgstr ""
 
-#: ../../app/models/question.rb:142
+#: ../../app/models/question.rb:151
 msgid "guidance on"
 msgstr ""
 
@@ -1303,43 +1303,43 @@ msgstr ""
 msgid "A historical template cannot be retrieved for being modified"
 msgstr ""
 
-#: ../../app/models/template.rb:339
+#: ../../app/models/template.rb:348
 msgid "generate_copy! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:347
+#: ../../app/models/template.rb:356
 msgid "Copy of %{template}"
 msgstr ""
 
-#: ../../app/models/template.rb:355
+#: ../../app/models/template.rb:364
 msgid "generate_version! requires a published template"
 msgstr ""
 
-#: ../../app/models/template.rb:370
+#: ../../app/models/template.rb:379
 msgid "customize! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:375
+#: ../../app/models/template.rb:384
 msgid "customize! requires a template from a funder"
 msgstr ""
 
-#: ../../app/models/template.rb:411
+#: ../../app/models/template.rb:420
 msgid "You can not publish a published template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:415
+#: ../../app/models/template.rb:424
 msgid "You can not publish a historical version of this template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:420
+#: ../../app/models/template.rb:429
 msgid "You can not publish a template without phases.  "
 msgstr ""
 
-#: ../../app/models/template.rb:425
+#: ../../app/models/template.rb:434
 msgid "You can not publish a template without sections in a phase.  "
 msgstr ""
 
-#: ../../app/models/template.rb:430
+#: ../../app/models/template.rb:439
 msgid "You can not publish a template without questions in a section.  "
 msgstr ""
 
@@ -2762,7 +2762,7 @@ msgstr ""
 
 #: ../../app/views/org_admin/phases/_phase.html.erb:37
 #: ../../app/views/org_admin/questions/_index.html.erb:1
-#: ../../tmp/translation/database_strings.rb:125
+#: ../../tmp/translation/database_strings.rb:134
 msgid "Questions"
 msgstr ""
 
@@ -5613,96 +5613,96 @@ msgid "<p>sss</p>"
 msgstr ""
 
 #: ../../tmp/translation/database_strings.rb:115
-msgid "University of Alberta Data Management Questions"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:116
-msgid "MICYRN Data Management Plan Initial Phase"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:117
-msgid "Reproducible findings through deposited data"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:118
-msgid "University of British Columbia Data Management Questions"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:119
-msgid "Portage Data Management Questions"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:120
-msgid "Pre-Project: Prototype"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:121
-msgid "CEOS Data Management Plan"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:122
-msgid "Oceans Data Management Plan"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:123
-msgid "University of Manitoba Data Management Questions"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:124
-msgid "DMP Questionnaire"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:126
-msgid "University of Guelph Agri-Food Funding DMP (Alliance/Food from Thought)  "
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:127
-msgid "Data management questions"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:128
-msgid "York U Data Management Questions"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:129
-msgid "MUN Data Management Questions"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:130
 msgid "OFI Module E DMP"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:131
+#: ../../tmp/translation/database_strings.rb:116
 msgid "Dalhousie University"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:132
+#: ../../tmp/translation/database_strings.rb:117
 #: ../../tmp/translation/database_strings.rb:213
 msgid "TITLE"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:133
+#: ../../tmp/translation/database_strings.rb:118
 msgid "Test DMP Questions"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:134
+#: ../../tmp/translation/database_strings.rb:119
 msgid "Phase 1 (test)"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:135
+#: ../../tmp/translation/database_strings.rb:120
 msgid "Initial GWF DMP"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:136
+#: ../../tmp/translation/database_strings.rb:121
 msgid "new phase"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:137
+#: ../../tmp/translation/database_strings.rb:122
 msgid "phase 1"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:138
+#: ../../tmp/translation/database_strings.rb:123
 msgid "title of new phase"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:124
+msgid "University of Alberta Data Management Questions"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:125
+msgid "MICYRN Data Management Plan Initial Phase"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:126
+msgid "Reproducible findings through deposited data"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:127
+msgid "University of British Columbia Data Management Questions"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:128
+msgid "Portage Data Management Questions"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:129
+msgid "Pre-Project: Prototype"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:130
+msgid "CEOS Data Management Plan"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:131
+msgid "Oceans Data Management Plan"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:132
+msgid "University of Manitoba Data Management Questions"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:133
+msgid "DMP Questionnaire"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:135
+msgid "University of Guelph Agri-Food Funding DMP (Alliance/Food from Thought)  "
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:136
+msgid "Data management questions"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:137
+msgid "York U Data Management Questions"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:138
+msgid "MUN Data Management Questions"
 msgstr ""
 
 #: ../../tmp/translation/database_strings.rb:139
