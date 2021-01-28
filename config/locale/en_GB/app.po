@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-01-26 12:03-0700\n"
-"PO-Revision-Date: 2021-01-26 20:03+0100\n"
+"POT-Creation-Date: 2021-01-26 15:11-0700\n"
+"PO-Revision-Date: 2021-01-26 23:11+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -272,6 +272,33 @@ msgstr ""
 msgid "<p>sss</p>"
 msgstr ""
 
+msgid "OFI Module E DMP"
+msgstr ""
+
+msgid "Dalhousie University"
+msgstr ""
+
+msgid "TITLE"
+msgstr ""
+
+msgid "Test DMP Questions"
+msgstr ""
+
+msgid "Phase 1 (test)"
+msgstr ""
+
+msgid "Initial GWF DMP"
+msgstr ""
+
+msgid "new phase"
+msgstr ""
+
+msgid "phase 1"
+msgstr ""
+
+msgid "title of new phase"
+msgstr ""
+
 msgid "University of Alberta Data Management Questions"
 msgstr ""
 
@@ -312,33 +339,6 @@ msgid "York U Data Management Questions"
 msgstr ""
 
 msgid "MUN Data Management Questions"
-msgstr ""
-
-msgid "OFI Module E DMP"
-msgstr ""
-
-msgid "Dalhousie University"
-msgstr ""
-
-msgid "TITLE"
-msgstr ""
-
-msgid "Test DMP Questions"
-msgstr ""
-
-msgid "Phase 1 (test)"
-msgstr ""
-
-msgid "Initial GWF DMP"
-msgstr ""
-
-msgid "new phase"
-msgstr ""
-
-msgid "phase 1"
-msgstr ""
-
-msgid "title of new phase"
 msgstr ""
 
 msgid "Phase 2"
@@ -4184,7 +4184,7 @@ msgstr ""
 msgid "private"
 msgstr ""
 
-#: ../../app/models/question.rb:142
+#: ../../app/models/question.rb:151
 msgid "guidance on"
 msgstr ""
 
@@ -4228,43 +4228,43 @@ msgstr ""
 msgid "A historical template cannot be retrieved for being modified"
 msgstr ""
 
-#: ../../app/models/template.rb:339
+#: ../../app/models/template.rb:348
 msgid "generate_copy! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:347
+#: ../../app/models/template.rb:356
 msgid "Copy of %{template}"
 msgstr ""
 
-#: ../../app/models/template.rb:355
+#: ../../app/models/template.rb:364
 msgid "generate_version! requires a published template"
 msgstr ""
 
-#: ../../app/models/template.rb:370
+#: ../../app/models/template.rb:379
 msgid "customize! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:375
+#: ../../app/models/template.rb:384
 msgid "customize! requires a template from a funder"
 msgstr ""
 
-#: ../../app/models/template.rb:411
+#: ../../app/models/template.rb:420
 msgid "You can not publish a published template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:415
+#: ../../app/models/template.rb:424
 msgid "You can not publish a historical version of this template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:420
+#: ../../app/models/template.rb:429
 msgid "You can not publish a template without phases.  "
 msgstr ""
 
-#: ../../app/models/template.rb:425
+#: ../../app/models/template.rb:434
 msgid "You can not publish a template without sections in a phase.  "
 msgstr ""
 
-#: ../../app/models/template.rb:430
+#: ../../app/models/template.rb:439
 msgid "You can not publish a template without questions in a section.  "
 msgstr ""
 

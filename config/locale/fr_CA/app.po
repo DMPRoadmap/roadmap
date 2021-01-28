@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-01-26 12:03-0700\n"
-"PO-Revision-Date: 2021-01-26 20:03+0100\n"
+"POT-Creation-Date: 2021-01-26 15:11-0700\n"
+"PO-Revision-Date: 2021-01-26 23:11+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_CA\n"
@@ -272,6 +272,33 @@ msgstr ""
 msgid "<p>sss</p>"
 msgstr ""
 
+msgid "OFI Module E DMP"
+msgstr ""
+
+msgid "Dalhousie University"
+msgstr ""
+
+msgid "TITLE"
+msgstr ""
+
+msgid "Test DMP Questions"
+msgstr ""
+
+msgid "Phase 1 (test)"
+msgstr ""
+
+msgid "Initial GWF DMP"
+msgstr ""
+
+msgid "new phase"
+msgstr ""
+
+msgid "phase 1"
+msgstr ""
+
+msgid "title of new phase"
+msgstr ""
+
 msgid "University of Alberta Data Management Questions"
 msgstr ""
 
@@ -312,33 +339,6 @@ msgid "York U Data Management Questions"
 msgstr ""
 
 msgid "MUN Data Management Questions"
-msgstr ""
-
-msgid "OFI Module E DMP"
-msgstr ""
-
-msgid "Dalhousie University"
-msgstr ""
-
-msgid "TITLE"
-msgstr ""
-
-msgid "Test DMP Questions"
-msgstr ""
-
-msgid "Phase 1 (test)"
-msgstr ""
-
-msgid "Initial GWF DMP"
-msgstr ""
-
-msgid "new phase"
-msgstr ""
-
-msgid "phase 1"
-msgstr ""
-
-msgid "title of new phase"
 msgstr ""
 
 msgid "Phase 2"
@@ -4093,7 +4093,7 @@ msgstr "Réponse"
 
 #: ../../app/models/concerns/exportable_plan.rb:109
 msgid " Customised By: "
-msgstr " Personnalisé par:"
+msgstr " Personnalisé par :"
 
 #: ../../app/models/concerns/exportable_plan.rb:117
 #: ../../app/views/shared/export/_plan_txt.erb:4
@@ -4259,7 +4259,7 @@ msgstr "essai"
 msgid "private"
 msgstr "privé"
 
-#: ../../app/models/question.rb:142
+#: ../../app/models/question.rb:151
 msgid "guidance on"
 msgstr "directives sur"
 
@@ -4305,45 +4305,45 @@ msgstr "Invalide – Nombre maximal de pages"
 msgid "A historical template cannot be retrieved for being modified"
 msgstr "Un modèle historique ne peut pas être récupéré pour être modifié"
 
-#: ../../app/models/template.rb:339
+#: ../../app/models/template.rb:348
 msgid "generate_copy! requires an organisation target"
 msgstr "un organisme cible est exigé pour generate_copy!"
 
-#: ../../app/models/template.rb:347
+#: ../../app/models/template.rb:356
 msgid "Copy of %{template}"
 msgstr "Copie de %{template}"
 
-#: ../../app/models/template.rb:355
+#: ../../app/models/template.rb:364
 msgid "generate_version! requires a published template"
 msgstr "un modèle publié est exigé pour generate_version!"
 
-#: ../../app/models/template.rb:370
+#: ../../app/models/template.rb:379
 msgid "customize! requires an organisation target"
 msgstr "organisme cible exiger pour personnaliser!"
 
-#: ../../app/models/template.rb:375
+#: ../../app/models/template.rb:384
 msgid "customize! requires a template from a funder"
 msgstr "un modèle d’un bailleur de fonds est exigé pour personnaliser!"
 
-#: ../../app/models/template.rb:411
+#: ../../app/models/template.rb:420
 msgid "You can not publish a published template.  "
 msgstr "Vous ne pouvez pas publier un modèle déjà publié."
 
-#: ../../app/models/template.rb:415
+#: ../../app/models/template.rb:424
 msgid "You can not publish a historical version of this template.  "
 msgstr "Vous ne pouvez pas publier une version historique de ce modèle."
 
-#: ../../app/models/template.rb:420
+#: ../../app/models/template.rb:429
 msgid "You can not publish a template without phases.  "
 msgstr "Vous ne pouvez pas publier un modèle ne contenant pas de phases."
 
-#: ../../app/models/template.rb:425
+#: ../../app/models/template.rb:434
 msgid "You can not publish a template without sections in a phase.  "
 msgstr ""
 "Vous ne pouvez pas publier un modèle dont une phase ne contient pas de section"
 "s."
 
-#: ../../app/models/template.rb:430
+#: ../../app/models/template.rb:439
 msgid "You can not publish a template without questions in a section.  "
 msgstr ""
 "Vous ne pouvez pas publier un modèle dont certaines sections ne contiennent pa"
@@ -5474,12 +5474,13 @@ msgid ""
 "<p>%{application_name} has been developed by the <strong>%{organisation_name}<"
 "/strong> to help you write data management plans.</p>"
 msgstr ""
-"<p> %{application_name} a été développé par <strong>%{organisation_name}</stro"
-"ng> pour vous aider à rédiger des plans de gestion des données. </p>"
+"<p>%{application_name} a <p>L'%{application_name}a été mis au popint point par"
+" le <strong>%{organisation_name}</strong> pour vous aider à rédiger des plans "
+"de gestion des données.</p> données (PGD).</p>"
 
 #: ../../app/views/home/_welcome.html.erb:15
 msgid "Getting started:"
-msgstr "Commencer:"
+msgstr "Commencer :"
 
 #: ../../app/views/kaminari/_first_page.html.erb:3
 msgid "First"
@@ -8005,7 +8006,7 @@ msgstr "Assistant PGD"
 
 #: ../../app/views/translation_io_exports/_globals.html.erb:4
 msgid "Portage Network"
-msgstr ""
+msgstr "Réseau Portage"
 
 #: ../../app/views/translation_io_exports/_home_page_links.html.erb:5
 msgid "Digital Curation Centre"
