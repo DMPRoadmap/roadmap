@@ -333,7 +333,12 @@ class Org < ApplicationRecord
       to_be_merged.funded_plans.update_all(funder_id: id)
       merge_guidance_groups!(to_be_merged: to_be_merged)
       consolidate_identifiers!(array: to_be_merged.identifiers)
-      to_be_merged.plans.update_all(org_id: id)
+
+      # TODO: Use this commented out version once we've stopped overriding the
+      #       default association method called `plans` on this model
+      # to_be_merged.plans.update_all(org_id: id)
+      Plan.where(org_id: to_be_merged.id).update_all(org_id: id)
+
       to_be_merged.templates.update_all(org_id: id)
       merge_token_permission_types!(to_be_merged: to_be_merged)
       self.tracker = to_be_merged.tracker unless tracker.present?
