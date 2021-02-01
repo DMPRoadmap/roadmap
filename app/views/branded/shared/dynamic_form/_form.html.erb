@@ -19,126 +19,173 @@
   <% example = prop["example@#{template_locale}"] ? "ex: #{prop["example@#{template_locale}"]}": nil %>
   <% default_value = prop["default@#{template_locale}"] %>
   <% const = prop["const@#{template_locale}"]%>
-  
+
   <%# Constant values are displayed as readonly text field %>
   <% if const.present?%>
     <%= create_text_field(f, const, field_name, label, field_id, readonly: true, validation: "none", ttip: ttip) %>
-  <% else %>
-  <% case prop['type'] %>
-    <% when 'string' %>
-      <% if prop['inputType'].present? %>
-        <% if prop['inputType'] == 'dropdown' && prop['registry_id'] %>
-          <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
-          <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, field_id, registryValues, template_locale, readonly: readonly, validation: validation, ttip: ttip, default_value: default_value) %>
-        <% elsif prop['inputType'] == 'textarea' %>
-          <%= create_textarea_field(f, value, field_name, label, field_id, required: required, readonly: readonly, validation: validation, example: example, ttip: ttip, default_value: default_value) %>
-        <% end %>
-      <% elsif prop['format'].nil? %>
-          <%= create_text_field(f, value, field_name, label, field_id, required: required, readonly: readonly, validation: validation, ttip: ttip, example: example, default_value: default_value) %>
-      <% elsif prop['format'] == 'date' %>
-        <%= create_date_field(f, value, field_name, label, field_id, required: required, readonly: readonly, validation: validation, ttip: ttip, example: example, default_value: default_value) %>
-      <% elsif prop['format'] == 'uri' %>
-        <%= create_url_field(f, value, field_name, label, field_id, required: required, readonly: readonly, validation: validation, ttip: ttip, example: example, default_value: default_value) %>
-      <% elsif prop['format'] == 'email' %>
-        <%= create_email_field(f, value, field_name, label, field_id, required: required, readonly: readonly, validation: validation, example: example, default_value: default_value) %>
-      <%end%>
-    <% when 'integer', 'number' %>
-      <%= create_number_field(f, value, field_name, label, field_id, required: required, readonly: readonly, validation: validation, ttip: ttip) %>
-    <% when 'boolean' %>
-      <%= create_checkbox_field(f, value, field_name, label, field_id, required: required, readonly: readonly, validation: validation) %>
-    <% when 'array' %>
-      <%# List of linked fragments displayed as table. Linked fragments are edited through a modal %>
-      <% if prop['items']['type'] == 'object' && prop['items']['schema_id'].present? %>
-        <% unless classname == "research_output" %>
-          <% sub_schema = @schemas.find_by(id: prop['items']['schema_id']) %>
-          <% 
-            values = []
-            if data.present? && data[key].present?
-              values = dmp_fragments.where(id: data[key].map { |d| d["dbid"] })
-            end
-            table_header = prop["table_header@#{template_locale}"] ? prop["table_header@#{template_locale}"] : prop["table_header"]
-          %>
-          <%= render(partial: 'shared/dynamic_form/fields/fragment_list_field', locals: { 
-            field_values: values, 
-            readonly: readonly,
-            parent_id: current_fragment.id,
-            schema: sub_schema,
-            table_header: table_header,
-            template_locale: template_locale,
-            property_name: key,
-            field_label: label, ttip: ttip, answer_id: nil 
-            }
-          ) %>
-        <% end %>
-      <% else %>
-        <%# Select 'multiple' where the user can choose multiple options %>
-        <% if prop['inputType'] == 'dropdown' && dropdownValues %>
-          <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, field_id, dropdownValues, readonly: readonly, multiple: true, validation: validation, ttip: ttip) %>
-        <% else %>
-          <%# Input field associated with 'Add' and 'Delete' icons %>
-          <%= render(partial: 'shared/dynamic_form/fields/simple_multiple_field', locals: { 
-            f: f, 
-            field_values: value,
-            readonly: readonly,
-            field_label: label,
-            field_properties: prop['items'],
-            field_name: field_name, answer_id: nil,
-            ttip: ttip
-            }
-          ) %>
-        <% end %>
-      <% end %>
-    <% when 'object' %>
-      <% if prop["schema_id"].present? %>
-        <% sub_schema = @schemas.find_by(id: prop["schema_id"]) %>
-        <% if prop["inputType"].eql?("pickOrCreate") %>
-          <% 
-            values = dmp_fragments.where(madmp_schema_id: prop["schema_id"])
-          %>
-          <%= render(partial: 'shared/dynamic_form/fields/fragment_select_field', locals: {
-            f: f,
-            select_values: values,
-            selected_value: value,
-            readonly: readonly,
-            parent_id: current_fragment.id,
-            schema: sub_schema,
-            required: required,
-            template_locale: template_locale,
-            property_name: key,
-            field_id: field_id, field_name: "#{f.object_name}[#{field_name}]",
-            validation: validation,
-            field_label: label, ttip: ttip, answer_id: nil 
-            }
-          ) %>
-        <% else %>
-          <div class="col-md-12">
-            <%
-              sub_schema = @schemas.find_by(id: prop["schema_id"])
-              sub_fragment = nil
-              if data.present? && data[key].present? 
-                sub_fragment = dmp_fragments.find(data[key]["dbid"])
-              end
-            %>
-            <fieldset class="sub-fragment fragment-<%= sub_fragment.id unless sub_fragment.nil? %>">
-              <legend class="sub-fragment" title="<%= ttip %>"><%= label %></legend>
-              <%= render(partial: 'shared/dynamic_form/form', locals: { 
-                    f: f, 
-                    current_fragment: sub_fragment,
-                    schema: sub_schema,
-                    question_id: question_id,
-                    readonly: readonly,
-                    classname: sub_schema.classname,
-                    form_prefix: field_name,
-                    template_locale: template_locale
-                  }) %>
-            </fieldset>
-          </div>
-        <% end %>
-      <% elsif prop['inputType'] == 'dropdown' && prop['registry_id'] %>
+    <% next %>
+  <% end %>
+
+  <%# ############################### %>
+  <%# REGISTRIES %>
+  <%# ############################### %>
+  <% if prop['registry_id'].present? && prop['inputType'] == 'dropdown' %>
+      <% if prop["type"].eql?('object') %>
+        <%# Complex registries (value in an object) %>
         <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
         <% value = value["id"] if value.present? %>
         <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, field_id, registryValues, template_locale, readonly: readonly, multiple: false, validation: validation, ttip: ttip, default_value: default_value) %>
+      <% elsif prop["type"].eql?('string')%>
+        <%# Simple registries (value in a string) %>
+        <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
+        <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, field_id, registryValues, template_locale, readonly: readonly, validation: validation, ttip: ttip, default_value: default_value) %>
       <% end %>
+    <% next %>
+  <% end %>
+
+  <%# ############################### %>
+  <%# SUB FRAGMENTS %>
+  <%# ############################### %>
+  <%# Properties with schema_id %>
+  <% if prop['type'].eql?('object') && prop["schema_id"].present? %>
+    <% sub_schema = @schemas.find_by(id: prop["schema_id"]) %>
+    <%# Display Fragment selector %>
+    <% if prop["inputType"].eql?("pickOrCreate") %>
+      <% 
+        values = dmp_fragments.where(madmp_schema_id: prop["schema_id"])
+      %>
+      <%= render(partial: 'shared/dynamic_form/fields/fragment_select_field', locals: {
+        f: f,
+        select_values: values,
+        selected_value: value,
+        readonly: readonly,
+        parent_id: current_fragment.id,
+        schema: sub_schema,
+        required: required,
+        template_locale: template_locale,
+        property_name: key,
+        field_id: field_id, field_name: "#{f.object_name}[#{field_name}]",
+        validation: validation,
+        field_label: label, ttip: ttip, answer_id: nil 
+        }
+      ) %>
+    <% else %> 
+      <%# Display sub form %>
+      <div class="col-md-12">
+        <%
+          sub_schema = @schemas.find_by(id: prop["schema_id"])
+          sub_fragment = nil
+          if data.present? && data[key].present? 
+            sub_fragment = dmp_fragments.find(data[key]["dbid"])
+          end
+        %>
+        <fieldset class="sub-fragment fragment-<%= sub_fragment.id unless sub_fragment.nil? %>">
+          <legend class="sub-fragment" title="<%= ttip %>"><%= label %></legend>
+          <%= render(partial: 'shared/dynamic_form/form', locals: { 
+                f: f, 
+                current_fragment: sub_fragment,
+                schema: sub_schema,
+                question_id: question_id,
+                readonly: readonly,
+                classname: sub_schema.classname,
+                form_prefix: field_name,
+                template_locale: template_locale
+              }) %>
+        </fieldset>
+      </div>
     <% end %>
+
+    <% next %>
+  <% end %>
+
+  <%# Sub Fragments list %>
+  <% if prop['type'].eql?('array') && 
+        prop['items']['type'] == 'object' && 
+        prop['items']['schema_id'].present? %>
+    <% sub_schema = @schemas.find_by(id: prop['items']['schema_id']) %>
+    <% 
+      values = []
+      if data.present? && data[key].present?
+        values = dmp_fragments.where(id: data[key].map { |d| d["dbid"] })
+      end
+      table_header = prop["table_header@#{template_locale}"] ? prop["table_header@#{template_locale}"] : prop["table_header"]
+    %>
+    <%= render(partial: 'shared/dynamic_form/fields/fragment_list_field', locals: { 
+      field_values: values, 
+      readonly: readonly,
+      parent_id: current_fragment.id,
+      schema: sub_schema,
+      table_header: table_header,
+      template_locale: template_locale,
+      property_name: key,
+      field_label: label, ttip: ttip, answer_id: nil 
+      }
+    ) %>
+  
+    <% next %>
+  <% end %>
+
+
+  <%# ############################### %>
+  <%# ARRAY FIELDS %>
+  <%# ############################### %>
+  <% if prop['type'].eql?('array') %>
+    <%# Select 'multiple' where the user can choose multiple options %>
+    <% if prop['inputType'] == 'dropdown' && dropdownValues %>
+      <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, field_id, dropdownValues, readonly: readonly, multiple: true, validation: validation, ttip: ttip) %>
+    <% else %>
+      <%# Input field associated with 'Add' and 'Delete' icons %>
+      <%= render(partial: 'shared/dynamic_form/fields/simple_multiple_field', locals: { 
+        f: f, 
+        field_values: value,
+        readonly: readonly,
+        field_label: label,
+        field_properties: prop['items'],
+        field_name: field_name, answer_id: nil,
+        ttip: ttip
+        }
+      ) %>
+    <% end %>
+
+    <% next %>
+  <% end %>
+
+
+  <%# ############################### %>
+  <%# SIMPLE FIELDS %>
+  <%# ############################### %>
+
+  <%# String Field %>
+  <% if prop['type'].eql?('string') %>
+    <%# Text Area %>
+    <% if prop['inputType'].present? && prop['inputType'].eql?('textarea') %>
+      <%= create_textarea_field(f, value, field_name, label, field_id, required: required, readonly: readonly, validation: validation, example: example, ttip: ttip, default_value: default_value) %>
+    <% elsif prop['format'].nil? %>
+      <%# Text Field %>
+      <%= create_text_field(f, value, field_name, label, field_id, required: required, readonly: readonly, validation: validation, ttip: ttip, example: example, default_value: default_value) %>
+    <% elsif prop['format'] == 'date' %>
+      <%# Date Field %>
+      <%= create_date_field(f, value, field_name, label, field_id, required: required, readonly: readonly, validation: validation, ttip: ttip, example: example, default_value: default_value) %>
+    <% elsif prop['format'] == 'uri' %>
+      <%# URL Field %>
+      <%= create_url_field(f, value, field_name, label, field_id, required: required, readonly: readonly, validation: validation, ttip: ttip, example: example, default_value: default_value) %>
+    <% elsif prop['format'] == 'email' %>
+      <%# Email Field %>
+      <%= create_email_field(f, value, field_name, label, field_id, required: required, readonly: readonly, validation: validation, example: example, default_value: default_value) %>
+    <% end %>
+
+    <% next %>
+  <% end %>
+  <%# Number Field %>
+  <% if prop['type'].eql?('integer') || prop['type'].eql?('number') %>
+    <%= create_number_field(f, value, field_name, label, field_id, required: required, readonly: readonly, validation: validation, ttip: ttip) %>
+
+    <% next %>
+  <% end %>
+  <%# Boolean Field %>
+  <% if prop['type'].eql?('boolean') %>
+    <%= create_checkbox_field(f, value, field_name, label, field_id, required: required, readonly: readonly, validation: validation) %>
+
+    <% next %>
   <% end %>
 <% end %>
