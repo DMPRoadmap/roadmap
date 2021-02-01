@@ -1,8 +1,8 @@
 <div class="row super-admin">
   <div class="col-xs-12">
     <h2>
-      <%= _("New schema") %>
-      <%= link_to(_('View all schemas'), super_admin_madmp_schemas_path,
+      <%= @registry.name %>
+      <%= link_to(_('View all registries'), super_admin_registries_path,
           class: 'btn btn-default pull-right', role: 'button') %>
     </h2>
   </div>

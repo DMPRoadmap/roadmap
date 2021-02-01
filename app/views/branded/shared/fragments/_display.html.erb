@@ -1,6 +1,6 @@
 <% sub_schemas = schema.get_sub_schemas %>
 <% data = fragment.data unless fragment.nil? %>
-<% dmp_fragments = fragment.present? ? fragment.get_dmp_fragments() : [] %>
+<% dmp_fragments = fragment.present? ? fragment.dmp_fragments() : [] %>
 <% schema_properties = schema.schema["properties"]%>
 <dl class="dl-horizontal fragment-display">
   <% schema_properties.each do |key, prop| %>

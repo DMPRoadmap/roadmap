@@ -136,7 +136,7 @@ module DynamicFormHelper
     }
   end
 
-  def create_select_field(form, value, name, label, field_id, select_values, required: false, validation: nil, html_class: nil, readonly: false, multiple: false, ttip: nil, default_value: nil)
+  def create_select_field(form, value, name, label, field_id, select_values, locale, required: false, validation: nil, html_class: nil, readonly: false, multiple: false, ttip: nil, default_value: nil)
     render partial: "shared/dynamic_form/fields/select_field",
     locals: {
       f: form,
@@ -144,6 +144,7 @@ module DynamicFormHelper
       field_name: name,
       field_label: label,
       select_values: select_values,
+      locale: locale,
       field_class: html_class,
       field_id: field_id,
       multiple: multiple,
@@ -172,9 +173,20 @@ module DynamicFormHelper
     message
   end
 
+  # Generate a select option "value" depending on the type of registry value
+  # if it as a "complex" value, returns the id of the registry value
+  # else returns the value (simple enum are save as String most of the time)
+  def select_value(registry_value, locale)
+    if registry_value.data["label"].present?
+      registry_value.id
+    else
+      registry_value.to_s(locale)
+    end
+  end
+
   # Formats the data extract from the structured answer form to valid JSON data
   # This is useful because Rails converts all form data to strings and JSON needs the actual types
-  def data_reformater(schema, data, classname)
+  def data_reformater(schema, data, classname, locale)
     schema["properties"].each do |key, prop|
       next if data[key].nil?
 
@@ -189,17 +201,23 @@ module DynamicFormHelper
         when "array"
           data[key] = data[key].is_a?(Array) ? data[key] : [data[key]]
         when "object"
-          if prop["schema_id"].present?
+          if prop["registry_id"].present?
+            data[key] = RegistryValue.find(data[key].to_i).data.merge(
+              { "id": data[key].to_i }
+            )
+          elsif prop["schema_id"].present? 
             if prop["inputType"].present? && prop["inputType"].eql?("pickOrCreate")
               data[key] = { "dbid" => data[key].to_i }
             else
               sub_schema = MadmpSchema.find(prop["schema_id"])
-              data[key] = data_reformater(sub_schema.schema, data[key], sub_schema.classname)
+              data[key] = data_reformater(
+                sub_schema.schema,
+                data[key],
+                sub_schema.classname,
+                locale
+              )
             end
           end
-          # if value["dictionnary"]
-          #   data[key] = JSON.parse(DictionnaryValue.where(id: data[key]).select(:id, :uri, :label).take.to_json)
-          # end
         else
           data[key] = data[key]
         end
