@@ -53,7 +53,7 @@ class ResearchOutput < ApplicationRecord
   belongs_to :plan, optional: true
   belongs_to :mime_type, optional: true
 
-  has_many :repositories, as: :identifiable, dependent: :destroy, class_name: "Identifier"
+  has_and_belongs_to_many :repositories
 
   # ===============
   # = Validations =
@@ -86,37 +86,11 @@ class ResearchOutput < ApplicationRecord
     cat.present? ? MimeType.where(category: cat).order(:description) : []
   end
 
-  # TODO: placeholders for once the License, Repository, Metadata Standard and
-  #       Resource Type Lookups feature is built.
-  #
-  #       Be sure to add the scheme in the appropriate upgrade task (and to the
-  #       seed.rb as well)
-  def licenses
-    # scheme = IdentifierScheme.find_by(name: '[name of license scheme]')
-    # return [] unless scheme.present?
-    # identifiers.select { |id| id.identifier_scheme = scheme }
-    []
-  end
-
-  def repositories
-    # scheme = IdentifierScheme.find_by(name: '[name of repository scheme]')
-    # return [] unless scheme.present?
-    # identifiers.select { |id| id.identifier_scheme = scheme }
-    []
-  end
-
-  def metadata_standards
-    # scheme = IdentifierScheme.find_by(name: '[name of openaire scheme]')
-    # return [] unless scheme.present?
-    # identifiers.select { |id| id.identifier_scheme = scheme }
-    []
-  end
-
-  def resource_types
-    # scheme = IdentifierScheme.find_by(name: '[name of resource_type scheme]')
-    # return [] unless scheme.present?
-    # identifiers.select { |id| id.identifier_scheme = scheme }
-    []
+  # Helper method to convert selected repository form params into Repository objects
+  def repositories_attributes=(params)
+    params.each do |_i, repository_params|
+      repositories << Repository.find_by(id: repository_params[:id])
+    end
   end
 
   private

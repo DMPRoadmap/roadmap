@@ -1,72 +1,63 @@
-<%# locals: context, object, selected
-
-  :context  - refers to the parent object (e.g. "research_output"). This should
-              always be an instance of a Model
-
-  :object   - the object we will be rending (e.g. instance of a model, a hash, etc.)
-
-  :selected - whether or not this result is associated with the :model
+<%# locals: result
+  :result          - the object we will be rending (e.g. instance of a model, a hash, etc.)
 %>
 
-<% if object.present? %>
-  <%= hidden_field_tag "research_output[repositories][id]",
-                       "research_output_repositories_id",
-                       value: object.identifier_for_scheme(scheme: "rethreedata")&.id %>
+<% if result.present? %>
+  <%= hidden_field_tag "research_output[repositories_attributes[#{result.id}][id]]", result.id %>
 
-  <p><%= object.description %></p>
-  <div class="facets">
-    <% object.info.fetch(:keywords, []).each do |keyword| %>
-      <%= link_to "#", keyword, class: "btn btn-default" %>
-    <% end %>
-  </div>
-  <div class="tags <%= selected ? 'hidden' : '' %>">
-    <% line_breaker = 0 %>
-      <% object.info.fetch("keywords", []).each do |tag| %>
-        <% if line_breaker >= 50 %>
-          <% line_breaker = 0 %>
+  <p><%= result.description %></p>
+
+  <% unless selected %>
+    <div class="tags">
+      <% line_breaker = 0 %>
+        <% result.info.fetch("keywords", []).each do |tag| %>
+          <% if line_breaker >= 50 %>
+            <% line_breaker = 0 %>
+          <% end %>
+          <% line_breaker += tag.length %>
+          <div class="tag">
+            <%= link_to tag, search_path, class: "facet",
+                        title: _("Click to view repositories related to %{subject}") % { subject: tag },
+                        data: {
+                          remote: true,
+                          params: { research_output: { search_term: tag } }.to_param,
+                          method: search_method
+                        } %>
+          </div>
         <% end %>
-        <% line_breaker += tag.length %>
-        <div class="tag">
-          <%= link_to tag, repository_search_plan_path(context.plan), class: "facet",
-                      title: _("Click to view repositories related to %{subject}") % { subject: tag },
-                      data: {
-                        remote: true,
-                        params: { research_output: { search_term: tag } }.to_param,
-                        method: :get
-                      } %>
-        </div>
-      <% end %>
-  </div>
-  <div class="more-info more-info-<%= object.id %>">
+    </div>
+  <% end %>
+  
+  <div class="more-info more-info-<%= result.id %>">
     <%= link_to _("More info"), "#", class: "more-info-link" %>
 
     <div class="info hidden">
-      <% info = object.info.with_indifferent_access %>
+      <% info = result.info.with_indifferent_access %>
       <dl>
         <dt><%= _("Repository URL") %></dt>
         <dd>
-          <%= link_to object.url, object.url, target: "_blank", class: "has-new-window-popup-info" %>
+          <%= link_to result.url, result.url, target: "_blank", class: "has-new-window-popup-info" %>
         </dd>
 
         <dt><%= _("Contact") %></dt>
         <dd>
-          <% if object.contact.present? %>
-            <%= link_to object.contact, "mailto:#{object.contact}" %>
+          <% if result.contact.present? %>
+            <%= link_to result.contact, "mailto:#{result.contact}" %>
           <% else %>
             <%= _("Unknown") %>
           <% end %>
         </dd>
 
         <dt><%= _("Data access") %></dt>
-        <dd><%= object.info.fetch("access", _("Unknown")).humanize %></dd>
+        <dd><%= result.info.fetch("access", _("Unknown")).humanize %></dd>
 
         <dt><%= _("Persistent identifier type") %></dt>
-        <dd><%= object.info.fetch("pid_system", _("Unknown")) %></dd>
+        <dd><%= result.info.fetch("pid_system", _("Unknown")) %></dd>
 
         <dt><%= _("Policies") %></dt>
         <dd>
           <ul>
-            <% object.info.fetch("policies", [_("Unknown")]).uniq.each do |policy| %>
+            <% result.info.fetch("policies", [_("Unknown")]).uniq.each do |policy| %>
               <li><%= link_to policy["name"], policy["url"] %></li>
             <% end %>
           </ul>
@@ -74,16 +65,16 @@
 
         <dt><%= _("Data upload") %></dt>
         <dd>
-          <% object.info.fetch("upload_types", [{ type: _("Unknown") }]).each do |upload_type| %>
+          <% result.info.fetch("upload_types", [{ type: _("Unknown") }]).each do |upload_type| %>
             <%= upload_type.fetch("type", _("Unknown")).humanize %>: <%= upload_type["restriction"].gsub("registration", "").underscore.humanize %>
           <% end %>
         </dd>
 
         <dt><%= _("Provider type") %></dt>
-        <dd><%= object.info.fetch("provider_types", [_("Unknown")]).map{ |item| item.underscore.humanize }.join(", ") %></dd>
+        <dd><%= result.info.fetch("provider_types", [_("Unknown")]).map{ |item| item.underscore.humanize }.join(", ") %></dd>
 
         <dt><%= _("Repository type") %></dt>
-        <dd><%= object.info.fetch("types", [_("Unknown")]).map(&:humanize).join(", ") %></dd>
+        <dd><%= result.info.fetch("types", [_("Unknown")]).map(&:humanize).join(", ") %></dd>
       </dl>
     </div>
   </div>

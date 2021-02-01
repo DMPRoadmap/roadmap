@@ -11,7 +11,8 @@ class ResearchOutputsController < ApplicationController
 
   # GET /plans/:plan_id/research_outputs
   def index
-    @research_outputs = ResearchOutput.where(plan_id: @plan.id)
+    @research_outputs = ResearchOutput.includes(:repositories)
+                                      .where(plan_id: @plan.id)
     authorize @research_outputs.first || ResearchOutput.new(plan_id: @plan.id)
   end
 
@@ -48,6 +49,10 @@ class ResearchOutputsController < ApplicationController
 
     # Allow the repository to be removed
     @research_output.repository_id = nil unless args[:repository_id].present?
+
+    # Clear any existing repository selections. If the user has selected any
+    # the will be saved via the :repositories_attributes params during :update
+    @research_output.repositories.clear
 
     if @research_output.update(args)
       redirect_to edit_plan_research_output_path(@plan, @research_output),
@@ -97,6 +102,22 @@ class ResearchOutputsController < ApplicationController
     @search_results = @search_results.order(:name).page(params[:page])
   end
 
+  # PUT /plans/:id/repository_select
+  def repository_select
+    @plan = Plan.find_by(id: params[:id])
+    @research_output = ResearchOutput.new(plan: @plan)
+    authorize @research_output
+
+    @research_output
+  end
+
+  # PUT /plans/:id/repository_unselect
+  def repository_unselect
+    @plan = Plan.find_by(id: params[:id])
+    @research_output = ResearchOutput.new(plan: @plan)
+    authorize @research_output
+  end
+
   private
 
   def output_params
@@ -104,7 +125,8 @@ class ResearchOutputsController < ApplicationController
           .permit(%i[title abbreviation description output_type output_type_description
                      sensitive_data personal_data file_size file_size_unit mime_type_id
                      release_date access coverage_start coverage_end coverage_region
-                     mandatory_attribution] + { repositories: %i[id] })
+                     mandatory_attribution],
+                  repositories_attributes: %i[id])
   end
 
   def repo_search_params
@@ -148,7 +170,8 @@ class ResearchOutputsController < ApplicationController
   end
 
   def fetch_research_output
-    @research_output = ResearchOutput.find_by(id: params[:id])
+    @research_output = ResearchOutput.includes(:repositories)
+                                     .find_by(id: params[:id])
     return true if @research_output.present? &&
                    @plan.research_outputs.include?(@research_output)
 

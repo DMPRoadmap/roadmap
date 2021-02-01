@@ -1,25 +1,33 @@
-.external-api-search-block {
+.modal-search-block {
   border: 1px solid $color-grey;
   margin-bottom: 10px;
   padding: 10px 5px;
 }
 
-.external-api-search-modal .modal-dialog {
+.modal-search .modal-dialog {
   /* Make the dialog 80% of the screen height/width */
   width: 80%;
   // height: 80%;
 }
-.external-api-search-modal .modal-body {
+.modal-search .modal-body {
   /* 100% = dialog height, 50px = header (27.5px) + footer (21px) */
   // max-height: calc(80% - 50px);
   max-height: 450px;
   overflow-y: scroll;
 }
 
-.external-api-result-card {
+.modal-search-results-pagination {
+  margin-bottom: 10px;
+}
+
+.modal-search-result {
   margin-top: 5px;
-  margin-left: 10px;
   padding-bottom: 5px;
+
+  .modal-search-result-label {
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
 
   .tags > .tag {
     display: inline-block;
@@ -44,24 +52,24 @@
   }
 }
 
-.external-api-search-results .external-api-result-card {
+.modal-search-results .modal-search-result {
   border-bottom: 1px solid $color-grey;
 }
 
 /* the 'Select' button displayed in the modal dialog */
-.external-api-result-card .external-api-result-selector,
-.external-api-result-card .external-api-result-unselector {
+.modal-search-result .modal-search-result-selector,
+.modal-search-result .modal-search-result-unselector {
   display: inline-block;
   background-color: $color-white;
   border-radius: 25px;
   padding: 2px 5px;
   font-size: 1.3rem;
 }
-.external-api-result-card .external-api-result-selector {
+.modal-search-result .modal-search-result-selector {
   border: 1px solid $color-green;
   color: $color-green;
 }
-.external-api-result-card .external-api-result-unselector {
+.modal-search-result .modal-search-result-unselector {
   border: 1px solid $color-red;
   color: $color-red;
 }

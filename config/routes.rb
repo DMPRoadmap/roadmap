@@ -168,7 +168,6 @@ Rails.application.routes.draw do
     resources :contributors, except: %i[show]
 
     resources :research_outputs, except: %i[show]
-
     member do
       get "answer"
       get "publish"
@@ -179,9 +178,11 @@ Rails.application.routes.draw do
       post "set_test", constraints: { format: [:json] }
       get "mint"
 
-      # AJAX Form helpers for research_output form
+      # Ajax endpoint for ResearchOutput.output_type selection
       get "output_type_selection", controller: "research_outputs", action: "select_output_type"
-      get :repository_search, controller: "research_outputs", action: "repository_search"
+
+      # AJAX endpoints for repository search and selection
+      get :repository_search, controller: "research_outputs"
     end
   end
 

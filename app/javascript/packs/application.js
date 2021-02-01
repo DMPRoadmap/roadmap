@@ -24,9 +24,9 @@ import 'bootstrap-select';
 
 // Utilities
 import '../src/utils/accordion';
-import '../src/utils/apiResultCard';
 import '../src/utils/autoComplete';
 import '../src/utils/externalLink';
+import '../src/utils/modalSearch';
 import '../src/utils/outOfFocus';
 import '../src/utils/paginable';
 import '../src/utils/panelHeading';

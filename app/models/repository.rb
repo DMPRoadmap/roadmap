@@ -29,7 +29,7 @@ class Repository < ApplicationRecord
   # = Associations =
   # ================
 
-  has_many :research_outputs
+  has_and_belongs_to_many :research_outputs
 
   # ==========
   # = Scopes =
@@ -44,7 +44,7 @@ class Repository < ApplicationRecord
     query_val = subject.present? ? "%\"#{subject}\"%" : "%"
     where("info->>'$.subjects' LIKE ?", query_val)
   }
-  
+
   scope :search, lambda { |term|
     where("LOWER(name) LIKE ?", "%#{term}%")
       .or(where("info->>'$.keywords' LIKE ?", "%#{term}%"))

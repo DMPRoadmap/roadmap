@@ -97,15 +97,17 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
   </div>
 
   <div class="form-group row">
-    <div class="col-md-12">
-      <%= render partial: "shared/external_apis/selected_results",
-                   locals: {
-                      context: research_output,
-                      topic: "repositories",
-                      button_tooltip: repository_tooltip,
-                      result_partial: "research_outputs/repositories/search_result"
-                    } %>
-    </div>
+    <%= render partial: "layouts/modal_search/selections",
+               locals: {
+                 namespace: "repositories",
+                 button_label: _("Add a repository"),
+                 item_name_attr: :name,
+                 results: research_output.repositories,
+                 selected: true,
+                 result_partial: "research_outputs/repositories/search_result",
+                 search_path: repository_search_plan_path(research_output.plan),
+                 search_method: :get
+               } %>
   </div>
 
   <div class="form-group row">
@@ -169,12 +171,4 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
   </div>
 <% end %>
 
-<%= render partial: "shared/external_apis/search_modal",
-           locals: {
-             context: research_output,
-             topic: "repositories",
-             label: "Repository",
-             url: repository_search_plan_path(research_output.plan),
-             filter_partial: "research_outputs/repositories/filters",
-             result_partial: "research_outputs/repositories/search_result",
-           } %>
+<%= render partial: "research_outputs/repositories/search", locals: { research_output: research_output } %>
