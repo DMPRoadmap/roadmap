@@ -1,7 +1,5 @@
 <% unless validation == "none" %>
-    <% if validation.nil? %>
-        <span class="fa fa-check-circle valid"></span>
-    <% else %>
+    <% if validation.present? %>
         <span class="fa fa-times-circle invalid"></span>
         <span class="fa fa-question-circle explanation" title="<%= display_validation_message(validation) %>"></span>
     <% end %>
