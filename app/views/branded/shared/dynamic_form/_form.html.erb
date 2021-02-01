@@ -23,6 +23,7 @@
   <%# Constant values are displayed as readonly text field %>
   <% if const.present?%>
     <%= create_text_field(f, const, field_name, label, field_id, readonly: true, validation: "none", ttip: ttip) %>
+    
     <% next %>
   <% end %>
 
@@ -30,16 +31,26 @@
   <%# REGISTRIES %>
   <%# ############################### %>
   <% if prop['registry_id'].present? && prop['inputType'] == 'dropdown' %>
-      <% if prop["type"].eql?('object') %>
-        <%# Complex registries (value in an object) %>
-        <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
-        <% value = value["id"] if value.present? %>
-        <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, field_id, registryValues, template_locale, readonly: readonly, multiple: false, validation: validation, ttip: ttip, default_value: default_value) %>
-      <% elsif prop["type"].eql?('string')%>
-        <%# Simple registries (value in a string) %>
-        <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
-        <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, field_id, registryValues, template_locale, readonly: readonly, validation: validation, ttip: ttip, default_value: default_value) %>
-      <% end %>
+    <% if prop["type"].eql?('object') %>
+      <%# Complex registries (value in an object) %>
+      <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
+      <% value_id = value["id"] if value.present? %>
+      <div class="col-md-12">
+        <fieldset class="sub-fragment registry">
+          <legend class="sub-fragment registry" title="<%= ttip %>"><%= label %></legend>
+          <%= create_select_field(f, value_id, "#{f.object_name}[#{field_name}]", label, field_id, registryValues, template_locale, readonly: readonly, multiple: false, validation: validation, ttip: ttip, default_value: default_value) %>
+          <div class="col-md-12 registry-value">
+            <%= render(partial: 'registry_values/show', locals: { 
+                        registry_value: value 
+            }) %>
+        </fieldset>
+      </div>
+    <% elsif prop["type"].eql?('string')%>
+      <%# Simple registries (value in a string) %>
+      <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
+      <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, field_id, registryValues, template_locale, readonly: readonly, validation: validation, ttip: ttip, default_value: default_value) %>
+    <% end %>
+
     <% next %>
   <% end %>
 

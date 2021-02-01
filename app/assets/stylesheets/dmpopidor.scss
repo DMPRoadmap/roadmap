@@ -1160,6 +1160,18 @@ header .main-nav {
                 }
             }
         }
+
+        &.registry {
+            legend {
+                color: $blue;
+                text-transform: none;
+            }
+            .registry-value {
+                display: flex;
+                flex-direction: column;
+                padding: 5px 20px;
+            }
+        }
     }
 
 
