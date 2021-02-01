@@ -25,6 +25,12 @@
       <li role="form">
         <a href="#departments" role="tab" aria-controls="form" data-toggle="tab"><%= _('Schools/Departments') %></a>
       </li>
+
+      <% if current_user.can_super_admin? %>
+        <li role="merge">
+          <a href="#merge" role="tab" aria-controls="form" data-toggle="tab"><%= _('Merge') %></a>
+        </li>
+      <% end %>
     </ul>
 
     <!-- render navigation tabs for the template-->
@@ -61,6 +67,18 @@
           </div>
         </div>
       </div>
+
+      <% if current_user.can_super_admin? %>
+        <div role="tabpanel" class="tab-pane" id="merge">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div>
+                <%= render partial: 'orgs/merge_form', locals: { org: org, analysis: nil } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
