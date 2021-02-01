@@ -258,7 +258,9 @@ class MadmpFragment < ActiveRecord::Base
     fragmented_data = {}
     param_data.each do |prop, content|
       schema_prop = schema.schema["properties"][prop]
-      if schema_prop["type"].present? && schema_prop["type"].eql?("object")
+      if schema_prop["type"].present? && 
+          schema_prop["type"].eql?("object") && 
+          schema_prop["schema_id"].present?
         sub_data = content # TMP: for readability
         sub_schema = MadmpSchema.find(schema_prop["schema_id"])
         instantiate unless data[prop].present?

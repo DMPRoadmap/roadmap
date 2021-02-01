@@ -94,7 +94,12 @@ class MadmpFragmentsController < ApplicationController
     schema = @schemas.find(p_params[:schema_id])
     source = p_params[:source]
 
-    data = data_reformater(schema.schema, schema_params(schema), schema.classname)
+    data = data_reformater(
+      schema.schema,
+      schema_params(schema),
+      schema.classname,
+      p_params[:template_locale]
+    )
 
     # rubocop:disable Metrics/BlockLength
     Answer.transaction do

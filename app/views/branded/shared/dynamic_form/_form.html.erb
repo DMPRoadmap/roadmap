@@ -7,7 +7,6 @@
 <% dmp_fragments = current_fragment.present? ? current_fragment.get_dmp_fragments() : [] %>
 <% schema_properties = schema.schema["properties"]%>
 <% required_fields = schema.schema["required"] %>
-
 <% schema_properties.each do |key, prop| %>
   <% value = data[key] unless data.nil? %>
   <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{key}]" : key %>
@@ -28,13 +27,14 @@
   <% case prop['type'] %>
     <% when 'string' %>
       <% if prop['inputType'].present? %>
-        <% if prop['inputType'] == 'dropdown' && dropdownValues %>
-          <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, field_id, dropdownValues, required: required, readonly: readonly, validation: validation, ttip: ttip, default_value: default_value) %>
+        <% if prop['inputType'] == 'dropdown' && prop['registry_id'] %>
+          <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
+          <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, field_id, registryValues, template_locale, readonly: readonly, validation: validation, ttip: ttip, default_value: default_value) %>
         <% elsif prop['inputType'] == 'textarea' %>
           <%= create_textarea_field(f, value, field_name, label, field_id, required: required, readonly: readonly, validation: validation, example: example, ttip: ttip, default_value: default_value) %>
         <% end %>
-      <% elsif prop['format'].nil?%>
-        <%= create_text_field(f, value, field_name, label, field_id, required: required, readonly: readonly, validation: validation, ttip: ttip, example: example, default_value: default_value) %>
+      <% elsif prop['format'].nil? %>
+          <%= create_text_field(f, value, field_name, label, field_id, required: required, readonly: readonly, validation: validation, ttip: ttip, example: example, default_value: default_value) %>
       <% elsif prop['format'] == 'date' %>
         <%= create_date_field(f, value, field_name, label, field_id, required: required, readonly: readonly, validation: validation, ttip: ttip, example: example, default_value: default_value) %>
       <% elsif prop['format'] == 'uri' %>
@@ -134,6 +134,10 @@
             </fieldset>
           </div>
         <% end %>
+      <% elsif prop['inputType'] == 'dropdown' && prop['registry_id'] %>
+        <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
+        <% value = value["id"] if value.present? %>
+        <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, field_id, registryValues, template_locale, readonly: readonly, multiple: false, validation: validation, ttip: ttip, default_value: default_value) %>
       <% end %>
     <% end %>
   <% end %>
