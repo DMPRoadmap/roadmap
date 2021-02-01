@@ -1,3 +1,14 @@
+<div class="row">
+  <div class="col-xs-12">
+    <p><%= _("This plan is based on the \"%{template_title}\" template provided by %{org_name} - (ver: %{version_nbr}, pub: %{version_date}).") %{
+        template_title: plan.template.title,
+        version_nbr: plan.template.version,
+        version_date: plan.template.updated_at.strftime("%Y-%m-%d"),
+        org_name: plan.template.org.name
+      } %></p>
+  </div>
+</div>
+
 <div class="tab-panels" role="tabpanel">
   <div id="phase-#<%= phase.id %>-panel" class="tab-panel active answering-phase" aria-hidden="false" aria-labelledby="phase-#<%= phase.id %>-tab">
     <div class="row">
