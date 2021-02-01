@@ -117,7 +117,7 @@
       <% elsif prop['inputType'] == 'dropdown' && prop['registry_id'] %>
         <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
         <% value = value["id"] if value.present? %>
-        <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, registryValues, template_locale, readonly: readonly, multiple: false, validation: validation, ttip: ttip, default_value: default_value) %>
+        <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, field_id, registryValues, template_locale, readonly: readonly, multiple: false, validation: validation, ttip: ttip, default_value: default_value) %>
       <% end %>
     <% end %>
   <% end %>
