@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_13_174230) do
+ActiveRecord::Schema.define(version: 2021_02_01_180637) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -230,6 +230,7 @@ ActiveRecord::Schema.define(version: 2021_01_13_174230) do
     t.text "feedback_email_msg"
     t.string "contact_name"
     t.boolean "managed", default: false, null: false
+    t.boolean "allow_doi", default: false
     t.index ["language_id"], name: "fk_rails_5640112cab"
     t.index ["region_id"], name: "fk_rails_5a6adf6bab"
   end
@@ -368,6 +369,13 @@ ActiveRecord::Schema.define(version: 2021_01_13_174230) do
     t.index ["url"], name: "index_repositories_on_url"
   end
 
+  create_table "repositories_research_outputs", force: :cascade do |t|
+    t.bigint "research_output_id"
+    t.bigint "repository_id"
+    t.index ["repository_id"], name: "index_repositories_research_outputs_on_repository_id"
+    t.index ["research_output_id"], name: "index_repositories_research_outputs_on_research_output_id"
+  end
+
   create_table "research_outputs", force: :cascade do |t|
     t.integer "plan_id"
     t.integer "output_type", default: 3, null: false
@@ -463,6 +471,7 @@ ActiveRecord::Schema.define(version: 2021_01_13_174230) do
     t.integer "family_id"
     t.boolean "archived"
     t.text "links"
+    t.boolean "allow_research_outputs", default: false
     t.index ["family_id", "version"], name: "index_templates_on_family_id_and_version", unique: true
     t.index ["family_id"], name: "index_templates_on_family_id"
     t.index ["org_id", "family_id"], name: "template_organisation_dmptemplate_index"
