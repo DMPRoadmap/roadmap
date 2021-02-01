@@ -25,6 +25,9 @@ general_tooltip = _("DMP IDs track connections between your DMP and research out
     <li><%= _("identified your funder") %></li>
     <li><%= _("defined at least one contributor with an ORCID and an affiliation") %></li>
   </ul>
+  <% if plan.is_test? %>
+    <p><%= _("Your plan is currently designated as a 'mock project for testing'. You will not be able to register until you have unchecked this flag on the 'Project Details' tab.") %></p>
+  <% end %>
   <p><%= _("Once the steps above are satisfied, a button to register your plan will appear here.") %></p>
 <% else %>
   <p>

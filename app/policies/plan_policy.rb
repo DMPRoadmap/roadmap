@@ -21,9 +21,11 @@ class PlanPolicy < ApplicationPolicy
   end
 
   def publish?
+    # TODO: The last portion of this check is for our soft-launch of DOI minting!
     @plan.editable_by?(@user.id) ||
       (@user.can_org_admin? &&
-       @user.org.plans.include?(@plan))
+       @user.org.plans.include?(@plan)) ||
+      (@user.org&.allow_doi? && @user.can_org_admin?)
   end
 
   def export?

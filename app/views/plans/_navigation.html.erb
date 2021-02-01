@@ -7,10 +7,12 @@
     <%= link_to _("Collaborators"), plan_contributors_path(plan), role: "tab",
                 aria: { controls: "content" } %>
   </li>
-  <li role="research_outputs" class="<%= (active_page?(plan_research_outputs_path(plan)) ? "active" : "") %>">
-    <%= link_to _("Research Outputs"), plan_research_outputs_path(plan), role: "tab",
-                aria: { controls: "content" } %>
-  </li>
+  <% if plan.template.allow_research_outputs? %>
+    <li role="research_outputs" class="<%= (active_page?(plan_research_outputs_path(plan)) ? "active" : "") %>">
+      <%= link_to _("Research Outputs"), plan_research_outputs_path(plan), role: "tab",
+                  aria: { controls: "content" } %>
+    </li>
+  <% end %>
   <% phases.each do |phase| %>
     <li role="presentation" class="<%= (active_page?(edit_plan_path(plan.id, phase_id: phase.id)) ? 'active' : '') %>">
       <a href="<%= edit_plan_path(plan.id, phase_id: phase.id) %>" role="tab" aria-controls="content">
@@ -28,7 +30,9 @@
       <a href="<%= download_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Download') %></a>
     </li>
   <% end %>
-  <% if plan.administerable_by?(current_user) || (current_user.can_org_admin? && current_user.org.plans.include?(plan)) %>
+
+  <%# TODO: Last portion of this check is temporary to only allow DOI minting for certain orgs during soft-launch %>
+  <% if plan.administerable_by?(current_user) || (current_user.can_org_admin? && current_user.org.plans.include?(plan)) || (current_user.org&.allow_doi? && current_user.can_org_admin?) %>
     <li role="presentation" class="<%= (active_page?(publish_plan_path(plan)) ? 'active' : '') %>">
       <a href="<%= publish_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Finalise / Publish') %></a>
     </li>
