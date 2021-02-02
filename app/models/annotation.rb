@@ -77,7 +77,8 @@ class Annotation < ActiveRecord::Base
 
   # text is translated through the translation gem
   def text
-    _(read_attribute(:text))
+    text = read_attribute(:text)
+    _(text) unless text.blank?
   end
 
   # The text from the annotation

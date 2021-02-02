@@ -108,11 +108,13 @@ class Question < ActiveRecord::Base
 
   # text and default_value are translated through the translation gem
   def text
-    _(read_attribute(:text))
+    text = read_attribute(:text)
+    _(text) unless text.blank?
   end
 
   def default_value
-    _(read_attribute(:default_value))
+    default_value = read_attribute(:default_value)
+    _(default_value) unless default_value.blank?
   end
   
   def deep_copy(**options)
