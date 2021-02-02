@@ -9,6 +9,7 @@ namespace :madmpopidor do
     Rake::Task["madmpopidor:initialize_template_locale"].execute
     Rake::Task["madmpopidor:seed"].execute
     Rake::Task["madmpopidor:initialize_plan_fragments"].execute
+    Rake::Task["madmpopidor:load_registries"].execute
   end
 
   desc "Initialize Dmp, Project, Meta & ResearchOutputs JSON fragments for the ancient plans"
@@ -91,6 +92,23 @@ namespace :madmpopidor do
       rescue ActiveRecord::RecordNotFound => e
         p "ERROR: template name substitution failed in #{schema.name}: #{e.message}"
         next
+      end
+    end
+  end
+
+  # Load registries
+  desc "Load JSON registries"
+  task load_registries: :environment do
+    registries_path = Rails.root.join("config/schemas/registry_values.json")
+    registries = JSON.load(File.open(registries_path))
+
+    registries.each do |registry_name, registry_values|
+      registry = Registry.find_or_initialize_by(name: registry_name) do |r|
+        r.name = registry_name
+        r.version = 1
+      end
+      registry_values.each do |reg_val|
+        RegistryValue.create!(data: { "value" => reg_val }, registry: registry)
       end
     end
   end

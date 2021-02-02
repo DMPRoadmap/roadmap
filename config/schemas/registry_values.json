@@ -1,0 +1,278 @@
+{
+    "CostType": [
+        {
+            "en_GB": "Personnel cost",
+            "fr_FR": "Frais de personnel"
+        },
+        {
+            "en_GB": "Training",
+            "fr_FR": "Formation"
+        },
+        {
+            "en_GB": "Software",
+            "fr_FR": "Logiciel"
+        },
+        {
+            "en_GB": "Hardware",
+            "fr_FR": "Matériel informatique"
+        },
+        {
+            "en_GB": "Other",
+            "fr_FR": "Autre"
+        }
+    ],
+    "CostUnit": [
+        {
+            "en_GB": "days",
+            "fr_FR": "jours x homme"
+        },
+        {
+            "en_GB": "hours",
+            "fr_FR": "heures"
+        },
+        {
+            "en_GB": "other",
+            "fr_FR": "autre"
+        }
+    ],
+    "ISO3166-alpha2": [
+        "FR",
+        "GB",
+        "US",
+        "DE"
+    ],
+    "ISO4217": [
+        "EUR",
+        "GBP",
+        "USD"
+    ],
+    "DataAccess": [
+        {
+            "en_GB": "Open",
+            "fr_FR": "Ouvert"
+        },
+        {
+            "en_GB": "Restricted",
+            "fr_FR": "Restreint"
+        },
+        {
+            "en_GB": "Closed",
+            "fr_FR": "Fermé"
+        }
+    ],
+    "DataNature": [
+        {
+            "en_GB": "Observation",
+            "fr_FR": "Observation"
+        },
+        {
+            "en_GB": "Experimental Data",
+            "fr_FR": "Données expérimentales"
+        },
+        {
+            "en_GB": "Simulation",
+            "fr_FR": "Simulation"
+        },
+        {
+            "en_GB": "Model",
+            "fr_FR": "Modèle"
+        },
+        {
+            "en_GB": "Other",
+            "fr_FR": "Autre"
+        }
+    ],
+    "FundingStatus": [
+        {
+            "en_GB": "Planned",
+            "fr_FR": "Planifié"
+        },
+        {
+            "en_GB": "Applied",
+            "fr_FR": "Soumis"
+        },
+        {
+            "en_GB": "Granted",
+            "fr_FR": "Approuvé"
+        },
+        {
+            "en_GB": "Rejected",
+            "fr_FR": "Rejeté"
+        }
+    ],
+    "MediaType": [
+        "text/csv",
+        "text/markdown",
+        "video/JPEG",
+        "application/json",
+        "…"
+    ],
+    "PIDSystem": [
+        "DOI",
+        "ARK",
+        "Handle",
+        "IGSN",
+        "URL",
+        {
+            "en_GB": "Other",
+            "fr_FR": "Autre"
+        }
+    ],
+    "ResearchDataType": [
+        {
+            "en_GB": "Dataset",
+            "fr_FR": "Jeu de données"
+        },
+        {
+            "en_GB": "Software",
+            "fr_FR": "Logiciel"
+        },
+        {
+            "en_GB": "Model",
+            "fr_FR": "Modèle"
+        },
+        {
+            "en_GB": "Physical object",
+            "fr_FR": "Objet physique"
+        },
+        "Workflow",
+        {
+            "en_GB": "Audiovisual",
+            "fr_FR": "Audiovisuel"
+        },
+        {
+            "en_GB": "Collection",
+            "fr_FR": "Collection"
+        },
+        {
+            "en_GB": "Image",
+            "fr_FR": "Image"
+        },
+        {
+            "en_GB": "Interactive resource",
+            "fr_FR": "Resource interactive"
+        },
+        {
+            "en_GB": "Service",
+            "fr_FR": "Service"
+        },
+        {
+            "en_GB": "Sound",
+            "fr_FR": "Son"
+        },
+        {
+            "en_GB": "Text",
+            "fr_FR": "Texte"
+        },
+        {
+            "en_GB": "Other",
+            "fr_FR": "Autre"
+        }
+    ],
+    "ResourceIdSystem": [
+        "DOI",
+        "ARK",
+        "Handle",
+        "IGSN",
+        {
+            "en_GB": "Other",
+            "fr_FR": "Autres"
+        }
+    ],
+    "Role": [
+        {
+            "en_GB": "Project coordinator",
+            "fr_FR": "Coordinateur du projet"
+        },
+        {
+            "en_GB": "DMP manager",
+            "fr_FR": "Responsable du plan de gestion de données"
+        },
+        {
+            "en_GB": "Data producer",
+            "fr_FR": "Producteur de données"
+        },
+        {
+            "en_GB": "Data manager",
+            "fr_FR": "Gestionnaire de données"
+        },
+        "Data steward",
+        {
+            "en_GB": "Legal Expert",
+            "fr_FR": "Expert juridique"
+        },
+        {
+            "en_GB": "Data Protection Officer",
+            "fr_FR": "Responsable de la protection des données"
+        },
+        {
+            "en_GB": "Other",
+            "fr_FR": "Autre"
+        }
+    ],
+    "StorageType": [
+        {
+            "en_GB": "Hard disk drive",
+            "fr_FR": "Disque dur"
+        },
+        {
+            "en_GB": "Solid state drive",
+            "fr_FR": "Disque SSD"
+        },
+        {
+            "en_GB": "USB key",
+            "fr_FR": "Clé USB"
+        },
+        {
+            "en_GB": "NAS server",
+            "fr_FR": "Serveur NAS"
+        },
+        "Cloud",
+        "CD",
+        "DVD",
+        {
+            "en_GB": "Magnetic tape",
+            "fr_FR": "Bande magnétique"
+        }
+    ],
+    "YesNoUnknown": [
+        {
+            "en_GB": "Yes",
+            "fr_FR": "Oui"
+        },
+        {
+            "en_GB": "No",
+            "fr_FR": "Non"
+        },
+        {
+            "en_GB": "Unknown",
+            "fr_FR": "Ne sais pas"
+        }
+    ],
+    "VolumeUnit": [
+        "Octets",
+        "Kilooctets",
+        "Mégaoctets",
+        "Téraoctets",
+        "Pentaoctets"
+    ],
+    "GenciCenter": [
+        "IDRIS",
+        "TGCC",
+        "Cines"
+    ],
+    "GenciServiceType": [
+        {
+            "en_GB": "Working directory",
+            "fr_FR": "Répertoire de travail"
+        },
+        {
+            "en_GB": "Store",
+            "fr_FR": "Stockage"
+        },
+        {
+            "en_GB": "Secured store",
+            "fr_FR": "Stockage sécurisé"
+        }
+    ]
+}
