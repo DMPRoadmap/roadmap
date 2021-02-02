@@ -361,7 +361,7 @@ class MadmpFragmentsController < ApplicationController
 
   def permitted_params
     permit_arr = [:id, :dmp_id, :parent_id, :schema_id, :source, :template_locale,
-                  :property_name, :query_id, %i[id plan_id research_output_id
+                  :property_name, :query_id, answer: %i[id plan_id research_output_id
                              question_id lock_version is_common]
                 ]
     params.require(:madmp_fragment).permit(permit_arr)
