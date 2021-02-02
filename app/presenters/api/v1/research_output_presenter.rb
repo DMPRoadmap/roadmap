@@ -7,7 +7,7 @@ module Api
     class ResearchOutputPresenter
 
       attr_reader :dataset_id, :preservation_statement, :security_and_privacy,
-                  :distributions, :metadata, :technical_resources
+                  :data_quality_assurance, :distributions, :metadata, :technical_resources
 
       def initialize(output:)
         @research_output = output
@@ -15,8 +15,9 @@ module Api
 
         @plan = output.plan
         @dataset_id = identifier
-        @preservation_statement = fetch_privacy_statements(themes: %w[Preservation])
+        @preservation_statement = fetch_q_and_a_as_single_statement(themes: %w[Preservation])
         @security_and_privacy = fetch_q_and_a(themes: ["Ethics & privacy", "Storage & security"])
+        @data_quality_assurance = fetch_q_and_a_as_single_statement(themes: ["Data Collection"])
       end
 
       private
@@ -25,7 +26,7 @@ module Api
         Identifier.new(identifiable: @research_output, value: @research_output.id)
       end
 
-      def fetch_privacy_statements(themes:)
+      def fetch_q_and_a_as_single_statement(themes:)
         fetch_q_and_a(themes: themes).collect { |item| item[:description] }.join("<br>")
       end
 

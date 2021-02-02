@@ -52,14 +52,17 @@ module ExternalApis
         Rails.configuration.x.dmphub&.delete_path
       end
 
+      def caller_name
+        ApplicationService.application_name.split("-").first.to_sym
+      end
+
       # Create a new DOI
-      # rubocop:disable Metrics/MethodLength
       def mint_doi(plan:)
         return nil unless active? && auth
 
         hdrs = {
           "Authorization": @token,
-          "Server-Agent": "#{ApplicationService.application_name} (#{client_id})"
+          "Server-Agent": "#{caller_name} (#{client_id})"
         }
         resp = http_post(uri: "#{api_base_url}#{mint_path}",
                          additional_headers: hdrs, debug: false,
@@ -74,7 +77,6 @@ module ExternalApis
 
         process_response(response: resp)
       end
-      # rubocop:enable Metrics/MethodLength
 
       # Update the DOI
       def update_doi(plan:)
@@ -97,7 +99,6 @@ module ExternalApis
       attr_accessor :token
 
       # Authenticate with the DMPHub
-      # rubocop:disable Metrics/MethodLength
       def auth
         data = {
           grant_type: "client_credentials",
@@ -113,7 +114,6 @@ module ExternalApis
         @token = process_token(json: resp.body)
         @token.present?
       end
-      # rubocop:enable Metrics/MethodLength
 
       # Process the authentication response from DMPHub to retrieve the JWT
       def process_token(json:)
@@ -137,7 +137,6 @@ module ExternalApis
       end
 
       # Extract the DOI from the response from the DMPHub
-      # rubocop:disable Metrics/AbcSize
       def process_response(response:)
         hash = JSON.parse(response.body).with_indifferent_access
         return nil unless hash.fetch(:items, []).length == 1
@@ -149,7 +148,6 @@ module ExternalApis
         log_error(method: "DMPHub parse response: ", error: e)
         nil
       end
-      # rubocop:enable Metrics/AbcSize
 
     end
 

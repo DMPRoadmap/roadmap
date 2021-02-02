@@ -13,17 +13,26 @@ if output.is_a?(ResearchOutput)
 
   json.preservation_statement presenter.preservation_statement
   json.security_and_privacy presenter.security_and_privacy
+  json.data_quality_assurance presenter.data_quality_assurance
 
   json.dataset_id do
     json.partial! "api/v1/identifiers/show", identifier: presenter.dataset_id
   end
 
-  json.distribution [output.plan] do |distribution|
-    json.title "PDF - #{distribution.title}"
-    json.data_access "open"
-    json.download_url Rails.application.routes.url_helpers.plan_export_url(distribution, format: :pdf)
-    json.format do
-      json.array! ["application/pdf"]
+  json.distribution output.repositories do |repository|
+    json.byte_size output.byte_size
+    json.data_access output.access
+    json.format output.mime_type
+
+    json.host do
+      json.title repository.name
+      json.description repository.description
+      json.url repository.url
+
+      # DMPTool extensions to the RDA common metadata standard
+      json.dmproadmap_host_id do
+        json.partial! "api/v1/identifiers/show", identifier: repository.identifiers.last
+      end
     end
   end
 

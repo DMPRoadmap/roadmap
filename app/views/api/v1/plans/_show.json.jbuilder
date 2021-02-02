@@ -60,12 +60,13 @@ unless @minimal
     json.partial! "api/v1/datasets/show", output: output
   end
 
-  json.extension [plan.template] do |template|
-    json.set! ApplicationService.application_name.split("-").first.to_sym do
-      json.template do
-        json.id template.id
-        json.title template.title
-      end
-    end
+  # DMPTool extensions to the RDA common metadata standard
+  json.dmproadmap_template do
+    json.id plan.template.id
+    json.title plan.template.title
+  end
+  json.dmproadmap_related_identifiers presenter.related_identifiers do |related|
+    json.relation_type related[:relation_type]
+    json.identifier related[:identifier]
   end
 end
