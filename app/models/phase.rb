@@ -132,11 +132,12 @@ class Phase < ActiveRecord::Base
 
   # title and description are translated through the translation gem
   def title
-    _(read_attribute(:title))
+    title = read_attribute(:title)
+    _(title) unless title.blank?
   end
 
   def description
-    _(read_attribute(:description))
+    description = read_attribute(:description)
+    _(description) unless description.blank?
   end
-
 end

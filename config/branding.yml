@@ -26,12 +26,21 @@ defaults: &defaults
       - link5:
         title: 'DCC Checklist for a Data Management Plan'
         url: 'https://dmponline.dcc.ac.uk/files/DMP_Checklist_2013.pdf'
+      - link6:
+        title: 'DMP Assistant equivalent in France'
+        url: 'https://dmp.opidor.fr'
+      - link7:
+        title: 'France funder requirements for Data Management Plans'
+        url: 'https://anr.fr/fr/actualites-de-lanr/details/news/lanr-met-en-place-un-plan-de-gestion-des-donnees-pour-les-projets-finances-des-2019/'
 
     # Warning: this value will be used to override the URl of the application's built-in contact form. It will
     #          replace the link in all email communications as well as the contact link in the page footer!
     #
     #          Comment this line out if you want to use DMPRoadmap's built-in contact form.
-    contact_us_url: 'https://portagenetwork.ca/contact-us/'
+    # We are not using this entry as we need different contact_us_path based on
+    # the user selected locale. This is handled by overriding the method contact_us_path on 
+    # application_helper.rb
+    # contact_us_url: 'https://portagenetwork.ca/contact-us/'
 
   application: &application_defaults
     name: 'DMP Assistant'

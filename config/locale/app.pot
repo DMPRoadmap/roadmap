@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-01-26 15:11-0700\n"
-"PO-Revision-Date: 2021-01-26 15:11-0700\n"
+"POT-Creation-Date: 2021-02-02 11:09-0700\n"
+"PO-Revision-Date: 2021-02-02 11:09-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -1082,18 +1082,18 @@ msgid "Phase"
 msgstr ""
 
 #: ../../app/models/concerns/exportable_plan.rb:23
-#: ../../app/models/exported_plan.rb:111 ../../app/models/exported_plan.rb:113
+#: ../../app/models/exported_plan.rb:112 ../../app/models/exported_plan.rb:114
 msgid "Section"
 msgstr ""
 
 #: ../../app/models/concerns/exportable_plan.rb:23
-#: ../../app/models/exported_plan.rb:111
+#: ../../app/models/exported_plan.rb:112
 msgid "Question"
 msgstr ""
 
 #: ../../app/models/concerns/exportable_plan.rb:23
 #: ../../app/models/concerns/exportable_plan.rb:25
-#: ../../app/models/exported_plan.rb:111 ../../app/models/exported_plan.rb:113
+#: ../../app/models/exported_plan.rb:112 ../../app/models/exported_plan.rb:114
 msgid "Answer"
 msgstr ""
 
@@ -1205,27 +1205,27 @@ msgstr ""
 msgid "for 'Question text' can't be blank."
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:111 ../../app/models/exported_plan.rb:113
+#: ../../app/models/exported_plan.rb:112 ../../app/models/exported_plan.rb:114
 msgid "Selected option(s)"
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:111 ../../app/models/exported_plan.rb:113
+#: ../../app/models/exported_plan.rb:112 ../../app/models/exported_plan.rb:114
 msgid "Answered by"
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:111 ../../app/models/exported_plan.rb:113
+#: ../../app/models/exported_plan.rb:112 ../../app/models/exported_plan.rb:114
 msgid "Answered at"
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:154
+#: ../../app/models/exported_plan.rb:155
 msgid "Details"
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:161
+#: ../../app/models/exported_plan.rb:162
 msgid "-"
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:180
+#: ../../app/models/exported_plan.rb:181
 #: ../../app/views/shared/export/_plan.erb:52
 #: ../../app/views/shared/export/_plan_txt.erb:47
 msgid "Question not answered."
@@ -1251,7 +1251,7 @@ msgstr ""
 msgid "public"
 msgstr ""
 
-#: ../../app/models/plan.rb:56 ../../tmp/translation/database_strings.rb:403
+#: ../../app/models/plan.rb:56
 msgid "test"
 msgstr ""
 
@@ -1259,7 +1259,7 @@ msgstr ""
 msgid "private"
 msgstr ""
 
-#: ../../app/models/question.rb:151
+#: ../../app/models/question.rb:153
 msgid "guidance on"
 msgstr ""
 
@@ -1303,43 +1303,43 @@ msgstr ""
 msgid "A historical template cannot be retrieved for being modified"
 msgstr ""
 
-#: ../../app/models/template.rb:348
+#: ../../app/models/template.rb:350
 msgid "generate_copy! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:356
+#: ../../app/models/template.rb:358
 msgid "Copy of %{template}"
 msgstr ""
 
-#: ../../app/models/template.rb:364
+#: ../../app/models/template.rb:366
 msgid "generate_version! requires a published template"
 msgstr ""
 
-#: ../../app/models/template.rb:379
+#: ../../app/models/template.rb:381
 msgid "customize! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:384
+#: ../../app/models/template.rb:386
 msgid "customize! requires a template from a funder"
 msgstr ""
 
-#: ../../app/models/template.rb:420
+#: ../../app/models/template.rb:422
 msgid "You can not publish a published template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:424
+#: ../../app/models/template.rb:426
 msgid "You can not publish a historical version of this template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:429
+#: ../../app/models/template.rb:431
 msgid "You can not publish a template without phases.  "
 msgstr ""
 
-#: ../../app/models/template.rb:434
+#: ../../app/models/template.rb:436
 msgid "You can not publish a template without sections in a phase.  "
 msgstr ""
 
-#: ../../app/models/template.rb:439
+#: ../../app/models/template.rb:441
 msgid "You can not publish a template without questions in a section.  "
 msgstr ""
 
@@ -1752,11 +1752,11 @@ msgstr ""
 
 #: ../../app/views/contact_us/contacts/new.html.erb:10
 #: ../../app/views/layouts/_branding.html.erb:37
-#: ../../app/views/layouts/_footer.html.erb:26
-#: ../../app/views/layouts/_footer.html.erb:35
-#: ../../app/views/layouts/_footer.html.erb:44
-#: ../../app/views/layouts/_footer.html.erb:51
-#: ../../app/views/layouts/_footer.html.erb:57
+#: ../../app/views/layouts/_footer.html.erb:27
+#: ../../app/views/layouts/_footer.html.erb:36
+#: ../../app/views/layouts/_footer.html.erb:45
+#: ../../app/views/layouts/_footer.html.erb:52
+#: ../../app/views/layouts/_footer.html.erb:58
 #: ../../app/views/org_admin/plans/index.html.erb:39
 #: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:39
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:24
@@ -2081,7 +2081,7 @@ msgstr ""
 #: ../../app/views/layouts/_signin_signout.html.erb:6
 #: ../../app/views/org_admin/users/edit.html.erb:43
 #: ../../app/views/super_admin/users/edit.html.erb:53
-#: ../../tmp/translation/database_strings.rb:654
+#: ../../tmp/translation/database_strings.rb:610
 msgid "Language"
 msgstr ""
 
@@ -2443,39 +2443,39 @@ msgstr ""
 msgid "Notifications"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:13
+#: ../../app/views/layouts/_footer.html.erb:14
 msgid "About"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:14
+#: ../../app/views/layouts/_footer.html.erb:15
 #: ../../app/views/layouts/error.html.erb:68
 msgid "Contact us"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:15
+#: ../../app/views/layouts/_footer.html.erb:16
 msgid "Terms of use"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:16
+#: ../../app/views/layouts/_footer.html.erb:17
 #: ../../app/views/static_pages/privacy.html.erb:1
 #: ../../app/views/static_pages/privacy.html.erb:4
 msgid "Privacy statement"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:17
+#: ../../app/views/layouts/_footer.html.erb:18
 msgid "GitHub"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:25
-#: ../../app/views/layouts/_footer.html.erb:34
-#: ../../app/views/layouts/_footer.html.erb:43
-#: ../../app/views/layouts/_footer.html.erb:50
-#: ../../app/views/layouts/_footer.html.erb:56
+#: ../../app/views/layouts/_footer.html.erb:26
+#: ../../app/views/layouts/_footer.html.erb:35
+#: ../../app/views/layouts/_footer.html.erb:44
+#: ../../app/views/layouts/_footer.html.erb:51
+#: ../../app/views/layouts/_footer.html.erb:57
 msgid "(opens in a new window)"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:31
-#: ../../app/views/layouts/_footer.html.erb:34
+#: ../../app/views/layouts/_footer.html.erb:32
+#: ../../app/views/layouts/_footer.html.erb:35
 msgid "Canadian Association of Research Libraries"
 msgstr ""
 
@@ -2762,7 +2762,7 @@ msgstr ""
 
 #: ../../app/views/org_admin/phases/_phase.html.erb:37
 #: ../../app/views/org_admin/questions/_index.html.erb:1
-#: ../../tmp/translation/database_strings.rb:134
+#: ../../tmp/translation/database_strings.rb:87
 msgid "Questions"
 msgstr ""
 
@@ -3348,7 +3348,7 @@ msgid "Organisation Types"
 msgstr ""
 
 #: ../../app/views/orgs/_profile_form.html.erb:104
-#: ../../tmp/translation/database_strings.rb:649
+#: ../../tmp/translation/database_strings.rb:605
 msgid "Institution"
 msgstr ""
 
@@ -3505,7 +3505,7 @@ msgstr ""
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:5
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:5
 #: ../../app/views/plans/_show_details.html.erb:2
-#: ../../tmp/translation/database_strings.rb:401
+#: ../../tmp/translation/database_strings.rb:363
 msgid "Project Title"
 msgstr ""
 
@@ -4063,12 +4063,12 @@ msgid "Comment"
 msgstr ""
 
 #: ../../app/views/questions/_preview_question.html.erb:103
-#: ../../tmp/translation/database_strings.rb:42
+#: ../../tmp/translation/database_strings.rb:17
 msgid "Text field"
 msgstr ""
 
 #: ../../app/views/questions/_preview_question.html.erb:106
-#: ../../tmp/translation/database_strings.rb:41
+#: ../../tmp/translation/database_strings.rb:16
 msgid "Text area"
 msgstr ""
 
@@ -4621,225 +4621,205 @@ msgstr ""
 msgid "DCC Checklist for a Data Management Plan"
 msgstr ""
 
+#: ../../app/views/translation_io_exports/_home_page_links.html.erb:10
+msgid "DMP Assistant equivalent in France"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_home_page_links.html.erb:11
+msgid "France funder requirements for Data Management Plans"
+msgstr ""
+
 #: ../../app/views/translation_io_exports/_themes.html.erb:2
-#: ../../tmp/translation/database_strings.rb:11
 msgid "Active Data Storage"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:3
-#: ../../tmp/translation/database_strings.rb:35
 msgid "Audience"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:4
-#: ../../tmp/translation/database_strings.rb:32
 msgid "Backup Procedures"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:5
-#: ../../tmp/translation/database_strings.rb:12
 msgid "Data Capture Methods"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:6
-#: ../../tmp/translation/database_strings.rb:36
 msgid "Data Format"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:7
-#: ../../tmp/translation/database_strings.rb:29
 msgid "Data Organisation"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:8
-#: ../../tmp/translation/database_strings.rb:37
 msgid "Data Organization"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:9
-#: ../../tmp/translation/database_strings.rb:20
-#: ../../tmp/translation/database_strings.rb:189
+#: ../../tmp/translation/database_strings.rb:154
 msgid "Data Quality"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:10
-#: ../../tmp/translation/database_strings.rb:15
 msgid "Data Repository"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:11
-#: ../../tmp/translation/database_strings.rb:9
 msgid "Data Security"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:12
-#: ../../tmp/translation/database_strings.rb:21
 msgid "Data Selection"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:13
-#: ../../tmp/translation/database_strings.rb:34
 msgid "Data Type"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:14
-#: ../../tmp/translation/database_strings.rb:24
 msgid "Data Volumes"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:15
-#: ../../tmp/translation/database_strings.rb:18
 msgid "Description of Data Content"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:16
-#: ../../tmp/translation/database_strings.rb:5
 msgid "Discovery by Users"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:17
-#: ../../tmp/translation/database_strings.rb:31
 msgid "Documentation"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:18
-#: ../../tmp/translation/database_strings.rb:26
 msgid "Embargo Period"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:19
-#: ../../tmp/translation/database_strings.rb:28
 msgid "Ethical Issues"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:20
-#: ../../tmp/translation/database_strings.rb:13
 msgid "Existing Data"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:21
-#: ../../tmp/translation/database_strings.rb:17
 msgid "Expected Reuse"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:22
-#: ../../tmp/translation/database_strings.rb:25
 msgid "IPR Ownership and Licencing"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:23
-#: ../../tmp/translation/database_strings.rb:3
 msgid "Licensing of Existing Data"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:24
-#: ../../tmp/translation/database_strings.rb:27
 msgid "Managed Access Procedures"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:25
-#: ../../tmp/translation/database_strings.rb:22
 msgid "Metadata Capture"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:26
-#: ../../tmp/translation/database_strings.rb:30
-#: ../../tmp/translation/database_strings.rb:190
+#: ../../tmp/translation/database_strings.rb:155
 msgid "Metadata Standards"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:27
-#: ../../tmp/translation/database_strings.rb:10
 msgid "Method For Data Sharing"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:28
-#: ../../tmp/translation/database_strings.rb:8
 msgid "Period of Preservation"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:29
-#: ../../tmp/translation/database_strings.rb:6
 msgid "Preservation Plan"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:30
-#: ../../tmp/translation/database_strings.rb:2
 msgid "Related Policies"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:31
-#: ../../tmp/translation/database_strings.rb:23
 msgid "Relationship to Existing Data"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:32
-#: ../../tmp/translation/database_strings.rb:7
 msgid "Resourcing: Hardware and Software"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:33
-#: ../../tmp/translation/database_strings.rb:19
 msgid "Resourcing: Preservation and Data Sharing"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:34
-#: ../../tmp/translation/database_strings.rb:33
 msgid "Resourcing: Skills and Training"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:35
-#: ../../tmp/translation/database_strings.rb:4
 msgid "Responsibilities"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:36
-#: ../../tmp/translation/database_strings.rb:14
 msgid "Restrictions on Sharing"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:37
-#: ../../tmp/translation/database_strings.rb:16
 msgid "Timeframe For Data Sharing"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:41
-#: ../../tmp/translation/database_strings.rb:162
+#: ../../tmp/translation/database_strings.rb:2
+#: ../../tmp/translation/database_strings.rb:127
 msgid "Data Collection"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:42
-#: ../../tmp/translation/database_strings.rb:163
+#: ../../tmp/translation/database_strings.rb:3
+#: ../../tmp/translation/database_strings.rb:128
 msgid "Documentation and Metadata"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:43
-#: ../../tmp/translation/database_strings.rb:164
+#: ../../tmp/translation/database_strings.rb:4
+#: ../../tmp/translation/database_strings.rb:129
 msgid "Storage and Backup"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:44
-#: ../../tmp/translation/database_strings.rb:165
+#: ../../tmp/translation/database_strings.rb:5
+#: ../../tmp/translation/database_strings.rb:130
 msgid "Preservation"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:45
-#: ../../tmp/translation/database_strings.rb:183
+#: ../../tmp/translation/database_strings.rb:6
+#: ../../tmp/translation/database_strings.rb:148
 msgid "Sharing and Reuse"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:46
-#: ../../tmp/translation/database_strings.rb:167
+#: ../../tmp/translation/database_strings.rb:7
+#: ../../tmp/translation/database_strings.rb:132
 msgid "Responsibilities and Resources"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:47
-#: ../../tmp/translation/database_strings.rb:184
+#: ../../tmp/translation/database_strings.rb:8
+#: ../../tmp/translation/database_strings.rb:149
 msgid "Ethics and Legal Compliance"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:50
-#: ../../tmp/translation/database_strings.rb:229
+#: ../../tmp/translation/database_strings.rb:9
+#: ../../tmp/translation/database_strings.rb:191
 msgid ""
 "This section addresses data collection issues such as data types, file formats"
 ", naming conventions, and data organisation – factors that will improve the us"
@@ -4847,6 +4827,7 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:51
+#: ../../tmp/translation/database_strings.rb:10
 msgid ""
 "Because data are rarely self-explanatory, all research data should be accompan"
 "ied by metadata (information that describes the data according to community be"
@@ -4859,7 +4840,8 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:52
-#: ../../tmp/translation/database_strings.rb:231
+#: ../../tmp/translation/database_strings.rb:11
+#: ../../tmp/translation/database_strings.rb:193
 msgid ""
 "Planning how research data will be stored and backed up throughout and beyond "
 "a research project is critical in ensuring data security and integrity. Approp"
@@ -4870,7 +4852,7 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:53
-#: ../../tmp/translation/database_strings.rb:232
+#: ../../tmp/translation/database_strings.rb:194
 msgid ""
 "Data preservation will depend on potential reuse value, whether there are obli"
 "gations to either retain or destroy data, and the resources required to proper"
@@ -4881,7 +4863,8 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:54
-#: ../../tmp/translation/database_strings.rb:233
+#: ../../tmp/translation/database_strings.rb:13
+#: ../../tmp/translation/database_strings.rb:195
 msgid ""
 "Most Canadian research funding agencies now have policies requiring research d"
 "ata to be shared upon publication of the research results or within a reasonab"
@@ -4893,6 +4876,7 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:55
+#: ../../tmp/translation/database_strings.rb:14
 msgid ""
 "Data management focuses on the 'what' and 'how' of operationally supporting da"
 "ta across the research lifecycle.  Data stewardship focuses on 'who' is respon"
@@ -4903,6 +4887,7 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_themes.html.erb:56
+#: ../../tmp/translation/database_strings.rb:15
 msgid ""
 "Researchers and their teams need to be aware of the policies and processes, bo"
 "th ethical and legal, to which their research data management must comply. Pro"
@@ -5270,217 +5255,191 @@ msgstr ""
 msgid "Download users"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:38
+#: ../../tmp/translation/database_strings.rb:12
 msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempo"
-"r incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis n"
-"ostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. D"
-"uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu"
-" fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt i"
-"n culpa qui officia deserunt mollit anim id est laborum."
+"Data preservation will depend on potential reuse value, whether there are obli"
+"gations to either retain or destroy data, and the resources required to proper"
+"ly curate the data and ensure that it remains usable in the future. In some ci"
+"rcumstances, it may be desirable to preserve all versions of the data (e.g. ra"
+"w, processed, analyzed, final), but in others, it may be preferable to keep on"
+"ly selected or final data (e.g. transcripts instead of audio interviews)"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:39
-msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempo"
-"r incididunt ut labore et dolore magna aliqua."
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:43
+#: ../../tmp/translation/database_strings.rb:18
 msgid "Radio buttons"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:44
+#: ../../tmp/translation/database_strings.rb:19
 msgid "Check box"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:45
+#: ../../tmp/translation/database_strings.rb:20
 msgid "Dropdown"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:46
+#: ../../tmp/translation/database_strings.rb:21
 msgid "Multi select box"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:47
+#: ../../tmp/translation/database_strings.rb:22
 msgid "Date"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:48
+#: ../../tmp/translation/database_strings.rb:23
 msgid "a box that allows input of multiple lines of text"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:49
+#: ../../tmp/translation/database_strings.rb:24
 msgid "a box that allows input of a single line of text"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:50
+#: ../../tmp/translation/database_strings.rb:25
 msgid "a group of buttons that allow selection of a single value out of a set"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:51
+#: ../../tmp/translation/database_strings.rb:26
 msgid "a group of buttons that allow selection of multiple values out of a set"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:52
+#: ../../tmp/translation/database_strings.rb:27
 msgid "an area that displays a list of available values where one can be selected"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:53
+#: ../../tmp/translation/database_strings.rb:28
 msgid ""
 "an area that displays a list of available values where multiple can be selecte"
 "d"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:54
+#: ../../tmp/translation/database_strings.rb:29
 msgid "a date selection field"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:55
+#: ../../tmp/translation/database_strings.rb:30
 msgid "University of Alberta Template"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:56
+#: ../../tmp/translation/database_strings.rb:31
 msgid "MICYRN Data Management Plan Template"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:57
+#: ../../tmp/translation/database_strings.rb:32
 msgid "CASRAI Data in Publications DMP"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:58
+#: ../../tmp/translation/database_strings.rb:33
 msgid "CASRAI Data in Publications DMP - Sample"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:59
+#: ../../tmp/translation/database_strings.rb:34
 msgid "University of British Columbia Generic Template"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:60
+#: ../../tmp/translation/database_strings.rb:35
 msgid "Portage Template"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:61
+#: ../../tmp/translation/database_strings.rb:36
 msgid "University of Saskatchewan"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:62
+#: ../../tmp/translation/database_strings.rb:37
 msgid "CEOS Template - Draft"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:63
+#: ../../tmp/translation/database_strings.rb:38
 msgid "Ocean Data Management Plan"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:64
+#: ../../tmp/translation/database_strings.rb:39
 msgid "University of Manitoba "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:65
+#: ../../tmp/translation/database_strings.rb:40
 msgid "NRC Data Management Plan template Draft"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:66
+#: ../../tmp/translation/database_strings.rb:41
 msgid "Université de Montréal"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:67
+#: ../../tmp/translation/database_strings.rb:42
 msgid "University of Guelph Agri-Food Funding Template (Alliance/Food from Thought) "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:68
+#: ../../tmp/translation/database_strings.rb:43
 msgid "UVic DMP Template"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:69
+#: ../../tmp/translation/database_strings.rb:44
 msgid "template_test"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:70
+#: ../../tmp/translation/database_strings.rb:45
 msgid "York University"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:71
+#: ../../tmp/translation/database_strings.rb:46
 msgid "Memorial University of Newfoundland"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:72
+#: ../../tmp/translation/database_strings.rb:47
 msgid "OFI Module E (Ecosystem Indicators)"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:73
+#: ../../tmp/translation/database_strings.rb:48
 msgid "Dalhousie University Generic Plan"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:74
+#: ../../tmp/translation/database_strings.rb:49
 msgid "Test Fanshawe Template"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:75
+#: ../../tmp/translation/database_strings.rb:50
 msgid "Test Template 1"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:76
+#: ../../tmp/translation/database_strings.rb:51
 msgid "University of Waterloo Template"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:77
+#: ../../tmp/translation/database_strings.rb:52
 msgid "University of Manitoba Template B"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:78
+#: ../../tmp/translation/database_strings.rb:53
 msgid "Test OMAFRA-UG DMP template"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:79
+#: ../../tmp/translation/database_strings.rb:54
 msgid "GWF DMP Test"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:80
+#: ../../tmp/translation/database_strings.rb:55
 msgid "Vancouver Island University"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:81
+#: ../../tmp/translation/database_strings.rb:56
 msgid "Fanshawe DMP Template"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:82
+#: ../../tmp/translation/database_strings.rb:57
 msgid "CIOOS DMP Template"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:83
+#: ../../tmp/translation/database_strings.rb:58
 msgid "2020 Template"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:84
+#: ../../tmp/translation/database_strings.rb:59
 msgid "DEFAULT TITLE"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:85
-msgid "This test is for guidence UQAM"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:86
-msgid "This test is for guidence UQAM version 2"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:87
-msgid "tercer template"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:88
-msgid "un template hecho desde cero para ver que pasa cuando lo guardas con update"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:89
-msgid "este esta por aca sin cambiar visibilidad en upadte AHORA SI DISTE UPDATE"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:90
+#: ../../tmp/translation/database_strings.rb:60
 msgid "This is the generic DMP template for University of Alberta."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:91
+#: ../../tmp/translation/database_strings.rb:61
 msgid ""
 "The template is to help researchers associated with MICYRN member organization"
 "s to create data management plan that defines the data management approach for"
@@ -5488,7 +5447,7 @@ msgid ""
 "data handling practice and relevant additional documentation. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:92
+#: ../../tmp/translation/database_strings.rb:62
 msgid ""
 "<p>This is an hypothetical data management plan to support the implementation "
 "of an open access publishing policy that supports reproducible findings in CAS"
@@ -5497,30 +5456,30 @@ msgid ""
 "repository.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:93
+#: ../../tmp/translation/database_strings.rb:63
 msgid ""
 "\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:96
+#: ../../tmp/translation/database_strings.rb:66
 msgid "This is the generic DMP template for Portage."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:97
+#: ../../tmp/translation/database_strings.rb:67
 msgid ""
 "<p>A DMP template created by members of the Community of Practice for Ocean Da"
 "ta Management that is tailored to researchers working with ocean-related data."
 "</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:98
+#: ../../tmp/translation/database_strings.rb:68
 msgid ""
 "<p>This&nbsp;template is designed for UM researchers with guidance links, when"
 " applicable and available,&nbsp;to specific resources and supports located or "
 "affiliated with the University of Manitoba.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:99
+#: ../../tmp/translation/database_strings.rb:69
 msgid ""
 "<p>The planning phases of NRC research projects must incorporate the developme"
 "nt of a data management plan (DMP), which outlines the research/science data t"
@@ -5532,476 +5491,444 @@ msgid ""
 "(DMP, available on MyZone.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:100
-#: ../../tmp/translation/database_strings.rb:269
-#: ../../tmp/translation/database_strings.rb:270
-#: ../../tmp/translation/database_strings.rb:271
-#: ../../tmp/translation/database_strings.rb:272
-#: ../../tmp/translation/database_strings.rb:274
-#: ../../tmp/translation/database_strings.rb:275
-#: ../../tmp/translation/database_strings.rb:276
-#: ../../tmp/translation/database_strings.rb:277
-#: ../../tmp/translation/database_strings.rb:278
-#: ../../tmp/translation/database_strings.rb:279
-#: ../../tmp/translation/database_strings.rb:280
-#: ../../tmp/translation/database_strings.rb:281
-#: ../../tmp/translation/database_strings.rb:282
+#: ../../tmp/translation/database_strings.rb:70
+#: ../../tmp/translation/database_strings.rb:231
+#: ../../tmp/translation/database_strings.rb:232
+#: ../../tmp/translation/database_strings.rb:233
+#: ../../tmp/translation/database_strings.rb:234
+#: ../../tmp/translation/database_strings.rb:236
+#: ../../tmp/translation/database_strings.rb:237
+#: ../../tmp/translation/database_strings.rb:238
+#: ../../tmp/translation/database_strings.rb:239
+#: ../../tmp/translation/database_strings.rb:240
+#: ../../tmp/translation/database_strings.rb:241
+#: ../../tmp/translation/database_strings.rb:242
+#: ../../tmp/translation/database_strings.rb:243
+#: ../../tmp/translation/database_strings.rb:244
 msgid "<p><span style="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:101
+#: ../../tmp/translation/database_strings.rb:71
 msgid ""
 "<p>This simplified data management plan template is focused on preserving and "
 "sharing data. The goal is to foster access to and reuse of data generated thro"
 "ugh projects supported by the Ontario Agri-Food Innovation Alliance ("
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:102
+#: ../../tmp/translation/database_strings.rb:72
 msgid ""
 "<p>This template is a modified version of the generic Portage DMP template, an"
 "d includes customized guidance for UVic researchers.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:103
+#: ../../tmp/translation/database_strings.rb:73
 msgid ""
 "<p>Basic, general-use template for all researchers at Memorial University of N"
 "ewfoundland.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:104
+#: ../../tmp/translation/database_strings.rb:74
 msgid ""
 "<p>This is a template for OFI Module E (Ecosystem Indicators for Changing Ocea"
 "ns) projects.&nbsp;</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:105
+#: ../../tmp/translation/database_strings.rb:75
 msgid "<p>This is a test template.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:106
+#: ../../tmp/translation/database_strings.rb:76
 msgid "<p>Investigating....</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:107
+#: ../../tmp/translation/database_strings.rb:77
 msgid ""
 "<p>This is a generic data management plan template for anyone at Waterloo to u"
 "se.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:108
+#: ../../tmp/translation/database_strings.rb:78
 msgid "<p>This is the 2nd template for the University of Manitoba.&nbsp;</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:109
+#: ../../tmp/translation/database_strings.rb:79
 msgid "<p>Test OMAFRA-UG questions for DMP OMAFRA template</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:110
+#: ../../tmp/translation/database_strings.rb:80
 msgid "<p>Test for GWF DMP template</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:111
+#: ../../tmp/translation/database_strings.rb:81
 msgid "<p>DMP Assistant template for VIU.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:112
+#: ../../tmp/translation/database_strings.rb:82
 msgid "<p>A DMP template for the Canadian Ocean Observing System (CIOOS).</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:114
-msgid "<p>sss</p>"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:115
-msgid "OFI Module E DMP"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:116
-msgid "Dalhousie University"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:117
-#: ../../tmp/translation/database_strings.rb:213
-msgid "TITLE"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:118
-msgid "Test DMP Questions"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:119
-msgid "Phase 1 (test)"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:120
-msgid "Initial GWF DMP"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:121
-msgid "new phase"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:122
-msgid "phase 1"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:123
-msgid "title of new phase"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:124
-msgid "University of Alberta Data Management Questions"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:125
-msgid "MICYRN Data Management Plan Initial Phase"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:126
-msgid "Reproducible findings through deposited data"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:127
-msgid "University of British Columbia Data Management Questions"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:128
-msgid "Portage Data Management Questions"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:129
-msgid "Pre-Project: Prototype"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:130
-msgid "CEOS Data Management Plan"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:131
+#: ../../tmp/translation/database_strings.rb:84
 msgid "Oceans Data Management Plan"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:132
+#: ../../tmp/translation/database_strings.rb:85
 msgid "University of Manitoba Data Management Questions"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:133
+#: ../../tmp/translation/database_strings.rb:86
 msgid "DMP Questionnaire"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:135
+#: ../../tmp/translation/database_strings.rb:88
 msgid "University of Guelph Agri-Food Funding DMP (Alliance/Food from Thought)  "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:136
+#: ../../tmp/translation/database_strings.rb:89
 msgid "Data management questions"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:137
+#: ../../tmp/translation/database_strings.rb:90
 msgid "York U Data Management Questions"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:138
+#: ../../tmp/translation/database_strings.rb:91
 msgid "MUN Data Management Questions"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:139
+#: ../../tmp/translation/database_strings.rb:92
+msgid "OFI Module E DMP"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:93
+msgid "Dalhousie University"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:94
+#: ../../tmp/translation/database_strings.rb:178
+msgid "TITLE"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:95
+msgid "Test DMP Questions"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:96
+msgid "Phase 1 (test)"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:97
+msgid "Initial GWF DMP"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:98
+msgid "University of Alberta Data Management Questions"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:99
+msgid "MICYRN Data Management Plan Initial Phase"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:100
+msgid "Reproducible findings through deposited data"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:101
+msgid "University of British Columbia Data Management Questions"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:102
+msgid "Portage Data Management Questions"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:103
+msgid "Pre-Project: Prototype"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:104
+msgid "CEOS Data Management Plan"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:105
 msgid "Phase 2"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:140
+#: ../../tmp/translation/database_strings.rb:106
 msgid "Export"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:141
+#: ../../tmp/translation/database_strings.rb:107
 msgid "OMAFRA-UG DMP Questions"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:143
+#: ../../tmp/translation/database_strings.rb:109
 msgid ""
 "<p>This DMP identifies the steps needing attention from researchers who intend"
 " to publish in a CASRAI&nbsp;publication. The DMP allows researchers to explai"
 "n how they will fulfill these requirements prior to publishing.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:144
+#: ../../tmp/translation/database_strings.rb:110
 msgid ""
 "This DMP identifies the steps needing attention from researchers who intend to"
 " publish in a CSPC publication. The DMP allows researchers to explain how they"
 " will fulfill these requirements prior to publishing."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:146
+#: ../../tmp/translation/database_strings.rb:112
 msgid "<table class="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:155
+#: ../../tmp/translation/database_strings.rb:121
 msgid "<p>Web version of DMP in question and answer format.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:156
+#: ../../tmp/translation/database_strings.rb:122
 msgid ""
 "<p>The DMP questionnaire template follows best practices in data stewardship a"
 "nd walks researchers step-by-step through key questions about data management."
 "&nbsp;</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:157
+#: ../../tmp/translation/database_strings.rb:123
 msgid ""
 "<p>This template is based on the generic Portage template. It contains some re"
 "sources specific to Dalhousie University. Please note there are also resources"
 " from external organizations and are for information only.&nbsp;</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:158
+#: ../../tmp/translation/database_strings.rb:124
 msgid "<p>Just testing adding a phase</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:159
+#: ../../tmp/translation/database_strings.rb:125
 msgid "<p>This is the initial phase DMP</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:160
-msgid "<p>desc</p>"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:161
+#: ../../tmp/translation/database_strings.rb:126
 msgid "<p>another test</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:166
+#: ../../tmp/translation/database_strings.rb:131
 msgid "Data Sharing and Reuse"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:168
+#: ../../tmp/translation/database_strings.rb:133
 msgid "Study Overview"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:169
+#: ../../tmp/translation/database_strings.rb:134
 msgid "Study Monitoring"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:170
+#: ../../tmp/translation/database_strings.rb:135
 msgid "Storage and Tracking"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:171
+#: ../../tmp/translation/database_strings.rb:136
 msgid "Data Entry"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:172
+#: ../../tmp/translation/database_strings.rb:137
 msgid "Data Handling"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:173
+#: ../../tmp/translation/database_strings.rb:138
 msgid "Data Quality Control"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:174
+#: ../../tmp/translation/database_strings.rb:139
 msgid "Data Coding"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:175
+#: ../../tmp/translation/database_strings.rb:140
 msgid "Data Sharing and Delivery"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:176
+#: ../../tmp/translation/database_strings.rb:141
 msgid "Data Preservation and Archiving"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:177
+#: ../../tmp/translation/database_strings.rb:142
 msgid "Providing Intelligent Access"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:178
+#: ../../tmp/translation/database_strings.rb:143
 msgid "2 Sources of Data and Any Special Code or Software"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:179
+#: ../../tmp/translation/database_strings.rb:144
 msgid "3 Restrictions Around the Data"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:180
+#: ../../tmp/translation/database_strings.rb:145
 msgid "4 Data Repository"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:181
+#: ../../tmp/translation/database_strings.rb:146
 msgid "5 - Providing Intelligent Access"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:182
+#: ../../tmp/translation/database_strings.rb:147
 msgid "6 Data Citation"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:185
+#: ../../tmp/translation/database_strings.rb:150
 msgid "Data Preservation"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:186
+#: ../../tmp/translation/database_strings.rb:151
 msgid "Data Collection, Processing and Methodology"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:187
+#: ../../tmp/translation/database_strings.rb:152
 msgid "Selection and Preservation"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:188
+#: ../../tmp/translation/database_strings.rb:153
 msgid "Data Summary"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:191
+#: ../../tmp/translation/database_strings.rb:156
 msgid "Preservation/Access"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:192
+#: ../../tmp/translation/database_strings.rb:157
 msgid "Data Access and Reuse"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:193
+#: ../../tmp/translation/database_strings.rb:158
 msgid "Project Information"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:194
+#: ../../tmp/translation/database_strings.rb:159
 msgid "Plan and acquire"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:195
+#: ../../tmp/translation/database_strings.rb:160
 msgid "Describe and manage quality"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:196
+#: ../../tmp/translation/database_strings.rb:161
 msgid "Storage, Backup and preservation"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:197
+#: ../../tmp/translation/database_strings.rb:162
 msgid "Data sharing and access"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:198
+#: ../../tmp/translation/database_strings.rb:163
 msgid "Collecte de données"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:199
+#: ../../tmp/translation/database_strings.rb:164
 msgid "Documentation et métadonnées"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:200
+#: ../../tmp/translation/database_strings.rb:165
 msgid "Stockage et sauvegarde"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:201
+#: ../../tmp/translation/database_strings.rb:166
 msgid "Conservation"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:202
+#: ../../tmp/translation/database_strings.rb:167
 msgid "Partage et réutilisation"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:203
+#: ../../tmp/translation/database_strings.rb:168
 msgid "Responsabilités et ressources"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:204
+#: ../../tmp/translation/database_strings.rb:169
 msgid "Conformité aux lois et à l'éthique"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:205
+#: ../../tmp/translation/database_strings.rb:170
 msgid "Restrictions"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:206
+#: ../../tmp/translation/database_strings.rb:171
 msgid "Sensitive Data and Legal Compliance"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:207
+#: ../../tmp/translation/database_strings.rb:172
 msgid "Cueillette de données"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:208
+#: ../../tmp/translation/database_strings.rb:173
 msgid "Responsabilité et ressources"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:209
+#: ../../tmp/translation/database_strings.rb:174
 msgid "Conformités aux lois et à l’éthique"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:210
+#: ../../tmp/translation/database_strings.rb:175
 msgid "Administration Details"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:211
+#: ../../tmp/translation/database_strings.rb:176
 msgid "Data Documentation and Metadata"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:212
+#: ../../tmp/translation/database_strings.rb:177
 msgid "Preservation and FAIR Data Sharing"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:214
+#: ../../tmp/translation/database_strings.rb:179
 msgid "Section 2 testing"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:215
+#: ../../tmp/translation/database_strings.rb:180
 msgid "Security"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:216
-msgid "new section"
+#: ../../tmp/translation/database_strings.rb:181
+msgid "My new section"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:217
-msgid "sec 1"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:218
-msgid "seccion nueva"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:219
-msgid "sec"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:221
+#: ../../tmp/translation/database_strings.rb:183
 msgid ""
 "The section is to provide overview of study taken from Protocol, ethics applic"
 "ation or other document as appropriate. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:222
+#: ../../tmp/translation/database_strings.rb:184
 msgid ""
 "This section is an overview of the data collection tasks performed by data man"
 "agement. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:223
+#: ../../tmp/translation/database_strings.rb:185
 msgid "<p>Identify how intelligent access will be provided for the data.&nbsp;</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:224
+#: ../../tmp/translation/database_strings.rb:186
 msgid "<p>Obtain a description of the data sources to be used.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:225
+#: ../../tmp/translation/database_strings.rb:187
 msgid ""
 "Identify any restrictions on the data that will limit how others might have ac"
 "cess to the data."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:226
+#: ../../tmp/translation/database_strings.rb:188
 msgid ""
 "Determine if the data will be deposited in an existing data repository and the"
 " type of arrangements associated with this."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:227
+#: ../../tmp/translation/database_strings.rb:189
 msgid "Identify how intelligent access will be provided for the data. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:228
+#: ../../tmp/translation/database_strings.rb:190
 msgid "Determine a proper citation for the data used in this project."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:230
+#: ../../tmp/translation/database_strings.rb:192
 msgid ""
 "Because data are rarely self-explanatory, all research data should be accompan"
 "ied by metadata (information that describes the data according to community be"
@@ -6013,7 +5940,7 @@ msgid ""
 "ved access to the data, where possible."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:234
+#: ../../tmp/translation/database_strings.rb:196
 msgid ""
 "Data management focuses on the 'what' and 'how' of operationally supporting da"
 "ta across the research lifecycle.  Data stewardship focuses on 'who' is respon"
@@ -6023,7 +5950,7 @@ msgid ""
 "ies for data management tasks during and after the project."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:235
+#: ../../tmp/translation/database_strings.rb:197
 msgid ""
 "Researchers and their teams need to be aware of the policies and processes, bo"
 "th ethical and legal, to which their research data management must comply. Pro"
@@ -6037,7 +5964,7 @@ msgid ""
 " position should be that all research data and metadata are public."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:236
+#: ../../tmp/translation/database_strings.rb:198
 msgid ""
 "<p>This section addresses data collection issues such as data types, file form"
 "ats, naming conventions, and data organisation &ndash; factors that will impro"
@@ -6045,7 +5972,7 @@ msgid ""
 "p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:237
+#: ../../tmp/translation/database_strings.rb:199
 msgid ""
 "<p>Data are rarely self-explanatory, so information about how to interpret res"
 "earch data and the context in which they were collected is key. This &lsquo;da"
@@ -6060,7 +5987,7 @@ msgid ""
 "equest forms, etc.).</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:238
+#: ../../tmp/translation/database_strings.rb:200
 msgid ""
 "<p>Planning how research data will be stored and backed up throughout and beyo"
 "nd a research project is critical in ensuring data security and integrity. App"
@@ -6070,7 +5997,7 @@ msgid ""
 "ent and future researchers.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:239
+#: ../../tmp/translation/database_strings.rb:201
 msgid ""
 "<p>Data preservation will depend on potential reuse value, whether there are o"
 "bligations to either retain or destroy data, and the resources required to pro"
@@ -6081,7 +6008,7 @@ msgid ""
 "p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:240
+#: ../../tmp/translation/database_strings.rb:202
 msgid ""
 "<p>Most Canadian research funding agencies now have policies requiring researc"
 "h data to be shared upon publication of the research results or within a reaso"
@@ -6092,7 +6019,7 @@ msgid ""
 "e sensitive data.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:241
+#: ../../tmp/translation/database_strings.rb:203
 msgid ""
 "<p>Data management focuses on the &lsquo;what&rsquo; and &lsquo;how&rsquo; of "
 "operationally supporting data across the research lifecycle. Data stewardship "
@@ -6103,7 +6030,7 @@ msgid ""
 " after the project.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:242
+#: ../../tmp/translation/database_strings.rb:204
 msgid ""
 "<p>Researchers and their teams need to be aware of the policies and processes,"
 " both ethical and legal, to which their research data management must comply. "
@@ -6118,7 +6045,7 @@ msgid ""
 ">"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:243
+#: ../../tmp/translation/database_strings.rb:205
 msgid ""
 "<p>Describe any Copyright or Intellectual Property (IP) in the material that w"
 "ill be generated and/or collected. Example:</p>\n"
@@ -6129,21 +6056,21 @@ msgid ""
 "</ul>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:249
+#: ../../tmp/translation/database_strings.rb:211
 msgid ""
 "<p>What data must be retained/destroyed for contractual, legal, or regulatory "
 "purposes? How long will you retain it for? How much backup space is needed? Re"
 "ference Sections 3.1, 4 and 5 to include in your plan.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:250
+#: ../../tmp/translation/database_strings.rb:212
 msgid ""
 "<p>This section addresses issues including data types, file formats, naming co"
 "nventions, and data organization. Describing each of these factors will improv"
 "e the usability of your data.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:251
+#: ../../tmp/translation/database_strings.rb:213
 msgid ""
 "<p>Descriptive information added to each individual data item is key to its di"
 "scovery and access. This description includes how to interpret the data and th"
@@ -6159,7 +6086,7 @@ msgid ""
 "ccess terms, access agreement templates, data request forms etc.)</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:253
+#: ../../tmp/translation/database_strings.rb:215
 msgid ""
 "<p>Planning how research data will be stored and backed up during and after a "
 "project is an essential piece of data security and integrity. Appropriate stor"
@@ -6169,7 +6096,7 @@ msgid ""
 "ers.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:254
+#: ../../tmp/translation/database_strings.rb:216
 msgid ""
 "<p>Considerations of data preservation include: potential reuse value; regulat"
 "ory and/or grant obligations to retain or destroy data;&nbsp;and resources req"
@@ -6180,7 +6107,7 @@ msgid ""
 "erviews).</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:255
+#: ../../tmp/translation/database_strings.rb:217
 msgid ""
 "<p>The majority of major funders, Canadian and iinternationally, now require r"
 "esearch data to be shared and/or publically accessible either immediately upon"
@@ -6190,7 +6117,7 @@ msgid ""
 "of the data,&nbsp;are all considerations in this section.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:256
+#: ../../tmp/translation/database_strings.rb:218
 msgid ""
 "<p>This section is about data stewardship: the 'who' that is responsible for e"
 "nsuring that data management happens. For example, a large project will involv"
@@ -6199,7 +6126,7 @@ msgid ""
 " management tasks throughout the research cycle and beyond.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:257
+#: ../../tmp/translation/database_strings.rb:219
 msgid ""
 "<p>All those involved in research have an obligation to be knowledgeable of th"
 "e policies and processes, both ethical and legal, to which their research data"
@@ -6215,7 +6142,7 @@ msgid ""
 "<p>&nbsp;</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:259
+#: ../../tmp/translation/database_strings.rb:221
 msgid ""
 "<p>The section is to provide an overview of the research project taken from pr"
 "oject planning documents, ethics application or other document as appropriate."
@@ -6223,7 +6150,7 @@ msgid ""
 "ance.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:260
+#: ../../tmp/translation/database_strings.rb:222
 msgid ""
 "<p>The section is to provide an overview of the data that is to be collected, "
 "acquired and/or generated and addresses questions pertaining to security, priv"
@@ -6232,14 +6159,14 @@ msgid ""
 "re in place.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:261
+#: ../../tmp/translation/database_strings.rb:223
 msgid ""
 "<p>The section addresses issues such as standards, naming conventions, and dat"
 "a organisation &ndash; factors that will improve the usability of your data an"
 "d contribute to the success of your project.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:262
+#: ../../tmp/translation/database_strings.rb:224
 msgid ""
 "<p>The section describes&nbsp;how research data will be stored and backed up t"
 "hroughout and beyond a research project. Appropriate storage and backup not on"
@@ -6253,21 +6180,21 @@ msgid ""
 "a (e.g. transcripts instead of audio interviews).</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:263
+#: ../../tmp/translation/database_strings.rb:225
 msgid ""
 "<p>The section describes how data will be shared, internally and externally, a"
 "nd rendered accessible. &ldquo;Open&rdquo; principles are to be applied where "
 "appropriate and to the greatest extent possible.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:264
+#: ../../tmp/translation/database_strings.rb:226
 msgid ""
 "<p>This section addresses data collection issues such as data types, file form"
 "ats, naming conventions, and data organizaion - factors that will improve the "
 "usability of your data and contribute to the success of your project.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:265
+#: ../../tmp/translation/database_strings.rb:227
 msgid ""
 "<p>Data preservation will depend on potential reuse value, whether there are o"
 "bligations to either retain or destroy data, and the resources required to pro"
@@ -6288,14 +6215,14 @@ msgid ""
 "uirements allow.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:267
+#: ../../tmp/translation/database_strings.rb:229
 msgid ""
 "<p>Researchers and their teams need to be aware of the policies and processes,"
 " both ethical and legal, to which their research data management must comply.<"
 "/p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:268
+#: ../../tmp/translation/database_strings.rb:230
 msgid ""
 "<p>The Alliance is committed to supporting the sharing and reuse of data to fa"
 "cilitate new agri-food and rural research. Researchers are encouraged to provi"
@@ -6303,7 +6230,7 @@ msgid ""
 "quirements allow.&nbsp;</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:283
+#: ../../tmp/translation/database_strings.rb:245
 msgid ""
 "<p>Because data are rarely self-explanatory, all research data should be accom"
 "panied by metadata (information that describes&nbsp;the data according to comm"
@@ -6315,7 +6242,7 @@ msgid ""
 "o obtain approved access to the data, where possible.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:284
+#: ../../tmp/translation/database_strings.rb:246
 msgid ""
 "<p>Many Canadian research funding agencies now have policies requiring researc"
 "h data to be shared upon publication of the research results or within a reaso"
@@ -6326,7 +6253,7 @@ msgid ""
 "e sensitive data.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:285
+#: ../../tmp/translation/database_strings.rb:247
 msgid ""
 "<p>Data management focuses on the 'what' and 'how' of operationally supporting"
 " data across the research lifecycle. &nbsp;Data stewardship focuses on 'who' i"
@@ -6336,7 +6263,7 @@ msgid ""
 "nsibilities for data management tasks during and after the project.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:286
+#: ../../tmp/translation/database_strings.rb:248
 msgid ""
 "<p>Researchers and their teams need to be aware of the policies and processes,"
 " both ethical and legal, to which their research data management must comply. "
@@ -6351,7 +6278,7 @@ msgid ""
 "p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:287
+#: ../../tmp/translation/database_strings.rb:249
 msgid ""
 "<p>Because data are rarely self-explanatory, all research data should be accom"
 "panied by metadata (information that describes&nbsp;the data according to comm"
@@ -6363,23 +6290,23 @@ msgid ""
 " obtain approved access to the data, where possible.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:289
+#: ../../tmp/translation/database_strings.rb:251
 msgid "<p>Will this save?</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:290
+#: ../../tmp/translation/database_strings.rb:252
 msgid "<p>Project Information</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:291
-msgid "<p>sec desc</p>"
+#: ../../tmp/translation/database_strings.rb:253
+msgid "<p>My new section description</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:292
+#: ../../tmp/translation/database_strings.rb:254
 msgid "What types of data will you collect, create, acquire and/or record?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:293
+#: ../../tmp/translation/database_strings.rb:255
 msgid ""
 "What documentation will be needed for the data to be read and interpreted corr"
 "ectly in the future?  This includes study-level documentation, data-level desc"
@@ -6387,12 +6314,12 @@ msgid ""
 " by other researchers."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:294
+#: ../../tmp/translation/database_strings.rb:256
 msgid "How will your data be stored and backed up during your research project?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:295
-#: ../../tmp/translation/database_strings.rb:1055
+#: ../../tmp/translation/database_strings.rb:257
+#: ../../tmp/translation/database_strings.rb:1012
 msgid ""
 "Which data are selected for preservation and access will depend on potential r"
 "euse value, whether there are obligations to either retain or destroy data, an"
@@ -6403,7 +6330,7 @@ msgid ""
 "ead of audio interviews)."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:296
+#: ../../tmp/translation/database_strings.rb:258
 msgid ""
 "What data will you be sharing and in what form? (e.g. raw, processed, analyzed"
 ", final). Consider which data may need to be shared in order to meet instituti"
@@ -6412,7 +6339,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:299
+#: ../../tmp/translation/database_strings.rb:261
 msgid ""
 "Who will be responsible for data management during the project? (i.e. during c"
 "ollection, processing, analysis, documentation).  Identify staff and organizat"
@@ -6420,65 +6347,65 @@ msgid ""
 "an (DMP), including time allocations and training requirements."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:300
+#: ../../tmp/translation/database_strings.rb:262
 msgid "Q. 1.1 Please enter the study title. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:301
+#: ../../tmp/translation/database_strings.rb:263
 msgid ""
 "Q. 2. 1. What data sources do you anticipate collecting data from? Please incl"
 "ude both paper and electronic. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:302
+#: ../../tmp/translation/database_strings.rb:264
 msgid ""
 "Q. 3. 1. Who will be responsible to monitor paper CRFs? Identify staff and org"
 "anizational roles and their responsibilities for carrying out the monitoring t"
 "ask, including time allocations and training requirements. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:303
+#: ../../tmp/translation/database_strings.rb:265
 msgid ""
 "Q. 4.1. Who should the documents received directly from investigational staff "
 "be delivered to? These include CRFs and other documents required for data entr"
 "y, and should always accompany with a CRF Transmittal Form? \n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:305
+#: ../../tmp/translation/database_strings.rb:267
 msgid "Q. 5. 1. How will you do data entry for paper CRFs?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:306
+#: ../../tmp/translation/database_strings.rb:268
 msgid ""
 "Q. 6. 1. What documentation will be needed for the data handling? How will you"
 " ensure the documentation is created and updated consistently throughout your "
 "study?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:307
+#: ../../tmp/translation/database_strings.rb:269
 msgid ""
 "Q. 7. 1. How will you validate the data recorded? What is your query process d"
 "uring the study?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:308
+#: ../../tmp/translation/database_strings.rb:270
 msgid ""
 "Q. 8. 1. Is data coding required, for example adverse event coding? If so, ple"
 "ase list what data requires coding, and which dictionaries will be used (for e"
 "xample: MedDRA and WHODDE)? "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:309
+#: ../../tmp/translation/database_strings.rb:271
 msgid ""
 "Q. 9. 1. What data will you be sharing and in what form? (e.g. raw, processed,"
 " analyzed, final). "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:310
+#: ../../tmp/translation/database_strings.rb:272
 msgid "Q. 10. 1. How will your data be stored and archived after your study?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:311
+#: ../../tmp/translation/database_strings.rb:273
 msgid ""
 "Q. 11. 1. Please list who is responsible for the following data management tas"
 "ks during the study:\n"
@@ -6497,31 +6424,31 @@ msgid ""
 "13. Data archiving"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:325
+#: ../../tmp/translation/database_strings.rb:287
 msgid ""
 "What access control features exist in the data repository to be used that will"
 " provide an appropriate level access to the data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:326
+#: ../../tmp/translation/database_strings.rb:288
 msgid "Indicate the sources of the data that you will be using in this project."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:327
+#: ../../tmp/translation/database_strings.rb:289
 msgid "Are there any restrictions associated with the data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:328
+#: ../../tmp/translation/database_strings.rb:290
 msgid ""
 "If you will deposit your data with an existing data repository, please identif"
 "y the repository by its URL."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:329
+#: ../../tmp/translation/database_strings.rb:291
 msgid "How will the citation practice for the data be determined?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:330
+#: ../../tmp/translation/database_strings.rb:292
 msgid ""
 "Which data are selected for preservation and access will depend on potential r"
 "euse value, whether there are obligations to either retain or destroy data, an"
@@ -6532,7 +6459,7 @@ msgid ""
 "ead of audio interviews).\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:332
+#: ../../tmp/translation/database_strings.rb:294
 msgid ""
 "What data will you be sharing and in what form? (e.g. raw, processed, analyzed"
 ", final). Consider which data may need to be shared in order to meet instituti"
@@ -6540,249 +6467,249 @@ msgid ""
 "identiality/privacy issues. \n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:334
+#: ../../tmp/translation/database_strings.rb:296
 msgid "What types of data will you collect, create, link to, acquire and/or record?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:335
+#: ../../tmp/translation/database_strings.rb:297
 msgid ""
 "What documentation will be needed for the data to be read and interpreted corr"
 "ectly in the future?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:336
+#: ../../tmp/translation/database_strings.rb:298
 msgid ""
 "What are the anticipated storage requirements for your project, in terms of st"
 "orage space (in megabytes, gigabytes, terabytes, etc.) and the length of time "
 "you will be storing it?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:337
+#: ../../tmp/translation/database_strings.rb:299
 msgid ""
 "Where will you deposit your data for long-term preservation and access at the "
 "end of your research project?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:338
+#: ../../tmp/translation/database_strings.rb:300
 msgid ""
 "What data will you be sharing and in what form? (e.g. raw, processed, analyzed"
 ", final)."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:339
+#: ../../tmp/translation/database_strings.rb:301
 msgid ""
 "Identify who will be responsible for managing this project's data during and a"
 "fter the project and the major data management tasks for which they will be re"
 "sponsible."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:340
+#: ../../tmp/translation/database_strings.rb:302
 msgid ""
 "If your research project includes sensitive data, how will you ensure that it "
 "is securely managed and accessible only to approved members of the project?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:341
+#: ../../tmp/translation/database_strings.rb:303
 msgid ""
 "Where will you deposit your data for long-term preservation and access at the "
 "end of your research project?\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:343
+#: ../../tmp/translation/database_strings.rb:305
 msgid ""
 "Identify who will be responsible for managing this project’s data during and a"
 "fter the project and the major data management tasks for which they will be re"
 "sponsible.\t"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:344
+#: ../../tmp/translation/database_strings.rb:306
 msgid "What form of the data will you be sharing?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:345
+#: ../../tmp/translation/database_strings.rb:307
 msgid "What types of data will you collect, create, link to, acquire, and/or record?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:346
+#: ../../tmp/translation/database_strings.rb:308
 msgid ""
 "Where will you deposit your data for long-term preservation and access (if app"
 "ropriate) at the end of your research project?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:347
+#: ../../tmp/translation/database_strings.rb:309
 msgid "Who will be responsible for managing the data during and after the project?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:348
+#: ../../tmp/translation/database_strings.rb:310
 msgid ""
 "Describe what types of data you anticipate the project will generate and/or co"
 "llection. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:349
+#: ../../tmp/translation/database_strings.rb:311
 msgid ""
 "What documentation and metadata will accompany the data? (ex. Protocols, metad"
 "ata file, controlled vocabulary)"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:350
+#: ../../tmp/translation/database_strings.rb:312
 msgid "Intellectual Property, Copyright and Ownership"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:351
+#: ../../tmp/translation/database_strings.rb:313
 msgid "What are the storage plans for the digital data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:352
+#: ../../tmp/translation/database_strings.rb:314
 msgid "Which data should be retained, shared, and/or archived?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:353
+#: ../../tmp/translation/database_strings.rb:315
 msgid ""
 "What resources will you require to delivery your plan?\n"
 "\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:356
+#: ../../tmp/translation/database_strings.rb:318
 msgid "How will data quality be assured and controlled? "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:357
+#: ../../tmp/translation/database_strings.rb:319
 msgid ""
 "What elements in the metadata and other supporting documentation are needed to"
 " ensure that data is read and interpreted correctly in the future? "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:358
+#: ../../tmp/translation/database_strings.rb:320
 msgid "What data will you be publicly sharing and in what form?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:359
+#: ../../tmp/translation/database_strings.rb:321
 msgid ""
 "Will approval from your University’s research ethics board be required? If you"
 " are unsure, please review <a href="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:360
+#: ../../tmp/translation/database_strings.rb:322
 msgid ""
 "Identify who will be responsible for managing the project’s data and the major"
 " data management tasks for which they will be responsible."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:361
+#: ../../tmp/translation/database_strings.rb:323
 msgid ""
 "What data will you be sharing/providing access to and in what form? (e.g. raw,"
 " processed, analyzed, final)"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:362
+#: ../../tmp/translation/database_strings.rb:324
 msgid ""
 "Identify who will be responsible for managing the research data during and aft"
 "er the project and the major data management tasks for which they will be resp"
 "onsible."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:363
+#: ../../tmp/translation/database_strings.rb:325
 msgid ""
 "If your research project includes sensitive data, how will you ensure that is "
 "securely managed and accessible only to approved members of the project?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:364
+#: ../../tmp/translation/database_strings.rb:326
 msgid "Name of project or sub-project and project number (if applicable)."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:365
+#: ../../tmp/translation/database_strings.rb:327
 msgid ""
 "How and where will your data be stored and backed up during your research proj"
 "ect (e.g. laboratory server, HPC site, Cloud services, Specialized Research Eq"
 "uipment (SRE))?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:366
+#: ../../tmp/translation/database_strings.rb:328
 msgid ""
 "Quels types de données allez-vous recueillir, créer, lier, acquérir ou enregis"
 "trer?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:367
+#: ../../tmp/translation/database_strings.rb:329
 msgid ""
 "Quels documents seront nécessaires pour que les données soient lues et interpr"
 "étées correctement dans le futur?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:368
+#: ../../tmp/translation/database_strings.rb:330
 msgid ""
 "Quels sont les besoins de stockage anticipés pour votre projet en matière d'es"
 "pace (en mégaoctets, gigaoctets, téraoctets, etc.) et de durée de stockage?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:369
+#: ../../tmp/translation/database_strings.rb:331
 msgid ""
 "Où déposerez-vous vos données en vue de l'accès et de la préservation à long t"
 "erme à la fin de votre projet de recherche?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:370
+#: ../../tmp/translation/database_strings.rb:332
 msgid ""
 " Quelles données partagerez-vous et sous quelle forme? (p. ex. données brutes,"
 " traitées, analysées, définitives)"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:371
+#: ../../tmp/translation/database_strings.rb:333
 msgid ""
 "Identifiez qui sera responsable de la gestion des données de ce projet pendant"
 " et après le projet ainsi que les principales tâches associées à ces responsab"
 "ilités."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:372
+#: ../../tmp/translation/database_strings.rb:334
 msgid ""
 "Si votre projet comprend des données sensibles, comment vous assurerez-vous qu"
 "'il est géré de manière sécuritaire et que les données sont accessibles unique"
 "ment aux membres approuvés du projet?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:373
+#: ../../tmp/translation/database_strings.rb:335
 msgid ""
 "What types of data will you collect, create, link to, acquire and/or record as"
 " part of this project?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:374
+#: ../../tmp/translation/database_strings.rb:336
 msgid ""
 "Are you aware of any current or future restrictions on the data used in and/or"
 " generated during this project?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:375
+#: ../../tmp/translation/database_strings.rb:337
 msgid "Will you make data from this project available for sharing?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:376
+#: ../../tmp/translation/database_strings.rb:338
 msgid ""
 "Where will you deposit your data for long-term storage at the end of your rese"
 "arch project?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:377
+#: ../../tmp/translation/database_strings.rb:339
 msgid ""
 "Quelles données partagerez-vous et sous quelle forme? (p. ex. données brutes, "
 "traitées, analysées, définitives)"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:378
+#: ../../tmp/translation/database_strings.rb:340
 msgid ""
 "1.1 Name of project or sub-project and project number (if applicable).\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:380
+#: ../../tmp/translation/database_strings.rb:342
 msgid ""
 "2.1 What types of data will you collect, create, link to, acquire and/or recor"
 "d?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:381
+#: ../../tmp/translation/database_strings.rb:343
 msgid ""
 "3.1 What documentation will be needed for the data to be read and interpreted "
 "correctly in the future? This includes study-level documentation, data-level d"
@@ -6790,7 +6717,7 @@ msgid ""
 "ble by other researchers."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:382
+#: ../../tmp/translation/database_strings.rb:344
 msgid ""
 "4.1 What are the anticipated storage requirements for your project, in terms o"
 "f storage space (in megabytes, gigabytes, terabytes, etc.) and the length of t"
@@ -6800,133 +6727,125 @@ msgid ""
 "hysically stored?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:385
+#: ../../tmp/translation/database_strings.rb:347
 msgid "5.1 Which data are selected for preservation and access? "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:386
+#: ../../tmp/translation/database_strings.rb:348
 msgid ""
 "6.1 What data will you be sharing and in what form? (e.g. raw, processed, anal"
 "yzed, final). "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:387
+#: ../../tmp/translation/database_strings.rb:349
 msgid ""
 "7.1 Identify who will be responsible for managing this project's data during a"
 "nd after the project and the major data management tasks for which they will b"
 "e responsible."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:388
+#: ../../tmp/translation/database_strings.rb:350
 msgid ""
 "8.1 If your research project includes sensitive data, how will you ensure that"
 " it is securely managed and accessible only to approved members of the project"
 "?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:389
+#: ../../tmp/translation/database_strings.rb:351
 msgid ""
 "What types of research data will you collect, create, or acquire and modify fr"
 "om external sources for project?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:390
+#: ../../tmp/translation/database_strings.rb:352
 msgid "Project Name"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:391
+#: ../../tmp/translation/database_strings.rb:353
 msgid ""
 "Identify who will be responsible for managing this project's data during and a"
 "fter the project.  Which major data management tasks will this person or perso"
 "ns be responsible for?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:392
+#: ../../tmp/translation/database_strings.rb:354
 msgid ""
 "What are the anticipated storage requirements need for your project’s active l"
 "ife cycle, in terms of 1) storage space [# megabytes, gigabytes, terabytes, et"
 "c.] and 2) length of time?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:393
+#: ../../tmp/translation/database_strings.rb:355
 msgid ""
 "Are there agreements in place for Intellectual Property (IP) management for th"
 "is project?  "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:394
+#: ../../tmp/translation/database_strings.rb:356
 msgid "Which datasets from this project will be shared publicly?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:395
+#: ../../tmp/translation/database_strings.rb:357
 msgid ""
 "Identify who will be responsible for managing this project's data during and a"
 "fter the project. Which major data management tasks will this person or person"
 "s be responsible for?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:396
+#: ../../tmp/translation/database_strings.rb:358
 msgid "Question 1"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:397
+#: ../../tmp/translation/database_strings.rb:359
 msgid "File Format"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:398
+#: ../../tmp/translation/database_strings.rb:360
 msgid ""
 "Outline any restrictions on data sharing due to the need to protect proprietar"
 "y or patentable data or sensitive data."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:399
+#: ../../tmp/translation/database_strings.rb:361
 msgid ""
 "Outline measures you will undertake to ensure data is handled and maintained s"
 "afely and securely throughout the research project."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:400
+#: ../../tmp/translation/database_strings.rb:362
 msgid "PLACEHOLDER"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:402
-msgid "this is my questoin"
+#: ../../tmp/translation/database_strings.rb:364
+msgid "<p>My new question text</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:404
-msgid "esta es mi pregunta de A"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:405
-msgid "111"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:406
+#: ../../tmp/translation/database_strings.rb:365
 msgid ""
 "What file formats will your data be collected in?  Will these formats allow fo"
 "r data re-use, sharing and long-term access to the data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:407
+#: ../../tmp/translation/database_strings.rb:366
 msgid ""
 "Please list the metadata standard and tools you will use to document and descr"
 "ibe your data.  If there is not an appropriate standard, please explain how yo"
 "u will ensure consistency in your documentation."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:408
+#: ../../tmp/translation/database_strings.rb:367
 msgid ""
 "How will you ensure that sensitive data is stored securely and only accessible"
 " to the research team during the research project?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:409
+#: ../../tmp/translation/database_strings.rb:368
 msgid ""
 "At the end of your research project, where will you deposit your data for long"
 "-term preservation and access? "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:410
+#: ../../tmp/translation/database_strings.rb:369
 msgid ""
 "How will you be sharing your data? (e.g. institutional repository, a specializ"
 "ed data archive, project website, informal/on-request sharing).  Include a bri"
@@ -6934,202 +6853,202 @@ msgid ""
 " expertise, etc.). \n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:412
+#: ../../tmp/translation/database_strings.rb:371
 msgid ""
 "What will happen when personnel changes occur or if the principal investigator"
 " leaves the institution before the project has concluded?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:413
+#: ../../tmp/translation/database_strings.rb:372
 msgid "Q. 1. 2. Please provide an outline description to your research. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:414
+#: ../../tmp/translation/database_strings.rb:373
 msgid ""
 "Q. 2. 2. How will the data be collected/captured? For a combination of data co"
 "llection modes, please specify which sites/regions will be using Electronic Da"
 "ta Capture (EDC), and which ones are not.  "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:415
+#: ../../tmp/translation/database_strings.rb:374
 msgid ""
 "Q. 3. 2.  What procedure should be followed when monitoring paper CRFs to ensu"
 "re accuracy, adherence to the protocol and GCP conformance?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:416
+#: ../../tmp/translation/database_strings.rb:375
 msgid "Q. 4. 2. How will the CRFs and other documents be stored during the study? "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:417
+#: ../../tmp/translation/database_strings.rb:376
 msgid "Q. 5. 2. How will you do data entry from photocopies?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:418
+#: ../../tmp/translation/database_strings.rb:377
 msgid "Q. 7. 2. How will you validate data with EDC forms? "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:419
+#: ../../tmp/translation/database_strings.rb:378
 msgid "Q. 9. 2. How will you extract the data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:420
+#: ../../tmp/translation/database_strings.rb:379
 msgid ""
 "Q. 10.2.  At the end of your study, which data will you select for long-term p"
 "reservation and access? And where will you deposit the selected data? "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:421
+#: ../../tmp/translation/database_strings.rb:380
 msgid ""
 "Q. 11. 2. What will happen when personnel changes occur or if the principal in"
 "vestigator leaves the institution before the study has concluded?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:422
+#: ../../tmp/translation/database_strings.rb:381
 msgid ""
 "How will access control be provided if the data repository does not support th"
 "is feature?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:423
+#: ../../tmp/translation/database_strings.rb:382
 msgid "To reproduce your findings, will any special software or code be needed?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:424
+#: ../../tmp/translation/database_strings.rb:383
 msgid "How will access be provided to sensitive or confidential data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:425
+#: ../../tmp/translation/database_strings.rb:384
 msgid ""
 "How will the data be accessible if they have not been deposited in an existing"
 " data repository?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:426
+#: ../../tmp/translation/database_strings.rb:385
 msgid ""
 "What file formats will your data be collected in? Will these formats allow for"
 " data re-use, sharing and long-term access to the data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:427
+#: ../../tmp/translation/database_strings.rb:386
 msgid ""
 "How and where will your data be stored and backed up during your research proj"
 "ect?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:428
+#: ../../tmp/translation/database_strings.rb:387
 msgid ""
 "Indicate how you will ensure your data is preservation ready. Consider preserv"
 "ation-friendly file formats, ensuring file integrity, anonymization and de-ide"
 "ntification, inclusion of supporting documentation."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:429
+#: ../../tmp/translation/database_strings.rb:388
 msgid "Have you considered what type of end-user license to include with your data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:430
+#: ../../tmp/translation/database_strings.rb:389
 msgid ""
 "How will responsibilities for managing data activities be handled if substanti"
 "ve changes happen in the personnel overseeing the project's data, including a "
 "change of Principal Investigator?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:431
+#: ../../tmp/translation/database_strings.rb:390
 msgid ""
 "If applicable, what strategies will you undertake to address secondary uses of"
 " sensitive data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:432
+#: ../../tmp/translation/database_strings.rb:391
 msgid ""
 "How will you make sure that documentation is created or captured consistently "
 "throughout your project?\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:434
+#: ../../tmp/translation/database_strings.rb:393
 msgid ""
 "Indicate how you will ensure your data is preservation ready. Consider preserv"
 "ation-friendly file formats, ensuring file integrity, anonymization and de-ide"
 "ntification, and inclusion of supporting documentation.\t\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:436
+#: ../../tmp/translation/database_strings.rb:395
 msgid ""
 "If the way you store and share data during your research project differs from "
 "how you will preserve your data long-term, include a brief description of any "
 "resources needed to share your data (equipment, systems, expertise, etc.).\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:438
+#: ../../tmp/translation/database_strings.rb:397
 msgid ""
 "If applicable, what strategies will you undertake to address secondary uses of"
 " sensitive data?\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:440
+#: ../../tmp/translation/database_strings.rb:399
 msgid "What type of end-user license will you include with your data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:441
+#: ../../tmp/translation/database_strings.rb:400
 msgid ""
 "What file formats will you use for your data? Keep in mind the need to allow f"
 "or data re-use, sharing, and long-term access. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:442
+#: ../../tmp/translation/database_strings.rb:401
 msgid "How will you ensure your data are preservation ready? "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:443
+#: ../../tmp/translation/database_strings.rb:402
 msgid ""
 "How will responsibilities for managing data activities be handled if substanti"
 "ve changes happen in the personnel overseeing the data management?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:444
+#: ../../tmp/translation/database_strings.rb:403
 msgid "How will the data be collected or created?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:445
+#: ../../tmp/translation/database_strings.rb:404
 msgid "Time periods during which the data will be collected?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:446
+#: ../../tmp/translation/database_strings.rb:405
 msgid "Ethics, Privacy, and Confidentiality Requirements"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:447
+#: ../../tmp/translation/database_strings.rb:406
 msgid ""
 "What file formats will your data be collected in? Do these formats allow for d"
 "ata re-use, sharing and long-term access? E.g., are file formats proprietary o"
 "r open source?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:448
+#: ../../tmp/translation/database_strings.rb:407
 msgid ""
 "What provisions are in place for data security including data recovery, backup"
 ", secure storage, transfer of data, and version control? "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:449
+#: ../../tmp/translation/database_strings.rb:408
 msgid "What specific standard(s) are being used for metadata? "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:450
+#: ../../tmp/translation/database_strings.rb:409
 msgid ""
 "When will the data be made available for re-use? If an embargo period is reque"
 "sted specify why and how long this will apply, bearing in mind that data shoul"
 "d be made available as soon as possible."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:451
+#: ../../tmp/translation/database_strings.rb:410
 msgid ""
 "Are there any legal, ethical or intellectual property issues with sharing data"
 "? Please describe"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:452
+#: ../../tmp/translation/database_strings.rb:411
 msgid ""
 "What resources will you require to implement your data management plan? (E.g.,"
 " training, storage space, and large data transfer capabilities). If applicable"
@@ -7137,21 +7056,21 @@ msgid ""
 "to your project’s budget."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:453
+#: ../../tmp/translation/database_strings.rb:412
 msgid ""
 "What are the anticipated storage requirements for your project, in terms of st"
 "orage space (in megabytes, gigabytes, terabytes etc.) and the length of time y"
 "ou will be storing it?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:454
+#: ../../tmp/translation/database_strings.rb:413
 msgid ""
 "How will you ensure your data is preservation ready? Factors in this considera"
 "tion include open file formats, file integrity, anonymization and de-identific"
 "ation, and inclusion of supporting documentation."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:455
+#: ../../tmp/translation/database_strings.rb:414
 msgid ""
 "If the way you store and access data during your research project (i.e. active"
 " storage) differs from how you will preserve your data long-term, describe any"
@@ -7159,55 +7078,55 @@ msgid ""
 "tise etc.)"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:456
+#: ../../tmp/translation/database_strings.rb:415
 msgid ""
 "How will responsibilities for managing data activities be handled if substanti"
 "ve changes happen in the personnel overseeing the research data, including a c"
 "hange in Principle Investigator?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:457
+#: ../../tmp/translation/database_strings.rb:416
 msgid ""
 "Please provide an outline description of the research project and the intended"
 " products of the research."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:458
+#: ../../tmp/translation/database_strings.rb:417
 msgid "Will this project use existing data? "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:459
+#: ../../tmp/translation/database_strings.rb:418
 msgid ""
 "How will the data (derived, raw and unpublished data files) be documented for "
 "future usefulness?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:460
+#: ../../tmp/translation/database_strings.rb:419
 msgid ""
 "If applicable, where are hardcopy notebooks and physical samples going to be p"
 "hysically stored?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:461
+#: ../../tmp/translation/database_strings.rb:420
 msgid ""
 "Dans quels formats de fichier vos données seront-elles recueillies? Ces format"
 "s permettront-ils la réutilisation des données, le partage et l'accès à long t"
 "erme aux données?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:462
+#: ../../tmp/translation/database_strings.rb:421
 msgid ""
 "Comment vous assurerez-vous de documenter le projet de façon systématique tout"
 " au long du processus?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:463
+#: ../../tmp/translation/database_strings.rb:422
 msgid ""
 "Comment vos données seront-elles stockées et sauvegardées pendant votre projet"
 " de recherche et à quel endroit le seront-elles?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:464
+#: ../../tmp/translation/database_strings.rb:423
 msgid ""
 "Indiquez comment vous assurerez que vos données sont prêtes pour la conservati"
 "on. À prendre en considération: formats de fichier appropriés pour la conserva"
@@ -7215,11 +7134,11 @@ msgid ""
 "isation des fichiers, y compris les fichiers de documentation. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:465
+#: ../../tmp/translation/database_strings.rb:424
 msgid "Avez-vous examiné quel type de licence d'utilisation inclure avec vos données?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:466
+#: ../../tmp/translation/database_strings.rb:425
 msgid ""
 "De quelle façon les responsabilités relatives à la gestion des données seront-"
 "elles gérées si des changements importants surviennent au sein du personnel qu"
@@ -7227,19 +7146,19 @@ msgid ""
 "pal?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:467
+#: ../../tmp/translation/database_strings.rb:426
 msgid ""
 " Le cas échéant, quelles stratégies adopterez-vous pour traiter les utilisatio"
 "ns secondaires des données sensibles?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:468
+#: ../../tmp/translation/database_strings.rb:427
 msgid ""
 "If so, what data will you be sharing and in what form? (e.g. raw, processed, a"
 "nalyzed, final)"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:469
+#: ../../tmp/translation/database_strings.rb:428
 msgid ""
 "What file formats will your data be collected in? \n"
 "\n"
@@ -7248,77 +7167,77 @@ msgid ""
 "a to a more accessible format after collecting the data?\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:473
+#: ../../tmp/translation/database_strings.rb:432
 msgid ""
 "Indicate how you will ensure your data is preservation friendly. Consider non-"
 "proprietary file formats, ensuring file integrity, and inclusion of supporting"
 " documentation."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:474
+#: ../../tmp/translation/database_strings.rb:433
 msgid ""
 "Le cas échéant, quelles stratégies adopterez-vous pour traiter les utilisation"
 "s secondaires des données sensibles?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:475
+#: ../../tmp/translation/database_strings.rb:434
 msgid ""
 "1.2  Please provide an outline description of the research project and the int"
 "ended products of the research."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:476
+#: ../../tmp/translation/database_strings.rb:435
 msgid ""
 "2.2 What file formats will your data be collected in? Will these formats allow"
 " for data re-use, sharing and long-term access to the data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:477
+#: ../../tmp/translation/database_strings.rb:436
 msgid ""
 "3.2 How will you make sure that documentation is created or captured consisten"
 "tly throughout your project?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:478
+#: ../../tmp/translation/database_strings.rb:437
 msgid ""
 "4.2 How and where will your data be stored and backed up during your research "
 "project?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:479
+#: ../../tmp/translation/database_strings.rb:438
 msgid ""
 "5.2 Where will you deposit your data for long-term preservation and access at "
 "the end of your research project? Is there specific software needed in order t"
 "o use or interpret your research data collection?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:480
+#: ../../tmp/translation/database_strings.rb:439
 msgid ""
 "6.2 If the way you store and share data during your research project differs f"
 "rom how you will preserve your data long-term, include a brief description of "
 "any resources needed to share your data (equipment, systems, expertise, etc.)."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:481
+#: ../../tmp/translation/database_strings.rb:440
 msgid ""
 "7.2 How will responsibilities for managing data activities be handled if subst"
 "antive changes happen in the personnel overseeing the project's data, includin"
 "g a change of Principal Investigator?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:482
+#: ../../tmp/translation/database_strings.rb:441
 msgid ""
 "8.2 If applicable, what strategies will you undertake to address secondary use"
 "s of sensitive data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:483
+#: ../../tmp/translation/database_strings.rb:442
 msgid ""
 "In which file formats will your data be collected? Will these formats allow fo"
 "r data re-use, sharing and long-term access to the data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:484
+#: ../../tmp/translation/database_strings.rb:443
 msgid ""
 "\n"
 " \n"
@@ -7327,93 +7246,85 @@ msgid ""
 "change of Principal Investigator?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:487
+#: ../../tmp/translation/database_strings.rb:446
 msgid ""
 "Pertaining to your data inventory (above), what data formats and file types wi"
 "ll you use?  You are encouraged to avoid proprietary file types whenever possi"
 "ble."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:488
+#: ../../tmp/translation/database_strings.rb:447
 msgid "Principle Investigator/Researcher: (Last name, First names)"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:489
+#: ../../tmp/translation/database_strings.rb:448
 msgid ""
 "What resources will you require to implement your data management plan? What d"
 "o you estimate the overall cost for data management to be?  Is this built into"
 " your current project budget?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:490
+#: ../../tmp/translation/database_strings.rb:449
 msgid "What metadata standard will be employed to describe your data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:491
+#: ../../tmp/translation/database_strings.rb:450
 msgid ""
 "How and where will your data be stored and backed up during the active project"
 " life cycle?  Specifically, comment on practices, hardware and software."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:492
+#: ../../tmp/translation/database_strings.rb:451
 msgid "Does your study include human information or other sensitive data?  "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:493
+#: ../../tmp/translation/database_strings.rb:452
 msgid "When will data from this project be shared?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:494
+#: ../../tmp/translation/database_strings.rb:453
 msgid ""
 "Pertaining to your data inventory (above), what data formats and file types wi"
 "ll you use? You are encouraged to avoid proprietary file types whenever possib"
 "le."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:495
+#: ../../tmp/translation/database_strings.rb:454
 msgid ""
 "What resources will you require to implement your data management plan? What d"
 "o you estimate the overall cost for data management to be? Is this built into "
 "your current project budget?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:496
+#: ../../tmp/translation/database_strings.rb:455
 msgid ""
 "How and where will your data be stored and backed up during the active project"
 " life cycle? Specifically, comment on practices, hardware and software."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:497
+#: ../../tmp/translation/database_strings.rb:456
 msgid ""
 "Outline any legal or ethical constraints on data release (obligations from fun"
 "ders, etc.)"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:498
+#: ../../tmp/translation/database_strings.rb:457
 msgid "List of Expected Data to be collected:"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:499
-msgid "aqui vas a poner lo de active data storage"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:500
-msgid "otro theme <strong>active data storage</strong>"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:501
+#: ../../tmp/translation/database_strings.rb:458
 msgid ""
 "If data are collected using laptops or mobile devices, please explain how will"
 " you will securely store and transfer the data."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:502
+#: ../../tmp/translation/database_strings.rb:459
 msgid ""
 "How will you make sure that documentation is created or captured consistently "
 "throughout your project?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:503
+#: ../../tmp/translation/database_strings.rb:460
 msgid ""
 "Please describe how you will prepare the data for preservation and access, inc"
 "luding any necessary procedures for data cleaning, normalization or de-identif"
@@ -7421,31 +7332,31 @@ msgid ""
 "nd converting files. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:504
+#: ../../tmp/translation/database_strings.rb:461
 msgid ""
 "Please describe whether there will be any restrictions placed on your data whe"
 "n they are made available and who may access them.  If data are not openly ava"
 "ilable, describe the process for gaining access."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:505
+#: ../../tmp/translation/database_strings.rb:462
 msgid ""
 "Who will be responsible for data sharing and preservation after the project ha"
 "s concluded? Indicate the party who will have primary responsibility for how t"
 "he data will persist over time when the original personnel have moved on. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:506
+#: ../../tmp/translation/database_strings.rb:463
 msgid "Q. 1.3 Please provide details of the primary efficacy variables. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:507
+#: ../../tmp/translation/database_strings.rb:464
 msgid ""
 "Q. 2. 3. Who is designing the Case Report Forms (CRFs)? Is CRIC (Clinical Rese"
 "arch Informatics Core) input required?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:508
+#: ../../tmp/translation/database_strings.rb:465
 msgid ""
 "Q. 3. 3. Electronic CRFs (OpenClinica, REDCap, etc) will be monitored electron"
 "ically for accuracy (source document verification), adherence to the protocol "
@@ -7455,17 +7366,17 @@ msgid ""
 "ts. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:509
+#: ../../tmp/translation/database_strings.rb:466
 msgid ""
 "Q. 4. 3. How will you ensure that sensitive data is stored securely and only a"
 "ccessible to the research team during the study?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:510
+#: ../../tmp/translation/database_strings.rb:467
 msgid "Q. 5. 3. How will you do data entry for CRFs that are not photocopied?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:511
+#: ../../tmp/translation/database_strings.rb:468
 msgid ""
 "Q. 6. 3. What documentation will be needed for the data to be read and interpr"
 "eted correctly in the future? This includes study-level documentation, data-le"
@@ -7473,11 +7384,11 @@ msgid ""
 "a usable by other researchers."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:512
+#: ../../tmp/translation/database_strings.rb:469
 msgid "Q. 7. 3. How will you validate data with paper CRFs?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:513
+#: ../../tmp/translation/database_strings.rb:470
 msgid ""
 "Q. 9. 3. How will you be sharing your data? (e.g. institutional repository, a "
 "specialized data archive, project website, informal/on-request sharing etc. )."
@@ -7485,13 +7396,13 @@ msgid ""
 " (equipment, systems, expertise, etc. )"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:514
+#: ../../tmp/translation/database_strings.rb:471
 msgid ""
 "Q. 10. 3. How will you archive the study materials after study completion? Ple"
 "ase include both paper and electronic records. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:515
+#: ../../tmp/translation/database_strings.rb:472
 msgid ""
 "Q. 11. 3. Who will be responsible for data sharing and preservation after the "
 "study has concluded? Indicate the party who will have primary responsibility f"
@@ -7499,154 +7410,154 @@ msgid ""
 "on. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:516
+#: ../../tmp/translation/database_strings.rb:473
 msgid "How will access to any special software or code be provided?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:517
+#: ../../tmp/translation/database_strings.rb:474
 msgid ""
 "If you are using data from another producer or provider, describe how other re"
 "searchers can obtain access to these data."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:518
+#: ../../tmp/translation/database_strings.rb:475
 msgid "How will persistent identifiers for the data be provided?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:519
+#: ../../tmp/translation/database_strings.rb:476
 msgid ""
 "What conventions and procedures will you use to structure, name and version-co"
 "ntrol your files to help you and others better understand how your data are or"
 "ganized?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:520
+#: ../../tmp/translation/database_strings.rb:477
 msgid ""
 "If you are using a metadata standard and/or tools to document and describe you"
 "r data, please list here."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:521
+#: ../../tmp/translation/database_strings.rb:478
 msgid ""
 "How will the research team and other collaborators access, modify, and contrib"
 "ute data throughout the project?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:522
+#: ../../tmp/translation/database_strings.rb:479
 msgid ""
 "What steps will be taken to help the research community know that your data ex"
 "ists?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:523
+#: ../../tmp/translation/database_strings.rb:480
 msgid ""
 "What resources will you require to implement your data management plan? What d"
 "o you estimate the overall cost for data management to be?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:524
+#: ../../tmp/translation/database_strings.rb:481
 msgid "How will you manage legal, ethical, and intellectual property issues?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:525
+#: ../../tmp/translation/database_strings.rb:482
 msgid ""
 "If you are using a metadata standard and/or tools to document and describe you"
 "r data, please list here.\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:527
+#: ../../tmp/translation/database_strings.rb:484
 msgid ""
 "How will the research team and other collaborators access, modify, and contrib"
 "ute data throughout the project?\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:529
+#: ../../tmp/translation/database_strings.rb:486
 msgid ""
 "Have you considered what type of end-user license to include with your data?\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:531
+#: ../../tmp/translation/database_strings.rb:488
 msgid "How will you make it possible for the research community to find your data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:532
+#: ../../tmp/translation/database_strings.rb:489
 msgid ""
 "What conventions and procedures will you use to structure, name, and version-c"
 "ontrol your files to help you and others better understand how your data are o"
 "rganized?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:533
+#: ../../tmp/translation/database_strings.rb:490
 msgid ""
 "What resources will you require to implement your data management plan? What i"
 "s your estimate for the overall cost for data management?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:534
+#: ../../tmp/translation/database_strings.rb:491
 msgid ""
 "Data Access, Sharing and Re-use: Who is the data author/data contact that is r"
 "esponsible for the data and documentation during the project?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:535
+#: ../../tmp/translation/database_strings.rb:492
 msgid "Planned update frequency of dataset:"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:536
+#: ../../tmp/translation/database_strings.rb:493
 msgid ""
 "Is there any privacy restriction in place? What safeguards are in place to pre"
 "vent disclosure?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:537
+#: ../../tmp/translation/database_strings.rb:494
 msgid "What are the anticipated storage requirements of your project?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:538
+#: ../../tmp/translation/database_strings.rb:495
 msgid ""
 "What standards or applications (e.g., notebooks) are you using to help to stru"
 "cture, name and version control your files? "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:539
+#: ../../tmp/translation/database_strings.rb:496
 msgid "What type of end-user license to include with your data? E.g., CC-BY "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:540
+#: ../../tmp/translation/database_strings.rb:497
 msgid ""
 "If applicable, how will sensitive data be securely managed and accessible only"
 " to project members? Does ethics alone address this, or are non-disclosure agr"
 "eements required?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:541
+#: ../../tmp/translation/database_strings.rb:498
 msgid ""
 "How will the research team and other collaborators access, modify, and contrib"
 "ute data  throughout the project?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:542
+#: ../../tmp/translation/database_strings.rb:499
 msgid "Please provide details of the project timelines."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:543
+#: ../../tmp/translation/database_strings.rb:500
 msgid ""
 "What systems are to be used to collect the data? What file formats will your e"
 "lectronic data be collected in? Will these formats allow for data re-use, shar"
 "ing and long-term access to the data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:544
+#: ../../tmp/translation/database_strings.rb:501
 msgid "If your data is not on a network server, how often will backups be performed?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:545
+#: ../../tmp/translation/database_strings.rb:502
 msgid ""
 "How will you be sharing your data? (e.g. a specialized data archive, project w"
 "ebsite, informal/on-request sharing etc). "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:546
+#: ../../tmp/translation/database_strings.rb:503
 msgid ""
 "Quelles conventions et procédures utiliserez-vous pour structurer et nommer vo"
 "s fichiers et en contrôler les versions afin de vous aider, ainsi que les util"
@@ -7654,45 +7565,45 @@ msgid ""
 "ées?\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:548
+#: ../../tmp/translation/database_strings.rb:505
 msgid ""
 "Si vous utilisez une norme de métadonnées ou des outils pour documenter et déc"
 "rire vos données, veuillez les indiquer ici.\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:550
+#: ../../tmp/translation/database_strings.rb:507
 msgid ""
 " Comment l'équipe de recherche et d'autres collaborateurs pourront-ils accéder"
 " aux données, modifier celles-ci ou en ajouter de nouvelles tout au long du pr"
 "ojet?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:551
+#: ../../tmp/translation/database_strings.rb:508
 msgid ""
 "Quelles mesures seront prises pour faire connaître l'existence de vos données "
 "au milieu de la recherche?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:552
+#: ../../tmp/translation/database_strings.rb:509
 msgid ""
 "De quelles ressources aurez-vous besoin pour mettre en œuvre votre plan de ges"
 "tion des données? À combien évaluez-vous le coût total de la gestion des donné"
 "es?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:553
+#: ../../tmp/translation/database_strings.rb:510
 msgid ""
 "Comment traiterez-vous les questions d'ordre juridique, éthique et de propriét"
 "é intellectuelle?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:554
+#: ../../tmp/translation/database_strings.rb:511
 msgid ""
 "Do you plan to use a metadata standard and/or tools to document and describe y"
 "our data? If so, please list here."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:555
+#: ../../tmp/translation/database_strings.rb:512
 msgid ""
 "Quelles conventions et procédures utiliserez-vous pour structurer et nommer vo"
 "s fichiers et en contrôler les versions afin de vous aider, ainsi que les util"
@@ -7700,17 +7611,17 @@ msgid ""
 "ées?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:556
+#: ../../tmp/translation/database_strings.rb:513
 msgid ""
 "Si vous utilisez une norme de métadonnées ou des outils pour documenter et déc"
 "rire vos données, veuillez les indiquer ici."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:557
+#: ../../tmp/translation/database_strings.rb:514
 msgid "1.3  Please provide details of the project timelines."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:558
+#: ../../tmp/translation/database_strings.rb:515
 msgid ""
 "2.3 How much data do you anticipate collecting? Include an estimate of how muc"
 "h storage space you will require (in megabytes, gigabytes, terabytes). This es"
@@ -7718,13 +7629,13 @@ msgid ""
 "g, backups, and the growth rate over time."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:559
+#: ../../tmp/translation/database_strings.rb:516
 msgid ""
 "3.3 If you are using a metadata standard and/or tools to document and describe"
 " your data, please list here."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:560
+#: ../../tmp/translation/database_strings.rb:517
 msgid ""
 "4.3 How will the research team and other collaborators access, modify, and con"
 "tribute data throughout the project?\n"
@@ -7734,14 +7645,14 @@ msgid ""
 "oject?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:563
+#: ../../tmp/translation/database_strings.rb:520
 msgid ""
 "5.3 Indicate how you will ensure your data is preservation ready. Consider pre"
 "servation-friendly file formats, ensuring file integrity, anonymization and de"
 "-identification, inclusion of supporting documentation."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:564
+#: ../../tmp/translation/database_strings.rb:521
 msgid ""
 "6.3 How will you be sharing your data? (e.g. institutional repository, a speci"
 "alized data archive, informal/on-request \n"
@@ -7749,7 +7660,7 @@ msgid ""
 "ta (equipment, systems, expertise, etc.)."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:566
+#: ../../tmp/translation/database_strings.rb:523
 msgid ""
 "7.3 What resources will you require to implement your data management plan? Wh"
 "at do you estimate the overall cost for data management to be?\n"
@@ -7758,15 +7669,15 @@ msgid ""
 "lan?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:569
+#: ../../tmp/translation/database_strings.rb:526
 msgid "8.3 How will you manage legal, ethical, and intellectual property issues?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:570
+#: ../../tmp/translation/database_strings.rb:527
 msgid "Principal Investigator Profile (ORCID)s: "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:571
+#: ../../tmp/translation/database_strings.rb:528
 msgid ""
 "Who “owns” or will be responsible for the data generated during the project? W"
 "ho are the primary authors of research products generating during this project"
@@ -7775,30 +7686,30 @@ msgid ""
 "?  "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:572
+#: ../../tmp/translation/database_strings.rb:529
 msgid ""
 "What information and metadata elements will be needed for the data to be read "
 "and interpreted correctly in the future?  "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:573
+#: ../../tmp/translation/database_strings.rb:530
 msgid ""
 "How will the research team and other collaborators access, modify, and contrib"
 "ute data throughout the project life cycle?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:574
+#: ../../tmp/translation/database_strings.rb:531
 msgid ""
 "How will sensitive data be managed securely during the active research project"
 " life cycle?  Will non-disclosure agreements be required for researchers or pa"
 "rticipants?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:575
+#: ../../tmp/translation/database_strings.rb:532
 msgid "What copyright or license should be applied to these datasets?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:576
+#: ../../tmp/translation/database_strings.rb:533
 msgid ""
 "Who “owns” or will be responsible for the data generated during the project? W"
 "ho are the primary authors of research products generating during this project"
@@ -7806,14 +7717,14 @@ msgid ""
 " change in PI) during the project’s life cycle, what will happen to the data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:577
+#: ../../tmp/translation/database_strings.rb:534
 msgid ""
 "How will sensitive data be managed securely during the active research project"
 " life cycle? Will non-disclosure agreements be required for researchers or par"
 "ticipants?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:578
+#: ../../tmp/translation/database_strings.rb:535
 msgid ""
 "What copyright or license should be applied to these datasets?\n"
 "\n"
@@ -7826,11 +7737,7 @@ msgid ""
 "Note"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:587
-msgid "audience theme"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:588
+#: ../../tmp/translation/database_strings.rb:544
 msgid ""
 "How much data do you anticipate collecting?  Include an estimate of how much s"
 "torage space you will require (in megabytes, gigabytes, terabytes).  This esti"
@@ -7838,30 +7745,30 @@ msgid ""
 " backups, and the growth rate over time."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:589
+#: ../../tmp/translation/database_strings.rb:545
 msgid ""
 "What type of end-user license will you include with your data? Please include "
 "a copy of this license with your Data Management Plan. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:590
+#: ../../tmp/translation/database_strings.rb:546
 msgid ""
 "What resources will you require to implement your plan? Will extra people, tim"
 "e or hardware, storage be required? How much will this cost (estimation)?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:591
+#: ../../tmp/translation/database_strings.rb:547
 msgid "Q 1. 4. Please provide details of the secondary efficacy variables. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:592
+#: ../../tmp/translation/database_strings.rb:548
 msgid ""
 "Q. 2. 4. What systems are to be used to collect the data? What file formats wi"
 "ll your electronic data be collected in? Will these formats allow for data re-"
 "use, sharing and long-term access to the data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:593
+#: ../../tmp/translation/database_strings.rb:549
 msgid ""
 "Q. 3. 4. Please describe additional data validation procedures to the electron"
 "ic CRFs, if any. Who will be responsible for these data validation tasks? Iden"
@@ -7871,234 +7778,234 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:597
+#: ../../tmp/translation/database_strings.rb:553
 msgid ""
 "Q. 4.4. How will you track the documents that are collected and removed from t"
 "he storage for data entry?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:598
+#: ../../tmp/translation/database_strings.rb:554
 msgid "Q. 5. 4. How will you handle data entry for EDCs?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:599
+#: ../../tmp/translation/database_strings.rb:555
 msgid "Q. 7.4. How will you verify the source documents?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:600
+#: ../../tmp/translation/database_strings.rb:556
 msgid ""
 "Q. 9. 4. Please describe whether there will be any restrictions placed on your"
 " data when they are made available and who may access them. If data are not op"
 "enly available, describe the process for gaining access. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:601
+#: ../../tmp/translation/database_strings.rb:557
 msgid "Who will register DOIs for the data with DataCite?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:602
+#: ../../tmp/translation/database_strings.rb:558
 msgid ""
 "What steps will be taken to help the research community know that your data ex"
 "ists?\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:604
+#: ../../tmp/translation/database_strings.rb:560
 msgid ""
 "What would you and/or other researchers need to interpret the data? How will y"
 "ou create, manage, and update the documentation?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:605
+#: ../../tmp/translation/database_strings.rb:561
 msgid ""
 "Data Access, Sharing and Re-use: Who is the data maintainer that is responsibl"
 "e for the data and documentation at completion of project. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:606
+#: ../../tmp/translation/database_strings.rb:562
 msgid "Study site description:"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:607
+#: ../../tmp/translation/database_strings.rb:563
 msgid ""
 "Where will you deposit data for long term preservation and access? E.g., Dryad"
 ", Zenodo, Figshare, University-specific repository, etc."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:608
+#: ../../tmp/translation/database_strings.rb:564
 msgid ""
 "If applicable, what steps need to be taken before publicly releasing data? E.g"
 "., anonymization/de-personalization of data."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:609
+#: ../../tmp/translation/database_strings.rb:565
 msgid ""
 "What steps will you take to disseminate and/or assist the discovery of your re"
 "search?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:610
+#: ../../tmp/translation/database_strings.rb:566
 msgid "Principal Investigator(s)"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:611
+#: ../../tmp/translation/database_strings.rb:567
 msgid ""
 "Will the project need to buy any new software, licenses, or IT equipment to co"
 "llect or process the data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:612
+#: ../../tmp/translation/database_strings.rb:568
 msgid ""
 "Please describe whether there will be any restrictions placed on your data whe"
 "n they are made available and who may access them. If data are not openly avai"
 "lable, describe the process for gaining access, if applicable"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:613
+#: ../../tmp/translation/database_strings.rb:569
 msgid "1.4 Principal Investigator(s)"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:614
+#: ../../tmp/translation/database_strings.rb:570
 msgid ""
 "2.4 Are there are any existing data that you can re-use? If so, please explain"
 " how you will obtain that data and integrate it into your research project."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:615
+#: ../../tmp/translation/database_strings.rb:571
 msgid ""
 "6.4 Please describe whether there will be any restrictions placed on your data"
 " when they are made available and who may access them. If data are not openly "
 "available, describe the process for gaining access."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:616
+#: ../../tmp/translation/database_strings.rb:572
 msgid "Project DMP Contact"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:617
+#: ../../tmp/translation/database_strings.rb:573
 msgid ""
 "Will you require archiving beyond the length of time stated above?  What will "
 "that archive require in terms of storage type, space, and maintenance?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:618
+#: ../../tmp/translation/database_strings.rb:574
 msgid ""
 "If any data are to be released publicly, what steps will be taken to ensure an"
 "onymization and/or data cleaning?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:619
+#: ../../tmp/translation/database_strings.rb:575
 msgid "To which public data repository/-ies do you intend to submit data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:620
+#: ../../tmp/translation/database_strings.rb:576
 msgid ""
 "Will you require archiving beyond the length of time stated above? What will t"
 "hat archive require in terms of storage type, space, and maintenance?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:621
+#: ../../tmp/translation/database_strings.rb:577
 msgid ""
 "Are there are any existing data that you can re-use?  If so, please explain ho"
 "w you will obtain that data and integrate it into your research project."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:622
+#: ../../tmp/translation/database_strings.rb:578
 msgid ""
 "Q. 1. 5. Please details what data constitutes the safety data (if any) for the"
 " study. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:623
+#: ../../tmp/translation/database_strings.rb:579
 msgid ""
 "Q. 2. 5. How the study will be randomized/blinded? Please provide details on a"
 "ny applicable code break procedures.  "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:624
+#: ../../tmp/translation/database_strings.rb:580
 msgid "Q. 7. 5. What is your procedure for data quality audit?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:625
+#: ../../tmp/translation/database_strings.rb:581
 msgid ""
 "Q. 9. 5. What type of end-user license will you include with your data? Please"
 " include a copy of this license with your Data Management Plan. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:626
+#: ../../tmp/translation/database_strings.rb:582
 msgid ""
 "Which metadata standard and/or tools, if any, will you use to document and des"
 "cribe your data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:627
+#: ../../tmp/translation/database_strings.rb:583
 msgid "Data Access, Sharing and Re-use: What is the data access policy?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:628
+#: ../../tmp/translation/database_strings.rb:584
 msgid ""
 "What steps will be taken to help the research community know that your data ex"
 "ists? E.g., what metadata catalog will you use to increase discoverability?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:629
+#: ../../tmp/translation/database_strings.rb:585
 msgid "Identify collaborating Agencies/Organizations."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:630
+#: ../../tmp/translation/database_strings.rb:586
 msgid "How is the data in the research project categorized?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:631
+#: ../../tmp/translation/database_strings.rb:587
 msgid ""
 "If applicable, how will you ensure that sensitive data is stored securely and "
 "only accessible to the research team and other collaborators throughout the pr"
 "oject?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:632
+#: ../../tmp/translation/database_strings.rb:588
 msgid ""
 "What type of end-user license will you include with your data, if applicable? "
 "Please include a copy of this license with your Data Management Plan. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:633
+#: ../../tmp/translation/database_strings.rb:589
 msgid "1.5 Identify collaborating Agencies/Organizations."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:634
+#: ../../tmp/translation/database_strings.rb:590
 msgid ""
 "2.5 What conventions and procedures will you use to structure, name and versio"
 "n-control your files to help you and others better understand how your data ar"
 "e organized?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:635
+#: ../../tmp/translation/database_strings.rb:591
 msgid ""
 "6.5 Have you considered what type of end-user license to include with your dat"
 "a?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:636
+#: ../../tmp/translation/database_strings.rb:592
 msgid "Description of project"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:637
+#: ../../tmp/translation/database_strings.rb:593
 msgid ""
 "Please list any datasets that will be submitted to CIOOS, and to which regiona"
 "l node (Atlantic, Pacific, St. Lawrence) you intended to submit. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:638
+#: ../../tmp/translation/database_strings.rb:594
 msgid ""
 "What conventions and procedures will you use to structure, name and version co"
 "ntrol your files to ensure that your data is well-organized?\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:640
+#: ../../tmp/translation/database_strings.rb:596
 msgid "Q. 1. 6. Please provide the definition of analysis populations. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:641
+#: ../../tmp/translation/database_strings.rb:597
 msgid ""
 "Q. 6. 2. [Interventional Studies only] How will you handle serious adverse eve"
 "nts? Please provide an overview of SAE handling procedure, including relations"
@@ -8106,93 +8013,93 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:644
+#: ../../tmp/translation/database_strings.rb:600
 msgid ""
 "Are there user restrictions to data? Will data sharing be postponed / restrict"
 "ed e.g. embargo period. Dataset has privacy restrictions (has consent to discl"
 "ose data has been obtained)?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:645
+#: ../../tmp/translation/database_strings.rb:601
 msgid ""
 "Identify who will be responsible for managing this project’s data during and a"
 "fter the project.\t"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:646
+#: ../../tmp/translation/database_strings.rb:602
 msgid ""
 "Has a statement of sensivity (SOS) been conducted? Is the research project res"
 "ponsible for controlled Goods data and/or ITAR Data?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:647
+#: ../../tmp/translation/database_strings.rb:603
 msgid ""
 "Indicate how you will ensure your data is preservation ready. Consider preserv"
 "ation-friendly file formats, ensuring file integrity, anonymization and de-ide"
 "ntification, and inclusion of supporting documentation.\t"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:648
+#: ../../tmp/translation/database_strings.rb:604
 msgid ""
 "6.6 What steps will be taken to help the research community know that your dat"
 "a exists?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:650
+#: ../../tmp/translation/database_strings.rb:606
 msgid "What metadata catalog(s) will host your metadata (if different than above)?  "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:651
+#: ../../tmp/translation/database_strings.rb:607
 msgid ""
 "Q. 1. 7. Please provide details of the number of patients required in each gro"
 "up treatment/placebo/enrolled/randomized/completed as appropriate. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:652
+#: ../../tmp/translation/database_strings.rb:608
 msgid ""
 "If applicable, identify the data sharing agreement, Memorandum of Understandin"
 "g, or Memorandum of Agreement that defines roles and responsibilities for data"
 " collection and/or sharing."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:653
+#: ../../tmp/translation/database_strings.rb:609
 msgid "Are you collecting personal information?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:655
+#: ../../tmp/translation/database_strings.rb:611
 msgid "Q. 1. 8 Please provide details of the study timelines. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:656
+#: ../../tmp/translation/database_strings.rb:612
 msgid "What resources will you require to implement your data management plan? "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:657
+#: ../../tmp/translation/database_strings.rb:613
 msgid "Is ethics approval required and has it been obtained?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:658
+#: ../../tmp/translation/database_strings.rb:614
 msgid "Date of issue: (version)"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:659
+#: ../../tmp/translation/database_strings.rb:615
 msgid "Q. 1. 9. Is the study interventional or observational?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:660
+#: ../../tmp/translation/database_strings.rb:616
 msgid "Q. 1. 10. Is this study a drug/device trial?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:661
+#: ../../tmp/translation/database_strings.rb:617
 msgid "Q. 1. 11. Is the use of the drug/device within its approval?"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:662
+#: ../../tmp/translation/database_strings.rb:618
 msgid ""
 "Q. 1. 12. Is ethics approval required and has it been obtained?\n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:665
+#: ../../tmp/translation/database_strings.rb:621
 msgid ""
 "[Please modify as needed]\n"
 "\n"
@@ -8200,7 +8107,7 @@ msgid ""
 "SOPs. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:668
+#: ../../tmp/translation/database_strings.rb:624
 msgid ""
 "[please modify as needed]\n"
 "Data handling practices for this study are documented in the study's data hand"
@@ -8210,7 +8117,7 @@ msgid ""
 "ctice and will also serve to log data handling exceptions. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:670
+#: ../../tmp/translation/database_strings.rb:626
 msgid ""
 "[please assign tasks to the responsible staff and/or organizational roles ]\n"
 "1. CRF design\n"
@@ -8228,21 +8135,25 @@ msgid ""
 "13. Data archiving"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:685
-#: ../../tmp/translation/database_strings.rb:744
-#: ../../tmp/translation/database_strings.rb:758
+#: ../../tmp/translation/database_strings.rb:641
+#: ../../tmp/translation/database_strings.rb:700
+#: ../../tmp/translation/database_strings.rb:714
 msgid "<table style="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:830
+#: ../../tmp/translation/database_strings.rb:786
 msgid "<p>test</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:831
+#: ../../tmp/translation/database_strings.rb:787
 msgid "<p>No files created</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:832
+#: ../../tmp/translation/database_strings.rb:788
+msgid "<p>My default answer</p>"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:789
 msgid ""
 "[Please modify the following procedure where is needed]\n"
 "\n"
@@ -8255,7 +8166,7 @@ msgid ""
 "screpancy will be recorded for resolution at a later date. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:836
+#: ../../tmp/translation/database_strings.rb:793
 msgid ""
 "[please modify as needed]\n"
 "\n"
@@ -8283,7 +8194,7 @@ msgid ""
 "either be corrected or documented in the study data handling manual."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:853
+#: ../../tmp/translation/database_strings.rb:810
 msgid ""
 "[Please modify as needed]\n"
 "\n"
@@ -8291,13 +8202,13 @@ msgid ""
 " export module. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:856
+#: ../../tmp/translation/database_strings.rb:813
 msgid ""
 "<p>Add more rows to the two forms below as needed:</p>\n"
 "<table style="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:891
+#: ../../tmp/translation/database_strings.rb:848
 msgid ""
 "<p><strong>Start Date/Month/Year (dd/mmm/yyyy):</strong></p>\n"
 "<p><strong>End Date/Month/Year (dd/mmm/yyyy):</strong></p>\n"
@@ -8306,7 +8217,7 @@ msgid ""
 "<p>&nbsp;</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:895
+#: ../../tmp/translation/database_strings.rb:852
 msgid ""
 "<p><strong>Is ethics approval required?(Yes/No)</strong></p>\n"
 "<p><strong>Ethics approval number (if any):</strong></p>\n"
@@ -8314,17 +8225,17 @@ msgid ""
 "<p><strong>Location of consent forms:&nbsp;</strong></p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:899
+#: ../../tmp/translation/database_strings.rb:856
 msgid "<p style="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:901
+#: ../../tmp/translation/database_strings.rb:858
 msgid ""
 "<p>&nbsp;</p>\n"
 "<table style="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:956
+#: ../../tmp/translation/database_strings.rb:913
 msgid ""
 "[Please modify as needed]\n"
 "\n"
@@ -8339,7 +8250,7 @@ msgid ""
 "crepancy will be recorded in the database for resolution at a later date. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:961
+#: ../../tmp/translation/database_strings.rb:918
 msgid ""
 "[Please modify as needed]\n"
 "Entered data will be subject to visual and electronic validation by data manag"
@@ -8351,7 +8262,7 @@ msgid ""
 "may be direct to the site or via the monitor."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:966
+#: ../../tmp/translation/database_strings.rb:923
 msgid ""
 "<p>Special software that is required and has been developed as open source wil"
 "l be available through a published link on the Github code repository.</p>\n"
@@ -8360,19 +8271,19 @@ msgid ""
 ".</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:968
+#: ../../tmp/translation/database_strings.rb:925
 msgid ""
 "[Please modify as needed]\n"
 "The sites will complete electronic CRFs contained within the data collection s"
 "ystem based on the contents of the patient records and other data sources. \n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:971
-#: ../../tmp/translation/database_strings.rb:1101
+#: ../../tmp/translation/database_strings.rb:928
+#: ../../tmp/translation/database_strings.rb:1058
 msgid "<p><a href="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1000
+#: ../../tmp/translation/database_strings.rb:957
 msgid ""
 "[please modify as needed]\n"
 "\n"
@@ -8395,7 +8306,7 @@ msgid ""
 "remedies in order to bring the error rate within acceptable limits."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1014
+#: ../../tmp/translation/database_strings.rb:971
 msgid ""
 "[please modify as needed]\n"
 "\n"
@@ -8407,23 +8318,23 @@ msgid ""
 "ith the CRF data."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1019
+#: ../../tmp/translation/database_strings.rb:976
 msgid "<p>English</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1020
+#: ../../tmp/translation/database_strings.rb:977
 msgid ""
 "Examples: Images, audio, video, text, tabular data, modeling data, spatial dat"
 "a, instrumentation data"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1021
+#: ../../tmp/translation/database_strings.rb:978
 msgid ""
 "<p>There may be existing data that you can license or purchase for re-use.  <a"
 " href="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1022
+#: ../../tmp/translation/database_strings.rb:979
 msgid ""
 "<p>Proprietary file formats which require specialized software or hardware to "
 "use are not recommended, but may be necessary for certain data collection or a"
@@ -8433,13 +8344,13 @@ msgid ""
 "<p>Read more about file formats on the <a href="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1024
+#: ../../tmp/translation/database_strings.rb:981
 msgid ""
 "<p>The University of Alberta’s Encryption Procedure requires that sensitive in"
 "formation stored on mobile computing devices be encrypted.  <a href="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1025
+#: ../../tmp/translation/database_strings.rb:982
 msgid ""
 "<p>The type of data you collect will impact your storage requirements.  Textua"
 "l and tabular data files are usually very small (a few megabytes) unless you h"
@@ -8455,7 +8366,7 @@ msgid ""
 "/p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1027
+#: ../../tmp/translation/database_strings.rb:984
 msgid ""
 "<p>Ensuring that you and your research team are using the ‘master’ version of "
 "your data is extremely important.  Establishing conventions for naming and ver"
@@ -8465,7 +8376,7 @@ msgid ""
 "ef="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1030
+#: ../../tmp/translation/database_strings.rb:987
 msgid ""
 "<p>Your documentation may include study-level information about:</p>\n"
 "<ul>\n"
@@ -8485,7 +8396,7 @@ msgid ""
 "<p>More information about data documentation is available at the <a href="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1045
+#: ../../tmp/translation/database_strings.rb:1002
 msgid ""
 "<p>Metadata is a description of the contents and context of data files. Using "
 "a metadata standard (a set of required fields to fill out) helps ensure that y"
@@ -8495,14 +8406,14 @@ msgid ""
 "<p>There are general and discipline-specific <a href="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1047
+#: ../../tmp/translation/database_strings.rb:1004
 msgid ""
 "It is best to begin the documentation process at the start of a research proje"
 "ct.  Details or procedures may be forgotten if documentation is created at the"
 " end of a project.  "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1048
+#: ../../tmp/translation/database_strings.rb:1005
 msgid ""
 "<p>Storing data on flash drives, laptops, computers, or external hard drives w"
 "ithout a regular backup procedure is not recommended, because they are subject"
@@ -8515,7 +8426,7 @@ msgid ""
 "about data storage from <a href="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1052
+#: ../../tmp/translation/database_strings.rb:1009
 msgid ""
 "<p>The security measures you choose to implement will depend on the sensitivit"
 "y of the data being stored.  Data can be protected by limiting physical access"
@@ -8527,13 +8438,13 @@ msgid ""
 "More about security from the <a href="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1056
+#: ../../tmp/translation/database_strings.rb:1013
 msgid ""
 "<p>Please describe how you will identify a data repository or data center for "
 "your data.  <a href="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1059
+#: ../../tmp/translation/database_strings.rb:1016
 msgid ""
 "<p>It is likely that you will have multiple versions of your data (raw, proces"
 "sed, analyzed, final), and your data may be stored in different file formats d"
@@ -8548,7 +8459,7 @@ msgid ""
 "<p>Read more about <a href="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1063
+#: ../../tmp/translation/database_strings.rb:1020
 msgid ""
 "<p>Where you share your data depends on the complexity and size of your data. "
 " Smaller, low-risk datasets can be shared via institutional or disciplinary re"
@@ -8557,7 +8468,7 @@ msgid ""
 " more about sharing data at the <a href="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1065
+#: ../../tmp/translation/database_strings.rb:1022
 msgid ""
 "<p>It may be necessary or desirable to restrict access to your data for a limi"
 "ted time or to a limited number of people, for:</p>\n"
@@ -8577,64 +8488,64 @@ msgid ""
 "</ul>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1079
+#: ../../tmp/translation/database_strings.rb:1036
 msgid ""
 "<p>Assigning an end-user license allows you to define the terms of use for you"
 "r data.  We recommend a <a href="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1080
+#: ../../tmp/translation/database_strings.rb:1037
 msgid ""
 "<p>More information about estimating cost for data management is available thr"
 "ough the <a href="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1081
+#: ../../tmp/translation/database_strings.rb:1038
 msgid ""
 "This is required so that appropriate data management focus can be applied to t"
 "his critical data. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1082
+#: ../../tmp/translation/database_strings.rb:1039
 msgid ""
 "The safety data normally refers to the adverse events and lab data. However so"
 "me studies may include additional safety data. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1083
+#: ../../tmp/translation/database_strings.rb:1040
 msgid ""
 "Under some circumstances these definitions may be required to focus data manag"
 "ement activity, for instance an interim analysis involving certain subsets of "
 "the study population. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1084
+#: ../../tmp/translation/database_strings.rb:1041
 msgid ""
 "Details of the timelines linclude first patient first visit, last patient last"
 " visit, scheduled visit intervals, interim analysis, database lock, final deli"
 "very, etc. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1085
+#: ../../tmp/translation/database_strings.rb:1042
 msgid ""
 "Trials of a medication or device that are outside the scope of its approval re"
 "quire CTA submission to Health Canada. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1086
+#: ../../tmp/translation/database_strings.rb:1043
 msgid ""
 "Typically ethics approval is required for the collection of subject related da"
 "ta. Note that where the subjects of the study are practicing medical personnel"
 " ethics approval may still be required. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1087
+#: ../../tmp/translation/database_strings.rb:1044
 msgid ""
 "Electronic data capture (EDC), paper or a combination of data collection modes"
 ".  "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1088
+#: ../../tmp/translation/database_strings.rb:1045
 msgid ""
 "Clinical Research Informatics Core (CRIC) provides technology and technology b"
 "ased services to help MICYRN researchers creating CRFs (Case Report Forms), wh"
@@ -8642,7 +8553,7 @@ msgid ""
 " and coordinators in capturing all protocol-required information."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1089
+#: ../../tmp/translation/database_strings.rb:1046
 msgid ""
 "The CRF Transmittal form will detail the documents in the delivery. The person"
 "nel received the documents will reconcile the transmittal form against the del"
@@ -8650,13 +8561,13 @@ msgid ""
 "eturned to the PI by way of receipt. \n"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1091
+#: ../../tmp/translation/database_strings.rb:1048
 msgid ""
 "Please summarize relationship between data management/monitors/site/sponsor fo"
 "r query processing. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1092
+#: ../../tmp/translation/database_strings.rb:1049
 msgid ""
 "The above procedures only partially address the issue of transcription errors "
 "arising during form\n"
@@ -8669,34 +8580,34 @@ msgid ""
 "a randomly selected sample of subjects."
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1097
+#: ../../tmp/translation/database_strings.rb:1054
 msgid ""
 "Consider which data may need to be shared in order to meet institutional or fu"
 "nding requirements, and which data may be restricted because of confidentialit"
 "y/privacy issue. "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1098
+#: ../../tmp/translation/database_strings.rb:1055
 msgid ""
 "<p>Intelligent access describes providing access to data that is appropriate t"
 "o the level of restrictions associated with the content.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1099
+#: ../../tmp/translation/database_strings.rb:1056
 msgid ""
 "<p>If your project will be creating new data from one or more existing data so"
 "urces or if data being collected in your project is being integrated with exis"
 "ting data, please check both boxes.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1100
+#: ../../tmp/translation/database_strings.rb:1057
 msgid ""
 "<p>You should document any derived variables added to the data during analysis"
 ". &nbsp;This metadata may be in a descriptive statement or expressed in code.<"
 "/p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1103
+#: ../../tmp/translation/database_strings.rb:1060
 msgid ""
 "<p>Data from human participants in research require privacy safeguards and ass"
 "urances around the purposes for which the data will be used. This is typically"
@@ -8707,7 +8618,7 @@ msgid ""
 "e the data but not to share it directly with others outside their project.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1106
+#: ../../tmp/translation/database_strings.rb:1063
 msgid ""
 "<p>If the data are from human participants, consider preparing a consent form "
 "that seeks the participants' approval to share the data with other researchers"
@@ -8723,13 +8634,13 @@ msgid ""
 "the most restrictive in making the data available to other researchers. </p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1111
+#: ../../tmp/translation/database_strings.rb:1068
 msgid ""
 "<p>Consider requesting from the data owner a special data licence that allows "
 "you to share just the data that you used in producing your findings.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1112
+#: ../../tmp/translation/database_strings.rb:1069
 msgid ""
 "<p>Having chosen a&nbsp;data repository, it is recommended that you meet with "
 "one of the data curators with&nbsp;this repository to discuss how best to prep"
@@ -8737,7 +8648,7 @@ msgid ""
 "tadata to accompany your data.&nbsp;</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1113
+#: ../../tmp/translation/database_strings.rb:1070
 msgid ""
 "<p>Placing data on a website for downloading may seem like a straightforward s"
 "olution, however data repositories typically provide a variety of services&nbs"
@@ -8745,7 +8656,7 @@ msgid ""
 "ing, and access control features.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1114
+#: ../../tmp/translation/database_strings.rb:1071
 msgid ""
 "<p>A persistent identifier is a unique code that is associated with your data "
 "and serves in the digital realm a function similar to what the ISBN does in th"
@@ -8759,20 +8670,20 @@ msgid ""
 "ta.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1117
+#: ../../tmp/translation/database_strings.rb:1074
 msgid ""
 "<p>DataCite is an international registry for data and in Canada, the National "
 "Research Council provides DataCite registration services. DataCite uses DOIs a"
 "s persistent identifiers.</p>"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1118
+#: ../../tmp/translation/database_strings.rb:1075
 msgid ""
 "<p>Citation practices for data are varied. The UK Digital Curation Centre prov"
 "ides an <a href="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1119
+#: ../../tmp/translation/database_strings.rb:1076
 msgid ""
 "<p>Proprietary file formats which require specialized software or hardware to "
 "use are not recommended, but may be necessary for certain data collection or a"
@@ -8782,7 +8693,7 @@ msgid ""
 "<p>Read more about file formats on UBC Library <a href="
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:1122
+#: ../../tmp/translation/database_strings.rb:1079
 msgid ""
 "<p>Ensure that laptops or mobile devices are encrypted to prevent unauthorized"
 " access to information. UBC Information Technology provides<a href="
