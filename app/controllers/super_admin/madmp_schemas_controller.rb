@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module SuperAdmin
+
   class MadmpSchemasController < ApplicationController
 
     before_action :set_schema, only: %i[edit update destroy]
@@ -19,10 +22,10 @@ module SuperAdmin
       authorize(MadmpSchema)
       @schema = MadmpSchema.new(permitted_params)
       if @schema.save
-        flash.now[:notice] = success_message(@schema, _('created'))
+        flash.now[:notice] = success_message(@schema, _("created"))
         render :edit
       else
-        flash.now[:alert] = failure_message(@schema, _('create'))
+        flash.now[:alert] = failure_message(@schema, _("create"))
         render :new
       end
     end
@@ -34,9 +37,9 @@ module SuperAdmin
     def update
       authorize(MadmpSchema)
       if @schema.update_attributes(permitted_params)
-        flash.now[:notice] = success_message(@schema, _('updated'))
+        flash.now[:notice] = success_message(@schema, _("updated"))
       else
-        flash.now[:alert] = failure_message(@schema, _('update'))
+        flash.now[:alert] = failure_message(@schema, _("update"))
       end
       render :edit
     end
@@ -44,10 +47,10 @@ module SuperAdmin
     def destroy
       authorize(MadmpSchema)
       if @schema.destroy
-        msg = success_message(@schema, _('deleted'))
+        msg = success_message(@schema, _("deleted"))
         redirect_to super_admin_madmp_schemas_path, notice: msg
       else
-        flash.now[:alert] = failure_message(@schema, _('delete'))
+        flash.now[:alert] = failure_message(@schema, _("delete"))
         redner :edit
       end
     end
@@ -69,5 +72,7 @@ module SuperAdmin
     def permitted_params
       params.require(:madmp_schema).permit(:label, :name, :version, :classname, :schema)
     end
+
   end
+
 end
