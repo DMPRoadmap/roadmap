@@ -1,11 +1,13 @@
 <%# locals: { field_values, parent_id, schema, field_name, template_locale, ttip } %>
-<% field_label = field_label || 'No label defined' %>
-<% field_label = required ? "* #{field_label}" : field_label%>
 <% query_id = SecureRandom.uuid%>
 
-<div class="col-md-12">
-  <%= f.label field_id, field_label, class: 'control-label' %>
-</div>
+<% unless field_label.nil?%>
+  <% field_label = required ? "* #{field_label}" : field_label%>
+
+  <div class="col-md-12">
+    <%= f.label field_id, field_label, class: 'control-label' %>
+  </div>
+<% end %>
 <div class="col-md-12 dynamic-field linked-fragments-select <%= schema.classname %>-select select-<%= query_id %>">
   <%= render(partial: 'shared/dynamic_form/linked_fragment/select', locals: {
         field_name: field_name, 

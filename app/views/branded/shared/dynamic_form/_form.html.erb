@@ -37,7 +37,7 @@
       <div class="col-md-12">
         <fieldset class="sub-fragment registry">
           <legend class="sub-fragment registry" data-toggle="tooltip" data-original-title="<%= ttip %>"><%= label %></legend>
-          <%= create_select_field(f, value_id, "#{f.object_name}[#{field_name}]", label, field_id, registryValues, template_locale, readonly: readonly, multiple: false, validation: validation, ttip: ttip, default_value: default_value) %>
+          <%= create_select_field(f, value_id, "#{f.object_name}[#{field_name}]", nil, field_id, registryValues, template_locale, readonly: readonly, multiple: false, validation: validation, ttip: ttip, default_value: default_value) %>
           <div class="col-md-12 registry-value">
             <%= render(partial: 'registry_values/show', locals: { 
                         registry_value: value 

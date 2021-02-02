@@ -1,12 +1,14 @@
 <%# locals: { f, field_label, field_name, select_values, locale, selected_value, field_class, required, readonly, multiple, validation, ttip } %>
-<% field_label = field_label || 'No label defined' %>
-<% field_label = required ? "* #{field_label}" : field_label%>
-
 <% selected_value ||= default_value %>
 <% include_blank = !selected_value && !default_value %>
-<div class="col-md-12">
+
+<% unless field_label.nil?%>
+  <% field_label = required ? "* #{field_label}" : field_label%>
+
+  <div class="col-md-12">
     <%= f.label field_id, field_label, class: 'control-label' %>
-</div>
+  </div>
+<% end %>
 <div class="col-md-12 dynamic-field">
     <%= select_tag field_name,
                 options_for_select(
