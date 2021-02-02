@@ -6,7 +6,7 @@ class Paginable::RegistriesController < ApplicationController
 
   # /paginable/registries/index/:page
   def index
-    authorize(Registries)
+    authorize(Registry)
     paginable_renderise(
       partial: "index",
       scope: Registry.all,
