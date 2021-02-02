@@ -186,7 +186,7 @@ module DynamicFormHelper
 
   # Formats the data extract from the structured answer form to valid JSON data
   # This is useful because Rails converts all form data to strings and JSON needs the actual types
-  def data_reformater(schema, data, classname, locale)
+  def data_reformater(schema, data)
     schema["properties"].each do |key, prop|
       next if data[key].nil?
 
@@ -212,9 +212,7 @@ module DynamicFormHelper
               sub_schema = MadmpSchema.find(prop["schema_id"])
               data[key] = data_reformater(
                 sub_schema.schema,
-                data[key],
-                sub_schema.classname,
-                locale
+                data[key]
               )
             end
           end

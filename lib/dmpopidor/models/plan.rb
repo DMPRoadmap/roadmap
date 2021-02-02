@@ -209,14 +209,12 @@ module Dmpopidor
 
         meta_data = data_reformater(
           meta_fragment.madmp_schema.schema,
-          meta,
-          meta_fragment.classname
+          meta
         )
 
         project_data = data_reformater(
           project_fragment.madmp_schema.schema,
-          project,
-          project_fragment.classname
+          project
         )
 
         meta_fragment.save_as_multifrag(meta_data, meta_fragment.madmp_schema)

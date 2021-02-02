@@ -38,7 +38,10 @@ class MadmpFragmentsController < ApplicationController
       )
       @fragment.instantiate
     else
-      data = data_reformater(schema.schema, schema_params(schema), schema.classname)
+      data = data_reformater(
+        schema.schema,
+        schema_params(schema)
+      )
       additional_info = @fragment.additional_info.merge(
         {
           "validations" => MadmpFragment.validate_data(data, schema.schema)
@@ -96,9 +99,7 @@ class MadmpFragmentsController < ApplicationController
 
     data = data_reformater(
       schema.schema,
-      schema_params(schema),
-      schema.classname,
-      p_params[:template_locale]
+      schema_params(schema)
     )
 
     # rubocop:disable Metrics/BlockLength
@@ -360,7 +361,7 @@ class MadmpFragmentsController < ApplicationController
 
   def permitted_params
     permit_arr = [:id, :dmp_id, :parent_id, :schema_id, :source, :template_locale,
-                  :property_name, answer: %i[id plan_id research_output_id
+                  :property_name, :query_id, %i[id plan_id research_output_id
                              question_id lock_version is_common]
                 ]
     params.require(:madmp_fragment).permit(permit_arr)
