@@ -29,4 +29,15 @@ class Registry < ActiveRecord::Base
 
   validates :name, presence: { message: PRESENCE_MESSAGE }
 
+  # ==========
+  # = Scopes =
+  # ==========
+
+  scope :search, ->(term) {
+    search_pattern = "%#{term}%"
+    where("lower(registries.name) LIKE lower(?) OR " \
+          "lower(registries.description) LIKE lower(?)",
+          search_pattern, search_pattern)
+  }
+
 end
