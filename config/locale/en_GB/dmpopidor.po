@@ -499,3 +499,6 @@ msgstr "Editing %{title_value}"
 
 msgid "New %{title_value}"
 msgstr "New %{title_value}"
+
+msgid "Selected value:"
+msgstr "Selected value:"

@@ -1,8 +1,9 @@
 <%# locals: { field_name, select_values, selected_value, madmp_schema, parent_id, include_blank, readonly, template_locale, validation, ttip, query_id } %>
+<% selected_value_id = selected_value.present? ? selected_value.id : nil %>
 <%= select_tag field_name,
   render(partial: 'shared/dynamic_form/linked_fragment/select_options', locals: {
         select_values: select_values,
-        selected_value: selected_value
+        selected_value: selected_value_id
       }
   ),
   disabled: readonly,
@@ -11,7 +12,7 @@
   title: ttip,
   class: "form-control" %>
 <%= link_to new_edit_linked_madmp_fragments_url(
-    :fragment_id => selected_value,
+    :fragment_id => selected_value_id,
     :parent_id => parent_id, 
     :schema_id => madmp_schema.id,
     :source => "select-modal",

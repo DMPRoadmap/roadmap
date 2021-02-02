@@ -503,3 +503,6 @@ msgstr ""
 
 msgid "New %{title_value}"
 msgstr ""
+
+msgid "Selected value:"
+msgstr ""

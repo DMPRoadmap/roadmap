@@ -12,7 +12,7 @@
   <%= render(partial: 'shared/dynamic_form/linked_fragment/select', locals: {
         field_name: field_name, 
         select_values: select_values,
-        selected_value: selected_value ? selected_value["dbid"] : nil,
+        selected_value: selected_value,
         madmp_schema: schema,
         parent_id: parent_id,
         include_blank: false,
@@ -24,6 +24,13 @@
       }
   ) %>
 </div>
+<% unless selected_value.nil?%>
+  <% I18n.with_locale template_locale do %>
+    <div class="col-md-12">
+      <strong><%= d_('dmpopidor', 'Selected value:') %></strong> <%= selected_value.to_s %>
+    </div>
+  <% end %>
+<% end %>
 <div class="col-md-12">
   <% unless parent_id.nil? || readonly %>
     <%= link_to d_('dmpopidor', 'Create'), new_edit_linked_madmp_fragments_url(
