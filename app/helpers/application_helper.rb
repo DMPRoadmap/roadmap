@@ -48,6 +48,19 @@ module ApplicationHelper
     file_name = "dmp_logo_#{FastGettext.locale}.png"
   end
 
+  # We are overriding this method in order to provide different contact us urls
+  # based on the chosen locale. Using the branding.yml does not work for this as
+  # we need different urls. This will be changed when we move to DMPRoadmap 3.0 
+  # as there is a service that handles fetching this information.
+  def contact_us_path
+    if (FastGettext.locale == 'fr_CA') 
+      'https://portagenetwork.ca/fr/contactez-nous/'
+    else
+      # Handling 'en_CA' locale
+      'https://portagenetwork.ca/contact-us/'
+    end
+  end
+
   def unique_dom_id(record, prefix = nil)
     klass     = dom_class(record, prefix)
     record_id = record_key_for_dom_id(record) || record.object_id

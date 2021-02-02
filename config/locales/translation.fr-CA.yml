@@ -25,32 +25,32 @@ fr-CA:
     - Sam
     month_names:
     -
-    - Janvier
-    - Février
-    - Mars
-    - Avril
-    - Mai
-    - Juin
-    - Juillet
-    - Août
-    - Septembre
-    - Octobre
-    - Novembre
-    - Décembre
+    - janvier
+    - février
+    - mars
+    - avril
+    - mai
+    - juin
+    - juillet
+    - août
+    - septembre
+    - octobre
+    - novembre
+    - décembre
     abbr_month_names:
     -
-    - Jan
-    - Fév
-    - Mar
-    - Avr
-    - Mai
-    - Juin
-    - Juil
-    - Août
-    - Sept
-    - Oct
-    - Nov
-    - Déc
+    - jan
+    - fév
+    - mar
+    - avr
+    - mai
+    - juin
+    - juil
+    - août
+    - sept
+    - oct
+    - nov
+    - déc
   time:
     am: am
     pm: pm
@@ -233,7 +233,7 @@ fr-CA:
       already_authenticated: Vous êtes déjà connecté(e).
       inactive: Votre compte n'est plus actif. Merci de nous contacter pour réactiver
         votre compte.
-      invalid: Courriel ou mot de passe incorrect.
+      invalid: Courriel ou mot de passe incorrect.%{authentication_keys}
       locked: Votre compte est verrouillé.
       last_attempt: Il vous reste une dernière tentative avant que votre compte ne
         soit bloqué.

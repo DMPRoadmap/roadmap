@@ -13,15 +13,15 @@
 fr-CA:
   date:
     formats:
-      default: "%d/%m/%Y"
+      default: "%Y-%m-%d"
       short: "%e %b"
       long: "%e %B %Y"
-      csv: "%d/%m/%Y"
+      csv: "%Y-%m-%d"
       readable: "%d %B %Y"
     order:
-    - :day
-    - :month
     - :year
+    - :month
+    - :day
   number:
     currency:
       format:

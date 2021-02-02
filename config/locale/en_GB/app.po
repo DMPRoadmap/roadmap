@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-01-26 15:11-0700\n"
-"PO-Revision-Date: 2021-01-26 23:11+0100\n"
+"POT-Creation-Date: 2021-02-02 11:09-0700\n"
+"PO-Revision-Date: 2021-02-02 19:09+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -19,17 +19,12 @@ msgstr ""
 "\n"
 
 msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempo"
-"r incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis n"
-"ostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. D"
-"uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu"
-" fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt i"
-"n culpa qui officia deserunt mollit anim id est laborum."
-msgstr ""
-
-msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempo"
-"r incididunt ut labore et dolore magna aliqua."
+"Data preservation will depend on potential reuse value, whether there are obli"
+"gations to either retain or destroy data, and the resources required to proper"
+"ly curate the data and ensure that it remains usable in the future. In some ci"
+"rcumstances, it may be desirable to preserve all versions of the data (e.g. ra"
+"w, processed, analyzed, final), but in others, it may be preferable to keep on"
+"ly selected or final data (e.g. transcripts instead of audio interviews)"
 msgstr ""
 
 msgid "Radio buttons"
@@ -160,21 +155,6 @@ msgstr ""
 msgid "DEFAULT TITLE"
 msgstr ""
 
-msgid "This test is for guidence UQAM"
-msgstr ""
-
-msgid "This test is for guidence UQAM version 2"
-msgstr ""
-
-msgid "tercer template"
-msgstr ""
-
-msgid "un template hecho desde cero para ver que pasa cuando lo guardas con update"
-msgstr ""
-
-msgid "este esta por aca sin cambiar visibilidad en upadte AHORA SI DISTE UPDATE"
-msgstr ""
-
 msgid "This is the generic DMP template for University of Alberta."
 msgstr ""
 
@@ -269,7 +249,25 @@ msgstr ""
 msgid "<p>A DMP template for the Canadian Ocean Observing System (CIOOS).</p>"
 msgstr ""
 
-msgid "<p>sss</p>"
+msgid "Oceans Data Management Plan"
+msgstr ""
+
+msgid "University of Manitoba Data Management Questions"
+msgstr ""
+
+msgid "DMP Questionnaire"
+msgstr ""
+
+msgid "University of Guelph Agri-Food Funding DMP (Alliance/Food from Thought)  "
+msgstr ""
+
+msgid "Data management questions"
+msgstr ""
+
+msgid "York U Data Management Questions"
+msgstr ""
+
+msgid "MUN Data Management Questions"
 msgstr ""
 
 msgid "OFI Module E DMP"
@@ -288,15 +286,6 @@ msgid "Phase 1 (test)"
 msgstr ""
 
 msgid "Initial GWF DMP"
-msgstr ""
-
-msgid "new phase"
-msgstr ""
-
-msgid "phase 1"
-msgstr ""
-
-msgid "title of new phase"
 msgstr ""
 
 msgid "University of Alberta Data Management Questions"
@@ -318,27 +307,6 @@ msgid "Pre-Project: Prototype"
 msgstr ""
 
 msgid "CEOS Data Management Plan"
-msgstr ""
-
-msgid "Oceans Data Management Plan"
-msgstr ""
-
-msgid "University of Manitoba Data Management Questions"
-msgstr ""
-
-msgid "DMP Questionnaire"
-msgstr ""
-
-msgid "University of Guelph Agri-Food Funding DMP (Alliance/Food from Thought)  "
-msgstr ""
-
-msgid "Data management questions"
-msgstr ""
-
-msgid "York U Data Management Questions"
-msgstr ""
-
-msgid "MUN Data Management Questions"
 msgstr ""
 
 msgid "Phase 2"
@@ -384,9 +352,6 @@ msgid "<p>Just testing adding a phase</p>"
 msgstr ""
 
 msgid "<p>This is the initial phase DMP</p>"
-msgstr ""
-
-msgid "<p>desc</p>"
 msgstr ""
 
 msgid "<p>another test</p>"
@@ -524,16 +489,7 @@ msgstr ""
 msgid "Security"
 msgstr ""
 
-msgid "new section"
-msgstr ""
-
-msgid "sec 1"
-msgstr ""
-
-msgid "seccion nueva"
-msgstr ""
-
-msgid "sec"
+msgid "My new section"
 msgstr ""
 
 msgid ""
@@ -903,7 +859,7 @@ msgstr ""
 msgid "<p>Project Information</p>"
 msgstr ""
 
-msgid "<p>sec desc</p>"
+msgid "<p>My new section description</p>"
 msgstr ""
 
 msgid "What types of data will you collect, create, acquire and/or record?"
@@ -1334,13 +1290,7 @@ msgstr ""
 msgid "PLACEHOLDER"
 msgstr ""
 
-msgid "this is my questoin"
-msgstr ""
-
-msgid "esta es mi pregunta de A"
-msgstr ""
-
-msgid "111"
+msgid "<p>My new question text</p>"
 msgstr ""
 
 msgid ""
@@ -1752,12 +1702,6 @@ msgstr ""
 msgid "List of Expected Data to be collected:"
 msgstr ""
 
-msgid "aqui vas a poner lo de active data storage"
-msgstr ""
-
-msgid "otro theme <strong>active data storage</strong>"
-msgstr ""
-
 msgid ""
 "If data are collected using laptops or mobile devices, please explain how will"
 " you will securely store and transfer the data."
@@ -2115,9 +2059,6 @@ msgid ""
 "Note"
 msgstr ""
 
-msgid "audience theme"
-msgstr ""
-
 msgid ""
 "How much data do you anticipate collecting?  Include an estimate of how much s"
 "torage space you will require (in megabytes, gigabytes, terabytes).  This esti"
@@ -2454,6 +2395,9 @@ msgid "<p>test</p>"
 msgstr ""
 
 msgid "<p>No files created</p>"
+msgstr ""
+
+msgid "<p>My default answer</p>"
 msgstr ""
 
 msgid ""
@@ -4007,18 +3951,18 @@ msgid "Phase"
 msgstr ""
 
 #: ../../app/models/concerns/exportable_plan.rb:23
-#: ../../app/models/exported_plan.rb:111 ../../app/models/exported_plan.rb:113
+#: ../../app/models/exported_plan.rb:112 ../../app/models/exported_plan.rb:114
 msgid "Section"
 msgstr ""
 
 #: ../../app/models/concerns/exportable_plan.rb:23
-#: ../../app/models/exported_plan.rb:111
+#: ../../app/models/exported_plan.rb:112
 msgid "Question"
 msgstr ""
 
 #: ../../app/models/concerns/exportable_plan.rb:23
 #: ../../app/models/concerns/exportable_plan.rb:25
-#: ../../app/models/exported_plan.rb:111 ../../app/models/exported_plan.rb:113
+#: ../../app/models/exported_plan.rb:112 ../../app/models/exported_plan.rb:114
 msgid "Answer"
 msgstr ""
 
@@ -4130,27 +4074,27 @@ msgstr ""
 msgid "for 'Question text' can't be blank."
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:111 ../../app/models/exported_plan.rb:113
+#: ../../app/models/exported_plan.rb:112 ../../app/models/exported_plan.rb:114
 msgid "Selected option(s)"
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:111 ../../app/models/exported_plan.rb:113
+#: ../../app/models/exported_plan.rb:112 ../../app/models/exported_plan.rb:114
 msgid "Answered by"
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:111 ../../app/models/exported_plan.rb:113
+#: ../../app/models/exported_plan.rb:112 ../../app/models/exported_plan.rb:114
 msgid "Answered at"
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:154
+#: ../../app/models/exported_plan.rb:155
 msgid "Details"
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:161
+#: ../../app/models/exported_plan.rb:162
 msgid "-"
 msgstr ""
 
-#: ../../app/models/exported_plan.rb:180
+#: ../../app/models/exported_plan.rb:181
 #: ../../app/views/shared/export/_plan.erb:52
 #: ../../app/views/shared/export/_plan_txt.erb:47
 msgid "Question not answered."
@@ -4184,7 +4128,7 @@ msgstr ""
 msgid "private"
 msgstr ""
 
-#: ../../app/models/question.rb:151
+#: ../../app/models/question.rb:153
 msgid "guidance on"
 msgstr ""
 
@@ -4228,43 +4172,43 @@ msgstr ""
 msgid "A historical template cannot be retrieved for being modified"
 msgstr ""
 
-#: ../../app/models/template.rb:348
+#: ../../app/models/template.rb:350
 msgid "generate_copy! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:356
+#: ../../app/models/template.rb:358
 msgid "Copy of %{template}"
 msgstr ""
 
-#: ../../app/models/template.rb:364
+#: ../../app/models/template.rb:366
 msgid "generate_version! requires a published template"
 msgstr ""
 
-#: ../../app/models/template.rb:379
+#: ../../app/models/template.rb:381
 msgid "customize! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:384
+#: ../../app/models/template.rb:386
 msgid "customize! requires a template from a funder"
 msgstr ""
 
-#: ../../app/models/template.rb:420
+#: ../../app/models/template.rb:422
 msgid "You can not publish a published template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:424
+#: ../../app/models/template.rb:426
 msgid "You can not publish a historical version of this template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:429
+#: ../../app/models/template.rb:431
 msgid "You can not publish a template without phases.  "
 msgstr ""
 
-#: ../../app/models/template.rb:434
+#: ../../app/models/template.rb:436
 msgid "You can not publish a template without sections in a phase.  "
 msgstr ""
 
-#: ../../app/models/template.rb:439
+#: ../../app/models/template.rb:441
 msgid "You can not publish a template without questions in a section.  "
 msgstr ""
 
@@ -4677,11 +4621,11 @@ msgstr ""
 
 #: ../../app/views/contact_us/contacts/new.html.erb:10
 #: ../../app/views/layouts/_branding.html.erb:37
-#: ../../app/views/layouts/_footer.html.erb:26
-#: ../../app/views/layouts/_footer.html.erb:35
-#: ../../app/views/layouts/_footer.html.erb:44
-#: ../../app/views/layouts/_footer.html.erb:51
-#: ../../app/views/layouts/_footer.html.erb:57
+#: ../../app/views/layouts/_footer.html.erb:27
+#: ../../app/views/layouts/_footer.html.erb:36
+#: ../../app/views/layouts/_footer.html.erb:45
+#: ../../app/views/layouts/_footer.html.erb:52
+#: ../../app/views/layouts/_footer.html.erb:58
 #: ../../app/views/org_admin/plans/index.html.erb:39
 #: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:39
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:24
@@ -5367,39 +5311,39 @@ msgstr ""
 msgid "Notifications"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:13
+#: ../../app/views/layouts/_footer.html.erb:14
 msgid "About"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:14
+#: ../../app/views/layouts/_footer.html.erb:15
 #: ../../app/views/layouts/error.html.erb:68
 msgid "Contact us"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:15
+#: ../../app/views/layouts/_footer.html.erb:16
 msgid "Terms of use"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:16
+#: ../../app/views/layouts/_footer.html.erb:17
 #: ../../app/views/static_pages/privacy.html.erb:1
 #: ../../app/views/static_pages/privacy.html.erb:4
 msgid "Privacy statement"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:17
+#: ../../app/views/layouts/_footer.html.erb:18
 msgid "GitHub"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:25
-#: ../../app/views/layouts/_footer.html.erb:34
-#: ../../app/views/layouts/_footer.html.erb:43
-#: ../../app/views/layouts/_footer.html.erb:50
-#: ../../app/views/layouts/_footer.html.erb:56
+#: ../../app/views/layouts/_footer.html.erb:26
+#: ../../app/views/layouts/_footer.html.erb:35
+#: ../../app/views/layouts/_footer.html.erb:44
+#: ../../app/views/layouts/_footer.html.erb:51
+#: ../../app/views/layouts/_footer.html.erb:57
 msgid "(opens in a new window)"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:31
-#: ../../app/views/layouts/_footer.html.erb:34
+#: ../../app/views/layouts/_footer.html.erb:32
+#: ../../app/views/layouts/_footer.html.erb:35
 msgid "Canadian Association of Research Libraries"
 msgstr ""
 
@@ -7540,6 +7484,14 @@ msgstr ""
 msgid "DCC Checklist for a Data Management Plan"
 msgstr ""
 
+#: ../../app/views/translation_io_exports/_home_page_links.html.erb:10
+msgid "DMP Assistant equivalent in France"
+msgstr ""
+
+#: ../../app/views/translation_io_exports/_home_page_links.html.erb:11
+msgid "France funder requirements for Data Management Plans"
+msgstr ""
+
 #: ../../app/views/translation_io_exports/_themes.html.erb:2
 msgid "Active Data Storage"
 msgstr ""
@@ -8140,7 +8092,7 @@ msgstr ""
 msgid "Download users"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:93
+#: ../../tmp/translation/database_strings.rb:63
 msgid ""
 "\n"
 msgstr ""
