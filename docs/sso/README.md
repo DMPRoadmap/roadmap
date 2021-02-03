@@ -22,7 +22,7 @@ The Research and Scholarship Entity Category (R&S) is a simple way for Identity 
 
 ## My institution is a NOT a member of R&S
 
-Your institution's identity provider may need to be configured to release the attributes mentioned above for the DMPToool.  Your Identity and Access Management team can use the following information to make the necessary changes:
+If your instution is a member of the InCommon Federation but NOT within the Research & Scholarship category, your institution's identity provider may need to be configured to release the attributes mentioned above for the DMPToool.  Your Identity and Access Management team can use the following information to make the necessary changes:
 - [Attribute Release Policies](https://github.com/CDLUC3/dmptool/blob/main/docs/sso/dmptool_attribute_release.xml)
 
 DMPTool Service Provider Metadata
