@@ -21,8 +21,8 @@ RSpec.describe ResearchOutput, type: :model do
     it { is_expected.to validate_presence_of(:access) }
     it { is_expected.to validate_presence_of(:title) }
 
-    it { expect(@subject).to validate_uniqueness_of(:title).scoped_to(:plan_id) }
-    it { expect(@subject).to validate_uniqueness_of(:abbreviation).scoped_to(:plan_id) }
+    it { expect(@subject).to validate_uniqueness_of(:title).case_insensitive.scoped_to(:plan_id).with_message("must be unique") }
+    it { expect(@subject).to validate_uniqueness_of(:abbreviation).case_insensitive.scoped_to(:plan_id).with_message("must be unique") }
 
     it "requires :output_type_description if :output_type is 'other'" do
       @subject.other!
@@ -32,39 +32,22 @@ RSpec.describe ResearchOutput, type: :model do
       @subject.dataset!
       expect(@subject).not_to validate_presence_of(:output_type_description)
     end
-
-    describe ":coverage_start and :coverage_end" do
-      it "allows coverage_start to be nil" do
-        @subject.coverage_start = nil
-        expect(@subject.valid?).to eql(true)
-      end
-      it "allows end_date to be nil" do
-        @subject.coverage_end = nil
-        expect(@subject.valid?).to eql(true)
-      end
-      it "does not allow end_date to come before start_date" do
-        @subject.coverage_end = Time.now
-        @subject.coverage_start = Time.now + 2.days
-        expect(@subject.valid?).to eql(false)
-      end
-    end
   end
   # rubocop:enable Layout/LineLength
 
   it "factory builds a valid model" do
     expect(build(:research_output).valid?).to eql(true)
-    expect(build(:research_output, :complete).valid?).to eql(true)
   end
 
   describe "cascading deletes" do
     it "does not delete associated plan" do
-      model = create(:research_output, :complete, plan: create(:plan))
+      model = create(:research_output, plan: create(:plan))
       plan = model.plan
       model.destroy
       expect(Plan.last).to eql(plan)
     end
     it "does not delete associated mime_type" do
-      model = create(:research_output, :complete, plan: create(:plan))
+      model = create(:research_output, plan: create(:plan))
       mime_type = model.mime_type
       model.destroy
       expect(MimeType.last).to eql(mime_type)

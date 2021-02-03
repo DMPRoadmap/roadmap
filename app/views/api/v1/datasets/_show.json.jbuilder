@@ -7,6 +7,7 @@ if output.is_a?(ResearchOutput)
 
   json.type output.output_type
   json.title output.title
+  json.description output.description
   json.personal_data Api::V1::ApiPresenter.boolean_to_yes_no_unknown(value: output.personal_data)
   json.sensitive_data Api::V1::ApiPresenter.boolean_to_yes_no_unknown(value: output.sensitive_data)
   json.issued output.release_date&.to_formatted_s(:iso8601)
@@ -22,7 +23,7 @@ if output.is_a?(ResearchOutput)
   json.distribution output.repositories do |repository|
     json.byte_size output.byte_size
     json.data_access output.access
-    json.format output.mime_type
+    json.format output.mime_type&.value
 
     json.host do
       json.title repository.name

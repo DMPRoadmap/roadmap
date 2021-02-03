@@ -8,13 +8,9 @@
 #  abbreviation            :string
 #  access                  :integer          default(0), not null
 #  byte_size               :bigint
-#  coverage_end            :datetime
-#  coverage_region         :string
-#  coverage_start          :datetime
 #  description             :text
 #  display_order           :integer
 #  is_default              :boolean          default("false")
-#  mandatory_attribution   :text
 #  output_type             :integer          default(3), not null
 #  output_type_description :string
 #  personal_data           :boolean
@@ -36,11 +32,8 @@ FactoryBot.define do
     abbreviation            { Faker::Lorem.unique.word }
     access                  { ResearchOutput.accesses.keys.sample }
     byte_size               { Faker::Number.number }
-    coverage_end            { Time.now + 2.years }
-    coverage_start          { Time.now + 1.month }
     description             { Faker::Lorem.paragraph }
     is_default              { [nil, true, false].sample }
-    mandatory_attribution   { Faker::Music::PearlJam.musician }
     display_order           { Faker::Number.between(from: 1, to: 20) }
     output_type             { ResearchOutput.output_types.keys.sample }
     output_type_description { Faker::Lorem.sentence }
@@ -49,14 +42,13 @@ FactoryBot.define do
     sensitive_data          { [nil, true, false].sample }
     title                   { Faker::Music::PearlJam.song }
 
-    trait :complete do
-      after(:create) do |research_output|
-        research_output.mime_type = create(:mime_type)
-        # add a license identifier
-        # add a repository identifier
-        # add a metadata_standard identifier
-        # add a resource_type identifier
-      end
+    transient do
+      repositories_count { 1 }
+    end
+
+    after(:create) do |research_output, evaluator|
+      research_output.mime_type = create(:mime_type)
+      research_output.repositories = create_list(:repository, evaluator.repositories_count)
     end
   end
 end

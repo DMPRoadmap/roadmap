@@ -67,6 +67,6 @@ unless @minimal
   end
   json.dmproadmap_related_identifiers presenter.related_identifiers do |related|
     json.relation_type related[:relation_type]
-    json.identifier related[:identifier]
+    json.value related[:identifier]
   end
 end
