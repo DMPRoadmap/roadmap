@@ -142,9 +142,53 @@ module Dmpopidor
           additional_info: {}
         )
 
+        #################################
+        # PERSON & COORDINATORS FRAGMENTS
+        #################################
+
+        person_data = {
+          "lastName" => owner.surname,
+          "firstName" => owner.firstname,
+          "mbox" => owner.email
+        } unless owner.nil?
+
+        person = Fragment::Person.create(
+          data: person_data || {},
+          dmp_id: dmp_fragment.id,
+          madmp_schema: MadmpSchema.find_by(name: "PersonStandard"),
+          additional_info: { property_name: "person" }
+        )
+
+        dmp_coordinator = Fragment::Contributor.create(
+          data: {
+            "person" => { "dbid" => person.id },
+            "role" => d_("dmpopidor", "DMP coordinator")
+          },
+          dmp_id: dmp_fragment.id,
+          parent_id: nil,
+          madmp_schema: MadmpSchema.find_by(name: "DMPCoordinator"),
+          additional_info: { property_name: "contact" }
+        )
+
+        project_coordinator = Fragment::Contributor.create(
+          data: {
+            "person" => { "dbid" => person.id },
+            "role" => d_("dmpopidor", "Project coordinator")
+          },
+          dmp_id: dmp_fragment.id,
+          parent_id: nil,
+          madmp_schema: MadmpSchema.find_by(name: "PrincipalInvestigator"),
+          additional_info: { property_name: "principalInvestigator" }
+        )
+
+        #################################
+        # META & PROJECT FRAGMENTS
+        #################################
+
         project = Fragment::Project.create(
           data: {
-            "title" => title
+            "title" => title,
+            "principalInvestigator" => { "dbid" => project_coordinator.id }
           },
           dmp_id: dmp_fragment.id,
           parent_id: dmp_fragment.id,
@@ -158,7 +202,8 @@ module Dmpopidor
             "title" => d_("dmpopidor", "\"%{project_title}\" project DMP") % { project_title: title },
             "creationDate" => created_at.strftime("%F"),
             "lastModifiedDate" => updated_at.strftime("%F"),
-            "dmpLanguage" => template.locale
+            "dmpLanguage" => template.locale,
+            "contact" => { "dbid" => dmp_coordinator.id }
           },
           dmp_id: dmp_fragment.id,
           parent_id: dmp_fragment.id,
@@ -167,39 +212,8 @@ module Dmpopidor
         )
         meta.instantiate
 
-        person_data = {
-          "lastName" => owner.surname,
-          "firstName" => owner.firstname,
-          "mbox" => owner.email
-        } unless owner.nil?
-        person = Fragment::Person.create(
-          data: person_data || {},
-          dmp_id: dmp_fragment.id,
-          madmp_schema: MadmpSchema.find_by(name: "PersonStandard"),
-          additional_info: { property_name: "person" }
-        )
-
-        Fragment::Contributor.create(
-          data: {
-            "person" => { "dbid" => person.id },
-            "role" => d_("dmpopidor", "DMP coordinator")
-          },
-          dmp_id: dmp_fragment.id,
-          parent_id: meta.id,
-          madmp_schema: MadmpSchema.find_by(name: "DMPCoordinator"),
-          additional_info: { property_name: "contact" }
-        )
-
-        Fragment::Contributor.create(
-          data: {
-            "person" => { "dbid" => person.id },
-            "role" => d_("dmpopidor", "Project coordinator")
-          },
-          dmp_id: dmp_fragment.id,
-          parent_id: project.id,
-          madmp_schema: MadmpSchema.find_by(name: "PrincipalInvestigator"),
-          additional_info: { property_name: "principalInvestigator" }
-        )
+        dmp_coordinator.update(parent_id: meta.id)
+        project_coordinator.update(parent_id: project.id)
       end
 
       def update_plan_fragments(meta, project)

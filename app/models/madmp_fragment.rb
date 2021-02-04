@@ -233,23 +233,23 @@ class MadmpFragment < ActiveRecord::Base
 
     new_data = data
     madmp_schema.schema["properties"].each do |key, prop|
-      next if prop["type"] != "object" && prop["schema_id"].nil?
+      if prop["type"].eql?("object") && prop["schema_id"].present?
+        sub_schema = MadmpSchema.find(prop["schema_id"])
+        
+        next if sub_schema.classname.eql?("person") || new_data[key].present?
 
-      sub_schema = MadmpSchema.find(prop["schema_id"])
-
-      next if sub_schema.classname.eql?("person")
-
-      sub_fragment = MadmpFragment.new(
-        data: {},
-        answer_id: nil,
-        dmp_id: dmp.id,
-        parent_id: id,
-        madmp_schema: sub_schema,
-        additional_info: { property_name: key }
-      )
-      sub_fragment.assign_attributes(classname: sub_schema.classname)
-      sub_fragment.instantiate
-      new_data[key] = { "dbid" => sub_fragment.id }
+        sub_fragment = MadmpFragment.new(
+          data: {},
+          answer_id: nil,
+          dmp_id: dmp.id,
+          parent_id: id,
+          madmp_schema: sub_schema,
+          additional_info: { property_name: key }
+        )
+        sub_fragment.assign_attributes(classname: sub_schema.classname)
+        sub_fragment.instantiate
+        new_data[key] = { "dbid" => sub_fragment.id }
+      end
     end
     update!(data: new_data)
   end
@@ -258,9 +258,9 @@ class MadmpFragment < ActiveRecord::Base
     fragmented_data = {}
     param_data.each do |prop, content|
       schema_prop = schema.schema["properties"][prop]
-      if schema_prop["type"].present? && 
-          schema_prop["type"].eql?("object") && 
-          schema_prop["schema_id"].present?
+      if schema_prop["type"].present? &&
+         schema_prop["type"].eql?("object") &&
+         schema_prop["schema_id"].present?
         sub_data = content # TMP: for readability
         sub_schema = MadmpSchema.find(schema_prop["schema_id"])
         instantiate unless data[prop].present?
