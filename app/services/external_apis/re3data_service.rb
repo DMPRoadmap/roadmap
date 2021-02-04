@@ -75,7 +75,7 @@ module ExternalApis
 
         unless resp.present? && resp.code == 200
           handle_http_failure(method: "re3data list", http_response: resp)
-          nil
+          return nil
         end
         Nokogiri.XML(resp.body, nil, "utf8")
       end
@@ -101,7 +101,8 @@ module ExternalApis
         return nil unless id.present? && node.present?
 
         scheme = IdentifierScheme.find_by(name: "rethreedata")
-        repo_id = Identifier.where(identifier_scheme: scheme, value: id)
+        repo_id = Identifier.where(identifier_scheme: scheme)
+                            .where("value LIKE ?", "%#{id}").first
         repo = repo_id.identifiable if repo_id.present?
 
         # If the Repo couldn't be found by it's re3data ID then attempt to find by name
