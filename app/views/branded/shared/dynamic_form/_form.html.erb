@@ -38,10 +38,13 @@
         <fieldset class="sub-fragment registry">
           <legend class="sub-fragment registry" data-toggle="tooltip" data-original-title="<%= ttip %>"><%= label %></legend>
           <%= create_select_field(f, value_id, "#{f.object_name}[#{field_name}]", nil, field_id, registryValues, template_locale, readonly: readonly, multiple: false, validation: validation, ttip: ttip, default_value: default_value) %>
-          <div class="col-md-12 registry-value">
-            <%= render(partial: 'registry_values/show', locals: { 
-                        registry_value: value 
-            }) %>
+          <% unless value.nil?%>
+            <div class="col-md-12 registry-value">
+              <%= render(partial: 'registry_values/show', locals: { 
+                          registry_value: value 
+              }) %>
+            </div>
+          <% end %>
         </fieldset>
       </div>
     <% elsif prop["type"].eql?('string')%>
