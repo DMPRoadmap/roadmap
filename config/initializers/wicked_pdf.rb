@@ -5,7 +5,7 @@ module DMPRoadmap
   class Application < Rails::Application
 
     WickedPdf.config = {
-      exe_path: "bin/wkhtmltopdf"
+      exe_path: "./bin/wkhtmltopdf"
     }
     # if Rails.env.development?
     #   WickedPdf.config = { exe_path: "/Users/briley/.rbenv/shims/wkhtmltopdf" }
