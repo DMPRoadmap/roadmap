@@ -16,6 +16,7 @@
       </tr>
     </thead>
     <tbody>
+      <% signed_in = user_signed_in? %>
       <% scope.each do |template| %>
         <tr id="<%= dom_id(template) %>">
           <td><%= template.title %></td>
@@ -41,8 +42,12 @@
             <%= sanitize links_to_a_elements(template.links['funder'], '<br>') %>
           </td>
           <td class="text-center">
+          <% if signed_in %>
             <%= direct_link(template) %>
             <a href="" class="copy-link" data-toggle="modal" data-target="#link-modal" title="<%= _('Copy link to create a new plan') %>"><span class="fas fa-clipboard"></span></a>
+          <% else %>
+            <%= _('Requires login') %>
+          <% end %>
           </td>
           <td>
             <%= sanitize links_to_a_elements(template.links['sample_plan'], '<br>') %>
