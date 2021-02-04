@@ -25,11 +25,13 @@ Locals:
                 title: _("Click to remove %{item_name}") % { item_name: title } %>
   </div>
 
-  <%= render partial: result_partial,
-             locals: {
-               result: result,
-               selected: selected,
-               search_path: search_path,
-               search_method: search_method
-             }%>
+  <% if result_partial.present? %>
+    <%= render partial: result_partial,
+              locals: {
+                result: result,
+                selected: selected,
+                search_path: search_path,
+                search_method: search_method
+              }%>
+  <% end %>
 </div>
