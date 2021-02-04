@@ -17,7 +17,7 @@ jobs:
       with:
         fetch-depth: 1
 
-    - name: 'Install MySQL Packages'
+    - name: 'Install  MySQL Packages'
       run: |
         sudo apt-get update
         sudo apt-get install -y mysql-client libmysqlclient-dev
