@@ -73,7 +73,7 @@ jobs:
           ${{ runner.os }}-
 
     - name: 'Determine wkhtmltopdf location'
-      run: echo "WICKED_PDF_PATH=`bin/wkhtmltopdf`" >> $GITHUB_ENV
+      run: echo "WICKED_PDF_PATH=`bundle exec which wkhtmltopdf`" >> $GITHUB_ENV
 
     - name: 'Yarn Install'
       run: |
