@@ -93,19 +93,63 @@ RSpec.describe ResearchOutputPresenter do
   end
 
   describe ":display_type" do
-
+    it "returns an empty string unless if we do not have a ResearchOutput" do
+      presenter = described_class.new(research_output: build(:org))
+      expect(presenter.display_type).to eql("")
+    end
+    it "returns the user's description if the output_type is other" do
+      presenter = described_class.new(research_output: build(:research_output, output_type: "other",
+                                                                               output_type_description: "foo"))
+      expect(presenter.display_type).to eql("foo")
+    end
+    it "returns the humanized version of the output_type" do
+      presenter = described_class.new(research_output: build(:research_output, output_type: :image))
+      expect(presenter.display_type).to eql("Image")
+    end
   end
 
   describe ":display_repository" do
-
+    before(:each) do
+      @research_output.repositories.clear
+    end
+    it "returns ['None specified'] if not repositories are assigned" do
+      presenter = described_class.new(research_output: @research_output)
+      expect(presenter.display_repository).to eql(["None specified"])
+    end
+    it "returns an array of names when there is only one repository" do
+      repo = build(:repository)
+      @research_output.repositories << repo
+      presenter = described_class.new(research_output: @research_output)
+      expect(presenter.display_repository).to eql([repo.name])
+    end
+    it "returns an array of names when there are multiple repositories" do
+      repos = [build(:repository), build(:repository)]
+      @research_output.repositories << repos
+      presenter = described_class.new(research_output: @research_output)
+      expect(presenter.display_repository).to eql(repos.collect(&:name))
+    end
   end
 
   describe ":display_access" do
-
+    it "returns 'Unspecified' if :access has not been defined" do
+      presenter = described_class.new(research_output: build(:research_output, access: nil))
+      expect(presenter.display_access).to eql("Unspecified")
+    end
+    it "returns a humanized version of the :access enum selection" do
+      presenter = described_class.new(research_output: build(:research_output, access: :open))
+      expect(presenter.display_access).to eql("Open")
+    end
   end
 
   describe ":display_release" do
-
+    it "returns 'Unspecified' if :access has not been defined" do
+      presenter = described_class.new(research_output: build(:research_output, release_date: nil))
+      expect(presenter.display_release).to eql("Unspecified")
+    end
+    it "returns a the release_date as a Date" do
+      presenter = described_class.new(research_output: build(:research_output, release_date: Time.now))
+      expect(presenter.display_release.is_a?(Date)).to eql(true)
+    end
   end
 
   context "class methods" do

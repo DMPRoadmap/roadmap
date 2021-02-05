@@ -75,7 +75,7 @@ class ResearchOutputPresenter
     { size: size, unit: "" }
   end
 
-  # Returns the abbreviation if available or a snippet of the title
+  # Returns the truncated title if it is greater than 50 characters
   def display_name
     return "" unless @research_output.is_a?(ResearchOutput)
     return "#{@research_output.title[0..49]} ..." if @research_output.title.length > 50
@@ -87,12 +87,12 @@ class ResearchOutputPresenter
   def display_type
     return "" unless @research_output.is_a?(ResearchOutput)
     # Return the user entered text for the type if they selected 'other'
-    return output_type_description if @research_output.other?
+    return @research_output.output_type_description if @research_output.other?
 
     @research_output.output_type.gsub("_", " ").capitalize
   end
 
-  # Returns the display name of the primary repository
+  # Returns the display name(s) of the repository(ies)
   def display_repository
     return [_("None specified")] unless @research_output.repositories.any?
 
@@ -106,7 +106,7 @@ class ResearchOutputPresenter
     @research_output.access.capitalize
   end
 
-  # Returns the formatted release date
+  # Returns the release date as a date
   def display_release
     return _("Unspecified") unless @research_output.release_date.present?
 
