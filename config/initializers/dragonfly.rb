@@ -11,18 +11,9 @@ Dragonfly.app.configure do
 
   url_format "/media/:job/:name"
 
-  if Rails.env.development?
-    datastore :file,
-              root_path: Rails.root.join("public/system/dragonfly", Rails.env),
-              server_root: Rails.root.join("public")
-  else
-    datastore :s3,
-              url_scheme: "s3",
-              url_host: "uc3-s3dmp-stg",
-              root_path: "logos",
-              bucket_name: Rails.application.credentials.dragonfly[:bucket],
-              use_iam_profile: true
-  end
+  datastore :file,
+            root_path: Rails.root.join("public/system/dragonfly", Rails.env),
+            server_root: Rails.root.join("public")
 end
 
 # Logger
