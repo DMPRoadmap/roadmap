@@ -57,6 +57,16 @@ gem "bootsnap", require: false
 # (http://github.com/plataformatec/responders)
 # gem "responders"
 
+# ============= #
+# CONFIGURATION #
+# ============= #
+
+# Anyway Config is a configuration library for Ruby gems and applications.
+gem "anyway_config"
+
+# Our homegrown artisinal SSM gem
+gem 'uc3-ssm', git: 'https://github.com/CDLUC3/uc3-ssm', branch: '0.3.0rc0'
+
 # ============== #
 # ERROR HANDLING #
 # ============== #

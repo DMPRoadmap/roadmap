@@ -77,6 +77,7 @@
           <%= yield %>
         </div>
       </main>
+
       <footer<%= user_signed_in? ? ' class=blue' : '' %>>
         <div class="footer">
           <%= render partial: "layouts/footer" %>
@@ -91,7 +92,7 @@
               active_page?(user_orcid_omniauth_callback_path) %>
       <!-- Modal windows for sign in/out -->
       <% unless user_signed_in? %>
-        <% if  Rails.configuration.x.shibboleth.use_filtered_discovery_service %>
+        <% if  Rails.configuration.x.dmproadmap.shibboleth_use_filtered_discovery_service %>
           <div id="shib-ds-form" class="modal fade" tabindex="-1" role="dialog">
             <%= render partial: 'shared/shib_ds_form' %>
           </div>

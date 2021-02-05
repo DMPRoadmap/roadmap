@@ -11,6 +11,15 @@
 #
 ---
 de:
+  time:
+    formats:
+      devise:
+        mailer:
+          invitation_instructions:
+            accept_until_format: "%d. %B %Y %H:%M"
+      default: "%A, %d. %B %Y, %H:%M Uhr"
+      long: "%A, %d. %B %Y, %H:%M Uhr"
+      short: "%d. %B, %H:%M Uhr"
   date:
     formats:
       default: "%d.%m.%Y"
@@ -63,11 +72,6 @@ de:
       last_word_connector: " und "
       two_words_connector: " und "
       words_connector: ", "
-  time:
-    formats:
-      default: "%A, %d. %B %Y, %H:%M Uhr"
-      long: "%A, %d. %B %Y, %H:%M Uhr"
-      short: "%d. %B, %H:%M Uhr"
   i18n:
     transliterate:
       rule:

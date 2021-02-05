@@ -153,6 +153,7 @@ class Org < ApplicationRecord
   #  after_assign :resize_image
   #end
   dragonfly_accessor :logo
+
   # ---------------------------------------
   # End DMPTool Customization
   # ---------------------------------------
@@ -173,20 +174,20 @@ class Org < ApplicationRecord
   # environment. The orgs.logo_uid stores the path to the physical logo file that is
   # stored in the Dragonfly data store (default is: public/system/dragonfly/[env]/)
   def check_for_missing_logo_file
-    return unless logo_uid.present?
+#    return unless logo_uid.present?
 
-    data_store_path = Dragonfly.app.datastore.root_path
+#    data_store_path = Dragonfly.app.datastore.root_path
 
-    return if File.exist?("#{data_store_path}#{logo_uid}")
+#    return if File.exist?("#{data_store_path}#{logo_uid}")
 
     # Attempt to locate the file by name. If it exists update the uid
-    logo = Dir.glob("#{data_store_path}/**/*#{logo_name}")
-    if !logo.empty?
-      self.logo_uid = logo.first.gsub(data_store_path, "")
-    else
+#    logo = Dir.glob("#{data_store_path}/**/*#{logo_name}")
+#    if !logo.empty?
+#      self.logo_uid = logo.first.gsub(data_store_path, "")
+#    else
       # Otherwise the logo is missing so clear it to prevent save failures
-      self.logo = nil
-    end
+#      self.logo = nil
+#    end
   end
 
   ##

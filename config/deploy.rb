@@ -1,26 +1,26 @@
 # frozen_string_literal: true
 
-# Default branch is :master
-ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp unless ENV["BRANCH"]
-set :branch, ENV["BRANCH"] if ENV["BRANCH"]
+require "uc3-ssm"
 
-set :default_env, { path: "/dmp/local/bin:$PATH" }
+# set vars from ENV
+set :deploy_to,        ENV['DEPLOY_TO']       || '/dmp/apps/dmptool'
+set :rails_env,        ENV['RAILS_ENV']       || 'production'
+set :repo_url,         ENV['REPO_URL']        || 'https://github.com/cdluc3/dmptool.git'
+set :branch,           ENV['BRANCH']          || 'master'
+
+set :default_env,      { path: "$PATH" }
 
 # Gets the current Git tag and revision
 set :version_number, `git describe --tags`
-
 # Default environments to skip
-set :bundle_without, %w[puma pgsql thin rollbar test].join(" ")
+set :bundle_without, %w[pgsql thin rollbar test].join(" ")
 
-# Define the location of the private configuration repo
-set :config_repo, "git@github.com:cdlib/dmptool_config.git"
-
-# Default value for :linked_files is []
-append :linked_files,
-       ".env",
-       "config/credentials.yml.enc",
-       "config/master.key",
-       "public/tinymce/tinymce.css"
+## # Default value for :linked_files is []
+## append :linked_files,
+##        ".env",
+##        "config/credentials.yml.enc",
+##        "config/master.key",
+##        "public/tinymce/tinymce.css"
 
 # Default value for linked_dirs is []
 append :linked_dirs,
@@ -34,21 +34,17 @@ append :linked_dirs,
 set :keep_releases, 5
 
 namespace :deploy do
-  before :deploy, "config:install_shared_dir"
+  before :compile_assets, "deploy:retrieve_credentials"
+  after :deploy, "hackery:copy_tinymce_skins"
   after :deploy, "git:version"
   after :deploy, "cleanup:remove_example_configs"
-  after :deploy, "cleanup:restart_passenger"
-end
 
-# rubocop:disable Layout/LineLength
-namespace :config do
-  desc "Setup up the config repo as the shared directory"
-  task :install_shared_dir do
+  desc 'Retrieve encrypted crendtials file from SSM ParameterStore'
+  task :retrieve_credentials do
     on roles(:app), wait: 1 do
-      # rubocop:disable Layout/LineLength
-      execute "if [ ! -d '#{deploy_path}/shared/' ]; then cd #{deploy_path}/ && git clone #{fetch :config_repo} shared; fi"
-      execute "cd #{deploy_path}/shared/ && git checkout #{fetch :config_branch} && git pull origin #{fetch :config_branch}"
-      # rubocop:enable Layout/LineLength
+      ssm = Uc3Ssm::ConfigResolver.new
+      credentials_yml_enc = ssm.parameter_for_key('credentials_yml_enc')
+      IO.write("#{release_path}/config/credentials.yml.enc", credentials_yml_enc.chomp)
     end
   end
 end
@@ -72,17 +68,17 @@ namespace :cleanup do
       execute "rm -f #{release_path}/config/initializers/*.rb.example"
     end
   end
+end
 
-  desc "Restart Phusion Passenger"
-  task :restart_passenger do
-    on roles(:app), wait: 5 do
-      execute "cd /apps/dmp/init.d && ./passenger stop"
-      execute "cd /apps/dmp/init.d && ./passenger start"
-    end
-  end
-
-  after :restart_passenger, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
+namespace :hackery do
+  # Webpacker and TinyMCE do not play nicely with one another. Webpacker/Rails stores its copiled CSS and JS
+  # in minified application.[ext] files that are fingerprinted but TinyMCE expects them elsewhere
+  desc "Move TinyMCE skin files to public dir"
+  task :copy_tinymce_skins do
+    on roles(:app), wait: 1 do
+      execute "mkdir -p #{release_path}/public/tinymce/skins/"
+      execute "cp -r #{release_path}/node_modules/tinymce/skins/lightgray/ #{release_path}/public/tinymce/skins/"
+      execute "cp #{release_path}/app/assets/stylesheets/tinymce.css #{release_path}/public/tinymce/tinymce.css"
     end
   end
 end

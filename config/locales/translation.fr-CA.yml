@@ -2,66 +2,73 @@
 # IF YOU UPDATE IT, YOUR CHANGES WILL BE LOST AT THE NEXT SYNC.
 #
 # To update this file, use this translation interface:
-# https://translation.io/xsrust/roadmap/fr-CA
+# https://translation.io/cdl-uc3/dmptool/fr-CA
 #
 ---
 fr-CA:
+  views:
+    pagination:
+      truncate: "&hellip;"
+      first: "&laquo; Premier"
+      last: Dernier &raquo;
+      previous: "&lsaquo; Précédent"
+      next: Suivant &rsaquo;
   date:
     day_names:
-    - Dimanche
-    - Lundi
-    - Mardi
-    - Mercredi
-    - Jeudi
-    - Vendredi
-    - Samedi
+    - dimanche
+    - lundi
+    - mardi
+    - mercredi
+    - jeudi
+    - vendredi
+    - samedi
     abbr_day_names:
-    - Dim
-    - Lun
-    - Mar
-    - Mer
-    - Jeu
-    - Ven
-    - Sam
+    - dim
+    - lun
+    - mar
+    - mer
+    - jeu
+    - ven
+    - sam
     month_names:
     -
-    - Janvier
-    - Février
-    - Mars
-    - Avril
-    - Mai
-    - Juin
-    - Juillet
-    - Août
-    - Septembre
-    - Octobre
-    - Novembre
-    - Décembre
+    - janvier
+    - février
+    - mars
+    - avril
+    - mai
+    - juin
+    - juillet
+    - août
+    - septembre
+    - octobre
+    - novembre
+    - décembre
     abbr_month_names:
     -
-    - Jan.
-    - Fév.
-    - Mars
-    - Avr.
-    - Mai
-    - Juin
-    - Juill.
-    - Août
-    - Sept.
-    - Oct.
-    - Nov.
-    - Déc.
+    - jan.
+    - fév.
+    - mar.
+    - avr.
+    - mai
+    - juin
+    - juil.
+    - août
+    - sept.
+    - oct.
+    - nov.
+    - déc.
   time:
-    am: A.M.
-    pm: P.M.
+    am: am
+    pm: pm
   number:
     human:
       storage_units:
         units:
           byte:
-            one: Octet
-            other: Octets
-          kb: Ko
+            one: octet
+            other: octets
+          kb: ko
           mb: Mo
           gb: Go
           tb: To
@@ -69,84 +76,105 @@ fr-CA:
           eb: Eo
       decimal_units:
         units:
-          thousand: Millier
-          million: Million
-          billion: Milliard
-          trillion: Billion
-          quadrillion: Million de milliards
+          thousand: millier
+          million: million
+          billion: milliard
+          trillion: billion
+          quadrillion: million de milliards
   errors:
     format: "%{attribute} %{message}"
     messages:
       model_invalid: 'Validation échouée : %{errors}'
-      inclusion: n’est pas inclus(e) dans la liste
-      exclusion: n’est pas disponible
-      invalid: est invalide
+      inclusion: n'est pas inclus(e) dans la liste
+      exclusion: n'est pas disponible
+      invalid: n'est pas valide
       confirmation: ne concorde pas avec %{attribute}
       accepted: doit être accepté(e)
       empty: doit être rempli(e)
       blank: doit être rempli(e)
       present: doit être vide
       too_long:
-        one: est trop long (pas plus d’un caractère)
+        one: est trop long (pas plus d'un caractère)
         other: est trop long (pas plus de %{count} caractères)
       too_short:
         one: est trop court (au moins un caractère)
         other: est trop court (au moins %{count} caractères)
       wrong_length:
-        one: ne correspond pas à la bonne longueur (ne doit comporter qu’un seul caractère)
-        other: ne correspond pas à la bonne longueur (doit comporter %{count} caractères)
-      not_a_number: n’est pas un nombre
+        one: ne fait pas la bonne longueur (doit comporter un seul caractère)
+        other: ne fait pas la bonne longueur (doit comporter %{count} caractères)
+      not_a_number: n'est pas un nombre
       not_an_integer: doit être un nombre entier
       greater_than: doit être supérieur à %{count}
       greater_than_or_equal_to: doit être supérieur ou égal à %{count}
       equal_to: doit être égal à %{count}
       less_than: doit être inférieur à %{count}
-      less_than_or_equal_to: doit être inférieur à %{count}
+      less_than_or_equal_to: doit être inférieur ou égal à %{count}
       other_than: doit être différent de %{count}
       odd: doit être impair
       even: doit être pair
-      required: doit être vide
-      taken: n’est pas disponible
-      already_confirmed: a déjà été confirmé(e). Veuillez essayer de vous connecter.
-      confirmation_period_expired: doit être confirmé(e) en %{period}; veuillez en
+      required: doit exister
+      taken: n'est pas disponible
+      already_confirmed: a déjà été confirmé(e)
+      confirmation_period_expired: doit être confirmé(e) en %{period}, veuillez en
         demander un(e) autre
       expired: est expiré, veuillez en demander un autre
       not_found: n’a pas été trouvé(e)
       not_locked: n’était pas verrouillé(e)
       not_saved:
-        one: '1 erreur a empêché l’enregistrement de %{resource} :'
-        other: "%{count} erreurs  ont empêché l’enregistrement de %{resource} : "
+        one: 'une erreur a empêché ce (cet ou cette) %{resource} d’être enregistré(e)
+          :'
+        other: "%{count} erreurs ont empêché ce (cet ou cette) %{resource} d’être
+          enregistré(e) :"
     template:
       body: 'Veuillez vérifier les champs suivants : '
       header:
-        one: " 1 erreur a empêché l’enregistrement de %{model}"
-        other: "%{count} erreurs ont empêché l’enregistrement de %{model} "
+        one: 'Impossible d''enregistrer ce(tte) %{model} : 1 erreur'
+        other: 'Impossible d''enregistrer ce(tte) %{model} : %{count} erreurs'
+    unavailable_session:
+    unacceptable_request:
+    connection_refused:
   activerecord:
     errors:
       messages:
         record_invalid: 'La validation a échoué : %{errors}'
         restrict_dependent_destroy:
-          has_one: Vous ne pouvez pas supprimer l’enregistrement en raison du (de
-            la) %{record} dépendant(e)
-          has_many: Vous ne pouvez pas supprimer l’enregistrement en raison du (de
-            la) %{record} dépendant(e)
+          has_one: Vous ne pouvez pas supprimer l'enregistrement car un(e) %{record}
+            dépendant(e) existe
+          has_many: Vous ne pouvez pas supprimer l'enregistrement parce que les %{record}
+            dépendants existent
+      models:
+        doorkeeper/application:
+          attributes:
+            redirect_uri:
+              fragment_present: ne peut contenir un fragment.
+              invalid_uri: doit être une URL valide.
+              unspecified_scheme: doit spécifier un schéma.
+              relative_uri: doit être une URL absolue.
+              secured_uri: doit être une URL HTTP/SSL.
+              forbidden_uri: est interdit par le serveur.
+            scopes:
+              not_match_configured: doesn't match configured on the server.
+    attributes:
+      doorkeeper/application:
+        name: Nom
+        redirect_uri: L'URL de redirection
   datetime:
     distance_in_words:
       half_a_minute: une demi-minute
       less_than_x_seconds:
-        one: moins d’une seconde
+        one: moins d'une seconde
         other: moins de %{count} secondes
       x_seconds:
         one: 1 seconde
         other: "%{count} secondes"
       less_than_x_minutes:
-        one: moins d’une minute
+        one: moins d'une minute
         other: moins de %{count} minutes
       x_minutes:
         one: 1 minute
         other: "%{count} minutes"
       about_x_hours:
-        one: environ 1 heure
+        one: environ une heure
         other: environ %{count} heures
       x_days:
         one: 1 jour
@@ -161,10 +189,10 @@ fr-CA:
         one: environ un an
         other: environ %{count} ans
       over_x_years:
-        one: plus d’un an
+        one: plus d'un an
         other: plus de %{count} ans
       almost_x_years:
-        one: presque un an
+        one: presqu'un an
         other: presque %{count} ans
       x_years:
         one: 1 an
@@ -175,177 +203,301 @@ fr-CA:
       day: Jour
       hour: Heure
       minute: Minute
-      second: Secondes
+      second: Seconde
   helpers:
     select:
       prompt: Veuillez sélectionner
     submit:
-      create: Créer %{model}
-      update: Modifier %{model}
-      submit: Enregistrer %{model}
+      create: Créer un(e) %{model}
+      update: Modifier ce(tte) %{model}
+      submit: Enregistrer ce(tte) %{model}
     page_entries_info:
       entry:
-        zero: entrées
-        one: entrée
-        other: entrées
+        zero:
+        one:
+        other:
       one_page:
         display_entries:
-          zero: "%{entry_name} non trouvé(e)"
+          zero:
           one: "<b>%{count}</b> %{entry_name}"
           other: "<b>tous les %{count}</b> %{entry_name}"
       more_pages:
-        display_entries: "%{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> of <b>%{total}</b>
+        display_entries: "%{entry_name}  <b>%{first} - %{last}</b> sur <b>%{total}</b>
           au total"
   flash:
     actions:
       create:
-        notice: "%{resource_name} a été créé(e) avec succès."
+        notice:
       update:
-        notice: "%{resource_name} a été mis(e) à jour avec succès."
+        notice:
       destroy:
-        notice: "%{resource_name} a été détruit(e) avec succès."
-        alert: "%{resource_name} n’a pas pu être détruit(e)."
+        notice:
+        alert:
   recaptcha:
     errors:
-      verification_failed: La vérification reCAPTCHA a échoué, veuillez réessayer.
-      recaptcha_unreachable: Oups, nous n’avons pas réussi à valider votre réponse
-        à la vérification reCAPTCHA. Veuillez réessayer.
+      verification_failed:
+      recaptcha_unreachable:
   devise:
     confirmations:
-      confirmed: Votre adresse courriel a été confirmée avec succès.
-      send_instructions: Vous allez recevoir un courriel comportant des instructions
-        sur la façon de confirmer votre adresse courriel d’ici quelques minutes.
-      send_paranoid_instructions: Si votre adresse courriel figure dans notre base
-        de données, vous recevrez un courriel comportant des consignes sur la façon
-        de le confirmer d’ici quelques minutes.
+      confirmed: Votre compte a été confirmé avec succès.
+      send_instructions: Vous allez recevoir sous quelques minutes un courriel comportant
+        des instructions pour confirmer votre compte.
+      send_paranoid_instructions: Si votre courriel existe sur notre base de données,
+        vous recevrez sous quelques minutes un message avec des instructions pour
+        confirmer votre compte.
     failure:
       already_authenticated: Vous êtes déjà connecté(e).
       inactive: Votre compte n’est pas encore activé.
-      invalid: "%{authentication_keys} ou mot de passe invalide."
+      invalid: "%{authentication_keys} ou mot de passe incorrect."
       locked: Votre compte est verrouillé.
-      last_attempt: Il vous reste une dernière tentative avant que votre compte ne
-        soit bloqué.
+      last_attempt: Il vous reste une chance avant que votre compte soit bloqué.
       not_found_in_database: "%{authentication_keys} ou mot de passe incorrect."
-      timeout: Votre session est expirée. Veuillez vous reconnecter pour continuer.
-      unauthenticated: Vous devez vous connecter ou vous inscrire pour continuer.
-      unconfirmed: Vous devez confirmer votre adresse courriel pour continuer.
-      invited: Vous avez une invitation en attente. Acceptez-la pour terminer la création
-        de votre compte.
+      timeout: Votre session est expirée, veuillez vous reconnecter pour continuer.
+      unauthenticated: Vous devez vous connecter ou vous enregistrer pour continuer.
+      unconfirmed: Vous devez confirmer votre compte par courriel.
+      invited:
     mailer:
       confirmation_instructions:
-        subject: Consignes de confirmation
+        subject: Instructions de confirmation
       reset_password_instructions:
-        subject: Consignes pour changer le mot de passe
+        subject: Instructions pour changer le mot de passe
       unlock_instructions:
-        subject: Consignes pour déverrouiller le compte
+        subject: Instructions pour déverrouiller le compte
       email_changed:
-        subject: Adresse courriel modifiée
+        subject: Email modifié
       password_change:
         subject: Mot de passe modifié
       invitation_instructions:
-        subject: Consignes relatives à l’invitation
-        hello: Bonjour %{email}
-        someone_invited_you: Quelqu’un vous a invité à %{url}. Vous pouvez accepter
-          l’invitation à l’aide du lien ci-dessous.
-        accept: Accepter l’invitation
-        accept_until: Cette invitation sera expirée dans %{due_date}.
-        ignore: Si vous ne souhaitez pas accepter l’invitation, veuillez ne pas tenir
-          compte de ce courriel. Votre compte ne sera créé que lorsque vous aurez
-          accédé au lien ci-dessus et défini votre mot de passe.
+        subject:
+        hello:
+        someone_invited_you:
+        accept:
+        accept_until:
+        ignore:
     omniauth_callbacks:
-      failure: 'Nous ne pouvons pas authentifier votre identité depuis %{kind} pour
-        la raison suivante : ''%{reason}''.'
-      success: Authentification réussie à l’aide du compte %{kind}.
+      failure: 'Nous ne pouvons pas vous authentifier depuis %{kind} pour la raison
+        suivante : ''%{reason}''.'
+      success: Autorisé avec succès par votre compte %{kind}.
     passwords:
       no_token: Vous ne pouvez pas accéder à cette page si vous n’y accédez pas depuis
         un courriel de réinitialisation de mot de passe. Si vous venez en effet d’un
-        tel courriel, vérifiez que vous avez copié l’adresse URL complète.
-      send_instructions: Vous allez recevoir un courriel vous indiquant comment réinitialiser
-        votre mot de passe d’ici quelques minutes.
+        tel courriel, vérifiez que vous avez copié l’adresse URL en entier.
+      send_instructions: Vous allez recevoir sous quelques minutes un courriel vous
+        indiquant comment réinitialiser votre mot de passe.
       send_paranoid_instructions: Si votre courriel existe dans notre base de données,
-        dans quelques minutes, vous recevrez un lien vous permettant de récupérer
-        votre mot de passe.
+        vous recevrez un lien vous permettant de récupérer votre mot de passe.
       updated: Votre mot de passe a été modifié avec succès. Vous êtes maintenant
         connecté(e).
       updated_not_active: Votre mot de passe a été modifié avec succès.
     registrations:
-      destroyed: Au revoir! Votre compte a été annulé avec succès. Nous espérons vous
-        revoir bientôt.
-      signed_up: Bienvenue! Vous vous êtes  inscrit avec succès.
-      signed_up_but_inactive: Vous vous êtes inscrit avec succès. Cependant, vous
-        ne pouvez pas ouvrir de session, car votre compte n’a pas encore été activé.
-      signed_up_but_locked: Vous vous êtes inscrit avec succès. Cependant, vous ne
-        pouvez pas ouvrir de session, car votre compte est verrouillé.
-      signed_up_but_unconfirmed: Un message contenant un lien de confirmation a été
-        envoyé à votre adresse courriel. Veuillez suivre ce lien pour activer votre
-        compte.
+      destroyed: Au revoir ! Votre compte a été annulé avec succès. Nous espérons
+        vous revoir bientôt.
+      signed_up: Bienvenue ! Vous vous êtes enregistré(e) avec succès.
+      signed_up_but_inactive: Vous vous êtes enregistré(e) avec succès. Cependant,
+        nous n’avons pas pu vous connecter car votre compte n’a pas encore été activé.
+      signed_up_but_locked: Vous vous êtes enregistré(e) avec succès. Cependant, nous
+        n’avons pas pu vous connecter car votre compte est verrouillé.
+      signed_up_but_unconfirmed: Un message avec un lien de confirmation vous a été
+        envoyé par mail. Veuillez suivre ce lien pour activer votre compte.
       update_needs_confirmation: Vous avez modifié votre compte avec succès, mais
-        nous devons vérifier votre nouvelle adresse courriel. Veuillez consulter votre
-        courriel et cliquer sur le lien de confirmation pour confirmer votre nouvelle
-        adresse.
+        nous devons vérifier votre nouvelle adresse de courriel. Veuillez consulter
+        vos courriels et cliquer sur le lien de confirmation pour confirmer votre
+        nouvelle adresse.
       updated: Votre compte a été modifié avec succès.
       updated_but_not_signed_in: Votre compte a été mis à jour avec succès. Vous devez
-        vous reconnecter, car votre mot de passe a été modifié.
+        vous reconnecter car votre mot de passe a été modifié.
     sessions:
-      signed_in: Connexion réussie
-      signed_out: Déconnexion réussie
-      already_signed_out: Déconnexion réussie
+      signed_in: Connecté(e) avec succès.
+      signed_out: Déconnecté(e) avec succès.
+      already_signed_out: Déconnecté(e).
     unlocks:
-      send_instructions: Vous allez recevoir un courriel contenant des consignes pour
-        déverrouiller votre compte d’ici quelques minutes.
-      send_paranoid_instructions: Si votre courriel figure dans notre base de données,
-        vous recevrez un message comportant des consignes pour déverrouiller votre
-        compte d’ici quelques minutes.
+      send_instructions: Vous allez recevoir sous quelques minutes un courriel comportant
+        des instructions pour déverrouiller votre compte.
+      send_paranoid_instructions: Si votre courriel existe sur notre base de données,
+        vous recevrez sous quelques minutes un message avec des instructions pour
+        déverrouiller votre compte.
       unlocked: Votre compte a été déverrouillé avec succès. Veuillez vous connecter.
     invitations:
-      send_instructions: Un courriel d’invitation a été envoyé à %{email}.
-      invitation_token_invalid: Le jeton d'invitation fourni n’est pas valide!
-      updated: Votre mot de passe a été défini avec succès. Vous êtes maintenant inscrit.
-      updated_not_active: Votre mot de passe a été défini avec succès.
-      no_invitations_remaining: Aucune invitation restante
-      invitation_removed: Votre invitation a été supprimée.
+      send_instructions:
+      invitation_token_invalid:
+      updated:
+      updated_not_active:
+      no_invitations_remaining:
+      invitation_removed:
       new:
-        header: Envoyer l’invitation
-        submit_button: Envoyer une invitation
+        header:
+        submit_button:
       edit:
-        header: Définir votre mot de passe
-        submit_button: Définir mon mot de passe
+        header:
+        submit_button:
+  doorkeeper:
+    applications:
+      confirmations:
+        destroy: Êtes-vous certain?
+      buttons:
+        edit: Modifier
+        destroy: Supprimer
+        submit: Envoyer
+        cancel: Annuler
+        authorize: Autoriser
+      form:
+        error: Oups! Vérifier votre formulaire pour des erreurs possibles
+      help:
+        confidential: |
+          L'application sera utilisée quand la confidentialité du secret pourra
+          être maintenue. Les application mobile native, et les Applications
+          mono-page ne sont pas considérées comme sûr.
+        redirect_uri: Utiliser une ligne par URL
+        blank_redirect_uri: Leave it blank if you configured your provider to use
+          Client Credentials, Resource Owner Password Credentials or any other grant
+          type that doesn't require redirect URI.
+        scopes: Utilisez un espace entre chaque portée. Laissez vide pour utiliser
+          la portée par defaut
+      edit:
+        title: Modifier l'application
+      index:
+        title: Vos applications
+        new: Nouvelle application
+        name: Nom
+        callback_url: URL de retour d'appel
+        confidential: Confidential?
+        actions: Actions
+        confidentiality:
+          'yes': Oui
+          'no': Non
+      new:
+        title: Nouvelle application
+      show:
+        title: 'Application : %{name}'
+        application_id: ID de l'application
+        secret: Secret
+        secret_hashed:
+        scopes: Portées
+        confidential: Confidential
+        callback_urls: URL du retour d'appel
+        actions: Actions
+        not_defined:
+    authorizations:
+      buttons:
+        authorize: Autoriser
+        deny: Refuser
+      error:
+        title: Une erreur est survenue
+      new:
+        title: Autorisation requise
+        prompt: Autorisez %{client_name} à utiliser votre compte?
+        able_to: Cette application pourra
+      show:
+        title: Code d'autorisation
+      form_post:
+        title:
+    authorized_applications:
+      confirmations:
+        revoke: Êtes-vous certain?
+      buttons:
+        revoke: Annuler
+      index:
+        title: Vos applications autorisées
+        application: Application
+        created_at: Créé le
+        date_format: "%Y-%m-%d %H:%M:%S"
+    pre_authorization:
+      status: Pre-authorization
+    errors:
+      messages:
+        invalid_request:
+          unknown: La demande manque un paramètre requis, inclut une valeur de paramètre
+            non prise en charge, ou est autrement mal formée.
+          missing_param: 'Missing required parameter: %{value}.'
+          request_not_authorized: Request need to be authorized. Required parameter
+            for authorizing request is missing or invalid.
+        invalid_redirect_uri: L'URL de redirection n'est pas valide.
+        unauthorized_client: Le client n'est pas autorisé à effectuer cette demande
+          à l'aide de cette méthode.
+        access_denied: Le propriétaire de la ressource ou le serveur d'autorisation
+          a refusé la demande.
+        invalid_scope: Le scope demandé n'est pas valide, est inconnu, ou est mal
+          formé.
+        invalid_code_challenge_method: The code challenge method must be plain or
+          S256.
+        server_error: Le serveur d'autorisation a rencontré une condition inattendue
+          qui l'a empêché de remplir la demande.
+        temporarily_unavailable: Le serveur d'autorisation est actuellement incapable
+          de traiter la demande à cause d'une surcharge ou d'un entretien temporaire
+          du serveur.
+        credential_flow_not_configured: Le flux des identifiants du mot de passe du
+          propriétaire de la ressource a échoué en raison de Doorkeeper.configure.resource_owner_from_credentials
+          n'est pas configuré.
+        resource_owner_authenticator_not_configured: La recherche du propriétaire
+          de la ressource a échoué en raison de Doorkeeper.configure.resource_owner_authenticator
+          n'est pas configuré.
+        admin_authenticator_not_configured: Access to admin panel is forbidden due
+          to Doorkeeper.configure.admin_authenticator being unconfigured.
+        unsupported_response_type: Le serveur d'autorisation ne prend pas en charge
+          ce type de réponse.
+        unsupported_response_mode:
+        invalid_client: L'authentification du client a échoué à cause d'un client
+          inconnu, d'aucune authentification de client incluse, ou d'une méthode d'authentification
+          non prise en charge.
+        invalid_grant: Le consentement d'autorisation accordé n'est pas valide, a
+          expiré, est annulé, ne concorde pas avec l'URL de redirection utilisée dans
+          la demande d'autorisation, ou a été émis à un autre client.
+        unsupported_grant_type: Le type de consentement d'autorisation n'est pas pris
+          en charge par le serveur d'autorisation.
+        invalid_token:
+          revoked: Le jeton d'accès a été annulé
+          expired: Le jeton d'accès a expiré
+          unknown: Le jeton d'accès n'est pas valide
+        revoke:
+          unauthorized: Vous n'êtes pas autorisé à révoquer ce jeton
+    flash:
+      applications:
+        create:
+          notice: Application créée.
+        destroy:
+          notice: Application supprimée.
+        update:
+          notice: Application mise à jour.
+      authorized_applications:
+        destroy:
+          notice: Application annulée.
+    layouts:
+      admin:
+        title: Doorkeeper
+        nav:
+          oauth2_provider: Fournisseur OAuth2
+          applications: Applications
+          home: Home
+      application:
+        title: Autorisation OAuth requise
   contact_us:
     contact_mailer:
       contact_email:
-        sent_by_contact_form: Envoyé à l'aide du formulaire de contact depuis l’adresse
-          %{email}
-        sent_by_name: Envoyé par %{name} à partir de l’adresse %{email}
-        subject: Message de %{email} provenant du lien Nous joindre
+        sent_by_contact_form:
+        sent_by_name:
+        subject:
     contacts:
       new:
-        contact_us: Communiquez avec nous
-        email: Courriel
-        message: Message
-        name: Prénom
-        subject: Objet
-        submit: Soumettre
+        contact_us:
+        email:
+        message:
+        name:
+        subject:
+        submit:
       new_formtastic:
-        contact_us: Communiquez avec nous
-        email: Courriel
-        message: Message
-        name: Prénom
-        subject: Objet
-        submit: Soumettre
+        contact_us:
+        email:
+        message:
+        name:
+        subject:
+        submit:
       new_simple_form:
-        contact_us: Communiquez avec nous
-        email: Courriel
-        message: Message
-        name: Prénom
-        subject: Objet
-        submit: Soumettre
+        contact_us:
+        email:
+        message:
+        name:
+        subject:
+        submit:
     notices:
-      error: Vous devez remplir les deux champs.
-      success: Le courriel de contact a été envoyé avec succès.
-  views:
-    pagination:
-      first: "&laquo; Premier"
-      last: Dernier(ère) &raquo;
-      previous: "&lsaquo; précédent(e)"
-      next: "&rsaquo; suivant(e)"
-      truncate: "&hellip;"
+      error:
+      success:

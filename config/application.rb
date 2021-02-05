@@ -5,12 +5,29 @@ require_relative "boot"
 require "rails/all"
 
 require "csv"
+require "uc3-ssm"
+
+# Question: is there a nicer way to do this require_relative?
+require_relative "../lib/ssm_config_loader"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-Dotenv::Railtie.load
+# Ensure our custom config loader ssm_parameter_store is inserted into Anyway.loaders
+# prior to instantiating our custom Anyway::Config classes.
+::Anyway.loaders.insert_before(:env, :ssm_parameter_store, SsmConfigLoader)
+
+# Load master_key into ENV
+if ENV.has_key?('SSM_ROOT_PATH')
+  begin
+    ssm = Uc3Ssm::ConfigResolver.new
+    master_key = ssm.parameter_for_key('master_key')
+    ENV['RAILS_MASTER_KEY'] = master_key.chomp unless master_key.nil? or master_key.empty?
+  rescue => e
+    ActiveSupport::Logger.new($stdout).warn("Could not retrieve master_key from SSM Parameter Store: #{e.full_message}")
+  end
+end
 
 module DMPRoadmap
 
@@ -50,6 +67,10 @@ module DMPRoadmap
     # Set the default host for mailer URLs
     config.action_mailer.default_url_options = { host: Socket.gethostname.to_s }
 
+    # Load AnywayConfig class, but not if running `rails credentials:edit`
+    unless defined?(::Rails::Command::CredentialsCommand)
+      config.x.dmproadmap = DmproadmapConfig.new
+    end
   end
 
 end

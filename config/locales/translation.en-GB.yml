@@ -2,10 +2,17 @@
 # IF YOU UPDATE IT, YOUR CHANGES WILL BE LOST AT THE NEXT SYNC.
 #
 # To update this file, use this translation interface:
-# https://translation.io/xsrust/roadmap/en-GB
+# https://translation.io/cdl-uc3/dmptool/en-GB
 #
 ---
 en-GB:
+  views:
+    pagination:
+      truncate: "&hellip;"
+      first: "&laquo; First"
+      last: Last &raquo;
+      previous: "&lsaquo; Prev"
+      next: Next &rsaquo;
   date:
     day_names:
     - Sunday
@@ -77,6 +84,7 @@ en-GB:
   errors:
     format: "%{attribute} %{message}"
     messages:
+      model_invalid: 'Validation failed: %{errors}'
       inclusion: is not included in the list
       exclusion: is reserved
       invalid: is invalid
@@ -104,6 +112,7 @@ en-GB:
       other_than: must be other than %{count}
       odd: must be odd
       even: must be even
+      required: must exist
       taken: has already been taken
       already_confirmed: was already confirmed, please try signing in
       confirmation_period_expired: needs to be confirmed within %{period}, please
@@ -114,13 +123,14 @@ en-GB:
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
         other: "%{count} errors prohibited this %{resource} from being saved:"
-      model_invalid: 'Validation failed: %{errors}'
-      required: must exist
     template:
       body: 'There were problems with the following fields:'
       header:
         one: 1 error prohibited this %{model} from being saved
         other: "%{count} errors prohibited this %{model} from being saved"
+    unavailable_session:
+    unacceptable_request:
+    connection_refused:
   activerecord:
     errors:
       messages:
@@ -128,6 +138,22 @@ en-GB:
         restrict_dependent_destroy:
           has_one: Cannot delete record because a dependent %{record} exists
           has_many: Cannot delete record because dependent %{record} exist
+      models:
+        doorkeeper/application:
+          attributes:
+            redirect_uri:
+              fragment_present: cannot contain a fragment.
+              invalid_uri: must be a valid URI.
+              unspecified_scheme: must specify a scheme.
+              relative_uri: must be an absolute URI.
+              secured_uri: must be an HTTPS/SSL URI.
+              forbidden_uri: is forbidden by the server.
+            scopes:
+              not_match_configured: doesn't match configured on the server.
+    attributes:
+      doorkeeper/application:
+        name: Name
+        redirect_uri: Redirect URI
   datetime:
     distance_in_words:
       half_a_minute: half a minute
@@ -173,7 +199,7 @@ en-GB:
       day: Day
       hour: Hour
       minute: Minute
-      second: Seconds
+      second: Second
   helpers:
     select:
       prompt: Please select
@@ -203,40 +229,42 @@ en-GB:
       destroy:
         notice:
         alert:
+  recaptcha:
+    errors:
+      verification_failed:
+      recaptcha_unreachable:
   devise:
     confirmations:
-      confirmed: Your account was successfully confirmed. Please sign in.
+      confirmed: Your account was successfully confirmed.
       send_instructions: You will receive an email with instructions about how to
         confirm your account in a few minutes.
-      send_paranoid_instructions: If your email address exists in our database, you
-        will receive an email with instructions about how to confirm your account
-        in a few minutes.
+      send_paranoid_instructions: If your email exists on our database, you will receive
+        an email with instructions about how to confirm your account in a few minutes.
     failure:
       already_authenticated: You are already signed in.
-      inactive: Your account is no longer active. Please contact us to reactivate
-        your account.
+      inactive: Your account was not activated yet.
       invalid: Invalid email or password.
       locked: Your account is locked.
-      last_attempt:
-      not_found_in_database: Invalid email or password.
+      last_attempt: You have one more attempt before your account will be locked.
+      not_found_in_database: Invalid %{authentication_keys} or password.
       timeout: Your session expired, please sign in again to continue.
       unauthenticated: You need to sign in or sign up before continuing.
       unconfirmed: You have to confirm your account before continuing.
-      invited: You have a pending invitation, accept it to finish creating your account.
+      invited:
     mailer:
       confirmation_instructions:
-        subject: Confirm your DMPonline account
+        subject: Confirmation instructions
       reset_password_instructions:
         subject: Reset password instructions
       unlock_instructions:
         subject: Unlock Instructions
       email_changed:
-        subject:
+        subject: Email Changed
       password_change:
-        subject:
+        subject: Password Changed
       invitation_instructions:
-        subject: Invitation instructions
-        hello: "Hi \n%{email}"
+        subject:
+        hello:
         someone_invited_you:
         accept:
         accept_until:
@@ -250,8 +278,8 @@ en-GB:
         full URL provided.
       send_instructions: You will receive an email with instructions about how to
         reset your password in a few minutes.
-      send_paranoid_instructions: If your email address exists in our database, you
-        will receive a password recovery link at your email address in a few minutes.
+      send_paranoid_instructions: If your email exists on our database, you will receive
+        a password recovery link on your email
       updated: Your password was changed successfully. You are now signed in.
       updated_not_active: Your password was changed successfully.
     registrations:
@@ -263,13 +291,13 @@ en-GB:
       signed_up_but_locked: You have signed up successfully. However, we could not
         sign you in because your account is locked.
       signed_up_but_unconfirmed: A message with a confirmation link has been sent
-        to your email address. Please open the link to activate your account. If you
-        do not receive the confirmation email, please check your spam filter.
+        to your email address. Please open the link to activate your account.
       update_needs_confirmation: You updated your account successfully, but we need
         to verify your new email address. Please check your email and click on the
-        confirm link to finalize confirming your new email address.
+        confirm link to finalise confirming your new email address.
       updated: You updated your account successfully.
-      updated_but_not_signed_in:
+      updated_but_not_signed_in: Your account has been updated successfully, but since
+        your password was changed, you need to sign in again
     sessions:
       signed_in: Signed in successfully.
       signed_out: Signed out successfully.
@@ -281,57 +309,178 @@ en-GB:
         with instructions about how to unlock it in a few minutes.
       unlocked: Your account has been unlocked successfully. Please sign in to continue.
     invitations:
-      send_instructions: An invitation email has been sent to %{email}.
-      invitation_token_invalid: The invitation token provided is not valid!
-      updated: Your password was set successfully. You are now signed in.
+      send_instructions:
+      invitation_token_invalid:
+      updated:
       updated_not_active:
-      no_invitations_remaining: No invitations remaining
-      invitation_removed: Your invitation was removed.
+      no_invitations_remaining:
+      invitation_removed:
       new:
-        header: Send invitation
-        submit_button: Send an invitation
+        header:
+        submit_button:
       edit:
-        header: Set your password
-        submit_button: Set my password
+        header:
+        submit_button:
+  doorkeeper:
+    applications:
+      confirmations:
+        destroy: Are you sure?
+      buttons:
+        edit: Edit
+        destroy: Destroy
+        submit: Submit
+        cancel: Cancel
+        authorize: Authorize
+      form:
+        error: Whoops! Check your form for possible errors
+      help:
+        confidential: Application will be used where the client secret can be kept
+          confidential. Native mobile apps and Single Page Apps are considered non-confidential.
+        redirect_uri: Use one line per URI
+        blank_redirect_uri: Leave it blank if you configured your provider to use
+          Client Credentials, Resource Owner Password Credentials or any other grant
+          type that doesn't require redirect URI.
+        scopes: Separate scopes with spaces. Leave blank to use the default scopes.
+      edit:
+        title: Edit application
+      index:
+        title: Your applications
+        new: New Application
+        name: Name
+        callback_url: Callback URL
+        confidential: Confidential?
+        actions: Actions
+        confidentiality:
+          'yes': 'Yes'
+          'no': 'No'
+      new:
+        title: New Application
+      show:
+        title: 'Application: %{name}'
+        application_id: Application UID
+        secret: Secret
+        secret_hashed:
+        scopes: Scopes
+        confidential: Confidential
+        callback_urls: Callback urls
+        actions: Actions
+        not_defined:
+    authorizations:
+      buttons:
+        authorize: Authorize
+        deny: Deny
+      error:
+        title: An error has occurred
+      new:
+        title: Authorization required
+        prompt: Authorize %{client_name} to use your account?
+        able_to: This application will be able to
+      show:
+        title: Authorization code
+      form_post:
+        title:
+    authorized_applications:
+      confirmations:
+        revoke: Are you sure?
+      buttons:
+        revoke: Revoke
+      index:
+        title: Your authorized applications
+        application: Application
+        created_at: Created At
+        date_format: "%Y-%m-%d %H:%M:%S"
+    pre_authorization:
+      status: Pre-authorization
+    errors:
+      messages:
+        invalid_request:
+          unknown: The request is missing a required parameter, includes an unsupported
+            parameter value, or is otherwise malformed.
+          missing_param: 'Missing required parameter: %{value}.'
+          request_not_authorized: Request need to be authorized. Required parameter
+            for authorizing request is missing or invalid.
+        invalid_redirect_uri: The requested redirect uri is malformed or doesn't match
+          client redirect URI.
+        unauthorized_client: The client is not authorized to perform this request
+          using this method.
+        access_denied: The resource owner or authorization server denied the request.
+        invalid_scope: The requested scope is invalid, unknown, or malformed.
+        invalid_code_challenge_method: The code challenge method must be plain or
+          S256.
+        server_error: The authorization server encountered an unexpected condition
+          which prevented it from fulfilling the request.
+        temporarily_unavailable: The authorization server is currently unable to handle
+          the request due to a temporary overloading or maintenance of the server.
+        credential_flow_not_configured: Resource Owner Password Credentials flow failed
+          due to Doorkeeper.configure.resource_owner_from_credentials being unconfigured.
+        resource_owner_authenticator_not_configured: Resource Owner find failed due
+          to Doorkeeper.configure.resource_owner_authenticator being unconfigured.
+        admin_authenticator_not_configured: Access to admin panel is forbidden due
+          to Doorkeeper.configure.admin_authenticator being unconfigured.
+        unsupported_response_type: The authorization server does not support this
+          response type.
+        unsupported_response_mode:
+        invalid_client: Client authentication failed due to unknown client, no client
+          authentication included, or unsupported authentication method.
+        invalid_grant: The provided authorization grant is invalid, expired, revoked,
+          does not match the redirection URI used in the authorization request, or
+          was issued to another client.
+        unsupported_grant_type: The authorization grant type is not supported by the
+          authorization server.
+        invalid_token:
+          revoked: The access token was revoked
+          expired: The access token expired
+          unknown: The access token is invalid
+        revoke:
+          unauthorized: You are not authorized to revoke this token
+    flash:
+      applications:
+        create:
+          notice: Application created.
+        destroy:
+          notice: Application deleted.
+        update:
+          notice: Application updated.
+      authorized_applications:
+        destroy:
+          notice: Application revoked.
+    layouts:
+      admin:
+        title: Doorkeeper
+        nav:
+          oauth2_provider: OAuth2 Provider
+          applications: Applications
+          home: Home
+      application:
+        title: OAuth authorization required
   contact_us:
     contact_mailer:
       contact_email:
-        sent_by_contact_form: Sent by contact form from %{email}
-        sent_by_name: Sent by %{name} from %{email}
-        subject: Contact Us message from %{email}
+        sent_by_contact_form:
+        sent_by_name:
+        subject:
     contacts:
       new:
-        contact_us: Contact Us
-        email: Email
-        message: Message
-        name: Name
-        subject: Subject
-        submit: Submit
+        contact_us:
+        email:
+        message:
+        name:
+        subject:
+        submit:
       new_formtastic:
-        contact_us: Contact Us
-        email: Email
-        message: Message
-        name: Name
-        subject: Subject
-        submit: Submit
+        contact_us:
+        email:
+        message:
+        name:
+        subject:
+        submit:
       new_simple_form:
-        contact_us: Contact Us
-        email: Email
-        message: Message
-        name: Name
-        subject: Subject
-        submit: Submit
+        contact_us:
+        email:
+        message:
+        name:
+        subject:
+        submit:
     notices:
-      error: You must enter both fields.
-      success: Contact email was successfully sent.
-  views:
-    pagination:
-      first: "&laquo; First"
-      last: Last &raquo;
-      previous: "&lsaquo; Prev"
-      next: Next &rsaquo;
-      truncate: "&hellip;"
-  recaptcha:
-    errors:
-      verification_failed:
-      recaptcha_unreachable:
+      error:
+      success:

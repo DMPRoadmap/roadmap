@@ -1,24 +1,19 @@
 defaults: &defaults
-  adapter: <%= ENV['DB_ADAPTER'] || 'postgresql' %>
-  encoding: <%= ENV['DB_ADAPTER'] == "mysql2" ? "utf8mb4" : "" %>
-  database: <%= ENV["DB_NAME"] || 'roadmap' %>
-  pool: <%= ENV["DB_POOL_SIZE"] || 16 %>
-  host: <%= Rails.application.credentials.database[:host] || "localhost" %>
-  username: <%= Rails.application.credentials.database[:username] || 'root' %>
-  password: <%= Rails.application.credentials.database[:password] || '' %>
+  adapter: <%= Rails.configuration.x.dmproadmap.database_adapter %>
+  encoding: <%= Rails.configuration.x.dmproadmap.database_adapter == "mysql2" ? "utf8mb4" : "" %>
+  database: <%= Rails.configuration.x.dmproadmap.database_name %>
+  pool: <%= Rails.configuration.x.dmproadmap.database_pool_size %>
+  host: <%= Rails.configuration.x.dmproadmap.database_host %>
+  username: <%= Rails.configuration.x.dmproadmap.database_username %>
+  password: <%= Rails.configuration.x.dmproadmap.database_password %>
 
 development:
   <<: *defaults
-  host: localhost
-  username: root
-  password:
 
 test:
   <<: *defaults
-  host: localhost
-  username: root
-  password:
-  database: roadmap
+
+  database: "dmp_test"
 
 stage:
   <<: *defaults

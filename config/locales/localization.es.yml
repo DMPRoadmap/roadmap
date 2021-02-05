@@ -11,6 +11,15 @@
 #
 ---
 es:
+  time:
+    formats:
+      devise:
+        mailer:
+          invitation_instructions:
+            accept_until_format: "%d de %B de %Y, %H:%M"
+      default: "%A, %-d de %B de %Y %H:%M:%S %z"
+      long: "%-d de %B de %Y %H:%M"
+      short: "%-d de %b %H:%M"
   date:
     formats:
       default: "%-d/%-m/%Y"
@@ -54,6 +63,7 @@ es:
       format:
         delimiter: ''
         format: "%n %"
+        precision: 1
     precision:
       format:
         delimiter: ''
@@ -62,11 +72,6 @@ es:
       last_word_connector: " y "
       two_words_connector: " y "
       words_connector: ", "
-  time:
-    formats:
-      default: "%A, %-d de %B de %Y %H:%M:%S %z"
-      long: "%-d de %B de %Y %H:%M"
-      short: "%-d de %b %H:%M"
   i18n:
     transliterate:
       rule:

@@ -1,0 +1,362 @@
+default: &default
+  # Note that we use the AnywayConfig gem to manage our configuration variables. AnywayConfig loads
+  # your config in a cascading manner similar to the way CSS works. The load order is:
+  #   - dmproadmap.yml (this file)
+  #   - secrets.yml
+  #   - credentials.yml.enc
+  #   - AWS SSM variables (if running on an AWS EC2 instance)
+  #   - ENV variables (from either the .env file or ENV variables)
+  #
+  # If a variable is defined in the dmproadmap.yml and also in the credentials.yml.enc, the value
+  # in the credentials file will be used.
+  #
+  # For more info about AnywayConfig, see: https://github.com/palkan/anyway_config
+  #
+  # Blank entries in this file are by design. AnywayConfig allows us to specify required config
+  # variables. If for example database_password is not found in one of the locations mentioned above,
+  # then the application will fail to startup.
+  # For example:
+  #  "Anyway::Config::ValidationError: The following config parameters are missing or empty: database_password
+  #
+  # If you are not on an AWS EC2 environment and/or do not have access to SSM then you will see the
+  # following warnings. They can be ignored.
+  #   "UC3 SSM Error: SSM parameter name is not fully qualified and no ssm_root_path defined."
+  #
+  # We have added a lib/tasks/utils/config.rake task file which can be used to help debug any config
+  # issues. For example you can run `rails config:trace` which will return something like this (note:
+  # ':secrets' is the Rails credentials file, :env is either an ENV of .env variable):
+  #
+  #  "Loading DmproadmapConfig:"
+  # "---------------------------------------------------"
+  #
+  # {"database_password"=>
+  #   {:value=> "blah...blah...blah",
+  #    :source=>{:type=>:credentials, :store=>"config/credentials.yml.enc"}},
+  #  "server_host"=>
+  #    {:value=>"dmptool-stg.cdlib.org",
+  #     :source=>{:type=>:ssm_parameter_store, :ssm_root_path=>"/uc3/dmp/tool/stg:/uc3/dmp/tool/default"}},
+  #  "port"=>
+  #    {:value=>"3000", :source=>{:type=>:yml, :path=>"config/dmproadmap.yml"}}}
+  #
+  # In Summary:
+  #   If an entry here is blank then you MUST define it in the credentials.yml.enc (preferred) or in an
+  #   ENV variable (`DMPROADMAP_VARIABLE_NAME`)
+  #
+  #   If you would like to override one of the other values in this file then you should define it as
+  #   an ENV variable (`DMPROADMAP_VARIABLE_NAME`)
+
+  # ============================
+  # = Base Rails configuration =
+  # ============================
+
+  # See https://guides.rubyonrails.org/v5.0/configuring.html
+  server_host: "localhost"
+  port: "3000"
+  web_concurrency: 2
+  cookie_key: "_dmproadmap_session"
+  rails_log_to_stdout: true
+  rails_max_threads: 5
+  rails_serve_static_files: true
+
+  # Determines how long to cache results for OrgSelection::SearchService
+  cache_org_selection_expiration: "86_400"
+  # Determines how long to cache results for the ResearchProjectsController
+  cache_research_projects_expiration: "86_400"
+
+  # ==========================
+  # = Database configuration =
+  # ==========================
+
+  # See https://guides.rubyonrails.org/v5.0/configuring.html#configuring-a-database
+  database_adapter: "postgresql"
+  database_name: "dmp"
+  database_host: "localhost"
+  database_pool_size: 16
+  database_username: "postgres"
+  database_password:
+
+  # =========================
+  # = Locales configuration =
+  # =========================
+
+  locales_default: "en-GB"
+  locales_i18n_join_character: "-"
+  locales_gettext_join_character: "_"
+
+  # ===================================
+  # = Security configuration (Devise) =
+  # ===================================
+
+  # Security configuration used by the Devise gem to encrypt/decrypt passwords
+  # See https://github.com/heartcombo/devise
+  # add your unique value by running `rails secret` and pasting the response here"
+  devise_pepper:
+
+  # ==========================================
+  # = Image upload configuration (Dragonfly) =
+  # ==========================================
+
+  # Org logo store configuration.
+  # See https://github.com/markevans/dragonfly
+  dragonfly_aws: false
+  dragonfly_bucket:
+  dragonfly_host:
+  dragonfly_root_path: "logos"
+  dragonfly_secret:
+  dragonfly_url_scheme: "s3"
+
+  # ======================================
+  # = External Api service configuration =
+  # ======================================
+
+  # Generic DOI service will mint DMP IDs (aka DOIs)
+  doi_minting: true
+
+  # DMPHub is a DMP metadata repository that will mint DMP IDs and provide a landing page for them.
+  # See https://github.com/CDLUC3/dmphub
+  dmphub_active: false
+  dmphub_url: "https://localhost:3001/api/v0/"
+  dmphub_client_id:
+  dmphub_client_secret:
+
+  # Google Analytics config. Tracker root is the base key for your application
+  google_analytics_tracker_root:
+
+  # The OpenAire API is used to retrieve grant ids on the Project Details page
+  openaire_active: false
+
+  # The re3data API is used to retrieve repositories for selection on the Research Outputs page
+  re3data_active: true
+
+  # The SPDX License API is used to license information for selection on the Research Outputs page
+  spdx_active: true
+
+  # ORCID provides identifiers for people.
+  # See the public api docs https://info.orcid.org/documentation/features/public-api/
+  # Or the member api docs https://info.orcid.org/documentation/features/member-api/
+  orcid_client_id:
+  orcid_client_secret:
+  orcid_sandbox: true
+
+  # Recaptcha is used to prevent malicious use of the Contact Us and Create Account forms
+  # See https://developers.google.com/recaptcha/intro
+  recaptcha_enabled: false
+  recaptcha_site_key:
+  recaptcha_secret_key:
+
+  # Rollbar converts errors into GutHub issues
+  # See https://docs.rollbar.com/docs/gem-configuration-reference
+  # If you have a Rollbar account uncomment these lines and add your access_token
+  # rollbar_env: production
+  # rollbar_access_token:
+
+  # Will use the ROR api to search for Org's as the user types
+  ror_active: true
+
+  # Translation IO can be used to help failitate translating your custom code.Translations for the
+  # core DMPRoadmap codebase are handled by the development team (DEV only)
+  # See https://translation.io/rails/usage
+  translation_io_key:
+
+  # Usersnap is a service that allows users to provide feedback on specific portions of the UI.
+  # We do not recommend using this in production! (Not used in PROD)
+  # See https://usersnap.com/
+  usersnap_key:
+
+  # ============================
+  # = Shibboleth configuration =
+  # ============================
+
+  # Enable shibboleth as an alternative authentication method
+  # Requires server configuration and omniauth shibboleth provider configuration
+  # See config/initializers/devise.rb
+  shibboleth_enabled: true
+
+  # Relative paths to Shibboleth SSO
+  shibboleth_login_url: "/Shibboleth.sso/Login"
+  shibboleth_logout_url: "/Shibboleth.sso/Logout?return="
+
+  # If this value is set to true your users will be presented with a list of orgs that have a
+  # shibboleth identifier in the orgs_identifiers table. If it is set to false (default), the user
+  # will be driven out to your federation's discovery service
+  #
+  # A super admin will also be able to associate orgs with their shibboleth entityIds if this is
+  # set to true
+  shibboleth_use_filtered_discovery_service: false
+
+  # =============================================
+  # = PDF generator configuration (wkhtmltoprf) =
+  # =============================================
+
+  # Location of the wkhtmltopdf executable.
+  wkhtmltopdf_path: <%= Rails.root.join("bin", "wkhtmltopdf").to_s %>
+
+  # ==================================
+  # = Base application configuration =
+  # ==================================
+
+  name: "DMPRoadmap"
+  # The :from email address used in emails sent by the application
+  do_not_reply_email: "do-not-reply-dmproadmap-dev@cdlib.org"
+  # The helpdesk email
+  helpdesk_email:
+  # Used as the default domain when 'archiving' (aka anonymizing) a user account
+  # for example `jane.doe@uni.edu` becomes `1234@removed_accounts-example.org`
+  archived_accounts_email_suffix: "@removed_accounts_dmproadmap.org"
+
+  # Available CSV separators, the default is ','
+  csv_separators: [",", "|", "#"]
+
+  # Determines the number of links a funder is allowed to add to their template
+  max_number_links_funder: 5
+  # Maximum number of links to display for an Org
+  max_number_links_org: 3
+  # Determines the number of links a funder can add for sample plans for their template
+  max_number_links_sample_plan: 5
+  # Determines the maximum number of themes to display per column when an org admin
+  # updates a template question or guidance
+  max_number_themes_per_column: 5
+  # default results per page
+  results_per_page: 10
+
+  # =================================
+  # = Contact us page configuration =
+  # =================================
+
+  # Uncomment the following line if you want to redirect your users to an
+  # organisational contact/help page instead of using the built-in contact_us form
+  # contact_us_url: "https//example.org/default_contact_us_page"
+
+  # Your organisation name, used in various places throught the application
+  organisation_name: "My institution's name"
+  # Your orgsanisation abbreviation
+  organisation_abbreviation: "MY-ORG"
+  # Your organisation's homepage, used in some of the public facing pages
+  organisation_url: "https://example.org/"
+  # Your organisation's legal (official) name - used in the copyright portion of the footer
+  organisation_copywrite_name: "My institution's official name"
+  email_from_address:
+
+  # Your organisation's telephone number - used on the contact us page. This can be left blank.
+  organisation_phone: "My institution's phone number"
+
+  # Your organisation's address - used on the contact us page
+  organisation_address_line1: "My institution"
+  organisation_address_line2: "Department"
+  organisation_address_line3: "Address"
+  organisation_address_line4: "City and postal code"
+  organisation_country: "ZZZ"
+
+  # The Google maps link to your organisation's location - used to display the
+  # Google map on the contact us page.
+  # To find your organisation's Google maps URL, open maps.google.com, search for
+  # your orgnaisation and then click the menu link to the left of the search box,
+  # once the menu opens, click the 'share or embed' link and the 'embed' tab on
+  # the dialog window that opens. DO NOT place the entire <iframe> tag below, just
+  # the address!
+  organisation_google_maps_link:
+
+  # =====================
+  # = API configuration =
+  # =====================
+
+  # The largest page size allowed in requests to the API (all versions)
+  api_max_page_size: 100
+
+  # The link to the API documentation - used in emails about the API.
+  api_documentation_urls:
+    v0: "https://github.com/DMPRoadmap/roadmap/wiki/API-V0-Documentation"
+    v1: "https://github.com/DMPRoadmap/roadmap/wiki/API-Documentation-V1"
+
+  # =============================
+  # = Static page configuration =
+  # =============================
+
+  # The link to your release notes
+  release_notes_url: "https://github.com/DMPRoadmap/roadmap/releases"
+  # The link to your issues list
+  issue_list_url: "https://github.com/DMPRoadmap/roadmap/issues"
+  # The link to your Listserv
+  user_group_subscription_url:
+  # The link to your blog
+  blog_rss:
+
+  # The links that appear on the home page. Add any number of links
+  welcome_links: []
+
+  # ===================================
+  # = License selection configuration =
+  # ===================================
+
+  # Specify a list of the preferred licenses types. These licenses will appear in a select
+  # box on the 'Research Outputs' tab when editing a plan along with the option to select
+  # 'other'. When 'other' is selected, the user is presented with the full list of licenses.
+  #
+  # The licenses will appear in the order you specify here.
+  #
+  # Note that the values you enter must match the :identifier field of the licenses table.
+  # You can use the `%{latest}` markup in place of version numbers if desired.
+  preferred_licenses:
+    - "CC-BY-%{latest}"
+    - "CC-BY-SA-%{latest}"
+    - "CC-BY-NC-%{latest}"
+    - "CC-BY-NC-SA-%{latest}"
+    - "CC-BY-ND-%{latest}"
+    - "CC-BY-NC-ND-%{latest}"
+    - "CC0-%{latest}"
+  # Link to external guidance about selecting one of the preferred licenses. A default
+  # URL will be displayed if none is provided here. See app/views/research_outputs/licenses/_form
+  preferred_licenses_guidance_url: "https://creativecommons.org/about/cclicenses/"
+
+  # =================
+  # = Plan defaults =
+  # =================
+
+  # The default visibility a plan receives when it is created.
+  # options: 'privately_visible', 'organisationally_visible' and 'publicly_visibile'
+  plans_default_visibility: "privately_visible"
+
+  # The percentage of answers that have been filled out that determine if a plan
+  # will be marked as complete. Plan completion has implications on whether or
+  # not plan visibility settings are editable by the user and whether or not the
+  # plan can be submitted for feedback
+  plans_default_percentage_answered: 50
+
+  # Whether or not Super adminis can read all of the user's plans regardless of
+  # the plans visibility and whether or not the plan has been shared
+  plans_org_admins_read_all: true
+
+  # Whether or not Organisational administrators can read all of the user's plans
+  # regardless of the plans visibility and whether or not the plan has been shared
+  plans_super_admins_read_all: true
+
+  # ============================
+  # = User preference defaults =
+  # ============================
+
+  # The default user email preferences used when a new account is created
+  preferences:
+    email:
+      users:
+        new_comment: false
+        admin_privileges: true
+        added_as_coowner: true
+        feedback_requested: true
+        feedback_provided: true
+      owners_and_coowners:
+        visibility_changed: true
+
+development:
+  <<: *default
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+
+stage:
+  <<: *default
+
+production:
+  <<: *default

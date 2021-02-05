@@ -15,6 +15,11 @@ app/assets/images/homepage
 
 # Ignore bundler config
 /.bundle
+/ruby
+/vendor
+
+# Ignore locally build bundle outputs
+/ruby
 
 # Ignore all logfiles, tempfiles, public assets,
 /log/*.log
@@ -26,6 +31,9 @@ public/*.png
 
 # Ignore .bak files
 *.bak
+
+# Ignore vim backup files
+*.swp
 
 # Ignore public subdirectories
 # public/*
@@ -99,7 +107,10 @@ spec/examples.txt
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/config/credentials.yml
 /config/credentials*.yml.enc
+/config/credentials/
+/config/secrets.yml
 
 /public/packs
 /public/packs-test

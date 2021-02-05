@@ -2,10 +2,17 @@
 # IF YOU UPDATE IT, YOUR CHANGES WILL BE LOST AT THE NEXT SYNC.
 #
 # To update this file, use this translation interface:
-# https://translation.io/xsrust/roadmap/fi
+# https://translation.io/cdl-uc3/dmptool/fi
 #
 ---
 fi:
+  views:
+    pagination:
+      truncate: "&hellip;"
+      first: "&laquo; Ensimmäinen"
+      last: Viimeinen &raquo;
+      previous: "&lsaquo; Edellinen"
+      next: Seuraava &rsaquo;
   date:
     day_names:
     - sunnuntai
@@ -65,8 +72,8 @@ fi:
           mb: Mt
           gb: Gt
           tb: Tt
-          pb: PB
-          eb: EB
+          pb:
+          eb:
       decimal_units:
         units:
           thousand: tuhatta
@@ -77,14 +84,15 @@ fi:
   errors:
     format: "%{attribute} %{message}"
     messages:
+      model_invalid: 'Validointi epäonnistui: %{errors}'
       inclusion: ei löydy listasta
       exclusion: on varattu
-      invalid: on kelvoton
-      confirmation: ei vastaa %{attribute}
-      accepted: on hyväksyttävä
+      invalid: on virheellinen
+      confirmation: ei vastaa varmennusta
+      accepted: täytyy olla hyväksytty
       empty: ei voi olla tyhjä
       blank: ei voi olla tyhjä
-      present: täytyy olla tyhjä
+      present: täytyy olla sisällötön
       too_long:
         one: on liian pitkä (saa olla enintään 1 merkki)
         other: on liian pitkä (saa olla enintään %{count} merkkiä)
@@ -95,38 +103,57 @@ fi:
         one: on väärän pituinen (täytyy olla täsmälleen 1 merkki)
         other: on väärän pituinen (täytyy olla täsmälleen %{count} merkkiä)
       not_a_number: ei ole luku
-      not_an_integer: ei ole kokonaisluku
+      not_an_integer: täytyy olla kokonaisluku
       greater_than: täytyy olla suurempi kuin %{count}
       greater_than_or_equal_to: täytyy olla suurempi tai yhtä suuri kuin %{count}
       equal_to: täytyy olla yhtä suuri kuin %{count}
       less_than: täytyy olla pienempi kuin %{count}
       less_than_or_equal_to: täytyy olla pienempi tai yhtä suuri kuin %{count}
-      other_than: täytyy olla muu kuin %{count}
+      other_than:
       odd: täytyy olla pariton
       even: täytyy olla parillinen
+      required: täytyy olla
       taken: on jo käytössä
-      already_confirmed: on jo vahvistettu, yritä kirjautua sisään
-      confirmation_period_expired: on vahvistettava sisällä %{period}, pyydä uusi
-      expired: on vanhentunut, pyydä uusi
+      already_confirmed: on jo vahvistettu, yritä kirjautua sisään uudelleen
+      confirmation_period_expired: pitää vahvistaa %{period} kuluessa, ole hyvä ja
+        pyydä uusi
+      expired: on vanhentunut, pyydä uutta.
       not_found: ei löytynyt
       not_locked: ei ollut lukittu
       not_saved:
-        one: 'Yksi virhe esti kohteen %{resource} tallennuksen:'
-        other: "%{count} virhettä estivät kohteen %{resource} tallennuksen:"
-      model_invalid: 'Validointi epäonnistui: %{errors}'
-      required: täytyy olla
+        one: '1 virhe esti %{resource} tallentamisen:'
+        other: "%{count} virhettä esti %{resource} tallentamisen:"
     template:
       body: 'Seuraavat kentät aiheuttivat ongelmia:'
       header:
-        one: Virhe esti mallin %{model} tallentamisen
+        one: Virhe syötteessä esti mallin %{model} tallentamisen
         other: "%{count} virhettä esti mallin %{model} tallentamisen"
+    unavailable_session:
+    unacceptable_request:
+    connection_refused:
   activerecord:
     errors:
       messages:
-        record_invalid: 'Vahvistus epäonnistui: %{errors}'
+        record_invalid: 'Validointi epäonnistui: %{errors}'
         restrict_dependent_destroy:
           has_one: Ei voida poistaa mallia koska tästä riippuvainen %{record} löytyy
           has_many: Ei voida poistaa mallia koska tästä riippuvaisia %{record} löytyy
+      models:
+        doorkeeper/application:
+          attributes:
+            redirect_uri:
+              fragment_present: ei voi sisältää URI fragmenttia.
+              invalid_uri: täytyy olla validi URI.
+              unspecified_scheme: täytyy määrittää järjestelmä.
+              relative_uri: täytyy olla absoluuttinen URI.
+              secured_uri: täytyy olla HTTPS/SSL URI.
+              forbidden_uri: on kielletty palvelimella.
+            scopes:
+              not_match_configured: doesn't match configured on the server.
+    attributes:
+      doorkeeper/application:
+        name: Nimi
+        redirect_uri: Uudelleenohjauksen URI
   datetime:
     distance_in_words:
       half_a_minute: puoli minuuttia
@@ -155,24 +182,24 @@ fi:
         one: kuukausi
         other: "%{count} kuukautta"
       about_x_years:
-        one: noin vuosi
+        one: vuosi
         other: noin %{count} vuotta
       over_x_years:
         one: yli vuosi
         other: yli %{count} vuotta
       almost_x_years:
-        one: melkein vuosi
+        one: melkein yksi vuosi
         other: melkein %{count} vuotta
       x_years:
         one: vuosi
         other: "%{count} vuotta"
     prompts:
-      year: vuosi
-      month: kuukausi
-      day: päivä
-      hour: tunti
-      minute: minuutti
-      second: sekunteja
+      year: Vuosi
+      month: Kuukausi
+      day: Päivä
+      hour: Tunti
+      minute: Minuutti
+      second: Sekunti
   helpers:
     select:
       prompt: Valitse
@@ -182,156 +209,281 @@ fi:
       submit: Tallenna %{model}
     page_entries_info:
       entry:
-        zero: merkinnät
-        one: merkintä
-        other: merkinnät
+        zero:
+        one:
+        other:
       one_page:
         display_entries:
-          zero: "%{entry_name} ei löytynyt"
-          one: Näytetään <b>1</b> %{entry_name}
+          zero:
+          one: Näytetään <b>yksi</b> %{entry_name}
           other: Näytetään <b>%{count}</b> %{entry_name}
       more_pages:
-        display_entries: Näytetään %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b>
-          of <b>%{total}</b> yhteensä
+        display_entries:
   flash:
     actions:
       create:
-        notice: "%{resource_name} luominen onnistui."
+        notice:
       update:
-        notice: "%{resource_name} päivitys onnistui."
+        notice:
       destroy:
-        notice: "%{resource_name} tuhoaminen onnistui."
-        alert: "%{resource_name} ei voitu tuhota."
+        notice:
+        alert:
+  recaptcha:
+    errors:
+      verification_failed:
+      recaptcha_unreachable:
   devise:
     confirmations:
-      confirmed: Sähköpostiosoitteen vahvistaminen onnistui.
-      send_instructions: Saat muutamassa minuutissa sähköpostiisi ohjeet, miten vahvistaa
-        sähköpostiosoitteesi.
-      send_paranoid_instructions: Jos sähköpostiosoitteesi löytyy tietokannastamme,
-        saat sähköpostiisi muutamissa minuutissa ohjeet, miten sähköpostiosoite vahvistetaan.
+      confirmed: Sähköpostiosoitteesi on nyt vahvistettu.
+      send_instructions: Saat hetken kuluttua sähköpostiisi ohjeet sähköpostiosoitteesi
+        vahvistamiseen.
+      send_paranoid_instructions: Mikäli sähköpostiosoitteesi on tallennettu järjestelmäämme,
+        lähetämme sinulle ohjeet sähköpostiosoitteesi vahvistamiseksi muutaman minuutin
+        kuluessa.
     failure:
       already_authenticated: Olet jo kirjautunut sisään.
-      inactive: Et ole aktivoinut vielä tiliäsi.
-      invalid: "%{authentication_keys} tai salasana oli väärin."
-      locked: Tilisi on lukittu.
-      last_attempt: Sinulla on jäljellä enää yksi yritys ennen kuin tilisi lukitaan.
-      not_found_in_database: "%{authentication_keys} tai salasana oli väärin."
-      timeout: Istuntosi on vanhentunut. Kirjaudu uudelleen sisään.
-      unauthenticated: Kirjaudu sisään tai rekisteröidy jatkaaksesi.
-      unconfirmed: Voit jatkaa heti kun olet vahvistanut tilisi.
-      invited: Tilisi tulee voimaan, kun hyväksyt kutsun.
+      inactive: Tunnustasi ei ole vielä aktivoitu.
+      invalid: Väärä %{authentication_keys} tai salasana.
+      locked: Tunnuksesi on lukittu.
+      last_attempt: Käyttäjätunnuksesi lukitaan seuraavan epäonnistuneen kirjautumisen
+        jälkeen.
+      not_found_in_database: Väärä %{authentication_keys} tai salasana.
+      timeout: Istuntosi on vanhentunut, ole hyvä ja kirjaudu sisään jatkaaksesi.
+      unauthenticated: Sinun pitää kirjautua sisään tai rekisteröityä ennen kuin voit
+        jatkaa.
+      unconfirmed: Sinun täytyy vahvistaa sähköpostiosoitteesi ennen kuin voit jatkaa.
+      invited:
     mailer:
       confirmation_instructions:
-        subject: Ohjeet tilin vahvistamiseen
+        subject: Vahvistusohjeet
       reset_password_instructions:
-        subject: Ohjeet salasanan vaihtamiseksi
+        subject: Ohjeet salasanan vaihtoon
       unlock_instructions:
-        subject: Lukituksen avaaminen
+        subject: Ohjeet tunnuksen lukituksen poistoon
       email_changed:
-        subject: Sähköposti muuttunut
+        subject: Sähköpostiosoite vaihdettu
       password_change:
         subject: Salasana vaihdettu
       invitation_instructions:
-        subject: Ohjeet kutsumiseksi
-        hello: Hei %{email}
-        someone_invited_you: Joku on kutsunut sinut %{url}, voit hyväksyä sen alla
-          olevasta linkistä.
-        accept: Hyväksy kutsu
-        accept_until: Tämä kutsu vanhenee %{due_date}.
-        ignore: Jos et halua hyväksyä kutsua, jätä tämä viesti huomiotta. Tilisi ei
-          ole luotu, ennen kuin käytät yllä olevaa linkkiä ja määrität salasanasi.
+        subject:
+        hello:
+        someone_invited_you:
+        accept:
+        accept_until:
+        ignore:
     omniauth_callbacks:
-      failure: Ei voitu todentaa sinua %{kind} koska "%{reason}".
-      success: Todennus onnistunut kohteesta %{kind} tili.
+      failure: Valtuutus käyttäen palvelua %{kind} epäonnistui, koska "%{reason}".
+      success: Onnistuneesti valtuutettu käyttäen palvelua %{kind}.
     passwords:
-      no_token: Et pääse tälle sivulle muuta kuin salasananvaihto sähköpostin kautta.
-        Jos tulit sähköpostin salasananvaihtolinkin kautta, varmista, että käytit
-        kokonaista URL-linkkiä.
-      send_instructions: Saat sähköpostiisi ohjeet salasanan vaihtamiseen muutamassa
-        minuutissa.
-      send_paranoid_instructions: Jos sähköpostiosoitteesi on jo tietokannassamme,
-        saat salasanan palautuslinkin sähköpostiosoitteesi muutamassa minuutissa.
-      updated: Salasanan vaihtaminen onnistui. Olet nyt kirjautunut sisään.
-      updated_not_active: Salasanan vaihtaminen onnistui.
+      no_token: Et voi päästä tälle sivulle tulematta salasanannollaussähköpostin
+        kautta. Mikäli tulet salasanannollaussähköpostiviestistä, varmista että syötit
+        koko verkko-osoitteen osoiteriville.
+      send_instructions: Saat hetken kuluttua sähköpostiisi ohjeet salasanan vaihtoon.
+      send_paranoid_instructions: Mikäli sähköpostiosoitteesi on tallennettu järjestelmäämme,
+        lähetämme salasananpalautuslinkin sähköpostiisi muutaman minuutin kuluessa.
+      updated: Salasanasi on nyt vaihdettu. Olet kirjautuneena sisälle.
+      updated_not_active: Salasanasi on vaihdettu.
     registrations:
-      destroyed: Hei hei! Tilisi lakkauttaminen onnistui. Toivottavasti näemme taas
-        pian.
-      signed_up: Tervetuloa! Olet rekisteröitynyt onnistuneesti.
-      signed_up_but_inactive: Olet rekisteröitynyt onnistuneesti. Et pääse kuitenkaan
-        kirjautumaan sisään ennen kuin tilisi on aktivoitu.
-      signed_up_but_locked: Olet rekisteröitynyt onnistuneesti. Et pääse kuitenkaan
-        kirjautumaan sisään, sillä tilisi on lukittu.
-      signed_up_but_unconfirmed: Vahvistuslinkki on lähetetty sähköpostiosoitteesi.
-        Näpsäytä linkkiä tilin aktivoimiseksi.
-      update_needs_confirmation: Päivitit tilisi onnistuneesti, mutta meidän on vahvistettava
-        uusi sähköpostiosoitteesi. Tarkista sähköpostisi ja näpsäytä vahvistuslinkkiä
-        uuden sähköpostiosoitteen vahvistamiseksi.
-      updated: Tilisi päivittäminen onnistui.
-      updated_but_not_signed_in: Tilisi päivittäminen onnistui, mutta koska salasanasi
-        on muutettu, sinun täytyy kirjautua uudelleen
+      destroyed: Näkemiin! Käyttäjätunnuksesi on nyt poistettu. Toivottavasti näemme
+        sinut vielä uudelleen.
+      signed_up: Tervetuloa! Rekisteröintisi onnistui.
+      signed_up_but_inactive: Olet rekisteröitynyt onnistuneesti. Et kuitenkaan voi
+        kirjautua ennen kuin käyttäjätunnuksesi on aktivoitu.
+      signed_up_but_locked: Olet rekisteröitynyt onnistuneesti. Et kuitenkaan voi
+        kirjautua, koska käyttäjätunnuksesi on lukittu.
+      signed_up_but_unconfirmed: Sähköpostiisi on lähetetty vahvistusviesti. Avaa
+        viestissä oleva linkki aktivoidaksesi käyttäjätunnuksesi.
+      update_needs_confirmation: Tiedot päivitettiin onnistuneesti, mutta meidän täytyy
+        vielä varmistaa uusi sähköpostiosoitteesi. Tarkista sähköpostisi ja klikkaa
+        varmistuslinkkiä varmistaaksesi uuden sähköpostiosoitteesti.
+      updated: Käyttäjätunnuksesi on päivitetty.
+      updated_but_not_signed_in: Käyttäjätunnuksesi on päivitetty, mutta koska salasanasi
+        on vaihdettu, pitää sinun kirjautua sisään uudelleen
     sessions:
       signed_in: Sisäänkirjautuminen onnistui.
       signed_out: Uloskirjautuminen onnistui.
-      already_signed_out: Uloskirjautuminen onnistui.
+      already_signed_out: Kirjauduttu ulos onnistuneesti.
     unlocks:
-      send_instructions: Saat pian sähköpostin, jossa on ohjeet tilisi lukituksen
-        poistamiseen.
-      send_paranoid_instructions: Jos sinulla on jo tili, saat sähköpostiisi ohjeet,
-        miten avata se muutamassa minuutissa.
-      unlocked: Tilisi lukitus on nyt poistettu. Kirjaudu vielä sisään.
+      send_instructions: Saat hetken kuluttua sähköpostiisi ohjeet käyttäjätunnuksesi
+        lukituksen poistoon.
+      send_paranoid_instructions: Jos käyttäjätunnuksesi on olemassa, lähetämme ohjeet
+        lukituksen poistamiseksi sähköpostiisi muutaman minuutin kuluessa.
+      unlocked: Käyttäjätunnuksesi on nyt avattu. Olet kirjautuneena sisälle.
     invitations:
-      send_instructions: 'Kutsu on lähetetty osoitteeseen: %{email}.'
-      invitation_token_invalid: Kutsun tunniste ei kelpaa!
-      updated: Salasanan asettaminen onnistui. Olet nyt kirjautunut sisään.
-      updated_not_active: Salasanan asettaminen onnistui.
-      no_invitations_remaining: Ei kutsuja jäljellä
-      invitation_removed: Kutsusi poistettiin.
+      send_instructions:
+      invitation_token_invalid:
+      updated:
+      updated_not_active:
+      no_invitations_remaining:
+      invitation_removed:
       new:
-        header: Lähetä kutsu
-        submit_button: Lähetä kutsu
+        header:
+        submit_button:
       edit:
-        header: Aseta salasana
-        submit_button: Aseta salasana
+        header:
+        submit_button:
+  doorkeeper:
+    applications:
+      confirmations:
+        destroy: Oletko varma?
+      buttons:
+        edit: Muokkaa
+        destroy: Poista
+        submit: Lähetä
+        cancel: Peruuta
+        authorize: Valtuuta
+      form:
+        error: Hups! Tarkasta lomakkeesi mahdollisten virheiden varalta.
+      help:
+        confidential: Application will be used where the client secret can be kept
+          confidential. Native mobile apps and Single Page Apps are considered non-confidential.
+        redirect_uri: Yksi URI riviä kohden
+        blank_redirect_uri: Leave it blank if you configured your provider to use
+          Client Credentials, Resource Owner Password Credentials or any other grant
+          type that doesn't require redirect URI.
+        scopes: Erottele näkyvyysalueet välilyönnein. Jätä tyhjäksi, mikäli haluat
+          käyttää oletusnäkyvyysalueita.
+      edit:
+        title: Muokkaa sovellusta
+      index:
+        title: Omat sovellukset
+        new: Uusi sovellus
+        name: Nimi
+        callback_url: Callback URL
+        confidential: Confidential?
+        actions: Actions
+        confidentiality:
+          'yes': Joo
+          'no': Ei
+      new:
+        title: Uusi sovellus
+      show:
+        title: 'Sovellus: %{name}'
+        application_id: Sovelluksen UID
+        secret: Salainen avain
+        secret_hashed:
+        scopes: Näkyvyysalueet
+        confidential: Confidential
+        callback_urls: Callback URL:t
+        actions: Toiminnot
+        not_defined:
+    authorizations:
+      buttons:
+        authorize: Valtuuta
+        deny: Kiellä
+      error:
+        title: Virhe
+      new:
+        title: Valtuutus vaadittu
+        prompt: Valtuuta %{client_name} käyttämään tiliäsi?
+        able_to: Tämä sovellus pystyy
+      show:
+        title: Valtuutuskoodi
+      form_post:
+        title:
+    authorized_applications:
+      confirmations:
+        revoke: Oletko varma?
+      buttons:
+        revoke: Evää
+      index:
+        title: Valtuuttamasi sovellukset
+        application: Sovellukset
+        created_at: Valtuutettu
+        date_format: "%d. %m. %Y klo %H:%M:%S"
+    pre_authorization:
+      status: Pre-authorization
+    errors:
+      messages:
+        invalid_request:
+          unknown: Pyynnöstä puuttuu vaadittu parametri, se sisältää virheellisen
+            parametrin arvon tai on muutoin väärin muodostettu.
+          missing_param: 'Missing required parameter: %{value}.'
+          request_not_authorized: Request need to be authorized. Required parameter
+            for authorizing request is missing or invalid.
+        invalid_redirect_uri: Uudelleenohjauksen URI ei ole validi.
+        unauthorized_client: Asiakasohjelmaa ei ole valtuutettu suorittamaan haluttua
+          pyyntöä käyttäen tätä metodia.
+        access_denied: Resurssin omistaja tai valtuutuspalvelin kieltäytyi suorittamasta
+          pyyntöä.
+        invalid_scope: Pyynnön näkyvyysalue on virheellinen, tuntematon tai väärin
+          muodostettu.
+        invalid_code_challenge_method: The code challenge method must be plain or
+          S256.
+        server_error: Valtuutuspalvelin kohtasi odottamattoman tilan, jonka seurauksena
+          se ei pystynyt suorittamaan pyyntöä.
+        temporarily_unavailable: Valtuutuspalvelin ei tällä hetkellä pysty suorittamaan
+          pyyntöä väliaikaisen ylikuormituksen tai palvelinhuollon takia.
+        credential_flow_not_configured: '"Resource Owner Password Credentials flow"
+          - proseduuri epäonnistui, koska Doorkeeper.configure.resource_owner_from_credentials
+          -asetusta ei ole konfiguroitu.'
+        resource_owner_authenticator_not_configured: '"Resource Owner find" - proseduuri
+          epäonnistui, koska Doorkeeper.configure.resource_owner_authenticator -asetusta
+          ei ole konfiguroitu.'
+        admin_authenticator_not_configured: Access to admin panel is forbidden due
+          to Doorkeeper.configure.admin_authenticator being unconfigured.
+        unsupported_response_type: Valtuutuspalvelin ei tue tämän tyyppisiä vastauksia.
+        unsupported_response_mode:
+        invalid_client: Asiakasohjelman valtuutus epäonnistui tuntemattoman asiakasohjelman,
+          virheellisen valtuutuksen tai tukemattoman valtuutusmetodin takia.
+        invalid_grant: Toimitettu valtuutus on virheellinen, vanhentunut, evätty,
+          se ei vastaa valtuutuspyynnön uudelleenohjauksen URI:a tai sen on myöntänyt
+          toinen asiakasohjelma.
+        unsupported_grant_type: Valtuutuspalvelin ei tue tämän tyyppisiä valtuutuksia.
+        invalid_token:
+          revoked: Pääsyoikeus evätty
+          expired: Pääsyoikeus vanhentunut
+          unknown: Pääsyoikeus virheellinen
+        revoke:
+          unauthorized: You are not authorized to revoke this token
+    flash:
+      applications:
+        create:
+          notice: Sovellus luotu.
+        destroy:
+          notice: Sovellus poistettu.
+        update:
+          notice: Sovellus päivitetty.
+      authorized_applications:
+        destroy:
+          notice: Sovellus evätty.
+    layouts:
+      admin:
+        title: Doorkeeper
+        nav:
+          oauth2_provider: OAuth2 tarjoaja
+          applications: Sovellukset
+          home: Etusivu
+      application:
+        title: OAuth valtuutus vaadittu.
   contact_us:
     contact_mailer:
       contact_email:
-        sent_by_contact_form: 'Lähetetty %{email} -osoitteesta yhteydenottolomakkeella '
-        sent_by_name: Lähettäjältä %{name} osoitteesta %{email}
-        subject: Ota yhteyttä viesti osoitteesta %{email}
+        sent_by_contact_form:
+        sent_by_name:
+        subject:
     contacts:
       new:
-        contact_us: Ota yhteyttä
-        email: Sähköposti
-        message: Viesti
-        name: Nimi
-        subject: Aihe
-        submit: Lähetä
+        contact_us:
+        email:
+        message:
+        name:
+        subject:
+        submit:
       new_formtastic:
-        contact_us: Ota yhteyttä
-        email: Sähköposti
-        message: Viesti
-        name: Nimi
-        subject: Aihe
-        submit: Lähetä
+        contact_us:
+        email:
+        message:
+        name:
+        subject:
+        submit:
       new_simple_form:
-        contact_us: Ota yhteyttä
-        email: Sähköposti
-        message: Viesti
-        name: Nimi
-        subject: Aihe
-        submit: Lähetä
+        contact_us:
+        email:
+        message:
+        name:
+        subject:
+        submit:
     notices:
-      error: Molemmat kentät on täytettävä.
-      success: Sähköpostin lähettäminen onnistui.
-  views:
-    pagination:
-      first: "&laquo; Ensimmäinen"
-      last: Viimeinen &raquo;
-      previous: "&lsaquo; Edellinen"
-      next: Seuraava &rsaquo;
-      truncate: "&hellip;"
-  recaptcha:
-    errors:
-      verification_failed: reCAPTCHA-vahvistus epäonnistui, yritä uudelleen.
-      recaptcha_unreachable: Hups, emme vahvistaneet reCAPTCHA-vastaustasi. Yritä
-        uudelleen.
+      error:
+      success:

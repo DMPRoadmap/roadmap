@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Version: <%= version %> -->
     <% if Rails.configuration.x.google_analytics.tracker_root.present? %>
       <% root_abbr = Rails.configuration.x.google_analytics.tracker_root %>
       <% root_org = Org.where(abbreviation: root_abbr).first %>
