@@ -78,7 +78,7 @@ class ResearchOutputPresenter
   # Returns the abbreviation if available or a snippet of the title
   def display_name
     return "" unless @research_output.is_a?(ResearchOutput)
-    return "#{@research_output.title[0..50]} ..." if @research_output.title.length > 50
+    return "#{@research_output.title[0..49]} ..." if @research_output.title.length > 50
 
     @research_output.title
   end
