@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-02-02 11:09-0700\n"
-"PO-Revision-Date: 2021-02-02 19:09+0100\n"
+"POT-Creation-Date: 2021-02-08 11:34-0700\n"
+"PO-Revision-Date: 2021-02-08 19:35+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -249,21 +249,6 @@ msgstr ""
 msgid "<p>A DMP template for the Canadian Ocean Observing System (CIOOS).</p>"
 msgstr ""
 
-msgid "Oceans Data Management Plan"
-msgstr ""
-
-msgid "University of Manitoba Data Management Questions"
-msgstr ""
-
-msgid "DMP Questionnaire"
-msgstr ""
-
-msgid "University of Guelph Agri-Food Funding DMP (Alliance/Food from Thought)  "
-msgstr ""
-
-msgid "Data management questions"
-msgstr ""
-
 msgid "York U Data Management Questions"
 msgstr ""
 
@@ -307,6 +292,21 @@ msgid "Pre-Project: Prototype"
 msgstr ""
 
 msgid "CEOS Data Management Plan"
+msgstr ""
+
+msgid "Oceans Data Management Plan"
+msgstr ""
+
+msgid "University of Manitoba Data Management Questions"
+msgstr ""
+
+msgid "DMP Questionnaire"
+msgstr ""
+
+msgid "University of Guelph Agri-Food Funding DMP (Alliance/Food from Thought)  "
+msgstr ""
+
+msgid "Data management questions"
 msgstr ""
 
 msgid "Phase 2"
@@ -3107,10 +3107,10 @@ msgstr ""
 #: ../../app/controllers/orgs_controller.rb:56
 #: ../../app/controllers/plans_controller.rb:232
 #: ../../app/controllers/plans_controller.rb:235
-#: ../../app/controllers/registrations_controller.rb:227
-#: ../../app/controllers/registrations_controller.rb:231
-#: ../../app/controllers/registrations_controller.rb:253
-#: ../../app/controllers/registrations_controller.rb:257
+#: ../../app/controllers/registrations_controller.rb:229
+#: ../../app/controllers/registrations_controller.rb:233
+#: ../../app/controllers/registrations_controller.rb:255
+#: ../../app/controllers/registrations_controller.rb:259
 #: ../../app/controllers/users_controller.rb:97
 #: ../../app/controllers/users_controller.rb:121
 msgid "saved"
@@ -3126,8 +3126,8 @@ msgstr ""
 #: ../../app/controllers/plans_controller.rb:241
 #: ../../app/controllers/plans_controller.rb:244
 #: ../../app/controllers/plans_controller.rb:249
-#: ../../app/controllers/registrations_controller.rb:234
-#: ../../app/controllers/registrations_controller.rb:260
+#: ../../app/controllers/registrations_controller.rb:236
+#: ../../app/controllers/registrations_controller.rb:262
 msgid "save"
 msgstr ""
 
@@ -3191,6 +3191,14 @@ msgstr ""
 #: ../../app/controllers/org_admin/templates_controller.rb:227
 #: ../../app/controllers/super_admin/orgs_controller.rb:94
 msgid "remove"
+msgstr ""
+
+#: ../../app/controllers/org_admin/phase_versions_controller.rb:12
+msgid "This template is already a draft"
+msgstr ""
+
+#: ../../app/controllers/org_admin/phase_versions_controller.rb:14
+msgid "New version of Template created"
 msgstr ""
 
 #: ../../app/controllers/org_admin/phases_controller.rb:17
@@ -3303,6 +3311,10 @@ msgstr ""
 msgid "Unable to create a new section. The phase you specified does not exist."
 msgstr ""
 
+#: ../../app/controllers/org_admin/template_copies_controller.rb:15
+msgid "%{template_type} was successfully copied."
+msgstr ""
+
 #: ../../app/controllers/org_admin/template_copies_controller.rb:18
 #: ../../app/controllers/plans_controller.rb:332
 msgid "copy"
@@ -3344,12 +3356,32 @@ msgstr ""
 msgid "Error parsing links for a %{template}"
 msgstr ""
 
-#: ../../app/controllers/org_admin/templates_controller.rb:330
+#: ../../app/controllers/org_admin/templates_controller.rb:232
+msgid "You cannot delete a %{template_type} that has been used to create plans."
+msgstr ""
+
+#: ../../app/controllers/org_admin/templates_controller.rb:270
+msgid "Your %{template_type} has been published and is now available to users."
+msgstr ""
+
+#: ../../app/controllers/org_admin/templates_controller.rb:274
+msgid "Unable to publish your %{template_type}."
+msgstr ""
+
+#: ../../app/controllers/org_admin/templates_controller.rb:292
+msgid "Unable to unpublish your %{template_type}."
+msgstr ""
+
+#: ../../app/controllers/org_admin/templates_controller.rb:298
+msgid "Successfully unpublished your %{template_type}"
+msgstr ""
+
+#: ../../app/controllers/org_admin/templates_controller.rb:340
 #: ../../app/controllers/public_pages_controller.rb:55
 msgid "Template created using the %{application_name} service. Last modified %{date}"
 msgstr ""
 
-#: ../../app/controllers/org_admin/templates_controller.rb:345
+#: ../../app/controllers/org_admin/templates_controller.rb:355
 #: ../../app/controllers/public_pages_controller.rb:70
 msgid "Unable to download the DMP Template at this time."
 msgstr ""
@@ -3454,7 +3486,7 @@ msgid "You must accept the terms and conditions to register."
 msgstr ""
 
 #: ../../app/controllers/registrations_controller.rb:62
-#: ../../app/controllers/registrations_controller.rb:176
+#: ../../app/controllers/registrations_controller.rb:178
 msgid ""
 "Please select an organisation from the list, or enter your organisation's name"
 "."
@@ -3476,42 +3508,46 @@ msgid ""
 "You will now be able to access your account with them."
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:160
+#: ../../app/controllers/registrations_controller.rb:124
+msgid "Unable to create your account.%{errors_for_display}"
+msgstr ""
+
+#: ../../app/controllers/registrations_controller.rb:162
 msgid "Save Unsuccessful. "
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:163
+#: ../../app/controllers/registrations_controller.rb:165
 msgid "Please enter an email address. "
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:167
+#: ../../app/controllers/registrations_controller.rb:169
 msgid "Please enter a First name. "
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:171
+#: ../../app/controllers/registrations_controller.rb:173
 msgid "Please enter a Last name. "
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:188
+#: ../../app/controllers/registrations_controller.rb:190
 msgid "Please enter your password to change email address."
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:193
+#: ../../app/controllers/registrations_controller.rb:195
 msgid ""
 "Save unsuccessful. \\\n"
 "                That email address is already registered. \\\n"
 "                You must enter a unique email address."
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:241
+#: ../../app/controllers/registrations_controller.rb:243
 msgid "Please enter your current password"
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:243
+#: ../../app/controllers/registrations_controller.rb:245
 msgid "Please enter a password confirmation"
 msgstr ""
 
-#: ../../app/controllers/registrations_controller.rb:245
+#: ../../app/controllers/registrations_controller.rb:247
 msgid "Password and comfirmation must match"
 msgstr ""
 
@@ -3652,6 +3688,12 @@ msgstr ""
 
 #: ../../app/controllers/users/omniauth_callbacks_controller.rb:64
 msgid "Unable to link your account to %{scheme}."
+msgstr ""
+
+#: ../../app/controllers/users/omniauth_callbacks_controller.rb:77
+msgid ""
+"The current %{scheme_description} iD has been already linked to a user with em"
+"ail %{user_email}"
 msgstr ""
 
 #: ../../app/controllers/users_controller.rb:136
@@ -4621,11 +4663,11 @@ msgstr ""
 
 #: ../../app/views/contact_us/contacts/new.html.erb:10
 #: ../../app/views/layouts/_branding.html.erb:37
-#: ../../app/views/layouts/_footer.html.erb:27
-#: ../../app/views/layouts/_footer.html.erb:36
-#: ../../app/views/layouts/_footer.html.erb:45
-#: ../../app/views/layouts/_footer.html.erb:52
-#: ../../app/views/layouts/_footer.html.erb:58
+#: ../../app/views/layouts/_footer.html.erb:30
+#: ../../app/views/layouts/_footer.html.erb:39
+#: ../../app/views/layouts/_footer.html.erb:48
+#: ../../app/views/layouts/_footer.html.erb:55
+#: ../../app/views/layouts/_footer.html.erb:61
 #: ../../app/views/org_admin/plans/index.html.erb:39
 #: ../../app/views/paginable/plans/_organisationally_or_publicly_visible.html.erb:39
 #: ../../app/views/paginable/plans/_publicly_visible.html.erb:24
@@ -5311,39 +5353,43 @@ msgstr ""
 msgid "Notifications"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:14
+#: ../../app/views/layouts/_footer.html.erb:12
+msgid "&copy; 2004 - %{year} %{org_name}"
+msgstr ""
+
+#: ../../app/views/layouts/_footer.html.erb:17
 msgid "About"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:15
+#: ../../app/views/layouts/_footer.html.erb:18
 #: ../../app/views/layouts/error.html.erb:68
 msgid "Contact us"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:16
+#: ../../app/views/layouts/_footer.html.erb:19
 msgid "Terms of use"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:17
+#: ../../app/views/layouts/_footer.html.erb:20
 #: ../../app/views/static_pages/privacy.html.erb:1
 #: ../../app/views/static_pages/privacy.html.erb:4
 msgid "Privacy statement"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:18
+#: ../../app/views/layouts/_footer.html.erb:21
 msgid "GitHub"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:26
-#: ../../app/views/layouts/_footer.html.erb:35
-#: ../../app/views/layouts/_footer.html.erb:44
-#: ../../app/views/layouts/_footer.html.erb:51
-#: ../../app/views/layouts/_footer.html.erb:57
+#: ../../app/views/layouts/_footer.html.erb:29
+#: ../../app/views/layouts/_footer.html.erb:38
+#: ../../app/views/layouts/_footer.html.erb:47
+#: ../../app/views/layouts/_footer.html.erb:54
+#: ../../app/views/layouts/_footer.html.erb:60
 msgid "(opens in a new window)"
 msgstr ""
 
-#: ../../app/views/layouts/_footer.html.erb:32
 #: ../../app/views/layouts/_footer.html.erb:35
+#: ../../app/views/layouts/_footer.html.erb:38
 msgid "Canadian Association of Research Libraries"
 msgstr ""
 

@@ -12,7 +12,7 @@ class OrgAdmin::TemplateCopiesController < ApplicationController
     authorize @template, :copy?
     begin
       new_copy = @template.generate_copy!(current_user.org)
-      flash[:notice] = "#{template_type(@template).capitalize} was successfully copied."
+      flash[:notice] = _("%{template_type} was successfully copied.") % {template_type: template_type(@template).capitalize}
       redirect_to edit_org_admin_template_path(new_copy)
     rescue StandardError => e
       flash[:alert] = failure_message(_("copy"), template_type(@template))
