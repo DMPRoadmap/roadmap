@@ -121,7 +121,9 @@ class RegistrationsController < Devise::RegistrationsController
         clean_up_passwords resource
         # rubocop:disable Metrics/LineLength
         redirect_to after_sign_up_error_path_for(resource),
-                    alert: _("Unable to create your account.#{errors_for_display(resource)}")
+                    alert: _("Unable to create your account.%{errors_for_display}") % {
+                      errors_for_display: errors_for_display(resource)
+                    }
         # rubocop:enable Metrics/LineLength
       end
     end

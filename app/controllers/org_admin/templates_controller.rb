@@ -229,7 +229,9 @@ module OrgAdmin
         end
       else
         # rubocop:disable Metrics/LineLength
-        flash[:alert] = _("You cannot delete a #{template_type(template)} that has been used to create plans.")
+        flash[:alert] = _("You cannot delete a %{template_type} that has been used to create plans.") % {
+          template_type: template_type(template)
+        }
         # rubocop:enable Metrics/LineLength
       end
       if request.referrer.present?
@@ -265,9 +267,13 @@ module OrgAdmin
       publishable, errors = template.publishability
       if publishable
         if template.publish!
-          flash[:notice] = _("Your #{template_type(template)} has been published and is now available to users.")
+          flash[:notice] = _("Your %{template_type} has been published and is now available to users.") % {
+            template_type: template_type(template)
+          }
         else
-          flash[:alert] = _("Unable to publish your #{template_type(template)}.")
+          flash[:alert] = _("Unable to publish your %{template_type}.") % {
+            template_type: template_type(template)
+          }
         end
       else
         flash[:alert] = errors
@@ -283,11 +289,15 @@ module OrgAdmin
       versions = Template.where(family_id: template.family_id)
       versions.each do |version|
         unless version.update_attributes!(published: false)
-          flash[:alert] = _("Unable to unpublish your #{template_type(template)}.")
+          flash[:alert] = _("Unable to unpublish your %{template_type}.") % {
+            template_type: template_type(template)
+          }
         end
       end
       unless flash[:alert].present?
-        flash[:notice] = _("Successfully unpublished your #{template_type(template)}")
+        flash[:notice] = _("Successfully unpublished your %{template_type}") % {
+          template_type: template_type(template)
+        }
       end
       redirect_to request.referrer.present? ? request.referrer : org_admin_templates_path
     end

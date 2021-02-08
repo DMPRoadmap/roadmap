@@ -74,7 +74,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         ).first
         if identifier.user.id != current_user.id
           # rubocop:disable Metrics/LineLength
-          flash[:alert] = _("The current #{scheme.description} iD has been already linked to a user with email #{identifier.user.email}")
+          flash[:alert] = _("The current %{scheme_description} iD has been already linked to a user with email %{user_email}") % {
+            scheme_description: scheme.description,
+            user_email: identifier.user.email
+          }
           # rubocop:enable Metrics/LineLength
         end
 
