@@ -6,7 +6,7 @@
 
 <div class="col-md-12">
   <fieldset class="sub-fragment">
-    <legend class="sub-fragment" title="<%= ttip %>"><%= field_label %></legend>
+    <legend class="sub-fragment" data-toggle="tooltip" data-original-title="<%= ttip %>"><%= field_label %></legend>
     <table class="table table-hover linked-fragments-list <%= property_name %>-list list-<%= query_id %>">
       <thead>
         <% if table_header.present? && !field_values.empty?%>

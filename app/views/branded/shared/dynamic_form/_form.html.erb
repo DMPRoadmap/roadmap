@@ -36,7 +36,7 @@
       <% value_id = value["id"] if value.present? %>
       <div class="col-md-12">
         <fieldset class="sub-fragment registry">
-          <legend class="sub-fragment registry" data-toggle="tooltip" data-original-title="<%= ttip %>"><%= label %></legend>
+          <legend class="sub-fragment registry"><%= label %></legend>
           <%= create_select_field(f, value_id, "#{f.object_name}[#{field_name}]", nil, field_id, registryValues, template_locale, readonly: readonly, multiple: false, validation: validation, ttip: ttip, default_value: default_value) %>
           <% unless value.nil?%>
             <div class="col-md-12 registry-value">
