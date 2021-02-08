@@ -26,7 +26,7 @@ module Api
               ActiveSupport::HashWithIndifferentAccess.new body
             rescue JWT::ExpiredSignature => e
               raise e
-            rescue JWT::DecodeError =>
+            rescue JWT::DecodeError => e
               Rails.logger.error "Api::V1::Auth::Jwt::JsonWebToken.decode - #{e.message}"
               nil
             end
