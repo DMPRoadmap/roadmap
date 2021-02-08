@@ -9,7 +9,10 @@
   <div class="container-fluid">
     <ul class="nav navbar-nav">
     <%= _(Rails.configuration.branding[:organisation][:name]) %>
-      <li><%= link_to sanitize("&copy; 2004 - #{Time.now.year} #{_(Rails.configuration.branding[:organisation][:name])}"), "#{Rails.configuration.branding[:organisation][:url]}"%></li>
+      <li><%= link_to(sanitize(_("&copy; 2004 - %{year} %{org_name}")) % {
+        year: Time.now.year, 
+        org_name: _(Rails.configuration.branding[:organisation][:name])
+        }, Rails.configuration.branding[:organisation][:url])%></li>
       <li>•</li>
       <li><a href="<%= about_us_path %>"><%= _('About') %></a></li>
       <li><a href="<%= contact_us %>"><%= _('Contact us') %></a></li>
