@@ -97,28 +97,9 @@ export const failCallback = (error, jQuery) => {
 };
 const changeHandler = (e) => {
   const target = $(e.target);
-  const id = questionId(target);
-  if (!debounceMap[id]) {
-    debounceMap[id] = debounce(autoSaving, 2000);
-  }
-  debounceMap[id](target);
+  target.parents('form').find('.answer-save-zone').addClass('unsaved');
 };
-// Dynamic Form : Save timer should be cancelled when the user changes
-// the field he's editing in the dynamic form.
-const dynamicFormFocusInHandler = (e) => {
-  const target = $(e.target);
-  const id = questionId(target);
-  if (debounceMap[id]) {
-    // Cancels the delated execution of autoSaving
-    // (e.g. user clicks the button before the delay is met)
-    debounceMap[id].cancel();
-  }
-};
-// Dynamic Form : Timer is launched again if the user goes out of the field
-// he's editing
-const dynamicFormFocusOutHandler = (e) => {
-  changeHandler(e);
-};
+
 const submitHandler = (e) => {
   e.preventDefault();
   const target = $(e.target);
@@ -173,9 +154,6 @@ const formHandlers = ({ jQuery, attachment = 'off' }) => {
   // Listeners to change and submit for a form
   jQuery[attachment]('change', changeHandler);
   jQuery[attachment]('submit', submitHandler);
-
-  jQuery[attachment]('focusin', 'input', dynamicFormFocusInHandler);
-  jQuery[attachment]('focusout', 'input', dynamicFormFocusOutHandler);
 };
 const editorHandlers = (editor) => {
   // Listeners to blur and focus events for a tinymce instance
