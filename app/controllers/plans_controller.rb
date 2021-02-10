@@ -247,7 +247,7 @@ class PlansController < ApplicationController
       #       appropriate namespace, so org_id represents our funder
       funder = org_from_params(params_in: attrs, allow_create: true)
       @plan.funder_id = funder.id if funder.present?
-      process_grant(grant_params: plan_params[:grant])
+      @plan.grant =process_grant(grant_params: plan_params[:grant])
       attrs.delete(:grant)
       attrs = remove_org_selection_params(params_in: attrs)
 
@@ -524,8 +524,9 @@ class PlansController < ApplicationController
     elsif grant_params[:value] != grant&.value
       if grant.present?
         grant.update(value: grant_params[:value])
+        grant
       elsif grant_params[:value].present?
-        @plan.grant = grant_params[:value]
+        @plan.grant = Identifier.new(value: grant_params[:value], identifiable: @plan)
       end
     end
   end

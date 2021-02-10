@@ -34,18 +34,6 @@ module Api
         Identifier.new(value: Rails.application.routes.url_helpers.api_v1_plan_url(@plan))
       end
 
-      # Export any related identifiers
-      def related_identifiers
-        # For now just output the link back to the PDF copy of the plan
-        pdf_url = Rails.application.routes.url_helpers.plan_export_url(
-          @plan, format: :pdf, "export[form]": true
-        )
-
-        [
-          { relation_type: "describes", identifier: pdf_url }
-        ]
-      end
-
       private
 
       # Retrieve the answers that have the Budget theme

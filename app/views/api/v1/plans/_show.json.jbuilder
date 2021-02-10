@@ -4,7 +4,11 @@
 
 json.ignore_nil!
 
-json.schema "https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard/tree/master/examples/JSON/JSON-schema/1.0"
+extensions = [{ name: "dmproadmap", uri: "https://github.com/DMPRoadmap/api-json-schema" }]
+json.extensions extensions do |extension|
+  json.uri extension[:uri]
+  json.name extension[:name]
+end
 
 presenter = Api::V1::PlanPresenter.new(plan: plan)
 # A JSON representation of a Data Management Plan in the
@@ -65,8 +69,8 @@ unless @minimal
     json.id plan.template.id
     json.title plan.template.title
   end
-  json.dmproadmap_related_identifiers presenter.related_identifiers do |related|
-    json.relation_type related[:relation_type]
-    json.value related[:identifier]
+
+  json.dmproadmap_latest_version do
+    json.uri Rails.application.routes.url_helpers.plan_export_url(plan, format: :pdf, "export[form]": true)
   end
 end

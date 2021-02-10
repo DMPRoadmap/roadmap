@@ -21,6 +21,7 @@ if output.is_a?(ResearchOutput)
   end
 
   json.distribution output.repositories do |repository|
+    json.title "Anticipated distribution"
     json.byte_size output.byte_size
     json.data_access output.access
     json.format output.mime_type&.value
@@ -39,15 +40,10 @@ if output.is_a?(ResearchOutput)
 
   json.metadata []
 
-  json.technical_resources []
+  json.technical_resource []
 
 else
   json.type "dataset"
   json.title "Generic dataset"
   json.description "No individual datasets have been defined for this DMP."
-
-  json.dataset_id do
-    json.partial! "api/v1/identifiers/show", identifier: Identifier.new(identifiable: output,
-                                                                        value: "unknown")
-  end
 end
