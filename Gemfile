@@ -197,8 +197,9 @@ gem 'parallel'
 gem 'truemail'
 
 # Use translation.io services
-gem 'translation', git: 'https://github.com/raycarrick-ed/rails'
-
+# gem 'translation', git: 'https://github.com/raycarrick-ed/rails'
+# gem 'translation', '~> 1.22'
+gem 'translation', git: "https://github.com/lagoan/translation_io_rails", branch: 'fix/broken_db_fake_method_calls'
 
 # ------------------------------------------------
 # ENVIRONMENT SPECIFIC DEPENDENCIES

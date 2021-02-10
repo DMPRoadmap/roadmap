@@ -1,6 +1,7 @@
 GIT
-  remote: https://github.com/raycarrick-ed/rails
-  revision: d9025c307144ad5fe37e06d4d80b659d5937b00a
+  remote: https://github.com/lagoan/translation_io_rails
+  revision: d7917d9a8e84ea195259a11080c08d212b061839
+  branch: fix/broken_db_fake_method_calls
   specs:
     translation (1.22)
       gettext (~> 3.2, >= 3.2.5)
