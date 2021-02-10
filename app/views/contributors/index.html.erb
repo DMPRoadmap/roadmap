@@ -10,6 +10,7 @@
 <% content_for :plan_tab_body do %>
   <div class="row">
     <div class="col-md-12">
+      <h2><%= _('Project Contributors')%></h2>
       <p>
         <%= _("Please list the project’s Principal Investigator(s) and those responsible for data management.") %>
       </p>
@@ -28,8 +29,22 @@
         <p><%= _("No contributors have been defined.") %></p>
       <% end %>
 
-      <%= link_to _("Add a contributor"), new_plan_contributor_path(@plan),
-                                          class: "btn btn-primary" %>
+      <% if @plan.administerable_by?(current_user) %>
+        <%= link_to _("Add a contributor"), new_plan_contributor_path(@plan),
+                                            class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2><%= _('DMP Collaborators')%></h2>
+      <p><%= _('Invite specific people to read, edit, or administer your plan. Invitees will receive an email notification that they have access to this plan.') %></p>
+
+      <%= render partial: "plans/collaborator_form",
+                 locals: { plan: @plan, plan_roles: @plan.roles } %>
     </div>
   </div>
 <% end %>

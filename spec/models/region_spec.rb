@@ -5,12 +5,11 @@ require "rails_helper"
 RSpec.describe Region, type: :model do
 
   context "validations" do
-    it { is_expected.to validate_presence_of(:abbreviation) }
+    before(:each) do
+      @subject = create(:region)
+    end
 
-    it {
-      is_expected.to validate_uniqueness_of(:abbreviation)
-        .with_message("must be unique")
-    }
+    it { expect(@subject).to validate_uniqueness_of(:abbreviation).with_message("must be unique") }
 
     it { is_expected.to validate_presence_of(:description) }
 

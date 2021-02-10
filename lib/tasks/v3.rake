@@ -9,7 +9,11 @@ namespace :v3 do
 
   desc "Upgrade from v3.0.0 to v3.1.0"
   task upgrade_3_1_0: :environment do
-    Rake::Task["mime_types:load"].execute
+    Rake::Task["v3:mime_types:load"].execute
+    Rake::Task["v3:init_open_aire"].execute
+    Rake::Task["v3:init_re3data"].execute
+    Rake::Task["v3:seed_external_services"].execute
+    Rake::Task["v3:load_re3data_repos"].execute
   end
 
   # Set any records with a nil `language_id` to the default language
@@ -59,6 +63,46 @@ namespace :v3 do
         p id.errors.full_messages
       end
     end
+  end
+
+  desc "Seed the identifier_schemes.external_service column"
+  task seed_external_services: :environment do
+    ror = IdentifierScheme.where(name: "ror")
+    ror.update(external_service: "ExternalApis::RorService") if ror.present?
+
+    openaire = IdentifierScheme.where(name: "openaire")
+    openaire.update(external_service: "ExternalApis::OpenAireService") if openaire.present?
+
+    re3data = IdentifierScheme.where(name: "rethreedata")
+    re3data.update(external_service: "ExternalApis::Re3dataService") if re3data.present?
+  end
+
+  desc "Adds the open_aire IdentifierScheme for ResearchOutputs"
+  task init_open_aire: :environment do
+    openaire = IdentifierScheme.find_or_initialize_by(name: "openaire")
+    openaire.for_research_outputs = true
+    openaire.description = "OpenAire Metadata Standards"
+    openaire.identifier_prefix = ""
+    openaire.external_service = "ExternalApis::OpenAireService"
+    openaire.active = true
+    openaire.save
+  end
+
+  desc "Adds the re3data IdentifierScheme for ResearchOutputs"
+  task init_re3data: :environment do
+    openaire = IdentifierScheme.find_or_initialize_by(name: "rethreedata")
+    openaire.for_research_outputs = true
+    openaire.description = "Registry of Research Data Repositories (re3data)"
+    openaire.identifier_prefix = "https://www.re3data.org/api/v1/repository/"
+    openaire.external_service = "ExternalApis::Re3dataService"
+    openaire.active = true
+    openaire.save
+  end
+
+  desc "Load Repositories from re3data"
+  task load_re3data_repos: :environment do
+    Rails::Task["v3:init_re3data"].execute unless IdentifierScheme.find_by(name: "rethreedata").present?
+    ExternalApis::Re3dataService.fetch
   end
 
 end

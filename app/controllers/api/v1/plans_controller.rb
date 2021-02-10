@@ -141,12 +141,11 @@ module Api
         names = contributor.name&.split || [""]
         firstname = names.length > 1 ? names.first : nil
         surname = names.length > 1 ? names.last : names.first
-        # user = User.invite!({ email: contributor.email,
-        #                       firstname: firstname,
-        #                       surname: surname,
-        #                       org: contributor.org }, client)
+        user = User.invite!({ email: contributor.email,
+                              firstname: firstname,
+                              surname: surname,
+                              org: contributor.org }, client)
 
-        # TODO: Remove this customization for Hackathon testing
         user = User.create({ email: contributor.email, firstname: firstname,
                              surname: surname, org: contributor.org,
                              password: SecureRandom.uuid })

@@ -24,9 +24,9 @@ Rails.application.routes.draw do
   # Start DMPTool customizations
   # ------------------------------------------
   # GET is triggered by user clicking an org in the list
-  get '/orgs/shibboleth/:id', to: 'orgs#shibboleth_ds_passthru'
+  get "/orgs/shibboleth/:id", to: "orgs#shibboleth_ds_passthru"
   # POST is triggered by user selecting an org from autocomplete
-  post '/orgs/shibboleth/:id', to: 'orgs#shibboleth_ds_passthru'
+  post "/orgs/shibboleth/:id", to: "orgs#shibboleth_ds_passthru"
   # ------------------------------------------
   # End DMPTool Customization
   # ------------------------------------------
@@ -167,15 +167,22 @@ Rails.application.routes.draw do
 
     resources :contributors, except: %i[show]
 
+    resources :research_outputs, except: %i[show]
     member do
       get "answer"
-      get "share"
+      get "publish"
       get "request_feedback"
       get "download"
       post "duplicate"
       post "visibility", constraints: { format: [:json] }
       post "set_test", constraints: { format: [:json] }
-      get "overview"
+      get "mint"
+
+      # Ajax endpoint for ResearchOutput.output_type selection
+      get "output_type_selection", controller: "research_outputs", action: "select_output_type"
+
+      # AJAX endpoints for repository search and selection
+      get :repository_search, controller: "research_outputs"
     end
   end
 
@@ -266,6 +273,10 @@ Rails.application.routes.draw do
 
       # Paginable actions for contributors
       resources :contributors, only: %i[index] do
+        get "index/:page", action: :index, on: :collection, as: :index
+      end
+      # Paginable actions for research_outputs
+      resources :research_outputs, only: %i[index] do
         get "index/:page", action: :index, on: :collection, as: :index
       end
     end
@@ -374,7 +385,12 @@ Rails.application.routes.draw do
   end
 
   namespace :super_admin do
-    resources :orgs, only: %i[index new create destroy]
+    resources :orgs, only: %i[index new create destroy] do
+      member do
+        post "merge_analyze"
+        post "merge_commit"
+      end
+    end
     resources :themes, only: %i[index new create edit update destroy]
     resources :users, only: %i[edit update] do
       member do

@@ -121,6 +121,8 @@ class Plan < ApplicationRecord
 
   belongs_to :api_client, optional: true
 
+  has_many :research_outputs, dependent: :destroy
+
   # =====================
   # = Nested Attributes =
   # =====================
@@ -130,6 +132,8 @@ class Plan < ApplicationRecord
   accepts_nested_attributes_for :roles
 
   accepts_nested_attributes_for :contributors
+
+  accepts_nested_attributes_for :research_outputs
 
   # ===============
   # = Validations =
@@ -574,6 +578,31 @@ class Plan < ApplicationRecord
   # Returns the plan's identifier (either a DOI/ARK)
   def landing_page
     identifiers.select { |i| %w[doi ark].include?(i.identifier_format) }.first
+  end
+
+  # Retrieves the Plan's most recent DOI
+  def doi
+    return nil unless Rails.configuration.x.allow_doi_minting
+
+    schemes = IdentifierScheme.for_identification
+
+    if schemes.any?
+      identifiers.select { |id| schemes.include?(id.identifier_scheme) }.last
+    else
+      # If there is curently no identifier schemes defined as identification
+      identifiers.select { |id| %w[ark doi].include?(id.identifier_format) }.last
+    end
+  end
+
+  # Returns whether or not minting is allowed for the current plan
+  def minting_allowed?
+    orcid_scheme = IdentifierScheme.where(name: "orcid").first
+    ror_scheme = IdentifierScheme.where(name: "ror").first
+    return false unless orcid_scheme.present? && ror_scheme.present?
+
+    orcids = contributors.select { |c| c&.identifier_for_scheme(scheme: orcid_scheme).present? }
+    rors = contributors.select { |c| c.org&.identifier_for_scheme(scheme: ror_scheme).present? }
+    visibility_allowed? && orcids.any? && rors.any? && funder.present?
   end
 
   private

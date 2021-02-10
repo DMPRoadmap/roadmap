@@ -66,7 +66,7 @@ class RolesController < ApplicationController
     else
       flash[:alert] = _("Please enter an email address")
     end
-    redirect_to controller: "plans", action: "share", id: @role.plan.id
+    redirect_to controller: "contributors", action: "index", plan_id: @role.plan.id
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockNesting
   # rubocop:enable

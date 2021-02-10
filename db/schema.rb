@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_16_140226) do
+ActiveRecord::Schema.define(version: 2021_02_01_180637) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -135,6 +135,7 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.string "logo_url"
     t.string "identifier_prefix"
     t.integer "context"
+    t.string "external_service"
   end
 
   create_table "identifiers", id: :integer, force: :cascade do |t|
@@ -200,17 +201,6 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.boolean "enabled", default: true
   end
 
-  create_table "org_identifiers", id: :integer, force: :cascade do |t|
-    t.string "identifier"
-    t.integer "identifier_scheme_id"
-    t.string "attrs"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer "org_id"
-    t.index ["identifier_scheme_id"], name: "fk_rails_189ad2e573"
-    t.index ["org_id"], name: "fk_rails_36323c0674"
-  end
-
   create_table "org_token_permissions", id: :integer, force: :cascade do |t|
     t.integer "org_id"
     t.integer "token_permission_type_id"
@@ -240,6 +230,7 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.text "feedback_email_msg"
     t.string "contact_name"
     t.boolean "managed", default: false, null: false
+    t.boolean "allow_doi", default: false
     t.index ["language_id"], name: "fk_rails_5640112cab"
     t.index ["region_id"], name: "fk_rails_5a6adf6bab"
   end
@@ -366,6 +357,25 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.integer "super_region_id"
   end
 
+  create_table "repositories", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", null: false
+    t.string "url"
+    t.string "contact"
+    t.json "info"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_repositories_on_name"
+    t.index ["url"], name: "index_repositories_on_url"
+  end
+
+  create_table "repositories_research_outputs", force: :cascade do |t|
+    t.bigint "research_output_id"
+    t.bigint "repository_id"
+    t.index ["repository_id"], name: "index_repositories_research_outputs_on_repository_id"
+    t.index ["research_output_id"], name: "index_repositories_research_outputs_on_research_output_id"
+  end
+
   create_table "research_outputs", force: :cascade do |t|
     t.integer "plan_id"
     t.integer "output_type", default: 3, null: false
@@ -387,8 +397,10 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.string "coverage_region"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "repository_id"
     t.index ["output_type"], name: "index_research_outputs_on_output_type"
     t.index ["plan_id"], name: "index_research_outputs_on_plan_id"
+    t.index ["repository_id"], name: "index_research_outputs_on_repository_id"
   end
 
   create_table "roles", id: :integer, force: :cascade do |t|
@@ -459,6 +471,7 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
     t.integer "family_id"
     t.boolean "archived"
     t.text "links"
+    t.boolean "allow_research_outputs", default: false
     t.index ["family_id", "version"], name: "index_templates_on_family_id_and_version", unique: true
     t.index ["family_id"], name: "index_templates_on_family_id"
     t.index ["org_id", "family_id"], name: "template_organisation_dmptemplate_index"
@@ -546,7 +559,6 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
   add_foreign_key "answers", "plans"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
-  add_foreign_key "api_clients", "orgs"
   add_foreign_key "conditions", "questions"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
@@ -554,8 +566,6 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
   add_foreign_key "notes", "users"
   add_foreign_key "notification_acknowledgements", "notifications"
   add_foreign_key "notification_acknowledgements", "users"
-  add_foreign_key "org_identifiers", "identifier_schemes"
-  add_foreign_key "org_identifiers", "orgs"
   add_foreign_key "org_token_permissions", "orgs"
   add_foreign_key "org_token_permissions", "token_permission_types"
   add_foreign_key "orgs", "languages"
@@ -568,6 +578,7 @@ ActiveRecord::Schema.define(version: 2020_12_16_140226) do
   add_foreign_key "question_options", "questions"
   add_foreign_key "questions", "question_formats"
   add_foreign_key "questions", "sections"
+  add_foreign_key "research_outputs", "repositories"
   add_foreign_key "roles", "plans"
   add_foreign_key "roles", "users"
   add_foreign_key "sections", "phases"

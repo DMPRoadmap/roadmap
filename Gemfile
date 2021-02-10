@@ -84,7 +84,11 @@ gem "devise_invitable"
 
 # A generalized Rack framework for multiple-provider authentication.
 # (https://github.com/omniauth/omniauth)
-gem "omniauth"
+
+# TODO: unlock this once devise creates an official release that includes this commit:
+#       https://github.com/heartcombo/devise/commit/1d138dd40cdc291a427b89027d16a869818a5c19#diff-59866e40fe6196ebb76fa63d186b09ba0856de17e2e938743e99add37bb83f5c
+#       or updates to accommodate the new version of omniauth
+gem "omniauth", "~> 1.9"
 
 # OmniAuth Shibboleth strategies for OmniAuth 1.x
 gem "omniauth-shibboleth"
@@ -329,7 +333,7 @@ group :development do
 
   # Better error page for Rails and other Rack apps
   # (https://github.com/charliesome/better_errors)
-  gem "better_errors"
+  gem "better_errors", "2.8.1"
 
   # Retrieve the binding of a method's caller. Can also retrieve bindings
   # even further up the stack. (http://github.com/banister/binding_of_caller)

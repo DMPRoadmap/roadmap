@@ -128,7 +128,7 @@ class OrgsController < ApplicationController
   #   end
   #   # rubocop:enable Style/GuardClause, Style/RedundantReturn
   # end
-  #
+
   # # This action is used to redirect a user to the Shibboleth IdP
   # # POST /orgs/shibboleth_ds
   # # rubocop:disable Metrics/AbcSize
@@ -148,7 +148,6 @@ class OrgsController < ApplicationController
   #       failure = _("Your organisation does not seem to be properly configured.")
   #       redirect_to shibboleth_ds_path, alert: failure
   #     end
-  #
   #   else
   #     redirect_to shibboleth_ds_path, notice: _("Please choose an organisation")
   #   end

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-PRODUCTION_HOST = "dmptool.org"
-
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -96,8 +94,8 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.action_mailer.default_url_options = { host: PRODUCTION_HOST }
+  config.action_mailer.default_url_options = { host: ENV["HOST"] }
 end
 
 # Used by Rails' routes url_helpers (typically when including a link in an email)
-Rails.application.routes.default_url_options[:host] = PRODUCTION_HOST
+Rails.application.routes.default_url_options[:host] = ENV["HOST"]

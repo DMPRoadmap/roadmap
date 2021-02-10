@@ -25,8 +25,6 @@ RSpec.describe Dmptool::Users::OmniauthCallbacksController,
     expect(@controller.respond_to?(:process_omniauth_callback)).to eql(true)
   end
 
-  it "Has a path for every "
-
   describe "#process_omniauth_callback" do
     before(:each) do
       request.env["devise.mapping"] = Devise.mappings[:user]

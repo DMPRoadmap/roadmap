@@ -4,19 +4,11 @@ class UserMailer < ActionMailer::Base
 
   prepend_view_path "app/views/branded/"
 
-  # --------------------------------
-  # Start DMPTool Customization
-  # --------------------------------
-  include Dmptool::UserMailer
-  # --------------------------------
-  # End DMPTool Customization
-  # --------------------------------
-
   include MailerHelper
   helper MailerHelper
   helper FeedbacksHelper
 
-  default from: Rails.application.config.x.organisation.do_not_reply_email
+  default from: Rails.configuration.x.organisation.email
 
   def welcome_notification(user)
     @user           = user

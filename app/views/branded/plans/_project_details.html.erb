@@ -82,43 +82,18 @@
 </div>
 
 <div id="funder-org-controls" class="form-group">
-  <% if plan.template.org == plan.funder %>
-    <%# If the plan's funder is the same as the template owner then just
-        display the identifiers %>
-    <div class="col-md-12">
-      <%= form.label(:funder_name, _('Funder'), class: 'control-label') %>
-    </div>
-    <div class="col-md-8">
-      <%= plan.funder.name %>:
-    </div>
-
-    <% id_presenter = IdentifierPresenter.new(identifiable: plan.funder) %>
-    <ul>
-      <% %w[fundref ror].each do |scheme_name| %>
-        <%
-        scheme = id_presenter.scheme_by_name(name: scheme_name).first
-        identifier = id_presenter.id_for_scheme(scheme: scheme)
-        %>
-        <div class="col-md-8">
-          <li><%= id_for_display(id: identifier) %></li>
-        </div>
-      <% end %>
-    </ul>
-  <% else %>
-    <%# Otherwise display the Org typeahead for funders %>
-    <div class="col-md-8">
-      <%= fields_for :funder, plan.funder do |funder_fields| %>
-        <%= render partial: "shared/org_selectors/combined",
-           locals: {
-             form: form,
-             funder_only: true,
-             label: _("Funder"),
-             default_org: plan.funder,
-             required: false
-           } %>
-      <% end %>
-    </div>
-  <% end %>
+  <div class="col-md-8">
+    <%= fields_for :funder, plan.funder do |funder_fields| %>
+      <%= render partial: "shared/org_selectors/combined",
+          locals: {
+            form: form,
+            funder_only: true,
+            label: _("Funder"),
+            default_org: plan.funder,
+            required: false
+          } %>
+    <% end %>
+  </div>
 </div>
 
 <div class="form-group"><!-- grant_number -->
@@ -128,18 +103,10 @@
     </div>
 
     <div class="col-md-8">
-      <%# If the OpenAire grant typeahead if enabled use it %>
-      <% if Rails.configuration.x.open_aire.active %>
-        <!-- Using the research_project.json source for typeahead -->
-        <%= grant_fields.text_field :name, value: @plan.grant&.value, class: "form-control grant-id-typeahead",
-                                           autocomplete: "off", aria: { required: false } %>
-        <%= grant_fields.hidden_field :value %>
-        <span class="text-muted" id="grant_number_info">Grant number: <%= @plan.grant_number %></span>
-      <% else %>
-        <%= grant_fields.text_field(:value, class: "form-control",
-                                           data: { toggle: "tooltip" },
-                                           title: _("Provide a URL to the award's landing page if possible, if not please provide the award/grant number.")) %>
-      <% end %>
+
+      <%= grant_fields.text_field(:value, class: "form-control",
+                                          data: { toggle: "tooltip" },
+                                          title: _("Provide a URL to the award's landing page if possible, if not please provide the award/grant number.")) %>
     </div>
   <% end %>
 </div>

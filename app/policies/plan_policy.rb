@@ -20,10 +20,12 @@ class PlanPolicy < ApplicationPolicy
     @plan.readable_by?(@user.id)
   end
 
-  def share?
+  def publish?
+    # TODO: The last portion of this check is for our soft-launch of DOI minting!
     @plan.editable_by?(@user.id) ||
       (@user.can_org_admin? &&
-       @user.org.plans.include?(@plan))
+       @user.org.plans.include?(@plan)) ||
+      (@user.org&.allow_doi? && @user.can_org_admin?)
   end
 
   def export?
@@ -80,6 +82,10 @@ class PlanPolicy < ApplicationPolicy
 
   def update_guidances_list?
     @plan.editable_by?(@user.id)
+  end
+
+  def mint?
+    @plan.administerable_by?(@user.id) || @user.can_super_admin?
   end
 
 end

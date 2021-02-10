@@ -2,7 +2,13 @@
 
 # locals: plan
 
-json.schema "https://github.com/RDA-DMP-Common/RDA-DMP-Common-Standard/tree/master/examples/JSON/JSON-schema/1.0"
+json.ignore_nil!
+
+extensions = [{ name: "dmproadmap", uri: "https://github.com/DMPRoadmap/api-json-schema" }]
+json.extensions extensions do |extension|
+  json.uri extension[:uri]
+  json.name extension[:name]
+end
 
 presenter = Api::V1::PlanPresenter.new(plan: plan)
 # A JSON representation of a Data Management Plan in the
@@ -52,16 +58,19 @@ unless @minimal
     json.partial! "api/v1/plans/project", plan: pln
   end
 
-  json.dataset [plan] do |dataset|
-    json.partial! "api/v1/datasets/show", plan: plan, dataset: dataset
+  outputs = plan.research_outputs.any? ? plan.research_outputs : [plan]
+
+  json.dataset outputs do |output|
+    json.partial! "api/v1/datasets/show", output: output
   end
 
-  json.extension [plan.template] do |template|
-    json.set! ApplicationService.application_name.split("-").first.to_sym do
-      json.template do
-        json.id template.id
-        json.title template.title
-      end
-    end
+  # DMPTool extensions to the RDA common metadata standard
+  json.dmproadmap_template do
+    json.id plan.template.id
+    json.title plan.template.title
+  end
+
+  json.dmproadmap_latest_version do
+    json.uri Rails.application.routes.url_helpers.plan_export_url(plan, format: :pdf, "export[form]": true)
   end
 end

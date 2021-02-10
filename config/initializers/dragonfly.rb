@@ -1,24 +1,19 @@
-require 'dragonfly'
-# require 'dragonfly/s3_data_store'
+# frozen_string_literal: true
+
+require "dragonfly"
+require "dragonfly/s3_data_store"
 
 # Configure
 Dragonfly.app.configure do
-
   plugin :imagemagick
 
-  secret Rails.application.credentials.dragonfly_secret
+  secret Rails.application.credentials.dragonfly[:secret]
 
   url_format "/media/:job/:name"
 
   datastore :file,
-    root_path: Rails.root.join('public/system/dragonfly', Rails.env),
-    server_root: Rails.root.join('public')
-
-  #datastore :s3,
-  #  url_scheme: 's3',
-  #  url_host: 'uc3-s3dmp-stg',
-  #  bucket_name: 'uc3-s3dmp-stg',
-  #  use_iam_profile: true
+            root_path: Rails.root.join("public/system/dragonfly", Rails.env),
+            server_root: Rails.root.join("public")
 end
 
 # Logger

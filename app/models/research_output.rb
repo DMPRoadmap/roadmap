@@ -8,13 +8,9 @@
 #  abbreviation            :string
 #  access                  :integer          default(0), not null
 #  byte_size               :bigint
-#  coverage_end            :datetime
-#  coverage_region         :string
-#  coverage_start          :datetime
 #  description             :text
 #  display_order           :integer
 #  is_default              :boolean         default("false")
-#  mandatory_attribution   :text
 #  output_type             :integer          default(3), not null
 #  output_type_description :string
 #  personal_data           :boolean
@@ -30,6 +26,10 @@
 #
 #  index_research_outputs_on_output_type  (output_type)
 #  index_research_outputs_on_plan_id      (plan_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (repository_id => repositories.id)
 #
 class ResearchOutput < ApplicationRecord
 
@@ -49,18 +49,22 @@ class ResearchOutput < ApplicationRecord
   belongs_to :plan, optional: true
   belongs_to :mime_type, optional: true
 
+  has_and_belongs_to_many :repositories
+
   # ===============
   # = Validations =
   # ===============
 
   validates_presence_of :output_type, :access, :title, message: PRESENCE_MESSAGE
-  validates_uniqueness_of :title, :abbreviation, scope: :plan_id
+  validates_uniqueness_of :title, { case_sensitive: false, scope: :plan_id,
+                                    message: UNIQUENESS_MESSAGE }
+  validates_uniqueness_of :abbreviation, { case_sensitive: false, scope: :plan_id,
+                                           allow_nil: true, allow_blank: true,
+                                           message: UNIQUENESS_MESSAGE }
 
   # Ensure presence of the :output_type_description if the user selected 'other'
   validates_presence_of :output_type_description, if: -> { other? }, message: PRESENCE_MESSAGE
-  # Ensure that :coverage_start comes before :coverage_end
-  validate :end_date_after_start_date
-
+  
   # ====================
   # = Instance methods =
   # ====================
@@ -76,47 +80,11 @@ class ResearchOutput < ApplicationRecord
     cat.present? ? MimeType.where(category: cat).order(:description) : []
   end
 
-  # TODO: placeholders for once the License, Repository, Metadata Standard and
-  #       Resource Type Lookups feature is built.
-  #
-  #       Be sure to add the scheme in the appropriate upgrade task (and to the
-  #       seed.rb as well)
-  def licenses
-    # scheme = IdentifierScheme.find_by(name: '[name of license scheme]')
-    # return [] unless scheme.present?
-    # identifiers.select { |id| id.identifier_scheme = scheme }
-    []
+  # Helper method to convert selected repository form params into Repository objects
+  def repositories_attributes=(params)
+    params.each do |_i, repository_params|
+      repositories << Repository.find_by(id: repository_params[:id])
+    end
   end
-
-  def repositories
-    # scheme = IdentifierScheme.find_by(name: '[name of repository scheme]')
-    # return [] unless scheme.present?
-    # identifiers.select { |id| id.identifier_scheme = scheme }
-    []
-  end
-
-  def metadata_standards
-    # scheme = IdentifierScheme.find_by(name: '[name of openaire scheme]')
-    # return [] unless scheme.present?
-    # identifiers.select { |id| id.identifier_scheme = scheme }
-    []
-  end
-
-  def resource_types
-    # scheme = IdentifierScheme.find_by(name: '[name of resource_type scheme]')
-    # return [] unless scheme.present?
-    # identifiers.select { |id| id.identifier_scheme = scheme }
-    []
-  end
-
-  private
-
-  # Validation to prevent end date from coming before the start date
-  def end_date_after_start_date
-    # allow nil values
-    return true if coverage_end.blank? || coverage_start.blank?
-
-    errors.add(:coverage_end, _("must be after the start date")) if coverage_end < coverage_start
-  end
-
+  
 end

@@ -42,7 +42,7 @@
       <% if @plan.template.customization_of.present? %>
         <div class="checkbox">
           <%= label_tag 'export[custom_sections]' do %>
-            <%= check_box_tag 'export[custom_sections]', true, false %>
+            <%= check_box_tag 'export[custom_sections]', true, true %>
             <%= _('supplementary section(s) not requested by funding organisation') %>
           <% end %>
         </div>
