@@ -25,7 +25,7 @@
         </div>
       </div>
       <div class="col-xs-8">
-        <%= f.submit(_('Update'), style: 'display:none') %>
+        <%= f.submit _('Save'), class: "btn btn-default" %>
       </div>
     </fieldset>
   <% end %>
@@ -44,6 +44,7 @@
 <% if Rails.configuration.x.allow_doi_minting && IdentifierScheme.for_identification.any? %>
   <%# Temporary flag to only allow users from certain Orgs to mint DOIs during soft-launch %>
   <% if current_user.org&.allow_doi? && current_user.can_org_admin? %>
+    <br>
     <h2>Register your plan</h2>
     <div class="doi-minter">
       <%= render partial: 'plans/doi_minter', locals: { plan: @plan } %>
