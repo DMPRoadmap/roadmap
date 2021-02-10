@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dmptool 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-01-14 08:21-0800\n"
-"PO-Revision-Date: 2021-01-14 08:21-0800\n"
+"POT-Creation-Date: 2021-02-10 11:28-0800\n"
+"PO-Revision-Date: 2021-02-10 11:28-0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -73,14 +73,18 @@ msgid "preferences"
 msgstr ""
 
 #: ../../app/controllers/application_controller.rb:164
-msgid "profile"
-msgstr ""
-
-#: ../../app/controllers/application_controller.rb:164
-msgid "user"
+msgid "research output"
 msgstr ""
 
 #: ../../app/controllers/application_controller.rb:165
+msgid "profile"
+msgstr ""
+
+#: ../../app/controllers/application_controller.rb:165
+msgid "user"
+msgstr ""
+
+#: ../../app/controllers/application_controller.rb:166
 msgid "question option"
 msgstr ""
 
@@ -97,10 +101,12 @@ msgid "Unable to submit your request"
 msgstr ""
 
 #: ../../app/controllers/contributors_controller.rb:47
+#: ../../app/controllers/research_outputs_controller.rb:38
 msgid "added"
 msgstr ""
 
 #: ../../app/controllers/contributors_controller.rb:49
+#: ../../app/controllers/research_outputs_controller.rb:40
 msgid "add"
 msgstr ""
 
@@ -111,10 +117,12 @@ msgstr ""
 #: ../../app/controllers/orgs_controller.rb:95
 #: ../../app/controllers/plans_controller.rb:256
 #: ../../app/controllers/plans_controller.rb:259
+#: ../../app/controllers/plans_controller.rb:383
 #: ../../app/controllers/registrations_controller.rb:260
 #: ../../app/controllers/registrations_controller.rb:264
 #: ../../app/controllers/registrations_controller.rb:289
 #: ../../app/controllers/registrations_controller.rb:293
+#: ../../app/controllers/research_outputs_controller.rb:59
 #: ../../app/controllers/users_controller.rb:99
 #: ../../app/controllers/users_controller.rb:126
 msgid "saved"
@@ -131,20 +139,24 @@ msgstr ""
 #: ../../app/controllers/plans_controller.rb:275
 #: ../../app/controllers/registrations_controller.rb:267
 #: ../../app/controllers/registrations_controller.rb:296
+#: ../../app/controllers/research_outputs_controller.rb:62
 msgid "save"
 msgstr ""
 
 #: ../../app/controllers/contributors_controller.rb:76
 #: ../../app/controllers/notes_controller.rb:134
+#: ../../app/controllers/research_outputs_controller.rb:72
 msgid "removed"
 msgstr ""
 
 #: ../../app/controllers/contributors_controller.rb:79
 #: ../../app/controllers/notes_controller.rb:152
+#: ../../app/controllers/research_outputs_controller.rb:75
 msgid "remove"
 msgstr ""
 
 #: ../../app/controllers/contributors_controller.rb:148
+#: ../../app/controllers/research_outputs_controller.rb:169
 msgid "plan not found"
 msgstr ""
 
@@ -266,37 +278,29 @@ msgid "copied"
 msgstr ""
 
 #: ../../app/controllers/plans_controller.rb:364
+#: ../../app/controllers/plans_controller.rb:385
 msgid "copy"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:384
-#: ../../app/controllers/users_controller.rb:104
-msgid "updated"
-msgstr ""
-
-#: ../../app/controllers/plans_controller.rb:387
-msgid "update"
-msgstr ""
-
-#: ../../app/controllers/plans_controller.rb:392
+#: ../../app/controllers/plans_controller.rb:389
 msgid ""
 "Unable to change the plan's status since it is needed at least %{percentage} p"
 "ercentage responded"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:400
+#: ../../app/controllers/plans_controller.rb:395
 msgid "Unable to find plan id %{plan_id}"
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:417
+#: ../../app/controllers/plans_controller.rb:411
 msgid "Your project is now a test."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:417
+#: ../../app/controllers/plans_controller.rb:411
 msgid "Your project is no longer a test."
 msgstr ""
 
-#: ../../app/controllers/plans_controller.rb:421
+#: ../../app/controllers/plans_controller.rb:415
 msgid "Unable to change the plan's test status"
 msgstr ""
 
@@ -379,6 +383,10 @@ msgstr ""
 msgid "Password and comfirmation must match"
 msgstr ""
 
+#: ../../app/controllers/research_outputs_controller.rb:178
+msgid "research output not found"
+msgstr ""
+
 #: ../../app/controllers/roles_controller.rb:23
 msgid ""
 "Cannot share plan with %{email} since that email matches with the owner of the"
@@ -459,6 +467,10 @@ msgstr ""
 msgid ""
 "You are already signed in as another user. Please log out to activate your inv"
 "itation."
+msgstr ""
+
+#: ../../app/controllers/users_controller.rb:104
+msgid "updated"
 msgstr ""
 
 #: ../../app/controllers/users_controller.rb:142
@@ -546,6 +558,27 @@ msgstr ""
 msgid ""
 "Management and coordination responsibility for the research activity planning "
 "and execution."
+msgstr ""
+
+#: ../../app/presenters/research_output_presenter.rb:61
+msgid "Generalist (multidisciplinary)"
+msgstr ""
+
+#: ../../app/presenters/research_output_presenter.rb:62
+msgid "Discipline specific"
+msgstr ""
+
+#: ../../app/presenters/research_output_presenter.rb:63
+msgid "Institutional"
+msgstr ""
+
+#: ../../app/presenters/research_output_presenter.rb:97
+msgid "None specified"
+msgstr ""
+
+#: ../../app/presenters/research_output_presenter.rb:104
+#: ../../app/presenters/research_output_presenter.rb:111
+msgid "Unspecified"
 msgstr ""
 
 #: ../../app/views/branded/contact_us/contacts/new.html.erb:2
@@ -741,6 +774,22 @@ msgstr ""
 
 #: ../../app/views/branded/layouts/_constants.html.erb:34
 msgid "No results are available for your entry."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_constants.html.erb:36
+msgid "More info"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_constants.html.erb:37
+msgid "Less info"
+msgstr ""
+
+#: ../../app/views/branded/layouts/_constants.html.erb:39
+msgid "Acquiring your DMP ID. This may take a few minutes ..."
+msgstr ""
+
+#: ../../app/views/branded/layouts/_constants.html.erb:42
+msgid "Finalise / Publish"
 msgstr ""
 
 #: ../../app/views/branded/layouts/_fixed_menu.html.erb:17
