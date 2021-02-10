@@ -370,37 +370,31 @@ class PlansController < ApplicationController
   # POST /plans/:id/visibility
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def visibility
-    plan = Plan.find(params[:id])
-    if plan.present?
-      authorize plan
-      if plan.visibility_allowed?
-        plan.visibility = plan_params[:visibility]
-        if plan.save
-          deliver_if(recipients: plan.owner_and_coowners,
+    @plan = Plan.find(params[:id])
+    if @plan.present?
+      authorize @plan
+      if @plan.visibility_allowed?
+        @plan.visibility = plan_params[:visibility]
+        if @plan.save
+          deliver_if(recipients: @plan.owner_and_coowners,
                      key: "owners_and_coowners.visibility_changed") do |r|
-            UserMailer.plan_visibility(r, plan).deliver_now
+            UserMailer.plan_visibility(r, @plan).deliver_now
           end
-          render status: :ok,
-                 json: { msg: success_message(plan, _("updated")) }
+          flash[:notice] = success_message(@plan, _("saved"))
         else
-          render status: :internal_server_error,
-                 json: { msg: failure_message(plan, _("update")) }
+          flash[:alert] = failure_message(@plan, _("copy"))
         end
       else
         # rubocop:disable Layout/LineLength
-        render status: :forbidden, json: {
-          msg: _("Unable to change the plan's status since it is needed at least %{percentage} percentage responded") % {
+        flash[:alert] = _("Unable to change the plan's status since it is needed at least %{percentage} percentage responded") % {
             percentage: Rails.configuration.x.plans.default_percentage_answered
-          }
         }
         # rubocop:enable Layout/LineLength
       end
     else
-      render status: :not_found,
-             json: { msg: _("Unable to find plan id %{plan_id}") % {
-               plan_id: params[:id]
-             } }
+      flash[:alert] = _("Unable to find plan id %{plan_id}") % { plan_id: params[:id] }
     end
+    render "publish"
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
