@@ -17,7 +17,7 @@ fr-CA:
       short: "%e %b"
       long: "%e %B %Y"
       csv: "%Y-%m-%d"
-      readable: "%b %d, %Y"
+      readable: "%d %b %Y"
     order:
     - :year
     - :month
