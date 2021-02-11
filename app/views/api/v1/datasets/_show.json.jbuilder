@@ -21,7 +21,7 @@ if output.is_a?(ResearchOutput)
   end
 
   json.distribution output.repositories do |repository|
-    json.title "Anticipated distribution"
+    json.title "Anticipated distribution for #{output.title}"
     json.byte_size output.byte_size
     json.data_access output.access
     json.format output.mime_type&.value

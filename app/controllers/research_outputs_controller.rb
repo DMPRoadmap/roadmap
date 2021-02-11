@@ -34,7 +34,7 @@ class ResearchOutputsController < ApplicationController
     authorize @research_output
 
     if @research_output.save
-      redirect_to edit_plan_research_output_path(@plan, @research_output),
+      redirect_to plan_research_outputs_path(@plan),
                   notice: success_message(@research_output, _("added"))
     else
       flash[:alert] = failure_message(@research_output, _("add"))
@@ -55,7 +55,7 @@ class ResearchOutputsController < ApplicationController
     @research_output.repositories.clear
 
     if @research_output.update(args)
-      redirect_to edit_plan_research_output_path(@plan, @research_output),
+      redirect_to plan_research_outputs_path(@plan),
                   notice: success_message(@research_output, _("saved"))
     else
       redirect_to edit_plan_research_output_path(@plan, @research_output),

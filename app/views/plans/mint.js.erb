@@ -5,6 +5,6 @@ if (target != undefined) {
     target[0].innerHTML = `<%= escape_javascript(render partial: "plans/doi_minter", locals: { plan: @plan }) %>`;
   <% else %>
     var response = document.getElementsByClassName('doi-minter-response');
-    response[0].innerHTML = `<%= _("Something went wrong and we were unable to aquire a DMP ID for your plan. Please try again. If the problem persists please contact the help desk at %{helpdesk_email}") % { helpdesk_email: Rails.configuration.x.organisation.helpdesk_email } %>`;
+    response[0].innerHTML = `<%= _("Something went wrong and we were unable to acquire a DMP ID for your plan. Please try again. If the problem persists please contact the help desk at %{helpdesk_email}") % { helpdesk_email: Rails.configuration.x.organisation.helpdesk_email } %>`;
   <% end %>
 }
