@@ -137,7 +137,14 @@ class PlansController < ApplicationController
 
         # Set new identifier to plan id by default on create.
         # (This may be changed by user.)
-        @plan.identifier = @plan.id.to_s
+        # ================================================
+        # Start DMPTool customization
+        #    We are using this field as a Funding Opportunity Number
+        # ================================================
+        # @plan.identifier = @plan.id.to_s
+        # ================================================
+        # End DMPTool customization
+        # ================================================
         @plan.save
 
         respond_to do |format|
