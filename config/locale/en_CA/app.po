@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-02-11 10:25-0700\n"
-"PO-Revision-Date: 2021-02-11 18:25+0100\n"
+"POT-Creation-Date: 2021-02-11 12:24-0700\n"
+"PO-Revision-Date: 2021-02-11 20:24+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_CA\n"
@@ -252,9 +252,6 @@ msgstr ""
 msgid "<p>A DMP template for the Canadian Ocean Observing System (CIOOS).</p>"
 msgstr ""
 
-msgid "Initial GWF DMP"
-msgstr ""
-
 msgid "University of Alberta Data Management Questions"
 msgstr ""
 
@@ -312,13 +309,16 @@ msgstr ""
 msgid "Phase 1 (test)"
 msgstr ""
 
+msgid "Initial GWF DMP"
+msgstr ""
+
+msgid "Phase 2"
+msgstr ""
+
 msgid "Export"
 msgstr ""
 
 msgid "OMAFRA-UG DMP Questions"
-msgstr ""
-
-msgid "Phase 2"
 msgstr ""
 
 msgid ""
@@ -3563,6 +3563,11 @@ msgid ""
 "ve Commons or Open Data license</a><span style=\"font-size: 14px;\">.</span></p>"
 "\n"
 "<p>&nbsp;</p>"
+msgstr ""
+
+msgid ""
+"<p>Examples: numeric, images, audio, video, text, tabular data, modeling data,"
+" spatial data, instrumentation data.</p>"
 msgstr ""
 
 msgid ""
@@ -12665,12 +12670,6 @@ msgstr ""
 #: ../../app/views/template_exports/template_export.docx.erb:39
 #: ../../app/views/template_exports/template_export.pdf.erb:81
 msgid "Example Answer"
-msgstr ""
-
-#: ../../app/views/translation_io_exports/_from_database.erb:3
-msgid ""
-"<p>Examples: numeric, images, audio, video, text, tabular data, modeling data,"
-" spatial data, instrumentation data.</p>"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_globals.html.erb:3

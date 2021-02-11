@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-02-11 10:25-0700\n"
-"PO-Revision-Date: 2021-02-11 18:25+0100\n"
+"POT-Creation-Date: 2021-02-11 12:24-0700\n"
+"PO-Revision-Date: 2021-02-11 20:24+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_CA\n"
@@ -252,9 +252,6 @@ msgstr ""
 msgid "<p>A DMP template for the Canadian Ocean Observing System (CIOOS).</p>"
 msgstr ""
 
-msgid "Initial GWF DMP"
-msgstr ""
-
 msgid "University of Alberta Data Management Questions"
 msgstr ""
 
@@ -312,13 +309,16 @@ msgstr ""
 msgid "Phase 1 (test)"
 msgstr ""
 
+msgid "Initial GWF DMP"
+msgstr ""
+
+msgid "Phase 2"
+msgstr ""
+
 msgid "Export"
 msgstr ""
 
 msgid "OMAFRA-UG DMP Questions"
-msgstr ""
-
-msgid "Phase 2"
 msgstr ""
 
 msgid ""
@@ -3700,6 +3700,13 @@ msgid ""
 "\n"
 "<p>&nbsp;</p>"
 msgstr ""
+
+msgid ""
+"<p>Examples: numeric, images, audio, video, text, tabular data, modeling data,"
+" spatial data, instrumentation data.</p>"
+msgstr ""
+"<p>Exemples : données numériques, images, audio, vidéo, texte, données tabulai"
+"res, données de modélisation, données spatiales, données d'instrumentation</p>"
 
 msgid ""
 "<p>Proprietary file formats requiring specialized software or hardware to use "
@@ -10839,7 +10846,7 @@ msgid ""
 "is, remember to use your new email address on sign in."
 msgstr ""
 "Veuillez noter que votre adresse courriel est utilisée comme nom d’utilisateur"
-". Si vous le modifiez, n’oubliez pas d’utiliser votre nouvelle adresse courrie"
+". Si vous la modifiez, n’oubliez pas d’utiliser votre nouvelle adresse courrie"
 "l pour vous connecter."
 
 #: ../../app/views/devise/registrations/_personal_details.html.erb:6
@@ -13717,14 +13724,6 @@ msgstr ""
 msgid "Example Answer"
 msgstr "Exemple de réponse"
 
-#: ../../app/views/translation_io_exports/_from_database.erb:3
-msgid ""
-"<p>Examples: numeric, images, audio, video, text, tabular data, modeling data,"
-" spatial data, instrumentation data.</p>"
-msgstr ""
-"<p>Exemples : données numériques, images, audio, vidéo, texte, données tabulai"
-"res, données de modélisation, données spatiales, données d'instrumentation</p>"
-
 #: ../../app/views/translation_io_exports/_globals.html.erb:3
 msgid "DMP Assistant"
 msgstr "Assistant PGD"
@@ -14417,7 +14416,7 @@ msgstr "Tout sélectionner"
 
 #: ../../app/views/users/_notification_preferences.html.erb:7
 msgid "Deselect all"
-msgstr "Tout déselectionner"
+msgstr "Tout désélectionner"
 
 #: ../../app/views/users/_notification_preferences.html.erb:11
 msgid "All Users"
