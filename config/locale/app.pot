@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-02-11 10:25-0700\n"
-"PO-Revision-Date: 2021-02-11 10:25-0700\n"
+"POT-Creation-Date: 2021-02-11 12:24-0700\n"
+"PO-Revision-Date: 2021-02-11 12:24-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -2808,7 +2808,7 @@ msgstr ""
 
 #: ../../app/views/org_admin/phases/_phase.html.erb:37
 #: ../../app/views/org_admin/questions/_index.html.erb:1
-#: ../../tmp/translation/database_strings.rb:91
+#: ../../tmp/translation/database_strings.rb:90
 msgid "Questions"
 msgstr ""
 
@@ -4643,13 +4643,6 @@ msgstr ""
 msgid "Example Answer"
 msgstr ""
 
-#: ../../app/views/translation_io_exports/_from_database.erb:3
-#: ../../tmp/translation/database_strings.rb:612
-msgid ""
-"<p>Examples: numeric, images, audio, video, text, tabular data, modeling data,"
-" spatial data, instrumentation data.</p>"
-msgstr ""
-
 #: ../../app/views/translation_io_exports/_globals.html.erb:3
 msgid "DMP Assistant"
 msgstr ""
@@ -5610,96 +5603,96 @@ msgid "<p>A DMP template for the Canadian Ocean Observing System (CIOOS).</p>"
 msgstr ""
 
 #: ../../tmp/translation/database_strings.rb:80
-msgid "Initial GWF DMP"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:81
 msgid "University of Alberta Data Management Questions"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:82
+#: ../../tmp/translation/database_strings.rb:81
 msgid "MICYRN Data Management Plan Initial Phase"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:83
+#: ../../tmp/translation/database_strings.rb:82
 msgid "Reproducible findings through deposited data"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:84
+#: ../../tmp/translation/database_strings.rb:83
 msgid "University of British Columbia Data Management Questions"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:85
+#: ../../tmp/translation/database_strings.rb:84
 msgid "Portage Data Management Questions"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:86
+#: ../../tmp/translation/database_strings.rb:85
 msgid "Pre-Project: Prototype"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:87
+#: ../../tmp/translation/database_strings.rb:86
 msgid "CEOS Data Management Plan"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:88
+#: ../../tmp/translation/database_strings.rb:87
 msgid "Oceans Data Management Plan"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:89
+#: ../../tmp/translation/database_strings.rb:88
 msgid "University of Manitoba Data Management Questions"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:90
+#: ../../tmp/translation/database_strings.rb:89
 msgid "DMP Questionnaire"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:92
+#: ../../tmp/translation/database_strings.rb:91
 msgid "University of Guelph Agri-Food Funding DMP (Alliance/Food from Thought)  "
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:93
+#: ../../tmp/translation/database_strings.rb:92
 msgid "Data management questions"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:94
+#: ../../tmp/translation/database_strings.rb:93
 msgid "York U Data Management Questions"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:95
+#: ../../tmp/translation/database_strings.rb:94
 msgid "MUN Data Management Questions"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:96
+#: ../../tmp/translation/database_strings.rb:95
 msgid "OFI Module E DMP"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:97
+#: ../../tmp/translation/database_strings.rb:96
 msgid "Dalhousie University"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:98
+#: ../../tmp/translation/database_strings.rb:97
 #: ../../tmp/translation/database_strings.rb:164
 msgid "TITLE"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:99
+#: ../../tmp/translation/database_strings.rb:98
 msgid "Test DMP Questions"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:100
+#: ../../tmp/translation/database_strings.rb:99
 msgid "Phase 1 (test)"
 msgstr ""
 
+#: ../../tmp/translation/database_strings.rb:100
+msgid "Initial GWF DMP"
+msgstr ""
+
 #: ../../tmp/translation/database_strings.rb:101
-msgid "Export"
+msgid "Phase 2"
 msgstr ""
 
 #: ../../tmp/translation/database_strings.rb:102
-msgid "OMAFRA-UG DMP Questions"
+msgid "Export"
 msgstr ""
 
 #: ../../tmp/translation/database_strings.rb:103
-msgid "Phase 2"
+msgid "OMAFRA-UG DMP Questions"
 msgstr ""
 
 #: ../../tmp/translation/database_strings.rb:104
@@ -9439,6 +9432,12 @@ msgid ""
 "ve Commons or Open Data license</a><span style=\"font-size: 14px;\">.</span></p>"
 "\\r\n"
 "<p>&nbsp;</p>"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:612
+msgid ""
+"<p>Examples: numeric, images, audio, video, text, tabular data, modeling data,"
+" spatial data, instrumentation data.</p>"
 msgstr ""
 
 #: ../../tmp/translation/database_strings.rb:613
