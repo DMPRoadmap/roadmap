@@ -25,7 +25,7 @@
              { :application_name => _(Rails.configuration.branding[:application][:name]) } %></p>
       <p><%= sanitize _("If you have any questions, please contact the %{application_name} team at: <a href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>") %
                  { :application_name => _(Rails.configuration.branding[:application][:name]), :helpdesk_email => Rails.configuration.branding[:organisation][:helpdesk_email] } %></p>
-      <h2 class="fontsize-h3">Revisions</h2>
+      <h2 class="fontsize-h3"><%= _('Revisions') %></h2>
 
       <p><%= _("This statement was last revised on %{revdate} and may be revised at any time with prior notice.") %
              { :revdate => l(Date.new(2018, 5, 21), format: :readable) }%></p>
