@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-02-10 11:49-0700\n"
-"PO-Revision-Date: 2021-02-10 19:50+0100\n"
+"POT-Creation-Date: 2021-02-11 10:25-0700\n"
+"PO-Revision-Date: 2021-02-11 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_CA\n"
@@ -252,9 +252,6 @@ msgstr ""
 msgid "<p>A DMP template for the Canadian Ocean Observing System (CIOOS).</p>"
 msgstr ""
 
-msgid "Phase 1 (test)"
-msgstr ""
-
 msgid "Initial GWF DMP"
 msgstr ""
 
@@ -312,13 +309,16 @@ msgstr ""
 msgid "Test DMP Questions"
 msgstr ""
 
-msgid "Phase 2"
+msgid "Phase 1 (test)"
 msgstr ""
 
 msgid "Export"
 msgstr ""
 
 msgid "OMAFRA-UG DMP Questions"
+msgstr ""
+
+msgid "Phase 2"
 msgstr ""
 
 msgid ""
@@ -501,9 +501,6 @@ msgid "Section 2 testing"
 msgstr ""
 
 msgid "Security"
-msgstr ""
-
-msgid "My new section"
 msgstr ""
 
 msgid ""
@@ -1012,9 +1009,6 @@ msgstr ""
 msgid "<p>Project Information</p>"
 msgstr ""
 
-msgid "<p>My new section description</p>"
-msgstr ""
-
 msgid "What types of data will you collect, create, acquire and/or record?"
 msgstr ""
 
@@ -1443,9 +1437,6 @@ msgid ""
 msgstr ""
 
 msgid "PLACEHOLDER"
-msgstr ""
-
-msgid "<p>My new question text</p>"
 msgstr ""
 
 msgid ""
@@ -2703,9 +2694,6 @@ msgid "<p>test</p>"
 msgstr ""
 
 msgid "<p>No files created</p>"
-msgstr ""
-
-msgid "<p>My default answer</p>"
 msgstr ""
 
 msgid ""
@@ -8060,15 +8048,6 @@ msgstr ""
 msgid "Streamflow, Cold Creek, YK, John Doe"
 msgstr ""
 
-msgid "<p>Custom question guidance</p>"
-msgstr ""
-
-msgid "<p>My example answer</p>"
-msgstr ""
-
-msgid "<p>My question guidance</p>"
-msgstr ""
-
 #: ../../app/controllers/answers_controller.rb:17
 msgid ""
 "There is no question with id %{question_id} associated to plan id %{plan_id} f"
@@ -12581,6 +12560,10 @@ msgid ""
 "href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>"
 msgstr ""
 
+#: ../../app/views/static_pages/privacy.html.erb:28
+msgid "Revisions"
+msgstr ""
+
 #: ../../app/views/static_pages/privacy.html.erb:30
 msgid ""
 "This statement was last revised on %{revdate} and may be revised at any time w"
@@ -12685,7 +12668,6 @@ msgid "Example Answer"
 msgstr ""
 
 #: ../../app/views/translation_io_exports/_from_database.erb:3
-#: ../../app/views/translation_io_exports/_home_page_links.html.erb:13
 msgid ""
 "<p>Examples: numeric, images, audio, video, text, tabular data, modeling data,"
 " spatial data, instrumentation data.</p>"

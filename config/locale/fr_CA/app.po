@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-02-10 11:49-0700\n"
-"PO-Revision-Date: 2021-02-10 19:50+0100\n"
+"POT-Creation-Date: 2021-02-11 10:25-0700\n"
+"PO-Revision-Date: 2021-02-11 18:25+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_CA\n"
@@ -252,9 +252,6 @@ msgstr ""
 msgid "<p>A DMP template for the Canadian Ocean Observing System (CIOOS).</p>"
 msgstr ""
 
-msgid "Phase 1 (test)"
-msgstr ""
-
 msgid "Initial GWF DMP"
 msgstr ""
 
@@ -312,13 +309,16 @@ msgstr ""
 msgid "Test DMP Questions"
 msgstr ""
 
-msgid "Phase 2"
+msgid "Phase 1 (test)"
 msgstr ""
 
 msgid "Export"
 msgstr ""
 
 msgid "OMAFRA-UG DMP Questions"
+msgstr ""
+
+msgid "Phase 2"
 msgstr ""
 
 msgid ""
@@ -501,9 +501,6 @@ msgid "Section 2 testing"
 msgstr ""
 
 msgid "Security"
-msgstr ""
-
-msgid "My new section"
 msgstr ""
 
 msgid ""
@@ -1044,9 +1041,6 @@ msgstr ""
 msgid "<p>Project Information</p>"
 msgstr ""
 
-msgid "<p>My new section description</p>"
-msgstr ""
-
 msgid "What types of data will you collect, create, acquire and/or record?"
 msgstr ""
 
@@ -1507,9 +1501,6 @@ msgid ""
 msgstr ""
 
 msgid "PLACEHOLDER"
-msgstr ""
-
-msgid "<p>My new question text</p>"
 msgstr ""
 
 msgid ""
@@ -2839,9 +2830,6 @@ msgid "<p>test</p>"
 msgstr ""
 
 msgid "<p>No files created</p>"
-msgstr ""
-
-msgid "<p>My default answer</p>"
 msgstr ""
 
 msgid ""
@@ -8617,15 +8605,6 @@ msgstr ""
 msgid "Streamflow, Cold Creek, YK, John Doe"
 msgstr ""
 
-msgid "<p>Custom question guidance</p>"
-msgstr ""
-
-msgid "<p>My example answer</p>"
-msgstr ""
-
-msgid "<p>My question guidance</p>"
-msgstr ""
-
 #: ../../app/controllers/answers_controller.rb:17
 msgid ""
 "There is no question with id %{question_id} associated to plan id %{plan_id} f"
@@ -9124,8 +9103,8 @@ msgstr ""
 #: ../../app/controllers/org_admin/templates_controller.rb:270
 msgid "Your %{template_type} has been published and is now available to users."
 msgstr ""
-"Votre %{template_type} a été publié et est maintenant visible aux utilisateurs"
-"."
+"Votre %{template_type} a été publié et est maintenant accessible aux utilisate"
+"urs."
 
 #: ../../app/controllers/org_admin/templates_controller.rb:274
 msgid "Unable to publish your %{template_type}."
@@ -13551,8 +13530,8 @@ msgid ""
 "s to and personalisation of the %{application_name} service."
 msgstr ""
 "Les renseignements que vous fournissez seront utilisés par le %{org_name} pour"
-" vous offrir l'accès au service %{application_name} et la possibilité de perso"
-"nnaliser ce dernier."
+" vous offrir l'accès à l'%{application_name} et la possibilité de personnalise"
+"r ce dernier."
 
 #: ../../app/views/static_pages/privacy.html.erb:13
 msgid ""
@@ -13560,18 +13539,18 @@ msgid ""
 "der to deliver and improve the %{application_name} service in a customised man"
 "ner and to ensure each user receives relevant information."
 msgstr ""
-"%{org_name} traite les données personnelles des utilisateurs de %{application_"
-"name} afin d’offrir et d’améliorer le service %{application_name} de manière p"
-"ersonnalisée et de veiller à ce que chaque utilisateur reçoit des renseignemen"
-"ts pertinents."
+"Le %{org_name} traite les données personnelles des utilisateurs de l'%{applica"
+"tion_name} afin d’offrir et d’améliorer le service de l'%{application_name} de"
+" manière personnalisée et de veiller à ce que chaque utilisateur reçoit des re"
+"nseignements pertinents."
 
 #: ../../app/views/static_pages/privacy.html.erb:15
 msgid ""
 "The processing of your personal data by the %{org_name} is necessary for pursu"
 "ing the following legitimate interests:"
 msgstr ""
-"Le traitement de vos données personnelles par %{org_name} est nécessaire pour "
-"donner suite aux intérêts légitimes suivants :"
+"Le traitement de vos données personnelles par le %{org_name} est nécessaire po"
+"ur donner suite aux intérêts légitimes suivants :"
 
 #: ../../app/views/static_pages/privacy.html.erb:18
 msgid ""
@@ -13579,9 +13558,9 @@ msgid ""
 "ur user experience e.g. provision of relevant templates and guidance for your "
 "organisation."
 msgstr ""
-"Donner accès au service %{application_name} et permettre la personnalisation d"
-"e votre expérience utilisateur (p. ex., offre de modèles et de directives pert"
-"inents pour votre organisme)."
+"Donner accès au service de l'%{application_name} et permettre la personnalisat"
+"ion de votre expérience utilisateur (p. ex., offre de modèles et de directives"
+" pertinents pour votre organisme)."
 
 #: ../../app/views/static_pages/privacy.html.erb:20
 msgid ""
@@ -13589,8 +13568,8 @@ msgid ""
 "s or improvements, or changes to our Privacy Policy."
 msgstr ""
 "Vous tenir au courant des nouvelles concernant %{application_name}, comme les "
-"nouvelles fonctionnalités ou améliorations ou les modifications à notre Politi"
-"que de confidentialité."
+"nouvelles fonctionnalités, les améliorations ou les modifications à notre Poli"
+"tique de confidentialité."
 
 #: ../../app/views/static_pages/privacy.html.erb:22
 msgid "For network and information security purposes."
@@ -13604,17 +13583,22 @@ msgid ""
 "ays."
 msgstr ""
 "Nous conserverons les données personnelles que vous nous avez fournies tant qu"
-"e vous continuerez à utiliser le service %{application_name}. Pour faire retir"
-"er vos données personnelles de ce service, vous devez en faire la demande aupr"
-"ès de l’équipe %{application_name} dans un délai de 30 jours."
+"e vous continuerez à utiliser le service de l'%{application_name}. Pour faire "
+"retirer vos données personnelles de ce service, vous devez en faire la demande"
+" auprès de l’équipe de l'%{application_name} dans un délai de 30 jours."
 
 #: ../../app/views/static_pages/privacy.html.erb:26
 msgid ""
 "If you have any questions, please contact the %{application_name} team at: <a "
 "href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>"
 msgstr ""
-"Si vous avez des questions, veuillez communiquer avec l’équipe %{application_n"
-"ame} par courriel à : <a href='mailto:%{helpdesk_email}'>%{helpdesk_email}</a>"
+"Si vous avez des questions, veuillez communiquer avec l’équipe de l'%{applicat"
+"ion_name} par courriel à : <a href='mailto:%{helpdesk_email}'>%{helpdesk_email"
+"}</a>"
+
+#: ../../app/views/static_pages/privacy.html.erb:28
+msgid "Revisions"
+msgstr "Révisions"
 
 #: ../../app/views/static_pages/privacy.html.erb:30
 msgid ""
@@ -13734,7 +13718,6 @@ msgid "Example Answer"
 msgstr "Exemple de réponse"
 
 #: ../../app/views/translation_io_exports/_from_database.erb:3
-#: ../../app/views/translation_io_exports/_home_page_links.html.erb:13
 msgid ""
 "<p>Examples: numeric, images, audio, video, text, tabular data, modeling data,"
 " spatial data, instrumentation data.</p>"
