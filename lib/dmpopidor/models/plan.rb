@@ -193,7 +193,7 @@ module Dmpopidor
           dmp_id: dmp_fragment.id,
           parent_id: dmp_fragment.id,
           madmp_schema: MadmpSchema.find_by(name: "ProjectStandard"),
-          additional_info: {}
+          additional_info: { property_name: "project" }
         )
         project.instantiate
 
@@ -208,7 +208,7 @@ module Dmpopidor
           dmp_id: dmp_fragment.id,
           parent_id: dmp_fragment.id,
           madmp_schema: MadmpSchema.find_by(name: "MetaStandard"),
-          additional_info: {}
+          additional_info: { property_name: "meta" }
         )
         meta.instantiate
 
