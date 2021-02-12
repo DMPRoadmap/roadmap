@@ -56,7 +56,7 @@
               </div>
             </div>
               <!-- the section body -->
-              <% section.questions.each_with_index do |question, i| %>
+              <% section.questions.includes([:question_format]).each_with_index do |question, i| %>
                 <% # Load the answer or create a new one
                   answer = answers[question.id] if plan.present?
                   if answer.blank?
