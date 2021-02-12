@@ -11,6 +11,7 @@ namespace :v3 do
   task upgrade_3_1_0: :environment do
     Rake::Task["v3:mime_types:load"].execute
     Rake::Task["v3:init_open_aire"].execute
+    Rake::Task["v3:datacite"].execute
     Rake::Task["v3:init_re3data"].execute
     Rake::Task["v3:seed_external_services"].execute
     Rake::Task["v3:load_re3data_repos"].execute
@@ -90,13 +91,37 @@ namespace :v3 do
 
   desc "Adds the re3data IdentifierScheme for ResearchOutputs"
   task init_re3data: :environment do
-    openaire = IdentifierScheme.find_or_initialize_by(name: "rethreedata")
-    openaire.for_research_outputs = true
-    openaire.description = "Registry of Research Data Repositories (re3data)"
-    openaire.identifier_prefix = "https://www.re3data.org/api/v1/repository/"
-    openaire.external_service = "ExternalApis::Re3dataService"
-    openaire.active = true
-    openaire.save
+    re3data = IdentifierScheme.find_or_initialize_by(name: "rethreedata")
+    re3data.for_research_outputs = true
+    re3data.description = "Registry of Research Data Repositories (re3data)"
+    re3data.identifier_prefix = "https://www.re3data.org/api/v1/repository/"
+    re3data.external_service = "ExternalApis::Re3dataService"
+    re3data.active = true
+    re3data.save
+  end
+
+  desc "Adds the DataCite IdentifierScheme for minting DMP IDs (DOIs)"
+  task init_datacite: :environment do
+    datacite = IdentifierScheme.find_or_initialize_by(name: "datacite")
+    datacite.for_plans = true
+    datacite.for_identification = true
+    datacite.description = "DataCite"
+    datacite.identifier_prefix = "https://doi.org/"
+    datacite.external_service = "ExternalApis::DataciteService"
+    datacite.active = false
+    datacite.save
+  end
+
+  desc "Adds the DMPHub for minting DMP IDs (DOIs)"
+  task init_dmphub: :environment do
+    datacite = IdentifierScheme.find_or_initialize_by(name: "dmphub")
+    datacite.for_plans = true
+    datacite.for_identification = true
+    datacite.description = "DMPHub"
+    datacite.identifier_prefix = "https://doi.org/"
+    datacite.external_service = "ExternalApis::DmphubService"
+    datacite.active = false
+    datacite.save
   end
 
   desc "Load Repositories from re3data"
