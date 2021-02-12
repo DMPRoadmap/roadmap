@@ -489,7 +489,7 @@ msgid "Click here to add a new item"
 msgstr "Click here to add a new item"
 
 msgid "Click here to add a new research output"
-msgstr ""
+msgstr "Click here to add a new research output"
 
 msgid "Answer"
 msgstr "Answer"
