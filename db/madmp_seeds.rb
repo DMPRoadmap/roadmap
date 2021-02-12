@@ -2,10 +2,6 @@
 # frozen_string_literal: true
 
 # warn_indent: true
-include FactoryBot::Syntax::Methods
-
-require "factory_bot"
-require "faker"
 
 # This file should contain all the record creation needed to seed the database
 # with its default values. The data can then be loaded with the rake db:seed
@@ -144,13 +140,13 @@ sections = [
   ##################### FRENCH #######################
   ####################################################
   {
-    title: "Description des données et collecte des données et/ou réutilisation de données existantes",
+    title: "Description des données et collecte des données ou réutilisation de données existantes",
     number: 1,
     modifiable: true,
     phase: se_standard_phase_fr
   },
   {
-    title: "Documentation et métadonnées",
+    title: "Documentation et qualité des données",
     number: 2,
     modifiable: true,
     phase: se_standard_phase_fr
@@ -174,7 +170,7 @@ sections = [
     phase: se_standard_phase_fr
   },
   {
-    title: "Partage et conservation des données",
+    title: "Partage des données et conservation à long terme",
     number: 6,
     modifiable: true,
     phase: se_standard_phase_fr
@@ -195,7 +191,7 @@ sections = [
     phase: se_standard_phase_en
   },
   {
-    title: "Documentation and metadata",
+    title: "Documentation and data quality",
     number: 2,
     modifiable: true,
     phase: se_standard_phase_en
@@ -230,18 +226,18 @@ sections = [
     modifiable: true,
     phase: se_standard_phase_en
   },
-   # Sections for Modèle structuré basique Science Europe Phase
+  # Sections for Modèle structuré basique Science Europe Phase
   ####################################################
   ##################### FRENCH #######################
   ####################################################
   {
-    title: "Description des données et collecte des données et/ou réutilisation de données existantes",
+    title: "Description des données et collecte des données ou réutilisation de données existantes",
     number: 1,
     modifiable: true,
     phase: se_basic_phase_fr
   },
   {
-    title: "Documentation et métadonnées",
+    title: "Documentation et qualité des données",
     number: 2,
     modifiable: true,
     phase: se_basic_phase_fr
@@ -265,7 +261,7 @@ sections = [
     phase: se_basic_phase_fr
   },
   {
-    title: "Partage et conservation des données",
+    title: "Partage des données et conservation à long terme",
     number: 6,
     modifiable: true,
     phase: se_basic_phase_fr
@@ -286,7 +282,7 @@ sections = [
     phase: se_basic_phase_en
   },
   {
-    title: "Documentation and metadata",
+    title: "Documentation and data quality",
     number: 2,
     modifiable: true,
     phase: se_basic_phase_en
@@ -337,7 +333,7 @@ questions = [
     text: "Description générale du produit de recherche",
     number: 1,
     section: Section.find_by(
-      title: "Description des données et collecte des données et/ou réutilisation de données existantes",
+      title: "Description des données et collecte des données ou réutilisation de données existantes",
       phase: se_standard_phase_fr
     ),
     question_format: structured,
@@ -346,10 +342,10 @@ questions = [
     themes: [Theme.find_by(title: "Data description")]
   },
   {
-    text: "Est-ce que des données existantes seront réutilisées",
+    text: "Est-ce que des données existantes seront réutilisées ?",
     number: 2,
     section: Section.find_by(
-      title: "Description des données et collecte des données et/ou réutilisation de données existantes",
+      title: "Description des données et collecte des données ou réutilisation de données existantes",
       phase: se_standard_phase_fr
     ),
     question_format: structured,
@@ -357,10 +353,10 @@ questions = [
     modifiable: true
   },
   {
-    text: "Comment seront produites/collectées les nouvelles données",
+    text: "Comment seront produites/collectées les nouvelles données ?",
     number: 3,
     section: Section.find_by(
-      title: "Description des données et collecte des données et/ou réutilisation de données existantes",
+      title: "Description des données et collecte des données ou réutilisation de données existantes",
       phase: se_standard_phase_fr
     ),
     question_format: structured,
@@ -369,10 +365,10 @@ questions = [
     themes: [Theme.find_by(title: "Data collection")]
   },
   {
-    text: ". Quelles métadonnées et quelle documentation (par exemple méthodologie de collecte et mode d'organisation des données) accompagneront les données ?" ,
+    text: "Quelles métadonnées et quelle documentation (par exemple mode d'organisation des données) accompagneront les données ?" ,
     number: 1,
     section: Section.find_by(
-      title: "Documentation et métadonnées",
+      title: "Documentation et qualité des données",
       phase: se_standard_phase_fr
     ),
     question_format: structured,
@@ -381,10 +377,10 @@ questions = [
     themes: [Theme.find_by(title: "Metadata & documentation")]
   },
   {
-    text: "Quelles seront les méthodes utilisées pour assurer leur qualité scientifique ?",
+    text: "Quelles seront les méthodes utilisées pour assurer la qualité scientifique des données ?",
     number: 2,
     section: Section.find_by(
-      title: "Documentation et métadonnées",
+      title: "Documentation et qualité des données",
       phase: se_standard_phase_fr
     ),
     question_format: structured,
@@ -393,7 +389,7 @@ questions = [
     themes: [Theme.find_by(title: "Metadata & documentation")]
   },
   {
-    text: "Quelles seront les mesures appliquées pour assurer la protection des données personnelles ?",
+    text: "Quelles seront les mesures appliquées pour assurer la protection des données à caractère personnel ?",
     number: 1,
     section: Section.find_by(
       title: "Exigences légales et éthiques, code de conduite",
@@ -454,7 +450,7 @@ questions = [
     text: "Comment les données seront-elles partagées ?",
     number: 1,
     section: Section.find_by(
-      title: "Partage et conservation des données",
+      title: "Partage des données et conservation à long terme",
       phase: se_standard_phase_fr
     ),
     question_format: structured,
@@ -466,7 +462,7 @@ questions = [
     text: "Comment les données seront-elles conservées à long terme ?",
     number: 2,
     section: Section.find_by(
-      title: "Partage et conservation des données",
+      title: "Partage des données et conservation à long terme",
       phase: se_standard_phase_fr
     ),
     question_format: structured,
@@ -474,7 +470,7 @@ questions = [
     modifiable: true
   },
   {
-    text: "Décrire la répartition des rôles et reponsabilités parmi les contributeurs ainsi que les côuts induits pour la gestion des données ?",
+    text: "Décrire la répartition des rôles et responsabilités parmi les contributeurs ainsi que les côuts induits pour la gestion des données",
     number: 1,
     section: Section.find_by(
       title: "Ressources allouées pour la gestion",
@@ -511,7 +507,7 @@ questions = [
     modifiable: true
   },
   {
-    text: "How will new data be collected or produced?",
+    text: "How new data will be collected or produced?",
     number: 3,
     section: Section.find_by(
       title: "Data description and collection or re-use of existing data",
@@ -523,10 +519,10 @@ questions = [
     themes: [Theme.find_by(title: "Data collection")]
   },
   {
-    text: "What metadata and documentation (for example the methodology of data collection and way of organising data) will accompany the data?",
+    text: "What metadata and documentation (for example way of organising data) will accompagny the data?",
     number: 1,
     section: Section.find_by(
-      title: "Documentation and metadata",
+      title: "Documentation and data quality",
       phase: se_standard_phase_en
     ),
     question_format: structured,
@@ -538,7 +534,7 @@ questions = [
     text: "What methods will be used to ensure their scientific quality?",
     number: 2,
     section: Section.find_by(
-      title: "Documentation and metadata",
+      title: "Documentation and data quality",
       phase: se_standard_phase_en
     ),
     question_format: structured,
@@ -605,7 +601,7 @@ questions = [
     themes: [Theme.find_by(title: "Storage & security")]
   },
   {
-    text: "How will data ba shared?",
+    text: "How will data be shared?",
     number: 1,
     section: Section.find_by(
       title: "Data sharing and long-term preservation",
@@ -617,7 +613,7 @@ questions = [
     themes: [Theme.find_by(title: "Data sharing"), Theme.find_by(title: "Data repository")]
   },
   {
-    text: "How will data be log-term preservation? Which data?",
+    text: "How will data be long-term preserved? Which data?",
     number: 2,
     section: Section.find_by(
       title: "Data sharing and long-term preservation",
@@ -646,7 +642,7 @@ questions = [
     text: "Description générale du produit de recherche",
     number: 1,
     section: Section.find_by(
-      title: "Description des données et collecte des données et/ou réutilisation de données existantes",
+      title: "Description des données et collecte des données ou réutilisation de données existantes",
       phase: se_basic_phase_fr
     ),
     question_format: structured,
@@ -655,10 +651,10 @@ questions = [
     themes: [Theme.find_by(title: "Data description")]
   },
   {
-    text: "Est-ce que des données existantes seront réutilisées",
+    text: "Est-ce que des données existantes seront réutilisées ?",
     number: 2,
     section: Section.find_by(
-      title: "Description des données et collecte des données et/ou réutilisation de données existantes",
+      title: "Description des données et collecte des données ou réutilisation de données existantes",
       phase: se_basic_phase_fr
     ),
     question_format: structured,
@@ -666,10 +662,10 @@ questions = [
     modifiable: true
   },
   {
-    text: "Comment seront produites/collectées les nouvelles données",
+    text: "Comment seront produites/collectées les nouvelles données ?",
     number: 3,
     section: Section.find_by(
-      title: "Description des données et collecte des données et/ou réutilisation de données existantes",
+      title: "Description des données et collecte des données ou réutilisation de données existantes",
       phase: se_basic_phase_fr
     ),
     question_format: structured,
@@ -678,10 +674,10 @@ questions = [
     themes: [Theme.find_by(title: "Data collection")]
   },
   {
-    text: "Quelles métadonnées et quelle documentation (par exemple méthodologie de collecte et mode d'organisation des données) accompagneront les données ?",
+    text: "Quelles métadonnées et quelle documentation (par exemple mode d'organisation des données) accompagneront les données ?",
     number: 1,
     section: Section.find_by(
-      title: "Documentation et métadonnées",
+      title: "Documentation et qualité des données",
       phase: se_basic_phase_fr
     ),
     question_format: structured,
@@ -690,10 +686,10 @@ questions = [
     themes: [Theme.find_by(title: "Metadata & documentation")]
   },
   {
-    text: "Quelles seront les méthodes utilisées pour assurer leur qualité scientifique ?",
+    text: "Quelles seront les méthodes utilisées pour assurer la qualité scientifique des données ?",
     number: 2,
     section: Section.find_by(
-      title: "Documentation et métadonnées",
+      title: "Documentation et qualité des données",
       phase: se_basic_phase_fr
     ),
     question_format: structured,
@@ -702,7 +698,7 @@ questions = [
     themes: [Theme.find_by(title: "Metadata & documentation")]
   },
   {
-    text: "Quelles seront les mesures appliquées pour assurer la protection des données personnelles ?",
+    text: "Quelles seront les mesures appliquées pour assurer la protection des données à caractère personnel ?",
     number: 1,
     section: Section.find_by(
       title: "Exigences légales et éthiques, code de conduite",
@@ -763,7 +759,7 @@ questions = [
     text: "Comment les données seront-elles partagées ?",
     number: 1,
     section: Section.find_by(
-      title: "Partage et conservation des données",
+      title: "Partage des données et conservation à long terme",
       phase: se_basic_phase_fr
     ),
     question_format: structured,
@@ -775,7 +771,7 @@ questions = [
     text: "Comment les données seront-elles conservées à long terme ?",
     number: 2,
     section: Section.find_by(
-      title: "Partage et conservation des données",
+      title: "Partage des données et conservation à long terme",
       phase: se_basic_phase_fr
     ),
     question_format: structured,
@@ -783,7 +779,7 @@ questions = [
     modifiable: true
   },
   {
-    text: "Décrire la répartition des rôles et reponsabilités parmi les contributeurs ainsi que les côuts induits pour la gestion des données ?",
+    text: "Décrire la répartition des rôles et responsabilités parmi les contributeurs ainsi que les côuts induits pour la gestion des données",
     number: 1,
     section: Section.find_by(
       title: "Ressources allouées pour la gestion",
@@ -820,7 +816,7 @@ questions = [
     modifiable: true
   },
   {
-    text: "How will new data be collected or produced?",
+    text: "How new data will be collected or produced?",
     number: 3,
     section: Section.find_by(
       title: "Data description and collection or re-use of existing data",
@@ -832,10 +828,10 @@ questions = [
     themes: [Theme.find_by(title: "Data collection")]
   },
   {
-    text: "What metadata and documentation (for example the methodology of data collection and way of organising data) will accompany the data?",
+    text: "What metadata and documentation (for example the way of organising data) will accompagny the data?",
     number: 1,
     section: Section.find_by(
-      title: "Documentation and metadata",
+      title: "Documentation and data quality",
       phase: se_basic_phase_en
     ),
     question_format: structured,
@@ -847,7 +843,7 @@ questions = [
     text: "What methods will be used to ensure their scientific quality?",
     number: 2,
     section: Section.find_by(
-      title: "Documentation and metadata",
+      title: "Documentation and data quality",
       phase: se_basic_phase_en
     ),
     question_format: structured,
@@ -914,7 +910,7 @@ questions = [
     themes: [Theme.find_by(title: "Storage & security")]
   },
   {
-    text: "How will data ba shared?",
+    text: "How will data be shared?",
     number: 1,
     section: Section.find_by(
       title: "Data sharing and long-term preservation",
@@ -926,7 +922,7 @@ questions = [
     themes: [Theme.find_by(title: "Data sharing"), Theme.find_by(title: "Data repository")]
   },
   {
-    text: "How will data be log-term preservation? Which data?",
+    text: "How will data be long-term preserved? Which data?",
     number: 2,
     section: Section.find_by(
       title: "Data sharing and long-term preservation",
