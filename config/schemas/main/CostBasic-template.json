@@ -18,20 +18,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type de coût",
             "label@en_GB": "Cost type",
-            "values@en_GB": [
-                "Personnel cost",
-                "Training",
-                "Software",
-                "Hardware",
-                "Other"
-            ],
-            "values@fr_FR": [
-                "Frais de personnel",
-                "Formation",
-                "Logiciel",
-                "Matériel informatique",
-                "Autre"
-            ],
+            "registry_name": "CostType",
             "overridable": true
         },
         "amount": {
@@ -48,16 +35,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Devise",
             "label@en_GB": "Currency",
-            "values@fr_FR": [
-                "EUR",
-                "GBP",
-                "USD"
-            ],
-            "values@en_GB": [
-                "EUR",
-                "GBP",
-                "USD"
-            ]
+            "registry_name": "ISO4217"
         }
     },
     "required": [

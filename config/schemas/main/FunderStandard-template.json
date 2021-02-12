@@ -24,26 +24,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "values@fr_FR": [
-                "ORCID",
-                "ROR ID",
-                "FundRef",
-                "ISSNI",
-                "IdRef",
-                "URL",
-                "RNSR",
-                "Autre"
-            ],
-            "values@en_GB": [
-                "ORCID",
-                "ROR ID",
-                "FundRef",
-                "ISSNI",
-                "IdRef",
-                "URL",
-                "RNSR",
-                "Other"
-            ],
+            "registry_name": "AgentIdSystem",
             "overridable": true
         },
         "dataPolicy": {

@@ -11,7 +11,9 @@
             "description": "Justification de la réutilisation ou non réutilisation de données existantes",
             "inputType": "textarea",
             "label@fr_FR": "Justification",
-            "label@en_GB": "Justification"
+            "label@en_GB": "Justification",
+            "tooltip@fr_FR": "Justifier la réutilisation ou la non-réutilisation de données existantes",
+            "tooltip@en_GB": "Justify the reuse or non-reuse of existing data"
         },
         "reusedData": {
             "type": "array",

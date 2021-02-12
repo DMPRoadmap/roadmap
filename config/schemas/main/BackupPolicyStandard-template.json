@@ -38,26 +38,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Support de stockage",
             "label@en_GB": "Storage type",
-            "values@en_GB": [
-                "Hard disk drive",
-                "Solid state drive",
-                "USB key",
-                "NAS server",
-                "Cloud",
-                "CD",
-                "DVD",
-                "Magnetic tape"
-            ],
-            "values@fr_FR": [
-                "Disque dur",
-                "Disque SSD",
-                "Clé USB",
-                "Serveur NAS",
-                "Cloud",
-                "CD",
-                "DVD",
-                "Bande magnétique"
-            ]
+            "registry_name": "StorageType"
         }
     },
     "required": [

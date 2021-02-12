@@ -33,22 +33,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant du produit",
             "label@en_GB": "Product identifier type",
-            "values@fr_FR": [
-                "DOI",
-                "ARK",
-                "Handle",
-                "IGSN",
-                "URL",
-                "Autre"
-            ],
-            "values@en_GB": [
-                "DOI",
-                "ARK",
-                "Handle",
-                "IGSN",
-                "URL",
-                "Other"
-            ]
+            "registry_name": "PIDSystem"
         },
         "versionNumber": {
             "type": "string",

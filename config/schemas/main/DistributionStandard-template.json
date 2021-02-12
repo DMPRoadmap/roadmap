@@ -36,16 +36,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Mode d'accès",
             "label@en_GB": "DataAccess",
-            "values@en_GB": [
-                "Open",
-                "Restricted",
-                "Closed"
-            ],
-            "values@fr_FR": [
-                "Ouvert",
-                "Restreint",
-                "Fermé"
-            ],
+            "registry_name": "DataAccess",
             "default@fr_FR": "Ouvert",
             "default@en_GB": "Open"
         },
@@ -55,20 +46,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Format du fichier",
             "label@en_GB": "File format",
-            "values@fr_FR": [
-                "text/csv",
-                "text/markdown",
-                "video/JPEG",
-                "application/json",
-                "…"
-            ],
-            "values@en_GB": [
-                "text/csv",
-                "text/markdown",
-                "video/JPEG",
-                "application/json",
-                "…"
-            ],
+            "registry_name": "MediaType",
             "overridable": true,
             "tooltip@fr_FR": "Format sous forme MIME type",
             "tooltip@en_GB": "Format expressed as MIME type",
@@ -85,11 +63,18 @@
         },
         "fileVolume": {
             "type": "number",
-            "description": "Nombre d'octets (définir l'unité: parfois en octets ou en nombres de fichiers..)",
+            "description": "Nombre d'octets",
             "label@fr_FR": "Volume du fichier",
-            "label@en_GB": "File volume",
-            "tooltip@fr_FR": "Nombre d'octets, peut être exprimé avec une notation exponentielle",
-            "tooltip@en_GB": "Number of bytes, can be expressed with exponential notation"
+            "label@en_GB": "File volume"
+        },
+        "volumeUnit": {
+            "type": "string",
+            "description": "Unité de volume",
+            "inputType": "dropdown",
+            "label@fr_FR": "Unité",
+            "label@en_GB": "Unit",
+            "registry_name": "VolumeUnit",
+            "overridable": true
         },
         "availableUntil": {
             "type": "string",

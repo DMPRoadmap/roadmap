@@ -12,16 +12,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type de service",
             "label@en_GB": "Service type",
-            "values@fr_FR": [
-                "Workdir",
-                "Store",
-                "SecuredStore"
-            ],
-            "values@en_GB": [
-                "Workdir",
-                "Store",
-                "SecuredStore"
-            ]
+            "registry_name": "GenciServiceType"
         },
         "nationalCenter": {
             "type": "string",
@@ -29,16 +20,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Centre national",
             "label@en_GB": "National center",
-            "values@fr_FR": [
-                "IDRIS",
-                "TGCC",
-                "Cines"
-            ],
-            "values@en_GB": [
-                "IDRIS",
-                "TGCC",
-                "Cines"
-            ]
+            "registry_name": "GenciCenter"
         },
         "initialRequest": {
             "type": "object",
@@ -84,16 +66,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Devise",
             "label@en_GB": "Currency",
-            "values@fr_FR": [
-                "EUR",
-                "GBP",
-                "USD"
-            ],
-            "values@en_GB": [
-                "EUR",
-                "GBP",
-                "USD"
-            ],
+            "registry_name": "ISO4217",
             "default@fr_FR": "EUR",
             "default@en_GB": "EUR"
         }

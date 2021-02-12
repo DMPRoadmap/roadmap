@@ -25,7 +25,9 @@
             "required": [
                 "dbid"
             ],
-            "description": "Centre, entrepôt dans lequel les données seront archivées à long terme si nécessaire"
+            "description": "Centre, entrepôt dans lequel les données seront archivées à long terme si nécessaire",
+            "label@fr_FR": "Archives de données ou autres hébergements",
+            "label@en_GB": "Data archival or other hosts"
         }
     },
     "required": [],

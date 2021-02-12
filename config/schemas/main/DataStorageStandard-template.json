@@ -25,20 +25,8 @@
             "inputType": "dropdown",
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
-            "values@fr_FR": [
-                "Octets",
-                "Kilooctets",
-                "Mégaoctets",
-                "Téraoctets",
-                "Pentaoctets"
-            ],
-            "values@en_GB": [
-                "Octets",
-                "Kilooctets",
-                "Megaoctets",
-                "Teraoctets",
-                "Pentaoctets"
-            ]
+            "registry_name": "VolumeUnit",
+            "overridable": true
         },
         "facility": {
             "type": "array",
@@ -123,7 +111,7 @@
             },
             "description": "Coûts éventuels liés au stockage des données",
             "label@fr_FR": "Coût de stockage",
-            "label@en_GB": "Coût de stockage"
+            "label@en_GB": "Storage cost"
         }
     },
     "required": [

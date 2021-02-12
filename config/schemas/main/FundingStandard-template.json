@@ -36,18 +36,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Statut du financement",
             "label@en_GB": "Funding status",
-            "values@en_GB": [
-                "Planned",
-                "Applied",
-                "Granted",
-                "Rejected"
-            ],
-            "values@fr_FR": [
-                "Planifié",
-                "Soumis",
-                "Approuvé",
-                "Rejeté"
-            ]
+            "registry_name": "FundingStatus"
         }
     },
     "required": [

@@ -14,24 +14,20 @@
             "label@en_GB": "Description"
         },
         "facility": {
-            "type": "array",
-            "table_header": null,
-            "items": {
-                "type": "object",
-                "class": "TechnicalResource",
-                "properties": {
-                    "dbid": {
-                        "type": "number"
-                    }
-                },
-                "template_name": "TechnicalResourceStandard",
-                "required": [
-                    "dbid"
-                ]
+            "type": "object",
+            "class": "TechnicalResource",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
             },
+            "template_name": "TechnicalResourceStandard",
+            "required": [
+                "dbid"
+            ],
             "description": "Ressource/équipement utilisée pour le stockage et sauvegarde des données",
-            "label@fr_FR": "Stockage par une ressource extérieure",
-            "label@en_GB": "Storage by an external resource"
+            "label@fr_FR": "Identification de la ressource",
+            "label@en_GB": "Resource identificatioon"
         },
         "genciServiceRequest": {
             "type": "array",
@@ -105,18 +101,20 @@
             "table_header@en_GB": "Cost type: amount",
             "items": {
                 "type": "object",
-                "class": "CostBasic",
+                "class": "Cost",
                 "properties": {
                     "dbid": {
                         "type": "number"
                     }
                 },
-                "template_name": "CostStandard",
+                "template_name": "CostBasic",
                 "required": [
                     "dbid"
                 ]
             },
-            "description": ""
+            "description": "",
+            "label@fr_FR": "Coût total de stockage",
+            "label@en_GB": "Total cost of storage"
         }
     },
     "required": [

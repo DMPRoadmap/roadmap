@@ -8,7 +8,7 @@
     "properties": {
         "description": {
             "type": "string",
-            "description": "Description des ontraintes réglementaires à prendre en compte pour la conservation des données",
+            "description": "Description des contraintes réglementaires à prendre en compte pour la conservation des données",
             "inputType": "textarea",
             "label@fr_FR": "Description",
             "label@en_GB": "Description"
@@ -18,6 +18,15 @@
             "description": "Volume des données concernées en octets",
             "label@fr_FR": "Taille des données",
             "label@en_GB": "Data size"
+        },
+        "volumeUnit": {
+            "type": "string",
+            "description": "Unité de volume",
+            "inputType": "dropdown",
+            "label@fr_FR": "Unité",
+            "label@en_GB": "Unit",
+            "registry_name": "VolumeUnit",
+            "overridable": true
         },
         "startDate": {
             "type": "string",
@@ -45,7 +54,9 @@
             "required": [
                 "dbid"
             ],
-            "description": "Centre, entrepôt dans lequel les données seront archivées à long terme si nécessaire"
+            "description": "Centre, entrepôt dans lequel les données seront archivées à long terme si nécessaire",
+            "label@fr_FR": "Archives de données ou autres hébergements",
+            "label@en_GB": "Data archival or other hosts"
         },
         "finalDisposition": {
             "type": "string",

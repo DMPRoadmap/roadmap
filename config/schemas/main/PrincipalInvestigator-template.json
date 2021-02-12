@@ -18,7 +18,10 @@
             "required": [
                 "dbid"
             ],
-            "description": "Personnes impliquées dans la production et gestion des données"
+            "description": "Personnes impliquées dans la production et gestion des données",
+            "inputType": "pickOrCreate",
+            "label@fr_FR": "Sélectionner une personne dans la liste déroulante",
+            "label@en_GB": "Select a person from the drop-down list"
         },
         "role": {
             "type": "string",

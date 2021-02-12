@@ -10,13 +10,25 @@
             "type": "string",
             "description": "Nom de famille",
             "label@fr_FR": "Nom",
-            "label@en_GB": "Last name"
+            "label@en_GB": "Last name",
+            "example@fr_FR": "Dupont, Service d'Ingénierie des Systèmes d’Information, Comité d'éthique",
+            "example@en_GB": "Dupont, Information Systems Engineering Department, Ethics comittee"
+        },
+        "nameType": {
+            "type": "string",
+            "description": "Type du nom",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type",
+            "label@en_GB": "Type",
+            "registry_name": "NameTypeValues"
         },
         "firstName": {
             "type": "string",
             "description": "Prénom",
             "label@fr_FR": "Prénom",
-            "label@en_GB": "First name"
+            "label@en_GB": "First name",
+            "tooltip@fr_FR": "Saisir un prénom, s'il s'agit d'une personne physique",
+            "tooltip@en_GB": "Enter a first name, if it is a natural person"
         },
         "mbox": {
             "type": "string",
@@ -39,34 +51,15 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "values@fr_FR": [
-                "ORCID",
-                "ROR ID",
-                "FundRef",
-                "ISSNI",
-                "IdRef",
-                "URL",
-                "RNSR",
-                "Autre"
-            ],
-            "values@en_GB": [
-                "ORCID",
-                "ROR ID",
-                "FundRef",
-                "ISSNI",
-                "IdRef",
-                "URL",
-                "RNSR",
-                "Other"
-            ]
+            "registry_name": "AgentIdSystem"
         },
         "affiliationName": {
             "type": "string",
             "description": "Nom de l'affiliation",
             "label@fr_FR": "Nom de l'affiliation",
             "label@en_GB": "Affiliation name",
-            "tooltip@fr_FR": "Utiliser de préférence le nom de la structure enregistrée dans le RNSR : https://appliweb.dgri.education.fr/rnsr/ChoixCriteres.jsp?PUBLIC=O)",
-            "tooltip@en_GB": "Preferably use the name of the structure registered in RNSR: https://appliweb.dgri.education.fr/rnsr/ChoixCriteres.jsp?PUBLIC=OK",
+            "tooltip@fr_FR": "Utiliser de préférence le nom de la structure enregistrée dans le RNSR. Dans le cas d'une organisation, indiquer le nom de l'établissement de rattachement",
+            "tooltip@en_GB": "Preferably use the name of the structure registered in RNSR. In case of an organizational name, you can add here the name of the formal institution to which the creator belongs",
             "example@fr_FR": "INIST Institut de l'information scientifique et technique",
             "example@en_GB": "INIST Institut de l'information scientifique et technique "
         },
@@ -84,30 +77,12 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant de l'affiliation",
             "label@en_GB": "Affiliation identifier type",
-            "values@fr_FR": [
-                "ORCID",
-                "ROR ID",
-                "FundRef",
-                "ISSNI",
-                "IdRef",
-                "URL",
-                "RNSR",
-                "Autre"
-            ],
-            "values@en_GB": [
-                "ORCID",
-                "ROR ID",
-                "FundRef",
-                "ISSNI",
-                "IdRef",
-                "URL",
-                "RNSR",
-                "Other"
-            ]
+            "registry_name": "AgentIdSystem"
         }
     },
     "required": [
         "lastName",
+        "nameType",
         "firstName",
         "personId",
         "IdType",
@@ -115,5 +90,9 @@
         "affiliationId",
         "affiliationIdType"
     ],
-    "to_string": []
+    "to_string": [
+        "$.firstName",
+        " ",
+        "$.lastName"
+    ]
 }

@@ -31,22 +31,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "values@fr_FR": [
-                "DOI",
-                "ARK",
-                "Handle",
-                "IGSN",
-                "URL",
-                "Autre"
-            ],
-            "values@en_GB": [
-                "DOI",
-                "ARK",
-                "Handle",
-                "IGSN",
-                "URL",
-                "Other"
-            ]
+            "registry_name": "PIDSystem"
         },
         "geoLocation": {
             "type": "string",
@@ -54,18 +39,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Localisation géographique (pays)",
             "label@en_GB": "Geo location (country",
-            "values@fr_FR": [
-                "FR",
-                "GB",
-                "US",
-                "DE"
-            ],
-            "values@en_GB": [
-                "FR",
-                "GB",
-                "US",
-                "DE"
-            ]
+            "registry_name": "ISO3166-alpha2"
         },
         "certification": {
             "type": "string",
@@ -73,22 +47,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Certification",
             "label@en_GB": "Certification",
-            "values@fr_FR": [
-                "CoreTrustSeal",
-                "WDS",
-                "DSA",
-                "ISO-9001",
-                "ISO-27000",
-                "Autres"
-            ],
-            "values@en_GB": [
-                "CoreTrustSeal",
-                "WDS",
-                "DSA",
-                "ISO-9001",
-                "ISO-27000",
-                "Other"
-            ]
+            "registry_name": "Certification"
         },
         "pidSystem": {
             "type": "array",
@@ -99,22 +58,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Système d'identifiants",
             "label@en_GB": "PID system",
-            "values@fr_FR": [
-                "DOI",
-                "ARK",
-                "Handle",
-                "IGSN",
-                "URL",
-                "Autre"
-            ],
-            "values@en_GB": [
-                "DOI",
-                "ARK",
-                "Handle",
-                "IGSN",
-                "URL",
-                "Other"
-            ]
+            "registry_name": "PIDSystem"
         },
         "hasVersioningPolicy": {
             "type": "string",
@@ -122,16 +66,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Politique de gestion des versions",
             "label@en_GB": "Versioning policy",
-            "values@fr_FR": [
-                "Oui",
-                "Non",
-                "Ne sais pas"
-            ],
-            "values@en_GB": [
-                "Yes",
-                "No",
-                "Unknown"
-            ]
+            "registry_name": "YesNoUnknown"
         },
         "availability": {
             "type": "number",

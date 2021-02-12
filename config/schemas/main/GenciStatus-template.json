@@ -19,20 +19,7 @@
             "inputType": "dropdown",
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
-            "values@fr_FR": [
-                "Octets",
-                "Kilooctets",
-                "Mégaoctets",
-                "Téraoctets",
-                "Pentaoctets"
-            ],
-            "values@en_GB": [
-                "Octets",
-                "Kilooctets",
-                "Megaoctets",
-                "Teraoctets",
-                "Pentaoctets"
-            ],
+            "registry_name": "VolumeUnit",
             "default@fr_FR": "Téraoctets",
             "default@en_GB": "Teraoctets"
         },
@@ -42,7 +29,7 @@
             "label@fr_FR": "Nombre de fichiers",
             "label@en_GB": "Number of files"
         },
-        "numberOfDirectory": {
+        "numberOfDirectories": {
             "type": "number",
             "description": "Nombre de répertoires",
             "label@fr_FR": "Nombre de répertoires",
