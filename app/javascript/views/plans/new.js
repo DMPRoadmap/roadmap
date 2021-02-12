@@ -144,14 +144,14 @@ $(() => {
   // For form v2
 
   // Clicking on the 'Next' button activates the next tabs
-  $('#next-btn').click((e) => {
+  $('#next-btn').on('click', (e) => {
     e.preventDefault();
     const nextTabId = $('.form-tabs li.active').next().children().attr('href');
-    if (nextTabId) $(`.nav-tabs a[href="${nextTabId}"]`).tab('show');
+    if (nextTabId) $(`.nav-tabs span[data-target="${nextTabId}"]`).tab('show');
   });
 
   // Watch for tab change for dynamic buttons ('Next' and 'Default Template')
-  $('a[data-toggle="tab"]').on('shown.bs.tab', () => {
+  $('span[data-toggle="tab"]').on('shown.bs.tab', () => {
     const activeTab = $('.form-tabs li.active a').attr('href');
     const lastTab = $('.form-tabs li a').last().attr('href');
     if (activeTab === lastTab) {
@@ -162,11 +162,11 @@ $(() => {
   });
 
   // First and second tab are equivalent to checking the "No funder" checkbox
-  $('a[href="#own_org"], a[href="#other_org"]').on('shown.bs.tab', () => {
+  $('span[data-target="#own_org"], span[data-target="#other_org"]').on('shown.bs.tab', () => {
     handleCheckboxClick('org', false);
     handleCheckboxClick('funder', true);
-    $('#plan_no_org').prop('checked', false).change();
-    $('#plan_no_funder').prop('checked', true).change();
+    $('#plan_no_org').prop('checked', false).trigger('change');
+    $('#plan_no_funder').prop('checked', true).trigger('change');
   });
 
   // Empty combobox on second tab activation
@@ -177,21 +177,22 @@ $(() => {
   };
 
   // Empty combobox on second & third tab activation
-  $('a[href="#other_org"], a[href="#funder"]').on('shown.bs.tab', emptyTab);
-  $('a[href="#other_org"], a[href="#funder"]').on('hidden.bs.tab', emptyTab);
+  $('span[data-target="#other_org"], span[data-target="#funder"]').on('shown.bs.tab', emptyTab);
+  $('span[data-target="#other_org"], span[data-target="#funder"]').on('hidden.bs.tab', emptyTab);
 
   // Restore default organisation when activating first tab
-  $('a[href="#own_org"]').on('shown.bs.tab', () => {
+  $('span[data-target="#own_org"]').on('shown.bs.tab', () => {
     $('#plan_org_name').val($('#own_org_name').val());
     $('#plan_org_id').val($('#own_org_id').val());
   });
 
   //  Last tab is equivalent to checking the "No org" checkbox
-  $('a[href="#funder"]').on('shown.bs.tab', () => {
+  $('span[data-target="#funder"]').on('shown.bs.tab', () => {
+    console.log('ici');
     handleCheckboxClick('org', true);
     handleCheckboxClick('funder', false);
-    $('#plan_no_org').prop('checked', true).change();
-    $('#plan_no_funder').prop('checked', false).change();
+    $('#plan_no_org').prop('checked', true).trigger('change');
+    $('#plan_no_funder').prop('checked', false).trigger('change');
   });
 
   $('#new_plan #plan_title').on('change', (e) => {

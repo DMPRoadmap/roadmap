@@ -41,13 +41,13 @@
         <!-- Tabs menu -->
         <ul class="nav nav-tabs form-tabs">
           <li class="active">
-            <a data-toggle="tab" href="#own_org"><%= @default_org.is_other ? d_('dmpopidor', current_user.other_organisation) : @default_org.name  %> (<%= d_('dmpopidor', 'Your organisation') %>) </a>
+            <span data-toggle="tab" data-target="#own_org"><%= @default_org.is_other ? d_('dmpopidor', current_user.other_organisation) : @default_org.name  %> (<%= d_('dmpopidor', 'Your organisation') %>) </span>
           </li>
           <li>
-            <a data-toggle="tab" href="#other_org"><%= d_('dmpopidor', 'Other organisation') %></a>
+            <span data-toggle="tab" data-target="#other_org"><%= d_('dmpopidor', 'Other organisation') %></span>
           </li>
           <li>
-            <a data-toggle="tab" href="#funder"><%= _('Funder') %></a>
+            <span data-toggle="tab" data-target="#funder"><%= _('Funder') %></span>
           </li>
         </ul>
 

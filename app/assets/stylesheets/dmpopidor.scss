@@ -968,6 +968,38 @@ header .main-nav {
         padding: 25px 25px 50px 25px;
         border: 1px solid $blue;
     }
+
+    .form-tabs {
+        display: flex;
+        flex: 1;
+
+        li > span {
+            display: block;
+            padding: 10px 15px;
+            cursor: pointer;
+
+            i {
+                display: none;
+            }
+        }
+
+        li > span:hover, 
+        li > span:focus, 
+        li.active > span, 
+        li.active > span:focus, 
+        li.active > span:hover {
+            color: $white;
+            border-bottom-color: transparent;
+            background-color: $white;
+            color: $blue;
+            border: 1px solid $blue;
+            border-bottom-color: transparent;
+
+            i {
+                display: inline;
+            }
+        }
+    }
 }
 
 #available-templates {
