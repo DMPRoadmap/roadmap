@@ -7,9 +7,9 @@ namespace :madmpopidor do
   task v3_0_0: :environment do
     Rake::Task["madmpopidor:add_structure_question_format"].execute
     Rake::Task["madmpopidor:initialize_template_locale"].execute
+    Rake::Task["madmpopidor:load_registries"].execute
     Rake::Task["madmpopidor:seed"].execute
     Rake::Task["madmpopidor:initialize_plan_fragments"].execute
-    Rake::Task["madmpopidor:load_registries"].execute
   end
 
   desc "Initialize Dmp, Project, Meta & ResearchOutputs JSON fragments for the ancient plans"

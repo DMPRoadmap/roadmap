@@ -965,7 +965,7 @@ annotations = [
     text: "Aucunes données existantes (au sein du laboratoire ou accessibles via) ne peuvent être réutilisées dans cette étude. ",
     type: Annotation.types[:example_answer],
     org: Org.find_by(abbreviation: "Science Europe"),
-    question: Question.find_by(text: "Est-ce que des données existantes seront réutilisées")
+    question: Question.find_by(text: "Est-ce que des données existantes seront réutilisées ?")
   }
 ]
 annotations.map { |s| Annotation.create!(s) if Annotation.find_by(text: s[:text]).nil? }
