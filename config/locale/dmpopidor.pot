@@ -492,6 +492,9 @@ msgstr ""
 msgid "Click here to add a new item"
 msgstr ""
 
+msgid "Click here to add a new research output"
+msgstr ""
+
 msgid "Answer"
 msgstr ""
 

@@ -27,22 +27,23 @@
       </tbody>
     </table>
     <% unless parent_id.nil? || readonly %>
-      <%= link_to d_('dmpopidor', 'Create'), new_edit_linked_madmp_fragments_url(
-              nil, 
-              :parent_id => parent_id, 
-              :schema_id => schema.id, 
-              :template_locale => template_locale,
-              :source => "list-modal",
-              :property_name => property_name,
-              :query_id => query_id
-      ),  {
-        :remote => true, 
-        :target => "_self",
-        :class => "btn btn-primary",
-        'data-toggle' =>  "modal", 
-        'data-target' => '#modal-window',
-        :title => d_("dmpopidor", "Click here to add a new item")
-      }  %>
+      <span data-toggle="modal" data-target="#modal-window">
+        <%= link_to d_('dmpopidor', 'Create'), new_edit_linked_madmp_fragments_url(
+                nil, 
+                :parent_id => parent_id, 
+                :schema_id => schema.id, 
+                :template_locale => template_locale,
+                :source => "list-modal",
+                :property_name => property_name,
+                :query_id => query_id
+        ),  {
+          :remote => true, 
+          :target => "_self",
+          :class => "btn btn-primary",
+          'data-toggle' =>  "tooltip",
+          'data-original-title' => d_("dmpopidor", "Click here to add a new item")
+        }  %>
+      </span>
     <% end %>
   </fieldset>
 </div>

@@ -15,7 +15,9 @@
     <%= link_to d_('dmpopidor', 'Create'), create_remote_research_outputs_url(plan_id: plan.id),
       {
         :remote => true, 
-        :class => "add-research-output btn btn-primary"
+        :class => "add-research-output btn btn-primary",
+        "data-toggle" => "tooltip",
+        "data-original-title" => d_("dmpopidor", "Click here to add a new research output")
       }
      %>
   </div>

@@ -25,18 +25,18 @@
       </div>
       <% unless readonly %>
         <div class='research-output-actions'>
-            <i class="fa fa-edit edit" aria-hidden="true"
-                    title="<%= d_('dmpopidor', 'Edit research output') %>"></i>
+            <i class="fa fa-edit edit" aria-hidden="true" data-toggle="tooltip" 
+                    data-original-title="<%= d_('dmpopidor', 'Edit research output') %>"></i>
           <% if plan.research_outputs.length > 1 && index != 0 %>
-            <i class="fa fa-arrows handle" aria-hidden="true" 
-                    title="<%= d_('dmpopidor', 'Move research output') %>"></i>
+            <i class="fa fa-arrows handle" aria-hidden="true" data-toggle="tooltip" 
+                    data-original-title="<%= d_('dmpopidor', 'Move research output') %>"></i>
                     
             <%= link_to plan_research_output_url(plan, research_output), 
                         target: "_self",
                         data: {:confirm => d_('dmpopidor', 'Deleting this research output will remove the associated answers. Do you confirm ?')}, 
                         :method => :delete  do %>
-              <i class="fa fa-close delete" aria-hidden="true"
-                    title="<%= d_('dmpopidor', 'Delete research output') %>" %></i>
+              <i class="fa fa-close delete" aria-hidden="true" data-toggle="tooltip" 
+                    data-original-title="<%= d_('dmpopidor', 'Delete research output') %>" %></i>
             <% end %>
           <% end %>
         </div>

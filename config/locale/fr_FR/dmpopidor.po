@@ -490,6 +490,9 @@ msgstr "Coordinateur du projet"
 msgid "Click here to add a new item"
 msgstr "Cliquez ici pour ajouter un nouvel élément"
 
+msgid "Click here to add a new research output"
+msgstr "Cliquez ici pour ajouter un nouveau produit"
+
 msgid "Answer"
 msgstr "Répondre"
 
