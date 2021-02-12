@@ -2,7 +2,7 @@
 
 module OrgsHelper
 
-  EMAIL_PLACEHOLDER = "[Organisation Contact Email Placeholder]"
+  EMAIL_PLACEHOLDER = _("[Organisation Contact Email Placeholder]")
 
   # Sample message for Org feedback form.
   #

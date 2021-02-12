@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-02-11 12:24-0700\n"
-"PO-Revision-Date: 2021-02-11 20:24+0100\n"
+"POT-Creation-Date: 2021-02-12 11:57-0700\n"
+"PO-Revision-Date: 2021-02-12 19:57+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_CA\n"
@@ -312,6 +312,9 @@ msgstr ""
 msgid "Initial GWF DMP"
 msgstr ""
 
+msgid "Questions du modèle Portage"
+msgstr ""
+
 msgid "Phase 2"
 msgstr ""
 
@@ -366,6 +369,9 @@ msgid "<p>Just testing adding a phase</p>"
 msgstr ""
 
 msgid "<p>This is the initial phase DMP</p>"
+msgstr ""
+
+msgid "<p>moi question</p>"
 msgstr ""
 
 msgid "<p>another test</p>"
@@ -9585,6 +9591,10 @@ msgstr "lecture seulement"
 msgid "read the plan and leave comments."
 msgstr "lire le plan et laisser des commentaires."
 
+#: ../../app/helpers/orgs_helper.rb:5
+msgid "[Organisation Contact Email Placeholder]"
+msgstr "[courriel du contact institutionnel]"
+
 #: ../../app/helpers/orgs_helper.rb:14
 msgid ""
 "<p>A data librarian from %{org_name} will respond to your request within 48\n"
@@ -13731,6 +13741,10 @@ msgstr "Assistant PGD"
 #: ../../app/views/translation_io_exports/_globals.html.erb:4
 msgid "Portage Network"
 msgstr "Réseau Portage"
+
+#: ../../app/views/translation_io_exports/_globals.html.erb:5
+msgid "Contact"
+msgstr ""
 
 #: ../../app/views/translation_io_exports/_home_page_links.html.erb:5
 msgid "Digital Curation Centre"
