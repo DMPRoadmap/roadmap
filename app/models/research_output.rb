@@ -104,7 +104,8 @@ class ResearchOutput < ActiveRecord::Base
         },
         madmp_schema: MadmpSchema.find_by(classname: "research_output"),
         dmp_id: dmp_fragment.id,
-        parent_id: dmp_fragment.id
+        parent_id: dmp_fragment.id,
+        additional_info: { property_name: "researchOutput" }
       )
       fragment_description = Fragment::ResearchOutputDescription.new(
         data: {
@@ -113,7 +114,7 @@ class ResearchOutput < ActiveRecord::Base
         madmp_schema: MadmpSchema.find_by(name: "ResearchOutputDescriptionStandard"),
         dmp_id: dmp_fragment.id,
         parent_id: fragment.id,
-        additional_info: {}
+        additional_info: { property_name: "researchOutputDescription" }
       )
       fragment_description.instantiate
 
