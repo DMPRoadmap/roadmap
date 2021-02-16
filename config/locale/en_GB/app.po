@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-02-12 11:57-0700\n"
-"PO-Revision-Date: 2021-02-12 19:57+0100\n"
+"POT-Creation-Date: 2021-02-12 15:15-0700\n"
+"PO-Revision-Date: 2021-02-12 23:15+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -9128,39 +9128,39 @@ msgstr ""
 msgid "Last 12 months"
 msgstr ""
 
-#: ../../app/mailers/user_mailer.rb:12
+#: ../../app/mailers/user_mailer.rb:11
 msgid "Welcome to %{tool_name}"
 msgstr ""
 
-#: ../../app/mailers/user_mailer.rb:20
+#: ../../app/mailers/user_mailer.rb:18
 msgid "A Data Management Plan in %{tool_name} has been shared with you"
 msgstr ""
 
-#: ../../app/mailers/user_mailer.rb:35
+#: ../../app/mailers/user_mailer.rb:31
 msgid "Changed permissions on a Data Management Plan in %{tool_name}"
 msgstr ""
 
-#: ../../app/mailers/user_mailer.rb:47
+#: ../../app/mailers/user_mailer.rb:42
 msgid "Permissions removed on a DMP in %{tool_name}"
 msgstr ""
 
-#: ../../app/mailers/user_mailer.rb:62
+#: ../../app/mailers/user_mailer.rb:55
 msgid "%{application_name}: %{user_name} requested feedback on a plan"
 msgstr ""
 
-#: ../../app/mailers/user_mailer.rb:76
+#: ../../app/mailers/user_mailer.rb:68
 msgid "%{application_name}: Expert feedback has been provided for %{plan_title}"
 msgstr ""
 
-#: ../../app/mailers/user_mailer.rb:107
+#: ../../app/mailers/user_mailer.rb:96
 msgid "DMP Visibility Changed: %{plan_title}"
 msgstr ""
 
-#: ../../app/mailers/user_mailer.rb:124
+#: ../../app/mailers/user_mailer.rb:112
 msgid "%{tool_name}: A new comment was added to %{plan_title}"
 msgstr ""
 
-#: ../../app/mailers/user_mailer.rb:135
+#: ../../app/mailers/user_mailer.rb:122
 msgid "Administrator privileges granted in %{tool_name}"
 msgstr ""
 
@@ -9901,23 +9901,23 @@ msgstr ""
 msgid "Create account"
 msgstr ""
 
-#: ../../app/views/devise/mailer/confirmation_instructions.html.erb:2
+#: ../../app/views/devise/mailer/confirmation_instructions.html.erb:1
 msgid "Welcome to %{application_name}"
 msgstr ""
 
-#: ../../app/views/devise/mailer/confirmation_instructions.html.erb:4
+#: ../../app/views/devise/mailer/confirmation_instructions.html.erb:3
 msgid "Thank you for registering. Please confirm your email address"
 msgstr ""
 
-#: ../../app/views/devise/mailer/confirmation_instructions.html.erb:6
+#: ../../app/views/devise/mailer/confirmation_instructions.html.erb:5
 msgid "Click here to confirm your account"
 msgstr ""
 
-#: ../../app/views/devise/mailer/confirmation_instructions.html.erb:6
+#: ../../app/views/devise/mailer/confirmation_instructions.html.erb:5
 msgid "or copy"
 msgstr ""
 
-#: ../../app/views/devise/mailer/confirmation_instructions.html.erb:6
+#: ../../app/views/devise/mailer/confirmation_instructions.html.erb:5
 msgid "into your browser"
 msgstr ""
 
@@ -9928,102 +9928,95 @@ msgstr ""
 msgid "Query or feedback related to %{tool_name}"
 msgstr ""
 
-#: ../../app/views/devise/mailer/invitation_instructions.html.erb:12
+#: ../../app/views/devise/mailer/invitation_instructions.html.erb:11
 #: ../../app/views/user_mailer/admin_privileges.html.erb:8
-#: ../../app/views/user_mailer/new_comment.html.erb:15
-#: ../../app/views/user_mailer/sharing_notification.html.erb:9
+#: ../../app/views/user_mailer/new_comment.html.erb:14
+#: ../../app/views/user_mailer/sharing_notification.html.erb:8
 msgid "Hello %{user_name}"
 msgstr ""
 
-#: ../../app/views/devise/mailer/invitation_instructions.html.erb:15
+#: ../../app/views/devise/mailer/invitation_instructions.html.erb:14
 msgid ""
 "Your colleague %{inviter_name} has invited you to contribute to  their Data Ma"
 "nagement Plan in %{tool_name}"
 msgstr ""
 
-#: ../../app/views/devise/mailer/invitation_instructions.html.erb:22
-#: ../../app/views/user_mailer/sharing_notification.html.erb:19
+#: ../../app/views/devise/mailer/invitation_instructions.html.erb:21
+#: ../../app/views/user_mailer/sharing_notification.html.erb:18
 msgid ""
 "%{click_here} to accept the invitation, (or copy %{link} into your browser). I"
 "f you don't want to accept the invitation, please ignore this email."
 msgstr ""
 
-#: ../../app/views/devise/mailer/invitation_instructions.html.erb:23
-#: ../../app/views/user_mailer/sharing_notification.html.erb:19
+#: ../../app/views/devise/mailer/invitation_instructions.html.erb:22
+#: ../../app/views/user_mailer/sharing_notification.html.erb:18
 msgid "Click here"
 msgstr ""
 
-#: ../../app/views/devise/mailer/invitation_instructions.html.erb:27
-#: ../../app/views/devise/mailer/reset_password_instructions.html.erb:17
+#: ../../app/views/devise/mailer/invitation_instructions.html.erb:26
+#: ../../app/views/devise/mailer/reset_password_instructions.html.erb:16
 #: ../../app/views/user_mailer/_email_signature.html.erb:12
-#: ../../app/views/user_mailer/welcome_notification.html.erb:19
+#: ../../app/views/user_mailer/welcome_notification.html.erb:18
 msgid "All the best"
 msgstr ""
 
-#: ../../app/views/devise/mailer/invitation_instructions.html.erb:29
-#: ../../app/views/devise/mailer/reset_password_instructions.html.erb:19
+#: ../../app/views/devise/mailer/invitation_instructions.html.erb:28
+#: ../../app/views/devise/mailer/reset_password_instructions.html.erb:18
 #: ../../app/views/user_mailer/_email_signature.html.erb:14
-#: ../../app/views/user_mailer/welcome_notification.html.erb:21
+#: ../../app/views/user_mailer/welcome_notification.html.erb:20
 msgid "The %{tool_name} team"
 msgstr ""
 
-#: ../../app/views/devise/mailer/invitation_instructions.html.erb:32
-#: ../../app/views/devise/mailer/reset_password_instructions.html.erb:22
-#: ../../app/views/user_mailer/_email_signature.html.erb:20
-#: ../../app/views/user_mailer/welcome_notification.html.erb:24
-msgid "Please do not reply to this email."
-msgstr ""
-
-#: ../../app/views/devise/mailer/invitation_instructions.html.erb:33
+#: ../../app/views/devise/mailer/invitation_instructions.html.erb:31
 msgid ""
 "If you have any questions or need help, please contact us at %{helpdesk_email}"
 " or visit %{contact_us_url}"
 msgstr ""
 
-#: ../../app/views/devise/mailer/reset_password_instructions.html.erb:9
+#: ../../app/views/devise/mailer/reset_password_instructions.html.erb:8
 msgid "Hello %{user_email}"
 msgstr ""
 
-#: ../../app/views/devise/mailer/reset_password_instructions.html.erb:12
+#: ../../app/views/devise/mailer/reset_password_instructions.html.erb:11
 msgid ""
 "Someone has requested a link to change your %{tool_name} password. You can do "
 "this through the link below."
 msgstr ""
 
-#: ../../app/views/devise/mailer/reset_password_instructions.html.erb:14
+#: ../../app/views/devise/mailer/reset_password_instructions.html.erb:13
 msgid "Change my password"
 msgstr ""
 
-#: ../../app/views/devise/mailer/reset_password_instructions.html.erb:15
+#: ../../app/views/devise/mailer/reset_password_instructions.html.erb:14
 msgid "If you didn't request this, please ignore this email."
 msgstr ""
 
-#: ../../app/views/devise/mailer/reset_password_instructions.html.erb:22
+#: ../../app/views/devise/mailer/reset_password_instructions.html.erb:21
 #: ../../app/views/user_mailer/_email_signature.html.erb:21
 msgid ""
 "If you have any questions or need help, please contact us at %{helpdesk_email}"
 " or visit %{contact_us}"
 msgstr ""
 
-#: ../../app/views/devise/mailer/unlock_instructions.html.erb:2
+#: ../../app/views/devise/mailer/unlock_instructions.html.erb:1
 msgid "Hello"
 msgstr ""
 
-#: ../../app/views/devise/mailer/unlock_instructions.html.erb:4
+#: ../../app/views/devise/mailer/unlock_instructions.html.erb:3
 msgid "Your"
 msgstr ""
 
-#: ../../app/views/devise/mailer/unlock_instructions.html.erb:4
+#: ../../app/views/devise/mailer/unlock_instructions.html.erb:3
 msgid ""
 "account has been locked due to an excessive number of unsuccessful sign in att"
 "empts."
 msgstr ""
 
-#: ../../app/views/devise/mailer/unlock_instructions.html.erb:6
+#: ../../app/views/devise/mailer/unlock_instructions.html.erb:5
 msgid "Click the link below to unlock your account"
 msgstr ""
 
-#: ../../app/views/devise/mailer/unlock_instructions.html.erb:8
+#: ../../app/views/devise/mailer/unlock_instructions.html.erb:7
 msgid "Unlock my account"
 msgstr ""
 
@@ -12045,7 +12038,7 @@ msgid ""
 msgstr ""
 
 #: ../../app/views/plans/_share_form.html.erb:26
-#: ../../app/views/user_mailer/plan_visibility.html.erb:18
+#: ../../app/views/user_mailer/plan_visibility.html.erb:17
 msgid "Organisation: anyone at my organisation can view"
 msgstr ""
 
@@ -13075,13 +13068,13 @@ msgid ""
 "sation is available at the %{help_url}."
 msgstr ""
 
-#: ../../app/views/user_mailer/api_token_granted_notification.html.erb:8
-#: ../../app/views/user_mailer/permissions_change_notification.html.erb:10
-#: ../../app/views/user_mailer/plan_visibility.html.erb:9
+#: ../../app/views/user_mailer/api_token_granted_notification.html.erb:7
+#: ../../app/views/user_mailer/permissions_change_notification.html.erb:9
+#: ../../app/views/user_mailer/plan_visibility.html.erb:8
 msgid "Hello %{username}"
 msgstr ""
 
-#: ../../app/views/user_mailer/api_token_granted_notification.html.erb:11
+#: ../../app/views/user_mailer/api_token_granted_notification.html.erb:10
 msgid ""
 "You have been granted permission by your organisation to use our API. Your API"
 " token and instructions for using the API endpoints can be found at: %{link}"
@@ -13098,104 +13091,104 @@ msgid ""
 "nce/Comments)."
 msgstr ""
 
-#: ../../app/views/user_mailer/feedback_notification.html.erb:9
+#: ../../app/views/user_mailer/feedback_notification.html.erb:8
 msgid "Hello %{user_name},"
 msgstr ""
 
-#: ../../app/views/user_mailer/feedback_notification.html.erb:12
+#: ../../app/views/user_mailer/feedback_notification.html.erb:11
 msgid ""
 "%{requestor} has requested feedback on a plan %{link_html}. To add comments, p"
 "lease visit the 'Plans' page under the Admin menu in %{application_name} and o"
 "pen the plan."
 msgstr ""
 
-#: ../../app/views/user_mailer/new_comment.html.erb:18
+#: ../../app/views/user_mailer/new_comment.html.erb:17
 msgid ""
 "%{commenter_name} has commented on your plan %{plan_title}. To view the commen"
 "ts, follow the link to the DMP below, or navigate to the plan via My Dashboard"
 " page in %{tool_name}."
 msgstr ""
 
-#: ../../app/views/user_mailer/new_comment.html.erb:23
+#: ../../app/views/user_mailer/new_comment.html.erb:22
 msgid "Below is a summary of the sections and questions which have comments."
 msgstr ""
 
-#: ../../app/views/user_mailer/new_comment.html.erb:24
+#: ../../app/views/user_mailer/new_comment.html.erb:23
 msgid ""
 "You can see the comments in the right-hand panel, adjacent to the guidance for"
 " each question."
 msgstr ""
 
-#: ../../app/views/user_mailer/new_comment.html.erb:28
+#: ../../app/views/user_mailer/new_comment.html.erb:27
 msgid "DMP: %{phase_link}"
 msgstr ""
 
-#: ../../app/views/user_mailer/new_comment.html.erb:31
+#: ../../app/views/user_mailer/new_comment.html.erb:30
 msgid "Section name: %{section_title}"
 msgstr ""
 
-#: ../../app/views/user_mailer/new_comment.html.erb:34
+#: ../../app/views/user_mailer/new_comment.html.erb:33
 msgid "Question: %{question_number}"
 msgstr ""
 
-#: ../../app/views/user_mailer/permissions_change_notification.html.erb:13
+#: ../../app/views/user_mailer/permissions_change_notification.html.erb:12
 msgid ""
 "Your permissions relating to %{plan_title} have changed. You now have %{type} "
 "access. This means you can %{placeholder1} %{placeholder2}"
 msgstr ""
 
-#: ../../app/views/user_mailer/plan_access_removed.html.erb:2
+#: ../../app/views/user_mailer/plan_access_removed.html.erb:1
 msgid "Hello "
 msgstr ""
 
-#: ../../app/views/user_mailer/plan_access_removed.html.erb:3
+#: ../../app/views/user_mailer/plan_access_removed.html.erb:2
 msgid "Your access to "
 msgstr ""
 
-#: ../../app/views/user_mailer/plan_access_removed.html.erb:3
+#: ../../app/views/user_mailer/plan_access_removed.html.erb:2
 msgid " has been removed by "
 msgstr ""
 
-#: ../../app/views/user_mailer/plan_visibility.html.erb:12
+#: ../../app/views/user_mailer/plan_visibility.html.erb:11
 msgid "The plan %{plan_title} had its visibility changed to %{plan_visibility}."
 msgstr ""
 
-#: ../../app/views/user_mailer/plan_visibility.html.erb:15
+#: ../../app/views/user_mailer/plan_visibility.html.erb:14
 msgid "Visibility definitions:"
 msgstr ""
 
-#: ../../app/views/user_mailer/plan_visibility.html.erb:17
+#: ../../app/views/user_mailer/plan_visibility.html.erb:16
 msgid "Private: restricted to me and my collaborators"
 msgstr ""
 
-#: ../../app/views/user_mailer/plan_visibility.html.erb:19
+#: ../../app/views/user_mailer/plan_visibility.html.erb:18
 msgid "Public: anyone can view on the web"
 msgstr ""
 
-#: ../../app/views/user_mailer/plan_visibility.html.erb:23
+#: ../../app/views/user_mailer/plan_visibility.html.erb:22
 msgid ""
 "If you have questions pertaining to this action, please visit the My Dashboard"
 " page in %{tool_name}"
 msgstr ""
 
-#: ../../app/views/user_mailer/sharing_notification.html.erb:12
+#: ../../app/views/user_mailer/sharing_notification.html.erb:11
 msgid ""
 "Your colleague %{inviter_name} has invited you to contribute to\n"
 "            their Data Management Plan in %{tool_name}"
 msgstr ""
 
-#: ../../app/views/user_mailer/welcome_notification.html.erb:13
+#: ../../app/views/user_mailer/welcome_notification.html.erb:12
 msgid "Welcome to %{tool_name}, %{username}"
 msgstr ""
 
-#: ../../app/views/user_mailer/welcome_notification.html.erb:16
+#: ../../app/views/user_mailer/welcome_notification.html.erb:15
 msgid ""
 "%{tool_name} will help you to develop your Data Management Plan. If you have a"
 "ny queries or feedback as you use the tool, please contact us at %{helpdesk_em"
 "ail} or visit %{contact_us}"
 msgstr ""
 
-#: ../../app/views/user_mailer/welcome_notification.html.erb:24
+#: ../../app/views/user_mailer/welcome_notification.html.erb:23
 msgid "You may change your notification preferences on your profile page."
 msgstr ""
 

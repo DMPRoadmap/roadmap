@@ -7,7 +7,6 @@
   user_name = User.find_by(email: @resource.email).nil? ?  @resource.email : User.find_by(email: @resource.email).name(false)
   inviter_name = @resource.invited_by.name(false)
 %>
-<% FastGettext.with_locale FastGettext.default_locale do %>
   <p>
     <%= _('Hello %{user_name}') %{ :user_name => user_name } %>
   </p>
@@ -35,4 +34,3 @@
       contact_us_url: link_to(contact_us, contact_us)
     }) %>
   </p>
-<% end %>
