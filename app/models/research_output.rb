@@ -25,6 +25,7 @@ class ResearchOutput < ActiveRecord::Base
   include ValidationMessages
 
   after_create :create_json_fragments
+  after_update :create_json_fragments
   after_destroy :destroy_json_fragment
 
   # ================
