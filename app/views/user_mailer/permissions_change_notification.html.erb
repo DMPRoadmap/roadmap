@@ -5,7 +5,6 @@
   access = nil
   messaging = role_text(@role)
 %>
-<% FastGettext.with_locale FastGettext.default_locale do %>
   <p>
     <%= _('Hello %{username}') %{ :username => username } %>
   </p>
@@ -18,4 +17,3 @@
       } %>
   </p>
   <%= render partial: 'email_signature' %>
-<% end %>

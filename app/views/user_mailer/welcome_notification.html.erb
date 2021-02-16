@@ -8,7 +8,6 @@
   # in the branding config file
   contact_us = Rails.application.config.branding[:organisation][:contact_us_url] || contact_us_url
 %>
-<% FastGettext.with_locale FastGettext.default_locale do %>
   <p>
     <%= _('Welcome to %{tool_name}, %{username}') %{ :tool_name => tool_name, :username => username } %>
   </p>
@@ -23,4 +22,3 @@
   <p>
     <%= _('You may change your notification preferences on your profile page.') %>
   </p>
-<% end %>

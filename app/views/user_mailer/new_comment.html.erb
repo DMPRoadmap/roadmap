@@ -10,7 +10,6 @@
   phase_link = url_for(action: 'edit', controller: 'plans', id: @plan.id, phase_id: phase_id)
   comment_number = @answer.notes.size
 %>
-<% FastGettext.with_locale FastGettext.default_locale do %>
   <p>
     <%= _('Hello %{user_name}') %{ :user_name => user_name } %>
   </p>
@@ -35,4 +34,3 @@
   </p>
 
   <%= render partial: 'email_signature' %>
-<% end %>
