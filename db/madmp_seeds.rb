@@ -53,7 +53,7 @@ templates = [
     published: true,
     org: Org.find_by(abbreviation: "Science Europe"),
     locale: "en_GB",
-    is_default: true,
+    is_default: false,
     version: 0,
     visibility: Template.visibilities[:organisationally_visible],
     links: { "funder": [], "sample_plan": [] }
@@ -64,7 +64,7 @@ templates = [
     published: true,
     org: Org.find_by(abbreviation: "Science Europe"),
     locale: "fr_FR",
-    is_default: true,
+    is_default: false,
     version: 0,
     visibility: Template.visibilities[:organisationally_visible],
     links: { "funder": [], "sample_plan": [] }
@@ -75,7 +75,7 @@ templates = [
     published: true,
     org: Org.find_by(abbreviation: "Science Europe"),
     locale: "en_GB",
-    is_default: true,
+    is_default: false,
     version: 0,
     visibility: Template.visibilities[:organisationally_visible],
     links: { "funder": [], "sample_plan": [] }
