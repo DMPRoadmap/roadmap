@@ -1,0 +1,43 @@
+<%# locals: outputs %>
+
+<hr />
+<h2><%= _("Planned research outputs") %></h2>
+
+<% outputs.each do |output| %>
+  <% presenter = ResearchOutputPresenter.new(research_output: output) %>
+  <h3><%= "#{presenter.display_type} - \"#{output.title}\"" %></h3>
+
+  <p><%= output.description.html_safe %></p>
+  <ul class="research_output">
+    <li>
+      <strong><%= _("May contain sensitive data?") %>:</strong>
+      <span><%= presenter.display_boolean(value: output.sensitive_data) %></span>
+    </li>
+    <li>
+      <strong><%= _("May contain personally identiable information?") %>:</strong>
+      <span><%= presenter.display_boolean(value: output.personal_data) %></span>
+    </li>
+    <li>
+      <strong><%= _("Intended repository(ies)") %>:</strong>
+      <span><%= presenter.display_repository.join(", ") %></span>
+    </li>
+    <li>
+      <strong><%= _("Anticipated release date") %>:</strong>
+      <span><%= presenter.display_release %></span>
+    </li>
+    <li>
+      <strong><%= _("Initial access level") %>:</strong>
+      <span><%= presenter.display_access %></span>
+    </li>
+    <% if presenter.selectable_mime_types.any? && output.byte_size.present? %>
+      <% size_hash = presenter.converted_file_size(size: output.byte_size) %>
+      <li>
+        <strong><%= _("Anticipated file size") %>:</strong>
+        <span><%= "#{number_with_delimiter(size_hash[:size])} #{size_hash[:unit]&.upcase}" %></span>
+      </li>
+      <% if output.mime_type.present? %>
+        <li><strong><%= _("Mime type") %>:</strong><span><%= output.mime_type.value %></span></li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>

@@ -113,4 +113,9 @@ class ResearchOutputPresenter
     @research_output.release_date.to_date
   end
 
+  # Return 'Yes', 'No' or 'Unspecified' depending on the value
+  def display_boolean(value:)
+    value.nil? ? "Unspecified" : (value ? "Yes" : "No")
+  end
+
 end

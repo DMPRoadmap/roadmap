@@ -31,7 +31,7 @@
         <%= "#{section[:title]}\n" %>
       <% end %>
       <% section[:questions].each do |question| %>
-        <% if remove_list(@plan).include?(question[:id]) %> 
+        <% if remove_list(@plan).include?(question[:id]) %>
           <% next %>
         <% end %>
         <%# text in this case is an array to accomodate for option_based %>
@@ -59,6 +59,32 @@
         <% end %>
       <% end %>
     <% end %>
+  <% end %>
+<% end %>
+
+<% if @plan.research_outputs.any? %>
+  <%= "----------------------------------------------------------" %>
+  <%= _("Planned research outputs") %>
+  <%= "" %>
+  <% @plan.research_outputs.each do |output| %>
+    <% presenter = ResearchOutputPresenter.new(research_output: output) %>
+    <%= "#{presenter.display_type} - \"#{output.title}\"\n\n" %>
+    <%= "#{strip_tags(output.description.gsub(/<\/?p>/, '').gsub(/<br\s?\/?>/, '\n').chomp)}\n\n" %>
+    <%= "" %>
+    <%= "#{_("    May contain sensitive data?")}: #{presenter.display_boolean(value: output.sensitive_data)}" %>
+    <%= "#{_("    May contain personally identiable information?")}: #{presenter.display_boolean(value: output.personal_data)}" %>
+    <%= "#{_("    Intended repository(ies)")}: #{presenter.display_repository.join(", ")}" %>
+    <%= "#{_("    Anticipated release date")}: #{presenter.display_release}" %>
+    <%= "#{_("    Initial access level")}: #{presenter.display_access}" %>
+    <% if presenter.selectable_mime_types.any? && output.byte_size.present? %>
+      <% size_hash = presenter.converted_file_size(size: output.byte_size) %>
+      <%= "#{_("  Anticipated file size")}: #{number_with_delimiter(size_hash[:size])} #{size_hash[:unit]&.upcase}" %>
+      <% if output.mime_type.present? %>
+        <%= "#{_("Mime type")}: #{output.mime_type.value}" %>
+      <% end %>
+    <% end %>
+    <%= "---------" %>
+    <%= "\n\n" %>
   <% end %>
 <% end %>
 <%= "----------------------------------------------------------" %>
