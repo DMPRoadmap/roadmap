@@ -188,7 +188,6 @@ $(() => {
 
   //  Last tab is equivalent to checking the "No org" checkbox
   $('span[data-target="#funder"]').on('shown.bs.tab', () => {
-    console.log('ici');
     handleCheckboxClick('org', true);
     handleCheckboxClick('funder', false);
     $('#plan_no_org').prop('checked', true).trigger('change');
