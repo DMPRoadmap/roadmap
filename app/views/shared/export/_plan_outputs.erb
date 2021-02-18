@@ -1,10 +1,11 @@
 <%# locals: outputs %>
 
-<h2><%= _("Planned research outputs") %></h2>
+<hr />
+<h1><%= _("Planned Research Outputs") %></h1>
 
 <% outputs.each do |output| %>
   <% presenter = ResearchOutputPresenter.new(research_output: output) %>
-  <h3><%= "#{presenter.display_type} - \"#{output.title}\"" %></h3>
+  <h2><%= "#{presenter.display_type} - \"#{output.title}\"" %></h2>
 
   <p><%= output.description.html_safe %></p>
   <ul class="research_output">

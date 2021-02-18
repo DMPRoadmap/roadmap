@@ -1,8 +1,8 @@
 <hr />
-<h1><%= @plan.title %></h1>
+<h1><%= _("Plan Overview") %></h1>
 <p><em><%= _("A Data Management Plan created using %{application_name}") % { application_name: ApplicationService.application_name } %></em></p>
 <br/>
-<div class="cover-page">
+<div class="cover-page break-after">
   <%# Using <b> tags as the htmltoword gem does not recognise css styles defined %>
   <%# Allow raw html (==) for plan_attribution as it has <b> tags %>
   <p><%== plan_attribution(@hash[:attribution]) %></p><br>
