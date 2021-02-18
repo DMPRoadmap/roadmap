@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe ResearchOutput, type: :model do
 
   context "associations" do
-    it { is_expected.to belong_to(:plan).optional }
+    it { is_expected.to belong_to(:plan).optional.touch(true) }
     it { is_expected.to belong_to(:mime_type).optional }
   end
 

@@ -46,7 +46,7 @@ class ResearchOutput < ApplicationRecord
   # = Associations =
   # ================
 
-  belongs_to :plan, optional: true
+  belongs_to :plan, optional: true, touch: true
   belongs_to :mime_type, optional: true
 
   has_and_belongs_to_many :repositories
@@ -64,7 +64,7 @@ class ResearchOutput < ApplicationRecord
 
   # Ensure presence of the :output_type_description if the user selected 'other'
   validates_presence_of :output_type_description, if: -> { other? }, message: PRESENCE_MESSAGE
-  
+
   # ====================
   # = Instance methods =
   # ====================
@@ -86,5 +86,5 @@ class ResearchOutput < ApplicationRecord
       repositories << Repository.find_by(id: repository_params[:id])
     end
   end
-  
+
 end

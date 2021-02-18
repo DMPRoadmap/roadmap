@@ -34,6 +34,12 @@ module Api
         Identifier.new(value: Rails.application.routes.url_helpers.api_v1_plan_url(@plan))
       end
 
+      def links
+        [
+          download: Rails.application.routes.url_helpers.plan_export_url(@plan, format: :pdf, "export[form]": true)
+        ]
+      end
+
       private
 
       # Retrieve the answers that have the Budget theme

@@ -70,7 +70,5 @@ unless @minimal
     json.title plan.template.title
   end
 
-  json.dmproadmap_latest_version do
-    json.uri Rails.application.routes.url_helpers.plan_export_url(plan, format: :pdf, "export[form]": true)
-  end
+  json.dmproadmap_links presenter.links
 end
