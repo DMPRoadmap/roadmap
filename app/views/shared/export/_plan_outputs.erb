@@ -16,6 +16,7 @@
   <caption><%= _("Planned research output details") %></caption>
   <thead>
     <th><%= _("Title") %></th>
+    <th><%= _("Type") %></th>
     <th><%= _("Anticipated release date") %></th>
     <th><%= _("Initial access level") %></th>
     <th><%= _("Intended repository(ies)") %></th>
@@ -29,10 +30,15 @@
       <% size_hash = presenter.converted_file_size(size: output.byte_size) %>
       <tr>
         <td><%= presenter.display_name %></td>
+        <td><%= presenter.display_type %></td>
         <td><%= presenter.display_release %></td>
         <td><%= presenter.display_access %></td>
         <td><%= presenter.display_repository.join(", ") %></td>
-        <td><%= "#{number_with_delimiter(size_hash[:size])} #{size_hash[:unit]&.upcase}" %></td>
+        <td>
+          <% if size_hash[:size].present? %>
+            <%=  "#{number_with_delimiter(size_hash[:size])} #{size_hash[:unit]&.upcase}" %>
+          <% end %>
+        </td>
         <td><%= presenter.display_boolean(value: output.sensitive_data) %></td>
         <td><%= presenter.display_boolean(value: output.personal_data) %></td>
       </tr>
