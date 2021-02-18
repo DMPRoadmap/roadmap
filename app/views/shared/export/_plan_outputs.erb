@@ -8,36 +8,34 @@
   <h2><%= "#{presenter.display_type} - \"#{output.title}\"" %></h2>
 
   <p><%= output.description.html_safe %></p>
-  <ul class="research_output">
-    <li>
-      <strong><%= _("May contain sensitive data?") %>:</strong>
-      <span><%= presenter.display_boolean(value: output.sensitive_data) %></span>
-    </li>
-    <li>
-      <strong><%= _("May contain personally identiable information?") %>:</strong>
-      <span><%= presenter.display_boolean(value: output.personal_data) %></span>
-    </li>
-    <li>
-      <strong><%= _("Intended repository(ies)") %>:</strong>
-      <span><%= presenter.display_repository.join(", ") %></span>
-    </li>
-    <li>
-      <strong><%= _("Anticipated release date") %>:</strong>
-      <span><%= presenter.display_release %></span>
-    </li>
-    <li>
-      <strong><%= _("Initial access level") %>:</strong>
-      <span><%= presenter.display_access %></span>
-    </li>
-    <% if presenter.selectable_mime_types.any? && output.byte_size.present? %>
-      <% size_hash = presenter.converted_file_size(size: output.byte_size) %>
-      <li>
-        <strong><%= _("Anticipated file size") %>:</strong>
-        <span><%= "#{number_with_delimiter(size_hash[:size])} #{size_hash[:unit]&.upcase}" %></span>
-      </li>
-      <% if output.mime_type.present? %>
-        <li><strong><%= _("Mime type") %>:</strong><span><%= output.mime_type.value %></span></li>
-      <% end %>
-    <% end %>
-  </ul>
 <% end %>
+
+<br/><br/><hr/>
+
+<table>
+  <caption><%= _("Planned research output details") %></caption>
+  <thead>
+    <th><%= _("Title") %></th>
+    <th><%= _("Anticipated release date") %></th>
+    <th><%= _("Initial access level") %></th>
+    <th><%= _("Intended repository(ies)") %></th>
+    <th><%= _("Anticipated file size") %></th>
+    <th><%= _("May contain sensitive data?") %></th>
+    <th><%= _("May contain PII?") %></th>
+  </thead>
+  <tbody>
+    <% outputs.each do |output| %>
+      <% presenter = ResearchOutputPresenter.new(research_output: output) %>
+      <% size_hash = presenter.converted_file_size(size: output.byte_size) %>
+      <tr>
+        <td><%= presenter.display_name %></td>
+        <td><%= presenter.display_release %></td>
+        <td><%= presenter.display_access %></td>
+        <td><%= presenter.display_repository.join(", ") %></td>
+        <td><%= "#{number_with_delimiter(size_hash[:size])} #{size_hash[:unit]&.upcase}" %></td>
+        <td><%= presenter.display_boolean(value: output.sensitive_data) %></td>
+        <td><%= presenter.display_boolean(value: output.personal_data) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
