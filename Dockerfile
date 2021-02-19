@@ -36,6 +36,7 @@ RUN apt-get -qqy update \
     xfonts-base \
     xfonts-75dpi \
     yarn \
+    python \
     ca-certificates -qqy \
     && rm -rf /var/lib/apt/lists/*
 
