@@ -98,6 +98,12 @@ export const failCallback = (error, jQuery) => {
 const changeHandler = (e) => {
   const target = $(e.target);
   target.parents('form').find('.answer-save-zone').addClass('unsaved');
+  target.parents('form').find('.answer-save-button').prop('disabled', false);
+  const id = questionId(target);
+  if (!debounceMap[id]) {
+    debounceMap[id] = debounce(autoSaving, 10000);
+  }
+  debounceMap[id](target);
 };
 
 const submitHandler = (e) => {

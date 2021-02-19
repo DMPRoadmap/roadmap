@@ -44,7 +44,7 @@
       <div class="answer-save-zone" >
         <%#= render partial: 'shared/dynamic_form/schema_picker', locals: { madmp_schema: madmp_schema, pickable_schemas: @schemas.where(classname: madmp_schema.classname), question: question, research_output: research_output } %>
         <span class="please-save-message"><%= d_('dmpopidor', 'You have pending changes, please save')%></span>
-        <%= f.button(_('Save'), class: "btn btn-default answer-save-button", type: "submit") %>
+        <%= f.button(_('Save'), class: "btn btn-default answer-save-button", type: "submit", disabled: true) %>
       </div>
   </fieldset>
   <!--Example Answer area -->

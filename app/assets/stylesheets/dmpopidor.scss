@@ -1171,13 +1171,18 @@ header .main-nav {
                     font-weight: 700;
                     width: 25%;
 
-                    background-color: $green;
-                    border-color: $green;
+                    background-color: gray;
+                    border-color: gray;
                 }
 
                 &.unsaved {
                     background-color: $light-rust;
 
+                    .answer-save-button {
+    
+                        background-color: $rust;
+                        border-color: $rust;
+                    }
 
                     .please-save-message {
                         visibility: inherit;
