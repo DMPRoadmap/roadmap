@@ -1,5 +1,5 @@
 <%# locals: { field_values, parent_id, schema, field_name, template_locale, ttip } %>
-<% query_id = SecureRandom.uuid%>
+<% query_id = Digest::MD5.hexdigest("#{parent_id}-#{property_name}") %>
 
 <% unless field_label.nil?%>
   <% field_label = required ? "* #{field_label}" : field_label%>
