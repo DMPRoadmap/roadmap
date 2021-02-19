@@ -1178,18 +1178,48 @@ header .main-nav {
             display: flex;
             flex-direction: column;
             
-            .answer-save-button {
+            .answer-save-zone {
                 position: sticky;
                 bottom: 0;
                 background-color: #fff;
                 padding: 5px;
                 z-index: 2;
-                text-align: right;
                 border: 1px solid $very-light-blue;
-                button {
+
+                display: flex;
+                align-items: center;
+                -webkit-transition: all .3s linear 0s;
+                transition: all .3s linear 0s;
+
+                .please-save-message {
+                    flex: 2;
+                    font-weight: bold;
+                    color: $rust;
+
+                    visibility: hidden;
+                }
+                .answer-save-button {
+                    flex: 1;
                     font-size: 20px;
                     font-weight: 700;
                     width: 25%;
+
+                    background-color: gray;
+                    border-color: gray;
+                }
+
+                &.unsaved {
+                    background-color: $light-rust;
+
+                    .answer-save-button {
+    
+                        background-color: $rust;
+                        border-color: $rust;
+                    }
+
+                    .please-save-message {
+                        visibility: inherit;
+                    }
                 }
             }
         }
