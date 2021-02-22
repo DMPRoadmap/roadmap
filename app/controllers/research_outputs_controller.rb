@@ -165,9 +165,6 @@ class ResearchOutputsController < ApplicationController
   # one of these arguments invisible, then we need to blank it out here since the Rails form will
   # not send us the value
   def process_nillable_values(args:)
-
-pp args.inspect
-
     args[:byte_size] = nil unless args[:byte_size].present?
     args
   end

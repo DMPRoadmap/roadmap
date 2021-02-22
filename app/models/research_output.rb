@@ -47,6 +47,8 @@ class ResearchOutput < ApplicationRecord
   # ================
 
   belongs_to :plan, optional: true, touch: true
+  belongs_to :license, optional: true
+
   has_and_belongs_to_many :repositories
 
   # ===============

@@ -15,6 +15,7 @@ namespace :v3 do
     Rake::Task["v3:init_re3data"].execute
     Rake::Task["v3:seed_external_services"].execute
     Rake::Task["v3:load_re3data_repos"].execute
+    Rake::Task["v3:load_spdx_licenses"].execute
   end
 
   # Set any records with a nil `language_id` to the default language
@@ -129,5 +130,11 @@ namespace :v3 do
     Rails::Task["v3:init_re3data"].execute unless IdentifierScheme.find_by(name: "rethreedata").present?
     ExternalApis::Re3dataService.fetch
   end
+
+  desc "Load Licenses from SPDX"
+  task load_spdx_licenses: :environment do
+    ExternalApis::SpdxService.fetch
+  end
+
 
 end

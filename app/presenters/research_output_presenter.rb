@@ -2,10 +2,11 @@
 
 class ResearchOutputPresenter
 
-  attr_accessor :research_output
+  attr_accessor :research_output, :default_license
 
   def initialize(research_output:)
     @research_output = research_output
+    @default_license = License.where(identifier: "MIT").first
   end
 
   # Returns the output_type list for a select_tag
@@ -23,6 +24,11 @@ class ResearchOutputPresenter
   # Returns the options for file size units
   def selectable_size_units
     [%w[MB mb], %w[GB gb], %w[TB tb], %w[PB pb], ["bytes", ""]]
+  end
+
+  # Returns the available licenses for a select tag
+  def selectable_licenses
+    License.selectable.map { |license| [license.name, license.id] }
   end
 
   # Returns whether or not we should capture the byte_size based on the output_type
