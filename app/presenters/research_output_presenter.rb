@@ -2,11 +2,10 @@
 
 class ResearchOutputPresenter
 
-  attr_accessor :research_output, :default_license
+  attr_accessor :research_output
 
   def initialize(research_output:)
     @research_output = research_output
-    @default_license = License.where(identifier: "MIT").first
   end
 
   # Returns the output_type list for a select_tag

@@ -133,11 +133,10 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
     <div class="col-md-12">
       <span class="col-md-3">
         <%= f.label(:license, _("Initial license"), class: "control-label") %>
-        <% selection = f.object.license || presenter.default_license %>
-        <%= f.select :license, options_for_select(presenter.selectable_licenses, selection&.id),
+        <%= f.select :license, options_for_select(presenter.selectable_licenses, f.object.license),
                               {
                                 include_blank: _("- Please select one -"),
-                                selected: selection&.id
+                                selected: f.object.license
                               },
                               { class: "form-control" } %>
       </span>
