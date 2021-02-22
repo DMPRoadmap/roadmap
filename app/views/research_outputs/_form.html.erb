@@ -91,7 +91,7 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
   <div class="form-group row">
     <div class="col-md-12">
       <span class="col-md-12">
-        <%= label_tag _("Intended repositories") %>
+        <h3><%= label_tag _("Intended repositories") %></h3>
       </span>
     </div>
   </div>
@@ -129,13 +129,10 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
     </div>
   </div>
 
-  <div class="form-group row file-details-section <%= presenter.selectable_mime_types.any? ? "" : "hidden" %>">
+  <div class="form-group row file-details-section <%= presenter.byte_sizable? ? "" : "hidden" %>">
     <div class="col-md-12">
       <span class="col-md-3">
         <%= f.label(:byte_size, _("Anticipated file size"), class: "control-label") %>
-      </span>
-      <span class="col-md-4">
-        <%= f.label(:mime_type_id, _("Mime type"), class: "control-label") %>
       </span>
     </div>
     <div class="col-md-12">
@@ -147,11 +144,6 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
         <%= f.select "file_size_unit", options_for_select(presenter.selectable_size_units, file_size[:unit]),
                                        { selected: file_size[:unit] },
                                        { class: "form-control float-left" } %>
-      </span>
-      <span class="col-md-4">
-        <%= f.select :mime_type_id, options_for_select(presenter.selectable_mime_types, f.object.mime_type_id),
-                                    { include_blank: _("- Please select -"), selected: f.object.mime_type&.id },
-                                    { class: "form-control" } %>
       </span>
     </div>
   </div>

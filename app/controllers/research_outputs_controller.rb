@@ -30,6 +30,7 @@ class ResearchOutputsController < ApplicationController
   # POST /plans/:plan_id/research_outputs
   def create
     args = process_byte_size.merge({ plan_id: @plan.id })
+    args = process_nillable_values(args: args)
     @research_output = ResearchOutput.new(args)
     authorize @research_output
 
@@ -45,6 +46,7 @@ class ResearchOutputsController < ApplicationController
   # PATCH/PUT /plans/:plan_id/research_outputs/:id
   def update
     args = process_byte_size.merge({ plan_id: @plan.id })
+    args = process_nillable_values(args: args)
     authorize @research_output
 
     # Allow the repository to be removed
@@ -155,6 +157,18 @@ class ResearchOutputsController < ApplicationController
 
     args.delete(:file_size)
     args.delete(:file_size_unit)
+    args
+  end
+
+  # There are certain fields on the form that are visible based on the selected output_type. If the
+  # ResearchOutput previously had a value for any of these and the output_type then changed making
+  # one of these arguments invisible, then we need to blank it out here since the Rails form will
+  # not send us the value
+  def process_nillable_values(args:)
+
+pp args.inspect
+
+    args[:byte_size] = nil unless args[:byte_size].present?
     args
   end
 

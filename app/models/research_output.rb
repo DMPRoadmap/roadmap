@@ -47,8 +47,6 @@ class ResearchOutput < ApplicationRecord
   # ================
 
   belongs_to :plan, optional: true, touch: true
-  belongs_to :mime_type, optional: true
-
   has_and_belongs_to_many :repositories
 
   # ===============
@@ -68,17 +66,6 @@ class ResearchOutput < ApplicationRecord
   # ====================
   # = Instance methods =
   # ====================
-
-  # :mime_type is only applicable for certain :output_types
-  # This method returns the applicable :mime_types
-  def available_mime_types
-    cat = %w[audio video] if audiovisual? || sound?
-    cat = %w[image] if image?
-    cat = %w[model] if model_representation?
-    cat = %w[text] if data_paper? || dataset? || text?
-
-    cat.present? ? MimeType.where(category: cat).order(:description) : []
-  end
 
   # Helper method to convert selected repository form params into Repository objects
   def repositories_attributes=(params)

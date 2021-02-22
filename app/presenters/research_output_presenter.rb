@@ -14,14 +14,6 @@ class ResearchOutputPresenter
                   .map { |k, _v| [k.humanize, k] }
   end
 
-  # Returns the mime_type list for a select_tag
-  def selectable_mime_types
-    @research_output.available_mime_types
-                    .reject { |mime| mime.description.downcase.include?("deprecated") }
-                    .sort { |a, b| a.value.downcase <=> b.value.downcase }
-                    .map { |mime| [mime.value, mime.id] }
-  end
-
   # Returns the access options for a select tag
   def selectable_access_types
     ResearchOutput.accesses
@@ -31,6 +23,13 @@ class ResearchOutputPresenter
   # Returns the options for file size units
   def selectable_size_units
     [%w[MB mb], %w[GB gb], %w[TB tb], %w[PB pb], ["bytes", ""]]
+  end
+
+  # Returns whether or not we should capture the byte_size based on the output_type
+  def byte_sizable?
+    @research_output.audiovisual? || @research_output.sound? || @research_output.image? ||
+      @research_output.model_representation? ||
+      @research_output.data_paper? || @research_output.dataset? || @research_output.text?
   end
 
   # Returns the options for subjects for the repository filter

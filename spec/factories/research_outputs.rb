@@ -47,7 +47,6 @@ FactoryBot.define do
     end
 
     after(:create) do |research_output, evaluator|
-      research_output.mime_type = create(:mime_type)
       research_output.repositories = create_list(:repository, evaluator.repositories_count)
     end
   end
