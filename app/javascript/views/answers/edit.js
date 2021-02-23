@@ -99,11 +99,11 @@ const changeHandler = (e) => {
   const target = $(e.target);
   target.parents('form').find('.answer-save-zone').addClass('unsaved');
   target.parents('form').find('.answer-save-button').prop('disabled', false);
-  const id = questionId(target);
-  if (!debounceMap[id]) {
-    debounceMap[id] = debounce(autoSaving, 10000);
-  }
-  debounceMap[id](target);
+  // const id = questionId(target);
+  // if (!debounceMap[id]) {
+  //   debounceMap[id] = debounce(autoSaving, 10000);
+  // }
+  // debounceMap[id](target);
 };
 
 const submitHandler = (e) => {
@@ -136,14 +136,16 @@ const submitHandler = (e) => {
 };
 const blurHandler = (editor) => {
   const target = $(editor.getElement());
-  const id = questionId(target);
-  if (editor.isDirty()) {
-    editor.save(); // Saves contents from editor to the textarea element
-    if (!debounceMap[id]) {
-      debounceMap[id] = debounce(autoSaving);
-    }
-    debounceMap[id](target);
-  }
+  target.parents('form').find('.answer-save-zone').addClass('unsaved');
+  target.parents('form').find('.answer-save-button').prop('disabled', false);
+  // const id = questionId(target);
+  // if (editor.isDirty()) {
+  //   editor.save(); // Saves contents from editor to the textarea element
+  //   if (!debounceMap[id]) {
+  //     debounceMap[id] = debounce(autoSaving);
+  //   }
+  //   debounceMap[id](target);
+  // }
 };
 const focusHandler = (editor) => {
   const id = questionId($(editor.getElement()));
