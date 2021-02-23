@@ -4,7 +4,7 @@ defaults: &defaults
   username: <%= ENV["MYSQL_USER"] %>
   password: <%= ENV["MYSQL_PASSWORD"] %>
   host: <%= ENV["DATABASE_URL"] || '127.0.0.1' %>
-  encoding: utf8
+  encoding: utf8mb4
   pool: 16
 
 development:
