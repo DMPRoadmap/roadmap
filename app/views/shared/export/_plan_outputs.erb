@@ -21,6 +21,7 @@
     <th><%= _("Initial access level") %></th>
     <th><%= _("Intended repository(ies)") %></th>
     <th><%= _("Anticipated file size") %></th>
+    <th><%= _("License") %></th>
     <th><%= _("May contain sensitive data?") %></th>
     <th><%= _("May contain PII?") %></th>
   </thead>
@@ -39,6 +40,7 @@
             <%=  "#{number_with_delimiter(size_hash[:size])} #{size_hash[:unit]&.upcase}" %>
           <% end %>
         </td>
+        <td><%= presenter.display_license %></td>
         <td><%= presenter.display_boolean(value: output.sensitive_data) %></td>
         <td><%= presenter.display_boolean(value: output.personal_data) %></td>
       </tr>

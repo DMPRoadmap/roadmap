@@ -74,6 +74,7 @@
     <%= "#{_("    May contain sensitive data?")}:\t#{presenter.display_boolean(value: output.sensitive_data)}" %>
     <%= "#{_("    May contain personally identiable information?")}:\t#{presenter.display_boolean(value: output.personal_data)}" %>
     <%= "#{_("    Intended repository(ies)")}:\t#{presenter.display_repository.join(", ")}" %>
+    <%= "#{_("    Initial license")}:\t#{presenter.display_license}" %>
     <%= "#{_("    Anticipated release date")}:\t#{presenter.display_release}" %>
     <%= "#{_("    Initial access level")}:\t#{presenter.display_access}" %>
     <% if presenter.selectable_mime_types.any? && output.byte_size.present? %>

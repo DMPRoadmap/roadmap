@@ -103,6 +103,13 @@ class ResearchOutputPresenter
     @research_output.repositories.map(&:name)
   end
 
+  # Returns the display the license name
+  def display_license
+    return _("None specified") unless @research_output.license.present?
+
+    @research_output.license.name
+  end
+
   # Returns the humanized version of the access enum variable
   def display_access
     return _("Unspecified") unless @research_output.access.present?
