@@ -6,7 +6,7 @@ module Api
 
     class ResearchOutputPresenter
 
-      attr_reader :dataset_id, :preservation_statement, :security_and_privacy,
+      attr_reader :dataset_id, :preservation_statement, :security_and_privacy, :license_start_date,
                   :data_quality_assurance, :distributions, :metadata, :technical_resources
 
       def initialize(output:)
@@ -18,6 +18,8 @@ module Api
         @preservation_statement = fetch_q_and_a_as_single_statement(themes: %w[Preservation])
         @security_and_privacy = fetch_q_and_a(themes: ["Ethics & privacy", "Storage & security"])
         @data_quality_assurance = fetch_q_and_a_as_single_statement(themes: ["Data Collection"])
+        @license_start_date = output.release_date&.to_formatted_s(:iso8601) if output.release_date.present?
+        @license_start_date = output.created_at&.to_formatted_s(:iso8601) unless @license_start_date.present?
       end
 
       private

@@ -35,6 +35,13 @@ if output.is_a?(ResearchOutput)
         json.partial! "api/v1/identifiers/show", identifier: repository.identifiers.last
       end
     end
+
+    if output.license.present?
+      json.license [output.license] do |license|
+        json.license_ref license.url
+        json.start_date presenter.license_start_date
+      end
+    end
   end
 
   json.metadata []
