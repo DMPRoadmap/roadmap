@@ -6,18 +6,34 @@
 #
 #  id                :bigint           not null, primary key
 #  callback_uri      :string
-#  identifiable_type :string
+#  subscriber_type   :string
 #  subscription_type :integer          not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  identifiable_id   :bigint
+#  subscriber_id     :bigint
 #  plan_id           :bigint
 #
 # Indexes
 #
-#  index_subscribers_on_identifiable_and_plan_id  (identifiable_id,identifiable_type,plan_id)
+#  index_subscribers_on_identifiable_and_plan_id  (subscriber_id,subscriber_type,plan_id)
 #  index_subscribers_on_plan_id                   (plan_id)
 #
 class Subscriber < ApplicationRecord
 
+  include FlagShihTzu
+
+  # ================
+  # = Associations =
+  # ================
+
+  belongs_to :plan
+
+  belongs_to :subscriber, polymorphic: true
+
+  ##
+  # Define Bit Field values for subscription_types
+  has_flags 1 => :updates,
+            2 => :deletions,
+            3 => :creations,
+            column: "subscription_types"
 end

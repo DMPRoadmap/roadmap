@@ -8,33 +8,37 @@ module ExternalApis
   #   - Create an account with them and gain access to their API
   #   - Update the `config/initializers/external_apis/doi.rb`
   #   - Update this service to mint DOIs (based on their API documentation)
-  class DoiService < BaseService
+  class BaseDoiService < BaseService
 
     class << self
 
-      # Retrieve the config settings from the initializer
-      def landing_page_url
-        Rails.configuration.x.doi&.landing_page_url || super
-      end
-
-      def api_base_url
-        Rails.configuration.x.doi&.api_base_url || super
-      end
-
-      def active?
-        Rails.configuration.x.doi&.active || super
-      end
-
-      def heartbeat_path
-        Rails.configuration.x.doi&.heartbeat_path
-      end
-
+      # The API endpoint to call to authenticate and receive an auth token to be used
+      # with all subsequent communications
       def auth_path
-        Rails.configuration.x.doi&.auth_path
+        nil
       end
 
+      # The API endpoint to call to register the Plan with the service and mint a
+      # new DMP ID (aka DOI, ARK, etc)
       def mint_path
-        Rails.configuration.x.doi&.mint_path
+        nil
+      end
+
+      # The callback_path is the API endpoint to send updates to once the Plan has changed
+      # or been versioned. Use the `%{dmp_id}` markup to have the Plan's DOI appended to the path.
+      # For example: `update_dmp/%{dmp_id}` would become: `updated_dmp/10.123/1234.ABC`
+      def callback_path
+        nil
+      end
+
+      # The HTTP method to be used when using the callback_path
+      def callback_method
+        :put
+      end
+
+      # The name of the associated ApiClient
+      def api_client
+        nil
       end
 
       # Ping the DOI API to determine if it is online
@@ -67,6 +71,27 @@ module ExternalApis
         # When this service is active and the above identifier is available,
         # the link to the DOI will appear on the Project Details page, in plan
         # exports and will become the `dmp_id` in this system's API responses
+      end
+      # rubocop:enable Lint/UnusedMethodArgument
+
+      # Implement the call to register an associated ApiClient as a Subscriber to the Plan
+      # rubocop:disable Lint/UnusedMethodArgument
+      def add_subscription(plan:, doi:)
+        true
+      end
+      # rubocop:enable Lint/UnusedMethodArgument
+
+      # Implement the call to update the DOI
+      # rubocop:disable Lint/UnusedMethodArgument
+      def update_doi(plan:)
+        true
+      end
+      # rubocop:enable Lint/UnusedMethodArgument
+
+      # Implement the call to delete the DOI
+      # rubocop:disable Lint/UnusedMethodArgument
+      def delete_doi(plan:)
+        true
       end
       # rubocop:enable Lint/UnusedMethodArgument
 

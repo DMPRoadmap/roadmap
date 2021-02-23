@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_22_193344) do
+ActiveRecord::Schema.define(version: 2021_02_23_174458) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -543,12 +543,12 @@ ActiveRecord::Schema.define(version: 2021_02_22_193344) do
     t.bigint "plan_id"
     t.integer "subscription_type", null: false
     t.string "callback_uri"
-    t.bigint "identifiable_id"
-    t.string "identifiable_type"
+    t.bigint "subscriber_id"
+    t.string "subscriber_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["identifiable_id", "identifiable_type", "plan_id"], name: "index_subscribers_on_identifiable_and_plan_id"
     t.index ["plan_id"], name: "index_subscribers_on_plan_id"
+    t.index ["subscriber_id", "subscriber_type", "plan_id"], name: "index_subscribers_on_identifiable_and_plan_id"
   end
 
   create_table "templates", id: :integer, force: :cascade do |t|

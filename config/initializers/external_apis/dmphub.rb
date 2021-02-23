@@ -13,6 +13,9 @@ Rails.configuration.x.dmphub.mint_path = "data_management_plans"
 Rails.configuration.x.dmphub.update_path = "data_management_plans"
 Rails.configuration.x.dmphub.delete_path = "data_management_plans"
 
+Rails.configuration.x.dmphub.callback_path = "data_management_plans/%{dmp_id}"
+Rails.configuration.x.dmphub.callback_method = "patch"
+
 if Rails.env.development?
   Rails.configuration.x.dmphub.api_base_url = "http://localhost:3001/api/v0/"
   Rails.configuration.x.dmphub.client_id = "E0rukf2HM3DuQbWESclCzddYOY9j44ZJkflwoKhM6vM"

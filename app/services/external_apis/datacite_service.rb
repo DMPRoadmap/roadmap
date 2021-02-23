@@ -3,7 +3,7 @@
 module ExternalApis
 
   # This service provides an interface to Datacite API.
-  class DataciteService < BaseService
+  class DataciteService < BaseDoiService
 
     class << self
 
@@ -48,6 +48,12 @@ module ExternalApis
         Rails.configuration.x.datacite&.shoulder
       end
 
+      # The callback_path is the API endpoint to send updates to once the Plan has changed
+      # or been versioned
+      def callback_path
+        Rails.configuration.x.datacite&.callback_path
+      end
+
       # Create a new DOI
       def mint_doi(plan:)
         return nil unless active?
@@ -66,8 +72,27 @@ module ExternalApis
         json = process_response(response: resp)
         return nil unless json.present?
 
-        json.fetch("data", "attributes": { "doi": nil })
-            .fetch("attributes", { "doi": nil })["doi"]
+        doi = json.fetch("data", "attributes": { "doi": nil })
+                  .fetch("attributes", { "doi": nil })["doi"]
+
+        add_subscription(plan: plan, doi: doi) if doi.present?
+        doi
+      end
+
+       # Register the ApiClient behind the minter service as a Subscriber to the Plan
+      # if the service has a callback URL and ApiClient
+      def add_subscription(plan:, doi:)
+        Rails.logger.warn "DataciteService - No ApiClient available for 'datacite'!" unless api_client.present?
+        return plan unless plan.present? && doi.present? &&
+                           callback_path.present? && api_client.present?
+
+        Subscriber.create(
+          plan: plan,
+          subscriber: api_client,
+          callback_uri: callback_path % { dmp_id: doi.gsub(/https?:\/\/doi.org\//, "") },
+          updates: true,
+          deletions: true
+        )
       end
 
       # Update the DOI

@@ -35,6 +35,7 @@ class Org < ApplicationRecord
   extend FeedbacksHelper
   include FlagShihTzu
   include Identifiable
+  include Subscribable
 
   # ----------------------------------------
   # Start DMPTool Customization

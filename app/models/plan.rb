@@ -123,6 +123,10 @@ class Plan < ApplicationRecord
 
   has_many :research_outputs, dependent: :destroy
 
+  has_many :subscribers, dependent: :destroy
+
+  has_many :related_identifiers, dependent: :destroy
+
   # =====================
   # = Nested Attributes =
   # =====================
@@ -148,6 +152,12 @@ class Plan < ApplicationRecord
   validates :complete, inclusion: { in: BOOLEAN_VALUES }
 
   validate :end_date_after_start_date
+
+  # =============
+  # = Callbacks =
+  # =============
+
+  after_save :notify_subscribers
 
   # ==========
   # = Scopes =
@@ -603,6 +613,13 @@ class Plan < ApplicationRecord
     orcids = contributors.select { |c| c&.identifier_for_scheme(scheme: orcid_scheme).present? }
     rors = contributors.select { |c| c.org&.identifier_for_scheme(scheme: ror_scheme).present? }
     visibility_allowed? && orcids.any? && rors.any? && funder.present?
+  end
+
+  # Triggers a notification to all subscribers
+  def notify_subscribers(subscription_type: :updates)
+    return true unless subscribers.any?
+
+    PlanNotificationService.notify(plan: self, subscription_type: subscription_type)
   end
 
   private

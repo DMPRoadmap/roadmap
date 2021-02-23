@@ -3,7 +3,7 @@
 module ExternalApis
 
   # This service provides an interface to a DMPHub system: https://github.com/CDLUC3/dmphub.
-  class DmphubService < BaseService
+  class DmphubService < BaseDoiService
 
     class << self
 
@@ -56,6 +56,18 @@ module ExternalApis
         ApplicationService.application_name.split("-").first.to_sym
       end
 
+      def api_client
+        ApiClient.find_by(name: name.gsub("Service", "").downcase)
+      end
+
+      def callback_path
+        Rails.configuration.x.dmphub&.callback_path || super
+      end
+
+      def callback_method
+        Rails.configuration.x.dmphub&.callback_method&.downcase&.to_sym || super
+      end
+
       # Create a new DOI
       def mint_doi(plan:)
         return nil unless active? && auth
@@ -75,7 +87,25 @@ module ExternalApis
           return nil
         end
 
-        process_response(response: resp)
+        doi = process_response(response: resp)
+        add_subscription(plan: plan, doi: doi) if doi.present?
+        doi
+      end
+
+      # Register the ApiClient behind the minter service as a Subscriber to the Plan
+      # if the service has a callback URL and ApiClient
+      def add_subscription(plan:, doi:)
+        Rails.logger.warn "DMPHubService - No ApiClient available for 'dmphub'!" unless api_client.present?
+        return plan unless plan.present? && doi.present? &&
+                           callback_path.present? && api_client.present?
+
+        Subscriber.create(
+          plan: plan,
+          subscriber: api_client,
+          callback_uri: callback_path % { dmp_id: doi.gsub(/https?:\/\/doi.org\//, "") },
+          updates: true,
+          deletions: true
+        )
       end
 
       # Update the DOI
