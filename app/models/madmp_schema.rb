@@ -43,6 +43,26 @@ class MadmpSchema < ActiveRecord::Base
   #                     json: true
 
   # ==========
+  # = Constants =
+  # ==========
+
+  CLASSNAME_TO_PROPERTY = {
+    "research_output_description" => "researchOutputDescription",
+    "data_reuse" => "reuse",
+    "personal_data_issues" => "personalDataIssues",
+    "legal_issues" => "legalIssues",
+    "ethical_issues" => "ethicalIssues",
+    "data_collection" => "dataCollection",
+    "data_processing" => "dataProcessing",
+    "data_storage" => "dataStorage",
+    "documentation_quality" => "documentationQuality",
+    "quality_assurance_method" => "qualityAssuranceMethod",
+    "data_sharing" => "sharing",
+    "data_preservation" => "preservationIssues",
+    "budget" => "budget"
+  }
+
+  # ==========
   # = Scopes =
   # ==========
 
@@ -61,13 +81,13 @@ class MadmpSchema < ActiveRecord::Base
     label + " ( " + name + "_V" + version.to_s + " )"
   end
 
-  def get_sub_schemas
+  def sub_schemas
     path = JsonPath.new("$..schema_id")
     ids = path.on(schema)
     MadmpSchema.where(id: ids).map { |s| [s.id, s] }.to_h
   end
 
-  def get_sub_schemas_ids
+  def sub_schemas_ids
     path = JsonPath.new("$..schema_id")
     ids = path.on(schema)
     ids
@@ -90,6 +110,12 @@ class MadmpSchema < ActiveRecord::Base
       end
     end
     parameters
+  end
+
+  # Used by "Write Plan" tab for determining the property_name of a new fragment
+  # from the classname of the corresponding schema
+  def property_name_from_classname
+    CLASSNAME_TO_PROPERTY[classname]
   end
 
   # Substitute 'template_name' key/values for their 'schema_id' equivalent in the JSON

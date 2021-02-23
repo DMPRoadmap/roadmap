@@ -1,5 +1,5 @@
 <%# locals: { f, current_fragment, schema, question_id, readonly, classname, template_locale } %>
-<% sub_schemas_ids = schema.get_sub_schemas_ids %>
+<% sub_schemas_ids = schema.sub_schemas_ids %>
 <% data = current_fragment.data unless current_fragment.nil? %>
 <% additional_info = current_fragment.additional_info unless current_fragment.nil? %>
 <% validations = additional_info.present? && additional_info['validations'].present? ? additional_info["validations"] : nil %>
