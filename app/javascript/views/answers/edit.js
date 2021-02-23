@@ -4,7 +4,7 @@ import {
   isString,
 } from '../../utils/isType';
 import { Tinymce } from '../../utils/tinymce.js.erb';
-import debounce from '../../utils/debounce';
+// import debounce from '../../utils/debounce';
 import datePicker from '../../utils/datePicker';
 import TimeagoFactory from '../../utils/timeagoFactory';
 
@@ -15,7 +15,8 @@ const showLoadingOverlay = jQuery => jQuery.closest('.question-form').find('.ove
 const hideLoadingOverlay = jQuery => jQuery.closest('.question-form').find('.overlay').hide();
 const closestErrorSavingMessage = jQuery => jQuery.closest('.question-form').find('[data-status="error-saving"]');
 const questionId = jQuery => jQuery.closest('.form-answer').attr('data-autosave');
-const isStale = jQuery => jQuery.closest('.question-form').find('.answer-locking').text().trim().length !== 0;
+// eslint-disable-next-line max-len
+// const isStale = jQuery => jQuery.closest('.question-form').find('.answer-locking').text().trim().length !== 0;
 const isReadOnly = () => $('.form-answer fieldset:disabled').length > 0;
 const toolbar = 'bold italic | bullist numlist | link | table';
 /*
@@ -27,11 +28,11 @@ const toolbar = 'bold italic | bullist numlist | link | table';
   * debounced function should be retrieved instead.
 */
 const debounceMap = {};
-const autoSaving = (jQuery) => {
-  if (!isStale(jQuery)) {
-    jQuery.closest('.form-answer').trigger('submit');
-  }
-};
+// const autoSaving = (jQuery) => {
+//   if (!isStale(jQuery)) {
+//     jQuery.closest('.form-answer').trigger('submit');
+//   }
+// };
 export const doneCallback = (data, jQuery) => {
   const form = jQuery.closest('form');
   // Validation for the data object received
