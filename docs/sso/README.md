@@ -31,15 +31,6 @@ DMPTool Service Provider Metadata
 
 Once that's complete you can send us your identity provider's `entityID` so that we can enable SSO for your users.
 
-## My institution is not a member of InCommon or eduGain
-
-We allow SSO integration with organizations who are not members of InCommon or eduGain on a limited basis. Please [contact the helpdesk](mailto:uc3@ucop.edu) to request SSO integration for your organization. You will need to:
-- Update your identity provider (IdP) so that it trusts the DMPTool as an authorized service provider (SP). See the [SP metadata](https://github.com/CDLUC3/dmptool/blob/main/docs/sso/dmp-stage_metadata.xml) 
-- Update your IdP so that it releases the appropriate attributes to the DMPTool. See the [attribute release file](https://github.com/CDLUC3/dmptool/blob/main/docs/sso/dmptool_attribute_release.xml)
-- Send us your IdP metadata so that we can update the DMPTool so that it trusts your user's logins. See the [example entity descriptor file](https://github.com/CDLUC3/dmptool/blob/main/docs/sso/example_idp_entity_descriptor.xml)
-- Review the [sample SAML assertion](https://github.com/CDLUC3/dmptool/blob/main/docs/sso/example_saml_assertion.xml) that represents a successful SSO handshake between the DMPTool and your IdP.
-- Once these changes have been made you can test the integration as defined below in the 'Testing' section
-
 ## Testing
 
 Once your institution's identity provider has been configured and SSO has been enabled for your institution within the DMPTool, you can visit our [SSO Test Page](https://dmptool-stg.cdlib.org/cgi-bin/PrintShibInfo.pl) to test the SSO handshake. Select your institution from the dropdown list and click the "Continue" button. This should bring you to your institution's login page if things were properly configured within the DMPTool. Once you login, you will be redirected back to a validation page that will display the attributes mentioned above.  If all has been properly configured within your identity provider, a Success message will be displayed.
