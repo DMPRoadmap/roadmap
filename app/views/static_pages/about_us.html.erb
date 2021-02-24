@@ -28,7 +28,7 @@
       <p>
         <% email_link = Rails.configuration.branding[:organisation][:helpdesk_email] %>
         <% email_subject = _('DMP Assistant feedback').gsub(' ', '%20') %>
-        <% contact_your_institution_url = 'https://portagenetwork.ca/tools-and-resources/institutional-rdm-contacts/' %>
+        <% contact_your_institution_url = contacts_at_your_instutution_path %>
         <%= sanitize(_('We want your feedback! If you have suggestions on how to improve the existing template, or you would like to add additional templates based on funding agency requirements or disciplinary needs, please <a href="%{contact_your_institution_url}">contact your local institution</a> or contact us at <a href="mailto:%{email_link}?Subject=%{email_subject}">%{email_link}</a>.') % {contact_your_institution_url: contact_your_institution_url, email_link: email_link, email_subject: email_subject}) %>        
       </p>
 
