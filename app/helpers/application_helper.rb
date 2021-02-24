@@ -61,6 +61,33 @@ module ApplicationHelper
     end
   end
 
+  def terms_of_use_path
+    if (FastGettext.locale == 'fr_CA') 
+      'https://portagenetwork.ca/fr/outils-et-ressources/assistant-pgd/conditions-dutilisation-de-lassistant-pgd/'
+    else
+      # Handling 'en_CA' locale
+      'https://portagenetwork.ca/tools-and-resources/dmp-assistant/dmp-assistant-terms-of-use/'
+    end
+  end
+
+  def how_to_manage_your_data_path
+    if (FastGettext.locale == 'fr_CA') 
+      'https://portagenetwork.ca/fr/outils-et-ressources/assistant-pgd/comment-gerer-vos-donnees/'
+    else
+      # Handling 'en_CA' locale
+      'https://portagenetwork.ca/tools-and-resources/dmp-assistant/how-to-manage-your-data/'
+    end
+  end
+
+  def contacts_at_your_instutution_path
+    if (FastGettext.locale == 'fr_CA') 
+      'https://portagenetwork.ca/fr/outils-et-ressources/personnes-ressources-pour-la-gdr-dans-les-etablissements/'
+    else
+      # Handling 'en_CA' locale
+      'https://portagenetwork.ca/tools-and-resources/institutional-rdm-contacts/'
+    end
+  end
+
   def unique_dom_id(record, prefix = nil)
     klass     = dom_class(record, prefix)
     record_id = record_key_for_dom_id(record) || record.object_id
