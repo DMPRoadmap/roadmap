@@ -96,12 +96,11 @@ namespace :templates do
     questions_ids = {}
     annotations_ids = {}
 
-    data[:templates].each do |template_json|
+    data[:templates].each do |template_json|      
       template = Template.new(template_json.except(:id))
-      old_saved_templates = Template.where(family_id: template_json[:family_id],
-                                    version: template_json[:version])
+      old_saved_templates = Template.where(family_id: template_json[:family_id], version: template_json[:version])
 
-      if old_saved_templates.length
+      if old_saved_templates.length > 0
         t = Template.where(family_id: template_json[:family_id])
                     .order(:version).last
         template[:version] = t[:version] + 1
