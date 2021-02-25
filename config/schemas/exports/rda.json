@@ -1,0 +1,158 @@
+{
+    "created": "$.meta.creationDate",
+    "description": "$.meta.description",
+    "dmp_id": {
+        "identifier": "$.meta.dmpId",
+        "type": "$.meta.idType"
+    },
+    "ethical_issues_exist": "$.researchOutput.researchOutputDescription.hasEthicalIssues",
+    "ethical_issues_description": "$.researchOutput.ethicalIssues.description",
+    "ethical_issues_report": "$.researchOutput.ethicalIssues.resourceReference.docIdentifier",
+    "language": "$.meta.dmpLanguage",
+    "modified": "$.meta.lastModifiedDate",
+    "title": "$.meta.title",
+    "contact": {
+        "contact_id": {
+            "identifier": "$.meta.contact.person.personId",
+            "type": "$.meta.contact.person.IdType"
+        },
+        "mbox": "$.meta.contact.person.mbox",
+        "name": [
+            "$.meta.contact.person.firstName",
+            " ",
+            "$.meta.contact.person.lastName"
+        ]
+    },
+    "contributor": {
+        "type": "array",
+        "classname": "contributor",
+
+        "items": {
+            "contributor_id": {
+                "identifier": "$.person.personId",
+                "type": "$.person.IdType"
+            },
+            "mbox": "$.person.mbox",
+            "name": [
+                "$.person.firstName",
+                " ",
+                "$.person.lastName"
+            ],
+            "role": "$.role"
+        }
+    },
+    "cost": {
+        "type": "array",
+        "classname": "cost",
+
+        "items": {
+            "currency_code": "$.currency",
+            "description": "$.description",
+            "title": "$.title",
+            "value": "$.amount"
+        }
+    },
+    "project": {
+        "description": "$.project.description",
+        "end": "$.project.endDate",
+        "funding": {
+            "type": "array",
+            "path": "$.project.funding",
+
+            "items": {
+                "funder_id": {
+                    "identifier": "$.funder.funderId",
+                    "type": "$.funder.IdType"
+                },
+                "funding_status": "$.fundingStatus",
+                "grant_id": {
+                    "identifier": "$.grantId",
+                    "type": "None"
+                }
+            }
+        },
+        "start": "$.project.startDate",
+        "title": "$.project.title"
+    },
+    "dataset": {
+        "type": "array",
+        "path": "$.researchOutput",
+
+        "items": {
+            "data_quality_assurance": [
+                "$.qualityAssuranceMethod",
+                " ",
+                "$.documentationQuality.description"
+            ],
+            "dataset_id": {
+                "identifier": "$.researchOutputDescription.datasetId",
+                "type": "$.researchOutputDescription.IdType"
+            },
+            "description": "$.researchOutputDescription.description",
+            "issued": "$.sharing.distribution.releaseDate",
+            "controlledKeyword": "$.researchOutputDescription.controlledKeyword",
+            "keyword": "$.researchOutputDescription.keyword",
+            "language": "$.researchOutputDescription.language",
+            "personal_data": "$.researchOutputDescription.containsPersonalData",
+            "preservation_statement": "$.preservationIssues.description",
+            "title": "$.researchOutputDescription.title",
+            "type": "$.researchOutputDescription.type",
+            "sensitive_data": "$.researchOutputDescription.containsSensitiveData",
+            "distribution": {
+                "type": "array",
+                "path": "$.sharing.distribution",
+
+                "items": {
+                    "access_url": "$.accessUrl",
+                    "available_until": "$.availableUntil",
+                    "byte_size": "$.fileVolume",
+                    "data_access": "$.dataAccess",
+                    "description": "$.description",
+                    "download_url": "$.downloadUrl",
+                    "format": "$.fileFormat",
+                    "title": "$.fileName"
+                },
+                "host": "$.sharing.host"
+            },
+            "metadata": {
+                "type": "array",
+                "path": "$.documentationQuality.metadataStandard",
+
+                "items": {
+                    "description": [
+                        "$.name",
+                        " ",
+                        "$.description"
+                    ],
+                    "language": "$.metadataLanguage",
+                    "metadata_standard_id": {
+                        "identifier": "$.metadataStandardId",
+                        "type": "$.IdType"
+                    }
+                }
+            },
+            "security_and_privacy": {
+                "description": "$.dataStorage.securityMeasures",
+                "title": "Security measures"
+            },
+            "technical_resource": {
+                "description": "$.sharing.host.description",
+                "name": "",
+                "availability": "$.sharing.host.availability",
+                "backup_frequency": "None",
+                "backup_type": "None",
+                "certified_with": "$.sharing.host.certification",
+                "geo_location": "$.sharing.host.geoLocation",
+                "pid_system": "$.sharing.host.pidSystem",
+                "storage_type": "None",
+                "support_versioning": "$.sharing.host.hasVersioningPolicy",
+                "title": "$.sharing.host.title",
+                "url": "$.sharing.host.technicalResourceId",
+                "license": {
+                    "license_ref": "$.sharing.distribution.license.licenseUrl",
+                    "start_date": "$.sharing.distribution.licenseStartDate"
+                }
+            }
+        }
+    }
+}

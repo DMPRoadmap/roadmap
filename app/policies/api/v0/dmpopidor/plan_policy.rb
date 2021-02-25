@@ -1,20 +1,23 @@
-module Api
-  module V0
-    module Dmpopidor
-      class PlanPolicy < ApplicationPolicy
-        attr_reader :user
-        attr_reader :plan
+# frozen_string_literal: true
 
-        def initialize(user, plan)
-          raise Pundit::NotAuthorizedError, _("must be logged in") unless user
-          @user     = user
-          @plan = plan
-        end
+class Api::V0::Dmpopidor::PlanPolicy < ApplicationPolicy
 
-        def show?
-          @plan.readable_by?(@user.id)
-        end
-      end 
-    end
+  attr_reader :user
+  attr_reader :plan
+
+  def initialize(user, plan)
+    raise Pundit::NotAuthorizedError, _("must be logged in") unless user
+
+    @user = user
+    @plan = plan
   end
+
+  def show?
+    @plan.readable_by?(@user.id)
+  end
+
+  def rda_export?
+    @plan.readable_by?(@user.id)
+  end
+
 end
