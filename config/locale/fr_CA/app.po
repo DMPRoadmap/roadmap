@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-02-12 15:15-0700\n"
-"PO-Revision-Date: 2021-02-12 23:15+0100\n"
+"POT-Creation-Date: 2021-02-24 11:10-0700\n"
+"PO-Revision-Date: 2021-02-24 19:10+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_CA\n"
@@ -122,6 +122,9 @@ msgstr ""
 msgid "Dalhousie University Generic Plan"
 msgstr ""
 
+msgid "UG Alliance/Food from Thought 2021"
+msgstr ""
+
 msgid "Test Fanshawe Template"
 msgstr ""
 
@@ -226,6 +229,11 @@ msgid ""
 "ns) projects.&nbsp;</p>"
 msgstr ""
 
+msgid ""
+"<p>This template will be used for DMP development by research projects funded "
+"by the Alliance and Food from Thought. Anticipated launch March 2021.</p>"
+msgstr ""
+
 msgid "<p>This is a test template.</p>"
 msgstr ""
 
@@ -250,6 +258,42 @@ msgid "<p>DMP Assistant template for VIU.</p>"
 msgstr ""
 
 msgid "<p>A DMP template for the Canadian Ocean Observing System (CIOOS).</p>"
+msgstr ""
+
+msgid "DMP Questionnaire"
+msgstr ""
+
+msgid "University of Guelph Agri-Food Funding DMP (Alliance/Food from Thought)  "
+msgstr ""
+
+msgid "Data management questions"
+msgstr ""
+
+msgid "York U Data Management Questions"
+msgstr ""
+
+msgid "MUN Data Management Questions"
+msgstr ""
+
+msgid "OFI Module E DMP"
+msgstr ""
+
+msgid "Dalhousie University"
+msgstr ""
+
+msgid "TITLE"
+msgstr ""
+
+msgid "Alliance/Food from Thought DMP creation"
+msgstr ""
+
+msgid "Test DMP Questions"
+msgstr ""
+
+msgid "Phase 1 (test)"
+msgstr ""
+
+msgid "Initial GWF DMP"
 msgstr ""
 
 msgid "University of Alberta Data Management Questions"
@@ -277,42 +321,6 @@ msgid "Oceans Data Management Plan"
 msgstr ""
 
 msgid "University of Manitoba Data Management Questions"
-msgstr ""
-
-msgid "DMP Questionnaire"
-msgstr ""
-
-msgid "University of Guelph Agri-Food Funding DMP (Alliance/Food from Thought)  "
-msgstr ""
-
-msgid "Data management questions"
-msgstr ""
-
-msgid "York U Data Management Questions"
-msgstr ""
-
-msgid "MUN Data Management Questions"
-msgstr ""
-
-msgid "OFI Module E DMP"
-msgstr ""
-
-msgid "Dalhousie University"
-msgstr ""
-
-msgid "TITLE"
-msgstr ""
-
-msgid "Test DMP Questions"
-msgstr ""
-
-msgid "Phase 1 (test)"
-msgstr ""
-
-msgid "Initial GWF DMP"
-msgstr ""
-
-msgid "Questions du modèle Portage"
 msgstr ""
 
 msgid "Phase 2"
@@ -365,13 +373,16 @@ msgid ""
 " from external organizations and are for information only.&nbsp;</p>"
 msgstr ""
 
+msgid ""
+"<p>This is the template to use when initially developing a DMP as a requiremen"
+"t for Alliance and Food from Thought funding. Note that mplementation of your "
+"DMP will be reported on in the final report for the project.</p>"
+msgstr ""
+
 msgid "<p>Just testing adding a phase</p>"
 msgstr ""
 
 msgid "<p>This is the initial phase DMP</p>"
-msgstr ""
-
-msgid "<p>moi question</p>"
 msgstr ""
 
 msgid "<p>another test</p>"
@@ -431,6 +442,12 @@ msgstr ""
 msgid "Data Collection, Processing and Methodology"
 msgstr ""
 
+msgid "Ethics and legal compliance"
+msgstr ""
+
+msgid "Storage and backup"
+msgstr ""
+
 msgid "Selection and Preservation"
 msgstr ""
 
@@ -479,6 +496,9 @@ msgstr "Responsabilités et ressources"
 msgid "Conformité aux lois et à l'éthique"
 msgstr "Conformité aux lois et à l'éthique"
 
+msgid "Data collection"
+msgstr ""
+
 msgid "Restrictions"
 msgstr ""
 
@@ -494,6 +514,9 @@ msgstr ""
 msgid "Conformités aux lois et à l’éthique"
 msgstr ""
 
+msgid "Sharing and reuse"
+msgstr ""
+
 msgid "Administration Details"
 msgstr ""
 
@@ -501,6 +524,12 @@ msgid "Data Documentation and Metadata"
 msgstr ""
 
 msgid "Preservation and FAIR Data Sharing"
+msgstr ""
+
+msgid "Data storage"
+msgstr ""
+
+msgid "Restrictions/limitations"
 msgstr ""
 
 msgid "Section 2 testing"
@@ -809,29 +838,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"<p>This section addresses data collection issues such as data types, file form"
-"ats, naming conventions, and data organizaion - factors that will improve the "
-"usability of your data and contribute to the success of your project.</p>"
-msgstr ""
-
-msgid ""
-"<p>Data preservation will depend on potential reuse value, whether there are o"
-"bligations to either retain or destroy data, and the resources required to pro"
-"perly curate the data and ensure that it remains usable in the future. In some"
-" circumstances, it may be desirable to preserve all versions of the data (e.g."
-" raw, processed, analyzed, final), but in others, it may be preferable to keep"
-" only selected or final data (e.g. transcripts instead of audio interviews).</"
-"p>\n"
-"<p>The Alliance and FfT initiative are committed to supporting the sharing and"
-" reuse of data to facilitate new agri-food and rural research. Note: Food from"
-" Thought researchers must ensure that any data related to publications be subm"
-"itted to the Agri-Environmental Research Data Repository in addition to any ot"
-"her long-term storage method they are utilizing. Researchers are encouraged to"
-" deposit all digital research data, metadata and code that directly support th"
-"e research conclusions in journal publications, pre-prints, and other research"
-" outputs in a recognized data repository. Researchers are encouraged to provid"
-"e public access to the data deposited where ethical, legal, and commercial req"
-"uirements allow.</p>"
+"<p>This section addresses data collection considerations to ensure that your d"
+"ata is safely and securely stored and efficiently managed.</p>"
 msgstr ""
 
 msgid ""
@@ -1041,7 +1049,36 @@ msgid ""
 " obtain approved access to the data, where possible.</p>"
 msgstr ""
 
+msgid "<p>The questions in this section will specify what data will be collected.</p>"
+msgstr ""
+
+msgid ""
+"<p>The questions in this section will specify the plans for storage of the dat"
+"a during the life of the project.</p>"
+msgstr ""
+
+msgid ""
+"<p>The questions in this section will address how the data will be preserved a"
+"fter completion of the project.</p>"
+msgstr ""
+
+msgid ""
+"<p>Questions in this section will indicate whether and how the data will be ma"
+"de available to other researchers.</p>"
+msgstr ""
+
+msgid ""
+"<p>Questions in this section will address any restrictions or limitations on h"
+"ow the data can be shared or used.</p>"
+msgstr ""
+
 msgid "<p>Will this save?</p>"
+msgstr ""
+
+msgid ""
+"<p>This section addresses data collection issues such as data types, file form"
+"ats, naming conventions, and data organizaion - factors that will improve the "
+"usability of your data and contribute to the success of your project.</p>"
 msgstr ""
 
 msgid "<p>Project Information</p>"
@@ -1490,6 +1527,29 @@ msgid ""
 "s be responsible for?"
 msgstr ""
 
+msgid ""
+"Provide an overview of the data that will be generated, collected or acquired "
+"from third-party sources to support this project."
+msgstr ""
+
+msgid "Estimate the size of data storage that will be required. "
+msgstr ""
+
+msgid ""
+"Will you use the UG data repository for long-term preservation of your data? I"
+"f not, why not? Where will your data be preserved if not in the UG repository?"
+msgstr ""
+
+msgid ""
+"Will you use the UG data repository for sharing of your data? If not, why not?"
+" Will you use a different repository for sharing your data?"
+msgstr ""
+
+msgid ""
+"Are there limitations or constraints on how you manage your data resulting fro"
+"m legal, ethical or intellectual property concerns? "
+msgstr ""
+
 msgid "Question 1"
 msgstr ""
 
@@ -1638,6 +1698,11 @@ msgid ""
 msgstr ""
 "Le cas échéant, quelles stratégies adopterez-vous pour traiter les utilisation"
 "s secondaires des données sensibles?"
+
+msgid ""
+"What file formats will your data be collected? Will these formats allow for da"
+"ta re-use, sharing and long-term access to the data?"
+msgstr ""
 
 msgid ""
 "How will you make sure that documentation is created or captured consistently "
@@ -1940,6 +2005,27 @@ msgstr ""
 msgid ""
 "How and where will your data be stored and backed up during the active project"
 " life cycle? Specifically, comment on practices, hardware and software."
+msgstr ""
+
+msgid "What method(s) of data collection will be employed?"
+msgstr ""
+
+msgid ""
+"Where will your data be stored during the collection, collation and analysis p"
+"hases of the project? "
+msgstr ""
+
+msgid ""
+"Discuss any data transformations that will be needed so your data is preserved"
+" in appropriate, non-proprietary formats."
+msgstr ""
+
+msgid "Explain which version of your data or subset of your data will be shared."
+msgstr ""
+
+msgid ""
+"Would your data need to be anonymized or de-identified before being shared wit"
+"h others?"
 msgstr ""
 
 msgid ""
@@ -2347,6 +2433,22 @@ msgid ""
 "Note"
 msgstr ""
 
+msgid "If data will be acquired from a third party, specify the source."
+msgstr ""
+
+msgid "What backup strategy will be employed?"
+msgstr ""
+
+msgid ""
+"If some of your data will not be preserved, how will you manage it? Will the n"
+"on-preserved data be destroyed?"
+msgstr ""
+
+msgid ""
+"When will your data be available for discovery by other researchers? Will you "
+"impose an embargo on publication of your data?"
+msgstr ""
+
 msgid ""
 "How much data do you anticipate collecting?  Include an estimate of how much s"
 "torage space you will require (in megabytes, gigabytes, terabytes).  This esti"
@@ -2484,6 +2586,19 @@ msgid ""
 "hat archive require in terms of storage type, space, and maintenance?"
 msgstr ""
 
+msgid "What types of data will be included? "
+msgstr ""
+
+msgid ""
+"How will your data files be organized? What file naming conventions will you u"
+"se? A brief overview or example would be adequate.  "
+msgstr ""
+
+msgid ""
+"Will you limit who can access your data? If so, who will that be and why are y"
+"ou limiting the data's reuse?"
+msgstr ""
+
 msgid ""
 "Are there are any existing data that you can re-use?  If so, please explain ho"
 "w you will obtain that data and integrate it into your research project."
@@ -2559,6 +2674,18 @@ msgid ""
 "l node (Atlantic, Pacific, St. Lawrence) you intended to submit. "
 msgstr ""
 
+msgid "What software or digital formats will be used to collect and manage the data?"
+msgstr ""
+
+msgid ""
+"What metadata will be developed for your data? Will there be supplemental docu"
+"mentation prepared to assist with the interpretation and analysis of your data"
+"?"
+msgstr ""
+
+msgid "Are there specific license terms you will assign to users of your data?"
+msgstr ""
+
 msgid ""
 "What conventions and procedures will you use to structure, name and version co"
 "ntrol your files to ensure that your data is well-organized?\n"
@@ -2602,6 +2729,9 @@ msgid ""
 msgstr ""
 
 msgid "What metadata catalog(s) will host your metadata (if different than above)?  "
+msgstr ""
+
+msgid "Provide an indication of the scope of the data?"
 msgstr ""
 
 msgid ""
@@ -4224,12 +4354,12 @@ msgid ""
 "ry-standard formats (e.g. those widely used by a given community) is preferred"
 " whenever possible.</span></p>\n"
 "<p><span style=\"font-weight: 400;\">Read more about file formats: </span><a hre"
-"f=\"http://researchdata.library.ubc.ca/plan/format-your-data/\" target=\"_blank\">"
-"<span style=\"font-weight: 400;\">UBC Library Research Data Website</span></a><s"
-"pan style=\"font-weight: 400;\"> or </span><a href=\"http://data-archive.ac.uk/cr"
-"eate-manage/format/formats\" target=\"_blank\"><span style=\"font-weight: 400;\">UK"
-" Data Archive</span></a><span style=\"font-weight: 400;\">. </span><strong><br /"
-"><br /></strong></p>"
+"f=\"http://researchdata.library.ubc.ca/plan/format-your-data/\" target=\"_blank\" "
+"rel=\"noopener\"><span style=\"font-weight: 400;\">UBC Library Research Data Websi"
+"te</span></a><span style=\"font-weight: 400;\"> or </span><a href=\"https://www.u"
+"kdataservice.ac.uk/manage-data/format/file-formats.aspx\" target=\"_blank\" rel=\""
+"noopener\"><span style=\"font-weight: 400;\">UK Data Archive</span></a><span styl"
+"e=\"font-weight: 400;\">. </span><strong><br /><br /></strong></p>"
 msgstr ""
 
 msgid ""
@@ -4244,14 +4374,15 @@ msgid ""
 "rs and/or on different media.</span><span style=\"font-weight: 400;\"> &nbsp;</s"
 "pan><span style=\"font-weight: 400;\">Read more about file naming and version co"
 "ntrol: </span><a href=\"http://researchdata.library.ubc.ca/plan/organize-your-d"
-"ata/\" target=\"_blank\"><span style=\"font-weight: 400;\">UBC Library Research Dat"
-"a Website</span></a> <span style=\"font-weight: 400;\">or </span><a href=\"http:/"
-"/www.data-archive.ac.uk/create-manage/format/versions\" target=\"_blank\"><span s"
-"tyle=\"font-weight: 400;\">UK Data Archive</span></a><span style=\"font-weight: 4"
-"00;\">.<br /></span><span style=\"font-weight: 400;\"><br /></span><span style=\"f"
-"ont-weight: 400;\"><a href=\"https://dataverse.scholarsportal.info/dataverse/ubc"
-"\" target=\"_blank\">UBC Dataverse</a>&nbsp;@Scholars Portal&nbsp;software can he"
-"lp with version control of your files.</span></p>"
+"ata/\" target=\"_blank\" rel=\"noopener\"><span style=\"font-weight: 400;\">UBC Libra"
+"ry Research Data Website</span></a> <span style=\"font-weight: 400;\">or </span>"
+"<a href=\"https://www.ukdataservice.ac.uk/manage-data/format/versioning.aspx\" t"
+"arget=\"_blank\" rel=\"noopener\"><span style=\"font-weight: 400;\">UK Data Archive<"
+"/span></a><span style=\"font-weight: 400;\">.<br /></span><span style=\"font-weig"
+"ht: 400;\"><br /></span><span style=\"font-weight: 400;\"><a href=\"https://datave"
+"rse.scholarsportal.info/dataverse/ubc\" target=\"_blank\" rel=\"noopener\">UBC Data"
+"verse</a>&nbsp;@Scholars Portal&nbsp;software can help with version control of"
+" your files.</span></p>"
 msgstr ""
 
 msgid ""
@@ -4335,13 +4466,16 @@ msgid ""
 "<p>&nbsp; Using software which automatically backs up your data and keeps it s"
 "ynchronized with a master copy is recommended. Copies of data should ideally b"
 "e stored in separate physical locations to mitigate physical risks, e.g. fire."
-"<br /><br />See more about UBC data storage at the UBC Library<a href=\"http://"
-"researchdata.library.ubc.ca/plan/store-and-back-up-your-data/\" target=\"_blank\""
-"> Research Data Website </a>(e.g. Westgrid and UBC Storage Grid)<br /><br />UB"
-"C Library also offers <a href=\"https://dataverse.scholarsportal.info/dataverse"
-"/ubc\" target=\"_blank\">UBC Dataverse</a>&nbsp;@Scholars Portal&nbsp;for managin"
-"g and sharing datasets. For assistance with Dataverse, please contact <a href="
-"\"mailto:research.data@ubc.ca\" target=\"_blank\">research.data@ubc.ca</a></p>"
+"<br /><br />Learn more about <a href=\"https://it.ubc.ca/sites/it.ubc.ca/files/"
+"UBC%20Online%20Storage%20Solutions%20-%20Features%20Comparison%20Chart.pdf\" ta"
+"rget=\"_blank\" rel=\"noopener\">UBC data storage solutions</a> from UBC IT at fro"
+"m the UBC Library<a href=\"http://researchdata.library.ubc.ca/plan/store-and-ba"
+"ck-up-your-data/\" target=\"_blank\" rel=\"noopener\"> Research Data Website </a>.<"
+"br /><br />UBC Library also offers <a href=\"https://dataverse.scholarsportal.i"
+"nfo/dataverse/ubc\" target=\"_blank\" rel=\"noopener\">UBC Dataverse</a>&nbsp;@Scho"
+"lars Portal&nbsp;for managing and sharing datasets. For assistance with Datave"
+"rse, please contact <a href=\"mailto:research.data@ubc.ca\" target=\"_blank\" rel="
+"\"noopener\">research.data@ubc.ca</a></p>"
 msgstr ""
 
 msgid ""
@@ -4407,10 +4541,10 @@ msgid ""
 " some manipulation of the raw data in order to eliminate errors or outliers, t"
 "o prepare the data for analysis, to derive new variables, or to de-identify th"
 "e human participants</span><span style=\"font-weight: 400;\">.</span></p>\n"
-"<p><strong>Analyzed data</strong><span style=\"font-weight: 400;\"> are the the "
-"results of qualitative, statistical, or mathematical analysis of the processed"
-" data. They can be presented as &nbsp;graphs, charts or statistical tables.</s"
-"pan></p>\n"
+"<p><strong>Analyzed data</strong><span style=\"font-weight: 400;\"> are the resu"
+"lts of qualitative, statistical, or mathematical analysis of the processed dat"
+"a. They can be presented as &nbsp;graphs, charts or statistical tables.</span>"
+"</p>\n"
 "<p><strong>Final data</strong><span style=\"font-weight: 400;\"> are processed d"
 "ata that have, if needed, been converted into a preservation-friendly format.<"
 "/span></p>\n"
@@ -4525,18 +4659,18 @@ msgid ""
 "ent agreements, or concerns about Intellectual Property Rights, among others. "
 "In some instances, an embargo period may be justified; these may be defined by"
 " a funding agency&rsquo;s policy on research data.</span></p>\n"
-"<p><span style=\"font-weight: 400;\">&nbsp;Sharing sensitive data via email and "
-"cloud storage services such as Dropbox is not recommended, since the security "
-"of these services cannot be trusted. Read more about security at the UBC Libra"
-"ry</span><a href=\"http://researchdata.library.ubc.ca/plan/protect-your-data/\" "
-"target=\"_blank\"> <span style=\"font-weight: 400;\">Research Data Website</span><"
-"/a></p>\n"
+"<p><span style=\"font-weight: 400;\">Sharing sensitive data via email and cloud "
+"storage services such as Dropbox is not recommended, since the security of the"
+"se services cannot be trusted. Read more about security at the UBC Library</sp"
+"an><a href=\"http://researchdata.library.ubc.ca/plan/protect-your-data/\" target"
+"=\"_blank\" rel=\"noopener\"> <span style=\"font-weight: 400;\">Research Data Websit"
+"e</span></a></p>\n"
 "<p><span style=\"font-weight: 400;\">Restrictions can be imposed by limiting phy"
 "sical access to storage devices, by placing data on computers that do not have"
 " external network access (i.e. access to the Internet), through password prote"
 "ction, and by </span><a href=\"https://it.ubc.ca/services/security/encryption-s"
-"ervices\" target=\"_blank\"><span style=\"font-weight: 400;\">encrypting </span></a"
-"><span style=\"font-weight: 400;\">files. </span></p>"
+"ervices\" target=\"_blank\" rel=\"noopener\"><span style=\"font-weight: 400;\">encryp"
+"ting </span></a><span style=\"font-weight: 400;\">files. </span></p>"
 msgstr ""
 
 msgid ""
@@ -4593,7 +4727,9 @@ msgid ""
 "<p>If paying for an external hosting service, you will need to keep paying for"
 " it, or have some migration plan (e.g., depositing the data into a university "
 "repository). <a href=\"https://www.sfu.ca/itservices/collaboration/sfu-vault.ht"
-"ml\" target=\"_blank\">SFU Vault</a>&nbsp;may be an option for some projects.</p>"
+"ml\" target=\"_blank\" rel=\"noopener\">SFU Vault</a> or services like <a href=\"htt"
+"ps://www.sync.com/\" target=\"_blank\" rel=\"noopener\">Sync</a> may be an option f"
+"or some projects.</p>"
 msgstr ""
 
 msgid ""
@@ -4651,9 +4787,9 @@ msgid ""
 msgstr ""
 
 msgid ""
-"<p>Consider contacting <a href=\"mailto:data-services@sfu.ca\" target=\"_blank\">S"
-"FU Data Services</a> to develop the best solution for your research project.</"
-"p>"
+"<p>Consider contacting <a href=\"mailto:data-services@sfu.ca\" target=\"_blank\" r"
+"el=\"noopener\">SFU Library Data Services</a> to develop the best solution for y"
+"our research project.</p>"
 msgstr ""
 
 msgid ""
@@ -4676,23 +4812,23 @@ msgid ""
 msgstr ""
 
 msgid ""
-"<p>There are various creative commons licenses available to users of SFU's Res"
-"earch Data Repository <a href=\"https://researchdata.sfu.ca/\" target=\"_blank\">R"
-"adar</a>. <a href=\"http://www.lib.sfu.ca/help/academic-integrity/copyright/aut"
-"hors/data-copyright\" target=\"_blank\">Learn more about data &amp; copyright at "
-"SFU</a>.</p>"
+"<p>There are various creative commons licenses which can be applied to data. <"
+"a href=\"http://www.lib.sfu.ca/help/academic-integrity/copyright/authors/data-c"
+"opyright\" target=\"_blank\" rel=\"noopener\">Learn more about data &amp; copyright"
+" at SFU</a>.</p>"
 msgstr ""
 
 msgid ""
-"<p>If possible, choose a repository like <a href=\"https://researchdata.sfu.ca/"
-"\" target=\"_blank\">SFU Radar</a> that will assign a persistent identifier (such"
+"<p>If possible, choose a repository like the Canadian Federated Research Data "
+"Repository, <a href=\"https://www.frdr-dfdr.ca/repo/\" target=\"_blank\" rel=\"noop"
+"ener\">FRDR</a> for short,&nbsp; that will assign a persistent identifier (such"
 " as a DOI) to your dataset. This will ensure a stable access to the dataset an"
 "d make it retrievable by various discovery tools. <a href=\"https://search.data"
-"cite.org/\" target=\"_blank\">DataCite Search</a>&nbsp;is a discovery portal for "
-"research data. If you deposit in SFU Radar or a repository indexed in the <a h"
-"ref=\"http://www.re3data.org/\" target=\"_blank\">Registry of Research Data Reposi"
-"tories</a>, your records will appear in the portal's keyword search results.</"
-"p>"
+"cite.org/\" target=\"_blank\" rel=\"noopener\">DataCite Search</a>&nbsp;is a discov"
+"ery portal for research data. If you deposit in SFU Radar or a repository inde"
+"xed in the <a href=\"http://www.re3data.org/\" target=\"_blank\" rel=\"noopener\">Re"
+"gistry of Research Data Repositories</a>, your records will appear in the port"
+"al's keyword search results.</p>"
 msgstr ""
 
 msgid ""
@@ -4916,6 +5052,12 @@ msgstr ""
 msgid ""
 "<p>How will the research team and other collaborators access, modify, and cont"
 "ribute data throughout the project? (e.g. CanWIN, FTP site). Who will organize"
+" distribution and update metadata/datasets?</p>"
+msgstr ""
+
+msgid ""
+"<p>How will the research team and other collaborators access, modify, and cont"
+"ribute data throughout the project? (e.g. CanWIN, ftp site). Who will organize"
 " distribution and update metadata/datasets?</p>"
 msgstr ""
 
@@ -5780,6 +5922,11 @@ msgid "<p>&nbsp;What do you estimate the overall cost for data management to be?
 msgstr ""
 
 msgid ""
+"<p>Examples: Images, audio, video, text, tabular data, modeling data, spatial "
+"data, instrumentation data</p>"
+msgstr ""
+
+msgid ""
 "<p>Considering answering the following questions: Where did the existing datas"
 "et(s) from from? Is that data published or publicly available? Will the projec"
 "t use contracted datasets (data from external sources?)&nbsp; If yes, will you"
@@ -6404,27 +6551,28 @@ msgstr ""
 "R.</span></p>"
 
 msgid ""
-"<p>Give a brief description of the project data, including data to be collecte"
-"d, any pre-existing data or third-party data sources. List the data types that"
-" will be collected and the formats used during the project.</p>\n"
-"<p>Estimate the projected size (volume) of the data to be collected and/or gen"
-"erated (in MB/GB/TB).</p>\n"
-"<p>Determine the level of sensitivity of the data collected/acquired.</p>\n"
-"<p>Provide details outlining how appropriate storage space and security measur"
-"es will be put into place.</p>\n"
+"<p>Give a brief description of the project data including data to be generated"
+", collected, or acquired from third-party sources.</p>\n"
+"<p>List the data types (e.g. numeric) that will be collected and the formats ("
+"e.g. Excel) that will be used during the project.</p>\n"
+"<p>Estimate the size (storage space in MB/GB/TB) of the data that will be incl"
+"uded in this study.</p>\n"
+"<p>Provide a sense of the scope of the study (e.g. number of subjects or sites"
+")</p>\n"
+"<p>Indicate where the data will be stored. It is recommended that more than on"
+"e storage solution be used. Detail security measures that will protect that da"
+"ta throughout the project.</p>\n"
 "<p>Provide details of how project files will be organized to ensure usability "
-"and findability.</p>\n"
-"<p>---------------------------------------------------------------------------"
-"------------------</p>\n"
-"<p>See <a href=\"https://www.uoguelph.ca/ccs/infosec/policies_and_procedures\" t"
-"arget=\"_blank\" rel=\"noopener\">CCS Information Security Policies</a> for guidel"
-"ines and policies on research data collection, storage, and handling.</p>\n"
-"<p>CCS offers a secondary storage service for the storage of large amounts of "
-"data that change infrequently. See <a href=\"https://www.uoguelph.ca/ccs/servic"
-"e/secondary-storage-service\" target=\"_blank\" rel=\"noopener\">CCS Secondary Stor"
-"age</a> for service information and pricing.</p>\n"
-"<p>For more information or help contact <a href=\"mailto:lib.research@uoguelph."
-"ca\" target=\"_blank\" rel=\"noopener\">the Library</a></p>"
+"and findability. Give some consideration to how folders and files will be name"
+"d for consistency and lack of ambiguity.</p>\n"
+"<p>Indicate what metadata and/or documentation will be developed to accompany "
+"your data files.</p>\n"
+"<p>Checklist of points to cover in your response:</p>\n"
+"<p>&bull; overview of data *<br />&bull; source of data<br />&bull; data types"
+"<br />&bull; file formats *<br />&bull; size<br />&bull; scope<br />&bull; sto"
+"rage location *<br />&bull; backup<br />&bull; data organization<br />&bull; n"
+"aming conventions<br />&bull; metadata, documentation</p>\n"
+"<p>* Items with an asterisk are essential for an acceptable DMP</p>"
 msgstr ""
 
 msgid ""
@@ -6438,7 +6586,7 @@ msgid ""
 "<p>For researchers opting to preserve their data in the local U of G data repo"
 "sitories, the following language could be copied into the preservation section"
 " of the plan:</p>\n"
-"<p><em>&ldquo;(Raw, processed, analyzed or final) _____ data from this project"
+"<p>&ldquo;<em>(Raw, processed, analyzed or final) _____ data from this project"
 " will be deposited into the Agri-environmental Research Data Repository (<a hr"
 "ef=\"https://dataverse.scholarsportal.info/dataverse/ugardr\" target=\"_blank\" re"
 "l=\"noopener\">https://dataverse.scholarsportal.info/dataverse/ugardr</a>) along"
@@ -6450,130 +6598,68 @@ msgid ""
 "t identifier) which can be used in reporting, sharing, publishing and journal "
 "submissions to provide a permanent link to the location of the data. The PI wi"
 "ll determine the level of access available to users and the conditions under w"
-"hich the data can be used by third parties.&rdquo;</em></p>\n"
+"hich the data can be used by third parties.</em>&rdquo;</p>\n"
 "<p>NOTE: Food from Thought researchers must submit any data related to publica"
 "tions to this repository.</p>\n"
-"<p><em>-------------------------------------------------------------</em></p>"
-"\n"
-"<p>For assistance locating a suitable data repository or archive, contact <a h"
-"ref=\"mailto:lib.research@uoguelph.ca\" target=\"_blank\" rel=\"noopener\">McLaughli"
-"n Library</a>.</p>\n"
-"<p>When selecting an external repository, researchers should consider the foll"
-"owing: costs associated with deposit; limitation on size of data deposited; su"
-"pport; length of time data will be retained; terms and conditions; intellectua"
-"l property (IP) rights; long-term viability of repository; suitability of cont"
-"ent, presence of usage metrics; etc.</p>\n"
-"<p><a href=\"http://www.re3data.org/\" target=\"_blank\" rel=\"noopener\">re3data.or"
-"g</a>&nbsp;is an international directory of open data repositories. Verify tha"
-"t the data repository you select will provide a statement agreeing to the term"
-"s of deposit outlined in your Data Management Plan.</p>\n"
-"<p>The Library maintains two research data repositories, the&nbsp;<a href=\"htt"
-"ps://dataverse.scholarsportal.info/dataverse/ugardr\" target=\"_blank\" rel=\"noop"
-"ener\">Agri-environmental Research Data Repository</a>&nbsp;and the&nbsp;<a hre"
-"f=\"https://dataverse.scholarsportal.info/dataverse/ugrdr\" target=\"_blank\" rel="
-"\"noopener\">University of Guelph Research Data Repository</a>, where University"
-" of Guelph researchers can deposit their data through a facilitated process. T"
-"hese repositories are suitable for non-sensitive data. Contact&nbsp;<a href=\"m"
-"ailto:lib.research@uoguelph.ca\" target=\"_blank\" rel=\"noopener\">the Library</a>"
-" for details or to set up data deposits.</p>"
+"<p>Checklist of points to cover in your response:</p>\n"
+"<p>&bull; repository identified *<br />&bull; which data will be preserved<br "
+"/>&bull; plan for non-preserved data; destruction?</p>\n"
+"<p>* Items with an asterisk are essential for an acceptable DMP</p>"
 msgstr ""
 
 msgid ""
-"<p>Identify steps required to preserve or share your data. Data should be anon"
-"ymous, error-free, and converted to recommended formats.</p>\n"
-"<p>Include documentation files, coding and script files or other material requ"
-"ired to replicate results.</p>\n"
-"<p><em>-----------------------------------------------------------------------"
-"--------------------------------------------------------------</em></p>\n"
-"<p>For more information visit:&nbsp;<u><a href=\"https://researchdata.library.u"
-"bc.ca/share/anonymize-and-de-identify/\" target=\"_blank\">UBC Library</a></u>&nb"
-"sp;;&nbsp;<u><a href=\"http://data-archive.ac.uk/create-manage/consent-ethics/a"
-"nonymisation\" target=\"_blank\">UK Data Archive</a>;</u> or&nbsp; <a href=\"https"
-"://www.lib.uoguelph.ca/get-assistance/maps-gis-data/research-data-management/p"
-"reserving-sharing-data\" target=\"_blank\">Preserving and Sharing</a></p>"
+"<p>If your data has been collected and managed in a proprietary format it shou"
+"ld be converted to plain text for preservation.</p>\n"
+"<p>Include documentation, coding and scripts or other material required to rep"
+"licate results.</p>\n"
+"<p>Include metadata to ensure your data can be interpreted and analyzed approp"
+"riately.</p>\n"
+"<p>Checklist of points to cover in your response:</p>\n"
+"<p>&bull; data transformation *<br />&bull; supporting documentation<br />&bul"
+"l; metadata</p>\n"
+"<p>* Items with an asterisk are essential for an acceptable DMP</p>"
 msgstr ""
 
 msgid ""
 "<p>Outline any restrictions to data handling, sharing and/or preservation as a"
-" result of ethical, legal, or commercial requirements or limitations.&nbsp;Sho"
-"w that you are aware of the issues and have planned accordingly.</p>\n"
+" result of ethical, legal, or commercial requirements or limitations. Show tha"
+"t you are aware of the issues and have planned accordingly.</p>\n"
 "<p>Details should include reference to specific requirements outlining the ent"
 "ity involved and the nature of the limitation (for example, restrictions on re"
 "use of third-party data). If an embargo is required due to publication or rese"
 "arch needs, provide details including length of time data will be restricted.<"
 "/p>\n"
-"<p>Sample language outlining 3<sup>rd</sup> party data restrictions: <em>&ldqu"
-"o;Data provided by [ENTITY NAME] under a licence agreement are subject to the "
-"following restrictions: [list restrictions &ndash; especially related to acces"
-"s or reuse].&rdquo;</em></p>\n"
-"<p>------------------------------------------</p>\n"
-"<p>For more information on the Alliance Agreement requirements, please contact"
-" Ontario Agri-Food Innovation Alliance <a href=\"https://www.uoguelph.ca/allian"
-"ce/about/contact-us\" target=\"_blank\">staff</a>.</p>\n"
-"<p>For more information on Food from Thought requirements, please contact FfT "
-"<a href=\"mailto:fft@uoguelph.ca\" target=\"_blank\">staff</a>.</p>\n"
-"<p>The University of Guelph's Office of Research offers guidance, training and"
-" resources related to&nbsp;<u><a href=\"http://www.uoguelph.ca/research/for-res"
-"earchers/ethics-and-regulatory-compliance\" target=\"_blank\">Ethics and Regulato"
-"ry Compliance</a></u>&nbsp;as well as&nbsp;<u><a href=\"http://www.uoguelph.ca/"
-"research/for-researchers/patenting-commercialization/ip-policy\" target=\"_blank"
-"\">Intellectual Property Policy</a></u>.</p>\n"
-"<p>Researchers should consult the&nbsp;<u><a href=\"http://www.pre.ethics.gc.ca"
-"/eng/policy-politique/initiatives/tcps2-eptc2/Default/\" target=\"_blank\">Tri-Co"
-"uncil Policy Statement: Ethical Conduct for Research Involving Humans (TCPS2)<"
-"/a></u>&nbsp;for information on ethical obligations.</p>\n"
-"<p>Please see&nbsp;<u><a href=\"https://www.lib.uoguelph.ca/get-assistance/maps"
-"-gis-data/research-data-management/training-support/sharing-reuse\" target=\"_bl"
-"ank\">Sharing &amp; Reuse</a></u>&nbsp;or contact&nbsp;<a href=\"mailto:lib.rese"
-"arch@uoguelph.ca\" target=\"_blank\">the Library</a> for more information.</p>\n"
-"<p>For assistance determining 3<sup>rd</sup> party data restrictions, contact "
-"the <a href=\"https://www.uoguelph.ca/research/innovation/people\" target=\"_blan"
-"k\">Research Innovation Office</a>.</p>\n"
-"<p>For information on data handling, CCS provides <a href=\"https://www.uoguelp"
-"h.ca/ccs/infosec/rdc\" target=\"_blank\">support documentation</a>.</p>"
+"<p>Checklist of points to cover in your response:</p>\n"
+"<p>&bull; details of restrictions or constraints *<br />&bull; need for embarg"
+"o</p>\n"
+"<p>* Items with an asterisk are essential for an acceptable DMP</p>"
 msgstr ""
 
 msgid ""
-"<p>Consider which data may need to be shared in order to meet institutional or"
-" funding requirements, and which data may be restricted because of confidentia"
-"lity/privacy/intellectual property considerations. Provide details.</p>"
+"<p>Explain whether you will be sharing all of your data or only a subset. Expl"
+"ain the reasons. Which version of the data will you share?</p>\n"
+"<p>Checklist of points to cover in your response:</p>\n"
+"<p>&bull; all data to be shared or subset identified *<br />&bull; version of "
+"data</p>\n"
+"<p>* Items with an asterisk are essential for an acceptable DMP</p>"
 msgstr ""
 
 msgid ""
-"<p>Outline how/when data generated during the research project will /will not "
-"be shared (subject to legal and ethical considerations).</p>\n"
-"<p>Describe factors affecting the decision. The type, complexity and sensitivi"
-"ty of the data could be determining factors.</p>\n"
-"<p>Outline any restrictions to access. Consider strategies to minimize restric"
-"tions on sharing (such as anonymizing or aggregating data).</p>\n"
+"<p>Explain whether you will be sharing your data through the UG data repositor"
+"y or an external data repository. Mention whether an embargo will need to be a"
+"pplied before your data is available for sharing.</p>\n"
+"<p>If your data will be shared in a more limited way (i.e. not openly availabl"
+"e to everyone) explain who will have access and why this limitation is necessa"
+"ry.</p>\n"
+"<p>If you are not able to share your data, please explain the constraints that"
+" prevent sharing.</p>\n"
 "<p>Consideration should be given to selecting an appropriate end-user license "
 "for the data. Note that only the intellectual property rights holder(s) can is"
-"sue a license.&nbsp;</p>\n"
-"<p>Sample language outlining data sharing post-article publication: &ldquo;<em"
-">The following data [list here] will be shared through the [name of repository"
-" &amp; link to location where data will reside] upon publication of our resear"
-"ch findings. Wherever possible, the data and the publication will be cross-ref"
-"erenced using stable links.&rdquo;</em></p>\n"
-"<p>-----------------------------------------------------------------</p>\n"
-"<p>The Library offers&nbsp;<u><a href=\"https://www.lib.uoguelph.ca/get-assista"
-"nce/maps-gis-data/research-data-management\" target=\"_blank\">Research Data Mana"
-"gement</a></u>&nbsp;services that support researchers with the dissemination a"
-"nd preservation of their research data.</p>\n"
-"<p>Data deposited in the&nbsp;<u><a href=\"https://dataverse.scholarsportal.inf"
-"o/dataverse/guelph\" target=\"_blank\">University of Guelph Research Data Reposit"
-"ories</a></u>&nbsp;are assigned a Digital Object Identifier (DOI) providing a "
-"persistent URL (link) to your data that can be used to cite, improve discovery"
-", track usage and measure the impact of your data. Repository content is fully"
-" indexed and searchable in search engines such as Google.</p>\n"
-"<p><em>Data to be shared post-publication of journal articles can be deposited"
-" into the repository at any time but not released until after journal publicat"
-"ion. A DOI for the data can be created and added to the manuscript before or d"
-"uring the journal peer-review process.</em></p>\n"
-"<p>See&nbsp;<u><a href=\"https://www.lib.uoguelph.ca/get-assistance/maps-gis-da"
-"ta/research-data-management/training-support/sharing-reuse\" target=\"_blank\">Sh"
-"aring &amp; Reuse - Conditions for Sharing</a></u>&nbsp;for more information o"
-"n licensing options or contact <a href=\"mailto:lib.research@uoguelph.ca\" targe"
-"t=\"_blank\">the Library</a>.</p>"
+"sue a license.</p>\n"
+"<p>Checklist of points to cover in your response:</p>\n"
+"<p>&bull; decision to share *<br />&bull; repository identified *<br />&bull; "
+"with whom (openly or selectively shared) *<br />&bull; licensing of data</p>\n"
+"<p>* Items with an asterisk are essential for an acceptable DMP</p>"
 msgstr ""
 
 msgid ""
@@ -8194,12 +8280,39 @@ msgid ""
 msgstr ""
 
 msgid ""
+"tabular data (continuous or otherwise) .csv, .txt, .xlsx; modelled data/output"
+"s as netCDF; geospatial data as shapefiles (.shp), grids (.tif); video / audio"
+" / photography stored as open-source formats, .jpg; text documents saved as .t"
+"xt, .doc, .pdf"
+msgstr ""
+
+msgid ""
+"the primary researcher (Student Jane) for this project will be responsible for"
+" managing the data collection and analysis under the supervision of the adviso"
+"r, Sue Ziegler.  Jane will prepare all tabular data for interpretation, and wi"
+"ll share her data with project collaborators via the networked NAS drive that "
+"is accessible for all project participants.  Sue will oversee all data QA/QC. "
+" Jane and Sara will prepare the DMP using the Portage DMP Assistant online; Su"
+"e will approve the DMP.  At the project completion, Jane will then work with p"
+"roject Data Manager, Sara Jenkins, to prepare the data and metadata for sharin"
+"g.  Sara will upload the metadata and data to identified repositories."
+msgstr ""
+
+msgid ""
 "<p>For example, consider if you will need local or cloud storage for your data"
 ", and costs associated with that. If you require specialized support or softwa"
 "re to manage your data, consider those costs. If your Module already has suppo"
 "rt in place, please indicate what/who in the space provided here. If this ques"
 "tion was addressed in your grant award, you may wish to reference that documen"
 "t.</p>"
+msgstr ""
+
+msgid ""
+"Researcher Jane is the primary author on products from this research; Jane wil"
+"l include co-authors Professor Sue and Professor Paul; other authors may be ad"
+"ded during project lifespan.  If Jane does not finish her PhD, Professor Sue w"
+"ill assume responsibility for Jane’s data and primary authorship on future res"
+"earch products"
 msgstr ""
 
 msgid ""
@@ -8323,6 +8436,181 @@ msgid ""
 "\">https://www.re3data.org/</a>.&nbsp; Some possible considerations may include"
 ": institutional repository, discipline appropriateness, public access, presenc"
 "e/absence of a pay wall, and ability to generate a DOI or ISBN.</p>"
+msgstr ""
+
+msgid "<p>Briefly explain how the data will inform your findings.</p>"
+msgstr ""
+
+msgid "e.g. surveys, field studies, lab experiments"
+msgstr ""
+
+msgid ""
+"numeric, text, images, audio, video, modeling data, spatial data, instrumentat"
+"ion data"
+msgstr ""
+
+msgid "e.g. Excel, database software"
+msgstr ""
+
+msgid "e.g. number of subjects or sites; number of iterations"
+msgstr ""
+
+msgid ""
+"<p>A rough estimate based on other data of similar scope would be adequate.</p"
+">"
+msgstr ""
+
+msgid "<p>We recommend more than one storage location.</p>"
+msgstr ""
+
+msgid ""
+"<p>See the Library's page for suggestions on organizing your files including f"
+"ile naming conventions:</p>\n"
+"<p><a href=\"https://www.lib.uoguelph.ca/scholarship-publishing/research-data-m"
+"anagement/organizing-your-files\" target=\"_blank\" rel=\"noopener\">Organizing You"
+"r Files</a></p>"
+msgstr ""
+
+msgid "The data will be freely and openly shared through the UG data repository."
+msgstr ""
+
+msgid ""
+"Sharing of the data will be limited to... (e.g. a subset of the data, the raw "
+"data only)"
+msgstr ""
+
+msgid "The data cannot be shared until... (e.g. after the study has been published.)"
+msgstr ""
+
+msgid ""
+"The data can only be shared with... (e.g. University of Guelph, researchers ap"
+"proved by the P.I.)"
+msgstr ""
+
+msgid ""
+"<p>Use the Creative Commons tool to easily create a license that meets your ne"
+"eds. <a href=\"https://creativecommons.org/share-your-work/\" target=\"_blank\" re"
+"l=\"noopener\">Creative Commons - Share your work</a></p>"
+msgstr ""
+
+msgid ""
+"The data cannot be shared due to... (e.g. privacy, intellectual property, comm"
+"ercialization)"
+msgstr ""
+
+msgid ""
+"The data will need to be de-identified before sharing. The version of the data"
+" containing confidential information will be destroyed."
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">Proprietary file formats requiring speciali"
+"zed software or hardware to use are not recommended, but may be necessary for "
+"certain data collection or analysis methods. Using open file formats or indust"
+"ry-standard formats (e.g. those widely used by a given community) is preferred"
+" whenever possible.</span></p>\n"
+"<p><span style=\"font-weight: 400;\">Read more about file formats: </span><a hre"
+"f=\"http://researchdata.library.ubc.ca/plan/format-your-data/\" target=\"_blank\">"
+"<span style=\"font-weight: 400;\">UBC Library Research Data Website</span></a><s"
+"pan style=\"font-weight: 400;\"> or </span><a href=\"http://data-archive.ac.uk/cr"
+"eate-manage/format/formats\" target=\"_blank\"><span style=\"font-weight: 400;\">UK"
+" Data Archive</span></a><span style=\"font-weight: 400;\">. </span><strong><br /"
+"><br /></strong></p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">It is important to keep track of different "
+"copies or versions of files, files held in different formats or locations, and"
+" information cross-referenced between files. &nbsp;This process is called &lsq"
+"uo;version control&rsquo;. &nbsp;Logical file structures, informative naming c"
+"onventions, and clear indications of file versions all contribute to better us"
+"e of your data during and after your research project. &nbsp;These practices w"
+"ill help ensure that you and your research team are using the appropriate vers"
+"ion of your data, and minimize confusion regarding copies on different compute"
+"rs and/or on different media.</span><span style=\"font-weight: 400;\"> &nbsp;</s"
+"pan><span style=\"font-weight: 400;\">Read more about file naming and version co"
+"ntrol: </span><a href=\"http://researchdata.library.ubc.ca/plan/organize-your-d"
+"ata/\" target=\"_blank\"><span style=\"font-weight: 400;\">UBC Library Research Dat"
+"a Website</span></a> <span style=\"font-weight: 400;\">or </span><a href=\"http:/"
+"/www.data-archive.ac.uk/create-manage/format/versions\" target=\"_blank\"><span s"
+"tyle=\"font-weight: 400;\">UK Data Archive</span></a><span style=\"font-weight: 4"
+"00;\">.<br /></span><span style=\"font-weight: 400;\"><br /></span><span style=\"f"
+"ont-weight: 400;\"><a href=\"https://dataverse.scholarsportal.info/dataverse/ubc"
+"\" target=\"_blank\">UBC Dataverse</a>&nbsp;@Scholars Portal&nbsp;software can he"
+"lp with version control of your files.</span></p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">The risk of losing data due to human error,"
+" natural disasters, or other mishaps can be mitigated by following the 3-2-1 b"
+"ackup rule: </span></p>\n"
+"<ul>\n"
+"<li style=\"font-weight: 400;\"><span style=\"font-weight: 400;\">Have at least th"
+"ree copies of your data.</span></li>\n"
+"<li style=\"font-weight: 400;\"><span style=\"font-weight: 400;\">Store the copies"
+" on two different media.</span></li>\n"
+"<li>Keep one backup copy offsite</li>\n"
+"</ul>\n"
+"<p>Storing data on flash drives, laptops, computers, or external hard drives w"
+"ithout a regular backup procedure is not recommended, because they are subject"
+" to hardware failure, viruses, file corruption, theft, loss, and human error. "
+"Likewise, multiple copies of data stored in the same physical location does li"
+"ttle to mitigate risk.</p>\n"
+"<p>&nbsp; Using software which automatically backs up your data and keeps it s"
+"ynchronized with a master copy is recommended. Copies of data should ideally b"
+"e stored in separate physical locations to mitigate physical risks, e.g. fire."
+"<br /><br />See more about UBC data storage at the UBC Library<a href=\"http://"
+"researchdata.library.ubc.ca/plan/store-and-back-up-your-data/\" target=\"_blank\""
+"> Research Data Website </a>(e.g. Westgrid and UBC Storage Grid)<br /><br />UB"
+"C Library also offers <a href=\"https://dataverse.scholarsportal.info/dataverse"
+"/ubc\" target=\"_blank\">UBC Dataverse</a>&nbsp;@Scholars Portal&nbsp;for managin"
+"g and sharing datasets. For assistance with Dataverse, please contact <a href="
+"\"mailto:research.data@ubc.ca\" target=\"_blank\">research.data@ubc.ca</a></p>"
+msgstr ""
+
+msgid ""
+"<p><strong>Raw data</strong><span style=\"font-weight: 400;\"> are the data dire"
+"ctly obtained from the instrument, simulation or survey.</span></p>\n"
+"<p><strong>Processed data </strong><span style=\"font-weight: 400;\">result from"
+" some manipulation of the raw data in order to eliminate errors or outliers, t"
+"o prepare the data for analysis, to derive new variables, or to de-identify th"
+"e human participants</span><span style=\"font-weight: 400;\">.</span></p>\n"
+"<p><strong>Analyzed data</strong><span style=\"font-weight: 400;\"> are the the "
+"results of qualitative, statistical, or mathematical analysis of the processed"
+" data. They can be presented as &nbsp;graphs, charts or statistical tables.</s"
+"pan></p>\n"
+"<p><strong>Final data</strong><span style=\"font-weight: 400;\"> are processed d"
+"ata that have, if needed, been converted into a preservation-friendly format.<"
+"/span></p>\n"
+"<p><span style=\"font-weight: 400;\">Consider which data may need to be shared i"
+"n order to meet institutional or funding requirements, and which data may be r"
+"estricted because of confidentiality/privacy/intellectual property considerati"
+"ons.</span></p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">Consider where, how, and to whom sensitive "
+"data with acknowledged long-term value should be made available, and how long "
+"it should be archived. These decisions should align with Research Ethics Board"
+" requirements. The methods used to share data will be dependent on a number of"
+" factors such as the type, size, complexity and degree of sensitivity of data."
+" Outline problems anticipated in sharing data, along with causes and possible "
+"measures to mitigate these. Problems may include confidentiality, lack of cons"
+"ent agreements, or concerns about Intellectual Property Rights, among others. "
+"In some instances, an embargo period may be justified; these may be defined by"
+" a funding agency&rsquo;s policy on research data.</span></p>\n"
+"<p><span style=\"font-weight: 400;\">&nbsp;Sharing sensitive data via email and "
+"cloud storage services such as Dropbox is not recommended, since the security "
+"of these services cannot be trusted. Read more about security at the UBC Libra"
+"ry</span><a href=\"http://researchdata.library.ubc.ca/plan/protect-your-data/\" "
+"target=\"_blank\"> <span style=\"font-weight: 400;\">Research Data Website</span><"
+"/a></p>\n"
+"<p><span style=\"font-weight: 400;\">Restrictions can be imposed by limiting phy"
+"sical access to storage devices, by placing data on computers that do not have"
+" external network access (i.e. access to the Internet), through password prote"
+"ction, and by </span><a href=\"https://it.ubc.ca/services/security/encryption-s"
+"ervices\" target=\"_blank\"><span style=\"font-weight: 400;\">encrypting </span></a"
+"><span style=\"font-weight: 400;\">files. </span></p>"
 msgstr ""
 
 msgid ""
