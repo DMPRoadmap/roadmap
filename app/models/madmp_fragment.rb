@@ -258,6 +258,9 @@ class MadmpFragment < ActiveRecord::Base
     fragmented_data = {}
     param_data.each do |prop, content|
       schema_prop = schema.schema["properties"][prop]
+
+      next if schema_prop.nil?
+
       if schema_prop["type"].present? &&
          schema_prop["type"].eql?("object") &&
          schema_prop["schema_id"].present?

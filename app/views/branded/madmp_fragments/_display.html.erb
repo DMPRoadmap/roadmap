@@ -1,0 +1,9 @@
+<%# locals: { fragment, schema, template_locale } %>
+<% schema_properties = schema.schema["properties"]%>
+<% data = fragment.data unless fragment.nil? %>
+
+<% schema_properties.each do |key, prop| %>
+  <% value = data[key] unless data.nil? %>
+  <% label = prop["label@#{template_locale}"]%>
+  <span><strong><%= label %></strong> <%= value %></span>
+<% end %>

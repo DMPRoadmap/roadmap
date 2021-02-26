@@ -99,6 +99,8 @@ class MadmpSchema < ActiveRecord::Base
       if prop["type"] == "object" && prop["schema_id"].present?
         if prop["inputType"].present? && prop["inputType"].eql?("pickOrCreate")
           parameters.append(key)
+        elsif prop["registry_id"].present?
+          parameters.append(key)
         else
           sub_schema = MadmpSchema.find(prop["schema_id"])
           parameters.append(key => sub_schema.generate_strong_params(false))

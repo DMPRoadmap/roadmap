@@ -509,3 +509,13 @@ msgstr ""
 
 msgid "Selected value:"
 msgstr ""
+
+msgid "- or change the selected value -"
+msgstr ""
+
+
+msgid "- or change the selected value -"
+msgstr ""
+
+msgid "Please select a value from the list."
+msgstr ""

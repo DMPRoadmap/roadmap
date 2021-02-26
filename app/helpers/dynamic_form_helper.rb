@@ -201,20 +201,24 @@ module DynamicFormHelper
         when "array"
           data[key] = data[key].is_a?(Array) ? data[key] : [data[key]]
         when "object"
-          if prop["registry_id"].present?
-            data[key] = RegistryValue.find(data[key].to_i).data.merge(
-              { "id": data[key].to_i }
-            )
-          elsif prop["schema_id"].present? 
-            if prop["inputType"].present? && prop["inputType"].eql?("pickOrCreate")
-              data[key] = { "dbid" => data[key].to_i }
-            else
-              sub_schema = MadmpSchema.find(prop["schema_id"])
-              data[key] = data_reformater(
-                sub_schema.schema,
-                data[key]
+          next if prop["schema_id"].nil?
+
+          sub_schema = MadmpSchema.find(prop["schema_id"])
+
+          if prop["inputType"].present? && prop["inputType"].eql?("pickOrCreate")
+            data[key] = { "dbid" => data[key].to_i }
+          elsif prop["registry_id"].present?
+            data[key] = data_reformater(
+              sub_schema.schema,
+              RegistryValue.find(data[key].to_i).data.merge(
+                "id": data[key].to_i
               )
-            end
+            )
+          else
+            data[key] = data_reformater(
+              sub_schema.schema,
+              data[key]
+            )
           end
         else
           data[key] = data[key]

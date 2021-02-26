@@ -1164,6 +1164,9 @@ header .main-nav {
         }
     }
     fieldset {
+        .intermediate-label {
+            color: $dark-blue
+        }
         &.sub-fragment {
             width: 100%;
             border-radius: 5px;

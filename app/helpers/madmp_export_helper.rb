@@ -34,10 +34,6 @@ module MadmpExportHelper
       ######################
       if property.is_a?(Array)
         export_document[key] = ""
-        p "#################"
-        p property
-        p madmp
-        p "#################"
         property.each do |pty|
           if pty.first.eql?("$")
             match = JsonPath.new(pty).first(madmp)

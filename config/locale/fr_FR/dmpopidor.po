@@ -507,3 +507,9 @@ msgstr "Ajout %{title_value}"
 
 msgid "Selected value:"
 msgstr "Valeur sélectionnée :"
+
+msgid "- or change the selected value -"
+msgstr "- ou changez la valeur sélectionnée -"
+
+msgid "Please select a value from the list."
+msgstr "Merci de sélectionner une valeur de la liste."
