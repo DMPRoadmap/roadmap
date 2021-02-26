@@ -48,7 +48,7 @@
               <span class="intermediate-label"><i><%= d_('dmpopidor', '- or change the selected value -') %></i></span>
             </div>
           <% end %>
-          <%= create_select_field(f, value["id"], "#{f.object_name}[#{field_name}]", nil, field_id, registryValues, template_locale, readonly: readonly, multiple: false, validation: validation, ttip: ttip, default_value: default_value) %>
+          <%= create_select_field(f, nil, "#{f.object_name}[#{field_name}]", nil, field_id, registryValues, template_locale, readonly: readonly, multiple: false, validation: validation, ttip: ttip, default_value: default_value) %>
         </fieldset>
       </div>
     <% elsif prop["type"].eql?('string')%>

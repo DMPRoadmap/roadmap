@@ -5,5 +5,8 @@
 <% schema_properties.each do |key, prop| %>
   <% value = data[key] unless data.nil? %>
   <% label = prop["label@#{template_locale}"]%>
-  <span><strong><%= label %></strong> <%= value %></span>
+  <span>
+    <strong><%= label %></strong> 
+    <%= value %>
+  </span>
 <% end %>
