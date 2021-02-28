@@ -120,7 +120,7 @@ class Template < ActiveRecord::Base
               .joins(<<~SQL)
                 INNER JOIN templates ON current.version = templates.version
                   AND current.family_id = templates.family_id
-                INNER JOIN orgs ON orgs.id = templates.org_id
+                INNER JOIN orgs orgs_latest ON orgs_latest.id = templates.org_id
               SQL
   }
 
@@ -133,7 +133,7 @@ class Template < ActiveRecord::Base
       .joins(<<~SQL)
         INNER JOIN templates ON current.version = templates.version
           AND current.customization_of = templates.customization_of
-        INNER JOIN orgs ON orgs.id = templates.org_id
+        INNER JOIN orgs org_customized ON org_customized.id = templates.org_id
       SQL
       .where(templates: { org_id: org_id })
   }
@@ -189,9 +189,11 @@ class Template < ActiveRecord::Base
   # Retrieves unarchived templates whose title or org.name includes the term
   # passed
   scope :search, lambda { |term|
-    unarchived.joins(:org)
-              .where("lower(templates.title) LIKE lower(:term) OR " +
-                     "lower(orgs.name) LIKE lower(:term)",
+    unarchived.joins(<<~SQL)
+      LEFT JOIN orgs orgs_search ON templates.org_id = orgs_search.id
+    SQL
+    .where("lower(templates.title) LIKE lower(:term) OR " +
+                     "lower(orgs_search.name) LIKE lower(:term)",
                      term: "%#{term}%")
   }
 
