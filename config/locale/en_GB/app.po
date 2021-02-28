@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-02-27 19:50-0700\n"
-"PO-Revision-Date: 2021-02-28 03:50+0100\n"
+"POT-Creation-Date: 2021-02-27 21:28-0700\n"
+"PO-Revision-Date: 2021-02-28 05:29+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_GB\n"
@@ -501,24 +501,6 @@ msgid ""
 "roughout a research project.&nbsp; </span></p>"
 msgstr ""
 
-msgid "University of Alberta Data Management Questions"
-msgstr ""
-
-msgid "MICYRN Data Management Plan Initial Phase"
-msgstr ""
-
-msgid "Reproducible findings through deposited data"
-msgstr ""
-
-msgid "Phase 1: Data Management Plan for Grant Application"
-msgstr ""
-
-msgid "University of British Columbia Data Management Questions"
-msgstr ""
-
-msgid "Portage Data Management Questions"
-msgstr ""
-
 msgid "Pre-Project: Prototype"
 msgstr ""
 
@@ -576,10 +558,22 @@ msgstr ""
 msgid "Phase 1: Data Preparation"
 msgstr ""
 
-msgid "Phase 2: Active Research (Data) Management"
+msgid "University of Alberta Data Management Questions"
 msgstr ""
 
-msgid "Phase 2: Data Management Plan for Project Development"
+msgid "MICYRN Data Management Plan Initial Phase"
+msgstr ""
+
+msgid "Phase 1: Data Management Plan for Grant Application"
+msgstr ""
+
+msgid "Reproducible findings through deposited data"
+msgstr ""
+
+msgid "University of British Columbia Data Management Questions"
+msgstr ""
+
+msgid "Portage Data Management Questions"
 msgstr ""
 
 msgid "Phase 2"
@@ -592,6 +586,12 @@ msgid "OMAFRA-UG DMP Questions"
 msgstr ""
 
 msgid "Data Management Plan"
+msgstr ""
+
+msgid "Phase 2: Active Research (Data) Management"
+msgstr ""
+
+msgid "Phase 2: Data Management Plan for Project Development"
 msgstr ""
 
 msgid "Phase 3: Data Protection"
