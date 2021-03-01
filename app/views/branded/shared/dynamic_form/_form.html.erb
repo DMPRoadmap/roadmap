@@ -30,14 +30,14 @@
   <%# REGISTRIES %>
   <%# ############################### %>
   <% if prop['registry_id'].present? && prop['inputType'] == 'dropdown' %>
-    <% if prop["type"].eql?('object') %>
+    <% if prop['schema_id'].present? && prop["type"].eql?('object') %>
       <%# Complex registries (value in an object) %>
       <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
       <% value = dmp_fragments.find(value["dbid"]) unless value.nil? %>
       <div class="col-md-12">
         <fieldset class="sub-fragment registry">
           <legend class="sub-fragment registry"><%= label %></legend>
-          <% unless value.nil?%>
+          <% unless value.nil? %>
             <% sub_schema = @schemas.find_by(id: prop["schema_id"]) %>
             <div class="col-md-12 registry-value">
               <%= render(partial: 'madmp_fragments/display', locals: {

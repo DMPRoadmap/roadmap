@@ -235,7 +235,7 @@ class MadmpFragment < ActiveRecord::Base
     madmp_schema.schema["properties"].each do |key, prop|
       if prop["type"].eql?("object") && prop["schema_id"].present?
         sub_schema = MadmpSchema.find(prop["schema_id"])
-        
+
         next if sub_schema.classname.eql?("person") || new_data[key].present?
 
         sub_fragment = MadmpFragment.new(
