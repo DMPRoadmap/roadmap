@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-03-02 11:05-0700\n"
-"PO-Revision-Date: 2021-03-02 19:05+0100\n"
+"POT-Creation-Date: 2021-03-02 11:31-0700\n"
+"PO-Revision-Date: 2021-03-02 19:31+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_CA\n"
@@ -727,30 +727,6 @@ msgstr ""
 "n PGD est un document vivant qui &eacute;volue tout au long d&rsquo;un projet "
 "de recherche.</span></p>"
 
-msgid "OFI Module E DMP"
-msgstr ""
-
-msgid "Dalhousie University"
-msgstr ""
-
-msgid "TITLE"
-msgstr ""
-
-msgid "Alliance/Food from Thought DMP creation"
-msgstr ""
-
-msgid "Test DMP Questions"
-msgstr ""
-
-msgid "Phase 1 (test)"
-msgstr ""
-
-msgid "Initial GWF DMP"
-msgstr ""
-
-msgid "Software/Technology Management Plan"
-msgstr "Plan de gestion de logiciel ou de technologie"
-
 msgid "Phase 1: Data Preparation"
 msgstr "Phase 1 : Préparation des données"
 
@@ -802,6 +778,36 @@ msgstr ""
 msgid "MUN Data Management Questions"
 msgstr ""
 
+msgid "OFI Module E DMP"
+msgstr ""
+
+msgid "Dalhousie University"
+msgstr ""
+
+msgid "TITLE"
+msgstr ""
+
+msgid "Alliance/Food from Thought DMP creation"
+msgstr ""
+
+msgid "Test DMP Questions"
+msgstr ""
+
+msgid "Phase 1 (test)"
+msgstr ""
+
+msgid "Initial GWF DMP"
+msgstr ""
+
+msgid "Software/Technology Management Plan"
+msgstr "Plan de gestion de logiciel ou de technologie"
+
+msgid "Phase 2: Active Research (Data) Management"
+msgstr "Phase 2 : Gestion active de recherche (données)"
+
+msgid "Phase 2: Data Management Plan for Project Development"
+msgstr "Phase 2 : Plan de gestion de données soutenant l’élaboration du projet"
+
 msgid "Phase 2"
 msgstr "Phase 2"
 
@@ -813,12 +819,6 @@ msgstr ""
 
 msgid "Data Management Plan"
 msgstr "Plan de gestion des données"
-
-msgid "Phase 2: Active Research (Data) Management"
-msgstr "Phase 2 : Gestion active de recherche (données)"
-
-msgid "Phase 2: Data Management Plan for Project Development"
-msgstr "Phase 2 : Plan de gestion de données soutenant l’élaboration du projet"
 
 msgid "Phase 3: Data Protection"
 msgstr "Phase 3 : Protection des données"
@@ -27977,7 +27977,7 @@ msgstr "Renseignements du profil"
 #: ../../app/views/orgs/admin_edit.html.erb:19
 #: ../../app/views/plans/_navigation.html.erb:23
 #: ../../app/views/plans/_request_feedback_form.html.erb:13
-#: ../../app/views/static_pages/help.html.erb:45
+#: ../../app/views/static_pages/help.html.erb:53
 msgid "Request feedback"
 msgstr "Demander des commentaires"
 
@@ -28926,6 +28926,7 @@ msgstr ""
 "\n"
 
 #: ../../app/views/static_pages/about_us.html.erb:30
+#: ../../app/views/static_pages/help.html.erb:15
 msgid "DMP Assistant feedback"
 msgstr "Commentaires de l'Assistant PGD"
 
@@ -29036,12 +29037,32 @@ msgid ""
 "ge. From here you can edit, share, download, copy or remove any of your plans."
 " You will also see plans that have been shared with you by others."
 msgstr ""
+"Lorsque vous vous connectez à l'Assistant PGD, vous serez dirigé vers la page "
+"« Mon tableau de bord ». De là, vous pouvez modifier, partager, télécharger, c"
+"opier ou supprimer vos plans. Vous verrez également les plans qui ont été part"
+"agés avec vous par d’autres personnes."
 
-#: ../../app/views/static_pages/help.html.erb:13
+#: ../../app/views/static_pages/help.html.erb:18
+msgid ""
+"If you need assistance in developing your data management plan, the following "
+"resource may help get you started: <a href=\"%{how_to_manage_your_data_url}\"> H"
+"ow to manage your data</a>. If you require more guidance, contact us at <a hre"
+"f=\"mailto:%{email_link}?Subject=%{email_subject}\">support@portagenetwork.ca</a"
+">, or see <a href=\"%{contact_your_institution_url}\">Contacts at your instituti"
+"on</a>."
+msgstr ""
+"Si vous avez besoin d'aide pour développer votre plan de gestion des données, "
+"la ressource suivante peut vous aider à démarrer : <a href=\"%{how_to_manage_yo"
+"ur_data_url}\">Comment gérer vos données</a>. Si vous avez besoin de plus d’inf"
+"ormation, communiquez avec nous par courriel à <a href=\"mailto:%{email_link}?S"
+"ubject=%{email_subject}\">support@portagenetwork.ca</a>, ou voir <a href=\"%{con"
+"tact_your_institution_url}\">Personne-ressource dans votre institution</a>."
+
+#: ../../app/views/static_pages/help.html.erb:21
 msgid "Create a plan"
 msgstr "Créer un plan"
 
-#: ../../app/views/static_pages/help.html.erb:15
+#: ../../app/views/static_pages/help.html.erb:23
 msgid ""
 "To create a plan, click the 'Create plan' button from the 'My Dashboard' page "
 "or the top menu. Select options from the menus and tickboxes to determine what"
@@ -29054,11 +29075,11 @@ msgstr ""
 " les directives qui devraient vous être présentées. Confirmez votre sélection "
 "en cliquant sur « Créer un plan »."
 
-#: ../../app/views/static_pages/help.html.erb:17
+#: ../../app/views/static_pages/help.html.erb:25
 msgid "Write your plan"
 msgstr "Rédiger votre plan"
 
-#: ../../app/views/static_pages/help.html.erb:19
+#: ../../app/views/static_pages/help.html.erb:27
 msgid ""
 "The tabbed interface allows you to navigate through different functions when e"
 "diting your plan."
@@ -29066,11 +29087,11 @@ msgstr ""
 "L'interface à onglets vous permet de parcourir différentes fonctions lorsque v"
 "ous modifiez votre plan."
 
-#: ../../app/views/static_pages/help.html.erb:21
+#: ../../app/views/static_pages/help.html.erb:29
 msgid "'Project Details' includes basic administrative details."
 msgstr "« Détails du projet » présente les détails administratifs de base."
 
-#: ../../app/views/static_pages/help.html.erb:22
+#: ../../app/views/static_pages/help.html.erb:30
 msgid ""
 "'Plan Overview' tells you what template and guidance your plan is based on and"
 " gives you an overview to the questions that you will be asked."
@@ -29078,7 +29099,7 @@ msgstr ""
 "« Aperçu du plan » vous indique le modèle et les directives sur lesquels repos"
 "e votre plan et vous donne un aperçu des questions qui vous seront posées."
 
-#: ../../app/views/static_pages/help.html.erb:23
+#: ../../app/views/static_pages/help.html.erb:31
 msgid ""
 "The following tab(s) present the questions to answer. There may be more than o"
 "ne tab if your funder or university asks different sets of questions at differ"
@@ -29090,13 +29111,13 @@ msgstr ""
 "s le cadre d’une demande de subvention et après l’attribution de cette dernièr"
 "e."
 
-#: ../../app/views/static_pages/help.html.erb:24
+#: ../../app/views/static_pages/help.html.erb:32
 msgid "'Share' allows you to invite others to read or contribute to your plan."
 msgstr ""
 "« Partager » vous permet d’inviter d’autres personnes à lire ou à contribuer à"
 " votre plan."
 
-#: ../../app/views/static_pages/help.html.erb:25
+#: ../../app/views/static_pages/help.html.erb:33
 msgid ""
 "'Download' allows you to download your plan in various formats. This may be us"
 "eful if you need to submit your plan as part of a grant application."
@@ -29105,7 +29126,7 @@ msgstr ""
 " formats. Cela peut être utile si vous devez soumettre votre plan dans le cadr"
 "e d'une demande de subvention."
 
-#: ../../app/views/static_pages/help.html.erb:28
+#: ../../app/views/static_pages/help.html.erb:36
 msgid ""
 "When viewing any of the question tabs, you will see the different sections of "
 "your plan displayed. Click into these in turn to answer the questions. You can"
@@ -29116,7 +29137,7 @@ msgstr ""
 "r de rôle pour répondre aux questions. Vous pouvez choisir le format de vos ré"
 "ponses à l'aide des boutons de mise en forme."
 
-#: ../../app/views/static_pages/help.html.erb:30
+#: ../../app/views/static_pages/help.html.erb:38
 msgid ""
 "Guidance is displayed in the right-hand panel. If you need more guidance or fi"
 "nd there is too much, you can make adjustments on the ‘Project Details’ tab."
@@ -29125,11 +29146,11 @@ msgstr ""
 " directives supplémentaires ou si vous trouvez qu’il y en a trop, vous pouvez "
 "effectuer des ajustements dans l’onglet des détails du projet."
 
-#: ../../app/views/static_pages/help.html.erb:32
+#: ../../app/views/static_pages/help.html.erb:40
 msgid "Share plans"
 msgstr "Partager des plans"
 
-#: ../../app/views/static_pages/help.html.erb:34
+#: ../../app/views/static_pages/help.html.erb:42
 msgid ""
 "Insert the email address of any collaborators you would like to invite to read"
 " or edit your plan. Set the level of permissions you would like to grant them "
@@ -29142,27 +29163,27 @@ msgstr ""
 "collaborateur ». Ajustez les autorisations ou retirez des collaborateurs en to"
 "ut temps à l’aide des options de la liste déroulante."
 
-#: ../../app/views/static_pages/help.html.erb:36
+#: ../../app/views/static_pages/help.html.erb:44
 msgid "The ‘Share’ tab is also where you can set your plan visibility."
 msgstr ""
 "L’onglet « Partager » vous permet également de définir la visibilité de votre "
 "plan."
 
-#: ../../app/views/static_pages/help.html.erb:38
+#: ../../app/views/static_pages/help.html.erb:46
 msgid "Private: restricted to you and your collaborators."
 msgstr "Privé : usage réservé à vous et à vos collaborateurs."
 
-#: ../../app/views/static_pages/help.html.erb:39
+#: ../../app/views/static_pages/help.html.erb:47
 msgid "Organisational: anyone at your organisation can view your plan."
 msgstr ""
 "Organisationnel : Tous les membres de votre organisme peuvent consulter votre "
 "plan."
 
-#: ../../app/views/static_pages/help.html.erb:40
+#: ../../app/views/static_pages/help.html.erb:48
 msgid "Public: anyone can view your plan in the Public DMPs list."
 msgstr "Public : Tous peuvent consulter votre plan dans la liste des PGD publics."
 
-#: ../../app/views/static_pages/help.html.erb:43
+#: ../../app/views/static_pages/help.html.erb:51
 msgid ""
 "By default all new and test plans will be set to ‘Private’ visibility. ‘Public"
 "’ and ‘Organisational’ visibility are intended for finished plans. You must an"
@@ -29173,7 +29194,7 @@ msgstr ""
 "nnelle est réservée aux plans terminés. Vous devez répondre à au moins 50 % de"
 "s questions pour activer ces options."
 
-#: ../../app/views/static_pages/help.html.erb:46
+#: ../../app/views/static_pages/help.html.erb:54
 msgid ""
 "There may also be an option to request feedback on your plan. This is availabl"
 "e when research support staff at your organisation have enabled this service. "
@@ -29189,11 +29210,11 @@ msgstr ""
 "ont visibles dans le champ « Commentaires » à côté de chaque question. Vous se"
 "rez avisé(e) par courriel lorsqu’un administrateur fournit des commentaires."
 
-#: ../../app/views/static_pages/help.html.erb:49
+#: ../../app/views/static_pages/help.html.erb:57
 msgid "Download plans"
 msgstr "Télécharger les plans"
 
-#: ../../app/views/static_pages/help.html.erb:50
+#: ../../app/views/static_pages/help.html.erb:58
 msgid ""
 "From here you can download your plan in various formats. This may be useful if"
 " you need to submit your plan as part of a grant application. Choose what form"
