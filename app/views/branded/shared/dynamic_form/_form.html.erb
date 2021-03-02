@@ -37,7 +37,7 @@
       <div class="col-md-12">
         <fieldset class="sub-fragment registry">
           <legend class="sub-fragment registry"><%= label %></legend>
-          <% unless value.nil? %>
+          <% unless value.nil? || value.data.empty? %>
             <% sub_schema = @schemas.find_by(id: prop["schema_id"]) %>
             <div class="col-md-12 registry-value">
               <%= render(partial: 'madmp_fragments/display', locals: {
