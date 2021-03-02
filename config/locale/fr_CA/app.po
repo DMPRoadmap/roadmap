@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-02-27 21:28-0700\n"
-"PO-Revision-Date: 2021-02-28 05:29+0100\n"
+"POT-Creation-Date: 2021-03-02 11:05-0700\n"
+"PO-Revision-Date: 2021-03-02 19:05+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_CA\n"
@@ -727,36 +727,6 @@ msgstr ""
 "n PGD est un document vivant qui &eacute;volue tout au long d&rsquo;un projet "
 "de recherche.</span></p>"
 
-msgid "Pre-Project: Prototype"
-msgstr ""
-
-msgid "CEOS Data Management Plan"
-msgstr ""
-
-msgid "Oceans Data Management Plan"
-msgstr ""
-
-msgid "University of Manitoba Data Management Questions"
-msgstr ""
-
-msgid "DMP Questionnaire"
-msgstr ""
-
-msgid "Phase 1"
-msgstr "Phase 1"
-
-msgid "University of Guelph Agri-Food Funding DMP (Alliance/Food from Thought)  "
-msgstr ""
-
-msgid "Data management questions"
-msgstr ""
-
-msgid "York U Data Management Questions"
-msgstr ""
-
-msgid "MUN Data Management Questions"
-msgstr ""
-
 msgid "OFI Module E DMP"
 msgstr ""
 
@@ -802,6 +772,36 @@ msgstr ""
 msgid "Portage Data Management Questions"
 msgstr "Questions du modèle Portage"
 
+msgid "Pre-Project: Prototype"
+msgstr ""
+
+msgid "CEOS Data Management Plan"
+msgstr ""
+
+msgid "Oceans Data Management Plan"
+msgstr ""
+
+msgid "University of Manitoba Data Management Questions"
+msgstr ""
+
+msgid "DMP Questionnaire"
+msgstr ""
+
+msgid "Phase 1"
+msgstr "Phase 1"
+
+msgid "University of Guelph Agri-Food Funding DMP (Alliance/Food from Thought)  "
+msgstr ""
+
+msgid "Data management questions"
+msgstr ""
+
+msgid "York U Data Management Questions"
+msgstr ""
+
+msgid "MUN Data Management Questions"
+msgstr ""
+
 msgid "Phase 2"
 msgstr "Phase 2"
 
@@ -818,7 +818,7 @@ msgid "Phase 2: Active Research (Data) Management"
 msgstr "Phase 2 : Gestion active de recherche (données)"
 
 msgid "Phase 2: Data Management Plan for Project Development"
-msgstr "Phase 2: Plan de gestion de données soutenant l’élaboration du projet"
+msgstr "Phase 2 : Plan de gestion de données soutenant l’élaboration du projet"
 
 msgid "Phase 3: Data Protection"
 msgstr "Phase 3 : Protection des données"
@@ -1015,13 +1015,16 @@ msgid ""
 "sited. This approach underscores that DMPs are living documents that evolve th"
 "roughout a research project.&nbsp;</span></p>"
 msgstr ""
-"<p><span style=\"font-weight: 400;\">Phase 2 questions seek greater detail. It i"
-"s understood that these answers will often depend on the outcome of several st"
-"eps in the research project, such as: a literature review, imaging protocol de"
-"sign and experimental design, or running multiple pilot subjects and interpret"
-"ing the outcome. As these details become known, the DMP can and should be revi"
-"sited. This approach underscores that DMPs are living documents that evolve th"
-"roughout a research project.&nbsp;</span></p>"
+"<p><span style=\"font-weight: 400;\">Les questions de la phase&nbsp;2 visent &ag"
+"rave; obtenir plus de d&eacute;tails. Naturellement, ces r&eacute;ponses d&eac"
+"ute;pendent souvent des r&eacute;sultats des diverses &eacute;tapes du projet "
+"de recherche, notamment la revue de la documentation scientifique, la concepti"
+"on d&rsquo;un protocole d&rsquo;imagerie et d&rsquo;un plan exp&eacute;rimenta"
+"l ou la r&eacute;alisation de quelques sujets pilotes et l&rsquo;interpr&eacut"
+"e;tation des r&eacute;sultats. Au fur et &agrave; mesure que ces d&eacute;tail"
+"s sont connus, le PGD peut &ecirc;tre r&eacute;vis&eacute; au besoin. Ainsi, u"
+"n PGD est un document vivant qui &eacute;volue tout au long d&rsquo;un projet "
+"de recherche.</span></p>"
 
 msgid "Data Sharing and Reuse"
 msgstr ""
@@ -2234,24 +2237,23 @@ msgid ""
 "ll of the other research products related to that contract from the RDC and ar"
 "chived.</span></p>"
 msgstr ""
-"<p>Paragraphe d&rsquo;introduction : toutes les recherches effectu&eacute;es d"
-"ans des Centres de donn&eacute;es de recherche (d&eacute;sign&eacute;es comme "
-"CDR dans le pr&eacute;sent document) sont secondaires de nature. Il n&rsquo;y "
-"a pas de collecte de donn&eacute;es dans cette partie du projet. Ces donn&eacu"
-"te;es appartiennent &agrave; Statistique Canada qui est aussi responsable de l"
-"eur maintien&thinsp;; le stockage de ces donn&eacute;es et l&rsquo;acc&egrave;"
-"s &agrave; celles-ci sont offerts par le R&eacute;seau canadien des Centres de"
-" donn&eacute;es de recherche.<br /><br />Les donn&eacute;es brutes dans le CDR"
-" sont stock&eacute;es dans de multiples formats, notamment : .SAS (SAS), .dta "
-"(STATA), et .shp (fichiers de forme) selon le cas. La disponibilit&eacute; du "
-"logiciel StatTransfer&trade; dans les CDR et la gestion continue par Statistiq"
-"ue Canada garantiront que les donn&eacute;es seront accessibles ind&eacute;fin"
-"iment si les formats de fichiers actuellement utilis&eacute;s deviennent obsol"
-"&egrave;tes. Les chercheurs peuvent ajouter des donn&eacute;es dans les CDR (c"
-"elles-ci seront appel&eacute;es &laquo;&thinsp;donn&eacute;es suppl&eacute;men"
-"taires&thinsp;&raquo;). Ainsi, ces donn&eacute;es sont stock&eacute;es avec to"
-"us les autres produits de recherche du CDR li&eacute;s &agrave; ce contrat et "
-"elles sont archiv&eacute;es.</p>"
+"<p>Toutes les recherches effectu&eacute;es dans des Centres de donn&eacute;es "
+"de recherche (d&eacute;sign&eacute;es comme CDR dans le pr&eacute;sent documen"
+"t) sont secondaires de nature. Il n&rsquo;y a pas de collecte de donn&eacute;e"
+"s dans cette partie du projet. Ces donn&eacute;es appartiennent &agrave; Stati"
+"stique Canada qui est aussi responsable de leur maintien&thinsp;; le stockage "
+"de ces donn&eacute;es et l&rsquo;acc&egrave;s &agrave; celles-ci sont offerts "
+"par le R&eacute;seau canadien des Centres de donn&eacute;es de recherche.<br /"
+"><br />Les donn&eacute;es brutes dans le CDR sont stock&eacute;es dans de mult"
+"iples formats, notamment : .SAS (SAS), .dta (STATA), et .shp (fichiers de form"
+"e) selon le cas. La disponibilit&eacute; du logiciel StatTransfer&trade; dans "
+"les CDR et la gestion continue par Statistique Canada garantiront que les donn"
+"&eacute;es seront accessibles ind&eacute;finiment si les formats de fichiers a"
+"ctuellement utilis&eacute;s deviennent obsol&egrave;tes. Les chercheurs peuven"
+"t ajouter des donn&eacute;es dans les CDR (celles-ci seront appel&eacute;es &l"
+"aquo;&thinsp;donn&eacute;es suppl&eacute;mentaires&thinsp;&raquo;). Ainsi, ces"
+" donn&eacute;es sont stock&eacute;es avec tous les autres produits de recherch"
+"e du CDR li&eacute;s &agrave; ce contrat et elles sont archiv&eacute;es.</p>"
 
 msgid ""
 "<p><span style=\"font-weight: 400;\">Documentation provided by Statistics Canada"
@@ -4553,8 +4555,8 @@ msgid ""
 "What types of data will you collect, create, link to, acquire and/or record in"
 " each of the different stages of the systematic review?"
 msgstr ""
-"What types of data will you collect, create, link to, acquire and/or record in"
-" each of the different stages of the systematic review?"
+"Quels types de données allez-vous collecter, créer, coupler, acquérir ou enreg"
+"istrer à chaque étape de la revue systématique ?"
 
 msgid ""
 "Where will you deposit your data for long-term preservation and sharing at the"
@@ -19723,11 +19725,11 @@ msgid ""
 "metadata/\"><span style=\"font-weight: 400;\">https://www.go-fair.org/fair-princi"
 "ples/f2-data-described-rich-metadata/.</span></a>"
 msgstr ""
-"<span style=\"font-weight: 400;\">For a good starter resource on metadata see: <"
-"/span><a href=\"https://www.go-fair.org/fair-principles/f2-data-described-rich-"
-"metadata/\"><span style=\"font-weight: 400;\">https://www.go-fair.org/fair-princi"
-"ples/f2-data-described-rich-metadata/</span></a> (<em>lien en anglais</em>).&n"
-"bsp;"
+"<span style=\"font-weight: 400;\">Pour une bonne ressource de départ sur les mét"
+"adonnées, consultez le lien suivant :</span><a href=\"https://www.go-fair.org/f"
+"air-principles/f2-data-described-rich-metadata/\"><span style=\"font-weight: 400"
+";\">https://www.go-fair.org/fair-principles/f2-data-described-rich-metadata/</s"
+"pan></a> (<em>lien en anglais</em>).&nbsp;"
 
 msgid ""
 "<span style=\"font-weight: 400;\">Because of the structure of the agreements und"
@@ -21237,10 +21239,11 @@ msgid ""
 "extracted from individual studies; a document describing your study protocol o"
 "r other methods. </span>"
 msgstr ""
-"<span style=\"font-weight: 400;\">The types of data you collect may include: lit"
-"erature database records; PDFs of articles; quantitative and qualitative data "
-"extracted from individual studies; a document describing your study protocol o"
-"r other methods. </span>"
+"<span style=\"font-weight: 400;\">Les types de données que vous recueillez peuve"
+"nt inclure des enregistrements de bases de données bibliographiques, des artic"
+"les en PDF, des données quantitatives et qualitatives extraites d’études indiv"
+"iduelles, un document décrivant votre protocole d’étude ou d’autres méthodes. "
+"</span>"
 
 msgid ""
 "<span style=\"font-weight: 400;\">For a systematic review (or other knowledge sy"
@@ -21253,15 +21256,16 @@ msgid ""
 "ture searching), study selection (screening), data extraction, risk of bias as"
 "sessment, synthesis, manuscript preparation. </span>"
 msgstr ""
-"<span style=\"font-weight: 400;\">For a systematic review (or other knowledge sy"
-"nthesis types of studies), data includes the literature you find, the data tha"
-"t you extract from it, and the detailed methods and information that would all"
-"ow someone else to reproduce your results. To identify the data that will be c"
-"ollected or generated by your research project, </span><span style=\"font-weigh"
-"t: 400;\">start by thinking of the different stages of a systematic review and "
-"how you are going to approach each: planning/protocol, data collection (litera"
-"ture searching), study selection (screening), data extraction, risk of bias as"
-"sessment, synthesis, manuscript preparation. </span>"
+"<span style=\"font-weight: 400;\">Pour une revue systématique (ou d’autres types"
+" d’études de synthèse des connaissances), les données comprennent la littératu"
+"re que vous trouvez, les données que vous en extrayez, et les méthodes et info"
+"rmations détaillées qui permettraient à quelqu’un d’autre de reproduire vos ré"
+"sultats. Pour identifier les données qui seront collectées ou générées par vot"
+"re projet de recherche,  </span><span style=\"font-weight: 400;\">commencez par "
+"réfléchir aux différentes étapes d’une revue systématique et à la manière dont"
+" vous allez les aborder : planification/protocole, collecte de données (recher"
+"che documentaire), sélection des études, extraction des données, évaluation du"
+" risque de biais, synthèse, préparation du manuscrit. </span>"
 
 msgid ""
 "<p><strong>Word, RTF, PDF, etc.: </strong><span style=\"font-weight: 400;\">proj"
@@ -25591,7 +25595,7 @@ msgid "Not Answered"
 msgstr "Pas de réponse"
 
 #: ../../app/models/concerns/validation_messages.rb:5
-#: ../../app/models/template.rb:204
+#: ../../app/models/template.rb:206
 msgid "can't be blank"
 msgstr "doit être rempli(e)"
 
@@ -25707,49 +25711,49 @@ msgstr "Paramètre de formatage inconnu"
 msgid "Invalid maximum pages"
 msgstr "Invalide – Nombre maximal de pages"
 
-#: ../../app/models/template.rb:232
+#: ../../app/models/template.rb:234
 msgid "A historical template cannot be retrieved for being modified"
 msgstr "Un modèle historique ne peut pas être récupéré pour être modifié"
 
-#: ../../app/models/template.rb:350
+#: ../../app/models/template.rb:352
 msgid "generate_copy! requires an organisation target"
 msgstr "un organisme cible est exigé pour generate_copy!"
 
-#: ../../app/models/template.rb:358
+#: ../../app/models/template.rb:360
 msgid "Copy of %{template}"
 msgstr "Copie de %{template}"
 
-#: ../../app/models/template.rb:366
+#: ../../app/models/template.rb:368
 msgid "generate_version! requires a published template"
 msgstr "un modèle publié est exigé pour generate_version!"
 
-#: ../../app/models/template.rb:381
+#: ../../app/models/template.rb:383
 msgid "customize! requires an organisation target"
 msgstr "organisme cible exiger pour personnaliser!"
 
-#: ../../app/models/template.rb:386
+#: ../../app/models/template.rb:388
 msgid "customize! requires a template from a funder"
 msgstr "un modèle d’un bailleur de fonds est exigé pour personnaliser!"
 
-#: ../../app/models/template.rb:422
+#: ../../app/models/template.rb:424
 msgid "You can not publish a published template.  "
 msgstr "Vous ne pouvez pas publier un modèle déjà publié."
 
-#: ../../app/models/template.rb:426
+#: ../../app/models/template.rb:428
 msgid "You can not publish a historical version of this template.  "
 msgstr "Vous ne pouvez pas publier une version historique de ce modèle."
 
-#: ../../app/models/template.rb:431
+#: ../../app/models/template.rb:433
 msgid "You can not publish a template without phases.  "
 msgstr "Vous ne pouvez pas publier un modèle ne contenant pas de phases."
 
-#: ../../app/models/template.rb:436
+#: ../../app/models/template.rb:438
 msgid "You can not publish a template without sections in a phase.  "
 msgstr ""
 "Vous ne pouvez pas publier un modèle dont une phase ne contient pas de section"
 "s."
 
-#: ../../app/models/template.rb:441
+#: ../../app/models/template.rb:443
 msgid "You can not publish a template without questions in a section.  "
 msgstr ""
 "Vous ne pouvez pas publier un modèle dont certaines sections ne contiennent pa"
@@ -29028,14 +29032,10 @@ msgstr ""
 
 #: ../../app/views/static_pages/help.html.erb:11
 msgid ""
-"When you log in to DMPRoadmap you will be directed to the 'My Dashboard' page."
-" From here you can edit, share, download, copy or remove any of your plans. Yo"
-"u will also see plans that have been shared with you by others."
+"When you log in to DMP Assistant you will be directed to the 'My Dashboard' pa"
+"ge. From here you can edit, share, download, copy or remove any of your plans."
+" You will also see plans that have been shared with you by others."
 msgstr ""
-"Lorsque vous vous connectez à DMPRoadmap, vous serez dirigé vers la page « Mon"
-" tableau de bord ». De là, vous pouvez modifier, partager, télécharger, copier"
-" ou supprimer vos plans. Vous verrez également les plans qui ont été partagés "
-"avec vous par d’autres personnes."
 
 #: ../../app/views/static_pages/help.html.erb:13
 msgid "Create a plan"
