@@ -91,7 +91,10 @@
                           role="tabpanel" 
                           aria-labelledby="heading-<%= consolidated_id %>">
                       <div class="panel-body question-body"><!-- accordion body -->
-                        <div class="col-md-8">
+                        <div class="answer-section">
+                          <div class="toggle-guidance-section">
+                            <span class="fa fa-chevron-left"></span> <span><%= d_('dmpopidor','Comments & Guidance') %></span>
+                          </div>
                           <!-- Answer Section -->
                           <div class="question-form">
                             <div id="<%= "answer-locking-#{consolidated_id}" %>" 
@@ -137,7 +140,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="guidance-section">
                           <!-- Guidances and notes partial view -->
                           <% if question.question_format.structured? %>
                             <% madmp_schema = fragment ? fragment.madmp_schema : question.madmp_schema %>

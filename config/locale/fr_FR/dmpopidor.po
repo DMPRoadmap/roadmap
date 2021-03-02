@@ -513,3 +513,6 @@ msgstr "- ou changez la valeur sélectionnée -"
 
 msgid "Please select a value from the list."
 msgstr "Merci de sélectionner une valeur de la liste."
+
+msgid "Comments & Guidance"
+msgstr "Commentaires & Recommandations"
