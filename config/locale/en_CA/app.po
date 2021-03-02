@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-02-27 21:28-0700\n"
-"PO-Revision-Date: 2021-02-28 05:29+0100\n"
+"POT-Creation-Date: 2021-03-02 11:05-0700\n"
+"PO-Revision-Date: 2021-03-02 19:05+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_CA\n"
@@ -186,7 +186,7 @@ msgid "Template for Water Quality Research"
 msgstr ""
 
 msgid "Template for Systematic Reviews"
-msgstr ""
+msgstr "Modèle pour les revues systématiques"
 
 msgid "Template for Studying Molecular Interactions"
 msgstr ""
@@ -501,36 +501,6 @@ msgid ""
 "roughout a research project.&nbsp; </span></p>"
 msgstr ""
 
-msgid "Pre-Project: Prototype"
-msgstr ""
-
-msgid "CEOS Data Management Plan"
-msgstr ""
-
-msgid "Oceans Data Management Plan"
-msgstr ""
-
-msgid "University of Manitoba Data Management Questions"
-msgstr ""
-
-msgid "DMP Questionnaire"
-msgstr ""
-
-msgid "Phase 1"
-msgstr ""
-
-msgid "University of Guelph Agri-Food Funding DMP (Alliance/Food from Thought)  "
-msgstr ""
-
-msgid "Data management questions"
-msgstr ""
-
-msgid "York U Data Management Questions"
-msgstr ""
-
-msgid "MUN Data Management Questions"
-msgstr ""
-
 msgid "OFI Module E DMP"
 msgstr ""
 
@@ -574,6 +544,36 @@ msgid "University of British Columbia Data Management Questions"
 msgstr ""
 
 msgid "Portage Data Management Questions"
+msgstr ""
+
+msgid "Pre-Project: Prototype"
+msgstr ""
+
+msgid "CEOS Data Management Plan"
+msgstr ""
+
+msgid "Oceans Data Management Plan"
+msgstr ""
+
+msgid "University of Manitoba Data Management Questions"
+msgstr ""
+
+msgid "DMP Questionnaire"
+msgstr ""
+
+msgid "Phase 1"
+msgstr ""
+
+msgid "University of Guelph Agri-Food Funding DMP (Alliance/Food from Thought)  "
+msgstr ""
+
+msgid "Data management questions"
+msgstr ""
+
+msgid "York U Data Management Questions"
+msgstr ""
+
+msgid "MUN Data Management Questions"
 msgstr ""
 
 msgid "Phase 2"
@@ -734,6 +734,14 @@ msgid ""
 "sited. This approach underscores that DMPs are living documents that evolve th"
 "roughout a research project.&nbsp;</span></p>"
 msgstr ""
+"<p><span style=\"font-weight: 400;\"> Les questions de la phase 2 visent à obten"
+"ir plus de détails. Naturellement, ces réponses dépendent souvent des résultat"
+"s des diverses étapes du projet de recherche, notamment la revue de la documen"
+"tation scientifique, la conception d’un protocole d’imagerie et d’un plan expé"
+"rimental ou la réalisation de quelques sujets pilotes et l’interprétation des "
+"résultats. Au fur et à mesure que ces détails sont connus, le PGD peut être ré"
+"visé au besoin. Ainsi, un PGD est un document vivant qui évolue tout au long d"
+"’un projet de recherche. </span></p>"
 
 msgid "Data Sharing and Reuse"
 msgstr ""
@@ -3110,6 +3118,8 @@ msgid ""
 "What types of data will you collect, create, link to, acquire and/or record in"
 " each of the different stages of the systematic review?"
 msgstr ""
+"Quels types de données allez-vous collecter, créer, coupler, acquérir ou enreg"
+"istrer à chaque étape de la revue systématique ?"
 
 msgid ""
 "Where will you deposit your data for long-term preservation and sharing at the"
@@ -14068,6 +14078,11 @@ msgid ""
 "metadata/\"><span style=\"font-weight: 400;\">https://www.go-fair.org/fair-princi"
 "ples/f2-data-described-rich-metadata/.</span></a>"
 msgstr ""
+"<span style=\"font-weight: 400;\">Pour une bonne ressource de départ sur les mét"
+"adonnées, consultez le lien suivant : </span><a href=\"https://www.go-fair.org/"
+"fair-principles/f2-data-described-rich-metadata/\"><span style=\"font-weight: 40"
+"0;\">https://www.go-fair.org/fair-principles/f2-data-described-rich-metadata/.<"
+"/span></a><em><span style=\"font-weight: 400;\">(lien en anglais).</span></em>"
 
 msgid ""
 "<span style=\"font-weight: 400;\">Because of the structure of the agreements und"
@@ -17427,7 +17442,7 @@ msgid "Not Answered"
 msgstr ""
 
 #: ../../app/models/concerns/validation_messages.rb:5
-#: ../../app/models/template.rb:204
+#: ../../app/models/template.rb:206
 msgid "can't be blank"
 msgstr "can't be blank"
 
@@ -17541,47 +17556,47 @@ msgstr ""
 msgid "Invalid maximum pages"
 msgstr ""
 
-#: ../../app/models/template.rb:232
+#: ../../app/models/template.rb:234
 msgid "A historical template cannot be retrieved for being modified"
 msgstr ""
 
-#: ../../app/models/template.rb:350
+#: ../../app/models/template.rb:352
 msgid "generate_copy! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:358
+#: ../../app/models/template.rb:360
 msgid "Copy of %{template}"
 msgstr ""
 
-#: ../../app/models/template.rb:366
+#: ../../app/models/template.rb:368
 msgid "generate_version! requires a published template"
 msgstr ""
 
-#: ../../app/models/template.rb:381
+#: ../../app/models/template.rb:383
 msgid "customize! requires an organisation target"
 msgstr ""
 
-#: ../../app/models/template.rb:386
+#: ../../app/models/template.rb:388
 msgid "customize! requires a template from a funder"
 msgstr ""
 
-#: ../../app/models/template.rb:422
+#: ../../app/models/template.rb:424
 msgid "You can not publish a published template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:426
+#: ../../app/models/template.rb:428
 msgid "You can not publish a historical version of this template.  "
 msgstr ""
 
-#: ../../app/models/template.rb:431
+#: ../../app/models/template.rb:433
 msgid "You can not publish a template without phases.  "
 msgstr ""
 
-#: ../../app/models/template.rb:436
+#: ../../app/models/template.rb:438
 msgid "You can not publish a template without sections in a phase.  "
 msgstr ""
 
-#: ../../app/models/template.rb:441
+#: ../../app/models/template.rb:443
 msgid "You can not publish a template without questions in a section.  "
 msgstr ""
 
@@ -20544,9 +20559,9 @@ msgstr ""
 
 #: ../../app/views/static_pages/help.html.erb:11
 msgid ""
-"When you log in to DMPRoadmap you will be directed to the 'My Dashboard' page."
-" From here you can edit, share, download, copy or remove any of your plans. Yo"
-"u will also see plans that have been shared with you by others."
+"When you log in to DMP Assistant you will be directed to the 'My Dashboard' pa"
+"ge. From here you can edit, share, download, copy or remove any of your plans."
+" You will also see plans that have been shared with you by others."
 msgstr ""
 
 #: ../../app/views/static_pages/help.html.erb:13
