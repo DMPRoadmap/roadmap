@@ -6,6 +6,7 @@
 #
 #  id                   :bigint           not null, primary key
 #  identifiable_type    :string
+#  value                :string           not null
 #  identifier_type      :integer          not null
 #  relation_type        :integer          not null
 #  created_at           :datetime         not null
@@ -22,9 +23,42 @@
 #
 class RelatedIdentifier < ApplicationRecord
 
-=begin
-  ARKarXivbibcodeDOIEAN13EISSNHandleIGSNISBNISSNISTCLISSNLSIDPMIDPURLUPCURLURN w3id
+  # ================
+  # = Associations =
+  # ================
 
-  IsCitedByCitesIsSupplementToIsSupplementedByIsContinuedByContinuesIsDescribedByDescribesHasMetadataIsMetadataForHasVersionIsVersionOfIsNewVersionOfIsPreviousVersionOfIsPartOfHasPartIsReferencedByReferencesIsDocumentedByDocumentsIsCompiledByCompilesIsVariantFormOfIsOriginalFormOfIsIdenticalToIsReviewedByReviewsIsDerivedFromIsSourceOfIsRequiredBy RequiresIsObsoletedByObsoletes
-=end
+  belongs_to :identifiable, polymorphic: true, touch: true
+
+  belongs_to :identifier_scheme, optional: true
+
+  # ===============
+  # = Validations =
+  # ===============
+
+  validates :value, presence: { message: PRESENCE_MESSAGE }
+
+  validates :identifiable, presence: { message: PRESENCE_MESSAGE }
+
+  # =========
+  # = Enums =
+  # =========
+  enum identifier_type: %i[ARK arXiv bibcode DOI EAN13 EISSN Handle IGSN ISBN ISSN ISTC LISSN LSID
+                           PMID PURL UPC URL URN w3id]
+
+  enum relation_type: %i[IsCitedBy Cites
+                         IsSupplementTo IsSupplementedBy
+                         IsContinuedBy Continues
+                         IsDescribedBy Describes
+                         HasMetadata IsMetadataFor
+                         HasVersion IsVersionOf IsNewVersionOf IsPreviousVersionOf
+                         IsPartOf HasPart
+                         IsReferencedBy References
+                         IsDocumentedBy Documents
+                         IsCompiledBy Compiles
+                         IsVariantFormOf IsOriginalFormOf IsIdenticalTo
+                         IsReviewedBy Reviews
+                         IsDerivedFrom IsSourceOf
+                         IsRequiredBy Requires
+                         IsObsoletedBy Obsoletes]
+
 end

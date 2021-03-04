@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: subscribers
+# Table name: subscriptions
 #
 #  id                :bigint           not null, primary key
 #  callback_uri      :string
@@ -18,7 +18,7 @@
 #  index_subscribers_on_identifiable_and_plan_id  (subscriber_id,subscriber_type,plan_id)
 #  index_subscribers_on_plan_id                   (plan_id)
 #
-class Subscriber < ApplicationRecord
+class Subscription < ApplicationRecord
 
   include FlagShihTzu
 

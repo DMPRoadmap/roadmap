@@ -86,7 +86,7 @@ module ExternalApis
         return plan unless plan.present? && doi.present? &&
                            callback_path.present? && api_client.present?
 
-        Subscriber.create(
+        Subscription.create(
           plan: plan,
           subscriber: api_client,
           callback_uri: callback_path % { dmp_id: doi.gsub(/https?:\/\/doi.org\//, "") },

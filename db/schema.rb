@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_23_174458) do
+ActiveRecord::Schema.define(version: 2021_03_01_163106) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -436,6 +436,7 @@ ActiveRecord::Schema.define(version: 2021_02_23_174458) do
     t.string "identifiable_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "value", null: false
     t.index ["identifiable_id", "identifiable_type", "relation_type"], name: "index_relateds_on_identifiable_and_relation_type"
     t.index ["identifier_scheme_id"], name: "index_related_identifiers_on_identifier_scheme_id"
     t.index ["identifier_type"], name: "index_related_identifiers_on_identifier_type"
@@ -539,15 +540,15 @@ ActiveRecord::Schema.define(version: 2021_02_23_174458) do
     t.boolean "filtered", default: false
   end
 
-  create_table "subscribers", force: :cascade do |t|
+  create_table "subscriptions", force: :cascade do |t|
     t.bigint "plan_id"
-    t.integer "subscription_type", null: false
+    t.integer "subscription_types", null: false
     t.string "callback_uri"
     t.bigint "subscriber_id"
     t.string "subscriber_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["plan_id"], name: "index_subscribers_on_plan_id"
+    t.index ["plan_id"], name: "index_subscriptions_on_plan_id"
     t.index ["subscriber_id", "subscriber_type", "plan_id"], name: "index_subscribers_on_identifiable_and_plan_id"
   end
 

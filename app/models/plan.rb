@@ -117,15 +117,13 @@ class Plan < ApplicationRecord
 
   has_many :contributors, dependent: :destroy
 
-  has_one :grant, as: :identifiable, dependent: :destroy, class_name: "Identifier"
-
   belongs_to :api_client, optional: true
 
   has_many :research_outputs, dependent: :destroy
 
-  has_many :subscribers, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
 
-  has_many :related_identifiers, dependent: :destroy
+  has_many :related_identifiers, as: :identifiable, dependent: :destroy
 
   # =====================
   # = Nested Attributes =
@@ -138,6 +136,8 @@ class Plan < ApplicationRecord
   accepts_nested_attributes_for :contributors
 
   accepts_nested_attributes_for :research_outputs
+
+  accepts_nested_attributes_for :related_identifiers
 
   # ===============
   # = Validations =
@@ -152,12 +152,6 @@ class Plan < ApplicationRecord
   validates :complete, inclusion: { in: BOOLEAN_VALUES }
 
   validate :end_date_after_start_date
-
-  # =============
-  # = Callbacks =
-  # =============
-
-  after_save :notify_subscribers
 
   # ==========
   # = Scopes =
@@ -615,11 +609,25 @@ class Plan < ApplicationRecord
     visibility_allowed? && orcids.any? && rors.any? && funder.present?
   end
 
-  # Triggers a notification to all subscribers
-  def notify_subscribers(subscription_type: :updates)
-    return true unless subscribers.any?
+  # Since the Grant is not a normal AR association, override the getter and setter
+  def grant
+    Identifier.find_by(id: grant_id)
+  end
 
-    PlanNotificationService.notify(plan: self, subscription_type: subscription_type)
+  # Helper method to convert the grant id value entered by the user into an Identifier
+  def grant=(params)
+    current = grant
+
+    # Remove it if it was blanked out by the user
+    current.destroy unless params[:value].present?
+    return unless params[:value].present?
+
+    # Create the Identifier if it doesn't exist and then set the id
+    current.update(value: params[:value]) if current.present? && current.value != params[:value]
+    return if current.present?
+
+    current = Identifier.create(identifiable: self, value: params[:value])
+    self.grant_id = current.id
   end
 
   private

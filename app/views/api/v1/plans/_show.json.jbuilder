@@ -64,11 +64,24 @@ unless @minimal
     json.partial! "api/v1/datasets/show", output: output
   end
 
-  # DMPTool extensions to the RDA common metadata standard
+  # DMPRoadmap extensions to the RDA common metadata standard
   json.dmproadmap_template do
     json.id plan.template.id
     json.title plan.template.title
   end
 
+  # Any related identifiers known by the DMPTool
+  json.dmproadmap_related_identifiers plan.related_identifiers do |related|
+    next unless related.value.present? && related.relation_type.present?
+
+    json.descriptor related.relation_type
+    json.type related.identifier_type
+    json.identifier related.value
+  end
+
+  # DMPRoadmap specific links to perform special actions like downloading the PDF
   json.dmproadmap_links presenter.links
+
+  # DMPHub extension to send all callback addresses for interested subscribers for changes to the DMP
+  json.dmphub_subscribers presenter.subscriptions
 end
