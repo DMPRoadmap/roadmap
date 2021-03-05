@@ -343,7 +343,7 @@ module OrgAdmin
               },
               font_size: 8,
               spacing: (@formatting[:margin][:bottom] / 2) - 4,
-              right: "[page] of [topage]",
+              right: _("[page] of [topage]"),
               encoding: "utf8"
             }
             # rubocop:enable Metrics/LineLength
