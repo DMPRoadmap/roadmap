@@ -34,7 +34,7 @@
             <% end %>
             <% section[:questions].each do |question| %>
               <div class="question">
-                <% if !@public_plan && @show_sections_questions%>
+                <% if @show_sections_questions%>
                   <%# Hack: for DOCX export - otherwise, bold highlighting of question inconsistent. %>
                   <% if local_assigns[:export_format] && export_format == 'docx' %>
                     <strong><%=  sanitize question[:text].to_s, scrubber: TableFreeScrubber.new %></strong>

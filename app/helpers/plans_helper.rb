@@ -22,19 +22,40 @@ module PlansHelper
       return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Public')}</span>"
     when 'privately_visible'
       return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Private')}</span>"
-    else
-      return "<span>#{_('Private')}</span>" # Test Plans
+    when 'is_test'
+      return "<span>#{_('Test')}</span>"
+    else 
+      return "<span>N/A</span>"
     end
   end
 
   def visibility_tooltip(val)
     case val
     when 'organisationally_visible'
-      return _('Organisation: anyone at my organisation can view.')
+      _('Organisation: anyone at my organisation can view.')
     when 'publicly_visible'
-      return _('Public: anyone can view.')
+      _('Public: anyone can view.')
+    when 'privately_visible'
+      _('Private: restricted to me and people I invite.')
+    when 'is_test'
+      _('mock project for testing, practice, or educational purposes')
     else
-      return _('Private: restricted to me and people I invite.')
+      _('N/A')
+    end
+  end
+
+  def visibility_options(val)
+    case val
+    when 'organisationally_visible'
+      _('Organisation')
+    when 'publicly_visible'
+      _('Public')
+    when 'privately_visible'
+      _('Private')
+    when 'is_test'
+      _('Test')
+    else
+      _('N/A')
     end
   end
 
