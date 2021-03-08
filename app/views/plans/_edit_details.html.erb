@@ -17,12 +17,20 @@
         </div>
       </div>
 
+
       <div class="form-group"><!-- visibility -->
         <div class="col-md-12">
           <%= f.label(:visibility, _('Visibility'), class: 'control-label') %>
         </div>
         <div class="col-md-8">
-          <%= f.select(:visibility, options_for_select(Plan.visibilities.map {|k, v| [visibility_options(k), k]}, [@plan.visibility])) %>
+        <% visibility_radio_options =  Plan::VISIBILITY_ORDER.map {|visibility| {value: visibility, label: visibility_tooltip(visibility.to_s)} } %>        
+        <% visibility_radio_options.each do |radio_option| %>
+          <div>
+          <%= f.radio_button :visibility, radio_option[:value] %>
+          <%= _(radio_option[:label]) %>
+          </div>
+        <% end %>
+
         </div>
       </div>
 

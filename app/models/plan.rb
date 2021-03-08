@@ -57,6 +57,9 @@ class Plan < ActiveRecord::Base
     privately_visible: _("private")
   }
 
+  VISIBILITY_ORDER = %i[privately_visible publicly_visible organisationally_visible 
+    is_test]
+
   # ==============
   # = Attributes =
   # ==============
@@ -64,7 +67,6 @@ class Plan < ActiveRecord::Base
   # public is a Ruby keyword so using publicly
   enum visibility: %i[organisationally_visible publicly_visible
                       is_test privately_visible]
-
 
   alias_attribute :name, :title
 
