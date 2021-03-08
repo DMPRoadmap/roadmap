@@ -23,7 +23,7 @@ module PlansHelper
     when 'privately_visible'
       return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Private')}</span>"
     when 'is_test'
-      return "<span>#{_('Test')}</span>"
+      return "<span title=\"#{ visibility_tooltip(val) }\">#{_('Test')}</span>"
     else 
       return "<span>N/A</span>"
     end
@@ -38,7 +38,7 @@ module PlansHelper
     when 'privately_visible'
       _('Private: restricted to me and people I invite.')
     when 'is_test'
-      _('mock project for testing, practice, or educational purposes')
+      _('Test: mock project for testing, practice, or educational purposes.')
     else
       _('N/A')
     end
