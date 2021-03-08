@@ -6,14 +6,6 @@
   <%= form_for plan, html: {method: :put, class: 'form-horizontal edit_plan' } do |f| %>
     <div class="col-md-12 plan-details">
       <div class="col-md-8">
-
-        <div class="checkbox">
-          <%= f.hidden_field :visibility %>
-          <%= f.label(:is_test, class: 'control-label') do %>
-            <%= check_box_tag(:is_test, 1, @plan.is_test?, "aria-label": "is_test") %>
-            <%= _('mock project for testing, practice, or educational purposes') %>
-          <% end %>
-        </div>
         
         <div class="heading-button" role="button" data-toggle="collapse"
              data-parent="sections-accordion"
@@ -32,6 +24,13 @@
         <div id="plan_project" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-plan-project">
           <div class="panel-body madmp-fragment""><!-- accordion body -->
             <fieldset aria-labelledby="fragment-fieldset" class="fragment-fieldset">
+              <div class="checkbox">
+                <%= f.hidden_field :visibility %>
+                <%= f.label(:is_test, class: 'control-label') do %>
+                  <%= check_box_tag(:is_test, 1, @plan.is_test?, "aria-label": "is_test") %>
+                  <%= _('mock project for testing, practice, or educational purposes') %>
+                <% end %>
+              </div>
               <div class="project-form">
                 <%= render(partial: 'shared/dynamic_form/form', locals: { 
                       f: f,
