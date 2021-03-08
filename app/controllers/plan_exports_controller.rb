@@ -25,7 +25,7 @@ class PlanExportsController < ApplicationController
       @show_sections_questions = true
       @show_unanswered         = true
       @show_custom_sections    = true
-      @show_research_outputs   = true
+      @show_research_outputs   = @plan.template&.allow_research_outputs? || false
       @public_plan             = true
 
     else
