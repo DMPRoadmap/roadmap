@@ -630,52 +630,24 @@ header .main-nav {
     // Project Details 
 
     .plan-details {
-        display: flex;
-        .form-tabs {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            background-color: $white;
+        
+        .question-text {
+            border-color: $rust;
             color: $rust;
-            border: 1px solid $rust;
-
-            li > span {
-                display: block;
-                padding: 10px 15px;
-                cursor: pointer;
-
-                i {
-                    display: none;
-                }
+            .panel-title {
+                color: $rust;
             }
-
-            li > span:hover, 
-            li > span:focus, 
-            li.active > span, 
-            li.active > span:focus, 
-            li.active > span:hover {
-                color: $white;
-                border-bottom-color: transparent;
-                background-color: $rust;
-
-                i {
-                    display: inline;
-                }
-            }
-
         }
-        .tab-content {
-            flex: 4;
-            padding-right: 20px;
-            .project-details {
-                width: 100%;
-                //border: 2px solid $blue;
-                border-radius: 5px;
-                legend {
-                    color: $rust;
+        .madmp-fragment {
+            .answer-save-zone {
+                float: right;
+                .answer-save-button {
+                    color: $white;
+                    background-color: $rust;
                 }
             }
         }
+
         .linked-fragments {
             .actions {
                 width: 20%;

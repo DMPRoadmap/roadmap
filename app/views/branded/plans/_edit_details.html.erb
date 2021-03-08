@@ -5,8 +5,8 @@
 <div class="row">
   <%= form_for plan, html: {method: :put, class: 'form-horizontal edit_plan' } do |f| %>
     <div class="col-md-12 plan-details">
-      <!-- Tabs content -->
-      <div class="tab-content">
+      <div class="col-md-8">
+
         <div class="checkbox">
           <%= f.hidden_field :visibility %>
           <%= f.label(:is_test, class: 'control-label') do %>
@@ -14,56 +14,92 @@
             <%= _('mock project for testing, practice, or educational purposes') %>
           <% end %>
         </div>
-        <!-- "Plan Metadata" tab -->
-        <div id="plan_metadata" class="tab-pane in active madmp-fragment fragment-<%= meta_fragment.id %>">
-          <h2><%= d_("dmpopidor", "Plan Details") %></h2>
-          <div class="meta-form">
-            <%= render(partial: 'shared/dynamic_form/form', locals: { 
-                  f: f,
-                  current_fragment: meta_fragment, 
-                  schema: MadmpSchema.find_by(name: "MetaStandard"),
-                  question_id: nil,
-                  readonly: false,
-                  classname: "meta",
-                  template_locale: @plan.template.locale,
-                  form_prefix: "meta"
-                }) %>
+        
+        <div class="heading-button" role="button" data-toggle="collapse"
+             data-parent="sections-accordion"
+             href="#plan_project"
+             aria-expanded="true"
+             aria-controls="plan_project">
+          <div class="panel-heading question-text" role="tab" id="heading-plan-project">
+            <div class="panel-title pull-left">
+              <%= _("Project Details") %>
+            </div>
+            <i class="fa fa-chevron-down pull-right" aria-hidden="true"></i>
+            <div class="clearfix"></div>
           </div>
-          <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
         </div>
-        <!-- "Project Details" tab -->
-        <div id="plan_project" class="tab-pane madmp-fragment fragment-<%= project_fragment.id %>">
-          <h2><%= _("Project Details") %></h2>
-          <div class="project-form">
-            <%= render(partial: 'shared/dynamic_form/form', locals: { 
-                  f: f,
-                  current_fragment: project_fragment, 
-                  schema: MadmpSchema.find_by(name: "ProjectStandard"),
-                  question_id: nil,
-                  readonly: false,
-                  classname: "project",
-                  template_locale: @plan.template.locale,
-                  form_prefix: "project"
-                }) %>
+
+        <div id="plan_project" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-plan-project">
+          <div class="panel-body madmp-fragment""><!-- accordion body -->
+            <fieldset aria-labelledby="fragment-fieldset" class="fragment-fieldset">
+              <div class="project-form">
+                <%= render(partial: 'shared/dynamic_form/form', locals: { 
+                      f: f,
+                      current_fragment: project_fragment, 
+                      schema: MadmpSchema.find_by(name: "ProjectStandard"),
+                      question_id: nil,
+                      readonly: false,
+                      classname: "project",
+                      template_locale: @plan.template.locale,
+                      form_prefix: "project"
+                    }) %>
+              </div>
+              <div class="answer-save-zone" >
+                <span class="please-save-message"><%= d_('dmpopidor', 'You have pending changes, please save')%></span>
+                <%= f.button(_('Save'), class: "btn btn-default answer-save-button", type: "submit") %>
+              </div>
+            </fieldset>
           </div>
-          <%= f.button(_('Save'), class: "btn btn-default", type: "submit") %>
         </div>
+
+        <hr/>
+        <div class="clearfix"></div>
+
+        <div class="heading-button" role="button" data-toggle="collapse"
+             data-parent="sections-accordion"
+             href="#plan_metadata"
+             aria-expanded="false"
+             aria-controls="plan_metadata">
+
+          <div class="panel-heading question-text" role="tab" id="heading-plan-metadata">
+            <div class="panel-title pull-left">
+              <%= d_("dmpopidor", "Plan Details") %>
+            </div>
+            <i class="fa fa-chevron-right pull-right" aria-hidden="true"></i>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+
+        <div id="plan_metadata" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-plan-metadata">
+          <div class="panel-body madmp-fragment"><!-- accordion body -->
+            <fieldset aria-labelledby="fragment-fieldset" class="fragment-fieldset">
+              <div class="meta-form">
+                <%= render(partial: 'shared/dynamic_form/form', locals: { 
+                      f: f,
+                      current_fragment: meta_fragment, 
+                      schema: MadmpSchema.find_by(name: "MetaStandard"),
+                      question_id: nil,
+                      readonly: false,
+                      classname: "meta",
+                      template_locale: @plan.template.locale,
+                      form_prefix: "meta"
+                    }) %>
+              </div>
+              <div class="answer-save-zone" >
+                <span class="please-save-message"><%= d_('dmpopidor', 'You have pending changes, please save')%></span>
+                <%= f.button(_('Save'), class: "btn btn-default answer-save-button", type: "submit") %>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4 guidance-configuration">
         <!-- "Guidance Configuration" tab -->
         <div id="guidance_configuration" class="tab-pane">
           <%= render(partial: 'plans/guidance_configuration', locals: { f: f } ) %>
         </div>
       </div>
-      <ul class="nav nav-tabs form-tabs">
-        <li class="active">
-          <span data-toggle="tab" data-target="#plan_metadata"><i class="fa fa-arrow-left"></i> <%= d_("dmpopidor", "Plan Details") %></span>
-        </li>
-        <li>
-          <span data-toggle="tab" data-target="#plan_project"><i class="fa fa-arrow-left"></i> <%= _("Project Details") %></span>
-        </li>
-        <li>
-          <span data-toggle="tab" data-target="#guidance_configuration"><i class="fa fa-arrow-left"></i> <%= _("Guidance Configuration") %></span>
-        </li>
-      </ul>
     </div>
   <% end %>
 </div>

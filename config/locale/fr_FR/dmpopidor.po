@@ -516,3 +516,6 @@ msgstr "Merci de sélectionner une valeur de la liste."
 
 msgid "Comments & Guidance"
 msgstr "Commentaires & Recommandations"
+
+msgid "Plan Title"
+msgstr "Titre du plan"

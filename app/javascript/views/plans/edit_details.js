@@ -142,4 +142,11 @@ $(() => {
       parentFieldset.find('.person_identifier').val(data.identifier);
     });
   });
+
+
+  $('body').on('click', '.plan-details .heading-button', (e) => {
+    $(e.currentTarget)
+      .find('i.fa-chevron-right, i.fa-chevron-down')
+      .toggleClass('fa-chevron-right fa-chevron-down');
+  });
 });
