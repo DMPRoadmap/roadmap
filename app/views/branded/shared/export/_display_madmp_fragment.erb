@@ -1,6 +1,6 @@
 <% sub_schemas = schema.sub_schemas %>
 <% data = fragment.data unless fragment.nil? %>
-<% dmp_fragments = fragment.present? ? fragment.dmp_fragments() : [] %>
+<% dmp_fragments = fragment.present? ? fragment.get_dmp_fragments() : [] %>
 <% schema_properties = schema.schema["properties"]%>
 <table class="fragment-display"><tbody>
   <% schema_properties.each do |key, prop| %>
@@ -53,7 +53,7 @@
             <p class= "fontsize-h3"><%= field_name.capitalize %></p>
             <div class="sub-fragment">
               <%= render(partial: 'shared/export/display_madmp_fragment', locals: {
-                              fragment: dmp_fragments.find_by(madmp_schema_id: sub_schema.id, parent_id: fragment.id) unless dmp_fragments.empty?, #TODO : Implement Person fragments display
+                              fragment: dmp_fragments.find_by(madmp_schema_id: sub_schema.id, parent_id: fragment.id),
                               schema: sub_schema,
                               classname: sub_schema.classname
                     } ) %>
