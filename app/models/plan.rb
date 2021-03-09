@@ -153,6 +153,12 @@ class Plan < ApplicationRecord
 
   validate :end_date_after_start_date
 
+  # =============
+  # = Callbacks =
+  # =============
+
+  after_update :notify_subscribers, if: subscriptions.any?
+
   # ==========
   # = Scopes =
   # ==========
@@ -631,6 +637,21 @@ class Plan < ApplicationRecord
   end
 
   private
+
+  # Callback that will notify scubscribers of a new version of the Plan
+  def notify_subscribers
+    return true unless Rails.application.configuration.x.active_job.enabled && doi.present?
+
+    # If the registered DOI Service is subscribed then continue
+    api_client = ApiClient.where(name: DoiService.scheme_name)
+    return true unless api_client.present? && subscriptions.map(&:api_client_id).include?(api_client.id)
+
+    DoiService.update_doi(plan: plan)
+
+    # TODO: eventually consider setting this up as a Job and using the ApiClient's callback_url
+    #       and callback_method as the targets to process other subscribers
+    # UpdateDoiJob.perform_later(plan: self)
+  end
 
   # Validation to prevent end date from coming before the start date
   def end_date_after_start_date

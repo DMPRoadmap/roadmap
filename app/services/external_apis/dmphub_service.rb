@@ -108,12 +108,35 @@ module ExternalApis
         )
       end
 
+      # Bump the last_notified timestamp on the subscription
+      def update_subscription(plan:, doi:)
+        Rails.logger.warn "DMPHubService - No ApiClient available for 'dmphub'!" unless api_client.present?
+        return plan unless plan.present? && doi.present? callback_path.present? && api_client.present?
+
+        Subscription.where(plan: plan, subscriber: api_client).update(last_notified: Time.now)
+      end
+
       # Update the DOI
       def update_doi(plan:)
-        return nil unless active? && plan.present?
+        return nil unless active? && auth && plan.present?
 
-        # Implement this later once we figure out versioning
-        plan.present?
+        hdrs = {
+          "Authorization": @token,
+          "Server-Agent": "#{caller_name} (#{client_id})"
+        }
+        resp = http_put(uri: "#{api_base_url}#{callback_path}",
+                        additional_headers: hdrs, debug: true,
+                        data: json_from_template(plan: plan))
+
+        # DMPHub returns a 200 when successful
+        unless resp.present? && resp.code == 200
+          handle_http_failure(method: "DMPHub update_doi", http_response: resp)
+          return nil
+        end
+
+        doi = process_response(response: resp)
+        update_subscription(plan: plan, doi: doi) if doi.present?
+        doi
       end
 
       # Delete the DOI

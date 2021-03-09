@@ -12,11 +12,13 @@
 #  updated_at        :datetime         not null
 #  subscriber_id     :bigint
 #  plan_id           :bigint
+#  last_notified     :datetime
 #
 # Indexes
 #
 #  index_subscribers_on_identifiable_and_plan_id  (subscriber_id,subscriber_type,plan_id)
 #  index_subscribers_on_plan_id                   (plan_id)
+#  index_subsciprions_on_last_notifed             (last_notifed)
 #
 class Subscription < ApplicationRecord
 
