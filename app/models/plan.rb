@@ -626,7 +626,7 @@ class Plan < ApplicationRecord
     current = grant
 
     # Remove it if it was blanked out by the user
-    current.destroy unless params[:value].present?
+    current.destroy if current.present? && !params[:value].present?
     return unless params[:value].present?
 
     # Create the Identifier if it doesn't exist and then set the id
