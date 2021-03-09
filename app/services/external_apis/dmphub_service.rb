@@ -92,30 +92,6 @@ module ExternalApis
         doi
       end
 
-      # Register the ApiClient behind the minter service as a Subscriber to the Plan
-      # if the service has a callback URL and ApiClient
-      def add_subscription(plan:, doi:)
-        Rails.logger.warn "DMPHubService - No ApiClient available for 'dmphub'!" unless api_client.present?
-        return plan unless plan.present? && doi.present? &&
-                           callback_path.present? && api_client.present?
-
-        Subscription.create(
-          plan: plan,
-          subscriber: api_client,
-          callback_uri: callback_path % { dmp_id: doi.gsub(/https?:\/\/doi.org\//, "") },
-          updates: true,
-          deletions: true
-        )
-      end
-
-      # Bump the last_notified timestamp on the subscription
-      def update_subscription(plan:, doi:)
-        Rails.logger.warn "DMPHubService - No ApiClient available for 'dmphub'!" unless api_client.present?
-        return plan unless plan.present? && doi.present? callback_path.present? && api_client.present?
-
-        Subscription.where(plan: plan, subscriber: api_client).update(last_notified: Time.now)
-      end
-
       # Update the DOI
       def update_doi(plan:)
         return nil unless active? && auth && plan.present?
@@ -124,8 +100,12 @@ module ExternalApis
           "Authorization": @token,
           "Server-Agent": "#{caller_name} (#{client_id})"
         }
-        resp = http_put(uri: "#{api_base_url}#{callback_path}",
-                        additional_headers: hdrs, debug: true,
+
+        target = "#{api_base_url}#{callback_path}" % { dmp_id: plan.doi.value_without_scheme_prefix }
+
+p "UPDATING: #{target}"
+
+        resp = http_put(uri: target, additional_headers: hdrs, debug: true,
                         data: json_from_template(plan: plan))
 
         # DMPHub returns a 200 when successful
@@ -145,6 +125,30 @@ module ExternalApis
 
         # implement this later if necessary and if reasonable. Is deleting a DOI feasible?
         plan.present?
+      end
+
+      # Register the ApiClient behind the minter service as a Subscriber to the Plan
+      # if the service has a callback URL and ApiClient
+      def add_subscription(plan:, doi:)
+        Rails.logger.warn "DMPHubService - No ApiClient available for 'dmphub'!" unless api_client.present?
+        return plan unless plan.present? && doi.present? &&
+                           callback_path.present? && api_client.present?
+
+        Subscription.create(
+          plan: plan,
+          subscriber: api_client,
+          callback_uri: callback_path % { dmp_id: doi.gsub(/https?:\/\/doi.org\//, "") },
+          updates: true,
+          deletions: true
+        )
+      end
+
+      # Bump the last_notified timestamp on the subscription
+      def update_subscription(plan:, doi:)
+        Rails.logger.warn "DMPHubService - No ApiClient available for 'dmphub'!" unless api_client.present?
+        return plan unless plan.present? && doi.present? && callback_path.present? && api_client.present?
+
+        Subscription.where(plan: plan, subscriber: api_client).update(last_notified: Time.now)
       end
 
       private
