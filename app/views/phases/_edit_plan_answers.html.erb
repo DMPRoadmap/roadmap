@@ -38,7 +38,7 @@
     </div>
     <div class="panel-group" id="sections-accordion" role="tablist"
          aria-multiselectable="true">
-    <% phase.sections.order(:number).each do |section| %>
+    <% phase.sections.sort {|a,b| a.number <=> b.number }.each do |section| %>
       <div class="panel panel-default">
         <div class="heading-button" role="button" data-toggle="collapse"
              id="section-panel-<%= section.id %>"
@@ -122,7 +122,7 @@
             </div> <!-- panel-body -->
           </div> <!-- panel-collapse -->
         </div> <!-- panel panel-default -->
-      <% end %>   <!-- phase.sections.order(:number).each do -->
+      <% end %>   <!-- phase.sections.sort {|a,b| a.number <=> b.number }.each do -->
     </div>   <!-- panel-group -->
   </div> <!-- tab panel -->
 </div> <!-- tab panels -->
