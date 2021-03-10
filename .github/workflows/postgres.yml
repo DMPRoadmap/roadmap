@@ -118,5 +118,4 @@ jobs:
 
     # Integration Tests are only run if PR or Push is to master or development branches
     - name: 'Run Integration Tests'
-      if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development'
       run: bin/rspec spec/features/
