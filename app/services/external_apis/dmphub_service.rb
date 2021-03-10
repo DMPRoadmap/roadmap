@@ -102,9 +102,6 @@ module ExternalApis
         }
 
         target = "#{api_base_url}#{callback_path}" % { dmp_id: plan.doi.value_without_scheme_prefix }
-
-p "UPDATING: #{target}"
-
         resp = http_put(uri: target, additional_headers: hdrs, debug: true,
                         data: json_from_template(plan: plan))
 

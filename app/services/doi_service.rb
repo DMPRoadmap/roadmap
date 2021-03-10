@@ -46,6 +46,14 @@ class DoiService
       scheme(svc: svc)&.name&.downcase
     end
 
+    # Return the inheriting service's :callback_path (defined in their config)
+    def scheme_callback_uri
+      svc = minter
+      return nil unless svc.present?
+
+      svc.callback_path
+    end
+
     private
 
     # Fetch the active DOI minting service
