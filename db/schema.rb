@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_08_192403) do
+ActiveRecord::Schema.define(version: 2020_12_16_140226) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2020_12_08_192403) do
     t.string "contact_email", null: false
     t.string "client_id", null: false
     t.string "client_secret", null: false
-    t.date "last_access"
+    t.datetime "last_access"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "org_id"
