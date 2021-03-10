@@ -22,7 +22,7 @@ chdir APP_ROOT do
     config/database.yml.sample
     config/initializers/wicked_pdf.rb.example
   ].each do |file|
-    new_file .gsub('.sample', '').gsub('.example', '')
+    new_file = file.gsub('.sample', '').gsub('.example', '')
     cp file, new_file unless File.exist?(new_file)
   end
 

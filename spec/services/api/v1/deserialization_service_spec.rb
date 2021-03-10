@@ -196,21 +196,21 @@ RSpec.describe Api::V1::DeserializationService do
     it "converts :value to a UTC format" do
       now = Time.now
       expected = "2020-11-11"
-      rslt = described_class.safe_date(value: "2020-11-11").to_s
-      expect(rslt.start_with?(expected)).to eql(true)
-      expect(rslt.end_with?("UTC")).to eql(true)
-      rslt = described_class.safe_date(value: "November 11, 2020").to_s
-      expect(rslt.start_with?(expected)).to eql(true)
-      expect(rslt.end_with?("UTC")).to eql(true)
-      rslt = described_class.safe_date(value: "Nov. 11 2020").to_s
-      expect(rslt.start_with?(expected)).to eql(true)
-      expect(rslt.end_with?("UTC")).to eql(true)
-      rslt = described_class.safe_date(value: "11 Nov. 2020").to_s
-      expect(rslt.start_with?(expected)).to eql(true)
-      expect(rslt.end_with?("UTC")).to eql(true)
-      rslt = described_class.safe_date(value: "2020-11-11 10:15:35 PST").to_s
-      expect(rslt.start_with?(expected)).to eql(true)
-      expect(rslt.end_with?("UTC")).to eql(true)
+      rslt = described_class.safe_date(value: "2020-11-11")
+      expect(rslt.getlocal.to_s.start_with?(expected)).to eql(true)
+      expect(rslt.to_s.end_with?("UTC")).to eql(true)
+      rslt = described_class.safe_date(value: "November 11, 2020")
+      expect(rslt.getlocal.to_s.start_with?(expected)).to eql(true)
+      expect(rslt.to_s.end_with?("UTC")).to eql(true)
+      rslt = described_class.safe_date(value: "Nov. 11 2020")
+      expect(rslt.getlocal.to_s.start_with?(expected)).to eql(true)
+      expect(rslt.to_s.end_with?("UTC")).to eql(true)
+      rslt = described_class.safe_date(value: "11 Nov. 2020")
+      expect(rslt.getlocal.to_s.start_with?(expected)).to eql(true)
+      expect(rslt.to_s.end_with?("UTC")).to eql(true)
+      rslt = described_class.safe_date(value: "2020-11-11 10:15:35 PST")
+      expect(rslt.to_s.start_with?(expected)).to eql(true)
+      expect(rslt.to_s.end_with?("UTC")).to eql(true)
       expected = now.utc.to_s
       expect(described_class.safe_date(value: now.to_formatted_s(:iso8601)).to_s).to eql(expected)
     end
