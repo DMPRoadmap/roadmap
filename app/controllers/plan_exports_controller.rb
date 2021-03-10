@@ -8,7 +8,8 @@ class PlanExportsController < ApplicationController
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def show
-    @plan = Plan.includes(:answers).find(params[:plan_id])
+    @plan = Plan.includes(:answers, { template: { phases: { sections: :questions } } })
+                .find(params[:plan_id])
 
     if privately_authorized? && export_params[:form].present?
       skip_authorization
