@@ -12,6 +12,20 @@
 
 class Perm < ApplicationRecord
 
+  class << self
+
+    private
+
+    def lazy_load(name)
+      Rails.cache
+           .fetch("Perm.find_by_name(#{name})", expires_in: 5.seconds, cache_nils: false) do
+             Perm.find_by_name(name)
+           end
+           .freeze
+    end
+
+  end
+
   # ================
   # = Associations =
   # ================
@@ -29,41 +43,40 @@ class Perm < ApplicationRecord
   # = Class methods =
   # =================
 
-  # TODO: see the constants setup in token_permission_type.rb and refactor
   def self.add_orgs
-    Perm.find_by(name: "add_organisations")
+    lazy_load("add_organisations")
   end
 
   def self.change_affiliation
-    Perm.find_by(name: "change_org_affiliation")
+    lazy_load("change_org_affiliation")
   end
 
   def self.grant_permissions
-    Perm.find_by(name: "grant_permissions")
+    lazy_load("grant_permissions")
   end
 
   def self.modify_templates
-    Perm.find_by(name: "modify_templates")
+    lazy_load("modify_templates")
   end
 
   def self.modify_guidance
-    Perm.find_by(name: "modify_guidance")
+    lazy_load("modify_guidance")
   end
 
   def self.use_api
-    Perm.find_by(name: "use_api")
+    lazy_load("use_api")
   end
 
   def self.change_org_details
-    Perm.find_by(name: "change_org_details")
+    lazy_load("change_org_details")
   end
 
   def self.grant_api
-    Perm.find_by(name: "grant_api_to_orgs")
+    lazy_load("grant_api_to_orgs")
   end
 
   def self.review_plans
-    Perm.find_by(name: "review_org_plans")
+    lazy_load("review_org_plans")
   end
 
 end
