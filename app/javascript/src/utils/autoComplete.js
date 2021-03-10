@@ -41,6 +41,26 @@ const queryArgs = (autocomplete, searchTerm) => {
   return `{"${namespace}":{"${attribute}":"${searchTerm}"}}`;
 };
 
+// Displays/hides a 'Loading ...' message while waiting for an AJAX response
+const toggleLoadingMessage = (context) => {
+  const selections = $(context);
+  const msg = getConstant('AUTOCOMPLETE_SEARCHING');
+  const loadingMessage = `<li class="loading-message ui-menu-item"><div class="ui-menu-item-wrapper" tabindex="-1">${msg}</div></li>`;
+
+  if (selections.length > 0) {
+    const message = selections.find('.loading-message');
+    const menu = selections.find('ul.ui-menu');
+
+    menu.show();
+
+    if (message.length > 0) {
+      message.remove();
+    } else {
+      menu.html(loadingMessage);
+    }
+  }
+};
+
 // Makes an AJAX request to the specified target
 const search = (autocomplete, term, crosswalk, callback) => {
   if (isObject(autocomplete) && isObject(crosswalk) && isString(term)) {
@@ -49,6 +69,8 @@ const search = (autocomplete, term, crosswalk, callback) => {
     const data = JSON.parse(queryArgs(autocomplete, term));
 
     if (isString(url) && term.length > 2) {
+      toggleLoadingMessage(autocomplete.siblings('div[id$="_ui-front"]'));
+
       $.ajax({
         url, method, data,
       }).done((results) => {
