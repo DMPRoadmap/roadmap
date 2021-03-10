@@ -194,7 +194,7 @@ class OrgsController < ApplicationController
 
       # If we need to restrict the results to funding orgs then
       # only return the ones with a valid fundref
-      if orgs.present? && params.fetch(:funder_only, "false") == true
+      if orgs.present? && params.fetch(:funder_only, false)
         orgs = orgs.select do |org|
           org[:fundref].present? && !org[:fundref].blank?
         end
