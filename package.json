@@ -46,7 +46,7 @@
     "rails-erb-loader": "^5.5.2",
     "regenerator-runtime": "^0.13.5",
     "timeago.js": "^4.0.2",
-    "tinymce": "4.9.11",
+    "tinymce": "5.6.0",
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
