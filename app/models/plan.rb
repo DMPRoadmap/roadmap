@@ -279,10 +279,11 @@ class Plan < ApplicationRecord
   # Returns Answer
   # Returns nil
   def answer(qid, create_if_missing = true)
-    answer = answers.where(question_id: qid).order("created_at DESC").first
-    question = Question.find(qid)
+    answer = answers.select { |a| a.question_id == qid }
+                    .max { |a, b| a.created_at <=> b.created_at }
     if answer.nil? && create_if_missing
-      answer             = Answer.new
+      question = Question.find(qid)
+      answer = Answer.new
       answer.plan_id     = id
       answer.question_id = qid
       answer.text        = question.default_value
@@ -355,7 +356,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def editable_by?(user_id)
-    Role.editor.where(plan_id: id, user_id: user_id, active: true).any?
+    roles.select { |r| r.user_id == user_id && r.active && r.editor }.any?
   end
 
   ##
@@ -388,7 +389,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def commentable_by?(user_id)
-    Role.commenter.where(plan_id: id, user_id: user_id, active: true).any? ||
+    roles.select { |r| r.user_id == user_id && r.active && r.commenter }.any? ||
       reviewable_by?(user_id)
   end
 
@@ -398,7 +399,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def administerable_by?(user_id)
-    Role.administrator.where(plan_id: id, user_id: user_id, active: true).any?
+    roles.select { |r| r.user_id == user_id && r.active && r.administrator }.any?
   end
 
   # determines if the plan is reviewable by the specified user
@@ -426,11 +427,9 @@ class Plan < ApplicationRecord
   # Returns User
   # Returns nil
   def owner
-    usr_id = Role.where(plan_id: id, active: true)
-                 .administrator
-                 .order(:created_at)
-                 .pluck(:user_id).first
-    usr_id.present? ? User.find(usr_id) : nil
+    r = roles.select { |rr| rr.active && rr.administrator }
+             .min { |a, b| a.created_at <=> b.created_at }
+    r.nil? ? nil : r.user
   end
 
   # Creates a role for the specified user (will update the user's
@@ -470,7 +469,7 @@ class Plan < ApplicationRecord
   #
   # Returns Boolean
   def shared?
-    roles.where(Role.not_creator_condition).any?
+    roles.reject(&:creator).any?
   end
 
   alias shared shared?
@@ -483,10 +482,7 @@ class Plan < ApplicationRecord
   def owner_and_coowners
     # We only need to search for :administrator in the bitflag
     # since :creator includes :administrator rights
-    usr_ids = Role.where(plan_id: id, active: true)
-                  .administrator
-                  .pluck(:user_id).uniq
-    User.where(id: usr_ids)
+    roles.select { |r| r.active && r.administrator }.map(&:user).uniq
   end
 
   # The creator, administrator and editors
@@ -495,10 +491,7 @@ class Plan < ApplicationRecord
   def authors
     # We only need to search for :editor in the bitflag
     # since :creator and :administrator include :editor rights
-    usr_ids = Role.where(plan_id: id, active: true)
-                  .editor
-                  .pluck(:user_id).uniq
-    User.where(id: usr_ids)
+    roles.select { |r| r.active && r.editor }.map(&:user).uniq
   end
 
   # The number of answered questions from the entire plan
