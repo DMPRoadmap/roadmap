@@ -2,6 +2,8 @@
 
 class Api::V0::PlansController < Api::V0::BaseController
 
+  include Paginable
+
   before_action :authenticate
 
   ##
@@ -92,7 +94,8 @@ class Api::V0::PlansController < Api::V0::BaseController
     plan_ids = extract_param_list(params, "plan")
     @plans = @plans.where(id: plan_ids) if plan_ids.present?
     # apply pagination after filtering
-    @plans = paginate @plans
+    @args = { per_page: params[:per_page], page: params[:page] }
+    @plans = refine_query(@plans)
     respond_with @plans
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
