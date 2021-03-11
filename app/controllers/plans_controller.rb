@@ -182,33 +182,8 @@ class PlansController < ApplicationController
     # TODO: Seems strange to do this. Why are we just not using an `edit` route?
     @editing = (!params[:editing].nil? && @plan.administerable_by?(current_user.id))
 
-    # Get all Guidance Groups applicable for the plan and group them by org
-    @all_guidance_groups = @plan.guidance_group_options
-    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
-    @selected_guidance_groups = @plan.guidance_groups
-
-    # Important ones come first on the page - we grab the user's org's GGs and
-    # "Organisation" org type GGs
-    @important_ggs = []
-
-    if @all_ggs_grouped_by_org.include?(current_user.org)
-      @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
-    end
-    @all_ggs_grouped_by_org.each do |org, ggs|
-      @important_ggs << [org, ggs] if org.organisation?
-
-      # If this is one of the already selected guidance groups its important!
-      unless (ggs & @selected_guidance_groups).empty?
-        @important_ggs << [org, ggs] unless @important_ggs.include?([org, ggs])
-      end
-    end
-
-    # Sort the rest by org name for the accordion
-    @important_ggs = @important_ggs.sort_by { |org, _gg| (org.nil? ? "" : org.name) }
-    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, _gg|
-      (org.nil? ? "" : org.name)
-    end
-    @selected_guidance_groups = @selected_guidance_groups.ids
+    # Get the selected and possible guidance options for the plan
+    fetch_guidance_groups(plan: @plan)
 
     @based_on = if @plan.template.customization_of.nil?
                   @plan.template
@@ -271,9 +246,10 @@ class PlansController < ApplicationController
         end
       else
         format.html do
-          # TODO: Should do a `render :show` here instead but show defines too many
-          #       instance variables in the controller
-          redirect_to plan_path(@plan).to_s, alert: failure_message(@plan, _("save"))
+          # Get the selected and possible guidance options for the plan
+          fetch_guidance_groups(plan: @plan)
+          flash[:alert] = failure_message(@plan, _("save"))
+          render "show"
         end
         format.json do
           render json: { code: 0, msg: failure_message(@plan, _("save")) }
@@ -514,6 +490,37 @@ class PlansController < ApplicationController
              answers: answers,
              guidance_presenter: GuidancePresenter.new(plan)
            })
+  end
+
+  # Fetch all the available Guidance Groups for the specified Plan
+  def fetch_guidance_groups(plan: plan)
+    # Get all Guidance Groups applicable for the plan and group them by org
+    @all_guidance_groups = plan.guidance_group_options
+    @all_ggs_grouped_by_org = @all_guidance_groups.sort.group_by(&:org)
+    @selected_guidance_groups = plan.guidance_groups
+
+    # Important ones come first on the page - we grab the user's org's GGs and
+    # "Organisation" org type GGs
+    @important_ggs = []
+
+    if @all_ggs_grouped_by_org.include?(current_user.org)
+      @important_ggs << [current_user.org, @all_ggs_grouped_by_org[current_user.org]]
+    end
+    @all_ggs_grouped_by_org.each do |org, ggs|
+      @important_ggs << [org, ggs] if org.organisation?
+
+      # If this is one of the already selected guidance groups its important!
+      unless (ggs & @selected_guidance_groups).empty?
+        @important_ggs << [org, ggs] unless @important_ggs.include?([org, ggs])
+      end
+    end
+
+    # Sort the rest by org name for the accordion
+    @important_ggs = @important_ggs.sort_by { |org, _gg| (org.nil? ? "" : org.name) }
+    @all_ggs_grouped_by_org = @all_ggs_grouped_by_org.sort_by do |org, _gg|
+      (org.nil? ? "" : org.name)
+    end
+    @selected_guidance_groups = @selected_guidance_groups.ids
   end
 
 end

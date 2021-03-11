@@ -62,7 +62,7 @@ import '../src/plans/download';
 import '../src/plans/editDetails';
 import '../src/plans/index.js.erb';
 import '../src/plans/new';
-import '../src/plans/publish.js';
+import '../src/plans/publish';
 import '../src/plans/share';
 import '../src/publicTemplates/show';
 import '../src/research_outputs/form';
