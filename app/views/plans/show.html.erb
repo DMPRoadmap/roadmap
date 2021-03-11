@@ -6,7 +6,7 @@
   </div>
 </div>
 
-<% partial = @plan.editable_by?(current_user) ? "edit_details" : "show_details" %>
+<% partial = @plan.editable_by?(current_user.id) ? "edit_details" : "show_details" %>
 
 <div class="row">
   <div class="col-md-12">
