@@ -32,7 +32,7 @@
   <% end %>
 
   <%# TODO: Last portion of this check is temporary to only allow DOI minting for certain orgs during soft-launch %>
-  <% if plan.administerable_by?(current_user) || (current_user.can_org_admin? && current_user.org.plans.include?(plan)) || (current_user.org&.allow_doi? && current_user.can_org_admin?) %>
+  <% if plan.administerable_by?(current_user.id) || (current_user.can_org_admin? && current_user.org.plans.include?(plan)) || (current_user.org&.allow_doi? && current_user.can_org_admin?) %>
     <li role="presentation" class="<%= (active_page?(publish_plan_path(plan)) ? 'active' : '') %>">
       <a href="<%= publish_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Finalise / Publish') %></a>
     </li>
