@@ -157,7 +157,7 @@ class Plan < ApplicationRecord
   # = Callbacks =
   # =============
 
-  after_update :notify_subscribers
+  after_update :notify_subscribers, if: :versionable_change?
   after_touch :notify_subscribers
 
   # ==========
@@ -630,6 +630,16 @@ class Plan < ApplicationRecord
   end
 
   private
+
+  # Determines whether or not the attributes that were updated constitute a versionable change
+  # for example a user requesting feedback will change the :feedback_requested flag but that
+  # should not create a new version or notify any subscribers!
+  def versionable_change?
+    saved_change_to_title? || saved_change_to_description? || saved_change_to_identifier? ||
+      saved_change_to_visibility? || saved_change_to_complete? || saved_change_to_template_id? ||
+      saved_change_to_org_id? || saved_change_to_funder_id? || saved_change_to_grant_id? ||
+      saved_change_to_start_date? || saved_change_to_end_date?
+  end
 
   # Callback that will notify scubscribers of a new version of the Plan
   def notify_subscribers
