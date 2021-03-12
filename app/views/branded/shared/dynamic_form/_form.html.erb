@@ -30,6 +30,7 @@
   <%# REGISTRIES %>
   <%# ############################### %>
   <% if prop['registry_id'].present? && prop['inputType'] == 'dropdown' %>
+    <% overridable = prop["overridable"] unless prop["overridable"].nil? %>
     <% if prop['schema_id'].present? && prop["type"].eql?('object') %>
       <%# Complex registries (value in an object) %>
       <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
@@ -48,17 +49,17 @@
               <span class="intermediate-label"><i><%= d_('dmpopidor', '- or change the selected value -') %></i></span>
             </div>
           <% end %>
-          <%= create_select_field(f, nil, "#{f.object_name}[#{field_name}]", nil, field_id, registryValues, template_locale, readonly: readonly, multiple: false, validation: validation, ttip: ttip, default_value: default_value) %>
+          <%= create_complex_registry_field(f, value, form_prefix, key, nil, field_id, registryValues, template_locale, readonly: readonly, multiple: false, validation: validation, ttip: ttip, default_value: default_value, overridable: overridable) %>
         </fieldset>
       </div>
     <% elsif prop["type"].eql?('string')%>
       <%# Simple registries (value in a string) %>
       <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
-      <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, field_id, registryValues, template_locale, readonly: readonly, validation: validation, ttip: ttip, default_value: default_value) %>
+      <%= create_simple_registry_field(f, value, form_prefix, key, label, field_id, registryValues, template_locale, readonly: readonly, validation: validation, ttip: ttip, default_value: default_value, overridable: overridable) %>
     <% elsif prop["type"].eql?('array')%>
       <%# Select 'multiple' from simple registry where the user can choose multiple options %>
       <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
-      <%= create_select_field(f, value, "#{f.object_name}[#{field_name}]", label, field_id, registryValues, template_locale, readonly: readonly, multiple: true, validation: validation, ttip: ttip, default_value: default_value) %>
+      <%= create_simple_registry_field(f, value, form_prefix, key, label, field_id, registryValues, template_locale, readonly: readonly, multiple: true, validation: validation, ttip: ttip, default_value: default_value, overridable: overridable) %>
     <% end %>
 
     <% next %>

@@ -170,35 +170,25 @@ class MadmpFragment < ActiveRecord::Base
     children = self.children
     editable_data = data
     editable_data.each do |prop, value|
-      case value
-      when Hash
-        if value["dbid"].present?
-          child_data = children.exists?(value["dbid"]) ? children.find(value["dbid"]) : MadmpFragment.find(value["dbid"])
-          editable_data = editable_data.merge(
-            {
-              prop => child_data.get_full_fragment
-            }
-          )
-        end
-      when Array
-        unless value.length.zero?
-          fragment_tab = []
-          value.each do |v|
-            next if v.nil?
+      if value.is_a?(Hash) && value["dbid"].present?
+        child = children.exists?(value["dbid"]) ? children.find(value["dbid"]) : MadmpFragment.find(value["dbid"])
+        child_data = child.additional_info["custom_value"].present? ? child.additional_info["custom_value"] : child.get_full_fragment
+        editable_data = editable_data.merge(prop => child_data)
+      end
 
-            if v.instance_of?(Hash) && v["dbid"].present?
-              child_data = children.exists?(v["dbid"]) ? children.find(v["dbid"]) : MadmpFragment.find(v["dbid"])
-              fragment_tab.push(child_data.get_full_fragment)
-            else
-              fragment_tab.push(v)
-            end
+      if value.is_a?(Array) && !value.empty?
+        fragment_tab = []
+        value.each do |v|
+          next if v.nil?
+
+          if v.is_a?(Hash) && v["dbid"].present?
+            child_data = children.exists?(v["dbid"]) ? children.find(v["dbid"]) : MadmpFragment.find(v["dbid"])
+            fragment_tab.push(child_data.get_full_fragment)
+          else
+            fragment_tab.push(v)
           end
-          editable_data = editable_data.merge(
-            {
-              prop => fragment_tab
-            }
-          )
         end
+        editable_data = editable_data.merge(prop => fragment_tab)
       end
     end
     editable_data
@@ -271,6 +261,13 @@ class MadmpFragment < ActiveRecord::Base
         if param_data.present? && param_data[prop].present?
           if schema_prop.key?("inputType") && schema_prop["inputType"].eql?("pickOrCreate")
             fragmented_data[prop] = content
+          elsif schema_prop["overridable"].present? && param_data[prop]["custom_value"].present?
+            # if the property is overridable & value is custom, take the value as is
+            sub_fragment = MadmpFragment.find(data[prop]["dbid"])
+            sub_fragment.update(
+              data: {},
+              additional_info: sub_fragment.additional_info.merge(sub_data)
+            )
           elsif data[prop]["dbid"]
             sub_fragment = MadmpFragment.find(data[prop]["dbid"])
             sub_fragment.save_as_multifrag(sub_data, sub_schema)
@@ -280,7 +277,10 @@ class MadmpFragment < ActiveRecord::Base
         fragmented_data[prop] = content
       end
     end
-    update!(data: data.merge(fragmented_data))
+    update!(
+      data: data.merge(fragmented_data),
+      additional_info: additional_info.except!("custom_value")
+    )
   end
 
   def self.find_sti_class(type_name)

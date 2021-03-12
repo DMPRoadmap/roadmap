@@ -1,0 +1,53 @@
+<%# locals: { f, field_label, form_prefix, property_name, select_values, locale, selected_value, field_class, required, readonly, multiple, validation, ttip, default_value, overridable } %>
+<% selected_value ||= default_value %>
+<% include_blank = !selected_value && !default_value %>
+<% field_name = defined?(form_prefix) ? "#{form_prefix}[#{property_name}]" : property_name %>
+
+<% unless field_label.nil? %>
+  <% field_label = required ? "* #{field_label}" : field_label%>
+
+  <div class="col-md-12">
+    <%= f.label field_id, field_label, class: 'control-label' %>
+  </div>
+<% end %>
+<div class="col-md-12 dynamic-field select-field">
+  <%= select_tag "#{f.object_name}[#{field_name}]",
+              options_for_select(
+                  select_values.map {|v| [ 
+                          v.to_s(locale), 
+                          select_value(v, locale) 
+                      ] 
+                  },
+                  selected: selected_value
+              ),
+              disabled: readonly,
+              multiple: multiple,
+              include_blank: d_("dmpopidor", "Please select a value from the list."),
+              "data-toggle": "tooltip",
+              title: ttip,
+              class: "form-control #{field_class}",
+              id: field_id  %>
+  <%= render partial: "shared/dynamic_form/validation_indicator", locals: {
+                  validation: validation
+      } unless validation == "none" %>
+
+  <% if overridable %>
+    <% 
+      style = 'display: none;'
+      custom_value = nil
+      if selected_value.additional_info["custom_value"].present?
+        style = ''
+        custom_value = selected_value.additional_info["custom_value"]
+      end
+    %>
+    <% other_field_name = defined?(form_prefix) ? "#{form_prefix}[#{property_name}_custom]" : "#{property_name}_custom" %>
+    <a href="#" class="overridable-link"><%= d_('dmpopidor', 'Element is not in the list.') %></a>
+    <div class="col-md-12 custom-value" style="<%= style %>">
+      <%= f.label other_field_name, d_("dmpopidor", "Custom value: "), class: 'control-label' %>
+      <%= f.text_field other_field_name, 
+                value: custom_value,
+                class: "form-control #{field_class}",
+                id: field_id  %>
+    </div>
+  <% end %>
+</div>

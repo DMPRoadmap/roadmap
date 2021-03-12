@@ -225,7 +225,6 @@ module Dmpopidor
           meta_fragment.madmp_schema.schema,
           meta
         )
-
         project_data = data_reformater(
           project_fragment.madmp_schema.schema,
           project

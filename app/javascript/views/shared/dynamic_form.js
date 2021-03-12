@@ -70,3 +70,21 @@ $(document).on('click', '.toggle-guidance-section', (e) => {
     .toggleClass('fa-chevron-right')
     .toggleClass('fa-chevron-left');
 });
+
+$(document).on('click', '.select-field .overridable-link', (e) => {
+  e.preventDefault();
+  const target = $(e.target);
+  const selectField = target.parent();
+
+  selectField.find('.custom-value').show();
+  selectField.find('.custom-value input').val('');
+  selectField.find('select').val('');
+});
+
+$(document).on('change', '.select-field select', (e) => {
+  const target = $(e.target);
+  const selectField = target.parent();
+
+  selectField.find('.custom-value').hide();
+  selectField.find('.custom-value input').val('');
+});

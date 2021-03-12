@@ -136,12 +136,13 @@ module DynamicFormHelper
     }
   end
 
-  def create_select_field(form, value, name, label, field_id, select_values, locale, required: false, validation: nil, html_class: nil, readonly: false, multiple: false, ttip: nil, default_value: nil)
-    render partial: "shared/dynamic_form/fields/select_field",
+  def create_simple_registry_field(form, value, form_prefix, property_name, label, field_id, select_values, locale, required: false, validation: nil, html_class: nil, readonly: false, multiple: false, ttip: nil, default_value: nil, overridable: nil)
+    render partial: "shared/dynamic_form/fields/registry/simple",
     locals: {
       f: form,
       selected_value: value,
-      field_name: name,
+      form_prefix: form_prefix,
+      property_name: property_name,
       field_label: label,
       select_values: select_values,
       locale: locale,
@@ -152,7 +153,30 @@ module DynamicFormHelper
       required: required,
       validation: validation,
       ttip: ttip,
-      default_value: default_value
+      default_value: default_value,
+      overridable: overridable
+    }
+  end
+
+  def create_complex_registry_field(form, value, form_prefix, property_name, label, field_id, select_values, locale, required: false, validation: nil, html_class: nil, readonly: false, multiple: false, ttip: nil, default_value: nil, overridable: nil)
+    render partial: "shared/dynamic_form/fields/registry/complex",
+    locals: {
+      f: form,
+      selected_value: value,
+      form_prefix: form_prefix,
+      property_name: property_name,
+      field_label: label,
+      select_values: select_values,
+      locale: locale,
+      field_class: html_class,
+      field_id: field_id,
+      multiple: multiple,
+      readonly: readonly,
+      required: required,
+      validation: validation,
+      ttip: ttip,
+      default_value: default_value,
+      overridable: overridable
     }
   end
 
@@ -187,46 +211,55 @@ module DynamicFormHelper
   # Formats the data extract from the structured answer form to valid JSON data
   # This is useful because Rails converts all form data to strings and JSON needs the actual types
   def data_reformater(schema, data)
+    formated_data = {}
     schema["properties"].each do |key, prop|
-      next if data[key].nil?
+      next if data[key].nil? || key.end_with?("_custom")
 
-      if data[key] == ""
-        data[key] = nil
-      else
-        case prop["type"]
-        when "integer", "number"
-          data[key] = data[key].to_i
-        when "boolean"
-          data[key] = data[key] == "1"
-        when "array"
-          data[key] = data[key].is_a?(Array) ? data[key] : [data[key]]
-        when "object"
-          next if prop["schema_id"].nil?
+      case prop["type"]
+      when "integer", "number"
+        formated_data[key] = data[key].to_i
+      when "boolean"
+        formated_data[key] = data[key] == "1"
+      when "array"
+        formated_data[key] = data[key].is_a?(Array) ? data[key] : [data[key]]
+      when "object"
+        next if prop["schema_id"].nil?
 
-          sub_schema = MadmpSchema.find(prop["schema_id"])
+        sub_schema = MadmpSchema.find(prop["schema_id"])
 
-          if prop["inputType"].present? && prop["inputType"].eql?("pickOrCreate")
-            data[key] = { "dbid" => data[key].to_i }
-          elsif prop["registry_id"].present?
-            data[key] = data_reformater(
-              sub_schema.schema,
-              RegistryValue.find(data[key].to_i).data.merge(
-                "id": data[key].to_i
-              )
-            )
-          else
-            data[key] = data_reformater(
-              sub_schema.schema,
-              data[key]
-            )
+        if prop["inputType"].present? && prop["inputType"].eql?("pickOrCreate")
+          formated_data[key] = { "dbid" => data[key].to_i }
+        elsif prop["registry_id"].present?
+          # if the field is overridable, check if there's a custom value
+          if prop["overridable"].present? && data["#{key}_custom"].present?
+            formated_data[key] = { "custom_value" => data["#{key}_custom"] }
+            next
           end
-        else
-          data[key] = data[key]
-        end
 
+          formated_data[key] = data_reformater(
+            sub_schema.schema,
+            RegistryValue.find(data[key].to_i).data.merge(
+              "id": data[key].to_i
+            )
+          ) if data[key].present?
+        else
+          formated_data[key] = data_reformater(
+            sub_schema.schema,
+            data[key]
+          )
+        end
+      else # type = string
+        # if the field is overridable, check if there's a custom value
+        if prop["overridable"].present? && data["#{key}_custom"].present?
+          formated_data[key] = data["#{key}_custom"]
+          next
+        end
+        formated_data[key] = data[key]
       end
+
+      formated_data[key] = nil if formated_data[key].eql?("")
     end
-    data
+    formated_data
   end
 
 end

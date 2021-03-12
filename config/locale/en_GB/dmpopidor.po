@@ -517,3 +517,9 @@ msgstr "Comments & Guidance"
 
 msgid "Plan Title"
 msgstr "Plan Title"
+
+msgid "Element is not in the list."
+msgstr "Element is not in the list."
+
+msgid "Custom value: "
+msgstr "Custom value: "

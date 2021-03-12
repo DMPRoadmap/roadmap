@@ -519,3 +519,9 @@ msgstr "Commentaires & Recommandations"
 
 msgid "Plan Title"
 msgstr "Titre du plan"
+
+msgid "Element is not in the list."
+msgstr "L'élément n'est pas dans la liste."
+
+msgid "Custom value: "
+msgstr "Valeur personnalisée : "

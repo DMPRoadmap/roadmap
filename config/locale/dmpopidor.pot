@@ -526,3 +526,9 @@ msgstr ""
 msgid "Plan Title"
 msgstr ""
 
+msgid "Element is not in the list."
+msgstr ""
+
+msgid "Custom value: "
+msgstr ""
+

@@ -1163,6 +1163,21 @@ header .main-nav {
                 cursor: pointer;
             }
         }
+        &.select-field {
+            flex-direction: column;
+            .overridable-link {
+                float: left;
+                width: 100%;
+            }
+            .custom-value {
+                display: flex;
+                padding: 0;
+                label {
+                    color: $blue;
+                    margin-right: 5px;
+                }
+            }
+        }
     }
     fieldset {
         .intermediate-label {

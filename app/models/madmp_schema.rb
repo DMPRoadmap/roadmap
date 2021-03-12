@@ -101,14 +101,16 @@ class MadmpSchema < ActiveRecord::Base
           parameters.append(key)
         elsif prop["registry_id"].present?
           parameters.append(key)
+          parameters.append("#{key}_custom") if prop["overridable"].present?
         else
           sub_schema = MadmpSchema.find(prop["schema_id"])
           parameters.append(key => sub_schema.generate_strong_params(false))
         end
       elsif prop["type"] == "array" && !flat
-        parameters.append({ key => [] })
+        parameters.append(key => [])
       else
         parameters.append(key)
+        parameters.append("#{key}_custom") if prop["overridable"].present?
       end
     end
     parameters
