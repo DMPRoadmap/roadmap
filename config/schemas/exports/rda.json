@@ -111,8 +111,24 @@
                     "download_url": "$.downloadUrl",
                     "format": "$.fileFormat",
                     "title": "$.fileName"
-                },
-                "host": "$.sharing.host"
+                }
+            },
+            "host": {
+                "description": "$.sharing.host.description",
+                "availability": "$.sharing.host.availability",
+                "backup_frequency": "None",
+                "backup_type": "None",
+                "certified_with": "$.sharing.host.certification",
+                "geo_location": "$.sharing.sharing.host.geoLocation",
+                "pid_system": "$.sharing.host.pidSystem",
+                "storage_type": "None",
+                "support_versioning": "$.sharing.host.hasVersioningPolicy",
+                "title": "$.sharing.host.title",
+                "url": "$.sharing.host.technicalResourceId",
+                "license": {
+                    "license_ref": "$.sharing.distribution.license.licenseUrl",
+                    "start_date": "$.sharing.distribution.licenseStartDate"
+                }
             },
             "metadata": {
                 "type": "array",
@@ -136,21 +152,11 @@
                 "title": "Security measures"
             },
             "technical_resource": {
-                "description": "$.sharing.host.description",
-                "name": "",
-                "availability": "$.sharing.host.availability",
-                "backup_frequency": "None",
-                "backup_type": "None",
-                "certified_with": "$.sharing.host.certification",
-                "geo_location": "$.sharing.host.geoLocation",
-                "pid_system": "$.sharing.host.pidSystem",
-                "storage_type": "None",
-                "support_versioning": "$.sharing.host.hasVersioningPolicy",
-                "title": "$.sharing.host.title",
-                "url": "$.sharing.host.technicalResourceId",
-                "license": {
-                    "license_ref": "$.sharing.distribution.license.licenseUrl",
-                    "start_date": "$.sharing.distribution.licenseStartDate"
+                "type": "array",
+                "classname": "technical_resource",
+                "items": {
+                    "description": "$.description",
+                    "name": "$.title"
                 }
             }
         }
