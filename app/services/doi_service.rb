@@ -20,6 +20,9 @@ class DoiService
       doi = "#{svc.landing_page_url}#{doi}" unless doi.downcase.start_with?("http")
       Identifier.new(identifier_scheme: scheme(svc: svc),
                      identifiable: plan, value: doi)
+    rescue StandardError => e
+      Rails.logger.error "DoiService.mint_doi for Plan #{plan&.id} resulted in: #{e.message}"
+      nil
     end
 
     def update_doi(plan:)
@@ -31,6 +34,9 @@ class DoiService
 
       doi = svc.update_doi(plan: plan)
       return nil unless doi.present?
+    rescue StandardError => e
+      Rails.logger.error "DoiService.update_doi for Plan #{plan&.id} resulted in: #{e.message}"
+      nil
     end
 
     # Returns whether or not there is an active DOI minting service

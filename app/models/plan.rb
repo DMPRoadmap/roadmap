@@ -647,6 +647,10 @@ class Plan < ApplicationRecord
     # TODO: eventually consider setting this up as a Job and using the ApiClient's callback_url
     #       and callback_method as the targets to process other subscribers
     # UpdateDoiJob.perform_later(plan: self)
+  rescue StandardError => e
+    # Log the error and continue. We do not want this to disrupt the save!
+    Rails.logger.error "Failure on Plan.notify_subscribers for id - #{id} & client - '#{api_client_id&.name}'"
+    return true
   end
 
   # Validation to prevent end date from coming before the start date
