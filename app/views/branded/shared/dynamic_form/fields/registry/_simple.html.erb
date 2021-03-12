@@ -31,7 +31,7 @@
                   validation: validation
       } unless validation == "none" %>
 
-  <% if overridable %>
+  <% if overridable && !multiple %>
     <% 
       style = ''
       custom_value = selected_value
