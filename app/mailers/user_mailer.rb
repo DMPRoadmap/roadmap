@@ -8,7 +8,7 @@ class UserMailer < ActionMailer::Base
   helper MailerHelper
   helper FeedbacksHelper
 
-  default from: Rails.configuration.x.organisation.email
+  default from: Rails.configuration.x.organisation.do_not_reply_email || Rails.configuration.x.organisation.email
 
   def welcome_notification(user)
     @user           = user
@@ -108,6 +108,7 @@ class UserMailer < ActionMailer::Base
 
     I18n.with_locale I18n.default_locale do
       mail(to: @recipient.email,
+           from: Rails.
            subject: _("%{tool_name}: %{user_name} requested feedback on a plan") %
            {
              tool_name: tool_name, user_name: @user.name(false)
