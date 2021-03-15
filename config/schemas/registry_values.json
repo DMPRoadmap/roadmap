@@ -1,798 +1,4 @@
 {
-    "Licenses": [
-        {
-            "label": {
-                "en_GB": "etalab-2.0",
-                "fr_FR": "etalab-2.0"
-            },
-            "licenseName": "Etalab Open License 2.0",
-            "licenseUrl": "https://spdx.org/licenses/etalab-2.0.html"
-        },
-        {
-            "label": {
-                "en_GB": "CC-BY-4.0",
-                "fr_FR": "CC-BY-4.0"
-            },
-            "licenseName": "Creative Commons Attribution 4.0 International",
-            "licenseUrl": "https://spdx.org/licenses/CC-BY-4.0.html"
-        },
-        {
-            "label": {
-                "en_GB": "CC-BY-1.0",
-                "fr_FR": "CC-BY-1.0"
-            },
-            "licenseName": "Creative Commons Attribution 1.0 Generic",
-            "licenseUrl": "https://spdx.org/licenses/CC-BY-1.0.html"
-        },
-        {
-            "label": {
-                "en_GB": "CC-BY-NC-1.0",
-                "fr_FR": "CC-BY-NC-1.0"
-            },
-            "licenseName": "Creative Commons Attribution Non Commercial 1.0 Generic",
-            "licenseUrl": "https://spdx.org/licenses/CC-BY-NC-1.0.html"
-        },
-        {
-            "label": {
-                "en_GB": "CC-BY-NC-4.0",
-                "fr_FR": "CC-BY-NC-4.0"
-            },
-            "licenseName": "Creative Commons Attribution Non Commercial 4.0 International",
-            "licenseUrl": "https://spdx.org/licenses/CC-BY-NC-4.0.html"
-        },
-        {
-            "label": {
-                "en_GB": "CC-BY-ND-1.0",
-                "fr_FR": "CC-BY-ND-1.0"
-            },
-            "licenseName": "Creative Commons Attribution No Derivatives 1.0 Generic",
-            "licenseUrl": "https://spdx.org/licenses/CC-BY-ND-1.0.html"
-        },
-        {
-            "label": {
-                "en_GB": "CC-BY-ND-4.0",
-                "fr_FR": "CC-BY-ND-4.0"
-            },
-            "licenseName": "Creative Commons Attribution No Derivatives 4.0 International",
-            "licenseUrl": "https://spdx.org/licenses/CC-BY-ND-4.0.html"
-        },
-        {
-            "label": {
-                "en_GB": "CC-BY-SA-1.0",
-                "fr_FR": "CC-BY-SA-1.0"
-            },
-            "licenseName": "Creative Commons Attribution Share Alike 1.0 Generic",
-            "licenseUrl": "https://spdx.org/licenses/CC-BY-SA-1.0.html"
-        },
-        {
-            "label": {
-                "en_GB": "CC-BY-SA-4.0",
-                "fr_FR": "CC-BY-SA-4.0"
-            },
-            "licenseName": "Creative Commons Attribution Share Alike 4.0 International",
-            "licenseUrl": "https://spdx.org/licenses/CC-BY-SA-4.0.html"
-        },
-        {
-            "label": {
-                "en_GB": "CC-BY-NC-ND-1.0",
-                "fr_FR": "CC-BY-NC-ND-1.0"
-            },
-            "licenseName": "Creative Commons Attribution Non Commercial No Derivatives 1.0 Generic",
-            "licenseUrl": "https://spdx.org/licenses/CC-BY-NC-ND-1.0.html"
-        },
-        {
-            "label": {
-                "en_GB": "CC-BY-NC-ND-4.0",
-                "fr_FR": "CC-BY-NC-ND-4.0"
-            },
-            "licenseName": "Creative Commons Attribution Non Commercial No Derivatives 4.0 International",
-            "licenseUrl": "https://spdx.org/licenses/CC-BY-NC-ND-4.0.html"
-        },
-        {
-            "label": {
-                "en_GB": "CC-BY-NC-SA-1.0",
-                "fr_FR": "CC-BY-NC-SA-1.0"
-            },
-            "licenseName": "Creative Commons Attribution Non Commercial Share Alike 1.0 Generic",
-            "licenseUrl": "https://spdx.org/licenses/CC-BY-NC-SA-1.0.html"
-        },
-        {
-            "label": {
-                "en_GB": "CC-BY-NC-SA-4.0",
-                "fr_FR": "CC-BY-NC-SA-4.0"
-            },
-            "licenseName": "Creative Commons Attribution Non Commercial Share Alike 4.0 International",
-            "licenseUrl": "https://spdx.org/licenses/CC-BY-NC-SA-4.0.html"
-        },
-        {
-            "label": {
-                "en_GB": "CC0-1.0",
-                "fr_FR": "CC0-1.0"
-            },
-            "licenseName": "Creative Commons Zero v1.0 Universal",
-            "licenseUrl": "https://spdx.org/licenses/CC0-1.0.html"
-        },
-        {
-            "label": {
-                "en_GB": "CC-PDDC",
-                "fr_FR": "CC-PDCC"
-            },
-            "licenseName": "Creative Commons Public Domain Dedication and Certification",
-            "licenseUrl": "https://spdx.org/licenses/CC-PDDC.html"
-        },
-        {
-            "label": {
-                "en_GB": "CC0-1.0",
-                "fr_FR": "CC0-1.0"
-            },
-            "licenseName": "Creative Commons Zero v1.0 Universal",
-            "licenseUrl": "https://spdx.org/licenses/CC0-1.0.html"
-        },
-        {
-            "label": {
-                "en_GB": "GPL-1.0-only",
-                "fr_FR": "GPL-1.0-only"
-            },
-            "licenseName": "GNU General Public License v1.0 only",
-            "licenseUrl": "https://spdx.org/licenses/GPL-1.0-only.html"
-        },
-        {
-            "label": {
-                "en_GB": "GPL-3.0-or-later",
-                "fr_FR": "GPL-3.0-or-later"
-            },
-            "licenseName": "GNU General Public License v3.0 or later",
-            "licenseUrl": "https://spdx.org/licenses/GPL-3.0-or-later.html"
-        },
-        {
-            "label": {
-                "en_GB": "ODbL-1.0",
-                "fr_FR": "ODbL-1.0"
-            },
-            "licenseName": "ODC Open Database License v1.0",
-            "licenseUrl": "https://spdx.org/licenses/ODbL-1.0.html"
-        },
-        {
-            "label": {
-                "en_GB": "BSD-1-Clause",
-                "fr_FR": "BSD-1-Clause"
-            },
-            "licenseName": "BSD 1-Clause License",
-            "licenseUrl": "https://spdx.org/licenses/BSD-1-Clause.html"
-        },
-        {
-            "label": {
-                "en_GB": "Apache-1.0",
-                "fr_FR": "Apache-1.0"
-            },
-            "licenseName": "Apache License 1.0",
-            "licenseUrl": "https://spdx.org/licenses/Apache-1.0.html"
-        },
-        {
-            "label": {
-                "en_GB": "CECILL-1.0",
-                "fr_FR": "CECILL-1.0"
-            },
-            "licenseName": "CeCILL Free Software License Agreement v1.0",
-            "licenseUrl": "https://spdx.org/licenses/CECILL-1.0.html"
-        },
-        {
-            "label": {
-                "en_GB": "CECILL-B",
-                "fr_FR": "CECILL-B"
-            },
-            "licenseName": "CeCILL-B Free Software License Agreement",
-            "licenseUrl": "https://spdx.org/licenses/CECILL-B.html"
-        },
-        {
-            "label": {
-                "en_GB": "MIT",
-                "fr_FR": "MIT"
-            },
-            "licenseName": "MIT License",
-            "licenseUrl": "https://spdx.org/licenses/MIT.html"
-        },
-        {
-            "label": {
-                "en_GB": "MPL-1.0",
-                "fr_FR": "MPL-1.0"
-            },
-            "licenseName": "Mozilla Public License 1.0",
-            "licenseUrl": "https://spdx.org/licenses/MPL-1.0.html"
-        }
-    ],
-    "Funders": [
-        {
-            "label": {
-                "en_GB": "French National Research Agency, ANR",
-                "fr_FR": "Agence Nationale de la Recherche, ANR"
-            },
-            "name": "Agence Nationale de la Recherche",
-            "funderId": "http://dx.doi.org/10.13039/501100001665",
-            "idType": "DOI",
-            "dataPolicy": {
-                "title": "Plan données de la recherche du CNRS",
-                "docIdentifier": "https://www.cnrs.fr/sites/default/files/pdf/Plaquette_PlanDDOR_Nov20.pdf",
-                "idType": "URL"
-            }
-        },
-        {
-            "label": {
-                "en_GB": "European Commission, EC",
-                "fr_FR": "Commission européenne, CE"
-            },
-            "name": "European Commission",
-            "funderId": "http://dx.doi.org/10.13039/501100000780",
-            "idType": "DOI",
-            "dataPolicy": {
-                "title": "Guidelines on FAIR data management in Horizon 2020",
-                "docIdentifier": "https://ec.europa.eu/research/participants/data/ref/h2020/grants_manual/hi/oa_pilot/h2020-hi-oa-data-mgt_en.pdf",
-                "idType": "URL"
-            }
-        },
-        {
-            "label": {
-                "en_GB": "National Institute of Health and Medical Research, Inserm",
-                "fr_FR": "Institut National de la Santé et de la Recherche Médicale, Inserm"
-            },
-            "name": "Institut National de la Santé et de la Recherche Médicale",
-            "funderId": "http://dx.doi.org/10.13039/501100001677",
-            "idType": "DOI",
-            "dataPolicy": {
-                "title": null,
-                "docIdentifier": null,
-                "idType": null
-            }
-        },
-        {
-            "label": {
-                "en_GB": "French National Cancer Institute, INCa",
-                "fr_FR": "Institut National Du Cancer, INCa"
-            },
-            "name": "Institut National Du Cancer",
-            "funderId": "http://dx.doi.org/10.13039/501100006364",
-            "idType": "DOI",
-            "dataPolicy": {
-                "title": "Déclaration conjointe du réseau des agences de financement françaises en faveur de la science ouverte",
-                "docIdentifier": "https://www.e-cancer.fr/content/download/291990/4158532/file/De%CC%81claration%20conjointe%20en%20faveur%20de%20la%20science%20ouverte%20-%20%2029%20juin.pdf",
-                "idType": "URL"
-            }
-        },
-        {
-            "label": {
-                "en_GB": "National Science Foundation, NSF",
-                "fr_FR": "National Science Foundation, NSF"
-            },
-            "name": "National Science Foundation",
-            "funderId": "http://dx.doi.org/10.13039/100000001",
-            "idType": "DOI",
-            "dataPolicy": {
-                "title": "Proposal & Award Policies & Procedures Guide",
-                "docIdentifier": "https://www.nsf.gov/pubs/policydocs/pappg19_1/pappg_11.jsp#XID4",
-                "idType": "URL"
-            }
-        }
-    ],
-    "Partners": [
-        {
-            "label": {
-                "en_GB": "French National Centre for Scientific Research",
-                "fr_FR": "CNRS, Centre National de la Recherche Scientifique"
-            },
-            "name": "French National Centre for Scientific Research",
-            "rnsr": null,
-            "orgId": "https://ror.org/02feahw736",
-            "idType": "ROR ID",
-            "dataPolicy": {
-                "title": "Plan données de la recherche du CNRS",
-                "docIdentifier": "https://www.cnrs.fr/sites/default/files/pdf/Plaquette_PlanDDOR_Nov20.pdf",
-                "idType": "URL"
-            }
-        },
-        {
-            "label": {
-                "en_GB": "Agro ParisTech, Paris Institute of Technology for Life, Food and Environmental Sciences",
-                "fr_FR": "Agro ParisTech, Institut des sciences et industries du vivant et de l'environnement)"
-            },
-            "name": "Agro ParisTech",
-            "rnsr": null,
-            "orgId": " https://ror.org/02kbmgc12",
-            "idType": "ROR ID",
-            "dataPolicy": {
-                "title": "La Science Ouverte à AgroParisTech - Politique d'établissement",
-                "docIdentifier": "http://www2.agroparistech.fr/IMG/pdf/202001_politique_openscience_agroparistech_vf_web.pdf",
-                "idType": "URL"
-            }
-        },
-        {
-            "label": {
-                "en_GB": "INRAE, National Research Institute for Agriculture, Food and Environment)",
-                "fr_FR": "INRAE, Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement)"
-            },
-            "name": "National Research Institute for Agriculture, Food and Environment",
-            "rnsr": null,
-            "orgId": "https://ror.org/003vg9w96",
-            "idType": "ROR ID",
-            "dataPolicy": {
-                "title": "Charte pour le libre accès aux publications et aux données",
-                "docIdentifier": "https://hal.inrae.fr/hal-02801732",
-                "idType": "URL"
-            }
-        },
-        {
-            "label": {
-                "en_GB": "IMoPA",
-                "fr_FR": "IMoPA, Ingénierie Moléculaire et Physiopathologie Articulaire"
-            },
-            "name": "IMoPA Ingénierie Moléculaire et Physiopathologie Articulaire",
-            "rnsr": "201320578R",
-            "orgId": "https://ror.org/04yc2e502",
-            "idType": "ROR ID",
-            "dataPolicy": {
-                "title": null,
-                "docIdentifier": null,
-                "idType": null
-            }
-        },
-        {
-            "label": {
-                "en_GB": "BIC",
-                "fr_FR": "BIC, Bordeaux Imaging Center"
-            },
-            "name": "BIC Bordeaux Imaging Center",
-            "rnsr": "201120186Y",
-            "orgId": null,
-            "idType": null,
-            "dataPolicy": {
-                "title": null,
-                "docIdentifier": null,
-                "idType": null
-            }
-        },
-        {
-            "label": {
-                "en_GB": "LPCNO, Laboratoire de Physique et Chimie des Nano-Objets",
-                "fr_FR": "LPCNO, LABORATOIRE DE PHYSIQUE ET CHIMIE DES NANO-OBJETS"
-            },
-            "name": "LPCNO LABORATOIRE DE PHYSIQUE ET CHIMIE DES NANO-OBJETS",
-            "rnsr": "200711884S",
-            "orgId": "https://ror.org/042xmz674",
-            "idType": "ROR ID",
-            "dataPolicy": {
-                "title": null,
-                "docIdentifier": null,
-                "idType": null
-            }
-        },
-        {
-            "label": {
-                "en_GB": "ICMM, Institute of Continuous Media Mechanics, Federal State Institution of Science Institute of Continuous Media Mechanics,Ural Branch of the Russian Academy of Sciences,Department of Polymer Physics",
-                "fr_FR": "ICMM, Institute of Continuous Media Mechanics, Federal State Institution of Science Institute of Continuous Media Mechanics,Ural Branch of the Russian Academy of Sciences,Department of Polymer Physics"
-            },
-            "name": "Institute of Continuous Media Mechanics",
-            "rnsr": "200711884S",
-            "orgId": "https://ror.org/03ymmms77",
-            "idType": "ROR ID",
-            "dataPolicy": {
-                "title": null,
-                "docIdentifier": null,
-                "idType": null
-            }
-        },
-        {
-            "label": {
-                "en_GB": "BIOGECO, Biodiversité, Gènes et Communautés",
-                "fr_FR": "BIOGECO, Biodiversité, Gènes et Communautés"
-            },
-            "name": "BIOGECO Biodiversité, Gènes et Communautés",
-            "rnsr": "200317684N",
-            "orgId": "https://ror.org/033ebya06",
-            "idType": "ROR ID",
-            "dataPolicy": {
-                "title": null,
-                "docIdentifier": null,
-                "idType": null
-            }
-        },
-        {
-            "label": {
-                "en_GB": "CRA W, Walloon Agricultural Research Centre",
-                "fr_FR": "CRA W, Centre wallon de Recherches Agronomiques"
-            },
-            "name": "Centre wallon de Recherches Agronomiques",
-            "rnsr": null,
-            "orgId": "https://ror.org/016n74679",
-            "idType": "ROR ID",
-            "dataPolicy": {
-                "title": null,
-                "docIdentifier": null,
-                "idType": null
-            }
-        },
-        {
-            "label": {
-                "en_GB": "Plant Protection Institute",
-                "fr_FR": "Plant Protection Institute"
-            },
-            "name": "Plant Protection Institute",
-            "rnsr": null,
-            "orgId": "https://ror.org/052t9a145",
-            "idType": "ROR ID",
-            "dataPolicy": {
-                "title": null,
-                "docIdentifier": null,
-                "idType": null
-            }
-        }
-    ],
-    "Repositories": [
-        {
-            "label": {
-                "en_GB": "Zenodo",
-                "fr_FR": "Zenodo"
-            },
-            "title": "Zenodo",
-            "description": "ZENODO builds and operates a simple and innovative service that enables researchers, scientists, EU projects and institutions to share and showcase multidisciplinary research results (data and publications) that are not part of the existing institutional or subject-based repositories of the research communities. ZENODO enables researchers, scientists, EU projects and institutions to: easily share the long tail of small research results in a wide variety of formats including text, spreadsheets, audio, video, and images across all fields of science. display their research results and get credited by making the research results citable and integrate them into existing reporting lines to funding agencies like the European Commission. easily access and reuse shared research results. ",
-            "technicalResourceId": "RRID:SCR_004129",
-            "idType": "Autre",
-            "geoLocation": "CH",
-            "certification": null,
-            "pidSystem": "DOI",
-            "hasVersioningPolicy": "Oui",
-            "availability": "20",
-            "metadataStandard": "DataCite Metadata Schema, Dublin Core"
-        },
-        {
-            "label": {
-                "en_GB": "figshare",
-                "fr_FR": "figshare"
-            },
-            "title": "figshare",
-            "description": "figshare allows researchers to publish all of their research outputs in an easily citable, sharable and discoverable manner. All file formats can be published, including videos and datasets. Optional peer review process. figshare uses creative commons licensing.",
-            "technicalResourceId": "RRID:SCR_004328",
-            "idType": "Autre",
-            "geoLocation": null,
-            "certification": null,
-            "pidSystem": "DOI",
-            "hasVersioningPolicy": "Oui",
-            "availability": null,
-            "metadataStandard": "DataCite Metadata Schema, Dublin Core"
-        },
-        {
-            "label": {
-                "en_GB": "Data INRAE (Portail Data INRAE)",
-                "fr_FR": "Data INRAE (Portail Data INRAE)"
-            },
-            "title": "Data INRAE",
-            "description": "INRAE is the world\u2019s first organisation specialized on agricultural, food and environmental sciences. Data INRAE is offered by INRAE as part of its mission to open the results of its research. Data INRAE will share research data in relation with food, nutrition, agriculture and environment. It includes experimental, simulation and observation data, omic data, survey and text data. Only data produced by or in collaboration with INRAE will be hosted in the repository, but anyone can access the metadata and the open data.",
-            "technicalResourceId": "https://data.inrae.fr/",
-            "idType": "URL",
-            "geoLocation": "FR",
-            "certification": null,
-            "pidSystem": "DOI",
-            "hasVersioningPolicy": "Oui",
-            "availability": null,
-            "metadataStandard": "DataCite Metadata Schema, DDI, Dublin Core, ISA-Tab"
-        },
-        {
-            "label": {
-                "en_GB": "DataSuds (IRD)",
-                "fr_FR": "DataSuds (IRD)"
-            },
-            "title": "DataSuds",
-            "description": "The DataSuds data warehouse provides IRD scientists and their partners with a service to disseminate, preserve and enhance their research data by facilitating their identification and citation. It is one of the elements of the open science system for the South promoted by the IRD.",
-            "technicalResourceId": "https://data.ird.fr/",
-            "idType": "URL",
-            "geoLocation": "FR",
-            "certification": null,
-            "pidSystem": "DOI",
-            "hasVersioningPolicy": "Oui",
-            "availability": null,
-            "metadataStandard": "DataCite Metadata Schema, DDI, Dublin Core"
-        },
-        {
-            "label": {
-                "en_GB": "4TU.ResearchData | science.engineering.design",
-                "fr_FR": "4TU.ResearchData | science.engineering.design"
-            },
-            "title": "4TU.ResearchData | science.engineering.design",
-            "description": "TU.ResearchData, previously known as 4TU.Centre for Research Data, is a research data repository dedicated to the science, engineering and design disciplines. It offers the knowledge, experience and the tools to manage, publish and find scientific research data in a standardized, secure and well-documented manner. 4TU.ResearchData provides the research community with: Customised advice and support on research data management; A long-term repository for scientific research data; Support for current research projects; Tools to enhance reuse of research data.",
-            "technicalResourceId": "RRID:SCR_006295",
-            "idType": "Autre",
-            "geoLocation": "NL",
-            "certification": "DSA",
-            "pidSystem": "DOI",
-            "hasVersioningPolicy": "Oui",
-            "availability": null,
-            "metadataStandard": "DataCite Metadata Schema, DDI, Dublin Core, RDA Data Cube Vocabulary"
-        },
-        {
-            "label": {
-                "en_GB": "CIRAD Dataverse",
-                "fr_FR": "CIRAD Dataverse"
-            },
-            "title": "CIRAD Dataverse",
-            "description": "The range of CIRAD's research has given rise to numerous datasets and databases associating various types of data: primary (collected), secondary (analysed, aggregated, used for scientific articles, etc), qualitative and quantitative. These collections of research data are used for comparisons, to study processes and analyse change. They include: genetics and genomics data, data generated by trials and measurements (using laboratory instruments), data generated by modelling (interpolations, predictive models), long-term observation data (remote sensing, observatories, etc), data from surveys, cohorts, interviews with players.",
-            "technicalResourceId": "https://dataverse.cirad.fr/",
-            "idType": "URL",
-            "geoLocation": "FR",
-            "certification": null,
-            "pidSystem": "DOI",
-            "hasVersioningPolicy": "Oui",
-            "availability": null,
-            "metadataStandard": "DDI, Dublin Core"
-        },
-        {
-            "label": {
-                "en_GB": "DRYAD",
-                "fr_FR": "DRYAD"
-            },
-            "title": "DRYAD",
-            "description": "Dryad is an international repository of data underlying peer-reviewed scientific and medical literature, particularly data for which no specialized repository exists. The content is considered to be integral to the published research. All material in Dryad is associated with a scholarly publication ",
-            "technicalResourceId": "RRID:SCR_005910",
-            "idType": "Autre",
-            "geoLocation": "US",
-            "certification": null,
-            "pidSystem": "DOI",
-            "hasVersioningPolicy": "Oui",
-            "availability": null,
-            "metadataStandard": "DataCite metadata Schema, Dublin Core, RDF Data Cube Vocabulary"
-        },
-        {
-            "label": {
-                "en_GB": "PAC - Archiving Platform CINES",
-                "fr_FR": "PAC - Plateforme d'archivage au CINES"
-            },
-            "title": "PAC - Archiving Platform CINES",
-            "description": "CINES is the French national long-term preservation service provider for Higher Education and Research: more than 20 institutions (universities, librairies, labs) archive their digital heritage at CINES so that it's preserved over time in a secure, dedicated environment. This includes documents such as PhD theses or publications, digitized ancient/rare books, satellite imagery, 3D/vidéos/image galleries, datasets, etc.",
-            "technicalResourceId": "2425-8792",
-            "idType": "Autre",
-            "geoLocation": "FR",
-            "certification": "DSA",
-            "pidSystem": "ARK",
-            "hasVersioningPolicy": "Oui",
-            "availability": null,
-            "metadataStandard": "Dublin Core"
-        },
-        {
-            "label": {
-                "en_GB": "Huma-Num",
-                "fr_FR": "Huma-Num"
-            },
-            "title": "Huma-Num : Archivage à long terme",
-            "description": "La TGIR Huma-Num propose à la communauté des producteurs de données numériques en Sciences Humaines et Sociales un service d’archivage à long terme. Elle s’appuie, pour cette activité, sur les infrastructures et les compétences d'un centre labellisé, le Centre Informatique National de l’Enseignement Supérieur, CINES, avec qui elle a signé une convention. Huma-Num accompagne les producteurs de données tout au long du processus d’archivage à long terme et est le lien entre les communautés scientifiques et le CINES. Elle procure aide et conseils aux producteurs de données pour choisir les formats de données adéquats, mais aussi pour concevoir sous une forme normalisée les données descriptives (méta-données) indispensables pour les faire entrer dans le système d’archivage du CINES. Les données à archiver doivent présenter une valeur scientifique reconnue par la communauté dont elles proviennent. Huma-Num soumet à son conseil scientifique les demandes d’archivage à long terme.",
-            "technicalResourceId": "https://www.huma-num.fr/services-et-outils/archiver",
-            "idType": "URL",
-            "geoLocation": "FR",
-            "certification": null,
-            "pidSystem": null,
-            "hasVersioningPolicy": null,
-            "availability": null,
-            "metadataStandard": null
-        },
-        {
-            "label": {
-                "en_GB": "Vitam, Valeurs immatérielles transmises aux archives pour mémoire",
-                "fr_FR": "Vitam, Valeurs immatérielles transmises aux archives pour mémoire"
-            },
-            "title": "Vitam",
-            "description": "Le Programme Vitam, Valeurs immatérielles transmises aux archives pour mémoire, est un programme interministériel français d'archivage électronique porté par trois ministères, Europe et Affaires étrangères, Culture, Armées, responsables de la conservation des archives de l’État. Le programme Vitam répond a 3 objectifs : 1/ La réalisation de la solution logicielle libre Vitam d’archivage numérique permettant la prise en charge, la conservation et la consultation sécurisée de très gros volumes d’archives numériques définitives, intermédiaires, voire courantes ; 2/ La mise en place de plate-formes d’archivage utilisant la solution logicielle Vitam, dans chacun des trois ministères, via les projets ministériels : Saphir (MEAE), Adamant (MC/Archives nationales) et Archipel (MinArm) ; 3/ La diffusion et la réutilisation la plus large de la solution logicielle Vitam, en lien avec son Club utilisateurs. Le Programme veille également aux actions de soutien financier, de sensibilisation et d’accompagnement en matière d’archivage numérique au-delà des trois ministères porteurs du programme, via les dispositifs ANET (Archivage numérique en territoire) et DIAMAN au sein du MC/Service interministériel des Archives de France).",
-            "technicalResourceId": "https://www.programmevitam.fr/",
-            "idType": "URL",
-            "geoLocation": "FR",
-            "certification": null,
-            "pidSystem": null,
-            "hasVersioningPolicy": null,
-            "availability": null,
-            "metadataStandard": null
-        }
-    ],
-    "Services": [
-        {
-            "label": {
-                "en_GB": "CC-IN2P3 (CNRS), Computing Centre of the National Institute of Nuclear Physics and Particle Physics",
-                "fr_FR": "CC-IN2P3 (CNRS), Centre de Calcul de l'Institut National de Physique Nucléaire et de Physique des Particules"
-            },
-            "title": "CC-IN2P3",
-            "description": "Le Centre de Calcul de l\u2019IN2P3 (CC-IN2P3) offre un ensemble de services aux chercheurs de l'IN2P3 (Institut National de Physique Nucléaire et de Physique des Particules) du CNRS. La plateforme de calcul du CC-IN2P3 permet aux scientifiques de traiter les grandes masses de données issues de grands instruments scientifiques (accélérateurs de particules, télescopes ou satellites), de réaliser des modélisations et des simulations pour valider des théories, de valoriser et d\u2019archiver les données de recherche. Les ressources de calcul distribué peuvent être utilisées localement (création d\u2019un compte utilisateur) ou via une grille de calcul (inscription dans une organisation virtuelle VO. Le CC-IN2P3 met à disposition un système de stockage de masse reposant sur l\u2019utilisation conjointe de disques durs et de bandes magnétiques. Le CC-IN2P3 fournit des ressources informatiques principalement pour la physique nucléaire, la physique des particules, l\u2019astrophysique et les astroparticules et de façon limitée aux sciences humaines (Huma-Num) et sciences de la vie. Le CC-IN2P3 a développé une expertise technique dans les domaines du stockage massif de données, du calcul à haut débit (HTC), les grilles de calcul ou le cloud computing. Il est impliqué dans des projets régionaux, nationaux, européens et transdisciplinaires. Le Centre de Calcul de l\u2019IN2P3 a élaboré un modèle de plan de gestion de données CC-IN2P3 DMP template en anglais à l\u2019aide de l\u2019outil DMP OPIDoR. Le Centre de Calcul de l\u2019IN2P3 fait partie des principaux centres internationaux déployés dans le cadre du projet Worldwide LHC Computing Grid (W-LCG) et dédié à la simulation, au traitement et à l\u2019analyse des données des quatre expériences LHC (Large Hadron Collider) au CERN. Les données produites et/ou gérées par l\u2019infrastructure CC-IN2P3 sont soumises à un embargo de 48 mois.",
-            "technicalResourceId": "https://cc.in2p3.fr/",
-            "idType": "URL"
-        },
-        {
-            "label": {
-                "en_GB": "Gesco",
-                "fr_FR": "Gesco, Centre e-Science Grand Ouest "
-            },
-            "title": "Gesco",
-            "description": "CeSGO est une structure e-science proposant un environnement virtuel de recherche dédié aux communautés des sciences de la vie du réseau Biogenouest. Son objectif est d\u2019améliorer les processus de recherche, en donnant accès à des ressources TIC, des données et des logiciels via des interfaces adaptées. CeSGO met ainsi à disposition : une plateforme collaborative, une plateforme de discussion, une plateforme de gestion de projets, une plateforme de gestion de données, une plateforme de gestion de partage scientifique.",
-            "technicalResourceId": "https://www.cesgo.org/fr/",
-            "idType": "URL"
-        },
-        {
-            "label": {
-                "en_GB": "GENCI, Big National Equipment Intensive Computing",
-                "fr_FR": "GENCI, Grand Equipement National de Calcul Intensif"
-            },
-            "title": "GENCI",
-            "description": "Le Grand Equipement National de Calcul Intensif (GENCI) est une société civile créée en 2007 par les pouvoirs publics. GENCI est une infrastructure numérique distribuée qui est basée sur les trois grands centres nationaux : l\u2019IDRIS du CNRS, le TGCC du CEA et le CINES des Universités. Les missions du GENCI sont 1/ la mise en oeuvre de la stratégie nationale d\u2019équipement en moyens de calcul intensif et stockage de données computationnelles (données massives) 2/ la mise à disposition de calculateurs à haute performance (supercalculateurs) pour les chercheurs académiques et des industriels afin qu\u2019ils réalisent des travaux de simulation numérique 3/ la promotion de la simulation numérique et du calcul intensif auprès de la communauté de recherche française (académique et industrielle). L\u2019accès aux données produites par les supercalculateurs du GENCI est restreint aux chercheurs ayant produit ces données. GENCI est la composante française de l\u2019infrastructure européenne PRACE (Partnership for Advanced Computing in Europe.",
-            "technicalResourceId": "http://www.genci.fr/fr",
-            "idType": "URL"
-        },
-        {
-            "label": {
-                "en_GB": "MyCore (CNRS)",
-                "fr_FR": "MyCore"
-            },
-            "title": "MyCore",
-            "description": "Service numérique de stockage, sauvegarde, nomadisme et partage sécurisés proposés par le CNRS : http://ods.cnrs.fr/my_core.php",
-            "technicalResourceId": "https://mycore.core-cloud.net",
-            "idType": "URL"
-        },
-        {
-            "label": {
-                "en_GB": "PETA (Université de Lorraine, UL)",
-                "fr_FR": "PETA (Université de Lorraine, UL)"
-            },
-            "title": "PETA",
-            "description": "Le service d'hébergement des données volumineuses est une offre de stockage à destination desunités de recherche de l\u2019Université de Lorraine(UL). L'accès aux données se fait au travers de l'interface Storage Made Easy :Au travers d'une interface WebVia   un   client   lourd   (lecteur   réseau   et   client   de   synchronisation)   installé   sur   le   posteinformatique (postes de travail, serveur ou équipement mobile). Les systèmes supportés sont: Windows, Mac, Linux, Android, iOSLe service est principalement destiné au stockage volumineux et non à l'accès rapide aux données.Pour ce dernier type d\u2019accès, il faudra prendre contact avec la direction du numérique pour étudierune autre solution",
-            "technicalResourceId": "https://numerique.univ-lorraine.fr/gestion-de-vos-fichiers/stockage-des-donnees-de-la-recherche-peta",
-            "idType": "URL"
-        },
-        {
-            "label": {
-                "en_GB": "Synchrotron SOLEIL",
-                "fr_FR": "Synchrotron SOLEIL"
-            },
-            "title": "Synchrotron SOLEIL",
-            "description": "Infrastructure de Recherche, plateforme d'acquisition et de services, SOLEIL (Source Optimisée de Lumière d'Energie Intermédiaire du LURE) est la source nationale de rayonnement synchrotron dont le but est d'explorer la matière à différentes échelles aussi bien au niveau des recherches fondamentales ou appliquées en physique, chimie, biologie, patrimoine, environnement ou sciences de l'univers. L’accès aux données produites et/ou gérées par l’infrastructure SOLEIL est restreint aux équipes projets et sur autorisation pour les autres utilisateurs. L’accès sera ouvert après l’expiration de l’embargo fixé à 5 ans maximum.",
-            "technicalResourceId": "https://www.synchrotron-soleil.fr/fr",
-            "idType": "URL"
-        },
-        {
-            "label": {
-                "en_GB": "GANIL-SPIRAL2",
-                "fr_FR": "GANIL-SPIRAL2"
-            },
-            "title": "GANIL-SPIRAL2",
-            "description": "Le GANIL (Grand Accélérateur National d’Ions Lourds) met en place une nouvelle installation SPIRAL2 (Système de production d’Ions Radioactifs en Ligne de 2e génération).SPIRAL2 fournira prochainement ses premiers faisceaux pour répondre aux chercheurs en physique nucléaire qui s’intéressent aux propriétés des noyaux exotiques et des réactions induites. Les chercheurs pourront bénéficier de toute l’infrastructure existante avec ses ensembles de détection, d’acquisition et de traitement des données. L’accès aux données produites par l’accélérateur GANIL-SPIRAL2 est restreint aux collaborations qui ont réalisé les expériences.",
-            "technicalResourceId": "https://www.ganil-spiral2.eu/",
-            "idType": "URL"
-        }
-    ],
-    "Standards": [
-        {
-            "label": {
-                "en_GB": "EML, Ecological Metadata Language",
-                "fr_FR": "EML, Ecological Metadata Language"
-            },
-            "name": "Ecological Metadata Language",
-            "description": "The Ecological Metadata Language (EML) metadata standard was originally developed for the earth, environmental and ecological sciences. It is based on prior work done by the Ecological Society of America and associated efforts. It has been developed to document any research data, and as such can be used outside of these original subject areas. EML is implemented as a series of XML document types that can by used in a modular and extensible manner to document ecological data. Each EML module is designed to describe one logical part of the total metadata that should be included with any ecological dataset.",
-            "metadatalanguage": "eng",
-            "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.r3vtvx",
-            "idType": "DOI"
-        },
-        {
-            "label": {
-                "en_GB": "DICOM, Digital Imaging and COmmunications in Medicine",
-                "fr_FR": "DICOM, Digital Imaging and COmmunications in Medicine"
-            },
-            "name": "DICOM, Digital Imaging and COmmunications in Medicine",
-            "description": "DICOM — Digital Imaging and Communications in Medicine — is the international standard for medical images and related information (ISO 12052). It defines the formats for medical images that can be exchanged with the data and quality necessary for clinical use. DICOM is implemented in almost every radiology, cardiology imaging, and radiotherapy device (X-ray, CT, MRI, ultrasound, etc.), and increasingly in devices in other medical domains such as ophthalmology and dentistry. With tens of thousands of imaging devices in use, DICOM is one of the most widely deployed healthcare messaging standards in the world. There are literally billions of DICOM images currently in use for clinical care. Since its first publication in 1993, DICOM has revolutionized the practice of radiology, allowing the replacement of X-ray film with a fully digital workflow. Much as the Internet has become the platform for new consumer information applications, DICOM has enabled advanced medical imaging applications that have “changed the face of clinical medicine”. From the emergency department, to cardiac stress testing, to breast cancer detection, DICOM is the standard that makes medical imaging work — for doctors and for patients",
-            "metadatalanguage": "eng",
-            "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.b7z8by",
-            "idType": "DOI"
-        },
-        {
-            "label": {
-                "en_GB": "DataCite Metadata Schema",
-                "fr_FR": "DataCite Metadata Schema"
-            },
-            "name": "DataCite Metadata Schema",
-            "description": "The DataCite Metadata Schema is a list of core metadata properties chosen for the accurate and consistent identification of a resource for citation and retrieval purposes, along with recommended use instructions. The resource that is being identified can be of any kind, but it is typically a dataset. The term \u2018dataset\u2019 can include not only numerical data, but any other research data outputs.",
-            "metadatalanguage": "eng",
-            "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.me4qwe",
-            "idType": "DOI"
-        },
-        {
-            "label": {
-                "en_GB": "DC, Dublin Core Metadata Element Set",
-                "fr_FR": "DC, Dublin Core Metadata Element Set"
-            },
-            "name": "Dublin Core Metadata Element Set",
-            "description": "The Dublin Metadata Element Set, which is often called Dublin Core (DC), is a standardized metadata scheme for description of any kind of resource such as documents in electronic and non-electronic form, digital materials (such as video, sound, images, etc) and composite media like web pages. is a small set of vocabulary terms that can be used to describe several kinds of resources. Dublin Core Metadata may be used for multiple purposes, from simple resource description, to combining metadata vocabularies of different metadata standards, to providing interoperability for metadata vocabularies in the Linked Data cloud and Semantic Web implementations.",
-            "metadatalanguage": "eng",
-            "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.3nx7t",
-            "idType": "DOI"
-        },
-        {
-            "label": {
-                "en_GB": "DDI-Codebook, Data Documentation Initiative Codebook",
-                "fr_FR": "DDI-Codebook, Data Documentation Initiative Codebook"
-            },
-            "name": "Data Documentation Initiative Codebook (DDI-Codebook)",
-            "description": "Data Documentation Initiative (DDI-Codebook, DDI-C) is a more light-weight version of DDI-Lifecycle, intended primarily to document simple survey data. Originally DTD-based, DDI-C is now available as an XML Schema. The freely available international DDI standards describe data that result from observational methods in the social, behavioral, economic, and health sciences. DDI is used to document data in over 80 countries of the world.",
-            "metadatalanguage": "eng",
-            "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.EZCpPd",
-            "idType": "DOI"
-        },
-        {
-            "label": {
-                "en_GB": "DDI-Lifecycle, Data Documentation Initiative Lifecycle",
-                "fr_FR": "DDI-Lifecycle, Data Documentation Initiative Lifecycle"
-            },
-            "name": "Data Documentation Initiative Lifecycle (DDI-Lifecycle)",
-            "description": "Data Documentation Initiative (DDI) Lifecycle (DDI-Lifecycle, DDI-L) is designed to document and manage data across the entire life cycle, from conceptualization to data publication, analysis and beyond. The freely available international DDI standards describe data that result from observational methods in the social, behavioral, economic, and health sciences. DDI is used to document data in over 80 countries of the world. It encompasses all of the DDI-Codebook specification and extends it. Based on XML Schemas, DDI-Lifecycle is modular and extensible",
-            "metadatalanguage": "eng",
-            "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.1t5ws6",
-            "idType": "DOI"
-        }
-    ],
-    "Catalogs": [
-        {
-            "label": {
-                "en_GB": "Dat@OSU, Portail d'accès aux données de l'OSU Theta",
-                "fr_FR": "Dat@OSU, Portail d'accès aux données de l'OSU Theta"
-            },
-            "title": "Dat@OSU",
-            "description": "dat@OSU est une plateforme de métadonnées proposée par l\u2019Observatoire des Sciences de l\u2019Univers Terre Homme Environnement Temps Astronomie (OSU THETA). Elle propose une description des ensembles de données numériques issues des recherches scientifiques menées dans les différents laboratoires et équipes. dat@OSU est centré sur le référencement et la valorisation des données qui concernent la pluralité des différentes disciplines scientifiques. Les chercheurs qui renseignement leurs données dans dat@OSU peuvent bénéficier d'une aide documentaire pour la saisie de leurs métadonnées.",
-            "technicalResourceId": "https://dataosu.obs-besancon.fr/",
-            "idType": "URL",
-            "geoLocation": "FR",
-            "certification": null,
-            "pidSystem": null,
-            "hasVersioningPolicy": null,
-            "availability": null,
-            "metadataStandard": null
-        },
-        {
-            "label": {
-                "en_GB": "Géoportail, Portail national de la connaissance du territoire",
-                "fr_FR": "Géoportail, Portail national de la connaissance du territoire"
-            },
-            "title": "Géoportail",
-            "description": "Le Géoportail est une plateforme nationale de diffusion des données d'information géographique de référence couvertes par la directive INSPIRE. Mis en œuvre par l\u2019IGN, il a pour vocation de faciliter l\u2019accès à l\u2019information géographique de référence. Construit dans une logique d\u2019ouverture et d\u2019interopérabilité des données, il est régulièrement enrichi de nouvelles données publiques. Il permet de visualiser en 2D et en 3D l\u2019information géographique de référence (fonds cartographiques et photographiques) ainsi que les informations géolocalisées superposables à ces fonds et présentant un intérêt public. On y retrouve les données géographiques numériques de l\u2019IGN (photos aériennes, cartes à toute échelle, représentations des bâtiments et du parcellaire cadastral, hydrographie, altitude, réseaux, limites administratives, noms de lieux, etc.) mais également de nombreuses données publiques (sites protégés, occupation du sol, géologie, description du littoral, zones urbaines, zones à risque, patrimoine naturel\u2026) produites par des acteurs de référence. Reposant sur l'infrastructure du Géoportail, l'IGN propose une offre de services les Géoservices. Ces services en ligne permettent de consulter et exploiter les données géographiques, mais aussi construire ses propres services autour de ces données. Ces services répondent à la fois aux besoins des professionnels et des particuliers, des acteurs publics et privés\u2026 Ils permettent l\u2019intégration et la mise en œuvre de l\u2019information géographique et forestière. ",
-            "technicalResourceId": "https://www.geoportail.gouv.fr/",
-            "idType": "URL",
-            "geoLocation": "FR",
-            "certification": null,
-            "pidSystem": null,
-            "hasVersioningPolicy": null,
-            "availability": null,
-            "metadataStandard": null
-        },
-        {
-            "label": {
-                "en_GB": "OpenArchaeo",
-                "fr_FR": "OpenArchaeo"
-            },
-            "title": "OpenArchaeo",
-            "description": "La plateforme OpenArchaeo a pour objectif de mettre à disposition sur le web sémantique les jeux de données archéologiques produits dans le cadre du consortium MASA, sous la forme d\u2019un triplestore MASA disposant de données alignées avec l\u2019ontologie du CIDOC CRM et ses extensions dédiées à l\u2019archéologie. Il s\u2019agit d\u2019autre part de proposer une interface d\u2019interrogation intuitive pour les données archéologiques inspirée du moteur de recherche ResearchSpace mis en place par le British Museum, OpenArchaeo étant pour sa part spécifiquement dédié à l\u2019archéologie. Pour optimiser l\u2019appariement des jeux de données, un modèle générique de mapping a été mis en place, permettant de relier les concepts partagés par la plupart des jeux de données en archéologie, permettant ainsi de les rendre interopérables. Un prototype d\u2019OpenArchaeo verra le jour prochainement",
-            "technicalResourceId": "https://masa.hypotheses.org/openarchaeo",
-            "idType": "URL",
-            "geoLocation": "FR",
-            "certification": null,
-            "pidSystem": null,
-            "hasVersioningPolicy": null,
-            "availability": null,
-            "metadataStandard": null
-        },
-        {
-            "label": {
-                "en_GB": "Health Databases ",
-                "fr_FR": "Portail Epidémiologie France"
-            },
-            "title": "Portail Epidémiologie France",
-            "description": "Le portail Épidémiologie-France propose un catalogue en ligne des principales bases de données individuelles en santé de source française en santé publique (hors essais cliniques). Ce portail s\u2019inscrit dans un mouvement de partage et de réutilisation des données épidémiologiques. Chaque base de données répertoriée dans le catalogue est décrite selon ses caractéristiques essentielles : objectifs, thématiques, populations couvertes, nature des informations recueillies, conditions d\u2019accès, coordonnées du responsable scientifique...",
-            "technicalResourceId": "https://epidemiologie-france.aviesan.fr/",
-            "idType": "URL",
-            "geoLocation": "FR",
-            "certification": null,
-            "pidSystem": null,
-            "hasVersioningPolicy": null,
-            "availability": null,
-            "metadataStandard": null
-        }
-    ],
     "AgentIdSystem": [
         {
             "fr_FR": "ORCID",
@@ -987,7 +193,7 @@
             "fr_FR": "Rejeté"
         }
     ],
-    "ISO639-3_complet": [
+    "ISO639-3": [
         {
             "fr_FR": "aar",
             "en_GB": "aar"
@@ -1995,6 +1201,1005 @@
         {
             "fr_FR": "Organisation (par ex : équipe, unité ou groupe de recherche)",
             "en_GB": "Organizational (e.g. a research team, unit or group)"
+        }
+    ],
+    "Licenses": [
+        {
+            "label": {
+                "en_GB": "etalab-2.0",
+                "fr_FR": "etalab-2.0"
+            },
+            "licenseName": "Etalab Open License 2.0",
+            "licenseUrl": "https://spdx.org/licenses/etalab-2.0.html"
+        },
+        {
+            "label": {
+                "en_GB": "CC-BY-4.0",
+                "fr_FR": "CC-BY-4.0"
+            },
+            "licenseName": "Creative Commons Attribution 4.0 International",
+            "licenseUrl": "https://spdx.org/licenses/CC-BY-4.0.html"
+        },
+        {
+            "label": {
+                "en_GB": "CC-BY-1.0",
+                "fr_FR": "CC-BY-1.0"
+            },
+            "licenseName": "Creative Commons Attribution 1.0 Generic",
+            "licenseUrl": "https://spdx.org/licenses/CC-BY-1.0.html"
+        },
+        {
+            "label": {
+                "en_GB": "CC-BY-NC-1.0",
+                "fr_FR": "CC-BY-NC-1.0"
+            },
+            "licenseName": "Creative Commons Attribution Non Commercial 1.0 Generic",
+            "licenseUrl": "https://spdx.org/licenses/CC-BY-NC-1.0.html"
+        },
+        {
+            "label": {
+                "en_GB": "CC-BY-NC-4.0",
+                "fr_FR": "CC-BY-NC-4.0"
+            },
+            "licenseName": "Creative Commons Attribution Non Commercial 4.0 International",
+            "licenseUrl": "https://spdx.org/licenses/CC-BY-NC-4.0.html"
+        },
+        {
+            "label": {
+                "en_GB": "CC-BY-ND-1.0",
+                "fr_FR": "CC-BY-ND-1.0"
+            },
+            "licenseName": "Creative Commons Attribution No Derivatives 1.0 Generic",
+            "licenseUrl": "https://spdx.org/licenses/CC-BY-ND-1.0.html"
+        },
+        {
+            "label": {
+                "en_GB": "CC-BY-ND-4.0",
+                "fr_FR": "CC-BY-ND-4.0"
+            },
+            "licenseName": "Creative Commons Attribution No Derivatives 4.0 International",
+            "licenseUrl": "https://spdx.org/licenses/CC-BY-ND-4.0.html"
+        },
+        {
+            "label": {
+                "en_GB": "CC-BY-SA-1.0",
+                "fr_FR": "CC-BY-SA-1.0"
+            },
+            "licenseName": "Creative Commons Attribution Share Alike 1.0 Generic",
+            "licenseUrl": "https://spdx.org/licenses/CC-BY-SA-1.0.html"
+        },
+        {
+            "label": {
+                "en_GB": "CC-BY-SA-4.0",
+                "fr_FR": "CC-BY-SA-4.0"
+            },
+            "licenseName": "Creative Commons Attribution Share Alike 4.0 International",
+            "licenseUrl": "https://spdx.org/licenses/CC-BY-SA-4.0.html"
+        },
+        {
+            "label": {
+                "en_GB": "CC-BY-NC-ND-1.0",
+                "fr_FR": "CC-BY-NC-ND-1.0"
+            },
+            "licenseName": "Creative Commons Attribution Non Commercial No Derivatives 1.0 Generic",
+            "licenseUrl": "https://spdx.org/licenses/CC-BY-NC-ND-1.0.html"
+        },
+        {
+            "label": {
+                "en_GB": "CC-BY-NC-ND-4.0",
+                "fr_FR": "CC-BY-NC-ND-4.0"
+            },
+            "licenseName": "Creative Commons Attribution Non Commercial No Derivatives 4.0 International",
+            "licenseUrl": "https://spdx.org/licenses/CC-BY-NC-ND-4.0.html"
+        },
+        {
+            "label": {
+                "en_GB": "CC-BY-NC-SA-1.0",
+                "fr_FR": "CC-BY-NC-SA-1.0"
+            },
+            "licenseName": "Creative Commons Attribution Non Commercial Share Alike 1.0 Generic",
+            "licenseUrl": "https://spdx.org/licenses/CC-BY-NC-SA-1.0.html"
+        },
+        {
+            "label": {
+                "en_GB": "CC-BY-NC-SA-4.0",
+                "fr_FR": "CC-BY-NC-SA-4.0"
+            },
+            "licenseName": "Creative Commons Attribution Non Commercial Share Alike 4.0 International",
+            "licenseUrl": "https://spdx.org/licenses/CC-BY-NC-SA-4.0.html"
+        },
+        {
+            "label": {
+                "en_GB": "CC0-1.0",
+                "fr_FR": "CC0-1.0"
+            },
+            "licenseName": "Creative Commons Zero v1.0 Universal",
+            "licenseUrl": "https://spdx.org/licenses/CC0-1.0.html"
+        },
+        {
+            "label": {
+                "en_GB": "CC-PDDC",
+                "fr_FR": "CC-PDCC"
+            },
+            "licenseName": "Creative Commons Public Domain Dedication and Certification",
+            "licenseUrl": "https://spdx.org/licenses/CC-PDDC.html"
+        },
+        {
+            "label": {
+                "en_GB": "CC0-1.0",
+                "fr_FR": "CC0-1.0"
+            },
+            "licenseName": "Creative Commons Zero v1.0 Universal",
+            "licenseUrl": "https://spdx.org/licenses/CC0-1.0.html"
+        },
+        {
+            "label": {
+                "en_GB": "GPL-1.0-only",
+                "fr_FR": "GPL-1.0-only"
+            },
+            "licenseName": "GNU General Public License v1.0 only",
+            "licenseUrl": "https://spdx.org/licenses/GPL-1.0-only.html"
+        },
+        {
+            "label": {
+                "en_GB": "GPL-3.0-or-later",
+                "fr_FR": "GPL-3.0-or-later"
+            },
+            "licenseName": "GNU General Public License v3.0 or later",
+            "licenseUrl": "https://spdx.org/licenses/GPL-3.0-or-later.html"
+        },
+        {
+            "label": {
+                "en_GB": "ODbL-1.0",
+                "fr_FR": "ODbL-1.0"
+            },
+            "licenseName": "ODC Open Database License v1.0",
+            "licenseUrl": "https://spdx.org/licenses/ODbL-1.0.html"
+        },
+        {
+            "label": {
+                "en_GB": "BSD-1-Clause",
+                "fr_FR": "BSD-1-Clause"
+            },
+            "licenseName": "BSD 1-Clause License",
+            "licenseUrl": "https://spdx.org/licenses/BSD-1-Clause.html"
+        },
+        {
+            "label": {
+                "en_GB": "Apache-1.0",
+                "fr_FR": "Apache-1.0"
+            },
+            "licenseName": "Apache License 1.0",
+            "licenseUrl": "https://spdx.org/licenses/Apache-1.0.html"
+        },
+        {
+            "label": {
+                "en_GB": "CECILL-1.0",
+                "fr_FR": "CECILL-1.0"
+            },
+            "licenseName": "CeCILL Free Software License Agreement v1.0",
+            "licenseUrl": "https://spdx.org/licenses/CECILL-1.0.html"
+        },
+        {
+            "label": {
+                "en_GB": "CECILL-B",
+                "fr_FR": "CECILL-B"
+            },
+            "licenseName": "CeCILL-B Free Software License Agreement",
+            "licenseUrl": "https://spdx.org/licenses/CECILL-B.html"
+        },
+        {
+            "label": {
+                "en_GB": "MIT",
+                "fr_FR": "MIT"
+            },
+            "licenseName": "MIT License",
+            "licenseUrl": "https://spdx.org/licenses/MIT.html"
+        },
+        {
+            "label": {
+                "en_GB": "MPL-1.0",
+                "fr_FR": "MPL-1.0"
+            },
+            "licenseName": "Mozilla Public License 1.0",
+            "licenseUrl": "https://spdx.org/licenses/MPL-1.0.html"
+        }
+    ],
+    "Funders": [
+        {
+            "label": {
+                "en_GB": "French National Research Agency, ANR",
+                "fr_FR": "Agence Nationale de la Recherche, ANR"
+            },
+            "name": "Agence Nationale de la Recherche",
+            "funderId": "http://dx.doi.org/10.13039/501100001665",
+            "idType": "DOI",
+            "dataPolicy": {
+                "title": "Plan données de la recherche du CNRS",
+                "docIdentifier": "https://www.cnrs.fr/sites/default/files/pdf/Plaquette_PlanDDOR_Nov20.pdf",
+                "idType": "URL"
+            }
+        },
+        {
+            "label": {
+                "en_GB": "European Commission, EC",
+                "fr_FR": "Commission européenne, CE"
+            },
+            "name": "European Commission",
+            "funderId": "http://dx.doi.org/10.13039/501100000780",
+            "idType": "DOI",
+            "dataPolicy": {
+                "title": "Guidelines on FAIR data management in Horizon 2020",
+                "docIdentifier": "https://ec.europa.eu/research/participants/data/ref/h2020/grants_manual/hi/oa_pilot/h2020-hi-oa-data-mgt_en.pdf",
+                "idType": "URL"
+            }
+        },
+        {
+            "label": {
+                "en_GB": "National Institute of Health and Medical Research, Inserm",
+                "fr_FR": "Institut National de la Santé et de la Recherche Médicale, Inserm"
+            },
+            "name": "Institut National de la Santé et de la Recherche Médicale",
+            "funderId": "http://dx.doi.org/10.13039/501100001677",
+            "idType": "DOI",
+            "dataPolicy": {
+                "title": null,
+                "docIdentifier": null,
+                "idType": null
+            }
+        },
+        {
+            "label": {
+                "en_GB": "French National Cancer Institute, INCa",
+                "fr_FR": "Institut National Du Cancer, INCa"
+            },
+            "name": "Institut National Du Cancer",
+            "funderId": "http://dx.doi.org/10.13039/501100006364",
+            "idType": "DOI",
+            "dataPolicy": {
+                "title": "Déclaration conjointe du réseau des agences de financement françaises en faveur de la science ouverte",
+                "docIdentifier": "https://www.e-cancer.fr/content/download/291990/4158532/file/De%CC%81claration%20conjointe%20en%20faveur%20de%20la%20science%20ouverte%20-%20%2029%20juin.pdf",
+                "idType": "URL"
+            }
+        },
+        {
+            "label": {
+                "en_GB": "National Science Foundation, NSF",
+                "fr_FR": "National Science Foundation, NSF"
+            },
+            "name": "National Science Foundation",
+            "funderId": "http://dx.doi.org/10.13039/100000001",
+            "idType": "DOI",
+            "dataPolicy": {
+                "title": "Proposal & Award Policies & Procedures Guide",
+                "docIdentifier": "https://www.nsf.gov/pubs/policydocs/pappg19_1/pappg_11.jsp#XID4",
+                "idType": "URL"
+            }
+        }
+    ],
+    "Partners": [
+        {
+            "label": {
+                "en_GB": "French National Centre for Scientific Research",
+                "fr_FR": "CNRS, Centre National de la Recherche Scientifique"
+            },
+            "name": "French National Centre for Scientific Research",
+            "rnsr": null,
+            "orgId": "https://ror.org/02feahw736",
+            "idType": "ROR ID",
+            "dataPolicy": {
+                "title": "Plan données de la recherche du CNRS",
+                "docIdentifier": "https://www.cnrs.fr/sites/default/files/pdf/Plaquette_PlanDDOR_Nov20.pdf",
+                "idType": "URL"
+            }
+        },
+        {
+            "label": {
+                "en_GB": "Agro ParisTech, Paris Institute of Technology for Life, Food and Environmental Sciences",
+                "fr_FR": "Agro ParisTech, Institut des sciences et industries du vivant et de l'environnement)"
+            },
+            "name": "Agro ParisTech",
+            "rnsr": null,
+            "orgId": " https://ror.org/02kbmgc12",
+            "idType": "ROR ID",
+            "dataPolicy": {
+                "title": "La Science Ouverte à AgroParisTech - Politique d'établissement",
+                "docIdentifier": "http://www2.agroparistech.fr/IMG/pdf/202001_politique_openscience_agroparistech_vf_web.pdf",
+                "idType": "URL"
+            }
+        },
+        {
+            "label": {
+                "en_GB": "INRAE, National Research Institute for Agriculture, Food and Environment)",
+                "fr_FR": "INRAE, Institut National de Recherche pour l'Agriculture, l'Alimentation et l'Environnement)"
+            },
+            "name": "National Research Institute for Agriculture, Food and Environment",
+            "rnsr": null,
+            "orgId": "https://ror.org/003vg9w96",
+            "idType": "ROR ID",
+            "dataPolicy": {
+                "title": "Charte pour le libre accès aux publications et aux données",
+                "docIdentifier": "https://hal.inrae.fr/hal-02801732",
+                "idType": "URL"
+            }
+        },
+        {
+            "label": {
+                "en_GB": "IMoPA",
+                "fr_FR": "IMoPA, Ingénierie Moléculaire et Physiopathologie Articulaire"
+            },
+            "name": "IMoPA Ingénierie Moléculaire et Physiopathologie Articulaire",
+            "rnsr": "201320578R",
+            "orgId": "https://ror.org/04yc2e502",
+            "idType": "ROR ID",
+            "dataPolicy": {
+                "title": null,
+                "docIdentifier": null,
+                "idType": null
+            }
+        },
+        {
+            "label": {
+                "en_GB": "BIC",
+                "fr_FR": "BIC, Bordeaux Imaging Center"
+            },
+            "name": "BIC Bordeaux Imaging Center",
+            "rnsr": "201120186Y",
+            "orgId": null,
+            "idType": null,
+            "dataPolicy": {
+                "title": null,
+                "docIdentifier": null,
+                "idType": null
+            }
+        },
+        {
+            "label": {
+                "en_GB": "LPCNO, Laboratoire de Physique et Chimie des Nano-Objets",
+                "fr_FR": "LPCNO, LABORATOIRE DE PHYSIQUE ET CHIMIE DES NANO-OBJETS"
+            },
+            "name": "LPCNO LABORATOIRE DE PHYSIQUE ET CHIMIE DES NANO-OBJETS",
+            "rnsr": "200711884S",
+            "orgId": "https://ror.org/042xmz674",
+            "idType": "ROR ID",
+            "dataPolicy": {
+                "title": null,
+                "docIdentifier": null,
+                "idType": null
+            }
+        },
+        {
+            "label": {
+                "en_GB": "ICMM, Institute of Continuous Media Mechanics, Federal State Institution of Science Institute of Continuous Media Mechanics,Ural Branch of the Russian Academy of Sciences,Department of Polymer Physics",
+                "fr_FR": "ICMM, Institute of Continuous Media Mechanics, Federal State Institution of Science Institute of Continuous Media Mechanics,Ural Branch of the Russian Academy of Sciences,Department of Polymer Physics"
+            },
+            "name": "Institute of Continuous Media Mechanics",
+            "rnsr": "200711884S",
+            "orgId": "https://ror.org/03ymmms77",
+            "idType": "ROR ID",
+            "dataPolicy": {
+                "title": null,
+                "docIdentifier": null,
+                "idType": null
+            }
+        },
+        {
+            "label": {
+                "en_GB": "BIOGECO, Biodiversité, Gènes et Communautés",
+                "fr_FR": "BIOGECO, Biodiversité, Gènes et Communautés"
+            },
+            "name": "BIOGECO Biodiversité, Gènes et Communautés",
+            "rnsr": "200317684N",
+            "orgId": "https://ror.org/033ebya06",
+            "idType": "ROR ID",
+            "dataPolicy": {
+                "title": null,
+                "docIdentifier": null,
+                "idType": null
+            }
+        },
+        {
+            "label": {
+                "en_GB": "CRA W, Walloon Agricultural Research Centre",
+                "fr_FR": "CRA W, Centre wallon de Recherches Agronomiques"
+            },
+            "name": "Centre wallon de Recherches Agronomiques",
+            "rnsr": null,
+            "orgId": "https://ror.org/016n74679",
+            "idType": "ROR ID",
+            "dataPolicy": {
+                "title": null,
+                "docIdentifier": null,
+                "idType": null
+            }
+        },
+        {
+            "label": {
+                "en_GB": "Plant Protection Institute",
+                "fr_FR": "Plant Protection Institute"
+            },
+            "name": "Plant Protection Institute",
+            "rnsr": null,
+            "orgId": "https://ror.org/052t9a145",
+            "idType": "ROR ID",
+            "dataPolicy": {
+                "title": null,
+                "docIdentifier": null,
+                "idType": null
+            }
+        }
+    ],
+    "Repositories": [
+        {
+            "label": {
+                "en_GB": "Zenodo",
+                "fr_FR": "Zenodo"
+            },
+            "title": "Zenodo",
+            "description": "ZENODO builds and operates a simple and innovative service that enables researchers, scientists, EU projects and institutions to share and showcase multidisciplinary research results (data and publications) that are not part of the existing institutional or subject-based repositories of the research communities. ZENODO enables researchers, scientists, EU projects and institutions to: easily share the long tail of small research results in a wide variety of formats including text, spreadsheets, audio, video, and images across all fields of science. display their research results and get credited by making the research results citable and integrate them into existing reporting lines to funding agencies like the European Commission. easily access and reuse shared research results. ",
+            "technicalResourceId": "RRID:SCR_004129",
+            "idType": "Autre",
+            "geoLocation": "CH",
+            "certification": null,
+            "pidSystem": "DOI",
+            "hasVersioningPolicy": "Oui",
+            "availability": "20",
+            "metadataStandard": "DataCite Metadata Schema, Dublin Core"
+        },
+        {
+            "label": {
+                "en_GB": "figshare",
+                "fr_FR": "figshare"
+            },
+            "title": "figshare",
+            "description": "figshare allows researchers to publish all of their research outputs in an easily citable, sharable and discoverable manner. All file formats can be published, including videos and datasets. Optional peer review process. figshare uses creative commons licensing.",
+            "technicalResourceId": "RRID:SCR_004328",
+            "idType": "Autre",
+            "geoLocation": null,
+            "certification": null,
+            "pidSystem": "DOI",
+            "hasVersioningPolicy": "Oui",
+            "availability": null,
+            "metadataStandard": "DataCite Metadata Schema, Dublin Core"
+        },
+        {
+            "label": {
+                "en_GB": "Data INRAE (Portail Data INRAE)",
+                "fr_FR": "Data INRAE (Portail Data INRAE)"
+            },
+            "title": "Data INRAE",
+            "description": "INRAE is the world\u2019s first organisation specialized on agricultural, food and environmental sciences. Data INRAE is offered by INRAE as part of its mission to open the results of its research. Data INRAE will share research data in relation with food, nutrition, agriculture and environment. It includes experimental, simulation and observation data, omic data, survey and text data. Only data produced by or in collaboration with INRAE will be hosted in the repository, but anyone can access the metadata and the open data.",
+            "technicalResourceId": "https://data.inrae.fr/",
+            "idType": "URL",
+            "geoLocation": "FR",
+            "certification": null,
+            "pidSystem": "DOI",
+            "hasVersioningPolicy": "Oui",
+            "availability": null,
+            "metadataStandard": "DataCite Metadata Schema, DDI, Dublin Core, ISA-Tab"
+        },
+        {
+            "label": {
+                "en_GB": "DataSuds (IRD)",
+                "fr_FR": "DataSuds (IRD)"
+            },
+            "title": "DataSuds",
+            "description": "The DataSuds data warehouse provides IRD scientists and their partners with a service to disseminate, preserve and enhance their research data by facilitating their identification and citation. It is one of the elements of the open science system for the South promoted by the IRD.",
+            "technicalResourceId": "https://data.ird.fr/",
+            "idType": "URL",
+            "geoLocation": "FR",
+            "certification": null,
+            "pidSystem": "DOI",
+            "hasVersioningPolicy": "Oui",
+            "availability": null,
+            "metadataStandard": "DataCite Metadata Schema, DDI, Dublin Core"
+        },
+        {
+            "label": {
+                "en_GB": "4TU.ResearchData | science.engineering.design",
+                "fr_FR": "4TU.ResearchData | science.engineering.design"
+            },
+            "title": "4TU.ResearchData | science.engineering.design",
+            "description": "TU.ResearchData, previously known as 4TU.Centre for Research Data, is a research data repository dedicated to the science, engineering and design disciplines. It offers the knowledge, experience and the tools to manage, publish and find scientific research data in a standardized, secure and well-documented manner. 4TU.ResearchData provides the research community with: Customised advice and support on research data management; A long-term repository for scientific research data; Support for current research projects; Tools to enhance reuse of research data.",
+            "technicalResourceId": "RRID:SCR_006295",
+            "idType": "Autre",
+            "geoLocation": "NL",
+            "certification": "DSA",
+            "pidSystem": "DOI",
+            "hasVersioningPolicy": "Oui",
+            "availability": null,
+            "metadataStandard": "DataCite Metadata Schema, DDI, Dublin Core, RDA Data Cube Vocabulary"
+        },
+        {
+            "label": {
+                "en_GB": "CIRAD Dataverse",
+                "fr_FR": "CIRAD Dataverse"
+            },
+            "title": "CIRAD Dataverse",
+            "description": "The range of CIRAD's research has given rise to numerous datasets and databases associating various types of data: primary (collected), secondary (analysed, aggregated, used for scientific articles, etc), qualitative and quantitative. These collections of research data are used for comparisons, to study processes and analyse change. They include: genetics and genomics data, data generated by trials and measurements (using laboratory instruments), data generated by modelling (interpolations, predictive models), long-term observation data (remote sensing, observatories, etc), data from surveys, cohorts, interviews with players.",
+            "technicalResourceId": "https://dataverse.cirad.fr/",
+            "idType": "URL",
+            "geoLocation": "FR",
+            "certification": null,
+            "pidSystem": "DOI",
+            "hasVersioningPolicy": "Oui",
+            "availability": null,
+            "metadataStandard": "DDI, Dublin Core"
+        },
+        {
+            "label": {
+                "en_GB": "DRYAD",
+                "fr_FR": "DRYAD"
+            },
+            "title": "DRYAD",
+            "description": "Dryad is an international repository of data underlying peer-reviewed scientific and medical literature, particularly data for which no specialized repository exists. The content is considered to be integral to the published research. All material in Dryad is associated with a scholarly publication ",
+            "technicalResourceId": "RRID:SCR_005910",
+            "idType": "Autre",
+            "geoLocation": "US",
+            "certification": null,
+            "pidSystem": "DOI",
+            "hasVersioningPolicy": "Oui",
+            "availability": null,
+            "metadataStandard": "DataCite metadata Schema, Dublin Core, RDF Data Cube Vocabulary"
+        },
+        {
+            "label": {
+                "en_GB": "PAC - Archiving Platform CINES",
+                "fr_FR": "PAC - Plateforme d'archivage au CINES"
+            },
+            "title": "PAC - Archiving Platform CINES",
+            "description": "CINES is the French national long-term preservation service provider for Higher Education and Research: more than 20 institutions (universities, librairies, labs) archive their digital heritage at CINES so that it's preserved over time in a secure, dedicated environment. This includes documents such as PhD theses or publications, digitized ancient/rare books, satellite imagery, 3D/vidéos/image galleries, datasets, etc.",
+            "technicalResourceId": "2425-8792",
+            "idType": "Autre",
+            "geoLocation": "FR",
+            "certification": "DSA",
+            "pidSystem": "ARK",
+            "hasVersioningPolicy": "Oui",
+            "availability": null,
+            "metadataStandard": "Dublin Core"
+        },
+        {
+            "label": {
+                "en_GB": "Huma-Num",
+                "fr_FR": "Huma-Num"
+            },
+            "title": "Huma-Num : Archivage à long terme",
+            "description": "La TGIR Huma-Num propose à la communauté des producteurs de données numériques en Sciences Humaines et Sociales un service d’archivage à long terme. Elle s’appuie, pour cette activité, sur les infrastructures et les compétences d'un centre labellisé, le Centre Informatique National de l’Enseignement Supérieur, CINES, avec qui elle a signé une convention. Huma-Num accompagne les producteurs de données tout au long du processus d’archivage à long terme et est le lien entre les communautés scientifiques et le CINES. Elle procure aide et conseils aux producteurs de données pour choisir les formats de données adéquats, mais aussi pour concevoir sous une forme normalisée les données descriptives (méta-données) indispensables pour les faire entrer dans le système d’archivage du CINES. Les données à archiver doivent présenter une valeur scientifique reconnue par la communauté dont elles proviennent. Huma-Num soumet à son conseil scientifique les demandes d’archivage à long terme.",
+            "technicalResourceId": "https://www.huma-num.fr/services-et-outils/archiver",
+            "idType": "URL",
+            "geoLocation": "FR",
+            "certification": null,
+            "pidSystem": null,
+            "hasVersioningPolicy": null,
+            "availability": null,
+            "metadataStandard": null
+        },
+        {
+            "label": {
+                "en_GB": "Vitam, Valeurs immatérielles transmises aux archives pour mémoire",
+                "fr_FR": "Vitam, Valeurs immatérielles transmises aux archives pour mémoire"
+            },
+            "title": "Vitam",
+            "description": "Le Programme Vitam, Valeurs immatérielles transmises aux archives pour mémoire, est un programme interministériel français d'archivage électronique porté par trois ministères, Europe et Affaires étrangères, Culture, Armées, responsables de la conservation des archives de l’État. Le programme Vitam répond a 3 objectifs : 1/ La réalisation de la solution logicielle libre Vitam d’archivage numérique permettant la prise en charge, la conservation et la consultation sécurisée de très gros volumes d’archives numériques définitives, intermédiaires, voire courantes ; 2/ La mise en place de plate-formes d’archivage utilisant la solution logicielle Vitam, dans chacun des trois ministères, via les projets ministériels : Saphir (MEAE), Adamant (MC/Archives nationales) et Archipel (MinArm) ; 3/ La diffusion et la réutilisation la plus large de la solution logicielle Vitam, en lien avec son Club utilisateurs. Le Programme veille également aux actions de soutien financier, de sensibilisation et d’accompagnement en matière d’archivage numérique au-delà des trois ministères porteurs du programme, via les dispositifs ANET (Archivage numérique en territoire) et DIAMAN au sein du MC/Service interministériel des Archives de France).",
+            "technicalResourceId": "https://www.programmevitam.fr/",
+            "idType": "URL",
+            "geoLocation": "FR",
+            "certification": null,
+            "pidSystem": null,
+            "hasVersioningPolicy": null,
+            "availability": null,
+            "metadataStandard": null
+        }
+    ],
+    "Services": [
+        {
+            "label": {
+                "en_GB": "CC-IN2P3 (CNRS), Computing Centre of the National Institute of Nuclear Physics and Particle Physics",
+                "fr_FR": "CC-IN2P3 (CNRS), Centre de Calcul de l'Institut National de Physique Nucléaire et de Physique des Particules"
+            },
+            "title": "CC-IN2P3",
+            "description": "Le Centre de Calcul de l\u2019IN2P3 (CC-IN2P3) offre un ensemble de services aux chercheurs de l'IN2P3 (Institut National de Physique Nucléaire et de Physique des Particules) du CNRS. La plateforme de calcul du CC-IN2P3 permet aux scientifiques de traiter les grandes masses de données issues de grands instruments scientifiques (accélérateurs de particules, télescopes ou satellites), de réaliser des modélisations et des simulations pour valider des théories, de valoriser et d\u2019archiver les données de recherche. Les ressources de calcul distribué peuvent être utilisées localement (création d\u2019un compte utilisateur) ou via une grille de calcul (inscription dans une organisation virtuelle VO. Le CC-IN2P3 met à disposition un système de stockage de masse reposant sur l\u2019utilisation conjointe de disques durs et de bandes magnétiques. Le CC-IN2P3 fournit des ressources informatiques principalement pour la physique nucléaire, la physique des particules, l\u2019astrophysique et les astroparticules et de façon limitée aux sciences humaines (Huma-Num) et sciences de la vie. Le CC-IN2P3 a développé une expertise technique dans les domaines du stockage massif de données, du calcul à haut débit (HTC), les grilles de calcul ou le cloud computing. Il est impliqué dans des projets régionaux, nationaux, européens et transdisciplinaires. Le Centre de Calcul de l\u2019IN2P3 a élaboré un modèle de plan de gestion de données CC-IN2P3 DMP template en anglais à l\u2019aide de l\u2019outil DMP OPIDoR. Le Centre de Calcul de l\u2019IN2P3 fait partie des principaux centres internationaux déployés dans le cadre du projet Worldwide LHC Computing Grid (W-LCG) et dédié à la simulation, au traitement et à l\u2019analyse des données des quatre expériences LHC (Large Hadron Collider) au CERN. Les données produites et/ou gérées par l\u2019infrastructure CC-IN2P3 sont soumises à un embargo de 48 mois.",
+            "technicalResourceId": "https://cc.in2p3.fr/",
+            "idType": "URL"
+        },
+        {
+            "label": {
+                "en_GB": "Gesco",
+                "fr_FR": "Gesco, Centre e-Science Grand Ouest "
+            },
+            "title": "Gesco",
+            "description": "CeSGO est une structure e-science proposant un environnement virtuel de recherche dédié aux communautés des sciences de la vie du réseau Biogenouest. Son objectif est d\u2019améliorer les processus de recherche, en donnant accès à des ressources TIC, des données et des logiciels via des interfaces adaptées. CeSGO met ainsi à disposition : une plateforme collaborative, une plateforme de discussion, une plateforme de gestion de projets, une plateforme de gestion de données, une plateforme de gestion de partage scientifique.",
+            "technicalResourceId": "https://www.cesgo.org/fr/",
+            "idType": "URL"
+        },
+        {
+            "label": {
+                "en_GB": "GENCI, Big National Equipment Intensive Computing",
+                "fr_FR": "GENCI, Grand Equipement National de Calcul Intensif"
+            },
+            "title": "GENCI",
+            "description": "Le Grand Equipement National de Calcul Intensif (GENCI) est une société civile créée en 2007 par les pouvoirs publics. GENCI est une infrastructure numérique distribuée qui est basée sur les trois grands centres nationaux : l\u2019IDRIS du CNRS, le TGCC du CEA et le CINES des Universités. Les missions du GENCI sont 1/ la mise en oeuvre de la stratégie nationale d\u2019équipement en moyens de calcul intensif et stockage de données computationnelles (données massives) 2/ la mise à disposition de calculateurs à haute performance (supercalculateurs) pour les chercheurs académiques et des industriels afin qu\u2019ils réalisent des travaux de simulation numérique 3/ la promotion de la simulation numérique et du calcul intensif auprès de la communauté de recherche française (académique et industrielle). L\u2019accès aux données produites par les supercalculateurs du GENCI est restreint aux chercheurs ayant produit ces données. GENCI est la composante française de l\u2019infrastructure européenne PRACE (Partnership for Advanced Computing in Europe.",
+            "technicalResourceId": "http://www.genci.fr/fr",
+            "idType": "URL"
+        },
+        {
+            "label": {
+                "en_GB": "MyCore (CNRS)",
+                "fr_FR": "MyCore"
+            },
+            "title": "MyCore",
+            "description": "Service numérique de stockage, sauvegarde, nomadisme et partage sécurisés proposés par le CNRS : http://ods.cnrs.fr/my_core.php",
+            "technicalResourceId": "https://mycore.core-cloud.net",
+            "idType": "URL"
+        },
+        {
+            "label": {
+                "en_GB": "PETA (Université de Lorraine, UL)",
+                "fr_FR": "PETA (Université de Lorraine, UL)"
+            },
+            "title": "PETA",
+            "description": "Le service d'hébergement des données volumineuses est une offre de stockage à destination desunités de recherche de l\u2019Université de Lorraine(UL). L'accès aux données se fait au travers de l'interface Storage Made Easy :Au travers d'une interface WebVia   un   client   lourd   (lecteur   réseau   et   client   de   synchronisation)   installé   sur   le   posteinformatique (postes de travail, serveur ou équipement mobile). Les systèmes supportés sont: Windows, Mac, Linux, Android, iOSLe service est principalement destiné au stockage volumineux et non à l'accès rapide aux données.Pour ce dernier type d\u2019accès, il faudra prendre contact avec la direction du numérique pour étudierune autre solution",
+            "technicalResourceId": "https://numerique.univ-lorraine.fr/gestion-de-vos-fichiers/stockage-des-donnees-de-la-recherche-peta",
+            "idType": "URL"
+        },
+        {
+            "label": {
+                "en_GB": "Synchrotron SOLEIL",
+                "fr_FR": "Synchrotron SOLEIL"
+            },
+            "title": "Synchrotron SOLEIL",
+            "description": "Infrastructure de Recherche, plateforme d'acquisition et de services, SOLEIL (Source Optimisée de Lumière d'Energie Intermédiaire du LURE) est la source nationale de rayonnement synchrotron dont le but est d'explorer la matière à différentes échelles aussi bien au niveau des recherches fondamentales ou appliquées en physique, chimie, biologie, patrimoine, environnement ou sciences de l'univers. L’accès aux données produites et/ou gérées par l’infrastructure SOLEIL est restreint aux équipes projets et sur autorisation pour les autres utilisateurs. L’accès sera ouvert après l’expiration de l’embargo fixé à 5 ans maximum.",
+            "technicalResourceId": "https://www.synchrotron-soleil.fr/fr",
+            "idType": "URL"
+        },
+        {
+            "label": {
+                "en_GB": "GANIL-SPIRAL2",
+                "fr_FR": "GANIL-SPIRAL2"
+            },
+            "title": "GANIL-SPIRAL2",
+            "description": "Le GANIL (Grand Accélérateur National d’Ions Lourds) met en place une nouvelle installation SPIRAL2 (Système de production d’Ions Radioactifs en Ligne de 2e génération).SPIRAL2 fournira prochainement ses premiers faisceaux pour répondre aux chercheurs en physique nucléaire qui s’intéressent aux propriétés des noyaux exotiques et des réactions induites. Les chercheurs pourront bénéficier de toute l’infrastructure existante avec ses ensembles de détection, d’acquisition et de traitement des données. L’accès aux données produites par l’accélérateur GANIL-SPIRAL2 est restreint aux collaborations qui ont réalisé les expériences.",
+            "technicalResourceId": "https://www.ganil-spiral2.eu/",
+            "idType": "URL"
+        }
+    ],
+    "Standards": [
+        {
+            "label": {
+                "en_GB": "EML, Ecological Metadata Language",
+                "fr_FR": "EML, Ecological Metadata Language"
+            },
+            "name": "Ecological Metadata Language",
+            "description": "The Ecological Metadata Language (EML) metadata standard was originally developed for the earth, environmental and ecological sciences. It is based on prior work done by the Ecological Society of America and associated efforts. It has been developed to document any research data, and as such can be used outside of these original subject areas. EML is implemented as a series of XML document types that can by used in a modular and extensible manner to document ecological data. Each EML module is designed to describe one logical part of the total metadata that should be included with any ecological dataset.",
+            "metadatalanguage": "eng",
+            "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.r3vtvx",
+            "idType": "DOI"
+        },
+        {
+            "label": {
+                "en_GB": "DICOM, Digital Imaging and COmmunications in Medicine",
+                "fr_FR": "DICOM, Digital Imaging and COmmunications in Medicine"
+            },
+            "name": "DICOM, Digital Imaging and COmmunications in Medicine",
+            "description": "DICOM — Digital Imaging and Communications in Medicine — is the international standard for medical images and related information (ISO 12052). It defines the formats for medical images that can be exchanged with the data and quality necessary for clinical use. DICOM is implemented in almost every radiology, cardiology imaging, and radiotherapy device (X-ray, CT, MRI, ultrasound, etc.), and increasingly in devices in other medical domains such as ophthalmology and dentistry. With tens of thousands of imaging devices in use, DICOM is one of the most widely deployed healthcare messaging standards in the world. There are literally billions of DICOM images currently in use for clinical care. Since its first publication in 1993, DICOM has revolutionized the practice of radiology, allowing the replacement of X-ray film with a fully digital workflow. Much as the Internet has become the platform for new consumer information applications, DICOM has enabled advanced medical imaging applications that have “changed the face of clinical medicine”. From the emergency department, to cardiac stress testing, to breast cancer detection, DICOM is the standard that makes medical imaging work — for doctors and for patients",
+            "metadatalanguage": "eng",
+            "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.b7z8by",
+            "idType": "DOI"
+        },
+        {
+            "label": {
+                "en_GB": "DataCite Metadata Schema",
+                "fr_FR": "DataCite Metadata Schema"
+            },
+            "name": "DataCite Metadata Schema",
+            "description": "The DataCite Metadata Schema is a list of core metadata properties chosen for the accurate and consistent identification of a resource for citation and retrieval purposes, along with recommended use instructions. The resource that is being identified can be of any kind, but it is typically a dataset. The term \u2018dataset\u2019 can include not only numerical data, but any other research data outputs.",
+            "metadatalanguage": "eng",
+            "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.me4qwe",
+            "idType": "DOI"
+        },
+        {
+            "label": {
+                "en_GB": "DC, Dublin Core Metadata Element Set",
+                "fr_FR": "DC, Dublin Core Metadata Element Set"
+            },
+            "name": "Dublin Core Metadata Element Set",
+            "description": "The Dublin Metadata Element Set, which is often called Dublin Core (DC), is a standardized metadata scheme for description of any kind of resource such as documents in electronic and non-electronic form, digital materials (such as video, sound, images, etc) and composite media like web pages. is a small set of vocabulary terms that can be used to describe several kinds of resources. Dublin Core Metadata may be used for multiple purposes, from simple resource description, to combining metadata vocabularies of different metadata standards, to providing interoperability for metadata vocabularies in the Linked Data cloud and Semantic Web implementations.",
+            "metadatalanguage": "eng",
+            "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.3nx7t",
+            "idType": "DOI"
+        },
+        {
+            "label": {
+                "en_GB": "DDI-Codebook, Data Documentation Initiative Codebook",
+                "fr_FR": "DDI-Codebook, Data Documentation Initiative Codebook"
+            },
+            "name": "Data Documentation Initiative Codebook (DDI-Codebook)",
+            "description": "Data Documentation Initiative (DDI-Codebook, DDI-C) is a more light-weight version of DDI-Lifecycle, intended primarily to document simple survey data. Originally DTD-based, DDI-C is now available as an XML Schema. The freely available international DDI standards describe data that result from observational methods in the social, behavioral, economic, and health sciences. DDI is used to document data in over 80 countries of the world.",
+            "metadatalanguage": "eng",
+            "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.EZCpPd",
+            "idType": "DOI"
+        },
+        {
+            "label": {
+                "en_GB": "DDI-Lifecycle, Data Documentation Initiative Lifecycle",
+                "fr_FR": "DDI-Lifecycle, Data Documentation Initiative Lifecycle"
+            },
+            "name": "Data Documentation Initiative Lifecycle (DDI-Lifecycle)",
+            "description": "Data Documentation Initiative (DDI) Lifecycle (DDI-Lifecycle, DDI-L) is designed to document and manage data across the entire life cycle, from conceptualization to data publication, analysis and beyond. The freely available international DDI standards describe data that result from observational methods in the social, behavioral, economic, and health sciences. DDI is used to document data in over 80 countries of the world. It encompasses all of the DDI-Codebook specification and extends it. Based on XML Schemas, DDI-Lifecycle is modular and extensible",
+            "metadatalanguage": "eng",
+            "metadataStandardId": "https://doi.org/10.25504/FAIRsharing.1t5ws6",
+            "idType": "DOI"
+        }
+    ],
+    "Catalogs": [
+        {
+            "label": {
+                "en_GB": "Dat@OSU, Portail d'accès aux données de l'OSU Theta",
+                "fr_FR": "Dat@OSU, Portail d'accès aux données de l'OSU Theta"
+            },
+            "title": "Dat@OSU",
+            "description": "dat@OSU est une plateforme de métadonnées proposée par l\u2019Observatoire des Sciences de l\u2019Univers Terre Homme Environnement Temps Astronomie (OSU THETA). Elle propose une description des ensembles de données numériques issues des recherches scientifiques menées dans les différents laboratoires et équipes. dat@OSU est centré sur le référencement et la valorisation des données qui concernent la pluralité des différentes disciplines scientifiques. Les chercheurs qui renseignement leurs données dans dat@OSU peuvent bénéficier d'une aide documentaire pour la saisie de leurs métadonnées.",
+            "technicalResourceId": "https://dataosu.obs-besancon.fr/",
+            "idType": "URL",
+            "geoLocation": "FR",
+            "certification": null,
+            "pidSystem": null,
+            "hasVersioningPolicy": null,
+            "availability": null,
+            "metadataStandard": null
+        },
+        {
+            "label": {
+                "en_GB": "Géoportail, Portail national de la connaissance du territoire",
+                "fr_FR": "Géoportail, Portail national de la connaissance du territoire"
+            },
+            "title": "Géoportail",
+            "description": "Le Géoportail est une plateforme nationale de diffusion des données d'information géographique de référence couvertes par la directive INSPIRE. Mis en œuvre par l\u2019IGN, il a pour vocation de faciliter l\u2019accès à l\u2019information géographique de référence. Construit dans une logique d\u2019ouverture et d\u2019interopérabilité des données, il est régulièrement enrichi de nouvelles données publiques. Il permet de visualiser en 2D et en 3D l\u2019information géographique de référence (fonds cartographiques et photographiques) ainsi que les informations géolocalisées superposables à ces fonds et présentant un intérêt public. On y retrouve les données géographiques numériques de l\u2019IGN (photos aériennes, cartes à toute échelle, représentations des bâtiments et du parcellaire cadastral, hydrographie, altitude, réseaux, limites administratives, noms de lieux, etc.) mais également de nombreuses données publiques (sites protégés, occupation du sol, géologie, description du littoral, zones urbaines, zones à risque, patrimoine naturel\u2026) produites par des acteurs de référence. Reposant sur l'infrastructure du Géoportail, l'IGN propose une offre de services les Géoservices. Ces services en ligne permettent de consulter et exploiter les données géographiques, mais aussi construire ses propres services autour de ces données. Ces services répondent à la fois aux besoins des professionnels et des particuliers, des acteurs publics et privés\u2026 Ils permettent l\u2019intégration et la mise en œuvre de l\u2019information géographique et forestière. ",
+            "technicalResourceId": "https://www.geoportail.gouv.fr/",
+            "idType": "URL",
+            "geoLocation": "FR",
+            "certification": null,
+            "pidSystem": null,
+            "hasVersioningPolicy": null,
+            "availability": null,
+            "metadataStandard": null
+        },
+        {
+            "label": {
+                "en_GB": "OpenArchaeo",
+                "fr_FR": "OpenArchaeo"
+            },
+            "title": "OpenArchaeo",
+            "description": "La plateforme OpenArchaeo a pour objectif de mettre à disposition sur le web sémantique les jeux de données archéologiques produits dans le cadre du consortium MASA, sous la forme d\u2019un triplestore MASA disposant de données alignées avec l\u2019ontologie du CIDOC CRM et ses extensions dédiées à l\u2019archéologie. Il s\u2019agit d\u2019autre part de proposer une interface d\u2019interrogation intuitive pour les données archéologiques inspirée du moteur de recherche ResearchSpace mis en place par le British Museum, OpenArchaeo étant pour sa part spécifiquement dédié à l\u2019archéologie. Pour optimiser l\u2019appariement des jeux de données, un modèle générique de mapping a été mis en place, permettant de relier les concepts partagés par la plupart des jeux de données en archéologie, permettant ainsi de les rendre interopérables. Un prototype d\u2019OpenArchaeo verra le jour prochainement",
+            "technicalResourceId": "https://masa.hypotheses.org/openarchaeo",
+            "idType": "URL",
+            "geoLocation": "FR",
+            "certification": null,
+            "pidSystem": null,
+            "hasVersioningPolicy": null,
+            "availability": null,
+            "metadataStandard": null
+        },
+        {
+            "label": {
+                "en_GB": "Health Databases ",
+                "fr_FR": "Portail Epidémiologie France"
+            },
+            "title": "Portail Epidémiologie France",
+            "description": "Le portail Épidémiologie-France propose un catalogue en ligne des principales bases de données individuelles en santé de source française en santé publique (hors essais cliniques). Ce portail s\u2019inscrit dans un mouvement de partage et de réutilisation des données épidémiologiques. Chaque base de données répertoriée dans le catalogue est décrite selon ses caractéristiques essentielles : objectifs, thématiques, populations couvertes, nature des informations recueillies, conditions d\u2019accès, coordonnées du responsable scientifique...",
+            "technicalResourceId": "https://epidemiologie-france.aviesan.fr/",
+            "idType": "URL",
+            "geoLocation": "FR",
+            "certification": null,
+            "pidSystem": null,
+            "hasVersioningPolicy": null,
+            "availability": null,
+            "metadataStandard": null
+        }
+    ],
+    "MediaType": [
+        {
+            "label": {
+                "fr_FR": "aac",
+                "en_GB": "aac"
+            },
+            "fileFormat": "audio/aac"
+        },
+        {
+            "label": {
+                "fr_FR": "csv",
+                "en_GB": "csv"
+            },
+            "fileFormat": "text/csv"
+        },
+        {
+            "label": {
+                "fr_FR": "doc",
+                "en_GB": "doc"
+            },
+            "fileFormat": "application/msword"
+        },
+        {
+            "label": {
+                "fr_FR": "docx",
+                "en_GB": "docx"
+            },
+            "fileFormat": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        },
+        {
+            "label": {
+                "fr_FR": "gif",
+                "en_GB": "gi"
+            },
+            "fileFormat": "image/gif"
+        },
+        {
+            "label": {
+                "fr_FR": "html",
+                "en_GB": "html"
+            },
+            "fileFormat": "text/html"
+        },
+        {
+            "label": {
+                "fr_FR": "jpeg",
+                "en_GB": "jpeg"
+            },
+            "fileFormat": "image/JPEG"
+        },
+        {
+            "label": {
+                "fr_FR": "js",
+                "en_GB": "js"
+            },
+            "fileFormat": "application/javascript"
+        },
+        {
+            "label": {
+                "fr_FR": "json",
+                "en_GB": "json"
+            },
+            "fileFormat": "application/json"
+        },
+        {
+            "label": {
+                "fr_FR": "markdown",
+                "en_GB": "markdown"
+            },
+            "fileFormat": "text/markdown"
+        },
+        {
+            "label": {
+                "fr_FR": "mpeg",
+                "en_GB": "mpeg"
+            },
+            "fileFormat": "video/mpeg4-generic"
+        },
+        {
+            "label": {
+                "fr_FR": "mp4",
+                "en_GB": "mp4"
+            },
+            "fileFormat": "video/mp4"
+        },
+        {
+            "label": {
+                "fr_FR": "ods",
+                "en_GB": "ods"
+            },
+            "fileFormat": "application/vnd.oasis.opendocument.spreadsheet"
+        },
+        {
+            "label": {
+                "fr_FR": "odt",
+                "en_GB": "odt"
+            },
+            "fileFormat": "aapplication/vnd.oasis.opendocument.text"
+        },
+        {
+            "label": {
+                "fr_FR": "png",
+                "en_GB": "png"
+            },
+            "fileFormat": "image/png"
+        },
+        {
+            "label": {
+                "fr_FR": "pdf",
+                "en_GB": "pdf"
+            },
+            "fileFormat": "application/pdf"
+        },
+        {
+            "label": {
+                "fr_FR": "ppt",
+                "en_GB": "ppt"
+            },
+            "fileFormat": "application/vnd.ms-powerpoint"
+        },
+        {
+            "label": {
+                "fr_FR": "pptx",
+                "en_GB": "pptx"
+            },
+            "fileFormat": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        },
+        {
+            "label": {
+                "fr_FR": "quicktime",
+                "en_GB": "quicktime"
+            },
+            "fileFormat": "video/quicktime"
+        },
+        {
+            "label": {
+                "fr_FR": "rar",
+                "en_GB": "rar"
+            },
+            "fileFormat": "application/vnd.rar"
+        },
+        {
+            "label": {
+                "fr_FR": "rtf",
+                "en_GB": "rtf"
+            },
+            "fileFormat": "application/rtf"
+        },
+        {
+            "label": {
+                "fr_FR": "svg",
+                "en_GB": "svg"
+            },
+            "fileFormat": "image/svg+xml"
+        },
+        {
+            "label": {
+                "fr_FR": "tif, tiff",
+                "en_GB": "tif, tiff"
+            },
+            "fileFormat": "image/tiff"
+        },
+        {
+            "label": {
+                "fr_FR": "svg",
+                "en_GB": "svg"
+            },
+            "fileFormat": "image/svg+xml"
+        },
+        {
+            "label": {
+                "fr_FR": "xhtml",
+                "en_GB": "xhtml"
+            },
+            "fileFormat": "application/xhtml+xml"
+        },
+        {
+            "label": {
+                "fr_FR": "xls",
+                "en_GB": "xls"
+            },
+            "fileFormat": "application/vnd.ms-excel"
+        },
+        {
+            "label": {
+                "fr_FR": "xlsx",
+                "en_GB": "xlsx"
+            },
+            "fileFormat": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        },
+        {
+            "label": {
+                "fr_FR": "xml",
+                "en_GB": "xml"
+            },
+            "fileFormat": "application/xml"
+        },
+        {
+            "label": {
+                "fr_FR": "zip",
+                "en_GB": "zip"
+            },
+            "fileFormat": "application/zip"
         }
     ]
 }
