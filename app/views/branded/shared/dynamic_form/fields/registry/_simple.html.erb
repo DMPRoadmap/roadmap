@@ -35,7 +35,7 @@
     <% 
       style = ''
       custom_value = selected_value
-      if select_values.any? { |r| select_value(r, locale) == selected_value }
+      if select_values.any? { |r| select_value(r, locale) == selected_value } || selected_value.nil?
         style = 'display: none;'
         custom_value = nil
       end

@@ -35,7 +35,7 @@
     <% 
       style = 'display: none;'
       custom_value = nil
-      if selected_value.additional_info["custom_value"].present?
+      if selected_value.present? && selected_value.additional_info["custom_value"].present?
         style = ''
         custom_value = selected_value.additional_info["custom_value"]
       end

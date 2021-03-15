@@ -191,7 +191,8 @@ class MadmpFragmentsController < ApplicationController
       parent_id = @parent_fragment.id unless @classname.eql?("person")
       @fragment = MadmpFragment.new(
         dmp_id: dmp_id,
-        parent_id: parent_id
+        parent_id: parent_id,
+        additional_info: {}
       )
     end
     authorize @fragment
