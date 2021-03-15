@@ -25,7 +25,7 @@
             "required": [
                 "dbid"
             ],
-            "description": "Ressource/équipement utilisée pour le stockage et sauvegarde des données",
+            "description": "Ressource/équipement utilisé pour le stockage et sauvegarde des données",
             "label@fr_FR": "Identification de la ressource",
             "label@en_GB": "Resource identificatioon"
         },
@@ -92,8 +92,10 @@
                 ]
             },
             "description": "Personne(s) responsable(s) du suivi du stockage des données",
-            "label@fr_FR": "Personne en charge du stockage",
-            "label@en_GB": "Person in charge of storage"
+            "label@fr_FR": "Responsables du stockage des données",
+            "label@en_GB": "Persons in charge of data storage",
+            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
+            "tooltip@en_GB": "Person in charge can be a person, a team, a department"
         },
         "cost": {
             "type": "array",

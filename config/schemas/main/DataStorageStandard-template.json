@@ -10,14 +10,14 @@
             "type": "string",
             "description": "Description des besoins de stockage",
             "inputType": "textarea",
-            "label@fr_FR": "Description",
-            "label@en_GB": "Description"
+            "label@fr_FR": "Décrire les besoins de stockage",
+            "label@en_GB": "Describe storage needs"
         },
         "estimatedVolume": {
             "type": "number",
             "description": "Volume estimé des données",
-            "label@fr_FR": "Volume estimé",
-            "label@en_GB": "Estimated volume"
+            "label@fr_FR": "Volume estimé des données",
+            "label@en_GB": "Estimated volume of data"
         },
         "volumeUnit": {
             "type": "string",
@@ -45,8 +45,11 @@
                 ]
             },
             "description": "Ressource/équipement utilisée pour le stockage et sauvegarde des données",
-            "label@fr_FR": "Stockage par une ressource extérieure",
-            "label@en_GB": "Storage by an external resource"
+            "label@fr_FR": "Equipements, plateaux techniques utilisés pour le stockage et sauvegarde des données",
+            "label@en_GB": "Equipments, technical platforms used for data storage and backup",
+            "inputType": "dropdown",
+            "registry_name": "Services",
+            "overridable": true
         },
         "backupPolicy": {
             "type": "object",
@@ -68,8 +71,10 @@
             "type": "string",
             "description": "Description des mesures prises pour assurer la sécurité des données",
             "inputType": "textarea",
-            "label@fr_FR": "Mesures de sécurité",
-            "label@en_GB": "Security measures"
+            "label@fr_FR": "Décrire les mesures prises pour assurer la sécurité des données",
+            "label@en_GB": "Describe the measures taken to ensure data security",
+            "tooltip@fr_FR": "Décrire les mesures de sécurité des données, en particulier si vos données sont sensibles (données à caractère personnel, secrets commerciaux…) et indiquer qui aura accès aux données",
+            "tooltip@en_GB": "Describe the data security measures, in particular if your data is sensitive (personal data, trade secrets, etc.) and indicate who will have access to the data"
         },
         "contributor": {
             "type": "array",
@@ -89,8 +94,10 @@
                 ]
             },
             "description": "Personne(s) responsable(s) du suivi du stockage des données",
-            "label@fr_FR": "Personne en charge du stockage",
-            "label@en_GB": "Person in charge of storage"
+            "label@fr_FR": "Responsables du stockage des données",
+            "label@en_GB": "Persons in charge of storage",
+            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
+            "tooltip@en_GB": "Person in charge can be a person, a team, a department"
         },
         "cost": {
             "type": "array",
@@ -110,8 +117,8 @@
                 ]
             },
             "description": "Coûts éventuels liés au stockage des données",
-            "label@fr_FR": "Coût de stockage",
-            "label@en_GB": "Storage cost"
+            "label@fr_FR": "Coûts liés au stockage et à la sauvegarde",
+            "label@en_GB": "Storage and backup costs"
         }
     },
     "required": [

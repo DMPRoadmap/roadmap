@@ -10,9 +10,10 @@
             "type": "string",
             "description": "Description générale concernant la documentation et les méthodes qualité appliquées aux données",
             "inputType": "textarea",
-            "label@fr_FR": "Description",
-            "label@en_GB": "Description",
-            "tooltip@fr_FR": "Description générale concernant la documentation et les méthodes qualité appliquées aux données"
+            "label@fr_FR": "Décrire l'organisation et la documentation des données",
+            "label@en_GB": "Describe data organization and  documentation",
+            "tooltip@fr_FR": "Indiquer par exemple : la convention de nommage des fichiers et leur organisation, les normes et standards de métadonnées utilisés pour décrire les données, le contrôle des versions des jeux de données, le dictionnaire de données associé au fichier explicitant les variables",
+            "tooltip@en_GB": "Indicate for example: the naming convention of the files and their organization, the metadata norms and standards used to describe the data, the version control of the datasets, the data dictionary associated with the file explaining the variables"
         },
         "dataOrganizationReference": {
             "type": "array",
@@ -31,8 +32,8 @@
                 ]
             },
             "description": "Références des resources produites pour la structuration des données (ex. dictionnaire de données, modèle de données, organisation des répertoire, …)",
-            "label@fr_FR": "Organisation des données",
-            "label@en_GB": "Data Organization"
+            "label@fr_FR": "Indiquer le ou les documents en lien avec l'organisation des données",
+            "label@en_GB": "Indicate the document(s) related to the organization of the data"
         },
         "metadataStandard": {
             "type": "array",
@@ -53,8 +54,11 @@
             },
             "minItems": 1,
             "description": "Standard(s) de métadonnées ou données utilisé(s) en application des principes FAIR",
-            "label@fr_FR": "Standards de métadonnées",
-            "label@en_GB": "Metadata Standards"
+            "label@fr_FR": "Standards de métadonnées/données",
+            "label@en_GB": "Metadata/data Standards",
+            "inputType": "dropdown",
+            "registry_name": "Standards",
+            "overridable": true
         }
     },
     "required": [

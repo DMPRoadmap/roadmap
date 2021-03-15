@@ -10,8 +10,8 @@
             "type": "string",
             "description": "Description des besoins de stockage",
             "inputType": "textarea",
-            "label@fr_FR": "Description",
-            "label@en_GB": "Description"
+            "label@fr_FR": "Décrire les besoins de stockage",
+            "label@en_GB": "Describe storage needs"
         },
         "backupPolicy": {
             "type": "object",
@@ -33,8 +33,10 @@
             "type": "string",
             "description": "Description des mesures prises pour assurer la sécurité des données",
             "inputType": "textarea",
-            "label@fr_FR": "Mesures de sécurité",
-            "label@en_GB": "Security measures"
+            "label@fr_FR": "Décrire les mesures prises pour assurer la sécurité des données",
+            "label@en_GB": "Describe the measures taken to ensure data security",
+            "tooltip@fr_FR": "Décrire les mesures de sécurité des données, en particulier si vos données sont sensibles (données à caractère personnel, secrets commerciaux…) et indiquer qui aura accès aux données",
+            "tooltip@en_GB": "Describe the data security measures, in particular if your data is sensitive (personal data, trade secrets, etc.) and indicate who will have access to the data"
         }
     },
     "required": [

@@ -9,8 +9,8 @@
         "name": {
             "type": "string",
             "description": "Nom de la source de financement",
-            "label@fr_FR": "Nom",
-            "label@en_GB": "Name"
+            "label@fr_FR": "Nom du financeur",
+            "label@en_GB": "Funder name"
         },
         "funderId": {
             "type": "string",
@@ -22,8 +22,8 @@
             "type": "string",
             "description": "Type d'identifiant",
             "inputType": "dropdown",
-            "label@fr_FR": "Type d'identifiant",
-            "label@en_GB": "Identifier type",
+            "label@fr_FR": "Type d'identifiant du financeur",
+            "label@en_GB": "Funder identifier type",
             "registry_name": "AgentIdSystem",
             "overridable": true
         },

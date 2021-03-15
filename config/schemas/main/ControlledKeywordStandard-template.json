@@ -26,7 +26,7 @@
             "type": "string",
             "format": "uri",
             "description": "Identifiant du concept",
-            "label@fr_FR": "Url du mot clé",
+            "label@fr_FR": "URL du mot clé",
             "label@en_GB": "Keyword URL",
             "example@fr_FR": "http://aims.fao.org/aos/agrovoc/c_28075",
             "example@en_GB": "http://aims.fao.org/aos/agrovoc/c_28075"
@@ -37,6 +37,9 @@
         "keywordUrl"
     ],
     "to_string": [
-        "$.keyword"
+        "$.keyword",
+        " (",
+        "$.keywordSchema",
+        ")"
     ]
 }

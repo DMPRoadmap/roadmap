@@ -20,7 +20,7 @@
             ],
             "description": "Personnes impliquées dans la production et gestion des données",
             "inputType": "pickOrCreate",
-            "label@fr_FR": "Sélectionner une personne dans la liste déroulante",
+            "label@fr_FR": "Sélectionner une valeur dans la liste déroulante",
             "label@en_GB": "Select a person from the drop-down list"
         },
         "role": {
@@ -28,9 +28,8 @@
             "description": "Rôle d'une personne dans la gestion et production des données",
             "label@fr_FR": "Rôle",
             "label@en_GB": "Role",
-            "const@fr_FR": " Personne contact",
-            "const@en_GB": "Contact",
-            "overridable": true
+            "const@fr_FR": " Personne contact pour les données",
+            "const@en_GB": "Data contact"
         }
     },
     "required": [

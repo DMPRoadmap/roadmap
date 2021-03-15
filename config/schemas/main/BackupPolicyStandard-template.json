@@ -10,10 +10,8 @@
             "type": "string",
             "description": "Description de la politique de sauvegarde appliquée",
             "inputType": "textarea",
-            "label@fr_FR": "Description",
-            "label@en_GB": "Description",
-            "tooltip@fr_FR": "Description de la politique de sauvegarde appliquée",
-            "tooltip@en_GB": "Describe the applied backup policy"
+            "label@fr_FR": "Décrire la politique de sauvegarde",
+            "label@en_GB": "Describe the backup policy"
         },
         "backupFrequency": {
             "type": "string",
@@ -24,10 +22,10 @@
         "backupType": {
             "type": "string",
             "description": "Mode de sauvegarde (incrémentale, différentielle, complète, miroir, …)",
-            "label@fr_FR": "Mode de sauvegarde",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type de sauvegarde",
             "label@en_GB": "Backup type",
-            "tooltip@fr_FR": "Mode de sauvegarde (incrémentale, différentielle, complète, miroir, …)",
-            "tooltip@en_GB": "Bakckup type (ex. incremental, differential, complete, mirror)"
+            "registry_name": "BackupType"
         },
         "storageType": {
             "type": "array",
@@ -36,8 +34,8 @@
             },
             "description": "Support de stockage des données",
             "inputType": "dropdown",
-            "label@fr_FR": "Support de stockage",
-            "label@en_GB": "Storage type",
+            "label@fr_FR": "Supports de stockage",
+            "label@en_GB": "Storage types",
             "registry_name": "StorageType"
         }
     },

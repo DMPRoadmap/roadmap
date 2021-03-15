@@ -31,7 +31,8 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant de la ressource technique",
             "label@en_GB": "Technical resource identifier type",
-            "registry_name": "PIDSystem"
+            "registry_name": "PIDSystem",
+            "overridable": true
         }
     },
     "required": [

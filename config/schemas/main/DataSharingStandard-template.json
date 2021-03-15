@@ -10,8 +10,8 @@
             "type": "string",
             "description": "Aspects relatifs au partage des données",
             "inputType": "textarea",
-            "label@fr_FR": "Description",
-            "label@en_GB": "Description"
+            "label@fr_FR": "Décrire les modalités de partage",
+            "label@en_GB": "Describe the modalities of sharing"
         },
         "reusability": {
             "type": "string",
@@ -20,8 +20,34 @@
             "label@en_GB": "Reusability",
             "tooltip@fr_FR": "Potentiel et/ou limite de réutilisation",
             "tooltip@en_GB": "Potential and/or limits of data resusability",
-            "example@fr_FR": "Utile pour les statisticiens",
-            "example@en_GB": "Use for statisticians"
+            "example@fr_FR": "Les données pourront être réutilisées pour de futures recherches ou pour d’autres finalités (enseignement, innovation, reproduction/transparence de la science)",
+            "example@en_GB": "The data can be reused for future research or other purposes (education, innovation, reproduction/transparency of science, etc.)"
+        },
+        "host": {
+            "type": "object",
+            "class": "TechnicalResourceStandard",
+            "properties": {
+                "dbid": {
+                    "type": "number"
+                }
+            },
+            "template_name": "Host",
+            "required": [
+                "dbid"
+            ],
+            "description": "Entrepôt ou autre hébergement dans lequel les données seront mises à disposition",
+            "label@fr_FR": "Choisir un entrepôt pour déposer les données et les rendre accessibles",
+            "label@en_GB": "Choose a data repository to deposit the data and make them accessible",
+            "inputType": "dropdown",
+            "registry_name": "Repositories",
+            "overridable": true,
+            "substitutable": true
+        },
+        "otherHost": {
+            "type": "string",
+            "description": "Autres entrepôts non listés dans le référentiel Repository",
+            "label@fr_FR": "Ajouter le nom de l'entrepôt de données, si vous ne l'avez pas trouvé dans la liste déroulante",
+            "label@en_GB": "Add the name of the data repository, only if you did not find it in the drop-down list"
         },
         "distribution": {
             "type": "array",
@@ -42,10 +68,10 @@
             },
             "minItems": 1,
             "description": "Distribution physique des données",
-            "label@fr_FR": "Distribution",
-            "label@en_GB": "Distribution",
-            "tooltip@fr_FR": "Un ensemble de données peut être disponible sous plusieurs formats",
-            "tooltip@en_GB": "A data set can be available in multiple format"
+            "label@fr_FR": "Décrire chaque fichier et ses caractéristiques",
+            "label@en_GB": "Describe each file and its characteristics",
+            "tooltip@fr_FR": "Un ensemble de données peut être composé de plusieurs fichiers, disponibles sous différents formats",
+            "tooltip@en_GB": "A dataset can be composed of several files, available in different formats"
         },
         "indexedIn": {
             "type": "object",
@@ -61,23 +87,11 @@
             ],
             "description": "Catalogue dans lequel les données sont indexées",
             "label@fr_FR": "Indexé dans",
-            "label@en_GB": "Indexed in"
-        },
-        "host": {
-            "type": "object",
-            "class": "TechnicalResourceStandard",
-            "properties": {
-                "dbid": {
-                    "type": "number"
-                }
-            },
-            "template_name": "Host",
-            "required": [
-                "dbid"
-            ],
-            "description": "Entrepôt ou autre hébergement dans lequel les données seront mises à disposition",
-            "label@fr_FR": "Entrepôts de données ou autres hébergements",
-            "label@en_GB": "Data repository or other hostings"
+            "label@en_GB": "Indexed in",
+            "inputType": "dropdown",
+            "registry_name": "Catalogs",
+            "overridable": true,
+            "substitutable": true
         },
         "contributor": {
             "type": "array",
@@ -97,8 +111,10 @@
                 ]
             },
             "description": "Personne(s) impliquée(s) dans la mise à disposition des données",
-            "label@fr_FR": "Personne en charge du depôt et diffusion des données",
-            "label@en_GB": "Person in charge of data deposition and diffusion"
+            "label@fr_FR": "Responsables du depôt et de la diffusion des données",
+            "label@en_GB": "Persons in charge of data deposition and diffusion",
+            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
+            "tooltip@en_GB": "Person in charge can be a person, a team, a department"
         },
         "cost": {
             "type": "array",
@@ -118,8 +134,8 @@
                 ]
             },
             "description": "Coûts éventuels liés au dépôt des données dans un entrepôt",
-            "label@fr_FR": "Coût lié au dépôt, diffusion",
-            "label@en_GB": "Deposit and diffusion cost"
+            "label@fr_FR": "Coûts liés au dépôt et à la diffusion des données",
+            "label@en_GB": "Data deposit and diffusion costs"
         }
     },
     "required": [

@@ -14,6 +14,25 @@
             "tooltip@fr_FR": "Indiquer si besoin la version du plan et le livrable, comme par exemple, Plan de gestion de données D8.2 ",
             "tooltip@en_GB": "Provide if necessary the plan version and deliverable as, for example, Data Management Plan D8.2"
         },
+        "deliverableNumber": {
+            "type": "string",
+            "description": "Numéro du livrable auquel est rattaché le DMP",
+            "label@fr_FR": "Numéro du livrable",
+            "label@en_GB": "Deliverable number",
+            "tooltip@fr_FR": "Indiquer si besoin le livrable auquel est rattaché le DMP",
+            "tooltip@en_GB": "Indicate if necessary the deliverable to which the DMP is attached",
+            "example@fr_FR": "Livrable D8.2",
+            "example@en_GB": "Deliverable D8.2"
+        },
+        "version": {
+            "type": "string",
+            "description": "Version du DMP",
+            "inputType": "dropdown",
+            "label@fr_FR": "Version du DMP",
+            "label@en_GB": "DMP version",
+            "registry_name": "DMPVersion",
+            "overridable": true
+        },
         "description": {
             "type": "string",
             "description": "Description de la portée du plan de gestion",

@@ -10,8 +10,8 @@
             "type": "string",
             "description": "Aspects relatifs au partage des données",
             "inputType": "textarea",
-            "label@fr_FR": "Description",
-            "label@en_GB": "Description"
+            "label@fr_FR": "Décrire les modalités de partage",
+            "label@en_GB": "Describe the modalities of sharing"
         },
         "host": {
             "type": "object",
@@ -27,7 +27,16 @@
             ],
             "description": "Entrepôt ou autre hébergement dans lequel les données seront mises à disposition",
             "label@fr_FR": "Entrepôts de données ou autres hébergements",
-            "label@en_GB": "Data repository or other hostings "
+            "label@en_GB": "Data repository or other hostings ",
+            "inputType": "dropdown",
+            "registry_name": "Repositories",
+            "overridable": true
+        },
+        "otherHost": {
+            "type": "string",
+            "description": "Autres entrepôts non listés dans le référentiel Repository",
+            "label@fr_FR": "Ajouter le nom de l'entrepôt de données, si vous ne l'avez pas trouvé dans la liste déroulante",
+            "label@en_GB": "Add the name of the data repository, only if you did not find it in the drop-down list"
         }
     },
     "required": [

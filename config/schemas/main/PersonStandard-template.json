@@ -6,6 +6,14 @@
     "type": "object",
     "class": "PersonStandard",
     "properties": {
+        "nameType": {
+            "type": "string",
+            "description": "Type du nom",
+            "inputType": "dropdown",
+            "label@fr_FR": "Type (organisation ou personne)",
+            "label@en_GB": "Type (organisation or person)",
+            "registry_name": "NameTypeValues"
+        },
         "lastName": {
             "type": "string",
             "description": "Nom de famille",
@@ -13,14 +21,6 @@
             "label@en_GB": "Last name",
             "example@fr_FR": "Dupont, Service d'Ingénierie des Systèmes d’Information, Comité d'éthique",
             "example@en_GB": "Dupont, Information Systems Engineering Department, Ethics comittee"
-        },
-        "nameType": {
-            "type": "string",
-            "description": "Type du nom",
-            "inputType": "dropdown",
-            "label@fr_FR": "Type",
-            "label@en_GB": "Type",
-            "registry_name": "NameTypeValues"
         },
         "firstName": {
             "type": "string",
@@ -45,13 +45,14 @@
             "example@fr_FR": "https://orcid.org/0000-0002-9148-9926",
             "example@en_GB": "https://orcid.org/0000-0002-9148-9926"
         },
-        "IdType": {
+        "idType": {
             "type": "string",
             "description": "Type d'identifiant (ORCID id)",
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registry_name": "AgentIdSystem"
+            "registry_name": "AgentIdSystem",
+            "overridable": true
         },
         "affiliationName": {
             "type": "string",
@@ -77,15 +78,16 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant de l'affiliation",
             "label@en_GB": "Affiliation identifier type",
-            "registry_name": "AgentIdSystem"
+            "registry_name": "AgentIdSystem",
+            "overridable": true
         }
     },
     "required": [
-        "lastName",
         "nameType",
+        "lastName",
         "firstName",
         "personId",
-        "IdType",
+        "idType",
         "affiliationName",
         "affiliationId",
         "affiliationIdType"

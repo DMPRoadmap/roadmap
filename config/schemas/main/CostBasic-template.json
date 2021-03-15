@@ -6,12 +6,6 @@
     "type": "object",
     "class": "CostBasic",
     "properties": {
-        "title": {
-            "type": "string",
-            "description": "Libellé du coût",
-            "label@fr_FR": "Titre",
-            "label@en_GB": "Title"
-        },
         "costType": {
             "type": "string",
             "description": "Type de coût engagé",
@@ -36,13 +30,19 @@
             "label@fr_FR": "Devise",
             "label@en_GB": "Currency",
             "registry_name": "ISO4217"
+        },
+        "title": {
+            "type": "string",
+            "description": "Libellé du coût",
+            "label@fr_FR": "Titre",
+            "label@en_GB": "Title"
         }
     },
     "required": [
-        "title",
         "costType",
         "amount",
-        "currency"
+        "currency",
+        "title"
     ],
     "to_string": [
         "$.costType",

@@ -40,9 +40,9 @@
         "idType": {
             "type": "string",
             "description": "Type d'identifiant",
+            "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "inputType": "",
             "registry_name": "PIDSystem",
             "overridable": true
         }

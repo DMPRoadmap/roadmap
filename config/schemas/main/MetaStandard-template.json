@@ -10,16 +10,33 @@
             "type": "string",
             "description": "Titre du plan de gestion de données",
             "label@fr_FR": "Titre du plan",
-            "label@en_GB": "Plan title",
-            "tooltip@fr_FR": "Indiquer si besoin la version du plan et le livrable, comme par exemple, DMP du projet « Help Science Ouverte » livrable D8.2 ou DMP du projet « Help Science Ouverte » version 1.0",
-            "tooltip@en_GB": " Provide if necessary the plan version and deliverable as, for example, « Help Science Ouverte » project DMP deliverable D8.2 ou « Help Science Ouverte  » project DMP version 1.0 "
+            "label@en_GB": "Plan title"
+        },
+        "deliverableNumber": {
+            "type": "string",
+            "description": "Numéro du livrable auquel est rattaché le DMP",
+            "label@fr_FR": "Numéro du livrable",
+            "label@en_GB": "Deliverable number",
+            "tooltip@fr_FR": "Indiquer si besoin le livrable auquel est rattaché le DMP",
+            "tooltip@en_GB": "Indicate if necessary the deliverable to which the DMP is attached",
+            "example@fr_FR": "Livrable D8.2",
+            "example@en_GB": "Deliverable D8.2"
+        },
+        "version": {
+            "type": "string",
+            "description": "Version du DMP",
+            "inputType": "dropdown",
+            "label@fr_FR": "Version du DMP",
+            "label@en_GB": "DMP version",
+            "registry_name": "DMPVersion",
+            "overridable": true
         },
         "description": {
             "type": "string",
             "description": "Description de la portée du plan de gestion",
             "inputType": "textarea",
-            "label@fr_FR": "Objet du plan",
-            "label@en_GB": "Plan purpose",
+            "label@fr_FR": "Objet/périmètre du plan et ses  relations avec les autres livrables",
+            "label@en_GB": "Plan purpose/scope and its relation to other deliverables",
             "tooltip@fr_FR": "Indiquer l’objet et le périmètre du plan ainsi que ses relations avec les autres livrables. Expliciter brièvement la structure de ce document",
             "tooltip@en_GB": "Define the purpose and scope of the DMP as well as its relation to other deliverables and briefly explains the structure of the document"
         },
@@ -28,8 +45,8 @@
             "length": "3",
             "description": "Langue utilisée pour rédiger le DMP",
             "inputType": "dropdown",
-            "label@fr_FR": "Code langue du pla",
-            "label@en_GB": "Plan language code",
+            "label@fr_FR": "Langue de rédaction du plan",
+            "label@en_GB": "language in which the plan is drafted",
             "registry_name": "ISO639-3"
         },
         "contact": {
@@ -95,16 +112,10 @@
             ],
             "description": "Licence apposée au plan de gestion de données pour faciliter la réutilisation de son contenu",
             "label@fr_FR": "Licence du plan",
-            "label@en_GB": "Plan license"
-        },
-        "licenseStartDate": {
-            "type": "string",
-            "format": "date",
-            "description": "Date à partir de laquelle le DMP est partagé publiquement et peut-être réutilisé",
-            "label@fr_FR": "Date d'application de la licence",
-            "label@en_GB": "License start date",
-            "tooltip@fr_FR": "Date à partir de laquelle le DMP est partagé publiquement et peut-être réutilisé",
-            "tooltip@en_GB": "Date from which the DMP is shared publicly and can be reused"
+            "label@en_GB": "Plan license",
+            "inputType": "dropdown",
+            "registry_name": "Licenses",
+            "overridable": true
         },
         "relatedDoc": {
             "type": "array",
@@ -123,10 +134,10 @@
                 ]
             },
             "description": "Références de documents éventuels à relier au plan de gestion de données (ex publications)",
-            "label@fr_FR": "Référence de document associé à ce plan",
-            "label@en_GB": "DMP associated document reference",
-            "tooltip@fr_FR": "Indiquer les documents éventuels à relier au plan de gestion de données",
-            "tooltip@en_GB": "Provide the documents associated with the DMP"
+            "label@fr_FR": "Lister les documents, sites web associés au plan (publications, rapports, brevets….)",
+            "label@en_GB": "List the documents, website associated with the DMP (publications,reports, patents...)",
+            "tooltip@fr_FR": "Indiquer les documents et sites web à relier au plan de gestion de données (publications, rapports, brevets….)",
+            "tooltip@en_GB": "Provide the documents and websites associated with the DMP (publications,reports, patents...)"
         },
         "associatedDmp": {
             "type": "array",
@@ -145,8 +156,8 @@
                 ]
             },
             "description": "Autres plans de gestion de données en lien avec le projet, rédigés par exemple pour être autorisé à utiliser une resourceTechniques",
-            "label@fr_FR": "Référence des plans associés",
-            "label@en_GB": "Associated DMPs reference",
+            "label@fr_FR": "Lister les autres plans de gestion en lien avec le projet",
+            "label@en_GB": "List the other management plans related to the project",
             "tooltip@fr_FR": "Indiquer les plans de gestion de données en lien avec le projet",
             "tooltip@en_GB": "Provide the other DMPs associated with the project"
         }

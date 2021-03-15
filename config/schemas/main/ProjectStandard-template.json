@@ -44,8 +44,8 @@
             },
             "minItems": 1,
             "description": "Source(s) de financement d'un projet ou d'une activité de recherche",
-            "label@fr_FR": "Source de financement",
-            "label@en_GB": "Funding"
+            "label@fr_FR": "Indiquer les sources de financement du projet",
+            "label@en_GB": "Indicate the funding of the project"
         },
         "startDate": {
             "type": "string",
@@ -79,8 +79,11 @@
             },
             "minItems": 1,
             "description": "Partenaires d'un projet ou d'une activité de recherche",
-            "label@fr_FR": "Partenaire du projet",
-            "label@en_GB": "Project partner"
+            "label@fr_FR": "Lister les partenaires associés au projet",
+            "label@en_GB": "List the partners associated with the project",
+            "inputType": "dropdown",
+            "registry_name": "Partners",
+            "overridable": true
         },
         "experimentalPlan": {
             "type": "object",
@@ -95,8 +98,8 @@
                 "dbid"
             ],
             "description": "Référence d'une représentation du plan expérimental d'obtention des données",
-            "label@fr_FR": "Réference du plan expérimental",
-            "label@en_GB": "Experimental plan reference"
+            "label@fr_FR": "Indiquer la référence du plan expérimental",
+            "label@en_GB": "Indicate the experimental plan reference"
         },
         "principalInvestigator": {
             "type": "object",

@@ -10,7 +10,7 @@
             "type": "string",
             "description": "Description générale des aspects juridiques",
             "inputType": "textarea",
-            "label@fr_FR": "Décrivez les aspects juridiques généraux de votre projet",
+            "label@fr_FR": "Décrire les aspects juridiques généraux de votre projet",
             "label@en_GB": "Describe the general legal issues of your project",
             "tooltip@fr_FR": "Facultatif si vous détaillez des aspects particuliers",
             "tooltip@en_GB": "Optional if specific issues are detailed"
@@ -33,8 +33,10 @@
             },
             "minItems": 1,
             "description": "Référence(s) de document(s) en lien avec les aspects juridiques",
-            "label@fr_FR": "Aspect juridique",
-            "label@en_GB": "Legal item"
+            "label@fr_FR": "Indiquer le ou les références de documents en lien avec les aspects juridiques",
+            "label@en_GB": "Indicate the reference(s) of documents related to legal aspects",
+            "tooltip@fr_FR": "Par exemple, accord de consortium",
+            "tooltip@en_GB": "For example, consortium agreement"
         },
         "contributor": {
             "type": "array",
@@ -54,8 +56,10 @@
                 ]
             },
             "description": "Personne(s) en charge des aspects juridiques",
-            "label@fr_FR": "Expert juridique",
-            "label@en_GB": "Legal expert"
+            "label@fr_FR": "Responsables juridiques",
+            "label@en_GB": "Legal experts",
+            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
+            "tooltip@en_GB": "Person in charge can be a person, a team, a department"
         }
     },
     "required": [

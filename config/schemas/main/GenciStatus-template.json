@@ -20,6 +20,7 @@
             "label@fr_FR": "Unité",
             "label@en_GB": "Unit",
             "registry_name": "VolumeUnit",
+            "overridable": true,
             "default@fr_FR": "Téraoctets",
             "default@en_GB": "Teraoctets"
         },

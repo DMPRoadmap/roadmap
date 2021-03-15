@@ -31,7 +31,8 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant",
             "label@en_GB": "Identifier type",
-            "registry_name": "PIDSystem"
+            "registry_name": "PIDSystem",
+            "overridable": true
         },
         "geoLocation": {
             "type": "string",
@@ -47,7 +48,8 @@
             "inputType": "dropdown",
             "label@fr_FR": "Certification",
             "label@en_GB": "Certification",
-            "registry_name": "Certification"
+            "registry_name": "Certification",
+            "overridable": true
         },
         "pidSystem": {
             "type": "array",
@@ -58,7 +60,8 @@
             "inputType": "dropdown",
             "label@fr_FR": "Système d'identifiants",
             "label@en_GB": "PID system",
-            "registry_name": "PIDSystem"
+            "registry_name": "PIDSystem",
+            "overridable": true
         },
         "hasVersioningPolicy": {
             "type": "string",

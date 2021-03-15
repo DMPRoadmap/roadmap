@@ -19,8 +19,17 @@
                 "dbid"
             ],
             "description": "Source (agence) de financement",
-            "label@fr_FR": "Financeur",
-            "label@en_GB": "Funder"
+            "label@fr_FR": "Financeurs",
+            "label@en_GB": "Funders",
+            "inputType": "dropdown",
+            "registry_name": "Funders",
+            "overridable": true
+        },
+        "otherFunder": {
+            "type": "string",
+            "description": "Autres agences de financement non listé dans le référentiel Funder",
+            "label@fr_FR": "Ajouter le nom du financeur, si vous n'avez pas trouvé de nom dans la liste déroulante",
+            "label@en_GB": "Add the name of the funder, only if you did not find a name in the drop-down list"
         },
         "grantId": {
             "type": "string",

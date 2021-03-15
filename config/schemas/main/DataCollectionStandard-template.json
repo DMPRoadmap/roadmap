@@ -31,6 +31,7 @@
             "label@fr_FR": "Nature des données",
             "label@en_GB": "Data Nature",
             "registry_name": "DataNature",
+            "overridable": true,
             "tooltip@fr_FR": "Sélectionner dans la liste déroulante la nature du produit de recherche",
             "tooltip@en_GB": "Choose in the dropdown the research output data nature"
         },
@@ -47,8 +48,11 @@
                 "dbid"
             ],
             "description": "Usage d'une ressource technique pour acquérir les données",
-            "label@fr_FR": "Ressource technique",
-            "label@en_GB": "Technical resource"
+            "label@fr_FR": "Equipements, plateaux techniques utilisés pour la production ou l'acquisition de données",
+            "label@en_GB": "Equipments, technical platforms used for production or acquisition of data",
+            "inputType": "dropdown",
+            "registry_name": "Services",
+            "overridable": true
         },
         "methodReference": {
             "type": "array",
@@ -67,8 +71,8 @@
                 ]
             },
             "description": "Référence(s) de protocoles /méthodes utilisées",
-            "label@en_GB": "Method reference",
-            "label@fr_FR": "Référence de la méthode"
+            "label@en_GB": "Indicate the reference(s) of the methods",
+            "label@fr_FR": "Indiquer la ou les références des méthodes/protocoles utilisés"
         },
         "contributor": {
             "type": "array",
@@ -88,8 +92,10 @@
                 ]
             },
             "description": "Personne(s) impliquée(s) dans la collecte/acquisition des données",
-            "label@fr_FR": "Contributeur(s)",
-            "label@en_GB": "Contributor(s)"
+            "label@fr_FR": "Responsables de la production ou de la collecte des données",
+            "label@en_GB": "Data producers or collectors",
+            "tooltip@fr_FR": "Le responsable peut être une personne, une équipe, un service",
+            "tooltip@en_GB": "Person in charge can be a person, a team, a department"
         },
         "cost": {
             "type": "array",
@@ -109,8 +115,8 @@
                 ]
             },
             "description": "Coûts éventuels liés à la collecte des données",
-            "label@fr_FR": "Coût d'acquisition",
-            "label@en_GB": "Acquisition cost"
+            "label@fr_FR": "Coûts d'acquisition",
+            "label@en_GB": "Acquisition costs"
         }
     },
     "required": [

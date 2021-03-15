@@ -24,7 +24,8 @@
             "inputType": "dropdown",
             "label@fr_FR": "Type d'identifiant du produit",
             "label@en_GB": "Product identifier type",
-            "registry_name": "PIDSystem"
+            "registry_name": "PIDSystem",
+            "overridable": true
         },
         "license": {
             "type": "object",
@@ -40,7 +41,10 @@
             ],
             "description": "Licence ou contrat déterminant les conditions de réutilisation",
             "label@fr_FR": "Licence",
-            "label@en_GB": "License"
+            "label@en_GB": "License",
+            "inputType": "dropdown",
+            "registry_name": "Licenses",
+            "overridable": true
         }
     },
     "required": [

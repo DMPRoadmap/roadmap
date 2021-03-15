@@ -10,8 +10,10 @@
             "type": "string",
             "description": "Description de la méthodologie appliquée pour assurer la qualité scientifique et documentaire des données",
             "inputType": "textarea",
-            "label@fr_FR": "Description",
-            "label@en_GB": "Description"
+            "label@fr_FR": "Décrire les procédures de contôle qualité mises en place",
+            "label@en_GB": "Describe the quality control procedures applied",
+            "tooltip@fr_FR": "Par exemple : répétition des expériences, démarche de relecture par des tiers, essais croisés",
+            "tooltip@en_GB": "For example: repetition of experiments, proofreading by third parties, cross-testing"
         }
     },
     "required": [
