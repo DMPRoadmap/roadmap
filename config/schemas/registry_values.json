@@ -586,7 +586,6 @@
             "availability": null,
             "metadataStandard": null
         }
-        
     ],
     "Services": [
         {
@@ -822,10 +821,24 @@
         {
             "fr_FR": "RNSR",
             "en_GB": "RNSR"
+        }
+    ],
+    "BackupType": [
+        {
+            "fr_FR": "Complète",
+            "en_GB": "Complete"
         },
         {
-            "fr_FR": "Autre",
-            "en_GB": "Other"
+            "fr_FR": "Différentielle",
+            "en_GB": "Differential"
+        },
+        {
+            "fr_FR": "Incrémentale",
+            "en_GB": "Incremental"
+        },
+        {
+            "fr_FR": "Miroir",
+            "en_GB": "Mirror"
         }
     ],
     "Certification": [
@@ -848,10 +861,6 @@
         {
             "fr_FR": "ISO-27000",
             "en_GB": "ISO-27000"
-        },
-        {
-            "fr_FR": "Autres",
-            "en_GB": "Other"
         }
     ],
     "CostType": [
@@ -870,24 +879,16 @@
         {
             "en_GB": "Hardware",
             "fr_FR": "Matériel informatique"
-        },
-        {
-            "en_GB": "Other",
-            "fr_FR": "Autre"
         }
     ],
     "CostUnit": [
         {
-            "fr_FR": "jours x homme",
-            "en_GB": "days"
+            "fr_FR": "Jours x homme",
+            "en_GB": "Days"
         },
         {
-            "fr_FR": "heures",
-            "en_GB": "hours"
-        },
-        {
-            "fr_FR": "autre",
-            "en_GB": "other"
+            "fr_FR": "Heures",
+            "en_GB": "Hours"
         }
     ],
     "ISO3166-alpha2": [
@@ -952,10 +953,20 @@
         {
             "fr_FR": "Modèle",
             "en_GB": "Model"
+        }
+    ],
+    "DMPVersion": [
+        {
+            "fr_FR": "Version initiale",
+            "en_GB": "First version"
         },
         {
-            "fr_FR": "Autre",
-            "en_GB": "Other"
+            "fr_FR": "Version intermédiaire",
+            "en_GB": "Mid term version"
+        },
+        {
+            "fr_FR": "Version finale",
+            "en_GB": "Final version"
         }
     ],
     "FundingStatus": [
@@ -976,42 +987,7 @@
             "fr_FR": "Rejeté"
         }
     ],
-    "ISO639-3": [
-        {
-            "label": {
-                "fr_FR": "anglais",
-                "en_GB": "english"
-            },
-            "dmpLanguage": "eng"
-        },
-        {
-            "label": {
-                "fr_FR": "français",
-                "en_GB": "french"
-            },
-            "dmpLanguage": "fra"
-        },
-        {
-            "label": {
-                "fr_FR": "allemand",
-                "en_GB": "german"
-            },
-            "dmpLanguage": "deu"
-        },
-        {
-            "label": {
-                "fr_FR": "italien",
-                "en_GB": "italian"
-            },
-            "dmpLanguage": "ita"
-        },
-        {
-            "label": {
-                "fr_FR": "espagnol",
-                "en_GB": "spanish"
-            },
-            "dmpLanguage": "spa"
-        },
+    "ISO639-3_complet": [
         {
             "fr_FR": "aar",
             "en_GB": "aar"
@@ -1753,211 +1729,6 @@
             "en_GB": "zul"
         }
     ],
-    "MediaType": [
-        {
-            "label": {
-                "fr_FR": "aac",
-                "en_GB": "aac"
-            },
-            "fileFormat": "audio/aac"
-        },
-        {
-            "label": {
-                "fr_FR": "csv",
-                "en_GB": "csv"
-            },
-            "fileFormat": "text/csv"
-        },
-        {
-            "label": {
-                "fr_FR": "doc",
-                "en_GB": "doc"
-            },
-            "fileFormat": "application/msword"
-        },
-        {
-            "label": {
-                "fr_FR": "docx",
-                "en_GB": "docx"
-            },
-            "fileFormat": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-        },
-        {
-            "label": {
-                "fr_FR": "gif",
-                "en_GB": "gi"
-            },
-            "fileFormat": "image/gif"
-        },
-        {
-            "label": {
-                "fr_FR": "html",
-                "en_GB": "html"
-            },
-            "fileFormat": "text/html"
-        },
-        {
-            "label": {
-                "fr_FR": "jpeg",
-                "en_GB": "jpeg"
-            },
-            "fileFormat": "image/JPEG"
-        },
-        {
-            "label": {
-                "fr_FR": "js",
-                "en_GB": "js"
-            },
-            "fileFormat": "application/javascript"
-        },
-        {
-            "label": {
-                "fr_FR": "json",
-                "en_GB": "json"
-            },
-            "fileFormat": "application/json"
-        },
-        {
-            "label": {
-                "fr_FR": "markdown",
-                "en_GB": "markdown"
-            },
-            "fileFormat": "text/markdown"
-        },
-        {
-            "label": {
-                "fr_FR": "mpeg",
-                "en_GB": "mpeg"
-            },
-            "fileFormat": "video/mpeg4-generic"
-        },
-        {
-            "label": {
-                "fr_FR": "mp4",
-                "en_GB": "mp4"
-            },
-            "fileFormat": "video/mp4"
-        },
-        {
-            "label": {
-                "fr_FR": "ods",
-                "en_GB": "ods"
-            },
-            "fileFormat": "application/vnd.oasis.opendocument.spreadsheet"
-        },
-        {
-            "label": {
-                "fr_FR": "odt",
-                "en_GB": "odt"
-            },
-            "fileFormat": "aapplication/vnd.oasis.opendocument.text"
-        },
-        {
-            "label": {
-                "fr_FR": "png",
-                "en_GB": "png"
-            },
-            "fileFormat": "image/png"
-        },
-        {
-            "label": {
-                "fr_FR": "pdf",
-                "en_GB": "pdf"
-            },
-            "fileFormat": "application/pdf"
-        },
-        {
-            "label": {
-                "fr_FR": "ppt",
-                "en_GB": "ppt"
-            },
-            "fileFormat": "application/vnd.ms-powerpoint"
-        },
-        {
-            "label": {
-                "fr_FR": "pptx",
-                "en_GB": "pptx"
-            },
-            "fileFormat": "application/vnd.openxmlformats-officedocument.presentationml.presentation"
-        },
-        {
-            "label": {
-                "fr_FR": "quicktime",
-                "en_GB": "quicktime"
-            },
-            "fileFormat": "video/quicktime"
-        },
-        {
-            "label": {
-                "fr_FR": "rar",
-                "en_GB": "rar"
-            },
-            "fileFormat": "application/vnd.rar"
-        },
-        {
-            "label": {
-                "fr_FR": "rtf",
-                "en_GB": "rtf"
-            },
-            "fileFormat": "application/rtf"
-        },
-        {
-            "label": {
-                "fr_FR": "svg",
-                "en_GB": "svg"
-            },
-            "fileFormat": "image/svg+xml"
-        },
-        {
-            "label": {
-                "fr_FR": "tif, tiff",
-                "en_GB": "tif, tiff"
-            },
-            "fileFormat": "image/tiff"
-        },
-        {
-            "label": {
-                "fr_FR": "svg",
-                "en_GB": "svg"
-            },
-            "fileFormat": "image/svg+xml"
-        },
-        {
-            "label": {
-                "fr_FR": "xhtml",
-                "en_GB": "xhtml"
-            },
-            "fileFormat": "application/xhtml+xml"
-        },
-        {
-            "label": {
-                "fr_FR": "xls",
-                "en_GB": "xls"
-            },
-            "fileFormat": "application/vnd.ms-excel"
-        },
-        {
-            "label": {
-                "fr_FR": "xlsx",
-                "en_GB": "xlsx"
-            },
-            "fileFormat": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        },
-        {
-            "label": {
-                "fr_FR": "xml",
-                "en_GB": "xml"
-            },
-            "fileFormat": "application/xml"
-        },
-        {
-            "label": {
-                "fr_FR": "zip",
-                "en_GB": "zip"
-            },
-            "fileFormat": "application/zip"
-        }
-    ],
     "PIDSystem": [
         {
             "fr_FR": "DOI",
@@ -1978,10 +1749,6 @@
         {
             "fr_FR": "URL",
             "en_GB": "URL"
-        },
-        {
-            "fr_FR": "Autre",
-            "en_GB": "Other"
         }
     ],
     "ResearchDataType": [
@@ -2032,10 +1799,6 @@
         {
             "en_GB": "Text",
             "fr_FR": "Texte"
-        },
-        {
-            "en_GB": "Other",
-            "fr_FR": "Autre"
         }
     ],
     "ResourceIdSystem": [
@@ -2054,10 +1817,6 @@
         {
             "fr_FR": "IGSN",
             "en_GB": "IGSN"
-        },
-        {
-            "fr_FR": "Autres",
-            "en_GB": "Other"
         }
     ],
     "Role": [
@@ -2070,28 +1829,64 @@
             "fr_FR": "Responsable du plan de gestion de données"
         },
         {
-            "en_GB": "Data producer",
-            "fr_FR": "Producteur de données"
+            "en_GB": "Data contact",
+            "fr_FR": "Personne contact pour les données"
+        },
+        {
+            "en_GB": "Data producer or collector",
+            "fr_FR": "Responsable de la production ou de la collecte des données"
+        },
+        {
+            "en_GB": "Data documentation manager",
+            "fr_FR": "Responsable de la documentation des données"
+        },
+        {
+            "en_GB": "Person in charge of data protection",
+            "fr_FR": "Responsable de la protection des données"
+        },
+        {
+            "en_GB": "Legal Expert",
+            "fr_FR": "Responsable juridique"
+        },
+        {
+            "en_GB": "Person in charge of ethical issues ",
+            "fr_FR": "Responsable des questions éthiques"
+        },
+        {
+            "en_GB": "Research staff processing and analysing data",
+            "fr_FR": "Responsable du traitement et de l'analyse des données"
+        },
+        {
+            "en_GB": "Person in charge of data storage",
+            "fr_FR": "Responsable du stockage des données"
+        },
+        {
+            "en_GB": "Person in charge of data deposition and diffusion",
+            "fr_FR": "Responsable du dépôt et de la diffusion des données"
+        },
+        {
+            "en_GB": "Person in charge of long term data preservation",
+            "fr_FR": "Responsable de la conservation des données à long terme"
+        },
+        {
+            "en_GB": "Person in charge of sampling management",
+            "fr_FR": "Responsable de la gestion des échantillons"
+        },
+        {
+            "en_GB": "Data quality manager",
+            "fr_FR": "Responsable de la qualité des données"
+        },
+        {
+            "en_GB": "Data model and/or database designer ",
+            "fr_FR": "Concepteur de modèles de données et/ou de bases de données"
         },
         {
             "en_GB": "Data manager",
             "fr_FR": "Gestionnaire de données"
         },
         {
-            "en_GB": "Data steward",
-            "fr_FR": "Expert juridique"
-        },
-        {
-            "en_GB": "Legal Expert",
-            "fr_FR": "Responsable de la protection des données"
-        },
-        {
-            "en_GB": "Data Protection Officer",
-            "fr_FR": "Autre"
-        },
-        {
-            "en_GB": "Other",
-            "fr_FR": ""
+            "en_GB": "Research staff running instruments",
+            "fr_FR": "Responsable de la gestion des instruments"
         }
     ],
     "StorageType": [
