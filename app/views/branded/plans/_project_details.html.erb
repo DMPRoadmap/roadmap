@@ -78,7 +78,7 @@ ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics comm
     <div class="col-md-8">
       <div class="checkbox">
         <%= form.label(:ethical_issues, class: 'control-label', title: ethics_tooltip) do %>
-          <%= form.check_box(:ethical_issues) %>
+          <%= form.check_box(:ethical_issues, 1, plan.ethical_issues?) %>
           <%= _('Research outputs may have ethical concerns') %>
         <% end %>
       </div>
