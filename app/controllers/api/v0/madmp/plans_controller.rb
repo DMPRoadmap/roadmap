@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V0::Dmpopidor::PlansController < Api::V0::BaseController
+class Api::V0::Madmp::PlansController < Api::V0::BaseController
 
   before_action :authenticate
   include MadmpExportHelper
@@ -10,7 +10,7 @@ class Api::V0::Dmpopidor::PlansController < Api::V0::BaseController
     @plan_fragment = @plan.json_fragment.dup
     research_output_id = query_params[:research_output_id] ? query_params[:research_output_id].to_i : nil
     # check if the user has permissions to use the API
-    unless Api::V0::Dmpopidor::PlanPolicy.new(@user, @plan).show?
+    unless Api::V0::Madmp::PlanPolicy.new(@user, @plan).show?
       raise Pundit::NotAuthorizedError
     end
 
@@ -27,7 +27,7 @@ class Api::V0::Dmpopidor::PlansController < Api::V0::BaseController
     plan_fragment = plan.json_fragment
     dmp_id = plan_fragment.id
     # check if the user has permissions to use the API
-    unless Api::V0::Dmpopidor::PlanPolicy.new(@user, plan).rda_export?
+    unless Api::V0::Madmp::PlanPolicy.new(@user, plan).rda_export?
       raise Pundit::NotAuthorizedError
     end
 

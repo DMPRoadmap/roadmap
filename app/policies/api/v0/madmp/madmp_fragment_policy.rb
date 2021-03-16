@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V0::Dmpopidor::MadmpFragmentPolicy < ApplicationPolicy
+class Api::V0::Madmp::MadmpFragmentPolicy < ApplicationPolicy
 
   attr_reader :user
   attr_reader :madmp_fragment

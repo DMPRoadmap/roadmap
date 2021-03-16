@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V0::Dmpopidor::PlanPolicy < ApplicationPolicy
+class Api::V0::Madmp::PlanPolicy < ApplicationPolicy
 
   attr_reader :user
   attr_reader :plan
