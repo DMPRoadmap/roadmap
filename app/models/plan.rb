@@ -30,6 +30,9 @@
 #  funder_id                         :integer
 #  grant_id                          :integer
 #  api_client_id                     :integer
+#  ethical_issues                    :boolean
+#  ethical_issues_description        :text
+#  ethical_issues_report             :string
 #
 # Indexes
 #

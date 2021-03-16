@@ -27,6 +27,9 @@
 #  funder_id                         :integer
 #  grant_id                          :integer
 #  api_client_id                     :integer
+#  ethical_issues                    :boolean
+#  ethical_issues_description        :text
+#  ethical_issues_report             :string
 #
 # Indexes
 #
@@ -61,6 +64,9 @@ FactoryBot.define do
     complete { false }
     start_date { Time.now }
     end_date { start_date + 2.years }
+    ethical_issues { [true, false].sample }
+    ethical_issues_description { Faker::Lorem.paragraph }
+    ethical_issues_report { Faker::Internet.url }
 
     transient do
       phases { 0 }

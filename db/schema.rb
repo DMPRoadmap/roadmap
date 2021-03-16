@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_09_171218) do
+ActiveRecord::Schema.define(version: 2021_03_16_145725) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -350,6 +350,9 @@ ActiveRecord::Schema.define(version: 2021_03_09_171218) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.integer "api_client_id"
+    t.boolean "ethical_issues"
+    t.text "ethical_issues_description"
+    t.string "ethical_issues_report"
     t.index ["funder_id"], name: "index_plans_on_funder_id"
     t.index ["grant_id"], name: "index_plans_on_grant_id"
     t.index ["org_id"], name: "index_plans_on_org_id"
@@ -485,6 +488,11 @@ ActiveRecord::Schema.define(version: 2021_03_09_171218) do
     t.index ["output_type"], name: "index_research_outputs_on_output_type"
     t.index ["plan_id"], name: "index_research_outputs_on_plan_id"
     t.index ["repository_id"], name: "index_research_outputs_on_repository_id"
+  end
+
+  create_table "resources", id: :integer, unsigned: true, force: :cascade do |t|
+    t.string "r_id", default: "", null: false
+    t.string "name", default: "", null: false
   end
 
   create_table "roles", id: :integer, force: :cascade do |t|

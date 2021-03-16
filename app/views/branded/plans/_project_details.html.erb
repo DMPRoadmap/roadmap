@@ -1,8 +1,13 @@
 <%# locals: form, plan %>
 
-<% project_title_tooltip =  _('If applying for funding, state the name exactly as in the grant proposal.') %>
-<% project_abstract_tooltip = _("Briefly summarise your research project to help others understand the purposes for which the data are being collected or created.") %>
-<% id_tooltip = _('A unique number that a federal agency assigns to a grant announcement.') %>
+<%
+project_title_tooltip =  _('If applying for funding, state the name exactly as in the grant proposal.')
+project_abstract_tooltip = _("Briefly summarise your research project to help others understand the purposes for which the data are being collected or created.")
+id_tooltip = _('A unique number that a federal agency assigns to a grant announcement.')
+ethics_tooltip = _("Whether there are any potential ethical issues related to data that this DMP describes")
+ethics_description_tooltip = _("Description of the ethical issues")
+ethics_report_tooltip = _("Link to a protocol from a meeting with an ethics commitee")
+%>
 
 <div class="form-group"><!-- title -->
   <div class="col-md-12">
@@ -68,45 +73,81 @@
   </div>
 <% end %>
 
-<div class="form-group">
-  <div class="col-md-12">
-    <%= form.label :id, _("Funding Opportunity Number"), class: "control-label" %>
+<conditional>
+  <div class="form-group">
+    <div class="col-md-8">
+      <div class="checkbox">
+        <%= form.label(:ethical_issues, class: 'control-label', title: ethics_tooltip) do %>
+          <%= form.check_box(:ethical_issues) %>
+          <%= _('Research outputs may have ethical concerns') %>
+        <% end %>
+      </div>
+    </div>
   </div>
-  <div class="col-md-8">
-    <em class="sr-only"><%= id_tooltip %></em>
-    <%= form.text_field :identifier, class: "form-control",
-                                     aria: { required: false },
-                                     data: { toggle: "tooltip" },
-                                     spellcheck: true, title: id_tooltip %>
+  <div class="form-group toggleable-field">
+    <div class="col-md-12">
+      <%= form.label(:ethical_issues_description, _('Describe any ethical concerns'), class: 'control-label') %>
+    </div>
+    <div class="col-md-8" data-toggle="tooltip" title="<%= ethics_description_tooltip %>">
+      <em class="sr-only"><%= ethics_description_tooltip %></em>
+      <%= form.text_area :ethical_issues_description, rows: 6, class: 'form-control tinymce',
+                                      "aria-required": false %>
+    </div>
   </div>
-</div>
+  <div class="form-group toggleable-field">
+    <div class="col-md-12">
+      <%= form.label(:ethical_issues_report, _('Ethical protocols'), class: 'control-label') %>
+    </div>
+    <div class="col-md-8">
+      <em class="sr-only"><%= ethics_report_tooltip %></em>
+      <%= form.url_field(:ethical_issues_report, class: "form-control", "aria-required": false,
+                                  'data-toggle': 'tooltip',
+                                  title: ethics_report_tooltip) %>
+    </div>
+  </div>
+</conditional>
 
-<div id="funder-org-controls" class="form-group">
-  <div class="col-md-8">
-    <%= fields_for :funder, plan.funder do |funder_fields| %>
-      <%= render partial: "shared/org_selectors/combined",
-          locals: {
-            form: form,
-            funder_only: true,
-            label: _("Funder"),
-            default_org: plan.funder,
-            required: false
-          } %>
+<conditional>
+  <div id="funder-org-controls" class="form-group">
+    <div class="col-md-8">
+      <%= fields_for :funder, plan.funder do |funder_fields| %>
+        <%= render partial: "shared/org_selectors/combined",
+            locals: {
+              form: form,
+              funder_only: true,
+              label: _("Funder"),
+              default_org: plan.funder,
+              required: false
+            } %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-group toggleable-field">
+    <div class="col-md-12">
+      <%= form.label :id, _("Funding Opportunity Number"), class: "control-label" %>
+    </div>
+    <div class="col-md-8">
+      <em class="sr-only"><%= id_tooltip %></em>
+      <%= form.text_field :identifier, class: "form-control",
+                                      aria: { required: false },
+                                      data: { toggle: "tooltip" },
+                                      spellcheck: true, title: id_tooltip %>
+    </div>
+  </div>
+
+  <div class="form-group toggleable-field"><!-- grant_number -->
+    <%= form.fields_for :grant, @plan.grant do |grant_fields| %>
+      <div class="col-md-12">
+        <%= grant_fields.label(:value, _("Grant number/url"), class: "control-label") %>
+      </div>
+
+      <div class="col-md-8">
+
+        <%= grant_fields.text_field(:value, class: "form-control",
+                                            data: { toggle: "tooltip" },
+                                            title: _("Provide a URL to the award's landing page if possible, if not please provide the award/grant number.")) %>
+      </div>
     <% end %>
   </div>
-</div>
-
-<div class="form-group"><!-- grant_number -->
-  <%= form.fields_for :grant, @plan.grant do |grant_fields| %>
-    <div class="col-md-12">
-      <%= grant_fields.label(:value, _("Grant number/url"), class: "control-label") %>
-    </div>
-
-    <div class="col-md-8">
-
-      <%= grant_fields.text_field(:value, class: "form-control",
-                                          data: { toggle: "tooltip" },
-                                          title: _("Provide a URL to the award's landing page if possible, if not please provide the award/grant number.")) %>
-    </div>
-  <% end %>
-</div>
+</conditional>
