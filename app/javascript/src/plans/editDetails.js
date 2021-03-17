@@ -6,7 +6,13 @@ $(() => {
   const grantIdField = $('.grant-id-typeahead');
   const grantIdHidden = $('input#plan_grant_value');
 
-  Tinymce.init();
+  const form = $('form.edit_plan');
+
+  if (form.length > 0) {
+    Tinymce.init({ selector: '#plan_description' });
+    Tinymce.init({ selector: '#plan_ethical_issues_description' });
+  }
+
   $('#is_test').click((e) => {
     $('#plan_visibility').val($(e.target).is(':checked') ? 'is_test' : 'privately_visible');
   });
