@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_16_145725) do
+ActiveRecord::Schema.define(version: 2021_03_17_202247) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -169,6 +169,36 @@ ActiveRecord::Schema.define(version: 2021_03_16_145725) do
     t.index ["identifier", "osi_approved", "deprecated"], name: "index_license_on_identifier_and_criteria"
     t.index ["identifier"], name: "index_licenses_on_identifier"
     t.index ["url"], name: "index_licenses_on_url"
+  end
+
+  create_table "metadata_categories", force: :cascade do |t|
+    t.string "uri", null: false
+    t.string "label", null: false
+    t.bigint "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_metadata_categories_on_parent_id"
+  end
+
+  create_table "metadata_categories_standards", force: :cascade do |t|
+    t.bigint "metadata_category_id", null: false
+    t.bigint "metadata_standard_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["metadata_category_id"], name: "index_metadata_categories_standards_on_metadata_category_id"
+    t.index ["metadata_standard_id"], name: "index_metadata_categories_standards_on_metadata_standard_id"
+  end
+
+  create_table "metadata_standards", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.string "uri"
+    t.json "locations"
+    t.json "related_entities"
+    t.bigint "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_metadata_standards_on_parent_id"
   end
 
   create_table "mime_types", force: :cascade do |t|
@@ -667,6 +697,8 @@ ActiveRecord::Schema.define(version: 2021_03_16_145725) do
   add_foreign_key "conditions", "questions"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
+  add_foreign_key "metadata_categories", "metadata_categories", column: "parent_id"
+  add_foreign_key "metadata_standards", "metadata_standards", column: "parent_id"
   add_foreign_key "notes", "answers"
   add_foreign_key "notes", "users"
   add_foreign_key "notification_acknowledgements", "notifications"
