@@ -211,7 +211,7 @@ class Plan < ActiveRecord::Base
   # Returns Plan
   def self.deep_copy(plan)
     plan_copy = plan.dup
-    plan_copy.title = "Copy of " + plan.title
+    plan_copy.title = format(_("Copy of %{title}"), title: plan.title)
     plan_copy.feedback_requested = false
     plan_copy.save!
     plan.answers.each do |answer|

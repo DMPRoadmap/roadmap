@@ -46,6 +46,8 @@ class Template < ActiveRecord::Base
   # template should also always be publicly_visible.
   enum visibility: %i[organisationally_visible publicly_visible]
 
+  VISIBILITY_ORDER = %i[organisationally_visible publicly_visible]
+
   # Stores links as an JSON object:
   # {funder: [{"link":"www.example.com","text":"foo"}, ...],
   #  sample_plan: [{"link":"www.example.com","text":"foo"}, ...]}
@@ -171,6 +173,7 @@ class Template < ActiveRecord::Base
     funder_ids = Org.funder.pluck(:id)
     family_ids = families(funder_ids).distinct
                                      .pluck(:family_id) + [default.family_id]
+
     published(family_ids.uniq)
       .where("visibility = :visibility OR is_default = :is_default",
              visibility: visibilities[:publicly_visible], is_default: true)
@@ -319,7 +322,7 @@ class Template < ActiveRecord::Base
   # Determines whether or not a customization for the customizing_org passed
   # should be generated
   def customize?(customizing_org)
-    if customizing_org.is_a?(Org) && (org.funder_only? || is_default)
+    if customizing_org.is_a?(Org) && (org.funder? || is_default)
       return !Template.unarchived.where(customization_of: family_id,
                                         org: customizing_org).exists?
     end
@@ -384,7 +387,7 @@ class Template < ActiveRecord::Base
     end
 
     # Assume self has org associated
-    if !org.funder_only? && !is_default
+    unless org.funder? || is_default
       raise ArgumentError, _("customize! requires a template from a funder")
     end
 
