@@ -14,12 +14,12 @@
       </a>
     </li>
   <% end %>
-  <% if plan.template.allow_research_outputs? %>
+  <%# if plan.template.allow_research_outputs? %>
     <li role="research_outputs" class="<%= (active_page?(plan_research_outputs_path(plan)) ? "active" : "") %>">
       <%= link_to _("Research Outputs"), plan_research_outputs_path(plan), role: "tab",
                   aria: { controls: "content" } %>
     </li>
-  <% end %>
+  <%# end %>
   <% if (plan.administerable_by?(current_user) || (current_user.can_org_admin? && current_user.org.plans.include?(plan))) && plan.owner_and_coowners.include?(current_user) && plan.owner.org.feedback_enabled? %>
     <li role="presentation" class="<%= (active_page?(request_feedback_plan_path(plan)) ? 'active' : '') %>">
       <a href="<%= request_feedback_plan_path(plan) %>" role="tab" aria-controls="content"><%= _('Request feedback') %></a>
