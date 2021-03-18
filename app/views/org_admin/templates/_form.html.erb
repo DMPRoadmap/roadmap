@@ -20,9 +20,12 @@
                          placement: 'right' }%>
     <div class="checkbox">
       <%= f.label(:visibility) do %>
-        <%= f.check_box(:visibility, checked: f.object.visibility == 'organisationally_visible') %>
-
-        <%= _('for internal %{org_name} use only') % { org_name: f.object.org.name } %>
+        <% ::Template::VISIBILITY_ORDER.each do |radio_option| %>
+          <div>
+          <%= f.radio_button :visibility, radio_option.to_s %>
+          <%= _(visibility_description(radio_option.to_s)) %>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>

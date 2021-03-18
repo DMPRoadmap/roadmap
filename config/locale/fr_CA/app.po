@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-03-08 10:08-0700\n"
-"PO-Revision-Date: 2021-03-08 18:09+0100\n"
+"POT-Creation-Date: 2021-03-17 12:15-0600\n"
+"PO-Revision-Date: 2021-03-17 19:16+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: French\n"
 "Language: fr_CA\n"
@@ -125,6 +125,9 @@ msgstr ""
 msgid "UG Alliance/Food from Thought 2021"
 msgstr ""
 
+msgid "Portage Template edited"
+msgstr ""
+
 msgid "Test Fanshawe Template"
 msgstr ""
 
@@ -138,6 +141,9 @@ msgid "University of Manitoba Template B"
 msgstr ""
 
 msgid "Test OMAFRA-UG DMP template"
+msgstr ""
+
+msgid "York University edit after publish"
 msgstr ""
 
 msgid "GWF DMP Test"
@@ -181,10 +187,8 @@ msgstr "Modèle de Portage pour la recherche en histoire et en humanités"
 msgid "CRDCN Template for Accessing Data from Research Data Centres"
 msgstr "Modèle du RCCDR pour l'accès aux données des centres de données de recherche"
 
-msgid "CRDCN Template for Research Data Centres and External Analysis"
+msgid "CRDCN Template for Research Data Centres and External Analysis 2"
 msgstr ""
-"Modèle du RCCDR pour les centres de données de recherche et les analyses exter"
-"nes"
 
 msgid "Template for Water Quality Research"
 msgstr "Modèle de Portage pour la recherche sur la qualité de l’eau"
@@ -200,6 +204,12 @@ msgstr "Modèle de Portage pour les flux de travail en science ouverte"
 
 msgid "Template for Neuroimaging in the Neurosciences"
 msgstr "Modèle de Portage pour la neuro-imagerie dans les neurosciences"
+
+msgid "Portage Template edited desde que llego lalo"
+msgstr ""
+
+msgid "Portage Template cambiando guidance revisando is_funder?"
+msgstr ""
 
 msgid "This is the generic DMP template for University of Alberta."
 msgstr ""
@@ -275,6 +285,9 @@ msgstr ""
 msgid ""
 "<p>This template will be used for DMP development by research projects funded "
 "by the Alliance and Food from Thought. Anticipated launch March 2021.</p>"
+msgstr ""
+
+msgid "<p>This is the generic DMP template for Portage.</p>"
 msgstr ""
 
 msgid "<p>This is a test template.</p>"
@@ -727,34 +740,7 @@ msgstr ""
 "n PGD est un document vivant qui &eacute;volue tout au long d&rsquo;un projet "
 "de recherche.</span></p>"
 
-msgid "Software/Technology Management Plan"
-msgstr "Plan de gestion de logiciel ou de technologie"
-
-msgid "Phase 1: Data Preparation"
-msgstr "Phase 1 : Préparation des données"
-
-msgid "University of Alberta Data Management Questions"
-msgstr ""
-
-msgid "MICYRN Data Management Plan Initial Phase"
-msgstr ""
-
-msgid "Reproducible findings through deposited data"
-msgstr ""
-
-msgid "Phase 1: Data Management Plan for Grant Application"
-msgstr "Phase 1: Plan de gestion de données soutenant une demande de subvention"
-
-msgid "University of British Columbia Data Management Questions"
-msgstr ""
-
-msgid "Portage Data Management Questions"
-msgstr "Questions du modèle Portage"
-
-msgid "Pre-Project: Prototype"
-msgstr ""
-
-msgid "CEOS Data Management Plan"
+msgid "<p>tttt</p>"
 msgstr ""
 
 msgid "Oceans Data Management Plan"
@@ -769,7 +755,13 @@ msgstr ""
 msgid "Phase 1"
 msgstr "Phase 1"
 
+msgid "York U Data Management Questions edited after publishing"
+msgstr ""
+
 msgid "University of Guelph Agri-Food Funding DMP (Alliance/Food from Thought)  "
+msgstr ""
+
+msgid "Portage Data Management Questions aqui le cambie a la primera phase"
 msgstr ""
 
 msgid "Data management questions"
@@ -802,14 +794,40 @@ msgstr ""
 msgid "Initial GWF DMP"
 msgstr ""
 
-msgid "Data Management Plan"
-msgstr "Plan de gestion des données"
+msgid "Software/Technology Management Plan"
+msgstr "Plan de gestion de logiciel ou de technologie"
 
-msgid "Phase 2: Active Research (Data) Management"
-msgstr "Phase 2 : Gestion active de recherche (données)"
+msgid "Phase 1: Data Preparation"
+msgstr "Phase 1 : Préparation des données"
 
-msgid "Phase 2: Data Management Plan for Project Development"
-msgstr "Phase 2 : Plan de gestion de données soutenant l’élaboration du projet"
+msgid "University of Alberta Data Management Questions"
+msgstr ""
+
+msgid "MICYRN Data Management Plan Initial Phase"
+msgstr ""
+
+msgid "Phase 1: Data Management Plan for Grant Application"
+msgstr "Phase 1: Plan de gestion de données soutenant une demande de subvention"
+
+msgid "Reproducible findings through deposited data"
+msgstr ""
+
+msgid "University of British Columbia Data Management Questions"
+msgstr ""
+
+msgid "Portage Data Management Questions"
+msgstr "Questions du modèle Portage"
+
+msgid "CRDCN Template for Research Data Centres and External Analysis"
+msgstr ""
+"Modèle du RCCDR pour les centres de données de recherche et les analyses exter"
+"nes"
+
+msgid "Pre-Project: Prototype"
+msgstr ""
+
+msgid "CEOS Data Management Plan"
+msgstr ""
 
 msgid "Phase 2"
 msgstr "Phase 2"
@@ -819,6 +837,15 @@ msgstr ""
 
 msgid "OMAFRA-UG DMP Questions"
 msgstr ""
+
+msgid "Data Management Plan"
+msgstr "Plan de gestion des données"
+
+msgid "Phase 2: Active Research (Data) Management"
+msgstr "Phase 2 : Gestion active de recherche (données)"
+
+msgid "Phase 2: Data Management Plan for Project Development"
+msgstr "Phase 2 : Plan de gestion de données soutenant l’élaboration du projet"
 
 msgid "Phase 3: Data Protection"
 msgstr "Phase 3 : Protection des données"
@@ -1246,6 +1273,9 @@ msgstr "Rôles et responsabilités"
 
 msgid "Sharing, Reuse, and Preservation"
 msgstr "Partage, réutilisation et préservation"
+
+msgid "Data Collection edited after york added guidance"
+msgstr ""
 
 msgid ""
 "The section is to provide overview of study taken from Protocol, ethics applic"
@@ -4770,6 +4800,16 @@ msgstr ""
 ";figuration seront-elles utilis&eacute;es&thinsp;?"
 
 msgid ""
+"<p>What types of data will you collect, create, link to, acquire and/or record"
+"?</p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">Which RDC datasets will be used in the rese"
+"arch?</span></p>"
+msgstr ""
+
+msgid ""
 "What file formats will your data be collected in?  Will these formats allow fo"
 "r data re-use, sharing and long-term access to the data?"
 msgstr ""
@@ -7784,6 +7824,12 @@ msgid "<p>test</p>"
 msgstr ""
 
 msgid "<p>No files created</p>"
+msgstr ""
+
+msgid "<p>A default answer</p>"
+msgstr ""
+
+msgid "<p>Defaul anser from super admin</p>"
 msgstr ""
 
 msgid ""
@@ -24301,6 +24347,34 @@ msgstr ""
 "Celui-ci peut &ecirc;tre fourni sous forme de lien, de description ou de copie"
 " int&eacute;grale des documents appropri&eacute;s."
 
+msgid "<p>Portage specific guidance</p>"
+msgstr ""
+
+msgid "<p>Example anser</p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">Example anser from super admin</span></p>\n"
+"<p>&nbsp;</p>\n"
+"<p><span style=\"font-weight: 400;\">The data source(s) for this project is/are "
+"the &lt;&lt;INSERT NAME OF SURVEYS/ADMINISTRATIVE RECORDS APPROVED&gt;&gt;. Th"
+"e current version(s) is/are: &lt;&lt;Record number&gt;&gt;.</span></p>"
+msgstr ""
+
+msgid ""
+"<p><span style=\"font-weight: 400;\">Example guidance from super admin</span></p"
+">\n"
+"<p>&nbsp;</p>\n"
+"<p><span style=\"font-weight: 400;\">The record number is available on Statistic"
+"s Canada's website which can be accessed directly, or through our website: </s"
+"pan><a href=\"http://crdcn.org/data\"><span style=\"font-weight: 400;\">crdcn.org/"
+"data</span></a><span style=\"font-weight: 400;\">. E.g. Aboriginal People's Surv"
+"ey 2017 Record number:3250 </span><a href=\"https://www23.statcan.gc.ca/imdb/p2"
+"SV.pl?Function=getSurvey&amp;SDDS=3250\"><span style=\"font-weight: 400;\">https:"
+"//www23.statcan.gc.ca/imdb/p2SV.pl?Function=getSurvey&amp;SDDS=3250</span></a>"
+"</p>"
+msgstr ""
+
 #: ../../app/controllers/answers_controller.rb:17
 msgid ""
 "There is no question with id %{question_id} associated to plan id %{plan_id} f"
@@ -24736,8 +24810,7 @@ msgstr "Mis à jour"
 #: ../../app/views/paginable/plans/_org_admin.html.erb:10
 #: ../../app/views/paginable/plans/_org_admin_other_user.html.erb:10
 #: ../../app/views/paginable/plans/_privately_visible.html.erb:10
-#: ../../app/views/plans/_edit_details.html.erb:22
-#: ../../app/views/plans/_edit_details.html.erb:31
+#: ../../app/views/plans/_edit_details.html.erb:23
 msgid "Visibility"
 msgstr "Visibilité"
 
@@ -25367,11 +25440,11 @@ msgstr "Privé"
 msgid "Test"
 msgstr "Essai"
 
-#: ../../app/helpers/plans_helper.rb:35
+#: ../../app/helpers/plans_helper.rb:35 ../../app/helpers/template_helper.rb:58
 msgid "Organisation: anyone at my organisation can view."
 msgstr "Organisme : Visible pour tous les membres de mon organisme."
 
-#: ../../app/helpers/plans_helper.rb:37
+#: ../../app/helpers/plans_helper.rb:37 ../../app/helpers/template_helper.rb:60
 msgid "Public: anyone can view."
 msgstr "Public : Tous peuvent consulter le plan."
 
@@ -25385,6 +25458,7 @@ msgid "Test: mock project for testing, practice, or educational purposes."
 msgstr ""
 
 #: ../../app/helpers/plans_helper.rb:43 ../../app/helpers/plans_helper.rb:58
+#: ../../app/helpers/template_helper.rb:62
 #: ../../app/views/layouts/application.html.erb:105
 msgid "N/A"
 msgstr "S. o."
@@ -25398,7 +25472,7 @@ msgid "Plan ID"
 msgstr "ID du plan"
 
 #: ../../app/helpers/settings_template_helper.rb:10
-#: ../../app/views/plans/_edit_details.html.erb:59
+#: ../../app/views/plans/_edit_details.html.erb:51
 msgid "Grant number"
 msgstr "Numéro de subvention"
 
@@ -25418,7 +25492,7 @@ msgstr "Description du plan"
 #: ../../app/views/orgs/_profile_form.html.erb:98
 #: ../../app/views/paginable/templates/_customisable.html.erb:7
 #: ../../app/views/paginable/templates/_organisational.html.erb:12
-#: ../../app/views/plans/_edit_details.html.erb:47
+#: ../../app/views/plans/_edit_details.html.erb:39
 #: ../../app/views/plans/_show_details.html.erb:4
 msgid "Funder"
 msgstr "Organisme subventionnaire"
@@ -25504,18 +25578,18 @@ msgid "Phase"
 msgstr "Phase"
 
 #: ../../app/models/concerns/exportable_plan.rb:23
-#: ../../app/models/exported_plan.rb:112 ../../app/models/exported_plan.rb:114
+#: ../../app/models/exported_plan.rb:111 ../../app/models/exported_plan.rb:113
 msgid "Section"
 msgstr "Section"
 
 #: ../../app/models/concerns/exportable_plan.rb:23
-#: ../../app/models/exported_plan.rb:112
+#: ../../app/models/exported_plan.rb:111
 msgid "Question"
 msgstr "Question"
 
 #: ../../app/models/concerns/exportable_plan.rb:23
 #: ../../app/models/concerns/exportable_plan.rb:25
-#: ../../app/models/exported_plan.rb:112 ../../app/models/exported_plan.rb:114
+#: ../../app/models/exported_plan.rb:111 ../../app/models/exported_plan.rb:113
 msgid "Answer"
 msgstr "Réponse"
 
@@ -25613,7 +25687,7 @@ msgid "Not Answered"
 msgstr "Pas de réponse"
 
 #: ../../app/models/concerns/validation_messages.rb:5
-#: ../../app/models/template.rb:206
+#: ../../app/models/template.rb:209
 msgid "can't be blank"
 msgstr "doit être rempli(e)"
 
@@ -25633,27 +25707,27 @@ msgstr "Vous devez avoir au moins une option accompagnée de texte."
 msgid "for 'Question text' can't be blank."
 msgstr "pour « Texte de la question » doit être rempli(e)."
 
-#: ../../app/models/exported_plan.rb:112 ../../app/models/exported_plan.rb:114
+#: ../../app/models/exported_plan.rb:111 ../../app/models/exported_plan.rb:113
 msgid "Selected option(s)"
 msgstr "Options sélectionnées"
 
-#: ../../app/models/exported_plan.rb:112 ../../app/models/exported_plan.rb:114
+#: ../../app/models/exported_plan.rb:111 ../../app/models/exported_plan.rb:113
 msgid "Answered by"
 msgstr "Répondu par"
 
-#: ../../app/models/exported_plan.rb:112 ../../app/models/exported_plan.rb:114
+#: ../../app/models/exported_plan.rb:111 ../../app/models/exported_plan.rb:113
 msgid "Answered at"
 msgstr "Répondu à"
 
-#: ../../app/models/exported_plan.rb:155
+#: ../../app/models/exported_plan.rb:154
 msgid "Details"
 msgstr "Détails"
 
-#: ../../app/models/exported_plan.rb:162
+#: ../../app/models/exported_plan.rb:161
 msgid "-"
 msgstr "-"
 
-#: ../../app/models/exported_plan.rb:181
+#: ../../app/models/exported_plan.rb:180
 #: ../../app/views/shared/export/_plan.erb:52
 #: ../../app/views/shared/export/_plan_txt.erb:47
 msgid "Question not answered."
@@ -25729,49 +25803,49 @@ msgstr "Paramètre de formatage inconnu"
 msgid "Invalid maximum pages"
 msgstr "Invalide – Nombre maximal de pages"
 
-#: ../../app/models/template.rb:234
+#: ../../app/models/template.rb:237
 msgid "A historical template cannot be retrieved for being modified"
 msgstr "Un modèle historique ne peut pas être récupéré pour être modifié"
 
-#: ../../app/models/template.rb:352
+#: ../../app/models/template.rb:355
 msgid "generate_copy! requires an organisation target"
 msgstr "un organisme cible est exigé pour generate_copy!"
 
-#: ../../app/models/template.rb:360
+#: ../../app/models/template.rb:363
 msgid "Copy of %{template}"
 msgstr "Copie de %{template}"
 
-#: ../../app/models/template.rb:368
+#: ../../app/models/template.rb:371
 msgid "generate_version! requires a published template"
 msgstr "un modèle publié est exigé pour generate_version!"
 
-#: ../../app/models/template.rb:383
+#: ../../app/models/template.rb:386
 msgid "customize! requires an organisation target"
 msgstr "organisme cible exiger pour personnaliser!"
 
-#: ../../app/models/template.rb:388
+#: ../../app/models/template.rb:391
 msgid "customize! requires a template from a funder"
 msgstr "un modèle d’un bailleur de fonds est exigé pour personnaliser!"
 
-#: ../../app/models/template.rb:424
+#: ../../app/models/template.rb:427
 msgid "You can not publish a published template.  "
 msgstr "Vous ne pouvez pas publier un modèle déjà publié."
 
-#: ../../app/models/template.rb:428
+#: ../../app/models/template.rb:431
 msgid "You can not publish a historical version of this template.  "
 msgstr "Vous ne pouvez pas publier une version historique de ce modèle."
 
-#: ../../app/models/template.rb:433
+#: ../../app/models/template.rb:436
 msgid "You can not publish a template without phases.  "
 msgstr "Vous ne pouvez pas publier un modèle ne contenant pas de phases."
 
-#: ../../app/models/template.rb:438
+#: ../../app/models/template.rb:441
 msgid "You can not publish a template without sections in a phase.  "
 msgstr ""
 "Vous ne pouvez pas publier un modèle dont une phase ne contient pas de section"
 "s."
 
-#: ../../app/models/template.rb:443
+#: ../../app/models/template.rb:446
 msgid "You can not publish a template without questions in a section.  "
 msgstr ""
 "Vous ne pouvez pas publier un modèle dont certaines sections ne contiennent pa"
@@ -25895,12 +25969,12 @@ msgstr "Veuillez patienter. Le chargement des normes est en cours."
 #: ../../app/views/org_admin/questions/_form.html.erb:89
 #: ../../app/views/org_admin/questions/_show.html.erb:206
 #: ../../app/views/org_admin/sections/_form.html.erb:17
-#: ../../app/views/org_admin/templates/_form.html.erb:82
+#: ../../app/views/org_admin/templates/_form.html.erb:85
 #: ../../app/views/org_admin/users/edit.html.erb:54
 #: ../../app/views/orgs/_feedback_form.html.erb:34
 #: ../../app/views/orgs/_profile_form.html.erb:129
-#: ../../app/views/plans/_edit_details.html.erb:182
-#: ../../app/views/plans/_edit_details.html.erb:205
+#: ../../app/views/plans/_edit_details.html.erb:174
+#: ../../app/views/plans/_edit_details.html.erb:197
 #: ../../app/views/questions/_preview_question.html.erb:111
 #: ../../app/views/super_admin/notifications/_form.html.erb:58
 #: ../../app/views/super_admin/themes/_form.html.erb:13
@@ -26124,7 +26198,7 @@ msgstr ""
 #: ../../app/views/org_admin/departments/new.html.erb:24
 #: ../../app/views/org_admin/questions/_form.html.erb:93
 #: ../../app/views/org_admin/questions/_form.html.erb:95
-#: ../../app/views/plans/_edit_details.html.erb:218
+#: ../../app/views/plans/_edit_details.html.erb:210
 #: ../../app/views/plans/new.html.erb:122
 #: ../../app/views/super_admin/notifications/_form.html.erb:65
 #: ../../app/views/super_admin/themes/_form.html.erb:19
@@ -26142,8 +26216,8 @@ msgstr "Annuler"
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:6
 #: ../../app/views/paginable/themes/_index.html.erb:4
 #: ../../app/views/paginable/users/_index.html.erb:9
-#: ../../app/views/plans/_edit_details.html.erb:96
-#: ../../app/views/plans/_edit_details.html.erb:150
+#: ../../app/views/plans/_edit_details.html.erb:88
+#: ../../app/views/plans/_edit_details.html.erb:142
 #: ../../app/views/plans/_show_details.html.erb:16
 #: ../../app/views/plans/_show_details.html.erb:26
 msgid "Name"
@@ -26155,8 +26229,8 @@ msgstr "Nom"
 #: ../../app/views/devise/registrations/_personal_details.html.erb:10
 #: ../../app/views/org_admin/users/edit.html.erb:14
 #: ../../app/views/paginable/users/_index.html.erb:10
-#: ../../app/views/plans/_edit_details.html.erb:118
-#: ../../app/views/plans/_edit_details.html.erb:161
+#: ../../app/views/plans/_edit_details.html.erb:110
+#: ../../app/views/plans/_edit_details.html.erb:153
 #: ../../app/views/plans/_share_form.html.erb:99
 #: ../../app/views/plans/_show_details.html.erb:20
 #: ../../app/views/plans/_show_details.html.erb:30
@@ -26697,7 +26771,7 @@ msgstr ""
 #: ../../app/views/guidance_groups/_guidance_group_form.html.erb:14
 #: ../../app/views/guidance_groups/admin_edit.html.erb:20
 #: ../../app/views/guidance_groups/admin_new.html.erb:19
-#: ../../app/views/org_admin/templates/_form.html.erb:35
+#: ../../app/views/org_admin/templates/_form.html.erb:38
 #: ../../app/views/org_admin/templates/_row.html.erb:10
 #: ../../app/views/org_admin/templates/_row.html.erb:13
 #: ../../app/views/org_admin/templates/_show.html.erb:19
@@ -27641,12 +27715,7 @@ msgstr ""
 "Lorsque cette case est cochée, le modèle ne peut pas s’afficher dans la liste "
 "publique des modèles."
 
-#: ../../app/views/org_admin/templates/_form.html.erb:25
-#: ../../app/views/org_admin/templates/_show.html.erb:35
-msgid "for internal %{org_name} use only"
-msgstr "réservé à l’usage interne de %{org_name}"
-
-#: ../../app/views/org_admin/templates/_form.html.erb:32
+#: ../../app/views/org_admin/templates/_form.html.erb:35
 #: ../../app/views/org_admin/templates/_show.html.erb:13
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:7
 #: ../../app/views/paginable/guidances/_index.html.erb:13
@@ -27656,7 +27725,7 @@ msgstr "réservé à l’usage interne de %{org_name}"
 msgid "Status"
 msgstr "État"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:37
+#: ../../app/views/org_admin/templates/_form.html.erb:40
 #: ../../app/views/org_admin/templates/_row.html.erb:16
 #: ../../app/views/org_admin/templates/_show.html.erb:26
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:19
@@ -27666,17 +27735,17 @@ msgstr "État"
 msgid "Unpublished"
 msgstr "Non publié"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:39
+#: ../../app/views/org_admin/templates/_form.html.erb:42
 #: ../../app/views/paginable/templates/_history.html.erb:19
 msgid "Draft"
 msgstr "Ébauche"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:46
+#: ../../app/views/org_admin/templates/_form.html.erb:49
 #: ../../app/views/org_admin/templates/_show.html.erb:41
 msgid "Created at"
 msgstr "Créé le"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:52
+#: ../../app/views/org_admin/templates/_form.html.erb:55
 #: ../../app/views/org_admin/templates/_show.html.erb:43
 #: ../../app/views/paginable/guidance_groups/_index.html.erb:9
 #: ../../app/views/paginable/guidances/_index.html.erb:14
@@ -27684,12 +27753,12 @@ msgstr "Créé le"
 msgid "Last updated"
 msgstr "Dernière mise à jour"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:64
+#: ../../app/views/org_admin/templates/_form.html.erb:67
 #: ../../app/views/paginable/templates/_publicly_visible.html.erb:10
 msgid "Funder Links"
 msgstr "Liens vers les organisme subventionnaire"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:67
+#: ../../app/views/org_admin/templates/_form.html.erb:70
 msgid ""
 "Add links to funder websites that provide additional information about the req"
 "uirements for this template"
@@ -27697,11 +27766,11 @@ msgstr ""
 "Ajouter des liens vers les sites Web des bailleurs de fonds qui fournissent de"
 "s renseignements supplémentaires sur les exigences de ce modèle"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:73
+#: ../../app/views/org_admin/templates/_form.html.erb:76
 msgid "Sample Plan Links"
 msgstr "Liens vers un exemple de plan"
 
-#: ../../app/views/org_admin/templates/_form.html.erb:76
+#: ../../app/views/org_admin/templates/_form.html.erb:79
 msgid "Add links to sample plans if provided by the funder."
 msgstr ""
 "Ajouter des liens vers des exemples de plans s’ils sont fournis par le bailleu"
@@ -27745,6 +27814,10 @@ msgstr ""
 #: ../../app/views/org_admin/templates/_show.html.erb:26
 msgid "Customisations are unpublished"
 msgstr "Les personnalisations ne sont pas publiées"
+
+#: ../../app/views/org_admin/templates/_show.html.erb:35
+msgid "for internal %{org_name} use only"
+msgstr "réservé à l’usage interne de %{org_name}"
 
 #: ../../app/views/org_admin/templates/_show.html.erb:37
 msgid "available to the public"
@@ -28433,45 +28506,45 @@ msgstr ""
 msgid "A pertinent ID as determined by the funder and/or organisation."
 msgstr "Un identifiant pertinent déterminé par le bailleur de fonds ou l’organisme."
 
-#: ../../app/views/plans/_edit_details.html.erb:71
+#: ../../app/views/plans/_edit_details.html.erb:63
 msgid "Project abstract"
 msgstr "Résumé du projet"
 
-#: ../../app/views/plans/_edit_details.html.erb:83
+#: ../../app/views/plans/_edit_details.html.erb:75
 #: ../../app/views/plans/_show_details.html.erb:10
 msgid "ID"
 msgstr "ID"
 
-#: ../../app/views/plans/_edit_details.html.erb:93
+#: ../../app/views/plans/_edit_details.html.erb:85
 #: ../../app/views/plans/_show_details.html.erb:14
 msgid "Principal Investigator"
 msgstr "Chercheur principal"
 
-#: ../../app/views/plans/_edit_details.html.erb:107
+#: ../../app/views/plans/_edit_details.html.erb:99
 #: ../../app/views/plans/_show_details.html.erb:18
 msgid "ORCID iD"
 msgstr "ORCID iD"
 
-#: ../../app/views/plans/_edit_details.html.erb:129
-#: ../../app/views/plans/_edit_details.html.erb:172
+#: ../../app/views/plans/_edit_details.html.erb:121
+#: ../../app/views/plans/_edit_details.html.erb:164
 #: ../../app/views/plans/_show_details.html.erb:28
 msgid "Phone"
 msgstr "Téléphone"
 
-#: ../../app/views/plans/_edit_details.html.erb:140
+#: ../../app/views/plans/_edit_details.html.erb:132
 msgid "Data contact person"
 msgstr "Personne-ressource pour les données"
 
-#: ../../app/views/plans/_edit_details.html.erb:145
+#: ../../app/views/plans/_edit_details.html.erb:137
 msgid "Same as Principal Investigator"
 msgstr "Identique au chercheur principal"
 
-#: ../../app/views/plans/_edit_details.html.erb:185
-#: ../../app/views/plans/_edit_details.html.erb:221
+#: ../../app/views/plans/_edit_details.html.erb:177
+#: ../../app/views/plans/_edit_details.html.erb:213
 msgid "Select Guidance"
 msgstr "Sélectionner les directives"
 
-#: ../../app/views/plans/_edit_details.html.erb:188
+#: ../../app/views/plans/_edit_details.html.erb:180
 msgid ""
 "To help you write your plan, %{application_name} can show you guidance from a "
 "variety of organisations."
@@ -28479,23 +28552,23 @@ msgstr ""
 "Pour vous aider à rédiger votre plan, %{application_name} peut vous montrer le"
 "s directives de divers organismes."
 
-#: ../../app/views/plans/_edit_details.html.erb:192
+#: ../../app/views/plans/_edit_details.html.erb:184
 msgid "Select up to 6 organisations to see their guidance."
 msgstr "Sélectionnez jusqu’à 6 organismes pour afficher leurs directives."
 
-#: ../../app/views/plans/_edit_details.html.erb:201
+#: ../../app/views/plans/_edit_details.html.erb:193
 msgid "Find guidance from additional organisations below"
 msgstr "Trouver des directives de la part d’autres organismes ci-dessous"
 
-#: ../../app/views/plans/_edit_details.html.erb:202
+#: ../../app/views/plans/_edit_details.html.erb:194
 msgid "See the full list"
 msgstr "Voir la liste complète"
 
-#: ../../app/views/plans/_edit_details.html.erb:208
+#: ../../app/views/plans/_edit_details.html.erb:200
 msgid "There is no additional guidance for this template."
 msgstr "Il n’y a pas de directives supplémentaires pour ce modèle."
 
-#: ../../app/views/plans/_edit_details.html.erb:223
+#: ../../app/views/plans/_edit_details.html.erb:215
 msgid ""
 "To help you write your plan, %{application_name} can show you guidance from a "
 "variety of organisations. Please choose up to 6 organisations of the following"
@@ -28505,7 +28578,7 @@ msgstr ""
 "es directives de divers organismes. Veuillez choisir jusqu'à 6 organismes parm"
 "i  les suivants, qui offrent des directives pertinentes pour votre plan."
 
-#: ../../app/views/plans/_edit_details.html.erb:226
+#: ../../app/views/plans/_edit_details.html.erb:218
 msgid "Don't forget to save your changes after making your selections."
 msgstr ""
 "N’oubliez pas d’enregistrer vos modifications après avoir effectué vos sélecti"

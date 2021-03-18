@@ -109,7 +109,7 @@ RSpec.describe "Template::UpgradeCustomizationService", type: :service do
 
       # Doesn't need to. Number should be flexible if sections are modifiable
       it "preserves the number" do
-        # byebug
+
         template.sections.each do |section|
           matching_section = funder_template.sections.detect do |s|
             s.description == section.description

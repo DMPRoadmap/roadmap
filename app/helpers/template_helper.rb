@@ -51,4 +51,16 @@ module TemplateHelper
       end
     end
   end
+
+  def visibility_description(val)
+    case val
+    when 'organisationally_visible'
+      _('Organisation: anyone at my organisation can view.')
+    when 'publicly_visible'
+      _('Public: anyone can view.')
+    else
+      _('N/A')
+    end
+  end
+
 end

@@ -68,7 +68,6 @@ class ExportedPlan < ActiveRecord::Base
 
   def funder
     org = self.plan.template.try(:org)
-    byebug
     org.name if org.present? && org.funder?
   end
 
