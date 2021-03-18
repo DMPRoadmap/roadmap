@@ -158,16 +158,18 @@ module DynamicFormHelper
     }
   end
 
-  def create_complex_registry_field(form, value, form_prefix, property_name, label, field_id, select_values, locale, required: false, validation: nil, html_class: nil, readonly: false, multiple: false, ttip: nil, default_value: nil, overridable: nil)
+  def create_complex_registry_field(form, value, form_prefix, property_name, label, field_id, select_values, locale, parent_id, schema_id, required: false, validation: nil, html_class: nil, readonly: false, multiple: false, ttip: nil, default_value: nil, overridable: nil)
     render partial: "shared/dynamic_form/fields/registry/complex",
     locals: {
       f: form,
-      selected_value: value,
+      value: value,
       form_prefix: form_prefix,
       property_name: property_name,
       field_label: label,
       select_values: select_values,
       locale: locale,
+      parent_id: parent_id,
+      schema_id: schema_id,
       field_class: html_class,
       field_id: field_id,
       multiple: multiple,
@@ -221,6 +223,8 @@ module DynamicFormHelper
       when "boolean"
         formated_data[key] = data[key] == "1"
       when "array"
+        next if prop["registry_id"].present? 
+
         formated_data[key] = data[key].is_a?(Array) ? data[key] : [data[key]]
       when "object"
         next if prop["schema_id"].nil?

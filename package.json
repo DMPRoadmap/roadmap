@@ -42,6 +42,7 @@
     "moment": "^2.22.2",
     "number-to-text": "^0.3.5",
     "rails-erb-loader": "^5.5.2",
+    "select2": "^4.0.13",
     "timeago.js": "4.0.0-beta.1",
     "tinymce": "^4.9.7",
     "webpack": "^3.12.0",

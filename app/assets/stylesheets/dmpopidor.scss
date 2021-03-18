@@ -1151,7 +1151,6 @@ header .main-nav {
         }
         span {
             text-align: center;
-            margin-left: 5px;
             &.invalid {
                 color: $rust;
             }
@@ -1163,8 +1162,18 @@ header .main-nav {
                 cursor: pointer;
             }
         }
-        &.select-field {
+        &.select-field, &.linked-fragments-select {
             flex-direction: column;
+            select {
+                width: 100% !important;
+            }
+            .select2 {
+                width: 100% !important;
+                .select2-selection__choice {
+                    color: white;
+                    background-color: $blue;
+                }
+            }
             .overridable-link {
                 float: left;
                 width: 100%;
@@ -1177,6 +1186,9 @@ header .main-nav {
                     margin-right: 5px;
                 }
             }
+        }
+        .linked-fragments-list {
+            margin-top: 10px;
         }
     }
     fieldset {
@@ -1318,6 +1330,11 @@ header .main-nav {
          width: 50%;
      }
  }
+
+ .select2-results__option--highlighted {
+    color: white;
+    background-color: $dark-blue !important;
+}
 
 /*
  * ACCESSIBILITY

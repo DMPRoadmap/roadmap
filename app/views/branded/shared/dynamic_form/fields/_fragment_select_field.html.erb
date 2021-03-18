@@ -9,26 +9,42 @@
   </div>
 <% end %>
 <div class="col-md-12 dynamic-field linked-fragments-select <%= schema.classname %>-select select-<%= query_id %>">
-  <%= render(partial: 'shared/dynamic_form/linked_fragment/select', locals: {
-        field_name: field_name, 
-        select_values: select_values,
-        selected_value: selected_value,
-        madmp_schema: schema,
-        parent_id: parent_id,
-        include_blank: false,
-        readonly: readonly,
-        template_locale: template_locale,
-        ttip: ttip,
-        validation: validation,
-        query_id: query_id
-      }
-  ) %>
+  <% selected_value_id = selected_value.present? ? selected_value.id : nil %>
+  <%= select_tag field_name,
+    render(partial: 'shared/dynamic_form/linked_fragment/select_options', locals: {
+          select_values: select_values,
+          selected_value: selected_value_id
+        }
+    ),
+    disabled: readonly,
+    include_blank: false,
+    "data-toggle": "tooltip",
+    title: ttip,
+    class: "form-control" %>
+  <%= render partial: "shared/dynamic_form/validation_indicator", locals: {
+          validation: validation
+  } unless validation == "none"
+  %>
+  <% unless selected_value.nil?%>
+    <div class="col-md-12 selected-value">
+      <strong><%= d_('dmpopidor', 'Selected value:') %></strong> <span><%= selected_value.to_s %></span>
+      (<%= link_to new_edit_linked_madmp_fragments_url(
+          :fragment_id => selected_value.id,
+          :parent_id => parent_id, 
+          :schema_id => schema.id,
+          :source => "select-modal",
+          :template_locale => template_locale,
+          :query_id => query_id
+        ), {
+          :remote => true, 
+          'data-toggle' => 'modal', 
+          'data-target' => '#modal-window'
+        } do %>
+          <%= _('Edit') %>
+        <% end %>)
+    </div>
+  <% end %>
 </div>
-<% unless selected_value.nil?%>
-  <div class="col-md-12">
-    <strong><%= d_('dmpopidor', 'Selected value:') %></strong> <%= selected_value.to_s %>
-  </div>
-<% end %>
 <div class="col-md-12">
   <% unless parent_id.nil? || readonly %>
     <span data-toggle="modal" data-target="#modal-window">

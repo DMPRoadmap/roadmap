@@ -17,8 +17,9 @@
         <%= render(partial: 'shared/dynamic_form/linked_fragment/list', locals: {
                 obj_list: field_values, 
                 parent_id: parent_id,
-                schema: schema,
+                schema_id: schema.id,
                 readonly: readonly,
+                deletable: readonly,
                 template_locale: template_locale,
                 property_name: property_name,
                 query_id: query_id

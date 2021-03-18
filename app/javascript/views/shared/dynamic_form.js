@@ -49,15 +49,6 @@ $(() => {
     }
   });
 
-  /*
-   * Changes the url of the "View" link according to the selected value in the fragment select
-  */
-  $(document).on('change', '.linked-fragments-select', (e) => {
-    const value = e.target.value;
-    const viewLink = $(e.target).parent().find('a');
-    viewLink.attr('href', viewLink.attr('href').replace(/fragment_id=([^&]+)/, `fragment_id=${value}`));
-  });
-
   $(document).on('change', '.schema_picker', (e) => {
     const target = $(e.target);
     const form = target.parents('.question').find('.form-answer');
@@ -76,18 +67,50 @@ $(() => {
   $(document).on('click', '.select-field .overridable-link', (e) => {
     e.preventDefault();
     const target = $(e.target);
-    const selectField = target.parent();
+    const selectField = target.parents('.select-field');
+    console.log(selectField);
 
     selectField.find('.custom-value').show();
     selectField.find('.custom-value input').val('');
-    selectField.find('select').val('');
+    selectField.find('select').val('').trigger('change');
   });
 
-  $(document).on('change', '.select-field select', (e) => {
+  $(document).on('select2:select', (e) => {
     const target = $(e.target);
-    const selectField = target.parent();
+    const selectField = target.parents('.dynamic-field');
+    const data = selectField.find('select').select2('data');
+    const value = data[0].id;
+    const text = data[0].text;
 
-    selectField.find('.custom-value').hide();
-    selectField.find('.custom-value input').val('');
+    if (selectField.hasClass('select-field') && selectField.hasClass('customizable')) {
+      selectField.find('.custom-value').hide();
+      selectField.find('.custom-value input').val('');
+    } else if (selectField.hasClass('linked-fragments-select')) {
+      /*
+      * Changes the url of the "View" link according to the selected value in the fragment select
+      */
+      const viewLink = selectField.find('.selected-value a');
+      selectField.find('.selected-value span').html(text);
+      viewLink.attr('href', viewLink.attr('href').replace(/fragment_id=([^&]+)/, `fragment_id=${value}`));
+    } else if (selectField.hasClass('multiple-select')) {
+      // eslint-disable-next-line
+      const confirmed = confirm('Voulez vous ajouter cet élément dans votre plan ?');
+      if (confirmed) {
+        $.ajax({
+          url: '/madmp_fragments/create_from_registry',
+          method: 'get',
+          data: {
+            registry_value_id: value,
+            locale: selectField.data('locale'),
+            parent_id: selectField.data('parent-id'),
+            schema_id: selectField.data('schema-id'),
+            query_id: selectField.data('query-id'),
+            property_name: selectField.data('property-name'),
+          },
+        }).done((response) => {
+          $(`table.list-${response.query_id} tbody`).html(response.html);
+        });
+      }
+    }
   });
 });

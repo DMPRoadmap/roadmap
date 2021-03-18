@@ -2,6 +2,9 @@
 
 $(() => {
   $('#modal-window').html('<%= escape_javascript(render "shared/dynamic_form/modal") %>');
+  $('.select-field select, .linked-fragments-select select').select2({
+    theme: 'bootstrap4',
+  });
   $('#modal-window').modal();
   tinymce.init({
     selector: '.tinymce',

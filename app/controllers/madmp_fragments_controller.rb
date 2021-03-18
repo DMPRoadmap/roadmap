@@ -192,7 +192,9 @@ class MadmpFragmentsController < ApplicationController
       @fragment = MadmpFragment.new(
         dmp_id: dmp_id,
         parent_id: parent_id,
-        additional_info: {}
+        additional_info: {
+          "property_name" => params[:property_name]
+        }
       )
     end
     authorize @fragment
@@ -204,6 +206,7 @@ class MadmpFragmentsController < ApplicationController
 
   def show_linked
     @fragment = MadmpFragment.find(params[:fragment_id])
+    @schemas = MadmpSchema.all
     @schema = @fragment.madmp_schema
     @classname = @fragment.classname
     @parent_fragment = @fragment.parent
@@ -214,6 +217,41 @@ class MadmpFragmentsController < ApplicationController
       format.html
       format.js { render partial: "shared/dynamic_form/linked_fragment" }
     end
+  end
+
+  def create_from_registry_value
+    @registry_value = RegistryValue.find(params[:registry_value_id])
+    parent_fragment = MadmpFragment.find(params[:parent_id])
+    schema = MadmpSchema.find(params[:schema_id])
+    template_locale = params[:locale]
+    query_id = params[:query_id]
+
+    @fragment = MadmpFragment.new(
+      dmp_id: parent_fragment.dmp_id,
+      parent_id: parent_fragment.id,
+      madmp_schema: schema,
+      data: {},
+      additional_info: {
+        "property_name" => params[:property_name]
+      }
+    )
+    @fragment.classname = schema.classname
+    authorize @fragment
+
+    @fragment.save_as_multifrag(@registry_value.data, schema)
+
+    render json: {
+      "fragment_id" =>  parent_fragment.id,
+      "query_id" => query_id,
+      "html" => render_fragment_list(
+        @fragment.dmp_id,
+        parent_fragment.id,
+        @fragment.madmp_schema_id,
+        params[:property_name],
+        template_locale,
+        query_id
+      )
+    }
   end
 
   def destroy
@@ -264,15 +302,16 @@ class MadmpFragmentsController < ApplicationController
       obj_list = MadmpFragment.where(
         dmp_id: dmp_id,
         parent_id: parent_id,
-        madmp_schema_id: schema.id
+        madmp_schema_id: schema_id
       ).where("additional_info->>'property_name' = ?", property_name)
       render_to_string(
         partial: "shared/dynamic_form/linked_fragment/list",
         locals: {
           parent_id: parent_id,
           obj_list: obj_list,
-          schema: schema,
+          schema_id: schema_id,
           readonly: false,
+          deletable: true,
           template_locale: template_locale,
           query_id: query_id
         }

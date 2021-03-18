@@ -249,10 +249,9 @@ class MadmpFragment < ActiveRecord::Base
     param_data.each do |prop, content|
       schema_prop = schema.schema["properties"][prop]
 
-      next if schema_prop.nil?
-
-      if schema_prop["type"].present? &&
-         schema_prop["type"].eql?("object") &&
+      next if schema_prop.nil? || schema_prop["type"].nil?
+      
+      if schema_prop["type"].eql?("object") &&
          schema_prop["schema_id"].present?
         sub_data = content # TMP: for readability
         sub_schema = MadmpSchema.find(schema_prop["schema_id"])

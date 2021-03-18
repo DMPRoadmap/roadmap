@@ -31,34 +31,27 @@
   <%# ############################### %>
   <% if prop['registry_id'].present? && prop['inputType'] == 'dropdown' %>
     <% overridable = prop["overridable"] unless prop["overridable"].nil? %>
+    <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
     <% if prop['schema_id'].present? && prop["type"].eql?('object') %>
-      <%# Complex registries (value in an object) %>
-      <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
+      <%# Complex registries (value is an object) %>
       <% value = dmp_fragments.find(value["dbid"]) unless value.nil? %>
-      <div class="col-md-12">
-        <fieldset class="sub-fragment registry">
-          <legend class="sub-fragment registry"><%= label %></legend>
-          <% unless value.nil? || value.data.empty? %>
-            <% sub_schema = @schemas.find_by(id: prop["schema_id"]) %>
-            <div class="col-md-12 registry-value">
-              <%= render(partial: 'madmp_fragments/display', locals: {
-                          fragment: value,
-                          schema: sub_schema,
-                          template_locale: template_locale
-              })%>
-              <span class="intermediate-label"><i><%= d_('dmpopidor', '- or change the selected value -') %></i></span>
-            </div>
-          <% end %>
-          <%= create_complex_registry_field(f, value, form_prefix, key, nil, field_id, registryValues, template_locale, readonly: readonly, multiple: false, validation: validation, ttip: ttip, default_value: default_value, overridable: overridable) %>
-        </fieldset>
-      </div>
+      <%= create_complex_registry_field(f, value, form_prefix, key, label, field_id, registryValues, template_locale, current_fragment.id, prop['schema_id'], readonly: readonly, multiple: false, validation: validation, ttip: ttip, default_value: default_value, overridable: overridable) %>
+    <% elsif prop["type"].eql?('array') && prop["items"]['schema_id'].present?%>
+      <%# Complex registries that can be selected multiple times %>
+      <% 
+        sub_schema = @schemas.find_by(id: prop['items']['schema_id'])
+        values = []
+        if data.present? && data[key].present?
+          values = dmp_fragments.where(id: data[key].map { |d| d["dbid"] })
+        end
+        table_header = prop["table_header@#{template_locale}"] ? prop["table_header@#{template_locale}"] : prop["table_header"]
+      %>
+      <%= create_complex_registry_field(f, values, form_prefix, key, label, field_id, registryValues, template_locale, current_fragment.id, prop['items']['schema_id'], readonly: readonly, multiple: true, validation: validation, ttip: ttip, default_value: default_value, overridable: overridable) %>
     <% elsif prop["type"].eql?('string')%>
       <%# Simple registries (value in a string) %>
-      <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
       <%= create_simple_registry_field(f, value, form_prefix, key, label, field_id, registryValues, template_locale, readonly: readonly, validation: validation, ttip: ttip, default_value: default_value, overridable: overridable) %>
     <% elsif prop["type"].eql?('array')%>
       <%# Select 'multiple' from simple registry where the user can choose multiple options %>
-      <% registryValues = RegistryValue.where(registry_id: prop['registry_id'])%>
       <%= create_simple_registry_field(f, value, form_prefix, key, label, field_id, registryValues, template_locale, readonly: readonly, multiple: true, validation: validation, ttip: ttip, default_value: default_value, overridable: overridable) %>
     <% end %>
 

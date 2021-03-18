@@ -38,6 +38,9 @@ $(() => {
           selector: `#research_output_${data.research_output.id}_section_${data.section.id} .note`,
           toolbar,
         });
+        $('.select-field select, .linked-fragments-select select').select2({
+          theme: 'bootstrap4',
+        });
       }).fail((error) => {
         failCallback(error, target);
       });
@@ -57,6 +60,9 @@ $(() => {
         Tinymce.init({
           selector: `#research_output_${data.research_output.id}_section_${data.section.id} .note`,
           toolbar,
+        });
+        $('.select-field select, .linked-fragments-select select').select2({
+          theme: 'bootstrap4',
         });
       }).fail((error) => {
         failCallback(error, target);

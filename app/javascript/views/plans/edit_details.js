@@ -149,4 +149,8 @@ $(() => {
       .find('i.fa-chevron-right, i.fa-chevron-down')
       .toggleClass('fa-chevron-right fa-chevron-down');
   });
+
+  $('.select-field select, .linked-fragments-select select').select2({
+    theme: 'bootstrap4',
+  });
 });
