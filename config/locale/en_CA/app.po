@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-03-17 12:15-0600\n"
-"PO-Revision-Date: 2021-03-17 19:16+0100\n"
+"POT-Creation-Date: 2021-03-18 11:30-0600\n"
+"PO-Revision-Date: 2021-03-18 18:30+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: English\n"
 "Language: en_CA\n"
@@ -125,9 +125,6 @@ msgstr ""
 msgid "UG Alliance/Food from Thought 2021"
 msgstr ""
 
-msgid "Portage Template edited"
-msgstr ""
-
 msgid "Test Fanshawe Template"
 msgstr ""
 
@@ -141,9 +138,6 @@ msgid "University of Manitoba Template B"
 msgstr ""
 
 msgid "Test OMAFRA-UG DMP template"
-msgstr ""
-
-msgid "York University edit after publish"
 msgstr ""
 
 msgid "GWF DMP Test"
@@ -185,7 +179,7 @@ msgstr ""
 msgid "CRDCN Template for Accessing Data from Research Data Centres"
 msgstr ""
 
-msgid "CRDCN Template for Research Data Centres and External Analysis 2"
+msgid "CRDCN Template for Research Data Centres and External Analysis"
 msgstr ""
 
 msgid "Template for Water Quality Research"
@@ -201,12 +195,6 @@ msgid "Template for Open Science Workflows"
 msgstr ""
 
 msgid "Template for Neuroimaging in the Neurosciences"
-msgstr ""
-
-msgid "Portage Template edited desde que llego lalo"
-msgstr ""
-
-msgid "Portage Template cambiando guidance revisando is_funder?"
 msgstr ""
 
 msgid "This is the generic DMP template for University of Alberta."
@@ -283,9 +271,6 @@ msgstr ""
 msgid ""
 "<p>This template will be used for DMP development by research projects funded "
 "by the Alliance and Food from Thought. Anticipated launch March 2021.</p>"
-msgstr ""
-
-msgid "<p>This is the generic DMP template for Portage.</p>"
 msgstr ""
 
 msgid "<p>This is a test template.</p>"
@@ -516,7 +501,25 @@ msgid ""
 "roughout a research project.&nbsp; </span></p>"
 msgstr ""
 
-msgid "<p>tttt</p>"
+msgid "MICYRN Data Management Plan Initial Phase"
+msgstr ""
+
+msgid "Phase 1: Data Management Plan for Grant Application"
+msgstr ""
+
+msgid "Reproducible findings through deposited data"
+msgstr ""
+
+msgid "University of British Columbia Data Management Questions"
+msgstr ""
+
+msgid "Portage Data Management Questions"
+msgstr ""
+
+msgid "Pre-Project: Prototype"
+msgstr ""
+
+msgid "CEOS Data Management Plan"
 msgstr ""
 
 msgid "Oceans Data Management Plan"
@@ -531,13 +534,7 @@ msgstr ""
 msgid "Phase 1"
 msgstr ""
 
-msgid "York U Data Management Questions edited after publishing"
-msgstr ""
-
 msgid "University of Guelph Agri-Food Funding DMP (Alliance/Food from Thought)  "
-msgstr ""
-
-msgid "Portage Data Management Questions aqui le cambie a la primera phase"
 msgstr ""
 
 msgid "Data management questions"
@@ -579,28 +576,7 @@ msgstr ""
 msgid "University of Alberta Data Management Questions"
 msgstr ""
 
-msgid "MICYRN Data Management Plan Initial Phase"
-msgstr ""
-
-msgid "Phase 1: Data Management Plan for Grant Application"
-msgstr ""
-
-msgid "Reproducible findings through deposited data"
-msgstr ""
-
-msgid "University of British Columbia Data Management Questions"
-msgstr ""
-
-msgid "Portage Data Management Questions"
-msgstr ""
-
-msgid "CRDCN Template for Research Data Centres and External Analysis"
-msgstr ""
-
-msgid "Pre-Project: Prototype"
-msgstr ""
-
-msgid "CEOS Data Management Plan"
+msgid "Phase 2: Data Management Plan for Project Development"
 msgstr ""
 
 msgid "Phase 2"
@@ -616,9 +592,6 @@ msgid "Data Management Plan"
 msgstr ""
 
 msgid "Phase 2: Active Research (Data) Management"
-msgstr ""
-
-msgid "Phase 2: Data Management Plan for Project Development"
 msgstr ""
 
 msgid "Phase 3: Data Protection"
@@ -987,9 +960,6 @@ msgid "Roles and Responsibilities"
 msgstr ""
 
 msgid "Sharing, Reuse, and Preservation"
-msgstr ""
-
-msgid "Data Collection edited after york added guidance"
 msgstr ""
 
 msgid ""
@@ -3278,16 +3248,6 @@ msgstr ""
 msgid ""
 "<span style=\"font-weight: 400;\">If human imaging data are acquired, how will t"
 "he data be anonymized? Will any defacing techniques be used?</span>"
-msgstr ""
-
-msgid ""
-"<p>What types of data will you collect, create, link to, acquire and/or record"
-"?</p>"
-msgstr ""
-
-msgid ""
-"<p><span style=\"font-weight: 400;\">Which RDC datasets will be used in the rese"
-"arch?</span></p>"
 msgstr ""
 
 msgid ""
@@ -5633,12 +5593,6 @@ msgid "<p>test</p>"
 msgstr ""
 
 msgid "<p>No files created</p>"
-msgstr ""
-
-msgid "<p>A default answer</p>"
-msgstr ""
-
-msgid "<p>Defaul anser from super admin</p>"
 msgstr ""
 
 msgid ""
@@ -16275,34 +16229,6 @@ msgid ""
 " or as a full copy of appropriate documents.</span>"
 msgstr ""
 
-msgid "<p>Portage specific guidance</p>"
-msgstr ""
-
-msgid "<p>Example anser</p>"
-msgstr ""
-
-msgid ""
-"<p><span style=\"font-weight: 400;\">Example anser from super admin</span></p>\n"
-"<p>&nbsp;</p>\n"
-"<p><span style=\"font-weight: 400;\">The data source(s) for this project is/are "
-"the &lt;&lt;INSERT NAME OF SURVEYS/ADMINISTRATIVE RECORDS APPROVED&gt;&gt;. Th"
-"e current version(s) is/are: &lt;&lt;Record number&gt;&gt;.</span></p>"
-msgstr ""
-
-msgid ""
-"<p><span style=\"font-weight: 400;\">Example guidance from super admin</span></p"
-">\n"
-"<p>&nbsp;</p>\n"
-"<p><span style=\"font-weight: 400;\">The record number is available on Statistic"
-"s Canada's website which can be accessed directly, or through our website: </s"
-"pan><a href=\"http://crdcn.org/data\"><span style=\"font-weight: 400;\">crdcn.org/"
-"data</span></a><span style=\"font-weight: 400;\">. E.g. Aboriginal People's Surv"
-"ey 2017 Record number:3250 </span><a href=\"https://www23.statcan.gc.ca/imdb/p2"
-"SV.pl?Function=getSurvey&amp;SDDS=3250\"><span style=\"font-weight: 400;\">https:"
-"//www23.statcan.gc.ca/imdb/p2SV.pl?Function=getSurvey&amp;SDDS=3250</span></a>"
-"</p>"
-msgstr ""
-
 #: ../../app/controllers/answers_controller.rb:17
 msgid ""
 "There is no question with id %{question_id} associated to plan id %{plan_id} f"
@@ -17606,6 +17532,10 @@ msgstr ""
 
 #: ../../app/models/plan.rb:57
 msgid "private"
+msgstr ""
+
+#: ../../app/models/plan.rb:214
+msgid "Copy of %{title}"
 msgstr ""
 
 #: ../../app/models/question.rb:153
