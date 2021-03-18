@@ -26,8 +26,13 @@ class ResearchOutputPresenter
   end
 
   # Returns the available licenses for a select tag
-  def selectable_licenses
-    License.selectable.map { |license| [license.name, license.id] }
+  def complete_licenses
+    License.selectable.map { |license| [license.identifier, license.id] }
+  end
+
+  # Returns the available licenses for a select tag
+  def preferred_licenses
+    licenses = License.preferred.map { |license| [license.identifier, license.id] }
   end
 
   # Returns whether or not we should capture the byte_size based on the output_type

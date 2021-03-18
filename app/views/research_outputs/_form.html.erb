@@ -129,22 +129,9 @@ repository_tooltip = _("Repositories preserve, manage, and provide access to man
     </div>
   </div>
 
-  <div class="form-group row">
-    <div class="col-md-12">
-      <span class="col-md-3">
-        <%= f.label(:license_id, _("Initial license"), class: "control-label") %>
-        <%= f.select :license_id, options_for_select(presenter.selectable_licenses, f.object.license&.id),
-                              {
-                                include_blank: _("- Please select one -"),
-                                selected: f.object.license&.id
-                              },
-                              { class: "form-control" } %>
-      </span>
-      <span class="col-md-4">
-        <div>&nbsp;</div>
-        <p><%= _("For guidance on selecting a license:") %><br><a href="https://choosealicense.com/" target="_blank">https://choosealicense.com/</a></p>
-      </span>
-    </div>
+  <div class="form-group row license-selection">
+    <%= render partial: "research_outputs/licenses/form",
+              locals: { research_output: research_output, presenter: presenter } %>
   </div>
 
   <div class="form-group row file-details-section <%= presenter.byte_sizable? ? "" : "hidden" %>">
