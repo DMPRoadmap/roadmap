@@ -155,7 +155,7 @@
   <%# ############################### %>
   <% if prop['type'].eql?('array') %>
     <%# Input field associated with 'Add' and 'Delete' icons %>
-      <%= render(partial: 'shared/dynamic_form/fields/simple_multiple_field', locals: { 
+      <%= render(partial: 'shared/dynamic_form/fields/multiple_field', locals: { 
         f: f, 
         field_values: value,
         readonly: readonly,
