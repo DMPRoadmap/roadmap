@@ -20,6 +20,14 @@
   <% const = prop["const@#{template_locale}"]%>
 
   <%# Constant values are displayed as readonly text field %>
+  <% if prop["hidden"].present?%>
+    <% value = const.present? ? const : value %>
+    <%= create_hidden_field(f, value, field_name) %>
+    
+    <% next %>
+  <% end %>
+
+  <%# Constant values are displayed as readonly text field %>
   <% if const.present?%>
     <%= create_text_field(f, const, field_name, label, field_id, readonly: true, validation: "none", ttip: ttip) %>
     

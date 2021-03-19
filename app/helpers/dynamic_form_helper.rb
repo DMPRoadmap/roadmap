@@ -182,6 +182,15 @@ module DynamicFormHelper
     }
   end
 
+  def create_hidden_field(form, value, name)
+    render partial: "shared/dynamic_form/fields/hidden_field",
+    locals: {
+      f: form,
+      field_value: value,
+      field_name: name
+    }
+  end
+
   def display_validation_message(validations)
     message = ""
     validations.each do |validation|
