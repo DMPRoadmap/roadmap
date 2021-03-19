@@ -60,7 +60,7 @@
                     value: custom_value,
                     class: "form-control #{field_class}",
                     id: field_id  %>
-      <% elsif multiple && value.present?%>
+      <% elsif multiple %>
         <table class="table table-hover linked-fragments-list <%= property_name %>-list list-<%= query_id %>">
           <thead></thead>
           <tbody>
@@ -74,7 +74,7 @@
                     property_name: property_name,
                     query_id: query_id
                   }
-                ) %>
+                ) if value.present? %>
           </tbody>
         </table>
       <% end %>

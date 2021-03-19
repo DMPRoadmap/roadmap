@@ -258,6 +258,7 @@ class MadmpFragmentsController < ApplicationController
   def destroy
     @fragment = MadmpFragment.find(params[:id])
     query_id = params[:query_id]
+    readonly = params[:readonly]
     parent_id = @fragment.parent_id
     dmp_id = @fragment.dmp_id
     property_name = @fragment.additional_info["property_name"]
@@ -269,7 +270,7 @@ class MadmpFragmentsController < ApplicationController
       "fragment_id" =>  parent_id,
       "query_id" => query_id,
       "html" => render_fragment_list(
-        dmp_id, parent_id, @fragment.madmp_schema_id, property_name, nil, query_id
+        dmp_id, parent_id, @fragment.madmp_schema_id, property_name, nil, query_id, readonly
       )
     }
   end
