@@ -43,23 +43,41 @@
                       validation: validation
           } unless validation == "none" %>
 
-      <table class="table table-hover linked-fragments-list <%= property_name %>-list list-<%= query_id %>">
-        <thead></thead>
-        <tbody>
-          <%= render(partial: 'shared/dynamic_form/linked_fragment/list', locals: {
-                  obj_list: value, 
-                  parent_id: parent_id,
-                  schema_id: schema_id,
-                  readonly: true,
-                  deletable: true,
-                  template_locale: locale,
-                  property_name: property_name,
-                  query_id: query_id
-                }
-              ) if multiple && value.present? %>
-        </tbody>
-      </table>
-
+      <% if overridable && !multiple %>
+        <% 
+          style = 'display: none;'
+          custom_value = nil
+          if value.present? && value.additional_info["custom_value"].present?
+            style = ''
+            custom_value = value.additional_info["custom_value"]
+          end
+        %>
+        <% other_field_name = defined?(form_prefix) ? "#{form_prefix}[#{property_name}_custom]" : "#{property_name}_custom" %>
+        <a href="#" class="overridable-link"><%= d_('dmpopidor', 'Element is not in the list.') %></a>
+        <div class="col-md-12 custom-value" style="<%= style %>">
+          <%= f.label other_field_name, d_("dmpopidor", "Custom value: "), class: 'control-label' %>
+          <%= f.text_field other_field_name, 
+                    value: custom_value,
+                    class: "form-control #{field_class}",
+                    id: field_id  %>
+      <% elsif multiple && value.present?%>
+        <table class="table table-hover linked-fragments-list <%= property_name %>-list list-<%= query_id %>">
+          <thead></thead>
+          <tbody>
+            <%= render(partial: 'shared/dynamic_form/linked_fragment/list', locals: {
+                    obj_list: value, 
+                    parent_id: parent_id,
+                    schema_id: schema_id,
+                    readonly: true,
+                    deletable: true,
+                    template_locale: locale,
+                    property_name: property_name,
+                    query_id: query_id
+                  }
+                ) %>
+          </tbody>
+        </table>
+      <% end %>
     </div>
   </fieldset>
 </div>
