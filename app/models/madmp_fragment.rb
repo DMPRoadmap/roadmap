@@ -172,7 +172,12 @@ class MadmpFragment < ActiveRecord::Base
     editable_data.each do |prop, value|
       if value.is_a?(Hash) && value["dbid"].present?
         child = children.exists?(value["dbid"]) ? children.find(value["dbid"]) : MadmpFragment.find(value["dbid"])
-        child_data = child.additional_info["custom_value"].present? ? child.additional_info["custom_value"] : child.get_full_fragment
+        child_data = nil
+        if child.additional_info["custom_value"].present?
+          child_data = { "custom_value" => child.additional_info["custom_value"] }
+        else 
+          child_data = child.get_full_fragment
+        end
         editable_data = editable_data.merge(prop => child_data)
       end
 
