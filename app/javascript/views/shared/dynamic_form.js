@@ -68,7 +68,6 @@ $(() => {
     e.preventDefault();
     const target = $(e.target);
     const selectField = target.parents('.select-field');
-    console.log(selectField);
 
     selectField.find('.custom-value').show();
     selectField.find('.custom-value input').val('');
@@ -85,14 +84,18 @@ $(() => {
     if (selectField.hasClass('select-field') && selectField.hasClass('customizable')) {
       selectField.find('.custom-value').hide();
       selectField.find('.custom-value input').val('');
-    } else if (selectField.hasClass('linked-fragments-select')) {
+    }
+
+    if (selectField.hasClass('linked-fragments-select')) {
       /*
       * Changes the url of the "View" link according to the selected value in the fragment select
       */
       const viewLink = selectField.find('.selected-value a');
       selectField.find('.selected-value span').html(text);
       viewLink.attr('href', viewLink.attr('href').replace(/fragment_id=([^&]+)/, `fragment_id=${value}`));
-    } else if (selectField.hasClass('multiple-select')) {
+    }
+
+    if (selectField.hasClass('multiple-select')) {
       // eslint-disable-next-line
       const confirmed = confirm('Voulez vous ajouter cet élément dans votre plan ?');
       if (confirmed) {
