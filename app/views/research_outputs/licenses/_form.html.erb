@@ -15,7 +15,7 @@ selected = research_output.license_id
 p "SELECTION: #{selected}"
 p "NIL? #{selected.nil?} - NOT ZERO? #{selected != 0} - IN PREFERRED? #{preferred_licenses.map { |array| array[1] }.include?(selected)}"
 
-show_preferred = selected.nil? || selected != 0 || preferred_licenses.map { |array| array[1] }.include?(selected)
+show_preferred = selected.nil? || (selected != 0 && preferred_licenses.map { |array| array[1] }.include?(selected))
 
 options = show_preferred ? preferred_licenses : presenter.complete_licenses
 guidance = show_preferred ? preferred_guidance : default_guidance

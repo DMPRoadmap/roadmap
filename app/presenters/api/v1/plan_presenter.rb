@@ -52,6 +52,10 @@ module Api
         end
       end
 
+      def visibility
+        @plan.visibility == "publicly_visible" ? "public" : "private"
+      end
+
       private
 
       # Retrieve the answers that have the Budget theme
