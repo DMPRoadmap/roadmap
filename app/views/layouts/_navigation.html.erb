@@ -59,7 +59,7 @@
           <%= render "layouts/signin_signout" %>
       </ul>
 
-      <% unless current_page?(controller: 'home', action: 'index') || user_signed_in? %>
+      <% unless user_signed_in? || ((controller_name.eql? "home") && (action_name.eql? "index")) %>
         <%= render partial: 'shared/access_controls', layout: 'shared/modal', locals: { id: "header-signin", title: _('Sign in')} %>
       <% end %>
     </div><!-- /.navbar-collapse -->
