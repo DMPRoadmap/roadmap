@@ -249,7 +249,8 @@ class MadmpFragmentsController < ApplicationController
         @fragment.madmp_schema_id,
         params[:property_name],
         template_locale,
-        query_id
+        query_id,
+        true
       )
     }
   end
@@ -285,7 +286,7 @@ class MadmpFragmentsController < ApplicationController
 
   private
 
-  def render_fragment_list(dmp_id, parent_id, schema_id, property_name, template_locale, query_id = nil)
+  def render_fragment_list(dmp_id, parent_id, schema_id, property_name, template_locale, query_id = nil, readonly = false)
     schema = MadmpSchema.find(schema_id)
     case schema.classname
     when "research_output"
@@ -295,7 +296,7 @@ class MadmpFragmentsController < ApplicationController
         locals: {
           plan: @plan,
           research_outputs: @plan.research_outputs,
-          readonly: false
+          readonly: readonly
         }
       )
     else
@@ -310,7 +311,7 @@ class MadmpFragmentsController < ApplicationController
           parent_id: parent_id,
           obj_list: obj_list,
           schema_id: schema_id,
-          readonly: false,
+          readonly: readonly,
           deletable: true,
           template_locale: template_locale,
           query_id: query_id
