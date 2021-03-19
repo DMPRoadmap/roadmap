@@ -15,11 +15,12 @@ class Api::V0::Madmp::PlansController < Api::V0::BaseController
     end
 
     @plan_fragment = select_research_output(@plan_fragment, research_output_id)
-    if query_params[:mode] == "slim"
-      respond_with @plan_fragment.data
-    else
-      respond_with @plan_fragment.get_full_fragment
-    end
+    fragment_data = query_params[:mode] == "slim" ?  @plan_fragment.data : @plan_fragment.get_full_fragment
+
+    render json: {
+      "data" => fragment_data,
+      "dmp_id" => @plan.json_fragment.id
+    }
   end
 
   def rda_export
