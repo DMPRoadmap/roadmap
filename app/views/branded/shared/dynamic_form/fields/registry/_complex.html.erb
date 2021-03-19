@@ -7,7 +7,7 @@
 <div class="col-md-12">
   <fieldset class="sub-fragment registry">
     <legend class="sub-fragment registry"><%= field_label %></legend>
-    <% if value.present? && !multiple %>
+    <% if !multiple  && value.present? && value.data.present? %>
       <div class="col-md-12 registry-value">
         <%= render(partial: 'madmp_fragments/display', locals: {
                     fragment: value,
@@ -17,7 +17,7 @@
         <span class="intermediate-label"><i><%= d_('dmpopidor', '- or change the selected value -') %></i></span>
       </div>
     <% end %>
-    <div class="col-md-12 dynamic-field select-field <%= multiple ? 'multiple-select' : '' %>"
+    <div class="col-md-12 dynamic-field select-field <%= overridable ? 'customizable' : '' %> <%= multiple ? 'multiple-select' : '' %>"
           data-locale="<%= locale %>"
           data-parent-id="<%= parent_id %>"
           data-query-id="<%= query_id %>"
