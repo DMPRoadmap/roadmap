@@ -29,6 +29,7 @@ $(() => {
         $('#sub-fragment-modal-body').find('#parent_form_index').val(parent.attr('index'));
       },
       error: (err) => {
+        // eslint-disable-next-line no-console
         console.log(err);
       },
     });
@@ -81,6 +82,7 @@ $(() => {
       } else {
         selectField.find('.custom-value').show();
         selectField.find('.custom-value input').val(value);
+        selectField.find('.custom-value span').html(value);
         selectField.find('select').val('').trigger('change');
       }
     }

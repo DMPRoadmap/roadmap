@@ -46,10 +46,11 @@
     <% other_field_name = defined?(form_prefix) ? "#{form_prefix}[#{property_name}_custom]" : "#{property_name}_custom" %>
     <div class="col-md-12 custom-value" style="<%= style %>">
       <%= f.label other_field_name, d_("dmpopidor", "Custom value: "), class: 'control-label' %>
-      <%= f.text_field other_field_name, 
+      <%= f.hidden_field other_field_name, 
                 value: custom_value,
                 class: "form-control #{field_class}",
                 id: field_id  %>
+      <span><%= custom_value %></span>
     </div>
   <% end %>
 </div>
