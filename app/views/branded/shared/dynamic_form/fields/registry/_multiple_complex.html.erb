@@ -1,0 +1,57 @@
+<%# locals: { f, field_label, form_prefix, property_name, select_values, locale, value, parent_id, schema_id, field_class, required, readonly, validation, ttip, default_value, overridable } %>
+<% value ||= default_value %>
+<% include_blank = !value && !default_value %>
+<% field_name = defined?(form_prefix) ? "#{form_prefix}[#{property_name}]" : property_name %>
+<% query_id = Digest::MD5.hexdigest("#{parent_id}-#{property_name}") %>
+
+<div class="col-md-12">
+  <fieldset class="sub-fragment registry">
+    <legend class="sub-fragment registry"><%= field_label %></legend>
+    <div class="col-md-12 dynamic-field select-field multiple-select"
+          data-locale="<%= locale %>"
+          data-parent-id="<%= parent_id %>"
+          data-query-id="<%= query_id %>"
+          data-property-name="<%= property_name %>"
+          data-schema-id="<%= schema_id %>"
+    >
+      <%= select_tag "#{f.object_name}[#{field_name}]",
+                  options_for_select(
+                      select_values.map {|v| [ 
+                              v.to_s(locale), 
+                              select_value(v, locale) 
+                          ] 
+                      }
+                  ),
+                  data: {
+                    "tags" => overridable
+                  },
+                  disabled: readonly,
+                  multiple: false,
+                  include_blank: d_("dmpopidor", "Please select a value you want to add to your plan."),
+                  "data-toggle": "tooltip",
+                  title: ttip,
+                  class: "form-control #{field_class}",
+                  id: field_id  %>
+      <%= render partial: "shared/dynamic_form/validation_indicator", locals: {
+                      validation: validation
+          } unless validation == "none" %>
+
+      <table class="table table-hover linked-fragments-list <%= property_name %>-list list-<%= query_id %>">
+        <thead></thead>
+        <tbody>
+          <%= render(partial: 'shared/dynamic_form/linked_fragment/list', locals: {
+                  obj_list: value, 
+                  parent_id: parent_id,
+                  schema_id: schema_id,
+                  readonly: true,
+                  deletable: true,
+                  template_locale: locale,
+                  property_name: property_name,
+                  query_id: query_id
+                }
+              ) if value.present? %>
+        </tbody>
+      </table>
+    </div>
+  </fieldset>
+</div>

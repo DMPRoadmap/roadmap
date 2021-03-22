@@ -43,7 +43,7 @@
     <% if prop['schema_id'].present? && prop["type"].eql?('object') %>
       <%# Complex registries (value is an object) %>
       <% value = dmp_fragments.find(value["dbid"]) unless value.nil? %>
-      <%= create_complex_registry_field(f, value, form_prefix, key, label, field_id, registryValues, template_locale, current_fragment.id, prop['schema_id'], readonly: readonly, multiple: false, validation: validation, ttip: ttip, default_value: default_value, overridable: overridable) %>
+      <%= create_single_complex_registry_field(f, value, form_prefix, key, label, field_id, registryValues, template_locale, current_fragment.id, prop['schema_id'], readonly: readonly, validation: validation, ttip: ttip, default_value: default_value, overridable: overridable) %>
     <% elsif prop["type"].eql?('array') && prop["items"]['schema_id'].present?%>
       <%# Complex registries that can be selected multiple times %>
       <% 
@@ -54,7 +54,7 @@
         end
         table_header = prop["table_header@#{template_locale}"] ? prop["table_header@#{template_locale}"] : prop["table_header"]
       %>
-      <%= create_complex_registry_field(f, values, form_prefix, key, label, field_id, registryValues, template_locale, current_fragment.id, prop['items']['schema_id'], readonly: readonly, multiple: true, validation: validation, ttip: ttip, default_value: default_value, overridable: overridable) %>
+      <%= create_multiple_complex_registry_field(f, values, form_prefix, key, label, field_id, registryValues, template_locale, current_fragment.id, prop['items']['schema_id'], readonly: readonly, validation: validation, ttip: ttip, default_value: default_value, overridable: overridable) %>
     <% elsif prop["type"].eql?('string')%>
       <%# Simple registries (value in a string) %>
       <%= create_simple_registry_field(f, value, form_prefix, key, label, field_id, registryValues, template_locale, readonly: readonly, validation: validation, ttip: ttip, default_value: default_value, overridable: overridable) %>

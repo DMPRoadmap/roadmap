@@ -10,7 +10,7 @@
     <%= f.label field_id, field_label, class: 'control-label' %>
   </div>
 <% end %>
-<div class="col-md-12 dynamic-field select-field <%= overridable ? 'customizable' : '' %>">
+<div class="col-md-12 dynamic-field select-field single-select">
   <%= select_tag "#{f.object_name}[#{field_name}]",
               options_for_select(
                   select_values.map {|v| [ 
@@ -20,6 +20,9 @@
                   },
                   selected: selected_value
               ),
+              data: {
+                "tags" => overridable
+              },
               disabled: readonly,
               multiple: multiple,
               include_blank: d_("dmpopidor", "Please select a value from the list."),
@@ -41,14 +44,10 @@
       end
     %>
     <% other_field_name = defined?(form_prefix) ? "#{form_prefix}[#{property_name}_custom]" : "#{property_name}_custom" %>
-    <% unless readonly %>
-      <a href="#" class="overridable-link"><%= d_('dmpopidor', 'Element is not in the list.') %></a>
-    <% end %>
     <div class="col-md-12 custom-value" style="<%= style %>">
       <%= f.label other_field_name, d_("dmpopidor", "Custom value: "), class: 'control-label' %>
       <%= f.text_field other_field_name, 
                 value: custom_value,
-                readonly: readonly,
                 class: "form-control #{field_class}",
                 id: field_id  %>
     </div>

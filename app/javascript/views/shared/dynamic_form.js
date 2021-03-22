@@ -64,26 +64,25 @@ $(() => {
       .toggleClass('fa-chevron-left');
   });
 
-  $(document).on('click', '.select-field .overridable-link', (e) => {
-    e.preventDefault();
-    const target = $(e.target);
-    const selectField = target.parents('.select-field');
-
-    selectField.find('.custom-value').show();
-    selectField.find('.custom-value input').val('');
-    selectField.find('select').val('').trigger('change');
-  });
-
   $(document).on('select2:select', (e) => {
     const target = $(e.target);
     const selectField = target.parents('.dynamic-field');
     const data = selectField.find('select').select2('data');
     const value = data[0].id;
     const text = data[0].text;
+    const selected = data[0].selected;
 
-    if (selectField.hasClass('select-field') && selectField.hasClass('customizable')) {
-      selectField.find('.custom-value').hide();
-      selectField.find('.custom-value input').val('');
+    if (!value) return;
+
+    if (selectField.hasClass('single-select') && target.data('tags') === true) {
+      if (selected) {
+        selectField.find('.custom-value').hide();
+        selectField.find('.custom-value input').val('');
+      } else {
+        selectField.find('.custom-value').show();
+        selectField.find('.custom-value input').val(value);
+        selectField.find('select').val('').trigger('change');
+      }
     }
 
     if (selectField.hasClass('linked-fragments-select')) {
@@ -99,19 +98,26 @@ $(() => {
       // eslint-disable-next-line
       const confirmed = confirm('Voulez vous ajouter cet élément dans votre plan ?');
       if (confirmed) {
+        const requestData = {
+          locale: selectField.data('locale'),
+          parent_id: selectField.data('parent-id'),
+          schema_id: selectField.data('schema-id'),
+          query_id: selectField.data('query-id'),
+          property_name: selectField.data('property-name'),
+        };
+        if (selected) {
+          requestData.registry_value_id = value;
+        } else {
+          requestData.custom_value = value;
+        }
+
         $.ajax({
           url: '/madmp_fragments/create_from_registry',
           method: 'get',
-          data: {
-            registry_value_id: value,
-            locale: selectField.data('locale'),
-            parent_id: selectField.data('parent-id'),
-            schema_id: selectField.data('schema-id'),
-            query_id: selectField.data('query-id'),
-            property_name: selectField.data('property-name'),
-          },
+          data: requestData,
         }).done((response) => {
           $(`table.list-${response.query_id} tbody`).html(response.html);
+          selectField.find('select').val('').trigger('change');
         });
       }
     }

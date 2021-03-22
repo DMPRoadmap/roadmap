@@ -111,6 +111,8 @@ class MadmpFragment < ActiveRecord::Base
 
   # Returns a human readable version of the structured answer
   def to_s
+    return additional_info["custom_value"] if additional_info["custom_value"].present?
+
     full_data = get_full_fragment
     displayable = ""
     if json_schema["to_string"]
@@ -255,7 +257,7 @@ class MadmpFragment < ActiveRecord::Base
       schema_prop = schema.schema["properties"][prop]
 
       next if schema_prop.nil? || schema_prop["type"].nil?
-      
+
       if schema_prop["type"].eql?("object") &&
          schema_prop["schema_id"].present?
         sub_data = content # TMP: for readability

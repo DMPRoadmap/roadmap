@@ -220,11 +220,11 @@ class MadmpFragmentsController < ApplicationController
   end
 
   def create_from_registry_value
-    @registry_value = RegistryValue.find(params[:registry_value_id])
     parent_fragment = MadmpFragment.find(params[:parent_id])
     schema = MadmpSchema.find(params[:schema_id])
     template_locale = params[:locale]
     query_id = params[:query_id]
+    is_custom = params[:custom_value].present? ? true : false
 
     @fragment = MadmpFragment.new(
       dmp_id: parent_fragment.dmp_id,
@@ -238,7 +238,13 @@ class MadmpFragmentsController < ApplicationController
     @fragment.classname = schema.classname
     authorize @fragment
 
-    @fragment.save_as_multifrag(@registry_value.data, schema)
+    if is_custom
+      @fragment.additional_info = @fragment.additional_info.merge("custom_value" => params[:custom_value])
+      @fragment.save!
+    else
+      @registry_value = RegistryValue.find(params[:registry_value_id])
+      @fragment.save_as_multifrag(@registry_value.data, schema)
+    end
 
     render json: {
       "fragment_id" =>  parent_fragment.id,

@@ -3,6 +3,7 @@ import {
   failCallback,
 } from '../answers/edit';
 import { Tinymce } from '../../utils/tinymce.js.erb';
+import { Select2 } from '../../utils/select2';
 // import TimeagoFactory from '../../utils/timeagoFactory';
 
 $(() => {
@@ -38,9 +39,7 @@ $(() => {
           selector: `#research_output_${data.research_output.id}_section_${data.section.id} .note`,
           toolbar,
         });
-        $('.select-field select, .linked-fragments-select select').select2({
-          theme: 'bootstrap4',
-        });
+        Select2.init();
       }).fail((error) => {
         failCallback(error, target);
       });
@@ -61,9 +60,7 @@ $(() => {
           selector: `#research_output_${data.research_output.id}_section_${data.section.id} .note`,
           toolbar,
         });
-        $('.select-field select, .linked-fragments-select select').select2({
-          theme: 'bootstrap4',
-        });
+        Select2.init();
       }).fail((error) => {
         failCallback(error, target);
       });

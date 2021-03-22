@@ -15,7 +15,7 @@ class Api::V0::Madmp::PlansController < Api::V0::BaseController
     end
 
     @plan_fragment = select_research_output(@plan_fragment, research_output_id)
-    fragment_data = query_params[:mode] == "slim" ?  @plan_fragment.data : @plan_fragment.get_full_fragment
+    fragment_data = query_params[:mode] == "slim" ? @plan_fragment.data : @plan_fragment.get_full_fragment
 
     render json: {
       "data" => fragment_data,

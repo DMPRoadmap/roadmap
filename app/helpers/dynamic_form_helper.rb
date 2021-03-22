@@ -158,8 +158,8 @@ module DynamicFormHelper
     }
   end
 
-  def create_complex_registry_field(form, value, form_prefix, property_name, label, field_id, select_values, locale, parent_id, schema_id, required: false, validation: nil, html_class: nil, readonly: false, multiple: false, ttip: nil, default_value: nil, overridable: nil)
-    render partial: "shared/dynamic_form/fields/registry/complex",
+  def create_single_complex_registry_field(form, value, form_prefix, property_name, label, field_id, select_values, locale, parent_id, schema_id, required: false, validation: nil, html_class: nil, readonly: false, ttip: nil, default_value: nil, overridable: nil)
+    render partial: "shared/dynamic_form/fields/registry/single_complex",
     locals: {
       f: form,
       value: value,
@@ -172,7 +172,29 @@ module DynamicFormHelper
       schema_id: schema_id,
       field_class: html_class,
       field_id: field_id,
-      multiple: multiple,
+      readonly: readonly,
+      required: required,
+      validation: validation,
+      ttip: ttip,
+      default_value: default_value,
+      overridable: overridable
+    }
+  end
+
+  def create_multiple_complex_registry_field(form, value, form_prefix, property_name, label, field_id, select_values, locale, parent_id, schema_id, required: false, validation: nil, html_class: nil, readonly: false, ttip: nil, default_value: nil, overridable: nil)
+    render partial: "shared/dynamic_form/fields/registry/multiple_complex",
+    locals: {
+      f: form,
+      value: value,
+      form_prefix: form_prefix,
+      property_name: property_name,
+      field_label: label,
+      select_values: select_values,
+      locale: locale,
+      parent_id: parent_id,
+      schema_id: schema_id,
+      field_class: html_class,
+      field_id: field_id,
       readonly: readonly,
       required: required,
       validation: validation,

@@ -1,4 +1,5 @@
 import { Tinymce } from '../../utils/tinymce.js.erb';
+import { Select2 } from '../../utils/select2';
 import getConstant from '../../constants';
 import 'bootstrap-3-typeahead';
 
@@ -150,7 +151,5 @@ $(() => {
       .toggleClass('fa-chevron-right fa-chevron-down');
   });
 
-  $('.select-field select, .linked-fragments-select select').select2({
-    theme: 'bootstrap4',
-  });
+  Select2.init();
 });
