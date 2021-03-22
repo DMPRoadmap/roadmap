@@ -29,7 +29,7 @@
 
   <%# Constant values are displayed as readonly text field %>
   <% if const.present?%>
-    <%= create_text_field(f, const, field_name, label, field_id, readonly: true, validation: "none", ttip: ttip) %>
+    <%= create_const_field(f, const, field_name, label) %>
     
     <% next %>
   <% end %>

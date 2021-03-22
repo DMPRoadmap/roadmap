@@ -205,11 +205,24 @@ module DynamicFormHelper
   end
 
   def create_hidden_field(form, value, name)
-    render partial: "shared/dynamic_form/fields/hidden_field",
+    render partial: "shared/dynamic_form/fields/const_field",
     locals: {
       f: form,
       field_value: value,
-      field_name: name
+      field_name: name,
+      field_label: nil,
+      is_const_field: false
+    }
+  end
+
+  def create_const_field(form, value, name, label)
+    render partial: "shared/dynamic_form/fields/const_field",
+    locals: {
+      f: form,
+      field_value: value,
+      field_name: name,
+      field_label: label,
+      is_const_field: true
     }
   end
 

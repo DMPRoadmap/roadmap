@@ -1,0 +1,16 @@
+<%# locals: { f, field_value, field_label, field_name, is_const_field } %>
+<% field_label = field_label || 'No label defined' %>
+<% field_value ||= default_value %>
+
+<% if is_const_field %>
+    <div class="col-md-12">
+        <%= f.label nil, field_label, class: 'control-label' %>
+    </div>
+    <div class="col-md-12 dynamic-field">
+        <%= field_value %>
+    </div>
+<% end %>
+
+<%= f.hidden_field field_name, 
+        value: field_value,
+        class: "form-control" %>
