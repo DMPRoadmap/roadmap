@@ -267,7 +267,6 @@ module DynamicFormHelper
       when "boolean"
         formated_data[key] = data[key] == "1"
       when "array"
-        next if prop["registry_id"].present? 
 
         formated_data[key] = data[key].is_a?(Array) ? data[key] : [data[key]]
       when "object"
