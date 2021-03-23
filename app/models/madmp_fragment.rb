@@ -155,12 +155,16 @@ class MadmpFragment < ActiveRecord::Base
     }
 
     parent_schema.schema["properties"].each do |key, prop|
-      unless classified_children[key].nil?
-        if prop["type"].eql?("array") && prop["items"]["type"].eql?("object")
+      if prop["type"].eql?("array") && prop["items"]["type"].eql?("object")
+        if classified_children[key].nil?
+          parent_data[key] = []
+        else
           parent_data[key] = classified_children[key].map { |c| { "dbid" => c.id } }
-        elsif prop["type"].eql?("object") && prop["schema_id"].present?
-          parent_data[key] = { "dbid" => classified_children[key][0].id }
         end
+      elsif prop["type"].eql?("object") && prop["schema_id"].present?
+        next if classified_children[key].nil?
+
+        parent_data[key] = { "dbid" => classified_children[key][0].id }
       end
     end
     parent.update!(data: parent_data)
