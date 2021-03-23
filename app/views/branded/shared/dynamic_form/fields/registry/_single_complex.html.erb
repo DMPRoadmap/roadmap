@@ -3,6 +3,7 @@
 <% include_blank = !value && !default_value %>
 <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{property_name}]" : property_name %>
 <% query_id = Digest::MD5.hexdigest("#{parent_id}-#{property_name}") %>
+<% intermediate_message = overridable ? d_("dmpopidor", "Select a value from the list or type a new one.") : d_("dmpopidor", "Select a value from the list.")%>
 
 <div class="col-md-12">
   <fieldset class="sub-fragment registry">
@@ -15,6 +16,7 @@
                     template_locale: locale
         })%>
         <span class="intermediate-label"><i><%= d_('dmpopidor', '- or change the selected value -') %></i></span>
+        <span class="intermediate-label"><i><%= intermediate_message %></i></span>
       </div>
     <% end %>
     <div class="col-md-12 dynamic-field select-field single-select">
@@ -31,7 +33,7 @@
                   },
                   disabled: readonly,
                   multiple: false,
-                  include_blank: d_("dmpopidor", "Please select a value you want to add to your plan."),
+                  include_blank: true,
                   "data-toggle": "tooltip",
                   title: ttip,
                   class: "form-control #{field_class}",

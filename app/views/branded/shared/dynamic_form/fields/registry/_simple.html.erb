@@ -2,6 +2,7 @@
 <% selected_value ||= default_value %>
 <% include_blank = !selected_value && !default_value %>
 <% field_name = defined?(form_prefix) ? "#{form_prefix}[#{property_name}]" : property_name %>
+<% intermediate_message = overridable ? d_("dmpopidor", "Select a value from the list or type a new one.") : d_("dmpopidor", "Select a value from the list.")%>
 
 <% unless field_label.nil? %>
   <% field_label = required ? "* #{field_label}" : field_label%>
@@ -11,6 +12,7 @@
   </div>
 <% end %>
 <div class="col-md-12 dynamic-field select-field single-select">
+  <span class="intermediate-label"><i><%= intermediate_message %></i></span>
   <%= select_tag "#{f.object_name}[#{field_name}]",
               options_for_select(
                   select_values.map {|v| [ 
@@ -25,7 +27,7 @@
               },
               disabled: readonly,
               multiple: multiple,
-              include_blank: d_("dmpopidor", "Please select a value from the list."),
+              include_blank: true,
               "data-toggle": "tooltip",
               title: ttip,
               class: "#{field_class}",

@@ -517,10 +517,16 @@ msgstr ""
 msgid "- or change the selected value -"
 msgstr ""
 
-msgid "Please select a value from the list."
+msgid "Select a value from the list."
 msgstr ""
 
-msgid "Please select a value you want to add to your plan."
+msgid "Select a value from the list or type a new one."
+msgstr ""
+
+msgid "Select a value you want to add to your plan."
+msgstr ""
+
+msgid "Select a value you want to add to your plan or type a new one."
 msgstr ""
 
 msgid "Comments & Guidance"
