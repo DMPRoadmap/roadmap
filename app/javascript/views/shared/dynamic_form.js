@@ -15,26 +15,6 @@ $(() => {
     currentField.remove();
   });
 
-  // When the sub fragment modal opens
-  $('#sub-fragment-modal').on('show.bs.modal', (e) => {
-    // Set the modal content (loads the form)
-    const link = $(e.relatedTarget).data('open');
-    const parent = $(e.relatedTarget).parent();
-    $.ajax({
-      url: link,
-      method: 'get',
-      success: (data) => {
-        $('#sub-fragment-modal-body').html(data);
-        $('#sub-fragment-modal-body').find('#parent_form_id').val(parent.attr('for'));
-        $('#sub-fragment-modal-body').find('#parent_form_index').val(parent.attr('index'));
-      },
-      error: (err) => {
-        // eslint-disable-next-line no-console
-        console.log(err);
-      },
-    });
-  });
-
   $(document).on('click', '.linked-fragments-list .actions .delete', (e) => {
     const target = $(e.target);
     // TODO : replace confirm()
