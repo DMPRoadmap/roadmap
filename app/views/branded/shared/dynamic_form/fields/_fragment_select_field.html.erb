@@ -2,8 +2,6 @@
 <% query_id = Digest::MD5.hexdigest("#{parent_id}-#{property_name}") %>
 
 <% unless field_label.nil?%>
-  <% field_label = required ? "* #{field_label}" : field_label%>
-
   <div class="col-md-12">
     <%= f.label field_id, field_label, class: 'control-label' %>
   </div>
@@ -21,10 +19,6 @@
     "data-toggle": "tooltip",
     title: ttip,
     class: "form-control" %>
-  <%= render partial: "shared/dynamic_form/validation_indicator", locals: {
-          validation: validation
-  } unless validation == "none"
-  %>
 
   <% unless parent_id.nil? || readonly %>
     <span data-toggle="modal" data-target="#modal-window">

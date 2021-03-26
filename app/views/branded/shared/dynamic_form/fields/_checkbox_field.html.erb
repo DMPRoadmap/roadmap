@@ -11,9 +11,4 @@
             disabled: readonly,
             class: "form-control #{field_class}",
             id: field_id  %>
-
-  <%= render partial: "shared/dynamic_form/validation_indicator", locals: {
-                validation: validation
-      } unless validation == "none"
-  %>
 </div>

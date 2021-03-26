@@ -5,8 +5,6 @@
 <% intermediate_message = overridable ? d_("dmpopidor", "Select a value from the list or type a new one.") : d_("dmpopidor", "Select a value from the list.")%>
 
 <% unless field_label.nil? %>
-  <% field_label = required ? "* #{field_label}" : field_label%>
-
   <div class="col-md-12">
     <%= f.label field_id, field_label, class: 'control-label' %>
   </div>
@@ -32,9 +30,6 @@
               title: ttip,
               class: "#{field_class}",
               id: field_id  %>
-  <%= render partial: "shared/dynamic_form/validation_indicator", locals: {
-                  validation: validation
-      } unless validation == "none" %>
 
   <% if overridable && !multiple %>
     <% 

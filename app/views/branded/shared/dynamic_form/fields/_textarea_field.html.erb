@@ -1,6 +1,5 @@
 <%# locals: { f, field_label, field_id, field_name, multiple, classname, field_name, field_id, required, readonly, validation, ttip, example } %>
 <% field_label = field_label || 'No label defined' %>
-<% field_label = required ? "* #{field_label}" : field_label%>
 <% field_value ||= default_value %>
 <% unless multiple %>
   <div class="col-md-12">
@@ -25,11 +24,6 @@
       <% end %>
     </div>
   <% end %>
-  
-  <%= render partial: "shared/dynamic_form/validation_indicator", locals: {
-                validation: validation
-      } unless validation == "none"
-  %>
 </div>
 
 <% if example.present? %>
