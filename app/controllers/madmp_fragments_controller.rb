@@ -264,7 +264,7 @@ class MadmpFragmentsController < ApplicationController
       madmp_schema: schema,
       data: {
         "person" => { "dbid" => person_id },
-        "role" => nil
+        "role" => params[:role]
       },
       additional_info: {
         "property_name" => params[:property_name]
@@ -284,7 +284,7 @@ class MadmpFragmentsController < ApplicationController
         params[:property_name],
         template_locale,
         query_id,
-        false
+        true
       )
     }
   end

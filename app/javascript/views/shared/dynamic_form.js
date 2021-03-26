@@ -107,12 +107,13 @@ $(() => {
   $(document).on('click', '.contributor-field .assign-role', (e) => {
     const target = $(e.target);
     const selectField = target.parents('.dynamic-field');
-    const data = selectField.find('select').select2('data');
+    const userData = selectField.find('.person-selector select').select2('data');
+    const roleData = selectField.find('.role-selector select').select2('data');
     // eslint-disable-next-line
-    const confirmed = confirm('Voulez vous ajouter un nouveau contributeur à votre plan ?');
-    if (confirmed) {
+    if (roleData[0].id && confirm('Voulez vous ajouter un nouveau contributeur à votre plan ?')) {
       const requestData = {
-        person_id: data[0].id,
+        person_id: userData[0].id,
+        role: roleData[0].id,
         locale: target.data('locale'),
         parent_id: target.data('parent-id'),
         schema_id: target.data('schema-id'),

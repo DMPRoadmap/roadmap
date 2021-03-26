@@ -1,12 +1,14 @@
 <%# locals: { f, field_label, persons, contributors, contributor_schema, parent_id, readonly, ttip, template_locale } %>
 <% role_property = contributor_schema.schema["properties"]["role"] %>
+<% role_label = role_property["label@#{template_locale}"]%>
+<% role_tooltip= role_property["tooltip@#{template_locale}"]%>
 <% roles = RegistryValue.where(registry_id: role_property["registry_id"])%>
 <% query_id = Digest::MD5.hexdigest("#{parent_id}-#{property_name}") %>
 <div class="col-md-12 dynamic-field contributor-field">
   <fieldset class="sub-fragment">
     <legend class="sub-fragment" data-toggle="tooltip" data-original-title="<%= ttip %>"><%= field_label %></legend>
 
-    <div class="col-md-12 dynamic-field select-field">
+    <div class="col-md-12 dynamic-field select-field person-selector">
       <span class="intermediate-label"><i><%= d_("dmpopidor", "Select a person from the list and click on \"Assign Role\" to create a new contributor.") %></i></span>
       <%= render(partial: 'shared/dynamic_form/fields/fragment_select_field', locals: {
         f: f,
@@ -23,6 +25,10 @@
         field_label: nil, ttip: nil, answer_id: nil 
         }
       ) %>
+    </div>
+    
+    <div class="col-md-12 role-selector">
+      <%= create_simple_registry_field(f, nil, nil, nil, role_label, nil, roles, template_locale, readonly: readonly, validation: "none", ttip: role_tooltip, default_value: nil, overridable: false) %>
     </div>
     <div class="col-md-12">
       <% unless parent_id.nil? || readonly %>
@@ -49,7 +55,7 @@
                   contributors: contributors, 
                   parent_id: parent_id,
                   schema_id: contributor_schema.id,
-                  readonly: readonly,
+                  readonly: true,
                   deletable: !readonly,
                   template_locale: template_locale,
                   property_name: property_name,
