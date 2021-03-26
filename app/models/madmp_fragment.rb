@@ -271,7 +271,8 @@ class MadmpFragment < ActiveRecord::Base
         instantiate unless data[prop].present?
 
         if param_data.present? && param_data[prop].present?
-          if schema_prop.key?("inputType") && schema_prop["inputType"].eql?("pickOrCreate")
+          if schema_prop.key?("inputType") &&
+             schema_prop["inputType"].eql?("pickOrCreate")
             fragmented_data[prop] = content
           elsif schema_prop["overridable"].present? && param_data[prop]["custom_value"].present?
             # if the property is overridable & value is custom, take the value as is
@@ -293,6 +294,16 @@ class MadmpFragment < ActiveRecord::Base
       data: data.merge(fragmented_data),
       additional_info: additional_info.except!("custom_value")
     )
+  end
+
+  def get_property(property_name)
+    return if data.empty? || data[property_name].nil?
+
+    if data[property_name]["dbid"].present?
+      MadmpFragment.find(data[property_name]["dbid"])
+    else
+      data[property_name]
+    end
   end
 
   def self.find_sti_class(type_name)

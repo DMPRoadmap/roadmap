@@ -1,4 +1,4 @@
-<%# locals: { f, current_fragment, schema, question_id, readonly, classname, template_locale } %>
+<%# locals: { f, current_fragment, schema, question_id, readonly, classname, template_locale, source } %>
 <% sub_schemas_ids = schema.sub_schemas_ids %>
 <% data = current_fragment.data unless current_fragment.nil? %>
 <% additional_info = current_fragment.additional_info unless current_fragment.nil? %>
@@ -73,7 +73,7 @@
   <% if prop['type'].eql?('object') && prop["schema_id"].present? %>
     <% sub_schema = @schemas.find_by(id: prop["schema_id"]) %>
     <%# Display Fragment selector %>
-    <% if prop["inputType"].eql?("pickOrCreate") %>
+    <% if prop["inputType"].eql?("pickOrCreate") && source.eql?("form") %>
       <% 
         values = dmp_fragments.where(madmp_schema_id: prop["schema_id"])
         value = dmp_fragments.find(value["dbid"]) unless value.nil?
@@ -113,7 +113,8 @@
                 readonly: readonly,
                 classname: sub_schema.classname,
                 form_prefix: field_name,
-                template_locale: template_locale
+                template_locale: template_locale,
+                source: source
               }) %>
         </fieldset>
       </div>
@@ -134,18 +135,34 @@
       end
       table_header = prop["table_header@#{template_locale}"] ? prop["table_header@#{template_locale}"] : prop["table_header"]
     %>
-    <%= render(partial: 'shared/dynamic_form/fields/fragment_list_field', locals: { 
-      field_values: values, 
-      readonly: readonly,
-      parent_id: current_fragment.id,
-      schema: sub_schema,
-      table_header: table_header,
-      template_locale: template_locale,
-      property_name: key,
-      field_label: label, ttip: ttip, answer_id: nil 
-      }
-    ) %>
-  
+    <% if sub_schema.classname.eql?("contributor") %>
+      <% persons = dmp_fragments.where(classname: "person") %>
+      <%= render(partial: 'shared/dynamic_form/fields/contributor/contributor_field', locals: {
+        f: f,
+        field_label: label,
+        contributor_schema: sub_schema,
+        persons: persons, 
+        contributors: values,
+        parent_id: current_fragment.id,
+        property_name: key,
+        readonly: readonly,
+        template_locale: template_locale,
+        ttip: ttip
+        }
+      ) %>
+    <% else %>
+      <%= render(partial: 'shared/dynamic_form/fields/fragment_list_field', locals: { 
+        field_values: values, 
+        readonly: readonly,
+        parent_id: current_fragment.id,
+        schema: sub_schema,
+        table_header: table_header,
+        template_locale: template_locale,
+        property_name: key,
+        field_label: label, ttip: ttip, answer_id: nil 
+        }
+      ) %>
+    <% end %>
     <% next %>
   <% end %>
 

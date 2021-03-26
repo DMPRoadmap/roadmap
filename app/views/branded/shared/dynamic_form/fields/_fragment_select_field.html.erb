@@ -25,30 +25,10 @@
           validation: validation
   } unless validation == "none"
   %>
-  <% unless selected_value.nil?%>
-    <div class="col-md-12 selected-value">
-      <strong><%= d_('dmpopidor', 'Selected value:') %></strong> <span><%= selected_value.to_s %></span>
-      (<%= link_to new_edit_linked_madmp_fragments_url(
-          :fragment_id => selected_value.id,
-          :parent_id => parent_id, 
-          :schema_id => schema.id,
-          :source => "select-modal",
-          :template_locale => template_locale,
-          :query_id => query_id
-        ), {
-          :remote => true, 
-          'data-toggle' => 'modal', 
-          'data-target' => '#modal-window'
-        } do %>
-          <%= _('Edit') %>
-        <% end %>)
-    </div>
-  <% end %>
-</div>
-<div class="col-md-12">
+
   <% unless parent_id.nil? || readonly %>
     <span data-toggle="modal" data-target="#modal-window">
-      <%= link_to d_('dmpopidor', 'Create'), new_edit_linked_madmp_fragments_url(
+      <%= link_to new_edit_linked_madmp_fragments_url(
               nil, 
               :parent_id => parent_id, 
               :schema_id => schema.id, 
@@ -59,10 +39,32 @@
         ),  {
           :remote => true, 
           :target => "_self",
-          :class => "btn btn-primary",
+          :class  => "add-fragment",
           'data-toggle' =>  "tooltip",
           'data-original-title' => d_("dmpopidor", "Click here to add a new item")
-      }  %>
+      } do %>
+        <i class="fa fa-plus-square"></i>
+      <% end %>
     </span>
+  <% end %>
+</div>
+
+<div class="col-md-12 selected-value">
+  <% unless selected_value.nil?%>
+    <strong><%= d_('dmpopidor', 'Selected value:') %></strong> <span><%= selected_value.to_s %></span>
+    (<%= link_to new_edit_linked_madmp_fragments_url(
+        :fragment_id => selected_value.id,
+        :parent_id => parent_id, 
+        :schema_id => selected_value.madmp_schema_id,
+        :source => "select-modal",
+        :template_locale => template_locale,
+        :query_id => query_id
+      ), {
+        :remote => true, 
+        'data-toggle' => 'modal', 
+        'data-target' => '#modal-window'
+      } do %>
+        <%= _('Edit') %>
+      <% end %>)
   <% end %>
 </div>

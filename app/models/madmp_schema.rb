@@ -97,7 +97,8 @@ class MadmpSchema < ActiveRecord::Base
     parameters = []
     schema["properties"].each do |key, prop|
       if prop["type"] == "object" && prop["schema_id"].present?
-        if prop["inputType"].present? && prop["inputType"].eql?("pickOrCreate")
+        if prop["inputType"].present? &&
+           prop["inputType"].eql?("pickOrCreate")
           parameters.append(key)
         elsif prop["registry_id"].present?
           parameters.append(key)

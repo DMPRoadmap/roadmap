@@ -133,7 +133,7 @@ Rails.application.routes.draw do
     get "new_edit_linked", on: :collection, constraints: { format: [:js] }
     get "show_linked", on: :collection, constraints: { format: [:js] }
     get "create_from_registry", action: :create_from_registry_value, on: :collection
-    get "get_fragment/:id", action: :get_fragment, on: :collection, as: :get_fragment
+    get "create_contributor", action: :create_contributor, on: :collection
   end
 
   resources :usage, only: [:index]

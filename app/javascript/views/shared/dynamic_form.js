@@ -104,4 +104,28 @@ $(() => {
       }
     }
   });
+  $(document).on('click', '.contributor-field .assign-role', (e) => {
+    const target = $(e.target);
+    const selectField = target.parents('.dynamic-field');
+    const data = selectField.find('select').select2('data');
+    // eslint-disable-next-line
+    const confirmed = confirm('Voulez vous ajouter un nouveau contributeur à votre plan ?');
+    if (confirmed) {
+      const requestData = {
+        person_id: data[0].id,
+        locale: target.data('locale'),
+        parent_id: target.data('parent-id'),
+        schema_id: target.data('schema-id'),
+        query_id: target.data('query-id'),
+        property_name: target.data('property-name'),
+      };
+      $.ajax({
+        url: '/madmp_fragments/create_contributor',
+        method: 'get',
+        data: requestData,
+      }).done((response) => {
+        $(`table.list-${response.query_id} tbody`).html(response.html);
+      });
+    }
+  });
 });

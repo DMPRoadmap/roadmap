@@ -27,14 +27,12 @@ class MadmpFragmentsController < ApplicationController
 
     if source == "form"
       @fragment.answer = Answer.create!(
-        {
-          research_output_id: p_params[:answer][:research_output_id],
-          plan_id: p_params[:answer][:plan_id],
-          question_id: p_params[:answer][:question_id],
-          lock_version: p_params[:answer][:lock_version],
-          is_common: p_params[:answer][:is_common],
-          user_id: current_user.id
-        }
+        research_output_id: p_params[:answer][:research_output_id],
+        plan_id: p_params[:answer][:plan_id],
+        question_id: p_params[:answer][:question_id],
+        lock_version: p_params[:answer][:lock_version],
+        is_common: p_params[:answer][:is_common],
+        user_id: current_user.id
       )
       @fragment.instantiate
     else
@@ -43,9 +41,7 @@ class MadmpFragmentsController < ApplicationController
         schema_params(schema)
       )
       additional_info = @fragment.additional_info.merge(
-        {
-          "validations" => MadmpFragment.validate_data(data, schema.schema)
-        }
+        "validations" => MadmpFragment.validate_data(data, schema.schema)
       )
       @fragment.assign_attributes(
         additional_info: additional_info
@@ -111,9 +107,7 @@ class MadmpFragmentsController < ApplicationController
         )
         # data = @fragment.data.merge(data)
         additional_info = @fragment.additional_info.merge(
-          {
-            "validations" => MadmpFragment.validate_data(data, schema.schema)
-          }
+          "validations" => MadmpFragment.validate_data(data, schema.schema)
         )
         @fragment.assign_attributes(
           # data: data,
@@ -124,11 +118,9 @@ class MadmpFragmentsController < ApplicationController
         authorize @fragment
         if p_params[:source] == "form"
           @fragment.answer.update!(
-            {
-              lock_version: p_params[:answer][:lock_version],
-              is_common: p_params[:answer][:is_common],
-              user_id: current_user.id
-            }
+            lock_version: p_params[:answer][:lock_version],
+            is_common: p_params[:answer][:is_common],
+            user_id: current_user.id
           )
         end
         # @fragment.save!
@@ -136,10 +128,8 @@ class MadmpFragmentsController < ApplicationController
       rescue ActiveRecord::StaleObjectError
         @stale_fragment = @fragment
         @fragment = MadmpFragment.find_by(
-          {
-            id: params[:id],
-            dmp_id: p_params[:dmp_id]
-          }
+          id: params[:id],
+          dmp_id: p_params[:dmp_id]
         )
       end
       # rubocop:enable Metrics/BlockLength
@@ -256,7 +246,45 @@ class MadmpFragmentsController < ApplicationController
         params[:property_name],
         template_locale,
         query_id,
-        true
+        false
+      )
+    }
+  end
+
+  def create_contributor
+    parent_fragment = MadmpFragment.find(params[:parent_id])
+    schema = MadmpSchema.find(params[:schema_id])
+    template_locale = params[:locale]
+    query_id = params[:query_id]
+    person_id = params[:person_id]
+
+    @contributor = MadmpFragment.new(
+      dmp_id: parent_fragment.dmp_id,
+      parent_id: parent_fragment.id,
+      madmp_schema: schema,
+      data: {
+        "person" => { "dbid" => person_id },
+        "role" => nil
+      },
+      additional_info: {
+        "property_name" => params[:property_name]
+      }
+    )
+    @contributor.classname = schema.classname
+    authorize @contributor
+    return unless @contributor.save!
+
+    render json: {
+      "fragment_id" =>  parent_fragment.id,
+      "query_id" => query_id,
+      "html" => render_fragment_list(
+        @contributor.dmp_id,
+        parent_fragment.id,
+        @contributor.madmp_schema_id,
+        params[:property_name],
+        template_locale,
+        query_id,
+        false
       )
     }
   end
@@ -279,16 +307,6 @@ class MadmpFragmentsController < ApplicationController
         dmp_id, parent_id, @fragment.madmp_schema_id, property_name, nil, query_id, readonly
       )
     }
-  end
-
-  # Gets fragment from a given id
-  def get_fragment
-    @fragment = MadmpFragment.find(params[:id])
-    authorize @fragment
-
-    return unless @fragment.present?
-
-    render json: @fragment.data
   end
 
   private

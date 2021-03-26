@@ -1162,8 +1162,7 @@ header .main-nav {
                 cursor: pointer;
             }
         }
-        &.select-field, &.linked-fragments-select {
-            flex-direction: column;
+        &.select-field, &.linked-fragments-select, &.contributor-field {
             select {
                 width: 100% !important;
             }
@@ -1186,6 +1185,15 @@ header .main-nav {
                     margin-right: 5px;
                     padding: 0;
                 }
+            }
+        }
+        &.select-field, &.contributor-field {
+            flex-direction: column;
+        }
+        &.linked-fragments-select {
+            flex-direction: row;
+            .add-fragment {
+                padding-left: 5px;
             }
         }
         .linked-fragments-list {
