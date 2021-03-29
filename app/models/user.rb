@@ -230,7 +230,7 @@ class User < ApplicationRecord
   #
   # Returns UserIdentifier
   def identifier_for(scheme)
-    identifiers.by_scheme_name(scheme, "User").first
+    identifiers.by_scheme_name(scheme, "User")&.first
   end
 
   # Checks if the user is a super admin. If the user has any privelege which requires
