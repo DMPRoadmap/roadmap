@@ -107,6 +107,10 @@ gem "omniauth-orcid"
 #   https://nvd.nist.gov/vuln/detail/CVE-2015-9284
 gem "omniauth-rails_csrf_protection"
 
+# Doorkeeper is a gem (Rails engine) that makes it easy to introduce OAuth 2 provider functionality
+# to your Ruby on Rails or Grape application. https://github.com/doorkeeper-gem/doorkeeper
+gem "doorkeeper", "~> 5.5"
+
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
 gem "jwt"
 

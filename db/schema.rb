@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_16_145725) do
+ActiveRecord::Schema.define(version: 2021_03_25_214804) do
 
   create_table "annotations", id: :integer, force: :cascade do |t|
     t.integer "question_id"
@@ -47,19 +47,15 @@ ActiveRecord::Schema.define(version: 2021_03_16_145725) do
     t.index ["answer_id"], name: "index_answers_question_options_on_answer_id"
   end
 
-  create_table "api_clients", id: :integer, force: :cascade do |t|
-    t.string "name", null: false
-    t.string "description"
-    t.string "homepage"
-    t.string "contact_name"
-    t.string "contact_email", null: false
-    t.string "client_id", null: false
-    t.string "client_secret", null: false
-    t.datetime "last_access"
+  create_table "api_client_authorizations", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "api_client_id"
+    t.string "approval_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "org_id"
-    t.index ["name"], name: "index_api_clients_on_name"
+    t.index ["api_client_id"], name: "index_api_client_authorizations_on_api_client_id"
+    t.index ["approval_token"], name: "index_api_client_authorizations_on_approval_token"
+    t.index ["user_id"], name: "index_api_client_authorizations_on_user_id"
   end
 
   create_table "conditions", id: :integer, force: :cascade do |t|
@@ -171,6 +167,37 @@ ActiveRecord::Schema.define(version: 2021_03_16_145725) do
     t.index ["url"], name: "index_licenses_on_url"
   end
 
+  create_table "metadata_categories", force: :cascade do |t|
+    t.string "uri", null: false
+    t.string "label", null: false
+    t.bigint "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_metadata_categories_on_parent_id"
+  end
+
+  create_table "metadata_categories_standards", force: :cascade do |t|
+    t.bigint "metadata_category_id", null: false
+    t.bigint "metadata_standard_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["metadata_category_id"], name: "index_metadata_categories_standards_on_metadata_category_id"
+    t.index ["metadata_standard_id"], name: "index_metadata_categories_standards_on_metadata_standard_id"
+  end
+
+  create_table "metadata_standards", force: :cascade do |t|
+    t.string "title"
+    t.string "rdamsc_id"
+    t.text "description"
+    t.string "uri"
+    t.json "locations"
+    t.json "related_entities"
+    t.bigint "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_metadata_standards_on_parent_id"
+  end
+
   create_table "mime_types", force: :cascade do |t|
     t.string "description", null: false
     t.string "category", null: false
@@ -216,21 +243,21 @@ ActiveRecord::Schema.define(version: 2021_03_16_145725) do
 
   create_table "oauth_access_grants", force: :cascade do |t|
     t.integer "resource_owner_id", null: false
-    t.bigint "application_id", null: false
+    t.integer "application_id", null: false
     t.string "token", null: false
     t.integer "expires_in", null: false
     t.text "redirect_uri", null: false
     t.datetime "created_at", null: false
     t.datetime "revoked_at"
     t.string "scopes", default: "", null: false
-    t.index ["application_id"], name: "index_oauth_access_grants_on_application_id"
+    t.index ["application_id"], name: "fk_rails_b4b53e07b8"
     t.index ["resource_owner_id"], name: "index_oauth_access_grants_on_resource_owner_id"
     t.index ["token"], name: "index_oauth_access_grants_on_token", unique: true
   end
 
   create_table "oauth_access_tokens", force: :cascade do |t|
-    t.integer "resource_owner_id", null: false
-    t.bigint "application_id", null: false
+    t.integer "resource_owner_id"
+    t.integer "application_id", null: false
     t.string "token", null: false
     t.string "refresh_token"
     t.integer "expires_in"
@@ -238,24 +265,28 @@ ActiveRecord::Schema.define(version: 2021_03_16_145725) do
     t.datetime "created_at", null: false
     t.string "scopes"
     t.string "previous_refresh_token", default: "", null: false
-    t.index ["application_id"], name: "index_oauth_access_tokens_on_application_id"
+    t.index ["application_id"], name: "fk_rails_732cb83ab7"
     t.index ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true
     t.index ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id"
     t.index ["token"], name: "index_oauth_access_tokens_on_token", unique: true
   end
 
-  create_table "oauth_applications", force: :cascade do |t|
+  create_table "oauth_applications", id: :integer, force: :cascade do |t|
     t.string "name", null: false
-    t.string "uid", null: false
-    t.string "secret", null: false
-    t.text "redirect_uri"
-    t.string "scopes", default: "", null: false
-    t.boolean "confidential", default: true, null: false
+    t.string "description"
+    t.string "homepage"
+    t.string "contact_name"
+    t.string "contact_email", null: false
+    t.string "uid", default: "", null: false
+    t.string "secret", default: "", null: false
+    t.datetime "last_access"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "owner_id"
-    t.string "owner_type"
-    t.index ["owner_id", "owner_type"], name: "index_oauth_applications_on_owner_id_and_owner_type"
+    t.integer "org_id"
+    t.text "redirect_uri"
+    t.string "scopes", default: "", null: false
+    t.boolean "confidential", default: true
+    t.index ["name"], name: "index_oauth_applications_on_name"
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
@@ -278,6 +309,13 @@ ActiveRecord::Schema.define(version: 2021_03_16_145725) do
     t.index ["name"], name: "index_org_indices_on_name"
     t.index ["org_id"], name: "index_org_indices_on_org_id"
     t.index ["ror_id"], name: "index_org_indices_on_ror_id"
+  end
+
+  create_table "org_token_permissions", id: :integer, unsigned: true, force: :cascade do |t|
+    t.integer "org_id", null: false
+    t.integer "token_permission_type_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "orgs", id: :integer, force: :cascade do |t|
@@ -667,6 +705,8 @@ ActiveRecord::Schema.define(version: 2021_03_16_145725) do
   add_foreign_key "conditions", "questions"
   add_foreign_key "guidance_groups", "orgs"
   add_foreign_key "guidances", "guidance_groups"
+  add_foreign_key "metadata_categories", "metadata_categories", column: "parent_id"
+  add_foreign_key "metadata_standards", "metadata_standards", column: "parent_id"
   add_foreign_key "notes", "answers"
   add_foreign_key "notes", "users"
   add_foreign_key "notification_acknowledgements", "notifications"
