@@ -12,22 +12,20 @@ Doorkeeper.configure do
     # Example implementation:
     #   User.find_by(id: session[:user_id]) || redirect_to(new_user_session_url)
 
-p "AUTHENTICATING RO!!!!!!!!"
-p "SIGNED IN? #{user_signed_in?}, REFERER: #{request.referer}, USER: #{current_user}"
+p "AUTHENTICATING RO"
 
+    # Stash the original referer URL in the session in case we need to ask the user to login
     session[:redirect_uri] = request.referer unless user_signed_in?
     session.delete(:redirect_uri) if user_signed_in?
 
-    if user_signed_in?
-      current_user
-    else
-      redirect_to(new_user_oauth_session_url)
-    end
-    # User.authenticate(params[:email], params[:token]) || redirect_to(new_user_session_url)
+    user_signed_in? ? current_user : redirect_to(new_user_oauth_session_url)
   end
 
+  # Org Admin login
   resource_owner_from_credentials do
-p params
+
+p "LOADING RO FROM CREDS"
+
     User.find_by("LOWER(email) = ? AND LOWER(api_token) = ?", params[:email].downcase, params[:password].downcase) ||
       redirect_to(new_user_session_url)
   end
@@ -415,7 +413,6 @@ p "AUTHENTICATING ADMIN!!!!!!!!"
   #   client.grant_flows.include?(grant_flow)
 
 p "FLOW: #{grant_flow}, CLIENT: #{client.inspect}"
-
   end
 
   # If you need arbitrary Resource Owner-Client authorization you can enable this option
@@ -428,8 +425,11 @@ p "FLOW: #{grant_flow}, CLIENT: #{client.inspect}"
   authorize_resource_owner_for_client do |client, resource_owner|
 
 p "AUTHORIZING RO (#{resource_owner&.email}) FOR CLIENT #{client&.name}!!!!!!!!"
+p resource_owner
 
-    resource_owner.can_super_admin? || client.owners_whitelist.include?(resource_owner)
+    resource_owner.present?
+
+#     resource_owner.can_super_admin? || client.owners_whitelist.include?(resource_owner)
   end
 
   # Hook into the strategies' request & response life-cycle in case your
@@ -471,7 +471,8 @@ p "AUTHORIZING RO (#{resource_owner&.email}) FOR CLIENT #{client&.name}!!!!!!!!"
   #
   skip_authorization do |resource_owner, client|
   #   client.superapp? or resource_owner.admin?
-    true
+    # If the User has already given their permission to the client for the specified scope
+    resource_owner.access_grants.select { |gs| gs.application_id = client.id }.any?
   end
 
   # Configure custom constraints for the Token Introspection request.

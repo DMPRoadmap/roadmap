@@ -245,7 +245,9 @@ Rails.application.routes.draw do
       post :test, controller: "oauth_test"
 
       # Endpoint used by the OAuth workflow.
-      get :me, controller: "api/v1/base_api"
+      get :me, controller: "api/v1/oauth_test"
+
+      get :test, controller: "api/v1/oauth_test"
 
       resources :plans, only: %i[create show index]
       resources :templates, only: [:index]

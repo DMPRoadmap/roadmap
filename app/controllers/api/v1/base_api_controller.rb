@@ -34,9 +34,13 @@ module Api
       def me
         return {} unless doorkeeper_token.present?
 
+        user = User.includes(:plans).find_by(id: doorkeeper_token.resource_owner_id)
+        return {} unless user.present?
+
         render json: {
-          email: current_user.email,
-          code: doorkeeper_token
+          email: user.email,
+          token: doorkeeper_token.token,
+          plan_count: user.plans.select { |plan| plan.complete && !plan.is_test? }.length
         }
       end
 
