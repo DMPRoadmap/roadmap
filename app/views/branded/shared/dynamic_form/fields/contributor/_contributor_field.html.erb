@@ -1,35 +1,26 @@
-<%# locals: { f, field_label, persons, contributors, contributor_schema, parent_id, readonly, ttip, template_locale } %>
+<%# locals: { f, field_label, persons, contributors, contributor_schema, current_fragment, readonly, ttip, template_locale } %>
+<% parent_id = current_fragment.id %>
 <% role_property = contributor_schema.schema["properties"]["role"] %>
 <% role_label = role_property["label@#{template_locale}"]%>
 <% role_tooltip= role_property["tooltip@#{template_locale}"]%>
 <% roles = RegistryValue.where(registry_id: role_property["registry_id"])%>
-<% query_id = Digest::MD5.hexdigest("#{parent_id}-#{property_name}") %>
+<% query_id = Digest::MD5.hexdigest("#{current_fragment.id}-#{property_name}") %>
 <div class="col-md-12 dynamic-field contributor-field">
   <fieldset class="sub-fragment">
     <legend class="sub-fragment" data-toggle="tooltip" data-original-title="<%= ttip %>"><%= field_label %></legend>
+    <%= render(partial: 'shared/dynamic_form/form', locals: { 
+                    f: f, 
+                    current_fragment: current_fragment,
+                    schema: contributor_schema,
+                    question_id: nil,
+                    readonly: readonly,
+                    classname: contributor_schema.classname,
+                    form_prefix: nil,
+                    template_locale: template_locale,
+                    source: "form"
+                  }) %>
 
-    <div class="col-md-12 dynamic-field select-field person-selector">
-      <span class="intermediate-label"><i><%= d_("dmpopidor", "Select a person from the list and click on \"Assign Role\" to create a new contributor.") %></i></span>
-      <%= render(partial: 'shared/dynamic_form/fields/fragment_select_field', locals: {
-        f: f,
-        select_values: persons,
-        selected_value: persons.first,
-        readonly: readonly,
-        parent_id: parent_id,
-        schema: persons.first.madmp_schema,
-        required: false,
-        template_locale: template_locale,
-        property_name: property_name,
-        field_id: nil, field_name: nil,
-        validation: "none",
-        field_label: nil, ttip: nil, answer_id: nil 
-        }
-      ) %>
-    </div>
-    
-    <div class="col-md-12 role-selector">
-      <%= create_simple_registry_field(f, nil, nil, nil, role_label, nil, roles, template_locale, readonly: readonly, validation: "none", ttip: role_tooltip, default_value: nil, overridable: false) %>
-    </div>
+    <span class="intermediate-label"><i><%= d_("dmpopidor", "Select a person from the list and click on \"Assign Role\" to create a new contributor.") %></i></span>
     <div class="col-md-12">
       <% unless parent_id.nil? || readonly %>
         <span class="btn btn-primary assign-role"

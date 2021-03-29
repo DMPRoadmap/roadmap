@@ -526,6 +526,9 @@ msgstr "Sélectionnez une valeur pour l'ajouter à votre plan ou saisissez une n
 msgid "Select a person from the list and click on \"Assign Role\" to create a new contributor."
 msgstr "Sélectionnez une personne dans la liste et cliquez sur \"Assigner rôle\" pour créer un nouveau contributeur."
 
+msgid "Select a person from the list."
+msgstr "Sélectionnez une personne dans la liste."
+
 msgid "Assign Role"
 msgstr "Assigner rôle"
 
