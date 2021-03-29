@@ -11,8 +11,8 @@ class SessionsController < Devise::SessionsController
   # rubocop:disable Metrics/AbcSize
   def create
     existing_user = User.find_by(email: params[:user][:email])
-    unless existing_user.nil?
 
+    unless existing_user.nil?
       # Until ORCID login is supported
       unless session["devise.shibboleth_data"].nil?
         args = {
@@ -30,6 +30,7 @@ class SessionsController < Devise::SessionsController
 
     super do
       if !@ui.nil? && @ui.save
+        # This is a user attempting to link their account via the Edit Profile page
         # rubocop:disable Layout/LineLength
         flash[:notice] = _("Your account has been successfully linked to your institutional credentials. You will now be able to sign in with them.")
         # rubocop:enable Layout/LineLength

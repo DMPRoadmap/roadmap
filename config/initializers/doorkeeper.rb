@@ -13,12 +13,16 @@ Doorkeeper.configure do
     #   User.find_by(id: session[:user_id]) || redirect_to(new_user_session_url)
 
 p "AUTHENTICATING RO!!!!!!!!"
+p "SIGNED IN? #{user_signed_in?}, REFERER: #{request.referer}, USER: #{current_user}"
 
     session[:redirect_uri] = request.referer unless user_signed_in?
     session.delete(:redirect_uri) if user_signed_in?
 
-    current_user || redirect_to(new_user_oauth_session_url)
-
+    if user_signed_in?
+      current_user
+    else
+      redirect_to(new_user_oauth_session_url)
+    end
     # User.authenticate(params[:email], params[:token]) || redirect_to(new_user_session_url)
   end
 
