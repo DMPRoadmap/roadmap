@@ -26,8 +26,11 @@
 
 class ApiClient < ApplicationRecord
 
+  self.table_name = "oauth_applications"
+
   include DeviseInvitable::Inviter
   include Subscribable
+  include ::Doorkeeper::Orm::ActiveRecord::Mixins::Application
 
   extend UniqueRandom
 
@@ -39,10 +42,9 @@ class ApiClient < ApplicationRecord
 
   has_many :plans
 
-  # If the Client_id or client_secret are nil generate them
-  attribute :client_id, :string, default: -> { unique_random(field_name: "client_id") }
-  attribute :client_secret, :string,
-            default: -> { unique_random(field_name: "client_secret") }
+  has_many :access_tokens, class_name: '::Doorkeeper::AccessToken',
+                           foreign_key: :resource_owner_id,
+                           dependent: :delete_all
 
   # ===============
   # = Validations =
@@ -54,9 +56,6 @@ class ApiClient < ApplicationRecord
 
   validates :contact_email, presence: { message: PRESENCE_MESSAGE },
                             email: { allow_nil: false }
-
-  validates :client_id, presence: { message: PRESENCE_MESSAGE }
-  validates :client_secret, presence: { message: PRESENCE_MESSAGE }
 
   # =========================
   # = Custom Accessor Logic =
@@ -75,17 +74,6 @@ class ApiClient < ApplicationRecord
   # Override the to_s method to keep the id and secret hidden
   def to_s
     name
-  end
-
-  # Verify that the incoming secret matches
-  def authenticate(secret:)
-    client_secret == secret
-  end
-
-  # Generate UUIDs for the client_id and client_secret
-  def generate_credentials
-    self.client_id = ApiClient.unique_random(field_name: "client_id")
-    self.client_secret = ApiClient.unique_random(field_name: "client_secret")
   end
 
 end

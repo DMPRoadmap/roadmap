@@ -13,11 +13,12 @@ module Api
       respond_to :json
 
       # Verify the JWT
-      before_action :authorize_request, except: %i[heartbeat]
+      before_action :authorize_request, except: %i[heartbeat me]
+      # before_action :doorkeeper_authorize!, only: %i[me]
 
       # Prep default instance variables for views
       before_action :base_response_content
-      before_action :pagination_params, except: %i[heartbeat]
+      before_action :pagination_params, except: %i[heartbeat me]
 
       # Parse the incoming JSON
       before_action :parse_request, only: %i[create update]
@@ -27,6 +28,16 @@ module Api
       # GET /api/v1/heartbeat
       def heartbeat
         render "/api/v1/heartbeat", status: :ok
+      end
+
+      # GET /api/v1/me.json
+      def me
+        return {} unless doorkeeper_token.present?
+
+        render json: {
+          email: current_user.email,
+          code: doorkeeper_token
+        }
       end
 
       protected

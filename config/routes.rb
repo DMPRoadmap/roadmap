@@ -4,6 +4,11 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  use_doorkeeper do
+    skip_controllers :applications, :authorized_applications
+  end
+  get "oauth/sign_in", as: :new_user_oauth_session, controller: "oauths", action: "new"
+
   devise_for(:users, controllers: {
                registrations: "registrations",
                passwords: "passwords",
@@ -236,14 +241,11 @@ Rails.application.routes.draw do
     end
 
     scope :v1 do
-      get :heartbeat, controller: "base_api"
-
-      use_doorkeeper do
-        skip_controllers :authorizations, :applications, :authorized_applications
-      end
+      get :heartbeat, controller: "api/v1/base_api"
       post :test, controller: "oauth_test"
 
-      # post :authenticate, controller: "authentication"
+      # Endpoint used by the OAuth workflow.
+      get :me, controller: "api/v1/base_api"
 
       resources :plans, only: %i[create show index]
       resources :templates, only: [:index]

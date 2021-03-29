@@ -14,7 +14,12 @@ Doorkeeper.configure do
 
 p "AUTHENTICATING RO!!!!!!!!"
 
-    User.authenticate(params[:email], params[:token]) || redirect_to(new_user_session_url)
+    session[:redirect_uri] = request.referer unless user_signed_in?
+    session.delete(:redirect_uri) if user_signed_in?
+
+    current_user || redirect_to(new_user_oauth_session_url)
+
+    # User.authenticate(params[:email], params[:token]) || redirect_to(new_user_session_url)
   end
 
   resource_owner_from_credentials do
@@ -70,6 +75,7 @@ p "AUTHENTICATING ADMIN!!!!!!!!"
   #     destroy
   #   end
   # end
+  application_class "::ApiClient"
 
   # Enables polymorphic Resource Owner association for Access Tokens and Access Grants.
   # By default this option is disabled.
@@ -146,7 +152,7 @@ p "AUTHENTICATING ADMIN!!!!!!!!"
   #
   # You can not enable this option together with +hash_token_secrets+.
   #
-  # reuse_access_token
+  reuse_access_token
 
   # In case you enabled `reuse_access_token` option Doorkeeper will try to find matching
   # token using `matching_token_for` Access Token API that searches for valid records
@@ -242,8 +248,8 @@ p "AUTHENTICATING ADMIN!!!!!!!!"
   # For more information go to
   # https://doorkeeper.gitbook.io/guides/ruby-on-rails/scopes
   #
-  # default_scopes  :public
-  # optional_scopes :write, :update
+  default_scopes  :public
+  optional_scopes :read, :write, :update
 
   # Allows to restrict only certain scopes for grant_type.
   # By default, all the scopes will be available for all the grant types.
@@ -252,13 +258,15 @@ p "AUTHENTICATING ADMIN!!!!!!!!"
   # values should be the array of scopes for that grant type.
   # Note: scopes should be from configured_scopes (i.e. default or optional)
   #
-  # scopes_by_grant_type password: [:write], client_credentials: [:update]
+  scopes_by_grant_type password: %i[read write update],
+                       client_credentials: %i[public],
+                       authorization_code: %i[read]
 
   # Forbids creating/updating applications with arbitrary scopes that are
   # not in configuration, i.e. +default_scopes+ or +optional_scopes+.
   # (disabled by default)
   #
-  # enforce_configured_scopes
+  enforce_configured_scopes
 
   # Change the way client credentials are retrieved from the request object.
   # By default it retrieves first from the `HTTP_AUTHORIZATION` header, then
@@ -370,7 +378,7 @@ p "AUTHENTICATING ADMIN!!!!!!!!"
   #                         passing :client_id (:email), :client_secret (:api_token) here
   #
   # See https://alexbilbie.com/guide-to-oauth-2-grants/ for a good explanation of the flows
-  grant_flows %w[authorization_code client_credentials]
+  grant_flows %w[authorization_code client_credentials password]
 
   # Allows to customize OAuth grant flows that +each+ application support.
   # You can configure a custom block (or use a class respond to `#call`) that must
@@ -415,9 +423,9 @@ p "FLOW: #{grant_flow}, CLIENT: #{client.inspect}"
   #
   authorize_resource_owner_for_client do |client, resource_owner|
 
-p "AUTHORIZING RO FOR CLIENT!!!!!!!!"
+p "AUTHORIZING RO (#{resource_owner&.email}) FOR CLIENT #{client&.name}!!!!!!!!"
 
-    resource_owner.admin? || client.owners_whitelist.include?(resource_owner)
+    resource_owner.can_super_admin? || client.owners_whitelist.include?(resource_owner)
   end
 
   # Hook into the strategies' request & response life-cycle in case your
