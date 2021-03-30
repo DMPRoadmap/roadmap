@@ -21,11 +21,10 @@ module DynamicFormHelper
     }
   end
 
-  def create_textarea_field(form, value, name, label, field_id, required: false, validation: nil, html_class: nil, is_multiple: false, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
+  def create_textarea_field(form, value, name, label, field_id, required: false, validation: nil, html_class: nil, readonly: false, index: 0, ttip: nil, example: nil, default_value: nil)
     render partial: "shared/dynamic_form/fields/textarea_field",
     locals: {
       f: form,
-      multiple: is_multiple,
       index: index,
       field_value: value,
       field_name: name,
