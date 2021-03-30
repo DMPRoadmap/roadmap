@@ -27,7 +27,11 @@ class OrgSelectionPresenter
   end
 
   def select_list
-    @crosswalk.map { |rec| rec[:name] }.to_json
+    begin
+      @crosswalk.map { |rec| rec[:name] }.to_json
+    rescue
+      nil
+    end
   end
 
   def crosswalk_entry_from_org_id(value:)
