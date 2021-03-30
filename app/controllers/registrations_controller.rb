@@ -13,6 +13,11 @@ class RegistrationsController < Devise::RegistrationsController
     @identifier_schemes = IdentifierScheme.for_users.order(:name)
     @default_org = current_user.org
 
+    # choose which org patial to use for choosing org
+    @org_partial = Rails.configuration.x.application.restrict_orgs ? 
+      "shared/org_selectors/local_only" : 
+      "shared/org_selectors/combined"
+
     msg = "No default preferences found (should be in dmproadmap.rb initializer)."
     flash[:alert] = msg unless @prefs
   end
@@ -52,12 +57,16 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
 
+    blank_org = Rails.configuration.x.application.restrict_orgs ?
+                  sign_up_params[:org_id]["id"].blank? :
+                  sign_up_params[:org_id].blank?
+
     if sign_up_params[:accept_terms].to_s == "0"
       redirect_to after_sign_up_error_path_for(resource),
                   alert: _("You must accept the terms and conditions to register.")
-    elsif sign_up_params[:org_id].blank?
+    elsif blank_org
       redirect_to after_sign_up_error_path_for(resource),
-                  alert: _("Please select an organisation from the list, or enter your organisation's name.")
+                  alert: _("Please select an organisation from the list, or choose Other.")
     else
       existing_user = User.where_case_insensitive("email", sign_up_params[:email]).first
       if existing_user.present?
