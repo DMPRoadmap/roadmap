@@ -12,7 +12,7 @@ json.prettify!
 json.ignore_nil!
 
 json.application @application
-json.api_version 1
+json.api_version 2
 json.source "#{request.method} #{request.path}"
 json.time Time.now.to_formatted_s(:iso8601)
 json.caller @caller

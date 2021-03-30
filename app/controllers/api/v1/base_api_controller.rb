@@ -13,12 +13,11 @@ module Api
       respond_to :json
 
       # Verify the JWT
-      before_action :authorize_request, except: %i[heartbeat me]
-      # before_action :doorkeeper_authorize!, only: %i[me]
+      before_action :authorize_request, except: %i[heartbeat]
 
       # Prep default instance variables for views
       before_action :base_response_content
-      before_action :pagination_params, except: %i[heartbeat me]
+      before_action :pagination_params, except: %i[heartbeat]
 
       # Parse the incoming JSON
       before_action :parse_request, only: %i[create update]
@@ -28,20 +27,6 @@ module Api
       # GET /api/v1/heartbeat
       def heartbeat
         render "/api/v1/heartbeat", status: :ok
-      end
-
-      # GET /api/v1/me.json
-      def me
-        return {} unless doorkeeper_token.present?
-
-        user = User.includes(:plans).find_by(id: doorkeeper_token.resource_owner_id)
-        return {} unless user.present?
-
-        render json: {
-          email: user.email,
-          token: doorkeeper_token.token,
-          plan_count: user.plans.select { |plan| plan.complete && !plan.is_test? }.length
-        }
       end
 
       protected

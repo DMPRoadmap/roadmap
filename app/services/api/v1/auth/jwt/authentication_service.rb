@@ -12,8 +12,8 @@ module Api
         #
         #   ApiClients (aka machines) with the following JSON body: {
         #     "grant_type": "client_credentials",
-        #     "client_id": "[api_clients.client_id]",
-        #     "client_secret": "[api_clients.client_secret]",
+        #     "client_id": "[oauth_applications.uid]",
+        #     "client_secret": "[oauth_applications.secret]",
         #   }
         #
         #   Users with the following JSON body: {

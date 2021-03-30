@@ -13,12 +13,13 @@ Doorkeeper.configure do
     #   User.find_by(id: session[:user_id]) || redirect_to(new_user_session_url)
 
 p "AUTHENTICATING RO"
+# pp request.headers
 
     # Stash the original referer URL in the session in case we need to ask the user to login
     session[:redirect_uri] = request.referer unless user_signed_in?
     session.delete(:redirect_uri) if user_signed_in?
 
-    user_signed_in? ? current_user : redirect_to(new_user_oauth_session_url)
+    user_signed_in? ? current_user : redirect_to(new_user_oauth_session_url, format: :html)
   end
 
   # Org Admin login
@@ -236,7 +237,7 @@ p "AUTHENTICATING ADMIN!!!!!!!!"
   # `grant_type` - the grant type of the request (see Doorkeeper::OAuth)
   # `scopes` - the requested scopes (see Doorkeeper::OAuth::Scopes)
   #
-  use_refresh_token
+  # use_refresh_token
 
   # Provide support for an owner to be assigned to each registered application (disabled by default)
   # Optional parameter confirmation: true (default: false) if you want to enforce ownership of
@@ -380,7 +381,7 @@ p "AUTHENTICATING ADMIN!!!!!!!!"
   #                         passing :client_id (:email), :client_secret (:api_token) here
   #
   # See https://alexbilbie.com/guide-to-oauth-2-grants/ for a good explanation of the flows
-  grant_flows %w[authorization_code client_credentials password]
+  grant_flows %w[authorization_code client_credentials]
 
   # Allows to customize OAuth grant flows that +each+ application support.
   # You can configure a custom block (or use a class respond to `#call`) that must
