@@ -27,25 +27,27 @@
         <ul class="nav navbar-nav">
           <% i=1; current_user.org.links['org'].each do |link| %>
             <% if !link.blank? && i <= max_number_links %>
-              <% if i.odd? %>
-                </li><li class="org-links">
-              <% end %>
-              <%= link_to link['link'], :target=>'_blank', :class => 'org-a has-new-window-popup-info' do %>
+              <li class="">
+
+              <%= link_to link['link'], :target=>'_blank', :class => ' has-new-window-popup-info' do %>
                 <i class="fa fa-globe" aria-hidden="true">&nbsp;</i>
                 <%= link['text'].blank? ? link['link'] : link['text'] %>
                 <em class="sr-only"> (new window)</em>
                 <span class="new-window-popup-info"><%= _('Opens in new window') %></span>
+
+                </li>
               <% end; i+=1 %>
             <% end %>
           <% end %>
-          <% if i.odd? %>
-            </li><li class="org-links">
-          <% end %>
+
           <% if !current_user.org.contact_email.blank? %>
-            <%= mail_to current_user.org.contact_email, :class => 'org-a' do %>
+          <li>
+            <%= mail_to current_user.org.contact_email, :class => '' do %>
+            
               <i class="fa fa-envelope" aria-hidden="true">&nbsp;</i>
-              <%= current_user.org.contact_name ? current_user.org.contact_name : current_user.org.contact_email %>
+              <%= current_user.org.contact_name ? current_user.org.contact_name : current_user.org.contact_email %>             
             <% end %>
+           </li>
           <% end %>
         </ul>
       <% end %>
