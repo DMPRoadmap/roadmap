@@ -8,6 +8,24 @@ class Users::InvitationsController < Devise::InvitationsController
   # to the Org after Devise does its thing
   prepend_after_action :handle_org, only: [:update]
 
+  def edit
+    @all_orgs = Org.all
+    # choose which org patial to use for choosing org
+    @org_partial = Rails.configuration.x.application.restrict_orgs ? 
+      "shared/org_selectors/local_only" : 
+      "shared/org_selectors/combined"
+    super
+  end
+
+  def update
+    @all_orgs = Org.all
+    # choose which org patial to use for choosing org
+    @org_partial = Rails.configuration.x.application.restrict_orgs ? 
+      "shared/org_selectors/local_only" : 
+      "shared/org_selectors/combined"
+    super
+  end
+
   protected
 
   # Override require_no_authentication method defined at DeviseController
@@ -52,5 +70,6 @@ class Users::InvitationsController < Devise::InvitationsController
 
     resource.update(org_id: lookup.id)
   end
+
 
 end

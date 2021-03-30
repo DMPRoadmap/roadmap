@@ -12,6 +12,13 @@ class HomeController < ApplicationController
   # User's contact name is not filled in
   # Is this the desired behavior?
   def index
+    @all_orgs = Org.all
+    
+    # choose which org patial to use for choosing org
+    @org_partial = Rails.configuration.x.application.restrict_orgs ? 
+      "shared/org_selectors/local_only" : 
+      "shared/org_selectors/combined"
+
     if user_signed_in?
       name = current_user.name(false)
       # The RolesController defaults the firstname and surname (both required fields)
