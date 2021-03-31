@@ -13,11 +13,12 @@ class HomeController < ApplicationController
   # Is this the desired behavior?
   def index
     @all_orgs = Org.all
-    
+
     # choose which org patial to use for choosing org
-    @org_partial = Rails.configuration.x.application.restrict_orgs ? 
-      "shared/org_selectors/local_only" : 
-      "shared/org_selectors/combined"
+    @org_partial = if Rails.configuration.x.application.restrict_orgs
+                     "shared/org_selectors/local_only"
+                   else
+                     "shared/org_selectors/combined"
 
     if user_signed_in?
       name = current_user.name(false)
