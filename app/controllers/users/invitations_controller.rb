@@ -15,6 +15,7 @@ class Users::InvitationsController < Devise::InvitationsController
                     "shared/org_selectors/local_only"
                    else
                      "shared/org_selectors/combined"
+                   end
     super
   end
 
@@ -25,6 +26,7 @@ class Users::InvitationsController < Devise::InvitationsController
                      "shared/org_selectors/local_only"
                    else
                      "shared/org_selectors/combined"
+                   end
     super
   end
 

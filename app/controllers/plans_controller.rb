@@ -216,6 +216,7 @@ class PlansController < ApplicationController
                      "shared/org_selectors/local_only"
                    else
                      "shared/org_selectors/combined"
+                   end
 
     respond_to :html
   end

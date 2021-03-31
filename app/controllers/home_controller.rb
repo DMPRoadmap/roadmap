@@ -19,6 +19,7 @@ class HomeController < ApplicationController
                      "shared/org_selectors/local_only"
                    else
                      "shared/org_selectors/combined"
+                   end
 
     if user_signed_in?
       name = current_user.name(false)
