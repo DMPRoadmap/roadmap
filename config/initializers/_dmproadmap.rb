@@ -60,7 +60,7 @@ module DMPRoadmap
 
     # Uncomment the following line if you want to redirect your users to an
     # organisational contact/help page instead of using the built-in contact_us form
-    config.x.organisation.contact_us_url = "https://dmptool.org/contact-us"
+    # config.x.organisation.contact_us_url = "https://dmptool.org/contact-us"
 
     # -------------------- #
     # APPLICATION SETTINGS #
