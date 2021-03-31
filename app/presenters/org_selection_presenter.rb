@@ -27,9 +27,8 @@ class OrgSelectionPresenter
   end
 
   def select_list
-    begin
       @crosswalk.map { |rec| rec[:name] }.to_json
-    rescue
+    rescue StandardError => e
       nil
     end
   end
