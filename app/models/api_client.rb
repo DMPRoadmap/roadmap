@@ -64,9 +64,6 @@ class ApiClient < ApplicationRecord
   alias_attribute :client_id, :uid
   alias_attribute :client_secret, :secret
 
-  deprecate :client_id, deprecator: Cleanup::Deprecators::GetDeprecator.new
-  deprecate :client_secret, deprecator: Cleanup::Deprecators::GetDeprecator.new
-
   # =========================
   # = Custom Accessor Logic =
   # =========================
@@ -84,14 +81,6 @@ class ApiClient < ApplicationRecord
   # Override the to_s method to keep the id and secret hidden
   def to_s
     name
-  end
-
-  # Verify that the incoming secret matches
-  def authenticate(secret:)
-    ActiveSupport::Deprecation.warn(
-      "ApiClient.authenticate is only applicable to API V1. It is replaced by Doorkeeper methods."
-    )
-    client_secret == secret
   end
 
 end

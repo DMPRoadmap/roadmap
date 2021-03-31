@@ -9,7 +9,7 @@ class OauthsController < ApplicationController
     redirect_to(root_url) if user_signed_in?
 
     @user = User.new
-    render "oauths/new"
+    render "oauths/new", layout: "oauth"
   end
 
 end
