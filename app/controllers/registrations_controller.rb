@@ -14,9 +14,10 @@ class RegistrationsController < Devise::RegistrationsController
     @default_org = current_user.org
 
     # choose which org patial to use for choosing org
-    @org_partial = Rails.configuration.x.application.restrict_orgs ? 
-      "shared/org_selectors/local_only" : 
-      "shared/org_selectors/combined"
+    @org_partial = if Rails.configuration.x.application.restrict_orgs
+                     "shared/org_selectors/local_only"
+                   else
+                     "shared/org_selectors/combined"
 
     msg = "No default preferences found (should be in dmproadmap.rb initializer)."
     flash[:alert] = msg unless @prefs
@@ -57,8 +58,9 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
 
-    blank_org = Rails.configuration.x.application.restrict_orgs ?
-                  sign_up_params[:org_id]["id"].blank? :
+    blank_org = if Rails.configuration.x.application.restrict_orgs
+                  sign_up_params[:org_id]["id"].blank?
+                else
                   sign_up_params[:org_id].blank?
 
     if sign_up_params[:accept_terms].to_s == "0"
