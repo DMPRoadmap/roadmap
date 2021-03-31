@@ -130,7 +130,7 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/BlockNesting, Layout/LineLength
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/BlockNesting
 
   def update
     if user_signed_in?
@@ -159,6 +159,7 @@ class RegistrationsController < Devise::RegistrationsController
     user.email != update_params[:email] || update_params[:password].present?
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Layout/LineLength, Metrics/BlockNesting
   def do_update(require_password = true, confirm = false)
     mandatory_params = true
     # added to by below, overwritten otherwise
@@ -249,9 +250,9 @@ class RegistrationsController < Devise::RegistrationsController
       render "edit"
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
-  # rubocop:enable
+  # rubocop:enable AbcSize, Layout/LineLength, Metrics/BlockNesting
 
+  # rubocop:disable AbcSize
   def do_update_password(current_user, args)
     if args[:current_password].blank?
       message = _("Please enter your current password")
