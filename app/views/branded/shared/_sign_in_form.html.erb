@@ -1,4 +1,24 @@
-<%# The only DMPTool customization here is commenting out the shib section %>
+  <% if Rails.configuration.x.shibboleth.enabled %>
+    <%= form_for Org.new, url: shibboleth_ds_path, method: :post do |f| %>
+      <div id="shib-ds-org-controls" class="row">
+        <div class="form-group col-md-12">
+          <%= render partial: "shared/org_selectors/local_only",
+                      locals: {
+                          form: f,
+                          id_field: :id,
+                          default_org: nil,
+                          orgs: Org.participating,
+                          required: false,
+                          label: _("Look up your institution here")
+                      } %>
+        </div>
+      </div>
+      <%= button_tag _('Go'), class: "btn btn-default", id: "org-select-go", disabled: "disabled" %>
+
+      <br><br>
+      <p class="fontsize-h4">- <%= _('Or if your institution is not listed') %> -</p>
+    <% end %>
+<% end %>
 
 <%= form_for resource, as: 'user', namespace: 'signin', url: user_session_path, html: {id: "sign_in_form"} do |f| %>
   <div class="form-group">
@@ -18,20 +38,5 @@
       <%= _('Remember email') %>
     <% end %>
   </div>
-
   <%= f.button(_('Sign in'), class: "btn btn-default", type: "submit") %>
-
-  <%# if Rails.configuration.x.shibboleth_enabled %>
-    <%# if session['devise.shibboleth_data'].nil? %>
-      <!-- <p class="text-center fontsize-h4">- <%#= _('or') %> -</p> -->
-      <!-- <div class="form-group"> -->
-        <!-- <span class="center-block btn-group-justified"> -->
-          <%# target = (Rails.configuration.x.shibboleth_use_filtered_discovery_service ? shibboleth_ds_path : user_shibboleth_omniauth_authorize_path) %>
-          <%#= link_to _('Sign in with your institutional credentials'), target, method: :post, class: 'btn btn-default' %>
-        <!-- </span> -->
-      <!-- </div> -->
-    <%# else %>
-      <%#= f.hidden_field :shibboleth_id, :value => session['devise.shibboleth_data']['uid'] %>
-    <%# end %>
-  <%# end %>
 <% end %>
