@@ -250,7 +250,7 @@ class RegistrationsController < Devise::RegistrationsController
       render "edit"
     end
   end
-  # rubocop:disablew Metrics/MethodLength, Layout/LineLength, Metrics/BlockNesting
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Layout/LineLength, Metrics/BlockNesting
 
   def do_update_password(current_user, args)
     if args[:current_password].blank?
