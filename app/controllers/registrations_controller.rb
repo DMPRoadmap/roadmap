@@ -252,6 +252,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Layout/LineLength, Metrics/BlockNesting
 
+  # rubocop:disable Metrics/AbcSize
   def do_update_password(current_user, args)
     if args[:current_password].blank?
       message = _("Please enter your current password")
@@ -277,6 +278,7 @@ class RegistrationsController < Devise::RegistrationsController
       redirect_to "#{edit_user_registration_path}\#password-details"
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def sign_up_params
     params.require(:user).permit(:email, :password, :password_confirmation,
