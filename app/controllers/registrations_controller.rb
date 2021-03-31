@@ -247,6 +247,12 @@ class RegistrationsController < Devise::RegistrationsController
 
     else
       flash[:alert] = message.blank? ? failure_message(current_user, _("save")) : message
+      @orgs = Org.order("name")
+      @org_partial = if Rails.configuration.x.application.restrict_orgs
+                       "shared/org_selectors/local_only"
+                     else
+                       "shared/org_selectors/combined"
+                     end
       render "edit"
     end
   end
