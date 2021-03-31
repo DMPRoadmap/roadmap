@@ -31,6 +31,10 @@
     </div>
   </div>
   <div class="form-group">
+      <%= label_tag(nil, _('Security check')) %>
+      <%= recaptcha_tags %>
+  </div>
+  <div class="form-group">
     <div class="checkbox">
       <%= f.label(:accept_terms) do %>
         <%= f.check_box(:accept_terms, "aria-required": true) %>
@@ -39,5 +43,6 @@
       <% end %>
     </div>
   </div>
+
   <%= f.button(_('Create account'), class: "btn btn-default", type: "submit") %>
 <% end %>
