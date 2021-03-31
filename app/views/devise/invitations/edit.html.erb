@@ -28,9 +28,10 @@
         <%= f.text_field(:surname, class: "form-control", "aria-required": true, value: @user.surname) %>
       </div>
       <div class="form-group" id="invite-org-controls">
-        <%= render partial: "shared/org_selectors/combined",
+        <%= render partial: @org_partial,
                    locals: {
                      form: f,
+                     orgs: @all_orgs,
                      default_org: nil,
                      required: true
                    } %>
