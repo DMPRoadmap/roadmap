@@ -59,6 +59,7 @@ class RegistrationsController < Devise::RegistrationsController
                   sign_up_params[:org_id]["id"].blank?
                 else
                   sign_up_params[:org_id].blank?
+                end
 
     if sign_up_params[:accept_terms].to_s == "0"
       redirect_to after_sign_up_error_path_for(resource),
