@@ -12,7 +12,7 @@ class Users::InvitationsController < Devise::InvitationsController
     @all_orgs = Org.all
     # choose which org patial to use for choosing org
     @org_partial = if Rails.configuration.x.application.restrict_orgs
-                    "shared/org_selectors/local_only"
+                     "shared/org_selectors/local_only"
                    else
                      "shared/org_selectors/combined"
                    end
@@ -74,6 +74,5 @@ class Users::InvitationsController < Devise::InvitationsController
 
     resource.update(org_id: lookup.id)
   end
-
 
 end
