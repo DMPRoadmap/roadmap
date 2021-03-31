@@ -35,17 +35,19 @@ class RegistrationsController < Devise::RegistrationsController
 
     @user = User.new
 
-    unless oauth.nil?
-      # The OAuth provider could not be determined or there was no unique UID!
-      if !oauth["provider"].nil? && !oauth["uid"].nil?
-        # Connect the new user with the identifier sent back by the OAuth provider
-        flash[:notice] = _("Please make a choice below. After linking your details to a %{application_name} account, you will be able to sign in directly with your institutional credentials.") % {
-          application_name: ApplicationService.application_name
-        }
-      end
-    end
+    # no oath, no provider or no uid - bail out
+    return if oauth.nil? or oauth["provider"].nil? or oauth["uid"].nil?
+
+    # Connect the new user with the identifier sent back by the OAuth provider
+    flash[:notice] = _("Please make a choice below. After linking your
+                       details to a %{application_name} account,
+                       you will be able to sign in directly with your
+                       institutional credentials.") % {
+                         application_name: ApplicationService.application_name
+                       }
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/BlockNesting, Layout/LineLength
   # POST /resource
   def create
     oauth = { provider: nil, uid: nil }
@@ -128,8 +130,7 @@ class RegistrationsController < Devise::RegistrationsController
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/BlockNesting
-  # rubocop:enable
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity, Metrics/BlockNesting, Layout/LineLength
 
   def update
     if user_signed_in?
