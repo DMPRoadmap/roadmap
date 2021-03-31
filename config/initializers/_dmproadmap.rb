@@ -119,6 +119,8 @@ module DMPRoadmap
         }
       }
     }
+    # Setting to only take orgs from local and not allow on-the-fly creation
+    config.x.application.restrict_orgs = false
 
     # ------------------- #
     # SHIBBOLETH SETTINGS #
