@@ -32,6 +32,7 @@ class ContributorsController < ApplicationController
                      "shared/org_selectors/local_only"
                    else
                      "shared/org_selectors/combined"
+                   end
   end
 
   # POST /plans/:plan_id/contributors

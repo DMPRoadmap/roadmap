@@ -18,6 +18,7 @@ class RegistrationsController < Devise::RegistrationsController
                      "shared/org_selectors/local_only"
                    else
                      "shared/org_selectors/combined"
+                   end
 
     msg = "No default preferences found (should be in dmproadmap.rb initializer)."
     flash[:alert] = msg unless @prefs
