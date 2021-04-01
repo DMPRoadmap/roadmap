@@ -327,8 +327,7 @@ class MadmpFragmentsController < ApplicationController
     else
       obj_list = MadmpFragment.where(
         dmp_id: dmp_id,
-        parent_id: parent_id,
-        madmp_schema_id: schema_id
+        parent_id: parent_id
       ).where("additional_info->>'property_name' = ?", property_name)
       render_to_string(
         partial: "shared/dynamic_form/linked_fragment/list",

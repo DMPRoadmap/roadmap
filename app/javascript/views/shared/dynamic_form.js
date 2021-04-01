@@ -109,16 +109,12 @@ $(() => {
     const target = $(e.target);
     const selectField = target.parents('.dynamic-field');
     const userData = selectField.find('.person-select select').select2('data');
-    const roleData = selectField.find('.single-select select').select2('data');
-    console.log(roleData);
-    if (!roleData[0].id) {
-      // eslint-disable-next-line
-      alert('Veuillez sélectionner un rôle.');
-      // eslint-disable-next-line
-    } else if (roleData[0].id && confirm('Voulez vous ajouter un nouveau contributeur à votre plan ?')) {
+    const role = selectField.find('input[type=hidden]').val();
+    // eslint-disable-next-line
+    if (confirm('Voulez vous ajouter un nouveau contributeur à votre plan ?')) {
       const requestData = {
         person_id: userData[0].id,
-        role: roleData[0].id,
+        role,
         locale: target.data('locale'),
         parent_id: target.data('parent-id'),
         schema_id: target.data('schema-id'),
