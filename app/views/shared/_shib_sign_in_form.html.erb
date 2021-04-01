@@ -1,0 +1,34 @@
+<% if Rails.configuration.x.shibboleth.use_filtered_discovery_service %>
+  <%# Show the user a list of Org selections that are shibbolized (requires that the Org have an entityID
+      defined in the identifiers table for the shibboleth IdentifierScheme) %>
+  <%= form_for Org.new, url: shibboleth_ds_path, method: :post do |f| %>
+    <div id="shib-ds-org-controls" class="row">
+      <div class="form-group col-md-12">
+        <%= render partial: "shared/org_selectors/local_only",
+                    locals: {
+                        form: f,
+                        id_field: :id,
+                        default_org: nil,
+                        orgs: Org.includes(identifiers: [:identifier_scheme])
+                                 .participating.select { |org| org.shibbolized? },
+                        required: false,
+                        label: _("Look up your institution here")
+                    } %>
+      </div>
+    </div>
+    <%= button_tag _('Go'), class: "btn btn-default", id: "org-select-go", disabled: "disabled" %>
+  <% end %>
+<% else %>
+  <%# Send the user off to federation site %>
+  <% if session['devise.shibboleth_data'].nil? %>
+    <p class="text-center fontsize-h4">- <%= _('or') %> -</p>
+    <div class="form-group">
+      <span class="center-block btn-group-justified">
+        <% target = user_shibboleth_omniauth_authorize_path %>
+        <%= link_to _('Sign in with your institutional credentials'), target, method: :post, class: 'btn btn-default' %>
+      </span>
+    </div>
+  <% else %>
+    <%= f.hidden_field :shibboleth_id, :value => session['devise.shibboleth_data']['uid'] %>
+  <% end %>
+<% end %>

@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <%= stylesheet_link_tag(stylesheet_manifest_file) %>
   <%= stylesheet_link_tag "doorkeeper/application" %>
   <%= csrf_meta_tags %>
 
@@ -16,7 +17,12 @@
     #container img {
       width: 50%;
     }
+    main {
+      margin-bottom: 15px;
+    }
   </style>
+
+  <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
 </head>
 <body>
   <div id="container">
@@ -28,12 +34,6 @@
     <%# Comment out generic DMPRoadmap logo in favor of the DMPTool SVG version %>
     <%#= image_tag("logo.png", alt: "#{ApplicationService.application_name} #{_('logo')}",
                   class: "app-logo", title: ApplicationService.application_name) %>
-
-    <%- if flash[:notice].present? %>
-      <div class="alert alert-info">
-        <%= flash[:notice] %>
-      </div>
-    <% end -%>
 
     <%= yield %>
   </div>

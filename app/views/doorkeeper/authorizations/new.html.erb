@@ -3,9 +3,15 @@
 </header>
 
 <main role="main">
-  <p class="h4">
-    <%= raw t('.prompt', client_name: content_tag(:strong, class: 'text-info') { @pre_auth.client.name }) %>
-  </p>
+  <% if @current_resource_owner.present? %>
+    <p class="h4">
+      <%=  sanitize(_("%{application} wants to access your DMPs. Please confirm this action.") % { application: "<strong class=\"text-info\">#{@pre_auth.client.name}</strong>" }) %>
+    </p>
+  <% else %>
+    <p class="h4">
+      <%=  sanitize(_("%{application} wants to access your DMPs. Please sign in to approve.") % { application: "<strong class=\"text-info\">#{@pre_auth.client.name}</strong>" }) %>
+    </p>
+  <% end %>
 
   <% if @pre_auth.scopes.count > 0 %>
     <div id="oauth-permissions">
@@ -44,6 +50,12 @@
     </div>
 
   <% else %>
+    <% if Rails.configuration.x.shibboleth_enabled %>
+      <%= render partial: "shared/shib_sign_in_form" %>
+
+      <p class="fontsize-h4">- <%= _('Or if your institution is not listed') %> -</p>
+    <% end %>
+
     <%= render partial: "shared/sign_in_form", locals: { resource: User.new } %>
   <% end %>
 </main>

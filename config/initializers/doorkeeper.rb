@@ -12,16 +12,18 @@ Doorkeeper.configure do
     # Example implementation:
     #   User.find_by(id: session[:user_id]) || redirect_to(new_user_session_url)
 
-p "AUTHENTICATING RO"
-# pp request.headers
-
     # Stash the original referer URL in the session in case we need to ask the user to login
     session[:redirect_uri] = request.referer unless user_signed_in?
     session.delete(:redirect_uri) if user_signed_in?
 
-    #current_user # || warden.authenticate!(scope: :user)
+    # Extract the authorization_code if one exists in the callback URI.
+    query_params = URI(request.referer).query || ""
+    code = CGI.parse(query_params)&.fetch("code", []).last
+    client = ApiClient.includes(:access_grants).find_by(uid: params[:client_id])
+    user_id = client.access_grants.select { |grant| grant.token == code }.first&.resource_owner_id
 
-    # user_signed_in? ? current_user : redirect_to(new_user_oauth_session_url, format: :html)
+    # If we found a User via the authorization code in the referer URI, otherwise the current user
+    user_id.present? ? User.find_by(id: user_id) : current_user
   end
 
   # Org Admin login
@@ -38,7 +40,7 @@ p "LOADING RO FROM CREDS"
   # adding oauth authorized applications. In other case it will return 403 Forbidden response
   # every time somebody will try to access the admin web interface.
   #
-  admin_authenticator do
+  # admin_authenticator do
   #   # Put your admin authentication logic here.
   #   # Example implementation:
   #
@@ -47,10 +49,7 @@ p "LOADING RO FROM CREDS"
   #   else
   #     redirect_to sign_in_url
   #   end
-
-p "AUTHENTICATING ADMIN!!!!!!!!"
-
-  end
+  # end
 
   # You can use your own model classes if you need to extend (or even override) default
   # Doorkeeper models such as `Application`, `AccessToken` and `AccessGrant.
@@ -424,9 +423,16 @@ p "FLOW: #{grant_flow}, CLIENT: #{client.inspect}"
   #
   # Be default all Resource Owners are authorized to any Client (application).
   #
-  # authorize_resource_owner_for_client do |client, resource_owner|
-  #   resource_owner.can_super_admin? || client.owners_whitelist.include?(resource_owner)
-  # end
+#  authorize_resource_owner_for_client do |client, resource_owner|
+    # resource_owner.can_super_admin? || client.owners_whitelist.include?(resource_owner)
+
+#p "AUTHORIZING RO (#{resource_owner&.email}) FOR CLIENT #{client&.name}!!!!!!!!"
+#p resource_owner
+
+#    resource_owner.nil? ||
+#      client.access_grants.select { |grant| grant.resource_owner_id == resource_owner.id }.any?
+    # resource_owner.present?
+#  end
 
   # Hook into the strategies' request & response life-cycle in case your
   # application needs advanced customization or logging:
@@ -466,7 +472,6 @@ p "FLOW: #{grant_flow}, CLIENT: #{client.inspect}"
   # For example if dealing with a trusted application.
   #
   skip_authorization do |resource_owner, client|
-  #   client.superapp? or resource_owner.admin?
 
 p "SKIP IT?"
 p resource_owner
