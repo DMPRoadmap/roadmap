@@ -124,7 +124,7 @@ class PlansController < ApplicationController
         elsif !@plan.template.customization_of.nil?
           # We used a customized version of the the funder template
           # rubocop:disable Layout/LineLength
-          msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{plan_params[:org_name]}"
+          msg += " #{_('This plan is based on the')} #{@plan.funder&.name}: '#{@plan.template.title}' #{_('template with customisations by the')} #{@plan.template.org.name}"
           # rubocop:enable Layout/LineLength
         else
           # We used the specified org's or funder's template
@@ -208,6 +208,16 @@ class PlansController < ApplicationController
                 else
                   Template.where(family_id: @plan.template.customization_of).first
                 end
+
+    @all_orgs = Org.all
+
+    # choose which org patial to use for choosing org
+    @org_partial = if Rails.configuration.x.application.restrict_orgs
+                     "shared/org_selectors/local_only"
+                   else
+                     "shared/org_selectors/combined"
+                   end
+
     respond_to :html
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
