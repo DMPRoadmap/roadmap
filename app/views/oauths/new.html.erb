@@ -1,1 +1,20 @@
-<%= render partial: "shared/sign_in_form", locals: { resource: @user } %>
+<main role="main">
+  <p class="h4">
+    <%= raw t('.prompt', client_name: content_tag(:strong, class: 'text-info') { @pre_auth.client.name }) %>
+  </p>
+
+  <% if @pre_auth.scopes.count > 0 %>
+    <div id="oauth-permissions">
+      <p><%= t('.able_to') %>:</p>
+
+      <ul class="text-info">
+        <% @pre_auth.scopes.each do |scope| %>
+          <li><%= t scope, scope: [:doorkeeper, :scopes] %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= render partial: "shared/sign_in_form", locals: { resource: @user } %>
+
+</main>

@@ -19,7 +19,9 @@ p "AUTHENTICATING RO"
     session[:redirect_uri] = request.referer unless user_signed_in?
     session.delete(:redirect_uri) if user_signed_in?
 
-    user_signed_in? ? current_user : redirect_to(new_user_oauth_session_url, format: :html)
+    #current_user # || warden.authenticate!(scope: :user)
+
+    # user_signed_in? ? current_user : redirect_to(new_user_oauth_session_url, format: :html)
   end
 
   # Org Admin login
@@ -422,15 +424,9 @@ p "FLOW: #{grant_flow}, CLIENT: #{client.inspect}"
   #
   # Be default all Resource Owners are authorized to any Client (application).
   #
-  authorize_resource_owner_for_client do |client, resource_owner|
-
-p "AUTHORIZING RO (#{resource_owner&.email}) FOR CLIENT #{client&.name}!!!!!!!!"
-p resource_owner
-
-    resource_owner.present?
-
-#     resource_owner.can_super_admin? || client.owners_whitelist.include?(resource_owner)
-  end
+  # authorize_resource_owner_for_client do |client, resource_owner|
+  #   resource_owner.can_super_admin? || client.owners_whitelist.include?(resource_owner)
+  # end
 
   # Hook into the strategies' request & response life-cycle in case your
   # application needs advanced customization or logging:
@@ -471,8 +467,12 @@ p resource_owner
   #
   skip_authorization do |resource_owner, client|
   #   client.superapp? or resource_owner.admin?
+
+p "SKIP IT?"
+p resource_owner
+
     # If the User has already given their permission to the client for the specified scope
-    resource_owner.access_grants.select { |gs| gs.application_id = client.id }.any?
+    resource_owner.is_a?(User) && resource_owner.access_grants.select { |gs| gs.application_id = client.id }.any?
   end
 
   # Configure custom constraints for the Token Introspection request.
