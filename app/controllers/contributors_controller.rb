@@ -25,14 +25,6 @@ class ContributorsController < ApplicationController
   # GET /plans/:plan_id/contributors/:id/edit
   def edit
     authorize @plan
-    @all_orgs = Org.all
-
-    # choose which org partial to use for choosing org
-    @org_partial = if Rails.configuration.x.application.restrict_orgs
-                     "shared/org_selectors/local_only"
-                   else
-                     "shared/org_selectors/combined"
-                   end
   end
 
   # POST /plans/:plan_id/contributors
