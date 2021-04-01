@@ -246,7 +246,7 @@ class MadmpFragmentsController < ApplicationController
         params[:property_name],
         template_locale,
         query_id,
-        false
+        true
       )
     }
   end
