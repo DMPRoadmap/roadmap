@@ -267,7 +267,7 @@ class PlansController < ApplicationController
 
       if @plan.update(attrs) # _attributes(attrs)
         format.html do
-          redirect_to plan_contributors_path(@plan),
+          redirect_to plan_path(@plan),
                       notice: success_message(@plan, _("saved"))
         end
         format.json do
