@@ -252,7 +252,7 @@ p "AUTHENTICATING ADMIN!!!!!!!!"
   # https://doorkeeper.gitbook.io/guides/ruby-on-rails/scopes
   #
   default_scopes  :public
-  optional_scopes :read, :write, :update
+  optional_scopes :read_dmps, :edit_dmps, :create_dmps
 
   # Allows to restrict only certain scopes for grant_type.
   # By default, all the scopes will be available for all the grant types.
@@ -261,9 +261,8 @@ p "AUTHENTICATING ADMIN!!!!!!!!"
   # values should be the array of scopes for that grant type.
   # Note: scopes should be from configured_scopes (i.e. default or optional)
   #
-  scopes_by_grant_type password: %i[read write update],
-                       client_credentials: %i[public],
-                       authorization_code: %i[read]
+  scopes_by_grant_type client_credentials: %i[public],
+                       authorization_code: %i[read_dmps edit_dmps create_dmps]
 
   # Forbids creating/updating applications with arbitrary scopes that are
   # not in configuration, i.e. +default_scopes+ or +optional_scopes+.

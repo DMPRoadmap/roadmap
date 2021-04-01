@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= ApplicationService.application_name %></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <%= stylesheet_link_tag "doorkeeper/application" %>
+  <%= csrf_meta_tags %>
+
+  <style>
+    #container .logo {
+      text-align: center;
+    }
+    #container img {
+      width: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div class="logo">
+      <%= image_tag("DMPTool_logo_blue_shades_v1b3b.svg", alt: "#{ApplicationService.application_name} #{_('logo')}",
+                    class: "app-logo", title: ApplicationService.application_name) %>
+    </div>
+
+    <%# Comment out generic DMPRoadmap logo in favor of the DMPTool SVG version %>
+    <%#= image_tag("logo.png", alt: "#{ApplicationService.application_name} #{_('logo')}",
+                  class: "app-logo", title: ApplicationService.application_name) %>
+
+    <%- if flash[:notice].present? %>
+      <div class="alert alert-info">
+        <%= flash[:notice] %>
+      </div>
+    <% end -%>
+
+    <%= yield %>
+  </div>
+</body>
+</html>
