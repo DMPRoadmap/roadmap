@@ -71,8 +71,9 @@ $(() => {
       /*
       * Changes the url of the "View" link according to the selected value in the fragment select
       */
-      const viewLink = selectField.find('.selected-value a');
-      selectField.find('.selected-value span').html(text);
+      const selectedValue = selectField.next('.selected-value');
+      const viewLink = selectedValue.find('a');
+      selectedValue.find('span').html(text);
       viewLink.attr('href', viewLink.attr('href').replace(/fragment_id=([^&]+)/, `fragment_id=${value}`));
     }
 
