@@ -59,7 +59,6 @@ module OrgSelectable
 
   # rubocop:disable Metrics/BlockLength
   included do
-
     before_action :prep_org_partial
 
     private
