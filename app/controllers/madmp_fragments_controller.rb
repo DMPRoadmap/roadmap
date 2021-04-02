@@ -70,7 +70,7 @@ class MadmpFragmentsController < ApplicationController
       }.to_json
     else
       render json: {
-        "fragment_id" =>  parent_id,
+        "fragment_id" =>  @fragment.id,
         "source" => source,
         "html" => render_fragment_select(@fragment)
       }.to_json
@@ -155,7 +155,7 @@ class MadmpFragmentsController < ApplicationController
       }.to_json
     else
       render json: {
-        "fragment_id" =>  @fragment.parent_id,
+        "fragment_id" =>  @fragment.id,
         "source" => source,
         "html" => render_fragment_select(@fragment)
       }.to_json

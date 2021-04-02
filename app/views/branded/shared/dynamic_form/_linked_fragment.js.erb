@@ -51,7 +51,8 @@ $(() => {
     } else {
       const queryId = $(event.target).find('.query_id').val();
       const $select = $(`.select-${queryId} select`);
-      $select.html(response.html).trigger('change');
+      $select.html(response.html);
+      $select.val(response.fragment_id).trigger('select2:select');
     }
     $('#modal-window').modal('hide');
   }).on('ajax:error', () => {
