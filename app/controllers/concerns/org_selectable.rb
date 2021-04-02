@@ -59,7 +59,10 @@ module OrgSelectable
 
   # rubocop:disable Metrics/BlockLength
   included do
+<<<<<<< HEAD
 
+=======
+>>>>>>> roadmap/org-selector-refactor
     before_action :prep_org_partial
 
     private
@@ -128,7 +131,7 @@ module OrgSelectable
     def prep_org_partial
       name = Rails.configuration.x.application.restrict_orgs ? "local_only" : "combined"
       @org_partial = "shared/org_selectors/#{name}"
-      @all_orgs = Org.all
+      @all_orgs = Org.includes(identifiers: [:identifier_scheme]).all
     end
   end
   # rubocop:enable Metrics/BlockLength
