@@ -26,15 +26,6 @@ Doorkeeper.configure do
     user_id.present? ? User.find_by(id: user_id) : current_user
   end
 
-  # Org Admin login
-  resource_owner_from_credentials do
-
-p "LOADING RO FROM CREDS"
-
-    User.find_by("LOWER(email) = ? AND LOWER(api_token) = ?", params[:email].downcase, params[:password].downcase) ||
-      redirect_to(new_user_session_url)
-  end
-
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb
   # file then you need to declare this block in order to restrict access to the web interface for
   # adding oauth authorized applications. In other case it will return 403 Forbidden response
@@ -111,7 +102,9 @@ p "LOADING RO FROM CREDS"
 
   # Authorization Code expiration time (default: 10 minutes).
   #
-  # authorization_code_expires_in 10.minutes
+  # We set this to a super long time because we don't want the user to have to reauthorize our
+  # trusted ApiClients very often.
+  authorization_code_expires_in 12.months
 
   # Access token expiration time (default: 2 hours).
   # If you want to disable expiration, set this to `nil`.
@@ -377,7 +370,7 @@ p "LOADING RO FROM CREDS"
   #                         passing :client_id (:uid), :client_secret (:secret), :redirect_uri, :code
   #   :client_credentials - for allowing an ApiClient access to generic data (e.g. list of Templates)
   #                         passing :client_id (:uid), :client_secret (:secret) here
-  #   :client_credentials - for Users attempting to access their own data (or Org's data if an admin)
+  #   :password           - for Users attempting to access their own data (or Org's data if an admin)
   #                         passing :client_id (:email), :client_secret (:api_token) here
   #
   # See https://alexbilbie.com/guide-to-oauth-2-grants/ for a good explanation of the flows
@@ -407,14 +400,12 @@ p "LOADING RO FROM CREDS"
   # @param allow_grant_flow_for_client [Proc] Block or any object respond to #call
   # @return [Boolean] `true` if allow or `false` if forbid the request
   #
-  allow_grant_flow_for_client do |grant_flow, client|
+  # allow_grant_flow_for_client do |grant_flow, client|
   #   # `grant_flows` is an Array column with grant
   #   # flows that application supports
   #
   #   client.grant_flows.include?(grant_flow)
-
-p "FLOW: #{grant_flow}, CLIENT: #{client.inspect}"
-  end
+  # end
 
   # If you need arbitrary Resource Owner-Client authorization you can enable this option
   # and implement the check your need. Config option must respond to #call and return
@@ -423,16 +414,9 @@ p "FLOW: #{grant_flow}, CLIENT: #{client.inspect}"
   #
   # Be default all Resource Owners are authorized to any Client (application).
   #
-#  authorize_resource_owner_for_client do |client, resource_owner|
+  # authorize_resource_owner_for_client do |client, resource_owner|
     # resource_owner.can_super_admin? || client.owners_whitelist.include?(resource_owner)
-
-#p "AUTHORIZING RO (#{resource_owner&.email}) FOR CLIENT #{client&.name}!!!!!!!!"
-#p resource_owner
-
-#    resource_owner.nil? ||
-#      client.access_grants.select { |grant| grant.resource_owner_id == resource_owner.id }.any?
-    # resource_owner.present?
-#  end
+  # end
 
   # Hook into the strategies' request & response life-cycle in case your
   # application needs advanced customization or logging:
@@ -472,10 +456,6 @@ p "FLOW: #{grant_flow}, CLIENT: #{client.inspect}"
   # For example if dealing with a trusted application.
   #
   skip_authorization do |resource_owner, client|
-
-p "SKIP IT?"
-p resource_owner
-
     # If the User has already given their permission to the client for the specified scope
     resource_owner.is_a?(User) && resource_owner.access_grants.select { |gs| gs.application_id = client.id }.any?
   end

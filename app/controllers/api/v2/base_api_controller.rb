@@ -10,6 +10,9 @@ module Api
 
       respond_to :json
 
+      # Skipping the standard Rails authenticity tokens passed in UI
+      skip_before_action :verify_authenticity_token
+
       # Authorization and Token parsing
       before_action :user_from_token, :client_from_token, :scopes_from_token
       before_action :oauth_authorize!, except: %i[heartbeat]
