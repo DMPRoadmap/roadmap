@@ -136,6 +136,12 @@ Rails.application.routes.draw do
     get "create_contributor", action: :create_contributor, on: :collection
   end
 
+  get "/codebase/run", to: "madmp_codebase#run"
+
+  resources :research_outputs, only: [] do
+    post "sort", on: :collection
+  end
+
   resources :usage, only: [:index]
   post 'usage_plans_by_template', controller: 'usage', action: 'plans_by_template'
   post 'usage_filter', controller: 'usage', action: 'filter'

@@ -123,6 +123,10 @@ class MadmpSchema < ActiveRecord::Base
     CLASSNAME_TO_PROPERTY[classname]
   end
 
+  def extract_run_parameters
+    schema["run"] || nil
+  end
+
   # Substitute 'template_name' key/values for their 'schema_id' equivalent in the JSON
   # and 'registry_name' key/values for their 'registry_id' equivalent in the JSON
   def self.substitute_names(json_schema)

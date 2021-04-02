@@ -37,4 +37,8 @@ class MadmpFragmentPolicy < ApplicationPolicy
     @fragment.plan.readable_by?(@user.id) || @user == @answer.plan.owner
   end
 
+  def run?
+    @fragment.plan.editable_by?(@user.id) || @user == @answer.plan.owner
+  end
+
 end

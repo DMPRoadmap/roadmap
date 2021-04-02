@@ -1,0 +1,17 @@
+<%# locals: { fragment, parameters, template_locale } %>
+<% label = parameters["label@#{template_locale}"]%>
+<% ttip = parameters["tooltip@#{template_locale}"]%>
+
+
+<%= link_to label, codebase_run_url(
+        nil, 
+        :fragment_id => fragment.id,
+        :script_id => parameters["script_id"]
+),  {
+    :remote => true, 
+    :target => "_self",
+    :class => "btn btn-primary",
+    'data-toggle' =>  "tooltip",
+    'data-placement' => 'top',
+    'data-original-title' => ttip
+}  %>

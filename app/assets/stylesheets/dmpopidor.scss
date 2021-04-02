@@ -643,7 +643,7 @@ header .main-nav {
                 float: right;
                 .answer-save-button {
                     color: $white;
-                    background-color: $rust;
+                    background-color: $rust !important;
                 }
             }
         }
@@ -1218,11 +1218,10 @@ header .main-nav {
             display: flex;
             flex-direction: column;
             
-            .answer-save-zone {
+            .answer-bottom-zone {
                 position: sticky;
                 bottom: 0;
                 background-color: #fff;
-                padding: 5px;
                 z-index: 2;
                 border: 1px solid $very-light-blue;
 
@@ -1231,34 +1230,40 @@ header .main-nav {
                 -webkit-transition: all .3s linear 0s;
                 transition: all .3s linear 0s;
 
-                .please-save-message {
+                .answer-run-zone {
                     flex: 2;
-                    font-weight: bold;
-                    color: $rust;
-
-                    visibility: hidden;
                 }
-                .answer-save-button {
+                .answer-save-zone {
                     flex: 1;
-                    font-size: 20px;
-                    font-weight: 700;
-                    width: 25%;
-
-                    background-color: gray;
-                    border-color: gray;
-                }
-
-                &.unsaved {
-                    background-color: $light-rust;
-
-                    .answer-save-button {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 5px;
+                    .please-save-message {
+                        text-align: center;
+                        font-weight: bold;
+                        color: $rust;
     
-                        background-color: $rust;
-                        border-color: $rust;
+                        visibility: hidden;
+                    }
+                    .answer-save-button {
+                        font-size: 20px;
+                        font-weight: 700;
+    
+                        background-color: gray;
+                        border-color: gray;
                     }
 
-                    .please-save-message {
-                        visibility: inherit;
+                    &.unsaved {
+                        background-color: $light-rust;
+
+                        .answer-save-button {
+                            background-color: $rust;
+                            border-color: $rust;
+                        }
+
+                        .please-save-message {
+                            visibility: inherit;
+                        }
                     }
                 }
             }

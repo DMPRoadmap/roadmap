@@ -22,7 +22,8 @@
         </div>
 
         <div id="plan_project" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-plan-project">
-          <div class="panel-body madmp-fragment""><!-- accordion body -->
+          <% project_schema = MadmpSchema.find_by(name: "ProjectStandard") %>
+          <div class="panel-body madmp-fragment"><!-- accordion body -->
             <fieldset aria-labelledby="fragment-fieldset" class="fragment-fieldset">
               <div class="checkbox">
                 <%= f.hidden_field :visibility %>
@@ -35,7 +36,7 @@
                 <%= render(partial: 'shared/dynamic_form/form', locals: { 
                       f: f,
                       current_fragment: project_fragment, 
-                      schema: MadmpSchema.find_by(name: "ProjectStandard"),
+                      schema: project_schema,
                       question_id: nil,
                       readonly: false,
                       classname: "project",
@@ -44,10 +45,19 @@
                       source: "form"
                     }) %>
               </div>
-              <div class="answer-save-zone" >
-                <span class="please-save-message"><%= d_('dmpopidor', 'You have pending changes, please save')%></span>
-                <%= f.button(_('Save'), class: "btn btn-default answer-save-button", type: "submit") %>
-              </div>
+              <div class="answer-bottom-zone" >
+                <div class="answer-run-zone">
+                  <% run_parameters = project_schema.extract_run_parameters %>
+                  <%= render(partial: 'shared/dynamic_form/codebase_run', locals: { 
+                        fragment: project_fragment,
+                        parameters: run_parameters,
+                        template_locale: @plan.template.locale
+                      }) unless run_parameters.nil? %>
+                </div>
+                <div class="answer-save-zone">
+                  <%= f.button(_('Save'), class: "btn btn-default answer-save-button", type: "submit") %>
+                  <span class="please-save-message"><%= d_('dmpopidor', 'You have pending changes, please save')%></span>
+                </div>
             </fieldset>
           </div>
         </div>
@@ -71,13 +81,14 @@
         </div>
 
         <div id="plan_metadata" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-plan-metadata">
+          <% meta_schema = MadmpSchema.find_by(name: "MetaStandard") %>
           <div class="panel-body madmp-fragment"><!-- accordion body -->
             <fieldset aria-labelledby="fragment-fieldset" class="fragment-fieldset">
               <div class="meta-form">
                 <%= render(partial: 'shared/dynamic_form/form', locals: { 
                       f: f,
                       current_fragment: meta_fragment, 
-                      schema: MadmpSchema.find_by(name: "MetaStandard"),
+                      schema: meta_schema,
                       question_id: nil,
                       readonly: false,
                       classname: "meta",
@@ -86,9 +97,19 @@
                       source: "form"
                     }) %>
               </div>
-              <div class="answer-save-zone" >
-                <span class="please-save-message"><%= d_('dmpopidor', 'You have pending changes, please save')%></span>
-                <%= f.button(_('Save'), class: "btn btn-default answer-save-button", type: "submit") %>
+              <div class="answer-bottom-zone" >
+                <div class="answer-run-zone">
+                  <% run_parameters = meta_schema.extract_run_parameters %>
+                  <%= render(partial: 'shared/dynamic_form/codebase_run', locals: {
+                        fragment: meta_fragment,
+                        parameters: run_parameters,
+                        template_locale: @plan.template.locale
+                      }) unless run_parameters.nil?%>
+                </div>
+                <div class="answer-save-zone">
+                  <%= f.button(_('Save'), class: "btn btn-default answer-save-button", type: "submit") %>
+                  <span class="please-save-message"><%= d_('dmpopidor', 'You have pending changes, please save')%></span>
+                </div>
               </div>
             </fieldset>
           </div>
