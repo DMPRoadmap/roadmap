@@ -59,10 +59,6 @@ module OrgSelectable
 
   # rubocop:disable Metrics/BlockLength
   included do
-<<<<<<< HEAD
-
-=======
->>>>>>> roadmap/org-selector-refactor
     before_action :prep_org_partial
 
     private
