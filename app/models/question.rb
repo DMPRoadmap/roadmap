@@ -168,7 +168,7 @@ class Question < ApplicationRecord
   def example_answers(org_ids)
     org_ids = Array(org_ids)
     annotations.select { |a| org_ids.include?(a.org_id) }
-               .select { |a| a.type == Annotation.types[:example_answer] }
+               .select { |a| a.example_answer? }
                .sort   { |a, b| a.created_at <=> b.created_at }
   end
 
@@ -185,7 +185,7 @@ class Question < ApplicationRecord
   # Returns Annotation
   def guidance_annotation(org_id)
     annotations.select { |a| a.org_id == org_id }
-               .select { |a| a.type == Annotation.types[:guidance] }
+               .select { |a| a.guidance? }
                .first
   end
 
