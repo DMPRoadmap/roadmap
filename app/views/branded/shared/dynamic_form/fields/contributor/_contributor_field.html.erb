@@ -23,8 +23,6 @@
     <div class="col-md-12">
       <% unless parent_id.nil? || readonly %>
         <span class="btn btn-primary assign-role"
-              data-toggle="tooltip"
-              data-original-title="<%= d_("dmpopidor", "Click here to assign a role to this user") %>"
               data-locale="<%= template_locale %>"
               data-parent-id="<%= parent_id %>"
               data-query-id="<%= query_id %>"
