@@ -71,9 +71,9 @@ module ConditionsHelper
     count = 0
     plan_remove_list = remove_list(plan)
     plan.answers.each do |answer|
-      next unless answer.question.section.id == section.id &&
-                  !plan_remove_list.include?(answer.question.id) &&
-                  section.answered_questions(plan).include?(answer) &&
+      next unless answer.question.section_id == section.id &&
+                  !plan_remove_list.include?(answer.question_id) &&
+                  section.question_ids.include?(answer.question_id) &&
                   answer.answered?
 
       count += 1
@@ -82,28 +82,27 @@ module ConditionsHelper
   end
 
   # number of questions in a section after update with conditions
-  # rubocop:disable Metrics/AbcSize
   def num_section_questions(plan, section, phase = nil)
     # when section and phase are a hash in exports
     if section.is_a?(Hash) &&
        !phase.nil? &&
        plan.is_a?(Plan)
-      phase_id = plan.phases.select { |ph| ph.number == phase[:number] }.first.id
-      section = plan.sections
-                    .select { |s| s.phase_id == phase_id && s.title == section[:title] }
-                    .first
+
+      phase = plan.template
+                  .phases
+                  .select { |ph| ph.number == phase[:number] }
+                  .first
+      section = phase.sections
+                     .select { |s| s.phase_id == phase.id && s.title == section[:title] }
+                     .first
     end
     count = 0
     plan_remove_list = remove_list(plan)
-    plan.questions.each do |question|
-      if question.section.id == section.id &&
-         !plan_remove_list.include?(question.id)
-        count += 1
-      end
+    section.questions.each do |question|
+      count += 1 unless plan_remove_list.include?(question.id)
     end
     count
   end
-  # rubocop:enable Metrics/AbcSize
 
   # returns an array of hashes of section_id, number of section questions, and
   # number of section answers
