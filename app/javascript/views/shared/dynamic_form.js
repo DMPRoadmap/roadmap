@@ -78,31 +78,27 @@ $(() => {
     }
 
     if (selectField.hasClass('multiple-select')) {
-      // eslint-disable-next-line
-      const confirmed = confirm('Voulez vous ajouter cet élément dans votre plan ?');
-      if (confirmed) {
-        const requestData = {
-          locale: selectField.data('locale'),
-          parent_id: selectField.data('parent-id'),
-          schema_id: selectField.data('schema-id'),
-          query_id: selectField.data('query-id'),
-          property_name: selectField.data('property-name'),
-        };
-        if (selected) {
-          requestData.registry_value_id = value;
-        } else {
-          requestData.custom_value = value;
-        }
-
-        $.ajax({
-          url: '/madmp_fragments/create_from_registry',
-          method: 'get',
-          data: requestData,
-        }).done((response) => {
-          $(`table.list-${response.query_id} tbody`).html(response.html);
-          selectField.find('select').val('').trigger('change');
-        });
+      const requestData = {
+        locale: selectField.data('locale'),
+        parent_id: selectField.data('parent-id'),
+        schema_id: selectField.data('schema-id'),
+        query_id: selectField.data('query-id'),
+        property_name: selectField.data('property-name'),
+      };
+      if (selected) {
+        requestData.registry_value_id = value;
+      } else {
+        requestData.custom_value = value;
       }
+
+      $.ajax({
+        url: '/madmp_fragments/create_from_registry',
+        method: 'get',
+        data: requestData,
+      }).done((response) => {
+        $(`table.list-${response.query_id} tbody`).html(response.html);
+        selectField.find('select').val('').trigger('change');
+      });
     }
   });
   $(document).on('click', '.contributor-field .assign-role', (e) => {
@@ -110,24 +106,22 @@ $(() => {
     const selectField = target.parents('.dynamic-field');
     const userData = selectField.find('.person-select select').select2('data');
     const role = selectField.find('input[type=hidden]').val();
-    // eslint-disable-next-line
-    if (confirm('Voulez vous ajouter un nouveau contributeur à votre plan ?')) {
-      const requestData = {
-        person_id: userData[0].id,
-        role,
-        locale: target.data('locale'),
-        parent_id: target.data('parent-id'),
-        schema_id: target.data('schema-id'),
-        query_id: target.data('query-id'),
-        property_name: target.data('property-name'),
-      };
-      $.ajax({
-        url: '/madmp_fragments/create_contributor',
-        method: 'get',
-        data: requestData,
-      }).done((response) => {
-        $(`table.list-${response.query_id} tbody`).html(response.html);
-      });
-    }
+
+    const requestData = {
+      person_id: userData[0].id,
+      role,
+      locale: target.data('locale'),
+      parent_id: target.data('parent-id'),
+      schema_id: target.data('schema-id'),
+      query_id: target.data('query-id'),
+      property_name: target.data('property-name'),
+    };
+    $.ajax({
+      url: '/madmp_fragments/create_contributor',
+      method: 'get',
+      data: requestData,
+    }).done((response) => {
+      $(`table.list-${response.query_id} tbody`).html(response.html);
+    });
   });
 });
