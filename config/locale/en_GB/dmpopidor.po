@@ -521,14 +521,11 @@ msgstr "Select a value you want to add to your plan."
 msgid "Select a value you want to add to your plan or type a new one."
 msgstr "Select a value you want to add to your plan or type a new one."
 
-msgid "Select a person from the list and click on \"Assign Role\" to create a new contributor."
-msgstr "Select a person from the list and click on \"Assign Role\" to create a new contributor."
-
 msgid "Select a person from the list."
 msgstr "Select a person from the list."
 
-msgid "Assign Role"
-msgstr "Assign Role"
+msgid "Confirm"
+msgstr "Confirm"
 
 msgid "Comments & Guidance"
 msgstr "Comments & Guidance"
