@@ -42,6 +42,10 @@ class TemplateOptionsController < ApplicationController
                               .organisationally_visible
                               .where(org_id: org_id, customization_of: nil).to_a
       end
+      
+      # Include customizable funder templates
+      @templates << funder_templates = Template.latest_customizable
+
       @templates = @templates.flatten.uniq
     end
 
@@ -53,7 +57,7 @@ class TemplateOptionsController < ApplicationController
 
         @templates << (customization.present? ? customization : Template.default)
       end
-    @templates = @templates.sort_by(&:title)
+    @templates = @templates.uniq.sort_by(&:title)
   end
 
   private

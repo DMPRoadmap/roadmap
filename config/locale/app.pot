@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: roadmap 1.0\n"
 "Report-Msgid-Bugs-To: contact@translation.io\n"
-"POT-Creation-Date: 2021-03-18 11:30-0600\n"
-"PO-Revision-Date: 2021-03-18 11:30-0600\n"
+"POT-Creation-Date: 2021-03-22 12:24-0600\n"
+"PO-Revision-Date: 2021-03-22 12:24-0600\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -2821,7 +2821,7 @@ msgstr ""
 
 #: ../../app/views/org_admin/phases/_phase.html.erb:37
 #: ../../app/views/org_admin/questions/_index.html.erb:1
-#: ../../tmp/translation/database_strings.rb:125
+#: ../../tmp/translation/database_strings.rb:135
 msgid "Questions"
 msgstr ""
 
@@ -5512,7 +5512,7 @@ msgid "DEFAULT TITLE"
 msgstr ""
 
 #: ../../tmp/translation/database_strings.rb:61
-#: ../../tmp/translation/database_strings.rb:137
+#: ../../tmp/translation/database_strings.rb:113
 msgid "Template for Qualitative Health Sciences Research"
 msgstr ""
 
@@ -5521,12 +5521,12 @@ msgid "Template for Interdisciplinary Health Software/Technology Development"
 msgstr ""
 
 #: ../../tmp/translation/database_strings.rb:63
-#: ../../tmp/translation/database_strings.rb:139
+#: ../../tmp/translation/database_strings.rb:115
 msgid "Template for Arts-Based Research"
 msgstr ""
 
 #: ../../tmp/translation/database_strings.rb:64
-#: ../../tmp/translation/database_strings.rb:140
+#: ../../tmp/translation/database_strings.rb:116
 msgid "Template for Mixed Methods (Surveys & Qualitative Research)"
 msgstr ""
 
@@ -5539,32 +5539,32 @@ msgid "Template for Research in History and the Humanities"
 msgstr ""
 
 #: ../../tmp/translation/database_strings.rb:67
-#: ../../tmp/translation/database_strings.rb:112
+#: ../../tmp/translation/database_strings.rb:123
 msgid "CRDCN Template for Accessing Data from Research Data Centres"
 msgstr ""
 
 #: ../../tmp/translation/database_strings.rb:68
-#: ../../tmp/translation/database_strings.rb:114
+#: ../../tmp/translation/database_strings.rb:126
 msgid "CRDCN Template for Research Data Centres and External Analysis"
 msgstr ""
 
 #: ../../tmp/translation/database_strings.rb:69
-#: ../../tmp/translation/database_strings.rb:116
+#: ../../tmp/translation/database_strings.rb:128
 msgid "Template for Water Quality Research"
 msgstr ""
 
 #: ../../tmp/translation/database_strings.rb:70
-#: ../../tmp/translation/database_strings.rb:118
+#: ../../tmp/translation/database_strings.rb:130
 msgid "Template for Systematic Reviews"
 msgstr ""
 
 #: ../../tmp/translation/database_strings.rb:71
-#: ../../tmp/translation/database_strings.rb:120
+#: ../../tmp/translation/database_strings.rb:132
 msgid "Template for Studying Molecular Interactions"
 msgstr ""
 
 #: ../../tmp/translation/database_strings.rb:72
-#: ../../tmp/translation/database_strings.rb:122
+#: ../../tmp/translation/database_strings.rb:134
 msgid "Template for Open Science Workflows"
 msgstr ""
 
@@ -5917,128 +5917,128 @@ msgid ""
 msgstr ""
 
 #: ../../tmp/translation/database_strings.rb:108
-msgid "MICYRN Data Management Plan Initial Phase"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:109
-msgid "Phase 1: Data Management Plan for Grant Application"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:110
-msgid "Reproducible findings through deposited data"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:111
-msgid "University of British Columbia Data Management Questions"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:113
-msgid "Portage Data Management Questions"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:115
-msgid "Pre-Project: Prototype"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:117
-msgid "CEOS Data Management Plan"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:119
-msgid "Oceans Data Management Plan"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:121
-msgid "University of Manitoba Data Management Questions"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:123
-msgid "DMP Questionnaire"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:124
-msgid "Phase 1"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:126
-msgid "University of Guelph Agri-Food Funding DMP (Alliance/Food from Thought)  "
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:127
-msgid "Data management questions"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:128
-msgid "York U Data Management Questions"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:129
-msgid "MUN Data Management Questions"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:130
-msgid "OFI Module E DMP"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:131
-msgid "Dalhousie University"
-msgstr ""
-
-#: ../../tmp/translation/database_strings.rb:132
 #: ../../tmp/translation/database_strings.rb:233
 msgid "TITLE"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:133
+#: ../../tmp/translation/database_strings.rb:109
 msgid "Alliance/Food from Thought DMP creation"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:134
+#: ../../tmp/translation/database_strings.rb:110
 msgid "Test DMP Questions"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:135
+#: ../../tmp/translation/database_strings.rb:111
 msgid "Phase 1 (test)"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:136
+#: ../../tmp/translation/database_strings.rb:112
 msgid "Initial GWF DMP"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:138
+#: ../../tmp/translation/database_strings.rb:114
 msgid "Software/Technology Management Plan"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:141
+#: ../../tmp/translation/database_strings.rb:117
 msgid "Phase 1: Data Preparation"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:142
+#: ../../tmp/translation/database_strings.rb:118
 msgid "University of Alberta Data Management Questions"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:143
-msgid "Phase 2: Data Management Plan for Project Development"
+#: ../../tmp/translation/database_strings.rb:119
+msgid "MICYRN Data Management Plan Initial Phase"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:144
+#: ../../tmp/translation/database_strings.rb:120
+msgid "Phase 1: Data Management Plan for Grant Application"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:121
+msgid "Reproducible findings through deposited data"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:122
+msgid "University of British Columbia Data Management Questions"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:124
+msgid "Portage Data Management Questions"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:125
+msgid "Pre-Project: Prototype"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:127
+msgid "CEOS Data Management Plan"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:129
+msgid "Oceans Data Management Plan"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:131
+msgid "University of Manitoba Data Management Questions"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:133
+msgid "DMP Questionnaire"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:136
+msgid "Phase 1"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:137
+msgid "University of Guelph Agri-Food Funding DMP (Alliance/Food from Thought)  "
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:138
+msgid "Data management questions"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:139
+msgid "York U Data Management Questions"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:140
+msgid "MUN Data Management Questions"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:141
+msgid "OFI Module E DMP"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:142
+msgid "Dalhousie University"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:143
 msgid "Phase 2"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:145
+#: ../../tmp/translation/database_strings.rb:144
 msgid "Export"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:146
+#: ../../tmp/translation/database_strings.rb:145
 msgid "OMAFRA-UG DMP Questions"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:147
+#: ../../tmp/translation/database_strings.rb:146
 msgid "Data Management Plan"
 msgstr ""
 
-#: ../../tmp/translation/database_strings.rb:148
+#: ../../tmp/translation/database_strings.rb:147
 msgid "Phase 2: Active Research (Data) Management"
+msgstr ""
+
+#: ../../tmp/translation/database_strings.rb:148
+msgid "Phase 2: Data Management Plan for Project Development"
 msgstr ""
 
 #: ../../tmp/translation/database_strings.rb:149
